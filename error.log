@@ -16497,3 +16497,13 @@
 			WHERE visible = 1 AND ptype="menu"
 			ORDER BY ord
 10:43:27 18.09.2015  SQL Error - SELECT *					FROM xt_remitter					WHERE id = 
+09:40:58 29.09.2015  SQL Error - SELECT name, value FROM xt_config
+09:40:59 29.09.2015  SQL Error - SELECT p.id_product, pp.id_category,
+				p.name as name,
+				p.translit, p.img_1, p.price_mopt
+				FROM xt_popular_products AS pp
+				LEFT JOIN xt_product AS p
+				ON p.id_product = pp.id_product
+				WHERE p.price_mopt > 0
+				LIMIT 
+09:40:59 29.09.2015  SQL Error - SELECT id_user, phones, site, name_c, photo, remote, details				FROM xt_contragent				WHERE id_user = ""

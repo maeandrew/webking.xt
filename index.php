@@ -129,8 +129,8 @@ define('EXECUTE', 1);
 require(dirname(__FILE__).'/~core/sys/global_c.php');
 require(dirname(__FILE__).'/~core/cfg.php');
 // Memcached init
-$mc = new Memcached();
-$mc->addServer("localhost", 11211);
+// $mc = new Memcached();
+// $mc->addServer("localhost", 11211);
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 if(!isset($_COOKIE['manual'])){
