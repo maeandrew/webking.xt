@@ -1,0 +1,20 @@
+.bill_form input:not([type="checkbox"]),
+.bill_form select,
+.bill_form textarea {
+	width: 100%;
+	background: #fff;
+	height: 29px;
+}
+.bill_form textarea {
+	resize: vertical;
+	height: 60px;
+	outline: none;
+	line-height: 25px;
+	border: 1px solid #b4b4b4;
+	padding: 0 5px;
+	margin: 5px 0;
+	border-radius: 3px;
+}
+.bill_form .row {
+	margin-bottom: .5em;
+}

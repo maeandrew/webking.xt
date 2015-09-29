@@ -1,0 +1,157 @@
+#slides_list {
+	position: relative;
+	padding: 10px;
+	width: 100%;
+	background: #dedede;
+}
+#slides_list ul.header {
+	list-style: none;
+	background: #fff;
+}
+#slides_list ul.header li {
+	line-height: 30px;
+	text-align: center;
+	float: left;
+}
+#slides_list ul#sortable {
+	list-style: none;
+}
+
+#slides_list .slide {
+	height: 100px;
+}
+#slides_list .slide {
+	position: relative;
+	margin-bottom: 10px;
+	clear: both;
+	background: #fff;
+	width: 100%;
+	border-radius: 2px;
+	box-shadow: 0px 1px 0px 0px rgba(0,0,0,.1);
+}
+#slides_list .slide#newslide {
+	display: none;
+}
+#slides_list .slide section {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 5px;
+	position: relative;
+	text-align: center;
+	color: #444;
+	font-size: 17px;
+	float: left;
+	line-height: 100px;
+	border-right: 1px solid #eeeeee;
+}
+#slides_list .slide section.image span {
+	display: block;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+}
+#slides_list .slide section.image img {
+	max-height: 100%;
+	max-width: 100%;
+	display: block;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+#slides_list .slide section input {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 14px;
+	width: 100%;
+	border-radius: 0;
+	background: #fff;
+}
+#slides_list .slide .visibility img {
+	vertical-align: middle;
+	height: 20px;
+}
+#slides_list .id {
+	width: 4%;
+	text-align: center;
+}
+#slides_list .image {
+	width: 15%;
+}
+#slides_list ul.header .title{
+	text-align: center !important;
+}
+#slides_list .title {
+	width: 19%
+}
+#slides_list .cont {
+	width: 35%;
+}
+#slides_list span {
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+#slides_list .slider {
+	width: 10%;
+}
+#slides_list .visibility {
+	width: 7%;
+}
+#slides_list .execute,
+#slides_list .edit,
+#slides_list .create {
+	width: 10%;
+}
+#slides_list section.execute [class^="icon-"],
+#slides_list section.create [class^="icon-"],
+#slides_list section.edit [class^="icon-"] {
+	transition: all .3s ease;
+	width: 50%;
+	line-height: 100px;
+	float: right;
+	cursor: pointer;
+	font-size: 20px;
+}
+#slides_list section.execute [class^="icon-"] {
+	width: 50%;
+}
+#slides_list section.execute .icon-run {
+	transition: transform 2s ease;
+}
+#slides_list section.edit .icon-view:hover {
+	color: #2E8BF0;
+}
+#slides_list section.execute .icon-edit:hover {
+	color: #2E8BF0;
+}
+#slides_list section.edit .icon-cancel:hover,
+#slides_list section.create .icon-cancel:hover,
+#slides_list section.execute .icon-delete:hover {
+	color: #F02E2E;
+}
+#slides_list section.edit .icon-save:hover,
+#slides_list section.create .icon-save:hover,
+#slides_list section.execute .icon-run:hover {
+	color: #2CBF36;
+}
+#slides_list .controls {
+	margin-top: 10px;
+	clear: both;
+}
+#slides_list .controls .addonemore {
+	line-height: 30px;
+	font-size: 30px;
+	cursor: pointer;
+}
+#slides_list .controls .addonemore:hover {
+	color: #666;
+}
+#slides_list .visibility input[type="checkbox"] {
+	width: auto;
+}

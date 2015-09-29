@@ -1,0 +1,78 @@
+header {
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+	top: 0;
+	bottom: calc(100% - 70px);
+	overflow: hidden;
+	/*height: 70px;*/
+	/*background: #FFF url(../images/topgr.gif) bottom left repeat-x;*/
+}
+header.hide {
+	/*max-height: 30px;*/
+	bottom: calc(100% - 29px);
+}
+header a,
+header a:link,
+header a:visited {
+	color: #cecece;
+}
+header a:hover {
+	color: #c00;
+}
+header .topline,
+header .subline {
+	clear: both;
+	padding: 0 1em;
+	width: 100%;
+}
+header .topline {
+	background-color: #444;
+	line-height: 30px;
+	color: #959595;
+	text-align: right;
+}
+header .topline .sitename {
+	float: left;
+	width: auto;
+}
+header .topline .sitename a.logo {
+	color: #fff;
+	text-decoration: none;
+	text-shadow: 1px 1px 0 #000;
+	display: block;
+	font-size: 1em;
+	font-weight: bold;
+}
+header .topline .sitename a.logo:hover {
+	color: #CC0000;
+}
+header .subline {
+	line-height: 40px;
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 99%, #f4f4f4 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(99%,#cccccc), color-stop(100%,#f4f4f4)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 99%,#f4f4f4 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 99%,#f4f4f4 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 99%,#f4f4f4 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 99%,#f4f4f4 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+	border-bottom: 1px solid rgb(214,214,214);
+}
+header .subline .breadcrumps {
+	float: left;
+	font-size: 12px;
+}
+header .subline .breadcrumps a {
+	color: #2E62CF;
+	font-weight: normal;
+}
+header .supplier_search,
+header .art_search {
+	float: right;
+	margin-left: 1em;
+}
+header .supplier_search form input[type="text"],
+header .art_search form input[type="text"] {
+	width: auto;
+}

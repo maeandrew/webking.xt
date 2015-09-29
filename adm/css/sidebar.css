@@ -1,0 +1,76 @@
+aside {
+	float: left;
+	width: 18%;
+	position: relative;
+	z-index: 10;
+}
+aside .block {
+	padding: 1em;
+	margin: 1em 0;
+	background-color: #fff;
+	border-radius: 0 .5em .5em 0;
+}
+aside .block span {
+	float: left;
+	clear: both;
+}
+aside .block ul.sb_menu {
+}
+aside .block ul.sb_menu li {
+	clear: both;
+	line-height: 24px;
+}
+aside .block ul.sb_menu > li {
+	padding-top: 1em;
+}
+aside .block ul.sb_menu > li:first-of-type {
+	padding: 0;
+}
+aside .block ul.sb_menu li a,
+aside .block ul.sb_menu li a:visited {
+	text-decoration: none;
+}
+aside .block ul.sb_menu li a:hover {
+	text-decoration: underline;
+}
+aside .block ul.sb_menu li.sel a {
+	font-weight: bold;
+	color: #444;
+}
+aside .block ul.sb_menu li a.add {
+	display: none;
+	/* float: right;
+	height: 24px;
+	width: 24px;
+	display: block;
+	background: url(../images/add_nav.png) no-repeat;
+	text-indent: -9999px;*/
+}
+aside .block ul.sb_menu li a.add.sel {
+	background-position: 0 -24px;
+}
+aside .block ul.sb_menu li.sb_menusub {
+	padding: 0;
+}
+aside .block ul.sb_menusub {
+	margin-left: 10px;
+	padding: 0;
+	list-style: none;
+	color: #959595;
+}
+aside .block ul.sb_menusub li {
+	line-height: 20px;
+	width: 100%;
+	float: left;
+	clear: both;
+}
+aside .block ul.sb_menusub li:before {
+	content: "→";
+	margin-right: .5em;
+}
+aside .block ul.sb_menu li.notalone {
+	padding-top: 30px;
+}
+aside .block span {
+	line-height: 1.5em;
+}

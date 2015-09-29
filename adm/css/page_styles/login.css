@@ -1,0 +1,63 @@
+.login_box {
+	width: 350px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius: .5em .5em 0 0;
+	-moz-border-radius: .5em .5em 0 0;
+	-webkit-border-radius: .5em .5em 0 0;
+	overflow: hidden;
+}
+.login_box .box-header {
+	position: relative;
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #D6D6D6),
+		color-stop(1, #EFEFEF)
+	);
+	background-image: -o-linear-gradient(top, #D6D6D6 0%, #EFEFEF 100%);
+	background-image: -moz-linear-gradient(top, #D6D6D6 0%, #EFEFEF 100%);
+	background-image: -webkit-linear-gradient(top, #D6D6D6 0%, #EFEFEF 100%);
+	background-image: -ms-linear-gradient(top, #D6D6D6 0%, #EFEFEF 100%);
+	background-image: linear-gradient(to top, #D6D6D6 0%, #EFEFEF 100%);
+	padding: 1em;
+	border-bottom: 1px solid #ccc;
+}
+.login_box .box-header h1 {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	text-align: center;
+	text-shadow: 0 1px 0px #fff;
+}
+.login_box .box-content {
+	padding: 0 1em 1em;
+}
+.login_box .notification.tip,
+.login_box .notification.error {
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+.login_box .grid .row {
+	padding-top: 10px;
+}
+.login_box .grid .row label {
+	display: block;
+	width: 100%;
+	line-height: 29px;
+	text-align: right;
+	position: relative;
+	font-weight: bold;
+}
+.login_box input {
+	width: 100%;
+}
+footer {
+	line-height: 4em;
+	position: absolute;
+	bottom: 0;
+}

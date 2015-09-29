@@ -1,0 +1,98 @@
+.unload_links {
+	list-style: none;
+}
+.unload_links li {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	display: block;
+	margin: 0;
+}
+.unload_links li a {
+	text-decoration: none;
+	display: block;
+	line-height: 2em;
+	padding: .5em;
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+	font-size: 2em;
+	color: #444;
+	text-transform: uppercase;
+	text-align: right;
+	position: relative;
+	overflow: hidden;
+}
+.unload_links li a:hover {
+	background-color: #BBDEFB;
+}
+.unload_links img {
+	position: absolute;
+	display: block;
+	float: left;
+	max-height: 100%;
+	top: 50%;
+	left: .5em;
+	max-width: 50%;
+	transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	-webkit-transform: translate(0, -50%);
+}
+.unload_links .icon-option {
+	padding-left: 1em;
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.unload_links .icon-option:hover {
+	color: #fff;
+	text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.unload_links .notactive {
+	opacity: .1;
+}
+.unload_links .icon-option.notactive:hover {
+	color: inherit;
+	text-shadow: none;
+}
+[class^="modal_"] {
+	width: 90%;
+	height: 90%;
+}
+[class^="modal_"] h3{
+	text-transform: uppercase;
+	color: #444;
+	font-weight: bold;
+}
+[class^="modal_"] ul {
+	height: calc(100% - 4.5em);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	text-align: left;
+	list-style: none;
+	overflow-y: scroll;
+}
+[class^="modal_"] ul li {
+	margin-top: 5px;
+	float: left;
+	flex-basis: 33%;
+}
+[class^="modal_"] ul li label {
+	margin-left: 5px;
+}
+[class^="modal_"] ul li label .quantity{
+	font-weight: 600;
+}
+[class^="modal_"] .btn_block {
+	padding-top: 1em;
+}
+[class^="modal_"] .btn_block a{
+	margin-left: 5px;
+}
+[class^="modal_"] .logo {
+	position: absolute;
+	bottom: 0;
+	left: 1em;
+}

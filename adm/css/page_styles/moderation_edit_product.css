@@ -1,0 +1,15 @@
+#edit_modprodae #preview1,
+#edit_modprodae #preview2,
+#edit_modprodae #preview3 {
+	height: 70px;
+
+	display: block;
+	text-align: left;
+	vertical-align: middle;
+	padding: 5px 0 5px 5px;
+}
+#edit_modprodae #preview1 input,
+#edit_modprodae #preview2 input,
+#edit_modprodae #preview3 input {
+	margin-top: 13px;
+}

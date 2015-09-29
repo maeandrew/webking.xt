@@ -1,0 +1,123 @@
+/* Footer styles ============================================================ */
+
+footer {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: #eee;
+	color: #444;
+	padding: 15px 15px 0;
+	margin-top: 15px;
+}
+footer section {
+	max-width: 1600px;
+	margin: 0 auto;
+}
+footer a {
+	color: #444 !important;
+}
+footer .column_header {
+	border-bottom: 1px solid #b4b4b4;
+	margin-bottom: 6px;
+	line-height: 31px;
+	font-size: 15px;
+	font-weight: bold;
+}
+footer ul li {
+	margin-top: 2px;
+	line-height: 22px;
+	padding: 0;
+	float: left;
+	width: 100%;
+ }
+footer ul li a {
+	color: #fff;
+	display: inline-block;
+}
+footer ul li a:hover {
+	text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
+	color: #fff;
+}
+footer .footer_contacts div[class^="icon"]{
+	line-height: 25px;
+	float: left;
+	font-size: 16px;
+}
+footer .footer_contacts span {
+	width: calc(100% - 23px);
+	float: right;
+}
+footer .footer_map div,
+footer .footer_adsense div {
+	margin-top: 1em;
+	height: 250px;
+	text-align: center;
+}
+footer .subfooter {
+	text-align: center;
+	line-height: 50px;
+}
+footer .copyright {
+	line-height: 25px
+}
+footer .socials {
+	margin: 0 auto;
+}
+footer .socials li {
+	display: inline;
+	float: none;
+	margin-left: .5em;
+}
+footer .socials a {
+	display: inline-block;
+	text-align: center;
+	line-height: 30px;
+	width: 30px;
+	margin: 2px 2px 0 2px;
+	font-size: 1.2em;
+	border-radius: 100%;
+	background: #666;
+	color: #fff !important;
+}
+footer .socials a:hover {
+	text-decoration: none;
+	text-shadow: none;
+}
+footer .socials a:focus {
+	text-decoration: none;
+}
+footer .socials a.icon-vkontakte:hover {
+	background: #6996c7;
+}
+footer .socials a.icon-okru:hover {
+	background: #ff9c43;
+}
+footer .socials a.icon-googleplus:hover {
+	background: #ff6d4a;
+}
+footer .socials a.icon-fb:hover {
+	background: #496194;
+}
+footer .socials a.icon-tw:hover {
+	background: #28c3ff;
+}
+footer .socials a.icon-yt:hover {
+	background: #cc181e;
+}
+
+@media (min-width:992px) {
+	footer .col-md-2.footer_contacts {
+		width: 21%;
+	}
+	footer .col-md-2.footer_navigation {
+		width: 12%;
+	}
+	footer .footer_map {
+		margin-top: 0;
+	}
+	footer .copyright {
+		text-align: right;
+	}
+	footer .socials {
+		text-align: left;
+	}
+}

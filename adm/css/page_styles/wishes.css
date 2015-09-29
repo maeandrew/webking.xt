@@ -1,0 +1,80 @@
+.feedback_container {
+    padding: 10px 0;
+    border-bottom: 2px solid #52cf55;
+    overflow: hidden;
+}
+.feedback_container.level2 {
+    padding-left: 50px;
+    border-width: 1px;
+    border-color: #d9d9d9;
+    position: relative;
+}
+.feedback_container .feedback_author {
+    margin-right: 15px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 28px;
+}
+.feedback_container .feedback_date {
+    display: inline-block;
+    color: #b4b4b4;
+}
+.feedback_container .feedback_comment {
+    text-align: justify;
+}
+.feedback_container .feedback_wishes {
+    clear: both;
+    padding-top: 10px;
+}
+
+
+.feedback_form {
+    text-align: left;
+}
+.feedback_form h4 {
+    margin-bottom: 10px;
+}
+.feedback_form > form {
+    width: 100%;
+}
+.feedback_form label {
+    font-size: 15px;
+}
+.feedback_form input[type="text"],
+.feedback_form input[type="email"],
+.feedback_form textarea {
+    outline: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.feedback_form textarea {
+    border-radius: 3px;
+    margin-top: 5px;
+    resize: vertical;
+}
+.feedback_form textarea:focus {
+    border-color: #52cf55;
+}
+.feedback_container .controls {
+    display: inline-block;
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #f36711;;
+    margin-left: 50px;
+}
+.feedback_container .controls > * {
+    margin-right: 20px;
+    vertical-align: middle;
+}
+.feedback_container .controls .del_wishes_js {
+    font-size: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.feedback_container .controls .del_wishes_js:hover {
+    color: #f00;
+}
+.feedback_container.today {
+    background-color: #EAF9E4;
+}

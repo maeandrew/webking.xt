@@ -1,0 +1,454 @@
+#wrapper {
+	display: block;
+}
+.page_header {
+	font-weight: bold;
+}
+.page_header .subtext {
+	font-size: 13px;
+	font-weight: normal;
+}
+#product_miniatures_img {
+	padding-right: 10px;
+	width: 20%;
+	float: left;
+}
+.active_img {
+	opacity: 0.5;
+}
+#product_miniatures_img .item {
+	padding: 5px 0;
+	width: 100%;
+}
+#product_main_img {
+	width: 80%;
+	float: left;
+}
+.item img {
+    max-height: 500px;
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+#product_miniatures_img .item:hover {
+	cursor: pointer;
+}
+/*Bottom tabs*/
+#tabs {
+	margin-top: 20px;
+}
+.tabs {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px solid #52cf55;
+    padding-bottom: 6px;
+}
+.tabs a {
+	color: inherit;
+}
+.tabs a:focus {
+	outline: none;
+}
+.tabs a:hover {
+	text-decoration: none;
+}
+.tabs li {
+	margin: 0 5px;
+	text-align: center;
+	flex-grow: 1;
+
+	outline: none;
+}
+.tabs li:first-child {
+	margin-left: 0;
+}
+.tabs li:last-child {
+	margin-right: 0;
+}
+.tab {
+	min-height: 28px;
+	display: block;
+	position: relative;
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+	padding: 5px 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.ui-tabs-active a {
+	border-color: #52cf55;
+	box-shadow: 0 0 0 1px #52cf55;
+}
+.ui-tabs-active a:after {
+	content: '';
+    position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -10px;
+	border: 10px solid transparent;
+	border-top: 7px solid #52cf55;
+}
+.product_info_actions .preview_follprice input {
+	width: 100%;
+}
+/*Блок с ценами*/
+@media (max-width: 510px){
+	.product_info_actions {
+		width: 100% !important;
+		text-align: center;
+	}
+	.product_buy {
+		width: 100%;
+		padding: 0 10%;
+	}
+}
+@media (min-width: 511px){
+	.product_buy {
+		float: left;
+		width: 48%;
+		min-width: 275px;
+		max-width: 350px;
+	}
+	.product_info_actions .preview_follprice,
+	.product_info_actions .preview_favorites,
+	.product_info_actions .rating_block {
+		display: block;
+	}
+
+}
+@media (min-width: 800px) and (max-width: 991px){
+	.product_info_actions {
+		width: 60% !important;
+		text-align: center;
+	}
+	.product_info_actions .preview_follprice,
+	.product_info_actions .preview_favorites,
+	.product_info_actions .rating_block {
+		display: inline-block;
+	}
+	.product_buy {
+		width: 40%;
+	}
+}
+.product_section {
+	margin: 10px 0;
+}
+.buy_block {
+    display: flex;
+    justify-content: space-between;
+}
+.other_price {
+	max-width: 500px;
+	margin: 0 auto;
+}
+/*В избранное, отзывы, следить за ценой, соц. сети*/
+.product_info_actions {
+	float: right;
+	width: 38%;
+}
+.product_info_actions div {
+	display: inline-block;
+	margin: 0 2px;
+}
+.product_info_actions .preview_follprice,
+.product_info_actions .preview_favorites {
+	margin-top: 5px;
+}
+.product_info_actions .favorite,
+.product_info_actions .star_outline,
+.product_info_actions .line {
+	font-size: 20px;
+}
+.product_info_actions .line {
+	color: #666;
+}
+.product_info_actions .favorite,
+.product_info_actions .rating_stars,
+.product_info_actions .line {
+	vertical-align: middle;
+}
+.product_info_actions .rating_block .rating_stars {
+	display: inline-block;
+}
+.preview_socials {
+	margin: 15px 0;
+}
+.preview_socials .social_text {
+	display: inline-block;
+	float: left;
+	margin-right: 15px;
+}
+.product_info .product_spec_body {
+	padding: 20px 0;
+}
+.product_info .product_spec_body h4 {
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+.product_info .product_spec_body .product_spec_item {
+	font-size: 13px;
+}
+/*Характеристики*/
+.tab_item h4 {
+	margin-bottom: 10px;
+}
+.product_spec_body {
+	font-size: 15px;
+	padding: 20px 10px;
+	border-bottom: 1px solid #d9d9d9;
+}
+.product_spec_name {
+	display: inline-block;
+	width: 49%;
+}
+.product_spec_value {
+	display: inline-block;
+	width: 50%;
+}
+.product_spec_item .product_spec_name_inner {
+	position: relative;
+	z-index: 2;
+	background-color: #fff;
+}
+.product_spec_item .product_spec_name_inner:after {
+	display: block;
+	top: -6px;
+	position: relative;
+	content: '';
+	border-bottom: 1px solid #f0f0f0;
+}
+.product_spec_item .product_spec_value_inner {
+	position: relative;
+	display: block;
+	z-index: 2;
+	background-color: #fff;
+}
+.spec_description {
+	font-size: 15px;
+	padding: 20px 10px;
+}
+/*Отзывы*/
+.feedback_container {
+	padding: 20px 0;
+	border-bottom: 1px solid #d9d9d9;
+	overflow: hidden;
+}
+.feedback_author {
+	margin-right: 15px;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: bold;
+}
+.feedback_date {
+	display: inline-block;
+	color: #b4b4b4;
+}
+.feedback_comment {
+	text-align: justify;
+}
+.feedback_rating {
+	display: block;
+	margin-bottom: 10px;
+}
+.feedback_rating > span {
+	font-size: 15px;
+	color: orange;
+}
+.feedback_form {
+	width: 100%;
+	float: left;
+	padding: 20px 0;
+}
+.feedback_form > form {
+	width: 100%;
+}
+.feedback_form h4 {
+	text-align: center;
+}
+.feedback_form .feedback_stars {
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.feedback_form .feedback_stars .label_for_stars {
+	margin-right: 10px;
+}
+.feedback_form .feedback_stars label {
+	float: left;
+}
+.feedback_stars span {
+	font-size: 20px;
+	display: block;
+	color: orange;
+	cursor: pointer;
+}
+.feedback_form form {
+	float: left;
+}
+.feedback_form label {
+	font-size: 15px;
+}
+.feedback_form textarea {
+	margin-top: 5px;
+	resize: vertical;
+}
+.feedback_form textarea:focus {
+	outline: none;
+    border-color: #52cf55;
+}
+.feedback_form button[type="submit"] {
+	margin-top: 10px;
+	padding: 4px 10px;
+	background-color: #52cf55;
+	color: #fff;
+	font-size: 15px;
+	font-weight: bold;
+	border: none;
+}
+.feedback_form input[type="text"],
+.feedback_form input[type="email"],
+.feedback_form textarea {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.feedback_form textarea {
+	border-radius: 3px;
+}
+/*Оплата*/
+.modal_opened {
+	width: 54em;
+}
+.payment_item .payment_ol {
+	text-align: left;
+	padding-left: 15px;
+	list-style: decimal;
+}
+.payment_item .payment_ul {
+	text-align: left;
+	padding-left: 5px;
+	list-style: none;
+}
+.payment_item .payment_ul>li:before {
+	content: "-";
+	margin-right: 5px;
+}
+.payment_item .requisites {
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+.tab_item_wrapper {
+	padding: 10px 10px;
+}
+.tab_item_wrapper .payment_border {
+	border-right: 2px solid #d9d9d9;
+}
+@media (max-width: 992px) {
+	.tab_item_wrapper .payment_border {
+		border-right: none;
+	}
+	.product_description {
+		margin-top: 20px;
+	}
+}
+.tab_item_wrapper .tab_item_header {
+	display: block;
+	font-size: 17px;
+}
+.tab_item_wrapper .tab_item_label {
+	display: block;
+	margin-top: 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
+.tab_item_wrapper .payment_item {
+	padding: 10px 0;
+	border-bottom: 1px solid #d9d9d9;
+}
+.payment_item img {
+	float: left;
+	width: 17%;
+	max-width: 100px;
+}
+.payment_item .payment_item_descr {
+	padding-left: 10px;
+	width: 83%;
+	float: left;
+}
+.color-red {
+	color: #ff2626 !important;
+}
+.payment_item .payment_item_descr table tr td  {
+	padding-top: 5px;
+}
+/*Доставка*/
+.delivery_wrapper {
+	margin-top: 10px;
+	text-align: justify;
+}
+.delivery_wrapper .tab_item_label {
+	margin: 20px 0 10px 0;
+}
+.delivery_wrapper .color-red {
+	margin: 10px 0 20px 0;
+	display: block;
+}
+.delivery_items_wrapper {
+	margin: 30px 0;
+}
+.delivery_item {
+	padding: 5px 30px;
+	text-align: center;
+	width: 20%;
+	min-height: 110px;
+	border-right: 1px solid #d9d9d9;
+	float: left;
+}
+@media (max-width: 870px) {
+	.delivery_item {
+		font-size: 1.3em;
+		border-right: none;
+		padding: 20px 30px;
+		border-bottom: 1px solid #d9d9d9;
+		width: 100%;
+	}
+}
+.delivery_item:last-child {
+	border: none;
+}
+.delivery_item .img_block {
+	height: 70px;
+}
+.delivery_item:nth-child(2) .img_block {
+	height: 52px;
+}
+@media (min-width: 1605px) {
+	.delivery_item:nth-child(2) .img_block {
+		height: 70px;
+	}
+}
+.delivery_item img {
+	display: block;
+	margin: 0 auto;
+}
+.delivery_item span {
+	display: block;
+}
+.bottom_box img {
+	width: 100%;
+}
+/*Фото*/
+.tab_item_wrapper .photo_tab_title {
+	font-weight: bold;
+	font-size: 1.84em;
+}
+.tab_item_wrapper .photo_tab_title .item_name {
+	display: inline-block;
+	font-weight: normal;
+}
+.tab_item_wrapper .photo_tab_wrapper img {
+	max-height: 500px;
+	display: block;
+	margin: 0 auto;
+}

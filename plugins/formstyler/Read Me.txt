@@ -1,0 +1,157 @@
+http://dimox.name/jquery-form-styler/  -источник
+
+Подключение плагина
+
+Для работы плагина необходимо использовать jQuery не ниже версии 1.7.0.
+
+Подключите jQuery (если он еще не подключен), плагин и стили к нему, добавив следующие строки перед тегом </head>:
+
+<link href="путь_к_файлу/jquery.formstyler.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="путь_к_файлу/jquery.formstyler.min.js"></script>
+Для активации плагина примените метод .styler к тегам, которые хотите стилизовать:
+
+(function($) {
+$(function() {
+
+  $('input, select').styler();
+
+});
+})(jQuery);
+к содержанию ^
+Отключение плагина (метод destroy)
+
+Если есть необходимость отвязать плагин от стилизованного элемента, то задействуйте метод destroy:
+
+$('select').styler('destroy');
+к содержанию ^
+Динамическое изменение
+
+При динамическом изменении элементов формы необходимо запустить триггер refresh, например:
+
+$('button').click(function(e) {
+  e.preventDefault();
+  /* делаем чекбокс неактивным */
+  $('input:checkbox').attr('disabled', true)
+    /* обновляем состояние псевдочекбокса */
+    .trigger('refresh');
+});
+При использовании сторонних плагинов, например, jQuery Validation, которые меняют атрибуты элементов формы, событие .trigger('refresh') необходимо запускать, используя setTimeout, иначе состояния псевдоэлементов не изменится. Пример с вышеуказанным плагином:
+
+$('form').validate({
+  invalidHandler: function() {
+
+    setTimeout(function() {
+      $('input, select').trigger('refresh');
+    }, 1)
+
+  }
+});
+к содержанию ^
+Опции плагина
+
+Большинство опции плагина можно переопределить для конкретного тега, указав ему соответствующий data-атрибут.
+
+Опция	По умолчанию	Описание	data-атрибут
+wrapper	form	обертка стилизуемых элементов	
+idSuffix	-styler	суффикс к атрибуту id, передаваемому от стилизуемого элемента	
+filePlaceholder	Файл не выбран	текст по умолчанию в поле выбора файла (когда файл не выбран)	data-placeholder
+fileBrowse	Обзор...	текст кнопки у поля для выбора файла	data-browse
+selectPlaceholder	Выберите...	текст по умолчанию в одиночном селекте; отображается, когда у первой опции отсутствует значение: <option></option>	data-placeholder
+selectSearch	false	показывать поисковое поле в одиночном селекте (true — да, false — нет)	data-search
+selectSearchLimit	10	минимальное количество пунктов одиночного селекта, при котором показывать поиск	data-search-limit
+selectSearchNotFound	Совпадений не найдено	текст сообщения о том, что нет пунктов, удовлетворяющих поиску	data-search-not-found
+selectSearchPlaceholder	Поиск...	текст по умолчанию в поисковом поле	data-search-placeholder
+selectVisibleOptions	0	количество отображаемых пунктов списка в простом селекте без прокрутки	data-visible-options
+singleSelectzIndex	100	уровень слоя с псевдоселектом	data-z-index
+selectSmartPositioning	true	умное позиционирование для выпадающего списка селекта:
+true — работает вверх и вниз
+false — работает только вниз
+'-1' — позиционирование отключено	data-smart-positioning
+к содержанию ^
+Колбеки (callbacks)
+
+Название	По умолчанию	Описание
+onSelectOpened	function() {}	запускается при раскрытии списка селекта, целевой селект можно захватить через $(this)
+onSelectClosed	function() {}	запускается при закрытии списка селекта, целевой селект можно захватить через $(this)
+onFormStyled	function() {}	запускается после выполнения плагина
+Пример использования:
+
+(function($) {
+$(function() {
+
+  $('input, select').styler({
+    fileBrowse: 'Выбрать',
+    singleSelectzIndex: '999',
+    onSelectOpened: function() {
+      // к открытому селекту добавляется красная обводка
+      $(this).css('outline', '3px solid red');
+    }
+  });
+
+})
+})(jQuery)
+к содержанию ^
+CSS-селекторы, используемые для оформления
+
+Чекбокс	
+.jq-checkbox	чекбокс по умолчанию
+.jq-checkbox__div	дополнительный вложенный тег
+.jq-checkbox.checked	выбранный чекбокс
+.jq-checkbox.disabled	неактивный (недоступный для выбора) чекбокс
+.jq-checkbox.focused	фокус на чекбоксе, когда нажата клавиша Tab
+.jq-checkbox span	дополнительный вложенный тег
+Радиокнопка	
+.jq-radio	радиокнопка по умолчанию
+.jq-radio__div	дополнительный вложенный тег
+.jq-radio.checked	выбранная радиокнопка
+.jq-radio.disabled	неактивная (недоступная для выбора) радиокнопка
+.jq-radio.focused	фокус на радиокнопке, когда нажата клавиша Tab
+.jq-radio span	дополнительный вложенный тег
+Поле для выбора файла	
+.jq-file	родительский контейнер
+.jq-file.focused	фокус на поле
+.jq-file.changed	файл выбран
+.jq-file.disabled	неактивное поле
+.jq-file__name	поле с именем файла
+.jq-file__browse	кнопка выбора файла
+Поле для ввода чисел	
+.jq-number	родительский контейнер
+.jq-number.focused	фокус на поле
+.jq-number.disabled	неактивное поле
+.jq-number__field	обертка для поля ввода
+.jq-number__spin.minus	кнопка «минус»
+.jq-number__spin.plus	кнопка «плюс»
+Селект (простой)	
+.jq-selectbox	родительский контейнер
+.jq-selectbox.opened	выпадающий список селекта раскрыт
+.jq-selectbox.dropup	выпадающий список селекта раскрыт вверх
+.jq-selectbox.dropdown	выпадающий список селекта раскрыт вниз
+.jq-selectbox.changed	выбрано значение, отличное от заданного по умолчанию
+.jq-selectbox__select	селект в свернутом состоянии
+.focused .jq-selectbox__select	фокус на селекте, когда нажата клавиша Tab
+.disabled .jq-selectbox__select	неактивный (недоступный для выбора) селект
+.jq-selectbox__select-text	дополнительный вложенный тег для свернутого селекта
+.jq-selectbox .placeholder	замещающий текст
+.jq-selectbox__trigger	правая часть свернутого селекта (условный переключатель)
+.jq-selectbox__trigger-arrow	вложенный тег для переключателя (стрелка)
+.jq-selectbox__dropdown	обертка для выпадающего списка
+.jq-selectbox__search	обертка для поискового поля
+.jq-selectbox__search input	поисковое поле
+.jq-selectbox__not-found	сообщение об отсутствии результатов поиска
+.jq-selectbox ul	выпадающий список
+.jq-selectbox li	пункт (опция) селекта
+.jq-selectbox li.selected	выбранный пункт селекта
+.jq-selectbox li.disabled	неактивный (недоступный для выбора) пункт селекта
+.jq-selectbox li.optgroup	заголовок для группы пунктов
+.jq-selectbox li.option	пункт списка в группе
+Селект (множественный)	
+.jq-select-multiple	родительский контейнер
+.jq-select-multiple.disabled	неактивный (недоступный для выбора) селект
+.jq-select-multiple li	пункт (опция) селекта
+.jq-select-multiple li.selected	выбранный пункт селекта
+.jq-select-multiple li.disabled	неактивный (недоступный для выбора) пункт селекта
+.jq-select-multiple li.optgroup	заголовок для группы пунктов
+.jq-select-multiple li.option	пункт списка в группе
+Прочие элементы (только CSS)	
+.styler	класс, используемый для стилизации текстовых полей и кнопок (работает независимо от плагина)
