@@ -47,7 +47,7 @@
 					<td class="next_update_date <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></td>
 					<td class="currency"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></td>
 					<td class="login">
-						<a href="/login/&email=<?=$s['email']?>&passwd=0" class="btn-m-green <?=$s['active'] == 0?'hidden':'';?>">Войти</a>
+						<a href="/login/?email=<?=$s['email']?>&passwd=0" class="btn-m-green <?=$s['active'] == 0?'hidden':'';?>">Войти</a>
 					</td>
 					<td class="toggle">
 						<a href="?id=<?=$s['id_user']?>&toggle_supplier=<?=$s['active'] == 0?'1':'0';?>" class="btn-m-<?=$s['active'] == 0?'green':'red';?>-inv"><?=$s['active'] == 0?'Вкл.':'Выкл.';?></a>

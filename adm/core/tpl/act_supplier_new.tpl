@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>Новый акт сверки цен поставщика</title>
@@ -8,7 +8,7 @@
 			margin: 0;
 			padding: 0;
 			font-family: "Trebuchet MS", Helvetica, sans-serif;
-			font-size: 13px;
+			font-size: 12px;
 			box-sizing: border-box;
 		}
 		html {
@@ -17,10 +17,6 @@
 		.table_header {
 			margin-left: 15px;
 			width: 100%;
-			max-height: 100px;
-		}
-		.table_header .top td {
-			font-size: 14px;
 		}
 		.table_header .first_col {
 			width: 90px;
@@ -30,19 +26,19 @@
 		}
 		.table_header .top span.invoice {
 			margin-top: 20px;
-			font-size: 18px;
+			font-size: 1.1wm;
 			text-decoration: underline;
 			line-height: 23px;
 		}
 		.logo {
-			font-size: 38px;
+			font-size: 3em;
 			color: #00F;
 			font-weight: bold;
 		}
 		p.supplier {
-			font-size: 20pt;
-			min-height: 200px;
-			max-height: 200px;
+			font-size: 1.5em;
+			min-height: 100px;
+			max-height: 100px;
 		}
 		.block {
 			position: relative;
@@ -51,6 +47,7 @@
 			border-top: 1px solid #000;
 			border-color: #5f5;
 			width: 100%;
+			max-height: 240px;
 			display: block;
 			color: #000;
 			float: left;
@@ -58,6 +55,11 @@
 			-moz-box-sizing: border-box;
 			overflow: hidden;
 			page-break-inside: avoid;
+			clear: both;
+			margin-bottom: auto;
+		}
+		.block:nth-of-type(4n+4) {
+			page-break-after: always;
 		}
 		.block .title h4 {
 			font-size: 1.5em;
@@ -73,23 +75,17 @@
 			float: right;
 			text-align: right;
 		}
-		.block .title p {
-			display: block;
-			width: 100%;
-			clear: both;
-			float: left;
-		}
 		.block .photo {
 			clear: both;
 			float: left;
 			min-width: 460px;
 			display: inline-block;
-			height: 100px;
+			height: 120px;
 		}
 		.block .price {
 			clear: right;
 			float: right;
-			height: 100px;
+			height: 120px;
 			width: 25%;
 			padding-left: 1em;
 		}
@@ -99,11 +95,11 @@
 		}
 		.block .price table td {
 			border: 1px solid #ddd;
-			height: 20px;
+			height: 25px;
 			text-align: center;
 		}
 		.block .price table tbody tr:last-of-type td {
-			height: 60px;
+			height: 70px;
 			vertical-align: top;
 		}
 		.block .info_section {
@@ -116,72 +112,71 @@
 			flex-basis: 30%;
 			padding-right: 1em;
 		}
-		.block .specifications ol {
-			margin-left: 30px;
-		}
 		.block .specifications li {
 			border-bottom: 1px dashed #ddd;
 		}
 		.block .description {
 			margin-top: 19px;
-			flex-basis: 45%;
-			border: 1px solid #ddd;
+			flex-basis: 55%;
 		}
 		.block .description h4 {
 			margin-top: -19px;
 		}
 		.block .info {
 			font-size: .7em;
-			flex-basis: 25%;
+			flex-basis: 15%;
 			padding-left: 1em;
-			padding-top: 19px;
 		}
 		.block .info ul {
 			list-style: none;
 		}
 		.block .info li {
 			line-height: 1.5em;
+			clear: both;
 		}
 		.block .info li span {
-			width: 40%;
+			width: 50%;
+			display: block;
 			float: right;
 			text-align: left;
+			border-bottom: 1px dashed #bbb;
 		}
 	</style>
 </head>
 <body>
-	<table border="0" cellpadding="0" cellspacing="0" class="table_header">
-		<tbody>
-			<tr class="top">
-				<td width="200px">
-					<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
-				</td>
-				<td align="center">
-					<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
-					</span>
-				</td>
-
-			</tr>
-		</tbody>
-	</table>
-	<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
-		<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
-	</p>
+	<div class="block">
+		<table border="0" cellpadding="0" cellspacing="0" class="table_header">
+			<tbody>
+				<tr class="top">
+					<td width="200px">
+						<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
+					</td>
+					<td align="center">
+						<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
+						</span>
+					</td>
+		
+				</tr>
+			</tbody>
+		</table>
+		<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
+			<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
+		</p>
+	</div>
 	<?foreach($products as $k=>$i){?>
-		<?$wh = "height=\"100\" width=\"100\"";?>
+		<?$wh = "height=\"120\" width=\"120\"";?>
 		<div class="block">
 			<div class="title">
 				<h4 <?=strlen($i['name']) > 70?' class="small"':null;?>><?=$i['name']?></h4>
-				<div>Арт. <?=$i['art'];?></div>
-				<p style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>"><?=$i['product_limit']>0?'Есть':'Нет';?> в наличии</p>
+				<div style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
 			</div>
 			<div class="photo">
-				<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "efiles/image/500/", $i['img_1']))?>"/>
+				<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_1']))?>"/>
 				<?if(isset($i['img_2']) && $i['img_2'] != ''){?>
-					<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "efiles/image/500/", $i['img_2']))?>"/>
+					<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_2']))?>"/>
 				<?}?>
 				<?if(isset($i['img_3']) && $i['img_3'] != ''){?>
-					<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "efiles/image/500/", $i['img_3']))?>"/>
+					<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_3']))?>"/>
 				<?}?>
 			</div>
 			<div class="price">
@@ -218,25 +213,24 @@
 			</div>
 			<div class="info_section">
 				<div class="specifications">
-					<h4>Характеристики:</h4>
-					<ol>
+					<ul>
 						<li></li>
 						<li></li>
 						<li></li>
 						<li></li>
 						<li></li>
-					</ol>
+					</ul>
 				</div>
 				<div class="description">
-					<h4>Описание:</h4>
 					<div class="text"><?=$i['descr']?></div>
 				</div>
 				<div class="info">
 					<ul>
-						<li>Ширина: <span><?=$i['width']>0?$i['width']:'____';?> см.</span></li>
-						<li>Высота: <span><?=$i['height']>0?$i['height']:'____';?> см.</span></li>
-						<li>Длина: <span><?=$i['length']>0?$i['length']:'____';?> см.</span></li>
-						<li>Вес: <span><?=$i['weight']>0?$i['weight']:'____';?> кг.</span></li>
+						<li>Ш, см<span><?=$i['width']>0?$i['width']:'&nbsp;';?></span></li>
+						<li>В, см:<span><?=$i['height']>0?$i['height']:'&nbsp;';?></span></li>
+						<li>Д, см:<span><?=$i['length']>0?$i['length']:'&nbsp;';?></span></li>
+						<li>К.О:<span><?=$i['length']>0?$i['length']:'&nbsp;';?></span></li>
+						<li>Вес, кг:<span><?=$i['weight']>0?$i['weight']:'&nbsp;';?></span></li>
 					</ul>
 				</div>
 			</div>

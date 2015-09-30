@@ -15,6 +15,20 @@ hr {
 	top: 45px;
 	z-index: 100;
 }
+.sb_block .main_menu {
+	display: none;
+}
+.left_menu:hover .main_menu {
+	display: block;
+}
+.sb_block .nav_btn > span {
+	transform: rotate(0deg);
+    transition: all 0.3s;
+}
+.left_menu:hover .nav_btn > span {
+	transform: rotate(-180deg);
+    transition: all 0.3s;
+}
 
 /* Contragent cabinet ====================================================== */
 
