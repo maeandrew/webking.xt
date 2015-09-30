@@ -427,8 +427,10 @@ class Suppliers extends Users {
 	}
 
 	public function GetDataForAct(){
-		$sql = "SELECT p.id_product, p.name, p.art, p.img_1, p.inbox_qty, p.min_mopt_qty, a.product_limit,
-			a.price_opt_otpusk, a.price_opt_recommend, a.price_mopt_otpusk, a.price_mopt_recommend,
+		$sql = "SELECT p.id_product, p.name, p.art, p.img_1, p.img_2, p.img_3, p.descr,
+			p.inbox_qty, p.min_mopt_qty, p.qty_control, p.weight, p.height, p.width,
+			p.length, p.coefficient_volume, p.volume, a.product_limit, a.price_opt_otpusk,
+			a.price_opt_recommend, a.price_mopt_otpusk, a.price_mopt_recommend,
 			a.price_mopt_otpusk_usd, a.price_opt_otpusk_usd, a.inusd,
 			(SELECT MIN(assort.price_mopt_otpusk)
 			FROM "._DB_PREFIX_."assortiment AS assort
@@ -445,7 +447,10 @@ class Suppliers extends Users {
 			AND assort.active = 1
 			AND assort.id_product = p.id_product
 			AND price_opt_otpusk > 0
-			GROUP BY assort.id_product) AS min_opt_price
+			GROUP BY assort.id_product) AS min_opt_price,
+			(SELECT u.unit_xt
+			FROM "._DB_PREFIX_."units AS u
+			WHERE p.id_unit = u.id) AS unit
 			FROM "._DB_PREFIX_."assortiment AS a LEFT JOIN "._DB_PREFIX_."product AS p ON p.id_product = a.id_product
 			WHERE a.id_supplier = ".$this->fields['id_user']."
 			AND p.visible = 1
