@@ -16497,29 +16497,13 @@
 			WHERE visible = 1 AND ptype="menu"
 			ORDER BY ord
 10:43:27 18.09.2015  SQL Error - SELECT *					FROM xt_remitter					WHERE id = 
-12:48:58 30.09.2015  SQL Error - SELECT p.id_product, p.name, p.art, p.img_1, p.img_2, p.img_3, p.inbox_qty, p.min_mopt_qty, a.product_limit,
-			a.price_opt_otpusk, a.price_opt_recommend, a.price_mopt_otpusk, a.price_mopt_recommend,
-			a.price_mopt_otpusk_usd, a.price_opt_otpusk_usd, a.inusd,
-			(SELECT MIN(assort.price_mopt_otpusk)
-			FROM xt_assortiment AS assort
-			LEFT JOIN xt_calendar_supplier AS cs ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-			WHERE cs.work_day = 1
-			AND assort.active = 1
-			AND assort.id_product = p.id_product
-			AND price_mopt_otpusk > 0
-			GROUP BY assort.id_product) AS min_mopt_price,
-			(SELECT MIN(assort.price_opt_otpusk)
-			FROM xt_assortiment AS assort
-			LEFT JOIN xt_calendar_supplier AS cs ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-			WHERE cs.work_day = 1
-			AND assort.active = 1
-			AND assort.id_product = p.id_product
-			AND price_opt_otpusk > 0
-			GROUP BY assort.id_product) AS min_opt_price,
-			(SELECT u.unit_xt
-			FROM xt_units AS u
-			WHERE p.id_unit = u.id) AS unit,
-			FROM xt_assortiment AS a LEFT JOIN xt_product AS p ON p.id_product = a.id_product
-			WHERE a.id_supplier = 5
-			AND p.visible = 1
-			ORDER BY a.inusd, p.name
+09:40:58 29.09.2015  SQL Error - SELECT name, value FROM xt_config
+09:40:59 29.09.2015  SQL Error - SELECT p.id_product, pp.id_category,
+				p.name as name,
+				p.translit, p.img_1, p.price_mopt
+				FROM xt_popular_products AS pp
+				LEFT JOIN xt_product AS p
+				ON p.id_product = pp.id_product
+				WHERE p.price_mopt > 0
+				LIMIT 
+09:40:59 29.09.2015  SQL Error - SELECT id_user, phones, site, name_c, photo, remote, details				FROM xt_contragent				WHERE id_user = ""
