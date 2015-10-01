@@ -18,7 +18,7 @@ class Products {
 			"p.visible", "p.ord", "p.note_control", "un.unit_xt AS units", "p.prod_status", "p.old_price_mopt",
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
-			"p.edit_date", "p.id_unit", "p.page_title", "p.page_description", "p.page_keywords", "p.count_views");
+			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description", "p.page_keywords", "p.count_views", "p.indexation");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
@@ -98,15 +98,15 @@ class Products {
 
 		$id_product = mysql_real_escape_string($id_product);
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			u.name AS username, un.unit_prom, a.product_limit,
+			un.unit_prom, a.product_limit,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.edit_user) AS username,
+			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.create_user) AS createusername
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON cp.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."user AS u
-				ON u.id_user = p.edit_user
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
@@ -126,6 +126,45 @@ class Products {
 		$this->fields = $arr[0];
 		return true;
 	}
+	// // Товар по id
+	// public function SetFieldsById($id_product, $all=0){
+	// 	$visible = "AND p.visible = 1";
+	// 	if($all == 1){
+	// 		$visible = '';
+	// 	}
+
+	// 	$id_product = mysql_real_escape_string($id_product);
+	// 	$sql = "SELECT ".implode(", ",$this->usual_fields).",
+	// 		u.name AS username,ucr.name AS createname, un.unit_prom, a.product_limit,
+	// 		(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+	// 		(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+	// 		(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+	// 		FROM "._DB_PREFIX_."product AS p
+	// 		LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+	// 			ON cp.id_product = p.id_product
+	// 		LEFT JOIN "._DB_PREFIX_."user AS u
+	// 			ON u.id_user = p.edit_user
+	// 		LEFT JOIN "._DB_PREFIX_."user AS ucr
+	// 			ON u.id_user = p.create_user
+	// 		LEFT JOIN "._DB_PREFIX_."units AS un
+	// 			ON un.id = p.id_unit
+	// 		LEFT JOIN "._DB_PREFIX_."assortiment AS a
+	// 			ON a.id_product = p.id_product
+	// 		WHERE p.id_product = ".$id_product."
+	// 		".$visible."
+	// 		ORDER BY cp.id";
+	// 	$arr = $this->db->GetArray($sql);
+	// 	if(!$arr){
+	// 		return false;
+	// 	}
+	// 	$catarr = array();
+	// 	foreach ($arr as $p){
+	// 		$catarr[] = $p['id_category'];
+	// 	}
+	// 	$arr[0]['categories_ids'] = $catarr;
+	// 	$this->fields = $arr[0];
+	// 	return true;
+	// }
 
 	public function GetIdByComent($id){
 		$sql = "SELECT cm.text_coment,
@@ -146,33 +185,71 @@ class Products {
 			return $arr;
 		}
 	}
+	public function GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating=null){
+		if(empty($text)){
+			return false; //Если имя пустое
+		}
+		$f['text_coment'] = mysql_real_escape_string(trim($text));
+		$f['url_coment'] = mysql_real_escape_string(trim($put));
+		$f['author'] = mysql_real_escape_string(trim($author));
+		$f['author_name'] = mysql_real_escape_string(trim($author_name));
+		$f['rating'] = mysql_real_escape_string(trim($rating));
+		$f['user_email'] = mysql_real_escape_string(trim($authors_email));
+		unset($text);
+		unset($rating);
+		unset($put);
+		unset($authors_email);
+		unset($author);
+		unset($author_name);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'coment', $f)){
+			$this->db->FailTrans();
+			return false; //Если не удалось записать в базу
+		}
+		unset($f);
+		$this->db->CompleteTrans();
+		return true;//Если все ок
+	}
 
-	public function GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating = null){
-		if(!empty($text)){
-			$f['text_coment'] = mysql_real_escape_string(trim($text));
-			$f['url_coment'] = mysql_real_escape_string(trim($put));
-			$f['author'] = mysql_real_escape_string(trim($author));
-			$f['author_name'] = mysql_real_escape_string(trim($author_name));
-			$f['rating'] = mysql_real_escape_string(trim($rating));
-			$f['user_email'] = mysql_real_escape_string(trim($authors_email));
-			unset($text);
-			unset($rating);
-			unset($put);
-			unset($authors_email);
-			unset($author);
-			unset($author_name);
-			if(!$this->db->Insert(_DB_PREFIX_.'coment', $f)){
+	//Видео по Id
+	public function GetIdByVideo($id){
+		$sql = "SELECT url
+			FROM "._DB_PREFIX_."video
+			WHERE id_product = ".$id."
+			ORDER BY id_video";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		 foreach ($arr as $value) {
+			$res[] = $value['url'];
+		}
+		return $res;
+	}
+
+	//Добавление и удаление видео
+	public function UpdateVideo($id_product, $arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."video WHERE id_product=".$id_product;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		$f['id_product'] = mysql_real_escape_string(trim($id_product));
+		foreach ($arr as &$value) {
+			if(empty($value)){
+				return false; //Если URL пустой
+			}
+			$f['url'] = mysql_real_escape_string(trim($value));
+			$this->db->StartTrans();
+			if(!$this->db->Insert(_DB_PREFIX_.'video', $f)){
 				$this->db->FailTrans();
 				return false; //Если не удалось записать в базу
 			}
-			unset($f);
 			$this->db->CompleteTrans();
-			return true;//Если все ок
-		}else{
-			return false; //Если имя пустое
 		}
+		unset($id_product);
+		unset($f);
+		return true;//Если все ок
 	}
-
 	public function GetCategoryIdByArt($art){
 		$sql = "SELECT c.id_category
 			FROM "._DB_PREFIX_."category AS c
@@ -1334,6 +1411,7 @@ class Products {
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
 		$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
+		$f['create_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
 		// Добавляем товар в бд
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
@@ -1444,6 +1522,7 @@ class Products {
 			$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 			$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] === "on" || $arr['note_control'] == "1"))?1:0;
 			$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
+			$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		}
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
@@ -2383,6 +2462,21 @@ class Products {
 			FROM "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON s.id_user = a.id_supplier
+			WHERE a.id_product = $id_product";
+		$arr = $this->db->GetArray($sql);
+		return $arr;
+	}
+
+	// Получить поставщиков для товара
+	public function GetSuppliersInfoForProduct($id_product){
+		$sql = "SELECT a.id_supplier, s.article, s.phones, a.product_limit, u.name,
+			ROUND(a.price_opt_otpusk,2) as price_opt_otpusk,
+			ROUND(a.price_mopt_otpusk,2) as price_mopt_otpusk
+			FROM "._DB_PREFIX_."assortiment AS a
+			LEFT JOIN "._DB_PREFIX_."supplier AS s
+				ON s.id_user = a.id_supplier
+			LEFT JOIN "._DB_PREFIX_."user AS u
+				ON u.id_user = a.id_supplier
 			WHERE a.id_product = $id_product";
 		$arr = $this->db->GetArray($sql);
 		return $arr;

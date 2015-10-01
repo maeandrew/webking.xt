@@ -12,6 +12,13 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $Unit = new Unit();
 $products = new Products();
+$News = new News();
+if($News->GetCommentListById($id_product)){
+	$tpl->Assign('list_comment', $News->list);
+}
+$pops1 = $News->GetComent();
+$tpl->Assign('pops1', $pops1);
+$tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product));
 $tpl->Assign('related_prods_list', $products->GetArrayRelatedProducts($id_product));
 $specification = new Specification();
 $specification->SetListByProdId($id_product);
@@ -41,6 +48,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
 		if($id = $products->UpdateProduct($_POST)){
+			$products->UpdateVideo($id_product, $_POST['video']);
 			$tpl->Assign('msg', 'Товар обновлен.');
 			if(isset($_POST['smb_new'])){
 				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
@@ -67,9 +75,38 @@ if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_
 }
 $tpl->Assign('list', $list);
 $tpl->Assign('mlist', $products->GetManufacturers());
+
+//Дубликат товара
+if(isset($_POST['smb_duplicate'])){
+	$_POST['art'] = $GLOBALS['CONFIG']['last_manual_product_article'] + 1;
+	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
+	if(isset($_POST['price']) && $_POST['price'] == ""){
+		$_POST['price'] = 0;
+	}
+	list($err, $errm) = Product_form_validate();
+	if(!$err){
+		if($id = $products->AddProduct($_POST)){
+			$products->UpdateVideo($id, $_POST['video']);
+			header('Location: '.$GLOBALS['URL_base'].'adm/cat/');
+			$tpl->Assign('msg', 'Товар добавлен.');
+			unset($_POST);
+		}else{
+			$tpl->Assign('msg', 'Товар не добавлен.');
+			$tpl->Assign('errm', $errm);
+		}
+	}else{
+		// показываем все заново но с сообщениями об ошибках
+		$tpl->Assign('msg', 'Товар не добавлен.');
+		$tpl->Assign('errm', $errm);
+	}
+}
+//Заполнение массива POST
 if(!isset($_POST['smb'])){
+	$video = $products->GetIdByVideo($id_product);
 	$_POST['id_product'] = 0;
-	foreach($products->fields as $k=>$v){
+	$prod_fields = $products->fields;
+	$prod_fields['video'] = $video;
+	foreach($prod_fields as $k=>$v){
 		$_POST[$k] = $v;
 	}
 }

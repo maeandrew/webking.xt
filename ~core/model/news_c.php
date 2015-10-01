@@ -84,6 +84,27 @@ class News{
 		}
 		return true;
 	}
+
+	//Получение списка комментариев для продукта
+	public function GetCommentListById($id_product){
+		$sql = "SELECT cm.Id_coment,
+			(CASE
+				WHEN cm.author = 4028 THEN cm.author_name
+				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
+			END) AS username,
+			cm.url_coment,cm.author, cm.date_comment, cm.text_coment,
+			cm.visible, p.name
+			FROM "._DB_PREFIX_."coment AS cm
+			LEFT JOIN "._DB_PREFIX_."product AS p
+				ON cm.url_coment = p.id_product
+			WHERE cm.url_coment =".$id_product."
+			ORDER BY cm.date_comment desc";
+		$this->list = $this->db->GetArray($sql);
+		if(!$this->list){
+			return false;
+		}
+		return true;
+	}
 	// get comments count by date
 	public function GetCommentsCountByDate($date){
 		$sql = "SELECT '".$date."' AS date, IFNULL((SELECT COUNT(c.Id_coment)

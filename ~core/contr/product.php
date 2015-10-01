@@ -10,7 +10,7 @@ if(isset($GLOBALS['REQAR'][1])){
 		$GLOBALS['CURRENT_ID_CATEGORY'] = $id_category;
 	}
 }else{
-	header('Location: /404/');
+	header('Location: '._base_url.'/404/');
 	exit();
 }
 unset($parsed_res);
@@ -20,7 +20,7 @@ if(isset($_SESSION['member'])){
 }
 $tpl->Assign('User', $User->fields['name']);
 if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
-	header('Location: /404/');
+	header('Location: '._base_url.'/404/');
 	exit();
 }
 $GLOBALS['prod_title'] = $products->fields['name'];

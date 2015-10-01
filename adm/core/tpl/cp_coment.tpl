@@ -30,7 +30,7 @@
 			<?}?>
 				<tr>
 					<td>&nbsp;</td>
-					<td class="center"><input class="btn-l-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"></td>
+					<td class="center"><input class="btn-m-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
@@ -38,41 +38,5 @@
 		</table>
 	</form>
 <?}else{?>
-	<div class="notification warning"> <span class="strong">Новостей нет</span></div>
+	<div class="notification warning"> <span class="strong">Комментариев нет</span></div>
 <?}?>
-
-<script>
-function SwitchPops1(obj, id){
-	action = "show";
-	if(!obj.checked){
-		action = "hide";
-	}
-	$.ajax({
-		url: URL_base+'ajaxcoment',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {
-			"action": action,
-			"Id_coment": id
-		}
-	}).done(function(){
-		location.reload();
-	});
-}
-function dropComent(id){
-	action = "drop";
-	$.ajax({
-		url: URL_base+'ajaxcoment',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {
-			"action": action,
-			"Id_coment": id
-		}
-	}).done(function(){
-		$('.coment'+id).remove();
-	});
-}
-</script>

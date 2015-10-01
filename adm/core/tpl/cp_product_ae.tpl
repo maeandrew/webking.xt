@@ -10,19 +10,22 @@
 					<span><b>Название:</b> <?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?></span>
 				</div>
 				<div class="fr">
-					<span>Наличие</span>
-					<span>Дублировать</span>
+					<span><b>Наличие:</b> <?=($_POST['price_opt'] > 0 || $_POST['price_mopt'] > 0)  && $_POST['visible'] != 0?'Есть':'Нет'?></span>
+					<button name="smb_duplicate" type="submit" class="btn-m-lblue">Дублировать</button>
 					<span class="product_view"><a href="<?=$GLOBALS['URL_base']?>product/<?=$_POST['id_product']?>/<?=isset($_POST['translit'])?$_POST['translit']:null?>" target="_blank">Просмотр товара</a></span>
 					<input type="hidden" name="id_product" id="id_product" value="<?=isset($_POST['id_product'])?$_POST['id_product']:0?>">
 					<button name="smb_new" type="submit" class="btn-m-default">Сохранить и создать новый</button>
 					<button name="smb" type="submit" class="btn-m-default fr">Сохранить</button>
 				</div>
 			<?}else{?>
-				<button name="smb" type="submit" class="save-btn btn-m-default fr">Сохранить</button>
+				<button name="smb" type="submit" class="btn-m-default fr">Сохранить</button>
 			<?}?>
 		</div>
 		<div id="second_navigation">
 			<ul>
+				<?if($GLOBALS['CurrentController'] == 'productedit'){?>
+					<li><a href="#nav_comment">Отзывы</a></li>
+				<?}?>
 				<li><a href="#nav_product">Товар</a></li>
 				<li><a href="#nav_seo">SEO</a></li>
 				<li><a href="#nav_content">Контент товара</a></li>
@@ -33,12 +36,54 @@
 				<li><a href="#nav_information">Информация</a></li>
 				<li><a href="#nav_visible">Видемость и индексация</a></li>
 			</ul>
+			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
+			<div id="nav_comment">
+				<h2>Отзывы</h2>
+				<?if(isset($list_comment) && count($list_comment)){?>
+					<form action="<?=$GLOBALS['URL_request']?>" method="post">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
+							<col width="75%">
+							<col width="1%">
+							<col width="23%">
+							<col width="1%">
+							<thead>
+							  <tr>
+								<td class="left">Комментарий</td>
+								<td class="left">Видимость</td>
+								<td class="left">Товар</td>
+								<td class="left"></td>
+							  </tr>
+							</thead>
+							<tbody>
+							<?foreach ($list_comment as $i){?>
+							<?$interval = date_diff(date_create(date("d.m.Y", strtotime($i['date_comment']))), date_create(date("d.m.Y")));?>
+								<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
+									<td><span class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></span> <?=!$i['visible']?'<span class="invisible">скрытый</span>':null?><br><?=$i['text_coment']?></td>
+									<td class="center np"><input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)"></td>
+									<td><a href="<?='/product/'.$i['url_coment']?>"><?=$i['name']?></a></td>
+									<td class="center np actions"><a class="icon-delete" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t</a></td>
+								</tr>
+							<?}?>
+								<tr>
+									<td>&nbsp;</td>
+									<td class="center"><input class="btn-m-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				<?}else{?>
+					<div class="notification warning"> <span class="strong">Комментариев нет</span></div>
+				<?}?>
+			</div>
+			<?}?>
 			<div id="nav_product">
 				<h2>Товар</h2>
 				<div class="row">
 					<div class="col-md-2">
 						<label for="art">Артикул:</label><?=isset($errm['art'])?"<span class=\"errmsg\">".$errm['art']."</span><br>":null?>
-						<input type="text" name="art" id="art" class="input-l" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):null?>">
+						<input type="text" name="art" id="art" class="input-l" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$GLOBALS['CONFIG']['last_manual_product_article'] + 1?>">
 					</div>
 					<div class="col-md-10">
 						<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
@@ -201,7 +246,19 @@
 				</div>
 				<label for="coefficient_volume">Коэффициент реального обьема:</label>
 				<input type="number" name="coefficient_volume" id="coefficient_volume" class="input-l" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):0?>">
-				<label class="weight">Объем: <span><?=isset($_POST['weight']) && $_POST['weight'] == 0?'Заполните поля (ВхШхД)':htmlspecialchars($_POST['weight']).' м3'?></span></label>
+				<label class="weight">Объем:
+					<span>
+						<?if(isset($_POST['weight']) ){
+							if($_POST['weight'] == 0){?>
+								Заполните поля (ВхШхД)
+							<?}else{
+								htmlspecialchars($_POST['weight']).' м3';
+							}
+						}else{?>
+							-
+						<?}?>
+					</span>
+				</label>
 				<input type="hidden" name="weight" id="weight" class="input-l" value="<?=isset($_POST['weight'])?htmlspecialchars($_POST['weight']):0?>">
 				<label for="volume">Вес:</label><?=isset($errm['volume'])?"<span class=\"errmsg\">".$errm['volume']."</span><br>":null?>
 				<input type="text" name="volume" id="volume" class="input-l" value="<?=isset($_POST['volume'])?htmlspecialchars($_POST['volume']):0?>">
@@ -300,9 +357,60 @@
 						<input type="text" id="img_3" name="img_3" class="input-l" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
 					</div>
 				</div>
+				<label>Видео о товарe:</label>
+				<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
+				<ul class="video_block">
+					<?if(isset($_POST['video'])){
+						foreach ($_POST['video'] as $key => $value) {?>
+							<li><input type="text" name="video[]" class="input-l" value="<?=$value?>"><span class="icon-font remove_video">t</span></li>
+						<?}
+					}?>
+				</ul>
 			</div>
 			<div id="nav_information">
 				<h2>Информация</h2>
+				<label>Данные поставщика:</label>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
+					<colgroup>
+						<col width="20%">
+						<col width="20%">
+						<col width="40%">
+						<col width="20%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td class="left">Артикул поставщика</td>
+							<td class="left">Имя</td>
+							<td class="left">№ телефона</td>
+							<td class="left">Цена</td>
+						</tr>
+					</thead>
+					<tbody>
+						<?if(!empty($suppliers_info)){
+							foreach($suppliers_info as $si){?>
+								<tr id="rel_prod<?=$rpl['id_product']?>" class="animate">
+									<td>
+										<?=$si['article']?>
+									</td>
+									<td>
+										<?=$si['name']?>
+									</td>
+									<td>
+										<?=$si['phones']?>
+									</td>
+									<td class="left">
+										Опт: <?=$si['price_opt_otpusk']?><br>
+										Розница: <?=$si['price_mopt_otpusk']?>
+									</td>
+								</tr>
+							<?}
+						}else{?>
+							<tr id="empty2" class="animate">
+								<td colspan="4">Нет посавщиков</td>
+							</tr>
+						<?}?>
+				 	</tbody>
+				</table>
 				<label for="opt_correction_set">Набор корректироки по оптовой цене:</label>
 				<select name="opt_correction_set" id="opt_correction_set" disabled="disabled" class="input-l">
 					<option value="0">Без корректировки</option>
@@ -321,17 +429,25 @@
 						<?$i++;
 					}?>
 				</select>
+				<div class="edition">
+					Дата, время добавления товара: <b><?=isset($_POST['create_date'])?$_POST['create_date']:'-';?></b><br>
+					Автор: <b><?=isset($_POST['createusername'])?$_POST['createusername']:'-'?></b>
+				</div>
 				<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 					<div class="edition">
-						Последнее редактирование: <b><?=isset($_POST['edit_date'])?$_POST['edit_date']:'-';?></b><br>
-						Пользователь: <b><?=isset($_POST['username'])?$_POST['username']:'-'?></b>
+						Дата, время редактирования товара: <b><?=isset($_POST['edit_date'])?$_POST['edit_date']:'-';?></b><br>
+						Редактор: <b><?=isset($_POST['username'])?$_POST['username']:'-'?></b>
 					</div>
+					<label>Просмотры на сайте: <span><?=$_POST['count_views']?></span></label>
 				<?}?>
 			</div>
 			<div id="nav_visible">
 				<h2>Видемость и индексация</h2>
 				<label for="visible"><b>Скрыть товар &nbsp;</b>
 					<input type="checkbox" name="visible" id="visible" class="input-m" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
+				</label>
+				<label for="indexation"><b>Индексация &nbsp;</b>
+					<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=isset($_POST['indexation'])&&(!$_POST['indexation'])?null:'checked="checked" value="on"'?>>
 				</label>
 			</div>
 		</div>
@@ -357,6 +473,8 @@
 		});
 		$("#second_navigation").tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     	$("#second_navigation li").removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+    	//Пересчет обьема при вводе
     	$("#height, #width, #length").keyup(function( event ) {
     		var height = $("#height").val(),
     			width = $("#width").val(),
@@ -364,6 +482,18 @@
     			volume = 0;
     		volume = height * width * length;
     		$(".weight span").html(((volume*0.000001).toFixed(2))+" м3");
+    	});
+
+    	//Добавление видео
+    	$(".add_video").on('click', function() {
+    		$(".video_block").append('<li><input type="text" name="video[]" class="input-l"><span class="icon-font remove_video">t</span></li>');
+    	});
+
+    	//Удаление видео
+    	$("body").on('click', '.remove_video', function() {
+    		if(confirm('Вы точно хотите удалить видео?')){
+    			$(this).parent().remove();
+    		}
     	});
 	});
 	function insertValueLink(link) {

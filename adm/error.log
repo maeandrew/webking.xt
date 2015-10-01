@@ -5090,3 +5090,6 @@
 		FROM xt_product
 		WHERE p.visible = 1
 		AND (p.duplicate = 1 OR p.duplicate_user > 0)
+11:55:32 01.10.2015  SQL error - INSERT INTO xt_video (`id_product`, `url`) VALUES ("", "fffffff")
+11:56:06 01.10.2015  SQL error - INSERT INTO xt_video (`id_product`, `url`) VALUES ("", "fffffff")
+11:57:30 01.10.2015  SQL error - INSERT INTO xt_video (`url`) VALUES ("fffffff")

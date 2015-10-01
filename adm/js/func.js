@@ -92,3 +92,36 @@ function delWishes(id){
 		$('div[data-wishes="'+id+'"]').remove();
 	});
 }
+function SwitchPops1(obj, id){
+	action = "show";
+	if(!obj.checked){
+		action = "hide";
+	}
+	$.ajax({
+		url: URL_base+'ajaxcoment',
+		type: "POST",
+		cache: false,
+		dataType : "json",
+		data: {
+			"action": action,
+			"Id_coment": id
+		}
+	}).done(function(){
+		location.reload();
+	});
+}
+function dropComent(id){
+	action = "drop";
+	$.ajax({
+		url: URL_base+'ajaxcoment',
+		type: "POST",
+		cache: false,
+		dataType : "json",
+		data: {
+			"action": action,
+			"Id_coment": id
+		}
+	}).done(function(){
+		$('.coment'+id).remove();
+	});
+}

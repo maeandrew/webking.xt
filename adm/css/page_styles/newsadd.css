@@ -1,1 +1,12 @@
-/home/alex/Dropbox/changes/adm/css/page_styles/newsedit.css
+#newsae .wa {
+	width: auto;
+}
+#newsae .vam {
+	vertical-align: middle;
+}
+#newsae p {
+	margin-top: 20px;
+}
+#newsae #form_subm1it {
+	margin: 20px .5em;
+}

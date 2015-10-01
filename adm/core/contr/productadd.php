@@ -18,6 +18,7 @@ if(isset($_POST['smb'])){
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
 		if($id = $products->AddProduct($_POST)){
+			$products->UpdateVideo($id, $_POST['video']);
 			$tpl->Assign('msg', 'Товар добавлен.');
 			unset($_POST);
 		}else{
