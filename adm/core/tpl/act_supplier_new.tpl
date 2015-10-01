@@ -116,11 +116,7 @@
 			border-bottom: 1px dashed #ddd;
 		}
 		.block .description {
-			margin-top: 19px;
 			flex-basis: 55%;
-		}
-		.block .description h4 {
-			margin-top: -19px;
 		}
 		.block .info {
 			font-size: .7em;
@@ -190,7 +186,7 @@
 					<tbody>
 						<tr>
 							<td>от <?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?> <?=$i['unit']?> <?=$i['qty_control']==1?'*':null;?></td>
-							<td>от <?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?> <?=$i['unit']?> <?=$i['qty_control']==1?'*':null;?></td>
+							<td>от <?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?> <?=$i['unit']?> <?=$i['qty_control']==1?'*':null;?><input type="checkbox"></td>
 						</tr>
 						<tr>
 							<td>
