@@ -86,8 +86,15 @@
 #productae .prod_head *:last-child {
     margin-right: 0;
 }
-#productae .prod_head span {
-	padding: 6px 0;
+#productae .head_block {
+	width: 40%;
+	position: relative;
+}
+#productae .head_block .article {
+	display: block;
+}
+#productae .prod_name {
+	display: block;
 }
 #second_navigation {
 	display: none;

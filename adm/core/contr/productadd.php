@@ -31,6 +31,12 @@ if(isset($_POST['smb'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
+// get last article
+$sql = "SELECT art AS cnt
+	FROM "._DB_PREFIX_."product
+	WHERE (SELECT MAX(id_product) FROM "._DB_PREFIX_."product) = id_product";
+$res = $db->GetOneRowArray($sql);
+$tpl->Assign("max_cnt", $res['cnt']);
 // Формирование списка категорий для выпадающего списка
 $list = $dbtree->Full(array('id_category', 'category_level', 'name'));
 $tpl->Assign('list', $list);

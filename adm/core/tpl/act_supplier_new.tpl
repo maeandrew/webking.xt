@@ -1,236 +1,203 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>Новый акт сверки цен поставщика</title>
 	<style rel="stylesheet">
-		* {
-			margin: 0;
-			padding: 0;
-			font-family: "Trebuchet MS", Helvetica, sans-serif;
-			font-size: 12px;
-			box-sizing: border-box;
-		}
-		html {
-			background: #fff;
-		}
-		.table_header {
-			margin-left: 15px;
-			width: 100%;
-		}
-		.table_header .first_col {
-			width: 90px;
-		}
-		.table_header .second_col {
-			width: 325px;
-		}
-		.table_header .top span.invoice {
-			margin-top: 20px;
-			font-size: 1.1wm;
-			text-decoration: underline;
-			line-height: 23px;
-		}
-		.logo {
-			font-size: 3em;
-			color: #00F;
-			font-weight: bold;
-		}
+		* { margin: 0; padding: 0; font-family: "Trebuchet MS", Helvetica, sans-serif;}
+		html { background: #fff; }
+		.table_header {margin-left:15px; width: 100%;}
+		.table_header .top td {font-size:14px;}
+		.table_header .first_col {width: 90px;}
+		.table_header .second_col {width: 325px;}
+		.table_header .top span.invoice { margin-top:20px;font-size:18px;text-decoration:underline;line-height: 23px;}
+		.logo{font-size: 38px; color: #00F; font-weight: bold;}
 		p.supplier {
-			font-size: 1.5em;
-			min-height: 100px;
-			max-height: 100px;
-		}
+		  font-size: 20pt;
+		  min-height: 300px;
+		  max-height: 300px;
+		  }
+		body {
+		  width: 1077px;
+		  margin: 0 auto;
+		  }
 		.block {
-			position: relative;
-			background: #fff;
-			border: 0;
-			border-top: 1px solid #000;
-			border-color: #5f5;
-			width: 100%;
-			max-height: 240px;
-			display: block;
-			color: #000;
-			float: left;
-			box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			overflow: hidden;
-			page-break-inside: avoid;
-			clear: both;
-			margin-bottom: auto;
-		}
-		.block:nth-of-type(4n+4) {
-			page-break-after: always;
-		}
-		.block .title h4 {
-			font-size: 1.5em;
-			max-width: 90%;
-			float: left;
-		}
-		.block .title h4.small {
-			font-size: 1.2em;
-		}
-		.block .title div {
-			font-size: 1.2em;
-			min-width: 10%;
-			float: right;
-			text-align: right;
-		}
+		  position: relative;
+		  background: #fff;
+		  border: 0;
+		  border-left: 1px solid #000;
+		  border-top: 1px solid #000;
+		  border-color: #5f5;
+		  width: 50%;
+		  display: block;
+		  color: #000;
+		  float: left;
+		  box-sizing: border-box;
+		  -moz-box-sizing: border-box;
+		  overflow: hidden;
+		  page-break-inside: avoid;
+		  }
+		.block.odd {
+		  border: 1px solid #000;
+		  border-bottom: 0;
+		  border-color: #5f5;
+		  }
 		.block .photo {
-			clear: both;
-			float: left;
-			min-width: 460px;
-			display: inline-block;
-			height: 120px;
-		}
-		.block .price {
-			clear: right;
-			float: right;
-			height: 120px;
-			width: 25%;
-			padding-left: 1em;
-		}
-		.block .price table {
-			width: 100%;
-			border-collapse: collapse;
-		}
-		.block .price table td {
-			border: 1px solid #ddd;
-			height: 25px;
-			text-align: center;
-		}
-		.block .price table tbody tr:last-of-type td {
-			height: 70px;
-			vertical-align: top;
-		}
-		.block .info_section {
-			display: flex;
-			clear: left;
-			float: left;
-			width: 100%;
-		}
-		.block .specifications {
-			flex-basis: 30%;
-			padding-right: 1em;
-		}
-		.block .specifications li {
-			border-bottom: 1px dashed #ddd;
-		}
+		  width: 250px;
+		  height: 250px;
+		  }
+		.block .photo img {
+		  position: relative;
+		  clear: both;
+		  z-index: 10;
+		  }
 		.block .description {
-			flex-basis: 55%;
+		  position: relative;
+		  text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
+		  line-height: 20px;
+		  color: #000;
+		  font-size: 15pt;
+		  height: 50px;
+		  padding: 5px;
+		  box-sizing: border-box;
+		  -moz-box-sizing: border-box;
+		  z-index: 50;
+		  font-weight: bold;
+		  }
+		.block table {
+		  font-size: 15pt;
+		  position: absolute;
+		  bottom: -1px;
+		  right: -1px;
+		  float: right;
+		  border-collapse: collapse;
+		  }
+		.block table tr {
+		  height: 60px;
+		  border-top: 0;
+		  }
+		.block table tr th,
+		.block table tr td {
+		  border: 1px solid #ccc;
+		  text-align: center;
+		  font-weight: normal;
+		  font-size: 12pt;
+		  }
+		.block table tr.art {
+		  height: 30px;
+		  }
+		.block table tr.min_price td {
+			border: 0;
 		}
-		.block .info {
-			font-size: .7em;
-			flex-basis: 15%;
-			padding-left: 1em;
-		}
-		.block .info ul {
-			list-style: none;
-		}
-		.block .info li {
-			line-height: 1.5em;
-			clear: both;
-		}
-		.block .info li span {
-			width: 50%;
-			display: block;
-			float: right;
-			text-align: left;
-			border-bottom: 1px dashed #bbb;
-		}
+		.block table tr.art td {
+		  font-size: 25pt;
+		  text-align: right;
+		  border: 0;
+		  }
+		.block table tr.art td p {
+		  line-height: 38px;
+		  text-align: left;
+		  float: left;
+		  }
+		.block table tr.header {
+		  height: 20px;
+		  }
+		.block table tr .info {
+		  width: 50px;
+		  }
+		.block table tr .quantity {
+		  position: relative;
+		  width: 84px;
+		  }
+		.block table tr .price {
+		  position: relative;
+		  width: 150px;
+		  }
+		.block table tr .quantity p,
+		.block table tr .price p {
+		  color: #e00;
+		  position: relative;
+		  margin-top: 40px;
+		  width: 100%;
+		  font-size: 12pt;
+		  }
 	</style>
 </head>
 <body>
-	<div class="block">
-		<table border="0" cellpadding="0" cellspacing="0" class="table_header">
-			<tbody>
-				<tr class="top">
-					<td width="200px">
-						<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
-					</td>
-					<td align="center">
-						<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
-						</span>
-					</td>
-		
+<table border="0" cellpadding="0" cellspacing="0" class="table_header">
+	<tbody>
+		<tr class="top">
+			<td width="200px">
+				<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
+			</td>
+			<td align="center">
+				<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
+				</span>
+			</td>			
+			
+		</tr>
+</table>
+	<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
+	<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
+	</p>
+
+	
+	<?$ii=1;?>
+	<?foreach ($products as $i){?>
+		<?$wh = "height=\"250\" width=\"250\"";?>
+		<div class="block <?if(($ii%2) == 0){?>odd<?}?>">
+			<div class="description">
+				<p><?=$i['name']?></p>
+			</div>
+			<table cellpadding="0" cellspacing="0">
+				<?if(isset($_POST['price']) == true){?>
+					<tr class="min_price">
+						<td colspan="3">
+							<?if((isset($i['min_opt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']) || (isset($i['min_mopt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
+								<p style="color:#f00;">Товар заблокирован для продажи.<br> Рекомендованная цена: <?="<".($i['min_mopt_price']-0.01)." грн.";?></p>
+							<?}?>
+						</td>
+					</tr>
+				<?}?>
+				<tr class="art">
+					<td colspan="3">Арт. <?=$i['art'];?><?if($i['product_limit'] > 0){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
 				</tr>
-			</tbody>
-		</table>
-		<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
-			<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
-		</p>
-	</div>
-	<?foreach($products as $k=>$i){?>
-		<?$wh = "height=\"120\" width=\"120\"";?>
-		<div class="block">
-			<div class="title">
-				<h4 <?=strlen($i['name']) > 70?' class="small"':null;?>><?=$i['name']?></h4>
-				<div style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
-			</div>
+				<tr class="header">
+					<td class="info"></td>
+					<td class="quantity">кол-во</td>
+					<td class="price">цена</td>
+				</tr>
+				<tr>
+					<td class="info">мин.</td>
+					<td class="quantity"><p><?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?></p></td>
+					<td class="price">
+						<p>
+							<?if($i['inusd'] == 1){?>
+								<?=$i['price_mopt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
+							<?}else{?>
+								<?=$i['price_mopt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+							<?}?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="info">ящ.</td>
+					<td class="quantity"><p><?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?></p></td>
+					<td class="price">
+						<p>
+							<?if($i['inusd'] == 1){?>
+								<?=$i['price_opt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
+							<?}else{?>
+								<?=$i['price_opt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
+							<?}?>
+						</p>
+					</td>
+				</tr>
+			</table>
 			<div class="photo">
-				<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_1']))?>"/>
-				<?if(isset($i['img_2']) && $i['img_2'] != ''){?>
-					<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_2']))?>"/>
-				<?}?>
-				<?if(isset($i['img_3']) && $i['img_3'] != ''){?>
-					<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_3']))?>"/>
-				<?}?>
-			</div>
-			<div class="price">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<thead>
-						<tr>
-							<td>Цена розн.</td>
-							<td>Цена опт.</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>от <?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?> <?=$i['unit']?> <?=$i['qty_control']==1?'*':null;?></td>
-							<td>от <?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?> <?=$i['unit']?> <?=$i['qty_control']==1?'*':null;?><input type="checkbox"></td>
-						</tr>
-						<tr>
-							<td>
-								<?if($i['inusd'] == 1){?>
-									<?=$i['price_mopt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
-								<?}else{?>
-									<?=$i['price_mopt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
-								<?}?>
-							</td>
-							<td>
-								<?if($i['inusd'] == 1){?>
-									<?=$i['price_opt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
-								<?}else{?>
-									<?=$i['price_opt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
-								<?}?>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="info_section">
-				<div class="specifications">
-					<ul>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
-					</ul>
-				</div>
-				<div class="description">
-					<div class="text"><?=$i['descr']?></div>
-				</div>
-				<div class="info">
-					<ul>
-						<li>Ш, см<span><?=$i['width']>0?$i['width']:'&nbsp;';?></span></li>
-						<li>В, см:<span><?=$i['height']>0?$i['height']:'&nbsp;';?></span></li>
-						<li>Д, см:<span><?=$i['length']>0?$i['length']:'&nbsp;';?></span></li>
-						<li>К.О:<span><?=$i['length']>0?$i['length']:'&nbsp;';?></span></li>
-						<li>Вес, кг:<span><?=$i['weight']>0?$i['weight']:'&nbsp;';?></span></li>
-					</ul>
-				</div>
+				<img <?=$wh?> src="<?=$GLOBALS['URL_base'].htmlspecialchars(str_replace("/efiles/image/", "efiles/image/500/", $i['img_1']))?>"/>
 			</div>
 		</div>
-	<?}?>
+	<?$ii++;}?>
 </body>
 </html>

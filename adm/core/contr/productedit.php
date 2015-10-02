@@ -76,9 +76,15 @@ if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_
 $tpl->Assign('list', $list);
 $tpl->Assign('mlist', $products->GetManufacturers());
 
+// get last article
+$sql = "SELECT art AS cnt
+	FROM "._DB_PREFIX_."product
+	WHERE (SELECT MAX(id_product) FROM "._DB_PREFIX_."product) = id_product";
+$res = $db->GetOneRowArray($sql);
+$max_cnt = $res['cnt'];
 //Дубликат товара
 if(isset($_POST['smb_duplicate'])){
-	$_POST['art'] = $GLOBALS['CONFIG']['last_manual_product_article'] + 1;
+	$_POST['art'] = $max_cnt+1;
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
 		$_POST['price'] = 0;
@@ -87,7 +93,7 @@ if(isset($_POST['smb_duplicate'])){
 	if(!$err){
 		if($id = $products->AddProduct($_POST)){
 			$products->UpdateVideo($id, $_POST['video']);
-			header('Location: '.$GLOBALS['URL_base'].'adm/cat/');
+			header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
 			$tpl->Assign('msg', 'Товар добавлен.');
 			unset($_POST);
 		}else{

@@ -4,7 +4,7 @@
 		<ul class="sb_menu">
 			<?if(_acl::isAllow('pages')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'coment'?'class="sel"':null;?>>
-					<a href="/adm/coment/" <?=$commentCount>0?'class="color-red"':null;?>>Отзывы (<?=$commentCount;?>)</a>
+					<a href="/adm/coment/" <?=$commentCount>0?'class="color-red"':null;?>>Вопросы по товару (<?=$commentCount;?>)</a>
 				</li>
 				<li <?=$GLOBALS['CurrentController'] == 'wishes'?'class="sel"':null;?>>
 					<a href="/adm/wishes/" <?=$wishesCount>0?'class="color-red"':null;?>>Пожелания и предложения (<?=$wishesCount;?>)</a>

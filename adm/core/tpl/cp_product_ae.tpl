@@ -5,9 +5,9 @@
 	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid">
 		<div class="prod_head">
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
-				<div class="fl">
-					<span><b>Артикул:</b> <?=isset($_POST['art'])?htmlspecialchars($_POST['art']):null?></span>
-					<span><b>Название:</b> <?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?></span>
+				<div class="fl head_block">
+					<span class="article"><b>Артикул:</b> <?=isset($_POST['art'])?htmlspecialchars($_POST['art']):null?></span>
+					<span class="prod_name"><b>Название:</b> <?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?></span>
 				</div>
 				<div class="fr">
 					<span><b>Наличие:</b> <?=($_POST['price_opt'] > 0 || $_POST['price_mopt'] > 0)  && $_POST['visible'] != 0?'Есть':'Нет'?></span>
@@ -24,7 +24,7 @@
 		<div id="second_navigation">
 			<ul>
 				<?if($GLOBALS['CurrentController'] == 'productedit'){?>
-					<li><a href="#nav_comment">Отзывы</a></li>
+					<li><a href="#nav_comment">Вопросы по товару</a></li>
 				<?}?>
 				<li><a href="#nav_product">Товар</a></li>
 				<li><a href="#nav_seo">SEO</a></li>
@@ -38,7 +38,7 @@
 			</ul>
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 			<div id="nav_comment">
-				<h2>Отзывы</h2>
+				<h2>Вопросы по товару</h2>
 				<?if(isset($list_comment) && count($list_comment)){?>
 					<form action="<?=$GLOBALS['URL_request']?>" method="post">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
@@ -83,11 +83,11 @@
 				<div class="row">
 					<div class="col-md-2">
 						<label for="art">Артикул:</label><?=isset($errm['art'])?"<span class=\"errmsg\">".$errm['art']."</span><br>":null?>
-						<input type="text" name="art" id="art" class="input-l" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$GLOBALS['CONFIG']['last_manual_product_article'] + 1?>">
+						<input type="text" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt+1?>">
 					</div>
 					<div class="col-md-10">
 						<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
-						<input type="text" name="name" id="name" class="input-l" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
+						<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 					</div>
 				</div>
 			</div>
@@ -104,13 +104,13 @@
 						<?}?>
 						<label for="page_title">Мета-заголовок (title):</label>
 						<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
-						<input type="text" name="page_title" id="page_title" class="input-l" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
+						<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
 						<label for="page_description">Мета-описание (description):</label>
 						<?=isset($errm['page_description'])?"<span class=\"errmsg\">".$errm['page_description']."</span><br>":null?>
-						<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-l"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
+						<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-m"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
 						<label for="keywords">Ключевые слова (keywords):</label>
 						<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
-						<textarea class="input-l" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
+						<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 					</div>
 				</div>
 			</div>
@@ -193,11 +193,11 @@
 						</div>
 						<div class="col-md-12">
 							<label for="descr">Описание x-torg.com:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-							<textarea name="descr" id="descr" class="input-l" rows="5" cols="50"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
+							<textarea name="descr" id="descr" class="input-m" rows="5" cols="50"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
 							<label for="descr">Описание xt.ua(краткое):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-							<textarea name="descr_xt_short" id="descr_xt_short" class="input-l" rows="5" cols="50"><?=isset($_POST['descr_xt_short'])?htmlspecialchars($_POST['descr_xt_short']):null?></textarea>
+							<textarea name="descr_xt_short" id="descr_xt_short" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_short'])?htmlspecialchars($_POST['descr_xt_short']):null?></textarea>
 							<label for="descr">Описание xt.ua(полное):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-							<textarea name="descr_xt_full" id="descr_xt_full" class="input-l" rows="5" cols="50"><?=isset($_POST['descr_xt_full'])?htmlspecialchars($_POST['descr_xt_full']):null?></textarea>
+							<textarea name="descr_xt_full" id="descr_xt_full" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_full'])?htmlspecialchars($_POST['descr_xt_full']):null?></textarea>
 							<label for="note_control"><b>Требовать заполнение примечания &nbsp;</b>
 								<input type="checkbox" name="note_control" id="note_control" class="input-m" <?=isset($_POST['note_control'])&&($_POST['note_control'])?'checked="checked" value="on"':null?>>
 							</label>
@@ -208,44 +208,44 @@
 			<div id="nav_params">
 				<h2>Параметры товара</h2>
 				<label for="id_unit_xt">Единицы измерения для x-torg.com</label>
-				<select class="input-l" name="id_unit" id="id_unit_xt" style="width:150px;">
+				<select class="input-m" name="id_unit" id="id_unit_xt" style="width:150px;">
 					<?foreach($unitslist as $value){?>
 						<option value="<?=$value['id']?>"<?=(isset($_POST['id_unit']) && $_POST['id_unit'] == $value['id'])?'selected="true"':null?>><?=$value['unit_xt']?></option>
 					<?}?>
 				</select>
 				<label for="id_unit_prom">Единицы измерения для prom.ua</label>
-				<input type="text" class="input-l" id="id_unit_prom" value="<?=isset($_POST['unit_prom'])?$_POST['unit_prom']:null?>" disabled="disabled" style="width:150px;">
+				<input type="text" class="input-m" id="id_unit_prom" value="<?=isset($_POST['unit_prom'])?$_POST['unit_prom']:null?>" disabled="disabled" style="width:150px;">
 				<label for="max_supplier_qty">Максимальное количество:</label><?=isset($errm['max_supplier_qty'])?"<span class=\"errmsg\">".$errm['max_supplier_qty']."</span><br>":null?>
-				<input type="text" name="max_supplier_qty" id="max_supplier_qty" class="input-l" value="<?=isset($_POST['max_supplier_qty'])?htmlspecialchars($_POST['max_supplier_qty']):1000?>">
+				<input type="text" name="max_supplier_qty" id="max_supplier_qty" class="input-m" value="<?=isset($_POST['max_supplier_qty'])?htmlspecialchars($_POST['max_supplier_qty']):1000?>">
 				<label for="min_mopt_qty">Минимальное количество по мелкому опту:</label><?=isset($errm['min_mopt_qty'])?"<span class=\"errmsg\">".$errm['min_mopt_qty']."</span><br>":null?>
-				<input type="text" name="min_mopt_qty" id="min_mopt_qty" class="input-l" value="<?=isset($_POST['min_mopt_qty'])?htmlspecialchars($_POST['min_mopt_qty']):1?>">
+				<input type="text" name="min_mopt_qty" id="min_mopt_qty" class="input-m" value="<?=isset($_POST['min_mopt_qty'])?htmlspecialchars($_POST['min_mopt_qty']):1?>">
 				<label for="inbox_qty">Количество в ящике:</label><?=isset($errm['inbox_qty'])?"<span class=\"errmsg\">".$errm['inbox_qty']."</span><br>":null?>
-				<input type="text" name="inbox_qty" id="inbox_qty" class="input-l" value="<?=isset($_POST['inbox_qty'])?htmlspecialchars($_POST['inbox_qty']):null?>">
+				<input type="text" name="inbox_qty" id="inbox_qty" class="input-m" value="<?=isset($_POST['inbox_qty'])?htmlspecialchars($_POST['inbox_qty']):null?>">
 				<label for="qty_control">
-					<input style="vertical-align:middle;" type="checkbox" name="qty_control" id="qty_control" class="input-l" <?=isset($_POST['qty_control'])&&($_POST['qty_control'])?'checked="checked" value="on"':null?>>
+					<input style="vertical-align:middle;" type="checkbox" name="qty_control" id="qty_control" class="input-m" <?=isset($_POST['qty_control'])&&($_POST['qty_control'])?'checked="checked" value="on"':null?>>
 					<b>Необходима кратность &nbsp;</b>
 				</label>
 				<input type="hidden" name="price_opt" value="<?=isset($_POST['price_opt'])?htmlspecialchars($_POST['price_opt']):0?>">
-				<input type="hidden" name="price_coefficient_opt" id="price_coefficient_opt" class="input-l" value="<?=isset($_POST['price_coefficient_opt'])?htmlspecialchars($_POST['price_coefficient_opt']):1?>">
+				<input type="hidden" name="price_coefficient_opt" id="price_coefficient_opt" class="input-m" value="<?=isset($_POST['price_coefficient_opt'])?htmlspecialchars($_POST['price_coefficient_opt']):1?>">
 				<input type="hidden" name="price_mopt" value="<?=isset($_POST['price_mopt'])?htmlspecialchars($_POST['price_mopt']):0?>">
-				<input type="hidden" name="price_coefficient_mopt" id="price_coefficient_mopt" class="input-l" value="<?=isset($_POST['price_coefficient_mopt'])?htmlspecialchars($_POST['price_coefficient_mopt']):1?>">
+				<input type="hidden" name="price_coefficient_mopt" id="price_coefficient_mopt" class="input-m" value="<?=isset($_POST['price_coefficient_mopt'])?htmlspecialchars($_POST['price_coefficient_mopt']):1?>">
 			</div>
 			<div id="nav_delivery">
 				<h2>Доставка</h2>
 				<div class="fl">
 					<label for="height">Высота (cм):</label>
-					<input type="number" name="height" id="height" class="input-l" value="<?=isset($_POST['height'])?htmlspecialchars($_POST['height']):0?>">
+					<input type="number" name="height" id="height" class="input-m" value="<?=isset($_POST['height'])?htmlspecialchars($_POST['height']):0?>">
 				</div>
 				<div class="fl">
 					<label for="width">Ширина (см):</label>
-					<input type="number" name="width" id="width" class="input-l" value="<?=isset($_POST['width'])?htmlspecialchars($_POST['width']):0?>">
+					<input type="number" name="width" id="width" class="input-m" value="<?=isset($_POST['width'])?htmlspecialchars($_POST['width']):0?>">
 				</div>
 				<div class="fl">
 					<label for="length">Длина (см):</label>
-					<input type="number" name="length" id="length" class="input-l" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
+					<input type="number" name="length" id="length" class="input-m" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
 				</div>
 				<label for="coefficient_volume">Коэффициент реального обьема:</label>
-				<input type="number" name="coefficient_volume" id="coefficient_volume" class="input-l" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):0?>">
+				<input type="number" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):0?>">
 				<label class="weight">Объем:
 					<span>
 						<?if(isset($_POST['weight']) ){
@@ -259,16 +259,16 @@
 						<?}?>
 					</span>
 				</label>
-				<input type="hidden" name="weight" id="weight" class="input-l" value="<?=isset($_POST['weight'])?htmlspecialchars($_POST['weight']):0?>">
+				<input type="hidden" name="weight" id="weight" class="input-m" value="<?=isset($_POST['weight'])?htmlspecialchars($_POST['weight']):0?>">
 				<label for="volume">Вес:</label><?=isset($errm['volume'])?"<span class=\"errmsg\">".$errm['volume']."</span><br>":null?>
-				<input type="text" name="volume" id="volume" class="input-l" value="<?=isset($_POST['volume'])?htmlspecialchars($_POST['volume']):0?>">
+				<input type="text" name="volume" id="volume" class="input-m" value="<?=isset($_POST['volume'])?htmlspecialchars($_POST['volume']):0?>">
 			</div>
 			<div id="nav_connection">
 				<h2>Категория и связь</h2>
 				<?foreach($_POST['categories_ids'] as $cid){?>
 					<div id="catblock">
 						<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
-						<select name="categories_ids[]" class="input-l">
+						<select name="categories_ids[]" class="input-m">
 						<?foreach($list as $item){?>
 							<option <?=($item['id_category']==$cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 						<?}?>
@@ -338,7 +338,7 @@
 						<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1'])):"/efiles/_thumb/nofoto.jpg"?>">
 					</div>
 					<div class="col-md-10">
-						<input type="text" id="img_1" name="img_1" class="input-l" value="<?=isset($_POST['img_1'])?htmlspecialchars($_POST['img_1']):null?>">
+						<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?htmlspecialchars($_POST['img_1']):null?>">
 					</div>
 				</div>
 				<div class="row" id="preview2">
@@ -346,7 +346,7 @@
 						<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2'])):"/efiles/_thumb/nofoto.jpg"?>">
 					</div>
 					<div class="col-md-10">
-						<input type="text" id="img_2" name="img_2" class="input-l" value="<?=isset($_POST['img_2'])?htmlspecialchars($_POST['img_2']):null?>">
+						<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?htmlspecialchars($_POST['img_2']):null?>">
 					</div>
 				</div>
 				<div class="row" id="preview3">
@@ -354,15 +354,15 @@
 						<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3'])):"/efiles/_thumb/nofoto.jpg"?>">
 					</div>
 					<div class="col-md-10">
-						<input type="text" id="img_3" name="img_3" class="input-l" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
+						<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
 					</div>
 				</div>
 				<label>Видео о товарe:</label>
 				<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
 				<ul class="video_block">
-					<?if(isset($_POST['video'])){
+					<?if(isset($_POST['video']) && !empty($_POST['video'])){
 						foreach ($_POST['video'] as $key => $value) {?>
-							<li><input type="text" name="video[]" class="input-l" value="<?=$value?>"><span class="icon-font remove_video">t</span></li>
+							<li><input type="text" name="video[]" class="input-m" value="<?=$value?>"><span class="icon-font remove_video">t</span></li>
 						<?}
 					}?>
 				</ul>
@@ -412,7 +412,7 @@
 				 	</tbody>
 				</table>
 				<label for="opt_correction_set">Набор корректироки по оптовой цене:</label>
-				<select name="opt_correction_set" id="opt_correction_set" disabled="disabled" class="input-l">
+				<select name="opt_correction_set" id="opt_correction_set" disabled="disabled" class="input-m">
 					<option value="0">Без корректировки</option>
 					<?$i = 0;
 					while(isset($GLOBALS['CONFIG']['correction_set_'.$i])){?>
@@ -421,7 +421,7 @@
 					}?>
 				</select>
 				<label for="mopt_correction_set">Набор корректироки по розничной цене:</label>
-				<select name="mopt_correction_set" id="mopt_correction_set" disabled="disabled" class="input-l">
+				<select name="mopt_correction_set" id="mopt_correction_set" disabled="disabled" class="input-m">
 					<option value="0">Без корректировки</option>
 					<?$i = 0;
 					while(isset($GLOBALS['CONFIG']['correction_set_'.$i])){?>
@@ -486,7 +486,7 @@
 
     	//Добавление видео
     	$(".add_video").on('click', function() {
-    		$(".video_block").append('<li><input type="text" name="video[]" class="input-l"><span class="icon-font remove_video">t</span></li>');
+    		$(".video_block").append('<li><input type="text" name="video[]" class="input-m"><span class="icon-font remove_video">t</span></li>');
     	});
 
     	//Удаление видео

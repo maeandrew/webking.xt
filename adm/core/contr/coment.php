@@ -5,9 +5,10 @@ if(!_acl::isAllow('news')){
 $News = new News();
 // ---- center ----
 unset($parsed_res);
-$tpl->Assign('h1', 'Отзывы');
+$h1 = 'Вопросы по товару';
+$tpl->Assign('h1', $h1);
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Отзывы о товарах";
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $h1;
 // die('Ошибка при формировании списка новостей.');
 if($News->NewsList1()){
 	$tpl->Assign('list', $News->list);

@@ -154,7 +154,11 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 			}
 		}
 		$tpl->Assign("Supplier", $supplier);
-		echo $tpl->Parse($GLOBALS['PATH_root'].'adm/core/tpl/act_supplier_new.tpl');
+		if(isset($_POST['wide'])){
+			echo $tpl->Parse($GLOBALS['PATH_root'].'adm/core/tpl/act_supplier_wide.tpl');
+		}else{
+			echo $tpl->Parse($GLOBALS['PATH_root'].'adm/core/tpl/act_supplier_new.tpl');
+		}
 		exit(0);
 	}
 	if(isset($_FILES["import_file"])){
