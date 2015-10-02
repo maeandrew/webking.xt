@@ -109,10 +109,10 @@
 									</p>
 								</td>
 								<td class="count_cell">
-									<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty']?> шт.<?=$p['qty_control']?" *":null?></p>
+									<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
 								</td>
 								<td class="count_cell">
-									<p id="inbox_qty_<?=$p['id_product']?>"><?=$p['inbox_qty']?> шт.</p>
+									<p id="inbox_qty_<?=$p['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
 								</td>
 							</tr>
 						<?}?>
