@@ -4,3 +4,23 @@
 #pageae .vam {
 	vertical-align: middle;
 }
+#pageae .ru_loc,
+#pageae .ua_loc {
+	font-size: 20px;
+}
+#pageae .ru_loc span {
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	background: url('/adm/images/RU_loc.png') 100% 100% no-repeat;
+	background-size: cover;
+    vertical-align: bottom;
+}
+#pageae .ua_loc span {
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	background: url('/adm/images/UA_loc.png') 100% 100% no-repeat;
+	background-size: cover;
+	vertical-align: bottom;
+}

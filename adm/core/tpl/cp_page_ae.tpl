@@ -4,13 +4,23 @@
 <div id="pageae">
     <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<?if(isset($_POST['id_page']) && $_POST['id_page']){?>
-			<span class="fr"><a href="/page/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
+			<p class="look_page"><a href="/page/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></p>
 		<?}?>
-		<label for="title">Заголовок:</label><?=isset($errm['title'])?'<span class="errmsg">'.$errm['title']."</span><br>":null?>
-		<input type="text" name="title" id="title" class="input-l" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="ru_loc"><span></span> RU</div>
+				<label for="title">Заголовок:</label><?=isset($errm['title'])?'<span class="errmsg">'.$errm['title']."</span><br>":null?>
+				<input type="text" name="title" id="title" class="input-l" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>">
+			</div>
+			<div class="col-md-6">
+				<div class="ua_loc"><span></span> UA</div>
+				<label for="title_ua">Заголовок:</label><?=isset($errm['title_ua'])?'<span class="errmsg">'.$errm['title_ua']."</span><br>":null?>
+				<input type="text" name="title_ua" id="title_ua" class="input-l" value="<?=isset($_POST['title_ua'])?htmlspecialchars($_POST['title_ua']):null?>">
+			</div>
+		</div>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
         <div class="row seo_block">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<label for="page_title">Мета-заголовок (title):</label>
 				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
 				<input type="text" name="page_title" id="page_title" class="input-l" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
@@ -21,6 +31,17 @@
 				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
 				<textarea class="input-l" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
+			<div class="col-md-6">
+				<label for="page_title_ua">Мета-заголовок (title):</label>
+				<?=isset($errm['page_title_ua'])?"<span class=\"errmsg\">".$errm['page_title_ua']."</span><br>":null?>
+				<input type="text" name="page_title_ua" id="page_title_ua" class="input-l" value="<?=isset($_POST['page_title_ua'])?htmlspecialchars($_POST['page_title_ua']):null?>">
+				<label for="page_description_ua">Мета-опис (description):</label>
+				<?=isset($errm['page_description_ua'])?"<span class=\"errmsg\">".$errm['page_description_ua']."</span><br>":null?>
+				<textarea name="page_description_ua" id="page_description_ua" size="20" cols="223" rows="5" class="input-l"><?=isset($_POST['page_description_ua'])?htmlspecialchars($_POST['page_description_ua']):null?></textarea>
+				<label for="keywords_ua">Ключові слова (keywords):</label>
+				<?=isset($errm['page_keywords_ua'])?"<span class=\"errmsg\">".$errm['page_keywords_ua']."</span><br>":null?>
+				<textarea class="input-l" name="page_keywords_ua" id="keywords_ua" cols="10" rows="5"><?=isset($_POST['page_keywords_ua'])?htmlspecialchars($_POST['page_keywords_ua']):null?></textarea>
+			</div>
 		</div>
 		<label for="ptype">Тип страницы:</label><?=isset($errm['ptype'])?'<span class="errmsg">'.$errm['ptype']."</span><br>":null?>
 		<select name="ptype" id="ptype" class="input-l">
@@ -28,10 +49,21 @@
 			 	<option <?=(isset($_POST['ptype'])&&$_POST['ptype']==$pt['name'])?'selected="true"':null?> value="<?=$pt['name']?>"><?=$pt['caption']?></option>
 			 <?}?>
 		</select>
-		<label for="pcontent">Текст:</label><?=isset($errm['pcontent'])?"<span class=\"errmsg\">".$errm['pcontent']."</span><br>":null?>
-		<textarea name="pcontent" id="pcontent" rows="38" cols="200" class="hidden"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
-		<div id="edit-container">
-			<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></div>
+		<div class="row">
+			<div class="col-md-6">
+				<label for="pcontent">Текст:</label><?=isset($errm['pcontent'])?"<span class=\"errmsg\">".$errm['pcontent']."</span><br>":null?>
+				<textarea name="pcontent" id="pcontent" rows="38" cols="200" class="hidden"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
+				<div id="edit-container">
+					<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label for="pcontent_ua">Текст:</label><?=isset($errm['pcontent_ua'])?"<span class=\"errmsg\">".$errm['pcontent_ua']."</span><br>":null?>
+				<textarea name="pcontent_ua" id="pcontent_ua" rows="38" cols="200" class="hidden">cvbhhrt<?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></textarea>
+				<div id="edit-container_ua">
+					<div id="editor_ua" onkeyup="moreStuff2();"><?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></div>
+				</div>
+			</div>
 		</div>
 		<p>
 			<b>Страница скрытая &nbsp;</b>
@@ -41,14 +73,23 @@
 		<button name="smb" type="submit" class="save-btn btn-l-default">Сохранить</button>
     </form>
 </div>
-<?='<script>
-var editor = ace.edit(\'editor\');
-editor.setTheme(\'ace/theme/dreamviewer\');
-//editor.setTheme(\'ace/theme/clouds_midnight\');
-editor.setFontSize(15);
-editor.getSession().setUseWrapMode(true);
-editor.getSession().setMode(\'ace/mode/html\');
-function moreStuff(){
-	document.getElementById(\'pcontent\').value = editor.getValue();
-}
-</script>';?>
+<script>
+	var editor = ace.edit('editor');
+	editor.setTheme('ace/theme/dreamviewer');
+	//editor.setTheme('ace/theme/clouds_midnight');
+	editor.setFontSize(15);
+	editor.getSession().setUseWrapMode(true);
+	editor.getSession().setMode('ace/mode/html');
+	function moreStuff(){
+		document.getElementById('pcontent').value = editor.getValue();
+	}
+	var editor_ua = ace.edit("editor_ua");
+	editor_ua.setTheme("ace/theme/dreamweaver");
+	//editor.setTheme("ace/theme/clouds_midnight");
+	editor_ua.setFontSize(15);
+	editor_ua.getSession().setUseWrapMode(true);
+	editor_ua.getSession().setMode("ace/mode/html");
+	function moreStuff2(){
+		document.getElementById('pcontent_ua').value = editor_ua.getValue();
+	}
+</script>

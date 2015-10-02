@@ -17,7 +17,7 @@
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
-		if($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 482 && empty($GLOBALS['subcats'])){
+		// if($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 482 && empty($GLOBALS['subcats'])){
 			if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
 				<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
 			<?}else{?>
@@ -29,9 +29,9 @@
 			if(isset($GLOBALS['meta_prev'])){?>
 				<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
 			<?}
-		}else{?>
-			<link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/>
-		<?}
+		// }else{?>
+		 	<!-- <link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/> -->
+		<?//}
 	}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>

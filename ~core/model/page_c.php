@@ -8,7 +8,9 @@ class Page {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id_page', 'title', 'translit', 'content', 'new_content', 'ord', 'visible', 'ptype', 'page_title', 'page_description', 'page_keywords');
+		$this->usual_fields = array('id_page', 'title', 'title_ua', 'translit', 'content', 'content_ua', 'new_content',
+									'ord', 'visible', 'ptype', 'page_title', 'page_title_ua', 'page_description',
+									'page_description_ua', 'page_keywords', 'page_keywords_ua');
 	}
 	// Страница по транслиту
 	public function SetFieldsByTranslit($translit, $all = 0){
@@ -86,15 +88,27 @@ class Page {
 	// Добавить статью
 	public function AddPage($arr){
 		$title = mysql_real_escape_string(trim($arr['title']));
+		$title_ua = mysql_real_escape_string(trim($arr['title_ua']));
 		$content = mysql_real_escape_string(trim($arr['pcontent']));
+		$content_ua = mysql_real_escape_string(trim($arr['pcontent_ua']));
+		$page_description = mysql_real_escape_string(trim($arr['page_description']));
+		$page_description_ua = mysql_real_escape_string(trim($arr['page_description_ua']));
+		$page_title = mysql_real_escape_string(trim($arr['page_title']));
+		$page_title_ua = mysql_real_escape_string(trim($arr['page_title_ua']));
+		$page_keywords = mysql_real_escape_string(trim($arr['page_keywords']));
+		$page_keywords_ua = mysql_real_escape_string(trim($arr['page_keywords_ua']));
 		$ptype = mysql_real_escape_string(trim($arr['ptype']));
 		$translit = G::StrToTrans($title);
 		$visible = 1;
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$visible = 0;
 		}
-		$sql = "INSERT INTO "._DB_PREFIX_."page (title, translit, content, visible, ptype)
-			VALUES ('".$title."', '".$translit."', '".$content."', ".$visible.", '".$ptype."')";
+		$sql = "INSERT INTO "._DB_PREFIX_."page (title, title_ua, translit, content, content_ua,
+												 page_description, page_description_ua, page_title, page_title_ua,
+												 page_keywords, page_keywords_ua, visible, ptype)
+				VALUES ('".$title."', '".$title_ua."', '".$translit."', '".$content."', '".$content_ua."',
+						'".$page_description."', '".$page_description_ua."', '".$page_title."', '".$page_title_ua."',
+						'".$page_keywords."', '".$page_keywords_ua."', ".$visible.", '".$ptype."')";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$id_page = $this->db->GetInsId();
 		return $id_page;
@@ -104,10 +118,15 @@ class Page {
 	public function UpdatePage($arr){
 		$id_page = mysql_real_escape_string(trim($arr['id_page']));
 		$title = mysql_real_escape_string(trim($arr['title']));
+		$title_ua = mysql_real_escape_string(trim($arr['title_ua']));
 		$page_description = mysql_real_escape_string(trim($arr['page_description']));
+		$page_description_ua = mysql_real_escape_string(trim($arr['page_description_ua']));
 		$page_title = mysql_real_escape_string(trim($arr['page_title']));
+		$page_title_ua = mysql_real_escape_string(trim($arr['page_title_ua']));
 		$page_keywords = mysql_real_escape_string(trim($arr['page_keywords']));
+		$page_keywords_ua = mysql_real_escape_string(trim($arr['page_keywords_ua']));
 		$content = mysql_real_escape_string(trim($arr['pcontent']));
+		$content_ua = mysql_real_escape_string(trim($arr['pcontent_ua']));
 		$ptype = mysql_real_escape_string(trim($arr['ptype']));
 		$translit = G::StrToTrans($title);
 		$visible = 1;
@@ -116,12 +135,17 @@ class Page {
 		}
 		$sql = "UPDATE "._DB_PREFIX_."page
 			SET title = '".$title."',
+				title_ua = '".$title_ua."',
 				translit = '".$translit."',
 				content = '".$content."',
+				content_ua = '".$content_ua."',
 				ptype = '".$ptype."',
 				page_description = '".$page_description."',
+				page_description_ua = '".$page_description_ua."',
 				page_title = '".$page_title."',
+				page_title_ua = '".$page_title_ua."',
 				page_keywords = '".$page_keywords."',
+				page_keywords_ua = '".$page_keywords_ua."',
 				visible = ".$visible."
 			WHERE id_page = ".$id_page;
 		//return true;

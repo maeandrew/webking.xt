@@ -1,4 +1,7 @@
 <?php
+if(!_acl::isAllow('news')){
+	die("Access denied");
+}
 $News = new News();
 unset($parsed_res);
 $tpl->Assign('h1', 'Добавление новости');

@@ -13,6 +13,8 @@ if(isset($_POST['smb'])){
     if(!$err){
     	if($id = $Page->AddPage($_POST)){
 			$tpl->Assign('msg', 'Страница добавлена.');
+			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base']."adm/pageedit/".$id."'\", 2000);</script>";
+    		//header('Location: '.$GLOBALS['URL_base'].'adm/pageedit/'.$id);
 			unset($_POST);
 		}else{
 			$tpl->Assign('msg', 'Страница не добавлена.');

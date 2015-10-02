@@ -399,12 +399,14 @@ select[class*=" input-"][class*="-l "] {
 }
 
 /* BACKGROUNDS */
-#edit-container {
+#edit-container,
+#edit-container_ua {
 	position: relative;
 	width: 100%;
 	height: 700px;
 }
-#editor {
+#editor,
+#editor_ua {
 	position: absolute;
 	top: 0;
 	bottom: 0;
