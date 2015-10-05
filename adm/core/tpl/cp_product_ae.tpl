@@ -435,10 +435,8 @@
 					</div>
 					<label>Просмотры на сайте: <span><?=$_POST['count_views']?></span></label>
 				<?}?>
-				<?if(in_array($_SESSION['member']['gid'], array(_ACL_CATEGORY_MANAGER_, _ACL_ADMIN_))){?>
-					<label for="notation_price">Примечание: </label>
-					<textarea name="notation_price" id="notation_price" cols="30" rows="10"><?=isset($_POST['notation_price'])?htmlspecialchars($_POST['notation_price']):null?></textarea>
-				<?}?>
+				<label for="notation_price">Примечание: </label>
+				<textarea name="notation_price" id="notation_price" cols="30" rows="10"><?=isset($_POST['notation_price'])?htmlspecialchars($_POST['notation_price']):null?></textarea>
 			</div>
 			<div id="nav_visible">
 				<h2>Видемость и индексация</h2>

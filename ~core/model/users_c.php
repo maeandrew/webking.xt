@@ -102,14 +102,18 @@ class Users {
 	}
 
 	// Список пользователей (0 - только видимые. 1 - все, и видимые и невидимые)
-	public function UsersList($param=0, $and=false){
+	public function UsersList($param=0, $and=false, $limit = ""){
+		if($limit != ""){
+			$limit = " limit $limit";
+		}
 		if($param == 0){
 			$and['active'] = "1";
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."user
 			".$this->db->GetWhere($and)."
-			order by gid,name";
+			order by gid,name, id_user desc
+			$limit";
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;

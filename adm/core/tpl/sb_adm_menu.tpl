@@ -153,6 +153,9 @@
 						<a href="/adm/users/<?=_ACL_MODERATOR_?>">Администраторы наполнения</a>
 					</li>
 					<li>
+						<a href="/adm/users/<?=_ACL_SEO_optimizator_?>">СЕО-оптимизаторы</a>
+					</li>
+					<li>
 						<a href="/adm/users/<?=_ACL_CUSTOMER_?>">Покупатели</a>
 						<a href="/adm/customeradd/" class="add <?=$GLOBALS['CurrentController'] == 'customeradd'?'sel':null;?>" title="Добавить покупателя">Добавить покупателя</a>
 					</li>
@@ -173,6 +176,9 @@
 				<ul class="sb_menusub">
 					<li <?=$GLOBALS['CurrentController'] == 'adminadd'?'class="sel"':null;?>>
 						<a href="/adm/adminadd/">Добавить администратора</a>
+					</li>
+					<li <?=$GLOBALS['CurrentController'] == 'seoadd'?'class="sel"':null;?>>
+						<a href="/adm/SEO_optimizatoradd/">Добавить СЕО-оптимизатора</a>
 					</li>
 					<li <?=$GLOBALS['CurrentController'] == 'customeradd'?'class="sel"':null;?>>
 						<a href="/adm/customeradd/">Добавить покупателя</a>

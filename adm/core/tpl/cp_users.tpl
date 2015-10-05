@@ -1,6 +1,7 @@
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
+<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
 <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		    <col width="40%">
@@ -43,3 +44,4 @@
 			</tbody>
 		</table>
 </form>
+<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>

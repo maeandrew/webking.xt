@@ -167,7 +167,7 @@
 <script type="text/javascript">
 	$(function(){
 		var onclick='SetSpecToCat(<?=$_POST['id_category']?>, $(\'#sid\').val())';
-		$('button').attr('onclick', onclick);
+		$('button.addspec').attr('onclick', onclick);
 
 		'use strict';
 		var url = '/adm/catedit/?upload=true';
