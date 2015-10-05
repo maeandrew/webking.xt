@@ -18,7 +18,7 @@ class Products {
 			"p.visible", "p.ord", "p.note_control", "un.unit_xt AS units", "p.prod_status", "p.old_price_mopt",
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
-			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description", "p.page_keywords", "p.count_views", "p.indexation");
+			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description", "p.page_keywords", "p.count_views", "notation_price", "p.indexation");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
@@ -1412,6 +1412,8 @@ class Products {
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
 		$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
 		$f['create_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		$f['notation_price'] = mysql_real_escape_string(trim($arr['notation_price']));
 		// Добавляем товар в бд
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
@@ -1522,6 +1524,7 @@ class Products {
 			$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 			$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] === "on" || $arr['note_control'] == "1"))?1:0;
 			$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
+			$f['notation_price'] = mysql_real_escape_string(trim($arr['notation_price']));
 			$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		}
 		$this->db->StartTrans();

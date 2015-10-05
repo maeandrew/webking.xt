@@ -39,7 +39,6 @@ elseif(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
 	$products->UpdateProduct(array('id_product'=>$id_product));
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
-$tpl->Assign('h1', 'Редактирование товара');
 if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
@@ -116,6 +115,7 @@ if(!isset($_POST['smb'])){
 		$_POST[$k] = $v;
 	}
 }
+$tpl->Assign('h1', $_POST['name']);
 $parsed_res = array(
 	'issuccess' => true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_product_ae.tpl')

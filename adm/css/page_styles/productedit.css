@@ -29,9 +29,6 @@
 #productae #preview3 input {
 	margin-top: 13px;
 }
-#productae form .article {
-	margin-right: 20px;
-}
 #productae #translit {
 	margin: 0;
 }
@@ -92,9 +89,8 @@
 }
 #productae .head_block .article {
 	display: block;
-}
-#productae .prod_name {
-	display: block;
+	font-size: 15px;
+    line-height: 30px;
 }
 #second_navigation {
 	display: none;

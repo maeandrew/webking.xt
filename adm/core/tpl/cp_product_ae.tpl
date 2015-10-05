@@ -7,7 +7,6 @@
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 				<div class="fl head_block">
 					<span class="article"><b>Артикул:</b> <?=isset($_POST['art'])?htmlspecialchars($_POST['art']):null?></span>
-					<span class="prod_name"><b>Название:</b> <?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?></span>
 				</div>
 				<div class="fr">
 					<span><b>Наличие:</b> <?=($_POST['price_opt'] > 0 || $_POST['price_mopt'] > 0)  && $_POST['visible'] != 0?'Есть':'Нет'?></span>
@@ -26,13 +25,12 @@
 				<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 					<li><a href="#nav_comment">Вопросы по товару</a></li>
 				<?}?>
-				<li><a href="#nav_product">Товар</a></li>
+				<li><a href="#nav_product">Товар, фото, видео</a></li>
 				<li><a href="#nav_seo">SEO</a></li>
 				<li><a href="#nav_content">Контент товара</a></li>
 				<li><a href="#nav_params">Параметры товара</a></li>
 				<li><a href="#nav_delivery">Доставка</a></li>
 				<li><a href="#nav_connection">Категория и связь</a></li>
-				<li><a href="#nav_photo">Фото, видео</a></li>
 				<li><a href="#nav_information">Информация</a></li>
 				<li><a href="#nav_visible">Видемость и индексация</a></li>
 			</ul>
@@ -90,6 +88,40 @@
 						<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 					</div>
 				</div>
+				<label>Изображения товара:</label>
+				<div class="row" id="preview1">
+					<div class="col-md-2">
+						<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1'])):"/efiles/_thumb/nofoto.jpg"?>">
+					</div>
+					<div class="col-md-10">
+						<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?htmlspecialchars($_POST['img_1']):null?>">
+					</div>
+				</div>
+				<div class="row" id="preview2">
+					<div class="col-md-2">
+						<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2'])):"/efiles/_thumb/nofoto.jpg"?>">
+					</div>
+					<div class="col-md-10">
+						<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?htmlspecialchars($_POST['img_2']):null?>">
+					</div>
+				</div>
+				<div class="row" id="preview3">
+					<div class="col-md-2">
+						<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3'])):"/efiles/_thumb/nofoto.jpg"?>">
+					</div>
+					<div class="col-md-10">
+						<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
+					</div>
+				</div>
+				<label>Видео о товарe:</label>
+				<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
+				<ul class="video_block">
+					<?if(isset($_POST['video']) && !empty($_POST['video'])){
+						foreach ($_POST['video'] as $key => $value) {?>
+							<li><input type="text" name="video[]" class="input-m" value="<?=$value?>"><span class="icon-font remove_video">t</span></li>
+						<?}
+					}?>
+				</ul>
 			</div>
 			<div id="nav_seo">
 				<h2>SEO</h2>
@@ -330,43 +362,6 @@
 					</div>
 				<?}?>
 			</div>
-			<div id="nav_photo">
-				<h2>Фото, видео</h2>
-				<label>Изображения товара:</label>
-				<div class="row" id="preview1">
-					<div class="col-md-2">
-						<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1'])):"/efiles/_thumb/nofoto.jpg"?>">
-					</div>
-					<div class="col-md-10">
-						<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?htmlspecialchars($_POST['img_1']):null?>">
-					</div>
-				</div>
-				<div class="row" id="preview2">
-					<div class="col-md-2">
-						<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2'])):"/efiles/_thumb/nofoto.jpg"?>">
-					</div>
-					<div class="col-md-10">
-						<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?htmlspecialchars($_POST['img_2']):null?>">
-					</div>
-				</div>
-				<div class="row" id="preview3">
-					<div class="col-md-2">
-						<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3'])):"/efiles/_thumb/nofoto.jpg"?>">
-					</div>
-					<div class="col-md-10">
-						<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
-					</div>
-				</div>
-				<label>Видео о товарe:</label>
-				<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
-				<ul class="video_block">
-					<?if(isset($_POST['video']) && !empty($_POST['video'])){
-						foreach ($_POST['video'] as $key => $value) {?>
-							<li><input type="text" name="video[]" class="input-m" value="<?=$value?>"><span class="icon-font remove_video">t</span></li>
-						<?}
-					}?>
-				</ul>
-			</div>
 			<div id="nav_information">
 				<h2>Информация</h2>
 				<label>Данные поставщика:</label>
@@ -439,6 +434,10 @@
 						Редактор: <b><?=isset($_POST['username'])?$_POST['username']:'-'?></b>
 					</div>
 					<label>Просмотры на сайте: <span><?=$_POST['count_views']?></span></label>
+				<?}?>
+				<?if(in_array($_SESSION['member']['gid'], array(_ACL_CATEGORY_MANAGER_, _ACL_ADMIN_))){?>
+					<label for="notation_price">Примечание: </label>
+					<textarea name="notation_price" id="notation_price" cols="30" rows="10"><?=isset($_POST['notation_price'])?htmlspecialchars($_POST['notation_price']):null?></textarea>
 				<?}?>
 			</div>
 			<div id="nav_visible">
