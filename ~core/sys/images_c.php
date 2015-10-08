@@ -23,7 +23,12 @@ class Images {
 		$response = $destination;
 		return $response;
 	}
-
+	/**
+	 * Ресайз изображений товаров
+	 * @param  boolean $resize_all 	Если true - запустить ресайз всех фото, по умолчанию - не обработанных
+	 * @param  string  $date       	Дата, начиная с которой произвести ресайз
+	 * @return array              	Массив, содержащий информацию об ошибках и о произведенных действиях
+	 */
 	function resize($resize_all = false, $date = null){
 		$response = array();
 		$img_arr = glob($GLOBALS['PATH_product_img'].'original/*/*/*/*');
@@ -76,7 +81,7 @@ class Images {
 			if(mkdir($structure, 0777, true)){
 				$response['msg']['structure'][] = 'Created new structure - '.$structure;
 			}else{
-				$response['error']['structure'][] = 'Couldn\'t create structure - '.$structure; 
+				$response['error']['structure'][] = 'Couldn\'t create structure - '.$structure;
 			}
 			umask($old_umask);
 		}

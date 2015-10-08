@@ -14,6 +14,7 @@ $config = array (
 	'URL_js'			=> $baseUrl.'adm/js/',
 
 	'PATH_root'			=> $root,
+	'PATH_global_root'	=> $root.'../',
 	'PATH_core'			=> $root.'core/',
 	'PATH_sys'			=> $root.'../~core/sys/',
 	'PATH_model'		=> $root.'../~core/model/',

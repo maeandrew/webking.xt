@@ -5093,3 +5093,13 @@
 11:55:32 01.10.2015  SQL error - INSERT INTO xt_video (`id_product`, `url`) VALUES ("", "fffffff")
 11:56:06 01.10.2015  SQL error - INSERT INTO xt_video (`id_product`, `url`) VALUES ("", "fffffff")
 11:57:30 01.10.2015  SQL error - INSERT INTO xt_video (`url`) VALUES ("fffffff")
+02:59:21 07.10.2015  SQL Error - SELECT p.id_product
+			FROM xt_product AS p
+			WHERE p.art = 
+03:00:38 07.10.2015  SQL Error - SELECT p.id_product
+			FROM xt_product AS p
+			WHERE p.art = 
+03:41:31 08.10.2015  SQL Error - SELECT url
+			FROM xt_image
+			WHERE id_product = 126933
+			ORDER BY ord

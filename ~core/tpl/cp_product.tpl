@@ -226,7 +226,7 @@
 			<div id="tabs">
 				<ul class="tabs">
 					<!-- <li><a href="#tabs-1" class="tab">Характеристики</a></li> -->
-					<li><a href="#tabs-2" class="tab">Отзывы</a></li>
+					<li><a href="#tabs-2" class="tab">Отзывы и вопросы</a></li>
 					<li><a href="#tabs-3" class="tab">Оплата</a></li>
 					<li><a href="#tabs-4" class="tab">Доставка</a></li>
 					<li><a href="#tabs-5" class="tab">Фото</a></li>

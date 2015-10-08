@@ -8,7 +8,21 @@ unset($parsed_res);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $products = new Products();
 $Unit = new Unit();
+$Images = new Images();
 //print_r($_POST);die();
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
+	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	exit(0);
+}
+// $f['images'] = $product['images'];
+// foreach(explode(';', $product['images']) as $k=>$image){
+// 	$newname = $data['art'].($k == 0?'':'-'.$k).'.jpg';
+// 	$structure = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+// 	$images->checkStructure($structure);
+// 	copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $image), $structure.$newname);
+// 	$images->resize();
+// }
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
@@ -18,7 +32,22 @@ if(isset($_POST['smb'])){
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
 		if($id = $products->AddProduct($_POST)){
-			$products->UpdateVideo($id, $_POST['video']);
+			//Добавление видео
+			if(!empty($_POST['video'])){
+				$products->UpdateVideo($id, $_POST['video']);
+			}
+			//Добавление фото
+			$article = $products->GetArtByID($id);
+			foreach($_POST['images'] as $k=>$image){
+				$newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+				$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+				$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
+				$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+				rename($path.$file['basename'], $path.$newname);
+				$images_arr[] = $bd_path.'/'.$newname;
+			}
+			$Images->resize();
+			$products->UpdatePhoto($id, $images_arr);
 			$tpl->Assign('msg', 'Товар добавлен.');
 			unset($_POST);
 		}else{

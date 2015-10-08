@@ -49,8 +49,8 @@
 			<input class="vam input-l wa" type="text" name="limit_from" placeholder="с какого начать"/>
 			<input class="vam input-l wa" type="text" name="limit_howmuch" placeholder="сколько выбрать"/>
 		</p>
-		<input type="hidden" name="id_news" id="id_news" value="<?=isset($_POST['id_news'])?$_POST['id_news']:0;?>"/>
-		<button name="smb" type="submit" id="form_submit1" class="save-btn btn-l-default">Сохранить</button>
-		<input name="test_distribution" type="submit" id="form_subm1it" class="btn-l-blue" value="Тестовая рассылка" />
+		<input type="hidden" name="id_news" id="id_news" value="<?=isset($_POST['id_news'])?$_POST['id_news']:0;?>">
+		<input name="smb" type="submit" id="form_submit1" class="save-btn btn-l-default" value="Сохранить">
+		<input name="test_distribution" type="submit" id="form_subm1it" class="btn-l-blue" value="Тестовая рассылка">
     </form>
 </div>

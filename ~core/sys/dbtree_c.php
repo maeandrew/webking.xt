@@ -873,7 +873,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY '.$this->table_left;
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -885,9 +885,47 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE xt_category.pid = '.$ID.' AND visible = 1 ORDER BY '.$this->table_left;
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE xt_category.pid = '.$ID.' AND visible = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
+	}
+
+	public function GetAllCats($fields, $level){
+		if(is_array($fields)){
+			$fields = implode(', ', $fields);
+		}else{
+			$fields = '*';
+		}
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' ORDER BY position';
+		$res = $this->db->GetArray($sql);
+		return $res;
+	}
+
+	public function GetAllSubCats($ID, $fields){
+		$ID = mysql_real_escape_string($ID);
+		if(is_array($fields)){
+			$fields = implode(', ', $fields);
+		}else{
+			$fields = '*';
+		}
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE xt_category.pid = '.$ID.' ORDER BY position';
+		$res = $this->db->GetArray($sql);
+		return $res;
+	}
+
+	//Обновление позиции категории
+	public function UpdateCatPosition($pos, $cat_id){
+		$category_id = mysql_real_escape_string($cat_id);
+		$position = mysql_real_escape_string($pos);
+		$sql = 'UPDATE xt_category SET position = "'.$position.'" WHERE id_category = "'.$category_id.'"';
+		$this->db->StartTrans();
+		if($this->db->Execute($sql)){
+			$this->db->CompleteTrans();
+			return true;
+		}else{
+			$this->db->FailTrans();
+			return false;
+		}
 	}
 
 	public function GetTagsLevelsList($category_id){

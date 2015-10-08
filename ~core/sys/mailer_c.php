@@ -665,7 +665,11 @@ class Mailer extends PHPMailer {
 		global $db;
 		// Добавляем адрес в список получателей
 		if(isset($params['test_distribution'])){
-			$clients[] = array('email' => $GLOBALS['CONFIG']['mail_email_test']);
+			$clients[] = array(
+				'email'	=> $GLOBALS['CONFIG']['mail_email_test'],
+				'name'	=> 'Test',
+				'skey'	=> null
+			);
 		}else{
 			$limit = '';
 			if(isset($params['limit_from']) && $params['limit_from'] != '' && isset($params['limit_howmuch']) && $params['limit_howmuch'] != ''){

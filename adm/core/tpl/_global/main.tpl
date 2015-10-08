@@ -20,6 +20,7 @@
 	<link type="image/x-icon" href="/adm/favicon.ico" rel="shortcut icon"/>
 	<script type="text/javascript" src="/adm/js/ace/ace.js"></script>
 	<script type="text/javascript" src="/adm/js/Chart.min.js"></script>
+	<script type="text/javascript" src="/plugins/dropzone.js"></script>
 </head>
 <body class="bg-retina_dust">
 	<div id="back_modal" class="hidden"></div>

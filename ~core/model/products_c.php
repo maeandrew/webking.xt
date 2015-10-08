@@ -126,6 +126,19 @@ class Products {
 		$this->fields = $arr[0];
 		return true;
 	}
+
+	//Артикул по Id
+	public function GetArtByID($id){
+		$sql = "SELECT art
+			FROM "._DB_PREFIX_."product
+			WHERE id_product = ".$id;
+		$arr = $this->db->GetOneRowArray($sql);
+		if(!$arr){
+			return false;
+		}else{
+			return $arr;
+		}
+	}
 	// // Товар по id
 	// public function SetFieldsById($id_product, $all=0){
 	// 	$visible = "AND p.visible = 1";
@@ -208,6 +221,47 @@ class Products {
 		}
 		unset($f);
 		$this->db->CompleteTrans();
+		return true;//Если все ок
+	}
+
+	//Фото по Id
+	public function GetPhotoById($id){
+		$sql = "SELECT src
+			FROM "._DB_PREFIX_."image
+			WHERE id_product = ".$id."
+			ORDER BY ord";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		 foreach ($arr as $value) {
+			$res[] = $value['src'];
+		}
+		return $res;
+	}
+
+	//Добавление и удаление фото
+	public function UpdatePhoto($id_product, $arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		$f['id_product'] = mysql_real_escape_string(trim($id_product));
+		foreach ($arr as $k=>$src) {
+			if(empty($src)){
+				return false; //Если URL пустой
+			}
+			$f['src'] = mysql_real_escape_string(trim($src));
+			$f['ord'] = mysql_real_escape_string(trim($k));
+			$this->db->StartTrans();
+			if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
+				$this->db->FailTrans();
+				return false; //Если не удалось записать в базу
+			}
+			$this->db->CompleteTrans();
+		}
+		unset($id_product);
+		unset($f);
 		return true;//Если все ок
 	}
 
@@ -1392,10 +1446,23 @@ class Products {
 		$f['name'] = mysql_real_escape_string(trim($arr['name']));
 		$f['translit'] = G::StrToTrans($arr['name']);
 		$f['descr'] = mysql_real_escape_string(trim($arr['descr']));
+		$f['descr_xt_short'] = mysql_real_escape_string(trim($arr['descr_xt_short']));
+		$f['descr_xt_full'] = mysql_real_escape_string(trim($arr['descr_xt_full']));
 		$f['country'] = mysql_real_escape_string(trim($arr['country']));
-		$f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
-		$f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
-		$f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+		// $f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
+		// $f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
+		// $f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+		if($arr['images'] != ''){
+			foreach($_POST['images'] as $k=>$image){
+				$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
+				$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+				$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+				$images_arr[] = $bd_path.'/'.$newname;
+			}
+			$f['img_1'] = mysql_real_escape_string(trim(isset($images_arr['0'])?$images_arr['0']:null));
+			$f['img_2'] = mysql_real_escape_string(trim(isset($images_arr['1'])?$images_arr['1']:null));
+			$f['img_3'] = mysql_real_escape_string(trim(isset($images_arr['2'])?$images_arr['2']:null));
+		}
 		$f['sertificate'] = mysql_real_escape_string(trim($arr['sertificate']));
 		$f['price_opt'] = mysql_real_escape_string(trim($arr['price_opt']));
 		$f['price_mopt'] = mysql_real_escape_string(trim($arr['price_mopt']));
@@ -1405,7 +1472,14 @@ class Products {
 		$f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
 		$f['price_coefficient_opt'] = mysql_real_escape_string(trim($arr['price_coefficient_opt']));
 		$f['price_coefficient_mopt'] = mysql_real_escape_string(trim($arr['price_coefficient_mopt']));
-		$f['weight'] = mysql_real_escape_string(trim($arr['weight']));
+		$f['height'] = mysql_real_escape_string(trim($arr['height']));
+		$f['width'] = mysql_real_escape_string(trim($arr['width']));
+		$f['length'] = mysql_real_escape_string(trim($arr['length']));
+		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
+			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
+		}else{
+			$f['weight'] = mysql_real_escape_string(trim($arr['weight']));
+		}
 		$f['volume'] = mysql_real_escape_string(trim($arr['volume']));
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
@@ -1488,9 +1562,14 @@ class Products {
 			$f['descr_xt_short'] = mysql_real_escape_string(trim($arr['descr_xt_short']));
 			$f['descr_xt_full'] = mysql_real_escape_string(trim($arr['descr_xt_full']));
 			//$f['country'] = mysql_real_escape_string(trim($arr['country']));
-			$f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
-			$f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
-			$f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+			// $f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
+			// $f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
+			// $f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+			if($arr['images'] != ''){
+				$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images'][0])?$arr['images'][0]:null));
+				$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images'][1])?$arr['images'][1]:null));
+				$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images'][2])?$arr['images'][2]:null));
+			}
 			if(isset($arr['page_description'])){
 				$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
 			}

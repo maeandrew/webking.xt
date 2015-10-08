@@ -13,6 +13,7 @@ $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $Unit = new Unit();
 $products = new Products();
 $News = new News();
+$Images = new Images();
 if($News->GetCommentListById($id_product)){
 	$tpl->Assign('list_comment', $News->list);
 }
@@ -26,15 +27,19 @@ $tpl->Assign('product_specs', $specification->list);
 $specification->SetList();
 $tpl->Assign('specs', $specification->list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
-if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
+
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
+	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	exit(0);
+}elseif(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	if($_GET['id_spec_prod'] == ''){
 		$specification->AddSpecToProd($_GET, $id_product);
 	}else {
 		$specification->UpdateSpecsInProducts($_GET);
 	}
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
-}
-elseif(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
+}elseif(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
 	$specification->DelSpecFromProd($_GET['id_spec_prod']);
 	$products->UpdateProduct(array('id_product'=>$id_product));
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
@@ -46,8 +51,52 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	}
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
+		if(!empty($_POST['images'])){
+			//Добавление фото
+			foreach($_POST['images'] as $k=>$image){
+				if(IsRenameNeeded($image)){
+					$to_rename[$k] = $image;
+				}
+			}
+			if(isset($to_rename) && !empty($to_rename)){
+				$i = 0;
+				foreach($to_rename as $key => $value){
+					$newname = $_POST['art'].'-'.(count($_POST['images'])-count($to_rename)+$i+1).'.jpg';
+
+					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
+					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
+					rename($path.$file['basename'], $path.$newname);
+					$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
+					$i++;
+				}
+			}
+			print_r($_POST['images']);
+			// foreach($_POST['images'] as $k=>$image){
+			// 	$newname = $_POST['art'].($k == 0?'':'-'.$k).'.jpg';
+			// 	// print_r($newname);
+			// 	// print_r('<br>');
+			// 	// print_r($image);
+			// 	// print_r('<br>');
+			// 	$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+			// 	if(strpos($image, str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']))){
+			// 		$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
+			// 		$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+			// 	}else{
+			// 		$path = $GLOBALS['PATH_root'].'..'.$file['dirname'].'/';
+			// 		$bd_path = $file['dirname'];
+			// 	}
+			// 	// print_r($path.$newname);
+			// 	// print_r('<br>');
+			// 	rename($path.$file['basename'], $path.$newname);
+			// }
+			$Images->resize();
+		}
 		if($id = $products->UpdateProduct($_POST)){
-			$products->UpdateVideo($id_product, $_POST['video']);
+			if(!empty($_POST['video'])){
+				$products->UpdateVideo($id_product, $_POST['video']);
+			}
+
+			$products->UpdatePhoto($id_product, $_POST['images']);
 			$tpl->Assign('msg', 'Товар обновлен.');
 			if(isset($_POST['smb_new'])){
 				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
@@ -108,9 +157,11 @@ if(isset($_POST['smb_duplicate'])){
 //Заполнение массива POST
 if(!isset($_POST['smb'])){
 	$video = $products->GetIdByVideo($id_product);
+	$photo = $products->GetPhotoById($id_product);
 	$_POST['id_product'] = 0;
 	$prod_fields = $products->fields;
 	$prod_fields['video'] = $video;
+	$prod_fields['images'] = $photo;
 	foreach($prod_fields as $k=>$v){
 		$_POST[$k] = $v;
 	}
@@ -138,5 +189,12 @@ if(isset($category['id_category'])){
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Редактирование товара";
 if(true == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
+}
+
+function IsRenameNeeded($path){
+	if(file_exists($GLOBALS['PATH_root'].'..'.$path)){
+		return false;
+	}
+	return true;
 }
 ?>

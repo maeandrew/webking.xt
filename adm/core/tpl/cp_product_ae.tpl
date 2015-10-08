@@ -113,6 +113,33 @@
 						<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
 					</div>
 				</div>
+				<label>Изображения товара:</label>
+				<div id="photobox">
+					<div class="previews">
+						<?if(isset($_POST['images']) && !empty($_POST['images'])){
+							foreach ($_POST['images'] as $photo){?>
+								<div class="image_block dz-preview dz-processing dz-success dz-complete dz-image-preview">
+									<div class="sort_handle"><span class="icon-font">s</span></div>
+									<div class="image">
+										<img data-dz-thumbnail src="<?=$photo?>"/>
+									</div>
+									<div class="name">
+										<span class="dz-filename" data-dz-name><?=$photo?></span>
+										<span class="dz-size" data-dz-size></span>
+									</div>
+									<div class="controls">
+										<a href="#"><span class="icon-font" data-dz-remove>t</span></a>
+									</div>
+									<input type="hidden" name="images[]" value="<?=$photo?>">
+								</div>
+							<?}
+						}?>
+					</div>
+					<div class="image_block_new drop_zone animate">
+						<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+						<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+					</div>
+				</div>
 				<label>Видео о товарe:</label>
 				<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
 				<ul class="video_block">
@@ -223,6 +250,7 @@
 							<input type="text" class="units_input input-m" <?=$i == 0?'disabled="disabled"':null;?>>
 							<button class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?> onclick="insertSpecToProd($(this));">Добавить</button>
 						</div>
+					<?}?>
 						<div class="col-md-12">
 							<label for="descr">Описание x-torg.com:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
 							<textarea name="descr" id="descr" class="input-m" rows="5" cols="50"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
@@ -234,7 +262,6 @@
 								<input type="checkbox" name="note_control" id="note_control" class="input-m" <?=isset($_POST['note_control'])&&($_POST['note_control'])?'checked="checked" value="on"':null?>>
 							</label>
 						</div>
-					<?}?>
 				</div>
 			</div>
 			<div id="nav_params">
@@ -450,6 +477,21 @@
 		</div>
 	</form>
 </div>
+<div id="preview-template" style="display: none;">
+	<div class="image_block dz-preview dz-file-preview">
+		<div class="sort_handle"><span class="icon-font">s</span></div>
+		<div class="image">
+			<img data-dz-thumbnail />
+		</div>
+		<div class="name">
+			<span class="dz-filename" data-dz-name></span>
+			<span class="dz-size" data-dz-size></span>
+		</div>
+		<div class="controls">
+			<a href="#"><span class="icon-font" data-dz-remove>t</span></a>
+		</div>
+	</div>
+</div>
 <div id="templates" class="hidden">
 	<div id="catblock">
 		<select name="categories_ids[]" class="input-m">
@@ -463,6 +505,7 @@
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
+	var url = URL_base+"productadd/";
 	$(function(){
 		$("#article").keyup(function() {
 			var inputvalue = $(this).val();
@@ -492,7 +535,76 @@
     			$(this).parent().remove();
     		}
     	});
+
+    	//$('#photobox').removeClass('ajax_loading');
+		// $('#editbox input, #editbox textarea, #editbox select').on('blur', function(){
+		// 	askaboutleave();
+		// });
+		// $('[data-dz-remove]').click(function(e){
+		// 	if(confirm('Изобрежение будет удалено.')){
+		// 		askaboutleave();
+		// 		removeimage($(this).closest('.image_block').find('[data-dz-name]').text());
+		// 		$(this).closest('.image_block').remove();
+		// 	}
+		// });
+
+		//Загрузка Фото на сайт
+		var dropzone = new Dropzone(".drop_zone", {
+			method: 'POST',
+			url: url+"?upload=true",
+			clickable: true,
+			previewsContainer: '.previews',
+			previewTemplate: document.querySelector('#preview-template').innerHTML
+		});
+		dropzone.on('addedfile', function(file){
+			askaboutleave();
+		}).on('removedfile', function(file){
+			//removeimage(file.name);
+			//$('input[value="'+file.name+'"]').remove();
+			console.log(file.name);
+		}).on('success', function(data, path){
+			$('.previews .image_block:last').append('<input type="hidden" name="images[]" value="'+path+'">');
+		});
+
+		//Сортировка фото
+		$('.previews').sortable({
+			items: ".image_block",
+			handle: ".sort_handle",
+			connectWith: ".previews",
+			containment: ".previews",
+			placeholder: "ui-sortable-placeholder",
+			axis: "y",
+			scroll: false,
+			tolerance: "pointer"
+		});
 	});
+
+	function removeimage(name){
+		$.ajax({
+			url: url+"?remove=true",
+			type: 'POST',
+			data: {
+				image: name,
+			}
+		}).done(function(data){
+			var images = $('#photobox').find('input[name="images"]').val().split(';');
+			var index = images.indexOf(data);
+			console.log(images);
+			console.log(index);
+			images.splice(index, 1);
+			console.log(images);
+			$('#photobox').find('input[name="images"]').val(images.join(';'));
+		});
+	}
+
+	function askaboutleave(){
+		if(!asking){
+			var asking = true;
+			$(window).bind('beforeunload', function(){
+				return 'Все изменнения будут утеряны. Все загруженные фото будут удалены.';
+			});
+		}
+	}
 	function insertValueLink(link) {
 		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
 			id_spec = link.closest('tr').find('[name="id_spec"]').val(),

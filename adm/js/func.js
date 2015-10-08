@@ -125,3 +125,18 @@ function dropComent(id){
 		$('.coment'+id).remove();
 	});
 }
+function SendCatOrder(order){
+	$('.wrapp').addClass('ajax_loading');
+	$(this).css('background', '#f00');
+	$.ajax({
+		url: URL_base+'ajax_cat/?'+order,
+		type: "POST",
+		cache: false,
+		dataType : "json",
+		data: {
+			"action":"sort_category"
+		}
+	}).done(function(){
+		$('.wrapp').removeClass('ajax_loading');
+	});
+}
