@@ -202,7 +202,7 @@
 	position: absolute;
 	top: -1px;
 	right: 0px;
-	width: 82px;
+	width: 76px;
 	padding: 3px;
 	text-align: center;
 	border: none;
@@ -272,6 +272,10 @@
 	display: block;
 	float: right;
 	width: 100%;
+	color: #444;
+}
+#photobox .image_block .controls a:hover {
+	color: #f00;
 }
 #photobox .image_block .controls a,
 #photobox .image_block .controls a:hover {
@@ -307,4 +311,7 @@
 	text-align: center;
 	font-weight: bold;
 	clear: both;
+}
+.new_file {
+	background: #EEFFF8 !important;
 }

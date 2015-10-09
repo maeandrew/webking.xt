@@ -128,7 +128,7 @@
 										<span class="dz-size" data-dz-size></span>
 									</div>
 									<div class="controls">
-										<a href="#"><span class="icon-font" data-dz-remove>t</span></a>
+										<a href="#"><span class="icon-font del_photo_js" data-dz-remove>t</span></a>
 									</div>
 									<input type="hidden" name="images[]" value="<?=$photo?>">
 								</div>
@@ -536,18 +536,6 @@
     		}
     	});
 
-    	//$('#photobox').removeClass('ajax_loading');
-		// $('#editbox input, #editbox textarea, #editbox select').on('blur', function(){
-		// 	askaboutleave();
-		// });
-		// $('[data-dz-remove]').click(function(e){
-		// 	if(confirm('Изобрежение будет удалено.')){
-		// 		askaboutleave();
-		// 		removeimage($(this).closest('.image_block').find('[data-dz-name]').text());
-		// 		$(this).closest('.image_block').remove();
-		// 	}
-		// });
-
 		//Загрузка Фото на сайт
 		var dropzone = new Dropzone(".drop_zone", {
 			method: 'POST',
@@ -557,13 +545,18 @@
 			previewTemplate: document.querySelector('#preview-template').innerHTML
 		});
 		dropzone.on('addedfile', function(file){
-			askaboutleave();
+			//askaboutleave();
 		}).on('removedfile', function(file){
 			//removeimage(file.name);
-			//$('input[value="'+file.name+'"]').remove();
-			console.log(file.name);
+			var date = new Date(),
+				year = date.getFullYear(),
+				month = date.getMonth(),
+				day = date.getDate(),
+				removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+			//console.log(file);
 		}).on('success', function(data, path){
-			$('.previews .image_block:last').append('<input type="hidden" name="images[]" value="'+path+'">');
+			$('.previews img[alt="'+data.name+'"]').closest('.image_block').addClass('new_file').append('<input type="hidden" name="images[]" value="'+path+'">');
 		});
 
 		//Сортировка фото
@@ -577,34 +570,17 @@
 			scroll: false,
 			tolerance: "pointer"
 		});
+
+		//Удаление фото
+		$('.del_photo_js').on('click', function(event) {
+			event.preventDefault();
+			var path = $(this).closest('.image_block'),
+				removed_file  = path.find('input[name="images[]"]').val();
+			$(this).closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+			path.remove();
+		});
 	});
 
-	function removeimage(name){
-		$.ajax({
-			url: url+"?remove=true",
-			type: 'POST',
-			data: {
-				image: name,
-			}
-		}).done(function(data){
-			var images = $('#photobox').find('input[name="images"]').val().split(';');
-			var index = images.indexOf(data);
-			console.log(images);
-			console.log(index);
-			images.splice(index, 1);
-			console.log(images);
-			$('#photobox').find('input[name="images"]').val(images.join(';'));
-		});
-	}
-
-	function askaboutleave(){
-		if(!asking){
-			var asking = true;
-			$(window).bind('beforeunload', function(){
-				return 'Все изменнения будут утеряны. Все загруженные фото будут удалены.';
-			});
-		}
-	}
 	function insertValueLink(link) {
 		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
 			id_spec = link.closest('tr').find('[name="id_spec"]').val(),

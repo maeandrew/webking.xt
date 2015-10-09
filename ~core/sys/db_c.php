@@ -270,6 +270,7 @@ class mysqlDb {
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
 		$this->sql = $sql;
+		print_r($sql);
 		return $this->Query($sql);
 	}
 

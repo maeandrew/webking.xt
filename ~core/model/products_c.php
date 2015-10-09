@@ -247,18 +247,20 @@ class Products {
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_product'] = mysql_real_escape_string(trim($id_product));
-		foreach ($arr as $k=>$src) {
-			if(empty($src)){
-				return false; //Если URL пустой
+		if(isset($arr) && !empty($arr)){
+			foreach ($arr as $k=>$src) {
+				if(empty($src)){
+					return false; //Если URL пустой
+				}
+				$f['src'] = mysql_real_escape_string(trim($src));
+				$f['ord'] = mysql_real_escape_string(trim($k));
+				$this->db->StartTrans();
+				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+				$this->db->CompleteTrans();
 			}
-			$f['src'] = mysql_real_escape_string(trim($src));
-			$f['ord'] = mysql_real_escape_string(trim($k));
-			$this->db->StartTrans();
-			if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
-				$this->db->FailTrans();
-				return false; //Если не удалось записать в базу
-			}
-			$this->db->CompleteTrans();
 		}
 		unset($id_product);
 		unset($f);
@@ -1417,6 +1419,8 @@ class Products {
 
 	public function UpdateSitePricesMassive($arr){
 		foreach($arr AS $k=>$a){
+			print_r($a);
+			print_r('<br>');
 			$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
 			$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
 			$f['filial'] = $a['filial'];
@@ -1427,6 +1431,7 @@ class Products {
 			}
 			$this->db->CompleteTrans();
 		}
+		die();
 		return true;
 	}
 
@@ -1452,16 +1457,22 @@ class Products {
 		// $f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
 		// $f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
 		// $f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
-		if($arr['images'] != ''){
-			foreach($_POST['images'] as $k=>$image){
-				$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
-				$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-				$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
-				$images_arr[] = $bd_path.'/'.$newname;
+		if(isset($arr['images']) && $arr['images'] != ''){
+			if(isset($arr['smb_duplicate'])){
+					$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images']['0'])?$arr['images']['0']:null));
+					$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images']['1'])?$arr['images']['1']:null));
+					$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images']['2'])?$arr['images']['2']:null));
+			}else{
+				foreach($arr['images'] as $k=>$image){
+					$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
+					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+					$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+					$images_arr[] = $bd_path.'/'.$newname;
+				}
+				$f['img_1'] = mysql_real_escape_string(trim(isset($images_arr['0'])?$images_arr['0']:null));
+				$f['img_2'] = mysql_real_escape_string(trim(isset($images_arr['1'])?$images_arr['1']:null));
+				$f['img_3'] = mysql_real_escape_string(trim(isset($images_arr['2'])?$images_arr['2']:null));
 			}
-			$f['img_1'] = mysql_real_escape_string(trim(isset($images_arr['0'])?$images_arr['0']:null));
-			$f['img_2'] = mysql_real_escape_string(trim(isset($images_arr['1'])?$images_arr['1']:null));
-			$f['img_3'] = mysql_real_escape_string(trim(isset($images_arr['2'])?$images_arr['2']:null));
 		}
 		$f['sertificate'] = mysql_real_escape_string(trim($arr['sertificate']));
 		$f['price_opt'] = mysql_real_escape_string(trim($arr['price_opt']));
@@ -1565,10 +1576,14 @@ class Products {
 			// $f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
 			// $f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
 			// $f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
-			if($arr['images'] != ''){
+			if(isset($arr['images']) && $arr['images'] != ''){
 				$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images'][0])?$arr['images'][0]:null));
 				$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images'][1])?$arr['images'][1]:null));
 				$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images'][2])?$arr['images'][2]:null));
+			}else{
+				$f['img_1'] = null;
+				$f['img_2'] = null;
+				$f['img_3'] = null;
 			}
 			if(isset($arr['page_description'])){
 				$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
@@ -2960,6 +2975,18 @@ class Products {
 			OR img_2 LIKE '%".$image."'
 			OR img_3 LIKE '%".$image."'
 			OR images LIKE '%".$image."%'";
+		$arr = $this->db->GetOneRowArray($sql);
+		if($arr['count'] > 1){
+			return false;
+		}
+		return true;
+	}
+
+	//Проверка наличия картинки в базах
+	public function CheckImages($path){
+		$sql = "SELECT COUNT(id) AS count
+			FROM "._DB_PREFIX_."image
+			WHERE src LIKE '%".$path."'";
 		$arr = $this->db->GetOneRowArray($sql);
 		if($arr['count'] > 1){
 			return false;

@@ -3,6 +3,7 @@ class Images {
 	private $img_info;
 	private $valid_extensions;
 	private $sizes;
+	private $default_folder;
 
 	function __construct(){
 		$this->valid_extensions = array('image/jpeg');
@@ -11,9 +12,9 @@ class Images {
 			'small' => array('w' => 250, 'h' => 250),
 			'medium' => array('w' => 500, 'h' => 500)
 		);
+		$this->default_folder = 'original';
 	}
 	function upload($files, $path){
-		// print_r($files);
 		$this->checkStructure($path);
 		$tmp_name = $files["file"]["tmp_name"];
 		$name = $files["file"]["name"];
@@ -31,12 +32,12 @@ class Images {
 	 */
 	function resize($resize_all = false, $date = null){
 		$response = array();
-		$img_arr = glob($GLOBALS['PATH_product_img'].'original/*/*/*/*');
+		$img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/*/*');
 		foreach($img_arr as $filename){
 			$this->img_info = array_merge(getimagesize($filename), pathinfo($filename));
 			if(in_array($this->img_info['mime'], $this->valid_extensions)){
 				foreach($this->sizes as $name => $size){
-					$structure = str_replace('original', $name, $this->img_info['dirname'].'/');
+					$structure = str_replace($this->default_folder, $name, $this->img_info['dirname'].'/');
 					$this->checkStructure($structure);
 					if(($resize_all == true || !file_exists($structure.$this->img_info['basename'])) && file_exists($structure)){
 						$res = imagecreatetruecolor($size['w'], $size['h']);
@@ -67,9 +68,19 @@ class Images {
 		return $response;
 	}
 
-	function remove($file, $path){
-		if(file_exists($path.$file)){
-			unlink($path.$file);
+	/**
+	 * Удаление файлов
+	 * @param  string	$path		полный физический путь к файлу
+	 * @return bool					true - успех, false - файла не существуе
+	 */
+	function remove($path){
+		if(file_exists($path)){
+			if(strpos($path, $this->default_folder) !== false){
+				foreach($this->sizes as $name=>$size){
+					$this->remove(str_replace($this->default_folder, $name, $path));
+				}
+			}
+			unlink($path);
 			return true;
 		}
 		return false;
@@ -85,5 +96,24 @@ class Images {
 			}
 			umask($old_umask);
 		}
+	}
+
+	/**
+	 * Удаление всех размеров, которых нет в default_folder
+	 * @return array 	количество удаленных файлов по папкам
+	 */
+	function clearThumbs(){
+		foreach($this->sizes AS $size=>$v){
+			$count[$size] = 0;
+			$img_arr = glob($GLOBALS['PATH_product_img'].$size.'/*/*/*/*');
+			foreach($img_arr as $filename){
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				if(!file_exists(str_replace($size, 'original', $img_info['dirname'].'/'.$img_info['basename']))){
+					$this->remove($img_info['dirname'].'/'.$img_info['basename']);
+					$count[$size]++;
+				}
+			}
+		}
+		return $count;
 	}
 }?>

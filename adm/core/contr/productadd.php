@@ -15,14 +15,6 @@ if(isset($_GET['upload']) == true){
 	echo str_replace($GLOBALS['PATH_root'], '/', $res);
 	exit(0);
 }
-// $f['images'] = $product['images'];
-// foreach(explode(';', $product['images']) as $k=>$image){
-// 	$newname = $data['art'].($k == 0?'':'-'.$k).'.jpg';
-// 	$structure = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-// 	$images->checkStructure($structure);
-// 	copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $image), $structure.$newname);
-// 	$images->resize();
-// }
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы

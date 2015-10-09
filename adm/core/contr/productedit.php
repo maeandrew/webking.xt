@@ -51,18 +51,33 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	}
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
-		if(!empty($_POST['images'])){
+		if(isset($_POST['images']) && !empty($_POST['images'])){
 			//Добавление фото
 			foreach($_POST['images'] as $k=>$image){
 				if(IsRenameNeeded($image)){
 					$to_rename[$k] = $image;
+				}else{
+					$no_rename[$k] = $image;
 				}
 			}
-			if(isset($to_rename) && !empty($to_rename)){
+			//Высчитываем номер посл. добавленной картинки
+			if(isset($no_rename) && !empty($no_rename)){
 				$i = 0;
+				foreach ($no_rename as $k=>$value) {
+					$img_info = pathinfo($value);
+					$num_arr = explode('-',$img_info['filename']);
+					$num = array_pop($num_arr);
+					if($num > $i){
+						$i = $num;
+					}
+				}
+			}else{
+				$i = 0;
+			}
+			if(isset($to_rename) && !empty($to_rename)){
 				foreach($to_rename as $key => $value){
-					$newname = $_POST['art'].'-'.(count($_POST['images'])-count($to_rename)+$i+1).'.jpg';
-
+					//$newname = $_POST['art'].'-'.(count($_POST['images'])-count($to_rename)+$i+1).'.jpg';
+					$newname = $_POST['art'].'-'.($i+1).'.jpg';
 					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
 					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
 					rename($path.$file['basename'], $path.$newname);
@@ -70,32 +85,20 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$i++;
 				}
 			}
-			print_r($_POST['images']);
-			// foreach($_POST['images'] as $k=>$image){
-			// 	$newname = $_POST['art'].($k == 0?'':'-'.$k).'.jpg';
-			// 	// print_r($newname);
-			// 	// print_r('<br>');
-			// 	// print_r($image);
-			// 	// print_r('<br>');
-			// 	$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-			// 	if(strpos($image, str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']))){
-			// 		$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
-			// 		$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
-			// 	}else{
-			// 		$path = $GLOBALS['PATH_root'].'..'.$file['dirname'].'/';
-			// 		$bd_path = $file['dirname'];
-			// 	}
-			// 	// print_r($path.$newname);
-			// 	// print_r('<br>');
-			// 	rename($path.$file['basename'], $path.$newname);
-			// }
+			//Физическое удалание файлов
+			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
+				foreach($_POST['removed_images'] as $k=>$path){
+					if($products->CheckImages($path)){
+						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
+					}
+				}
+			}
 			$Images->resize();
 		}
 		if($id = $products->UpdateProduct($_POST)){
 			if(!empty($_POST['video'])){
 				$products->UpdateVideo($id_product, $_POST['video']);
 			}
-
 			$products->UpdatePhoto($id_product, $_POST['images']);
 			$tpl->Assign('msg', 'Товар обновлен.');
 			if(isset($_POST['smb_new'])){
@@ -141,6 +144,7 @@ if(isset($_POST['smb_duplicate'])){
 	if(!$err){
 		if($id = $products->AddProduct($_POST)){
 			$products->UpdateVideo($id, $_POST['video']);
+			$products->UpdatePhoto($id, $_POST['images']);
 			header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
 			$tpl->Assign('msg', 'Товар добавлен.');
 			unset($_POST);
@@ -192,7 +196,10 @@ if(true == $parsed_res['issuccess']){
 }
 
 function IsRenameNeeded($path){
-	if(file_exists($GLOBALS['PATH_root'].'..'.$path)){
+	$path_arr = explode('/', $path);
+	$file_name = array_pop($path_arr);
+	$exists = glob($GLOBALS['PATH_product_img'].'original/*/*/*/'.$file_name);
+	if(!empty($exists) && file_exists($GLOBALS['PATH_product_img'].'..'.$path)){
 		return false;
 	}
 	return true;

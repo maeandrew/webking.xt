@@ -90,7 +90,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		exit(0);
 	}elseif(isset($_GET['remove']) == true){
 		if($products->CheckPhotosOnModeration($_POST['image'])){
-			$Images->remove($_POST['image'], $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/");
+			$Images->remove($GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
 		}
 		echo str_replace($GLOBALS['PATH_root'], '/', $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
 		exit(0);
