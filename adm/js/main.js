@@ -1,13 +1,6 @@
 $(function(){
 	/**------------------ Страница редактирования тегов категории --------------------*/
 
-	// Отмена стандартного обработчика у ссылки c #
-	$('a').click(function(event) {
-		if($(this).attr('href') == '#'){
-			event.preventDefault();
-		}
-	});
-
 	// Слушатель клавиш
 	$('.tagrow textarea').keydown(function(e){
 		var code = e.keyCode || e.which;
