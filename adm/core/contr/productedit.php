@@ -28,11 +28,7 @@ $specification->SetList();
 $tpl->Assign('specs', $specification->list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
 
-if(isset($_GET['upload']) == true){
-	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
-	echo str_replace($GLOBALS['PATH_root'], '/', $res);
-	exit(0);
-}elseif(isset($_GET['action']) && $_GET['action'] == "update_spec"){
+if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	if($_GET['id_spec_prod'] == ''){
 		$specification->AddSpecToProd($_GET, $id_product);
 	}else {
@@ -52,6 +48,14 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
 		if(isset($_POST['images']) && !empty($_POST['images'])){
+			//Физическое удалание файлов
+			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
+				foreach($_POST['removed_images'] as $k=>$path){
+					if($products->CheckImages($path)){
+						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
+					}
+				}
+			}
 			//Добавление фото
 			foreach($_POST['images'] as $k=>$image){
 				if(IsRenameNeeded($image)){
@@ -85,21 +89,13 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$i++;
 				}
 			}
-			//Физическое удалание файлов
-			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
-				foreach($_POST['removed_images'] as $k=>$path){
-					if($products->CheckImages($path)){
-						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
-					}
-				}
-			}
 			$Images->resize();
 		}
 		if($id = $products->UpdateProduct($_POST)){
 			if(!empty($_POST['video'])){
 				$products->UpdateVideo($id_product, $_POST['video']);
 			}
-			$products->UpdatePhoto($id_product, $_POST['images']);
+			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
 			$tpl->Assign('msg', 'Товар обновлен.');
 			if(isset($_POST['smb_new'])){
 				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');

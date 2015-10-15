@@ -5103,3 +5103,10 @@
 			FROM xt_image
 			WHERE id_product = 126933
 			ORDER BY ord
+12:35:53 14.10.2015  SQL Error - SELECT tp.id, tp.name, tp.descr, tp.img_1, tp.img_2, tp.img_3, tp.id_unit, tp.min_mopt_qty, tp.inbox_qty, tp.price_mopt, tp.price_opt, tp.qty_control, tp.weight, tp.volume, tp.product_limit, tp.id_supplier, tp.moderation_status, tp.comment, tp.creation_date, tp.images,
+			ms.name AS status_name
+			FROM xt_temp_products AS tp
+			LEFT JOIN xt_moderation_statuses AS ms
+				ON ms.id = tp.moderation_status
+			WHERE tp.id = ?upload=true
+03:51:21 15.10.2015  SQL error - UPDATE xt_wishes SET visible = 0 WHERE id_wishes = 

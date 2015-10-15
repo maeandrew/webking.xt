@@ -17,6 +17,7 @@ G::AddCSS('highslide.css');
 G::AddJS('jquery-2.1.1.min.js');
 G::AddJS('jquery.lazyload.min.js');
 G::AddJS('jquery-ui.js');
+G::AddJS('bootstrap.min.js');
 G::AddJS('main.js');
 G::AddJS('func.js');
 $GLOBALS['__page_h1'] = '&nbsp;';

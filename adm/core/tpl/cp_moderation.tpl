@@ -28,6 +28,7 @@
 							<div><?=$p['qty_control'] == 1?'+':'';?></div>
 							<div><?=isset($p['inbox_qty'])? $p['inbox_qty']:null;?></div>
 							<div><?=isset($p['product_limit'])? $p['product_limit']:null;?></div>
+							<?php print_r($p['creation_date']) ?>
 							<div><?=isset($p['creation_date'])? date("d-m-Y", strtotime($p['creation_date'])):null;?></div>
 						</section>
 						<section class="edit">
@@ -152,20 +153,26 @@ function DeclineProduct(id){
 function AcceptProduct(id){
 	var categories = new Array();
 	$('#product-'+id+' .category').each(function(){
-		categories.push($(this).val());
+		if($(this).val() != ''){
+			categories.push($(this).val());
+		};
 	});
-	$.ajax({
-		url: url,
-		type: 'post',
-		data: {
-			action: 'accept',
-			id: id,
-			category: categories,
-			status: '2'
-		}
-	}).done(function(){
-		// $('#product-'+id).slideUp();
-	});
+	if(categories.length <= 1){
+		alert('Выберите категорию для данного товара!');
+	}else{
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: {
+				action: 'accept',
+				id: id,
+				category: categories,
+				status: '2'
+			}
+		}).done(function(){
+			$('#product-'+id).slideUp();
+		});
+	}
 }
 
 $(function(){

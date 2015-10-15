@@ -1,3 +1,8 @@
+/*GLOBAL =====================================================================*/
+.dz-success {
+	background: #EEFFF8 !important;
+}
+
 #productae {
 	background: #fff;
 }
@@ -11,68 +16,6 @@
     z-index: 100;
     -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#productae .product_view {
-	margin-top: 2px;
-}
-#productae #preview1,
-#productae #preview2,
-#productae #preview3 {
-	height: 70px;
-	display: block;
-	text-align: left;
-	vertical-align: middle;
-	padding: 5px 0 5px 5px;
-}
-#productae #preview1 input,
-#productae #preview2 input,
-#productae #preview3 input {
-	margin-top: 13px;
-}
-#productae form .article {
-	margin-right: 20px;
-}
-#productae #translit {
-	margin: 0;
-}
-#productae #translit label {
-	color: #000;
-}
-#productae #translit p {
-	float: left;
-}
-#productae .refresh_btn {
-	display: inline-block;
-	text-decoration: none;
-	cursor: pointer;
-	margin: 0 5px;
-	font-weight: bold;
-    font-size: 17px;
-    color: #989898;
-}
-#productae #addlink {
-	margin-top: 10px;
-}
-#productae #addlink a.dashed  {
-	border-bottom-width: 1px;
-	border-bottom-style: dashed;
-	text-decoration: none;
-}
-#productae #addlink a.dashed:hover {
-	text-decoration: none !important;
-	border-bottom-style: none;
-}
-#productae .units_block {
-}
-#productae .units_input {
-	width: 100px;
-	margin-bottom: 1px;
-}
-#productae .select_unit {
-	width: 285px;
-}
-#productae .edition {
-	margin: 10px 0;
 }
 #productae .prod_head {
 	overflow: hidden;
@@ -92,18 +35,71 @@
 }
 #productae .head_block .article {
 	display: block;
+	font-size: 15px;
+    line-height: 30px;
 }
-#productae .prod_name {
-	display: block;
+#productae .product_view {
+	margin-top: 2px;
 }
+
+/*Section SEO ================================================================*/
+
+#productae #translit {
+	margin: 0;
+}
+#productae #translit label {
+	color: #000;
+}
+#productae #translit p {
+	float: left;
+}
+#productae .refresh_btn {
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	margin: 0 5px;
+	font-weight: bold;
+    font-size: 17px;
+    color: #989898;
+}
+
+/*Section Category and connection ============================================*/
+
+#productae #addlink {
+	margin-top: 10px;
+}
+#productae #addlink a.dashed  {
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	text-decoration: none;
+}
+#productae #addlink a.dashed:hover {
+	text-decoration: none !important;
+	border-bottom-style: none;
+}
+
+/*Section Product content ====================================================*/
+
+#productae .units_input {
+	width: 100px;
+	margin-bottom: 1px;
+}
+#productae .select_unit {
+	width: 285px;
+}
+
+/*Section Information ========================================================*/
+
+#productae .edition {
+	margin: 10px 0;
+}
+
 #second_navigation {
-	display: none;
+	/*display: none;*/
 	overflow: hidden;
 	margin-bottom: 20px;
 }
-#second_navigation ul {
-	position: relative;
-}
+
 #nav_comment .list tbody td.actions a {
 	cursor: pointer;
 	color: #444;
@@ -118,37 +114,43 @@
 #nav_delivery .weight span {
 	font-weight: normal;
 }
-#nav_product .add_video {
-	font-weight: normal;
-	padding: 10px 0;
-	display: inline-block;
+
+/*Second Navigation ==========================================================*/
+
+.nav {
+	position: relative;
+	width: 20%;
+	padding-right: 20px;
+	float: left;
+	padding-bottom: 20px;
 }
-#nav_product .add_video span.icon-font {
-	cursor: pointer;
-	font-size: 15px;
-	vertical-align: bottom;
-	color: #2E62CF;
+.nav li a {
+	outline: none;
+	text-decoration: none;
+	display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
 }
-#nav_product .video_block {
-	list-style-type: decimal;
-	width: 98%;
-    float: right;
+.nav li.active a {
+	color: #fff;
+    background-color: #00aff0;
+    border-color: #00aff0;
 }
-#nav_product .video_block input {
-	width: 95%;
-	margin-bottom: 20px;
+.tabs-panel {
+	width: 80%;
+	float: right;
+	padding-bottom: 20px;
 }
-#nav_product .video_block span.remove_video {
-	font-size: 18px;
-    width: 5%;
-    display: inline-block;
-    text-align: center;
-    cursor: pointer;
+.tabs-panel div[id^='nav_'] {
+	padding-top: 70px;
 }
-#nav_product .video_block span.remove_video:hover {
-	color: #f00;
+.tabs-panel div[id^='nav_']:first-of-type {
+	padding-top: 0;
 }
-.ui-tabs-vertical {
+
+/*.ui-tabs-vertical {
 	display: block !important;
 	clear: both;
 }
@@ -156,13 +158,11 @@
 	width: 20%;
 	padding-right: 20px;
 	float: left;
-	/*background-color: #F56363;*/
 	padding-bottom: 20px;
 }
 .ui-tabs-panel {
 	width: 80%;
 	float: right;
-	/*background-color: #9EF995;*/
 	padding-bottom: 20px;
 }
 .ui-tabs-vertical .ui-tabs-nav li a {
@@ -178,8 +178,25 @@
 	color: #fff;
     background-color: #00aff0;
     border-color: #00aff0;
-}
+}*/
 
+
+/*Section Product, Photo, Video ==============================================*/
+
+#productae #preview1,
+#productae #preview2,
+#productae #preview3 {
+	height: 70px;
+	display: block;
+	text-align: left;
+	vertical-align: middle;
+	padding: 5px 0 5px 5px;
+}
+#productae #preview1 input,
+#productae #preview2 input,
+#productae #preview3 input {
+	margin-top: 13px;
+}
 #photobox {
 	position: relative;
 	clear: both;
@@ -272,17 +289,18 @@
 	width: 30px;
 	float: right;
 }
-#photobox .image_block .controls a {
+#photobox .image_block .controls p {
 	display: block;
 	float: right;
 	width: 100%;
 	color: #444;
+	cursor: pointer;
 }
-#photobox .image_block .controls a:hover {
+#photobox .image_block .controls p:hover {
 	color: #f00;
 }
-#photobox .image_block .controls a,
-#photobox .image_block .controls a:hover {
+#photobox .image_block .controls p,
+#photobox .image_block .controls p:hover {
 	text-decoration: none;
 	text-align: center;
 	/*margin-right: 1em;*/
@@ -315,5 +333,35 @@
 	text-align: center;
 	font-weight: bold;
 	clear: both;
+}
+#nav_product .add_video {
+	font-weight: normal;
+	padding: 10px 0;
+	display: inline-block;
+}
+#nav_product .add_video span.icon-font {
+	cursor: pointer;
+	font-size: 15px;
+	vertical-align: bottom;
+	color: #2E62CF;
+}
+#nav_product .video_block {
+	list-style-type: decimal;
+	width: 98%;
+    float: right;
+}
+#nav_product .video_block input {
+	width: 95%;
+	margin-bottom: 20px;
+}
+#nav_product .video_block span.remove_video {
+	font-size: 18px;
+    width: 5%;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+#nav_product .video_block span.remove_video:hover {
+	color: #f00;
 }
 

@@ -30,17 +30,22 @@ if(isset($_POST['smb'])){
 			}
 			//Добавление фото
 			$article = $products->GetArtByID($id);
-			foreach($_POST['images'] as $k=>$image){
-				$newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-				$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-				$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
-				$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
-				rename($path.$file['basename'], $path.$newname);
-				$images_arr[] = $bd_path.'/'.$newname;
+			if(isset($_POST['images'])){
+				foreach($_POST['images'] as $k=>$image){
+					$newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
+					$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+					rename($path.$file['basename'], $path.$newname);
+					$images_arr[] = $bd_path.'/'.$newname;
+				}
+			}else{
+				$images_arr =  array();
 			}
 			$Images->resize();
 			$products->UpdatePhoto($id, $images_arr);
 			$tpl->Assign('msg', 'Товар добавлен.');
+			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base']."adm/productedit/".$id."'\", 2000);</script>";
 			unset($_POST);
 		}else{
 			$tpl->Assign('msg', 'Товар не добавлен.');

@@ -21,8 +21,8 @@ class Images {
 		$destination = $path.$name;
 		move_uploaded_file($tmp_name, $destination);
 		chmod($destination, 0777);
-		$response = $destination;
-		return $response;
+		$res = $destination;
+		return $res;
 	}
 	/**
 	 * Ресайз изображений товаров
@@ -95,7 +95,9 @@ class Images {
 				$response['error']['structure'][] = 'Couldn\'t create structure - '.$structure;
 			}
 			umask($old_umask);
+			return $response;
 		}
+		return false;
 	}
 
 	/**

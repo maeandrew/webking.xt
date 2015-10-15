@@ -80,19 +80,27 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	);
 	$tpl->Assign('units', $Unit->GetUnitsList());
 	$Images = new Images();
+	//Физическое удаление файлов
+	if(isset($_POST['removed_images'])){
+		foreach($_POST['removed_images'] as $k=>$path){
+			if($products->CheckPhotosOnModeration($path)){
+				$Images->remove($GLOBALS['PATH_root'].str_replace('/files/', 'files/', $path));
+			}
+		}
+	}
+	// elseif(isset($_GET['remove']) == true){
+	// 	if($products->CheckPhotosOnModeration($_POST['image'])){
+	// 		$Images->remove($GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
+	// 	}
+	// 	echo str_replace($GLOBALS['PATH_root'], '/', $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
+	// 	exit(0);
+	// }
 	if(isset($_GET['validate']) == true){
 		$Images->validate($_FILES, $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/");
 		exit(0);
 	}elseif(isset($_GET['upload']) == true){
 		$res = $Images->upload($_FILES, $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/");
-		// echo _base_url.'/files/'.$_SESSION['member']['email'].'/';
 		echo str_replace($GLOBALS['PATH_root'], '/', $res);
-		exit(0);
-	}elseif(isset($_GET['remove']) == true){
-		if($products->CheckPhotosOnModeration($_POST['image'])){
-			$Images->remove($GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
-		}
-		echo str_replace($GLOBALS['PATH_root'], '/', $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
 		exit(0);
 	}elseif(isset($_POST['editionsubmit']) == true){
 		if($products->AddSupplierProduct($_POST)){

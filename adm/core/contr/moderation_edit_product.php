@@ -11,19 +11,37 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }
 $Unit = new Unit();
 $products = new Products();
+$Images = new Images();
+$Users = new Users();
 $header = "Редактирование товара на модерации";
 array_push($GLOBALS['IERA_LINKS'], array('url' => '/adm/product_moderation', 'title' => 'Товары на модерации'));
 array_push($GLOBALS['IERA_LINKS'], array('url' => '/adm/moderation_edit_product', 'title' => $header));
 $tpl->Assign('units', $Unit->GetUnitsList());
 if(isset($_POST['smb'])){
+	//Физическое удаление файлов
+	if(isset($_POST['removed_images']) ){
+		foreach($_POST['removed_images'] as $k=>$path){
+			if($products->CheckPhotosOnModeration($path)){
+				$Images->remove($GLOBALS['PATH_root'].'..'.$path);
+			}
+		}
+	}
 	$products->AddSupplierProduct($_POST);
 }
 $tpl->Assign('header', $header);
 $list = $products->GetProductOnModeration($id);
+$Users->SetFieldsById($list['id_supplier']);
+$supplier_email = $Users->fields['email'];
+//Загрузка фото на сервер
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_global_root']."files/".$supplier_email."/");
+	echo str_replace($GLOBALS['PATH_global_root'], '/', $res);
+	exit(0);
+}
+
 foreach($list as $k=>$l){
 	$_POST[$k] = $l;
 }
-
 
 $parsed_res = array(
 	'issuccess'	=> true,
@@ -64,6 +82,6 @@ if(true == $parsed_res['issuccess']){
 // 			$_POST[$k] = $l;
 // 		}
 // 	}
-// 		
+//
 // }
 ?>

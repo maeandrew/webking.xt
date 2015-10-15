@@ -1418,20 +1418,19 @@ class Products {
 	}
 
 	public function UpdateSitePricesMassive($arr){
-		foreach($arr AS $k=>$a){
-			print_r($a);
-			print_r('<br>');
-			$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
-			$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
-			$f['filial'] = $a['filial'];
-			$this->db->StartTrans();
-			if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = {$k}")){
-				$this->db->FailTrans();
-				return false;
+		if(!empty($arr)){
+			foreach($arr AS $k=>$a){
+				$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
+				$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
+				$f['filial'] = $a['filial'];
+				$this->db->StartTrans();
+				if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = {$k}")){
+					$this->db->FailTrans();
+					return false;
+				}
+				$this->db->CompleteTrans();
 			}
-			$this->db->CompleteTrans();
 		}
-		die();
 		return true;
 	}
 
@@ -1453,34 +1452,34 @@ class Products {
 		$f['descr'] = mysql_real_escape_string(trim($arr['descr']));
 		$f['descr_xt_short'] = mysql_real_escape_string(trim($arr['descr_xt_short']));
 		$f['descr_xt_full'] = mysql_real_escape_string(trim($arr['descr_xt_full']));
-		$f['country'] = mysql_real_escape_string(trim($arr['country']));
-		// $f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
-		// $f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
-		// $f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
-		if(isset($arr['images']) && $arr['images'] != ''){
-			if(isset($arr['smb_duplicate'])){
-					$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images']['0'])?$arr['images']['0']:null));
-					$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images']['1'])?$arr['images']['1']:null));
-					$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images']['2'])?$arr['images']['2']:null));
-			}else{
-				foreach($arr['images'] as $k=>$image){
-					$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
-					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-					$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
-					$images_arr[] = $bd_path.'/'.$newname;
-				}
-				$f['img_1'] = mysql_real_escape_string(trim(isset($images_arr['0'])?$images_arr['0']:null));
-				$f['img_2'] = mysql_real_escape_string(trim(isset($images_arr['1'])?$images_arr['1']:null));
-				$f['img_3'] = mysql_real_escape_string(trim(isset($images_arr['2'])?$images_arr['2']:null));
-			}
-		}
-		$f['sertificate'] = mysql_real_escape_string(trim($arr['sertificate']));
+		//$f['country'] = mysql_real_escape_string(trim($arr['country']));
+		$f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
+		$f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
+		$f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+		// if(isset($arr['images']) && $arr['images'] != ''){
+		// 	if(isset($arr['smb_duplicate'])){
+		// 			$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images']['0'])?$arr['images']['0']:null));
+		// 			$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images']['1'])?$arr['images']['1']:null));
+		// 			$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images']['2'])?$arr['images']['2']:null));
+		// 	}else{
+		// 		foreach($arr['images'] as $k=>$image){
+		// 			$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
+		// 			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+		// 			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+		// 			$images_arr[] = $bd_path.'/'.$newname;
+		// 		}
+		// 		$f['img_1'] = mysql_real_escape_string(trim(isset($images_arr['0'])?$images_arr['0']:null));
+		// 		$f['img_2'] = mysql_real_escape_string(trim(isset($images_arr['1'])?$images_arr['1']:null));
+		// 		$f['img_3'] = mysql_real_escape_string(trim(isset($images_arr['2'])?$images_arr['2']:null));
+		// 	}
+		// }
+		// $f['sertificate'] = mysql_real_escape_string(trim($arr['sertificate']));
 		$f['price_opt'] = mysql_real_escape_string(trim($arr['price_opt']));
 		$f['price_mopt'] = mysql_real_escape_string(trim($arr['price_mopt']));
 		$f['inbox_qty'] = mysql_real_escape_string(trim($arr['inbox_qty']));
 		$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
 		$f['min_mopt_qty'] = mysql_real_escape_string(trim($arr['min_mopt_qty']));
-		$f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
+		// $f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
 		$f['price_coefficient_opt'] = mysql_real_escape_string(trim($arr['price_coefficient_opt']));
 		$f['price_coefficient_mopt'] = mysql_real_escape_string(trim($arr['price_coefficient_mopt']));
 		$f['height'] = mysql_real_escape_string(trim($arr['height']));
@@ -1540,6 +1539,7 @@ class Products {
 
 	// Заполнение соответствий категории-товар
 	public function UpdateProductCategories($id_product, $categories_arr){
+
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
@@ -1573,18 +1573,18 @@ class Products {
 			$f['descr_xt_short'] = mysql_real_escape_string(trim($arr['descr_xt_short']));
 			$f['descr_xt_full'] = mysql_real_escape_string(trim($arr['descr_xt_full']));
 			//$f['country'] = mysql_real_escape_string(trim($arr['country']));
-			// $f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
-			// $f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
-			// $f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
-			if(isset($arr['images']) && $arr['images'] != ''){
-				$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images'][0])?$arr['images'][0]:null));
-				$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images'][1])?$arr['images'][1]:null));
-				$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images'][2])?$arr['images'][2]:null));
-			}else{
-				$f['img_1'] = null;
-				$f['img_2'] = null;
-				$f['img_3'] = null;
-			}
+			$f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
+			$f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
+			$f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+			// if(isset($arr['images']) && $arr['images'] != ''){
+			// 	$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images'][0])?$arr['images'][0]:null));
+			// 	$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images'][1])?$arr['images'][1]:null));
+			// 	$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images'][2])?$arr['images'][2]:null));
+			// }elseif(!isset($arr['images']) && isset($arr['removed_images'])){
+			// 	$f['img_1'] = null;
+			// 	$f['img_2'] = null;
+			// 	$f['img_3'] = null;
+			// }
 			if(isset($arr['page_description'])){
 				$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
 			}
@@ -3061,7 +3061,7 @@ class Products {
 		$f['img_1'] = '';
 		$f['img_2'] = '';
 		$f['img_3'] = '';
-		for($i = 1; $i == 3; $i++){
+		for($i = 1; $i <= 3; $i++){
 			if($product['img_'.$i] != ''){
 				if($i > 1){
 					$newname = $data['art']."-".$i.".jpg";
@@ -3080,83 +3080,24 @@ class Products {
 					$marge_right = ($ix - $nwidth)/2;
 					$marge_bottom = ($iy - $nwidth)/2;
 				}
-				// imagecopy($im, imagescale($stamp, $nwidth, $nwidth), $marge_right, $marge_bottom, 0, 0, $nwidth, $nwidth);
-				// imagejpeg($im, $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname1);
-				// imagedestroy($im);
 				copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname);
 				$f['img_'.$i] = mysql_real_escape_string(str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname));
 			}
 		}
 		$images = new Images();
-		$f['images'] = $product['images'];
-		foreach(explode(';', $product['images']) as $k=>$image){
-			$newname = $data['art'].($k == 0?'':'-'.$k).'.jpg';
-			$structure = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-			$images->checkStructure($structure);
-			copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $image), $structure.$newname);
-			$images->resize();
+		if(isset($product['images']) && $product['images'] != ''){
+			foreach(explode(';', $product['images']) as $k=>$image){
+				$newname = $data['art'].($k == 0?'':'-'.$k).'.jpg';
+				$structure = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$structure_bd = '/product_images/original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$images->checkStructure($structure);
+				copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $image), $structure.$newname);
+				$images_arr[] = $structure_bd.$newname;
+				$images->resize();
+			}
+		}else{
+			$images_arr =  array();
 		}
-		die();
-		// if($product['img_1'] != ''){
-		// 	$newname1 = $data['art'].".jpg";
-		// 	$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_1']));
-		// 	$ix = imagesx($im);
-		// 	$iy = imagesy($im);
-		// 	if($ix >= $iy){
-		// 		$nwidth = round($iy*0.9);
-		// 		$marge_right = ($ix - $nwidth)/2;
-		// 		$marge_bottom = ($iy - $nwidth)/2;
-		// 	}else{
-		// 		$nwidth = round($ix*0.9);
-		// 		$marge_right = ($ix - $nwidth)/2;
-		// 		$marge_bottom = ($iy - $nwidth)/2;
-		// 	}
-		// 	// imagecopy($im, imagescale($stamp, $nwidth, $nwidth), $marge_right, $marge_bottom, 0, 0, $nwidth, $nwidth);
-		// 	// imagejpeg($im, $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname1);
-		// 	// imagedestroy($im);
-		// 	copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_1']), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname1);
-		// 	$f['img_1'] = mysql_real_escape_string(str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname1));
-		// }
-		// if($product['img_2'] != ''){
-		// 	$newname2 = $data['art']."-2.jpg";
-		// 	$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_2']));
-		// 	$ix = imagesx($im);
-		// 	$iy = imagesy($im);
-		// 	if($ix >= $iy){
-		// 		$nwidth = round($iy*0.9);
-		// 		$marge_right = ($ix - $nwidth)/2;
-		// 		$marge_bottom = ($iy - $nwidth)/2;
-		// 	}else{
-		// 		$nwidth = round($ix*0.9);
-		// 		$marge_right = ($ix - $nwidth)/2;
-		// 		$marge_bottom = ($iy - $nwidth)/2;
-		// 	}
-		// 	// imagecopy($im, imagescale($stamp, $nwidth, $nwidth), $marge_right, $marge_bottom, 0, 0, $nwidth, $nwidth);
-		// 	// imagejpeg($im, $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname2);
-		// 	// imagedestroy($im);
-		// 	copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_2']), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname2);
-		// 	$f['img_2'] = mysql_real_escape_string(str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname2));
-		// }
-		// if($product['img_3'] != ''){
-		// 	$newname3 = $data['art']."-3.jpg";
-		// 	$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_3']));
-		// 	$ix = imagesx($im);
-		// 	$iy = imagesy($im);
-		// 	if($ix >= $iy){
-		// 		$nwidth = round($iy*0.9);
-		// 		$marge_right = ($ix - $nwidth)/2;
-		// 		$marge_bottom = ($iy - $nwidth)/2;
-		// 	}else{
-		// 		$nwidth = round($ix*0.9);
-		// 		$marge_right = ($ix - $nwidth)/2;
-		// 		$marge_bottom = ($iy - $nwidth)/2;
-		// 	}
-		// 	// imagecopy($im, imagescale($stamp, $nwidth, $nwidth), $marge_right, $marge_bottom, 0, 0, $nwidth, $nwidth);
-		// 	// imagejpeg($im, $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname3);
-		// 	// imagedestroy($im);
-		// 	copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_3']), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname3);
-		// 	$f['img_3'] = mysql_real_escape_string(str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname3));
-		// }
 		$f['inbox_qty'] = mysql_real_escape_string($product['inbox_qty']);
 		$f['min_mopt_qty'] = mysql_real_escape_string($product['min_mopt_qty']);
 		if(isset($product['qty_control'])){
@@ -3184,6 +3125,7 @@ class Products {
 		$sup = $this->db->GetOneRowArray($sql);
 		$id = mysql_real_escape_string($res['id_product']);
 		$a['id_product'] = $id ;
+		$this->UpdatePhoto($id, $images_arr);
 		$a['id_supplier'] = mysql_real_escape_string($product['id_supplier']);
 		$a['price_mopt_otpusk'] = str_replace(',','.', mysql_real_escape_string($product['price_mopt']));
 		$a['price_opt_otpusk'] = str_replace(',','.', mysql_real_escape_string($product['price_opt']));
