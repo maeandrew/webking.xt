@@ -2,11 +2,12 @@
 class Invoice{
 	public $fields;
 	public $list;
+	private $db;
 	public function __construct (){
+		$this->db =& $GLOBALS['db'];
 	}
 
 	public function GetOrderData($id_order, $filial = false){
-		global $db;
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT (SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
 				o.sum_discount, s.article, p.name, p.units, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, osp.site_price_opt, osp.site_price_mopt,
@@ -18,14 +19,14 @@ class Invoice{
 				LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
 				LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
 				LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
-				".$db->GetWhere($and);
+				".$this->db->GetWhere($and);
 		if(isset($filial) == true && $filial != 0){
 			$sql.= " AND (osp.filial_mopt = ".$filial." OR osp.filial_opt = ".$filial.") ";
 		}
 		$sql .= " GROUP BY osp.id_order, osp.id_product, osp.id_supplier
 				ORDER BY p.name
 				";
-		$arr = $db->GetArray($sql);
+		$arr = $this->db->GetArray($sql);
 		if(empty($arr) == true){
 			return false;
 		}else{
@@ -34,26 +35,24 @@ class Invoice{
 	}
 
 	public function GetOrderData_fakt($id_order, $filial = false){
-		global $db;
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT (SELECT "._DB_PREFIX_."supplier.article FROM xt_supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
-		s.article, p.name, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, osp.site_price_opt, osp.site_price_mopt, p.inbox_qty, osp.box_qty, 
-				osp.opt_qty, osp.mopt_qty, osp.opt_sum, osp.mopt_sum, o.strachovka, osp.id_supplier, osp.id_supplier_mopt, o.target_date,
-				osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
-				osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum, o.id_pretense_status, o.id_return_status, p.weight, p.volume,
-				osp.note_opt, osp.note_mopt, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.filial_mopt, osp.filial_opt
-				FROM "._DB_PREFIX_."osp osp
-				LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
-				LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
-				LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
-				".$db->GetWhere($and);
+			s.article, p.name, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, osp.site_price_opt, osp.site_price_mopt, p.inbox_qty, osp.box_qty, 
+			osp.opt_qty, osp.mopt_qty, osp.opt_sum, osp.mopt_sum, o.strachovka, osp.id_supplier, osp.id_supplier_mopt, o.target_date,
+			osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
+			osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum, o.id_pretense_status, o.id_return_status, p.weight, p.volume,
+			osp.note_opt, osp.note_mopt, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.filial_mopt, osp.filial_opt
+			FROM "._DB_PREFIX_."osp osp
+			LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
+			LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
+			LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
+			".$this->db->GetWhere($and);
 		if(isset($filial) == true && $filial != 0){
 			$sql.= " AND (osp.filial_mopt = ".$filial." OR osp.filial_opt = ".$filial.") ";
 		}
 		$sql .= " GROUP BY osp.id_order, osp.id_product, osp.id_supplier
-				ORDER BY p.name
-				";
-		$arr = $db->GetArray($sql);
+			ORDER BY p.name";
+		$arr = $this->db->GetArray($sql);
 		if(empty($arr) == true){
 			return false;
 		}else{
@@ -62,32 +61,28 @@ class Invoice{
 	}
 
 	public function GetOrderData_prise($id_order){
-		global $db;
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT   (SELECT  "._DB_PREFIX_."supplier.article FROM xt_supplier WHERE "._DB_PREFIX_."supplier.id_user=osp.id_supplier_mopt) AS article_mopt,
-				s.article, p.name, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, p.inbox_qty, osp.box_qty, osp.opt_qty, osp.mopt_qty,
-				osp.opt_sum, osp.mopt_sum, p.price_opt, p.price_mopt, o.target_date, p.weight, p.volume, osp.note_opt, osp.note_mopt, osp.filial_mopt, osp.filial_opt
-				FROM "._DB_PREFIX_."osp osp
-				LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
-				LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
-				LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
-				".$db->GetWhere($and)."
-				GROUP BY osp.id_order, osp.id_product, osp.id_supplier
-				ORDER BY p.name
-				";
-		$arr = $db->GetArray($sql) or G::DieLoger("SQL - error: $sql");
+			s.article, p.name, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, p.inbox_qty, osp.box_qty, osp.opt_qty, osp.mopt_qty,
+			osp.opt_sum, osp.mopt_sum, p.price_opt, p.price_mopt, o.target_date, p.weight, p.volume, osp.note_opt, osp.note_mopt, osp.filial_mopt, osp.filial_opt
+			FROM "._DB_PREFIX_."osp osp
+			LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
+			LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
+			LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
+			".$this->db->GetWhere($and)."
+			GROUP BY osp.id_order, osp.id_product, osp.id_supplier
+			ORDER BY p.name";
+		$arr = $this->db->GetArray($sql) or G::DieLoger("SQL - error: $sql");
 		return $arr;
 	}
 
 	public function GetOrderData_m_diler($id_order){
-		global $db;
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT o.id_order, o.note2, o.note, o.target_date
-				FROM  "._DB_PREFIX_."order o
-				".$db->GetWhere($and)."
-				GROUP BY o.id_order
-				";
-		$arr = $db->GetArray($sql) or G::DieLoger("SQL - error: $sql");
+			FROM  "._DB_PREFIX_."order o
+			".$this->db->GetWhere($and)."
+			GROUP BY o.id_order";
+		$arr = $this->db->GetArray($sql) or G::DieLoger("SQL - error: $sql");
 		return $arr;
 	}
 
@@ -103,16 +98,43 @@ class Invoice{
 	}
 
 	public function GetSuppliersList($art){
-		global $db;
 		$sql = "SELECT p.art, p.name, u.name AS supp_name, s.article, s.place, s.phones, a.price_mopt_otpusk, a.price_opt_otpusk, a.active
-				FROM "._DB_PREFIX_."assortiment AS a, "._DB_PREFIX_."user AS u, "._DB_PREFIX_."product AS p, "._DB_PREFIX_."supplier AS s
-				WHERE p.art =\"$art\"
+			FROM "._DB_PREFIX_."assortiment AS a, "._DB_PREFIX_."user AS u, "._DB_PREFIX_."product AS p, "._DB_PREFIX_."supplier AS s
+			WHERE p.art =\"$art\"
+			AND p.id_product = a.id_product
+			AND s.id_user = a.id_supplier
+			AND s.id_user = u.id_user
+			ORDER BY s.article";
+		$arr = $this->db->GetArray($sql) or $arr = 0;
+		return $arr;
+	}
+
+	public function GetSoldProductsListByKey($key){
+		$sql = "SELECT osp.id_order, p.id_product, p.name, p.art,
+			p.img_1, p.img_2, p.img_3, p.descr, p.inbox_qty,
+			p.min_mopt_qty, p.qty_control, p.weight, p.height,
+			p.width, p.length, p.coefficient_volume, p.volume,
+			a.product_limit, a.price_opt_otpusk, a.price_opt_recommend,
+			a.price_mopt_otpusk, a.price_mopt_recommend, a.inusd,
+			a.price_mopt_otpusk_usd, a.price_opt_otpusk_usd,
+			s.article,
+			(SELECT u.unit_xt
+			FROM "._DB_PREFIX_."units AS u
+			WHERE p.id_unit = u.id) AS unit
+			FROM "._DB_PREFIX_."osp AS osp
+			LEFT JOIN "._DB_PREFIX_."product AS p
+				ON p.id_product = osp.id_product
+			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+				ON (a.id_supplier = osp.id_supplier
+					OR a.id_supplier = osp.id_supplier_mopt)
 				AND p.id_product = a.id_product
-				AND s.id_user = a.id_supplier
-				AND s.id_user = u.id_user
-				ORDER BY s.article
-				";
-		$arr = $db->GetArray($sql) or $arr = 0;
+			LEFT JOIN "._DB_PREFIX_."supplier AS s
+				ON (s.id_user = osp.id_supplier
+					OR s.id_user = osp.id_supplier_mopt)
+			WHERE osp.note_opt LIKE '%".$key."%'
+			OR osp.note_mopt LIKE '%".$key."%'
+			ORDER BY p.id_product";
+		$arr = $this->db->GetArray($sql) or $arr = 0;
 		return $arr;
 	}
 }

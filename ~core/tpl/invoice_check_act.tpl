@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>Новый акт сверки цен поставщика</title>
+	<title>Проверочная накладная соответствия</title>
 	<style rel="stylesheet">
 		* {
 			margin: 0;
@@ -58,7 +58,7 @@
 			clear: both;
 			margin-bottom: auto;
 		}
-		.block:nth-of-type(4n+4) {
+		.block:nth-of-type(n+4) {
 			page-break-after: always;
 		}
 		.block .title h4 {
@@ -143,31 +143,12 @@
 	</style>
 </head>
 <body>
-	<div class="block">
-		<table border="0" cellpadding="0" cellspacing="0" class="table_header">
-			<tbody>
-				<tr class="top">
-					<td width="200px">
-						<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
-					</td>
-					<td align="center">
-						<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
-						</span>
-					</td>
-		
-				</tr>
-			</tbody>
-		</table>
-		<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
-			<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
-		</p>
-	</div>
 	<?foreach($products as $k=>$i){?>
-		<?$wh = "height=\"120\" width=\"120\"";?>
+		<?$wh = 'height="120" width="120"';?>
 		<div class="block">
 			<div class="title">
 				<h4 <?=strlen($i['name']) > 70?' class="small"':null;?>><?=$i['name']?></h4>
-				<div style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
+				<div style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>">заказ: <?=$i['id_order']?>; <?=$i['article']?'пост. '.$i['article'].';':'';?> арт. <?=$i['art'];?></div>
 			</div>
 			<div class="photo">
 				<img <?=$wh?> src="<?=_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $i['img_1']))?>"/>
