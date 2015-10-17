@@ -128,7 +128,7 @@
 							</div>
 						</div>
 						<div class="product_info_actions">
-							<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] != _ACL_SUPPLIER_ ){?>
+							<?if(!isset($_SESSION['member']) || $_SESSION['member']['gid'] != _ACL_SUPPLIER_ ){?>
 								<div class="preview_favorites <?=G::IsLogged()?null:' open_modal" data-target="login_form';?>" data-idfavorite="<?=$item['id_product']?>" title="<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'Добавить товар в избранное':'Товар находится в избранных'?>">
 									<span class="icon-font favorite">favorites<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'-o':null?></span>
 									<!-- Тег <a> не менять без необходимость с синтаксисом все ок(Sublime не правнльно подсвечивает)-->
