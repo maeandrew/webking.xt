@@ -16,18 +16,30 @@
 		<div class="row">
 			<div class="col-md-6 clearfix">
 				<div id="product_miniatures_img">
-					<?if(!empty($item['img_1'])){?>
-						<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>" class="active_img"></div>
-					<?}?>
-					<?if(!empty($item['img_2'])){?>
-						<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_2'])?_base_url.$item['img_2']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"></div>
-					<?}?>
-					<?if(!empty($item['img_3'])){?>
-						<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_3'])?_base_url.$item['img_3']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"></div>
-					<?}?>
+					<?if(!empty($item['images'])){
+						foreach($item['images'] as $i => $image){?>
+							<div class="item">
+								<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>"<?=$i==0?' class="active_img"':null;?>>
+							</div>
+						<?}
+					}else{
+						for($i=1; $i < 4; $i++){ 
+							if(!empty($item['img_'.$i])){?>
+								<div class="item">
+									<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.$item['img_'.$i]:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+								</div>
+							<?}
+						}
+					}?>
 				</div>
 				<div id="product_main_img">
-					<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"></div>
+					<?if(!empty($item['images'])){?>
+							<div class="item">
+								<img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
+							</div>
+					<?}else{?>
+						<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"></div>
+					<?}?>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -838,15 +850,21 @@
 						<div class="tab_item_wrapper">
 							<span class="photo_tab_title">Фотографии <span class="item_name"><?=$item['name']?></span></span>
 							<div class="photo_tab_wrapper">
-								<?if(!empty($item['img_1'])){?>
-									<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>" alt="<?=$item['name']?>"></div>
-								<?}?>
-								<?if(!empty($item['img_2'])){?>
-									<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_2'])?_base_url.$item['img_2']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>" alt="<?=$item['name']?>"></div>
-								<?}?>
-								<?if(!empty($item['img_3'])){?>
-									<div class="item"><img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_3'])?_base_url.$item['img_3']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>" alt="<?=$item['name']?>"></div>
-								<?}?>
+								<?if(!empty($item['images'])){
+									foreach($item['images'] as $image){?>
+										<div class="item">
+											<img src="<?=_base_url?><?=$image['src']?>" alt="<?=$item['name']?>">
+										</div>
+									<?}
+								}else{
+									for($i=1; $i < 4; $i++){ 
+										if(!empty($item['img_'.$i])){?>
+											<div class="item">
+												<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.$item['img_'.$i]:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+											</div>
+										<?}
+									}
+								}?>
 							</div>
 						</div>
 					</div>
@@ -917,7 +935,7 @@
 			$('#product_miniatures_img .item').click(function(){
 				$('#product_miniatures_img').find('img').removeClass('active_img');
 				$(this).find('img').addClass('active_img');
-				var imgsrc = $(this).find('img').attr('src');
+				var imgsrc = $(this).find('img').attr('src').replace('thumb', 'original');
 				$('#product_main_img').find('.item img').attr('src', imgsrc);
 				$('#product_main_img').hide().fadeIn('100');
 			});

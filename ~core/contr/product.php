@@ -23,34 +23,35 @@ if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
 	header('Location: '._base_url.'/404/');
 	exit();
 }
-$GLOBALS['prod_title'] = $products->fields['name'];
-$GLOBALS['product_canonical'] = '/product/'.$products->fields['id_product'].'/'.$products->fields['translit'].'/';
+$product = $products->fields;
+$id_product = $product['id_product'];
+$product['images'] = $products->GetPhotoById($id_product);
+$GLOBALS['prod_title'] = $product['name'];
+$GLOBALS['product_canonical'] = '/product/'.$id_product.'/'.$product['translit'].'/';
 /* product comments ======================================== */
-$res = $products->GetComentByProductId($products->fields['id_product']);
-print_r($res);
+$res = $products->GetComentByProductId($id_product);
 $tpl->Assign('coment', $res);
 /* product comments ======================================== */
 
 /* product rating ========================================== */
-// $rating = $products->GetProductRating($products->fields['id_product']);
+// $rating = $products->GetProductRating($id_product);
 // $tpl->Assign('rating', $rating);
 /* product rating ========================================== */
 
-$sdescr = new sdescr($products->fields['name'], $products->fields['id_product']);
+$sdescr = new sdescr($product['name'], $id_product);
 $yaml = new sfYamlParser;
-$file_to_load = ($products->fields['id_product'])%1;
+$file_to_load = ($id_product)%1;
 $linked_pages = $yaml->parse(file_get_contents($GLOBALS['PATH_root'].'repository/linked_pages.yml'));
 $parts = $yaml->parse(file_get_contents($GLOBALS['PATH_root'].'repository/parts_'.$file_to_load.'.yml'));
 $sdescr->setLinkedPages($linked_pages);
 $sdescr->setParts($parts);
-$item = $products->fields;
 $tpl->Assign('sdescr', $sdescr->getDescr());
 $tpl->Assign('data', $Page->fields);
-$tpl->Assign('item', $item);
-$tpl->Assign('header', $item['name'].'<p class="subtext color-sgrey">Артикул: '.$item['art'].'</p>');
+$tpl->Assign('item', $product);
+$tpl->Assign('header', $product['name'].'<p class="subtext color-sgrey">Артикул: '.$product['art'].'</p>');
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 // если в ссылке не была указана категория, то выбирается первая из соответствий категория-продукт
-if(!isset($id_category)) $id_category = $products->fields['id_category'];
+if(!isset($id_category)) $id_category = $product['id_category'];
 $dbtree->Parents($id_category, array('id_category', 'name', 'category_level', 'translit'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
@@ -69,7 +70,7 @@ while($cat = $dbtree->NextRow()){
 $GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
 // если отправили комментарий
 if(isset($_POST['sub_com'])){
-	$put = $products->fields['id_product'];
+	$put = $id_product;
 	$text = nl2br($_POST['feedback_text'], false);
 	$text = stripslashes($text);
 	$rating = $_POST['rating'];
@@ -86,17 +87,17 @@ if(isset($_POST['sub_com'])){
 	}
 	$authors_email = $_POST['feedback_authors_email'];
 	$related33 = $products->GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating);
-	header('Location: '._base_url.'/product/'.$products->fields['id_product']);
+	header('Location: '._base_url.'/product/'.$id_product);
 	exit();
 }
 // Обновление счетчика просмотренных товаров
-$products->UpdateViewsProducts($products->fields['count_views'], $products->fields['id_product']);
+$products->UpdateViewsProducts($product['count_views'], $id_product);
 // Запись в базу просмотренных товаров
 if(isset($_SESSION['member']['id_user'])){
-	$products->AddViewProduct($products->fields['id_product'], $_SESSION['member']['id_user']);
+	$products->AddViewProduct($id_product, $_SESSION['member']['id_user']);
 }
 // Запись в куки просмотренных товаров
-$residprod = $products->fields['id_product'];
+$residprod = $id_product;
 $array = array();
 if(isset($_COOKIE['view_products'])){
 	$array = json_decode($_COOKIE['view_products']);
@@ -115,7 +116,7 @@ if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
 	header('Location: '._base_url.'/404/');
 	exit();
 }
-$id_category = $products->fields['id_category'];
+$id_category = $product['id_category'];
 $similar_products = $products->GetRelatedProducts($GLOBALS['REQAR'][1], $id_category);
 if(empty($similar_products)){
 	$tpl->Assign('title', 'Популярные товары');
