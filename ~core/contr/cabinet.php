@@ -31,9 +31,9 @@ switch($User->fields['gid']){
 			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "favorites"){
 				$header = 'Избранные товары';
 				require($GLOBALS['PATH_block'].'cp_cab_favorites_customer.php');
-			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "watinglist"){
+			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "waitinglist"){
 				$header = 'Лист ожидания';
-				require($GLOBALS['PATH_block'].'cp_cab_watinglist_customer.php');
+				require($GLOBALS['PATH_block'].'cp_cab_waitinglist_customer.php');
 			}else{
 				$header = 'Мои заказы';
 				require($GLOBALS['PATH_block'].'cp_cab_orders_customer.php');

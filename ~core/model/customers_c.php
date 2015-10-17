@@ -74,10 +74,10 @@ class Customers extends Users {
 		return true;
 	}
 	//Получение списка ожидания
-	public function GetWatingList($id_user){
-		$sql = "SELECT wl.id_product, p.art, p.name,p.translit , p.img_1,
+	public function GetWaitingList($id_user){
+		$sql = "SELECT wl.id_product, p.art, p.name, p.translit , p.img_1,
 			p.price_opt, p.price_mopt, p.old_price_opt
-			FROM "._DB_PREFIX_."wating_list AS wl
+			FROM "._DB_PREFIX_."waiting_list AS wl
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON wl.id_product = p.id_product
 			WHERE wl.id_user = '".$id_user."'
@@ -87,11 +87,11 @@ class Customers extends Users {
 	}
 
 	//Добавление в список ожидания
-	public function AddInWatingList($id_user, $id_product){
+	public function AddInWaitingList($id_user, $id_product){
 		$f['id_user'] = $id_user;
 		$f['id_product'] = $id_product;
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'wating_list', $f)){
+		if(!$this->db->Insert(_DB_PREFIX_.'waiting_list', $f)){
 			$this->db->FailTrans();
 			G::DieLoger("SQL error - $sql");
 			return false;
@@ -101,8 +101,8 @@ class Customers extends Users {
 	}
 
 	//Удаление из списка ожидания
-	public function DelFromWatingList($id_user, $id_product){
-		$sql = "DELETE FROM "._DB_PREFIX_."wating_list
+	public function DelFromWaitingList($id_user, $id_product){
+		$sql = "DELETE FROM "._DB_PREFIX_."waiting_list
 			WHERE id_user = '".$id_user."'
 			AND id_product = '".$id_product."'";
 		$this->db->StartTrans();

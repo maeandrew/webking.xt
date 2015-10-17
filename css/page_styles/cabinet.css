@@ -876,62 +876,62 @@ table.supplier_assort_table {
 	float: right;
 }
 
-/* Customer cab Favorites & Watinglist ===================================== */
+/* Customer cab Favorites & Waitinglist ===================================== */
 
 .customer_cab #favorites,
-.customer_cab #wating_list {
+.customer_cab #waiting_list {
 	clear: both;
 }
 .customer_cab #favorites table tr,
-.customer_cab #wating_list table tr {
+.customer_cab #waiting_list table tr {
 	line-height: 2em;
 }
 .customer_cab #favorites .table_thead,
-.customer_cab #wating_list .table_thead {
+.customer_cab #waiting_list .table_thead {
 	margin-bottom: 0;
 }
 .customer_cab #favorites .table_tbody .image_cell a,
-.customer_cab #wating_list .table_tbody .image_cell a {
+.customer_cab #waiting_list .table_tbody .image_cell a {
 	display: block;
     max-height: 90px;
 }
 .customer_cab #favorites .table_tbody .image_cell img,
-.customer_cab #wating_list .table_tbody .image_cell img {
+.customer_cab #waiting_list .table_tbody .image_cell img {
 	vertical-align: middle;
     padding: 5px 0;
     height: 90px;
 }
 .customer_cab #favorites .table_tbody .name_cell,
-.customer_cab #wating_list .table_tbody .name_cell {
+.customer_cab #waiting_list .table_tbody .name_cell {
 	text-align: left;
 	padding-left: 20px;
 }
 .customer_cab #favorites .table_tbody .product_article,
-.customer_cab #wating_list .table_tbody .product_article {
+.customer_cab #waiting_list .table_tbody .product_article {
 	color: #818181;
 }
 .customer_cab #favorites .icon-font,
-.customer_cab #wating_list .icon-font {
+.customer_cab #waiting_list .icon-font {
 	text-decoration: none;
 	cursor: pointer;
 	color: #A2A2A2;
 	font-size: 20px;
 }
 .customer_cab #favorites .icon-font.in_page:hover,
-.customer_cab #wating_list .icon-font.in_page:hover {
+.customer_cab #waiting_list .icon-font.in_page:hover {
 	color: #52cf55;
 }
 .customer_cab #favorites .icon-font.remove_favor_js:hover,
-.customer_cab #wating_list .icon-font.remove_watinglist_js:hover {
+.customer_cab #waiting_list .icon-font.remove_waitinglist_js:hover {
 	color: #f36711;
 }
 
-/* Customer cab Watinglist ================================================= */
+/* Customer cab Waitinglist ================================================= */
 
-.customer_cab #wating_list .old_price {
+.customer_cab #waiting_list .old_price {
 	text-decoration: line-through;
 }
-.customer_cab #wating_list .active_price {
+.customer_cab #waiting_list .active_price {
 	color: #f00;
 }
 

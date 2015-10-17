@@ -18,14 +18,14 @@
 				}
 			;
 			break;
-			case "del_from_watinglist":
+			case "del_from_waitinglist":
 				// Удаление Из списка ожидания
 				if(isset($_POST['id_product'])){
-					$Customer->DelFromWatingList($User->fields['id_user'], $_POST['id_product']);
+					$Customer->DelFromWaitingList($User->fields['id_user'], $_POST['id_product']);
 					if (isset($_SESSION['member'])) {
-						foreach($_SESSION['member']['wating_list'] as $key => $value){
+						foreach($_SESSION['member']['waiting_list'] as $key => $value){
 							if($value == $_POST['id_product']){
-								unset($_SESSION['member']['wating_list'][$key]);
+								unset($_SESSION['member']['waiting_list'][$key]);
 							}
 						}
 					}

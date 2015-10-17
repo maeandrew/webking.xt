@@ -48,11 +48,11 @@ class Users {
 			$this->fields['favorites'][$key] = $value['id_product'];
 		}
 		$sql3 = "SELECT wl.id_product
-			FROM "._DB_PREFIX_."wating_list AS wl
+			FROM "._DB_PREFIX_."waiting_list AS wl
 			WHERE wl.id_user = ".$this->fields['id_user'];
-		$this->fields['wating_list'] = $this->db->GetArray($sql3);
-		foreach($this->fields['wating_list'] as $key => $value){
-			$this->fields['wating_list'][$key] = $value['id_product'];
+		$this->fields['waiting_list'] = $this->db->GetArray($sql3);
+		foreach($this->fields['waiting_list'] as $key => $value){
+			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
 		return true;
 	}

@@ -886,7 +886,7 @@ $(window).load(function(){
 
 	//Получение данных для подписки на товар
 	$('.preview_follprice p').on('click', function followPrice(event) {
-		if ($(this).hasClass('add_watinglist')) {
+		if ($(this).hasClass('add_waitinglist')) {
 			var email = '',
 			id_user = '',
 			id_product = $(this).closest('.preview_follprice').attr('data-follprice'),
@@ -898,7 +898,7 @@ $(window).load(function(){
 			if (isregistered != ''){
 				id_user = isregistered;
 				//console.log(id_user+"-"+email+"-"+id_product);
-				AddInWatingList(id_product,id_user,email);
+				AddInWaitingList(id_product,id_user,email);
 			}else{
 				$('.enter_mail').show();
 				$('#follow_price').click(function(event) {
@@ -907,7 +907,7 @@ $(window).load(function(){
 						email = $('input[name="user_email"]').val();
 						$('.enter_mail').hide();
 						//console.log(id_user+"-"+email+"-"+id_product);
-						AddInWatingList(id_product,id_user,email);
+						AddInWaitingList(id_product,id_user,email);
 					}
 				});
 			}
@@ -915,8 +915,8 @@ $(window).load(function(){
 	});
 
 	//Удаление товара из листа ожидания
-	$('.remove_watinglist_js').on('click', function() {
-		var id_product = $(this).closest('.wating_list_js').attr('data-idproduct');
+	$('.remove_waitinglist_js').on('click', function() {
+		var id_product = $(this).closest('.waiting_list_js').attr('data-idproduct');
 		if (confirm('Вы точно хотите удалить товар из списка избранных?')) {
 			$.ajax({
 				url: URL_base+'ajax_customer',
@@ -924,7 +924,7 @@ $(window).load(function(){
 				cache: false,
 				dataType: "json",
 				data: {
-					"action":'del_from_watinglist',
+					"action":'del_from_waitinglist',
 					"id_product": id_product
 				}
 			}).done(function(){

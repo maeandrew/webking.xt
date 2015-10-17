@@ -135,15 +135,15 @@
 									<a <?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'href="#">В избранное':'href="/cabinet/favorites/">В избранном'?></a>
 								</div>
 								<div class="preview_follprice" data-follprice="<?=$item['id_product']?>">
-									<?if(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['wating_list'])){?>
-										<p class="add_watinglist">
+									<?if(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['waiting_list'])){?>
+										<p class="add_waitinglist">
 											<span class="icon-font line">Line</span>
 											<a href="#">Следить за ценой</a>
 										</p>
 									<?}else{?>
 										<p>
 											<span class="icon-font line">Line</span>
-											<a href="/cabinet/watinglist/">В листе ожидания</a>
+											<a href="/cabinet/waitinglist/">В листе ожидания</a>
 										</p>
 									<?}?>
 									<input type="hidden" name="reg" value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['id_user']:null;?>">

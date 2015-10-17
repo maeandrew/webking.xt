@@ -120,20 +120,20 @@
 					<div id="photobox">
 						<div class="previews">
 							<?if(isset($_POST['images']) && !empty($_POST['images'])){
-								foreach ($_POST['images'] as $photo){?>
+								foreach($_POST['images'] as $photo){?>
 									<div class="image_block dz-preview dz-image-preview">
 										<div class="sort_handle"><span class="icon-font">s</span></div>
 										<div class="image">
-											<img data-dz-thumbnail src="<?=$photo?>"/>
+											<img data-dz-thumbnail src="<?=$photo['src']?>"/>
 										</div>
 										<div class="name">
-											<span class="dz-filename" data-dz-name><?=$photo?></span>
+											<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
 											<span class="dz-size" data-dz-size></span>
 										</div>
 										<div class="controls">
 											<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
 										</div>
-										<input type="hidden" name="images[]" value="<?=$photo?>">
+										<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 									</div>
 								<?}
 							}?>

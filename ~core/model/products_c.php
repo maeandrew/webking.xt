@@ -224,49 +224,6 @@ class Products {
 		return true;//Если все ок
 	}
 
-	//Фото по Id
-	public function GetPhotoById($id){
-		$sql = "SELECT src
-			FROM "._DB_PREFIX_."image
-			WHERE id_product = ".$id."
-			ORDER BY ord";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr){
-			return false;
-		}
-		 foreach ($arr as $value) {
-			$res[] = $value['src'];
-		}
-		return $res;
-	}
-
-	//Добавление и удаление фото
-	public function UpdatePhoto($id_product, $arr){
-		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
-		$this->db->StartTrans();
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		$this->db->CompleteTrans();
-		$f['id_product'] = mysql_real_escape_string(trim($id_product));
-		if(isset($arr) && !empty($arr)){
-			foreach ($arr as $k=>$src) {
-				if(empty($src)){
-					return false; //Если URL пустой
-				}
-				$f['src'] = mysql_real_escape_string(trim($src));
-				$f['ord'] = mysql_real_escape_string(trim($k));
-				$this->db->StartTrans();
-				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
-					$this->db->FailTrans();
-					return false; //Если не удалось записать в базу
-				}
-				$this->db->CompleteTrans();
-			}
-		}
-		unset($id_product);
-		unset($f);
-		return true;//Если все ок
-	}
-
 	//Видео по Id
 	public function GetIdByVideo($id){
 		$sql = "SELECT url
@@ -2968,20 +2925,6 @@ class Products {
 		return $arr;
 	}
 
-	public function CheckPhotosOnModeration($image){
-		$sql = "SELECT COUNT(id) AS count
-			FROM "._DB_PREFIX_."temp_products
-			WHERE img_1 LIKE '%".$image."'
-			OR img_2 LIKE '%".$image."'
-			OR img_3 LIKE '%".$image."'
-			OR images LIKE '%".$image."%'";
-		$arr = $this->db->GetOneRowArray($sql);
-		if($arr['count'] > 1){
-			return false;
-		}
-		return true;
-	}
-
 	//Проверка наличия картинки в базах
 	public function CheckImages($path){
 		$sql = "SELECT COUNT(id) AS count
@@ -3316,5 +3259,67 @@ class Products {
 		}else{
 			return $arr;
 		}
+	}
+
+	/**
+	 * PHOTO ACTIONS
+	 */
+
+	// Проверить, нет ли такого фото в другом товаре
+	public function CheckPhotosOnModeration($image){
+		$sql = "SELECT COUNT(id) AS count
+			FROM "._DB_PREFIX_."temp_products
+			WHERE img_1 LIKE '%".$image."'
+			OR img_2 LIKE '%".$image."'
+			OR img_3 LIKE '%".$image."'
+			OR images LIKE '%".$image."%'";
+		$arr = $this->db->GetOneRowArray($sql);
+		if($arr['count'] > 1){
+			return false;
+		}
+		return true;
+	}
+
+	// Получить список изображений по id товара
+	public function GetPhotoById($id){
+		$sql = "SELECT src
+			FROM "._DB_PREFIX_."image
+			WHERE id_product = ".$id."
+			ORDER BY ord";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		foreach($arr as $value){
+			$res[] = $value['src'];
+		}
+		return $arr;
+	}
+
+	// Добавление и удаление фото
+	public function UpdatePhoto($id_product, $arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		$f['id_product'] = mysql_real_escape_string(trim($id_product));
+		if(isset($arr) && !empty($arr)){
+			foreach ($arr as $k=>$src) {
+				if(empty($src)){
+					return false; //Если URL пустой
+				}
+				$f['src'] = mysql_real_escape_string(trim($src));
+				$f['ord'] = mysql_real_escape_string(trim($k));
+				$this->db->StartTrans();
+				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+				$this->db->CompleteTrans();
+			}
+		}
+		unset($id_product);
+		unset($f);
+		return true;//Если все ок
 	}
 }?>

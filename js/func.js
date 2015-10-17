@@ -1069,12 +1069,12 @@ function rebuildPreview(obj){
 				preview.find('.preview_favorites').attr('title', 'Добавить товар в избранное');
 				preview.find('.preview_favorites a').attr('href', '#');
 			}
-			preview.find('.preview_follprice p a').html(data.wating_list_descr);
-			if(data.wating_list == 'in_list'){
-				preview.find('.preview_follprice p').removeClass('add_watinglist').attr('title', 'Товар находится в списке ожидания');
-				preview.find('.preview_follprice p a').attr('href', '/cabinet/watinglist/');
+			preview.find('.preview_follprice p a').html(data.waiting_list_descr);
+			if(data.waiting_list == 'in_list'){
+				preview.find('.preview_follprice p').removeClass('add_waitinglist').attr('title', 'Товар находится в списке ожидания');
+				preview.find('.preview_follprice p a').attr('href', '/cabinet/waitinglist/');
 			}else{
-				preview.find('.preview_follprice p').addClass('add_watinglist').attr('title', 'Добавить товар в список ожидания');
+				preview.find('.preview_follprice p').addClass('add_waitinglist').attr('title', 'Добавить товар в список ожидания');
 				preview.find('.preview_follprice p a').attr('href', '#');
 			}
 			preview.find('.rating').attr({
@@ -1233,14 +1233,14 @@ function AddFavorite(event,id_product){
 }
 
 //Добавление товара в список ожидания
-function AddInWatingList(id_product,id_user,email){
+function AddInWaitingList(id_product,id_user,email){
 	$.ajax({
 		url: URL_base+'ajaxproduct',
 		type: "POST",
 		cache: false,
 		dataType: "json",
 		data: {
-			"action": 'add_in_watinglist',
+			"action": 'add_in_waitinglist',
 			"id_product": id_product,
 			"id_user": id_user,
 			"email": email

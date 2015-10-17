@@ -1,6 +1,6 @@
 <div class="customer_cab">
-	<div id="wating_list">
-		<?if(isset($wating_list) &&  !empty($wating_list)){?>
+	<div id="waiting_list">
+		<?if(isset($waiting_list) &&  !empty($waiting_list)){?>
 			<div id="second">
 				<table width="100%" cellspacing="0" border="0" class="table_thead table">
 					<colgroup>
@@ -31,8 +31,8 @@
 						<col width="5%">
 					</colgroup>
 					<tbody>
-					<?foreach($wating_list as $p){?>
-						<tr class="wating_list_js" data-idproduct="<?=$p['id_product']?>">
+					<?foreach($waiting_list as $p){?>
+						<tr class="waiting_list_js" data-idproduct="<?=$p['id_product']?>">
 							<td class="image_cell">
 								<a href="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars($p['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
 									<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения">
@@ -63,7 +63,7 @@
 								<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="icon-font in_page" title="Перейти на страницу товара">eye</a>
 							</td>
 							<td>
-								<span class="icon-font remove_watinglist_js" title="Удалить товар из списка">delete</span>
+								<span class="icon-font remove_waitinglist_js" title="Удалить товар из списка">delete</span>
 							</td>
 						</tr>
 					<?}?>

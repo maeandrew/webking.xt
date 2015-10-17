@@ -18,7 +18,7 @@
 				<a href="<?=_base_url?>/cabinet/favorites/" <?=(isset($cabinet_page) && $cabinet_page == 'favorites')?'class="active"':null;?>><span class="icon-font">favorites</span>Избранное</a>
 			</li>
 			<li>
-				<a href="<?=_base_url?>/cabinet/watinglist/" <?=(isset($cabinet_page) && $cabinet_page == 'watinglist')?'class="active"':null;?>><span class="icon-font">Line</span>Лист ожидания</a>
+				<a href="<?=_base_url?>/cabinet/waitinglist/" <?=(isset($cabinet_page) && $cabinet_page == 'waitinglist')?'class="active"':null;?>><span class="icon-font">Line</span>Лист ожидания</a>
 			</li>
 			<li class="hidden">
 				<a href="<?=_base_url?>/cabinet/feedback/" <?=(isset($cabinet_page) && $cabinet_page == 'feedback')?'class="active"':null;?>><span class="icon-font">headset</span>Обратная связь</a>

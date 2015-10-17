@@ -74,12 +74,12 @@
 					$favorite_descr = 'В избранном';
 				}
 
-				if(!isset($_SESSION['member']) || !in_array($prod['id_product'], $_SESSION['member']['wating_list'])){
-					$wating_list = "not_list";
-					$wating_list_descr = 'Следить за ценой';
+				if(!isset($_SESSION['member']) || !in_array($prod['id_product'], $_SESSION['member']['waiting_list'])){
+					$waiting_list = "not_list";
+					$waiting_list_descr = 'Следить за ценой';
 				}else{
-					$wating_list = "in_list";
-					$wating_list_descr = 'В листе ожидания';
+					$waiting_list = "in_list";
+					$waiting_list_descr = 'В листе ожидания';
 				}
 
 				// $data['obj'] = $prod;
@@ -109,8 +109,8 @@
 				$data['qty_descr'] = $qty_descr;
 				$data['favorite'] = $favorite;
 				$data['favorite_descr'] = $favorite_descr;
-				$data['wating_list'] = $wating_list;
-				$data['wating_list_descr'] = $wating_list_descr;
+				$data['waiting_list'] = $waiting_list;
+				$data['waiting_list_descr'] = $waiting_list_descr;
 				echo json_encode($data);
 			;
 			break;
@@ -131,7 +131,7 @@
 				echo json_encode($data);
 			;
 			break;
-			case "add_in_watinglist":
+			case "add_in_waitinglist":
 				// Добавление в список ожидания
 				if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
 					$data['answer'] = 'ok';
@@ -151,9 +151,9 @@
 					$data['answer'] = 'error';
 				}
 				if($_POST['id_user'] != '' && (($_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_) || $User->fields['gid'] == _ACL_CUSTOMER_)){
-					if($Customer->AddInWatingList($_POST['id_user'], $_POST['id_product'])){
+					if($Customer->AddInWaitingList($_POST['id_user'], $_POST['id_product'])){
 						if (isset($_SESSION['member'])) {
-							$_SESSION['member']['wating_list'][] = $_POST['id_product'];
+							$_SESSION['member']['waiting_list'][] = $_POST['id_product'];
 						}
 						$data['answer_data'] = 'insert_ok';
 					}else{
