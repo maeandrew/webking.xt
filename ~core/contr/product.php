@@ -26,8 +26,9 @@ if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
 $GLOBALS['prod_title'] = $products->fields['name'];
 $GLOBALS['product_canonical'] = '/product/'.$products->fields['id_product'].'/'.$products->fields['translit'].'/';
 /* product comments ======================================== */
-$related34 = $products->GetIdByComent($products->fields['id_product']);
-$tpl->Assign('coment', $related34);
+$res = $products->GetComentByProductId($products->fields['id_product']);
+print_r($res);
+$tpl->Assign('coment', $res);
 /* product comments ======================================== */
 
 /* product rating ========================================== */
@@ -111,7 +112,7 @@ if(isset($residprod) && !in_array($residprod, $array)){
 
 // Выборка похожих товаров
 if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
-	header('Location: /404/');
+	header('Location: '._base_url.'/404/');
 	exit();
 }
 $id_category = $products->fields['id_category'];

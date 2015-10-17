@@ -115,6 +115,7 @@ class Products {
 			".$visible."
 			ORDER BY cp.id";
 		$arr = $this->db->GetArray($sql);
+		// print_r($arr);
 		if(!$arr){
 			return false;
 		}
@@ -179,7 +180,7 @@ class Products {
 	// 	return true;
 	// }
 
-	public function GetIdByComent($id){
+	public function GetComentByProductId($id_product){
 		$sql = "SELECT cm.text_coment,
 			(CASE
 				WHEN cm.author = 4028 THEN cm.author_name
@@ -188,15 +189,14 @@ class Products {
 			END) AS name,
 			cm.date_comment, cm.visible, cm.rating
 			FROM "._DB_PREFIX_."coment AS cm
-			WHERE cm.url_coment = ".$id."
+			WHERE cm.url_coment = ".$id_product."
 			AND cm.visible = 1
 			ORDER BY cm.date_comment ASC";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 	public function GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating=null){
 		if(empty($text)){
