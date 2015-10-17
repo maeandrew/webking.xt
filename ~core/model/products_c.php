@@ -180,6 +180,10 @@ class Products {
 	// 	return true;
 	// }
 
+	/**
+	 * Получить комментарии к товару по его id
+	 * @param int $id_product		идентификатор товара
+	 */
 	public function GetComentByProductId($id_product){
 		$sql = "SELECT cm.text_coment,
 			(CASE
@@ -198,6 +202,16 @@ class Products {
 		}
 		return $arr;
 	}
+
+	/**
+	 * Записать комментарий к товару
+	 * @param string $text			текст комментария
+	 * @param ? $author				автор комментария
+	 * @param ? $author_name		имя автора
+	 * @param string $authors_email e-mail автора
+	 * @param ? $put           		?
+	 * @param int $rating 			оценка товара
+	 */
 	public function GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating=null){
 		if(empty($text)){
 			return false; //Если имя пустое
@@ -224,11 +238,14 @@ class Products {
 		return true;//Если все ок
 	}
 
-	//Видео по Id
-	public function GetIdByVideo($id){
+	/**
+	 * Получить видео по id товара
+	 * @param int $id_product		идентификатор товара
+	 */
+	public function GetIdByVideo($id_product){
 		$sql = "SELECT url
 			FROM "._DB_PREFIX_."video
-			WHERE id_product = ".$id."
+			WHERE id_product = ".$id_product."
 			ORDER BY id_video";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
@@ -240,7 +257,7 @@ class Products {
 		return $res;
 	}
 
-	//Добавление и удаление видео
+	// Добавление и удаление видео
 	public function UpdateVideo($id_product, $arr){
 		$sql = "DELETE FROM "._DB_PREFIX_."video WHERE id_product=".$id_product;
 		$this->db->StartTrans();
@@ -263,6 +280,11 @@ class Products {
 		unset($f);
 		return true;//Если все ок
 	}
+
+	/**
+	 * Получить id категории по ее артикулу
+	 * @param int $art		артикул категории
+	 */
 	public function GetCategoryIdByArt($art){
 		$sql = "SELECT c.id_category
 			FROM "._DB_PREFIX_."category AS c
@@ -270,11 +292,14 @@ class Products {
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr['id_category'];
 		}
+		return $arr['id_category'];
 	}
 
+	/**
+	 * Получить id товара по его артикулу
+	 * @param int $art		артикул товара
+	 */
 	public function GetIdByArt($art){
 		$sql = "SELECT p.id_product
 			FROM "._DB_PREFIX_."product AS p
@@ -282,13 +307,14 @@ class Products {
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr['id_product'];
 		}
+		return $arr['id_product'];
 	}
 
-	/* получения массива id_products по артикулу и по его началу */
-
+	/**
+	 * Получение массива id_products по артикулу и по его началу
+	 * @param int $art идентификатор товара
+	 */
 	public function GetIdOneRowArrayByArt($art){
 		$sql = "SELECT p.id_product, CONCAT(p.art,' - ',p.name) AS response
 			FROM "._DB_PREFIX_."product AS p
@@ -296,9 +322,8 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 
 	public function SetProductsListDropDownSearch($and = false){
