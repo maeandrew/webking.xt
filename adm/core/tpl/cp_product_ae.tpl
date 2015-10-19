@@ -394,6 +394,8 @@
 				</div>
 				<div id="nav_information">
 					<h2>Информация</h2>
+					<label>Инструкция подлинности:</label>
+					<textarea name="instruction" cols="30" rows="6"><?=isset($_POST['instruction'])?htmlspecialchars($_POST['instruction']):null?></textarea>
 					<label>Данные поставщика:</label>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 						<colgroup>

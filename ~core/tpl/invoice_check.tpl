@@ -34,7 +34,7 @@ h1 { font-size: 19px; }
 .table_main td.name { padding: 0 1%; text-align: left; border-right: 1px #000 solid; border-bottom: 1px #000 solid; }
 .table_main .hdr td { font-weight: bold; padding: 1px; }
 .table_main .main td { height: 50px; font-size: 17px; }
-.table_main .main td img { width: 56px; }
+.table_main .main td img { width: 96px; }
 .table_sum { margin: 10px 0 0 1px; }
 .table_sum td { padding: 1px 1px 0; font-size: 12px; text-align: center; vertical-align: top; }
 .table_sum td.name { padding: 1px; font-size: 12px; text-align: left; }
@@ -67,6 +67,9 @@ h1.filial { text-align: center; font-size: 27px; }
 	/*text-align: center;*/
 	text-align: left;
 	/*border-top: 1px solid #000;*/
+}
+.instruction {
+	color: #0018FF;
 }
 </style>
 </head>
@@ -146,7 +149,7 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="c2"><?=$i['article']?></td>
 										<td class="c3"><?=$i['art']?></td>
 										<td class="c4"><img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"></td>
-										<td class="name c5"><?=$i['name']?><?if($i['note_opt']!=''){?> <span class="note_red"><?=$i['note_opt']?></span><?}?></td>
+										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_opt']!=''){?> <span class="note_red"><?=$i['note_opt']?></span><?}?></td>
 										<td class="c6"><?=$i['site_price_opt']?></td>
 										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?></td>
 										<td class="c8" style="<?=($i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0)? 'color: #f00; font-weight: bold;':null;?>">
@@ -172,7 +175,7 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="c2"><?=$i['article_mopt']?></td>
 										<td class="c3"><?=$i['art']?></td>
 										<td class="c4"><img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"></td>
-										<td class="name c5"><?=$i['name']?><?if($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
+										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
 										<td class="c6"><?=$i['site_price_mopt']?></td>
 										<td class="c7"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?></td>
 										<td class="c8" style="<?if($i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0){?>color: #f00; font-weight: bold;<?}?>">
