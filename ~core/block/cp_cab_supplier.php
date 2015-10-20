@@ -95,6 +95,8 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	// 	echo str_replace($GLOBALS['PATH_root'], '/', $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
 	// 	exit(0);
 	// }
+
+
 	if(isset($_GET['validate']) == true){
 		$Images->validate($_FILES, $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/");
 		exit(0);
@@ -103,6 +105,8 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		echo str_replace($GLOBALS['PATH_root'], '/', $res);
 		exit(0);
 	}elseif(isset($_POST['editionsubmit']) == true){
+		//Расчет обьема продукта
+		$_POST['volume'] = ($_POST['height'] * $_POST['width'] * $_POST['length']) * 0.000001;
 		if($products->AddSupplierProduct($_POST)){
 			header('Location: '._base_url.'/cabinet/productsonmoderation/');
 		}

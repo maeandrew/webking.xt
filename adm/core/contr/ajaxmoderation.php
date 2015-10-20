@@ -8,7 +8,7 @@
 			;
 			break;
 			case "accept":
-				$_POST['art'] = $GLOBALS['CONFIG']['last_manual_product_article'] + 1;
+				$_POST['art'] = $products->CheckArticle((int) $GLOBALS['CONFIG']['last_manual_product_article'] + 1);
 				if($id = $products->AcceptProductModeration($_POST)){
 					$GLOBALS['CONFIG']['last_manual_product_article'] = $_POST['art'];
 					$config = new Config();

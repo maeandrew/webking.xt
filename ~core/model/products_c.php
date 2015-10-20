@@ -14,7 +14,7 @@ class Products {
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
-			"p.volume", "p.qty_control", "p.price_coefficient_opt", "p.price_coefficient_mopt",
+			"p.volume", "p.coefficient_volume", "p.qty_control", "p.price_coefficient_opt", "p.price_coefficient_mopt",
 			"p.visible", "p.ord", "p.note_control", "un.unit_xt AS units", "p.prod_status", "p.old_price_mopt",
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
@@ -48,7 +48,7 @@ class Products {
 		$this->usual_fields_temp_prods = array("tp.id", "tp.name", "tp.descr", "tp.img_1", "tp.img_2",
 			"tp.img_3", "tp.id_unit", "tp.min_mopt_qty", "tp.inbox_qty", "tp.price_mopt", "tp.price_opt",
 			"tp.qty_control", "tp.weight", "tp.volume", "tp.product_limit", "tp.id_supplier",
-			"tp.moderation_status", "tp.comment", "tp.creation_date", "tp.images");
+			"tp.moderation_status", "tp.comment", "tp.creation_date", "tp.images", "tp.height", "tp.width", "tp.length", "tp.coefficient_volume");
 	}
 
 	public function GetRelatedProducts($id, $category_id, $howfar=10000, $howmany=20, $min_interval = 50){
@@ -1474,6 +1474,7 @@ class Products {
 			$f['weight'] = mysql_real_escape_string(trim($arr['weight']));
 		}
 		$f['volume'] = mysql_real_escape_string(trim($arr['volume']));
+		$f['coefficient_volume'] = mysql_real_escape_string($arr['coefficient_volume']);
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
@@ -1596,6 +1597,7 @@ class Products {
 				$f['weight'] = mysql_real_escape_string(trim($arr['weight']));
 			}
 			$f['volume'] = mysql_real_escape_string(trim($arr['volume']));
+			$f['coefficient_volume'] = mysql_real_escape_string($arr['coefficient_volume']);
 			$f['opt_correction_set'] = isset($arr['opt_correction_set'])?mysql_real_escape_string(trim($arr['opt_correction_set'])):0;
 			$f['mopt_correction_set'] = isset($arr['mopt_correction_set'])?mysql_real_escape_string(trim($arr['mopt_correction_set'])):0;
 			$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
@@ -2901,9 +2903,9 @@ class Products {
 		$f['name'] = mysql_real_escape_string($data['name']);
 		$f['descr'] = mysql_real_escape_string(nl2br($data['descr'], false));
 		$f['images'] = mysql_real_escape_string($data['images']);
-		$f['img_1'] = mysql_real_escape_string($data['img_1']);
-		$f['img_2'] = mysql_real_escape_string($data['img_2']);
-		$f['img_3'] = mysql_real_escape_string($data['img_3']);
+		$f['img_1'] = mysql_real_escape_string(isset($data['img_1'])?$data['img_1']:null);
+		$f['img_2'] = mysql_real_escape_string(isset($data['img_2'])?$data['img_1']:null);
+		$f['img_3'] = mysql_real_escape_string(isset($data['img_3'])?$data['img_1']:null);
 		$f['id_unit'] = mysql_real_escape_string($data['id_unit']);
 		$f['min_mopt_qty'] = mysql_real_escape_string($data['min_mopt_qty']);
 		$f['inbox_qty'] = mysql_real_escape_string($data['inbox_qty']);
@@ -2913,8 +2915,12 @@ class Products {
 		if(isset($data['qty_control']) && $data['qty_control'] == 1){
 			$f['qty_control'] = mysql_real_escape_string($data['qty_control']);
 		}
-		$f['weight'] = str_replace(',','.', mysql_real_escape_string($data['weight']));
-		$f['volume'] = str_replace(',','.', mysql_real_escape_string($data['volume']));
+		$f['weight'] = number_format((float) mysql_real_escape_string($data['weight']), 3);
+		$f['volume'] = mysql_real_escape_string($data['volume']);
+		$f['height'] = mysql_real_escape_string($data['height']);
+		$f['width'] = mysql_real_escape_string($data['width']);
+		$f['length'] = mysql_real_escape_string($data['length']);
+		$f['coefficient_volume'] = mysql_real_escape_string($data['coefficient_volume']);
 		$f['product_limit'] = mysql_real_escape_string($data['product_limit']);
 		$f['moderation_status'] = 0;
 		$this->db->StartTrans();
@@ -3078,8 +3084,15 @@ class Products {
 		$f['country'] = '';
 		$f['max_supplier_qty'] = 0;
 		$f['manufacturer_id'] = 0;
-		$f['weight'] = str_replace(',','.', mysql_real_escape_string($product['weight']));
-		$f['volume'] = str_replace(',','.', mysql_real_escape_string($product['volume']));
+		$f['weight'] = ($product['height'] * $product['width'] * $product['length']) * 0.000001;
+		$f['volume'] = str_replace(',','.', mysql_real_escape_string($product['weight']));
+		$f['height'] = mysql_real_escape_string($product['height']);
+		$f['width'] = mysql_real_escape_string($product['width']);
+		$f['length'] = mysql_real_escape_string($product['length']);
+		$f['coefficient_volume'] = mysql_real_escape_string($product['coefficient_volume']);
+		$f['edit_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
+		$f['edit_date'] = date('Y-m-d H:i:s');
+		$f['create_user'] = mysql_real_escape_string($product['id_supplier']);
 		$f['id_unit'] = mysql_real_escape_string($product['id_unit']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){

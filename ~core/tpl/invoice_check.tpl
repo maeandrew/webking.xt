@@ -158,9 +158,9 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="c9"></td>
 										<td class="c10" style="text-align: right;">
 											<?if(!in_array($i['id_product'], $products) || $i['out'] == 1){?>
-												<?=$i['volume'] > 0?$i['volume'].'<small> м<sup>3</sup></small>&nbsp;':'<small style="float: left; clear: both; width: 100%; text-align: left !important;">&nbsp;д<hr>&nbsp;ш<hr>&nbsp;в</small>';?>
+												<?=$i['volume'] > 0?$i['volume']:'   ';?><small> кг&nbsp;</small>
 												<hr>
-												<?=$i['weight'] > 0?$i['weight']:'   ';?><small> кг&nbsp;</small>
+												<?=$i['weight'] > 0?$i['weight'].'<small> м<sup>3</sup></small>&nbsp;':'<small style="float: left; clear: both; width: 100%; text-align: left !important;">&nbsp;д<hr>&nbsp;ш<hr>&nbsp;в</small>';?>
 											<?}else{?>
 												<small><small>Не заполнять</small></small>
 											<?}?>
@@ -184,9 +184,9 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="c9"></td>
 										<td class="c10" style="text-align: right;">
 											<?if(!in_array($i['id_product'], $products) || $i['out'] == 1){?>
-												<?=$i['volume'] > 0?$i['volume'].'<small> м<sup>3</sup></small>&nbsp;':'<small style="float: left; clear: both; width: 100%; text-align: left !important;">&nbsp;д<hr>&nbsp;ш<hr>&nbsp;в</small>';?>
+												<?=$i['volume'] > 0?$i['volume']:'   ';?><small> кг&nbsp;</small>
 												<hr>
-												<?=$i['weight'] > 0?$i['weight']:'   ';?><small> кг&nbsp;</small>
+												<?=$i['weight'] > 0?$i['weight'].'<small> м<sup>3</sup></small>&nbsp;':'<small style="float: left; clear: both; width: 100%; text-align: left !important;">&nbsp;д<hr>&nbsp;ш<hr>&nbsp;в</small>';?>
 											<?}else{?>
 												<small><small>Не заполнять</small></small>
 											<?}?>
@@ -204,7 +204,7 @@ h1.filial { text-align: center; font-size: 27px; }
 					<tr>
 						<th colspan="6" class="nb"></th>
 						<th colspan="3" class="nb" style="text-align: right; padding-right: .5em;">Суммарный объем:<br>Суммарный вес:</th>
-						<th class="bl" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 5px;"><?=$volume;?> м<sup>3</sup><br><?=$weight;?> кг</th>
+						<th class="bl" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 5px;"><?=$weight;?> м<sup>3</sup><br><?=$volume;?> кг</th>
 					</tr>
 				</table>
 			<?}

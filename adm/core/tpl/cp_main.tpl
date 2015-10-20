@@ -178,15 +178,6 @@
 									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_prodazi">Обновить</button>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<label>Создание уменьшенных копий изображений товаров в отдельной папке на сервере.</label>
-								</td>
-								<td>
-									<a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/new_resize_product_images/" class="btn-m-green size_s fr">NEW RESIZE</a>
-									<a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/gen_resize_product_images/" class="btn-m-green size_s fr">Выполнить</a>
-								</td>
-							</tr>
 						</form>
 					<?}?>
 				</tbody>
@@ -246,6 +237,15 @@
 				</colgroup>
 				<tbody>
 					<?if($_SESSION['member']['gid'] == _ACL_ADMIN_){?>
+						<tr>
+							<td>
+								<label>Создание уменьшенных копий изображений товаров в отдельной папке на сервере.</label>
+							</td>
+							<td>
+								<!-- <a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/new_resize_product_images/" class="btn-m-red size_s fr">NEW RESIZE</a> -->
+								<a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/gen_resize_product_images/" class="btn-m-red size_s fr">Выполнить</a>
+							</td>
+						</tr>
 						<tr>
 							<td>
 								<label for="kurs_griwni" class="fl">Пересчитать все цены поставщиков по курсу</label>

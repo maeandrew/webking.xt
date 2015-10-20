@@ -1,4 +1,4 @@
-/*#edit_modprodae #preview1,
+#edit_modprodae #preview1,
 #edit_modprodae #preview2,
 #edit_modprodae #preview3 {
 	height: 70px;
@@ -12,7 +12,7 @@
 #edit_modprodae #preview2 input,
 #edit_modprodae #preview3 input {
 	margin-top: 13px;
-}*/
+}
 #photobox {
 	position: relative;
 	clear: both;
@@ -149,4 +149,7 @@
 	text-align: center;
 	font-weight: bold;
 	clear: both;
+}
+.dimensions {
+	margin-right: 10px;
 }

@@ -485,6 +485,13 @@ table.supplier_assort_table {
 	clear: both;
 	width: 100%;
 }
+.editproduct label[for="height"],
+.editproduct label[for="width"],
+.editproduct label[for="length"] {
+	width: auto;
+	line-height: 25px;
+    margin: 5px 5px 5px 25px;
+}
 .editproduct span.info_units {
 	margin-left: 5px;
 }

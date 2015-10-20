@@ -307,14 +307,14 @@
 						<input type="number" name="length" id="length" class="input-m" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
 					</div>
 					<label for="coefficient_volume">Коэффициент реального обьема:</label>
-					<input type="number" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):0?>">
+					<input type="number" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):1?>">
 					<label class="weight">Объем:
 						<span>
 							<?if(isset($_POST['weight']) ){
 								if($_POST['weight'] == 0){?>
 									Заполните поля (ВхШхД)
 								<?}else{
-									htmlspecialchars($_POST['weight']).' м3';
+									echo htmlspecialchars($_POST['weight']).' м3';
 								}
 							}else{?>
 								-
@@ -527,7 +527,7 @@
 				length = $("#length").val(),
 				volume = 0;
 			volume = height * width * length;
-			$(".weight span").html(((volume*0.000001).toFixed(2))+" м3");
+			$(".weight span").html(((volume*0.000001).toFixed(6))+" м3");
 		});
 
 		//Добавление видео
