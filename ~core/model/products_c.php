@@ -444,7 +444,6 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}
-		print_r($sql);
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -3350,5 +3349,27 @@ class Products {
 		unset($id_product);
 		unset($f);
 		return true;//Если все ок
+	}
+
+
+	//Проверка Артикула
+	/**
+	 * @param int $art Артикул нового товара
+	 * @param array $art_arr Массив с имеющимися артикулами
+	 */
+	public function CheckArticle($art, $art_arr = null){
+		if($art_arr == null){
+			$sql = "SELECT art
+				FROM "._DB_PREFIX_."product
+				WHERE art <> ''";
+			$art_arr = $this->db->GetArray($sql);
+			foreach ($art_arr as &$value) {
+				$value = (int) $value['art'];
+			}
+		}
+		if(in_array($art, $art_arr)){
+			$art = $this->CheckArticle($art+1, $art_arr);
+		}
+		return $art;
 	}
 }?>

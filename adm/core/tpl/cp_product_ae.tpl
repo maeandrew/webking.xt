@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="productae">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid">
+	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid" id="product_form">
 		<div class="prod_head">
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 				<div class="fl head_block">
@@ -17,7 +17,7 @@
 					<button name="smb" type="submit" class="btn-m-default fr">Сохранить</button>
 				</div>
 			<?}else{?>
-				<button name="smb" type="submit" class="btn-m-default fr">Сохранить</button>
+				<button name="smb" type="submit" class="btn-m-default fr prod_add_js">Сохранить</button>
 			<?}?>
 		</div>
 		<div id="second_navigation">
@@ -84,7 +84,7 @@
 					<div class="row">
 						<div class="col-md-2">
 							<label for="art">Артикул:</label><?=isset($errm['art'])?"<span class=\"errmsg\">".$errm['art']."</span><br>":null?>
-							<input type="text" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt+1?>">
+							<input type="text" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt?>">
 						</div>
 						<div class="col-md-10">
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>

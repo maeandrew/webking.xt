@@ -17,6 +17,7 @@ if(isset($_GET['upload']) == true){
 }
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])){
+	$_POST['art'] = $products->CheckArticle((int) $_POST['art']);
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
 		$_POST['price'] = 0;
@@ -57,12 +58,14 @@ if(isset($_POST['smb'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
-// get last article
-$sql = "SELECT art AS cnt
-	FROM "._DB_PREFIX_."product
-	WHERE (SELECT MAX(id_product) FROM "._DB_PREFIX_."product) = id_product";
-$res = $db->GetOneRowArray($sql);
-$tpl->Assign("max_cnt", $res['cnt']);
+if(!isset($_POST['art'])){
+	// get last article
+	$sql = "SELECT art
+		FROM "._DB_PREFIX_."product
+		WHERE id_product = (SELECT MAX(id_product) FROM "._DB_PREFIX_."product)";
+	$res = $db->GetOneRowArray($sql);
+	$tpl->Assign("max_cnt", $res['art']+1);
+}
 // Формирование списка категорий для выпадающего списка
 $list = $dbtree->Full(array('id_category', 'category_level', 'name'));
 $tpl->Assign('list', $list);
