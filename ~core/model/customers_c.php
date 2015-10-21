@@ -544,6 +544,28 @@ class Customers extends Users {
 		}
 		return $arr;
 	}
+	public function GetOrders_demo($order_by = 'o.creation_date desc'){
+		$id_customer = $GLOBALS['CONFIG']['demo_user'];
+		$date = time()+3600*24;
+		$date2 = time()-3600*24*30;
+		$sql = "SELECT o.creation_date, o.target_date, o.id_order,
+			o.id_order_status, o.skey, c.site as contragent_site,
+			o.sum_discount, o.discount, c.name_c as contragent,
+			SUM(osp.opt_sum+osp.mopt_sum) AS sum
+			FROM "._DB_PREFIX_."order AS o
+			LEFT JOIN "._DB_PREFIX_."osp AS osp
+				ON o.id_order = osp.id_order
+			LEFT JOIN "._DB_PREFIX_."user AS u
+				ON o.id_customer = u.id_user
+			LEFT JOIN "._DB_PREFIX_."contragent AS c
+				ON c.id_user = o.id_contragent
+			WHERE o.creation_date > '".$date2."'
+			AND o.id_order_status IN (1, 2, 4, 5, 6)
+			GROUP BY o.id_order
+			ORDER BY ".$order_by;
+		$arr = $this->db->GetArray($sql);
+		return $arr;
+	}
 
 	public function GetOrders_export($order_by){
 		$date = mysql_real_escape_string($_POST['date3']);

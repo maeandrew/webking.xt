@@ -15,7 +15,7 @@
 	<div class="product">
 		<div class="row">
 			<div class="col-md-6 clearfix">
-				<div id="product_miniatures_img">
+				<div id="product_miniatures_img" <?=count($item['images'])<5?'class="no_slide"':null?>>
 					<a href="#" class="arrow_Up"><span class="icon-font">arrow_up</span></a>
 					<a href="#" class="arrow_Down"><span class="icon-font">arrow_down</span></a>
 					<div class="carrossel_wrapper">
@@ -30,7 +30,7 @@
 								for($i=1; $i < 4; $i++){
 									if(!empty($item['img_'.$i])){?>
 										<div class="item">
-											<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.$item['img_'.$i]:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+											<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
 										</div>
 									<?}
 								}
@@ -957,6 +957,8 @@
 				var imgsrc = $(this).find('img').attr('src');
 				if(imgsrc.indexOf("<?=str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']);?>") > -1){
 					imgsrc = imgsrc.replace('thumb', 'original');
+				}else{
+					imgsrc = imgsrc.replace('_thumb/', '');
 				}
 				$('#product_main_img').find('.item img').attr('src', imgsrc);
 				$('#product_main_img').hide().fadeIn('100');

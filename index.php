@@ -130,7 +130,7 @@ require(dirname(__FILE__).'/~core/sys/global_c.php');
 require(dirname(__FILE__).'/~core/cfg.php');
 // Memcached init
 $mc = new Memcached();
-$mc->addServer("192.168.0.254", 11211);
+$mc->addServer("localhost", 11211);
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 if(!isset($_COOKIE['manual'])){
@@ -237,7 +237,9 @@ if(isset($_COOKIE['view_products'])){
 	foreach(json_decode($_COOKIE['view_products']) as $value){
 		$products->SetFieldsById($value);
 		$product = $products->fields;
-		$product['images'] = $products->GetPhotoById($product['id_product']);
+		if(isset($product['id_product']) && $product['id_product'] != ''){
+			$product['images'] = $products->GetPhotoById($product['id_product']);
+		}
 		$result[] = $product;
 	}
 	$tpl->Assign('view_products_list', array_reverse($result));

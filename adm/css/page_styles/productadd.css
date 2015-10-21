@@ -149,6 +149,9 @@
 .tabs-panel div[id^='nav_']:first-of-type {
 	padding-top: 0;
 }
+.tabs-panel h2 {
+	border-bottom: 3px solid #00AFF0;
+}
 
 /*.ui-tabs-vertical {
 	display: block !important;

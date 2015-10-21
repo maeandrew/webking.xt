@@ -472,6 +472,13 @@
 	position: relative;
 	padding: 35px 0;
 }
+#product_miniatures_img.no_slide {
+	padding: 0;
+}
+#product_miniatures_img.no_slide .arrow_Up,
+#product_miniatures_img.no_slide .arrow_Down {
+	display: none;
+}
 .carrossel_wrapper {
 	height: 428px;
 	overflow: hidden;
@@ -507,10 +514,3 @@ a.arrow_Down {
 	position: absolute;
 	bottom: 0;
 }
-/*#product_miniatures_img:hover .arrow_Up,
-#product_miniatures_img:hover .arrow_Down {
-	display: block;
-	background: rgba(0, 0, 0, .4);
-	color: #fff;
-	z-index: 11;
-}*/

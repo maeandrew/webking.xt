@@ -261,6 +261,8 @@
 								<textarea name="descr_xt_short" id="descr_xt_short" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_short'])?htmlspecialchars($_POST['descr_xt_short']):null?></textarea>
 								<label for="descr">Описание xt.ua(полное):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
 								<textarea name="descr_xt_full" id="descr_xt_full" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_full'])?htmlspecialchars($_POST['descr_xt_full']):null?></textarea>
+								<label>Инструкция подлинности:</label>
+								<textarea name="instruction" cols="30" rows="6"><?=isset($_POST['instruction'])?htmlspecialchars($_POST['instruction']):null?></textarea>
 								<label for="note_control"><b>Требовать заполнение примечания &nbsp;</b>
 									<input type="checkbox" name="note_control" id="note_control" class="input-m" <?=isset($_POST['note_control'])&&($_POST['note_control'])?'checked="checked" value="on"':null?>>
 								</label>
@@ -394,8 +396,6 @@
 				</div>
 				<div id="nav_information">
 					<h2>Информация</h2>
-					<label>Инструкция подлинности:</label>
-					<textarea name="instruction" cols="30" rows="6"><?=isset($_POST['instruction'])?htmlspecialchars($_POST['instruction']):null?></textarea>
 					<label>Данные поставщика:</label>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 						<colgroup>
