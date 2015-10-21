@@ -200,7 +200,11 @@ $(window).load(function(){
 			if(data != null && data.length > 0){
 				$('ul.autocomplete').find('li').remove();
 				for(var i = 0; i < data.length; i++){
-					$('ul.autocomplete').append('<li class="result_item"><a href="'+URL_base+'product/'+data[i]['id_product']+'/'+data[i]['translit']+'" class="animate"><img alt="'+data[i]['name']+'" src="'+data[i]['img_1'].replace('/image', '/_thumb/image')+'" width="50px" height="50px"/>'+data[i]['name'].replace('/\\' + query + '\\/gi','<span style="font-weight: bold;">'+query+'</span>')+'</a></li>');
+					if(data[i]['image'] == null){
+						$('ul.autocomplete').append('<li class="result_item"><a href="'+URL_base+'product/'+data[i]['id_product']+'/'+data[i]['translit']+'" class="animate"><img alt="'+data[i]['name']+'" src="'+data[i]['img_1'].replace('/image', '/_thumb/image')+'" width="50px" height="50px"/>'+data[i]['name'].replace('/\\' + query + '\\/gi','<span style="font-weight: bold;">'+query+'</span>')+'</a></li>');
+					}else{
+						$('ul.autocomplete').append('<li class="result_item"><a href="'+URL_base+'product/'+data[i]['id_product']+'/'+data[i]['translit']+'" class="animate"><img alt="'+data[i]['name']+'" src="'+data[i]['image'].replace('/original', '/small')+'" width="50px" height="50px"/>'+data[i]['name'].replace('/\\' + query + '\\/gi','<span style="font-weight: bold;">'+query+'</span>')+'</a></li>');
+					}
 				}
 				$('ul.autocomplete').append('<li><a href="/search/?query='+query+'&category2search='+c2s+'" class="animate">Показать все результаты >></a></li>');
 				$('ul.autocomplete').slideDown();

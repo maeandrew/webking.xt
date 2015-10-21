@@ -46,67 +46,73 @@
 					<th width="175px">Склад</th>
 				</tr>
 			</thead>
-			<?foreach($orders as $i){?>
-				<tr class="ord-<?=$i['id_order']?>" <? if($i['id_customer'] == $current['id_user']){?>style="background: #F1FFF1;"<?}?>>
-					<td class="date">
-						<?=date("d.m.Y",$i['creation_date'])?>
-					</td>
-					<td class="date">
-						<?if($i['target_date'] != 0 ){
-							echo date("d.m.Y",$i['target_date']);
-						}else{
-							echo "-";
-						}?>
-					</td>
-					<td class="order">
-						<a href="<?=_base_url?>/customer_order/<?=$i['id_order']?>"/><?=$i['id_order']?></a>
-					</td>
-					<td class="status">
-						<?=$order_statuses[$i['id_order_status']]['name']?>
-						<input type="hidden" class="target-date-<?=$i['id_order']?>" value="<?if($i['target_date'] != 0 ){ echo date("d.m.Y",$i['target_date']); }?>" />
-						<input type="hidden" class="client-<?=$i['id_order']?>" value="<?=$i['cont_person']?>" />
-						<?if(!in_array($i['id_order_status'], array("2", "6", "8")) && $contragent['remote'] == 1){?>
-							<a href="#" class="change-status icon-font open_modal" title="Нажмите, чтобы изменить статус и дату отгрузки заказа" data-target="select_status_js" data-idorder="<?=$i['id_order']?>">edit</a>
-						<?}?>
-					</td>
-					<td class="sum">
-						<p>
-							<?=number_format($i['sum_discount'], 2, ",", "")?><br>
-							<?if($i['id_customer'] == $current['id_user']){
-								if($i['discount'] > 0){?>
-									с наценкой <?=$i['discount'];?>
-								<?}
+			<?if(isset($orders) && !empty($orders)){
+				foreach($orders as $i){?>
+					<tr class="ord-<?=$i['id_order']?>" <? if($i['id_customer'] == $current['id_user']){?>style="background: #F1FFF1;"<?}?>>
+						<td class="date">
+							<?=date("d.m.Y",$i['creation_date'])?>
+						</td>
+						<td class="date">
+							<?if($i['target_date'] != 0 ){
+								echo date("d.m.Y",$i['target_date']);
+							}else{
+								echo "-";
 							}?>
-						</p>
-					</td>
-					<td class="client">
-						<?if($i['id_customer'] == $current['id_user']){?>
-							<p class="name-klient">
-								<a href="<?=_base_url."/cabinet/".$i['id_klient']?>" title="Нажмите, чтобы отобразить заказы только этого клиента"><?=$i['name_klient']?> </a>
+						</td>
+						<td class="order">
+							<a href="<?=_base_url?>/customer_order/<?=$i['id_order']?>"/><?=$i['id_order']?></a>
+						</td>
+						<td class="status">
+							<?=$order_statuses[$i['id_order_status']]['name']?>
+							<input type="hidden" class="target-date-<?=$i['id_order']?>" value="<?if($i['target_date'] != 0 ){ echo date("d.m.Y",$i['target_date']); }?>" />
+							<input type="hidden" class="client-<?=$i['id_order']?>" value="<?=$i['cont_person']?>" />
+							<?if(!in_array($i['id_order_status'], array("2", "6", "8")) && $contragent['remote'] == 1){?>
+								<a href="#" class="change-status icon-font open_modal" title="Нажмите, чтобы изменить статус и дату отгрузки заказа" data-target="select_status_js" data-idorder="<?=$i['id_order']?>">edit</a>
+							<?}?>
+						</td>
+						<td class="sum">
+							<p>
+								<?=number_format($i['sum_discount'], 2, ",", "")?><br>
+								<?if($i['id_customer'] == $current['id_user']){
+									if($i['discount'] > 0){?>
+										с наценкой <?=$i['discount'];?>
+									<?}
+								}?>
 							</p>
-							<p class="cont-person-klient">
-								<?=$i['cont_person_klient']?>
-								<?if(!in_array($i['id_order_status'], array("2", "6", "8"))){?>
-									<a href="#" class="change-client icon-font open_modal" title="Нажмите, чтобы изменить клиента для заказа" data-target="select_client_js" data-idorder="<?=$i['id_order']?>">edit</a>
-								<?}?>
-							</p>
-							<input type="hidden" class="current-client" value="<?=$i['id_klient']?>"/>
-						<?}else{?>
-							<p class="name-customer"><a href="<?=_base_url."/cabinet/".$i['id_customer']?>"><?=$i['name_customer'];?> </a></p>
-							<p class="cont-person"><?=$i['cont_person'];?></p>
-							<input type="hidden" class="current-client" value="<?=$i['id_customer']?>"/>
-						<?}?>
-					</td>
-					<td colspan="2" class="notes">
-						<textarea onChange="setOrderNote(<?=$i['id_order']?>)" class="note1" id="order_note_<?=$i['id_order']?>"><?=isset($i['note'])?$i['note']:null?></textarea>
-						<textarea onChange="setOrderNote_zamena(<?=$i['id_order']?>)" class="note2" id="order_note2_<?=$i['id_order']?>"><?=isset($i['note2'])?$i['note2']:null?></textarea>
-					</td>
-					<td class="bill">
-						<button id="invoice" class="invoice-create ord-<?=$i['id_order']?> btn-m-green open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
-						<button id="bill" class="bill-create ord-<?=$i['id_order']?> btn-m-orange open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Накл.</button><br>
-						<a target="_blank" href="<?=_base_url?>/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. сайт<br></a>
-						<a target="_blank" href="<?=_base_url?>/invoice_customer_fakt/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. факт</a>
-					</td>
+						</td>
+						<td class="client">
+							<?if($i['id_customer'] == $current['id_user']){?>
+								<p class="name-klient">
+									<a href="<?=_base_url."/cabinet/".$i['id_klient']?>" title="Нажмите, чтобы отобразить заказы только этого клиента"><?=$i['name_klient']?> </a>
+								</p>
+								<p class="cont-person-klient">
+									<?=$i['cont_person_klient']?>
+									<?if(!in_array($i['id_order_status'], array("2", "6", "8"))){?>
+										<a href="#" class="change-client icon-font open_modal" title="Нажмите, чтобы изменить клиента для заказа" data-target="select_client_js" data-idorder="<?=$i['id_order']?>">edit</a>
+									<?}?>
+								</p>
+								<input type="hidden" class="current-client" value="<?=$i['id_klient']?>"/>
+							<?}else{?>
+								<p class="name-customer"><a href="<?=_base_url."/cabinet/".$i['id_customer']?>"><?=$i['name_customer'];?> </a></p>
+								<p class="cont-person"><?=$i['cont_person'];?></p>
+								<input type="hidden" class="current-client" value="<?=$i['id_customer']?>"/>
+							<?}?>
+						</td>
+						<td colspan="2" class="notes">
+							<textarea onChange="setOrderNote(<?=$i['id_order']?>)" class="note1" id="order_note_<?=$i['id_order']?>"><?=isset($i['note'])?$i['note']:null?></textarea>
+							<textarea onChange="setOrderNote_zamena(<?=$i['id_order']?>)" class="note2" id="order_note2_<?=$i['id_order']?>"><?=isset($i['note2'])?$i['note2']:null?></textarea>
+						</td>
+						<td class="bill">
+							<button id="invoice" class="invoice-create ord-<?=$i['id_order']?> btn-m-green open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
+							<button id="bill" class="bill-create ord-<?=$i['id_order']?> btn-m-orange open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Накл.</button><br>
+							<a target="_blank" href="<?=_base_url?>/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. сайт<br></a>
+							<a target="_blank" href="<?=_base_url?>/invoice_customer_fakt/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. факт</a>
+						</td>
+					</tr>
+				<?}
+			}else{?>
+				<tr>
+					<td colspan="12">Нет заказов за последние 30 дней</td>
 				</tr>
 			<?}?>
 		</table>

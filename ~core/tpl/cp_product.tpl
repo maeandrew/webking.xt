@@ -16,21 +16,27 @@
 		<div class="row">
 			<div class="col-md-6 clearfix">
 				<div id="product_miniatures_img">
-					<?if(!empty($item['images'])){
-						foreach($item['images'] as $i => $image){?>
-							<div class="item">
-								<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>"<?=$i==0?' class="active_img"':null;?>>
-							</div>
-						<?}
-					}else{
-						for($i=1; $i < 4; $i++){ 
-							if(!empty($item['img_'.$i])){?>
-								<div class="item">
-									<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.$item['img_'.$i]:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-								</div>
-							<?}
-						}
-					}?>
+					<a href="#" class="arrow_Up"><span class="icon-font">arrow_up</span></a>
+					<a href="#" class="arrow_Down"><span class="icon-font">arrow_down</span></a>
+					<div class="carrossel_wrapper">
+						<div class="carrossel-items">
+							<?if(!empty($item['images'])){
+								foreach($item['images'] as $i => $image){?>
+									<div class="item">
+										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="active_img"':null;?>>
+									</div>
+								<?}
+							}else{
+								for($i=1; $i < 4; $i++){
+									if(!empty($item['img_'.$i])){?>
+										<div class="item">
+											<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.$item['img_'.$i]:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+										</div>
+									<?}
+								}
+							}?>
+						</div>
+					</div>
 				</div>
 				<div id="product_main_img">
 					<?if(!empty($item['images'])){?>
@@ -857,7 +863,7 @@
 										</div>
 									<?}
 								}else{
-									for($i=1; $i < 4; $i++){ 
+									for($i=1; $i < 4; $i++){
 										if(!empty($item['img_'.$i])){?>
 											<div class="item">
 												<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.$item['img_'.$i]:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
@@ -931,11 +937,27 @@
 	</div>
 	<script>
 		$(function(){
+
+			//Слайдер миниатюр
+			$('.arrow_Up').on('click', function() {   //Обработка клика на стрелку Вверх
+				var carusel = $(this).parents('#product_miniatures_img');
+				up_carusel(carusel);
+				return false;
+			});
+			$('.arrow_Down').on('click', function() {   //Обработка клика на стрелку Вниз
+				var carusel = $(this).parents('#product_miniatures_img');
+				down_carusel(carusel);
+				return false;
+			});
+
 			//Product photo block
-			$('#product_miniatures_img .item').click(function(){
+			$('body').on('click', '#product_miniatures_img .item', function(){
 				$('#product_miniatures_img').find('img').removeClass('active_img');
 				$(this).find('img').addClass('active_img');
-				var imgsrc = $(this).find('img').attr('src').replace('thumb', 'original');
+				var imgsrc = $(this).find('img').attr('src');
+				if(imgsrc.indexOf("<?=str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']);?>") > -1){
+					imgsrc = imgsrc.replace('thumb', 'original');
+				}
 				$('#product_main_img').find('.item img').attr('src', imgsrc);
 				$('#product_main_img').hide().fadeIn('100');
 			});

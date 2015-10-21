@@ -335,7 +335,11 @@ if(empty($subcats)){
 			$products->SetProductsList($where_arr, $limit, 0, array('group_by'=>'a.id_product', 'order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 		}
 	}
-	$tpl->Assign('list', $products->list);
+	$product_list = $products->list;
+	foreach($product_list as &$p){
+		$p['images'] = $products->GetPhotoById($p['id_product']);
+	}
+	$tpl->Assign('list', $product_list);
 
 	// =========================================================
 }

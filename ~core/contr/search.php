@@ -369,6 +369,11 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		}
 	}
 }
+if(!empty($list)){
+	foreach($list as &$p){
+		$p['images'] = $products->GetPhotoById($p['id_product']);
+	}
+}
 $tpl->Assign('list', isset($list)?$list:array());
 
 // Общий код ===============================================

@@ -5110,3 +5110,6 @@
 				ON ms.id = tp.moderation_status
 			WHERE tp.id = ?upload=true
 03:51:21 15.10.2015  SQL error - UPDATE xt_wishes SET visible = 0 WHERE id_wishes = 
+12:41:35 21.10.2015  SQL Error - SELECT p.id_product
+			FROM xt_product AS p
+			WHERE p.art = арт. 152723

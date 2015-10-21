@@ -28,7 +28,6 @@
 							<div><?=$p['qty_control'] == 1?'+':'';?></div>
 							<div><?=isset($p['inbox_qty'])? $p['inbox_qty']:null;?></div>
 							<div><?=isset($p['product_limit'])? $p['product_limit']:null;?></div>
-							<?php print_r($p['creation_date']) ?>
 							<div><?=isset($p['creation_date'])? date("d-m-Y", strtotime($p['creation_date'])):null;?></div>
 						</section>
 						<section class="edit">
@@ -41,20 +40,37 @@
 						<div id="details" class="details_<?=$p['id'];?>" style="display: none;">
 							<input type="hidden" name="id" value="<?=$p['id'];?>">
 							<div id="photobox">
-								<?$images = explode(';', $p['images']);
-								foreach($images as $image){?>
-									<div class="photo_upload_area">
-										<?if(isset($image) && $image != ''){?>
-											<a href="<?=$image?>" target="_blank">
-												<img class="lazy" data-original="<?=$image?>" alt="">
-												<noscript><img src="<?=$image?>" alt=""></noscript>
-											</a>
-											<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$image)){
-												$size = getimagesize($_SERVER['DOCUMENT_ROOT'].$image);
-												echo $size[0].'x'.$size[1];
-											}
-										}?>
-									</div>
+								<?if(isset($p['images']) && $p['images'] != ''){
+									$images = explode(';', $p['images']);
+									foreach($images as $image){?>
+										<div class="photo_upload_area">
+											<?if(isset($image) && $image != ''){?>
+												<a href="<?=$image?>" target="_blank">
+													<img class="lazy" data-original="<?=$image?>" alt="">
+													<noscript><img src="<?=$image?>" alt=""></noscript>
+												</a>
+												<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$image)){
+													$size = getimagesize($_SERVER['DOCUMENT_ROOT'].$image);
+													echo $size[0].'x'.$size[1];
+												}
+											}?>
+										</div>
+									<?}
+								}else{
+									for($i=1; $i < 4; $i++){
+										if(!empty($p['img_'.$i])){?>
+											<div class="photo_upload_area <?='photo'.$i?>">
+												<a href="<?=$p['img_'.$i]?>" target="_blank">
+													<img class="lazy" data-original="<?=$p['img_'.$i]?>" alt="">
+													<noscript><img src="<?=$p['img_'.$i]?>" alt=""></noscript>
+												</a>
+												<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$p['img_'.$i])){
+													$size = getimagesize($_SERVER['DOCUMENT_ROOT'].$p['img_'.$i]);
+													echo $size[0].'x'.$size[1];
+												}?>
+											</div>
+										<?}
+									}?>
 								<?}?>
 							</div>
 							<div class="clear">

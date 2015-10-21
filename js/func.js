@@ -1042,13 +1042,22 @@ function rebuildPreview(obj){
 		}).done(function(data){
 			previewOwl.empty();
 			previewDownOwl.empty();
-			for(var i = 1; i <= 3; i++){
-				var img = eval('data.img_'+i).replace("/image/", "/image/500/");
-				if(img != ''){
-					previewOwl.append('<div class="item"><img src="'+img+'" alt="'+data.name+'"></div>');
-					previewDownOwl.append('<div class="item"><img src="'+img+'" alt="'+data.name+'"></div>');
-				}
-			};
+			if(data.images != false){
+				$.each(data.images, function(index, el) {
+					var img_medium = el.src.replace("/original/", "/medium/");
+						img_thumb = el.src.replace("/original/", "/thumb/");
+					previewOwl.append('<div class="item"><img src="'+img_medium+'" alt="'+data.name+'"></div>');
+					previewDownOwl.append('<div class="item"><img src="'+img_thumb+'" alt="'+data.name+'"></div>');
+				});
+			}else{
+				for(var i = 1; i <= 3; i++){
+					var img = eval('data.img_'+i).replace("/image/", "/image/500/");
+					if(img != ''){
+						previewOwl.append('<div class="item"><img src="'+img+'" alt="'+data.name+'"></div>');
+						previewDownOwl.append('<div class="item"><img src="'+img+'" alt="'+data.name+'"></div>');
+					}
+				};
+			}
 			showPreview(0);
 			previewDownOwl.find('.owl-item').click(function(){
 				var position = $(this).index();
@@ -1257,3 +1266,21 @@ function AddInWaitingList(id_product,id_user,email){
 	});
 	return false;
 }
+
+//Прокрутка слайдера вверх
+function up_carusel(carusel){
+	var block_height = $(carusel).find('.item').outerHeight();
+	$(carusel).find(".carrossel-items .item").eq(-1).clone().prependTo($(carusel).find(".carrossel-items"));
+	$(carusel).find(".carrossel-items").css({"top":"-"+block_height+"px"});
+	$(carusel).find(".carrossel-items .item").eq(-1).remove();
+	$(carusel).find(".carrossel-items").animate({top: "0px"}, 200);
+};
+//Прокрутка слайдера вниз
+function down_carusel(carusel){
+	var block_height = $(carusel).find('.item').outerHeight();
+	$(carusel).find(".carrossel-items").css({"top":"auto"}).animate({bottom: block_height +"px"}, 200, function(){
+		$(carusel).find(".carrossel-items .item").eq(0).clone().appendTo($(carusel).find(".carrossel-items"));
+		$(carusel).find(".carrossel-items .item").eq(0).remove();
+		$(carusel).find(".carrossel-items").css({"bottom":"0px"});
+	});
+};

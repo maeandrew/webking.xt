@@ -289,12 +289,18 @@
 				<div class="slider_products">
 					<h4>Популярные товары</h4>
 					<div id="owl-popular" class="owl-carousel">
-						<?foreach($pops as $i){?>
+						<?foreach($pops as $p){?>
 							<div class="item">
-								<a href="<?=_base_url."/product/".$i['id_product']."/".$i['translit']."/";?>">
-									<img height="200" alt="<?=str_replace('"', '', $i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/images/nofoto.jpg'?>"/>
-									<span><?=$i['name']?></span>
-									<div class="ca-more"><?=number_format($i['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
+								<a href="<?=_base_url."/product/".$p['id_product']."/".$p['translit']."/";?>">
+									<?if(!empty($p['images'])){?>
+										<img src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
+									<?}else{
+										if(!empty($p['img_1'])){?>
+											<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+										<?}
+									}?>
+									<span><?=$p['name']?></span>
+									<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
 								</a>
 							</div>
 						<?}?>
@@ -306,13 +312,19 @@
 					<?if(!empty($view_products_list)){?>
 						<h4>Просмотренные товары</h4>
 						<div id="owl-last-viewed" class="owl-carousel">
-							<?foreach($view_products_list as $i){
-								if($GLOBALS['CurrentController'] == 'main' || ($GLOBALS['CurrentController'] == 'product' && $item['id_product'] != $i['id_product'])){?>
+							<?foreach($view_products_list as $p){
+								if($GLOBALS['CurrentController'] == 'main' || ($GLOBALS['CurrentController'] == 'product' && $item['id_product'] != $p['id_product'])){?>
 								<div class="item">
-									<a href="<?=_base_url."/product/".$i['id_product']."/".$i['translit']."/";?>">
-										<img height="200" alt="<?=str_replace('"', '', $i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/images/nofoto.jpg'?>"/>
-										<span><?=$i['name']?></span>
-										<div class="ca-more"><?=number_format($i['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
+									<a href="<?=_base_url."/product/".$p['id_product']."/".$p['translit']."/";?>">
+										<?if(!empty($p['images'])){?>
+											<img src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
+										<?}else{
+											if(!empty($p['img_1'])){?>
+												<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+											<?}
+										}?>
+										<span><?=$p['name']?></span>
+										<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
 									</a>
 								</div>
 								<?}

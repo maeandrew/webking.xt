@@ -147,10 +147,17 @@
 										<div class="product_photo">
 											<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 												<div class="<?=$st['class']?>"></div>
-												<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/efiles/_thumb/nofoto.jpg"?>"/>
-												<noscript>
-													<img alt="<?=G::CropString($item['name'])?>" src="<?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/efiles/_thumb/nofoto.jpg"?>"/>
-												</noscript>
+												<?if(!empty($item['images'])){?>
+													<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+													<noscript>
+														<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+													</noscript>
+												<?}else{?>
+													<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+													<noscript>
+														<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+													</noscript>
+												<?}?>
 											</a>
 										</div>
 										<div class="product_name p<?=$item['id_product']?>">
@@ -414,7 +421,7 @@
 				</div>
 			<?}else{?>
 				<!-- Конец строк товаров!-->
-				<h5>Товаров нет</h5>
+				<h5 class="col-md-12">Товаров нет</h5>
 			<?}?>
 		</div>
 	<?}?>

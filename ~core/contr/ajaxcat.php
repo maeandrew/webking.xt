@@ -17,12 +17,23 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$list = $Products->list;
 				$i = $_POST['shown_products']+1;
 				foreach($list AS $item){
+					$item['images'] = $Products->GetPhotoById($item['id_product']);
 					($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)? $mopt_available = TRUE : $mopt_available = FALSE;?>
 					<section class="product product_<?=$item['id_product']?> animate">
 						<div class="content animate bg-white brdrds">
 							<div class="thumbnail">
 								<a href="/product/<?=$item['id_product']?>/<?=$item['translit']?>/">
-									<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
+									<?if(!empty($item['images'])){?>
+										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										<noscript>
+											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										</noscript>
+									<?}else{?>
+										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+										<noscript>
+											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+										</noscript>
+									<?}?>
 								</a>
 							</div>
 							<div class="name">
@@ -125,17 +136,25 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
 				$list = $Products->list;
 				$i = $_POST['shown_products']+1;
-				foreach($list AS $item){?>
+				foreach($list AS $item){
+					$item['images'] = $Products->GetPhotoById($item['id_product']);?>
 					<div class="col-md-12 clearfix">
 						<div class="product_section clearfix" id="product_<?=$item['id_product']?>">
 							<div class="product_block">
 								<div class="product_photo">
 									<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 										<div class="<?=$st['class']?>"></div>
-										<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
-										<noscript>
+										<?if(!empty($item['images'])){?>
+											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+											<noscript>
+												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+											</noscript>
+										<?}else{?>
 											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
-										</noscript>
+											<noscript>
+												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
+											</noscript>
+										<?}?>
 									</a>
 								</div>
 								<div class="product_name p<?=$item['id_product']?>">

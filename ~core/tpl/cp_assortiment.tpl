@@ -91,9 +91,15 @@
 									<input type="checkbox" class="chek" id="checkbox_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$p['id_product']?>)"/>
 								</td>
 								<td class="image_cell">
-									<a href="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars($p['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
-										<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения">
-									</a>
+									<?if(!empty($p['images'])){?>
+										<a href="<?=file_exists($GLOBALS['PATH_root'].$p['images'][0]['src'])?_base_url.htmlspecialchars($p['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>">
+											<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $p['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $p['images'][0]['src']):'/efiles/_thumb/nofoto.jpg';?>" title="Нажмите для увеличения">
+										</a>
+									<?}else{?>
+										<a href="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars($p['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
+											<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения">
+										</a>
+									<?}?>
 								</td>
 								<td class="name_cell">
 									<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/"><?=G::CropString($p['name'])?></a>

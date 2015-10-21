@@ -129,8 +129,8 @@ define('EXECUTE', 1);
 require(dirname(__FILE__).'/~core/sys/global_c.php');
 require(dirname(__FILE__).'/~core/cfg.php');
 // Memcached init
-// $mc = new Memcached();
-// $mc->addServer("localhost", 11211);
+$mc = new Memcached();
+$mc->addServer("192.168.0.254", 11211);
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 if(!isset($_COOKIE['manual'])){
@@ -236,7 +236,9 @@ $products = new Products();
 if(isset($_COOKIE['view_products'])){
 	foreach(json_decode($_COOKIE['view_products']) as $value){
 		$products->SetFieldsById($value);
-		$result[] = $products->fields;
+		$product = $products->fields;
+		$product['images'] = $products->GetPhotoById($product['id_product']);
+		$result[] = $product;
 	}
 	$tpl->Assign('view_products_list', array_reverse($result));
 	unset($result);
@@ -244,6 +246,9 @@ if(isset($_COOKIE['view_products'])){
 
 // Выборка популярных товаров
 $pops = $products->GetPopularsOfCategory(0, true);
+foreach($pops AS &$pop){
+	$pop['images'] = $products->GetPhotoById($pop['id_product']);
+}
 $tpl->Assign('pops', $pops);
 unset($pops);
 

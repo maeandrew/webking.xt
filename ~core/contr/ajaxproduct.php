@@ -9,6 +9,7 @@
 			case "get_array_product":
 				$products->SetFieldsById($_POST['id_product']);
 				$prod = $products->fields;
+				$prod['images'] = $products->GetPhotoById($prod['id_product']);
 				$rating_stars = '';
 				for($i = 1; $i <= 5; $i++){
 					$star = 'star';
@@ -92,6 +93,7 @@
 				$data['rating_stars'] = $rating_stars;
 				$data['rating_title'] = $rating_title;
 				$data['comments_count'] = $comments_count;
+				$data['images'] = $prod['images'];
 				$data['img_1'] = $prod['img_1'];
 				$data['img_2'] = $prod['img_2'];
 				$data['img_3'] = $prod['img_3'];

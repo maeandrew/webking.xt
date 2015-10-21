@@ -342,9 +342,12 @@ class Products {
 			}
 			$where .= implode(" AND ", $where_a);
 		}
-		$sql = "SELECT DISTINCT a.active,
-			".implode(", ",$this->usual_fields)."
+		$sql = "SELECT DISTINCT a.active, i.src AS image,
+			p.img_1, p.name, p.id_product, p.translit
 			FROM "._DB_PREFIX_."product AS p
+			LEFT JOIN "._DB_PREFIX_."image AS i
+				ON i.id_product = p.id_product
+				AND i.ord = 0
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
@@ -643,7 +646,7 @@ class Products {
 					WHERE p.id_product IS NOT NULL
 					".$where."
 					".$group_by."
-					ORDER BY ".$order_by."
+					ORDER BY ".$order_by.", p.name
 					".$limit;
 			}else{
 				if(isset($params['rel_search'])){
@@ -1038,7 +1041,7 @@ class Products {
 		}
 		$group_by = ' GROUP BY p.id_product';
 		$sql = 'SELECT DISTINCT '.implode(', ',$this->usual_fields_suplir).',
-			a.inusd,
+			a.inusd, i.src AS image,
 			(SELECT MIN(assort.price_mopt_otpusk)
 				FROM '._DB_PREFIX_.'assortiment AS assort
 				LEFT JOIN '._DB_PREFIX_.'calendar_supplier AS cs
@@ -1058,6 +1061,9 @@ class Products {
 				AND price_opt_otpusk > 0
 				GROUP BY assort.id_product) AS min_opt_price
 			FROM '._DB_PREFIX_.'product AS p
+			LEFT JOIN '._DB_PREFIX_.'image AS i
+				ON i.id_product = p.id_product
+				AND i.ord = 0
 			LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 				ON cp.id_product = p.id_product
 			LEFT JOIN '._DB_PREFIX_.'units AS un
@@ -2951,7 +2957,7 @@ class Products {
 		if(isset($id_supplier)){
 			$sql .= " WHERE id_supplier = ".$id_supplier;
 		}
-		$sql .= " ORDER BY tp.moderation_status ASC";
+		$sql .= " ORDER BY tp.moderation_status ASC, creation_date DESC";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
