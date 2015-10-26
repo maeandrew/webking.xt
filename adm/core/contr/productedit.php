@@ -19,7 +19,6 @@ if($News->GetCommentListById($id_product)){
 }
 $pops1 = $News->GetComent();
 $tpl->Assign('pops1', $pops1);
-$tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product));
 $tpl->Assign('related_prods_list', $products->GetArrayRelatedProducts($id_product));
 $specification = new Specification();
 $specification->SetListByProdId($id_product);
@@ -91,15 +90,54 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			}
 			$Images->resize();
 		}
-		if($id = $products->UpdateProduct($_POST)){
+		if($products->UpdateProduct($_POST)){
+			$err_mes = '';
+			//обновление видео товара
 			if(!empty($_POST['video'])){
 				$products->UpdateVideo($id_product, $_POST['video']);
 			}
+			//обновление Фото товара
 			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
-			$tpl->Assign('msg', 'Товар обновлен.');
+
+			if(isset($_POST['id_supplier'])){
+				//Формирем массив поставщиков товара
+				for ($i=0; $i < count($_POST['id_supplier']); $i++) {
+					$supp_arr[] = array(
+						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
+						"id_supplier" => $_POST['id_supplier'][$i],
+						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
+						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
+						"product_limit" => $_POST['product_limit'][$i],
+						"active" => $_POST['active'][$i],
+						"in_usd" => $_POST['in_usd'][$i]
+					);
+				}
+
+				foreach ($supp_arr as $k => $value) {
+					if($value['id_assortiment'] == false){
+						$value['id_product'] = $id_product;
+						//Добавляем поставщика в ассортимент
+						if(!$products->AddToAssortWithAdm($value)){
+							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
+						}
+					}else{
+						//Обновляем данные в ассортименте
+						$products->UpdateAssortWithAdm($value);
+					}
+				}
+				//Отвязываем постащика от товара
+				if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
+					foreach ($_POST['del_from_assort'] as &$id_assort) {
+						$products->DelFromAssortWithAdm($id_assort, $id_product);
+					}
+				}
+			}
+
+			$tpl->Assign('msg', 'Товар обновлен.'.$err_mes);
 			if(isset($_POST['smb_new'])){
 				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
 			}
+			//header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 			unset($_POST);
 		}else{
 			$tpl->Assign('msg', 'Товар не обновлен.');
@@ -154,6 +192,8 @@ if(isset($_POST['smb_duplicate'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
+
+$tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product));
 //Заполнение массива POST
 if(!isset($_POST['smb'])){
 	$video = $products->GetIdByVideo($id_product);

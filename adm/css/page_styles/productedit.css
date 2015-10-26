@@ -1,8 +1,11 @@
 /*GLOBAL =====================================================================*/
+
 .dz-success {
 	background: #EEFFF8 !important;
 }
-
+.compulsory {
+	border: 1px solid #f00;
+}
 #productae {
 	background: #fff;
 }
@@ -76,6 +79,69 @@
 	text-decoration: none !important;
 	border-bottom-style: none;
 }
+.sup_notation {
+	color: #f00;
+	position: absolute;
+	padding-top: 2px;
+    left: 50px;
+}
+#nav_connection .supplier input[type="text"],
+#nav_connection .supplier input[type="number"] {
+	width: 100%;
+}
+#nav_connection .supplier .price {
+	width: 45%;
+}
+#nav_connection .supplier .in_usd,
+#nav_connection .supplier .price label {
+	padding-top: 0;
+	text-align: center;
+}
+#nav_connection .supplier .icon-font {
+	font-size: 15px;
+	cursor: pointer;
+	padding: 10px;
+}
+#nav_connection .supplier .icon-font:hover {
+	color: #f00;
+}
+#nav_connection .add_supplier tr:hover {
+	background: none;
+}
+#nav_connection .add_supplier td {
+	position: relative;
+	padding-bottom: 20px;
+}
+#nav_connection .add_supplier td > input,
+#nav_connection .add_supplier td > select,
+#nav_connection .add_supplier td > button {
+	margin-top: 17px;
+}
+#nav_connection .add_supplier label {
+	padding-top: 0;
+}
+#nav_connection .add_supplier .select_price {
+	width: 20%;
+}
+#nav_connection .add_supplier .price {
+	margin-left: 7px;
+	position: relative;
+	width: 36%;
+}
+#nav_connection .add_supplier .select_price label,
+#nav_connection .add_supplier .price label {
+	text-align: center;
+}
+#nav_connection #sup_inusd {
+	width: 100%;
+	max-width: 100%;
+	text-align: center;
+}
+#nav_connection #sup_price_opt,
+#nav_connection #sup_price_mopt {
+	width: auto;
+	max-width: 100%;
+}
 
 /*Section Product content ====================================================*/
 
@@ -86,6 +152,14 @@
 #productae .select_unit {
 	width: 285px;
 }
+/*Section Delivery ===========================================================*/
+
+#nav_delivery .fl {
+	margin-right: 10px;
+}
+#nav_delivery .weight span {
+	font-weight: normal;
+}
 
 /*Section Information ========================================================*/
 
@@ -93,11 +167,7 @@
 	margin: 10px 0;
 }
 
-#second_navigation {
-	/*display: none;*/
-	overflow: hidden;
-	margin-bottom: 20px;
-}
+/*Section Comment ============================================================*/
 
 #nav_comment .list tbody td.actions a {
 	cursor: pointer;
@@ -107,15 +177,14 @@
 #nav_comment .list tbody td.actions a:hover {
 	color: #f00;
 }
-#nav_delivery .fl {
-	margin-right: 10px;
-}
-#nav_delivery .weight span {
-	font-weight: normal;
-}
 
 /*Second Navigation ==========================================================*/
 
+#second_navigation {
+	/*display: none;*/
+	overflow: hidden;
+	margin-bottom: 20px;
+}
 .second_nav_menu {
 	position: relative;
 	width: 20%;

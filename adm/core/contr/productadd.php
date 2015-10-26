@@ -45,6 +45,35 @@ if(isset($_POST['smb'])){
 			}
 			$Images->resize();
 			$products->UpdatePhoto($id, $images_arr);
+
+			if(isset($_POST['id_supplier'])){
+				//Формирем массив поставщиков товара
+				for ($i=0; $i < count($_POST['id_supplier']); $i++) {
+					$supp_arr[] = array(
+						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
+						"id_supplier" => $_POST['id_supplier'][$i],
+						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
+						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
+						"product_limit" => $_POST['product_limit'][$i],
+						"active" => $_POST['active'][$i],
+						"in_usd" => $_POST['in_usd'][$i]
+					);
+				}
+
+				foreach ($supp_arr as $k => $value) {
+					if($value['id_assortiment'] == false){
+						$value['id_product'] = $id;
+						//Добавляем поставщика в ассортимент
+						if(!$products->AddToAssortWithAdm($value)){
+							echo '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
+						}
+					}else{
+						//Обновляем данные в ассортименте
+						$products->UpdateAssortWithAdm($value);
+					}
+				}
+			}
+
 			$tpl->Assign('msg', 'Товар добавлен.');
 			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base']."adm/productedit/".$id."'\", 2000);</script>";
 			unset($_POST);

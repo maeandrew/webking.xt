@@ -33,6 +33,10 @@
 				echo json_encode($products->DelRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
 			;
 			break;
+			case "add_supplier":
+				echo json_encode($products->GetSupplierInfoByArticle($_POST['art']));
+			;
+			break;
 			default:
 			;
 			break;

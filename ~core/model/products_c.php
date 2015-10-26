@@ -1304,6 +1304,91 @@ class Products {
 		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
 	}
+
+	//Привязка поставщика к товару с админки
+	public function AddToAssortWithAdm($arr){
+		$suppliers = new Suppliers();
+		$suppliers->SetFieldsById($arr['id_supplier'], 1);
+		$supp_fields = $suppliers->fields;
+		$f['id_product'] = mysql_real_escape_string(trim($arr['id_product']));
+		$f['id_supplier'] = mysql_real_escape_string(trim($arr['id_supplier']));
+		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
+		$f['active'] = mysql_real_escape_string(trim($arr['active']));
+		$f['inusd'] = mysql_real_escape_string(trim($arr['in_usd']));
+		if($arr['in_usd'] != 1){
+			$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
+			$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
+		}else{
+			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
+			$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
+			$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+		}
+		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
+		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
+
+		$this->db->StartTrans();
+		$sql_check = "SELECT id_assortiment
+			FROM "._DB_PREFIX_."assortiment
+			WHERE id_product = '".$arr['id_product']."'
+			AND id_supplier ='".$arr['id_supplier']."'";
+		if(!$this->db->GetArray($sql_check)){
+			if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+			return true;
+		}
+		$this->db->FailTrans();
+		return false;
+	}
+
+	//Обновление данных Ассортимента с админки
+	public function UpdateAssortWithAdm($arr){
+		$suppliers = new Suppliers();
+		$suppliers->SetFieldsById($arr['id_supplier'], 1);
+		$supp_fields = $suppliers->fields;
+		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
+		$f['active'] = mysql_real_escape_string(trim($arr['active']));
+		$f['inusd'] = mysql_real_escape_string(trim($arr['in_usd']));
+		if($arr['in_usd'] != 1){
+			$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
+			$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
+		}else{
+			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
+			$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
+			$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+		}
+		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
+		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_assortiment = ".$arr['id_assortiment'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	//Отвязываем поставщика от товара
+	public function DelFromAssortWithAdm($id_assort, $id_product){
+		$this->db->StartTrans();
+		$this->db->DeleteRowFrom(_DB_PREFIX_."assortiment", "id_assortiment", $id_assort);
+		$this->RecalcSitePrices(array($id_product));
+		$this->db->CompleteTrans();
+		return true;
+		// $this->db->StartTrans();
+		// $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
+		// $this->RecalcSitePrices(array($id_product));
+		// $this->db->CompleteTrans();
+	}
+
 	/*
 	 * Пересчет цен на сайте
  	 */
@@ -2557,19 +2642,37 @@ class Products {
 		return $arr;
 	}
 
-	// Получить поставщиков для товара
+	// Получить поставщиков для товара по id
 	public function GetSuppliersInfoForProduct($id_product){
-		$sql = "SELECT a.id_supplier, s.article, s.phones, a.product_limit, u.name,
+		$sql = "SELECT a.id_supplier, s.article, s.real_phone, a.product_limit,
+			a.active, a.inusd, u.name, a.id_assortiment,
 			ROUND(a.price_opt_otpusk,2) as price_opt_otpusk,
-			ROUND(a.price_mopt_otpusk,2) as price_mopt_otpusk
+			ROUND(a.price_mopt_otpusk,2) as price_mopt_otpusk,
+			ROUND(a.price_opt_otpusk_usd,2) as price_opt_otpusk_usd,
+			ROUND(a.price_mopt_otpusk_usd,2) as price_mopt_otpusk_usd
 			FROM "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON s.id_user = a.id_supplier
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = a.id_supplier
-			WHERE a.id_product = $id_product";
+			WHERE a.id_product = $id_product
+			ORDER BY a.id_assortiment";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
+	}
+	// Получить данные поставщика по Артикулу
+	public function GetSupplierInfoByArticle($art){
+		$sql = "SELECT s.id_user, s.real_phone, u.name
+			FROM "._DB_PREFIX_."supplier AS s
+			LEFT JOIN "._DB_PREFIX_."user AS u
+				ON u.id_user = s.id_user
+			WHERE s.article = '".$art."'";
+		$arr = $this->db->GetOneRowArray($sql);
+		if(!$arr){
+			return false;
+		}else{
+			return $arr;
+		}
 	}
 
 	public function GetExportSupPricesRows($arr){

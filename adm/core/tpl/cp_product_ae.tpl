@@ -298,18 +298,18 @@
 					<h2>Доставка</h2>
 					<div class="fl">
 						<label for="height">Высота (cм):</label>
-						<input type="number" name="height" id="height" class="input-m" value="<?=isset($_POST['height'])?htmlspecialchars($_POST['height']):0?>">
+						<input type="number" min="0" step="0.01" name="height" id="height" class="input-m" value="<?=isset($_POST['height'])?htmlspecialchars($_POST['height']):0?>">
 					</div>
 					<div class="fl">
 						<label for="width">Ширина (см):</label>
-						<input type="number" name="width" id="width" class="input-m" value="<?=isset($_POST['width'])?htmlspecialchars($_POST['width']):0?>">
+						<input type="number" min="0" step="0.01" name="width" id="width" class="input-m" value="<?=isset($_POST['width'])?htmlspecialchars($_POST['width']):0?>">
 					</div>
 					<div class="fl">
 						<label for="length">Длина (см):</label>
-						<input type="number" name="length" id="length" class="input-m" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
+						<input type="number" min="0" step="0.01" name="length" id="length" class="input-m" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
 					</div>
 					<label for="coefficient_volume">Коэффициент реального обьема:</label>
-					<input type="number" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):1?>">
+					<input type="number" min="0" step="0.01" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):1?>">
 					<label class="weight">Объем:
 						<span>
 							<?if(isset($_POST['weight']) ){
@@ -393,41 +393,67 @@
 							</div>
 						</div>
 					<?}?>
-				</div>
-				<div id="nav_information">
-					<h2>Информация</h2>
 					<label>Данные поставщика:</label>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier">
 						<colgroup>
-							<col width="20%">
-							<col width="20%">
-							<col width="40%">
-							<col width="20%">
+							<col width="10%">
+							<col width="25%">
+							<col width="15%">
+							<col width="5%">
+							<col width="25%">
+							<col width="15%">
+							<col width="5%">
 						</colgroup>
 						<thead>
 							<tr>
-								<td class="left">Артикул поставщика</td>
-								<td class="left">Имя</td>
-								<td class="left">№ телефона</td>
-								<td class="left">Цена</td>
+								<td class="center">Артикул</td>
+								<td>Имя</td>
+								<td>№ телефона</td>
+								<td class="center">Активность</td>
+								<td class="center">Цена</td>
+								<td class="center">Наличие</td>
+								<td></td>
 							</tr>
 						</thead>
 						<tbody>
 							<?if(!empty($suppliers_info)){
-								foreach($suppliers_info as $si){?>
-									<tr id="rel_prod<?=$rpl['id_product']?>" class="animate">
+								foreach($suppliers_info as $k => $si){?>
+									<tr class="animate supp_js">
+										<td class="center"><?=$si['article']?><input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
+										<td class="supp_name_js"><?=$si['name']?></td>
 										<td>
-											<?=$si['article']?>
+											<?if($si['real_phone'] == '380'){
+												echo 'не указан';
+											}else{
+												echo $si['real_phone'];
+											}?>
+										</td>
+										<td class="center">
+											<select name="active[]" class="input-m">
+												<option value="1">Активен</option>
+												<option value="0" <?=$si['active']=='0'?'selected':null?>>Отключен</option>
+											</select>
 										</td>
 										<td>
-											<?=$si['name']?>
+											<label class="in_usd fl">Цена в:
+												<select name="in_usd[]" class="input-s">
+													<option value="0">ГРН</option>
+													<option value="1" <?=$si['inusd']=='1'?'selected':null?>>USD</option>
+												</select>
+											</label>
+											<div class="fl price">
+												<label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
+											</div>
+											<div class="fr price">
+												<label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
+											</div>
 										</td>
 										<td>
-											<?=$si['phones']?>
+											<input type="number" name="product_limit[]" min="0" value="<?=$si['product_limit']?>" class="input-m">
 										</td>
-										<td class="left">
-											Опт: <?=$si['price_opt_otpusk']?><br>
-											Розница: <?=$si['price_mopt_otpusk']?>
+										<td>
+											<input type="hidden" name="id_supplier[]" value="<?=$si['id_supplier']?>">
+											<span class="icon-font del_supp_js">t</span>
 										</td>
 									</tr>
 								<?}
@@ -438,6 +464,62 @@
 							<?}?>
 						</tbody>
 					</table>
+					<label>Добавление поставщика:</label>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 add_supplier">
+						<colgroup>
+							<col width="20%">
+							<col width="10%">
+							<col width="50%">
+							<col width="10%">
+							<col width="10%">
+						</colgroup>
+						<thead>
+							<tr>
+								<td class="center">Артикул</td>
+								<td class="center">Активность</td>
+								<td class="center">Цена</td>
+								<td class="center">Наличие</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="animate">
+								<td>
+									<input type="text" id="sup_art" class="input-m" placeholder="S100">
+								</td>
+								<td class="center">
+									<select name="active[]" id="sup_active" class="input-m">
+										<option value="1">Активен</option>
+										<option value="0">Отключен</option>
+									</select>
+								</td>
+								<td>
+									<div class="select_price fl">
+										<label class="in_usd fl">Цена в:</label>
+										<select name="in_usd[]" id="sup_inusd" class="input-m">
+											<option value="0">ГРН</option>
+											<option value="1">USD</option>
+										</select>
+									</div>
+									<div class="fr price">
+										<label>Розничная</label><input type="number" min="0" step="0.01" id="sup_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
+									</div>
+									<div class="fr price">
+										<label>Оптовая</label><input type="number" min="0" step="0.01" id="sup_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
+									</div>
+								</td>
+								<td>
+									<input type="number" min="0" value="1000000" id="sup_product_limit" class="input-m">
+								</td>
+								<td>
+									<button id="add_sup_js" class="btn-m-default fr">Привязать</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="nav_information">
+					<h2>Информация</h2>
 					<label for="opt_correction_set">Набор корректироки по оптовой цене:</label>
 					<select name="opt_correction_set" id="opt_correction_set" disabled="disabled" class="input-m">
 						<option value="0">Без корректировки</option>
@@ -587,6 +669,7 @@
 				RemovedFile(path, removed_file);
 			}
 		});
+
 		//Удаление только что загруженных фото
 		$("body").on('click', '.del_u_photo_js', function(e) {
 			e.stopPropagation();
@@ -596,6 +679,8 @@
 				RemovedFile(path, removed_file);
 			}
 		});
+
+		//Прокрустка страницы
 		$('a[href^=#nav_]').on('click', function(event) {
 			event.preventDefault();
 			var href = $(this).attr('href');
@@ -607,6 +692,91 @@
 			$('html, body').animate({
 				scrollTop: offsetTop
 			}, 300);
+		});
+
+		//Привязка поставщика к товару
+		$('#add_sup_js').on('click', function(event) {
+			event.preventDefault();
+			var art = $('#sup_art').val(),
+				active = $('#sup_active ').val(),
+				in_usd = $('#sup_inusd').val(),
+				price_opt = $('#sup_price_opt').val(),
+				price_mopt = $('#sup_price_mopt').val(),
+				product_limit = $('#sup_product_limit').val();
+			if(art != ''){
+				if(price_opt != ''){
+					if(price_mopt != ''){
+						$('.compulsory').removeClass('compulsory');
+						$('.sup_notation').remove();
+						$('#sup_art, #sup_price_opt, #sup_price_mopt').val('');
+						$('#sup_active [value="1"], #sup_inusd [value="0"]').attr('selected', 'selected');
+						$('#sup_product_limit').val('1000000');
+						$.ajax({
+							url: URL_base+'ajaxproducts',
+							type: "POST",
+							cache: false,
+							dataType: "json",
+							data: {
+								"action":'add_supplier',
+								"art": art
+							}
+						}).done(function(data){
+							if(!data){
+								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
+							}else{
+								//Добавляем поставщика в таблицу 'Данные поставщика'
+								var html_string = '';
+								if(active == 0){
+									var act_sel = 'selected';
+								};
+								if(in_usd == 1){
+									var in_usd_sel = 'selected';
+								};
+								if(data.real_phone == '380'){
+									data.real_phone = 'не указан';
+								}
+								//Формируем html для вставки
+								html_string = '<tr class="animate supp_js">';
+								html_string += '<td class="center">'+art+'</td>';
+								html_string += '<td class="supp_name_js">'+data.name+'</td>';
+								html_string += '<td>'+data.real_phone+'</td>';
+								html_string += '<td class="center"><select name="active[]" class="input-m"><option value="1">Активен</option><option value="0"'+act_sel+'>Отключен</option></select></td>';
+								html_string += '<td><label class="in_usd fl">Цена в: <select name="in_usd[]" class="input-s"><option value="0">ГРН</option><option value="1"'+in_usd_sel+'>USD</option></select></label><div class="fl price"><label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_opt+'"></div><div class="fr price"><label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_mopt+'"></div></td>';
+								html_string += '<td><input type="number" name="product_limit[]" min="0" value="'+product_limit+'" class="input-m"></td>';
+								html_string += '<td class="center"><input type="hidden" name="id_supplier[]" value="'+data.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
+								html_string += '</tr>';
+
+								if($('.supplier tr').is('#empty2')){
+									$('.supplier #empty2').remove();
+								}
+								$('.supplier tbody').append(html_string);
+							}
+						});
+					}else{
+						$('#sup_price_mopt').addClass('compulsory').parent().find('.sup_notation').remove();
+						$('#sup_price_mopt').parent().append('<span class="sup_notation">Заполните поле</span>');
+					}
+				}else{
+					$('#sup_price_opt').addClass('compulsory').parent().find('.sup_notation').remove();
+					$('#sup_price_opt').parent().append('<span class="sup_notation">Заполните поле</span>');
+				}
+			}else{
+				$('#sup_art').addClass('compulsory').parent().find('.sup_notation').remove();
+				$('#sup_art').parent().append('<span class="sup_notation">Заполните поле</span>');
+			}
+		});
+
+		//Отвязка постащика от товара
+		$('body').on('click', '.del_supp_js',function() {
+			var parent_path = $(this).closest('.supp_js'),
+				supp_name = parent_path.find('.supp_name_js').text();
+			if(confirm('Вы хотите отвязать поставщика \n\"'+supp_name+'\" от данного товара?')){
+				if (parent_path.find('input').is('.id_assortiment')) {
+					var id_assort = parent_path.find('.id_assortiment').val();
+					$('#nav_information').append('<input type="hidden" name="del_from_assort[]" value="'+id_assort+'">');
+				};
+				parent_path.remove();
+			};
 		});
 	});
 
@@ -630,7 +800,7 @@
 		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
 			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
 			value = link.closest('tr').find('[name="value"]').val();
-		console.log(id_spec_prod+','+ id_spec+','+value);
+		//console.log(id_spec_prod+','+ id_spec+','+value);
 		$.ajax({
 			url: URL_base+'ajaxproducts',
 			type: "POST",
