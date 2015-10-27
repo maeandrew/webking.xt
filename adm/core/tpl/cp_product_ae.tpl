@@ -791,6 +791,17 @@
 		target: '.second_nav_menu'
 	});
 
+	//Текстовый редактор
+	CKEDITOR.replace( 'descr', {
+	    customConfig: 'custom/ckeditor_config.js'
+	});
+	CKEDITOR.replace( 'descr_xt_short', {
+	    customConfig: 'custom/ckeditor_config.js'
+	});
+	CKEDITOR.replace( 'descr_xt_full', {
+	    customConfig: 'custom/ckeditor_config.js'
+	});
+
 	function RemovedFile (path, removed_file){
 		path.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
 		path.remove();

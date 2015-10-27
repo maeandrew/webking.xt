@@ -52,17 +52,17 @@
 		<div class="row">
 			<div class="col-md-6">
 				<label for="pcontent">Текст:</label><?=isset($errm['pcontent'])?"<span class=\"errmsg\">".$errm['pcontent']."</span><br>":null?>
-				<textarea name="pcontent" id="pcontent" rows="38" cols="200" class="hidden"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
-				<div id="edit-container">
+				<textarea name="pcontent" id="pcontent" rows="38" cols="200"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
+				<!-- <div id="edit-container">
 					<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></div>
-				</div>
+				</div> -->
 			</div>
 			<div class="col-md-6">
 				<label for="pcontent_ua">Текст:</label><?=isset($errm['pcontent_ua'])?"<span class=\"errmsg\">".$errm['pcontent_ua']."</span><br>":null?>
-				<textarea name="pcontent_ua" id="pcontent_ua" rows="38" cols="200" class="hidden">cvbhhrt<?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></textarea>
-				<div id="edit-container_ua">
+				<textarea name="pcontent_ua" id="pcontent_ua" rows="38" cols="200">cvbhhrt<?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></textarea>
+				<!-- <div id="edit-container_ua">
 					<div id="editor_ua" onkeyup="moreStuff2();"><?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<p>
@@ -74,22 +74,29 @@
     </form>
 </div>
 <script>
-	var editor = ace.edit('editor');
-	editor.setTheme('ace/theme/dreamviewer');
-	//editor.setTheme('ace/theme/clouds_midnight');
-	editor.setFontSize(15);
-	editor.getSession().setUseWrapMode(true);
-	editor.getSession().setMode('ace/mode/html');
-	function moreStuff(){
-		document.getElementById('pcontent').value = editor.getValue();
-	}
-	var editor_ua = ace.edit("editor_ua");
-	editor_ua.setTheme("ace/theme/dreamweaver");
-	//editor.setTheme("ace/theme/clouds_midnight");
-	editor_ua.setFontSize(15);
-	editor_ua.getSession().setUseWrapMode(true);
-	editor_ua.getSession().setMode("ace/mode/html");
-	function moreStuff2(){
-		document.getElementById('pcontent_ua').value = editor_ua.getValue();
-	}
+	// var editor = ace.edit('editor');
+	// editor.setTheme('ace/theme/dreamviewer');
+	// //editor.setTheme('ace/theme/clouds_midnight');
+	// editor.setFontSize(15);
+	// editor.getSession().setUseWrapMode(true);
+	// editor.getSession().setMode('ace/mode/html');
+	// function moreStuff(){
+	// 	document.getElementById('pcontent').value = editor.getValue();
+	// }
+	// var editor_ua = ace.edit("editor_ua");
+	// editor_ua.setTheme("ace/theme/dreamweaver");
+	// //editor.setTheme("ace/theme/clouds_midnight");
+	// editor_ua.setFontSize(15);
+	// editor_ua.getSession().setUseWrapMode(true);
+	// editor_ua.getSession().setMode("ace/mode/html");
+	// function moreStuff2(){
+	// 	document.getElementById('pcontent_ua').value = editor_ua.getValue();
+	// }
+	//Текстовый редактор
+	CKEDITOR.replace( 'pcontent', {
+		customConfig: 'custom/ckeditor_config_img.js'
+	});
+	CKEDITOR.replace( 'pcontent_ua', {
+		customConfig: 'custom/ckeditor_config_img.js'
+	});
 </script>

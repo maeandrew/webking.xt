@@ -17,7 +17,7 @@ if(isset($_POST['smb'])){
 	if(!$err){
 		if($id = $News->UpdateNews($_POST)){
 			$tpl->Assign('msg', 'Новость обновлена.');
-			if($_POST['news_distribution'] == 1){
+			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1){
 				$Mailer = new Mailer();
 				$Mailer->SendNewsToCustomers1($_POST);
 				// $Mailer->SendNewsToCustomersInterview($_POST);

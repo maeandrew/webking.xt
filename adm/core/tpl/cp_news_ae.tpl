@@ -25,8 +25,8 @@
         <label for="descr_short">Короткое описание:</label><?=isset($errm['descr_short'])?"<span class=\"errmsg\">".$errm['descr_short']."</span><br>":null?>
 		<textarea name="descr_short" id="descr_short" class="input-l" rows="18" cols="195"><?=isset($_POST['descr_short'])?htmlspecialchars($_POST['descr_short']):null?></textarea>
 		<p><b>Полное описание:</b></p><?=isset($errm['descr_full'])?"<span class=\"errmsg\"><br>".$errm['descr_full']."</span>":null?>
-		<textarea name="descr_full" id="descr_full" rows="38" cols="200" class="hidden"><?=isset($_POST['descr_full'])?htmlspecialchars($_POST['descr_full']):null?></textarea>
-		<div id="edit-container">
+		<textarea name="descr_full" id="descr_full" rows="38" cols="200"><?=isset($_POST['descr_full'])?htmlspecialchars($_POST['descr_full']):null?></textarea>
+		<!-- <div id="edit-container">
 			<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['descr_full'])?htmlspecialchars($_POST['descr_full']):null?></div>
 		</div>
 		<script>
@@ -39,7 +39,7 @@
 			function moreStuff(){
 				document.getElementById('descr_full').value = editor.getValue();
 			}
-		</script>
+		</script> -->
 		<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
 		<p><b>Скрыть новость &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
@@ -54,3 +54,12 @@
 		<input name="test_distribution" type="submit" id="form_subm1it" class="btn-l-blue" value="Тестовая рассылка">
     </form>
 </div>
+<script>
+	//Текстовый редактор
+	CKEDITOR.replace( 'descr_short', {
+	    customConfig: 'custom/ckeditor_config_img.js'
+	});
+	CKEDITOR.replace( 'descr_full', {
+	    customConfig: 'custom/ckeditor_config_img.js'
+	});
+</script>

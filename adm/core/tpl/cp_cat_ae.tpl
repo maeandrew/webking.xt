@@ -229,4 +229,7 @@
 			},'linear');
 		});
 	}
+	CKEDITOR.replace( 'content', {
+	    customConfig: 'custom/ckeditor_config.js'
+	});
 </script>

@@ -329,7 +329,7 @@ if(empty($subcats)){
 	if(!empty($mass)){
 		$products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	}else{
-		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_ )){
+		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('group_by'=>'a.id_product', 'order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 		}else{
 			$products->SetProductsList($where_arr, $limit, 0, array('group_by'=>'a.id_product', 'order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
