@@ -99,7 +99,7 @@
 	<div class="addproduct">
 		<a id="form_submit" class="btn-l-default" href="<?=$GLOBALS['URL_base'].'adm/productadd/'.$id_category?>">Добавить товар</a>
 	</div>
-	<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_MODERATOR_ || $_SESSION['member']['gid'] == _ACL_SEO_optimizator_)){?>
+	<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_MODERATOR_)){?>
 		<div style="padding-top: 20px;">
 			<a href="<?=$GLOBALS['URL_request']?>/exportactive">Экспорт товаров, светящихся на сайте</a>
 		</div>
@@ -116,14 +116,14 @@
 	<?}?>
 <?}?>
 <br>
-<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_SEO_optimizator_)){?>
+<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
 	<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
 		<input type="file" name="import_file" class="input-l" style="width: auto;">
 		<input type="submit" name="smb_check" class="btn-l-red" value="Проверка">
 		<input type="submit" name="smb_import" class="btn-l-default" value="Импорт">
 	</form>
 <?}?>
-<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_SEO_optimizator_)){?>
+<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
     <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<p style="margin-top:25px">Введите ID поставщика для выгрузки позиций:</p>
 		<input type="text" name="supl" id="supl" class="input-l" style="width: auto;">

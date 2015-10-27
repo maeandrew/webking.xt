@@ -197,14 +197,15 @@
 			<?if(_acl::isAllow('remitters')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'remitters'?'class="sel"':null;?>>
 					<a href="/adm/remitters/">Отправители</a>
-					<a href="/adm/remitteradd/" class="add <?=$GLOBALS['CurrentController'] == 'remitteradd'?'sel':null;?>" title="Добавить отправителя">Добавить отправителя</a>
 				</li>
 			<?}?>
-			<ul class="sb_menusub">
-				<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
-					<a href="/adm/remitteradd/">Добавить отправителя</a>
-				</li>
-			</ul>
+			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO_optimizator_)){?>
+				<ul class="sb_menusub">
+					<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
+						<a href="/adm/remitteradd/">Добавить отправителя</a>
+					</li>
+				</ul>
+			<?}?>
 
 			<?if(_acl::isAllow('news')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'news'?'class="sel"':null;?>>
