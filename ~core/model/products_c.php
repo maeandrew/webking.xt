@@ -1313,7 +1313,6 @@ class Products {
 		$f['id_product'] = mysql_real_escape_string(trim($arr['id_product']));
 		$f['id_supplier'] = mysql_real_escape_string(trim($arr['id_supplier']));
 		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
-		$f['active'] = mysql_real_escape_string(trim($arr['active']));
 		$f['inusd'] = mysql_real_escape_string(trim($arr['in_usd']));
 		if($arr['in_usd'] != 1){
 			$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
@@ -1352,7 +1351,6 @@ class Products {
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
 		$supp_fields = $suppliers->fields;
 		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
-		$f['active'] = mysql_real_escape_string(trim($arr['active']));
 		$f['inusd'] = mysql_real_escape_string(trim($arr['in_usd']));
 		if($arr['in_usd'] != 1){
 			$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
@@ -1551,7 +1549,7 @@ class Products {
 		$f['price_opt'] = mysql_real_escape_string(trim($arr['price_opt']));
 		$f['price_mopt'] = mysql_real_escape_string(trim($arr['price_mopt']));
 		$f['inbox_qty'] = mysql_real_escape_string(trim($arr['inbox_qty']));
-		$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
+		//$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
 		$f['min_mopt_qty'] = mysql_real_escape_string(trim($arr['min_mopt_qty']));
 		// $f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
 		$f['price_coefficient_opt'] = mysql_real_escape_string(trim($arr['price_coefficient_opt']));
@@ -1675,7 +1673,7 @@ class Products {
 			$f['price_mopt'] = mysql_real_escape_string(trim($arr['price_mopt']));
 			$f['inbox_qty'] = mysql_real_escape_string(trim($arr['inbox_qty']));
 			$f['min_mopt_qty'] = mysql_real_escape_string(trim($arr['min_mopt_qty']));
-			$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
+			//$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
 			//$f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
 			$f['price_coefficient_opt'] = mysql_real_escape_string(trim($arr['price_coefficient_opt']));
 			$f['price_coefficient_mopt'] = mysql_real_escape_string(trim($arr['price_coefficient_mopt']));
