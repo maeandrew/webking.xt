@@ -108,7 +108,6 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
 						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
 						"product_limit" => $_POST['product_limit'][$i],
-						"active" => $_POST['active'][$i],
 						"in_usd" => $_POST['in_usd'][$i]
 					);
 				}
@@ -195,15 +194,15 @@ if(isset($_POST['smb_duplicate'])){
 
 $tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product));
 //Заполнение массива POST
-if(!isset($_POST['smb'])){
-	$video = $products->GetIdByVideo($id_product);
-	$photo = $products->GetPhotoById($id_product);
-	$_POST['id_product'] = 0;
-	$prod_fields = $products->fields;
-	$prod_fields['video'] = $video;
-	$prod_fields['images'] = $photo;
-	foreach($prod_fields as $k=>$v){
-		$_POST[$k] = $v;
+$video = $products->GetIdByVideo($id_product);
+$photo = $products->GetPhotoById($id_product);
+$_POST['id_product'] = 0;
+$prod_fields = $products->fields;
+$prod_fields['video'] = $video;
+$prod_fields['images'] = $photo;
+foreach($prod_fields as $k=>$v){
+	if(!isset($_POST['smb']) || !isset($_POST[$k])){
+			$_POST[$k] = $v;
 	}
 }
 $tpl->Assign('h1', $_POST['name']);

@@ -47,6 +47,24 @@ class Suppliers extends Users {
 		return $arr['id_user'];
 	}
 
+	/**
+	 * Получение массива id_supplier по артикулу и по его началу
+	 * @param int $art идентификатор товара
+	 */
+	public function GetIdOneRowArrayByArt($art){
+		$sql = "SELECT s.article, CONCAT(s.article,' - ',u.name) AS response
+			FROM "._DB_PREFIX_."supplier AS s
+			LEFT JOIN "._DB_PREFIX_."user AS u
+				ON u.id_user = s.id_user
+			WHERE s.article LIKE '".$art."%'
+			LIMIT 5";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr;
+	}
+
 	public function GetSupplierIdByPromoCode($code){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."supplier

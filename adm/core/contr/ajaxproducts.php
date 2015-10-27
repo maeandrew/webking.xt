@@ -2,6 +2,7 @@
 	header('Content-Type: text/javascript; charset=utf-8');
 	$specification = new Specification();
 	$products = new Products();
+	$supplier = new Suppliers();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
 			case "specification_update":
@@ -23,6 +24,10 @@
 			break;
 			case "datalist":
 				echo json_encode($products->GetIdOneRowArrayByArt($_POST['article']));
+			;
+			break;
+			case "datalist_supplier":
+				echo json_encode($supplier->GetIdOneRowArrayByArt($_POST['article']));
 			;
 			break;
 			case "insert_related":

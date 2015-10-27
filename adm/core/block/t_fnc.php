@@ -422,16 +422,16 @@ function Product_form_validate(){
 		$err=1;
 	}
 
-	$varname = 'max_supplier_qty';
-	if (isset($_POST[$varname])){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmax'=>10, 'IsInt'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
+	// $varname = 'max_supplier_qty';
+	// if (isset($_POST[$varname])){
+	// 	$_POST[$varname] = trim($_POST[$varname]);
+	// 	$carr = array('Lmax'=>10, 'IsInt'=>1);
+	// 	list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+	// 	if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
+	// }else{
+	// 	$errm[$varname] = "Поле обязательно для заполнения.";
+	// 	$err=1;
+	// }
 
 	// $varname = 'price_coefficient_opt';
 	// if (isset($_POST[$varname])){
