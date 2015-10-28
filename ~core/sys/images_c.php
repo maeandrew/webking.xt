@@ -19,6 +19,13 @@ class Images {
 		$tmp_name = $files["file"]["tmp_name"];
 		$name = $files["file"]["name"];
 		$destination = $path.$name;
+		//Только для дублирования фото на X-torg
+		if($GLOBALS['CurrentController'] == 'cabinet'){
+			$xtorg_path = str_replace('files', '../web/files', $path);
+			$this->checkStructure($xtorg_path);
+			copy($tmp_name, $xtorg_path.$name);
+			chmod($xtorg_path.$name, 0777);
+		}
 		move_uploaded_file($tmp_name, $destination);
 		chmod($destination, 0777);
 		$res = $destination;

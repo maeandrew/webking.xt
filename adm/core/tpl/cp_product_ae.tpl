@@ -723,7 +723,7 @@
 								html_string += '<td class="center">'+art+'</td>';
 								html_string += '<td class="supp_name_js">'+data.name+'</td>';
 								html_string += '<td>'+data.real_phone+'</td>';
-								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="in_usd[]" class="input-m"><option value="0">ГРН</option><option value="1" <?=$si['inusd']=='1'?'selected':null?>>USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_opt+'"></div><div class="fr price"><label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_mopt+'"></div></td>';
+								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="in_usd[]" class="input-m"><option value="0">ГРН</option><option value="1">USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_opt+'"></div><div class="fr price"><label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_mopt+'"></div></td>';
 								html_string += '<td><input type="number" name="product_limit[]" min="0" value="'+product_limit+'" class="input-m"></td>';
 								html_string += '<td class="center"><input type="hidden" name="id_supplier[]" value="'+data.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
 								html_string += '</tr>';
