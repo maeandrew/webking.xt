@@ -119,8 +119,8 @@
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
 	<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
 		<input type="file" name="import_file" class="input-l" style="width: auto;">
-		<input type="submit" name="smb_check" class="btn-l-red" value="Проверка">
-		<input type="submit" name="smb_import" class="btn-l-default" value="Импорт">
+		<input type="submit" name="smb_check" class="btn-l-red" value="Импорт">
+		<!-- <input type="submit" name="smb_import" class="btn-l-default" value="Импорт"> -->
 	</form>
 <?}?>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
