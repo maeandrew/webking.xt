@@ -27,6 +27,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.autoGrow_minHeight = 200;
 	config.autoGrow_maxHeight = 600;
 
+	//CKeditor Не удаляет имеющееся классы и стили
+	config.allowedContent = true;
+
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	config.skin = 'icy_orange';
