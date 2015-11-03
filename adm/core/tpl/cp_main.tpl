@@ -74,32 +74,36 @@
 			<div class="col-md-9 col-sm-12">
 				<div class="block">
 					<h2>Последние отзывы</h2>
-					<a href="/adm/coment/" class="title">Посмотреть все</a>
-					<table class="list" width="100%" border="0" cellspacing="0" cellpadding="0">
-						<thead>
-							<tr>
-								<th colspan="1">Автор</th>
-								<th colspan="1">Комментарий</th>
-								<th colspan="1">Дата</th>
-							</tr>
-						</thead>
-						<colgroup>
-							<col width="20%">
-							<col width="60%">
-							<col width="20%">
-						</colgroup>
-						<tbody>
-							<?$i = 0;
-							while($i < 4){?>
+					<?if(isset($comments) && !empty($comments)){?>
+						<a href="/adm/coment/" class="title">Посмотреть все</a>
+						<table class="list" width="100%" border="0" cellspacing="0" cellpadding="0">
+							<thead>
 								<tr>
-									<td><?=($comments[$i]['username']);?></td>
-									<td><?=($comments[$i]['text_coment']);?></td>
-									<td><?=date("d-m-Y в H:i", strtotime($comments[$i]['date_comment']));?></td>
+									<th colspan="1">Автор</th>
+									<th colspan="1">Комментарий</th>
+									<th colspan="1">Дата</th>
 								</tr>
-								<?$i++;
-							}?>
-						</tbody>
-					</table>
+							</thead>
+							<colgroup>
+								<col width="20%">
+								<col width="60%">
+								<col width="20%">
+							</colgroup>
+							<tbody>
+								<?$i = 0;
+								while($i < 4){?>
+									<tr>
+										<td><?=($comments[$i]['username']);?></td>
+										<td><?=($comments[$i]['text_coment']);?></td>
+										<td><?=date("d-m-Y в H:i", strtotime($comments[$i]['date_comment']));?></td>
+									</tr>
+									<?$i++;
+								}?>
+							</tbody>
+						</table>
+					<?}else{?>
+						В данный момент нет ни одного отзыва
+					<?}?>
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-12 col-xs-12">

@@ -21,7 +21,7 @@ aside .block ul.sb_menu li {
 	line-height: 24px;
 }
 aside .block ul.sb_menu > li {
-	padding-top: 1em;
+	padding-top: 0.5em;
 }
 aside .block ul.sb_menu > li:first-of-type {
 	padding: 0;

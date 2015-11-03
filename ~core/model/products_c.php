@@ -116,7 +116,6 @@ class Products {
 			".$visible."
 			ORDER BY cp.id";
 		$arr = $this->db->GetArray($sql);
-		// print_r($arr);
 		if(!$arr){
 			return false;
 		}
@@ -127,6 +126,20 @@ class Products {
 		$arr[0]['categories_ids'] = $catarr;
 		$this->fields = $arr[0];
 		return true;
+	}
+
+	public function GetSpecificationList($id_product){
+		$sql = "SELECT s.caption, s.units, sp.value
+			FROM "._DB_PREFIX_."specs_prods AS sp
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON s.id = sp.id_spec
+			WHERE sp.id_prod = ".$id_product."
+			ORDER BY s.id";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr;
 	}
 
 	//Артикул по Id
@@ -871,11 +884,12 @@ class Products {
 			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
 		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_optimizator_){
+			// ,(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+			// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
 			$sql = "SELECT DISTINCT a.active, a.price_opt_otpusk, a.price_mopt_otpusk, s.available_today,
-				".implode(", ",$this->usual_fields).",
-				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+				".implode(", ",$this->usual_fields)."
+
 				FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."assortiment AS a
 					ON a.id_product = p.id_product
@@ -1566,6 +1580,7 @@ class Products {
 		$f['coefficient_volume'] = mysql_real_escape_string($arr['coefficient_volume']);
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
+		$f['prod_status'] = 3;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
 		$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
 		$f['create_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
@@ -3201,6 +3216,7 @@ class Products {
 		$f['edit_date'] = date('Y-m-d H:i:s');
 		$f['create_user'] = mysql_real_escape_string($product['id_supplier']);
 		$f['id_unit'] = mysql_real_escape_string($product['id_unit']);
+		$f['prod_status'] = 3;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
 			$this->db->FailTrans();

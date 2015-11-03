@@ -129,27 +129,13 @@ define('EXECUTE', 1);
 require(dirname(__FILE__).'/~core/sys/global_c.php');
 require(dirname(__FILE__).'/~core/cfg.php');
 // Memcached init
-$mc = new Memcached();
+$mc = new Memcache();
 $mc->addServer("localhost", 11211);
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
-if(!isset($_COOKIE['manual'])){
-	if(!isset($_SESSION['cart']['cart_sum']) || $_SESSION['cart']['cart_sum'] == 0 || (isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] >= $GLOBALS['CONFIG']['full_wholesale_order_margin'])){
-		setcookie('sum_range', 0, time()+3600, '/');
-		$_COOKIE['sum_range'] = 0;
-	}elseif(isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] > $GLOBALS['CONFIG']['wholesale_order_margin'] && $_SESSION['cart']['cart_sum'] < $GLOBALS['CONFIG']['full_wholesale_order_margin']){
-		setcookie('sum_range', 1, time()+3600, '/');
-		$_COOKIE['sum_range'] = 1;
-	}elseif($_SESSION['cart']['cart_sum'] < $GLOBALS['CONFIG']['wholesale_order_margin'] && $_SESSION['cart']['cart_sum'] > $GLOBALS['CONFIG']['retail_order_margin']){
-		setcookie('sum_range', 2, time()+3600, '/');
-		$_COOKIE['sum_range'] = 2;
-	}elseif(isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] <= $GLOBALS['CONFIG']['retail_order_margin']){
-		setcookie('sum_range', 3, time()+3600, '/');
-		$_COOKIE['sum_range'] = 3;
-	}
-}
-G::Start();
+G::DefineControllers($GLOBALS['PATH_contr']);
 require($GLOBALS['PATH_core'].'routes.php');
+G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('reset.css');
 G::AddCSS('bootstrap-grid-3.3.2.css');
@@ -254,17 +240,6 @@ foreach($pops AS &$pop){
 $tpl->Assign('pops', $pops);
 unset($pops);
 
-// Обработка сортировок ====================================
-if(isset($_COOKIE['sorting'])){
-	$sort = unserialize($_COOKIE['sorting']);
-}
-if(isset($_POST['value']) && isset($_POST['direction'])){
-	$sort_value = $_POST['value'];
-	$sorting    = array('value' => $sort_value);
-	setcookie('sorting', serialize(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
-}elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
-	$sorting = $sort[$GLOBALS['CurrentController']];
-}
 // =========================================================
 
 // Обработка фильтров ======================================

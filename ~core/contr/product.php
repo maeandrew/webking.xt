@@ -25,6 +25,7 @@ if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
 }
 $product = $products->fields;
 $id_product = $product['id_product'];
+$product['specifications'] = $products->GetSpecificationList($id_product);
 $product['images'] = $products->GetPhotoById($id_product);
 $GLOBALS['prod_title'] = $product['name'];
 $GLOBALS['product_canonical'] = '/product/'.$id_product.'/'.$product['translit'].'/';

@@ -206,10 +206,29 @@
 						</div>
 					</div>
 					<div class="product_info">
+						<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
+							<div class="specifications">
+								<h4>Характеристики:</h4>
+								<table class="table">
+									<col width="50%">
+									<col width="50%">
+									<tbody>
+										<?foreach ($item['specifications'] as $k => $s) {?>
+											<?if($k <= 3){?>
+												<tr>
+													<td class="caption"><?=$s['caption']?></td>
+													<td class="value"><?=$s['value'].' '.$s['units']?></td>
+												</tr>
+											<?}?>
+										<?}?>
+									</tbody>
+								</table>
+							</div>
+						<?}?>
 						<div class="product_spec_body">
 							<h4>Описание</h4>
-							<? if(!empty($item['descr'])){?>
-								<p><?=$item['descr']?></p>
+							<? if(!empty($item['descr_xt_short'])){?>
+								<p><?=$item['descr_xt_short']?></p>
 							<?}else{?>
 								<p>К сожалению описание товара временно отсутствует.</p>
 							<?}?>
@@ -243,16 +262,48 @@
 		<div class="col-md-12">
 			<div id="tabs">
 				<ul class="tabs">
-					<!-- <li><a href="#tabs-1" class="tab">Характеристики</a></li> -->
-					<li><a href="#tabs-2" class="tab">Отзывы и вопросы</a></li>
+					<li><a href="#tabs-1" class="tab">Описание</a></li>
+					<li><a href="#tabs-2" class="tab">Характеристики</a></li>
 					<li><a href="#tabs-3" class="tab">Оплата</a></li>
 					<li><a href="#tabs-4" class="tab">Доставка</a></li>
 					<li><a href="#tabs-5" class="tab">Фото</a></li>
-					<!-- <li><a href="#tabs-6" class="tab">Обзоры и видео</a></li> -->
+					<li><a href="#tabs-6" class="tab">Отзывы и вопросы</a></li>
+					<!-- <li><a href="#tabs-7" class="tab">Обзоры и видео</a></li> -->
 				</ul>
 				<div class="tab-content">
-					<!-- <div id="tabs-1" class="tab_item">
+					<div id="tabs-1" class="tab_item">
 						<div class="row">
+							<div class="specifications col-lg-8 col-md-8 col-sm-12 col-xs-12">
+								<h4>Характеристики</h4>
+								<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
+									<table class="table">
+										<col width="50%">
+										<col width="50%">
+										<tbody>
+											<?foreach ($item['specifications'] as $s) {?>
+												<tr>
+													<td class="caption"><?=$s['caption']?></td>
+													<td class="value"><?=$s['value'].' '.$s['units']?></td>
+												</tr>
+											<?}?>
+										</tbody>
+									</table>
+								<?}else{?>
+									<p>К сожалению характеристики товара временно отсутствует.</p>
+								<?}?>
+							</div>
+						</div>
+						<div class="row">
+							<div class="product_spec_body col-lg-8 col-md-8 col-sm-12 col-xs-12">
+								<h4>Описание</h4>
+								<? if(!empty($item['descr_xt_full'])){?>
+									<p><?=$item['descr_xt_full']?></p>
+								<?}else{?>
+									<p>К сожалению описание товара временно отсутствует.</p>
+								<?}?>
+							</div>
+						</div>
+						<!-- <div class="row">
 							<div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
 								<div class="product_spec_body">
 									<h4>Характеристики</h4>
@@ -314,8 +365,8 @@
 									</dl>
 								</div>
 							</div>
-						</div>
-					</div> -->
+						</div> -->
+					</div>
 					<div id="tabs-2" class="tab_item">
 						<div class="row">
 							<div class="col-md-7 col-sm-6">

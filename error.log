@@ -36,3 +36,39 @@
 			 GROUP BY p.id_product
 			ORDER BY a.inusd, p.name asc
 			 LIMIT 0,30
+05:37:47 03.11.2015  SQL Error - SELECT src
+			FROM xt_image
+			WHERE id_product = 43038
+			ORDER BY ord
+06:12:37 03.11.2015  SQL Error - SELECT src
+			FROM xt_image
+			WHERE id_product = 43038
+			ORDER BY ord
+06:12:38 03.11.2015  SQL Error - SELECT src
+			FROM xt_image
+			WHERE id_product = 43038
+			ORDER BY ord
+06:31:12 03.11.2015  SQL Error - SELECT p.id_product, pp.id_category,
+				p.name as name,
+				p.translit, p.img_1, p.price_mopt
+				FROM xt_popular_products AS pp
+				LEFT JOIN xt_product AS p
+				ON p.id_product = pp.id_product
+				WHERE p.price_mopt > 0
+				LIMIT 
+06:32:50 03.11.2015  SQL Error - SELECT p.id_product, pp.id_category,
+				p.name as name,
+				p.translit, p.img_1, p.price_mopt
+				FROM xt_popular_products AS pp
+				LEFT JOIN xt_product AS p
+				ON p.id_product = pp.id_product
+				WHERE p.price_mopt > 0
+				LIMIT 
+06:32:52 03.11.2015  SQL Error - SELECT p.id_product, pp.id_category,
+				p.name as name,
+				p.translit, p.img_1, p.price_mopt
+				FROM xt_popular_products AS pp
+				LEFT JOIN xt_product AS p
+				ON p.id_product = pp.id_product
+				WHERE p.price_mopt > 0
+				LIMIT 

@@ -27,8 +27,8 @@ foreach($ma[1] as $item){
 	}
 }
 unset($ma);unset($ma1);
-if($GLOBALS['CurrentController'] == 'srv'){
-	require($GLOBALS['PATH_core'].'controller.php');
-	exit(0);
-}
+// if($GLOBALS['CurrentController'] == 'srv'){
+// 	require($GLOBALS['PATH_core'].'controller.php');
+// 	exit(0);
+// }
 ?>

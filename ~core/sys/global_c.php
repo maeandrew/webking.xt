@@ -8,9 +8,48 @@ class G {
 		$GLOBALS['__JS_S__'] = array();
 		$GLOBALS['__CSS__'] = array();
 		$GLOBALS['__CSS_S__'] = array();
-		G::DefineControllers($GLOBALS['PATH_contr']);
+		G::SetBasicCookies();
 	}
 
+	/**
+	 * Install default Cookies
+ 	 */
+ 	public static function SetBasicCookies(){
+		//Установка базовой колоники цен
+		if(!isset($_COOKIE['manual'])){
+			if(!isset($_SESSION['cart']['cart_sum']) || $_SESSION['cart']['cart_sum'] == 0 || (isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] >= $GLOBALS['CONFIG']['full_wholesale_order_margin'])){
+				setcookie('sum_range', 0, time()+3600, '/');
+				$_COOKIE['sum_range'] = 0;
+			}elseif(isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] > $GLOBALS['CONFIG']['wholesale_order_margin'] && $_SESSION['cart']['cart_sum'] < $GLOBALS['CONFIG']['full_wholesale_order_margin']){
+				setcookie('sum_range', 1, time()+3600, '/');
+				$_COOKIE['sum_range'] = 1;
+			}elseif($_SESSION['cart']['cart_sum'] < $GLOBALS['CONFIG']['wholesale_order_margin'] && $_SESSION['cart']['cart_sum'] > $GLOBALS['CONFIG']['retail_order_margin']){
+				setcookie('sum_range', 2, time()+3600, '/');
+				$_COOKIE['sum_range'] = 2;
+			}elseif(isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] <= $GLOBALS['CONFIG']['retail_order_margin']){
+				setcookie('sum_range', 3, time()+3600, '/');
+				$_COOKIE['sum_range'] = 3;
+			}
+		}
+
+		// Обработка сортировок ====================================
+		if(isset($_COOKIE['sorting'])){
+			$sort = unserialize($_COOKIE['sorting']);
+		}
+		if(isset($_POST['value']) && isset($_POST['direction'])){
+			$sort_value = $_POST['value'];
+			$sorting    = array('value' => $sort_value);
+			setcookie('sorting', serialize(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
+		}elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
+			$sorting = $sort[$GLOBALS['CurrentController']];
+		}
+
+		// Строчный просмотр списка товаров
+		if(!isset($_COOKIE['product_view'])){
+			setcookie('product_view', 'list', 0, '/');
+		}
+
+	}
 	/**
 	 * Пополнение массива глобальных переменных из массива
  	 * @param array $arr
