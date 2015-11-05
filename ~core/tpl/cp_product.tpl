@@ -981,7 +981,7 @@
 	</section>
 	<div style="margin-top: 100px;" class="hidden">
 		<h3>Цена товара <?=$item['name']?> зависит от общей суммы заказа</h3>
-		<?if($_SERVER['HTTP_HOST'] != 'xt'){
+		<?if(SETT != 0){
 			require_once $GLOBALS['PATH_root'].'/koldunschik4/init.php';
 			echo $k_link->showLinks(0); // раскомментировать для UTF-8
 		}?>

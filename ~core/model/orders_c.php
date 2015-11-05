@@ -387,7 +387,9 @@ class Orders {
 			$where .= " AND (osp.filial_opt =".$filial." OR osp.filial_mopt = ".$filial.") ";
 		}
 		$sql = "SELECT o.id_order, o.id_order_status, osp.id_product, p.name,
-			p.img_1, osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
+			p.img_1, 
+			(SELECT src FROM xt_image AS i WHERE p.id_product = i.id_product AND ord = 0) AS image,
+			osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
 			osp.box_qty, osp.supplier_quantity_opt AS opt_qty,
 			osp.supplier_quantity_mopt AS mopt_qty, osp.opt_sum,
 			osp.mopt_sum, s.article,  p.art,
