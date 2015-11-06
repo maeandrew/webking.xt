@@ -452,6 +452,30 @@ class mysqlDb {
 	function ErrorMsg(){
 		return "<span style=\"color:Red;\">".mysql_error($this->iCID)." (".mysql_errno($this->iCID).")"."</span>";
 	}
+
+	/**
+	* Мастер проверки полей на совпадение
+	* @param string $table
+	* @param array $fields
+	* @return bool
+	*/
+	public function ValidationFields($table, $fields){
+		foreach ($fields as $key => $value) {
+			if(!isset($if)){
+				$if = "WHERE ";
+			}else{
+				$if .= " AND ";
+			}
+			$if .= $key." = '".$value."'";
+		}
+		$sql = "SELECT COUNT(*) AS count FROM $table ";
+		$sql .= $if;
+		$count = $this->GetOneRowArray($sql);
+		if($count['count'] > 0){
+			return false;
+		}
+		return true;
+	}
 }
 
 class recordset {
