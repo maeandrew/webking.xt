@@ -14,18 +14,20 @@ $Unit = new Unit();
 $products = new Products();
 $News = new News();
 $Images = new Images();
+$specification = new Specification();
+$segmentation = new Segmentation();
 if($News->GetCommentListById($id_product)){
 	$tpl->Assign('list_comment', $News->list);
 }
 $pops1 = $News->GetComent();
 $tpl->Assign('pops1', $pops1);
 $tpl->Assign('related_prods_list', $products->GetArrayRelatedProducts($id_product));
-$specification = new Specification();
 $specification->SetListByProdId($id_product);
 $tpl->Assign('product_specs', $specification->list);
 $specification->SetList();
 $tpl->Assign('specs', $specification->list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
+$tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());
 
 if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	if($_GET['id_spec_prod'] == ''){
@@ -126,9 +128,24 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 				}
 				//Отвязываем постащика от товара
 				if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
-					foreach ($_POST['del_from_assort'] as &$id_assort) {
+					foreach($_POST['del_from_assort'] as &$id_assort){
 						$products->DelFromAssortWithAdm($id_assort, $id_product);
 					}
+				}
+			}
+
+			//Привязываем сегментяцию к продукту
+			if(isset($_POST['id_segment'])){
+				foreach ($_POST['id_segment'] as &$id_segment) {
+					if(!$segmentation->AddSegmentInProduct($id_product, $id_segment)){
+						$err_mes = '<script>alert("Ошибка при добавлении сегмента!\nСегмент уже закреплен за данным товаром!");</script>';
+					}
+				}
+			}
+			//Удаляем сегментяцию с товара
+			if(isset($_POST['del_segment_prod']) && !empty($_POST['del_segment_prod'])){
+				foreach($_POST['del_segment_prod'] as $id_segment){
+					$segmentation->DelSegmentInProduct($id_product, $id_segment);
 				}
 			}
 
@@ -168,7 +185,7 @@ $res = $db->GetOneRowArray($sql);
 $max_cnt = $res['cnt'];
 //Дубликат товара
 if(isset($_POST['smb_duplicate'])){
-	$_POST['art'] = $max_cnt+1;
+	$_POST['art'] = $products->CheckArticle((int) $_POST['art']);
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
 		$_POST['price'] = 0;
@@ -193,6 +210,8 @@ if(isset($_POST['smb_duplicate'])){
 }
 
 $tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product));
+//Получение списка сегментаций прикрепленных к тоавру
+$tpl->Assign('segmentations', $segmentation->GetSegmentationsForProduct($id_product));
 //Заполнение массива POST
 $video = $products->GetIdByVideo($id_product);
 $photo = $products->GetPhotoById($id_product);

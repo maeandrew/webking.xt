@@ -1,0 +1,8 @@
+#segmentations_ae select,
+#segmentations_ae input[type="date"],
+#segmentations_ae input[type="number"] {
+	width: 30%;
+}
+#segmentations_ae .developments {
+	display: none;
+}

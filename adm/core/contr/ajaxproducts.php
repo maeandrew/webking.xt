@@ -3,6 +3,7 @@
 	$specification = new Specification();
 	$products = new Products();
 	$supplier = new Suppliers();
+	$segmentation = new Segmentation();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
 			case "specification_update":
@@ -40,6 +41,10 @@
 			break;
 			case "add_supplier":
 				echo json_encode($products->GetSupplierInfoByArticle($_POST['art']));
+			;
+			break;
+			case "get_segment_list":
+				echo json_encode($segmentation->GetSegmentation($_POST['type']));
 			;
 			break;
 			default:

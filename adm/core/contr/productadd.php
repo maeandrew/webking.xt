@@ -9,6 +9,7 @@ $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $products = new Products();
 $Unit = new Unit();
 $Images = new Images();
+$segmentation = new Segmentation();
 //print_r($_POST);die();
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
@@ -73,6 +74,15 @@ if(isset($_POST['smb'])){
 				}
 			}
 
+			//Привязываем сегментяцию к продукту
+			if(isset($_POST['id_segment'])){
+				foreach ($_POST['id_segment'] as &$id_segment) {
+					if(!$segmentation->AddSegmentInProduct($id, $id_segment)){
+						$err_mes = '<script>alert("Ошибка при добавлении сегмента!\nСегмент уже закреплен за данным товаром!");</script>';
+					}
+				}
+			}
+
 			$tpl->Assign('msg', 'Товар добавлен.');
 			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base']."adm/productedit/".$id."'\", 2000);</script>";
 			unset($_POST);
@@ -99,6 +109,7 @@ $list = $dbtree->Full(array('id_category', 'category_level', 'name'));
 $tpl->Assign('list', $list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
 $tpl->Assign('mlist', $products->GetManufacturers());
+$tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());
 if(!isset($_POST['smb'])){
 	$_POST['id_product'] = 0;
 	if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){

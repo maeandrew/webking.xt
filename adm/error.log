@@ -5113,3 +5113,36 @@
 12:41:35 21.10.2015  SQL Error - SELECT p.id_product
 			FROM xt_product AS p
 			WHERE p.art = арт. 152723
+01:47:26 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("rt", "3", "", "23")
+01:49:47 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("rt", "3", "", "")
+01:49:49 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("rt", "3", "", "")
+01:49:50 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("rt", "3", "", "")
+01:50:44 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "")
+01:51:10 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "34")
+01:51:12 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "34")
+01:51:45 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "")
+01:51:47 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "")
+01:52:21 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "34")
+01:52:22 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "34")
+02:00:26 04.11.2015  SQL error - INSERT INTO xt_segmentation (`name`, `type`, `date`, `count_days`) VALUES ("re", "3", "", "34")
+02:30:31 04.11.2015  SQL error - INSERT INTO xt_product (`art`, `name`, `translit`, `descr`, `descr_xt_short`, `descr_xt_full`, `img_1`, `img_2`, `img_3`, `price_opt`, `price_mopt`, `inbox_qty`, `min_mopt_qty`, `price_coefficient_opt`, `price_coefficient_mopt`, `height`, `width`, `length`, `weight`, `volume`, `coefficient_volume`, `qty_control`, `visible`, `prod_status`, `note_control`, `id_unit`, `create_user`, `notation_price`, `instruction`, `indexation`) VALUES ("153029", "srwe", "srwe", "werwe", "wer", "werwer", "", "", "", "0", "0", "34", "1", "1", "1", "0", "0", "0", "0", "34", "1", "0", "1", "3", "0", "1", "8942", "234", "wre", "0")
+02:33:01 04.11.2015  SQL error - INSERT INTO xt_product (`art`, `name`, `translit`, `descr`, `descr_xt_short`, `descr_xt_full`, `img_1`, `img_2`, `img_3`, `price_opt`, `price_mopt`, `inbox_qty`, `min_mopt_qty`, `price_coefficient_opt`, `price_coefficient_mopt`, `height`, `width`, `length`, `weight`, `volume`, `coefficient_volume`, `qty_control`, `visible`, `prod_status`, `note_control`, `id_unit`, `create_user`, `notation_price`, `instruction`, `indexation`) VALUES ("153029", "srwe", "srwe", "werwe", "wer", "werwer", "", "", "", "0", "0", "34", "1", "1", "1", "0", "0", "0", "0", "34", "1", "0", "1", "3", "0", "1", "8942", "234", "wre", "0")
+02:33:44 04.11.2015  SQL error - INSERT INTO xt_product (`art`, `name`, `translit`, `descr`, `descr_xt_short`, `descr_xt_full`, `img_1`, `img_2`, `img_3`, `price_opt`, `price_mopt`, `inbox_qty`, `min_mopt_qty`, `price_coefficient_opt`, `price_coefficient_mopt`, `height`, `width`, `length`, `weight`, `volume`, `coefficient_volume`, `qty_control`, `visible`, `prod_status`, `note_control`, `id_unit`, `create_user`, `notation_price`, `instruction`, `indexation`) VALUES ("153029", "srwe", "srwe", "werwe", "wer", "werwer", "", "", "", "0", "0", "34", "1", "1", "1", "0", "0", "0", "0", "34", "1", "0", "1", "3", "0", "1", "8942", "234", "wre", "0")
+06:07:55 04.11.2015  SQL Error - SELECT * FROM xt_segmentation AS s
+			LEFT JOIN '._DB_PREFIX_.'segmentation_type AS st
+				ON st.id = s.type
+			
+			ORDER BY s.id
+11:52:47 05.11.2015  SQL Error - SELECT ,
+			st.type_name, st.alias, st.use_date
+			FROM xt_segmentation AS s
+			LEFT JOIN xt_segmentation_type AS st
+				ON st.id = s.type
+			WHERE s.type = 3
+			ORDER BY s.id
+11:17:57 06.11.2015  SQL error - INSERT INTO xt_segment_prods (`id_product`, `id_segment`) VALUES ("29434", "6")
+11:40:52 06.11.2015  SQL error - INSERT INTO xt_assortiment (`id_product`, `id_supplier`, `product_limit`, `inusd`, `price_opt_otpusk`, `price_mopt_otpusk`, `price_opt_otpusk_usd`, `price_mopt_otpusk_usd`, `price_opt_recommend`, `price_mopt_recommend`) VALUES ("29434", "11531", "1000000", "0", "34", "34", "0.97", "0.97", "45.9", "49.3")
+01:20:32 06.11.2015  SQL Error - 
+01:41:56 06.11.2015  SQL error - INSERT INTO xt_assortiment (`id_product`, `id_supplier`, `product_limit`, `inusd`, `price_opt_otpusk`, `price_mopt_otpusk`, `price_opt_otpusk_usd`, `price_mopt_otpusk_usd`, `price_opt_recommend`, `price_mopt_recommend`) VALUES ("29434", "11531", "1000000", "0", "34", "34", "0.97", "0.97", "45.9", "49.3")
+01:45:41 06.11.2015  SQL error - INSERT INTO xt_assortiment (`id_product`, `id_supplier`, `product_limit`, `inusd`, `price_opt_otpusk`, `price_mopt_otpusk`, `price_opt_otpusk_usd`, `price_mopt_otpusk_usd`, `price_opt_recommend`, `price_mopt_recommend`) VALUES ("29434", "11531", "1000000", "0", "34", "34", "0.97", "0.97", "45.9", "49.3")
+02:02:26 06.11.2015  SQL error - INSERT INTO xt_segment_prods (`id_product`, `id_segment`) VALUES ("", "1")

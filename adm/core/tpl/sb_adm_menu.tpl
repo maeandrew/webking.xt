@@ -24,39 +24,58 @@
 				<li <?=$GLOBALS['CurrentController'] == 'cat'?'class="sel"':null;?>>
 					<a href="/adm/cat/">Каталог</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'catadd'?'class="sel"':null;?>>
-						<a href="/adm/catadd/">Добавить категорию</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="sel"':null;?>>
-						<a href="/adm/productadd/">Добавить товар</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
-						<a href="/adm/unload_products/">Выгрузка товаров</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'catadd'?'class="sel"':null;?>>
+							<a href="/adm/catadd/">Добавить категорию</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="sel"':null;?>>
+							<a href="/adm/productadd/">Добавить товар</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
+							<a href="/adm/unload_products/">Выгрузка товаров</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if (_acl::isAllow('specifications')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'specifications'?'class="sel"':null;?>>
 					<a href="/adm/specifications/">Характеристики</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'specificationadd'?'class="sel"':null;?>>
-						<a href="/adm/specificationadd/">Добавить характеристику</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'specificationadd'?'class="sel"':null;?>>
+							<a href="/adm/specificationadd/">Добавить характеристику</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if(_acl::isAllow('units')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'units'?'class="sel"':null;?>>
 					<a href="/adm/units/">Единицы измерения</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'unitadd'?'class="sel"':null;?>>
-						<a href="/adm/unitadd/">Добавить единицу измерения</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'unitadd'?'class="sel"':null;?>>
+							<a href="/adm/unitadd/">Добавить единицу измерения</a>
+						</li>
+					</ul>
+				</li>
+			<?}?>
+
+			<?if (_acl::isAllow('segmentations')){?>
+				<li <?=$GLOBALS['CurrentController'] == 'segmentations'?'class="sel"':null;?>>
+					<a href="/adm/segmentations/">Сегментации</a>
+				</li>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'segmentationadd'?'class="sel"':null;?>>
+							<a href="/adm/segmentationadd/">Добавить сегментацию</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if(_acl::isAllow('orders')){?>
@@ -143,56 +162,54 @@
 				<li <?=$GLOBALS['CurrentController'] == 'users'?'class="sel"':null;?>>
 					<a href="/adm/users/">Пользователи</a>
 				</li>
-
-				<ul class="sb_menusub">
-					<li>
-						<a href="/adm/users/<?=_ACL_ADMIN_?>">Администраторы</a>
-						<a href="/adm/adminadd/" class="add <?=$GLOBALS['CurrentController'] == 'adminadd'?'sel':null;?>" title="Добавить администратора">Добавить администратора</a>
-					</li>
-					<li>
-						<a href="/adm/users/<?=_ACL_MODERATOR_?>">Администраторы наполнения</a>
-					</li>
-					<li>
-						<a href="/adm/users/<?=_ACL_SEO_optimizator_?>">СЕО-оптимизаторы</a>
-					</li>
-					<li>
-						<a href="/adm/users/<?=_ACL_CUSTOMER_?>">Покупатели</a>
-						<a href="/adm/customeradd/" class="add <?=$GLOBALS['CurrentController'] == 'customeradd'?'sel':null;?>" title="Добавить покупателя">Добавить покупателя</a>
-					</li>
-					<li>
-						<a href="/adm/users/<?=_ACL_CONTRAGENT_?>">Контрагенты</a>
-						<a href="/adm/contragentadd/" class="add <?=$GLOBALS['CurrentController'] == 'contragentadd'?'sel':null;?>" title="Добавить контрагента">Добавить контрагента</a>
-					</li>
-					<li>
-						<a href="/adm/users/<?=_ACL_SUPPLIER_?>">Поставщики</a>
-						<a href="/adm/supplieradd/" class="add <?=$GLOBALS['CurrentController'] == 'supplieradd'?'sel':null;?>" title="Добавить поставщика">Добавить поставщика</a>
-					</li>
-					<li>
-						<a href="/adm/warehouses/">Поставщики склада</a>
-						<a href="/adm/warehouseadd/" class="add <?=$GLOBALS['CurrentController'] == 'warehouseadd'?'sel':null;?>" title="Добавить  поставщика склада">Добавить  поставщика склада</a>
-					</li>
-				</ul>
-
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'adminadd'?'class="sel"':null;?>>
-						<a href="/adm/adminadd/">Добавить администратора</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'seoadd'?'class="sel"':null;?>>
-						<a href="/adm/SEO_optimizatoradd/">Добавить СЕО-оптимизатора</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'customeradd'?'class="sel"':null;?>>
-						<a href="/adm/customeradd/">Добавить покупателя</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'contragentadd'?'class="sel"':null;?>>
-						<a href="/adm/contragentadd/">Добавить контрагента</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'supplieradd'?'class="sel"':null;?>>
-						<a href="/adm/supplieradd/">Добавить поставщика</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'warehouseadd'?'class="sel"':null;?>>
-						<a href="/adm/warehouseadd/">Добавить поставщика склада</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li>
+							<a href="/adm/users/<?=_ACL_ADMIN_?>">Администраторы</a>
+							<a href="/adm/adminadd/" class="add <?=$GLOBALS['CurrentController'] == 'adminadd'?'sel':null;?>" title="Добавить администратора">Добавить администратора</a>
+						</li>
+						<li>
+							<a href="/adm/users/<?=_ACL_MODERATOR_?>">Администраторы наполнения</a>
+						</li>
+						<li>
+							<a href="/adm/users/<?=_ACL_SEO_optimizator_?>">СЕО-оптимизаторы</a>
+						</li>
+						<li>
+							<a href="/adm/users/<?=_ACL_CUSTOMER_?>">Покупатели</a>
+							<a href="/adm/customeradd/" class="add <?=$GLOBALS['CurrentController'] == 'customeradd'?'sel':null;?>" title="Добавить покупателя">Добавить покупателя</a>
+						</li>
+						<li>
+							<a href="/adm/users/<?=_ACL_CONTRAGENT_?>">Контрагенты</a>
+							<a href="/adm/contragentadd/" class="add <?=$GLOBALS['CurrentController'] == 'contragentadd'?'sel':null;?>" title="Добавить контрагента">Добавить контрагента</a>
+						</li>
+						<li>
+							<a href="/adm/users/<?=_ACL_SUPPLIER_?>">Поставщики</a>
+							<a href="/adm/supplieradd/" class="add <?=$GLOBALS['CurrentController'] == 'supplieradd'?'sel':null;?>" title="Добавить поставщика">Добавить поставщика</a>
+						</li>
+						<li>
+							<a href="/adm/warehouses/">Поставщики склада</a>
+							<a href="/adm/warehouseadd/" class="add <?=$GLOBALS['CurrentController'] == 'warehouseadd'?'sel':null;?>" title="Добавить  поставщика склада">Добавить  поставщика склада</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'adminadd'?'class="sel"':null;?>>
+							<a href="/adm/adminadd/">Добавить администратора</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'seoadd'?'class="sel"':null;?>>
+							<a href="/adm/SEO_optimizatoradd/">Добавить СЕО-оптимизатора</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'customeradd'?'class="sel"':null;?>>
+							<a href="/adm/customeradd/">Добавить покупателя</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'contragentadd'?'class="sel"':null;?>>
+							<a href="/adm/contragentadd/">Добавить контрагента</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'supplieradd'?'class="sel"':null;?>>
+							<a href="/adm/supplieradd/">Добавить поставщика</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'warehouseadd'?'class="sel"':null;?>>
+							<a href="/adm/warehouseadd/">Добавить поставщика склада</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 			<?if(_acl::isAllow('remitters')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'remitters'?'class="sel"':null;?>>
@@ -200,11 +217,13 @@
 				</li>
 			<?}?>
 			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO_optimizator_)){?>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
-						<a href="/adm/remitteradd/">Добавить отправителя</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
+							<a href="/adm/remitteradd/">Добавить отправителя</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if(_acl::isAllow('news')){?>
@@ -212,14 +231,16 @@
 					<a href="/adm/news/">Новости</a>
 					<a href="/adm/newsadd/" class="add <?=$GLOBALS['CurrentController'] == 'newsadd'?'sel':null;?>" title="Добавить новость">Добавить новость</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'newsadd'?'class="sel"':null;?>>
-						<a href="/adm/newsadd/">Добавить новость</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'slides'?'class="sel"':null;?>>
-						<a href="/adm/slides/">Слайдер</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'newsadd'?'class="sel"':null;?>>
+							<a href="/adm/newsadd/">Добавить новость</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'slides'?'class="sel"':null;?>>
+							<a href="/adm/slides/">Слайдер</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if(_acl::isAllow('posts')){?>
@@ -227,37 +248,42 @@
 					<a href="/adm/posts/">Статьи</a>
 					<a href="/adm/postadd/" class="add <?=$GLOBALS['CurrentController'] == 'postadd'?'sel':null;?>" title="Добавить статью">Добавить статью</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'postadd'?'class="sel"':null;?>>
-						<a href="/adm/postadd/">Добавить статью</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'postadd'?'class="sel"':null;?>>
+							<a href="/adm/postadd/">Добавить статью</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if(_acl::isAllow('pages')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'pages'?'class="sel"':null;?>>
 					<a href="/adm/pages/">Страницы</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'configedit'?'class="sel"':null;?>>
-						<a href="/adm/configedit/0">Инструкция для поставщика</a>
-					</li>
-					<li <?=$GLOBALS['CurrentController'] == 'pageadd'?'class="sel"':null;?>>
-						<a href="/adm/pageadd/">Добавить страницу</a>
-					</li>
-				</ul>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'configedit'?'class="sel"':null;?>>
+							<a href="/adm/configedit/0">Инструкция для поставщика</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'pageadd'?'class="sel"':null;?>>
+							<a href="/adm/pageadd/">Добавить страницу</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 
 			<?if (_acl::isAllow('configs')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'configs'?'class="sel"':null;?>>
 					<a href="/adm/configs/">Настройки</a>
 				</li>
-				<ul class="sb_menusub">
-					<li <?=$GLOBALS['CurrentController'] == 'configadd'?'class="sel"':null;?>>
-						<a href="/adm/configadd/">Добавить настройку</a>
-					</li>
-				</ul>
-
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'configadd'?'class="sel"':null;?>>
+							<a href="/adm/configadd/">Добавить настройку</a>
+						</li>
+					</ul>
+				</li>
 			<?}?>
 		</ul>
 		<div class="clear"></div>

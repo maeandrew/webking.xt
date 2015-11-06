@@ -6,6 +6,7 @@
 		<div class="prod_head">
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 				<div class="fl head_block">
+					<span class="product_name"><?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?></span>
 					<span class="article"><b>Артикул:</b> <?=isset($_POST['art'])?htmlspecialchars($_POST['art']):null?></span>
 				</div>
 				<div class="fr">
@@ -34,6 +35,7 @@
 					<li><a href="#nav_connection">Категория и связь</a></li>
 					<li><a href="#nav_information">Информация</a></li>
 					<li><a href="#nav_visible">Видимость и индексация</a></li>
+					<li class="main_photo"><img src="<?=isset($_POST['images'][0]['src'])?$_POST['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>" alt=""></li>
 				</ul>
 			</div>
 			<div class="tabs-panel">
@@ -501,6 +503,60 @@
 							</tr>
 						</tbody>
 					</table>
+					<label>Привязанные сегментации:</label>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 segmentations">
+						<colgroup>
+							<col width="10%">
+							<col width="55%">
+							<col width="15%">
+							<col width="15%">
+							<col width="5%">
+						</colgroup>
+						<thead>
+							<tr>
+								<td class="left">Тип</td>
+								<td class="left">Название</td>
+								<td class="left">Дата</td>
+								<td class="left">Кол-во дней</td>
+								<td class="left"></td>
+							</tr>
+						</thead>
+						<tbody>
+							<?if(!empty($segmentations)){
+								foreach($segmentations as $s){?>
+									<tr class="animate segment_js">
+										<td class="type_name"><?=$s['type_name']?></td>
+										<td class="name"><?=$s['name']?></td>
+										<td><?=$s['date']?></td>
+										<td><?=$s['count_days']?></td>
+										<td class="left actions">
+											<span class="icon-font del_segment">t</span>
+											<input type="hidden" class="id_segment" value="<?=$s['id']?>">
+										</td>
+									</tr>
+								<?}
+							}else{?>
+								<tr class="animate empty">
+									<td colspan="12" class="center">Не привязано ни одной сегментации</td>
+								</tr>
+							<?}?>
+						</tbody>
+					</table>
+					<label for="segment_type">Добавление сегментации:</label>
+					<select id="segment_type" class="input-m">
+						<?if(isset($list_segment_types) && !empty($list_segment_types)){?>
+							<option></option>
+							<?foreach($list_segment_types as $lst){?>
+								<option value="<?=$lst['id']?>"><?=$lst['type_name']?></option>
+							<?}
+						}else{?>
+							<option>Нет сегментаций</option>
+						<?}?>
+					</select>
+					<select id="segment_list" class="input-m">
+						<option></option>
+					</select>
+					<button class="btn-m-default add_segment">Добавить</button>
 				</div>
 				<div id="nav_information">
 					<h2>Информация</h2>
@@ -642,7 +698,11 @@
 			placeholder: "ui-sortable-placeholder",
 			axis: "y",
 			scroll: false,
-			tolerance: "pointer"
+			tolerance: "pointer",
+			out: function(){
+				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
+				$('.main_photo img').attr('src', main_photo);
+			}
 		});
 
 		//Удаление фото
@@ -762,7 +822,79 @@
 			if(confirm('Вы хотите отвязать поставщика \n\"'+supp_name+'\" от данного товара?')){
 				if (parent_path.find('input').is('.id_assortiment')) {
 					var id_assort = parent_path.find('.id_assortiment').val();
-					$('#nav_information').append('<input type="hidden" name="del_from_assort[]" value="'+id_assort+'">');
+					$('#nav_connection').append('<input type="hidden" name="del_from_assort[]" value="'+id_assort+'">');
+				};
+				parent_path.remove();
+			};
+		});
+
+		//Подгрузка доступных сегментаций
+		var segment_info = '';
+		$('#segment_type').on('change', function(){
+			var type = $(this).val();
+			if(type != ''){
+				$.ajax({
+					url: URL_base+'ajaxproducts',
+					type: "POST",
+					cache: false,
+					dataType: "json",
+					data: {
+						"action":'get_segment_list',
+						"type": type
+					}
+				}).done(function(data){
+					var optionlist ='';
+					segment_info = data;
+					$.each(data, function(k, v){
+						optionlist += '<option value="'+v['id']+'">'+v['name']+'</option>';
+					});
+					$('#segment_list').html(optionlist);
+				});
+			}else{
+				$('#segment_list').html('<option></option>');
+			}
+		});
+
+		//Добавление сегментаций
+		$('.add_segment').on('click', function(event) {
+			event.preventDefault();
+			var segment = $('#segment_list').val();
+			if(segment != ''){
+				$.each(segment_info, function(k, v){
+					if(v['id'] == segment){
+						var html_string = '';
+						if(v['use_date'] == 0){
+							v['date'] = '';
+							v['count_days'] = '';
+						}
+						html_string = '<tr class="animate segment_js">';
+						html_string += '<td class="type_name">'+v['type_name']+'</td>';
+						html_string += '<td class="name">'+v['name']+'</td>';
+						html_string += '<td>'+v['date']+'</td>';
+						html_string += '<td>'+v['count_days']+'</td>';
+						html_string += '<td><input type="hidden" name="id_segment[]" value="'+v['id']+'"><span class="icon-font del_segment">t</span></td>';
+						html_string += '</tr>';
+						if($('.segmentations tr').is('.empty')){
+							$('.segmentations .empty').remove();
+						}
+						$('#segment_list option[value="'+segment+'"]').remove();
+						$('.segmentations tbody').append(html_string);
+					}
+				});
+			}else{
+				alert('Выберите сегмент для добавления!')
+			}
+		});
+
+		//Отвязка сегментации от продукта
+		$('body').on('click', '.del_segment',function() {
+			var parent_path = $(this).closest('.segment_js'),
+				type_name = parent_path.find('.type_name').text(),
+				name = parent_path.find('.name').text();
+			if(confirm('Вы хотите отвязать '+type_name+'\n\"'+name+'\" от данного товара?')){
+				if (parent_path.find('input').is('.id_segment')) {
+					var id_segment = parent_path.find('.id_segment').val();
+					$('#nav_connection').append('<input type="hidden" name="del_segment_prod[]" value="'+id_segment+'">');
 				};
 				parent_path.remove();
 			};

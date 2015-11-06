@@ -29,3 +29,7 @@ robots.txt
 sitemap.xml
 config.php
 *.log
+
+product_images/*
+!product_images/original
+product_images/original/*

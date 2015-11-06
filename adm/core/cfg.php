@@ -3,12 +3,12 @@ $root = dirname(__FILE__);
 $root .= '/../';
 require($root.'../config.php');
 // ******************************** Начальное конфигурирование *************************************
-$baseUrl = '//'.$_SERVER['SERVER_NAME'].'/';
+$baseUrl = 'http://'.$_SERVER['SERVER_NAME'].'/';
 define('_base_url', $baseUrl);
 date_default_timezone_set("Europe/Moscow");
 $config = array (
 	'URL_base'			=> $baseUrl,
-	'URL_request'		=> '//'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'],
+	'URL_request'		=> 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'],
 	'URL_img'			=> $baseUrl.'adm/img/',
 	'URL_css'			=> $baseUrl.'adm/css/',
 	'URL_js'			=> $baseUrl.'adm/js/',
@@ -72,6 +72,7 @@ require($GLOBALS['PATH_model'].'specification_c.php');
 require($GLOBALS['PATH_model'].'unit_c.php');
 require($GLOBALS['PATH_model'].'post_c.php');
 require($GLOBALS['PATH_model'].'wishes_c.php');
+require($GLOBALS['PATH_model'].'segmentation_c.php');
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config";
 $arr = $db->GetArray($sql);
