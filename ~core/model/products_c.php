@@ -1343,15 +1343,11 @@ class Products {
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
 
 		$this->db->StartTrans();
-		$sql_check = "SELECT id_assortiment
-			FROM "._DB_PREFIX_."assortiment
-			WHERE id_product = '".$arr['id_product']."'
-			AND id_supplier ='".$arr['id_supplier']."'";
-		if(!$this->db->GetArray($sql_check)){
-			if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
-				$this->db->FailTrans();
-				return false;
-			}
+		//Заполнение массива для проверки на совпадения
+		$check['id_product'] = $arr['id_product'];
+		$check['id_supplier'] = $arr['id_supplier'];
+		if($this->db->ValidationFields(_DB_PREFIX_.'assortiment', $check)){
+			$this->db->Insert(_DB_PREFIX_.'assortiment', $f);
 			$this->db->CompleteTrans();
 			return true;
 		}
