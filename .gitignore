@@ -31,5 +31,7 @@ config.php
 *.log
 
 product_images/*
-!product_images/original
+!product_images/original/
 product_images/original/*
+!product_images/original/2014/
+# product_images/original/*
