@@ -473,7 +473,11 @@ class Suppliers extends Users {
 			WHERE a.id_supplier = ".$this->fields['id_user']."
 			AND p.visible = 1
 			ORDER BY a.inusd, p.name";
+		$products = new Products();
 		$arr = $this->db->GetArray($sql);
+		foreach($arr as &$product){
+			$product['images'] = $products->GetPhotoById($product['id_product']);
+		}
 		return $arr;
 	}
 
