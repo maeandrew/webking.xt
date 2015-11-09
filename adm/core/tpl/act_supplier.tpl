@@ -215,7 +215,11 @@ td.c8 {
 			<tbody>
 				<tr class="main">
 					<td class="bl c1">
-						<img <?=$wh?> src="<?=$GLOBALS['URL_base'].htmlspecialchars(str_replace("/efiles/image/", "efiles/image/250/", $i['img_1']))?>"/>
+						<?if(!empty($i['images'])){?>
+							<img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['images'][0]['src']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['images'][0]['src'])):'/efiles/_thumb/nofoto.jpg'?>">
+						<?}else{?>
+							<img <?=$wh?> src="<?=$GLOBALS['URL_base'].htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1']))?>"/>
+						<?}?>
 					</td>
 					<td class="name c2">
 						<?=$i['name']?>
