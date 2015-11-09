@@ -239,7 +239,7 @@
 								<select name="sid" id="sid" class="select_unit input-m">
 									<?$i = 0;
 									foreach($specs as $s){
-										if(!in_array($s['id'], $ids)){
+										if(isset($ids) && !empty($ids) && !in_array($s['id'], $ids)){
 											$i++;?>
 											<option value="<?=$s['id']?>"><?=$s['caption']?>
 											<?if($s['units'] !== ''){
@@ -256,19 +256,19 @@
 								<button class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?> onclick="insertSpecToProd($(this));">Добавить</button>
 							</div>
 						<?}?>
-							<div class="col-md-12">
-								<label for="descr">Описание x-torg.com:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-								<textarea name="descr" id="descr" class="input-m" rows="5" cols="50"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
-								<label for="descr">Описание xt.ua(краткое):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-								<textarea name="descr_xt_short" id="descr_xt_short" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_short'])?htmlspecialchars($_POST['descr_xt_short']):null?></textarea>
-								<label for="descr">Описание xt.ua(полное):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-								<textarea name="descr_xt_full" id="descr_xt_full" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_full'])?htmlspecialchars($_POST['descr_xt_full']):null?></textarea>
-								<label>Инструкция подлинности:</label>
-								<textarea name="instruction" cols="30" rows="6"><?=isset($_POST['instruction'])?htmlspecialchars($_POST['instruction']):null?></textarea>
-								<label for="note_control"><b>Требовать заполнение примечания &nbsp;</b>
-									<input type="checkbox" name="note_control" id="note_control" class="input-m" <?=isset($_POST['note_control'])&&($_POST['note_control'])?'checked="checked" value="on"':null?>>
-								</label>
-							</div>
+						<div class="col-md-12">
+							<label for="descr">Описание x-torg.com:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
+							<textarea name="descr" id="descr" class="input-m" rows="5" cols="50"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
+							<label for="descr">Описание xt.ua(краткое):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
+							<textarea name="descr_xt_short" id="descr_xt_short" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_short'])?htmlspecialchars($_POST['descr_xt_short']):null?></textarea>
+							<label for="descr">Описание xt.ua(полное):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
+							<textarea name="descr_xt_full" id="descr_xt_full" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_full'])?htmlspecialchars($_POST['descr_xt_full']):null?></textarea>
+							<label>Инструкция подлинности:</label>
+							<textarea name="instruction" cols="30" rows="6"><?=isset($_POST['instruction'])?htmlspecialchars($_POST['instruction']):null?></textarea>
+							<label for="note_control"><b>Требовать заполнение примечания &nbsp;</b>
+								<input type="checkbox" name="note_control" id="note_control" class="input-m" <?=isset($_POST['note_control'])&&($_POST['note_control'])?'checked="checked" value="on"':null?>>
+							</label>
+						</div>
 					</div>
 				</div>
 				<div id="nav_params">
