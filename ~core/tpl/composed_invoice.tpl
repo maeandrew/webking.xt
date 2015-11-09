@@ -389,6 +389,7 @@ tr.min td {
 								}?>
 							</td>
 							<td class="note_red" style="width: 20%;"><?=number_format($otpusk, 2, ",", "");?></td>
+						</tr>
 					</tbody>
 				</table>
 				<div class="balance <?=$supplier['example_sum'] < 0?'minus':'plus';?>" style="float: right; font-size: 13px; margin-left: 2%; width: 48%;">Сумма возврата: <span><?if(isset($supplier['example_sum']) && is_numeric($supplier['example_sum'])){?><?=number_format($supplier['example_sum'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>

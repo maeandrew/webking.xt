@@ -35,7 +35,9 @@
 					<li><a href="#nav_connection">Категория и связь</a></li>
 					<li><a href="#nav_information">Информация</a></li>
 					<li><a href="#nav_visible">Видимость и индексация</a></li>
-					<li class="main_photo"><img src="<?=isset($_POST['images'][0]['src'])?$_POST['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>" alt=""></li>
+					<li class="main_photo">
+						<img src="<?if(isset($_POST['images'])){echo file_exists($GLOBALS['PATH_root'].$_POST['images'][0]['src'])?htmlspecialchars($_POST['images'][0]['src']):'/efiles/_thumb/nofoto.jpg';}else{echo '/efiles/_thumb/nofoto.jpg';}?>" alt="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
+					</li>
 				</ul>
 			</div>
 			<div class="tabs-panel">
@@ -126,7 +128,7 @@
 									<div class="image_block dz-preview dz-image-preview">
 										<div class="sort_handle"><span class="icon-font">s</span></div>
 										<div class="image">
-											<img data-dz-thumbnail src="<?=$photo['src']?>"/>
+											<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].$photo['src'])?_base_url.htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
 										</div>
 										<div class="name">
 											<span class="dz-filename" data-dz-name><?=$photo['src']?></span>

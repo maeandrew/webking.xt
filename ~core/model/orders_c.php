@@ -387,7 +387,7 @@ class Orders {
 			$where .= " AND (osp.filial_opt =".$filial." OR osp.filial_mopt = ".$filial.") ";
 		}
 		$sql = "SELECT o.id_order, o.id_order_status, osp.id_product, p.name,
-			p.img_1, 
+			p.img_1,
 			(SELECT src FROM xt_image AS i WHERE p.id_product = i.id_product AND ord = 0) AS image,
 			osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
 			osp.box_qty, osp.supplier_quantity_opt AS opt_qty,
@@ -1465,7 +1465,7 @@ class Orders {
 				osp.fact_sum, osp.fact_mqty, osp.fact_msum, p.img_1,
 				osp.return_sum, osp.return_mqty, osp.return_msum, p.units,
 				o.id_pretense_status, o.id_return_status, p.translit,
-				osp.id_supplier_mopt_altern, osp.id_supplier_mopt,
+				osp.id_supplier_mopt_altern, osp.id_supplier_mopt, i.src AS image,
 				(SELECT "._DB_PREFIX_."supplier.article
 					FROM "._DB_PREFIX_."supplier
 					WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt
@@ -1485,6 +1485,9 @@ class Orders {
 				ON osp.id_supplier = s.id_user
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON osp.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."image AS i
+				ON osp.id_product = i.id_product
+					AND i.ord = 0
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product
 			ORDER BY p.name";
@@ -1521,7 +1524,7 @@ class Orders {
 				osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
 				osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum,
 				p.min_mopt_qty, p.units, osp.box_qty, o.id_pretense_status,
-				o.id_return_status, osp.contragent_msum
+				o.id_return_status, osp.contragent_msum, i.src AS image
 			FROM "._DB_PREFIX_."osp AS osp
 			LEFT JOIN "._DB_PREFIX_."order AS o
 				ON osp.id_order = o.id_order
@@ -1531,6 +1534,9 @@ class Orders {
 				ON osp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON osp.id_product = cp.id_product
+			LEFT JOIN "._DB_PREFIX_."image AS i
+				ON osp.id_product = i.id_product
+					AND i.ord = 0
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product
 			ORDER BY p.name";

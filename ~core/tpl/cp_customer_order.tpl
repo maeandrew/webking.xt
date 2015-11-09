@@ -40,7 +40,15 @@
 						<?$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/efiles/_thumb/nofoto.jpg'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения" /></a>
+								<?if($i['image'] != ''){?>
+									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
+										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>" title="Нажмите для увеличения">
+									</a>
+								<?}else{?>
+									<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/efiles/_thumb/nofoto.jpg'?>" onClick="return hs.expand(this)" class="highslide">
+										<img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения" />
+									</a>
+								<?}?>
 							</td>
 							<td class="name_cell">
 								<a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
@@ -72,7 +80,15 @@
 					<?$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/efiles/_thumb/nofoto.jpg'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения" /></a>
+								<?if($i['image'] != ''){?>
+									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
+										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>" title="Нажмите для увеличения">
+									</a>
+								<?}else{?>
+									<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/efiles/_thumb/nofoto.jpg'?>" onClick="return hs.expand(this)" class="highslide">
+										<img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения" />
+									</a>
+								<?}?>
 							</td>
 							<td class="name_cell">
 								<a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
