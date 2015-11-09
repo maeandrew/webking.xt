@@ -85,12 +85,14 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$newname = $_POST['art'].'-'.($i+1).'.jpg';
 					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
 					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
-					rename($path.$file['basename'], $path.$newname);
+					if(file_exists($path.$file['basename'])){
+						rename($path.$file['basename'], $path.$newname);
+					}
 					$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
 					$i++;
 				}
+				$Images->resize();
 			}
-			$Images->resize();
 		}
 		if($products->UpdateProduct($_POST)){
 			$err_mes = '';

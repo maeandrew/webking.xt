@@ -273,8 +273,18 @@
 				<div class="tab-content">
 					<div id="tabs-1" class="tab_item">
 						<div class="row">
+							<div class="product_spec_body col-lg-8 col-md-8 col-sm-12 col-xs-12">
+								<? if(!empty($item['descr_xt_full'])){?>
+									<p><?=$item['descr_xt_full']?></p>
+								<?}else{?>
+									<p>К сожалению описание товара временно отсутствует.</p>
+								<?}?>
+							</div>
+						</div>
+					</div>
+					<div id="tabs-2" class="tab_item">
+						<div class="row">
 							<div class="specifications col-lg-8 col-md-8 col-sm-12 col-xs-12">
-								<h4>Характеристики</h4>
 								<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
 									<table class="table">
 										<col width="50%">
@@ -291,163 +301,6 @@
 								<?}else{?>
 									<p>К сожалению характеристики товара временно отсутствует.</p>
 								<?}?>
-							</div>
-						</div>
-						<div class="row">
-							<div class="product_spec_body col-lg-8 col-md-8 col-sm-12 col-xs-12">
-								<h4>Описание</h4>
-								<? if(!empty($item['descr_xt_full'])){?>
-									<p><?=$item['descr_xt_full']?></p>
-								<?}else{?>
-									<p>К сожалению описание товара временно отсутствует.</p>
-								<?}?>
-							</div>
-						</div>
-						<!-- <div class="row">
-							<div class="col-md-7 col-lg-7 col-sm-7 col-xs-12">
-								<div class="product_spec_body">
-									<h4>Характеристики</h4>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Тип:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">приманка</span>
-										</dd>
-									</dl>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Вид:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">зерновая</span>
-										</dd>
-									</dl>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Страна производитель:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">Украина</span>
-										</dd>
-									</dl>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Бренд:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">Щелкунчик</span>
-										</dd>
-									</dl>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Период действия:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">10-12 дней</span>
-										</dd>
-									</dl>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Применение:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">На открытом воздухе или внутри помещения</span>
-										</dd>
-									</dl>
-									<dl class="product_spec_item">
-										<dt class="product_spec_name">
-											<span class="product_spec_name_inner">Аромат:</span>
-										</dt>
-										<dd class="product_spec_value">
-											<span class="product_spec_value_inner">арахис и карамель</span>
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div> -->
-					</div>
-					<div id="tabs-2" class="tab_item">
-						<div class="row">
-							<div class="col-md-7 col-sm-6">
-							<?if(empty($coment)){?>
-								<div class="feedback_container">
-									<p class="feedback_comment">Ваш отзыв может быть первым!</p>
-								</div>
-							<?}else{
-								foreach($coment as $i){?>
-									<div class="feedback_container">
-										<span class="feedback_author"><?if(isset($i['name'])){echo $i['name'];}else{echo "Аноним";}?></span>
-										<span class="feedback_date"><span class="icon-font">clock </span><?if(date("d") == date("d", strtotime($i['date_comment']))){?>
-												Сегодня
-											<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
-												Вчера
-											<?}else{
-												echo date("d.m.Y", strtotime($i['date_comment']));
-											}?>
-										</span>
-										<?if ($i['rating'] > 0) {?>
-											<span class="feedback_rating">
-												Оценка товара:
-												<?
-												for($j = 1; $j <= 5; $j++){
-													$star = 'star';
-													if($j > floor($i['rating'])){
-														if($j == ceil($i['rating'])){
-															$star .= '_half';
-														}else{
-															$star .= '_outline';
-														}
-													}?>
-													<span class="icon-font"><?=$star?></span>
-												<?}?>
-											</span>
-										<?}?>
-										<p class="feedback_comment"><?=$i['text_coment'];?></p>
-										<!-- Конец строки розницы!-->
-									</div>
-								<?}
-							}?>
-							</div>
-							<div class="col-md-5 col-sm-6">
-								<div class="feedback_form">
-									<h4>Оставить отзыв о товаре</h4>
-									<form action="" method="post" onsubmit="onCommentSubmit()">
-										<div class="feedback_stars">
-											<label class="label_for_stars">Оценка:</label>
-											<label>
-												<input type="radio" name="rating" class="set_rating hidden" value="1">
-												<span class="star icon-font">star_outline</span>
-											</label>
-											<label>
-												<input type="radio" name="rating" class="set_rating hidden" value="2">
-												<span class="star icon-font">star_outline</span>
-											</label>
-											<label>
-												<input type="radio" name="rating" class="set_rating hidden" value="3">
-												<span class="star icon-font">star_outline</span>
-											</label>
-											<label>
-												<input type="radio" name="rating" class="set_rating hidden" value="4">
-												<span class="star icon-font">star_outline</span>
-											</label>
-											<label>
-												<input type="radio" name="rating" class="set_rating hidden" value="5">
-												<span class="star icon-font">star_outline</span>
-											</label>
-										</div>
-										<label for="feedback_text">Отзыв:</label>
-										<textarea name="feedback_text" id="feedback_text" cols="30" rows="10" required></textarea>
-										<div <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'class="hidden"';?>>
-												<label for="feedback_author">Ваше имя:</label>
-												<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
-
-											<label for="feedback_authors_email">Эл.почта:</label>
-											<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
-										</div>
-										<button type="submit" name="sub_com" class="btn-m-green">Отправить отзыв</button>
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -925,9 +778,90 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div id="tabs-6" class="tab_item">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae quia obcaecati ducimus dolorum hic, animi tempore dolore ipsam! Ratione ad blanditiis dignissimos non laborum eum eligendi, minima nisi rem dicta.</p>
-					</div> -->
+					<div id="tabs-6" class="tab_item">
+						<div class="row">
+							<div class="col-md-7 col-sm-6">
+							<?if(empty($coment)){?>
+								<div class="feedback_container">
+									<p class="feedback_comment">Ваш отзыв может быть первым!</p>
+								</div>
+							<?}else{
+								foreach($coment as $i){?>
+									<div class="feedback_container">
+										<span class="feedback_author"><?if(isset($i['name'])){echo $i['name'];}else{echo "Аноним";}?></span>
+										<span class="feedback_date"><span class="icon-font">clock </span><?if(date("d") == date("d", strtotime($i['date_comment']))){?>
+												Сегодня
+											<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
+												Вчера
+											<?}else{
+												echo date("d.m.Y", strtotime($i['date_comment']));
+											}?>
+										</span>
+										<?if ($i['rating'] > 0) {?>
+											<span class="feedback_rating">
+												Оценка товара:
+												<?
+												for($j = 1; $j <= 5; $j++){
+													$star = 'star';
+													if($j > floor($i['rating'])){
+														if($j == ceil($i['rating'])){
+															$star .= '_half';
+														}else{
+															$star .= '_outline';
+														}
+													}?>
+													<span class="icon-font"><?=$star?></span>
+												<?}?>
+											</span>
+										<?}?>
+										<p class="feedback_comment"><?=$i['text_coment'];?></p>
+										<!-- Конец строки розницы!-->
+									</div>
+								<?}
+							}?>
+							</div>
+							<div class="col-md-5 col-sm-6">
+								<div class="feedback_form">
+									<h4>Оставить отзыв о товаре</h4>
+									<form action="" method="post" onsubmit="onCommentSubmit()">
+										<div class="feedback_stars">
+											<label class="label_for_stars">Оценка:</label>
+											<label>
+												<input type="radio" name="rating" class="set_rating hidden" value="1">
+												<span class="star icon-font">star_outline</span>
+											</label>
+											<label>
+												<input type="radio" name="rating" class="set_rating hidden" value="2">
+												<span class="star icon-font">star_outline</span>
+											</label>
+											<label>
+												<input type="radio" name="rating" class="set_rating hidden" value="3">
+												<span class="star icon-font">star_outline</span>
+											</label>
+											<label>
+												<input type="radio" name="rating" class="set_rating hidden" value="4">
+												<span class="star icon-font">star_outline</span>
+											</label>
+											<label>
+												<input type="radio" name="rating" class="set_rating hidden" value="5">
+												<span class="star icon-font">star_outline</span>
+											</label>
+										</div>
+										<label for="feedback_text">Отзыв:</label>
+										<textarea name="feedback_text" id="feedback_text" cols="30" rows="10" required></textarea>
+										<div <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'class="hidden"';?>>
+												<label for="feedback_author">Ваше имя:</label>
+												<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
+
+											<label for="feedback_authors_email">Эл.почта:</label>
+											<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
+										</div>
+										<button type="submit" name="sub_com" class="btn-m-green">Отправить отзыв</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

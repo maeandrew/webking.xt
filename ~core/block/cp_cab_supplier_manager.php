@@ -25,8 +25,7 @@ if(isset($_GET['toggle_supplier'])){
 		exit;
 	}
 }
-$sort_list = array("article", "name", "real_email", "next_update_date", "real_phone",
-	"inusd desc, currency_rate asc", "active");
+$sort_list = array("article", "name", "real_email", "next_update_date", "real_phone", "inusd desc, currency_rate asc", "active");
 isset($_POST['sort'])?$tpl->Assign('sort', $_POST['sort']):null;
 $arr = false;
 if(isset($_POST['smb'])){

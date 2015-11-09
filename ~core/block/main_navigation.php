@@ -7,6 +7,10 @@ if($GLOBALS['CurrentController'] == 'products'){
 		$id_category = 0;
 	}
 	$curcat = $dbtree->CheckParent($id_category, array('id_category', 'name', 'translit', 'art', 'category_level', 'content', 'pid', 'filial_link'));
+	if(!$curcat || empty($curcat)){
+		header('Location: /404/');
+		exit();
+	}
 	$tpl->Assign('curcat', $curcat);
 }
 // $testtimestart = microtime(true);

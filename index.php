@@ -130,7 +130,7 @@ require(dirname(__FILE__).'/~core/sys/global_c.php');
 require(dirname(__FILE__).'/~core/cfg.php');
 // Memcached init
 $mc = new Memcache();
-$mc->addServer("localhost", 11211);
+@$mc->connect("localhost", 11211);
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 G::DefineControllers($GLOBALS['PATH_contr']);

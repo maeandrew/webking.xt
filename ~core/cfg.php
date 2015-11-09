@@ -3,7 +3,7 @@ $root = $_SERVER['DOCUMENT_ROOT'].'/';
 require($root.'config.php');
 // ******************************** Начальное конфигурирование *************************************
 define('_base_url', '//'.$_SERVER['HTTP_HOST']);
-date_default_timezone_set("Europe/Moscow");
+date_default_timezone_set('Europe/Kiev');
 $config = array (
 	'URL_base'			=> _base_url,
 	'URL_request'		=> $_SERVER['REQUEST_URI'],

@@ -3,6 +3,7 @@
 		<nav class="left_menu">
 			<a href="#" class="nav_btn"><?=$sbheader?><span class="icon-font fright">arrow_down</span></a>
 			<ul class="main_menu">
+				<li><a id="cat_469" href="<?=_base_url;?>/products/469/NOVINKI-KATALOGA/" class="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']) && 469 == $GLOBALS['CURRENT_ID_CATEGORY']) || 469 == $curcat['pid']?'active ':null;?>">Новинки каталога</a></li>
 				<?foreach($navigation as $l1){?>
 					<li>
 						<a id="cat_<?=$l1['id_category']?>" class="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']) && $l1['id_category'] == $GLOBALS['CURRENT_ID_CATEGORY']) || $l1['id_category'] == $curcat['pid']?'active ':null;?> <?if(count($l1['subcats']) > 0){?>parent"<?}?> href="<?=_base_url?>/products/<?=$l1['id_category'].'/'.$l1['translit'].'/';?><?=!empty($l1['subcats'])?'limitall/':null;?>"><?=$l1['name']?><span class="icon-font fright">arrow_right</span></a>
