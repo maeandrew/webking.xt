@@ -400,7 +400,7 @@ tr.min td {
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
 								<li>
-									<img heaight="60" width="auto" src="<?=file_exists($GLOBALS['PATH_root'].'/efiles/pickers/'.trim($value))?_base_url.'/efiles/pickers/'.trim($value):'/efiles/_thumb/nofoto.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
+									<img heaight="60" width="auto" src="<?=file_exists($GLOBALS['PATH_root'].'/efiles/pickers/'.trim($value).'.jpg')?_base_url.'/efiles/pickers/'.trim($value).'.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
 								</li>
 							<?}
 						}?>
@@ -463,7 +463,7 @@ tr.min td {
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
 								<li>
-									<img heaight="60" width="auto" src="<?=file_exists($GLOBALS['PATH_root'].'/efiles/pickers/'.trim($value))?_base_url.'/efiles/pickers/'.trim($value):'/efiles/_thumb/nofoto.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
+									<img heaight="60" width="auto" src="<?=file_exists($GLOBALS['PATH_root'].'/efiles/pickers/'.trim($value).'.jpg')?_base_url.'/efiles/pickers/'.trim($value).'.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
 								</li>
 							<?}
 						}?>
