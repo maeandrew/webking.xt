@@ -452,6 +452,8 @@
 	font-weight: normal;
 	padding: 10px 0;
 	display: inline-block;
+	cursor: pointer;
+	color: #2E62CF;
 }
 #nav_product .add_video span.icon-font {
 	cursor: pointer;

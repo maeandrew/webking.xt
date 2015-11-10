@@ -152,7 +152,7 @@
 						</div>
 					</div>
 					<label>Видео о товарe:</label>
-					<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
+					<p class="add_video">Добавить видео <span class="icon-font">a</span></p>
 					<ul class="video_block">
 						<?if(isset($_POST['video']) && !empty($_POST['video'])){
 							foreach ($_POST['video'] as $key => $value) {?>
@@ -206,7 +206,8 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?if(!empty($product_specs)){
+										<?$ids = array();
+										if(!empty($product_specs)){
 											foreach($product_specs as $i){
 												$ids[] = $i['id_spec'];?>
 												<tr id="spec<?=$i['id_spec']?>" class="animate">
@@ -245,7 +246,7 @@
 								<select name="sid" id="sid" class="select_unit input-m">
 									<?$i = 0;
 									foreach($specs as $s){
-										if(isset($ids) && !empty($ids) && !in_array($s['id'], $ids)){
+										if(!in_array($s['id'], $ids)){
 											$i++;?>
 											<option value="<?=$s['id']?>"><?=$s['caption']?>
 											<?if($s['units'] !== ''){

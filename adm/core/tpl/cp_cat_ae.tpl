@@ -107,22 +107,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?foreach($cat_spec_list as $i){
-							$ids[] = $i['id_spec'];?>
-							<tr>
-								<td>
-									<?=$i['caption']?>
-								</td>
-								<td>
-									<?=$i['units']?>
-								</td>
-								<td class="left actions">
-									<nobr>
-										<a href="/adm/catedit/<?=$i['id_cat']?>/?action=delete_spec&id_spec_cat=<?=$i['id']?>" class="btn-l-red-inv" onclick="return confirm('Точно удалить?');">удалить</a>
-									</nobr>
-								</td>
-							</tr>
-						<?}?>
+						<?$ids = array();
+						if(!empty($cat_spec_list)){
+							foreach($cat_spec_list as $i){
+								$ids[] = $i['id_spec'];?>
+								<tr>
+									<td>
+										<?=$i['caption']?>
+									</td>
+									<td>
+										<?=$i['units']?>
+									</td>
+									<td class="left actions">
+										<nobr>
+											<a href="/adm/catedit/<?=$i['id_cat']?>/?action=delete_spec&id_spec_cat=<?=$i['id']?>" class="btn-l-red-inv" onclick="return confirm('Точно удалить?');">удалить</a>
+										</nobr>
+									</td>
+								</tr>
+							<?}
+						}?>
 					</tbody>
 				</table>
 			</div>
