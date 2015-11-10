@@ -152,7 +152,7 @@
 						</div>
 					</div>
 					<label>Видео о товарe:</label>
-					<p class="add_video"><a href="#">Добавить видео </a><span class="icon-font">a</span></p>
+					<p class="add_video">Добавить видео <span class="icon-font">a</span></p>
 					<ul class="video_block">
 						<?if(isset($_POST['video']) && !empty($_POST['video'])){
 							foreach ($_POST['video'] as $key => $value) {?>
