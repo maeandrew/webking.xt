@@ -185,6 +185,8 @@ hr {
 }
 .table_thead {
 	background-color: #EFEFEF;
+	border: 1px solid #d7d7d7;
+	border-bottom: none;
 }
 .table_thead > div {
 	float: left;
@@ -200,6 +202,9 @@ hr {
 }
 #supplier_manager_cabinet table {
 	width: 100%;
+}
+#supplier_manager_cabinet table tr {
+	border: 1px solid #d7d7d7;
 }
 #supplier_manager_cabinet table td {
 	padding-right: 5px;
@@ -243,6 +248,9 @@ hr {
 #supplier_cab {
     clear: both;
 }
+#supplier_cab .sort_page_top {
+	float: left;
+}
 #supplier_cab table a.icon-font {
 	text-decoration: none;
 	font-size: 20px;
@@ -254,6 +262,10 @@ hr {
 }
 table.supplier_assort_table {
 	margin-bottom: 0;
+}
+.supplier_assort_table,
+.supplier_assort_table tr {
+	border-bottom: none !important;
 }
 .supplier_assort_table th {
 	position: relative;
@@ -348,6 +360,9 @@ table.supplier_assort_table {
     -o-transition: all .4s cubic-bezier(.4,0,.2,1);
     transition: all .4s cubic-bezier(.4,0,.2,1);
     opacity: 0;
+}
+#supplier_cab tr {
+	border: 1px solid #d7d7d7;
 }
 #supplier_cab .available {
 	background-color: #F1FFF1;

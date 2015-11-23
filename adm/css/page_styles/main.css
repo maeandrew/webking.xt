@@ -2,11 +2,6 @@
 	font-weight: bold;
 	line-height: 1.8em;
 }
-.homepage label:after {
-	display: table;
-	content: '';
-	clear: both;
-}
 .homepage .row {
 	padding-top: .5em;
 	padding-bottom: .5em;
