@@ -92,7 +92,8 @@
 					<div class="row">
 						<div class="col-md-2">
 							<label for="art">Артикул:</label><?=isset($errm['art'])?"<span class=\"errmsg\">".$errm['art']."</span><br>":null?>
-							<input type="text" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt?>">
+							<input type="text" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt?>" disabled="disabled">
+							<input type="hidden" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt?>">
 						</div>
 						<div class="col-md-10">
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
@@ -778,10 +779,12 @@
 								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
 							}else{
 								//Добавляем поставщика в таблицу 'Данные поставщика'
-								var html_string = '';
+								var html_string = in_usd_sel = not_in_usd_sel = '';
 								if(in_usd == 1){
-									var in_usd_sel = 'selected';
-								};
+									in_usd_sel = 'selected="selected"';
+								}else{
+									not_in_usd_sel = 'selected="selected"';
+								}
 								if(data.real_phone == '380'){
 									data.real_phone = 'не указан';
 								}
@@ -790,7 +793,7 @@
 								html_string += '<td class="center">'+art+'</td>';
 								html_string += '<td class="supp_name_js">'+data.name+'</td>';
 								html_string += '<td>'+data.real_phone+'</td>';
-								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="in_usd[]" class="input-m"><option value="0">ГРН</option><option value="1">USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_opt+'"></div><div class="fr price"><label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_mopt+'"></div></td>';
+								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="in_usd[]" class="input-m"><option value="0" '+not_in_usd_sel+'>ГРН</option><option value="1" '+in_usd_sel+'>USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_opt+'"></div><div class="fr price"><label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_mopt+'"></div></td>';
 								html_string += '<td><input type="number" name="product_limit[]" min="0" value="'+product_limit+'" class="input-m"></td>';
 								html_string += '<td class="center"><input type="hidden" name="id_supplier[]" value="'+data.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
 								html_string += '</tr>';
@@ -805,6 +808,7 @@
 								$('.sup_notation').remove();
 								$('#sup_art, #sup_price_opt, #sup_price_mopt').val('');
 								$('#sup_inusd [value="0"]').attr('selected', 'selected');
+								// $('#sup_inusd [value="'+in_usd+'"]').attr('selected', 'selected');
 								$('#sup_product_limit').val('1000000');
 							}
 						});

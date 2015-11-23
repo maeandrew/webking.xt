@@ -49,10 +49,11 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
 		if(isset($_POST['images']) && !empty($_POST['images'])){
+			$to_resize = array();
 			//Физическое удалание файлов
 			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
 				foreach($_POST['removed_images'] as $k=>$path){
-					if($products->CheckImages($path)){
+					if(file_exists($path) && $products->CheckImages($path)){
 						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
 					}
 				}
@@ -68,7 +69,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			//Высчитываем номер посл. добавленной картинки
 			if(isset($no_rename) && !empty($no_rename)){
 				$i = 0;
-				foreach ($no_rename as $k=>$value) {
+				foreach($no_rename as $k=>$value){
 					$img_info = pathinfo($value);
 					$num_arr = explode('-',$img_info['filename']);
 					$num = array_pop($num_arr);
@@ -85,14 +86,15 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$newname = $_POST['art'].'-'.($i+1).'.jpg';
 					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
 					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
-					if(file_exists($path.$file['basename'])){
+					if(is_dir($path) && file_exists($path.$file['basename'])){
 						rename($path.$file['basename'], $path.$newname);
+						$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
+						$i++;
 					}
-					$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
-					$i++;
+					$to_resize[] = $newname;
 				}
-				$Images->resize();
 			}
+			$response = $Images->resize(false, $to_resize);
 		}
 		if($products->UpdateProduct($_POST)){
 			$err_mes = '';
@@ -116,9 +118,9 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					);
 				}
 
-				foreach ($supp_arr as $k => $value) {
+				foreach($supp_arr as $k => $value){
+					$value['id_product'] = $id_product;
 					if($value['id_assortiment'] == false){
-						$value['id_product'] = $id_product;
 						//Добавляем поставщика в ассортимент
 						if(!$products->AddToAssortWithAdm($value)){
 							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
@@ -128,11 +130,12 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 						$products->UpdateAssortWithAdm($value);
 					}
 				}
-				//Отвязываем постащика от товара
-				if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
-					foreach($_POST['del_from_assort'] as &$id_assort){
-						$products->DelFromAssortWithAdm($id_assort, $id_product);
-					}
+			}
+
+			//Отвязываем постащика от товара
+			if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
+				foreach($_POST['del_from_assort'] as &$id_assort){
+					$products->DelFromAssortWithAdm($id_assort, $id_product);
 				}
 			}
 
@@ -155,7 +158,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			if(isset($_POST['smb_new'])){
 				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
 			}
-			//header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
+			header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 			unset($_POST);
 		}else{
 			$tpl->Assign('msg', 'Товар не обновлен.');
@@ -255,7 +258,7 @@ function IsRenameNeeded($path){
 	$path_arr = explode('/', $path);
 	$file_name = array_pop($path_arr);
 	$exists = glob($GLOBALS['PATH_product_img'].'original/*/*/*/'.$file_name);
-	if(!empty($exists) && file_exists($GLOBALS['PATH_product_img'].'..'.$path)){
+	if(!strpos($path, str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img'])) && !empty($exists) && file_exists($GLOBALS['PATH_product_img'].'..'.$path)){
 		return false;
 	}
 	return true;

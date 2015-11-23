@@ -265,7 +265,7 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-		 foreach ($arr as $value) {
+		foreach ($arr as $value) {
 			$res[] = $value['url'];
 		}
 		return $res;
@@ -505,7 +505,8 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE p.price_mopt > 0
-			AND p.visible = 1";
+			AND p.visible = 1
+			AND p.id_product <= 130400";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -1352,6 +1353,7 @@ class Products {
 			return true;
 		}
 		$this->db->FailTrans();
+		$this->RecalcSitePrices(array($arr['id_product']));
 		return false;
 	}
 
@@ -1381,6 +1383,7 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($arr['id_product']));
 		return true;
 	}
 
