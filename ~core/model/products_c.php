@@ -3507,4 +3507,16 @@ class Products {
 		}
 		return $art;
 	}
+
+	// Отвязка товаров от категории "Новинки" по истечению определенного срока
+	public function ClearNewCategory(){
+		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod
+			WHERE id_category = ".$GLOBALS['CONFIG']['new_catalog_id']."
+			AND (SELECT p.create_date
+				FROM "._DB_PREFIX_."product AS p
+				WHERE p.id_product = xt_cat_prod.id_product) < (NOW() - INTERVAL ".$GLOBALS['CONFIG']['new_products_lifetime']." DAY)";
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
+	}
 }?>
