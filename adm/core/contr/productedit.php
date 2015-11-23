@@ -215,7 +215,7 @@ $tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product
 //Получение списка сегментаций прикрепленных к тоавру
 $tpl->Assign('segmentations', $segmentation->GetSegmentationsForProduct($id_product));
 //Заполнение массива POST
-$video = $products->GetIdByVideo($id_product);
+$video = $products->GetVideoById($id_product);
 $photo = $products->GetPhotoById($id_product);
 $_POST['id_product'] = 0;
 $prod_fields = $products->fields;

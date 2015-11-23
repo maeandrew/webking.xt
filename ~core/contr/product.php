@@ -27,6 +27,7 @@ $product = $products->fields;
 $id_product = $product['id_product'];
 $product['specifications'] = $products->GetSpecificationList($id_product);
 $product['images'] = $products->GetPhotoById($id_product);
+$product['videos'] = $products->GetVideoById($id_product);
 $GLOBALS['prod_title'] = $product['name'];
 $GLOBALS['product_canonical'] = '/product/'.$id_product.'/'.$product['translit'].'/';
 /* product comments ======================================== */

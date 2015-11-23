@@ -256,7 +256,7 @@ class Products {
 	 * Получить видео по id товара
 	 * @param int $id_product		идентификатор товара
 	 */
-	public function GetIdByVideo($id_product){
+	public function GetVideoById($id_product){
 		$sql = "SELECT url
 			FROM "._DB_PREFIX_."video
 			WHERE id_product = ".$id_product."

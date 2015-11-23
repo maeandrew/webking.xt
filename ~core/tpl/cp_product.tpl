@@ -268,7 +268,7 @@
 					<li><a href="#tabs-4" class="tab">Доставка</a></li>
 					<li><a href="#tabs-5" class="tab">Фото</a></li>
 					<li><a href="#tabs-6" class="tab">Отзывы и вопросы</a></li>
-					<!-- <li><a href="#tabs-7" class="tab">Обзоры и видео</a></li> -->
+					<li><a href="#tabs-7" class="tab">Обзоры и видео</a></li>
 				</ul>
 				<div class="tab-content">
 					<div id="tabs-1" class="tab_item">
@@ -859,6 +859,18 @@
 										<button type="submit" name="sub_com" class="btn-m-green">Отправить отзыв</button>
 									</form>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tabs-7" class="tab_item">
+						<div class="tab_item_wrapper">
+							<span class="video_tab_title">Обзоры и видео <span class="item_name"><?=$item['name']?></span></span>
+							<div class="video_tab_wrapper">
+								<?if(!empty($item['videos'])){
+									foreach($item['videos'] as $video){?>
+										<object width="800" height="480" data="<?=str_replace('watch?v=', 'embed/', $video)?>"></object>
+									<?}
+								}?>
 							</div>
 						</div>
 					</div>
