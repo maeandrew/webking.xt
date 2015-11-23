@@ -65,7 +65,7 @@
 								</thead>
 								<tbody>
 								<?foreach ($list_comment as $i){?>
-								<?$interval = date_diff(date_create(date("d.m.Y", strtotime($i['date_comment']))), date_create(date("d.m.Y")));?>
+									<?$interval = date_diff(date_create(date("d.m.Y", strtotime($i['date_comment']))), date_create(date("d.m.Y")));?>
 									<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
 										<td><span class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></span> <?=!$i['visible']?'<span class="invisible">скрытый</span>':null?><br><?=$i['text_coment']?></td>
 										<td class="center np"><input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)"></td>
@@ -129,22 +129,24 @@
 					<div id="photobox">
 						<div class="previews">
 							<?if(isset($_POST['images']) && !empty($_POST['images'])){
-								foreach($_POST['images'] as $photo){?>
-									<div class="image_block dz-preview dz-image-preview">
-										<div class="sort_handle"><span class="icon-font">s</span></div>
-										<div class="image">
-											<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].'..'.$photo['src'])?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+								foreach($_POST['images'] as $photo){
+									if(isset($photo['src'])){?>
+										<div class="image_block dz-preview dz-image-preview">
+											<div class="sort_handle"><span class="icon-font">s</span></div>
+											<div class="image">
+												<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].'..'.$photo['src'])?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+											</div>
+											<div class="name">
+												<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
+												<span class="dz-size" data-dz-size></span>
+											</div>
+											<div class="controls">
+												<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
+											</div>
+											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 										</div>
-										<div class="name">
-											<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
-											<span class="dz-size" data-dz-size></span>
-										</div>
-										<div class="controls">
-											<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
-										</div>
-										<input type="hidden" name="images[]" value="<?=$photo['src']?>">
-									</div>
-								<?}
+									<?}
+								}
 							}?>
 						</div>
 						<div class="image_block_new drop_zone animate">
@@ -341,11 +343,14 @@
 						<div id="catblock">
 							<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
 							<select name="categories_ids[]" class="input-m">
-							<?foreach($list as $item){?>
-								<option <?=($item['id_category']==$cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
-							<?}?>
+								<?foreach($list as $item){?>
+									<option <?=($item['id_category']==$cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+								<?}?>
 							</select>
 						</div>
+					<?}?>
+					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
+						<input type="hidden" name="categories_ids[]" value="<?=$GLOBALS['CONFIG']['new_catalog_id'];?>">
 					<?}?>
 					<div id="addlink"><a class="dashed" href="javascript://" onclick="AddCat(this)">Добавить категорию</a></div>
 					<?if($GLOBALS['CurrentController'] == 'productedit'){?>
@@ -631,9 +636,9 @@
 <div id="templates" class="hidden">
 	<div id="catblock">
 		<select name="categories_ids[]" class="input-m">
-		<?foreach($list as $item){?>
-			<option value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
-		<?}?>
+			<?foreach($list as $item){?>
+				<option value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+			<?}?>
 		</select>
 	</div>
 </div>
@@ -954,7 +959,7 @@
 				"id_spec_prod": id_spec_prod,
 				"id_spec": id_spec,
 				"value": value,
-				"id_product": <?=$_POST['id_product']?>
+				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
 			}
 		});
 		// var href = link.attr('href');
@@ -969,7 +974,7 @@
 			dataType: "json",
 			data: {
 				"action":'update_translit',
-				"id_product": <?=$_POST['id_product']?>
+				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
 			}
 		}).done(function(data){
 			$('#translit p').text(data);
@@ -997,7 +1002,7 @@
 				"id_spec_prod": null,
 				"id_spec": id_spec,
 				"value": value,
-				"id_product": <?=$_POST['id_product']?>
+				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
 			}
 		});
 	}
@@ -1010,7 +1015,7 @@
 			data: {
 				"action": 'datalist',
 				"article": article,
-				"id_product": <?=$_POST['id_product']?>
+				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
 			}
 		}).done(function(data){
 			var optionlist = '';
@@ -1054,7 +1059,7 @@
 			dataType : "json",
 			data: {
 				"action": action+'_related',
-				"id_prod": <?=$_POST['id_product']?>,
+				"id_prod": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>,
 				"id_related_prod": id
 			}
 		}).done(function(){

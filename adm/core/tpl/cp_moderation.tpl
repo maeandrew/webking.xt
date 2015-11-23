@@ -121,11 +121,7 @@
 												<?}
 											}?>
 										</select>
-										<select class="category input-l" name="categories_ids[]" style="display: none;">
-											 <?foreach($category as $c){?>
-												<option <?if($c['id_category'] == $GLOBALS['CONFIG']['new_catalog_id']){?> selected <?}else{?> disabled <?}?>value="<?=$c['id_category']?>"><?=str_repeat("&nbsp;&nbsp;", $c['category_level'])?> <?=$c['name']?></option>
-											 <?}?>
-										</select>
+										<input type="hidden" class="category" name="categories_ids[]" value="<?=$GLOBALS['CONFIG']['new_catalog_id']?>">
 										<input class="btn-m-green" type="submit" id="accept" onclick="AcceptProduct(<?=$p['id']?>);" name="moderationsubmit" value="Принять">
 									</div>
 									<div id="comentblock">
