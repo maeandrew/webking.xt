@@ -24,7 +24,7 @@
 				<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
 					<td><span class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></span> <?=!$i['visible']?'<span class="invisible">скрытый</span>':null?><br><?=$i['text_coment']?></td>
 					<td class="center np"><input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)"></td>
-					<td><a href="<?='/product/'.$i['url_coment']?>"><?=$i['name']?></a></td>
+					<td><a href="<?='/adm/productedit/'.$i['url_coment']?>"><?=$i['name']?></a></td>
 					<td class="center np actions"><a class="icon-delete" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t</a></td>
 				</tr>
 			<?}?>
