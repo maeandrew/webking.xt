@@ -307,41 +307,41 @@ if(isset($settings['NDS'])){
 			<tr>
 				<td class="spacer" colspan="4"></td>
 				<td class="total_sum_fact_label" colspan="2"><b>Всего без НДС:</b></td>
-				<td class="total_sum_fact">'.number_format(($total_sum_fact*(1-25/120)),2,",","").'</td>
+				<td class="total_sum_fact">'.number_format(($total_sum_fact*(1-20/120)),2,",","").'</td>
 			</tr>
 	';
 	$summary_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
 				<td class="total_sum_label" colspan="2"><b>Всего без НДС:</b></td>
-				<td class="total_sum">'.number_format(($total_sum*(1-25/120)),2,",","").'</td>
+				<td class="total_sum">'.number_format(($total_sum*(1-20/120)),2,",","").'</td>
 			</tr>
 	';
 	$fact_NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_fact_label" colspan="2"><b>НДС(25%):</b></td>
-				<td class="total_sum_fact">'.number_format(($total_sum_fact*(25/120)),2,",","").'</td>
+				<td class="total_sum_fact_label" colspan="2"><b>НДС(20%):</b></td>
+				<td class="total_sum_fact">'.number_format(($total_sum_fact*(20/120)),2,",","").'</td>
 			</tr>
 	';
 	$NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_label" colspan="2"><b>НДС(25%):</b></td>
-				<td class="total_sum">'.number_format(($total_sum*(25/120)),2,",","").'</td>
+				<td class="total_sum_label" colspan="2"><b>НДС(20%):</b></td>
+				<td class="total_sum">'.number_format(($total_sum*(20/120)),2,",","").'</td>
 			</tr>
 	';
 	$fact_summary_NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_fact_label" colspan="2"><b>Всего с НДС(25%):</b></td>
+				<td class="total_sum_fact_label" colspan="2"><b>Всего с НДС(20%):</b></td>
 				<td class="total_sum_fact">'.number_format($total_sum_fact,2,",","").'</td>
 			</tr>
 	';
 	$summary_NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_label" colspan="2"><b>Всего с НДС(25%):</b></td>
+				<td class="total_sum_label" colspan="2"><b>Всего с НДС(20%):</b></td>
 				<td class="total_sum">'.number_format($total_sum,2,",","").'</td>
 			</tr>
 	';
@@ -363,28 +363,28 @@ if(isset($settings['NDS'])){
 	$fact_NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_fact_label" colspan="2"><b>НДС(25%):</b></td>
+				<td class="total_sum_fact_label" colspan="2"><b>НДС(20%):</b></td>
 				<td class="total_sum_fact">'.number_format(0,2,",","").'</td>
 			</tr>
 	';
 	$NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_label" colspan="2"><b>НДС(25%):</b></td>
+				<td class="total_sum_label" colspan="2"><b>НДС(20%):</b></td>
 				<td class="total_sum">'.number_format(0,2,",","").'</td>
 			</tr>
 	';
 	$fact_summary_NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_fact_label" colspan="2"><b>Всего с НДС(25%):</b></td>
+				<td class="total_sum_fact_label" colspan="2"><b>Всего с НДС(20%):</b></td>
 				<td class="total_sum_fact">'.number_format($total_sum_fact,2,",","").'</td>
 			</tr>
 	';
 	$summary_NDS_row = '
 			<tr>
 				<td class="spacer" colspan="4"></td>
-				<td class="total_sum_label" colspan="2"><b>Всего с НДС(25%):</b></td>
+				<td class="total_sum_label" colspan="2"><b>Всего с НДС(20%):</b></td>
 				<td class="total_sum">'.number_format($total_sum,2,",","").'</td>
 			</tr>
 	';
