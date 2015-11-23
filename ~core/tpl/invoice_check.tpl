@@ -148,7 +148,14 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="bl c1"><?=$ii++?></td>
 										<td class="c2"><?=$i['article']?></td>
 										<td class="c3"><?=$i['art']?></td>
-										<td class="c4"><img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"></td>
+										<td class="c4">
+											<?if($i['image'] != ''){?>
+												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
+											<?}else{?>
+												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])) && $i['img_1'] != ''?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" />
+											<?}?>
+											<!-- <img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"> -->
+										</td>
 										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_opt']!=''){?> <span class="note_red"><?=$i['note_opt']?></span><?}?></td>
 										<td class="c6"><?=$i['site_price_opt']?></td>
 										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?></td>
@@ -174,7 +181,14 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="bl c1"><?=$ii++?></td>
 										<td class="c2"><?=$i['article_mopt']?></td>
 										<td class="c3"><?=$i['art']?></td>
-										<td class="c4"><img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"></td>
+										<td class="c4">
+											<?if($i['image'] != ''){?>
+												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
+											<?}else{?>
+												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])) && $i['img_1'] != ''?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" />
+											<?}?>
+											<!-- <img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"> -->
+										</td>
 										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
 										<td class="c6"><?=$i['site_price_mopt']?></td>
 										<td class="c7"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?></td>
