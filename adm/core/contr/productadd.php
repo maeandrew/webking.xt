@@ -30,11 +30,12 @@ if(isset($_POST['smb'])){
 			if(!empty($_POST['video'])){
 				$products->UpdateVideo($id, $_POST['video']);
 			}
+			$to_resize = array();
 			//Добавление фото
 			$article = $products->GetArtByID($id);
 			if(isset($_POST['images'])){
 				foreach($_POST['images'] as $k=>$image){
-					$newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+					$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
 					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
 					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
 					$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
@@ -44,7 +45,7 @@ if(isset($_POST['smb'])){
 			}else{
 				$images_arr =  array();
 			}
-			$Images->resize();
+			$Images->resize(false, $to_resize);
 			$products->UpdatePhoto($id, $images_arr);
 
 			if(isset($_POST['id_supplier'])){
@@ -82,7 +83,6 @@ if(isset($_POST['smb'])){
 					}
 				}
 			}
-
 			$tpl->Assign('msg', 'Товар добавлен.');
 			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base']."adm/productedit/".$id."'\", 2000);</script>";
 			unset($_POST);

@@ -132,8 +132,26 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'gen_resize_product_im
 }
 // генерация уменьшенных изображений товаров
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'new_resize_product_images'){
+	$resize_all = false;
+	if(isset($_POST['resize_all'])){
+		$resize_all = true;
+	}
 	$Images = new Images();
-	print_r($Images->resize());
+	$response = $Images->resize($resize_all);
+	// print_r($response);
+	// die();
+	if(isset($response['msg']) && !empty($response['msg'])){
+		foreach($response['msg']['done'] as $key => $value){
+			if(!isset($str)){
+				$str = $key.' - '.$value;
+			}else{
+				$str .= ', '.$key.' - '.$value;
+			}
+		}
+	}else{
+		$str = 'Ошибка';
+	}
+	echo "<script>alert('Сгенерировано изображений: ".$str."');</script>";
 	// echo "<script>alert('Сгенерировано изображений: 120x90 - ".$aa.", 250x250 - ".$ii.", 500x500 - ".$bb."');</script>";
 }
 // /efiles/_thumb/image/

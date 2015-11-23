@@ -34,19 +34,32 @@ class Images {
 	/**
 	 * Ресайз изображений товаров
 	 * @param  boolean $resize_all 	Если true - запустить ресайз всех фото, по умолчанию - не обработанных
+	 * @param  array  $img_array    Список названий фотграфий, которые необходимо обработать
 	 * @param  string  $date       	Дата, начиная с которой произвести ресайз
 	 * @return array              	Массив, содержащий информацию об ошибках и о произведенных действиях
 	 */
-	function resize($resize_all = false, $date = null){
+	function resize($resize_all = false, $images = array(), $date = false){
 		$response = array();
-		$img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/*/*');
+		$img_arr = array();
+		if(!empty($images)){
+			$resize_all = true;
+			foreach($images as $img){
+				$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y').'/'.date('m').'/'.date('d').'/'.$img));
+			}
+		}else{
+			// $img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/13/*.jpg');
+			$img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/*/*.jpg');
+		}
+		ini_set('memory_limit', '256M');
+		ini_set('max_execution_time', '120');
+		set_time_limit(120);
 		foreach($img_arr as $filename){
 			$this->img_info = array_merge(getimagesize($filename), pathinfo($filename));
 			if(in_array($this->img_info['mime'], $this->valid_extensions)){
 				foreach($this->sizes as $name => $size){
 					$structure = str_replace($this->default_folder, $name, $this->img_info['dirname'].'/');
 					$this->checkStructure($structure);
-					if(($resize_all == true || !file_exists($structure.$this->img_info['basename'])) && file_exists($structure)){
+					if(($resize_all === true || !file_exists($structure.$this->img_info['basename'])) && file_exists($structure)){
 						$res = imagecreatetruecolor($size['w'], $size['h']);
 						imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
 						$src = imagecreatefromjpeg($filename);
@@ -72,6 +85,8 @@ class Images {
 				$response['error']['mime_type'][$this->img_info['mime']][] = $filename;
 			}
 		}
+		ini_set('max_execution_time', '30');
+		ini_set('memory_limit', '128M');
 		return $response;
 	}
 

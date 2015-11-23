@@ -243,11 +243,15 @@
 					<?if($_SESSION['member']['gid'] == _ACL_ADMIN_){?>
 						<tr>
 							<td>
-								<label>Создание уменьшенных копий изображений товаров в отдельной папке на сервере.</label>
+								<form id="image_resize" action="<?=$GLOBALS['URL_base'];?>adm/main/new_resize_product_images/" method="POST">
+									<label class="fд">Создание уменьшенных копий изображений товаров в отдельной папке на сервере.</label>
+									<label class="fr" title="Удалить существующие миниатюры и создать их заново.">Пересоздать <input type="checkbox" name="resize_all" id="resize_all"></label>
+								</form>
 							</td>
 							<td>
-								<!-- <a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/new_resize_product_images/" class="btn-m-red size_s fr">NEW RESIZE</a> -->
-								<a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/gen_resize_product_images/" class="btn-m-red size_s fr">Выполнить</a>
+								<button type="submit" name="image_resize" form="image_resize" class="btn-m-red size_s fr">Создать</button>
+								<!-- <a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="" class="btn-m-red size_s fr">Создать</a> -->
+								<!-- <a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/gen_resize_product_images/" class="btn-m-red size_s fr">Выполнить</a> -->
 							</td>
 						</tr>
 						<tr>
