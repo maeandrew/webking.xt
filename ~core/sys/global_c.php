@@ -32,18 +32,6 @@ class G {
 			}
 		}
 
-		// Обработка сортировок ====================================
-		if(isset($_COOKIE['sorting'])){
-			$sort = unserialize($_COOKIE['sorting']);
-		}
-		if(isset($_POST['value']) && isset($_POST['direction'])){
-			$sort_value = $_POST['value'];
-			$sorting    = array('value' => $sort_value);
-			setcookie('sorting', serialize(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
-		}elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
-			$sorting = $sort[$GLOBALS['CurrentController']];
-		}
-
 		// Строчный просмотр списка товаров
 		if(!isset($_COOKIE['product_view'])){
 			setcookie('product_view', 'list', 0, '/');
