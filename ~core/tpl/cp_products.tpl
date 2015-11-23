@@ -6,7 +6,8 @@
 				<?if(in_array('sorting', $list_controls)){?>
 					<label for="sort_prod">Сортировка</label>
 					<select id="sort_prod" name="value" data-role="none" onchange="$(this).closest('form').submit();">
-						<?foreach($available_sorting_values as $key => $alias){?>
+						<?foreach($available_sorting_values as $key => $alias){
+							print_r($sorting['value']);?>
 							<option value="<?=$key?>" <?=isset($sorting['value']) && $sorting['value'] == $key?'selected="selected"':null;?>><?=$alias?></option>
 						<?}?>
 					</select>
@@ -49,13 +50,13 @@
 				</li>
 			<?}?>
 		</ul>
-		<?if(isset($curcat['content']) && $curcat['content'] != ''){?>
+		<?if(isset($curcat['content_xt']) && $curcat['content_xt'] != ''){?>
 			<div class="content_wrapp">
 				<input type="checkbox" id="read_more" class="hidden">
 				<section class="content_text animate">
-					<?=$curcat['content']?>
+					<?=$curcat['content_xt']?>
 				</section>
-				<?if(strlen($curcat['content']) >= 500){?>
+				<?if(strlen($curcat['content_xt']) >= 500){?>
 					<label for="read_more">Читать полностью</label>
 				<?}?>
 			</div>
@@ -140,14 +141,14 @@
 											<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 												<div class="<?=$st['class']?>"></div>
 												<?if(!empty($item['images'])){?>
-													<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+													<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 													<noscript>
-														<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+														<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 													</noscript>
 												<?}else{?>
-													<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+													<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
 													<noscript>
-														<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+														<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
 													</noscript>
 												<?}?>
 											</a>
@@ -260,7 +261,7 @@
 											</div>
 										</form>
 									</div>
-									<div class="specifications">
+									<!-- <div class="specifications">
 										<ul>
 											<li><span class="spec">Lorem ipsum dolor sit amet.</span><span class="unit">amet</span></li>
 											<li><span class="spec">Lorem ipsum dolor sit amet.</span><span class="unit">amet</span></li>
@@ -268,24 +269,15 @@
 											<li><span class="spec">Lorem ipsum dolor sit amet.</span><span class="unit">amet</span></li>
 											<li><span class="spec">Lorem ipsum dolor sit amet.</span><span class="unit">amet</span></li>
 										</ul>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						<?}?>
 						<div class="preview ajax_loading">
 							<div class="preview_content">
 								<div class="col-md-6">
-									<div id="owl-product_slide_js">
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-									</div>
-									<div id="owl-product_slideDown_js">
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-										<div class="item"><img src="<?=_base_url?><?=$item['img_1']?>" alt="<?=$item['name']?>"></div>
-									</div>
+									<div id="owl-product_slide_js"></div>
+									<div id="owl-product_slideDown_js"></div>
 								</div>
 								<div class="preview_info col-md-6">
 									<h4></h4>
@@ -409,6 +401,9 @@
 	<?}?>
 </div><!--class="products"-->
 <script>
+	$(window).load(function(){
+		$("html,body").trigger("scroll");
+	});
 	$(function(){
 		<?if(isset($_COOKIE['product_view'])){?>
 			ChangeView('<?=$_COOKIE['product_view']?>');

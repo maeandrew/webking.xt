@@ -55,6 +55,9 @@
 				<label for="content">Контент(поисковый текст):</label>
 				<?=isset($errm['content'])?"<span class=\"errmsg\">".$errm['content']."</span><br>":null?>
 				<textarea name="content" id="content" size="20" cols="223" rows="5" class="input-l"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
+				<label for="content_xt">Контент на xt.ua(поисковый текст):</label>
+				<?=isset($errm['content_xt'])?"<span class=\"errmsg\">".$errm['content_xt']."</span><br>":null?>
+				<textarea name="content_xt" id="content_xt" size="20" cols="223" rows="5" class="input-l"><?=isset($_POST['content_xt'])?htmlspecialchars($_POST['content_xt']):null?></textarea>
 			</div>
 		<?}?>
 		<?if(isset($_POST['category_level']) && $_POST['category_level'] == 1 || !isset($_POST['category_level'])){?>
@@ -232,7 +235,10 @@
 			},'linear');
 		});
 	}
-	CKEDITOR.replace( 'content', {
+	CKEDITOR.replace('content', {
+	    customConfig: 'custom/ckeditor_config.js'
+	});
+	CKEDITOR.replace('content_xt', {
 	    customConfig: 'custom/ckeditor_config.js'
 	});
 </script>

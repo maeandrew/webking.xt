@@ -43,7 +43,7 @@ if(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
 	header('Location: '.$GLOBALS['URL_base'].'adm/catedit/'.$id_category);
 }
 $category = $dbtree->Full(
-	array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'pid', 'content', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description'),
+	array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'pid', 'content','content_xt', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description'),
 	array('and' => array('id_category = '.$id_category))
 );
 $tpl->Assign('h1', 'Редактирование категории');
@@ -68,6 +68,7 @@ if(isset($_POST['smb'])){
 		$arr['name'] = mysql_real_escape_string(trim($_POST['name']));
 		$arr['art'] = mysql_real_escape_string(trim($_POST['art']));
 		$arr['content'] = mysql_real_escape_string(trim($_POST['content']));
+		$arr['content_xt'] = mysql_real_escape_string(trim($_POST['content_xt']));
 		$arr['category_img'] = mysql_real_escape_string(trim($_POST['category_img_url']));
 		$arr['category_banner'] = mysql_real_escape_string(trim($_POST['category_banner_url']));
 		if($_POST['banner_href'] != ''){
@@ -92,7 +93,7 @@ if(isset($_POST['smb'])){
 		if($dbtree->Update($id_category, $arr)){
 			$tpl->Assign('msg', 'Категория обновлена.');
 			unset($_POST);
-			$category = $dbtree->Full(array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'content', 'pid', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description', 'page_keywords'), array('and' => array('id_category = '.$id_category)));
+			$category = $dbtree->Full(array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'content', 'content_xt', 'pid', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description', 'page_keywords'), array('and' => array('id_category = '.$id_category)));
 		}else{
 			$tpl->Assign('msg', 'Ошибка. Категория не обновлена.');
 			$tpl->Assign('errm', 1);
