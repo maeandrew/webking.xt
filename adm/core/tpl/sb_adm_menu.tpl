@@ -88,6 +88,8 @@
 				<li <?=$GLOBALS['CurrentController'] == 'stat'?'class="sel"':null;?>>
 					<a href="/adm/stat/" class="color-sgrey">Статистика продаж</a>
 				</li>
+			<?}?>
+			<?if(_acl::isAllow('supplier_prov')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'supplier_prov'?'class="sel"':null;?>>
 					<a href="/adm/supplier_prov/">Позиции поставщиков</a>
 				</li>

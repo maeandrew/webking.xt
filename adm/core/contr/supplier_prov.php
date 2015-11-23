@@ -1,5 +1,5 @@
 <?php
-if(!_acl::isAllow('orders')){
+if(!_acl::isAllow('supplier_prov')){
 	die("Access denied");
 }
 $Order = new Orders();
