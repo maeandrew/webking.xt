@@ -3,7 +3,13 @@
 <head>
 	<title><?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_title']) && $GLOBALS['products_title'] != '')?$GLOBALS['products_title']:$__page_title;?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="robots" content="noindex, nofollow"/>
+	<?if($GLOBALS['CurrentController'] == 'product'){
+		if($item['indexation'] == 0){?>
+			<meta name="robots" content="noindex, nofollow"/>
+		<?}
+	}else{?>
+		<meta name="robots" content="noindex, nofollow"/>
+	<?}?>
 	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> -->
 	<?if($GLOBALS['CurrentController'] == 'product'){?>
 		<meta name="description" content='<?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?>
@@ -440,8 +446,10 @@
 	<script>
 		$(function(){
 			/* lazy-load initialization */
-			$("img.lazy").lazyload({
-				effect : "fadeIn"
+			$("img.lazy").show().lazyload({
+				effect : "fadeIn",
+				threshold : 200,
+				failure_limit : 10
 			});
 
 			/* styler initialization */
