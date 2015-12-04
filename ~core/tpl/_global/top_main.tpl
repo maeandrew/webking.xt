@@ -215,7 +215,7 @@
 			//Фиксация header
 			var header = $("header");
 	        $(window).scroll(function(){
-	        	var height = $("header").height()+20;
+	        	var height = header.height()+20;
 	            if($(this).scrollTop() > 50 && header.hasClass("default")){
 	                header.removeClass("default").addClass("fixed_panel");
 	                $('#wrapper').css('margin-top', height);
