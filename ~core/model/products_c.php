@@ -96,8 +96,6 @@ class Products {
 		if($all == 1){
 			$visible = '';
 		}
-
-		$id_product = mysql_real_escape_string($id_product);
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
 			un.unit_prom, a.product_limit,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
@@ -160,8 +158,6 @@ class Products {
 	// 	if($all == 1){
 	// 		$visible = '';
 	// 	}
-
-	// 	$id_product = mysql_real_escape_string($id_product);
 	// 	$sql = "SELECT ".implode(", ",$this->usual_fields).",
 	// 		u.name AS username,ucr.name AS createname, un.unit_prom, a.product_limit,
 	// 		(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
@@ -230,12 +226,12 @@ class Products {
 		if(empty($text)){
 			return false; //Если имя пустое
 		}
-		$f['text_coment'] = mysql_real_escape_string(trim($text));
-		$f['url_coment'] = mysql_real_escape_string(trim($put));
-		$f['author'] = mysql_real_escape_string(trim($author));
-		$f['author_name'] = mysql_real_escape_string(trim($author_name));
-		$f['rating'] = mysql_real_escape_string(trim($rating));
-		$f['user_email'] = mysql_real_escape_string(trim($authors_email));
+		$f['text_coment'] = trim($text);
+		$f['url_coment'] = trim($put);
+		$f['author'] = trim($author);
+		$f['author_name'] = trim($author_name);
+		$f['rating'] = trim($rating);
+		$f['user_email'] = trim($authors_email);
 		unset($text);
 		unset($rating);
 		unset($put);
@@ -277,12 +273,12 @@ class Products {
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
-		$f['id_product'] = mysql_real_escape_string(trim($id_product));
+		$f['id_product'] = trim($id_product);
 		foreach ($arr as &$value) {
 			if(empty($value)){
 				return false; //Если URL пустой
 			}
-			$f['url'] = mysql_real_escape_string(trim($value));
+			$f['url'] = trim($value);
 			$this->db->StartTrans();
 			if(!$this->db->Insert(_DB_PREFIX_.'video', $f)){
 				$this->db->FailTrans();
@@ -416,7 +412,7 @@ class Products {
 		if(!isset($params['sup_cab'])){
 				$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
-		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_optimizator_){
+		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_){
 			$sql = "SELECT DISTINCT a.active, s.available_today,
 				".implode(", ",$this->usual_fields).",
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
@@ -544,7 +540,6 @@ class Products {
 	}
 
 	public function SetProductsList4SuppliersCSV($id_order, $id_supplier){
-		$id_supplier = mysql_real_escape_string(trim($id_supplier));
 		$where = "((osp.id_supplier = ".$id_supplier."
 				AND osp.opt_qty > 0
 				AND osp.contragent_qty <= 0
@@ -565,7 +560,7 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE ".$where."
-			AND osp.id_order IN (".mysql_real_escape_string(trim(implode(", ", $id_order))).")
+			AND osp.id_order IN (".trim(implode(", ", $id_order)).")
 			GROUP BY p.id_product, osp.id_order";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
@@ -644,7 +639,7 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_optimizator_){
+			if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_){
 				$sql = "SELECT ".implode(", ",$this->usual_fields).",
 					a.price_opt_otpusk, a.price_mopt_otpusk,
 					(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
@@ -884,7 +879,7 @@ class Products {
 		if(!isset($params['sup_cab'])){
 			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
-		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_optimizator_){
+		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_){
 			// ,(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
@@ -1010,7 +1005,7 @@ class Products {
 				ON s.id_user = a.id_supplier
 			WHERE ";
 		// $sups_ids = implode(",",$this->GetSuppliersIdsForCurrentDateDiapason());
-		if(in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_, _ACL_MODERATOR_, _ACL_SEO_optimizator_))){
+		if(in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_, _ACL_MODERATOR_, _ACL_SEO_))){
 			$sql .= "p.id_product IS NOT NULL
 				".$where;
 		}else{
@@ -1221,24 +1216,24 @@ class Products {
 		}
 		$this->db->StartTrans();
 		// $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
-		$f['id_product'] = mysql_real_escape_string(trim($id_product));
-		$f['id_supplier'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
-		$f['price_opt_recommend'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['price_opt_recommend']));
-		$f['price_mopt_recommend'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['price_mopt_recommend']));
-		$f['price_opt_otpusk'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk']));
-		$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk']));
-		$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd']));
-		$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']));
-		$f['product_limit'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['product_limit']));
-		$f['active'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['active']));
-		$f['sup_comment'] = mysql_real_escape_string(trim($_SESSION['Assort']['products'][$id_product]['sup_comment']));
+		$f['id_product'] = trim($id_product);
+		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
+		$f['price_opt_recommend'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_recommend']);
+		$f['price_mopt_recommend'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_recommend']);
+		$f['price_opt_otpusk'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk']);
+		$f['price_mopt_otpusk'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk']);
+		$f['price_opt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd']);
+		$f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
+		$f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
+		$f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
+		$f['sup_comment'] = trim($_SESSION['Assort']['products'][$id_product]['sup_comment']);
 
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = $id_product AND id_supplier = ".$_SESSION['member']['id_user'])){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		//$f[''] = mysql_real_escape_string(trim($arr['']));
+		//$f[''] = trim($arr['']);
 		// if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 		// 	$this->db->FailTrans();
 		// 	return false;
@@ -1286,8 +1281,8 @@ class Products {
 		$this->InitProduct($id_product);
 		$suppliers = new suppliers();
 		$this->db->StartTrans();
-		$f['id_product'] = mysql_real_escape_string(trim($id_product));
-		$f['id_supplier'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
+		$f['id_product'] = trim($id_product);
+		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
 		$f['price_opt_recommend'] = 0;
 		$f['price_mopt_recommend'] = 0;
 		$f['price_opt_otpusk'] = 0;
@@ -1325,20 +1320,20 @@ class Products {
 		$suppliers = new Suppliers();
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
 		$supp_fields = $suppliers->fields;
-		$f['id_product'] = mysql_real_escape_string(trim($arr['id_product']));
-		$f['id_supplier'] = mysql_real_escape_string(trim($arr['id_supplier']));
-		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
-		$f['inusd'] = mysql_real_escape_string(trim($arr['in_usd']));
+		$f['id_product'] = trim($arr['id_product']);
+		$f['id_supplier'] = trim($arr['id_supplier']);
+		$f['product_limit'] = trim($arr['product_limit']);
+		$f['inusd'] = trim($arr['in_usd']);
 		if($arr['in_usd'] != 1){
-			$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
-			$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+			$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
+			$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
 			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
 			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
 		}else{
 			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
 			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
-			$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
-			$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
+			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
 		}
 		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
@@ -1362,18 +1357,18 @@ class Products {
 		$suppliers = new Suppliers();
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
 		$supp_fields = $suppliers->fields;
-		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
-		$f['inusd'] = mysql_real_escape_string(trim($arr['in_usd']));
+		$f['product_limit'] = trim($arr['product_limit']);
+		$f['inusd'] = trim($arr['in_usd']);
 		if($arr['in_usd'] != 1){
-			$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
-			$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+			$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
+			$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
 			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
 			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
 		}else{
 			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
 			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
-			$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
-			$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
+			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
+			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
 		}
 		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
@@ -1531,21 +1526,21 @@ class Products {
 
 	// Добавление
 	public function AddProduct($arr){
-		$f['art'] = mysql_real_escape_string(trim($arr['art']));
-		$f['name'] = mysql_real_escape_string(trim($arr['name']));
+		$f['art'] = trim($arr['art']);
+		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
-		$f['descr'] = mysql_real_escape_string(trim($arr['descr']));
-		$f['descr_xt_short'] = mysql_real_escape_string(trim($arr['descr_xt_short']));
-		$f['descr_xt_full'] = mysql_real_escape_string(trim($arr['descr_xt_full']));
-		//$f['country'] = mysql_real_escape_string(trim($arr['country']));
-		$f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
-		$f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
-		$f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+		$f['descr'] = trim($arr['descr']);
+		$f['descr_xt_short'] = trim($arr['descr_xt_short']);
+		$f['descr_xt_full'] = trim($arr['descr_xt_full']);
+		//$f['country'] = trim($arr['country']);
+		$f['img_1'] = trim($arr['img_1']);
+		$f['img_2'] = trim($arr['img_2']);
+		$f['img_3'] = trim($arr['img_3']);
 		// if(isset($arr['images']) && $arr['images'] != ''){
 		// 	if(isset($arr['smb_duplicate'])){
-		// 			$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images']['0'])?$arr['images']['0']:null));
-		// 			$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images']['1'])?$arr['images']['1']:null));
-		// 			$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images']['2'])?$arr['images']['2']:null));
+		// 			$f['img_1'] = trim(isset($arr['images']['0'])?$arr['images']['0']:null);
+		// 			$f['img_2'] = trim(isset($arr['images']['1'])?$arr['images']['1']:null);
+		// 			$f['img_3'] = trim(isset($arr['images']['2'])?$arr['images']['2']:null);
 		// 	}else{
 		// 		foreach($arr['images'] as $k=>$image){
 		// 			$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
@@ -1553,38 +1548,38 @@ class Products {
 		// 			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
 		// 			$images_arr[] = $bd_path.'/'.$newname;
 		// 		}
-		// 		$f['img_1'] = mysql_real_escape_string(trim(isset($images_arr['0'])?$images_arr['0']:null));
-		// 		$f['img_2'] = mysql_real_escape_string(trim(isset($images_arr['1'])?$images_arr['1']:null));
-		// 		$f['img_3'] = mysql_real_escape_string(trim(isset($images_arr['2'])?$images_arr['2']:null));
+		// 		$f['img_1'] = trim(isset($images_arr['0'])?$images_arr['0']:null);
+		// 		$f['img_2'] = trim(isset($images_arr['1'])?$images_arr['1']:null);
+		// 		$f['img_3'] = trim(isset($images_arr['2'])?$images_arr['2']:null);
 		// 	}
 		// }
-		// $f['sertificate'] = mysql_real_escape_string(trim($arr['sertificate']));
-		$f['price_opt'] = mysql_real_escape_string(trim($arr['price_opt']));
-		$f['price_mopt'] = mysql_real_escape_string(trim($arr['price_mopt']));
-		$f['inbox_qty'] = mysql_real_escape_string(trim($arr['inbox_qty']));
-		//$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
-		$f['min_mopt_qty'] = mysql_real_escape_string(trim($arr['min_mopt_qty']));
-		// $f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
-		$f['price_coefficient_opt'] = mysql_real_escape_string(trim($arr['price_coefficient_opt']));
-		$f['price_coefficient_mopt'] = mysql_real_escape_string(trim($arr['price_coefficient_mopt']));
-		$f['height'] = mysql_real_escape_string(trim($arr['height']));
-		$f['width'] = mysql_real_escape_string(trim($arr['width']));
-		$f['length'] = mysql_real_escape_string(trim($arr['length']));
+		// $f['sertificate'] = trim($arr['sertificate']);
+		$f['price_opt'] = trim($arr['price_opt']);
+		$f['price_mopt'] = trim($arr['price_mopt']);
+		$f['inbox_qty'] = trim($arr['inbox_qty']);
+		//$f['max_supplier_qty'] = trim($arr['max_supplier_qty']);
+		$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
+		// $f['manufacturer_id'] = trim($arr['manufacturer_id']);
+		$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
+		$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
+		$f['height'] = trim($arr['height']);
+		$f['width'] = trim($arr['width']);
+		$f['length'] = trim($arr['length']);
 		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
-			$f['weight'] = mysql_real_escape_string(trim($arr['weight']));
+			$f['weight'] = trim($arr['weight']);
 		}
-		$f['volume'] = mysql_real_escape_string(trim($arr['volume']));
-		$f['coefficient_volume'] = mysql_real_escape_string($arr['coefficient_volume']);
+		$f['volume'] = trim($arr['volume']);
+		$f['coefficient_volume'] = $arr['coefficient_volume'];
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 		$f['prod_status'] = 3;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
-		$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
-		$f['create_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
-		$f['notation_price'] = mysql_real_escape_string(trim($arr['notation_price']));
-		$f['instruction'] = mysql_real_escape_string(trim($arr['instruction']));
+		$f['id_unit'] = trim($arr['id_unit']);
+		$f['create_user'] = trim($_SESSION['member']['id_user']);
+		$f['notation_price'] = trim($arr['notation_price']);
+		$f['instruction'] = trim($arr['instruction']);
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		// Добавляем товар в бд
 		$this->db->StartTrans();
@@ -1650,65 +1645,65 @@ class Products {
 
 	// Обновление
 	public function UpdateProduct($arr){
-		$f['edit_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
+		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
-		$id_product = mysql_real_escape_string(trim($arr['id_product']));
+		$id_product = trim($arr['id_product']);
 		if(isset($arr['name']) && $arr['name'] !== ''){
-			$f['art'] = mysql_real_escape_string(trim($arr['art']));
-			$f['name'] = mysql_real_escape_string(trim($arr['name']));
+			$f['art'] = trim($arr['art']);
+			$f['name'] = trim($arr['name']);
 			//$f['translit'] = G::StrToTrans($arr['name']);
-			$f['descr'] = mysql_real_escape_string(trim($arr['descr']));
-			$f['descr_xt_short'] = mysql_real_escape_string(trim($arr['descr_xt_short']));
-			$f['descr_xt_full'] = mysql_real_escape_string(trim($arr['descr_xt_full']));
-			//$f['country'] = mysql_real_escape_string(trim($arr['country']));
-			$f['img_1'] = mysql_real_escape_string(trim($arr['img_1']));
-			$f['img_2'] = mysql_real_escape_string(trim($arr['img_2']));
-			$f['img_3'] = mysql_real_escape_string(trim($arr['img_3']));
+			$f['descr'] = trim($arr['descr']);
+			$f['descr_xt_short'] = trim($arr['descr_xt_short']);
+			$f['descr_xt_full'] = trim($arr['descr_xt_full']);
+			//$f['country'] = trim($arr['country']);
+			$f['img_1'] = trim($arr['img_1']);
+			$f['img_2'] = trim($arr['img_2']);
+			$f['img_3'] = trim($arr['img_3']);
 			// if(isset($arr['images']) && $arr['images'] != ''){
-			// 	$f['img_1'] = mysql_real_escape_string(trim(isset($arr['images'][0])?$arr['images'][0]:null));
-			// 	$f['img_2'] = mysql_real_escape_string(trim(isset($arr['images'][1])?$arr['images'][1]:null));
-			// 	$f['img_3'] = mysql_real_escape_string(trim(isset($arr['images'][2])?$arr['images'][2]:null));
+			// 	$f['img_1'] = trim(isset($arr['images'][0])?$arr['images'][0]:null);
+			// 	$f['img_2'] = trim(isset($arr['images'][1])?$arr['images'][1]:null);
+			// 	$f['img_3'] = trim(isset($arr['images'][2])?$arr['images'][2]:null);
 			// }elseif(!isset($arr['images']) && isset($arr['removed_images'])){
 			// 	$f['img_1'] = null;
 			// 	$f['img_2'] = null;
 			// 	$f['img_3'] = null;
 			// }
 			if(isset($arr['page_description'])){
-				$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
+				$f['page_description'] = trim($arr['page_description']);
 			}
 			if(isset($arr['page_title'])){
-				$f['page_title'] = mysql_real_escape_string(trim($arr['page_title']));
+				$f['page_title'] = trim($arr['page_title']);
 			}
 			if(isset($arr['page_keywords'])){
-				$f['page_keywords'] = mysql_real_escape_string(trim($arr['page_keywords']));
+				$f['page_keywords'] = trim($arr['page_keywords']);
 			}
-			//$f['sertificate'] = mysql_real_escape_string(trim($arr['sertificate']));
-			$f['price_opt'] = mysql_real_escape_string(trim($arr['price_opt']));
-			$f['price_mopt'] = mysql_real_escape_string(trim($arr['price_mopt']));
-			$f['inbox_qty'] = mysql_real_escape_string(trim($arr['inbox_qty']));
-			$f['min_mopt_qty'] = mysql_real_escape_string(trim($arr['min_mopt_qty']));
-			//$f['max_supplier_qty'] = mysql_real_escape_string(trim($arr['max_supplier_qty']));
-			//$f['manufacturer_id'] = mysql_real_escape_string(trim($arr['manufacturer_id']));
-			$f['price_coefficient_opt'] = mysql_real_escape_string(trim($arr['price_coefficient_opt']));
-			$f['price_coefficient_mopt'] = mysql_real_escape_string(trim($arr['price_coefficient_mopt']));
-			$f['height'] = mysql_real_escape_string(trim($arr['height']));
-			$f['width'] = mysql_real_escape_string(trim($arr['width']));
-			$f['length'] = mysql_real_escape_string(trim($arr['length']));
+			//$f['sertificate'] = trim($arr['sertificate']);
+			$f['price_opt'] = trim($arr['price_opt']);
+			$f['price_mopt'] = trim($arr['price_mopt']);
+			$f['inbox_qty'] = trim($arr['inbox_qty']);
+			$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
+			//$f['max_supplier_qty'] = trim($arr['max_supplier_qty']);
+			//$f['manufacturer_id'] = trim($arr['manufacturer_id']);
+			$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
+			$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
+			$f['height'] = trim($arr['height']);
+			$f['width'] = trim($arr['width']);
+			$f['length'] = trim($arr['length']);
 			if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 				$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 			}else{
-				$f['weight'] = mysql_real_escape_string(trim($arr['weight']));
+				$f['weight'] = trim($arr['weight']);
 			}
-			$f['volume'] = mysql_real_escape_string(trim($arr['volume']));
-			$f['coefficient_volume'] = mysql_real_escape_string($arr['coefficient_volume']);
-			$f['opt_correction_set'] = isset($arr['opt_correction_set'])?mysql_real_escape_string(trim($arr['opt_correction_set'])):0;
-			$f['mopt_correction_set'] = isset($arr['mopt_correction_set'])?mysql_real_escape_string(trim($arr['mopt_correction_set'])):0;
+			$f['volume'] = trim($arr['volume']);
+			$f['coefficient_volume'] = $arr['coefficient_volume'];
+			$f['opt_correction_set'] = isset($arr['opt_correction_set'])?trim($arr['opt_correction_set']):0;
+			$f['mopt_correction_set'] = isset($arr['mopt_correction_set'])?trim($arr['mopt_correction_set']):0;
 			$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 			$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 			$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] === "on" || $arr['note_control'] == "1"))?1:0;
-			$f['id_unit'] = mysql_real_escape_string(trim($arr['id_unit']));
-			$f['notation_price'] = mysql_real_escape_string(trim($arr['notation_price']));
-			$f['instruction'] = mysql_real_escape_string(trim($arr['instruction']));
+			$f['id_unit'] = trim($arr['id_unit']);
+			$f['notation_price'] = trim($arr['notation_price']);
+			$f['instruction'] = trim($arr['instruction']);
 			$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		}
 		$this->db->StartTrans();
@@ -1728,7 +1723,7 @@ class Products {
 	}
 
 	public function UpdateTranslit($id_product){
-		$f['edit_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
+		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
 		$this->db->StartTrans();
 		$this->SetFieldsById($id_product);
@@ -2361,14 +2356,14 @@ class Products {
 		$this->db->StartTrans();
 		$f['id_product'] = $id_product;
 		$f['id_supplier'] = $id_supplier;
-		$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
-		$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
-		$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_opt_otpusk_usd']));
-		$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk_usd']));
+		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
+		$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
+		$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
+		$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
 		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
-		$f['active'] = mysql_real_escape_string(trim($arr['active']));
+		$f['product_limit'] = trim($arr['product_limit']);
+		$f['active'] = trim($arr['active']);
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -2376,7 +2371,7 @@ class Products {
 		if($inusd === true){
 			$f['inusd'] = 1;
 		}
-		$f['sup_comment'] = mysql_real_escape_string(trim($arr['sup_comment']));
+		$f['sup_comment'] = trim($arr['sup_comment']);
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
@@ -2387,15 +2382,15 @@ class Products {
 
 	// Обновление
 	public function UpdateSupplierAssortiment($arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$id_product = mysql_real_escape_string(trim($arr['id_product']));
-		$f['price_opt_otpusk'] = mysql_real_escape_string(trim($arr['price_opt_otpusk']));
-		$f['price_mopt_otpusk'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk']));
-		$f['price_opt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_opt_otpusk_usd']));
-		$f['price_mopt_otpusk_usd'] = mysql_real_escape_string(trim($arr['price_mopt_otpusk_usd']));
+		$id_product = trim($arr['id_product']);
+		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
+		$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
+		$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
+		$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
 		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = mysql_real_escape_string(trim($arr['product_limit']));
-		$f['active'] = mysql_real_escape_string(trim($arr['active']));
+		$f['product_limit'] = trim($arr['product_limit']);
+		$f['active'] = trim($arr['active']);
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -2403,7 +2398,7 @@ class Products {
 		if($inusd === true){
 			$f['inusd'] = 1;
 		}
-		$f['sup_comment'] = mysql_real_escape_string(trim($arr['sup_comment']));
+		$f['sup_comment'] = trim($arr['sup_comment']);
 		$this->db->StartTrans();
 		global $Supplier;
 		$id_supplier = $Supplier->fields['id_user'];
@@ -2500,8 +2495,8 @@ class Products {
 	// Добавление популярного продукта
 	public function SetPopular($id_product, $id_category){
 		$this->db->StartTrans();
-		$f['id_product'] = mysql_real_escape_string($id_product);
-		$f['id_category'] = mysql_real_escape_string($id_category);
+		$f['id_product'] = $id_product;
+		$f['id_category'] = $id_category;
 		if(!$this->db->Insert(_DB_PREFIX_.'popular_products', $f)){
 			$this->db->FailTrans();
 			return false;
@@ -2859,11 +2854,11 @@ class Products {
 		$sql = "SELECT MAX(ord) AS ord
 			FROM "._DB_PREFIX_."pricelists";
 		$arr = $this->db->GetOneRowArray($sql);
-		$f['order'] = mysql_real_escape_string($pricelist['order']);
-		$f['name'] = mysql_real_escape_string($pricelist['name']);
-		$f['set'] = mysql_real_escape_string($pricelist['set']);
-		$f['visibility'] = mysql_real_escape_string($pricelist['visibility']);
-		$f['ord'] = mysql_real_escape_string($arr['ord']+1);
+		$f['order'] = $pricelist['order'];
+		$f['name'] = $pricelist['name'];
+		$f['set'] = $pricelist['set'];
+		$f['visibility'] = $pricelist['visibility'];
+		$f['ord'] = $arr['ord']+1;
 		if(!$this->db->Insert(_DB_PREFIX_.'pricelists', $f)){
 			$this->db->FailTrans();
 			return false;
@@ -2885,10 +2880,10 @@ class Products {
 	}
 
 	public function UpdatePriceList($pricelist){
-		$f['order'] = mysql_real_escape_string($pricelist['order']);
-		$f['name'] = mysql_real_escape_string($pricelist['name']);
-		$f['set'] = mysql_real_escape_string($pricelist['set']);
-		$f['visibility'] = mysql_real_escape_string($pricelist['visibility']);
+		$f['order'] = $pricelist['order'];
+		$f['name'] = $pricelist['name'];
+		$f['set'] = $pricelist['set'];
+		$f['visibility'] = $pricelist['visibility'];
 		if(!$this->db->Update(_DB_PREFIX_."pricelists", $f, "id = {$pricelist['id']}")){
 			$this->db->FailTrans();
 			return false;
@@ -2897,8 +2892,8 @@ class Products {
 	}
 
 	public function UpdateSetByOrder($pricelist){
-		$f['opt_correction_set'] = mysql_real_escape_string($pricelist['set']);
-		$f['mopt_correction_set'] = mysql_real_escape_string($pricelist['set']);
+		$f['opt_correction_set'] = $pricelist['set'];
+		$f['mopt_correction_set'] = $pricelist['set'];
 		$sql = "SELECT id_product
 			FROM "._DB_PREFIX_."osp
 			WHERE id_order = ".$pricelist['order'];
@@ -3021,28 +3016,28 @@ class Products {
 	}
 
 	public function AddSupplierProduct($data){
-		$f['name'] = mysql_real_escape_string($data['name']);
-		$f['descr'] = mysql_real_escape_string(nl2br($data['descr'], false));
-		$f['images'] = mysql_real_escape_string($data['images']);
-		$f['img_1'] = mysql_real_escape_string(isset($data['img_1'])?$data['img_1']:null);
-		$f['img_2'] = mysql_real_escape_string(isset($data['img_2'])?$data['img_1']:null);
-		$f['img_3'] = mysql_real_escape_string(isset($data['img_3'])?$data['img_1']:null);
-		$f['id_unit'] = mysql_real_escape_string($data['id_unit']);
-		$f['min_mopt_qty'] = mysql_real_escape_string($data['min_mopt_qty']);
-		$f['inbox_qty'] = mysql_real_escape_string($data['inbox_qty']);
-		$f['price_mopt'] = str_replace(',','.', mysql_real_escape_string($data['price_mopt']));
-		$f['price_opt'] = str_replace(',','.', mysql_real_escape_string($data['price_opt']));
+		$f['name'] = $data['name'];
+		$f['descr'] = nl2br($data['descr'], false);
+		$f['images'] = $data['images'];
+		$f['img_1'] = isset($data['img_1'])?$data['img_1']:null;
+		$f['img_2'] = isset($data['img_2'])?$data['img_1']:null;
+		$f['img_3'] = isset($data['img_3'])?$data['img_1']:null;
+		$f['id_unit'] = $data['id_unit'];
+		$f['min_mopt_qty'] = $data['min_mopt_qty'];
+		$f['inbox_qty'] = $data['inbox_qty'];
+		$f['price_mopt'] = str_replace(',','.', $data['price_mopt']);
+		$f['price_opt'] = str_replace(',','.', $data['price_opt']);
 		$f['qty_control'] = 0;
 		if(isset($data['qty_control']) && $data['qty_control'] == 1){
-			$f['qty_control'] = mysql_real_escape_string($data['qty_control']);
+			$f['qty_control'] = $data['qty_control'];
 		}
-		$f['weight'] = number_format((float) mysql_real_escape_string($data['weight']), 3);
-		$f['volume'] = mysql_real_escape_string($data['volume']);
-		$f['height'] = mysql_real_escape_string($data['height']);
-		$f['width'] = mysql_real_escape_string($data['width']);
-		$f['length'] = mysql_real_escape_string($data['length']);
-		$f['coefficient_volume'] = mysql_real_escape_string($data['coefficient_volume']);
-		$f['product_limit'] = mysql_real_escape_string($data['product_limit']);
+		$f['weight'] = number_format((float) $data['weight'], 3);
+		$f['volume'] = $data['volume'];
+		$f['height'] = $data['height'];
+		$f['width'] = $data['width'];
+		$f['length'] = $data['length'];
+		$f['coefficient_volume'] = $data['coefficient_volume'];
+		$f['product_limit'] = $data['product_limit'];
 		$f['moderation_status'] = 0;
 		$this->db->StartTrans();
 		if(isset($data['id'])){
@@ -3093,10 +3088,10 @@ class Products {
 	}
 
 	public function SetModerationStatus($id, $status, $comment = null){
-		$f['id'] = mysql_real_escape_string($id);
-		$f['moderation_status'] = mysql_real_escape_string($status);
+		$f['id'] = $id;
+		$f['moderation_status'] = $status;
 		if($comment != ''){
-			$f['comment'] = mysql_real_escape_string($comment);
+			$f['comment'] = $comment;
 		}
 		if(!$this->db->Update(_DB_PREFIX_.'temp_products', $f, "id = ".$f['id'])){
 			$this->db->FailTrans();
@@ -3147,10 +3142,10 @@ class Products {
 
 	public function AcceptProductModeration($data){
 		$product = $this->GetProductOnModeration($data['id']);
-		$f['art'] = mysql_real_escape_string($data['art']);
-		$f['name'] = mysql_real_escape_string($product['name']);
+		$f['art'] = $data['art'];
+		$f['name'] = $product['name'];
 		$f['translit'] = G::StrToTrans($product['name']);
-		$f['descr'] = mysql_real_escape_string($product['descr']);
+		$f['descr'] = $product['descr'];
 		$stamp = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/stamp.png');
 		$sx = imagesx($stamp);
 		$sy = imagesy($stamp);
@@ -3179,7 +3174,7 @@ class Products {
 					$marge_bottom = ($iy - $nwidth)/2;
 				}
 				copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname);
-				$f['img_'.$i] = mysql_real_escape_string(str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname));
+				$f['img_'.$i] = str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname);
 			}
 		}
 		$images = new Images();
@@ -3196,25 +3191,25 @@ class Products {
 		}else{
 			$images_arr =  array();
 		}
-		$f['inbox_qty'] = mysql_real_escape_string($product['inbox_qty']);
-		$f['min_mopt_qty'] = mysql_real_escape_string($product['min_mopt_qty']);
+		$f['inbox_qty'] = $product['inbox_qty'];
+		$f['min_mopt_qty'] = $product['min_mopt_qty'];
 		if(isset($product['qty_control'])){
-			$f['qty_control'] = mysql_real_escape_string($product['qty_control']);
+			$f['qty_control'] = $product['qty_control'];
 		}
 		$f['sertificate'] = '';
 		$f['country'] = '';
 		$f['max_supplier_qty'] = 0;
 		$f['manufacturer_id'] = 0;
 		$f['weight'] = ($product['height'] * $product['width'] * $product['length']) * 0.000001;
-		$f['volume'] = str_replace(',','.', mysql_real_escape_string($product['weight']));
-		$f['height'] = mysql_real_escape_string($product['height']);
-		$f['width'] = mysql_real_escape_string($product['width']);
-		$f['length'] = mysql_real_escape_string($product['length']);
-		$f['coefficient_volume'] = mysql_real_escape_string($product['coefficient_volume']);
-		$f['edit_user'] = mysql_real_escape_string(trim($_SESSION['member']['id_user']));
+		$f['volume'] = str_replace(',','.', $product['weight']);
+		$f['height'] = $product['height'];
+		$f['width'] = $product['width'];
+		$f['length'] = $product['length'];
+		$f['coefficient_volume'] = $product['coefficient_volume'];
+		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
-		$f['create_user'] = mysql_real_escape_string($product['id_supplier']);
-		$f['id_unit'] = mysql_real_escape_string($product['id_unit']);
+		$f['create_user'] = $product['id_supplier'];
+		$f['id_unit'] = $product['id_unit'];
 		$f['prod_status'] = 3;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
@@ -3229,15 +3224,15 @@ class Products {
 			FROM "._DB_PREFIX_."supplier
 			WHERE id_user = ".$product['id_supplier'];
 		$sup = $this->db->GetOneRowArray($sql);
-		$id = mysql_real_escape_string($res['id_product']);
+		$id = $res['id_product'];
 		$a['id_product'] = $id ;
 		$this->UpdatePhoto($id, $images_arr);
-		$a['id_supplier'] = mysql_real_escape_string($product['id_supplier']);
-		$a['price_mopt_otpusk'] = str_replace(',','.', mysql_real_escape_string($product['price_mopt']));
-		$a['price_opt_otpusk'] = str_replace(',','.', mysql_real_escape_string($product['price_opt']));
-		$a['price_mopt_recommend'] = str_replace(',','.', mysql_real_escape_string($product['price_mopt']*$sup['koef_nazen_mopt']));
-		$a['price_opt_recommend'] = str_replace(',','.', mysql_real_escape_string($product['price_opt']*$sup['koef_nazen_opt']));
-		$a['product_limit'] = mysql_real_escape_string($product['product_limit']);
+		$a['id_supplier'] = $product['id_supplier'];
+		$a['price_mopt_otpusk'] = str_replace(',','.', $product['price_mopt']);
+		$a['price_opt_otpusk'] = str_replace(',','.', $product['price_opt']);
+		$a['price_mopt_recommend'] = str_replace(',','.', $product['price_mopt']*$sup['koef_nazen_mopt']);
+		$a['price_opt_recommend'] = str_replace(',','.', $product['price_opt']*$sup['koef_nazen_opt']);
+		$a['product_limit'] = $product['product_limit'];
 		$a['sup_comment'] = '';
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $a)){
@@ -3390,8 +3385,8 @@ class Products {
 
 	//Добавление товара
 	public function AddRelatedProduct($id_product, $id_related_prod){
-		$f['id_prod'] = mysql_real_escape_string(trim($id_product));
-		$f['id_related_prod'] = mysql_real_escape_string(trim($id_related_prod));
+		$f['id_prod'] = trim($id_product);
+		$f['id_related_prod'] = trim($id_related_prod);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'related_prods', $f)){
 			$this->db->FailTrans();
@@ -3465,14 +3460,14 @@ class Products {
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
-		$f['id_product'] = mysql_real_escape_string(trim($id_product));
+		$f['id_product'] = trim($id_product);
 		if(isset($arr) && !empty($arr)){
 			foreach ($arr as $k=>$src) {
 				if(empty($src)){
 					return false; //Если URL пустой
 				}
-				$f['src'] = mysql_real_escape_string(trim($src));
-				$f['ord'] = mysql_real_escape_string(trim($k));
+				$f['src'] = trim($src);
+				$f['ord'] = trim($k);
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
 					$this->db->FailTrans();

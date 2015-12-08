@@ -879,7 +879,7 @@ class dbtree {
 	}
 
 	public function GetSubCats($ID, $fields){
-		$ID = mysql_real_escape_string($ID);
+		$ID = $this->db->Quote($ID);
 		if(is_array($fields)){
 			$fields = implode(', ', $fields);
 		}else{
@@ -902,7 +902,7 @@ class dbtree {
 	}
 
 	public function GetAllSubCats($ID, $fields){
-		$ID = mysql_real_escape_string($ID);
+		$ID = $this->db->Quote($ID);
 		if(is_array($fields)){
 			$fields = implode(', ', $fields);
 		}else{
@@ -915,8 +915,8 @@ class dbtree {
 
 	//Обновление позиции категории
 	public function UpdateCatPosition($pos, $cat_id){
-		$category_id = mysql_real_escape_string($cat_id);
-		$position = mysql_real_escape_string($pos);
+		$category_id = $this->db->Quote($cat_id);
+		$position = $this->db->Quote($pos);
 		$sql = 'UPDATE xt_category SET position = "'.$position.'" WHERE id_category = "'.$category_id.'"';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
@@ -929,29 +929,29 @@ class dbtree {
 	}
 
 	public function GetTagsLevelsList($category_id){
-		$category_id = mysql_real_escape_string($category_id);
+		$category_id = $this->db->Quote($category_id);
 		$sql = 'SELECT tag_level, tag_level_name FROM xt_category_tags WHERE id_category = "'.$category_id.'" GROUP BY tag_level ORDER BY tag_level, tag_level_name';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
 
 	public function GetTagsList($category_id, $tag_level){
-		$category_id = mysql_real_escape_string($category_id);
-		$tag_level = mysql_real_escape_string($tag_level);
+		$category_id = $this->db->Quote($category_id);
+		$tag_level = $this->db->Quote($tag_level);
 		$sql = 'SELECT * FROM xt_category_tags WHERE id_category = "'.$category_id.'" AND tag_level = "'.$tag_level.'" ORDER BY tag_level, tag_name';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
 
 	public function GetTagById($tag_id){
-		$tag_id = mysql_real_escape_string($tag_id);
+		$tag_id = $this->db->Quote($tag_id);
 		$sql = 'SELECT * FROM xt_category_tags WHERE tag_id = "'.$tag_id.'"';
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
 
 	public function DropTagById($tag_id){
-		$tag_id = mysql_real_escape_string($tag_id);
+		$tag_id = $this->db->Quote($tag_id);
 		$sql = 'DELETE FROM xt_category_tags WHERE tag_id = "'.$tag_id.'"';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
@@ -964,8 +964,8 @@ class dbtree {
 	}
 
 	public function DropLevelById($category_id, $tag_level){
-		$category_id = mysql_real_escape_string($category_id);
-		$tag_level = mysql_real_escape_string($tag_level);
+		$category_id = $this->db->Quote($category_id);
+		$tag_level = $this->db->Quote($tag_level);
 		$sql = 'DELETE FROM xt_category_tags WHERE tag_level = "'.$tag_level.'" AND id_category = "'.$category_id.'"';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
@@ -978,11 +978,11 @@ class dbtree {
 	}
 
 	public function AddTags($category_id, $name, $keys, $level, $level_name){
-		$category_id = mysql_real_escape_string($category_id);
-		$name = mysql_real_escape_string($name);
-		$keys = mysql_real_escape_string($keys);
-		$level = mysql_real_escape_string($level);
-		$level_name = mysql_real_escape_string($level_name);
+		$category_id = $this->db->Quote($category_id);
+		$name = $this->db->Quote($name);
+		$keys = $this->db->Quote($keys);
+		$level = $this->db->Quote($level);
+		$level_name = $this->db->Quote($level_name);
 		$sql = 'INSERT INTO xt_category_tags (id_category, tag_name, tag_keys, tag_level, tag_level_name) VALUES ("'.$category_id.'", "'.$name.'", "'.$keys.'", "'.$level.'", "'.$level_name.'")';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
@@ -995,12 +995,12 @@ class dbtree {
 	}
 
 	public function UpdateTags($tag_id, $category_id, $name, $keys, $level, $level_name){
-		$tag_id = mysql_real_escape_string($tag_id);
-		$category_id = mysql_real_escape_string($category_id);
-		$name = mysql_real_escape_string($name);
-		$keys = mysql_real_escape_string($keys);
-		$level = mysql_real_escape_string($level);
-		$level_name = mysql_real_escape_string($level_name);
+		$tag_id = $this->db->Quote($tag_id);
+		$category_id = $this->db->Quote($category_id);
+		$name = $this->db->Quote($name);
+		$keys = $this->db->Quote($keys);
+		$level = $this->db->Quote($level);
+		$level_name = $this->db->Quote($level_name);
 		$sql = 'UPDATE xt_category_tags SET id_category = "'.$category_id.'", tag_name = "'.$name.'", tag_keys = "'.$keys.'", tag_level = "'.$level.'", tag_level_name = "'.$level_name.'" WHERE tag_id = "'.$tag_id.'"';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
@@ -1013,9 +1013,9 @@ class dbtree {
 	}
 
 	public function UpdateLevelById($category_id, $level, $level_name){
-		$category_id = mysql_real_escape_string($category_id);
-		$level = mysql_real_escape_string($level);
-		$level_name = mysql_real_escape_string($level_name);
+		$category_id = $this->db->Quote($category_id);
+		$level = $this->db->Quote($level);
+		$level_name = $this->db->Quote($level_name);
 		$sql = 'UPDATE xt_category_tags SET tag_level_name = "'.$level_name.'" WHERE tag_level = "'.$level.'" AND id_category = "'.$category_id.'"';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){

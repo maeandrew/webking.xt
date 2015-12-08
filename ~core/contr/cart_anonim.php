@@ -12,11 +12,12 @@ if(isset($_COOKIE['PHPSESSID'])){
 	if(!G::IsLogged()){
 		$User = new Users();
 		$User->CheckUser(array('email'=>'anonymous', 'passwd'=>'1234567'));
+		die();
 		$sql = "UPDATE "._DB_PREFIX_."customer
 			SET cont_person = NULL,
 				phones = NULL
 			WHERE id_user = 1381";
-		$query = mysql_query($sql);
+		$query = $GLOBALS['db']->Query($sql);
 		G::Login($User->fields);
 		header('Location: '._base_url.'/cart/');
 	}else{
