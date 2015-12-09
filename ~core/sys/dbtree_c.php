@@ -856,13 +856,13 @@ class dbtree {
 		return $sql;
 	}
 
-	public function CheckParent($ID, $fields = null){
+	public function CheckParent($rewrite, $fields = null){
 	   if(is_array($fields)){
 			$fields = implode(', ', $fields);
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_id.' = '.$ID.' AND visible = 1 ORDER BY '.$this->table_left;
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE translit = '.$this->db->Quote($rewrite).' AND visible = 1 ORDER BY '.$this->table_left;
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
@@ -879,13 +879,12 @@ class dbtree {
 	}
 
 	public function GetSubCats($ID, $fields){
-		$ID = $this->db->Quote($ID);
 		if(is_array($fields)){
 			$fields = implode(', ', $fields);
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE xt_category.pid = '.$ID.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}

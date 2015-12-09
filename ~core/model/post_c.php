@@ -10,6 +10,7 @@ class Post {
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords');
 	}
+
 	// Статья по id
 	public function SetFieldsById($id, $all=0){
 		$visible = "AND visible = 1";
@@ -28,16 +29,16 @@ class Post {
 		}
 		return true;
 	}
+
 	// Статья по транслиту
-	public function SetFieldsByTranslit($translit, $all = 0){
+	public function SetFieldsByRewrite($rewrite, $all = 0){
 		$visible = "AND visible = 1";
 		if($all == 1){
 			$visible = '';
 		}
-		$translit = mysql_real_escape_string($translit);
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."post
-			WHERE translit = '".$translit."'
+			WHERE translit = ".$this->db->Quote($rewrite)."
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
@@ -46,6 +47,7 @@ class Post {
 		}
 		return true;
 	}
+
 	// Статья по id
 	public function SetList($all = 0){
 		$visible = "WHERE visible = 1";

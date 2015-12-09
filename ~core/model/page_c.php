@@ -9,19 +9,19 @@ class Page {
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array('id_page', 'title', 'title_ua', 'translit', 'content', 'content_ua', 'new_content',
-									'ord', 'visible', 'ptype', 'page_title', 'page_title_ua', 'page_description',
-									'page_description_ua', 'page_keywords', 'page_keywords_ua');
+			'ord', 'visible', 'ptype', 'page_title', 'page_title_ua', 'page_description',
+			'page_description_ua', 'page_keywords', 'page_keywords_ua');
 	}
+
 	// Страница по транслиту
-	public function SetFieldsByTranslit($translit, $all = 0){
+	public function SetFieldsByRewrite($rewrite, $all = 0){
 		$visible = "AND visible = 1";
 		if($all == 1){
 			$visible = '';
 		}
-		$translit = mysql_real_escape_string($translit);
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."page
-			WHERE translit = '".$translit."'
+			WHERE translit = ".$this->db->Quote($rewrite)."
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
@@ -30,6 +30,7 @@ class Page {
 		}
 		return true;
 	}
+
 	// Страница по id
 	public function SetFieldsById($id_page, $all=0){
 		$visible = "AND visible = 1";

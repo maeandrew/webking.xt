@@ -9,16 +9,15 @@ class News{
 		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords");
 	}
 	// Страница по транслиту
-	public function SetFieldsByTranslit($translit, $all = 0){
+	public function SetFieldsByRewrite($rewrite, $all = 0){
 		$visible = "AND visible = 1";
 		if($all == 1){
 			$visible = '';
 		}
-		$translit = mysql_real_escape_string($translit);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."news
-			WHERE translit = \"$translit\"
-			$visible
+			WHERE translit = ".$this->db->Quote($rewrite)."
+			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){

@@ -3,11 +3,8 @@ $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 unset($parsed_res);
-if(isset($GLOBALS['REQAR'][1])){
-	// $GLOBALS['IERA_LINKS'][0]['title'] = $header;
-	// $GLOBALS['IERA_LINKS'][0]['descr'] = 'Подборка самых интересных статей от оптового интернет-магазина ХарьковТОРГ. Все самое полезное о покупках, оптовой торговли, особенностях выбора. Здесь Вы найдете рекомендации, полезные советы от специалистов и постоянных покупателей';
-	// $GLOBALS['IERA_LINKS'][0]['url']   = _base_url.'/page/';
-	if(!$Page->SetFieldsByTranslit($GLOBALS['REQAR'][1])){
+if(isset($GLOBALS['Rewrite'])){
+	if(!$Page->SetFieldsByRewrite($GLOBALS['Rewrite'])){
 		header('Location: '._base_url.'/404/');
 		exit();
 	}
@@ -19,31 +16,29 @@ if(isset($GLOBALS['REQAR'][1])){
 	$GLOBALS['IERA_LINKS'][] = array(
 		'title' => $title[0],
 		'descr' => $header,
-		'url' => _base_url.'/page/'.$page['translit'].'/'
+		'url' => Link::Custom('page', $page['translit'])
 	);
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_page.tpl')
-	);
+	$template = 'cp_page.tpl';
 }else{
 	$header = 'Статьи оптового торгового центра xt.ua';
 	$tpl->Assign('header', $header);
 	$GLOBALS['IERA_LINKS'][] = array(
 		'title' => $header,
 		'descr' => 'Подборка самых интересных статей от оптового интернет-магазина ХарьковТОРГ. Все самое полезное о покупках, оптовой торговли, особенностях выбора. Здесь Вы найдете рекомендации, полезные советы от специалистов и постоянных покупателей',
-		'url' => _base_url.'/page/'
+		'url' => Link::Custom('page')
 	);
 	if(!$pagelist = $Page->PagesListByType('katalog')){
-		header('Location: /404/');
+		header('Location: '._base_url.'/404/');
 		exit();
 	}
 	rsort($pagelist);
 	$tpl->Assign('data', $pagelist);
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_pages_list.tpl')
-	);
+	$template = 'cp_pages_list.tpl';
 }
+$parsed_res = array(
+	'issuccess'	=> true,
+	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].$template)
+);
 if(true == $parsed_res['issuccess']) {
 	$tpl_center .= $parsed_res['html'];
 }

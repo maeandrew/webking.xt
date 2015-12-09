@@ -51,7 +51,7 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 				$tpl_sidebar_l .= $parsed_res['html'];
 			}
 			// Блок фильтров
-			if(in_array($GLOBALS['CurrentController'], $GLOBALS['Filters'])){
+			if(in_array($GLOBALS['CurrentController'], $GLOBALS['WithFilters'])){
 				unset($parsed_res);
 				require($GLOBALS['PATH_block'].'sb_search_filters.php');
 				if(true == @$parsed_res['issuccess']){

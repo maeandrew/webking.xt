@@ -36,9 +36,22 @@ class G {
 		if(!isset($_COOKIE['product_view'])){
 			setcookie('product_view', 'list', 0, '/');
 		}
-
 	}
 
+	/**
+	 * parsing url parameters (filters)
+ 	 */
+ 	public static function ParseUrlParams($params){
+		if($params !== null){
+			$param = explode(';', $params);
+			foreach($param as $p){
+				if(preg_match('/^(.+)=(.*)$/', $p, $match)){
+					$res[$match[1]] = explode(',', $match[2]);
+				}
+			}
+		}
+		return isset($res)?$res:false;
+	}
 	/**
 	 * Defining _base_url global
  	 */
@@ -466,13 +479,13 @@ class G {
 			"ы"=>"y","ь"=>"","э"=>"e","ю"=>"yu","я"=>"ya"
 		);
 		$str = strtr( $str, $trans);
-		$str = preg_replace('/[^a-z0-9]+/i', "-", $str);  // все символы которые не англ. буквы или цифры заменить на -
+		$str = preg_replace('/[^a-z0-9]+/i', "_", $str);  // все символы которые не англ. буквы или цифры заменить на -
 		// если первый и последний - то удалить эти символы
-		if(isset($str[0]) && ($str[0]  == "-" )){
+		if(isset($str[0]) && ($str[0]  == "_" )){
 			$str = substr( $str, 1, strlen($str));
 		}
 		$pos = strlen($str)-1;
-		if($pos>0 && $str[ $pos ]  == "-" ){
+		if($pos>0 && $str[ $pos ]  == "_" ){
 			$str = substr( $str, 0, $pos);
 		}
 		return $str;

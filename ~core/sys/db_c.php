@@ -29,7 +29,7 @@ class mysqlPDO {
 	* @return ничего не возвращает
 	*/
 	public function Prepare($sql){
-		return $this->iCID->prepare($this->Quote($sql));
+		return $this->iCID->prepare($sql);
 	}
 
 	/**
@@ -122,7 +122,6 @@ class mysqlPDO {
 		$response = $this->Query($sql) or G::DieLoger("SQL Error - $sql");
 		$retarr = array();
 		$res = $this->ResAsArray($response);
-		var_dump($sql);
 		return $res;
 	}
 

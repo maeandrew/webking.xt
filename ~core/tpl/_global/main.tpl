@@ -188,13 +188,13 @@
 							<div class="sb_container">
 								<div class="sb_important">
 									<?if($GLOBALS['CurrentController'] !== 'main'){?>
-										<a href="<?=_base_url?>/newslist/">Новости</a>
-										<a href="<?=_base_url?>/posts/">Статьи</a>
+										<a href="<?=Link::Custom('news');?>">Новости</a>
+										<a href="<?=Link::Custom('post');?>">Статьи</a>
 									<?}?>
-									<a href="<?=_base_url?>/price/">Прайс листы</a>
-									<a href="<?=_base_url?>/page/Oplata/">Оплата</a>
-									<a href="<?=_base_url?>/page/Dostavka/">Доставка</a>
-									<a href="<?=_base_url?>/page/Stat-dilerom/">Как стать диллером</a>
+									<a href="<?=Link::Custom('price');?>">Прайс листы</a>
+									<a href="<?=Link::Custom('page', 'Oplata');?>">Оплата</a>
+									<a href="<?=Link::Custom('page', 'Dostavka');?>">Доставка</a>
+									<a href="<?=Link::Custom('page', 'Stat_dilerom');?>">Как стать диллером</a>
 									<a href="<?=_base_url?>/">Как стать партнером</a>
 									<a href="<?=_base_url?>/wishes/" class="wishes">Пожелания и предложения</a>
 								</div>
@@ -226,7 +226,7 @@
 						</div>
 					<?}?>
 					<div class="cloud_tag">
-						<canvas width="700" height="450" id="myCanvas">
+						<!-- <canvas width="700" height="450" id="myCanvas">
 							<p>Anything in here will be replaced on browsers that support the canvas element</p>
 							<ul>
 							<?foreach($pops as $i){?>
@@ -243,7 +243,7 @@
 								<li><a href="/"><img height="40" width="100" src="<?=file_exists($GLOBALS['PATH_root'].'/images/Logo-SVG3.svg')?_base_url.'/images/Logo-SVG3.svg':'/efiles/_thumb/nofoto.jpg'?>" alt=""></a></li>
 								<li><a href="/"><img height="50%" width="50%" src="/efiles/_thumb/nofoto.jpg" alt=""></a></li>
 							</ul>
-						</canvas>
+						</canvas> -->
 						<!-- <embed type="application/x-shockwave-flash" src="http://freeviral.ru/tagcloud.swf?r=9" width="700" height="450" id="tagcloudflash" name="tagcloudflash" quality="high" wmode="transparent" allowscriptaccess="always" flashvars="tcolor=0x006633&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=<tags><a href='http://x-torg.com' style='font-size:18pt;'>ХАРЬКОВТОРГ</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a><a href='http://x-torg.com/' style='font-size:18pt;'>x-torg.com</a></tags>"> -->
 					</div>
 					<div class="row">
@@ -297,7 +297,7 @@
 					<div id="owl-popular" class="owl-carousel">
 						<?foreach($pops as $p){?>
 							<div class="item">
-								<a href="<?=_base_url."/product/".$p['id_product']."/".$p['translit']."/";?>">
+								<a href="<?=Link::Product($p['translit']);?>">
 									<?if(!empty($p['images'])){?>
 										<img src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
 									<?}else{
@@ -321,7 +321,7 @@
 							<?foreach($view_products_list as $p){
 								if($GLOBALS['CurrentController'] == 'main' || ($GLOBALS['CurrentController'] == 'product' && $item['id_product'] != $p['id_product'])){?>
 								<div class="item">
-									<a href="<?=_base_url."/product/".$p['id_product']."/".$p['translit']."/";?>">
+									<a href="<?=Link::Product($p['translit']);?>">
 										<?if(!empty($p['images'])){?>
 											<img src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
 										<?}else{
@@ -456,18 +456,18 @@
 			$('select#category2search, select#sort_prod').styler();
 
 			/* owl-carousel initialization */
-			$("#owl-main_slider").owlCarousel({
-				autoPlay: true,
-				stopOnHover: true,
-				slideSpeed: 300,
-				paginationSpeed: 400,
-				itemsScaleUp: true,
-				singleItem: true,
-				lazyLoad: true,
-				lazyFollow: false,
-				navigation: true, // Show next and prev buttons
-				navigationText: ['<span class="icon-nav">arrow_left</span>', '<span class="icon-nav">arrow_right</span>']
-			});
+			// $("#owl-main_slider").owlCarousel({
+			// 	autoPlay: true,
+			// 	stopOnHover: true,
+			// 	slideSpeed: 300,
+			// 	paginationSpeed: 400,
+			// 	itemsScaleUp: true,
+			// 	singleItem: true,
+			// 	lazyLoad: true,
+			// 	lazyFollow: false,
+			// 	navigation: true, // Show next and prev buttons
+			// 	navigationText: ['<span class="icon-nav">arrow_left</span>', '<span class="icon-nav">arrow_right</span>']
+			// });
 			$("#owl-popular, #owl-last-viewed").owlCarousel({
 				autoPlay: false,
 				stopOnHover: true,

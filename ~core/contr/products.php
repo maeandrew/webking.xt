@@ -4,6 +4,7 @@ $Page = new Page();
 $products = new Products();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
+$id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
 // unset($_SESSION['cart']);
 // print_r($_SESSION['cart']);
 // Настройка панели действий ===============================
@@ -31,28 +32,27 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$referer = explode('/',str_replace('http://', '', $_SERVER['HTTP_REFERER']));
 	$tpl->Assign('referer', $referer);
 }
-if(!isset($referer[2]) || $referer[2] != $GLOBALS['REQAR'][1]){
+if(!isset($referer[2]) || $referer[2] != $id_category){
 	unset($_SESSION['filters']);
 	unset($_SESSION['search']);
 }
 if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
-$id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'art', 'category_level', 'page_title', 'page_description', 'page_keywords'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
 if(!$dbtree->NextRow()){
-	header('Location: /404/');
+	header('Location: '._base_url.'/404/');
 	exit();
 }
 while($cat = $dbtree->NextRow()){
 	if($cat['category_level'] != 0){
 		$GLOBALS['IERA_LINKS'][] = array(
 			'title' => $cat['name'],
-			'url' => _base_url.'/products/'.$cat['id_category'].'/'.$cat['translit'].'/limitall/'
+			'url' => Link::Category($cat['translit'])
 		);
 	}
 	$GLOBALS['products_canonical'] = end($GLOBALS['IERA_LINKS'])['url'];
@@ -411,7 +411,7 @@ if(empty($subcats)){
 			$_SESSION['filters']['maxprice'] = $max;
 		}
 	}
-	if((!isset($referer[2]) || $referer[2] != $GLOBALS['REQAR'][1]) || isset($_POST['dropfilters'])){
+	if((!isset($referer[2]) || $referer[2] != $id_category) || isset($_POST['dropfilters'])){
 		if(isset($min)){
 			$_SESSION['filters']['pricefrom'] = $min;
 		}

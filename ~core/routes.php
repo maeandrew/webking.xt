@@ -1,34 +1,46 @@
 <?php
-// Отрезаем завершающий слеш `/`
-$_SERVER['REQUEST_URI'] = preg_replace('#/$#is', '', $_SERVER['REQUEST_URI']);
-preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
-/* Далее, если REQUEST_URI пуст - устанавливается контроллер по-умолчанию
- * если контроллер не найден среди файлов, то устанавливается контроллер 404 ошибки
- */
-if(empty($ma[1])){
-	$ma[1][0] = $GLOBALS['DefaultController'];
-}elseif (!in_array($ma[1][0], $GLOBALS['Controllers'])){
-	array_unshift($ma[1], '404');
+$request = $request_url = preg_replace('/\/$/', '', isset($_GET['request'])?$_GET['request']:preg_replace('/^.*/', '', $_SERVER['REQUEST_URI']));
+// check if this is product url
+$GLOBALS['CurrentController'] = 'main';
+if(preg_match('/^.*\.html$/', $request)){
+	$GLOBALS['CurrentController'] = 'product';
+	$rewrite_arr = explode('/', $request);
+	$GLOBALS['Rewrite'] = str_replace('.html', '', array_pop($rewrite_arr));
+}else{
+	if($request !== ''){
+		// detecting page if exist
+		if(preg_match('/\/p[0-9]+/', $request, $match)){
+			$GLOBALS['Page'] = preg_replace('/^\/p/', '', $match[0]);
+			$request = preg_replace('/\/p[0-9]+/', '', $request);
+		}
+		// detecting sort if exist
+		if(preg_match('/\/sort=[^\/]+/', $request, $match)){
+			$GLOBALS['Sort'] = preg_replace('/^\/sort=/', '', $match[0]);
+			$request = preg_replace('/\/sort=[^\/]+/', '', $request);
+		}
+		$rewrite_arr = explode('/', $request);
+		if(!in_array($rewrite_arr[0], $GLOBALS['Controllers']) || $rewrite_arr[0] == 'products'){
+			$GLOBALS['CurrentController'] = 'products';
+			$GLOBALS['Rewrite'] = array_shift($rewrite_arr);
+		}else{
+			$GLOBALS['CurrentController'] = array_shift($rewrite_arr);
+			$GLOBALS['Rewrite'] = array_shift($rewrite_arr);
+			$GLOBALS['Rewrite'] = $GLOBALS['Rewrite'] == $GLOBALS['CurrentController']?false:$GLOBALS['Rewrite'];
+		}
+		$GLOBALS['Filters'] = G::ParseUrlParams(array_pop($rewrite_arr));
+	}
 }
-$GLOBALS['CurrentController'] = $ma[1][0];
-$GLOBALS['REQAR'] = $ma[1];
-/**
- * Для удобства некоторые переменные из REQUEST_URI объявляются в массиве $_GET
- */
-foreach($ma[1] as $item){
-	if(preg_match('#^p([\d]+)$#is', $item, $ma1)){
-		$_GET['page_id'] = $ma1[1];
-	}
-	if(preg_match('#^limit([\d]+)$#is', $item, $ma1)){
-		$_GET['limit'] = $ma1[1];
-	}
-	if(preg_match('#^limitall$#is', $item, $ma1)){
-		$_GET['limit'] = 'all';
+if(isset($rewrite_arr) && count($rewrite_arr) > 0){
+	switch($GLOBALS['CurrentController']){
+		case 'product':
+			header("HTTP/1.1 301 Moved Permanently");
+			header("Location: http://".$_SERVER['SERVER_NAME'].'/'.str_replace(implode('/', $rewrite_arr).'/', '', $request_url));
+			break;
+		default:
+			header("HTTP/1.1 301 Moved Permanently");
+			header("Location: http://".$_SERVER['SERVER_NAME'].'/'.str_replace(implode('/', $rewrite_arr).'/', '', $request_url).'/');
+			break;
 	}
 }
-unset($ma);unset($ma1);
-// if($GLOBALS['CurrentController'] == 'srv'){
-// 	require($GLOBALS['PATH_core'].'controller.php');
-// 	exit(0);
-// }
+unset($rewrite_arr, $request_url, $request);
 ?>

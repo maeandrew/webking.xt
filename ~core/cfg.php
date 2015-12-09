@@ -20,8 +20,11 @@ G::ToGlobals(array(
 	'PATH_tpl_global'	=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP
 ));
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
-
+$theme = 'default';
+$GLOBALS['PATH_tpl'] = str_replace(PATH_core, _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl']);
+$GLOBALS['PATH_tpl_global'] = str_replace(PATH_core, _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl_global']);
 // // ***************************** Подключение и инициализация системных классов  *****************************
+require($GLOBALS['PATH_sys'].'link_c.php');
 require($GLOBALS['PATH_sys'].'tpl_c.php');
 require($GLOBALS['PATH_sys'].'db_c.php');
 require($GLOBALS['PATH_sys'].'dbtree_c.php');
@@ -32,7 +35,6 @@ require($GLOBALS['PATH_sys'].'sfYaml.php');
 require($GLOBALS['PATH_sys'].'sfYamlParser.php');
 require($GLOBALS['PATH_sys'].'status_c.php');
 require($GLOBALS['PATH_sys'].'images_c.php');
-
 
 // including configuration file
 require(_root.'config.php');
@@ -47,7 +49,6 @@ $GLOBALS['db'] =& $db;
 
 $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);
-
 $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
 foreach($profiles as $profile){
 	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
@@ -58,6 +59,14 @@ $ACL_PERMS = array(
 	// groups
 	'groups' => $profiles
 );
+// получение всех настроек с БД
+$sql = "SELECT name, value FROM "._DB_PREFIX_."config";
+$arr = $db->GetArray($sql);
+// формирование глобального массива настроек
+foreach($arr as $i){
+	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
+}
+unset($sql, $arr);
 
 // default controller, if no one else has come
 $GLOBALS['DefaultController']	= 'main';
@@ -82,7 +91,7 @@ $GLOBALS['NoSidebarNews']		= array();
 // страницы без макета
 $GLOBALS['NoTemplate']			= array('pricelist-order');
 // страницы, на которых есть блок фильтров в сайдбаре
-$GLOBALS['Filters']				= array('products');
+$GLOBALS['WithFilters']			= array('products');
 // Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(
@@ -94,7 +103,7 @@ $GLOBALS['Limit_db'] = 30;
 $GLOBALS['Start'] = 0;
 $GLOBALS['Limits_db'] = array(30, 60, 100);
 
-$tpl = new TPL();
+$tpl = new Template();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************
 require($GLOBALS['PATH_model'].'users_c.php');
@@ -117,14 +126,7 @@ require($GLOBALS['PATH_model'].'UploadHandler.php');
 require($GLOBALS['PATH_model'].'slides_c.php');
 require($GLOBALS['PATH_model'].'unit_c.php');
 require($GLOBALS['PATH_model'].'post_c.php');
-// получение всех настроек с БД
-$sql = "SELECT name, value FROM "._DB_PREFIX_."config";
-$arr = $db->GetArray($sql);
-// формирование глобального массива настроек
-foreach($arr as $i){
-	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
-}
-unset($sql, $arr);
+
 // почтовая конфигурация
 $GLOBALS['MAIL_CONFIG']['from_name'] = $GLOBALS['CONFIG']['mail_caption']; // from (от) имя
 $GLOBALS['MAIL_CONFIG']['from_email'] = $GLOBALS['CONFIG']['mail_email']; // from (от) email адрес

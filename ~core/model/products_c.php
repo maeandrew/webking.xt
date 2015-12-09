@@ -126,6 +126,42 @@ class Products {
 		return true;
 	}
 
+	// Товар по id
+	public function SetFieldsByRewrite($rewrite, $all=0){
+		$visible = "AND p.visible = 1";
+		if($all == 1){
+			$visible = '';
+		}
+		$sql = "SELECT ".implode(", ",$this->usual_fields).",
+			un.unit_prom, a.product_limit,
+			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.edit_user) AS username,
+			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.create_user) AS createusername
+			FROM "._DB_PREFIX_."product AS p
+			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+				ON cp.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."units AS un
+				ON un.id = p.id_unit
+			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+				ON a.id_product = p.id_product
+			WHERE p.translit = ".$this->db->Quote($rewrite)."
+			".$visible."
+			ORDER BY cp.id";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		$catarr = array();
+		foreach ($arr as $p){
+			$catarr[] = $p['id_category'];
+		}
+		$arr[0]['categories_ids'] = $catarr;
+		$this->fields = $arr[0];
+		return true;
+	}
+
 	public function GetSpecificationList($id_product){
 		$sql = "SELECT s.caption, s.units, sp.value
 			FROM "._DB_PREFIX_."specs_prods AS sp

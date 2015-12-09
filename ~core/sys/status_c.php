@@ -13,7 +13,6 @@ class Status {
 	}
 
 	public function GetStstusById($id){
-		$id = $this->db->Quote($id);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_.$this->table." AS s, "._DB_PREFIX_."product AS p
 				WHERE p.prod_status = s.id AND p.id_product = \"$id\"";
