@@ -19,26 +19,27 @@ require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('reset.css');
-G::AddCSS('bootstrap-grid-3.3.2.css');
-G::AddCSS('bootstrap-partial.css');
-G::AddCSS('style.css');
-G::AddCSS('header.css');
-G::AddCSS('sidebar.css');
-G::AddCSS('footer.css');
+G::AddCSS('../plugins/material/material.css');
+G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
+G::AddCSS('../themes/default/css/footer.css');
+G::AddCSS('../themes/default/css/style.css');
+G::AddCSS('../themes/default/css/header.css');
+// G::AddCSS('../themes/default/css/sidebar.css');
 
-G::AddCSS('custom.css');
+G::AddCSS('../themes/default/css/custom.css');
 
 // G::AddCSS('jquery-ui.css');
 /* plugins css */
-G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
-G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
-G::AddCSS('../plugins/icomoon/style.css');
-G::AddCSS('page_styles/'.$GLOBALS['CurrentController'].'.css');
+// G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
+// G::AddCSS('../plugins/icomoon/style.css');
+G::AddCSS('../themes/default/css/page_styles/'.$GLOBALS['CurrentController'].'.css');
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
-G::AddJS('jquery-ui.min.js');
-G::AddJS('main.js');
-G::AddJS('func.js');
+// G::AddJS('jquery-ui.min.js');
+G::AddJS('../plugins/material/material.js');
+G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
+G::AddJS('../themes/default/js/func.js');
+G::AddJS('../themes/default/js/main.js');
 if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js');
 }else{
@@ -48,11 +49,10 @@ if($GLOBALS['CurrentController'] == 'cart'){
 G::AddJS('../plugins/dropzone.js');
 G::AddJS('../plugins/jquery.lazyload.min.js');
 G::AddJS('../plugins/jquery.cookie.js');
-G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
-G::AddJS('../plugins/formstyler/jquery.formstyler.js');
+// G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
-G::AddJS('../plugins/icomoon/liga.js', true);
-G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
+// G::AddJS('../plugins/icomoon/liga.js', true);
+// G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
 
 // слайдер на главной странице
 if($GLOBALS['CurrentController'] == 'main'){
@@ -161,6 +161,7 @@ $tpl->Assign('__breadcrumbs', $GLOBALS['__breadcrumbs']);
 $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
 $tpl->Assign('__sidebar_r', $GLOBALS['__sidebar_r']);
 $tpl->Assign('__popular', $GLOBALS['__popular']);
+$tpl->Assign('__aside',  $GLOBALS['__aside']);
 $Cart = new Cart();
 // Создание базового массива корзины
 $Cart->RecalcCart();

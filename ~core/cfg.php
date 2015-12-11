@@ -21,8 +21,11 @@ G::ToGlobals(array(
 ));
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 $theme = 'default';
-$GLOBALS['PATH_tpl'] = str_replace(PATH_core, _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl']);
-$GLOBALS['PATH_tpl_global'] = str_replace(PATH_core, _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl_global']);
+$GLOBALS['PATH_tpl'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl']);
+$GLOBALS['PATH_tpl_global'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl_global']);
+$GLOBALS['URL_img_theme'] = _base_url.'/themes/'.$theme.'/images/';
+$GLOBALS['URL_css_theme'] = _base_url.'/themes/'.$theme.'/css/';
+$GLOBALS['URL_js_theme'] = _base_url.'/themes/'.$theme.'/js/';
 // // ***************************** Подключение и инициализация системных классов  *****************************
 require($GLOBALS['PATH_sys'].'link_c.php');
 require($GLOBALS['PATH_sys'].'tpl_c.php');
@@ -75,7 +78,7 @@ $GLOBALS['MainTemplate']		= 'main.tpl';
 // пустой макет
 $GLOBALS['MainEmptyTemplate']	= 'main_empty.tpl';
 // страницы с левым сайдбаром
-$GLOBALS['LeftSideBar']			= array('main', 'products', 'page', 'newslist', 'news', 'wishes', 'posts', 'post', 'register', 'price', 'demo_order', 'search', 'login', 'customer_order', 'pdf_bill_form');
+$GLOBALS['LeftSideBar']			= array('main', 'products', 'page', 'newslist', 'news', 'wishes', 'posts', 'post', 'register', 'price', 'demo_order', 'search', 'login', 'customer_order', 'pdf_bill_form', '404');
 // если кабинет поставщика или пользователя - отобразить левый сайдбар
 if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONYMOUS_))){
 	array_push($GLOBALS['LeftSideBar'], 'cabinet');
@@ -91,7 +94,7 @@ $GLOBALS['NoSidebarNews']		= array();
 // страницы без макета
 $GLOBALS['NoTemplate']			= array('pricelist-order');
 // страницы, на которых есть блок фильтров в сайдбаре
-$GLOBALS['WithFilters']			= array('products');
+$GLOBALS['WithFilters']			= array('products', 'main', 'product');
 // Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(

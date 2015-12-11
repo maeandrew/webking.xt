@@ -25,10 +25,11 @@ class Link {
 	 * @param string $rewrite идентификатор статьи
 	 */
 	public static function Custom($controller, $rewrite = null){
+		$controller = $controller=='main'?'':$controller;
 		if(isset($rewrite)){
 			$url = _base_url.'/'.$controller.'/'.$rewrite.'/';
 		}else{
-			$url = _base_url.'/'.$controller.'/';
+			$url = _base_url.'/'.$controller;
 		}
 		return $url;
 	}

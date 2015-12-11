@@ -23,7 +23,7 @@ $product['specifications'] = $products->GetSpecificationList($id_product);
 $product['images'] = $products->GetPhotoById($id_product);
 $product['videos'] = $products->GetVideoById($id_product);
 $GLOBALS['prod_title'] = $product['name'];
-$GLOBALS['product_canonical'] = '/product/'.$id_product.'/'.$product['translit'].'/';
+$GLOBALS['product_canonical'] = Link::Product($product['translit']);
 /* product comments ======================================== */
 $res = $products->GetComentByProductId($id_product);
 $tpl->Assign('coment', $res);
@@ -36,7 +36,7 @@ $tpl->Assign('coment', $res);
 
 $tpl->Assign('data', $Page->fields);
 $tpl->Assign('item', $product);
-$tpl->Assign('header', $product['name'].'<p class="subtext color-sgrey">Артикул: '.$product['art'].'</p>');
+$tpl->Assign('header', $product['name']);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 // если в ссылке не была указана категория, то выбирается первая из соответствий категория-продукт
 if(!isset($id_category)) $id_category = $product['id_category'];
@@ -54,8 +54,6 @@ while($cat = $dbtree->NextRow()){
 		);
 	}
 }
-// end($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
 // если отправили комментарий
 if(isset($_POST['sub_com'])){
 	$put = $id_product;

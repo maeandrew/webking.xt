@@ -1,0 +1,20 @@
+<svg version="1.1" class="hidden" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<symbol id="arrow_left" viewBox="0 0 480 480">
+			<title>arrow_left</title>
+			<polyline class="st0" points="322.2,402 160.6,240.1 322.3,78.2 " fill="none"/>
+		</symbol>
+		<symbol id="arrow_right" viewBox="0 0 480 480">
+			<title>arrow_right</title>
+			<polyline class="st0" points="160.6,402 322.2,240.1 160.6,78.2 " fill="none"/>
+		</symbol>
+		<symbol id="arrow_left_tidy" viewBox="95 157 160 480">
+			<title>arrow_left_tidy</title>
+			<polyline class="st0" points="216.4,559 136.4,397.1 216.4,235.2 " fill="none"/>
+		</symbol>
+		<symbol id="arrow_right_tidy" viewBox="95 157 160 480">
+			<title>arrow_right_tidy</title>
+			<polyline class="st0" points="136.5,559 216.4,397.1 136.4,235.2 " fill="none"/>
+		</symbol>
+	</defs>
+</svg>

@@ -1,0 +1,968 @@
+h1 {
+	float: left;
+}
+hr {
+	margin: 10px 0;
+}
+.table tr {
+	line-height: 2em !important;
+}
+.color-red {
+	color:#f00;
+}
+.fixed_thead {
+	position: fixed;
+	top: 45px;
+	z-index: 100;
+}
+.sb_block .main_menu {
+	display: none;
+}
+.left_menu:hover .main_menu {
+	display: block;
+}
+.sb_block .nav_btn > span {
+	transform: rotate(0deg);
+    transition: all 0.3s;
+}
+.left_menu:hover .nav_btn > span {
+	transform: rotate(-180deg);
+    transition: all 0.3s;
+}
+
+/* Contragent cabinet ====================================================== */
+
+.contragent_cab .margin-form {
+    display: inline-block;
+	margin: .67em 0;
+	margin-left: 5%;
+}
+.contragent_cab button[data-target="work_days_js"] {
+	float: right;
+	margin: 0 0 .67em;
+	display: block;
+}
+.contragent_cab p.contragent_balance {
+	line-height: 36px;
+	clear: both;
+	float: left;
+}
+.contragent_cab button[data-target="work_days_js"] span {
+	padding-right: 5px;
+}
+.returns_table.table thead tr {
+	background-color: #EFEFEF;
+}
+.returns_table th.client {
+	position: relative;
+}
+.returns_table th #client-filter {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+.returns_table .client {
+	width: 20%;
+}
+.returns_table a.icon-font {
+	text-decoration: none;
+	font-size: 20px;
+	color: #444;
+    float: right;
+    padding: 10px;
+}
+.returns_table .client .cont-person-klient a:hover {
+	color: #F36711;
+}
+.returns_table .client .name-klient,
+.returns_table .client .cont-person-klient {
+	min-height: 40px;
+}
+.returns_table .client .name-klient,
+.returns_table .client .name-customer {
+	border-bottom: 1px solid #b4b4b4;
+}
+.returns_table .notes textarea {
+	outline: none;
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+	padding: 5px;
+	width: 160px;
+	resize: vertical;
+	margin-top: 10px;
+	line-height: 15px;
+    min-height: 80px;
+}
+.returns_table .notes textarea:focus {
+	border-color: #52cf55;
+}
+.returns_table .bill button {
+	margin-top: 10px;
+}
+
+/* Стилизация модальных окон =============================================== */
+
+.order_num {
+	font-weight: bold;
+}
+.line {
+	margin-bottom: 5px;
+}
+.line input[type='text'],
+.line textarea,
+.line select {
+	height: 25px;
+	padding: 0 10px;
+}
+.line textarea,
+.line select {
+	width: 100%;
+}
+.select-status  #client {
+	font-weight: bold;
+}
+.select-status #status,
+.select-status #target_date {
+	width: auto;
+	border: none;
+}
+.select-client,
+.select-status {
+	width: 300px;
+}
+.bill-form .line textarea {
+	height: 65px;
+}
+.select-status button_block,
+.select-status .target_date,
+.bill-form .line label[for='margin'] {
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+	line-height: 25px;
+    display: inline-block;
+    padding: 0 10px;
+}
+.bill-form .line label[for='margin']:hover {
+	border-color: #52cf55;
+}
+.bill-form .line label[for='margin'] input {
+	border: none;
+	border-radius: 0;
+	margin: 0;
+}
+.select-client .line label[for='client'],
+.bill-form .line label[for='recipient'],
+.bill-form .line label[for='personal_client']{
+	display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+.bill-form .line .settings {
+	float: left;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.bill-form .line .settings input {
+	vertical-align: middle;
+    float: left;
+    margin-right: 5px;
+}
+.kontrag {
+	width: 200px;
+}
+
+/* Supplier Manager Cab ==================================================== */
+
+.supplier_search input[type="text"] {
+	padding: .45em 1em;
+}
+.min_supplier_prices {
+	margin-bottom: 20px;
+	width: 100%;
+}
+#supplier_manager_cabinet form {
+	clear: both;
+}
+.table_thead {
+	background-color: #EFEFEF;
+	border: 1px solid #d7d7d7;
+	border-bottom: none;
+}
+.table_thead > div {
+	float: left;
+	text-align: center;
+	padding: 5px 5px 0 5px;
+}
+.table_thead input[type='text'],
+.table_thead input[type='search'] {
+	width: 95%;
+}
+.table_thead input[name='smb'] {
+	display: none;
+}
+#supplier_manager_cabinet table {
+	width: 100%;
+}
+#supplier_manager_cabinet table tr {
+	border: 1px solid #d7d7d7;
+}
+#supplier_manager_cabinet table td {
+	padding-right: 5px;
+	padding-left: 5px;
+}
+#supplier_manager_cabinet .article {
+	width: 3%;
+}
+#supplier_manager_cabinet .name {
+	width: 25%;
+}
+#supplier_manager_cabinet .place {
+	width: 32%;
+}
+#supplier_manager_cabinet .email {
+	width: 15%;
+}
+#supplier_manager_cabinet .next_update_date {
+	width: 10%;
+}
+#supplier_manager_cabinet .currency {
+	width: 5%;
+}
+#supplier_manager_cabinet .login {
+	width: 5%;
+}
+#supplier_manager_cabinet .toggle {
+	width: 5%;
+}
+#supplier_manager_cabinet table .name,
+#supplier_manager_cabinet table .place {
+	text-align: left;
+}
+#supplier_manager_cabinet table .login a,
+#supplier_manager_cabinet table .toggle a {
+	margin: 5px 0;
+}
+
+/* Supplier Cab ============================================================ */
+
+#supplier_cab {
+    clear: both;
+}
+#supplier_cab .sort_page_top {
+	float: left;
+}
+#supplier_cab table a.icon-font {
+	text-decoration: none;
+	font-size: 20px;
+	color: #868686;;
+    padding: 10px;
+}
+#supplier_cab table a.icon-font:hover {
+	color: #FF3C3C;
+}
+table.supplier_assort_table {
+	margin-bottom: 0;
+}
+.supplier_assort_table,
+.supplier_assort_table tr {
+	border-bottom: none !important;
+}
+.supplier_assort_table th {
+	position: relative;
+	border-top: 1px solid #dddddd;
+}
+.supplier_assort_table th:first-child {
+	border-left: 1px solid #dddddd;
+}
+.supplier_assort_table th:last-child {
+	border-right: 1px solid #dddddd;
+}
+.supplier_assort_table .switcher_container {
+	border: 1px solid #dddddd;
+	border-radius: 10px 10px 0 0;
+    border-bottom: 0;
+    left: 0;
+    line-height: 30px;
+    padding: .2em .5em;
+    position: absolute;
+    bottom: 100%;
+    width: 200%;
+    box-sizing: border-box;
+}
+.supplier_assort_table th .only_price#switcher {
+	border: 1px solid #52cf55;
+    border-radius: 13px;
+    height: 26px;
+    overflow: hidden;
+    position: relative;
+    top: 2px;
+    width: 75px;
+    z-index: 100;
+}
+#supplier_cab .table_tbody input {
+	text-align: center;
+}
+.supplier_assort_table th .only_price#switcher.Off {
+	border-color: #ddd;
+}
+.supplier_assort_table th .only_price#switcher .switch {
+	display: block;
+    border-radius: 100%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 2px;
+}
+.supplier_assort_table th .only_price#switcher.On .switch {
+	left: 50px;
+    background: #ffffff;
+    border: 2px solid #888888;
+}
+.supplier_assort_table th .only_price#switcher.Off .switch {
+	left: 3px;
+    background: #888888;
+    border: 2px solid #52cf55;
+}
+.supplier_assort_table th .only_price#switcher.On .switch:before {
+	opacity: 1;
+}
+.supplier_assort_table th .only_price#switcher.Off .switch:after {
+	opacity: 1;
+}
+.supplier_assort_table th .only_price#switcher .switch:after {
+	content: "Выкл.";
+    left: -4px;
+    text-align: right;
+}
+.supplier_assort_table th .only_price#switcher .switch:before {
+	color: #ffffff;
+    content: "Вкл.";
+    right: -7px;
+    text-align: left;
+}
+.supplier_assort_table th .only_price#switcher.On .switch:before,
+.supplier_assort_table th .only_price#switcher.On .switch:after {
+	background: #52cf55;
+}
+.supplier_assort_table th .only_price#switcher .switch:before,
+.supplier_assort_table th .only_price#switcher .switch:after {
+    display: block;
+    line-height: 26px;
+    position: absolute;
+    top: -5px;
+    right: -7px;
+    width: 75px;
+    z-index: -1;
+    padding: 0 .5em;
+    box-sizing: border-box;
+    -webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+    -o-transition: all .4s cubic-bezier(.4,0,.2,1);
+    transition: all .4s cubic-bezier(.4,0,.2,1);
+    opacity: 0;
+}
+#supplier_cab tr {
+	border: 1px solid #d7d7d7;
+}
+#supplier_cab .available {
+	background-color: #F1FFF1;
+}
+#supplier_cab .notavailable {
+	opacity: 0.6;
+}
+#supplier_cab .notprice .price_1 input,
+#supplier_cab .notprice .price_2 input{
+	background-color: #FFD0D0;
+}
+#supplier_cab .input_table {
+	width: 100%;
+}
+#supplier_cab .name_cell {
+	text-align: left;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+#supplier_cab .photo_cell a {
+	display: block;
+    max-height: 90px;
+}
+#supplier_cab .photo_cell img {
+	vertical-align: middle;
+    padding: 5px 0;
+    height: 90px;
+}
+#supplier_cab .name_cell .sub {
+	color: #818181;
+}
+#supplier_cab .name_cell .err_mark {
+	color: #f36711;
+	cursor: pointer;
+	margin-top: 15px;
+	background-color: #F1EEEE;
+    padding: 0px 10px;
+    border-radius: 3px;
+}
+#supplier_cab .name_cell .err_mark:hover {
+	text-decoration: underline;
+}
+#supplier_cab .duplicate input {
+	vertical-align: middle;
+    margin-right: 5px;
+}
+#supplier_cab .price_1 input,
+#supplier_cab .price_2 input {
+	width: 90%;
+}
+#supplier_cab .usd_price {
+	background-color: #D7FFD8;
+}
+.sort_page {
+	float: right;
+}
+.add_functions {
+	margin-top: 20px;
+	width: 275px;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px
+}
+.add_functions p {
+	text-align: center;
+}
+.add_functions button,
+.add_functions input {
+	width: 100%;
+}
+
+/* Error Mark Modal ============================= */
+
+#err_mark {
+	width: 400px;
+}
+#err_mark p {
+	margin-bottom: 10px;
+}
+#err_mark textarea {
+	width: 100%;
+    margin-bottom: 10px;
+    resize: vertical;
+    border-radius: 3px;
+}
+#err_mark textarea:focus {
+	outline: none;
+    border-color: #52cf55;
+}
+
+/* Supplier cab setting ==================================================== */
+
+#popup_msg {
+	display: none;
+}
+#supplier_cab .cabinet_block button {
+	margin: 5px;
+}
+#supplier_cab #next_update_date {
+	font-weight: bold;
+}
+#supplier_cab .calendar label {
+	line-height: 40px;
+}
+#supplier_cab .dollar,
+#supplier_cab .calendar,
+#supplier_cab .work_days_add {
+    margin-bottom: 5px;
+}
+#supplier_cab .calendar,
+#supplier_cab .work_days_add {
+	border-top: 1px solid #b4b4b4;
+}
+#supplier_cab .sett_cabinet label {
+	margin: 0 10px;
+}
+#supplier_cab .work_days_add {
+	display: inline-block;
+}
+#supplier_cab .form_block {
+	width: 250px;
+}
+#supplier_cab .form_block button {
+	margin-bottom: 5px;
+	width: 100%;
+}
+#supplier_cab .checksum {
+	margin: 10px;
+}
+
+/* Supplier cab product edit =============================================== */
+
+.editproduct label {
+	float: left;
+	clear: both;
+	width: 100%;
+}
+.editproduct label[for="height"],
+.editproduct label[for="width"],
+.editproduct label[for="length"] {
+	width: auto;
+	line-height: 25px;
+    margin: 5px 5px 5px 25px;
+}
+.editproduct span.info_units {
+	margin-left: 5px;
+}
+.editproduct #editbox.disabled:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(255, 255, 255, .4);
+}
+#editbox .error {
+	display: block;
+	width: 60%;
+	font-weight: normal;
+	float: right;
+	color: #f00;
+	clear: both;
+}
+#editbox select {
+	background: #fff;
+}
+#editbox #photobox {
+	position: relative;
+	clear: both;
+	float: left;
+	min-height: 50px;
+	width: 100%;
+}
+#editbox #photobox .previews {
+	margin-bottom: 5px;
+}
+#editbox #photobox .image_block,
+#editbox #photobox .ui-sortable-placeholder,
+#editbox #photobox .image_block_new {
+	position: relative;
+	border: 1px solid #ccc;
+	height: 82px;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-right: 25px;
+	background: #fff;
+}
+#editbox #photobox .image_block:first-of-type:after {
+	content: 'Основное';
+	position: absolute;
+	top: -1px;
+	right: 0px;
+	width: 82px;
+	padding: 3px;
+	text-align: center;
+	border: none;
+	border-radius: 0 0 .3em .3em;
+	transform-origin: top right;
+	transform: rotate(-90deg);
+	background: #f36711;
+	color: #fff;
+}
+#editbox #photobox .image_block:last-of-type {
+	margin-bottom: 0;
+}
+#editbox #photobox .image_block.ui-sortable-helper {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+}
+#editbox #photobox .ui-sortable-placeholder {
+	border-style: dotted;
+	background: #fafafa;
+}
+#editbox #photobox .image_block .sort_handle {
+	line-height: 70px;
+	width: 20px;
+	text-align: center;
+	margin-right: 5px;
+	float: left;
+	cursor: move;
+	cursor: -webkit-grab;
+}
+#editbox #photobox .image_block .image {
+	width: 70px;
+	height: 70px;
+	margin-right: 5px;
+	background: #eee;
+	float: left;
+	overflow: hidden;
+}
+#editbox #photobox .image_block .image img {
+	height: 70px;
+	max-height: 100%;
+	border: 1px solid #ccc;
+	/*box-shadow: 0 0 1px 0 #aaa;*/
+}
+#editbox #photobox .image_block .name {
+	width: calc(100% - 130px);
+	line-height: 1;
+	float: left;
+}
+#editbox #photobox .image_block .name .dz-filename,
+#editbox #photobox .image_block .name .dz-size {
+	line-height: 70px;
+	width: 75%;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#editbox #photobox .image_block .name .dz-size {
+	width: 15%;
+	float: right;
+}
+#editbox #photobox .image_block .controls {
+	line-height: 70px;
+	width: 30px;
+	float: right;
+}
+#editbox #photobox .image_block .controls a {
+	display: block;
+	float: right;
+	width: 100%;
+}
+#editbox #photobox .image_block .controls a,
+#editbox #photobox .image_block .controls a:hover {
+	text-decoration: none;
+	text-align: center;
+	/*margin-right: 1em;*/
+}
+#editbox #photobox .image_block .controls .icon-font {
+	font-size: 1.2em;
+}
+
+#editbox #photobox .image_block_new {
+	color: #ccc;
+	border-style: dashed;
+	height: auto;
+	padding: 1em;
+	cursor: pointer;
+}
+#editbox #photobox .image_block_new .dz-message {
+	line-height: 1.5em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+#editbox #photobox .image_block_new.dz-drag-hover {
+	/*background: #f36711;*/
+	border-color: #f36711;
+	color: #f36711;
+	border-style: solid;
+}
+#editbox #photobox .image_block_new .dz-message .icon-font {
+	font-size: 2em;
+	text-align: center;
+	font-weight: bold;
+	clear: both;
+}
+#help li {
+	padding: .5em;
+	margin-bottom: .5em;
+	border: 1px solid transparent;
+	-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+	transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+#help li.active_hint {
+	background: #fd5;
+	border: 1px solid #E6A100;
+	border-radius: .3em;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+/* Modal Calendar ========================================================== */
+
+#kalendar_content {
+	width: 300px;
+    padding: 20px;
+    height: 90%;
+}
+#kalendar_content .table_wrapp {
+	height: calc(100% - 20px);
+	overflow-y: auto;
+}
+#kalendar_content tbody tr {
+	margin-top: 5px;
+}
+
+/* Modal Add Product ======================================================= */
+
+#add_product_js {
+	width: 500px;
+}
+#add_product_js p {
+	margin: 10px;
+	text-indent: 20px;
+	text-align: justify
+}
+#add_product_js .links {
+	margin: 10px 0;
+    display: block;
+    font-weight: bold;
+}
+
+/* Anonim cab =============================================================== */
+
+.anonim_cab {
+	clear: both;
+}
+
+/* Customer cab ============================================================= */
+
+.customer_cab {
+	clear: both;
+}
+.customer_cab div.line {
+	margin: 20px 0;
+	position: relative;
+}
+.customer_cab div.line input[type="text"],
+.customer_cab div.line input[type="tel"],
+.customer_cab div.line input[type="email"],
+.customer_cab div.line input[type="password"],
+.customer_cab div.line select {
+	width: 100%;
+}
+.customer_cab textarea {
+	outline: none;
+	line-height: 25px;
+	border: 1px solid #b4b4b4;
+	padding: 0 5px;
+	margin: 5px 0;
+	border-radius: 3px;
+	min-height: 50px;
+	resize: vertical;
+
+}
+.customer_cab textarea:focus {
+	border-color: #52cf55;
+}
+.customer_cab #nav {
+	display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #52cf55;
+    padding-bottom: 6px;
+}
+.customer_cab #nav li {
+	margin: 0 5px;
+    text-align: center;
+    flex-grow: 1;
+    outline: none;
+}
+.customer_cab #nav li button {
+	outline: none;
+	min-height: 28px;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #b4b4b4;
+    border-radius: 3px;
+    padding: 5px 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+.customer_cab #nav li button.active {
+	border-color: #52cf55;
+    box-shadow: 0 0 0 1px #52cf55;
+}
+.customer_cab #nav li button.active:after {
+	content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border: 10px solid transparent;
+    border-top: 7px solid #52cf55;
+}
+.customer_cab ul.orders_list li.order {
+    margin: 20px 0;
+    border-bottom: 2px solid #b4b4b4;
+}
+.customer_cab ul.orders_list .order_header {
+	border-bottom: 1px solid #d7d7d7;
+	position: relative;
+}
+.customer_cab ul.orders_list .order_header p {
+	text-align: center;
+	line-height: 28px;
+}
+.customer_cab ul.orders_list .order_header .details {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.customer_cab ul.orders_list .order_content {
+	margin: 10px 0;
+	position: relative;
+}
+.customer_cab ul.orders_list .order_content p {
+	line-height: 25px;
+}
+.customer_cab ul.orders_list .order_content .status {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 20px;
+}
+.customer_cab ul.orders_list .order_content .status.working {
+	background: #DBEBFF;
+	border: 1px solid #077dff;;
+	border-right: none;
+}
+.customer_cab ul.orders_list .order_content .status.completed {
+	background: #D4FFDC;
+	border: 1px solid #52cf55;
+	border-right: none;
+}
+.customer_cab ul.orders_list .order_content .status.drafts {
+	background: #FFFEC4;
+	border: 1px solid #F5F100;
+	border-right: none;
+}
+.customer_cab ul.orders_list .order_content .status.canceled {
+	background: #FFCCCC;
+	border: 1px solid #FF0000;
+	border-right: none;
+}
+.customer_cab ul.orders_list .order_content .controls {
+	margin: 10px 0;
+	opacity: 0.3;
+}
+.customer_cab ul.orders_list .order:hover .controls {
+	opacity: 1;
+}
+.customer_cab ul.orders_list .order_content .controls button {
+	margin-left: 10px;
+}
+.customer_cab .no_orders {
+	margin: 10px 0;
+}
+.customer_cab #edit_personal,
+.customer_cab #settings,
+.customer_cab .bonus_reg_block {
+	width: 70%;
+	margin: 20px 0;
+}
+
+/* Customer cab Settings =================================================== */
+
+.customer_cab #settings .email label {
+	width: auto;
+	margin-right: 5px;
+}
+.customer_cab #settings .email input[type="checkbox"] {
+	vertical-align: middle;
+}
+
+/* Customer cab Bonus ====================================================== */
+
+.customer_cab #bonus a.details {
+	display: block;
+	text-align: center;
+	margin: 10px 0;
+}
+.customer_cab #bonus .info_text {
+	margin: 20px 0;
+}
+.customer_cab #bonus .info_text p {
+	font-weight: bold;
+	text-indent: 20px;
+}
+.customer_cab #bonus .bonus_balance {
+	margin: 20px 0;
+	width: 260px;
+}
+.customer_cab #bonus #sex_line p {
+	margin: 5px 0;
+}
+.customer_cab #bonus #sex_line p label[for="sex_male"] {
+	margin-right: 20px;
+}
+.customer_cab #bonus #birthday_line select {
+	width: 20%;
+}
+.customer_cab #bonus .required {
+	color: #f00;
+}
+.customer_cab #bonus .value {
+	font-weight: bold;
+	float: right;
+}
+
+/* Customer cab Favorites & Waitinglist ===================================== */
+
+.customer_cab #favorites,
+.customer_cab #waiting_list {
+	clear: both;
+}
+.customer_cab #favorites table tr,
+.customer_cab #waiting_list table tr {
+	line-height: 2em;
+}
+.customer_cab #favorites .table_thead,
+.customer_cab #waiting_list .table_thead {
+	margin-bottom: 0;
+}
+.customer_cab #favorites .table_tbody .image_cell a,
+.customer_cab #waiting_list .table_tbody .image_cell a {
+	display: block;
+    max-height: 90px;
+}
+.customer_cab #favorites .table_tbody .image_cell img,
+.customer_cab #waiting_list .table_tbody .image_cell img {
+	vertical-align: middle;
+    padding: 5px 0;
+    height: 90px;
+}
+.customer_cab #favorites .table_tbody .name_cell,
+.customer_cab #waiting_list .table_tbody .name_cell {
+	text-align: left;
+	padding-left: 20px;
+}
+.customer_cab #favorites .table_tbody .product_article,
+.customer_cab #waiting_list .table_tbody .product_article {
+	color: #818181;
+}
+.customer_cab #favorites .icon-font,
+.customer_cab #waiting_list .icon-font {
+	text-decoration: none;
+	cursor: pointer;
+	color: #A2A2A2;
+	font-size: 20px;
+}
+.customer_cab #favorites .icon-font.in_page:hover,
+.customer_cab #waiting_list .icon-font.in_page:hover {
+	color: #52cf55;
+}
+.customer_cab #favorites .icon-font.remove_favor_js:hover,
+.customer_cab #waiting_list .icon-font.remove_waitinglist_js:hover {
+	color: #f36711;
+}
+
+/* Customer cab Waitinglist ================================================= */
+
+.customer_cab #waiting_list .old_price {
+	text-decoration: line-through;
+}
+.customer_cab #waiting_list .active_price {
+	color: #f00;
+}
+
+/* Customer cab modal window =============================================== */
+
+#order_remake_js form {
+	padding: 10px;
+	width: 400px;
+}
+#order_remake_js form p {
+	margin-bottom: 10px;
+}

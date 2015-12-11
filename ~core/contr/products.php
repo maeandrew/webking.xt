@@ -381,6 +381,8 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products_contragent.tpl')
 	);
 }else{
+	$product_list = $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl');
+	$tpl->Assign('product_list', $product_list);
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array(
 		'issuccess'	=> true,
