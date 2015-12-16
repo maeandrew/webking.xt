@@ -21,6 +21,7 @@ $tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'aside.tpl');
 
 // Центральный блок
 require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
+
 if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	// Шапка сайта
 	$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
