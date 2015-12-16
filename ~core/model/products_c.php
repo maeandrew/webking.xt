@@ -8,8 +8,8 @@ class Products {
 	private $usual_fields_cart;
 	/** Конструктор
 	 * @return
- 	 */
- 	public function __construct (){
+	 */
+	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
@@ -71,6 +71,7 @@ class Products {
 			GROUP BY p.id_product
 			ORDER BY RAND()
 			LIMIT ".$howmany;
+			//var_dump($sql);
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
@@ -750,25 +751,40 @@ class Products {
 					if(isset($qqq)){
 						$sql .= '(';
 					}
-					$sql .= "SELECT a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-						".implode(", ",$this->usual_fields).", s.available_today,
+					$sql .= "SELECT ".implode(", ",$this->usual_fields).",
+						a.active, a.price_opt_otpusk, a.price_mopt_otpusk, un.unit_xt AS units, notation_price, instruction,
 						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 						(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-						FROM "._DB_PREFIX_."product AS p
-						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-							ON cp.id_product = p.id_product
-						LEFT JOIN "._DB_PREFIX_."units AS un
-							ON un.id = p.id_unit
-						LEFT JOIN "._DB_PREFIX_."assortiment AS a
-							ON a.id_product = p.id_product
-						LEFT JOIN "._DB_PREFIX_."supplier AS s
-							ON s.id_user = a.id_supplier
-						WHERE p.visible = 1
-						".$prices_zero."
+						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+						(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
+						FROM "._DB_PREFIX_."cat_prod AS cp
+							INNER JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+							LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
+							LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+						WHERE cp.id_product IS NOT NULL
 						".$where."
-						AND a.active = 1
-						".$group_by;
+						HAVING p.visible = 1
+							".$prices_zero."
+							AND a.active = 1";
+					// $sql .= "SELECT a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
+					// 	".implode(", ",$this->usual_fields).", s.available_today,
+					// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+					// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+					// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+					// 	FROM "._DB_PREFIX_."product AS p
+					// 	LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+					// 		ON cp.id_product = p.id_product
+					// 	LEFT JOIN "._DB_PREFIX_."units AS un
+					// 		ON un.id = p.id_unit
+					// 	LEFT JOIN "._DB_PREFIX_."assortiment AS a
+					// 		ON a.id_product = p.id_product
+					// 	LEFT JOIN "._DB_PREFIX_."supplier AS s
+					// 		ON s.id_user = a.id_supplier
+					// 	WHERE p.visible = 1
+					// 	".$prices_zero."
+					// 	".$where."
+					// 	AND a.active = 1
+					// 	".$group_by;
 					if(isset($qqq)){
 						$sql .= ") UNION
 							(SELECT a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
@@ -792,7 +808,7 @@ class Products {
 							".$where."
 							".$group_by.") ";
 					}
-					$sql .= " ORDER BY active DESC, $order_by";
+					// $sql .= " ORDER BY active DESC, $order_by";
 					if(!isset($ob)){
 						$sql .= ") AS combined)";
 					}
@@ -822,9 +838,8 @@ class Products {
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	public function SetProductsListFilter($and = false, $limit='', $gid=0, $params = array ()){
@@ -1031,30 +1046,27 @@ class Products {
 		if(!isset($params['sup_cab'])){
 			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
-		$sql = "SELECT COUNT(DISTINCT p.id_product) AS cnt
+		$sql = "SELECT p.visible, p.price_opt, p.price_mopt, a.active
 			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON p.id_product = cp.id_product
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
-				ON a.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."supplier AS s
-				ON s.id_user = a.id_supplier
+				INNER JOIN "._DB_PREFIX_."cat_prod AS cp ON p.id_product = cp.id_product
+				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 			WHERE ";
-		// $sups_ids = implode(",",$this->GetSuppliersIdsForCurrentDateDiapason());
 		if(in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_, _ACL_MODERATOR_, _ACL_SEO_))){
 			$sql .= "p.id_product IS NOT NULL
 				".$where;
 		}else{
-			$sql .= "p.visible = 1
+			$sql .= "p.id_product IS NOT NULL
 				".$where."
-				AND (p.price_opt > 0 OR p.price_mopt > 0)
-				AND a.active = 1";
+				HAVING p.visible = 1 AND (p.price_opt > 0 OR p.price_mopt > 0) AND a.active = 1";
 		}
-		$cnt = $this->db->GetOneRowArray($sql);
-		if(!$cnt['cnt']){
+		$memory = memory_get_usage();
+		$cnt = count($this->db->GetArray($sql));
+		$memory = memory_get_usage() - $memory;
+		print_r($memory);
+		if(!$cnt){
 			return 0;
 		}
-		return $cnt['cnt'];
+		return $cnt;
 	}
 
 	public function SetProductsListBySupplier($id_supplier){
@@ -1433,15 +1445,15 @@ class Products {
 
 	/*
 	 * Пересчет цен на сайте
- 	 */
- 	public function RecalcSitePrices($ids_products = null){
- 		set_time_limit(3600);
- 		ini_set('memory_limit', '400M');
+	 */
+	public function RecalcSitePrices($ids_products = null){
+		set_time_limit(3600);
+		ini_set('memory_limit', '400M');
 		//$time_start = microtime(true);
- 		$sql = "SELECT a.id_product, a.id_supplier, a.active,
- 			a.price_opt_recommend, a.price_mopt_recommend,
- 			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
- 			p.price_mopt AS old_price_mopt, p.price_opt AS old_price_opt
+		$sql = "SELECT a.id_product, a.id_supplier, a.active,
+			a.price_opt_recommend, a.price_mopt_recommend,
+			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
+			p.price_mopt AS old_price_mopt, p.price_opt AS old_price_opt
 			FROM "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
 				ON (cs.id_supplier = a.id_supplier OR cs.id_supplier = a.id_supplier)
@@ -1886,10 +1898,10 @@ class Products {
 					->setDescription("Generator xtorg.")
 					->setKeywords("office 2007 openxml php")
 					->setCategory("result file");
- 		$objPHPExcel->getActiveSheet()
- 					->getDefaultStyle()
- 					->getFont()
- 					->setName('Arial');
+		$objPHPExcel->getActiveSheet()
+					->getDefaultStyle()
+					->getFont()
+					->setName('Arial');
 		$objPHPExcel->getActiveSheet()
 					->getDefaultStyle()
 					->getFont()
@@ -1941,7 +1953,7 @@ class Products {
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, $r['id_unit']);
 			$ii++;
 		}
-  		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="products.xls"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -2199,16 +2211,16 @@ class Products {
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()
 					->setCreator("Generator xtorg")
-				 	->setLastModifiedBy("Generator xtorg")
-				 	->setTitle("Products")
-				 	->setSubject("Generator xtorg: products")
-				 	->setDescription("Generator xtorg.")
-				 	->setKeywords("office 2007 openxml php")
-				 	->setCategory("result file");
- 		$objPHPExcel->getActiveSheet()
- 					->getDefaultStyle()
- 					->getFont()
- 					->setName('Arial');
+					->setLastModifiedBy("Generator xtorg")
+					->setTitle("Products")
+					->setSubject("Generator xtorg: products")
+					->setDescription("Generator xtorg.")
+					->setKeywords("office 2007 openxml php")
+					->setCategory("result file");
+		$objPHPExcel->getActiveSheet()
+					->getDefaultStyle()
+					->getFont()
+					->setName('Arial');
 		$objPHPExcel->getActiveSheet()
 					->getDefaultStyle()
 					->getFont()
@@ -2238,7 +2250,7 @@ class Products {
 			}
 			$ii++;
 		}
-  		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="assortiment.xls"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -2609,12 +2621,12 @@ class Products {
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Generator xtorg")
 									 ->setLastModifiedBy("Generator xtorg")
-		 							 ->setTitle("Products")
-		 							 ->setSubject("Generator xtorg: products")
-		 							 ->setDescription("Generator xtorg.")
-		 							 ->setKeywords("office 2007 openxml php")
-		 							 ->setCategory("result file");
- 		$objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setName('Arial');
+									 ->setTitle("Products")
+									 ->setSubject("Generator xtorg: products")
+									 ->setDescription("Generator xtorg.")
+									 ->setKeywords("office 2007 openxml php")
+									 ->setCategory("result file");
+		$objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setName('Arial');
 		$objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setSize(10);
 		$objPHPExcel->getActiveSheet()->getDefaultColumnDimension()->setWidth(15);
 		$objPHPExcel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
@@ -2637,7 +2649,7 @@ class Products {
 			}
 			$ii++;
 		}
-  		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="Статистика продаж.xls"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -2770,12 +2782,12 @@ class Products {
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Generator xtorg")
 									 ->setLastModifiedBy("Generator xtorg")
-		 							 ->setTitle("Products")
-		 							 ->setSubject("Generator xtorg: products")
-		 							 ->setDescription("Generator xtorg.")
-		 							 ->setKeywords("office 2007 openxml php")
-		 							 ->setCategory("result file");
- 		$objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setName('Arial');
+									 ->setTitle("Products")
+									 ->setSubject("Generator xtorg: products")
+									 ->setDescription("Generator xtorg.")
+									 ->setKeywords("office 2007 openxml php")
+									 ->setCategory("result file");
+		$objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setName('Arial');
 		$objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setSize(10);
 		$objPHPExcel->getActiveSheet()->getDefaultColumnDimension()->setWidth(15);
 		$objPHPExcel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
@@ -2801,7 +2813,7 @@ class Products {
 			}
 			$ii++;
 		}
-  		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="Товары с ценами поставщиков.xls"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');

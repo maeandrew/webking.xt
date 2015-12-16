@@ -61,10 +61,35 @@ while($cat = $dbtree->NextRow()){
 	$GLOBALS['products_keywords'] = $cat['page_keywords'];
 	$tpl->Assign('header', $cat['name']);
 }
-if(empty($subcats)){
+
+// if(empty($subcats)){
 	// end($GLOBALS['IERA_LINKS']);
 	$GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
-	$where_arr = array('cp.id_category' => $id_category);
+	// $where_arr = array('cp.id_category' => $id_category);
+	// $where_arr = array();
+	// $subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
+	// print_r($subcats);
+
+
+	function selectAll($dbtree, $id_category = null, $str = '')
+	{
+		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
+		if($str != ''){
+			$str .= ', '.$id_category;
+		}else{
+			$str .= $id_category;
+		}
+
+		foreach ($subcats as $val)
+		{
+			$str = selectAll($dbtree, $val["id_category"], $str);
+
+		}
+		return $str;
+	}
+	$res = selectAll($dbtree, $id_category);
+	$where_arr['customs'][] = "cp.id_category IN (".$res.")";
+
 	// Инициализация соединения со Sphinx ======================
 	$sphinx = new SphinxClient();
 	$sphinx->SetServer("localhost", 9312);
@@ -297,6 +322,7 @@ if(empty($subcats)){
 	// }
 	// =========================================================
 
+	$time_start = microtime(true);
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -311,6 +337,7 @@ if(empty($subcats)){
 			$cnt = $products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
 		}
 		$tpl->Assign('cnt', $cnt);
+		unset($cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
 		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 		$limit = ' limit '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
@@ -321,6 +348,11 @@ if(empty($subcats)){
 
 	// =========================================================
 
+	$time_end = microtime(true);
+	$time = $time_end - $time_start;
+	echo "execution time <b>$time</b> seconds\n";
+
+	$time_start = microtime(true);
 	// Получение массива товаров ===============================
 	$GET_limit = "";
 	if(isset($_GET['limit'])){
@@ -341,8 +373,14 @@ if(empty($subcats)){
 	}
 	$tpl->Assign('list', $product_list);
 
+
+
+	$time_end = microtime(true);
+	$time = $time_end - $time_start;
+	echo "execution time <b>$time</b> seconds\n";
+
 	// =========================================================
-}
+// }
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$products->FillAssort($_SESSION['member']['id_user']);
@@ -381,8 +419,8 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products_contragent.tpl')
 	);
 }else{
-	$product_list = $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl');
-	$tpl->Assign('product_list', $product_list);
+	$products_list = $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl');
+	$tpl->Assign('products_list', $products_list);
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array(
 		'issuccess'	=> true,
