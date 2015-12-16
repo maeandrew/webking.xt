@@ -60,11 +60,11 @@ $tpl->Assign('sorting', $sorting);
 $tpl->Assign('available_sorting_values', $available_sorting_values);
 // =========================================================
 
-// Фильтрация ==============================================
+/*// Фильтрация ==============================================
 if(!isset($filters)){
 	$filters[] = 'all';
 	$mc->set('filters', array($GLOBALS['CurrentController'] => $filters));
-}
+}*/
 $available_filter_values = array(
 	'group1'	=>	array(
 		'all'		=>	'Все',

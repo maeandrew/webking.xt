@@ -31,13 +31,14 @@ class Users {
 	public function CheckUser($arr){
 		$f['email'] = trim($arr['email']);
 		$f['passwd'] = trim($arr['passwd']);
-		print_r($f['email']);
+
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.name
 			FROM "._DB_PREFIX_."user AS u
-			WHERE (u.email = ".$f['email']."
-			OR u.email = ".$f['email']."@x-torg.com')
-			AND u.passwd = ".md5($f['passwd'])."
+			WHERE (u.email = '".$f['email']."'
+			OR u.email = '".$f['email']."@x-torg.com')
+			AND u.passwd = '".md5($f['passwd'])."'
 			AND u.active = 1";
+		var_dump($this->db->GetOneRowArray($sql));
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
@@ -286,6 +287,25 @@ class Users {
 			return false;
 		}
 	}
+
+	// Update password for user
+	/*public function UpdateAllUserPass(){
+		$newpwd = 0123;
+
+		$sql = "UPDATE "._DB_PREFIX_."user
+				SET passwd = \"".md5($newpwd)."\"";
+		$this->db->StartTrans();
+
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+
+		var_dump($sql);
+		return $newpwd;
+
+	}*/
 
 	public function LastLoginRemember($id_user){
 		$sql = "UPDATE "._DB_PREFIX_."user
