@@ -64,31 +64,25 @@ while($cat = $dbtree->NextRow()){
 
 // if(empty($subcats)){
 	// end($GLOBALS['IERA_LINKS']);
-	$GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
+	// $GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
 	// $where_arr = array('cp.id_category' => $id_category);
-	// $where_arr = array();
-	// $subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
-	// print_r($subcats);
 
 
-	function selectAll($dbtree, $id_category = null, $str = '')
+	function selectAll($dbtree, $id_category = null, $str = array())
 	{
 		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
-		if($str != ''){
-			$str .= ', '.$id_category;
-		}else{
-			$str .= $id_category;
-		}
-
-		foreach ($subcats as $val)
-		{
+		$str[] = $id_category;
+		foreach ($subcats as $val){
 			$str = selectAll($dbtree, $val["id_category"], $str);
-
 		}
 		return $str;
 	}
 	$res = selectAll($dbtree, $id_category);
-	$where_arr['customs'][] = "cp.id_category IN (".$res.")";
+	if(count($res) > 1){
+		$where_arr['customs'][] = "cp.id_category IN (".implode(', ', $res).")";
+	}else{
+		$where_arr = array('cp.id_category' => $id_category);
+	}
 
 	// Инициализация соединения со Sphinx ======================
 	$sphinx = new SphinxClient();
@@ -332,14 +326,14 @@ while($cat = $dbtree->NextRow()){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
+			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
 		}else{
-			$cnt = $products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
+			$cnt = $products->GetProductsCnt($where_arr);
 		}
 		$tpl->Assign('cnt', $cnt);
-		unset($cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
 		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+		unset($cnt);
 		$limit = ' limit '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 	}else{
 		$GLOBALS['Limit_db'] = 0;
@@ -350,7 +344,7 @@ while($cat = $dbtree->NextRow()){
 
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
-	echo "execution time <b>$time</b> seconds\n";
+	echo "execution time <b>$time</b> seconds\n<br>";
 
 	$time_start = microtime(true);
 	// Получение массива товаров ===============================
@@ -362,9 +356,9 @@ while($cat = $dbtree->NextRow()){
 		$products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	}else{
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('group_by'=>'a.id_product', 'order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 		}else{
-			$products->SetProductsList($where_arr, $limit, 0, array('group_by'=>'a.id_product', 'order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+			$products->SetProductsList($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 		}
 	}
 	$product_list = $products->list;
@@ -377,7 +371,7 @@ while($cat = $dbtree->NextRow()){
 
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
-	echo "execution time <b>$time</b> seconds\n";
+	echo "execution time <b>$time</b> seconds\n<br>";
 
 	// =========================================================
 // }
@@ -430,36 +424,36 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 // =========================================================
 
 // Установка границ цен ====================================
-if(empty($subcats)){
-	unset($where_arr['customs']);
-	$products->SetProductsListFilter($where_arr, '', 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
-	foreach($products->list as $k=>$p){
-		if($p['price_mopt'] != 0){
-			$prices[$k] = $p['price_mopt'];
-		}
-	}
-	if((!isset($_POST['minprice']) && !isset($_POST['maxprice'])) || isset($_POST['dropfilters'])){
-		if(isset($prices)){
-			$min = floor(min($prices?$prices:null));
-			$max = ceil(max($prices));
-			if($min < 0){
-				$min = 0;
-				$_SESSION['filters']['minprice'] = $min;
-			}else{
-				$_SESSION['filters']['minprice'] = $min;
-			}
-			$_SESSION['filters']['maxprice'] = $max;
-		}
-	}
-	if((!isset($referer[2]) || $referer[2] != $id_category) || isset($_POST['dropfilters'])){
-		if(isset($min)){
-			$_SESSION['filters']['pricefrom'] = $min;
-		}
-		if(isset($max)){
-			$_SESSION['filters']['priceto'] = $max;
-		}
-	}
-}
+// if(empty($subcats)){
+// 	unset($where_arr['customs']);
+// 	$products->SetProductsListFilter($where_arr, '', 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+// 	foreach($products->list as $k=>$p){
+// 		if($p['price_mopt'] != 0){
+// 			$prices[$k] = $p['price_mopt'];
+// 		}
+// 	}
+// 	if((!isset($_POST['minprice']) && !isset($_POST['maxprice'])) || isset($_POST['dropfilters'])){
+// 		if(isset($prices)){
+// 			$min = floor(min($prices?$prices:null));
+// 			$max = ceil(max($prices));
+// 			if($min < 0){
+// 				$min = 0;
+// 				$_SESSION['filters']['minprice'] = $min;
+// 			}else{
+// 				$_SESSION['filters']['minprice'] = $min;
+// 			}
+// 			$_SESSION['filters']['maxprice'] = $max;
+// 		}
+// 	}
+// 	if((!isset($referer[2]) || $referer[2] != $id_category) || isset($_POST['dropfilters'])){
+// 		if(isset($min)){
+// 			$_SESSION['filters']['pricefrom'] = $min;
+// 		}
+// 		if(isset($max)){
+// 			$_SESSION['filters']['priceto'] = $max;
+// 		}
+// 	}
+// }
 // =========================================================
 
 if($parsed_res['issuccess'] == true){

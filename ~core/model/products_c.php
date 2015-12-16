@@ -1025,8 +1025,8 @@ class Products {
 
 	public function GetProductsCnt($and = false, $gid = 0, $params = array()){
 		$where = "";
-		if($and !== FALSE && count($and)){
-			$where = " AND ";
+		if($and !== false && count($and)){
+			// $where = " AND ";
 			foreach ($and as $k=>$v){
 				if($k=='customs'){
 					foreach($v as $a){
@@ -1046,23 +1046,27 @@ class Products {
 		if(!isset($params['sup_cab'])){
 			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
-		$sql = "SELECT p.visible, p.price_opt, p.price_mopt, a.active
-			FROM "._DB_PREFIX_."product AS p
-				INNER JOIN "._DB_PREFIX_."cat_prod AS cp ON p.id_product = cp.id_product
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+		$sql = "SELECT p.id_product,
+				p.visible,
+				p.price_opt,
+				p.price_mopt
+			FROM "._DB_PREFIX_."cat_prod AS cp
+				INNER JOIN "._DB_PREFIX_."product AS p ON p.id_product = cp.id_product
 			WHERE ";
+		// $sql = "SELECT p.visible, p.price_opt, p.price_mopt, a.active
+		// 	FROM "._DB_PREFIX_."product AS p
+		// 		INNER JOIN "._DB_PREFIX_."cat_prod AS cp ON p.id_product = cp.id_product
+		// 		LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+		// 	WHERE ";
 		if(in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_, _ACL_MODERATOR_, _ACL_SEO_))){
-			$sql .= "p.id_product IS NOT NULL
-				".$where;
+			$sql .= $where;
 		}else{
-			$sql .= "p.id_product IS NOT NULL
-				".$where."
-				HAVING p.visible = 1 AND (p.price_opt > 0 OR p.price_mopt > 0) AND a.active = 1";
+			$sql .= $where."
+				HAVING p.visible = 1
+					AND (p.price_opt > 0 OR p.price_mopt > 0)
+					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0";
 		}
-		$memory = memory_get_usage();
 		$cnt = count($this->db->GetArray($sql));
-		$memory = memory_get_usage() - $memory;
-		print_r($memory);
 		if(!$cnt){
 			return 0;
 		}
