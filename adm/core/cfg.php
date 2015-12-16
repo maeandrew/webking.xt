@@ -52,7 +52,7 @@ require($GLOBALS['PATH_sys'].'images_c.php');
 $db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
 $GLOBALS['db'] =& $db;
 define ('DB_CACHE', false);
-$tpl = new TPL();
+$tpl = new Template();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************
 require($GLOBALS['PATH_model'].'users_c.php');

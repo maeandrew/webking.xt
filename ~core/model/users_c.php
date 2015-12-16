@@ -13,8 +13,8 @@ class Users {
 	}
 
 	// public function CheckUser($arr){
-	// 	$f['email'] = mysql_real_escape_string(trim($arr['email']));
-	// 	$f['passwd'] = mysql_real_escape_string(trim($arr['passwd']));
+	// 	$f['email'] = trim($arr['email']);
+	// 	$f['passwd'] = trim($arr['passwd']);
 	// 	$sql = "SELECT id_user, email, gid, promo_code, name
 	// 		FROM "._DB_PREFIX_."user
 	// 		WHERE (email = '".$f['email']."'
@@ -29,13 +29,14 @@ class Users {
 	// }
 
 	public function CheckUser($arr){
-		$f['email'] = mysql_real_escape_string(trim($arr['email']));
-		$f['passwd'] = mysql_real_escape_string(trim($arr['passwd']));
+		$f['email'] = trim($arr['email']);
+		$f['passwd'] = trim($arr['passwd']);
+		print_r($f['email']);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.name
 			FROM "._DB_PREFIX_."user AS u
-			WHERE (u.email = '".$f['email']."'
-			OR u.email = '".$f['email']."@x-torg.com')
-			AND u.passwd = '".md5($f['passwd'])."'
+			WHERE (u.email = ".$f['email']."
+			OR u.email = ".$f['email']."@x-torg.com')
+			AND u.passwd = ".md5($f['passwd'])."
 			AND u.active = 1";
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
@@ -58,7 +59,7 @@ class Users {
 	}
 
 	public function CheckUserNoPass($arr){
-		$f['email'] = mysql_real_escape_string(trim($arr['email']));
+		$f['email'] = trim($arr['email']);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
 			FROM "._DB_PREFIX_."user AS u
 			WHERE u.email = '".$f['email']."'
@@ -77,9 +78,8 @@ class Users {
 	public function SetUser($arr){
 		if(!empty($arr)){
 			return $this->SetFieldsById($arr['id_user']);
-		}else{
-			return false;
 		}
+		return false;
 	}
 
 	// Пользователь по id
@@ -88,7 +88,7 @@ class Users {
 		if($all == 1){
 			$active = '';
 		}
-		$id = mysql_real_escape_string($id);
+		$id = $id;
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."user
 			WHERE id_user = \"$id\"
@@ -96,9 +96,8 @@ class Users {
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	// Список пользователей (0 - только видимые. 1 - все, и видимые и невидимые)
@@ -133,20 +132,20 @@ class Users {
 
 	// Добавить пользователя
 	public function AddUser($arr){
-		$f['name'] = mysql_real_escape_string(trim($arr['name']));
-		$f['email'] = mysql_real_escape_string(trim($arr['email']));
-		$f['passwd'] = md5(mysql_real_escape_string(trim($arr['passwd'])));
-		$f['gid'] = mysql_real_escape_string(trim($arr['gid']));
-		$f['descr'] = mysql_real_escape_string(trim($arr['descr']));
+		$f['name'] = trim($arr['name']);
+		$f['email'] = trim($arr['email']);
+		$f['passwd'] = md5(trim($arr['passwd']));
+		$f['gid'] = trim($arr['gid']);
+		$f['descr'] = trim($arr['descr']);
 		if($arr['promo_code'] != ''){
-			$arr['promo_code'] = mysql_real_escape_string(trim($arr['promo_code']));
+			$arr['promo_code'] = trim($arr['promo_code']);
 			$supplier = new Suppliers();
 			if($supplier->CheckCodeUniqueness($arr['promo_code']) === false){
 				$f['promo_code'] = $arr['promo_code'];
 			}
 		}
         if(isset($arr['news'])){
-        	$f['news'] = mysql_real_escape_string(trim($arr['news']));
+        	$f['news'] = trim($arr['news']);
         }
 		$f['active'] = 1;
 		if(isset($arr['active']) && $arr['active'] == "on"){
@@ -164,21 +163,21 @@ class Users {
 
 	// Обновление пользователя
 	public function UpdateUser($arr){
-		$f['id_user'] = mysql_real_escape_string(trim($arr['id_user']));
+		$f['id_user'] = trim($arr['id_user']);
 		if(isset($arr['name']) && $arr['name'] != ''){
-			$f['name'] = mysql_real_escape_string(trim($arr['name']));
+			$f['name'] = trim($arr['name']);
 		}
 		if(isset($arr['email']) && $arr['passwd'] != ''){
-			$f['email'] = mysql_real_escape_string(trim($arr['email']));
+			$f['email'] = trim($arr['email']);
 		}
 		if(isset($arr['passwd']) && $arr['passwd'] != ''){
-			$f['passwd'] = md5(mysql_real_escape_string(trim($arr['passwd'])));
+			$f['passwd'] = md5(trim($arr['passwd']));
 		}
 		if(isset($arr['gid']) && $arr['passwd'] != ''){
-			$f['gid'] = mysql_real_escape_string(trim($arr['gid']));
+			$f['gid'] = trim($arr['gid']);
 		}
 		if(isset($arr['descr'])){
-			$f['descr'] = mysql_real_escape_string(trim($arr['descr']));
+			$f['descr'] = trim($arr['descr']);
 		}
 		if(isset($arr['news'])){
 			$f['news'] = $arr['news'];
@@ -191,7 +190,7 @@ class Users {
 		}
 		$this->db->StartTrans();
 		if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
-			$arr['promo_code'] = mysql_real_escape_string(trim($arr['promo_code']));
+			$arr['promo_code'] = trim($arr['promo_code']);
 			$supplier = new Suppliers();
 			if($supplier->CheckCodeUniqueness($arr['promo_code']) === false){
 				$f['promo_code'] = $arr['promo_code'];
@@ -233,7 +232,7 @@ class Users {
 	}
 
 	public function CheckPwdChangeKey($key){
-		$key = mysql_real_escape_string(trim($key));
+		$key = trim($key);
 		$sql = "SELECT email
 			FROM "._DB_PREFIX_."user
 			WHERE pwdchkey = \"$key\"";
@@ -255,7 +254,7 @@ class Users {
 	}
 
 	public function CheckPwdChangeKey1($key){
-		$key = mysql_real_escape_string(trim($key));
+		$key = trim($key);
         $keu_reg = 0;
 		$sql = "SELECT id_user
 			FROM "._DB_PREFIX_."user

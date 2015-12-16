@@ -10,7 +10,6 @@ class Customers extends Users {
 	public function SetFieldsById($id, $all = 0){
 		global $User;
 		$User->SetFieldsById($id, $all);
-		$id = mysql_real_escape_string($id);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM  "._DB_PREFIX_."customer
 			WHERE id_user = '".$id."'";
@@ -136,11 +135,11 @@ class Customers extends Users {
 
 	public function updateContPerson($cont_person){
 		if(!empty($cont_person)){
-			$f['cont_person'] = mysql_real_escape_string(trim($cont_person));
+			$f['cont_person'] = trim($cont_person);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -155,11 +154,11 @@ class Customers extends Users {
 
 	public function updatePhones($phones){
 		if(!empty($phones)){
-			$f['phones'] = mysql_real_escape_string(trim($phones));
+			$f['phones'] = trim($phones);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -174,8 +173,8 @@ class Customers extends Users {
 
 	public function updateContragentOnRegistration($contragent, $id_customer){
 		if(!empty($contragent) && !empty($id_customer)){
-			$f['id_contragent'] = mysql_real_escape_string(trim($contragent));
-			$f['id_user'] = mysql_real_escape_string(trim($id_customer));
+			$f['id_contragent'] = trim($contragent);
+			$f['id_user'] = trim($id_customer);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -190,11 +189,11 @@ class Customers extends Users {
 
 	public function updateContragent($contragent){
 		if(!empty($contragent)){
-			$f['id_contragent'] = mysql_real_escape_string(trim($contragent));
+			$f['id_contragent'] = trim($contragent);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -209,17 +208,17 @@ class Customers extends Users {
 
 	public function registerBonus($card, $sex, $learned_from, $birthday, $buy_volume){
 		if(!empty($card) && !empty($sex) && !empty($learned_from)){
-			$f['bonus_card'] = mysql_real_escape_string(trim($card));
+			$f['bonus_card'] = trim($card);
 			$f['bonus_balance'] = 20;
 			$f['bonus_discount'] = 1;
-			$f['sex'] = mysql_real_escape_string(trim($sex));
-			$f['learned_from'] = mysql_real_escape_string(trim($learned_from));
-			$f['birthday'] = mysql_real_escape_string(trim($birthday));
-			$f['buy_volume'] = mysql_real_escape_string(trim($buy_volume));
+			$f['sex'] = trim($sex);
+			$f['learned_from'] = trim($learned_from);
+			$f['birthday'] = trim($birthday);
+			$f['buy_volume'] = trim($buy_volume);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -234,11 +233,11 @@ class Customers extends Users {
 
 	public function updateBonus($card){
 		if(!empty($card)){
-			$f['bonus_card'] = mysql_real_escape_string(trim($card));
+			$f['bonus_card'] = trim($card);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -253,11 +252,11 @@ class Customers extends Users {
 
 	public function updateCity($city){
 		if(!empty($city)){
-			$f['id_city'] = mysql_real_escape_string(trim($city));
+			$f['id_city'] = trim($city);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -272,11 +271,11 @@ class Customers extends Users {
 
 	public function updateDelivery($delivery){
 		if(!empty($delivery)){
-			$f['id_delivery'] = mysql_real_escape_string(trim($delivery));
+			$f['id_delivery'] = trim($delivery);
 			$User = new Users();
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
-			$f['id_user'] = mysql_real_escape_string(trim($user_id));
+			$f['id_user'] = trim($user_id);
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -309,14 +308,14 @@ class Customers extends Users {
 		$arr['id_contragent'] = $arr['id_city'] = $arr['id_delivery'] = 0;
 		$f['id_user'] = $id_user;
 		if(isset($arr['discount'])){
-			$f['cont_person'] = mysql_real_escape_string(trim($arr['cont_person']));
-			$f['phones'] = mysql_real_escape_string(trim($arr['phones']));
-			$f['id_contragent'] = mysql_real_escape_string(trim($arr['id_contragent']));
-			$f['id_city'] = mysql_real_escape_string(trim($arr['id_city']));
-			$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
+			$f['cont_person'] = trim($arr['cont_person']);
+			$f['phones'] = trim($arr['phones']);
+			$f['id_contragent'] = trim($arr['id_contragent']);
+			$f['id_city'] = trim($arr['id_city']);
+			$f['id_delivery'] = trim($arr['id_delivery']);
 		}
 		if(isset($arr['discount'])){
-			$f['discount'] = mysql_real_escape_string(trim($arr['discount']));
+			$f['discount'] = trim($arr['discount']);
 		}
 		if(!$this->db->Insert(_DB_PREFIX_.'customer', $f)){
 			echo $this->db->ErrorMsg();
@@ -336,14 +335,14 @@ class Customers extends Users {
 		$arr['id_contragent'] = $arr['id_city'] = $arr['id_delivery'] = 0;
 		$f['id_user'] = $id_user;
 		if(isset($arr['discount']))
-			$f['cont_person'] = mysql_real_escape_string(trim($arr['cont_person']));
-			$f['phones'] = mysql_real_escape_string(trim($arr['phones']));
-			$f['id_contragent'] = mysql_real_escape_string(trim($arr['id_contragent']));
-			$f['id_city'] = mysql_real_escape_string(trim($arr['id_city']));
-			$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
+			$f['cont_person'] = trim($arr['cont_person']);
+			$f['phones'] = trim($arr['phones']);
+			$f['id_contragent'] = trim($arr['id_contragent']);
+			$f['id_city'] = trim($arr['id_city']);
+			$f['id_delivery'] = trim($arr['id_delivery']);
 
 		if(isset($arr['discount'])){
-			$f['discount'] = mysql_real_escape_string(trim($arr['discount']));
+			$f['discount'] = trim($arr['discount']);
 		}
 		if(!$this->db->Insert(_DB_PREFIX_.'customer', $f)){
 			echo $this->db->ErrorMsg();
@@ -365,10 +364,10 @@ class Customers extends Users {
 		}
 		$id_user = $this->db->GetInsId();
 		unset($f);
-		$f['id_user'] = mysql_real_escape_string(trim($arr['id_user']));
-		$f['address_ur'] = mysql_real_escape_string($arr['address_ur']);
+		$f['id_user'] = trim($arr['id_user']);
+		$f['address_ur'] = $arr['address_ur'];
 		if(isset($arr['discount'])){
-			$discount = str_replace(",",".",mysql_real_escape_string(trim($arr['discount'])));
+			$discount = str_replace(",",".",trim($arr['discount']));
 			$f['discount'] = (1-$discount)*100;
 		}
 		if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
@@ -568,7 +567,7 @@ class Customers extends Users {
 	}
 
 	public function GetOrders_export($order_by){
-		$date = mysql_real_escape_string($_POST['date3']);
+		$date = $_POST['date3'];
 		list($d,$m,$y) = explode(".", trim($date));
 		$date = mktime(0, 0, 0, $m , $d, $y);
 		$date = $date+3600*24*2;
@@ -599,7 +598,7 @@ class Customers extends Users {
 	}
 
 	public function GetCustomer_export($date4){
-		$date = mysql_real_escape_string($_POST['date4']);
+		$date = $_POST['date4'];
 		list($d,$m,$y) = explode(".", trim($date));
 		$date = mktime(0, 0, 0, $m , $d, $y);
 		$sql = "SELECT u.id_user, u.name, u.email, u.date_add,
@@ -613,7 +612,7 @@ class Customers extends Users {
 	}
 
 	public function GetTovar_export($order2){
-		$order = mysql_real_escape_string($_POST['order2']);
+		$order = $_POST['order2'];
 		$sql = "SELECT os.id_order, os.id_zapis, p.art, os.opt_qty, p.price_opt,
 			p.price_mopt, os.mopt_qty, os.id_supplier, os.id_supplier_mopt,
 			os.site_price_opt, os.site_price_mopt, os.price_opt_otpusk, os.price_mopt_otpusk,
@@ -630,7 +629,7 @@ class Customers extends Users {
 	}
 
 	public function GetKatalog_export($order3){
-		$order = mysql_real_escape_string($_POST['order3']);
+		$order = $_POST['order3'];
 		$sql = "SELECT p.id_product, p.art as art_tovar, p.name as name_tovar,
 			p.descr, p.price_opt, p.price_mopt, p.inbox_qty, p.min_mopt_qty,
 			p.qty_control, p.units, ca.name as name_katalog, ca.art as art_katalog
@@ -646,7 +645,7 @@ class Customers extends Users {
 	}
 
 	public function GetSupplier_export($date5){
-		$date = mysql_real_escape_string($_POST['date5']);
+		$date = $_POST['date5'];
 		list($d,$m,$y) = explode(".", trim($date));
 		$date = mktime(0, 0, 0, $m , $d, $y);
 		$sql = "SELECT su.id_user, su.article, su.phones,
@@ -660,20 +659,20 @@ class Customers extends Users {
 	}
 
 	public function SaveInterviewResults($arr){
-		$f['email'] = mysql_real_escape_string(trim($arr['email']));
-		$f['name'] = mysql_real_escape_string(trim($arr['name']));
-		$f['phone'] = mysql_real_escape_string(trim($arr['phone']));
-		$f['city'] = mysql_real_escape_string(trim($arr['city']));
-		$f['sex'] = mysql_real_escape_string(trim($arr['sex']));
-		$f['operator_quality'] = mysql_real_escape_string(trim($arr['operator_quality']));
-		$f['site_quality'] = mysql_real_escape_string(trim($arr['site_quality']));
-		$f['owned_shop_type'] = mysql_real_escape_string(trim($arr['owned_shop_type']));
-		$f['owned_shop_type'] = mysql_real_escape_string(trim($arr['owned_shop_type']));
-		$f['buy_reason'] = mysql_real_escape_string(trim($arr['buy_reason']));
-		$f['buy_frequency'] = mysql_real_escape_string(trim($arr['buy_frequency']));
-		$f['interested_in'] = mysql_real_escape_string(trim($arr['interested_in']));
-		$f['categories'] = mysql_real_escape_string(trim($arr['categories']));
-		$f['recomendations'] = mysql_real_escape_string(trim($arr['recomendations']));
+		$f['email'] = trim($arr['email']);
+		$f['name'] = trim($arr['name']);
+		$f['phone'] = trim($arr['phone']);
+		$f['city'] = trim($arr['city']);
+		$f['sex'] = trim($arr['sex']);
+		$f['operator_quality'] = trim($arr['operator_quality']);
+		$f['site_quality'] = trim($arr['site_quality']);
+		$f['owned_shop_type'] = trim($arr['owned_shop_type']);
+		$f['owned_shop_type'] = trim($arr['owned_shop_type']);
+		$f['buy_reason'] = trim($arr['buy_reason']);
+		$f['buy_frequency'] = trim($arr['buy_frequency']);
+		$f['interested_in'] = trim($arr['interested_in']);
+		$f['categories'] = trim($arr['categories']);
+		$f['recomendations'] = trim($arr['recomendations']);
 		if(!$this->db->Insert(_DB_PREFIX_.'interview_results', $f)){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();

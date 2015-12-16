@@ -174,7 +174,8 @@
 							<a href="/adm/users/<?=_ACL_MODERATOR_?>">Администраторы наполнения</a>
 						</li>
 						<li>
-							<a href="/adm/users/<?=_ACL_SEO_optimizator_?>">СЕО-оптимизаторы</a>
+							<a href="/adm/users/<?=_ACL_SEO
+_?>">СЕО-оптимизаторы</a>
 						</li>
 						<li>
 							<a href="/adm/users/<?=_ACL_CUSTOMER_?>">Покупатели</a>
@@ -196,7 +197,8 @@
 							<a href="/adm/adminadd/">Добавить администратора</a>
 						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'seoadd'?'class="sel"':null;?>>
-							<a href="/adm/SEO_optimizatoradd/">Добавить СЕО-оптимизатора</a>
+							<a href="/adm/SEO
+add/">Добавить СЕО-оптимизатора</a>
 						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'customeradd'?'class="sel"':null;?>>
 							<a href="/adm/customeradd/">Добавить покупателя</a>
@@ -218,7 +220,8 @@
 					<a href="/adm/remitters/">Отправители</a>
 				</li>
 			<?}?>
-			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO_optimizator_)){?>
+			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO
+_)){?>
 				<li>
 					<ul class="sb_menusub">
 						<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>

@@ -1,39 +1,76 @@
 <?php
-$root = $_SERVER['DOCUMENT_ROOT'].'/';
-require($root.'config.php');
+G::GetUserInfo();
+G::DefineBaseURL();
+G::DefineRootDirectory();
 // ******************************** Начальное конфигурирование *************************************
-define('_base_url', '//'.$_SERVER['HTTP_HOST']);
-date_default_timezone_set('Europe/Kiev');
-$config = array (
+G::ToGlobals(array(
 	'URL_base'			=> _base_url,
-	'URL_request'		=> $_SERVER['REQUEST_URI'],
+	'URL_request'		=> preg_replace('/\/$/', '', $_GET['request']?:preg_replace('/^/.*/', '', $_SERVER['REQUEST_URI'])),
 	'URL_img'			=> _base_url.'/images/',
-	'PATH_root'			=> $root,
-	'PATH_core'			=> $root.'~core/',
-	'PATH_sys'			=> $root.'~core/sys/',
-	'PATH_product_img'	=> $root.'product_images/',
-	'PATH_block'		=> $root.'~core/block/',
-	'PATH_contr'		=> $root.'~core/contr/',
-	'PATH_model'		=> $root.'~core/model/'
+	'URL_css'			=> _base_url.'/css/',
+	'URL_js'			=> _base_url.'/js/',
+	'PATH_root'			=> _root,
+	'PATH_core'			=> _root.'~core'.DIRSEP,
+	'PATH_sys'			=> _root.'~core'.DIRSEP.'sys'.DIRSEP,
+	'PATH_product_img'	=> _root.'product_images'.DIRSEP,
+	'PATH_block'		=> _root.'~core'.DIRSEP.'block'.DIRSEP,
+	'PATH_contr'		=> _root.'~core'.DIRSEP.'contr'.DIRSEP,
+	'PATH_model'		=> _root.'~core'.DIRSEP.'model'.DIRSEP,
+	'PATH_tpl'			=> _root.'~core'.DIRSEP.'tpl'.DIRSEP,
+	'PATH_tpl_global'	=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP
+));
+$GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
+$theme = 'default';
+$GLOBALS['PATH_tpl'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl']);
+$GLOBALS['PATH_tpl_global'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl_global']);
+$GLOBALS['URL_img_theme'] = _base_url.'/themes/'.$theme.'/images/';
+$GLOBALS['URL_css_theme'] = _base_url.'/themes/'.$theme.'/css/';
+$GLOBALS['URL_js_theme'] = _base_url.'/themes/'.$theme.'/js/';
+// // ***************************** Подключение и инициализация системных классов  *****************************
+require($GLOBALS['PATH_sys'].'link_c.php');
+require($GLOBALS['PATH_sys'].'tpl_c.php');
+require($GLOBALS['PATH_sys'].'db_c.php');
+require($GLOBALS['PATH_sys'].'dbtree_c.php');
+require($GLOBALS['PATH_sys'].'pages_c.php');
+require($GLOBALS['PATH_sys'].'acl_c.php');
+require($GLOBALS['PATH_sys'].'mailer_c.php');
+require($GLOBALS['PATH_sys'].'sfYaml.php');
+require($GLOBALS['PATH_sys'].'sfYamlParser.php');
+require($GLOBALS['PATH_sys'].'status_c.php');
+require($GLOBALS['PATH_sys'].'images_c.php');
+
+// including configuration file
+require(_root.'config.php');
+
+// connection to mysql server
+if(phpversion() >= 5.6){
+	$db = new mysqlPDO($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+}else{
+	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+}
+$GLOBALS['db'] =& $db;
+
+$sql = "SELECT * FROM "._DB_PREFIX_."profiles";
+$profiles = $db->GetArray($sql);
+$admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
+foreach($profiles as $profile){
+	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
+}
+$ACL_PERMS = array(
+	// default rights
+	'rights' => $admin_controllers,
+	// groups
+	'groups' => $profiles
 );
-// $config['URL_css']	= _base_url.'/css/';
-// $config['URL_js']	= _base_url.'/js/';
-// $config['PATH_tpl']	= $root.'~core/tpl/';
-// $config['PATH_tpl_global'] = $root.'~core/tpl/_global/';
-// android|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge\ |maemo|midp|mmp|opera\ m(ob|in)i|palm(\ os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows\ (ce|phone)|xda|xiino
-// if($_SESSION['client']['user_agent'] == 'desktop'){
-	$config['URL_css']	= _base_url.'/css/';
-	$config['URL_js']	= _base_url.'/js/';
-	$config['PATH_tpl']	= $root.'~core/tpl/';
-	$config['PATH_tpl_global'] = $root.'~core/tpl/_global/';
-// }else{
-// 	$config['URL_css']	= _base_url . '/mobile/css/';
-// 	$config['URL_js']	= _base_url . '/mobile/js/';
-// 	$config['PATH_tpl']	= $root . 'mobile/~core/tpl/';
-// 	$config['PATH_tpl_global'] = $root . 'mobile/~core/tpl/_global/';
-// }
-G::ToGlobals($config);
-unset($config, $root);
+// получение всех настроек с БД
+$sql = "SELECT name, value FROM "._DB_PREFIX_."config";
+$arr = $db->GetArray($sql);
+// формирование глобального массива настроек
+foreach($arr as $i){
+	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
+}
+unset($sql, $arr);
+
 // default controller, if no one else has come
 $GLOBALS['DefaultController']	= 'main';
 // макет
@@ -41,9 +78,9 @@ $GLOBALS['MainTemplate']		= 'main.tpl';
 // пустой макет
 $GLOBALS['MainEmptyTemplate']	= 'main_empty.tpl';
 // страницы с левым сайдбаром
-$GLOBALS['LeftSideBar']			= array('main', 'products', 'page', 'newslist', 'news', 'wishes', 'posts', 'post', 'register', 'price', 'demo_order', 'search', 'login', 'customer_order', 'pdf_bill_form');
+$GLOBALS['LeftSideBar']			= array('main', 'products', 'page', 'newslist', 'news', 'wishes', 'posts', 'post', 'register', 'price', 'demo_order', 'search', 'login', 'customer_order', 'pdf_bill_form', '404');
 // если кабинет поставщика или пользователя - отобразить левый сайдбар
-if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONIM_))){
+if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONYMOUS_))){
 	array_push($GLOBALS['LeftSideBar'], 'cabinet');
 }
 // страницы с правым сайдбаром
@@ -57,7 +94,7 @@ $GLOBALS['NoSidebarNews']		= array();
 // страницы без макета
 $GLOBALS['NoTemplate']			= array('pricelist-order');
 // страницы, на которых есть блок фильтров в сайдбаре
-$GLOBALS['Filters']				= array('products');
+$GLOBALS['WithFilters']			= array('products', 'main', 'product');
 // Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(
@@ -68,21 +105,8 @@ $GLOBALS['IERA_LINKS'][] = array(
 $GLOBALS['Limit_db'] = 30;
 $GLOBALS['Start'] = 0;
 $GLOBALS['Limits_db'] = array(30, 60, 100);
-// ***************************** Подключение и инициализация системных классов  *****************************
-require($GLOBALS['PATH_sys'].'tpl_c.php');
-require($GLOBALS['PATH_sys'].'db_c.php');
-require($GLOBALS['PATH_sys'].'dbtree_c.php');
-require($GLOBALS['PATH_sys'].'pages_c.php');
-require($GLOBALS['PATH_sys'].'acl_c.php');
-require($GLOBALS['PATH_sys'].'mailer_c.php');
-require($GLOBALS['PATH_sys'].'sfYaml.php');
-require($GLOBALS['PATH_sys'].'sfYamlParser.php');
-require($GLOBALS['PATH_sys'].'status_c.php');
-require($GLOBALS['PATH_sys'].'images_c.php');
-define ('DB_CACHE', false);
-$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
-$GLOBALS['db'] =& $db;
-$tpl = new TPL();
+
+$tpl = new Template();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************
 require($GLOBALS['PATH_model'].'users_c.php');
@@ -105,14 +129,7 @@ require($GLOBALS['PATH_model'].'UploadHandler.php');
 require($GLOBALS['PATH_model'].'slides_c.php');
 require($GLOBALS['PATH_model'].'unit_c.php');
 require($GLOBALS['PATH_model'].'post_c.php');
-// получение всех настроек с БД
-$sql = "SELECT name, value FROM "._DB_PREFIX_."config";
-$arr = $db->GetArray($sql);
-// формирование глобального массива настроек
-foreach($arr as $i){
-	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
-}
-unset($sql, $arr);
+
 // почтовая конфигурация
 $GLOBALS['MAIL_CONFIG']['from_name'] = $GLOBALS['CONFIG']['mail_caption']; // from (от) имя
 $GLOBALS['MAIL_CONFIG']['from_email'] = $GLOBALS['CONFIG']['mail_email']; // from (от) email адрес

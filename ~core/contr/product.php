@@ -1,25 +1,19 @@
 <?php
-if(isset($GLOBALS['REQAR'][1])){
-	$Page = new Page();
-	$Page->PagesList();
-	$tpl->Assign('list_menu', $Page->list);
-	$products = new Products();
-	// Категорией предком товара выбирается категория, по ссылке из которой, товар был выбран
-	if(isset($GLOBALS['REQAR'][3])){
-		$id_category = $GLOBALS['REQAR'][3];
-		$GLOBALS['CURRENT_ID_CATEGORY'] = $id_category;
-	}
-}else{
+if(!isset($GLOBALS['Rewrite'])){
 	header('Location: '._base_url.'/404/');
 	exit();
 }
+$Page = new Page();
+$Page->PagesList();
+$tpl->Assign('list_menu', $Page->list);
+$products = new Products();
 unset($parsed_res);
 $User = new Users();
 if(isset($_SESSION['member'])){
 	$User->SetUser($_SESSION['member']);
 }
 $tpl->Assign('User', $User->fields['name']);
-if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
+if(!$products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
 	header('Location: '._base_url.'/404/');
 	exit();
 }
@@ -29,7 +23,7 @@ $product['specifications'] = $products->GetSpecificationList($id_product);
 $product['images'] = $products->GetPhotoById($id_product);
 $product['videos'] = $products->GetVideoById($id_product);
 $GLOBALS['prod_title'] = $product['name'];
-$GLOBALS['product_canonical'] = '/product/'.$id_product.'/'.$product['translit'].'/';
+$GLOBALS['product_canonical'] = Link::Product($product['translit']);
 /* product comments ======================================== */
 $res = $products->GetComentByProductId($id_product);
 $tpl->Assign('coment', $res);
@@ -40,17 +34,9 @@ $tpl->Assign('coment', $res);
 // $tpl->Assign('rating', $rating);
 /* product rating ========================================== */
 
-$sdescr = new sdescr($product['name'], $id_product);
-$yaml = new sfYamlParser;
-$file_to_load = ($id_product)%1;
-$linked_pages = $yaml->parse(file_get_contents($GLOBALS['PATH_root'].'repository/linked_pages.yml'));
-$parts = $yaml->parse(file_get_contents($GLOBALS['PATH_root'].'repository/parts_'.$file_to_load.'.yml'));
-$sdescr->setLinkedPages($linked_pages);
-$sdescr->setParts($parts);
-$tpl->Assign('sdescr', $sdescr->getDescr());
 $tpl->Assign('data', $Page->fields);
 $tpl->Assign('item', $product);
-$tpl->Assign('header', $product['name'].'<p class="subtext color-sgrey">Артикул: '.$product['art'].'</p>');
+$tpl->Assign('header', $product['name']);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 // если в ссылке не была указана категория, то выбирается первая из соответствий категория-продукт
 if(!isset($id_category)) $id_category = $product['id_category'];
@@ -64,12 +50,10 @@ while($cat = $dbtree->NextRow()){
 	if(0 <> $cat['category_level']){
 		$GLOBALS['IERA_LINKS'][] = array(
 			'title' => $cat['name'],
-			'url' => _base_url.'/products/'.$cat['id_category'].'/'.$cat['translit'].'/limitall/'
+			'url' => Link::Category($cat['translit'])
 		);
 	}
 }
-// end($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
 // если отправили комментарий
 if(isset($_POST['sub_com'])){
 	$put = $id_product;
@@ -89,7 +73,7 @@ if(isset($_POST['sub_com'])){
 	}
 	$authors_email = $_POST['feedback_authors_email'];
 	$related33 = $products->GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating);
-	header('Location: '._base_url.'/product/'.$id_product);
+	header('Location: '.Link::Product($GLOBALS['Rewrite']));
 	exit();
 }
 // Обновление счетчика просмотренных товаров
@@ -114,12 +98,12 @@ if(isset($residprod) && !in_array($residprod, $array)){
 }
 
 // Выборка похожих товаров
-if(!$products->SetFieldsById($GLOBALS['REQAR'][1], 1)){
-	header('Location: '._base_url.'/404/');
+if(!$products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
+	// header('Location: '._base_url.'/404/');
 	exit();
 }
 $id_category = $product['id_category'];
-$similar_products = $products->GetRelatedProducts($GLOBALS['REQAR'][1], $id_category);
+$similar_products = $products->GetRelatedProducts($id_product, $id_category);
 if(empty($similar_products)){
 	$tpl->Assign('title', 'Популярные товары');
 	$similar_products = $products->GetPopularsOfCategory($id_category, true);

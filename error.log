@@ -72,3 +72,6 @@
 				ON p.id_product = pp.id_product
 				WHERE p.price_mopt > 0
 				LIMIT 
+05:49:20 08.12.2015  SQL Error - SELECT * FROM xt_profiles
+05:49:33 08.12.2015  SQL Error - SELECT * FROM xt_profiles
+05:53:26 08.12.2015  SQL Error - SELECT * FROM xt_profiles

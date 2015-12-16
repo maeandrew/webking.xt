@@ -1,0 +1,49 @@
+.newslist .item {
+	margin-bottom: 30px;
+	padding: 15px;
+	cursor: default;
+	border: 1px solid #ddd;
+}
+.newslist .item:hover {
+	webkit-box-shadow: 0 6px 17px 0 rgba(0, 0, 0, .2),
+		0 6px 20px 0 rgba(0, 0, 0, .05);
+    box-shadow: 0 6px 17px 0 rgba(0, 0, 0, .2),
+		0 6px 20px 0 rgba(0, 0, 0, .05);
+}
+.newslist .item .item_title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom: 1px solid #ddd;
+	font-size: 17px;
+}
+.newslist .item .item_date {
+	color: #888;
+	font-style: italic;
+}
+.newslist .item .item_description {
+	margin-top: 15px;
+	height: 125px;
+	overflow: hidden;
+	text-align: justify;
+}
+.newslist .item .item_description img {
+	margin: 0 auto;
+	display: block;
+	max-width: 100%;
+	max-height: 130px;
+	height: auto !important;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+.newslist .item .read_more {
+	opacity: 0;
+	border-top: 1px solid #ddd;
+	text-align: right;
+	padding-top: 11px;
+}
+
+.newslist .item:hover .read_more {
+	opacity: 1;
+}

@@ -952,7 +952,7 @@
 				$('#product_miniatures_img').find('img').removeClass('active_img');
 				$(this).find('img').addClass('active_img');
 				var imgsrc = $(this).find('img').attr('src');
-				if(imgsrc.indexOf("<?=str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']);?>") > -1){
+				if(imgsrc.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
 					imgsrc = imgsrc.replace('thumb', 'original');
 				}else{
 					imgsrc = imgsrc.replace('_thumb/', '');

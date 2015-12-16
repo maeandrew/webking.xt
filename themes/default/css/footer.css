@@ -1,0 +1,157 @@
+
+/*FOOTER*/
+
+footer h5 {
+	margin: 15px 0 4px 0;
+	color: #757575;
+	font-size: 1.071em;
+}
+footer ul li {
+	line-height: normal;
+	color: #9e9e9e;
+}
+footer ul li a {
+	font-weight: normal;
+	display: block;
+}
+footer .mdl-mega-footer__left-section {
+	width: calc(100% - 320px);
+	margin-bottom: 0;
+}
+footer .questions,
+footer .contacts {
+	padding-left: 25px;
+	float: left;
+	box-sizing: border-box;
+}
+footer .questions {
+	width: 54%;
+}
+footer .questions ul {
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	-o-columns: 2;
+	columns: 2;
+}
+footer .questions ul li a {
+	padding: 4px 0;
+}
+footer .contacts {
+	width: 46%;
+}
+footer .social ul {
+	padding: 10px 0 0;
+	cursor: default;
+}
+footer .social ul li {
+	display: inline-block;
+}
+footer .social ul li a {
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	background-color: #757575;
+	margin-right: 4px;
+}
+footer .social ul li:last-child a {
+	margin-right: 0;
+}
+footer .ad_sense {
+	float: right;
+	margin: 10px;
+}
+footer .ad_sense img {
+	display: block;
+	margin: 0 auto;
+}
+footer .social ul li a.vk:hover {
+	background-color: #4c75a3;
+}
+footer .social ul li a.ok:hover {
+	background-color: #ff9c43;
+}
+footer .social ul li a.g_pl:hover {
+	background-color: #ff6d4a;
+}
+footer .social ul li a.f:hover {
+	background-color: #496194;
+}
+footer .social ul li a.tw:hover {
+	background-color: #28c3ff;
+}
+footer .social ul li a.y_t:hover {
+	background-color: #cc181e;
+}
+footer .copyright {
+	clear: both;
+	padding: 15px 10px;
+	overflow: hidden;
+}
+footer .copyright p {
+	margin-bottom: 0;
+	float: left;
+}
+footer .copyright p.created {
+	float: right;
+}
+
+/*TABLET*/
+
+@media (min-width: 728px) and (max-width: 1169px) {
+
+	footer .mdl-mega-footer__left-section {
+		width: 100%;
+		margin-bottom: 15px;
+	}
+	footer .contacts {
+		width: auto;
+		/*max-width: 300px;*/
+		padding-left: 0;
+		margin: 0 auto;
+		float: none;
+	}
+	footer .contacts > div {
+		padding: 0 30px;
+	}
+	footer .contacts > div.social {
+		padding-left: 0;
+	}
+	footer .social ul {
+		text-align: center;
+	}
+	footer .ad_sense {
+		float: none;
+	}
+}
+
+/*PHONE*/
+
+@media (max-width: 727px) {
+
+	footer .mdl-mega-footer__left-section {
+		width: 100%;
+	}
+	footer .social ul {
+		padding: 20px 30px 12px 30px;
+		text-align: center;
+	}
+	footer .contacts {
+		width: 100%;
+		padding-left: 0;
+	}
+	footer .social ul li a {
+		margin-right: 8px;
+	}
+	footer .copyright p {
+		float: none;
+	}
+	footer .copyright p.created {
+		float: none;
+	}
+	footer .ad_sense {
+		float: right;
+		margin: 0;
+		width: 100%;
+	}
+}

@@ -19,7 +19,7 @@ $tpl->Assign('list_menu', $Page->list);
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][1]['title'] = "Корзина";
 if($User->fields['gid'] == _ACL_CUSTOMER_
-	|| $User->fields['gid'] == _ACL_ANONIM_
+	|| $User->fields['gid'] == _ACL_ANONYMOUS_
 	|| $User->fields['gid'] == _ACL_DILER_
 	|| $User->fields['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();

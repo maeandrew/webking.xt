@@ -24,14 +24,14 @@ $GLOBALS['IERA_LINKS'][] = array(
 $tpl->Assign('header', $header);
 
 if($User->fields['gid'] == _ACL_CUSTOMER_
-	|| $User->fields['gid'] == _ACL_ANONIM_
+	|| $User->fields['gid'] == _ACL_ANONYMOUS_
 	|| $User->fields['gid'] == _ACL_DILER_
-	|| $User->fields['gid'] == _ACL_CONTRAGENT_
+	|| $User->fields['gid'] == _ACL_MANAGER_
 	|| $User->fields['gid'] == _ACL_TERMINAL_){
 	// if($_SESSION['client']['user_agent'] == 'mobile'){
 
 	// Устанавливаем базовый ценовой режим если пользователь не является менеджером
-	if($User->fields['gid'] != _ACL_CONTRAGENT_){
+	if($User->fields['gid'] != _ACL_MANAGER_){
 		$_SESSION['price_mode'] = 3;
 	}
 	// Подключаем необходимые классы

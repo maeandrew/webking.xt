@@ -728,13 +728,13 @@ class Orders {
 			if($order_status == 1){
 				$User = new Users();
 				$User->SetFieldsById($_SESSION['member']['id_user']);
-				if($User->fields['gid'] != _ACL_ANONIM_ && $User->fields['gid'] != _ACL_TERMINAL_){
+				if($User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
 					$Mailer = new Mailer();
 					//$Mailer->SendOrderInvoicesToContragent($id_order);
 					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
 					$Mailer->SendOrderInvoicesToCustomers($id_order);
 				}
-				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONIM_){
+				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONYMOUS_){
 					$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
 					$Contragents = new Contragents();
 					$string = $Contragents->GetSavedFields($id_contragent);
@@ -990,13 +990,13 @@ class Orders {
 // 			if($order_status == 1){
 // 				$User = new Users();
 // 				$User->SetFieldsById($id_customer);
-// 				if($User->fields['gid'] != _ACL_ANONIM_ && $User->fields['gid'] != _ACL_TERMINAL_){
+// 				if($User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
 // 					$Mailer = new Mailer();
 // 					//$Mailer->SendOrderInvoicesToContragent($id_order);
 // 					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
 // 					$Mailer->SendOrderInvoicesToCustomers($id_order);
 // 				}
-// 				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONIM_){
+// 				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONYMOUS_){
 // 					$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
 // 					$Contragents = new Contragents();
 // 					$string = $Contragents->GetSavedFields($id_contragent);

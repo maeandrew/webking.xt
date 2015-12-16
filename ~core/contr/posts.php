@@ -8,19 +8,16 @@ $tpl->Assign('header', $header);
 $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'descr' => 'Подборка самых интересных статей от оптового интернет-магазина ХарьковТОРГ. Все самое полезное о покупках, оптовой торговли, особенностях выбора. Здесь Вы найдете рекомендации, полезные советы от специалистов и постоянных покупателей',
-	'url' => '/posts/'
+	'url' => Link::Custom('post')
 );
-// $ii = count($GLOBALS['IERA_LINKS']);
-// $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
-// $GLOBALS['IERA_LINKS'][$ii]['descr'] = 'Подборка самых интересных статей от оптового интернет-магазина ХарьковТОРГ. Все самое полезное о покупках, оптовой торговли, особенностях выбора. Здесь Вы найдете рекомендации, полезные советы от специалистов и постоянных покупателей';
-// $GLOBALS['IERA_LINKS'][$ii++]['url'] = '/page/';
 if(!$Post->SetList()){
-	header('Location: /404/');
+	header('Location: '._base_url.'/404/');
 	exit();
 }
 $posts = $Post->list;
 rsort($posts);
 $tpl->Assign('data', $posts);
+$template = 'cp_posts.tpl';
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_posts.tpl')

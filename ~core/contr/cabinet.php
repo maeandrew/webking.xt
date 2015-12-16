@@ -92,7 +92,7 @@ switch($User->fields['gid']){
 		}
 	;
 	break;
-	case _ACL_ANONIM_:
+	case _ACL_ANONYMOUS_:
 		$header = 'История заказов анонимных клиентов';
 		require($GLOBALS['PATH_block'].'cp_cab_anonim.php');
 		if(true == $parsed_res['issuccess']){

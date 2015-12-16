@@ -115,7 +115,8 @@
 	<?if(in_array($GLOBALS['CurrentController'],array('cabinet', 'cabinet_admin_supplier'))){include_once 'suppliercab_js.tpl';}?>
 	<?if(in_array($GLOBALS['CurrentController'],array('cart'))){include_once 'cart_js.tpl';}?>
 	<!-- END include specific js templates for controllers -->
-	<?if(!isset($_SESSION['member']['gid']) || !in_array($_SESSION['member']['gid'], array(_ACL_CONTRAGENT_, _ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_optimizator_))){?>
+	<?if(!isset($_SESSION['member']['gid']) || !in_array($_SESSION['member']['gid'], array(_ACL_CONTRAGENT_, _ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO
+_))){?>
 		<!-- Google counter -->
 		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->

@@ -28,9 +28,9 @@ foreach($list as $i){
 			<?}
 		}?>
 		<?if($GLOBALS['CurrentController'] == 'products' && $GLOBALS['REQAR'][1] == $i['id_category']){?>
-			<a id="cat_<?=$i['id_category']?>" href="/products/<?=$i['id_category'].'/'.$i['translit']?>/"  onclick="return expandCat(<?=$i['id_category']?>)" class="active"><h5><?=$i['name']?></h5></a>
+			<a id="cat_<?=$i['id_category']?>" href="<?=Link::Category($i['translit']);?>"  onclick="return expandCat(<?=$i['id_category']?>)" class="active"><h5><?=$i['name']?></h5></a>
 		<?}else{?>
-			<a<?if(isset($GLOBALS['CURRENT_ID_CATEGORY']) && $GLOBALS['CURRENT_ID_CATEGORY'] == $i['id_category']){?> class="active"<?}?> id="cat_<?=$i['id_category']?>" href="/products/<?=$i['id_category'].'/'.$i['translit']?>/" onclick="return expandCat(<?=$i['id_category']?>)"><h5><?=$i['name']?></h5></a>
+			<a<?if(isset($GLOBALS['CURRENT_ID_CATEGORY']) && $GLOBALS['CURRENT_ID_CATEGORY'] == $i['id_category']){?> class="active"<?}?> id="cat_<?=$i['id_category']?>" href="<?=Link::Category($i['translit']);?>" onclick="return expandCat(<?=$i['id_category']?>)"><h5><?=$i['name']?></h5></a>
 		<?}
 		$prev_level = $i['category_level'];
 	}
