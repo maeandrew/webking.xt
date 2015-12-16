@@ -477,10 +477,10 @@ aside,
 	height: auto;
 	/*min-height: 52px;*/
 }
-.banner img {
+/* .banner img {
 	display: block;
 	width: 100%;
-}
+} */
 aside {
 	width: 300px;
 	float: left;

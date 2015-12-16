@@ -12,16 +12,16 @@ $(function(){
 	if(viewport_width < 711) {
 
 		//Замена картинок баннера
-		var banner_img = $('#owl-main_slider img');
-		$('#owl-main_slider').css({
-			'height': viewport_width,
-			'max-height':  $(window).height()*0.8
-		});
-		$.each( banner_img ,function(index, obj) {
-			var src = $(this).attr('data-src'),
-				mobile_src = src.replace('banner', 'banner/mobile');
-			$(this).attr('data-src' , mobile_src);
-		});
+		// var banner_img = $('#owl-main_slider img');
+		// $('#owl-main_slider').css({
+		// 	'height': viewport_width,
+		// 	'max-height':  $(window).height()*0.8
+		// });
+		// $.each( banner_img ,function(index, obj) {
+		// 	var src = $(this).attr('data-src'),
+		// 		mobile_src = src.replace('banner', 'banner/mobile');
+		// 	$(this).attr('data-src' , mobile_src);
+		// });
 
 		//Замена картинок в слайдере миниатюр
 		var slider_img = $('#owl-product_mini_img_js img');

@@ -87,7 +87,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 	<!-- END include specific js templates for controllers -->
-	<?if(!isset($_SESSION['member']['gid']) || !in_array($_SESSION['member']['gid'], array(_ACL_CONTRAGENT_, _ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
+	<?if(!isset($_SESSION['member']['gid']) || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
 		<!-- Google counter -->
 		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
@@ -159,18 +159,38 @@
 	</div>
 	<section class="banner">
 		<div id="owl-main_slider" class="owl-carousel">
-			<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы.jpg">
-			</a>
-			<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
-			</a>
-			<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
-			</a>
-			<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
-			</a>
+			<div id="cont">
+				<a  href="#">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
+						<h3>Снабжение предриятий</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					</span>
+				</a>
+				<a  href="#">
+					<span class="text_block">
+						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
+						<h3>Поставки магазинам</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita error </p>
+					</span>
+				</a>
+				<a href="#">
+					<span class="text_block">
+						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.svg">
+						<h3>Домашнее хозяйство</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					</span>
+				</a>
+			</div>
+		<!-- 	<a class="item" href="#">
+			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
+		</a>
+		<a class="item" href="#">
+			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
+		</a>
+		<a class="item" href="#">
+			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
+		</a> -->
 		</div>
 	</section>
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
