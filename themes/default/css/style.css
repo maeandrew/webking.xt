@@ -1353,7 +1353,6 @@ aside#catalog .catalog_close:hover i {
 	z-index: 1;
 }
 .product_buy .buy_block .qty_js {
-	height: 13px;
 	text-align: center;
 	width: 50px;
 	padding: 5px;

@@ -1,4 +1,5 @@
 <?php
+print_r($_SESSION['cart']);
 if(!G::IsLogged()){
 	$_SESSION['from'] = 'cart';
 	header('Location: '._base_url.'/login/');
@@ -140,13 +141,13 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 	$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
 
 	/* Дествия */
-	if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
+	if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
 		if(isset($_POST['add_order'])){
 			// Добавить к корзине товары из заказа
-			$cart->FillByOrderId($GLOBALS['REQAR'][1], true);
+			$cart->FillByOrderId($GLOBALS['Rewrite'], true);
 		}else{
 			// заменить корзину товарами из заказа
-			$cart->FillByOrderId($GLOBALS['REQAR'][1]);
+			$cart->FillByOrderId($GLOBALS['Rewrite']);
 		}
 		if($User->fields['gid'] == _ACL_CONTRAGENT_){
 			$customers->updateContPerson($_POST['cont_person']);
@@ -162,7 +163,7 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 		unset($_POST);
 		header('Location: '._base_url.'/cart/');
 		exit();
-	}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'success'){
+	}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'success'){
 		$products = new Products();
 		foreach($_SESSION['cart']['products'] as $id=>$p){
 			$products->SetFieldsById($id);
@@ -173,7 +174,7 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 		}
 		$tpl->Assign('cart', $_SESSION['cart']);
 		$cart->ClearCart();
-	}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'clear'){
+	}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'clear'){
 		$cart->ClearCart();
 		header('Location: '._base_url.'/cart/');
 		exit();

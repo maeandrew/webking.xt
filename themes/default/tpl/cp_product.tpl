@@ -66,13 +66,19 @@
 						<button class="mdl-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 					</div>
 					<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
-					<?if(!$in_cart){?>
+					<?
+						print_r($_SESSION['cart']);
+
+					if(!$in_cart){
+
+						?>
 						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button">Купить</button>
+							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">Купить</button>
 						</div>
 					<?}else{?>
 						<div class="btn_buy">
 							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
+
 						</div>
 					<?}?>
 				</div>
@@ -293,4 +299,5 @@
 			}
 		});
 	});
+
 </script>
