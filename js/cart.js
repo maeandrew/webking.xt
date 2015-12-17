@@ -1,7 +1,7 @@
 function SendToAjax(id, qty, button, direction, note){
 	$.ajax({
 		url: URL_base+'ajaxcart',
-		type: "POST",
+		type: "GET",
 		cache: false,
 		dataType : "json",
 		data: {
@@ -49,6 +49,7 @@ function SendToAjax(id, qty, button, direction, note){
 
 function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
+
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
