@@ -375,6 +375,8 @@ while($cat = $dbtree->NextRow()){
 
 	// =========================================================
 // }
+$products_list = $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl');
+$tpl->Assign('products_list', $products_list);
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$products->FillAssort($_SESSION['member']['id_user']);
@@ -413,8 +415,6 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products_contragent.tpl')
 	);
 }else{
-	$products_list = $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl');
-	$tpl->Assign('products_list', $products_list);
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array(
 		'issuccess'	=> true,

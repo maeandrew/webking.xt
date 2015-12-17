@@ -123,7 +123,7 @@
 			</div>
 			<div id="view_block_js" class="list_view col-md-12 ajax_loading">
 				<div class="row">
-					<?=$product_list;?>
+					<?=$products_list;?>
 					<div class="preview ajax_loading">
 						<div class="preview_content">
 							<div class="col-md-6">
