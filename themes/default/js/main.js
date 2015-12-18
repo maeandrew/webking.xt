@@ -150,6 +150,14 @@ $(function(){
 		}
 	});
 
+
+	//Если он скрыт делаем отступ
+		/*if($('.banner')){
+			//$('body').addClass('.newheader_wrapp');
+			 newheader_wrapp.style.display = (newheader_wrapp.style.display == 'none') ? '' : 'none'
+
+		}*/
+
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event) {
 		if(over_scroll === true){
