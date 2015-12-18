@@ -157,42 +157,45 @@
 			<li class="parent_nav"><div class="material-icons">location_on</div><span>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</span></li>
 		</ul>
 	</div>
-	<section class="banner">
-		<div id="owl-main_slider" class="owl-carousel">
-			<div id="cont">
-				<a  href="#">
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
-						<h3>Снабжение предриятий</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					</span>
-				</a>
-				<a  href="#">
-					<span class="text_block">
-						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
-						<h3>Поставки магазинам</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita error </p>
-					</span>
-				</a>
-				<a href="#">
-					<span class="text_block">
-						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.svg">
-						<h3>Домашнее хозяйство</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-					</span>
-				</a>
+	<?if($GLOBALS['CurrentController'] == 'main') {?>
+		<section class="banner">
+			<div id="owl-main_slider" class="owl-carousel">
+				<div id="cont">
+					<a  href="#">
+						<span class="text_block">
+							<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
+							<h3>Снабжение предриятий</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+						</span>
+					</a>
+					<a  href="#">
+						<span class="text_block">
+							<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
+							<h3>Поставки магазинам</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita error </p>
+						</span>
+					</a>
+					<a href="#">
+						<span class="text_block">
+							<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.svg">
+							<h3>Домашнее хозяйство</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+						</span>
+					</a>
+				</div>
+			<!-- 	<a class="item" href="#">
+				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
+			</a>
+			<a class="item" href="#">
+				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
+			</a>
+			<a class="item" href="#">
+				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
+			</a> -->
 			</div>
-		<!-- 	<a class="item" href="#">
-			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
-		</a>
-		<a class="item" href="#">
-			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
-		</a>
-		<a class="item" href="#">
-			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
-		</a> -->
-		</div>
-	</section>
+		</section>
+	<? } ?>
+
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 		<aside id="catalog" class="mdl-color--grey-100 mdl-cell--hide-phone" data-type="panel">
 			<?=$__sidebar_l?>
@@ -201,7 +204,7 @@
 			</div>
 		</aside>
 	<?}?>
-	<section class="main <?=$GLOBALS['CurrentController'] == 'product'?'product_page':null?>">
+	<section id="newheader_wrapp" class="main <?=$GLOBALS['CurrentController'] == 'product'?'product_page':null?>">
 		<?if(in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 			<aside class="mdl-color--grey-100 mdl-cell--hide-phone">
 				<?=$__sidebar_l?>
