@@ -676,145 +676,22 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_){
-				$sql = "SELECT ".implode(", ",$this->usual_fields).",
-					a.price_opt_otpusk, a.price_mopt_otpusk,
-					(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-					(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-					(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-					FROM "._DB_PREFIX_."product AS p
-					LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-						ON cp.id_product = p.id_product
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a
-						ON a.id_product = p.id_product
-					LEFT JOIN "._DB_PREFIX_."units AS un
-						ON un.id = p.id_unit
-					WHERE p.id_product IS NOT NULL
-					".$where."
-					".$group_by."
-					ORDER BY ".$order_by.", p.name
-					".$limit;
-			}else{
-				if(isset($params['rel_search'])){
-					// $sups_ids = implode(",",$this->GetSuppliersIdsForCurrentDateDiapason());
-					$sql = "SELECT a.price_opt_otpusk, a.price_mopt_otpusk,
-						".implode(", ",$this->usual_fields).$params['rel_search'].",
-						s.available_today,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-						(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-						FROM "._DB_PREFIX_."product AS p
-						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-							ON cp.id_product = p.id_product
-						LEFT JOIN "._DB_PREFIX_."units AS un
-							ON un.id = p.id_unit
-						LEFT JOIN "._DB_PREFIX_."assortiment AS a
-							ON a.id_product = p.id_product
-						LEFT JOIN "._DB_PREFIX_."supplier AS s
-							ON s.id_user = a.id_supplier
-						WHERE p.visible = 1
-						".$prices_zero."
-						".$where."
-						AND a.active = 1
-						".$group_by."
-						ORDER BY rel DESC
-						".$limit;
-				}else{
-					// $sups_ids = implode(", ",$this->GetSuppliersIdsForCurrentDateDiapason());
-					$sql = '';
-					if(!isset($ob)){
-						$sql .= "(SELECT a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-						".implode(", ",$this->usual_fields).", s.available_today,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-						(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-						FROM "._DB_PREFIX_."product AS p
-						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-							ON cp.id_product = p.id_product
-						LEFT JOIN "._DB_PREFIX_."units AS un
-							ON un.id = p.id_unit
-						LEFT JOIN "._DB_PREFIX_."assortiment AS a
-							ON a.id_product = p.id_product
-						LEFT JOIN "._DB_PREFIX_."supplier AS s
-							ON s.id_user = a.id_supplier
-						WHERE p.visible = 1
-						AND p.prod_status = 3
-						".$prices_zero."
-						".$where."
-						AND a.active = 1
-						".$group_by."
-						ORDER BY active DESC, ".$order_by.") UNION (
-						SELECT *
-							FROM (";
-						$where .= " AND p.prod_status <> 3";
-					}
-					if(isset($qqq)){
-						$sql .= '(';
-					}
-					$sql .= "SELECT ".implode(", ",$this->usual_fields).",
-						a.active, a.price_opt_otpusk, a.price_mopt_otpusk, un.unit_xt AS units, notation_price, instruction,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-						(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-						(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-						(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
-						FROM "._DB_PREFIX_."cat_prod AS cp
-							INNER JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
-							LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-							LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-						WHERE cp.id_product IS NOT NULL
-						".$where."
-						HAVING p.visible = 1
-							".$prices_zero."
-							AND a.active = 1";
-					// $sql .= "SELECT a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-					// 	".implode(", ",$this->usual_fields).", s.available_today,
-					// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-					// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-					// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-					// 	FROM "._DB_PREFIX_."product AS p
-					// 	LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-					// 		ON cp.id_product = p.id_product
-					// 	LEFT JOIN "._DB_PREFIX_."units AS un
-					// 		ON un.id = p.id_unit
-					// 	LEFT JOIN "._DB_PREFIX_."assortiment AS a
-					// 		ON a.id_product = p.id_product
-					// 	LEFT JOIN "._DB_PREFIX_."supplier AS s
-					// 		ON s.id_user = a.id_supplier
-					// 	WHERE p.visible = 1
-					// 	".$prices_zero."
-					// 	".$where."
-					// 	AND a.active = 1
-					// 	".$group_by;
-					if(isset($qqq)){
-						$sql .= ") UNION
-							(SELECT a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-							".implode(", ",$this->usual_fields).", s.available_today,
-							(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-							(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-							(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-							FROM "._DB_PREFIX_."product AS p
-							LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-								ON cp.id_product = p.id_product
-							LEFT JOIN "._DB_PREFIX_."units AS un
-								ON un.id = p.id_unit
-							LEFT JOIN "._DB_PREFIX_."assortiment AS a
-								ON a.id_product = p.id_product
-							LEFT JOIN "._DB_PREFIX_."supplier AS s
-								ON s.id_user = a.id_supplier
-							WHERE p.visible = 1
-							AND p.price_opt <= 0
-							AND p.price_mopt <= 0
-							AND a.active = 0
-							".$where."
-							".$group_by.") ";
-					}
-					// $sql .= " ORDER BY active DESC, $order_by";
-					if(!isset($ob)){
-						$sql .= ") AS combined)";
-					}
-					$sql .= " $limit";
-				}
-			}
+			$sql = "SELECT ".implode(", ",$this->usual_fields).",
+				a.active, a.price_opt_otpusk, a.price_mopt_otpusk, un.unit_xt AS units, notation_price, instruction,
+				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+				(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
+				FROM "._DB_PREFIX_."cat_prod AS cp
+					INNER JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
+					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+				WHERE cp.id_product IS NOT NULL
+				".$where."
+				HAVING p.visible = 1
+					".$prices_zero."
+					AND a.active = 1";
+			$sql .= " $limit";
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){

@@ -356,9 +356,9 @@ while($cat = $dbtree->NextRow()){
 		$products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	}else{
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid']);
 		}else{
-			$products->SetProductsList($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+			$products->SetProductsList($where_arr, $limit);
 		}
 	}
 	$product_list = $products->list;
@@ -384,7 +384,7 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 		'issuccess'	=> true,
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl')
 	);
-}elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
+}elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_MANAGER_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
 	$Customer->fields['discount'] = 1-$Customer->fields['discount']/100;

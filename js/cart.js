@@ -51,6 +51,7 @@ function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
 
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+	console.log(qty);
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
 	}else{
@@ -75,7 +76,7 @@ function completeCartProductAdd(data){
 function removeFromCart(id){
 	$.ajax({
 		url: URL_base+'ajaxcart',
-		type: "POST",
+		type: "GET",
 		cache: false,
 		dataType : "json",
 		data: {
