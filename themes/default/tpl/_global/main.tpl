@@ -121,7 +121,7 @@
 		</style>
 	</noscript>
 </head>
-<body>
+<body class="c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hidden'?>">
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
 	<!-- END Yandex.Metrika counter -->
@@ -160,14 +160,14 @@
 	<section class="banner">
 		<div id="owl-main_slider" class="owl-carousel">
 			<div id="cont">
-				<a  href="#">
+				<a href="#">
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
 						<h3>Снабжение предриятий</h3>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
 					</span>
 				</a>
-				<a  href="#">
+				<a href="#">
 					<span class="text_block">
 						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
 						<h3>Поставки магазинам</h3>
@@ -182,15 +182,15 @@
 					</span>
 				</a>
 			</div>
-		<!-- 	<a class="item" href="#">
-			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
-		</a>
-		<a class="item" href="#">
-			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
-		</a>
-		<a class="item" href="#">
-			<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
-		</a> -->
+			<!-- 	<a class="item" href="#">
+				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
+			</a>
+			<a class="item" href="#">
+				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
+			</a>
+			<a class="item" href="#">
+				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
+			</a> -->
 		</div>
 	</section>
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
