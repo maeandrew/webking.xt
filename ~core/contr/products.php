@@ -316,7 +316,7 @@ while($cat = $dbtree->NextRow()){
 	// }
 	// =========================================================
 
-	$time_start = microtime(true);
+	// $time_start = microtime(true);
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -342,11 +342,11 @@ while($cat = $dbtree->NextRow()){
 
 	// =========================================================
 
-	$time_end = microtime(true);
-	$time = $time_end - $time_start;
-	echo "execution time <b>$time</b> seconds\n<br>";
+	// $time_end = microtime(true);
+	// $time = $time_end - $time_start;
+	// echo "execution time <b>$time</b> seconds\n<br>";
 
-	$time_start = microtime(true);
+	// $time_start = microtime(true);
 	// Получение массива товаров ===============================
 	$GET_limit = "";
 	if(isset($_GET['limit'])){
@@ -369,9 +369,9 @@ while($cat = $dbtree->NextRow()){
 
 
 
-	$time_end = microtime(true);
-	$time = $time_end - $time_start;
-	echo "execution time <b>$time</b> seconds\n<br>";
+	// $time_end = microtime(true);
+	// $time = $time_end - $time_start;
+	// echo "execution time <b>$time</b> seconds\n<br>";
 
 	// =========================================================
 // }
