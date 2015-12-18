@@ -1,5 +1,5 @@
 /* Fonts definitions ======================================================== */
-
+@import url(https://fonts.googleapis.com/css?family=PT+Serif:700&subset=cyrillic-ext);
 @font-face {
 	font-family: 'Open Sans';
 	font-style: normal;
@@ -762,6 +762,7 @@ aside {
 	width: 100%;
 	height: auto;
 }
+
 .sliders {
 	margin: 0 auto;
 	margin-top: 30px;

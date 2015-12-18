@@ -28,6 +28,12 @@ p {
 	margin-bottom: 0;
 	line-height: 16px;
 }
+  #newheader_wrapp {
+
+       position: relative;
+
+
+}
 input,
 textarea {
 	border: 1px solid #e0e0e0;

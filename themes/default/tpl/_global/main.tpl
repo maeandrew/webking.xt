@@ -157,28 +157,34 @@
 			<li class="parent_nav"><div class="material-icons">location_on</div><span>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</span></li>
 		</ul>
 	</div>
+
 	<section class="banner">
 		<div id="owl-main_slider" class="owl-carousel">
 			<div id="cont">
+				<div id="cont_top">
+					<img src="<?=$GLOBALS['URL_img_theme']?>smeta_man.png" alt="">
+					<h1>Добро пожаловать!</h1>
+					<h2>Быстро и качественно решаем задачи отдела снабжения каждой компании.</h2>
+				</div>
 				<a href="#">
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
-						<h3>Снабжение предриятий</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+						<h3>Снабжение<br> предриятий</h3>
+
 					</span>
 				</a>
 				<a href="#">
 					<span class="text_block">
 						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
-						<h3>Поставки магазинам</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita error </p>
+						<h3>Поставки<br> магазинам</h3>
+
 					</span>
 				</a>
 				<a href="#">
 					<span class="text_block">
 						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.svg">
-						<h3>Домашнее хозяйство</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+						<h3>Обеспечение<br> быта</h3>
+
 					</span>
 				</a>
 			</div>
@@ -201,7 +207,8 @@
 			</div>
 		</aside>
 	<?}?>
-	<section id="newheader_wrapp" class="main <?=$GLOBALS['CurrentController'] == 'product'?'product_page':null?>">
+	<div id="newheader_wrapp"></div>
+	<section class="main <?=$GLOBALS['CurrentController'] == 'product'?'product_page':null?>">
 		<?if(in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 			<aside class="mdl-color--grey-100 mdl-cell--hide-phone">
 				<?=$__sidebar_l?>
