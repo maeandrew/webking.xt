@@ -162,9 +162,11 @@
 		<div id="owl-main_slider" class="owl-carousel">
 			<div id="cont">
 				<div id="cont_top">
-					<img src="<?=$GLOBALS['URL_img_theme']?>smeta_man.png" alt="">
-					<h1>Добро пожаловать!</h1>
-					<h2>Быстро и качественно решаем задачи отдела снабжения каждой компании.</h2>
+					<div id="left_img"><img src="<?=$GLOBALS['URL_img_theme']?>smeta_man.png" alt=""></div>
+					<div id="cont_block">
+						<h1>Добро пожаловать!</h1>
+						<h2>Быстро и качественно решаем задачи отдела снабжения каждой компании.</h2>
+					</div>
 				</div>
 				<a href="#">
 					<span class="text_block">
@@ -449,134 +451,109 @@
 					<li class="price">Цена / Количество</li>
 				</ul>
 			</div>
-			<div class="card clearfix">
-				<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
-				<span class="remove_prod_mob">Удалить</span>
-				<div class="product_photo">
-					<a href="#">
-						<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini1.jpg"alt="">
-					</a>
-				</div>
-				<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд» Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, impedit.</a> <span class="product_article">Арт: 109742</span></p>
-				<div class="product_buy">
-					<p class="price mdl-cell--hide-phone">29000,34</p>
-					<p class="summ">= <span>29000,34</span></p>
-					<div class="buy_block">
-						<div class="btn_remove">
-							<button class="mdl-button material-icons">remove</button>
-						</div>
-						<input type="text" class="qty_js" value="0">
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
+
+
+			<?
+			$i = 0;
+			foreach($list as $item){
+				$item['price_mopt'] > 0?$mopt_available = true:$mopt_available = false;
+				$item['price_opt'] > 0?$opt_available = true:$opt_available = false;
+			?>
+
+
+				<div class="card clearfix" id="cart_item_<?=$item['id_product']?>">
+					<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
+					<span class="remove_prod_mob">Удалить</span>
+					<div class="product_photo">
+						<a href="<?=Link::Product($item['translit']); ?>" onClick="removeFromCart(<?=$item['id_product']?>)">
+							<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini2.jpg" alt="<?=G::CropString($item['name'])?>"
+									class="lazy"
+									data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):"/efiles/_thumb/image/nofoto.jpg"?>" />
+
+							<noscript>
+								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):"/efiles/_thumb/image/nofoto.jpg"?>"/>
+							</noscript>
+						</a>
+					</div>
+
+					<p class="product_name">
+						<a href="<?=Link::Product($item['translit']); ?>" class="description_<?=$item['id_product'];?>" style="color:rgb(58, 154, 17);">
+										<?=G::CropString($item['name'])?>
+						</a>
+						<span class="product_article">Артикул: <?=$item['art']?></span>
+					</p>
+
+
+					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+
+						<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
+						<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
+
+
+						<p class="price mdl-cell--hide-phone">
+							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
+						</p>
+						<p class="summ">=
+							<span class="order_mopt_sum_<?=$item['id_product']?>">
+								<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
+							</span>
+
+						</p>
+						<div class="buy_block">
+							<div class="btn_remove">
+								<button class="mdl-button material-icons">
+								<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
+									remove</a>
+								</button>
+
+							</div>
+							<input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">
+							<div class="btn_buy">
+								<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
+
+
+					<!--
+					<div class="product_buy">
+						<p class="price mdl-cell--hide-phone">29000,34</p>
+						<p class="summ">= <span>29000,34</span></p>
+						<div class="buy_block">
+							<div class="btn_remove">
+								<button class="mdl-button material-icons">remove</button>
+							</div>
+							<input type="text" class="qty_js" value="0">
+							<div class="btn_buy">
+								<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="card clearfix">
-				<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
-				<span class="remove_prod_mob">Удалить</span>
-				<div class="product_photo">
-					<a href="#">
-						<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini2.jpg" alt="">
-					</a>
-				</div>
-				<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд» Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, impedit.</a> <span class="product_article">Арт: 109742</span></p>
-				<div class="product_buy">
-					<p class="price mdl-cell--hide-phone">29000,34</p>
-					<p class="summ">= <span>29000,34</span></p>
-					<div class="buy_block">
-						<div class="btn_remove">
-							<button class="mdl-button material-icons">remove</button>
-						</div>
-						<input type="text" class="qty_js" value="0">
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
+
+					<div class="product_info clearfix">
+						<div class="note in_cart clearfix">
+							<textarea placeholder="Примечание: "></textarea>
+							<label class="info_key">?</label>
+							<div class="info_description">
+								<p>Поле для ввода примечания к товару.</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
+					-->
+					<div class="product_info clearfix">
+						<div class="note in_cart clearfix">
+							<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
+								<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
+							</textarea>
+							<label class="info_key">?</label>
+							<div class="info_description">
+								<p>Поле для ввода примечания к товару.</p>
+							</div>
 						</div>
 					</div>
+
 				</div>
-			</div>
-			<div class="card clearfix">
-				<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
-				<span class="remove_prod_mob">Удалить</span>
-				<div class="product_photo">
-					<a href="#">
-						<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini2.jpg" alt="">
-					</a>
-				</div>
-				<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд» Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, impedit.</a> <span class="product_article">Арт: 109742</span></p>
-				<div class="product_buy">
-					<p class="price mdl-cell--hide-phone">29000,34</p>
-					<p class="summ">= <span>29000,34</span></p>
-					<div class="buy_block">
-						<div class="btn_remove">
-							<button class="mdl-button material-icons">remove</button>
-						</div>
-						<input type="text" class="qty_js" value="0">
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
-						</div>
-					</div>
-				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card clearfix">
-				<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
-				<span class="remove_prod_mob">Удалить</span>
-				<div class="product_photo">
-					<a href="#">
-						<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini2.jpg" alt="">
-					</a>
-				</div>
-				<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд» Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, impedit.</a> <span class="product_article">Арт: 109742</span></p>
-				<div class="product_buy">
-					<p class="price mdl-cell--hide-phone">29000,34</p>
-					<p class="summ">= <span>29000,34</span></p>
-					<div class="buy_block">
-						<div class="btn_remove">
-							<button class="mdl-button material-icons">remove</button>
-						</div>
-						<input type="text" class="qty_js" value="0">
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
-						</div>
-					</div>
-				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div>
-			</div>
+			<?}?>
 			<div class="card clearfix">
 				<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
 				<span class="remove_prod_mob">Удалить</span>
@@ -585,39 +562,7 @@
 						<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini2.jpg" alt="">
 					</a>
 				</div>
-				<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд» Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, impedit.</a> <span class="product_article">Арт: 109742</span></p>
-				<div class="product_buy">
-					<p class="price mdl-cell--hide-phone">29000,34</p>
-					<p class="summ">= <span>29000,34</span></p>
-					<div class="buy_block">
-						<div class="btn_remove">
-							<button class="mdl-button material-icons">remove</button>
-						</div>
-						<input type="text" class="qty_js" value="0">
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
-						</div>
-					</div>
-				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card clearfix">
-				<i class="material-icons remove_prod mdl-cell--hide-phone">highlight_off</i>
-				<span class="remove_prod_mob">Удалить</span>
-				<div class="product_photo">
-					<a href="#">
-						<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini2.jpg" alt="">
-					</a>
-				</div>
-				<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд» Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, impedit.</a> <span class="product_article">Арт: 109742</span></p>
+				<p class="product_name"><a href="/product.html">Test Template.</a> <span class="product_article">Арт: 109742</span></p>
 				<div class="product_buy">
 					<p class="price mdl-cell--hide-phone">29000,34</p>
 					<p class="summ">= <span>29000,34</span></p>
