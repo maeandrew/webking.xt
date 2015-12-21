@@ -1,11 +1,11 @@
 <?php
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-	$id_category = $GLOBALS['REQAR'][1];
+if(isset($GLOBALS['Rewrite'])){
+	$curcat = $dbtree->CheckParent($GLOBALS['Rewrite'], array('id_category', 'name', 'translit', 'art', 'category_level', 'content', 'pid', 'filial_link'));
+	$id_category = $curcat['id_category'];
 }else{
 	$id_category = 0;
 }
-$curcat = $dbtree->CheckParent($id_category, array('id_category', 'name', 'translit', 'art', 'category_level', 'content', 'pid', 'filial_link'));
 $tpl->Assign('curcat', $curcat);
 // $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 if($GLOBALS['CurrentController'] == 'products'){

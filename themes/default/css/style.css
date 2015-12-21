@@ -873,6 +873,9 @@ aside .catalog .second_nav li > ul {
 	margin-left: 20px;
 	display: none;
 }
+aside .catalog .second_nav li.active > ul {
+	display: block;
+}
 aside .catalog .second_nav li > ul li a {
 	/*padding: 2px 0;*/
 }

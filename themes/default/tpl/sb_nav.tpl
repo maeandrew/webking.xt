@@ -31,9 +31,13 @@
 				</span>
 			</li>
 			<?foreach($navigation as $l1){?>
-				<li>
+				<li class="<?=$l1['id_category']==$GLOBALS['CURRENT_ID_CATEGORY']?'active':'';?>">
 					<span class="link_wrapp">
-						<a href="<?=Link::Category($l1['translit']);?>"><?=$l1['name']?></a><?if(!empty($l1['subcats'])){?><span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span><?}?>
+						<a href="<?=Link::Category($l1['translit']);?>">
+							<style type="text/css" media="screen">a {color: #000;}</style>
+							<?=$l1['name']?>
+						</a>
+						<?if(!empty($l1['subcats'])){?><span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span><?}?>
 					</span>
 					<?if(!empty($l1['subcats'])){?>
 						<ul data-lvl="2">
