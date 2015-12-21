@@ -38,6 +38,19 @@
 }
 #cont_top {
 	flex-basis: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+#cont_block {
+	position: relative;
+	    float: right;
+    width: 70%;
+}
+#left_img {
+	position: relative;
+	float: left;
+	    width: 30%;
 }
 #cont_top h1 {
 	font-family: 'PT Serif', serif;
@@ -47,6 +60,8 @@
     padding-right: 370px;
     font-size: 66px;
     margin-top: -20px;
+
+    float: left;
 }
 #cont_top h2 {
 	font-family: 'PT Serif', serif;
@@ -56,9 +71,12 @@
     padding-right: 52px;
     font-size: 28px;
     margin-top: -20px;
-    padding-left: 1080px;
+   /*  padding-left: 1080px; */
     line-height: 1.2em;
     opacity: 0.5;
+        width: 45%;
+    float: right;
+
 
 }
 #cont_top img {
@@ -66,6 +84,7 @@
 	float: left;
 	padding-left: 190px;
     padding-bottom: 20px;
+    flex-grow: 0;
 }
 #cont > a:hover {
 	opacity: 1;
@@ -118,11 +137,16 @@
 
 	    line-height: 1.2em;
 	    opacity: 0.5;
+	            width: 80%;
+    float: right;
 
 	}
 	#cont_top img {
 		position: relative;
 		float: left;
+		padding: 0;
+		padding-left: 0;
+    padding-bottom: 0;
 
 	}
 }
@@ -145,9 +169,9 @@
     margin-top: -20px;
     line-height: 1.2em;
     opacity: 0.5;
-
-        width: 70%;
+         width: 50%;
     float: right;
+
 
 }
 #cont_top h1 {
@@ -158,6 +182,8 @@
     padding-right: 70px;
     font-size: 66px;
     margin-top: -20px;
+        height: 50%;
+        width: 50%;
 	}
 
 @media (max-width: 700px) {
@@ -165,7 +191,41 @@
 		min-width: 80%;
 		font-size: 120%;
 	}
+	#cont_top img {
+    position: relative;
+    float: left;
+    padding-left: 0;
+    padding-bottom: 0;
 }
+		#cont_top h2 {
+	font-family: 'PT Serif', serif;
+	text-align: right;
+    font-weight: bold;
+    color: #547DBC;
+    padding-right: 52px;
+    font-size: 28px;
+    margin-top: -20px;
+    line-height: 1.2em;
+    opacity: 0.5;
+
+        width: 90%;
+    float: right;
+    font-size: 23px;
+
+}
+
+}
+#cont_top h1 {
+	font-family: 'PT Serif', serif;
+	text-align: center;
+	font-weight: bold;
+    color: #547DBC;
+    padding-right: 70px;
+    margin-top: -20px;
+        height: 50%;
+    width: 100%;
+        font-size: 47px;
+	}
 
 .center_wrap .cloud_tag,
 .center_wrap .sales_block {
