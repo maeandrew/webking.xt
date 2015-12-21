@@ -3,10 +3,10 @@ $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 if(isset($GLOBALS['Rewrite'])){
 	$curcat = $dbtree->CheckParent($GLOBALS['Rewrite'], array('id_category', 'name', 'translit', 'art', 'category_level', 'content', 'pid', 'filial_link'));
 	$id_category = $curcat['id_category'];
+	$tpl->Assign('curcat', $curcat);
 }else{
 	$id_category = 0;
 }
-$tpl->Assign('curcat', $curcat);
 // $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 if($GLOBALS['CurrentController'] == 'products'){
 	$GLOBALS['CURRENT_ID_CATEGORY'] = $id_category;
