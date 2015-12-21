@@ -18,6 +18,27 @@
 				<?}?>
 			</form>
 		<?}?>
+
+
+						<div class="sort imit_select">
+							<button id="sort-lower-left" class="mdl-button mdl-js-button">
+								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
+							</button>
+							<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
+								<li class="mdl-menu__item active"><?=$key?></li>
+
+								<?foreach($available_sorting_values as $key => $alias){
+									?>
+									<li class="mdl-menu__item" value="<?=$key?>" <?=isset($sorting['value']) && $sorting['value'] == $key?'selected="selected"':null;?>><?=$alias?></li>
+								<?}?>
+
+
+							</ul>
+						</div>
+
+
+
+
 		<!--сортировка по названию!-->
 		<div class="prod_structure">
 			<span class="icon-font list">view_list</span>
@@ -232,7 +253,7 @@
 							<?}?>
 						</div><!--class="sort_page"-->
 						<?if($_GET['page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
-							<p class="show_more"><a href="#" id="show_more_products">Показать еще 30 товаров</a></p>
+							<p class="show_more"><a href="<?=_base_url?>/products/<?=$_GET['page_id']?>" id="show_more_products">Показать еще 30 товаров</a></p>
 						<?}?>
 					<?}?>
 				</div>
