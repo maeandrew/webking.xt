@@ -1,3 +1,13 @@
+function GetCartAjax(){
+	$.ajax({
+		url: URL_base+'cart'
+	}).done(function(data){
+		var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
+		console.log(res);
+		$('#cart > div').html(res[1]);
+	});
+}
+
 function openObject(id){
 	var object = $('#'+id),
 		type = object.data('type');
@@ -24,7 +34,6 @@ function closeObject(id){
 			closeObject($(this).attr('id'));
 		});
 	}else{
-		console.log(id);
 		$('#'+id).removeClass('opened');
 		if(id == 'phone_menu'){
 			$('[data-name="phone_menu"]').html('menu');

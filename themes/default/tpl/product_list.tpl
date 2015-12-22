@@ -21,12 +21,21 @@
 				<p class="price"><?=number_format($p['price_opt'], 2, ',', '')?></p>
 				<div class="buy_block">
 					<div class="btn_remove">
-						<button class="mdl-button material-icons">remove</button>
+						<button class="mdl-button material-icons">
+						<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
+							remove</a>
+						</button>
 					</div>
-					<input type="text" class="qty_js" value="0">
+					<input type="text" class="qty_js" value="0" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 					<div class="btn_buy">
 						<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">Купить</button>
 					</div>
+
+					<!-- <input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">
+					<div class="btn_buy">
+						<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
+					</div> -->
+
 				</div>
 			</div>
 			<div class="product_info clearfix">
