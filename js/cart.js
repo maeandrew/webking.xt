@@ -23,7 +23,8 @@ function SendToAjax(id, qty, button, direction, note){
 		}else{
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(qty);
 			$('div[data-idproduct="'+id+'"]').find('.in_cart_js').removeClass('hidden');
-			$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').addClass('hidden');
+			/*$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').addClass('hidden');*/
+			/*$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').addClass('one_plus');*/
 			if(data.cart.products[id].mode == 'opt'){
 				mode_text = 'до';
 			}
@@ -51,7 +52,7 @@ function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
 
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
-	console.log(qty);
+	/*console.log(qty);*/
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
 	}else{
@@ -59,8 +60,10 @@ function ChangeCartQty(id, direction){
 	}
 	if(direction == 1){
 		SendToAjax(id, qty+1, true, direction,note);
-	}else{
+	}else if(direction == 0){
 		SendToAjax(id, qty-1, true, direction,note);
+	}else{
+		SendToAjax(id, qty, true, direction,note);
 	}
 }
 
