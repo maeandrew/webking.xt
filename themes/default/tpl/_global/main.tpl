@@ -160,14 +160,14 @@
 
 	<section class="banner">
 		<div id="owl-main_slider" class="owl-carousel">
-			<!-- <div class="cont">
-				<div class="cont_top">
+			<div class="cont">
+				<!-- <div class="cont_top">
 					<div><img src="<?=$GLOBALS['URL_img_theme']?>smeta_2.png" alt=""></div>
 					<div>
 						<span>Добро пожаловать!</span>
 						<span>Быстро и качественно решаем задачи отдела снабжения каждой компании.</span>
 					</div>
-				</div>
+				</div> -->
 				<a href="#">
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
@@ -189,21 +189,6 @@
 
 					</span>
 				</a>
-			</div> -->
-			<div style=" margin: 52px auto 0;">
-				<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
-				hl=ru&
-				q=intertool&
-				geo=UA&
-				date=today+30-d&
-				cmpt=q&
-				tz=Etc/GMT-2&
-				tz=Etc/GMT-2&
-				content=1&
-				cid=TIMESERIES_GRAPH_0&
-				export=5&
-				w=100000&
-				h=600"></script>
 			</div>
 			<!-- 	<a class="item" href="#">
 				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
