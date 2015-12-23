@@ -160,37 +160,37 @@
 
 	<section class="banner">
 		<div id="owl-main_slider" class="owl-carousel">
-			<!-- <div class="cont">
-				<div class="cont_top">
+			<div class="cont">
+				<!-- <div class="cont_top">
 					<div><img src="<?=$GLOBALS['URL_img_theme']?>smeta_2.png" alt=""></div>
 					<div>
 						<span>Добро пожаловать!</span>
 						<span>Быстро и качественно решаем задачи отдела снабжения каждой компании.</span>
 					</div>
-				</div>
+				</div> -->
 				<a href="#">
 					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 						<h3>Снабжение<br> предриятий</h3>
 
 					</span>
 				</a>
 				<a href="#">
 					<span class="text_block">
-						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
+						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 						<h3>Поставки<br> магазинам</h3>
 
 					</span>
 				</a>
 				<a href="#">
 					<span class="text_block">
-						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.svg">
+						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 						<h3>Обеспечение<br> быта</h3>
 
 					</span>
 				</a>
-			</div> -->
-			<div style=" margin: 52px auto 0;">
+			</div>
+			<!-- <div style=" margin: 52px auto 0;">
 				<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
 				hl=ru&
 				q=intertool&
@@ -204,7 +204,7 @@
 				export=5&
 				w=100000&
 				h=600"></script>
-			</div>
+			</div> -->
 			<!-- 	<a class="item" href="#">
 				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
 			</a>
