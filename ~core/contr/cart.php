@@ -1,5 +1,4 @@
 <?php
-print_r($_SESSION['cart']);
 if(!G::IsLogged()){
 	$_SESSION['from'] = 'cart';
 	header('Location: '._base_url.'/login/');

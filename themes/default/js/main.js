@@ -9,30 +9,30 @@ $(function(){
 		// console.log('center_height - '+viewport_height);
 		// console.log('header_outerheight - '+header_outerheight);
 
-	if(viewport_width < 711) {
+	// if(viewport_width < 711) {
 
-		//Замена картинок баннера
-		// var banner_img = $('#owl-main_slider img');
-		// $('#owl-main_slider').css({
-		// 	'height': viewport_width,
-		// 	'max-height':  $(window).height()*0.8
-		// });
-		// $.each( banner_img ,function(index, obj) {
-		// 	var src = $(this).attr('data-src'),
-		// 		mobile_src = src.replace('banner', 'banner/mobile');
-		// 	$(this).attr('data-src' , mobile_src);
-		// });
+	// 	//Замена картинок баннера
+	// 	// var banner_img = $('#owl-main_slider img');
+	// 	// $('#owl-main_slider').css({
+	// 	// 	'height': viewport_width,
+	// 	// 	'max-height':  $(window).height()*0.8
+	// 	// });
+	// 	// $.each( banner_img ,function(index, obj) {
+	// 	// 	var src = $(this).attr('data-src'),
+	// 	// 		mobile_src = src.replace('banner', 'banner/mobile');
+	// 	// 	$(this).attr('data-src' , mobile_src);
+	// 	// });
 
-		//Замена картинок в слайдере миниатюр
-		var slider_img = $('#owl-product_mini_img_js img');
-		$.each( slider_img ,function(index, obj) {
-			var src = $(this).attr('src'),
-				mobile_src = src.replace('small', 'medium');
-			$(this).attr( 'src' , mobile_src);
-		});
-		//Удаление класса акт картинки на моб версии
-		$('#owl-product_mini_img_js').find('img').removeClass('act_img');
-	}
+	// 	//Замена картинок в слайдере миниатюр
+	// 	var slider_img = $('#owl-product_mini_img_js img');
+	// 	$.each( slider_img ,function(index, obj) {
+	// 		var src = $(this).attr('src'),
+	// 			mobile_src = src.replace('small', 'medium');
+	// 		$(this).attr( 'src' , mobile_src);
+	// 	});
+	// 	//Удаление класса акт картинки на моб версии
+	// 	$('#owl-product_mini_img_js').find('img').removeClass('act_img');
+	// }
 
 	//Высота сайдбара
 	$('.sidebar_wrapp').css('max-height', (viewport_height - header_outerheight - 15));
@@ -125,12 +125,10 @@ $(function(){
 	var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
 		banner_height = $('.banner').outerHeight();
-		console.log('banner_height - '+banner_height);
-		console.log(over_scroll);
+		// console.log('banner_height - '+banner_height);
 	$(window).scroll(function(){
-		if(banner_height == 0){
-			banner_height = $('.banner').outerHeight();
-		}
+		// console.log(over_scroll);
+		banner_height = $('.banner').outerHeight();
 		var height = header.outerHeight(),
 			fixed_height = (banner_height/2) - height;
 		if(over_scroll == false){
@@ -144,23 +142,24 @@ $(function(){
 		var banner_out_height = banner_height - height;
 		if($(this).scrollTop() > banner_out_height && over_scroll == false){
 			over_scroll = true;
-			$('body').addClass('banner_hide');
-			$('#owl-main_slider').height(header_outerheight);
-			$(this).scrollTop(0);
+			console.log(over_scroll);
+			// $('body').addClass('banner_hide');
+			$('.banner').height(header_outerheight);
+			// $(this).scrollTop();
 		}
 	});
 
 
 	//Если он скрыт делаем отступ
-		/*if($('.banner')){
-			//$('body').addClass('.newheader_wrapp');
-			 newheader_wrapp.style.display = (newheader_wrapp.style.display == 'none') ? '' : 'none'
+	// if($('.banner')){
+	// 	//$('body').addClass('.newheader_wrapp');
+	// 	 newheader_wrapp.style.display = (newheader_wrapp.style.display == 'none') ? '' : 'none'
 
-		}*/
+	// }
 
 	//Возврат баннера если он скрыт
-	$('.logo').on('click', function(event) {
-		if(over_scroll === true){
+	$('.logo').on('click', function(event){
+		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
 			$('#owl-main_slider').animate({height: banner_height}, 300);
 			$('html, body').animate({

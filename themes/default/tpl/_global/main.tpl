@@ -121,7 +121,7 @@
 		</style>
 	</noscript>
 </head>
-<body class="c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hidden'?>">
+<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hidden'?>">
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
 	<!-- END Yandex.Metrika counter -->
@@ -160,10 +160,10 @@
 
 	<section class="banner">
 		<div id="owl-main_slider" class="owl-carousel">
-			<div class="cont">
+			<!-- <div class="cont">
 				<div class="cont_top">
-					<div class="left_img"><img src="<?=$GLOBALS['URL_img_theme']?>smeta_2.png" alt=""></div>
-					<div class="cont_block">
+					<div><img src="<?=$GLOBALS['URL_img_theme']?>smeta_2.png" alt=""></div>
+					<div>
 						<span>Добро пожаловать!</span>
 						<span>Быстро и качественно решаем задачи отдела снабжения каждой компании.</span>
 					</div>
@@ -189,6 +189,21 @@
 
 					</span>
 				</a>
+			</div> -->
+			<div style=" margin: 52px auto 0;">
+				<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
+				hl=ru&
+				q=intertool&
+				geo=UA&
+				date=today+30-d&
+				cmpt=q&
+				tz=Etc/GMT-2&
+				tz=Etc/GMT-2&
+				content=1&
+				cid=TIMESERIES_GRAPH_0&
+				export=5&
+				w=100000&
+				h=600"></script>
 			</div>
 			<!-- 	<a class="item" href="#">
 				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
@@ -201,6 +216,7 @@
 			</a> -->
 		</div>
 	</section>
+
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 		<aside id="catalog" class="mdl-color--grey-100 mdl-cell--hide-phone" data-type="panel">
 			<?=$__sidebar_l?>

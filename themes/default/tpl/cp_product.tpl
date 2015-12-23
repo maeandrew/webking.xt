@@ -66,12 +66,7 @@
 						<button class="mdl-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 					</div>
 					<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
-					<?
-						print_r($_SESSION['cart']);
-
-					if(!$in_cart){
-
-						?>
+					<?if(!$in_cart){?>
 						<div class="btn_buy">
 							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">Купить</button>
 						</div>
@@ -135,7 +130,19 @@
 					<?}?>
 				</div>
 				<div id="seasonality" class="mdl-tabs__panel">
-					График
+					<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
+					hl=ru&
+					q=[intertool,intex]&
+					geo=UA&
+					date=today+30-d&
+					cmpt=q&
+					tz=Etc/GMT-2&
+					tz=Etc/GMT-2&
+					content=1&
+					cid=TIMESERIES_GRAPH_0&
+					export=5&
+					w=653&
+					h=600"></script>
 				</div>
 				<div id="comments" class="mdl-tabs__panel">
 					<div class="feedback_form">

@@ -78,11 +78,26 @@ $GLOBALS['MainTemplate']		= 'main.tpl';
 // пустой макет
 $GLOBALS['MainEmptyTemplate']	= 'main_empty.tpl';
 // страницы с левым сайдбаром
-$GLOBALS['LeftSideBar']			= array('main', 'products', 'page', 'newslist', 'news', 'wishes', 'posts', 'post', 'register', 'price', 'demo_order', 'search', 'login', 'customer_order', 'pdf_bill_form', '404');
+$GLOBALS['LeftSideBar']			= array('main',
+	'products',
+	'page',
+	'newslist',
+	'news',
+	'wishes',
+	'posts',
+	'post',
+	'register',
+	'price',
+	'demo_order',
+	'search',
+	'login',
+	'customer_order',
+	'pdf_bill_form',
+	'404');
 // если кабинет поставщика или пользователя - отобразить левый сайдбар
-if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONYMOUS_))){
-	array_push($GLOBALS['LeftSideBar'], 'cabinet');
-}
+// if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONYMOUS_))){
+// 	array_push($GLOBALS['LeftSideBar'], 'cabinet');
+// }
 // страницы с правым сайдбаром
 $GLOBALS['RightSideBar']		= array('main', 'register', 'login', 'page', 'pdf_bill_form');
 // страницы на пустом макете

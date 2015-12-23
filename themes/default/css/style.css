@@ -406,15 +406,11 @@ ul.phone_nav_contacts li span {
 	border: 1px solid #fff;
 	box-shadow: 0px 1px 3px rgba(0,0,0,.3);
 	position: fixed;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
 	text-align: center;
-	max-height: 90%;
-	max-width: 90%;
+	max-height: 80%;
+	max-width: 80%;
 	overflow: hidden;
 }
 [data-type="modal"].opened {
@@ -442,6 +438,9 @@ ul.phone_nav_contacts li span {
 
 /*Breadcrumbs ================================================================*/
 
+.breadcrumbs_wrapp {
+	padding-top: 20px;
+}
 #breadcrumbs {
 	line-height: 42px;
 	float: left;
@@ -461,8 +460,12 @@ header {
 	max-height: 52px;
 	width: 100%;
 	padding: 10px 0;
+	top: 0;
 	z-index: 100;
 	box-sizing: border-box;
+	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
+	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
+	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 }
 .header_wrapp,
 .main {
@@ -492,9 +495,12 @@ aside {
 	float: left;
 }
 section.center {
-	width:calc(100% - 300px);
+	width: calc(100% - 300px);
 	float: right;
 	overflow: hidden;
+}
+.no-sidebar section.center {
+	width: 100%;
 }
 
 
@@ -502,18 +508,13 @@ section.center {
 
 #cart {
 	padding: 25px 10px;
-	width: 1100px;
+	width: 100%;
 }
 #cart h5 {
 	margin: 0;
 	margin-left: 35px;
     margin-bottom: 20px;
     float: left;
-}
-#cart .close_modal {
-	padding-top: 15px;
-    padding-right: 10px;
-    font-size: 1.5em;
 }
 #cart .order_head ul {
 	text-align: left;
@@ -752,6 +753,31 @@ ul.phone_nav_contacts li span {
 
 /*SIDEBAR*/
 
+.breadcrumbs_wrapp .catalog_btn {
+	display: inline-block;
+	font-size: 1.429em;
+	background: #F5F5F5;
+	/*color: #bdbdbd;*/
+	color: #757575;
+	float: left;
+	border: 1px solid #e0e0e0;
+    padding: 10px;
+    width: 200px;
+    box-sizing: border-box;
+    margin-right: 20px;
+	/*position: absolute;*/
+	/*padding-top: 20px;*/
+	cursor: pointer;
+}
+.breadcrumbs_wrapp .catalog_btn:hover {
+	background: #fff;
+	color: inherit;
+}
+.breadcrumbs_wrapp .catalog_btn i {
+	margin-left: 5px;
+	vertical-align: middle;
+	float: right;
+}
 aside {
 	padding-bottom: 20px;
 	position: absolute;
