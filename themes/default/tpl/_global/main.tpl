@@ -121,7 +121,7 @@
 		</style>
 	</noscript>
 </head>
-<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hidden'?>">
+<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
 	<!-- END Yandex.Metrika counter -->
@@ -159,7 +159,6 @@
 	</div>
 
 	<section class="banner">
-		<div id="owl-main_slider" class="owl-carousel">
 			<div class="cont">
 				<!-- <div class="cont_top">
 					<div><img src="<?=$GLOBALS['URL_img_theme']?>smeta_2.png" alt=""></div>
@@ -190,7 +189,8 @@
 					</span>
 				</a>
 			</div>
-			<!-- <div style=" margin: 52px auto 0;">
+		<!-- <div id="owl-main_slider" class="owl-carousel">
+			<div style=" margin: 52px auto 0;">
 				<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
 				hl=ru&
 				q=intertool&
@@ -204,8 +204,8 @@
 				export=5&
 				w=100000&
 				h=600"></script>
-			</div> -->
-			<!-- 	<a class="item" href="#">
+			</div>
+				<a class="item" href="#">
 				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
 			</a>
 			<a class="item" href="#">
@@ -213,8 +213,8 @@
 			</a>
 			<a class="item" href="#">
 				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
-			</a> -->
-		</div>
+			</a>
+		</div> -->
 	</section>
 
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>

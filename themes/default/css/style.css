@@ -5,6 +5,7 @@
 
 html {
 	overflow-y: scroll;
+	padding-top: 52px;
 }
 body {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -338,18 +339,8 @@ ul.phone_nav_contacts li span {
 }
 
 /*When Banner Hidden*/
-.banner_hidden .banner {
-	display: none;
-}
-.banner_hidden .main {
-	padding-top: 52px;
-}
-.banner_hidden header {
-	border-bottom: 1px solid #e0e0e0;
-	background: #fff;
-}
-.banner_hidden aside#catalog {
-	margin-top: 51px;
+body:not(.c_main) .banner {
+	height: 0;
 }
 
 /*Banner(main owl carousel) ==================================================*/
@@ -785,6 +776,8 @@ aside {
 }
 .banner_hide aside {
 	position: fixed;
+	top: 52px;
+	bottom: 0;
 }
 aside .sidebar_wrapp {
 	overflow-x: hidden;

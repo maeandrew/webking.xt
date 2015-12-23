@@ -38,21 +38,21 @@ $(function(){
 	$('.sidebar_wrapp').css('max-height', (viewport_height - header_outerheight - 15));
 
 	//Инициализаци слайдера
-	$("#owl-main_slider").owlCarousel({
-		autoPlay: true,
-		stopOnHover: true,
-		slideSpeed: 500,
-		paginationSpeed: 800,
-		itemsScaleUp: true,
-		singleItem: true,
-		lazyLoad: true,
-		lazyFollow: false,
-		// transitionStyle : "fade",
-		pagination: false,
-		navigation: true, // Show next and prev buttons
-		navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left"></use></svg>',
-						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right"></use></svg>']
-	});
+	// $("#owl-main_slider").owlCarousel({
+	// 	autoPlay: true,
+	// 	stopOnHover: true,
+	// 	slideSpeed: 500,
+	// 	paginationSpeed: 800,
+	// 	itemsScaleUp: true,
+	// 	singleItem: true,
+	// 	lazyLoad: true,
+	// 	lazyFollow: false,
+	// 	// transitionStyle : "fade",
+	// 	pagination: false,
+	// 	navigation: true, // Show next and prev buttons
+	// 	navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left"></use></svg>',
+	// 					'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right"></use></svg>']
+	// });
 
 	//Максимальная высота корзины
 	if(viewport_width > 712) {
@@ -124,44 +124,32 @@ $(function(){
 	//Scroll Magic
 	var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
-		banner_height = $('.banner').outerHeight();
-		// console.log('banner_height - '+banner_height);
+		banner_height = $('.banner').height(),
+		header_height = header.height();
 	$(window).scroll(function(){
-		// console.log(over_scroll);
-		banner_height = $('.banner').outerHeight();
-		var height = header.outerHeight(),
-			fixed_height = (banner_height/2) - height;
 		if(over_scroll == false){
-			if($(this).scrollTop() > fixed_height && header.hasClass("default")){
-			    header.removeClass("default").addClass("fixed_panel");
-			}else if($(this).scrollTop() <= fixed_height && header.hasClass("fixed_panel")){
-			    header.removeClass("fixed_panel").addClass("default");
+			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
+			    header.removeClass("default").addClass("filled");
+			}else if($(this).scrollTop() <= banner_height/2 - header_height && header.hasClass("filled")){
+			    header.removeClass("filled").addClass("default");
+			}
+			//Скрытия баннера
+			if($(this).scrollTop() > banner_height){
+				over_scroll = true;
+				$('.banner').height(0);
+				$('body').addClass('banner_hide');
+				$('html, body').scrollTop(0);
 			}
 		}
-		//Скрытия баннера
-		var banner_out_height = banner_height - height;
-		if($(this).scrollTop() > banner_out_height && over_scroll == false){
-			over_scroll = true;
-			console.log(over_scroll);
-			// $('body').addClass('banner_hide');
-			$('.banner').height(header_outerheight);
-			// $(this).scrollTop();
-		}
 	});
-
-
-	//Если он скрыт делаем отступ
-	// if($('.banner')){
-	// 	//$('body').addClass('.newheader_wrapp');
-	// 	 newheader_wrapp.style.display = (newheader_wrapp.style.display == 'none') ? '' : 'none'
-
-	// }
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
-			$('#owl-main_slider').animate({height: banner_height}, 300);
+			$('.banner').animate({
+				height: banner_height
+			}, 300);
 			$('html, body').animate({
 				scrollTop: 0
 			}, 300);
