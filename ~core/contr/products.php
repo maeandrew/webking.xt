@@ -71,7 +71,9 @@ while($cat = $dbtree->NextRow()){
 	function selectAll($dbtree, $id_category = null, $str = array())
 	{
 		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
-		$str[] = $id_category;
+		if($id_category != 0){
+			$str[] = $id_category;
+		}
 		foreach ($subcats as $val){
 			$str = selectAll($dbtree, $val["id_category"], $str);
 		}

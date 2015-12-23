@@ -862,7 +862,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE translit = '.$this->db->Quote($rewrite).' AND visible = 1 ORDER BY '.$this->table_left;
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).' AND visible = 1 ORDER BY '.$this->table_left;
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}

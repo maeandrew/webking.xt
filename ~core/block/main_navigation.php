@@ -7,27 +7,25 @@ if($GLOBALS['CurrentController'] == 'products'){
 		exit();
 	}
 	$tpl->Assign('curcat', $curcat);
-}
-$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
-if($GLOBALS['CurrentController'] == 'products'){
-	$GLOBALS['CURRENT_ID_CATEGORY'] = $curcat['id_category'];
-	$subcats = $dbtree->GetSubCats($curcat['id_category'], array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
+	$id_category = $curcat['id_category'];
+	$GLOBALS['CURRENT_ID_CATEGORY'] = $id_category;
+	$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'art', 'pid', 'visible'));
 	foreach($subcats as &$s){
 		$subcats2 = count($dbtree->GetSubCats($s['id_category'], 'all'));
 		$s['subcats'] = $subcats2;
 	}
 	$tpl->Assign('subcats', $subcats);
-	if($curcat['pid'] == 0 && $curcat['category_level'] == 1){
-		// $subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'art', 'pid', 'visible'));
-		$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = $curcat['id_category'];
-	}elseif($curcat['pid'] != 0 && $curcat['category_level'] == 2){
-		// $subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'art', 'pid', 'visible'));
-		$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = $curcat['pid'];
-	}else{
-		$gp = $dbtree->CheckParent($curcat['pid'], array('id_category', 'name', 'translit', 'art', 'category_level', 'content', 'pid', 'filial_link'));
-		$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = $gp['pid'];
+
+	$id = $id_category;
+	while($id != 0){
+		$res = $dbtree->CheckParent($id, array('id_category', 'pid'));
+		$GLOBALS['current_categories'][] = $res['id_category'];
+		$id = $res['pid'];
 	}
+	$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = end($GLOBALS['current_categories']);
 }
+
+$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 if(!empty($navigation)){
 	foreach($navigation as &$l1){
 		$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
@@ -39,13 +37,5 @@ if(!empty($navigation)){
 	}
 }
 $tpl->Assign('navigation', $navigation);
-unset($curcat, $navigation, $subcats, $level2, $level3);
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'main_navigation.tpl')
-);
-function rutime($ru, $rus, $index) {
-    return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
-     -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
-}
+unset($curcat, $navigation, $subcats, $level2, $level3, $id, $res, $id_category);
 ?>
