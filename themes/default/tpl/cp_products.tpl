@@ -80,7 +80,7 @@
 		<?}?>
 	<?*/}?>
 	<div class="row">
-		<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_){?>
+		<!-- <?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_){?>
 			<form action="" method="post" class="price_mode_container">
 				<?if(isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){?>
 					<button type="submit" name="available_today" value="0" class="false">Показать все доступные товары</button>
@@ -88,7 +88,7 @@
 					<button type="submit" name="available_today" value="1" class="true">Отобрать товары с моментальной доставкой</button>
 				<?}?>
 			</form>
-		<?}?>
+		<?}?> -->
 		<!-- <form id="cart_discount_and_margin_parameters">
 			<input type="hidden" id="cart_full_wholesale_order_margin" value="<?$GLOBALS['CONFIG']['full_wholesale_order_margin']?>"/>
 			<input type="hidden" id="cart_full_wholesale_discount" value="<?$GLOBALS['CONFIG']['full_wholesale_discount']?>"/>
@@ -100,48 +100,86 @@
 			<input type="hidden" id="cart_price_mode" value="<?$_SESSION['price_mode']?>"/>
 		</form> -->
 		<?if(!empty($list)){?>
-			<div class="col-md-12">
+			<!-- <div class="col-md-12">
 				<div class="tabs_container">
 					<div class="row">
 						<div class="tabs_block col-md-3  col-xs-12">
 							<button onclick="ChangePriceRange(0);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?><!--noindex-->грн.<!--/noindex--></span>
+								<span class="tabs_block_descr">При сумме заказа более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</span>
 								<label class="info_key">?</label>
 								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?><!--noindex-->грн.<!--/noindex--></p>
+									<p>В каталоге будут отображены цены товаров при общей сумме заказа более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</p>
 								</div>
 							</button>
 						</div>
 						<div class="tabs_block col-md-3  col-xs-12">
 							<button onclick="ChangePriceRange(1);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?><!--noindex-->грн.<!--/noindex--></span>
+								<span class="tabs_block_descr">При сумме заказа <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</span>
 								<label class="info_key">?</label>
 								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?><!--noindex-->грн.<!--/noindex--></p>
+									<p>В каталоге будут отображены цены товаров при общей сумме заказа от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</p>
 								</div>
 							</button>
 						</div>
 						<div class="tabs_block col-md-3  col-xs-12">
 							<button onclick="ChangePriceRange(2);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа <?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?><!--noindex-->грн.<!--/noindex--></span>
+								<span class="tabs_block_descr">При сумме заказа <?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>noindexгрн./noindex</span>
 								<label class="info_key">?</label>
 								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?><!--noindex-->грн.<!--/noindex--></p>
+									<p>В каталоге будут отображены цены товаров при общей сумме заказа от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>noindexгрн./noindex</p>
 								</div>
 							</button>
 						</div>
 						<div class="tabs_block col-md-3 col-xs-12">
-							<button onclick="ChangePriceRange(3);" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа до <?=$GLOBALS['CONFIG']['retail_order_margin']?><!--noindex-->грн.<!--/noindex--></span>
+							<button onclick="ChangePriceRange(3);" class="sum_range sum_range<?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'user_active':null;?>">
+								<span class="tabs_block_descr">При сумме заказа до <?=$GLOBALS['CON_3 FIG']['retail_order_margin']?>noindexгрн./noindex</span>
 								<label class="info_key">?</label>
 								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа до <?=$GLOBALS['CONFIG']['retail_order_margin']?><!--noindex-->грн.<!--/noindex--></p>
+									<p>В каталоге будут отображены цены товаров при общей сумме заказа до <?=$GLOBALS['CONFIG']['retail_order_margin']?>noindexгрн./noindex</p>
 								</div>
 							</button>
 						</div>
 					</div>
 				</div>
+			</div> -->
+
+
+			<div class="content_header mdl-cell--hide-phone clearfix">
+				<div class="sort imit_select">
+					<button id="sort-lower-left" class="mdl-button mdl-js-button">
+						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
+					</button>
+
+
+					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
+						<li class="mdl-menu__item active">По рейтингу</li>
+						<li class="mdl-menu__item">Новинки</li>
+						<li class="mdl-menu__item">Популярные</li>
+						<li class="mdl-menu__item">От дешевых к дорогим</li>
+					</ul>
+
+
+				</div>
+				<div class="cart_info">
+					<div class="your_discount">Ваша скидка</div>
+					<div class="tabs_container">
+						<ul>
+							<li class="in_cart_block">
+								<a href="#" class="btn_js" data-name="cart"><div class="order_cart"><?=count($_SESSION['cart']['products'])?> товаров </div><span class="material-icons">shopping_cart</span></a>
+							</li>
+							<li onclick="ChangePriceRange(3);" class="sum_range sum_range<?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'user_active':null;?>">0%</li>
+							<li onclick="ChangePriceRange(0);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'user_active':null;?>">10%</li>
+							<li onclick="ChangePriceRange(2);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'user_active':null;?>">16%</li>
+							<li onclick="ChangePriceRange(1);" class="active sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'user_active':null;?>">21%</li>
+						</ul>
+					</div>
+					<div class="order_balance">Еще заказать на <span class="summ">10000</span> грн.</div>
+					<div class="price_nav"></div>
+				</div>
 			</div>
+
+
+
 			<div id="view_block_js" class="list_view col-md-12 ajax_loading">
 				<div class="row">
 					<?=$products_list;?>
@@ -288,7 +326,8 @@
 		ListenPhotoHover();//Инициализания Preview
 
 		//Показать еще 30 товаров
-		$('#show_more_products').on('click', function(){
+		$('#show_more_products').on('click', function(e){
+			e.preventDefault();
 			var page = $(this).closest('.products'),
 				id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
 				start_page = parseInt(page.find('.paginator li.active').first().text()),
@@ -300,7 +339,7 @@
 			$('.show_more').append('<span class="load_more"></span>');
 			$.ajax({
 				url: URL_base+"ajaxcat",
-				type: "POST",
+				type: "GET",
 				data: ({
 				 'action': 'getmoreproducts_desctop',
 				 'id_category': id_category,

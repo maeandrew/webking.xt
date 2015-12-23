@@ -3,19 +3,20 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Products = new Products();
 	$sort = unserialize($_COOKIE['sorting']);
 	$sorting = $sort['products'];
-	$where_arr = array('cp.id_category'=>$_POST['id_category']);
+	$where_arr = array('cp.id_category'=>$_GET['id_category']);
 	$params = array(
 		'group_by' => 'a.id_product',
 		'order_by' => $sorting['value'],
 		'ajax' => true,
 		'rel_search' => null
 	);
-	if(isset($_POST['action'])){
-		switch($_POST['action']){
+
+	if(isset($_GET['action'])){
+		switch($_GET['action']){
 			case "getmoreproducts":
-				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
+				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', 0, $params);
 				$list = $Products->list;
-				$i = $_POST['shown_products']+1;
+				$i = $_GET['shown_products']+1;
 				foreach($list AS $item){
 					$item['images'] = $Products->GetPhotoById($item['id_product']);
 					($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)? $mopt_available = TRUE : $mopt_available = FALSE;?>
@@ -133,9 +134,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			;
 			break;
 			case "getmoreproducts_desctop":
-				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
+				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', 0, $params);
 				$list = $Products->list;
-				$i = $_POST['shown_products']+1;
+				$i = $_GET['shown_products']+1;
 				foreach($list AS $item){
 					$item['images'] = $Products->GetPhotoById($item['id_product']);?>
 					<div class="col-md-12 clearfix">
