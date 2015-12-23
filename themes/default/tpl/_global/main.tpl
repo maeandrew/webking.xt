@@ -170,35 +170,26 @@
 				</div> -->
 				<a href="#">
 					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.svg">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 						<h3>Снабжение<br> предриятий</h3>
 
 					</span>
 				</a>
 				<a href="#">
 					<span class="text_block">
-						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.svg">
+						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 						<h3>Поставки<br> магазинам</h3>
 
 					</span>
 				</a>
 				<a href="#">
 					<span class="text_block">
-						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.svg">
+						<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 						<h3>Обеспечение<br> быта</h3>
 
 					</span>
 				</a>
 			</div>
-			<!-- 	<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(1).jpg">
-			</a>
-			<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(2).jpg">
-			</a>
-			<a class="item" href="#">
-				<img class="lazyOwl" data-src="<?=$GLOBALS['URL_img_theme']?>banner/скачанные-файлы-(3).jpg">
-			</a> -->
 		</div>
 	</section>
 
