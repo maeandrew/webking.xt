@@ -176,10 +176,10 @@ $(function(){
 		var lvl = $(this).closest('ul').data('lvl'),
 			parent = $(this).closest('li'),
 			parent_label = parent.hasClass('active');
-		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
+		$(this).closest('ul').find('li').removeClass('active')/*.find('ul').stop(true, true).slideUp()*/;
 		$(this).closest('ul').find('.material-icons').removeClass('rotate');
 		if(!parent_label){
-			parent.addClass('active').find('> ul').stop(true, true).slideDown();
+			parent.addClass('active')/*.find('> ul').stop(true, true).slideDown()*/;
 			$(this).find('.material-icons').addClass('rotate');
 		}
 	});

@@ -80,7 +80,7 @@
 		<?}?>
 	<?*/}?>
 	<div class="row">
-		<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_){?>
+		<!-- <?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_){?>
 			<form action="" method="post" class="price_mode_container">
 				<?if(isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){?>
 					<button type="submit" name="available_today" value="0" class="false">Показать все доступные товары</button>
@@ -88,7 +88,7 @@
 					<button type="submit" name="available_today" value="1" class="true">Отобрать товары с моментальной доставкой</button>
 				<?}?>
 			</form>
-		<?}?>
+		<?}?> -->
 		<!-- <form id="cart_discount_and_margin_parameters">
 			<input type="hidden" id="cart_full_wholesale_order_margin" value="<?$GLOBALS['CONFIG']['full_wholesale_order_margin']?>"/>
 			<input type="hidden" id="cart_full_wholesale_discount" value="<?$GLOBALS['CONFIG']['full_wholesale_discount']?>"/>
@@ -288,7 +288,8 @@
 		ListenPhotoHover();//Инициализания Preview
 
 		//Показать еще 30 товаров
-		$('#show_more_products').on('click', function(){
+		$('#show_more_products').on('click', function(e){
+			e.preventDefault();
 			var page = $(this).closest('.products'),
 				id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
 				start_page = parseInt(page.find('.paginator li.active').first().text()),
@@ -300,7 +301,7 @@
 			$('.show_more').append('<span class="load_more"></span>');
 			$.ajax({
 				url: URL_base+"ajaxcat",
-				type: "POST",
+				type: "GET",
 				data: ({
 				 'action': 'getmoreproducts_desctop',
 				 'id_category': id_category,

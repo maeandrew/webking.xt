@@ -561,6 +561,7 @@ section.center {
 	clear: both;
 	overflow: hidden;
 	overflow-y: scroll;
+	max-height: 502px;
 }
 #cart .card {
 	border-bottom: 1px solid #e0e0e0;
@@ -891,16 +892,26 @@ aside .catalog .second_nav li a {
     display: block;
     float: left;
     box-sizing: border-box;
+	color: #9E9E9E;
 }
 aside .catalog .second_nav li.active a {
 	color: #343030;
 }
+
+/* p:not(:nth-child(2n+1)) {
+  font-size: 3em;
+} */
+
+/* Chrome, Safari, Opera */
+
 aside .catalog .second_nav li > ul {
 	margin-left: 20px;
-	display: none;
+    overflow: hidden;
+    max-height: 0;
+    transition: all 1s ease-in-out;
 }
 aside .catalog .second_nav li.active > ul {
-	display: block;
+	max-height: 1000px;
 }
 aside .catalog .second_nav li > ul li a {
 	/*padding: 2px 0;*/
