@@ -29,8 +29,10 @@
 						</button>
 					</div>
 					<input type="text" class="qty_js" value="0" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
-					<div class="btn_buy">
-						<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">Купить</button>
+						<div class="btn_buy">
+						<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">
+							<?=isset($_SESSION['cart']['products'][$p['id_product']])?'+':'Купить'?>
+						</button>
 					</div>
 
 					<!-- <input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">

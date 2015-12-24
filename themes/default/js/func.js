@@ -3,7 +3,7 @@ function GetCartAjax(){
 		url: URL_base+'cart'
 	}).done(function(data){
 		var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
-		console.log(res);
+
 		$('#cart > div').html(res[1]);
 	});
 }
