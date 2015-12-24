@@ -38,10 +38,8 @@ require($GLOBALS['PATH_sys'].'sfYaml.php');
 require($GLOBALS['PATH_sys'].'sfYamlParser.php');
 require($GLOBALS['PATH_sys'].'status_c.php');
 require($GLOBALS['PATH_sys'].'images_c.php');
-
 // including configuration file
 require(_root.'config.php');
-
 // connection to mysql server
 if(phpversion() >= 5.6){
 	$db = new mysqlPDO($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
@@ -49,7 +47,6 @@ if(phpversion() >= 5.6){
 	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
 }
 $GLOBALS['db'] =& $db;
-
 $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);
 $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
@@ -70,7 +67,6 @@ foreach($arr as $i){
 	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
 }
 unset($sql, $arr);
-
 // default controller, if no one else has come
 $GLOBALS['DefaultController']	= 'main';
 // макет
