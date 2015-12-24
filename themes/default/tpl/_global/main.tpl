@@ -245,7 +245,7 @@
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
-					<h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1>
+					<!-- <h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1> -->
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header mdl-cell--hide-phone clearfix">

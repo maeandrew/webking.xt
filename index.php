@@ -135,15 +135,18 @@ unset($pops);
 // =========================================================
 
 // Обработка сортировок ====================================
+//print_r($GLOBALS['CurrentController']);
 if(isset($_COOKIE['sorting'])){
-	$sort = unserialize($_COOKIE['sorting']);
+	$sort = $_COOKIE['sorting'];
+	$sort = (array)json_decode($sort, true);
 }
 if(isset($_POST['value']) && isset($_POST['direction'])){
 	$sort_value = $_POST['value'];
 	$sorting    = array('value' => $sort_value);
-	setcookie('sorting', serialize(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
 }elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
 	$sorting = $sort[$GLOBALS['CurrentController']];
+	print_r($sorting);
 }
 // =========================================================
 
