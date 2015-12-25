@@ -1,35 +1,10 @@
-<div class="sorting">
-	<!--Сортировка по названию !-->
-	<?if(!isset($_GET['search_in_cat'])){?>
-		<form action="" method="POST">
-			<?if(in_array('sorting', $list_controls)){?>
-				<label for="sort_prod">Сортировка</label>
-				<select id="sort_prod" name="value" data-role="none" onchange="$(this).closest('form').submit();">
-					<?foreach($available_sorting_values as $key => $alias){?>
-						<option value="<?=$key?>" <?=isset($sorting['value']) && $sorting['value'] == $key?'selected="selected"':null;?>><?=$alias?></option>
-					<?}?>
-				</select>
-				<select name="direction" data-role="none" class="hidden" onchange="$(this).closest('form').submit();">
-					<option value="asc" <?=isset($sorting['direction']) && $sorting['direction'] == 'asc'?'selected="selected"':null;?>>по возрастанию</option>
-					<option value="desc" <?=isset($sorting['direction']) && $sorting['direction'] == 'desc'?'selected="selected"':null;?>>по убыванию</option>
-				</select>
-			<?}?>
-		</form>
-	<?}?>
-
-	<!--сортировка по названию!-->
-	<!-- <div class="prod_structure">
-		<span class="icon-font list">view_list</span>
-		<span class="icon-font module disabled">view_module</span>
-	</div> -->
-</div>
 <div class="products">
 	<div class="row">
 		<?if(!empty($list)){?>
 			<div class="content_header mdl-cell--hide-phone clearfix">
 				<div class="sort imit_select">
 					<button id="sort-lower-left" class="mdl-button mdl-js-button">
-						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
+						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
 					</button>
 
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
