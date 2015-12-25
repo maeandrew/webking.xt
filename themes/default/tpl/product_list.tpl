@@ -23,9 +23,8 @@
 				<p class="price"><?=number_format($p['price_opt'], 2, ',', '')?></p>
 				<div class="buy_block">
 					<div class="btn_remove">
-						<button class="mdl-button material-icons">
-						<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
-							remove</a>
+						<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
+							remove
 						</button>
 					</div>
 					<input type="text" class="qty_js" value="0" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
