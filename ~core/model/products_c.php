@@ -642,7 +642,7 @@ class Products {
 		}else{
 			$order_by = ' popularity DESC';
 		}
-		// var_dump($order_by);
+//		var_dump($order_by);
 		if(isset($params['administration'])){
 			// SQL выборки для админки
 			$sql = "(SELECT '0' AS sort, a.active,
@@ -690,8 +690,9 @@ class Products {
 				".$where."
 				HAVING p.visible = 1
 					".$prices_zero."
-					AND a.active = 1";
-			$sql .= " $limit";
+					AND a.active = 1
+				ORDER BY ".$order_by
+				.$limit;
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){

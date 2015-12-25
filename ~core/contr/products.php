@@ -360,7 +360,7 @@ while($cat = $dbtree->NextRow()){
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid']);
 		}else{
-			$products->SetProductsList($where_arr, $limit);
+			$products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
 		}
 	}
 	$product_list = $products->list;
