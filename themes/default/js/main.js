@@ -1,13 +1,13 @@
 $(function(){
-
 	var viewport_width = $(window).width(),
 		viewport_height = $(window).height(),
 		center_section_height = $('section .center').height(),
 		header_outerheight = $('header').outerHeight();
-		// console.log('viewport_height - '+viewport_height);
-		// console.log('viewport_width - '+viewport_width);
-		// console.log('center_height - '+viewport_height);
-		// console.log('header_outerheight - '+header_outerheight);
+
+	// Инициализация lazy load
+	$("img.lazy").lazyload({
+		effect : "fadeIn"
+	});
 
 	// if(viewport_width < 711) {
 
@@ -34,7 +34,7 @@ $(function(){
 	// 	$('#owl-product_mini_img_js').find('img').removeClass('act_img');
 	// }
 
-	//Высота сайдбара
+	// Высота сайдбара
 	$('.sidebar_wrapp').css('max-height', (viewport_height - header_outerheight - 15));
 
 	//Инициализаци слайдера
@@ -182,15 +182,15 @@ $(function(){
 	$('.more_cat').on('click', function() {
 		var lvl = $(this).closest('ul').data('lvl'),
 			parent = $(this).closest('li'),
-			parent_label = parent.hasClass('active');
-		$(this).closest('ul').find('li').removeClass('active')/*.find('ul').stop(true, true).slideUp()*/;
+			parent_active = parent.hasClass('active');
+		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
 		$(this).closest('ul').find('.material-icons').removeClass('rotate');
-		if(!parent_label){
-			parent.addClass('active')/*.find('> ul').stop(true, true).slideDown()*/;
+		if(!parent_active){
+			parent.addClass('active').find('> ul').stop(true, true).slideDown();
 			$(this).find('.material-icons').addClass('rotate');
 		}
 	});
-
+	$('.second_nav li.active > ul').show();
 	//Переключение вкладок главного меню
 	$('.catalog').on('click', '.main_nav li', function() {
 		var section = $(this).data('nav');
