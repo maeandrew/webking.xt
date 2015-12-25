@@ -1,171 +1,44 @@
-<?if(!empty($list) && empty($subcats)){?>
-	<div class="sorting">
-		<!--Сортировка по названию !-->
-		<?if(!isset($_GET['search_in_cat'])){?>
-			<form action="" method="POST">
-				<?if(in_array('sorting', $list_controls)){?>
-					<label for="sort_prod">Сортировка</label>
-					<select id="sort_prod" name="value" data-role="none" onchange="$(this).closest('form').submit();">
-						<?foreach($available_sorting_values as $key => $alias){
-							print_r($sorting['value']);?>
-							<option value="<?=$key?>" <?=isset($sorting['value']) && $sorting['value'] == $key?'selected="selected"':null;?>><?=$alias?></option>
-						<?}?>
-					</select>
-					<select name="direction" data-role="none" class="hidden" onchange="$(this).closest('form').submit();">
-						<option value="asc" <?=isset($sorting['direction']) && $sorting['direction'] == 'asc'?'selected="selected"':null;?>>по возрастанию</option>
-						<option value="desc" <?=isset($sorting['direction']) && $sorting['direction'] == 'desc'?'selected="selected"':null;?>>по убыванию</option>
-					</select>
-				<?}?>
-			</form>
-		<?}?>
-
-
-						<div class="sort imit_select">
-							<button id="sort-lower-left" class="mdl-button mdl-js-button">
-								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
-							</button>
-							<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-								<li class="mdl-menu__item active"><?=$key?></li>
-
-								<?foreach($available_sorting_values as $key => $alias){
-									?>
-									<li class="mdl-menu__item" value="<?=$key?>" <?=isset($sorting['value']) && $sorting['value'] == $key?'selected="selected"':null;?>><?=$alias?></li>
-								<?}?>
-
-
-							</ul>
-						</div>
-
-
-
-
-		<!--сортировка по названию!-->
-		<div class="prod_structure">
-			<span class="icon-font list">view_list</span>
-			<span class="icon-font module disabled">view_module</span>
-		</div>
-	</div>
-<?}?>
 <div class="products">
-	<?if(isset($subcats) && !empty($subcats)){/*?>
-		<ul class="subcats row">
-			<?foreach($subcats as $sub){?>
-				<li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-					<a href="<?=Link::Category($sub['translit']);?>" class="animate">
-						<div class="subcats_block">
-							<div>
-								<img class="lazy" data-original="<?=$sub['category_img']?>" alt="<?=$sub['name']?>"/>
-								<noscript>
-									<img src="<?=$sub['category_img']?>" alt="<?=$sub['name']?>"/>
-								</noscript>
-							</div>
-							<div>
-								<span class="color-grey"><?=$sub['name']?></span>
-							</div>
-						</div>
-					</a>
-				</li>
-			<?}?>
-		</ul>
-		<?if(isset($curcat['content_xt']) && $curcat['content_xt'] != ''){?>
-			<div class="content_wrapp">
-				<input type="checkbox" id="read_more" class="hidden">
-				<section class="content_text animate">
-					<?=$curcat['content_xt']?>
-				</section>
-				<?if(strlen($curcat['content_xt']) >= 500){?>
-					<label for="read_more">Читать полностью</label>
-				<?}?>
-			</div>
-		<?}?>
-	<?*/}?>
 	<div class="row">
-		<!-- <?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_){?>
-			<form action="" method="post" class="price_mode_container">
-				<?if(isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){?>
-					<button type="submit" name="available_today" value="0" class="false">Показать все доступные товары</button>
-				<?}else{?>
-					<button type="submit" name="available_today" value="1" class="true">Отобрать товары с моментальной доставкой</button>
-				<?}?>
-			</form>
-		<?}?> -->
-		<!-- <form id="cart_discount_and_margin_parameters">
-			<input type="hidden" id="cart_full_wholesale_order_margin" value="<?$GLOBALS['CONFIG']['full_wholesale_order_margin']?>"/>
-			<input type="hidden" id="cart_full_wholesale_discount" value="<?$GLOBALS['CONFIG']['full_wholesale_discount']?>"/>
-			<input type="hidden" id="cart_wholesale_order_margin" value="<?$GLOBALS['CONFIG']['wholesale_order_margin']?>"/>
-			<input type="hidden" id="cart_wholesale_discount" value="<?$GLOBALS['CONFIG']['wholesale_discount']?>"/>
-			<input type="hidden" id="cart_retail_order_margin" value="<?$GLOBALS['CONFIG']['retail_order_margin']?>"/>
-			<input type="hidden" id="cart_retail_multiplyer" value="<?$GLOBALS['CONFIG']['retail_multiplyer']?>"/>
-			<input type="hidden" id="cart_personal_discount" value="<?=isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:'1';?>"/>
-			<input type="hidden" id="cart_price_mode" value="<?$_SESSION['price_mode']?>"/>
-		</form> -->
 		<?if(!empty($list)){?>
-			<!-- <div class="col-md-12">
-				<div class="tabs_container">
-					<div class="row">
-						<div class="tabs_block col-md-3  col-xs-12">
-							<button onclick="ChangePriceRange(0);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</span>
-								<label class="info_key">?</label>
-								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</p>
-								</div>
-							</button>
-						</div>
-						<div class="tabs_block col-md-3  col-xs-12">
-							<button onclick="ChangePriceRange(1);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</span>
-								<label class="info_key">?</label>
-								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>noindexгрн./noindex</p>
-								</div>
-							</button>
-						</div>
-						<div class="tabs_block col-md-3  col-xs-12">
-							<button onclick="ChangePriceRange(2);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа <?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>noindexгрн./noindex</span>
-								<label class="info_key">?</label>
-								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>noindexгрн./noindex</p>
-								</div>
-							</button>
-						</div>
-						<div class="tabs_block col-md-3 col-xs-12">
-							<button onclick="ChangePriceRange(3);" class="sum_range sum_range<?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'user_active':null;?>">
-								<span class="tabs_block_descr">При сумме заказа до <?=$GLOBALS['CON_3 FIG']['retail_order_margin']?>noindexгрн./noindex</span>
-								<label class="info_key">?</label>
-								<div class="info_description">
-									<p>В каталоге будут отображены цены товаров при общей сумме заказа до <?=$GLOBALS['CONFIG']['retail_order_margin']?>noindexгрн./noindex</p>
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div> -->
-
-
 			<div class="content_header mdl-cell--hide-phone clearfix">
 				<div class="sort imit_select">
 					<button id="sort-lower-left" class="mdl-button mdl-js-button">
-						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
+						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
 					</button>
 
-
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-						<li class="mdl-menu__item active">По рейтингу</li>
-						<li class="mdl-menu__item">Новинки</li>
-						<li class="mdl-menu__item">Популярные</li>
-						<li class="mdl-menu__item">От дешевых к дорогим</li>
+								<?foreach($available_sorting_values as $key => $alias){?>
+
+							<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" ><?=$alias?></li>
+						<?}?>
 					</ul>
-
-
 				</div>
 				<div class="cart_info">
 					<div class="your_discount">Ваша скидка</div>
 					<div class="tabs_container">
 						<ul>
 							<li class="in_cart_block">
-								<a href="#" class="btn_js" data-name="cart"><div class="order_cart"><?=count($_SESSION['cart']['products'])?> товаров </div><span class="material-icons">shopping_cart</span></a>
+								<a href="#" class="btn_js" data-name="cart">
+									<!-- var	str = products_count+' товар';
+									if(products_count.substr(-1) == 1)
+										str += '';
+									else if(products_count.substr(-1)>= 2 && products_count.substr(-1)<= 4)
+										str += 'а';
+									else if(products_count.substr(-1) == 11 || products_count.substr(-1) >=5 && products_count.substr(-1) <=10)
+										str += 'ов'; -->
+								<?php
+									$str = count($_SESSION['cart']['products']). ' товар';
+									$count = count($_SESSION['cart']['products']);
+									if(substr($count,-1) == 1 && substr($count,-2) != 1)
+										$str .= '';
+									else if(substr($count,-1) >= 2 && substr($count,-1) <= 4)
+										$str .= 'а';
+									else
+										$str .= 'ов';
+								?>
+								<div class="order_cart"><?=$str?></div>
+								<span class="material-icons">shopping_cart</span></a>
 							</li>
 							<li onclick="ChangePriceRange(3);" class="sum_range sum_range<?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'user_active':null;?>">0%</li>
 							<li onclick="ChangePriceRange(0);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'user_active':null;?>">10%</li>
@@ -177,8 +50,6 @@
 					<div class="price_nav"></div>
 				</div>
 			</div>
-
-
 
 			<div id="view_block_js" class="list_view col-md-12 ajax_loading">
 				<div class="row">

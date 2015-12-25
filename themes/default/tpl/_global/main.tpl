@@ -245,7 +245,7 @@
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
-					<h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1>
+					<!-- <h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1> -->
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header mdl-cell--hide-phone clearfix">
@@ -265,12 +265,31 @@
 							<div class="tabs_container">
 								<ul>
 									<li class="in_cart_block">
-										<a href="#" class="btn_js" data-name="cart">20 товаров <span class="material-icons">shopping_cart</span></a>
+										<a href="#" class="btn_js" data-name="cart">
+											<!-- var	str = products_count+' товар';
+											if(products_count.substr(-1) == 1)
+												str += '';
+											else if(products_count.substr(-1)>= 2 && products_count.substr(-1)<= 4)
+												str += 'а';
+											else if(products_count.substr(-1) == 11 || products_count.substr(-1) >=5 && products_count.substr(-1) <=10)
+												str += 'ов'; -->
+										<?php
+											$str = count($_SESSION['cart']['products']). ' товар';
+											$count = count($_SESSION['cart']['products']);
+											if(substr($count,-1) == 1 && substr($count,-2) != 1)
+												$str .= '';
+											else if(substr($count,-1) >= 2 && substr($count,-1) <= 4)
+												$str .= 'а';
+											else
+												$str .= 'ов';
+										?>
+										<div class="order_cart"><?=$str?></div>
+										<span class="material-icons">shopping_cart</span></a>
 									</li>
-									<li>0%</li>
-									<li>10%</li>
-									<li>16%</li>
-									<li class="active">21%</li>
+									<li onclick="ChangePriceRange(3);" class="sum_range sum_range<?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'user_active':null;?>">0%</li>
+									<li onclick="ChangePriceRange(0);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'user_active':null;?>">10%</li>
+									<li onclick="ChangePriceRange(2);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'user_active':null;?>">16%</li>
+									<li onclick="ChangePriceRange(1);" class="active sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'user_active':null;?>">21%</li>
 								</ul>
 							</div>
 							<div class="order_balance">Еще заказать на <span class="summ">10000</span> грн.</div>

@@ -104,9 +104,19 @@ $(function(){
 	//Емитация Select
 	$('.imit_select .mdl-menu__item').on('click', function() {
 		var value = $(this).text();
-		$('.imit_select .mdl-menu__item').removeClass('active');
-		$(this).addClass('active');
-		$(this).closest('.imit_select').find('.select_fild').text(value);
+		var sort = JSON.parse($.cookie('sorting'));
+		sort[current_controller]['value'] = ($(this).data('value'));
+		var sorting = JSON.stringify(sort);
+		console.log(sorting);
+		$.cookie('sorting', sorting, {
+			expires: 2,
+			path: '/'
+		});
+		location.reload();
+		//$('.imit_select .mdl-menu__item').removeClass('active');
+		//$(this).addClass('active');
+		//$(this).closest('.imit_select').find('.select_fild').text(value);
+
 	});
 
 	// Активация меню mobile

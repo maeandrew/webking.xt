@@ -21,7 +21,8 @@ class Link {
 	}
 
 	/**
-	 * Генерация ссылки на статьи
+	 * Генерация ссылки на другие страницы
+	 * @param string $controller идентификатор контроллера
 	 * @param string $rewrite идентификатор статьи
 	 */
 	public static function Custom($controller, $rewrite = null){

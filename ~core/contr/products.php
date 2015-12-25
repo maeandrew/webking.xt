@@ -229,7 +229,7 @@ while($cat = $dbtree->NextRow()){
 	if(!isset($sorting)){
 		$sorting = array('value' => 'popularity desc');
 		// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
-		setcookie('sorting', serialize(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
+		setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
 	}else{
 		$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
 	}
@@ -360,7 +360,7 @@ while($cat = $dbtree->NextRow()){
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid']);
 		}else{
-			$products->SetProductsList($where_arr, $limit);
+			$products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
 		}
 	}
 	$product_list = $products->list;
