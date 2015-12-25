@@ -34,12 +34,11 @@
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon navigation">
 				<i class="material-icons">menu</i>
 			</button>
-			<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
-				<li class="mdl-menu__item">Some Action</li>
-				<li class="mdl-menu__item">Another Action</li>
-				<li disabled class="mdl-menu__item">Disabled Action</li>
-				<li class="mdl-menu__item">Yet Another Action</li>
-			</ul>
+			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
+				<?foreach ($list_menu as $menu ) : ?>
+					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
+				<?endforeach?>
+			</nav>
 		</li>
 		<li><button class="mdl-button mdl-js-button enter_btn">Войти</button></li>
 	</ul>
