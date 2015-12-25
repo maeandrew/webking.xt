@@ -184,10 +184,11 @@ $(function(){
 			parent = $(this).closest('li'),
 			parent_active = parent.hasClass('active');
 		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
-		$(this).closest('ul').find('.material-icons').removeClass('rotate');
+		 // $(this).closest('ul').find('.material-icons').addClass('rotate');
+
 		if(!parent_active){
 			parent.addClass('active').find('> ul').stop(true, true).slideDown();
-			$(this).find('.material-icons').addClass('rotate');
+			// $(this).find('.material-icons').addClass('rotate');
 		}
 	});
 	$('.second_nav li.active > ul').show();
