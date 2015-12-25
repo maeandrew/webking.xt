@@ -291,11 +291,16 @@ function mousePos(e){
 }
 
 /* Смена отображаемой цены */
-function ChangePriceRange(id){
+function ChangePriceRange(id, sum){
 	document.cookie="sum_range="+id+"; path=/";
 	document.cookie="manual=1; path=/";
-	$('button.sum_range').removeClass('user_active');
-	$('button.sum_range_'+id).addClass('user_active');
+	$('li.sum_range').removeClass('active');
+	$('li.sum_range_'+id).addClass('active');
+	sum = 'Еще заказать на '+sum;
+	$('.order_balance').text(sum);
+
+	//console.log(sum);
+
 	// setTimeout(function(){
 	//  $('.product_buy .active_price').stop(true,true).css({
 	//      "background-color": "#97FF99"

@@ -1175,6 +1175,10 @@ aside#catalog .catalog_close:hover i {
 	margin-right: 20px;
 	float: left;
 }
+order_balance {
+	width: 170px;
+}
+.
 #cart .tabs_container ul,
 .content_header .cart_info .tabs_container ul {
 	overflow: hidden;
@@ -1525,10 +1529,10 @@ aside#catalog .catalog_close:hover i {
 		margin: 0;
 	}
 	.content_header .sort {
-		width: 30%
+		width: 17%
 	}
 	.content_header .cart_info {
-		width: 70%;
+		width: 83%;
 	}
 	.content {
 		padding: 0 5px;
@@ -1876,6 +1880,27 @@ aside#catalog .catalog_close:hover i {
 @media (min-width: 728px) and (max-width: 1169px) {
 	.product_page .mdl-cell--4-col-tablet {
     	width: 50%;
+	}
+}
+@media (min-width: 728px) and (max-width: 1010px) {
+	.content_header .cart_info .your_discount,
+	.content_header .cart_info .tabs_container,
+	.content_header .cart_info .order_balance {
+		margin-right: 20px;
+		float: left;
+	}
+	.content_header .cart_info {
+		width: 83%;
+	}
+	.your_discount {
+		display: none;
+	}
+}
+
+@media (min-width: 728px) and (max-width: 880px) {
+	.content_header .cart_info {
+	    width: 100%;
+	    margin-top: 13px;
 	}
 }
 @media (min-width: 1170px) {
