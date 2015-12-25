@@ -81,7 +81,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$_SESSION['cart']['products'][$_GET['id_product']]['note'] = isset($_GET['note'])?$_GET['note']:'';
 				$res = $cart->UpdateCartQty($_GET);
 				echo json_encode($res);
-								exit();
+				exit();
 			;
 			break;
 			case "get_cart":
@@ -91,6 +91,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case "remove_from_cart":
 				$res = $cart->RemoveFromCart($_GET['id_product']);
 				echo json_encode($res);
+				exit();
 			;
 			break;
 			case "update_note":
