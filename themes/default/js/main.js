@@ -319,8 +319,11 @@ $(function(){
 	$('body').on('click', '.btn_js', function(){
 		var name = $(this).data('name');
 		if(name != undefined){
-			GetCartAjax();
-			openObject(name);
+			if(name == 'cart'){
+				GetCartAjax();
+			}else{
+				openObject(name);
+			}
 		}
 	});
 	//Обработка примечания

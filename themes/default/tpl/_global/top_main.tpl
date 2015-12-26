@@ -28,16 +28,16 @@
 		</form>
 	</div>
 	<ul class="header_nav mdl-cell--hide-phone">
-		<li><a href="#" class="checkout btn_js" data-name="cart">Оформить заказ</a></li>
+		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart">Оформить заказ</a></li>
 		<li><a href="#">Поставки магазинам</a></li>
 		<li>
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon navigation">
 				<i class="material-icons">menu</i>
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
-				<?foreach ($list_menu as $menu ) : ?>
+				<?foreach($list_menu as $menu){?>
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
-				<?endforeach?>
+				<?}?>
 			</nav>
 		</li>
 		<li><button class="mdl-button mdl-js-button enter_btn">Войти</button></li>

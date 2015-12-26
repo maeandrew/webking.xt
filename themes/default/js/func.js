@@ -1,11 +1,15 @@
 function GetCartAjax(){
-	$.ajax({
-		url: URL_base+'cart'
-	}).done(function(data){
-		var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
-
-		$('#cart > div').html(res[1]);
-	});
+	if($('#cart').hasClass('opened')){
+		closeObject('cart');
+	}else{
+		$.ajax({
+			url: URL_base+'cart'
+		}).done(function(data){
+			var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
+			$('#cart > .modal_container').html(res[1]);
+			openObject('cart');
+		});
+	}
 }
 
 // Change product view
@@ -320,12 +324,20 @@ function openObject(id){
 			closeObject($(this).attr('id'));
 		});
 	}
-
 	if(object.hasClass('opened') && type != "search"){
 		closeObject(object.attr('id'));
 		DeactivateBG();
 	}else{
-		object.addClass('opened');
+		if(type == 'modal'){
+			object.css({
+				'top': ($(window).outerHeight() + 52 - object.outerHeight())/2,
+				'right': ($(window).outerWidth() - object.outerWidth())/2
+			}).addClass('opened').find('.modal_container').css({
+				'max-height': object.innerHeight()-(parseInt(object.css('padding-top'))+parseInt(object.css('padding-bottom')))
+			});
+		}else{
+			object.addClass('opened');
+		}
 		ActivateBG();
 	}
 			// console.log();

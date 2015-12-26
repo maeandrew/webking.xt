@@ -5,7 +5,6 @@
 
 html {
 	overflow-y: scroll;
-	padding-top: 52px;
 }
 body {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -13,6 +12,7 @@ body {
 	font-size: 14px;
 	color: #343030;
 	background: #fff;
+	padding-top: 52px;
 }
 a {
 	text-decoration: none;
@@ -218,6 +218,10 @@ label:hover + .info_description {
 [data-type="modal"]{
 	display: none;
 }
+[data-type="modal"] .modal_container {
+	overflow: hidden;
+	overflow-y: scroll;
+}
 [data-type="modal"].opened {
 	display: block;
 }
@@ -232,7 +236,8 @@ label:hover + .info_description {
 [class^="active_"],
 [class*=" active_"] {
 	overflow: hidden;
-	height: 100%;
+	height: calc(100% - 52px);
+	box-sizing: border-box;
 }
 [class^='active_'] .background_panel,
 [class*=' active_'] .background_panel {
@@ -397,8 +402,6 @@ body:not(.c_main) .banner {
 	border: 1px solid #fff;
 	box-shadow: 0px 1px 3px rgba(0,0,0,.3);
 	position: fixed;
-	top: 0;
-	left: 0;
 	text-align: center;
 	max-height: 80%;
 	max-width: 80%;
@@ -585,7 +588,7 @@ section.center {
 /*Cart =======================================================================*/
 
 #cart {
-	padding: 25px 10px;
+	padding: 30px;
 	width: 100%;
 }
 #cart h5 {
@@ -637,9 +640,6 @@ section.center {
 }
 #cart .order_wrapp {
 	clear: both;
-	overflow: hidden;
-	overflow-y: scroll;
-	max-height: 502px;
 }
 #cart .card {
 	border-bottom: 1px solid #e0e0e0;
@@ -892,11 +892,6 @@ aside .catalog .main_nav li {
 aside .catalog .main_nav li:last-child {
 	border-bottom: none;
 }
-aside .catalog .main_nav li:hover,
-aside .catalog .main_nav li.active {
-	background: #fff;
-	color: inherit;
-}
 aside .catalog .main_nav i {
 	vertical-align: top;
 	margin-right: 10px;
@@ -937,8 +932,6 @@ aside .catalog .second_nav .link_wrapp .more_cat {
 }
 aside .catalog .second_nav .link_wrapp:hover .more_cat {
 	background: #FAFAFA;
-}
-aside .catalog .second_nav .more_cat:hover {
 	border-color: #9e9e9e;
 }
 aside .catalog .second_nav i {
@@ -980,7 +973,15 @@ aside .catalog .second_nav li a {
 aside .catalog .second_nav li.active a {
 	color: #343030;
 }
-
+aside .catalog .second_nav li:hover > .link_wrapp a,
+aside .catalog .second_nav li.active > .link_wrapp a {
+	background: #fff;
+	color: inherit;
+}
+aside .catalog .second_nav li.active > .link_wrapp a {
+	background: transparent;
+	font-weight: bold;
+}
 
 /* p:not(:nth-child(2n+1)) {
   font-size: 3em;
@@ -1107,7 +1108,7 @@ aside#catalog .catalog_close:hover i {
 /*CONTENT*/
 
 .content {
-	padding-left: 30px;
+	padding: 0 15px;
 	box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
 }
 
@@ -1212,7 +1213,6 @@ aside#catalog .catalog_close:hover i {
 
 .content_header {
 	padding-top: 10px;
-	padding-right: 10px;
 }
 .content_header .sort {
 	position: relative;
@@ -1241,12 +1241,13 @@ aside#catalog .catalog_close:hover i {
 	text-overflow: ellipsis;
 }
 .content_header .sort [for="sort-lower-left"] li {
+	float: none;
 	line-height: 30px;
 	height: 30px;
 }
 .content_header .cart_info {
 	float: right;
-	width: 60%;
+	width: auto;
 	position: relative;
 	border-bottom: 2px solid #e5e5e5;
 	padding-bottom: 5px;
@@ -1264,28 +1265,48 @@ aside#catalog .catalog_close:hover i {
 .content_header .cart_info .tabs_container,
 .content_header .cart_info .order_balance {
 	float: left;
+	white-space: nowrap;
+	margin: 0 2%;
 }
 .order_balance {
-	width: 200px;
+	width: 300px;
 }
-.
+#cart .order_balance {
+	width: auto;
+}
 #cart .tabs_container ul,
 .content_header .cart_info .tabs_container ul {
 	overflow: hidden;
 	font-size: 0;
+	display: flex;
+}
+#cart .tabs_container ul {
+	justify-content: center;
 }
 #cart .tabs_container ul li,
 .content_header .cart_info .tabs_container ul li {
 	display: inline-block;
 	font-size: 14px;
 	border: 1px solid #e5e5e5;
-	border-radius: 3px;
+	border-right-width: 0;
 	padding: 0 5px;
 	box-sizing: border-box;
 	line-height: 20px;
 	color: #c1c1c1;
 	cursor: pointer;
 	text-align: center;
+	-webkit-transition: all .3s cubic-bezier(.4, 0, .2, 1);
+	-o-transition: all .3s cubic-bezier(.4, 0, .2, 1);
+	transition: all .3s cubic-bezier(.4, 0, .2, 1);
+}
+#cart .tabs_container ul li:first-of-type,
+.content_header .cart_info .tabs_container ul li:first-of-type {
+	border-radius: 3px 0 0 3px;
+}
+#cart .tabs_container ul li:last-of-type,
+.content_header .cart_info .tabs_container ul li:last-of-type {
+	border-radius: 0 3px 3px 0;
+	border-right-width: 1px;
 }
 #cart .tabs_container ul li:hover,
 .content_header .cart_info .tabs_container ul li:hover {
@@ -1297,6 +1318,19 @@ aside#catalog .catalog_close:hover i {
 	border-color: #FF5722;
 	background: #FF5722;
 	color: #fff;
+}
+#cart .tabs_container ul li.active ~ li,
+.content_header .cart_info .tabs_container ul li.active ~ li {
+	color: #444;
+	border-color: #444 !important;
+}
+#cart .tabs_container ul li:hover + li,
+.content_header .cart_info .tabs_container ul li:hover + li {
+	border-left-color: #FF5722;
+}
+#cart .tabs_container ul li.active + li,
+.content_header .cart_info .tabs_container ul li.active + li {
+	border-left-color: #FF5722 !important;
 }
 #cart .tabs_container .in_cart_block,
 .content_header .cart_info .tabs_container .in_cart_block {
@@ -1338,7 +1372,7 @@ aside#catalog .catalog_close:hover i {
 	/*left: 165px;*/
 	border-left: 12px solid transparent;
 	border-right: 12px solid transparent;
-	border-top: 12px solid rgba(190,190,190,.4);
+	border-top: 12px solid #E5E5E5;
 	-webkit-transition: all .5s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .5s cubic-bezier(.4, 0, .2, 1);
 	transition: all .5s cubic-bezier(.4, 0, .2, 1);
@@ -1363,12 +1397,12 @@ aside#catalog .catalog_close:hover i {
 
 .products {
 	padding-bottom: 30px;
-	padding-right: 10px;
 }
 .products .card {
 	margin-top: 15px;
 	padding: 5px 10px;
 	box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
+	border-radius: .2em;
 }
 .products .card:first-of-type {
 	margin-top: 15px;
@@ -1412,7 +1446,6 @@ aside#catalog .catalog_close:hover i {
 	font-weight: 500;
 	color: inherit;
 	text-decoration: none;
-	display: inline-block;
 	max-height: 30px;
 	overflow: hidden;
 }
@@ -1428,7 +1461,7 @@ aside#catalog .catalog_close:hover i {
 	white-space: nowrap;
 	/*line-height: 30px;*/
 	/*margin-right: 20px;*/
-	padding-left: 10px;
+	padding-left: 5px;
 	vertical-align: top;
 }
 .product_buy .mdl-button {
