@@ -36,7 +36,9 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	$tpl->Assign('navigation', $navigation);
 	$tpl_header .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'top_main.tpl');
 	// Хлебные крошки
-	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
+	// 
+		
+	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
 		unset($parsed_res);
 		require($GLOBALS['PATH_block'].'breadcrumbs.php');
 		if(true == @$parsed_res['issuccess']){

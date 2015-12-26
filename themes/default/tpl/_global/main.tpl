@@ -140,14 +140,9 @@
 	</header>
 	<div id="phone_menu" class="panel" data-type="panel">
 		<ul class="phone_nav">
-			<li><a href="#">Скидки</a></li>
-			<li><a href="#">Каталог</a></li>
-			<li><a href="#">Фильтры</a></li>
-			<li><a href="#">Снабжение организаций</a></li>
-			<li><a href="#">Поставки магазинам</a></li>
-			<li><a href="#">Новости</a></li>
-			<li><a href="#">Часто задаваемые вопросы</a></li>
-			<li><a href="#">Книга жалоб и предложений</a></li>
+			<?foreach($list_menu as $menu){?>
+				<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+			<?}?>
 		</ul>
 		<ul class="phone_nav_contacts clearfix">
 			<li class="parent_nav"><div class="material-icons">phone</div><span>(063) 225-91-83</span></li>
@@ -457,7 +452,7 @@
 		</div>
 	<?}?>
 	<div id="cart" data-type="modal">
-		<div></div>
+		<div class="modal_container"></div>
 	</div>
 </body>
 </html>
