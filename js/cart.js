@@ -100,4 +100,9 @@ function completeCartProductAdd(data){
 	$('.order_cart').text(str);
 	$('#summ_many').text(data.cart_sum);
 	$('#summ_prod').text(products_count);
+	if(products_count > 0){
+		$('.checkout').removeClass('hidden');
+	}else{
+		$('.checkout').addClass('hidden');
+	}
 }

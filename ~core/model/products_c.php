@@ -676,14 +676,13 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			$sql = "SELECT ".implode(", ",$this->usual_fields).",
-				a.active, a.price_opt_otpusk, a.price_mopt_otpusk, un.unit_xt AS units, notation_price, instruction,
+			$sql = "SELECT p.*, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
 				(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
 				FROM "._DB_PREFIX_."cat_prod AS cp
-					INNER JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL

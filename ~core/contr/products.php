@@ -236,7 +236,7 @@ while($cat = $dbtree->NextRow()){
 
 	if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 		$available_sorting_values = array(
-			'popularity desc' => 'популярные',
+			'popularity desc' => 'популярные сверху',
 			'price_opt_otpusk asc' => 'от дешевых к дорогим',
 			'price_opt_otpusk desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
@@ -244,7 +244,7 @@ while($cat = $dbtree->NextRow()){
 		);
 	}else{
 		$available_sorting_values = array(
-			'popularity desc' => 'популярные',
+			'popularity desc' => 'популярные сверху',
 			'price_mopt asc' => 'от дешевых к дорогим',
 			'price_mopt desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
@@ -318,14 +318,14 @@ while($cat = $dbtree->NextRow()){
 	// }
 	// =========================================================
 
-	// $time_start = microtime(true);
+	$time_start = microtime(true);
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
 	}
 	if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !isset($_GET['limit'])){
-		if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
-			$_GET['page_id'] = $_POST['page_nbr'];
+		if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
+			$_GET['page_id'] = $GLOBALS['Page_id'];
 		}
 		if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
@@ -336,7 +336,7 @@ while($cat = $dbtree->NextRow()){
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
 		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 		unset($cnt);
-		$limit = ' limit '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
+		$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 	}else{
 		$GLOBALS['Limit_db'] = 0;
 		$limit = '';
@@ -344,11 +344,11 @@ while($cat = $dbtree->NextRow()){
 
 	// =========================================================
 
-	// $time_end = microtime(true);
-	// $time = $time_end - $time_start;
+	$time_end = microtime(true);
+	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
 
-	// $time_start = microtime(true);
+	$time_start = microtime(true);
 	// Получение массива товаров ===============================
 	$GET_limit = "";
 	if(isset($_GET['limit'])){
@@ -363,6 +363,12 @@ while($cat = $dbtree->NextRow()){
 			$products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
 		}
 	}
+
+	$time_end = microtime(true);
+	$time = $time_end - $time_start;
+	// echo "execution time <b>$time</b> seconds\n<br>";
+	
+
 	$product_list = $products->list;
 	foreach($product_list as &$p){
 		$p['images'] = $products->GetPhotoById($p['id_product']);
@@ -371,9 +377,6 @@ while($cat = $dbtree->NextRow()){
 
 
 
-	// $time_end = microtime(true);
-	// $time = $time_end - $time_start;
-	// echo "execution time <b>$time</b> seconds\n<br>";
 
 	// =========================================================
 // }

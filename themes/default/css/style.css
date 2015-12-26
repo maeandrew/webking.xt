@@ -1359,7 +1359,6 @@ aside#catalog .catalog_close:hover i {
 	font-weight: 500;
 	color: inherit;
 	text-decoration: none;
-	display: inline-block;
 	max-height: 30px;
 	overflow: hidden;
 }
@@ -1375,7 +1374,7 @@ aside#catalog .catalog_close:hover i {
 	white-space: nowrap;
 	/*line-height: 30px;*/
 	/*margin-right: 20px;*/
-	padding-left: 10px;
+	padding-left: 5px;
 	vertical-align: top;
 }
 .product_buy .mdl-button {
