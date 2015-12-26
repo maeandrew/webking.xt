@@ -260,19 +260,12 @@
 								<li class="mdl-menu__item">От дешевых к дорогим</li>
 							</ul>
 						</div>
-						<div class="cart_info">
+						<div class="cart_info clearfix">
 							<div class="your_discount">Ваша скидка</div>
 							<div class="tabs_container">
 								<ul>
-									<li class="in_cart_block">
+									<!-- <li class="in_cart_block">
 										<a href="#" class="btn_js" data-name="cart">
-											<!-- var	str = products_count+' товар';
-											if(products_count.substr(-1) == 1)
-												str += '';
-											else if(products_count.substr(-1)>= 2 && products_count.substr(-1)<= 4)
-												str += 'а';
-											else if(products_count.substr(-1) == 11 || products_count.substr(-1) >=5 && products_count.substr(-1) <=10)
-												str += 'ов'; -->
 										<?php
 											$str = count($_SESSION['cart']['products']). ' товар';
 											$count = count($_SESSION['cart']['products']);
@@ -285,25 +278,27 @@
 										?>
 										<div class="order_cart"><?=$str?></div>
 										<span class="material-icons">shopping_cart</span></a>
-									</li>
+									</li> -->
 									<li onclick="ChangePriceRange(3, 0)" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'active':null;?>">0%</li>
 									<li onclick="ChangePriceRange(2,<?=$sum = 500 - $_SESSION['cart']['cart_sum'];?>);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
 									<li onclick="ChangePriceRange(1,<?=$sum = 3000 - $_SESSION['cart']['cart_sum'];?>);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
 									<li onclick="ChangePriceRange(0,<?=$sum = 10000 - $_SESSION['cart']['cart_sum'];?>);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'active':null;?>">21%</li>
 								</ul>
 							</div>
-							<?if($_COOKIE['sum_range'] == 3) {;?>
-								<div class="order_balance">Хитрый текст <span class="summ"></span> грн.</div>
-							<?}elseif($_COOKIE['sum_range'] == 2){
-								$sum = 500 - $_SESSION['cart']['cart_sum'];?>
-								<div class="order_balance">Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ');?></span> грн.</div>
-							<?}elseif($_COOKIE['sum_range'] == 1){
-								$sum = 3000 - $_SESSION['cart']['cart_sum'];?>
-								<div class="order_balance">Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.</div>
-							<?}elseif($_COOKIE['sum_range'] == 0){
-								$sum = 10000 - $_SESSION['cart']['cart_sum'];?>
-								<div class="order_balance">Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.</div>
-							<?}?>
+							<div class="order_balance">
+								<?if($_COOKIE['sum_range'] == 3) {;?>
+									Готово!
+								<?}elseif($_COOKIE['sum_range'] == 2){
+									$sum = 500 - $_SESSION['cart']['cart_sum'];?>
+									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ');?></span> грн.
+								<?}elseif($_COOKIE['sum_range'] == 1){
+									$sum = 3000 - $_SESSION['cart']['cart_sum'];?>
+									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.
+								<?}elseif($_COOKIE['sum_range'] == 0){
+									$sum = 10000 - $_SESSION['cart']['cart_sum'];?>
+									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.
+								<?}?>
+							</div>
 							<div class="price_nav"></div>
 						</div>
 					</div>

@@ -17,8 +17,8 @@ if(true == @$parsed_res['issuccess']){
 	$tpl_nav .= $parsed_res['html'];
 }
 
+$tpl->Assign('cart_info', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cart_info.tpl'));
 $tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'aside.tpl');
-
 // Центральный блок
 require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 

@@ -1159,12 +1159,15 @@ aside#catalog .catalog_close:hover i {
 }
 .content_header .cart_info {
 	float: right;
+	width: 60%;
 	position: relative;
 	border-bottom: 2px solid #e5e5e5;
 	padding-bottom: 5px;
 	-webkit-transition: all .3s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .3s cubic-bezier(.4, 0, .2, 1);
 	transition: all .3s cubic-bezier(.4, 0, .2, 1);
+	display: flex;
+	justify-content: space-between;
 }
 .content_header:hover .cart_info {
 	border-color: #FF5722;
@@ -1173,11 +1176,10 @@ aside#catalog .catalog_close:hover i {
 .content_header .cart_info .your_discount,
 .content_header .cart_info .tabs_container,
 .content_header .cart_info .order_balance {
-	margin-right: 20px;
 	float: left;
 }
-order_balance {
-	width: 170px;
+.order_balance {
+	width: 200px;
 }
 .
 #cart .tabs_container ul,
@@ -1199,11 +1201,15 @@ order_balance {
 	text-align: center;
 }
 #cart .tabs_container ul li:hover,
-#cart .tabs_container ul li.active,
-.content_header .cart_info .tabs_container ul li:hover,
-.content_header .cart_info .tabs_container ul li.active {
+.content_header .cart_info .tabs_container ul li:hover {
 	border-color: #FF5722;
 	color: inherit;
+}
+#cart .tabs_container ul li.active,
+.content_header .cart_info .tabs_container ul li.active {
+	border-color: #FF5722;
+	background: #FF5722;
+	color: #fff;
 }
 #cart .tabs_container .in_cart_block,
 .content_header .cart_info .tabs_container .in_cart_block {
@@ -1531,10 +1537,10 @@ order_balance {
 		margin: 0;
 	}
 	.content_header .sort {
-		width: 17%
+		width: 25%;
 	}
 	.content_header .cart_info {
-		width: 83%;
+		width: 50%;
 	}
 	.content {
 		padding: 0 5px;
@@ -1883,19 +1889,22 @@ order_balance {
 	.product_page .mdl-cell--4-col-tablet {
 		width: 50%;
 	}
+	.content_header .cart_info {
+		width: 75%;
+	}
 }
 @media (min-width: 728px) and (max-width: 1010px) {
 	.content_header .cart_info .your_discount,
 	.content_header .cart_info .tabs_container,
 	.content_header .cart_info .order_balance {
-		margin-right: 20px;
 		float: left;
 	}
 	.content_header .cart_info {
-		width: 83%;
+		width: 100%;
+		margin-top: .5em;
 	}
-	.your_discount {
-		display: none;
+	.content_header .sort {
+		width: auto;
 	}
 }
 

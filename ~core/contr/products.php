@@ -377,7 +377,7 @@ while($cat = $dbtree->NextRow()){
 
 	// =========================================================
 // }
-$products_list = $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl');
+$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
