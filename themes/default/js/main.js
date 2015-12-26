@@ -351,4 +351,29 @@ $(function(){
 		$(this).prop("checked", checked);
 		console.log('sdf');
 	});
+
+	/* Обработчик данных из корзины */
+	$('form').on('submit', function(e){
+		e.preventDefault();
+		console.log('error');
+		$.ajax({
+
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'add',
+				/*"user_number": '$arr[$arr]'*/
+			}
+		}).done(function(){
+			if(data != false){
+				openObject('modal_2');
+			}else{
+				error(function() {
+					console.log('error');
+				});
+			}
+		});
+	});
 });

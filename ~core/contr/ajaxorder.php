@@ -1,10 +1,13 @@
 <?
+print_r($_POST);
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Cart = new Cart();
 	$Region = new Regions();
 	$City = new Citys();
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
+	$Orders = new Orders();
+	$Orders->Add($_POST['user_number']);
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case "regionSelect":
@@ -15,7 +18,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				<?}
 			;
 			break;
-			
+
 			case "citySelect":
 				$res = $DeliveryService->SetFieldsByInput($_POST['city']);?>
 				<option selected="selected" disabled="disabled" class="color-sgrey">Способ доставки</option>
@@ -26,7 +29,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				<?}
 			;
 			break;
-			
+
 			case "deliverySelect":
 				$res = $DeliveryService->SetFieldsByInput($_POST['city']);?>
 				<?if(count($res) == 1){?>
@@ -39,7 +42,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 			;
 			break;
-			
+
 			case "getCityId":
 				$res = $DeliveryService->GetAnyCityId($_POST['city']);?>
 				<option selected value="<?=$res['id_city']?>"><?=$res['id_city']?></option>
@@ -64,7 +67,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				<?}
 			;
 			break;
-			
+
 			default:
 			;
 			break;

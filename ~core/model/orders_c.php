@@ -487,7 +487,7 @@ class Orders {
 			$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
 		}else{
 			$f['phones'] = mysql_real_escape_string(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phones']), -10)));
-			$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
+			/*$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
 			$f['id_city'] = mysql_real_escape_string(trim($arr['id_delivery_department']));
 			$f['id_delivery_service'] = mysql_real_escape_string(trim(isset($arr['id_delivery_service'])?$arr['id_delivery_service']:0));
 			$f['id_contragent'] = mysql_real_escape_string(trim($arr['id_manager']));
@@ -499,7 +499,7 @@ class Orders {
 			if(isset($arr['promo-code']) && $arr['promo-code'] != ''){
 				$f['promo_code'] = mysql_real_escape_string(trim($arr['promo-code']));
 			}
-			$f['descr'] = mysql_real_escape_string(trim($arr['description']));
+			$f['descr'] = mysql_real_escape_string(trim($arr['description']));*/
 			if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
 				// Исскуственное изменение колонки менеджером
 				$f['sum_opt'] = $f['sum_mopt'] = $f['sum_discount'] = $f['sum'] = $_SESSION['cart']['products_sum'][$arr['price_column']];
