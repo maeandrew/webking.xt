@@ -459,5 +459,41 @@
 	<div id="cart" data-type="modal">
 		<div></div>
 	</div>
+	<div id="order_list" data-type="modal" class="opened">
+		<div>
+			<div class="wr_modal">
+				<div class="head_top">
+					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
+					<span>Сейчас я вижу Вас как "Клиент 2345623", скажите, как Вас зовут?</span>
+				</div>
+				<form action="">
+					<div class="mdl-textfield mdl-js-textfield inputs">
+						<span class="number_label">Фамилия</span>
+						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
+
+						<label class="mdl-textfield__label" for="sample1"></label>
+						<span style='color:red' id='namef'></span><br />
+					</div>
+					<div class="mdl-textfield mdl-js-textfield inputs">
+						<span class="number_label">Имя</span>
+						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
+
+						<label class="mdl-textfield__label" for="sample1"></label>
+						<span style='color:red' id='namef'></span><br />
+					</div>
+					<div class="mdl-textfield mdl-js-textfield inputs">
+						<span class="number_label">Отчество</span>
+						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
+
+						<label class="mdl-textfield__label" for="sample1"></label>
+						<span style='color:red' id='namef'></span><br />
+					</div>
+					<button class="else" data-upgraded=",MaterialButton" type='submit' value="Далее">Далее</button>
+				</form>
+				<div class="line"><div class="line_active"><span class="go">Заполнено: 80%</span></div></div>
+
+			</div>
+		</div>
+	</div>
 </body>
 </html>

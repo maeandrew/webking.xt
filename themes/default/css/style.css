@@ -495,6 +495,93 @@ section.center {
 }
 
 
+/* Modal from end_order ======================================================== */
+.wr_modal {
+	text-align: left;
+}
+.head_top {
+	    margin: 0 0 22px;
+	    padding-left: 5%;
+}
+.wr_modal form {
+	padding: 16px 40px;
+}
+.wr_modal form .inputs {
+	    width: 60%;
+    top: 27px;
+    float: left;
+
+}
+.wr_modal .__label {
+	color: #E1E1E1;
+	display: block;
+
+}
+.wr_modal .mdl-textfield {
+	padding: 0;
+	z-index: 1000;
+}
+.wr_modal .mdl-textfield__input {
+	padding-top: 3%;
+}
+.wr_modal .else {
+	background-color: #EEEEEE;
+	border: none;
+	min-width: 100px;
+	min-height: 45px;
+	font-size: 18px;
+    font-weight: 500;
+    margin-top: 20%;
+    float: left;
+    margin-left: -60%;
+    border-radius: 5px;
+}
+.wr_modal .line {
+	background: #eeeeee;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 184px;
+    height: 10px;
+    float: right;
+    margin: 10% 18%;
+}
+.wr_modal .line_active {
+	background: #26C6DA;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 184px;
+    height: 10px;
+}
+.wr_modal span.go {
+	float: right;
+    left: 104%;
+    display: block;
+    position: relative;
+    top: -5px;
+
+}
+.wr_modal h5 {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-top: 21px;
+    margin-bottom: 19px;
+    z-index: 1000;
+    text-align: left;
+    max-width: 631px;
+}
+#order_list span {
+	text-align: left;
+}
+.number_label {
+	color: #000;
+    font-size: 20px;
+}
+
 /*Cart =======================================================================*/
 
 #cart {
