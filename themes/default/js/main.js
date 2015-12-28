@@ -356,9 +356,11 @@ $(function(){
 	});
 
 	/* Обработчик данных из корзины */
-	$('form').on('submit', function(e){
+	$('submit').on('click', function(e){
+		console.log('er');
 		e.preventDefault();
-		console.log('error');
+
+
 		$.ajax({
 
 			url: URL_base+'ajaxorder',
@@ -367,16 +369,30 @@ $(function(){
 			dataType : "json",
 			data: {
 				"action": 'add',
-				/*"user_number": '$arr[$arr]'*/
+
 			}
 		}).done(function(){
 			if(data != false){
-				openObject('modal_2');
+				openObject('opened');
 			}else{
 				error(function() {
 					console.log('error');
 				});
 			}
 		});
+	});
+	// dalee
+	$('.else').on('click', function(e){
+		e.preventDefault();
+		/*var div = $('.wr_modal');
+		div.addClass("hidden");*/
+		// $(".wr_modal_2").removeClass('hidden');
+		$(this).closest('[class^="wr_modal"]').addClass('hidden');
+		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
+
+		/*$('.opened').removeClass('wr_modal');
+		openObject('modal');
+		$('.opened').removeClass('wr_modal_2');*/
+
 	});
 });
