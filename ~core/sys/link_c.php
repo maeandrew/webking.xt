@@ -16,8 +16,33 @@ class Link {
 	 * Генерация ссылки на раздел
 	 * @param string $rewrite идентификатор раздела
 	 */
-	public static function Category($rewrite){
-		return _base_url.'/'.$rewrite.'/';
+	public static function Category($rewrite, $params = array()){
+		$str_filter = '';
+		if($GLOBALS['Rewrite'] ==  $rewrite) {
+			if (isset($GLOBALS['Filters']) && !empty($GLOBALS['Filters'])) {
+
+				foreach ($GLOBALS['Filters'] as $key => $filters) {
+					$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
+				}
+			}
+		}
+		$str_page = '';
+		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
+			$str_page = 'p='.$GLOBALS['Page_id'];
+		}
+
+		foreach($params as $key => $param){
+			switch ($key) {
+				case 'filter': ;
+					break;
+				case 'page': $str_page = 'p'.$param;
+					break;
+				case 'sort': ;
+					break;
+			}
+		}
+
+		return _base_url.'/'.$rewrite.'/'.$str_filter.'/'.$str_page;
 	}
 
 	/**
@@ -34,5 +59,6 @@ class Link {
 		}
 		return $url;
 	}
+
 
 }?>

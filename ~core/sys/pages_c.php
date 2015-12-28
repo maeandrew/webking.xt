@@ -25,12 +25,14 @@ class pages{
 				$this->pages['first'] = '/p1/';
 				$this->pages['lp'] = '/p'.($con1-1).'/';
 			}else{
+
 				$con1 = $this->cur_page_id-2;
 				$con2 = $this->cur_page_id+2;
 				$this->pages['first'] = '/p1/';
 				$this->pages['last'] = '/p'.$this->cnt_pages.'/';
-				$this->pages['lp'] = '/p'.($con1-1).'/';
-				$this->pages['np'] = '/p'.($con2+1).'/';
+
+				$this->pages['lp'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con1-1)); //'/p'.($con1-1).'/';
+				$this->pages['np'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con2+1)); //'/p'.($con2+1).'/';
 			}
 		}else{
 			$con1 = 1;
@@ -65,9 +67,9 @@ class pages{
 			if(is_numeric($key)){														// для исключения пред. и следующ
 				if($this->cur_page_id != $title){
 					if($title == 1){
-						$url = $URL_TMP.'/';
+						$url = Link::Category($GLOBALS['Rewrite']);
 					}else{
-						$url = $URL_TMP.'/p'.$title.'/';
+						$url = Link::Category($GLOBALS['Rewrite'], array('page'=> $title));
 					}
 					isset($string_array[1])?$url .= '?'.$string_array[1]:null;
 					//$name[] =  '<a class="page" href='.$url.'>'.$title.'</a>';

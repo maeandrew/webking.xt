@@ -3443,4 +3443,21 @@ class Products {
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
+
+	//Для фильтра категорий 3-го уровня,
+	public function GetFilterFromCategory($id_category){
+		$sql = "SELECT s.id, s.caption, s.units, sp.value, COUNT(sp.id_prod) as cnt
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			WHERE cp.id_category = ".$id_category."
+			AND s.id IS NOT NULL
+			AND sp.value <> ''
+			GROUP BY s.id, sp.value";
+		$arr = $this->db->GetArray($sql);
+		return  $arr ? : false;
+	}
+
 }?>

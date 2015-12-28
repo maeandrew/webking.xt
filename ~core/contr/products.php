@@ -569,4 +569,31 @@ function r_implode($glue, $pieces){
 	}
 	return implode($glue, $retVal);
 }
+// Фильтр на списке товаров=================================
+$filter_cat = $products->GetFilterFromCategory($id_category);
+
+
+$group_arr = [];
+if($filter_cat) {
+	foreach ($filter_cat as $value) {
+
+		if (!isset($group_arr[$value['id']])) {
+			$group_arr[$value['id']] = array(
+				'caption' => $value['caption'],
+				'units' => $value['units']
+			);
+		}
+
+		$group_arr[$value['id']]['values'][] = array(
+			'value' => $value['value'],
+			'count' => $value['cnt']
+		);
+
+	}
+}
+if($group_arr){
+	$tpl->Assign('filter_cat', $group_arr);
+};
+//print_r($group_arr);
+// =========================================================
 ?>

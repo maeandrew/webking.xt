@@ -1,103 +1,23 @@
 <div class="filters">
-	<div class="filter_block">
-		<p>Сезонные товары</p>
-		<ul>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Новый год</span>
-					<span class="qnt_products fright">201</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Снег</span>
-					<span class="qnt_products fright">2222</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Дождь</span>
-					<span class="qnt_products fright">224</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Град</span>
-					<span class="qnt_products fright">23</span>
-				</label>
-			</li>
-		</ul>
-	</div>
-	<div class="filter_block">
-		<p>Сезонные товары</p>
-		<ul>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Новый год</span>
-					<span class="qnt_products fright">201</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Снег</span>
-					<span class="qnt_products fright">2222</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Дождь</span>
-					<span class="qnt_products fright">224</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Град</span>
-					<span class="qnt_products fright">23</span>
-				</label>
-			</li>
-		</ul>
-	</div>
-	<div class="filter_block">
-		<p>Сезонные товары</p>
-		<ul>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Новый год</span>
-					<span class="qnt_products fright">201</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Снег</span>
-					<span class="qnt_products fright">2222</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Дождь</span>
-					<span class="qnt_products fright">224</span>
-				</label>
-			</li>
-			<li>
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-					<input type="checkbox" class="mdl-checkbox__input">
-					<span class="mdl-checkbox__label">Град</span>
-					<span class="qnt_products fright">23</span>
-				</label>
-			</li>
-		</ul>
-	</div>
+
+	<? if(isset($filter_cat) && is_array($filter_cat)) { foreach($filter_cat as $spec){ ?>
+		<div class="filter_block">
+			<p><?=$spec['caption']?></p>
+			<ul>
+				<? foreach($spec['values'] as $value){ ?>
+					<li>
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							<input type="checkbox" class="mdl-checkbox__input">
+							<span>
+								<span class="mdl-checkbox__label"><?=$value['value']?></span>
+								<span class="qnt_products fright"><?=$value['count']?></span>
+							</span>
+						</label>
+					</li>
+				<? } ?>
+			</ul>
+		</div>
+	<? } } ?>
 </div>
 <!--
 <?if(!empty($list) && (!isset($_SESSION['member']) || $_SESSION['member']['gid'] != _ACL_TERMINAL_)){?>

@@ -177,6 +177,7 @@ label:hover + .info_description {
 }
 .fright {
 	float: right;
+	max-width: 40px;
 }
 .panel {
 	background: #fff;
@@ -953,6 +954,7 @@ aside .filters .filter_block label:hover {
 }
 aside .filters .filter_block .mdl-checkbox__label {
 	font-size: inherit;
+	max-width: calc(100% - 40px);
 }
 
 /*News*/
@@ -1951,4 +1953,7 @@ aside#catalog .catalog_close:hover i {
 	.product_page .mdl-cell--6-col {
 		width: 50%;
 	}
+}
+.mdl-checkbox{
+	height: auto;
 }
