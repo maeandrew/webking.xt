@@ -243,7 +243,6 @@ function rebuildPreview(obj){
 		preview.hide();
 	}
 }
-
 /** Определение расстояния прокрутки страницы */
 function getScrollWindow() {
 	var html = document.documentElement;

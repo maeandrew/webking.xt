@@ -354,4 +354,45 @@ $(function(){
 		$(this).prop("checked", checked);
 		console.log('sdf');
 	});
+
+	/* Обработчик данных из корзины */
+	$('submit').on('click', function(e){
+		console.log('er');
+		e.preventDefault();
+
+
+		$.ajax({
+
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'add',
+
+			}
+		}).done(function(){
+			if(data != false){
+				openObject('opened');
+			}else{
+				error(function() {
+					console.log('error');
+				});
+			}
+		});
+	});
+	// dalee
+	$('.else').on('click', function(e){
+		e.preventDefault();
+		/*var div = $('.wr_modal');
+		div.addClass("hidden");*/
+		// $(".wr_modal_2").removeClass('hidden');
+		$(this).closest('[class^="wr_modal"]').addClass('hidden');
+		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
+
+		/*$('.opened').removeClass('wr_modal');
+		openObject('modal');
+		$('.opened').removeClass('wr_modal_2');*/
+
+	});
 });
