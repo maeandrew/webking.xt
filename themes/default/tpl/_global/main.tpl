@@ -447,25 +447,6 @@
 		</section>
 	</section>
 
-		<div id="regs_log" data-type="modal" class="login">
-			<div class="wr_modal">
-				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample3">
-				    <label class="mdl-textfield__label" for="sample3">Text...</label>
-				  </div>
-				</form>
-				<!-- Numeric Textfield with Floating Label -->
-				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-				    <label class="mdl-textfield__label" for="sample4">Number...</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				  </div>
-				</form>
-
-			</div>
-		</div>
 
 
 
@@ -486,8 +467,7 @@
 
 
 
-
-		<div id="order_list" data-type="modal" class="opened">
+		<!-- <div id="order_list" data-type="modal" class="opened">
 			<div class="wr_modal">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
@@ -496,21 +476,21 @@
 				<form action="">
 					<div class="mdl-textfield mdl-js-textfield inputs">
 						<span class="number_label">Фамилия</span>
-						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
+						<input class="mdl-textfield__input" type="text" id="sample1" name="lastname">
 
 						<label class="mdl-textfield__label" for="sample1"></label>
 						<span style='color:red' id='namef'></span><br />
 					</div>
 					<div class="mdl-textfield mdl-js-textfield inputs">
 						<span class="number_label">Имя</span>
-						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
+						<input class="mdl-textfield__input" type="text" id="sample1" name="firstname">
 
 						<label class="mdl-textfield__label" for="sample1"></label>
 						<span style='color:red' id='namef'></span><br />
 					</div>
 					<div class="mdl-textfield mdl-js-textfield inputs">
 						<span class="number_label">Отчество</span>
-						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
+						<input class="mdl-textfield__input" type="text" id="sample1" name="midelname">
 
 						<label class="mdl-textfield__label" for="sample1"></label>
 						<span style='color:red' id='namef'></span><br />
@@ -654,7 +634,51 @@
 					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>
 				</div>
 
+			</div>
+		</div> -->
+		<div id="regs_log" data-type="modal">
+			<div id="logs" class="modal_container">
+				<form action="#">
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" id="sample3" name="email">
+				    <label class="mdl-textfield__label" for="sample3">Логин</label>
+				  </div><br>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="passwd" id="sample4" name="passwd">
+				    <label class="mdl-textfield__label" for="sample4">Пароль</label>
+				    <span class="mdl-textfield__error">Input is not a number!</span>
+				  </div><br>
+					<button class="mdl-button mdl-js-button enter_btn" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
+				</form>
+			</div>
 
+			<div id="regs" class="hidden modal_container">
+				<form action="#">
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" id="sample5">
+				    <label class="mdl-textfield__label" for="sample5">Имя</label>
+				    <span class="mdl-textfield__error">Input is not a number!</span>
+				  </div>
+
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" id="sample6" name="email">
+				    <label class="mdl-textfield__label" for="sample6">Email (логин)</label>
+				  </div>
+
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" id="sample7" type="passwd" name="passwd">
+				    <label class="mdl-textfield__label" for="sample7">Пароль</label>
+				    <span class="mdl-textfield__error">Input is not a number!</span>
+				  </div>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input"  id="sample8" type="passwd" name="passwd">
+				    <label class="mdl-textfield__label" for="sample8">Подтверждение пароля</label>
+				    <span class="mdl-textfield__error">Input is not a number!</span>
+				  </div><br>
+				  <button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
+				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
+				</form>
 			</div>
 		</div>
 
@@ -668,61 +692,5 @@
 		<div class="modal_container"></div>
 	</div>
 
-	<div id="regs_log" data-type="modal" class="login">
-			<div class="wr_modal">
-				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample3">
-				    <label class="mdl-textfield__label" for="sample3">Text...</label>
-				  </div>
-				</form>
-				<!-- Numeric Textfield with Floating Label -->
-				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-				    <label class="mdl-textfield__label" for="sample4">Number...</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				  </div>
-				</form>
-
-			</div>
-		</div>
-
-	<!-- <div id="order_list" data-type="modal" class="opened">
-		<div>
-			<div class="wr_modal">
-				<div class="head_top">
-					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
-					<span>Сейчас я вижу Вас как "Клиент 2345623", скажите, как Вас зовут?</span>
-				</div>
-				<form action="">
-					<div class="mdl-textfield mdl-js-textfield inputs">
-						<span class="number_label">Фамилия</span>
-						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
-
-						<label class="mdl-textfield__label" for="sample1"></label>
-						<span style='color:red' id='namef'></span><br />
-					</div>
-					<div class="mdl-textfield mdl-js-textfield inputs">
-						<span class="number_label">Имя</span>
-						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
-
-						<label class="mdl-textfield__label" for="sample1"></label>
-						<span style='color:red' id='namef'></span><br />
-					</div>
-					<div class="mdl-textfield mdl-js-textfield inputs">
-						<span class="number_label">Отчество</span>
-						<input class="mdl-textfield__input" type="text" id="sample1" name="user_number">
-
-						<label class="mdl-textfield__label" for="sample1"></label>
-						<span style='color:red' id='namef'></span><br />
-					</div>
-					<button class="else" data-upgraded=",MaterialButton" type='submit' value="Далее">Далее</button>
-				</form>
-				<div class="line"><div class="line_active"><span class="go">Заполнено: 80%</span></div></div>
-
-			</div>
-		</div>
-	</div> -->
 </body>
 </html>

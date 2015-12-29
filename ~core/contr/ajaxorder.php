@@ -7,7 +7,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();
-	$Orders->Add($_POST['user_number']);
+	/*$Orders->Add($_POST['user_number']);*/
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case "regionSelect":

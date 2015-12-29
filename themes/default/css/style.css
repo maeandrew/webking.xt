@@ -502,37 +502,42 @@ section.center {
 /* Modal from end_order ======================================================== */
 .opened {
 	text-align: left;
-	    width: 65%;
-	    top: 0;
-
+    width: 665px;
+    top: 0;
+}
+#regs_log {
+	text-align: left;
+    width: 30%;
+    top: 0;
+    z-index: 1111;
 }
 .head_top {
 	    margin: 0 0 22px;
 	    padding-left: 5%;
 }
-.opened form {
+.opened  [class^="wr_modal"] form {
 	padding: 16px 40px;
 	/* height: 370px; */
 }
-.opened form .inputs {
+.opened  [class^="wr_modal"] form .inputs {
 	    width: 60%;
     top: 27px;
     float: left;
 
 }
-.opened .__label {
+.opened  [class^="wr_modal"] .__label {
 	color: #E1E1E1;
 	display: block;
 
 }
-.opened .mdl-textfield {
+.opened  [class^="wr_modal"] .mdl-textfield {
 	padding: 0;
 	z-index: 1000;
 }
-.opened .mdl-textfield__input {
+.opened  [class^="wr_modal"] .mdl-textfield__input {
 	padding-top: 3%;
 }
-.opened .else {
+.opened .wr_modal .else {
 	background-color: #EEEEEE;
 	border: none;
 	min-width: 100px;
@@ -544,7 +549,7 @@ section.center {
     margin-left: -60%;
     border-radius: 5px;
 }
-.opened .wr_modal .line {
+.opened  .wr_modal .line {
 	background: #eeeeee;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -587,7 +592,7 @@ section.center {
 	margin-top: 4px;
     margin-left: 10px;
 }
-.opened  .wr_modal span.go {
+.opened   .wr_modal span.go {
 	float: right;
     display: block;
     position: relative;
@@ -595,13 +600,13 @@ section.center {
 	left: 422px;
 
 }
-.opened span.go {
+.opened  [class^="wr_modal"] span.go {
 	float: right;
     display: block;
     position: relative;
         top: -31px;
 }
-.opened .mdl-button {
+.opened  [class^="wr_modal"] .mdl-button {
     text-transform: none;
     color: #777777;
     border: none;
@@ -609,7 +614,7 @@ section.center {
     line-height: 30px;
     height: 30px;
 }
-.opened h5 {
+.opened  [class^="wr_modal"] h5 {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 34px;
     font-weight: 400;
@@ -624,11 +629,11 @@ section.center {
 #order_list span {
 	text-align: left;
 }
-.opened .number_label {
+.opened  [class^="wr_modal"] .number_label {
 	color: #000;
     font-size: 20px;
 }
-.opened h6{
+.opened  [class^="wr_modal"] h6{
 	background-color: rgb(219, 68, 55);
     color: rgb(255, 255, 255);
         padding: 16px 8px 16px 42px;
@@ -655,10 +660,10 @@ section.center {
     margin-right: 14px;
 }
 
-.opened .mdl-button--icon {
+.opened  [class^="wr_modal"] .mdl-button--icon {
     border-radius: 0;
 }
-.opened .mdl-radio {
+.opened  [class^="wr_modal"] .mdl-radio {
 	padding-bottom: 20px;
 }
 .wr_modal_3 .else {
@@ -691,8 +696,31 @@ section.center {
 	    color: #000;
     font-size: 20px;
 }
-.opened .sort {
+.opened [class^="wr_modal"] .sort {
 	margin-bottom: 6%;
+}
+
+/*Login =======================================================================*/
+#regs_log .mdl-button--colored .mdl-button {
+    text-transform: none;
+    border: 0px solid #e0e0e0;
+    padding: 0 10px;
+    line-height: 30px;
+    height: 30px;
+    color: white;
+    background-color: #FF5722;
+}
+#regs_log .mdl-button {
+        text-transform: none;
+    border: 0px solid #e0e0e0;
+    padding: 0 10px;
+    line-height: 30px;
+    height: 30px;
+
+}
+#regs_log .mdl-button--raised.mdl-button--colored {
+    background: #F44336;
+    color: rgb(255,255,255);
 }
 /*Cart =======================================================================*/
 

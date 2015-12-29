@@ -40,7 +40,7 @@
 				<?}?>
 			</nav>
 		</li>
-		<li><button class="mdl-button mdl-js-button enter_btn">Войти</button></li>
+		<li><button class="mdl-button mdl-js-button enter_btn" data-name="login">Войти</button></li>
 	</ul>
 	<nav class="phone_menu">
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
