@@ -583,17 +583,29 @@ if($filter_cat) {
 			);
 		}
 
+		$check =  '';
+		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])){
+			foreach($GLOBALS['Filters'] as $val){
+				if(in_array($value['id_val'], $val)){
+					$check =  'checked';
+				}
+			}
+		}
+
 		$group_arr[$value['id']]['values'][] = array(
-			'id' => array($value['id'], $value['id_val']) ,
-//			'id_value' => $value['id_val'],
+			'id' => array($value['id'], $value['id_val']),
 			'value' => $value['value'],
-			'count' => $value['cnt']
+			'count' => $value['cnt'],
+			'checked' => $check
 		);
 
 	}
 }
+//if($value['id'][1] = $GLOBALS['Filters'][19][0]);
+
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
 };
+
 // =========================================================
 ?>

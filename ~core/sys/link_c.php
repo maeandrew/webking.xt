@@ -19,7 +19,7 @@ class Link {
 	public static function Category($rewrite, $params = array()){
 		$str_filter = '';
 		$str_page = '';
-		$filter = $GLOBALS['Filters'];
+		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
 			$str_page = 'p'.$GLOBALS['Page_id'];
 		}
@@ -29,17 +29,18 @@ class Link {
 				case 'filter':
 
 					if(isset($filter[$param[0]])){
-						foreach($filter[$param[0]] as $key => $fil){
-							if($param[1] == $fil) {
-								if(count($filter[$param[0]]) > 1){
-									unset($filter[$param[0]][$key]);
-								}else{
-									unset($filter[$param[0]]);
+						if(in_array($param[1], $filter[$param[0]])) {
+							foreach ($filter[$param[0]] as $key => $fil) {
+								if ($param[1] == $fil) {
+									if (count($filter[$param[0]]) > 1) {
+										unset($filter[$param[0]][$key]);
+									} else {
+										unset($filter[$param[0]]);
+									}
 								}
-
-							}else{
-								$filter[$param[0]][] = $param[1];
 							}
+						}else {
+							$filter[$param[0]][] = $param[1];
 						}
 					}else{
 						$filter[$param[0]][] = $param[1];
