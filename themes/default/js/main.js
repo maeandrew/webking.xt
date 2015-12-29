@@ -443,6 +443,7 @@ $(function(){
 		}).done(function(data){
 			if(data.errm != 1){
 				closeObject('regs_log');
+				$('.enter_btn').text('Мой кабинет').attr('href', 'http://xt/cabinet');
 			}else{
 				console.log(data.msg);
 			}
