@@ -18,24 +18,34 @@ class Link {
 	 */
 	public static function Category($rewrite, $params = array()){
 		$str_filter = '';
-//		print_r($GLOBALS); die();
-
-		if( $rewrite) { //$GLOBALS['Rewrite'] ==
-			if (isset($GLOBALS['Filters']) && !empty($GLOBALS['Filters'])) {
-
-				foreach ($GLOBALS['Filters'] as $key => $filters) {
-					$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
-				}
-			}
-		}
 		$str_page = '';
+		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
-			$str_page = 'p='.$GLOBALS['Page_id'];
+			$str_page = 'p'.$GLOBALS['Page_id'];
 		}
 
 		foreach($params as $key => $param){
 			switch ($key) {
-				case 'filter': ;
+				case 'filter':
+
+					if(isset($filter[$param[0]])){
+						if(in_array($param[1], $filter[$param[0]])) {
+							foreach ($filter[$param[0]] as $key => $fil) {
+								if ($param[1] == $fil) {
+									if (count($filter[$param[0]]) > 1) {
+										unset($filter[$param[0]][$key]);
+									} else {
+										unset($filter[$param[0]]);
+									}
+								}
+							}
+						}else {
+							$filter[$param[0]][] = $param[1];
+						}
+					}else{
+						$filter[$param[0]][] = $param[1];
+					}
+
 					break;
 				case 'page': $str_page = 'p'.$param;
 					break;
@@ -44,7 +54,16 @@ class Link {
 			}
 		}
 
-		return _base_url.'/'.$rewrite.'/'.$str_filter.'/'.$str_page;
+		if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {
+			if (isset($filter) && !empty($filter)) {
+
+				foreach ($filter as $key => $filters) {
+					$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
+				}
+			}
+		}
+
+		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '')  . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**

@@ -3446,7 +3446,7 @@ class Products {
 
 	//Для фильтра категорий 3-го уровня,
 	public function GetFilterFromCategory($id_category){
-		$sql = "SELECT s.id, s.caption, s.units, sp.value, COUNT(sp.id_prod) as cnt
+		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
