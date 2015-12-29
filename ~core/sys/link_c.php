@@ -17,9 +17,12 @@ class Link {
 	 * @param string $rewrite идентификатор раздела
 	 */
 	public static function Category($rewrite, $params = array()){
-		$str_filter = '';
-		$str_page = '';
+		$str_filter = $str_sort = $str_page = '';
+//		print_r($GLOBALS['Sort']);
 		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
+		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
+			$str_sort = 'sort='.$GLOBALS['Sort'];
+		}
 		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
 			$str_page = 'p'.$GLOBALS['Page_id'];
 		}
@@ -47,9 +50,14 @@ class Link {
 					}
 
 					break;
-				case 'page': $str_page = 'p'.$param;
+				case 'page':
+					$str_page = '';
+					if($param != 1) {
+						$str_page = 'p'.$param;
+					}
 					break;
-				case 'sort': ;
+
+				case 'sort': $str_sort = 'sort='.$param;
 					break;
 			}
 		}
@@ -63,7 +71,7 @@ class Link {
 			}
 		}
 
-		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '')  . ($str_page ? '/' . $str_page : '');
+		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**

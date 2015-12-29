@@ -1,7 +1,7 @@
 
 <div class="products">
 	<div class="row">
-		<?if(!empty($list)){?>
+		<?if(!empty($list)){ ?>
 			<div class="content_header mdl-cell--hide-phone clearfix">
 				<div class="sort imit_select">
 					<button id="sort-lower-left" class="mdl-button mdl-js-button">
@@ -9,9 +9,12 @@
 					</button>
 
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-								<?foreach($available_sorting_values as $key => $alias){?>
-
-							<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" ><?=$alias?></li>
+						<?foreach($available_sorting_values as $key => $alias){ ?>
+							<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
+								<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
+									<?=$alias?>
+								</li>
+							</a>
 						<?}?>
 					</ul>
 				</div>

@@ -139,8 +139,8 @@ if(isset($_COOKIE['sorting'])){
 	$sort = $_COOKIE['sorting'];
 	$sort = (array)json_decode($sort, true);
 }
-if(isset($_POST['value']) && isset($_POST['direction'])){
-	$sort_value = $_POST['value'];
+if(isset($GLOBALS['Sort'])){
+	$sort_value = $GLOBALS['Sort'];
 	$sorting    = array('value' => $sort_value);
 	setcookie('sorting', json_encode(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
 }elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){

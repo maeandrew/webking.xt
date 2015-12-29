@@ -693,12 +693,33 @@ class Products {
 				ORDER BY ".$order_by
 				.$limit;
 		}
+//		print_r($sql);
+		//Вставть массив ид товаров в условие вхере
+		print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
 		}
 		return true;
 	}
+
+	public function SetProductsListByFilter(){
+		foreach($GLOBALS['Filters'] as $filter){
+			foreach($filter as $fil){
+				$filters[] = $fil;
+			}
+		}
+
+		$sql = "SELECT sp.id_prod
+				FROM "._DB_PREFIX_."specs_prods AS sp
+				WHERE sp.id IN (" . implode (',',$filters) . ")";
+		$this->id_prod = $this->db->GetArray($sql);
+		return $this->id_prod;
+//		print_r($this->id_prod);
+
+	}
+
+
 
 	public function SetProductsList1($s){
 		// SQL выборки для админки

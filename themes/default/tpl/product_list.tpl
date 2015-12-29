@@ -20,7 +20,7 @@
 			</div>
 			<p class="product_name"><a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a> <span class="product_article">Арт: <?=$p['art'];?></span></p>
 			<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-				<p class="price"><?=number_format($p['price_opt'], 2, ',', '')?></p>
+				<p class="price"><?=number_format($p['price_mopt'], 2, ',', '')?></p>
 				<div class="buy_block">
 					<div class="btn_remove">
 						<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">

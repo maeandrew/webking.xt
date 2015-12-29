@@ -259,6 +259,7 @@ while($cat = $dbtree->NextRow()){
 	// =========================================================
 
 	// Фильтры =================================================
+$products->SetProductsListByFilter();
 	// if((isset($_POST['filter_count']) && $_POST['filter_count'] > 0) || (isset($_SESSION['filters']['string']) && !isset($_POST['filter_count']))){
 	// 	if(isset($_POST['filter_count'])){
 	// 		for($i = 0; $i < $_POST['filter_count']; $i++){

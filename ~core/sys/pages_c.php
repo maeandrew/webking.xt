@@ -66,11 +66,7 @@ class pages{
 		foreach($this->pages as $key=>$title){
 			if(is_numeric($key)){														// для исключения пред. и следующ
 				if($this->cur_page_id != $title){
-					if($title == 1){
-						$url = Link::Category($GLOBALS['Rewrite']);
-					}else{
-						$url = Link::Category($GLOBALS['Rewrite'], array('page'=> $title));
-					}
+					$url = Link::Category($GLOBALS['Rewrite'], array('page'=> $title));
 					isset($string_array[1])?$url .= '?'.$string_array[1]:null;
 					//$name[] =  '<a class="page" href='.$url.'>'.$title.'</a>';
 					$name[] = '<li class="page'.$title.'"><a href="'.$url.'" class="animate bg-white color-grey">'.$title.'</a></li>';
