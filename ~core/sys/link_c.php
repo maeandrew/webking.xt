@@ -18,7 +18,9 @@ class Link {
 	 */
 	public static function Category($rewrite, $params = array()){
 		$str_filter = '';
-		if($GLOBALS['Rewrite'] ==  $rewrite) {
+//		print_r($GLOBALS); die();
+
+		if( $rewrite) { //$GLOBALS['Rewrite'] ==
 			if (isset($GLOBALS['Filters']) && !empty($GLOBALS['Filters'])) {
 
 				foreach ($GLOBALS['Filters'] as $key => $filters) {
