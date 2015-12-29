@@ -569,9 +569,8 @@ function r_implode($glue, $pieces){
 	}
 	return implode($glue, $retVal);
 }
-// Фильтр на списке товаров=================================
+// Фильтр на странице списка товаров=================================
 $filter_cat = $products->GetFilterFromCategory($id_category);
-
 
 $group_arr = [];
 if($filter_cat) {
@@ -585,6 +584,8 @@ if($filter_cat) {
 		}
 
 		$group_arr[$value['id']]['values'][] = array(
+			'id' => array($value['id'], $value['id_val']) ,
+//			'id_value' => $value['id_val'],
 			'value' => $value['value'],
 			'count' => $value['cnt']
 		);
@@ -594,6 +595,5 @@ if($filter_cat) {
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
 };
-//print_r($group_arr);
 // =========================================================
 ?>

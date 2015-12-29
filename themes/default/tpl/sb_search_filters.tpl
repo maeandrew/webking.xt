@@ -1,22 +1,25 @@
+<?//print_r($filter_cat)?>
+<?=Link::Category($GLOBALS['Rewrite'], array('filter' => 'fgdfd'))?>
 <div class="filters">
 
-	<? if(isset($filter_cat) && is_array($filter_cat)) { foreach($filter_cat as $spec){ ?>
-		<div class="filter_block">
-			<p><?=$spec['caption']?></p>
-			<ul>
-				<? foreach($spec['values'] as $value){ ?>
-					<li>
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-							<input type="checkbox" class="mdl-checkbox__input">
-							<span>
-								<span class="mdl-checkbox__label"><?=$value['value']?></span>
-								<span class="qnt_products fright"><?=$value['count']?></span>
-							</span>
-						</label>
-					</li>
-				<? } ?>
-			</ul>
-		</div>
+	<? if(isset($filter_cat) && is_array($filter_cat)) {
+		foreach($filter_cat as $spec){ ?>
+			<div class="filter_block">
+				<p><?=$spec['caption']?></p>
+				<ul>
+					<? foreach($spec['values'] as $value){ ?>
+						<li>
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+								<input type="checkbox" class="mdl-checkbox__input">
+								<span>
+									<span class="mdl-checkbox__label"><a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>"><?=$value['value']?></a></span>
+									<span class="qnt_products fright"><?=$value['count']?></span>
+								</span>
+							</label>
+						</li>
+					<? } ?>
+				</ul>
+			</div>
 	<? } } ?>
 </div>
 <!--
