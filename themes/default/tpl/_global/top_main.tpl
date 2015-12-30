@@ -40,7 +40,17 @@
 				<?}?>
 			</nav>
 		</li>
-		<li><button class="mdl-button mdl-js-button enter_btn">Войти</button></li>
+		<?if(isset($_SESSION['member']['gid'])){?>
+			<li>
+				<a href="<?=Link::Custom('cabinet');?>" class="mdl-button mdl-js-button enter_btn">Мой кабинет</a>
+				<a href="<?=Link::Custom('cabinet');?>" class="mdl-button mdl-js-button enter_btn hidden login">Войти</a>
+			</li>
+		<?}else{?>
+			<li>
+				<a href="<?=Link::Custom('cabinet');?>" class="mdl-button mdl-js-button enter_btn hidden">Мой кабинет</a>
+				<a href="<?=Link::Custom('cabinet');?>" class="mdl-button mdl-js-button enter_btn login">Войти</a>
+			</li>
+		<?}?>
 	</ul>
 	<nav class="phone_menu">
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>

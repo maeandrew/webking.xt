@@ -1,13 +1,39 @@
+// $(function() {
+// 	var params = {
+// 	"modelName": "Address",
+// 	"calledMethod": "getCities",
+// 	"methodProperties": {},
+// 	"apiKey": "45a3b980c25318193c40f7b10f7d0663"
+// 	};
+// 	$.ajax({
+// 		url: "http://testapi.novaposhta.ua/v2.0/address/getCities/{format}/&" + $.param(params),
+// 		beforeSend: function(xhrObj){
+// 			// Request headers
+// 			xhrObj.setRequestHeader("Content-Type","application/json");
+// 		},
+// 		type: "POST",
+// 	})
+// 	.done(function(data) {
+// 		alert("success");
+// 	})
+// 	.fail(function() {
+// 		alert("error");
+// 	});
+// });
+
 $(function(){
+
 	var viewport_width = $(window).width(),
 		viewport_height = $(window).height(),
 		center_section_height = $('section .center').height(),
 		header_outerheight = $('header').outerHeight();
-
+	openObject('quiz');
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
 		effect : "fadeIn"
 	});
+
+
 
 	// if(viewport_width < 711) {
 
@@ -148,9 +174,9 @@ $(function(){
 	$(window).scroll(function(){
 		if(over_scroll == false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
-			    header.removeClass("default").addClass("filled");
+				header.removeClass("default").addClass("filled");
 			}else if($(this).scrollTop() <= banner_height/2 - header_height && header.hasClass("filled")){
-			    header.removeClass("filled").addClass("default");
+				header.removeClass("filled").addClass("default");
 			}
 			//Скрытия баннера
 			if($(this).scrollTop() > banner_height){
@@ -173,7 +199,7 @@ $(function(){
 				scrollTop: 0
 			}, 300);
 			$('body').removeClass('banner_hide');
-		    header.removeClass("fixed_panel").addClass("default");
+			header.removeClass("fixed_panel").addClass("default");
 			setTimeout(function(){over_scroll = false;},305);
 		}
 	});
@@ -326,6 +352,25 @@ $(function(){
 			}
 		}
 	});
+	//Открытие модального окна login///////
+
+
+/*$('.enter_btn').on('click', function(e){
+		e.preventDefault();
+		$(this).closest('[class^="wr_modal"]').addClass('hidden');
+		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
+	});*/
+
+	/*$('button').on('click', '.enter_btn', function(){
+		var name = $(this).data('name');
+		if(name != undefined){
+			if(name == 'login'){
+				GetLoginAjax();
+			}else{
+				openObject(name);
+			}
+		}
+	});*/
 	//Обработка примечания
 	$('.note textarea').on('blur', function(){
 		$(this).css({
@@ -368,7 +413,7 @@ $(function(){
 			cache: false,
 			dataType : "json",
 			data: {
-				"action": 'add',
+				"action": 'add'
 
 			}
 		}).done(function(){
@@ -382,17 +427,96 @@ $(function(){
 		});
 	});
 	// dalee
-	$('.else').on('click', function(e){
+	$('.to_step').on('click', function(e){
 		e.preventDefault();
-		/*var div = $('.wr_modal');
-		div.addClass("hidden");*/
-		// $(".wr_modal_2").removeClass('hidden');
-		$(this).closest('[class^="wr_modal"]').addClass('hidden');
-		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
-
+		$(this).closest('[class*="step_"]').removeClass('active');
+		$('.step_'+$(this).data('step')).addClass('active');
+		Position($(this).closest('[data-type="modal"]'));
 		/*$('.opened').removeClass('wr_modal');
 		openObject('modal');
 		$('.opened').removeClass('wr_modal_2');*/
 
+	});
+
+	$('.login').on('click', function(e){
+		openObject('regs_log');
+		e.preventDefault();
+	});
+	$('#logs .enter_btn').on('click', function(){
+		$(this).closest('#logs').addClass('hidden');
+		$('#regs').removeClass('hidden');
+	});
+	$('#regs .enter_btn').on('click', function(){
+		$(this).closest('#regs').addClass('hidden');
+		$('#logs').removeClass('hidden');
+	});
+	$('#logs .logist').on('click', function(e){
+		var email = $(this).closest('form').find('[name="email"]').val();
+		var passwd = $(this).closest('form').find('[name="passwd"]').val();
+		e.preventDefault();
+		$.ajax({
+			url: URL_base+'ajaxlogin',
+			type: "GET",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'login',
+				"email": email,
+				"passwd": passwd
+			}
+		}).done(function(data){
+			if(data.errm != 1){
+				closeObject('regs_log');
+				$('.login').closest('li').find('.enter_btn').removeClass('hidden');
+				$('.login').addClass('hidden');
+			}else{
+				console.log(data.msg);
+			}
+		});
+	});
+	$('#logs .regist').on('click', function(e){
+		var email = $(this).closest('form').find('[name="email"]').val();
+		var passwd = $(this).closest('form').find('[name="passwd"]').val();
+		e.preventDefault();
+		$.ajax({
+			url: URL_base+'ajaxlogin',
+			type: "GET",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'login',
+				"email": email,
+				"passwd": passwd
+			}
+		}).done(function(data){
+			if(data.errm != 1){
+				closeObject('regs_log');
+				$('.login').closest('li').find('.enter_btn').removeClass('hidden');
+				$('.login').addClass('hidden');
+			}else{
+				console.log(data.msg);
+			}
+		});
+	});
+
+	$("#login_email").blur(function(){
+		var name = this.value;
+		var count = name.length;
+		if(count < 5){
+			$(this).removeClass().addClass("unsuccess");
+		} else {
+			$("#login_email").attr("value",name);
+			$(this).removeClass().addClass("success");
+		}
+	});
+	$("#login_passwd").blur(function(){
+		var pswd = this.value;
+		var count = pswd.length;
+			$("#login_passwd").attr("value",pswd);
+		if(count > 0){
+			$(this).removeClass().addClass("success");
+		} else {
+			$(this).removeClass().addClass("unsuccess");
+		}
 	});
 });

@@ -38,7 +38,6 @@ class Users {
 			OR u.email = '".$f['email']."@x-torg.com')
 			AND u.passwd = '".md5($f['passwd'])."'
 			AND u.active = 1";
-		var_dump($this->db->GetOneRowArray($sql));
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}

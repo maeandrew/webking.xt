@@ -644,6 +644,7 @@ aside {
 	left: 0;
 }
 [class^="modal_"] {
+	display: block;
 	padding: 1em;
 	background: #fff;
 	border-radius: .4em;
