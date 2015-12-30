@@ -613,6 +613,8 @@
 		</div>
 		<div id="regs_log" data-type="modal">
 			<div id="logs" class="modal_container">
+				<h6>Авторизация</h6>
+				<span>Synth polaroid bitters chillwave pickled. Vegan disrupt tousled.</span>
 				<form action="#">
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				    <input class="mdl-textfield__input" type="text" id="sample3" name="email">
@@ -623,36 +625,49 @@
 				    <label class="mdl-textfield__label" for="sample4">Пароль</label>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
 				  </div><br>
-					<button class="mdl-button mdl-js-button enter_btn" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored logist">Войти</button>
+					<button class="mdl-button mdl-js-button enter_btn" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
 				</form>
 			</div>
 
 			<div id="regs" class="hidden modal_container">
+				<h6>Регистрация</h6>
+				<span>Synth polaroid bitters chillwave pickled. Vegan disrupt tousled.</span>
 				<form action="#">
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample5">
-				    <label class="mdl-textfield__label" for="sample5">Имя</label>
+				    <input class="mdl-textfield__input" type="text" id="name" name="name">
+				    <label class="mdl-textfield__label" for="name">Имя</label>
+				    <div id="name_error"></div>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
+				    <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
 				  </div>
 
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample6" name="email">
-				    <label class="mdl-textfield__label" for="sample6">Email (логин)</label>
+				    <input class="mdl-textfield__input" type="text" id="email" pattern="-?[0-9]*(\.[0-9]+)?" name="email">
+				    <label class="mdl-textfield__label" for="email">Email (логин)</label>
+				    <span class="mdl-textfield__error">Input is not a number!</span>
+					<!-- <div id="email_error"></div> -->
 				  </div>
 
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" id="sample7" type="passwd1" name="passwd">
-				    <label class="mdl-textfield__label" for="sample7">Пароль</label>
+				    <input type="password" class="mdl-textfield__input" id="passwd"  name="passwd">
+				    <label class="mdl-textfield__label" for="passwd">Пароль</label>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
+		    		<!-- <div id="passstrength">
+						<div id="passstrengthlevel"></div>
+					</div>
+				    <div id="password_error"></div>
+					<div class="error_description"></div> -->
 				  </div>
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input"  id="sample8" type="passwd2" name="passwd">
-				    <label class="mdl-textfield__label" for="sample8">Подтверждение пароля</label>
+				    <input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
+				    <label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
+				    <!-- <div id="password_error"></div>
+					<div class="error_description"></div> -->
 				  </div><br>
-				  <button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
 				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored regist">Регистрация</button>
+				  <button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
 				</form>
 			</div>
 		</div>

@@ -399,3 +399,192 @@ function changestars(rating){
 		}
 	});
 }
+
+
+/** Валидация пароля **/
+function ValidatePass(passwd){
+	var protect = 0;
+	var result;
+	var small = new RegExp("^(?=.*[a-zа-я]).*$", "g");
+	if(small.test(passwd)) {
+		protect++;
+	}
+
+	var big = new RegExp("^(?=.*[A-ZА-Я]).*$", "g");
+	if(big.test(passwd)) {
+		protect++;
+	}
+
+	var numb = new RegExp("^(?=.*[0-9]).*$", "g");
+	if(numb.test(passwd)) {
+		protect++;
+	}
+
+	var vv = new RegExp("^(?=.*[!,@,#,$,%,^,&,*,?,_,~,-,=]).*$", "g");
+	if(vv.test(passwd)) {
+		protect++;
+	}
+
+	if(protect == 1) {
+		$('#password_error + .error_description').empty();
+		$('#passstrengthlevel').attr('class', 'bad');
+		$('#passwd').removeClass().addClass("success");
+		result = false;
+	}
+	if(protect == 2) {
+		$('#passstrengthlevel').attr('class', 'better');
+		$('#passwd').removeClass().addClass("success");
+		result = false;
+	}
+	if(protect == 3) {
+		$('#passstrengthlevel').attr('class', 'ok');
+		$('#passwd').removeClass().addClass("success");
+		result = false;
+	}
+	if(protect == 4) {
+		$('#passstrengthlevel').attr('class', 'best');
+		$('#passwd').removeClass().addClass("success");
+		result = false;
+	}
+	if(passwd.length == 0){
+		$('#password_error + .error_description').empty();
+		$('#passstrengthlevel').attr('class', 'small');
+		$('#passwd').removeClass().addClass("unsuccess");
+		result = 'Введите пароль';
+		$('#password_error + .error_description').append(result);
+	}else if(passwd.length < 4) {
+		$('#password_error + .error_description').empty();
+		$('#passstrengthlevel').attr('class', 'small');
+		$('#passwd').removeClass().addClass("unsuccess");
+		result = 'Пароль слишком короткий';
+		$('#password_error + .error_description').append(result);
+	}
+	return result;
+}
+
+/** Валидация email **/
+function ValidateEmail(email, type){
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	var name = $('#regs #name').val();
+	var pass = $('#passwd').val();
+	var passconfirm = $('#passwdconfirm').val();
+	/*var confirmps = $('#confirmps').prop('checked');*/
+	var result;
+	$.ajax({
+		url: URL_base+'ajaxemailvalidate',
+		type: "POST",
+		data:({
+			"email": email,
+			"action": "validate"
+		}),
+	}).done(function(data){
+		if(email.length == 0){
+			$('#email_error + .error_description').empty();
+			$('#regs #email').removeClass().addClass("unsuccess");
+			error = 'Введите email';
+			$('#email_error + .error_description').append(error);
+			result = false;
+		}else if(!re.test(email)){
+			$('#email_error + .error_description').empty();
+			$('#regs #email').removeClass().addClass("unsuccess");
+			error = 'Введен некорректный email';
+			$('#email_error + .error_description').append(error);
+			result = false;
+		}else if(data == "true"){
+			$('#email_error + .error_description').empty();
+			$('#regs #email').removeClass().addClass("unsuccess");
+			error = 'Пользователь с таким email уже зарегистрирован';
+			$('#email_error + .error_description').append(error);
+			result = false;
+		}else{
+			$('#email_error + .error_description').empty();
+			$('#regs #email').removeClass().addClass("success");
+			error = '';
+			result = true;
+		}
+		if(type == 1){
+			if(CompleteValidation(name, error, pass, passwdconfirm)){
+				result = true;
+				if(passwdconfirm){
+					/*$('#regs').submit();
+					$('#regs .regist').submit();*/
+					$('#regs .regist').on('click', function() {
+						$(this).closest('.mdl-textfield').find('#passwd').text('ERROR');
+					});
+				}else{
+					$('label[for="confirmps"]').stop(true,true).animate({
+						"color": "#fff",
+						"font-weight": "bold",
+						"background-color": "#f00",
+						"border-radius": "5px"
+					},500)
+					.delay(300)
+					.animate({
+						"color": "#000",
+						"font-weight": "normal",
+						"background-color": "#fff"
+					},500);
+				}
+			}else{
+				result = false;
+			}
+		}
+		return result;
+	});
+}
+
+/** Валидация подтверждения пароля **/
+function ValidatePassConfirm(passwd, passconfirm){
+	if(passconfirm !== passwd || !passconfirm){
+		$('#passwdconfirm_error + .error_description').empty();
+		$('#passwdconfirm').removeClass().addClass("unsuccess");
+		$('#passwdconfirm_error + .error_description').append('Пароли не совпадают');
+	}else{
+		$('#passwdconfirm_error + .error_description').empty();
+		$('#passwdconfirm').removeClass().addClass("success");
+		return false;
+	}
+}
+
+/** Валидация имени **/
+function ValidateName(name){
+	if(name.length < 3){
+		$('#name_error + .error_description').empty();
+		$('#regs #name').removeClass().addClass("unsuccess");
+		if(name.length == 0){
+			$('#name_error + .error_description').append('Введите имя');
+		}else{
+			$('#name_error + .error_description').append('Имя слишком короткое');
+		}
+	}else{
+		$('#name_error + .error_description').empty();
+		$('#regs #name').removeClass().addClass("success");
+		return false;
+	}
+}
+
+/** Завершить валидацию после проверки email */
+function CompleteValidation(name, email, passwd, passconfirm){
+	var fin = 0;
+	if(ValidateName(name)){
+		$('#regs #name').closest('.mdl-textfield__error').text(ValidateName(name));
+		fin++;
+	}
+	if(email){
+		$('#regs #email').closest('.mdl-textfield__error').text(email);
+		fin++;
+	}
+	if(ValidatePass(passwd)){
+		$('#regs #passwd').closest('.mdl-textfield__error').text(ValidatePass(passwd));
+		fin++;
+	}
+	if(ValidatePassConfirm(passwd, passconfirm)){
+		$('#regs #passwdconfirm').closest('.mdl-textfield__error').text(ValidatePassConfirm(passwd, passconfirm));
+		fin++;
+	}
+	if(fin > 0){
+		return false;
+	}else{
+		return true;
+	}
+}

@@ -447,10 +447,12 @@ $(function(){
 	$('#logs .enter_btn').on('click', function(){
 		$(this).closest('#logs').addClass('hidden');
 		$('#regs').removeClass('hidden');
+		Position($('#regs_log'));
 	});
 	$('#regs .enter_btn').on('click', function(){
 		$(this).closest('#regs').addClass('hidden');
 		$('#logs').removeClass('hidden');
+		Position($('#regs_log'));
 	});
 	$('#logs .logist').on('click', function(e){
 		var email = $(this).closest('form').find('[name="email"]').val();
@@ -476,30 +478,36 @@ $(function(){
 			}
 		});
 	});
-	$('#logs .regist').on('click', function(e){
+
+	/** Проверка формы регистрации */
+	$('#regs .regist').click(function(e){
+		var name = $(this).closest('form').find('[name="name"]').val();
 		var email = $(this).closest('form').find('[name="email"]').val();
-		var passwd = $(this).closest('form').find('[name="passwd"]').val();
 		e.preventDefault();
-		$.ajax({
-			url: URL_base+'ajaxlogin',
-			type: "GET",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'login',
-				"email": email,
-				"passwd": passwd
-			}
-		}).done(function(data){
-			if(data.errm != 1){
-				closeObject('regs_log');
-				$('.login').closest('li').find('.enter_btn').removeClass('hidden');
-				$('.login').addClass('hidden');
-			}else{
-				console.log(data.msg);
-			}
-		});
+		if(email.length > 0){
+			ValidateEmail(email, 1);
+		}
 	});
+
+	// 	/** Проверка надежности пароля */
+	$('#passwd').keyup(function(){
+		var passwd = $(this).val();
+		var passconfirm = $('#regs #passwdconfirm').val();
+		ValidatePass(passwd);
+		$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
+		if(passconfirm !== ''){
+			ValidatePassConfirm(passwd, passconfirm);
+		}
+	});
+
+
+	/** Проверка подтверждения пароля на странице регистрации */
+	$('#passwdconfirm').keyup(function(){
+		var passwd = $('#regs #passwd').val();
+		var passconfirm = $(this).val();
+		ValidatePassConfirm(passwd, passconfirm);
+	});
+
 
 	$("#login_email").blur(function(){
 		var name = this.value;
