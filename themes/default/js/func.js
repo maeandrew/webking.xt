@@ -329,19 +329,15 @@ function openObject(id){
 		DeactivateBG();
 	}else{
 		if(type == 'modal'){
-			object.css({
-				'top': ($(window).outerHeight() + 52 - object.outerHeight())/2,
-				'right': ($(window).outerWidth() - object.outerWidth())/2
-			}).addClass('opened').find('.modal_container').css({
-				'max-height': object.innerHeight()-(parseInt(object.css('padding-top'))+parseInt(object.css('padding-bottom')))
+			object.find('.modal_container').css({
+				'max-height': $(window)*0.8
 			});
+			Position(object.addClass('opened'));
 		}else{
 			object.addClass('opened');
 		}
 		ActivateBG();
 	}
-			// console.log();
-
 }
 
 function closeObject(id){
@@ -356,6 +352,12 @@ function closeObject(id){
 		};
 	}
 	DeactivateBG();
+}
+function Position(object){
+	object.css({
+		'top': ($(window).height() + 52 - object.height())/2,
+		'right': ($(window).width() - object.width())/2
+	});
 }
 
 //Активация подложки
