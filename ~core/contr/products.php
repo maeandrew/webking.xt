@@ -590,7 +590,7 @@ if($filter_cat) {
 			foreach($GLOBALS['Filters'] as $val){
 				if(in_array($value['id_val'], $val)){
 					$check =  'checked';
-					$cnt += $value['cnt'];
+					$cnt ++;
 				}
 			}
 		}
@@ -604,7 +604,7 @@ if($filter_cat) {
 
 	}
 }
-$tpl->Assign('cnt', $cnt); //бщее количество товаров по активным фильтрам
+$tpl->Assign('cnt', $cnt); //количество активных фильтров
 
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);

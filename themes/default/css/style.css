@@ -963,10 +963,11 @@ aside .catalog .main_nav li:hover .info_key {
 	display: block;
 }
 aside .catalog .main_nav .included_filters {
+	padding-left: 5px;
 	font-size: 14px;
 	text-transform: lowercase;
 	font-weight: normal;
-	float: right;
+	/*float: right;*/
 	color: #EF5350;
 	display: inline-block;
 }

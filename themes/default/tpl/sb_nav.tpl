@@ -21,7 +21,7 @@
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</li>
-		<li data-nav="filter"><i class="material-icons">filter_list</i><span class="title">Фильтры</span><span class="included_filters">(активно <?=$cnt?>)</span></li>
+		<li data-nav="filter"><i class="material-icons">filter_list</i><span class="title">Фильтры</span><span class="included_filters"><?=$cnt ? "($cnt)":'';?></span></li>
 	</ul>
 	<?if(isset($sbheader) && isset($nav)){?>
 		<?=$nav;?>
