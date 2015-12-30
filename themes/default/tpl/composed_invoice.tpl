@@ -469,7 +469,7 @@ tr.min td {
 						}?>
 					</ul>
 				<?}?>
-				<h1 style="clear: both;float: left; color: #000000; font-size: 25px; text-align: center; width: 877px; margin-top: 10px; background: #<?=$colors[date('j')];?>;"><?=$supplier['personal_message']?></h1>
+				<h1 style="clear: both;float: left; color: #000000; font-size: 25px; text-align: center; width: 877px; margin-top: 10px; border: 3px solid #<?=$colors[date('j')];?>;"><?=$supplier['personal_message']?></h1>
 			<?}
 			$c1 = 20;
 			$c2 = 60;
