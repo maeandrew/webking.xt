@@ -960,14 +960,12 @@ aside .catalog .main_nav .info_description {
 	text-transform: lowercase;
 }
 aside .catalog .main_nav li:hover .info_key {
-	display: block;
+	display: inline-block;
 }
 aside .catalog .main_nav .included_filters {
-	padding-left: 5px;
 	font-size: 14px;
 	text-transform: lowercase;
 	font-weight: normal;
-	/*float: right;*/
 	color: #EF5350;
 	display: inline-block;
 }
