@@ -259,7 +259,7 @@ while($cat = $dbtree->NextRow()){
 	// =========================================================
 
 	// Фильтры =================================================
-$products->SetProductsListByFilter();
+//$products->SetProductsListByFilter();
 	// if((isset($_POST['filter_count']) && $_POST['filter_count'] > 0) || (isset($_SESSION['filters']['string']) && !isset($_POST['filter_count']))){
 	// 	if(isset($_POST['filter_count'])){
 	// 		for($i = 0; $i < $_POST['filter_count']; $i++){
@@ -574,6 +574,7 @@ function r_implode($glue, $pieces){
 $filter_cat = $products->GetFilterFromCategory($id_category);
 
 $group_arr = [];
+$cnt = 0;
 if($filter_cat) {
 	foreach ($filter_cat as $value) {
 
@@ -589,6 +590,7 @@ if($filter_cat) {
 			foreach($GLOBALS['Filters'] as $val){
 				if(in_array($value['id_val'], $val)){
 					$check =  'checked';
+					$cnt += $value['cnt'];
 				}
 			}
 		}
@@ -602,7 +604,7 @@ if($filter_cat) {
 
 	}
 }
-//if($value['id'][1] = $GLOBALS['Filters'][19][0]);
+$tpl->Assign('cnt', $cnt); //бщее количество товаров по активным фильтрам
 
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);

@@ -608,6 +608,11 @@ class Products {
 
 	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
 		$where = "";
+		$where2 = $this->SetProductsListByFilter();
+		if (is_array($where2)){
+			$where2 = ' AND p.id_product IN (' . implode(',',$where2). ')';
+		}
+
 		if($and !== FALSE && count($and)){
 			$where = " AND ";
 			foreach ($and as $k=>$v){
@@ -686,16 +691,13 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
-				".$where."
+				".$where . $where2. "
 				HAVING p.visible = 1
 					".$prices_zero."
 					AND a.active = 1
 				ORDER BY ".$order_by
 				.$limit;
 		}
-//		print_r($sql);
-		//Вставть массив ид товаров в условие вхере
-		print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -704,19 +706,29 @@ class Products {
 	}
 
 	public function SetProductsListByFilter(){
-		foreach($GLOBALS['Filters'] as $filter){
-			foreach($filter as $fil){
-				$filters[] = $fil;
+
+		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
+			foreach ($GLOBALS['Filters'] as $filter) {
+				foreach ($filter as $fil) {
+					$filters[] = $fil;
+				}
 			}
+
+			$sql = "SELECT DISTINCT sp.id_prod
+					FROM "._DB_PREFIX_."specs_prods AS sp
+					WHERE sp.value IN (SELECT sp2.value
+									  FROM xt_specs_prods AS sp2
+									  WHERE sp2.id IN (" . implode(',',$filters) . ")
+									  )";
+			$result = $this->db->GetArray($sql);
+			if(!$result){
+				return false;
+			}
+			foreach($result as $res){
+				$resul[] = $res['id_prod'];
+			}
+			return $resul;
 		}
-
-		$sql = "SELECT sp.id_prod
-				FROM "._DB_PREFIX_."specs_prods AS sp
-				WHERE sp.id IN (" . implode (',',$filters) . ")";
-		$this->id_prod = $this->db->GetArray($sql);
-		return $this->id_prod;
-//		print_r($this->id_prod);
-
 	}
 
 
@@ -740,7 +752,7 @@ class Products {
 		return true;
 	}
 
-	public function SetProductsListFilter($and = false, $limit='', $gid=0, $params = array ()){
+	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array ()){
 		$where = "";
 		if($and !== FALSE && count($and)){
 			$where = " WHERE ";
@@ -923,6 +935,10 @@ class Products {
 
 	public function GetProductsCnt($and = false, $gid = 0, $params = array()){
 		$where = "";
+		$where2 = $this->SetProductsListByFilter();
+		if (is_array($where2)){
+			$where2 = ' AND p.id_product IN (' . implode(',',$where2). ')';
+		}
 		if($and !== false && count($and)){
 			// $where = " AND ";
 			foreach ($and as $k=>$v){
@@ -962,7 +978,8 @@ class Products {
 			$sql .= $where."
 				HAVING p.visible = 1
 					AND (p.price_opt > 0 OR p.price_mopt > 0)
-					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0";
+					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0"
+			. $where2;
 		}
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
