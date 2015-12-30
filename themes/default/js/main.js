@@ -438,8 +438,9 @@ $(function(){
 
 	});
 
-	$('.enter_btn[data-name="login"]').on('click', function(){
+	$('.login').on('click', function(e){
 		openObject('regs_log');
+		e.preventDefault();
 	});
 	$('#logs .enter_btn').on('click', function(){
 		$(this).closest('#logs').addClass('hidden');
@@ -449,7 +450,7 @@ $(function(){
 		$(this).closest('#regs').addClass('hidden');
 		$('#logs').removeClass('hidden');
 	});
-	$('#logs .mdl-button[data-name="logist"]').on('click', function(e){
+	$('#logs .logist').on('click', function(e){
 		var email = $(this).closest('form').find('[name="email"]').val();
 		var passwd = $(this).closest('form').find('[name="passwd"]').val();
 		e.preventDefault();
@@ -466,7 +467,32 @@ $(function(){
 		}).done(function(data){
 			if(data.errm != 1){
 				closeObject('regs_log');
-				$('.enter_btn').text('Мой кабинет').attr('href', 'http://xt/cabinet');
+				$('.login').closest('li').find('.enter_btn').removeClass('hidden');
+				$('.login').addClass('hidden');
+			}else{
+				console.log(data.msg);
+			}
+		});
+	});
+	$('#logs .regist').on('click', function(e){
+		var email = $(this).closest('form').find('[name="email"]').val();
+		var passwd = $(this).closest('form').find('[name="passwd"]').val();
+		e.preventDefault();
+		$.ajax({
+			url: URL_base+'ajaxlogin',
+			type: "GET",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'login',
+				"email": email,
+				"passwd": passwd
+			}
+		}).done(function(data){
+			if(data.errm != 1){
+				closeObject('regs_log');
+				$('.login').closest('li').find('.enter_btn').removeClass('hidden');
+				$('.login').addClass('hidden');
 			}else{
 				console.log(data.msg);
 			}

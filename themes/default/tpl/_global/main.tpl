@@ -624,7 +624,7 @@
 				    <span class="mdl-textfield__error">Input is not a number!</span>
 				  </div><br>
 					<button class="mdl-button mdl-js-button enter_btn" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored logist">Войти</button>
 				</form>
 			</div>
 
@@ -642,17 +642,17 @@
 				  </div>
 
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" id="sample7" type="passwd" name="passwd">
+				    <input class="mdl-textfield__input" id="sample7" type="passwd1" name="passwd">
 				    <label class="mdl-textfield__label" for="sample7">Пароль</label>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
 				  </div>
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input"  id="sample8" type="passwd" name="passwd">
+				    <input class="mdl-textfield__input"  id="sample8" type="passwd2" name="passwd">
 				    <label class="mdl-textfield__label" for="sample8">Подтверждение пароля</label>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
 				  </div><br>
 				  <button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
-				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
+				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored regist">Регистрация</button>
 				</form>
 			</div>
 		</div>
