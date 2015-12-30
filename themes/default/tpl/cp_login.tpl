@@ -28,25 +28,3 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript">
-	$("#login_email").blur(function(){
-		var name = this.value;
-		var count = name.length;
-		if(count < 5){
-			$(this).removeClass().addClass("unsuccess");
-		} else {
-			$("#login_email").attr("value",name);
-			$(this).removeClass().addClass("success");
-		}
-	});
-	$("#login_passwd").blur(function(){
-		var pswd = this.value;
-		var count = pswd.length;
-			$("#login_passwd").attr("value",pswd);
-		if(count > 0){
-			$(this).removeClass().addClass("success");
-		} else {
-			$(this).removeClass().addClass("unsuccess");
-		}
-	});
-</script>

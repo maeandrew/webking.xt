@@ -352,6 +352,25 @@ $(function(){
 			}
 		}
 	});
+	//Открытие модального окна login///////
+
+
+/*$('.enter_btn').on('click', function(e){
+		e.preventDefault();
+		$(this).closest('[class^="wr_modal"]').addClass('hidden');
+		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
+	});*/
+
+	/*$('button').on('click', '.enter_btn', function(){
+		var name = $(this).data('name');
+		if(name != undefined){
+			if(name == 'login'){
+				GetLoginAjax();
+			}else{
+				openObject(name);
+			}
+		}
+	});*/
 	//Обработка примечания
 	$('.note textarea').on('blur', function(){
 		$(this).css({
@@ -394,7 +413,7 @@ $(function(){
 			cache: false,
 			dataType : "json",
 			data: {
-				"action": 'add',
+				"action": 'add'
 
 			}
 		}).done(function(){
@@ -417,5 +436,61 @@ $(function(){
 		openObject('modal');
 		$('.opened').removeClass('wr_modal_2');*/
 
+	});
+
+	$('.enter_btn[data-name="login"]').on('click', function(){
+		openObject('regs_log');
+	});
+	$('#logs .enter_btn').on('click', function(){
+		$(this).closest('#logs').addClass('hidden');
+		$('#regs').removeClass('hidden');
+	});
+	$('#regs .enter_btn').on('click', function(){
+		$(this).closest('#regs').addClass('hidden');
+		$('#logs').removeClass('hidden');
+	});
+	$('#logs .mdl-button[data-name="logist"]').on('click', function(e){
+		var email = $(this).closest('form').find('[name="email"]').val();
+		var passwd = $(this).closest('form').find('[name="passwd"]').val();
+		e.preventDefault();
+		$.ajax({
+			url: URL_base+'ajaxlogin',
+			type: "GET",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'login',
+				"email": email,
+				"passwd": passwd
+			}
+		}).done(function(data){
+			if(data.errm != 1){
+				closeObject('regs_log');
+				$('.enter_btn').text('Мой кабинет').attr('href', 'http://xt/cabinet');
+			}else{
+				console.log(data.msg);
+			}
+		});
+	});
+
+	$("#login_email").blur(function(){
+		var name = this.value;
+		var count = name.length;
+		if(count < 5){
+			$(this).removeClass().addClass("unsuccess");
+		} else {
+			$("#login_email").attr("value",name);
+			$(this).removeClass().addClass("success");
+		}
+	});
+	$("#login_passwd").blur(function(){
+		var pswd = this.value;
+		var count = pswd.length;
+			$("#login_passwd").attr("value",pswd);
+		if(count > 0){
+			$(this).removeClass().addClass("success");
+		} else {
+			$(this).removeClass().addClass("unsuccess");
+		}
 	});
 });
