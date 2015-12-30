@@ -227,14 +227,16 @@ $(function(){
 			if(name == 'filter_list'){
 				$(this).find('i').text('highlight_off');
 				$(this).find('span.title').text('Скрыть');
-				$('.second_nav, .news , .included_filters').slideUp();
+				$('.second_nav, .news ').slideUp();
+				$('.included_filters').hide();
 				$('.filters').fadeIn();
 				$(this).addClass('active');
 			}else{
 				$(this).find('i').text('filter_list');
 				$(this).find('span.title').text('Фильтры');
 				$('.filters').fadeOut();
-				$('.second_nav, .news, .included_filters').slideDown();
+				$('.second_nav, .news').slideDown();
+				$('.included_filters').show();
 				$(this).removeClass('active');
 			}
 		}else{

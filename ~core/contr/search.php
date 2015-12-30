@@ -106,8 +106,8 @@ if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPP
 }else{
 	$available_sorting_values = array(
 		'popularity desc' => 'популярные',
-		'price_mopt asc' => 'от дешевых к дорогим',
-		'price_mopt desc' => 'от дорогих к дешевым',
+		'price_opt asc' => 'от дешевых к дорогим',
+		'price_opt desc' => 'от дорогих к дешевым',
 		'name asc' => 'по названию от А до Я',
 		'name desc' => 'по названию от Я до А',
 	);
