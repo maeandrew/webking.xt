@@ -494,7 +494,7 @@ $(function(){
 		var passwd = $(this).val();
 		var passconfirm = $('#regs #passwdconfirm').val();
 		ValidatePass(passwd);
-		$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
+		/*$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');*/
 		if(passconfirm !== ''){
 			ValidatePassConfirm(passwd, passconfirm);
 		}

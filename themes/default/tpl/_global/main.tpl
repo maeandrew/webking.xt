@@ -637,32 +637,33 @@
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				    <input class="mdl-textfield__input" type="text" id="name" name="name">
 				    <label class="mdl-textfield__label" for="name">Имя</label>
-				    <div id="name_error"></div>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				    <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
+				    <span class="mdl-textfield__error">Ошибка ввода имени!</span>
+
 				  </div>
 
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="email" pattern="-?[0-9]*(\.[0-9]+)?" name="email">
+				    <input class="mdl-textfield__input" type="text" id="email" name="email">
 				    <label class="mdl-textfield__label" for="email">Email (логин)</label>
 				    <span class="mdl-textfield__error">Input is not a number!</span>
-					<!-- <div id="email_error"></div> -->
+
 				  </div>
 
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				    <input type="password" class="mdl-textfield__input" id="passwd"  name="passwd">
 				    <label class="mdl-textfield__label" for="passwd">Пароль</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
+				    <span class="mdl-textfield__error">Ошибка ввода пароля!</span>
+
 		    		<!-- <div id="passstrength">
-						<div id="passstrengthlevel"></div>
-					</div>
-				    <div id="password_error"></div>
-					<div class="error_description"></div> -->
+							<div id="passstrengthlevel"></div>
+						</div>
+					    <div id="password_error"></div>
+						<div class="error_description"></div> -->
 				  </div>
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				    <input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
 				    <label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
+				    <span class="mdl-textfield__error">Ошибка ввода  пароля!</span>
+
 				    <!-- <div id="password_error"></div>
 					<div class="error_description"></div> -->
 				  </div><br>

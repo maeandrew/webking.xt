@@ -426,38 +426,38 @@ function ValidatePass(passwd){
 	}
 
 	if(protect == 1) {
-		$('#password_error + .error_description').empty();
-		$('#passstrengthlevel').attr('class', 'bad');
+		$('#passwd + .mdl-textfield__error').empty();
+		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'bad');
 		$('#passwd').removeClass().addClass("success");
 		result = false;
 	}
 	if(protect == 2) {
-		$('#passstrengthlevel').attr('class', 'better');
+		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'better');
 		$('#passwd').removeClass().addClass("success");
 		result = false;
 	}
 	if(protect == 3) {
-		$('#passstrengthlevel').attr('class', 'ok');
+		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'ok');
 		$('#passwd').removeClass().addClass("success");
 		result = false;
 	}
 	if(protect == 4) {
-		$('#passstrengthlevel').attr('class', 'best');
+		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'best');
 		$('#passwd').removeClass().addClass("success");
 		result = false;
 	}
 	if(passwd.length == 0){
-		$('#password_error + .error_description').empty();
+		$('#passwd + .mdl-textfield__error').empty();
 		$('#passstrengthlevel').attr('class', 'small');
 		$('#passwd').removeClass().addClass("unsuccess");
 		result = 'Введите пароль';
-		$('#password_error + .error_description').append(result);
+		$('#passwd + .mdl-textfield__error').append(result);
 	}else if(passwd.length < 4) {
-		$('#password_error + .error_description').empty();
+		$('#passwd + .mdl-textfield__error').empty();
 		$('#passstrengthlevel').attr('class', 'small');
 		$('#passwd').removeClass().addClass("unsuccess");
 		result = 'Пароль слишком короткий';
-		$('#password_error + .error_description').append(result);
+		$('#passwd + .mdl-textfield__error').append(result);
 	}
 	return result;
 }
@@ -479,25 +479,28 @@ function ValidateEmail(email, type){
 		}),
 	}).done(function(data){
 		if(email.length == 0){
-			$('#email_error + .error_description').empty();
+			$('#email + #email_error').empty();
 			$('#regs #email').removeClass().addClass("unsuccess");
 			error = 'Введите email';
-			$('#email_error + .error_description').append(error);
+			$('#email + .mdl-textfield__error').append(error);
+			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
 			result = false;
 		}else if(!re.test(email)){
-			$('#email_error + .error_description').empty();
+			$('#email + .mdl-textfield__error').empty();
 			$('#regs #email').removeClass().addClass("unsuccess");
 			error = 'Введен некорректный email';
-			$('#email_error + .error_description').append(error);
+			$('#email + .mdl-textfield__error').append(error);
+			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
 			result = false;
 		}else if(data == "true"){
-			$('#email_error + .error_description').empty();
+			$('#email + .mdl-textfield__error').empty();
 			$('#regs #email').removeClass().addClass("unsuccess");
 			error = 'Пользователь с таким email уже зарегистрирован';
-			$('#email_error + .error_description').append(error);
+			$('#email + .mdl-textfield__error').append(error);
+			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
 			result = false;
 		}else{
-			$('#email_error + .error_description').empty();
+			$('#email + .mdl-textfield__error').empty();
 			$('#regs #email').removeClass().addClass("success");
 			error = '';
 			result = true;
@@ -508,10 +511,10 @@ function ValidateEmail(email, type){
 				if(passwdconfirm){
 					/*$('#regs').submit();
 					$('#regs .regist').submit();*/
+				}else{
 					$('#regs .regist').on('click', function() {
 						$(this).closest('.mdl-textfield').find('#passwd').text('ERROR');
 					});
-				}else{
 					$('label[for="confirmps"]').stop(true,true).animate({
 						"color": "#fff",
 						"font-weight": "bold",
@@ -536,11 +539,11 @@ function ValidateEmail(email, type){
 /** Валидация подтверждения пароля **/
 function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
-		$('#passwdconfirm_error + .error_description').empty();
+		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('#passwdconfirm').removeClass().addClass("unsuccess");
-		$('#passwdconfirm_error + .error_description').append('Пароли не совпадают');
+		$('#passwdconfirm + .mdl-textfield__error').append('Пароли не совпадают');
 	}else{
-		$('#passwdconfirm_error + .error_description').empty();
+		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('#passwdconfirm').removeClass().addClass("success");
 		return false;
 	}
@@ -551,6 +554,7 @@ function ValidateName(name){
 	if(name.length < 3){
 		$('#name_error + .error_description').empty();
 		$('#regs #name').removeClass().addClass("unsuccess");
+		$('#name').closest('.mdl-textfield ').addClass('is-invalid');
 		if(name.length == 0){
 			$('#name_error + .error_description').append('Введите имя');
 		}else{
@@ -567,19 +571,19 @@ function ValidateName(name){
 function CompleteValidation(name, email, passwd, passconfirm){
 	var fin = 0;
 	if(ValidateName(name)){
-		$('#regs #name').closest('.mdl-textfield__error').text(ValidateName(name));
+		$('#regs .mdl-textfield__error').closest('#name .mdl-textfield').text(ValidateName(name));
 		fin++;
 	}
 	if(email){
-		$('#regs #email').closest('.mdl-textfield__error').text(email);
+		$('#regs .mdl-textfield__error').closest('#email .mdl-textfield').text(email);
 		fin++;
 	}
 	if(ValidatePass(passwd)){
-		$('#regs #passwd').closest('.mdl-textfield__error').text(ValidatePass(passwd));
+		$('#regs .mdl-textfield__error').closest('#passwd .mdl-textfield').text(ValidatePass(passwd));
 		fin++;
 	}
 	if(ValidatePassConfirm(passwd, passconfirm)){
-		$('#regs #passwdconfirm').closest('.mdl-textfield__error').text(ValidatePassConfirm(passwd, passconfirm));
+		$('#regs .mdl-textfield__error').closest('#passwdconfirm .mdl-textfield').text(ValidatePassConfirm(passwd, passconfirm));
 		fin++;
 	}
 	if(fin > 0){
