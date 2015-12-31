@@ -2135,3 +2135,17 @@ aside#catalog .catalog_close:hover i {
 .mdl-checkbox{
 	height: auto;
 }
+
+/* Диапазон цен ===================================================== */
+#price,#price2 {
+	border:1px solid #8F8F8F;
+	padding:5px;
+	width:80px;
+}
+#options {
+	width:300px;
+	padding:10px;
+}
+#slider_price {
+	margin-top:10px;
+}
