@@ -17,7 +17,7 @@ class Link {
 	 * @param string $rewrite идентификатор раздела
 	 */
 	public static function Category($rewrite, $params = array()){
-		$str_filter = $str_sort = $str_page = '';
+		$str_filter = $str_sort = $str_page = $price_range = '';
 //		print_r($GLOBALS['Sort']);
 		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
@@ -57,7 +57,13 @@ class Link {
 					}
 					break;
 
-				case 'sort': $str_sort = 'sort='.$param;
+				case 'sort':
+					$str_sort = 'sort='.$param;
+					break;
+
+				case 'price_range':
+					print_r($param);
+					$price_range = 'price_range='.$_COOKIE['price_range'];
 					break;
 			}
 		}
@@ -71,7 +77,7 @@ class Link {
 			}
 		}
 
-		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
+			return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($price_range ?  '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**

@@ -10,19 +10,25 @@
 				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
 			},
 			stop: function(event, ui) {
-			$.ajax({
-				type: "post",
-				url: URL_base+'ajax',
-				dataType: "json",
-				data: ({
-					target: 'regions',
-					action: 'GetRegionsList'
-				}),
-			})
-		}
-//				document.location = '<?=Link::Category($GLOBALS['Rewrite'] )?>';
-
-
+				var price_range = ui.values[0] + ',' + ui.values[1];
+				$.cookie('price_range', price_range, {
+					expires: 2,
+					path: '/'
+				});
+			window.location.href = "<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => " + price_range + "))?>";
+//				$.ajax({
+//					type: "post",
+//					url: URL_base+'ajax',
+//					dataType: "json",
+//					data: ({
+//						target: 'link',
+//						action: 'GetUrlWithPrice',
+//						price: [ui.values[0],ui.values[1]]
+//
+//					}),
+//				})
+			}
+		});
 		$( "#amount" ).val( "$" + $( "#slider_price" ).slider( "values", 0 ) +
       					 " - $" + $( "#slider_price" ).slider( "values", 1 ));
 

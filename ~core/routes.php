@@ -18,6 +18,11 @@ if(preg_match('/^.*\.html$/', $request)){
 			$GLOBALS['Sort'] = preg_replace('/^\/sort=/', '', $match[0]);
 			$request = preg_replace('/\/sort=[^\/]+/', '', $request);
 		}
+		//Диапазон цен
+		if(preg_match('/\/price_range=[^\/]+/', $request, $match)){
+			$GLOBALS['Price_range'] = preg_replace('/^\/price_range=/', '', $match[0]);
+			$request = preg_replace('/\/price_range=[^\/]+/', '', $request);
+		}
 		$rewrite_arr = explode('/', $request);
 		if(!in_array($rewrite_arr[0], $GLOBALS['Controllers']) || $rewrite_arr[0] == 'products'){
 			$GLOBALS['CurrentController'] = 'products';
