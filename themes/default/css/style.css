@@ -637,16 +637,56 @@ section.center {
     background-color: #FF5722;
 }
 #regs_log .mdl-button {
-        text-transform: none;
+    text-transform: none;
     border: 0px solid #e0e0e0;
     padding: 0 10px;
     line-height: 30px;
     height: 30px;
+    float: right;
 
+}
+#regs_log {
+	width: 300px;
+}
+#regs_log h6 {
+	font-size: 22px;
+	color: #03A9F4;
+}
+#logs {
+	padding: 10% 0 10% 18%;
+    width: 64%;
+}
+#regs {
+	    padding: 15%;
+}
+#logs span {
+	width: 80%;
+    display: block;
+}
+#regs span {
+	width: 76%;
+    display: block;
+}
+#regs .mdl-textfield {width: 100%;}
+#logs .mdl-textfield {width: 100%;}
+#regs .is-focused .mdl-textfield__label{
+	color: black;
+}
+#logs .is-focused .mdl-textfield__label {
+	color: black;
 }
 #regs_log .mdl-button--raised.mdl-button--colored {
     background: #F44336;
     color: rgb(255,255,255);
+}
+#regs input, textarea{
+	border: none;
+}
+#regs input:focus{
+	border: none;
+}
+#regs .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+	color: rgb(160, 161, 171);
 }
 
 /*Cart =======================================================================*/
@@ -971,13 +1011,12 @@ aside .catalog .main_nav .info_description {
 	text-transform: lowercase;
 }
 aside .catalog .main_nav li:hover .info_key {
-	display: block;
+	display: inline-block;
 }
 aside .catalog .main_nav .included_filters {
 	font-size: 14px;
 	text-transform: lowercase;
 	font-weight: normal;
-	float: right;
 	color: #EF5350;
 	display: inline-block;
 }
@@ -2106,4 +2145,18 @@ aside#catalog .catalog_close:hover i {
 }
 .mdl-checkbox{
 	height: auto;
+}
+
+/* Диапазон цен ===================================================== */
+#price,#price2 {
+	border:1px solid #8F8F8F;
+	padding:5px;
+	width:80px;
+}
+#options {
+	width:300px;
+	padding:10px;
+}
+#slider_price {
+	margin-top:10px;
 }

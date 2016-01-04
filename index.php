@@ -28,14 +28,14 @@ G::AddCSS('../themes/default/css/header.css');
 
 G::AddCSS('../themes/default/css/custom.css');
 
-// G::AddCSS('jquery-ui.css');
+G::AddCSS('jquery-ui.css');
 /* plugins css */
 // G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
 // G::AddCSS('../plugins/icomoon/style.css');
 G::AddCSS('../themes/default/css/page_styles/'.$GLOBALS['CurrentController'].'.css');
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
-// G::AddJS('jquery-ui.min.js');
+G::AddJS('jquery-ui.min.js');
 G::AddJS('../plugins/material/material.js');
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
 G::AddJS('../themes/default/js/func.js');

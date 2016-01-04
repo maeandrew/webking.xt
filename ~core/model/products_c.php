@@ -698,6 +698,7 @@ class Products {
 				ORDER BY ".$order_by
 				.$limit;
 		}
+//		print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -708,18 +709,24 @@ class Products {
 	public function SetProductsListByFilter(){
 
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
-			foreach ($GLOBALS['Filters'] as $filter) {
+			$fl_v = '';
+			foreach ($GLOBALS['Filters'] as $key => $filter) {
+				if ($fl_v != '') $fl_v .= ' AND ';
+				$fl_v .= "sp2.id IN (" . implode(', ',$filter) .")";
+
 				foreach ($filter as $fil) {
 					$filters[] = $fil;
 				}
-			}
 
+			}
+//			print_r($fl_v);
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
 									  FROM xt_specs_prods AS sp2
-									  WHERE sp2.id IN (" . implode(',',$filters) . ")
+									  WHERE " . $fl_v . "
 									  )";
+//			print_r($sql);
 			$result = $this->db->GetArray($sql);
 			if(!$result){
 				return false;
@@ -727,6 +734,8 @@ class Products {
 			foreach($result as $res){
 				$resul[] = $res['id_prod'];
 			}
+//			print_r($resul);
+
 			return $resul;
 		}
 	}
@@ -3494,6 +3503,7 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
+//		print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? : false;
 	}

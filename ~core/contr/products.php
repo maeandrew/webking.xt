@@ -237,16 +237,16 @@ while($cat = $dbtree->NextRow()){
 	if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 		$available_sorting_values = array(
 			'popularity desc' => 'популярные сверху',
-			'price_opt_otpusk asc' => 'от дешевых к дорогим',
-			'price_opt_otpusk desc' => 'от дорогих к дешевым',
+			'price_opt_otpus asc' => 'от дешевых к дорогим',
+			'price_opt_otpus desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
 			'name desc' => 'по названию от Я до А',
 		);
 	}else{
 		$available_sorting_values = array(
 			'popularity desc' => 'популярные сверху',
-			'price_mopt asc' => 'от дешевых к дорогим',
-			'price_mopt desc' => 'от дорогих к дешевым',
+			'price_opt asc' => 'от дешевых к дорогим',
+			'price_opt desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
 			'name desc' => 'по названию от Я до А',
 		);
@@ -590,7 +590,7 @@ if($filter_cat) {
 			foreach($GLOBALS['Filters'] as $val){
 				if(in_array($value['id_val'], $val)){
 					$check =  'checked';
-					$cnt += $value['cnt'];
+					$cnt ++;
 				}
 			}
 		}
@@ -604,7 +604,7 @@ if($filter_cat) {
 
 	}
 }
-$tpl->Assign('cnt', $cnt); //бщее количество товаров по активным фильтрам
+$tpl->Assign('cnt', $cnt); //количество активных фильтров
 
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);

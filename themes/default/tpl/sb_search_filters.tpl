@@ -1,5 +1,26 @@
 <div class="filters">
 
+	<div class="filter_block" id='options'>
+		<p>Цена:</p>
+		<ul>
+			<li>
+				<form method='post'>
+					<label for='price'>
+						От:	<input type="text" name="price" id="price" maxlength="10">
+					</label>
+					<label for='price2'>
+						До:	<input type="text" name="price" id="price2" maxlength="10">
+					</label>
+				</form>
+			</li>
+			<li>
+				<div id="slider_price"></div>
+			</li>
+
+
+		</ul>
+	</div>
+
 	<? if(isset($filter_cat) && is_array($filter_cat)) {
 		foreach($filter_cat as $spec){ ?>
 			<div class="filter_block">
