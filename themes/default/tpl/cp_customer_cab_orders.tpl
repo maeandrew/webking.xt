@@ -1,37 +1,49 @@
+<div id="cab_left_bar">
+	<h5>Личный кабинет</h5>
+	<span>Мои заказы</span>
+	<form action=""method="GET">
+		<ul id="navi">
+			<li>
+				<button name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>">
+					Все
+				</button>
+			</li>
+			<li>
+				<button name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>">
+					Выполняются
+				</button>
+			</li>
+			<li>
+				<button name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>">
+					Выполенные
+				</button>
+			</li>
+			<li>
+				<button name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>">
+					Отмененные
+				</button>
+			</li>
+			<li>
+				<button name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>">
+					Черновики
+				</button>
+			</li>
+		</ul>
+	</form>
+	<ul id="navi2">
+		<span><i class="material-icons">people</i></span><li><a>Списки друзей</a></li>
+		<span><i class="material-icons">settings</i></span><li><a>Списки друзей</a></li>
+		<span><i class="material-icons">add_shopping_cart</i></span><li><a>Списки друзей</a></li>
+		<span><i class="material-icons">flag</i></span><li><a>Списки друзей</a></li>
+		<span><i class="material-icons">timeline</i></span><li><a>Списки друзей</a></li>
+	</ul>
+</div>
 <div class="customer_cab">
 	<div class="msg-info">
 		<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
 	</div>
 	<div id="orders_history">
-		<form action=""method="GET">
-			<ul id="nav">
-				<li>
-					<button name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>">
-						Все
-					</button>
-				</li>
-				<li>
-					<button name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>">
-						Выполняются
-					</button>
-				</li>
-				<li>
-					<button name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>">
-						Выполенные
-					</button>
-				</li>
-				<li>
-					<button name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>">
-						Отмененные
-					</button>
-				</li>
-				<li>
-					<button name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>">
-						Черновики
-					</button>
-				</li>
-			</ul>
-		</form>
+
 		<?!isset($_GET['t'])?$_GET['t']='all':null;?>
 		<div class="<?switch ($_GET['t']){
 			case 'working':

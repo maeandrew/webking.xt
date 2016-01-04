@@ -27,7 +27,7 @@ $(function(){
 		viewport_height = $(window).height(),
 		center_section_height = $('section .center').height(),
 		header_outerheight = $('header').outerHeight();
-	openObject('quiz');
+	//openObject('quiz');
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
 		effect : "fadeIn"
@@ -444,7 +444,8 @@ $(function(){
 		openObject('regs_log');
 		e.preventDefault();
 	});
-	$('#logs .enter_btn').on('click', function(){
+	$('#logs .enter_btn').on('click', function(e){
+		e.preventDefault();
 		$(this).closest('#logs').addClass('hidden');
 		$('#regs').removeClass('hidden');
 		Position($('#regs_log'));
@@ -509,7 +510,7 @@ $(function(){
 	});
 
 
-	$("#login_email").blur(function(){
+	/*$("#login_email").blur(function(){
 		var name = this.value;
 		var count = name.length;
 		if(count < 5){
@@ -528,5 +529,5 @@ $(function(){
 		} else {
 			$(this).removeClass().addClass("unsuccess");
 		}
-	});
+	});*/
 });

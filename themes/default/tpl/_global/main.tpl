@@ -644,7 +644,7 @@
 				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				    <input class="mdl-textfield__input" type="text" id="email" name="email">
 				    <label class="mdl-textfield__label" for="email">Email (логин)</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
+				    <span class="mdl-textfield__error">Ошибка ввода email!</span>
 
 				  </div>
 
