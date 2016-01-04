@@ -11,22 +11,22 @@ header.filled {
 header .logo {
 	display: inline-block;
 	float: left;
-	/*margin-right: 15px;*/
+	margin: 0 15px;
 }
 header .logo img {
 	display: block;
 	margin: 0 auto;
 	height: 32px;
-	-webkit-filter: grayscale(100%);
+/*	-webkit-filter: grayscale(100%);
 	-o-filter: grayscale(100%);
-	filter: grayscale(100%);
+	filter: grayscale(100%);*/
 	-webkit-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 }
 header .logo:hover img {
-	-webkit-filter: grayscale(0%);
+/*	-webkit-filter: grayscale(0%);
 	-o-filter: grayscale(0%);
-	filter: grayscale(0%);
+	filter: grayscale(0%);*/
 }
 header .catalog_btn {
 	width: 170px;

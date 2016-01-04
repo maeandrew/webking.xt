@@ -868,7 +868,7 @@
 							<div class="video_tab_wrapper">
 								<?if(!empty($item['videos'])){
 									foreach($item['videos'] as $video){?>
-										<object width="800" height="480" data="<?=str_replace('watch?v=', 'embed/', $video)?>"></object>
+										<iframe width="800" height="480" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen></iframe>
 									<?}
 								}?>
 							</div>

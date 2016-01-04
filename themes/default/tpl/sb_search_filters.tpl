@@ -1,23 +1,42 @@
+<script>
+	/** Фильтр по цене */
+	$(function() {
+		$("#slider_price").slider({
+			range: true,
+			min: <?=$min_price?>,
+			max: <?=$max_price?>,
+			values: [<?=$min_price?>, <?=$max_price?>],
+			slide: function(event, ui) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			},
+			stop: function(event, ui) {
+			$.ajax({
+				type: "post",
+				url: URL_base+'ajax',
+				dataType: "json",
+				data: ({
+					target: 'regions',
+					action: 'GetRegionsList'
+				}),
+			})
+		}
+//				document.location = '<?=Link::Category($GLOBALS['Rewrite'] )?>';
+
+
+		$( "#amount" ).val( "$" + $( "#slider_price" ).slider( "values", 0 ) +
+      					 " - $" + $( "#slider_price" ).slider( "values", 1 ));
+
+	});
+</script>
 <div class="filters">
 
-	<div class="filter_block" id='options'>
-		<p>Цена:</p>
+	<div class="filter_block">
+		<p>Ценовой диапазон:</p>
 		<ul>
 			<li>
-				<form method='post'>
-					<label for='price'>
-						От:	<input type="text" name="price" id="price" maxlength="10">
-					</label>
-					<label for='price2'>
-						До:	<input type="text" name="price" id="price2" maxlength="10">
-					</label>
-				</form>
+				<input  type="text" id="amount" readonly>
+				<div class="mdl-slider mdl-js-slider" id="slider_price"></div>
 			</li>
-			<li>
-				<div id="slider_price"></div>
-			</li>
-
-
 		</ul>
 	</div>
 

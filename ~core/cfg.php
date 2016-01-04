@@ -6,7 +6,7 @@ G::DefineRootDirectory();
 G::ToGlobals(array(
 	'URL_base'			=> _base_url,
 	'URL_request'		=> preg_replace('/\/$/', '', $_GET['request']?:preg_replace('/^/.*/', '', $_SERVER['REQUEST_URI'])),
-	'URL_img'			=> _base_url.'/images/',
+	'URL_img'			=> _base_url.'/img/',
 	'URL_css'			=> _base_url.'/css/',
 	'URL_js'			=> _base_url.'/js/',
 	'PATH_root'			=> _root,
@@ -23,7 +23,7 @@ $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 $theme = 'default';
 $GLOBALS['PATH_tpl'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl']);
 $GLOBALS['PATH_tpl_global'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl_global']);
-$GLOBALS['URL_img_theme'] = _base_url.'/themes/'.$theme.'/images/';
+$GLOBALS['URL_img_theme'] = _base_url.'/themes/'.$theme.'/img/';
 $GLOBALS['URL_css_theme'] = _base_url.'/themes/'.$theme.'/css/';
 $GLOBALS['URL_js_theme'] = _base_url.'/themes/'.$theme.'/js/';
 // // ***************************** Подключение и инициализация системных классов  *****************************

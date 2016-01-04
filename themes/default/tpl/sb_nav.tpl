@@ -25,11 +25,11 @@
 			<i class="material-icons">filter_list</i>
 			<span>
 				<span class="title">Фильтры</span>
-				<span class="included_filters"><?=$cnt ? "($cnt)":'';?></span>
+				<span class="included_filters"><? if(isset($cnt) && $cnt > 0) echo "($cnt)";?></span>
 			</span>
 		</li>
 	</ul>
-	<?if(isset($sbheader) && isset($nav)){?>
+	<?if(isset($sbheader) && isset($nav)){ ?>
 		<?=$nav;?>
 	<?}?>
 </div>

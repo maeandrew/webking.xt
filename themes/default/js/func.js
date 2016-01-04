@@ -401,6 +401,28 @@ function changestars(rating){
 }
 
 
+// Выбор области (региона)
+function GetRegions(){
+	// console.log('23124123');
+	// $.post(URL_base+'ajax', { name: "John", time: "2pm" } );
+	$.ajax({
+		type: "post",
+		url: URL_base+'ajax',
+		cache: false,
+		dataType: "json",
+		processData: true,
+		data: ({
+			target: 'regions',
+			action: 'GetRegionsList'
+		}),
+	}).done(function(data){
+		var str = data.map(function(elem){
+			return '<li class="mdl-menu__item" data-value="'+elem.id_city+'">'+elem.region+'</li>';
+		}).join('');
+		$('[for="region_select"]').html(str);
+	});
+}
+
 /** Валидация пароля **/
 function ValidatePass(passwd){
 	var protect = 0;
