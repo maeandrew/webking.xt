@@ -6,48 +6,36 @@
 			min: <?=$min_price?>,
 			max: <?=$max_price?>,
 			values: [<?=$min_price?>, <?=$max_price?>],
-			slide: function( event, ui ) {
-				//Поле min значения
-				$("#price").val(ui.values[0]);
-				//Поле max значения
-				$("#price2").val(ui.values[1]);
+			slide: function(event, ui) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			},
+			stop: function(event, ui) {
+			$.ajax({
+				type: "post",
+				url: URL_base+'ajax',
+				dataType: "json",
+				data: ({
+					target: 'regions',
+					action: 'GetRegionsList'
+				}),
+			})
+		}
+//				document.location = '<?=Link::Category($GLOBALS['Rewrite'] )?>';
 
-			}
-		});
-		//Записываем значение ползунков в момент загрузки страницы (по умолчанию)
-		$("#price").val($("#slider_price").slider("values", 0));
-		$("#price2").val($("#slider_price").slider("values", 1));
 
-		$("#price").change(function() {
-			var val = $(this).val();
-			$("#slider_price").slider("values", 0, val);
-		});
-		$("#price2").change(function(){
-			var val1 = $(this).val();
-			$("#slider_price").slider("values", 1, val1);
-		})
+		$( "#amount" ).val( "$" + $( "#slider_price" ).slider( "values", 0 ) +
+      					 " - $" + $( "#slider_price" ).slider( "values", 1 ));
+
 	});
 </script>
 <div class="filters">
 
-	<div class="filter_block"><!--id='options'-->
-		<p>Цена:</p>
+	<div class="filter_block">
+		<p>Ценовой диапазон:</p>
 		<ul>
 			<li>
-				<form method='post'>
-					<label for='price'>
-						От:	<input type="text" name="price" id="price" maxlength="10">
-					</label>
-					<label for='price2'>
-						До:	<input type="text" name="price" id="price2" maxlength="10">
-					</label>
-				</form>
-			</li>
-			<li>
-				<div id="slider_price"></div>
-			</li>
-			<li>
-				<button id="submit">Приминить</button>
+				<input  type="text" id="amount" readonly>
+				<div class="mdl-slider mdl-js-slider" id="slider_price"></div>
 			</li>
 		</ul>
 	</div>
