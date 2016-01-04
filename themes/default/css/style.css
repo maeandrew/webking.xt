@@ -498,15 +498,19 @@ section.center {
 	padding: 0;
 	border-top: 10px solid #FF9776;
 	border-radius: 0;
+	overflow: visible;
 }
 #quiz .modal_container {
 	display: none;
 	padding: 2em;
 	max-width: 600px;
-	overflow: visible;
 }
 #quiz .modal_container.active {
 	display: block;
+}
+#quiz .mdl-menu {
+	max-height: 300px;
+	overflow: auto;
 }
 #quiz .head_top h5 {
 	max-width: 700px;
@@ -524,21 +528,29 @@ section.center {
 	margin: 1em -1.5em 0;
 	font-size: 20px;
 }
-#quiz .head_top span {
+#quiz .head_top > span {
 	display: block;
 	padding: 1em 0;
 }
 #quiz form {
-	overflow: auto;
+	overflow-x: visible;
+	overflow-y: auto;
+	clear: both;
 }
 #quiz .mdl-button {
 	text-transform: none;
 	border: none;
 	padding: 0 1em;
 }
+#quiz .mdl-button .material-icons {
+	margin-top: 7px;
+}
+#quiz .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+	color: #000;
+}
 #quiz button {
 	margin: 1em;
-	background-color: #EEEEEE;
+	background-color: #eee;
 }
 #quiz button:first-of-type {
 	margin-left: 0;
@@ -547,17 +559,20 @@ section.center {
 	float: left;
 	clear: both;
 }
+#quiz .row:after {
+	content: '';
+	clear: both;
+}
 #quiz .progress {
 	position: absolute;
-	bottom: 2em;
-	right: 2em;
+	bottom: 4em;
+	right: 4em;
 	width: 50%;
-	margin: 1em 0 1em 1em;
 }
 #quiz .line {
 	width: 60%;
 	height: 10px;
-	background: #EEEEEE;
+	background: #eee;
 	border-radius: 10px;
 	overflow: hidden;
 	float: left;
@@ -609,10 +624,6 @@ section.center {
 }
 .wr_modal_2  .number_label {
 	display: block;
-}
-.wr_modal_4 .head_top span {
-		color: #000;
-	font-size: 20px;
 }
 
 /*Login =======================================================================*/
@@ -2018,13 +2029,13 @@ aside#catalog .catalog_close:hover i {
 .mdl-radio__ripple-container .mdl-ripple {
 	background: rgb(255, 87, 34);
 }
-.mdl-button {
+/*.mdl-button {
 	text-transform: none;
 	border: 1px solid #e0e0e0;
 	padding: 0 10px;
 	line-height: 30px;
 	height: 30px;
-}
+}*/
 .mdl-mega-footer {
 	padding: 0;
 	color: inherit;
