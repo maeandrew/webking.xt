@@ -398,6 +398,21 @@ function changestars(rating){
 			star.text('star_border');
 		}
 	});
+}
+
+/** Валидация имени **/
+function ValidateName(name){
+	if(name.length < 4){
+		if(name.length == 0){
+			var errorm = 'Введите имя';
+		}else{
+			var errorm = 'Имя слишком короткое';
+		}
+		return errorm;
+	}
+	return true;
+}
+
 // Выбор области (региона)
 function GetRegions(){
 	// console.log('23124123');
