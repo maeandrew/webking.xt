@@ -37,7 +37,7 @@
 				<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
 			<?}
 		// }else{?>
-		 	<!-- <link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/> -->
+			<!-- <link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/> -->
 		<?//}
 	}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
@@ -171,14 +171,14 @@
 			</a>
 			<a href="#">
 				<span class="text_block">
-					<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 					<h3>Поставки<br> магазинам</h3>
 
 				</span>
 			</a>
 			<a href="#">
 				<span class="text_block">
-					<img  class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 					<h3>Обеспечение<br> быта</h3>
 
 				</span>
@@ -457,103 +457,95 @@
 
 
 		<div id="quiz" data-type="modal">
-			<div class="modal_container step_1 active">
+			<div class="modal_container step_1 active" data-step="1">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<span>Сейчас я вижу Вас как "Клиент 2345623", скажите, как Вас зовут?</span>
 				</div>
-				<form action="#" method="post">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label row">
-						<input class="mdl-textfield__input" type="text" id="lastname" name="lastname">
+				<div class="row">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="lastname">
+						<input class="mdl-textfield__input" type="text" name="lastname" value="">
 						<label class="mdl-textfield__label" for="lastname">Фамилия</label>
+						<span class="mdl-textfield__error">Введите свою фамилию</span>
 					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label row">
-						<input class="mdl-textfield__input" type="text" id="firstname" name="firstname">
+				</div>
+				<div class="row">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="firstname">
+						<input class="mdl-textfield__input" type="text" name="firstname" value="Александр">
 						<label class="mdl-textfield__label" for="firstname">Имя</label>
+						<span class="mdl-textfield__error">Введите свое имя</span>
 					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label row">
-						<input class="mdl-textfield__input" type="text" id="middlename" name="middlename">
+				</div>
+				<div class="row">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middlename">
+						<input class="mdl-textfield__input" type="text" name="middlename" value="Васильевич">
 						<label class="mdl-textfield__label" for="middlename">Отчество</label>
+						<span class="mdl-textfield__error">Введите свое отчество</span>
 					</div>
-					<div class="row">
-						<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
-					</div>
-					<!-- <button class="else"  data-upgraded=",MaterialButton" type='submit'>Далее</button> -->
-				</form>
+				</div>
+				<div class="row">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
+				</div>
+				<!-- <button class="else" data-upgraded=",MaterialButton" type='submit'>Далее</button> -->
 			</div>
-			<div class="modal_container step_2">
+			<div class="modal_container step_2" data-step="2">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
-					<h6>Виталий Петрович, приятно познакомиться!</h6>
+					<h6><span class="client">Пользователь</span>, приятно познакомиться!</h6>
 					<span>Мы доставляем в 460 городов, а откуда Вы?</span>
 				</div>
-				<form action="#" method="post">
-					<span class="number_label">Область</span>
-					<div class="sort imit_select">
-						<button id="sort-lower-left_1" class="mdl-button mdl-js-button">
-							<i class="material-icons fright">keyboard_arrow_down</i><span class="selected_sort select_fild">Выбрать</span>
-						</button>
-
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left_1">
-
-
-							<li class="mdl-menu__item sort" data-value="1" >Харьковская</li>
-							<li class="mdl-menu__item sort" data-value="2" >Киевская</li>
-							<li class="mdl-menu__item sort" data-value="3" >Житомирская</li>
-							<li class="mdl-menu__item sort" data-value="4" >Херсонская</li>
-							<li class="mdl-menu__item sort" data-value="5" >Туксонская</li>
-						</ul>
-					</div>
-					<span class="number_label">Город</span>
-					<div class="sort imit_select">
-						<button id="sort-lower-left_2" class="mdl-button mdl-js-button">
-							<i class="material-icons fright">keyboard_arrow_down</i><span class="selected_sort select_fild">Выбрать</span>
-						</button>
-
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left_2">
-
-
-							<li class="mdl-menu__item sort" data-value="1" >Харьков</li>
-							<li class="mdl-menu__item sort" data-value="2" >Киев</li>
-							<li class="mdl-menu__item sort" data-value="3" >Житомир</li>
-							<li class="mdl-menu__item sort" data-value="4" >Херсон</li>
-							<li class="mdl-menu__item sort" data-value="5" >Туксон</li>
-						</ul>
-					</div>
-
-					<div class="row">
-						<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="1">Назад</button>
-						<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Далее</button>
-					</div>
-				</form>
+				<div class="region mdl-cell--hide-phone imit_select">
+					<button id="region_select" class="mdl-button mdl-js-button">
+						<span class="select_field">Выбрать</span>
+						<i class="material-icons">keyboard_arrow_down</i>
+					</button>
+					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="region_select"></ul>
+				</div>
+				<span class="number_label">Город</span>
+				<div class="imit_select">
+					<button id="city_select" class="mdl-button mdl-js-button">
+						Выбрать<i class="material-icons fright">keyboard_arrow_down</i>
+					</button>
+					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="city_select">
+						<li class="mdl-menu__item" data-value="1">Харьков</li>
+						<li class="mdl-menu__item" data-value="2">Киев</li>
+						<li class="mdl-menu__item" data-value="3">Житомир</li>
+						<li class="mdl-menu__item" data-value="4">Херсон</li>
+						<li class="mdl-menu__item" data-value="5">Туксон</li>
+					</ul>
+				</div>
+				<div class="row">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="1">Назад</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Далее</button>
+				</div>
 			</div>
 
-			<div class="modal_container step_3">
+			<div class="modal_container step_3" data-step="3">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<h6>Виталий Петрович, приятно познакомиться!</h6>
 					<span></span>
 				</div>
 				<form action="#" method="post">
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-					  <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
-					  <span class="mdl-radio__label">Новая Почта</span>
+					<label class="mdl-radio mdl-js-radio" for="option-1">
+						<input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+						<span class="mdl-radio__label">Новая Почта</span>
 					</label><br>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-					  <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
-					  <span class="mdl-radio__label">Деливери</span>
+					<label class="mdl-radio mdl-js-radio" for="option-2">
+						<input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+						<span class="mdl-radio__label">Деливери</span>
 					</label><br>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-					  <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
-					  <span class="mdl-radio__label">Интайм</span>
+					<label class="mdl-radio mdl-js-radio" for="option-3">
+						<input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
+						<span class="mdl-radio__label">Интайм</span>
 					</label><br>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4">
-					  <input type="radio" id="option-4" class="mdl-radio__button" name="options" value="4">
-					  <span class="mdl-radio__label">Доставка службой "ХарьковТорг"</span>
+					<label class="mdl-radio mdl-js-radio" for="option-4">
+						<input type="radio" id="option-4" class="mdl-radio__button" name="options" value="4">
+						<span class="mdl-radio__label">Доставка службой "ХарьковТорг"</span>
 					</label><br>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-5">
-					  <input type="radio" id="option-5" class="mdl-radio__button" name="options" value="5">
-					  <span class="mdl-radio__label">Самовывоз</span>
+					<label class="mdl-radio mdl-js-radio" for="option-5">
+						<input type="radio" id="option-5" class="mdl-radio__button" name="options" value="5">
+						<span class="mdl-radio__label">Самовывоз</span>
 					</label><br>
 					<span>Вам удобнее забрать заказ со склада, или принять по адресу?</span>
 					<div class="sort imit_select">
@@ -572,26 +564,24 @@
 				</form>
 			</div>
 
-			<div class="modal_container step_4">
+			<div class="modal_container step_4" data-step="4">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<h6>Виталий Петрович, у меня есть необходимые данные для отправки заказа.</h6>
 					<span>Вы готовы внести предоплату?</span>
 				</div>
-				<form action="#" method="post">
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
-					  <input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
-					  <span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
-					</label>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
-					  <input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
-					  <span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
-					</label>
-					<div class="row">
-						<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
-						<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
-					</div>
-				</form>
+				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
+					<input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
+					<span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
+				</label>
+				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
+					<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
+					<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
+				</label>
+				<div class="row">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
+				</div>
 				<div class="line">
 					<div class="line_active"></div>
 				</div>
@@ -604,7 +594,7 @@
 				</div>
 				<span class="go">Заполнено: </span>
 			</div>
-			<div class="modal_container step_5">
+			<div class="modal_container step_5" data-step="5">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>
@@ -614,46 +604,44 @@
 		<div id="regs_log" data-type="modal">
 			<div id="logs" class="modal_container">
 				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample3" name="email">
-				    <label class="mdl-textfield__label" for="sample3">Логин</label>
-				  </div><br>
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="passwd" id="sample4" name="passwd">
-				    <label class="mdl-textfield__label" for="sample4">Пароль</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				  </div><br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="sample3" name="email">
+					<label class="mdl-textfield__label" for="sample3">Логин</label>
+					</div><br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="passwd" id="sample4" name="passwd">
+					<label class="mdl-textfield__label" for="sample4">Пароль</label>
+					<span class="mdl-textfield__error">Input is not a number!</span>
+					</div><br>
 					<button class="mdl-button mdl-js-button enter_btn" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored logist">Войти</button>
 				</form>
 			</div>
 
 			<div id="regs" class="hidden modal_container">
-				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample5">
-				    <label class="mdl-textfield__label" for="sample5">Имя</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				  </div>
-
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" type="text" id="sample6" name="email">
-				    <label class="mdl-textfield__label" for="sample6">Email (логин)</label>
-				  </div>
-
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input" id="sample7" type="passwd1" name="passwd">
-				    <label class="mdl-textfield__label" for="sample7">Пароль</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				  </div>
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input class="mdl-textfield__input"  id="sample8" type="passwd2" name="passwd">
-				    <label class="mdl-textfield__label" for="sample8">Подтверждение пароля</label>
-				    <span class="mdl-textfield__error">Input is not a number!</span>
-				  </div><br>
-				  <button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
-				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored regist">Регистрация</button>
-				</form>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="sample5">
+					<label class="mdl-textfield__label" for="sample5">Имя</label>
+					<span class="mdl-textfield__error">Input is not a number!</span>
+				</div>
+				
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="sample6" name="email">
+					<label class="mdl-textfield__label" for="sample6">Email (логин)</label>
+				</div>
+				
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" id="sample7" type="passwd1" name="passwd">
+					<label class="mdl-textfield__label" for="sample7">Пароль</label>
+					<span class="mdl-textfield__error">Input is not a number!</span>
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" id="sample8" type="passwd2" name="passwd">
+					<label class="mdl-textfield__label" for="sample8">Подтверждение пароля</label>
+					<span class="mdl-textfield__error">Input is not a number!</span>
+				</div><br>
+				<button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored regist">Регистрация</button>
 			</div>
 		</div>
 
