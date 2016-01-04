@@ -128,8 +128,14 @@ $(function(){
 	});
 
 	//Емитация Select
-	$('.imit_select .mdl-menu__item').on('click', function() {
-		var value = $(this).text();
+	$('.imit_select').on('click', '.mdl-menu__item', function(){
+		var value = $(this).text(),
+			id = $(this).data('value');
+		$('.imit_select .mdl-menu__item').removeClass('active');
+		$(this).addClass('active');
+		$(this).closest('.imit_select').find('.select_field').text(value);
+	});
+	$('.sort.imit_select .mdl-menu__item').on('click', function(){
 		var sort = JSON.parse($.cookie('sorting'));
 		sort[current_controller]['value'] = ($(this).data('value'));
 		var sorting = JSON.stringify(sort);
@@ -139,10 +145,6 @@ $(function(){
 			path: '/'
 		});
 		location.reload();
-		//$('.imit_select .mdl-menu__item').removeClass('active');
-		//$(this).addClass('active');
-		//$(this).closest('.imit_select').find('.select_fild').text(value);
-
 	});
 
 	// Активация меню mobile
@@ -427,15 +429,32 @@ $(function(){
 		});
 	});
 	// dalee
-	$('.to_step').on('click', function(e){
+	$('#quiz .to_step').on('click', function(e){
 		e.preventDefault();
-		$(this).closest('[class*="step_"]').removeClass('active');
-		$('.step_'+$(this).data('step')).addClass('active');
-		Position($(this).closest('[data-type="modal"]'));
-		/*$('.opened').removeClass('wr_modal');
-		openObject('modal');
-		$('.opened').removeClass('wr_modal_2');*/
+		var target_step = $(this).data('step'),
+			current_step = $(this).closest('[class*="step_"]').data('step'),
+			validate = false;
+		if(target_step == 2){
+			validate = true;
+			var lastname = $('.step_1').find('[name="lastname"]').val();
+			var firstname = $('.step_1').find('[name="firstname"]').val();
+			var middlename = $('.step_1').find('[name="middlename"]').val();
+			$('.step_'+target_step+' span.client').text(firstname+' '+middlename);
+			GetRegions();
+		}else if(target_step == 3){
+			validate = true;
+		}
+		if(validate == true || target_step < current_step){
+			$('.step_'+current_step).removeClass('active');
+			$('.step_'+target_step).addClass('active');
+			Position($(this).closest('[data-type="modal"]'));
+		}
 
+	});
+
+	$('#quiz .mdl-button').on('clock', function(e){
+		e.preventDefault();
+		return false;
 	});
 
 	$('.login').on('click', function(e){
