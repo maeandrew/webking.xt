@@ -1,6 +1,36 @@
+<script>
+	/** Фильтр по цене */
+	$(function() {
+		$("#slider_price").slider({
+			range: true,
+			min: <?=$min_price?>,
+			max: <?=$max_price?>,
+			values: [<?=$min_price?>, <?=$max_price?>],
+			slide: function( event, ui ) {
+				//Поле min значения
+				$("#price").val(ui.values[0]);
+				//Поле max значения
+				$("#price2").val(ui.values[1]);
+
+			}
+		});
+		//Записываем значение ползунков в момент загрузки страницы (по умолчанию)
+		$("#price").val($("#slider_price").slider("values", 0));
+		$("#price2").val($("#slider_price").slider("values", 1));
+
+		$("#price").change(function() {
+			var val = $(this).val();
+			$("#slider_price").slider("values", 0, val);
+		});
+		$("#price2").change(function(){
+			var val1 = $(this).val();
+			$("#slider_price").slider("values", 1, val1);
+		})
+	});
+</script>
 <div class="filters">
 
-	<div class="filter_block" id='options'>
+	<div class="filter_block"><!--id='options'-->
 		<p>Цена:</p>
 		<ul>
 			<li>
@@ -16,8 +46,9 @@
 			<li>
 				<div id="slider_price"></div>
 			</li>
-
-
+			<li>
+				<button id="submit">Приминить</button>
+			</li>
 		</ul>
 	</div>
 

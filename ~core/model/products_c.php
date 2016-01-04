@@ -3,6 +3,7 @@ class Products {
 	public $db;
 	public $fields;
 	public $list;
+	public $filter;
 	private $usual_fields;
 	private $usual_fields_sup;
 	private $usual_fields_cart;
@@ -11,6 +12,7 @@ class Products {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
+		$this->SetProductsListByFilter();
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
@@ -608,10 +610,7 @@ class Products {
 
 	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
 		$where = "";
-		$where2 = $this->SetProductsListByFilter();
-		if (is_array($where2)){
-			$where2 = ' AND p.id_product IN (' . implode(',',$where2). ')';
-		}
+		$where2 = $this->filter;
 
 		if($and !== FALSE && count($and)){
 			$where = " AND ";
@@ -626,9 +625,9 @@ class Products {
 			}
 			$where .= implode(" AND ", $where_a);
 		}
-		if($limit == '' || isset($params['ajax'])){
-			$qqq = 1;
-		}
+//		if($limit == '' || isset($params['ajax'])){
+//			$qqq = 1;
+//		}
 		$group_by = '';
 		if(isset($params['group_by'])){
 			$group_by = ' GROUP BY '.$params['group_by'];
@@ -736,11 +735,51 @@ class Products {
 			}
 //			print_r($resul);
 
+			if (is_array($resul)){
+				$this->filter = ' AND p.id_product IN (' . implode(',',$resul). ')';
+			}
 			return $resul;
 		}
+
 	}
 
+	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array())
+	{
+		$where = "";
+		$where2 = $this->filter;
 
+		if($and !== FALSE && count($and)){
+			$where = " AND ";
+			foreach ($and as $k=>$v){
+				if($k=='customs'){
+					foreach($v as $a){
+						$where_a[] = $a;
+					}
+				}else{
+					$where_a[] = "$k=\"$v\"";
+				}
+			}
+			$where .= implode(" AND ", $where_a);
+		}
+
+		$sql = "SELECT MIN(p.price_opt) as min_price, MAX(p.price_opt) as max_price
+				FROM "._DB_PREFIX_."cat_prod AS cp
+					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
+					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+				WHERE cp.id_product IS NOT NULL
+				".$where . $where2. "
+				AND p.visible = 1
+				AND p.price_opt > 0
+				AND a.active = 1
+				ORDER BY p.price_opt";
+		$this->list = $this->db->GetOneRowArray($sql);
+
+		if(!$this->list){
+			return false;
+		}
+		return $this->list;
+	}
 
 	public function SetProductsList1($s){
 		// SQL выборки для админки

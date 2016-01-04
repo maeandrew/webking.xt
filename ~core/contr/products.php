@@ -610,5 +610,12 @@ if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
 };
 
+
+// MIN/MAX цена для вывода в фильтре
+$price = $products->GetMinMaxPrice($where_arr);
+//print_r($price);
+$tpl->Assign('max_price', $price['max_price']);
+$tpl->Assign('min_price', $price['min_price']);
+
 // =========================================================
 ?>

@@ -27,12 +27,11 @@ $(function(){
 		viewport_height = $(window).height(),
 		center_section_height = $('section .center').height(),
 		header_outerheight = $('header').outerHeight();
-	openObject('quiz');
+	//openObject('quiz');
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
 		effect : "fadeIn"
 	});
-
 
 
 	// if(viewport_width < 711) {
@@ -548,4 +547,5 @@ $(function(){
 			$(this).removeClass().addClass("unsuccess");
 		}
 	});
+
 });
