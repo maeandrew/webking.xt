@@ -490,16 +490,18 @@ function ValidateEmail(email, type){
 	var name = $('#regs #name').val();
 	var pass = $('#passwd').val();
 	var passconfirm = $('#passwdconfirm').val();
+	var error = '';
 	/*var confirmps = $('#confirmps').prop('checked');*/
 	var result;
 	$.ajax({
-		url: URL_base+'ajaxemailvalidate',
-		type: "POST",
+		url: URL_base+'register',
+		type: "GET",
 		data:({
 			"email": email,
 			"action": "validate"
 		}),
 	}).done(function(data){
+		console.log(data);
 		if(email.length == 0){
 			$('#email + #email_error').empty();
 			$('#regs #email').removeClass().addClass("unsuccess");
@@ -515,28 +517,30 @@ function ValidateEmail(email, type){
 			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
 			result = false;
 		}else if(data == "true"){
-			$('#email + .mdl-textfield__error').empty();
+
+			$('#email ~ .mdl-textfield__error').empty();
 			$('#regs #email').removeClass().addClass("unsuccess");
 			error = 'Пользователь с таким email уже зарегистрирован';
-			$('#email + .mdl-textfield__error').append(error);
+			$('#email ~ .mdl-textfield__error').append(error);
 			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
 			result = false;
-		}else{
-			$('#email + .mdl-textfield__error').empty();
+		}else if(data == "false"){
+			$('#email ~ .mdl-textfield__error').empty();
 			$('#regs #email').removeClass().addClass("success");
 			error = '';
 			result = true;
 		}
 		if(type == 1){
-			if(CompleteValidation(name, error, pass, passwdconfirm)){
+
+			if(CompleteValidation(name, error, pass, passconfirm)){
 				result = true;
-				if(passwdconfirm){
-					/*$('#regs').submit();
-					$('#regs .regist').submit();*/
+				if(passconfirm){
+					/*console.log('TRUE');*/
+					/*Regist();*/
 				}else{
-					$('#regs .regist').on('click', function() {
+					/*$('#regs .regist').on('click', function() {
 						$(this).closest('.mdl-textfield').find('#passwd').text('ERROR');
-					});
+					});*/
 					$('label[for="confirmps"]').stop(true,true).animate({
 						"color": "#fff",
 						"font-weight": "bold",
@@ -551,21 +555,48 @@ function ValidateEmail(email, type){
 					},500);
 				}
 			}else{
+				console.log('FALSE');
 				result = false;
 			}
 		}
 		return result;
 	});
 }
+function Regist() {
+	console.log('TRUE');
+	$.ajax({
+		url: URL_base+'register',
+		type: "GET",
+		cache: false,
+		dataType : "json",
+		data: {
+			"action": 'register',
+			"cont_person": name,
+			"email": email,
+			"passwd": passwd
+		}
+	}).done(function(data){
+		if(data.errm != 1){
 
+			closeObject('regs_log');
+			$('.login').closest('li').find('.enter_btn').removeClass('hidden');
+			$('.login').addClass('hidden');
+		}else{
+			console.log(data.msg);
+		}
+	});
+}
 /** Валидация подтверждения пароля **/
 function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
+		/*console.log('Error');*/
 		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('#passwdconfirm').removeClass().addClass("unsuccess");
+		$('#passwdconfirm').closest('.mdl-textfield ').addClass('is-invalid');
 		$('#passwdconfirm + .mdl-textfield__error').append('Пароли не совпадают');
 	}else{
-		$('#passwdconfirm + .mdl-textfield__error').empty();
+		console.log('Пароли совпали');
+		$('#passwdconfirm ~ .mdl-textfield__error').empty();
 		$('#passwdconfirm').removeClass().addClass("success");
 		return false;
 	}
@@ -574,16 +605,16 @@ function ValidatePassConfirm(passwd, passconfirm){
 /** Валидация имени **/
 function ValidateName(name){
 	if(name.length < 3){
-		$('#name_error + .error_description').empty();
+		$('#name ~ .mdl-textfield__error').empty();
 		$('#regs #name').removeClass().addClass("unsuccess");
 		$('#name').closest('.mdl-textfield ').addClass('is-invalid');
 		if(name.length == 0){
-			$('#name_error + .error_description').append('Введите имя');
+			$('#name ~ .mdl-textfield__error').append('Введите имя');
 		}else{
-			$('#name_error + .error_description').append('Имя слишком короткое');
+			$('#name ~ .mdl-textfield__error').append('Имя слишком короткое');
 		}
 	}else{
-		$('#name_error + .error_description').empty();
+		$('#name ~ .mdl-textfield__error').empty();
 		$('#regs #name').removeClass().addClass("success");
 		return false;
 	}
@@ -601,10 +632,12 @@ function CompleteValidation(name, email, passwd, passconfirm){
 		fin++;
 	}
 	if(ValidatePass(passwd)){
+		/*console.log(passwd);*/
 		$('#regs .mdl-textfield__error').closest('#passwd .mdl-textfield').text(ValidatePass(passwd));
 		fin++;
 	}
 	if(ValidatePassConfirm(passwd, passconfirm)){
+		/*console.log(passconfirm);*/
 		$('#regs .mdl-textfield__error').closest('#passwdconfirm .mdl-textfield').text(ValidatePassConfirm(passwd, passconfirm));
 		fin++;
 	}

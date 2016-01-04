@@ -718,7 +718,57 @@ table.supplier_assort_table {
 /* Customer cab ============================================================= */
 
 .customer_cab {
-	clear: both;
+	position: relative;
+    float: right;
+    width: 80%;
+}
+#cab_left_bar {
+    width: 19%;
+    float: left;
+    position: relative;
+        height: 100%;
+    background-color: #F5F5F5;
+    border-right-color: #DCDCDC;
+    border-right-width: 1px;
+    border-style: solid;
+
+}
+
+#cab_left_bar form {
+	width: 97%;
+    padding-left: 3px;
+}
+#navi2 {
+	width: 97%;
+    margin-left: 3px;
+    background-color: #fff;
+}
+#cab_left_bar ul li button{
+    border-color: #C9C9C9;
+    width: 100%;
+    text-align: left;
+    padding-left: 15%;
+    background-color: #F3F3F3;
+    /* line-height: 1.5em; */
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    padding-top: 6px;
+}
+#navi2 li {
+	padding-left: 32px;
+}
+#navi2 i {
+	position: absolute;
+}
+#navi2 i a{
+	font-size: 13px;
+	color: #424242;
+}
+#navi2 a:hover{
+	font-weight: 400;
+	    font-size: 12px;
+	    color: #000;
 }
 .customer_cab div.line {
 	margin: 20px 0;

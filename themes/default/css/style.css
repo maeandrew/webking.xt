@@ -2078,6 +2078,7 @@ aside#catalog .catalog_close:hover i {
 .mdl-mega-footer {
 	padding: 0;
 	color: inherit;
+	clear: both;
 }
 .mdl-badge[data-badge]:after {
 	background:#9e9e9e;
