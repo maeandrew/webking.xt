@@ -4,6 +4,7 @@ class Products {
 	public $fields;
 	public $list;
 	public $filter;
+	public $price_range;
 	private $usual_fields;
 	private $usual_fields_sup;
 	private $usual_fields_cart;
@@ -13,6 +14,7 @@ class Products {
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 		$this->SetProductsListByFilter();
+		$this->SetMinMaxPrice();
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
@@ -646,7 +648,6 @@ class Products {
 		}else{
 			$order_by = ' popularity DESC';
 		}
-//		var_dump($order_by);
 		if(isset($params['administration'])){
 			// SQL выборки для админки
 			$sql = "(SELECT '0' AS sort, a.active,
@@ -690,7 +691,7 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. "
+				".$where . $where2. $this->price_range ."
 				HAVING p.visible = 1
 					".$prices_zero."
 					AND a.active = 1
@@ -718,14 +719,14 @@ class Products {
 				}
 
 			}
-//			print_r($fl_v);
+
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
 									  FROM xt_specs_prods AS sp2
 									  WHERE " . $fl_v . "
 									  )";
-//			print_r($sql);
+
 			$result = $this->db->GetArray($sql);
 			if(!$result){
 				return false;
@@ -733,7 +734,6 @@ class Products {
 			foreach($result as $res){
 				$resul[] = $res['id_prod'];
 			}
-//			print_r($resul);
 
 			if (is_array($resul)){
 				$this->filter = ' AND p.id_product IN (' . implode(',',$resul). ')';
@@ -779,6 +779,15 @@ class Products {
 			return false;
 		}
 		return $this->list;
+	}
+
+	public function SetMinMaxPrice()
+	{
+		$this->price_range = '';
+		if (isset($GLOBALS['Price_range'])) {
+
+			$this->price_range = " AND p.price_opt BETWEEN " . $GLOBALS['Price_range'][0]. " AND " . $GLOBALS['Price_range'][1];
+		}
 	}
 
 	public function SetProductsList1($s){

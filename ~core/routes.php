@@ -20,7 +20,7 @@ if(preg_match('/^.*\.html$/', $request)){
 		}
 		//Диапазон цен
 		if(preg_match('/\/price_range=[^\/]+/', $request, $match)){
-			$GLOBALS['Price_range'] = preg_replace('/^\/price_range=/', '', $match[0]);
+			$GLOBALS['Price_range'] = explode(',', preg_replace('/^\/price_range=/', '', $match[0]));
 			$request = preg_replace('/\/price_range=[^\/]+/', '', $request);
 		}
 		$rewrite_arr = explode('/', $request);

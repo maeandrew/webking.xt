@@ -18,13 +18,16 @@ class Link {
 	 */
 	public static function Category($rewrite, $params = array()){
 		$str_filter = $str_sort = $str_page = $price_range = '';
-//		print_r($GLOBALS['Sort']);
+
 		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
 			$str_sort = 'sort='.$GLOBALS['Sort'];
 		}
 		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
 			$str_page = 'p'.$GLOBALS['Page_id'];
+		}
+		if(isset($GLOBALS['Price_range']) && $GLOBALS['Price_range'] !== ''){
+			$price_range = 'price_range='.$GLOBALS['Price_range'][0].','.$GLOBALS['Price_range'][1];
 		}
 
 		foreach($params as $key => $param){
@@ -48,8 +51,8 @@ class Link {
 					}else{
 						$filter[$param[0]][] = $param[1];
 					}
-
 					break;
+
 				case 'page':
 					$str_page = '';
 					if($param != 1) {
@@ -62,8 +65,7 @@ class Link {
 					break;
 
 				case 'price_range':
-					print_r($param);
-					$price_range = 'price_range='.$_COOKIE['price_range'];
+					$price_range = 'price_range='.$param;
 					break;
 			}
 		}

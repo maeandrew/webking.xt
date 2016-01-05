@@ -5,9 +5,11 @@
 			range: true,
 			min: <?=$min_price?>,
 			max: <?=$max_price?>,
-			values: [<?=$min_price?>, <?=$max_price?>],
+			values: [<?=isset($GLOBALS['Price_range'][0]) ? $GLOBALS['Price_range'][0] : $min_price?>,
+					 <?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>],
+			step: <?=floor(($max_price - $min_price) * 0.01)?>,
 			slide: function(event, ui) {
-				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				$( "#amount" ).val( ui.values[ 0 ] + " грн  -  " + Math.round(ui.values[ 1 ]) + " грн" );
 			},
 			stop: function(event, ui) {
 				var price_range = ui.values[0] + ',' + ui.values[1];
@@ -15,22 +17,10 @@
 					expires: 2,
 					path: '/'
 				});
-			window.location.href = "<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => " + price_range + "))?>";
-//				$.ajax({
-//					type: "post",
-//					url: URL_base+'ajax',
-//					dataType: "json",
-//					data: ({
-//						target: 'link',
-//						action: 'GetUrlWithPrice',
-//						price: [ui.values[0],ui.values[1]]
-//
-//					}),
-//				})
+			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';
 			}
 		});
-		$( "#amount" ).val( "$" + $( "#slider_price" ).slider( "values", 0 ) +
-      					 " - $" + $( "#slider_price" ).slider( "values", 1 ));
+		$( "#amount" ).val($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
 
 	});
 </script>
