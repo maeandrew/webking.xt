@@ -18,6 +18,7 @@ class Link {
 	 */
 	public static function Category($rewrite, $params = array()){
 		$str_filter = $str_sort = $str_page = $price_range = '';
+		$clear = false;
 
 		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
@@ -67,6 +68,11 @@ class Link {
 				case 'price_range':
 					$price_range = 'price_range='.$param;
 					break;
+				case 'clear':
+					$str_filter = $str_sort = $str_page = $price_range = '';
+					$GLOBALS['Price_range'] = NULL;
+					$clear = $param;
+					break;
 			}
 		}
 
@@ -78,8 +84,10 @@ class Link {
 				}
 			}
 		}
-
-			return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($price_range ?  '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
+		if($clear){
+			return _base_url.'/'.$rewrite;
+		}
+		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($price_range ?  '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**

@@ -698,7 +698,6 @@ class Products {
 				ORDER BY ".$order_by
 				.$limit;
 		}
-//		print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -724,7 +723,7 @@ class Products {
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
 									  FROM xt_specs_prods AS sp2
-									  WHERE " . $fl_v . "
+									  WHERE " . $fl_v . $this->price_range ."
 									  )";
 
 			$result = $this->db->GetArray($sql);
@@ -3541,7 +3540,21 @@ class Products {
 
 	//Для фильтра категорий 3-го уровня,
 	public function GetFilterFromCategory($id_category){
-		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
+		if (isset($GLOBALS['Price_range'])){
+			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			LEFT JOIN xt_product AS p
+				ON p.id_product = sp.id_prod
+			WHERE cp.id_category = ".$id_category . $this->price_range."
+			AND s.id IS NOT NULL
+			AND sp.value <> ''
+			GROUP BY s.id, sp.value";
+		}else{
+			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
@@ -3551,7 +3564,8 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-//		print_r($sql);
+		}
+print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? : false;
 	}

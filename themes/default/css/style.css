@@ -2149,21 +2149,26 @@ aside#catalog .catalog_close:hover i {
 }
 
 /* Диапазон цен ===================================================== */
-#price,#price2 {
-	border:1px solid #8F8F8F;
-	padding:5px;
-	width:80px;
-}
-#options {
-	width:300px;
-	padding:10px;
-}
+
 #slider_price {
 	margin-top: 10px;
 }
 #amount {
-	border:0;
-	color:#f6931f;
-	font-weight:bold;
+	margin-left: 70px;
+	border: 0;
+	color: #f6931f;
+	font-weight: bold;
 	background-color: whitesmoke;
+}
+.ui-state-default{
+	border: 5px solid #397FC2 !important;
+	width: 0 !important;
+	height: 0 !important;
+	border-radius: 30px!important;
+}
+.ui-state-hover{
+	width: 0.4em !important;
+	height: 0.4em !important;
+	top: -7px !important;
+	background: #397FC2 !important;
 }

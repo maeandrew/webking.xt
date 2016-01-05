@@ -22,12 +22,26 @@
 		});
 		$( "#amount" ).val($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
 
+		//Очистить фтльтры
+		$("#clear_filter").click(function() {
+//			$.cookie('price_range', null);
+			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
+		});
+
 	});
 </script>
 <div class="filters">
+	<div class="filter_block">
+		<p>Сбросить все фильтры:</p>
+		<ul>
+			<li id="clear_filter" >
+				<input type="submit" value="Сбросить">
+			</li>
+		</ul>
+	</div>
 
 	<div class="filter_block">
-		<p>Ценовой диапазон:</p>
+		<p>Ценовой диапазон</p>
 		<ul>
 			<li>
 				<input  type="text" id="amount" readonly>
