@@ -1,6 +1,8 @@
+<?=require "cp_customer_cab_leftside.tpl";?>
 <div class="row">
 	<div class="customer_cab col-md-6">
-		<form action=""method="GET">
+
+		<!-- <form action=""method="GET">
 			<ul id="nav">
 				<li>
 					<button name="t" value="contacts" <?=(!isset($_GET['t']) || $_GET['t']=='contacts')?'class="active"':null;?>>
@@ -13,7 +15,8 @@
 					</button>
 				</li>
 			</ul>
-		</form>
+		</form> -->
+
 		<div id="edit_personal">
 			<form id="edit_contacts" class="editing" action="" method="post">
 				<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
@@ -21,27 +24,33 @@
 				<?!isset($_GET['t'])?$var = '': $var = $_GET['t'];?>
 				<?switch($var){
 					default:?>
-					<div class="line email">
-						<label for="email">E-mail:</label>
-						<input required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="mdl-textfield__label" for="email">E-mail:</label>
+						<input class="mdl-textfield__input" required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
 					</div>
-					<div class="line last_name">
-						<label for="last_name">Фамилия:</label>
-						<input required="required" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+
+  <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="sample3">
+    <label class="mdl-textfield__label" for="sample3">Text...</label>
+  </div> -->
+
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
+						<input class="mdl-textfield__input" type="text" required="required" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
 					</div>
-					<div class="line first_name">
-						<label for="name">Имя:</label>
-						<input required="required" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="name" class="mdl-textfield__label">Имя:</label>
+						<input class="mdl-textfield__input" required="required" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
 					</div>
-					<div class="line middle_name">
-						<label for="middle_name">Отчество:</label>
-						<input required="required" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
+						<input class="mdl-textfield__input" required="required" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 					</div>
-					<div class="line phone">
-						<label for="phone">Контактный телефон:</label>
-						<input required="required" type="tel" name="phones" id="phone" class="phone" maxlength="15" value="<?=$Customer['phones']?>"/>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
+						<input class="mdl-textfield__input phone" required="required" type="tel" name="phones" id="phone" maxlength="15" value="<?=$Customer['phones']?>"/>
 					</div>
-					<div class="buttons_cab">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<button name="save_contacts" type="submit" class="btn-m-green">Сохранить изменения</button>
 					</div>
 				<?break;

@@ -1,25 +1,8 @@
+<? require "cp_customer_cab_leftside.tpl";?>
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="bonus">
-			<form action="" method="GET">
-				<ul id="nav">
-					<li>
-						<button name="t" value="bonus_info" <?=(!isset($_GET['t']) || $_GET['t']=='bonus_info')?'class="active"':null;?>>
-							Мой бонусный счет
-						</button>
-					</li>
-					<li>
-						<button name="t" value="change_bonus" <?=(isset($_GET['t']) && $_GET['t']=='change_bonus')?'class="active"':null;?>>
 
-						<?if(!$Customer['bonus_card']){?>
-							Активация бонусной карты
-						<?}else{?>
-							Смена бонусной карты
-						<?}?>
-						</button>
-					</li>
-				</ul>
-			</form>
 			<?if(!isset($_GET['t']) || $_GET['t']=='bonus_info'){?>
 				<?if(!$Customer['bonus_card']){?>
 					<div class="info_text">

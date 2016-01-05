@@ -1,15 +1,7 @@
+<? require "cp_customer_cab_leftside.tpl";?>
 <div class="row">
 	<div class="customer_cab col-md-6">
-		<form action="" method="GET">
-			<ul id="nav">
-				<li>
-					<button name="t" value="basic" <?=(!isset($_GET['t']) || $_GET['t'] == 'basic')?'class="active"':null;?>>Настройки</button>
-				</li>
-				<li>
-					<button name="t" value="password" <?=(isset($_GET['t']) && $_GET['t'] == 'password')?'class="active"':null;?>>Смена пароля</button>
-				</li>
-			</ul>
-		</form>
+
 		<div id="settings">
 			<form class="editing" action="" method="post">
 				<input required="required" type="hidden" name="id_user" value="<?=$User['id_user']?>"/>
