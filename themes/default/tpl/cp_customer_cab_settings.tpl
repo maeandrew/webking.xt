@@ -35,30 +35,31 @@
 							<input type="text" name="promo_code" id="promo_code"  value="<?=$User['promo_code'];?>"/>
 						</div>-->
 						<div class="buttons_cab">
-							<button type="submit" data-role="none" class="btn-m-green">Сохранить</button>
+							<button type="submit" data-role="none" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 						</div>
 					<?break;
 					case 'password':?>
 						<input required="required" type="hidden" name="save_password" value="1"/>
 						<input type="hidden" name="email" id="email" value="<?=$User['email']?>"/>
 						<input type="hidden" name="gid" id="gid" value="<?=$User['gid']?>"/>
-						<div class="line new_passwd">
-							<label for="regpasswd">Новый пароль:</label>
-							<input type="password" name="new_passwd" id="regpasswd"/>
+						<div class="new_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label" for="regpasswd">Новый пароль:</label>
+							<input class="mdl-textfield__input" type="password" name="new_passwd" id="regpasswd"/>
+
 							<div id="passstrength">
 								<div id="passstrengthlevel"></div>
 							</div>
 							<div id="password_error"></div>
 							<div class="error_description"></div>
 						</div>
-						<div class="line passwdconfirm">
-							<label for="passwdconfirm">Подтверждение нового пароля:</label>
-							<input type="password" name="passwdconfirm" id="passwdconfirm"/>
+						<div class="passwdconfirm mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение нового пароля:</label>
+							<input class="mdl-textfield__input" type="password" name="passwdconfirm" id="passwdconfirm"/>
 							<div id="passwdconfirm_error"></div>
 							<div class="error_description"></div>
 						</div>
 						<div class="buttons_cab">
-							<button type="submit" data-role="none" class="btn-m-green">Сохранить</button>
+							<button type="submit" data-role="none" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 						</div>
 					<?break;
 				}?>

@@ -132,9 +132,9 @@
 		if($Customers->updateCustomer($_POST) &&
 		$Customers->updateContPerson($_POST['cont_person']) &&
 		$Customers->updatePhones($_POST['phones'])){
-			header("Location: /cabinet/personal/?t=contacts&success");
+			header("Location: " .Link::Custom('cabinet', 'personal')."?t=".$_GET['t']."&success");
 		}else{
-			header("Location: /cabinet/personal/?t=contacts&unsuccess");
+			header("Location: " .Link::Custom('cabinet', 'personal')."?t=".$_GET['t']."&unsuccess");
 		}
 	}elseif(isset($_POST['save_delivery'])){
 		if($Customers->updateCity($_POST['id_delivery_department']) && $Customers->updateDelivery($_POST['id_delivery'])){

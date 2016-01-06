@@ -778,6 +778,7 @@ table.supplier_assort_table {
 }
 #navi {
 	padding-bottom: 4px;
+	display: none;
 }
 #navi li{
 	width: 100%;
@@ -826,8 +827,30 @@ table.supplier_assort_table {
 #nav {
 	display: none;
 }
+#nav.active {
+	display: block;
+}
 #edit_personal .mdl-textfield{
 	display: block;
+}
+#navi2 a.active{
+	color: #9E9E9E;
+}
+.btn-m-green {
+	top: 11px;
+}
+#navi2 #nav li {
+	padding: 0;
+}
+.row #settings .passwdconfirm{
+	display: block;
+}
+.mdl-mega-footer {
+    padding: 0;
+    color: inherit;
+    clear: inherit;
+    float: right;
+    width: 80.5%;
 }
 .customer_cab div.line {
 	margin: 20px 0;

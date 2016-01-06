@@ -230,6 +230,25 @@ $(function(){
 		}
 	});
 
+	$('.menus1').on('click', function() {
+		var children = $(this).closest('li').find('ul');
+		if(children.hasClass('active')){
+			children.removeClass('active').stop(true, true).slideUp();
+		}else{
+			children.addClass('active').stop(true, true).slideDown();
+		}
+	});
+
+	//Меню в кабинете
+	/*$('.menus').on('click', function() {
+		var children = $(this).closest('li').find('ul#nav');
+		if(children.hasClass('active')){
+			children.removeClass('active').stop(true, true).slideUp();
+		}else{
+			children.addClass('active').stop(true, true).slideDown();
+		}
+	});*/
+
 
 	/** Анимация прокручивания кнопки наверх */
 	var pos = getScrollWindow();

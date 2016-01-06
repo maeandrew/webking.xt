@@ -4,9 +4,9 @@
 		<i class="material-icons">shopping_cart</i>
 
 	</div>
-	<form action=""method="GET">
+	<form>
 		<ul>
-			<li><span id="my_order"><a class="menus" href="#">Мои заказы</a></span>
+			<li><span id="my_order"><a class="menus1" href="#">Мои заказы</a></span>
 				<ul id="navi">
 					<li>
 						<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet')?>?t=all">
@@ -43,14 +43,14 @@
 			<i class="material-icons">face</i>
 			<a class="menus" href="#">Личные данные</a>
 			<?if(isset($GLOBALS['Rewrite'])){ ?>
-				<ul id="nav">
+				<ul id="nav" <?=$GLOBALS['Rewrite'] == 'personal'?'class="active"':null;?>>
 					<li class="child">
-						<a name="t" value="contacts" <?=(!isset($GLOBALS['Rewrite']) || $_GET['t']=='contacts')?'class="active"':null;?> href="<?=Link::Custom('cabinet','personal')?>?t=contacts">
+						<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','personal')?>?t=contacts">
 							Основная информация
 						</a>
 					</li>
 					<li>
-						<a name="t" value="delivery" <?=(isset($GLOBALS['Rewrite']) && $_GET['t']=='delivery')?'class="active"':null;?> href="<?=Link::Custom('cabinet','personal')?>?t=delivery">
+						<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','personal')?>?t=delivery">
 							Адрес доставки
 						</a>
 					</li>
@@ -64,13 +64,13 @@
 		<li>
 			<i class="material-icons">settings</i>
 			<a class="menus" href="#">Настройки</a>
-			<?if(isset($GLOBALS['Rewrite'])){ ?>
-				<ul id="nav">
+			<?if(isset($GLOBALS['Rewrite'])){?>
+				<ul id="nav" <?=$GLOBALS['Rewrite'] == 'settings'?'class="active"':null;?>>
 					<li>
-						<a name="t" value="basic" <?=(!isset($GLOBALS['Rewrite']) || $_GET['t'] == 'basic')?'class="active"':null;?>  href="<?=Link::Custom('cabinet','personal')?>?t=basic">Настройки</a>
+						<a name="t" value="basic" <?=isset($_GET['t']) && $_GET['t'] == 'basic'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
 					</li>
 					<li>
-						<a name="t" value="password" <?=(isset($GLOBALS['Rewrite']) && $_GET['t'] == 'password')?'class="active"':null;?>  href="<?=Link::Custom('cabinet','personal')?>?t=password">Смена пароля</a>
+						<a name="t" value="password" <?=isset($_GET['t']) && $_GET['t'] == 'password'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','settings')?>?t=password">Смена пароля</a>
 					</li>
 				</ul>
 			<?}?>
@@ -79,14 +79,14 @@
 			<i class="material-icons">add_shopping_cart</i>
 			<a class="menus" href="#">Бонусная программа</a>
 			<?if(isset($GLOBALS['Rewrite'])){ ?>
-				<ul id="nav">
+				<ul id="nav" <?=$GLOBALS['Rewrite'] == 'bonus'?'class="active"':null;?>>
 					<li class="child">
-						<a name="t" value="bonus_info" <?=(!isset($_GET['t']) || $_GET['t']=='bonus_info')?'class="active"':null;?> href="<?=Link::Custom('cabinet','personal')?>?t=bonus_info">
+						<a name="t" value="bonus_info" <?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','bonus')?>?t=bonus_info">
 							Мой бонусный счет
 						</a>
 					</li>
 					<li>
-						<a name="t" value="change_bonus" <?=(isset($_GET['t']) && $_GET['t']=='change_bonus')?'class="active"':null;?> href="<?=Link::Custom('cabinet','personal')?>?t=change_bonus">
+						<a name="t" value="change_bonus" <?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','bonus')?>?t=change_bonus">
 
 						<?if(!$Customer['bonus_card']){?>
 							Активация бонусной карты

@@ -111,14 +111,14 @@
 							</div>
 						</div>
 					<?}else{?>
-						<div id="bonus_card_line" class="line">
-							<label for="bonus_card">№ бонусной карты: <span class="required">*</span></label>
-							<input type="text" name="bonus_card" id="bonus_card" value="<?=$Customer['bonus_card']?>" required />
+						<div id="bonus_card_line" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label" for="bonus_card">№ бонусной карты: <span class="required">*</span></label>
+							<input class="mdl-textfield__input" type="text" name="bonus_card" id="bonus_card" value="<?=$Customer['bonus_card']?>" required />
 						</div>
 					<?}?>
 					<hr>
 					<div class="buttons_cab">
-						<button name="save_bonus" type="submit" class="btn-m-green">Сохранить изменения</button>
+						<button type="submit" name="save_bonus" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 						<p class="fright"><span class="required">*</span> - поля обязательные для заполнения</p>
 					</div>
 				</form>

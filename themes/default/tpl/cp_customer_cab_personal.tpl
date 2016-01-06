@@ -1,22 +1,6 @@
 <?=require "cp_customer_cab_leftside.tpl";?>
 <div class="row">
 	<div class="customer_cab col-md-6">
-
-		<!-- <form action=""method="GET">
-			<ul id="nav">
-				<li>
-					<button name="t" value="contacts" <?=(!isset($_GET['t']) || $_GET['t']=='contacts')?'class="active"':null;?>>
-						Основная информация
-					</button>
-				</li>
-				<li>
-					<button name="t" value="delivery" <?=(isset($_GET['t']) && $_GET['t']=='delivery')?'class="active"':null;?>>
-						Адрес доставки
-					</button>
-				</li>
-			</ul>
-		</form> -->
-
 		<div id="edit_personal">
 			<form id="edit_contacts" class="editing" action="" method="post">
 				<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
@@ -26,13 +10,8 @@
 					default:?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="email">E-mail:</label>
-						<input class="mdl-textfield__input" required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+						<input disabled class="mdl-textfield__input" required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
 					</div>
-
-  <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="sample3">
-    <label class="mdl-textfield__label" for="sample3">Text...</label>
-  </div> -->
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
@@ -51,7 +30,7 @@
 						<input class="mdl-textfield__input phone" required="required" type="tel" name="phones" id="phone" maxlength="15" value="<?=$Customer['phones']?>"/>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<button name="save_contacts" type="submit" class="btn-m-green">Сохранить изменения</button>
+						<button name="save_contacts" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 					</div>
 				<?break;
 				case 'delivery':?>
@@ -97,7 +76,7 @@
 						</select>
 					</div>
 					<div class="buttons_cab">
-						<button name="save_delivery" type="submit" class="btn-m-green">Сохранить изменения</button>
+						<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 					</div>
 				<?break;
 				}?>
