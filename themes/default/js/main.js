@@ -219,6 +219,34 @@ $(function(){
 		}
 	});
 
+	$('.second_nav li.active > ul').show();
+	//Переключение вкладок главного меню
+	$('.catalog').on('click', '.main_nav li', function() {
+		var section = $(this).data('nav');
+
+		if(section == 'filter') {
+			var name = $(this).find('i').text();
+			if (name == 'filter_list') {
+				$(this).find('i').text('highlight_off');
+				$(this).find('span.title').text('Скрыть');
+				$('.second_nav, .news ').slideUp();
+				$('.included_filters').hide();
+				$('.filters').fadeIn();
+				$(this).addClass('active');
+			} else {
+				$(this).find('i').text('filter_list');
+				$(this).find('span.title').text('Фильтры');
+				$('.filters').fadeOut();
+				$('.second_nav, .news').slideDown();
+				$('.included_filters').show();
+				$(this).removeClass('active');
+			}
+		}else{
+			$('.catalog .main_nav li').removeClass('active');
+			$(this).addClass('active');
+		}
+	});
+
 	//Меню в кабинете
 	$('.menus').on('click', function() {
 		var children = $(this).closest('li').find('ul#nav');

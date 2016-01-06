@@ -1,6 +1,9 @@
 <script>
 	/** Фильтр по цене */
 	$(function() {
+		<?if ($GLOBALS['Filters'] || isset($GLOBALS['Price_range'])) :?>
+			$('[data-nav="filter"]').click();
+		<? endif ?>
 		$("#slider_price").slider({
 			range: true,
 			min: <?=$min_price?>,
@@ -9,7 +12,9 @@
 					 <?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>],
 			step: <?=floor(($max_price - $min_price) * 0.01)?>,
 			slide: function(event, ui) {
-				$( "#amount" ).val( ui.values[ 0 ] + " грн  -  " + Math.round(ui.values[ 1 ]) + " грн" );
+				$( "#amount" ).html("");
+				$( "#amount" ).append(ui.values[ 0 ] + " грн  -  " + Math.round(ui.values[ 1 ]) + " грн");
+				$('[data-nav="filter"]').addClass('active');
 			},
 			stop: function(event, ui) {
 				var price_range = ui.values[0] + ',' + ui.values[1];
@@ -20,11 +25,12 @@
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';
 			}
 		});
-		$( "#amount" ).val($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
+		$( "#amount" ).append($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
 
 		//Очистить фтльтры
 		$("#clear_filter").click(function() {
 //			$.cookie('price_range', null);
+			$(this).addClass('active');
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
 
@@ -40,12 +46,12 @@
 		</ul>
 	</div>
 
-	<div class="filter_block">
+	<div class="filter_block price_range_block">
 		<p>Ценовой диапазон</p>
 		<ul>
 			<li>
-				<input  type="text" id="amount" readonly>
-				<div class="mdl-slider mdl-js-slider" id="slider_price"></div>
+				<div id="amount"></div>
+				<div id="slider_price"></div>
 			</li>
 		</ul>
 	</div>
@@ -61,7 +67,7 @@
 									<a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
 										<input type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
 										<span>
-											<span class="mdl-checkbox__label"><?=$value['value']?></span>
+											<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
 											<span class="qnt_products fright"><?=$value['count']?></span>
 										</span>
 									</a>

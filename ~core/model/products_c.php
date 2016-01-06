@@ -636,7 +636,7 @@ class Products {
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
+			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
 		}
 		if(isset($params['order_by'])){
 			if($params['order_by'] != null){
@@ -1035,7 +1035,7 @@ class Products {
 				HAVING p.visible = 1
 					AND (p.price_opt > 0 OR p.price_mopt > 0)
 					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0"
-			. $where2;
+			. $where2 . $this->price_range;
 		}
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
@@ -3538,23 +3538,23 @@ class Products {
 		return true;
 	}
 
-	//Для фильтра категорий 3-го уровня,
+	//Вернуть все фильтры для заданной категории
 	public function GetFilterFromCategory($id_category){
-		if (isset($GLOBALS['Price_range'])){
-			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
-			FROM "._DB_PREFIX_."cat_prod AS cp
-			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
-				ON cp.id_product = sp.id_prod
-			LEFT JOIN "._DB_PREFIX_."specs AS s
-				ON sp.id_spec = s.id
-			LEFT JOIN xt_product AS p
-				ON p.id_product = sp.id_prod
-			WHERE cp.id_category = ".$id_category . $this->price_range."
-			AND s.id IS NOT NULL
-			AND sp.value <> ''
-			GROUP BY s.id, sp.value";
-		}else{
-			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
+//		if (isset($GLOBALS['Price_range'])){
+//			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
+//			FROM "._DB_PREFIX_."cat_prod AS cp
+//			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+//				ON cp.id_product = sp.id_prod
+//			LEFT JOIN "._DB_PREFIX_."specs AS s
+//				ON sp.id_spec = s.id
+//			LEFT JOIN xt_product AS p
+//				ON p.id_product = sp.id_prod
+//			WHERE cp.id_category = ".$id_category . $this->price_range."
+//			AND s.id IS NOT NULL
+//			AND sp.value <> ''
+//			GROUP BY s.id, sp.value";
+//		}else{
+			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
@@ -3564,10 +3564,42 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-		}
-print_r($sql);
+//		}
+
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? : false;
 	}
 
-}?>
+	//Вернуть актуальные фильтры с учетом выбраных
+	public function GetFilterFromCategoryNow($add_filters = NULL){
+
+//		Array([id_spec] => 21,	 [value] => Украина)
+// Реализовать передачу массива
+			$sql = "SELECT id
+			FROM c1kharkovt_bd4.xt_specs_prods
+			WHERE id_spec = ". $add_filters['id_spec'] ."
+			AND value = ". $add_filters['value'];
+
+//		$arr = $this->db->GetArray($sql);
+//		return  $arr ? : false;
+	}
+
+	public function GetCntFilterNow($id_category){
+//		print_r($add_filters);
+		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			WHERE cp.id_category = ".$id_category."
+			AND s.id IS NOT NULL
+			AND sp.value <> ''
+			GROUP BY s.id, sp.value";
+
+		$arr = $this->db->GetArray($sql);
+		return  $arr ? $arr : false;
+	}
+
+
+	}?>

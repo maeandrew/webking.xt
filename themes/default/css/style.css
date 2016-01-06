@@ -2151,24 +2151,37 @@ aside#catalog .catalog_close:hover i {
 /* Диапазон цен ===================================================== */
 
 #slider_price {
-	margin-top: 10px;
+	height: 2px;
+	border: 0;
+	background: #BABABA;
+	margin: 10px;
 }
 #amount {
-	margin-left: 70px;
+	text-align: center;
 	border: 0;
-	color: #f6931f;
+	color: #FF5722;
 	font-weight: bold;
-	background-color: whitesmoke;
 }
-.ui-state-default{
-	border: 5px solid #397FC2 !important;
-	width: 0 !important;
-	height: 0 !important;
-	border-radius: 30px!important;
+#slider_price .ui-slider-range{
+	background: #FF5722;
 }
-.ui-state-hover{
-	width: 0.4em !important;
-	height: 0.4em !important;
-	top: -7px !important;
-	background: #397FC2 !important;
+#slider_price .ui-slider-handle {
+	cursor: pointer;
+	border: 0;
+	width: 13px;
+	height: 13px;
+	top: -6px;
+	background: #FF5722;
+	border-radius: 50%;
+	-webkit-transition: box-shadow .2s ease-in-out;
+	-moz-transition: box-shadow .2s ease-in-out;
+	-ms-transition: box-shadow .2s ease-in-out;
+	-o-transition: box-shadow .2s ease-in-out;
+	transition: box-shadow .2s ease-in-out;
+}
+#slider_price .ui-slider-handle:focus {
+	outline: none;
+}
+.price_range_block:hover .ui-slider-handle {
+	box-shadow: 0 0 0 3px #FF5722;
 }

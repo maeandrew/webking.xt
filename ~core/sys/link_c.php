@@ -70,7 +70,6 @@ class Link {
 					break;
 				case 'clear':
 					$str_filter = $str_sort = $str_page = $price_range = '';
-					$GLOBALS['Price_range'] = NULL;
 					$clear = $param;
 					break;
 			}
@@ -87,7 +86,7 @@ class Link {
 		if($clear){
 			return _base_url.'/'.$rewrite;
 		}
-		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($price_range ?  '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
+		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($price_range ? '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**
