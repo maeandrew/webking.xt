@@ -43,6 +43,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 					$cart->SetTotalQty();
 					$cart->SetAllSums();
+
+
 					//	ob_start();
 					//	print_r($_SESSION['Cart']);
 					//	print_r($_GET);
@@ -80,6 +82,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				$_SESSION['cart']['products'][$_GET['id_product']]['note'] = isset($_GET['note'])?$_GET['note']:'';
 				$res = $cart->UpdateCartQty($_GET);
+				$res = $cart->MyCart();
+				print_r($res);
 				echo json_encode($res);
 				exit();
 			;
