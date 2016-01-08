@@ -3,7 +3,7 @@
 <!--
 var expandedCat = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>;
 //-->
-</script>	
+</script>
 <?$ii = 0;
 $prev_level = 0;
 foreach($list as $i){

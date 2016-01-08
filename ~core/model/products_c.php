@@ -3,6 +3,8 @@ class Products {
 	public $db;
 	public $fields;
 	public $list;
+	public $filter;
+	public $price_range;
 	private $usual_fields;
 	private $usual_fields_sup;
 	private $usual_fields_cart;
@@ -11,6 +13,8 @@ class Products {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
+		$this->SetProductsListByFilter();
+		$this->SetMinMaxPrice();
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
@@ -608,10 +612,7 @@ class Products {
 
 	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
 		$where = "";
-		$where2 = $this->SetProductsListByFilter();
-		if (is_array($where2)){
-			$where2 = ' AND p.id_product IN (' . implode(',',$where2). ')';
-		}
+		$where2 = $this->filter;
 
 		if($and !== FALSE && count($and)){
 			$where = " AND ";
@@ -626,16 +627,16 @@ class Products {
 			}
 			$where .= implode(" AND ", $where_a);
 		}
-		if($limit == '' || isset($params['ajax'])){
-			$qqq = 1;
-		}
+//		if($limit == '' || isset($params['ajax'])){
+//			$qqq = 1;
+//		}
 		$group_by = '';
 		if(isset($params['group_by'])){
 			$group_by = ' GROUP BY '.$params['group_by'];
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
+			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
 		}
 		if(isset($params['order_by'])){
 			if($params['order_by'] != null){
@@ -647,7 +648,6 @@ class Products {
 		}else{
 			$order_by = ' popularity DESC';
 		}
-//		var_dump($order_by);
 		if(isset($params['administration'])){
 			// SQL выборки для админки
 			$sql = "(SELECT '0' AS sort, a.active,
@@ -691,14 +691,13 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. "
+				".$where . $where2. $this->price_range ."
 				HAVING p.visible = 1
 					".$prices_zero."
 					AND a.active = 1
 				ORDER BY ".$order_by
 				.$limit;
 		}
-//		print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -719,14 +718,14 @@ class Products {
 				}
 
 			}
-//			print_r($fl_v);
+
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
 									  FROM xt_specs_prods AS sp2
-									  WHERE " . $fl_v . "
+									  WHERE " . $fl_v . $this->price_range ."
 									  )";
-//			print_r($sql);
+
 			$result = $this->db->GetArray($sql);
 			if(!$result){
 				return false;
@@ -734,13 +733,61 @@ class Products {
 			foreach($result as $res){
 				$resul[] = $res['id_prod'];
 			}
-//			print_r($resul);
 
+			if (is_array($resul)){
+				$this->filter = ' AND p.id_product IN (' . implode(',',$resul). ')';
+			}
 			return $resul;
 		}
+
 	}
 
+	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array())
+	{
+		$where = "";
+		$where2 = $this->filter;
 
+		if($and !== FALSE && count($and)){
+			$where = " AND ";
+			foreach ($and as $k=>$v){
+				if($k=='customs'){
+					foreach($v as $a){
+						$where_a[] = $a;
+					}
+				}else{
+					$where_a[] = "$k=\"$v\"";
+				}
+			}
+			$where .= implode(" AND ", $where_a);
+		}
+
+		$sql = "SELECT MIN(p.price_opt) as min_price, MAX(p.price_opt) as max_price
+				FROM "._DB_PREFIX_."cat_prod AS cp
+					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
+					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+				WHERE cp.id_product IS NOT NULL
+				".$where . $where2. "
+				AND p.visible = 1
+				AND p.price_opt > 0
+				AND a.active = 1
+				ORDER BY p.price_opt";
+		$this->list = $this->db->GetOneRowArray($sql);
+
+		if(!$this->list){
+			return false;
+		}
+		return $this->list;
+	}
+
+	public function SetMinMaxPrice()
+	{
+		$this->price_range = '';
+		if (isset($GLOBALS['Price_range'])) {
+
+			$this->price_range = " AND p.price_opt BETWEEN " . $GLOBALS['Price_range'][0]. " AND " . $GLOBALS['Price_range'][1];
+		}
+	}
 
 	public function SetProductsList1($s){
 		// SQL выборки для админки
@@ -988,7 +1035,7 @@ class Products {
 				HAVING p.visible = 1
 					AND (p.price_opt > 0 OR p.price_mopt > 0)
 					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0"
-			. $where2;
+			. $where2 . $this->price_range;
 		}
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
@@ -3491,9 +3538,23 @@ class Products {
 		return true;
 	}
 
-	//Для фильтра категорий 3-го уровня,
+	//Вернуть все фильтры для заданной категории
 	public function GetFilterFromCategory($id_category){
-		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt
+//		if (isset($GLOBALS['Price_range'])){
+//			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
+//			FROM "._DB_PREFIX_."cat_prod AS cp
+//			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+//				ON cp.id_product = sp.id_prod
+//			LEFT JOIN "._DB_PREFIX_."specs AS s
+//				ON sp.id_spec = s.id
+//			LEFT JOIN xt_product AS p
+//				ON p.id_product = sp.id_prod
+//			WHERE cp.id_category = ".$id_category . $this->price_range."
+//			AND s.id IS NOT NULL
+//			AND sp.value <> ''
+//			GROUP BY s.id, sp.value";
+//		}else{
+			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
@@ -3503,9 +3564,42 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-//		print_r($sql);
+//		}
+
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? : false;
 	}
 
-}?>
+	//Вернуть актуальные фильтры с учетом выбраных
+	public function GetFilterFromCategoryNow($add_filters = NULL){
+
+//		Array([id_spec] => 21,	 [value] => Украина)
+// Реализовать передачу массива
+			$sql = "SELECT id
+			FROM c1kharkovt_bd4.xt_specs_prods
+			WHERE id_spec = ". $add_filters['id_spec'] ."
+			AND value = ". $add_filters['value'];
+
+//		$arr = $this->db->GetArray($sql);
+//		return  $arr ? : false;
+	}
+
+	public function GetCntFilterNow($id_category){
+//		print_r($add_filters);
+		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			WHERE cp.id_category = ".$id_category."
+			AND s.id IS NOT NULL
+			AND sp.value <> ''
+			GROUP BY s.id, sp.value";
+
+		$arr = $this->db->GetArray($sql);
+		return  $arr ? $arr : false;
+	}
+
+
+	}?>

@@ -1,3 +1,4 @@
+<? require "cp_customer_cab_leftside.tpl";?>
 <div class="customer_cab">
 	<div id="waiting_list">
 		<?if(isset($waiting_list) &&  !empty($waiting_list)){?>

@@ -1,11 +1,11 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	header('Content-Type: text/javascript; charset=utf-8');
-	if(isset($_POST['action']))
-	switch($_POST['action']) {
+	if(isset($_GET['action']))
+	switch($_GET['action']) {
 		case "validate":
-			if(isset($_POST['email'])){
-				$email = mysql_real_escape_string(trim($_POST['email']));
+			if(isset($_GET['email'])){
+				$email = trim($_GET['email']);
 			}else{
 				$email = '';
 			}
@@ -16,7 +16,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo 'true';
 			}
 		break;
-		
+
 		default:
 		;
 		break;

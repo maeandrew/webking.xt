@@ -17,14 +17,18 @@ class Link {
 	 * @param string $rewrite идентификатор раздела
 	 */
 	public static function Category($rewrite, $params = array()){
-		$str_filter = $str_sort = $str_page = '';
-//		print_r($GLOBALS['Sort']);
+		$str_filter = $str_sort = $str_page = $price_range = '';
+		$clear = false;
+
 		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
 			$str_sort = 'sort='.$GLOBALS['Sort'];
 		}
 		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
 			$str_page = 'p'.$GLOBALS['Page_id'];
+		}
+		if(isset($GLOBALS['Price_range']) && $GLOBALS['Price_range'] !== ''){
+			$price_range = 'price_range='.$GLOBALS['Price_range'][0].','.$GLOBALS['Price_range'][1];
 		}
 
 		foreach($params as $key => $param){
@@ -48,8 +52,8 @@ class Link {
 					}else{
 						$filter[$param[0]][] = $param[1];
 					}
-
 					break;
+
 				case 'page':
 					$str_page = '';
 					if($param != 1) {
@@ -57,7 +61,16 @@ class Link {
 					}
 					break;
 
-				case 'sort': $str_sort = 'sort='.$param;
+				case 'sort':
+					$str_sort = 'sort='.$param;
+					break;
+
+				case 'price_range':
+					$price_range = 'price_range='.$param;
+					break;
+				case 'clear':
+					$str_filter = $str_sort = $str_page = $price_range = '';
+					$clear = $param;
 					break;
 			}
 		}
@@ -70,8 +83,10 @@ class Link {
 				}
 			}
 		}
-
-		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
+		if($clear){
+			return _base_url.'/'.$rewrite;
+		}
+		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : '') . ($price_range ? '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**

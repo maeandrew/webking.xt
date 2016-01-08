@@ -31,8 +31,8 @@ class pages{
 				$this->pages['first'] = '/p1/';
 				$this->pages['last'] = '/p'.$this->cnt_pages.'/';
 
-				$this->pages['lp'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con1-1)); //'/p'.($con1-1).'/';
-				$this->pages['np'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con2+1)); //'/p'.($con2+1).'/';
+				$this->pages['lp'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con1-1));
+				$this->pages['np'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con2+1));
 			}
 		}else{
 			$con1 = 1;

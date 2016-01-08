@@ -571,13 +571,25 @@ function r_implode($glue, $pieces){
 	return implode($glue, $retVal);
 }
 // Фильтр на странице списка товаров=================================
-$filter_cat = $products->GetFilterFromCategory($id_category);
+$cnt = $i = 0;
+$group_arr = $for_sql = [];
 
-$group_arr = [];
-$cnt = 0;
+$filter_cat = $products->GetFilterFromCategory($id_category);
+foreach($GLOBALS['Filters'] as $key => $val){
+	$for_sql = array('id_spec' => $key);
+};
+foreach($filter_cat as $filter) {
+//	print_r($filter);
+	if($filter['id'] == $for_sql['id_spec'])
+		$for_sql += array('value' => $filter['value']);
+}
+
+$actualFilters = $products->GetFilterFromCategoryNow($for_sql);
+$cntF = $products->GetCntFilterNow($id_category);
+
+
 if($filter_cat) {
 	foreach ($filter_cat as $value) {
-
 		if (!isset($group_arr[$value['id']])) {
 			$group_arr[$value['id']] = array(
 				'caption' => $value['caption'],
@@ -598,17 +610,33 @@ if($filter_cat) {
 		$group_arr[$value['id']]['values'][] = array(
 			'id' => array($value['id'], $value['id_val']),
 			'value' => $value['value'],
-			'count' => $value['cnt'],
+			'count' => ($cntF[$i]['caption'] == $value['caption']) ? $cntF[$i++]['cnt'] : 0,
+			'units' => $value['units'],
 			'checked' => $check
 		);
 
 	}
 }
+
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
 
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
 };
+
+// MIN/MAX цена для вывода в фильтре
+$price = $products->GetMinMaxPrice($where_arr);
+
+	$max_price = ceil($price['max_price']);
+
+	if($price['min_price'] < 1 && $price['min_price'] > 0 && !isset($GLOBALS['Price_range'])) {
+		$min_price = $price['min_price'];
+	}else{
+		$min_price = floor($price['min_price']);
+	}
+
+$tpl->Assign('max_price', $max_price);
+$tpl->Assign('min_price', $min_price);
 
 // =========================================================
 ?>

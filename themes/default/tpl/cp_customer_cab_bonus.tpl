@@ -1,25 +1,8 @@
+<? require "cp_customer_cab_leftside.tpl";?>
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="bonus">
-			<form action="" method="GET">
-				<ul id="nav">
-					<li>
-						<button name="t" value="bonus_info" <?=(!isset($_GET['t']) || $_GET['t']=='bonus_info')?'class="active"':null;?>>
-							Мой бонусный счет
-						</button>
-					</li>
-					<li>
-						<button name="t" value="change_bonus" <?=(isset($_GET['t']) && $_GET['t']=='change_bonus')?'class="active"':null;?>>
 
-						<?if(!$Customer['bonus_card']){?>
-							Активация бонусной карты
-						<?}else{?>
-							Смена бонусной карты
-						<?}?>
-						</button>
-					</li>
-				</ul>
-			</form>
 			<?if(!isset($_GET['t']) || $_GET['t']=='bonus_info'){?>
 				<?if(!$Customer['bonus_card']){?>
 					<div class="info_text">
@@ -128,14 +111,14 @@
 							</div>
 						</div>
 					<?}else{?>
-						<div id="bonus_card_line" class="line">
-							<label for="bonus_card">№ бонусной карты: <span class="required">*</span></label>
-							<input type="text" name="bonus_card" id="bonus_card" value="<?=$Customer['bonus_card']?>" required />
+						<div id="bonus_card_line" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label" for="bonus_card">№ бонусной карты: <span class="required">*</span></label>
+							<input class="mdl-textfield__input" type="text" name="bonus_card" id="bonus_card" value="<?=$Customer['bonus_card']?>" required />
 						</div>
 					<?}?>
 					<hr>
 					<div class="buttons_cab">
-						<button name="save_bonus" type="submit" class="btn-m-green">Сохранить изменения</button>
+						<button type="submit" name="save_bonus" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 						<p class="fright"><span class="required">*</span> - поля обязательные для заполнения</p>
 					</div>
 				</form>

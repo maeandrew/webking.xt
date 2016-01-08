@@ -718,7 +718,139 @@ table.supplier_assort_table {
 /* Customer cab ============================================================= */
 
 .customer_cab {
-	clear: both;
+	position: relative;
+    float: right;
+    width: 80%;
+}
+#cab_left_bar {
+    width: 19%;
+    float: left;
+    position: relative;
+        height: 100%;
+    background-color: #F5F5F5;
+    border-right-color: #DCDCDC;
+    border-right-width: 1px;
+    border-style: solid;
+    min-height: 412px;
+
+}
+#my_order {
+	position: absolute;
+	    margin-top: -30px;
+    margin-left: 42px;
+}
+.child {
+	width: 100%;
+	padding-left: 0 !important;
+}
+#cab_left_bar form {
+	width: 97%;
+    padding-left: 3px;
+}
+#cab_left_bar .my_orders{
+	background-color: #FAFAFA;
+	width: 97%;
+	margin-left: 3px;
+    height: 45px;
+}
+.my_orders i{
+	margin-top: 14px;
+    margin-left: 10px;
+}
+.my_orders span{
+	margin-top: -20px;
+    display: block;
+    margin-left: 40px;
+}
+#cab_left_bar h5{
+	text-align: center;
+    border-bottom: 1px solid #444444;
+    width: 97%;
+    margin-left: 3px;
+    font-size: 16px;
+    padding-bottom: 8px;
+    margin-top: 10px;
+}
+#navi2 {
+	width: 97%;
+    margin-left: 3px;
+    background-color: #FAFAFA;
+}
+#navi {
+	padding-bottom: 4px;
+	display: none;
+}
+#navi li{
+	width: 100%;
+	    border: 1px solid #C9C9C9;
+	     background-color: #F3F3F3;
+	     margin-top: 2px;
+    margin-bottom: 2px;
+
+}
+#navi li a{
+
+	color: black;
+   text-align: left;
+   padding-left: 15%;
+   line-height: 1.5em;
+   font-size: 12px;
+   padding-top: 6px;
+}
+#navi li a:hover{
+	color: #6D6D6D;
+}
+#navi2 li {
+	padding-left: 42px;
+	border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 1.5px;
+    padding-top: 1.5px;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+}
+#navi2 i {
+	position: absolute;
+	margin-left: -35px;
+}
+#navi2 li a{
+	font-size: 13px;
+	color: #585858;
+}
+#navi2 a:hover{
+	font-weight: 400;
+    color: #000;
+}
+#navi2 li:hover{
+	border: 1px solid #C5C5C5;
+}
+#nav {
+	display: none;
+}
+#nav.active {
+	display: block;
+}
+#edit_personal .mdl-textfield{
+	display: block;
+}
+#navi2 a.active{
+	color: #9E9E9E;
+}
+.btn-m-green {
+	top: 11px;
+}
+#navi2 #nav li {
+	padding: 0;
+}
+.row #settings .passwdconfirm{
+	display: block;
+}
+.mdl-mega-footer {
+    padding: 0;
+    color: inherit;
+    clear: inherit;
+    float: right;
+    width: 80.5%;
 }
 .customer_cab div.line {
 	margin: 20px 0;

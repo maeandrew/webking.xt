@@ -1,6 +1,6 @@
 <?php
 class Cart {
-	//public $db;
+	public $db;
 	//public $fields;
 	//private $usual_fields;
 	//public $list;
@@ -8,7 +8,7 @@ class Cart {
 	 * @return
 	 */
 	public function __construct (){
-		// $this->db =& $GLOBALS['db'];
+		$this->db =& $GLOBALS['db'];
 	}
 
 	// добавление товара в корзину или изменение его количества
@@ -101,6 +101,7 @@ class Cart {
 					$products_sum[$k] += $s;
 				}
 			}
+
 			// определение колонки цен по сумме заказа
 			$retail_margin = $GLOBALS['CONFIG']['retail_order_margin']; // 500
 			$wholesale_margin = $GLOBALS['CONFIG']['wholesale_order_margin']; // 3000
@@ -114,6 +115,7 @@ class Cart {
 			}elseif($products_sum[3] < $retail_margin){
 				$cart_column = 3;
 			}
+
 		}else{
 			$_SESSION['cart']['products'] = array();
 		}
@@ -235,7 +237,58 @@ class Cart {
 
 
 
+	public function MyCart(){
+		unset($_SESSION['cart']['id']);
+		if(isset($_SESSION['cart']['id'])){
+			# обновить корзину в БД по id
+			$id_ = $_SESSION['cart']['id'];
 
+			foreach ($_SESSION['cart']['products'] as $key => $products) {
+				/*print_r($products);*/
+				$f['id_product'] = $key;
+				$f['quantity'] = $products['quantity'];
+				$f['price'] = $products['base_price'];
+				$this->db->StartTrans();
+				if(!$this->db->Update(_DB_PREFIX_."cart_product", $f, "id_cart = ".$id_)){
+					$this->db->FailTrans();
+					return false;
+				}
+				$this->db->CompleteTrans();
+			}
+			return true;
+
+		}else{
+			# добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
+			$f['id_user'] = $_SESSION['member']['id_user'];
+			$this->db->StartTrans();
+			if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){
+				$this->db->FailTrans();
+				return false; //Если не удалось записать в базу
+			}
+			unset($f);
+			$this->db->CompleteTrans();
+			$sql = "SELECT * FROM "._DB_PREFIX_."cart";
+			/*WHERE id_user = ".$f['id'];*/
+			$res = $this->db->GetOneRowArray($sql);
+			foreach ($_SESSION['cart']['products'] as $key => $products){
+				$f['id_product'] = $key;
+				$f['quantity'] = $products['quantity'];
+				$f['price'] = $products['base_price'];
+				$f['id_cart'] = $res['id_cart'];
+				print_r($f);
+				$this->db->StartTrans();
+				if(!$this->db->Insert(_DB_PREFIX_."cart_product", $f)){
+					$this->db->FailTrans();
+					return false;
+				}
+				$this->db->CompleteTrans();
+			}
+			if ($res['status'] == 0) {
+				$_SESSION['cart']['id'] = $res['id_cart'];
+			}
+			return $res;
+		}
+	}
 
 
 

@@ -16,27 +16,28 @@ switch($User->fields['gid']){
 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
 			require($GLOBALS['PATH_block'].'cp_cab_promo_customer.php');
 		}else{
-			if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "personal"){
+			if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "personal"){
 				$header = 'Личные данные';
 				require($GLOBALS['PATH_block'].'cp_cab_personal_customer.php');
-			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "settings"){
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "settings"){
 				$header = 'Настройки';
 				require($GLOBALS['PATH_block'].'cp_cab_settings_customer.php');
-			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "feedback"){
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "feedback"){
 				$header = 'Обратная связь';
 				require($GLOBALS['PATH_block'].'cp_cab_feedback_customer.php');
-			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "bonus"){
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "bonus"){
 				$header = 'Бонусная программа';
 				require($GLOBALS['PATH_block'].'cp_cab_bonus_customer.php');
-			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "favorites"){
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "favorites"){
 				$header = 'Избранные товары';
 				require($GLOBALS['PATH_block'].'cp_cab_favorites_customer.php');
-			}elseif(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == "waitinglist"){
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "waitinglist"){
 				$header = 'Лист ожидания';
 				require($GLOBALS['PATH_block'].'cp_cab_waitinglist_customer.php');
 			}else{
 				$header = 'Мои заказы';
 				require($GLOBALS['PATH_block'].'cp_cab_orders_customer.php');
+
 			}
 		}
 		if(true == $parsed_res['issuccess']){
