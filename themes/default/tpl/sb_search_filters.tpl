@@ -62,17 +62,17 @@
 				<p><?=$spec['caption']?></p>
 				<ul>
 					<? foreach($spec['values'] as $value){ ?>
-							<li>
+						<li>
+							<a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
 								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
-									<a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
-										<input type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
-										<span>
-											<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
-											<span class="qnt_products fright"><?=$value['count']?></span>
-										</span>
-									</a>
+									<input type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
+									<span>
+										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
+										<span class="qnt_products fright"><?=$value['count']?></span>
+									</span>
 								</label>
-							</li>
+							</a>
+						</li>
 					<? } ?>
 				</ul>
 			</div>
