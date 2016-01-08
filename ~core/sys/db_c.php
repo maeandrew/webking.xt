@@ -48,6 +48,7 @@ class mysqlPDO {
 	public function Query($sql){
 		$this->response = $this->Prepare($sql);
 		$this->response->execute();
+		// print_r($this->connection->lastInsertId());
 		return $this->response;
 	}
 
@@ -264,6 +265,7 @@ class mysqlPDO {
 		}
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
+		print_r($sql);
 		$this->sql = $sql;
 		return $this->Query($sql);
 	}
@@ -307,6 +309,16 @@ class mysqlPDO {
 			$where .= implode(" AND ", $where_a);
 		}
 		return $where;
+	}
+
+	/**
+	* Получить ID последний вставки
+	* @param array $and
+	* @return string
+	*/
+	public function GetLastId(){
+		$last_id = $this->connection->lastInsertId();
+		return $last_id;
 	}
 
 	// -----------------------------------------------   dbtree   --------------------------------------------
@@ -435,8 +447,7 @@ class mysqlPDO {
 	*
 	*/
 	function StartTrans(){
-		$sql = 'START TRANSACTION;';
-		$this->Execute($sql);
+		$this->connection->beginTransaction();
 		return;
 	}
 
@@ -445,8 +456,7 @@ class mysqlPDO {
 	*
 	*/
 	function FailTrans(){
-		$sql = 'ROLLBACK;';
-		$this->Execute($sql);
+		$this->connection->rollBack();
 		return;
 	}
 
@@ -455,8 +465,7 @@ class mysqlPDO {
 	*
 	*/
 	function CompleteTrans(){
-		$sql = 'COMMIT;';
-		$this->Execute($sql);
+		$this->connection->commit();
 		return;
 	}
 

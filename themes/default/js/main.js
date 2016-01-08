@@ -353,6 +353,10 @@ $(function(){
 		}
 	});
 
+	$('input.mdl-checkbox__input').on('click', function(){
+		location.href = $(this).closest('a').attr('href');
+	});
+
 	//Закрытие подложки и окон
 	$('body').on('click', '.background_panel', function(){
 		closeObject();

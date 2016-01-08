@@ -1,4 +1,5 @@
 function SendToAjax(id, qty, button, direction, note){
+
 	$.ajax({
 		url: URL_base+'ajaxcart',
 		type: "GET",
@@ -79,6 +80,7 @@ function ChangeCartQty(id, direction){
 		var note = $('#product_'+id).find('.note textarea').val();
 	}
 	if(direction == 1){
+		console.log(qty);
 		SendToAjax(id, qty+1, true, direction,note);
 	}else if(direction == 0){
 		SendToAjax(id, qty-1, true, direction,note);

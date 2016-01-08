@@ -368,7 +368,7 @@ while($cat = $dbtree->NextRow()){
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
-	
+
 
 	$product_list = $products->list;
 	foreach($product_list as &$p){
@@ -575,16 +575,9 @@ $cnt = $i = 0;
 $group_arr = $for_sql = [];
 
 $filter_cat = $products->GetFilterFromCategory($id_category);
-foreach($GLOBALS['Filters'] as $key => $val){
-	$for_sql = array('id_spec' => $key);
-};
-foreach($filter_cat as $filter) {
-//	print_r($filter);
-	if($filter['id'] == $for_sql['id_spec'])
-		$for_sql += array('value' => $filter['value']);
-}
 
-$actualFilters = $products->GetFilterFromCategoryNow($for_sql);
+$actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
+print_r($actualFilters);
 $cntF = $products->GetCntFilterNow($id_category);
 
 
