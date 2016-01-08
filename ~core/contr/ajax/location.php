@@ -10,16 +10,51 @@
 		switch($_POST['action']){
 			case "GetRegionsList":
 				$Region->SetList();
-				$str = '';
 				foreach($Region->list as $region){
-					if($region['region'] != ''){
-						$str .= '<li class="mdl-menu__item" data-value="'.$region['id_city'].'">'.$region['region'].'</li>';
-					}
+					if($region['region'] != ''){?>
+						<li class="mdl-menu__item" data-value="<?=$region['id_city']?>"><?=$region['region']?></li>
+					<?}
 				}
-				echo json_encode($str);
-			;
 			break;
 
+			case "GetCitiesList":
+				$res = $City->SetFieldsByInput($_POST['input']);
+				foreach($res as $city){
+					if($city['name'] != ''){?>
+						<li class="mdl-menu__item" data-value="<?=$city['id_city']?>"><?=$city['name']?></li>
+					<?}
+				}
+			break;
+
+			case "GetDeliveryServicesList":
+				$DeliveryService->SetListByRegion($_POST['input']);
+				foreach($DeliveryService->list as $key=>$ds){
+					if($ds['shipping_comp'] != ''){
+					}?>
+					<div>
+						<label class="mdl-radio mdl-js-radio">
+							<input type="radio" name="service" class="mdl-radio__button" <?=isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null?> value="<?=$ds['shipping_comp']?>">
+							<span class="mdl-radio__label"><?=$ds['shipping_comp']?></span>
+						</label>
+					</div>
+				<?}
+			break;
+
+			case "GetDeliveryMethodsList":
+				$DeliveryService->SetListByRegion($_POST['input']);
+				foreach($DeliveryService->list as $key=>$ds){
+					if($ds['shipping_comp'] != ''){
+					}?>
+					<div>
+						<label class="mdl-radio mdl-js-radio">
+							<input type="radio" name="service" class="mdl-radio__button" <?=isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null?> value="<?=$ds['shipping_comp']?>">
+							<span class="mdl-radio__label"><?=$ds['shipping_comp']?></span>
+						</label>
+					</div>
+				<?}
+			break;
+
+			// old code
 			case "regionSelect":
 				$res = $City->SetFieldsByInput($_POST['region']);?>
 				<option selected="selected" disabled="disabled" class="color-sgrey">Город</option>

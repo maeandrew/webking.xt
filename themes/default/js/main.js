@@ -22,12 +22,12 @@
 // });
 
 $(function(){
+	// openObject('quiz');
 
 	var viewport_width = $(window).width(),
 		viewport_height = $(window).height(),
 		center_section_height = $('section .center').height(),
 		header_outerheight = $('header').outerHeight();
-	openObject('quiz');
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
 		effect : "fadeIn"
@@ -127,13 +127,18 @@ $(function(){
 		event.preventDefault();
 	});
 
-	//Емитация Select
+	//Имитация Select
 	$('.imit_select').on('click', '.mdl-menu__item', function(){
 		var value = $(this).text(),
 			id = $(this).data('value');
-		$('.imit_select .mdl-menu__item').removeClass('active');
-		$(this).addClass('active');
+		$(this).closest('.imit_select').find('.mdl-menu__item').removeClass('active');
 		$(this).closest('.imit_select').find('.select_field').text(value);
+		$(this).closest('.mdl-menu__container').removeClass('is-visible');
+		$(this).addClass('active');
+	});
+	$('.region.imit_select').on('click', '.mdl-menu__item', function(){
+		GetCities($('.region.imit_select').find('.select_field').text());
+		$('.city.imit_select').find('.select_field').text('Выбрать');
 	});
 	$('.sort.imit_select .mdl-menu__item').on('click', function(){
 		var sort = JSON.parse($.cookie('sorting'));
@@ -435,25 +440,91 @@ $(function(){
 		e.preventDefault();
 		var target_step = $(this).data('step'),
 			current_step = $(this).closest('[class*="step_"]').data('step'),
-			validate = false;
-		if(target_step == 2){
-			validate = true;
-			var lastname = $('.step_1').find('[name="lastname"]').val();
-			var firstname = $('.step_1').find('[name="firstname"]').val();
-			var middlename = $('.step_1').find('[name="middlename"]').val();
-			$('.step_'+target_step+' span.client').text(firstname+' '+middlename);
-			GetRegions();
+			summary = $('#quiz .summary_info'),
+			current = $('.step_'+current_step),
+			target = $('.step_'+target_step),
+			validate = false,
+			i = 0;
+		if(target_step == 1){
+			summary.removeClass('active');
+			if(current_step == 2){
+				summary.find('.lastname').closest('.row').addClass('hidden');
+				summary.find('.firstname').closest('.row').addClass('hidden');
+				summary.find('.middlename').closest('.row').addClass('hidden');
+				summary.removeClass('active');
+			}
+		}else if(target_step == 2){
+			if(current_step == 1){
+				var lastname = current.find('[name="lastname"]').val(),
+					firstname = current.find('[name="firstname"]').val(),
+					middlename = current.find('[name="middlename"]').val();
+				target.find('span.client').text(firstname+' '+middlename);
+				summary.find('.lastname').text(lastname).closest('.row').removeClass('hidden');
+				summary.find('.firstname').text(firstname).closest('.row').removeClass('hidden');
+				summary.find('.middlename').text(middlename).closest('.row').removeClass('hidden');
+				if(lastname == ''){
+					i++;
+					$('#lastname').addClass('is-invalid');
+				}
+				if(firstname == ''){
+					i++;
+					$('#firstname').addClass('is-invalid');
+				}
+				if(middlename == ''){
+					i++;
+					$('#middlename').addClass('is-invalid');
+				}
+				if(i == 0){
+					validate = true;
+					GetRegions();
+					summary.addClass('active');
+				}
+			}else if(current_step = 3){
+				summary.find('.region').closest('.row').addClass('hidden');
+				summary.find('.city').closest('.row').addClass('hidden');
+			}
 		}else if(target_step == 3){
-			validate = true;
+			if(current_step == 2){
+				var selected_region = current.find('#region_select .select_field').text(),
+					selected_city = current.find('#city_select .select_field').text();
+				summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
+				summary.find('.city').text(selected_city).closest('.row').removeClass('hidden');
+				if(selected_region == 'Выбрать'){
+					i++;
+				}
+				if(selected_city == 'Выбрать'){
+					i++;
+				}
+				if(i == 0){
+					validate = true;
+					GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
+					summary.find('.region').text(selected_region);
+					summary.find('.city').text(selected_city);
+				}
+			}
+		}else if(target_step == 4){
+			if(current_step == 3){
+				var delivery_service = $('input[name="service"]:checked').val(),
+					delivery_method = $('input[name="method"]:checked').val();
+				if(typeof delivery_service === 'undefined'){
+					i++;
+				}
+				if(typeof delivery_method === 'undefined'){
+					i++;
+				}
+			}
 		}
 		if(validate == true || target_step < current_step){
-			$('.step_'+current_step).removeClass('active');
-			$('.step_'+target_step).addClass('active');
+			current.removeClass('active');
+			target.addClass('active');
 			Position($(this).closest('[data-type="modal"]'));
 		}
-
 	});
 
+	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
+		console.log($(this).val());
+		GetDeliveryMethods($(this).val());
+	});
 	$('#quiz .mdl-button').on('clock', function(e){
 		e.preventDefault();
 		return false;

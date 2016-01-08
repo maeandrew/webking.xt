@@ -356,7 +356,7 @@ function closeObject(id){
 function Position(object){
 	object.css({
 		'top': ($(window).height() + 52 - object.height())/2,
-		'right': ($(window).width() - object.width())/2
+		'left': ($(window).width() - object.width())/2
 	});
 }
 
@@ -403,23 +403,66 @@ function changestars(rating){
 
 // Выбор области (региона)
 function GetRegions(){
-	// console.log('23124123');
-	// $.post(URL_base+'ajax', { name: "John", time: "2pm" } );
 	$.ajax({
 		type: "post",
 		url: URL_base+'ajax',
-		cache: false,
-		dataType: "json",
-		processData: true,
+		dataType: "html",
 		data: ({
-			target: 'regions',
+			target: 'location',
 			action: 'GetRegionsList'
 		}),
 	}).done(function(data){
-		var str = data.map(function(elem){
-			return '<li class="mdl-menu__item" data-value="'+elem.id_city+'">'+elem.region+'</li>';
-		}).join('');
-		$('[for="region_select"]').html(str);
+		$('[for="region_select"]').html(data);
+	});
+}
+
+// Выбор области (региона)
+function GetCities(input){
+	$.ajax({
+		type: "post",
+		url: URL_base+'ajax',
+		dataType: "html",
+		data: ({
+			target: 'location',
+			action: 'GetCitiesList',
+			input: input
+		}),
+	}).done(function(data){
+		$('[for="city_select"]').html(data);
+	});
+}
+
+// Выбор службы доставки
+function GetDeliveryService(input, service){
+	$.ajax({
+		type: "post",
+		url: URL_base+'ajax',
+		dataType: "html",
+		data: ({
+			target: 'location',
+			action: 'GetDeliveryServicesList',
+			input: input,
+			service: service
+		}),
+	}).done(function(data){
+		$('.delivery_service').html(data);
+	});
+}
+
+// Выбор службы доставки
+function GetDeliveryMethods(input){
+	$.ajax({
+		type: "post",
+		url: URL_base+'ajax',
+		dataType: "html",
+		data: ({
+			target: 'location',
+			action: 'GetDeliveryMethodsList',
+			input: input,
+			service: service
+		}),
+	}).done(function(data){
+		$('.delivery_service').html(data);
 	});
 }
 
