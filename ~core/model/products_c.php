@@ -3565,23 +3565,39 @@ class Products {
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
 //		}
-
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? : false;
 	}
 
 	//Вернуть актуальные фильтры с учетом выбраных
-	public function GetFilterFromCategoryNow($add_filters = NULL){
+	public function GetFilterFromCategoryNow(array $add_filters = NULL, $id_category){
 
-//		Array([id_spec] => 21,	 [value] => Украина)
-// Реализовать передачу массива
-			$sql = "SELECT id
-			FROM c1kharkovt_bd4.xt_specs_prods
-			WHERE id_spec = ". $add_filters['id_spec'] ."
-			AND value = ". $add_filters['value'];
+//print_r($add_filters);
 
-//		$arr = $this->db->GetArray($sql);
-//		return  $arr ? : false;
+		$spec_str = '';
+		$cnt_active_filter = 0;
+	if($add_filters) {
+		foreach($add_filters as $spec => $filter) {
+			if($spec_str != '') {
+				$spec_str .= "OR ";
+			}
+			$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM xt_specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
+
+			$cnt_active_filter++;
+		}
+
+			$sql = "SELECT *
+			FROM xt_specs_prods as sp1
+			WHERE  sp1.id_prod IN (SELECT sp.id_prod
+				FROM xt_specs_prods as sp
+				WHERE ". $spec_str ."
+				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
+				GROUP BY sp.id_prod
+				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
+		}
+//		print_r($sql);
+		$arr = $this->db->GetArray($sql);
+		return  $arr ? : false;
 	}
 
 	public function GetCntFilterNow($id_category){
