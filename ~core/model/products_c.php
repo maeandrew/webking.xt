@@ -3570,21 +3570,21 @@ class Products {
 	}
 
 	//Вернуть актуальные фильтры с учетом выбраных
-	public function GetFilterFromCategoryNow(array $add_filters = NULL, $id_category){
+	public function GetFilterFromCategoryNow($add_filters = NULL, $id_category){
 
 //print_r($add_filters);
 
 		$spec_str = '';
 		$cnt_active_filter = 0;
-	if($add_filters) {
-		foreach($add_filters as $spec => $filter) {
-			if($spec_str != '') {
-				$spec_str .= "OR ";
-			}
-			$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM xt_specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
+		if($add_filters) {
+			foreach($add_filters as $spec => $filter) {
+				if($spec_str != '') {
+					$spec_str .= "OR ";
+				}
+				$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM xt_specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
 
-			$cnt_active_filter++;
-		}
+				$cnt_active_filter++;
+			}
 
 			$sql = "SELECT *
 			FROM xt_specs_prods as sp1
@@ -3594,10 +3594,11 @@ class Products {
 				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
 				GROUP BY sp.id_prod
 				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
+
+			$arr = $this->db->GetArray($sql);
 		}
-//		print_r($sql);
-		$arr = $this->db->GetArray($sql);
-		return  $arr ? : false;
+
+		return  isset($arr) ? $arr : false;
 	}
 
 	public function GetCntFilterNow($id_category){
