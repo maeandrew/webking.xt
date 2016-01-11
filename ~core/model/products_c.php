@@ -3598,7 +3598,7 @@ class Products {
 			$arr = $this->db->GetArray($sql);
 		}
 
-		return  isset($arr) ? $arr : false;
+		return  isset($arr) ? : false;
 	}
 
 	public function GetCntFilterNow($id_category){

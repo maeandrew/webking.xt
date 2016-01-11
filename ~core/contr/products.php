@@ -577,7 +577,7 @@ $group_arr = $for_sql = [];
 $filter_cat = $products->GetFilterFromCategory($id_category);
 
 $actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
-print_r($actualFilters);
+//print_r($actualFilters);
 $cntF = $products->GetCntFilterNow($id_category);
 
 
