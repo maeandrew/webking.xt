@@ -265,7 +265,6 @@ class mysqlPDO {
 		}
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
-		print_r($sql);
 		$this->sql = $sql;
 		return $this->Query($sql);
 	}

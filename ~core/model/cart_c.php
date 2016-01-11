@@ -68,6 +68,9 @@ class Cart {
 			$_SESSION['cart']['products'][$product['id_product']]['actual_prices'] = $product['actual_prices'] = $actual_prices;
 			$_SESSION['cart']['products'][$product['id_product']]['other_prices'] = $product['other_prices'] = $other_prices;
 			$_SESSION['cart']['products'][$product['id_product']]['correction_set'] = $correction_set;
+			if(isset($data['id_cart_product'])){
+				$_SESSION['cart']['products'][$product['id_product']]['id_cart_product'] = $data['id_cart_product'];
+			}
 		}else{
 			$this->db->StartTrans();
 			$this->db->DeleteRowFrom(_DB_PREFIX_."cart_product","id_cart_product",$_SESSION['cart']['products'][$product['id_product']]['id_cart_product']);
@@ -97,7 +100,7 @@ class Cart {
 		$cart_column = 0;
 		if(!empty($_SESSION['cart']['products'])){
 			foreach($_SESSION['cart']['products'] AS &$p){
-				if(!$p['note']){
+				if(!isset($p['note'])){
 					$p['note'] = '';
 				}
 				foreach($p['summary'] AS $k=>$s){
@@ -240,9 +243,9 @@ class Cart {
 
 
 
-
-	public function MyCart(){
-		// unset($_SESSION['cart']['id']);
+	// Добавление и проверка корзины в БД
+	public function InsertMyCart(){
+		//print_r($_SESSION);
 		if(isset($_SESSION['cart']['id'])){
 			# обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
@@ -282,7 +285,6 @@ class Cart {
 				$f['quantity'] = $product['quantity'];
 				$f['price'] = $product['base_price'];
 				$f['id_cart'] = $_SESSION['cart']['id'];
-
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_."cart_product", $f)){
 					$this->db->FailTrans();
@@ -296,6 +298,22 @@ class Cart {
 		}
 	}
 
+	//
+	public function LastClientCart(){
+		$id = $_SESSION['member']['id_user'];
+		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status = 0 AND id_user = ".$id." ORDER BY creation_date DESC LIMIT 1";
+		$res = $this->db->GetOneRowArray($sql);
+		if(!empty($res)){
+			$_SESSION['cart']['id'] = $res['id_cart'];
+			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
+			$res = $this->db->GetArray($sql);
+			foreach($res as $value){
+				$this->UpdateCartQty($value);
+			}
+			return true;
+		}
+		return false;
+	}
 
 
 

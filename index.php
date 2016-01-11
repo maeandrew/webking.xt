@@ -165,7 +165,11 @@ $tpl->Assign('__popular', $GLOBALS['__popular']);
 $tpl->Assign('__aside',  $GLOBALS['__aside']);
 $Cart = new Cart();
 // Создание базового массива корзины
+if(G::IsLogged()){
+	$Cart->LastClientCart();
+}
 $Cart->RecalcCart();
+
 // $Cart->SetTotalQty();
 // $Cart->SetAllSums();
 // $tpl->Assign('cart_string', $Cart->GetString());
