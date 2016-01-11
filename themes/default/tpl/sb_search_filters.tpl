@@ -1,3 +1,84 @@
+<script>
+	/** Фильтр по цене */
+	$(function() {
+		<?if ($GLOBALS['Filters'] || isset($GLOBALS['Price_range'])) :?>
+			$('[data-nav="filter"]').click();
+		<? endif ?>
+		$("#slider_price").slider({
+			range: true,
+			min: <?=$min_price?>,
+			max: <?=$max_price?>,
+			values: [<?=isset($GLOBALS['Price_range'][0]) ? $GLOBALS['Price_range'][0] : $min_price?>,
+					 <?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>],
+			step: <?=floor(($max_price - $min_price) * 0.01)?>,
+			slide: function(event, ui) {
+				$( "#amount" ).html("");
+				$( "#amount" ).append(ui.values[ 0 ] + " грн  -  " + Math.round(ui.values[ 1 ]) + " грн");
+				$('[data-nav="filter"]').addClass('active');
+			},
+			stop: function(event, ui) {
+				var price_range = ui.values[0] + ',' + ui.values[1];
+				$.cookie('price_range', price_range, {
+					expires: 2,
+					path: '/'
+				});
+			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';
+			}
+		});
+		$( "#amount" ).append($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
+
+		//Очистить фтльтры
+		$("#clear_filter").click(function() {
+//			$.cookie('price_range', null);
+			$(this).addClass('active');
+			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
+		});
+
+	});
+</script>
+<div class="filters">
+	<div class="filter_block">
+		<p>Сбросить все фильтры:</p>
+		<ul>
+			<li id="clear_filter" >
+				<input type="submit" value="Сбросить">
+			</li>
+		</ul>
+	</div>
+
+	<div class="filter_block price_range_block">
+		<p>Ценовой диапазон</p>
+		<ul>
+			<li>
+				<div id="amount"></div>
+				<div id="slider_price"></div>
+			</li>
+		</ul>
+	</div>
+
+	<? if(isset($filter_cat) && is_array($filter_cat)) {
+		foreach($filter_cat as $spec){ ?>
+			<div class="filter_block">
+				<p><?=$spec['caption']?></p>
+				<ul>
+					<? foreach($spec['values'] as $value){ ?>
+						<li>
+							<a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
+								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
+									<input type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
+									<span>
+										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
+										<span class="qnt_products fright"><?=$value['count']?></span>
+									</span>
+								</label>
+							</a>
+						</li>
+					<? } ?>
+				</ul>
+			</div>
+	<? } } ?>
+</div>
+<!--
 <?if(!empty($list) && (!isset($_SESSION['member']) || $_SESSION['member']['gid'] != _ACL_TERMINAL_)){?>
 	<div class="sb_block">
 		<h4>Фильтры</h4>
@@ -68,3 +149,4 @@
 		</div>
 	</div>
 <?}?>
+-->
