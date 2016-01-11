@@ -33,6 +33,10 @@
 			$(this).addClass('active');
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
+		//Сделать не активные ссылки у отключенных фильтров
+//		$('.disabled').click(function(event) {
+//			event.preventDefault();
+//		});
 
 	});
 </script>
@@ -55,20 +59,20 @@
 			</li>
 		</ul>
 	</div>
-
 	<? if(isset($filter_cat) && is_array($filter_cat)) {
 		foreach($filter_cat as $spec){ ?>
 			<div class="filter_block">
 				<p><?=$spec['caption']?></p>
 				<ul>
-					<? foreach($spec['values'] as $value){ ?>
+					<? foreach($spec['values'] as $value){
+						$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil)) ? false : true; ?>
 						<li>
-							<a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
+							<a  href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
 								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
-									<input type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
+									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
 									<span>
 										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
-										<span class="qnt_products fright"><?=$value['count']?></span>
+										<span class="qnt_products fright"><?= ($present || in_array($value['id'][0], $id_filter)) ? $value['count'] : ''?></span>
 									</span>
 								</label>
 							</a>
