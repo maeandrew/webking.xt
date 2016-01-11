@@ -495,6 +495,7 @@
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
 				</div>
+				<!-- <button class="else" data-upgraded=",MaterialButton" type='submit'>Далее</button> -->
 			</div>
 			<div class="modal_container step_2" data-step="2">
 				<div class="head_top">
@@ -592,63 +593,64 @@
 				</div>
 			</div>
 		</div>
-		<div id="auth" data-type="modal">
-			<div id="login" class="modal_container">
-				<h4>Вход</h4>
-				<span>Сопроводительный текст к форме входа.</span>
+		<div id="regs_log" data-type="modal">
+			<div id="logs" class="modal_container">
+				<h6>Авторизация</h6>
+				<span>Synth polaroid bitters chillwave pickled. Vegan disrupt tousled.</span>
 				<form action="#">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email">
-						<label class="mdl-textfield__label" for="email">Логин</label>
-						<span class="mdl-textfield__error"></span>
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="password" id="passwd">
-						<label class="mdl-textfield__label" for="passwd">Пароль</label>
-						<span class="mdl-textfield__error"></span>
-					</div>
-					<div class="error"></div>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-in">Вход</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign-up">Регистрация</button>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" id="sample3" name="email">
+				    <label class="mdl-textfield__label" for="sample3">Логин</label>
+				  </div><br>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="passwd" id="sample4" name="passwd">
+				    <label class="mdl-textfield__label" for="sample4">Пароль</label>
+				    <span class="mdl-textfield__error">Input is not a number!</span>
+				  </div><br>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored logist">Войти</button>
+					<button class="mdl-button mdl-js-button enter_btn" data-name="regist" data-upgraded=",MaterialButton">Регистрация</button>
 				</form>
 			</div>
 
-			<div id="registration" class="hidden modal_container">
-				<h4>Регистрация</h4>
-				<span>Сопроводительный текст к форме регистрации.</span>
+			<div id="regs" class="hidden modal_container">
+				<h6>Регистрация</h6>
+				<span>Synth polaroid bitters chillwave pickled. Vegan disrupt tousled.</span>
 				<form action="#">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="name" name="name">
-						<label class="mdl-textfield__label" for="name">Имя</label>
-						<span class="mdl-textfield__error">Ошибка ввода имени!</span>
-					</div>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" id="name" name="name">
+				    <label class="mdl-textfield__label" for="name">Имя</label>
+				    <span class="mdl-textfield__error">Ошибка ввода имени!</span>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email" name="email">
-						<label class="mdl-textfield__label" for="email">Email (логин)</label>
-						<span class="mdl-textfield__error">Ошибка ввода email!</span>
-					</div>
+				  </div>
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input type="password" class="mdl-textfield__input" id="passwd"	name="passwd">
-						<label class="mdl-textfield__label" for="passwd">Пароль</label>
-						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-						<!-- <div id="passstrength">
-								<div id="passstrengthlevel"></div>
-							</div>
-							<div id="password_error"></div>
-							<div class="error_description"></div> -->
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
-						<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
-						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" id="email" name="email">
+				    <label class="mdl-textfield__label" for="email">Email (логин)</label>
+				    <span class="mdl-textfield__error">Ошибка ввода email!</span>
 
-						<!-- <div id="password_error"></div>
+				  </div>
+
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input type="password" class="mdl-textfield__input" id="passwd"  name="passwd">
+				    <label class="mdl-textfield__label" for="passwd">Пароль</label>
+				    <span class="mdl-textfield__error">Ошибка ввода пароля!</span>
+
+		    		<!-- <div id="passstrength">
+							<div id="passstrengthlevel"></div>
+						</div>
+					    <div id="password_error"></div>
 						<div class="error_description"></div> -->
-					</div>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-up">Регистрация</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign-in">Вход</button>
+				  </div>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
+				    <label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
+				    <span class="mdl-textfield__error">Ошибка ввода  пароля!</span>
+
+				    <!-- <div id="password_error"></div>
+					<div class="error_description"></div> -->
+				  </div><br>
+				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored regist">Регистрация</button>
+				  <button class="mdl-button mdl-js-button enter_btn" data-name="logist" data-upgraded=",MaterialButton">Войти</button>
 				</form>
 			</div>
 		</div>

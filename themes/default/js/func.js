@@ -1,37 +1,15 @@
-// Получение корзины
 function GetCartAjax(){
-	ajax('cart', 'GetCart', false, 'html').done(function(data){
-		$('#cart > .modal_container').html(data);
-		openObject('cart');
-	});
-	// if($('#cart').hasClass('opened')){
-	// 	closeObject('cart');
-	// }else{
-	// 	$.ajax({
-	// 		url: URL_base+'cart'
-	// 	}).done(function(data){
-	// 		var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
-	// 		$('#cart > .modal_container').html(res[1]);
-	// 		openObject('cart');
-	// 	});
-	// }
-}
-
-function ajax(target, action, data, dataType){
-	if(typeof(data) == 'object'){
-		data['target'] = target;
-		data['action'] = action;
+	if($('#cart').hasClass('opened')){
+		closeObject('cart');
 	}else{
-		data = {'target': target, 'action': action};
+		$.ajax({
+			url: URL_base+'cart'
+		}).done(function(data){
+			var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
+			$('#cart > .modal_container').html(res[1]);
+			openObject('cart');
+		});
 	}
-	dataType = dataType || 'json';
-	var ajax = $.ajax({
-		url: URL_base+'ajax',
-		type: "POST",
-		dataType : dataType,
-		data: data
-	});
-	return ajax;
 }
 
 // Change product view
@@ -377,8 +355,8 @@ function closeObject(id){
 }
 function Position(object){
 	object.css({
-		'top': ($(window).height() + 52 - object.outerHeight())/2,
-		'left': ($(window).width() - object.outerWidth())/2
+		'top': ($(window).height() + 52 - object.height())/2,
+		'left': ($(window).width() - object.width())/2
 	});
 }
 
