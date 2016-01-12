@@ -572,24 +572,38 @@ function r_implode($glue, $pieces){
 }
 // Фильтр на странице списка товаров=================================
 $cnt = $i = 0;
-$group_arr = $for_sql = [];
+$group_arr = $for_sql = $id_spec = [];
 
 $filter_cat = $products->GetFilterFromCategory($id_category);
 
 $actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
-print_r($actualFilters);
+//print_r($actualFilters);
+if($actualFilters){
+	print_r($actualFilters);
+	foreach($actualFilters as $filters){
+		$id_spec[] = $filters['value'];
+	}
+//	print_r(array_unique($id_spec));
+	$tpl->Assign('visible_fil' ,array_unique($id_spec));
+}
+$tpl->Assign('cnt', $cnt); //количество активных фильтров
 $cntF = $products->GetCntFilterNow($id_category);
-
-
+if($GLOBALS['Filters']) {
+	foreach ($GLOBALS['Filters'] as $id_fil => $val) {
+		$id_filter[] = $id_fil;
+	}
+	$tpl->Assign('id_filter', $id_filter); //id активных фильтров для отображения всех значений (отмена disabled)
+}
 if($filter_cat) {
 	foreach ($filter_cat as $value) {
+//		print_r($value);
 		if (!isset($group_arr[$value['id']])) {
 			$group_arr[$value['id']] = array(
 				'caption' => $value['caption'],
-				'units' => $value['units']
+				'units' => $value['units'],
+				'value' => $value['value']
 			);
 		}
-
 		$check =  '';
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])){
 			foreach($GLOBALS['Filters'] as $val){
@@ -607,10 +621,9 @@ if($filter_cat) {
 			'units' => $value['units'],
 			'checked' => $check
 		);
-
 	}
 }
-
+//print_r($group_arr);
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
 
 if($group_arr){

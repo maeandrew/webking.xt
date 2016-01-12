@@ -33,7 +33,12 @@
 				<ul class="orders_list">
 					<?foreach ($orders as $i){
 						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){?>
-							<li class="order clearfix col-lg-8 col-md-9 col-sm-12">
+						<li>
+							<div class="order_head">
+								<p>Совместная корзина № <?=$i['id_order']?></p>
+							</div>
+						</li>
+							<!-- <li class="order clearfix col-lg-8 col-md-9 col-sm-12">
 								<div class="order_header">
 									<p>Заказ <b>№ <?=$i['id_order']?></b> от <?=date("d.m.Y",$i['creation_date'])?></p>
 									<p class="details">
@@ -62,10 +67,10 @@
 											<button type="submit" class="remake_order btn-m-green open_modal" data-target="order_remake_js">Повторить заказ</button>
 										</form>
 										<?if($i['id_order_status'] == 1){?>
-											<!-- <form action="<?=$GLOBALS['URL_request']?>" method="post">
+											<form action="<?=$GLOBALS['URL_request']?>" method="post">
 												<input type="hidden" name="id_order" value="<?=$i['id_order']?>"/>
 												<input type="submit" name="smb_cancel" class="cancel_order btn-m btn-red-inv" value="Отменить">
-											</form> -->
+											</form>
 										<?}elseif($i['id_order_status'] != 6 && $i['id_order_status'] != 1){?>
 											<form action="<?=$GLOBALS['URL_request']?>" method="post" class="fright">
 												<button type="submit" name="smb_off" class="btn-m-red-inv">Удалить</button>
@@ -74,7 +79,7 @@
 										<?}?>
 									</div>
 								</div>
-							</li>
+							</li> -->
 						<?}?>
 					<?}?>
 				</ul>
@@ -83,13 +88,13 @@
 			<?}?>
 		</div>
 		<!-- ORDER REMAKE MODAL FORM -->
-		<div id="order_remake_js" class="modal_hidden">
+		<!-- <div id="order_remake_js" class="modal_hidden">
 			<form action="<?=_base_url?>/cart/" method="post" class="order_remake">
 				<p><b>Добавить</b> товары из данного заказа к товарам из текущей корзины или <b>заменить</b> содержимое корзины содержимым данного заказа?</p>
 				<button type="submit" name="add_order" class="btn-m-green fleft">Добавить к корзине</button>
 				<button type="submit" name="remake_order" class="btn-m-green fright">Заменить корзину</button>
 			</form>
-		</div>
+		</div> -->
 
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->

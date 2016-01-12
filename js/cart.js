@@ -2,7 +2,7 @@ function SendToAjax(id, qty, button, direction, note){
 
 	$.ajax({
 		url: URL_base+'ajaxcart',
-		type: "GET",
+		type: "POST",
 		cache: false,
 		dataType : "json",
 		data: {
@@ -14,6 +14,7 @@ function SendToAjax(id, qty, button, direction, note){
 			"note": note
 		}
 	}).done(function(data){
+		//console.log(data);
 		completeCartProductAdd(data.cart);
 		qty = data.product.quantity;
 		var mode_text = 'от';
@@ -54,7 +55,7 @@ function SendToAjax(id, qty, button, direction, note){
 function removeFromCart(id){
 	$.ajax({
 		url: URL_base+'ajaxcart',
-		type: "GET",
+		type: "POST",
 		cache: false,
 		dataType : "json",
 		data: {
@@ -80,7 +81,7 @@ function ChangeCartQty(id, direction){
 		var note = $('#product_'+id).find('.note textarea').val();
 	}
 	if(direction == 1){
-		console.log(qty);
+		//console.log(qty);
 		SendToAjax(id, qty+1, true, direction,note);
 	}else if(direction == 0){
 		SendToAjax(id, qty-1, true, direction,note);

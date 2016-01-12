@@ -477,6 +477,7 @@
 					<label class="mdl-textfield__label" for="lastname">Фамилия</label>
 					<span class="mdl-textfield__error">Введите фамилию</span>
 				</div>
+				<!-- <button class="else" data-upgraded=",MaterialButton" type='submit'>Далее</button> -->
 			</div>
 			<div class="row">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="firstname">
@@ -578,7 +579,6 @@
 			</div>
 			<span class="go">Готово!</span>
 		</div>
-
 		<div class="progress">
 			<div class="line">
 				<div class="line_active"></div>
@@ -645,7 +645,6 @@
 					<input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
 					<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
 					<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-
 					<!-- <div id="password_error"></div>
 					<div class="error_description"></div> -->
 				</div>

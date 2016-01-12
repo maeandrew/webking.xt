@@ -14,6 +14,7 @@ class Products {
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 		$this->SetProductsListByFilter();
+//		var_dump($this->filter);
 		$this->SetMinMaxPrice();
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
@@ -612,6 +613,8 @@ class Products {
 
 	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
 		$where = "";
+		if($this->filter === false) return false;
+
 		$where2 = $this->filter;
 
 		if($and !== FALSE && count($and)){
@@ -691,12 +694,14 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. $this->price_range ."
+				".$where . $where2. $this->price_range . "
+				GROUP BY price_opt
 				HAVING p.visible = 1
 					".$prices_zero."
 					AND a.active = 1
 				ORDER BY ".$order_by
 				.$limit;
+//		print_r($sql);
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -716,7 +721,6 @@ class Products {
 				foreach ($filter as $fil) {
 					$filters[] = $fil;
 				}
-
 			}
 
 			$sql = "SELECT DISTINCT sp.id_prod
@@ -727,19 +731,18 @@ class Products {
 									  )";
 
 			$result = $this->db->GetArray($sql);
-			if(!$result){
-				return false;
+			if($result){
+				foreach ($result as $res) {
+					$resul[] = $res['id_prod'];
+				}
+				if (is_array($resul)) {
+					$this->filter = ' AND p.id_product IN (' . implode(',', $resul) . ')';
+				}
+			}else {
+				$this->filter = false;
 			}
-			foreach($result as $res){
-				$resul[] = $res['id_prod'];
-			}
-
-			if (is_array($resul)){
-				$this->filter = ' AND p.id_product IN (' . implode(',',$resul). ')';
-			}
-			return $resul;
 		}
-
+		return true;
 	}
 
 	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array())
@@ -3582,7 +3585,6 @@ class Products {
 					$spec_str .= "OR ";
 				}
 				$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM xt_specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
-
 				$cnt_active_filter++;
 			}
 
@@ -3594,7 +3596,7 @@ class Products {
 				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
 				GROUP BY sp.id_prod
 				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
-
+//print_r($sql);
 			$arr = $this->db->GetArray($sql);
 		}
 
@@ -3613,7 +3615,7 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-
+//		print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? $arr : false;
 	}
