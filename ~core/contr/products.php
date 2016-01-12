@@ -369,14 +369,12 @@ while($cat = $dbtree->NextRow()){
 	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
 
-
-	$product_list = $products->list;
-	foreach($product_list as &$p){
-		$p['images'] = $products->GetPhotoById($p['id_product']);
-	}
-	$tpl->Assign('list', $product_list);
-
-
+    if($products->list){
+        $tpl->Assign('list', $products->list);
+        foreach($products->list as &$p){
+            $p['images'] = $products->GetPhotoById($p['id_product']);
+        }
+    }
 
 
 	// =========================================================
@@ -577,13 +575,11 @@ $group_arr = $for_sql = $id_spec = [];
 $filter_cat = $products->GetFilterFromCategory($id_category);
 
 $actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
-//print_r($actualFilters);
 if($actualFilters){
-	print_r($actualFilters);
 	foreach($actualFilters as $filters){
 		$id_spec[] = $filters['value'];
 	}
-//	print_r(array_unique($id_spec));
+
 	$tpl->Assign('visible_fil' ,array_unique($id_spec));
 }
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
@@ -596,7 +592,6 @@ if($GLOBALS['Filters']) {
 }
 if($filter_cat) {
 	foreach ($filter_cat as $value) {
-//		print_r($value);
 		if (!isset($group_arr[$value['id']])) {
 			$group_arr[$value['id']] = array(
 				'caption' => $value['caption'],
@@ -623,7 +618,7 @@ if($filter_cat) {
 		);
 	}
 }
-//print_r($group_arr);
+
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
 
 if($group_arr){

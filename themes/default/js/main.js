@@ -298,18 +298,11 @@ $(function(){
 	//Стрелка указывающая на цену
 	var price_el = $('.price'),
 		price_nav_el = $('.price_nav');
-<<<<<<< HEAD
-	if(price_el.length > 0){
-		price_pos = Math.round(price_el.offset().left + (price_el.width()/2) - (price_nav_el.width()/2));
-		price_nav_el.offset({left:price_pos });
-	}
-=======
+
 	if(price_el.length > 0) {
 		var price_pos = Math.round(price_el.offset().left + (price_el.width() / 2) - (price_nav_el.width() / 2));
 		price_nav_el.offset({left: price_pos});
 	}
-	//console.log(price_el.offset());
->>>>>>> 61a904d12adce326b7c64343e17c5b6251c88109
 
 	//Высота блока главной картики продукта
 	$('.product_main_img').css('height', $('.product_main_img').outerWidth());
