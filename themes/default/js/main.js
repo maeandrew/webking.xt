@@ -144,7 +144,6 @@ $(function(){
 		var sort = JSON.parse($.cookie('sorting'));
 		sort[current_controller]['value'] = ($(this).data('value'));
 		var sorting = JSON.stringify(sort);
-		console.log(sorting);
 		$.cookie('sorting', sorting, {
 			expires: 2,
 			path: '/'
@@ -364,12 +363,12 @@ $(function(){
 	});
 
 	// Добавление кнопки Закрыть всем модальным окнам
-	$('[data-type="modal"]').each(function(index, el) {
+	$('[data-type="modal"]').each(function(index, el){
 		$(this).append('<a href="#" class="material-icons close_modal btn_js" data-name="'+$(this).attr('id')+'">close</a>');
 	});
 
 	//Замена картинки для открытия в ориг размере
-	$('.product_main_img').on('click', function() {
+	$('.product_main_img').on('click', function(){
 		var img_src = $(this).find('img').attr('src'),
 			img_alt = $(this).find('img').attr('alt');
 		$('#big_photo img').attr({
@@ -442,35 +441,33 @@ $(function(){
 			checked = true;
 		}
 		$(this).prop("checked", checked);
-		console.log('sdf');
 	});
 
 	/* Обработчик данных из корзины */
-	$('submit').on('click', function(e){
-		console.log('er');
-		e.preventDefault();
+	// $('submit').on('click', function(e){
+	// 	e.preventDefault();
 
 
-		$.ajax({
+	// 	$.ajax({
 
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'add'
+	// 		url: URL_base+'ajaxorder',
+	// 		type: "POST",
+	// 		cache: false,
+	// 		dataType : "json",
+	// 		data: {
+	// 			"action": 'add'
 
-			}
-		}).done(function(){
-			if(data != false){
-				openObject('opened');
-			}else{
-				error(function() {
-					console.log('error');
-				});
-			}
-		});
-	});
+	// 		}
+	// 	}).done(function(){
+	// 		if(data != false){
+	// 			openObject('opened');
+	// 		}else{
+	// 			error(function() {
+	// 				console.log('error');
+	// 			});
+	// 		}
+	// 	});
+	// });
 	// dalee
 	$('#quiz .to_step').on('click', function(e){
 		e.preventDefault();
@@ -558,7 +555,6 @@ $(function(){
 	});
 
 	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
-		console.log($(this).val());
 		GetDeliveryMethods($(this).val());
 	});
 	$('#quiz .mdl-button').on('clock', function(e){
@@ -566,24 +562,24 @@ $(function(){
 		return false;
 	});
 
-	$('.login').on('click', function(e){
+	// Открыть Форму авторизации
+	$('.login_btn').on('click', function(e){
 		openObject('auth');
+		$('#auth #login').show().removeClass('hidden');
+		$('#auth #registration').hide().addClass('hidden');
 		e.preventDefault();
 	});
-	$('#login .switch').on('click', function(e){
+
+	// Переключение вход / регистрация
+	$('#auth').on('click', '.switch', function(e){
 		e.preventDefault();
-		$(this).closest('#login').addClass('hidden');
-		$('#registration').removeClass('hidden');
-		Position($('#auth'));
-	});
-	$('#registration .switch').on('click', function(){
-		$(this).closest('#registration').addClass('hidden');
-		$('#login').removeClass('hidden');
+		$(this).closest('.modal_container').fadeOut().addClass('hidden');
+		$('#'+$(this).data('name')).hide().removeClass('hidden').fadeIn();
 		Position($('#auth'));
 	});
 
-	// Проверка формы авторизации
-	$('#login').on('click', '.sign-in', function(e){
+	// Проверка формы входа
+	$('#auth').on('click', '.sign-in', function(e){
 		var form = $(this).closest('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
@@ -602,15 +598,15 @@ $(function(){
 		}).done(function(data){
 			if(data.errm != 1){
 				closeObject('auth');
-				$('.login').closest('li').find('.switch').removeClass('hidden');
-				$('.login').addClass('hidden');
+				$('.cabinet_btn').removeClass('hidden');
+				$('.login_btn').addClass('hidden');
 			}else{
 				form.find('.error').text(data.msg).fadeIn();
 			}
 		});
 	});
 
-	// 	/** Проверка надежности пароля */
+	// Проверка надежности пароля
 	$('#registration #passwd').keyup(function(){
 		var passwd = $(this).val();
 		var passconfirm = $('#registration #passwdconfirm').val();
@@ -620,7 +616,6 @@ $(function(){
 			ValidatePassConfirm(passwd, passconfirm);
 		}
 	});
-
 
 	/** Проверка подтверждения пароля на странице регистрации */
 	$('#registration #passwdconfirm').keyup(function(){

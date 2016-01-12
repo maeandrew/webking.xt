@@ -633,26 +633,45 @@ section.center {
 }
 
 /*Login =======================================================================*/
-#auth .mdl-button {
-	float: right;
-	margin-left: .5em;
-}
 #auth {
-	padding: 7% 5%;
-	left: calc(50% - 150px);
+	left: calc(50% - 200px);
+	top: calc(50% - 300px);
+	width: 400px;
+	height: 600px;
+	box-sizing: border-box;
 }
 #auth h4 {
 	font-size: 1.875em;
 	color: #03A9F4;
+}
+#auth .mdl-button {
+	float: right;
+	margin-left: .5em;
 }
 #auth .error {
 	display: none;
 	color: #F44336;
 	padding-bottom: 1em;
 }
+/*#login,
+	width: 250px;
+}*/
 #login,
 #registration {
-	width: 250px;
+	position: absolute;
+	left: 15%;
+	right: 15%;
+	max-width: 100%;
+	max-height: 100%;
+	overflow: visible;
+}
+#login {
+	top: 25%;
+	bottom: 25%;
+}
+#registration {
+	top: 13%;
+	bottom: 13%;
 }
 #login > span,
 #registration > span {
