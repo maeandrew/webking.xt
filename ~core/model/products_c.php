@@ -14,7 +14,6 @@ class Products {
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 		$this->SetProductsListByFilter();
-//		var_dump($this->filter);
 		$this->SetMinMaxPrice();
 		$this->usual_fields = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "p.descr_xt_short",
 			"p.descr_xt_full", "p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.duplicate",
@@ -76,7 +75,6 @@ class Products {
 			GROUP BY p.id_product
 			ORDER BY RAND()
 			LIMIT ".$howmany;
-			//var_dump($sql);
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
@@ -701,7 +699,7 @@ class Products {
 					AND a.active = 1
 				ORDER BY ".$order_by
 				.$limit;
-//		print_r($sql);
+//			print_r($sql);
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -3574,9 +3572,6 @@ class Products {
 
 	//Вернуть актуальные фильтры с учетом выбраных
 	public function GetFilterFromCategoryNow($add_filters = NULL, $id_category){
-
-//print_r($add_filters);
-
 		$spec_str = '';
 		$cnt_active_filter = 0;
 		if($add_filters) {
@@ -3596,7 +3591,6 @@ class Products {
 				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
 				GROUP BY sp.id_prod
 				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
-//print_r($sql);
 			$arr = $this->db->GetArray($sql);
 		}
 
@@ -3604,7 +3598,6 @@ class Products {
 	}
 
 	public function GetCntFilterNow($id_category){
-//		print_r($add_filters);
 		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
@@ -3615,7 +3608,6 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-//		print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? $arr : false;
 	}
