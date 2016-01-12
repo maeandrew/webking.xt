@@ -994,10 +994,6 @@ class Products {
 
 	public function GetProductsCnt($and = false, $gid = 0, $params = array()){
 		$where = "";
-		$where2 = $this->SetProductsListByFilter();
-		if (is_array($where2)){
-			$where2 = ' AND p.id_product IN (' . implode(',',$where2). ')';
-		}
 		if($and !== false && count($and)){
 			// $where = " AND ";
 			foreach ($and as $k=>$v){
@@ -1038,7 +1034,7 @@ class Products {
 				HAVING p.visible = 1
 					AND (p.price_opt > 0 OR p.price_mopt > 0)
 					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0"
-			. $where2 . $this->price_range;
+			. $this->filter . $this->price_range;
 		}
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
