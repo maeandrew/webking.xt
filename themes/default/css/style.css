@@ -631,37 +631,45 @@ section.center {
 }
 
 /*Login =======================================================================*/
-#regs_log .mdl-button--colored .mdl-button {
-    text-transform: none;
-    border: 0px solid #e0e0e0;
-    padding: 0 10px;
-    line-height: 30px;
-    height: 30px;
-    color: white;
-    background-color: #FF5722;
-}
-#regs_log .mdl-button {
-    text-transform: none;
-    border: 0px solid #e0e0e0;
-    padding: 0 10px;
-    line-height: 30px;
-    height: 30px;
-    float: right;
-
-}
-#regs_log {
-	width: 300px;
+#auth {
+	left: calc(50% - 200px);
+	top: calc(50% - 300px);
+	width: 400px;
+	height: 600px;
+	box-sizing: border-box;
 }
 #regs_log h6 {
 	font-size: 22px;
 	color: #03A9F4;
 }
-#logs {
-	padding: 10% 0 10% 18%;
-    width: 64%;
+#auth .mdl-button {
+	float: right;
+	margin-left: .5em;
 }
-#regs {
-	    padding: 15%;
+#auth .error {
+	display: none;
+	color: #F44336;
+	padding-bottom: 1em;
+}
+/*#login,
+	width: 250px;
+}*/
+#login,
+#registration {
+	position: absolute;
+	left: 15%;
+	right: 15%;
+	max-width: 100%;
+	max-height: 100%;
+	overflow: visible;
+}
+#login {
+	top: 25%;
+	bottom: 25%;
+}
+#registration {
+	top: 13%;
+	bottom: 13%;
 }
 #logs span {
 	width: 80%;

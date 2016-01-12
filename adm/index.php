@@ -1,12 +1,14 @@
 <?php
 define('EXECUTE', 1);
+define(DIRSEP, DIRECTORY_SEPARATOR);
+date_default_timezone_set('Europe/Kiev');
 // phpinfo();
 require(dirname(__FILE__).'/../~core/sys/global_c.php');
 require(dirname(__FILE__).'/core/cfg.php');
 ini_set('display_errors', '1');
 $s_time = G::getmicrotime();
 session_start();
-G::DefineControllers($GLOBALS['PATH_contr']);
+$GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 require($GLOBALS['PATH_core'].'controller.php');

@@ -3,13 +3,13 @@ class _acl {
 	private static $rights = array(), $groups = array(), $perms = array(), $isAdmin = false;
 	public static function load($gid){
 		$cfg = $GLOBALS['ACL_PERMS'];
-		self::$isAdmin = ($gid === 1);
+		self::$isAdmin = ($gid == 1);
 		self::$rights = $cfg['rights'];
 		self::$groups = $cfg['groups'];
 		self::setGroup($gid); // select group
 	}
 	public static function isAllow($perm) {
-		return isset(self::$perms[$perm])?(self::$perms[$perm] === 1):false;
+		return self::$isAdmin?self::$isAdmin:(isset(self::$perms[$perm])?(self::$perms[$perm] === 1):false);
 	}
 	public static function isAdmin($perm){
 		return self::$isAdmin;

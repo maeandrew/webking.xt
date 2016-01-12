@@ -49,9 +49,26 @@ require($GLOBALS['PATH_sys'].'acl_c.php');
 require($GLOBALS['PATH_sys'].'mailer_c.php');
 require($GLOBALS['PATH_sys'].'status_c.php');
 require($GLOBALS['PATH_sys'].'images_c.php');
-$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+// connection to mysql server
+if(phpversion() >= 5.6){
+	$db = new mysqlPDO($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+}else{
+	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+}
+
 $GLOBALS['db'] =& $db;
-define ('DB_CACHE', false);
+$sql = "SELECT * FROM "._DB_PREFIX_."profiles";
+$profiles = $db->GetArray($sql);
+$admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
+foreach($profiles as $profile){
+	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
+}
+$GLOBALS['ACL_PERMS'] = array(
+	// default rights
+	'rights' => $admin_controllers,
+	// groups
+	'groups' => $profiles
+);
 $tpl = new Template();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************

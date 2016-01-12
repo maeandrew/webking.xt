@@ -33,8 +33,7 @@
 			<?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
 			<input type="text" name="name" id="name" class="input-l" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>"/>
 		</div>
-		<?if(in_array($_SESSION['member']['gid'], array(_ACL_SEO
-_, _ACL_ADMIN_))){?>
+		<?if(in_array($_SESSION['member']['gid'], array(_ACL_SEO_, _ACL_ADMIN_))){?>
 			<?if(isset($_POST['translit'])){?>
 				<div class="col-md-12 seo_block">
 					<div id="translit">

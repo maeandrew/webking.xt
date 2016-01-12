@@ -143,7 +143,6 @@ $(function(){
 		var sort = JSON.parse($.cookie('sorting'));
 		sort[current_controller]['value'] = ($(this).data('value'));
 		var sorting = JSON.stringify(sort);
-		console.log(sorting);
 		$.cookie('sorting', sorting, {
 			expires: 2,
 			path: '/'
@@ -299,11 +298,18 @@ $(function(){
 	//Стрелка указывающая на цену
 	var price_el = $('.price'),
 		price_nav_el = $('.price_nav');
+<<<<<<< HEAD
+	if(price_el.length > 0){
+		price_pos = Math.round(price_el.offset().left + (price_el.width()/2) - (price_nav_el.width()/2));
+		price_nav_el.offset({left:price_pos });
+	}
+=======
 	if(price_el.length > 0) {
 		var price_pos = Math.round(price_el.offset().left + (price_el.width() / 2) - (price_nav_el.width() / 2));
 		price_nav_el.offset({left: price_pos});
 	}
 	//console.log(price_el.offset());
+>>>>>>> 61a904d12adce326b7c64343e17c5b6251c88109
 
 	//Высота блока главной картики продукта
 	$('.product_main_img').css('height', $('.product_main_img').outerWidth());
@@ -364,12 +370,12 @@ $(function(){
 	});
 
 	// Добавление кнопки Закрыть всем модальным окнам
-	$('[data-type="modal"]').each(function(index, el) {
+	$('[data-type="modal"]').each(function(index, el){
 		$(this).append('<a href="#" class="material-icons close_modal btn_js" data-name="'+$(this).attr('id')+'">close</a>');
 	});
 
 	//Замена картинки для открытия в ориг размере
-	$('.product_main_img').on('click', function() {
+	$('.product_main_img').on('click', function(){
 		var img_src = $(this).find('img').attr('src'),
 			img_alt = $(this).find('img').attr('alt');
 		$('#big_photo img').attr({
@@ -441,35 +447,33 @@ $(function(){
 			checked = true;
 		}
 		$(this).prop("checked", checked);
-		console.log('sdf');
 	});
 
 	/* Обработчик данных из корзины */
-	$('submit').on('click', function(e){
-		console.log('er');
-		e.preventDefault();
+	// $('submit').on('click', function(e){
+	// 	e.preventDefault();
 
 
-		$.ajax({
+	// 	$.ajax({
 
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'add'
+	// 		url: URL_base+'ajaxorder',
+	// 		type: "POST",
+	// 		cache: false,
+	// 		dataType : "json",
+	// 		data: {
+	// 			"action": 'add'
 
-			}
-		}).done(function(){
-			if(data != false){
-				openObject('opened');
-			}else{
-				error(function() {
-					console.log('error');
-				});
-			}
-		});
-	});
+	// 		}
+	// 	}).done(function(){
+	// 		if(data != false){
+	// 			openObject('opened');
+	// 		}else{
+	// 			error(function() {
+	// 				console.log('error');
+	// 			});
+	// 		}
+	// 	});
+	// });
 	// dalee
 	$('#quiz .to_step').on('click', function(e){
 		e.preventDefault();
@@ -557,7 +561,6 @@ $(function(){
 	});
 
 	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
-		console.log($(this).val());
 		GetDeliveryMethods($(this).val());
 	});
 	$('#quiz .mdl-button').on('clock', function(e){
@@ -565,24 +568,28 @@ $(function(){
 		return false;
 	});
 
-	$('.login').on('click', function(e){
-		openObject('regs_log');
+	// Открыть Форму авторизации
+	$('.login_btn').on('click', function(e){
+		openObject('auth');
+		$('#auth #login').show().removeClass('hidden');
+		$('#auth #registration').hide().addClass('hidden');
 		e.preventDefault();
 	});
-	$('#logs .enter_btn').on('click', function(e){
+
+	// Переключение вход / регистрация
+	$('#auth').on('click', '.switch', function(e){
 		e.preventDefault();
-		$(this).closest('#logs').addClass('hidden');
-		$('#regs').removeClass('hidden');
-		Position($('#regs_log'));
+		$(this).closest('.modal_container').fadeOut().addClass('hidden');
+		$('#'+$(this).data('name')).hide().removeClass('hidden').fadeIn();
+		Position($('#auth'));
 	});
-	$('#regs .enter_btn').on('click', function(){
-		$(this).closest('#regs').addClass('hidden');
-		$('#logs').removeClass('hidden');
-		Position($('#regs_log'));
-	});
-	$('#logs .logist').on('click', function(e){
-		var email = $(this).closest('form').find('[name="email"]').val();
-		var passwd = $(this).closest('form').find('[name="passwd"]').val();
+
+	// Проверка формы входа
+	$('#auth').on('click', '.sign-in', function(e){
+		var form = $(this).closest('form'),
+			email = form.find('input#email').val(),
+			passwd = form.find('input#passwd').val();
+		form.find('.error').fadeOut();
 		e.preventDefault();
 		$.ajax({
 			url: URL_base+'ajaxlogin',
@@ -596,27 +603,17 @@ $(function(){
 			}
 		}).done(function(data){
 			if(data.errm != 1){
-				closeObject('regs_log');
-				$('.login').closest('li').find('.enter_btn').removeClass('hidden');
-				$('.login').addClass('hidden');
+				closeObject('auth');
+				$('.cabinet_btn').removeClass('hidden');
+				$('.login_btn').addClass('hidden');
 			}else{
 				console.log(data.msg);
 			}
 		});
 	});
 
-	/** Проверка формы регистрации */
-	$('#regs .regist').click(function(e){
-		var name = $(this).closest('form').find('[name="name"]').val();
-		var email = $(this).closest('form').find('[name="email"]').val();
-		e.preventDefault();
-		if(email.length > 0){
-			ValidateEmail(email, 1);
-		}
-	});
-
-	// 	/** Проверка надежности пароля */
-	$('#passwd').keyup(function(){
+	// Проверка надежности пароля
+	$('#registration #passwd').keyup(function(){
 		var passwd = $(this).val();
 		var passconfirm = $('#regs #passwdconfirm').val();
 		ValidatePass(passwd);
@@ -625,7 +622,6 @@ $(function(){
 			ValidatePassConfirm(passwd, passconfirm);
 		}
 	});
-
 
 	/** Проверка подтверждения пароля на странице регистрации */
 	$('#passwdconfirm').keyup(function(){

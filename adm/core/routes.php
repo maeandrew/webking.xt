@@ -20,14 +20,14 @@ if (empty($ma[1])){
 $GLOBALS['CurrentController'] = $ma[1][0];
 $GLOBALS['REQAR'] = $ma[1];
 
-	if (!G::IsLogged()){
-		$GLOBALS['CurrentController'] = 'login';
-		$GLOBALS['REQAR'] = array();
-	}else{
-		$User = new Users();
-		$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
-		_acl::load($User->fields['gid']);
-	}
+if (!G::IsLogged()){
+	$GLOBALS['CurrentController'] = 'login';
+	$GLOBALS['REQAR'] = array();
+}else{
+	$User = new Users();
+	$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
+	_acl::load($User->fields['gid']);
+}
 //print_r($GLOBALS['REQAR']);
 /**
  * Для удобства некоторые переменные из REQUEST_URI объявляются в массиве $_GET
