@@ -979,6 +979,7 @@ aside {
 	height: 100%;
 }
 .banner_hide aside {
+	overflow-y: scroll;
 	position: fixed;
 	top: 52px;
 	bottom: 0;

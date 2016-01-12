@@ -692,7 +692,7 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. $this->price_range . "
+				".$where . $where2. $this->price_range ."
 				GROUP BY price_opt
 				HAVING p.visible = 1
 					".$prices_zero."
@@ -3536,7 +3536,7 @@ class Products {
 	}
 
 	//Вернуть все фильтры для заданной категории
-	public function GetFilterFromCategory($id_category){
+	public function GetFilterFromCategory($id_categorys){
 //		if (isset($GLOBALS['Price_range'])){
 //			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
 //			FROM "._DB_PREFIX_."cat_prod AS cp
@@ -3557,7 +3557,7 @@ class Products {
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category = ".$id_category."
+			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
@@ -3587,23 +3587,26 @@ class Products {
 				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
 				GROUP BY sp.id_prod
 				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
+//                 print_r($sql);
 			$arr = $this->db->GetArray($sql);
 		}
 
 		return  isset($arr) ? $arr : false;
 	}
 
-	public function GetCntFilterNow($id_category){
+	public function GetCntFilterNow($id_categorys){
 		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category = ".$id_category."
+			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
+            -- AND sp.id_prod IN ()
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
+//        print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? $arr : false;
 	}

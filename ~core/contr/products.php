@@ -572,7 +572,7 @@ function r_implode($glue, $pieces){
 $cnt = $i = 0;
 $group_arr = $for_sql = $id_spec = [];
 
-$filter_cat = $products->GetFilterFromCategory($id_category);
+$filter_cat = $products->GetFilterFromCategory($res);
 
 $actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
 if($actualFilters){
@@ -583,7 +583,7 @@ if($actualFilters){
 	$tpl->Assign('visible_fil' ,array_unique($id_spec));
 }
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
-$cntF = $products->GetCntFilterNow($id_category);
+$cntF = $products->GetCntFilterNow($res);//$id_category
 if($GLOBALS['Filters']) {
 	foreach ($GLOBALS['Filters'] as $id_fil => $val) {
 		$id_filter[] = $id_fil;

@@ -72,7 +72,7 @@
 									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
 									<span>
 										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
-										<span class="qnt_products fright"><?= ($present || in_array($value['id'][0], $id_filter)) ? $value['count'] : ''?></span>
+										<!--<span class="qnt_products fright"><?= ($present || in_array($value['id'][0], $id_filter)) ? $value['count'] : ''?></span>-->
 									</span>
 								</label>
 							</a>
