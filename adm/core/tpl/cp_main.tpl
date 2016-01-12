@@ -148,8 +148,7 @@
 					<col width="15%">
 				</colgroup>
 				<tbody>
-					<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_SEO
-_)){?>
+					<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_SEO_)){?>
 						<form action="<?=$GLOBALS['URL_request']?>" method="post">
 							<tr>
 								<td>

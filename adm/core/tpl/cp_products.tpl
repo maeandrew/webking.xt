@@ -29,8 +29,7 @@
 	<form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
-				<?if($_SESSION['member']['gid'] == _ACL_SEO
-_){?>
+				<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
 					<col width="10%">
 					<col width="100%">
 					<col width="50px">
@@ -47,8 +46,7 @@ _){?>
 				<tr>
 					<td class="left">Артикул</td>
 					<td class="left">Название товара</td>
-					<?if($_SESSION['member']['gid'] == _ACL_SEO
-_){?>
+					<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
 						<td class="left">Поп Гл</td>
 					<?}?>
 					<td class="left">&uarr; &darr;</td>
@@ -62,8 +60,7 @@ _){?>
 						<td>
 							<?=!$i['visible']?'<span class="invisible">(скрыт) </span>':null?><a href="<?=$GLOBALS['URL_base'].'adm/productedit/'.$i['id_product']?>"><?=$i['name']?></a>
 						</td>
-						<?if($_SESSION['member']['gid'] == _ACL_SEO
-_){?>
+						<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
 							<td class="left">
 								<input type="checkbox" id="pop_<?=$i['id_product']?>" name="pop_<?=$i['id_product']?>" <?if(isset($pops[$i['id_product']])){?>checked="checked"<?}?> onchange="SwitchPops(this, <?=$i['id_product']?>,0)">
 								<input type="checkbox" id="popmain_<?=$i['id_product']?>" name="popmain_<?=$i['id_product']?>" <?if(isset($popsMain[$i['id_product']])){?>checked="checked"<?}?> onchange="SwitchPops(this, <?=$i['id_product']?>, 1)">
@@ -85,8 +82,7 @@ _){?>
 				<tr>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-					<?if($_SESSION['member']['gid'] == _ACL_SEO
-_){?>
+					<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
 						<td>&nbsp;</td>
 					<?}?>
 					<td class="center">

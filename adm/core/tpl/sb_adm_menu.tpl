@@ -143,12 +143,12 @@
 					<li <?=$GLOBALS['CurrentController'] == 'deliveryadd'?'class="sel"':null;?>>
 						<a href="/adm/deliveryadd/">Добавить вид доставки</a>
 					</li>
-				</ul>
+				</ul>-->
 
 			<?}?>
 
 			<?if(_acl::isAllow('manufacturers')){?>
-				<li <?=$GLOBALS['CurrentController'] == 'manufacturers'?'class="sel"':null;?>>
+				<!-- <li <?=$GLOBALS['CurrentController'] == 'manufacturers'?'class="sel"':null;?>>
 					<a href="/adm/manufacturers/">Производители</a>
 					<a href="/adm/manufactureradd/" class="add <?=$GLOBALS['CurrentController'] == 'manufactureradd'?'sel':null;?>" title="Добавить производителя">Добавить производителя</a>
 				</li>
@@ -159,7 +159,7 @@
 					</li>
 				</ul> -->
 			<?}?>
-
+			<?var_dump(_acl::isAllow('users'));?>
 			<?if(_acl::isAllow('users')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'users'?'class="sel"':null;?>>
 					<a href="/adm/users/">Пользователи</a>
@@ -174,8 +174,7 @@
 							<a href="/adm/users/<?=_ACL_MODERATOR_?>">Администраторы наполнения</a>
 						</li>
 						<li>
-							<a href="/adm/users/<?=_ACL_SEO
-_?>">СЕО-оптимизаторы</a>
+							<a href="/adm/users/<?=_ACL_SEO_?>">СЕО-оптимизаторы</a>
 						</li>
 						<li>
 							<a href="/adm/users/<?=_ACL_CUSTOMER_?>">Покупатели</a>
@@ -197,8 +196,7 @@ _?>">СЕО-оптимизаторы</a>
 							<a href="/adm/adminadd/">Добавить администратора</a>
 						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'seoadd'?'class="sel"':null;?>>
-							<a href="/adm/SEO
-add/">Добавить СЕО-оптимизатора</a>
+							<a href="/adm/SEO_optimizatoradd/">Добавить СЕО-оптимизатора</a>
 						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'customeradd'?'class="sel"':null;?>>
 							<a href="/adm/customeradd/">Добавить покупателя</a>
@@ -220,8 +218,7 @@ add/">Добавить СЕО-оптимизатора</a>
 					<a href="/adm/remitters/">Отправители</a>
 				</li>
 			<?}?>
-			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO
-_)){?>
+			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO_)){?>
 				<li>
 					<ul class="sb_menusub">
 						<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
@@ -293,5 +290,4 @@ _)){?>
 		</ul>
 		<div class="clear"></div>
 	</div>
-
 <?}?>

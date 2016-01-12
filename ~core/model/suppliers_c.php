@@ -22,7 +22,6 @@ class Suppliers extends Users {
 		$active = "AND active = 1";
 		if($all == 1){}
 			$active = '';
-		$id = mysql_real_escape_string($id);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."supplier
 			WHERE id_user = '".$id."'
@@ -36,7 +35,7 @@ class Suppliers extends Users {
 	}
 
 	public function GetSupplierIdByArt($article){
-		$article = mysql_real_escape_string(trim($article));
+		$article = trim($article);
 		$sql = "SELECT id_user
 			FROM "._DB_PREFIX_."supplier
 			WHERE article = '".$article."'";
@@ -136,13 +135,13 @@ class Suppliers extends Users {
 		$id_user = $this->db->GetInsId();
 		// Supplier
 		$f['id_user'] = $id_user;
-		$f['article'] = mysql_real_escape_string(trim($arr['article']));
-		$f['phones'] = mysql_real_escape_string(trim($arr['phones']));
-		$f['place'] = mysql_real_escape_string(trim($arr['place']));
-		$f['currency_rate'] = mysql_real_escape_string(trim($arr['currency_rate']));
-		$f['koef_nazen_mopt'] = mysql_real_escape_string(trim($arr['koef_nazen_mopt']));
-		$f['koef_nazen_opt'] = mysql_real_escape_string(trim($arr['koef_nazen_opt']));
-		$f['filial'] = mysql_real_escape_string(trim($arr['filial']));
+		$f['article'] = trim($arr['article']);
+		$f['phones'] = trim($arr['phones']);
+		$f['place'] = trim($arr['place']);
+		$f['currency_rate'] = trim($arr['currency_rate']);
+		$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
+		$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
+		$f['filial'] = trim($arr['filial']);
 		$f['is_partner'] = 0; if (isset($arr['is_partner']) && $arr['is_partner'] == "on") $f['is_partner'] = 1;
 		$f['make_csv'] = 0;
 		if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
@@ -195,7 +194,6 @@ class Suppliers extends Users {
 	 *
 	 */
 	public function AddWarehouse($arr){
-		$id = mysql_real_escape_string(trim($arr['id_supplier']));
 		$sql = "INSERT INTO "._DB_PREFIX_."warehouse_supplier(id_supplier) VALUES (\"$id\")";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
@@ -222,14 +220,14 @@ class Suppliers extends Users {
 			return false;
 		}
 		unset($f);
-		$f['id_user'] = mysql_real_escape_string(trim($arr['id_user']));
-		$f['article'] = mysql_real_escape_string(trim($arr['article']));
-		$f['phones'] = mysql_real_escape_string(trim($arr['phones']));
-		$f['place'] = mysql_real_escape_string(trim($arr['place']));
-		$f['currency_rate'] = mysql_real_escape_string(trim($arr['currency_rate']));
-		$f['koef_nazen_mopt'] = mysql_real_escape_string(trim($arr['koef_nazen_mopt']));
-		$f['koef_nazen_opt'] = mysql_real_escape_string(trim($arr['koef_nazen_opt']));
-		$f['filial'] = mysql_real_escape_string(trim($arr['filial']));
+		$f['id_user'] = $arr['id_user'];
+		$f['article'] = trim($arr['article']);
+		$f['phones'] = trim($arr['phones']);
+		$f['place'] = trim($arr['place']);
+		$f['currency_rate'] = trim($arr['currency_rate']);
+		$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
+		$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
+		$f['filial'] = trim($arr['filial']);
 		$f['is_partner'] = 0;
 		if(isset($arr['is_partner']) && $arr['is_partner'] == "on"){
 			$f['is_partner'] = 1;
@@ -242,8 +240,8 @@ class Suppliers extends Users {
 		if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
 			$f['make_csv'] = 1;
 		}
-		$f['real_email'] = mysql_real_escape_string(trim($arr['real_email']));
-		$f['real_phone'] = mysql_real_escape_string(trim($arr['real_phone']));
+		$f['real_email'] = trim($arr['real_email']);
+		$f['real_phone'] = trim($arr['real_phone']);
 		$f['send_mail_order'] = 0;
 		if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on" && $f['real_email'] != ''){
 			$f['send_mail_order'] = 1;
