@@ -101,7 +101,6 @@ class Orders {
 
 	// по id
 	public function SetFieldsById($id){
-		$id = mysql_real_escape_string($id);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."order o
 			WHERE o.id_order = \"$id\"";

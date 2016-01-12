@@ -32,12 +32,155 @@
 			<?if($orders){?>
 				<ul class="orders_list">
 					<?foreach ($orders as $i){
-						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){?>
-						<li>
-							<div class="order_head">
-								<p>Совместная корзина № <?=$i['id_order']?></p>
+						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){
+							//print_r($i['city_info']);
+							?>
+						<!-- <li>
+							<div class="one_order">
+								<div class="order_head">
+									<p>Совместная корзина № <?=$i['id_order']?></p>
+									<div>Выполнен | icon icon icon icon icon_1</div>
+									<span>Детали</span><span>Участники</span>
+								</div>
+								<div>
+									<div>
+										<img src="">
+										<span>Дата заказа</span>
+										<p>12/06/15</p>
+									</div>
+									<div>
+										<img src="">
+										<span>Товаров</span>
+										<p>329 шт.</p>
+									</div>
+									<div>
+										<img src="">
+										<span>Сумма к оплате</span>
+										<p>2516,12 грн</p>
+									</div>
+									<div>
+										<img src="">
+										<span>Скидка</span>
+										<p>16%</p>
+									</div>
+									<div>
+										<h6>Ваш менеджер</h6>
+										<img src="">
+										<span>Вишневская Оксана</span>
+										<span>099 435 4672</span>
+										<img src=""><img src=""><span>2234</span>
+									</div>
+									<div>
+										<h6>Способ доставки</h6>
+										<p><span>ТТН:</span>45245687989</p>
+										<p><span>Город:<span>Харьков</p>
+										<p><span>Отделение</span>№62 ул.Кирова</p>
+									</div>
+								</div>
 							</div>
+						</li> -->
+
+						<li>
+							<section class="order">
+							    <div class="title">
+							      <div class="container">
+							        <span class="number">Совместная корзина № <?=$i['id_order']?></span>
+							        <div class="print">
+							          <div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
+							          <ul class="expanded">
+							            <li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_date_range_black_24px.svg"></a></li>
+							            <li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_local_shipping_black_24px.svg"></a></li>
+							            <li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_attach_money_black_24px.svg"></a></li>
+							            <li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li>
+							          </ul>
+							        </div>
+							        <div class="status">Выполнен</div>
+							      </div>
+							      <ul class="tabs">
+							        <li><a href="#" class="active">Детали</a></li>
+							        <li><a href="#">Учасники</a></li>
+								  </ul>
+
+
+
+								<!-- <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+								  <div class="mdl-tabs__tab-bar">
+								      <a href="#starks-panel" class="mdl-tabs__tab is-active">Starks</a>
+								      <a href="#lannisters-panel" class="mdl-tabs__tab">Lannisters</a>
+								      <a href="#targaryens-panel" class="mdl-tabs__tab">Targaryens</a>
+								  </div>
+
+								  <div class="mdl-tabs__panel is-active" id="starks-panel">
+								     <ul class="tabs">
+								      <li><a href="#" class="active">Детали</a></li>
+								    </ul>
+								  </div>
+								  <div class="mdl-tabs__panel" id="lannisters-panel">
+								    <ul>
+								      <li><a href="#">Учасники</a></li>
+								    </ul>
+								  </div>
+								</div> -->
+
+							    </div>
+							    <div class="content">
+							      <div class="info">
+							        <div class="date">
+							          <span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_date_range_black_24px.svg"></span>
+							          <span class="label">Дата заказа</span>
+							          <span class="value"><?=date("d.m.Y",$i['creation_date'])?></span>
+							        </div>
+							        <div class="count">
+							          <span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_local_shipping_black_24px.svg"></span>
+							          <span class="label">Товаров</span>
+							          <span class="value">353 шт.</span>
+							        </div>
+							        <div class="sum">
+							          <span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_attach_money_black_24px.svg"></span>
+							          <span class="label">Сумма к оплате</span>
+							          <span class="value"><?=number_format($i['sum_discount'],2,',','')?> грн.</span>
+							        </div>
+							        <div class="procent">
+							          <span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_shuffle_black_24px.svg"></span>
+							          <span class="label">Скидка</span>
+							          <span class="value">%</span>
+							        </div>
+							      </div>
+							      <div class="additional">
+							        <div class="manager">
+							          <div class="label">Ваш менеджер</div>
+							          <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+							          <div class="details">
+							            <div class="line_1"><?=$i['contragent']?> / Гвоздик Алёна</div>
+							            <div class="line_2"><?=$i['contragent_info']['phones']?></div>
+							            <div class="line_3">like dislike <span class="votes_cnt">15686</span></div>
+							          </div>
+							        </div>
+							        <div class="delivery">
+							          <div class="label">Способ доставки</div>
+							          <div class="avatar"><img src="http://lorempixel.com/abstract/70/70/" alt="avatar" /></div>
+							          <div class="details">
+							            <div class="line_1">
+							              <span class="label">ТТН:</span>
+							              <span class="value">4524524456456</span>
+							            </div>
+							            <div class="line_2">
+							              <span class="label">Город:</span>
+							              <span class="value"><?=$i['city_info']['name']?></span>
+							            </div>
+							            <div class="line_3">
+							              <span class="label">Отделение:</span>
+							              <span class="value"><?=$i['city_info']['address']?></span>
+							            </div>
+							          </div>
+							        </div>
+							      </div>
+							    </div>
+							</section>
 						</li>
+
+
+
 							<!-- <li class="order clearfix col-lg-8 col-md-9 col-sm-12">
 								<div class="order_header">
 									<p>Заказ <b>№ <?=$i['id_order']?></b> от <?=date("d.m.Y",$i['creation_date'])?></p>
