@@ -31,9 +31,10 @@
 		}?> editing">
 			<?if($orders){?>
 				<ul class="orders_list">
+							<? //print_r($orders); ?>
 					<?foreach ($orders as $i){
 						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){
-							//print_r($i['city_info']);
+
 							?>
 						<!-- <li>
 							<div class="one_order">
@@ -195,28 +196,24 @@
 											</div>
 										</div>
 									</div>
-									<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
-										<div class="info">
-											<div class="date">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_date_range_black_24px.svg"></span>
-												<span class="label">Дата заказа</span>
-												<span class="value"><?=date("d.m.Y",$i['creation_date'])?></span>
-											</div>
-											<div class="count">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_local_shipping_black_24px.svg"></span>
-												<span class="label">Товаров</span>
-												<span class="value">353 шт.</span>
-											</div>
-											<div class="discount">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_shuffle_black_24px.svg"></span>
-												<span class="label">Скидка</span>
-												<span class="value">%</span>
-											</div>
-										</div>
-									</div>
+									<?foreach ($i['products'] as $key => $product) {
+										//print_r( $product);
+										if($product['opt_qty'] > 0){
+											$mode = 'opt';
+										}else{
+											$mode = 'mopt';
+										}?>
+										<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
+										<div>Наименование товара :<?=$product['name'];?></div>
+										<div>Оптовая сумма :<?=$product[$mode.'_sum'];?></div>
+										<div>Количество :<?=$product[$mode.'_qty'];?></div>
+										<div>Цена :<?=$product['site_price_'.$mode]?></div>
+									<?}?>
 								</div>
 							</section>
 						</li>
+
+
 
 
 

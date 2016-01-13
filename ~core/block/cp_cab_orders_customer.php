@@ -119,10 +119,17 @@ foreach ($orders as &$order) {
 
 	$Citys->SetFieldsById($Order->fields['id_city']);
 	$order['city_info'] = $Citys->fields;
+
+	$order['products'] = $Order->GetOrderForCustomer(array("o.id_order" => $order['id_order']));
 }
 $tpl->Assign('orders', $orders);
 
+/*$arr = array();
+foreach($orders as &$order_2){
+	$arr = $Order->GetOrderForCustomer(array("o.id_order" => $order_2['id_order']));
+}*/
 
+//$tpl->Assign('products', $arr);
 
 $User->SetUser($_SESSION['member']);
 
