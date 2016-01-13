@@ -842,6 +842,22 @@ table.supplier_assort_table {
 #navi2 #nav li {
 	padding: 0;
 }
+.content .container img {
+	vertical-align: middle;
+    width: 24px;
+    height: 24px;
+}
+.order.mdl-tabs.is-upgraded .mdl-tabs__tab {
+    background: transparent;
+}
+.order .mdl-tabs__tab-bar{border-bottom: 0;}
+.order.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+    background-color: #ff5722;
+}
+.order.mdl-tabs__tab-bar {
+	-webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
 .row #settings .passwdconfirm{
 	display: block;
 }
