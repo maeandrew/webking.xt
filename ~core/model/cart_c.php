@@ -447,5 +447,23 @@ class Cart {
 		}
 	}
 
+	// Выборка всех корзин связанных промо-кодом
+	public function GetInfoToPromo($promo = 'aaa'){
+		global $db;
+		$sql = "SELECT c.*, u.name, u.email, cus.phones, u.promo_code , cus.discount , cus.id_contragent
+		FROM xt_cart AS c
+		LEFT JOIN xt_user AS u
+		ON c.id_user = u.id_user
+		LEFT JOIN xt_customer AS cus
+		ON cus.id_user = u.id_user
+		WHERE promo = '".$promo."';";
+		// Добавить если нужно отсекать товары на которые нет поставщиков
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 
 }?>

@@ -34,10 +34,12 @@ switch($User->fields['gid']){
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "waitinglist"){
 				$header = 'Лист ожидания';
 				require($GLOBALS['PATH_block'].'cp_cab_waitinglist_customer.php');
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "cooperative"){
+				$header = 'Совместные заказы';
+				require($GLOBALS['PATH_block'].'cp_cab_cooperative.php');
 			}else{
 				$header = 'Мои заказы';
 				require($GLOBALS['PATH_block'].'cp_cab_orders_customer.php');
-
 			}
 		}
 		if(true == $parsed_res['issuccess']){

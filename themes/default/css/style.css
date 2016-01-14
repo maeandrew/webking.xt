@@ -2227,14 +2227,30 @@ aside#catalog .catalog_close:hover i {
 #cab_left_bar li {
     margin-bottom: 0.5em;
 }
-.nav li{
+.nav li {
     margin-left: 2.5em;
 }
-.material-icons{
+.material-icons {
     vertical-align: top;
     margin-right:.4em;
 }
-.msg-info{
+.msg-info {
     margin: 1em;
+}
+.del_x i {
+	padding: 5px;
+	background: #FFF;
+	border-radius: 50%;
+	font-size: 1.3em;
+	cursor: pointer;
+}
+.del_x i:hover {
+	color: #f00;
+
+}
+.order .avatar.img {
+	margin-top: -6px;
+	width: 36px;
+	height: 36px;
 }
 /*Стили кабинета (ent)*/

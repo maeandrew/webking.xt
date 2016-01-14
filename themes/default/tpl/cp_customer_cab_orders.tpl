@@ -163,36 +163,42 @@
                                         <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
                                             <thead>
                                                 <tr>
-                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
-                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    <th class="mdl-data-table__cell--non-numeric">
                                                     </th>
                                                     <th class="mdl-data-table__cell--non-numeric">Статус</th>
                                                     <th>Сумма</th>
-                                                    <th>Unit price</th>
+                                                    <th></th>
                                                 </tr>
+
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
-                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
-                                                    </th>                                                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-                                                    <td>25</td>
-                                                    <td>$2.90</td>
+                                                    <td class="mdl-data-table__cell--non-numeric">
+                                                        <div class="avatar img"><img src="http://www.lishnih.net/6/cheba.jpg" alt="avatar" /></div>
+                                                    </td>
+                                                    <td class="mdl-data-table__cell--non-numeric stat_user_cab">Личный</td>
+                                                    <td>5548.75</td>
+                                                    <td></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td class="mdl-data-table__cell--non-numeric">
+                                                        <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    </td>
+                                                    <td class="mdl-data-table__cell--non-numeric stat_user_cab">Готов</td>
+                                                    <td>2500.00</td>
+                                                    <td class="del_x"><i class="material-icons">close</i></td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
-                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
-                                                    </th>                                                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-                                                    <td>50</td>
-                                                    <td>$1.25</td>
+                                                    <td class="mdl-data-table__cell--non-numeric">
+                                                        <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    </td>
+                                                    <td class="mdl-data-table__cell--non-numeric stat_user_cab">Заполняется</td>
+                                                    <td>2500.00</td>
+                                                    <td class="del_x"><i class="material-icons">close</i></td>
                                                 </tr>
-                                                <tr>
-                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
-                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
-                                                    </th>                                                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-                                                    <td>10</td>
-                                                    <td>$2.35</td>
-                                                </tr>
+            <?//print_r($i)?>
                                             </tbody>
                                         </table>
 										<div class="additional info">
