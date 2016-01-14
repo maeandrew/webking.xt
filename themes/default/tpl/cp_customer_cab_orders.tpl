@@ -178,19 +178,13 @@
                                             <div class="label">Необходимо передать его любым удобным для Вас способом:</div>
                                         </div>
 									</div>
-									<?foreach ($i['products'] as $key => $product) {
-										//print_r( $product);
-										if($product['opt_qty'] > 0){
-											$mode = 'opt';
-										}else{
-											$mode = 'mopt';
-										}?>
-										<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
-										<div>Наименование товара :<?=$product['name'];?></div>
-										<div>Оптовая сумма :<?=$product[$mode.'_sum'];?></div>
-										<div>Количество :<?=$product[$mode.'_qty'];?></div>
-										<div>Цена :<?=$product['site_price_'.$mode]?></div>
-									<?}?>
+									<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
+
+										<div id="" data-type=".tpl">
+											<div class=""></div>
+										</div>
+
+									</div>
 								</div>
 							</section>
 						</li>

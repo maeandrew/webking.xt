@@ -34,6 +34,21 @@ function ajax(target, action, data, dataType){
 	return ajax;
 }
 
+
+function GetCabProdAjax(){
+	if($('#cart').hasClass('opened')){
+		closeObject('cart');
+	}else{
+		$.ajax({
+			url: URL_base+'cp_customer_cab_orders_prod_list.php'
+		}).done(function(data){
+			var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
+			$('#cart > .modal_container').html(res[1]);
+			openObject('cart');
+		});
+	}
+}
+
 // Change product view
 function ChangeView(view){
 	if(view == 'list'){
