@@ -157,11 +157,16 @@
 											</div>
 										</div>
 									</div>
-
-
 									<div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_order']?>">
+										<div class="info">
+											<div class="date">
+												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_date_range_black_24px.svg"></span>
+												<span class="label">Дата заказа</span>
+												<span class="value"><?=date("d.m.Y",$i['creation_date'])?></span>
+											</div>
 
-										<div class="additional info">
+										</div>
+										<div class="additional">
 											<div class="manager">
 												<div class="label">Ваш менеджер</div>
 												<div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
@@ -171,12 +176,25 @@
 													<div class="line_3">like dislike <span class="votes_cnt">15686</span></div>
 												</div>
 											</div>
-
+											<div class="delivery">
+												<div class="label">Способ доставки</div>
+												<div class="avatar"><img src="http://lorempixel.com/abstract/70/70/" alt="avatar" /></div>
+												<div class="details">
+													<div class="line_1">
+														<span class="label">ТТН:</span>
+														<span class="value">4524524456456</span>
+													</div>
+													<div class="line_2">
+														<span class="label">Город:</span>
+														<span class="value"><?=$i['city_info']['name']?></span>
+													</div>
+													<div class="line_3">
+														<span class="label">Отделение:</span>
+														<span class="value"><?=$i['city_info']['address']?></span>
+													</div>
+												</div>
+											</div>
 										</div>
-                                        <div>
-                                            <div class="label">Промо-кода для совместной корзины: 5577321</div>
-                                            <div class="label">Необходимо передать его любым удобным для Вас способом:</div>
-                                        </div>
 									</div>
 									<?foreach ($i['products'] as $key => $product) {
 										//print_r( $product);
