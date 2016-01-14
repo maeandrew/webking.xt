@@ -160,7 +160,41 @@
 
 
 									<div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_order']?>">
-
+                                        <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
+                                            <thead>
+                                                <tr>
+                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
+                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    </th>
+                                                    <th class="mdl-data-table__cell--non-numeric">Статус</th>
+                                                    <th>Сумма</th>
+                                                    <th>Unit price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
+                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    </th>                                                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                                                    <td>25</td>
+                                                    <td>$2.90</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
+                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    </th>                                                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                                                    <td>50</td>
+                                                    <td>$1.25</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="mdl-data-table__cell--non-numeric"><div class="">
+                                                        <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+                                                    </th>                                                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                                                    <td>10</td>
+                                                    <td>$2.35</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 										<div class="additional info">
 											<div class="manager">
 												<div class="label">Ваш менеджер</div>
@@ -239,7 +273,7 @@
 						<?}?>
 					<?}?>
 				</ul>
-			<?}else{?>
+			<?}else{ ?>
 				<p class="no_orders">У Вас нету ни одного заказа</p>
 			<?}?>
 		</div>
