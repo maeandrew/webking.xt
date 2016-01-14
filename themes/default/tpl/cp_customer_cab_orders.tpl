@@ -89,10 +89,14 @@
 										<div class="print">
 											<div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
 											<ul class="expanded">
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg"></a></li>
+												<!-- <img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li>
+												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li> -->
+												<li><a href="#"><svg class="icon"><use xlink:href="#XLS"></use></svg></a></li>
+												<li><a href="#"><svg class="icon"><use xlink:href="#txt"></use></svg></a></li>
+												<li><a href="#"><svg class="icon"><use xlink:href="#img"></use></svg></a></li>
+												<li><a href="#"><svg class="icon"><use xlink:href="#paper"></use></svg></a></li>
 											</ul>
 										</div>
 										<div class="status">Выполнен</div>
@@ -107,43 +111,73 @@
 									<div class="mdl-tabs__panel is-active" id="starks-panel-<?=$i['id_order']?>">
 										<div class="info">
 											<div class="date">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_date_range_black_24px.svg"></span>
+												<span class="icon">
+													<!-- <img src="<?=_base_url?>/themes/default/img/ic_date_range_black_24px.svg"> -->
+
+													<svg class="icon">
+													  <use xlink:href="#date"></use>
+													</svg>
+
+												</span>
 												<span class="label">Дата заказа</span>
 												<span class="value"><?=date("d.m.Y",$i['creation_date'])?></span>
 											</div>
 											<div class="count">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_local_shipping_black_24px.svg"></span>
+												<span class="icon">
+ 													<!--<img src="<?=_base_url?>/themes/default/img/ic_local_shipping_black_24px.svg"> -->
+ 													<svg class="icon">
+													  <use xlink:href="#shipping"></use>
+													</svg>
+												</span>
 												<span class="label">Товаров</span>
-												<span class="value">353 шт.</span>
+												<span class="value"><?=count($i['products'])?> шт.</span>
 											</div>
 											<div class="sum">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_attach_money_black_24px.svg"></span>
+												<span class="icon">
+													<!-- <img src="<?=_base_url?>/themes/default/img/ic_attach_money_black_24px.svg"> -->
+													<svg class="icon">
+													  <use xlink:href="#money"></use>
+													</svg>
+												</span>
 												<span class="label">Сумма к оплате</span>
 												<span class="value"><?=number_format($i['sum_discount'],2,',','')?> грн.</span>
 											</div>
 											<div class="discount">
-												<span class="icon"><img src="<?=_base_url?>/themes/default/img/ic_shuffle_black_24px.svg"></span>
+												<span class="icon">
+													<!-- <img src="<?=_base_url?>/themes/default/img/ic_shuffle_black_24px.svg"> -->
+													<svg class="icon">
+													  <use xlink:href="#shuffle"></use>
+													</svg>
+												</span>
 												<span class="label">Скидка</span>
-												<span class="value">%</span>
+												<span class="value"><?=(1 - $i['discount']) * 100?>%</span>
 											</div>
 										</div>
 										<div class="additional">
 											<div class="manager">
 												<div class="label">Ваш менеджер</div>
-												<div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+												<div class="avatar">
+													<img src="http://lorempixel.com/fashion/70/70/" alt="avatar" />
+												</div>
 												<div class="details">
-													<div class="line_1"><?=$i['contragent']?> / Гвоздик Алёна</div>
+													<div class="line_1"><?=$i['contragent']?></div>
 													<div class="line_2"><?=$i['contragent_info']['phones']?></div>
-													<div class="line_3">like dislike <span class="votes_cnt">15686</span></div>
+													<div class="line_3">
+														<a href="#"><svg class="icon"><use xlink:href="#like"></use></svg></a>
+														<a href="#"><svg class="icon"><use xlink:href="#dislike"></use></svg></a>
+														<span class="votes_cnt">15686</span>
+													</div>
 												</div>
 											</div>
 											<div class="delivery">
 												<div class="label">Способ доставки</div>
-												<div class="avatar"><img src="http://lorempixel.com/abstract/70/70/" alt="avatar" /></div>
+												<div class="avatar">
+													<img src="http://lorempixel.com/abstract/70/70/" alt="avatar" />
+												</div>
 												<div class="details">
 													<div class="line_1">
 														<span class="label">ТТН:</span>
-														<span class="value">4524524456456</span>
+														<span class="value"> - </span>
 													</div>
 													<div class="line_2">
 														<span class="label">Город:</span>
@@ -216,7 +250,7 @@
 
 
 											<div id="products"></div>
-
+											<div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div>
 
 									</div>
 								</div>
