@@ -662,5 +662,80 @@
 		<div class="modal_container"></div>
 	</div>
 
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
+			<style type="text/css">
+				.st2{font-family:'Arial-BoldMT';}
+				.st3{font-size:12px;}
+			</style>
+			<path class="st0" d="M-467,269h24v24h-24V269z"/>
+			<path class="st1" d="M-449.2,290.5h-11.7c-0.9,0-1.7-0.8-1.7-1.7v-15.6c0-0.9,0.8-1.7,1.7-1.7h7.6l5.8,5.6v11.7
+				C-447.4,289.7-448.2,290.5-449.2,290.5z"/>
+			<path class="st1" d="M-453.9,271.8l0,4c0,0.7,0.6,1.3,1.3,1.3h5.2"/>
+			<text transform="matrix(1 0 0 1 -458.8125 287.5)" class="st2 st3">X</text>
+		</symbol>
+
+		<symbol id="txt" x="0px" y="0px" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
+			<path class="st0" d="M-467,269h24v24h-24V269z"/>
+			<path class="st1" d="M-449.2,290.5h-11.7c-0.9,0-1.7-0.8-1.7-1.7v-15.6c0-0.9,0.8-1.7,1.7-1.7h7.6l5.8,5.6v11.7
+				C-447.4,289.7-448.2,290.5-449.2,290.5z"/>
+			<path class="st1" d="M-453.9,271.8v4c0,0.7,0.6,1.3,1.3,1.3h5.2"/>
+			<path d="M-461,287.5h12.1v-1.7H-461V287.5z M-461,284.1h12.1v-1.7H-461V284.1z M-461,278.9v1.7h12.1v-1.7H-461z"/>
+		</symbol>
+
+		<symbol id="img" x="0px" y="0px" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
+			<path class="st0" d="M-467,269h24v24h-24V269z"/>
+			<path class="st1" d="M-449.2,290.5h-11.7c-0.9,0-1.7-0.8-1.7-1.7v-15.6c0-0.9,0.8-1.7,1.7-1.7h7.6l5.8,5.6v11.7
+				C-447.4,289.7-448.2,290.5-449.2,290.5z"/>
+			<path class="st1" d="M-453.9,271.8l0,4c0,0.7,0.6,1.3,1.3,1.3h5.2"/>
+			<path d="M-452.8,281.8l-3,4.3l-2.2-2.8l-3,4.3h12.1L-452.8,281.8z"/>
+			<ellipse cx="-458.2" cy="280.5" rx="1.4" ry="1.5"/>
+		</symbol>
+
+		<symbol id="paper" x="0px" y="0px" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
+			<style type="text/css">
+				.st0{fill:none;}
+				.st1{fill:none;stroke:#000;stroke-miterlimit:10;}
+			</style>
+			<path class="st0" d="M-467,269h24v24h-24V269z"/>
+			<path class="st1" d="M-449.2,290.5h-11.7c-0.9,0-1.7-0.8-1.7-1.7v-15.6c0-0.9,0.8-1.7,1.7-1.7h7.6l5.8,5.6v11.7
+				C-447.4,289.7-448.2,290.5-449.2,290.5z"/>
+			<path class="st1" d="M-453.9,271.8l0,4c0,0.7,0.6,1.3,1.3,1.3h5.2"/>
+		</symbol>
+
+
+
+
+		<symbol id="date" viewBox="0 0 24 24" height="24"  width="24">
+			<path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+			<path d="M0 0h24v24H0z" fill="none"/>
+		</symbol>
+
+		<symbol id="shipping" viewBox="0 0 24 24" height="24"  width="24">
+			<path d="M0 0h24v24H0z" fill="none"/>
+    		<path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+		</symbol>
+
+		<symbol id="money" viewBox="0 0 24 24" height="24"  width="24">
+			<path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    		<path d="M0 0h24v24H0z" fill="none"/>
+		</symbol>
+
+		<symbol id="shuffle" viewBox="0 0 24 24" height="24"  width="24">
+			<path d="M0 0h24v24H0z" fill="none"/>
+			<path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+		</symbol>
+
+
+		<symbol id="like" viewBox="0 0 24 24" height="24"  width="24">
+			<path d="M0 0h24v24H0z" fill="none"/>
+    	<path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
+		</symbol>
+		<symbol id="dislike" viewBox="0 0 24 24" height="24"  width="24">
+			<path d="M0 0h24v24H0z" fill="none"/>
+    		<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
+		</symbol>
+	</svg>
+
 </body>
 </html>
