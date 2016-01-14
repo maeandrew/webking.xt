@@ -842,6 +842,13 @@ table.supplier_assort_table {
 #navi2 #nav li {
 	padding: 0;
 }
+
+
+//* Product List*/
+#products .prod_list {
+	border: 1px solid #E0E0E0;
+}
+
 .content .container img {
 	vertical-align: middle;
     width: 24px;

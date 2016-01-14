@@ -100,7 +100,7 @@
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active">Детали</a>
 										<a href="#lannisters-panel-<?=$i['id_order']?>" class="mdl-tabs__tab">Учасники</a>
-										<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab">Список товаров</a>
+										<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
 									</div>
 								</div>
 								<div class="content">
@@ -180,9 +180,9 @@
 									</div>
 									<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
 
-										<div id="" data-type=".tpl">
-											<div class=""></div>
-										</div>
+
+											<div id="products"></div>
+
 
 									</div>
 								</div>

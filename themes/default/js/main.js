@@ -649,23 +649,20 @@ $(function(){
 
 	/*    Cabinet     */
 
-	$(function(){
-	  $('.order').on('click', '.number', function(){
-	    var parent = $(this).closest('.order');
+	$('.order').on('click', '.number', function(){
+		var parent = $(this).closest('.order');
 
-	    if(parent.hasClass('expanded')){
-	      $('.order').removeClass('expanded').find('.tabs').slideUp();
-	    }else{
-	      $('.order').removeClass('expanded').find('.tabs').slideUp();
-	      parent.addClass('expanded').find('.tabs').slideDown();
-	    }
-	  });
-	  $('.showall').on('click', function(){
-	    $('.order').addClass('expanded').find('.tabs').slideDown();
-	  });
-	  $('.hideall').on('click', function(){
-	    $('.order').removeClass('expanded').find('.tabs').slideUp();
-	  });
+		if(parent.hasClass('expanded')){
+			$('.order').removeClass('expanded').find('.tabs').slideUp();
+		}else{
+			$('.order').removeClass('expanded').find('.tabs').slideUp();
+			parent.addClass('expanded').find('.tabs').slideDown();
+		}
 	});
-
+		$('.showall').on('click', function(){
+		$('.order').addClass('expanded').find('.tabs').slideDown();
+	});
+		$('.hideall').on('click', function(){
+		$('.order').removeClass('expanded').find('.tabs').slideUp();
+	});
 });

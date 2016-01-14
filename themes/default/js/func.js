@@ -1,6 +1,7 @@
 // Получение корзины
 function GetCartAjax(){
 	ajax('cart', 'GetCart', false, 'html').done(function(data){
+		//console.log(data);
 		$('#cart > .modal_container').html(data);
 		openObject('cart');
 	});
@@ -15,6 +16,16 @@ function GetCartAjax(){
 	// 		openObject('cart');
 	// 	});
 	// }
+}
+
+// Получение списка товаров в кабинете
+function GetCabProdAjax(id_order){
+	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
+		//console.log(data);
+		$('.mdl-tabs__panel > #products').html(data);
+
+	});
+
 }
 
 function ajax(target, action, data, dataType){
@@ -32,21 +43,6 @@ function ajax(target, action, data, dataType){
 		data: data
 	});
 	return ajax;
-}
-
-
-function GetCabProdAjax(){
-	if($('#cart').hasClass('opened')){
-		closeObject('cart');
-	}else{
-		$.ajax({
-			url: URL_base+'cp_customer_cab_orders_prod_list.php'
-		}).done(function(data){
-			var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
-			$('#cart > .modal_container').html(res[1]);
-			openObject('cart');
-		});
-	}
 }
 
 // Change product view
