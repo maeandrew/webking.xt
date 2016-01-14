@@ -406,6 +406,7 @@ body:not(.c_main) .banner {
 [data-type="modal"] .modal_container {
 	overflow: hidden;
 	overflow-y: auto;
+	max-height: 700px;
 }
 [data-type="modal"] a.close_modal{
 	color: #bcbcbc;
@@ -751,7 +752,7 @@ section.center {
 #cart .card .product_name,
 #cart .card .product_info {
 	float: left;
-	width: calc( 60% - 155px);
+	width: calc( 60% - 165px);
 }
 #cart .card .product_buy {
 	float: left;
