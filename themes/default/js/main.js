@@ -253,16 +253,6 @@ $(function(){
 
 	//Меню в кабинете
 	$('.menus').on('click', function() {
-		var children = $(this).closest('li').find('ul#nav');
-		// $(this).closest('ul').find('ul.active').removeClass('active').stop(true, true).slideUp();
-		if(children.hasClass('active')){
-			children.removeClass('active').stop(true, true).slideUp();
-		}else{
-			children.addClass('active').stop(true, true).slideDown();
-		}
-	});
-
-	$('.menus1').on('click', function() {
 		var children = $(this).closest('li').find('ul');
 		if(children.hasClass('active')){
 			children.removeClass('active').stop(true, true).slideUp();
@@ -270,17 +260,15 @@ $(function(){
 			children.addClass('active').stop(true, true).slideDown();
 		}
 	});
-
-	//Меню в кабинете
-	/*$('.menus').on('click', function() {
-		var children = $(this).closest('li').find('ul#nav');
-		if(children.hasClass('active')){
-			children.removeClass('active').stop(true, true).slideUp();
-		}else{
-			children.addClass('active').stop(true, true).slideDown();
-		}
-	});*/
-
+//   radio button magic
+	var checked = false;
+	$('#cart').on('mousedown', 'input.mdl-radio__button', function(e){
+		checked = $(this).prop('checked');
+	}).on('click', function(){
+		if(checked == true){
+			$(this).attr('checked', false);
+		};
+	});
 
 	/** Анимация прокручивания кнопки наверх */
 	var pos = getScrollWindow();

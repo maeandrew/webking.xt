@@ -2198,3 +2198,27 @@ aside#catalog .catalog_close:hover i {
 .price_range_block:hover .ui-slider-handle {
 	box-shadow: 0 0 0 3px #FF5722;
 }
+/*Стили кабинета (start)*/
+.nav{
+	display: none;
+}
+.nav.active {
+	display: block;
+}
+#cab_left_bar ul{
+    padding: 0 1.5em 0 1.5em;
+}
+#cab_left_bar li {
+    margin-bottom: 0.5em;
+}
+.nav li{
+    margin-left: 2.5em;
+}
+.material-icons{
+    vertical-align: top;
+    margin-right:.4em;
+}
+.msg-info{
+    margin: 1em;
+}
+/*Стили кабинета (ent)*/
