@@ -1231,6 +1231,12 @@ html {
   border-bottom: 2px solid #ff5722;
   color: #444;
 }
+.order .avatar {
+	border-radius: 50%;
+	overflow: hidden;
+	width: 5em;
+	height: 5em;
+}
 .order .content {
   position: relative;
   z-index: 100;
@@ -1296,10 +1302,6 @@ html {
   padding-bottom: 1.429em;
 }
 .order .content .additional > div .avatar {
-  border-radius: 50%;
-  overflow: hidden;
-  width: 5em;
-  height: 5em;
   border: 1px solid #444;
   float: left;
 }

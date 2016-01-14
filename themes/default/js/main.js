@@ -261,15 +261,6 @@ $(function(){
 			children.addClass('active').stop(true, true).slideDown();
 		}
 	});
-//   radio button magic
-	var checked = false;
-	$('#cart').on('mousedown', 'input.mdl-radio__button', function(e){
-		checked = $(this).prop('checked');
-	}).on('click', function(){
-		if(checked == true){
-			$(this).attr('checked', false);
-		};
-	});
 
 	/** Анимация прокручивания кнопки наверх */
 	var pos = getScrollWindow();
