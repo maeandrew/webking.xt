@@ -477,7 +477,6 @@
 					<label class="mdl-textfield__label" for="lastname">Фамилия</label>
 					<span class="mdl-textfield__error">Введите фамилию</span>
 				</div>
-				<!-- <button class="else" data-upgraded=",MaterialButton" type='submit'>Далее</button> -->
 			</div>
 			<div class="row">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="firstname">

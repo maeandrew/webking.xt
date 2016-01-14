@@ -23,6 +23,7 @@
 
 $(function(){
 	// openObject('quiz');
+	// openObject('auth');
 
 	var viewport_width = $(window).width(),
 		viewport_height = $(window).height(),
@@ -372,6 +373,7 @@ $(function(){
 	$('#big_photo img').on('click', function(){
 		closeObject();
 	});
+
 	//Открытие обьектов с подложкой
 	$('body').on('click', '.btn_js', function(){
 		var name = $(this).data('name');
@@ -386,13 +388,13 @@ $(function(){
 	//Открытие модального окна login///////
 
 
-/*$('.enter_btn').on('click', function(e){
+/*$('.switch').on('click', function(e){
 		e.preventDefault();
 		$(this).closest('[class^="wr_modal"]').addClass('hidden');
 		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
 	});*/
 
-	/*$('button').on('click', '.enter_btn', function(){
+	/*$('button').on('click', '.switch', function(){
 		var name = $(this).data('name');
 		if(name != undefined){
 			if(name == 'login'){
@@ -573,11 +575,11 @@ $(function(){
 		form.find('.error').fadeOut();
 		e.preventDefault();
 		$.ajax({
-			url: URL_base+'ajaxlogin',
-			type: "GET",
-			cache: false,
+			url: URL_base+'ajax',
+			type: "POST",
 			dataType : "json",
 			data: {
+				"target": 'auth',
 				"action": 'login',
 				"email": email,
 				"passwd": passwd
@@ -588,7 +590,7 @@ $(function(){
 				$('.cabinet_btn').removeClass('hidden');
 				$('.login_btn').addClass('hidden');
 			}else{
-				console.log(data.msg);
+				form.find('.error').text(data.msg).fadeIn();
 			}
 		});
 	});
@@ -596,7 +598,7 @@ $(function(){
 	// Проверка надежности пароля
 	$('#registration #passwd').keyup(function(){
 		var passwd = $(this).val();
-		var passconfirm = $('#regs #passwdconfirm').val();
+		var passconfirm = $('#registration #passwdconfirm').val();
 		ValidatePass(passwd);
 		/*$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');*/
 		if(passconfirm !== ''){
@@ -605,10 +607,20 @@ $(function(){
 	});
 
 	/** Проверка подтверждения пароля на странице регистрации */
-	$('#passwdconfirm').keyup(function(){
-		var passwd = $('#regs #passwd').val();
+	$('#registration #passwdconfirm').keyup(function(){
+		var passwd = $('#registration #passwd').val();
 		var passconfirm = $(this).val();
 		ValidatePassConfirm(passwd, passconfirm);
+	});
+
+	// Проверка формы регистрации
+	$('#registration .sign-up').click(function(e){
+		var name = $(this).closest('form').find('input#name').val();
+		var email = $(this).closest('form').find('input#email').val();
+		e.preventDefault();
+		if(email.length > 0){
+			ValidateEmail(email, 1);
+		}
 	});
 
 

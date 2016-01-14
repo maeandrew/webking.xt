@@ -117,13 +117,14 @@ i.material-icons {
 	cursor: default;
 	opacity: 0;
 	/*display: none;*/
-	width: 100%;
+	width: 96%;
 	background: #fff;
 	box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
 	border-radius: 3px;
 	padding: 10px;
 	top: 150%;
-	right: -2px;
+	right: 2%;
+	left: 2%;
 	margin-top: 1px;
 	z-index: -10;
 	color: #000;
@@ -417,6 +418,7 @@ body:not(.c_main) .banner {
 	line-height: 30px;
 	width: 30px;
 	font-size: 1.25em;
+	text-align: center;
 	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
@@ -638,8 +640,8 @@ section.center {
 	height: 600px;
 	box-sizing: border-box;
 }
-#regs_log h6 {
-	font-size: 22px;
+#auth h4 {
+	font-size: 1.875em;
 	color: #03A9F4;
 }
 #auth .mdl-button {
@@ -691,13 +693,16 @@ section.center {
     background: #F44336;
     color: rgb(255,255,255);
 }
-#regs input, textarea{
-	border: none;
+#login,
+#registration {
+	width: 250px;
 }
-#regs input:focus{
-	border: none;
+#login > span,
+#registration > span {
+	display: block;
+	padding: 1em 0;
 }
-#regs .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+#registration .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
 	color: rgb(160, 161, 171);
 }
 
@@ -983,6 +988,7 @@ aside {
 	position: fixed;
 	top: 52px;
 	bottom: 0;
+	overflow-y: scroll;
 }
 aside .sidebar_wrapp {
 	overflow-x: hidden;
@@ -2062,6 +2068,17 @@ aside#catalog .catalog_close:hover i {
 
 /*MATERIAL UPGRADE*/
 
+.mdl-button.mdl-button--colored {
+	color: #F44336;
+}
+.mdl-button--raised.mdl-button--colored {
+	color: #fff;
+	background: #F44336;
+}
+.mdl-button--raised.mdl-button--colored:hover {
+	background: #F44336;
+}
+
 .mdl-checkbox__box-outline {
 	border: 1px solid #8f8f8f;
 }
@@ -2073,6 +2090,11 @@ aside#catalog .catalog_close:hover i {
 .mdl-radio__inner-circle {
 	background: #FF5722;
 }
+.mdl-textfield__label,
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+	color: #757575;
+}
 .mdl-textfield__label:after {
 	background-color: #757575;
 	/*border-bottom: 1px solid transparent;*/
@@ -2081,13 +2103,6 @@ aside#catalog .catalog_close:hover i {
 .mdl-radio__ripple-container .mdl-ripple {
 	background: rgb(255, 87, 34);
 }
-/*.mdl-button {
-	text-transform: none;
-	border: 1px solid #e0e0e0;
-	padding: 0 10px;
-	line-height: 30px;
-	height: 30px;
-}*/
 .mdl-mega-footer {
 	padding: 0;
 	color: inherit;
