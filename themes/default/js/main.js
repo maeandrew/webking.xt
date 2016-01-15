@@ -656,4 +656,5 @@ $(function(){
 		$('.hideall').on('click', function(){
 		$('.order').removeClass('expanded').find('.tabs').slideUp();
 	});
+
 });

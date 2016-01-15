@@ -2280,20 +2280,3 @@ aside#catalog .catalog_close:hover i {
 .tab-content tr:hover{
 	background-color: #e0e0e0;
 }
-/*
-.product .mdl-tabs__tab {
-	padding: 0 10px;
-    text-align: center;
-    height: 31px;
-    line-height: 30px;
-    font-size: 1.071em;
-    font-weight: normal;
-    text-transform: none;
-    border-right: 1px solid #e0e0e0;
-    border-radius: 3px;
-    box-sizing: border-box;
-    width: 25%;
-    margin-right: 1.33%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-} */

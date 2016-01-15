@@ -19,9 +19,30 @@ if(isset($_SERVER['HTTP_REFERER'])){
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
 
+$promo = 'aaa';
+if($promo) {
+    $Cart = new Cart();
+    $infoCarts = $Cart->GetInfoToPromo('aaa');
+    if ($infoCarts) {
+        foreach ($infoCarts as &$infoCart) {
+            switch ($infoCart['status']) {
+                case 20:
+                    $infoCart['title_status'] = "<div style='color: #FAA523;'>" . $infoCart['title_stat'] . "</div>";
+                    break;
+                case 21:
+                    $infoCart['title_status'] = "<div style='color: #1DC300;'>" . $infoCart['title_stat'] . "</div>";
+                    break;
+                default:
+                    $infoCart['title_status'] = "<div>" . $infoCart['title_stat'] . "</div>";
+            }
+        }
+    }
+    $tpl->Assign('infoCarts', $infoCarts);
 
-$Cart = new Cart();
-print_r($Cart->GetInfoToPromo());
+    $productsFromCarts = $Cart->GetCarts($promo);
+    $tpl->Assign('prodsCarts', $productsFromCarts);
+
+}
 
 
 
@@ -148,4 +169,8 @@ $parsed_res = array(
 	'issuccess' => TRUE,
 	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders.tpl')
 );
+
+//
+
+
 ?>
