@@ -448,16 +448,21 @@ class Cart {
 	}
 
 	// Выборка всех корзин связанных промо-кодом
-	public function GetInfoToPromo($promo = 'aaa'){
-		global $db;
-		$sql = "SELECT c.*, u.name, u.email, cus.phones, u.promo_code , cus.discount , cus.id_contragent
-		FROM xt_cart AS c
-		LEFT JOIN xt_user AS u
-		ON c.id_user = u.id_user
-		LEFT JOIN xt_customer AS cus
-		ON cus.id_user = u.id_user
-		WHERE promo = '".$promo."';";
-		// Добавить если нужно отсекать товары на которые нет поставщиков
+	public function GetInfoToPromo($promo){
+			global $db;
+			$sql = "SELECT  c.id_cart, c.id_user, c.status, cs.title_stat, u.name, u.email, cus.phones,
+							u.promo_code , cus.discount , cus.id_contragent, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
+			FROM "._DB_PREFIX_."xt_cart AS c
+			LEFT JOIN "._DB_PREFIX_."xt_user AS u
+			ON c.id_user = u.id_user
+			LEFT JOIN "._DB_PREFIX_."xt_customer AS cus
+			ON cus.id_user = u.id_user
+			LEFT JOIN "._DB_PREFIX_."xt_cart_product AS cp
+			ON cp.id_cart = c.id_cart
+			LEFT JOIN "._DB_PREFIX_."xt_cart_status AS cs
+			ON c.status = cs.id
+			WHERE promo = '".$promo."'
+			GROUP BY c.id_cart;";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -465,5 +470,23 @@ class Cart {
 		return $res;
 	}
 
+	// Выборка всех товаров из корзин связанных промо-кодом
+	public function GetCarts($promo){
+			global $db;
+			$sql = "SELECT  p.id_product, p.art, p.name, p.images, p.price_opt, cp.price,
+							cp.quantity, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_prod
+			FROM xt_cart_product as cp
+			LEFT JOIN xt_cart as c
+			ON c.id_cart = cp.id_cart
+			LEFT JOIN xt_product as p
+			ON cp.id_product = p.id_product
+			WHERE c.promo = '".$promo."'
+			group by p.id_product;";
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
 
 }?>

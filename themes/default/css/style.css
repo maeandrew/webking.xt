@@ -2253,4 +2253,10 @@ aside#catalog .catalog_close:hover i {
 	width: 36px;
 	height: 36px;
 }
+#list_coop{
+	float: left;
+}
+#block_promo{
+	float: right;
+}
 /*Стили кабинета (ent)*/

@@ -29,57 +29,12 @@
 				$s = array();
 			break;
 		}?> editing">
-			<?if($orders){?>
+			<?if($orders){ ?>
 				<ul class="orders_list">
 							<? //print_r($orders); ?>
 					<?foreach ($orders as $i){
-						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){
+						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 
-							?>
-						<!-- <li>
-							<div class="one_order">
-								<div class="order_head">
-									<p>Совместная корзина № <?=$i['id_order']?></p>
-									<div>Выполнен | icon icon icon icon icon_1</div>
-									<span>Детали</span><span>Участники</span>
-								</div>
-								<div>
-									<div>
-										<img src="">
-										<span>Дата заказа</span>
-										<p>12/06/15</p>
-									</div>
-									<div>
-										<img src="">
-										<span>Товаров</span>
-										<p>329 шт.</p>
-									</div>
-									<div>
-										<img src="">
-										<span>Сумма к оплате</span>
-										<p>2516,12 грн</p>
-									</div>
-									<div>
-										<img src="">
-										<span>Скидка</span>
-										<p>16%</p>
-									</div>
-									<div>
-										<h6>Ваш менеджер</h6>
-										<img src="">
-										<span>Вишневская Оксана</span>
-										<span>099 435 4672</span>
-										<img src=""><img src=""><span>2234</span>
-									</div>
-									<div>
-										<h6>Способ доставки</h6>
-										<p><span>ТТН:</span>45245687989</p>
-										<p><span>Город:<span>Харьков</p>
-										<p><span>Отделение</span>№62 ул.Кирова</p>
-									</div>
-								</div>
-							</div>
-						</li> -->
 
 						<li>
 							<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
@@ -194,7 +149,7 @@
 
 
 									<div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_order']?>">
-                                        <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
+                                        <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
                                             <thead>
                                                 <tr>
                                                     <th class="mdl-data-table__cell--non-numeric">
@@ -211,31 +166,24 @@
                                                         <div class="avatar img"><img src="http://www.lishnih.net/6/cheba.jpg" alt="avatar" /></div>
                                                     </td>
                                                     <td class="mdl-data-table__cell--non-numeric stat_user_cab">Личный</td>
-                                                    <td>5548.75</td>
+                                                    <td><?=$i['sum']?></td>
                                                     <td></td>
                                                 </tr>
 
-
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">
-                                                        <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
-                                                    </td>
-                                                    <td class="mdl-data-table__cell--non-numeric stat_user_cab">Готов</td>
-                                                    <td>2500.00</td>
-                                                    <td class="del_x"><i class="material-icons">close</i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">
-                                                        <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
-                                                    </td>
-                                                    <td class="mdl-data-table__cell--non-numeric stat_user_cab">Заполняется</td>
-                                                    <td>2500.00</td>
-                                                    <td class="del_x"><i class="material-icons">close</i></td>
-                                                </tr>
+												<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
+													<tr>
+														<td class="mdl-data-table__cell--non-numeric">
+															<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+														</td>
+														<td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
+														<td><?=$infoCart['sum_cart']?></td>
+														<td class="del_x"><i class="material-icons">close</i></td>
+													</tr>
+												<?endforeach; endif;?>
             <?//print_r($i)?>
                                             </tbody>
                                         </table>
-										<div class="additional info">
+										<!--<div class="additional info">
 											<div class="manager">
 												<div class="label">Ваш менеджер</div>
 												<div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
@@ -246,10 +194,40 @@
 												</div>
 											</div>
 
-										</div>
-                                        <div>
+										</div>-->
+                                        <?//print_r($prodsCarts)?>
+                                        <div id="block_promo">
                                             <div class="label">Промо-кода для совместной корзины: 5577321</div>
-                                            <div class="label">Необходимо передать его любым удобным для Вас способом:</div>
+                                            <div class="label">Вы можете передать его любым удобным для Вас способом:</div>
+                                            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="mdl-data-table__cell--non-numeric">Пригласить участника
+                                                            <label class="mdl-button mdl-js-button mdl-button--primary">Отправить</label>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <form action="#">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                                <input class="mdl-textfield__input" type="text" id="sample1">
+                                                                <label class="mdl-textfield__label" for="sample1">Отправить на Email</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                                <input class="mdl-textfield__input" type="text" id="sample2">
+                                                                <label class="mdl-textfield__label" for="sample2">Отправить SMS на номер</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </form>
+                                            </table>
                                         </div>
 									</div>
 									<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
