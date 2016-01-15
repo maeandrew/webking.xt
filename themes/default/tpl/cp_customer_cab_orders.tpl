@@ -93,10 +93,23 @@
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li> -->
-												<li><a href="#"><svg class="icon"><use xlink:href="#XLS"></use></svg></a></li>
-												<li><a href="#"><svg class="icon"><use xlink:href="#txt"></use></svg></a></li>
-												<li><a href="#"><svg class="icon"><use xlink:href="#img"></use></svg></a></li>
-												<li><a href="#"><svg class="icon"><use xlink:href="#paper"></use></svg></a></li>
+												<li>
+													<a href="#"><svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg></a>
+													<div class="mdl-tooltip" for="tt1">Распечатать в XML</div>
+												</li>
+												<li>
+													<a href="#"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg></a>
+													<div class="mdl-tooltip" for="tt2">Распечатать для реализатора</div>
+												</li>
+												<li>
+													<a href="#"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg></a>
+													<div class="mdl-tooltip" for="tt3">Распечатать с картинками</div>
+												</li>
+
+												<li><a href="#"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg></a>
+													<div class="mdl-tooltip" for="tt4">Распечатать документом</div>
+												</li>
+
 											</ul>
 										</div>
 										<div class="status">Выполнен</div>
