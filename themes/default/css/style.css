@@ -451,7 +451,7 @@ header {
 	width: 100%;
 	padding: 10px 0;
 	top: 0;
-	z-index: 600;
+	z-index: 100;
 	box-sizing: border-box;
 	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
