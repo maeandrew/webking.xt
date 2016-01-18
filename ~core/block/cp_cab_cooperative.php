@@ -22,7 +22,7 @@ $Customer->SetFieldsById($User->fields['id_user']);
 $promo = 'aaa';
 if($promo) {
     $Cart = new Cart();
-    $infoCarts = $Cart->GetInfoToPromo('aaa');
+    $infoCarts = $Cart->GetInfoForPromo('aaa');
     if ($infoCarts) {
         foreach ($infoCarts as &$infoCart) {
             switch ($infoCart['status']) {
@@ -39,8 +39,10 @@ if($promo) {
     }
     $tpl->Assign('infoCarts', $infoCarts);
 
-    $productsFromCarts = $Cart->GetCarts($promo);
+    $productsFromCarts = $Cart->GetCartForPromo($promo);
     $tpl->Assign('prodsCarts', $productsFromCarts);
+
+	print_r($infoCarts);
 
 }
 

@@ -32,8 +32,6 @@ p {
   #newheader_wrapp {
 
 	   position: relative;
-
-
 }
 input,
 textarea {
@@ -453,7 +451,7 @@ header {
 	width: 100%;
 	padding: 10px 0;
 	top: 0;
-	z-index: 100;
+	z-index: 600;
 	box-sizing: border-box;
 	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
@@ -931,6 +929,9 @@ section.center {
 	top: -10px;
 	left: 0;
 	font-size: 20px;
+}
+#button-cart2, #button-cart3 {
+	display: none;
 }
 
 /*Contacts*/
@@ -2174,7 +2175,7 @@ aside#catalog .catalog_close:hover i {
 	}
 }
 .mdl-checkbox{
-	height: auto;
+	/*height: auto;*/
 }
 
 /* Диапазон цен ===================================================== */
@@ -2259,4 +2260,5 @@ aside#catalog .catalog_close:hover i {
 #block_promo{
 	float: right;
 }
+
 /*Стили кабинета (ent)*/
