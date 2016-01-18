@@ -2254,11 +2254,31 @@ aside#catalog .catalog_close:hover i {
 	width: 36px;
 	height: 36px;
 }
-#list_coop{
-	float: left;
+/*Стили кабинета (ent)*/
+
+.mdl-grid .mdl-tabs__tab-bar {
+    display: block;
+    border-bottom: none;
+    height: auto;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+
 }
-#block_promo{
-	float: right;
+.mdl-grid .mdl-tabs__tab {
+	height: 34px;
+    width: 36.1%;
+    text-align: center;
+	margin-top: -5px;
+	padding-bottom: 5px
+
+}
+.mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
+    text-transform: capitalize;
 }
 
 /*Стили кабинета (ent)*/
+.tab-content tr:hover{
+	background-color: #e0e0e0;
+}

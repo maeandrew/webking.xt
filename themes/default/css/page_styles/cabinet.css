@@ -1423,3 +1423,9 @@ html {
 .order .details svg:hover {
     opacity: 1;
 }
+.order.expanded .mdl-tooltip{
+	display: block;
+}
+.order .mdl-tooltip {
+	display: none;
+}
