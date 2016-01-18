@@ -9,16 +9,18 @@
   <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
     <!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
     <span><a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a></span>
-    <div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
-      <?if(!empty($product['images'])){?>
-        <img src="<?=_base_url?><?=$product['images'][0]['src']?>" alt="<?=$product['name']?>">
-      <?}else{?>
-        <img src="<?=file_exists($GLOBALS['PATH_root'].$product['img_1'])?_base_url.$product['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$product['name']?>">
-      <?}?>
-    </div>
-    <div id="owl-product_mini_img_js">
+    <div id="owl-product_slide_js">
       <?if(!empty($product['images'])){
         foreach($product['images'] as $i => $image){?>
+          <div class="item">
+            <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
+          </div>
+          <div class="item">
+            <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
+          </div>
+          <div class="item">
+            <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
+          </div>
           <div class="item">
             <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
           </div>
@@ -26,6 +28,15 @@
       }else{
         for($i=1; $i < 4; $i++){
           if(!empty($product['img_'.$i])){?>
+            <div class="item">
+              <img src="<?=file_exists($GLOBALS['PATH_root'].$product['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
+            </div>
+            <div class="item">
+              <img src="<?=file_exists($GLOBALS['PATH_root'].$product['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
+            </div>
+            <div class="item">
+              <img src="<?=file_exists($GLOBALS['PATH_root'].$product['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
+            </div>
             <div class="item">
               <img src="<?=file_exists($GLOBALS['PATH_root'].$product['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
             </div>
@@ -113,8 +124,8 @@
 					<!-- <td><span class="caption fleft"><?=$s['caption']?></span></td>
 					<tr><span class="value fright"><?=$s['value'].'</tr><tr>'.$s['units']?></span></tr> -->
 						<tr>
-							<td width="50%"><span style="font-weight: bold;"><?=$s['caption']?></span></td>
-							<td width="50%"><?=$s['value']?> <?=$s['units']?></td>
+							<td width="62%"><span style="font-weight: bold;"><?=$s['caption']?></span></td>
+							<td width="38%"><?=$s['value']?> <?=$s['units']?></td>
 						</tr>
 					<?}?>
 				</table>
@@ -129,6 +140,7 @@
                 <p>К сожалению описание товара временно отсутствует.</p>
               <?}?>
             </div>
+
             <div id="seasonality" class="mdl-tabs__panel">
               <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
               hl=ru&
