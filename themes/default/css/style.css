@@ -2277,7 +2277,12 @@ aside#catalog .catalog_close:hover i {
 .mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
     text-transform: capitalize;
 }
-
+#block_promo {
+     float: right;
+}
+#list_coop {
+    float: left;
+}
 /*Стили кабинета (ent)*/
 .tab-content tr:hover{
 	background-color: #e0e0e0;

@@ -42,7 +42,8 @@ if($promo) {
     $productsFromCarts = $Cart->GetCartForPromo($promo);
     $tpl->Assign('prodsCarts', $productsFromCarts);
 
-	print_r($infoCarts);
+//	var_dump($infoCarts);
+//	var_dump($productsFromCarts);
 
 }
 

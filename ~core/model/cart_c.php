@@ -460,9 +460,10 @@ class Cart {
 			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
 			ON cp.id_cart = c.id_cart
 			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
-			ON c.status = cs.id
+			ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
 			GROUP BY c.id_cart;";
+//		print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
