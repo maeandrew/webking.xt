@@ -202,8 +202,7 @@
 			</aside>
 		<?}?>
 		<section class="center">
-			<?if($GLOBALS['CurrentController'] == 'main'){?>
-				<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+				<!-- <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
 					<div class="stat_info">
 						<p>График опроса</p>
 						<ul>
@@ -235,8 +234,50 @@
 							</ul>
 						</nav>
 					</div>
+				</div> -->
+				<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div class="slider_wrap">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+					</div>
+					<div id="user_bt" style="float:right;padding-right:15px;">
+						<a href="#" class="checkout btn_js" data-name="graph">Добавить мнение</a>
+					</div>
+
 				</div>
-			<?}?>
+
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
@@ -661,7 +702,52 @@
 	<div id="cart" data-type="modal">
 		<div class="modal_container"></div>
 	</div>
-
+	<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
+		<div class="modal">
+			<div class="modal_container">
+				<p>График (своя версия)</p>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div class="slider_wrap">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+				</div>
+				<div id="user_bt" style="float:right;padding-right: 15px;">
+					<a href="#" class="save btn_js mdl-button">Сохранить</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">

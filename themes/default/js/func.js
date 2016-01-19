@@ -28,6 +28,13 @@ function GetCabProdAjax(id_order){
 
 }
 
+/*function GetGraphAjax(data){
+	ajax('products', 'GetGraphList', {'id_category': id_category}, 'html').done(function(data){
+		console.log(data);
+		$('#graph > .modal_container').html(data);
+	});
+}*/
+
 function ajax(target, action, data, dataType){
 	if(typeof(data) == 'object'){
 		data['target'] = target;

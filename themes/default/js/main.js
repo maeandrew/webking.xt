@@ -376,6 +376,22 @@ $(function(){
 			}
 		}
 	});
+
+	//Открытие модального Графика
+	$('#graph').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#graph'),
+			id_category = parent.data('target'),
+			arr = parent.find('input'),
+			values = {};
+		arr.each(function(index, val){
+			values[index] = $(val).val();
+		});
+		ajax('product', 'GetGraphList', {'values': values, 'id_category': id_category}, 'html').done(function(data){
+			console.log('Your data has been saved successfully!');
+
+		});
+		openObject('graph');
+	});
 	//Открытие модального окна login///////
 
 

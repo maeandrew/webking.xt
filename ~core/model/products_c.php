@@ -708,6 +708,31 @@ class Products {
 		return true;
 	}
 
+	// Добавление графика (по категории)
+	public function AddInsertGraph($data){
+		$arr['id_author'] = $_SESSION['member']['id_user'];
+		$arr['id_category'] = $_POST['id_category'];
+		foreach($_POST['values'] as $k=>$val){
+			$k++;
+			$arr['value_'.$k] = $val;
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Выборка графика
+	public function ListGraph($id_category){
+		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_category = ".$id_category;
+		$result = $this->db->GetArray($sql);
+
+		return $result;
+	}
+
 	public function SetProductsListByFilter(){
 
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {

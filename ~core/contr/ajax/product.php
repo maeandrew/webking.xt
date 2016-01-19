@@ -74,6 +74,25 @@
 				echo json_encode($data);
 			;
 			break;
+			case "GetGraphList":
+				/*if(isset($_SESSION['member'])){
+					$User->SetUser($_SESSION['member']);
+				}
+				$tpl->Assign('User', $User->fields['name']);
+				*/
+				$products->AddInsertGraph($_POST);
+				/*unset($parsed_res);
+				$product = $products->fields;
+				$tpl->Assign('product', $product);
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'preview.tpl');*/
+			;
+			break;
+			case "ShowGraphList":
+
+				$data = $products->ListGraph($id_category);
+				echo json_encode($data);
+			;
+			break;
 			default:
 			;
 			break;

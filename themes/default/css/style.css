@@ -1243,6 +1243,9 @@ aside#catalog .catalog_close:hover i {
 	padding: 0 0 10px 10px;
 	border: 1px solid #e0e0e0;
 }
+section .stat_year {
+	padding: 0 0 10px 50px;
+}
 .stat_year .stat_info {
 	max-width: 100px;
 	padding-right: 10px;
@@ -2287,3 +2290,53 @@ aside#catalog .catalog_close:hover i {
 .tab-content tr:hover{
 	background-color: #e0e0e0;
 }
+
+.mdl-slider__container {
+    transform: rotate(-90deg);
+    height: 2px;
+    width: 178px;
+    position: absolute;
+    top: 100px;
+    left: -75%;
+}
+#graph[data-type="modal"]{
+    min-width: 700px;
+}
+.mdl-slider.is-upgraded {
+    border: 0 !important;
+    height: 2px;
+}
+#graph p{
+	padding-top: 10px;
+    color: #4E4949;
+}
+#graph hr {
+	width: 98%;
+}
+.slider_wrap {
+    width: 8%;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    height: 200px;
+}
+
+.owl-controls .owl-page{
+	display: inline-block;
+}
+.owl-controls .owl-page span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: #736E6E;
+    float: left;
+    margin-right: .5em;
+    border-radius: 50%;
+}
+
+.owl-pagination {
+	text-align: center;
+}
+/* [class*=" active_"] .main {
+    -webkit-filter: inherit;
+} */
