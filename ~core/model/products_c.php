@@ -712,6 +712,12 @@ class Products {
 	public function AddInsertGraph($data){
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $_POST['id_category'];
+		$arr['name_user'] = $_POST['name_user'];
+		$arr['text'] = $_POST['text'];
+		$arr['opt'] = 0;
+		if ($_POST['opt'] == 1) {
+			$arr['opt'] = $_POST['opt'];
+		}
 		foreach($_POST['values'] as $k=>$val){
 			$k++;
 			$arr['value_'.$k] = $val;
@@ -726,15 +732,21 @@ class Products {
 	}
 
 	// Выборка графика
-	public function ListGraph($id_category){
-		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_category = ".$id_category;
+	public function GetGraphList($id_category = false){
+		$id_category = $id_category?$id_category:0;
+		$sql = "SELECT g.*, u.name
+					FROM "._DB_PREFIX_."graph g
+					JOIN "._DB_PREFIX_."user u
+					WHERE g.id_author = u.id_user AND g.id_category = ".$id_category;
+		//print_r($sql);
 		$result = $this->db->GetArray($sql);
-
+		/*$result2 = $this->db->GetArray($sql2);
+		return array('graph' => $result, 'users' => $result2);*/
 		return $result;
 	}
 
-	public function SetProductsListByFilter(){
 
+	public function SetProductsListByFilter(){
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
 			$fl_v = '';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {

@@ -7,6 +7,7 @@ $tpl_breadcrumbs = '';
 $tpl_sidebar_l  = '';
 $tpl_sidebar_r  = '';
 $tpl_popular  = '';
+$tpl_graph = '';
 /*
  * Загрузка контроллера
  */
@@ -36,8 +37,27 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	$tpl->Assign('navigation', $navigation);
 	$tpl_header .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'top_main.tpl');
 	// Хлебные крошки
-	// 
-		
+	//
+
+
+	// GRAPH
+	//
+	if(empty($GLOBALS['subcats']) && isset($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'])){
+		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
+	}elseif(!empty($GLOBALS['subcats'])){
+		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
+		$id_subcats = $GLOBALS['subcats'];
+	}else{
+		$id_category = 0;
+	}
+	$data_graph = $products->GetGraphList($id_category);
+	$tpl->Assign('data_graph', $data_graph);
+	$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+	/*$tpl->Assign('data_graph', $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
+	$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'main.tpl');*/
+
+
+
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
 		unset($parsed_res);
 		require($GLOBALS['PATH_block'].'breadcrumbs.php');
@@ -128,6 +148,7 @@ $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 $GLOBALS['__popular'] = $tpl_popular;
 if($GLOBALS['CurrentController'] == 'main'){
+	$GLOBALS['__graph'] = NULL;
 	$GLOBALS['__page_title'] = 'Оптовый интернет-магазин Харьковторг | Оптовые продажи: хозтовары, одежда и обувь, стройка и ремонт. X-torg';
 	$GLOBALS['__page_kw'] = 'оптовый, оптовые, продажи, интернет, магазин, Харьковторг, хозтовары, одежда, обувь, подарки, сувениры, галантерея, посуда, канцтовары, текстиль, стройка и ремонт, косметика, парфюмерия, велозапчасти, мотозапчасти, бижутерия, купить, куплю, в Украине, Украина, x torg, x-torg, torg, х-торг харьков';
 	$GLOBALS['__page_description'] = 'Оптовый интернет-магазин Харьковторг | Продажа товаров от производителя: хозтовары, одежда и обувь, подарки, сувениры, галантерея, посуда, канцтовары, текстиль, стройка и ремонт, косметика, парфюмерия, велозапчасти, мотозапчасти, бижутерия. Доставка по всем регионам Украины';
@@ -141,6 +162,7 @@ if($GLOBALS['CurrentController'] == 'main'){
 			$GLOBALS['__page_description'][] = $i['title'];
 		// }
 	}
+	$GLOBALS['__graph'] = $tpl_graph;
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
 	$GLOBALS['__page_description'] = "Оптовый интернет-магазин Харьковторг | ".implode(" ", $GLOBALS['__page_description']);
