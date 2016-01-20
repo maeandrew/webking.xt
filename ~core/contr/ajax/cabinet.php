@@ -9,6 +9,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('products', $products);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
 			break;
+			case 'GetProdListForEachUser':
+				unset($parsed_res);
+				$Order = new Orders();
+				$products = $Order->GetOrderForCustomer(array("o.id_order" => $_POST['id_order']));
+				$tpl->Assign('products', $products);
+				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_cooperative.tpl');
+				break;
 		}
 	}
 }

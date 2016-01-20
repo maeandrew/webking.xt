@@ -245,7 +245,6 @@ class Cart {
 
 	// Добавление и проверка корзины в БД
 	public function InsertMyCart(){
-		//print_r($_SESSION);
 		if(isset($_SESSION['cart']['id'])){
 			# обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
@@ -450,8 +449,8 @@ class Cart {
 	// Выборка всех корзин связанных промо-кодом
 	public function GetInfoForPromo($promo){
 			global $db;
-			$sql = "SELECT  c.id_cart, c.id_user, c.status, cs.title_stat, u.name, u.email, cus.phones,	u.promo_code,
- 							cus.discount , cus.id_contragent, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
+			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, u.name, u.email, u.last_login_date, cus.phones,	u.promo_code,
+ 							cus.discount , cus.id_contragent, cp.quantity, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
 			FROM "._DB_PREFIX_."cart AS c
 			LEFT JOIN "._DB_PREFIX_."user AS u
 			ON c.id_user = u.id_user
@@ -462,7 +461,8 @@ class Cart {
 			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
 			ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
-			GROUP BY c.id_cart;";
+			GROUP BY c.id_cart
+			ORDER BY c.status ASC";
 //		print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){

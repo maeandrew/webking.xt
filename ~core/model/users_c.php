@@ -55,6 +55,13 @@ class Users {
 		foreach($this->fields['waiting_list'] as $key => $value){
 			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
+		$sql4 = "SELECT ct.name_c, ct.phones
+			FROM "._DB_PREFIX_."customer cr
+			LEFT JOIN "._DB_PREFIX_."contragent ct
+			ON cr.id_contragent = ct.id_user
+			WHERE cr.id_user = ".$this->fields['id_user'];
+		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
+
 		return true;
 	}
 
