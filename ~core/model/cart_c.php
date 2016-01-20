@@ -490,4 +490,26 @@ class Cart {
 		return $res;
 	}
 
+	// Выборка всех товаров по id_cart
+	public function GetProductsForCart($id_cart){
+		global $db;
+		$sql = "SELECT p.id_product, cp.quantity, cp.price as cart_price,
+		(CASE WHEN cp.quantity >= p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as base_price,
+		p.id_product, p.name,
+		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as img
+		FROM xt_cart_product as cp
+		LEFT JOIN  xt_cart as c
+		ON cp.id_cart = c.id_cart
+		LEFT JOIN xt_product as p
+		ON cp.id_product = p.id_product
+		LEFT JOIN xt_image as i
+		ON cp.id_product = i.id_product AND i.ord = 0
+		WHERE c.id_cart = '".$id_cart."';";
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 }?>

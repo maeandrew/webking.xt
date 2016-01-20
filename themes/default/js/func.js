@@ -23,17 +23,16 @@ function GetCabProdAjax(id_order){
 	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
 		//console.log(data);
 		$('.mdl-tabs__panel > #products').html(data);
-
 	});
-
 }
 
-/*function GetGraphAjax(data){
-	ajax('products', 'GetGraphList', {'id_category': id_category}, 'html').done(function(data){
-		console.log(data);
-		$('#graph > .modal_container').html(data);
+// Получение списка товаров по каждомк заказу в кабинете совместныйх покупок
+function GetCabCoopProdAjax(id_cart){
+	ajax('cabinet', 'GetProdListForCart', {'id_cart': id_cart}, 'html').done(function(data){
+		//console.log(data);
+		$('#products_cart').html(data);
 	});
-}*/
+}
 
 function ajax(target, action, data, dataType){
 	if(typeof(data) == 'object'){

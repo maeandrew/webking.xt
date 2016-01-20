@@ -242,19 +242,7 @@
 		</div>
 		<div class="total">
 			<div class="label">Итого</div>
-			<div class="positions">количество товаров:
-				<?if($opt_available){?>
-				<div class="buy_buttons">
-					<!--удаление товара оптом из корзины-->
-					<span id="summ_prod"><?=count($_SESSION['cart']['products'])?></span>
-					<!--количество заказываемых товаров-->
-				</div>
-				<?}else{?>
-				<!--Если опт НЕ доступен-->
-				<div class="sold-out">Нет</div>
-				<?}?> <!--проверка доступности опта-->
-			</div>
-			<div class="total_summ">сумма: <span id="summ_many"><?=isset($_SESSION['cart']['cart_sum'])?number_format($_SESSION['cart']['cart_sum'],2,".",""):"0.00"?></span>
+			<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['cart_sum'])?number_format($_SESSION['cart']['cart_sum'],2,".",""):"0.00"?></span>  ГРН
 			</div>
 		</div>
 		<div class="action_block">
@@ -274,6 +262,10 @@
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button" name="options" value="1">
 							<span class="mdl-radio__label">Групповая корзина</span>
+								<label class="info_key" style="position: initial;">?</label>
+								<div class="info_description">
+									<p>Групповая корзина Групповая корзина Групповая корзина.</p>
+								</div>
 						</label>
 						<!--<div class="info_description">
 							Добавит Вас к групповой корзине и перенапрвит на нее.
@@ -283,6 +275,10 @@
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button" name="options" value="2">
 							<span class="mdl-radio__label">Совместная покупка</span>
+								<label class="info_key" style="position: initial;">?</label>
+								<div class="info_description">
+									<p>Совместная покупка Совместная покупка.</p>
+								</div>
 						</label>
 						<!--<div class="info_description">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
@@ -290,7 +286,7 @@
 					</div>
 
 					<div id="button-cart1">
-						<button class="mdl-button mdl-js-button" type='submit' value="Отправить">Отправить форму</button>
+						<button class="mdl-button mdl-js-button" type='submit' value="Отправить">Оформить заказ</button>
 					</div>
 					<div id="button-cart2">
 						<button class="mdl-button mdl-js-button btn_js" type='submit'
@@ -300,7 +296,7 @@
 					</div>
 					<div id="button-cart3">
 						<button class="mdl-button mdl-js-button btn_js" type='submit'
-								data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить">Отправить форму
+								data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить">
 						</button>
 					</div>
 				</form>
@@ -322,24 +318,18 @@
 
 					$('#cart input.mdl-radio__button[value="1"]').on('click', function () {
 						if (checked == false) {
-							$('.action_block .mdl-button').text('Перейти');
+							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
 							$("#button-cart2").show();
 							$("#button-cart3").hide();
-							
-
-							// var url = $('#button-cart2 button').data('href');
-							// $('#button-cart2 button').on('click', function() {
-							// 		$(location).attr('href',url);
-							// };
 						}
 					});
 					$('#cart input.mdl-radio__button[value="2"]').on('click', function () {
 						if (checked == false) {
-							$('.action_block .mdl-button').text('Оформить');
-							$("#button-cart1").css("display", "none");
-							$("#button-cart2").css("display", "none");
-							$("#button-cart3").css("display", "block");
+							$('.action_block .mdl-button').text('Организовать');
+							$("#button-cart1").hide();
+							$("#button-cart2").hide();
+							$("#button-cart3").show();
 							// var href = $('#button-cart3 button').data('href');
 						}
 					});

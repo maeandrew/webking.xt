@@ -709,13 +709,24 @@ section.center {
 
 #cart {
 	padding: 30px;
-	width: 100%;
+	/*width: 100%;*/
 }
 #cart h5 {
 	margin: 0;
 	margin-left: 35px;
 	margin-bottom: 20px;
 	float: left;
+}
+#cart #summ_prod, #cart #summ_many{
+	color: #0A0A0A;
+}
+#cart #percent {
+	width: 25em;
+}
+#cart #percent td{
+	padding: 0 1em 1em 0;
+	font-size: 0.8em;
+
 }
 #cart .order_head ul {
 	text-align: left;
@@ -856,6 +867,7 @@ section.center {
 #cart .total .positions,
 #cart .total .total_summ {
 	font-size: 14px;
+	color: #9E9E9E;
 }
 #cart .total .positions span,
 #cart .total .total_summ span {
