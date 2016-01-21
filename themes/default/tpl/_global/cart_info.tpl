@@ -1,6 +1,6 @@
 <div class="cart_info clearfix">
 <?
-$cart_sum = $_SESSION['cart']['cart_sum'];
+$cart_sum = $_SESSION['cart']['products_sum']['3'];
 if($cart_sum >= 0 && $cart_sum < 500) {
 	$percent = 0;
 }elseif($cart_sum >= 500 && $cart_sum < 3000) {
@@ -11,41 +11,36 @@ if($cart_sum >= 0 && $cart_sum < 500) {
 	$percent = 21;
 };
 ?>
-	<div class="your_discount">Ваша скидка <?=round($cart_sum * ($percent/100),2)?> грн (<?=$percent?>%)</div>
-	<div class="order_balance">
+	<div id="perc_cont">
+		<div class="your_discount" style="color: #000;">Ваша скидка <?=round($cart_sum * ($percent/100),2)?> грн (<?=$percent?>%)</div>
+		<div class="order_balance">
 			<table id="percent">
-				<?if($percent == 0):?>
-					<tr>
-						<td>Добавь</td>
-						<td><?=round(500-$cart_sum,2)?>грн</td>
-						<td>Получи скидку</td>
-						<td>50грн (10%)</td>
-					</tr>
-				<?endif?>
-				<?if($percent == 0 || $percent == 10):?>
-					<tr>
-						<td></td>
-						<td><?=round(3000-$cart_sum,2)?>грн</td>
-						<td></td>
-						<td>300грн (16%)</td>
-					</tr>
-				<?endif?>
-				<?if($percent == 0 || $percent == 10 || $percent == 16):?>
-				<tr>
-					<td></td>
+				<tr <?=$percent == 0 ? : "style='display:none'"?>>
+					<td>Добавь:</td>
+					<td><?=round(500-$cart_sum,2)?>грн</td>
+					<td>Получи скидку:</td>
+					<td>50грн (10%)</td>
+				</tr>
+				<tr <?=($percent == 0 || $percent == 10)? : "style='display:none'"?>>
+					<td>Добавь:</td>
+					<td><?=round(3000-$cart_sum,2)?>грн</td>
+					<td>Получи скидку:</td>
+					<td>300грн (16%)</td>
+				</tr>
+				<tr <?=($percent == 0 || $percent == 10 || $percent == 16)? : "style='display:none'"?>>
+					<td>Добавь:</td>
 					<td><?=round(10000-$cart_sum,2)?>грн</td>
-					<td></td>
+					<td>Получи скидку:</td>
 					<td>2100грн (21%)</td>
 				</tr>
-				<?endif?>
 			</table>
-
+		</div>
 	</div>
 	<form action="#">
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<input class="mdl-textfield__input" type="text" id="sample7">
 			<label class="mdl-textfield__label" for="sample7">Промокод</label>
-			<lable type="button" class="mdl-button mdl-js-button mdl-button--raised">Приминить</lable>
+			<lable type="button" class="mdl-button mdl-js-button mdl-button--raised">Применить</lable>
 		</div>
 
 
@@ -54,8 +49,15 @@ if($cart_sum >= 0 && $cart_sum < 500) {
 </div>
 
 <script type="text/javascript">
-//	$('#summ_many').change){
-//		if($('#summ_many').html()>){
+
+	if($('#percent tr:eq(0)').is(':visible')){
+		$('#percent tr:eq(0)').css('color', '#000');
+	}
+//	if($('#percent tr:eq(0)').is(':hidden')){
+//		$('#percent tr:eq(1)').css('color', '#000');
+//	}
+//	if($('#percent tr:eq(1)').is(':hidden')){
+//		$('#percent tr:eq(2)').css('color', '#000');
 //	}
 
 </script>

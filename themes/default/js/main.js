@@ -726,4 +726,5 @@ $(function(){
 		$('.order').removeClass('expanded').find('.tabs').slideUp();
 	});
 
+	$('#percent tr:first').css('color', '#000');
 });

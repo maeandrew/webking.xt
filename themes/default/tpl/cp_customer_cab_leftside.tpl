@@ -23,7 +23,7 @@
             </ul>
         </li>
 		<li>
-			<i class="material-icons">people</i>
+			<i class="material-icons">person_add</i>
 			<a class="menus"  href="#">Совместные заказы</a>
             <ul class="nav <?=(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative') ? active : null;?>">
                 <li>

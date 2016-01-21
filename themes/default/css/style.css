@@ -740,6 +740,9 @@ section.center {
 	padding: 5px 0;
 	text-align: center;
 }
+#cart .cart_info .mdl-button {
+	margin-left: 105%;
+}
 #cart .order_head ul li:last-child {
 	border-right: none;
 }

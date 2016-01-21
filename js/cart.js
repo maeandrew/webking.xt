@@ -91,7 +91,7 @@ function ChangeCartQty(id, direction){
 }
 
 function completeCartProductAdd(data){
-	/*console.log(data['cart_sum']);*/
+	//console.log(data['cart_sum']);
 	var products_count = Object.keys(data.products).length.toString();
 	var	str = products_count+' товар';
 	if(products_count.substr(-1) <= 1)
@@ -108,4 +108,41 @@ function completeCartProductAdd(data){
 	}else{
 		$('.checkout').addClass('hidden');
 	}
+
+
+
+//----------------обновление облока скидок (start)---------------
+
+	if(data.cart_sum >= 500){
+		$('#percent tr:eq(0)').hide();
+		$('#percent tr:eq(1)').css('color', '#000');
+	}
+	if(data.cart_sum < 500){
+		$('#percent tr:eq(0)').show();
+	}
+	if(data.cart_sum >= 3000){
+		$('#percent tr:eq(1)').hide();
+		$('#percent tr:eq(2)').css('color', '#000');
+	}
+	if(data.cart_sum < 3000 && data.cart_sum >= 500){
+		$('#percent tr:eq(1)').show();
+	}
+	if(data.cart_sum >= 10000){
+		$('#percent tr:eq(2)').hide();
+	}
+	if(data.cart_sum > 10000 && data.cart_sum >= 3000){
+		$('#percent tr:eq(2)').show();
+	}
+
+	//if($('#percent tr:eq(0)').is(':visible')){
+	//	$('#percent tr:eq(0)').css('color', '#000');
+	//}
+	//if($('#percent tr:eq(0)').is(':hidden')){
+	//	$('#percent tr:eq(1)').css('color', '#000');
+	//}
+	//if($('#percent tr:eq(1)').is(':hidden')){
+	//	$('#percent tr:eq(2)').css('color', '#000');
+	//}
+//----------------обновление облока скидок (end)---------------
+
 }

@@ -730,21 +730,21 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	public function UpdateGraph($id_product){
-		$sql = "";
-		$this->db->StartTrans();
-		$f['exclusive_supplier'] = $id_supplier;
-		if(!$active){
-			$f['exclusive_supplier'] = 0;
-		}
-		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-
-	}
+//
+//	public function UpdateGraph($id_product){
+//		$sql = "";
+//		$this->db->StartTrans();
+//		$f['exclusive_supplier'] = $id_supplier;
+//		if(!$active){
+//			$f['exclusive_supplier'] = 0;
+//		}
+//		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
+//			$this->db->FailTrans();
+//			return false;
+//		}
+//		$this->db->CompleteTrans();
+//
+//	}
 
 	// Выборка графика
 	public function GetGraphList($id_category = false){

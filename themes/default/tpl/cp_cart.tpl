@@ -242,9 +242,9 @@
 		</div>
 		<div class="total">
 			<div class="label">Итого</div>
-			<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['cart_sum'])?number_format($_SESSION['cart']['cart_sum'],2,".",""):"0.00"?></span>  ГРН
-			</div>
+			<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['products_sum']['3'])?number_format($_SESSION['cart']['products_sum']['3'],2,".",""):"0.00"?></span>  ГРН	<div><span>(+% <?=isset($_SESSION['cart']['cart_sum'])?number_format($_SESSION['cart']['cart_sum'],2,".",""):"0.00"?></span>  ГРН<span>)</span></div></div>
 		</div>
+
 		<div class="action_block">
 			<div class="wrapp">
 				<?=$cart_info?>
