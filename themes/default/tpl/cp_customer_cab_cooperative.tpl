@@ -163,9 +163,9 @@
                                         </div>
                                         <div class="delivery">
                                             <div class="label">Способ доставки</div>
-                                            <div class="avatar">
+                                            <!--<div class="avatar">
                                                 <img src="http://lorempixel.com/abstract/70/70/" alt="avatar"/>
-                                            </div>
+                                            </div>-->
                                             <div class="details">
                                                 <div class="line_1">
                                                     <span class="label">ТТН:</span>

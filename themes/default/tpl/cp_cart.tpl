@@ -237,13 +237,72 @@
 				</div>
 			</div>
 		<?}?>
-		<div class="clear_cart fleft">
-			<a href="<?=Link::Custom('cart', 'clear');?>"><span class="icon-font color-red"></span>Очистить корзину</a>
+		<div class="cart">
+			<div class="clear_cart fleft">
+				<a href="<?=Link::Custom('cart', 'clear');?>"><span class="icon-font color-red"></span>Очистить корзину</a>
+			</div>
+			<div id="total" class="fright">
+				<div class="total">
+					<div class="label">ИТОГО</div>
+					<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['products_sum']['3'])? $_SESSION['cart']['products_sum'][3] : "0.00"?></span>  ГРН	</div>
+				</div>
+				<div class="total">
+					<div class="label">СКИДКА</div>
+					<div class="total_summ">
+						<span id="summ_many"><?/*if($_SESSION['cart']['products_sum']['3'] >= 500 && ($_SESSION['cart']['products_sum']['3'] < 3000)){
+													echo $_SESSION['cart']['products_sum']['2'];
+												}elsif($_SESSION['cart']['products_sum']['3'] >= 3000 && $_SESSION['cart']['products_sum']['3'] < 10000){
+													echo $_SESSION['cart']['products_sum']['3'] - $_SESSION['cart']['products_sum']['1'];
+												}elsif($_SESSION['cart']['products_sum']['3'] >= 10000){
+													echo $_SESSION['cart']['products_sum']['3'] - $_SESSION['cart']['products_sum']['0'];
+												}else{
+													echo $_SESSION['cart']['products_sum']['3'] - $_SESSION['cart']['products_sum']['3'];
+												}*/?>
+						</span>  ГРН	</div>
+				</div>
+				<div class="total">
+					<div class="label">К ОПЛАТЕ</div>
+					<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['cart_sum'])? $_SESSION['cart']['cart_sum'] : "0.00"?></span>  ГРН	</div>
+				</div>
+			</div>
+			<div class="cart_info fleft order_balance">
+				<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
+					if($cart_sum >= 0 && $cart_sum < 500) {
+										$percent = 0;
+									}elseif($cart_sum >= 500 && $cart_sum < 3000) {
+										$percent = 10;
+									}elseif($cart_sum >= 3000) {
+										$percent = 16;
+									}else{
+										$percent = 21;
+									};
+				?>
+					<table id="percent">
+						<tr <?=$percent == 0 ? '': "style='display:none'"?>>
+							<td>Добавь:</td>
+							<td><?=round(500-$cart_sum,2)?>грн</td>
+							<td>Получи скидку:</td>
+							<td>50грн (10%)</td>
+						</tr>
+						<tr <?=($percent == 0 || $percent == 10)? '': "style='display:none'"?>>
+							<td><?=$percent == 10 ? 'Добавь' : ''?></td>
+							<td><?=round(3000-$cart_sum,2)?>грн</td>
+							<td><?=$percent == 10 ? 'Получи скидку' : ''?></td>
+							<td>300грн (16%)</td>
+						</tr>
+						<tr <?=($percent == 0 || $percent == 10 || $percent == 16 || $percent == 21)? '': "style='display:none'"?>>
+							<td><?=$percent == 16 ? 'Добавь' : ''?></td>
+							<td><?=round(10000-$cart_sum,2)?>грн</td>
+							<td><?=$percent == 16 ? 'Получи скидку' : ''?></td>
+							<td>2100грн (21%)</td>
+						</tr>
+						<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
+
+					</table>
+				<div class="price_nav"></div>
+			</div>
 		</div>
-		<div class="total">
-			<div class="label">Итого</div>
-			<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['products_sum']['3'])?number_format($_SESSION['cart']['products_sum']['3'],2,".",""):"0.00"?></span>  ГРН	<div><span>(+% <?=isset($_SESSION['cart']['cart_sum'])?number_format($_SESSION['cart']['cart_sum'],2,".",""):"0.00"?></span>  ГРН<span>)</span></div></div>
-		</div>
+
 
 		<div class="action_block">
 			<div class="wrapp">
@@ -257,6 +316,10 @@
 							   onChange="validate($(this))">
 						<label class="mdl-textfield__label" for="user_number"></label>
 						<span style='color:red' id='namef'></span><br/>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="sample7">
+						<label class="mdl-textfield__label" for="sample7">Промокод</label>
 					</div>
 					<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">

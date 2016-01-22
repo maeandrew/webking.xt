@@ -176,7 +176,6 @@ label:hover + .info_description {
 }
 .fright {
 	float: right;
-	max-width: 40px;
 }
 .panel {
 	background: #fff;
@@ -720,13 +719,12 @@ section.center {
 #cart #summ_prod, #cart #summ_many{
 	color: #0A0A0A;
 }
-#cart #percent {
-	width: 25em;
-}
 #cart #percent td{
 	padding: 0 1em 1em 0;
 	font-size: 0.8em;
-
+}
+#cart #percent td:nth-child(2n+1){
+	color: #9E9E9E;
 }
 #cart .order_head ul {
 	text-align: left;
@@ -852,11 +850,18 @@ section.center {
 	line-height: normal;
 	height: 25px;
 }
+#cart #total {
+	width: 350px;
+}
+#cart .cart {
+	border-bottom: 1px solid #e0e0e0;
+}
 #cart .total {
 	font-weight: bold;
 	font-size: 1.429em;
 	line-height: 45px;
 	float: right;
+	clear: both;
 }
 #cart .total div {
 	display: inline-block;
@@ -871,13 +876,15 @@ section.center {
 #cart .total .total_summ {
 	font-size: 14px;
 	color: #9E9E9E;
+	width: 180px;
+}
+#cart .total .label {
+	color: #9E9E9E;
+	width: 160px;
 }
 #cart .total .positions span,
 #cart .total .total_summ span {
 	font-size: 1.429em;
-}
-#cart .total .total_summ {
-
 }
 #cart .action_block {
 	overflow: hidden;
@@ -921,6 +928,9 @@ section.center {
 }
 #cart .tabs_container .in_cart_block a span {
 	border-radius: 3px !important;
+}
+#cart .cart_info {
+	clear: left;
 }
 #cart .cart_info .your_discount,
 #cart .cart_info .tabs_container {
@@ -1411,11 +1421,13 @@ section .stat_year {
 	white-space: nowrap;
 	margin: 0 2%;
 }
-.order_balance {
-	width: 300px;
-}
 #cart .order_balance {
+	padding-top: 2em;
+	padding-left: 1em;
+	width: 300px;
 	width: auto;
+	font-weight: bold;
+	font-size: x-large;
 }
 #cart .tabs_container ul,
 .content_header .cart_info .tabs_container ul {
