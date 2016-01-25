@@ -730,21 +730,38 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-//
-//	public function UpdateGraph($id_product){
-//		$sql = "";
-//		$this->db->StartTrans();
-//		$f['exclusive_supplier'] = $id_supplier;
-//		if(!$active){
-//			$f['exclusive_supplier'] = 0;
-//		}
-//		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
-//			$this->db->FailTrans();
-//			return false;
-//		}
-//		$this->db->CompleteTrans();
-//
-//	}
+
+	public function UpdateGraph($graph=array()){
+		$id_graphics = $_POST['id_graphics'];
+		$graph['id_author'] = $_SESSION['member']['id_user'];
+		$graph['id_category'] = $_POST['id_category'];
+		$graph['name_user'] = $_POST['name_user'];
+		$graph['text'] = $_POST['text'];
+		$graph['moderation'] = 1;
+		$graph['opt'] = 0;
+		$this->db->StartTrans();
+		if ($_POST['opt'] == 1) {
+			$arr['opt'] = $_POST['opt'];
+		}
+		foreach($_POST['values'] as $k=>$val){
+			$k++;
+			$arr['value_'.$k] = $val;
+		}
+		if(!$this->db->Update(_DB_PREFIX_."graph", $graph, "id_graphics = {$id_graphics}")){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Поиск графика
+	public function SearchGraph($id_graphics){
+		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_graphics = ".$id_graphics;
+		$result = $this->db->GetOneRowArray($sql);
+		return $result;
+	}
+
 
 	// Выборка графика
 	public function GetGraphList($id_category = false){

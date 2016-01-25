@@ -239,8 +239,11 @@
 			<?=$__graph?>
 			<div style="display:block;"></div>
 			<div id="user_bt" style="float:right;padding-right:15px;display:block;">
-				<a href="#" class="checkout btn_js" data-name="graph">Добавить мнение</a>
+				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
+				<a href="#" onclick="ModalGraph()">Добавить мнение</a>
 			</div>
+
+			<? print_r($_SESSION['member'])?>
 
 
 			<div class="content">
@@ -668,66 +671,7 @@
 		<div class="modal_container"></div>
 	</div>
 	<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
-		<div class="modal">
-			<div class="modal_container">
-				<p>График (своя версия)</p>
-				<div class="select_go" style="margin-top: 15px;margin-left: 77px;">
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-					<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница<!--is-checked--></span>
-					<input type="checkbox" id="switch-2" class="mdl-switch__input">
-					<span class="mdl-switch__label">Опт<!--is-checked--></span>
-				</label>
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-				</div>
-				<div class="mdl-textfield">
-					<label for="name" class="mdl-textfield__textarea">Примечания к графику:</label>
-					<textarea required="required" type="text" name="text" id="text" style="width:80%;">
-					</textarea>
-				</div>
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="top: -10px;">
-					<label for="name" class="mdl-textfield__label">Имя на графике:</label>
-					<input class="mdl-textfield__input" type="text" id="name_user" value=""/>
-				</div>
-				<div id="user_bt" style="float:right;padding-right: 15px;margin-top: 40px;">
-					<a href="#" class="save btn_js mdl-button">Сохранить</a>
-				</div>
-			</div>
-		</div>
+		<div class="modal_container"></div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">

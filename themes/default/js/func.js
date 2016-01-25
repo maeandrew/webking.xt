@@ -31,8 +31,150 @@ function GetCabCoopProdAjax(id_cart){
 	ajax('cabinet', 'GetProdListForCart', {'id_cart': id_cart}, 'html').done(function(data){
 		//console.log(data);
 		$('#products_cart').html(data);
+function ModalGraph(id_graphics){
+	ajax('product', 'OpenModalGraph').done(function(data){
+		$('#graph').html(data);
+		componentHandler.upgradeDom();
+
+		if(id_graphics){
+			//console.log(id_graphics);
+				//$('a').on('click', function(){
+				//var id_graphics = $(this).attr('id');
+				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+					if(data != null){
+						console.log(data);
+						$('#graph').html(data);
+						componentHandler.upgradeDom();
+						openObject('graph');
+						$('#graph #user_bt').find('a').addClass('update');
+						$('#graph').on('click', '.update', function(){
+							var parent =  $(this).closest('#graph'),
+								id_category = parent.data('target'),
+								opt = 0,
+								name_user = parent.find('#name_user').val(),
+								text = parent.find('textarea').val(),
+								arr = parent.find('input[type="range"]'),
+								values = {};
+							if($('.select_go label').is(':checked')){
+								opt = 1;
+							}
+							arr.each(function(index, val){
+								values[index] = $(val).val();
+							});
+							ajax('product', 'UpdateGraph', {'values': values, 'id_category': id_category, 'id_graphics': id_graphics, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+								if(data === true){
+									console.log('Your data has been saved successfully!');
+									closeObject('graph');
+									location.reload();
+								}else{
+									console.log('Something goes wrong!');
+								}
+							});
+						});
+					}else{
+						console.log('Something goes wrong!');
+					}
+				});
+
+
+		}else{
+			openObject('graph');
+			$('#graph').on('click', '.btn_js.save', function(){
+				var parent =  $(this).closest('#graph'),
+					id_category = parent.data('target'),
+					opt = 0,
+					name_user = parent.find('#name_user').val(),
+					text = parent.find('textarea').val(),
+					arr = parent.find('input[type="range"]'),
+					values = {};
+				if ($('.select_go label').is(':checked')) {
+					opt = 1;
+				}
+				arr.each(function(index, val){
+					values[index] = $(val).val();
+				});
+				ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+					if(data === true){
+						console.log('Your data has been saved successfully!');
+						closeObject('graph');
+						location.reload();
+					}else{
+						console.log('Something goes wrong!');
+					}
+				});
+			});
+		};
+
+
 	});
 }
+
+//function toArray(data){ return [].slice.call(data) }
+/*function SaveGraph(){
+	$('#graph').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#graph'),
+			id_category = parent.data('target'),
+			opt = 0,
+			name_user = parent.find('#name_user').val(),
+			text = parent.find('textarea').val(),
+			arr = parent.find('input[type="range"]'),
+			values = {};
+		if ($('.select_go label').is(':checked')) {
+			var opt = 1;
+		};
+		arr.each(function(index, val){
+			values[index] = $(val).val();
+		});
+		ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+			if(data === true){
+				console.log('Your data has been saved successfully!');
+				closeObject('graph');
+				location.reload();
+			}else{
+				console.log('Something goes wrong!');
+			}
+		});
+	});
+}*/
+
+/*function UpdateGraph(id_graphics){
+	if(val == 0){
+		$('a.updat').on('click', function(){
+			var id_graphics = $(this).attr('id');
+			ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+				//console.log(data);
+
+				if(data != null){
+					$('#graph .modal_container').html(data);
+					// var ev = 'a.update';
+					// $.each(data, function(index, el){
+
+					// 	if(index.indexOf('value_') >= 0){
+					// 		$('#graph .'+index).val(el).trigger('change');
+					// 	}else{
+					// 		console.log('err');
+					// 	};
+					// });
+					componentHandler.upgradeDom();
+					openObject('graph');
+					//ModalGraph(ev);
+
+				}else{
+					console.log('Something goes wrong!');
+				}
+			});
+		});
+	}else{
+		console.log('else');
+	};
+}*/
+
+/*function GetGraphAjax(data){
+	ajax('products', 'GetGraphList', {'id_category': id_category}, 'html').done(function(data){
+		console.log(data);
+		$('#graph > .modal_container').html(data);
+	});
+}*/
 
 function ajax(target, action, data, dataType){
 	if(typeof(data) == 'object'){
