@@ -88,10 +88,11 @@ function ChangeCartQty(id, direction){
 	}else{
 		SendToAjax(id, qty, true, direction,note);
 	}
+
 }
 
 function completeCartProductAdd(data){
-	//console.log(data['cart_sum']);
+	//console.log(data['products_sum'][0]);
 	var products_count = Object.keys(data.products).length.toString();
 	var	str = products_count+' товар';
 	if(products_count.substr(-1) <= 1)
@@ -101,7 +102,8 @@ function completeCartProductAdd(data){
 	else
 		str += 'ов';
 	$('.order_cart').text(str);
-	$('#summ_many').text(data.cart_sum);
+	$('#summ_many').text(data.products_sum[3]);
+	//$('#summ_many').text(data.cart_sum);
 	$('#summ_prod').text(products_count);
 	if(products_count > 0){
 		$('.checkout').removeClass('hidden');
@@ -112,7 +114,11 @@ function completeCartProductAdd(data){
 	//	$('div[data-idproduct="'+key+'"]').find('.active_price .price_js').text(value.actual_prices[data.cart.cart_column].toFixed(2));
 	//	$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2));
 	//});
-
+	//
+	var sum_sale = (data.products_sum[3] - data.products_sum[data.cart_column]).toFixed(2);
+	//console.log(sum_sale);
+	$('.summ_many:eq(1)').text(sum_sale);
+	$('.summ_many:eq(2)').text((data.products_sum[3]- sum_sale).toFixed(2));
 
 //----------------обновление облока скидок (start)---------------
 
@@ -153,6 +159,8 @@ function completeCartProductAdd(data){
 		$('#percent td:eq(6)').text('Получи скидку:');
 		$('#percent td:eq(8)').text('');
 		$('#percent td:eq(10)').text('');
+		$('#percent td:eq(9)').css('color','grey');
+		$('#percent td:eq(11)').css('color','grey');
 	}
 	if(data.cart_sum >= 10000){
 		$('#percent tr:eq(2)').hide();

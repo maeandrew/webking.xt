@@ -716,12 +716,12 @@ section.center {
 	margin-bottom: 20px;
 	float: left;
 }
-#cart #summ_prod, #cart #summ_many{
-	color: #0A0A0A;
+#cart #summ_prod, #cart .summ_many{
+	color: #000;
 }
 #cart #percent td{
-	padding: 0 1em 1em 0;
-	font-size: 0.8em;
+	padding: 0 1em 0.25em 0;
+	font-size: 0.6em;
 }
 #cart #percent td:nth-child(2n+1){
 	color: #9E9E9E;
@@ -855,26 +855,32 @@ section.center {
 }
 #cart .cart {
 	border-bottom: 1px solid #e0e0e0;
+	overflow: auto;
 }
 #cart .total {
-	font-weight: bold;
 	font-size: 1.429em;
-	line-height: 45px;
+	line-height: 25px;
 	float: right;
 	clear: both;
+}
+#cart .totaltext {
+	font-size: 0.7em;
+}
+#cart .totalnumb {
+	font-size: 0.5em;
 }
 #cart .total div {
 	display: inline-block;
 	min-width: 105px;
 	padding: 0 10px;
-	border-right: 1px solid #e0e0e0;
+	/*border-right: 1px solid #e0e0e0;*/
 }
 #cart .total div:last-of-type {
 	border-right: none;
 }
 #cart .total .positions,
 #cart .total .total_summ {
-	font-size: 14px;
+	/*font-size: 14px;*/
 	color: #9E9E9E;
 	width: 180px;
 }
@@ -1422,8 +1428,8 @@ section .stat_year {
 	margin: 0 2%;
 }
 #cart .order_balance {
-	padding-top: 2em;
-	padding-left: 1em;
+	padding-top: 0.7em;
+	padding-left: 3em;
 	width: 300px;
 	width: auto;
 	font-weight: bold;

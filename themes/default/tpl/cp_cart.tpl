@@ -237,68 +237,72 @@
 				</div>
 			</div>
 		<?}?>
+		<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
+			$percent_sum = $total = 0;
+			if($cart_sum >= 0 && $cart_sum < 500) {
+				$percent = 0;
+			}elseif($cart_sum >= 500 && $cart_sum < 3000) {
+				$percent = 10;
+				$percent_sum = $cart_sum * 0.10;
+				$total = $cart_sum - $percent_sum;
+			}elseif($cart_sum >= 3000 && $cart_sum < 10000) {
+				$percent = 16;
+				$percent_sum = $cart_sum * 0.16;
+				$total = $cart_sum - $percent_sum;
+			}elseif($cart_sum >= 10000){
+				$percent = 21;
+				$percent_sum = $cart_sum * 0.21;
+				$total = $cart_sum - $percent_sum;
+			};
+		?>
 		<div class="cart">
 			<div class="clear_cart fleft">
 				<a href="<?=Link::Custom('cart', 'clear');?>"><span class="icon-font color-red"></span>Очистить корзину</a>
 			</div>
 			<div id="total" class="fright">
 				<div class="total">
-					<div class="label">ИТОГО</div>
-					<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['products_sum']['3'])? $_SESSION['cart']['products_sum'][3] : "0.00"?></span>  ГРН	</div>
-				</div>
-				<div class="total">
-					<div class="label">СКИДКА</div>
-					<div class="total_summ">
-						<span id="summ_many"><?/*if($_SESSION['cart']['products_sum']['3'] >= 500 && ($_SESSION['cart']['products_sum']['3'] < 3000)){
-													echo $_SESSION['cart']['products_sum']['2'];
-												}elsif($_SESSION['cart']['products_sum']['3'] >= 3000 && $_SESSION['cart']['products_sum']['3'] < 10000){
-													echo $_SESSION['cart']['products_sum']['3'] - $_SESSION['cart']['products_sum']['1'];
-												}elsif($_SESSION['cart']['products_sum']['3'] >= 10000){
-													echo $_SESSION['cart']['products_sum']['3'] - $_SESSION['cart']['products_sum']['0'];
-												}else{
-													echo $_SESSION['cart']['products_sum']['3'] - $_SESSION['cart']['products_sum']['3'];
-												}*/?>
+					<div class="label totaltext">Итого</div>
+					<div class="total_summ totalnumb">
+						<span id="summ_many" class="summ_many">
+							<?=isset($cart_sum)? $cart_sum : "0.00"?>
 						</span>  ГРН	</div>
 				</div>
 				<div class="total">
-					<div class="label">К ОПЛАТЕ</div>
-					<div class="total_summ"> <span id="summ_many"><?=isset($_SESSION['cart']['cart_sum'])? $_SESSION['cart']['cart_sum'] : "0.00"?></span>  ГРН	</div>
+					<div class="label totaltext">Вы экономите</div>
+					<div class="total_summ totalnumb">
+						<span class="summ_many">
+							<?=round($percent_sum, 2)?>
+						</span>  ГРН	</div>
+				</div>
+				<div class="total">
+					<div class="label" style="color: #000">К оплате</div>
+					<div class="total_summ">
+						<span class="summ_many"><?=round($total, 2)?>
+						</span>  ГРН	</div>
 				</div>
 			</div>
 			<div class="cart_info fleft order_balance">
-				<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
-					if($cart_sum >= 0 && $cart_sum < 500) {
-										$percent = 0;
-									}elseif($cart_sum >= 500 && $cart_sum < 3000) {
-										$percent = 10;
-									}elseif($cart_sum >= 3000) {
-										$percent = 16;
-									}else{
-										$percent = 21;
-									};
-				?>
-					<table id="percent">
-						<tr <?=$percent == 0 ? '': "style='display:none'"?>>
-							<td>Добавь:</td>
-							<td><?=round(500-$cart_sum,2)?>грн</td>
-							<td>Получи скидку:</td>
-							<td>50грн (10%)</td>
-						</tr>
-						<tr <?=($percent == 0 || $percent == 10)? '': "style='display:none'"?>>
-							<td><?=$percent == 10 ? 'Добавь' : ''?></td>
-							<td><?=round(3000-$cart_sum,2)?>грн</td>
-							<td><?=$percent == 10 ? 'Получи скидку' : ''?></td>
-							<td>300грн (16%)</td>
-						</tr>
-						<tr <?=($percent == 0 || $percent == 10 || $percent == 16 || $percent == 21)? '': "style='display:none'"?>>
-							<td><?=$percent == 16 ? 'Добавь' : ''?></td>
-							<td><?=round(10000-$cart_sum,2)?>грн</td>
-							<td><?=$percent == 16 ? 'Получи скидку' : ''?></td>
-							<td>2100грн (21%)</td>
-						</tr>
-						<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
-
-					</table>
+				<table id="percent">
+					<tr <?=$percent == 0 ? '': "style='display:none'"?>>
+						<td>Добавь:</td>
+						<td><?=round(500-$cart_sum,2)?>грн</td>
+						<td>Получи скидку:</td>
+						<td>50грн (10%)</td>
+					</tr>
+					<tr <?=($percent == 0 || $percent == 10)? '': "style='display:none'"?>>
+						<td><?=$percent == 10 ? 'Добавь' : ''?></td>
+						<td <?=($percent == 0) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
+						<td><?=$percent == 10 ? 'Получи скидку' : ''?></td>
+						<td <?=($percent == 0) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>>480грн (16%)</td>
+					</tr>
+					<tr <?=($percent == 0 || $percent == 10 || $percent == 16)? '': "style='display:none'"?>>
+						<td><?=$percent == 16 ? 'Добавь' : ''?></td>
+						<td <?=($percent == 10) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
+						<td><?=$percent == 16 ? 'Получи скидку' : ''?></td>
+						<td <?=($percent == 10) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>>2100грн (21%)</td>
+					</tr>
+					<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
+				</table>
 				<div class="price_nav"></div>
 			</div>
 		</div>
@@ -334,6 +338,8 @@
 							Добавит Вас к групповой корзине и перенапрвит на нее.
 						</div>-->
 					</div>
+					<div id="container"/>
+
 					<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button" name="options" value="2">
@@ -376,10 +382,12 @@
 						return true;
 					}
 					//   radio button magic
+					componentHandler.upgradeDom();
+
 					var checked = false;
 					var old_text = $('.action_block .mdl-button').text();
 
-					$('#cart input.mdl-radio__button[value="1"]').on('click', function () {
+					$('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
@@ -387,7 +395,7 @@
 							$("#button-cart3").hide();
 						}
 					});
-					$('#cart input.mdl-radio__button[value="2"]').on('click', function () {
+					$('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
@@ -397,14 +405,15 @@
 						}
 					});
 					$('#cart input.mdl-radio__button').on('mousedown', function (e) {
+						console.log('clicked end');
 						checked = $(this).prop('checked');
 					}).on('click', function () {
 						if (checked == true) {
 							$(this).attr('checked', false);
 							$('.action_block .mdl-button').text(old_text);
 						}
-						;
 					});
+					//   radio button magic (end)
 				</script>
 			</div>
 		</div>
