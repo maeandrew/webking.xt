@@ -14,14 +14,14 @@ class Orders {
 			"o.pretense_date", "o.sum_opt", "o.sum_mopt", "o.sum", "o.discount",
 			"o.sum_discount", "o.id_pretense_status", "o.id_return_status", "o.skey",
 			"o.otpusk_prices_sum", "o.sum_nac", "o.note", "o.note2", "o.strachovka",
-			"o.order_discount", "o.freight", "o.bonus_card", "o.id_remitter"
+			"o.order_discount", "o.freight","o.bonus_card"
 			);
 		$this->usual_fields2 = array("o.id_order", "o.id_order_status", "o.id_contragent",
 			"o.id_customer", "o.cont_person", "o.need_sertificate", "o.descr",
 			"o.creation_date", "o.target_date", "o.return_date", "o.pretense_date",
 			"o.sum_opt", "o.sum_mopt", "o.sum", "o.discount", "o.sum_discount",
 			"o.id_pretense_status", "o.id_return_status", "o.skey", "o.otpusk_prices_sum",
-			"o.sum_nac", "o.order_discount", "o.freight", "o.id_remitter"
+			"o.sum_nac", "o.order_discount", "o.freight"
 			);
 	}
 

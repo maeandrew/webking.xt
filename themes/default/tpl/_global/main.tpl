@@ -81,6 +81,8 @@
 			echo sprintf($tmpstr, $js['name'], $js['async']==true?' async':null);
 		}
 	}?>
+	<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
+ 	<script src="http://underscorejs.org/underscore.js"></script>
 	<!-- END JS load -->
 
 	<!-- Google Material Icon -->
