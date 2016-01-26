@@ -128,9 +128,9 @@ $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 $GLOBALS['__popular'] = $tpl_popular;
 if($GLOBALS['CurrentController'] == 'main'){
-	$GLOBALS['__page_title'] = 'Оптовый интернет-магазин Харьковторг | Оптовые продажи: хозтовары, одежда и обувь, стройка и ремонт. X-torg';
-	$GLOBALS['__page_kw'] = 'оптовый, оптовые, продажи, интернет, магазин, Харьковторг, хозтовары, одежда, обувь, подарки, сувениры, галантерея, посуда, канцтовары, текстиль, стройка и ремонт, косметика, парфюмерия, велозапчасти, мотозапчасти, бижутерия, купить, куплю, в Украине, Украина, x torg, x-torg, torg, х-торг харьков';
-	$GLOBALS['__page_description'] = 'Оптовый интернет-магазин Харьковторг | Продажа товаров от производителя: хозтовары, одежда и обувь, подарки, сувениры, галантерея, посуда, канцтовары, текстиль, стройка и ремонт, косметика, парфюмерия, велозапчасти, мотозапчасти, бижутерия. Доставка по всем регионам Украины';
+	$GLOBALS['__page_title'] = 'Оптовый интернет-магазин xt.ua';
+	$GLOBALS['__page_kw'] = '';
+	$GLOBALS['__page_description'] = '';
 	$GLOBALS['__page_h1'] = '';
 }elseif($GLOBALS['CurrentController'] == 'products'){
 	foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
@@ -143,7 +143,7 @@ if($GLOBALS['CurrentController'] == 'main'){
 	}
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин Харьковторг | ".implode(" ", $GLOBALS['__page_description']);
+	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(" ", $GLOBALS['__page_description']);
 }elseif($GLOBALS['CurrentController'] == 'news'){
 	foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
 		if($k != 0){
@@ -157,7 +157,7 @@ if($GLOBALS['CurrentController'] == 'main'){
 	}
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title'])." | Новости оптового интернет-магазина ".$GLOBALS['CONFIG']['shop_name'];
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин Харьковторг | ".implode(" ", $GLOBALS['__page_description']);
+	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(" ", $GLOBALS['__page_description']);
 }else{
 	$GLOBALS['__page_title'] = array();
 	$GLOBALS['__page_kw'] = array();
@@ -171,5 +171,5 @@ if($GLOBALS['CurrentController'] == 'main'){
 	}
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']) . "| Киев, Харьков, Днепропетровск, Донецк, Запорожье, Луганск, Крым, Одесса, Львов, Полтава, Сумы, Чернигов, Ивано-Франковск, Закарпатье ";
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин Харьковторг | ".implode(". ", $GLOBALS['__page_description'])." | Дешевый интернет магазин недорогих товаров" ;
+	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(". ", $GLOBALS['__page_description'])." | Дешевый интернет магазин недорогих товаров" ;
 }?>
