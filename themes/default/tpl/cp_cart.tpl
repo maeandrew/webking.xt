@@ -240,7 +240,8 @@
 		<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
 			$percent_sum = $total = 0;
 			if($cart_sum >= 0 && $cart_sum < 500) {
-				$percent = 0;
+				$percent = $percent_sum = 0;
+				$total = $cart_sum;
 			}elseif($cart_sum >= 500 && $cart_sum < 3000) {
 				$percent = 10;
 				$percent_sum = $cart_sum * 0.10;
@@ -275,7 +276,7 @@
 						</span>  ГРН	</div>
 				</div>
 				<div class="total">
-					<div class="label" style="color: #000">К оплате</div>
+					<div class="label totaltextfinish">К оплате</div>
 					<div class="total_summ">
 						<span class="summ_many"><?=round($total, 2)?>
 						</span>  ГРН	</div>
@@ -314,12 +315,12 @@
 			</div>
 			<div class="wrapp">
 				<form action="">
-					<div class="mdl-textfield mdl-js-textfield">
-						<span class="number_label">Номер телефона</span>
+					<!-- Floating Multiline Textfield -->
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="user_number" pattern="[0-9]{5,19}"
 							   onChange="validate($(this))">
-						<label class="mdl-textfield__label" for="user_number"></label>
-						<span style='color:red' id='namef'></span><br/>
+						<label class="mdl-textfield__label" for="user_number">Номер телефона</label>
+						<span class="mdl-textfield__error">Номер телефона введен не корректно!</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="sample7">
@@ -388,6 +389,7 @@
 					var old_text = $('.action_block .mdl-button').text();
 
 					$('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
+						console.log('click 0');
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
@@ -396,20 +398,21 @@
 						}
 					});
 					$('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
+						console.log('click 1');
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
 							$("#button-cart2").hide();
 							$("#button-cart3").show();
-							// var href = $('#button-cart3 button').data('href');
 						}
 					});
-					$('#cart input.mdl-radio__button').on('mousedown', function (e) {
-						console.log('clicked end');
-						checked = $(this).prop('checked');
+					$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+						console.log('mousedown');
+						checked = $(this).find('input').prop('checked');
 					}).on('click', function () {
+						console.log(checked);
 						if (checked == true) {
-							$(this).attr('checked', false);
+							$(this).removeClass('is-checked').find('input').attr('checked', false);
 							$('.action_block .mdl-button').text(old_text);
 						}
 					});

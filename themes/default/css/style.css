@@ -855,7 +855,7 @@ section.center {
 }
 #cart .cart {
 	border-bottom: 1px solid #e0e0e0;
-	overflow: auto;
+	overflow: hidden;
 }
 #cart .total {
 	font-size: 1.429em;
@@ -865,6 +865,11 @@ section.center {
 }
 #cart .totaltext {
 	font-size: 0.7em;
+}
+#cart #total .total .totaltextfinish {
+	float: left;
+	color: #000;
+	width: 123px;
 }
 #cart .totalnumb {
 	font-size: 0.5em;
@@ -882,7 +887,7 @@ section.center {
 #cart .total .total_summ {
 	/*font-size: 14px;*/
 	color: #9E9E9E;
-	width: 180px;
+	/*width: 180px;*/
 }
 #cart .total .label {
 	color: #9E9E9E;

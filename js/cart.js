@@ -80,6 +80,7 @@ function ChangeCartQty(id, direction){
 	}else{
 		var note = $('#product_'+id).find('.note textarea').val();
 	}
+	$('.order_mopt_sum_'+id).text();
 	if(direction == 1){
 		//console.log(qty);
 		SendToAjax(id, qty+1, true, direction,note);
@@ -114,7 +115,6 @@ function completeCartProductAdd(data){
 	//	$('div[data-idproduct="'+key+'"]').find('.active_price .price_js').text(value.actual_prices[data.cart.cart_column].toFixed(2));
 	//	$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2));
 	//});
-	//
 	var sum_sale = (data.products_sum[3] - data.products_sum[data.cart_column]).toFixed(2);
 	//console.log(sum_sale);
 	$('.summ_many:eq(1)').text(sum_sale);
@@ -129,7 +129,6 @@ function completeCartProductAdd(data){
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.1).toFixed(2) +' грн (10%)');
 		$('#percent td:eq(4)').text('Добавь:');
 		$('#percent td:eq(6)').text('Получи скидку:');
-		//$('#summ_many').text('');
 	}
 	if(data.cart_sum < 500){
 		$('#percent tr:eq(0)').show();
