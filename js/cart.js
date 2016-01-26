@@ -17,6 +17,7 @@ function SendToAjax(id, qty, button, direction, note){
 		//console.log(data);
 		completeCartProductAdd(data.cart);
 		qty = data.product.quantity;
+		console.log(data.cart.cart_column);
 		var mode_text = 'от';
 		if(qty == 0){
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(0);
@@ -36,7 +37,7 @@ function SendToAjax(id, qty, button, direction, note){
 				$('form.note[data-note="'+id+'"]').addClass('informed').css('border-color', '#f00');
 			};
 		}
-		if(current_controller == 'cart'){
+		if($('#cart').hasClass('opened')){
 			$('div[data-idproduct="'+id+'"]').find('.active_price .price_js').text(data.product.actual_prices[data.cart.cart_column].toFixed(2));
 			$('.cart_order_sum').text(data.cart.cart_sum);
 			$.each(data.cart.products, function(key, value){
@@ -80,7 +81,6 @@ function ChangeCartQty(id, direction){
 	}else{
 		var note = $('#product_'+id).find('.note textarea').val();
 	}
-	$('.order_mopt_sum_'+id).text();
 	if(direction == 1){
 		//console.log(qty);
 		SendToAjax(id, qty+1, true, direction,note);
@@ -121,47 +121,64 @@ function completeCartProductAdd(data){
 	$('.summ_many:eq(2)').text((data.products_sum[3]- sum_sale).toFixed(2));
 
 //----------------обновление облока скидок (start)---------------
-
-	if(data.cart_sum >= 500){
+console.log(data);
+	if(data.products_sum[3] >= 500){
 		$('#percent tr:eq(0)').hide();
 		$('#percent tr:eq(1)').css('color', '#000');
 		$('#percent td:eq(5)').text((3000-data.cart_sum).toFixed(2)+'грн');
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.1).toFixed(2) +' грн (10%)');
-		$('#percent td:eq(4)').text('Добавь:');
-		$('#percent td:eq(6)').text('Получи скидку:');
+		$('#percent td:eq(4)').text('Добавьте:');
+		$('#percent td:eq(6)').text('Получите скидку:');
+
+		$('#percent td:eq(9)').css('color','#9E9E9E');
+		$('#percent td:eq(11)').css('color','#9E9E9E');
+
+		$('#percent td:eq(5)').css('color','');
+		$('#percent td:eq(7)').css('color','');
+
+		$('#percent td:eq(10)').css('color','');
+		$('#percent td:eq(12)').css('color','');
 	}
-	if(data.cart_sum < 500){
+	if(data.products_sum[3] < 500){
 		$('#percent tr:eq(0)').show();
 		$('#percent td:eq(1)').text((500-data.cart_sum).toFixed(2)+'грн');
 		$('#percent td:eq(5)').text((3000-data.cart_sum).toFixed(2)+'грн');
 		$('#percent td:eq(9)').text((10000-data.cart_sum).toFixed(2)+'грн');
 		$('#perc_cont .your_discount').text('Ваша скидка 00.00 грн (0%)');
-		$('#percent td:eq(0)').text('Добавь:');
-		$('#percent td:eq(2)').text('Получи скидку:');
+		$('#percent td:eq(0)').text('Добавьте:');
+		$('#percent td:eq(2)').text('Получите скидку:');
 		$('#percent td:eq(4)').text('');
 		$('#percent td:eq(6)').text('');
+		$('#percent td:eq(8)').text('');
+		$('#percent td:eq(10)').text('');
+		$('#percent td:eq(9)').css('color','#9E9E9E');
+		$('#percent td:eq(11)').css('color','#9E9E9E');
+		$('#percent td:eq(7)').css('color','#9E9E9E');
+		$('#percent td:eq(5)').css('color','#9E9E9E');
 	}
-	if(data.cart_sum >= 3000){
+	if(data.products_sum[3] >= 3000){
 		$('#percent tr:eq(1)').hide();
 		$('#percent tr:eq(2)').css('color', '#000');
 		$('#percent td:eq(5)').text((10000-data.cart_sum).toFixed(2)+'грн');
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.16).toFixed(2) +' грн (16%)');
-		$('#percent td:eq(8)').text('Добавь:');
-		$('#percent td:eq(10)').text('Получи скидку:');
+		$('#percent td:eq(8)').text('Добавьте:');
+		$('#percent td:eq(10)').text('Получите скидку:');
+		$('#percent td:eq(9)').css('color','');
+		$('#percent td:eq(11)').css('color','');
 	}
-	if(data.cart_sum < 3000 && data.cart_sum >= 500){
+	if(data.products_sum[3] < 3000 && data.products_sum[3] >= 500){
 		$('#percent tr:eq(1)').show();
 		$('#percent td:eq(5)').text((3000-data.cart_sum).toFixed(2)+'грн');
 		$('#percent td:eq(9)').text((10000-data.cart_sum).toFixed(2)+'грн');
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.1).toFixed(2) +' грн (10%)');
-		$('#percent td:eq(4)').text('Добавь:');
-		$('#percent td:eq(6)').text('Получи скидку:');
+		$('#percent td:eq(4)').text('Добавьте:');
+		$('#percent td:eq(6)').text('Получите скидку:');
 		$('#percent td:eq(8)').text('');
 		$('#percent td:eq(10)').text('');
-		$('#percent td:eq(9)').css('color','grey');
-		$('#percent td:eq(11)').css('color','grey');
+		$('#percent td:eq(9)').css('color','#9E9E9E');
+		$('#percent td:eq(11)').css('color','#9E9E9E');
 	}
-	if(data.cart_sum >= 10000){
+	if(data.products_sum[3] >= 10000){
 		$('#percent tr:eq(2)').hide();
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.21).toFixed(2) +' грн (21%)');
 	}

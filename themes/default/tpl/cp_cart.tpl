@@ -169,7 +169,9 @@
 			<ul>
 				<li class="photo">Фото</li>
 				<li class="name">Название</li>
-				<li class="price">Цена / Количество</li>
+				<li class="price">Цена</li>
+				<li class="col">Количество</li>
+				<li class="sum_li">Сумма</li>
 			</ul>
 		</div>
 		<?$i = 0;
@@ -200,14 +202,16 @@
 				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
-					<p class="price mdl-cell--hide-phone">
-						<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
-					</p>
-					<p class="summ">=
-						<span class="order_mopt_sum_<?=$item['id_product']?>">
-							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
-						</span>
-					</p>
+					<div>
+						<?if(0):?>
+						<p class="price_full">
+							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][3], 2, ".", "")?>
+						</p>
+						<?endif?>
+						<p class="price mdl-cell--hide-phone">
+							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
+						</p>
+					</div>
 					<div class="buy_block">
 						<div class="btn_remove">
 							<button class="mdl-button material-icons">
@@ -222,6 +226,11 @@
 							</button>
 						</div>
 					</div>
+					<p class="summ">
+						<span class="order_mopt_sum_<?=$item['id_product']?>">
+							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
+						</span>
+					</p>
 				</div>
 				<div class="product_info clearfix">
 					<div class="note in_cart clearfix">
@@ -239,18 +248,18 @@
 		<?}?>
 		<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
 			$percent_sum = $total = 0;
-			if($cart_sum >= 0 && $cart_sum < 500) {
+			if($cart_sum >= 0 && $cart_sum < $GLOBALS['CONFIG']['retail_order_margin']) {
 				$percent = $percent_sum = 0;
 				$total = $cart_sum;
-			}elseif($cart_sum >= 500 && $cart_sum < 3000) {
+			}elseif($cart_sum >= $GLOBALS['CONFIG']['retail_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['wholesale_order_margin']) {
 				$percent = 10;
 				$percent_sum = $cart_sum * 0.10;
 				$total = $cart_sum - $percent_sum;
-			}elseif($cart_sum >= 3000 && $cart_sum < 10000) {
+			}elseif($cart_sum >= $GLOBALS['CONFIG']['wholesale_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['full_wholesale_order_margin']) {
 				$percent = 16;
 				$percent_sum = $cart_sum * 0.16;
 				$total = $cart_sum - $percent_sum;
-			}elseif($cart_sum >= 10000){
+			}elseif($cart_sum >= $GLOBALS['CONFIG']['full_wholesale_order_margin']){
 				$percent = 21;
 				$percent_sum = $cart_sum * 0.21;
 				$total = $cart_sum - $percent_sum;
@@ -278,29 +287,29 @@
 				<div class="total">
 					<div class="label totaltextfinish">К оплате</div>
 					<div class="total_summ">
-						<span class="summ_many"><?=round($total, 2)?>
+						<span class="summ_many" style='font-size: 1.2em'><?=round($total, 2)?>
 						</span>  ГРН	</div>
 				</div>
 			</div>
 			<div class="cart_info fleft order_balance">
 				<table id="percent">
 					<tr <?=$percent == 0 ? '': "style='display:none'"?>>
-						<td>Добавь:</td>
+						<td>Добавьте:</td>
 						<td><?=round(500-$cart_sum,2)?>грн</td>
-						<td>Получи скидку:</td>
+						<td>Получите скидку:</td>
 						<td>50грн (10%)</td>
 					</tr>
-					<tr <?=($percent == 0 || $percent == 10)? '': "style='display:none'"?>>
-						<td><?=$percent == 10 ? 'Добавь' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
-						<td><?=$percent == 10 ? 'Получи скидку' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>>480грн (16%)</td>
+					<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
+						<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
+						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
+						<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
+						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
 					</tr>
-					<tr <?=($percent == 0 || $percent == 10 || $percent == 16)? '': "style='display:none'"?>>
-						<td><?=$percent == 16 ? 'Добавь' : ''?></td>
-						<td <?=($percent == 10) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
-						<td><?=$percent == 16 ? 'Получи скидку' : ''?></td>
-						<td <?=($percent == 10) ? "style=\"color: rgb(158, 158, 158);\"" : ''?>>2100грн (21%)</td>
+					<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
+						<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
+						<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
+						<td><?=$percent == 16 ? 'Получите скидку' : ''?></td>
+						<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
 					</tr>
 					<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
 				</table>
