@@ -35,11 +35,11 @@ function GetCabCoopProdAjax(id_cart){
 }
 
 // lib d3
-function foo(selection) {
+/*function foo(selection) {
   selection
       .attr("name1", "value1")
       .attr("name2", "value2");
-}
+}*/
 
 function ModalGraph(id_graphics){
 	ajax('product', 'OpenModalGraph').done(function(data){
@@ -1124,22 +1124,22 @@ function rebuildPreview(obj){
 	}
 	preview.css({
 		top: position.top - positionProd.top - preview.height()/2 + obj.height()/2 - correctionBottom - correctionTop,
-		left: 100
+		left: 100,
 	});
 	if(position.top - preview.offset().top + obj.height()/2 + preview.find('.triangle').height() > preview.height() ){
 		preview.css('border-radius', '5px 5px 5px 0').find('.triangle').css({
 			top: '50%',
-			left: 20
+			left: 20,
 		});
 	}else if(preview.offset().top > position.top + obj.height()/2 - preview.find('.triangle').height()){
 		preview.css('border-radius', '0 5px 5px 5px').find('.triangle').css({
 			top: '50%',
-			left: 20
+			left: 20,
 		});
 	}else{
 		preview.css('border-radius', '5px').find('.triangle').css({
 			top: position.top - preview.offset().top + obj.height()/2,
-			left: -7
+			left: -7,
 		});
 	}
 	// Sending ajax for collectiong data about hovered product
@@ -1196,7 +1196,7 @@ function showPreview(ajax){
 function mousePos(e){
 	var X = e.pageX; // положения по оси X
 	var Y = e.pageY; // положения по оси Y
-	return {"x":X, "y":Y}
+	return {"x":X, "y":Y};
 }
 
 /* Смена отображаемой цены */
@@ -1244,6 +1244,11 @@ function openObject(id){
 		}
 		ActivateBG();
 	}
+	$(document).keyup(function(e){
+		if(e.keyCode == 27){
+			closeObject(object.attr('id'));
+		}
+	});
 }
 
 function closeObject(id){
