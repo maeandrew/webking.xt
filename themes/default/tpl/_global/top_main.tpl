@@ -1,6 +1,6 @@
 <div class="header_wrapp clearfix">
 	<div class="logo">
-		<a href="<?=Link::Custom('main')?>"><img src="<?=file_exists($GLOBALS['PATH_root'].'/themes/default/img/logo_xt_3.svg')?_base_url.'/themes/default/img/logo_xt_3.svg':'/efiles/_thumb/nofoto.jpg'?>" alt="Оптовый торговый центр xt.ua"></a>
+		<a href="<?=Link::Custom('main')?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
 	<div class="catalog_btn mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
 	<div class="search_wrapp">

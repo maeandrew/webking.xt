@@ -245,7 +245,6 @@ class Cart {
 
 	// Добавление и проверка корзины в БД
 	public function InsertMyCart(){
-		//print_r($_SESSION);
 		if(isset($_SESSION['cart']['id'])){
 			# обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
@@ -448,21 +447,23 @@ class Cart {
 	}
 
 	// Выборка всех корзин связанных промо-кодом
-	public function GetInfoToPromo($promo){
+	public function GetInfoForPromo($promo){
 			global $db;
-			$sql = "SELECT  c.id_cart, c.id_user, c.status, cs.title_stat, u.name, u.email, cus.phones,
-							u.promo_code , cus.discount , cus.id_contragent, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
-			FROM "._DB_PREFIX_."xt_cart AS c
-			LEFT JOIN "._DB_PREFIX_."xt_user AS u
+			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, u.name, u.email, u.last_login_date, cus.phones,	u.promo_code,
+ 							cus.discount , cus.id_contragent, cp.quantity, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
+			FROM "._DB_PREFIX_."cart AS c
+			LEFT JOIN "._DB_PREFIX_."user AS u
 			ON c.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."xt_customer AS cus
+			LEFT JOIN "._DB_PREFIX_."customer AS cus
 			ON cus.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."xt_cart_product AS cp
+			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
 			ON cp.id_cart = c.id_cart
-			LEFT JOIN "._DB_PREFIX_."xt_cart_status AS cs
-			ON c.status = cs.id
+			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
+			ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
-			GROUP BY c.id_cart;";
+			GROUP BY c.id_cart
+			ORDER BY c.status ASC";
+//		print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -471,17 +472,39 @@ class Cart {
 	}
 
 	// Выборка всех товаров из корзин связанных промо-кодом
-	public function GetCarts($promo){
+	public function GetCartForPromo($promo){
 			global $db;
 			$sql = "SELECT  p.id_product, p.art, p.name, p.images, p.price_opt, cp.price,
 							cp.quantity, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_prod
-			FROM xt_cart_product as cp
-			LEFT JOIN xt_cart as c
+			FROM "._DB_PREFIX_."cart_product as cp
+			LEFT JOIN "._DB_PREFIX_."cart as c
 			ON c.id_cart = cp.id_cart
-			LEFT JOIN xt_product as p
+			LEFT JOIN "._DB_PREFIX_."product as p
 			ON cp.id_product = p.id_product
 			WHERE c.promo = '".$promo."'
 			group by p.id_product;";
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
+	// Выборка всех товаров по id_cart
+	public function GetProductsForCart($id_cart){
+		global $db;
+		$sql = "SELECT p.id_product, cp.quantity, cp.price as cart_price,
+		(CASE WHEN cp.quantity >= p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as base_price,
+		p.id_product, p.name,
+		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as img
+		FROM xt_cart_product as cp
+		LEFT JOIN  xt_cart as c
+		ON cp.id_cart = c.id_cart
+		LEFT JOIN xt_product as p
+		ON cp.id_product = p.id_product
+		LEFT JOIN xt_image as i
+		ON cp.id_product = i.id_product AND i.ord = 0
+		WHERE c.id_cart = '".$id_cart."';";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;

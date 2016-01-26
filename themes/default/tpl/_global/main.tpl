@@ -202,8 +202,7 @@
 			</aside>
 		<?}?>
 		<section class="center">
-			<?if($GLOBALS['CurrentController'] == 'main'){?>
-				<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+				<!-- <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
 					<div class="stat_info">
 						<p>График опроса</p>
 						<ul>
@@ -235,8 +234,18 @@
 							</ul>
 						</nav>
 					</div>
-				</div>
-			<?}?>
+				</div> -->
+
+			<?=$__graph?>
+			<div style="display:block;"></div>
+			<div id="user_bt" style="float:right;padding-right:15px;display:block;">
+				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
+				<a href="#" onclick="ModalGraph()">Добавить мнение</a>
+			</div>
+
+			<? print_r($_SESSION['member'])?>
+
+
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
@@ -661,7 +670,9 @@
 	<div id="cart" data-type="modal">
 		<div class="modal_container"></div>
 	</div>
-
+	<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
+		<div class="modal_container"></div>
+	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">

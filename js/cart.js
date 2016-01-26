@@ -88,10 +88,11 @@ function ChangeCartQty(id, direction){
 	}else{
 		SendToAjax(id, qty, true, direction,note);
 	}
+
 }
 
 function completeCartProductAdd(data){
-	/*console.log(data['cart_sum']);*/
+	//console.log(data['products_sum'][0]);
 	var products_count = Object.keys(data.products).length.toString();
 	var	str = products_count+' товар';
 	if(products_count.substr(-1) <= 1)
@@ -101,11 +102,80 @@ function completeCartProductAdd(data){
 	else
 		str += 'ов';
 	$('.order_cart').text(str);
-	$('#summ_many').text(data.cart_sum);
+	$('#summ_many').text(data.products_sum[3]);
+	//$('#summ_many').text(data.cart_sum);
 	$('#summ_prod').text(products_count);
 	if(products_count > 0){
 		$('.checkout').removeClass('hidden');
 	}else{
 		$('.checkout').addClass('hidden');
 	}
+	//$.each(data.cart.products, function(key, value){
+	//	$('div[data-idproduct="'+key+'"]').find('.active_price .price_js').text(value.actual_prices[data.cart.cart_column].toFixed(2));
+	//	$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2));
+	//});
+	//
+	var sum_sale = (data.products_sum[3] - data.products_sum[data.cart_column]).toFixed(2);
+	//console.log(sum_sale);
+	$('.summ_many:eq(1)').text(sum_sale);
+	$('.summ_many:eq(2)').text((data.products_sum[3]- sum_sale).toFixed(2));
+
+//----------------обновление облока скидок (start)---------------
+
+	if(data.cart_sum >= 500){
+		$('#percent tr:eq(0)').hide();
+		$('#percent tr:eq(1)').css('color', '#000');
+		$('#percent td:eq(5)').text((3000-data.cart_sum).toFixed(2)+'грн');
+		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.1).toFixed(2) +' грн (10%)');
+		$('#percent td:eq(4)').text('Добавь:');
+		$('#percent td:eq(6)').text('Получи скидку:');
+		//$('#summ_many').text('');
+	}
+	if(data.cart_sum < 500){
+		$('#percent tr:eq(0)').show();
+		$('#percent td:eq(1)').text((500-data.cart_sum).toFixed(2)+'грн');
+		$('#percent td:eq(5)').text((3000-data.cart_sum).toFixed(2)+'грн');
+		$('#percent td:eq(9)').text((10000-data.cart_sum).toFixed(2)+'грн');
+		$('#perc_cont .your_discount').text('Ваша скидка 00.00 грн (0%)');
+		$('#percent td:eq(0)').text('Добавь:');
+		$('#percent td:eq(2)').text('Получи скидку:');
+		$('#percent td:eq(4)').text('');
+		$('#percent td:eq(6)').text('');
+	}
+	if(data.cart_sum >= 3000){
+		$('#percent tr:eq(1)').hide();
+		$('#percent tr:eq(2)').css('color', '#000');
+		$('#percent td:eq(5)').text((10000-data.cart_sum).toFixed(2)+'грн');
+		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.16).toFixed(2) +' грн (16%)');
+		$('#percent td:eq(8)').text('Добавь:');
+		$('#percent td:eq(10)').text('Получи скидку:');
+	}
+	if(data.cart_sum < 3000 && data.cart_sum >= 500){
+		$('#percent tr:eq(1)').show();
+		$('#percent td:eq(5)').text((3000-data.cart_sum).toFixed(2)+'грн');
+		$('#percent td:eq(9)').text((10000-data.cart_sum).toFixed(2)+'грн');
+		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.1).toFixed(2) +' грн (10%)');
+		$('#percent td:eq(4)').text('Добавь:');
+		$('#percent td:eq(6)').text('Получи скидку:');
+		$('#percent td:eq(8)').text('');
+		$('#percent td:eq(10)').text('');
+		$('#percent td:eq(9)').css('color','grey');
+		$('#percent td:eq(11)').css('color','grey');
+	}
+	if(data.cart_sum >= 10000){
+		$('#percent tr:eq(2)').hide();
+		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.21).toFixed(2) +' грн (21%)');
+	}
+
+	//if($('#percent tr:eq(0)').is(':visible')){
+	//	$('#percent tr:eq(0)').css('color', '#000');
+	//}
+	//if($('#percent tr:eq(0)').is(':hidden')){
+	//	$('#percent tr:eq(1)').css('color', '#000');
+	//}
+	//if($('#percent tr:eq(1)').is(':hidden')){
+	//	$('#percent tr:eq(2)').css('color', '#000');
+	//}
+//----------------обновление облока скидок (end)---------------
+
 }

@@ -147,7 +147,12 @@ if(isset($GLOBALS['Sort'])){
 	$sorting = $sort[$GLOBALS['CurrentController']];
 }
 // =========================================================
-
+/*if($GLOBALS['CurrentController'] == 'main'){
+	$data = $products->ListGraph($id_category);
+	$tpl->Assign('data', $data);
+}elseif{($GLOBALS['CurrentController'] == 'products')
+	$tpl->Assign('',);
+}*/
 require($GLOBALS['PATH_core'].'controller.php');
 $tpl->Assign('css_arr', G::GetCSS());
 $tpl->Assign('js_arr', G::GetJS());
@@ -163,6 +168,8 @@ $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
 $tpl->Assign('__sidebar_r', $GLOBALS['__sidebar_r']);
 $tpl->Assign('__popular', $GLOBALS['__popular']);
 $tpl->Assign('__aside',  $GLOBALS['__aside']);
+$tpl->Assign('__graph',  $GLOBALS['__graph']);
+
 $Cart = new Cart();
 // Создание базового массива корзины
 if(G::IsLogged()){

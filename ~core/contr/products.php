@@ -62,6 +62,9 @@ while($cat = $dbtree->NextRow()){
 	$tpl->Assign('header', $cat['name']);
 }
 
+
+
+
 // if(empty($subcats)){
 	// end($GLOBALS['IERA_LINKS']);
 	// $GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);

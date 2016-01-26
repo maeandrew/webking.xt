@@ -376,10 +376,64 @@ $(function(){
 			}
 		}
 	});
+
+	//Открытие модального Графика
+	/*$('#graph').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#graph'),
+			id_category = parent.data('target'),
+			opt = 0,
+			name_user = parent.find('#name_user').val(),
+			text = parent.find('textarea').val(),
+			arr = parent.find('input[type="range"]'),
+			values = {};
+		if ($('.select_go label').is(':checked')) {
+			var opt = 1;
+		};
+		arr.each(function(index, val){
+			values[index] = $(val).val();
+		});
+		ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+			if(data === true){
+				console.log('Your data has been saved successfully!');
+				closeObject('graph');
+				location.reload();
+			}else{
+				console.log('Something goes wrong!');
+			}
+		});
+	});*/
+
+	//Редактирование модального Графика
+	/*$('a.update_exist').on('click', function(){
+		var id_graphics = $(this).attr('id');
+		ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+			console.log(data);
+
+			if(data != null){
+				$('#graph .modal_container').html(data);
+				componentHandler.upgradeDom();
+				openObject('graph');
+
+			}else{
+				console.log('Something goes wrong!');
+			}
+		});
+	});*/
+
+	$('.stat_year').on('click', '.slide_all', function(){
+	    //$(document.body).click(function () {
+	      if ($("div.stat_year").is(":hidden")) {
+	        $("div.stat_year").slideDown("slow");
+	      } else {
+	        $("div.stat_year").next().slideUp("slow");
+	      }
+	    //});
+	  });
+
+
+
 	//Открытие модального окна login///////
-
-
-/*$('.switch').on('click', function(e){
+	/*$('.switch').on('click', function(e){
 		e.preventDefault();
 		$(this).closest('[class^="wr_modal"]').addClass('hidden');
 		$('.wr_modal_'+$(this).data('next-step')).removeClass('hidden');
@@ -657,4 +711,5 @@ $(function(){
 		$('.order').removeClass('expanded').find('.tabs').slideUp();
 	});
 
+	$('#percent tr:first').css('color', '#000');
 });

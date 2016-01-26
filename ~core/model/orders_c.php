@@ -1498,6 +1498,29 @@ class Orders {
 		}
 	}
 
+	public function GetCartForCustomer($and){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."osp AS osp
+			LEFT JOIN "._DB_PREFIX_."order AS o
+				ON osp.id_order = o.id_order
+			LEFT JOIN "._DB_PREFIX_."supplier AS s
+				ON osp.id_supplier = s.id_user
+			LEFT JOIN "._DB_PREFIX_."product AS p
+				ON osp.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."image AS i
+				ON osp.id_product = i.id_product
+					AND i.ord = 0
+			".$this->db->GetWhere($and)."
+			GROUP BY osp.id_order, osp.id_product
+			ORDER BY p.name";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}else{
+			return $arr;
+		}
+	}
+
 	public function GetOrderForPricelist($and){
 		$sql = "SELECT DISTINCT cp.id_category, c.name
 			FROM "._DB_PREFIX_."osp AS osp

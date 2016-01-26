@@ -1,4 +1,3 @@
-
 <div class="products">
 	<div class="row">
 		<?if(!empty($list)){ ?>
@@ -26,102 +25,14 @@
 					<?=$products_list;?>
 					<div class="preview ajax_loading">
 						<div class="preview_content">
-							<div class="col-md-6">
-								<div id="owl-product_slide_js"></div>
-								<div id="owl-product_slideDown_js"></div>
-							</div>
-							<div class="preview_info col-md-6">
-								<h4></h4>
-								<p class="product_article"><!--noindex-->aрт. <!--/<noindex--><span></span></p>
-								<p class="product_description"></p>
-								<div class="product_buy">
-									<div class="buy_block">
-										<div class="active_price">
-											<span class="price_js"></span>
-											<!--noindex--> грн.<!--/noindex-->
-										</div>
-										<div class="buy_buttons">
-											<!--удаление товара оптом из корзины-->
-											<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
-											<input type="text" class="qty_js" value="0">
-											<a href="#"	class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">add</a>
-											<!--количество заказываемых товаров-->
-										</div>
-										<div class="buy_btn_block">
-											<button class="btn-m-orange buy_btn_js" type="button">Купить</button>
-											<a href="<?=_base_url?>/cart/" class="in_cart_js hidden<?=G::IsLogged()?null:' open_modal" data-target="login_form';?>" title="Перейти в корзину">В корзине</a>
-											<span class="not_available">Товара нет в наличии</span>
-										</div>
-									</div>
-									<div class="other_price">
-										<span class="price_js"></span>
-										<!--noindex--> грн.<!--/noindex-->
-										<span class="mode_js"></span>
-										<span class="units_js"></span>
-										<p class="qty_descr"></p>
-									</div>
+							<div class="mdl-grid" style="overflow: hidden;">
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+									<div id="owl-product_slide_js"></div>
 								</div>
-								<div class="row">
-									<div class="specifications col-md-6 hidden">
-										<ul>
-											<li><span class="spec"></span><span class="unit"></span></li>
-											<li><span class="spec"></span><span class="unit"></span></li>
-											<li><span class="spec"></span><span class="unit"></span></li>
-											<li><span class="spec"></span><span class="unit"></span></li>
-											<li><span class="spec"></span><span class="unit"></span></li>
-										</ul>
-										<a href="#" class="all_specifications">Все характеристики</a>
-									</div>
-									<div class="product_info col-md-6">
-										<div class="preview_favorites">
-											<span class="icon-font favorite"></span>
-											<a href="#">В избранное</a>
-										</div>
-										<div class="preview_follprice">
-											<p><span class="icon-font">Line</span><a href="#">Следить за ценой</a></p>
-											<input type="hidden" name="reg" value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['id_user']:null;?>">
-											<div class="enter_mail">
-												<form>
-													<input name="user_email" type="email" placeholder="Введите email" autofocus required>
-													<a href="#" id="cancel_follow_js" class="fright">Отмена</a>
-													<button id="follow_price" type="submit" class="btn-s-green fleft">Подписаться</button>
-												</form>
-											</div>
-										</div>
-										<a href="#" class="rating">
-											<ul class="rating_stars"></ul>
-											<span class="comments"></span>
-										</a>
-										<div class="preview_socials">
-											<a rel="nofollow" href="#" class="vk animate" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-												<span class="icon-font">vk</span>
-											</a>
-											<a rel="nofollow" href="#" class="ok animate" title="Одноклассники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-												<span class="icon-font">odnoklassniki</span>
-											</a>
-											<a rel="nofollow" href="#" class="ggl animate" title="Google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-												<span class="icon-font">g+</span>
-											</a>
-											<a rel="nofollow" href="#" class="fb animate" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-												<span class="icon-font">facebook</span>
-											</a>
-											<a rel="nofollow" href="#" class="tw animate" title="Twitter" target="external" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-												<span class="icon-font">twitter</span>
-											</a>
-										</div>
-									</div>
-								</div>
-								<!-- <form action="" class="note">
-									<textarea cols="30" rows="3" placeholder="Примечание к заказу:"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
-									<label class="info_key">?</label>
-									<div class="info_description">
-										<p>Поле для ввода примечания к товару</p>
-									</div>
-								</form> -->
-								<a href="#" class="info_delivery">Информация о доставке</a>
 							</div>
 						</div>
 						<div class="triangle"></div>
+						<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 					</div>
 					<?if(isset($cnt) && $cnt >= 30){?>
 						<div class="sort_page sort_page_bottom">
@@ -160,9 +71,8 @@
 		<?}?>
 		$("#view_block_js").removeClass('ajax_loading');
 
-		var preview = $('.list_view .preview'),
-			previewOwl = preview.find('#owl-product_slide_js'),
-			previewDownOwl = preview.find('#owl-product_slideDown_js');
+		// var preview = $('.list_view .preview'),
+		// 	previewOwl = preview.find('#owl-product_slide_js');
 
 		ListenPhotoHover();//Инициализания Preview
 

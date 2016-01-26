@@ -32,8 +32,6 @@ p {
   #newheader_wrapp {
 
 	   position: relative;
-
-
 }
 input,
 textarea {
@@ -178,7 +176,6 @@ label:hover + .info_description {
 }
 .fright {
 	float: right;
-	max-width: 40px;
 }
 .panel {
 	background: #fff;
@@ -711,13 +708,23 @@ section.center {
 
 #cart {
 	padding: 30px;
-	width: 100%;
+	/*width: 100%;*/
 }
 #cart h5 {
 	margin: 0;
 	margin-left: 35px;
 	margin-bottom: 20px;
 	float: left;
+}
+#cart #summ_prod, #cart .summ_many{
+	color: #000;
+}
+#cart #percent td{
+	padding: 0 1em 0.25em 0;
+	font-size: 0.6em;
+}
+#cart #percent td:nth-child(2n+1){
+	color: #9E9E9E;
 }
 #cart .order_head ul {
 	text-align: left;
@@ -730,6 +737,9 @@ section.center {
 	border-bottom: 1px solid #e0e0e0;
 	padding: 5px 0;
 	text-align: center;
+}
+#cart .cart_info .mdl-button {
+	margin-left: 105%;
 }
 #cart .order_head ul li:last-child {
 	border-right: none;
@@ -840,31 +850,47 @@ section.center {
 	line-height: normal;
 	height: 25px;
 }
+#cart #total {
+	width: 350px;
+}
+#cart .cart {
+	border-bottom: 1px solid #e0e0e0;
+	overflow: auto;
+}
 #cart .total {
-	font-weight: bold;
 	font-size: 1.429em;
-	line-height: 45px;
+	line-height: 25px;
 	float: right;
+	clear: both;
+}
+#cart .totaltext {
+	font-size: 0.7em;
+}
+#cart .totalnumb {
+	font-size: 0.5em;
 }
 #cart .total div {
 	display: inline-block;
 	min-width: 105px;
 	padding: 0 10px;
-	border-right: 1px solid #e0e0e0;
+	/*border-right: 1px solid #e0e0e0;*/
 }
 #cart .total div:last-of-type {
 	border-right: none;
 }
 #cart .total .positions,
 #cart .total .total_summ {
-	font-size: 14px;
+	/*font-size: 14px;*/
+	color: #9E9E9E;
+	width: 180px;
+}
+#cart .total .label {
+	color: #9E9E9E;
+	width: 160px;
 }
 #cart .total .positions span,
 #cart .total .total_summ span {
 	font-size: 1.429em;
-}
-#cart .total .total_summ {
-
 }
 #cart .action_block {
 	overflow: hidden;
@@ -909,6 +935,9 @@ section.center {
 #cart .tabs_container .in_cart_block a span {
 	border-radius: 3px !important;
 }
+#cart .cart_info {
+	clear: left;
+}
 #cart .cart_info .your_discount,
 #cart .cart_info .tabs_container {
 	margin-bottom: 30px;
@@ -931,6 +960,9 @@ section.center {
 	top: -10px;
 	left: 0;
 	font-size: 20px;
+}
+#button-cart2, #button-cart3 {
+	display: none;
 }
 
 /*Contacts*/
@@ -1242,6 +1274,9 @@ aside#catalog .catalog_close:hover i {
 	padding: 0 0 10px 10px;
 	border: 1px solid #e0e0e0;
 }
+section .stat_year {
+	padding: 0 0 10px 50px;
+}
 .stat_year .stat_info {
 	max-width: 100px;
 	padding-right: 10px;
@@ -1392,11 +1427,13 @@ aside#catalog .catalog_close:hover i {
 	white-space: nowrap;
 	margin: 0 2%;
 }
-.order_balance {
-	width: 300px;
-}
 #cart .order_balance {
+	padding-top: 0.7em;
+	padding-left: 3em;
+	width: 300px;
 	width: auto;
+	font-weight: bold;
+	font-size: x-large;
 }
 #cart .tabs_container ul,
 .content_header .cart_info .tabs_container ul {
@@ -2174,7 +2211,7 @@ aside#catalog .catalog_close:hover i {
 	}
 }
 .mdl-checkbox{
-	height: auto;
+	/*height: auto;*/
 }
 
 /* Диапазон цен ===================================================== */
@@ -2255,7 +2292,6 @@ aside#catalog .catalog_close:hover i {
 }
 /*Стили кабинета (ent)*/
 
-
 .mdl-grid .mdl-tabs__tab-bar {
     display: block;
     border-bottom: none;
@@ -2277,6 +2313,63 @@ aside#catalog .catalog_close:hover i {
 .mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
     text-transform: capitalize;
 }
+#block_promo {
+     float: right;
+}
+#list_coop {
+    float: left;
+}
+/*Стили кабинета (ent)*/
 .tab-content tr:hover{
 	background-color: #e0e0e0;
 }
+
+.mdl-slider__container {
+    transform: rotate(-90deg);
+    height: 2px;
+    width: 178px;
+    position: absolute;
+    top: 100px;
+    left: -75%;
+}
+#graph[data-type="modal"]{
+    min-width: 700px;
+}
+.mdl-slider.is-upgraded {
+    border: 0 !important;
+    height: 2px;
+}
+#graph p{
+	padding-top: 10px;
+    color: #4E4949;
+}
+#graph hr {
+	width: 98%;
+}
+.slider_wrap {
+    width: 8%;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    height: 200px;
+}
+
+.owl-controls .owl-page{
+	display: inline-block;
+}
+.owl-controls .owl-page span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: #736E6E;
+    float: left;
+    margin-right: .5em;
+    border-radius: 50%;
+}
+
+.owl-pagination {
+	text-align: center;
+}
+/* [class*=" active_"] .main {
+    -webkit-filter: inherit;
+} */

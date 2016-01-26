@@ -174,15 +174,6 @@
 
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">
-                                                        <div class="avatar img"><img src="http://www.lishnih.net/6/cheba.jpg" alt="avatar" /></div>
-                                                    </td>
-                                                    <td class="mdl-data-table__cell--non-numeric stat_user_cab">Личный</td>
-                                                    <td><?=$i['sum']?></td>
-                                                    <td></td>
-                                                </tr>
-
 												<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
 													<tr>
 														<td class="mdl-data-table__cell--non-numeric">

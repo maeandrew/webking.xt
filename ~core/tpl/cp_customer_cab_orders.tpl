@@ -56,10 +56,10 @@
 				$s = array();
 			break;
 		}?> editing">
-			<?if($orders){?>
+			<?if($orders){ ?>
 				<ul class="orders_list">
 					<?foreach ($orders as $i){
-						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){?>
+						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 							<li class="order clearfix col-lg-8 col-md-9 col-sm-12">
 								<div class="order_header">
 									<p>Заказ <b>№ <?=$i['id_order']?></b> от <?=date("d.m.Y",$i['creation_date'])?></p>
@@ -72,13 +72,13 @@
 									<p><b>Менеджер заказа:</b> <?=$i['contragent']?></p>
 									<p><b>Информация по заказу:</b> <?=(isset($i['note_customer']) && $i['note_customer'] != '')?$i['note_customer']:'отсутствует';?></p>
 									<div class="status
-									<?if(in_array($i['id_order_status'], array(1,6))){?>
+									<?if(in_array($i['id_order_status'], array(1,6))){ ?>
 										working
-									<?}elseif($i['id_order_status'] == 2){?>
+									<?}elseif($i['id_order_status'] == 2){ ?>
 										completed
-									<?}elseif($i['id_order_status'] == 3){?>
+									<?}elseif($i['id_order_status'] == 3){ ?>
 										drafts
-									<?}elseif(in_array($i['id_order_status'], array(4,5))){?>
+									<?}elseif(in_array($i['id_order_status'], array(4,5))){ ?>
 										canceled
 									<?}?>
 									">
@@ -88,12 +88,12 @@
 										<form action="<?=_base_url?>/cart/<?=$i['id_order']?>" method="post" class="fleft">
 											<button type="submit" class="remake_order btn-m-green open_modal" data-target="order_remake_js">Повторить заказ</button>
 										</form>
-										<?if($i['id_order_status'] == 1){?>
+										<?if($i['id_order_status'] == 1){ ?>
 											<!-- <form action="<?=$GLOBALS['URL_request']?>" method="post">
 												<input type="hidden" name="id_order" value="<?=$i['id_order']?>"/>
 												<input type="submit" name="smb_cancel" class="cancel_order btn-m btn-red-inv" value="Отменить">
 											</form> -->
-										<?}elseif($i['id_order_status'] != 6 && $i['id_order_status'] != 1){?>
+										<?}elseif($i['id_order_status'] != 6 && $i['id_order_status'] != 1){ ?>
 											<form action="<?=$GLOBALS['URL_request']?>" method="post" class="fright">
 												<button type="submit" name="smb_off" class="btn-m-red-inv">Удалить</button>
 												<input type="hidden" name="id_order" value="<?=$i['id_order']?>">
@@ -105,7 +105,7 @@
 						<?}?>
 					<?}?>
 				</ul>
-			<?}else{?>
+			<?}else{ ?>
 				<p class="no_orders">У Вас нету ни одного заказа</p>
 			<?}?>
 		</div>

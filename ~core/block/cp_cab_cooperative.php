@@ -22,7 +22,7 @@ $Customer->SetFieldsById($User->fields['id_user']);
 $promo = 'aaa';
 if($promo) {
     $Cart = new Cart();
-    $infoCarts = $Cart->GetInfoToPromo('aaa');
+    $infoCarts = $Cart->GetInfoForPromo('aaa');
     if ($infoCarts) {
         foreach ($infoCarts as &$infoCart) {
             switch ($infoCart['status']) {
@@ -39,11 +39,29 @@ if($promo) {
     }
     $tpl->Assign('infoCarts', $infoCarts);
 
-    $productsFromCarts = $Cart->GetCarts($promo);
+    $productsFromCarts = $Cart->GetCartForPromo($promo);
     $tpl->Assign('prodsCarts', $productsFromCarts);
 
-}
+	$details = array(); $sum_prods = 0;
+	foreach($productsFromCarts as $prod){
+		$sum_prods += $prod['sum_prod'];// общая сумма в корзине по всем заказам
+	};
+	$details['sum_prods'] = number_format($sum_prods,2,',','');
+	if ($details['sum_prods'] > 0 && $details['sum_prods'] <= 500) {
+		$details['discount'] = 0;
+	}elseif($details['sum_prods'] > 500 && $details['sum_prods'] <= 3000){
+		$details['discount'] = 10;
+	}elseif($details['sum_prods'] > 3000 && $details['sum_prods'] < 10000){
+		$details['discount'] = 16;
+	}elseif($details['sum_prods'] >= 10000){
+		$details['discount'] = 21;
+	}
 
+	$tpl->Assign('details', $details);
+//		print_r($infoCarts);
+//		var_dump($productsFromCarts);
+
+}
 
 
 
@@ -167,7 +185,7 @@ $tpl->Assign('order_statuses', $order_statuses);
 
 $parsed_res = array(
 	'issuccess' => TRUE,
-	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders.tpl')
+	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_cooperative.tpl')
 );
 
 //

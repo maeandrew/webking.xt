@@ -7,6 +7,7 @@ $tpl_breadcrumbs = '';
 $tpl_sidebar_l  = '';
 $tpl_sidebar_r  = '';
 $tpl_popular  = '';
+$tpl_graph = '';
 /*
  * Загрузка контроллера
  */
@@ -36,8 +37,27 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	$tpl->Assign('navigation', $navigation);
 	$tpl_header .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'top_main.tpl');
 	// Хлебные крошки
-	// 
-		
+	//
+
+
+	// GRAPH
+	//
+	if(empty($GLOBALS['subcats']) && isset($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'])){
+		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
+	}elseif(!empty($GLOBALS['subcats'])){
+		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
+		$id_subcats = $GLOBALS['subcats'];
+	}else{
+		$id_category = 0;
+	}
+	$data_graph = $products->GetGraphList($id_category);
+	$tpl->Assign('data_graph', $data_graph);
+	$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+	/*$tpl->Assign('data_graph', $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
+	$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'main.tpl');*/
+
+
+
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
 		unset($parsed_res);
 		require($GLOBALS['PATH_block'].'breadcrumbs.php');
@@ -141,6 +161,7 @@ if($GLOBALS['CurrentController'] == 'main'){
 			$GLOBALS['__page_description'][] = $i['title'];
 		// }
 	}
+	$GLOBALS['__graph'] = $tpl_graph;
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
 	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(" ", $GLOBALS['__page_description']);

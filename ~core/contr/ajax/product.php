@@ -74,6 +74,24 @@
 				echo json_encode($data);
 			;
 			break;
+			case "SaveGraph":
+				echo json_encode($products->AddInsertGraph($_POST));
+			break;
+			case "SearchGraph":
+				$values = $products->SearchGraph($_POST['id_graphics']);
+				$tpl->Assign('values', $values);
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl');
+				//echo json_encode($products->SearchGraph($_POST['id_graphics']));
+
+			break;
+			case "OpenModalGraph":
+
+				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
+			break;
+			case "UpdateGraph":
+				echo json_encode($products->UpdatetGraph($_POST));
+			;
+			break;
 			default:
 			;
 			break;
