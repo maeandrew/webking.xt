@@ -35,43 +35,14 @@ function toCart(id){
 		mopt_basic_price = a;
 		order_mopt_qty = c;
 		order_mopt_sum = d;
-		$.ajax({
-			url: URL_base+'ajaxcart',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": "update_qty", 
-				"opt": 0, 
-				"id_product": id, 
-				"order_mopt_qty": order_mopt_qty,
-				"order_mopt_sum": order_mopt_sum,
-				"mopt_note": mopt_note,
-				"opt_note": opt_note,
-				"mopt_correction": null,
-				"mopt_basic_price": mopt_basic_price
-			},
-			success: onCartSuccess
-		});
+		var data = {opt: 0, id_product: id, order_mopt_qty: order_mopt_qty, order_mopt_sum: order_mopt_sum,
+			opt_note: mopt_note, opt_note: opt_note, mopt_correction: null, mopt_basic_price: mopt_basic_price};
+		ajax('cart', 'update_qty', data).done(onCartSuccess());
 	}else{
-		$.ajax({
-			url: URL_base+'ajaxcart',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": "update_qty", 
-				"opt": 0, 
-				"id_product": id, 
-				"order_mopt_qty": 0,
-				"order_mopt_sum": 0,
-				"mopt_note": "",
-				"opt_note": "",
-				"mopt_correction": null,
-				"mopt_basic_price": 0
-			},
-			success: onCartSuccess
-		});
+		var data = {opt: 0, id_product: id, order_mopt_qty: 0, order_mopt_sum: 0, mopt_note: "",
+			opt_note: "", mopt_correction: null, mopt_basic_price: 0};
+		ajax('cart', 'update_qty', data).done(onCartSuccess());
+
 		$("#order_mopt_qty_"+id).val(0);
 		alert('Позиция не доступна по мелкому опту.');
 	}
@@ -213,24 +184,10 @@ function ch_qty(direction, id){
 		checkminqty(id, b, c, direction);
 		toCart(id);
 	}else{
-		$.ajax({
-			url: URL_base+'ajaxcart',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action":"update_qty", 
-				"opt": 0, 
-				"id_product":id, 
-				"order_mopt_qty":0,
-				"order_mopt_sum":0,
-				"mopt_note":"",
-				"opt_note":"",
-				"mopt_correction": null,
-				"mopt_basic_price":0
-			},
-			success: onCartSuccess
-		});
+		var data = {opt: 0, id_product:id, order_mopt_qty:0, order_mopt_sum:0, mopt_note:"",
+			opt_note:"", mopt_correction: null, mopt_basic_price:0};
+		ajax('cart', 'update_qty', data).done(onCartSuccess());
+
 		$("#order_mopt_qty_"+id).val(0);
 		//alert("Позиция не доступна.");
 	}
@@ -337,21 +294,9 @@ function cartUpdateInfo(){
 //Удаление товара из корзины
 function cartRemove(id){
 	//Посылаем запросы на удаление товара по опту и рознице
-	$.ajax({
-		url: URL_base+'ajaxcart',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {	"action": "update_qty", 
-				"opt": 0, 
-				"id_product": id, 
-				"order_mopt_qty": 0,
-				"order_mopt_sum": 0,
-				"mopt_note": "",
-				"opt_note": ""
-				},
-		success: onCartSuccess
-	});
+	var data = {opt: 0, id_product: id, order_mopt_qty: 0, order_mopt_sum: 0, mopt_note: "", opt_note: ""};
+	ajax('cart', 'update_qty', data).done(onCartSuccess());
+
 	//Скрываем строку товара из таблицы
 	$("#cat_item_"+id).fadeOut(700);
 	cartUpdateInfo();

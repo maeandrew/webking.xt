@@ -1186,15 +1186,8 @@ function ChangePriceRange(id){
 function formPrice(){
 	var id,opt_cor_set,mopt_cor_set,price_opt,price_mopt,
 		sum_range = $.cookie('sum_range');
-	$.ajax({
-		url: URL_base+'ajaxcart',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {
-			"action": 'get_cart',
-		}
-	}).done(function(data){
+
+	ajax('cart', 'get_cart', {action: 'get_cart'}).done(function(data){
 		$('.product_section div[data-idproduct]').each(function(index, el) {
 			id = $(this).attr('data-idproduct');
 			price_opt = $(this).find('.price_opt_js').val();

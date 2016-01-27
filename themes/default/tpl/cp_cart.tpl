@@ -268,7 +268,7 @@
 		?>
 		<div class="cart">
 			<div class="clear_cart fleft">
-				<a href="<?=Link::Custom('cart', 'clear');?>"><span class="icon-font color-red"></span>Очистить корзину</a>
+				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
 			</div>
 			<div id="total" class="fright">
 				<div class="total">

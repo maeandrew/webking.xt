@@ -175,7 +175,7 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 		$cart->ClearCart();
 	}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'clear'){
 		$cart->ClearCart();
-		header('Location: '._base_url.'/cart/');
+//		header('Location: '._base_url.'/cart/');
 		exit();
 	}
 

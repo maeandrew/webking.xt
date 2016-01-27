@@ -1,8 +1,21 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
+
+	if(!isset($_SESSION['Cart'])){
+		$_SESSION['Cart']['products'] = array();
+		$_SESSION['Cart']['sum'] = (float) 0;
+	}
+	if(isset($_SESSION['member'])){
+		$User = new Users();
+		$User->SetUser($_SESSION['member']);
+		$Customer = new Customers();
+		$Customer->SetFieldsById($User->fields['id_user']);
+		$personal_discount = $Customer->fields['discount'];
+	}
+	$cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
-			case 'GetCart':
+			case 'GetCartPage':
 				unset($parsed_res);
 				// $header = 'Корзина';
 				// $tpl->Assign('header', $header);
@@ -363,35 +376,119 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							}else{
 								header('Location: '._base_url.'/cart/success/?type=order');
 							}
-							exit();
 						}else{
 							if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'makeorder' && $_SESSION['client']['user_agent'] == 'mobile'){
 								$tpl->Assign('header', 'Оформление заказа');
-								$parsed_res = array(
-									'issuccess'	=> true,
-									'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart_makeorder.tpl')
-								);
+								echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart_makeorder.tpl');
 							}else{
 								// Настройка панели действий ===============================
 								$list_controls = array('layout');
 								$tpl->Assign('list_controls', $list_controls);
-								$parsed_res = array(
-									'issuccess'	=> true,
-									'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart.tpl')
-								);
+								echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart.tpl');
 							}
 						}
 					}else{
 						$tpl->Assign('msg_type', 'info');
 						$tpl->Assign('msg', 'Вы не можете использовать корзину.');
-						$parsed_res = array(
-							'issuccess'	=> true,
-							'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl')
-						);
+						echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl');
 					}
-					echo $parsed_res['html'];
+				exit();
 				break;
-			
+			case "remove_from_cart":
+				if (isset($_POST['id'])){
+					$res = $cart->RemoveFromCart($_POST['id'], $_SESSION['cart']['id']);
+				}else {
+					$res = null;
+				}
+				echo json_encode($res);
+				exit();
+				break;
+//			case "update_qty":
+//				if(isset($_POST['opt']) && isset($_POST['id_product'])){
+//					$note_opt = isset($_POST['opt_note'])?$_POST['opt_note']:"";
+//					$note_mopt = isset($_POST['mopt_note'])?$_POST['mopt_note']:"";
+//					if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
+//						if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
+//							$cart->UpdatePromoProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, null, isset($_POST['mopt_basic_price'])?$_POST['mopt_basic_price']:null);
+//						}else{
+//							exit();
+//						}
+//					}else{
+//						if($_POST['opt'] == 1){
+//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_box_qty', 'order_opt_qty', 'order_opt_sum'))){
+//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], $_POST['order_box_qty'], $_POST['order_opt_qty'], $_POST['order_opt_sum'], $note_opt, $note_mopt, null, $_POST['opt_correction'], $_POST['opt_basic_price']);
+//							}else{
+//								exit();
+//							}
+//						}else{
+//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
+//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, $_POST['mopt_correction'], $_POST['mopt_basic_price']);
+//							}else{
+//								exit();
+//							}
+//						}
+//					}
+//					$cart->SetTotalQty();
+//					$cart->SetAllSums();
+//
+//
+//					//	ob_start();
+//					//	print_r($_SESSION['Cart']);
+//					//	print_r($_POST);
+//					//	$t = ob_POST_clean();
+//					//	G::LogerE($t, "ajax.html", "w");
+//					$arr = array();
+//					$arr['id_product'] = $_POST["id_product"];
+//					$arr['error'] = false;
+//					$arr['opt'] = $_POST['opt'];
+//					$arr['sum'] = $_SESSION['Cart']['sum'];
+//					/***********************************************************/
+//					isset($note_opt)	?	$arr['note_opt'] = $note_opt	:	null;
+//					isset($note_mopt)	?	$arr['note_mopt'] = $note_mopt	:	null;
+//					if(isset($_SESSION['Cart']['sum'])){
+//						$cart->SetPersonalDiscount($personal_discount);
+//						$cart->SetSumDiscount();
+//						$cart->SetAllSums();
+//						$arr['sum_discount'] = $_SESSION['Cart']['sum_discount'];
+//					}
+//					/***********************************************************/
+//					$arr['string'] = $cart->GetString();
+//					$arr['total_quantity'] = $_SESSION['Cart']['prod_qty'];
+//					/***********************************************************/
+//					$arr['order_opt_sum'] = round($_SESSION['Cart']['order_opt_sum_default'], 2);
+//					$arr['order_mopt_sum'] = round($_SESSION['Cart']['order_mopt_sum_default'], 2);
+//					$arr['order_sum'] = $_SESSION['Cart']['order_sum'];
+//					/***********************************************************/
+//					$txt = json_encode($arr);
+//					echo $txt;
+//					exit();
+//				};
+//				break;
+			case "update_cart_qty":
+				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
+				$res = $cart->UpdateCartQty($_POST);
+				$cart->InsertMyCart();
+				echo json_encode($res);
+				exit();
+				break;
+			case "get_cart":
+				echo json_encode($_SESSION['cart']);
+				break;
+			case "update_note":
+				if(isset($_SESSION['cart']['products'][$_POST['id_product']]) && !empty($_SESSION['cart']['products'][$_POST['id_product']])){
+					$_SESSION['cart']['products'][$_POST['id_product']]['note'] = $_POST['note'];
+					$txt = 'ok';
+				}else{
+					$txt = 'not';
+				}
+				echo json_encode($txt);
+				exit();
+				break;
+			case "clearCart":
+//				print_r($_SESSION['cart']['id']);
+				$res = $cart->ClearCart($_SESSION['cart']['id']);
+				echo json_encode($res);
+				break;
 			default:
 				# code...
 				break;

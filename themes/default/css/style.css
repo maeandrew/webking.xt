@@ -863,7 +863,7 @@ section.center {
 }
 #cart .cart {
 	border-bottom: 1px solid #e0e0e0;
-	overflow: auto;
+	overflow: hidden;
 }
 #cart .total {
 	font-size: 1.429em;

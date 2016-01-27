@@ -1,6 +1,6 @@
 // Получение корзины
 function GetCartAjax(){
-	ajax('cart', 'GetCart', false, 'html').done(function(data){
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
 		//console.log(data);
 		$('#cart > .modal_container').html(data);
 		openObject('cart');

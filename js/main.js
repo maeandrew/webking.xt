@@ -848,17 +848,7 @@
 // 		});
 // 		var id = $(this).closest('form.note').attr('data-note'),
 // 			note = $(this).val();
-// 		$.ajax({
-// 			url: URL_base+'ajaxcart',
-// 			type: "POST",
-// 			cache: false,
-// 			dataType : "json",
-// 			data: {
-// 				"action": "update_note",
-// 				"id_product": id,
-// 				"note": note
-// 			}
-// 		});
+// 		ajax('cart', "update_note",{"id_product": id, "note": note});
 // 	});
 
 
@@ -1355,17 +1345,8 @@
 // 		});
 // 		// var id = $(this).closest('form.note').attr('data-note'),
 // 		// 	note = $(this).val();
-// 		// $.ajax({
-// 		// 	url: URL_base+'ajaxcart',
-// 		// 	type: "POST",
-// 		// 	cache: false,
-// 		// 	dataType : "json",
-// 		// 	data: {
-// 		// 		"action": "update_note",
-// 		// 		"id_product": id,
-// 		// 		"note": note
-// 		// 	}
-// 		// });
+
+// 		// $.ajax('cart', 'update_note'{id_product: id, note: note});
 // 	});
 // 	//Обработка примечания
 // 	$('.add_cart_state input:radio').on('click', function(){

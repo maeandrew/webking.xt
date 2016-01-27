@@ -88,8 +88,19 @@ class Cart {
 	}
 
 	// удаляет товар из корзины
-	public function RemoveFromCart($id_product){
+	public function RemoveFromCart($id_product, $id_cart){
 		unset($_SESSION['cart']['products'][$id_product]);
+
+
+		$sql = "DELETE FROM xt_cart_product
+				WHERE id_cart = ". $id_cart ." AND id_product = ".$id_product;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)) {
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+
 		$this->RecalcCart();
 		return $_SESSION['cart'];
 	}
@@ -132,13 +143,23 @@ class Cart {
 	}
 
 	// Очищает корзину
-	public function ClearCart(){
+	public function ClearCart($id_cart){
 		$_SESSION['cart']['products'] = array();
 		$_SESSION['cart']['unavailable_products'] = array();
 		if(isset($_SESSION['cart']['id_order'])){
 			unset($_SESSION['cart']['id_order']);
 		}
 		unset($_SESSION['cart']['id']);
+
+		$sql = "DELETE FROM xt_cart_product
+				WHERE id_cart = ". $id_cart;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)) {
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+
 		$this->RecalcCart();
 		return true;
 	}
