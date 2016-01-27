@@ -15,7 +15,6 @@ class Config{
 
 	// по id
 	public function SetFieldsById($id){
-		$id = mysql_real_escape_string($id);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."config
 			WHERE id_config = \"$id\"";

@@ -47,16 +47,28 @@ if(empty($data_graph) || $data_graph == 0){?>
 	}
 	?>
 	<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+	<?foreach($values as &$v){
+		$v = array_sum($v)/count($v);
+		$chart_ords[] = $v;
+	}
+		$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
+		$chart_regs = array();
+		//$chart_ords = array(3,5,8,9,10,3,2,2,1,0,1,3);
+		$chart_ords_ly = array();
+?>
+	<!-- <div class="slider_wrap">
+		<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$v?>" step="0.1" tabindex="0" disabled>
+	</div> -->
 
 
+	<canvas id="last_orders_count"></canvas>
 
-
-	  <div id="header">
+	  <!-- <div id="header">
 	    <button title="Zoom in on selected data" id="keep-data" disabled="disabled">Keep</button>
 	    <button title="Remove selected data" id="exclude-data" disabled="disabled">Exclude</button>
 	    <button title="Export data as CSV" id="export-data">Export</button>
 	    <div class="controls">
-	      <strong id="rendered-count"></strong>/<strong id="selected-count"></strong><!--<strong id="data-count"></strong>-->
+	      <strong id="rendered-count"></strong>/<strong id="selected-count"></strong><strong id="data-count"></strong>
 	      <div class="fillbar"><div id="selected-bar"><div id="rendered-bar">&nbsp;</div></div></div>
 	      Загрузка <strong id="opacity"></strong> готово.
 	      <span class="settings">
@@ -80,7 +92,7 @@ if(empty($data_graph) || $data_graph == 0){?>
 	    </div>
 	    <div  class="third">
 	      <small>
-	        <!--Last rendered <strong id="render-speed"></strong> lines-->
+	        Last rendered <strong id="render-speed"></strong> lines
 	      </small>
 	      <h3>Группы графиков</h3>
 	      <p id="legend">
@@ -91,7 +103,7 @@ if(empty($data_graph) || $data_graph == 0){?>
 	      <p id="food-list">
 	      </p>
 	    </div>
-	  </div>
+	  </div> -->
 
 		<a href="#" class="slide_all">Просмотреть</a>
 	</div>
@@ -126,3 +138,58 @@ if(empty($data_graph) || $data_graph == 0){?>
 			<?}?>
 		</div>
 <?} }?>
+	<script>
+	$(function(){
+		var options = {
+			bezierCurve : true,
+			scaleShowGridLines : true,
+			scaleShowLabels: true
+		}
+		/*var data = {
+			labels: <?=json_encode($labels);?>,
+			datasets: [
+				{
+					label: "Регистраций",
+					fillColor: "rgba(101,224,252,0.2)",
+					strokeColor: "rgba(101,224,252,1)",
+					pointColor: "rgba(101,224,252,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(101,224,252,1)",
+					data: <?=json_encode($chart_regs);?>
+				}
+			]
+		};
+
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var myLineChart = new Chart(ctx).Line(data, options);*/
+		var data = {
+			labels: <?=json_encode($labels);?>,
+			datasets: [
+				{
+					label: "Заказов",
+					fillColor: "rgba(101,224,252,0.2)",
+					strokeColor: "rgba(101,224,252,1)",
+					pointColor: "rgba(101,224,252,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(101,224,252,1)",
+					data: <?=json_encode($chart_ords);?>
+				},
+				{
+					label: "Заказов",
+					fillColor: "rgba(255,235,59,0.235",
+					strokeColor: "rgba(255,235,59,1)",
+					pointColor: "rgba(255,235,59,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(255,235,59,1)",
+					data: <?=json_encode($chart_ords_ly);?>
+				}
+			]
+		};
+		var ctx2 = document.getElementById("last_orders_count").getContext("2d");
+		var myLineChart2 = new Chart(ctx2).Line(data, options);
+		var chart1;
+	});
+	</script>

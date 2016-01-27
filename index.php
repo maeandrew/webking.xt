@@ -38,9 +38,11 @@ G::AddCSS('../themes/default/css/page_styles/'.$GLOBALS['CurrentController'].'.c
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
 G::AddJS('jquery-ui.min.js');
-G::AddJS('d3.js');
-G::AddJS('d3.min.js');
-G::AddJS('../js/nutrients.csv');
+G::AddJS('../adm/js/Chart.min.js');
+//G::AddJS('d3.js');
+//G::AddJS('d3.min.js');
+//G::AddJS('../js/nutrients.csv');
+//G::AddJS('../js/nutrients.json');
 G::AddJS('../plugins/material/material.js');
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
 G::AddJS('../themes/default/js/func.js');

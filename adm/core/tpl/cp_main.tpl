@@ -284,6 +284,7 @@
 	$chart_ords_ly[] = $v['chart_ords_ly']['count'];
 	$chart_regs[] = $v['chart_regs']['count'];
 }?>
+<?print_r($chart_regs)?>
 <script>
 	$(function(){
 		var options = {

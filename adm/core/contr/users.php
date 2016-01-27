@@ -17,18 +17,18 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
 $arr = false;
 if(isset($_POST['smb'])){
 	if($_POST['filter_name']!==''){
-		$arr['name'] = mysql_real_escape_string($_POST['filter_name']);
+		$arr['name'] = $_POST['filter_name'];
 	}
 	if($_POST['filter_email']!==''){
-		$arr['email'] = mysql_real_escape_string($_POST['filter_email']);
+		$arr['email'] = $_POST['filter_email'];
 	}
 	if($_POST['gid']!=='0'){
-		$arr['gid'] = mysql_real_escape_string($_POST['gid']);
+		$arr['gid'] = $_POST['gid'];
 	}
 }else{
 	if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 		$_POST['gid'] = $GLOBALS['REQAR'][1];
-		$arr['gid'] = mysql_real_escape_string($_POST['gid']);
+		$arr['gid'] = $_POST['gid'];
 		$_POST['smb'] = 1;
 	}else{
 		$_POST['gid'] = 0;

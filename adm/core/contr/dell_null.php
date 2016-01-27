@@ -5,7 +5,6 @@ require('/home/xtorg/x-torg.com/www/~core/sys/pages_c.php');
 require('/home/xtorg/x-torg.com/www/~core/sys/acl_c.php');
 require('/home/xtorg/x-torg.com/www/~core/model/products_c.php');
 
-define ('DB_CACHE', false);
 
 	$GLOBALS['DOMAIN'] = '179053.xtorg.web.hosting-test.net';
 
@@ -14,7 +13,7 @@ define ('DB_CACHE', false);
 	$GLOBALS['DB_USER']    = "xtorg_db";
 	$GLOBALS['DB_PASSWORD']= "sayLt23f";
 	define('_DB_PREFIX_', "xt_");
-	
+
 	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
 	$GLOBALS['db'] =& $db;
 	$product = new Products();

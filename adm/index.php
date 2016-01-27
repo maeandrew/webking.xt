@@ -6,6 +6,7 @@ date_default_timezone_set('Europe/Kiev');
 require(dirname(__FILE__).'/../~core/sys/global_c.php');
 require(dirname(__FILE__).'/core/cfg.php');
 ini_set('display_errors', '1');
+error_reporting(E_ALL & ~E_NOTICE);
 $s_time = G::getmicrotime();
 session_start();
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);

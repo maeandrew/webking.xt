@@ -204,6 +204,20 @@
 			</aside>
 		<?}?>
 		<section class="center">
+			<!-- <script type="text/javascript">
+				$(function() {
+					Graf3d();
+				});
+			</script> -->
+			<style>
+				#last_orders_count {
+					width: 100%;
+					height: 300px;
+				}
+			</style>
+
+			<!-- <canvas id="myChart" class="chart"></canvas> -->
+			<!-- <canvas id="myChart" width="100%" height="400"></canvas> -->
 				<!-- <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
 					<div class="stat_info">
 						<p>График опроса</p>
@@ -245,7 +259,7 @@
 				<a href="#" onclick="ModalGraph()">Добавить мнение</a>
 			</div>
 
-			<? print_r($_SESSION['member'])?>
+			<? //print_r($_SESSION['member'])?>
 
 
 			<div class="content">
@@ -675,6 +689,7 @@
 	<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
 		<div class="modal_container"></div>
 	</div>
+
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">
