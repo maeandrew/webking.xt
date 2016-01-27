@@ -325,12 +325,11 @@
 			</div>
 			<div class="wrapp">
 				<form action="">
-					<div class="mdl-textfield mdl-js-textfield">
-						<span class="number_label">Номер телефона</span>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="user_number" pattern="[0-9]{5,19}"
 							   onChange="validate($(this))">
-						<label class="mdl-textfield__label" for="user_number"></label>
-						<span style='color:red' id='namef'></span><br/>
+						<label class="mdl-textfield__label" for="user_number">Номер телефона</label>
+						<span class="mdl-textfield__error">Номер телефона введен не корректно!</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="sample7">
@@ -412,15 +411,14 @@
 							$("#button-cart1").hide();
 							$("#button-cart2").hide();
 							$("#button-cart3").show();
-							// var href = $('#button-cart3 button').data('href');
 						}
 					});
-					$('#cart input.mdl-radio__button').on('mousedown', function (e) {
-						console.log('clicked end');
-						checked = $(this).prop('checked');
+					$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+						console.log('mousedown');
+						checked = $(this).find('input').prop('checked');
 					}).on('click', function () {
 						if (checked == true) {
-							$(this).attr('checked', false);
+							$(this).removeClass('is-checked').find('input').attr('checked', false);
 							$('.action_block .mdl-button').text(old_text);
 						}
 					});
