@@ -27,7 +27,6 @@ class Config{
 
 	// Обновление по имени
 	public function SetFieldsByName($name){
-		$name = mysql_real_escape_string($name);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."config
 			WHERE name = '".$name."'";
@@ -57,10 +56,10 @@ class Config{
 
 	// Добавление
 	public function Add($arr){
-		$f['id_config'] = mysql_real_escape_string(trim($arr['id_config']));
-		$f['name'] = mysql_real_escape_string(trim($arr['name']));
-		$f['caption'] = mysql_real_escape_string(trim($arr['caption']));
-		$f['value'] = mysql_real_escape_string(trim($arr['value']));
+		$f['id_config'] = trim($arr['id_config']);
+		$f['name'] = trim($arr['name']);
+		$f['caption'] = trim($arr['caption']);
+		$f['value'] = trim($arr['value']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'config', $f)){
 			$this->db->FailTrans();
@@ -73,10 +72,10 @@ class Config{
 
 	// Обновление
 	public function Update($arr){
-		$f['id_config'] = mysql_real_escape_string(trim($arr['id_config']));
-		$f['name'] = mysql_real_escape_string(trim($arr['name']));
-		$f['caption'] = mysql_real_escape_string(trim($arr['caption']));
-		$f['value'] = mysql_real_escape_string(trim($arr['value']));
+		$f['id_config'] = trim($arr['id_config']);
+		$f['name'] = trim($arr['name']);
+		$f['caption'] = trim($arr['caption']);
+		$f['value'] = trim($arr['value']);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."config", $f, "id_config = {$f['id_config']}")){
 			$this->db->FailTrans();
@@ -88,8 +87,8 @@ class Config{
 
 	// Обновление по имени
 	public function UpdateByName($name, $value){
-		$f['name'] = mysql_real_escape_string(trim($name));
-		$f['value'] = mysql_real_escape_string(trim($value));
+		$f['name'] = trim($name);
+		$f['value'] = trim($value);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."config", $f, "name = '".$name."'")){
 			$this->db->FailTrans();

@@ -215,7 +215,6 @@
 					height: 300px;
 				}
 			</style>
-
 			<!-- <canvas id="myChart" class="chart"></canvas> -->
 			<!-- <canvas id="myChart" width="100%" height="400"></canvas> -->
 				<!-- <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">

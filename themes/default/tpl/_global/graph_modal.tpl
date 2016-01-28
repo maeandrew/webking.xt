@@ -1,9 +1,9 @@
 <p>График (своя версия)</p>
 <div class="select_go" style="margin-top: 15px;margin-left: 77px;">
 <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-  <span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розницаis-checked</span>
+  <span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница</span>
   <input type="checkbox" id="switch-2" class="mdl-switch__input">
-  <span class="mdl-switch__label">Оптis-checked</span>
+  <span class="mdl-switch__label">Опт</span>
 </label>
 </div>
   <?if(!empty($values)){

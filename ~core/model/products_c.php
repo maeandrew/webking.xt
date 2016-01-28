@@ -764,13 +764,24 @@ class Products {
 
 
 	// Выборка графика
-	public function GetGraphList($id_category = false){
-		$id_category = $id_category?$id_category:0;
-		$sql = "SELECT g.*, u.name
+	public function GetGraphList($id_category){
+		//$id_category = $id_category?$id_category:0;
+		if($id_category == 0){
+			$sql = "SELECT g.*, c.id_category
+					FROM "._DB_PREFIX_."graph g
+					JOIN "._DB_PREFIX_."category c
+					WHERE c.id_category IN (
+						SELECT id_category
+						FROM "._DB_PREFIX_."category
+						WHERE id_category = 0
+					)";
+			//print_r($sql);
+		}else{
+			$sql = "SELECT g.*, u.name
 					FROM "._DB_PREFIX_."graph g
 					JOIN "._DB_PREFIX_."user u
 					WHERE g.id_author = u.id_user AND g.id_category = ".$id_category;
-		//print_r($sql);
+		}
 		$result = $this->db->GetArray($sql);
 		/*$result2 = $this->db->GetArray($sql2);
 		return array('graph' => $result, 'users' => $result2);*/

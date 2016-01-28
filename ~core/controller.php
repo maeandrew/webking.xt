@@ -47,8 +47,10 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	}elseif(!empty($GLOBALS['subcats'])){
 		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
 		$id_subcats = $GLOBALS['subcats'];
-	}else{
+
+	}elseif($GLOBALS['CurrentController'] == 'main'){
 		$id_category = 0;
+		//print_r($GLOBALS['CurrentController']);
 	}
 	$data_graph = $products->GetGraphList($id_category);
 	$tpl->Assign('data_graph', $data_graph);
@@ -148,6 +150,7 @@ $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 $GLOBALS['__popular'] = $tpl_popular;
 if($GLOBALS['CurrentController'] == 'main'){
+	$GLOBALS['__graph'] = $tpl_graph;
 	$GLOBALS['__page_title'] = 'Оптовый интернет-магазин xt.ua';
 	$GLOBALS['__page_kw'] = '';
 	$GLOBALS['__page_description'] = '';
