@@ -224,6 +224,21 @@ $(function(){
 		}
 	});
 
+
+	//Кабинет
+	//$('a.cabinet_btn').find('ul.mdl-js-ripple-effect').css('dispaly','block');
+	$('mdl-menu__container').hover(
+       function(){ $(this).addClass('is-visible') },
+       function(){ $(this).removeClass('is-visible') }
+	);
+
+	/*$('.elem').hover(function(){
+		$(this).text('mouse on');
+	},function(){
+		$(this).text('mouse off');
+	});*/
+
+
 	$('.second_nav li.active > ul').show();
 	//Переключение вкладок главного меню
 	$('.catalog').on('click', '.main_nav li', function() {
