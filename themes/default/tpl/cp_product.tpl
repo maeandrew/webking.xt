@@ -279,6 +279,7 @@
 		</div>
 	</div>
 </div>
+a
 <section class="sliders">
 	<div class="slider_products">
 		<h4>Сопутствующие товары</h4>
