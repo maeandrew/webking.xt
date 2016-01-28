@@ -251,7 +251,9 @@
 					</div>
 				</div> -->
 
-			<?=$__graph?>
+			<?php if(isset($__graph)){
+					echo $__graph;
+				}?>
 			<div style="display:block;"></div>
 			<div id="user_bt" style="float:right;padding-right:15px;display:block;">
 				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->

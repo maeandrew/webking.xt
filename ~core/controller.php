@@ -51,6 +51,8 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	}elseif($GLOBALS['CurrentController'] == 'main'){
 		$id_category = 0;
 		//print_r($GLOBALS['CurrentController']);
+	}else{
+		$id_category = 0;
 	}
 	$data_graph = $products->GetGraphList($id_category);
 	$tpl->Assign('data_graph', $data_graph);

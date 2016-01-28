@@ -175,7 +175,9 @@ $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
 $tpl->Assign('__sidebar_r', $GLOBALS['__sidebar_r']);
 $tpl->Assign('__popular', $GLOBALS['__popular']);
 $tpl->Assign('__aside',  $GLOBALS['__aside']);
-$tpl->Assign('__graph',  $GLOBALS['__graph']);
+if(isset($GLOBALS['__graph'])){
+	$tpl->Assign('__graph',  $GLOBALS['__graph']);
+}
 
 $Cart = new Cart();
 // Создание базового массива корзины

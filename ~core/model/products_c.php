@@ -764,7 +764,7 @@ class Products {
 
 
 	// Выборка графика
-	public function GetGraphList($id_category){
+	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
 		if($id_category == 0){
 			$sql = "SELECT g.*, c.id_category
