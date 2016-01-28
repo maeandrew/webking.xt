@@ -154,7 +154,7 @@ foreach ($data_graph as $key => $val) {
 					pointStrokeColor: "transparent",
 					pointHighlightFill: "transparent",
 					pointHighlightStroke: "rgba(101,224,252,1)",
-					data: <?=json_encode($chart_ords);?>
+					data: <?=isset($chart_ords)?json_encode($chart_ords):'null';?>
 				},
 				{
 					label: "Заказов",
