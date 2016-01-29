@@ -132,7 +132,7 @@ class Suppliers extends Users {
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_user = $this->db->GetInsId();
+		$id_user = $this->db->GetLastId();
 		// Supplier
 		$f['id_user'] = $id_user;
 		$f['article'] = trim($arr['article']);

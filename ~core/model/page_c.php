@@ -111,7 +111,7 @@ class Page {
 						'".$page_description."', '".$page_description_ua."', '".$page_title."', '".$page_title_ua."',
 						'".$page_keywords."', '".$page_keywords_ua."', ".$visible.", '".$ptype."')";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		$id_page = $this->db->GetInsId();
+		$id_page = $this->db->GetLastId();
 		return $id_page;
 	}
 

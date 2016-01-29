@@ -362,7 +362,7 @@ class Customers extends Users {
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_user = $this->db->GetInsId();
+		$id_user = $this->db->GetLastId();
 		unset($f);
 		$f['id_user'] = trim($arr['id_user']);
 		$f['address_ur'] = $arr['address_ur'];

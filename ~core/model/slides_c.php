@@ -115,7 +115,7 @@ class Slides {
 			$this->db->FailTrans();
 			return false;
 		}
-		$id = $this->db->GetInsId();
+		$id = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return true;
 	}

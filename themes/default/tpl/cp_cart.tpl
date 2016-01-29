@@ -516,7 +516,7 @@
 				setTimeout(function () {
 					$('.err_tel').css('visibility', '')
 				}, 3000);
-			}else{ console.log('1111')}
+			}
 		});
 //-------------Инициалзация маски для ввода телефонных номеров-------
 //		$(function(){

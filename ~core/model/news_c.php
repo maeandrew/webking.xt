@@ -172,7 +172,7 @@ class News{
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_news = $this->db->GetInsId();
+		$id_news = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return $id_news;
 	}
@@ -197,7 +197,7 @@ class News{
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_news = $this->db->GetInsId();
+		$id_news = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return true;
 	}

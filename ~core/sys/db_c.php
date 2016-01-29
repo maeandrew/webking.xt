@@ -149,9 +149,9 @@ class mysqlPDO {
 	* Получение последнего id после выполнения INSERT
 	* @return int Id
 	*/
-	public function GetInsId(){
-		return mysql_insert_id($this->iCID);
-	}
+//	public function GetInsId(){
+//		return mysql_insert_id($this->iCID);
+//	}
 
 	/**
 	* Количество строк в последнем результате
@@ -636,9 +636,9 @@ class mysqlDb {
 	* Получение последнего id после выполнения INSERT
 	* @return int Id
 	*/
-	public function GetInsId(){
-		return mysql_insert_id($this->iCID);
-	}
+//	public function GetInsId(){
+//		return mysql_insert_id($this->iCID);
+//	}
 
 	/**
 	* Количество строк в последнем результате

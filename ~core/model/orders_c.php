@@ -519,7 +519,7 @@ class Orders {
 			return false;
 		}
 		// Получаем id нового заказа
-		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetInsId();
+		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
 
 		// Заполнение связки заказ-товары
 		$id_contragent = $f['id_contragent'];

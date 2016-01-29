@@ -489,6 +489,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart($_SESSION['cart']['id']);
 				echo json_encode($res);
 				break;
+			case "add_phone_for_new_user":
+
+				$user = new Users();
+				$res = $user->AddUser(array('name' => 'user_'.rand(), 'email' => 'null', 'passwd' => '123456', 'gid' => 0, 'descr' => '', 'phone' => $_POST['phone']));
+				echo json_encode($res);
+				break;
 			default:
 				# code...
 				break;

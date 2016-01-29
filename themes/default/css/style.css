@@ -166,6 +166,7 @@ label:hover + .info_description {
 .tooltip_wrapp {
 	position: relative;
 	text-align: left;
+	padding-bottom: 10px;
 }
 .tooltip_wrapp .info_description:after,
 .tooltip_wrapp .info_description:before {
@@ -862,6 +863,7 @@ section.center {
 	/*width: 350px;*/
 }
 #cart .cart {
+	height: 100px;
 	border-bottom: 1px solid #e0e0e0;
 	overflow: hidden;
 }
@@ -908,7 +910,7 @@ section.center {
 #cart .action_block {
 	overflow: hidden;
 	clear: both;
-	padding-top: 30px;
+	/*padding-top: 30px;*/
 }
 #cart .action_block button {
 	background: #3A9A11;
@@ -916,7 +918,7 @@ section.center {
 	font-size: 1.786em;
 	height: 45px;
 	padding: 0 20px;
-	margin-top: 20px;
+	margin-top: 5px;
 }
 #cart .action_block .wrapp:hover button {
 	background-color: #FFCCBC;
@@ -1824,7 +1826,7 @@ section .stat_year {
 		padding-right: 0;
 	}
 	#cart .action_block .mdl-textfield {
-		margin-top: 45px;
+		/*margin-top: 45px;*/
 		max-width: 250px;
 	}
 	.stat_year {
@@ -1906,6 +1908,9 @@ section .stat_year {
 		max-width: 100%;
 		box-sizing: border-box;
 		padding: 25px 0;
+	}
+	#cart .cart {
+		height: 110px;
 	}
 	#cart .card {
 		position: relative;

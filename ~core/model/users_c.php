@@ -139,12 +139,13 @@ class Users {
 
 	// Добавить пользователя
 	public function AddUser($arr){
-		$f['name'] = trim($arr['name']);
-		$f['email'] = trim($arr['email']);
-		$f['passwd'] = md5(trim($arr['passwd']));
-		$f['gid'] = trim($arr['gid']);
-		$f['descr'] = trim($arr['descr']);
-		if($arr['promo_code'] != ''){
+		if(isset($arr['name'])) {$f['name'] = trim($arr['name']);}
+		if(isset($arr['email'])) {$f['email'] = trim($arr['email']);}
+		if(isset($arr['passwd'])) {$f['passwd'] = md5(trim($arr['passwd']));}
+		if(isset($arr['gid'])) {$f['gid'] = trim($arr['gid']);}
+		if(isset($arr['descr'])) {$f['descr'] = trim($arr['descr']);}
+		if(isset($arr['phone'])) {$f['phones'] = trim($arr['phone']);}
+		if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
 			$arr['promo_code'] = trim($arr['promo_code']);
 			$supplier = new Suppliers();
 			if($supplier->CheckCodeUniqueness($arr['promo_code']) === false){
@@ -159,12 +160,14 @@ class Users {
 			$f['active'] = 0;
 		}
 		$f['date_add'] = time();
+		$this->db->StartTrans();
 		if(!$this->db->Insert_user(_DB_PREFIX_.'user', $f)){
-			$this->db->errno = mysql_errno();
+			$this->db->errno = $this->db->ErrorMsg('Не удалось создать нового пользователя в таб. user.');
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_user = $this->db->GetInsId();
+		$id_user = $this->db->GetLastId();
+		$this->db->CompleteTrans();
 		return $id_user;
 	}
 

@@ -162,8 +162,13 @@ function completeCartProductAdd(data){
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.21).toFixed(2) +' грн (21%)');
 	}
 
-//----------------обновление облока скидок (end)---------------
-
-//----------------Создание нового пользователя при клике на оформление корзины (start)---------------
-//	$('#user_number').on('click',);
 }
+//----------------обновление облока скидок (end)---------------
+$(function(){
+	//----------------Создание нового пользователя при клике на оформление корзины (start)---------------
+	$('#cart').on('click', '#button-cart1 button', function(){
+		ajax('cart', 'add_phone_for_new_user', {phone: parseInt($('.phone').val())}).done(function(){
+			location.reload();
+		});
+	});
+});

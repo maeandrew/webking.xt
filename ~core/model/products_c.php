@@ -1687,7 +1687,7 @@ class Products {
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_product = $this->db->GetInsId();
+		$id_product = $this->db->GetLastId();
 		if(!$this->UpdateProductCategories($id_product, $arr['categories_ids'])){
 			$this->db->FailTrans();
 			return false;

@@ -83,7 +83,7 @@ class Post {
 			return false; //Если не удалось записать в базу
 		}
 		unset($f);
-		$id = $this->db->GetInsId();
+		$id = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return $id;
 	}
