@@ -139,7 +139,7 @@
 					pointStrokeColor: "#fff",
 					pointHighlightFill: "#fff",
 					pointHighlightStroke: "rgba(101,224,252,1)",
-					data: <?=json_encode($chart_ords);?>
+					data: <?=json_encode(isset($chart_ords)?$chart_ords:null);?>
 				},
 				{
 					label: "Заказов",

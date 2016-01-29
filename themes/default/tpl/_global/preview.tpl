@@ -5,10 +5,12 @@
 	($product['price_mopt'] > 0 && $product['min_mopt_qty'] > 0)?$mopt_available = true:$mopt_available = false;
 	// Проверяем доступнось опта
 	($product['price_opt'] > 0 && $product['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
-	<!-- SHOWCASE SLIDER -->
+
+	<div class="mdl-cell mdl-cell--12-col">
+		<a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
+	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
-		<span><a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a></span>
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
@@ -85,18 +87,6 @@
 				<a href="#specifications" class="mdl-tabs__tab is-active">Характеристики</a>
 				<a href="#description" class="mdl-tabs__tab">Описание</a>
 			</div>
-
-			<!-- <div class="tabs mdl-tabs__tab-bar">
-				<a href="#starks-panel-1" class="mdl-tabs__tab is-active">Детали</a>
-				<a href="#starks-panel-2" class="mdl-tabs__tab">Учасники</a>
-				<a href="#starks-panel-3" class="mdl-tabs__tab">Список товаров</a>
-			</div>
-
-			<div class="content">
-				<div class="mdl-tabs__panel is-active" id="starks-panel-1">111</div>
-				<div class="mdl-tabs__panel" id="starks-panel-2">222</div>
-				<div class="mdl-tabs__panel" id="starks-panel-3">333</div>
-			</div> -->
 			<div class="tab-content">
 				<div id="specifications" class="mdl-tabs__panel is-active">
 					<?if(isset($product['specifications']) && !empty($product['specifications'])){?>
@@ -120,10 +110,6 @@
 					<?}else{?>
 						<p>К сожалению описание товара временно отсутствует.</p>
 					<?}?>
-				</div>
-
-				<div id="seasonality" class="mdl-tabs__panel">
-					<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script>
 				</div>
 			</div>
 		</div>

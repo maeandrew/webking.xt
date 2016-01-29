@@ -1573,18 +1573,19 @@ section .stat_year {
 	padding-bottom: 30px;
 }
 .products .card {
-	margin-top: 15px;
-	padding: 5px 10px;
-	box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
-	border-radius: .2em;
+	padding: 10px 10px;
+	border-bottom: 1px solid #e0e0e0;
+	/*box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);*/
+	/*border-radius: .2em;*/
 }
 .products .card:first-of-type {
 	margin-top: 15px;
+	border-top: 1px solid #e0e0e0;
 }
 .products .product_name,
 .products .product_info {
 	float: left;
-	width: calc( 60% - 120px);
+	width: calc(60% - 120px);
 }
 .products .product_buy {
 	float: left;
@@ -1599,7 +1600,6 @@ section .stat_year {
 	width: 100px;
 	float: left;
 	padding-right: 20px;
-	padding-top: 2px;
 }
 #cart .card .product_photo a,
 .products .card .product_photo a {

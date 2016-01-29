@@ -229,6 +229,9 @@ h5 {
 
 /* View ======================================================================*/
 
+#view_block_js {
+	position: relative;
+}
 #view_block_js .product_section .product_photo img {
 	display: block !important;
 }
@@ -498,9 +501,9 @@ h5 {
 	position: absolute;
 	top: 0;
 	left: 0;
-	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	/*-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
 	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
-	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);*/
 	z-index: 101;
 	border-radius: 5px;
 }

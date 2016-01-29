@@ -1069,25 +1069,24 @@ function hidePreview(){
 function rebuildPreview(obj){
 	var position = obj.offset(),
 		positionProd = $('#view_block_js').offset(),
-		id_product = obj.closest('.card').find('.product_buy').data('idproduct');
-
-	// Calculating position of preview window
-	var viewportWidth = $(window).width(),
+		id_product = obj.closest('.card').find('.product_buy').data('idproduct'),
+		// Calculating position of preview window
+		viewportWidth = $(window).width(),
 		viewportHeight = $(window).height(),
 		pos = getScrollWindow(),
-		correctionBottom = 0,
-		correctionTop = 0,
-		marginBottom = 15,
-		marginTop = 15;
+		correctionBottom = correctionTop = 0,
+		marginBottom = marginTop = 15;
 	if(pos > 50){
-		marginTop += $('header').height();
+		marginTop += $('header').outerHeight();
 	}
-	if(pos + viewportHeight < position.top + preview.height()/2 + obj.height()/2 + marginBottom){
+	var ovftop = position.top - preview.height()/2 + obj.height()/2 - marginTop,
+		ovfbotton = position.top + preview.height()/2 + obj.height()/2 + marginBottom;
+	if(pos + viewportHeight < ovfbotton){
 		// console.log('overflow Bottom');
-		correctionBottom = position.top + preview.height()/2 + obj.height()/2 - (pos+viewportHeight) + marginBottom;
-	}else if(pos > position.top - preview.height()/2 + obj.height()/2 - marginTop){
+		correctionBottom = ovfbotton - (pos + viewportHeight);
+	}else if(pos > ovftop){
 		// console.log('overflow Top');
-		correctionTop = position.top - preview.height()/2 + obj.height()/2 - pos - marginTop;
+		correctionTop = ovftop - pos;
 	}
 	preview.css({
 		top: position.top - positionProd.top - preview.height()/2 + obj.height()/2 - correctionBottom - correctionTop,
