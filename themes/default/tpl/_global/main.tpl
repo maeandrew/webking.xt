@@ -81,8 +81,8 @@
 			echo sprintf($tmpstr, $js['name'], $js['async']==true?' async':null);
 		}
 	}?>
-	<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
- 	<script src="http://underscorejs.org/underscore.js"></script>
+	<!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script>
+	 	<script src="http://underscorejs.org/underscore.js"></script> -->
 	<!-- END JS load -->
 
 	<!-- Google Material Icon -->
@@ -252,15 +252,18 @@
 				</div> -->
 
 			<?php if(isset($__graph)){
-					echo $__graph;
-				}?>
+					echo $__graph;?>А
 			<div style="display:block;"></div>
-			<div id="user_bt" style="float:right;padding-right:15px;display:block;">
+			<div id="user_bt" style="float:right;padding-right:15px;display:block;top:-213px;position:relative;">
 				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
-				<a href="#" onclick="ModalGraph()">Добавить мнение</a>
+
+				<div id="tt3" class="icon material-icons"><a href="#" onclick="ModalGraph()"><i class="material-icons">add_box</i></a></div>
+				<div class="mdl-tooltip" for="tt3">
+				Добавить мнение
+				</div>
 			</div>
 
-			<? //print_r($_SESSION['member'])?>
+			<?}?>
 
 
 			<div class="content">

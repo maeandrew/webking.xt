@@ -3,7 +3,7 @@ function SendToAjax(id, qty, button, direction, note){
 	ajax('cart', 'update_cart_qty', data).done(function(data){
 		completeCartProductAdd(data.cart);
 		qty = data.product.quantity;
-		console.log(data.cart.cart_column);
+		//console.log(data.cart.cart_column);
 		var mode_text = 'от';
 		if(qty == 0){
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(0);
@@ -162,15 +162,8 @@ function completeCartProductAdd(data){
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.21).toFixed(2) +' грн (21%)');
 	}
 
-	//if($('#percent tr:eq(0)').is(':visible')){
-	//	$('#percent tr:eq(0)').css('color', '#000');
-	//}
-	//if($('#percent tr:eq(0)').is(':hidden')){
-	//	$('#percent tr:eq(1)').css('color', '#000');
-	//}
-	//if($('#percent tr:eq(1)').is(':hidden')){
-	//	$('#percent tr:eq(2)').css('color', '#000');
-	//}
 //----------------обновление облока скидок (end)---------------
 
+//----------------Создание нового пользователя при клике на оформление корзины (start)---------------
+//	$('#user_number').on('click',);
 }

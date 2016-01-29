@@ -326,10 +326,9 @@
 			<div class="wrapp">
 				<form action="">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="user_number" pattern="[0-9]{5,19}"
-							   onChange="validate($(this))">
+						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="[0-9]{5,19}" onChange="validate($(this))">
 						<label class="mdl-textfield__label" for="user_number">Номер телефона</label>
-						<span class="mdl-textfield__error">Номер телефона введен не корректно!</span>
+						<span class="mdl-textfield__error err_tel">Обязательное поле для ввода!</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="sample7">
@@ -367,12 +366,14 @@
 					<div id="button-cart1">
 						<button class="mdl-button mdl-js-button" type='submit' value="Отправить">Оформить заказ</button>
 					</div>
-					<div id="button-cart2">
-						<button class="mdl-button mdl-js-button btn_js" type='submit'
-								data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить
-							форму
-						</button>
-					</div>
+					<?if(0):?>
+						<div id="button-cart2">
+							<button class="mdl-button mdl-js-button btn_js" type='submit'
+									data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить
+								форму
+							</button>
+						</div>
+					<?endif?>
 					<div id="button-cart3">
 						<button class="mdl-button mdl-js-button btn_js" type='submit'
 								data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить">
@@ -401,20 +402,19 @@
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
-							$("#button-cart2").show();
-							$("#button-cart3").hide();
+							$("#button-cart1").show();
+//							$("#button-cart3").hide();
 						}
 					});
 					$('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
-							$("#button-cart2").hide();
-							$("#button-cart3").show();
+//							$("#button-cart2").hide();
+							$("#button-cart1").show();
 						}
 					});
 					$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-						console.log('mousedown');
 						checked = $(this).find('input').prop('checked');
 					}).on('click', function () {
 						if (checked == true) {
@@ -506,5 +506,21 @@
 			$("#contrlink").val(0);
 			$("#contrlink").fadeOut();
 		}
+//---------Проверка на ввод телефона
+		$('#button-cart1').hover(function(){
+			if(!$('.phone').val()) {
+				$('#button-cart1').click(function(){
+					return false;
+				});
+				$('.err_tel').css('visibility', 'visible');
+				setTimeout(function () {
+					$('.err_tel').css('visibility', '')
+				}, 3000);
+			}else{ console.log('1111')}
+		});
+//-------------Инициалзация маски для ввода телефонных номеров-------
+//		$(function(){
+//			$(".phone").mask("+38 (099) ?999-99-99");
+//		});
 	</script>
 <?}?>

@@ -2,29 +2,33 @@
 /*if($data_graph){
 	print_r($data_graph);
 }else{*/
-	$values = array();
-	foreach ($data_graph as $key => $val) {
-		for($i=1; $i <= 12; $i++) {
-			$values['value_'.$i][] = $val['value_'.$i];
-		}
+$values = array();
+foreach ($data_graph as $key => $val) {
+	for($i=1; $i <= 12; $i++) {
+		$values['value_'.$i][] = $val['value_'.$i];
 	}
-	?>
-	<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+}
+?>
+<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
 	<?foreach($values as &$v){
 		$v = array_sum($v)/count($v);
-		$chart_ords[] = $v;
+		$chart_ords[] = $v*10;
 	}
 		$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
-		$chart_regs = array();
-		//$chart_ords = array(3,5,8,9,10,3,2,2,1,0,1,3);
-		$chart_ords_ly = array();
+		$chart_regs = array(24,59,44);
+		$chart_regi = array(99);
+		$chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 ?>
 	<!-- <div class="slider_wrap">
 		<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$v?>" step="0.1" tabindex="0" disabled>
 	</div> -->
 
-
-	<canvas id="last_orders_count"></canvas>
+	<style>
+		#last_orders_count{
+			height: 158px;
+		}
+	</style>
+	<canvas id="last_orders_count" height="200"></canvas>
 
 	  <!-- <div id="header">
 	    <button title="Zoom in on selected data" id="keep-data" disabled="disabled">Keep</button>
@@ -68,8 +72,19 @@
 	    </div>
 	  </div> -->
 
-		<a href="#" class="slide_all">Просмотреть</a>
-	</div>
+	  	<a href="#" class="slide_all" style="display:block;position:relative;top:-157px;float:right;right:50px;">
+			<i class="material-icons">remove_red_eye</i>
+		</a>
+		<!-- <div id="icon_graph" class="icon material-icons" style="display:block;position:relative;top:-157px;float:right;right:40px;">
+			<a href="#" class="slide_all">
+				<i class="material-icons">remove_red_eye</i>
+			</a>
+		</div>
+		<div class="mdl-tooltip" for="icon_graph">
+		Просмотреть
+		</div> -->
+
+</div>
 
 
 
@@ -105,7 +120,7 @@
 	$(function(){
 		var options = {
 			bezierCurve : true,
-			scaleShowGridLines : false,
+			scaleShowGridLines : true,
 			scaleShowLabels: true,
 			scaleShowHorizontalLines: true
 
@@ -133,23 +148,32 @@
 			datasets: [
 				{
 					label: "Заказов",
-					fillColor: "rgba(101,224,252,0.2)",
-					strokeColor: "rgba(101,224,252,1)",
-					pointColor: "rgba(101,224,252,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
+					fillColor: "rgba(101,224,252,0)",
+					strokeColor: "rgba(255,87,34,0.5)",
+
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
 					pointHighlightStroke: "rgba(101,224,252,1)",
-					data: <?=json_encode(isset($chart_ords)?$chart_ords:null);?>
+					data: <?=isset($chart_ords)?json_encode($chart_ords):'null';?>
 				},
 				{
 					label: "Заказов",
-					fillColor: "rgba(255,255,255,0.135)",
-					strokeColor: "rgba(255,235,59,1)",
-					pointColor: "rgba(255,235,59,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(255,235,59,1)",
+					fillColor: "rgba(255,255,255,0)",
+					strokeColor: "rgba(1,139,6,0.5)",
+
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
+					pointHighlightStroke: "rgba(255,235,59,0)",
 					data: <?=json_encode($chart_ords_ly);?>
+				},
+				{
+					label: "Регистраций",
+					fillColor: "rgba(101,224,252,0)",
+					strokeColor: "rgba(1,139,6,1)",
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
+					pointHighlightStroke: "rgba(101,224,253,1)",
+					data: <?=json_encode($chart_regi);?>
 				}
 			]
 		};

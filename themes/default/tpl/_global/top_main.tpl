@@ -42,10 +42,41 @@
 		</li>
 		<li>
 			<?if(isset($_SESSION['member'])){?>
-				<a href="#" class="mdl-button mdl-js-button cabinet_btn">Мой кабинет</a>
+
+				<!-- <a href="#" id="tt4" class="mdl-button mdl-js-button cabinet_btn">Мой кабинет</a>
+				<div class="mdl-tooltip" for="tt4" style="text-align:left">
+					Имя: <?=$_SESSION['member']['contragent']['name_c']?><br>
+					Email: <?=$_SESSION['member']['email']?><br>
+					Телефон: <?=$_SESSION['member']['contragent']['phones']?><br>
+					<?=$_SESSION['member']['promo_code']?>
+				</div> -->
+
+				<!-- Right aligned menu below button -->
+				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+					<i class="material-icons">account_circle</i>
+				</button>
+
+				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+					<li disabled class="mdl-menu__item">Имя: <?=$_SESSION['member']['contragent']['name_c']?></li>
+					<li disabled class="mdl-menu__item">Email: <?=$_SESSION['member']['email']?></li>
+					<li disabled class="mdl-menu__item">Телефон: <?=$_SESSION['member']['contragent']['phones']?></li>
+					<li disabled class="mdl-menu__item"><?=$_SESSION['member']['promo_code']?></li>
+				</ul>
+
+
+
+				<!-- <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+					<li class="mdl-menu__item active">По рейтингу</li>
+					<li class="mdl-menu__item">Новинки</li>
+					<li class="mdl-menu__item">Популярные</li>
+					<li class="mdl-menu__item">От дешевых к дорогим</li>
+				</ul> -->
 				<a href="#" class="mdl-button mdl-js-button hidden login_btn">Войти</a>
 			<?}else{?>
 				<a href="#" class="mdl-button mdl-js-button cabinet_btn hidden">Мой кабинет</a>
+				<div class="mdl-tooltip" for="tt4" style="text-align:left">
+					Логин: Author<br>Email: author@gmail.com<br>Телефон: +380231234567<br>Товаров: 5
+				</div>
 				<a href="#" class="mdl-button mdl-js-button login_btn">Войти</a>
 			<?}?>
 		</li>
