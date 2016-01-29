@@ -5,57 +5,58 @@
 	</form>
 </div>
 <div id="supplier_manager_cabinet">
-	<form action="" method="post" class="clearfix">
+	<form action="" method="post" class="clearfix ">
 		<input type="hidden" name="sort" value="<?=isset($_POST['sort'])?$_POST['sort']:null;?>">
-		<div class="table_thead clearfix">
-			<div class="article">
+		<div class="table_thead clearfix mdl-grid">
+			<div class="article mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="article asc" class="sort_article">Арт.<sup></sup></a>
 				<input type="text" value="<?=isset($_POST['filter_article'])?htmlspecialchars($_POST['filter_article']):null?>" name="filter_article"/>
 			</div>
-			<div class="name">
+			<div class="name mdl-cell mdl-cell--3-col">
 				<a href="#" data-value="name asc" class="sort_name">Имя<sup></sup></a>
 				<input type="search" value="<?=isset($_POST['filter_name'])?htmlspecialchars($_POST['filter_name']):null?>" name="filter_name"/>
 			</div>
-			<div class="place">Контакты</div>
-			<div class="email">
+			<div class="place mdl-cell mdl-cell--3-col">Контакты</div>
+			<div class="email mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="email asc" class="sort_emai">E-mail<sup></sup></a>
 				<input type="search" value="<?=isset($_POST['filter_email'])?htmlspecialchars($_POST['filter_email']):null?>" name="filter_email"/>
 			</div>
-			<div class="next_update_date">
+			<div class="next_update_date mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="next_update_date asc" class="sort_next_update_date">Рабочий день<sup></sup></a>
 			</div>
-			<div class="currency">
+			<div class="currency mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="inusd desc, currency_rate asc" class="sort_currency_rate">Курс доллара<sup></sup></a>
 			</div>
-			<div class="login">Вход в кабинет</div>
-			<div class="toggle">
+			<div class="login mdl-cell mdl-cell--1-col">Вход в кабинет</div>
+			<div class="toggle mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="active desc" class="sort_active">Вкл/Выкл<sup></sup></a>
 			</div>
 			<input type="submit" name="smb" value="Фильтр"/>
 		</div>
 	</form>
 	<?if(isset($supplier_list) && is_array($supplier_list)){?>
-		<table class="table">
-			<tbody>
+		<div class="table">			
 			<?foreach($supplier_list as $s){?>
-				<tr>
-					<td class="article"><?=$s['article'];?></td>
-					<td class="name"><?=$s['name']?></td>
-					<td class="place"><?=isset($s['place'])?$s['place']:'-';?></td>
-					<td class="email"><?=isset($s['email']) && $s['email'] != ''?$s['email']:'-';?></td>
+				<div class="tr">
+					<div class="article  td"><?=$s['article'];?></div>
+					<div class="name  td"><?=$s['name']?></div>
+					<div class="place  td"><?=isset($s['place'])?$s['place']:'-';?></div>
+					<div class="email  td"><?=isset($s['email']) && $s['email'] != ''?$s['email']:'-';?></div>
 					<!-- красное если осталось меньше месяца или дата в прошлом -->
-					<td class="next_update_date <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></td>
-					<td class="currency"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></td>
-					<td class="login">
-						<a href="/login/?email=<?=$s['email']?>&passwd=0" class="btn-m-green <?=$s['active'] == 0?'hidden':'';?>">Войти</a>
-					</td>
-					<td class="toggle">
+					<div class="next_update_date  td <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></div>
+					<div class="currency  td"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></div>
+					<div class="login  td">
+						<a href="/login/?email=<?=$s['email']?>&passwd=0" class="btn-m-green <?=$s['active'] == 0?'hidden':'';?>">
+							<button class="greenBtn">
+  								Войти
+							</button></a>
+					</div>
+					<div class="toggle td">
 						<a href="?id=<?=$s['id_user']?>&toggle_supplier=<?=$s['active'] == 0?'1':'0';?>" class="btn-m-<?=$s['active'] == 0?'green':'red';?>-inv"><?=$s['active'] == 0?'Вкл.':'Выкл.';?></a>
-					</td>
-				</tr>
-			<?}?>
-			</tbody>
-		</table>
+					</div>
+				</div>
+			<?}?>			
+		</div>
 	<?}else{?>
 		Нету поставщиков по данному фильтру.
 	<?}?>
