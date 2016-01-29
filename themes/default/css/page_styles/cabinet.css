@@ -31,7 +31,13 @@ hr {
 }
 
 /* Contragent cabinet ====================================================== */
-
+.mdl-button--raised.mdl-button--colored {
+    color: #fff;
+    background: blue;
+}
+.mdl-button--raised.mdl-button--colored:hover {
+	background: blue;
+}
 .contragent_cab .margin-form {
     display: inline-block;
 	margin: .67em 0;
@@ -50,9 +56,46 @@ hr {
 .contragent_cab button[data-target="work_days_js"] span {
 	padding-right: 5px;
 }
+
+table.table {
+    border-bottom: 1px solid #d7d7d7;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 .returns_table.table thead tr {
 	background-color: #EFEFEF;
 }
+
+
+.returns_table.table tbody tr:hover {
+    background-color: rgb(255,234,221);
+}
+
+.returns_table.table thead th a {
+	font-weight: 500;
+}
+
+table.table thead tr {
+    font-weight: bold;
+    background: #fafafa;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.returns_table a {
+	color: #009e00;
+	font-size: 16px;
+    margin-top: -10px;
+    font-weight: 300;
+    text-decoration: none;
+}
+
 .returns_table th.client {
 	position: relative;
 }
@@ -64,6 +107,11 @@ hr {
 .returns_table .client {
 	width: 20%;
 }
+
+.returns_table .client .name_client {
+	padding-top: 10px;
+}
+
 .returns_table a.icon-font {
 	text-decoration: none;
 	font-size: 20px;
@@ -71,6 +119,7 @@ hr {
     float: right;
     padding: 10px;
 }
+
 .returns_table .client .cont-person-klient a:hover {
 	color: #F36711;
 }
@@ -100,6 +149,9 @@ hr {
 	margin-top: 10px;
 }
 
+.returns_table .client .cont-person-klient {	
+	padding: 10px;
+}
 /* Стилизация модальных окон =============================================== */
 
 .order_num {
@@ -1236,8 +1288,7 @@ html {
 }
 
 .order {
-  margin: 0 auto;
-  width: 94%;
+  margin: 0 auto;  
   overflow: visible;
 }
 .order:first-of-type {

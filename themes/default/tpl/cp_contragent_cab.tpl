@@ -3,7 +3,7 @@
 	<?if($contragent['remote'] == 1){?>
 		<p class="contragent_balance">Баланс: <b><?=$current_customer['balance']?number_format($current_customer['balance'], 2, ",", "").'грн.':'Н/Д';?></b></p>
 	<?}?>
-	<button class="open_modal btn-m-orange" data-target="work_days_js"><span class="icon-font">clock</span>Рабочие дни</button>
+	<button class="open_modal mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-m-blue" data-target="work_days_js"><i class="material-icons">access_time</i>Рабочие дни</button>
 	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="margin-form hidden">
 		<input type="text" name="discount" id="discount" value="<?=isset($current_customer['discount'])?htmlspecialchars(1-$current_customer['discount']/100):null?>" disabled="disabled">
 		<input type="hidden" name="min_koef_manager" id="min_koef_manager" value="<?=$GLOBALS['CONFIG']['min_koef_manager']?>">
@@ -67,7 +67,7 @@
 							<input type="hidden" class="target-date-<?=$i['id_order']?>" value="<?if($i['target_date'] != 0 ){ echo date("d.m.Y",$i['target_date']); }?>" />
 							<input type="hidden" class="client-<?=$i['id_order']?>" value="<?=$i['cont_person']?>" />
 							<?if(!in_array($i['id_order_status'], array("2", "6", "8")) && $contragent['remote'] == 1){?>
-								<a href="#" class="change-status icon-font open_modal" title="Нажмите, чтобы изменить статус и дату отгрузки заказа" data-target="select_status_js" data-idorder="<?=$i['id_order']?>">edit</a>
+								<a href="#" class="change-status icon-font open_modal" title="Нажмите, чтобы изменить статус и дату отгрузки заказа" data-target="select_status_js" data-idorder="<?=$i['id_order']?>"><i class="material-icons">mode_edit</i></a>
 							<?}?>
 						</td>
 						<td class="sum">
@@ -88,7 +88,7 @@
 								<p class="cont-person-klient">
 									<?=$i['cont_person_klient']?>
 									<?if(!in_array($i['id_order_status'], array("2", "6", "8"))){?>
-										<a href="#" class="change-client icon-font open_modal" title="Нажмите, чтобы изменить клиента для заказа" data-target="select_client_js" data-idorder="<?=$i['id_order']?>">edit</a>
+										<a href="#" class="change-client icon-font open_modal" title="Нажмите, чтобы изменить клиента для заказа" data-target="select_client_js" data-idorder="<?=$i['id_order']?>"><i class="material-icons">mode_edit</i></a>
 									<?}?>
 								</p>
 								<input type="hidden" class="current-client" value="<?=$i['id_klient']?>"/>
@@ -103,8 +103,8 @@
 							<textarea onChange="setOrderNote_zamena(<?=$i['id_order']?>)" class="note2" id="order_note2_<?=$i['id_order']?>"><?=isset($i['note2'])?$i['note2']:null?></textarea>
 						</td>
 						<td class="bill">
-							<button id="invoice" class="invoice-create ord-<?=$i['id_order']?> btn-m-green open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
-							<button id="bill" class="bill-create ord-<?=$i['id_order']?> btn-m-orange open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Накл.</button><br>
+							<button id="invoice" class="invoice-create mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ord-<?=$i['id_order']?> btn-m-green open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
+							<button id="bill" class="bill-create mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ord-<?=$i['id_order']?> btn-m-orange open_modal" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Накл.</button><br>
 							<a target="_blank" href="<?=_base_url?>/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. сайт<br></a>
 							<a target="_blank" href="<?=_base_url?>/invoice_customer_fakt/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. факт</a>
 						</td>
