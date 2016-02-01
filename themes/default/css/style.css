@@ -631,7 +631,7 @@ section.center {
 	padding: .5em 0;
 }
 
-/*Login =======================================================================*/
+/* Auth modal ===============================================================*/
 #auth {
 	left: calc(50% - 200px);
 	top: calc(50% - 300px);
@@ -647,11 +647,11 @@ section.center {
 	float: right;
 	margin-left: .5em;
 }
-#auth .error {
+/*#auth .error {
 	display: none;
 	color: #F44336;
 	padding-bottom: 1em;
-}
+}*/
 /*#login,
 	width: 250px;
 }*/
@@ -660,6 +660,7 @@ section.center {
 	position: absolute;
 	left: 15%;
 	right: 15%;
+	width: 250px;
 	max-width: 100%;
 	max-height: 100%;
 	overflow: visible;
@@ -672,37 +673,10 @@ section.center {
 	top: 13%;
 	bottom: 13%;
 }
-#logs span {
-	width: 80%;
-    display: block;
-}
-#regs span {
-	width: 76%;
-    display: block;
-}
-#regs .mdl-textfield {width: 100%;}
-#logs .mdl-textfield {width: 100%;}
-#regs .is-focused .mdl-textfield__label{
-	color: black;
-}
-#logs .is-focused .mdl-textfield__label {
-	color: black;
-}
-#regs_log .mdl-button--raised.mdl-button--colored {
-    background: #F44336;
-    color: rgb(255,255,255);
-}
-#login,
-#registration {
-	width: 250px;
-}
 #login > span,
 #registration > span {
 	display: block;
 	padding: 1em 0;
-}
-#registration .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
-	color: rgb(160, 161, 171);
 }
 
 /*Cart =======================================================================*/
@@ -2137,10 +2111,10 @@ section .stat_year {
 	color: #fff;
 	background: #F44336;
 }
-.mdl-button--raised.mdl-button--colored:hover {
+.mdl-button--raised.mdl-button--colored:hover,
+.mdl-button--raised.mdl-button--colored:focus:not(:active) {
 	background: #F44336;
 }
-
 .mdl-checkbox__box-outline {
 	border: 1px solid #8f8f8f;
 }
