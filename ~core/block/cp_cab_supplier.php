@@ -13,8 +13,8 @@ $tpl->Assign("check_sum", $check_sum);
 $tpl->Assign("supplier", $Supplier->fields);
 $products = new Products();
 //*********************************Заполнение рабочих дней
-if(isset($GLOBALS['REQAR'][1])){
-	$cabinet_page = $GLOBALS['REQAR'][1];
+if(isset($GLOBALS['Rewrite'])){
+	$cabinet_page = $GLOBALS['Rewrite'];
 	$tpl->Assign('cabinet_page', $cabinet_page);
 }else{
 	header('Location: '._base_url.'/cabinet/assortment/');
@@ -220,8 +220,8 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	}
 	foreach($fields as $f){
 		$sort_links[$f] = "/cabinet{$GET_limit}/ord/$f/desc";
-		if(in_array("ord", $GLOBALS['REQAR']) && in_array($f, $GLOBALS['REQAR'])){
-			if(in_array("asc", $GLOBALS['REQAR'])){
+		if(in_array("ord", $GLOBALS['Rewrite']) && in_array($f, $GLOBALS['Rewrite'])){
+			if(in_array("asc", $GLOBALS['Rewrite'])){
 				$sort_links[$f] = "/cabinet{$GET_limit}/ord/$f/desc";
 				$orderby = "{$f_assoc[$f]} asc";
 			}else{
@@ -295,11 +295,11 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	);
 }
 $tpl->Assign('header', $header);
-if(in_array("export", $GLOBALS['REQAR'])){
+if(in_array("export", $GLOBALS['Rewrite'])){
 	$r = $products->GetExportAssortRows($products->list, $Supplier->fields['id_user']);
 	$products->GenExcelAssortFile($r);
 	exit(0);
-}elseif(in_array("export_usd", $GLOBALS['REQAR'])){
+}elseif(in_array("export_usd", $GLOBALS['Rewrite'])){
 	$r = $products->GetExportAssortRowsUSD($products->list, $Supplier->fields['id_user']);
 	$products->GenExcelAssortFile($r);
 	exit(0);
