@@ -457,15 +457,11 @@ class Orders {
 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
 			$f['id_order_status'] = $order_status = 11; // Промо-заказ
 		}else{
-			if(isset($arr['p_order'])){
-				$f['id_order_status'] = $order_status = 3; // Черновик
-			}elseif(isset($arr['order'])){
-				$f['id_order_status'] = $order_status = 1; // Обычный заказ
-				if($_SESSION['cart']['cart_sum'] >= 0 && $_SESSION['cart']['cart_sum'] < $GLOBALS['CONFIG']['min_sum_order']){
-					$_SESSION['errm'][] = "Минимальная сумма заказа: ".$GLOBALS['CONFIG']['min_sum_order'];
-					header('Location: '._base_url.'/cart/');
-					exit();
-				}
+			$f['id_order_status'] = $order_status = 1; // Обычный заказ
+			if($_SESSION['cart']['cart_sum'] >= 0 && $_SESSION['cart']['cart_sum'] < $GLOBALS['CONFIG']['min_sum_order']){
+				$_SESSION['errm'][] = "Минимальная сумма заказа: ".$GLOBALS['CONFIG']['min_sum_order'];
+				header('Location: '._base_url.'/cart/');
+				exit();
 			}
 		}
 		// Сохранение исходного номера заказа
@@ -485,7 +481,7 @@ class Orders {
 			$f['strachovka'] = 0;
 			$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
 		}else{
-			$f['phones'] = mysql_real_escape_string(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phones']), -10)));
+			$f['phones'] = $this->db->Quote(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phone']), -10)));
 			/*$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
 			$f['id_city'] = mysql_real_escape_string(trim($arr['id_delivery_department']));
 			$f['id_delivery_service'] = mysql_real_escape_string(trim(isset($arr['id_delivery_service'])?$arr['id_delivery_service']:0));
@@ -506,7 +502,7 @@ class Orders {
 			}else{
 				$f['sum_opt'] = $f['sum_mopt'] = $f['sum_discount'] = $f['sum'] = $_SESSION['cart']['cart_sum'];
 			}
-			$f['discount'] = mysql_real_escape_string(trim($arr['discount']));
+			$f['discount'] = $this->db->Quote(trim($arr['discount']));
 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 0){
 				$f['discount'] = null;
 			}

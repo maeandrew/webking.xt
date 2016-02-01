@@ -31,6 +31,10 @@ hr {
 }
 
 /* Contragent cabinet ====================================================== */
+footer.mdl-mega-footer {
+	width: 100%;
+}
+
 .mdl-button--raised.mdl-button--colored {
     color: #fff;
     background: blue;
@@ -38,6 +42,7 @@ hr {
 .mdl-button--raised.mdl-button--colored:hover {
 	background: blue;
 }
+
 .contragent_cab .margin-form {
     display: inline-block;
 	margin: .67em 0;
@@ -71,6 +76,10 @@ table {
 
 .returns_table.table thead tr {
 	background-color: #EFEFEF;
+}
+
+.returns_table tr:hover {
+	background-color: white;
 }
 
 
@@ -152,6 +161,44 @@ table.table thead tr {
 .returns_table .client .cont-person-klient {	
 	padding: 10px;
 }
+/*============================================*/
+/*Мои стили модального окна*/
+
+.select-status, .select-client, .bill-form {
+	text-align: center;
+}
+
+.select-status input {
+	width: 70%;
+	background-color: white;
+    float: right;
+    outline: none;
+    line-height: 29px;
+    padding-left: 10px;
+    border: none;    
+}
+
+.select-status button.btn-m-green, .select-status button.btn-m-green:hover,
+.select-client button.btn-m-green, .select-client button.btn-m-green:hover,
+.bill-form button.btn-m-green, .bill-form button.btn-m-green:hover {
+	background-color: #52cf55;	
+    color: #fff;
+}
+
+.select-status label, .bill-form label {
+	font-size: 16px;	
+	margin-right: 10px; 
+	vertical-align: middle;
+}
+
+table.kontrag.table{
+	border-bottom: 1px solid #b4b4b4;	
+}
+
+.kontrag tbody {
+	border-top: 1px solid #b4b4b4;
+}
+
 /* Стилизация модальных окон =============================================== */
 
 .order_num {
@@ -220,8 +267,10 @@ table.table thead tr {
     margin-right: 5px;
 }
 .kontrag {
-	width: 200px;
+	width: 250px;
 }
+
+
 
 /* Supplier Manager Cab ==================================================== */
 #supplier_manager_cabinet {

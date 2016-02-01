@@ -409,4 +409,15 @@ class Users {
 		return $arr;
 	}
 
+	//Выборка зарегестрированных пользователей на протяжении недели
+	public function CheckPhoneUniqueness($phone){
+		$sql = "SELECT id
+			FROM "._DB_PREFIX_."users
+			WHERE phones = ".$phone;
+		if($arr = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return true;
+	}
+
 }?>

@@ -689,12 +689,11 @@ $(function(){
 
 	// Проверка формы регистрации
 	$('#registration .sign-up').click(function(e){
-		var name = $(this).closest('form').find('input#name').val();
-		var email = $(this).closest('form').find('input#email').val();
 		e.preventDefault();
-		if(email.length > 0){
-			ValidateEmail(email, 1);
-		}
+		var parent = $(this).closest('form'),
+			name = parent.find('input#name').val(),
+			email = parent.find('input#email').val();
+		ValidateEmail(email, 1);
 	});
 
 
@@ -741,4 +740,9 @@ $(function(){
 	});
 
 	$('#percent tr:first').css('color', '#000');
+
+
+	/*Перенос модалок в main.tpl*/
+
+	showModals();
 });
