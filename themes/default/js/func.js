@@ -1567,3 +1567,10 @@ function CompleteValidation(name, email, passwd, passconfirm){
 		return true;
 	}
 }
+
+function showModals() {
+	var modals = $('div:not(.modals) [data-type="modal"]');
+	modals.each(function(key, value){
+		$(".modals").append(value);
+	});	
+}

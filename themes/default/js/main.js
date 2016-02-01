@@ -717,4 +717,9 @@ $(function(){
 	});
 
 	$('#percent tr:first').css('color', '#000');
+
+
+	/*Перенос модалок в main.tpl*/
+
+	showModals();
 });
