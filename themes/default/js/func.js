@@ -1403,7 +1403,7 @@ function ValidatePass(passwd){
 	}
 	return result;
 }
-
+var req = null;
 /** Валидация email **/
 function ValidateEmail(email, type){
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -1413,14 +1413,10 @@ function ValidateEmail(email, type){
 	var error = '';
 	/*var confirmps = $('#confirmps').prop('checked');*/
 	var result;
-	$.ajax({
-		url: URL_base+'register',
-		type: "GET",
-		data:({
-			"email": email,
-			"action": "validate"
-		}),
-	}).done(function(data){
+
+	if (req != null) req.abort();
+
+	req = ajax('auth', 'register', {email: email}).done(function(data){
 		console.log(data);
 		if(email.length == 0){
 			$('#email + #email_error').empty();
@@ -1482,42 +1478,17 @@ function ValidateEmail(email, type){
 		return result;
 	});
 }
-function Regist() {
-	console.log('TRUE');
-	$.ajax({
-		url: URL_base+'register',
-		type: "GET",
-		cache: false,
-		dataType : "json",
-		data: {
-			"action": 'register',
-			"cont_person": name,
-			"email": email,
-			"passwd": passwd
-		}
-	}).done(function(data){
-		if(data.errm != 1){
 
-			closeObject('regs_log');
-			$('.login').closest('li').find('.enter_btn').removeClass('hidden');
-			$('.login').addClass('hidden');
-		}else{
-			console.log(data.msg);
-		}
-	});
-}
 /** Валидация подтверждения пароля **/
 function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
 		/*console.log('Error');*/
 		$('#passwdconfirm + .mdl-textfield__error').empty();
-		$('#passwdconfirm').removeClass().addClass("unsuccess");
 		$('#passwdconfirm').closest('.mdl-textfield ').addClass('is-invalid');
 		$('#passwdconfirm + .mdl-textfield__error').append('Пароли не совпадают');
 	}else{
 		console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
-		$('#passwdconfirm').removeClass().addClass("success");
 		return false;
 	}
 }
@@ -1542,28 +1513,28 @@ function ValidateName(name){
 
 /** Завершить валидацию после проверки email */
 function CompleteValidation(name, email, passwd, passconfirm){
-	var fin = 0;
-	if(ValidateName(name)){
-		$('#regs .mdl-textfield__error').closest('#name .mdl-textfield').text(ValidateName(name));
+	var fin = 0,
+		res = false;
+	if(res = ValidateName(name)){
+		$('#regs .mdl-textfield__error').closest('#name .mdl-textfield').text(res);
 		fin++;
 	}
 	if(email){
 		$('#regs .mdl-textfield__error').closest('#email .mdl-textfield').text(email);
 		fin++;
 	}
-	if(ValidatePass(passwd)){
+	if(res = ValidatePass(passwd)){
 		/*console.log(passwd);*/
-		$('#regs .mdl-textfield__error').closest('#passwd .mdl-textfield').text(ValidatePass(passwd));
+		$('#regs .mdl-textfield__error').closest('#passwd .mdl-textfield').text(res);
 		fin++;
 	}
-	if(ValidatePassConfirm(passwd, passconfirm)){
+	if(res = ValidatePassConfirm(passwd, passconfirm)){
 		/*console.log(passconfirm);*/
-		$('#regs .mdl-textfield__error').closest('#passwdconfirm .mdl-textfield').text(ValidatePassConfirm(passwd, passconfirm));
+		$('#regs .mdl-textfield__error').closest('#passwdconfirm .mdl-textfield').text(res);
 		fin++;
 	}
 	if(fin > 0){
 		return false;
-	}else{
-		return true;
 	}
+	return true;
 }

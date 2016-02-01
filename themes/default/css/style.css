@@ -33,12 +33,12 @@ p {
 
 	   position: relative;
 }
-input,
+/*input,
 textarea {
 	border: 1px solid #e0e0e0;
 	border-radius: 3px;
 	outline: none;
-}
+}*/
 input.mdl-textfield__input,
 textarea.mdl-textfield__input {
 	border-radius: 0;
@@ -1032,11 +1032,9 @@ aside {
 	height: 100%;
 }
 .banner_hide aside {
-	overflow-y: scroll;
 	position: fixed;
 	top: 52px;
 	bottom: 0;
-	overflow-y: scroll;
 }
 aside .sidebar_wrapp {
 	overflow-x: hidden;
@@ -1089,6 +1087,7 @@ aside .catalog .main_nav .included_filters {
 }
 aside .catalog .second_nav {
 	padding: 10px 0;
+	overflow-y: scroll;
 }
 aside .catalog .second_nav .link_wrapp .more_cat {
 	cursor: pointer;
