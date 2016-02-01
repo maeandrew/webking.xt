@@ -76,6 +76,9 @@ i.material-icons {
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.4);
 }
+.orange {
+	color:#FF5722;
+}
 .clearfix:after {
 	content: ".";
 	display: block;
@@ -691,6 +694,12 @@ section.center {
 	margin-bottom: 20px;
 	float: left;
 }
+#cart .title_cart{
+	position: fixed;
+	width: 100%;
+	background-color: white;
+	z-index: 1;
+}
 #cart #summ_prod, #cart .summ_many{
 	color: #000;
 }
@@ -744,6 +753,7 @@ section.center {
 #cart .card .product_info {
 	float: left;
 	width: calc( 60% - 165px);
+	padding-top: 12px;
 }
 #cart .card .product_buy {
 	float: left;
@@ -753,6 +763,7 @@ section.center {
 }
 #cart .order_wrapp {
 	clear: both;
+	margin-top: 3em;
 }
 #cart .card {
 	border-bottom: 1px solid #e0e0e0;
@@ -1420,7 +1431,7 @@ section .stat_year {
 	padding-left: 3em;
 	width: 300px;
 	width: auto;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	font-size: x-large;
 }
 #cart .tabs_container ul,

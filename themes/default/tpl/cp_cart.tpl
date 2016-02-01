@@ -132,7 +132,7 @@
 			</p>
 		</div>
 	<?}?>
-	<?if($User['gid'] == _ACL_MANAGER_){?>
+	<?if(isset($User['gid']) && $User['gid'] == _ACL_MANAGER_){?>
 		<?if(!empty($unlist)){?>
 			<a href="#" class="show_btn" onclick="$(this).next().toggleClass('hidden'); return false;">Показать недоступные товары</a>
 			<div class="unavailable_products hidden animate" id="unavailable_products">
@@ -163,7 +163,7 @@
 	<?}?>
 	<!-- END Недоступные товары -->
 	<!-- NEW Товары в корзине -->
-	<h5>Корзина</h5>
+	<div class="title_cart"><h5>Корзина</h5></div>
 	<div class="order_wrapp clearfix">
 		<div class="order_head mdl-cell--hide-phone">
 			<ul>
@@ -199,6 +199,18 @@
 					</a>
 					<span class="product_article">Артикул: <?=$item['art']?></span>
 				</p>
+				<div class="product_info clearfix">
+					<div class="note in_cart clearfix">
+						<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
+								  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
+						<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
+						</textarea>
+						<label class="info_key">?</label>
+						<div class="info_description">
+							<p>Поле для ввода примечания к товару.</p>
+						</div>
+					</div>
+				</div>
 				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
@@ -232,18 +244,7 @@
 						</span>
 					</p>
 				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
-								  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
-						<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
-						</textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div>
+
 			</div>
 		<?}?>
 		<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
@@ -252,7 +253,6 @@
 				$percent = $percent_sum = 0;
 				$total = $cart_sum;
 			}elseif($cart_sum >= $GLOBALS['CONFIG']['retail_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['wholesale_order_margin']) {
-
 				$percent = 10;
 				$percent_sum = $cart_sum * 0.10;
 				$total = $cart_sum - $percent_sum;
@@ -302,9 +302,9 @@
 					</tr>
 					<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
 						<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
+						<td <?=($percent == 0) ? "style=\"color: #000\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
 						<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
+						<td <?=($percent == 0) ? "style=\"color: #000\"" : ''?>>480грн (16%)</td>
 					</tr>
 					<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
 						<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
@@ -327,8 +327,9 @@
 				<form action="">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="[0-9]{5,19}" onChange="validate($(this))">
-						<label class="mdl-textfield__label" for="user_number">Номер телефона</label>
-						<span class="mdl-textfield__error err_tel">Обязательное поле для ввода!</span>
+						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;">*Номер телефона</label>
+						<span class="mdl-textfield__error err_tel orange">Введите корректный номер телефона!</span>
+						<!--span class="err_tel">Обязательное поле для ввода!</span-->
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="sample7">
