@@ -659,6 +659,12 @@ $(function(){
 				"passwd": passwd
 			}
 		}).done(function(data){
+			var parrent = $('.header_nav [for="demo-menu-lower-right"]');
+			parrent.find('.mdl-menu__item .user_name').text(data.member.name);
+			parrent.find('.mdl-menu__item .user_email').text(data.member.email);
+			parrent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
+			parrent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
+			parrent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
 			if(data.errm != 1){
 				closeObject('auth');
 				$('.cabinet_btn').removeClass('hidden');

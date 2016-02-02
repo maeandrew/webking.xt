@@ -44,12 +44,15 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							if($User->CheckUser($_POST)){
 								$User->LastLoginRemember($User->fields['id_user']);
 								G::Login($User->fields);
+								$echo['member'] = $_SESSION['member'];
 								$echo['errm'] = 0;
+
 							}else{
 								$echo['msg'] = 'Неверный email или пароль.';
 								$echo['errm'] = 1;
 							}
 						}
+
 						unset($_POST);
 					}
 				}else{
