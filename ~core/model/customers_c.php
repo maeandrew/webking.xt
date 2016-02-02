@@ -301,9 +301,7 @@ class Customers extends Users {
 	public function AddCustomer($arr){
 		$User = new Users();
 		$arr['gid'] = _ACL_CUSTOMER_;
-		$this->db->StartTrans();
 		if(!$id_user = $User->AddUser($arr)){
-			$this->db->FailTrans();
 			return false;
 		}
 		$arr['cont_person'] = $arr['phones'] = "";
@@ -319,6 +317,7 @@ class Customers extends Users {
 		if(isset($arr['discount'])){
 			$f['discount'] = trim($arr['discount']);
 		}
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'customer', $f)){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();

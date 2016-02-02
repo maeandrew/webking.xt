@@ -36,6 +36,7 @@ class Users {
 			FROM "._DB_PREFIX_."user AS u
 			WHERE (u.email = '".$f['email']."'
 			OR u.email = '".$f['email']."@x-torg.com')
+			OR u.phones = '".$f['email']."'
 			AND u.passwd = '".md5($f['passwd'])."'
 			AND u.active = 1";
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
@@ -62,7 +63,7 @@ class Users {
 			WHERE cr.id_user = ".$this->fields['id_user'];
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
 
-		return true;
+		return $sql;
 	}
 
 	public function CheckUserNoPass($arr){
@@ -70,6 +71,7 @@ class Users {
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
 			FROM "._DB_PREFIX_."user AS u
 			WHERE u.email = '".$f['email']."'
+			OR u.phone = '".$f['email']."'
 			AND u.active = 1";
 		if($this->fields = $this->db->GetOneRowArray($sql)){
 			return true;
@@ -168,6 +170,22 @@ class Users {
 		}
 		$id_user = $this->db->GetLastId();
 		$this->db->CompleteTrans();
+		if($arr['phone']) {
+			$mailer = new Mailer();
+			$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
+		}elseif($arr['email']){
+			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+			$res = $Gateway->execCommad(
+				'sendSMS',
+				array(
+					'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+					'text' => trim($_GET['text']),
+					'phone' => $_GET['reciever'],
+					'datetime' => null,
+					'sms_lifetime' => 0
+				)
+			);
+		};
 		return $id_user;
 	}
 

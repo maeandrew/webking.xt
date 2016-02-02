@@ -386,13 +386,22 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case "make_order":
+				$customers = new Customers();
 				$user = new Users();
 
 				// Если нажата "Оформить заказ"
 					if(isset($_POST['phone']) ){
 						if($user->CheckPhoneUniqueness($_POST['phone'])) {
-							$res = $user->AddUser(array('name' => 'user_' . rand(), 'email' => 'null', 'passwd' => '123456', 'gid' => 0, 'descr' => '', 'phone' => $_POST['phone']));
+							$data = array('name' => 'user_' . rand(),
+								'email' => null,
+								'passwd' => $pass = substr(md5(time()), 0, 8),
+								'descr' => '',
+								'phone' => $_POST['phone']);
+							$res = $customers->RegisterCustomer($data);
 						}
+						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
+						print_r($q);
+						$order = new Orders();
 						if($id = $order->Add($_POST)){
 							$tpl->Assign('msg_type', 'success');
 							$tpl->Assign('msg', 'Заказ сформирован.');
@@ -408,6 +417,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 
 				echo json_encode($res);
+				break;
+			case "add_person":
+				return 'OK';
 				break;
 			default:
 				# code...

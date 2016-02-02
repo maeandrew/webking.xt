@@ -429,6 +429,7 @@ class Orders {
 	public function Add($arr){
 		//************************************************************
 		$discount = 0;
+
 		if(isset($_SESSION['cart']['discount'])){
 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
 				$discount = 1;
