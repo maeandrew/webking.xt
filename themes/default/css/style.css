@@ -766,13 +766,13 @@ section.center {
 #cart .card {
 	clear: both;
 }
-#cart .card .product_name,
-#cart .card .product_info {
+#cart .card .product_name {
 	float: left;
-	width: calc( 60% - 165px);
+	width: calc( 60% - 165px);	
 }
 #cart .card .product_buy {
 	float: left;
+	margin-top: 40px;
 	width: 40%;
 	display: flex;
 	justify-content: space-around;
@@ -806,16 +806,16 @@ section.center {
 }
 #cart .product_name {
 	text-align: left;
+	margin-top: 10px;
 }
 #cart .product_buy {
 	position: relative;
 }
+
 #cart .product_buy .buy_block {
+	float: left;
 	width: auto;
-}
-#cart .product_buy .buy_block {
-	float: right;
-	min-width: 210px;
+	min-width: 100px;
 }
 #cart .products .product_buy {
 	margin-top: 10px;
@@ -859,6 +859,14 @@ section.center {
 	line-height: normal;
 	height: 25px;
 }
+.card .product_info {	
+	margin-top: 10px;
+}
+
+.card .product_buy {
+	margin-top: 0;
+}
+
 #cart #total {
 	/*width: 350px;*/
 }
@@ -980,6 +988,7 @@ section.center {
 	display: none;
 }
 
+
 /*Contacts*/
 ul.phone_nav_contacts li {
 	padding: 0;
@@ -998,6 +1007,12 @@ ul.phone_nav_contacts li span {
 	width: calc(100% - 23px);
 	float: right;
 }
+
+
+
+
+
+
 
 /*SIDEBAR*/
 
@@ -1621,7 +1636,7 @@ section .stat_year {
 	font-weight: 500;
 	color: inherit;
 	text-decoration: none;
-	max-height: 30px;
+	max-height: 100px;
 	overflow: hidden;
 }
 #cart .product_name a:hover,
@@ -1895,6 +1910,9 @@ section .stat_year {
 /*PHONE*/
 
 @media (max-width: 727px) {
+	div#cart.opened {
+	    top: 0 !important;
+	}
 
 	#cart {
 		position: absolute;
@@ -1968,12 +1986,11 @@ section .stat_year {
 		width: calc( 100% - 110px);
 		float: left;
 	}
-	#cart .card .product_buy {
-		float: left;
-		width: calc(100% - 110px);
+	#cart .card .product_buy {		
 		margin-top: 0;
 		margin-bottom: 0;
-		display: block;
+		width: 100%;
+		justify-content: center;
 	}
 	#cart .product_buy .summ {
 		position: static;
@@ -2397,3 +2414,140 @@ section .stat_year {
 /* [class*=" active_"] .main {
     -webkit-filter: inherit;
 } */
+
+
+.product_name {
+	float: left;
+}
+
+.product_name > a {
+	display: block;	
+}
+
+.product_name .product_article {
+	display: block;
+}
+
+
+@media (min-width: 481px) and (max-width: 900px) {
+	#cart .product_buy .buy_block .btn_remove,
+	#cart .product_buy .buy_block .btn_buy {
+		display: none;
+	}	
+	#cart .product_buy .buy_block {
+		min-width: 70px;
+	}
+}
+@media (max-width: 1105px) {
+	#cart .cart {
+	    height: 175px;
+	}	
+}
+@media (max-width: 540px) {
+	#cart .cart {
+	    height: 200px;
+	}
+	#cart .order_balance {	    
+	    padding-left: 1em;
+	}
+}
+@media (min-width: 481px) and (max-width: 727px) {
+	.card .product_info {
+	    margin-top: 0;
+	}
+	#cart .note {
+		min-width: 150px;
+		max-width: 400px;
+	}
+	.product_buy .price {
+		float: left;
+	}
+	#cart .product_buy .summ {
+		text-align: left;
+	}
+	#cart .product_buy .buy_block {	    
+	    min-width: 100px;
+	}
+	#cart .card .product_buy {		
+		margin-top: 10px;
+	}
+}
+@media (max-width: 480px) {	
+	#cart .card .product_buy {
+	    clear: both;
+	    width: 100%;
+	    margin-left: 15px;
+	    margin-top: 10px;
+	    margin-bottom: 10px;	    
+	}
+	#cart .product_buy .summ {
+	    text-align: left;
+	}	
+	#cart .info_key {
+	    top: 24px;
+	    right: 25px;
+	}
+	#cart .note textarea, 
+	.products .note textarea {
+		width: 95%;
+	}
+	#cart .card .product_name {
+	    padding: 5px;
+	    width: 100%;
+	}
+	#cart .card .product_photo {
+	    margin-left: 10px;
+	}
+	#cart .product_buy .buy_block {
+	    float: left;
+	    width: auto;
+	    min-width: 100px;
+	}
+	.product_buy .price {
+	    float: left;
+	}
+	#cart .order_balance {
+	    padding-left: .1em;
+	}
+}
+@media (max-width: 360px) {
+	#cart .card .product_photo,
+	.products .card .product_photo {
+		float: none;
+	}
+	.product_photo {		
+		width: 200px;
+		height: 200px;
+	}
+	.product_photo img {
+		width: 95%;
+		height: 100%;
+	}
+	.product_buy .summ span {	
+		width: 150px;
+	}
+	#cart .card .product_name {
+	    padding: 5px;
+	    width: 100%;
+	}
+	#cart .card .product_photo, 
+	.products .card .product_photo {
+		position: relative;
+	    height: auto;
+	    width: 95%;
+	    float: left;
+	    padding-right: 20px;
+	}	
+	#cart .card .product_photo a img {
+		max-height: 280px;
+		margin-left: 15px;
+	}
+	#cart .info_key {
+	    top: 24px;
+	    right: 15px;
+	}
+	#cart .note textarea, 
+	.products .note textarea {
+		width: 97%;
+	}
+}

@@ -192,13 +192,25 @@
 						</noscript>
 					</a>
 				</div>
-				<p class="product_name">
+				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>"
 					   style="color:rgb(58, 154, 17);">
 						<?=G::CropString($item['name'])?>
 					</a>
 					<span class="product_article">Артикул: <?=$item['art']?></span>
-				</p>
+					<div class="product_info clearfix">
+						<div class="note in_cart clearfix">
+							<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
+									  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
+							<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
+							</textarea>
+							<label class="info_key">?</label>
+							<div class="info_description">
+								<p>Поле для ввода примечания к товару.</p>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
@@ -208,7 +220,7 @@
 							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][3], 2, ".", "")?>
 						</p>
 						<?endif?>
-						<p class="price mdl-cell--hide-phone">
+						<p class="price">
 							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
 						</p>
 					</div>
@@ -232,18 +244,7 @@
 						</span>
 					</p>
 				</div>
-				<div class="product_info clearfix">
-					<div class="note in_cart clearfix">
-						<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
-								  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
-						<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
-						</textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		<?}?>
 		<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
