@@ -251,17 +251,11 @@
 					</div>
 				</div> -->
 
-			<?php if(isset($__graph)){
-					echo $__graph;?>А
-			<div style="display:block;"></div>
-			<div id="user_bt" style="float:right;padding-right:15px;display:block;top:-213px;position:relative;">
-				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
+			<?php if(isset($__graph)){?>
 
-				<div id="tt3" class="icon material-icons"><a href="#" onclick="ModalGraph()"><i class="material-icons">add_box</i></a></div>
-				<div class="mdl-tooltip" for="tt3">
-				Добавить мнение
-				</div>
-			</div>
+					<?echo $__graph;?>
+
+
 
 			<?}?>
 
@@ -283,6 +277,7 @@
 								<li class="mdl-menu__item">Популярные</li>
 								<li class="mdl-menu__item">От дешевых к дорогим</li>
 							</ul>
+							<a href="#" class="graph_up"><i class="material-icons">timeline</i></a>
 						</div>
 						<div class="cart_info clearfix">
 							<div class="your_discount">Ваша скидка</div>
@@ -630,7 +625,7 @@
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="email">
-						<label class="mdl-textfield__label" for="email">Логин</label>
+						<label class="mdl-textfield__label" for="email">Email или телефон</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -643,7 +638,6 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="registration">Регистрация</button>
 				</form>
 			</div>
-
 			<div id="registration" class="hidden modal_container">
 				<h4>Регистрация</h4>
 				<span>Сопроводительный текст к форме регистрации.</span>
@@ -693,7 +687,7 @@
 		<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
 			<div class="modal_container"></div>
 		</div>
-	</div>	
+	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">

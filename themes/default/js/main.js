@@ -392,6 +392,11 @@ $(function(){
 		}
 	});
 
+	// $('stat_year').hover(function(){
+	// 	$('#top_block_graph').css('opacity','block') },
+ //       function(){ $('#top_block_graph').css('display','none').css('z-index','11') }
+	// );
+
 	//Открытие модального Графика
 	/*$('#graph').on('click', '.btn_js.save', function(){
 		var parent =  $(this).closest('#graph'),
@@ -435,15 +440,34 @@ $(function(){
 		});
 	});*/
 
-	$('.stat_year').on('click', '.slide_all', function(){
+	$('.stat_year:first-of-type #icon_graph').on('click', function(){
 	    //$(document.body).click(function () {
 	      if ($("div.stat_year").is(":hidden")) {
 	        $("div.stat_year").slideDown("slow");
 	      } else {
-	        $("div.stat_year").next().slideUp("slow");
+	        $("div.stat_year .stat_year").slideUp("slow");
 	      }
 	    //});
 	  });
+
+	$('.down_graph').on('click', function(){
+		$("div.stat_year").slideUp("slow");
+	    	$('.ones').css('opacity', '0');
+			$(".graph_up").removeClass('hidden').animate({
+				opacity: 0.6
+			}, 1500 ).css({
+				'transform': 'rotate(30deg)',
+
+			});
+	  });
+	$(".graph_up").on('click', function(){
+		$(this).addClass('hidden');
+		$("div.stat_year").eq(0).slideDown("slow");
+		//$('.ones').css('opacity', '1').setTimeout(function(){}, 2000);
+		setTimeout(function(){
+			$('.ones').css('opacity', '1');
+		}, 600);
+	});
 
 
 
@@ -635,6 +659,12 @@ $(function(){
 				"passwd": passwd
 			}
 		}).done(function(data){
+			var parrent = $('.header_nav [for="demo-menu-lower-right"]');
+			parrent.find('.mdl-menu__item .user_name').text(data.member.name);
+			parrent.find('.mdl-menu__item .user_email').text(data.member.email);
+			parrent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
+			parrent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
+			parrent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
 			if(data.errm != 1){
 				closeObject('auth');
 				$('.cabinet_btn').removeClass('hidden');
