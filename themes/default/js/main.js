@@ -392,10 +392,19 @@ $(function(){
 		}
 	});
 
-	// $('stat_year').hover(function(){
-	// 	$('#top_block_graph').css('opacity','block') },
- //       function(){ $('#top_block_graph').css('display','none').css('z-index','11') }
-	// );
+	/*$('.stat_year').hover(function(){
+		$('#top_block_graph').css('opacity','block') },
+       function(){ $('#top_block_graph').css('display','none').css('z-index','11')
+   });*/
+	$('.stat_years canvas').on('click', function(){
+		var one = $(this).closest('.stat_years').find('input[type="range"]').eq(0).val();
+		var two = $(this).closest('.stat_years').find('input[type="range"]').eq(1).val();
+		$(this).closest('.stat_years').find('input[type="range"]').each(function(index, el) {
+			console.log($(el).val());
+		});
+		// console.log(two);
+		openObject('graph');
+	});
 
 	//Открытие модального Графика
 	/*$('#graph').on('click', '.btn_js.save', function(){
@@ -440,12 +449,13 @@ $(function(){
 		});
 	});*/
 
-	$('.stat_year:first-of-type #icon_graph').on('click', function(){
+	$('#icon_graph').on('click', function(){
 	    //$(document.body).click(function () {
-	      if ($("div.stat_year").is(":hidden")) {
-	        $("div.stat_year").slideDown("slow");
+	      if ($("div.stat_years").is(":hidden")) {
+	        /*$("div.stat_years").slideDown("slow").removeClass('hidden');*/
+	        $("div.stat_years").slideDown("slow");
 	      } else {
-	        $("div.stat_year .stat_year").slideUp("slow");
+	        $("div.stat_years").slideUp("slow");
 	      }
 	    //});
 	  });
@@ -460,6 +470,7 @@ $(function(){
 
 			});
 	  });
+
 	$(".graph_up").on('click', function(){
 		$(this).addClass('hidden');
 		$("div.stat_year").eq(0).slideDown("slow");

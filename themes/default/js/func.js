@@ -842,7 +842,7 @@ function ModalGraph(id_graphics){
 				//var id_graphics = $(this).attr('id');
 				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
 					if(data != null){
-						console.log(data);
+						//console.log(data);
 						$('#graph').html(data);
 						//foo(d3.selectAll("div").text('some text'));
 
@@ -1531,5 +1531,5 @@ function showModals() {
 	var modals = $('div:not(.modals) [data-type="modal"]');
 	modals.each(function(key, value){
 		$(".modals").append(value);
-	});	
+	});
 }

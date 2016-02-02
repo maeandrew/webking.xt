@@ -1,3 +1,4 @@
+<?if(isset($data_graph) && !empty($data_graph)){?>
 <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
 	<div class="parent_opacity_line" style="position: relative;padding:0 0 10px 50px;">
 		<div id="top_block_graph">
@@ -55,6 +56,7 @@ foreach ($data_graph as $key => $val) {
 	$chart_ords[] = round($v*10);
 }
 $labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
+$labels_min = array(1,2,3,4,5,6,7,8,9,10,11,12);
 $chart_regs = array(24,59,44);
 $chart_regi = array(99);
 $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
@@ -172,35 +174,39 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 		?>
 
 		<div class="stat_years mdl-color--grey-100 mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:25%;margin-top: 2em;">
-			<!-- <div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['value_1']?>" step="1" tabindex="0">
-			</div> -->
+
+
 			<?for ($i=1; $i <= 12; $i++){
-				$chart_ords[] = round($val['value_'.$i]*10);
-			}?>
-			<canvas id="charts_<?=$a?>" height="200" style="position: relative;"></canvas>
+				$chart_ords[] = round($val['value_'.$i]*10);?>
+				<input class="hidden" type="range" min="0" max="10" value="<?=$val['value_'.$i]?>" step="1" tabindex="0">
+			<?}?>
+			<canvas id="charts_<?=$a?>" height="100" style="position: relative;"></canvas>
 			<script>
 
 				$(function(){
-					curve.datasets = [
-						{
-							label: "Заказов",
-							strokeColor: "rgba(1,139,6,0.5)",
-							pointStrokeColor: "rgba(1,139,6,1)",
-							pointHighlightFill: "rgba(1,139,6,1)",
-							pointHighlightStroke: "transparent",
-							data: <?=json_encode($chart_ords);?>
-						},
-						{
-							label: "Регистраций",
-							fillColor: "rgba(101,224,252,0)",
-							strokeColor: "rgba(1,139,6,1)",
-							pointStrokeColor: "transparent",
-							pointHighlightFill: "transparent",
-							pointHighlightStroke: "rgba(101,224,253,1)",
-							data: <?=json_encode($chart_regi);?>
-						}
-					];
+					$('.stat_years').slideUp();
+					curve = {
+						labels: <?=json_encode($labels_min);?>,
+						datasets: [
+							{
+								label: "Заказов",
+								strokeColor: "rgba(1,139,6,0.5)",
+								pointStrokeColor: "rgba(1,139,6,1)",
+								pointHighlightFill: "rgba(1,139,6,1)",
+								pointHighlightStroke: "transparent",
+								data: <?=json_encode($chart_ords);?>
+							},
+							{
+								label: "Регистраций",
+								fillColor: "rgba(101,224,252,0)",
+								strokeColor: "rgba(1,139,6,1)",
+								pointStrokeColor: "transparent",
+								pointHighlightFill: "transparent",
+								pointHighlightStroke: "rgba(101,224,253,1)",
+								data: <?=json_encode($chart_regi);?>
+							}
+						]
+					};
 					var ctx = document.getElementById("charts_<?=$a?>").getContext("2d");
 					var myLineChart = new Chart(ctx).Line(curve, options);
 				});
@@ -217,9 +223,9 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 				<br><span>Добавил: Test</span>
 			<?}?>
 			<?if(isset($val['name']) && $val['name'] == $_SESSION['member']['name']){?>
-				<a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Редактирование</a>
+				<br><a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Редактирование</a>
 			<?}else{?>
-				<a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Создать на основе</a>
+				<br><a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Создать на основе</a>
 			<?}?>
 		</div>
 	<?php $a++; ?>
@@ -293,3 +299,5 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 
 </style>
 </div>
+
+<?}?>
