@@ -159,11 +159,13 @@ class Customers extends Users {
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
 			$f['id_user'] = trim($user_id);
-			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
+
+			if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
 				return false; //Если не удалось записать в базу
 			}
+
 			$this->db->CompleteTrans();
 			return true;//Если все ок
 		}else{

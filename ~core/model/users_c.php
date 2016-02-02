@@ -32,12 +32,13 @@ class Users {
 		$f['email'] = trim($arr['email']);
 		$f['passwd'] = trim($arr['passwd']);
 
-		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.name
-			FROM "._DB_PREFIX_."user AS u
-			WHERE (u.email = '".$f['email']."'
-			OR u.email = '".$f['email']."@x-torg.com')
-			AND u.passwd = '".md5($f['passwd'])."'
-			AND u.active = 1";
+		$sql = "SELECT id_user, email, gid, promo_code, name, phones
+			FROM "._DB_PREFIX_."user
+			WHERE (email = '".$f['email']."'
+			OR email = '".$f['email']."@x-torg.com'
+			OR phones = '".$f['email']."')
+			AND passwd = '".md5($f['passwd'])."'
+			AND active = 1";
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
@@ -406,6 +407,17 @@ class Users {
 			return false;
 		}
 		return $arr;
+	}
+
+	//Выборка зарегестрированных пользователей на протяжении недели
+	public function CheckPhoneUniqueness($phone){
+		$sql = "SELECT id
+			FROM "._DB_PREFIX_."users
+			WHERE phones = ".$phone;
+		if($arr = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return true;
 	}
 
 }?>

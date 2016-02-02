@@ -165,9 +165,9 @@ function completeCartProductAdd(data){
 }
 //----------------обновление облока скидок (end)---------------
 $(function(){
-	//----------------Создание нового пользователя при клике на оформление корзины (start)---------------
+	//----------------Создание заказа, нового пользователя только с телефоном (start)---------------
 	$('#cart').on('click', '#button-cart1 button', function(){
-		ajax('cart', 'add_phone_for_new_user', {phone: parseInt($('.phone').val())}).done(function(){
+		ajax('cart', 'make_order', {phone: parseInt($('.phone').val())}).done(function(){
 			location.reload();
 		});
 	});

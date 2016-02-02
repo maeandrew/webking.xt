@@ -9,10 +9,10 @@ foreach ($data_graph as $key => $val) {
 	}
 }
 ?>
-<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+
 	<?foreach($values as &$v){
 		$v = array_sum($v)/count($v);
-		$chart_ords[] = $v*10;
+		$chart_ords[] = round($v*10);
 	}
 		$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
 		$chart_regs = array(24,59,44);
@@ -28,7 +28,7 @@ foreach ($data_graph as $key => $val) {
 			height: 158px;
 		}
 	</style>
-	<canvas id="last_orders_count" height="200"></canvas>
+	<canvas id="last_orders_count" height="200" style="position: relative;"></canvas>
 
 	  <!-- <div id="header">
 	    <button title="Zoom in on selected data" id="keep-data" disabled="disabled">Keep</button>
@@ -72,9 +72,9 @@ foreach ($data_graph as $key => $val) {
 	    </div>
 	  </div> -->
 
-	  	<a href="#" class="slide_all" style="display:block;position:relative;top:-157px;float:right;right:50px;">
-			<i class="material-icons">remove_red_eye</i>
-		</a>
+	  	<!-- <a href="#" class="slide_all" style="display:block;position:relative;top:-157px;float:right;right:50px;">
+	  				<i class="material-icons">remove_red_eye</i>
+	  			</a> -->
 		<!-- <div id="icon_graph" class="icon material-icons" style="display:block;position:relative;top:-157px;float:right;right:40px;">
 			<a href="#" class="slide_all">
 				<i class="material-icons">remove_red_eye</i>
@@ -84,7 +84,6 @@ foreach ($data_graph as $key => $val) {
 		Просмотреть
 		</div> -->
 
-</div>
 
 
 
@@ -121,7 +120,7 @@ foreach ($data_graph as $key => $val) {
 		var options = {
 			bezierCurve : true,
 			scaleShowGridLines : true,
-			scaleShowLabels: true,
+			scaleShowLabels: false,
 			scaleShowHorizontalLines: true
 
 		}
