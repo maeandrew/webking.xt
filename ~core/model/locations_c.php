@@ -365,6 +365,23 @@ class DeliveryService {
         return true;
     }
 
+SELECT id_city, address
+FROM xt_city
+WHERE name = 'Харьков'
+AND shipping_comp = 'Ваша почта'
+
+    // Список отделений в выбраном городе и способе доставки
+    public function GetListDepartmentByCity($delivery_sevice, $city){
+        $sql = "SELECT id_city, address
+			FROM "._DB_PREFIX_."city
+			WHERE name = '". $delivery_sevice ."'
+			AND shipping_comp = '". $delivery_sevice ."'";
+        $this->list = $this->db->GetArray($sql);
+        if(!$this->list){
+            return false;
+        }
+        return $this->list;
+    }
     // Список по региону
     public function SetListByRegion($nameRegion){
         $sql = "SELECT ".implode(", ",$this->usual_fields)."

@@ -175,7 +175,7 @@ class Users {
 		if($arr['phone']) {
 			$mailer = new Mailer();
 			$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
-		}elseif($arr['email']){
+		}elseif($arr['phone'] && $arr['email'] = null){
 			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
 			$res = $Gateway->execCommad(
 				'sendSMS',
@@ -428,7 +428,7 @@ class Users {
 		return $arr;
 	}
 
-	//Выборка зарегестрированных пользователей на протяжении недели
+	//Проверка уникальности телефона
 	public function CheckPhoneUniqueness($phone){
 		$sql = "SELECT id
 			FROM "._DB_PREFIX_."users

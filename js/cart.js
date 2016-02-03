@@ -168,7 +168,7 @@ $(function(){
 	//----------------Создание заказа, нового пользователя только с телефоном (start)---------------
 	$('#cart').on('click', '#button-cart1 button', function(){
 		ajax('cart', 'make_order', {phone: parseInt($('.phone').val())}).done(function(){
-			location.reload();
+			//location.reload();
 		});
 	});
 });
