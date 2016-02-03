@@ -46,6 +46,7 @@ class Citys {
 			FROM "._DB_PREFIX_."city
 			WHERE region LIKE ".$this->db->Quote($string)."
 			AND closed = 0
+			AND address <> ''
 			GROUP BY name";
         $res = $this->db->GetArray($sql);
         return $res;
@@ -241,6 +242,7 @@ class Regions {
         $sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."city
 			WHERE closed = 0
+			AND address <> ''
 			GROUP BY region".
             $limit;
         $this->list = $this->db->GetArray($sql);
@@ -365,7 +367,7 @@ class DeliveryService {
         return true;
     }
 
-    // Список отделений в выбраном городе и способе доставки
+    // Список отделений в выбраном городе по службе доставки
     public function GetListDepartmentByCity($delivery_sevice, $city){
         $sql = "SELECT id_city, address
 			FROM "._DB_PREFIX_."city
@@ -383,6 +385,7 @@ class DeliveryService {
 			FROM "._DB_PREFIX_."city
 			WHERE shipping_comp <> ''
 			AND names_regions LIKE ".$this->db->Quote($nameRegion)."
+			AND address <> ''
 			GROUP BY shipping_comp";
         $this->list = $this->db->GetArray($sql);
         if(!$this->list){
