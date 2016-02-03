@@ -365,11 +365,6 @@ class DeliveryService {
         return true;
     }
 
-SELECT id_city, address
-FROM xt_city
-WHERE name = 'Харьков'
-AND shipping_comp = 'Ваша почта'
-
     // Список отделений в выбраном городе и способе доставки
     public function GetListDepartmentByCity($delivery_sevice, $city){
         $sql = "SELECT id_city, address
