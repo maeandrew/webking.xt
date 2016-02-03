@@ -371,7 +371,7 @@ class DeliveryService {
     public function GetListDepartmentByCity($delivery_sevice, $city){
         $sql = "SELECT id_city, address
 			FROM "._DB_PREFIX_."city
-			WHERE name = '". $delivery_sevice ."'
+			WHERE name = '". $city ."'
 			AND shipping_comp = '". $delivery_sevice ."'";
         $this->list = $this->db->GetArray($sql);
         if(!$this->list){
