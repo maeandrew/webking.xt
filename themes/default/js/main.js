@@ -131,6 +131,8 @@ $(function(){
 	$('.imit_select').on('click', '.mdl-menu__item', function(){
 		var value = $(this).text(),
 			id = $(this).data('value');
+		console.log(value);
+		console.log($(this).closest('.imit_select').find('.select_field').text());
 		$(this).closest('.imit_select').find('.mdl-menu__item').removeClass('active');
 		$(this).closest('.imit_select').find('.select_field').text(value);
 		$(this).closest('.mdl-menu__container').removeClass('is-visible');
@@ -615,21 +617,24 @@ $(function(){
 						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
 						Position($(this).closest('[data-type="modal"]'));
 
-						summary.find('.region').text(selected_region);
-						summary.find('.city').text(selected_city);
+						summary.find('.delivery_service').text(selected_region);
+						summary.find('.delivery_method').text(selected_city);
 					// });
 				}				
+			}else if(current_step = 4){
+				summary.find('.delivery_service').closest('.row').addClass('hidden');
+				summary.find('.delivery_method').closest('.row').addClass('hidden');
 			}
 		}else if(target_step == 4){
 			if(current_step == 3){
 				var delivery_service = $('input[name="service"]:checked').val(),
-					delivery_method = $('input[name="method"]:checked').val(),					
+					delivery_method = $('.sort .mdl-menu__item').text(),					
 					selected_post_office = current.find('#post_office_select .select_field').text(),
 					delivery_address = current.find('#delivery_address').val();
 
-					 // Если пользователь не выбрал "поле для адреса", откуда его брать?
+				summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
+				summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');
 
-				
 				if(typeof delivery_service === 'undefined'){
 					i++;
 				}
@@ -650,6 +655,9 @@ $(function(){
 						delivery_address: delivery_address,
 						selected_post_office: selected_post_office
 					};
+
+						summary.find('.delivery_service').text(delivery_service);
+						summary.find('.delivery_method').text(delivery_method);
 					
 					// ajax([target], [action], data).done(function(response){
 					// });
@@ -689,12 +697,12 @@ $(function(){
 		}		
 	});
 
-	$('.sort [data-value="1"]').on('click', function(){
+	$('.delivery_type [data-value="1"]').on('click', function(){
 		$('.delivery_address').css('display', 'block');
 		$('.post_office').css('display', 'none');
 	})
 
-	$('.sort [data-value="2"]').on('click', function(){
+	$('.delivery_type [data-value="2"]').on('click', function(){
 		if($('.delivery_service input[name="service"]:checked')){
 			$('.post_office').css('display', 'block');
 			$('.delivery_address').css('display', 'none');

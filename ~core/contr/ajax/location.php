@@ -42,7 +42,7 @@
 
 			case "GetAddressListDepartmentByCity":
 				$DeliveryService->GetListDepartmentByCity($_POST['delivery_service'], $_POST['city']);
-				var_dump($DeliveryService->list);
+				
 				foreach($DeliveryService->list as $addres){?>
 					<li class="mdl-menu__item" data-value="<?=$addres['id_city']?>"><?=$addres['address']?></li>
 				<?}

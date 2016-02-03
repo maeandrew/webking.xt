@@ -407,7 +407,7 @@ body:not(.c_main) .banner {
 [data-type="modal"] .modal_container {
 	overflow: hidden;
 	overflow-y: auto;
-	min-height: 150px;
+	min-height: 65px;
 	max-height: 700px;
 }
 [data-type="modal"] a.close_modal{
@@ -514,6 +514,20 @@ section.center {
 #quiz .modal_container.summary_info {
 	padding-bottom: 0;
 }
+
+#quiz .modal_container.summary_info .row span.span_title {
+	display: block;
+	float: left;
+	width: 130px;
+	font-weight: normal;
+	margin-right: 15px;
+	text-align: right;
+}
+
+#quiz .modal_container.summary_info .row span {
+	font-weight: bold;
+}
+
 #quiz .modal_container.summary_info.active ~ .modal_container {
 	padding-top: 0;
 }

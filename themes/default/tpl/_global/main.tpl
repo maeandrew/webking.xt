@@ -476,15 +476,34 @@
 	<div class="modals">
 		<div id="quiz" data-type="modal">
 			<div class="modal_container summary_info">
-				<div class="row hidden">Фамилия: <span class="lastname"></span></div>
-				<div class="row hidden">Имя: <span class="firstname"></span></div>
-				<div class="row hidden">Отчество: <span class="middlename"></span></div>
-				<div class="row hidden">Область: <span class="region"></span></div>
-				<div class="row hidden">Город: <span class="city"></span></div>
-				<div class="row hidden">Служба доставки: <span class="delivery_service"></span></div>
-				<div class="row hidden">Способ доставки: <span class="delivery_method"></span></div>
+				<div class="row hidden">
+					<span class="span_title">Фамилия: </span>
+					<span class="lastname"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Имя:</span>
+					<span class="firstname"></span></div>
+				<div class="row hidden">
+					<span class="span_title">Отчество:</span>
+					<span class="middlename"></span></div>
+				<div class="row hidden">
+					<span class="span_title">Область:</span>
+					<span class="region"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Город:</span>
+					<span class="city"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Служба доставки:</span>
+					<span class="delivery_service"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Способ доставки:</span>
+					<span class="delivery_method"></span>
+				</div>
 			</div>
-			<div class="modal_container step_1" data-step="1">
+			<div class="modal_container step_1 active" data-step="1">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<span>Сейчас я вижу Вас как "Клиент 2345623", скажите, как Вас зовут?</span>
@@ -514,7 +533,7 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
 				</div>
 			</div>
-			<div class="modal_container step_2 active" data-step="2">
+			<div class="modal_container step_2" data-step="2">
 				<div class="head_top">
 					<h6><span class="client">Пользователь</span>, приятно познакомиться!</h6>
 					<span>Мы доставляем в 460 городов, а откуда Вы?</span>
@@ -552,13 +571,14 @@
 				</div>
 				<div class="row">
 					<span>Вам удобнее забрать заказ со склада, или принять по адресу?</span>
-					<div class="sort imit_select">
-						<button id="sort-lower-left_3" class="mdl-button mdl-js-button">
-							<i class="material-icons fright">keyboard_arrow_down</i><span class="selected_sort select_fild">Выбрать</span>
+					<div class="imit_select delivery_type">
+						<button id="select_delivery_type" class="mdl-button mdl-js-button">
+							<span class="select_field">Выбрать</span>
+							<i class="material-icons fright">keyboard_arrow_down</i>
 						</button>
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left_3">
-							<li class="mdl-menu__item sort" data-value="1" >Принять по адресу</li>
-							<li class="mdl-menu__item sort" data-value="2" >Забрать со склада</li>
+						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="select_delivery_type">
+							<li class="mdl-menu__item" data-value="1" >Принять по адресу</li>
+							<li class="mdl-menu__item" data-value="2" >Забрать со склада</li>
 						</ul>				
 					</div>
 
@@ -583,8 +603,7 @@
 				</div>
 			</div>
 			<div class="modal_container step_4 " data-step="4">
-				<div class="head_top">
-					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
+				<div class="head_top">					
 					<h6>Виталий Петрович, у меня есть необходимые данные для отправки заказа.</h6>
 					<span>Вы готовы внести предоплату?</span>
 				</div>
@@ -605,8 +624,7 @@
 				</div>
 			</div>
 			<div class="modal_container step_5" data-step="5">
-				<div class="head_top">
-					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
+				<div class="head_top">					
 					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>					
 				</div>
 			</div>
