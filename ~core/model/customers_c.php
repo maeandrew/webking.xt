@@ -293,6 +293,13 @@ class Customers extends Users {
 	 *
 	 */
 	public function RegisterCustomer($arr){
+		//рандомный выбор контрагента
+		if(!isset($arr['id_contragent'])) {
+			$contragents = new Contragents();
+			$contragents->SetList(false, false);
+			$managers_list = $contragents->list;
+			$arr['id_contragent'] = $managers_list[array_rand($managers_list)]['id_user'];
+		}
 		return $this->AddCustomer($arr);
 	}
 	/* Добавление
@@ -304,8 +311,6 @@ class Customers extends Users {
 		if(!$id_user = $User->AddUser($arr)){
 			return false;
 		}
-		$arr['cont_person'] = $arr['phones'] = "";
-		$arr['id_contragent'] = $arr['id_city'] = $arr['id_delivery'] = 0;
 		$f['id_user'] = $id_user;
 		if(isset($arr['discount'])){
 			$f['cont_person'] = trim($arr['cont_person']);
@@ -313,6 +318,11 @@ class Customers extends Users {
 			$f['id_contragent'] = trim($arr['id_contragent']);
 			$f['id_city'] = trim($arr['id_city']);
 			$f['id_delivery'] = trim($arr['id_delivery']);
+		}else{
+			$f['phones'] = trim($arr['phones']);
+			$f['id_contragent'] = $arr['id_contragent'];
+			$f['id_city'] = 0;
+			$f['id_delivery'] = 0;
 		}
 		if(isset($arr['discount'])){
 			$f['discount'] = trim($arr['discount']);

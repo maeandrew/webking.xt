@@ -214,7 +214,6 @@ class mysqlPDO {
 		$sql .="`) VALUES (\"";
 		$sql .= implode("\", \"", $values);
 		$sql .="\")";
-		print_r($sql);
 		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
 	}
 
