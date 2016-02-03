@@ -613,7 +613,8 @@ $(function(){
 					// ajax([target], [action], data).done(function(response){
 						validate = true;
 						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
-						
+						Position($(this).closest('[data-type="modal"]'));
+
 						summary.find('.region').text(selected_region);
 						summary.find('.city').text(selected_city);
 					// });
@@ -624,12 +625,11 @@ $(function(){
 				var delivery_service = $('input[name="service"]:checked').val(),
 					delivery_method = $('input[name="method"]:checked').val(),					
 					selected_post_office = current.find('#post_office_select .select_field').text(),
-					delivery_address; // Если пользователь не выбрал "поле для адреса", откуда его брать?
+					delivery_address = current.find('#delivery_address').val();
 
-				if($('.sort [data-value="1"]:checked')){
-					delivery_address = current.find('#delivery_address').text();
-				}
+					 // Если пользователь не выбрал "поле для адреса", откуда его брать?
 
+				
 				if(typeof delivery_service === 'undefined'){
 					i++;
 				}
@@ -682,9 +682,10 @@ $(function(){
 		$('#quiz .company_details').css('display', 'block');
 	});
 									//click
-	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
-		if($('.sort .select_fild').text() != 'Выбрать' && $('[data-value="2"]')){	
-			GetDeliveryMethods($(this).val(), $('#city_select .select_field').val());
+	$('#quiz .delivery_service').on('click', 'input[name="service"]', function(){
+		if($('.delivery_service input[name="service"]:checked') && $('[data-value="2"]')){	
+			GetDeliveryMethods($(this).val(), $('#city_select .select_field').text());
+			Position($(this).closest('[data-type="modal"]'));
 		}		
 	});
 
@@ -694,8 +695,12 @@ $(function(){
 	})
 
 	$('.sort [data-value="2"]').on('click', function(){
-		$('.post_office').css('display', 'block');
-		$('.delivery_address').css('display', 'none');
+		if($('.delivery_service input[name="service"]:checked')){
+			$('.post_office').css('display', 'block');
+			$('.delivery_address').css('display', 'none');
+
+			GetDeliveryMethods($('.delivery_service input[name="service"]:checked').val(), $('#city_select .select_field').text());
+		}		
 	})
 
 	$('#quiz .mdl-button').on('click', function(e){

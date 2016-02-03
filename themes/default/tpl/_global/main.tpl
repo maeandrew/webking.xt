@@ -564,11 +564,11 @@
 
 
 					<div class="row post_office imit_select">
-						<button id="post_office_select" class="mdl-button mdl-js-button">
+						<button id="post_office_select" class=" mdl-button mdl-js-button">
 							<span class="select_field">Выбрать отделение<!-- Выбрать --></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="delivery_select"></ul>
+						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect list_post_office" for="post_office_select"></ul>
 					</div>
 
 				</div>

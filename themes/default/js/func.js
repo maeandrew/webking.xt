@@ -1335,12 +1335,12 @@ function GetDeliveryMethods(service, city){
 		dataType: "html",
 		data: ({
 			target: 'location',
-			action: 'GetDeliveryMethodsList',
+			action: 'GetAddressListDepartmentByCity',
 			delivery_service: service,
 			city: city
 		}),
 	}).done(function(data){
-		$('.post_office').html(data);
+		$('.list_post_office').html(data);
 	});
 }
 
