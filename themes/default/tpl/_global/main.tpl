@@ -473,14 +473,6 @@
 
 
 
-
-
-
-
-
-
-
-
 	<div class="modals">
 		<div id="quiz" data-type="modal">
 			<div class="modal_container summary_info">
@@ -492,7 +484,7 @@
 				<div class="row hidden">Служба доставки: <span class="delivery_service"></span></div>
 				<div class="row hidden">Способ доставки: <span class="delivery_method"></span></div>
 			</div>
-			<div class="modal_container step_1 active" data-step="1">
+			<div class="modal_container step_1" data-step="1">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<span>Сейчас я вижу Вас как "Клиент 2345623", скажите, как Вас зовут?</span>
@@ -522,7 +514,7 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
 				</div>
 			</div>
-			<div class="modal_container step_2" data-step="2">
+			<div class="modal_container step_2 active" data-step="2">
 				<div class="head_top">
 					<h6><span class="client">Пользователь</span>, приятно познакомиться!</h6>
 					<span>Мы доставляем в 460 городов, а откуда Вы?</span>
@@ -552,15 +544,10 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Далее</button>
 				</div>
 			</div>
-
-			<div class="modal_container step_3" data-step="3">
+			<div class="modal_container step_3 " data-step="3">
 				<div class="head_top">
 					<h6><span class="client">Пользователь</span>, доставка в <span class="city">Город</span> возможна!</h6>
-				</div>
-				<label class="mdl-radio mdl-js-radio" for="option-1">
-					<input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
-					<span class="mdl-radio__label">Новая Почта</span>
-				</label>
+				</div>				
 				<div class="row delivery_service">
 				</div>
 				<div class="row">
@@ -572,16 +559,30 @@
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left_3">
 							<li class="mdl-menu__item sort" data-value="1" >Принять по адресу</li>
 							<li class="mdl-menu__item sort" data-value="2" >Забрать со склада</li>
-						</ul>
+						</ul>				
 					</div>
+
+
+					<div class="row post_office imit_select">
+						<button id="post_office_select" class="mdl-button mdl-js-button">
+							<span class="select_field">Выбрать отделение<!-- Выбрать --></span>
+							<i class="material-icons">keyboard_arrow_down</i>
+						</button>
+						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="delivery_select"></ul>
+					</div>
+
+				</div>
+				
+				<div class="row delivery_address">
+					<textarea id="delivery_address" cols="40" rows="1">				  
+					</textarea>
 				</div>
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="4">Далее</button>
 				</div>
 			</div>
-
-			<div class="modal_container step_4" data-step="4">
+			<div class="modal_container step_4 " data-step="4">
 				<div class="head_top">
 					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
 					<h6>Виталий Петрович, у меня есть необходимые данные для отправки заказа.</h6>
@@ -594,27 +595,27 @@
 				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
 					<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
 					<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
-				</label>
+				</label>				
+				<div class="company_details">
+					<h4>Реквизиты компании</h4>
+				</div>
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
 				</div>
-				<div class="line">
-					<div class="line_active"></div>
-				</div>
-				<span class="go">Готово!</span>
 			</div>
+			<div class="modal_container step_5" data-step="5">
+				<div class="head_top">
+					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
+					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>					
+				</div>
+			</div>
+
 			<div class="progress">
 				<div class="line">
 					<div class="line_active"></div>
 				</div>
 				<span class="go">Заполнено: </span>
-			</div>
-			<div class="modal_container step_5" data-step="5">
-				<div class="head_top">
-					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
-					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>
-				</div>
 			</div>
 		</div>
 		<!-- Authentication -->

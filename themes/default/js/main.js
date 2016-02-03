@@ -22,7 +22,7 @@
 // });
 
 $(function(){
-	// openObject('quiz');
+	openObject('quiz');
 	// openObject('auth');
 
 	var viewport_width = $(window).width(),
@@ -142,13 +142,15 @@ $(function(){
 	});
 	$('.sort.imit_select .mdl-menu__item').on('click', function(){
 		var sort = JSON.parse($.cookie('sorting'));
-		sort[current_controller]['value'] = ($(this).data('value'));
-		var sorting = JSON.stringify(sort);
-		$.cookie('sorting', sorting, {
-			expires: 2,
-			path: '/'
-		});
-		location.reload();
+		if(sort[current_controller] != undefined){
+			sort[current_controller]['value'] = ($(this).data('value'));
+			var sorting = JSON.stringify(sort);
+			$.cookie('sorting', sorting, {
+				expires: 2,
+				path: '/'
+			});
+			location.reload();
+		}
 	});
 
 	// Активация меню mobile
@@ -551,7 +553,8 @@ $(function(){
 			current = $('.step_'+current_step),
 			target = $('.step_'+target_step),
 			validate = false,
-			i = 0;
+			i = 0,
+			data = null;
 		if(target_step == 1){
 			summary.removeClass('active');
 			if(current_step == 2){
@@ -580,12 +583,15 @@ $(function(){
 				if(middlename == ''){
 					i++;
 					$('#middlename').addClass('is-invalid');
-				}
+				}				
 				if(i == 0){
-					validate = true;
-					GetRegions();
-					summary.addClass('active');
-				}
+					data = {firstname: firstname, lastname: lastname, middlename:middlename};
+					// ajax([target], [action], data).done(function(response){
+						validate = true;
+						GetRegions();
+						summary.addClass('active');
+					// });
+				}				
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');
 				summary.find('.city').closest('.row').addClass('hidden');
@@ -603,24 +609,68 @@ $(function(){
 					i++;
 				}
 				if(i == 0){
-					validate = true;
-					GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
-					summary.find('.region').text(selected_region);
-					summary.find('.city').text(selected_city);
-				}
+					data = {selected_region: selected_region, selected_city: selected_city};
+					// ajax([target], [action], data).done(function(response){
+						validate = true;
+						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
+						
+						summary.find('.region').text(selected_region);
+						summary.find('.city').text(selected_city);
+					// });
+				}				
 			}
 		}else if(target_step == 4){
 			if(current_step == 3){
 				var delivery_service = $('input[name="service"]:checked').val(),
-					delivery_method = $('input[name="method"]:checked').val();
+					delivery_method = $('input[name="method"]:checked').val(),					
+					selected_post_office = current.find('#post_office_select .select_field').text(),
+					delivery_address; // Если пользователь не выбрал "поле для адреса", откуда его брать?
+
+				if($('.sort [data-value="1"]:checked')){
+					delivery_address = current.find('#delivery_address').text();
+				}
+
 				if(typeof delivery_service === 'undefined'){
 					i++;
 				}
 				if(typeof delivery_method === 'undefined'){
 					i++;
 				}
+				if(typeof delivery_address === 'undefined'){
+					i++;
+				}
+				if(typeof selected_post_office === 'undefined'){
+					i++;
+				}
+
+				if(i == 0){
+					data = {
+						delivery_service: delivery_service,
+						delivery_method: delivery_method,
+						delivery_address: delivery_address,
+						selected_post_office: selected_post_office
+					};
+					
+					// ajax([target], [action], data).done(function(response){
+					// });
+				}
+				validate = true;
+									
 			}
-		}
+		}else if(target_step == 5){
+			if(current_step == 4){
+							
+			}
+
+			if(i == 0){
+				// data = {delivery_service: delivery_service, delivery_method: delivery_method};
+				// ajax([target], [action], data).done(function(response){
+					// validate == true;
+				// });
+			}
+			validate = true;
+		}							
+		
 		if(validate == true || target_step < current_step){
 			current.removeClass('active');
 			target.addClass('active');
@@ -628,10 +678,27 @@ $(function(){
 		}
 	});
 
-	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
-		GetDeliveryMethods($(this).val());
+	$('input[name="options"]').on('change', function() {
+		$('#quiz .company_details').css('display', 'block');
 	});
-	$('#quiz .mdl-button').on('clock', function(e){
+									//click
+	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
+		if($('.sort .select_fild').text() != 'Выбрать' && $('[data-value="2"]')){	
+			GetDeliveryMethods($(this).val(), $('#city_select .select_field').val());
+		}		
+	});
+
+	$('.sort [data-value="1"]').on('click', function(){
+		$('.delivery_address').css('display', 'block');
+		$('.post_office').css('display', 'none');
+	})
+
+	$('.sort [data-value="2"]').on('click', function(){
+		$('.post_office').css('display', 'block');
+		$('.delivery_address').css('display', 'none');
+	})
+
+	$('#quiz .mdl-button').on('click', function(e){
 		e.preventDefault();
 		return false;
 	});
@@ -762,4 +829,6 @@ $(function(){
 	/*Перенос модалок в main.tpl*/
 
 	showModals();
+
+
 });

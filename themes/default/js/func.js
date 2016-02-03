@@ -1323,11 +1323,12 @@ function GetDeliveryService(input, service){
 		}),
 	}).done(function(data){
 		$('.delivery_service').html(data);
+		componentHandler.upgradeDom();
 	});
 }
 
 // Выбор службы доставки
-function GetDeliveryMethods(input){
+function GetDeliveryMethods(service, city){
 	$.ajax({
 		type: "post",
 		url: URL_base+'ajax',
@@ -1335,11 +1336,11 @@ function GetDeliveryMethods(input){
 		data: ({
 			target: 'location',
 			action: 'GetDeliveryMethodsList',
-			input: input,
-			service: service
+			delivery_service: service,
+			city: city
 		}),
 	}).done(function(data){
-		$('.delivery_service').html(data);
+		$('.post_office').html(data);
 	});
 }
 
