@@ -22,7 +22,7 @@
 // });
 
 $(function(){
-	openObject('quiz');
+	//openObject('quiz');
 	// openObject('auth');
 
 	var viewport_width = $(window).width(),

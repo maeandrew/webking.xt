@@ -319,7 +319,7 @@ class Customers extends Users {
 			$f['id_city'] = trim($arr['id_city']);
 			$f['id_delivery'] = trim($arr['id_delivery']);
 		}else{
-			$f['phones'] = trim($arr['phones']);
+			$f['phones'] = trim($arr['phone']);
 			$f['id_contragent'] = $arr['id_contragent'];
 			$f['id_city'] = 0;
 			$f['id_delivery'] = 0;
@@ -334,7 +334,7 @@ class Customers extends Users {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		return true;
+		return $id_user;
 	}
 
 	public function AddContragentCustomer($arr){
@@ -347,7 +347,7 @@ class Customers extends Users {
 		$f['id_user'] = $id_user;
 		if(isset($arr['discount']))
 			$f['cont_person'] = trim($arr['cont_person']);
-			$f['phones'] = trim($arr['phones']);
+			$f['phones'] = trim($arr['phone']);
 			$f['id_contragent'] = trim($arr['id_contragent']);
 			$f['id_city'] = trim($arr['id_city']);
 			$f['id_delivery'] = trim($arr['id_delivery']);

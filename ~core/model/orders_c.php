@@ -453,7 +453,7 @@ class Orders {
 				exit();
 			}
 		}
-
+		isset($_SESSION['member']['id_user']) ? $_SESSION['member']['id_user'] : $_SESSION['member']['id_user'] = $_POST['id_user'];
 		$order_status = 0;
 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
 			$f['id_order_status'] = $order_status = 11; // Промо-заказ
