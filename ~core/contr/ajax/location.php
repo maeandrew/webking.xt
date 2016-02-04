@@ -41,12 +41,16 @@
 			break;
 
 			case "GetAddressListDepartmentByCity":
-				$DeliveryService->GetListDepartmentByCity($_POST['delivery_service'], $_POST['city']);
-				
-				foreach($DeliveryService->list as $addres){?>
-					<li class="mdl-menu__item" data-value="<?=$addres['id_city']?>"><?=$addres['address']?></li>
+				if(isset($_POST['delivery_service']) && isset ($_POST['city'])){
+					$DeliveryService->GetListDepartmentByCity($_POST['delivery_service'], $_POST['city']);
+
+					foreach($DeliveryService->list as $addres){?>
+						<li class="mdl-menu__item" data-value="<?=$addres['id_city']?>"><?=$addres['address']?></li>
+					<?}
+				}else{ ?>
+					<li class="mdl-menu__item"> -- Служба доставки не выбрана -- </li>
 				<?}
-				break;
+			break;
 
 			case "GetDeliveryMethodsList":
 				$DeliveryService->SetListByRegion($_POST['input']);
