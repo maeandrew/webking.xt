@@ -692,7 +692,7 @@ section.center {
 }
 #auth h4 {
 	font-size: 1.875em;
-	color: #03A9F4;
+	/*color: #03A9F4;*/
 }
 #auth .mdl-button {
 	float: right;
