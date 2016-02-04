@@ -63,7 +63,7 @@
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
 											</div>
 
-											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="width:180px; height:120px; !important">
+											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="width:180px; height:110px; !important">
 												<!-- <img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
