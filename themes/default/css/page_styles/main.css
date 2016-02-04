@@ -124,6 +124,7 @@
 	.cont > a {
 		flex-basis: 30%;
 	}
+}
 
 
 
@@ -305,3 +306,198 @@
 	border-top: 0;
 	border-bottom: 10px solid #97E2FF;
 }
+
+
+/* Preview ===================================================================*/
+
+
+.preview {
+	display: none;
+	width: 758px;
+	height: 415px;
+	background-color: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	/*-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);*/
+	z-index: 101;
+	border-radius: 5px;
+}
+.preview .mdl-progress {
+	display: none;
+	position: absolute;
+	left: calc(50% - 250px);
+	top: 50%;
+	z-index: 111;
+}
+.preview.ajax_loading .mdl-progress {
+	display: block;
+}
+.owl-controls .owl-page span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: #333;
+    float: left;
+    margin-right: .5em;
+    border-radius: 50%;
+}
+.preview.ajax_loading:before {
+	content: "";
+	display: block;
+	position: absolute;
+	background: #fff;
+	top: 10px;
+	right: 10px;
+	bottom: 10px;
+	left: 10px;
+	z-index: 110;
+}
+.preview_content {
+	background: #fff;
+	min-height: 100%;
+	border-radius: 5px;
+	overflow-y: hidden;
+}
+.preview .triangle {
+	position: absolute;
+	background: #fff;
+	width: 15px;
+	height: 15px;
+	transform: rotate(-45deg);
+	top: 50%;
+	left: -7px;
+	z-index: -1;
+	margin-top: -10px;
+	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+}
+.preview .owl-carousel {
+	overflow: visible !important;
+}
+.preview #owl-product_slide_js {
+	max-height: 305px;
+    margin-top: 10px;
+    overflow: hidden !important;
+}
+.preview #owl-product_slide_js .item img {
+	max-height: 305px;
+	max-width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+.preview #owl-product_slideDown_js.owl-carousel {
+	overflow: hidden !important;
+}
+.preview #owl-product_slideDown_js.owl-carousel .owl-controls .owl-buttons div {
+	width: 20px;
+}
+.preview #owl-product_slideDown_js.owl-carousel .owl-controls .owl-buttons div span {
+	left: -9px;
+}
+.preview #owl-product_slideDown_js {
+	max-height: 80px;
+    padding: 2px 0;
+}
+.preview #owl-product_slideDown_js .item img {
+	border: 1px solid #d9d9d9;
+	height: 60px;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.preview h4 {
+	margin-top: 10px;
+	max-height: 40px;
+    overflow: hidden;
+}
+.preview h4 a {
+	color: #444;
+}
+.preview .product_description {
+	max-height: 55px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+/* .snippet-demo-container .demo-slider .demo-slider__slider-starting-value{
+	transform: rotate(-90deg);
+    margin-bottom: 74px;
+} */
+/* .mdl-slider__container input.mdl-slider.mdl-js-slider {
+    text-align: left;
+    display: inline-block;
+    transform: rotate(-90deg);
+    margin-bottom: 74px;
+} */
+
+.list_view .product_article {
+	margin-left: 0;
+}
+.preview .specifications {
+	border-right: 1px solid #f0f0f0;
+}
+.preview .specifications ul {
+	list-style: disc inside;
+	color: #818181;
+}
+.preview .specifications ul span {
+	color: #444;
+}
+.preview .specifications ul span.spec {
+	display: inline-block;
+    width: 65%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.preview .specifications ul span.unit {
+	display: inline-block;
+	width: 25%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.preview .preview_follprice {
+	margin-top: 5px;
+}
+.preview .preview_follprice span.icon-font {
+	font-size: 17px;
+	color: #666;
+}
+.preview .rating {
+	margin-top: 10px;
+	display: block;
+}
+.preview .rating_stars {
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.preview form.note {
+	margin-top: 10px;
+	width: 100%;
+}
+.preview .note textarea {
+	width: 100%;
+}
+.preview .product_buy {
+	position: relative;
+	width: 290px;
+	margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.preview .product_buy .other_price {
+	text-align: center;
+}
+.preview .info_delivery {
+	display: inline-block;
+	padding-top: 10px;
+}
+.content {
+	position: relative;
+}
+

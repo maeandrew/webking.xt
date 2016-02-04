@@ -871,7 +871,7 @@ section.center {
 	line-height: normal;
 	height: 25px;
 }
-.card .product_info {	
+.card .product_info {
 	margin-top: 10px;
 }
 
@@ -1998,7 +1998,7 @@ section .stat_year {
 		width: calc( 100% - 110px);
 		float: left;
 	}
-	#cart .card .product_buy {		
+	#cart .card .product_buy {
 		margin-top: 0;
 		margin-bottom: 0;
 		width: 100%;
@@ -2433,7 +2433,7 @@ section .stat_year {
 }
 
 .product_name > a {
-	display: block;	
+	display: block;
 }
 
 .product_name .product_article {
@@ -2445,7 +2445,7 @@ section .stat_year {
 	#cart .product_buy .buy_block .btn_remove,
 	#cart .product_buy .buy_block .btn_buy {
 		display: none;
-	}	
+	}
 	#cart .product_buy .buy_block {
 		min-width: 70px;
 	}
@@ -2453,13 +2453,13 @@ section .stat_year {
 @media (max-width: 1105px) {
 	#cart .cart {
 	    height: 175px;
-	}	
+	}
 }
 @media (max-width: 540px) {
 	#cart .cart {
 	    height: 200px;
 	}
-	#cart .order_balance {	    
+	#cart .order_balance {
 	    padding-left: 1em;
 	}
 }
@@ -2477,29 +2477,29 @@ section .stat_year {
 	#cart .product_buy .summ {
 		text-align: left;
 	}
-	#cart .product_buy .buy_block {	    
+	#cart .product_buy .buy_block {
 	    min-width: 100px;
 	}
-	#cart .card .product_buy {		
+	#cart .card .product_buy {
 		margin-top: 10px;
 	}
 }
-@media (max-width: 480px) {	
+@media (max-width: 480px) {
 	#cart .card .product_buy {
 	    clear: both;
 	    width: 100%;
 	    margin-left: 15px;
 	    margin-top: 10px;
-	    margin-bottom: 10px;	    
+	    margin-bottom: 10px;
 	}
 	#cart .product_buy .summ {
 	    text-align: left;
-	}	
+	}
 	#cart .info_key {
 	    top: 24px;
 	    right: 25px;
 	}
-	#cart .note textarea, 
+	#cart .note textarea,
 	.products .note textarea {
 		width: 95%;
 	}
@@ -2527,7 +2527,7 @@ section .stat_year {
 	.products .card .product_photo {
 		float: none;
 	}
-	.product_photo {		
+	.product_photo {
 		width: 200px;
 		height: 200px;
 	}
@@ -2535,21 +2535,21 @@ section .stat_year {
 		width: 95%;
 		height: 100%;
 	}
-	.product_buy .summ span {	
+	.product_buy .summ span {
 		width: 150px;
 	}
 	#cart .card .product_name {
 	    padding: 5px;
 	    width: 100%;
 	}
-	#cart .card .product_photo, 
+	#cart .card .product_photo,
 	.products .card .product_photo {
 		position: relative;
 	    height: auto;
 	    width: 95%;
 	    float: left;
 	    padding-right: 20px;
-	}	
+	}
 	#cart .card .product_photo a img {
 		max-height: 280px;
 		margin-left: 15px;
@@ -2558,7 +2558,7 @@ section .stat_year {
 	    top: 24px;
 	    right: 15px;
 	}
-	#cart .note textarea, 
+	#cart .note textarea,
 	.products .note textarea {
 		width: 97%;
 	}

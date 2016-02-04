@@ -321,7 +321,26 @@
 							<div class="price_nav"></div>
 						</div>
 					</div>
-					<div class="products">
+					<div id="view_block_js" class="list_view col-md-12 ajax_loading">
+						<div class="row">
+							<?=$products_list;?>
+							<div class="preview ajax_loading mdl-shadow--4dp">
+								<div class="preview_content">
+									<div class="mdl-grid" style="overflow: hidden;">
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+											<div id="owl-product_slide_js"></div>
+										</div>
+									</div>
+								</div>
+								<div class="triangle"></div>
+								<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+							</div>
+						</div>
+					</div>
+					<script>
+						ListenPhotoHover(); //Инициализания Preview
+					</script>
+					<!-- <div class="products">
 						<div class="card clearfix">
 							<div class="product_photo">
 								<a href="#">
@@ -409,7 +428,11 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
+
+
+
+
 					<div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div>
 					<div class="paginator">
 						<ul>

@@ -13,7 +13,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$products = $Cart->GetProductsForCart($_POST['id_cart']);
 				$tpl->Assign('products', $products);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
-				break;
+			break;
+			case 'GetRating':
+				$C = new Contragents();
+				// print_r($_POST);
+				echo json_encode($C->GetRating($_POST));
+
+			break;
 		}
 	}
 }
