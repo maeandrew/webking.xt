@@ -23,9 +23,7 @@
 				<p class="price"><?=number_format($p['price_opt'], 2, ',', '')?></p>
 				<div class="buy_block">
 					<div class="btn_remove">
-						<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
-							remove
-						</button>
+						<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 					</div>
 					<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$p['id_product']]['quantity'])?$_SESSION['cart']['products'][$p['id_product']]['quantity']:$p['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 					<div class="btn_buy">
