@@ -1,38 +1,36 @@
 <?if(isset($data_graph) && !empty($data_graph)){?>
 <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
 	<div class="parent_opacity_line" style="position: relative;padding:0 0 10px 50px;">
-		<?if(isset($_SESSION['member'])){?>
-			<div id="top_block_graph">
-				<span>График спроса</span>
-				<span style="margin-left: 130px;margin-right: 20px;"><!-- Легенда:  --></span>
-				<span class="legenda"></span> - Оптовый
-				<span class="legenda"></span> - Розничный
-				<div style="float:right;right:1px;display:block;position:relative;">
-					<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
+		<div id="top_block_graph">
+			<span>График спроса</span>
+			<span style="margin-left: 130px;margin-right: 20px;"><!-- Легенда:  --></span>
+			<span class="legenda"></span> - Оптовый
+			<span class="legenda"></span> - Розничный
+			<div style="float:right;right:1px;display:block;position:relative;">
+				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
 
-					<div id="tt7" class="icon material-icons"><a href="#" class="down_graph"><i class="material-icons">close</i></a></div>
-					<div class="mdl-tooltip" for="tt7">
-					Скрыть
-					</div>
-				</div>
-				<div id="user_bt" style="float:right;right: 5px;display:block;position:relative;">
-					<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
-
-					<div id="tt3" class="icon material-icons"><a href="#" onclick="ModalGraph()"><i class="material-icons">add</i></a></div>
-					<div class="mdl-tooltip" for="tt3">
-					Добавить мнение
-					</div>
-				</div>
-				<div id="icon_graph" class="icon" style="display:block;position:relative;float:right;right:10px;">
-					<a href="#" class="slide_all">
-						<i class="material-icons">details</i>
-					</a>
-				</div>
-				<div class="mdl-tooltip" for="icon_graph">
-					Просмотреть
+				<div id="tt7" class="icon material-icons"><a href="#" class="down_graph"><i class="material-icons">close</i></a></div>
+				<div class="mdl-tooltip" for="tt7">
+				Скрыть
 				</div>
 			</div>
-		<?}?>
+			<div id="user_bt" style="float:right;right: 5px;display:block;position:relative;">
+				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
+
+				<div id="tt3" class="icon material-icons"><a href="#" onclick="ModalGraph()"><i class="material-icons">add</i></a></div>
+				<div class="mdl-tooltip" for="tt3">
+				Добавить мнение
+				</div>
+			</div>
+			<div id="icon_graph" class="icon" style="display:block;position:relative;float:right;right:10px;">
+				<a href="#" class="slide_all">
+					<i class="material-icons">details</i>
+				</a>
+			</div>
+			<div class="mdl-tooltip" for="icon_graph">
+				Просмотреть
+			</div>
+		</div>
 		<div class="ones">Горячо</div>
 		<div class="ones">Горячо</div>
 		<div class="ones">Горячо</div>

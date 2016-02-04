@@ -40,6 +40,7 @@
 							<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 								<div class="title">
 									<div class="container">
+
 										<span class="number" style="min-width:92%;">
 											<span class="numb">Заказ № <?=$i['id_order']?></span>
 											<span class="date"  style="padding-left:20px">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
@@ -64,25 +65,25 @@
 											</div>
 
 											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="width:180px; height:110px; !important">
+
 												<!-- <img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li> -->
 												<li>
-													<a href="#"><svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg>Распечатать в XML</a>
+													<a href="#"><svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg></a>
 													<div class="mdl-tooltip" for="tt1">Распечатать в XML</div>
-
 												</li>
 												<li>
-													<a href="#"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg>Для реализатора</a>
+													<a href="#"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg></a>
 													<div class="mdl-tooltip" for="tt2">Распечатать для реализатора</div>
 												</li>
 												<li>
-													<a href="#"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg>С картинками</a>
+													<a href="#"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg></a>
 													<div class="mdl-tooltip" for="tt3">Распечатать с картинками</div>
 												</li>
 
-												<li><a href="#"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg>Документом</a>
+												<li><a href="#"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg></a>
 													<div class="mdl-tooltip" for="tt4">Распечатать документом</div>
 												</li>
 
@@ -93,7 +94,7 @@
 									</div>
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active">Детали</a>
-										<!-- <a href="#lannisters-panel-<?=$i['id_order']?>" class="mdl-tabs__tab">Учасники</a> -->
+										<a href="#lannisters-panel-<?=$i['id_order']?>" class="mdl-tabs__tab">Учасники</a>
 										<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
 									</div>
 								</div>
@@ -144,7 +145,7 @@
 											</div>
 										</div>
 										<div class="additional">
-											<div class="manager" data-id="<?=$i['contragent_info']['id_user']?>">
+											<div class="manager">
 												<div class="label">Ваш менеджер</div>
 												<div class="avatar">
 													<img src="http://lorempixel.com/fashion/70/70/" alt="avatar" />
@@ -153,13 +154,9 @@
 													<div class="line_1"><?=$i['contragent']?></div>
 													<div class="line_2"><?=$i['contragent_info']['phones']?></div>
 													<div class="line_3">
-														<a href="#" class="like" onclick="UserRating()">
-															<svg class="icon"><use xlink:href="#like"></use></svg>
-														</a>
-														<a href="#" class="dislike" onclick="UserRating()">
-															<svg class="icon"><use xlink:href="#dislike"></use></svg>
-														</a>
-														<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
+														<a href="#"><svg class="icon"><use xlink:href="#like"></use></svg></a>
+														<a href="#"><svg class="icon"><use xlink:href="#dislike"></use></svg></a>
+														<span class="votes_cnt">15686</span>
 													</div>
 												</div>
 											</div>
@@ -185,6 +182,8 @@
 											</div>
 										</div>
 									</div>
+
+
 									<div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_order']?>">
                                         <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
                                             <thead>
@@ -208,7 +207,7 @@
 														<td class="del_x"><i class="material-icons">close</i></td>
 													</tr>
 												<?endforeach; endif;?>
-           								 <?//print_r($i)?>
+            <?//print_r($i)?>
                                             </tbody>
                                         </table>
 										<!--<div class="additional info">
@@ -259,10 +258,12 @@
                                         </div>
 									</div>
 									<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
-										<div id="products"></div>
-										<div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div>
+
+
+											<div id="products"></div>
+											<div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div>
+
 									</div>
-									<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 								</div>
 							</section>
 						</li>
@@ -332,4 +333,3 @@
 
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
-

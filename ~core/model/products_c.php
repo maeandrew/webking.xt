@@ -780,41 +780,11 @@ class Products {
 			$sql = "SELECT g.*, u.name
 					FROM "._DB_PREFIX_."graph g
 					JOIN "._DB_PREFIX_."user u
-					WHERE g.id_author = u.id_user
-					AND g.id_category = ".$id_category;
+					WHERE g.id_author = u.id_user AND g.id_category = ".$id_category;
 		}
 		$result = $this->db->GetArray($sql);
 		/*$result2 = $this->db->GetArray($sql2);
 		return array('graph' => $result, 'users' => $result2);*/
-		return $result;
-	}
-
-	// Выборка товаров для главной
-	public function GetRandomList(){
-		$sql = "SELECT *
-				FROM "._DB_PREFIX_."product p
-				JOIN "._DB_PREFIX_."prod_status s
-				WHERE p.prod_status = s.id
-				AND s.id = 3 ORDER BY";
-		/*$this->list = $this->db->GetArray($sql);
-		if(!$this->list){
-			return false;
-		}*/
-		$sql = "SELECT p.*, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-				(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
-				FROM "._DB_PREFIX_."cat_prod AS cp
-					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
-					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-				WHERE cp.id_product IS NOT NULL AND (p.price_opt > 0 OR p.price_mopt > 0)
-				AND p.prod_status = 3  ORDER BY RAND() LIMIT 10";
-		$result = $this->db->GetArray($sql);
-		if(!$result){
-			return false;
-		}
 		return $result;
 	}
 

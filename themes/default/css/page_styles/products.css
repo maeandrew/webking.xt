@@ -953,26 +953,26 @@ h5 {
 @media (min-width: 480px) and (max-width: 768px) {
 	.list_view .card .product_buy .price {
 		float: left;
-		margin-right: 20px;
+		margin-right: 20px;		
 		min-width: 70px;
 	}
 
-	.list_view .card .product_buy .buy_block {
+	.list_view .card .product_buy .buy_block {		
 		margin-top: 3px;
 	}
-
+	
 	.list_view .card .product_buy .buy_block .btn_remove {
 		display: none;
 	}
 }
 
 @media (max-width: 730px) {
-	.list_view .card .product_buy .price {
-		margin-right: 20px;
+	.list_view .card .product_buy .price {		
+		margin-right: 20px;		
 		min-width: 70px;
 	}
 
-	.list_view .card .product_buy .buy_block {
+	.list_view .card .product_buy .buy_block {		
 		margin-top: 3px;
 	}
 
@@ -982,5 +982,5 @@ h5 {
 
 	.list_view .card .product_buy {
 		margin-top: 10px;
-	}
+	}	
 }
