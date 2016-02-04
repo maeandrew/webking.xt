@@ -40,7 +40,7 @@
 							<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 								<div class="title">
 									<div class="container">
-										<span class="number" style="min-width:92%;">
+										<span class="number" style="width:calc(100% - 52px);">
 											<span class="numb">Заказ № <?=$i['id_order']?></span>
 											<span class="date"  style="padding-left:20px">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
 
@@ -63,27 +63,30 @@
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
 											</div>
 
-											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="width:180px; height:110px; !important">
+											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="min-width:160px; !important">
 												<!-- <img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li> -->
-												<li>
-													<a href="#"><svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg>Распечатать в XML</a>
-													<div class="mdl-tooltip" for="tt1">Распечатать в XML</div>
+												<li class="mdl-menu__item">
+													<a href="#" style="color: #9E9E9E;">
+														<svg class="icon" id="tt1" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
+													</a>
+													<!-- <div class="mdl-tooltip" for="tt1">Распечатать в XML</div> -->
 
 												</li>
-												<li>
-													<a href="#"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg>Для реализатора</a>
-													<div class="mdl-tooltip" for="tt2">Распечатать для реализатора</div>
+												<li class="mdl-menu__item">
+													<a href="#" style="color: #9E9E9E;"><svg class="icon" id="tt2" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#txt"></use></svg>Для реализатора</a>
+													<!-- <div class="mdl-tooltip" for="tt2">Распечатать для реализатора</div> -->
 												</li>
-												<li>
-													<a href="#"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg>С картинками</a>
-													<div class="mdl-tooltip" for="tt3">Распечатать с картинками</div>
+												<li class="mdl-menu__item">
+													<a href="#" style="color: #9E9E9E;"><svg class="icon" id="tt3" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#img"></use></svg>С картинками</a>
+												<!-- 	<div class="mdl-tooltip" for="tt3">Распечатать с картинками</div> -->
 												</li>
 
-												<li><a href="#"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg>Документом</a>
-													<div class="mdl-tooltip" for="tt4">Распечатать документом</div>
+												<li class="mdl-menu__item">
+												<a href="#" style="color: #9E9E9E;"><svg class="icon" id="tt4" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#paper"></use></svg>Документом</a>
+													<!-- <div class="mdl-tooltip" for="tt4">Распечатать документом</div> -->
 												</li>
 
 											</ul>
@@ -153,13 +156,16 @@
 													<div class="line_1"><?=$i['contragent']?></div>
 													<div class="line_2"><?=$i['contragent_info']['phones']?></div>
 													<div class="line_3">
-														<a href="#" class="like" onclick="UserRating()">
+														<a href="#" class="like" onclick="UserRating($(this));return false;">
 															<svg class="icon"><use xlink:href="#like"></use></svg>
 														</a>
-														<a href="#" class="dislike" onclick="UserRating()">
+														<a href="#" class="dislike" onclick="UserRating($(this));return false;">
 															<svg class="icon"><use xlink:href="#dislike"></use></svg>
 														</a>
 														<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
+													</div>
+													<div id="modal_message" data-type="modal">
+														<div class="modal_container"><div style="margin-top: 25px;">Вы уже отдали голос за этого менеджера</div></div>
 													</div>
 												</div>
 											</div>

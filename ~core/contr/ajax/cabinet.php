@@ -17,7 +17,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'GetRating':
 				$C = new Contragents();
 				// print_r($_POST);
-				echo json_encode($C->GetRating($_POST));
+				$res = $C->GetRating($_POST);
+				//var_dump($res);
+				echo json_encode($res);
 
 			break;
 		}
