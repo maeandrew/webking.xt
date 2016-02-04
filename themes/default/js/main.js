@@ -628,7 +628,7 @@ $(function(){
 		}else if(target_step == 4){
 			if(current_step == 3){
 				var delivery_service = $('input[name="service"]:checked').val(),
-					delivery_method = $('.sort .mdl-menu__item').text(),					
+					delivery_method = $('.delivery_type .mdl-menu__item').text(),					
 					selected_post_office = current.find('#post_office_select .select_field').text(),
 					delivery_address = current.find('#delivery_address').val();
 
@@ -656,13 +656,14 @@ $(function(){
 						selected_post_office: selected_post_office
 					};
 
-						summary.find('.delivery_service').text(delivery_service);
-						summary.find('.delivery_method').text(delivery_method);
+					validate = true;
+
+					summary.find('.delivery_service').text(delivery_service);
+					summary.find('.delivery_method').text(delivery_method);
 					
 					// ajax([target], [action], data).done(function(response){
 					// });
-				}
-				validate = true;
+				}				
 									
 			}
 		}else if(target_step == 5){
@@ -689,7 +690,7 @@ $(function(){
 	$('input[name="options"]').on('change', function() {
 		$('#quiz .company_details').css('display', 'block');
 	});
-									//click
+	
 	$('#quiz .delivery_service').on('click', 'input[name="service"]', function(){
 		if($('.delivery_service input[name="service"]:checked') && $('[data-value="2"]')){	
 			GetDeliveryMethods($(this).val(), $('#city_select .select_field').text());

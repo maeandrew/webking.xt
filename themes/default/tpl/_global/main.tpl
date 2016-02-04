@@ -565,7 +565,7 @@
 					<span class="number_label">Область</span>
 					<div class="region mdl-cell--hide-phone imit_select">
 						<button id="region_select" class="mdl-button mdl-js-button">
-							<span class="select_field">Харьковская область<!-- Выбрать --></span>
+							<span class="select_field">Выбрать<!--   Харьковская область--></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="region_select"></ul>
@@ -575,7 +575,7 @@
 					<span class="number_label">Город</span>
 					<div class="city mdl-cell--hide-phone imit_select">
 						<button id="city_select" class="mdl-button mdl-js-button">
-							<span class="select_field">Харьков<!-- Выбрать --></span>
+							<span class="select_field">Выбрать<!--  Харьков --></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="city_select"></ul>
@@ -617,7 +617,8 @@
 				</div>
 				
 				<div class="row delivery_address">
-					<textarea id="delivery_address" cols="40" rows="1">				  
+					<textarea id="delivery_address" cols="40" rows="1">
+						
 					</textarea>
 				</div>
 				<div class="row">
