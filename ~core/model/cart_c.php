@@ -290,7 +290,7 @@ class Cart {
 			}
 			return true;
 		}else{
-			# добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
+			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
 			$f['id_user'] = $_SESSION['member']['id_user'];
 			$this->db->StartTrans();
 			if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){

@@ -20,9 +20,10 @@ function GetCartAjax(){
 
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order){
+	$('.content').addClass('loading');
 	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
-		//console.log(data);
 		$('.mdl-tabs__panel > #products').html(data);
+		$('.content').removeClass('loading');
 	});
 }
 
@@ -34,6 +35,20 @@ function GetCabCoopProdAjax(id_cart){
 	});
 }
 
+
+function UserRating(obj){
+	var id_user = $('.manager').data('id');
+	var bool = 0;
+	if (obj.is('.like')) {
+		bool = 1;
+	};
+	ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
+		//typeof(data);
+		if (data == 0) {
+			openObject('modal_message');
+		};
+	});
+}
 // lib d3
 /*function foo(selection) {
   selection

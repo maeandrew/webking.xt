@@ -11,7 +11,25 @@ function SendToAjax(id, qty, button, direction, note){
 			$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').text('Купить');
 			$('div[data-idproduct="'+id+'"]').find('.in_cart_js').addClass('hidden');
 		}else{
+			var qty_old = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js_old').val());
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(qty);
+
+			//console.log(data.cart.products[id]);
+
+
+			if (qty_old == qty) {
+				$('.btn_remove').find('.info_description').removeClass('hidden');
+				//var id_prod_name = $('.btn_remove div').attr('id');
+
+				$('.btn_remove button').on('click', function() {
+					$('div[data-idproduct="'+id+'"]').find('.price').text(data.cart.products[id].actual_prices[data.cart.cart_column]);
+				});
+			}else{
+				if ($('.btn_remove').find('.info_description').not('hidden')) {
+					$('.btn_remove').find('.info_description').addClass('hidden');
+				};
+			};
+
 			$('div[data-idproduct="'+id+'"]').find('.in_cart_js').removeClass('hidden');
 			/*$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').addClass('hidden');*/
 			$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').text('+');
@@ -56,7 +74,10 @@ function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
 
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
-	/*console.log(qty);*/
+
+	//var qty_new = $('.btn_remove').find('input.qty_js').val();
+	//console.log(qty_new);
+
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
 	}else{
