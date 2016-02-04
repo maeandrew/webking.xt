@@ -172,7 +172,7 @@ class Users {
 		}
 		$id_user = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		if($arr['phone']) {
+		if(isset($arr['email'])) {
 			$mailer = new Mailer();
 			$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
 		}elseif($arr['phone'] && $arr['email'] = null){

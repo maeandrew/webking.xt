@@ -85,7 +85,7 @@ $GLOBALS['__page_h1'] = '&nbsp;';
 $User = new Users();
 if(isset($_SESSION['member'])){
 	$User->SetUser($_SESSION['member']);
-	if($_SESSION['member']['email'] != 'anonymous'){
+	if(isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != 'anonymous'){
 		$GLOBALS['user'] = $User->fields;
 	}
 }

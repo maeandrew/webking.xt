@@ -187,9 +187,12 @@ function completeCartProductAdd(data){
 //----------------обновление облока скидок (end)---------------
 $(function(){
 	//----------------Создание заказа, нового пользователя только с телефоном (start)---------------
-	$('#cart').on('click', '#button-cart1 button', function(){
-		ajax('cart', 'make_order', {phone: parseInt($('.phone').val())}).done(function(){
-			//location.reload();
+	$('#cart').on('click', '#button-cart1 button', function(e){
+		e.preventDefault();
+		ajax('cart', 'make_order', {phone: parseInt($('.phone').val())}).done(function(res) {
+			//console.log(res);
+			//location.href = "?quiz=true";
+			$(location).attr('href','/?quiz=true');
 		});
 	});
 });

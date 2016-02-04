@@ -454,7 +454,10 @@ class Orders {
 			}
 		}
 		isset($_SESSION['member']['id_user']) ? $_SESSION['member']['id_user'] : $_SESSION['member']['id_user'] = $_POST['id_user'];
+		isset($arr['discount']) ? $arr['discount']  : $arr['discount'] = 0;
 		$order_status = 0;
+
+
 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
 			$f['id_order_status'] = $order_status = 11; // Промо-заказ
 		}else{
@@ -472,17 +475,17 @@ class Orders {
 		$f['target_date'] = $target_date = strtotime('+2 day', time());
 		$f['creation_date'] = time();
 		$f['id_customer'] = $_SESSION['member']['id_user'];
+		$customers = new Customers();
+		$customers->SetFieldsById($_SESSION['member']['id_user']);
+		$customer = $customers->fields;
+		$f['id_contragent'] = $customer['id_contragent'];
 		if($f['id_order_status'] == 3){
-			$customers = new Customers();
-			$customers->SetFieldsById($_SESSION['member']['id_user']);
-			$customer = $customers->fields;
 			$f['id_delivery'] = 1;
-			$f['id_contragent'] = $customer['id_contragent'];
 			$f['id_city'] = 0;
 			$f['strachovka'] = 0;
 			$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
 		}else{
-			$f['phones'] = $this->db->Quote(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phone']), -10)));
+			$f['phones'] = $arr['phone']; //$this->db->Quote(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phone']), -10)));
 			/*$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
 			$f['id_city'] = mysql_real_escape_string(trim($arr['id_delivery_department']));
 			$f['id_delivery_service'] = mysql_real_escape_string(trim(isset($arr['id_delivery_service'])?$arr['id_delivery_service']:0));
@@ -503,7 +506,7 @@ class Orders {
 			}else{
 				$f['sum_opt'] = $f['sum_mopt'] = $f['sum_discount'] = $f['sum'] = $_SESSION['cart']['cart_sum'];
 			}
-			$f['discount'] = $this->db->Quote(trim($arr['discount']));
+			$f['discount'] = $arr['discount'];
 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 0){
 				$f['discount'] = null;
 			}
@@ -512,13 +515,14 @@ class Orders {
 		$f['skey'] = md5(time().'jWfUsd');
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
-			$this->db->FailTrans();
-			return false;
-		}
-		// Получаем id нового заказа
-		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
+            $this->db->FailTrans();
+            return false;
+        }
+        // Получаем id нового заказа
+        $_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
+        $this->db->CompleteTrans();
 
-		// Заполнение связки заказ-товары
+        // Заполнение связки заказ-товары
 		$id_contragent = $f['id_contragent'];
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = 0;
@@ -532,12 +536,16 @@ class Orders {
 		// 	}
 		// 	$this->GetSupplierForProduct($id_product, $target_date, $i['quantity'], $opt);
 		// }
+//        print_r($_SESSION['cart']);
+//        print_r($arr);
 		foreach($_SESSION['cart']['products'] as $id_product=>$i){
 			$f[$ii]['id_order'] = $id_order;
-			if(isset($arr['p_order'])){ // Черновик
-				$f[$ii]['id_supplier'] = 0;
-				$f[$ii]['id_supplier_mopt'] = 0;
-			}elseif(isset($arr['order'])){ // Обычный заказ
+//			if(isset($arr['p_order'])){ // Черновик
+//				$f[$ii]['id_supplier'] = 0;
+//				$f[$ii]['id_supplier_mopt'] = 0;
+//			}elseif(isset($arr['order'])){
+
+                // Обычный заказ
 				$sup_nb = 0;
 				$f[$ii]['filial_mopt'] = 1;
 				$f[$ii]['filial_opt'] = 1;
@@ -549,7 +557,7 @@ class Orders {
 						$order_otpusk_prices_sum += round($f[$ii]['price_opt_otpusk']*$i['quantity'], 2);
 						$GLOBALS['temp_product_limit'] = $i['quantity'];
 						$this->CorrectProductLimit($id_product, $f[$ii]['id_supplier'], $i['quantity']);
-						$f[$ii]['id_supplier_altern'] = $ids[1];
+//						$f[$ii]['id_supplier_altern'] = $ids[1];
 						$sup_nb++;
 					}
 				}else{
@@ -609,18 +617,19 @@ class Orders {
 				}
 				if($sup_nb < 1){
 					$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
-					$this->db->FailTrans();
 					return false;
 				}
 				// Сохранить сумму заказа по отпускным ценам
 				$order_otpusk_prices_sum = round($order_otpusk_prices_sum,2);
 				$sql = "UPDATE "._DB_PREFIX_."order SET otpusk_prices_sum = $order_otpusk_prices_sum
 						WHERE id_order = $id_order";
+				$this->db->StartTrans();
 				if(!$this->db->Query($sql)){
 					$this->db->FailTrans();
 					G::DieLoger("SQL error - $sql");
 					return false;
 				}
+				$this->db->CompleteTrans();
 			}
 			// $f[$ii]['id_product'] = $id_product;
 			// $f[$ii]['opt_qty'] = $i['order_opt_qty'];
@@ -714,7 +723,9 @@ class Orders {
 				$CorrectContragentLimitSum = true;
 			}
 			$ii++;
-		}
+
+//		print_r($f);
+		$this->db->StartTrans();
 		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $f)){
 			$this->db->FailTrans();
 			return false;
@@ -724,7 +735,7 @@ class Orders {
 			if($order_status == 1){
 				$User = new Users();
 				$User->SetFieldsById($_SESSION['member']['id_user']);
-				if($User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
+				if(isset($_SESSION['member']['mail']) && $User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
 					$Mailer = new Mailer();
 					//$Mailer->SendOrderInvoicesToContragent($id_order);
 					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
@@ -735,13 +746,13 @@ class Orders {
 					$Contragents = new Contragents();
 					$string = $Contragents->GetSavedFields($id_contragent);
 					$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-					if($arr['phones'] != '' && strlen($arr['phones']) == 10){
+					if($arr['phone'] != '' && strlen($arr['phone']) == 10){
 						$res = $Gateway->execCommad(
 							'sendSMS',
 							array(
 								'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
 								'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-								'phone' => '38'.$arr['phones'],
+								'phone' => '38'.$arr['phone'],
 								'datetime' => null,
 								'sms_lifetime' => 0
 							)
@@ -750,7 +761,7 @@ class Orders {
 				}
 			}
 		}
-		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
+		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			unset($_SESSION['member']['bonus_card']);
 		}
 		return $id_order;

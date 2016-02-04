@@ -166,7 +166,7 @@ class Customers extends Users {
 				return false; //Если не удалось записать в базу
 			}
 
-			$this->db->CompleteTrans();
+//			$this->db->CompleteTrans();
 			return true;//Если все ок
 		}else{
 			return false; //Если телефон пустой

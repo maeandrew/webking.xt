@@ -399,22 +399,20 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								'phone' => $_POST['phone']);
 							$id_user = $customers->RegisterCustomer($data);
 						}
-//						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
+						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
 //						print_r($q);
 						$order = new Orders();
 						$_POST['id_user'] = $id_user;
-						if($id = $order->Add($_POST)){
-							$tpl->Assign('msg_type', 'success');
-							$tpl->Assign('msg', 'Заказ сформирован.');
-
-							$customers->updatePhones($_POST['phones']);
+						if($id_order = $order->Add($_POST)){
+							$res=  'Заказ сформирован!';
+							$customers->updatePhones($_POST['phone']);
 						}else{
-							$customers->updatePhones($_POST['phones']);
+							$res=  'Ошибка формирования заказа!';
+							$customers->updatePhones($_POST['phone']);
 						}
 					}else{
 						// показываем ошибку не корректности ввода телефона
-						$tpl->Assign('msg_type', 'success');
-						$tpl->Assign('msg', 'Телефон введен не верно!');
+						$res=  'Телефон введен не верно!';
 					}
 
 				echo json_encode($res);

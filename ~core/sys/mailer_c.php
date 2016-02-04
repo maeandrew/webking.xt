@@ -260,7 +260,7 @@ class Mailer extends PHPMailer {
 		}
 	}
 
-	// Отсылка письма клиенту с паром и логином после регистрации
+	// Отсылка письма клиенту с паролем и логином после регистрации
 	public function SendRegisterToCustomers($data){
 		global $db;
 		// Устанавливаем тему письма
