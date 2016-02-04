@@ -175,7 +175,7 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 		unset($chart_ords);
 		?>
 
-		<div class="stat_years mdl-color--grey-100 mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:25%;margin-top: 2em;">
+		<div class="stat_years mdl-color--grey-100 mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:25%;margin-top: 2em; display:none;">
 
 
 			<?for ($i=1; $i <= 12; $i++){
@@ -216,13 +216,13 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 
 
 		<? if(isset($val['name_user'])){ ?>
-				<br><span>Добавил: <?=$val['name_user']?></span>
+				<p>Добавил: <?=$val['name_user']?></p>
 				<p>Создан: <?=$val['creation_date']?></p>
 			<?}elseif(isset($val['name'])){?>
-				<br><span>Добавил: <?=$val['name']?></span>
+				<p>Добавил: <?=$val['name']?></p>
 				<p>Создан: <?=$val['creation_date']?></p>
 			<?}else{?>
-				<br><span>Добавил: Test</span>
+				<p>Добавил: Test</p>
 			<?}?>
 			<?if(isset($val['name']) && $val['name'] == $_SESSION['member']['name']){?>
 				<br><a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Редактирование</a>
@@ -230,8 +230,8 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 				<br><a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Создать на основе</a>
 			<?}?>
 		</div>
-	<?php $a++; ?>
-<?}?>
+		<?php $a++; ?>
+	<?}?>
 </div>
 <style>
 	#top_block_graph .material-icons {

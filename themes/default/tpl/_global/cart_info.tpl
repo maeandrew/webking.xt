@@ -1,4 +1,4 @@
-<!-- <div class="cart_info clearfix">
+ <div class="cart_info clearfix">
 	<div class="your_discount">Ваша скидка</div>
 	<div class="tabs_container">
 		<ul>
@@ -16,7 +16,7 @@
 				?>
 				<div class="order_cart"><?=$str?></div>
 				<span class="material-icons">shopping_cart</span></a>
-			</li>
+			</li> -->
 			<li onclick="ChangePriceRange(3, 0)" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'active':null;?>">0%</li>
 			<li onclick="ChangePriceRange(2, <?=500 - $_SESSION['cart']['cart_sum'];?>);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
 			<li onclick="ChangePriceRange(1, <?=3000 - $_SESSION['cart']['cart_sum'];?>);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
@@ -35,5 +35,5 @@
 		<?}?>
 	</div>
 	<div class="price_nav"></div>
-</div>-->
+</div>
 

@@ -1033,8 +1033,15 @@ function ListenPhotoHover(){
 			// console.log(mp.x+'x'+mp.y);
 			// console.log(preview.offset().left+'x'+preview.offset().top);
 			// console.log(parseFloat(preview.offset().left+preview.width())+'x'+parseFloat(preview.offset().top+preview.height()));
-			if((mp.x >= preview.offset().left && mp.x <= preview.offset().left+preview.width() && mp.y >= preview.offset().top && mp.y <= preview.offset().top+preview.height())
-				|| (obj.hasClass('hovered') && mp.x >= obj.offset().left && mp.x <= obj.offset().left+obj.width() && mp.y >= obj.offset().top && mp.y <= obj.offset().top+obj.height())){
+			if((mp.x > preview.offset().left
+				&& mp.x < preview.offset().left+preview.width()
+				&& mp.y > preview.offset().top
+				&& mp.y < preview.offset().top+preview.height())
+				|| (obj.hasClass('hovered')
+					&& mp.x > obj.offset().left
+					&& mp.x < obj.offset().left+obj.width()
+					&& mp.y > obj.offset().top
+					&& mp.y < obj.offset().top+obj.height())){
 				// console.log('hover2');
 			}else{
 				// console.log('hide');
