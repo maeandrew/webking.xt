@@ -520,8 +520,6 @@ section.center {
 	float: left;
 	width: 130px;
 	font-weight: normal;
-	margin-right: 15px;
-	text-align: right;
 }
 
 #quiz .modal_container.summary_info .row span {
@@ -653,14 +651,31 @@ section.center {
 	padding: .5em 0;
 }
 
-
-
 #quiz .delivery_address,
 #quiz .company_details,
 #quiz .post_office {
 	display: none;
 }
 
+#quiz .error_div {	
+    width: 250px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+	border: 1px solid #FF5722;
+	color: #FF5722;	
+}
+
+#quiz .step_5 .msg_for_client {
+	padding-top: 15px;
+    font-size: 160%;
+}
+
+@media(max-width: 654px){
+	#quiz .line {
+	    width: 100%;
+	}
+}
 
 /* Auth modal ===============================================================*/
 #auth {
@@ -2154,6 +2169,15 @@ section .stat_year {
 	}
 	.products .info_key {
 		top: 50%;
+	}
+
+	#quiz .modal_container {	    
+	    padding-bottom: 7em;
+	}
+
+	#quiz span.go {		
+	   	float: left;
+	   	max-width: 100%;
 	}
 }
 

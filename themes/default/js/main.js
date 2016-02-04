@@ -602,14 +602,22 @@ $(function(){
 			if(current_step == 2){
 				var selected_region = current.find('#region_select .select_field').text(),
 					selected_city = current.find('#city_select .select_field').text();
-				summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
-				summary.find('.city').text(selected_city).closest('.row').removeClass('hidden');
+				target.find('span.client').text($('.firstname').text()+' '+$('.middlename').text());
+				
+				if(selected_region != 'Выбрать' && selected_city != 'Выбрать'){
+					summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
+					summary.find('.city').text(selected_city).closest('.row').removeClass('hidden');
+					$('.error_div').addClass('hidden');					
+				}
+
 				if(selected_region == 'Выбрать'){
 					i++;
-				}
-				if(selected_city == 'Выбрать'){
+					$('.error_div').removeClass('hidden').text("Выберите область");
+				} else if(selected_city == 'Выбрать'){
 					i++;
+					$('.error_div').removeClass('hidden').text("Выберите город");
 				}
+
 				if(i == 0){
 					data = {selected_region: selected_region, selected_city: selected_city};
 					// ajax([target], [action], data).done(function(response){
@@ -623,29 +631,54 @@ $(function(){
 				}				
 			}else if(current_step = 4){
 				summary.find('.delivery_service').closest('.row').addClass('hidden');
-				summary.find('.delivery_method').closest('.row').addClass('hidden');
+				summary.find('.delivery_method').closest('.row').addClass('hidden');				
+				summary.find('.client_address').closest('.row').addClass('hidden');
+				summary.find('.post_office_address').closest('.row').addClass('hidden');
 			}
 		}else if(target_step == 4){
 			if(current_step == 3){
 				var delivery_service = $('input[name="service"]:checked').val(),
-					delivery_method = $('.delivery_type .mdl-menu__item').text(),					
+					delivery_method = $('#select_delivery_type .select_field').text(),					
 					selected_post_office = current.find('#post_office_select .select_field').text(),
 					delivery_address = current.find('#delivery_address').val();
 
-				summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
-				summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');
+				if(typeof delivery_service !== 'undefined') {						
+					summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');					
+				}
+				if(delivery_method != "Выбрать"){
+					summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');				
+				}
+
+				
+				if(delivery_method == "Адресная доставка" && delivery_address != "") {					
+					summary.find('.client_address').text(delivery_address).closest('.row').removeClass('hidden');
+				}
+				if(delivery_method == "Забрать со склада" && selected_post_office != "Выбрать отделение"){
+					summary.find('.client_address').text(delivery_address).closest('.row').addClass('hidden');
+					summary.find('.post_office_address').text(selected_post_office).closest('.row').removeClass('hidden');					
+				}				
+				if(delivery_method == "Забрать со склада"
+				 && selected_post_office != "Выбрать отделение"
+				 && delivery_address != "") {
+					$('#delivery_address').val("");
+				}
+
 
 				if(typeof delivery_service === 'undefined'){
 					i++;
-				}
-				if(typeof delivery_method === 'undefined'){
+					$('.error_div').removeClass('hidden').text("Выберите службу доставки");					
+				}else if(delivery_method == "Выбрать"){
 					i++;
-				}
-				if(typeof delivery_address === 'undefined'){
+					$('.error_div').removeClass('hidden').text("Выберите способ доставки");	
+				}else if(delivery_method == "Адресная доставка" && delivery_address == ""){
 					i++;
-				}
-				if(typeof selected_post_office === 'undefined'){
+					$('.error_div').addClass('hidden');
+					$('#client_address').addClass('is-invalid');
+				}else if(delivery_method == "Забрать со склада" && selected_post_office == "Выбрать отделение"){
 					i++;
+					$('.error_div').removeClass('hidden').text("Выберите отделение");						
+				}else {
+					$('.error_div').addClass('hidden');
 				}
 
 				if(i == 0){
@@ -663,8 +696,7 @@ $(function(){
 					
 					// ajax([target], [action], data).done(function(response){
 					// });
-				}				
-									
+				}									
 			}
 		}else if(target_step == 5){
 			if(current_step == 4){
@@ -686,6 +718,10 @@ $(function(){
 			Position($(this).closest('[data-type="modal"]'));
 		}
 	});
+
+	// $('input[name="service"]').on('click', function() {
+	// 	$('.error_div').addClass('hidden');
+	// });
 
 	$('input[name="options"]').on('change', function() {
 		$('#quiz .company_details').css('display', 'block');

@@ -525,6 +525,16 @@
 					<span class="span_title">Способ доставки:</span>
 					<span class="delivery_method"></span>
 				</div>
+
+
+				<div class="row hidden">
+					<span class="span_title">Адрес клиента:</span>
+					<span class="client_address"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Адрес склада:</span>
+					<span class="post_office_address"></span>
+				</div>
 			</div>
 			<div class="modal_container step_1 active" data-step="1">
 				<div class="head_top">
@@ -533,7 +543,7 @@
 				</div>
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="lastname">
-						<input class="mdl-textfield__input" type="text" name="lastname" value="Пархоменко">
+						<input class="mdl-textfield__input" type="text" name="lastname" value="Пархоменко"> <!-- value="Пархоменко"> -->
 						<label class="mdl-textfield__label" for="lastname">Фамилия</label>
 						<span class="mdl-textfield__error">Введите фамилию</span>
 					</div>
@@ -541,13 +551,14 @@
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="firstname">
 						<input class="mdl-textfield__input" type="text" name="firstname" value="Александр">
+						<!-- value="Александр"> -->
 						<label class="mdl-textfield__label" for="firstname">Имя</label>
 						<span class="mdl-textfield__error">Введите имя</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middlename">
-						<input class="mdl-textfield__input" type="text" name="middlename" value="Васильевич">
+						<input class="mdl-textfield__input" type="text" name="middlename" value="Васильевич"> <!-- value="Васильевич"> -->
 						<label class="mdl-textfield__label" for="middlename">Отчество</label>
 						<span class="mdl-textfield__error">Введите отчество</span>
 					</div>
@@ -556,32 +567,37 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
 				</div>
 			</div>
-			<div class="modal_container step_2" data-step="2">
+			<div class="modal_container step_2 " data-step="2">
 				<div class="head_top">
 					<h6><span class="client">Пользователь</span>, приятно познакомиться!</h6>
 					<span>Мы доставляем в 460 городов, а откуда Вы?</span>
 				</div>
 				<div class="row">
 					<span class="number_label">Область</span>
-					<div class="region mdl-cell--hide-phone imit_select">
+					<div class="region imit_select">
 						<button id="region_select" class="mdl-button mdl-js-button">
 							<span class="select_field">Выбрать<!--   Харьковская область--></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="region_select"></ul>
 					</div>
+
 				</div>
 				<div class="row">
 					<span class="number_label">Город</span>
-					<div class="city mdl-cell--hide-phone imit_select">
+					<div class="city imit_select">
 						<button id="city_select" class="mdl-button mdl-js-button">
 							<span class="select_field">Выбрать<!--  Харьков --></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="city_select"></ul>
-					</div>
+					</div>	
 				</div>
+
 				<div class="row">
+					<div class="error_div hidden">
+					
+					</div>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="1">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Далее</button>
 				</div>
@@ -592,6 +608,7 @@
 				</div>				
 				<div class="row delivery_service">
 				</div>
+				
 				<div class="row">
 					<span>Вам удобнее забрать заказ со склада, или принять по адресу?</span>
 					<div class="imit_select delivery_type">
@@ -600,7 +617,7 @@
 							<i class="material-icons fright">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="select_delivery_type">
-							<li class="mdl-menu__item" data-value="1" >Принять по адресу</li>
+							<li class="mdl-menu__item" data-value="1" >Адресная доставка</li>
 							<li class="mdl-menu__item" data-value="2" >Забрать со склада</li>
 						</ul>				
 					</div>
@@ -613,15 +630,18 @@
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect list_post_office" for="post_office_select"></ul>
 					</div>
-
 				</div>
-				
-				<div class="row delivery_address">
-					<textarea id="delivery_address" cols="40" rows="1">
-						
-					</textarea>
+								
+				<div id="client_address" class="row delivery_address mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input id="delivery_address" class="mdl-textfield__input" type="text" name="clientaddress" value="" id="sample3">
+				    <label class="mdl-textfield__label" for="sample3">Доставить по адресу...</label>
+				    <span class="mdl-textfield__error">Введите адрес</span>
 				</div>
+								
 				<div class="row">
+					<div class="error_div hidden">
+					
+					</div>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="4">Далее</button>
 				</div>
@@ -647,9 +667,10 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
 				</div>
 			</div>
-			<div class="modal_container step_5" data-step="5">
+			<div class="modal_container step_5 " data-step="5">
 				<div class="head_top">					
-					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>					
+					<h6>Готово!</h6>
+					<p class="msg_for_client">Я свяжусь с Вами в ближайшее время.</p>	
 				</div>
 			</div>
 
