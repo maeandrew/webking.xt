@@ -36,19 +36,6 @@
 				}
 			;
 			break;
-			case"del_product":
-				if(isset($_POST['id_product'])){
-					if(checkNumeric($_POST, array('id_product'))){
-						$Product->DelFromAssort($_POST['id_product']);
-						$arr['id_product'] = $_POST['id_product'];
-						$arr['action'] = "del";
-						echo json_encode($arr);
-					}else{
-						exit();
-					}
-				}
-			;
-			break;
 			case"switchactive_product":
 				if(isset($_POST['id_product']) && isset($_POST['active'])){
 					if(checkNumeric($_POST, array('id_product','active'))){

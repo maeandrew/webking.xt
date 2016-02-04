@@ -25,22 +25,30 @@ hr {
 	transform: rotate(0deg);
     transition: all 0.3s;
 }
+.sb_block a {
+	margin-bottom: .5em;
+	line-height: 2em;
+}
 .left_menu:hover .nav_btn > span {
 	transform: rotate(-180deg);
     transition: all 0.3s;
+}
+.content {
+	overflow: auto;
+}
+.sidebar {
+	width: 300px;
+	float: left;
+	padding-right: 15px;
+}
+.cabinet_content {
+	width: calc(100% - 300px);
+	float: right;
 }
 
 /* Contragent cabinet ====================================================== */
 footer.mdl-mega-footer {
 	width: 100%;
-}
-
-.mdl-button--raised.mdl-button--colored {
-    color: #fff;
-    background: blue;
-}
-.mdl-button--raised.mdl-button--colored:hover {
-	background: blue;
 }
 
 .contragent_cab .margin-form {
@@ -325,14 +333,14 @@ table.kontrag.table{
 #supplier_manager_cabinet .table {
 	width: 100%;
 }
-.table div {
+#supplier_manager_cabinet .table div {
 	margin: 0;
 	display: table;
 }
-.table > div:nth-child(even){
+#supplier_manager_cabinet .table > div:nth-child(even){
 	background-color: #EFEFEF;
 }
-.table div:hover {
+#supplier_manager_cabinet .table div:hover {
 	background-color: rgb(255,234,221);
 }
 .greenBtn {
@@ -434,7 +442,7 @@ table.kontrag.table{
 /* Supplier Cab ============================================================ */
 
 #supplier_cab {
-    clear: both;
+    /*clear: both;*/
 }
 #supplier_cab .sort_page_top {
 	float: left;
@@ -447,6 +455,9 @@ table.kontrag.table{
 }
 #supplier_cab table a.icon-font:hover {
 	color: #FF3C3C;
+}
+#supplier_cab table .mdl-checkbox__label {
+	top: -5px;
 }
 table.supplier_assort_table {
 	margin-bottom: 0;
@@ -555,9 +566,6 @@ table.supplier_assort_table {
 #supplier_cab .available {
 	background-color: #F1FFF1;
 }
-#supplier_cab .notavailable {
-	opacity: 0.6;
-}
 #supplier_cab .notprice .price_1 input,
 #supplier_cab .notprice .price_2 input{
 	background-color: #FFD0D0;
@@ -586,9 +594,9 @@ table.supplier_assort_table {
 	color: #f36711;
 	cursor: pointer;
 	margin-top: 15px;
-	background-color: #F1EEEE;
-    padding: 0px 10px;
-    border-radius: 3px;
+	/*background-color: #F1EEEE;*/
+    /*padding: 0px 10px;*/
+    /*border-radius: 3px;*/
 }
 #supplier_cab .name_cell .err_mark:hover {
 	text-decoration: underline;
@@ -596,6 +604,10 @@ table.supplier_assort_table {
 #supplier_cab .duplicate input {
 	vertical-align: middle;
     margin-right: 5px;
+}
+#supplier_cab .input_table .product_limit_checkbox {
+	width: auto;
+	margin: 0 auto;
 }
 #supplier_cab .price_1 input,
 #supplier_cab .price_2 input {
@@ -624,9 +636,6 @@ table.supplier_assort_table {
 
 /* Error Mark Modal ============================= */
 
-#err_mark {
-	width: 400px;
-}
 #err_mark p {
 	margin-bottom: 10px;
 }

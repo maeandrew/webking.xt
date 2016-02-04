@@ -218,20 +218,6 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	if(isset($_GET['limit'])){
 		$GET_limit = "/limit".$_GET['limit'];
 	}
-	foreach($fields as $f){
-		$sort_links[$f] = "/cabinet{$GET_limit}/ord/$f/desc";
-		if(in_array("ord", $GLOBALS['Rewrite']) && in_array($f, $GLOBALS['Rewrite'])){
-			if(in_array("asc", $GLOBALS['Rewrite'])){
-				$sort_links[$f] = "/cabinet{$GET_limit}/ord/$f/desc";
-				$orderby = "{$f_assoc[$f]} asc";
-			}else{
-				$sort_links[$f] = "/cabinet{$GET_limit}/ord/$f/asc";
-				$orderby = "{$f_assoc[$f]} desc";
-			}
-		}
-	}
-	$tpl->Assign('sort_links', $sort_links);
-
 	if(isset($cabinet_page) && $cabinet_page == "settings"){
 		$header = "Настройки личного кабинета";
 		$GLOBALS['IERA_LINKS'][max(array_keys($GLOBALS['IERA_LINKS']))] = array(
@@ -289,17 +275,18 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	$price_products = $products->GetPricelistProducts();
 	$tpl->Assign('price_products', $price_products);
 	$tpl->Assign('cal', $cal);
+	$tpl->Assign('sidebar', $tpl->Parse($GLOBALS['PATH_tpl'].'cp_supplier_cab.tpl'));
 	$parsed_res = array(
 		'issuccess'	=> true,
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_supplier_cab.tpl')
 	);
 }
 $tpl->Assign('header', $header);
-if(in_array("export", $GLOBALS['Rewrite'])){
+if($GLOBALS['Rewrite'] == "export"){
 	$r = $products->GetExportAssortRows($products->list, $Supplier->fields['id_user']);
 	$products->GenExcelAssortFile($r);
 	exit(0);
-}elseif(in_array("export_usd", $GLOBALS['Rewrite'])){
+}elseif($GLOBALS['Rewrite'] == "export_usd"){
 	$r = $products->GetExportAssortRowsUSD($products->list, $Supplier->fields['id_user']);
 	$products->GenExcelAssortFile($r);
 	exit(0);

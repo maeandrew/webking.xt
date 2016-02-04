@@ -18,6 +18,7 @@ a {
 	text-decoration: none;
 	color: #9E9E9E;
 	font-weight: 500;
+	outline: none;
 }
 a:hover {
 	color: #343030;
@@ -42,6 +43,10 @@ textarea {
 input.mdl-textfield__input,
 textarea.mdl-textfield__input {
 	border-radius: 0;
+}
+input,
+textarea {
+	border: 1px solid #ddd;
 }
 input:hover,
 textarea:hover {
@@ -2104,17 +2109,6 @@ section .stat_year {
 
 /*MATERIAL UPGRADE*/
 
-.mdl-button.mdl-button--colored {
-	color: #F44336;
-}
-.mdl-button--raised.mdl-button--colored {
-	color: #fff;
-	background: #F44336;
-}
-.mdl-button--raised.mdl-button--colored:hover,
-.mdl-button--raised.mdl-button--colored:focus:not(:active) {
-	background: #F44336;
-}
 .mdl-checkbox__box-outline {
 	border: 1px solid #8f8f8f;
 }

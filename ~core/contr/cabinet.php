@@ -10,6 +10,11 @@ $tpl->Assign('list_menu', $Page->list);
 unset($parsed_res);
 $User = new Users();
 $User->SetUser($_SESSION['member']);
+// Блок навигации в кабинете
+require($GLOBALS['PATH_block'].'sb_cabinet_navigation.php');
+if(isset($parsed_res) && $parsed_res['issuccess'] == true){
+	$tpl_center .= $parsed_res['html'];
+}
 switch($User->fields['gid']){
 	case _ACL_CUSTOMER_:
 		$header = 'Кабинет клиента';

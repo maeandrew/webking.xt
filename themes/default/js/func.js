@@ -1531,5 +1531,106 @@ function showModals() {
 	var modals = $('div:not(.modals) [data-type="modal"]');
 	modals.each(function(key, value){
 		$(".modals").append(value);
-	});	
+	});
+}
+// Удаление товара из ассортимента поставщика в кабинете
+function DelFromAssort(id){
+	ajax('product', 'DelFromAssort', {id: id}).done(function(){
+		$('#tr_mopt_'+id).slideUp();
+	});
+}
+// Добавление или обновление товара в ассортименте
+function toAssort(id, opt, nacen, comment){
+	var inusd = $('.inusd'+id).prop('checked');
+	var currency_rate = $('#currency_rate').val();
+	if(opt == 1){
+		optw = "opt";
+	}else{
+		optw = "mopt";
+	}
+	var a,b,c;
+	a = parseFloat($("#price_"+optw+"_otpusk_"+id).val().replace(",","."));
+	b = parseFloat($("#price_"+optw+"_otpusk_"+id).val().replace(",","."));
+	if(inusd == true){
+		a = a*currency_rate;
+		b = b*currency_rate;
+	}
+	c = parseFloat($("#product_limit_mopt_"+id).val());
+	$("#product_limit_mopt_"+id).val(c);
+	active = 0;
+	if(c > 0){
+		if(opt){
+			po = parseFloat($("#price_opt_"+id).val());
+			pom = Number(po - po*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
+			if(po != 0 && a > pom){
+				alert("Предлагаемая Вами крупнооптовая цена не позволяет продавать данный товар на сайте.");
+			}
+			pop = Number(po + po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
+			pom = Number(po - po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
+			if(po != 0 && (b > pop || b < pom)){
+				alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
+			}
+		}else{
+			pm = parseFloat($("#price_mopt_"+id).val());
+			pmm = Number(pm - pm*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
+			if(pm != 0 && a > pmm){
+				alert("Предлагаемая Вами мелкооптовая цена не позволяет продавать данный товар на сайте.");
+			}
+			pmp = Number(pm + pm*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
+			pmm = Number(pm - pm*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
+			if(pm != 0 && (b > pmp || b < pmm)){
+				alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
+			}
+		}
+		ao = parseFloat($("#price_opt_otpusk_"+id).val());
+		bo = parseFloat($("#price_opt_otpusk_"+id).val());
+		am = parseFloat($("#price_mopt_otpusk_"+id).val());
+		bm = parseFloat($("#price_mopt_otpusk_"+id).val());
+		active = 1;
+		if((ao > 0 && bo == 0) || (ao == 0 && bo > 0)){
+			active = 0;
+			alert("Необходимо заполнить цены.");
+		}else if((am > 0 && bm == 0) || (am == 0 && bm > 0)){
+			active = 0;
+			alert("Необходимо заполнить цены.");
+		}
+	}
+	if(active == 1){
+		$("#tr_opt_"+id).removeClass('notavailable notprice').addClass('available');
+		$("#tr_mopt_"+id).removeClass('notavailable notprice').addClass('available');
+	}else{
+		$("#tr_opt_"+id).removeClass('available').addClass('notavailable');
+		$("#tr_mopt_"+id).removeClass('available').addClass('notavailable');
+		$("#product_limit_opt_"+id).val(0);
+		$("#product_limit_mopt_"+id).val(0);
+	}
+	if(a <= 0 || b <= 0){
+		//$("#checkbox_"+optw+"_"+id).attr('checked','');
+		$("#tr_opt_"+id).removeClass('available').addClass('notavailable notprice');
+		$("#tr_mopt_"+id).removeClass('available').addClass('notavailable notprice');
+	}
+	if(a < 0){
+		a = 0;
+		$("#price_opt_otpusk_"+id).val(a);
+	}
+	//if (b<0){ b=0;$("#price_opt_recommend_"+id).val(b);}
+	$.ajax({
+		url: URL_base+'ajaxassort',
+		type: "POST",
+		cache: false,
+		dataType: "json",
+		data:{
+			"action": "update_assort",
+			"opt": opt,
+			"id_product": id,
+			"price_otpusk": a,
+			"price_recommend": b,
+			"nacen": nacen,
+			"product_limit": c,
+			"active": active,
+			"sup_comment": comment,
+			"inusd": inusd,
+			"currency_rate": currency_rate
+		}
+	});
 }

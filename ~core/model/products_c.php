@@ -1406,13 +1406,13 @@ class Products {
 		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
 	}
-
+	// Удаление товара из ассортимента поставщика
 	public function DelFromAssort($id_product){
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 	}
 
 	//Привязка поставщика к товару с админки
