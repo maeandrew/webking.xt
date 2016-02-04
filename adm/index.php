@@ -30,6 +30,10 @@ $GLOBALS['__page_h1'] = '&nbsp;';
 if($GLOBALS['CurrentController'] != 'productedit'){
 	// G::AddCSS('adm.css');
 }
+if(isset($_GET['check_art'])){
+	$products = new Products();
+	echo "<!-- ".$products->CheckArticle($_GET['check_art'])."-->";
+}
 // var_dump(file_exists('adm/css/page_styles/'.$GLOBALS['CurrentController'].'.css'));
 // if(file_exists('adm/css/page_styles/'.$GLOBALS['CurrentController'].'.css')){
 	G::AddCSS('page_styles/'.$GLOBALS['CurrentController'].'.css');
