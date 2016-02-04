@@ -33,9 +33,9 @@
 				</div>
 			</div>
 		<?}?>
+		<!-- <div class="ones">Горячо</div>
 		<div class="ones">Горячо</div>
-		<div class="ones">Горячо</div>
-		<div class="ones">Горячо</div>
+		<div class="ones">Горячо</div> -->
 
 		<div class="opacity_line"></div>
 
