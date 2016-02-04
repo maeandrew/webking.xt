@@ -576,7 +576,7 @@
 					<span class="number_label">Область</span>
 					<div class="region imit_select">
 						<button id="region_select" class="mdl-button mdl-js-button">
-							<span class="select_field">Выбрать<!--   Харьковская область--></span>
+							<span class="select_field">Харьковская область<!-- Выбрать --></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="region_select"></ul>
@@ -587,7 +587,7 @@
 					<span class="number_label">Город</span>
 					<div class="city imit_select">
 						<button id="city_select" class="mdl-button mdl-js-button">
-							<span class="select_field">Выбрать<!--  Харьков --></span>
+							<span class="select_field">Харьков<!-- Выбрать --></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="city_select"></ul>
@@ -630,8 +630,7 @@
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect list_post_office" for="post_office_select"></ul>
 					</div>
-				</div>
-								
+				</div>			
 				<div id="client_address" class="row delivery_address mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				    <input id="delivery_address" class="mdl-textfield__input" type="text" name="clientaddress" value="" id="sample3">
 				    <label class="mdl-textfield__label" for="sample3">Доставить по адресу...</label>

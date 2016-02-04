@@ -6,6 +6,14 @@
 	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
 	if(isset($_POST['action']))
 		switch($_POST['action']){
+			case "DelFromAssort":
+				if(isset($_POST['id'])){
+					$products->DelFromAssort($_POST['id']);
+					$arr['id_product'] = $_POST['id'];
+					$arr['action'] = "del";
+					echo json_encode($arr);
+				}
+				break;
 			case "get_array_product":
 				$id_product = $_POST['id_product'];
 				$products->SetFieldsById($id_product);
@@ -22,8 +30,7 @@
 
 				$tpl->Assign('product', $product);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'preview.tpl');
-			;
-			break;
+				break;
 			case "add_favorite":
 				// Добавление Избранного товара
 				if(!isset($_SESSION['member'])){

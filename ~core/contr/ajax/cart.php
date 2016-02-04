@@ -397,11 +397,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								'passwd' => $pass = substr(md5(time()), 0, 8),
 								'descr' => '',
 								'phone' => $_POST['phone']);
-							$res = $customers->RegisterCustomer($data);
+							$id_user = $customers->RegisterCustomer($data);
 						}
-						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
-						print_r($q);
+//						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
+//						print_r($q);
 						$order = new Orders();
+						$_POST['id_user'] = $id_user;
 						if($id = $order->Add($_POST)){
 							$tpl->Assign('msg_type', 'success');
 							$tpl->Assign('msg', 'Заказ сформирован.');

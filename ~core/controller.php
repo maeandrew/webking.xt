@@ -89,14 +89,6 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 					$tpl_sidebar_l .= $parsed_res['html'];
 				}
 			}
-			// Блок навигации в кабинете покупателя
-			// if($GLOBALS['CurrentController'] == 'cabinet' || $GLOBALS['CurrentController'] == 'customer_order'){
-			// 	unset($parsed_res);
-			// 	require($GLOBALS['PATH_block'].'sb_cabinet_navigation.php');
-			// 	if(true == @$parsed_res['issuccess']){
-			// 		$tpl_sidebar_l .= $parsed_res['html'];
-			// 	}
-			// }
 		// }
 		// Правый сайдбар
 		if(in_array($GLOBALS['CurrentController'], $GLOBALS['RightSideBar'])){

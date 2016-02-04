@@ -22,7 +22,7 @@
 // });
 
 $(function(){
-	openObject('quiz');
+	//openObject('quiz');
 	// openObject('auth');
 
 	var viewport_width = $(window).width(),
@@ -353,7 +353,7 @@ $(function(){
 	});
 
 	$('input.mdl-checkbox__input').on('click', function(){
-		location.href = $(this).closest('a').attr('href');
+		// location.href = $(this).closest('a').attr('href');
 	});
 
 	//Закрытие подложки и окон
@@ -880,5 +880,15 @@ $(function(){
 
 	showModals();
 
-
+	$('input[name="product_limit_checkbox"]').on('change', function(){
+		var id = $(this).data('id-product'),
+			product_limit = $('#product_limit_mopt_'+id);
+		if(this.checked){
+			limit = 10000000;
+		}else{
+			limit = 0;
+		}
+		product_limit.val(limit);
+		toAssort($(this).data('id-product'), 0, $(this).data('koef'), $(this).data('supp'));
+	});
 });
