@@ -39,29 +39,31 @@
 						<li>
 							<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 								<div class="title">
-									<div class="container number">
-										<span class="numb">Заказ № <?=$i['id_order']?></span>
-										<span class="date"  style="padding-left:20px">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
+									<div class="container">
+										<span class="number" style="min-width:92%;">
+											<span class="numb">Заказ № <?=$i['id_order']?></span>
+											<span class="date"  style="padding-left:20px">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
 
-										<?php
-											$str = count($i['products']). ' товар';
-											$count = count($i['products']);
-											if(substr($count,-1) == 1 && substr($count,-2) != 11)
-												$str .= '';
-											else if(substr($count,-1) >= 2 && substr($count,-2,1) != 1 && substr($count,-1) <= 4)
-												$str .= 'а';
-											else
-												$str .= 'ов';
-										?>
-										<span class="my_item" style="padding-left:20px"><?=$str?> на <?=number_format($i['sum_discount'],2,',','')?> грн.</span>
-										<?for($i=0; $i < count($i['id_order']); $i++){?>
+											<?php
+												$str = count($i['products']). ' товар';
+												$count = count($i['products']);
+												if(substr($count,-1) == 1 && substr($count,-2) != 11)
+													$str .= '';
+												else if(substr($count,-1) >= 2 && substr($count,-2,1) != 1 && substr($count,-1) <= 4)
+													$str .= 'а';
+												else
+													$str .= 'ов';
+											?>
+											<span class="my_item" style="padding-left:20px"><?=$str?> на <?=number_format($i['sum_discount'],2,',','')?> грн.</span>
+											<div class="status"><?=$order_statuses[$i['id_order_status']]['name']?></div>
+										</span>
 										<div class="print">
 
-											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower">
+											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
 											</div>
 
-											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower" style="width:180px; height:120px; !important">
+											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="width:180px; height:120px; !important">
 												<!-- <img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
@@ -85,10 +87,9 @@
 												</li>
 
 											</ul>
-										</div>
-										<?}?>
 
-										<div class="status"><?=$order_statuses[$i['id_order_status']]['name']?></div>
+										</div>
+
 									</div>
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active">Детали</a>
