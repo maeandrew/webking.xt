@@ -22,7 +22,7 @@
 // });
 
 $(function(){
-	// openObject('quiz');
+	openObject('quiz');
 	// openObject('auth');
 
 	var viewport_width = $(window).width(),
@@ -131,6 +131,8 @@ $(function(){
 	$('.imit_select').on('click', '.mdl-menu__item', function(){
 		var value = $(this).text(),
 			id = $(this).data('value');
+		console.log(value);
+		console.log($(this).closest('.imit_select').find('.select_field').text());
 		$(this).closest('.imit_select').find('.mdl-menu__item').removeClass('active');
 		$(this).closest('.imit_select').find('.select_field').text(value);
 		$(this).closest('.mdl-menu__container').removeClass('is-visible');
@@ -142,13 +144,15 @@ $(function(){
 	});
 	$('.sort.imit_select .mdl-menu__item').on('click', function(){
 		var sort = JSON.parse($.cookie('sorting'));
-		sort[current_controller]['value'] = ($(this).data('value'));
-		var sorting = JSON.stringify(sort);
-		$.cookie('sorting', sorting, {
-			expires: 2,
-			path: '/'
-		});
-		location.reload();
+		if(sort[current_controller] != undefined){
+			sort[current_controller]['value'] = ($(this).data('value'));
+			var sorting = JSON.stringify(sort);
+			$.cookie('sorting', sorting, {
+				expires: 2,
+				path: '/'
+			});
+			location.reload();
+		}
 	});
 
 	// Активация меню mobile
@@ -392,6 +396,20 @@ $(function(){
 		}
 	});
 
+	/*$('.stat_year').hover(function(){
+		$('#top_block_graph').css('opacity','block') },
+       function(){ $('#top_block_graph').css('display','none').css('z-index','11')
+   });*/
+	$('.stat_years canvas').on('click', function(){
+		var one = $(this).closest('.stat_years').find('input[type="range"]').eq(0).val();
+		var two = $(this).closest('.stat_years').find('input[type="range"]').eq(1).val();
+		$(this).closest('.stat_years').find('input[type="range"]').each(function(index, el) {
+			console.log($(el).val());
+		});
+		// console.log(two);
+		openObject('graph');
+	});
+
 	//Открытие модального Графика
 	/*$('#graph').on('click', '.btn_js.save', function(){
 		var parent =  $(this).closest('#graph'),
@@ -435,15 +453,36 @@ $(function(){
 		});
 	});*/
 
-	$('.stat_year').on('click', '.slide_all', function(){
+	$('#icon_graph').on('click', function(){
 	    //$(document.body).click(function () {
-	      if ($("div.stat_year").is(":hidden")) {
-	        $("div.stat_year").slideDown("slow");
+	      if ($("div.stat_years").is(":hidden")) {
+	        /*$("div.stat_years").slideDown("slow").removeClass('hidden');*/
+	        $("div.stat_years").slideDown("slow");
 	      } else {
-	        $("div.stat_year").next().slideUp("slow");
+	        $("div.stat_years").slideUp("slow");
 	      }
 	    //});
 	  });
+
+	$('.down_graph').on('click', function(){
+		$("div.stat_year").slideUp("slow");
+	    	$('.ones').css('opacity', '0');
+			$(".graph_up").removeClass('hidden').animate({
+				opacity: 0.6
+			}, 1500 ).css({
+				'transform': 'rotate(30deg)',
+
+			});
+	  });
+
+	$(".graph_up").on('click', function(){
+		$(this).addClass('hidden');
+		$("div.stat_year").eq(0).slideDown("slow");
+		//$('.ones').css('opacity', '1').setTimeout(function(){}, 2000);
+		setTimeout(function(){
+			$('.ones').css('opacity', '1');
+		}, 600);
+	});
 
 
 
@@ -516,7 +555,8 @@ $(function(){
 			current = $('.step_'+current_step),
 			target = $('.step_'+target_step),
 			validate = false,
-			i = 0;
+			i = 0,
+			data = null;
 		if(target_step == 1){
 			summary.removeClass('active');
 			if(current_step == 2){
@@ -545,12 +585,15 @@ $(function(){
 				if(middlename == ''){
 					i++;
 					$('#middlename').addClass('is-invalid');
-				}
+				}				
 				if(i == 0){
-					validate = true;
-					GetRegions();
-					summary.addClass('active');
-				}
+					data = {firstname: firstname, lastname: lastname, middlename:middlename};
+					// ajax([target], [action], data).done(function(response){
+						validate = true;
+						GetRegions();
+						summary.addClass('active');
+					// });
+				}				
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');
 				summary.find('.city').closest('.row').addClass('hidden');
@@ -568,24 +611,75 @@ $(function(){
 					i++;
 				}
 				if(i == 0){
-					validate = true;
-					GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
-					summary.find('.region').text(selected_region);
-					summary.find('.city').text(selected_city);
-				}
+					data = {selected_region: selected_region, selected_city: selected_city};
+					// ajax([target], [action], data).done(function(response){
+						validate = true;
+						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
+						Position($(this).closest('[data-type="modal"]'));
+
+						summary.find('.delivery_service').text(selected_region);
+						summary.find('.delivery_method').text(selected_city);
+					// });
+				}				
+			}else if(current_step = 4){
+				summary.find('.delivery_service').closest('.row').addClass('hidden');
+				summary.find('.delivery_method').closest('.row').addClass('hidden');
 			}
 		}else if(target_step == 4){
 			if(current_step == 3){
 				var delivery_service = $('input[name="service"]:checked').val(),
-					delivery_method = $('input[name="method"]:checked').val();
+					delivery_method = $('.delivery_type .mdl-menu__item').text(),					
+					selected_post_office = current.find('#post_office_select .select_field').text(),
+					delivery_address = current.find('#delivery_address').val();
+
+				summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
+				summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');
+
 				if(typeof delivery_service === 'undefined'){
 					i++;
 				}
 				if(typeof delivery_method === 'undefined'){
 					i++;
 				}
+				if(typeof delivery_address === 'undefined'){
+					i++;
+				}
+				if(typeof selected_post_office === 'undefined'){
+					i++;
+				}
+
+				if(i == 0){
+					data = {
+						delivery_service: delivery_service,
+						delivery_method: delivery_method,
+						delivery_address: delivery_address,
+						selected_post_office: selected_post_office
+					};
+
+					validate = true;
+
+					summary.find('.delivery_service').text(delivery_service);
+					summary.find('.delivery_method').text(delivery_method);
+					
+					// ajax([target], [action], data).done(function(response){
+					// });
+				}				
+									
 			}
-		}
+		}else if(target_step == 5){
+			if(current_step == 4){
+							
+			}
+
+			if(i == 0){
+				// data = {delivery_service: delivery_service, delivery_method: delivery_method};
+				// ajax([target], [action], data).done(function(response){
+					// validate == true;
+				// });
+			}
+			validate = true;
+		}							
+		
 		if(validate == true || target_step < current_step){
 			current.removeClass('active');
 			target.addClass('active');
@@ -593,10 +687,32 @@ $(function(){
 		}
 	});
 
-	$('#quiz .delivery_service').on('change', 'input[name="service"]', function(){
-		GetDeliveryMethods($(this).val());
+	$('input[name="options"]').on('change', function() {
+		$('#quiz .company_details').css('display', 'block');
 	});
-	$('#quiz .mdl-button').on('clock', function(e){
+	
+	$('#quiz .delivery_service').on('click', 'input[name="service"]', function(){
+		if($('.delivery_service input[name="service"]:checked') && $('[data-value="2"]')){	
+			GetDeliveryMethods($(this).val(), $('#city_select .select_field').text());
+			Position($(this).closest('[data-type="modal"]'));
+		}		
+	});
+
+	$('.delivery_type [data-value="1"]').on('click', function(){
+		$('.delivery_address').css('display', 'block');
+		$('.post_office').css('display', 'none');
+	})
+
+	$('.delivery_type [data-value="2"]').on('click', function(){
+		if($('.delivery_service input[name="service"]:checked')){
+			$('.post_office').css('display', 'block');
+			$('.delivery_address').css('display', 'none');
+
+			GetDeliveryMethods($('.delivery_service input[name="service"]:checked').val(), $('#city_select .select_field').text());
+		}		
+	})
+
+	$('#quiz .mdl-button').on('click', function(e){
 		e.preventDefault();
 		return false;
 	});
@@ -635,6 +751,12 @@ $(function(){
 				"passwd": passwd
 			}
 		}).done(function(data){
+			var parrent = $('.header_nav [for="demo-menu-lower-right"]');
+			parrent.find('.mdl-menu__item .user_name').text(data.member.name);
+			parrent.find('.mdl-menu__item .user_email').text(data.member.email);
+			parrent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
+			parrent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
+			parrent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
 			if(data.errm != 1){
 				closeObject('auth');
 				$('.cabinet_btn').removeClass('hidden');

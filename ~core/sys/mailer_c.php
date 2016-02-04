@@ -143,7 +143,8 @@ class Mailer extends PHPMailer {
 			"099 563-28-17<br>".
 			"Техподдержка и вопросы по работе сайта:<br>".
 			"098 957-32-53";
-		$sql = "SELECT email, name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."order o WHERE u.id_user=o.id_customer AND o.id_order=".mysql_real_escape_string($id_order);
+
+		$sql = "SELECT email, name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."order o WHERE u.id_user=o.id_customer AND o.id_order=".$db->Quote($id_order);
 		$arr = $db->GetOneRowArray($sql);
 		// Добавляем адрес в список получателей
 		$this->isHTML(true);
@@ -179,7 +180,7 @@ class Mailer extends PHPMailer {
 		$sql = "SELECT DISTINCT u.id_user AS id_supplier, u.email, u.name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."osp osp 
 				WHERE (u.id_user=osp.id_supplier 
 				OR u.id_user=osp.id_supplier_mopt)
-				AND osp.id_order=".mysql_real_escape_string($id_order);
+				AND osp.id_order=".$db->Quote($id_order);
 		$arr = $db->GetArray($sql);
 		//print_r($arr);
 		$return = true;

@@ -32,12 +32,15 @@ class Users {
 		$f['email'] = trim($arr['email']);
 		$f['passwd'] = trim($arr['passwd']);
 
-		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.name
-			FROM "._DB_PREFIX_."user AS u
-			WHERE (u.email = '".$f['email']."'
-			OR u.email = '".$f['email']."@x-torg.com')
-			AND u.passwd = '".md5($f['passwd'])."'
-			AND u.active = 1";
+
+		$sql = "SELECT id_user, email, gid, promo_code, name, phones
+			FROM "._DB_PREFIX_."user
+			WHERE (email = '".$f['email']."'
+			OR email = '".$f['email']."@x-torg.com'
+			OR phones = '".$f['email']."')
+			AND passwd = '".md5($f['passwd'])."'
+			AND active = 1";
+
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
@@ -62,7 +65,7 @@ class Users {
 			WHERE cr.id_user = ".$this->fields['id_user'];
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
 
-		return true;
+		return $sql;
 	}
 
 	public function CheckUserNoPass($arr){
@@ -70,6 +73,7 @@ class Users {
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
 			FROM "._DB_PREFIX_."user AS u
 			WHERE u.email = '".$f['email']."'
+			OR u.phone = '".$f['email']."'
 			AND u.active = 1";
 		if($this->fields = $this->db->GetOneRowArray($sql)){
 			return true;
@@ -168,6 +172,22 @@ class Users {
 		}
 		$id_user = $this->db->GetLastId();
 		$this->db->CompleteTrans();
+		if($arr['phone']) {
+			$mailer = new Mailer();
+			$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
+		}elseif($arr['phone'] && $arr['email'] = null){
+			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+			$res = $Gateway->execCommad(
+				'sendSMS',
+				array(
+					'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+					'text' => trim($_GET['text']),
+					'phone' => $_GET['reciever'],
+					'datetime' => null,
+					'sms_lifetime' => 0
+				)
+			);
+		};
 		return $id_user;
 	}
 
@@ -406,6 +426,17 @@ class Users {
 			return false;
 		}
 		return $arr;
+	}
+
+	//Проверка уникальности телефона
+	public function CheckPhoneUniqueness($phone){
+		$sql = "SELECT id
+			FROM "._DB_PREFIX_."users
+			WHERE phones = ".$phone;
+		if($arr = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return true;
 	}
 
 }?>

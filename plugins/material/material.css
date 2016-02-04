@@ -7055,7 +7055,8 @@ input.mdl-button[type="submit"] {
   margin: 0;
   padding-left: 0; }
   .mdl-radio.is-upgraded {
-    padding-left: 24px; }
+    padding-left: 24px;
+    display: block; }
 
 .mdl-radio__button {
   line-height: 24px; }

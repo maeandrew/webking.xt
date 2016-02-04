@@ -251,17 +251,11 @@
 					</div>
 				</div> -->
 
-			<?php if(isset($__graph)){
-					echo $__graph;?>А
-			<div style="display:block;"></div>
-			<div id="user_bt" style="float:right;padding-right:15px;display:block;top:-213px;position:relative;">
-				<!-- <a href="#" class="checkout btn_js" data-name="graph" onclick="ModalGraph()">Добавить мнение</a> -->
+			<?php if(isset($__graph)){?>
 
-				<div id="tt3" class="icon material-icons"><a href="#" onclick="ModalGraph()"><i class="material-icons">add_box</i></a></div>
-				<div class="mdl-tooltip" for="tt3">
-				Добавить мнение
-				</div>
-			</div>
+					<?echo $__graph;?>
+
+
 
 			<?}?>
 
@@ -283,6 +277,7 @@
 								<li class="mdl-menu__item">Популярные</li>
 								<li class="mdl-menu__item">От дешевых к дорогим</li>
 							</ul>
+							<a href="#" class="graph_up"><i class="material-icons">timeline</i></a>
 						</div>
 						<div class="cart_info clearfix">
 							<div class="your_discount">Ваша скидка</div>
@@ -326,7 +321,26 @@
 							<div class="price_nav"></div>
 						</div>
 					</div>
-					<div class="products">
+					<div id="view_block_js" class="list_view col-md-12 ajax_loading">
+						<div class="row">
+							<?=$products_list;?>
+							<div class="preview ajax_loading mdl-shadow--4dp">
+								<div class="preview_content">
+									<div class="mdl-grid" style="overflow: hidden;">
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+											<div id="owl-product_slide_js"></div>
+										</div>
+									</div>
+								</div>
+								<div class="triangle"></div>
+								<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+							</div>
+						</div>
+					</div>
+					<script>
+						ListenPhotoHover(); //Инициализания Preview
+					</script>
+					<!-- <div class="products">
 						<div class="card clearfix">
 							<div class="product_photo">
 								<a href="#">
@@ -414,7 +428,11 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
+
+
+
+
 					<div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div>
 					<div class="paginator">
 						<ul>
@@ -478,24 +496,35 @@
 
 
 
-
-
-
-
-
-
-
-
 	<div class="modals">
 		<div id="quiz" data-type="modal">
 			<div class="modal_container summary_info">
-				<div class="row hidden">Фамилия: <span class="lastname"></span></div>
-				<div class="row hidden">Имя: <span class="firstname"></span></div>
-				<div class="row hidden">Отчество: <span class="middlename"></span></div>
-				<div class="row hidden">Область: <span class="region"></span></div>
-				<div class="row hidden">Город: <span class="city"></span></div>
-				<div class="row hidden">Служба доставки: <span class="delivery_service"></span></div>
-				<div class="row hidden">Способ доставки: <span class="delivery_method"></span></div>
+				<div class="row hidden">
+					<span class="span_title">Фамилия: </span>
+					<span class="lastname"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Имя:</span>
+					<span class="firstname"></span></div>
+				<div class="row hidden">
+					<span class="span_title">Отчество:</span>
+					<span class="middlename"></span></div>
+				<div class="row hidden">
+					<span class="span_title">Область:</span>
+					<span class="region"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Город:</span>
+					<span class="city"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Служба доставки:</span>
+					<span class="delivery_service"></span>
+				</div>
+				<div class="row hidden">
+					<span class="span_title">Способ доставки:</span>
+					<span class="delivery_method"></span>
+				</div>
 			</div>
 			<div class="modal_container step_1 active" data-step="1">
 				<div class="head_top">
@@ -536,7 +565,7 @@
 					<span class="number_label">Область</span>
 					<div class="region mdl-cell--hide-phone imit_select">
 						<button id="region_select" class="mdl-button mdl-js-button">
-							<span class="select_field">Харьковская область<!-- Выбрать --></span>
+							<span class="select_field">Выбрать<!--   Харьковская область--></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="region_select"></ul>
@@ -546,7 +575,7 @@
 					<span class="number_label">Город</span>
 					<div class="city mdl-cell--hide-phone imit_select">
 						<button id="city_select" class="mdl-button mdl-js-button">
-							<span class="select_field">Харьков<!-- Выбрать --></span>
+							<span class="select_field">Выбрать<!--  Харьков --></span>
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="city_select"></ul>
@@ -557,38 +586,48 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Далее</button>
 				</div>
 			</div>
-
-			<div class="modal_container step_3" data-step="3">
+			<div class="modal_container step_3 " data-step="3">
 				<div class="head_top">
 					<h6><span class="client">Пользователь</span>, доставка в <span class="city">Город</span> возможна!</h6>
-				</div>
-				<label class="mdl-radio mdl-js-radio" for="option-1">
-					<input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
-					<span class="mdl-radio__label">Новая Почта</span>
-				</label>
+				</div>				
 				<div class="row delivery_service">
 				</div>
 				<div class="row">
 					<span>Вам удобнее забрать заказ со склада, или принять по адресу?</span>
-					<div class="sort imit_select">
-						<button id="sort-lower-left_3" class="mdl-button mdl-js-button">
-							<i class="material-icons fright">keyboard_arrow_down</i><span class="selected_sort select_fild">Выбрать</span>
+					<div class="imit_select delivery_type">
+						<button id="select_delivery_type" class="mdl-button mdl-js-button">
+							<span class="select_field">Выбрать</span>
+							<i class="material-icons fright">keyboard_arrow_down</i>
 						</button>
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left_3">
-							<li class="mdl-menu__item sort" data-value="1" >Принять по адресу</li>
-							<li class="mdl-menu__item sort" data-value="2" >Забрать со склада</li>
-						</ul>
+						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="select_delivery_type">
+							<li class="mdl-menu__item" data-value="1" >Принять по адресу</li>
+							<li class="mdl-menu__item" data-value="2" >Забрать со склада</li>
+						</ul>				
 					</div>
+
+
+					<div class="row post_office imit_select">
+						<button id="post_office_select" class=" mdl-button mdl-js-button">
+							<span class="select_field">Выбрать отделение<!-- Выбрать --></span>
+							<i class="material-icons">keyboard_arrow_down</i>
+						</button>
+						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect list_post_office" for="post_office_select"></ul>
+					</div>
+
+				</div>
+				
+				<div class="row delivery_address">
+					<textarea id="delivery_address" cols="40" rows="1">
+						
+					</textarea>
 				</div>
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="4">Далее</button>
 				</div>
 			</div>
-
-			<div class="modal_container step_4" data-step="4">
-				<div class="head_top">
-					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
+			<div class="modal_container step_4 " data-step="4">
+				<div class="head_top">					
 					<h6>Виталий Петрович, у меня есть необходимые данные для отправки заказа.</h6>
 					<span>Вы готовы внести предоплату?</span>
 				</div>
@@ -599,27 +638,26 @@
 				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
 					<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
 					<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
-				</label>
+				</label>				
+				<div class="company_details">
+					<h4>Реквизиты компании</h4>
+				</div>
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
 				</div>
-				<div class="line">
-					<div class="line_active"></div>
-				</div>
-				<span class="go">Готово!</span>
 			</div>
+			<div class="modal_container step_5" data-step="5">
+				<div class="head_top">					
+					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>					
+				</div>
+			</div>
+
 			<div class="progress">
 				<div class="line">
 					<div class="line_active"></div>
 				</div>
 				<span class="go">Заполнено: </span>
-			</div>
-			<div class="modal_container step_5" data-step="5">
-				<div class="head_top">
-					<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
-					<span>Спасибо! Я свяжусь с Вами в течении часа.</span>
-				</div>
 			</div>
 		</div>
 		<!-- Authentication -->
@@ -630,7 +668,7 @@
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="email">
-						<label class="mdl-textfield__label" for="email">Логин</label>
+						<label class="mdl-textfield__label" for="email">Email или телефон</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -643,7 +681,6 @@
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="registration">Регистрация</button>
 				</form>
 			</div>
-
 			<div id="registration" class="hidden modal_container">
 				<h4>Регистрация</h4>
 				<span>Сопроводительный текст к форме регистрации.</span>
@@ -693,7 +730,7 @@
 		<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
 			<div class="modal_container"></div>
 		</div>
-	</div>	
+	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">

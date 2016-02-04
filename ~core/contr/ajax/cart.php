@@ -45,16 +45,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// if(true == $parsed_res['issuccess']){
 				// 	echo $parsed_res['html'];
 				// }
-					if(!G::IsLogged()){
-						$_SESSION['from'] = 'cart';
-						header('Location: '._base_url.'/login/');
-						exit();
-					}else{
+//					if(!G::IsLogged()){
+//						$_SESSION['from'] = 'cart';
+//						header('Location: '._base_url.'/login/');
+//						exit();
+//					}else{
+				    if(G::IsLogged()){
 						$User = new Users();
 						$User->SetUser($_SESSION['member']);
 						$tpl->Assign('User', $User->fields);
 					}
-					if(in_array($User->fields['gid'], array(_ACL_CUSTOMER_, _ACL_ANONYMOUS_, _ACL_DILER_, _ACL_MANAGER_))){
+					if(in_array($User->fields['gid'], array(_ACL_CUSTOMER_, _ACL_ANONYMOUS_, _ACL_DILER_, _ACL_MANAGER_, NULL))){ //
 						// if($_SESSION['client']['user_agent'] == 'mobile'){
 
 						// Устанавливаем базовый ценовой режим если пользователь не является менеджером
@@ -106,7 +107,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						// выборка сохраненной информации
 
 						// сохраненный город
-						if($customer['id_city'] > 0){
+						if(isset($customer['id_city']) && $customer['id_city'] > 0){
 							$cities->GetSavedFields($customer['id_city']);
 							$saved['city'] = $cities->fields;
 						}else{
@@ -114,7 +115,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						}
 
 						// способы доставки
-						if($customer['id_delivery'] > 0){
+						if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
 							$delivery->GetSavedFields($customer['id_delivery']);
 							$saved['deliverymethod'] = $delivery->fields;
 						}else{
@@ -122,7 +123,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						}
 
 						// сохраненный менеджер
-						if($customer['id_contragent'] > 0){
+						if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
 							$contragents->GetSavedFields($customer['id_contragent']);
 							$saved['manager'] = $contragents->fields;
 						}else{
@@ -221,113 +222,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						if($warn){
 							$_SESSION['warnings'] = $warnings;
 						}
-						// Если нажата кнопка Сохранить черновик
-						if(isset($_GET['type']) && $_GET['type'] == 'draft'){
-							$_POST['p_order'] = true;
-							if($id_order = $order->Add($_POST)){
-								$success = true;
-								$draft = 1;
-							}
-						}
-						// Если нажата кнопка "Оформить заказ", "Редактировать информацию" или "Отменить редактирование"
-						if((isset($_POST['p_order']) && !isset($_GET['type'])) || isset($_POST['order']) || isset($_POST['apply']) || isset($_POST['cancel'])){
-							$draft = 0;
-							if(isset($_POST['p_order'])){
-								$draft = 1;
-							}
-							if(!isset($_POST['cont_person'])){
-								$_POST['cont_person'] = trim($_POST['last_name']).' '.trim($_POST['first_name']).' '.trim($_POST['middle_name']);
-							}
-							if(isset($_POST['id_manager']) == false){
-								$_POST['id_manager'] = $avaMan[array_rand($avaMan)]['id_user'];
-							}
-							if($_SESSION['member']['email'] != 'anonymous'){
-								if(isset($_POST['apply'])){
-									$_SESSION['strachovka'] = $_POST['strachovka'];
-									$customers->updateContPerson($_POST['cont_person']);
-									$customers->updatePhones($_POST['phones']);
-									$customers->updateContragent($_POST['id_manager']);
-									$customers->updateCity($_POST['id_delivery_department']);
-									$customers->updateDelivery($_POST['id_delivery']);
-									header('Location: '._base_url.'/cart/');
-									exit();
-								}else{
-									require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-									list($err, $errm) = Order_form_validate();
-									if(!$err){
-										if(isset($_POST['temporary']) && $_POST['temporary'] == 1){
-											if($id = $order->Add($_POST)){
-												$tpl->Assign('msg_type', 'success');
-												$tpl->Assign('msg', 'Заказ сформирован.');
-												$success = true;
-												$customers->updateContPerson($_POST['cont_person']);
-												$customers->updatePhones($_POST['phones']);
-												$customers->updateCity($_POST['id_delivery_department']);
-												$customers->updateDelivery($_POST['id_delivery']);
-												unset($_POST);
-												$id_order = $id;
-											}else{
-												$customers->updateContPerson($_POST['cont_person']);
-												$customers->updatePhones($_POST['phones']);
-												$customers->updateCity($_POST['id_delivery_department']);
-												$customers->updateDelivery($_POST['id_delivery']);
-											}
-										}else{
-											if($id = $order->Add($_POST)){
-												$tpl->Assign('msg_type', 'success');
-												$tpl->Assign('msg', 'Заказ сформирован.');
-												$success = true;
-												if($User->fields['gid'] != _ACL_TERMINAL_){
-													$customers->updateContPerson($_POST['cont_person']);
-													$customers->updatePhones($_POST['phones']);
-													$customers->updateContragent($_POST['id_manager']);
-													$customers->updateCity($_POST['id_delivery_department']);
-													$customers->updateDelivery($_POST['id_delivery']);
-												}
-												unset($_POST);
-												$id_order = $id;
-											}else{
-												if($User->fields['gid'] != _ACL_TERMINAL_){
-													$customers->updateContPerson($_POST['cont_person']);
-													$customers->updatePhones($_POST['phones']);
-													$customers->updateContragent($_POST['id_manager']);
-													$customers->updateCity($_POST['id_delivery_department']);
-													$customers->updateDelivery($_POST['id_delivery']);
-												}
-											}
-										}
-									}else{
-										// показываем все заново но с сообщениями об ошибках
-										$customers->updateContPerson($_POST['cont_person']);
-										$customers->updatePhones($_POST['phones']);
-										$customers->updateContragent($_POST['id_manager']);
-										$customers->updateCity($_POST['id_delivery_department']);
-										$customers->updateDelivery($_POST['id_delivery']);
-										$tpl->Assign('msg_type', 'success');
-										$tpl->Assign('msg', 'Заказ не сформирован!');
-										$tpl->Assign('errm', $errm);
-									}
-								}
-							}else{
-								require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-								list($err, $errm) = Order_form_validate();
-								if(!$err){
-									if($id = $order->Add($_POST)){
-										$tpl->Assign('msg_type', 'success');
-										$tpl->Assign('msg', 'Заказ сформирован.');
-										$success = true;
-										unset($_POST);
-										$id_order = $id;
-									}
-								}else{
-									// показываем все заново но с сообщениями об ошибках
-									$tpl->Assign('msg_type', 'error');
-									$tpl->Assign('msg', 'Заказ не сформирован!');
-									$tpl->Assign('errm', $errm);
-								}
-							}
-						}
-						/* colect cart information */
+
+						/* collect cart information */
 						$cart->RecalcCart();
 
 						/* fill product list */
@@ -489,11 +385,41 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart($_SESSION['cart']['id']);
 				echo json_encode($res);
 				break;
-			case "add_phone_for_new_user":
-
+			case "make_order":
+				$customers = new Customers();
 				$user = new Users();
-				$res = $user->AddUser(array('name' => 'user_'.rand(), 'email' => 'null', 'passwd' => '123456', 'gid' => 0, 'descr' => '', 'phone' => $_POST['phone']));
+
+				// Если нажата "Оформить заказ"
+					if(isset($_POST['phone']) ){
+						if($user->CheckPhoneUniqueness($_POST['phone'])) {
+							$data = array('name' => 'user_' . rand(),
+								'email' => null,
+								'passwd' => $pass = substr(md5(time()), 0, 8),
+								'descr' => '',
+								'phone' => $_POST['phone']);
+							$res = $customers->RegisterCustomer($data);
+						}
+						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
+						print_r($q);
+						$order = new Orders();
+						if($id = $order->Add($_POST)){
+							$tpl->Assign('msg_type', 'success');
+							$tpl->Assign('msg', 'Заказ сформирован.');
+
+							$customers->updatePhones($_POST['phones']);
+						}else{
+							$customers->updatePhones($_POST['phones']);
+						}
+					}else{
+						// показываем ошибку не корректности ввода телефона
+						$tpl->Assign('msg_type', 'success');
+						$tpl->Assign('msg', 'Телефон введен не верно!');
+					}
+
 				echo json_encode($res);
+				break;
+			case "add_person":
+				return 'OK';
 				break;
 			default:
 				# code...

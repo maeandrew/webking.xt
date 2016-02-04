@@ -34,9 +34,21 @@
 					<div>
 						<label class="mdl-radio mdl-js-radio">
 							<input type="radio" name="service" class="mdl-radio__button" <?=isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null?> value="<?=$ds['shipping_comp']?>">
-							<span class="mdl-radio__label"><?=$ds['shipping_comp']?></span>
+							<span class="mdl-radio__label">&quot;<?=$ds['shipping_comp']?>&quot;</span>
 						</label>
 					</div>
+				<?}
+			break;
+
+			case "GetAddressListDepartmentByCity":
+				if(isset($_POST['delivery_service']) && isset ($_POST['city'])){
+					$DeliveryService->GetListDepartmentByCity($_POST['delivery_service'], $_POST['city']);
+
+					foreach($DeliveryService->list as $addres){?>
+						<li class="mdl-menu__item" data-value="<?=$addres['id_city']?>"><?=$addres['address']?></li>
+					<?}
+				}else{ ?>
+					<li class="mdl-menu__item"> -- Служба доставки не выбрана -- </li>
 				<?}
 			break;
 

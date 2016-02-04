@@ -20,9 +20,14 @@ function GetCartAjax(){
 
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order){
+	$('.content').addClass('loading');
 	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
 		//console.log(data);
+		/*setTimeout(function(){
+			$('.ones').addClass('loading');
+		}, 600);*/
 		$('.mdl-tabs__panel > #products').html(data);
+		$('.content').removeClass('loading');
 	});
 }
 
@@ -34,6 +39,22 @@ function GetCabCoopProdAjax(id_cart){
 	});
 }
 
+
+function UserRating(){
+	$('.line_3 a').on('click', function() {
+		var id_user = $('.manager').data('id');
+		var bool = 0;
+		if ($(this).is('.like')) {
+			bool = 1;
+		};
+		ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
+			if (data == true) {
+				console.log(data);
+
+			};
+		});
+	});
+}
 // lib d3
 /*function foo(selection) {
   selection
@@ -842,7 +863,7 @@ function ModalGraph(id_graphics){
 				//var id_graphics = $(this).attr('id');
 				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
 					if(data != null){
-						console.log(data);
+						//console.log(data);
 						$('#graph').html(data);
 						//foo(d3.selectAll("div").text('some text'));
 
@@ -1323,23 +1344,24 @@ function GetDeliveryService(input, service){
 		}),
 	}).done(function(data){
 		$('.delivery_service').html(data);
+		componentHandler.upgradeDom();
 	});
 }
 
 // Выбор службы доставки
-function GetDeliveryMethods(input){
+function GetDeliveryMethods(service, city){
 	$.ajax({
 		type: "post",
 		url: URL_base+'ajax',
 		dataType: "html",
 		data: ({
 			target: 'location',
-			action: 'GetDeliveryMethodsList',
-			input: input,
-			service: service
+			action: 'GetAddressListDepartmentByCity',
+			delivery_service: service,
+			city: city
 		}),
 	}).done(function(data){
-		$('.delivery_service').html(data);
+		$('.list_post_office').html(data);
 	});
 }
 

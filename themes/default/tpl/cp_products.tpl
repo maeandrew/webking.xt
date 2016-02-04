@@ -16,6 +16,8 @@
 							</a>
 						<?}?>
 					</ul>
+					<a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a>
+
 				</div>
 				<?=$cart_info;?>
 			</div>

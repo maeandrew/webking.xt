@@ -55,16 +55,19 @@
 				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
 					<i class="material-icons">account_circle</i>
 				</button>
-
 				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-					<li disabled class="mdl-menu__item">Имя: <?=$_SESSION['member']['contragent']['name_c']?></li>
-					<li disabled class="mdl-menu__item">Email: <?=$_SESSION['member']['email']?></li>
-					<li disabled class="mdl-menu__item">Телефон: <?=$_SESSION['member']['contragent']['phones']?></li>
-					<li disabled class="mdl-menu__item"><?=$_SESSION['member']['promo_code']?></li>
+					<li disabled class="mdl-menu__item">Имя: <span class="user_name"><?=$_SESSION['member']['name']?></span></li>
+					<li disabled class="mdl-menu__item">Email: <span class="user_email"><?=$_SESSION['member']['email']?></span></li>
+					<li disabled class="mdl-menu__item">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span></li>
+					<li disabled class="mdl-menu__item">Телефон: <span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span></li>
+					<li disabled class="mdl-menu__item"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></li>
+					<button class="mdl-button mdl-js-button mdl-button--raised" style="float: right;right: 5px;top:-10px">
+						<a href="<?=Link::Custom('logout')?>">Выйти</a>
+					</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised" style="float: right;right: 10px;top:-10px;background:#018B06;">
+						<a href="<?=Link::Custom('cabinet')?>" style="color:#fff">Мой Кабинет</a>
+					</button>
 				</ul>
-
-
-
 				<!-- <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
 					<li class="mdl-menu__item active">По рейтингу</li>
 					<li class="mdl-menu__item">Новинки</li>
@@ -73,10 +76,24 @@
 				</ul> -->
 				<a href="#" class="mdl-button mdl-js-button hidden login_btn">Войти</a>
 			<?}else{?>
-				<a href="#" class="mdl-button mdl-js-button cabinet_btn hidden">Мой кабинет</a>
-				<div class="mdl-tooltip" for="tt4" style="text-align:left">
-					Логин: Author<br>Email: author@gmail.com<br>Телефон: +380231234567<br>Товаров: 5
-				</div>
+				<!-- <a href="#" class="mdl-button mdl-js-button cabinet_btn hidden">Мой кабинет</a> -->
+				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon cabinet_btn hidden">
+					<i class="material-icons">account_circle</i>
+				</button>
+				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+					<li disabled class="mdl-menu__item">Имя: <span class="user_name"></span></li>
+					<li disabled class="mdl-menu__item">Email: <span class="user_email"></span></li>
+					<li disabled class="mdl-menu__item">Ваш менеджер: <span class="user_contr"></span></li>
+					<li disabled class="mdl-menu__item">Телефон: <span class="user_contr_phones"></span></li>
+					<li disabled class="mdl-menu__item"><span class="user_promo"></span></li>
+					<button class="mdl-button mdl-js-button mdl-button--raised" style="float: right;right: 5px;top:-10px">
+						<a href="<?=Link::Custom('logout')?>">Выйти</a>
+					</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised" style="float: right;right: 10px;top:-10px;background:#018B06;">
+						<a href="<?=Link::Custom('cabinet')?>" style="color:#fff">Мой Кабинет</a>
+					</button>
+				</ul>
+
 				<a href="#" class="mdl-button mdl-js-button login_btn">Войти</a>
 			<?}?>
 		</li>

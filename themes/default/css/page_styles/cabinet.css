@@ -165,17 +165,13 @@ table.table thead tr {
 .returns_table .bill button {
 	margin-top: 10px;
 }
-
-.returns_table .client .cont-person-klient {	
+.returns_table .client .cont-person-klient {
 	padding: 10px;
 }
 /*============================================*/
-/*Мои стили модального окна*/
-
 .select-status, .select-client, .bill-form {
 	text-align: center;
 }
-
 .select-status input {
 	width: 70%;
 	background-color: white;
@@ -183,30 +179,25 @@ table.table thead tr {
     outline: none;
     line-height: 29px;
     padding-left: 10px;
-    border: none;    
+    border: none;
 }
-
 .select-status button.btn-m-green, .select-status button.btn-m-green:hover,
 .select-client button.btn-m-green, .select-client button.btn-m-green:hover,
 .bill-form button.btn-m-green, .bill-form button.btn-m-green:hover {
-	background-color: #52cf55;	
+	background-color: #52cf55;
     color: #fff;
 }
-
 .select-status label, .bill-form label {
-	font-size: 16px;	
-	margin-right: 10px; 
+	font-size: 16px;
+	margin-right: 10px;
 	vertical-align: middle;
 }
-
 table.kontrag.table{
-	border-bottom: 1px solid #b4b4b4;	
+	border-bottom: 1px solid #b4b4b4;
 }
-
 .kontrag tbody {
 	border-top: 1px solid #b4b4b4;
 }
-
 /* Стилизация модальных окон =============================================== */
 
 .order_num {
@@ -299,7 +290,7 @@ table.kontrag.table{
 	background-color: #EFEFEF;
 	border: 1px solid #d7d7d7;
 	border-bottom: none;
-	padding: 0;	
+	padding: 0;
 }
 .table_thead input {
 	outline: none;
@@ -313,10 +304,10 @@ table.kontrag.table{
 	color: #009e00;
 	font-weight: 300;
 }
-.table_thead > div {	
+.table_thead > div {
 	float: left;
 	text-align: center;
-	padding: 5px 5px 0 5px;		
+	padding: 5px 5px 0 5px;
 	margin: 0;
 }
 .table_thead input[type='text'],
@@ -344,7 +335,7 @@ table.kontrag.table{
 	background-color: rgb(255,234,221);
 }
 .greenBtn {
-	width: 100%;	
+	width: 100%;
 	background-color: #52cf55;
     color: #fff;
     font-size: 14px;
@@ -361,12 +352,12 @@ table.kontrag.table{
 	border-top: 1px solid #d7d7d7;
 	border-left: 1px solid #d7d7d7;
 	border-right: 1px solid #d7d7d7;
-	min-height: 60px;	
-	text-align: center; 
-	width: 100%;   
-	
+	min-height: 60px;
+	text-align: center;
+	width: 100%;
+
 }
-#supplier_manager_cabinet .table .td {	
+#supplier_manager_cabinet .table .td {
 	padding-right: 5px;
 	padding-left: 5px;
 	padding-top: 10px;
@@ -378,25 +369,25 @@ table.kontrag.table{
 	flex-basis: 3%;
 }
 #supplier_manager_cabinet .name {
-	flex-basis: 25%;  
+	flex-basis: 25%;
 }
 #supplier_manager_cabinet .place {
-	flex-basis: 32%;   
+	flex-basis: 32%;
 }
 #supplier_manager_cabinet .email {
-	flex-basis: 15%; 
+	flex-basis: 15%;
 }
 #supplier_manager_cabinet .next_update_date {
-	flex-basis: 10%;	
+	flex-basis: 10%;
 }
 #supplier_manager_cabinet .currency {
 	flex-basis: 5%;
 }
 #supplier_manager_cabinet .login {
-	flex-basis: 5%;   
+	flex-basis: 5%;
 }
 #supplier_manager_cabinet .toggle {
-	flex-basis: 5%;	
+	flex-basis: 5%;
 }
 #supplier_manager_cabinet .table .name,
 #supplier_manager_cabinet .table .place {
@@ -420,7 +411,7 @@ table.kontrag.table{
 #supplier_manager_cabinet .toggle a:hover.btn-m-red-inv{
 	color: red !important;
 }
-.btn-m-green-inv, .btn-m-red-inv {	
+.btn-m-green-inv, .btn-m-red-inv {
 	display: block;
 	width: 100%;
 	vertical-align: middle;
@@ -429,12 +420,12 @@ table.kontrag.table{
 	box-shadow: 0 0 2px #d7d7d7;
     color: #52cf55;
     font-size: 14px;
-    font-weight: 300;  
+    font-weight: 300;
     height: 40px;
     border: none;
     border-radius: 5px;
 }
-.btn-m-red-inv {	
+.btn-m-red-inv {
 	color: red;
 }
 
@@ -1346,7 +1337,7 @@ html {
 }
 
 .order {
-  margin: 0 auto;  
+  margin: 0 auto;
   overflow: visible;
 }
 .order:first-of-type {
@@ -1359,9 +1350,9 @@ html {
   background: #f0f0f0;
   padding: 0 1.429em;
   color: #888;
-  overflow: auto;
+  /* overflow: auto; */
   position: relative;
-  z-index: 500;
+ /*  z-index: 500; */
   box-sizing: content-box;
   -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1385,7 +1376,7 @@ html {
   padding-left: 1.429em;
 }
 .order .title .container .print .icon {
-  float: right;
+ /*  float: right; */
   cursor: pointer;
 }
 .order .title .container .print .expanded {
@@ -1437,7 +1428,7 @@ html {
 }
 .order .content {
   position: relative;
-  z-index: 100;
+  /* z-index: 100; */
   background: #fff;
   padding: 0 1.429em;
   top: -2.858em;
@@ -1555,7 +1546,7 @@ html {
   border-radius: .2em .2em 0 0;
 }
 .order.expanded .title {
-  z-index: 1000;
+  z-index: 10;
   padding-bottom: 0;
   margin-top: 1.429em;
   margin-left: -1.429em;
@@ -1568,7 +1559,7 @@ html {
   margin-bottom: 1.429em;
   padding: 1.429em;
   top: 0;
-  z-index: 800;
+  /* z-index: 800; */
   max-height: 700px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
@@ -1625,3 +1616,20 @@ html {
 .order .mdl-tooltip {
 	display: none;
 }
+.content .mdl-progress {
+	display: none;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+.content.loading {
+	height: 100px;
+}
+.content.loading .mdl-progress {
+	display: block;
+}
+.content.loading .mdl-tabs__panel {
+	display: none !important;
+}
+/* .number {
+	width: 80%;
+} */
