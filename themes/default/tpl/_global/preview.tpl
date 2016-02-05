@@ -14,16 +14,12 @@
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<div class="item">
-						<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
-					</div>
+					<img alt="<?=G::CropString($product['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $image['src']);?>"/>
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<div class="item">
-							<img src="<?=file_exists($GLOBALS['PATH_root'].$product['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
-						</div>
+						<img alt="<?=G::CropString($product['name'])?>" src="<?=_base_url.($product['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $product['img_1'])):"/images/nofoto.jpg"?>"/>
 					<?}
 				}
 			}?>

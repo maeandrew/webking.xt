@@ -99,7 +99,7 @@
 }
 
 @media (max-width: 1000px) {
-	h3 {
+	.text_block h3 {
 		max-width: 65%;
 		font-size: 130%;
 		line-height: 1;
@@ -116,7 +116,7 @@
 	}
 }
 @media (max-width: 1400px) {
-	h3 {
+	.text_block h3 {
 		min-width: 90%;
 		font-size: 1.6em;
 		line-height: 1em;
@@ -128,7 +128,7 @@
 
 
 @media (max-width: 700px) {
-	h3 {
+	.text_block h3 {
 		min-width: 80%;
 		font-size: 120%;
 	}
@@ -164,6 +164,16 @@
 	}
 }
 
+@media (max-width: 360px) {
+	.text_block h3 {
+		margin-top: 1em;
+		line-height: 1.5em;
+		font-size: 70%;
+	}
+	.cont > a {
+		padding: 1%;
+	}
+}
 
 .center_wrap .cloud_tag,
 .center_wrap .sales_block {

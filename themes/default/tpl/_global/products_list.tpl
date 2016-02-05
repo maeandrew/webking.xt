@@ -1,17 +1,22 @@
 <div class="products">
-	<?foreach($list as $p){?>
+	<?foreach($list as $p){
+		print_r('<!--');
+		print_r($p);
+		print_r('-->');
+		?>
 		<div class="card clearfix">
 			<div class="product_photo">
 				<a href="#">
 					<?if(!empty($p['images'])){?>
-						<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/120/90/"/>
-						<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/> -->
+						<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
+						<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/>
 						<noscript>
 							<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/>
 						</noscript>
 					<?}else{?>
-						<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/120/90/"/>
-						<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/> -->
+						<!-- <?=_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1']));?> -->
+						<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
+						<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/>
 						<noscript>
 							<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/>
 						</noscript>

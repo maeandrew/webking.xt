@@ -64,21 +64,20 @@ while($cat = $dbtree->NextRow()){
 
 
 
-
 // if(empty($subcats)){
 	// end($GLOBALS['IERA_LINKS']);
 	// $GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
 	// $where_arr = array('cp.id_category' => $id_category);
 
-
-	function selectAll($dbtree, $id_category = null, $str = array())
-	{
+	function selectAll($dbtree, $id_category = null, $str = array()){
 		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
 		if($id_category != 0){
 			$str[] = $id_category;
 		}
-		foreach ($subcats as $val){
-			$str = selectAll($dbtree, $val["id_category"], $str);
+		if(!empty($subcats)){
+			foreach($subcats as $val){
+				$str = selectAll($dbtree, $val["id_category"], $str);
+			}
 		}
 		return $str;
 	}
@@ -373,11 +372,11 @@ while($cat = $dbtree->NextRow()){
 	// echo "execution time <b>$time</b> seconds\n<br>";
 
     if($products->list){
-        $tpl->Assign('list', $products->list);
         foreach($products->list as &$p){
             $p['images'] = $products->GetPhotoById($p['id_product']);
         }
     }
+    $tpl->Assign('list', $products->list);
 
 
 	// =========================================================

@@ -521,10 +521,13 @@ h5 {
     display: block;
     width: 10px;
     height: 10px;
-    background: #333;
+    background: #ddd;
     float: left;
     margin-right: .5em;
     border-radius: 50%;
+}
+.owl-controls .owl-page.active span {
+    background: #333;
 }
 .preview.ajax_loading:before {
 	content: "";
@@ -563,9 +566,8 @@ h5 {
 .preview #owl-product_slide_js {
 	max-height: 305px;
     margin-top: 10px;
-    overflow: hidden !important;
 }
-.preview #owl-product_slide_js .item img {
+.preview #owl-product_slide_js .owl-item img {
 	max-height: 305px;
 	max-width: 100%;
 	display: block;

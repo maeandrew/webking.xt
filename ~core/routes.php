@@ -1,5 +1,7 @@
 <?php
-$request = $request_url = preg_replace('/\/$/', '', isset($_GET['request'])?$_GET['request']:preg_replace('/^.*/', '', $_SERVER['REQUEST_URI']));
+$request = $request_url = preg_replace('/^\//', '', preg_replace('/\/$/', '', isset($_GET['q'])?$_GET['q']:$_SERVER['REQUEST_URI']));
+preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
+$GLOBALS['REQAR'] = $ma[1];
 // check if this is product url
 $GLOBALS['CurrentController'] = 'main';
 if(preg_match('/^.*\.html$/', $request)){
@@ -7,6 +9,7 @@ if(preg_match('/^.*\.html$/', $request)){
 	$rewrite_arr = explode('/', $request);
 	$GLOBALS['Rewrite'] = str_replace('.html', '', array_pop($rewrite_arr));
 }else{
+
 	if($request !== ''){
 		// detecting page if exist
 		if(preg_match('/\/p[0-9]+/', $request, $match)){

@@ -69,7 +69,7 @@
 	});
 	$(function(){
 		<?if(isset($_COOKIE['product_view'])){?>
-			ChangeView('<?=$_COOKIE['product_view']?>');
+			// ChangeView('<?=$_COOKIE['product_view']?>');
 		<?}?>
 		$("#view_block_js").removeClass('ajax_loading');
 
@@ -120,8 +120,6 @@
 		   		if(product_view != 'list'){ //Инициализания модульного просмотра
 		   			ChangeView('module');
 		   		}
-
-				ListenPhotoHover(); //Инициализания Preview
 
 				//Инициализация добавления товара в избранное
 				$('.preview_favorites').click(function(event) {

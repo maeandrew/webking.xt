@@ -185,11 +185,20 @@
 				<span class="remove_prod_mob">Удалить</span>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>" onClick="removeFromCart(<?=$item['id_product']?>)">
-						<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):"/efiles/_thumb/image/nofoto.jpg"?>" /> -->
-						<img alt="<?=G::CropString($item['name'])?>" class="lazy" src="http://lorempixel.com/120/90/"/>
-						<noscript>
-							<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/efiles/","/efiles/_thumb/", $item['img_1'])):"/efiles/_thumb/image/nofoto.jpg"?>"/>
-						</noscript>
+						<?if(!empty($item['images'])){?>
+							<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
+							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+							<noscript>
+								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+							</noscript>
+						<?}else{?>
+							<!-- <?=_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1']));?> -->
+							<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
+							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+							<noscript>
+								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+							</noscript>
+						<?}?>
 					</a>
 				</div>
 				<div class="product_name">

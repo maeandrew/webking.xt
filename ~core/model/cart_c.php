@@ -291,30 +291,33 @@ class Cart {
 			return true;
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
-			$f['id_user'] = $_SESSION['member']['id_user'];
-			$this->db->StartTrans();
-			if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){
-				$this->db->FailTrans();
-				return false; //Если не удалось записать в базу
-			}
-			unset($f);
-			$_SESSION['cart']['id'] = $this->db->GetLastId();
-			$this->db->CompleteTrans();
-			foreach($_SESSION['cart']['products'] as $key => &$product){
-				$f['id_product'] = $key;
-				$f['quantity'] = $product['quantity'];
-				$f['price'] = $product['base_price'];
-				$f['id_cart'] = $_SESSION['cart']['id'];
+			if(isset($_SESSION['member'])){
+				$f['id_user'] = $_SESSION['member']['id_user'];
 				$this->db->StartTrans();
-				if(!$this->db->Insert(_DB_PREFIX_."cart_product", $f)){
+				if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){
 					$this->db->FailTrans();
-					return false;
+					return false; //Если не удалось записать в базу
 				}
-				$product['id_cart_product'] = $this->db->GetLastId();
-				$this->db->CompleteTrans();
 				unset($f);
+				$_SESSION['cart']['id'] = $this->db->GetLastId();
+				$this->db->CompleteTrans();
+				foreach($_SESSION['cart']['products'] as $key => &$product){
+					$f['id_product'] = $key;
+					$f['quantity'] = $product['quantity'];
+					$f['price'] = $product['base_price'];
+					$f['id_cart'] = $_SESSION['cart']['id'];
+					$this->db->StartTrans();
+					if(!$this->db->Insert(_DB_PREFIX_."cart_product", $f)){
+						$this->db->FailTrans();
+						return false;
+					}
+					$product['id_cart_product'] = $this->db->GetLastId();
+					$this->db->CompleteTrans();
+					unset($f);
+				}
+				return true;
 			}
-			return true;
+			return false;
 		}
 	}
 

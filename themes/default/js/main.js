@@ -317,6 +317,7 @@ $(function(){
 	});
 	$("#owl-popular, #owl-last-viewed, #owl-accompanying").owlCarousel({
 		autoPlay: false,
+		pagination: false,
 		stopOnHover: true,
 		slideSpeed: 300,
 		paginationSpeed: 400,

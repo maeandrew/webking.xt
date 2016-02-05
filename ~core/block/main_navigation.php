@@ -7,6 +7,7 @@ if($GLOBALS['CurrentController'] == 'products'){
 		exit();
 	}
 	$tpl->Assign('curcat', $curcat);
+
 	$id_category = $curcat['id_category'];
 	$GLOBALS['CURRENT_ID_CATEGORY'] = $id_category;
 	$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'art', 'pid', 'visible'));
@@ -22,7 +23,7 @@ if($GLOBALS['CurrentController'] == 'products'){
 		$GLOBALS['current_categories'][] = $res['id_category'];
 		$id = $res['pid'];
 	}
-	$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = end($GLOBALS['current_categories']);
+	$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = isset($GLOBALS['current_categories']) && is_array($GLOBALS['current_categories'])?end($GLOBALS['current_categories']):0;
 }
 
 $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);

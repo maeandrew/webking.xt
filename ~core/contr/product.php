@@ -1,6 +1,6 @@
 <?php
 if(!isset($GLOBALS['Rewrite'])){
-	header('Location: '._base_url.'/404/');
+	header('Location: '.Link::Custom('404'));
 	exit();
 }
 $Page = new Page();
@@ -14,7 +14,7 @@ if(isset($_SESSION['member'])){
 }
 $tpl->Assign('User', $User->fields['name']);
 if(!$products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
-	header('Location: '._base_url.'/404/');
+	header('Location: '.Link::Custom('404'));
 	exit();
 }
 $product = $products->fields;
@@ -33,7 +33,6 @@ $tpl->Assign('coment', $res);
 // $rating = $products->GetProductRating($id_product);
 // $tpl->Assign('rating', $rating);
 /* product rating ========================================== */
-
 $tpl->Assign('data', $Page->fields);
 $tpl->Assign('item', $product);
 $tpl->Assign('header', $product['name']);

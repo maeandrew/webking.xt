@@ -436,13 +436,7 @@
 
 
 					<div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div>
-					<div class="paginator">
-						<ul>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-						</ul>
-					</div>
+
 				<?}?>
 			</div>
 			<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
@@ -495,7 +489,6 @@
 			</footer>
 		</section>
 	</section>
-
 
 
 	<div class="modals">

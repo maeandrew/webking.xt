@@ -6,13 +6,17 @@
 	// Проверяем доступнось опта
 	($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
 	<!-- SHOWCASE SLIDER -->
+
+	<div class="mdl-cell mdl-cell--12-col">
+		<h1><?=$item['name']?></h1>
+	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<p class="product_article">Арт: <?=$item['art']?></p>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
 				<img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
 			<?}else{?>
-				<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+				<img src="<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
 			<?}?>
 		</div>
 		<div id="owl-product_mini_img_js">
@@ -26,7 +30,7 @@
 				for($i=1; $i < 4; $i++){
 					if(!empty($item['img_'.$i])){?>
 						<div class="item">
-							<img src="<?=file_exists($GLOBALS['PATH_root'].$item['img_'.$i])?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+							<img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
 						</div>
 					<?}
 				}
@@ -180,7 +184,7 @@
 					</div>
 				<?}else{?>
 					<div id="seasonality" class="mdl-tabs__panel">
-					<script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
+					<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
 					hl=ru&
 					q=[intertool,intex]&
 					geo=UA&
@@ -192,7 +196,7 @@
 					cid=TIMESERIES_GRAPH_0&
 					export=5&
 					w=653&
-					h=600"></script>
+					h=600"></script> -->
 				</div>
 				<?}?>
 				<div id="comments" class="mdl-tabs__panel">
@@ -302,7 +306,7 @@
 							<img src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
@@ -322,7 +326,7 @@
 							<img src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
