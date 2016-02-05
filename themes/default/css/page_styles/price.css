@@ -4,42 +4,84 @@
 h1 {
 	float: left;
 }
-.subheader {
+.subheader { /*сформировать свой прайс лист*/
 	line-height: 50px;
 	float: right;
 }
+
 .price_form {
-	background: #fff;
-	border: 1px solid #ccc;
-	position: relative;
+	top: 110px;
+	width: 235px;
+	/*position: relative;*/
+	/*position: fixed;*/
+    position: absolute;
+    background: #edf5fc;
+    border: 1px solid #ddd;
+    border-radius: 10px 10px 0 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    z-index: 1000;
 }
+
+.price-params {
+	padding: 10px;
+}
+
+#dynamic-params .price-form fieldset {
+	margin-bottom: 10px;
+    padding: 5px;
+}
+
 .price_form .info_key + .info_description {
 	top: 25px;
+}
+
+.price_form .info_key {
+	top: 35%;
 }
 .price_form .info_description {
 	min-width: 300px;
 }
-.price_form fieldset {
-	border: 0;
-	border-bottom: 1px solid #ccc;
+.price_form fieldset {	
 	margin: 7px 0;
 	padding: .5em;
+	border: 1px solid #cdcdcd;
+	background: #fefefe;    
+    border-radius: 5px;
 }
 .price_form legend {
 	position: relative;
 	padding-right: 25px;
+	float: left;
+	font-weight: bold;    
+    height: 20px;
 }
-.price_form textarea {
-	width: 100%;
+.price_form textarea {	
+	background: #fff;
+    border: 1px solid rgb(205,205,205);
+    border-radius: 5px;
+    display: block;
+    font-weight: normal;
+    font-style: normal;
+    position: relative;
+    z-index: 99;
+    min-height: 25px;
+    width: 100%;
+    line-height: 21px;
+    padding: 5px 10px;
+    box-sizing: border-box;
 }
 .price_form label {
 	float: left;
 	clear: both;
 }
 .price_form #margin {
-	float: left;
-	width: 50px;
+	float: left;	
 	border: 1px solid #ccc;
+	width: 40px;
+    line-height: 21px;    
+    padding: 3px;
+    border-radius: 5px;
 }
 .price_form .uncheck_all,
 .price_form .uncheck_all:hover {
@@ -87,4 +129,59 @@ label.expand:hover {
 .categories_js .header2 {
 	font-size: 15px;
 	font-weight: bold;
+}
+
+.price-counter {
+    position: absolute;
+    bottom: -122px;
+    right: -1px;
+    width: 235px;
+    height: 122px;
+    background-color: #edf5fc;
+    border: 1px solid #ddd;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: #444;    
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    z-index: 1000;
+}
+
+
+.deselect_all {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    background: #fefefe;
+    color: #ff631b;
+}
+
+.btn-m {
+    font-size: 1em;
+    line-height: 1em;
+    padding: .7em 1em;
+}
+
+
+#dynamic-params .price-form input {
+    float: right;
+}
+
+.price-counter input.confirm {
+    background-color: #ff631b;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.4), 0 1px 0 #b56b2a, inset 0 1px 0 #ffb06b;
+    padding: 0 10px;
+    width: 100%;
+    /* font-size: 14px; */
+    line-height: 21px;
+    font-weight: normal;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    right: 50%;
+    margin-right: -55px;
+    text-shadow: none;
+    -webkit-transition: none;
+    transition: none;
 }

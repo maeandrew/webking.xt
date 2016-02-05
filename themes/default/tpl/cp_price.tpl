@@ -4,6 +4,82 @@
 	<a href="/price/?savedprices=true" class="subheader">Перейти к готовым прайс-листам</a>
 <?}?>
 <div class="price_list_page row">
+	<div class="col-md-4 col-lg-3">
+		<form id="dynamic-params" action="/pricelist/" target="_blank" method="GET" class="price_form">
+			<div class="price-params">
+				<fieldset>
+					<legend>Заголовок прайса
+						<label class="info_key">?</label>
+						<div class="info_description">
+							<p>Введенная здесь информация заменит стандартный заголовок прайс-листа.</p>
+						</div>
+					</legend>
+					<textarea rows="1" name="header"></textarea>
+				</fieldset>
+				<fieldset>
+					<legend>Цена
+						<label class="info_key">?</label>
+						<div class="info_description">
+							<p>При изменении этого параметра, в прайс-листе будут указаны цены из колонок "Более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.",
+							"<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.", "<?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.", "До <?=$GLOBALS['CONFIG']['retail_order_margin']?>." каталога товаров соответственно.<br>
+							Для изменения цен товаров в прайс-листе с учетом своей наценки, в поле "индивидуальная наценка" введите коэфициент, на который они будут умножены, при этом переключение колонок станет недоступным.<br>
+							Например:<br>
+								введенный коэфициент - <b>1,5</b>;<br>
+								розничная цена товара - <b>13,58</b>;<br>
+								цена товара с наценкой -<br>
+								<b>13,58 x 1,5 = 20,37</b>.<br>
+							</p>
+						</div>
+						<!-- <input type="text" id="column-info-key"> -->
+						<!-- <label for="column-info-key" class="info-key">?</label> -->
+						<!-- <div class="column-info info">
+							<p>При изменении этого параметра, в прайс-листе будут указаны цены из колонок "Более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.",
+							"<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.", "<?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.", "До <?=$GLOBALS['CONFIG']['retail_order_margin']?>." каталога товаров соответственно.<br>
+							Для изменения цен товаров в прайс-листе с учетом своей наценки, в поле "индивидуальная наценка" введите коэфициент, на который они будут умножены, при этом переключение колонок станет недоступным.<br>
+							Например:<br>
+								введенный коэфициент - <b>1,5</b>;<br>
+								розничная цена товара - <b>13,58</b>;<br>
+								цена товара с наценкой -<br>
+								<b>13,58 x 1,5 = 20,37</b>.<br>
+							</p>
+						</div> -->
+					</legend>
+					<label><input type="checkbox" name="column[]" value="0">при заказе более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.</label>
+					<label><input type="checkbox" name="column[]" value="1">при заказе на <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.</label>
+					<label><input type="checkbox" name="column[]" value="2">при заказе на <?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.</label>
+					<label><input type="checkbox" checked name="column[]" value="3">при заказе до <?=$GLOBALS['CONFIG']['retail_order_margin']?>грн.</label>
+					<label><input type="text" name="margin" id="margin" value="">индивидуальная наценка</label>
+				</fieldset>
+				<fieldset>
+					<legend>Фотография
+						<label class="info_key">?</label>
+						<div class="info_description">
+							<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
+						</div>
+					</legend>
+					<label><input type="radio" checked name="photo" id="without" value="0">без фотографий</label>
+					<label><input type="radio" name="photo" id="with" value="1">с фотографиями</label>
+					<label><input type="radio" name="photo" id="with" value="2">с большими фотографиями</label>
+				</fieldset>
+
+				<input type="button" class="uncheck_all btn-m btn-orange-inv deselect_all" value="Снять все выделения">
+
+				<p class="ps">Хотите открыть прайс в Excell?<br>Сохраните страницу прайса в браузере, затем откройте сохраненный файл в Excell.</p>
+				<div class="price-counter">
+					<?if(isset($_GET['savedprices']) == true){?>
+						<input type="hidden" name="savedprices">
+						<!--<style>.price-counter .variables {color: transparent;text-shadow: none;}</style>-->
+					<?}?>
+					<p class="variables">Выбрано<span class="selected-count value">0</span></p>
+					<p class="variables">Лимит<span class="limit-count value">3000</span></p>
+					<p class="variables">Осталось<span class="remain-count value">3000</span></p>
+					<input type="hidden" required name="selected-array" class="selected-array">
+					<input type="submit" class="confirm btn-m-orange" value="Прайс-лист">
+					<!-- <a href="#" class="uncheck_all">Снять все выделения</a> -->
+				</div>
+			</div>
+		</form>
+	</div>
 	<div class="categories_js col-md-8 col-lg-9 ajax_loading">
 		<?if(isset($_GET['savedprices']) == true){?>
 			<?foreach($prices as $price){
@@ -48,78 +124,7 @@
 					<?}
 				}?>
 			</ul>
-		<?}?>
-	</div>
-	<div class="col-md-4 col-lg-3">
-		<form action="/pricelist/" target="_blank" method="GET" id="dynamic-params" class="price_form">
-			<fieldset>
-				<legend>Заголовок прайса
-					<label class="info_key">?</label>
-					<div class="info_description">
-						<p>Введенная здесь информация заменит стандартный заголовок прайс-листа.</p>
-					</div>
-				</legend>
-				<textarea rows="1" name="header"></textarea>
-			</fieldset>
-			<fieldset>
-				<legend>Цена
-					<label class="info_key">?</label>
-					<div class="info_description">
-						<p>При изменении этого параметра, в прайс-листе будут указаны цены из колонок "Более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.",
-						"<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.", "<?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.", "До <?=$GLOBALS['CONFIG']['retail_order_margin']?>." каталога товаров соответственно.<br>
-						Для изменения цен товаров в прайс-листе с учетом своей наценки, в поле "индивидуальная наценка" введите коэфициент, на который они будут умножены, при этом переключение колонок станет недоступным.<br>
-						Например:<br>
-							введенный коэфициент - <b>1,5</b>;<br>
-							розничная цена товара - <b>13,58</b>;<br>
-							цена товара с наценкой -<br>
-							<b>13,58 x 1,5 = 20,37</b>.<br>
-						</p>
-					</div>
-					<!-- <input type="text" id="column-info-key"> -->
-					<!-- <label for="column-info-key" class="info-key">?</label> -->
-					<!-- <div class="column-info info">
-						<p>При изменении этого параметра, в прайс-листе будут указаны цены из колонок "Более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.",
-						"<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.", "<?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.", "До <?=$GLOBALS['CONFIG']['retail_order_margin']?>." каталога товаров соответственно.<br>
-						Для изменения цен товаров в прайс-листе с учетом своей наценки, в поле "индивидуальная наценка" введите коэфициент, на который они будут умножены, при этом переключение колонок станет недоступным.<br>
-						Например:<br>
-							введенный коэфициент - <b>1,5</b>;<br>
-							розничная цена товара - <b>13,58</b>;<br>
-							цена товара с наценкой -<br>
-							<b>13,58 x 1,5 = 20,37</b>.<br>
-						</p>
-					</div> -->
-				</legend>
-				<label><input type="checkbox" name="column[]" value="0">при заказе более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.</label>
-				<label><input type="checkbox" name="column[]" value="1">при заказе на <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.</label>
-				<label><input type="checkbox" name="column[]" value="2">при заказе на <?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.</label>
-				<label><input type="checkbox" checked name="column[]" value="3">при заказе до <?=$GLOBALS['CONFIG']['retail_order_margin']?>грн.</label>
-				<label><input type="text" name="margin" id="margin" value="">индивидуальная наценка</label>
-			</fieldset>
-			<fieldset>
-				<legend>Фотография
-					<label class="info_key">?</label>
-					<div class="info_description">
-						<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
-					</div>
-				</legend>
-				<label><input type="radio" checked name="photo" id="without" value="0">без фотографий</label>
-				<label><input type="radio" name="photo" id="with" value="1">с фотографиями</label>
-				<label><input type="radio" name="photo" id="with" value="2">с большими фотографиями</label>
-			</fieldset>
-			<p class="ps">Хотите открыть прайс в Excell?<br>Сохраните страницу прайса в браузере, затем откройте сохраненный файл в Excell.</p>
-			<div class="price-counter">
-				<?if(isset($_GET['savedprices']) == true){?>
-					<input type="hidden" name="savedprices">
-					<!--<style>.price-counter .variables {color: transparent;text-shadow: none;}</style>-->
-				<?}?>
-				<p class="variables">Выбрано<span class="selected-count value">0</span></p>
-				<p class="variables">Лимит<span class="limit-count value">3000</span></p>
-				<p class="variables">Осталось<span class="remain-count value">3000</span></p>
-				<input type="hidden" required name="selected-array" class="selected-array">
-				<input type="submit" class="btn-m-orange" value="Прайс-лист">
-				<a href="#" class="uncheck_all">Снять все выделения</a>
-			</div>
-		</form>
+		<?}?>		
 	</div>
 </div> <!-- END class="price_list_page" -->
 <script>
@@ -129,11 +134,18 @@
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	$(window).scroll(function(){
 		var params = $('#dynamic-params');
-		var start = 140;
+		var start = 100;
 		if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop()-start);
+			params.css("top", $(this).scrollTop()+start);
 		}else{
 			params.css("top", '0');
 		}
+	});	
+
+	$(window).load(function() {
+		var window_width = $(document).width();
+		var start = 250;
+		var diff = window_width - start;
+		$('.price_form').css('left', diff);
 	});
 </script>
