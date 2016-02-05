@@ -390,8 +390,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$user = new Users();
 
 				// Если нажата "Оформить заказ"
-					if(isset($_POST['phone']) ){
-						if($user->CheckPhoneUniqueness($_POST['phone'])) {
+
+					if (isset($_POST['phone'])) {
+						if ($user->CheckPhoneUniqueness($_POST['phone'])) {
 							$data = array('name' => 'user_' . rand(),
 								'email' => null,
 								'passwd' => $pass = substr(md5(time()), 0, 8),
@@ -399,25 +400,30 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								'phone' => $_POST['phone']);
 							$id_user = $customers->RegisterCustomer($data);
 						}
-						$q = $user->CheckUserNoPass(array('email'=>$_POST['phone']));
-//						print_r($q);
+						$user->CheckUserNoPass(array('email' => $_POST['phone']));
+
 						$order = new Orders();
 						$_POST['id_user'] = $id_user;
-						if($id_order = $order->Add($_POST)){
-							$res=  'Заказ сформирован!';
+						setcookie("id_user", $id_user, 3600, '/');
+						if ($id_order = $order->Add($_POST)) {
+							$res = 'Заказ сформирован!';
 							$customers->updatePhones($_POST['phone']);
-						}else{
-							$res=  'Ошибка формирования заказа!';
+							setcookie("id_order", $id_order, 3600, '/');
+						} else {
+							$res = 'Ошибка формирования заказа!';
 							$customers->updatePhones($_POST['phone']);
 						}
-					}else{
+					} else {
 						// показываем ошибку не корректности ввода телефона
-						$res=  'Телефон введен не верно!';
+						$res = 'Телефон введен не верно!';
 					}
 
 				echo json_encode($res);
 				break;
-			case "add_person":
+			case "update_info":
+				$customers = new Customers();
+				$customers->updateInfoPerson($_POST);
+
 				return 'OK';
 				break;
 			default:

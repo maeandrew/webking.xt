@@ -22,7 +22,16 @@
 // });
 
 $(function(){
-	//openObject('quiz');
+	//
+
+	//function $_GET(key) {
+	//	var s = window.location.search;
+	//	s = s.match(new RegExp(key + '=([^&=]+)'));
+	//	return s ? s[1] : false;
+	//}
+	//if($_GET('quiz')){
+	//	openObject('quiz');
+	//}
 	// openObject('auth');
 
 	var viewport_width = $(window).width(),
@@ -589,11 +598,11 @@ $(function(){
 				}				
 				if(i == 0){
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
-					// ajax([target], [action], data).done(function(response){
+					 ajax('cart', 'update_info', data).done(function(response){
 						validate = true;
 						GetRegions();
 						summary.addClass('active');
-					// });
+					 });
 				}				
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');

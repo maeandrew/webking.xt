@@ -310,9 +310,9 @@
 					</tr>
 					<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
 						<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: #000\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
+						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
 						<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: #000\"" : ''?>>480грн (16%)</td>
+						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
 					</tr>
 					<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
 						<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
@@ -329,13 +329,10 @@
 
 		<div class="action_block">
 			<div class="wrapp">
-				<?=$cart_info?>
-			</div>
-			<div class="wrapp">
 				<form action="">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="[0-9]{5,19}" onChange="validate($(this))">
-						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;">*Номер телефона</label>
+						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
 						<span class="mdl-textfield__error err_tel orange">Введите корректный номер телефона!</span>
 						<!--span class="err_tel">Обязательное поле для ввода!</span-->
 					</div>
@@ -516,20 +513,20 @@
 			$("#contrlink").fadeOut();
 		}
 //---------Проверка на ввод телефона
-		$('#button-cart1').hover(function(){
-			if(!$('.phone').val()) {
-				$('#button-cart1').click(function(){
-					return false;
+		$('#button-cart1').click(function(){
+			if(!$('.phone').val()){
+				$(this).click(function(){
+					$(this).attr('disabled', 'disabled');
 				});
 				$('.err_tel').css('visibility', 'visible');
-				setTimeout(function () {
-					$('.err_tel').css('visibility', '')
-				}, 3000);
+			}else{
+				$(this).removeAttr("disabled");
+				$('.err_tel').css('visibility', '')
 			}
 		});
 //-------------Инициалзация маски для ввода телефонных номеров-------
-//		$(function(){
-//			$(".phone").mask("+38 (099) ?999-99-99");
-//		});
+		$(function(){
+			$(".phone").mask("+38 (099) ?999-99-99");
+		});
 	</script>
 <?}?>

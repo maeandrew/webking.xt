@@ -693,4 +693,46 @@ class Customers extends Users {
 		return true;
 	}
 
+	public function updateInfoPerson($arrInfo){
+		if(!empty($arrInfo)){
+
+			if(isset($arrInfo['firstname'])) {
+				$f['name'] = $arrInfo['firstname'];
+				if (!$sql = $this->db->Update(_DB_PREFIX_ . 'user', $f, "id_user = ".$_COOKIE['id_user'])) {
+					echo $this->db->ErrorMsg();
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+			}elseif(isset($arrInfo['firstname'])  && isset($arrInfo['secondname']) && isset($arrInfo['lastname'])){
+				$f['cont_person'] = $arrInfo['firstname'].' '.$arrInfo['secondname'].' '.$arrInfo['lastname'];
+				if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_COOKIE['id_user'])){
+					echo $this->db->ErrorMsg();
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+			}elseif(isset($arrInfo['selected_city'])){
+				$f['id_city'] = $arrInfo['selected_city'];
+				if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_COOKIE['id_user']) &&
+				   !$sql = $this->db->Update(_DB_PREFIX_.'order', $f, "id_order = ".$_COOKIE['id_order'])){
+					echo $this->db->ErrorMsg();
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+			}elseif(isset($arrInfo['delivery_service'])){
+				$f['id_delivery'] = $arrInfo['selected_city'];
+				if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_COOKIE['id_user']) &&
+				   !$sql = $this->db->Update(_DB_PREFIX_.'order', $f, "id_order = ".$_COOKIE['id_order'])){
+					echo $this->db->ErrorMsg();
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+			}
+
+//			$this->db->CompleteTrans();
+			return true;//Если все ок
+		}else{
+			return false; //Если масив пустой
+		}
+	}
+
 }?>
