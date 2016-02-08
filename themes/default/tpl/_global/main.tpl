@@ -277,7 +277,9 @@
 								<li class="mdl-menu__item">Популярные</li>
 								<li class="mdl-menu__item">От дешевых к дорогим</li>
 							</ul>
-							<a href="#" class="graph_up"><i class="material-icons">timeline</i></a>
+							<?if(isset($_SESSION['member'])){?>
+								<a href="#" class="NOTSgraph_up" onclick="ModalGraph()"><i class="material-icons">timeline</i></a>
+							<?}?>
 						</div>
 						<div class="cart_info clearfix">
 							<div class="your_discount">Ваша скидка</div>

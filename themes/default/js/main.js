@@ -601,17 +601,15 @@ $(function(){
 				if(i == 0){
 					console.log('i == 0');
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
-					 ajax('cart', 'update_info', data, 'html').done(function(response){
 
-						validate = true;
+					ajax('cart', 'update_info', data, 'html').done(function(response){
 						GetRegions();
 						summary.addClass('active');
-						 console.log(validate+' 1');
-					 });
-					console.log(validate+' 2');
-				}
-				console.log(validate+' 22');
-				console.log(validate);
+						validate = true;
+					}).always(function(){
+						validate = true;
+					});	
+				}				
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');
 				summary.find('.city').closest('.row').addClass('hidden');
@@ -638,6 +636,7 @@ $(function(){
 
 				if(i == 0){
 					data = {selected_region: selected_region, selected_city: selected_city};
+
 					ajax('cart', 'update_info', data, 'html').done(function(response){
 						validate = true;
 						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
@@ -706,15 +705,14 @@ $(function(){
 						delivery_address: delivery_address,
 						selected_post_office: selected_post_office
 					};
-
-					validate = true;
-
-					summary.find('.delivery_service').text(delivery_service);
-					summary.find('.delivery_method').text(delivery_method);
 					
 					ajax('cart', 'update_info', data, 'html').done(function(response){
+						validate = true;
+
+						summary.find('.delivery_service').text(delivery_service);
+						summary.find('.delivery_method').text(delivery_method);
 					});
-				}									
+				}												
 			}
 		}else if(target_step == 5){
 			if(current_step == 4){
@@ -723,13 +721,15 @@ $(function(){
 
 			if(i == 0){
 				data = {delivery_service: delivery_service, delivery_method: delivery_method};
+
 				ajax('cart', 'update_info', data, 'html').done(function(response){
 					validate = true;
-				});
-			}
-			 validate = true;
-		}
-		console.log(validate+'end');
+				}).always(function(){
+					validate = true;
+				});		
+			}			
+		}							
+		
 		if(validate == true || target_step < current_step){
 			console.log('__________________');
 			console.log(validate);
