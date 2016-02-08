@@ -76,7 +76,7 @@ class Users {
 			OR u.phone = '".$f['email']."'
 			AND u.active = 1";
 		if($this->fields = $this->db->GetOneRowArray($sql)){
-			return true;
+			return $this->fields;
 		}else{
 			return false;
 		}
@@ -430,13 +430,15 @@ class Users {
 
 	//Проверка уникальности телефона
 	public function CheckPhoneUniqueness($phone){
-		$sql = "SELECT id
-			FROM "._DB_PREFIX_."users
-			WHERE phones = ".$phone;
-		if($arr = $this->db->GetOneRowArray($sql)){
-			return false;
+		$sql = "SELECT id_user
+			FROM "._DB_PREFIX_."user
+			WHERE phones = ".$phone."
+			LIMIT 1";
+		if($id_user = $this->db->GetOneRowArray($sql)){
+
+			return $id_user['id_user'];
 		}
-		return true;
+		return false;
 	}
 
 }?>

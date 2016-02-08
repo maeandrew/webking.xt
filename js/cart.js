@@ -190,7 +190,11 @@ $(function(){
 	$('#cart').on('click', '#button-cart1 button', function(e){
 		e.preventDefault();
 		if($('.phone').val()) {
-			ajax('cart', 'make_order', {phone: parseInt($('.phone').val())}).done(function () {
+			var p = $('.phone').val();
+			var phone = p.replace(/[^\d]+/g, "");
+			ajax('cart', 'make_order', {phone: phone}).done(function (arr) {
+				$.cookie('id_order', arr.id_order);
+				$.cookie('id_user', arr.id_user);
 				openObject('quiz');
 			});
 			return false;

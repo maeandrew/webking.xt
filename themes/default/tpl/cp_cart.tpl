@@ -331,9 +331,10 @@
 			<div class="wrapp">
 				<form action="">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="[0-9]{5,19}" onChange="validate($(this))">
+						<label style="color: #7F7F7F">*Телефон</label>
+						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/" onChange="validate($(this))">
 						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
-						<span class="mdl-textfield__error err_tel orange">Введите корректный номер телефона!</span>
+						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						<!--span class="err_tel">Обязательное поле для ввода!</span-->
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

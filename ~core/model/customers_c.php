@@ -698,34 +698,55 @@ class Customers extends Users {
 
 			if(isset($arrInfo['firstname'])) {
 				$f['name'] = $arrInfo['firstname'];
+				print_r($f);
+				$this->db->StartTrans();
 				if (!$sql = $this->db->Update(_DB_PREFIX_ . 'user', $f, "id_user = ".$_COOKIE['id_user'])) {
 					echo $this->db->ErrorMsg();
 					$this->db->FailTrans();
 					return false; //Если не удалось записать в базу
 				}
-			}elseif(isset($arrInfo['firstname'])  && isset($arrInfo['secondname']) && isset($arrInfo['lastname'])){
-				$f['cont_person'] = $arrInfo['firstname'].' '.$arrInfo['secondname'].' '.$arrInfo['lastname'];
-				if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_COOKIE['id_user'])){
+				$this->db->CompleteTrans();
+				print_r($sql);
+			}
+			if(isset($arrInfo['firstname']) && isset($arrInfo['middlename']) && isset($arrInfo['lastname'])){
+				$f1['cont_person'] = $arrInfo['firstname'].' '.$arrInfo['middlename'].' '.$arrInfo['lastname'];
+				print_r($f1);
+				$this->db->StartTrans();
+				if(!$sql0 = $this->db->Update(_DB_PREFIX_.'customer', $f1, "id_user = ".$_COOKIE['id_user'])){
 					echo $this->db->ErrorMsg();
 					$this->db->FailTrans();
 					return false; //Если не удалось записать в базу
 				}
-			}elseif(isset($arrInfo['selected_city'])){
-				$f['id_city'] = $arrInfo['selected_city'];
-				if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_COOKIE['id_user']) &&
-				   !$sql = $this->db->Update(_DB_PREFIX_.'order', $f, "id_order = ".$_COOKIE['id_order'])){
+				$this->db->CompleteTrans();
+				print_r($sql0);
+			}
+			if(isset($arrInfo['selected_city'])){
+				$f2['id_city'] = $arrInfo['selected_city'];
+				print_r($f2);
+				$this->db->StartTrans();
+				if(!$sql1 = $this->db->Update(_DB_PREFIX_.'customer', $f2, "id_user = ".$_COOKIE['id_user']) &&
+				   !$sql2 = $this->db->Update(_DB_PREFIX_.'order', $f2, "id_order = ".$_COOKIE['id_order'])){
 					echo $this->db->ErrorMsg();
 					$this->db->FailTrans();
 					return false; //Если не удалось записать в базу
 				}
-			}elseif(isset($arrInfo['delivery_service'])){
-				$f['id_delivery'] = $arrInfo['selected_city'];
-				if(!$sql = $this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_COOKIE['id_user']) &&
-				   !$sql = $this->db->Update(_DB_PREFIX_.'order', $f, "id_order = ".$_COOKIE['id_order'])){
+				$this->db->CompleteTrans();
+				print_r($sql1);
+				print_r($sql2);
+			}
+			if(isset($arrInfo['delivery_service'])){
+				$f3['id_delivery'] = $arrInfo['selected_city'];
+				print_r($f3);
+				$this->db->StartTrans();
+				if(!$sql3 = $this->db->Update(_DB_PREFIX_.'customer', $f3, "id_user = ".$_COOKIE['id_user']) &&
+				   !$sql4 = $this->db->Update(_DB_PREFIX_.'order', $f3, "id_order = ".$_COOKIE['id_order'])){
 					echo $this->db->ErrorMsg();
 					$this->db->FailTrans();
 					return false; //Если не удалось записать в базу
 				}
+				$this->db->CompleteTrans();
+				print_r($sql3);
+				print_r($sql4);
 			}
 
 //			$this->db->CompleteTrans();

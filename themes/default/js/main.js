@@ -576,7 +576,9 @@ $(function(){
 				summary.removeClass('active');
 			}
 		}else if(target_step == 2){
+			console.log('target_step');
 			if(current_step == 1){
+				console.log('current_step');
 				var lastname = current.find('[name="lastname"]').val(),
 					firstname = current.find('[name="firstname"]').val(),
 					middlename = current.find('[name="middlename"]').val();
@@ -597,13 +599,19 @@ $(function(){
 					$('#middlename').addClass('is-invalid');
 				}				
 				if(i == 0){
+					console.log('i == 0');
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
-					 ajax('cart', 'update_info', data).done(function(response){
+					 ajax('cart', 'update_info', data, 'html').done(function(response){
+
 						validate = true;
 						GetRegions();
 						summary.addClass('active');
+						 console.log(validate+' 1');
 					 });
-				}				
+					console.log(validate+' 2');
+				}
+				console.log(validate+' 22');
+				console.log(validate);
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');
 				summary.find('.city').closest('.row').addClass('hidden');
@@ -630,7 +638,7 @@ $(function(){
 
 				if(i == 0){
 					data = {selected_region: selected_region, selected_city: selected_city};
-					ajax('cart', 'update_info', data).done(function(response){
+					ajax('cart', 'update_info', data, 'html').done(function(response){
 						validate = true;
 						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
 						Position($(this).closest('[data-type="modal"]'));
@@ -673,7 +681,7 @@ $(function(){
 					$('#delivery_address').val("");
 				}
 
-
+				console.log(validate+'3');
 				if(typeof delivery_service === 'undefined'){
 					i++;
 					$('.error_div').removeClass('hidden').text("Выберите службу доставки");					
@@ -690,7 +698,7 @@ $(function(){
 				}else {
 					$('.error_div').addClass('hidden');
 				}
-
+				console.log(validate+'4');
 				if(i == 0){
 					data = {
 						delivery_service: delivery_service,
@@ -704,7 +712,7 @@ $(function(){
 					summary.find('.delivery_service').text(delivery_service);
 					summary.find('.delivery_method').text(delivery_method);
 					
-					ajax('cart', 'update_info', data).done(function(response){
+					ajax('cart', 'update_info', data, 'html').done(function(response){
 					});
 				}									
 			}
@@ -715,14 +723,16 @@ $(function(){
 
 			if(i == 0){
 				data = {delivery_service: delivery_service, delivery_method: delivery_method};
-				ajax('cart', 'update_info', data).done(function(response){
-					validate == true;
+				ajax('cart', 'update_info', data, 'html').done(function(response){
+					validate = true;
 				});
 			}
-			// validate = true;
-		}							
-		
+			 validate = true;
+		}
+		console.log(validate+'end');
 		if(validate == true || target_step < current_step){
+			console.log('__________________');
+			console.log(validate);
 			current.removeClass('active');
 			target.addClass('active');
 			Position($(this).closest('[data-type="modal"]'));

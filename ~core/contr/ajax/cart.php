@@ -392,33 +392,34 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// Если нажата "Оформить заказ"
 
 					if (isset($_POST['phone'])) {
-						if ($user->CheckPhoneUniqueness($_POST['phone'])) {
-							$data = array('name' => 'user_' . rand(),
+						$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
+						if (!$id_user = $user->CheckPhoneUniqueness($phone)) {
+							$data = array(
+								'name' => 'user_' . rand(),
 								'email' => null,
 								'passwd' => $pass = substr(md5(time()), 0, 8),
 								'descr' => '',
-								'phone' => $_POST['phone']);
+								'phone' => $phone
+							);
 							$id_user = $customers->RegisterCustomer($data);
-						}
-						$user->CheckUserNoPass(array('email' => $_POST['phone']));
+						};
+						$user->CheckUserNoPass(array('email' => $phone));
 
 						$order = new Orders();
 						$_POST['id_user'] = $id_user;
-						setcookie("id_user", $id_user, 3600, '/');
 						if ($id_order = $order->Add($_POST)) {
 							$res = 'Заказ сформирован!';
-							$customers->updatePhones($_POST['phone']);
-							setcookie("id_order", $id_order, 3600, '/');
+							$customers->updatePhones($phone);
 						} else {
 							$res = 'Ошибка формирования заказа!';
-							$customers->updatePhones($_POST['phone']);
+							$customers->updatePhones($phone);
 						}
 					} else {
 						// показываем ошибку не корректности ввода телефона
 						$res = 'Телефон введен не верно!';
 					}
-
-				echo json_encode($res);
+				$resArr = array('massage'=>$res, 'id_user'=>$id_user, 'id_order'=>$id_order);
+				echo json_encode($resArr);
 				break;
 			case "update_info":
 				$customers = new Customers();
