@@ -19,23 +19,131 @@
 				<img src="<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
 			<?}?>
 		</div>
-		<div id="owl-product_mini_img_js">
-			<?if(!empty($item['images'])){
-				foreach($item['images'] as $i => $image){?>
-					<div class="item">
-						<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-					</div>
-				<?}
-			}else{
-				for($i=1; $i < 4; $i++){
-					if(!empty($item['img_'.$i])){?>
+		<?if ($_SESSION['client']['user_agent'] == 'mobile') {?>
+			<style>
+				@media (max-width: 727px)
+				.product .mdl-cell {
+				    padding-right: 0;
+				}
+				.mdl-cell {
+				    margin: 0;
+				    /* width: calc(100% - 16px); */
+				}
+				.product_page h1 {
+				    margin: 0;
+				    padding: 0;
+				}
+				#owl-product_slide_js img {
+					display: block;
+				    margin: 0 auto;
+				}
+				.breadcrumbs_wrapp {
+					white-space: nowrap;
+					overflow-x: hidden;
+					overflow-y: hidden;
+					padding-bottom: 10px;
+				}
+				.owl-page.active span {
+					width: 13px;
+				    height: 13px;
+				    background: #000;
+				}
+
+			</style>
+			<script>
+				$('.breadcrumbs_wrapp').on('touchstart  mousedown', function() {
+					$(this).css('overflow-x', 'overlay');
+				});
+				$('.breadcrumbs_wrapp').on('touchend   mousedown', function() {
+					$(this).css('overflow-x', 'hidden');
+				});
+			</script>
+
+			<div id="owl-product_slide_js">
+				<?if(!empty($item['images'])){
+					foreach($item['images'] as $i => $image){?>
 						<div class="item">
-							<img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+							<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
 						</div>
 					<?}
-				}
-			}?>
-		</div>
+				}else{
+					for($i=1; $i < 4; $i++){
+						if(!empty($item['img_'.$i])){?>
+							<div class="item">
+								<img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							</div>
+							<div class="item">
+								<img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							</div>
+							<div class="item">
+								<img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							</div>
+						<?}
+					}
+				}?>
+			</div>
+			<script>
+				//Инициализация owl carousel
+				$("#owl-product_slide_js").owlCarousel({
+					items: 6,
+					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
+					navigation: true, // Show next and prev buttons
+					pagination: true,
+					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+				});
+				$(function(){
+					//Слайдер миниатюр картинок
+					$('#owl-product_slide_js .item').on('click', function(event) {
+						var src = $(this).find('img').attr('src');
+						var viewport_width = $(window).width();
+						console.log(src);
+						if(viewport_width > 711){
+							$('#owl-product_slide_js').find('img').removeClass('act_img');
+							$(this).find('img').addClass('act_img');
+							// if(!(src.indexOf('nofoto') + 1)){
+							//  src = src.replace('thumb', 'original');
+							// }
+							if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
+								src = src.replace('thumb', 'original');
+							}else{
+								src = src.replace('_thumb/', '');
+							}
+							$('.product_main_img').find('img').attr('src', src);
+							$('.product_main_img').hide().fadeIn('100');
+						}else{
+							event.preventDefault();
+						}
+					});
+				});
+
+
+			</script>
+
+		<?}else{?>
+			<div id="owl-product_slide_js">
+				<?if(!empty($item['images'])){
+					foreach($item['images'] as $i => $image){?>
+						<div class="item">
+							<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						</div>
+					<?}
+				}else{
+					for($i=1; $i < 4; $i++){
+						if(!empty($item['img_'.$i])){?>
+							<div class="item">
+								<img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+							</div>
+						<?}
+					}
+				}?>
+			</div>
+		<?}?>
+
+
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<div class="content_header mdl-cell--hide-phone clearfix">
@@ -51,9 +159,9 @@
 			<div class="product_buy clearfix" data-idproduct="<?=$item['id_product']?>">
 				<p class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?></p>
 				<div class="buy_block">
-					<div class="btn_remove">
+					<!-- <div class="btn_remove">
 						<button class="mdl-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
-					</div>
+					</div> -->
 					<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
 					<?if(!$in_cart){?>
 						<div class="btn_buy">
