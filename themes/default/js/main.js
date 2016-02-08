@@ -598,13 +598,13 @@ $(function(){
 				}				
 				if(i == 0){
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
-					ajax('cart', 'update_info', data).done(function(response){
-						console.log(response);
+					ajax('cart', 'update_info', data).done(function(response){						
 						GetRegions();
 						summary.addClass('active');
 						validate = true;
-					});
-validate = true;
+					}).always(function(){
+						validate = true;
+					});	
 				}				
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');
@@ -632,8 +632,7 @@ validate = true;
 
 				if(i == 0){
 					data = {selected_region: selected_region, selected_city: selected_city};
-					ajax('cart', 'update_info', data).done(function(response){
-						// console.log(response);
+					ajax('cart', 'update_info', data).done(function(response){						
 						validate = true;
 						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
 						Position($(this).closest('[data-type="modal"]'));
@@ -641,7 +640,6 @@ validate = true;
 						summary.find('.delivery_service').text(selected_region);
 						summary.find('.delivery_method').text(selected_city);
 					});
-validate = true;
 				}				
 			}else if(current_step = 4){
 				summary.find('.delivery_service').closest('.row').addClass('hidden');
@@ -702,16 +700,14 @@ validate = true;
 						delivery_address: delivery_address,
 						selected_post_office: selected_post_office
 					};
-
-					validate = true;
-
-					summary.find('.delivery_service').text(delivery_service);
-					summary.find('.delivery_method').text(delivery_method);
 					
-					// ajax('cart', 'update_info', data).done(function(response){
-					// });
-				}	
-				validate = true;								
+					ajax('cart', 'update_info', data).done(function(response){
+						validate = true;
+
+						summary.find('.delivery_service').text(delivery_service);
+						summary.find('.delivery_method').text(delivery_method);
+					});
+				}												
 			}
 		}else if(target_step == 5){
 			if(current_step == 4){
@@ -719,13 +715,13 @@ validate = true;
 			}
 
 			if(i == 0){
-				// data = {delivery_service: delivery_service, delivery_method: delivery_method};
-				// ajax('cart', 'update_info', data).done(function(response){
-				// 	validate == true;
-				// });
-				
-			}
-			validate = true;
+				data = {delivery_service: delivery_service, delivery_method: delivery_method};
+				ajax('cart', 'update_info', data).done(function(response){
+					validate = true;
+				}).always(function(){
+					validate = true;
+				});		
+			}			
 		}							
 		
 		if(validate == true || target_step < current_step){

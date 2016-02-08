@@ -200,21 +200,21 @@
 		$(".categories_js").removeClass('ajax_loading');
 	});
 	/** Плавающий блок параметров на странице формирования прайс-листа */
+	var params = $('#dynamic-params'),
+		start = parseInt(params.css("top"));
 	$(window).scroll(function(){
-		var params = $('#dynamic-params');
-		var start = 100;
 		if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop()+start);
+			params.css("top", $(this).scrollTop());
 		}else{
-			params.css("top", '0');
+			params.css("top", start);
 		}
 	});	
 
 	$(window).load(function() {
 		var window_width = $(document).width();
-		var start = 350;
+		var start = 300;
 		var second_start = 600;
-		if (window_width > 1670) {
+		if (window_width > 1600) {
 			var diff = window_width - second_start;
 		}else {
 			var diff = window_width - start;
