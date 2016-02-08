@@ -11,7 +11,8 @@ h1 {
 
 .price_form {
 	top: 110px;
-	width: 235px;
+	width: 275px;
+	/*width: 235px;*/
 	/*position: relative;*/
 	/*position: fixed;*/
     position: absolute;
@@ -135,7 +136,8 @@ label.expand:hover {
     position: absolute;
     bottom: -122px;
     right: -1px;
-    width: 235px;
+    width: 275px;
+    /*width: 235px;*/
     height: 122px;
     background-color: #edf5fc;
     border: 1px solid #ddd;
@@ -184,4 +186,8 @@ label.expand:hover {
     text-shadow: none;
     -webkit-transition: none;
     transition: none;
+}
+
+.categories_js label {
+	width: auto;
 }

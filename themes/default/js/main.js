@@ -598,11 +598,13 @@ $(function(){
 				}				
 				if(i == 0){
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
-					 ajax('cart', 'update_info', data).done(function(response){
-						validate = true;
+					ajax('cart', 'update_info', data).done(function(response){
+						console.log(response);
 						GetRegions();
 						summary.addClass('active');
-					 });
+						validate = true;
+					});
+validate = true;
 				}				
 			}else if(current_step = 3){
 				summary.find('.region').closest('.row').addClass('hidden');
@@ -631,6 +633,7 @@ $(function(){
 				if(i == 0){
 					data = {selected_region: selected_region, selected_city: selected_city};
 					ajax('cart', 'update_info', data).done(function(response){
+						// console.log(response);
 						validate = true;
 						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
 						Position($(this).closest('[data-type="modal"]'));
@@ -638,6 +641,7 @@ $(function(){
 						summary.find('.delivery_service').text(selected_region);
 						summary.find('.delivery_method').text(selected_city);
 					});
+validate = true;
 				}				
 			}else if(current_step = 4){
 				summary.find('.delivery_service').closest('.row').addClass('hidden');
@@ -704,9 +708,10 @@ $(function(){
 					summary.find('.delivery_service').text(delivery_service);
 					summary.find('.delivery_method').text(delivery_method);
 					
-					ajax('cart', 'update_info', data).done(function(response){
-					});
-				}									
+					// ajax('cart', 'update_info', data).done(function(response){
+					// });
+				}	
+				validate = true;								
 			}
 		}else if(target_step == 5){
 			if(current_step == 4){
@@ -714,12 +719,13 @@ $(function(){
 			}
 
 			if(i == 0){
-				data = {delivery_service: delivery_service, delivery_method: delivery_method};
-				ajax('cart', 'update_info', data).done(function(response){
-					validate == true;
-				});
+				// data = {delivery_service: delivery_service, delivery_method: delivery_method};
+				// ajax('cart', 'update_info', data).done(function(response){
+				// 	validate == true;
+				// });
+				
 			}
-			// validate = true;
+			validate = true;
 		}							
 		
 		if(validate == true || target_step < current_step){
