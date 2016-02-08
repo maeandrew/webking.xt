@@ -19,6 +19,7 @@ if (empty($ma[1])){
 }
 $GLOBALS['CurrentController'] = $ma[1][0];
 $GLOBALS['REQAR'] = $ma[1];
+//$GLOBALS['__graph'] = $tpl_graph;
 
 if (!G::IsLogged()){
 	$GLOBALS['CurrentController'] = 'login';

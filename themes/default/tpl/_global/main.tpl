@@ -251,14 +251,9 @@
 					</div>
 				</div> -->
 
-			<?php if(isset($__graph)){?>
-
-					<?echo $__graph;?>
-
-
-
-			<?}?>
-
+			<?php if(isset($__graph)){
+					echo $__graph;
+				  }?>
 
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>

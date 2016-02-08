@@ -31,6 +31,7 @@ G::ToGlobals($config);
 unset($config);
 
 $GLOBALS['DefaultController'] = 'main';
+//$GLOBALS['__graph'] = $tpl_graph;
 $GLOBALS['MainTemplate'] = 'main.tpl';
 $GLOBALS['NoSidebarTemplControllers'] = array('404', 'msg', 'srv');
 // Массив ссылок иерархии

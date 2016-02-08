@@ -1,26 +1,25 @@
 <?php
-	if (!_acl::isAllow('specifications'))
-		die("Access denied");
 
-	$ObjName = "Specification";
-	$$ObjName = new Specification();
+	if (!_acl::isAllow('specifications'))
+	die("Access denied");
+
+	$ObjName = "Products";
+	$$ObjName = new Products();
 
 	// ---- center ----
 	unset($parsed_res);
 
 	$ii = count($GLOBALS['IERA_LINKS']);
-	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Характеристики";
+	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Графики";
 	$tpl->Assign('h1', $GLOBALS['IERA_LINKS'][$ii]['title']);
 
-	if (isset($_POST['smb']) && isset($_POST['ord'])){
-		$$ObjName->Reorder($_POST);
-		$tpl->Assign('msg', 'Сортировка выполнена успешно.');
-	}
+/*
+	if ($$ObjName->GetGraphList()){
+		$tpl->Assign('data_graph', $$ObjName->GetGraphList());
+	}*/
 
-
-	if (true){
-		$tpl->Assign('data_graph', $products->GetGraphList());
-	}
+	$data_graph = $$ObjName->GetGraphList();
+	$tpl->Assign('data_graph', $data_graph);
 	$parsed_res = array('issuccess' => TRUE,
  						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
 
