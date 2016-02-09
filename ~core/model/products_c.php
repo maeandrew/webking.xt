@@ -715,8 +715,12 @@ class Products {
 		$arr['name_user'] = $_POST['name_user'];
 		$arr['text'] = $_POST['text'];
 		$arr['opt'] = 0;
+		$arr['moderation'] = 0;
 		if ($_POST['opt'] == 1) {
 			$arr['opt'] = $_POST['opt'];
+		}
+		if ($_POST['moderation'] == 01) {
+			$arr['moderation'] = $_POST['moderation'];
 		}
 		foreach($_POST['values'] as $k=>$val){
 			$k++;
@@ -773,15 +777,20 @@ class Products {
 					WHERE c.id_category IN (
 						SELECT id_category
 						FROM "._DB_PREFIX_."category
-						WHERE id_category = 0
+						WHERE id_category = 479
 					)";
 			//print_r($sql);
-		}else{
+		}elseif($id_category != false){
 			$sql = "SELECT g.*, u.name
 					FROM "._DB_PREFIX_."graph g
 					JOIN "._DB_PREFIX_."user u
 					WHERE g.id_author = u.id_user
 					AND g.id_category = ".$id_category;
+		}else{
+			$sql = "SELECT g.*, u.name
+				FROM "._DB_PREFIX_."graph g
+				JOIN "._DB_PREFIX_."user u
+				WHERE g.id_author = u.id_user";
 		}
 		$result = $this->db->GetArray($sql);
 		/*$result2 = $this->db->GetArray($sql2);

@@ -254,7 +254,7 @@
 			<?php if(isset($__graph)){
 					echo $__graph;
 				  }?>
-
+			<?print_r($_SESSION['member']);?>
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
@@ -272,8 +272,11 @@
 								<li class="mdl-menu__item">Популярные</li>
 								<li class="mdl-menu__item">От дешевых к дорогим</li>
 							</ul>
-							<?if(isset($_SESSION['member'])){?>
+							<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
 								<a href="#" class="NOTSgraph_up" onclick="ModalGraph()"><i class="material-icons">timeline</i></a>
+							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+								<script>var mod = 01;</script>
+								<a href="#" class="Add_graph_up" onclick="ModalGraph('text')"><i class="material-icons">timeline</i></a>
 							<?}?>
 						</div>
 						<div class="cart_info clearfix">

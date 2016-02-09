@@ -1,3 +1,119 @@
+
+function ModalGraph(id_graphics){
+	ajax('product', 'OpenModalGraph').done(function(data){
+		$('#graph').html(data);
+		componentHandler.upgradeDom();
+
+		if(id_graphics != "text" && id_graphics != "undefined"){
+			//console.log(id_graphics);
+				//$('a').on('click', function(){
+				//var id_graphics = $(this).attr('id');
+				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+					if(data != null){
+						//console.log(data);
+						$('#graph').html(data);
+						//foo(d3.selectAll("div").text('some text'));
+
+						componentHandler.upgradeDom();
+						openObject('graph');
+						$('#graph #user_bt').find('a').addClass('update');
+						$('#graph').on('click', '.update', function(){
+							var parent =  $(this).closest('#graph'),
+								id_category = parent.data('target'),
+								opt = 0,
+								name_user = parent.find('#name_user').val(),
+								text = parent.find('textarea').val(),
+								arr = parent.find('input[type="range"]'),
+								values = {};
+							if($('.select_go label').is(':checked')){
+								opt = 1;
+							}
+							arr.each(function(index, val){
+								values[index] = $(val).val();
+							});
+							ajax('product', 'UpdateGraph', {'values': values, 'id_category': id_category, 'id_graphics': id_graphics, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+								if(data === true){
+									console.log('Your data has been saved successfully!');
+									closeObject('graph');
+									location.reload();
+								}else{
+									console.log('Something goes wrong!');
+								}
+							});
+						});
+					}else{
+						console.log('Something goes wrong!');
+					}
+				});
+
+
+		}else if(id_graphics == 'text'){
+			openObject('graph');
+			console.log(id_graphics);
+			//if ($(this).is('.Add_graph_up')) {
+				$('#graph').on('click', '.btn_js.save', function(){
+					var parent =  $(this).closest('#graph'),
+						id_category = parent.data('target'),
+						opt = 0,
+						moderation = 1,
+						name_user = parent.find('#name_user').val(),
+						text = parent.find('textarea').val(),
+						arr = parent.find('input[type="range"]'),
+						values = {};
+					if ($('.select_go label').is(':checked')) {
+						opt = 1;
+					}
+					arr.each(function(index, val){
+						values[index] = $(val).val();
+					});
+					ajax('product', 'SaveGraph', {
+													'values': values,
+													'id_category': id_category,
+													'name_user': name_user,
+													'moderation': moderation,
+													'text': text,
+													'opt': opt
+												}).done(function(data){
+						if(data === true){
+							console.log('Your data has been saved successfully!');
+							closeObject('graph');
+							location.reload();
+						}else{
+							console.log('Something goes wrong!');
+						}
+					});
+				});
+
+		}else{
+			openObject('graph');
+			$('#graph').on('click', '.btn_js.save', function(){
+				var parent =  $(this).closest('#graph'),
+					id_category = parent.data('target'),
+					opt = 0,
+					name_user = parent.find('#name_user').val(),
+					text = parent.find('textarea').val(),
+					arr = parent.find('input[type="range"]'),
+					values = {};
+				if ($('.select_go label').is(':checked')) {
+					opt = 1;
+				}
+				arr.each(function(index, val){
+					values[index] = $(val).val();
+				});
+				ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+					if(data === true){
+						console.log('Your data has been saved successfully!');
+						closeObject('graph');
+						location.reload();
+					}else{
+						console.log('Something goes wrong!');
+					}
+				});
+			});
+		};
+	});
+}
+
 // Установить куки
 function setCookie(name, value) {
 	var valueEscaped = escape(value);
@@ -140,3 +256,12 @@ function SendCatOrder(order){
 		$('.wrapp').removeClass('ajax_loading');
 	});
 }
+
+
+
+
+
+
+
+
+

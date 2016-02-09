@@ -5,7 +5,7 @@
 
 	$ObjName = "Products";
 	$$ObjName = new Products();
-
+	$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 	// ---- center ----
 	unset($parsed_res);
 
@@ -19,6 +19,9 @@
 	}*/
 
 	$data_graph = $$ObjName->GetGraphList();
+	foreach ($data_graph as $key => &$value) {
+		$value['translit'] = $dbtree->GetTranslitById($value['id_category']);
+	}
 	$tpl->Assign('data_graph', $data_graph);
 	$parsed_res = array('issuccess' => TRUE,
  						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));

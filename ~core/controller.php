@@ -49,10 +49,10 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 		$id_subcats = $GLOBALS['subcats'];
 
 	}elseif($GLOBALS['CurrentController'] == 'main'){
-		$id_category = 0;
+		$id_category = false;
 		//print_r($GLOBALS['CurrentController']);
 	}else{
-		$id_category = 0;
+		$id_category = false;
 	}
 	$data_graph = $products->GetGraphList($id_category);
 	$tpl->Assign('data_graph', $data_graph);

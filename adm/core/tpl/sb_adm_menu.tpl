@@ -20,6 +20,11 @@
 					<a href="/adm/product_moderation/" <?=$moderationCount>0?'class="color-red"':null;?>>Товары на модерации (<?=$moderationCount;?>)</a>
 				</li>
 			<?}?>
+			<?if(_acl::isAllow('product_moderation')){?>
+				<li <?=$GLOBALS['CurrentController'] == 'product_moderation'?'class="sel"':null;?>>
+					<a href="/adm/graphics/" <?=$moderationCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$moderationCount;?>)</a>
+				</li>
+			<?}?>
 			<?if(_acl::isAllow('catalog')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'cat'?'class="sel"':null;?>>
 					<a href="/adm/cat/">Каталог</a>

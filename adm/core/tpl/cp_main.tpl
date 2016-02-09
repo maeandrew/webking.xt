@@ -6,7 +6,7 @@
 				<div class="fsec fl bg-lblue color-white animate paper_shadow_1"><span class="admicon clients"></span></div>
 				<?php if(isset($__graph)){
 					echo $__graph;
-				  }else{print_r($GLOBALS['CurrentController']);}?>
+				  }else{/*print_r($GLOBALS['CurrentController']);*/}?>
 				<div class="ssec fr animate">
 					<span class="color-default">
 						<?if($statistics[$today]['stat_regs']['count'] < $statistics[$yesterday]['stat_regs']['count']){?>

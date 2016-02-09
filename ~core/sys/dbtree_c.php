@@ -811,6 +811,13 @@ class dbtree {
 		return $translit;
 	}
 
+	public function GetTranslitById($id_category){
+		$sql = "SELECT translit FROM xt_category  WHERE id_category = ".$id_category;
+		//
+		$res = $this->db->GetOneRowArray($sql);
+		return $res;
+	}
+
 	/**
 	* Returns amount of lines in result.
 	*

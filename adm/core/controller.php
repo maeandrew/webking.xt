@@ -53,12 +53,18 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoSidebarTemplControllers'
 		$tpl_sidebar_l .= $parsed_res['html'];
 	}
 }
-
 // ------------------------ Сквозные блоки ------------------------
 $GLOBALS['__center'] = $tpl_center;
 $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 // ------------------------ Для дебага
+//
+/*$products = Products();
+$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
+$data_graph = $products->GetGraphList($id_category);*/
+$tpl->Assign('data_graph', $data_graph);
+$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+$GLOBALS['__graph'] = $tpl_graph;
 /*
   echo "title - ".strlen($GLOBALS['__page_title']);
   echo "<br>descr - ".strlen($GLOBALS['__page_description']);
