@@ -474,7 +474,8 @@ class mysqlPDO {
 	* @return string
 	*/
 	function ErrorMsg(){
-		return "<span style=\"color:Red;\">".mysql_error($this->iCID)." (".mysql_errno($this->iCID).")"."</span>";
+
+		return "<span style=\"color:red;\">". implode(' - ', $this->connection->errorInfo()) ."</span>";//переписал в PDO и убрал паредаваемый параметр $this->iCID
 	}
 
 	/**
