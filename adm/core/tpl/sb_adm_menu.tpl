@@ -159,7 +159,7 @@
 					</li>
 				</ul> -->
 			<?}?>
-			<?var_dump(_acl::isAllow('users'));?>
+
 			<?if(_acl::isAllow('users')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'users'?'class="sel"':null;?>>
 					<a href="/adm/users/">Пользователи</a>

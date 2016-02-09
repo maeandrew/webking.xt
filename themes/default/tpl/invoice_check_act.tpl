@@ -158,7 +158,7 @@
 				}else{
 					for($key=1; $key < 4; $key++){
 						if(!empty($i['img_'.$key])){?>
-							<img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].$i['img_'.$key])?_base_url.str_replace("/efiles/image/", "/efiles/image/500/", $i['img_'.$key]):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>"<?=$key==1?' class="active_img"':null;?>>
+							<img <?=$wh?> src="<?=$i['img_'.$key]?_base_url.str_replace("/efiles/image/", "/efiles/image/500/", $i['img_'.$key]):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>"<?=$key==1?' class="active_img"':null;?>>
 						<?}
 					}
 				}?>

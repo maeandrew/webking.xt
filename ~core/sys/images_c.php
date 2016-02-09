@@ -34,22 +34,28 @@ class Images {
 	/**
 	 * Ресайз изображений товаров
 	 * @param  boolean $resize_all 	Если true - запустить ресайз всех фото, по умолчанию - не обработанных
-	 * @param  array  $img_array    Список названий фотграфий, которые необходимо обработать
+	 * @param  array  $images  		Список названий фотграфий, которые необходимо обработать
 	 * @param  string  $date       	Дата, начиная с которой произвести ресайз
 	 * @return array              	Массив, содержащий информацию об ошибках и о произведенных действиях
 	 */
-	function resize($resize_all = false, $images = array(), $date = false){
+	function resize($resize_all = false, $images = false, $date = false){
 		$response = array();
 		$img_arr = array();
-		if(!empty($images)){
-			$resize_all = true;
-			foreach($images as $img){
-				$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y').'/'.date('m').'/'.date('d').'/'.$img));
+		// var_dump($images);die();
+		if(is_array($images)){
+			if(!empty($images)){
+				$resize_all = true;
+				foreach($images as $img){
+					$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y').'/'.date('m').'/'.date('d').'/'.$img));
+				}
+			}else{
+				return true;
 			}
 		}else{
 			// $img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/13/*.jpg');
 			$img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/*/*.jpg');
 		}
+		// print_r($img_arr);die();
 		ini_set('memory_limit', '256M');
 		ini_set('max_execution_time', '120');
 		set_time_limit(120);

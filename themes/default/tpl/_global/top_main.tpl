@@ -100,6 +100,6 @@
 	</ul>
 	<nav class="phone_menu">
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
-		<a href="#" class="material-icons mdl-badge mdl-badge--overlap cart btn_js" data-badge="0" data-name="cart">shopping_cart</a>
+		<a href="#" class="material-icons mdl-badge--overlap cart mdl-badge btn_js" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
 	</nav>
 </div>

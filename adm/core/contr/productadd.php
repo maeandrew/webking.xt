@@ -31,6 +31,7 @@ if(isset($_POST['smb'])){
 				$products->UpdateVideo($id, $_POST['video']);
 			}
 			$to_resize = array();
+
 			//Добавление фото
 			$article = $products->GetArtByID($id);
 			if(isset($_POST['images'])){
@@ -46,6 +47,7 @@ if(isset($_POST['smb'])){
 				$images_arr =  array();
 			}
 			$Images->resize(false, $to_resize);
+			// print_r('assadasd');die();
 			$products->UpdatePhoto($id, $images_arr);
 
 			if(isset($_POST['id_supplier'])){

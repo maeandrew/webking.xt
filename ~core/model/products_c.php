@@ -1656,40 +1656,20 @@ class Products {
 
 	// Добавление
 	public function AddProduct($arr){
+
 		$f['art'] = trim($arr['art']);
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
 		$f['descr'] = trim($arr['descr']);
 		$f['descr_xt_short'] = trim($arr['descr_xt_short']);
 		$f['descr_xt_full'] = trim($arr['descr_xt_full']);
-		//$f['country'] = trim($arr['country']);
 		$f['img_1'] = trim($arr['img_1']);
 		$f['img_2'] = trim($arr['img_2']);
 		$f['img_3'] = trim($arr['img_3']);
-		// if(isset($arr['images']) && $arr['images'] != ''){
-		// 	if(isset($arr['smb_duplicate'])){
-		// 			$f['img_1'] = trim(isset($arr['images']['0'])?$arr['images']['0']:null);
-		// 			$f['img_2'] = trim(isset($arr['images']['1'])?$arr['images']['1']:null);
-		// 			$f['img_3'] = trim(isset($arr['images']['2'])?$arr['images']['2']:null);
-		// 	}else{
-		// 		foreach($arr['images'] as $k=>$image){
-		// 			$newname = $arr['art'].($k == 0?'':'-'.$k).'.jpg';
-		// 			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-		// 			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
-		// 			$images_arr[] = $bd_path.'/'.$newname;
-		// 		}
-		// 		$f['img_1'] = trim(isset($images_arr['0'])?$images_arr['0']:null);
-		// 		$f['img_2'] = trim(isset($images_arr['1'])?$images_arr['1']:null);
-		// 		$f['img_3'] = trim(isset($images_arr['2'])?$images_arr['2']:null);
-		// 	}
-		// }
-		// $f['sertificate'] = trim($arr['sertificate']);
 		$f['price_opt'] = trim($arr['price_opt']);
 		$f['price_mopt'] = trim($arr['price_mopt']);
 		$f['inbox_qty'] = trim($arr['inbox_qty']);
-		//$f['max_supplier_qty'] = trim($arr['max_supplier_qty']);
 		$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
-		// $f['manufacturer_id'] = trim($arr['manufacturer_id']);
 		$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
 		$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
 		$f['height'] = trim($arr['height']);
@@ -1718,14 +1698,16 @@ class Products {
 			return false;
 		}
 		$id_product = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		$this->db->StartTrans();
 		if(!$this->UpdateProductCategories($id_product, $arr['categories_ids'])){
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
 		//$this->RecalcSitePrices(array($id_product));
-		$this->db->CompleteTrans();
 		return $id_product;
 	}
 
@@ -1841,13 +1823,15 @@ class Products {
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
 		if(isset($arr['name'])){
+			$this->db->StartTrans();
 			if(!$this->UpdateProductCategories($id_product, $arr['categories_ids'])){
 				$this->db->FailTrans();
 				return false;
 			}
-			$this->RecalcSitePrices(array($id_product));
 			$this->db->CompleteTrans();
+			$this->RecalcSitePrices(array($id_product));
 		}
 		return true;
 	}
@@ -3712,14 +3696,47 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
 			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
-            -- AND sp.id_prod IN ()
+			-- AND sp.id_prod IN ()
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-//        print_r($sql);
+		// print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? $arr : false;
 	}
 
-
-	}?>
+	public function DuplicateProduct($_POST){
+		// creating new article
+		$_POST['art'] = $this->CheckArticle((int) $_POST['art']);
+		// duplicating main product information
+		$this->SetFieldsById($_POST['id_product']);
+		$old_product_info = $this->fields;
+		// duplicating product category
+		
+		// duplicating product assortment
+		
+		// duplicating product specifications
+		
+		// duplicating product availability
+		
+		// duplicating product segmentation
+		
+		// duplicating product videos
+		
+		// duplicating product images
+		
+		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
+			-- AND sp.id_prod IN ()
+			AND s.id IS NOT NULL
+			AND sp.value <> ''
+			GROUP BY s.id, sp.value";
+		$arr = $this->db->GetArray($sql);
+		return  $arr ? $arr : false;
+	}
+}?>

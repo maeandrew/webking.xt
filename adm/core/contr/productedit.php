@@ -197,6 +197,8 @@ if(isset($_POST['smb_duplicate'])){
 	}
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
+		$products->DuplicateProduct($_POST['id_product']);
+		die();
 		if($id = $products->AddProduct($_POST)){
 			$products->UpdateVideo($id, $_POST['video']);
 			$products->UpdatePhoto($id, $_POST['images']);

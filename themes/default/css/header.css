@@ -100,21 +100,21 @@ header .search .select_category {
 	cursor: pointer;
 	border-left: 1px solid #e5e5e5;
 	width: 100%;
-    max-width: 155px;
-    box-sizing: border-box;
-    line-height: 25px;
-    padding-left: 10px;
-    color: #9e9e9e;
-    position: absolute;
-    top: 0;
-    right: 0;
+	max-width: 155px;
+	box-sizing: border-box;
+	line-height: 25px;
+	padding-left: 10px;
+	color: #9e9e9e;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 header .search .select_category .mdl-button {
 	position: static;
 	bottom: 0;
 	padding: 0;
 	width: 100%;
-    border-radius: 0;
+	border-radius: 0;
 }
 header .search .mdl-button:hover,
 header .search .mdl-button:active {
@@ -126,12 +126,12 @@ header .search .select_category .mdl-button i {
 header .search .select_category .selected_cat {
 	display: inline-block;
 	float: left;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 11px;
-    width: 100%;
-    max-width: 122px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 11px;
+	width: 100%;
+	max-width: 122px;
 }
 header .search .select_category .mdl-menu__item {
 	height: 35px;
@@ -281,5 +281,31 @@ header .search_btn:active {
 	}
 	header.opened .search .search_close {
 		display: block;
+	}
+}
+@media (max-width: 360px) {
+	header {
+		background: #fff;
+	}
+	header .header_wrapp {
+		display: flex;
+		justify-content: space-between;
+	}
+	header .logo {
+		margin: 0;
+	}
+	header .search_wrapp {
+		margin-left: 10px;
+		overflow: auto;
+	}
+	header .search_wrapp .search {
+		width: 100%;
+	}
+	header .phone_menu {
+		flex-basis: 90px;
+	}
+	header .phone_menu .material-icons {
+		margin: 0;
+		margin-left: 10px;
 	}
 }
