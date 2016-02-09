@@ -1,7 +1,7 @@
-<div class="products">
+<div class="products_page">
 	<div class="row">
 		<?if(!empty($list)){ ?>
-			<div class="content_header mdl-cell--hide-phone clearfix">
+			<div class="content_header clearfix">
 				<div class="sort imit_select">
 					<button id="sort-lower-left" class="mdl-button mdl-js-button">
 						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>

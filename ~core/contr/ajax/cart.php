@@ -425,7 +425,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$customers = new Customers();
 				$customers->updateInfoPerson($_POST);
 
-				return 'OK';
+				return json_encode(true);
 				break;
 			default:
 				# code...

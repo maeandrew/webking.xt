@@ -14,14 +14,14 @@ class Orders {
 			"o.pretense_date", "o.sum_opt", "o.sum_mopt", "o.sum", "o.discount",
 			"o.sum_discount", "o.id_pretense_status", "o.id_return_status", "o.skey",
 			"o.otpusk_prices_sum", "o.sum_nac", "o.note", "o.note2", "o.strachovka",
-			"o.order_discount", "o.freight","o.bonus_card"
+			"o.order_discount", "o.freight", "o.bonus_card", "o.id_remitter"
 			);
 		$this->usual_fields2 = array("o.id_order", "o.id_order_status", "o.id_contragent",
 			"o.id_customer", "o.cont_person", "o.need_sertificate", "o.descr",
 			"o.creation_date", "o.target_date", "o.return_date", "o.pretense_date",
 			"o.sum_opt", "o.sum_mopt", "o.sum", "o.discount", "o.sum_discount",
 			"o.id_pretense_status", "o.id_return_status", "o.skey", "o.otpusk_prices_sum",
-			"o.sum_nac", "o.order_discount", "o.freight"
+			"o.sum_nac", "o.order_discount", "o.freight", "o.id_remitter"
 			);
 	}
 
@@ -746,18 +746,18 @@ class Orders {
 					$Contragents = new Contragents();
 					$string = $Contragents->GetSavedFields($id_contragent);
 					$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-					if($arr['phone'] != '' ){//&& strlen($arr['phone']) == 10
-						$res = $Gateway->execCommad(
-							'sendSMS',
-							array(
-								'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
-								'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-								'phone' => $arr['phone'], //'38'.
-								'datetime' => null,
-								'sms_lifetime' => 0
-							)
-						);
-					}
+//					if($arr['phone'] != '' ){//&& strlen($arr['phone']) == 10
+//						$res = $Gateway->execCommad(
+//							'sendSMS',
+//							array(
+//								'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+//								'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
+//								'phone' => $arr['phone'], //'38'.
+//								'datetime' => null,
+//								'sms_lifetime' => 0
+//							)
+//						);
+//					}
 				}
 			}
 		}

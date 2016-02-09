@@ -2,6 +2,20 @@
 $request = $request_url = preg_replace('/^\//', '', preg_replace('/\/$/', '', isset($_GET['q'])?$_GET['q']:$_SERVER['REQUEST_URI']));
 preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
 $GLOBALS['REQAR'] = $ma[1];
+// Redirecting old pages to new format
+if(isset($GLOBALS['REQAR'][2])){
+	switch($GLOBALS['REQAR'][0]){
+		case 'product':
+			if(is_numeric($GLOBALS['REQAR'][1])){
+				// print_r("http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'.html');
+				header("HTTP/1.1 301 Moved Permanently");
+				header("Location: http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'.html');
+				exit();
+			}
+		break;
+	}
+}
+
 // check if this is product url
 $GLOBALS['CurrentController'] = 'main';
 if(preg_match('/^.*\.html$/', $request)){
@@ -38,6 +52,7 @@ if(preg_match('/^.*\.html$/', $request)){
 		$GLOBALS['Filters'] = G::ParseUrlParams(array_pop($rewrite_arr));
 	}
 }
+
 if(isset($rewrite_arr) && count($rewrite_arr) > 0){
 	switch($GLOBALS['CurrentController']){
 		case 'product':

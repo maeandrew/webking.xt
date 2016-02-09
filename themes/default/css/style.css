@@ -66,6 +66,12 @@ textarea.mdl-textfield__input:focus {
 	border: none;
 	border-bottom: 1px solid #bdbdbd;
 }
+input[type="number"], 
+input[type="number"]:focus { 
+	outline: 0;
+	border: none;
+	border-bottom: 1px solid #bdbdbd;
+}
 i.material-icons {
 	overflow: hidden;
 }
@@ -655,13 +661,11 @@ section.center {
 #quiz .step_3 .delivery_service > div {
 	padding: .5em 0;
 }
-
 #quiz .delivery_address,
 #quiz .company_details,
 #quiz .post_office {
 	display: none;
 }
-
 #quiz .error_div {	
     width: 250px;
     height: 40px;
@@ -670,12 +674,10 @@ section.center {
 	border: 1px solid #FF5722;
 	color: #FF5722;	
 }
-
 #quiz .step_5 .msg_for_client {
 	padding-top: 15px;
     font-size: 160%;
 }
-
 @media(max-width: 654px){
 	#quiz .line {
 	    width: 100%;
@@ -1431,7 +1433,7 @@ section .stat_year {
 /*Content header*/
 
 .content_header {
-	padding-top: 10px;
+	padding: 10px 0;
 }
 .content_header .sort {
 	position: relative;
@@ -1620,13 +1622,11 @@ section .stat_year {
 	padding-bottom: 30px;
 }
 .products .card {
-	padding: 10px 10px;
 	border-bottom: 1px solid #e0e0e0;
 	/*box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);*/
 	/*border-radius: .2em;*/
 }
 .products .card:first-of-type {
-	margin-top: 15px;
 	border-top: 1px solid #e0e0e0;
 }
 .products .product_name,
@@ -1657,7 +1657,7 @@ section .stat_year {
 	display: block;
 	/*max-height: 100px;*/
 	max-width: 100%;
-	padding: 12px 0;
+	/*padding: 12px 0;*/
 }
 .products .card .product_name {
 	padding-top: 10px;
@@ -1780,13 +1780,6 @@ section .stat_year {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
-}
-.product_buy .buy_block .btn_buy:hover .buy_btn_js {
-	padding: 0 20px;
-	position: absolute;
-	top: -18px;
-	height: 62px;
-	z-index: 1;
 }
 .products .card:hover .buy_btn_js {
 	/*background-color: #ff8a65;
@@ -2063,9 +2056,6 @@ section .stat_year {
 	.phone_menu .cart {
 		margin-left: 10px;
 	}
-	.phone_menu .cart.mdl-badge {
-		margin-right: 10px;
-	}
 	.phone_menu .cart.mdl-badge[data-badge]:after {
 		top: -6px;
 		right: -8px;
@@ -2090,11 +2080,6 @@ section .stat_year {
 	.content {
 		padding: 0;
 	}
-	.products .card {
-		margin: 20px 5px 0;
-		padding: 5px;
-		padding-bottom: 10px;
-	}
 	.products .product_name,
 	.products .product_info {
 		float: none;
@@ -2116,14 +2101,13 @@ section .stat_year {
 		display: block;
 	}
 	.product_buy .price {
-		margin: 10px 0;
 		float: none;
 		width: auto;
-		line-height: 16px;
+		line-height: 25px;
 		text-align: left;
 	}
 	.products .buy_block {
-		max-width: 200px;
+		max-width: 360px;
 		width: auto;
 		justify-content: space-between;
 	}
@@ -2217,7 +2201,7 @@ section .stat_year {
 	clear: both;
 }
 .mdl-badge[data-badge]:after {
-	background:#9e9e9e;
+	background: #FF5722;
 }
 .mdl-badge[data-badge].active:after {
 	background: #FF5722;
@@ -2245,10 +2229,8 @@ section .stat_year {
 	.main .center {
 		width: 100%;
 	}
-	#cart .product_buy .buy_block .btn_buy:hover .buy_btn_js {
-		padding: 0 10px;
+	.product_buy .buy_block .btn_buy:hover .buy_btn_js {
 		position: relative;
-		height: 25px;
 	}
 }
 @media (min-width: 728px) and (max-width: 1169px) {
@@ -2545,40 +2527,42 @@ section .stat_year {
 	}
 }
 @media (max-width: 360px) {
-	#cart .card .product_photo,
-	.products .card .product_photo {
+	body {
+		padding-top: 45px;
+	}
+	footer .copyright {
+		text-align: center;
+	}
+	footer .copyright p {
+		line-height: 1.7em;
+	}
+
+
+
+	#cart .card .product_photo {
 		float: none;
 	}
-	.product_photo {		
-		width: 200px;
-		height: 200px;
-	}
-	.product_photo img {
-		width: 100%;
-		height: 100%;
-	}
-	.product_buy .summ span {	
+	.product_buy .summ span {
 		width: 150px;
 	}
 	#cart .card .product_name {
-	    padding: 5px;
-	    width: 100%;
+		padding: 5px;
+		width: 100%;
 	}
-	#cart .card .product_photo, 
-	.products .card .product_photo {
+	#cart .card .product_photo {
 		position: relative;
-	    height: auto;
-	    width: 100%;
-	    float: left;
-	    padding-right: 0;
+		height: auto;
+		width: 100%;
+		float: left;
+		padding-right: 0;
 	}	
 	#cart .card .product_photo a img {
 		max-height: 280px;
 		margin-left: 15px;
 	}
 	#cart .info_key {
-	    top: 24px;
-	    right: 15px;
+		top: 24px;
+		right: 15px;
 	}
 	#cart .note textarea, 
 	.products .note textarea {

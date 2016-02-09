@@ -114,7 +114,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
 						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
 						"product_limit" => $_POST['product_limit'][$i],
-						"in_usd" => $_POST['in_usd'][$i]
+						"inusd" => $_POST['inusd'][$i]
 					);
 				}
 
@@ -153,10 +153,10 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$segmentation->DelSegmentInProduct($id_product, $id_segment);
 				}
 			}
-
 			$tpl->Assign('msg', 'Товар обновлен.'.$err_mes);
 			if(isset($_POST['smb_new'])){
 				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
+				exit();
 			}
 			header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 			unset($_POST);
@@ -190,6 +190,14 @@ $res = $db->GetOneRowArray($sql);
 $max_cnt = $res['cnt'];
 //Дубликат товара
 if(isset($_POST['smb_duplicate'])){
+	if($id = $products->DuplicateProduct($_POST)){
+		header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
+	}else{
+		$tpl->Assign('msg', 'Товар не добавлен.');
+		$tpl->Assign('errm', $errm);
+	}
+
+
 	$_POST['art'] = $products->CheckArticle((int) $_POST['art']);
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
@@ -197,6 +205,7 @@ if(isset($_POST['smb_duplicate'])){
 	}
 	list($err, $errm) = Product_form_validate();
 	if(!$err){
+		die();
 		if($id = $products->AddProduct($_POST)){
 			$products->UpdateVideo($id, $_POST['video']);
 			$products->UpdatePhoto($id, $_POST['images']);
@@ -226,7 +235,7 @@ $prod_fields['video'] = $video;
 $prod_fields['images'] = $photo;
 foreach($prod_fields as $k=>$v){
 	if(!isset($_POST['smb']) || !isset($_POST[$k])){
-			$_POST[$k] = $v;
+		$_POST[$k] = $v;
 	}
 }
 $tpl->Assign('h1', $_POST['name']);

@@ -31,6 +31,7 @@ if(isset($_POST['smb'])){
 				$products->UpdateVideo($id, $_POST['video']);
 			}
 			$to_resize = array();
+
 			//Добавление фото
 			$article = $products->GetArtByID($id);
 			if(isset($_POST['images'])){
@@ -46,6 +47,7 @@ if(isset($_POST['smb'])){
 				$images_arr =  array();
 			}
 			$Images->resize(false, $to_resize);
+			// print_r('assadasd');die();
 			$products->UpdatePhoto($id, $images_arr);
 
 			if(isset($_POST['id_supplier'])){
@@ -57,7 +59,7 @@ if(isset($_POST['smb'])){
 						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
 						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
 						"product_limit" => $_POST['product_limit'][$i],
-						"in_usd" => $_POST['in_usd'][$i]
+						"inusd" => $_POST['inusd'][$i]
 					);
 				}
 

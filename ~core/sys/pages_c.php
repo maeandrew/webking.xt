@@ -17,22 +17,22 @@ class pages{
 			if($this->cur_page_id <= 4){
 				$con1 = 1;
 				$con2 = 5;
-				$this->pages['last'] = '/p'.$this->cnt_pages.'/';
-				$this->pages['np'] = '/p'.($con2+1).'/';
+				$this->pages['last'] = $this->cnt_pages;
+				$this->pages['np'] = $con2+1;
 			}elseif($this->cnt_pages - $this->cur_page_id < 4){
 				$con1 = $this->cnt_pages-4;
 				$con2 = $this->cnt_pages;
-				$this->pages['first'] = '/p1/';
-				$this->pages['lp'] = '/p'.($con1-1).'/';
+				$this->pages['first'] = 1;
+				$this->pages['lp'] = $con1-1;
 			}else{
 
 				$con1 = $this->cur_page_id-2;
 				$con2 = $this->cur_page_id+2;
-				$this->pages['first'] = '/p1/';
-				$this->pages['last'] = '/p'.$this->cnt_pages.'/';
+				$this->pages['first'] = 1;
+				$this->pages['last'] = $this->cnt_pages;
 
-				$this->pages['lp'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con1-1));
-				$this->pages['np'] = Link::Category($GLOBALS['Rewrite'], array('page'=> $con2+1));
+				$this->pages['lp'] = $con1-1;
+				$this->pages['np'] = $con2+1;
 			}
 		}else{
 			$con1 = 1;
@@ -80,14 +80,13 @@ class pages{
 			}
 		}// end foreach
 		$tpl->Assign('PAGE', $name);
-
 		if(isset($this->pages['lp'])){
-			$tpl->Assign('LP', 'dots');
+			$tpl->Assign('LP', 'more_horiz');
 			isset($string_array[1])?$this->pages['lp'] .= '?'.$string_array[1]:null;
 			$tpl->Assign('URL_LP', $URL_TMP.$this->pages['lp']);
 		}
 		if(isset($this->pages['np'])){
-			$tpl->Assign('NP', 'dots');
+			$tpl->Assign('NP', 'more_horiz');
 			isset($string_array[1])?$this->pages['np'] .= '?'.$string_array[1]:null;
 			$tpl->Assign('URL_NP', $URL_TMP.$this->pages['np']);
 		}

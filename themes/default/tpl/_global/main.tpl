@@ -3,7 +3,7 @@
 <head>
 	<title><?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_title']) && $GLOBALS['products_title'] != '')?$GLOBALS['products_title']:$__page_title;?></title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<?if($GLOBALS['CurrentController'] == 'product'){
 		if($item['indexation'] == 0){?>
 			<meta name="robots" content="noindex, nofollow"/>
@@ -261,7 +261,7 @@
 					<!-- <h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1> -->
 					<?=$__center?>
 				<?}else{?>
-					<div class="content_header mdl-cell--hide-phone clearfix">
+					<div class="content_header clearfix">
 						<div class="sort imit_select">
 							<button id="sort-lower-left" class="mdl-button mdl-js-button">
 								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
@@ -279,7 +279,7 @@
 								<a href="#" class="Add_graph_up" onclick="ModalGraph('text')"><i class="material-icons">timeline</i></a>
 							<?}?>
 						</div>
-						<div class="cart_info clearfix">
+						<div class="cart_info mdl-cell--hide-phone clearfix">
 							<div class="your_discount">Ваша скидка</div>
 							<div class="tabs_container">
 								<ul>
@@ -446,10 +446,8 @@
 						<ul>
 							<li><a href="#">Главная</a></li>
 							<li><a href="#">О нас</a></li>
-							<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
 							<li><a href="#">Справка</a></li>
 							<li><a href="#">Доставка</a></li>
-							<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
 							<li><a href="#">Контакты</a></li>
 							<li><a href="#">Стать дилером</a></li>
 							<li><a href="#">Скидки</a></li>
@@ -489,7 +487,6 @@
 			</footer>
 		</section>
 	</section>
-
 
 	<div class="modals">
 		<div id="quiz" data-type="modal">
@@ -746,6 +743,7 @@
 			<div class="modal_container"></div>
 		</div>
 	</div>
+
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">
@@ -786,9 +784,6 @@
 				C-447.4,289.7-448.2,290.5-449.2,290.5z"/>
 			<path class="st1" d="M-453.9,271.8l0,4c0,0.7,0.6,1.3,1.3,1.3h5.2"/>
 		</symbol>
-
-
-
 
 		<symbol id="date" viewBox="0 0 24 24" height="24"  width="24">
 			<path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
