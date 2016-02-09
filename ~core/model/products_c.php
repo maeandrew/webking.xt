@@ -3705,11 +3705,11 @@ class Products {
 		return  $arr ? $arr : false;
 	}
 
-	public function DuplicateProduct($_POST){
+	public function DuplicateProduct($data){
 		// creating new article
-		$_POST['art'] = $this->CheckArticle((int) $_POST['art']);
+		$data['art'] = $this->CheckArticle((int) $data['art']);
 		// duplicating main product information
-		$this->SetFieldsById($_POST['id_product']);
+		$this->SetFieldsById($data['id_product']);
 		$old_product_info = $this->fields;
 		// duplicating product category
 		
