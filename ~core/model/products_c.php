@@ -125,7 +125,7 @@ class Products {
 		foreach ($arr as $p){
 			$catarr[] = $p['id_category'];
 		}
-		$arr[0]['categories_ids'] = $catarr;
+		$arr[0]['categories_ids'] = array_unique($catarr);
 		$this->fields = $arr[0];
 		return true;
 	}
@@ -314,7 +314,7 @@ class Products {
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_product'] = trim($id_product);
-		foreach ($arr as &$value) {
+		foreach($arr as &$value){
 			if(empty($value)){
 				return false; //Если URL пустой
 			}
@@ -1453,8 +1453,8 @@ class Products {
 		$f['id_product'] = trim($arr['id_product']);
 		$f['id_supplier'] = trim($arr['id_supplier']);
 		$f['product_limit'] = trim($arr['product_limit']);
-		$f['inusd'] = trim($arr['in_usd']);
-		if($arr['in_usd'] != 1){
+		$f['inusd'] = $arr['inusd'];
+		if($arr['inusd'] != 1){
 			$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
 			$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
 			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
@@ -1472,12 +1472,11 @@ class Products {
 		//Заполнение массива для проверки на совпадения
 		$check['id_product'] = $arr['id_product'];
 		$check['id_supplier'] = $arr['id_supplier'];
-		if($this->db->ValidationFields(_DB_PREFIX_.'assortiment', $check)){
-			$this->db->Insert(_DB_PREFIX_.'assortiment', $f);
-			$this->db->CompleteTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
+			$this->db->FailTrans();
 			return true;
 		}
-		$this->db->FailTrans();
+		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($arr['id_product']));
 		return false;
 	}
@@ -1488,8 +1487,8 @@ class Products {
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
 		$supp_fields = $suppliers->fields;
 		$f['product_limit'] = trim($arr['product_limit']);
-		$f['inusd'] = trim($arr['in_usd']);
-		if($arr['in_usd'] != 1){
+		$f['inusd'] = $arr['inusd'];
+		if($arr['inusd'] != 1){
 			$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
 			$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
 			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
@@ -1656,7 +1655,6 @@ class Products {
 
 	// Добавление
 	public function AddProduct($arr){
-
 		$f['art'] = trim($arr['art']);
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
@@ -1699,12 +1697,7 @@ class Products {
 		}
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		$this->db->StartTrans();
-		if(!$this->UpdateProductCategories($id_product, $arr['categories_ids'])){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
+		$this->UpdateProductCategories($id_product, $arr['categories_ids']);
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
 		//$this->RecalcSitePrices(array($id_product));
@@ -1739,19 +1732,28 @@ class Products {
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
 		foreach($categories_arr as $k=>$v){
-			if($v == 0) unset($categories_arr[$k]);
+			if($v == 0){
+				unset($categories_arr[$k]);
+			}
 		}
 		// Записываем данные в таблицу соответствий категория-товар
-		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product=$id_product";
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		$ii=0;
-		foreach($categories_arr as $id){
-			$f[$ii]['id_product'] = $id_product;
-			$f[$ii++]['id_category'] = $id;
-		}
-		if(!$this->db->InsertArr(_DB_PREFIX_.'cat_prod', $f)){
+		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
+		foreach($categories_arr as $key => $id){
+			$f[$key]['id_product'] = $id_product;
+			$f[$key]['id_category'] = $id;
+		}
+		$this->db->StartTrans();
+		if(!$this->db->InsertArr(_DB_PREFIX_.'cat_prod', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
 		return true;
 	}
 
@@ -1825,12 +1827,7 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 		if(isset($arr['name'])){
-			$this->db->StartTrans();
-			if(!$this->UpdateProductCategories($id_product, $arr['categories_ids'])){
-				$this->db->FailTrans();
-				return false;
-			}
-			$this->db->CompleteTrans();
+			$this->UpdateProductCategories($id_product, $arr['categories_ids']);
 			$this->RecalcSitePrices(array($id_product));
 		}
 		return true;
@@ -3707,36 +3704,64 @@ class Products {
 
 	public function DuplicateProduct($data){
 		// creating new article
-		$data['art'] = $this->CheckArticle((int) $data['art']);
-		// duplicating main product information
+		$art = $this->CheckArticle((int) $data['art']);
+		
+		// duplicating main product information & category
 		$this->SetFieldsById($data['id_product']);
 		$old_product_info = $this->fields;
-		// duplicating product category
+		$old_product_info['art'] = $art;
+		$old_product_info['name'] .= ' '.$art;
+		if(!$id_product = $this->AddProduct($old_product_info)){
+			return false;
+		}
 		
 		// duplicating product assortment
-		
+		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_product = ".$data['id_product'];
+		$res = $this->db->GetArray($sql);
+		if(!empty($res)){
+			foreach ($res as &$value) {
+				$value['id_product'] = $id_product;
+				$this->AddToAssortWithAdm($value);
+			}
+		}
+				
 		// duplicating product specifications
-		
-		// duplicating product availability
+		$sql = "SELECT * FROM "._DB_PREFIX_."specs_prods as s
+			WHERE s.id_prod = ".$data['id_product'];
+		$res = $this->db->GetArray($sql);
+		if(!empty($res)){
+			$specifications = new Specification();
+			foreach($res as $value){
+				$specifications->AddSpecToProd($value, $id_product);
+			}
+		}
 		
 		// duplicating product segmentation
-		
+		$sql = "SElECT * FROM "._DB_PREFIX_."segment_prods AS sp
+		WHERE sp.id_product = ".$data['id_product'];
+		$res = $this->db->GetArray($sql);
+		if(!empty($res)){
+			$segmentation = new Segmentation();
+			foreach($res as $value){
+				$segmentation->AddSegmentInProduct($id_product, $value['id_segment']);
+			}
+		}
+
 		// duplicating product videos
-		
+		$res = $this->GetVideoById($data['id_product']);
+		if(!empty($res)){
+			$this->UpdateVideo($id_product, $res);
+		}
+
 		// duplicating product images
-		
-		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
-			FROM "._DB_PREFIX_."cat_prod AS cp
-			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
-				ON cp.id_product = sp.id_prod
-			LEFT JOIN "._DB_PREFIX_."specs AS s
-				ON sp.id_spec = s.id
-			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
-			-- AND sp.id_prod IN ()
-			AND s.id IS NOT NULL
-			AND sp.value <> ''
-			GROUP BY s.id, sp.value";
-		$arr = $this->db->GetArray($sql);
-		return  $arr ? $arr : false;
+		$res = $this->GetPhotoById($data['id_product']);
+		foreach($res as &$value){
+			$value = $value['src'];
+		}
+		if(!empty($res)){
+			$this->UpdatePhoto($id_product, $res);
+		}
+		return $id_product;
 	}
 }?>

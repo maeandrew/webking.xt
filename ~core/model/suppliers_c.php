@@ -100,7 +100,7 @@ class Suppliers extends Users {
 			s.real_email, s.real_phone, s.filial, s.icq, s.balance, s.available_today, u.name,
 			u.email, u.date_add, u.active, s.single_price, s.self_edit,
 			(SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
-				FROM xt_assortiment AS a
+				FROM "._DB_PREFIX_."assortiment AS a
 				WHERE s.id_user = a.id_supplier
 				AND a.inusd = 1) AS inusd
 			FROM "._DB_PREFIX_."supplier AS s

@@ -30,19 +30,18 @@ class Segmentation {
 	}
 
 	//Привязка Сегментации к продукту
-	public function AddSegmentInProduct($id_product,$id_segment){
+	public function AddSegmentInProduct($id_product, $id_segment){
 		$f['id_product'] = $id_product;
 		$f['id_segment'] = $id_segment;
 		$this->db->StartTrans();
-		unset($arr);
-		if($this->db->ValidationFields(_DB_PREFIX_.'segment_prods',$f)){
-			$this->db->Insert(_DB_PREFIX_.'segment_prods', $f);
-			unset($f);
-			$this->db->CompleteTrans();
-			return true;//Если все ок
+		if(!$this->db->Insert(_DB_PREFIX_.'segment_prods', $f)){
+			$this->db->FailTrans();
+			return false; //Если не удалось записать в базу
 		}
-		$this->db->FailTrans();
-		return false; //Если не удалось записать в базу
+		$this->db->CompleteTrans();
+		unset($arr);
+		unset($f);
+		return true;//Если все ок
 	}
 
 	//Получение списка типа или типов сегментаций

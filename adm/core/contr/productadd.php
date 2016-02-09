@@ -59,7 +59,7 @@ if(isset($_POST['smb'])){
 						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
 						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
 						"product_limit" => $_POST['product_limit'][$i],
-						"in_usd" => $_POST['in_usd'][$i]
+						"inusd" => $_POST['inusd'][$i]
 					);
 				}
 
