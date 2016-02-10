@@ -201,4 +201,349 @@
 	width: 100%;
 }
 
-/* Страница "Стать дилером" ================================================ */
+/* Страница "Стать дилером" / become_a_dealer ================================================ */
+.become_a_dealer {
+	min-height: 1300px;
+	padding: 20px;
+	/*border: 1px solid #000;*/
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+}
+.become_a_dealer h4 {
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+	font-size: 2.2em;
+	font-weight: 400;
+}
+.become_a_dealer .dealer_line_first {
+	margin: 0 auto;
+}
+.become_a_dealer .abilities_list {
+	display: block;
+	margin: 50px 100px 250px 20px;	
+	width: 400px;
+	float: left;
+}
+.become_a_dealer .abilities_list li {
+    list-style-type: disc;    
+    font-size: 1.5em;
+    line-height: 28px;
+}
+.become_a_dealer .car_pic {
+	display: block;
+	float: none;
+	width: 454px;
+	height: 252px;
+}
+.become_a_dealer .services {
+	clear: both;
+	margin-top: 50px;
+	width: 100%;
+  	margin: 0 auto;
+	max-width: 1270px;	
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.become_a_dealer .services .services_item {
+	flex-basis: 25%;
+	float: left;
+	text-align: center;			
+	margin-bottom: 20px;
+}
+.become_a_dealer .services .services_item p {		
+	height: 53px;
+	margin-bottom: 20px; 
+	text-align: center;
+	font-size: 1.5em;
+    line-height: 28px;
+}
+.become_a_dealer .services .circleForImg {
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+	border-radius: 50%;
+	border: 1px solid #000;
+}
+.become_a_dealer button {
+	display: block;
+	width: 240px;
+	margin: 0 auto;
+	margin-top: 150px;
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+    font-weight: 200;
+    font-style: normal;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #2895F1;
+    border-radius: 5px;
+    color: #2895F1;
+}
+.become_a_dealer > h4 {
+	text-align: center;
+	margin-bottom: 100px;
+}
+
+
+/* Страница "Доставка" / class="page_delivery" ================================================ */
+.page_delivery{
+	padding: 20px;
+}
+.page_delivery .page_delivery_first_line,
+.page_delivery .page_delivery_second_line,
+.page_delivery .page_delivery_third_line {
+	min-height: 350px;
+
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+    font-weight: 200;
+    font-style: normal;
+    color: #47525D;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.page_delivery .forflex {
+	flex-basis: 40%;
+	flex-grow: 0;
+  	flex-shrink: 0;
+}
+.page_delivery .page_delivery_second_line .forflex {
+	margin-left: 50px;
+} 
+.page_delivery .page_delivery_first_line p,
+.page_delivery .page_delivery_second_line p,
+.page_delivery .page_delivery_third_line p, 
+.page_delivery .page_delivery_third_line li { 
+	width: 395px;
+    font-size: 21px;   
+    line-height: 28px;
+}
+.page_delivery .page_delivery_third_line li {
+	margin-top: 10px;
+	margin-left: 20px;
+} 
+.page_delivery h4 {
+	margin-bottom: 50px;
+
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+	font-size: 2.2em;
+	font-weight: 400;
+}
+.page_delivery .page_delivery_first_line {	
+	border-bottom: 1px solid #9EA8C1;
+	padding-bottom: 50px;
+}
+.page_delivery .page_delivery_second_line {
+	margin: 40px 0 40px 0;
+}
+.page_delivery .page_delivery_third_line {
+	padding-top: 30px;
+	margin-bottom: 30px;
+	border-top: 1px solid #9EA8C1;
+}
+.page_delivery .del_map,
+.page_delivery .car_pic,
+.page_delivery .packageForYou {
+	display: block;
+	float: none;
+	width: 454px;
+	height: 252px;
+	margin-top: 23%;
+}
+.page_delivery .page_delivery_third_line li {
+	list-style: decimal;
+}
+.page_delivery .page_delivery_second_line .forflexorder {
+		order: 2;
+	}
+.page_delivery .page_delivery_second_line .forflexpic {
+		order: 1;
+	}
+@media (max-width: 1318px) {
+	.page_delivery .page_delivery_second_line .forflexorder {
+		order: 1;
+	}
+	.page_delivery .page_delivery_second_line .forflex .car_pic {
+		order: 2;
+	}
+}
+
+/* Страница "Справка" / class="page_information" ================================================ */
+.page_information {
+	margin: 30px;
+	padding: 30px;
+
+	display: flex;
+	justify-content: space-between;
+    flex-wrap: wrap;
+}
+.page_information div {
+	border: 1px solid #000;
+	width: 232px;
+	height: 150px;
+
+	flex-basis: 23%;
+	flex-grow: 0;
+  	flex-shrink: 0;
+}
+.page_information p {
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+    font-weight: 200;
+    font-style: normal;
+    font-size: 21px;
+    color: #47525D;
+    text-align: center;
+    line-height: 28px;
+}
+.page_information img {
+	border: 1px solid #000;
+	display: block;
+	margin: 10px auto 0;
+	width: 74px;
+	height: 74px;
+}
+
+/* Страница "О нас" / class="page_about_us" ================================================ */
+.page_about_us,
+.page_about_us h4 {
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+    font-weight: 200;
+    font-style: normal;    
+    color: #47525D;
+    text-align: center;
+    line-height: 28px;
+}	
+.page_about_us h4 {	
+    font-size: 31px;    
+}
+.page_about_us .page_about_us_first_line,
+.page_about_us .page_about_us_second_line,
+.page_about_us .page_about_us_third_line,
+.page_about_us .page_about_us_fourth_line {
+	border-bottom: 1px solid #9EA8C1;
+    padding: 50px 0 100px 0;
+}
+.page_about_us .page_about_us_fifth_line {
+	padding: 50px 0 100px 0;
+}
+.page_about_us .page_about_us_first_line p,
+.page_about_us .page_about_us_second_line p,
+.page_about_us .page_about_us_third_line p,
+.page_about_us .page_about_us_fourth_line p {
+	margin: 0 auto;
+}
+.page_about_us .page_about_us_first_line p {
+ 	width: 514px;    
+    font-size: 28px;
+    line-height: 1;
+    margin-top: 60px;
+}
+.page_about_us .page_about_us_second_line p {
+	width: 550px;	
+    font-size: 21px;    
+    line-height: 28px;
+    margin-top: 60px;
+    margin-bottom: 80px;    
+}
+.page_about_us .page_about_us_third_line p {	
+    width: 620px;
+    font-size: 21px;    
+    line-height: 28px;
+    margin-top: 60px;
+    margin-bottom: 80px;   
+}
+.page_about_us .page_about_us_fourth_line p {	
+	width: 460px;
+    font-size: 21px;
+    line-height: 28px;    
+}
+.page_about_us .page_about_us_first_line > img {
+	width: 135px;
+	height: 80px;
+}
+.page_about_us .page_about_us_second_line > img {
+	width: 1000px;
+	height: 430px;
+}
+.page_about_us .page_about_us_third_line > img{
+	width: 826px;
+	height: 394px;
+}
+.page_about_us .page_about_us_fifth_line > img {	
+	width: 820px;
+	height: 344px;
+}
+.page_about_us .members {
+	display: flex;
+	justify-content: center;
+    flex-wrap: wrap;
+}
+.page_about_us .members .member {
+	flex-basis: 40%;
+	flex-grow: 0;
+  	flex-shrink: 0;
+}
+.page_about_us .members .member {
+	width: 200px;
+    height: 300px;
+    margin-top: 60px;    
+    text-align: center;
+}
+.page_about_us .members .member p {
+	font-size: 16px;
+    color: #47525D;
+    text-align: center;
+    line-height: 28px;
+	margin-top: 15px; 
+}
+.page_about_us .members .member .divForPhoto {
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+	border: 1px solid #000;
+	border-radius: 50%;
+}
+.page_about_us button {
+	display: block;
+	width: 220px;
+	margin: 0 auto;
+	margin-top: 150px;
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+    font-weight: 200;
+    font-style: normal;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #2895F1;
+    border-radius: 5px;
+    color: #2895F1;
+}
+
+
+/* Страница "Оплата" / class="page_payment" ================================================ */
+.page_payment,
+.page_payment h4 {
+	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
+    font-weight: 200;
+    font-style: normal;    
+    color: #47525D;
+    text-align: center;
+    line-height: 28px;
+}	
+.page_payment h4 {	
+    font-size: 31px;    
+}
+
+
+.page_payment .payment_methods img:first-child {
+	width: 200px;
+	height: 110px;
+}
+
+.page_payment .payment_methods img:nth-child(2) {
+	width: 366px;
+	height: 111px;
+}
+
+.page_payment .payment_methods img:last-child {
+	width: 300px;
+	height: 76px;
+}

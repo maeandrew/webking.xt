@@ -59,6 +59,9 @@ G::AddJS('../plugins/jquery.cookie.js');
 // G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
 // G::AddJS('../plugins/icomoon/liga.js', true);
+if($GLOBALS['CurrentController'] == 'page'){
+	G::AddJS('../themes/default/js/page.js', true);
+}
 // G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
 
 // слайдер на главной странице
