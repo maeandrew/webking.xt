@@ -719,11 +719,9 @@ class Customers extends Users {
 			}
 			if(isset($arrInfo['selected_city'])){
 				$f2['id_city'] = "(SELECT id_city FROM xt_city WHERE name = '". $arrInfo['selected_city'] ."' LIMIT 1)";
-//				print_r($f2);
 				$this->db->StartTrans();
 
-//				if(!$sql1 = $this->db->Update(_DB_PREFIX_.'customer', $f2, "id_user = ".$_COOKIE['id_user']) &&
-//				   !$sql2 = $this->db->Update(_DB_PREFIX_.'order', $f2, "id_order = ".$_COOKIE['id_order'])){
+
 				if(!$sql1 = $this->db->Query(" UPDATE xt_customer  SET `id_city` = ". $f2['id_city'] ."  WHERE id_user = ".$_COOKIE['id_user'])){
 					echo $this->db->ErrorMsg();
 					$this->db->FailTrans();
@@ -739,22 +737,27 @@ class Customers extends Users {
 				$this->db->CompleteTrans();
 
 			}
-			if(isset($arrInfo['delivery_service'])){
-				$f3['id_delivery'] = $arrInfo['delivery_service'];//"(SELECT id_city FROM xt_city WHERE name = ". $arrInfo['selected_city'] ." LIMIT 1)";
-				print_r($f3);
+			if(isset($arrInfo['selected_post_office_id'])){
+				$f3['id_delivery'] = $arrInfo['selected_post_office_id'];
 				$this->db->StartTrans();
 				if(!$sql3 = $this->db->Update(_DB_PREFIX_.'customer', $f3, "id_user = ".$_COOKIE['id_user']) &&
 				   !$sql4 = $this->db->Update(_DB_PREFIX_.'order', $f3, "id_order = ".$_COOKIE['id_order'])){
 					echo $this->db->ErrorMsg();
 					$this->db->FailTrans();
-					print_r($sql3);
-					print_r($sql4);
 					return false; //Если не удалось записать в базу
 				}
 				$this->db->CompleteTrans();
 			}
-
-//			$this->db->CompleteTrans();
+			if(isset($arrInfo['delivery_address'])){
+				$f4['note2'] = $arrInfo['delivery_address'];
+				$this->db->StartTrans();
+				if($this->db->Update(_DB_PREFIX_.'order', $f4, "id_order = ".$_COOKIE['id_order'])){
+					echo $this->db->ErrorMsg();
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+				$this->db->CompleteTrans();
+			}
 
 			return true;//Если все ок
 		}else{
