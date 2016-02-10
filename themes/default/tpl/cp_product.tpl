@@ -36,27 +36,47 @@
 				#owl-product_slide_js img {
 					display: block;
 				    margin: 0 auto;
+				    width: 100%;
 				}
 				.breadcrumbs_wrapp {
 					white-space: nowrap;
-					overflow-x: hidden;
+					overflow: scroll;
+					/*overflow-x: hidden;*/
 					overflow-y: hidden;
-					padding-bottom: 10px;
+					padding-bottom: 10px;					
+				}	
+
+				.owl-page span {					
+					 transition:all 0.5s ease;
 				}
-				.owl-page.active span {
-					width: 13px;
-				    height: 13px;
-				    background: #000;
+				.owl-page.active span {					
+					
+					-webkit-transform: scale(2.5);
+					-moz-transform: scale(2.5);
+					-o-transform: scale(2.5);
+			
+				    border: 1px solid #000;
+				    background: #fff;
+				}
+				.tabs .mdl-tabs__tab {
+					width: 170px;
+				}
+				.fortabs{
+					/*white-space: nowrap;
+				    overflow: scroll;
+				    overflow-x: hidden; 
+				    padding-bottom: 10px;*/
+				    overflow-y: hidden;
 				}
 
 			</style>
 			<script>
-				$('.breadcrumbs_wrapp').on('touchstart  mousedown', function() {
-					$(this).css('overflow-x', 'overlay');
-				});
-				$('.breadcrumbs_wrapp').on('touchend   mousedown', function() {
-					$(this).css('overflow-x', 'hidden');
-				});
+				// $('.breadcrumbs_wrapp').on('touchstart, mousedown', function() {
+				// 	$(this).css('overflow-x', 'overlay');
+				// });
+				// $('.breadcrumbs_wrapp').on('touchend, mousedown', function() {
+				// 	$(this).css('overflow-x', 'hidden');
+				// });
 			</script>
 
 			<div id="owl-product_slide_js">
@@ -70,7 +90,10 @@
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
 							<div class="item">
-								<img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+								
+
+								<img src="http://lorempixel.com/500/500" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+								<!-- <img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
 								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
 							</div>
 							<div class="item">
@@ -201,11 +224,13 @@
 			<?}?>
 		</div>
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-			<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
-				<a href="#description" class="mdl-tabs__tab is-active">Описание</a>
-				<a href="#specifications" class="mdl-tabs__tab">Характеристики</a>
-				<a href="#seasonality" class="mdl-tabs__tab">Сезонность</a>
-				<a href="#comments" class="mdl-tabs__tab">Отзывы и вопросы</a>
+			<div class="fortabs">
+				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
+					<a href="#description" class="mdl-tabs__tab is-active">Описание</a>
+					<a href="#specifications" class="mdl-tabs__tab">Характеристики</a>
+					<a href="#seasonality" class="mdl-tabs__tab">Сезонность</a>
+					<a href="#comments" class="mdl-tabs__tab">Отзывы и вопросы</a>
+				</div>
 			</div>
 			<div class="tab-content">
 				<div id="description" class="mdl-tabs__panel is-active">

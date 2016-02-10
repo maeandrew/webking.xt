@@ -2413,11 +2413,12 @@ section .stat_year {
 
 .owl-controls .owl-page{
 	display: inline-block;
+	vertical-align: middle;
 }
 .owl-controls .owl-page span {
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 3px;
+    height: 3px;
     background: #736E6E;
     float: left;
     margin-right: .5em;

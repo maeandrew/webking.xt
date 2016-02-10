@@ -235,10 +235,10 @@
 	display: block;
 	border-bottom: none;
 	height: auto;
-	overflow: hidden;
-	margin-top: 10px;
-	margin-bottom: 25px;
-	border: 1px solid #e0e0e0;
+	min-width: 680px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: 1px solid #e0e0e0;	    
 }
 .product .mdl-tabs__tab {
 	padding: 0 10px;
