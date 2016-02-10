@@ -552,7 +552,6 @@ $(function(){
 			validate: false
 
 		};
-		console.log(all.summary);
 		if(all.target_step == 1){
 			all.summary.removeClass('active');
 			if(all.current_step == 2){
@@ -560,6 +559,7 @@ $(function(){
 				all.summary.find('.firstname').closest('.row').addClass('hidden');
 				all.summary.find('.middlename').closest('.row').addClass('hidden');
 				all.summary.removeClass('active');
+				validateq(all);
 			}
 		}else if(all.target_step == 2){
 			if(all.current_step == 1){
@@ -583,7 +583,6 @@ $(function(){
 					$('#middlename').addClass('is-invalid');
 				}
 				if(i == 0){
-					console.log('i == 0');
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
 
 					ajax('cart', 'update_info', data, 'text').done(function(response){
@@ -597,6 +596,7 @@ $(function(){
 			}else if(all.current_step == 3){
 				all.summary.find('.region').closest('.row').addClass('hidden');
 				all.summary.find('.city').closest('.row').addClass('hidden');
+				validateq(all);
 			}
 		}else if(all.target_step == 3){
 			if(all.current_step == 2){
@@ -635,6 +635,7 @@ $(function(){
 				all.summary.find('.delivery_method').closest('.row').addClass('hidden');
 				all.summary.find('.client_address').closest('.row').addClass('hidden');
 				all.summary.find('.post_office_address').closest('.row').addClass('hidden');
+				validateq(all);
 			}
 		}else if(all.target_step == 4){
 			if(all.current_step == 3){
@@ -665,7 +666,6 @@ $(function(){
 					$('#delivery_address').val("");
 				}
 
-				console.log(validate+'3');
 				if(typeof delivery_service === 'undefined'){
 					i++;
 					$('.error_div').removeClass('hidden').text("Выберите службу доставки");
@@ -682,7 +682,6 @@ $(function(){
 				}else {
 					$('.error_div').addClass('hidden');
 				}
-				console.log(validate+'4');
 				if(i == 0){
 					data = {
 						delivery_service: delivery_service,
@@ -716,8 +715,6 @@ $(function(){
 		function validateq(all){
 
 			if(all.validate == true || all.target_step < all.current_step){
-				console.log('__________________');
-				console.log(validate);
 				all.current.removeClass('active');
 				all.target.addClass('active');
 				Position($(this).closest('[data-type="modal"]'));

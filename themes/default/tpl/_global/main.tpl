@@ -535,14 +535,14 @@
 				</div>
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="lastname">
-						<input class="mdl-textfield__input" type="text" name="lastname" value="Пархоменко"> <!-- value="Пархоменко"> -->
+						<input class="mdl-textfield__input" type="text" name="lastname" value="">
 						<label class="mdl-textfield__label" for="lastname">Фамилия</label>
 						<span class="mdl-textfield__error">Введите фамилию</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="firstname">
-						<input class="mdl-textfield__input" type="text" name="firstname" value="Александр">
+						<input class="mdl-textfield__input" type="text" name="firstname" value="">
 						<!-- value="Александр"> -->
 						<label class="mdl-textfield__label" for="firstname">Имя</label>
 						<span class="mdl-textfield__error">Введите имя</span>
@@ -550,7 +550,7 @@
 				</div>
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middlename">
-						<input class="mdl-textfield__input" type="text" name="middlename" value="Васильевич"> <!-- value="Васильевич"> -->
+						<input class="mdl-textfield__input" type="text" name="middlename" value=""> 
 						<label class="mdl-textfield__label" for="middlename">Отчество</label>
 						<span class="mdl-textfield__error">Введите отчество</span>
 					</div>

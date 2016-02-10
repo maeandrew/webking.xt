@@ -211,14 +211,9 @@ class mysqlPDO {
 		$values = array_values($fields);
 		$sql = "INSERT INTO $table (`";
 		$sql .= implode("`, `", $keys);
-		$sql .="`) VALUES (";
-		foreach($values as $k => $v){
-			if($k > 0){
-				$sql .= ', ';
-			}
-			$sql .= gettype($v)=='string'?$this->Quote(trim($v)):$v;
-		}
-		$sql .=")";
+		$sql .="`) VALUES (\"";
+		$sql .= implode("\", \"", $values);
+		$sql .="\")";
 		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
 	}
 
@@ -266,11 +261,12 @@ class mysqlPDO {
 		$sql = "UPDATE $table SET ";
 		$arr = array();
 		foreach($fields as $k=>$v){
-			$arr[] = "`$k` = ".(gettype($v)=='string'?$this->Quote($v):$v);
+			$arr[] = "`$k` = \"$v\"";
 		}
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
 		$this->sql = $sql;
+//		print_r($sql);
 		return $this->Query($sql);
 	}
 
