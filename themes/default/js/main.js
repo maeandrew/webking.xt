@@ -641,6 +641,7 @@ $(function(){
 				var delivery_service = $('input[name="service"]:checked').val(),
 					delivery_method = $('#select_delivery_type .select_field').text(),
 					selected_post_office = all.current.find('#post_office_select .select_field').text(),
+					selected_post_office_id = $('[for="post_office_select"] li.active').data('value'),
 					delivery_address = all.current.find('#delivery_address').val();
 
 				if(typeof delivery_service !== 'undefined') {
@@ -687,7 +688,7 @@ $(function(){
 						delivery_service: delivery_service,
 						delivery_method: delivery_method,
 						delivery_address: delivery_address,
-						selected_post_office: selected_post_office
+						selected_post_office_id: selected_post_office_id
 					};
 
 					ajax('cart', 'update_info', data, 'html').done(function(response){
