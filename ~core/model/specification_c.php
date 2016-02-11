@@ -21,9 +21,8 @@ class Specification{
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}	
 
 	// Список
@@ -38,9 +37,8 @@ class Specification{
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	public function SetListByCatId($id_cat){
@@ -53,9 +51,8 @@ class Specification{
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 	//Выбрать характеристики у каждого продукта
 	public function SetListByProdId($id_product){
@@ -74,9 +71,8 @@ class Specification{
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	// Добавление
@@ -188,6 +184,22 @@ class Specification{
 					WHERE id = $id";
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		}
+	}
+
+	// Список
+	public function GetMonitoringList(){
+		$sql = "SELECT c.id_category, c.name, s.id AS id_caption, s.caption, sp.value, count(*) AS count
+			FROM "._DB_PREFIX_."specs_prods AS sp
+			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
+			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
+			LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category AND c.id_category IS NOT NULL
+			GROUP BY sp.value
+			ORDER BY c.name, s.caption;";
+		$this->list = $this->db->GetArray($sql);
+		if(!$this->list){
+			return false;
+		}
+		return true;
 	}
 }
 ?>

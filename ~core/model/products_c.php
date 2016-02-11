@@ -983,7 +983,7 @@ class Products {
 		return true;
 	}
 
-	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array ()){
+	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array()){
 		$where = "";
 		if($and !== FALSE && count($and)){
 			$where = " WHERE ";
@@ -1030,9 +1030,8 @@ class Products {
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	//функция для отображения результатов поиска без дублей ( нет категорий)
@@ -1505,8 +1504,8 @@ class Products {
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 	}
 
 	//Привязка поставщика к товару с админки
@@ -1579,8 +1578,8 @@ class Products {
 	public function DelFromAssortWithAdm($id_assort, $id_product){
 		$this->db->StartTrans();
 		$this->db->DeleteRowFrom(_DB_PREFIX_."assortiment", "id_assortiment", $id_assort);
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 		return true;
 		// $this->db->StartTrans();
 		// $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
@@ -1710,10 +1709,12 @@ class Products {
 	public function UpdateSitePrices($id_product, $opt_sr, $mopt_sr){
 		$f['price_opt'] = "ROUND(".$opt_sr."*price_coefficient_opt, 2)";
 		$f['price_mopt'] = "ROUND(".$mopt_sr."*price_coefficient_mopt, 2)";
+		$this->db->StartTrans();
 		if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
 		return true;
 	}
 
@@ -1900,13 +1901,15 @@ class Products {
 	public function UpdateTranslit($id_product){
 		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
-		$this->db->StartTrans();
 		$this->SetFieldsById($id_product);
+		$this->db->StartTrans();
 		$f['translit'] = G::StrToTrans($this->fields['name']);
 		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
+
 		return $f['translit'];
 	}
 
@@ -1915,8 +1918,8 @@ class Products {
 		$this->db->StartTrans();
 		$this->db->DeleteRowFrom(_DB_PREFIX_."product", "id_product", $id_product);
 		$this->db->DeleteRowFrom(_DB_PREFIX_."cat_prod", "id_product", $id_product);
-		//$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		//$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
 
@@ -3827,5 +3830,11 @@ class Products {
 			$this->UpdatePhoto($id_product, $res);
 		}
 		return $id_product;
+	}
+
+	public function SetFieldsForMonitoringSpecifications($params){
+		foreach($params as $key => $value){
+			print_r($value);
+		}
 	}
 }?>
