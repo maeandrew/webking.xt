@@ -58,10 +58,10 @@ foreach ($data_graph as $key => $val) {
 	$chart_ords[] = round($v*10);
 }
 $labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
-$labels_min = array(1,2,3,4,5,6,7,8,9,10,11,12);
+$labels_min = array(1);
 $chart_regs = array(24,59,44);
 $chart_regi = array(99);
-$chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
+$chart_ords_ly = array(24,29,24,28,39,34,34,35,27,29,25,24);
 ?>
 	<!-- <div class="slider_wrap">
 		<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$v?>" step="0.1" tabindex="0" disabled>
@@ -93,6 +93,15 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 					pointHighlightStroke: "transparent",
 					data: <?=json_encode($chart_ords);?>
 				},
+				/*{
+					label: "Опт",
+					fillColor: "rgba(101,224,252,0)",
+					strokeColor: "rgba(255,139,6,.7)",
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
+					pointHighlightStroke: "rgba(101,224,253,1)",
+					data: <?=json_encode($chart_ords_ly);?>
+				},*/
 				{
 					label: "Регистраций",
 					fillColor: "rgba(101,224,252,0)",
@@ -101,6 +110,15 @@ $chart_ords_ly = array(24,59,44,24,59,44,24,59,44,24,59,44);
 					pointHighlightFill: "transparent",
 					pointHighlightStroke: "rgba(101,224,253,1)",
 					data: <?=json_encode($chart_regi);?>
+				},
+				{
+					label: "Регистраций",
+					fillColor: "rgba(101,224,252,0)",
+					strokeColor: "rgba(1,139,6,1)",
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
+					pointHighlightStroke: "rgba(101,224,253,1)",
+					data: <?=json_encode($labels_min);?>
 				}
 			]
 		};

@@ -254,7 +254,7 @@
 			<?php if(isset($__graph)){
 					echo $__graph;
 				  }?>
-			<?print_r($_SESSION['member']);?>
+			<? //print_r($GLOBALS['CURRENT_ID_CATEGORY']);?>
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
@@ -272,11 +272,11 @@
 								<li class="mdl-menu__item">Популярные</li>
 								<li class="mdl-menu__item">От дешевых к дорогим</li>
 							</ul>
+
 							<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-								<a href="#" class="NOTSgraph_up" onclick="ModalGraph()"><i class="material-icons">timeline</i></a>
+								<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
 							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-								<script>var mod = 01;</script>
-								<a href="#" class="Add_graph_up" onclick="ModalGraph('text')"><i class="material-icons">timeline</i></a>
+								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 							<?}?>
 						</div>
 						<div class="cart_info mdl-cell--hide-phone clearfix">
@@ -739,7 +739,7 @@
 		<div id="cart" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
-		<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
+		<div id="graph" data-type="modal" data-target="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']))?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
 	</div>

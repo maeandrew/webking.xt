@@ -818,6 +818,13 @@ class dbtree {
 		return $res;
 	}
 
+	public function GetNameById($id_category){
+		$sql = "SELECT name FROM xt_category  WHERE id_category = ".$id_category;
+		//
+		$res = $this->db->GetOneRowArray($sql);
+		return $res;
+	}
+
 	/**
 	* Returns amount of lines in result.
 	*

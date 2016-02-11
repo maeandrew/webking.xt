@@ -494,6 +494,16 @@ $(function(){
 		}, 600);
 	});
 
+	$('.xgraph_up').on('click', function() {
+		if ($(this).hasClass('two')) {
+			var moderation = 1;
+		}else{
+			var moderation = 0;
+		}
+		var id_graphics = false;
+		ModalGraph(id_graphics, moderation);
+	});
+
 
 
 	//Открытие модального окна login///////
@@ -747,16 +757,35 @@ $(function(){
 	// });
 	// dalee
 
+	/*  $('.select_go label').on('change', function() {
+	    console.log('trues');
+	    if($(this).is(':checked')){
+	      console.log('trues');
+	      console.log($(this));
+	      var block_one = $('.mdl-color--grey-100').eq(0).not(':has(div.hidden)');
+	      console.log(block_one);
+	      block_one.addClass('hidden');
+	      var block_two = $('.mdl-color--grey-100').eq(1).hasClass('hidden');
+	      console.log(block_two);
+	      block_two.removeClass('hidden');
+	    }else{
+	      var block_one = $('.mdl-color--grey-100').eq(1).not(':has(div.hidden)');
+	      block_one.addClass('hidden');
+	      var block_two = $('.mdl-color--grey-100').eq(0).hasClass('hidden');
+	      block_two.removeClass('hidden');
+	    }
+	    //$('.mdl-color--grey-100').toggleClass('hidden');
+	  });*/
 
 	$('input[name="options"]').on('change', function() {
 		$('#quiz .company_details').css('display', 'block');
 	});
-	
+
 	$('#quiz .delivery_service').on('click', 'input[name="service"]', function(){
-		if($('.delivery_service input[name="service"]:checked') && $('[data-value="2"]')){	
+		if($('.delivery_service input[name="service"]:checked') && $('[data-value="2"]')){
 			GetDeliveryMethods($(this).val(), $('#city_select .select_field').text());
 			Position($(this).closest('[data-type="modal"]'));
-		}		
+		}
 	});
 
 	$('.delivery_type [data-value="1"]').on('click', function(){
@@ -770,7 +799,7 @@ $(function(){
 			$('.delivery_address').css('display', 'none');
 
 			GetDeliveryMethods($('.delivery_service input[name="service"]:checked').val(), $('#city_select .select_field').text());
-		}		
+		}
 	})
 
 	$('#quiz .mdl-button').on('click', function(e){
