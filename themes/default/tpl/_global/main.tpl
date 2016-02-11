@@ -554,7 +554,7 @@
 				</div>
 				<div class="row">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middlename">
-						<input class="mdl-textfield__input" type="text" name="middlename" value=""> 
+						<input class="mdl-textfield__input" type="text" name="middlename" value="">
 						<label class="mdl-textfield__label" for="middlename">Отчество</label>
 						<span class="mdl-textfield__error">Введите отчество</span>
 					</div>

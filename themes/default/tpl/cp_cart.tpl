@@ -337,11 +337,11 @@
 						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						<!--span class="err_tel">Обязательное поле для ввода!</span-->
 					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="promo_input">
 						<input class="mdl-textfield__input" type="text" id="sample7">
 						<label class="mdl-textfield__label" for="sample7">Промокод</label>
 					</div>
-					<div class="tooltip_wrapp clearfix">
+					<!--<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button" name="options" value="1">
 							<span class="mdl-radio__label">Групповая корзина</span>
@@ -350,19 +350,19 @@
 									<p>Групповая корзина Групповая корзина Групповая корзина.</p>
 								</div>
 						</label>
-						<!--<div class="info_description">
+						<div class="info_description">
 							Добавит Вас к групповой корзине и перенапрвит на нее.
-						</div>-->
-					</div>
+						</div>
+					</div>-->
 					<div id="container"/>
 
 					<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-							<input type="radio" class="mdl-radio__button" name="options" value="2">
+							<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 							<span class="mdl-radio__label">Совместная покупка</span>
 								<label class="info_key" style="position: initial;">?</label>
 								<div class="info_description">
-									<p>Совместная покупка Совместная покупка.</p>
+									<p>Перейти к оформлению совместной корзины</p>
 								</div>
 						</label>
 						<!--<div class="info_description">
@@ -407,12 +407,13 @@
 
 					$('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
 						if (checked == false) {
-							$('.action_block .mdl-button').text('Организовать');
+							$('.action_block .mdl-button').text('Продолжить');
 							$("#button-cart1").hide();
 							$("#button-cart1").show();
 //							$("#button-cart3").hide();
 						}
 					});
+
 					$('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
