@@ -1720,6 +1720,9 @@ class Products {
 
 	// Добавление
 	public function AddProduct($arr){
+		if (isset($arr['dupl_idproduct'])) {
+			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		}
 		$f['art'] = trim($arr['art']);
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
@@ -3772,11 +3775,11 @@ class Products {
 	public function DuplicateProduct($data){
 		// creating new article
 		$art = $this->CheckArticle((int) $data['art']);
-
 		// duplicating main product information & category
 		$this->SetFieldsById($data['id_product']);
 		$old_product_info = $this->fields;
 		$old_product_info['art'] = $art;
+		$old_product_info['dupl_idproduct'] = $data['id_product'];
 		$old_product_info['name'] .= ' '.$art;
 		if(!$id_product = $this->AddProduct($old_product_info)){
 			return false;
