@@ -158,6 +158,9 @@
 			<label for="visible">Скрытая категория &nbsp;
 				<input type="checkbox"  name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
 			</label>
+			<label for="indexation"><b>Индексация &nbsp;</b>
+				<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
+			</label>
 			<input type="hidden" name="id_category" id="id_category" value="<?=isset($_POST['id_category'])?$_POST['id_category']:0?>">
 			<button name="smb" type="submit" id="form_submit1" class="btn-l-default save-btn">Сохранить</button>
 		</div>
