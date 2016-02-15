@@ -129,4 +129,15 @@ class Post {
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		}
 	}
+	// Статья по id
+	public function LastPost(){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."post
+			ORDER BY date";
+		$res = $this->db->GetOneRowArray($sql);
+		if(empty($res)){
+			return false;
+		}
+		return $res;
+	}
 }?>

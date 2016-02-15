@@ -225,5 +225,11 @@ class News{
 			$this->list[$li_id]['content'] = preg_replace("#<.*?(>|$)#is"," ",$li['content']);
 		}
 	}
+
+	public function LastNews(){
+		$sql = "SELECT date, title, translit, descr_short FROM "._DB_PREFIX_."news ORDER BY date DESC";
+		$res = $this->db->GetOneRowArray($sql);
+		return $res;
+	}
 }
 ?>

@@ -66,8 +66,8 @@ textarea.mdl-textfield__input:focus {
 	border: none;
 	border-bottom: 1px solid #bdbdbd;
 }
-input[type="number"], 
-input[type="number"]:focus { 
+input[type="number"],
+input[type="number"]:focus {
 	outline: 0;
 	border: none;
 	border-bottom: 1px solid #bdbdbd;
@@ -666,13 +666,13 @@ section.center {
 #quiz .post_office {
 	display: none;
 }
-#quiz .error_div {	
+#quiz .error_div {
     width: 250px;
     height: 40px;
     padding: 10px;
     border-radius: 5px;
 	border: 1px solid #FF5722;
-	color: #FF5722;	
+	color: #FF5722;
 }
 #quiz .step_5 .msg_for_client {
 	padding-top: 15px;
@@ -892,7 +892,7 @@ section.center {
 	line-height: normal;
 	height: 25px;
 }
-.card .product_info {	
+.card .product_info {
 	margin-top: 10px;
 }
 
@@ -1135,7 +1135,7 @@ aside .catalog .main_nav .included_filters {
 }
 aside .catalog .second_nav {
 	padding: 10px 0;
-	overflow-y: scroll;
+	/* overflow-y: scroll; */
 }
 aside .catalog .second_nav .link_wrapp .more_cat {
 	cursor: pointer;
@@ -2010,7 +2010,7 @@ section .stat_year {
 		width: calc( 100% - 110px);
 		float: left;
 	}
-	#cart .card .product_buy {		
+	#cart .card .product_buy {
 		margin-top: 0;
 		margin-bottom: 0;
 		width: 100%;
@@ -2159,11 +2159,11 @@ section .stat_year {
 		top: 50%;
 	}
 
-	#quiz .modal_container {	    
+	#quiz .modal_container {
 	    padding-bottom: 7em;
 	}
 
-	#quiz span.go {		
+	#quiz span.go {
 	   	float: left;
 	   	max-width: 100%;
 	}
@@ -2438,7 +2438,7 @@ section .stat_year {
 }
 
 .product_name > a {
-	display: block;	
+	display: block;
 }
 
 .product_name .product_article {
@@ -2450,7 +2450,7 @@ section .stat_year {
 	#cart .product_buy .buy_block .btn_remove,
 	#cart .product_buy .buy_block .btn_buy {
 		display: none;
-	}	
+	}
 	#cart .product_buy .buy_block {
 		min-width: 70px;
 	}
@@ -2458,13 +2458,13 @@ section .stat_year {
 @media (max-width: 1105px) {
 	#cart .cart {
 	    height: 175px;
-	}	
+	}
 }
 @media (max-width: 540px) {
 	#cart .cart {
 	    height: 200px;
 	}
-	#cart .order_balance {	    
+	#cart .order_balance {
 	    padding-left: 1em;
 	}
 }
@@ -2482,29 +2482,29 @@ section .stat_year {
 	#cart .product_buy .summ {
 		text-align: left;
 	}
-	#cart .product_buy .buy_block {	    
+	#cart .product_buy .buy_block {
 	    min-width: 100px;
 	}
-	#cart .card .product_buy {		
+	#cart .card .product_buy {
 		margin-top: 10px;
 	}
 }
-@media (max-width: 480px) {	
+@media (max-width: 480px) {
 	#cart .card .product_buy {
 	    clear: both;
 	    width: 100%;
 	    margin-left: 15px;
 	    margin-top: 10px;
-	    margin-bottom: 10px;	    
+	    margin-bottom: 10px;
 	}
 	#cart .product_buy .summ {
 	    text-align: left;
-	}	
+	}
 	#cart .info_key {
 	    top: 24px;
 	    right: 25px;
 	}
-	#cart .note textarea, 
+	#cart .note textarea,
 	.products .note textarea {
 		width: 95%;
 	}
@@ -2556,7 +2556,7 @@ section .stat_year {
 		width: 100%;
 		float: left;
 		padding-right: 0;
-	}	
+	}
 	#cart .card .product_photo a img {
 		max-height: 280px;
 		margin-left: 15px;
@@ -2565,7 +2565,7 @@ section .stat_year {
 		top: 24px;
 		right: 15px;
 	}
-	#cart .note textarea, 
+	#cart .note textarea,
 	.products .note textarea {
 		width: 97%;
 	}
