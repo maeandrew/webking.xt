@@ -284,86 +284,126 @@
 
 
 /* Страница "Доставка" / class="page_delivery" ================================================ */
-.page_delivery{
-	padding: 20px;
-}
-.page_delivery .page_delivery_first_line,
-.page_delivery .page_delivery_second_line,
-.page_delivery .page_delivery_third_line {
-	min-height: 350px;
 
-	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-    font-weight: 200;
+.page_delivery {
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  	font-size: 14px;
+	font-weight: 100;
     font-style: normal;
-    color: #47525D;
-
+    color: #47525d;
+}
+.page_delivery h1 {
+	font-weight: 600;
+	font-size: 2em;	
+	margin: 0 auto;
+	text-align: center;
+}
+.page_delivery h4 {	
+    font-size: 2.8em;
+    font-weight: 100;
+    line-height: 1em;
+}
+.page_delivery p {
+	font-size: 1.8em;
+	font-weight: 100;
+    line-height: 1.2em;
+}
+.page_delivery .flexwrapp {	
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: center;
+    flex-wrap: wrap;	
+}
+.page_delivery .blockline{	
+    padding: 7%;
+    border-bottom: 1px solid #E6EAED;   
+}
+.page_delivery .blockline:first-child {
+	padding-top: 3%;
 }
 .page_delivery .forflex {
-	flex-basis: 40%;
-	flex-grow: 0;
-  	flex-shrink: 0;
+	flex-basis: 46%;
+	flex-grow: 1;
+  	flex-shrink: 1;
 }
-.page_delivery .page_delivery_second_line .forflex {
-	margin-left: 50px;
-} 
-.page_delivery .page_delivery_first_line p,
-.page_delivery .page_delivery_second_line p,
-.page_delivery .page_delivery_third_line p, 
-.page_delivery .page_delivery_third_line li { 
-	width: 395px;
-    font-size: 21px;   
-    line-height: 28px;
-}
-.page_delivery .page_delivery_third_line li {
-	margin-top: 10px;
-	margin-left: 20px;
-} 
-.page_delivery h4 {
-	margin-bottom: 50px;
-
-	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-	font-size: 2.2em;
-	font-weight: 400;
-}
-.page_delivery .page_delivery_first_line {	
-	border-bottom: 1px solid #9EA8C1;
-	padding-bottom: 50px;
-}
-.page_delivery .page_delivery_second_line {
-	margin: 40px 0 40px 0;
-}
-.page_delivery .page_delivery_third_line {
-	padding-top: 30px;
-	margin-bottom: 30px;
-	border-top: 1px solid #9EA8C1;
-}
-.page_delivery .del_map,
-.page_delivery .car_pic,
-.page_delivery .packageForYou {
+.page_delivery img,
+.page_delivery .blockline iframe,
+.page_delivery .blockOfText {
 	display: block;
-	float: none;
-	width: 454px;
-	height: 252px;
-	margin-top: 23%;
+	margin: 0 auto;
 }
-.page_delivery .page_delivery_third_line li {
-	list-style: decimal;
+.page_delivery .blockOfText {	
+	padding: 30px;
 }
-.page_delivery .page_delivery_second_line .forflexorder {
-		order: 2;
-	}
-.page_delivery .page_delivery_second_line .forflexpic {
+.page_delivery .delivery1 {
+	max-width: 19.5%;
+	min-width: 15%;	
+	margin-bottom: 3%;
+}
+.page_delivery .blockline video {	   
+    display: block;
+    order: 1;
+}
+.page_delivery .blockline .blockForOrder {
+	order: 2;
+}
+@media (max-width: 1535px) {
+	.page_delivery .blockline .blockForOrder {
 		order: 1;
 	}
-@media (max-width: 1318px) {
-	.page_delivery .page_delivery_second_line .forflexorder {
-		order: 1;
-	}
-	.page_delivery .page_delivery_second_line .forflex .car_pic {
+	.page_delivery .blockline video {
 		order: 2;
+	}
+	.page_delivery .blockOfText {
+		text-align: center;
+	}
+}
+@media (min-width: 964px) and (max-width: 1535px) {		
+	.page_delivery .blockOfText{
+		flex-basis: 65%;
+	}
+}
+.page_delivery .delivery5,
+.page_delivery .delivery4 {
+	width: 100%;
+}
+.page_delivery .delivery4 {
+	max-width: 495px;
+}
+@media (min-width: 500px) and (max-width: 1420px) {
+	.page_delivery p {
+		font-size: 1.4em;
+	}
+	.page_delivery h4 {
+		font-size: 2.4em;	
+	}
+}
+@media (min-width: 900px) and (max-width: 1420px) {
+	.page_delivery .delivery1 {
+		min-width: 25%;
+	}
+}
+@media (min-width: 500px) and (max-width: 900px) {
+	.page_delivery .delivery1 {
+		min-width: 28%;
+	}
+}
+@media (max-width: 500px) {
+	.page_delivery p {
+		font-size: 1.2em;
+	}
+	.page_delivery h4 {
+		font-size: 2.2em;	
+	}
+	.page_delivery .delivery1 {
+		min-width: 31%;
+	}
+	.page_delivery .blockline video {
+	    width: 380px !important;
+	    height: 220px !important;
+	}
+	.page_delivery .blockline iframe {
+		width: 350px !important;
+    	height: 250px !important;
 	}
 }
 
@@ -403,27 +443,62 @@
 }
 
 /* Страница "О нас" / class="page_about_us" ================================================ */
-.page_about_us,
-.page_about_us h4 {
-	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-    font-weight: 200;
+/*.page_about_us h4, */
+.page_about_us {
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 100;
     font-style: normal;    
-    color: #47525D;
+    color: #47525d;
     text-align: center;
     line-height: 28px;
 }	
-.page_about_us h4 {	
-    font-size: 31px;    
+.page_about_us h4 {
+	width: 560px;
+    height: 49px;
+    font-size: 40px;
+    margin: 0 auto 30px; 
 }
 .page_about_us .page_about_us_first_line,
 .page_about_us .page_about_us_second_line,
 .page_about_us .page_about_us_third_line,
-.page_about_us .page_about_us_fourth_line {
-	border-bottom: 1px solid #9EA8C1;
-    padding: 50px 0 100px 0;
-}
+/*.page_about_us .page_about_us_fourth_line, */
 .page_about_us .page_about_us_fifth_line {
-	padding: 50px 0 100px 0;
+	border-bottom: 1px solid #E6EAED;    
+}
+.page_about_us .page_about_us_first_line {	
+	height: 405px;
+    padding-bottom: 80px;
+}
+.page_about_us .page_about_us_first_line h1 {
+	width: 560px;
+    height: 46px;
+    font-size: 29px;
+    font-weight: 600;
+    margin: 9px auto 16px;
+}
+.page_about_us .page_about_us_second_line{
+	height: 620px;
+    margin-top: 70px;
+    padding-bottom: 80px;
+}
+.page_about_us .page_about_us_third_line{	
+	height: 645px;
+    margin-top: 70px;
+    padding-bottom: 80px;
+}
+.page_about_us .page_about_us_fourth_line {	
+	height: 154px;
+	margin-top: 70px;
+}
+.page_about_us .page_about_us_fifth_line {	
+	height: 700px;
+    margin-top: 80px;
+    padding-bottom: 80px;
+}
+.page_about_us .page_about_us_fifth_line h4 {
+    line-height: 52px;
+    height: 107px;
+    margin: 0 auto;
 }
 .page_about_us .page_about_us_first_line p,
 .page_about_us .page_about_us_second_line p,
@@ -431,69 +506,81 @@
 .page_about_us .page_about_us_fourth_line p {
 	margin: 0 auto;
 }
-.page_about_us .page_about_us_first_line p {
- 	width: 514px;    
-    font-size: 28px;
-    line-height: 1;
-    margin-top: 60px;
+.page_about_us p {
+	width: 685px;
+	font-weight: 100;
+	font-size: 25px;
+    line-height: 30px;
 }
-.page_about_us .page_about_us_second_line p {
-	width: 550px;	
-    font-size: 21px;    
-    line-height: 28px;
-    margin-top: 60px;
-    margin-bottom: 80px;    
+.page_about_us .page_about_us_first_line p {
+    height: 120px;
+}
+.page_about_us .page_about_us_second_line p {    
+    height: 95px;
+    margin-bottom: 20px;
+}
+.page_about_us .page_about_us_second_line .second_line_img p.text1,
+.page_about_us .page_about_us_second_line .second_line_img p.text2 {
+	position: absolute;
+    width: 190px;
+    height: 65px;
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 17px;
+    margin-left: 24px;
+}
+.page_about_us .page_about_us_second_line .second_line_img p.text1 > span,
+.page_about_us .page_about_us_second_line .second_line_img p.text2 > span {
+	font-size: 56px;
+    display: block;
+}
+.page_about_us .page_about_us_second_line .second_line_img p.text2 {
+	margin-top: 322px;
+    right: 200px;
+    margin-bottom: 34px;
 }
 .page_about_us .page_about_us_third_line p {	
-    width: 620px;
-    font-size: 21px;    
-    line-height: 28px;
-    margin-top: 60px;
-    margin-bottom: 80px;   
-}
-.page_about_us .page_about_us_fourth_line p {	
-	width: 460px;
-    font-size: 21px;
-    line-height: 28px;    
+    height: 90px;
+    margin-top: 0px;
+    margin-bottom: 44px;
 }
 .page_about_us .page_about_us_first_line > img {
-	width: 135px;
-	height: 80px;
+	width: 182px;
+	height: 161px;
+	margin-top: 29px;
+	margin-bottom: 23px;
 }
-.page_about_us .page_about_us_second_line > img {
-	width: 1000px;
-	height: 430px;
+.page_about_us .page_about_us_second_line .second_line_img {
+	width: 937px;
+	height: 425px;
+	margin: 0 auto;
+	background-image: url(/themes/default/images/page/about/about2.png);
 }
 .page_about_us .page_about_us_third_line > img{
-	width: 826px;
-	height: 394px;
+	width: 544px;
+	height: 389px;
+	margin-top: 40px;
 }
 .page_about_us .page_about_us_fifth_line > img {	
 	width: 820px;
-	height: 344px;
+	height: 519px;
+	margin-bottom: 70px;
 }
-.page_about_us .members {
+/*НЕ УДАЛЯТЬ - временно скрыто*/
+/*.page_about_us .members {
 	display: flex;
 	justify-content: center;
     flex-wrap: wrap;
+    margin-top: 60px; 
 }
 .page_about_us .members .member {
 	flex-basis: 40%;
 	flex-grow: 0;
   	flex-shrink: 0;
-}
-.page_about_us .members .member {
 	width: 200px;
     height: 300px;
-    margin-top: 60px;    
+    margin-bottom: 38px;    
     text-align: center;
-}
-.page_about_us .members .member p {
-	font-size: 16px;
-    color: #47525D;
-    text-align: center;
-    line-height: 28px;
-	margin-top: 15px; 
 }
 .page_about_us .members .member .divForPhoto {
 	width: 200px;
@@ -502,20 +589,25 @@
 	border: 1px solid #000;
 	border-radius: 50%;
 }
-.page_about_us button {
-	display: block;
-	width: 220px;
-	margin: 0 auto;
-	margin-top: 150px;
-	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-    font-weight: 200;
-    font-style: normal;
-    font-size: 14px;
-    background-color: #fff;
-    border: 1px solid #2895F1;
-    border-radius: 5px;
-    color: #2895F1;
+.page_about_us .page_about_us_fourth_line .members .member p.person {
+	width: 230px;
+    height: 25px;
+    font-weight: 500;
+    font-size: 22px;
+    color: #47525D;
+    text-align: center;
+    line-height: 28px;
+	margin-top: 17px; 
 }
+.page_about_us .page_about_us_fourth_line .members .member p.person_post {
+	width: 205px;
+	height: 55px;
+	font-size: 16px;
+    color: #47525D;
+    text-align: center;
+    line-height: 21px;	
+    margin-top: 0; 
+}*/
 
 
 /* Страница "Оплата" / class="page_payment" ================================================ */

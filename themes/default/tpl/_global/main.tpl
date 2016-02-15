@@ -254,7 +254,7 @@
 			<?php if(isset($__graph)){
 					echo $__graph;
 				  }?>
-			<?print_r($_SESSION['member']);?>
+			<?//print_r($_SESSION['member']);?>
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
