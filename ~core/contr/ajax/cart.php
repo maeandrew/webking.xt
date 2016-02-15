@@ -427,6 +427,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				return json_encode(true);
 				break;
+			case "add_status_cart":
+				$cart = new Cart();
+				$res = $cart->SetStatusCart();//$_POST['id_order']
+print_r($res);
+				return json_encode($res);
+				break;
 			default:
 				# code...
 				break;

@@ -250,6 +250,20 @@
 				</li>
 			<?}?>
 
+			<?if(_acl::isAllow('seotext')){?>
+				<li <?=$GLOBALS['CurrentController'] == 'seotext'?'class="sel"':null;?>>
+					<a href="/adm/seotext/">SEO-тексты</a>
+					<!--a href="/adm/seotextadd/" class="add <?=$GLOBALS['CurrentController'] == 'newsadd'?'sel':null;?>" title="Добавить SEO-текст">Добавить SEO-текст</a-->
+				</li>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'seotextsadd'?'class="sel"':null;?>>
+							<a href="/adm/seotextsadd/">Добавить SEO-текст</a>
+						</li>
+					</ul>
+				</li>
+			<?}?>
+
 			<?if(_acl::isAllow('posts')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'posts'?'class="sel"':null;?>>
 					<a href="/adm/posts/">Статьи</a>

@@ -356,7 +356,7 @@
 					</div>-->
 					<div id="container"/>
 
-					<div class="tooltip_wrapp clearfix">
+					<!--<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 							<span class="mdl-radio__label">Совместная покупка</span>
@@ -367,8 +367,8 @@
 						</label>
 						<!--<div class="info_description">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
-						</div>-->
-					</div>
+						</div>
+					</div>-->
 
 					<div id="button-cart1">
 						<button class="mdl-button mdl-js-button" type='submit' value="Отправить">Оформить заказ</button>
