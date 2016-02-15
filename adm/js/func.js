@@ -1,4 +1,19 @@
-
+function ajax(target, action, data, dataType){
+	if(typeof(data) == 'object'){
+		data['target'] = target;
+		data['action'] = action;
+	}else{
+		data = {'target': target, 'action': action};
+	}
+	dataType = dataType || 'json';
+	var ajax = $.ajax({
+		url: URL_base+'ajax',
+		type: "POST",
+		dataType : dataType,
+		data: data
+	});
+	return ajax;
+}
 function ModalGraph(id_graphics){
 	ajax('product', 'OpenModalGraph').done(function(data){
 		$('#graph').html(data);

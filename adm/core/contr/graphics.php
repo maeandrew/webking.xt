@@ -21,6 +21,7 @@
 	$data_graph = $$ObjName->GetGraphList();
 	foreach ($data_graph as $key => &$value) {
 		$value['translit'] = $dbtree->GetTranslitById($value['id_category']);
+		$value['name'] = $dbtree->GetNameById($value['id_category']);
 	}
 	$tpl->Assign('data_graph', $data_graph);
 	$parsed_res = array('issuccess' => TRUE,

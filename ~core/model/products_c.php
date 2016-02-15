@@ -719,7 +719,7 @@ class Products {
 		if ($_POST['opt'] == 1) {
 			$arr['opt'] = $_POST['opt'];
 		}
-		if ($_POST['moderation'] == 01) {
+		if ($_POST['moderation'] == 1) {
 			$arr['moderation'] = $_POST['moderation'];
 		}
 		foreach($_POST['values'] as $k=>$val){
@@ -735,23 +735,74 @@ class Products {
 		return true;
 	}
 
-	public function UpdateGraph($graph=array()){
-		$id_graphics = $_POST['id_graphics'];
-		$graph['id_author'] = $_SESSION['member']['id_user'];
-		$graph['id_category'] = $_POST['id_category'];
-		$graph['name_user'] = $_POST['name_user'];
-		$graph['text'] = $_POST['text'];
-		$graph['moderation'] = 1;
-		$graph['opt'] = 0;
-		$this->db->StartTrans();
-		if ($_POST['opt'] == 1) {
-			$arr['opt'] = $_POST['opt'];
+	// Добавление двух графиков (по категории)
+	public function AddInsertTwoGraph($data){
+		//print_r($data);
+		$arr['id_author'] = $_SESSION['member']['id_user'];
+		$arr['id_category'] = $data['id_category'];
+		$arr['name_user'] = $data['name_user'];
+		$arr['text'] = $data['text'];
+		$arr['moderation'] = 0;
+		if ($data['opt'] == 0) {
+			$arr['opt'] = 0;
 		}
-		foreach($_POST['values'] as $k=>$val){
+		if ($data['moderation'] == 1) {
+			$arr['moderation'] = $data['moderation'];
+		}
+		foreach($data['values']['roz'] as $val){
 			$k++;
 			$arr['value_'.$k] = $val;
 		}
-		if(!$this->db->Update(_DB_PREFIX_."graph", $graph, "id_graphics = {$id_graphics}")){
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$arr['opt'] = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+
+		$k = 0;
+		foreach($data['values']['opt'] as $val){
+			$k++;
+			$arr['value_'.$k] = $val;
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	public function UpdateGraph($graph, $mode=false){
+		$id_graphics = $graph['id_graphics'];
+		$where = "id_graphics = ".$id_graphics;
+		if($mode == true){
+			$arr['moderation'] = $graph['moderation'];
+			if ($graph['mode'] == 'opt') {
+				$where = "opt = ".$id_graphics;
+			}
+		}else{
+			$arr['id_author'] = $_SESSION['member']['id_user'];
+			$arr['id_category'] = $graph['id_category'];
+			$arr['name_user'] = $graph['name_user'];
+			$arr['text'] = $graph['text'];
+			$arr['moderation'] = 1;
+			$arr['opt'] = 0;
+			if ($graph['opt'] == 1) {
+				$arr['opt'] = $graph['opt'];
+			}
+			foreach($graph['values'] as $k=>$val){
+				$k++;
+				$arr['value_'.$k] = $val;
+			}
+		}
+		/*print_r($arr);
+		print_r($id_graphics);
+		print_r($where);*/
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_."graph", $arr, $where)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -766,31 +817,35 @@ class Products {
 		return $result;
 	}
 
+	// Поиск двух графиков
+	public function SearchTwoGraph($id_graphics){
+		$sql = "SELECT * FROM "._DB_PREFIX_."graph r JOIN "._DB_PREFIX_."graph o WHERE r.id_graphics = ".$id_graphics."AND o.opt = r.id_graphics";
+		$result = $this->db->GetArray($sql);
+		return $result;
+	}
+
 
 	// Выборка графика
 	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
-		if($id_category == 0){
-			$sql = "SELECT g.*, c.id_category
-					FROM "._DB_PREFIX_."graph g
-					JOIN "._DB_PREFIX_."category c
-					WHERE c.id_category IN (
-						SELECT id_category
-						FROM "._DB_PREFIX_."category
-						WHERE id_category = 479
-					)";
+		if(!$id_category){
+			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
 			//print_r($sql);
-		}elseif($id_category != false){
-			$sql = "SELECT g.*, u.name
-					FROM "._DB_PREFIX_."graph g
-					JOIN "._DB_PREFIX_."user u
-					WHERE g.id_author = u.id_user
-					AND g.id_category = ".$id_category;
-		}else{
+		}elseif(is_numeric($id_category)){
 			$sql = "SELECT g.*, u.name
 				FROM "._DB_PREFIX_."graph g
 				JOIN "._DB_PREFIX_."user u
-				WHERE g.id_author = u.id_user";
+				WHERE g.id_author = u.id_user
+				AND g.id_category = ".$id_category;
+		}else{
+			$sql = "SELECT g.*, c.id_category
+				FROM "._DB_PREFIX_."graph g
+				JOIN "._DB_PREFIX_."category c
+				WHERE c.id_category IN (
+					SELECT id_category
+					FROM "._DB_PREFIX_."category
+					WHERE id_category = 0
+				)";
 		}
 		$result = $this->db->GetArray($sql);
 		/*$result2 = $this->db->GetArray($sql2);
@@ -928,7 +983,7 @@ class Products {
 		return true;
 	}
 
-	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array ()){
+	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array()){
 		$where = "";
 		if($and !== FALSE && count($and)){
 			$where = " WHERE ";
@@ -975,9 +1030,8 @@ class Products {
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	//функция для отображения результатов поиска без дублей ( нет категорий)
@@ -1450,8 +1504,8 @@ class Products {
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 	}
 
 	//Привязка поставщика к товару с админки
@@ -1524,8 +1578,8 @@ class Products {
 	public function DelFromAssortWithAdm($id_assort, $id_product){
 		$this->db->StartTrans();
 		$this->db->DeleteRowFrom(_DB_PREFIX_."assortiment", "id_assortiment", $id_assort);
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 		return true;
 		// $this->db->StartTrans();
 		// $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
@@ -1655,10 +1709,12 @@ class Products {
 	public function UpdateSitePrices($id_product, $opt_sr, $mopt_sr){
 		$f['price_opt'] = "ROUND(".$opt_sr."*price_coefficient_opt, 2)";
 		$f['price_mopt'] = "ROUND(".$mopt_sr."*price_coefficient_mopt, 2)";
+		$this->db->StartTrans();
 		if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
 		return true;
 	}
 
@@ -1845,13 +1901,15 @@ class Products {
 	public function UpdateTranslit($id_product){
 		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
-		$this->db->StartTrans();
 		$this->SetFieldsById($id_product);
+		$this->db->StartTrans();
 		$f['translit'] = G::StrToTrans($this->fields['name']);
 		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
+
 		return $f['translit'];
 	}
 
@@ -1860,8 +1918,8 @@ class Products {
 		$this->db->StartTrans();
 		$this->db->DeleteRowFrom(_DB_PREFIX_."product", "id_product", $id_product);
 		$this->db->DeleteRowFrom(_DB_PREFIX_."cat_prod", "id_product", $id_product);
-		//$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		//$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
 
@@ -3714,7 +3772,7 @@ class Products {
 	public function DuplicateProduct($data){
 		// creating new article
 		$art = $this->CheckArticle((int) $data['art']);
-		
+
 		// duplicating main product information & category
 		$this->SetFieldsById($data['id_product']);
 		$old_product_info = $this->fields;
@@ -3723,7 +3781,7 @@ class Products {
 		if(!$id_product = $this->AddProduct($old_product_info)){
 			return false;
 		}
-		
+
 		// duplicating product assortment
 		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment AS a
 			WHERE a.id_product = ".$data['id_product'];
@@ -3734,7 +3792,7 @@ class Products {
 				$this->AddToAssortWithAdm($value);
 			}
 		}
-				
+
 		// duplicating product specifications
 		$sql = "SELECT * FROM "._DB_PREFIX_."specs_prods as s
 			WHERE s.id_prod = ".$data['id_product'];
@@ -3745,7 +3803,7 @@ class Products {
 				$specifications->AddSpecToProd($value, $id_product);
 			}
 		}
-		
+
 		// duplicating product segmentation
 		$sql = "SElECT * FROM "._DB_PREFIX_."segment_prods AS sp
 		WHERE sp.id_product = ".$data['id_product'];
@@ -3772,5 +3830,11 @@ class Products {
 			$this->UpdatePhoto($id_product, $res);
 		}
 		return $id_product;
+	}
+
+	public function SetFieldsForMonitoringSpecifications($params){
+		foreach($params as $key => $value){
+			print_r($value);
+		}
 	}
 }?>

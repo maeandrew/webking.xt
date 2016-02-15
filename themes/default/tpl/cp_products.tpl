@@ -16,7 +16,13 @@
 							</a>
 						<?}?>
 					</ul>
-					<a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a>
+
+					<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
+					<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+						<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+					<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+						<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+					<?}?>
 
 				</div>
 				<?=$cart_info;?>

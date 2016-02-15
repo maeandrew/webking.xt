@@ -82,7 +82,7 @@
 			;
 			break;
 			case "SaveGraph":
-				echo json_encode($products->AddInsertGraph($_POST));
+				echo json_encode($products->AddInsertTwoGraph($_POST));
 			break;
 			case "SearchGraph":
 				$values = $products->SearchGraph($_POST['id_graphics']);
@@ -96,7 +96,13 @@
 				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
 			break;
 			case "UpdateGraph":
-				echo json_encode($products->UpdatetGraph($_POST));
+				if (isset($_POST['moderation'])) {
+					//print_r($_POST);
+					$mode = true;
+					echo json_encode($products->UpdatetGraph($_POST, $mode));
+				}else{
+					echo json_encode($products->UpdatetGraph($_POST));
+				}
 			;
 			break;
 			default:

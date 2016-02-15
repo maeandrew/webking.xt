@@ -47,6 +47,12 @@
 				echo json_encode($segmentation->GetSegmentation($_POST['type']));
 			;
 			break;
+			case "UpdateGraph":
+					//print_r($_POST['moderation']);
+					echo json_encode($products->UpdateGraph($_POST, true));
+
+			;
+			break;
 			default:
 			;
 			break;

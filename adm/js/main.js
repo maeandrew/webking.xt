@@ -257,4 +257,30 @@ $(function(){
 		$('#feedback_text').focus();
 		$('input[name="id_reply"]').val(id);
 	});
+
+	$('.moderations input').on('click',function() {
+		var id = $(this).closest('.moderations').data('id'),
+			mode = 'mopt',
+			moderation = 0;
+		if($(this).hasClass('opt')){
+			mode = 'opt';
+		}
+		if ($(this).is(':checked')) {
+			moderation = 1;
+			//console.log($(this).is(':checked'));
+		}
+		//console.log(id);
+		$.ajax({
+			url: URL_base+'ajaxproducts',
+			type: "POST",
+			cache: false,
+			dataType : "json",
+			data: {
+				'action': 'UpdateGraph',
+				'moderation': moderation, 'id_graphics': id, 'mode': mode
+			}
+		}).done(function(data){
+			console.log(data);
+		});
+	});
 });

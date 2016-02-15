@@ -846,12 +846,12 @@ function Graf3d(){
 
 
 
-function ModalGraph(id_graphics){
+function ModalGraph(id_graphics, moderation){
 	ajax('product', 'OpenModalGraph').done(function(data){
 		$('#graph').html(data);
 		componentHandler.upgradeDom();
 
-		if(id_graphics != "text" && id_graphics != "undefined"){
+		if(id_graphics){
 			//console.log(id_graphics);
 				//$('a').on('click', function(){
 				//var id_graphics = $(this).attr('id');
@@ -893,61 +893,37 @@ function ModalGraph(id_graphics){
 					}
 				});
 
-
-		}else if(id_graphics == 'text'){
-			openObject('graph');
-			console.log(id_graphics);
-			//if ($(this).is('.Add_graph_up')) {
-				$('#graph').on('click', '.btn_js.save', function(){
-					var parent =  $(this).closest('#graph'),
-						id_category = parent.data('target'),
-						opt = 0,
-						moderation = 1,
-						name_user = parent.find('#name_user').val(),
-						text = parent.find('textarea').val(),
-						arr = parent.find('input[type="range"]'),
-						values = {};
-					if ($('.select_go label').is(':checked')) {
-						opt = 1;
-					}
-					arr.each(function(index, val){
-						values[index] = $(val).val();
-					});
-					ajax('product', 'SaveGraph', {
-													'values': values,
-													'id_category': id_category,
-													'name_user': name_user,
-													'moderation': moderation,
-													'text': text,
-													'opt': opt
-												}).done(function(data){
-						if(data === true){
-							console.log('Your data has been saved successfully!');
-							closeObject('graph');
-							location.reload();
-						}else{
-							console.log('Something goes wrong!');
-						}
-					});
-				});
-
 		}else{
 			openObject('graph');
 			$('#graph').on('click', '.btn_js.save', function(){
 				var parent =  $(this).closest('#graph'),
 					id_category = parent.data('target'),
-					opt = 0,
+					is_opt = 0,
 					name_user = parent.find('#name_user').val(),
 					text = parent.find('textarea').val(),
-					arr = parent.find('input[type="range"]'),
-					values = {};
+					arr = parent.find('.one input[type="range"]'),
+					arr2 = parent.find('.two input[type="range"]'),
+					values = {roz:{},opt:{}};
+
 				if ($('.select_go label').is(':checked')) {
-					opt = 1;
+					is_opt = 1;
 				}
+				//if (true) {};
 				arr.each(function(index, val){
-					values[index] = $(val).val();
+					values['roz'][index] = $(val).val();
 				});
-				ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+				arr2.each(function(index, val){
+					values['opt'][index] = $(val).val();
+				});
+				//console.log(values);
+				ajax('product', 'SaveGraph',{
+												'values': values,
+												'id_category': id_category,
+												'name_user': name_user,
+												'moderation': moderation,
+												'text': text,
+												'opt': is_opt
+											}).done(function(data){
 					if(data === true){
 						console.log('Your data has been saved successfully!');
 						closeObject('graph');
