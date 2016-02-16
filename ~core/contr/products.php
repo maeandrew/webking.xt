@@ -40,7 +40,7 @@ if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'art', 'category_level', 'page_title', 'page_description', 'page_keywords'));
+$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'art', 'category_level', 'page_title', 'page_description', 'page_keywords', 'indexation'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
@@ -59,6 +59,7 @@ while($cat = $dbtree->NextRow()){
 	$GLOBALS['products_title'] = $cat['page_title'];
 	$GLOBALS['products_description'] = $cat['page_description'];
 	$GLOBALS['products_keywords'] = $cat['page_keywords'];
+	$tpl->Assign('indexation', $cat['indexation']);
 	$tpl->Assign('header', $cat['name']);
 }
 

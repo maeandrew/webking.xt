@@ -4,8 +4,8 @@
 	<title><?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_title']) && $GLOBALS['products_title'] != '')?$GLOBALS['products_title']:$__page_title;?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<?if($GLOBALS['CurrentController'] == 'product'){
-		if($item['indexation'] == 0){?>
+	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products'))){
+		if($indexation == 0){?>
 			<meta name="robots" content="noindex, nofollow"/>
 		<?}
 	}else{?>

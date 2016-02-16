@@ -43,7 +43,7 @@ if(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
 	header('Location: '.$GLOBALS['URL_base'].'adm/catedit/'.$id_category);
 }
 $category = $dbtree->Full(
-	array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'pid', 'content','content_xt', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description'),
+	array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'pid', 'content','content_xt', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description', 'indexation'),
 	array('and' => array('id_category = '.$id_category))
 );
 $tpl->Assign('h1', 'Редактирование категории');
@@ -65,35 +65,39 @@ if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Cat_form_validate();
 	if(!$err){
-		$arr['name'] = mysql_real_escape_string(trim($_POST['name']));
-		$arr['art'] = mysql_real_escape_string(trim($_POST['art']));
-		$arr['content'] = mysql_real_escape_string(trim($_POST['content']));
-		$arr['content_xt'] = mysql_real_escape_string(trim($_POST['content_xt']));
-		$arr['category_img'] = mysql_real_escape_string(trim($_POST['category_img_url']));
-		$arr['category_banner'] = mysql_real_escape_string(trim($_POST['category_banner_url']));
+		$arr['name'] = trim($_POST['name']);
+		$arr['art'] = trim($_POST['art']);
+		$arr['content'] = trim($_POST['content']);
+		$arr['content_xt'] = trim($_POST['content_xt']);
+		$arr['category_img'] = trim($_POST['category_img_url']);
+		$arr['category_banner'] = trim($_POST['category_banner_url']);
 		if($_POST['banner_href'] != ''){
-			$arr['banner_href'] = mysql_real_escape_string(trim($_POST['banner_href']));
+			$arr['banner_href'] = trim($_POST['banner_href']);
 		}else{
-			$arr['banner_href'] = mysql_real_escape_string('#');
+			$arr['banner_href'] = '#';
 		}
-		$arr['filial_link'] = mysql_real_escape_string(trim($_POST['filial_link']));
-		$arr['prom_id'] = mysql_real_escape_string(trim($_POST['prom_id']));
+		$arr['filial_link'] = trim($_POST['filial_link']);
+		$arr['prom_id'] = trim(is_numeric($_POST['prom_id'])?$_POST['prom_id']:0);
 		// $arr['translit'] = G::StrToTrans($_POST['name']);
-		$arr['pid'] = mysql_real_escape_string(trim($_POST['pid']));
+		$arr['pid'] = trim($_POST['pid']);
 		$arr['old_pid'] = $category[0]['pid'];
 		$arr['visible'] = 1;
 		if(isset($_POST['visible']) && $_POST['visible'] == "on"){
 			$arr['visible'] = 0;
 		}
-		$arr['page_title'] = mysql_real_escape_string(trim($_POST['page_title']));
-		$arr['page_description'] = mysql_real_escape_string(trim($_POST['page_description']));
-		$arr['page_keywords'] = mysql_real_escape_string(trim($_POST['page_keywords']));
+		$arr['indexation'] = 0;
+		if(isset($_POST['indexation']) && $_POST['indexation'] == "on"){
+			$arr['indexation'] = 1;
+		}
+		$arr['page_title'] = trim($_POST['page_title']);
+		$arr['page_description'] = trim($_POST['page_description']);
+		$arr['page_keywords'] = trim($_POST['page_keywords']);
 		// print_r($arr);
 		// die();
 		if($dbtree->Update($id_category, $arr)){
 			$tpl->Assign('msg', 'Категория обновлена.');
 			unset($_POST);
-			$category = $dbtree->Full(array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'content', 'content_xt', 'pid', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description', 'page_keywords'), array('and' => array('id_category = '.$id_category)));
+			$category = $dbtree->Full(array('id_category', 'category_level', 'name', 'category_img', 'category_banner', 'banner_href', 'edit_user', 'edit_date', 'translit', 'art', 'content', 'content_xt', 'pid', 'visible', 'filial_link', 'prom_id', 'page_title', 'page_description', 'page_keywords', 'indexation'), array('and' => array('id_category = '.$id_category)));
 		}else{
 			$tpl->Assign('msg', 'Ошибка. Категория не обновлена.');
 			$tpl->Assign('errm', 1);
