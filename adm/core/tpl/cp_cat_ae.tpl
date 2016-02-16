@@ -11,7 +11,7 @@
 			<div class="col-md-3">
 				<div class="fr">
 					<a href="<?=$GLOBALS['URL_base']?>adm/cat_tagedit/<?=$_POST['id_category']?>">Редактирование тегов</a>
-					<a href="<?=$GLOBALS['URL_base']?>cat/<?=$_POST['id_category']?>/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Просмотр категории</a>
+					<a href="/<?=isset($_POST['translit'])?$_POST['translit']:null?>" target="_blank">Просмотр категории</a>
 				</div>
 			</div>
 		<?}?>
