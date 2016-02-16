@@ -288,7 +288,7 @@ class Cart {
 				}
 				$this->db->CompleteTrans();
 			}
-			return true;
+			return $product['id_cart_product'];
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
 			if(isset($_SESSION['member'])){
@@ -315,7 +315,7 @@ class Cart {
 					$this->db->CompleteTrans();
 					unset($f);
 				}
-				return true;
+				return $product['id_cart_product'];
 			}
 			return false;
 		}
@@ -536,4 +536,29 @@ class Cart {
 		return $res;
 	}
 
+	//Добавить статус для заказа (корзины)
+	public function SetStatusCart(){
+		$cart_id = $this->InsertMyCart();
+
+		// Символы, которые будут использоваться в пароле.
+		$chars = "qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP";
+		$max = 4;	// Количество символов в пароле.
+		$size = StrLen($chars)-1;	// Определяем количество символов в $chars
+		$promo = null;	// Определяем пустую переменную, в которую и будем записывать символы.
+		while($max--)	$promo.=$chars[rand(0,$size)]; // Создаём пароль.
+
+		$stat = 10;
+
+		global $db;
+		$sql = "UPDATE "._DB_PREFIX_."cart
+		SET promo = '". $promo ."', status = '". $stat ."'
+		WHERE id_cart = '". isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id ."'";
+		$res = $db->GetArray($sql);
+		print_r($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
 }?>
+

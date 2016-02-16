@@ -1,3 +1,12 @@
+<script>
+    //$(function() {
+     //   var order_cookie = $.cookie('id_order');
+     //   var order =  '{id_order: order_cookie }';
+      //  ajax('cart', 'add_status_cart').done(function (arr) {
+      //      console.log(arr);
+       // });
+  //  });
+</script>
 <? require "cp_customer_cab_leftside.tpl";?>
 <div class="cabinet_content customer_cab">
     <div class="msg-info">

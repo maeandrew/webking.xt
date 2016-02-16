@@ -400,6 +400,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<p>Привязать товар по артикулу:</p>
+								<p>Обязательно выберите вариант из выпадающего списка!</p>
 								<input list="character" class="input-m" id="article" name="article">
 								<datalist id="character"></datalist>
 								<button class="btn-m-default addspec" onclick="editRelatedProds($('#article').val().substr($('#article').val().lastIndexOf('|') + 2), 'insert'); return false;">Привязать</button>

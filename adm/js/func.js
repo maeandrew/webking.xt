@@ -271,12 +271,3 @@ function SendCatOrder(order){
 		$('.wrapp').removeClass('ajax_loading');
 	});
 }
-
-
-
-
-
-
-
-
-

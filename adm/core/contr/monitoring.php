@@ -39,7 +39,7 @@ if(isset($GLOBALS['REQAR'][1])){
 		'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_monitoring.tpl')
 	);
 }
-if ($parsed_res['issuccess'] == true) {
+if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
 ?>

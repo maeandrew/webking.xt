@@ -1670,3 +1670,23 @@ function toAssort(id, opt, nacen, comment){
 		}
 	});
 }
+
+// Установить куки
+function setCookie(name, value) {
+	var valueEscaped = escape(value);
+	var expiresDate = new Date();
+	expiresDate.setTime(expiresDate.getTime() + 365 * 24 * 60 * 60 * 1000); // срок - 1 год
+	var expires = expiresDate.toGMTString();
+	var newCookie = name + "=" + valueEscaped + "; path=/; expires=" + expires;
+	if (valueEscaped.length <= 4000) document.cookie = newCookie + ";";
+}
+
+// Получить куки
+function getCookie(name) {
+	var prefix = name + "=";
+	var cookieStartIndex = document.cookie.indexOf(prefix);
+	if (cookieStartIndex == -1) return null;
+	var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length);
+	if (cookieEndIndex == -1) cookieEndIndex = document.cookie.length;
+	return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}

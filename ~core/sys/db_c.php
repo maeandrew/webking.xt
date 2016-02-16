@@ -211,9 +211,18 @@ class mysqlPDO {
 		$values = array_values($fields);
 		$sql = "INSERT INTO $table (`";
 		$sql .= implode("`, `", $keys);
-		$sql .="`) VALUES (\"";
-		$sql .= implode("\", \"", $values);
-		$sql .="\")";
+		$sql .="`) VALUES (";
+		foreach($values as $key => $value){
+			if(gettype($value) == 'string'){
+				$sql .= $this->Quote($value);
+			}else{
+				$sql .= "'".$value."'";
+			}
+			if($key < count($values)-1){
+				$sql .= ', ';
+			}
+		}
+		$sql .=")";
 		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
 	}
 

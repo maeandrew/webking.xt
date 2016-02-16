@@ -7,6 +7,18 @@
 		if($item['indexation'] == 0){?>
 			<meta name="robots" content="noindex, nofollow"/>
 		<?}
+	}elseif($GLOBALS['CurrentController'] == 'news'){
+		if($item['indexation'] == 0){?>
+			<meta name="robots" content="noindex, nofollow"/>
+		<?}
+	}elseif($GLOBALS['CurrentController'] == 'page'){
+		if($item['indexation'] == 0){?>
+			<meta name="robots" content="noindex, nofollow"/>
+		<?}
+	}elseif($GLOBALS['CurrentController'] == 'category'){
+		if($item['indexation'] == 0){?>
+			<meta name="robots" content="noindex, nofollow"/>
+		<?}
 	}else{?>
 		<meta name="robots" content="noindex, nofollow"/>
 	<?}?>

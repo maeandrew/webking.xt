@@ -36,24 +36,19 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	}
 	$tpl->Assign('navigation', $navigation);
 	$tpl_header .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'top_main.tpl');
-	// Хлебные крошки
-	//
 
 
 	// GRAPH
-	//
-	if(empty($GLOBALS['subcats']) && isset($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'])){
-		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
-	}elseif(!empty($GLOBALS['subcats'])){
-		$id_category = $GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'];
-		$id_subcats = $GLOBALS['subcats'];
-
-	}elseif($GLOBALS['CurrentController'] == 'main'){
-		$id_category = 0;
-		//print_r($GLOBALS['CurrentController']);
-	}else{
-		//$id_category = 0;
+	if($GLOBALS['CurrentController'] == 'main'){
+		$data_graph = $products->GetGraphList(0);
+	}elseif($GLOBALS['CurrentController'] == 'products'){
+		$data_graph = $products->GetGraphList($GLOBALS['CURRENT_ID_CATEGORY']);
 	}
+	if(isset($data_graph)){
+		$tpl->Assign('data_graph', $data_graph);
+		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+	}
+
 	if(isset($id_category)){$data_graph = $products->GetGraphList($id_category);
 		$tpl->Assign('data_graph', $data_graph);
 		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
@@ -62,6 +57,7 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	}
 
 
+	// Хлебные крошки
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
 		unset($parsed_res);
 		require($GLOBALS['PATH_block'].'breadcrumbs.php');

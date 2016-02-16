@@ -11,7 +11,7 @@
 			<div class="col-md-3">
 				<div class="fr">
 					<a href="<?=$GLOBALS['URL_base']?>adm/cat_tagedit/<?=$_POST['id_category']?>">Редактирование тегов</a>
-					<a href="<?=$GLOBALS['URL_base']?>cat/<?=$_POST['id_category']?>/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Просмотр категории</a>
+					<a href="/<?=isset($_POST['translit'])?$_POST['translit']:null?>" target="_blank">Просмотр категории</a>
 				</div>
 			</div>
 		<?}?>
@@ -157,6 +157,9 @@
 		<div class="col-md-12">
 			<label for="visible">Скрытая категория &nbsp;
 				<input type="checkbox"  name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
+			</label>
+			<label for="indexation"><b>Индексация &nbsp;</b>
+				<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
 			</label>
 			<input type="hidden" name="id_category" id="id_category" value="<?=isset($_POST['id_category'])?$_POST['id_category']:0?>">
 			<button name="smb" type="submit" id="form_submit1" class="btn-l-default save-btn">Сохранить</button>

@@ -34,6 +34,7 @@ $tpl->Assign('coment', $res);
 // $tpl->Assign('rating', $rating);
 /* product rating ========================================== */
 $tpl->Assign('data', $Page->fields);
+$tpl->Assign('indexation', $product['indexation']);
 $tpl->Assign('item', $product);
 $tpl->Assign('header', $product['name']);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);

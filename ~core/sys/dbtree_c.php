@@ -80,25 +80,25 @@ class dbtree {
 	* ATTENTION, all previous values in table are destroyed.
 	*
 	* @param array $data Contains parameters for additional fields of a tree (if is): 'filed name' => 'importance'
-	* @return bool TRUE if successful, FALSE otherwise.
+	* @return bool true if successful, false otherwise.
 	*/
 	public function Clear($data = array()){
 		$sql = 'TRUNCATE '.$this->table;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$sql = 'DELETE FROM '.$this->table;
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$fld_names = $fld_values = '';
 		if(!empty($data)){
@@ -110,14 +110,14 @@ class dbtree {
 		$id = $this->db->GenID($this->table.'_seq', 1);
 		$sql = ' INTO '.$this->table.' ('.$this->table_id.', '.$fld_names.') VALUES ('.$id.', '.$fld_values.')';
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 
 	public function GetNodeFields($section_id, $fields){
@@ -140,21 +140,21 @@ class dbtree {
 	* @param integer $cache Recordset is cached for $cache microseconds
 	* @return array - left, right, level
 	*/
-	public function GetNodeInfo($section_id, $cache = FALSE){
+	public function GetNodeInfo($section_id, $cache = false){
 		$sql = 'SELECT '.$this->table_left.', '.$this->table_right.', '.$this->table_level.' FROM '.$this->table.' WHERE '.$this->table_id.' = '.(int)$section_id;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
 		}
-		if(FALSE === $res) {
+		if(false === $res) {
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		if(0 == $res->RecordCount()){
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('no_element_in_tree') : 'no_element_in_tree';
-			return FALSE;
+			return false;
 		}
 		$data = $res->FetchRow();
 		unset($res);
@@ -168,10 +168,10 @@ class dbtree {
 	* @param array $condition Array structure: array('and' => array('id = 0', 'id2 >= 3'), 'or' => array('sec = \'www\'', 'sec2 <> \'erere\'')), etc where array key - condition (AND, OR, etc), value - condition string
 	* @return array - left, right, level
 	*/
-	public function GetParentInfo($section_id, $condition = '', $cache = FALSE){
+	public function GetParentInfo($section_id, $condition = '', $cache = false){
 		$node_info = $this->GetNodeInfo($section_id);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId, $rightId, $level) = $node_info;
 		$level--;
@@ -179,15 +179,15 @@ class dbtree {
 			$condition = $this->_PrepareCondition($condition);
 		}
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_left.' < '.$leftId.' AND '.$this->table_right.' > '.$rightId.' AND '.$this->table_level.' = '.$level.$condition.' ORDER BY '. $this->table_left;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
 		}
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		return $res->FetchRow();
 	}
@@ -201,8 +201,8 @@ class dbtree {
 	*/
 	public function Insert($section_id, $condition = '', $data = array()){
 		$node_info = $this->GetNodeInfo($section_id);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId, $rightId, $level) = $node_info;
 		$data[$this->table_left] = $rightId;
@@ -218,29 +218,29 @@ class dbtree {
 		$sql .= $condition;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_id.' = -1';
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$data[$this->table_id] = $this->db->GenID($this->table.'_seq', 2);
 		$sql = $this->db->GetInsertSQL($res, $data);
 		if(!empty($sql)){
 			$res = $this->db->Execute($sql);
-			if(FALSE === $res){
+			if(false === $res){
 				$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 				$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 				$this->db->FailTrans();
-				return FALSE;
+				return false;
 			}
 		}
 		$this->db->CompleteTrans();
@@ -256,8 +256,8 @@ class dbtree {
 	*/
 	public function InsertNear($ID, $condition = '', $data = array()){
 		$node_info = $this->GetNodeInfo($ID);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId, $rightId, $level) = $node_info;
 		$data[$this->table_left] = ($rightId + 1);
@@ -273,29 +273,29 @@ class dbtree {
 		$sql .= $condition;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_id.' = -1';
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$data[$this->table_id] = $this->db->GenID($this->table.'_seq', 2);
 		$sql = $this->db->GetInsertSQL($res, $data);
 		if(!empty($sql)){
 			$res = $this->db->Execute($sql);
-			if(FALSE === $res){
+			if(false === $res){
 				$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 				$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 				$this->db->FailTrans();
-				return FALSE;
+				return false;
 			}
 		}
 		$this->db->CompleteTrans();
@@ -307,22 +307,22 @@ class dbtree {
 	* @param integer $ID node ID
 	* @param integer $newParentId ID of new parent node
 	* @param array $condition Array structure: array('and' => array('id = 0', 'id2 >= 3'), 'or' => array('sec = \'www\'', 'sec2 <> \'erere\'')), etc where array key - condition (AND, OR, etc), value - condition string
-	* @return bool TRUE if successful, FALSE otherwise.
+	* @return bool true if successful, false otherwise.
 	*/
 	public function MoveAll($ID, $newParentId, $condition = ''){
 		$node_info = $this->GetNodeInfo($ID);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId, $rightId, $level) = $node_info;
 		$node_info = $this->GetNodeInfo($newParentId);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftIdP, $rightIdP, $levelP) = $node_info;
 		if($ID == $newParentId || $leftId == $leftIdP || ($leftIdP >= $leftId && $leftIdP <= $rightId) || ($level == $levelP+1 && $leftId > $leftIdP && $rightId < $rightIdP)){
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('cant_move_tree') : 'cant_move_tree';
-			return FALSE;
+			return false;
 		}
 		if(!empty($condition)){
 			$condition = $this->_PrepareCondition($condition);
@@ -357,31 +357,31 @@ class dbtree {
 		$sql .= $condition;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 	/**
 	* Change items position.
 	*
 	* @param integer $id1 first item ID
 	* @param integer $id2 second item ID
-	* @return bool TRUE if successful, FALSE otherwise.
+	* @return bool true if successful, false otherwise.
 	*/
 	public function ChangePosition($id1, $id2){
 		$node_info = $this->GetNodeInfo($id1);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId1, $rightId1, $level1) = $node_info;
 		$node_info = $this->GetNodeInfo($id2);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId2, $rightId2, $level2) = $node_info;
 		$sql = 'UPDATE '.$this->table.' SET '
@@ -391,11 +391,11 @@ class dbtree {
 		.'WHERE '.$this->table_id.' = '.(int)$id1;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$sql = 'UPDATE '.$this->table.' SET '
 		.$this->table_left.' = '.$leftId1 .', '
@@ -403,14 +403,14 @@ class dbtree {
 		.$this->table_level.' = '.$level1 .' '
 		.'WHERE '.$this->table_id.' = '.(int)$id2;
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 	/**
 	* Swapping nodes within the same level and limits of one parent with all its children: $id1 placed before or after $id2.
@@ -419,24 +419,24 @@ class dbtree {
 	* @param integer $id2 second item ID
 	* @param string $position 'before' or 'after' $id2
 	* @param array $condition Array structure: array('and' => array('id = 0', 'id2 >= 3'), 'or' => array('sec = \'www\'', 'sec2 <> \'erere\'')), etc where array key - condition (AND, OR, etc), value - condition string
-	* @return bool TRUE if successful, FALSE otherwise.
+	* @return bool true if successful, false otherwise.
 	*/
 	public function ChangePositionAll($id1, $id2, $position = 'after', $condition = ''){
 		$node_info = $this->GetNodeInfo($id1);
-		if(FALSE === $node_info){
+		if(false === $node_info){
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('cant_change_position') : 'cant_change_position';
-			return FALSE;
+			return false;
 		}
 		list($leftId1, $rightId1, $level1) = $node_info;
 		$node_info = $this->GetNodeInfo($id2);
-		if(FALSE === $node_info){
+		if(false === $node_info){
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('cant_change_position') : 'cant_change_position';
-			return FALSE;
+			return false;
 		}
 		list($leftId2, $rightId2, $level2) = $node_info;
 		if($level1 <> $level2){
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('cant_change_position') : 'cant_change_position';
-			return FALSE;
+			return false;
 		}
 		if('before' == $position){
 			if($leftId1 > $leftId2){
@@ -478,26 +478,26 @@ class dbtree {
 		$sql .= $condition;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 	/**
 	* Delete element with number $id from the tree wihtout deleting it's children.
 	*
 	* @param integer $ID Number of element
 	* @param array $condition Array structure: array('and' => array('id = 0', 'id2 >= 3'), 'or' => array('sec = \'www\'', 'sec2 <> \'erere\'')), etc where array key - condition (AND, OR, etc), value - condition string
-	* @return bool TRUE if successful, FALSE otherwise.
+	* @return bool true if successful, false otherwise.
 	*/
 	public function Delete($ID, $condition = ''){
 		$node_info = $this->GetNodeInfo($ID);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId, $rightId) = $node_info;
 		if(!empty($condition)){
@@ -506,11 +506,11 @@ class dbtree {
 		$sql = 'DELETE FROM '.$this->table.' WHERE '.$this->table_id.' = '.(int)$ID;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$sql = 'UPDATE '.$this->table.' SET '
 		.$this->table_level.' = CASE WHEN '.$this->table_left.' BETWEEN '.$leftId.' AND '.$rightId.' THEN '.$this->table_level.' - 1 ELSE '.$this->table_level.' END, '
@@ -521,26 +521,26 @@ class dbtree {
 		.'WHERE '.$this->table_right.' > '.$leftId;
 		$sql .= $condition;
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 	/**
 	* Delete element with number $ID from the tree and all it childret.
 	*
 	* @param integer $ID Number of element
 	* @param array $condition Array structure: array('and' => array('id = 0', 'id2 >= 3'), 'or' => array('sec = \'www\'', 'sec2 <> \'erere\'')), etc where array key - condition (AND, OR, etc), value - condition string
-	* @return bool TRUE if successful, FALSE otherwise.
+	* @return bool true if successful, false otherwise.
 	*/
 	public function DeleteAll($ID, $condition = ''){
 		$node_info = $this->GetNodeInfo($ID);
-		if(FALSE === $node_info){
-			return FALSE;
+		if(false === $node_info){
+			return false;
 		}
 		list($leftId, $rightId) = $node_info;
 		if(!empty($condition)){
@@ -549,11 +549,11 @@ class dbtree {
 		$sql = 'DELETE FROM '.$this->table.' WHERE '.$this->table_left.' BETWEEN '.$leftId.' AND '.$rightId;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$deltaId = (($rightId - $leftId) + 1);
 		$sql = 'UPDATE '.$this->table.' SET '
@@ -562,14 +562,14 @@ class dbtree {
 		.'WHERE '.$this->table_right.' > '.$rightId;
 		$sql .= $condition;
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 	/**
 	* Returns all elements of the tree sortet by left.
@@ -579,9 +579,9 @@ class dbtree {
 	* @param integer $cache Recordset is cached for $cache microseconds
 	* @return array needed fields
 	*/
-	public function Full($fields, $condition = '', $cache = FALSE){
+	public function Full($fields, $condition = '', $cache = false){
 		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition, TRUE);
+			$condition = $this->_PrepareCondition($condition, true);
 		}
 		if(is_array($fields)){
 			$fields = implode(', ', $fields);
@@ -591,15 +591,15 @@ class dbtree {
 		$sql = 'SELECT '.$fields.' FROM '.$this->table;
 		$sql .= $condition;
 		$sql .= ' ORDER BY '.$this->table_left;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->GetArray($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
 		}
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		return $res;
 	}
@@ -612,30 +612,30 @@ class dbtree {
 	* @param integer $ID Node unique id
 	* @return array - [0] => array(id, left, right, level, additional fields), [1] => array(...), etc.
 	*/
-	public function Branch($ID, $fields, $condition = '', $cache = FALSE){
+	public function Branch($ID, $fields, $condition = '', $cache = false){
 		if(is_array($fields)){
 			$fields = 'A.'.implode(', A.', $fields);
 		}else{
 			$fields = 'A.*';
 		}
 		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition, FALSE, 'A.');
+			$condition = $this->_PrepareCondition($condition, false, 'A.');
 		}
 		$sql = 'SELECT '.$fields.', CASE WHEN A.'.$this->table_left.' + 1 < A.'.$this->table_right.' THEN 1 ELSE 0 END AS nflag FROM '.$this->table.' A, '.$this->table.' B WHERE B.'.$this->table_id.' = '.(int)$ID.' AND A.'.$this->table_left.' >= B.'.$this->table_left.' AND A.'.$this->table_right.' <= B.'.$this->table_right;
 		$sql .= $condition;
 		$sql .= ' ORDER BY A.'.$this->table_left;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
 		}
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		$this->res = $res;
-		return TRUE;
+		return true;
 	}
 	/**
 	* Returns all parents of element with number $ID.
@@ -646,30 +646,30 @@ class dbtree {
 	* @param integer $ID Node unique id
 	* @return array - [0] => array(id, left, right, level, additional fields), [1] => array(...), etc.
 	*/
-	public function Parents($ID, $fields, $condition = '', $cache = FALSE){
+	public function Parents($ID, $fields, $condition = '', $cache = false){
 		if(is_array($fields)){
 			$fields = 'A.'.implode(', A.', $fields);
 		}else{
 			$fields = 'A.*';
 		}
 		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition, FALSE, 'A.');
+			$condition = $this->_PrepareCondition($condition, false, 'A.');
 		}
 		$sql = 'SELECT '.$fields.', CASE WHEN A.'.$this->table_left.' + 1 < A.'.$this->table_right.' THEN 1 ELSE 0 END AS nflag FROM '.$this->table.' A, '.$this->table.' B WHERE B.'.$this->table_id.' = '.(int)$ID.' AND B.'.$this->table_left.' BETWEEN A.'.$this->table_left.' AND A.'.$this->table_right;
 		$sql .= $condition;
 		$sql .= ' ORDER BY A.'.$this->table_left;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
 		}
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		$this->res = $res;
-		return TRUE;
+		return true;
 	}
 	/**
 	* Returns a slightly opened tree from an element with number $ID.
@@ -680,7 +680,7 @@ class dbtree {
 	* @param integer $ID Node unique id
 	* @return array - [0] => array(id, left, right, level, additional fields), [1] => array(...), etc.
 	*/
-	public function Ajar($ID, $fields, $condition = '', $cache = FALSE){
+	public function Ajar($ID, $fields, $condition = '', $cache = false){
 		if(is_array($fields)){
 			$fields = 'A.'.implode(', A.', $fields);
 		}else{
@@ -688,24 +688,24 @@ class dbtree {
 		}
 		$condition1 = '';
 		if(!empty($condition)){
-			$condition1 = $this->_PrepareCondition($condition, FALSE, 'B.');
+			$condition1 = $this->_PrepareCondition($condition, false, 'B.');
 		}
 		$sql = 'SELECT A.'.$this->table_left.', A.'.$this->table_right.', A.'.$this->table_level.' FROM '.$this->table.' A, '.$this->table.' B '.'WHERE B.'.$this->table_id.' = '.(int)$ID.' AND B.'.$this->table_left.' BETWEEN A.'.$this->table_left.' AND A.'.$this->table_right;
 		$sql .= $condition1;
 		$sql .= ' ORDER BY A.'.$this->table_left;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
 		}
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		if(0 == $res->RecordCount()){
 			$this->ERRORS_MES[] = _('no_element_in_tree');
-			return FALSE;
+			return false;
 		}
 		$alen = $res->RecordCount();
 		$i = 0;
@@ -715,7 +715,7 @@ class dbtree {
 			$fields = '*';
 		}
 		if(!empty($condition)){
-			$condition1 = $this->_PrepareCondition($condition, FALSE);
+			$condition1 = $this->_PrepareCondition($condition, false);
 		}
 		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE ('.$this->table_level.' = 1';
 		while($row = $res->FetchRow()){
@@ -726,51 +726,52 @@ class dbtree {
 		}
 		$sql .= ') '.$condition1;
 		$sql .= ' ORDER BY '.$this->table_left;
-		if(FALSE === DB_CACHE || FALSE === $cache || 0 == (int)$cache){
+		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute($cache, $sql);
 		}
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return FALSE;
+			return false;
 		}
 		$this->res = $res;
-		return TRUE;
+		return true;
 	}
 
 	public function Update($id_category, $arr){
 		$sql = "UPDATE ".$this->table."
-			SET `name` = \"{$arr['name']}\",
-			`category_img` = \"{$arr['category_img']}\",
-			`category_banner` = \"{$arr['category_banner']}\",
-			`banner_href` = \"{$arr['banner_href']}\",
-			`edit_user` = \"{$_SESSION['member']['id_user']}\",
-			`edit_date` = \"".date('Y-m-d H:i:s')."\",
-			`art` = \"{$arr['art']}\",
-			`content` = \"{$arr['content']}\",
-			`pid` = \"{$arr['pid']}\",
-			`visible` = \"{$arr['visible']}\",
-			`filial_link` = \"{$arr['filial_link']}\",
-			`prom_id` = \"{$arr['prom_id']}\",
-			`page_title` = \"{$arr['page_title']}\" ,
-			`page_description` = \"{$arr['page_description']}\",
-			`page_keywords` = \"{$arr['page_keywords']}\"
-			WHERE ".$this->table_id." = $id_category";
+			SET `name` = ".$this->db->Quote($arr['name']).",
+			`category_img` = ".$this->db->Quote($arr['category_img']).",
+			`category_banner` = ".$this->db->Quote($arr['category_banner']).",
+			`banner_href` = ".$this->db->Quote($arr['banner_href']).",
+			`edit_user` = '".$_SESSION['member']['id_user']."',
+			`edit_date` = '".date('Y-m-d H:i:s')."',
+			`art` = '".$arr['art']."',
+			`content` = ".$this->db->Quote($arr['content']).",
+			`pid` = '".$arr['pid']."',
+			`visible` = '".$arr['visible']."',
+			`filial_link` = ".$this->db->Quote($arr['filial_link']).",
+			`prom_id` = '".$arr['prom_id']."',
+			`page_title` = ".$this->db->Quote($arr['page_title']).",
+			`page_description` = ".$this->db->Quote($arr['page_description']).",
+			`page_keywords` = ".$this->db->Quote($arr['page_keywords']).",
+			`indexation` = '".$arr['indexation']."'
+			WHERE ".$this->table_id." = ".$id_category;
+			// print_r($sql);die();
 		$this->db->StartTrans();
-		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(!$this->db->Execute($sql)){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
+		$this->db->CompleteTrans();
 		if($arr['old_pid'] <> $arr['pid']){
 			$this->MoveAll($id_category, $arr['pid']);
 		}
-		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 
 	public function UpdateEditUserDate($id_category){
@@ -780,14 +781,14 @@ class dbtree {
 			WHERE ".$this->table_id." = $id_category";
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
-		return TRUE;
+		return true;
 	}
 
 	public function UpdateTranslit($id_category){
@@ -801,11 +802,11 @@ class dbtree {
 			WHERE ".$this->table_id." = $id_category";
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
-		if(FALSE === $res){
+		if(false === $res){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
 			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
 			$this->db->FailTrans();
-			return FALSE;
+			return false;
 		}
 		$this->db->CompleteTrans();
 		return $translit;
@@ -849,20 +850,20 @@ class dbtree {
 	*
 	* @param array $condition
 	* @param string $prefix
-	* @param bool $where - True - yes, flase - not
+	* @param bool $where - true - yes, flase - not
 	* @return string
 	*/
-	private function _PrepareCondition($condition, $where = FALSE, $prefix = ''){
+	private function _PrepareCondition($condition, $where = false, $prefix = ''){
 		if(!is_array($condition)){
 			return $condition;
 		}
 		$sql = ' ';
-		if(TRUE === $where){
+		if(true === $where){
 			$sql .= 'WHERE '.$prefix;
 		}
 		$keys = array_keys($condition);
 		for($i = 0;$i < count($keys);$i++){
-			if(FALSE === $where || (TRUE === $where && $i > 0)){
+			if(false === $where || (true === $where && $i > 0)){
 				$sql .= ' '.strtoupper($keys[$i]).' '.$prefix;
 			}
 			$sql .= implode(' '.strtoupper($keys[$i]).' '.$prefix, $condition[$keys[$i]]);
