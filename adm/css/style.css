@@ -960,6 +960,32 @@ img.pic_block {
 	margin-top: 10px;
 	height: 36px;
 }
+/* Seo-text */
+#id_seo_input{
+	width: 3em;
+}
+#url_seo_input{
+	/*width: 20%;*/
+}
+#text_seo_input{
+	width: 30%;
+}
+#author_seo_input{
+	width: 15%;
+}
+#date_seo_input{
+	width: 5em;
+}
+#status_seo_input{
+	width: 4em;
+}
+#edit_seo_input{
+	width: 15%;
+}
+#button_seo{
+	float: left;
+	margin-right: 4%;
+}
 
 /*a:hover		 { color: #CC0000; }*/
 /*.no-margin { margin: 0 !important; }

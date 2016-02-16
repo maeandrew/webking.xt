@@ -1,22 +1,19 @@
 <?php
-if(!_acl::isAllow('news')){
+if(!_acl::isAllow('seotext')){
 	die("Access denied");
 }
-$News = new News();
+$Seo = new SEO();
 unset($parsed_res);
-$tpl->Assign('h1', 'Новости');
+$tpl->Assign('h1', 'Seo-текст');
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Новости";
-if(isset($_POST['smb']) && isset($_POST['ord'])){
-	$News->Reorder($_POST);
-	$tpl->Assign('msg', 'Сортировка выполнена успешно.');
-}
-if($News->NewsList(1)){// die('Ошибка при формировании списка новостей.');
-	$tpl->Assign('list', $News->list);
+$GLOBALS['IERA_LINKS'][$ii]['title'] = "Seo-текст";
+
+if($Seo->SeoTextList()){// die('Ошибка при формировании списка новостей.');
+	$tpl->Assign('list', $Seo->list);
 }
 $parsed_res = array(
 	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_news.tpl')
+	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_seotext.tpl')
 );
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];

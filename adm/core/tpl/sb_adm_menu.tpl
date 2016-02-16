@@ -253,7 +253,7 @@
 			<?if(_acl::isAllow('seotext')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'seotext'?'class="sel"':null;?>>
 					<a href="/adm/seotext/">SEO-тексты</a>
-					<!--a href="/adm/seotextadd/" class="add <?=$GLOBALS['CurrentController'] == 'newsadd'?'sel':null;?>" title="Добавить SEO-текст">Добавить SEO-текст</a-->
+					<!--a href="/adm/seotextadd/" class="add <?=$GLOBALS['CurrentController'] == 'seotextadd'?'sel':null;?>" title="Добавить SEO-текст">Добавить SEO-текст</a-->
 				</li>
 				<li>
 					<ul class="sb_menusub">
