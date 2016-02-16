@@ -3779,7 +3779,7 @@ class Products {
 		$this->SetFieldsById($data['id_product']);
 		$old_product_info = $this->fields;
 		$old_product_info['art'] = $art;
-		$old_product_info['dupl_idproduct'] = $data['id_product'];
+		// $old_product_info['dupl_idproduct'] = $data['id_product'];
 		$old_product_info['name'] .= ' '.$art;
 		if(!$id_product = $this->AddProduct($old_product_info)){
 			return false;
