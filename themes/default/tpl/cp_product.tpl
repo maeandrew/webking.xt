@@ -12,6 +12,9 @@
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<p class="product_article">Арт: <?=$item['art']?></p>
+		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
+			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
+		<?}?>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
 				<img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
