@@ -54,12 +54,12 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	}else{
 		//$id_category = 0;
 	}
-	$data_graph = $products->GetGraphList($id_category);
-	$tpl->Assign('data_graph', $data_graph);
-	$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
-	/*$tpl->Assign('data_graph', $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
-	$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'main.tpl');*/
-
+	if(isset($id_category)){$data_graph = $products->GetGraphList($id_category);
+		$tpl->Assign('data_graph', $data_graph);
+		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+		/*$tpl->Assign('data_graph', $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
+		$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'main.tpl');*/
+	}
 
 
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){

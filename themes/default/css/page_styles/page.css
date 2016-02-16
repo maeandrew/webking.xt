@@ -443,128 +443,199 @@
 }
 
 /* Страница "О нас" / class="page_about_us" ================================================ */
-/*.page_about_us h4, */
 .page_about_us {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 100;
-    font-style: normal;    
+  	font-size: 14px;
+	font-weight: 100;
+    font-style: normal;
     color: #47525d;
     text-align: center;
     line-height: 28px;
-}	
-.page_about_us h4 {
-	width: 560px;
-    height: 49px;
-    font-size: 40px;
-    margin: 0 auto 30px; 
 }
-.page_about_us .page_about_us_first_line,
-.page_about_us .page_about_us_second_line,
-.page_about_us .page_about_us_third_line,
-/*.page_about_us .page_about_us_fourth_line, */
-.page_about_us .page_about_us_fifth_line {
-	border-bottom: 1px solid #E6EAED;    
+.page_about_us h1 {
+	font-weight: 600;
+	font-size: 2em;	
+	margin: 3% auto;
+	text-align: center;
 }
-.page_about_us .page_about_us_first_line {	
-	height: 405px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_first_line h1 {
-	width: 560px;
-    height: 46px;
-    font-size: 29px;
-    font-weight: 600;
-    margin: 9px auto 16px;
-}
-.page_about_us .page_about_us_second_line{
-	height: 620px;
-    margin-top: 70px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_third_line{	
-	height: 645px;
-    margin-top: 70px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_fourth_line {	
-	height: 154px;
-	margin-top: 70px;
-}
-.page_about_us .page_about_us_fifth_line {	
-	height: 700px;
-    margin-top: 80px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_fifth_line h4 {
-    line-height: 52px;
-    height: 107px;
-    margin: 0 auto;
-}
-.page_about_us .page_about_us_first_line p,
-.page_about_us .page_about_us_second_line p,
-.page_about_us .page_about_us_third_line p,
-.page_about_us .page_about_us_fourth_line p {
-	margin: 0 auto;
+.page_about_us h4 {	
+    font-size: 2.8em;
+    font-weight: 100;
+    line-height: 1.4em;
 }
 .page_about_us p {
-	width: 685px;
+	width: 76%;
+	font-size: 1.8em;
 	font-weight: 100;
-	font-size: 25px;
-    line-height: 30px;
+    line-height: 1.2em;
+    margin: 5% auto;
 }
-.page_about_us .page_about_us_first_line p {
-    height: 120px;
+.page_about_us .flexwrapp {	
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;	
 }
-.page_about_us .page_about_us_second_line p {    
-    height: 95px;
-    margin-bottom: 20px;
+.page_about_us .blockline{	
+    padding: 7%;
+    border-bottom: 1px solid #E6EAED;   
 }
-.page_about_us .page_about_us_second_line .second_line_img p.text1,
-.page_about_us .page_about_us_second_line .second_line_img p.text2 {
-	position: absolute;
-    width: 190px;
-    height: 65px;
-    font-size: 18px;
-    line-height: 21px;
-    margin-top: 17px;
-    margin-left: 24px;
+/*Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
+.page_about_us .blockline:nth-child(4){
+	border: none;
 }
-.page_about_us .page_about_us_second_line .second_line_img p.text1 > span,
-.page_about_us .page_about_us_second_line .second_line_img p.text2 > span {
-	font-size: 56px;
-    display: block;
+.page_about_us .blockline:last-child {
+	padding-top: 0;
 }
-.page_about_us .page_about_us_second_line .second_line_img p.text2 {
-	margin-top: 322px;
-    right: 200px;
-    margin-bottom: 34px;
+/*------------------------------------*/
+.page_about_us .blockline:first-child {
+	padding-top: 3%;
 }
-.page_about_us .page_about_us_third_line p {	
-    height: 90px;
-    margin-top: 0px;
-    margin-bottom: 44px;
+.page_about_us .forflex {
+	flex-basis: 46%;
+	flex-grow: 1;
+  	flex-shrink: 1;
 }
-.page_about_us .page_about_us_first_line > img {
-	width: 182px;
-	height: 161px;
-	margin-top: 29px;
-	margin-bottom: 23px;
-}
-.page_about_us .page_about_us_second_line .second_line_img {
-	width: 937px;
-	height: 425px;
+.page_about_us img{
+	display: block;
 	margin: 0 auto;
-	background-image: url(/themes/default/images/page/about/about2.png);
 }
-.page_about_us .page_about_us_third_line > img{
-	width: 544px;
-	height: 389px;
-	margin-top: 40px;
+.page_about_us img.about1 {
+	width: 18%;
+	margin-bottom: 3%;
 }
-.page_about_us .page_about_us_fifth_line > img {	
-	width: 820px;
-	height: 519px;
-	margin-bottom: 70px;
+.page_about_us img.about2 {
+	width: 86%;
+	z-index: 1;	
+}
+.page_about_us img.about3 {
+	width: 52%;	
+}
+.page_about_us img.about4 {	
+	width: 78%;
+}
+.page_about_us .second_line_img {
+	position: relative;
+}
+.page_about_us .second_line_img p.text1,
+.page_about_us .second_line_img p.text2 {
+	position: absolute;
+    width: 190px;    
+    font-size: 1.2em;    
+    z-index: 2;
+    margin: 0;
+}
+.page_about_us .second_line_img p.text1{	
+	top: 0;
+    left: 9%;	
+}
+.page_about_us .second_line_img p.text2{	
+	bottom: 0;
+	right: 10%;
+}
+.page_about_us .second_line_img p.text1 > span,
+.page_about_us .second_line_img p.text2 > span {
+	font-size: 3.6em;
+    display: block;
+    z-index: 2;
+}
+@media (max-width: 1420px) {
+	.page_about_us p {	
+		font-size: 1.4em;		
+	    margin: 4% auto;
+	}
+	.page_about_us h4 {
+		font-size: 2.4em;	
+	}
+@media (min-width: 900px) and (max-width: 1420px) {
+	.page_about_us .about1 {
+		min-width: 23%;
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 3em;
+	}	
+}
+@media (min-width: 1300px) and (max-width: 1420px) {
+	.page_about_us .second_line_img p.text2 {
+		bottom: -8%;
+		right: 9%;
+	}	
+}
+@media (min-width: 1100px) and (max-width: 1300px) {
+	.page_about_us .second_line_img p.text2 {
+		bottom: -9%;
+		right: 5%;
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 2.6em;
+	}	
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+	.page_about_us .second_line_img p.text2 {
+		bottom: -10%;
+		right: 0%;
+	}
+	.page_about_us .second_line_img p.text1 {		
+		left: 4%;
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 2em;
+	}	
+}
+@media (max-width: 900px) {
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 1.6em;
+	}
+	.page_about_us .second_line_img p.text2 {
+		bottom: -10%;
+		right: -5%;
+		font-size: 0.8em;
+	}
+	.page_about_us .second_line_img p.text1 {		
+		left: 1%;
+		font-size: 0.8em;
+		width: 100px; 
+		width: 117px;
+		top: -8%; 
+	}
+}
+@media (min-width: 580px) and (max-width: 700px) {
+	.page_about_us .second_line_img p.text1 {			
+		width: 190px;
+		top: 0%; 
+	}	
+	.page_about_us .second_line_img p.text2 {
+		bottom: -3%;
+		right: -1%;		
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 1.6em;
+	}
+}
+@media (min-width: 360px) and (max-width: 580px) {
+	.page_about_us .second_line_img p.text1 {			
+		width: 117px;
+		top: -8%; 
+	}
+	.page_about_us .second_line_img p.text2 {			
+		width: 117px;		
+	}		
+}
+@media (max-width: 500px) {
+	.page_about_us #blockOfText {	
+		font-size: 1.2em;		
+	    margin: 3% auto;
+	}
+	.page_about_us h4 {
+		font-size: 1.8em;	
+	}
+	.page_about_us .about1 {
+		min-width: 23%;
+	}
 }
 /*НЕ УДАЛЯТЬ - временно скрыто*/
 /*.page_about_us .members {

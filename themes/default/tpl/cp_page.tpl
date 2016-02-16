@@ -1,5 +1,5 @@
 <div id="content">
-	<?if($GLOBALS['CurrentController'] == 'main'){?>
+	<!--<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<input type="checkbox" id="read_more" class="hidden">
 		<div class="content_page">
 			<?=$data['new_content']?>
@@ -14,9 +14,49 @@
 	<?}?>
 	<?if(isset($sdescr)){
 		echo $sdescr;
-	}?>
+	}?>-->
 
-
+	<!-- Страница "Доставка" -->
+	<div id="base" class="page_delivery hidden">
+		<div class="blockline">
+			<img class="delivery1 forflex" src="/themes/default/images/page/delivery/delivery1.png" alt="">
+			<h1>Доставка</h1>
+		</div>
+		<div class="blockline flexwrapp">			
+			<div class="forflex blockOfText">
+				<h4>Доставка транспортной <br>компанией</h4>
+				<div>
+					<p>Отправим удобным перевозчиком:</p>					
+					<p>1. Запомните ТТН и номер отделения</p>
+					<p>2. При получении проверьте товар</p>
+					<p>3. Оплатите услуги перевозчика</p>					
+				</div>	
+			</div>
+			<div class="forflex blockOfImg">
+				<img class="delivery4" src="/themes/default/images/page/delivery/delivery4.png" alt="">
+			</div>										
+		</div>
+		<div class="blockline flexwrapp">
+			<video class="blockOfImg" id="movie" width="495" height="278" src="/themes/default/images/page/delivery/delivery3.mp4" autoplay loop>			   
+			</video>
+			<div class="forflex blockOfText blockForOrder">
+				<h4>XT доставка</h4>
+				<p>Наша логистика работает за счёт <br>собственного автопарка.</p>
+			</div>			
+		</div>
+		<div class="blockline flexwrapp">
+			<div class="forflex blockOfText">
+				<h4>Самовывоз</h4>
+				<p>Производится с парковочных стоянок <br>ТЦ Барабашово, а еще у нас бесплатная <br>доставка товара до парковки.</p>
+			</div>
+			<div class="forflex blockOfImg">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1282.2924160061052!2d36.29807765817873!3d50.00039271893146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAwJzAxLjQiTiAzNsKwMTcnNTcuMCJF!5e0!3m2!1sru!2sru!4v1455287401346" width="495" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+		</div>
+		<div class="blockline">
+			<img class="delivery5" src="/themes/default/images/page/delivery/delivery5.png" alt="">			
+		</div>
+	</div>
 
 	<!-- Страница "Как стать дилером" -->
 	<div id="base" class="become_a_dealer hidden">
@@ -71,48 +111,6 @@
 		</div>
 		<button class="mdl-cell mdl-cell--12-col">Присоединяйтесь к нам!</button>
     </div>
-
-	<!-- Страница "Доставка" -->
-	<div id="base" class="page_delivery hidden">
-		<div class="blockline">
-			<img class="delivery1 forflex" src="/themes/default/images/page/delivery/delivery1.png" alt="">
-			<h1>Доставка</h1>
-		</div>
-		<div class="blockline flexwrapp">			
-			<div class="forflex blockOfText">
-				<h4>Доставка транспортной <br>компанией</h4>
-				<div>
-					<p>Отправим удобным перевозчиком:</p>					
-					<p>1. Запомните ТТН и номер отделения</p>
-					<p>2. При получении проверьте товар</p>
-					<p>3. Оплатите услуги перевозчика</p>					
-				</div>	
-			</div>
-			<div class="forflex blockOfImg">
-				<img class="delivery4" src="/themes/default/images/page/delivery/delivery4.png" alt="">
-			</div>										
-		</div>
-		<div class="blockline flexwrapp">
-			<video class="blockOfImg" id="movie" width="495" height="278" src="/themes/default/images/page/delivery/delivery3.mp4" autoplay loop>			   
-			</video>
-			<div class="forflex blockOfText blockForOrder">
-				<h4>XT доставка</h4>
-				<p>Наша логистика работает за счёт <br>собственного автопарка.</p>
-			</div>			
-		</div>
-		<div class="blockline flexwrapp">
-			<div class="forflex blockOfText">
-				<h4>Самовывоз</h4>
-				<p>Производится с парковочных стоянок <br>ТЦ Барабашово, а еще у нас бесплатная <br>доставка товара до парковки.</p>
-			</div>
-			<div class="forflex blockOfImg">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1282.2924160061052!2d36.29807765817873!3d50.00039271893146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAwJzAxLjQiTiAzNsKwMTcnNTcuMCJF!5e0!3m2!1sru!2sru!4v1455287401346" width="495" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-			</div>
-		</div>
-		<div class="blockline">
-			<img class="delivery5" src="/themes/default/images/page/delivery/delivery5.png" alt="">			
-		</div>
-	</div>
 
 	<!-- Страница "Справка" -->
 	<div id="base" class="page_information hidden">
@@ -193,25 +191,30 @@
 
 	<!-- Страница "O нас" -->
 	<div id="base" class="page_about_us hidden">
-		<div class="page_about_us_first_line">
-			<img src="/themes/default/images/page/about/about1.png" alt="">
+		<div class="blockline">
+			<img class="about1" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
 			<p>XT - служба снабжения,<br>поставляющая товары непродовольственной<br>группы на предприятия, в магазины и<br>домашние хозяйства.</p>			
 		</div>
-		<div class="page_about_us_second_line">
+		<div class="blockline">
 			<h4>Что мы создали</h4>
 			<p>1500 человек со всей Украины ежедневно покупают на XT, а так же мы ежедневно поставляем товары в 42 предприятия.</p>
 			<div class="second_line_img">
-				<p class="text1"><span>7,000</span><br>оптовых клиентов регулярно производят закупки на XT</p>
-				<p class="text2"><span>140,000</span><br>товаров в ассортименте</p>
+				<img class="about2" src="/themes/default/images/page/about/about2.png" alt="">
+				<p class="text1">
+					<span>7,000</span><br>оптовых клиентов регулярно производят закупки на XT
+				</p>
+				<p class="text2">
+					<span>140,000</span><br>товаров в ассортименте
+				</p>
 			</div>			
 		</div>
-		<div class="page_about_us_third_line">
+		<div class="blockline">
 			<h4>Что мы ценим</h4>
 			<p>Мы стремимся к простоте и прозрачности. Работая с XT клиент всегда уверен в соответствии каталога складу, а доставка - всегда своевременна. Ещё, мы действительно гордимся нашими оптовыми скидками.</p>
-			<img src="/themes/default/images/page/about/about3.png" alt="">
+			<img class="about3" src="/themes/default/images/page/about/about3.png" alt="">
 		</div>
-		<div class="page_about_us_fourth_line">
+		<div class="blockline">
 			<h4>Наша миссия</h4>
 			<p>Опираясь на многолетний опыт, качественно и быстро решаем задачи снабжения каждой компании, создавая комфортные условия для бизнеса.</p>
 			<div class="members hidden">
@@ -267,8 +270,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="page_about_us_fifth_line">				
-			<img src="/themes/default/images/page/about/about4.png" alt="">
+		<div class="blockline">
+			<img class="about4" src="/themes/default/images/page/about/about4.png" alt="">
 			<h4>Мы стараемся ради Вас!<br>Присоединяйтесь!</h4>
 		</div>
 	</div>
