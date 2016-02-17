@@ -1020,7 +1020,7 @@ function rebuildPreview(obj){
 	}
 	preview.css({
 		top: position.top - positionProd.top - preview.height()/2 + obj.height()/2 - correctionBottom - correctionTop,
-		left: 100
+		left: 80
 	});
 	if(position.top - preview.offset().top + obj.height()/2 + preview.find('.triangle').height() > preview.height() ){
 		preview.css('border-radius', '5px 5px 5px 0').find('.triangle').css({
