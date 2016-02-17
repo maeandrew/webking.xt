@@ -45,11 +45,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// if(true == $parsed_res['issuccess']){
 				// 	echo $parsed_res['html'];
 				// }
-//					if(!G::IsLogged()){
-//						$_SESSION['from'] = 'cart';
-//						header('Location: '._base_url.'/login/');
-//						exit();
-//					}else{
+				// if(!G::IsLogged()){
+				// 	$_SESSION['from'] = 'cart';
+				// 	header('Location: '._base_url.'/login/');
+				// 	exit();
+				// }else{
 				    if(G::IsLogged()){
 						$User = new Users();
 						$User->SetUser($_SESSION['member']);
@@ -243,6 +243,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									$value['err'] = 0;
 								}
 								$errflag[$key] = $value['err'];
+								$value['images'] = $products->GetPhotoById($value['id_product']);
 							}
 							array_multisort($list, SORT_DESC, $errflag);
 							$tpl->Assign('list', $list);

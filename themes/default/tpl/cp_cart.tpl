@@ -187,17 +187,11 @@
 					<a href="<?=Link::Product($item['translit']);?>" onClick="removeFromCart(<?=$item['id_product']?>)">
 						<?if(!empty($item['images'])){?>
 							<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
-							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
-							<noscript>
-								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
-							</noscript>
+							<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'small', $item['images'][0]['src']);?>"/>
 						<?}else{?>
 							<!-- <?=_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1']));?> -->
 							<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
-							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
-							<noscript>
-								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
-							</noscript>
+							<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
 						<?}?>
 					</a>
 				</div>
