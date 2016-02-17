@@ -140,6 +140,7 @@ require($GLOBALS['PATH_model'].'UploadHandler.php');
 require($GLOBALS['PATH_model'].'slides_c.php');
 require($GLOBALS['PATH_model'].'unit_c.php');
 require($GLOBALS['PATH_model'].'post_c.php');
+require($GLOBALS['PATH_model'].'seo_c.php');
 
 // почтовая конфигурация
 $GLOBALS['MAIL_CONFIG']['from_name'] = $GLOBALS['CONFIG']['mail_caption']; // from (от) имя

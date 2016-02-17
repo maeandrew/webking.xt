@@ -8,17 +8,11 @@ class SEO{
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array("id", "url", "text", "author", "date_create", "visible");
 	}
-	// Страница по транслиту
+	// Проверка наличия такого url
 	public function SetFieldsByUrl($url, $all = 0){
-		$visible = "AND visible = 1";
-		if($all == 1){
-			$visible = '';
-		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."seo_text
-			WHERE translit = ".$this->db->Quote($rewrite)."
-			".$visible."
-			ORDER BY ord";
+			WHERE url = ".$this->db->Quote($url);
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -27,15 +21,10 @@ class SEO{
 	}
 	// Страница по id
 	public function SetFieldsById($id_seo_text, $all = 0){
-		$visible = "AND visible = 1";
-		if($all == 1){
-			$visible = '';
-		}
+
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."seo_text
-			WHERE id_seo_text = \"$id_seo_text\"
-			$visible
-			ORDER BY ord";
+			WHERE id = \"$id_seo_text\"";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -43,7 +32,7 @@ class SEO{
 		return true;
 	}
 	// Список SeoText
-	public function SeoTextList($param = 0, $limit = ""){
+	public function SeoTextList($limit = ""){
 
 		if($limit != ""){
 			$limit = " limit $limit";
@@ -60,13 +49,10 @@ class SEO{
 
 	// Добавить
 	public function AddSeoText($arr){
-		$f['title'] = $this->db->Quote(trim($arr['title']));
-		$f['descr_short'] = $this->db->Quote(trim($arr['descr_short']));
-		$f['descr_full'] = $this->db->Quote(trim($arr['descr_full']));
-		list($d,$m,$y) = explode(".", trim($arr['date']));
-		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
-		$f['translit'] = G::StrToTrans($f['title']);
-		$f['visible'] = 0;
+		$f['url'] = trim($arr['url']);
+		$f['text'] = trim($arr['text']);
+		$f['visible'] = 0 + $arr['visible'];
+		$f['author'] = trim($arr['author']);
 
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'seo_text', $f)){
@@ -77,34 +63,25 @@ class SEO{
 		$this->db->CompleteTrans();
 		return $id_seo_text;
 	}
-	// Обновление статьи
+	// Обновление
 	public function UpdateSeoText($arr){
-		$f['id_seo_text'] = $this->db->Quote(trim($arr['id_seo_text']));
-		$f['title'] = $this->db->Quote(trim($arr['title']));
-		$f['page_description'] = $this->db->Quote(trim($arr['page_description']));
-		$f['page_title'] = $this->db->Quote(trim($arr['page_title']));
-		$f['page_keywords'] = $this->db->Quote(trim($arr['page_keywords']));
-		$f['descr_short'] = $this->db->Quote(trim($arr['descr_short']));
-		$f['descr_full'] = $this->db->Quote(trim($arr['descr_full']));
-		list($d,$m,$y) = explode(".", trim($arr['date']));
-		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
-		$f['translit'] = G::StrToTrans($f['title']);
-		$f['visible'] = 1;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$f['visible'] = 0;
-		}
+		$f['url'] = trim($arr['url']);
+		$f['text'] = trim($arr['text']);
+		$f['visible'] = (int)$arr['visible'];
+		$f['author'] = trim($arr['author']);
+		$f['id'] = trim($arr['id']);
+
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."seo_text", $f, "id_seo_text = {$f['id_seo_text']}")){
+		if(!$this->db->Update(_DB_PREFIX_."seo_text", $f, "id = {$f['id']}")){
 			$this->db->FailTrans();
 			return false;
 		}
-		$id_seo_text = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return true;
 	}
 	// Удаление страницы
 	public function DelSeoText($id_seo_text){
-		$sql = "DELETE FROM "._DB_PREFIX_."seo_text WHERE `id_seo_text` =  $id_seo_text";
+		$sql = "DELETE FROM "._DB_PREFIX_."seo_text WHERE id =  $id_seo_text";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}

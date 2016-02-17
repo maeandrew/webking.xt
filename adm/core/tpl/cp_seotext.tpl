@@ -9,7 +9,7 @@
 		    <!--col width="80%"><col width=1%><col width="270px"-->
 			<thead>
             <tr class="filter">
-                <td><input id="id_seo_input" type="text" class="input-m" name="filter_id" value="<?=isset($_GET['filter_id'])?htmlspecialchars($_GET['filter_id']):null?>" placeholder="ID записи"></td>
+                <td id="id_seo_input"><input type="text" class="input-m" name="filter_id" value="<?=isset($_GET['filter_id'])?htmlspecialchars($_GET['filter_id']):null?>" placeholder="ID записи"></td>
                 <td id="url_seo_input"><input  type="text" class="input-m" name="filter_url" value="<?=isset($_GET['filter_url'])?htmlspecialchars($_GET['filter_url']):null?>" placeholder="URL (полный)"></td>
                 <td id="text_seo_input"></td>
                 <td id="author_seo_input"><input  type="text" class="input-m" value="<?=isset($_GET['filter_contragent_name'])?htmlspecialchars($_GET['filter_contragent_name']):null?>" placeholder="Автор" name="filter_contragent_name"> </td>
@@ -49,24 +49,16 @@
 						<?=$i['date_create']?>
 					</td>
 					<td class="center">
-						<?=$i['visible']?>
+						<? if($i['visible']==1){?>Вкл<?}else{?>Откл<?}?>
 					</td>
 					<td class="left actions"><nobr>
-						<a class="btn-l-green-inv" href="/adm/seotextedit/<?=$i['id'];?>"><i class="material-icons">edit</i></a>
-						<a class="btn-l-red-inv" href="/adm/seotextdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');"><i class="material-icons">clear</i></a>
+						<a class="btn-l-green-inv" href="/adm/seotextedit/<?=$i['id'];?>">Редактировать</a>
+						<a class="btn-l-red-inv" href="/adm/seotextdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');">Удалить</a>
 						</nobr>
 					</td>
 				</tr>
 			<?endforeach?>
 			</tbody>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="center">
-					<input class="btn-l-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"/>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-
 		</table>
 	</form>
 <?}else{?>

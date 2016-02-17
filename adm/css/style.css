@@ -962,19 +962,25 @@ img.pic_block {
 }
 /* Seo-text */
 #id_seo_input{
+	width: 4em;
+}
+#id_seo_input input{
 	width: 3em;
 }
-#url_seo_input{
-	/*width: 20%;*/
+#url_seo_input input{
+	width: 100%;
 }
 #text_seo_input{
 	width: 30%;
 }
 #author_seo_input{
-	width: 15%;
+	width: 7%;
+}
+#author_seo_input input{
+	width: 7em;
 }
 #date_seo_input{
-	width: 5em;
+	width: 8em;
 }
 #status_seo_input{
 	width: 4em;
@@ -985,6 +991,9 @@ img.pic_block {
 #button_seo{
 	float: left;
 	margin-right: 4%;
+}
+#visible_seo{
+	margin-top: 1em;
 }
 
 /*a:hover		 { color: #CC0000; }*/
