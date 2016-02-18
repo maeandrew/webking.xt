@@ -372,12 +372,12 @@ while($cat = $dbtree->NextRow()){
 	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
 
-    if($products->list){
-        foreach($products->list as &$p){
-            $p['images'] = $products->GetPhotoById($p['id_product']);
-        }
-    }
-    $tpl->Assign('list', $products->list);
+	if($products->list){
+		foreach($products->list as &$p){
+			$p['images'] = $products->GetPhotoById($p['id_product']);
+		}
+	}
+	$tpl->Assign('list', $products->list);
 
 
 	// =========================================================

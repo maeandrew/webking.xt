@@ -1,8 +1,7 @@
 <!-- Скрытая форма со значениями параметров дл яскидок и надбавок, которые можно изменить в панели администратора.
 Инициализация переменных, исходя из этих значений происходит в скрипте func.js !-->
 <form id="cart_discount_and_margin_parameters">
-	<input type="hidden" id="cart_full_wholesale_order_margin"
-		   value="<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>"/>
+	<input type="hidden" id="cart_full_wholesale_order_margin" value="<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>"/>
 	<input type="hidden" id="cart_full_wholesale_discount" value="<?=$GLOBALS['CONFIG']['full_wholesale_discount']?>"/>
 	<input type="hidden" id="cart_wholesale_order_margin" value="<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>"/>
 	<input type="hidden" id="cart_wholesale_discount" value="<?=$GLOBALS['CONFIG']['wholesale_discount']?>"/>
@@ -39,8 +38,8 @@
 					});
 				</script>
 			<?}?>
-			<!--<?if($p['order_opt_qty'] > 0){?>
-				<script>
+			<?if($p['order_opt_qty'] > 0){?>
+				<!-- <script>
 					ga('ecommerce:addItem', {
 					'id': '<?=$cart['id_order']?>',								// Transaction ID. Required.
 					'name': '<?=str_replace("'", '"', $p['name'])?>',			// Product name. Required.
@@ -49,10 +48,10 @@
 					'price': '<?=$p['site_price_opt']?>',						// Unit price.
 					'quantity': '<?=$p['order_opt_qty']?>'						// Quantity.
 					});
-				</script>
+				</script>-->
 			<?}
 			if($p['order_mopt_qty'] > 0){?>
-				<script>
+				<!-- <script>
 					ga('ecommerce:addItem', {
 					'id': '<?=$cart['id_order']?>',								// Transaction ID. Required.
 					'name': '<?=str_replace("'", '"', $p['name'])?>',			// Product name. Required.
@@ -61,9 +60,9 @@
 					'price': '<?=$p['site_price_mopt']?>',						// Unit price.
 					'quantity': '<?=$p['order_mopt_qty']?>'						// Quantity.
 					});
-				</script>
-			<?}?> -->
-			<script>//ga('ecommerce:send');</script>
+				</script> -->
+			<?}?>
+			<!-- <script>ga('ecommerce:send');</script> -->
 		<?}?>
 		<div class="success_order">
 			<?if($_GET['type'] == 'draft'){?>
@@ -94,27 +93,27 @@
 		</div>
 	<?}?>
 <?}else{?>
-	<!-- <?if(isset($errm) && isset($msg)){?>
-		<div class="msg-error paper_shadow_1">
+	<?if(isset($errm) && isset($msg)){?>
+		<!-- <div class="msg-error paper_shadow_1">
 			<span class="header">!</span>
 			<p class="content"><?=$msg?></p>
-		</div>
+		</div>-->
 	<?}?>
-	<?=isset($errm['products'])?'<span class="errmsg">'.$errm['products'].'</span>':null;?> -->
-	<!-- <?if(isset($_SESSION['errm'])){?>
+	<?=isset($errm['products'])?'<span class="errmsg">'.$errm['products'].'</span>':null;?>
+	<?if(isset($_SESSION['errm'])){?>
 		<?foreach($_SESSION['errm'] as $msg){
 			if(!is_array($msg)){?>
-				<div class="msg-<?=msg_type?>">
+				<!-- <div class="msg-<?=msg_type?>">
 					<p><?=$msg?></p>
-				</div>
+				</div> -->
 			<?}?>
-			<script type="text/javascript">
+			<!-- <script type="text/javascript">
 				$('html, body').animate({
 					scrollTop: 0
 				}, 500, "easeInOutCubic");
-			</script>
+			</script> -->
 		<?}
-	}?> -->
+	}?>
 	<!-- Недоступные товары -->
 	<?if(!empty($_SESSION['cart']['unavailable_products'])){?>
 		<div class="msg-warning">
@@ -142,20 +141,20 @@
 						<col width="80%">
 					</colgroup>
 					<thead>
-					<tr>
-						<td class="left">Артикул</td>
-						<td class="left">Название</td>
-					</tr>
+						<tr>
+							<td class="left">Артикул</td>
+							<td class="left">Название</td>
+						</tr>
 					</thead>
 					<tbody>
-					<?foreach($unlist as $ul){?>
-					<tr>
-						<td class="left"><?=$ul['art']?></td>
-						<td class="left">
-							<a href="/product/<?=$ul['id_product'].'/'.$ul['translit']?>/"><?=$ul['name']?></a>
-						</td>
-					</tr>
-					<?}?>
+						<?foreach($unlist as $ul){?>
+							<tr>
+								<td class="left"><?=$ul['art']?></td>
+								<td class="left">
+									<a href="/product/<?=$ul['id_product'].'/'.$ul['translit']?>/"><?=$ul['name']?></a>
+								</td>
+							</tr>
+						<?}?>
 					</tbody>
 				</table>
 			</div>
@@ -169,8 +168,7 @@
 			<ul>
 				<li class="photo">Фото</li>
 				<li class="name">Название</li>
-				<li class="price">Цена</li>
-				<li class="col">Количество</li>
+				<li class="price">Цена, Количество</li>
 				<li class="sum_li">Сумма</li>
 			</ul>
 		</div>
@@ -196,8 +194,7 @@
 					</a>
 				</div>
 				<div class="product_name">
-					<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>"
-					   style="color:rgb(58, 154, 17);">
+					<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>">
 						<?=G::CropString($item['name'])?>
 					</a>
 					<span class="product_article">Артикул: <?=$item['art']?></span>
@@ -217,18 +214,33 @@
 				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
-					<div>
-						<?if(0):?>
-						<p class="price_full">
-							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][3], 2, ".", "")?>
-						</p>
-						<?endif?>
-						<p class="price">
-							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
-						</p>
-					</div>
 					<div class="buy_block">
+						<p class="price"><?=number_format($item['price_opt'], 2, ',', '')?></p>
+						<!-- <div>
+							<?if(0):?>
+								<p class="price_full">
+									<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][3], 2, ".", "")?>
+								</p>
+							<?endif?>
+							<p class="price">
+								<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
+							</p>
+						</div> -->
 						<div class="btn_remove">
+							<button class="mdl-button mdl-js-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+						</div>
+						<input hidden type="text" class="qty_js_old" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>">
+						<input type="number" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" step="<?=$item['min_mopt_qty'];?>">
+						<div class="btn_buy">
+							<?if(isset($_SESSION['cart']['products'][$item['id_product']])){?>
+								<button class="mdl-button mdl-js-button material-icons in_cart_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<button class="mdl-button mdl-js-button buy_btn_js hidden" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+							<?}else{?>
+								<button class="mdl-button mdl-js-button material-icons in_cart_js hidden" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+							<?}?>
+						</div>
+						<!-- <div class="btn_remove">
 							<button class="mdl-button material-icons">
 								<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
 							</button>
@@ -239,13 +251,13 @@
 							<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">
 								<i class="material-icons">add</i>
 							</button>
-						</div>
+						</div> -->
 					</div>
-					<p class="summ">
-						<span class="order_mopt_sum_<?=$item['id_product']?>">
-							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
-						</span>
-					</p>
+				</div>
+				<div class="summ">
+					<span class="order_mopt_sum_<?=$item['id_product']?>">
+						<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
+					</span>
 				</div>
 			</div>
 		<?}?>
@@ -290,7 +302,7 @@
 				<div class="total">
 					<div class="label" style="color: #000">К оплате</div>
 					<div class="total_summ">
-						<span class="summ_many" style='font-size: 1.2em'><?=round($total, 2)?>
+						<span class="summ_many" style='font-size: 1.2em'><?=number_format($total, 2, ",", "")?>
 						</span>  ГРН	</div>
 				</div>
 			</div>
@@ -508,7 +520,7 @@
 			$("#contrlink").val(0);
 			$("#contrlink").fadeOut();
 		}
-//---------Проверка на ввод телефона
+		//---------Проверка на ввод телефона
 		$('#button-cart1').click(function(){
 			if(!$('.phone').val()){
 				$(this).click(function(){
@@ -520,7 +532,7 @@
 				$('.err_tel').css('visibility', '')
 			}
 		});
-//-------------Инициалзация маски для ввода телефонных номеров-------
+		//-------------Инициалзация маски для ввода телефонных номеров-------
 		$(function(){
 			$(".phone").mask("+38 (099) ?999-99-99");
 		});
