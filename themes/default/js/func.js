@@ -1121,9 +1121,9 @@ function rebuildPreview(obj){
 		pos = getScrollWindow(),
 		correctionBottom = correctionTop = 0,
 		marginBottom = marginTop = 15;
-	if(pos > 50){
+	// if(pos > 50){
 		marginTop += $('header').outerHeight();
-	}
+	// }
 	var ovftop = position.top - preview.height()/2 + obj.height()/2 - marginTop,
 		ovfbotton = position.top + preview.height()/2 + obj.height()/2 + marginBottom;
 	if(pos + viewportHeight < ovfbotton){
