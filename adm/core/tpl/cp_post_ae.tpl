@@ -4,7 +4,7 @@
 <div id="postae">
     <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<?if(isset($_POST['id']) && $_POST['id']){?>
-			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>news/<?=$_POST['id']?>/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
+			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>posts/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
 		<?}?>
 		<label for="title">Заголовок:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
 		<input type="text" name="title" id="title" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>
@@ -41,8 +41,14 @@
 			}
 		</script> -->
 		<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
-		<input type="text" name="date" id="date" class="input-m wa" value="<?=(isset($_POST['date']) && !isset($errm['date']))?$_POST['date']:time();?>"/>
-		<p><b>Скрыть статью &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
+		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
+		<div id="nav_visible">
+			<h2 class="blue-line">Видимость и индексация</h2>
+			<p><b>Скрыть новость &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
+			<label for="indexation"><b>Индексация &nbsp;</b>
+				<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
+			</label>
+		</div>
 		<input type="hidden" name="id" id="id" value="<?=isset($_POST['id'])?$_POST['id']:0;?>"/>
 		<button name="smb" type="submit" id="form_submit1" class="save-btn btn-l-default">Сохранить</button>
     </form>

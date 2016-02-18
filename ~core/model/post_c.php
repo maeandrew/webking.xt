@@ -8,7 +8,7 @@ class Post {
 	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords');
+		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation');
 	}
 
 	// Статья по id
@@ -17,13 +17,13 @@ class Post {
 		if($all == 1){
 			$visible = '';
 		}
-		$id = mysql_real_escape_string($id);
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."post
 			WHERE id = '".$id."'
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
+		print_r($sql); die();
 		if(!$this->fields){
 			return false;
 		}
@@ -38,7 +38,7 @@ class Post {
 		}
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."post
-			WHERE translit = ".$this->db->Quote($rewrite)."
+			WHERE translit = ".$rewrite."
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
@@ -66,14 +66,15 @@ class Post {
 	}
 	// Добавить статью
 	public function AddPost($arr){
-		$f['title'] = mysql_real_escape_string(trim($arr['title']));
-		$f['content_preview'] = mysql_real_escape_string(trim($arr['content_preview']));
-		$f['content'] = mysql_real_escape_string(trim($arr['content']));
-		$f['page_title'] = mysql_real_escape_string(trim($arr['page_title']));
-		$f['page_keywords'] = mysql_real_escape_string(trim($arr['page_keywords']));
-		$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
+		$f['title'] = trim($arr['title']);
+		$f['content_preview'] = trim($arr['content_preview']);
+		$f['content'] = trim($arr['content']);
+		$f['page_title'] = trim($arr['page_title']);
+		$f['page_keywords'] = trim($arr['page_keywords']);
+		$f['page_description'] = trim($arr['page_description']);
 		$f['translit'] = G::StrToTrans($arr['title']);
 		$f['visible'] = 1;
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
 		}
@@ -90,20 +91,21 @@ class Post {
 
 	// Обновление статьи
 	public function UpdatePost($arr){
-		$f['id'] = mysql_real_escape_string(trim($arr['id']));
-		$f['title'] = mysql_real_escape_string(trim($arr['title']));
-		$f['content_preview'] = mysql_real_escape_string(trim($arr['content_preview']));
-		$f['content'] = mysql_real_escape_string(trim($arr['content']));
-		$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
-		$f['page_title'] = mysql_real_escape_string(trim($arr['page_title']));
-		$f['page_keywords'] = mysql_real_escape_string(trim($arr['page_keywords']));
+		$f['id'] = trim($arr['id']);
+		$f['title'] = trim($arr['title']);
+		$f['content_preview'] = trim($arr['content_preview']);
+		$f['content'] = trim($arr['content']);
+		$f['page_description'] = trim($arr['page_description']);
+		$f['page_title'] = trim($arr['page_title']);
+		$f['page_keywords'] = trim($arr['page_keywords']);
 		$f['translit'] = G::StrToTrans($arr['title']);
 		$f['visible'] = 1;
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."post", $f, "id = ".$id)){
+		if(!$sql = $this->db->Update(_DB_PREFIX_."post", $f, "id = ".$f['id'])){
 			$this->db->FailTrans();
 			return false;
 		}

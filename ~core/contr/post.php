@@ -18,6 +18,7 @@ if(isset($GLOBALS['Rewrite'])){
 	$header = $post['title'];
 	$tpl->Assign('header', $header);
 	$tpl->Assign('data', $post);
+	$tpl->Assign('indexation', $post['indexation']);
 	$GLOBALS['IERA_LINKS'][] = array(
 		'title' => $header,
 		'url' => Link::Custom('post', $post['translit'])

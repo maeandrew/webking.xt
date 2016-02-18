@@ -4,7 +4,7 @@
 <div id="newsae">
     <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<?if(isset($_POST['id_news']) && $_POST['id_news']){?>
-			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>news/<?=$_POST['id_news']?>/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
+			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>news/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
 		<?}?>
 		<label for="title">Заголовок:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
 		<input type="text" name="title" id="title" class="input-l" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>
@@ -42,7 +42,13 @@
 		</script> -->
 		<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
-		<p><b>Скрыть новость &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
+		<div id="nav_visible">
+			<h2 class="blue-line">Видимость и индексация</h2>
+			<p><b>Скрыть новость &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
+			<label for="indexation"><b>Индексация &nbsp;</b>
+				<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
+			</label>
+		</div>
 		<p>
 			<b>Разослать новость &nbsp;</b>
 			<input class="vam" type="checkbox" value="1" name="news_distribution" id="news_distribution"/>

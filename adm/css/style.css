@@ -995,6 +995,12 @@ img.pic_block {
 #visible_seo{
 	margin-top: 1em;
 }
+.blue-line{
+	border-bottom: 3px solid #00AFF0;
+}
+#nav_visible {
+	margin-top: 1em;
+}
 
 /*a:hover		 { color: #CC0000; }*/
 /*.no-margin { margin: 0 !important; }

@@ -12,6 +12,7 @@ if(isset($GLOBALS['Rewrite'])){
 	$header = $news['title'];
 	$tpl->Assign('header', $header);
 	$tpl->Assign('data', $news);
+	$tpl->Assign('indexation', $news['indexation']);
 	$GLOBALS['IERA_LINKS'][] = array(
 		'title' => 'Новости оптового торгового центра xt.ua',
 		'descr' => strip_tags($news['descr_short']),
