@@ -1,5 +1,5 @@
 <div id="content">
-	<!--<?if($GLOBALS['CurrentController'] == 'main'){?>
+	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<input type="checkbox" id="read_more" class="hidden">
 		<div class="content_page">
 			<?=$data['new_content']?>
@@ -14,7 +14,7 @@
 	<?}?>
 	<?if(isset($sdescr)){
 		echo $sdescr;
-	}?>-->
+	}?>
 
 	<!-- Страница "Доставка" -->
 	<div id="base" class="page_delivery hidden">
@@ -113,7 +113,7 @@
 	</div>
 
 	<!-- Страница "Справка" -->
-	<div id="base" class="page_information ">
+	<div id="base" class="page_information hidden">
 		<div class="info_line">
 			<img class="info0" src="/themes/default/images/page/info/info0.png" alt="">
 			<h1>Справка</h1>
@@ -255,7 +255,7 @@
 						продовольственные товары (детское питание и т.д.)</p>
 					</article>
 				</div>
-				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>	
+				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
 			</section>
 		</div>
 		<div id="info_text_block_answers" class="ppp2 info_line flexwrapp hidden">	
@@ -506,8 +506,83 @@
 	</div>
 
 	<!-- Страница "Оплата" -->
-	<div id="base" class="page_payment hidden" >
-		<div>
+	<div id="page_payment" class="page_payment hidden" >
+		<div class="info_line">
+			<img class="payment0" src="/themes/default/images/page/payment/payment0.png" alt="">
+			<h1>Оплата</h1>
+		</div>
+
+		<div class="info_line flexwrapp">
+			<div id="paymentBlock1" class="payment_block forflex" data-target="ppp1">
+				<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
+				<h4>Он-лайн <br>оплата</h4>
+			</div>
+			<div id="paymentBlock2" class="payment_block forflex" data-target="ppp2">
+				<img src="/themes/default/images/page/payment/payment2.png" alt="someimg">
+				<h4>Офф-лайн <br>оплата</h4>
+			</div>
+			<div id="paymentBlock3" class="payment_block forflex" data-target="ppp3">
+				<img src="/themes/default/images/page/payment/payment3.png" alt="someimg">
+				<h4>Наложенный <br>платёж</h4>
+			</div>
+			<div id="paymentBlock4" class="payment_block forflex" data-target="ppp4">
+				<img src="/themes/default/images/page/payment/payment4.png" alt="someimg">
+				<h4>Безналичный <br>платёж</h4>
+			</div>			
+		</div>
+
+		<div class="blockforline hidden">
+			<div id="blockwrapp2">
+				<div class="block1"></div>
+				<div class="block2"></div>
+			</div>
+		</div>
+
+		<div id="info_text_block_on_line" class="ppp1 info_line styleFortext flexwrapp hidden">
+			<p>Приват24</p>
+			<p>Web Money</p>
+			<p>Яндекс Деньги</p>
+		</div>
+		<div id="info_text_block_off_line" class="ppp2 info_line styleFortext flexwrapp hidden">	
+			<div class="forflex">
+				<h5>Через терминал</h5>
+				<p>1. Получить платёжные реквизиты.</p>
+				<p>2. Оплатить заказ и забрать квитанцию.</p>
+				<p>3. Сообщить название бакна, сумму оплаты и номер заказа менеджеру.</p>
+			</div>
+			<div class="forflex">
+				<h5>Через кассу</h5>
+				<p>1. Получить номер карты ПриватБанка.</p>
+				<p>2. Пополнить карту и распечатать квитанцию.</p>
+				<p>3. Сообщить сумму оплаты и номер заказа менеджеру.</p>
+			</div>
+		</div>
+		<div id="info_text_block_payment_1" class="ppp3 info_line styleFortext flexwrapp hidden">
+			<div class="forflex">
+				<h5>Транспортная компания</h5>
+				<p>Комиссия за передачу средств 2%.</p>
+			</div>
+			<div class="forflex">
+				<h5>Курьер XT</h5>
+				<p>Нет комиссии за передачу средств.</p>
+			</div>
+		</div>
+		<div id="info_text_block_payment_2" class="ppp4 info_line styleFortext flexwrapp hidden">
+			<p>Счёт фактура доступен в меню биллинг, после оформления заказа. </p>
+			<p>Мы не возвращаем НДС</p>
+		</div>
+
+		<div class="info_line">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
+			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
+			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
+		</div>
+	</div>
+
+
+	<div>
+		<!-- <div>
 			<h4>Он-лайн</h4>
 			<div class="payment_methods">
 				<img src="/themes/default/images/page/payment/payment1.png" alt="Приват банк">
@@ -559,7 +634,7 @@
 				<img src="/themes/default/images/page/payment/payment4.png" alt="">
 				<p>Мы не возвращаем НДС</p>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<!-- Страница "O нас" -->
@@ -656,6 +731,12 @@
 				1: '48%',
 				2: '77%'
 			}
+			var left2 = {
+				0: '15%',
+				1: '37%',
+				2: '58%',
+				3: '80%'
+			}
 			$('.info_block').click(function (e) {
 				var target = $('.'+$(this).data('target')),
 					eq = $(this).index();
@@ -670,55 +751,74 @@
 					$(this).addClass('active');
 					target.removeClass('hidden')
 					$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
-					$(".block1, .block2").css({"left": left[eq]});
+					$(".block1, .block2").css({"left": left[eq]});					
 				}
-				// $(".block2").css({"left": left[eq]});
+					// $(".block2").css({"left": left[eq]});
 			});
 
 			$('.a_question').click(function(event) {
 				openObject('question');
 			});
 
-			// $('#infoBlock1').click(function (e) {
-			//     $('#infoBlock1').removeClass('hidden');
-			//      	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(0%)');
-			//      	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
-			//      	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
-			//     $('#info_text_block_service').removeClass('hidden');
-			//     $('#info_text_block_answers').addClass('hidden');
-			//     $('#info_text_block_delivery').addClass('hidden');	
-			//     	$(".block1").animate({"left": "18%"}, "slow");
-			//     	$(".block2").animate({"left": "18%"}, "slow");            
-			// });
-			// $('#infoBlock2').click(function (e) {
-			//     $('.blockforline').removeClass('hidden');
-			//     	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(0%)');
-			//     	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(100%)');
-			//     	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
-			//     $('#info_text_block_answers').removeClass('hidden');
-			//     $('#info_text_block_service').addClass('hidden');
-			//     $('#info_text_block_delivery').addClass('hidden');
-			//     	$(".block1").animate({"left": "48%"}, "slow");
-			//     	$(".block2").animate({"left": "48%"}, "slow");
-			// });
-			// $('#infoBlock3').click(function (e) {
-			//     $('.blockforline').removeClass('hidden');
-			//     	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(0%)');
-			//     	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(100%)');
-			//     	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
-			//     $('#info_text_block_delivery').removeClass('hidden');
-			//     $('#info_text_block_service').addClass('hidden');
-			//     $('#info_text_block_answers').addClass('hidden');
-			//     	$(".block1").animate({"left": "77%"}, "slow");
-			//     	$(".block2").animate({"left": "77%"}, "slow");
-			// });
-			// $(':not(.info_block)').click(function (e) {
-			// 	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(100%)');
-			// 	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
-			// 	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
-			// });
-		});	
-</script>
+			$('.payment_block').click(function (e) {
+				var target = $('.'+$(this).data('target')),
+					eq = $(this).index();
+				if($(this).hasClass('active')){
+					$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
+					$('[id^="info_text_block_"], .blockforline').addClass('hidden');
+				}else{
+					target.removeClass('hidden');
+					$('.blockforline').removeClass('hidden');
+					$('[class^="ppp"]').addClass('hidden')
+					$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
+					$(this).addClass('active');
+					target.removeClass('hidden')
+					$(this).find('img').css('-webkit-filter', 'grayscale(0%)');					
+					$(".block1, .block2").css({"left": left2[eq]});
+				}
+					// $(".block2").css({"left": left[eq]});
+			});
+
+	 		// $('#infoBlock1').click(function (e) {
+	 		//     $('#infoBlock1').removeClass('hidden');
+	 		//      	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(0%)');
+	 		//      	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
+	 		//      	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
+	 		//     $('#info_text_block_service').removeClass('hidden');
+	 		//     $('#info_text_block_answers').addClass('hidden');
+	 		//     $('#info_text_block_delivery').addClass('hidden');	
+	 		//     	$(".block1").animate({"left": "18%"}, "slow");
+	 		//     	$(".block2").animate({"left": "18%"}, "slow");            
+	 		// });
+	 		// $('#infoBlock2').click(function (e) {
+	 		//     $('.blockforline').removeClass('hidden');
+	 		//     	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(0%)');
+	 		//     	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(100%)');
+	 		//     	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
+	 		//     $('#info_text_block_answers').removeClass('hidden');
+	 		//     $('#info_text_block_service').addClass('hidden');
+	 		//     $('#info_text_block_delivery').addClass('hidden');
+	 		//     	$(".block1").animate({"left": "48%"}, "slow");
+	 		//     	$(".block2").animate({"left": "48%"}, "slow");
+	 		// });
+	 		// $('#infoBlock3').click(function (e) {
+	 		//     $('.blockforline').removeClass('hidden');
+	 		//     	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(0%)');
+	 		//     	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(100%)');
+	 		//     	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
+	 		//     $('#info_text_block_delivery').removeClass('hidden');
+	 		//     $('#info_text_block_service').addClass('hidden');
+	 		//     $('#info_text_block_answers').addClass('hidden');
+	 		//     	$(".block1").animate({"left": "77%"}, "slow");
+	 		//     	$(".block2").animate({"left": "77%"}, "slow");
+	 		// });
+	 		// $(':not(.info_block)').click(function (e) {
+	 		// 	$('#infoBlock1 img').css('-webkit-filter', 'grayscale(100%)');
+	 		// 	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
+	 		// 	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
+	 		// });
+	 	});	
+	</script>
 
 </div><!--id="content"-->
 
