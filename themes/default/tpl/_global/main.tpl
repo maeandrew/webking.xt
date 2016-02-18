@@ -59,7 +59,8 @@
 	<!-- define JS global variables -->
 	<script type="text/javascript">
 		var URL_base = "<?=_base_url?>/",
-			current_controller = "<?=$GLOBALS['CurrentController']?>";
+			current_controller = "<?=$GLOBALS['CurrentController']?>",
+			ajax_proceed = false;
 	</script>
 	<!-- END define JS global variables -->
 
@@ -91,11 +92,11 @@
 	<!-- END include specific js templates for controllers -->
 	<?if(!isset($_SESSION['member']['gid']) || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
 		<!-- Google counter -->
-		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
+		<?=isset($GLOBALS['CONFIG']['google_counter_xt'])?$GLOBALS['CONFIG']['google_counter_xt']:null;?>
 		<!-- END Google counter -->
 
 		<!-- Yandex.Metrika counter -->
-		<?isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
+		<?=isset($GLOBALS['CONFIG']['yandex_counter_xt'])?$GLOBALS['CONFIG']['yandex_counter_xt']:null?>
 		<!-- END Yandex.Metrika counter -->
 		<!--<script>ga('require', 'ecommerce');</script>-->
 	<?}?>
