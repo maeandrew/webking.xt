@@ -133,7 +133,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 			;
 			break;
-			case "getmoreproducts_desctop":
+			case "getmoreproducts_desktop":
 				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', 0, $params);
 				$list = $Products->list;
 				$i = $_GET['shown_products']+1;

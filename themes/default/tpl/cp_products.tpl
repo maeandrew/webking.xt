@@ -30,7 +30,9 @@
 
 			<div id="view_block_js" class="list_view col-md-12 ajax_loading">
 				<div class="row">
-					<?=$products_list;?>
+					<div class="products">
+						<?=$products_list;?>
+					</div>
 					<div class="preview ajax_loading mdl-shadow--4dp">
 						<div class="preview_content">
 							<div class="mdl-grid" style="overflow: hidden;">
@@ -96,16 +98,13 @@
 				skipped_products = 30*(start_page-1),
 				count = <?=isset($cnt)?$cnt:0;?>;
 			$('.show_more').append('<span class="load_more"></span>');
-			$.ajax({
-				url: URL_base+"ajaxcat",
-				type: "GET",
-				data: ({
-				 'action': 'getmoreproducts_desctop',
-				 'id_category': id_category,
-				 'shown_products': shown_products,
-				 'skipped_products': skipped_products
-				}),
-		   	}).done(function(data){
+			var data = {
+				action: 'getmoreproducts_desctop',
+				id_category: id_category,
+				shown_products: shown_products,
+				skipped_products: skipped_products
+			};
+			ajax('products', 'getmoreproducts', data, 'html').done(function(data){
 		   		var product_view = $.cookie('product_view'),
 		   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
 		   			page.find('#view_block_js .preview').before(data);
