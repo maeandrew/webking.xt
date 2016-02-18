@@ -270,12 +270,11 @@ class mysqlPDO {
 		$sql = "UPDATE $table SET ";
 		$arr = array();
 		foreach($fields as $k=>$v){
-			$arr[] = "`$k` = \"$v\"";
+			$arr[] = "`$k` = ".(gettype($v) == 'string'?$this->Quote($v):"'".$v."'");
 		}
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
 		$this->sql = $sql;
-//		print_r($sql);
 		return $this->Query($sql);
 	}
 
