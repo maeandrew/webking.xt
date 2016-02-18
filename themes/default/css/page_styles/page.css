@@ -223,9 +223,9 @@
 	float: left;
 }
 .become_a_dealer .abilities_list li {
-    list-style-type: disc;    
-    font-size: 1.5em;
-    line-height: 28px;
+	list-style-type: disc;    
+	font-size: 1.5em;
+	line-height: 28px;
 }
 .become_a_dealer .car_pic {
 	display: block;
@@ -237,7 +237,7 @@
 	clear: both;
 	margin-top: 50px;
 	width: 100%;
-  	margin: 0 auto;
+	margin: 0 auto;
 	max-width: 1270px;	
 	display: flex;
 	justify-content: center;
@@ -254,7 +254,7 @@
 	margin-bottom: 20px; 
 	text-align: center;
 	font-size: 1.5em;
-    line-height: 28px;
+	line-height: 28px;
 }
 .become_a_dealer .services .circleForImg {
 	width: 200px;
@@ -269,13 +269,13 @@
 	margin: 0 auto;
 	margin-top: 150px;
 	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-    font-weight: 200;
-    font-style: normal;
-    font-size: 14px;
-    background-color: #fff;
-    border: 1px solid #2895F1;
-    border-radius: 5px;
-    color: #2895F1;
+	font-weight: 200;
+	font-style: normal;
+	font-size: 14px;
+	background-color: #fff;
+	border: 1px solid #2895F1;
+	border-radius: 5px;
+	color: #2895F1;
 }
 .become_a_dealer > h4 {
 	text-align: center;
@@ -287,10 +287,10 @@
 
 .page_delivery {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  	font-size: 14px;
+	font-size: 14px;
 	font-weight: 100;
-    font-style: normal;
-    color: #47525d;
+	font-style: normal;
+	color: #47525d;
 }
 .page_delivery h1 {
 	font-weight: 600;
@@ -299,23 +299,23 @@
 	text-align: center;
 }
 .page_delivery h4 {	
-    font-size: 2.8em;
-    font-weight: 100;
-    line-height: 1em;
+	font-size: 2.8em;
+	font-weight: 100;
+	line-height: 1em;
 }
 .page_delivery p {
 	font-size: 1.8em;
 	font-weight: 100;
-    line-height: 1.2em;
+	line-height: 1.2em;
 }
 .page_delivery .flexwrapp {	
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;	
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;	
 }
 .page_delivery .blockline{	
-    padding: 7%;
-    border-bottom: 1px solid #E6EAED;   
+	padding: 7%;
+	border-bottom: 1px solid #E6EAED;   
 }
 .page_delivery .blockline:first-child {
 	padding-top: 3%;
@@ -323,7 +323,7 @@
 .page_delivery .forflex {
 	flex-basis: 46%;
 	flex-grow: 1;
-  	flex-shrink: 1;
+	flex-shrink: 1;
 }
 .page_delivery img,
 .page_delivery .blockline iframe,
@@ -340,8 +340,8 @@
 	margin-bottom: 3%;
 }
 .page_delivery .blockline video {	   
-    display: block;
-    order: 1;
+	display: block;
+	order: 1;
 }
 .page_delivery .blockline .blockForOrder {
 	order: 2;
@@ -398,189 +398,523 @@
 		min-width: 31%;
 	}
 	.page_delivery .blockline video {
-	    width: 380px !important;
-	    height: 220px !important;
+		width: 380px !important;
+		height: 220px !important;
 	}
 	.page_delivery .blockline iframe {
 		width: 350px !important;
-    	height: 250px !important;
+		height: 250px !important;
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Страница "Справка" / class="page_information" ================================================ */
 .page_information {
-	margin: 30px;
-	padding: 30px;
-
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-size: 14px;
+	font-weight: 100;
+	font-style: normal;
+	color: #47525d;
+}
+.page_information h1 {
+	font-weight: 600;
+	font-size: 2em;	
+	margin: 3% auto;
+	text-align: center;
+}
+.page_information h4 {	
+	font-size: 1.8em;
+	font-weight: 400;
+	line-height: 1em;
+	text-align: center;
+	margin-bottom: 0;
+}
+.page_information p,
+.page_information .text_block  {
+	font-size: 1.2em;
+	font-weight: 100;
+	line-height: 1.2em;
+	text-align: justify;
+	margin: 3% auto;
+}
+.page_information .flexwrapp {	
 	display: flex;
-	justify-content: space-between;
-    flex-wrap: wrap;
+	justify-content: center;
+	/*flex-wrap: wrap;	*/
 }
-.page_information div {
-	border: 1px solid #000;
-	width: 232px;
-	height: 150px;
-
-	flex-basis: 23%;
-	flex-grow: 0;
-  	flex-shrink: 0;
+.page_information .info_line{	
+	padding: 7%;
+	border-bottom: 1px solid #E6EAED;   
 }
-.page_information p {
-	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-    font-weight: 200;
-    font-style: normal;
-    font-size: 21px;
-    color: #47525D;
-    text-align: center;
-    line-height: 28px;
+.page_information .info_line:nth-child(2) {
+	border-bottom: none; 
+}
+.page_information .info_line:first-child {
+	padding-top: 2%;
+}
+.page_information .forflex {
+	flex-basis: 30%;
+	flex-grow: 1;
+	flex-shrink: 1;
 }
 .page_information img {
-	border: 1px solid #000;
 	display: block;
-	margin: 10px auto 0;
-	width: 74px;
-	height: 74px;
+	margin: 0 auto;
+	width: 80%;	
+}
+.page_information .info_block > img {
+	-webkit-filter: grayscale(100%);
+}
+.page_information #infoBlock3 img {
+	width: 67%;	
+}
+.page_information .info_block > img:hover {
+	-webkit-filter: grayscale(0%);
+}
+.page_information .info0 {
+	width: 25%;
+}
+.page_information .text_block {	
+	font-size: 1.4em;
+	padding: 20px;
+	text-align: center;
+	/*временно*/
+	height: 300px;
+}
+.page_information .info_line:nth-child(3) {
+	border-top: 1px solid #E6EAED;
+	border-bottom: 1px solid #E6EAED;
+}
+.page_information .info_line:last-child{	
+	border-top: 1px solid #E6EAED;
+}
+.page_information .blockforline {
+	border: 1px solid #DCDCDC;
+	position: relative;
+   }
+.page_information .block1,
+.page_information .block2 {
+	position: absolute;
+	left: 0%;
+	bottom: 0px;	 
+	border: 32px solid transparent;
+	border-bottom: 30px solid #DCDCDC;
+	-webkit-transition: left .6s ease-in-out;
+	-o-transition: left .6s ease-in-out;
+	transition: left .6s ease-in-out;
+   }
+.page_information .block2 {
+	border-bottom: 30px solid white;
+	bottom: -3px; 
 }
 
+
+/*Карточка для формы*/
+a.a_question {
+	color: #454F5D;
+	text-transform: uppercase;
+}
+#question form {
+	width: 100%;
+	padding: 2em;
+	margin: 0 auto;
+	height: auto;
+}
+#question .mdl-card__supporting-text p {
+	font-size: 1.4em;
+	font-weight: 500;
+	line-height: 1.3em;
+	text-align: center; 
+	margin: 0 auto;
+	color: #3F4A58;
+}
+#question .blockForForm button {
+	min-width: 35%;
+	display: block;
+	margin: 0 auto;
+}
+#question .blockForForm button:hover {
+	background-color: #018B06;
+}
+div#question.opened {
+	width: 25%;
+}
+
+/*Гармошка*/
+.ac-container{
+	width: 100%;
+	margin: 10px auto 30px auto;
+}
+.ac-container label{
+	position: relative;
+	z-index: 20;
+	display: block;
+	height: 30px;
+	cursor: pointer;
+
+	font-family: 'Roboto', sans-serif;
+	padding: 5px 20px;
+	color: #454F5D;    
+	line-height: 1.2em;
+	font-size: 1.2em;    
+	text-align: justify;
+	font-weight: 400;
+}
+.ac-container label:hover{
+	background: #fff;
+	text-decoration: underline;
+}
+.ac-container label:hover:after,
+.ac-container input:checked + label:hover:after{
+	content: '';
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	right: 13px;
+	top: 7px;    
+}
+.ac-container input{
+	display: none;
+}
+.ac-container article{	
+	overflow: hidden;
+	height: 0px;
+	position: relative;
+	z-index: 10;
+	transition:
+		height 0.3s ease-in-out,
+		box-shadow 0.6s linear;
+
+	text-align: justify;
+	width: 90%;
+	padding: 0px 20px;
+}
+.ac-container input:checked ~ article{
+	transition:
+		height 0.5s ease-in-out,
+		box-shadow 0.1s linear;
+}
+.ac-container article p{
+	color: #454F5D;
+	line-height: 1.4em;
+	font-size: 1.2em;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 0;
+}
+.ac-container input:checked ~ article.ac-small{
+	height: 75px;
+}
+.ac-container input:checked ~ article.ac-medium{
+	height: 135px;
+}
+.ac-container input:checked ~ article.ac-large{
+	height: 220px;
+}
+/*----------------*/
+@media (min-width: 1200px) and (max-width: 1400px) {
+	.page_information h4 {
+		font-size: 1.6em;
+	}
+	.page_information .text_block {
+		font-size: 1.4em;
+	}
+}
+@media (min-width: 950px) and (max-width: 1200px) {
+	.page_information h4 {
+		font-size: 1.2em;
+	}
+	.page_information .text_block {
+		font-size: 1em;
+	}
+}
+@media (max-width: 1200px) {
+	.ac-container label {
+		line-height: 1em;
+		font-size: 1em;
+	}
+	.ac-container article p {
+		line-height: 1em;
+		font-size: 1em;
+		margin-top: 10px;
+	}
+	.ac-container div {
+		margin-bottom: 10px;
+	}
+	.page_information p {
+		font-size: 1em;
+	}
+}
+@media (max-width: 1100px) {
+	.page_information .block1,
+	.page_information .block2 {
+		border: 20px solid transparent;
+		border-bottom: 20px solid #DCDCDC;
+	}
+	.page_information .block2 {
+		border-bottom: 20px solid white;
+	}
+}
+@media  (max-width: 950px) {
+	.page_information h4 {
+		font-size: 1em;
+	}
+	.page_information .text_block {
+		font-size: .8em;
+	}
+	.page_information h1 {
+		font-size: 1.4em;
+	}
+	.page_information .block1,
+	.page_information .block2 {
+		border: 15px solid transparent;
+		border-bottom: 15px solid #DCDCDC;
+	}
+	.page_information .block2 {
+		border-bottom: 15px solid white;
+	}
+}
+@media  (max-width: 550px) {
+	.page_information h1 {
+		font-size: 1.2em;
+	}
+}
+
+
+
+
 /* Страница "О нас" / class="page_about_us" ================================================ */
-/*.page_about_us h4, */
 .page_about_us {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 100;
-    font-style: normal;    
-    color: #47525d;
-    text-align: center;
-    line-height: 28px;
-}	
-.page_about_us h4 {
-	width: 560px;
-    height: 49px;
-    font-size: 40px;
-    margin: 0 auto 30px; 
+	font-size: 14px;
+	font-weight: 100;
+	font-style: normal;
+	color: #47525d;
+	text-align: center;
+	line-height: 28px;
 }
-.page_about_us .page_about_us_first_line,
-.page_about_us .page_about_us_second_line,
-.page_about_us .page_about_us_third_line,
-/*.page_about_us .page_about_us_fourth_line, */
-.page_about_us .page_about_us_fifth_line {
-	border-bottom: 1px solid #E6EAED;    
+.page_about_us h1 {
+	font-weight: 600;
+	font-size: 2em;	
+	margin: 3% auto;
+	text-align: center;
 }
-.page_about_us .page_about_us_first_line {	
-	height: 405px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_first_line h1 {
-	width: 560px;
-    height: 46px;
-    font-size: 29px;
-    font-weight: 600;
-    margin: 9px auto 16px;
-}
-.page_about_us .page_about_us_second_line{
-	height: 620px;
-    margin-top: 70px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_third_line{	
-	height: 645px;
-    margin-top: 70px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_fourth_line {	
-	height: 154px;
-	margin-top: 70px;
-}
-.page_about_us .page_about_us_fifth_line {	
-	height: 700px;
-    margin-top: 80px;
-    padding-bottom: 80px;
-}
-.page_about_us .page_about_us_fifth_line h4 {
-    line-height: 52px;
-    height: 107px;
-    margin: 0 auto;
-}
-.page_about_us .page_about_us_first_line p,
-.page_about_us .page_about_us_second_line p,
-.page_about_us .page_about_us_third_line p,
-.page_about_us .page_about_us_fourth_line p {
-	margin: 0 auto;
+.page_about_us h4 {	
+	font-size: 2.8em;
+	font-weight: 100;
+	line-height: 1.4em;
 }
 .page_about_us p {
-	width: 685px;
+	width: 76%;
+	font-size: 1.8em;
 	font-weight: 100;
-	font-size: 25px;
-    line-height: 30px;
+	line-height: 1.2em;
+	margin: 5% auto;
 }
-.page_about_us .page_about_us_first_line p {
-    height: 120px;
+.page_about_us .flexwrapp {	
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;	
 }
-.page_about_us .page_about_us_second_line p {    
-    height: 95px;
-    margin-bottom: 20px;
+.page_about_us .blockline{	
+	padding: 7%;
+	border-bottom: 1px solid #E6EAED;   
 }
-.page_about_us .page_about_us_second_line .second_line_img p.text1,
-.page_about_us .page_about_us_second_line .second_line_img p.text2 {
-	position: absolute;
-    width: 190px;
-    height: 65px;
-    font-size: 18px;
-    line-height: 21px;
-    margin-top: 17px;
-    margin-left: 24px;
+/*Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
+.page_about_us .blockline:nth-child(4){
+	border: none;
 }
-.page_about_us .page_about_us_second_line .second_line_img p.text1 > span,
-.page_about_us .page_about_us_second_line .second_line_img p.text2 > span {
-	font-size: 56px;
-    display: block;
+.page_about_us .blockline:last-child {
+	padding-top: 0;
 }
-.page_about_us .page_about_us_second_line .second_line_img p.text2 {
-	margin-top: 322px;
-    right: 200px;
-    margin-bottom: 34px;
+/*------------------------------------*/
+.page_about_us .blockline:first-child {
+	padding-top: 3%;
 }
-.page_about_us .page_about_us_third_line p {	
-    height: 90px;
-    margin-top: 0px;
-    margin-bottom: 44px;
+.page_about_us .forflex {
+	flex-basis: 46%;
+	flex-grow: 1;
+	flex-shrink: 1;
 }
-.page_about_us .page_about_us_first_line > img {
-	width: 182px;
-	height: 161px;
-	margin-top: 29px;
-	margin-bottom: 23px;
-}
-.page_about_us .page_about_us_second_line .second_line_img {
-	width: 937px;
-	height: 425px;
+.page_about_us img{
+	display: block;
 	margin: 0 auto;
-	background-image: url(/themes/default/images/page/about/about2.png);
 }
-.page_about_us .page_about_us_third_line > img{
-	width: 544px;
-	height: 389px;
-	margin-top: 40px;
+.page_about_us img.about1 {
+	width: 18%;
+	margin-bottom: 3%;
 }
-.page_about_us .page_about_us_fifth_line > img {	
-	width: 820px;
-	height: 519px;
-	margin-bottom: 70px;
+.page_about_us img.about2 {
+	width: 86%;
+	z-index: 1;	
+}
+.page_about_us img.about3 {
+	width: 52%;	
+}
+.page_about_us img.about4 {	
+	width: 78%;
+}
+.page_about_us .second_line_img {
+	position: relative;
+}
+.page_about_us .second_line_img p.text1,
+.page_about_us .second_line_img p.text2 {
+	position: absolute;
+	width: 190px;    
+	font-size: 1.2em;    
+	z-index: 2;
+	margin: 0;
+}
+.page_about_us .second_line_img p.text1{	
+	top: 0;
+	left: 9%;	
+}
+.page_about_us .second_line_img p.text2{	
+	bottom: 0;
+	right: 10%;
+}
+.page_about_us .second_line_img p.text1 > span,
+.page_about_us .second_line_img p.text2 > span {
+	font-size: 3.6em;
+	display: block;
+	z-index: 2;
+}
+@media (max-width: 1420px) {
+	.page_about_us p {	
+		font-size: 1.4em;		
+		margin: 4% auto;
+	}
+	.page_about_us h4 {
+		font-size: 2.4em;	
+	}
+}
+@media (min-width: 900px) and (max-width: 1420px) {
+	.page_about_us .about1 {
+		min-width: 23%;
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 3em;
+	}	
+}
+@media (min-width: 1300px) and (max-width: 1420px) {
+	.page_about_us .second_line_img p.text2 {
+		bottom: -8%;
+		right: 9%;
+	}	
+}
+@media (min-width: 1100px) and (max-width: 1300px) {
+	.page_about_us .second_line_img p.text2 {
+		bottom: -9%;
+		right: 5%;
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 2.6em;
+	}	
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+	.page_about_us .second_line_img p.text2 {
+		bottom: -10%;
+		right: 0%;
+	}
+	.page_about_us .second_line_img p.text1 {		
+		left: 4%;
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 2em;
+	}	
+}
+@media (max-width: 900px) {
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 1.6em;
+	}
+	.page_about_us .second_line_img p.text2 {
+		bottom: -10%;
+		right: -5%;
+		font-size: 0.8em;
+	}
+	.page_about_us .second_line_img p.text1 {		
+		left: 1%;
+		font-size: 0.8em;
+		width: 100px; 
+		width: 117px;
+		top: -8%; 
+	}
+}
+@media (min-width: 580px) and (max-width: 700px) {
+	.page_about_us .second_line_img p.text1 {			
+		width: 190px;
+		top: 0%; 
+	}	
+	.page_about_us .second_line_img p.text2 {
+		bottom: -3%;
+		right: -1%;		
+	}
+	.page_about_us .second_line_img p.text1 > span,
+	.page_about_us .second_line_img p.text2 > span {
+		font-size: 1.6em;
+	}
+}
+@media (min-width: 360px) and (max-width: 580px) {
+	.page_about_us .second_line_img p.text1 {			
+		width: 117px;
+		top: -8%; 
+	}
+	.page_about_us .second_line_img p.text2 {			
+		width: 117px;		
+	}		
+}
+@media (max-width: 500px) {
+	.page_about_us #blockOfText {	
+		font-size: 1.2em;		
+		margin: 3% auto;
+	}
+	.page_about_us h4 {
+		font-size: 1.8em;	
+	}
+	.page_about_us .about1 {
+		min-width: 23%;
+	}
 }
 /*НЕ УДАЛЯТЬ - временно скрыто*/
 /*.page_about_us .members {
 	display: flex;
 	justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 60px; 
+	flex-wrap: wrap;
+	margin-top: 60px; 
 }
 .page_about_us .members .member {
 	flex-basis: 40%;
 	flex-grow: 0;
-  	flex-shrink: 0;
+	flex-shrink: 0;
 	width: 200px;
-    height: 300px;
-    margin-bottom: 38px;    
-    text-align: center;
+	height: 300px;
+	margin-bottom: 38px;    
+	text-align: center;
 }
 .page_about_us .members .member .divForPhoto {
 	width: 200px;
@@ -591,51 +925,207 @@
 }
 .page_about_us .page_about_us_fourth_line .members .member p.person {
 	width: 230px;
-    height: 25px;
-    font-weight: 500;
-    font-size: 22px;
-    color: #47525D;
-    text-align: center;
-    line-height: 28px;
+	height: 25px;
+	font-weight: 500;
+	font-size: 22px;
+	color: #47525D;
+	text-align: center;
+	line-height: 28px;
 	margin-top: 17px; 
 }
 .page_about_us .page_about_us_fourth_line .members .member p.person_post {
 	width: 205px;
 	height: 55px;
 	font-size: 16px;
-    color: #47525D;
-    text-align: center;
-    line-height: 21px;	
-    margin-top: 0; 
+	color: #47525D;
+	text-align: center;
+	line-height: 21px;	
+	margin-top: 0; 
 }*/
 
 
 /* Страница "Оплата" / class="page_payment" ================================================ */
-.page_payment,
-.page_payment h4 {
-	font-family: 'Helvetica Neue Thin', 'Helvetica Neue';
-    font-weight: 200;
-    font-style: normal;    
-    color: #47525D;
-    text-align: center;
-    line-height: 28px;
-}	
+.page_payment {
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-size: 14px;
+	font-weight: 100;
+	font-style: normal;
+	color: #47525d;
+}
+.page_payment h1 {
+	font-weight: 600;
+	font-size: 2em;	
+	margin: 3% auto;
+	text-align: center;
+}
 .page_payment h4 {	
-    font-size: 31px;    
+	font-size: 1.8em;
+	font-weight: 400;
+	line-height: 1em;
+	text-align: center;
+	margin-bottom: 0;
 }
 
-
-.page_payment .payment_methods img:first-child {
-	width: 200px;
-	height: 110px;
+.page_payment h4:nth-child(3) {
+	font-size: 1.7em;
 }
 
-.page_payment .payment_methods img:nth-child(2) {
-	width: 366px;
-	height: 111px;
+.page_payment p,
+.page_payment .text_block  {
+	font-size: 1.4em;
+	font-weight: 100;
+	line-height: 1.2em;
+	text-align: justify;
+	margin: 3% auto;
+}
+.page_payment .flexwrapp {	
+	display: flex;
+	justify-content: center;
+	/*flex-wrap: wrap;	*/
+}
+.page_payment .info_line{	
+	padding: 7%;
+	border-bottom: 1px solid #E6EAED;   
+}
+.page_payment .info_line:nth-child(2) {
+	border-bottom: none; 
+}
+.page_payment .info_line:first-child {
+	padding-top: 2%;
+}
+.page_payment .forflex {
+	flex-basis: 10%;
+	flex-grow: 1;
+	flex-shrink: 0;
+}
+.page_payment img {
+	display: block;
+	margin: 0 auto;
+	width: 75%;	
+}
+.page_payment .payment_block > img {
+	-webkit-filter: grayscale(100%);
+}
+.page_payment .payment_block > img:hover {
+	-webkit-filter: grayscale(0%);
+}
+.page_payment .payment0 {
+	width: 12%;
+}
+.page_payment .text_block {	
+	font-size: 1.4em;
+	padding: 20px;
+	text-align: center;
+	/*временно*/
+	height: 300px;
+}
+.page_payment .info_line:nth-child(3) {
+	border-top: 1px solid #E6EAED;
+	border-bottom: 1px solid #E6EAED;
+}
+.page_payment .info_line:last-child{	
+	border-top: 1px solid #E6EAED;
+}
+.page_payment .blockforline {
+	border: 1px solid #DCDCDC;
+	position: relative;
+   }
+.page_payment .block1,
+.page_payment .block2 {
+	position: absolute;
+	left: 0%;
+	bottom: 0px;	 
+	border: 32px solid transparent;
+	border-bottom: 30px solid #DCDCDC;
+	-webkit-transition: left .6s ease-in-out;
+	-o-transition: left .6s ease-in-out;
+	transition: left .6s ease-in-out;
+   }
+.page_payment .block2 {
+	border-bottom: 30px solid white;
+	bottom: -3px; 
 }
 
-.page_payment .payment_methods img:last-child {
-	width: 300px;
-	height: 76px;
+.page_payment h5 {
+	font-size: 1.6em;
+}
+
+.page_payment .styleFortext p {
+	width: 90%;
+	text-align: center;
+}
+
+.page_payment .info_text_block_off_line p {
+	text-align: left;
+}
+
+.page_payment .styleFortext p
+
+@media (max-width: 1300px) {
+	.page_payment h4 {
+		font-size: 1.4em;
+	}
+	.page_payment h5 {
+		font-size: 1.4em;
+	}
+	.page_payment .styleFortext p {
+		font-size: 1.2em;
+	}
+	.page_payment p,
+	.page_payment .text_block {
+		font-size: 1.2em;
+	}
+}
+@media (max-width: 1100px) {
+	.page_payment .block1,
+	.page_payment .block2 {
+		border: 20px solid transparent;
+		border-bottom: 20px solid #DCDCDC;
+	}
+	.page_payment .block2 {
+		border-bottom: 20px solid white;
+	}
+}
+@media  (max-width: 950px) {	
+	.page_payment .block1,
+	.page_payment .block2 {
+		border: 15px solid transparent;
+		border-bottom: 15px solid #DCDCDC;
+	}
+	.page_payment .block2 {
+		border-bottom: 15px solid white;
+	}
+	.page_payment h4 {
+		font-size: 1.2em;
+	}
+	.page_payment h1 {
+		font-size: 1.6em;
+	}
+	.page_payment h5 {
+		font-size: 1.2em;
+	}
+	.page_payment .styleFortext p {
+		font-size: 1em;
+	}
+	.page_payment p,
+	.page_payment .text_block {
+		font-size: 1em;
+	}
+}
+
+@media (max-width: 800px) {
+	.page_payment h4 {
+		font-size: 1em;
+	}
+	.page_payment h1 {
+		font-size: 1.3em;
+	}
+}
+@media (max-width: 450px) {
+	.page_payment h4 {
+		font-size: .8em;
+	}
+	.page_payment h1 {
+		font-size: 1.1em;
+	}
 }

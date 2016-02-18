@@ -6,39 +6,59 @@
 <?if(isset($list) && count($list)){?>
 	<form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
-		    <col width="80%"><col width=1%><col width="270px">
+		    <!--col width="80%"><col width=1%><col width="270px"-->
 			<thead>
+            <tr class="filter">
+                <td id="id_seo_input"><input type="text" class="input-m" name="filter_id" value="<?=isset($_GET['filter_id'])?htmlspecialchars($_GET['filter_id']):null?>" placeholder="ID записи"></td>
+                <td id="url_seo_input"><input  type="text" class="input-m" name="filter_url" value="<?=isset($_GET['filter_url'])?htmlspecialchars($_GET['filter_url']):null?>" placeholder="URL (полный)"></td>
+                <td id="text_seo_input"></td>
+                <td id="author_seo_input"><input  type="text" class="input-m" value="<?=isset($_GET['filter_contragent_name'])?htmlspecialchars($_GET['filter_contragent_name']):null?>" placeholder="Автор" name="filter_contragent_name"> </td>
+				<td id="date_seo_input"></td>
+				<td id="status_seo_input"></td>
+                <td id="edit_seo_input" class="left">
+                    <button id="button_seo" type="submit" name="smb" class="btn-m-default">Применить</button>
+                    <button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
+                </td>
+            </tr>
 	          <tr>
-	            <td class="left">Заголовок новости</td>
-	            <td class="center">&uarr; &darr;</td>
+	            <td class="left">ID</td>
+				<td class="left">URL</td>
+				<td class="left">Текст</td>
+				<td class="left">Автор</td>
+				<td class="left">Дата</td>
+	            <td class="center">Статус</td>
 	            <td class="left">Управление</td>
 	          </tr>
 	        </thead>
 			<tbody>
-			<?$tigra=false;
-			foreach($list as $i){?>
-				<tr <?if($tigra == true){?>class="tigra"<?$tigra = false;}else{$tigra = true;}?>>
-					<td><?=!$i['visible']?'<span class="invisible">(скрытая) </span>':null?><a href="/adm/newsedit/<?=$i['id_news'];?>"><?=$i['title']?></a></td>
-					<td class="center np">
-						<input type="text" name="ord[<?=$i['id_news']?>]" class="input-s" value="<?=$i['ord']?>"/>
+			<?foreach($list as $i):?>
+				<tr>
+					<td>
+						<?=$i['id']?>
+					</td>
+					<td>
+						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['url']?></a>
+					</td>
+					<td>
+						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['text']?></a>
+					</td>
+					<td>
+						<?=$i['author']?>
+					</td>
+					<td>
+						<?=$i['date_create']?>
+					</td>
+					<td class="center">
+						<? if($i['visible']==1){?>Вкл<?}else{?>Откл<?}?>
 					</td>
 					<td class="left actions"><nobr>
-						<a class="btn-l-green-inv" href="/adm/newsedit/<?=$i['id_news'];?>">редактировать</a>
-						<a class="btn-l-green-inv" href="/news/<?=$i['id_news'].'/'.$i['translit'];?>/">смотреть</a>
-						<a class="btn-l-red-inv" href="adm/newsdel/<?=$i['id_news'];?>" onclick="return confirm('Точно удалить?');">удалить</a>
+						<a class="btn-l-green-inv" href="/adm/seotextedit/<?=$i['id'];?>">Редактировать</a>
+						<a class="btn-l-red-inv" href="/adm/seotextdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');">Удалить</a>
 						</nobr>
 					</td>
 				</tr>
-			<?}?>
+			<?endforeach?>
 			</tbody>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="center">
-					<input class="btn-l-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"/>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-
 		</table>
 	</form>
 <?}else{?>

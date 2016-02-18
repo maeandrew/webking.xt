@@ -21,6 +21,11 @@ if(true == @$parsed_res['issuccess']){
 $tpl->Assign('cart_info', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cart_info.tpl'));
 $tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'aside.tpl');
 // Центральный блок
+$Seo = new SEO();
+if($Seo->SetFieldsByUrl(_base_url.$_SERVER['REQUEST_URI'])){
+	$tpl->Assign('seotext', $Seo->fields['text']);
+}
+
 require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 
 if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
@@ -48,6 +53,14 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 		$tpl->Assign('data_graph', $data_graph);
 		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
 	}
+
+	if(isset($id_category)){$data_graph = $products->GetGraphList($id_category);
+		$tpl->Assign('data_graph', $data_graph);
+		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+		/*$tpl->Assign('data_graph', $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
+		$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'main.tpl');*/
+	}
+
 
 	// Хлебные крошки
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){

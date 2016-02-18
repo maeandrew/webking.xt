@@ -444,6 +444,9 @@
 
 				<?}?>
 			</div>
+			<?if(isset($seotext)){?>
+				<div><?=$seotext?></div>
+			<?}?>
 			<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
 				<div class="mdl-mega-footer__left-section clearfix">
 					<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">

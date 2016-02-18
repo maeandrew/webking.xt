@@ -268,6 +268,7 @@ require($GLOBALS['PATH_model'].'post_c.php');
 require($GLOBALS['PATH_model'].'segmentation_c.php');
 require($GLOBALS['PATH_model'].'specification_c.php');
 require($GLOBALS['PATH_model'].'config_c.php');
+require($GLOBALS['PATH_model'].'seo_c.php');
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config";
 $arr = $db->GetArray($sql);

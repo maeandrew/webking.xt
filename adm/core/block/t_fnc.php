@@ -966,4 +966,38 @@ function Customer_form_validate($nocheck=array()){
 	return array($err, $errm);
 }
 
+function Seotext_form_validate(){
+	$errm = array();
+	$err = 0;
+
+	$varname = 'url';
+	if (isset($_POST[$varname]) && $_POST[$varname]){
+		$_POST[$varname] = trim($_POST[$varname]);
+		$Seo = new SEO();
+		if(!$GLOBALS['CurrentController'] == 'seotextedit' && $Seo->SetFieldsByUrl($_POST[$varname] === false)){
+			$errm[$varname] = "Такой URL уже есть в базе.";
+			$err = 1;
+		};
+	}else{
+		$errm[$varname] = "Поле обязательно для заполнения.";
+		$err = 1;
+	}
+
+	$varname = 'text';
+	if (isset($_POST[$varname]) && $_POST[$varname]){
+		$_POST[$varname] = trim($_POST[$varname]);
+	}else{
+		$errm[$varname] = "Поле обязательно для заполнения.";
+		$err = 1;
+	}
+
+	$varname = 'visible';
+	if (isset($_POST[$varname])){
+		$_POST[$varname] = 1;
+	}else{
+		$_POST[$varname] = 0;
+	}
+
+	return array($err, $errm);
+}
 ?>
