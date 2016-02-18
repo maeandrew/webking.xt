@@ -21,7 +21,9 @@
 }
 .product .product_article {
 	color: #818181;
-	line-height: 28px;
+	line-height: 20px;
+	margin-right: 1em;
+	float: left;
 }
 .product .product_main_img {
 	border: 1px solid #e0e0e0;
