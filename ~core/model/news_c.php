@@ -31,7 +31,6 @@ class News{
 		if($all == 1){
 			$visible = '';
 		}
-		$id_news = mysql_real_escape_string($id_news);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."news
 			WHERE id_news = \"$id_news\"
@@ -117,7 +116,6 @@ class News{
 	}
 	public function ShowComent($Id_coment){
 		$this->db->StartTrans();
-		$f['Id_coment'] = mysql_real_escape_string($Id_coment);
 		$sql = "UPDATE "._DB_PREFIX_."coment SET visible = 1 WHERE Id_coment = ".$Id_coment;
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -130,7 +128,6 @@ class News{
 
 	public function HideComent($Id_coment){
 		$this->db->StartTrans();
-		$f['Id_coment'] = mysql_real_escape_string($Id_coment);
 		$sql = "UPDATE "._DB_PREFIX_."coment SET visible = 0 WHERE Id_coment = ".$Id_coment;
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -157,9 +154,9 @@ class News{
 
 	// Добавить
 	public function AddNews($arr){
-		$f['title'] = mysql_real_escape_string(trim($arr['title']));
-		$f['descr_short'] = mysql_real_escape_string(trim($arr['descr_short']));
-		$f['descr_full'] = mysql_real_escape_string(trim($arr['descr_full']));
+		$f['title'] = trim($arr['title']);
+		$f['descr_short'] = trim($arr['descr_short']);
+		$f['descr_full'] = trim($arr['descr_full']);
 		list($d,$m,$y) = explode(".", trim($arr['date']));
 		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
 		$f['translit'] = G::StrToTrans($f['title']);
@@ -178,13 +175,13 @@ class News{
 	}
 	// Обновление статьи
 	public function UpdateNews($arr){
-		$f['id_news'] = mysql_real_escape_string(trim($arr['id_news']));
-		$f['title'] = mysql_real_escape_string(trim($arr['title']));
-		$f['page_description'] = mysql_real_escape_string(trim($arr['page_description']));
-		$f['page_title'] = mysql_real_escape_string(trim($arr['page_title']));
-		$f['page_keywords'] = mysql_real_escape_string(trim($arr['page_keywords']));
-		$f['descr_short'] = mysql_real_escape_string(trim($arr['descr_short']));
-		$f['descr_full'] = mysql_real_escape_string(trim($arr['descr_full']));
+		$f['id_news'] = trim($arr['id_news']);
+		$f['title'] = trim($arr['title']);
+		$f['page_description'] = trim($arr['page_description']);
+		$f['page_title'] = trim($arr['page_title']);
+		$f['page_keywords'] = trim($arr['page_keywords']);
+		$f['descr_short'] = trim($arr['descr_short']);
+		$f['descr_full'] = trim($arr['descr_full']);
 		list($d,$m,$y) = explode(".", trim($arr['date']));
 		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
 		$f['translit'] = G::StrToTrans($f['title']);
