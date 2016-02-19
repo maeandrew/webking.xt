@@ -72,9 +72,11 @@ class Cart {
 				$_SESSION['cart']['products'][$product['id_product']]['id_cart_product'] = $data['id_cart_product'];
 			}
 		}else{
-			$this->db->StartTrans();
-			$this->db->DeleteRowFrom(_DB_PREFIX_."cart_product","id_cart_product",$_SESSION['cart']['products'][$product['id_product']]['id_cart_product']);
-			$this->db->CompleteTrans();
+			if(isset($_SESSION['cart']['products'][$product['id_product']]['id_cart_product'])){
+				$this->db->StartTrans();
+				$this->db->DeleteRowFrom(_DB_PREFIX_."cart_product", "id_cart_product", $_SESSION['cart']['products'][$product['id_product']]['id_cart_product']);
+				$this->db->CompleteTrans();
+			}
 			unset($_SESSION['cart']['products'][$product['id_product']]);
 			$product['quantity'] = $quantity;
 			$product['actual_prices'] = $actual_prices;

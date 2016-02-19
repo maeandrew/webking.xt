@@ -28,7 +28,7 @@
 		</form>
 	</div>
 	<ul class="header_nav mdl-cell--hide-phone">
-		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart">Оформить заказ</a></li>
+		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i> Корзина</a></li>
 		<li><a href="#">Поставки магазинам</a></li>
 		<li>
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon navigation">

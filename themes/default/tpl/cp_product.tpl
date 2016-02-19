@@ -10,68 +10,72 @@
 	<div class="mdl-cell mdl-cell--12-col">
 		<h1><?=$item['name']?></h1>
 	</div>
-	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+	<div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		<p class="product_article">Арт: <?=$item['art']?></p>
 		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
-				<img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
+				<img src="http://xt.ua/<?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
+				<!-- <img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>"> -->
 			<?}else{?>
 				<img src="<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
 			<?}?>
 		</div>
-		<?if ($_SESSION['client']['user_agent'] == 'mobile') {?>
+		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
 			<style>
-				@media (max-width: 727px)
-				.product .mdl-cell {
-				    padding-right: 0;
+				@media (max-width: 727px){
+					.product .mdl-cell {
+						padding-right: 0;
+					}
+					.product_page h1 {
+						margin: 0;
+						padding: 0;
+					}
+					.breadcrumbs_wrapp {
+						white-space: nowrap;
+						overflow: overlay;
+						/*overflow-x: hidden;*/
+						padding-bottom: 10px;
+					}
+					.breadcrumbs_wrapp a {
+						font-weight: 300;
+					}
+					.breadcrumbs_wrapp i {
+						font-size: 18px;
+						margin: 0;
+					}
+					.owl-pagination {
+						padding: 5px 0;
+					}
+					.owl-page {
+						width: 20px;
+					}
+					.owl-page span {
+						display: block;
+						width: 0;
+						height: 0;
+						background: #888;
+						border-radius: 50%;
+						margin: 0 auto;
+						transition: all 0.4s ease-in-out;
+						border: 3px solid #888;
+					}
+					.owl-page.active span {
+						border: 7px solid #888;
+					}
+					.tabs .mdl-tabs__tab {
+						width: 170px;
+					}
+					.fortabs{
+						/*white-space: nowrap;
+						overflow: scroll;
+						overflow-x: hidden; 
+						padding-bottom: 10px;*/
+						overflow-y: overlay;
+					}
 				}
-				.mdl-cell {
-				    margin: 0;
-				    /* width: calc(100% - 16px); */
-				}
-				.product_page h1 {
-				    margin: 0;
-				    padding: 0;
-				}
-				#owl-product_slide_js img {
-					display: block;
-				    margin: 0 auto;
-				    width: 100%;
-				}
-				.breadcrumbs_wrapp {
-					white-space: nowrap;
-					overflow: scroll;
-					/*overflow-x: hidden;*/
-					overflow-y: hidden;
-					padding-bottom: 10px;					
-				}	
-
-				.owl-page span {					
-					 transition:all 0.5s ease;
-				}
-				.owl-page.active span {					
-					
-					-webkit-transform: scale(2.5);
-					-moz-transform: scale(2.5);
-					-o-transform: scale(2.5);
-			
-				    border: 1px solid #000;
-				    background: #fff;
-				}
-				.tabs .mdl-tabs__tab {
-					width: 170px;
-				}
-				.fortabs{
-					/*white-space: nowrap;
-				    overflow: scroll;
-				    overflow-x: hidden; 
-				    padding-bottom: 10px;*/
-				    overflow-y: hidden;
-				}
-
 			</style>
 			<script>
 				// $('.breadcrumbs_wrapp').on('touchstart, mousedown', function() {
@@ -82,38 +86,27 @@
 				// });
 			</script>
 
-			<div id="owl-product_slide_js">
+			<div id="owl-product_mini_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<div class="item">
-							<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						</div>
+						<img src="http://xt.ua/<?=$image['src']?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua/<?=$image['src']?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua/<?=$image['src']?>" alt="<?=$item['name']?>">
+						<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].$image['src'])?_base_url.$image['src']:'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<div class="item">
-								
-
-								<img src="http://lorempixel.com/500/500" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-								<!-- <img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
-								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
-							</div>
-							<div class="item">
-								<img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
-							</div>
-							<div class="item">
-								<img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-								<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
-							</div>
+							<img src="http://lorempixel.com/500/500" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+							<!-- <img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
 						<?}
 					}
 				}?>
 			</div>
 			<script>
 				//Инициализация owl carousel
-				$("#owl-product_slide_js").owlCarousel({
+				$("#owl-product_mini_img_js").owlCarousel({
 					items: 6,
 					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
 					navigation: true, // Show next and prev buttons
@@ -123,7 +116,7 @@
 				});
 				$(function(){
 					//Слайдер миниатюр картинок
-					$('#owl-product_slide_js .item').on('click', function(event) {
+					$('#owl-product_mini_img_js .item').on('click', function(event) {
 						var src = $(this).find('img').attr('src');
 						var viewport_width = $(window).width();
 						console.log(src);
@@ -145,17 +138,17 @@
 						}
 					});
 				});
-
-
 			</script>
-
 		<?}else{?>
-			<div id="owl-product_slide_js">
+			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<div class="item">
-							<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						</div>
+						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
+						<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
@@ -167,11 +160,44 @@
 					}
 				}?>
 			</div>
+			<script>
+				//Инициализация owl carousel
+				$("#owl-product_mini_img_js").owlCarousel({
+					items: 4,
+					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 3], [1600, 4]],
+					navigation: true, // Show next and prev buttons
+					pagination: false,
+					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+				});
+				$(function(){
+					//Слайдер миниатюр картинок
+					$('#owl-product_mini_img_js .item').on('click', function(event) {
+						var src = $(this).find('img').attr('src');
+						var viewport_width = $(window).width();
+						console.log(src);
+						if(viewport_width > 711){
+							$('#owl-product_slide_js').find('img').removeClass('act_img');
+							$(this).find('img').addClass('act_img');
+							// if(!(src.indexOf('nofoto') + 1)){
+							//  src = src.replace('thumb', 'original');
+							// }
+							if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
+								src = src.replace('thumb', 'original');
+							}else{
+								src = src.replace('_thumb/', '');
+							}
+							$('.product_main_img').find('img').attr('src', src);
+							$('.product_main_img').hide().fadeIn('100');
+						}else{
+							event.preventDefault();
+						}
+					});
+				});
+			</script>
 		<?}?>
-
-
 	</div>
-	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+	<div class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
 		<div class="content_header mdl-cell--hide-phone clearfix">
 			<?=$cart_info?>
 		</div>
@@ -183,22 +209,28 @@
 				$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
 			?>
 			<div class="product_buy clearfix" data-idproduct="<?=$item['id_product']?>">
-				<p class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?></p>
 				<div class="buy_block">
-					<!-- <div class="btn_remove">
-						<button class="mdl-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
-					</div> -->
-					<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
-					<?if(!$in_cart){?>
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">Купить</button>
+					<div class="price">
+						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
+					</div>
+					<div class="btn_buy">
+						<?if(isset($_SESSION['cart']['products'][$item['id_product']])){?>
+							<div class="in_cart_js"><i class="material-icons">shopping_cart</i>В корзине</div>
+							<!-- <button class="mdl-button mdl-js-button material-icons in_cart_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button> -->
+							<button class="mdl-button mdl-js-button buy_btn_js hidden" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+						<?}else{?>
+							<div class="in_cart_js hidden"><i class="material-icons">shopping_cart</i>В корзине</div>
+							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+						<?}?>
+					</div>
+					<div class="quantity">
+						<div class="btn_remove">
+							<button class="mdl-button mdl-js-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 						</div>
-					<?}else{?>
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
-
-						</div>
-					<?}?>
+						<input hidden type="text" class="qty_js_old" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>">
+						<input type="number" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
+					</div>
+					<div class="units"><?=$item['units'];?></div>
 				</div>
 			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
@@ -476,9 +508,9 @@
 <script>
 	$(function(){
 		//Слайдер миниатюр картинок
-		$('#owl-product_mini_img_js .item').on('click', function(event) {
-			var src = $(this).find('img').attr('src');
-			var viewport_width = $(window).width();
+		$('#owl-product_mini_img_js .owl-item').on('click', function(event) {
+			var src = $(this).find('img').attr('src'),
+				viewport_width = $(window).width();
 			if(viewport_width > 711){
 				$('#owl-product_mini_img_js').find('img').removeClass('act_img');
 				$(this).find('img').addClass('act_img');
@@ -490,8 +522,8 @@
 				}else{
 					src = src.replace('_thumb/', '');
 				}
-				$('.product_main_img').find('img').attr('src', src);
-				$('.product_main_img').hide().fadeIn('100');
+				console.log(src);
+				$('.product_main_img').hide().fadeIn('100').find('img').attr('src', src);
 			}else{
 				event.preventDefault();
 			}

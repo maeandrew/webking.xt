@@ -16,7 +16,7 @@ function SendToAjax(id, qty, button, direction, note){
 			//console.log(data.cart.products[id]);
 
 
-			if (qty_old == qty) {
+			if(qty_old == qty){
 				$('.btn_remove').find('.info_description').removeClass('hidden');
 				//var id_prod_name = $('.btn_remove div').attr('id');
 

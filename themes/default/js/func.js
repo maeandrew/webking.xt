@@ -1015,7 +1015,7 @@ function ajax(target, action, data, dataType){
 	var ajax = $.ajax({
 		url: URL_base+'ajax',
 		beforeSend: function(ajax){
-			console.log(ajax_proceed);
+			// console.log(ajax_proceed);
 			if(ajax_proceed == true){
 				ajax.abort();
 			}
@@ -1027,7 +1027,7 @@ function ajax(target, action, data, dataType){
 	}).always(function(){
 		ajax_proceed = false;
 	});
-	console.log(ajax_proceed);
+	// console.log(ajax_proceed);
 	return ajax;
 }
 
