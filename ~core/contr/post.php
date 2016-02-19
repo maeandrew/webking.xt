@@ -8,6 +8,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'descr' => 'Подборка самых интересных статей от оптового интернет-магазина ХарьковТОРГ. Все самое полезное о покупках, оптовой торговли, особенностях выбора. Здесь Вы найдете рекомендации, полезные советы от специалистов и постоянных покупателей',
 	'url' => Link::Custom('post')
 );
+
 if(isset($GLOBALS['Rewrite'])){
 	unset($parsed_res);
 	if(!$Post->SetFieldsByRewrite($GLOBALS['Rewrite'])){
@@ -27,12 +28,13 @@ if(isset($GLOBALS['Rewrite'])){
 }else{
 	$header = 'Статьи';
 	$tpl->Assign('header', $header);
+	$Post->SetList();
 	$posts = $Post->list;
 	if(!empty($posts)){
 		rsort($posts);
 	}
-	$tpl->Assign('data', $posts);
-	$template = 'cp_posts.tpl';
+	$tpl->Assign('list', $posts);
+	$template = 'cp_post.tpl';
 }
 $parsed_res = array(
 	'issuccess'	=> true,

@@ -23,7 +23,7 @@ class Post {
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
-		print_r($sql); die();
+//		print_r($sql); die();
 		if(!$this->fields){
 			return false;
 		}
@@ -38,7 +38,7 @@ class Post {
 		}
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."post
-			WHERE translit = ".$rewrite."
+			WHERE translit = ".$this->db->Quote($rewrite)."
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
@@ -91,7 +91,8 @@ class Post {
 
 	// Обновление статьи
 	public function UpdatePost($arr){
-		$f['id'] = trim($arr['id']);
+
+//		$f['id'] = trim($arr['id']);
 		$f['title'] = trim($arr['title']);
 		$f['content_preview'] = trim($arr['content_preview']);
 		$f['content'] = trim($arr['content']);
@@ -104,14 +105,15 @@ class Post {
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
 		}
+//		print_r($f); die();
 		$this->db->StartTrans();
-		if(!$sql = $this->db->Update(_DB_PREFIX_."post", $f, "id = ".$f['id'])){
+		if(!$sql = $this->db->Update(_DB_PREFIX_."post", $f, "id = ".$arr['id'])){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
 		//return true;
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+//		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
 

@@ -1,5 +1,5 @@
 <?php
-if(!_acl::isAllow('news')){
+if(!_acl::isAllow('posts')){
 	die("Access denied");
 }
 $Post = new Post();

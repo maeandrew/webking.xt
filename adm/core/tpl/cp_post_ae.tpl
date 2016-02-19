@@ -4,7 +4,7 @@
 <div id="postae">
     <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<?if(isset($_POST['id']) && $_POST['id']){?>
-			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>posts/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
+			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>post/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
 		<?}?>
 		<label for="title">Заголовок:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
 		<input type="text" name="title" id="title" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>

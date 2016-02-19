@@ -46,6 +46,7 @@ class mysqlPDO {
 	* @return resourse идентификатор MySql
 	*/
 	public function Query($sql){
+
 		$this->response = $this->Prepare($sql);
 		$this->response->execute();
 		// print_r($this->connection->lastInsertId());
@@ -265,8 +266,8 @@ class mysqlPDO {
 	* @return bool
 	*/
 	public function Update($table, $fields, $where){
-		$keys = array_keys($fields);
-		$values = array_values($fields);
+//		$keys = array_keys($fields);
+//		$values = array_values($fields);
 		$sql = "UPDATE $table SET ";
 		$arr = array();
 		foreach($fields as $k=>$v){
@@ -275,6 +276,7 @@ class mysqlPDO {
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
 		$this->sql = $sql;
+
 		return $this->Query($sql);
 	}
 

@@ -65,10 +65,13 @@
 				</div> -->
 			</div>
 		</div>
-		<p>
-			<b>Страница скрытая &nbsp;</b>
-			<input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
-		</p>
+		<div id="nav_visible">
+			<h2 class="blue-line">Видимость и индексация</h2>
+			<p>	<b>Страница скрытая &nbsp;</b>	<input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>	</p>
+			<label for="indexation"><b>Индексация &nbsp;</b>
+				<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
+			</label>
+		</div>
 		<input type="hidden" name="id_page" id="id_page" value="<?=isset($_POST['id_page'])?$_POST['id_page']:0?>">
 		<button name="smb" type="submit" class="save-btn btn-l-default">Сохранить</button>
     </form>

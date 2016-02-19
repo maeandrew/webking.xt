@@ -20,7 +20,7 @@ if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Post_form_validate();
 	if(!$err){
-		if($id = $Post->UpdatePost($_POST)){
+		if($Post->UpdatePost($_POST)){
 			$tpl->Assign('msg', 'Статья обновлена.');
 			unset($_POST);
 			if(!$Post->SetFieldsById($id, 1)) die('Ошибка при выборе новости.');
