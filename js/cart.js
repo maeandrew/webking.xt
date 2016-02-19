@@ -82,11 +82,11 @@ function ChangeCartQty(id, direction){
 	}
 	if(direction == 1){
 		//console.log(qty);
-		SendToAjax(id, qty+1, true, direction,note);
+		SendToAjax(id, qty+1, true, direction, note);
 	}else if(direction == 0){
-		SendToAjax(id, qty-1, true, direction,note);
+		SendToAjax(id, qty-1, true, direction, note);
 	}else{
-		SendToAjax(id, qty, true, direction,note);
+		SendToAjax(id, qty, false, false, note);
 	}
 
 }

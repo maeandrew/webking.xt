@@ -186,32 +186,9 @@
 	position: relative;
 }
 .product .product_buy {
-	width: 50%;
+	min-width: 50%;
 	margin: 0 auto;
 	float: none;
-}
-.product .product_buy .buy_block {
-	width: 100%;
-	height: 36px;
-	line-height: 36px;
-}
-.product .product_buy .price {
-	width: auto;
-}
-/*.product .pb_wrapper:hover .buy_btn_js {
-	background-color: #FFCCBC;
-	border-color: #FFCCBC;
-}*/
-/*.product_buy .buy_block .buy_btn_js:active {
-	background-color: #FF5722;
-	border-color: #FF5722;
-	color: #fff;
-}*/
-.product .product_buy .buy_block {
-	/*width: auto;*/
-	max-width: 300px;
-	float: right;
-	height: 36px;
 }
 .apps_panel {
 	position: absolute;

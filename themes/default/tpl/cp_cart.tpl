@@ -215,43 +215,15 @@
 					<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
 					<div class="buy_block">
-						<p class="price"><?=number_format($item['price_opt'], 2, ',', '')?></p>
-						<!-- <div>
-							<?if(0):?>
-								<p class="price_full">
-									<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][3], 2, ".", "")?>
-								</p>
-							<?endif?>
-							<p class="price">
-								<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "")?>
-							</p>
-						</div> -->
-						<div class="btn_remove">
-							<button class="mdl-button mdl-js-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+						<div class="price">
+							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", "");?>
 						</div>
-						<input hidden type="text" class="qty_js_old" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>">
-						<input type="number" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" step="<?=$item['min_mopt_qty'];?>">
-						<div class="btn_buy">
-							<?if(isset($_SESSION['cart']['products'][$item['id_product']])){?>
-								<button class="mdl-button mdl-js-button material-icons in_cart_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
-								<button class="mdl-button mdl-js-button buy_btn_js hidden" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-							<?}else{?>
-								<button class="mdl-button mdl-js-button material-icons in_cart_js hidden" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
-								<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-							<?}?>
+						<div class="quantity">
+							<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+							<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
+							<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+							<div class="units"><?=$item['units'];?></div>
 						</div>
-						<!-- <div class="btn_remove">
-							<button class="mdl-button material-icons">
-								<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
-							</button>
-						</div>
-						<input type="text" class="qty_js"
-							   value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">
-								<i class="material-icons">add</i>
-							</button>
-						</div> -->
 					</div>
 				</div>
 				<div class="summ">
