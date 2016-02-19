@@ -563,9 +563,8 @@ function News_form_validate(){
 }
 
 function Post_form_validate(){
-	$errm = array();
-	$err=0;
-
+	$errm  = array();
+	$err = 0;
 	$varname = 'id';
 	if (isset($_POST[$varname])){
 		$_POST[$varname] = trim($_POST[$varname]);
@@ -574,7 +573,7 @@ function Post_form_validate(){
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
 		$errm[$varname] = "Не выбрана статья.";
-		$err=1;
+		$err = 1;
 	}
 
 	$varname = 'title';
@@ -585,7 +584,7 @@ function Post_form_validate(){
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
 		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
+		$err = 1;
 	}
 
 	$varname = 'content_preview';
@@ -596,7 +595,7 @@ function Post_form_validate(){
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
 		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
+		$err = 1;
 	}
 
 	$varname = 'content';
@@ -607,7 +606,7 @@ function Post_form_validate(){
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
 		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
+		$err = 1;
 	}
 
 	$varname = 'date';
@@ -618,9 +617,8 @@ function Post_form_validate(){
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
 		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
+		$err = 1;
 	}
-
 	return array($err, $errm);
 }
 

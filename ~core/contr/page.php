@@ -12,6 +12,7 @@ if(isset($GLOBALS['Rewrite'])){
 	$header = $page['title'];
 	$tpl->Assign('header', $header);
 	$tpl->Assign('data', $page);
+	$tpl->Assign('indexation', $page['indexation']);
 	$title = explode(' | ', $header);
 	$GLOBALS['IERA_LINKS'][] = array(
 		'title' => $title[0],

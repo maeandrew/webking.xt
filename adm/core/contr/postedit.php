@@ -18,14 +18,14 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = News_form_validate();
+	list($err, $errm) = Post_form_validate();
 	if(!$err){
-		if($id = $Post->UpdatePost($_POST)){
-			$tpl->Assign('msg', 'Новость обновлена.');
+		if($Post->UpdatePost($_POST)){
+			$tpl->Assign('msg', 'Статья обновлена.');
 			unset($_POST);
 			if(!$Post->SetFieldsById($id, 1)) die('Ошибка при выборе новости.');
 		}else{
-			$tpl->Assign('msg', 'Ошибка при обновлении новости.');
+			$tpl->Assign('msg', 'Ошибка при обновлении статьи.');
 			$tpl->Assign('errm', 1);
 		}
 	}else{
@@ -34,7 +34,7 @@ if(isset($_POST['smb'])){
 			list($d,$m,$y) = explode(".", trim($_POST['date']));
 			$_POST['date'] = mktime(0, 0, 0, $m , $d, $y);
 		}
-		$tpl->Assign('msg', 'Новость не обновлена.');
+		$tpl->Assign('msg', 'Статья не обновлена.');
 		$tpl->Assign('errm', $errm);
 	}
 }
