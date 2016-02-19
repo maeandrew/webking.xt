@@ -328,7 +328,9 @@
 					</div>
 					<div id="view_block_js" class="list_view col-md-12 ajax_loading">
 						<div class="row">
-							<?=$products_list;?>
+							<div class="products">
+								<?=$products_list;?>
+							</div>
 							<?if($GLOBALS['CurrentController'] != 'main'){?>
 							<div class="preview ajax_loading mdl-shadow--4dp">
 								<div class="preview_content">
