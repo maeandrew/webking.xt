@@ -53,7 +53,7 @@ class Images {
 					$i++;
 				}
 			}
-			print_r('Путь - '.$GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/, всего - '.$count($img_arr).', удалено -'.$i);
+			print_r('Путь - '.$GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/, всего - '.count($img_arr).', удалено -'.$i);
 			die();
 		}
 		// var_dump($images);die();
