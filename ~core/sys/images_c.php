@@ -44,15 +44,16 @@ class Images {
 		$response = array();
 		$img_arr = array();
 		if(isset($date)){
+			$i = 0;
 			$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/*.*'));
 			foreach($img_arr as $img){
 				$path = str_replace($GLOBALS['PATH_global_root'], '/', $img);
-				print_r($path);
-				print_r('</br>');
 				if(!$this->checkUsage($path)){
-					var_dump($this->remove($img));
+					$this->remove($img);
+					$i++;
 				}
 			}
+			print_r('Путь - '.$GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/, всего - '.$count($img_arr).', удалено -'.$i);
 			die();
 		}
 		// var_dump($images);die();
@@ -113,7 +114,7 @@ class Images {
 	/**
 	 * Удаление файлов
 	 * @param  string	$path		полный физический путь к файлу
-	 * @return bool					true - успех, false - файла не существуе
+	 * @return bool					true - успех, false - файла не существует
 	 */
 	public function remove($path){
 		if(file_exists($path)){
@@ -160,12 +161,11 @@ class Images {
 		}
 		return $count;
 	}
+
 	public function checkUsage($path){
 		$sql = "SELECT * FROM "._DB_PREFIX_."image
 			WHERE src = ".$this->db->Quote($path);
 		$res = $this->db->GetArray($sql);
-		print_r($sql);
-		print_r('</br>');
 		if(empty($res)){
 			return false;
 		}
