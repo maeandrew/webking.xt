@@ -1,11 +1,13 @@
 <?php
 class Images {
+	private $db;
 	private $img_info;
 	private $valid_extensions;
 	private $sizes;
 	private $default_folder;
 
 	function __construct(){
+		$this->db =& $GLOBALS['db'];
 		$this->valid_extensions = array('image/jpeg');
 		$this->sizes = array(
 			'thumb' => array('w' => 120, 'h' => 90),
@@ -14,7 +16,7 @@ class Images {
 		);
 		$this->default_folder = 'original';
 	}
-	function upload($files, $path){
+	public function upload($files, $path){
 		$this->checkStructure($path);
 		$tmp_name = $files["file"]["tmp_name"];
 		$name = $files["file"]["name"];
@@ -38,9 +40,21 @@ class Images {
 	 * @param  string  $date       	Дата, начиная с которой произвести ресайз
 	 * @return array              	Массив, содержащий информацию об ошибках и о произведенных действиях
 	 */
-	function resize($resize_all = false, $images = false, $date = false){
+	public function resize($resize_all = false, $images = false, $date = false){
 		$response = array();
 		$img_arr = array();
+		if(isset($date)){
+			$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/*.*'));
+			foreach($img_arr as $img){
+				$path = str_replace($GLOBALS['PATH_global_root'], '/', $img);
+				print_r($path);
+				print_r('</br>');
+				if(!$this->checkUsage($path)){
+					var_dump($this->remove($img));
+				}
+			}
+			die();
+		}
 		// var_dump($images);die();
 		if(is_array($images)){
 			if(!empty($images)){
@@ -101,7 +115,7 @@ class Images {
 	 * @param  string	$path		полный физический путь к файлу
 	 * @return bool					true - успех, false - файла не существуе
 	 */
-	function remove($path){
+	public function remove($path){
 		if(file_exists($path)){
 			if(strpos($path, $this->default_folder) !== false){
 				foreach($this->sizes as $name=>$size){
@@ -114,7 +128,7 @@ class Images {
 		return false;
 	}
 
-	function checkStructure($structure){
+	public function checkStructure($structure){
 		if(!file_exists($structure)){
 			$old_umask = umask(0);
 			if(mkdir($structure, 0777, true)){
@@ -132,7 +146,7 @@ class Images {
 	 * Удаление всех размеров, которых нет в default_folder
 	 * @return array 	количество удаленных файлов по папкам
 	 */
-	function clearThumbs(){
+	public function clearThumbs(){
 		foreach($this->sizes AS $size=>$v){
 			$count[$size] = 0;
 			$img_arr = glob($GLOBALS['PATH_product_img'].$size.'/*/*/*/*');
@@ -145,5 +159,16 @@ class Images {
 			}
 		}
 		return $count;
+	}
+	public function checkUsage($path){
+		$sql = "SELECT * FROM "._DB_PREFIX_."image
+			WHERE src = ".$this->db->Quote($path);
+		$res = $this->db->GetArray($sql);
+		print_r($sql);
+		print_r('</br>');
+		if(empty($res)){
+			return false;
+		}
+		return true;
 	}
 }?>

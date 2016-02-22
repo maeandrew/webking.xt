@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
-		if($indexation == 0){?>
+		if(!isset($indexation) || $indexation == 0){?>
 			<meta name="robots" content="noindex, nofollow"/>
 		<?}
 	}else{?>

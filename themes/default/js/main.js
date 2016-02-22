@@ -20,6 +20,9 @@
 // 		alert("error");
 // 	});
 // });
+$(window).load(function(){
+	$("html,body").trigger("scroll");
+});
 
 $(function(){
 	//

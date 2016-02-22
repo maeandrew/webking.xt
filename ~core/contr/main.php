@@ -12,10 +12,14 @@ if(!empty($page)){
 	$tpl->Assign('data', $page[0]);
 }
 unset($Page, $page);
-$product = $Products->GetRandomList();
-if(isset($product)){
-    $tpl->Assign('list', $product);
+$products = $Products->GetRandomList();
+if(isset($products) && !empty($products)){
+	foreach($products as &$p){
+		$p['images'] = $Products->GetPhotoById($p['id_product']);
+	}
+    $tpl->Assign('list', $products);
 }
+unset($products);
 
 $header = 'Главная';
 $ii = count($GLOBALS['IERA_LINKS']);
