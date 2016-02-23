@@ -39,6 +39,10 @@ if(isset($_GET['img'])){
 	$img = new Images();
 	$img->resize(false, false, strtotime($_GET['img']));
 }
+if(isset($_GET['clear_thumbs'])){
+	$img = new Images();
+	$img->clearThumbs();
+}
 // var_dump(file_exists('adm/css/page_styles/'.$GLOBALS['CurrentController'].'.css'));
 // if(file_exists('adm/css/page_styles/'.$GLOBALS['CurrentController'].'.css')){
 	G::AddCSS('page_styles/'.$GLOBALS['CurrentController'].'.css');

@@ -43,19 +43,19 @@ class Images {
 	public function resize($resize_all = false, $images = false, $date = false){
 		$response = array();
 		$img_arr = array();
-		if(isset($date)){
-			$i = 0;
-			$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/*.*'));
-			foreach($img_arr as $img){
-				$path = str_replace($GLOBALS['PATH_global_root'], '/', $img);
-				if(!$this->checkUsage($path)){
-					$this->remove($img);
-					$i++;
-				}
-			}
-			print_r('Путь - '.$GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/, всего - '.count($img_arr).', удалено -'.$i);
-			die();
-		}
+		// if(isset($date)){
+		// 	$i = 0;
+		// 	$img_arr = array_merge($img_arr, glob($GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/*.*'));
+		// 	foreach($img_arr as $img){
+		// 		$path = str_replace($GLOBALS['PATH_global_root'], '/', $img);
+		// 		if(!$this->checkUsage($path)){
+		// 			$this->remove($img);
+		// 			$i++;
+		// 		}
+		// 	}
+		// 	print_r('Путь - '.$GLOBALS['PATH_product_img'].$this->default_folder.'/'.date('Y', $date).'/'.date('m', $date).'/'.date('d', $date).'/, всего - '.count($img_arr).', удалено -'.$i);
+		// 	die();
+		// }
 		// var_dump($images);die();
 		if(is_array($images)){
 			if(!empty($images)){
