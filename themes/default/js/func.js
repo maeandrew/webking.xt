@@ -1155,7 +1155,7 @@ function rebuildPreview(obj){
 	}
 	// Sending ajax for collectiong data about hovered product
 	if(obj.hasClass('hovered')){
-		ajax('product', 'get_array_product', {'id_product': id_product}, 'html').done(function(data){
+		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.preview_content').html(data);
 			componentHandler.upgradeDom();
 			showPreview(0);

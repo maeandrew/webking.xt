@@ -1898,10 +1898,6 @@ section .stat_year {
 	.products .card .product_name {
 		padding-top: 0;
 	}
-	.product_buy {
-		height: 64px;
-		padding-top: 20px;
-	}
 	.product_buy .price {
 		min-width: 90px;
 	}
