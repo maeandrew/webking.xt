@@ -1221,16 +1221,16 @@ function ChangePriceRange(id, sum){
 
 	//console.log(sum);
 
-	// setTimeout(function(){
-	//  $('.product_buy .active_price').stop(true,true).css({
-	//      "background-color": "#97FF99"
-	//      //"color": "black"
-	//  }).delay(1000).animate({
-	//      "background-color": "transparent"
-	//      //"color": "red"
-	//  }, 3000);
+	setTimeout(function(){
+		$('.product_buy .price').stop(true,true).css({
+			"background-color": "#97FF99"
+			//"color": "black"
+		}).delay(1000).animate({
+			"background-color": "transparent"
+			//"color": "red"
+		}, 3000);
 
-	// },300);
+	},300);
 }
 
 function openObject(id){

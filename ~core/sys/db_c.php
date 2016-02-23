@@ -46,10 +46,8 @@ class mysqlPDO {
 	* @return resourse идентификатор MySql
 	*/
 	public function Query($sql){
-
 		$this->response = $this->Prepare($sql);
 		$this->response->execute();
-		// print_r($this->connection->lastInsertId());
 		return $this->response;
 	}
 

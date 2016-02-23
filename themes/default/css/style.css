@@ -1684,9 +1684,6 @@ section .stat_year {
 .product_buy .buy_block .btn_buy .in_cart_js {
 	padding: 6px 0;
 	height: 36px;
-	/*border: 1px solid #018B06;*/
-	/*border-radius: .2em;*/
-	/*padding: 5px .5em;*/
 	color: #ff5722;
 	text-align: center;
 	-webkit-box-sizing: border-box;
@@ -1694,6 +1691,7 @@ section .stat_year {
 	box-sizing: border-box;
 	cursor: pointer;
 	z-index: 100;
+	outline: 0;
 }
 .product_buy .buy_block .btn_buy:after {
 	content: '';

@@ -493,7 +493,7 @@ h5 {
 
 
 .preview {
-	/*display: none;*/
+	display: none;
 	width: 758px;
 	height: 415px;
 	background-color: #fff;
@@ -605,17 +605,6 @@ h5 {
 	overflow: hidden;
 	margin-bottom: 10px;
 }
-/* .snippet-demo-container .demo-slider .demo-slider__slider-starting-value{
-	transform: rotate(-90deg);
-    margin-bottom: 74px;
-} */
-/* .mdl-slider__container input.mdl-slider.mdl-js-slider {
-    text-align: left;
-    display: inline-block;
-    transform: rotate(-90deg);
-    margin-bottom: 74px;
-} */
-
 .list_view .product_article {
 	margin-left: 0;
 }
