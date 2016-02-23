@@ -138,8 +138,6 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'new_resize_product_im
 	}
 	$Images = new Images();
 	$response = $Images->resize($resize_all);
-	// print_r($response);
-	// die();
 	if(isset($response['msg']) && !empty($response['msg'])){
 		foreach($response['msg']['done'] as $key => $value){
 			if(!isset($str)){

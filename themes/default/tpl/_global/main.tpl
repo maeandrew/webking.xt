@@ -155,16 +155,8 @@
 			<li class="parent_nav"><div class="material-icons">location_on</div><span>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</span></li>
 		</ul>
 	</div>
-
 	<section class="banner">
 		<div class="cont">
-			<!-- <div class="cont_top">
-				<div><img src="<?=$GLOBALS['URL_img_theme']?>smeta_2.png" alt=""></div>
-				<div>
-					<span>Добро пожаловать!</span>
-					<span>Быстро и качественно решаем задачи отдела снабжения каждой компании.</span>
-				</div>
-			</div> -->
 			<a href="#">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
@@ -188,7 +180,6 @@
 			</a>
 		</div>
 	</section>
-
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 		<aside id="catalog" class="mdl-color--grey-100 mdl-cell--hide-phone" data-type="panel">
 			<?=$__sidebar_l?>
@@ -205,61 +196,15 @@
 			</aside>
 		<?}?>
 		<section class="center">
-			<!-- <script type="text/javascript">
-				$(function() {
-					Graf3d();
-				});
-			</script> -->
 			<style>
 				#last_orders_count {
 					width: 100%;
 					height: 300px;
 				}
 			</style>
-			<!-- <canvas id="myChart" class="chart"></canvas> -->
-			<!-- <canvas id="myChart" width="100%" height="400"></canvas> -->
-				<!-- <div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
-					<div class="stat_info">
-						<p>График опроса</p>
-						<ul>
-							<li>Горячий сезон</li>
-							<li>Активный</li>
-							<li>Межсезонные</li>
-						</ul>
-					</div>
-					<div class="graph_block">
-						<div class="stat_title">
-							<p class="mopt_demand"><span></span>Розничный cпрос</p>
-							<p class="opt_demand"><span></span>Оптовый спрос</p>
-						</div>
-						<div class="график"></div>
-						<nav class="stat_month">
-							<ul>
-								<li>Январь</li>
-								<li>Февраль</li>
-								<li>Март</li>
-								<li>Апрель</li>
-								<li class="active">Май</li>
-								<li>Июнь</li>
-								<li>Июль</li>
-								<li>Август</li>
-								<li>Сентябрь</li>
-								<li>Октябрь</li>
-								<li>Ноябрь</li>
-								<li>Декабрь</li>
-							</ul>
-						</nav>
-					</div>
-				</div> -->
-
 			<?php if(isset($__graph)){
-					echo $__graph;
-				  }?>
-
-			<?//print_r($_SESSION['member']);?>
-
-			<? //print_r($GLOBALS['CURRENT_ID_CATEGORY']);?>
-
+				echo $__graph;
+			}?>
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>

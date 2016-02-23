@@ -16,13 +16,6 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 			}
 			$t = ob_get_clean();
 			G::LogerE($t, "ajax.html", "w");
-			/*				
-			ob_start();
-			print_r($_SESSION['Cart']);
-			print_r($_POST);
-			$t = ob_get_clean();
-			G::LogerE($t, "ajax.html", "w");
-			*/
 			$arr['Id_coment'] = $_POST["Id_coment"];
 			$txt = json_encode($arr);
 			echo $txt;

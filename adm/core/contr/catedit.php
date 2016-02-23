@@ -92,8 +92,6 @@ if(isset($_POST['smb'])){
 		$arr['page_title'] = trim($_POST['page_title']);
 		$arr['page_description'] = trim($_POST['page_description']);
 		$arr['page_keywords'] = trim($_POST['page_keywords']);
-		// print_r($arr);
-		// die();
 		if($dbtree->Update($id_category, $arr)){
 			$tpl->Assign('msg', 'Категория обновлена.');
 			unset($_POST);

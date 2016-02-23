@@ -3,12 +3,10 @@
 $_SERVER['REQUEST_URI'] = preg_replace('#/$#is', '', $_SERVER['REQUEST_URI']);
 preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
 
-//print_r($ma);
 if ($ma[1][0] == 'adm'){
 	//unset($ma[1]);
 	array_shift($ma[1]);
 }
-//print_r($ma);
 /* Далее, если REQUEST_URI пуст - устанавливается контроллер по-умолчанию
  * если контроллер не найден среди файлов, то устанавливается контроллер 404 ошибки
  */
@@ -29,7 +27,6 @@ if (!G::IsLogged()){
 	$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
 	_acl::load($User->fields['gid']);
 }
-//print_r($GLOBALS['REQAR']);
 /**
  * Для удобства некоторые переменные из REQUEST_URI объявляются в массиве $_GET
  */
@@ -39,6 +36,5 @@ foreach ($ma[1] as $item){
 		$_GET['page_id'] = $ma1[1];
 	}
 }
-
 unset($ma);unset($ma1);
 ?>

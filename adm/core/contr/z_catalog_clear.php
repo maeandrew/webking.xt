@@ -18,10 +18,10 @@
 	$db->Query("TRUNCATE TABLE `"._DB_PREFIX_."product`;");
 	$db->Query("TRUNCATE TABLE `"._DB_PREFIX_."cat_prod`;");
 	$dbtree->Clear(array('visible'=>'1', 'pid'=>'0', 'name'=>'root', 'translit'=>''));
-//die();
+	//die();
 
-print_r($dbtree->ERRORS);
-print_r($dbtree->ERRORS_MES);
+	print_r($dbtree->ERRORS);
+	print_r($dbtree->ERRORS_MES);
 
 
 	$tpl->Assign('msg', "catalog is empty");

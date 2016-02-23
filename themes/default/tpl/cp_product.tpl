@@ -277,7 +277,6 @@
 											<input type="checkbox" id="switch-2" class="mdl-switch__input">
 											<span class="mdl-switch__label">Опт<!--is-checked--></span>
 										</label>
-										<?//print_r($data_graph)?>
 									</div>
 									<div class="slider_wrap">
 										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
@@ -500,5 +499,4 @@
 			}
 		});
 	});
-
 </script>

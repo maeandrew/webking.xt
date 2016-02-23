@@ -79,7 +79,6 @@
 	$Contragent->SetFieldsById($User->fields['id_user']);
 	$tpl->Assign("contragent", $Contragent->fields);
 	$contrdates = $Contragent->SetCurrentWeek();
-	//print_r($contrdates);
 	$DaysOfWeek = array("Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб");
 	$ts = time();
 	for ($ii=0; $ii<=($GLOBALS['CONFIG']['order_day_end']+7); $ii++){

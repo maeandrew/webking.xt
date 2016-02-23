@@ -40,7 +40,6 @@ if (!isset($_POST['smb'])){
 		$_POST = $v;
 	}
 }
-//print_r($_POST);die();
 
 $parsed_res = array('issuccess' => TRUE,
  						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cat_tag_ae.tpl'));

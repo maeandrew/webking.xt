@@ -32,7 +32,6 @@
             $tpl->Assign('errm', $errm);
         }
 	}
-//print_r($errm);
 
 	if (!isset($_POST['smb'])){
 		$_POST['id'] = 0;

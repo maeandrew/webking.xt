@@ -1,8 +1,5 @@
 <h1><?=$h1?></h1>
-<br>
-<?print_r($list_types)?>
 <?if(isset($list_types) && !empty($list_types)){?>
-		print_r('111111');
 	<div id="second_navigation">
 		<ul class="second_nav_manu">
 			<li><a href="#">Пуруру</a></li>

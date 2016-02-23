@@ -34,7 +34,6 @@ if(isset($_POST['smb'])){
 		$_POST['gid'] = 0;
 	}
 }
-
 //Paginator
 $User->UsersList(1, $arr);
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -54,9 +53,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit']))
 if($User->UsersList(1, $arr, $limit)){
 	$tpl->Assign('list', $User->list);
 }
-
 $groups = $User->GetGroups();
-//print_r($groups);
 $tpl->Assign('groups', $groups);
 
 foreach($groups as &$g){
@@ -65,13 +62,9 @@ foreach($groups as &$g){
 	}
 }
 $tpl->Assign('g_forlinks', $groups);
-
-//print_r($groups);die();
 $parsed_res = array('issuccess' => TRUE,
 						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_users.tpl'));
-
 if(TRUE == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
 }
-// ---- right ----
 ?>

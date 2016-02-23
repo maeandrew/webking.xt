@@ -48,9 +48,7 @@
 			;
 			break;
 			case "UpdateGraph":
-					//print_r($_POST['moderation']);
-					echo json_encode($products->UpdateGraph($_POST, true));
-
+				echo json_encode($products->UpdateGraph($_POST, true));
 			;
 			break;
 			default:
