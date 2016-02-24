@@ -45,20 +45,17 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 
 	// GRAPH
 	if($GLOBALS['CurrentController'] == 'main'){
-		$data_graph = $products->GetGraphList(0);
+		$id_category = 0;
 	}elseif($GLOBALS['CurrentController'] == 'products'){
-		$data_graph = $products->GetGraphList($GLOBALS['CURRENT_ID_CATEGORY']);
+		$id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
 	}
-	if(isset($data_graph)){
-		$tpl->Assign('data_graph', $data_graph);
-		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
-	}
-
-	if(isset($id_category)){$data_graph = $products->GetGraphList($id_category);
-		$tpl->Assign('data_graph', $data_graph);
-		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
-		/*$tpl->Assign('data_graph', $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl'));
-		$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'main.tpl');*/
+	if(isset($id_category)){
+		$Products = new Products();
+		$data_graph = $Products->GetGraphList($id_category);
+		if(isset($data_graph)){
+			$tpl->Assign('data_graph', $data_graph);
+			$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+		}
 	}
 
 

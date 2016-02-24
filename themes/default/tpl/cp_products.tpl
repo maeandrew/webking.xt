@@ -72,9 +72,6 @@
 	</div>
 </div><!--class="products"-->
 <script>
-	$(window).load(function(){
-		$("html,body").trigger("scroll");
-	});
 	$(function(){
 		<?if(isset($_COOKIE['product_view'])){?>
 			// ChangeView('<?=$_COOKIE['product_view']?>');

@@ -38,7 +38,6 @@ $res = $db->GetOneRowArray($sql);
 $tpl->Assign("wishesCount", $res['cnt_w']);
 
 require($GLOBALS['PATH_contr'] . $GLOBALS['CurrentController'] . '.php');
-// print_r($GLOBALS['PATH_contr'] . $GLOBALS['CurrentController'] . '.php');die();
 // ------------------------ Сквозные блоки ------------------------
 // ---- center ----
 // ---- sidebar ----

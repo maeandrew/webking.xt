@@ -10,7 +10,6 @@ $products = new Products();
 $Unit = new Unit();
 $Images = new Images();
 $segmentation = new Segmentation();
-//print_r($_POST);die();
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
 	echo str_replace($GLOBALS['PATH_root'], '/', $res);
@@ -47,7 +46,6 @@ if(isset($_POST['smb'])){
 				$images_arr =  array();
 			}
 			$Images->resize(false, $to_resize);
-			// print_r('assadasd');die();
 			$products->UpdatePhoto($id, $images_arr);
 
 			if(isset($_POST['id_supplier'])){

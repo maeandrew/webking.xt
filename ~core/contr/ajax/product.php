@@ -14,7 +14,7 @@
 					echo json_encode($arr);
 				}
 				break;
-			case "get_array_product":
+			case "GetPreview":
 				$id_product = $_POST['id_product'];
 				$products->SetFieldsById($id_product);
 				unset($parsed_res);
@@ -27,7 +27,6 @@
 				$product['specifications'] = $products->GetSpecificationList($id_product);
 				$product['images'] = $products->GetPhotoById($id_product);
 				$product['videos'] = $products->GetVideoById($id_product);
-
 				$tpl->Assign('product', $product);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'preview.tpl');
 				break;

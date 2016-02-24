@@ -28,8 +28,8 @@
 		require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 
 		list($err, $errm) = Delivery_form_validate();
-        if (!$err){
-        	if ($$ObjName->Update($_POST)){
+		if (!$err){
+			if ($$ObjName->Update($_POST)){
 				$tpl->Assign('msg', 'Обновление данных прошло успешно.');
 				unset($_POST);
 				if (!$$ObjName->SetFieldsById($id)) die('Ошибка при извлечении полей.');
@@ -37,12 +37,11 @@
 				$tpl->Assign('msg', 'При обновлении возникли ошибки.');
 				$tpl->Assign('errm', 1);
 			}
-        }else{
-        	// показываем все заново но с сообщениями об ошибках
-        	$tpl->Assign('msg', 'При обновлении возникли ошибки!');
-            $tpl->Assign('errm', $errm);
-            print_r($errm);
-        }
+		}else{
+			// показываем все заново но с сообщениями об ошибках
+			$tpl->Assign('msg', 'При обновлении возникли ошибки!');
+			$tpl->Assign('errm', $errm);
+		}
 	}
 
 	if (!isset($_POST['smb'])){
@@ -52,7 +51,7 @@
 	}
 
 	$parsed_res = array('issuccess' => TRUE,
- 						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_delivery_ae.tpl'));
+						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_delivery_ae.tpl'));
 
 
 	if (TRUE == $parsed_res['issuccess']) {

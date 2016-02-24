@@ -7,7 +7,6 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	header('Location: '.$GLOBALS['URL_base'].'404/');
 	exit();
 }
-print_r($id_page);
 if(!$Page->SetFieldsById($id_page, 1)){
 	die('Ошибка при выборе страницы.');
 }

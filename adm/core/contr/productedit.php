@@ -168,7 +168,6 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 		// показываем все заново но с сообщениями об ошибках
 		$tpl->Assign('msg', 'Товар не обновлен2.');
 		$tpl->Assign('errm', $errm);
-		//print_r($errm);
 	}
 }
 if(!$products->SetFieldsById($id_product, 1)) die('Ошибка при выборе товара.');

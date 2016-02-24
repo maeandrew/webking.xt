@@ -6,7 +6,7 @@
 	// Проверяем доступнось опта
 	($product['price_opt'] > 0 && $product['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
 
-	<div class="mdl-cell mdl-cell--12-col">
+	<div class="mdl-cell mdl-cell--12-col product_name">
 		<a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
@@ -14,12 +14,14 @@
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<img alt="<?=G::CropString($product['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $image['src']);?>"/>
+					<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src']);?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
+					<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?_base_url.str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<img alt="<?=G::CropString($product['name'])?>" src="<?=_base_url.($product['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $product['img_1'])):"/images/nofoto.jpg"?>"/>
+						<img src="http://xt.ua<?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
+						<!-- <img src="<?=_base_url.($product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
 					<?}
 				}
 			}?>
@@ -28,39 +30,37 @@
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<div class="pb_wrapper">
 			<?$in_cart = false;
-				if(!empty($_SESSION['cart']['products'][$product['id_product']])){
-					$in_cart = true;
-				}
-				$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
-			?>
-			<div class="product_buy clearfix" data-idproduct="<?=$product['id_product']?>"  style="overflow: hidden;">
-				<p class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?></p>
+			if(!empty($_SESSION['cart']['products'][$product['id_product']])){
+				$in_cart = true;
+			}
+			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
+			<div class="product_buy" data-idproduct="<?=$product['id_product']?>">
 				<div class="buy_block">
-					<div class="btn_remove">
-						<button class="mdl-button material-icons" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+					<div class="price">
+						<?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
 					</div>
-					<input type="text" class="qty_js" value="<?=!$in_cart?$product['inbox_qty']:$_SESSION['cart']['products'][$product['id_product']]['quantity'];?>">
-					<?if(!$in_cart){?>
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">Купить</button>
-						</div>
-					<?}else{?>
-						<div class="btn_buy">
-							<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
-
-						</div>
-					<?}?>
+					<div class="btn_buy">
+						<div id="in_cart_<?=$product['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$product['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+						<div class="mdl-tooltip" for="in_cart_<?=$product['id_product'];?>">Товар в корзине</div>
+						<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$product['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+					</div>
+					<div class="quantity">
+						<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$product['id_product']]['quantity'])?$_SESSION['cart']['products'][$product['id_product']]['quantity']:$product['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$product['min_mopt_qty'];?>">
+						<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+						<div class="units"><?=$product['units'];?></div>
+					</div>
 				</div>
 			</div>
-			<div class="apps_panel mdl-cell--hide-phone">
+			<!-- <div class="apps_panel mdl-cell--hide-phone">
 				<ul>
 					<li><i class="material-icons" title="Добавить товар в избранное"></i></li>
 					<li><i class="material-icons" title="Следить за ценой"></i></li>
 					<li><i class="material-icons" title="Поделиться"></i></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
-		<div class="rating_block">
+		<!-- <div class="rating_block">
 			<?if($product['c_rating'] > 0){?>
 				<ul class="rating_stars" title="<?=$product['c_rating'] != ''?'Оценок: '.$product['c_mark']:'Нет оценок'?>">
 					<?for($i = 1; $i <= 5; $i++){
@@ -76,7 +76,7 @@
 					<?}?>
 				</ul>
 			<?}?>
-		</div>
+		</div> -->
 
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
@@ -86,16 +86,11 @@
 			<div class="tab-content">
 				<div id="specifications" class="mdl-tabs__panel is-active">
 					<?if(isset($product['specifications']) && !empty($product['specifications'])){?>
-						<table>
-							<?foreach ($product['specifications'] as $s) {?>
-								<!-- <td><span class="caption fleft"><?=$s['caption']?></span></td>
-								<tr><span class="value fright"><?=$s['value'].'</tr><tr>'.$s['units']?></span></tr> -->
-								<tr>
-									<td width="62%"><span style="font-weight: bold;"><?=$s['caption']?></span></td>
-									<td width="38%"><?=$s['value']?> <?=$s['units']?></td>
-								</tr>
+						<ul>
+							<?foreach($product['specifications'] as $s){?>
+								<li><span class="caption fleft"><?=$s['caption']?></span><span class="value fright"><?=$s['value'].' '.$s['units']?></span></li>
 							<?}?>
-						</table>
+						</ul>
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>

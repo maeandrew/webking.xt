@@ -39,7 +39,6 @@
 
 	if (!$User->UsersList(1)) die('Ошибка при добавлении администратора.');
 	$tpl->Assign('list', $User->list);
-//print_r($User->GetGroups());die();
 	$tpl->Assign('groups', $User->GetGroups());
 
 	if (!isset($_POST['smb'])){

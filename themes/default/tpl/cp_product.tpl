@@ -13,14 +13,16 @@
 	<div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		<p class="product_article">Арт: <?=$item['art']?></p>
 		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
+			<!-- Ссыдка на редактирование товара для администратором -->
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
-				<img src="http://xt.ua/<?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
+				<img src="http://xt.ua<?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
 				<!-- <img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>"> -->
 			<?}else{?>
-				<img src="<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+				<img src="http://xt.ua<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+				<!-- <img src="<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"> -->
 			<?}?>
 		</div>
 		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
@@ -77,29 +79,18 @@
 					}
 				}
 			</style>
-			<script>
-				// $('.breadcrumbs_wrapp').on('touchstart, mousedown', function() {
-				// 	$(this).css('overflow-x', 'overlay');
-				// });
-				// $('.breadcrumbs_wrapp').on('touchend, mousedown', function() {
-				// 	$(this).css('overflow-x', 'hidden');
-				// });
-			</script>
 
 			<div id="owl-product_mini_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua/<?=$image['src']?>" alt="<?=$item['name']?>">
-						<img src="http://xt.ua/<?=$image['src']?>" alt="<?=$item['name']?>">
-						<img src="http://xt.ua/<?=$image['src']?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua<?=$image['src']?>" alt="<?=$item['name']?>">
 						<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].$image['src'])?_base_url.$image['src']:'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://lorempixel.com/500/500" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-							<!-- <img src="<?=_base_url?>/themes/default/img/m.jpg" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
-							<!-- <img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							<img src="http://xt.ua<?=($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+							<!-- <img src="<?=_base_url.($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
 						<?}
 					}
 				}?>
@@ -143,19 +134,14 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
-						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
-						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
-						<img src="http://xt.ua/<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src']);?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
 						<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?_base_url.str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<div class="item">
-								<img src="<?=$item['img_'.$i]?_base_url.str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-							</div>
+							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
+							<!-- <img src="<?=_base_url.($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
 						<?}
 					}
 				}?>
@@ -279,87 +265,74 @@
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>
 				</div>
-				<?if(isset($id_product)){?>
-					<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
-						<div class="modal">
-							<div class="modal_container">
-								<p>График (своя версия)</p>
-								<div class="select_go" style="margin-top: 15px;margin-left: 77px;">
-								<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-									<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница<!--is-checked--></span>
-									<input type="checkbox" id="switch-2" class="mdl-switch__input">
-									<span class="mdl-switch__label">Опт<!--is-checked--></span>
-								</label>
-								<?//print_r($data_graph)?>
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="slider_wrap">
-									<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-								</div>
-								<div class="mdl-textfield">
-									<label for="name" class="mdl-textfield__textarea">Примечания к графику:</label>
-									<textarea required="required" type="text" name="text" id="text" style="width:80%;">
-									</textarea>
-								</div>
-								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="top: -10px;">
-									<label for="name" class="mdl-textfield__label">Имя на графике:</label>
-									<input class="mdl-textfield__input" type="text" id="name_user" value=""/>
-								</div>
-								<div id="user_bt" style="float:right;padding-right: 15px;margin-top: 40px;">
-									<a href="#" class="save btn_js mdl-button" onclick="ModalGraph()">Сохранить</a>
+				<div id="seasonality" class="mdl-tabs__panel">
+					<?if(isset($id_product)){?>
+						<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
+							<div class="modal">
+								<div class="modal_container">
+									<p>График (своя версия)</p>
+									<div class="select_go" style="margin-top: 15px;margin-left: 77px;">
+										<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+											<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница<!--is-checked--></span>
+											<input type="checkbox" id="switch-2" class="mdl-switch__input">
+											<span class="mdl-switch__label">Опт<!--is-checked--></span>
+										</label>
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="mdl-textfield">
+										<label for="name" class="mdl-textfield__textarea">Примечания к графику:</label>
+										<textarea required="required" type="text" name="text" id="text" style="width:80%;">
+										</textarea>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="top: -10px;">
+										<label for="name" class="mdl-textfield__label">Имя на графике:</label>
+										<input class="mdl-textfield__input" type="text" id="name_user" value=""/>
+									</div>
+									<div id="user_bt" style="float:right;padding-right: 15px;margin-top: 40px;">
+										<a href="#" class="save btn_js mdl-button" onclick="ModalGraph()">Сохранить</a>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				<?}else{?>
-					<div id="seasonality" class="mdl-tabs__panel">
-					<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?
-					hl=ru&
-					q=[intertool,intex]&
-					geo=UA&
-					date=today+30-d&
-					cmpt=q&
-					tz=Etc/GMT-2&
-					tz=Etc/GMT-2&
-					content=1&
-					cid=TIMESERIES_GRAPH_0&
-					export=5&
-					w=653&
-					h=600"></script> -->
+					<?}else{?>
+						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
+					<?}?>
 				</div>
-				<?}?>
 				<div id="comments" class="mdl-tabs__panel">
 					<div class="feedback_form">
 						<h4>Оставить отзыв о товаре</h4>
@@ -464,10 +437,12 @@
 				<div class="item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
+							<img alt="<?=$p['name']?>" src="http://xt.ua<?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+							<!-- <img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>"> -->
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="http://xt.ua<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<!-- <img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/> -->
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
@@ -484,10 +459,12 @@
 				<div class="item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>" alt="<?=$p['name']?>">
+							<img alt="<?=$p['name']?>" src="http://xt.ua<?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+							<!-- <img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>"> -->
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="http://xt.ua<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<!-- <img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/> -->
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
@@ -522,5 +499,4 @@
 			}
 		});
 	});
-
 </script>

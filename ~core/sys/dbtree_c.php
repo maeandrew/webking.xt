@@ -591,7 +591,7 @@ class dbtree {
 		$sql = 'SELECT '.$fields.' FROM '.$this->table;
 		$sql .= $condition;
 		$sql .= ' ORDER BY '.$this->table_left;
-		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
+		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->GetArray($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
@@ -624,7 +624,7 @@ class dbtree {
 		$sql = 'SELECT '.$fields.', CASE WHEN A.'.$this->table_left.' + 1 < A.'.$this->table_right.' THEN 1 ELSE 0 END AS nflag FROM '.$this->table.' A, '.$this->table.' B WHERE B.'.$this->table_id.' = '.(int)$ID.' AND A.'.$this->table_left.' >= B.'.$this->table_left.' AND A.'.$this->table_right.' <= B.'.$this->table_right;
 		$sql .= $condition;
 		$sql .= ' ORDER BY A.'.$this->table_left;
-		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
+		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);
@@ -658,7 +658,7 @@ class dbtree {
 		$sql = 'SELECT '.$fields.', CASE WHEN A.'.$this->table_left.' + 1 < A.'.$this->table_right.' THEN 1 ELSE 0 END AS nflag FROM '.$this->table.' A, '.$this->table.' B WHERE B.'.$this->table_id.' = '.(int)$ID.' AND B.'.$this->table_left.' BETWEEN A.'.$this->table_left.' AND A.'.$this->table_right;
 		$sql .= $condition;
 		$sql .= ' ORDER BY A.'.$this->table_left;
-		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
+		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->Execute($sql);
 		}else{
 			$res = $this->db->CacheExecute((int)$cache, $sql);

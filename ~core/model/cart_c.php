@@ -35,11 +35,9 @@ class Cart {
 			}
 		}else{
 			if($quantity > 0){
-				print_r($quantity);
 				if($product['qty_control'] == 1 && fmod($quantity, $product['min_mopt_qty']) != 0){
 					$quantity = $product['min_mopt_qty']*round($quantity/$product['min_mopt_qty']);
 				}
-				print_r($quantity);
 				if($quantity < $product['min_mopt_qty']){
 					$quantity = $product['min_mopt_qty'];
 				}

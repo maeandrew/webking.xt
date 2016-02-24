@@ -1,6 +1,5 @@
 <h1><?=$h1?></h1>
 <br>
-
 <?if(isset($list_types) && !empty($list_types)){?>
 	<div id="second_navigation">
 		<ul class="second_nav_manu">

@@ -37,7 +37,6 @@
 			<div class="table-column invoice-row color-black"><a target="_blank" href="<?=_base_url?>/invoice_anonim/<?=$o['id_order']?>/">Открыть накладную</a></div>
 			<div class="table-column contragent-row color-black"><?=$o['contragent']?></div>
 		</div>
-	<?$ii++;
-	 // print_r($o);
+		<?$ii++;
 	}?>
 </div>
