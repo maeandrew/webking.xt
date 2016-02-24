@@ -187,19 +187,38 @@ class Specification{
 	}
 
 	// Список
-	public function GetMonitoringList(){
+	public function GetMonitoringList($limit = false){
 		$sql = "SELECT c.id_category, c.name, s.id AS id_caption, s.caption, sp.value, count(*) AS count
 			FROM "._DB_PREFIX_."specs_prods AS sp
 			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
 			LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category AND c.id_category IS NOT NULL
-			GROUP BY sp.value
-			ORDER BY c.name, s.caption;";
+			GROUP BY sp.value, s.caption, c.name
+			ORDER BY c.name, s.caption".
+			($limit ?  " LIMIT". $limit : '');
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
 		}
 		return true;
 	}
+
+	// Список
+	public function GetProdlistModeration($category, $spec, $value){
+		$sql = "SELECT sp.id_prod, p.name
+			FROM "._DB_PREFIX_."specs_prods AS sp
+			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
+			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
+			LEFT JOIN "._DB_PREFIX_."product AS p ON sp.id_prod = p.id_product
+			WHERE cp.id_category = ".$category."
+			AND s.id = ".$spec."
+			AND sp.value = '".$value."'";
+		$this->list = $this->db->GetArray($sql);
+		if(!$this->list){
+			return false;
+		}
+		return $this->list;
+	}
+
 }
 ?>

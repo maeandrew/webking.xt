@@ -3837,7 +3837,7 @@ class Products {
 
 	public function SetFieldsForMonitoringSpecifications($params){
 		foreach($params as $key => $value){
-			print_r($value);
+//			print_r($value);
 		}
 	}
 }?>

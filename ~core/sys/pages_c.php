@@ -61,6 +61,7 @@ class pages{
 		$string_array = explode("?", $URL_TMP);
 		$URL_TMP = $string_array[0]; // строка после вопросительного знака
 		$URL_TMP = preg_replace("#/$#is", '', $URL_TMP);
+		print_r($URL_TMP); die();
 		$tpl =& $GLOBALS['tpl'];
 		$name = array();
 		foreach($this->pages as $key=>$title){
@@ -126,6 +127,7 @@ class pages{
 
 		//$GLOBALS['page_count'] = $this->pages['last'];
 		//print_r($this->pages[2]);
+//		print_r($parsed_content); die();
 		return $parsed_content;
 	}
 		//------------------------------------------------------------------------------
