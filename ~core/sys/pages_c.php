@@ -57,17 +57,20 @@ class pages{
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
 	function ShowPages(){																// выводит всю строку страниц
-		$URL_TMP = preg_replace("#p[\d]+/#is", '', $GLOBALS['URL_request']);			// урл текущей страницы без page_id=N
+		$URL_TMP = preg_replace("#/p[\d]+#is", '', $GLOBALS['URL_request']);			// урл текущей страницы без page_id=N
 		$string_array = explode("?", $URL_TMP);
 		$URL_TMP = $string_array[0]; // строка после вопросительного знака
 		$URL_TMP = preg_replace("#/$#is", '', $URL_TMP);
-//		print_r($URL_TMP); die();
 		$tpl =& $GLOBALS['tpl'];
 		$name = array();
 		foreach($this->pages as $key=>$title){
 			if(is_numeric($key)){														// для исключения пред. и следующ
 				if($this->cur_page_id != $title){
-					$url = Link::Category($GLOBALS['Rewrite'], array('page'=> $title));
+					if(strstr($URL_TMP, '/adm')) {
+						$url = $URL_TMP.'/p'.$title;
+					}else{
+						$url = Link::Category($GLOBALS['Rewrite'], array('page' => $title));
+					}
 					isset($string_array[1])?$url .= '?'.$string_array[1]:null;
 					//$name[] =  '<a class="page" href='.$url.'>'.$title.'</a>';
 					$name[] = '<li class="page'.$title.'"><a href="'.$url.'" class="animate bg-white color-grey">'.$title.'</a></li>';
@@ -81,25 +84,27 @@ class pages{
 			}
 		}// end foreach
 		$tpl->Assign('PAGE', $name);
+
+		$p = (strstr($URL_TMP, '/adm')?'/p':'');
 		if(isset($this->pages['lp'])){
 			$tpl->Assign('LP', 'more_horiz');
 			isset($string_array[1])?$this->pages['lp'] .= '?'.$string_array[1]:null;
-			$tpl->Assign('URL_LP', $URL_TMP.$this->pages['lp']);
+			$tpl->Assign('URL_LP', $URL_TMP.$p.$this->pages['lp']);
 		}
 		if(isset($this->pages['np'])){
 			$tpl->Assign('NP', 'more_horiz');
 			isset($string_array[1])?$this->pages['np'] .= '?'.$string_array[1]:null;
-			$tpl->Assign('URL_NP', $URL_TMP.$this->pages['np']);
+			$tpl->Assign('URL_NP', $URL_TMP.$p.$this->pages['np']);
 		}
 		if(isset($this->pages['first'])){
 			$tpl->Assign('FIRST', 1);
 			isset($string_array[1])?$this->pages['first'] .= '?'.$string_array[1]:null;
-			$tpl->Assign('URL_FIRST', $URL_TMP.$this->pages['first']);
+			$tpl->Assign('URL_FIRST', $URL_TMP.$p.$this->pages['first']);
 		}
 		if(isset($this->pages['last'])){
 			$tpl->Assign('LAST', $this->cnt_pages);
 			isset($string_array[1])?$this->pages['last'] .= '?'.$string_array[1]:null;
-			$tpl->Assign('URL_LAST', $URL_TMP.$this->pages['last']);
+			$tpl->Assign('URL_LAST', $URL_TMP.$p.$this->pages['last']);
 		}
 		$parsed_content = $tpl->Parse($GLOBALS['PATH_tpl'].'pages.tpl');
 
