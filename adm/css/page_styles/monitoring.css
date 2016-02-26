@@ -3,7 +3,6 @@
 }
 
 #second_navigation {
-	display: none;
 	overflow: hidden;
 	margin-bottom: 20px;
 }
@@ -14,7 +13,7 @@
 	display: block !important;
 	clear: both;
 }
-.ui-tabs-nav {
+#second_navigation ul {
 	width: 20%;
 	padding-right: 20px;
 	float: left;
@@ -25,7 +24,7 @@
 	float: right;
 	padding-bottom: 20px;
 }
-.ui-tabs-vertical .ui-tabs-nav li a {
+#second_navigation ul li a {
 	outline: none;
 	text-decoration: none;
 	display: block;
@@ -34,8 +33,12 @@
 	background-color: #fff;
 	border: 1px solid #ddd;
 }
-.ui-tabs-vertical .ui-tabs-nav .ui-tabs-active a {
+#second_navigation ul a.active {
 	color: #fff;
 	background-color: #00aff0;
 	border-color: #00aff0;
+}
+
+.content {
+	min-height: 500px;
 }
