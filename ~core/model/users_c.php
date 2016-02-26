@@ -73,8 +73,9 @@ class Users {
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
 			FROM "._DB_PREFIX_."user AS u
 			WHERE u.email = '".$f['email']."'
-			OR u.phone = '".$f['email']."'
+			OR u.phones = '".$f['email']."'
 			AND u.active = 1";
+			print_r($sql);
 		if($this->fields = $this->db->GetOneRowArray($sql)){
 			return $this->fields;
 		}else{
