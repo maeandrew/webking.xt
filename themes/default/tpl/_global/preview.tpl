@@ -14,14 +14,14 @@
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src']);?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>>
-					<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?_base_url.str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
+					<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src']);?>" alt="<?=$product['name']?>">
+					<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?_base_url.str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"> -->
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<img src="http://xt.ua<?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>>
-						<!-- <img src="<?=_base_url.($product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$product['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+						<img src="http://xt.ua<?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>">
+						<!-- <img src="<?=_base_url.($product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$product['name']?>"> -->
 					<?}
 				}
 			}?>

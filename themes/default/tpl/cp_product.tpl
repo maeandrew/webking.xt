@@ -21,7 +21,7 @@
 				<img src="http://xt.ua<?=$item['images'][0]['src']?>" alt="<?=$item['name']?>">
 				<!-- <img src="<?=_base_url?><?=$item['images'][0]['src']?>" alt="<?=$item['name']?>"> -->
 			<?}else{?>
-				<img src="http://xt.ua<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+				<img src="http://xt.ua<?=$item['img_1']?$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
 				<!-- <img src="<?=$item['img_1']?_base_url.$item['img_1']:'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>"> -->
 			<?}?>
 		</div>
@@ -37,8 +37,8 @@
 					}
 					.breadcrumbs_wrapp {
 						white-space: nowrap;
-						overflow: overlay;
-						/*overflow-x: hidden;*/
+						overflow-x: overlay;
+						overflow-y: hidden;
 						padding-bottom: 10px;
 					}
 					.breadcrumbs_wrapp a {
@@ -50,6 +50,9 @@
 					}
 					.owl-pagination {
 						padding: 5px 0;
+					}
+					.mobile_carousel .owl-item img {
+						max-width: 100%;
 					}
 					.owl-page {
 						width: 20px;
@@ -70,34 +73,35 @@
 					.tabs .mdl-tabs__tab {
 						width: 170px;
 					}
-					.fortabs{
+					.fortabs {
 						/*white-space: nowrap;
 						overflow: scroll;
-						overflow-x: hidden; 
-						padding-bottom: 10px;*/
-						overflow-y: overlay;
+						overflow-x: hidden; */
+						padding-bottom: 10px;
+						overflow-x: overlay;
+						overflow-y: hidden;
 					}
 				}
 			</style>
 
-			<div id="owl-product_mini_img_js" class="mobile_carousel">
+			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=$image['src']?>" alt="<?=$item['name']?>">
-						<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].$image['src'])?_base_url.$image['src']:'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
+						<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src']);?>" alt="<?=$item['name']?>">
+						<!-- <img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?_base_url.str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-							<!-- <img src="<?=_base_url.($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('/image/', '/image/500/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
+							<!-- <img src="<?=_base_url.($item['img_'.$i]?str_replace('/image/', '/image/500/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"> -->
 						<?}
 					}
 				}?>
 			</div>
 			<script>
 				//Инициализация owl carousel
-				$("#owl-product_mini_img_js").owlCarousel({
+				$("#owl-product_mobile_img_js").owlCarousel({
 					items: 6,
 					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
 					navigation: true, // Show next and prev buttons
@@ -105,30 +109,29 @@
 					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
-				$(function(){
-					//Слайдер миниатюр картинок
-					$('#owl-product_mini_img_js .item').on('click', function(event) {
-						var src = $(this).find('img').attr('src');
-						var viewport_width = $(window).width();
-						console.log(src);
-						if(viewport_width > 711){
-							$('#owl-product_slide_js').find('img').removeClass('act_img');
-							$(this).find('img').addClass('act_img');
-							// if(!(src.indexOf('nofoto') + 1)){
-							//  src = src.replace('thumb', 'original');
-							// }
-							if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
-								src = src.replace('thumb', 'original');
-							}else{
-								src = src.replace('_thumb/', '');
-							}
-							$('.product_main_img').find('img').attr('src', src);
-							$('.product_main_img').hide().fadeIn('100');
-						}else{
-							event.preventDefault();
-						}
-					});
-				});
+				// $(function(){
+				// 	//Слайдер миниатюр картинок
+				// 	$('#owl-product_mobile_img_js .item').on('click', function(event) {
+				// 		var src = $(this).find('img').attr('src');
+				// 		var viewport_width = $(window).width();
+				// 		if(viewport_width > 711){
+				// 			$('#owl-product_slide_js').find('img').removeClass('act_img');
+				// 			$(this).find('img').addClass('act_img');
+				// 			// if(!(src.indexOf('nofoto') + 1)){
+				// 			//  src = src.replace('thumb', 'original');
+				// 			// }
+				// 			if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
+				// 				src = src.replace('thumb', 'original');
+				// 			}else{
+				// 				src = src.replace('_thumb/', '');
+				// 			}
+				// 			$('.product_main_img').find('img').attr('src', src);
+				// 			$('.product_main_img').hide().fadeIn('100');
+				// 		}else{
+				// 			event.preventDefault();
+				// 		}
+				// 	});
+				// });
 			</script>
 		<?}else{?>
 			<div id="owl-product_mini_img_js">
@@ -140,8 +143,8 @@
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>>
-							<!-- <img src="<?=_base_url.($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="active_img"':null;?>> -->
+							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
+							<!-- <img src="<?=_base_url.($item['img_'.$i]?str_replace('/efiles/', '/efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg')?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
 						<?}
 					}
 				}?>

@@ -85,40 +85,44 @@
 							<col width="10%">
 						</colgroup>
 						<tbody>
-						<?foreach($list as $p){?>
-							<tr id="tr_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'style="background-color:#eee;"':"0"?>>
+						<?foreach($list as $item){?>
+							<tr id="tr_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'style="background-color:#eee;"':"0"?>>
 								<td>
-									<input type="checkbox" class="chek" id="checkbox_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$p['id_product']?>)"/>
+									<input type="checkbox" class="chek" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
 								</td>
 								<td class="image_cell">
-									<?if(!empty($p['images'])){?>
-										<a href="<?=file_exists($GLOBALS['PATH_root'].$p['images'][0]['src'])?_base_url.htmlspecialchars($p['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>">
-											<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $p['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $p['images'][0]['src']):'/efiles/_thumb/nofoto.jpg';?>" title="Нажмите для увеличения">
-										</a>
+									<?if(!empty($item['images'])){?>
+										<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="http://xt.ua<?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										<!-- <img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/> -->
+										<noscript>
+											<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										</noscript>
 									<?}else{?>
-										<a href="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars($p['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
-											<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения">
-										</a>
+										<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="http://xt.ua<?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+										<!-- <img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url.($item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg")?>"/> -->
+										<noscript>
+											<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.($item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg")?>"/>
+										</noscript>
 									<?}?>
 								</td>
 								<td class="name_cell">
-									<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/"><?=G::CropString($p['name'])?></a>
-									<p class="product_article"><!--noindex-->арт. <!--/noindex--><?=$p['art']?></p>
+									<a href="<?=_base_url.'/product/'.$item['id_product'].'/'.$item['translit']?>/"><?=G::CropString($item['name'])?></a>
+									<p class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></p>
 								</td>
 								<td class="price_cell">
-									<p id="price_mopt_<?=$p['id_product']?>">
-										<?if($p['price_opt_otpusk'] != 0){
-											echo number_format($p['price_opt_otpusk'], 2, ".", "").' грн.';
+									<p id="price_mopt_<?=$item['id_product']?>">
+										<?if($item['price_opt_otpusk'] != 0){
+											echo number_format($item['price_opt_otpusk'], 2, ".", "").' грн.';
 										}else{
-											echo number_format($p['price_mopt_otpusk'], 2, ".", "").' грн.';
+											echo number_format($item['price_mopt_otpusk'], 2, ".", "").' грн.';
 										}?>
 									</p>
 								</td>
 								<td class="count_cell">
-									<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
+									<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>
 								</td>
 								<td class="count_cell">
-									<p id="inbox_qty_<?=$p['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
+									<p id="inbox_qty_<?=$item['id_product']?>"><?=$item['inbox_qty'].' '.$item['units']?></p>
 								</td>
 							</tr>
 						<?}?>

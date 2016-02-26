@@ -152,7 +152,7 @@ h1.filial { text-align: center; font-size: 27px; }
 											<?if($i['image'] != ''){?>
 												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
 											<?}else{?>
-												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])) && $i['img_1'] != ''?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" />
+												<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>"/>
 											<?}?>
 											<!-- <img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"> -->
 										</td>
@@ -185,7 +185,7 @@ h1.filial { text-align: center; font-size: 27px; }
 											<?if($i['image'] != ''){?>
 												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
 											<?}else{?>
-												<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])) && $i['img_1'] != ''?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" />
+												<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
 											<?}?>
 											<!-- <img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"> -->
 										</td>

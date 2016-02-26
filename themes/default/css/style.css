@@ -47,10 +47,11 @@ textarea.mdl-textfield__input {
 input,
 textarea {
 	border: 1px solid #ddd;
+	outline: 0;
 }
 input:hover,
 textarea:hover {
-	border: 1px solid #bdbdbd;
+	border-color: #bdbdbd;
 }
 input.mdl-textfield__input:hover,
 textarea.mdl-textfield__input:hover {
@@ -323,6 +324,11 @@ ul.phone_nav_contacts li span {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.paginator li .material-icons {
+	width: 100%;
+	margin: 0;
+	line-height: 30px;
 }
 .paginator li.active a {
 	cursor: default;
@@ -1594,15 +1600,15 @@ section .stat_year {
 .products .product_name,
 .products .product_info {
 	float: left;
-	width: calc(60% - 120px);
+	width: calc(60% - 140px);
 }
 #cart .card .product_photo,
 .products .card .product_photo {
 	position: relative;
-	height: 100px;
-	width: 100px;
+	height: 90px;
+	width: 120px;
 	float: left;
-	padding-right: 20px;
+	padding: 10px 20px 10px 0;
 }
 #cart .card .product_photo a,
 .products .card .product_photo a {
@@ -1611,9 +1617,8 @@ section .stat_year {
 #cart .card .product_photo a img,
 .products .card .product_photo a img {
 	display: block;
-	/*max-height: 100px;*/
+	max-height: 100px;
 	max-width: 100%;
-	/*padding: 12px 0;*/
 }
 .products .card .product_name {
 	padding-top: 10px;
@@ -1692,6 +1697,9 @@ section .stat_year {
 	cursor: pointer;
 	z-index: 100;
 	outline: 0;
+}
+.product_buy .buy_block .btn_buy .in_cart_js .material-icons {
+	margin: 0;
 }
 .product_buy .buy_block .btn_buy:after {
 	content: '';
@@ -1834,6 +1842,7 @@ section .stat_year {
 }
 
 .show_more {
+	clear: both;
 	text-align: center;
 	font-size: 1.429em;
 	padding-bottom: 30px;
@@ -2060,12 +2069,11 @@ section .stat_year {
 	}
 	.products .card .product_name {
 		padding-top: 0;
-		width: calc(100% - 110px);
+		width: calc(100% - 130px);
 		float: left;
 	}
 	.products .product_buy {
-		width: calc(100% - 110px);
-		max-width: 100%;
+		width: calc(100% - 130px);
 		padding: 0;
 	}
 	/*.product_buy .price {
@@ -2455,7 +2463,9 @@ section .stat_year {
 	footer .copyright p {
 		line-height: 1.7em;
 	}
-
+	.sort_page_bottom {
+		display: none;
+	}
 
 
 	#cart .card .product_photo {

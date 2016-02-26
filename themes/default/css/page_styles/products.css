@@ -290,13 +290,6 @@ h5 {
 	float: right;
 	padding: 20px 15px 20px 0;
 }
-#view_block_js .show_more {
-	clear: both;
-	text-align: center;
-	margin: 0 auto;
-    width: 205px;
-    position: relative;
-}
 #view_block_js .load_more {
 	background: rgba(255, 255, 255, 1) url(../../images/AjaxLoader.gif) no-repeat 50% 50%;
 	height: 32px;
@@ -985,7 +978,6 @@ h5 {
 		bottom: 10px;
 		right: 0;
 		height: auto;
-		width: calc(100% - 110px);
 	}
 	#view_block_js .products .card .product_buy .buy_block {
 		margin: 0;

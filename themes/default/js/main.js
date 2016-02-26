@@ -335,6 +335,7 @@ $(function(){
 		paginationSpeed: 400,
 		itemsScaleUp: true,
 		items: 5,
+		itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
 		navigation: true, // Show next and prev buttons
 		navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
