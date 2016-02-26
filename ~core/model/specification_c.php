@@ -204,14 +204,23 @@ class Specification{
 	}
 
 	// Список
-	public function GetProdlistModeration($category, $spec, $value){
+	public function GetProdlistModeration($category = null, $spec, $value){
+		$category ? $category = "cp.id_category = ".$category: '';
+		if ($spec && $category) {
+			$spec = " AND s.id = ".$spec;
+		}elseif($spec && !$category){
+			$spec = "s.id = ".$spec;
+		}else{
+			$spec = "";
+		}
+
 		$sql = "SELECT sp.id_prod, p.name
 			FROM "._DB_PREFIX_."specs_prods AS sp
 			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
 			LEFT JOIN "._DB_PREFIX_."product AS p ON sp.id_prod = p.id_product
-			WHERE cp.id_category = ".$category."
-			AND s.id = ".$spec."
+			WHERE ".$category
+			.$spec."
 			AND sp.value = '".$value."'";
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){

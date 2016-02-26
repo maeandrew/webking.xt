@@ -32,8 +32,8 @@
 <script>
 	$('.center .btn-m-default-inv').click(function(){
 		var id_category = $(this).data('cat'),
-			spec = $(this).data('spec'),
-			value = $(this).data('val');
+				spec = $(this).data('spec'),
+				value = $(this).data('val');
 		$.ajax({
 			url: URL_base+'ajaxspecifications',
 			type: "POST",

@@ -96,5 +96,16 @@ class SEO{
 			$this->list[$li_id]['content'] = preg_replace("#<.*?(>|$)#is"," ",$li['content']);
 		}
 	}
+
+
+	// Поиск слов (тегов) по строке
+	public function GerWord($str){
+		$sql = "SELECT wrord
+			FROM "._DB_PREFIX_."semantic_core
+			WHERE word like \"$str%\"";
+		print_r($sql);
+		$this->list = $this->db->GetArray($sql);
+		return $this->list;
+	}
 }
 ?>

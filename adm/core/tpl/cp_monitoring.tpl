@@ -16,13 +16,3 @@
 		<span class="strong">Информация отсутствует</span>
 	</div>
 <?}?>
-
-<table>
-	<tbody>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</tbody>
-</table>
