@@ -1,7 +1,7 @@
 <div class="supplier_search fright">
 	<form method="post" target="_blank" action="/supplier_search">
 		<input type="text" name="art_product" class="input-m" placeholder="Проверка наличия товара">
-		<input type="submit" class="btn-m-lblue" id="form_submit" value="Искать">
+		<input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="form_submit" value="Искать">
 	</form>
 </div>
 <div id="supplier_manager_cabinet">
@@ -38,21 +38,20 @@
 		<div class="table">			
 			<?foreach($supplier_list as $s){?>
 				<div class="tr">
-					<div class="article  td"><?=$s['article'];?></div>
-					<div class="name  td"><?=$s['name']?></div>
-					<div class="place  td"><?=isset($s['place'])?$s['place']:'-';?></div>
-					<div class="email  td"><?=isset($s['email']) && $s['email'] != ''?$s['email']:'-';?></div>
+					<div class="article td"><?=$s['article'];?></div>
+					<div class="name td"><?=$s['name']?></div>
+					<div class="place td"><?=isset($s['place'])?$s['place']:'-';?></div>
+					<div class="email td"><?=isset($s['email']) && $s['email'] != ''?$s['email']:'-';?></div>
 					<!-- красное если осталось меньше месяца или дата в прошлом -->
-					<div class="next_update_date  td <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></div>
-					<div class="currency  td"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></div>
-					<div class="login  td">
-						<a href="/login/?email=<?=$s['email']?>&passwd=0" class="btn-m-green <?=$s['active'] == 0?'hidden':'';?>">
-							<button class="greenBtn">
-  								Войти
-							</button></a>
+					<div class="next_update_date td <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></div>
+					<div class="currency td"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></div>
+					<div class="login td">
+						<?if($s['active'] == 1){?>
+							<a href="#" onclick="sm_login('<?=$s['email']?>');" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Войти</a>
+						<?}?>
 					</div>
 					<div class="toggle td">
-						<a href="?id=<?=$s['id_user']?>&toggle_supplier=<?=$s['active'] == 0?'1':'0';?>" class="btn-m-<?=$s['active'] == 0?'green':'red';?>-inv"><?=$s['active'] == 0?'Вкл.':'Выкл.';?></a>
+						<a href="?id=<?=$s['id_user']?>&toggle_supplier=<?=$s['active'] == 0?'1':'0';?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect <?=$s['active'] == 0?'color-green':'color-red';?>"><?=$s['active'] == 0?'Вкл.':'Выкл.';?></a>
 					</div>
 				</div>
 			<?}?>			
@@ -112,4 +111,9 @@
 			}
 		});
 	});
+	function sm_login(email){
+		ajax('auth', 'login', {email: email, passwd: 0}, 'json').done(function(data){
+			console.log(data);
+		});
+	}
 </script>

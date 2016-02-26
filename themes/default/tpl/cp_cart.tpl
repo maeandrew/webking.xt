@@ -232,26 +232,25 @@
 					</span>
 				</div>
 			</div>
-		<?}?>
-		<?	$cart_sum = $_SESSION['cart']['products_sum']['3'];
-			$percent_sum = $total = 0;
-			if($cart_sum >= 0 && $cart_sum < $GLOBALS['CONFIG']['retail_order_margin']) {
-				$percent = $percent_sum = 0;
-				$total = $cart_sum;
-			}elseif($cart_sum >= $GLOBALS['CONFIG']['retail_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['wholesale_order_margin']) {
-				$percent = 10;
-				$percent_sum = $cart_sum * 0.10;
-				$total = $cart_sum - $percent_sum;
-			}elseif($cart_sum >= $GLOBALS['CONFIG']['wholesale_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['full_wholesale_order_margin']) {
-				$percent = 16;
-				$percent_sum = $cart_sum * 0.16;
-				$total = $cart_sum - $percent_sum;
-			}elseif($cart_sum >= $GLOBALS['CONFIG']['full_wholesale_order_margin']){
-				$percent = 21;
-				$percent_sum = $cart_sum * 0.21;
-				$total = $cart_sum - $percent_sum;
-			};
-		?>
+		<?}
+		$cart_sum = $_SESSION['cart']['products_sum']['3'];
+		$percent_sum = $total = 0;
+		if($cart_sum >= 0 && $cart_sum < $GLOBALS['CONFIG']['retail_order_margin']) {
+			$percent = $percent_sum = 0;
+			$total = $cart_sum;
+		}elseif($cart_sum >= $GLOBALS['CONFIG']['retail_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['wholesale_order_margin']) {
+			$percent = 10;
+			$percent_sum = $cart_sum * 0.10;
+			$total = $cart_sum - $percent_sum;
+		}elseif($cart_sum >= $GLOBALS['CONFIG']['wholesale_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['full_wholesale_order_margin']) {
+			$percent = 16;
+			$percent_sum = $cart_sum * 0.16;
+			$total = $cart_sum - $percent_sum;
+		}elseif($cart_sum >= $GLOBALS['CONFIG']['full_wholesale_order_margin']){
+			$percent = 21;
+			$percent_sum = $cart_sum * 0.21;
+			$total = $cart_sum - $percent_sum;
+		};?>
 		<div class="cart">
 			<div class="clear_cart fleft">
 				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
@@ -343,7 +342,7 @@
 									<p>Перейти к оформлению совместной корзины</p>
 								</div>
 						</label>
-						<!--<div class="info_description">
+						<div class="info_description">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
 						</div>
 					</div>-->
@@ -388,7 +387,7 @@
 							$('.action_block .mdl-button').text('Продолжить');
 							$("#button-cart1").hide();
 							$("#button-cart1").show();
-//							$("#button-cart3").hide();
+							// $("#button-cart3").hide();
 						}
 					});
 
@@ -396,7 +395,7 @@
 						if (checked == false) {
 							$('.action_block .mdl-button').text('Организовать');
 							$("#button-cart1").hide();
-//							$("#button-cart2").hide();
+							// $("#button-cart2").hide();
 							$("#button-cart1").show();
 						}
 					});
