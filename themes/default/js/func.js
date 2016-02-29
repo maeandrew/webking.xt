@@ -1223,7 +1223,7 @@ function ChangePriceRange(id, sum){
 
 	setTimeout(function(){
 		$('.product_buy .price').stop(true,true).css({
-			"background-color": "#97FF99"
+			"background-color": "#b0eeb2"
 			//"color": "black"
 		}).delay(1000).animate({
 			"background-color": "transparent"

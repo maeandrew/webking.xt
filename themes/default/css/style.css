@@ -1675,6 +1675,7 @@ section .stat_year {
 	flex-basis: 20%;
 	text-align: center;
 	line-height: 36px;
+	border-radius: .2em;
 }
 .product_buy .buy_block .btn_buy {
 	position: relative;
@@ -1683,12 +1684,13 @@ section .stat_year {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.product_buy .buy_block .btn_remove {
-
-}
 .product_buy .buy_block .btn_buy .in_cart_js {
 	padding: 6px 0;
+	position: absolute;
+	top: 0;
+	left: calc(50% - 18px);
 	height: 36px;
+	width: 36px;
 	color: #ff5722;
 	text-align: center;
 	-webkit-box-sizing: border-box;
@@ -1707,7 +1709,6 @@ section .stat_year {
 	top: calc(-35px / 2);
 	width: 100%;
 	height: 70px;
-	z-index: -1;
 }
 .product_buy .buy_block .btn_buy button {
 	text-transform: capitalize;
@@ -1719,12 +1720,12 @@ section .stat_year {
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	width: 80%;
+	z-index: 10;
 }
 .product_buy .buy_block .btn_buy:hover button {
 	position: absolute;
 	top: calc(-35px / 2);
 	height: 70px;
-	z-index: 1;
 }
 .pb_wrapper:hover .product_buy .buy_block .btn_buy button,
 .card:hover .product_buy .buy_block .btn_buy button {
