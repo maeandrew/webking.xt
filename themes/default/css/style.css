@@ -1613,7 +1613,7 @@ section .stat_year {
 	height: 90px;
 	width: 120px;
 	float: left;
-	padding: 10px 20px 10px 0;
+	padding: 5px 10px 5px 0;
 }
 #cart .card .product_photo a,
 .products .card .product_photo a {
@@ -1622,8 +1622,9 @@ section .stat_year {
 #cart .card .product_photo a img,
 .products .card .product_photo a img {
 	display: block;
-	max-height: 100px;
+	max-height: 90px;
 	max-width: 100%;
+	margin: 0 auto;
 }
 .products .card .product_name {
 	padding-top: 10px;
@@ -1906,10 +1907,14 @@ section .stat_year {
 	.products .product_info,
 	.products .product_buy {
 		width: auto;
-		width: calc(100% - 120px);
+		width: calc(100% - 130px);
 	}
-	.products .card .product_name {
-		padding-top: 0;
+	.products .product_info {
+		margin: 0;
+	}
+	.products .card .product_buy {
+		padding: 17px 0;
+		height: 70px;
 	}
 	.product_buy .price {
 		min-width: 90px;
@@ -2074,13 +2079,13 @@ section .stat_year {
 		padding-right: 10px;
 	}
 	.products .card .product_name {
-		padding-top: 0;
 		width: calc(100% - 130px);
 		float: left;
 	}
 	.products .product_buy {
 		width: calc(100% - 130px);
-		padding: 0;
+		padding: 20px 0;
+		height: 76px;
 	}
 	/*.product_buy .price {
 		text-align: left;
