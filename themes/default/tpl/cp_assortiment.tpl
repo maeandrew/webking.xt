@@ -92,16 +92,14 @@
 								</td>
 								<td class="image_cell">
 									<?if(!empty($item['images'])){?>
-										<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="http://xt.ua<?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
-										<!-- <img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/> -->
+										<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 										<noscript>
-											<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+											<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="http://xt.ua<?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
-										<!-- <img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url.($item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg")?>"/> -->
+										<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
 										<noscript>
-											<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.($item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg")?>"/>
+											<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
 										</noscript>
 									<?}?>
 								</td>

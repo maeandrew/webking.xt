@@ -196,14 +196,7 @@
 			</table>
 			<div class="photo">
 				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $i['images'][0]['src']))?>">
-					<!-- <img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?_base_url.str_replace('original', 'medium', $i['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>"> -->
-				<?}else{?>
-					<img <?=$wh?> src="http://xt.ua<?=str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])?>" alt="<?=$i['name']?>">
-					<!-- <img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>"> -->
-				<?}?>
-				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['images'][0]['src']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['images'][0]['src'])):'/efiles/_thumb/nofoto.jpg'?>">
+					<img <?=$wh?> src="<?=$GLOBALS['URL_base']?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'medium', $i['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
 				<?}else{?>
 					<img <?=$wh?> src="<?=$GLOBALS['URL_base'].htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>"/>
 				<?}?>

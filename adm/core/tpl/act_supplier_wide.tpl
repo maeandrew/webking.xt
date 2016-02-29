@@ -172,14 +172,12 @@
 			<div class="photo">
 				<?if(!empty($i['images'])){
 					foreach($i['images'] as $key => $image){?>
-						<img <?=$wh?> src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $image['src']))?>">
-						<!-- <img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?_base_url.str_replace('original', 'medium', $image['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>"> -->
+						<img <?=$wh?> src="<?=$GLOBALS['URL_base']?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
 					<?}
 				}else{
 					for($key=1; $key < 4; $key++){
 						if(!empty($i['img_'.$key])){?>
-							<img <?=$wh?> src="http://xt.ua<?=str_replace("/efiles/image/", "/efiles/image/500/", $i['img_'.$key])?>" alt="<?=$i['name']?>">
-							<!-- <img <?=$wh?> src="<?=file_exists($GLOBALS['PATH_root'].$i['img_'.$key])?_base_url.str_replace("/efiles/image/", "/efiles/image/500/", $i['img_'.$key]):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>"<?=$key==1?' class="active_img"':null;?>> -->
+							<img <?=$wh?> src="<?=$GLOBALS['URL_base']?><?=str_replace("/efiles/image/", "/efiles/image/500/", $i['img_'.$key])?>" alt="<?=$i['name']?>">
 						<?}
 					}
 				}?>
