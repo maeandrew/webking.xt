@@ -505,6 +505,11 @@ aside {
 	width: 300px;
 	float: left;
 }
+aside .wrapper {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 100%;
+}
 section.center {
 	width: calc(100% - 300px);
 	float: right;
