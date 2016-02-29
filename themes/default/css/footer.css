@@ -60,6 +60,8 @@ footer .social ul li:last-child a {
 footer .ad_sense {
 	float: right;
 	margin: 10px;
+	width: 300px;
+	height: 250px;
 }
 footer .ad_sense img {
 	display: block;

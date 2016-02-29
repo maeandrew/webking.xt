@@ -433,7 +433,21 @@
 					</div>
 				</div>
 				<div class="ad_sense">
-					<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+					<?if($GLOBALS['CurrentController'] == 'products'){?>
+						<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
+							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+							<!-- Категории -->
+							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins> -->
+							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+						<?}elseif($GLOBALS['CURRENT_ID_CATEGORY'] == 479){?>
+							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+							<!-- test -->
+							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins> -->
+							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+						<?}?>
+					<?}else{?>
+						<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+					<?}?>
 				</div>
 				<div class="copyright">
 					<p>&copy; Отдел снабжения XT.ua 2015</p>
