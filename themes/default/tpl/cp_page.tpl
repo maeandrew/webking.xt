@@ -17,7 +17,7 @@
 	}?>-->
 
 	<!-- Страница "Доставка" -->
-	<!-- <div id="page_delivery" class="page_delivery ">
+	<!-- <div id="page_delivery" class="page_delivery hidden">
 		<div class="blockline">
 			<img class="delivery1 forflex" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
@@ -118,8 +118,8 @@
 
 						Чтобы использовать эту возможность, пожалуйста убедитесь что:
 
-						- товар, не был в употреблении и не имеет следов использования: царапин, сколов, потёртостей, на счётчике телефона не более 5 минут разговоров, программное обеспечение не подвергалось изменениям и т. п.; 
-						- товар полностью укомплектован и не нарушена целостность упаковки; 
+						- товар, не был в употреблении и не имеет следов использования: царапин, сколов, потёртостей, на счётчике телефона не более 5 минут разговоров, программное обеспечение не подвергалось изменениям и т. п.;
+						- товар полностью укомплектован и не нарушена целостность упаковки;
 						- сохранены все ярлыки и заводская маркировка.
 
 						Если товар не работает, обмен или возврат товара производится только при наличии заключения сервисного центра, авторизованного производителем, о том, что условия эксплуатации не нарушены.</p>
@@ -149,9 +149,9 @@
 
 						Для этого, пожалуйста, предоставьте нам:
 
-						- товар с полной комплектацией; 
-						- гарантийный талон; 
-						- документ подтверждающий оплату; 
+						- товар с полной комплектацией;
+						- гарантийный талон;
+						- документ подтверждающий оплату;
 						- заключение сервисного центра с отметкой о том, что товар имеет «существенный недостаток».</p>
 					</article>
 				</div>
@@ -161,20 +161,20 @@
 					<article class="ac-large">
 						<p>Сервисный центр может отказать в гарантийном ремонте если:
 
-						- нарушена сохранность гарантийных пломб; 
-						- есть механические или иные повреждения, которые возникли вследствие умышленных или неосторожных действий покупателя или третьих лиц; 
-						- нарушены правила использования, изложенные в эксплуатационных документах; 
-						- было произведено несанкционированное вскрытие, ремонт или изменены внутренние коммуникации и компоненты товара, изменена конструкция или схемы товара; 
-						- неправильно заполнен гарантийный талон; 
+						- нарушена сохранность гарантийных пломб;
+						- есть механические или иные повреждения, которые возникли вследствие умышленных или неосторожных действий покупателя или третьих лиц;
+						- нарушены правила использования, изложенные в эксплуатационных документах;
+						- было произведено несанкционированное вскрытие, ремонт или изменены внутренние коммуникации и компоненты товара, изменена конструкция или схемы товара;
+						- неправильно заполнен гарантийный талон;
 						- серийный или IMEI номер, находящийся в памяти изделия, изменён, стёрт или не может быть установлен.
 
 						Гарантийные обязательства не распространяются на следующие неисправности:
 
-						- естественный износ или исчерпание ресурса; 
-						- случайные повреждения, причиненные клиентом или повреждения, возникшие вследствие небрежного отношения или использования (воздействие жидкости, запыленности, попадание внутрь корпуса посторонних предметов и т. п.); 
-						- повреждения в результате стихийных бедствий (природных явлений); 
-						- повреждения, вызванные аварийным повышением или понижением напряжения в электросети или неправильным подключением к электросети; 
-						- повреждения, вызванные дефектами системы, в которой использовался данный товар, или возникшие в результате соединения и подключения товара к другим изделиям; 
+						- естественный износ или исчерпание ресурса;
+						- случайные повреждения, причиненные клиентом или повреждения, возникшие вследствие небрежного отношения или использования (воздействие жидкости, запыленности, попадание внутрь корпуса посторонних предметов и т. п.);
+						- повреждения в результате стихийных бедствий (природных явлений);
+						- повреждения, вызванные аварийным повышением или понижением напряжения в электросети или неправильным подключением к электросети;
+						- повреждения, вызванные дефектами системы, в которой использовался данный товар, или возникшие в результате соединения и подключения товара к другим изделиям;
 						- повреждения, вызванные использованием товара не по назначению или с нарушением правил эксплуатации.
 
 						Согласно статьи 9 Закона Украины «О защите прав потребителей». Кабинетом Министров Украины утвержден перечень товаров надлежащего качества, которые не подлежат обмену или возврату.
@@ -199,7 +199,7 @@
 				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
 			</section>
 		</div>
-		<div id="info_text_block_answers" class="ppp2 blockline flexwrapp hidden">	
+		<div id="info_text_block_answers" class="ppp2 blockline flexwrapp hidden">
 			<section class="ac-container">
 				<div>
 					<input id="ac-1" name="accordion-2" type="checkbox" />
@@ -239,7 +239,7 @@
 					<label for="ac-4">Какие преимущества дает регистрация?</label>
 					<article class="ac-small">
 						<p>Регистрация позволяет вам:
-							- просматривать историю своих заказов; 
+							- просматривать историю своих заказов;
 							- получать по электронной почте рассылку о новинках и акциях Розетки.
 							Логином для входа (т. е. полем, по которому система сможет вас распознать) является адрес электронной почты.
 						</p>
@@ -316,7 +316,7 @@
 
 							Наш курьер продемонстрирует работоспособность товара (для устройств, работающих автономно) и оформит все необходимые документы:
 
-							- гарантийный талон; 
+							- гарантийный талон;
 							- документ, подтверждающий оплату.
 
 							Время доставки:
@@ -354,7 +354,7 @@
 					<input id="ad-6" name="accordion-3" type="checkbox" />
 					<label for="ad-6">Можно ли приехать к вам в офис?</label>
 					<article class="ac-small">
-						<p>Да, наши магазины расположены по адресу 
+						<p>Да, наши магазины расположены по адресу
 							г. Киев, ул. Ярославская, 57
 							Для товаров из раздела "Бытовая техника и интерьер" только г. Киев, ул.Фрунзе, 40
 							Вы сможете посмотреть товары вживую и купить то, что понравится. Если Вы хотите какой-то конкретный товар, можно предварительно уточнить его наличие по телефону. Если этого товара не окажется в магазине, мы доставим его со склада к Вашему приходу</p>
@@ -364,7 +364,7 @@
 					<input id="ad-7" name="accordion-3" type="checkbox" />
 					<label for="ad-7">Как можно оплатить заказ наличными?</label>
 					<article class="ac-medium">
-						<p>Оплата наличными при получении товара возможна во всех населенных пунктах на территории Украины. 
+						<p>Оплата наличными при получении товара возможна во всех населенных пунктах на территории Украины.
 						Оплата производится исключительно в национальной валюте.
 						В подтверждение оплаты мы выдаем Вам товарный чек.</p>
 					</article>
@@ -379,8 +379,8 @@
 
 						При получении товара вы получите все необходимые документы:
 
-						- гарантийный талон; 
-						- расходную накладную; 
+						- гарантийный талон;
+						- расходную накладную;
 						- налоговую накладную.
 
 						Оплатить заказ картами Visa и MasterCard можно только при оформлении заказа через сайт</p>
@@ -396,7 +396,7 @@
 
 							Для юридических лиц и СПД:
 
-							- доверенность, выписанная на предъявителя 
+							- доверенность, выписанная на предъявителя
 							- копия свидетельства плательщика НДС (если есть).
 
 							Без оформления доверенности товар может получить директор предприятия лично, с заверением расходных накладных круглой печатью предприятия</p>
@@ -446,12 +446,124 @@
 	</div> -->
 
 	<!-- Страница "Оплата" -->
-	<!-- <div id="page_payment" class="page_payment " >
+	<div id="page_payment" class="page_payment " >
 		<div class="blockline">
 			<img class="payment0" src="/themes/default/images/page/payment/payment0.png" alt="">
 			<h1>Оплата</h1>
 		</div>
 
+		<!-- Аккордеон оплата -->
+		<div id="info_text_block_answers" class="ppp2 blockline flexwrapp">
+			<section class="ac-container">
+				<div>
+					<input id="ac-1" name="accordion-2" type="checkbox" />
+					<label for="ac-1">
+						<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
+						<h4>Он-лайн оплата</h4>
+					</label>
+					<article class="ac-large">
+						<div>
+							<img src="/themes/default/images/page/payment/privat24.png" alt="">
+							<h5>Система проведения платежей Приват24</h5>
+							<p>0,5% или по тарифам карты, кредитка 3%</p>
+						</div>
+						<div>
+							<img src="/themes/default/images/page/payment/paypal.png" alt="">
+							<h5>Система проведения платежей PayPal</h5>
+							<p>1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</p>
+						</div>
+						<div>
+							<img src="/themes/default/images/page/payment/webmoney.png" alt="">
+							<h5>WebMoney</h5>
+							<p>по курсу на момент оплаты + 1%</p>
+						</div>
+					</article>
+				</div>
+				<div>
+					<input id="ac-2" name="accordion-2" type="checkbox" />
+					<label for="ac-2">
+						<img src="/themes/default/images/page/payment/payment2.png" alt="someimg">
+						<h4>Офф-лайн оплата</h4>
+					</label>
+					<article class="ac-large">
+						<div class="forflex">
+							<h5>Пополнение карточного счёта через терминал</h5>
+							<p>согласно тарифов банка 0,5%</p>
+						</div>
+						<div class="forflex">
+							<h5>Пополнение карточного счёта в отделении банка</h5>
+							<p>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</p>
+						</div>
+					</article>
+				</div>
+				<div>
+					<input id="ac-3" name="accordion-2" type="checkbox" />
+					<label for="ac-3">
+						<img src="/themes/default/images/page/payment/payment3.png" alt="someimg">
+						<h4>Наличный расчёт</h4>
+					</label>
+					<article class="ac-large">
+						<div class="forflex">
+							<h5>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)</h5>
+							<p>20грн. + 2% в качестве комиссии перевозчику</p>
+						</div>
+						<div class="forflex">
+							<h5>Оплата наличными при доставке (доставка нашим транспортом)</h5>
+							<p>без переплат</p>
+						</div>
+						<div class="forflex">
+							<h5>Наличный расчет (оплата в точке выдачи)</h5>
+							<p>без переплат</p>
+						</div>
+					</article>
+				</div>
+				<div>
+					<input id="ac-4" name="accordion-2" type="checkbox" />
+					<label for="ac-4">
+						<img src="/themes/default/images/page/payment/payment4.png" alt="someimg">
+						<h4>Безналичный расчёт</h4>
+					</label>
+					<article class="ac-large">
+						<h5>Безналичный расчёт, без НДС</h5>
+						<p>1% обналичка, 4% заморозка цен</p>
+					</article>
+				</div>
+				<!-- <div>
+					<input id="ac-5" name="accordion-2" type="checkbox" />
+					<label for="ac-5">Как отменить заказ?</label>
+					<article class="ac-small">
+						<p>Вы можете отменить заказ по телефону (044) 537-0-222 или (044) 503-80-80.</p>
+					</article>
+				</div>
+				<div>
+					<input id="ac-6" name="accordion-2" type="checkbox" />
+					<label for="ac-6">Что делать, если оплаченный товар не доставлен?</label>
+					<article class="ac-small">
+						<p>Мы страхуем весь товар, который отправляем в другие города. В случае отсутствия (по каким-либо причинам) Вашего товара в офисе перевозчика, мы в течение 2 — 3 дней отправим Вам новый товар.</p>
+					</article>
+				</div>
+				<div>
+					<input id="ac-7" name="accordion-2" type="checkbox" />
+					<label for="ac-7">Какая гарантия, что после предоплаты заказа я его получу?</label>
+					<article class="ac-medium">
+						<p>У вас остаются два документа, которые подтверждают наше с Вами сотрудничество: выписанная нами счет-фактура и документ об оплате, который предоставляет банк. При перечислении денег у нас возникает долговое обязательство перед Вами. Оно погашается только после подписания накладной, которую Вам привезет курьер.
+
+						Таким образом, у Вас есть все рычаги влияния на нас: суд, общество защиты прав потребителей и прочие. Также Ваши интересы защищает закон "О защите прав потребителей".</p>
+					</article>
+				</div>
+				<div>
+					<input id="ac-8" name="accordion-2" type="checkbox" />
+					<label for="ac-8">Какая гарантия, что отправляемый товар не подменят в пути?</label>
+					<article class="ac-small">
+						<p>Любой товар сопровождается заполненным гарантийным талоном, в котором указан его серийный номер. Таким образом, любая подмена исключена.</p>
+					</article>
+				</div>
+				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label-->
+			</section>
+		</div>
+		<!-- Аккордеон оплата конец-->
+
+	<div id="PaymentBlockMain">
 		<div class="blockline flexwrapp">
 			<div id="paymentBlock1" class="payment_block forflex" data-target="ppp1">
 				<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
@@ -521,14 +633,14 @@
 			<h5>Безналичный расчёт, без НДС</h5>
 			<p>1% обналичка, 4% заморозка цен</p>
 		</div>
-
-		<div class="blockline">
+	</div>
+		<!-- <div class="blockline">
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
-		</div>
-	</div> -->
+		</div> -->
+	</div>
 
 	<!-- Страница "O нас" -->
 	<!-- <div id="page_about_us" class="page_about_us ">
@@ -619,7 +731,7 @@
 
 
 	<!-- Страница "Поставки магазинам" -->
- 	<!-- <div id="page_supply" class="page_supply four_pages">
+ 	<!-- <div id="page_supply" class="page_supply four_pages hidden">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
@@ -685,7 +797,7 @@
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Покупайте вместе</h4>
-					<p>Расширяйте чек вместе с друзьями и получайте ещё большую скидку.</p>	
+					<p>Расширяйте чек вместе с друзьями и получайте ещё большую скидку.</p>
 				</div>
 				<video class="forflex" width="495" height="278" src="/themes/default/images/page/supply/supply3.mp4" autoplay loop>
 				</video>
@@ -706,7 +818,7 @@
 	</div> -->
 
 	<!-- Страница "Обеспечение быта" -->
-	<!-- <div id="page_provision" class="page_provision four_pages">
+	<!-- <div id="page_provision" class="page_provision four_pages hidden">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
@@ -782,7 +894,7 @@
 					<h5>Коллективная покупка</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Используйте вкладку "Участники" в информации о Вашем заказе</p>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<div class="blockline">
@@ -791,7 +903,7 @@
 	</div> -->
 
 	<!-- Страница "Скидки" -->
-	<!-- <div id="page_discounts" class="page_discounts four_pages">
+	<!-- <div id="page_discounts" class="page_discounts four_pages hidden">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
@@ -913,7 +1025,7 @@
 	</div> -->
 
 	<!-- Страница "Снабжение предприятий" -->
-	<!-- <div id="page_provision_companies" class="page_provision_companies four_pages">
+	<!-- <div id="page_provision_companies" class="page_provision_companies four_pages hidden">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
@@ -1020,9 +1132,9 @@
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для предприятий</button>
 		</div>
 	</div> -->
-	
+
 	<!-- Страница "Контакты" -->
-	<div id="page_contacts" class="page_contacts">
+	<!-- <div id="page_contacts" class="page_contacts hidden">
 		<div class="blockline">
 			<video width="495" height="278" src="/themes/default/images/page/contacts/contacts2.mp4" autoplay loop></video>
 			<h1>Контакты</h1>
@@ -1032,17 +1144,15 @@
 				<h4>Как связатся с нами</h4>
 				<div class="subBlockOfText">
 					<p>Отдел продаж:</p>
-					
+
 						<p class="pCenter">(057) 780-38-61</p>
 						<p class="pCenter">(099) 563-28-17</p>
-					
+
 						<p class="pCenter">(067) 577-39-07</p>
 						<p class="pCenter">(063) 425-91-83</p>
-					
-					<!-- <p>Крупнооптовый отдел:</p>
-					<p class="pCenter">(050) 402-14-89</p>
-					<p class="pCenter">(067) 546-46-70</p> -->
-					
+
+
+
 					<p>График роботы:</p>
 					<p class="pCenter">Пн-Пт: с 8:00 до 21:00</p>
 					<p class="pCenter">Сб: с 8:00 до 20:00</p>
@@ -1051,7 +1161,7 @@
 				</div>
 			</div>
 			<div class="forflex">
-				<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1282.2924160061052!2d36.29807765817873!3d50.00039271893146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAwJzAxLjQiTiAzNsKwMTcnNTcuMCJF!5e0!3m2!1sru!2sru!4v1455287401346"  frameborder="0" style="border:0" allowfullscreen></iframe> -->
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1282.2924160061052!2d36.29807765817873!3d50.00039271893146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAwJzAxLjQiTiAzNsKwMTcnNTcuMCJF!5e0!3m2!1sru!2sru!4v1455287401346"  frameborder="0" style="border:0" allowfullscreen></iframe>
 				<p class="pIcon"><i class="material-icons">room</i>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
 			</div>
 		</div>
@@ -1077,7 +1187,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 
@@ -1098,15 +1208,15 @@
 				<img class="car_pic" src="/themes/default/images/page/deliveryCar.png"/ alt="машина xt">
 			</div>
 		</div>
-		
+
 		<h4>Мы предоставим</h4>
-		
-		<div class="services">			
+
+		<div class="services">
 			<div class="services_item">
 				<p>Ассортимент</p>
 				<div class="circleForImg"></div>
 			</div>
-			
+
 			<div class="services_item">
 				<p>Дилерские цены</p>
 				<div class="circleForImg"></div>
@@ -1121,7 +1231,7 @@
 				<p>Бесплатное обучение</p>
 				<div class="circleForImg"></div>
 			</div>
-		
+
 			<div class="services_item">
 				<p>Независимость от склада</p>
 				<div class="circleForImg"></div>
@@ -1131,7 +1241,7 @@
 				<p>Готовый план действий</p>
 				<div class="circleForImg"></div>
 			</div>
-			
+
 		</div>
 		<button class="mdl-cell mdl-cell--12-col">Присоединяйтесь к нам!</button>
 	</div> -->
@@ -1153,7 +1263,7 @@
 // 			$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
 // 			$(this).addClass('active');
 // 			target.removeClass('hidden')
-// 			$(this).find('img').css('-webkit-filter', 'grayscale(0%)');					
+// 			$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
 // 			$(".block1, .block2").css({"left": left2[eq]});
 // 		}
 // 	});
@@ -1194,7 +1304,7 @@
 					$(this).addClass('active');
 					target.removeClass('hidden')
 					$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
-					$(".block1, .block2").css({"left": left[eq]});				
+					$(".block1, .block2").css({"left": left[eq]});
 				}
 					// $(".block2").css({"left": left[eq]});
 			});
@@ -1216,7 +1326,7 @@
 					$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
 					$(this).addClass('active');
 					target.removeClass('hidden')
-					$(this).find('img').css('-webkit-filter', 'grayscale(0%)');					
+					$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
 					$(".block1, .block2").css({"left": left2[eq]});
 				}
 					// $(".block2").css({"left": left[eq]});
@@ -1254,8 +1364,8 @@
 						'left': contentCenter
 					});
 				}
-			});		
-			// $('.btn_plus').click(function (e) {				
+			});
+			// $('.btn_plus').click(function (e) {
 			// 	e.preventDefault();
 			// 	var target = $($(this).data('target')),
 			// 		halfDocWidth = ($("#content").width())/2,
@@ -1270,7 +1380,7 @@
 			// 		if ($(document).width() > 1535) {
 			// 			$(this).animate({
 			// 				top: '-=120',
-			// 				left: 0,				
+			// 				left: 0,
 			// 				// left: 'calc(50% - 24px)',
 			// 			}, 500, function() {
 			// 				// $(this).css('transform', 'rotate(0deg)');
@@ -1286,7 +1396,7 @@
 			// 			});
 			// 		}
 			// 		$(this).removeClass('active');
-			// 		// $(this).css('transform', 'rotate(0deg)');	  		  	
+			// 		// $(this).css('transform', 'rotate(0deg)');
 			//   } else {
 			// 	target.stop(true, true).slideDown("slow");
 			// 	if ($(document).width() > 1535) {
@@ -1306,10 +1416,10 @@
 			// 		});
 			// 	}
 			// 	$(this).addClass('active');
-			// 	// $(this).css('transform', 'rotate(45deg)');			
+			// 	// $(this).css('transform', 'rotate(45deg)');
 			//   }
 			// });
-	
+
 			// $('a[href^="#"]').bind('click.smoothscroll',function (e) {
 			// 	e.preventDefault();
 
@@ -1323,7 +1433,7 @@
 
 			/// для анимации кнопки
 
-			// $(this).animate({					
+			// $(this).animate({
 			// 	    left: '+=500',
 			// 	  }, 1000, function() {
 			// 	    // Закончили анимацию.
@@ -1337,9 +1447,9 @@
 			//      	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
 			//     $('#info_text_block_service').removeClass('hidden');
 			//     $('#info_text_block_answers').addClass('hidden');
-			//     $('#info_text_block_delivery').addClass('hidden');	
+			//     $('#info_text_block_delivery').addClass('hidden');
 			//     	$(".block1").animate({"left": "18%"}, "slow");
-			//     	$(".block2").animate({"left": "18%"}, "slow");            
+			//     	$(".block2").animate({"left": "18%"}, "slow");
 			// });
 			// $('#infoBlock2').click(function (e) {
 			//     $('.blockforline').removeClass('hidden');
@@ -1368,7 +1478,7 @@
 			// 	$('#infoBlock2 img').css('-webkit-filter', 'grayscale(100%)');
 			// 	$('#infoBlock3 img').css('-webkit-filter', 'grayscale(100%)');
 			// });
-		});	
+		});
 	</script> -->
 
 </div><!--id="content"-->
