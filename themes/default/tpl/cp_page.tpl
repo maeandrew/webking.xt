@@ -1024,34 +1024,38 @@
 	<!-- Страница "Контакты" -->
 	<div id="page_contacts" class="page_contacts">
 		<div class="blockline">
-			<video width="495" height="278" src="/themes/default/images/page/contacts/contacts2.mp4" autoplay loop></video>
+			<video width="495" height="278" src="/themes/default/images/page/contacts/contacts.avi" autoplay loop></video>
 			<h1>Контакты</h1>
 		</div>
 		<div class="blockline flexwrapp">
 			<div class="forflex blockOfText">
 				<h4>Как связатся с нами</h4>
 				<div class="subBlockOfText">
-					<p>Отдел продаж:</p>
-					
-						<p class="pCenter">(057) 780-38-61</p>
-						<p class="pCenter">(099) 563-28-17</p>
-					
-						<p class="pCenter">(067) 577-39-07</p>
-						<p class="pCenter">(063) 425-91-83</p>
-					
-					<!-- <p>Крупнооптовый отдел:</p>
-					<p class="pCenter">(050) 402-14-89</p>
-					<p class="pCenter">(067) 546-46-70</p> -->
+					<p>Отдел оптовых продаж:</p>
+					<p>(057) 780-38-61</p>
+					<p>(099) 563-28-17</p>
+					<p>(067) 577-39-07</p>
+					<p>(063) 425-91-83</p>
+					<p>Крупнооптовый отдел:</p>
+					<p>(050) 402-14-89</p>
+					<p>(067) 546-46-70</p>
 					
 					<p>График роботы:</p>
-					<p class="pCenter">Пн-Пт: с 8:00 до 21:00</p>
-					<p class="pCenter">Сб: с 8:00 до 20:00</p>
-					<p class="pCenter">Вс: с 10:00 до 18:00</p>
-					<p>*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня</p>
+					<p>Пн-Сб: с 8:00 до 21:00</p>
+					<p>Вс: с 10:00 до 18:00</p>
+					
+					<p>*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня.</p>
+
+					<p>Адрес:</p>
+					<p>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
+
+					<p>Администрация:</p>
+					<p>Ответственный по связям с общественностью</p>
+
+					<p>administration@x-torg.com</p>
 				</div>
 			</div>
 			<div class="forflex">
-				<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1282.2924160061052!2d36.29807765817873!3d50.00039271893146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAwJzAxLjQiTiAzNsKwMTcnNTcuMCJF!5e0!3m2!1sru!2sru!4v1455287401346"  frameborder="0" style="border:0" allowfullscreen></iframe> -->
 				<p class="pIcon"><i class="material-icons">room</i>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
 			</div>
 		</div>
