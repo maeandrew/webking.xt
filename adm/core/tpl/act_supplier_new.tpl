@@ -124,19 +124,19 @@
 	</style>
 </head>
 <body>
-<table border="0" cellpadding="0" cellspacing="0" class="table_header">
-	<tbody>
-		<tr class="top">
-			<td width="200px">
-				<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
-			</td>
-			<td align="center">
-				<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
-				</span>
-			</td>			
-			
-		</tr>
-</table>
+	<table border="0" cellpadding="0" cellspacing="0" class="table_header">
+		<tbody>
+			<tr class="top">
+				<td width="200px">
+					<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
+				</td>
+				<td align="center">
+					<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 	<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
 	<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
 	</p>
