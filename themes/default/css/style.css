@@ -1751,6 +1751,7 @@ section .stat_year {
 	border: 1px solid transparent;
 	cursor: pointer;
 	opacity: 0;
+	left: 0;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
