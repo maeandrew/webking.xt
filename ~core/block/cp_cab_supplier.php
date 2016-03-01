@@ -168,6 +168,8 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		$tpl->Assign("Supplier", $supplier);
 		if(isset($_POST['wide'])){
 			echo $tpl->Parse($GLOBALS['PATH_root'].'adm/core/tpl/act_supplier_wide.tpl');
+		}elseif(isset($_POST['multiple'])){
+			echo $tpl->Parse($GLOBALS['PATH_root'].'adm/core/tpl/act_supplier_multiple.tpl');
 		}else{
 			echo $tpl->Parse($GLOBALS['PATH_root'].'adm/core/tpl/act_supplier_new.tpl');
 		}
