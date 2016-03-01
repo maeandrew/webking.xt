@@ -604,6 +604,19 @@ h5 {
 .preview .product_name {
 	font-size: 1.5em;
 }
+
+.preview .tab-content .mdl-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	background-color: #fff;
+	width: 100%
+}
+
+.preview .tab-content .mdl-tabs__panel {
+	position: relative;
+}
+
 .preview .specifications {
 	border-right: 1px solid #f0f0f0;
 }

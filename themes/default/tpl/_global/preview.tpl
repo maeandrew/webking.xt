@@ -92,17 +92,40 @@
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>
+
+					<button id="btn1" class="mdl-button hidden" type="button">Подробнее</button>
 				</div>
+
 				<div id="description" class="mdl-tabs__panel">
 					<?if(!empty($product['descr_xt_full'])){?>
 						<p><?=$product['descr_xt_full']?></p>
 					<?}else{?>
 						<p>К сожалению описание товара временно отсутствует.</p>
 					<?}?>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					<button id="btn2" class="mdl-button hidden" type="button">Подробнее</button>
 				</div>
 			</div>
 		</div>
 </div>
+
 <script>
 	$(function(){
 		//Слайдер миниатюр картинок
@@ -129,3 +152,51 @@
 	});
 
 </script>
+
+<script>
+	//$(".tab-content").css('height','140');
+	/*if ($("#specifications").height() > 150 ) {
+		$("#specifications").css({
+			'height': '150',
+			'overflow': 'hidden'
+		});
+		$("#btn1").removeClass('hidden');
+		$("#btn1").click(function(event) {
+			$("#specifications").css("height","auto");
+			$("#btn1").addClass('hidden');
+		});
+	}
+
+	if ($("#description").height() > 150 ) {
+		$("#description").css({
+			'height': '150',
+			'overflow': 'hidden'
+		});
+		$("#btn2").removeClass('hidden');
+		$("#btn2").click(function(event) {
+			$("#description").css("height","auto");
+			$("#btn2").addClass('hidden');
+		});
+	}*/
+
+	$(".tab-content .mdl-button").click(function(event) {
+		$(this).addClass('hidden').parent().css("height","auto");
+		//$(".tab-content").css("height","auto");
+		//$(this).addClass('hidden');
+	});
+
+	$(".mdl-tabs__panel").each(function(index, el) {
+		// console.log($(el).height());
+
+		if ($(el).height() > 150 ) {
+			$(el).css({
+				'height': '150',
+				'overflow': 'hidden'
+			});
+			$(el).find('.mdl-button').removeClass('hidden');
+			//$("#btn1").removeClass('hidden');
+
+		}
+	});
+
+	</script>
