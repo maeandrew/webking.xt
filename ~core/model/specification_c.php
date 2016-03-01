@@ -187,14 +187,27 @@ class Specification{
 	}
 
 	// Список
-	public function GetMonitoringList($limit = false){
+	public function GetMonitoringList($limit = false, $where = false){
 		$sql = "SELECT c.id_category, c.name, s.id AS id_caption, s.caption, sp.value, count(*) AS count
 			FROM "._DB_PREFIX_."specs_prods AS sp
 			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
 			LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category AND c.id_category IS NOT NULL
-			GROUP BY sp.value, s.caption, c.name
-			ORDER BY c.name, s.caption".
+			GROUP BY sp.value, s.caption, c.name";
+		if($where){
+			$sql .= " HAVING ";
+			$i = 0;
+			foreach($where as $key => $value){
+				if($value != ''){
+					$sql .= $key.' = '.$this->db->Quote($value);
+					if($i != count($where)-1){
+						$sql .= ' AND ';
+					}
+				}
+				$i++;
+			}
+		}
+		$sql .= " ORDER BY c.name, s.caption".
 			($limit ?  " LIMIT". $limit : '');
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){

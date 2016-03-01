@@ -76,7 +76,7 @@ input[type="number"]:focus {
 i.material-icons {
 	overflow: hidden;
 }
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
 	width: 8px;
 }
 ::-webkit-scrollbar-track {
@@ -87,7 +87,7 @@ i.material-icons {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.4);
-}
+}*/
 .orange {
 	color:#FF5722;
 }
@@ -1751,6 +1751,7 @@ section .stat_year {
 	border: 1px solid transparent;
 	cursor: pointer;
 	opacity: 0;
+	left: 0;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -1795,6 +1796,7 @@ section .stat_year {
 	text-align: center;
 	width: 70px;
 	line-height: 34px;
+	height: 34px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
