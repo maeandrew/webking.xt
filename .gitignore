@@ -231,3 +231,4 @@ product_images/original/*
 # product_images/original/*
 *.db
 .idea/*
+*.php-tmp
