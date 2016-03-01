@@ -76,7 +76,7 @@ input[type="number"]:focus {
 i.material-icons {
 	overflow: hidden;
 }
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
 	width: 8px;
 }
 ::-webkit-scrollbar-track {
@@ -87,7 +87,7 @@ i.material-icons {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.4);
-}
+}*/
 .orange {
 	color:#FF5722;
 }
