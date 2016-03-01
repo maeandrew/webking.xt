@@ -340,15 +340,6 @@ class Cart {
 		return false;
 	}
 
-
-
-
-
-
-
-
-
-
 	public function UpdatePromoProduct($id_product=null, $opt, $box_qty, $qty, $sum, $note_opt="",$note_mopt="", $sum_default = null, $correction = null, $basic_price = null){
 		$sum = round($sum, 2);
 		if(!isset($_SESSION['Cart']['products'][$id_product])){

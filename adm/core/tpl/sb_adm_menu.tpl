@@ -218,16 +218,30 @@
 					</ul>
 				</li>
 			<?}?>
+
 			<?if(_acl::isAllow('remitters')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'remitters'?'class="sel"':null;?>>
 					<a href="/adm/remitters/">Отправители</a>
 				</li>
+				<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO_)){?>
+					<li>
+						<ul class="sb_menusub">
+							<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
+								<a href="/adm/remitteradd/">Добавить отправителя</a>
+							</li>
+						</ul>
+					</li>
+				<?}?>
 			<?}?>
-			<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] != _ACL_SEO_)){?>
+			
+			<?if(_acl::isAllow('monitoring')){?>
+				<li <?=$GLOBALS['CurrentController'] == 'monitoring' && !isset($GLOBALS['REQAR'][1])?'class="sel"':null;?>>
+					<a href="/adm/monitoring/">Мониторинг</a>
+				</li>
 				<li>
 					<ul class="sb_menusub">
-						<li <?=$GLOBALS['CurrentController'] == 'remitteradd'?'class="sel"':null;?>>
-							<a href="/adm/remitteradd/">Добавить отправителя</a>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/specifications/">Характеристики</a>
 						</li>
 					</ul>
 				</li>

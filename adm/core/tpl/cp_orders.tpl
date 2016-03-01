@@ -19,10 +19,7 @@
 		<col width="5%"/>
 		<thead>
 			<tr class="filter">
-				<td>
-					Фильтры:
-					<!-- <input type="text" class="input-m" name="filter_creation_date" value="<?=isset($_GET['filter_creation_date'])?htmlspecialchars($_GET['filter_creation_date']):null?>"> -->
-				</td>
+				<td>Фильтры:</td>
 				<td>
 					<input type="text" class="input-m" name="filter_id_order" value="<?=isset($_GET['filter_id_order'])?htmlspecialchars($_GET['filter_id_order']):null?>" placeholder="№ заказа">
 				</td>
@@ -50,11 +47,6 @@
 				<td class="left">
 					<button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
 				</td>
-				<!-- <td class="left">&nbsp;</td>
-				<td class="left">&nbsp;</td>
-				<td class="left">&nbsp;</td>
-				<td class="left">
-				</td> -->
 				<td class="left">&nbsp;</td>
 			</tr>
 			<tr>
@@ -66,10 +58,6 @@
 				<td class="left">E-mail</td>
 				<td class="left">Сумма</td>
 				<td class="left">Сумма отпуска</td>
-				<!-- <td class="left">Претензия</td>
-				<td class="left">Статус</td>
-				<td class="left">Возврат</td>
-				<td class="left">Статус</td> -->
 				<td class="left">Восстановить</td>
 			</tr>
 		</thead>
@@ -91,38 +79,6 @@
 						<td>
 							<a target="_blank" href="/invoice_contragent/<?=$i['id_order']?>/<?=$i['skey']?>"><?=$i['otpusk_prices_sum']?></a>
 						</td>
-						<!-- <td class="left np">
-							<?if($i['id_pretense_status'] == 0){?>
-								<p>&mdash;</p>
-							<?}else{?>
-								<p>
-									<a href="/adm/order/<?=$i['id_order']?>"><?=$i['id_order']?>-прет</a>
-								</p>
-							<?}?>
-						</td>
-						<td class="left np">
-							<?if($i['id_pretense_status'] == 0){?>
-								<p>&mdash;</p>
-							<?}else{?>
-								<p <?=($i['id_pretense_status'] == 2)?'class="status_done"':null?>><?=$order_statuses[$i['id_pretense_status']]['name']?></p>
-							<?}?>
-						</td>
-						<td class="left np">
-							<?if($i['id_return_status'] == 0){?>
-								<p>&mdash;</p>
-							<?}else{?>
-								<p>
-									<a href="/adm/order_return/<?=$i['id_order']?>"><?=$i['id_order']?>-возв</a>
-								</p>
-							<?}?>
-						</td>
-						<td class="left np">
-							<?if($i['id_return_status'] == 0){?>
-								<p>&mdash;</p>
-							<?}else{?>
-								<p <?=($i['id_return_status'] == 2)?'class="status_done"':null?>><?=$order_statuses[$i['id_return_status']]['name']?></p>
-							<?}?>
-						</td> -->
 						<td class="left">
 							<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5 || $i['id_order_status'] == 7){?>
 								<input name="restore" type="button" title="Восстановить удаленный или отмененный заказ" class="btn-m-default-inv" value="<?=$i['id_order']?>">

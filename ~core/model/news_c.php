@@ -49,12 +49,12 @@ class News{
 			$where = '';
 		}
 		if($limit != ""){
-			$limit = " limit $limit";
+			$limit = "LIMIT $limit";
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."news
 			$where
-			ORDER BY date desc, ord$limit";
+			ORDER BY date desc, ord $limit";
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;

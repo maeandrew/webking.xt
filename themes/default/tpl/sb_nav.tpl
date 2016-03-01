@@ -22,15 +22,17 @@
 					<p>Поле для ввода примечания к товару.</p>
 				</div>
 			</li>
-			<li data-nav="filter">
-				<i class="material-icons">filter_list</i>
-				<span>
-					<span class="title">Фильтры</span>
-					<span class="included_filters"><? if(isset($cnt) && $cnt > 0) echo "($cnt)";?></span>
-				</span>
-			</li>
+			<?if(in_array($GLOBALS['CurrentController'], array('main', 'products'))){?>
+				<li data-nav="filter">
+					<i class="material-icons">filter_list</i>
+					<span>
+						<span class="title">Фильтры</span>
+						<span class="included_filters"><? if(isset($cnt) && $cnt > 0) echo "($cnt)";?></span>
+					</span>
+				</li>
+			<?}?>
 		</ul>
-		<?if(isset($sbheader) && isset($nav)){ ?>
+		<?if(isset($sbheader) && isset($nav)){?>
 			<?=$nav;?>
 		<?}?>
 	</div>
