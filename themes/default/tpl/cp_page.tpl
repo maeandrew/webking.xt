@@ -1101,29 +1101,29 @@
 		<div class="blockline">
 			<video src="/themes/default/images/page/contacts/contacts.mp4" autoplay loop></video>
 			<h1>Контакты</h1>
-			<div class="blockOfText">
-				<p class="main_text">Отдел оптовых продаж:</p>
-				<p>(057) 780-38-61</p>
-				<p>(099) 563-28-17</p>
-				<p>(067) 577-39-07</p>
-				<p>(063) 425-91-83</p>
+			<div class="blockOfText flexwrapp contactText">
+				<p class="main_text forflex">Отдел оптовых продаж:</p>
+				<p class="forflex">(057) 780-38-61</p>
+				<p class="forflex">(099) 563-28-17</p>
+				<p class="forflex">(067) 577-39-07</p>
+				<p class="forflex">(063) 425-91-83</p>
 
-				<p class="main_text">Крупнооптовый отдел:</p>
-				<p>(050) 402-14-89</p>
-				<p>(067) 546-46-70</p>
+				<p class="main_text forflex">Крупнооптовый отдел:</p>
+				<p class="forflex">(050) 402-14-89</p>
+				<p class="forflex">(067) 546-46-70</p>
 
-				<p class="main_text">График роботы:</p>
-				<p>Пн-Сб: с 8:00 до 21:00</p>
-				<p>Вс: с 10:00 до 18:00</p>
+				<p class="main_text forflex">График роботы:</p>
+				<p class="forflex">Пн-Сб: с 8:00 до 21:00</p>
+				<p class="forflex">Вс: с 10:00 до 18:00</p>
 
-				<p class="main_text mini_text">*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня.</p>
+				<p class="main_text mini_text forflex">*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня.</p>
 
-				<p class="main_text">Адрес:</p>
-				<p>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
+				<p class="main_text forflex">Адрес:</p>
+				<p class="forflex">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
 
-				<p class="main_text">Администрация:</p>
-				<p>Ответственный по связям с общественностью</p>
-				<p class="pEmail">administration@x-torg.com</p>
+				<p class="main_text forflex">Администрация:</p>
+				<p class="forflex">Ответственный по связям с общественностью</p>
+				<p class="pEmail forflex">administration@x-torg.com</p>
 			</div>
 			<div class="flexwrapp flexColumn">
 				<button class="forflex greenBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Предложения и пожелания</button>
@@ -1174,60 +1174,58 @@
 		</div>
 	</div>
 
-
-
-
 	<!-- Страница "Как стать дилером" -->
-	<!-- <div id="become_a_dealer" class="become_a_dealer hidden">
-		<div class="dealer_line_first  mdl-grid">
-			<h4 class="mdl-cell mdl-cell--12-col">Если Вы умеете</h4>
-			<ul class="abilities_list mdl-cell mdl-cell--5-col">
-				<li>Определять границы территории</li>
-				<li>Понимать потребности клиента</li>
-				<li>Снабжать торговые точки прайсами</li>
-				<li>Собирать заказы</li>
-				<li>Доставлять товар</li>
-				<li>Правильно расходовать топливо</li>
-			</ul>
-			<div class="mdl-cell mdl-cell--5-col">
-				<img class="car_pic" src="/themes/default/images/page/deliveryCar.png"/ alt="машина xt">
+	<!-- <div id="page_dealer" class="page_dealer">
+		<div class="blockline">
+			<img class="main_img forflex" src="/themes/default/images/page/dealer/dealer0.png" alt="">
+			<h1>Как стать дилером</h1>
+		</div>
+		<div class="blockline">
+			<div class="container flexwrapp">
+				<div class="forflex blockOfText">
+					<h4>Если Вы умеете</h4>
+					<ul>
+						<li>Определять границы территории</li>
+						<li>Понимать потребности клиента</li>
+						<li>Снабжать торговые точки прайсами</li>
+						<li>Собирать заказы</li>
+						<li>Доставлять товар</li>
+						<li>Правильно расходовать топливо</li>
+					</ul>
+				</div>
+				<div class="forflex"><img class="dealer1" src="/themes/default/images/page/dealer/dealer1.png" alt=""></div>
 			</div>
 		</div>
-
-		<h4>Мы предоставим</h4>
-
-		<div class="services">
-			<div class="services_item">
-				<p>Ассортимент</p>
-				<div class="circleForImg"></div>
+		<div class="blockline">
+			<h4>Мы предоставим</h4>
+			<div class="flexwrapp block_circles three_inline">
+				<div class="info_circle forflex">
+					<img src="/themes/default/images/page/discounts/circle1.png" alt="">
+					<p>Широкий ассортимент</p>
+				</div>
+				<div class="info_circle forflex">
+					<img src="/themes/default/images/page/discounts/circle2.png" alt="">
+					<p>Дилерские цены</p>
+				</div>
+				<div class="info_circle forflex">
+					<img src="/themes/default/images/page/discounts/circle3.png" alt="">
+					<p>Свободный график</p>
+				</div>
 			</div>
-
-			<div class="services_item">
-				<p>Дилерские цены</p>
-				<div class="circleForImg"></div>
+			<div class="flexwrapp block_circles three_inline">
+				<div class="info_circle forflex">
+					<img src="/themes/default/images/page/discounts/circle5.png" alt="">
+					<p>Бесплатное<br>обучение</p>
+				</div>
+				<div class="info_circle forflex">
+					<img src="/themes/default/images/page/discounts/circle6.png" alt="">
+					<p>Независимость<br>от склада</p>
+				</div>
+				<div class="info_circle forflex">
+					<img src="/themes/default/images/page/discounts/circle6.png" alt="">
+					<p>Готовый<br>план действий</p>
+				</div>
 			</div>
-
-			<div class="services_item">
-				<p>Свободный график</p>
-				<div class="circleForImg"></div>
-			</div>
-
-			<div class="services_item">
-				<p>Бесплатное обучение</p>
-				<div class="circleForImg"></div>
-			</div>
-
-			<div class="services_item">
-				<p>Независимость от склада</p>
-				<div class="circleForImg"></div>
-			</div>
-
-			<div class="services_item">
-				<p>Готовый план действий</p>
-				<div class="circleForImg"></div>
-			</div>
-
 		</div>
-		<button class="mdl-cell mdl-cell--12-col">Присоединяйтесь к нам!</button>
 	</div> -->
 </div><!--id="content"-->

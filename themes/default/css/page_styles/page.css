@@ -1,4 +1,4 @@
-/*  Ранее написанные стили   ************/
+/* Ранее написанные стили   ************/
 	/*#content .section_title {
 		font-size: 15px;
 		padding: .5em;
@@ -11,7 +11,7 @@
 		margin: .5em 0 1em;
 	}*/
 
-/*  Общие стили   ***********************/
+/* Общие стили   ***********************/
 	#content {
 		font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 		font-size: 14px;
@@ -68,6 +68,7 @@
 	#content div.flexwrapp.three_inline,
 	#content div.flexwrapp.two_inline {
 		flex-wrap: nowrap;
+		text-align: center;
 	}
 	#content .flexWrapReverse {
 		flex-wrap: wrap-reverse;
@@ -848,32 +849,37 @@
 	#content .page_contacts .blockline{
 		padding: 7%;
 	}
+	#content .page_contacts div.flexwrapp.contactText {
+		flex-direction: column;
+	}
 	#content .page_contacts .blockOfText {
 		padding: 0;
-		font-size: 1.4em;
-		/*width: 100%;*/
 	}
 	#content .page_contacts .blockOfText p {
-		margin: 0 auto;
-		width: 40%;
+		font-size: 1.8em;
 	}
-	#content .page_contacts .blockOfText .main_text {
+	#content .page_contacts .blockOfText p.forflex {
+		margin-top: 0;
+		margin-bottom: 0;
+		width: 50%;
+	}
+	#content .page_contacts .blockOfText p.main_text {
 		margin-top: 35px;
 	}
 	#content .page_contacts .blockOfText .mini_text {
-		font-size: .9em;
+		font-size: 1.1em;
 		width: 40%;
 	}
 	#content .page_contacts .pEmail {
 		font-weight: 500;
 	}
-	#content .page_contacts button {
-		text-transform: uppercase;
-		max-width: 38%;
-	}
-	#content .page_contacts .flexwrapp.flexColumn {
+	#content .page_contacts .flexColumn {
 		margin-top: 54px;
 		justify-content: space-between;
+	}
+	#content .page_contacts .flexColumn button {
+		text-transform: uppercase;
+		max-width: 38%;
 	}
 	#content .page_contacts button.greenBtn {
 		background-color: #69ab3f;
@@ -884,7 +890,7 @@
 	#content .page_contacts .three_inline .info_circle img {
 		width: 61%;
 	}
-	#content .page_contacts .three_inline .info_circle h5 {
+	#content .page_contacts .info_circle h5 {
 		font-size: 2em;
 	}
 	#content .page_contacts .info_circle p {
@@ -921,112 +927,163 @@
 			min-width: 340px;
 		}
 	}
-		@media (max-width: 1420px) {
+		@media (min-width: 600px) and (max-width: 1300px) {
 			#content .page_contacts .blockOfText p {
 				width: 60%;
-				font-size: 1.2em !important;
+				font-size: 1.4em;
 			}
-			#content .page_contacts .blockOfText {
-				font-size: 1.2em !important;
-			}
-
 			#content .page_contacts .three_inline .info_circle h5 {
-				font-size: 1.6em !important;
+				font-size: 1.6em;
+			}
+			#content .page_contacts .three_inline .info_circle p {
+				font-size: 1.2em;
+			}
+		}
+		@media (max-width: 1100px) { 
+			#content .page_contacts .flexColumn {
+				margin-top: 54px;
+				flex-direction: column;
+			}
+			#content .page_contacts .flexColumn button {
+				margin: 0 auto;
+				margin-bottom: 20px;
+				min-width: 70%;
+			}
+			#content .page_contacts .blockOfText p {
+				font-size: 1.4em;
+			}
+			#content .page_contacts .info_circle h5 {
+				font-size: 1.1em;
+			}
+			#content .page_contacts .three_inline .info_circle p {
+				font-size: 1em;
+				width: 140px;
+			}
+			#content .page_contacts h1 {
+				font-size: 1.7em;
+				margin-bottom: 0;
 			}
 		}
 		@media (max-width: 600px) {
-			#content .page_contacts .info_circle h5 {
-				font-size: 1.3em;
+			#content .page_contacts .blockOfText p {
+				font-size: 1em;
 			}
-			#content .page_contacts .info_circle p {
+			#content .page_contacts .flexColumn button {
+				min-width: 90%;
+				font-size: 1em;
+			}
+			#content .page_contacts .blockOfText p,
+			#content .page_contacts .blockOfText .mini_text {
+				width: 100%;
+			}
+			#content .page_contacts .three_inline .info_circle h5 {
+				font-size: 1.2em;
+			}
+			#content .page_contacts .three_inline .info_circle p {
 				width: 100px;
+				min-height: 115px;
 				margin: 2% auto;
 				font-size: 1em;
 			}
 		}
 
-/* Страница "Стать дилером" / become_a_dealer *************************** */
-	/*.become_a_dealer {
-		min-height: 1300px;
-		padding: 20px;
-	}
-	.become_a_dealer h4 {
-		font-size: 2.2em;
-		font-weight: 400;
-	}
-	.become_a_dealer .dealer_line_first {
+/* Страница "Стать дилером" / class="page_dealer" *************************** */
+	#content .page_dealer .main_img {
+		max-width: 17%;
 		margin: 0 auto;
+		margin-bottom: 3%;
 	}
-	.become_a_dealer .abilities_list {
-		display: block;
-		margin: 50px 100px 250px 20px;
-		width: 400px;
-		float: left;
+	#content .page_dealer .blockOfText {
+		padding: 0;
 	}
-	.become_a_dealer .abilities_list li {
+	#content .page_dealer h4 {
+		text-align: center;
+		margin-top: 0;
+	}
+	#content .page_dealer .three_inline {
+		margin-top: 54px;
+	}
+	#content .page_dealer .container .blockOfText h4 {
+		text-align: left;
+	}
+	#content .page_dealer ul {
+		margin-left: 5%;
+	}
+	#content .page_dealer li {
+		text-align: left;
+		font-weight: 100;
+		font-size: 1.8em;
+		line-height: 1.4em;
 		list-style-type: disc;
-		font-size: 1.5em;
-		line-height: 28px;
 	}
-	.become_a_dealer .car_pic {
-		display: block;
-		float: none;
-		width: 454px;
-		height: 252px;
+	#content .page_dealer .dealer1{
+		margin: 0 0 0 auto;
+		min-width: 55%;
 	}
-	.become_a_dealer .services {
-		clear: both;
-		margin-top: 50px;
-		width: 100%;
-		margin: 0 auto;
-		max-width: 1270px;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
+	#content .page_dealer .info_circle img {
+		max-width: 55%;
 	}
-	.become_a_dealer .services .services_item {
-		flex-basis: 25%;
-		float: left;
-		text-align: center;
-		margin-bottom: 20px;
+	#content .page_dealer .info_circle p {
+		font-size: 1.4em;
+		font-weight: 500;
 	}
-	.become_a_dealer .services .services_item p {
-		height: 53px;
-		margin-bottom: 20px;
-		text-align: center;
-		font-size: 1.5em;
-		line-height: 28px;
+	@media (max-width: 1535px) {
+		#content .page_dealer .blockline {
+			padding-bottom: 7%;
+		}
+		#content .page_dealer .container .blockOfText h4 {
+			text-align: center;
+		}
+		#content .page_dealer ul {
+			margin-left: 30%;
+		}
+		#content .page_dealer .container .dealer1 {
+			min-width: 40%;
+			margin: 3% auto 0;
+		}
+		#content .page_dealer .info_circle img {
+			min-width: 55%;
+		}
 	}
-	.become_a_dealer .services .circleForImg {
-		width: 200px;
-		height: 200px;
-		margin: 0 auto;
-		border-radius: 50%;
-		border: 1px solid #000;
+	@media (max-width: 1420px) {
+		#content .page_dealer li {
+			font-size: 1.6em;
+		}
 	}
-	.become_a_dealer button {
-		display: block;
-		width: 240px;
-		margin: 0 auto;
-		margin-top: 150px;
-		font-weight: 200;
-		font-style: normal;
-		font-size: 14px;
-		background-color: #fff;
-		border: 1px solid #2895F1;
-		border-radius: 5px;
-		color: #2895F1;
+	@media (max-width: 1100px) {
+		#content .page_dealer .container .dealer1 {
+			max-width: 40%;
+		}
+		#content .page_dealer li {
+			font-size: 1.2em;
+		}
+		#content .page_dealer h4 {
+			font-size: 2.2em;
+		}
 	}
-	.become_a_dealer > h4 {
-		text-align: center;
-		margin-bottom: 100px;
-	}*/
-/* Страница "Вопросы" *************************************************** */
-	/*#content .faq img {
-		width: 100%;
-	}*/
+	@media (max-width: 964px) {
+		#content .page_dealer .container .forflex {
+			flex-basis: 55%;
+		}
+		#content .page_dealer h1 {
+			font-size: 1.7em;
+		}
+		#content .page_dealer ul {
+			margin-left: 22%;
+		}
+		#content .page_dealer h4 {
+			font-size: 1.8em;
+		}
+		#content .page_dealer li {
+			font-size: 1.2em;
+		}
+		#content .page_dealer .info_circle p {
+			font-size: 1.2em;
+			width: 100px;
+		}
+	}
 
-/*  Общие медиа запросы   ***************/
+/* Общие медиа запросы   ***************/
 	@media (max-width: 1535px) {
 		#content .blockOfText {
 			text-align: center;
@@ -1034,15 +1091,6 @@
 		#content .blockOfText p {
 			max-width: 60%;
 			margin: 0 auto;
-		}
-		#content .btn_plus {
-			bottom: 5%;
-		}
-		#content .btn_plus.pos-left {
-			left: calc(50% - 124px);
-		}
-		#content .btn_plus.pos-right {
-			right: calc(50% - 124px);
 		}
 		#content .blockline {
 			padding-bottom: 14%;
@@ -1183,17 +1231,17 @@
 			}
 
 			#content .four_pages .info_circle_img {
-			    width: 100px;
-			    height: 100px;
+				width: 100px;
+				height: 100px;
 			}
 	}
 	@media (min-width: 550px) and (max-width: 1420px) {
-		#content p {
+		/*#content p {
 			font-size: 1.4em;
 		}
 		#content h4 {
 			font-size: 2.4em;
-		}
+		}*/
 		#content .ac-container article p {
 			font-size: 1.2em;
 		}
@@ -1243,4 +1291,8 @@
 		#content .page_information h1 {
 			font-size: 1.4em !important;
 		}
+		#content .page_dealer ul {
+			margin-left: 11%;
+		}
 	}
+/*************/
