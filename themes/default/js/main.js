@@ -829,11 +829,14 @@ $(function(){
 
 	// Проверка формы входа
 	$('#auth').on('click', '.sign-in', function(e){
+		e.preventDefault();
+		addLoadAnimation('#auth');
+
+
 		var form = $(this).closest('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
 		form.find('.error').fadeOut();
-		e.preventDefault();
 		$.ajax({
 			url: URL_base+'ajax',
 			type: "POST",
@@ -845,13 +848,14 @@ $(function(){
 				"passwd": passwd
 			}
 		}).done(function(data){
+			addLoadAnimation('#auth');
 			var parrent = $('.header_nav [for="demo-menu-lower-right"]');
-			parrent.find('.mdl-menu__item .user_name').text(data.member.name);
-			parrent.find('.mdl-menu__item .user_email').text(data.member.email);
-			parrent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
-			parrent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
-			parrent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
 			if(data.errm != 1){
+				parrent.find('.mdl-menu__item .user_name').text(data.member.name);
+				parrent.find('.mdl-menu__item .user_email').text(data.member.email);
+				parrent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
+				parrent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
+				parrent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
 				closeObject('auth');
 				$('.cabinet_btn').removeClass('hidden');
 				$('.login_btn').addClass('hidden');
@@ -908,8 +912,8 @@ $(function(){
 		} else {
 			$(this).removeClass().addClass("unsuccess");
 		}
-	});*/
-
+	});
+*/
 
 
 	/*    Cabinet     */

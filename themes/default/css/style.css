@@ -711,11 +711,13 @@ section.center {
 	float: right;
 	margin-left: .5em;
 }
-/*#auth .error {
+#auth .error {
 	display: none;
 	color: #F44336;
 	padding-bottom: 1em;
-}*/
+	padding-right: 1em;
+	text-align: right;
+}
 /*#login,
 	width: 250px;
 }*/
@@ -2510,4 +2512,21 @@ section .stat_year {
 	.products .note textarea {
 		width: 97%;
 	}
+}
+
+/* Анимация загрузки */
+
+#auth .loadBlock {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(255,255,255,.5);
+	z-index: 100;
+}
+
+#auth .loadAnimation {
+	margin-top: 50%;
+	margin-left: 46.5%;
 }

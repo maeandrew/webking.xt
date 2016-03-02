@@ -1700,3 +1700,17 @@ function getCookie(name) {
 	if (cookieEndIndex == -1) cookieEndIndex = document.cookie.length;
 	return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex));
 }
+
+
+// Анимация ожидания отклика от сервера
+
+function addLoadAnimation(obj) {
+	/*console.log($(obj).find("div.loadBlock").length > 0);*/
+	if ($(obj).find("div.loadBlock").length > 0){
+		$(obj).find("div.loadBlock").remove();
+	} else {
+		$(obj).append('<div class="loadBlock"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active loadAnimation"></div></div>');
+	}
+	componentHandler.upgradeDom();
+}
+
