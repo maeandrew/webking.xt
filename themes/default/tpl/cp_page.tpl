@@ -446,13 +446,11 @@
 	</div> -->
 
 	<!-- Страница "Оплата" -->
-	<div id="page_payment" class="page_payment " >
+	<!-- <div id="page_payment" class="page_payment " >
 		<div class="blockline">
 			<img class="payment0" src="/themes/default/images/page/payment/payment0.png" alt="">
 			<h1>Оплата</h1>
 		</div>
-
-		<!-- Аккордеон оплата -->
 		<div id="info_text_block_answers" class="ppp2 blockline flexwrapp">
 			<section class="ac-container">
 				<div>
@@ -528,119 +526,86 @@
 						<p>1% обналичка, 4% заморозка цен</p>
 					</article>
 				</div>
-				<!-- <div>
-					<input id="ac-5" name="accordion-2" type="checkbox" />
-					<label for="ac-5">Как отменить заказ?</label>
-					<article class="ac-small">
-						<p>Вы можете отменить заказ по телефону (044) 537-0-222 или (044) 503-80-80.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-6" name="accordion-2" type="checkbox" />
-					<label for="ac-6">Что делать, если оплаченный товар не доставлен?</label>
-					<article class="ac-small">
-						<p>Мы страхуем весь товар, который отправляем в другие города. В случае отсутствия (по каким-либо причинам) Вашего товара в офисе перевозчика, мы в течение 2 — 3 дней отправим Вам новый товар.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-7" name="accordion-2" type="checkbox" />
-					<label for="ac-7">Какая гарантия, что после предоплаты заказа я его получу?</label>
-					<article class="ac-medium">
-						<p>У вас остаются два документа, которые подтверждают наше с Вами сотрудничество: выписанная нами счет-фактура и документ об оплате, который предоставляет банк. При перечислении денег у нас возникает долговое обязательство перед Вами. Оно погашается только после подписания накладной, которую Вам привезет курьер.
-
-						Таким образом, у Вас есть все рычаги влияния на нас: суд, общество защиты прав потребителей и прочие. Также Ваши интересы защищает закон "О защите прав потребителей".</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-8" name="accordion-2" type="checkbox" />
-					<label for="ac-8">Какая гарантия, что отправляемый товар не подменят в пути?</label>
-					<article class="ac-small">
-						<p>Любой товар сопровождается заполненным гарантийным талоном, в котором указан его серийный номер. Таким образом, любая подмена исключена.</p>
-					</article>
-				</div>
-				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label-->
 			</section>
 		</div>
-		<!-- Аккордеон оплата конец-->
+		<div id="PaymentBlockMain">
+			<div class="blockline flexwrapp">
+				<div id="paymentBlock1" class="payment_block forflex" data-target="ppp1">
+					<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
+					<h4>Он-лайн <br>оплата</h4>
+				</div>
+				<div id="paymentBlock2" class="payment_block forflex" data-target="ppp2">
+					<img src="/themes/default/images/page/payment/payment2.png" alt="someimg">
+					<h4>Офф-лайн <br>оплата</h4>
+				</div>
+				<div id="paymentBlock3" class="payment_block forflex" data-target="ppp3">
+					<img src="/themes/default/images/page/payment/payment3.png" alt="someimg">
+					<h4>Наличный <br>расчёт</h4>
+				</div>
+				<div id="paymentBlock4" class="payment_block forflex" data-target="ppp4">
+					<img src="/themes/default/images/page/payment/payment4.png" alt="someimg">
+					<h4>Безналичный <br>расчёт</h4>
+				</div>
+			</div>
 
-	<div id="PaymentBlockMain">
-		<div class="blockline flexwrapp">
-			<div id="paymentBlock1" class="payment_block forflex" data-target="ppp1">
-				<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
-				<h4>Он-лайн <br>оплата</h4>
+			<div class="blockforline hidden">
+				<div class="block1"></div>
+				<div class="block2"></div>
 			</div>
-			<div id="paymentBlock2" class="payment_block forflex" data-target="ppp2">
-				<img src="/themes/default/images/page/payment/payment2.png" alt="someimg">
-				<h4>Офф-лайн <br>оплата</h4>
-			</div>
-			<div id="paymentBlock3" class="payment_block forflex" data-target="ppp3">
-				<img src="/themes/default/images/page/payment/payment3.png" alt="someimg">
-				<h4>Наличный <br>расчёт</h4>
-			</div>
-			<div id="paymentBlock4" class="payment_block forflex" data-target="ppp4">
-				<img src="/themes/default/images/page/payment/payment4.png" alt="someimg">
-				<h4>Безналичный <br>расчёт</h4>
-			</div>
-		</div>
 
-		<div class="blockforline hidden">
-			<div class="block1"></div>
-			<div class="block2"></div>
+			<div id="info_text_block_on_line" class="ppp1 blockline styleFortext hidden">
+				<div>
+					<img src="/themes/default/images/page/payment/privat24.png" alt="">
+					<h5>Система проведения платежей Приват24</h5>
+					<p>0,5% или по тарифам карты, кредитка 3%</p>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/paypal.png" alt="">
+					<h5>Система проведения платежей PayPal</h5>
+					<p>1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</p>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/webmoney.png" alt="">
+					<h5>WebMoney</h5>
+					<p>по курсу на момент оплаты + 1%</p>
+				</div>
+			</div>
+			<div id="info_text_block_off_line" class="ppp2 blockline styleFortext hidden">
+				<div class="forflex">
+					<h5>Пополнение карточного счёта через терминал</h5>
+					<p>согласно тарифов банка 0,5%</p>
+				</div>
+				<div class="forflex">
+					<h5>Пополнение карточного счёта в отделении банка</h5>
+					<p>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</p>
+				</div>
+			</div>
+			<div id="info_text_block_payment_1" class="ppp3 blockline styleFortext hidden">
+				<div class="forflex">
+					<h5>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)</h5>
+					<p>20грн. + 2% в качестве комиссии перевозчику</p>
+				</div>
+				<div class="forflex">
+					<h5>Оплата наличными при доставке (доставка нашим транспортом)</h5>
+					<p>без переплат</p>
+				</div>
+				<div class="forflex">
+					<h5>Наличный расчет (оплата в точке выдачи)</h5>
+					<p>без переплат</p>
+				</div>
+			</div>
+			<div id="info_text_block_payment_2" class="ppp4 blockline styleFortext hidden">
+				<h5>Безналичный расчёт, без НДС</h5>
+				<p>1% обналичка, 4% заморозка цен</p>
+			</div>
 		</div>
-
-		<div id="info_text_block_on_line" class="ppp1 blockline styleFortext hidden">
-			<div>
-				<img src="/themes/default/images/page/payment/privat24.png" alt="">
-				<h5>Система проведения платежей Приват24</h5>
-				<p>0,5% или по тарифам карты, кредитка 3%</p>
-			</div>
-			<div>
-				<img src="/themes/default/images/page/payment/paypal.png" alt="">
-				<h5>Система проведения платежей PayPal</h5>
-				<p>1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</p>
-			</div>
-			<div>
-				<img src="/themes/default/images/page/payment/webmoney.png" alt="">
-				<h5>WebMoney</h5>
-				<p>по курсу на момент оплаты + 1%</p>
-			</div>
-		</div>
-		<div id="info_text_block_off_line" class="ppp2 blockline styleFortext hidden">
-			<div class="forflex">
-				<h5>Пополнение карточного счёта через терминал</h5>
-				<p>согласно тарифов банка 0,5%</p>
-			</div>
-			<div class="forflex">
-				<h5>Пополнение карточного счёта в отделении банка</h5>
-				<p>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</p>
-			</div>
-		</div>
-		<div id="info_text_block_payment_1" class="ppp3 blockline styleFortext hidden">
-			<div class="forflex">
-				<h5>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)</h5>
-				<p>20грн. + 2% в качестве комиссии перевозчику</p>
-			</div>
-			<div class="forflex">
-				<h5>Оплата наличными при доставке (доставка нашим транспортом)</h5>
-				<p>без переплат</p>
-			</div>
-			<div class="forflex">
-				<h5>Наличный расчет (оплата в точке выдачи)</h5>
-				<p>без переплат</p>
-			</div>
-		</div>
-		<div id="info_text_block_payment_2" class="ppp4 blockline styleFortext hidden">
-			<h5>Безналичный расчёт, без НДС</h5>
-			<p>1% обналичка, 4% заморозка цен</p>
-		</div>
-	</div>
-		<!-- <div class="blockline">
+		<div class="blockline">
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
-		</div> -->
-	</div>
+		</div>
+	</div> -->
 
 	<!-- Страница "O нас" -->
 	<!-- <div id="page_about_us" class="page_about_us ">
@@ -731,7 +696,7 @@
 
 
 	<!-- Страница "Поставки магазинам" -->
- 	<!-- <div id="page_supply" class="page_supply four_pages hidden">
+ 	<!-- <div id="page_supply" class="page_supply four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
@@ -750,7 +715,7 @@
 			</div>
 		</div>
 		<div class="invisibleblock blockline">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Выбор<br>сезона</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
@@ -777,7 +742,7 @@
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Выбор<br>скидки</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
@@ -818,7 +783,7 @@
 	</div> -->
 
 	<!-- Страница "Обеспечение быта" -->
-	<!-- <div id="page_provision" class="page_provision four_pages hidden">
+	<!-- <div id="page_provision" class="page_provision four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
@@ -837,7 +802,7 @@
 			</div>
 		</div>
 		<div class="invisibleblock blockline">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Каталог</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
@@ -863,7 +828,7 @@
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Выбор<br>скидки</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
@@ -903,7 +868,7 @@
 	</div> -->
 
 	<!-- Страница "Скидки" -->
-	<!-- <div id="page_discounts" class="page_discounts four_pages hidden">
+	<!-- <div id="page_discounts" class="page_discounts four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
@@ -921,7 +886,7 @@
 			</div>
 		</div>
 		<div class="invisibleblock blockline">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Каталог</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
@@ -943,8 +908,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline">
-		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
 				<span>+</span><p>Как это работает</p>
@@ -959,7 +922,7 @@
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Выбор<br>скидки</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
@@ -1025,7 +988,7 @@
 	</div> -->
 
 	<!-- Страница "Снабжение предприятий" -->
-	<!-- <div id="page_provision_companies" class="page_provision_companies four_pages hidden">
+	<!-- <div id="page_provision_companies" class="page_provision_companies four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
@@ -1134,44 +1097,37 @@
 	</div> -->
 
 	<!-- Страница "Контакты" -->
-	<!-- <div id="page_contacts" class="page_contacts hidden">
+	<div id="page_contacts" class="page_contacts ">
 		<div class="blockline">
-			<video width="495" height="278" src="/themes/default/images/page/contacts/contacts.avi" autoplay loop></video>
+			<video src="/themes/default/images/page/contacts/contacts.mp4" autoplay loop></video>
 			<h1>Контакты</h1>
-		</div>
-		<div class="blockline flexwrapp">
-			<div class="forflex blockOfText">
-				<h4>Как связатся с нами</h4>
-				<div class="subBlockOfText">
+			<div class="blockOfText">
+				<p class="main_text">Отдел оптовых продаж:</p>
+				<p>(057) 780-38-61</p>
+				<p>(099) 563-28-17</p>
+				<p>(067) 577-39-07</p>
+				<p>(063) 425-91-83</p>
 
-					<p>Отдел оптовых продаж:</p>
-					<p>(057) 780-38-61</p>
-					<p>(099) 563-28-17</p>
-					<p>(067) 577-39-07</p>
-					<p>(063) 425-91-83</p>
-					<p>Крупнооптовый отдел:</p>
-					<p>(050) 402-14-89</p>
-					<p>(067) 546-46-70</p>
+				<p class="main_text">Крупнооптовый отдел:</p>
+				<p>(050) 402-14-89</p>
+				<p>(067) 546-46-70</p>
 
+				<p class="main_text">График роботы:</p>
+				<p>Пн-Сб: с 8:00 до 21:00</p>
+				<p>Вс: с 10:00 до 18:00</p>
 
-					<p>График роботы:</p>
-					<p>Пн-Сб: с 8:00 до 21:00</p>
-					<p>Вс: с 10:00 до 18:00</p>
+				<p class="main_text mini_text">*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня.</p>
 
-					<p>*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня.</p>
+				<p class="main_text">Адрес:</p>
+				<p>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
 
-					<p>Адрес:</p>
-					<p>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
-
-					<p>Администрация:</p>
-					<p>Ответственный по связям с общественностью</p>
-
-					<p>administration@x-torg.com</p>
-				</div>
+				<p class="main_text">Администрация:</p>
+				<p>Ответственный по связям с общественностью</p>
+				<p class="pEmail">administration@x-torg.com</p>
 			</div>
-			<div class="forflex">
-
-				<p class="pIcon"><i class="material-icons">room</i>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
+			<div class="flexwrapp flexColumn">
+				<button class="forflex greenBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Предложения и пожелания</button>
+				<button class="forflex orangeBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Жалобы</button>
 			</div>
 		</div>
 		<div class="blockline">
@@ -1196,7 +1152,27 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+		<div id="offers" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<p>Вы можете оставить свои предложения и пожелания</p>
+					<form action="">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" id="sample1">
+							<label class="mdl-textfield__label" for="sample1">Email...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+							<label class="mdl-textfield__label" for="sample5">Вопрос...</label>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Задать вопрос</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
