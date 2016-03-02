@@ -52,9 +52,9 @@
 		<div class="row">
 			<div class="col-md-6">
 				<label for="pcontent">Текст:</label><?=isset($errm['pcontent'])?"<span class=\"errmsg\">".$errm['pcontent']."</span><br>":null?>
-				<textarea name="pcontent" id="pcontent" rows="38" cols="200"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
+				<textarea name="pcontent" id="pcontent" rows="38" cols="200"><?=isset($_POST['new_content'])?htmlspecialchars($_POST['new_content']):null?></textarea>
 				<!-- <div id="edit-container">
-					<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></div>
+					<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['new_content'])?htmlspecialchars($_POST['new_content']):null?></div>
 				</div> -->
 			</div>
 			<div class="col-md-6">
