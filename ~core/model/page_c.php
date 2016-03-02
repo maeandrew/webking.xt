@@ -8,9 +8,10 @@ class Page {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id_page', 'title', 'title_ua', 'translit', 'content', 'content_ua', 'new_content',
-			'ord', 'visible', 'ptype', 'page_title', 'page_title_ua', 'page_description',
-			'page_description_ua', 'page_keywords', 'page_keywords_ua', 'indexation');
+		$this->usual_fields = array('id_page', 'title', 'title_ua', 'translit',
+			'content', 'content_ua', 'new_content', 'ord', 'visible', 'ptype',
+			'page_title', 'page_title_ua', 'page_description', 'page_description_ua',
+			'page_keywords', 'page_keywords_ua', 'indexation', 'xt');
 	}
 
 	// Страница по транслиту
@@ -52,16 +53,15 @@ class Page {
 	public function PagesList($param=0){
 		$where = "WHERE visible = 1 ";
 		if($param == 1){
-			$where = '';
+			$where = 'WHERE xt = 1';
 		}elseif($param == "menu"){
-			$where .= "AND ptype=\"menu\"";
+			$where .= "AND ptype = 'menu' AND xt = 1";
 		}
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."page
 			".$where."
 			ORDER BY ord";
 		$this->list = $this->db->GetArray($sql);
-		//print_r($this->list);die();
 		if (!$this->list)
 			return false;
 		else
@@ -74,6 +74,7 @@ class Page {
 			FROM "._DB_PREFIX_."page
 			WHERE ptype = '".$type."'
 			AND visible = 1
+			AND xt = 1
 			ORDER BY ord";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
@@ -104,12 +105,12 @@ class Page {
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$visible = 0;
 		}
-		$sql = "INSERT INTO "._DB_PREFIX_."page (title, title_ua, translit, content, content_ua,
-												 page_description, page_description_ua, page_title, page_title_ua,
-												 page_keywords, page_keywords_ua, visible, ptype, indexation)
-				VALUES ('".$title."', '".$title_ua."', '".$translit."', '".$content."', '".$content_ua."',
-						'".$page_description."', '".$page_description_ua."', '".$page_title."', '".$page_title_ua."',
-						'".$page_keywords."', '".$page_keywords_ua."', ".$visible.", '".$ptype."', '".$indexation."')";
+		$sql = "INSERT INTO "._DB_PREFIX_."page (title, title_ua, translit, new_content, content_ua,
+				page_description, page_description_ua, page_title, page_title_ua,
+				page_keywords, page_keywords_ua, visible, ptype, indexation, xt)
+			VALUES ('".$title."', '".$title_ua."', '".$translit."', '".$content."', '".$content_ua."',
+					'".$page_description."', '".$page_description_ua."', '".$page_title."', '".$page_title_ua."',
+					'".$page_keywords."', '".$page_keywords_ua."', ".$visible.", '".$ptype."', '".$indexation."', '1')";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$id_page = $this->db->GetLastId();
 		return $id_page;
@@ -139,7 +140,7 @@ class Page {
 			SET title = '".$title."',
 				title_ua = '".$title_ua."',
 				translit = '".$translit."',
-				content = '".$content."',
+				new_content = '".$content."',
 				content_ua = '".$content_ua."',
 				ptype = '".$ptype."',
 				page_description = '".$page_description."',
@@ -149,7 +150,8 @@ class Page {
 				page_keywords = '".$page_keywords."',
 				page_keywords_ua = '".$page_keywords_ua."',
 				visible = ".$visible.",
-				indexation = ". $indexation."
+				indexation = ". $indexation.",
+				xt = 1
 			WHERE id_page = ".$id_page;
 		//return true;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");

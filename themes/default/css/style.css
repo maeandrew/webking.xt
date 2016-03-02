@@ -2527,6 +2527,7 @@ section .stat_year {
 }
 
 .loadAnimation {
-	margin-top: 50%;
-	margin-left: 46.5%;
+	top: calc(50% - 14px);
+	left: calc(50% - 14px);
+	position: absolute;
 }

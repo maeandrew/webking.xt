@@ -1,4 +1,4 @@
-/*  Ранее написанные стили   ************/
+/* Ранее написанные стили   ************/
 	/*#content .section_title {
 		font-size: 15px;
 		padding: .5em;
@@ -11,7 +11,7 @@
 		margin: .5em 0 1em;
 	}*/
 
-/*  Общие стили   ***********************/
+/* Общие стили   ***********************/
 	#content {
 		font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 		font-size: 14px;
@@ -68,6 +68,7 @@
 	#content div.flexwrapp.three_inline,
 	#content div.flexwrapp.two_inline {
 		flex-wrap: nowrap;
+		text-align: center;
 	}
 	#content .flexWrapReverse {
 		flex-wrap: wrap-reverse;
@@ -217,7 +218,7 @@
 				text-align: center;
 			}
 
-/* Страница "Доставка" / class="page_delivery" ========================== */
+/* Страница "Доставка" / class="page_delivery" ************************** */
 	#content .page_delivery .forflex {
 		flex-basis: 46%;
 	}
@@ -273,7 +274,7 @@
 				height: 250px !important;
 			}
 		}
-/* Страница "О нас" / class="page_about_us" ============================= */
+/* Страница "О нас" / class="page_about_us" ***************************** */
 	#content .page_about_us .blockline {
 		padding: 7%;
 	}
@@ -471,7 +472,7 @@
 				margin-top: 0;
 			}*/
 
-/* Страница "Справка" / class="page_information" ======================== */
+/* Страница "Справка" / class="page_information" ************************ */
 	#content .page_information .flexwrapp {
 		flex-wrap: nowrap;
 	}
@@ -641,7 +642,7 @@
 			padding: .5em;
 		}
 	}
-/* Страница "Оплата" / class="page_payment" ============================= */
+/* Страница "Оплата" / class="page_payment" ***************************** */
 	#content .page_payment .flexwrapp {
 		flex-wrap: nowrap;
 	}
@@ -760,11 +761,6 @@
 			.ac-container input:checked ~ article.ac-large{
 			height: auto;
 			}
-
-			.ac-container article {
-				border-top: 1px solid #DCDCDC;
-			}
-
 			#content .page_payment #info_text_block_answers img {
 				width: 20%;
 				display: inline-block;
@@ -784,6 +780,9 @@
 				float: left;
 				margin-right: 10px;
 			}
+			#content .page_payment #info_text_block_answers article {
+				border-bottom: 1px solid #DCDCDC;
+			}
 
 			#content .page_payment .ac-large p {
 				margin-left: 20px;
@@ -802,20 +801,21 @@
 			}
 		}
 
-/* Страница "Поставки магазинам"/ class="page_supply" =================== */
-
-/* Страница "Скидки" / class="page_discounts" =========================== */
-
-/* Страница "Обеспечение быта"/ class="page_provision" ================== */
+/* Страница "Поставки магазинам"/ class="page_supply" ******************* */
+/* Страница "Скидки" / class="page_discounts" *************************** */
+/* Страница "Обеспечение быта"/ class="page_provision" ****************** */
 	@media (max-width: 1535px) {
 		#content .page_provision button {
 			min-width: 60%;
 		}
 	}
-/* Страница "Снабжение предприятий" / class="page_provision_companies" == */
+/* Страница "Снабжение предприятий" / class="page_provision_companies" ** */
 	#content .page_provision_companies img,
 	#content .page_provision_companies button {
 		max-width: 38% !important;
+	}
+	#content .page_provision_companies .btn_plus.active {
+		bottom: 3%;
 	}
 	@media (max-width: 1535px) {
 		#content .page_provision_companies button {
@@ -836,22 +836,59 @@
 		}
 	}
 
-/* Страница "Контакты" / class="page_contacts"  ========================= */
-	#content .page_contacts .blockline iframe {
-		width: 595px;
-		height: 272px;
+/* Страница "Контакты" / class="page_contacts"  ************************* */
+	#content .page_contacts {
+		text-align: center;
+	}
+	#content .page_contacts video {
+		width: 40%;
+	}
+	#content .page_contacts h1 {
+		margin-bottom: 54px;
 	}
 	#content .page_contacts .blockline{
 		padding: 7%;
 	}
+	#content .page_contacts div.flexwrapp.contactText {
+		flex-direction: column;
+	}
 	#content .page_contacts .blockOfText {
 		padding: 0;
 	}
-	#content .page_contacts .info_circle {
-		text-align: center;
+	#content .page_contacts .blockOfText p {
+		font-size: 1.8em;
 	}
-	#content .page_contacts h4 {
+	#content .page_contacts .blockOfText p.forflex {
 		margin-top: 0;
+		margin-bottom: 0;
+		width: 50%;
+	}
+	#content .page_contacts .blockOfText p.main_text {
+		margin-top: 35px;
+	}
+	#content .page_contacts .blockOfText .mini_text {
+		font-size: 1.1em;
+		width: 40%;
+	}
+	#content .page_contacts .pEmail {
+		font-weight: 500;
+	}
+	#content .page_contacts .flexColumn {
+		margin-top: 54px;
+		justify-content: space-between;
+	}
+	#content .page_contacts .flexColumn button {
+		text-transform: uppercase;
+		max-width: 38%;
+	}
+	#content .page_contacts button.greenBtn {
+		background-color: #69ab3f;
+	}
+	#content .page_contacts button.orangeBtn {
+		background-color: #ff5722;
+	}
+	#content .page_contacts .three_inline .info_circle img {
+		width: 61%;
 	}
 	#content .page_contacts .info_circle h5 {
 		font-size: 2em;
@@ -861,166 +898,192 @@
 		width: 220px;
 		min-height: 100px;
 	}
-	#content .page_contacts .pIcon i {
-		color: #47525d;
-	}
-	#content .page_contacts .info_circle .pEmail {
-		font-weight: 500;
-	}
-	#content .page_contacts .subBlockOfText {
-		font-size: 1.4em;
-		width: 85%;
-	}
-	#content .page_contacts .subBlockOfText p {
-		margin: 0;
-		line-height: 1.4em;
-		/*font-size: 1em; */
-	}
-	/*#content .page_contacts .pCenter {
-		padding-left: 30%;
-	}*/
-	#content .page_contacts .three_inline .info_circle img {
-		width: 61%;
-	}
-	#content .page_contacts .subBlockOfText p:not(.pCenter) {
-		margin-top: 20px;
-	}
-	#content .page_contacts .subBlockOfText .cl1 {
-		float: left;
-	}
-	#content .page_contacts .subBlockOfText .cl1 {
-		float: right;
-	}
-	#content .page_contacts .subBlockOfText p:last-child {
-		font-size: .7em;
-		margin-top: 28px;
-	}
-	#content .page_contacts .pIcon {
-		font-size: 24px;
-	}
-		@media (max-width: 1535px) {
-			#content .page_contacts .blockline iframe {
-				width: 495px;
-				height: 348px;
-			}
-			#content .page_contacts .subBlockOfText {
-				width: 100%;
-			}
-			#content .page_contacts .subBlockOfText p {
-				margin: 0 auto;
 
-			}
-			#content .page_contacts .subBlockOfText p:not(.pCenter) {
-				font-weight: 500;
-			}
-			#content .page_contacts .subBlockOfText p:last-child {
-				font-weight: 100;
-				margin: 10px auto 20px;
-			}
+	/*Карточка для формы*/
+		#offers form {
+			width: 100%;
+			padding: 2em;
+			margin: 0 auto;
+			height: auto;
 		}
-		@media (max-width: 1420px) {
-			#content .page_contacts .subBlockOfText {
+		#offers .mdl-card__supporting-text p {
+			font-size: 1.4em;
+			font-weight: 500;
+			line-height: 1.3em;
+			text-align: center;
+			margin: 0 auto;
+			color: #3F4A58;
+		}
+		#offers .blockForForm button {
+			min-width: 35%;
+			display: block;
+			margin: 0 auto;
+		}
+		#offers .blockForForm button:hover {
+			background-color: #018B06;
+		}
+		div#offers.opened {
+			max-width: 500px;
+			min-width: 340px;
+		}
+	}
+		@media (min-width: 600px) and (max-width: 1300px) {
+			#content .page_contacts .blockOfText p {
+				width: 60%;
+				font-size: 1.4em;
+			}
+			#content .page_contacts .three_inline .info_circle h5 {
+				font-size: 1.6em;
+			}
+			#content .page_contacts .three_inline .info_circle p {
 				font-size: 1.2em;
 			}
-			#content .page_contacts .blockline iframe {
-				min-width: 350px;
-				height: 348px;
+		}
+		@media (max-width: 1100px) { 
+			#content .page_contacts .flexColumn {
+				margin-top: 54px;
+				flex-direction: column;
+			}
+			#content .page_contacts .flexColumn button {
+				margin: 0 auto;
+				margin-bottom: 20px;
+				min-width: 70%;
+			}
+			#content .page_contacts .blockOfText p {
+				font-size: 1.4em;
+			}
+			#content .page_contacts .info_circle h5 {
+				font-size: 1.1em;
+			}
+			#content .page_contacts .three_inline .info_circle p {
+				font-size: 1em;
+				width: 140px;
+			}
+			#content .page_contacts h1 {
+				font-size: 1.7em;
+				margin-bottom: 0;
 			}
 		}
-
 		@media (max-width: 600px) {
-			#content .page_contacts .info_circle h5 {
-				font-size: 1.3em;
+			#content .page_contacts .blockOfText p {
+				font-size: 1em;
 			}
-			#content .page_contacts .info_circle p {
+			#content .page_contacts .flexColumn button {
+				min-width: 90%;
+				font-size: 1em;
+			}
+			#content .page_contacts .blockOfText p,
+			#content .page_contacts .blockOfText .mini_text {
+				width: 100%;
+			}
+			#content .page_contacts .three_inline .info_circle h5 {
+				font-size: 1.2em;
+			}
+			#content .page_contacts .three_inline .info_circle p {
 				width: 100px;
+				min-height: 115px;
 				margin: 2% auto;
 				font-size: 1em;
 			}
 		}
 
-/* Страница "Стать дилером" / become_a_dealer =========================== */
-	/*.become_a_dealer {
-		min-height: 1300px;
-		padding: 20px;
-	}
-	.become_a_dealer h4 {
-		font-size: 2.2em;
-		font-weight: 400;
-	}
-	.become_a_dealer .dealer_line_first {
+/* Страница "Стать дилером" / class="page_dealer" *************************** */
+	#content .page_dealer .main_img {
+		max-width: 17%;
 		margin: 0 auto;
+		margin-bottom: 3%;
 	}
-	.become_a_dealer .abilities_list {
-		display: block;
-		margin: 50px 100px 250px 20px;
-		width: 400px;
-		float: left;
+	#content .page_dealer .blockOfText {
+		padding: 0;
 	}
-	.become_a_dealer .abilities_list li {
+	#content .page_dealer h4 {
+		text-align: center;
+		margin-top: 0;
+	}
+	#content .page_dealer .three_inline {
+		margin-top: 54px;
+	}
+	#content .page_dealer .container .blockOfText h4 {
+		text-align: left;
+	}
+	#content .page_dealer ul {
+		margin-left: 5%;
+	}
+	#content .page_dealer li {
+		text-align: left;
+		font-weight: 100;
+		font-size: 1.8em;
+		line-height: 1.4em;
 		list-style-type: disc;
-		font-size: 1.5em;
-		line-height: 28px;
 	}
-	.become_a_dealer .car_pic {
-		display: block;
-		float: none;
-		width: 454px;
-		height: 252px;
+	#content .page_dealer .dealer1{
+		margin: 0 0 0 auto;
+		min-width: 55%;
 	}
-	.become_a_dealer .services {
-		clear: both;
-		margin-top: 50px;
-		width: 100%;
-		margin: 0 auto;
-		max-width: 1270px;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
+	#content .page_dealer .info_circle img {
+		max-width: 55%;
 	}
-	.become_a_dealer .services .services_item {
-		flex-basis: 25%;
-		float: left;
-		text-align: center;
-		margin-bottom: 20px;
+	#content .page_dealer .info_circle p {
+		font-size: 1.4em;
+		font-weight: 500;
 	}
-	.become_a_dealer .services .services_item p {
-		height: 53px;
-		margin-bottom: 20px;
-		text-align: center;
-		font-size: 1.5em;
-		line-height: 28px;
+	@media (max-width: 1535px) {
+		#content .page_dealer .blockline {
+			padding-bottom: 7%;
+		}
+		#content .page_dealer .container .blockOfText h4 {
+			text-align: center;
+		}
+		#content .page_dealer ul {
+			margin-left: 30%;
+		}
+		#content .page_dealer .container .dealer1 {
+			min-width: 40%;
+			margin: 3% auto 0;
+		}
+		#content .page_dealer .info_circle img {
+			min-width: 55%;
+		}
 	}
-	.become_a_dealer .services .circleForImg {
-		width: 200px;
-		height: 200px;
-		margin: 0 auto;
-		border-radius: 50%;
-		border: 1px solid #000;
+	@media (max-width: 1420px) {
+		#content .page_dealer li {
+			font-size: 1.6em;
+		}
 	}
-	.become_a_dealer button {
-		display: block;
-		width: 240px;
-		margin: 0 auto;
-		margin-top: 150px;
-		font-weight: 200;
-		font-style: normal;
-		font-size: 14px;
-		background-color: #fff;
-		border: 1px solid #2895F1;
-		border-radius: 5px;
-		color: #2895F1;
+	@media (max-width: 1100px) {
+		#content .page_dealer .container .dealer1 {
+			max-width: 40%;
+		}
+		#content .page_dealer li {
+			font-size: 1.2em;
+		}
+		#content .page_dealer h4 {
+			font-size: 2.2em;
+		}
 	}
-	.become_a_dealer > h4 {
-		text-align: center;
-		margin-bottom: 100px;
-	}*/
-/* Страница "Вопросы" =================================================== */
-	/*#content .faq img {
-		width: 100%;
-	}*/
+	@media (max-width: 964px) {
+		#content .page_dealer .container .forflex {
+			flex-basis: 55%;
+		}
+		#content .page_dealer h1 {
+			font-size: 1.7em;
+		}
+		#content .page_dealer ul {
+			margin-left: 22%;
+		}
+		#content .page_dealer h4 {
+			font-size: 1.8em;
+		}
+		#content .page_dealer li {
+			font-size: 1.2em;
+		}
+		#content .page_dealer .info_circle p {
+			font-size: 1.2em;
+			width: 100px;
+		}
+	}
 
-/*  Общие медиа запросы   ***************/
+/* Общие медиа запросы   ***************/
 	@media (max-width: 1535px) {
 		#content .blockOfText {
 			text-align: center;
@@ -1028,17 +1091,6 @@
 		#content .blockOfText p {
 			max-width: 60%;
 			margin: 0 auto;
-		}
-		#content .btn_plus {
-			bottom: 5%;
-		}
-		#content .btn_plus.pos-left {
-			left: calc(50% - 124px);
-			z-index: 100;
-		}
-		#content .btn_plus.pos-right {
-			right: calc(50% - 124px);
-			z-index: 100;
 		}
 		#content .blockline {
 			padding-bottom: 14%;
@@ -1055,11 +1107,9 @@
 			}
 			#content .four_pages .btn_plus.pos-left {
 				left: calc(50% - 124px);
-				z-index: 100;
 			}
 			#content .four_pages .btn_plus.pos-right {
 				right: calc(50% - 124px);
-				z-index: 100;
 			}
 			#content .four_pages .blockOfText p {
 				max-width: 70%;
@@ -1164,7 +1214,7 @@
 				margin: 0 auto;
 			}
 			#content .four_pages .info_circle h5 {
-				font-size: 1.3em;
+				font-size: 1.2em;
 			}
 			#content .four_pages .info_circle p {
 				width: 100px;
@@ -1179,14 +1229,19 @@
 				min-width: 90%;
 				font-size: 1.1em;
 			}
+
+			#content .four_pages .info_circle_img {
+				width: 100px;
+				height: 100px;
+			}
 	}
 	@media (min-width: 550px) and (max-width: 1420px) {
-		#content p {
+		/*#content p {
 			font-size: 1.4em;
 		}
 		#content h4 {
 			font-size: 2.4em;
-		}
+		}*/
 		#content .ac-container article p {
 			font-size: 1.2em;
 		}
@@ -1236,4 +1291,8 @@
 		#content .page_information h1 {
 			font-size: 1.4em !important;
 		}
+		#content .page_dealer ul {
+			margin-left: 11%;
+		}
 	}
+/*************/

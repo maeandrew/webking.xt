@@ -12,10 +12,6 @@ function SendToAjax(id, qty, button, direction, note){
 		}else{
 			var qty_old = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js_old').val());
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(qty);
-
-			//console.log(data.cart.products[id]);
-
-
 			if(qty_old == qty){
 				$('.btn_remove').find('.info_description').removeClass('hidden');
 				//var id_prod_name = $('.btn_remove div').attr('id');
@@ -69,19 +65,13 @@ function removeFromCart(id){
 
 function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
-
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
-
-	//var qty_new = $('.btn_remove').find('input.qty_js').val();
-	//console.log(qty_new);
-
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
 	}else{
 		var note = $('#product_'+id).find('.note textarea').val();
 	}
 	if(direction == 1){
-		//console.log(qty);
 		SendToAjax(id, qty+1, true, direction, note);
 	}else if(direction == 0){
 		SendToAjax(id, qty-1, true, direction, note);
@@ -92,7 +82,6 @@ function ChangeCartQty(id, direction){
 }
 
 function completeCartProductAdd(data){
-	//console.log(data['products_sum'][0]);
 	var products_count = Object.keys(data.products).length.toString();
 	var	str = products_count+' товар';
 	if(products_count.substr(-1) <= 1)
@@ -103,20 +92,13 @@ function completeCartProductAdd(data){
 		str += 'ов';
 	$('.order_cart').text(str);
 	$('#summ_many').text(data.products_sum[3]);
-	//$('#summ_many').text(data.cart_sum);
 	$('#summ_prod').text(products_count);
 	if(products_count > 0){
 		$('.checkout').removeClass('hidden');
 	}else{
 		$('.checkout').addClass('hidden');
 	}
-	//$.each(data.cart.products, function(key, value){
-	//	$('div[data-idproduct="'+key+'"]').find('.active_price .price_js').text(value.actual_prices[data.cart.cart_column].toFixed(2));
-	//	$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2));
-	//});
-	//
 	var sum_sale = (data.products_sum[3] - data.products_sum[data.cart_column]).toFixed(2);
-	//console.log(sum_sale);
 	$('.summ_many:eq(1)').text(sum_sale);
 	$('.summ_many:eq(2)').text((data.products_sum[3]- sum_sale).toFixed(2));
 
@@ -134,7 +116,6 @@ function completeCartProductAdd(data){
 		$('#percent td:eq(7)').css('color','');
 		$('#percent td:eq(10)').css('color','');
 		$('#percent td:eq(12)').css('color','');
-
 	}
 	if(data.products_sum[3] < 500){
 		$('#percent tr:eq(0)').show();
@@ -184,23 +165,21 @@ function completeCartProductAdd(data){
 //----------------обновление облока скидок (end)---------------
 $(function(){
 	//----------------Создание заказа, нового пользователя только с телефоном (start)---------------
-
-			$('#cart').on('click', '#button-cart1 button', function (e) {
-				e.preventDefault();
-				if ($('.phone').val()) {
-					var p = $('.phone').val();
-					var phone = p.replace(/[^\d]+/g, "");
-					ajax('cart', 'make_order', {phone: phone}).done(function (arr) {
-						$.cookie('id_order', arr.id_order);
-						$.cookie('id_user', arr.id_user);
-
-						if($('#joint_cart').closest('label').hasClass('is-checked')) {
-							location.href = 'cabinet/cooperative/?t=working';
-						}else{
-							openObject('quiz');
-						}
-					});
-					return false;
+	$('#cart').on('click', '#button-cart1 button', function (e){
+		e.preventDefault();
+		if($('.phone').val()){
+			var p = $('.phone').val();
+			var phone = p.replace(/[^\d]+/g, "");
+			ajax('cart', 'make_order', {phone: phone}).done(function(arr){
+				$.cookie('id_order', arr.id_order);
+				$.cookie('id_user', arr.id_user);
+				if($('#joint_cart').closest('label').hasClass('is-checked')){
+					location.href = 'cabinet/cooperative/?t=working';
+				}else{
+					openObject('quiz');
 				}
 			});
+			return false;
+		}
+	});
 });

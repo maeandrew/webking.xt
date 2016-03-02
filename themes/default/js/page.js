@@ -31,32 +31,25 @@ $(document).ready(function () {
 	$('.a_question').click(function(event) {
 		openObject('question');
 	});
+	$('#page_contacts .greenBtn').click(function(event) {
+		openObject('offers');
+	});
 
 	$('.payment_block').click(function (e) {
 		var target = $('.'+$(this).data('target')),
 			eq = $(this).index();
 		if($(this).hasClass('active')){
-			// if($("#content").width() <= 500) {
-			// 	$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
-
-
-			// }else {
-				$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
-				$('[id^="info_text_block_"], .blockforline').addClass('hidden');
-			// }
+			$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
+			$('[id^="info_text_block_"], .blockforline').addClass('hidden');
 		}else{
-			// if($("#content").width() <= 500) {
-				
-			// } else {
-				target.removeClass('hidden');
-				$('.blockforline').removeClass('hidden');
-				$('[class^="ppp"]').addClass('hidden')
-				$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
-				$(this).addClass('active');
-				target.removeClass('hidden')
-				$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
-				$(".block1, .block2").css({"left": left2[eq]});
-			// }
+			target.removeClass('hidden');
+			$('.blockforline').removeClass('hidden');
+			$('[class^="ppp"]').addClass('hidden')
+			$('.payment_block').removeClass('active').find('img').css('-webkit-filter', 'grayscale(100%)');
+			$(this).addClass('active');
+			target.removeClass('hidden')
+			$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
+			$(".block1, .block2").css({"left": left2[eq]});
 		}
 	});
 
