@@ -2516,7 +2516,7 @@ section .stat_year {
 
 /* Анимация загрузки */
 
-#auth .loadBlock {
+.loadBlock {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -2526,7 +2526,7 @@ section .stat_year {
 	z-index: 100;
 }
 
-#auth .loadAnimation {
+.loadAnimation {
 	margin-top: 50%;
 	margin-left: 46.5%;
 }

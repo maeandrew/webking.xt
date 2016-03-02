@@ -1,10 +1,24 @@
+//addLoadAnimation('#cart');
+
+
 // Получение корзины
 function GetCartAjax(){
+	openObject('cart');
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
+		//console.log(data);
+		$('#cart > .modal_container').html(data);
+		removeLoadAnimation('#cart');
+		Position($('#cart'));
+	});
+}
+
+/*function GetCartAjax(){
 	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
 		//console.log(data);
 		$('#cart > .modal_container').html(data);
 		openObject('cart');
 	});
+
 	// if($('#cart').hasClass('opened')){
 	// 	closeObject('cart');
 	// }else{
@@ -16,7 +30,7 @@ function GetCartAjax(){
 	// 		openObject('cart');
 	// 	});
 	// }
-}
+}*/
 
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order){
@@ -1245,6 +1259,7 @@ function openObject(id){
 		closeObject(object.attr('id'));
 		DeactivateBG();
 	}else{
+		addLoadAnimation('#'+id);
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1512,7 +1527,7 @@ function ValidateEmail(email, type){
 				result = false;
 			}
 		}
-		addLoadAnimation('#registration');
+		removeLoadAnimation('#registration');
 		return result;
 	});
 }
@@ -1709,9 +1724,18 @@ function getCookie(name) {
 function addLoadAnimation(obj) {
 	/*console.log($(obj).find("div.loadBlock").length > 0);*/
 	if ($(obj).find("div.loadBlock").length > 0){
-		$(obj).find("div.loadBlock").remove();
+
 	} else {
 		$(obj).append('<div class="loadBlock"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active loadAnimation"></div></div>');
+	}
+	componentHandler.upgradeDom();
+}
+
+
+function removeLoadAnimation(obj) {
+	/*console.log($(obj).find("div.loadBlock").length > 0);*/
+	if ($(obj).find("div.loadBlock").length > 0){
+		$(obj).find("div.loadBlock").remove();
 	}
 	componentHandler.upgradeDom();
 }

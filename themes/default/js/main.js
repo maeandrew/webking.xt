@@ -814,6 +814,7 @@ $(function(){
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){
 		openObject('auth');
+		removeLoadAnimation('#auth');
 		$('#auth #login').show().removeClass('hidden');
 		$('#auth #registration').hide().addClass('hidden');
 		e.preventDefault();
@@ -846,7 +847,7 @@ $(function(){
 				"passwd": passwd
 			}
 		}).done(function(data){
-			addLoadAnimation('#auth');
+			removeLoadAnimation('#auth');
 			var parrent = $('.header_nav [for="demo-menu-lower-right"]');
 			if(data.errm != 1){
 				parrent.find('.mdl-menu__item .user_name').text(data.member.name);
