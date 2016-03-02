@@ -831,8 +831,6 @@ $(function(){
 	$('#auth').on('click', '.sign-in', function(e){
 		e.preventDefault();
 		addLoadAnimation('#auth');
-
-
 		var form = $(this).closest('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
@@ -886,10 +884,12 @@ $(function(){
 	// Проверка формы регистрации
 	$('#registration .sign-up').click(function(e){
 		e.preventDefault();
+		addLoadAnimation('#registration');
 		var parent = $(this).closest('form'),
 			name = parent.find('input#name').val(),
 			email = parent.find('input#email').val();
 		ValidateEmail(email, 1);
+
 	});
 
 

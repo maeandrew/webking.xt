@@ -1447,7 +1447,8 @@ var req = null;
 /** Валидация email **/
 function ValidateEmail(email, type){
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var name = $('#regs #name').val();
+	var name = $('#registration #name').val();
+	console.log(name);
 	var pass = $('#passwd').val();
 	var passconfirm = $('#passwdconfirm').val();
 	var error = '';
@@ -1511,6 +1512,7 @@ function ValidateEmail(email, type){
 				result = false;
 			}
 		}
+		addLoadAnimation('#registration');
 		return result;
 	});
 }
