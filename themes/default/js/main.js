@@ -814,6 +814,7 @@ $(function(){
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){
 		openObject('auth');
+		removeLoadAnimation('#auth');
 		$('#auth #login').show().removeClass('hidden');
 		$('#auth #registration').hide().addClass('hidden');
 		e.preventDefault();
@@ -829,6 +830,8 @@ $(function(){
 
 	// Проверка формы входа
 	$('#auth').on('click', '.sign-in', function(e){
+		e.preventDefault();
+		addLoadAnimation('#auth');
 		var form = $(this).closest('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
@@ -837,6 +840,7 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.header_nav [for="demo-menu-lower-right"]');
 			if(data.errm != 1){
+				removeLoadAnimation('#auth');
 				parent.find('.mdl-menu__item .user_name').text(data.member.name);
 				parent.find('.mdl-menu__item .user_email').text(data.member.email);
 				parent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
@@ -872,10 +876,12 @@ $(function(){
 	// Проверка формы регистрации
 	$('#registration .sign-up').click(function(e){
 		e.preventDefault();
+		addLoadAnimation('#registration');
 		var parent = $(this).closest('form'),
 			name = parent.find('input#name').val(),
 			email = parent.find('input#email').val();
 		ValidateEmail(email, 1);
+
 	});
 
 
@@ -898,8 +904,8 @@ $(function(){
 		} else {
 			$(this).removeClass().addClass("unsuccess");
 		}
-	});*/
-
+	});
+*/
 
 
 	/*    Cabinet     */

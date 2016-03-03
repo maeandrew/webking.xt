@@ -1,10 +1,24 @@
+//addLoadAnimation('#cart');
+
+
 // Получение корзины
 function GetCartAjax(){
+	openObject('cart');
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
+		//console.log(data);
+		$('#cart > .modal_container').html(data);
+		removeLoadAnimation('#cart');
+		Position($('#cart'));
+	});
+}
+
+/*function GetCartAjax(){
 	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
 		//console.log(data);
 		$('#cart > .modal_container').html(data);
 		openObject('cart');
 	});
+
 	// if($('#cart').hasClass('opened')){
 	// 	closeObject('cart');
 	// }else{
@@ -16,7 +30,7 @@ function GetCartAjax(){
 	// 		openObject('cart');
 	// 	});
 	// }
-}
+}*/
 
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order){
@@ -1245,6 +1259,7 @@ function openObject(id){
 		closeObject(object.attr('id'));
 		DeactivateBG();
 	}else{
+		addLoadAnimation('#'+id);
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1447,7 +1462,8 @@ var req = null;
 /** Валидация email **/
 function ValidateEmail(email, type){
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var name = $('#regs #name').val();
+	var name = $('#registration #name').val();
+	console.log(name);
 	var pass = $('#passwd').val();
 	var passconfirm = $('#passwdconfirm').val();
 	var error = '';
@@ -1511,6 +1527,7 @@ function ValidateEmail(email, type){
 				result = false;
 			}
 		}
+		removeLoadAnimation('#registration');
 		return result;
 	});
 }
@@ -1700,3 +1717,26 @@ function getCookie(name) {
 	if (cookieEndIndex == -1) cookieEndIndex = document.cookie.length;
 	return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex));
 }
+
+
+// Анимация ожидания отклика от сервера
+
+function addLoadAnimation(obj) {
+	/*console.log($(obj).find("div.loadBlock").length > 0);*/
+	if ($(obj).find("div.loadBlock").length > 0){
+
+	} else {
+		$(obj).append('<div class="loadBlock"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active loadAnimation"></div></div>');
+	}
+	componentHandler.upgradeDom();
+}
+
+
+function removeLoadAnimation(obj) {
+	/*console.log($(obj).find("div.loadBlock").length > 0);*/
+	if ($(obj).find("div.loadBlock").length > 0){
+		$(obj).find("div.loadBlock").remove();
+	}
+	componentHandler.upgradeDom();
+}
+
