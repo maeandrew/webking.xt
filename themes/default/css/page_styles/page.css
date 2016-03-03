@@ -23,14 +23,13 @@
 		font-size: 2em;
 		font-weight: 600;
 		text-align: center;
-		margin: 3% auto;
 	}
 	#content h4 {
-		font-size: 2.8em;
+		font-size: 1.8em;
 		font-weight: 100;
 	}
 	#content p {
-		font-size: 1.2em;
+		font-size: 1.3em;
 		font-weight: 100;
 		line-height: 1.2em;
 		margin: 3% auto;
@@ -48,12 +47,11 @@
 	}
 	#content .blockline {
 		position: relative;
-		padding: 7% 0;
+		padding-top: 2%;
+		padding-bottom: 4%;
+		padding-left: 7%;
+		padding-right: 7%;
 		border-bottom: 1px solid #E6EAED;
-	}
-	#content .blockline .container {
-		width: 86%;
-		margin: 0 auto;
 	}
 	#content .flexwrapp {
 		display: flex;
@@ -95,11 +93,15 @@
 		#content .four_pages .forflex {
 			flex-basis: 46%;
 		}
+		#content .four_pages .flexWrapReverse .blockOfText {
+			margin-left: 0;
+			padding-left: 5%;
+		}
 		#content .four_pages img {
 			max-width: 100%;
 		}
 		#content .four_pages p {
-			font-size: 1.8em;
+			font-size: 1.3em;
 			font-weight: 100;
 			line-height: 1.2em;
 			margin: 0;
@@ -109,12 +111,14 @@
 			border-bottom: none;
 		}
 		#content .four_pages .blockline:first-child {
-			padding-top: 3%;
 			border-top: none;
+		}
+		#content .four_pages .blockline:last-child {
+			border-bottom: 1px solid #E6EAED;
 		}
 		#content .four_pages .invisibleblock {
 			border: none;
-			padding: 0 7% 7%;
+			padding: 0 7% 4%;
 			display: none;
 		}
 		#content .four_pages button {
@@ -123,28 +127,29 @@
 			width: 50%;
 			display: block;
 			margin: 0 auto;
-			font-size: 1.4em;
+			font-size: 1.3em;
 			text-transform: inherit;
 		}
 		#content .four_pages .three_inline .forflex {
 			flex-basis: 33%;
 		}
-		#content .four_pages .three_inline .info_circle img {
-			width: 55%;
+		#content .three_inline .info_circle img {
+			width: 61%;
 		}
 		#content .four_pages .blockOfText p {
 			width: 93%;
 		}
+		
 		/******.btn_plus******/
 			#content .four_pages .btn_plus {
 				display: block;
 				position: absolute;
 				margin-bottom: 0;
+				bottom: 80px;
 				cursor: pointer;
 				text-align: center;
-				bottom: 80px;
 				line-height: 1em;
-				font-size: 2.9em;
+				font-size: 1.8em;
 				font-weight: 100;
 				color: #535E68;
 				-webkit-transition: all .4s ease-in-out;
@@ -155,15 +160,15 @@
 				left: 10%;
 			}
 			#content .four_pages .btn_plus.pos-right {
-				right: 27%;
+				right: 35%;
 			}
 			#content .four_pages .btn_plus span {
 				float: left;
 				display: inline-block;
-				width: 40px;
-				height: 40px;
+				width: 25px;
+				height: 25px;
 				border-radius: 50%;
-				border: 2px solid #535E68;
+				border: 1px solid #535E68;
 				-webkit-transition: all .4s ease-in-out;
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
@@ -180,11 +185,9 @@
 			#content .four_pages .btn_plus p {
 				font-size: 0.5em;
 				font-weight: 400;
-				width: 190px;
-				color: #535e68;
-				float: right;
+				width: 150px;
 				white-space: nowrap;
-				line-height: 48px;
+				line-height: 2em;
 				-webkit-transition: all .4s ease-in-out;
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
@@ -207,32 +210,22 @@
 				border-radius: 50%;
 			}
 			#content .four_pages .info_circle h5 {
-				font-size: 1.8em;
+				font-size: 1.6em;
 				font-weight: 500;
 				text-align: center;
 			}
 			#content .four_pages .info_circle p {
 				width: 200px;
 				margin: 2% auto;
-				font-size: 1.4em;
 				text-align: center;
 			}
 
 /* Страница "Доставка" / class="page_delivery" ************************** */
 	#content .page_delivery .forflex {
-		flex-basis: 46%;
-	}
-	#content .page_delivery .blockline {
-		padding: 7%;
+		flex-basis: 44%;
 	}
 	#content .page_delivery p {
-		font-size: 1.8em;
-		font-weight: 100;
-		line-height: 1.2em;
 		margin: 0;
-	}
-	#content .page_delivery .blockline:first-child {
-		padding-top: 3%;
 	}
 	#content .page_delivery .delivery1 {
 		max-width: 19.5%;
@@ -243,7 +236,7 @@
 		max-width: 82%;
 	}
 	#content .page_delivery .delivery5 {
-		width: 77%;
+		width: 60%;
 	}
 	/*Media*/
 		@media (min-width: 964px) and (max-width: 1535px) {
@@ -254,6 +247,14 @@
 		@media (min-width: 900px) and (max-width: 1420px) {
 			#content .page_delivery .delivery1 {
 				min-width: 25%;
+			}
+		}
+		@media (max-width: 964px) {
+			#content .page_delivery .forflex {
+				flex-basis: 46%;
+			}
+			#content .page_delivery .blockOfText p {
+			    max-width: 100%;
 			}
 		}
 		@media (min-width: 500px) and (max-width: 900px) {
@@ -275,11 +276,7 @@
 			}
 		}
 /* Страница "О нас" / class="page_about_us" ***************************** */
-	#content .page_about_us .blockline {
-		padding: 7%;
-	}
 	#content .page_about_us h4 {
-		font-size: 2.8em;
 		font-weight: 100;
 		line-height: 1.4em;
 		text-align: center;
@@ -287,8 +284,7 @@
 	#content .page_about_us p {
 		width: 76%;
 		text-align: center;
-		font-size: 1.8em;
-		margin: 5% auto;
+		margin: 2% auto;
 	}
 	/*Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
 	#content .page_about_us .blockline:nth-child(4){
@@ -322,12 +318,12 @@
 	#content .page_about_us .second_line_img p.text2 {
 		position: absolute;
 		width: 190px;
-		font-size: 1.2em;
+		font-size: 1em;
 		z-index: 2;
 		margin: 0;
 	}
 	#content .page_about_us .second_line_img p.text1{
-		top: 0;
+		top: 5%;
 		left: 9%;
 	}
 	#content .page_about_us .second_line_img p.text2{
@@ -336,7 +332,7 @@
 	}
 	#content .page_about_us .second_line_img p.text1 > span,
 	#content .page_about_us .second_line_img p.text2 > span {
-		font-size: 3.6em;
+		font-size: 3em;
 		display: block;
 		z-index: 2;
 	}
@@ -345,20 +341,14 @@
 			#content .page_about_us .about1 {
 				min-width: 23%;
 			}
-			#content .page_about_us .second_line_img p.text1 > span,
-			#content .page_about_us .second_line_img p.text2 > span {
-				font-size: 3em;
-			}
 		}
 		@media (min-width: 1300px) and (max-width: 1420px) {
 			#content .page_about_us .second_line_img p.text2 {
-				bottom: -8%;
 				right: 9%;
 			}
 		}
 		@media (min-width: 1100px) and (max-width: 1300px) {
 			#content .page_about_us .second_line_img p.text2 {
-				bottom: -9%;
 				right: 5%;
 			}
 			#content .page_about_us .second_line_img p.text1 > span,
@@ -368,7 +358,6 @@
 		}
 		@media (min-width: 900px) and (max-width: 1100px) {
 			#content .page_about_us .second_line_img p.text2 {
-				bottom: -10%;
 				right: 0%;
 			}
 			#content .page_about_us .second_line_img p.text1 {
@@ -385,7 +374,6 @@
 				font-size: 1.6em;
 			}
 			#content .page_about_us .second_line_img p.text2 {
-				bottom: -10%;
 				right: -5%;
 				font-size: 0.8em;
 			}
@@ -394,7 +382,6 @@
 				font-size: 0.8em;
 				width: 100px;
 				width: 117px;
-				top: -8%;
 			}
 		}
 		@media (min-width: 580px) and (max-width: 700px) {
@@ -403,8 +390,7 @@
 				top: 0%;
 			}
 			#content .page_about_us .second_line_img p.text2 {
-				bottom: -3%;
-				right: -1%;
+				right: 0%;
 			}
 			#content .page_about_us .second_line_img p.text1 > span,
 			#content .page_about_us .second_line_img p.text2 > span {
@@ -414,10 +400,11 @@
 		@media (min-width: 360px) and (max-width: 580px) {
 			#content .page_about_us .second_line_img p.text1 {
 				width: 117px;
-				top: -8%;
+				top: 0%;
 			}
 			#content .page_about_us .second_line_img p.text2 {
 				width: 117px;
+				right: 3%;
 			}
 			#content .page_about_us .second_line_img p.text1,
 			#content .page_about_us .second_line_img p.text2 {
@@ -427,6 +414,12 @@
 		@media (max-width: 550px) {
 			#content .page_about_us .about1 {
 				min-width: 23%;
+			}
+		}
+		@media (max-width: 420px) {
+			#content .page_about_us .second_line_img p.text1,
+			#content .page_about_us .second_line_img p.text2 {
+				display: none;
 			}
 		}
 		/*НЕ УДАЛЯТЬ - временно скрыто*/
@@ -479,29 +472,14 @@
 	#content .page_information .forflex {
 		flex-basis: 30%;
 	}
-	#content .page_information .blockline {
-		padding: 7%;
-	}
-	#content .page_information .blockline:first-child {
-		padding-top: 2%;
-	}
-	#content .page_information .blockline:nth-child(2),
-	#content .page_information .blockline:nth-child(4),
-	#content .page_information .blockline:nth-child(5),
-	#content .page_information .blockline:nth-child(6) {
-		border-bottom: none;
-	}
-	#content .page_information .blockline:last-child {
-		border-top: 1px solid #E6EAED;
-	}
 	#content .page_information img {
-		width: 80%;
+		width: 76%;
 	}
 	#content .page_information .info_block > img {
 		-webkit-filter: grayscale(100%);
 	}
 	#content .page_information #infoBlock3 img {
-		width: 67%;
+		width: 63%;
 	}
 	#content .page_information .info_block > img:hover {
 		-webkit-filter: grayscale(0%);
@@ -512,7 +490,7 @@
 	#content .page_information .blockforline {
 		border: 1px solid #DCDCDC;
 		position: relative;
-	   }
+	}
 	#content .block1,
 	#content .block2 {
 		position: absolute;
@@ -528,20 +506,18 @@
 		border-bottom: 30px solid white;
 		bottom: -3px;
 	}
-
-
 	/*Карточка для формы*/
-		a.a_question {
+		#content a.a_question {
 			color: #454F5D;
 			text-transform: uppercase;
 		}
-		#question form {
+		#content #question form {
 			width: 100%;
 			padding: 2em;
 			margin: 0 auto;
 			height: auto;
 		}
-		#question .mdl-card__supporting-text p {
+		#content #question .mdl-card__supporting-text p {
 			font-size: 1.4em;
 			font-weight: 500;
 			line-height: 1.3em;
@@ -549,15 +525,15 @@
 			margin: 0 auto;
 			color: #3F4A58;
 		}
-		#question .blockForForm button {
+		#content #question .blockForForm button {
 			min-width: 35%;
 			display: block;
 			margin: 0 auto;
 		}
-		#question .blockForForm button:hover {
+		#content #question .blockForForm button:hover {
 			background-color: #018B06;
 		}
-		div#question.opened {
+		#content div#question.opened {
 			max-width: 360px;
 			min-width: 340px;
 		}
@@ -570,10 +546,7 @@
 			position: relative;
 			z-index: 20;
 			display: block;
-			height: 30px;
 			cursor: pointer;
-
-			font-family: 'Roboto', sans-serif;
 			padding: 5px 20px;
 			color: #454F5D;
 			line-height: 1.2em;
@@ -623,22 +596,16 @@
 			padding-right: 20px;
 			margin: 0;
 		}
-		.ac-container input:checked ~ article.ac-small{
-			height: 75px;
-		}
-		.ac-container input:checked ~ article.ac-medium{
-			height: 135px;
-		}
-		.ac-container input:checked ~ article.ac-large{
-			height: 220px;
+		.ac-container input:checked ~ article {
+			height: auto;
 		}
 
 	@media (max-width: 400px) {
-		div#question.opened {
+		#content div#question.opened {
 			top: 0 !important;
 			left: 0 !important;
 		}
-		#question form {
+		#content #question form {
 			padding: .5em;
 		}
 	}
@@ -649,32 +616,16 @@
 	#content .page_payment .forflex {
 		flex-basis: 10%;
 	}
-	#content .page_payment .blockline {
-		padding: 7%;
-	}
 	#content .page_payment p,
-	#content .page_payment .text_block  {
-		font-size: 1.4em;
-		font-weight: 100;
-		line-height: 1.2em;
+	#content .page_payment .text_block {
 		text-align: justify;
 		margin: 3% auto;
-	}
-	#content .page_payment .blockline:first-child {
-		padding-top: 2%;
-	}
-	#content .page_payment .blockline:nth-child(2),
-	#content .page_payment .blockline:nth-child(4),
-	#content .page_payment .blockline:nth-child(5),
-	#content .page_payment .blockline:nth-child(6),
-	#content .page_payment .blockline:nth-child(7) {
+	}	
+	#content .page_payment .blockline:nth-child(2) {
 		border: none;
 	}
-	#content .page_payment .blockline:last-child {
-		border-top: 1px solid #E6EAED;
-	}
 	#content .page_payment img {
-		width: 75%;
+		width: 70%;
 	}
 	#content .page_payment .payment_block > img {
 		-webkit-filter: grayscale(100%);
@@ -709,7 +660,7 @@
 	}
 	#content .block2 {
 		border-bottom: 30px solid white;
-		bottom: -3px;
+		bottom: -4px;
 	}
 	#content .page_payment h5 {
 		font-size: 1.6em;
@@ -719,7 +670,10 @@
 		width: 90%;
 		text-align: left;
 	}
-	#content .page_payment #info_text_block_on_line img {
+	#content .page_payment [id^="info_text_block_"] div {
+		margin-top: 20px;
+	}
+	#content .page_payment [id^="info_text_block_"] img {
 		float: left;
 		min-width: 10%;
 		max-width: 10%;
@@ -732,69 +686,53 @@
 	#content .page_payment #info_text_block_on_line h5 {
 		margin: 0;
 	}
-
+	#content .page_payment ul {
+		font-size: 1.3em;
+		font-weight: 400;
+		list-style: disc;
+		color: #47525d;
+	}
+	#content .page_payment li {
+		font-weight: 100;
+		margin-left: 16%;
+	}
 	/*Media*/
-		@media (max-width: 1300px) {
-			#content .page_payment h4 {
-				font-size: 1.4em;
-			}
-			#content .page_payment h5 {
-				font-size: 1.2em;
-			}
-		}
 		@media (max-width: 500px) {
 			#content .page_payment #info_text_block_answers {
 				display: block;
 			}
-			#content .page_payment #PaymentBlockMain {
+			#content .page_payment #paymentBlockMain {
 				display: none;
 			}
-
 			#content .page_payment .payment_block > img {
 				-webkit-filter: grayscale(0%);
 			}
-
 			#content .page_payment .flexwrapp {
 				flex-direction: column;
-			}
-
-			.ac-container input:checked ~ article.ac-large{
-			height: auto;
 			}
 			#content .page_payment #info_text_block_answers img {
 				width: 20%;
 				display: inline-block;
-				/* float: left; */
 			}
-
-			#content .page_payment label {
-				height: auto;
-			}
-
 			#content .page_payment label:hover {
 				text-decoration: none;
 			}
-
-			#content .page_payment #info_text_block_answers .ac-large img {
+			#content .page_payment #info_text_block_answers img {
 				width: 10%;
-				float: left;
 				margin-right: 10px;
 			}
 			#content .page_payment #info_text_block_answers article {
 				border-bottom: 1px solid #DCDCDC;
 			}
-
-			#content .page_payment .ac-large p {
+			#content .page_payment p {
 				margin-left: 20px;
 			}
-
 			#content .page_payment h4 {
 				font-size: 1em !important;
 				width: 70% !important;
 				display: inline-block;
 			}
 		}
-
 		@media (min-width: 500px) {
 			#content .page_payment #info_text_block_answers {
 				display: none;
@@ -803,12 +741,11 @@
 
 /* Страница "Поставки магазинам"/ class="page_supply" ******************* */
 /* Страница "Скидки" / class="page_discounts" *************************** */
-/* Страница "Обеспечение быта"/ class="page_provision" ****************** */
-	@media (max-width: 1535px) {
-		#content .page_provision button {
-			min-width: 60%;
-		}
+	#content .page_discounts {
+		border-bottom: 1px solid #E6EAED;
 	}
+
+/* Страница "Обеспечение быта"/ class="page_provision" ****************** */
 /* Страница "Снабжение предприятий" / class="page_provision_companies" ** */
 	#content .page_provision_companies img,
 	#content .page_provision_companies button {
@@ -821,13 +758,12 @@
 		#content .page_provision_companies button {
 			min-width: 40%;
 		}
-		#content .page_provision_companies .flexColumn button {
-			margin-bottom: 20px;
-			min-width: 60%;
+		#content .page_provision_companies img {
+			max-width: 38% !important;
 		}
 		#content .page_provision_companies .flexColumn button {
 			margin-bottom: 20px;
-			font-size: 1.4em;
+			min-width: 60%;
 		}
 	}
 	@media (max-width: 600px) {
@@ -836,7 +772,7 @@
 		}
 	}
 
-/* Страница "Контакты" / class="page_contacts"  ************************* */
+/* Страница "Контакты" / class="page_contacts" ************************** */
 	#content .page_contacts {
 		text-align: center;
 	}
@@ -854,9 +790,6 @@
 	}
 	#content .page_contacts .blockOfText {
 		padding: 0;
-	}
-	#content .page_contacts .blockOfText p {
-		font-size: 1.8em;
 	}
 	#content .page_contacts .blockOfText p.forflex {
 		margin-top: 0;
@@ -887,18 +820,10 @@
 	#content .page_contacts button.orangeBtn {
 		background-color: #ff5722;
 	}
-	#content .page_contacts .three_inline .info_circle img {
-		width: 61%;
-	}
-	#content .page_contacts .info_circle h5 {
-		font-size: 2em;
-	}
 	#content .page_contacts .info_circle p {
-		font-size: 1.4em;
 		width: 220px;
 		min-height: 100px;
 	}
-
 	/*Карточка для формы*/
 		#offers form {
 			width: 100%;
@@ -930,13 +855,7 @@
 		@media (min-width: 600px) and (max-width: 1300px) {
 			#content .page_contacts .blockOfText p {
 				width: 60%;
-				font-size: 1.4em;
-			}
-			#content .page_contacts .three_inline .info_circle h5 {
-				font-size: 1.6em;
-			}
-			#content .page_contacts .three_inline .info_circle p {
-				font-size: 1.2em;
+				/*font-size: 1.4em;*/
 			}
 		}
 		@media (max-width: 1100px) { 
@@ -949,18 +868,11 @@
 				margin-bottom: 20px;
 				min-width: 70%;
 			}
-			#content .page_contacts .blockOfText p {
-				font-size: 1.4em;
-			}
-			#content .page_contacts .info_circle h5 {
-				font-size: 1.1em;
-			}
 			#content .page_contacts .three_inline .info_circle p {
 				font-size: 1em;
 				width: 140px;
 			}
 			#content .page_contacts h1 {
-				font-size: 1.7em;
 				margin-bottom: 0;
 			}
 		}
@@ -972,12 +884,11 @@
 				min-width: 90%;
 				font-size: 1em;
 			}
-			#content .page_contacts .blockOfText p,
-			#content .page_contacts .blockOfText .mini_text {
+			#content .page_contacts .blockOfText p.forflex {
 				width: 100%;
 			}
-			#content .page_contacts .three_inline .info_circle h5 {
-				font-size: 1.2em;
+			#content .page_contacts .three_inline .info_circle h4 {
+				font-size: 1.1em;
 			}
 			#content .page_contacts .three_inline .info_circle p {
 				width: 100px;
@@ -987,7 +898,7 @@
 			}
 		}
 
-/* Страница "Стать дилером" / class="page_dealer" *************************** */
+/* Страница "Стать дилером" / class="page_dealer" *********************** */
 	#content .page_dealer .main_img {
 		max-width: 17%;
 		margin: 0 auto;
@@ -1012,7 +923,7 @@
 	#content .page_dealer li {
 		text-align: left;
 		font-weight: 100;
-		font-size: 1.8em;
+		font-size: 1.3em;
 		line-height: 1.4em;
 		list-style-type: disc;
 	}
@@ -1020,11 +931,7 @@
 		margin: 0 0 0 auto;
 		min-width: 55%;
 	}
-	#content .page_dealer .info_circle img {
-		max-width: 55%;
-	}
 	#content .page_dealer .info_circle p {
-		font-size: 1.4em;
 		font-weight: 500;
 	}
 	@media (max-width: 1535px) {
@@ -1057,22 +964,13 @@
 		#content .page_dealer li {
 			font-size: 1.2em;
 		}
-		#content .page_dealer h4 {
-			font-size: 2.2em;
-		}
 	}
 	@media (max-width: 964px) {
 		#content .page_dealer .container .forflex {
 			flex-basis: 55%;
 		}
-		#content .page_dealer h1 {
-			font-size: 1.7em;
-		}
 		#content .page_dealer ul {
 			margin-left: 22%;
-		}
-		#content .page_dealer h4 {
-			font-size: 1.8em;
 		}
 		#content .page_dealer li {
 			font-size: 1.2em;
@@ -1083,7 +981,7 @@
 		}
 	}
 
-/* Общие медиа запросы   ***************/
+/* Общие медиа запросы ****************************************************/
 	@media (max-width: 1535px) {
 		#content .blockOfText {
 			text-align: center;
@@ -1092,28 +990,25 @@
 			max-width: 60%;
 			margin: 0 auto;
 		}
-		#content .blockline {
-			padding-bottom: 14%;
-		}
 		#content .blockline:first-child {
 			padding-bottom: 7%;
 		}
 		/*Стили для четырех страниц .four_pages*/
+			#content .four_pages .blockline:first-child,
+			#content .four_pages .blockline:last-child {
+				padding-bottom: 4%;
+			}
 			#content .four_pages .blockline {
 				padding-bottom: 14%;
 			}
 			#content .four_pages .btn_plus {
-				bottom: 7%;
+				bottom: 12%;
 			}
 			#content .four_pages .btn_plus.pos-left {
-				left: calc(50% - 124px);
+				left: calc(50% - 70px);
 			}
 			#content .four_pages .btn_plus.pos-right {
-				right: calc(50% - 124px);
-			}
-			#content .four_pages .blockOfText p {
-				max-width: 70%;
-				margin: 0 auto;
+				right: calc(50% - 80px);
 			}
 			#content .four_pages .forflex  {
 				flex-basis: 48%;
@@ -1127,6 +1022,9 @@
 			#content .four_pages img {
 				max-width: 65%;
 			}
+			#content .page_provision button {
+				min-width: 60%;
+			}
 	}
 	@media (max-width: 1350px) {
 		#content .block_circles .forflex {
@@ -1134,15 +1032,19 @@
 		}
 	}
 	@media (max-width: 1300px) {
-		#content .page_payment p,
-		#content .page_information p {
-			font-size: 1.2em;
-		}
 		#content .ac-container div {
 			margin-bottom: 10px;
 		}
+		#content .page_payment h4,
+		#content .page_information h4 {
+			font-size: 1.4em;
+			text-align: center;
+		}
 	}
-	@media (max-width: 1100px) {
+	@media (max-width: 1100px) {		
+		#content .blockOfText p {
+			max-width: 70%;
+		}
 		#content .block1,
 		#content .block2 {
 			border: 20px solid transparent;
@@ -1164,7 +1066,12 @@
 		#content .four_pages button,
 		#content .four_pages .flexColumn button {
 			min-width: 80%;
-			font-size: 1.2em;
+		}
+		#content h1 {
+			font-size: 1.7em;
+		}
+		#content .page_information article p {
+			font-size: 1.1em;
 		}
 	}
 	@media (max-width: 950px) {
@@ -1179,27 +1086,29 @@
 
 		#content .page_information h4,
 		#content .page_payment h4 {
-			font-size: 1.2em;
-			width: 100px;
 			margin: 10% auto;
-		}
-		#content .page_payment h5 {
-			font-size: 1.2em;
 		}
 	}
 	@media (max-width: 600px) {
 		#content button {
 			font-size: 1.2em;
 		}
+		#content .blockOfText p,
+		#content .page_about_us p {
+			max-width: 100%;
+		}
 		/*Стили для четырех страниц .four_pages*/
 			#content .four_pages img {
 				max-width: 60%;
 			}
+			#content .four_pages .info_circle h1 {
+				font-size: 1.7em;
+			}
 			#content .four_pages .blockOfText h4{
-				font-size: 1.8em;
+				font-size: 1.4em;
 			}
 			#content .four_pages .blockOfText p {
-				font-size: 1.2em;
+				font-size: 1em;
 				min-width: 100%;
 			}
 			#content .four_pages .btn_plus span {
@@ -1209,7 +1118,6 @@
 				line-height: .9em;
 			}
 			#content .four_pages .btn_plus p {
-				font-size: 16px;
 				width: 180px;
 				margin: 0 auto;
 			}
@@ -1229,20 +1137,13 @@
 				min-width: 90%;
 				font-size: 1.1em;
 			}
-
 			#content .four_pages .info_circle_img {
 				width: 100px;
 				height: 100px;
 			}
 	}
 	@media (min-width: 550px) and (max-width: 1420px) {
-		/*#content p {
-			font-size: 1.4em;
-		}
-		#content h4 {
-			font-size: 2.4em;
-		}*/
-		#content .ac-container article p {
+		.ac-container article p {
 			font-size: 1.2em;
 		}
 	}
@@ -1260,10 +1161,6 @@
 		#content .page_payment h4 {
 			font-size: 1em;
 		}
-
-		#content h1	{
-			font-size: 1.7em !important;
-		}
 		#content .page_delivery h4,
 		#content .page_about_us h4 {
 			font-size: 1.8em !important;
@@ -1271,6 +1168,12 @@
 		#content .page_delivery p,
 		#content .page_about_us p {
 			font-size: 1.2em !important;
+		}
+	}
+	@media (max-width: 500px) {
+		#content .page_payment ul {
+			font-size: .9em;
+			float: right;
 		}
 	}
 	@media (max-width: 450px) {

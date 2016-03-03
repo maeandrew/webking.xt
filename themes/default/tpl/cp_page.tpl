@@ -17,7 +17,7 @@
 	}?>-->
 
 	<!-- Страница "Доставка" -->
-	<!-- <div id="page_delivery" class="page_delivery hidden">
+	<div id="page_delivery" class="page_delivery ">
 		<div class="blockline">
 			<img class="delivery1 forflex" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
@@ -55,10 +55,10 @@
 		<div class="blockline">
 			<img class="delivery5" src="/themes/default/images/page/delivery/delivery5.png" alt="">
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Справка" -->
-	<!-- <div id="page_information" class="page_information ">
+	<div id="page_information" class="page_information ">
 		<div class="blockline">
 			<img class="info0" src="/themes/default/images/page/info/info0.png" alt="">
 			<h1>Справка</h1>
@@ -443,10 +443,10 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Оплата" -->
-	<!-- <div id="page_payment" class="page_payment " >
+	<div id="page_payment" class="page_payment " >
 		<div class="blockline">
 			<img class="payment0" src="/themes/default/images/page/payment/payment0.png" alt="">
 			<h1>Оплата</h1>
@@ -459,21 +459,21 @@
 						<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
 						<h4>Он-лайн оплата</h4>
 					</label>
-					<article class="ac-large">
+					<article>
 						<div>
 							<img src="/themes/default/images/page/payment/privat24.png" alt="">
-							<h5>Система проведения платежей Приват24</h5>
-							<p>0,5% или по тарифам карты, кредитка 3%</p>
+							<ul>Система проведения платежей Приват24
+								<li>комиссия: по тарифам карты</li></ul>
 						</div>
 						<div>
 							<img src="/themes/default/images/page/payment/paypal.png" alt="">
-							<h5>Система проведения платежей PayPal</h5>
-							<p>1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</p>
+							<ul>Система проведения платежей PayPal
+								<li>комиссия: 1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</li></ul>
 						</div>
 						<div>
 							<img src="/themes/default/images/page/payment/webmoney.png" alt="">
-							<h5>WebMoney</h5>
-							<p>по курсу на момент оплаты + 1%</p>
+							<ul>WebMoney
+								<li>комиссия: по курсу на момент оплаты + 1%</li></ul>
 						</div>
 					</article>
 				</div>
@@ -483,14 +483,16 @@
 						<img src="/themes/default/images/page/payment/payment2.png" alt="someimg">
 						<h4>Офф-лайн оплата</h4>
 					</label>
-					<article class="ac-large">
+					<article>
 						<div class="forflex">
-							<h5>Пополнение карточного счёта через терминал</h5>
-							<p>согласно тарифов банка 0,5%</p>
+							<img src="/themes/default/images/page/payment/atm.png" alt="">
+							<ul>Пополнение карточного счёта через терминал
+								<li>комиссия: согласно тарифам банка</li></ul>
 						</div>
 						<div class="forflex">
-							<h5>Пополнение карточного счёта в отделении банка</h5>
-							<p>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</p>
+							<img src="/themes/default/images/page/payment/bank.png" alt="">
+							<ul>Пополнение карточного счёта в отделении банка
+								<li>комиссия: согласно тарифам банка (ПриватБанк 2грн. + 0,5% от суммы)</li></ul>
 						</div>
 					</article>
 				</div>
@@ -500,18 +502,15 @@
 						<img src="/themes/default/images/page/payment/payment3.png" alt="someimg">
 						<h4>Наличный расчёт</h4>
 					</label>
-					<article class="ac-large">
+					<article>
 						<div class="forflex">
-							<h5>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)</h5>
-							<p>20грн. + 2% в качестве комиссии перевозчику</p>
+							<ul>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)<li>комиссия: 20грн. + 2% в качестве комиссии перевозчику</li></ul>
 						</div>
 						<div class="forflex">
-							<h5>Оплата наличными при доставке (доставка нашим транспортом)</h5>
-							<p>без переплат</p>
+							<ul>Оплата наличными при доставке (доставка нашим транспортом)<li>комиссия: 0%</li></ul>
 						</div>
 						<div class="forflex">
-							<h5>Наличный расчет (оплата в точке выдачи)</h5>
-							<p>без переплат</p>
+							<ul>Наличный расчет (оплата в точке выдачи)<li>комиссия: 0%</li></ul>
 						</div>
 					</article>
 				</div>
@@ -521,14 +520,13 @@
 						<img src="/themes/default/images/page/payment/payment4.png" alt="someimg">
 						<h4>Безналичный расчёт</h4>
 					</label>
-					<article class="ac-large">
-						<h5>Безналичный расчёт, без НДС</h5>
-						<p>1% обналичка, 4% заморозка цен</p>
+					<article>
+						<ul>Безналичный расчёт, без НДС<li>комиссия: 1% обналичка, 4% заморозка цен</li></ul>
 					</article>
 				</div>
 			</section>
 		</div>
-		<div id="PaymentBlockMain">
+		<div id="paymentBlockMain">
 			<div class="blockline flexwrapp">
 				<div id="paymentBlock1" class="payment_block forflex" data-target="ppp1">
 					<img src="/themes/default/images/page/payment/payment1.png" alt="someimg">
@@ -547,56 +545,47 @@
 					<h4>Безналичный <br>расчёт</h4>
 				</div>
 			</div>
-
 			<div class="blockforline hidden">
 				<div class="block1"></div>
 				<div class="block2"></div>
 			</div>
-
 			<div id="info_text_block_on_line" class="ppp1 blockline styleFortext hidden">
 				<div>
 					<img src="/themes/default/images/page/payment/privat24.png" alt="">
-					<h5>Система проведения платежей Приват24</h5>
-					<p>0,5% или по тарифам карты, кредитка 3%</p>
+					<ul>Система проведения платежей Приват24<li>комиссия: по тарифам карты</li></ul>
 				</div>
 				<div>
 					<img src="/themes/default/images/page/payment/paypal.png" alt="">
-					<h5>Система проведения платежей PayPal</h5>
-					<p>1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</p>
+					<ul>Система проведения платежей PayPal<li>комиссия: 1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</li></ul>
 				</div>
 				<div>
 					<img src="/themes/default/images/page/payment/webmoney.png" alt="">
-					<h5>WebMoney</h5>
-					<p>по курсу на момент оплаты + 1%</p>
+					<ul>WebMoney<li>комиссия: по курсу на момент оплаты + 1%</li></ul>
 				</div>
 			</div>
 			<div id="info_text_block_off_line" class="ppp2 blockline styleFortext hidden">
 				<div class="forflex">
-					<h5>Пополнение карточного счёта через терминал</h5>
-					<p>согласно тарифов банка 0,5%</p>
+					<img src="/themes/default/images/page/payment/atm.png" alt="">
+					<ul>Пополнение карточного счёта через терминал<li>согласно тарифов банка 0,5%</li></ul>
 				</div>
 				<div class="forflex">
-					<h5>Пополнение карточного счёта в отделении банка</h5>
-					<p>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</p>
+					<img src="/themes/default/images/page/payment/bank.png" alt="">
+					<ul>Пополнение карточного счёта в отделении банка<li>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</li></ul>
 				</div>
 			</div>
 			<div id="info_text_block_payment_1" class="ppp3 blockline styleFortext hidden">
 				<div class="forflex">
-					<h5>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)</h5>
-					<p>20грн. + 2% в качестве комиссии перевозчику</p>
+					<ul>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)<li>комиссия: 20грн. + 2% в качестве комиссии перевозчику</li></ul>
 				</div>
 				<div class="forflex">
-					<h5>Оплата наличными при доставке (доставка нашим транспортом)</h5>
-					<p>без переплат</p>
+					<ul>Оплата наличными при доставке (доставка нашим транспортом)<li>комиссия: 0%</li></ul>
 				</div>
 				<div class="forflex">
-					<h5>Наличный расчет (оплата в точке выдачи)</h5>
-					<p>без переплат</p>
+					<ul>Наличный расчет (оплата в точке выдачи)<li>комиссия: 0%</li></ul>
 				</div>
 			</div>
 			<div id="info_text_block_payment_2" class="ppp4 blockline styleFortext hidden">
-				<h5>Безналичный расчёт, без НДС</h5>
-				<p>1% обналичка, 4% заморозка цен</p>
+				<ul>Безналичный расчёт, без НДС<li>комиссия: 1% обналичка, 4% заморозка цен</li></ul>
 			</div>
 		</div>
 		<div class="blockline">
@@ -605,10 +594,10 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "O нас" -->
-	<!-- <div id="page_about_us" class="page_about_us ">
+	<div id="page_about_us" class="page_about_us ">
 		<div class="blockline">
 			<img class="about1" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
@@ -692,11 +681,10 @@
 			<img class="about4" src="/themes/default/images/page/about/about4.png" alt="">
 			<h4>Мы стараемся ради Вас!<br>Присоединяйтесь!</h4>
 		</div>
-	</div> -->
-
+	</div>
 
 	<!-- Страница "Поставки магазинам" -->
- 	<!-- <div id="page_supply" class="page_supply four_pages ">
+ 	<div id="page_supply" class="page_supply four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
@@ -717,12 +705,12 @@
 		<div class="invisibleblock blockline">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
-					<h5>Выбор<br>сезона</h5>
+					<h5>Выбор сезона</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Выберите сезон на графике</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>Просмотр<br>товаров</h5>
+					<h5>Просмотр товаров</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Мы покажем информацию о сезонном спросе</p>
 				</div>
@@ -744,12 +732,12 @@
 		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
-					<h5>Выбор<br>скидки</h5>
+					<h5>Выбор скидки</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Для изменения цен на сайте используйте палитру скидок</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>Контроль<br>бюджета</h5>
+					<h5>Контроль бюджета</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Выбирайте скидку, исходя из своего бюджета</p>
 				</div>
@@ -771,7 +759,7 @@
 		<div class="invisibleblock">
 			<div class="flexwrapp">
 				<div class="info_circle forflex">
-					<h5>Добавление<br>друга</h5>
+					<h5>Добавление друга</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Используйте вкладку "Участники" в информации о Вашем заказе</p>
 				</div>
@@ -780,10 +768,10 @@
 		<div class="blockline">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Обеспечение быта" -->
-	<!-- <div id="page_provision" class="page_provision four_pages ">
+	<div id="page_provision" class="page_provision four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
@@ -830,12 +818,12 @@
 		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
-					<h5>Выбор<br>скидки</h5>
+					<h5>Выбор скидки</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Для изменения цен на сайте используйте палитру скидок</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>Контроль<br>бюджета</h5>
+					<h5>Контроль бюджета</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Выбирайте скидку, исходя из своего бюджета</p>
 				</div>
@@ -865,10 +853,10 @@
 		<div class="blockline">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Скидки" -->
-	<!-- <div id="page_discounts" class="page_discounts four_pages ">
+	<div id="page_discounts" class="page_discounts four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
@@ -924,12 +912,12 @@
 		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
-					<h5>Выбор<br>скидки</h5>
+					<h5>Выбор скидки</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Для изменения цен на сайте используйте палитру скидок</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>Контроль<br>бюджета</h5>
+					<h5>Контроль бюджета</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Выбирайте скидку, исходя из своего бюджета</p>
 				</div>
@@ -950,45 +938,45 @@
 		<div class="invisibleblock">
 			<div class="flexwrapp block_circles two_inline">
 				<div class="info_circle forflex">
-					<h5>1</h5>
+					<h5>Шаг 1</h5>
 					<img src="/themes/default/images/page/discounts/circle1.png" alt="">
 					<p>Оформите заказ на 500 грн</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>2</h5>
+					<h5>Шаг 2</h5>
 					<img src="/themes/default/images/page/discounts/circle2.png" alt="">
 					<p>Активируйте бонусную карту в кабинете</p>
 				</div>
 			</div>
 			<div class="flexwrapp block_circles two_inline">
 				<div class="info_circle forflex">
-					<h5>3</h5>
+					<h5>Шаг 3</h5>
 					<img src="/themes/default/images/page/discounts/circle3.png" alt="">
 					<p>Получите первые 20 грн. на счет</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>4</h5>
+					<h5>Шаг 4</h5>
 					<img src="/themes/default/images/page/discounts/circle4.png" alt="">
 					<p>Получите несгораемый 1% от суммы заказа, оформленного в течении 30 дней</p>
 				</div>
 			</div>
 			<div class="flexwrapp block_circles two_inline">
 				<div class="info_circle forflex">
-					<h5>5</h5>
+					<h5>Шаг 5</h5>
 					<img src="/themes/default/images/page/discounts/circle5.png" alt="">
 					<p>Получите 2% от суммы третьего заказа, оформленного в течении 30 дней</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>6</h5>
+					<h5>Шаг 6</h5>
 					<img src="/themes/default/images/page/discounts/circle6.png" alt="">
 					<p>Получите 3% от суммы четвертого и более заказа, оформленного в течении 30 дней</p>
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Снабжение предприятий" -->
-	<!-- <div id="page_provision_companies" class="page_provision_companies four_pages ">
+	<div id="page_provision_companies" class="page_provision_companies four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
@@ -1094,7 +1082,7 @@
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить свою смету</button>
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для предприятий</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Контакты" -->
 	<div id="page_contacts" class="page_contacts ">
@@ -1133,19 +1121,19 @@
 		<div class="blockline">
 			<div class="flexwrapp three_inline">
 				<div class="info_circle forflex">
-					<h5>ПАРТНЕРАМ</h5>
+					<h4>ПАРТНЕРАМ</h4>
 					<img src="/themes/default/images/page/contacts/contacts1.png" alt="">
 					<p>Все Ваши пожелания и предложения по сотрудничеству отправляйте на E-mail:</p>
 					<p class="pEmail">partner@x-torg.com</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>ЛОГИСТИКА</h5>
+					<h4>ЛОГИСТИКА</h4>
 					<img src="/themes/default/images/page/contacts/contacts2.png" alt="">
 					<p>Вы хотите предложить нам услуги грузоперевозок </p>
 					<p class="pEmail">logistika@x-torg.com</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>МАРКЕТИНГ</h5>
+					<h4>МАРКЕТИНГ</h4>
 					<img src="/themes/default/images/page/contacts/contacts3.png" alt="">
 					<p>Отдел маркетинга и рекламы</p>
 					<p class="pEmail">marketolog@x-torg.com</p>
@@ -1175,7 +1163,7 @@
 	</div>
 
 	<!-- Страница "Как стать дилером" -->
-	<!-- <div id="page_dealer" class="page_dealer">
+	<div id="page_dealer" class="page_dealer">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/dealer/dealer0.png" alt="">
 			<h1>Как стать дилером</h1>
@@ -1227,5 +1215,5 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </div><!--id="content"-->
