@@ -294,101 +294,7 @@
 					<script>
 						ListenPhotoHover(); //Инициализания Preview
 					</script>
-					<!-- <div class="products">
-						<div class="card clearfix">
-							<div class="product_photo">
-								<a href="#">
-									<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini1.jpg" alt="">
-								</a>
-							</div>
-							<p class="product_name"><a href="/product.html">Игрушка детская «Веселый поезд»</a> <span class="product_article">Арт: 109742</span></p>
-							<div class="product_buy">
-								<p class="price">29000,34</p>
-								<div class="buy_block">
-									<div class="btn_remove">
-										<button class="mdl-button material-icons">remove</button>
-									</div>
-									<input type="text" class="qty_js" value="0">
-									<div class="btn_buy">
-										<button class="mdl-button mdl-js-button buy_btn_js" type="button">Купить</button>
-									</div>
-								</div>
-							</div>
-							<div class="product_info clearfix">
-								<div class="note clearfix">
-									<textarea placeholder="Примечание: "></textarea>
-									<label class="info_key">?</label>
-									<div class="info_description">
-										<p>Поле для ввода примечания к товару.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card clearfix">
-							<div class="product_photo">
-								<a href="#">
-									<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini1.jpg" alt="">
-								</a>
-							</div>
-							<p class="product_name"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio iure, sint voluptatibus aliquam nobis pariatur voluptas vel ullam! Incidunt fugit provident temporibus, excepturi sint assumenda harum velit nesciunt veniam, quidem.</a> <span class="product_article">Арт: 109742</span></p>
-							<div class="product_buy">
-								<p class="price">29000,34</p>
-								<div class="buy_block">
-									<div class="btn_remove">
-										<button class="mdl-button material-icons">remove</button>
-									</div>
-									<input type="text" class="qty_js" value="0">
-									<div class="btn_buy">
-										<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
-									</div>
-								</div>
-							</div>
-							<div class="product_info clearfix">
-								<div class="note in_cart clearfix">
-									<textarea placeholder="Примечание: "></textarea>
-									<label class="info_key">?</label>
-									<div class="info_description">
-										<p>Поле для ввода примечания к товару.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card clearfix">
-							<div class="product_photo">
-								<a href="#">
-									<img src="<?=$GLOBALS['URL_img_theme']?>chair_mini1.jpg" alt="">
-								</a>
-							</div>
-							<p class="product_name"><a href="#">Игрушка детская «Веселый поезд»</a> <span class="product_article">Арт: 109742</span></p>
-							<div class="product_buy">
-								<p class="price">29,34</p>
-								<div class="buy_block">
-									<div class="btn_remove">
-										<button class="mdl-button material-icons">remove</button>
-									</div>
-									<input type="text" class="qty_js" value="0">
-									<div class="btn_buy">
-										<button class="mdl-button mdl-js-button buy_btn_js" type="button"><i class="material-icons">add</i></button>
-									</div>
-								</div>
-							</div>
-							<div class="product_info clearfix">
-								<div class="note in_cart clearfix">
-									<textarea class="required" placeholder="Примечание: обязательно"></textarea>
-									<label class="info_key">?</label>
-									<div class="info_description">
-										<p>Поле для ввода примечания к товару.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
-
-
-
-
 					<div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div>
-
 				<?}?>
 			</div>
 			<?if(isset($seotext)){?>
@@ -443,6 +349,11 @@
 							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 							<!-- test -->
 							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins> -->
+							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+						<?}elseif($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 480){?>
+							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+							<!-- Категории2 -->
+							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins> -->
 							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
 						<?}?>
 					<?}else{?>
@@ -633,7 +544,6 @@
 					<p class="msg_for_client">Я свяжусь с Вами в ближайшее время.</p>
 				</div>
 			</div>
-
 			<div class="progress">
 				<div class="line">
 					<div class="line_active"></div>
