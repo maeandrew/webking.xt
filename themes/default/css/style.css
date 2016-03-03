@@ -1448,7 +1448,7 @@ section .stat_year {
 }
 .content_header .cart_info {
 	float: right;
-	width: auto;
+	width: 500px;
 	position: relative;
 	border-bottom: 2px solid #e5e5e5;
 	padding-bottom: 5px;
@@ -1456,7 +1456,7 @@ section .stat_year {
 	-o-transition: all .3s cubic-bezier(.4, 0, .2, 1);
 	transition: all .3s cubic-bezier(.4, 0, .2, 1);
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-end;
 }
 .content_header:hover .cart_info {
 	border-color: #FF5722;
