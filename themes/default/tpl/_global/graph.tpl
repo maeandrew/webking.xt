@@ -88,7 +88,6 @@
 				]
 			};
 			$(function(){
-				console.log(curve);
 				var ctx = document.getElementById("last_orders_count").getContext("2d");
 				var myLineChart = new Chart(ctx).Line(curve, options);
 			});

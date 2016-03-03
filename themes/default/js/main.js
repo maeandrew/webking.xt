@@ -836,25 +836,16 @@ $(function(){
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
 		form.find('.error').fadeOut();
-		$.ajax({
-			url: URL_base+'ajax',
-			type: "POST",
-			dataType : "json",
-			data: {
-				"target": 'auth',
-				"action": 'login',
-				"email": email,
-				"passwd": passwd
-			}
-		}).done(function(data){
-			removeLoadAnimation('#auth');
-			var parrent = $('.header_nav [for="demo-menu-lower-right"]');
+		e.preventDefault();
+		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
+			var parent = $('.header_nav [for="demo-menu-lower-right"]');
 			if(data.errm != 1){
-				parrent.find('.mdl-menu__item .user_name').text(data.member.name);
-				parrent.find('.mdl-menu__item .user_email').text(data.member.email);
-				parrent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
-				parrent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
-				parrent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
+				removeLoadAnimation('#auth');
+				parent.find('.mdl-menu__item .user_name').text(data.member.name);
+				parent.find('.mdl-menu__item .user_email').text(data.member.email);
+				parent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
+				parent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
+				parent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
 				closeObject('auth');
 				$('.cabinet_btn').removeClass('hidden');
 				$('.login_btn').addClass('hidden');
