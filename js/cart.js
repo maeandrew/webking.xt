@@ -46,6 +46,7 @@ function SendToAjax(id, qty, button, direction, note){
 			$('div[data-idproduct="'+id+'"]').find('.other_price .price_js').text(data.product.other_prices[$.cookie('sum_range')].toFixed(2));
 			$('div[data-idproduct="'+id+'"]').find('.other_price .mode_js').text(mode_text);
 		}
+		removeLoadAnimation('div[data-idproduct="'+id+'"]');
 	});
 }
 
@@ -66,6 +67,7 @@ function removeFromCart(id){
 function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+	addLoadAnimation('.product_buy[data-idproduct="'+id+'"]');
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
 	}else{

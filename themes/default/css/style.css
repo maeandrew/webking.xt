@@ -1660,6 +1660,7 @@ section .stat_year {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	position: relative;
 }
 #cart .product_buy {
 	width: 30%;
