@@ -7,7 +7,6 @@
        // });
   //  });
 </script>
-<? require "cp_customer_cab_leftside.tpl";?>
 <div class="cabinet_content customer_cab">
     <div class="msg-info">
         <p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или

@@ -43,9 +43,11 @@ if($promo) {
     $tpl->Assign('prodsCarts', $productsFromCarts);
 
 	$details = array(); $sum_prods = 0;
-	foreach($productsFromCarts as $prod){
-		$sum_prods += $prod['sum_prod'];// общая сумма в корзине по всем заказам
-	};
+	if (isset($productsFromCarts) && is_array($productsFromCarts)){
+		foreach($productsFromCarts as $prod){
+			$sum_prods += $prod['sum_prod'];// общая сумма в корзине по всем заказам
+		};
+	}
 	$details['sum_prods'] = number_format($sum_prods,2,',','');
 	if ($details['sum_prods'] > 0 && $details['sum_prods'] <= 500) {
 		$details['discount'] = 0;

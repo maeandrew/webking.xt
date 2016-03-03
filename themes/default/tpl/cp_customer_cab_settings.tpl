@@ -1,4 +1,3 @@
-<? require "cp_customer_cab_leftside.tpl";?>
 <div class="row">
 	<div class="customer_cab col-md-6">
 

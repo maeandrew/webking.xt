@@ -422,6 +422,7 @@ body:not(.c_main) .banner {
 	z-index: 101;
 }
 [data-type="modal"] .modal_container {
+	position: relative;
 	overflow: hidden;
 	overflow-y: auto;
 	min-height: 65px;
@@ -517,6 +518,10 @@ section.center {
 }
 .no-sidebar section.center {
 	width: 100%;
+}
+
+.no-sidebar .content {
+	padding: 0;
 }
 
 
@@ -757,7 +762,7 @@ section.center {
 	float: left;
 }
 #cart .title_cart{
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	background-color: white;
 	z-index: 1;
@@ -1033,7 +1038,7 @@ ul.phone_nav_contacts li span {
 	float: left;
 	border: 1px solid #e0e0e0;
 	padding: 10px;
-	width: 200px;
+	width: 19.05%;
 	box-sizing: border-box;
 	margin-right: 20px;
 	/*position: absolute;*/
