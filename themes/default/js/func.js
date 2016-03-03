@@ -1270,6 +1270,12 @@ function openObject(id){
 		}
 		ActivateBG();
 	}
+	if(object.hasClass('opened') && type == "search"){
+		removeLoadAnimation('#'+id);
+	}
+	if(object.hasClass('opened') && type == "panel"){
+		removeLoadAnimation('#'+id);
+	}
 	$(document).keyup(function(e){
 		if(e.keyCode == 27){
 			closeObject(object.attr('id'));
