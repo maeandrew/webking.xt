@@ -24,15 +24,17 @@ $(document).ready(function () {
 			$(this).addClass('active');
 			target.removeClass('hidden')
 			$(this).find('img').css('-webkit-filter', 'grayscale(0%)');
-			$(".block1, .block2").css({"left": left[eq]});				
+			$(".block1, .block2").css({"left": left[eq]});
 		}
 	});
 
 	$('.a_question').click(function(event) {
 		openObject('question');
+		removeLoadAnimation('#question');
 	});
 	$('#page_contacts .greenBtn').click(function(event) {
 		openObject('offers');
+		removeLoadAnimation('#offers');
 	});
 
 	$('.payment_block').click(function (e) {
@@ -89,7 +91,7 @@ $(document).ready(function () {
 
 	// if($("#content").width() <= 500) {
 	// 	$("").slideDown('slow/400/fast', function() {
-			
+
 	// 	});()
 	// }
 });

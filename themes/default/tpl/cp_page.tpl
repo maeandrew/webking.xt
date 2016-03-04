@@ -17,7 +17,7 @@
 	}?>-->
 
 	<!-- Страница "Доставка" -->
-	<!-- <div id="page_delivery" class="page_delivery hidden">
+	<div id="page_delivery" class="page_delivery ">
 		<div class="blockline">
 			<img class="delivery1 forflex" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
@@ -55,10 +55,10 @@
 		<div class="blockline">
 			<img class="delivery5" src="/themes/default/images/page/delivery/delivery5.png" alt="">
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Справка" -->
-	<!-- <div id="page_information" class="page_information ">
+	<div id="page_information" class="page_information ">
 		<div class="blockline">
 			<img class="info0" src="/themes/default/images/page/info/info0.png" alt="">
 			<h1>Справка</h1>
@@ -443,10 +443,10 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Оплата" -->
-	<!-- <div id="page_payment" class="page_payment " >
+	<div id="page_payment" class="page_payment " >
 		<div class="blockline">
 			<img class="payment0" src="/themes/default/images/page/payment/payment0.png" alt="">
 			<h1>Оплата</h1>
@@ -605,10 +605,10 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "O нас" -->
-	<!-- <div id="page_about_us" class="page_about_us ">
+	<div id="page_about_us" class="page_about_us ">
 		<div class="blockline">
 			<img class="about1" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
@@ -692,11 +692,11 @@
 			<img class="about4" src="/themes/default/images/page/about/about4.png" alt="">
 			<h4>Мы стараемся ради Вас!<br>Присоединяйтесь!</h4>
 		</div>
-	</div> -->
+	</div>
 
 
 	<!-- Страница "Поставки магазинам" -->
- 	<!-- <div id="page_supply" class="page_supply four_pages ">
+ 	<div id="page_supply" class="page_supply four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
@@ -780,10 +780,10 @@
 		<div class="blockline">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Обеспечение быта" -->
-	<!-- <div id="page_provision" class="page_provision four_pages ">
+	<div id="page_provision" class="page_provision four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
@@ -865,10 +865,10 @@
 		<div class="blockline">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Скидки" -->
-	<!-- <div id="page_discounts" class="page_discounts four_pages ">
+	<div id="page_discounts" class="page_discounts four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
@@ -985,10 +985,10 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Снабжение предприятий" -->
-	<!-- <div id="page_provision_companies" class="page_provision_companies four_pages ">
+	<div id="page_provision_companies" class="page_provision_companies four_pages ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
@@ -1094,7 +1094,7 @@
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить свою смету</button>
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для предприятий</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Контакты" -->
 	<div id="page_contacts" class="page_contacts ">
@@ -1175,7 +1175,7 @@
 	</div>
 
 	<!-- Страница "Как стать дилером" -->
-	<!-- <div id="page_dealer" class="page_dealer">
+	<div id="page_dealer" class="page_dealer">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/dealer/dealer0.png" alt="">
 			<h1>Как стать дилером</h1>
@@ -1227,5 +1227,5 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </div><!--id="content"-->
