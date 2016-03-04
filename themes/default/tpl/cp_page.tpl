@@ -46,7 +46,8 @@
 		<div class="blockline flexwrapp">
 			<div class="forflex blockOfText">
 				<h4>Самовывоз</h4>
-				<p>Производится с парковочных стоянок <br>ТЦ Барабашово, а еще у нас бесплатная <br>доставка товара до парковки.</p>
+				<p>По адресу:
+					г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130.<br><br> А еще у нас бесплатная доставка товара до парковок <br>ТЦ Барабашово.</p>
 			</div>
 			<div class="forflex">
 				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1282.2924160061052!2d36.29807765817873!3d50.00039271893146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAwJzAxLjQiTiAzNsKwMTcnNTcuMCJF!5e0!3m2!1sru!2sru!4v1455287401346" width="495" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -416,7 +417,7 @@
 			</section>
 		</div>
 
-		<div class="blockline">
+		<div class="blockline hidden">
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
 			<p>Qui, magni, adipisci molestiae temporibus nulla aperiam optio doloribus commodi velit delectus beatae et eligendi. Quae quia, voluptates illum sint dolorem mollitia iste nostrum rem. Provident corrupti esse reiciendis molestiae.</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit adipisci pariatur, nihil laboriosam fugit, laborum. Quisquam, iure blanditiis voluptatibus, quibusdam deserunt nobis vero quaerat cupiditate, animi consequatur sed vel facilis.</p>
@@ -618,7 +619,7 @@
 		</div>
 		<div class="blockline">
 			<h4>Что мы ценим</h4>
-			<p>Мы стремимся к простоте и прозрачности. Работая с XT клиент всегда уверен в соответствии каталога складу, а доставка - всегда своевременна. Ещё, мы действительно гордимся нашими оптовыми скидками.</p>
+			<p>Мы стремимся к простоте и прозрачности. Работая с XT клиент всегда уверен в соответствии каталога, а доставка - всегда своевременна. Ещё, мы действительно гордимся нашими оптовыми скидками.</p>
 			<img class="about3" src="/themes/default/images/page/about/about3.png" alt="">
 		</div>
 		<div class="blockline">
@@ -757,11 +758,16 @@
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div class="flexwrapp">
+			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Добавление друга</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Используйте вкладку "Участники" в информации о Вашем заказе</p>
+				</div>
+				<div class="info_circle forflex">
+					<h5>Отправьте приглашение</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>...</p>
 				</div>
 			</div>
 		</div>
@@ -1080,7 +1086,7 @@
 		</div>
 		<div class="blockline flexwrapp flexColumn">
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить свою смету</button>
-			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для предприятий</button>
+			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</button>
 		</div>
 	</div>
 
@@ -1111,10 +1117,10 @@
 
 				<p class="main_text forflex">Администрация:</p>
 				<p class="forflex">Ответственный по связям с общественностью</p>
-				<p class="pEmail forflex">administration@x-torg.com</p>
+				<p class="pEmail forflex">administration@xt.ua</p>
 			</div>
 			<div class="flexwrapp flexColumn">
-				<button class="forflex greenBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Предложения и пожелания</button>
+				<button class="forflex greenBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Пожелания</button>
 				<button class="forflex orangeBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Жалобы</button>
 			</div>
 		</div>

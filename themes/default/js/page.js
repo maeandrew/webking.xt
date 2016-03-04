@@ -29,7 +29,7 @@ $(document).ready(function () {
 	});
 
 	$('.a_question').click(function(event) {
-		openObject('question');
+		openObject('question');		
 	});
 	$('#page_contacts .greenBtn').click(function(event) {
 		openObject('offers');
