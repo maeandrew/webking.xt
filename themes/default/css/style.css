@@ -2537,3 +2537,86 @@ section .stat_year {
 	left: calc(50% - 14px);
 	position: absolute;
 }
+
+
+/* Стили для окна краткой информации пользователя */
+
+#mainUserInf {
+	padding: 0;
+}
+
+#mainUserInf .listItems{
+	height: 35px;
+}
+
+#mainUserInf .manager_contacts {
+	float: left;
+	overflow: hidden;
+	width: 40%;
+}
+
+#mainUserInf .manager_contacts i {
+	margin-right: 0;
+}
+
+#userPic {
+	font-size: 80px;
+	float: left;
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-top: 20px;
+	color: #0396a6;
+}
+
+#userNameInf {
+	font-size: 1.5em;
+	font-weight: bold;
+	height: 40px;
+}
+
+#userNameInf .user_name {
+	color: #666666;
+}
+
+#userNameInf a {
+	margin-left: 5px;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+
+#menuBorder {
+	border-top: 1px solid #b0b0b0;
+	width: 95%;
+	margin: 15px auto;
+}
+
+#manager .user_contr {
+	/* font-weight: bold; */
+	color: #666666;
+}
+
+
+.newStanleyBtn {
+	width: 50%;
+	height: 60px;
+	background-color: #fff;
+	color: #fff;
+	margin: 0;
+	border: none;
+	float: left;
+	border-top: 1px solid #b0b0b0;
+}
+
+.newStanleyBtn:hover {
+	background-color: #ff5722;
+	color: #fff;
+}
+
+#newStanleyBtnBorder {
+	border-right: 1px solid #b0b0b0;
+}
+
+
+/* class="mdl-button mdl-js-button mdl-button--raised" */
+/* style="float: right;right: 10px;top:-10px;background:#018B06;" */
