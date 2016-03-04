@@ -1117,6 +1117,10 @@ aside .catalog .second_nav {
 	padding: 10px 0;
 	/* overflow-y: scroll; */
 }
+aside .catalog .second_nav,
+aside .catalog .second_nav li {
+	font-size: 16px;
+}
 aside .catalog .second_nav .link_wrapp .more_cat {
 	cursor: pointer;
 	border-left: 1px solid transparent;
