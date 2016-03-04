@@ -56,7 +56,7 @@ $(document).ready(function () {
 	});
 
 	var posBasic = 0;
-	// Для страницы "Поставки магазинам"
+	// Для кнопки "btn_plus"
 	$('.btn_plus').click(function (e){
 		e.preventDefault();
 		var target = $(this).closest('.blockline').next(),
@@ -88,10 +88,4 @@ $(document).ready(function () {
 			});
 		}
 	});
-
-	// if($("#content").width() <= 500) {
-	// 	$("").slideDown('slow/400/fast', function() {
-
-	// 	});()
-	// }
 });
