@@ -56,6 +56,9 @@
 		<div class="blockline">
 			<img class="delivery5" src="/themes/default/images/page/delivery/delivery5.png" alt="">
 		</div>
+		<div id="delivery2" data-type="modal">
+			<img  src="/themes/default/images/page/delivery/delivery5.png" alt="">
+		</div>
 	</div>
 
 	<!-- Страница "Справка" -->
@@ -1040,7 +1043,7 @@
 			<div class="forflex">
 				<img src="/themes/default/images/page/payment/bank.png" alt="">
 				<ul>Пополнение карточного счёта в отделении банка<li>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</li></ul>
-			</div>			
+			</div>
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
@@ -1760,3 +1763,4 @@
 		</div>
 	</div>
 </div><!--id="content"-->
+

@@ -1,17 +1,4 @@
-/* Ранее написанные стили   ************/
-	/*#content .section_title {
-		font-size: 15px;
-		padding: .5em;
-		background: #fafafa;
-		border-bottom: 1px solid #d7d7d7;
-		font-weight: bold;
-	}
-	#content .section {
-		padding: 0 .5em;
-		margin: .5em 0 1em;
-	}*/
-
-/* Общие стили   ***********************/
+ /*Общие стили */
 	#content {
 		font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 		font-size: 14px;
@@ -55,13 +42,16 @@
 		padding-right: 7%;
 		border-bottom: 1px solid #E6EAED;
 	}
+	#content .blockline:first-child {
+		padding-top: 4%;
+	}
 	#content .flexwrapp {
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
 	}
 	#content .forflex {
-		flex-basis: 46%;
+		flex-basis: 35%;
 		flex-grow: 1;
 		flex-shrink: 1;
 	}
@@ -86,11 +76,44 @@
 	#content .page_contacts {
 		text-align: center;
 	}
-
-	/*Стили для четырех страниц*/
-		#content .four_pages .forflex {
-			flex-basis: 46%;
+	#content .page_information .payment_information_img,
+	#content .page_payment .payment_information_img {
+		max-width: 60%;
+	}
+	/*Карточка для формы*/
+		.modals .content_modal_win form {
+			padding: .5em;
+			margin: 0 auto;
+			height: auto;
+			text-align: center;
 		}
+		.modals .modal_container .mdl-card__supporting-text p {
+			font-size: 1.4em;
+			font-weight: 500;
+			line-height: 1.3em;
+			text-align: center;
+			margin: 0 auto;
+			color: #3F4A58;
+		}
+		.modals .content_modal_win form {
+			padding: .5em;
+		}
+		.modals .modal_container button {
+			min-width: 35%;
+			display: block;
+			margin: 0 auto;
+		}
+		.modals .content_modal_win form {
+			padding: .5em;
+		}
+		.modals .modal_container button:hover {
+			background-color: #018B06;
+		}
+		.modals div.modal_container.opened {
+			max-width: 360px;
+			min-width: 340px;
+		}
+	/*Стили для четырех страниц*/
 		#content .four_pages .flexWrapReverse .blockOfText {
 			margin-left: 0;
 			padding-left: 5%;
@@ -134,15 +157,12 @@
 		#content .three_inline .info_circle img {
 			width: 61%;
 		}
-		#content .four_pages .blockOfText p {
-			width: 93%;
-		}
 		/******.btn_plus******/
 			#content .four_pages .btn_plus {
 				display: block;
 				position: absolute;
 				margin-bottom: 0;
-				bottom: 14%;
+				bottom: 13%;
 				cursor: pointer;
 				text-align: center;
 				line-height: 1em;
@@ -217,7 +237,7 @@
 				text-align: center;
 			}
 
-/* Страница "Доставка" / class="page_delivery" ************************** */
+/* Страница "Доставка" / class="page_delivery" */
 	#content .page_delivery .forflex {
 		flex-basis: 44%;
 	}
@@ -233,6 +253,13 @@
 	#content .page_delivery .delivery5 {
 		width: 60%;
 	}
+
+	#content #page_delivery #delivery2 img {
+		width: auto;
+
+	}
+
+
 	/*Media*/
 		@media (min-width: 964px) and (max-width: 1535px) {
 			#content .page_delivery .blockOfText{
@@ -253,7 +280,7 @@
 				height: 220px !important;
 			}
 		}
-/* Страница "О нас" / class="page_about_us" ***************************** */
+/* Страница "О нас" / class="page_about_us" */
 	#content .page_about_us p {
 		width: 76%;
 	}
@@ -419,136 +446,45 @@
 				margin-top: 0;
 			}*/
 
-/* Страница "Справка" / class="page_information" ************************ */
+/* Страница "Справка" / class="page_information" */
 	#content .page_information img {
 		max-width: 76%;
 	}
-	/*blockforline*/
-		#content .page_information .blockforline {
-			border: 1px solid #DCDCDC;
-			position: relative;
-		}
-		#content .block1,
-		#content .block2 {
-			position: absolute;
-			left: 0%;
-			bottom: 0px;
-			border: 32px solid transparent;
-			border-bottom: 30px solid #DCDCDC;
-			-webkit-transition: left .6s ease-in-out;
-			-o-transition: left .6s ease-in-out;
-			transition: left .6s ease-in-out;
-			}
-		#content .block2 {
-			border-bottom: 30px solid white;
-			bottom: -3px;
-		}
-	/*Карточка для формы*/
-		#content a.a_question {
-			color: #454F5D;
-			text-transform: uppercase;
-		}
-		#content #question form {
-			width: 100%;
-			padding: 2em;
-			margin: 0 auto;
-			height: auto;
-		}
-		#content #question .mdl-card__supporting-text p {
-			font-size: 1.4em;
-			font-weight: 500;
-			line-height: 1.3em;
-			text-align: center;
-			margin: 0 auto;
-			color: #3F4A58;
-		}
-		#content #question .blockForForm button {
-			min-width: 35%;
-			display: block;
-			margin: 0 auto;
-		}
-		#content #question .blockForForm button:hover {
-			background-color: #018B06;
-		}
-		#content div#question.opened {
-			max-width: 360px;
-			min-width: 340px;
-		}
+	#content a.a_question {
+		color: #454F5D;
+		text-transform: uppercase;
+	}
 	/*Аккордеон*/
-		.ac-container{
+		.ac-container {
 			width: 100%;
-			margin: 10px auto 30px auto;
+			color: #454F5D;
 		}
-		.ac-container label{
-			position: relative;
-			z-index: 20;
+		.ac-container label {
 			display: block;
 			cursor: pointer;
-			padding: 5px 20px;
-			color: #454F5D;
-			line-height: 1.2em;
-			font-size: 1.2em;
-			text-align: justify;
-			font-weight: 400;
+			padding: 5px;
+			font-size: 1.3em;
 		}
-		.ac-container label:hover{
+		.ac-container label:hover {
 			background: #fff;
 			text-decoration: underline;
 		}
-		.ac-container label:hover:after,
-		.ac-container input:checked + label:hover:after{
-			content: '';
-			position: absolute;
-			width: 24px;
-			height: 24px;
-			right: 13px;
-			top: 7px;
-		}
-		.ac-container input{
+		.ac-container input {
 			display: none;
 		}
-		.ac-container article{
+		.ac-container article {
 			overflow: hidden;
 			height: 0px;
 			position: relative;
 			z-index: 10;
-			transition:
-				height 0.3s ease-in-out,
-				box-shadow 0.6s linear;
-
 			text-align: justify;
 			width: 90%;
-			padding: 0px 20px;
-		}
-		.ac-container input:checked ~ article{
-			transition:
-				height 0.5s ease-in-out,
-				box-shadow 0.1s linear;
-		}
-		.ac-container article p{
-			color: #454F5D;
-			line-height: 1.4em;
-			font-size: 1.2em;
-			padding-left: 20px;
-			padding-right: 20px;
-			margin: 0;
+			padding: 0 0 0 3%;
 		}
 		.ac-container input:checked ~ article {
 			height: auto;
 		}
-	@media (max-width: 400px) {
-		#content div#question.opened {
-			top: 0 !important;
-			left: 0 !important;
-		}
-		#content #question form {
-			padding: .5em;
-		}
-	}
-/* Страница "Оплата" / class="page_payment" ***************************** */
-	#content .page_payment img {
-		max-width: 65%;
-	}
+/* Страница "Оплата" / class="page_payment" */
 	#content .page_payment .invisibleblock img {
 		margin: 0;
 		margin-right: 2%;
@@ -567,15 +503,13 @@
 		font-weight: 100;
 		margin-left: 16%;
 	}
-
-/* Страница "Поставки магазинам"/ class="page_supply" ******************* */
-/* Страница "Скидки" / class="page_discounts" *************************** */
+/* Страница "Поставки магазинам"/ class="page_supply" */
+/* Страница "Скидки" / class="page_discounts" */
 	#content .page_discounts {
 		border-bottom: 1px solid #E6EAED;
 	}
-
-/* Страница "Обеспечение быта"/ class="page_provision" ****************** */
-/* Страница "Снабжение предприятий" / class="page_provision_companies" ** */
+/* Страница "Обеспечение быта"/ class="page_provision" */
+/* Страница "Снабжение предприятий" / class="page_provision_companies" */
 	#content .page_provision_companies img,
 	#content .page_provision_companies button {
 		max-width: 38% !important;
@@ -591,7 +525,7 @@
 		}
 	}
 
-/* Страница "Контакты" / class="page_contacts" ************************** */
+/* Страница "Контакты" / class="page_contacts" */
 	#content .page_contacts video {
 		width: 40%;
 	}
@@ -634,41 +568,12 @@
 		width: 220px;
 		min-height: 100px;
 	}
-	/*Карточка для формы*/
-		#offers form {
-			width: 100%;
-			padding: 2em;
-			margin: 0 auto;
-			height: auto;
-		}
-		#offers .mdl-card__supporting-text p {
-			font-size: 1.4em;
-			font-weight: 500;
-			line-height: 1.3em;
-			text-align: center;
-			margin: 0 auto;
-			color: #3F4A58;
-		}
-		#offers .blockForForm button {
-			min-width: 35%;
-			display: block;
-			margin: 0 auto;
-		}
-		#offers .blockForForm button:hover {
-			background-color: #018B06;
-		}
-		div#offers.opened {
-			max-width: 500px;
-			min-width: 340px;
-		}
-	}
 		@media (min-width: 600px) and (max-width: 1300px) {
 			#content .page_contacts .blockOfText p {
 				width: 60%;
-				/*font-size: 1.4em;*/
 			}
 		}
-		@media (max-width: 1100px) { 
+		@media (max-width: 1100px) {
 			#content .page_contacts .flexColumn {
 				margin-top: 54px;
 				flex-direction: column;
@@ -707,8 +612,7 @@
 				font-size: 1em;
 			}
 		}
-
-/* Страница "Стать дилером" / class="page_dealer" *********************** */
+/* Страница "Стать дилером" / class="page_dealer" */
 	#content .page_dealer h4 {
 		text-align: center;
 		margin-top: 0;
@@ -763,11 +667,15 @@
 		#content .page_dealer li {
 			font-size: 1.2em;
 		}
-	}
-	@media (max-width: 964px) {
-		#content .page_dealer .container .forflex {
+		#content .forflex {
 			flex-basis: 55%;
 		}
+		#content .page_payment img,
+		#content .page_information img {
+			max-width: 50%;
+		}
+	}
+	@media (max-width: 964px) {
 		#content .page_dealer ul {
 			margin-left: 22%;
 		}
@@ -780,14 +688,17 @@
 		}
 	}
 
-/* Общие медиа запросы ****************************************************/
+/* Общие медиа запросы */
 	@media (max-width: 1535px) {
-		#content .blockOfText {
-			text-align: center;
+		#content img.main_img {
+			max-width: 70% !important;
 		}
 		#content .blockOfText p {
-			max-width: 60%;
 			margin: 0 auto;
+		}
+		#content video {
+			max-width: 55%;
+			min-width: 55%;
 		}
 		#content .flexColumn button {
 			min-width: 40%;
@@ -802,16 +713,7 @@
 				padding-bottom: 4%;
 			}
 			#content .four_pages .blockline {
-				padding-bottom: 14%;
-			}
-			#content .four_pages .btn_plus.pos-left {
-				left: calc(50% - 70px);
-			}
-			#content .four_pages .btn_plus.pos-right {
-				right: calc(50% - 80px);
-			}
-			#content .four_pages .forflex  {
-				flex-basis: 48%;
+				padding-bottom: 10%;
 			}
 			#content button {
 				min-width: 60%;
@@ -820,10 +722,14 @@
 				flex-basis: 90%;
 			}
 			#content .four_pages img {
-				max-width: 65%;
+				max-width: 72%;
 			}
+
 			#content .page_provision button {
 				min-width: 60%;
+			}
+			#content .four_pages .btn_plus.pos-right {
+				right: 32%;
 			}
 	}
 	@media (max-width: 1350px) {
@@ -835,15 +741,29 @@
 		#content .ac-container div {
 			margin-bottom: 10px;
 		}
+		#content .four_pages .btn_plus.pos-right {
+			right: 30%;
+		}
 	}
-	@media (max-width: 1100px) {		
+	@media (max-width: 1100px) {
+
 		#content .blockOfText p {
 			max-width: 70%;
 		}
-	}
-	@media (min-width: 964px) and (max-width: 1535px) {
-		#content .blockOfText{
-			flex-basis: 65%;
+		#content .four_pages .blockline {
+			padding-bottom: 12%;
+		}
+		#content .four_pages .btn_plus.pos-left {
+			left: calc(50% - 70px);
+		}
+		#content .four_pages .btn_plus.pos-right {
+			right: calc(50% - 80px);
+		}
+		#content .page_payment .payment_information_img {
+			max-width: 35%;
+		}
+		#content .page_payment .four_pages .btn_plus {
+			bottom: 10%
 		}
 	}
 	@media (max-width: 964px) {
@@ -862,29 +782,30 @@
 		}
 	}
 	@media (max-width: 600px) {
-		#content button {
-			font-size: 1.2em;
-		}
 		#content .blockOfText p,
 		#content .page_about_us p {
 			max-width: 100%;
 		}
+		#content .page_payment ul {
+			font-size: 1.1em;
+			line-height: 1.1em;
+		}
+		#content .page_payment li {
+			margin-left: 28%;
+		}
 		/*Стили для четырех страниц .four_pages*/
 			#content .four_pages img {
-				max-width: 60%;
-			}
-			#content .four_pages .info_circle h1 {
-				font-size: 1.7em;
+				max-width: 40%;
 			}
 			#content .four_pages .blockOfText h4{
 				font-size: 1.4em;
 			}
+			#content .four_pages .info_circle h5 {
+				font-size: 1.2em;
+			}
 			#content .four_pages .blockOfText p {
 				font-size: 1em;
 				min-width: 100%;
-			}
-			#content .four_pages .info_circle h5 {
-				font-size: 1.2em;
 			}
 			#content .four_pages .info_circle p {
 				width: 100px;
@@ -904,32 +825,52 @@
 				height: 100px;
 			}
 	}
-	@media (min-width: 550px) and (max-width: 1420px) {
-		.ac-container article p {
-			font-size: 1.2em;
-		}
-	}
 	@media (max-width: 500px) {
 		#content .page_payment ul {
 			font-size: .9em;
+			line-height: 1.3em;
+		}
+		#content .page_payment li {
+			margin-left: 35%;
+		}
+		#content .page_payment .btn_plus,
+		#content .page_information .btn_plus {
+			bottom: 9%;
 		}
 	}
 	@media (max-width: 450px) {
+		#content p {
+			font-size: 1em;
+		}
 		#content .ac-container label {
 			font-size: 1em;
 		}
 		#content .ac-container article p {
 			font-size: .8em;
 		}
-		#content .page_payment h5 {
-			font-size: 1.1em;
-		}
-		#content .page_payment h1,
-		#content .page_information h1 {
-			font-size: 1.4em !important;
+		#content .page_payment li {
+			 margin-left: 35%;
 		}
 		#content .page_dealer ul {
 			margin-left: 11%;
 		}
+		#content .page_dealer .info_circle p {
+			font-size: 1.1em;
+		}
+		#content .four_pages button,
+		#content .four_pages .flexColumn button {
+			font-size: 1em;
+		}
+		#content .page_payment .btn_plus,
+		#content .page_information .btn_plus {
+			bottom: 5%;
+		}
 	}
-/*************/
+	@media (max-width: 400px) {
+		.modals div.content_modal_win.opened {
+			top: 0 !important;
+			left: 0 !important;
+			min-width: 100%;
+		}
+	}
+/*
