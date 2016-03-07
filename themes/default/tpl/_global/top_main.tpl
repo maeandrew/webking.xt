@@ -57,38 +57,46 @@
 					<i class="material-icons">account_circle</i>
 				</button>
 
-
-
 				<ul id="mainUserInf" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-
-					<li><i id="userPic" class="material-icons">account_circle</i></li>
-
-					<li disabled id="userNameInf" class="mdl-menu__item listItems">
-						<span class="user_name"><?=$_SESSION['member']['name']?></span>
-						<a class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+					<li>
+						<div id="userPic">
+							<img src="/themes/default/images/page/payment/payment1.png">
+						</div>
 					</li>
 
+					<div id="userNameBlock">
+						<li disabled id="userNameInf" class="mdl-menu__item listItems">
+							<span class="user_name"><?=$_SESSION['member']['name']?></span>
+						</li>
+						<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+					</div>
+
+					<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
 
 					<li disabled class="mdl-menu__item listItems">
 						<i class="material-icons">email</i>
-						<span class="user_email"><?=$_SESSION['member']['email']?></span></li>
+						<span class="user_email"><?=$_SESSION['member']['email']?></span>
+					</li>
 
 					<li disabled class="mdl-menu__item listItems">
 						<i class="material-icons">location_on</i>
-						<span class="user_email">г. Харьков, Украина</span></li>
+						<span class="user_email">г. Харьков, Украина</span>
+					</li>
 
 					<div id="menuBorder"></div>
 
-					<li id="manager" disabled class="mdl-menu__item">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span></li>
+					<li id="manager" disabled class="mdl-menu__item">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
+					</li>
 
 					<li disabled class="mdl-menu__item manager_contacts">
-						<i class="material-icons">phone</i>
+						<i class="material-icons .noLink">phone</i>
 						<a href="tel:+380667205488">
 							<span class="user_contr_phones">
 							<?=$_SESSION['member']['contragent']['phones']?>
 							</span>
 						</a>
 					</li>
+
 					<li disabled class="mdl-menu__item manager_contacts">
 						<i class="material-icons">email</i>
 						<a href="mailto:manager@xt.ua" target="blank">
@@ -98,15 +106,12 @@
 						</a>
 					</li>
 
-					<li disabled class="mdl-menu__item"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></li>
+					<li disabled class="mdl-menu__item hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></li>
 
-					<button class="newStanleyBtn" id="newStanleyBtnBorder">
-						<a href="<?=Link::Custom('cabinet')?>">Мой Кабинет</a>
-					</button>
+					<button class="menuUserInfBtn" id="mycabMenuUserInfBtn"
+					onclick="window.location.href='<?=Link::Custom('cabinet')?>'">Мой кабинет</button>
 
-					<button class="newStanleyBtn">
-						<a href="<?=Link::Custom('logout')?>">Выйти</a>
-					</button>
+					<button class="menuUserInfBtn" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
 				</ul>
 				<!-- <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
 					<li class="mdl-menu__item active">По рейтингу</li>
@@ -133,7 +138,6 @@
 						<a href="<?=Link::Custom('cabinet')?>" style="color:#fff">Мой Кабинет</a>
 					</button>
 				</ul>
-
 				<a href="#" class="mdl-button mdl-js-button login_btn">Войти</a>
 			<?}?>
 		</li>
