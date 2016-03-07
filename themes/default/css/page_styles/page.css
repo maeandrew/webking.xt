@@ -78,7 +78,7 @@
 	}
 	#content .page_information .payment_information_img,
 	#content .page_payment .payment_information_img {
-		max-width: 60%;
+		max-width: 60%; 
 	}
 	/*Карточка для формы*/
 		.modals .content_modal_win form {
@@ -253,13 +253,6 @@
 	#content .page_delivery .delivery5 {
 		width: 60%;
 	}
-
-	#content #page_delivery #delivery2 img {
-		width: auto;
-
-	}
-
-
 	/*Media*/
 		@media (min-width: 964px) and (max-width: 1535px) {
 			#content .page_delivery .blockOfText{
@@ -573,7 +566,7 @@
 				width: 60%;
 			}
 		}
-		@media (max-width: 1100px) {
+		@media (max-width: 1100px) { 
 			#content .page_contacts .flexColumn {
 				margin-top: 54px;
 				flex-direction: column;
@@ -724,6 +717,7 @@
 			#content .four_pages img {
 				max-width: 72%;
 			}
+			
 			#content .page_provision button {
 				min-width: 60%;
 			}
@@ -745,6 +739,9 @@
 		}
 	}
 	@media (max-width: 1100px) {
+		#content .blockOfText {
+			text-align: center;
+		}
 		#content .blockOfText p {
 			max-width: 70%;
 		}
@@ -847,7 +844,7 @@
 			font-size: .8em;
 		}
 		#content .page_payment li {
-			 margin-left: 35%;
+			 margin-left: 35%; 
 		}
 		#content .page_dealer ul {
 			margin-left: 11%;
@@ -855,7 +852,7 @@
 		#content .page_dealer .info_circle p {
 			font-size: 1.1em;
 		}
-		#content .four_pages button,
+		#content .four_pages button, 
 		#content .four_pages .flexColumn button {
 			font-size: 1em;
 		}
