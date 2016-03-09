@@ -611,6 +611,9 @@ table.supplier_assort_table {
 #popup_msg {
 	display: none;
 }
+#supplier_cab .cabinet_block {
+	margin-left: calc(50% - 345px);
+}
 #supplier_cab .cabinet_block button {
 	margin: 5px;
 }
@@ -619,6 +622,10 @@ table.supplier_assort_table {
 }
 #supplier_cab .calendar label {
 	line-height: 40px;
+}
+#supplier_cab .work_days_add,
+#supplier_cab .calendar {
+	display: none;
 }
 #supplier_cab .dollar,
 #supplier_cab .calendar,
@@ -631,9 +638,6 @@ table.supplier_assort_table {
 }
 #supplier_cab .sett_cabinet label {
 	margin: 0 10px;
-}
-#supplier_cab .work_days_add {
-	display: inline-block;
 }
 #supplier_cab .form_block {
 	width: 250px;
