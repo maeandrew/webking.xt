@@ -37,10 +37,18 @@ $(document).ready(function () {
 		openObject('estimateLoad');
 		removeLoadAnimation('#estimateLoad');
 	});
+
 	$('.a_question').click(function(event) {
 		openObject('question');
 		removeLoadAnimation('#question');
 	});
+
+	$('.delivery2').click(function(event) {
+		openObject('delivery2');
+		removeLoadAnimation('#delivery2');
+	});
+
+
 	$('#page_contacts .greenBtn').click(function(event) {
 		openObject('offers');
 		removeLoadAnimation('#offers');
@@ -79,7 +87,7 @@ $(document).ready(function () {
 	// 	}
 	// });
 
-	
+
 	// $('.payment_block').click(function (e) {
 	// 	var target = $('.'+$(this).data('target')),
 	// 		eq = $(this).index();
