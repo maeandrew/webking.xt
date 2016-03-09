@@ -731,7 +731,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="blockline">
+		<div class="blockline blockBtn">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
 	</div>
@@ -936,7 +936,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="blockline">
+		<div class="blockline blockBtn">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
 	</div>
@@ -1044,7 +1044,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="blockline flexwrapp flexColumn">
+		<div class="blockline flexwrapp flexColumn blockBtn">
 			<button class="a_estimateLoad forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить свою смету</button>
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</button>
 		</div>
