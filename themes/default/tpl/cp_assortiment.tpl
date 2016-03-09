@@ -19,7 +19,7 @@
 		<?}?>
 	</div>
 <?}?>
-<div id="catalog_supplier" class="products">
+ <div id="catalog_supplier" class="products">
 	<?if(isset($subcats) && !empty($subcats)){?>
 		<ul class="subcats row">
 			<?foreach($subcats as $sub){
@@ -57,7 +57,7 @@
 		<?}?>
 	<?}else{?>
 		<?if(!empty($list)){?>
-			<div class="tabs">
+			<!-- <div class="tabs">
 				<div id="second">
 					<table width="100%" cellspacing="0" border="0" class="table_thead table">
 						<colgroup>
@@ -105,7 +105,7 @@
 								</td>
 								<td class="name_cell">
 									<a href="<?=_base_url.'/product/'.$item['id_product'].'/'.$item['translit']?>/"><?=G::CropString($item['name'])?></a>
-									<p class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></p>
+									<p class="product_article"><!--noindexарт. <!--/noindex--><!--<?=$item['art']?></p>
 								</td>
 								<td class="price_cell">
 									<p id="price_mopt_<?=$item['id_product']?>">
@@ -127,7 +127,60 @@
 						</tbody>
 					</table>
 				</div>
-			</div><!--class="tabs"-->
+			</div> --><!--class="tabs"-->
+			<div class="products">
+				<?foreach($list as $p){?>
+					<div class="card clearfix">
+						<div class="product_photo">
+							<a href="#">
+								<?if(!empty($item['images'])){?>
+									<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+									<noscript>
+										<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+									</noscript>
+								<?}else{?>
+									<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+									<noscript>
+										<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+									</noscript>
+								<?}?>
+							</a>
+						</div>
+						<p class="product_name"><a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a> <span class="product_article">Арт: <?=$p['art'];?></span></p>
+						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+							<p class="price"><?=number_format($p['price_mopt'], 2, ',', '')?></p>
+							<div class="buy_block">
+								<div class="btn_remove">
+									<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
+										remove
+									</button>
+								</div>
+								<input type="text" class="qty_js" value="0" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
+								<div class="btn_buy">
+									<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">
+										<?=isset($_SESSION['cart']['products'][$p['id_product']])?'+':'Купить'?>
+									</button>
+								</div>
+
+								<!-- <input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">
+								<div class="btn_buy">
+									<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
+								</div> -->
+
+							</div>
+						</div>
+						<div class="product_info clearfix">
+							<div class="note clearfix">
+								<textarea placeholder="Примечание: "></textarea>
+								<label class="info_key">?</label>
+								<div class="info_description">
+									<p>Поле для ввода примечания к товару.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?}?>
+			</div>
 			<?if(isset($cnt) && $cnt >= 30){?>
 				<div class="sort_page">
 					<a href="<?=_base_url?>/products/<?=$curcat['id_category']?>/<?=$curcat['translit']?>/limitall/"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>

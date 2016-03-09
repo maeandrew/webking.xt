@@ -389,7 +389,8 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 	$products->FillAssort($_SESSION['member']['id_user']);
 	$parsed_res = array(
 		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl')
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl')
+		// 'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl')
 	);
 }elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_MANAGER_){
 	$Customer = new Customers();
