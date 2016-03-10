@@ -471,7 +471,8 @@
 				viewport_width = $(window).width();
 			/*console.log(src);*/
 			if(viewport_width > 711){
-				$('#owl-product_mini_img_js').find('img').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
+				$('#owl-product_mini_img_js').find('img').removeClass('act_img');
+				$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
 				$(this).find('img').addClass('act_img');
 				if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
 					src = src.replace('thumb', 'original');
