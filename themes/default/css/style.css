@@ -2567,7 +2567,7 @@ section .stat_year {
 #mainUserInf .manager_contacts {
 	float: left;
 	overflow: hidden;
-	width: 40%;
+	width: 35%;
 }
 
 #mainUserInf .manager_contacts i {

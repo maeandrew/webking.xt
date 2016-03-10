@@ -112,6 +112,11 @@
 					foreach($item['images'] as $i => $image){?>
 						<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
 					<?}
+				}elseif(!empty($item['videos'])){ //Добавленный новый фрагмент кода с видео
+						foreach($item['videos'] as $i => $video){?>
+							<iframe width="120" height="120" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+							</iframe>
+						<?} // конец нового фрагмента с добавлением видео
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
@@ -131,7 +136,7 @@
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
 				$(function(){
-					//Слайдер миниатюр картинок
+					//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 					$('#owl-product_mini_img_js .item').on('click', function(event) {
 						var src = $(this).find('img').attr('src');
 						var viewport_width = $(window).width();
@@ -451,6 +456,7 @@
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
 			var src = $(this).find('img').attr('src'),
 				viewport_width = $(window).width();
+			console.log(src);
 			if(viewport_width > 711){
 				$(this).find('img').addClass('act_img');
 				if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
