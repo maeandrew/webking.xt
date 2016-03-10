@@ -19,7 +19,7 @@
 		<?}?>
 	</div>
 <?}?>
- <div id="catalog_supplier" class="products">
+<div id="catalog_supplier" class="products">
 	<?if(isset($subcats) && !empty($subcats)){?>
 		<ul class="subcats row">
 			<?foreach($subcats as $sub){
@@ -57,7 +57,7 @@
 		<?}?>
 	<?}else{?>
 		<?if(!empty($list)){?>
-			<!-- <div class="tabs">
+			<div class="tabs">
 				<div id="second">
 					<table width="100%" cellspacing="0" border="0" class="table_thead table">
 						<colgroup>
@@ -105,7 +105,7 @@
 								</td>
 								<td class="name_cell">
 									<a href="<?=_base_url.'/product/'.$item['id_product'].'/'.$item['translit']?>/"><?=G::CropString($item['name'])?></a>
-									<p class="product_article"><!--noindexарт. <!--/noindex--><!--<?=$item['art']?></p>
+									<p class="product_article"><!--noindexарт. <!--/noindex--><?=$item['art']?></p>
 								</td>
 								<td class="price_cell">
 									<p id="price_mopt_<?=$item['id_product']?>">

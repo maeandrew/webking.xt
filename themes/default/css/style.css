@@ -1,4 +1,4 @@
-/*GLOBALS*/
+GLOBALS*/
 
 /*Include google fonts*/
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);
@@ -1600,16 +1600,155 @@ section .stat_year {
 	border-top-color: rgba(285,87,34,1);
 }
 
+/*My sorting*/
+	/*Sorting=====================================================================*/
+
+	.content .sorting {
+		float: right;
+		margin: 0.67em 0;
+	}
+	.content .sorting form {
+		float: left;
+	}
+	.content .sorting form label {
+		color: #818181;
+	}
+
+	/*======Select styles=========================================================*/
+
+	.content .sorting form select {
+		height: 29px;
+		width: 165px;
+		border-radius: 3px;
+		margin: 0 10px;
+		padding: 0 10px;
+		outline: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		text-indent: 0.01px;
+		text-overflow: '';
+		-ms-appearance: none;
+		appearance: none!important;
+	}
+	.content .sorting .jq-selectbox li:hover {
+		background: #52cf55;
+		color: #fff;
+	}
+	.content .sorting .jq-selectbox.jqselect{
+		width: 165px;
+		margin: 0 10px;
+	}
+	.content .sorting .jq-selectbox__dropdown {
+		border: 1px solid #52cf55;
+		border-radius: 0;
+		font: 14px/18px 'Open Sans', sans-serif;
+		width: 230px !important;
+		left: auto !important;
+		right: 0 !important;
+	}
+	.content .sorting .jq-selectbox__select {
+		height: 29px;
+		font: 13px/26px 'Open Sans', sans-serif;
+		border: 1px solid #b4b4b4;
+		padding: 0 20px 0 10px;
+		border-radius: 3px;
+		background: #fff;
+		color: #444;
+		text-shadow: none;
+	}
+	.content .sorting .focused .jq-selectbox__select {
+		border: 1px solid #52cf55;
+	}
+	.content .sorting .jq-selectbox__select-text{
+		padding-right: 2px;
+		width: 100% !important;
+	}
+	.content .sorting .jq-selectbox__trigger {
+		border: none;
+		width: 25px;
+	}
+	.content .sorting .jq-selectbox__select:hover {
+		border-color:#52cf55;
+	}
+	.content .sorting .jq-selectbox__select:hover .jq-selectbox__trigger{
+		color:#52cf55;
+	}
+	.content .sorting .jq-selectbox__trigger:after{
+		content: "\e10f";
+		font-family: icomoon;
+		font-size: 18px;
+		position: absolute;
+		top: 1px;
+		left: 0;
+	}
+	.content .sorting .jq-selectbox__trigger-arrow {
+		display: none;
+	}
+
+	.content .sorting .jq-selectbox li.selected {
+		background: #52cf55;
+		color: #fff;
+	}
+
+	.content .sorting .prod_structure {
+		float: right;
+		margin-left: 10px;
+	}
+	.content .sorting .prod_structure span {
+		font-size: 24px;
+		line-height: 29px;
+		cursor: pointer;
+	}
+	.content .sorting .prod_structure span.disabled {
+		background: #fff !important;
+	}
+
+
+
 /*Producs*/
 
 .products {
 	padding-bottom: 30px;
+	padding-top: 50px;
 }
 .products .card {
+	display: flex;
 	border-bottom: 1px solid #e0e0e0;
 	/*box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);*/
 	/*border-radius: .2em;*/
+	padding: 10px;
 }
+
+/****************************************/
+.products .card_wrapper {
+	min-height: 70px;
+	height: 70px;
+	font-weight: 500;
+}
+.products .card_wrapper .card_item,
+.products .card .price,
+.products .card .count_cell,
+.products .card .product_check {
+	text-align: center;
+}
+.products .card .card_item {
+	flex: 1;
+}
+.products .card .product_name {
+	flex: 4;
+}
+.products .card .product_check {
+	flex: 1;
+}
+.products .card .product_check .mdl-checkbox {
+	display: inline;
+}
+
+
+
+/****************************************/
+
+
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
 }
@@ -1695,6 +1834,11 @@ section .stat_year {
 	line-height: 36px;
 	border-radius: .2em;
 }
+.products .card .price { 
+	font-size: 1em;
+	line-height: 20px;
+}
+
 .product_buy .buy_block .btn_buy {
 	position: relative;
 	width: 120px;
@@ -2661,4 +2805,4 @@ section .stat_year {
 
 
 /* class="mdl-button mdl-js-button mdl-button--raised" */
-/* style="float: right;right: 10px;top:-10px;background:#018B06;" */
+/* style="float: right;right: 10px;top:-10px;background:#018B06;" 
