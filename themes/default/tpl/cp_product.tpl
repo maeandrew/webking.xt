@@ -17,11 +17,16 @@
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
+
+
 			<?if(!empty($item['images'])){?>
 				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
 			<?}else{?>
 				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars($item['img_1']):"/images/nofoto.jpg"?>"/>
 			<?}?>
+			<div id="mainVideoBlock" class="hidden">
+				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+			</div>
 		</div>
 		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
 			<style>
@@ -112,11 +117,6 @@
 					foreach($item['images'] as $i => $image){?>
 						<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
 					<?}
-				}elseif(!empty($item['videos'])){ //Добавленный новый фрагмент кода с видео
-						foreach($item['videos'] as $i => $video){?>
-							<iframe width="120" height="120" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-							</iframe>
-						<?} // конец нового фрагмента с добавлением видео
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
@@ -124,6 +124,17 @@
 						<?}
 					}
 				}?>
+				<!-- Код добавления видео начало-->
+				<?if(!empty($item['videos'])){
+					foreach($item['videos'] as $i => $video){?>
+					<div class="videoBlock">
+						<div class="videoBlockShield"></div>
+						<iframe width="120" height="120" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>">
+						</iframe>
+					</div>
+					<?}
+				}?>
+				<!-- Код добавления видео конец-->
 			</div>
 			<script>
 				//Инициализация owl carousel
@@ -136,7 +147,7 @@
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
 				$(function(){
-					//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
+					//Слайдер миниатюр картинок.
 					$('#owl-product_mini_img_js .item').on('click', function(event) {
 						var src = $(this).find('img').attr('src');
 						var viewport_width = $(window).width();
@@ -452,12 +463,15 @@
 </section>
 <script>
 	$(function(){
-		//Слайдер миниатюр картинок
+		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
+			$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
+			$('.product_main_img').find('iframe').attr('src', '');
 			var src = $(this).find('img').attr('src'),
 				viewport_width = $(window).width();
-			console.log(src);
+			/*console.log(src);*/
 			if(viewport_width > 711){
+				$('#owl-product_mini_img_js').find('img').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
 				$(this).find('img').addClass('act_img');
 				if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
 					src = src.replace('thumb', 'original');
@@ -468,6 +482,15 @@
 			}else{
 				event.preventDefault();
 			}
-		});
+		}).on('click','.videoBlock', function(e) { //выбор видео и его перемещение в главное окно
+      		e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
+      		$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
+      		$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
+      		$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
+      		var src = $(this).find('iframe').attr('src');
+      		/*console.log(src);*/
+			$('.product_main_img').find('iframe').attr('src', src);
+      		$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
+    		});
 	});
 </script>

@@ -1737,7 +1737,6 @@ function addLoadAnimation(obj) {
 	componentHandler.upgradeDom();
 }
 
-
 function removeLoadAnimation(obj) {
 	/*console.log($(obj).find("div.loadBlock").length > 0);*/
 	if ($(obj).find("div.loadBlock").length > 0){
