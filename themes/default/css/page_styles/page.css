@@ -264,7 +264,14 @@
 	}
 	#delivery2 img {
 		max-width: 100%;
-		max-height: 820px;
+		max-height: 790px;
+	}
+
+	@media (max-width: 1366px) {
+		#delivery2 img {
+			max-width: 100%;
+			max-height: 680px;
+		}
 	}
 
 	/*Media*/
@@ -657,7 +664,7 @@
 		#content .page_dealer .container .blockOfText h4 {
 			text-align: center;
 		}
-		
+
 		#content .page_dealer .container .dealer1 {
 			min-width: 40%;
 			margin: 3% auto 0;
