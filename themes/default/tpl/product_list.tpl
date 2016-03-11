@@ -71,7 +71,6 @@
 					</div>
 				</div>
 			<?} else {?>
-			<!-- <p class="price"><?=number_format($p['price_mopt'], 2, ',', '')?></p> -->
 			<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
 				<?if($p['price_opt_otpusk'] != 0){
 					echo number_format($p['price_opt_otpusk'], 2, ".", "").' грн.';
@@ -91,17 +90,8 @@
 					<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
 					<input type="checkbox" class="chek mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
 				</label>
-
-				<!-- <input type="checkbox" name="product_ch">
-				<label for="product_ch">добавить в ассортимент</label> -->
 			</div>
 			<?}?>
 		</div>
-			
 	<?}?>
 </div>
-<script type="text/javascript">
-	
-	$(':checked').attr('title', 'Добавить в ассортимент').tooltip();      
-	// $(".product_check").hover(tooltip({ content: "Добавить в ассортимент" });    
-</script>

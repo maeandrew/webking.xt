@@ -1752,10 +1752,10 @@ section .stat_year {
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
 }
-.products .product_name,
+/*.products .product_name,*/
 .products .product_info {
-	float: left;
-	width: calc(60% - 140px);
+	/*float: left;*/
+	/*width: calc(60% - 140px);*/
 }
 #cart .card .product_photo,
 .products .card .product_photo {
