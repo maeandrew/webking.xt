@@ -839,8 +839,8 @@ $(function(){
 		e.preventDefault();
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.header_nav [for="demo-menu-lower-right"]');
+			removeLoadAnimation('#auth');
 			if(data.errm != 1){
-				removeLoadAnimation('#auth');
 				parent.find('.mdl-menu__item .user_name').text(data.member.name);
 				parent.find('.mdl-menu__item .user_email').text(data.member.email);
 				parent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);

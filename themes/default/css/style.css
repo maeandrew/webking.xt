@@ -2691,6 +2691,8 @@ section .stat_year {
 
 #mainUserInf {
 	padding: 0;
+	width: 337px;
+	height: 244px;
 }
 
 #mainUserInf i:hover {
