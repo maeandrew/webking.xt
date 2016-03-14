@@ -53,66 +53,59 @@
 				</div> -->
 
 				<!-- Right aligned menu below button -->
-				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon">
 					<i class="material-icons">account_circle</i>
 				</button>
 
-				<ul id="mainUserInf" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-					<li>
-						<div id="userPic">
-							<img src="/themes/default/images/page/payment/payment1.png">
+				<div class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-grid" for="user_profile">
+					<div id="userPic" class="mdl-cell mdl-cell--5-col">
+						<img src="/themes/default/images/page/payment/payment1.png"/>
+					</div>
+					<div class="mdl-cell mdl-cell--7-col mainUserInf">
+						<div id="userNameBlock">
+							<div id="userNameInf" class="listItems">
+								<span class="user_name"><?=$_SESSION['member']['name']?></span>
+							</div>
+							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
 						</div>
-					</li>
-
-					<div id="userNameBlock">
-						<li disabled id="userNameInf" class="mdl-menu__item listItems">
-							<span class="user_name"><?=$_SESSION['member']['name']?></span>
-						</li>
-						<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+						<div class="listItems">
+							<i class="material-icons">mail_outline</i>
+							<span class="user_email"><?=$_SESSION['member']['email']?></span>
+						</div>
+						
+						<div class="listItems">
+							<i class="material-icons">location_on</i>
+							<span class="user_email">г. Харьков, Украина</span>
+						</div>
 					</div>
 
-					<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
+					<div id="menuBorder" class="mdl-cell mdl-cell--12-col"></div>
 
-					<li disabled class="mdl-menu__item listItems">
-						<i class="material-icons">email</i>
-						<span class="user_email"><?=$_SESSION['member']['email']?></span>
-					</li>
+					<div id="manager" class="mdl-cell mdl-cell--12-col">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
+					</div>
 
-					<li disabled class="mdl-menu__item listItems">
-						<i class="material-icons">location_on</i>
-						<span class="user_email">г. Харьков, Украина</span>
-					</li>
-
-					<div id="menuBorder"></div>
-
-					<li id="manager" disabled class="mdl-menu__item">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
-					</li>
-
-					<li disabled class="mdl-menu__item manager_contacts">
-						<i class="material-icons .noLink">phone</i>
+					<div class="manager_contacts mdl-cell mdl-cell--6-col">
 						<a href="tel:+380667205488">
-							<span class="user_contr_phones">
-							<?=$_SESSION['member']['contragent']['phones']?>
-							</span>
+							<i class="material-icons .noLink">phone</i>
+							<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 						</a>
-					</li>
+					</div>
 
-					<li disabled class="mdl-menu__item manager_contacts">
-						<i class="material-icons">email</i>
+					<div class="manager_contacts mdl-cell mdl-cell--6-col">
 						<a href="mailto:manager@xt.ua" target="blank">
-							<span class="user_contr_phones">
-								manager@xt.ua
-							</span>
+							<i class="material-icons">mail_outline</i>
+							<span class="user_contr_phones">manager@xt.ua</span>
 						</a>
-					</li>
+					</div>
 
-					<li disabled class="mdl-menu__item hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></li>
+					<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
 
-					<button class="menuUserInfBtn" id="mycabMenuUserInfBtn"
+					<button class="menuUserInfBtn mdl-cell mdl-cell--6-col" id="mycabMenuUserInfBtn"
 					onclick="window.location.href='<?=Link::Custom('cabinet')?>'">Мой кабинет</button>
 
-					<button class="menuUserInfBtn" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
-				</ul>
+					<button class="menuUserInfBtn mdl-cell mdl-cell--6-col" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
+				</div>
 				<!-- <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
 					<li class="mdl-menu__item active">По рейтингу</li>
 					<li class="mdl-menu__item">Новинки</li>
