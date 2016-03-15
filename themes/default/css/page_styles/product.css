@@ -177,7 +177,6 @@
 	float: none;
 }
 .product .pb_wrapper {
-	overflow: hidden;
 	position: relative;
 }
 .product .product_buy {
@@ -416,6 +415,108 @@
     left: 0px;
     top: 0px;
 }
+
+/* Стили для иконок "ПОДЕЛИТЬСЯ" */
+#socialShare {
+	width: 240px;
+}
+
+#socialShare .social {
+	text-align: center;
+}
+
+#socialShare .social {
+	padding: 5px 0;
+	cursor: default;
+}
+#socialShare .social li {
+	display: inline-block;
+}
+#socialShare .social li a {
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	margin-right: 4px;
+}
+#socialShare .social li:last-child a {
+	margin-right: 0;
+}
+
+#socialShare .social li a.vk {
+	background-color: #4c75a3;
+}
+#socialShare .social li a.ok {
+	background-color: #ff9c43;
+}
+#socialShare .social li a.g_pl {
+	background-color: #ff6d4a;
+}
+#socialShare .social li a.f {
+	background-color: #496194;
+}
+#socialShare .social li a.tw {
+	background-color: #28c3ff;
+}
+#socialShare .social li a:hover {
+	background-color: #757575;
+}
+
+/*
+#socialShare {
+	width: 240px;
+}
+
+#socialShare .social {
+	padding-left: 5%;
+}
+
+#socialShare .social ul {
+	padding: 10px 0 0;
+	cursor: default;
+}
+#socialShare .social ul li {
+	display: inline-block;
+}
+#socialShare .social ul li a {
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	margin-right: 4px;
+}
+#socialShare .social ul li:last-child a {
+	margin-right: 0;
+}
+
+#socialShare .social ul li a.vk {
+	background-color: #4c75a3;
+}
+#socialShare .social ul li a.ok {
+	background-color: #ff9c43;
+}
+#socialShare .social ul li a.g_pl {
+	background-color: #ff6d4a;
+}
+#socialShare .social ul li a.f {
+	background-color: #496194;
+}
+#socialShare .social ul li a.tw {
+	background-color: #28c3ff;
+}
+#socialShare .social ul li a.y_t {
+	background-color: #cc181e;
+}
+
+#socialShare .social ul li a:hover {
+	background-color: #757575;
+}
+ */
+
+
+
+
+
 
 /*Tablet*/
 @media (min-width: 728px) and (max-width: 1169px) {

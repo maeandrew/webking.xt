@@ -280,8 +280,41 @@
 				<ul>
 					<li><i class="material-icons" title="Добавить товар в избранное">favorite_border</i></li>
 					<li><i class="material-icons" title="Следить за ценой">trending_down</i></li>
-					<li><i class="material-icons" title="Поделиться">share</i></li>
+					<li>
+						<i id="shareButton" class="material-icons" title="Поделиться">share</i>
+					</li>
 				</ul>
+				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect social" for="shareButton" style="width: 250px;">
+
+						<ul class="social">
+							<li>
+								<a href="http://vk.com/share.php?url=http://mysite.comhttp://vk.com/share.php?url=<?=Link::Product($GLOBALS['Rewrite']);?>&title=[TITLE]&description=[DESC]&image=[IMAGE]&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($GLOBALS['Rewrite']);?>&st.comments=[TITLE]" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники">
+								</a>
+							</li>
+							<li>
+								<a href="https://plus.google.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
+								</a>
+							</li>
+							<li>
+								<a href="https://twitter.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>&text=[TITLE]" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
+								</a>
+							</li>
+						</ul>
+
+				</div>
 			</div>
 		</div>
 		<div class="rating_block">
