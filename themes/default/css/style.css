@@ -360,7 +360,7 @@ body:not(.c_main) .banner {
 
 /*Banner(main owl carousel) ==================================================*/
 
-.owl-carousel .owl-controls .owl-buttons div {
+.owl-carousel .owl-controls .owl-nav div {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -370,24 +370,24 @@ body:not(.c_main) .banner {
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	/*background: rgba(0, 0, 0, .2);*/
 }
-.owl-carousel .owl-controls .owl-buttons div svg use {
+.owl-carousel .owl-controls .owl-nav div svg use {
 	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 }
-.owl-carousel .owl-controls .owl-buttons div:hover  svg use {
+.owl-carousel .owl-controls .owl-nav div:hover  svg use {
 	/*background: rgba(0, 0, 0, .4);*/
 	stroke: #EF5350;
 	stroke-width:10;
 
 }
-.owl-carousel .owl-controls .owl-buttons div.owl-prev {
+.owl-carousel .owl-controls .owl-nav div.owl-prev {
 	left: 0;
 }
-.owl-carousel .owl-controls .owl-buttons div.owl-next {
+.owl-carousel .owl-controls .owl-nav div.owl-next {
 	right: 0;
 }
-.owl-carousel .owl-controls .owl-buttons div svg {
+.owl-carousel .owl-controls .owl-nav div svg {
 	display: block;
 	height: 100px;
 	width: 100px;
@@ -1834,7 +1834,7 @@ section .stat_year {
 	line-height: 36px;
 	border-radius: .2em;
 }
-.products .card .price { 
+.products .card .price {
 	font-size: 1em;
 	line-height: 20px;
 }
@@ -2212,10 +2212,10 @@ section .stat_year {
 		width: 20px;
 		height: 20px;
 	}
-	.owl-carousel .owl-controls .owl-buttons div {
+	.owl-carousel .owl-controls .owl-nav div {
 		width: 50px;
 	}
-	.owl-carousel .owl-controls .owl-buttons div svg {
+	.owl-carousel .owl-controls .owl-nav div svg {
 		height: 100px;
 		width: 50px;
 		stroke-width: 10;
@@ -2519,11 +2519,11 @@ section .stat_year {
     height: 200px;
 }
 
-.owl-controls .owl-page{
+.owl-controls .owl-dot {
 	display: inline-block;
 	vertical-align: middle;
 }
-.owl-pagination {
+.owl-dots {
 	text-align: center;
 }
 
@@ -2807,4 +2807,4 @@ section .stat_year {
 
 
 /* class="mdl-button mdl-js-button mdl-button--raised" */
-/* style="float: right;right: 10px;top:-10px;background:#018B06;" 
+/* style="float: right;right: 10px;top:-10px;background:#018B06;"

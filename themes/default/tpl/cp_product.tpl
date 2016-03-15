@@ -17,8 +17,6 @@
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
-
-
 			<?if(!empty($item['images'])){?>
 				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
 			<?}else{?>
@@ -54,13 +52,16 @@
 					.owl-pagination {
 						padding: 5px 0;
 					}
+
 					.mobile_carousel .owl-item img {
 						max-width: 100%;
+						margin: 0px auto;
+						display: block;
 					}
-					.owl-page {
+					.owl-dot {
 						width: 20px;
 					}
-					.owl-page span {
+					.owl-dot span {
 						display: block;
 						width: 0;
 						height: 0;
@@ -70,7 +71,7 @@
 						transition: all 0.4s ease-in-out;
 						border: 3px solid #888;
 					}
-					.owl-page.active span {
+					.owl-dot.active span {
 						border: 7px solid #888;
 					}
 					.tabs .mdl-tabs__tab {
@@ -84,9 +85,28 @@
 						overflow-x: overlay;
 						overflow-y: hidden;
 					}
+					#owl-product_mobile_img_js {
+						clear: both;
+					}
+
+
+					/* .videoBlock {
+						margin: 0px auto;
+					}
+					.videoBlock iframe {
+						height: 200px;
+					} */
+
+					/* .owl-prev, .owl-next {
+						margin-top: 20%;
+						margin-bottom: 20%;
+					} */
+					.owl-item,
+					.owl-carousel .owl-video-wrapper {
+						/* height: 220px; */
+					}
 				}
 			</style>
-
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
@@ -99,18 +119,64 @@
 						<?}
 					}
 				}?>
+
+				<?if(!empty($item['videos'])){
+					foreach($item['videos'] as $i => $video){?>
+					    <div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
+
+						<!-- <div class="videoBlock">
+							<iframe width="100%" height="100%" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen class="Youtube" alt="<?=$item['name']?>">
+							</iframe>
+						</div> -->
+					<?}
+				}?>
 			</div>
 			<script>
 				//Инициализация owl carousel
-				$("#owl-product_mobile_img_js").owlCarousel({
-					items: 6,
-					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
-					navigation: true, // Show next and prev buttons
-					pagination: true,
-					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
-				});
+					$('#owl-product_mobile_img_js').owlCarousel({
+						items: 1,
+						loop:true,
+						nav:true,
+				        margin:10,
+				        video:true,
+				        videoHeight: 290,
+				        videoWidth: 290,
+				        lazyLoad:true,
+				        center:true,
+				        responsive:{
+				            320: {items: 1},
+				            727: {items: 2},
+				            950: {items: 3},
+				            1250: {items: 4},
+				            1600: {items: 5}
+				        },
+						/*itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],*/
+						dots: true,
+						navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+										'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+					});
+
+				// $(function(){
+				// 	console.log(carousel);
+				// 	function callback(event) {
+				// 		console.log(event);
+				// 		$('#owl-product_mobile_img_js iframe').each(function(index, el) {
+				// 			el.src=el.src;
+				// 			console.log(el.src);
+				// 		});
+				// 	}
+
+				// 	$('#stopVideo').on('click', function(event){
+				// 		console.log(carousel);
+				// 		carousel.trigger('next.owl.carousel');
+				// 		// $('#owl-product_mobile_img_js iframe').each(function(index, el) {
+				// 		// 	el.src=el.src;
+				// 		// 	console.log(el.src);
+				// 		// });
+				// 	})
+				// });
 			</script>
+
 		<?}else{?>
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
@@ -140,10 +206,18 @@
 				//Инициализация owl carousel
 				$("#owl-product_mini_img_js").owlCarousel({
 					items: 4,
-					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 3], [1600, 4]],
-					navigation: true, // Show next and prev buttons
-					pagination: false,
-					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+					margin:10,
+					nav:true,
+					/*itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 3], [1600, 4]],*/
+					dots: false,
+						responsive:{
+							320: {items: 1},
+							727: {items: 2},
+							950: {items: 3},
+							1250: {items: 3},
+							1600: {items: 4}
+					    },
+					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
 				$(function(){
@@ -484,14 +558,14 @@
 				event.preventDefault();
 			}
 		}).on('click','.videoBlock', function(e) { //выбор видео и его перемещение в главное окно
-      		e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
-      		$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
-      		$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
-      		$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
-      		var src = $(this).find('iframe').attr('src');
-      		/*console.log(src);*/
+			e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
+			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
+			$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
+			$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
+			var src = $(this).find('iframe').attr('src');
+			/*console.log(src);*/
 			$('.product_main_img').find('iframe').attr('src', src);
-      		$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
-    		});
+			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
+			});
 	});
 </script>
