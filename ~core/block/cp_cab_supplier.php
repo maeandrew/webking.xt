@@ -270,7 +270,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		$author = $_SESSION['member']['id_user'];
 		$author_name = $_SESSION['member']['name'];
 		$authors_email = $_SESSION['member']['email'];
-		$related33 = $products->GetComentProducts($text, $author, $author_name, $authors_email, $put);
+		$related33 = $products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
 		header('Location: '._base_url.'/cabinet/assortment/');
 		exit();
 	}

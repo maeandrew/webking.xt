@@ -56,10 +56,9 @@ while($cat = $dbtree->NextRow()){
 }
 // если отправили комментарий
 if(isset($_POST['sub_com'])){
-	$put = $id_product;
 	$text = nl2br($_POST['feedback_text'], false);
 	$text = stripslashes($text);
-	$rating = $_POST['rating'];
+	$rating = isset($_POST['rating'])?$_POST['rating']:0;
 
 	if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){
 		$author = 007;
@@ -72,7 +71,7 @@ if(isset($_POST['sub_com'])){
 		$author_name = $_POST['feedback_author'];
 	}
 	$authors_email = $_POST['feedback_authors_email'];
-	$related33 = $products->GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating);
+	$products->SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating);
 	header('Location: '.Link::Product($GLOBALS['Rewrite']));
 	exit();
 }

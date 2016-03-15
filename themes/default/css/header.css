@@ -163,6 +163,9 @@ header.opened .search .mdl-textfield__input,
 header.opened .search .mdl-textfield__label {
 	padding-right: 155px;
 }
+
+/*Navigation ================================================================*/
+
 header.opened .header_nav > li > a {
 	display: none;
 }
@@ -185,7 +188,7 @@ header .header_nav .material-icons {
 header .header_nav .checkout .material-icons {
 	color: #ff5722;
 }
-header .header_nav .material-icons:hover {
+header .header_nav .mdl-button .material-icons:hover {
 	color: inherit;
 }
 header .header_nav .checkout {
@@ -209,6 +212,100 @@ header .header_nav .enter_btn:active,
 header .search_btn:active {
 	background: #D8D8D8;
 	color: inherit;
+}
+
+/* Стили для окна краткой информации пользователя */
+
+header [for="user_profile"] {
+	padding: 0;
+	width: 337px;
+	/*height: 244px;*/
+}
+header [for="user_profile"] i {
+	font-size: 1.2em;
+}
+header [for="user_profile"] i:hover {
+	color: #9e9e9e;
+	cursor: default;
+}
+header [for="user_profile"] .listItems {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #9e9e9e;
+}
+/*header [for="user_profile"] .manager_contacts {
+	float: left;
+	overflow: hidden;
+	width: 35%;
+}*/
+header [for="user_profile"] .manager_contacts i {
+	margin-right: 0;
+}
+header #userPic img {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	display: block;
+	/*margin-top: calc(50% - 50px);*/
+	background-color: #bbb;
+}
+header #userNameInf {
+	font-size: 1.2em;
+	font-weight: bold;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: calc(100% - 20px);
+	overflow: hidden;
+}
+header #userNameInf .user_name {
+	color: #666666;
+}
+header #editUserProf {
+	font-size: 20px;
+	line-height: 30px;
+}
+header #menuBorder {
+	border-top: 1px solid #b0b0b0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+header #manager {
+	height: 25px;
+    line-height: 25px;
+}
+header #manager .user_contr {
+	color: #666666;
+}
+header #userNameBlock {
+	display: flex;
+	justify-content: center;
+}
+header .menuUserInfBtn {
+	width: 50%;
+	height: 60px;
+	background-color: #f7f7f7;
+	color: #666666;
+	font-weight: bold;
+	opacity: 0.6;
+	margin: 0;
+	border: none;
+	float: left;
+	border-top: 1px solid #b0b0b0;
+	outline: none;
+}
+header .menuUserInfBtn:hover {
+	/*background-color: #ff5722;*/
+	/*color: #fff;*/
+	cursor: pointer;
+	opacity: 1;
+}
+header #mycabMenuUserInfBtn:hover {
+	/*background-color: #018b06;*/
+}
+header #mycabMenuUserInfBtn {
+	border-right: 1px solid #b0b0b0;
 }
 
 /*TABLET*/

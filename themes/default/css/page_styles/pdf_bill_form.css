@@ -1,20 +1,15 @@
-.bill_form input:not([type="checkbox"]),
-.bill_form select,
-.bill_form textarea {
-	width: 100%;
-	background: #fff;
-	height: 29px;
+
+#bill_form form {
+	width: 300px;
+	padding: 60px;
 }
-.bill_form textarea {
-	resize: vertical;
-	height: 60px;
-	outline: none;
-	line-height: 25px;
-	border: 1px solid #b4b4b4;
-	padding: 0 5px;
-	margin: 5px 0;
-	border-radius: 3px;
+#bill_form form label {
+	font-size: 16px;
 }
-.bill_form .row {
-	margin-bottom: .5em;
+#bill_form form textarea {
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+#bill_form form .my_btn {
+	display: block;
+	margin: 20px auto 0;
 }

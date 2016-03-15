@@ -244,7 +244,6 @@ class Products {
 			cm.date_comment, cm.visible, cm.rating
 			FROM "._DB_PREFIX_."coment AS cm
 			WHERE cm.url_coment = ".$id_product."
-			AND cm.visible = 1
 			ORDER BY cm.date_comment ASC";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
@@ -259,25 +258,20 @@ class Products {
 	 * @param ? $author				автор комментария
 	 * @param ? $author_name		имя автора
 	 * @param string $authors_email e-mail автора
-	 * @param ? $put           		?
+	 * @param ? $id_product         id товара
 	 * @param int $rating 			оценка товара
 	 */
-	public function GetComentProducts($text, $author, $author_name, $authors_email, $put, $rating=null){
+	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null){
 		if(empty($text)){
 			return false; //Если имя пустое
 		}
 		$f['text_coment'] = trim($text);
-		$f['url_coment'] = trim($put);
+		$f['url_coment'] = trim($id_product);
 		$f['author'] = trim($author);
 		$f['author_name'] = trim($author_name);
 		$f['rating'] = trim($rating);
 		$f['user_email'] = trim($authors_email);
-		unset($text);
-		unset($rating);
-		unset($put);
-		unset($authors_email);
-		unset($author);
-		unset($author_name);
+		unset($text, $rating, $id_product, $authors_email, $author, $author_name);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'coment', $f)){
 			$this->db->FailTrans();
