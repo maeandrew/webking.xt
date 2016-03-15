@@ -10,7 +10,6 @@
 			</select>
 		</div>
 
-		<!-- Это input должно быть скрыто? -->
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<input class="mdl-textfield__input" type="hidden" name="order" id="order" value="<?=$_GET['order_id']?>">
 			<label class="mdl-textfield__label" for="order">№ заказа: <b id="order"><?=$_GET['order_id']?></b></label>
@@ -25,7 +24,6 @@
 			<input class="mdl-textfield__input" type="text" name="pay_form" id="pay_form" value="<?=isset($_GET['pay_form'])?$_GET['pay_form']:null?>">
 			<label class="mdl-textfield__label" for="pay_form">Форма оплаты:</label>			
 		</div>
-
 
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<input class="mdl-textfield__input" type="text" name="margin" id="margin" value="<?=isset($_GET['personal_discount'])?$_GET['personal_discount']:null?>">
@@ -49,7 +47,6 @@
 			<input type="hidden" name="client" value="">
 		</div>
 
-
 		<label for="fact" class="settings mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
 			<input type="checkbox" name="fact" id="fact" class="mdl-checkbox__input">
 			<span class="mdl-checkbox__label">Факт</span>
@@ -68,7 +65,6 @@
 			<input type="checkbox" name="NDS" id="NDS" class="mdl-checkbox__input">
 			<span class="mdl-checkbox__label">НДС</span>
 		</label>
-
 
 		<button type="submit" name="create-bill" class="my_btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
 		Сформировать
