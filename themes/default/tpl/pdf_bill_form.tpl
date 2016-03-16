@@ -61,10 +61,10 @@
 		</div>
 		-->
 
-		<label for="NDS" class="settings mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+		<!-- <label for="NDS" class="settings mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
 			<input type="checkbox" name="NDS" id="NDS" class="mdl-checkbox__input">
 			<span class="mdl-checkbox__label">НДС</span>
-		</label>
+		</label> -->
 
 		<button type="submit" name="create-bill" class="my_btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
 		Сформировать
