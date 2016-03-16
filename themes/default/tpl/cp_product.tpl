@@ -88,23 +88,6 @@
 					#owl-product_mobile_img_js {
 						clear: both;
 					}
-
-
-					/* .videoBlock {
-						margin: 0px auto;
-					}
-					.videoBlock iframe {
-						height: 200px;
-					} */
-
-					/* .owl-prev, .owl-next {
-						margin-top: 20%;
-						margin-bottom: 20%;
-					} */
-					.owl-item,
-					.owl-carousel .owl-video-wrapper {
-						/* height: 220px; */
-					}
 				}
 			</style>
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
@@ -122,59 +105,33 @@
 
 				<?if(!empty($item['videos'])){
 					foreach($item['videos'] as $i => $video){?>
-					    <div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
-
-						<!-- <div class="videoBlock">
-							<iframe width="100%" height="100%" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen class="Youtube" alt="<?=$item['name']?>">
-							</iframe>
-						</div> -->
+						<div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
 					<?}
 				}?>
 			</div>
 			<script>
 				//Инициализация owl carousel
-					$('#owl-product_mobile_img_js').owlCarousel({
-						items: 1,
-						loop:true,
-						nav:true,
-				        margin:10,
-				        video:true,
-				        videoHeight: 290,
-				        videoWidth: 290,
-				        lazyLoad:true,
-				        center:true,
-				        responsive:{
-				            320: {items: 1},
-				            727: {items: 2},
-				            950: {items: 3},
-				            1250: {items: 4},
-				            1600: {items: 5}
-				        },
-						/*itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],*/
-						dots: true,
-						navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-										'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
-					});
-
-				// $(function(){
-				// 	console.log(carousel);
-				// 	function callback(event) {
-				// 		console.log(event);
-				// 		$('#owl-product_mobile_img_js iframe').each(function(index, el) {
-				// 			el.src=el.src;
-				// 			console.log(el.src);
-				// 		});
-				// 	}
-
-				// 	$('#stopVideo').on('click', function(event){
-				// 		console.log(carousel);
-				// 		carousel.trigger('next.owl.carousel');
-				// 		// $('#owl-product_mobile_img_js iframe').each(function(index, el) {
-				// 		// 	el.src=el.src;
-				// 		// 	console.log(el.src);
-				// 		// });
-				// 	})
-				// });
+				$('#owl-product_mobile_img_js').owlCarousel({
+					items: 1,
+					loop:true,
+					nav:true,
+					margin:10,
+					video:true,
+					videoHeight: 290,
+					videoWidth: 290,
+					lazyLoad:true,
+					center:true,
+					responsive:{
+						320: {items: 1},
+						727: {items: 2},
+						950: {items: 3},
+						1250: {items: 4},
+						1600: {items: 5}
+					},
+					dots: true,
+					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+				});
 			</script>
 
 		<?}else{?>
@@ -208,7 +165,6 @@
 					items: 4,
 					margin:10,
 					nav:true,
-					/*itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 3], [1600, 4]],*/
 					dots: false,
 						responsive:{
 							320: {items: 1},
@@ -216,7 +172,7 @@
 							950: {items: 3},
 							1250: {items: 3},
 							1600: {items: 4}
-					    },
+						},
 					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
