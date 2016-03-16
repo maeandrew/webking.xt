@@ -9,14 +9,42 @@ class Segmentation {
 		$this->usual_fields = array("s.id", "s.name", "s.type", "s.date", "s.count_days");
 	}
 
+	// по id
+	public function SetFieldsById($id){
+		$sql = "SELECT ".implode(", ",$this->usual_fields)."
+				FROM "._DB_PREFIX_."segmentation s
+				WHERE id = \"$id\"";
+		$this->fields = $this->db->GetOneRowArray($sql);
+		if(!$this->fields){
+			return false;
+		}
+		return true;
+	}
+
+	// Обновление
+	public function Update($arr){
+		$f['id'] = trim($arr['id']);
+		$f['name'] = trim($arr['name']);
+		$f['type'] = trim($arr['type']);
+		if($arr['date'] !='') $f['date'] = trim($arr['date']);
+		if($arr['count_days'] !='') $f['count_days'] = trim($arr['count_days']);
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_."segmentation", $f, "id = {$f['id']}")){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
 	//Добавление Сегментации
 	public function AddSegmentation($arr){
 		$type_fields = $this->GetSegmentationType($_POST['type']);
-		$f['name'] = mysql_real_escape_string(trim($arr['name']));
-		$f['type'] = mysql_real_escape_string($arr['type']);
+		$f['name'] = trim($arr['name']);
+		$f['type'] = $arr['type'];
 		if($type_fields[0]['use_date'] == 1){
-			$f['date'] = $arr['date'] != ''?mysql_real_escape_string(trim($arr['date'])):null;
-			$f['count_days'] = $arr['count_days'] != ''?mysql_real_escape_string(trim($arr['count_days'])):null;
+			$f['date'] = $arr['date'] != ''?trim($arr['date']):null;
+			$f['count_days'] = $arr['count_days'] != ''?trim($arr['count_days']):null;
 		}
 		$this->db->StartTrans();
 		unset($arr);
@@ -106,6 +134,13 @@ class Segmentation {
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Удаление
+	public function Del($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."segmentation WHERE `id` =  $id";
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
 

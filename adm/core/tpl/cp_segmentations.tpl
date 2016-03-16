@@ -26,6 +26,7 @@
 								<td class="center">Дата</td>
 								<td class="center">Кол-во дней</td>
 							<?}?>
+							<td class="left">Управление</td>
 						  </tr>
 						</thead>
 						<tbody>
@@ -37,6 +38,12 @@
 											<td class="center"><?=$value['date']?></td>
 											<td class="center"><?=$value['count_days']?></td>
 										<?}?>
+										<td class="left actions">
+											<nobr>
+												<a class="btn-l-green-inv" href="/adm/segmentationedit/<?=$value['id']?>">редактировать</a>
+												<a class="btn-l-red-inv" href="/adm/segmentationdel/<?=$value['id']?>" onclick="return confirm('Точно удалить? Удалив сегмент, вы также удалите его из категорий и товаров!');">удалить</a>
+											</nobr>
+										</td>
 									</tr>
 								<?}
 							}?>

@@ -5,25 +5,28 @@
 	<form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<div class="row">
 			<div class="col-md-6 col-xs-12">
+				<?if(isset($_POST['id'])){?>
+					<input type="hidden" name="id" value="<?=$_POST['id']?>">
+				<?}?>
 				<label for="type">Выбор сегментации:</label>
 				<select name="type" id="type" class="input-m">
 					<?if(isset($typelist) && !empty($typelist)){
-						foreach ($typelist as $t) {?>
-							<option value="<?=$t['id']?>" data-date="<?=$t['use_date']?>"><?=$t['type_name']?></option>
+						foreach ($typelist as $t){?>
+							<option <?=$t['id']==$_POST['type']?'selected':null;?> value="<?=$t['id']?>" data-date="<?=$t['use_date']?>"><?=$t['type_name']?></option>
 						<?}
 					}else{?>
 						<option>Список пуст</option>
 					<?}?>
 				</select>
 				<label for="name">Название:</label>
-				<input type="text" name="name" class="input-m" required>
+				<input type="text" name="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>" required>
 				<div class="developments">
 					<label for="date">Дата:</label>
-					<input type="date" name="date" id="date" class="input-m">
+					<input type="date" name="date" id="date" class="input-m" value="<?=isset($_POST['date'])?htmlspecialchars($_POST['date']):null?>">
 					<label for="count_days">Количество дней:</label>
-					<input type="number" name="count_days" min="0" max="999" id="count_days" class="input-m">
+					<input type="number" name="count_days" min="0" max="999" id="count_days" class="input-m" value="<?=isset($_POST['count_days'])?htmlspecialchars($_POST['count_days']):null?>">
 				</div>
-				<button type="submit" name="smb" class="btn-m-default save-btn">Добавить</button>
+				<button type="submit" name="smb" class="btn-m-default save-btn">Сохранить</button>
 			</div>
 		</div>
 	</form>

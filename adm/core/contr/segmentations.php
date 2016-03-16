@@ -2,7 +2,10 @@
 	if (!_acl::isAllow('segmentations')){
 		die("Access denied");
 	}
+
+
 	$segmentation = new Segmentation();
+
 	// // ---- center ----
 	unset($parsed_res);
 	$ii = count($GLOBALS['IERA_LINKS']);

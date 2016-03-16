@@ -15,7 +15,7 @@
 		//Добавление Сигмантации
 		if($segmentation->AddSegmentation($_POST)){
 			$tpl->Assign('msg', 'Сегментация успешно добавлена.');
-			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base'].$_SERVER['REQUEST_URI']."'\", 2000);</script>";
+			//echo "<script Language=\"JavaScript\">setTimeout(\"document.location='".$GLOBALS['URL_base'].$_SERVER['REQUEST_URI']."'\", 2000);</script>";
 			unset($_POST);
 		}else{
 			$tpl->Assign('msg', 'Сегментация не добавлена.');

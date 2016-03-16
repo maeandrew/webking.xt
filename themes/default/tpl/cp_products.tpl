@@ -86,14 +86,17 @@
 		//Показать еще 30 товаров
 		$('#show_more_products').on('click', function(e){
 			e.preventDefault();
-			var page = $(this).closest('.products'),
+			var page = $(this).closest('.products_page'),
 				id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
 				start_page = parseInt(page.find('.paginator li.active').first().text()),
 				current_page = parseInt(page.find('.paginator li.active').last().text()),
 				next_page = current_page+1,
-				shown_products = (page.find('.product_section').get()).length,
+				shown_products = (page.find('.card').get()).length,
 				skipped_products = 30*(start_page-1),
 				count = <?=isset($cnt)?$cnt:0;?>;
+			console.log(page.find('.paginator li.active'));
+			console.log('start_page '+start_page);
+			console.log('shown_products '+shown_products);
 			$('.show_more').append('<span class="load_more"></span>');
 			var data = {
 				action: 'getmoreproducts_desctop',
@@ -104,7 +107,10 @@
 			ajax('products', 'getmoreproducts', data, 'html').done(function(data){
 		   		var product_view = $.cookie('product_view'),
 		   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
-		   			page.find('#view_block_js .preview').before(data);
+				page.find('.products').append(data);
+				$("img.lazy").lazyload({
+					effect : "fadeIn"
+				});
 		   		if(page.find('.paginator li.page'+next_page).length < 1){
 					if(parseInt(count-parseInt(skipped_products+shown_products)+30) > 30){
 						page.find('.paginator li.next_pages').addClass('active').find('a').attr('href','#');
@@ -128,6 +134,7 @@
 					id_product = $(this).attr('data-idfavorite');
 					AddFavorite(event,id_product);
 				});
+				ListenPhotoHover();//Инициализания Preview
 
 				//Добавление товара в корзину
 				$('.qty_js').on('change', function(){
