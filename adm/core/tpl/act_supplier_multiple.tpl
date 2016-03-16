@@ -116,6 +116,10 @@
 		.block table tr .date {
 			width: 67px;
 		}
+		.block table tr td.date,
+		.block table tr td.price {
+			font-size: .6em;
+		}
 		.block table tr .single_price {
 			width: 220px;
 		}
@@ -145,51 +149,6 @@
 			<div class="description">
 				<p><?=$i['name']?></p>
 			</div>
-			<!-- <table cellpadding="0" cellspacing="0">
-				<?if(isset($_POST['price']) == true){?>
-					<tr class="min_price">
-						<td colspan="3">
-							<?if((isset($i['min_opt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']) || (isset($i['min_mopt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
-								<p style="color:#f00;">Товар заблокирован для продажи.<br> Рекомендованная цена: <?="<".($i['min_mopt_price']-0.01)." грн.";?></p>
-							<?}?>
-						</td>
-					</tr>
-				<?}?>
-				<tr class="art">
-					<td colspan="3">Арт. <?=$i['art'];?><?if($i['product_limit'] > 0){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
-				</tr>
-				<tr class="header">
-					<td class="info"></td>
-					<td class="quantity">кол-во</td>
-					<td class="price">цена</td>
-				</tr>
-				<tr>
-					<td class="info">мин.</td>
-					<td class="quantity"><p><?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?></p></td>
-					<td class="price">
-						<p>
-							<?if($i['inusd'] == 1){?>
-								<?=$i['price_mopt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
-							<?}else{?>
-								<?=$i['price_mopt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
-							<?}?>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<td class="info">ящ.</td>
-					<td class="quantity"><p><?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?></p></td>
-					<td class="price">
-						<p>
-							<?if($i['inusd'] == 1){?>
-								<?=$i['price_opt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
-							<?}else{?>
-								<?=$i['price_opt_otpusk'] !== '0' && isset($_POST['price'])?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
-							<?}?>
-						</p>
-					</td>
-				</tr>
-			</table> -->
 			<table cellpadding="0" cellspacing="0">
 				<?if(isset($_POST['price']) == true){?>
 					<tr class="min_price">
@@ -204,31 +163,55 @@
 					<td colspan="3">Арт. <?=$i['art'];?><?if($i['product_limit'] > 0){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
 				</tr>
 				<tr class="header">
-					<td class="date">Дата</td>
+					<th class="date">Дата</th>
 					<?if($Supplier['single_price'] == 1){?>
-						<td class="single_price">от <?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?>, единая цена</td>
+						<th class="single_price">от <?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?>, единая цена</th>
 					<?}else{?>
-						<td class="price">от <?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?></td>
-						<td class="price">от <?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?></td>
+						<th class="price">от <?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?></th>
+						<th class="price">от <?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?></th>
 					<?}?>
 				</tr>
 				<?for($a=1; $a < 5; $a++){?>
 					<tr>
-						<td class="date"></td>
+						<td class="date"><?=$a==1?date('d.m.Y'):null;?></td>
 						<?if($Supplier['single_price'] == 1){?>
-							<td class="price" colspan="2"></td>
+							<td class="price" colspan="2">
+								<?if($a == 1){
+									if($i['inusd'] == 1){?>
+										<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?}else{?>
+										<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+									<?}
+								}?>
+							</td>
 						<?}else{?>
-							<td class="price"></td>
-							<td class="price"></td>
+							<td class="price">
+								<?if($a == 1){
+									if($i['inusd'] == 1){?>
+										<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?}else{?>
+										<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+									<?}
+								}?>
+							</td>
+							<td class="price">
+								<?if($a == 1){
+									if($i['inusd'] == 1){?>
+										<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?}else{?>
+										<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
+									<?}
+								}?>
+							</td>
 						<?}?>
 					</tr>
 				<?}?>
 			</table>
 			<div class="photo">
 				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="<?=$GLOBALS['URL_base']?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'medium', $i['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
+					<img <?=$wh?> src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'medium', $i['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
 				<?}else{?>
-					<img <?=$wh?> src="<?=$GLOBALS['URL_base'].htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>"/>
+					<img <?=$wh?> src="<?=_base_url?><?=htmlspecialchars(str_replace("image/", "image/500/", $i['img_1']))?>"/>
 				<?}?>
 			</div>
 		</div>

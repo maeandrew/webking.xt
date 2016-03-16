@@ -172,12 +172,12 @@
 			<div class="photo">
 				<?if(!empty($i['images'])){
 					foreach($i['images'] as $key => $image){?>
-						<img <?=$wh?> src="<?=$GLOBALS['URL_base']?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
+						<img <?=$wh?> src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
 					<?}
 				}else{
 					for($key=1; $key < 4; $key++){
 						if(!empty($i['img_'.$key])){?>
-							<img <?=$wh?> src="<?=$GLOBALS['URL_base']?><?=str_replace("/efiles/image/", "/efiles/image/500/", $i['img_'.$key])?>" alt="<?=$i['name']?>">
+							<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/500/", $i['img_'.$key])?>" alt="<?=$i['name']?>">
 						<?}
 					}
 				}?>

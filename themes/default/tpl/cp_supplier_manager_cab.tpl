@@ -21,9 +21,9 @@
 				<a href="#" data-value="email asc" class="sort_emai">E-mail<sup></sup></a>
 				<input type="search" value="<?=isset($_POST['filter_email'])?htmlspecialchars($_POST['filter_email']):null?>" name="filter_email"/>
 			</div>
-			<div class="next_update_date mdl-cell mdl-cell--1-col">
+			<!--<div class="next_update_date mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="next_update_date asc" class="sort_next_update_date">Рабочий день<sup></sup></a>
-			</div>
+			</div>-->
 			<div class="currency mdl-cell mdl-cell--1-col">
 				<a href="#" data-value="inusd desc, currency_rate asc" class="sort_currency_rate">Курс доллара<sup></sup></a>
 			</div>
@@ -43,7 +43,7 @@
 					<div class="place td"><?=isset($s['place'])?$s['place']:'-';?></div>
 					<div class="email td"><?=isset($s['email']) && $s['email'] != ''?$s['email']:'-';?></div>
 					<!-- красное если осталось меньше месяца или дата в прошлом -->
-					<div class="next_update_date td <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></div>
+					<!--<div class="next_update_date td <?=strtotime($s['next_update_date'])-time() <= 60*60*24*7*4?'color-red':null?>"><?=date("d.m.Y", strtotime($s['next_update_date']));?></div>-->
 					<div class="currency td"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></div>
 					<div class="login td">
 						<?if($s['active'] == 1){?>
