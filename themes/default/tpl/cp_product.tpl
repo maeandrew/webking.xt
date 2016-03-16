@@ -17,8 +17,6 @@
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
-
-
 			<?if(!empty($item['images'])){?>
 				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
 			<?}else{?>
@@ -54,13 +52,16 @@
 					.owl-pagination {
 						padding: 5px 0;
 					}
+
 					.mobile_carousel .owl-item img {
 						max-width: 100%;
+						margin: 0px auto;
+						display: block;
 					}
-					.owl-page {
+					.owl-dot {
 						width: 20px;
 					}
-					.owl-page span {
+					.owl-dot span {
 						display: block;
 						width: 0;
 						height: 0;
@@ -70,7 +71,7 @@
 						transition: all 0.4s ease-in-out;
 						border: 3px solid #888;
 					}
-					.owl-page.active span {
+					.owl-dot.active span {
 						border: 7px solid #888;
 					}
 					.tabs .mdl-tabs__tab {
@@ -84,9 +85,28 @@
 						overflow-x: overlay;
 						overflow-y: hidden;
 					}
+					#owl-product_mobile_img_js {
+						clear: both;
+					}
+
+
+					/* .videoBlock {
+						margin: 0px auto;
+					}
+					.videoBlock iframe {
+						height: 200px;
+					} */
+
+					/* .owl-prev, .owl-next {
+						margin-top: 20%;
+						margin-bottom: 20%;
+					} */
+					.owl-item,
+					.owl-carousel .owl-video-wrapper {
+						/* height: 220px; */
+					}
 				}
 			</style>
-
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
@@ -99,18 +119,64 @@
 						<?}
 					}
 				}?>
+
+				<?if(!empty($item['videos'])){
+					foreach($item['videos'] as $i => $video){?>
+					    <div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
+
+						<!-- <div class="videoBlock">
+							<iframe width="100%" height="100%" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen class="Youtube" alt="<?=$item['name']?>">
+							</iframe>
+						</div> -->
+					<?}
+				}?>
 			</div>
 			<script>
 				//Инициализация owl carousel
-				$("#owl-product_mobile_img_js").owlCarousel({
-					items: 6,
-					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
-					navigation: true, // Show next and prev buttons
-					pagination: true,
-					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
-				});
+					$('#owl-product_mobile_img_js').owlCarousel({
+						items: 1,
+						loop:true,
+						nav:true,
+				        margin:10,
+				        video:true,
+				        videoHeight: 290,
+				        videoWidth: 290,
+				        lazyLoad:true,
+				        center:true,
+				        responsive:{
+				            320: {items: 1},
+				            727: {items: 2},
+				            950: {items: 3},
+				            1250: {items: 4},
+				            1600: {items: 5}
+				        },
+						/*itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],*/
+						dots: true,
+						navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+										'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+					});
+
+				// $(function(){
+				// 	console.log(carousel);
+				// 	function callback(event) {
+				// 		console.log(event);
+				// 		$('#owl-product_mobile_img_js iframe').each(function(index, el) {
+				// 			el.src=el.src;
+				// 			console.log(el.src);
+				// 		});
+				// 	}
+
+				// 	$('#stopVideo').on('click', function(event){
+				// 		console.log(carousel);
+				// 		carousel.trigger('next.owl.carousel');
+				// 		// $('#owl-product_mobile_img_js iframe').each(function(index, el) {
+				// 		// 	el.src=el.src;
+				// 		// 	console.log(el.src);
+				// 		// });
+				// 	})
+				// });
 			</script>
+
 		<?}else{?>
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
@@ -140,10 +206,18 @@
 				//Инициализация owl carousel
 				$("#owl-product_mini_img_js").owlCarousel({
 					items: 4,
-					itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 3], [1600, 4]],
-					navigation: true, // Show next and prev buttons
-					pagination: false,
-					navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+					margin:10,
+					nav:true,
+					/*itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 3], [1600, 4]],*/
+					dots: false,
+						responsive:{
+							320: {items: 1},
+							727: {items: 2},
+							950: {items: 3},
+							1250: {items: 3},
+							1600: {items: 4}
+					    },
+					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
 				$(function(){
@@ -206,8 +280,41 @@
 				<ul>
 					<li><i class="material-icons" title="Добавить товар в избранное">favorite_border</i></li>
 					<li><i class="material-icons" title="Следить за ценой">trending_down</i></li>
-					<li><i class="material-icons" title="Поделиться">share</i></li>
+					<li>
+						<i id="shareButton" class="material-icons" title="Поделиться">share</i>
+					</li>
 				</ul>
+				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect social" for="shareButton" style="width: 250px;">
+
+						<ul class="social">
+							<li>
+								<a href="http://vk.com/share.php?url=http://mysite.comhttp://vk.com/share.php?url=<?=Link::Product($GLOBALS['Rewrite']);?>&title=[TITLE]&description=[DESC]&image=[IMAGE]&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($GLOBALS['Rewrite']);?>&st.comments=[TITLE]" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники">
+								</a>
+							</li>
+							<li>
+								<a href="https://plus.google.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
+								</a>
+							</li>
+							<li>
+								<a href="https://twitter.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>&text=[TITLE]" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+									<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
+								</a>
+							</li>
+						</ul>
+
+				</div>
 			</div>
 		</div>
 		<div class="rating_block">
@@ -369,53 +476,38 @@
 						<?if(empty($coment)){?>
 							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
 						<?}else{
-							$counter = 0;
-							foreach($coment as $i){
-								if($i['visible'] == 1) {
-									$counter++;
-								}
-							}
-							if(!isset($_SESSION['member']) || $_SESSION['member']['gid'] != _ACL_ADMIN_){
-								if($counter == 0) {?>
-									<p class="feedback_comment">Ваш отзыв может быть первым!</p>
-								<?}?>							
+							foreach($coment as $i){?>
+								<span class="feedback_author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
+								<span class="feedback_date"><i class="material-icons">query_builder</i>
+									<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
+										Сегодня
+									<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
+										Вчера
+									<?}else{
+										echo date("d.m.Y", strtotime($i['date_comment']));
+									}?>
+								</span>
+								<?if ($i['rating'] > 0) {?>
+									<div class="feedback_rating">
+										Оценка товара:
+										<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
+											<?for($j = 1; $j <= 5; $j++){
+												$star = 'star';
+												if($j > floor($i['rating'])){
+													if($j == ceil($i['rating'])){
+														$star .= '_half';
+													}else{
+														$star .= '_border';
+													}
+												}?>
+												<li><i class="material-icons"><?=$star?></i></li>
+											<?}?>
+										</ul>
+									</div>
+								<?}?>
+								<p class="feedback_comment"><?=$i['text_coment'];?></p>
 							<?}
-							foreach($coment as $i){?>								
-								<div class="feedback_sub_container <?=($i['visible']==0 && $_SESSION['member']['gid'] != _ACL_ADMIN_)?'hidden':null;?>">
-									<span class="feedback_author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
-									<span class="feedback_date"><i class="material-icons">query_builder</i>
-										<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
-											Сегодня
-										<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
-											Вчера
-										<?}else{
-											echo date("d.m.Y", strtotime($i['date_comment']));
-										}?>
-									</span>
-									<?if ($i['rating'] > 0) {?>
-										<div class="feedback_rating">
-											Оценка товара:
-											<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
-												<?for($j = 1; $j <= 5; $j++){
-													$star = 'star';
-													if($j > floor($i['rating'])){
-														if($j == ceil($i['rating'])){
-															$star .= '_half';
-														}else{
-															$star .= '_border';
-														}
-													}?>
-													<li><i class="material-icons"><?=$star?></i></li>
-												<?}?>
-											</ul>
-										</div>
-									<?}?>
-									<span style="color: red;" class="infoForAdmin <?=($i['visible']==1)?'hidden':null;?>">
-									Скрыто</span>
-									<p class="feedback_comment"><?=$i['text_coment'];?></p>
-								</div>
-							<?}?>
-						<?}?>
+						}?>
 					</div>
 				</div>
 			</div>
@@ -499,14 +591,14 @@
 				event.preventDefault();
 			}
 		}).on('click','.videoBlock', function(e) { //выбор видео и его перемещение в главное окно
-      		e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
-      		$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
-      		$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
-      		$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
-      		var src = $(this).find('iframe').attr('src');
-      		/*console.log(src);*/
+			e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
+			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
+			$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
+			$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
+			var src = $(this).find('iframe').attr('src');
+			/*console.log(src);*/
 			$('.product_main_img').find('iframe').attr('src', src);
-      		$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
-    	});
+			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
+			});
 	});
 </script>
