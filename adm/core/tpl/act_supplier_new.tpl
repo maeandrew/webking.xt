@@ -144,7 +144,7 @@
 	
 	<?$ii=1;
 	$price = false;
-	if(isset($_GET['price']) && $_GET['price'] == true){
+	if(isset($_GET['price']) && $_GET['price'] == 'true'){
 		$price = true;
 	}?>
 	<?foreach ($products as $i){?>
@@ -176,11 +176,13 @@
 					<td class="quantity"><p><?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?></p></td>
 					<td class="price">
 						<p>
-							<?if($i['inusd'] == 1){?>
-								<?=$i['price_mopt_otpusk'] !== '0' && $price === true?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
-							<?}else{?>
-								<?=$i['price_mopt_otpusk'] !== '0' && $price === true?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
-							<?}?>
+							<?if($price === true){
+								if($i['inusd'] == 1){?>
+									<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
+								<?}else{?>
+									<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+								<?}
+							}?>
 						</p>
 					</td>
 				</tr>
@@ -189,11 +191,13 @@
 					<td class="quantity"><p><?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?></p></td>
 					<td class="price">
 						<p>
-							<?if($i['inusd'] == 1){?>
-								<?=$i['price_opt_otpusk'] !== '0' && $price === true?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
-							<?}else{?>
-								<?=$i['price_opt_otpusk'] !== '0' && $price === true?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
-							<?}?>
+							<?if($price === true){
+								if($i['inusd'] == 1){?>
+									<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
+								<?}else{?>
+									<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
+								<?}
+							}?>
 						</p>
 					</td>
 				</tr>
