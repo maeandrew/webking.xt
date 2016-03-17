@@ -126,16 +126,6 @@
 										<li>
 											<?if(isset($l2['subcats'])){?>
 												<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l2['id_category']?>">
-													<div style="height: 16px;
-																width: 16px;
-																background: #FF5722;
-																text-align: center;
-																color: #fff;
-																font-size: 30px;
-																border-radius: 15%;
-																line-height: 14px; z-index: 10; position: absolute; left: 0; top: 3px;" class="is-semi-checked hidden">-</div>
-
-
 													<input type="checkbox" name="category_select" class="category-parent-select mdl-checkbox__input" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 													<span class="mdl-checkbox__label"><?=$l2['name']?> [<?=$l2['products']?>]</span>
 
