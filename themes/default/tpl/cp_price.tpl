@@ -202,13 +202,6 @@
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	var params = $('#dynamic-params'),
 		start = parseInt(params.css("top"));
-
-	/*$(window).scroll(function(){
-		if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop());
-		}else{
-			params.css("top", start);
-		}*/
 		var contHeight = $(".content").height();
 		var formHeight = $("#dynamic-params").height();
 		var endScroll = (contHeight - formHeight);
@@ -217,18 +210,6 @@
 		}
 
 	$(window).scroll(function(){
-		/*if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop());
-		}else{
-			params.css("top", start);
-		}*/
-
-
-		/*var endScroll = (($(".content").height()) - ($("#dynamic-params").height()));*/
-		/*console.log(contHeight);
-		console.log(formHeight);
-		console.log(endScroll);*/
-
 		if($(this).scrollTop() > endScroll){
 			params.css('top', endScroll);
 			params.css('z-index', 0);
@@ -374,12 +355,14 @@
 
 	/* Выбор категорий второго уровня */
 	$('.category-select, .category-parent-select').change(function(){
+		console.log("hello");
 		var id = Number($(this).attr('id').replace(/\D+/g,""));
 		var pid = Number($(this).attr('class').replace(/\D+/g,""));
 		var products = Number($(this).val().replace(/\D+/g,""));
 		var limit = Number($('span.limit-count').text().replace(/\D+/g,""));
 		var summary = Number($('span.selected-count').text().replace(/\D+/g,""));
 		var array = 0; var massive = $('.selected-array').val();
+		$(this).closest('label').removeClass('is-semi-checked');
 		if(pid == 0){
 			if($('.pid-'+id).length > 0){
 				if($(this).prop('checked')==true){
@@ -420,10 +403,10 @@
 				if($('.pid-'+pid+':checked').length !== $('.pid-'+pid).length){
 					$('#cat-'+pid).prop('checked',false).prop('indeterminate', true).closest('label').addClass('is-semi-checked');
 				}else{
-					$('#cat-'+pid).prop('checked',true).prop('indeterminate', false).closest('label').removeClass('is-semi-checked');
+					$('#cat-'+pid).prop('checked',true).prop('indeterminate', false).closest('label').removeClass('is-semi-checked').addClass('is-checked');
 				}
 			}else{
-				$('#cat-'+pid).prop('checked',false).prop('indeterminate', false).closest('label').removeClass('is-semi-checked');
+				$('#cat-'+pid).prop('checked',false).prop('indeterminate', false).closest('label').removeClass('is-semi-checked').removeClass('is-checked');
 			}
 		}
 		$('.selected-array').val(massive);
@@ -526,15 +509,4 @@
 			}
 		});
 	});
-
-
-
-
-
-
-
-
-
-
-
 </script>
