@@ -126,6 +126,16 @@
 										<li>
 											<?if(isset($l2['subcats'])){?>
 												<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l2['id_category']?>">
+													<div style="height: 16px;
+																width: 16px;
+																background: #FF5722;
+																text-align: center;
+																color: #fff;
+																font-size: 30px;
+																border-radius: 15%;
+																line-height: 14px; z-index: 10; position: absolute; left: 0; top: 3px;" class="is-semi-checked hidden">-</div>
+
+
 													<input type="checkbox" name="category_select" class="category-parent-select mdl-checkbox__input" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 													<span class="mdl-checkbox__label"><?=$l2['name']?> [<?=$l2['products']?>]</span>
 
@@ -141,7 +151,7 @@
 															<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l3['id_category']?>">
 																  <input type="checkbox" name="category_select" id="cat-<?=$l3['id_category']?>" class="mdl-checkbox__input category-select pid-<?=$l3['pid']?>" value="<?=$l3['products']?>">
 																  <span class="mdl-checkbox__label"><?=$l3['name']?> [<?=$l3['products']?>]</span>
-															</label>			
+															</label>
 
 															<!-- <input type="checkbox" name="category_select" class="category-select pid-<?=$l3['pid']?>" id="cat-<?=$l3['id_category']?>" value="<?=$l3['products']?>">
 															<label for="cat-<?=$l3['id_category']?>"><?=$l3['name']?> [<?=$l3['products']?>]</label> -->
@@ -156,7 +166,7 @@
 											<?}?>
 
 
-										
+
 										<!-- <input type="checkbox" name="category_select" class="category-parent-select" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 											<?if(isset($l2['subcats'])){?>
 												<label for="cat-<?=$l2['id_category']?>"><?=$l2['name']?> [<?=$l2['products']?>]</label>
@@ -169,8 +179,8 @@
 															<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l3['id_category']?>">
 																  <input type="checkbox" name="category_select" id="cat-<?=$l3['id_category']?>" class="mdl-checkbox__input category-select pid-<?=$l3['pid']?>" value="<?=$l3['products']?>">
 																  <span class="mdl-checkbox__label"><?=$l3['name']?> [<?=$l3['products']?>]</span>
-															</label>			
-			
+															</label>
+
 
 															<input type="checkbox" name="category_select" class="category-select pid-<?=$l3['pid']?>" id="cat-<?=$l3['id_category']?>" value="<?=$l3['products']?>">
 															<label for="cat-<?=$l3['id_category']?>"><?=$l3['name']?> [<?=$l3['products']?>]</label>
@@ -182,7 +192,7 @@
 
 												</label>
 											<?}?> -->
-										 
+
 
 										</li>
 									<?}?>
@@ -192,7 +202,7 @@
 					<?}
 				}?>
 			</ul>
-		<?}?>		
+		<?}?>
 	</div>
 </div> <!-- END class="price_list_page" -->
 <script>
@@ -202,13 +212,42 @@
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	var params = $('#dynamic-params'),
 		start = parseInt(params.css("top"));
-	$(window).scroll(function(){
+
+	/*$(window).scroll(function(){
 		if($(this).scrollTop() >= start){
 			params.css("top", $(this).scrollTop());
 		}else{
 			params.css("top", start);
+		}*/
+		var contHeight = $(".content").height();
+		var formHeight = $("#dynamic-params").height();
+		var endScroll = (contHeight - formHeight);
+		if(contHeight < formHeight){
+			endScroll = 50;
 		}
-	});	
+
+	$(window).scroll(function(){
+		/*if($(this).scrollTop() >= start){
+			params.css("top", $(this).scrollTop());
+		}else{
+			params.css("top", start);
+		}*/
+
+
+		/*var endScroll = (($(".content").height()) - ($("#dynamic-params").height()));*/
+		/*console.log(contHeight);
+		console.log(formHeight);
+		console.log(endScroll);*/
+
+		if($(this).scrollTop() > endScroll){
+			params.css('top', endScroll);
+			params.css('z-index', 0);
+		}else if($(this).scrollTop() >= start){
+			params.css("top", $(this).scrollTop());
+		}else{
+			params.css("top", start);
+		}
+	});
 
 	$(window).load(function() {
 		var window_width = $(document).width();
@@ -218,11 +257,14 @@
 			var diff = window_width - second_start;
 		}else {
 			var diff = window_width - start;
-		}		
+		}
 		$('.price_form').css('left', diff);
+
+		if (contHeight < formHeight){
+			$('#dynamic-params').css('top', 50);
+			$(".price_list_page").css('height', formHeight);
+		}
 	});
-
-
 
 	/** Выбор категорий для прайс-листа */
 	/* Справка по заголовку в прайсе */
