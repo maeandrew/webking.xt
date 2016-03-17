@@ -45,6 +45,7 @@
 	}
 	#content .blockline:first-child {
 		padding-top: 4%;
+		text-align: center;
 	}
 	#content .flexwrapp {
 		display: flex;

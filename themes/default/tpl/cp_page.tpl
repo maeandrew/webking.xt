@@ -21,20 +21,7 @@
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
-		</div>
-		<div class="blockline flexwrapp">
-			<div class="forflex blockOfText">
-				<h4>Доставка транспортной <br>компанией</h4>
-				<div>
-					<p>Отправим удобным перевозчиком:</p>
-					<p>1. Запомните ТТН и номер отделения</p>
-					<p>2. При получении проверьте товар</p>
-					<p>3. Оплатите услуги перевозчика</p>
-				</div>
-			</div>
-			<div class="forflex">
-				<img class="delivery4" src="/themes/default/images/page/delivery/delivery4.png" alt="">
-			</div>
+			<p>Осуществляется нашим курьером, либо любой другой транспортной службой. Отправка товара в течении 2&nbsp;дней</p>
 		</div>
 		<div class="blockline flexwrapp flexWrapReverse">
 			<video id="movie" width="495" height="278" src="/themes/default/images/page/delivery/delivery3.mp4" autoplay loop></video>
@@ -45,12 +32,21 @@
 		</div>
 		<div class="blockline flexwrapp">
 			<div class="forflex blockOfText">
+				<h4>Доставка транспортной <br>компанией</h4>
+				<p>Заказывая доставку товара сторонними курьерскими службами - при получении обязательно проверяйте наличие всего товара, а так же его внешний вид.</p>
+			</div>
+			<div class="forflex">
+				<img class="delivery4" src="/themes/default/images/page/delivery/delivery4.png" alt="">
+			</div>
+		</div>
+		<div class="blockline flexwrapp flexWrapReverse">
+			<div class="forflex">
+				<img class="delivery2" src="/themes/default/images/page/delivery/delivery2.png" alt="">
+			</div>
+			<div class="forflex blockOfText">
 				<h4>Самовывоз</h4>
 				<p>По адресу:
 					г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130.<br><br> А еще у нас бесплатная доставка товара до парковок <br>ТЦ Барабашово.</p>
-			</div>
-			<div class="forflex">
-				<img class="delivery2" src="/themes/default/images/page/delivery/delivery2.png" alt="">
 			</div>
 		</div>
 		<div class="blockline">
@@ -66,7 +62,7 @@
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
-			<p>XT - служба снабжения,<br>поставляющая товары непродовольственной<br>группы на предприятия, в магазины и<br>домашние хозяйства.</p>
+			<p>XT - служба снабжения,<br>поставляющая товары непродовольственной<br>группы на предприятия, в магазины и<br>домашние хозяйства</p>
 		</div>
 		<div class="blockline">
 			<h4>Что мы создали</h4>
@@ -652,6 +648,7 @@
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
+			<p>С нами у Вас есть возможность создать с нуля свой бизнес, или полностью обеспечить свой магазин товарами</p>
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
@@ -659,8 +656,8 @@
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
-					<h4>Закупайте своевременно</h4>
-					<p>Используйте нашу статистику, чтобы не прогадать сезон.</p>
+					<h4>Хиты продаж сезона</h4>
+					<p>Наша статистика, покажет самые востребованные товары сезона.</p>
 				</div>
 				<video class="forflex" width="495" height="278" src="/themes/default/images/page/supply/supply1.mp4" autoplay loop>
 				</video>
@@ -701,9 +698,9 @@
 					<p>Для изменения цен на сайте используйте палитру скидок</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>Контроль бюджета</h5>
+					<h5>Управляй скидкой</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Выбирайте скидку, исходя из своего бюджета</p>
+					<p>Покупая упаковку вы получаете дополнительную скидку от&nbsp;3%&nbsp;до&nbsp;15%</p>
 				</div>
 			</div>
 		</div>
@@ -723,14 +720,14 @@
 		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
-					<h5>Добавление друга</h5>
+					<h5>Добавь партнера</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Используйте вкладку "Участники" в информации о Вашем заказе</p>
 				</div>
 				<div class="info_circle forflex">
 					<h5>Отправьте приглашение</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>...</p>
+					<p>И получите скидку на совместную покупку</p>
 				</div>
 			</div>
 		</div>
@@ -744,41 +741,7 @@
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
-		</div>
-		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
-			</a>
-			<div class="container flexwrapp">
-				<div class="forflex blockOfText">
-					<h4>Скидка на упаковке</h4>
-					<p>Покупайте продукцию упаковками и получайте оптовую скидку до 5%.</p>
-				</div>
-				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
-			</div>
-		</div>
-		<div class="invisibleblock blockline">
-			<div class="flexwrapp two_inline">
-				<div class="info_circle forflex">
-					<h5>Каталог</h5>
-					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Здесь есть всё для дома</p>
-				</div>
-				<div class="info_circle forflex">
-					<h5>Оптовая скидка</h5>
-					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Получайте скидку на количестве</p>
-				</div>
-			</div>
-		</div>
-		<div class="blockline">
-			<div class="container flexwrapp flexWrapReverse">
-				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts2.png" alt=""></div>
-				<div class="forflex blockOfText">
-					<h4>Скидка на паллету</h4>
-					<p>Покупайте продукцию от 10,000 грн. и получайте скидку.</p>
-				</div>
-			</div>
+			<p>В магазине «ХТ» действуют гибкие скидки, программа лояльности и систма бонусов</p>
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
@@ -787,7 +750,7 @@
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText ">
 					<h4>Скидка на размере чека</h4>
-					<p>Выберите свой бюджет и получите дополнительную скидку на размере чека до 21%.</p>
+					<p>Выберите свой бюджет и получите дополнительную скидку на размере чека до&nbsp;21%.</p>
 				</div>
 				<video class="forflex" id="" width="495" height="278" src="/themes/default/images/page/discounts/discounts3.mp4" autoplay loop>
 				</video>
@@ -801,10 +764,45 @@
 					<p>Для изменения цен на сайте используйте палитру скидок</p>
 				</div>
 				<div class="info_circle forflex">
-					<h5>Контроль бюджета</h5>
+					<h5>Расчет</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Выбирайте скидку, исходя из своего бюджета</p>
+					<p>С учетом всех скидок и бонусов, цену на товар можно увидеть в корзине</p>
 				</div>
+			</div>
+		</div>
+		<div class="blockline">
+			<a href="#" class="pos-right btn_plus">
+				<span>+</span><p>Как это работает</p>
+			</a>
+			<div class="container flexwrapp flexWrapReverse">
+				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
+				<div class="forflex blockOfText">
+					<h4>Скидка на упаковке</h4>
+					<p>Покупайте продукцию упаковками и получайте оптовую скидку от&nbsp;3%&nbsp;до&nbsp;15%.</p>
+				</div>
+			</div>
+		</div>
+		<div class="invisibleblock blockline">
+			<div class="flexwrapp two_inline">
+				<div class="info_circle forflex">
+					<h5>Каталог</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>Здесь есть всё для дома</p>
+				</div>
+				<div class="info_circle forflex">
+					<h5>Оптовая скидка</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>Получайте скидку на упаковку</p>
+				</div>
+			</div>
+		</div>
+		<div class="blockline">
+			<div class="container flexwrapp">
+				<div class="forflex blockOfText">
+					<h4>Скидка на паллету</h4>
+					<p>Покупайте продукцию от 10,000 грн. и получайте скидку.</p>
+				</div>
+				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts2.png" alt=""></div>
 			</div>
 		</div>
 		<div class="blockline">
@@ -864,6 +862,38 @@
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
+			<p>С магазином «ХТ» Вы экономите свое время и финансы</p>
+		</div>
+		<div class="blockline">
+			<a href="#" class="pos-right btn_plus">
+				<span>+</span><p>Как это работает</p>
+			</a>
+			<div class="container flexwrapp flexWrapReverse">
+				<div class="forflex"><img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
+				<div class="forflex blockOfText ">
+					<h4>Поштучная покупка</h4>
+					<p>Здесь нет минимального чека, отправим даже пару перчаток.</p>
+				</div>
+			</div>
+		</div>
+		<div class="invisibleblock">
+			<div class="flexwrapp three_inline">
+				<div class="info_circle forflex">
+					<h5>Выбор товара</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>Товар можно отсортировать используя удобный фильтр</p>
+				</div>
+				<div class="info_circle forflex">
+					<h5>Оформление заказа</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>Наш call center подтверждает заказ и оформляет доставку</p>
+				</div>
+				<div class="info_circle forflex">
+					<h5>Оплата товара</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>Любым удобным для Вас способом</p>
+				</div>
+			</div>
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
@@ -888,7 +918,7 @@
 				<div class="info_circle forflex">
 					<h5>Оптовая скидка</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Получайте скидку на количестве</p>
+					<p>Покупая упаковку Вы получаете дополнительную скидку от&nbsp;3%&nbsp;до&nbsp;15%</p>
 				</div>
 			</div>
 		</div>
@@ -897,45 +927,24 @@
 				<span>+</span><p>Как это работает</p>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
-				<div class="forflex"><img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
-				<div class="forflex blockOfText ">
-					<h4>Поштучная покупка</h4>
-					<p>Здесь нет минимального чека, отправим даже пару перчаток.</p>
+				<video width="495" height="278" src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
+				<div class="forflex blockOfText">
+					<h4>Покупайте вместе</h4>
+					<p>Приглашайте друзей к заказу и получайте настоящие оптовые скидки.</p>
 				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
-					<h5>Выбор скидки</h5>
-					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Для изменения цен на сайте используйте палитру скидок</p>
-				</div>
-				<div class="info_circle forflex">
-					<h5>Контроль бюджета</h5>
-					<div class="info_circle_img"><img src="" alt=""></div>
-					<p>Выбирайте скидку, исходя из своего бюджета</p>
-				</div>
-			</div>
-		</div>
-		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
-			</a>
-			<div class="container flexwrapp">
-				<div class="forflex blockOfText">
-					<h4>Покупайте вместе</h4>
-					<p>Приглашайте друзей к заказу и получайте настоящие оптовые скидки.</p>
-				</div>
-				<video width="495" height="278" src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
-			</div>
-		</div>
-		<div class="invisibleblock">
-			<div class="flexwrapp">
-				<div class="info_circle">
-					<h5>Коллективная покупка</h5>
+					<h5>Совместная покупка</h5>
 					<div class="info_circle_img"><img src="" alt=""></div>
 					<p>Используйте вкладку "Участники" в информации о Вашем заказе</p>
+				</div>
+				<div class="info_circle forflex">
+					<h5>Добавь друга</h5>
+					<div class="info_circle_img"><img src="" alt=""></div>
+					<p>И получи скидку на совместную покупку</p>
 				</div>
 			</div>
 		</div>
@@ -949,6 +958,7 @@
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
+			<p>Комплексное обеспечение материалами, инструментами, оборудованием и комплектующими на долгосрочной основе</p>
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
@@ -970,11 +980,11 @@
 				</div>
 				<div class="info_circle forflex">
 					<img src="/themes/default/images/page/provision_companies/rebate2.png" alt="">
-					<p>Вы выделяете бюджет на закупку товара</p>
+					<p>Предприятие теряет рентабельность</p>
 				</div>
 				<div class="info_circle forflex">
 					<img src="/themes/default/images/page/provision_companies/rebate3.png" alt="">
-					<p>Закупщик получает откат за фильтрацию</p>
+					<p>Незапланированный расход бюджета</p>
 				</div>
 			</div>
 		</div>
@@ -1084,23 +1094,15 @@
 			<h1>Контакты</h1>
 			<div class="blockOfText contactText">
 				<p class="main_text ">Отдел оптовых продаж:</p>
-				<p>(057) 780-38-61</p>
-				<p>(099) 563-28-17</p>
-				<p>(067) 577-39-07</p>
-				<p>(063) 425-91-83</p>
-
+				<p>(050) 309-84-20</p>
 				<p class="main_text ">Крупнооптовый отдел:</p>
-				<p>(050) 402-14-89</p>
-				<p>(067) 546-46-70</p>
-
+				<p>(067) 574-10-13</p>
 				<p class="main_text ">График роботы:</p>
 				<p>Пн-Сб: с 8:00 до 21:00</p>
 				<p>Вс: с 10:00 до 18:00</p>
-
 				<p class="main_text mini_text ">*Заказы, сделанные в нерабочее время вашего менеджера, обрабатываются с началом следующего рабочего дня.</p>
-
 				<p class="main_text mini_text ">Адрес:</p>
-				<p class="mini_text ">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</p>
+				<p class="mini_text ">г.&nbsp;Харьков, ТЦ&nbsp;Барабашово, Площадка&nbsp;Свояк, Торговое&nbsp;Место&nbsp;130</p>
 
 				<p class="main_text ">Администрация:</p>
 				<p>Ответственный по связям с общественностью</p>
@@ -1181,6 +1183,7 @@
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/dealer/dealer0.png" alt="">
 			<h1>Как стать дилером</h1>
+			<p>Мы дадим Вам все необходимое для создания бизнеса</p>
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp">
