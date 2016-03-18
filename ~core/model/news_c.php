@@ -202,7 +202,7 @@ class News{
 	}
 	// Удаление страницы
 	public function DelNews($id_news){
-		$sql = "DELETE FROM "._DB_PREFIX_."news WHERE `id_news` =  $id_news";
+		$sql = "DELETE FROM "._DB_PREFIX_."news WHERE `id_news` = $id_news";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
@@ -212,16 +212,6 @@ class News{
 			$sql = "UPDATE "._DB_PREFIX_."news SET `ord` = $ord
 				WHERE id_news = $id_news";
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		}
-	}
-	// Поиск
-	public function Search($query){
-		$sql = "SELECT id_news, title, translit, SUBSTRING(content, 1,300) as content
-			FROM "._DB_PREFIX_."news
-			WHERE visible = 1 AND title like \"%$query%\" OR content like \"%$query%\"";
-		$this->list = $this->db->GetArray($sql);
-		foreach($this->list as $li_id=>$li){
-			$this->list[$li_id]['content'] = preg_replace("#<.*?(>|$)#is"," ",$li['content']);
 		}
 	}
 
