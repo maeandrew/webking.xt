@@ -1,12 +1,4 @@
-<!-- Bootstrap styles -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<!-- blueimp Gallery styles -->
-<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-
-<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet" href="/plugins/jquery.fileupload.css">
-<link rel="stylesheet" href="/plugins/jquery.fileupload-ui.css">
-		
+<link rel="stylesheet" href="/adm/css/page_styles/productedit.css">
 
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
@@ -50,113 +42,34 @@
 				document.getElementById('descr_full').value = editor.getValue();
 			}
 		</script> -->
-
-		
-		<div class="container">
-			<!-- The file upload form used as target for the file upload widget -->
-			<form id="fileupload" action="" method="POST" enctype="multipart/form-data">
-				<input type="file" name="files[]" multiple>
-				<!-- The fileupload-buttonbar contains buttons to add/delete files -->
-				<div class="fileupload-buttonbar">
-					<!-- The fileinput-button span is used to style the file input field as button -->
-					<span class="btn btn-success fileinput-button">
-						<i class="glyphicon glyphicon-plus"></i>
-						<span>Загрузить изображение...</span>
-						<!-- <input type="file" name="files[]" multiple> -->
-					</span>
-					<button type="button" class="btn btn-danger delete">
-						<i class="glyphicon glyphicon-trash"></i>
-						<span>Удалить</span>
-					</button>
-					<input type="checkbox" class="toggle">
-					<!-- The global file processing state -->
-					<span class="fileupload-process"></span>
-				</div>
-				<!-- The table listing the files available for upload/download -->
-				<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-			</form>
+		<div id="photobox">
+			<div class="previews">
+				<?if(isset($_POST['images']) && !empty($_POST['images'])){
+					foreach($_POST['images'] as $photo){
+						if(isset($photo['src'])){?>
+							<div class="image_block dz-preview dz-image-preview">
+								<div class="sort_handle"><span class="icon-font">s</span></div>
+								<div class="image">
+									<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].'..'.$photo['src'])?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+								</div>
+								<div class="name">
+									<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
+									<span class="dz-size" data-dz-size></span>
+								</div>
+								<div class="controls">
+									<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
+								</div>
+								<input type="hidden" name="images[]" value="<?=$photo['src']?>">
+							</div>
+						<?}
+					}
+				}?>
+			</div>
+			<div class="image_block_new drop_zone animate">
+				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+			</div>
 		</div>
-		<!-- The blueimp Gallery widget -->
-		<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
-			<div class="slides"></div>
-			<h3 class="title"></h3>
-			<a class="prev">‹</a>
-			<a class="next">›</a>
-			<a class="close">×</a>
-			<a class="play-pause"></a>
-			<ol class="indicator"></ol>
-		</div>
-		<!-- The template to display files available for upload -->
-		<script id="template-upload" type="text/x-tmpl">
-		{% for (var i=0, file; file=o.files[i]; i++) { %}
-			<tr class="template-upload fade">
-				<td>
-					<span class="preview"></span>
-				</td>
-				<td>
-					<p class="name">{%=file.name%}</p>
-					<strong class="error text-danger"></strong>
-				</td>
-
-				<td>
-					<p class="size">Processing...</p>
-					<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-				</td>
-			</tr>
-		{% } %}
-		</script>
-		<!-- The template to display files available for download -->
-		<script id="template-download" type="text/x-tmpl">
-		{% for (var i=0, file; file=o.files[i]; i++) { %}
-			<tr class="template-download fade">
-				<td>
-					<span class="preview">
-						{% if (file.thumbnailUrl) { %}
-							<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-						{% } %}
-					</span>
-				</td>
-				<td>
-					<p class="name">
-						{% if (file.url) { %}
-							<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-						{% } else { %}
-							<span>{%=file.name%}</span>
-						{% } %}
-					</p>
-					{% if (file.error) { %}
-						<div><span class="label label-danger">Error</span> {%=file.error%}</div>
-					{% } %}
-				</td>
-				<td>
-					<p class="source">
-						{% if (file.url) { %}
-							<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.url%}</a>
-						{% } else { %}
-							<span>{%=file.name%}</span>
-						{% } %}
-					</p>		
-				</td>
-				<td>
-					<span class="size">{%=o.formatFileSize(file.size)%}</span>
-				</td>
-				<td>
-					{% if (file.deleteUrl) { %}
-						<button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-							<i class="glyphicon glyphicon-trash"></i>
-							<span>Удалить</span>
-						</button>
-						<input type="checkbox" name="delete" value="1" class="toggle">
-					{% } else { %}
-						<button class="btn btn-warning cancel">
-							<i class="glyphicon glyphicon-ban-circle"></i>
-							<span>Cancel</span>
-						</button>
-					{% } %}
-				</td>
-			</tr>
-		{% } %}
-		</script>
 
 		
 
@@ -183,6 +96,154 @@
 		<input name="test_distribution" type="submit" id="form_subm1it" class="btn-l-blue" value="Тестовая рассылка">
     </form>
 </div>
+
+<div id="preview-template" style="display: none;">
+	<div class="image_block dz-preview dz-file-preview">
+		<div class="sort_handle"><span class="icon-font">s</span></div>
+		<div class="image">
+			<img data-dz-thumbnail />
+		</div>
+		<div class="name">
+			<span class="dz-filename" data-dz-name></span>
+			<span class="dz-size" data-dz-size></span>
+		</div>
+		<div class="controls">
+			<p><span class="icon-font del_u_photo_js">t</span></p>
+		</div>
+	</div>
+</div>
+
+<script src="/plugins/dropzone.js"></script>
+
+<script type="text/javascript">
+	// AjexFileManager.init({
+	// 	returnTo: 'function'
+	// });
+	var url = URL_base+"productadd/";
+	$(function(){
+		//Удаление видео
+		$("body").on('click', '.remove_video', function() {
+			if(confirm('Вы точно хотите удалить видео?')){
+				$(this).parent().remove();
+			}
+		});
+
+		//Загрузка Фото на сайт
+		var dropzone = new Dropzone(".drop_zone", {
+			method: 'POST',
+			url: url+"?upload=true",
+			clickable: true,
+			previewsContainer: '.previews', // куда загружает
+			previewTemplate: document.querySelector('#preview-template').innerHTML //шаблон загрузки
+		});
+		var return_arr = new Array();
+		dropzone.on('addedfile', function(file){
+			//askaboutleave();
+		}).on('success', function(file, path){
+			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+			//console.log(file);
+
+		}).on('removedfile', function(file){
+			var date = new Date(),
+				year = date.getFullYear(),
+				month = date.getMonth(),
+				day = date.getDate(),
+				removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		});
+
+		//Сортировка фото
+		$('.previews').sortable({
+			items: ".image_block",
+			handle: ".sort_handle",
+			connectWith: ".previews",
+			containment: ".previews",
+			placeholder: "ui-sortable-placeholder",
+			axis: "y",
+			scroll: false,
+			tolerance: "pointer",
+			out: function(){
+				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
+				$('.main_photo img').attr('src', main_photo);
+			}
+		});
+
+		//Удаление фото
+		$("body").on('click', '.del_photo_js', function(e) {
+			//e.stopPropagation();
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+				removed_file = path.find('input[name="images[]"]').val();
+				RemovedFile(path, removed_file);
+			}
+		});
+
+		//Удаление только что загруженных фото
+		$("body").on('click', '.del_u_photo_js', function(e) {
+			e.stopPropagation();
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+				removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
+				RemovedFile(path, removed_file);
+			}
+		});
+	});
+
+	function RemovedFile (path, removed_file){
+		path.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+		path.remove();
+	}
+
+	function insertValueLink(link) {
+		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
+			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
+			value = link.closest('tr').find('[name="value"]').val();
+		//console.log(id_spec_prod+','+ id_spec+','+value);
+		$.ajax({
+			url: URL_base+'ajaxproducts',
+			type: "POST",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'specification_update',
+				"id_spec_prod": id_spec_prod,
+				"id_spec": id_spec,
+				"value": value,
+				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
+			}
+		});
+		// var href = link.attr('href');
+		// href += link.closest('tr').find('[name="value"]').val();
+		// window.location.replace(href);
+	}
+	function updateTranslit(){
+		$.ajax({
+			url: URL_base+'ajaxproducts',
+			type: "POST",
+			cache: false,
+			dataType: "json",
+			data: {
+				"action":'update_translit',
+				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
+			}
+		}).done(function(data){
+			$('#translit p').text(data);
+			$('#updtrans').animate({  borderSpacing: 360 }, {
+				step: function(now,fx) {
+					$(this).css('-webkit-transform','rotate('+now+'deg)');
+					$(this).css('-moz-transform','rotate('+now+'deg)');
+					$(this).css('transform','rotate('+now+'deg)');
+				},
+				duration:'slow'
+			},'linear');
+		});
+	}
+	
+	
+
+</script>
+
+
 <script>
 	//Текстовый редактор
 	CKEDITOR.replace( 'descr_short', {
@@ -192,28 +253,3 @@
 	    customConfig: 'custom/ckeditor_config_img.js'
 	});
 </script>
-
-<script src="/js/jquery-2.1.4.min.js"></script>
-<!-- // <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="/plugins/jquery.ui.widget.js"></script>
-<!-- The Templates plugin is included to render the upload/download listings -->
-<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
-<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
-<!-- blueimp Gallery script -->
-<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-<!-- The basic File Upload plugin -->
-<script src="/plugins/jquery.fileupload.js"></script>
-<!-- The File Upload processing plugin -->
-<script src="/plugins/jquery.fileupload-process.js"></script>
-<!-- The File Upload image preview & resize plugin -->
-<script src="/plugins/jquery.fileupload-image.js"></script>
-<!-- The File Upload user interface plugin -->
-<script src="/plugins/jquery.fileupload-ui.js"></script>
-
-
-<script src="/plugins/jquery.iframe-transport.js"></script>
-
-<!-- The main application script -->
-<script src="/plugins/mainUpload.js"></script>

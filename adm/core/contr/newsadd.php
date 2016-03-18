@@ -9,6 +9,12 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Новости";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/news/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление новости";
+// $Images = new Images();
+// if(isset($_GET['upload']) == true){
+// 	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
+// 	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+// 	exit(0);
+// }
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = News_form_validate();
