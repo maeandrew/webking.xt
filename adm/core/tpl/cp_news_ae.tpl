@@ -148,7 +148,7 @@
 				year = date.getFullYear(),
 				month = date.getMonth(),
 				day = date.getDate(),
-				removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+				removed_file2 = '/news_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
 			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		});
 
@@ -209,7 +209,7 @@
 				"id_spec_prod": id_spec_prod,
 				"id_spec": id_spec,
 				"value": value,
-				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
+				"id_news": <?=isset($_POST['id_news'])?$_POST['id_news']:'null';?>
 			}
 		});
 		// var href = link.attr('href');
@@ -224,7 +224,7 @@
 			dataType: "json",
 			data: {
 				"action":'update_translit',
-				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
+				"id_news": <?=isset($_POST['id_news'])?$_POST['id_news']:'null';?>
 			}
 		}).done(function(data){
 			$('#translit p').text(data);
