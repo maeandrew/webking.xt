@@ -153,7 +153,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -283,7 +283,7 @@
 		</div>
 		<div class="blockline ">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info2.png" alt=""></div>
@@ -374,7 +374,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -551,7 +551,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -577,7 +577,7 @@
 		</div>
 		<div class="blockline ">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment2.png" alt=""></div>
@@ -599,7 +599,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -625,7 +625,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment4.png" alt=""></div>
@@ -652,7 +652,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -679,7 +679,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<video class="forflex" width="495" height="278" src="/themes/default/images/page/supply/supply2.mp4" autoplay loop>
@@ -706,7 +706,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -745,7 +745,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText ">
@@ -772,7 +772,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
@@ -807,7 +807,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<video width="495" height="278" src="/themes/default/images/page/discounts/discounts4.mp4" autoplay loop></video>
@@ -866,7 +866,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
@@ -897,7 +897,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -924,7 +924,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<video width="495" height="278" src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
@@ -962,7 +962,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
@@ -990,7 +990,7 @@
 		</div>
 		<div class="blockline ">
 			<a href="#" class="pos-right btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies2.png" alt=""></div>
@@ -1021,7 +1021,7 @@
 		</div>
 		<div class="blockline">
 			<a href="#" class="pos-left btn_plus">
-				<span>+</span><p>Как это работает</p>
+				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">

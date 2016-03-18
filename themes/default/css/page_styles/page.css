@@ -186,8 +186,9 @@
 			#content .four_pages .btn_plus.pos-right {
 				right: 35%;
 			}
-			#content .four_pages .btn_plus span {
+			#content .four_pages .btn_plus span.btn_plus_sign {
 				float: left;
+				margin-right: 10px;
 				display: inline-block;
 				width: 25px;
 				height: 25px;
@@ -200,13 +201,13 @@
 			#content .btn_plus.active {
 				bottom: 4%;
 			}
-			#content .btn_plus.active span {
+			#content .btn_plus.active span.btn_plus_sign {
 				-webkit-transform: rotate(45deg);
 				-ms-transform: rotate(45deg);
 				-o-transform: rotate(45deg);
 				transform: rotate(45deg);
 			}
-			#content .four_pages .btn_plus p {
+			#content .four_pages .btn_plus span.btn_plus_title {
 				font-size: 0.5em;
 				font-weight: 400;
 				width: 150px;
@@ -216,7 +217,7 @@
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
 			}
-			#content .four_pages .btn_plus.active p {
+			#content .four_pages .btn_plus.active span.btn_plus_title {
 				overflow: hidden;
 				width: 0;
 				padding: 0;

@@ -19,7 +19,7 @@ $(document).ready(function () {
 			$('html, body').stop().animate({
 				'scrollTop': target.offset().top - ($('header').outerHeight()*1.5 + $(this).find('span').outerHeight())
 			}, 900);
-			contentCenter = $("#content").width()/2 - $(this).find('span').width()/2;
+			contentCenter = $("#content").width()/2 - $(this).find('.btn_plus_sign').width()/2;
 		}
 		console.log(posBasic);
 		if($(this).hasClass('pos-right')){
