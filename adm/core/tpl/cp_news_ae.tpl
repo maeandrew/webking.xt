@@ -119,7 +119,7 @@
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
-	var url = URL_base+"productadd/";
+	var url = URL_base+"newsadd/";
 	$(function(){
 		//Удаление видео
 		$("body").on('click', '.remove_video', function() {
