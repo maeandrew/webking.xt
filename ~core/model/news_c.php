@@ -220,5 +220,30 @@ class News{
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
+	// Добавление и удаление фото
+	public function UpdatePhoto($id_news, $arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_product=".$id_news;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		$f['id_news'] = trim($id_news);
+		if(isset($arr) && !empty($arr)){
+			foreach ($arr as $k=>$src) {
+				if(empty($src)){
+					return false; //Если URL пустой
+				}
+				$f['src'] = trim($src);
+				$this->db->StartTrans();
+				if(!$this->db->Insert(_DB_PREFIX_.'image_news', $f)){
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+				$this->db->CompleteTrans();
+			}
+		}
+		unset($id_product);
+		unset($f);
+		return true;//Если все ок
+	}
 }
 ?>
