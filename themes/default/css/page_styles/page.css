@@ -39,18 +39,19 @@
 		position: relative;
 		padding: 4%;
 		border-bottom: 1px solid #E6EAED;
+		min-height: 200px;
 	}
 	#content .blockline:first-child {
 		padding-top: 4%;
 		text-align: center;
 	}
 	#content .blockline:first-child p {
-	    margin: 0 auto;
+		margin: 0 auto;
 		width: 60%;
 	}
 	#content .flexwrapp {
 		display: flex;
-	    justify-content: space-around;
+		justify-content: space-around;
 		flex-wrap: wrap;
 		align-items: center;
 	}
@@ -77,7 +78,7 @@
 		text-align: center;
 	}
 	#content .page_information .payment_information_img {
-		max-width: 75%;
+		max-width: 70%;
 	}
 	#content .page_payment .payment_information_img {
 		max-width: 60%;
@@ -137,6 +138,10 @@
 		#content .pages_group .blockline:last-child {
 			border-bottom: 1px solid #E6EAED;
 		}
+		#content .page_information .invisibleblock,
+		#content .page_payment .invisibleblock {
+			padding-top: 4%;
+		}
 		#content .pages_group .invisibleblock {
 			border: none;
 			display: none;
@@ -191,14 +196,6 @@
 			.btn_plus.pos-right {
 				right: 0%;
 			}
-
-			.btn_plus.pos-right--beta {
-				right: 71%;
-			}
-			.btn_plus.pos-right--beta .btn_plus_sign {
-				margin-right: 10%;
-			}
-
 			.btn_plus.pos-right .btn_plus_title {
 				float: left;
 				margin-right: 10%;
@@ -232,7 +229,7 @@
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
 			}
-			.btn_plus.active p {
+			.btn_plus.active .btn_plus_title {
 				overflow: hidden;
 				width: 0;
 				padding: 0;
@@ -457,6 +454,11 @@
 		color: #454F5D;
 		text-transform: uppercase;
 	}
+	#content .page_information .invisibleblock .flexwrapp {
+		flex-direction: column;
+		padding-left: 4%;
+		padding-right: 4%;
+	}
 	/*Аккордеон*/
 		#content .ac-container {
 			width: 100%;
@@ -499,7 +501,12 @@
 		margin-right: 2%;
 		float: left;
 	}
-	#content .page_payment .invisibleblock div {
+	#content .page_payment .invisibleblock .flexwrapp {
+		flex-direction: column;
+		padding-left: 4%;
+		padding-right: 4%;
+	}
+	#content .page_payment .invisibleblock div div {
 		height: 80px;
 	}
 	#content .page_payment ul {
@@ -694,7 +701,7 @@
 			height: 100px;
 		}
 	}
-	/*@media (max-width: 964px) {
+	@media (max-width: 964px) {
 		#content .pages_group .blockline .container {
 			margin-bottom: 30px;
 		}
@@ -719,7 +726,7 @@
 		#content .page_payment li {
 			margin-left: 30%;
 		}
-	}*/
+	}
 	@media (max-width: 600px) {
 		#content .blockOfText p,
 		#content .page_about_us p {
