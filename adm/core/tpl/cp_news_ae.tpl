@@ -46,32 +46,32 @@
 
 
 
-		<div> <?
+		<!-- <div> <?
 			//print_r($_POST['Img']);
 			for($num=0; $num < count($_POST['Img']); $num++) {
   				print_r($_POST['Img'][$num]);
   				echo "<br>";
 			}
 
-		?> </div>
+		?> </div> -->
 
 
 		<div id="photobox">
 			<div class="previews">
-				<?if(isset($_POST['images']) && !empty($_POST['images'])){
-					foreach($_POST['images'] as $photo){
+				<?if(isset($_POST['Img']) && !empty($_POST['Img'])){
+					foreach($_POST['Img'] as $photo){
 						if(isset($photo['src'])){?>
 							<div class="image_block dz-preview dz-image-preview">
 								<div class="sort_handle"><span class="icon-font">s</span></div>
 								<div class="image">
-									<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].'..'.$photo['src'])?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+									<img data-dz-thumbnail src="<?=$photo['src']?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
 								</div>
 								<div class="name">
 									<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
 									<span class="dz-size" data-dz-size></span>
 								</div>
 								<div class="controls">
-									<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
+									<p><span class="icon-font del_photo_js" data-imgid="<?=$photo['id']?>" data-dz-remove>t</span></p>
 								</div>
 								<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 							</div>
@@ -188,7 +188,17 @@
 			if(confirm('Изобрежение будет удалено.')){
 				var path = $(this).closest('.image_block'),
 				removed_file = path.find('input[name="images[]"]').val();
-				RemovedFile(path, removed_file);
+				$.ajax({
+					url: URL_base+'ajax', // имя контроллера
+					type: "POST",
+					data: {
+						action: '', // имя метода который будет обрабатывать запрос
+						id: "data-imgid"
+					}
+				}).done(function(data){
+					// удалить код со страницы
+					RemovedFile(path, removed_file);
+				});
 			}
 		});
 
@@ -197,8 +207,18 @@
 			e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
 				var path = $(this).closest('.image_block'),
-				removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
-				RemovedFile(path, removed_file);
+					removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
+				$.ajax({
+					url: URL_base+'ajax',
+					type: "POST",
+					data: {
+						"action": '',
+						"data-imgid": "data-imgid"
+					}
+				}).done(function(data){
+					// удалить код со страницы
+					RemovedFile(path, removed_file);
+				});
 			}
 		});
 	});
