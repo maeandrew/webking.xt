@@ -18,8 +18,28 @@ $Images = new Images();
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = News_form_validate();
+
+	//Добавление фото
+	$id_news = $News->AddNews($id);
+	if(isset($_POST['images'])){
+		foreach($_POST['images'] as $k=>$image){
+			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
+			$path = $GLOBALS['PATH_news_img'].$file['dirname'].'/';
+			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_news_img']).$file['dirname'];
+			//rename($path.$file['basename'], $path.$newname); echo '1'; die();
+			$images_arr[] = $bd_path.'/'.$file['basename'];
+		}
+	}else{
+		$images_arr =  array();
+	}
+
+	//$Images->resize(false, $to_resize);
+
+
     if(!$err){
     	if($id = $News->AddNews($_POST)){
+			$News->UpdatePhoto($id, $images_arr);
 			$tpl->Assign('msg', 'Новость добавлена.');
 			unset($_POST);
 		}else{

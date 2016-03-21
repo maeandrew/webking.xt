@@ -42,6 +42,20 @@
 				document.getElementById('descr_full').value = editor.getValue();
 			}
 		</script> -->
+
+
+
+
+		<div> <?
+			//print_r($_POST['Img']);
+			for($num=0; $num < count($_POST['Img']); $num++) {
+  				print_r($_POST['Img'][$num]);
+  				echo "<br>";
+			}
+
+		?> </div>
+
+
 		<div id="photobox">
 			<div class="previews">
 				<?if(isset($_POST['images']) && !empty($_POST['images'])){

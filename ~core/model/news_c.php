@@ -2,6 +2,7 @@
 class News{
 	public $db;
 	public $fields;
+	public $images;
 	private $usual_fields;
 	public $list;
 	public function __construct (){
@@ -40,8 +41,14 @@ class News{
 		if(!$this->fields){
 			return false;
 		}
+		$sqlImage = "SELECT src
+			FROM "._DB_PREFIX_."image_news
+			WHERE id_news = \"$id_news\"";
+		$this->fields['Img'] = $this->db->GetArray ($sqlImage);
 		return true;
 	}
+
+
 	// Список (0 - только видимые. 1 - все, и видимые и невидимые)
 	public function NewsList($param = 0, $limit = ""){
 		$where = "WHERE visible = 1 ";
@@ -222,8 +229,9 @@ class News{
 	}
 	// Добавление и удаление фото
 	public function UpdatePhoto($id_news, $arr){
-		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_product=".$id_news;
-		$this->db->StartTrans();
+		//$id_news = '430';
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
+		$this->db->StartTrans();// echo '1'; die();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);
@@ -241,9 +249,23 @@ class News{
 				$this->db->CompleteTrans();
 			}
 		}
-		unset($id_product);
+
+		unset($id_news);
 		unset($f);
 		return true;//Если все ок
 	}
+
+	//Достать Id новости
+//	public function GetID($id){
+//		$sql = "SELECT id
+//			FROM "._DB_PREFIX_."news
+//			WHERE id_news = ".$id;
+//		$arr = $this->db->GetOneRowArray($sql);
+//		if(!$arr){
+//			return false;
+//		}else{
+//			return $arr;
+//		}
+//	}
 }
 ?>
