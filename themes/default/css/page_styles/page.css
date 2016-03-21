@@ -19,44 +19,44 @@
 		font-size: 1.3em;
 		font-weight: 100;
 		line-height: 1.2em;
-		margin: 3% auto;
 	}
-	#content img,
-	#content video,
-	#content .blockOfText {
+	#content img {
 		display: block;
 		margin: 0 auto;
 		max-width: 100%;
+	}
+	#content video {
+		display: block;
+		width: 100%;
 	}
 	#content .main_img {
 		max-width: 100%;
 	}
 	#content .blockOfText {
-		padding: 30px;
+		position: relative;
 	}
 	#content .blockline {
 		position: relative;
-		padding-top: 2%;
-		padding-bottom: 4%;
-		padding-left: 7%;
-		padding-right: 7%;
+		padding: 4%;
 		border-bottom: 1px solid #E6EAED;
-		min-height: 265px;
 	}
 	#content .blockline:first-child {
 		padding-top: 4%;
 		text-align: center;
 	}
+	#content .blockline:first-child p {
+	    margin: 0 auto;
+		width: 60%;
+	}
 	#content .flexwrapp {
 		display: flex;
-		justify-content: center;
+	    justify-content: space-around;
 		flex-wrap: wrap;
 		align-items: center;
 	}
 	#content .forflex {
-		flex-basis: 35%;
-		flex-grow: 1;
-		flex-shrink: 1;
+		flex-basis: 43%;
+		
 	}
 	#content div.flexwrapp.three_inline,
 	#content div.flexwrapp.two_inline {
@@ -68,11 +68,6 @@
 	}
 	#content .blockline.blockBtn {
 		min-height: 100px;
-	}
-	#content .flexWrapReverse .blockOfText {
-		margin-left: 7%;
-		padding: 0;
-		padding-bottom: 7%;
 	}
 	#content .page_payment,
 	#content .page_information {
@@ -122,32 +117,37 @@
 			min-width: 340px;
 		}
 	/*Стили для четырех страниц*/
-		#content .four_pages .flexWrapReverse .blockOfText {
+		#content .pages_group .flexWrapReverse .blockOfText {
 			margin-left: 0;
 		}
-		#content .four_pages img {
+		#content .pages_group img {
 			max-width: 100%;
 		}
-		#content .four_pages p {
+		#content .pages_group p {
 			font-size: 1.3em;
 			font-weight: 100;
 			line-height: 1.2em;
-			margin: 0;
 		}
-		#content .four_pages .blockline {
+		#content .pages_group .blockline {
 			border-top: 1px solid #E6EAED;
 			border-bottom: none;
 		}
-		#content .four_pages .blockline:first-child {
+		#content .pages_group .blockline:first-child {
 			border-top: none;
 		}
-		#content .four_pages .blockline:last-child {
+		#content .pages_group .blockline:last-child {
 			border-bottom: 1px solid #E6EAED;
 		}
-		#content .four_pages .invisibleblock {
+		#content .pages_group .invisibleblock {
 			border: none;
-			padding: 0 7% 4%;
 			display: none;
+			padding-left: 7%;
+			padding-right: 7%;
+			padding-bottom: 4%;
+			z-index: 0;
+		}
+		#content .pages_group .invisibleblock .flexwrapp {
+			align-items: stretch;
 		}
 		#content button {
 			background-color: #69ab3f;
@@ -158,18 +158,17 @@
 			font-size: 1.3em;
 			text-transform: inherit;
 		}
-		#content .four_pages .three_inline .forflex {
+		#content .pages_group .three_inline .forflex {
 			flex-basis: 33%;
 		}
 		#content .three_inline .info_circle img {
 			width: 61%;
 		}
 		/******.btn_plus******/
-			#content .four_pages .btn_plus {
-				display: block;
+			.btn_plus {
+				z-index: 1;
 				position: absolute;
-				margin-bottom: 0;
-				bottom: 13%;
+				top: 120%; 
 				cursor: pointer;
 				text-align: center;
 				line-height: 1em;
@@ -179,16 +178,33 @@
 				-webkit-transition: all .4s ease-in-out;
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
+
+				display: flex;
+				justify-content: center;
+				width: 150px;
 			}
-			#content .four_pages .btn_plus.pos-left {
-				left: 10%;
+			.btn_plus.pos-left .btn_plus_sign {
+				margin-right: 10%;
 			}
-			#content .four_pages .btn_plus.pos-right {
-				right: 35%;
+			.btn_plus.pos-left {
+				left: 0%;
 			}
-			#content .four_pages .btn_plus span.btn_plus_sign {
+			.btn_plus.pos-right {
+				right: 0%;
+			}
+
+			.btn_plus.pos-right--beta {
+				right: 71%;
+			}
+			.btn_plus.pos-right--beta .btn_plus_sign {
+				margin-right: 10%;
+			}
+
+			.btn_plus.pos-right .btn_plus_title {
 				float: left;
-				margin-right: 10px;
+				margin-right: 10%;
+			}
+			.btn_plus .btn_plus_sign {
 				display: inline-block;
 				width: 25px;
 				height: 25px;
@@ -198,68 +214,58 @@
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
 			}
-			#content .btn_plus.active {
-				bottom: 4%;
+			.btn_plus.active {
+				top: 160% !important;
 			}
-			#content .btn_plus.active span.btn_plus_sign {
+			.btn_plus.active .btn_plus_sign {
 				-webkit-transform: rotate(45deg);
 				-ms-transform: rotate(45deg);
 				-o-transform: rotate(45deg);
 				transform: rotate(45deg);
 			}
-			#content .four_pages .btn_plus span.btn_plus_title {
+			.btn_plus .btn_plus_title {
+				margin: 0;
 				font-size: 0.5em;
 				font-weight: 400;
-				width: 150px;
 				white-space: nowrap;
 				line-height: 2em;
 				-webkit-transition: all .4s ease-in-out;
 				-o-transition: all .4s ease-in-out;
 				transition: all .4s ease-in-out;
 			}
-			#content .four_pages .btn_plus.active span.btn_plus_title {
+			.btn_plus.active p {
 				overflow: hidden;
 				width: 0;
 				padding: 0;
 			}
-			#content .four_pages .blockline a.btn_plus:hover, a.btn_plus:hover * {
+
+			.blockline a.btn_plus:hover,
+			a.btn_plus:hover * {
 				color: #69ab3f !important;
 				border-color: #69ab3f !important;
 			}
 		/****.info_circle********/
-			#content .four_pages .info_circle_img {
+			#content .pages_group .info_circle_img {
 				width: 200px;
 				height: 200px;
 				margin: 0 auto;
 				border: 1px solid #47525d;
 				border-radius: 50%;
 			}
-			#content .four_pages .info_circle h5 {
+			#content .pages_group .info_circle h5 {
 				font-size: 1.6em;
 				font-weight: 500;
 				text-align: center;
 			}
-			#content .four_pages .info_circle p {
+			#content .info_circle p {
 				width: 200px;
 				margin: 2% auto;
 				text-align: center;
 			}
 
 /* Страница "Доставка" / class="page_delivery" */
-	/*#content .page_delivery .forflex {
-		flex-basis: 44%;
-	}*/
-	#content .page_delivery p {
-		margin: 0;
-	}
-	#content .page_delivery .delivery2 {
-		max-width: 82%;
-	}
 	#content .page_delivery .delivery2:hover {
 		cursor: zoom-in;
-	}
-	#content .page_delivery .delivery4 {
-		max-width: 82%;
 	}
 	#content .page_delivery .delivery5 {
 		width: 60%;
@@ -268,20 +274,13 @@
 		max-width: 100%;
 		max-height: 790px;
 	}
-
 	@media (max-width: 1366px) {
 		#delivery2 img {
 			max-width: 100%;
 			max-height: 680px;
 		}
 	}
-
 	/*Media*/
-		/*@media (min-width: 964px) and (max-width: 1535px) {
-			#content .page_delivery .blockOfText{
-				flex-basis: 65%;
-			}
-		}*/
 		@media (max-width: 964px) {
 			#content .page_delivery .forflex {
 				flex-basis: 46%;
@@ -299,6 +298,7 @@
 /* Страница "О нас" / class="page_about_us" */
 	#content .page_about_us p {
 		width: 76%;
+		margin: 3% auto;
 	}
 	/*Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
 	#content .page_about_us .blockline:nth-child(4){
@@ -471,25 +471,25 @@
 		text-transform: uppercase;
 	}
 	/*Аккордеон*/
-		.ac-container {
+		#content .ac-container {
 			width: 100%;
 			color: #454F5D;
 		}
-		.ac-container label {
+		#content .ac-container label {
 			display: block;
 			cursor: pointer;
 			padding: 5px;
 			font-size: 1.3em;
 			font-weight: 400;
 		}
-		.ac-container label:hover {
+		#content .ac-container label:hover {
 			background: #fff;
 			text-decoration: underline;
 		}
-		.ac-container input {
+		#content .ac-container input {
 			display: none;
 		}
-		.ac-container article {
+		#content .ac-container article {
 			overflow: hidden;
 			height: 0px;
 			position: relative;
@@ -498,7 +498,12 @@
 			width: 90%;
 			padding: 0 0 0 3%;
 		}
-		.ac-container input:checked ~ article {
+		#content .ac-container article p {
+			font-size: 1.2em;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		#content .ac-container input:checked ~ article {
 			height: auto;
 		}
 /* Страница "Оплата" / class="page_payment" */
@@ -550,6 +555,7 @@
 /* Страница "Контакты" / class="page_contacts" */
 	#content .page_contacts video {
 		width: 40%;
+		margin: 0 auto;
 	}
 	#content .page_contacts h1 {
 		margin-bottom: 54px;
@@ -588,6 +594,8 @@
 	}
 	#content .page_contacts .info_circle p {
 		width: 220px;
+		margin: 2% auto;
+		text-align: center;
 		min-height: 100px;
 	}
 		@media (min-width: 600px) and (max-width: 1300px) {
@@ -710,7 +718,7 @@
 	}
 
 /* Общие медиа запросы */
-	@media (max-width: 1535px) {
+	/*@media (max-width: 1535px) {
 		#content img.main_img {
 			max-width: 70% !important;
 		}
@@ -727,13 +735,13 @@
 		#content .flexColumn button {
 			margin-bottom: 20px;
 			min-width: 60%;
-		}
-		/*Стили для четырех страниц .four_pages*/
-			#content .four_pages .blockline:first-child,
-			#content .four_pages .blockline:last-child {
+		}*/
+		/*Стили для четырех страниц .pages_group*/
+			/*#content .pages_group .blockline:first-child,
+			#content .pages_group .blockline:last-child {
 				padding-bottom: 4%;
 			}
-			#content .four_pages .blockline {
+			#content .pages_group .blockline {
 				padding-bottom: 10%;
 			}
 			#content button {
@@ -742,14 +750,14 @@
 			#content button .forflex {
 				flex-basis: 90%;
 			}
-			#content .four_pages img {
+			#content .pages_group img {
 				max-width: 72%;
 			}
 
 			#content .page_provision button {
 				min-width: 60%;
 			}
-			#content .four_pages .btn_plus.pos-right {
+			#content .pages_group .btn_plus.pos-right {
 				right: 32%;
 			}
 	}
@@ -762,7 +770,7 @@
 		#content .ac-container div {
 			margin-bottom: 10px;
 		}
-		#content .four_pages .btn_plus.pos-right {
+		#content .pages_group .btn_plus.pos-right {
 			right: 30%;
 		}
 	}
@@ -770,28 +778,28 @@
 		#content .blockOfText {
 			text-align: center;
 		}
-		#content .four_pages .blockline {
+		#content .pages_group .blockline {
 			padding-bottom: 12%;
 		}
-		#content .four_pages .btn_plus.pos-left {
+		#content .pages_group .btn_plus.pos-left {
 			left: calc(50% - 70px);
 		}
-		#content .four_pages .btn_plus.pos-right {
+		#content .pages_group .btn_plus.pos-right {
 			right: calc(50% - 80px);
 		}
 		#content .page_payment .payment_information_img {
 			max-width: 35%;
 		}
-		#content .page_payment .four_pages .btn_plus {
+		#content .page_payment .pages_group .btn_plus {
 			bottom: 10%
 		}
 	}
 	@media (max-width: 964px) {
-		#content .four_pages .blockline .container {
+		#content .pages_group .blockline .container {
 			margin-bottom: 30px;
 		}
 		#content button,
-		#content .four_pages .flexColumn button {
+		#content .pages_group .flexColumn button {
 			min-width: 80%;
 		}
 		#content h1 {
@@ -800,7 +808,7 @@
 		#content .page_information article p {
 			font-size: 1.1em;
 		}
-		#content .four_pages .info_circle_img {
+		#content .pages_group .info_circle_img {
 			width: 100px;
 			height: 100px;
 		}
@@ -823,35 +831,35 @@
 		}
 		#content .page_payment li {
 			margin-left: 28%;
-		}
-		/*Стили для четырех страниц .four_pages*/
-			#content .four_pages img {
+		}*/
+		/*Стили для четырех страниц .pages_group*/
+			/*#content .pages_group img {
 				max-width: 40%;
 			}
-			#content .four_pages .blockOfText h4{
+			#content .pages_group .blockOfText h4{
 				font-size: 1.4em;
 			}
-			#content .four_pages .info_circle h5 {
+			#content .pages_group .info_circle h5 {
 				font-size: 1.2em;
 			}
-			#content .four_pages .blockOfText p {
+			#content .pages_group .blockOfText p {
 				font-size: 1em;
 				min-width: 100%;
 			}
-			#content .four_pages .info_circle p {
+			#content .pages_group .info_circle p {
 				width: 100px;
 				margin: 2% auto;
 				font-size: 1em;
 			}
-			#content .four_pages .info_circle img {
+			#content .pages_group .info_circle img {
 				min-width: 55%;
 			}
-			#content .four_pages button,
-			#content .four_pages .flexColumn button {
+			#content .pages_group button,
+			#content .pages_group .flexColumn button {
 				min-width: 90%;
 				font-size: 1.1em;
 			}
-			#content .four_pages .info_circle_img {
+			#content .pages_group .info_circle_img {
 				width: 100px;
 				height: 100px;
 			}
@@ -888,8 +896,8 @@
 		#content .page_dealer .info_circle p {
 			font-size: 1.1em;
 		}
-		#content .four_pages button,
-		#content .four_pages .flexColumn button {
+		#content .pages_group button,
+		#content .pages_group .flexColumn button {
 			font-size: 1em;
 		}
 		#content .page_payment .btn_plus,
@@ -903,5 +911,5 @@
 			left: 0 !important;
 			min-width: 100%;
 		}
-	}
+	}*/
 /*

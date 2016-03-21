@@ -24,7 +24,9 @@
 			<p>Осуществляется нашим курьером, либо любой другой транспортной службой. Отправка товара в течении 2&nbsp;дней</p>
 		</div>
 		<div class="blockline flexwrapp flexWrapReverse">
-			<video id="movie" width="495" height="278" src="/themes/default/images/page/delivery/delivery3.mp4" autoplay loop></video>
+			<div class="forflex">
+				<video src="/themes/default/images/page/delivery/delivery3.mp4" autoplay loop></video>				
+			</div>
 			<div class="forflex blockOfText ">
 				<h4>XT доставка</h4>
 				<p>Наша логистика работает за счёт <br>собственного автопарка.</p>
@@ -146,31 +148,30 @@
 	</div>
 
 	<!-- Страница "Справка" -->
-	<div id="page_information" class="page_information four_pages">
+	<div id="page_information" class="page_information pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/info/info0.png" alt="">
 			<h1>Справка</h1>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Гарантия и сервис</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem rerum commodi </p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info1.png" alt=""></div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline flexwrapp">
+		<div class="invisibleblock flexwrapp">
 			<section class="ac-container">
 				<div>
 					<input id="ab-1" name="accordion-1" type="checkbox" />
 					<label for="ab-1">На какие товары предоставляется гарантия?</label>
 					<article>
-						<p>На товары в нашем магазине предоставляется гарантия, подтверждающая обязательства по отсутствию в товаре заводских дефектов. Гарантия предоставляется на срок от 2-х недель до 36 месяцев в зависимости от сервисной политики производителя. Срок гарантии указан в описании каждого товара на нашем сайте. Подтверждением гарантийных обязательств служит гарантийный талон производителя, или гарантийный талон "ROZETKA — online супермаркет продвинутой электроники".
-						Пожалуйста, проверьте комплектность и отсутствие дефектов в товаре при его получении (комплектность определяется описанием изделия или руководством по его эксплуатации).</p>
+						<p>hfjhgfdh</p>
 					</article>
 				</div>
 				<div>
@@ -281,19 +282,19 @@
 				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
 			</section>
 		</div>
-		<div class="blockline ">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
+		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Вопросы и ответы</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem rerum commodi </p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline flexwrapp">
+		<div class="invisibleblock flexwrapp">
 			<section class="ac-container">
 				<div>
 					<input id="ac-1" name="accordion-2" type="checkbox" />
@@ -373,18 +374,18 @@
 			</section>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Оплата и доставка</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem rerum commodi </p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info3.png" alt=""></div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline flexwrapp">
+		<div class="invisibleblock flexwrapp">
 			<section class="ac-container">
 				<div>
 					<input id="ad-1" name="accordion-3" type="checkbox" />
@@ -544,24 +545,24 @@
 	</div>
 
 	<!-- Страница "Оплата" -->
-	<div id="page_payment" class="page_payment four_pages ">
+	<div id="page_payment" class="page_payment pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/payment/payment0.png" alt="">
 			<h1>Оплата</h1>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Он-лайн оплата</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores quaer.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment1.png" alt=""></div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline">
+		<div class="invisibleblock">
 			<div>
 				<img src="/themes/default/images/page/payment/privat24.png" alt="">
 				<ul>Система проведения платежей Приват24<li>комиссия: по тарифам карты</li></ul>
@@ -575,15 +576,15 @@
 				<ul>WebMoney<li>комиссия: по курсу на момент оплаты + 1%</li></ul>
 			</div>
 		</div>
-		<div class="blockline ">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
+		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Офф-лайн оплата</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor suscipit tempore quae quas, nihil blanditiis ad q</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -598,13 +599,13 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
-					<h4>Наличный <br>расчёт</h4>
+					<h4>Наличный расчёт</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment3.png" alt=""></div>
 			</div>
@@ -624,14 +625,14 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment4.png" alt=""></div>
 				<div class="forflex blockOfText">
 					<h4>Безналичный расчёт</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -644,26 +645,28 @@
 	</div>
 
 	<!-- Страница "Поставки магазинам" -->
- 	<div id="page_supply" class="page_supply four_pages ">
+ 	<div id="page_supply" class="page_supply pages_group ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
 			<p>С нами у Вас есть возможность создать с нуля свой бизнес, или полностью обеспечить свой магазин товарами</p>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Хиты продаж сезона</h4>
 					<p>Наша статистика, покажет самые востребованные товары сезона.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
-				<video class="forflex" width="495" height="278" src="/themes/default/images/page/supply/supply1.mp4" autoplay loop>
-				</video>
+				<div class="forflex">
+					<video class="forflex" src="/themes/default/images/page/supply/supply1.mp4" autoplay loop>
+					</video>
+				</div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline">
+		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Выбор сезона</h5>
@@ -678,15 +681,17 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp flexWrapReverse">
-				<video class="forflex" width="495" height="278" src="/themes/default/images/page/supply/supply2.mp4" autoplay loop>
-				</video>
+				<div class="forflex">
+					<video class="forflex" src="/themes/default/images/page/supply/supply2.mp4" autoplay loop>
+					</video>
+				</div>
 				<div class="forflex blockOfText ">
 					<h4>Экономьте на опте</h4>
 					<p>Выберите свой бюджет и получите лучшую скидку на размере чека.</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -705,16 +710,18 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Покупайте вместе</h4>
 					<p>Расширяйте чек вместе с друзьями и получайте ещё большую скидку.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
-				<video class="forflex" width="495" height="278" src="/themes/default/images/page/supply/supply3.mp4" autoplay loop>
-				</video>
+				<div class="forflex">
+					<video class="forflex" src="/themes/default/images/page/supply/supply3.mp4" autoplay loop>
+					</video>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -737,23 +744,25 @@
 	</div>
 
 	<!-- Страница "Скидки" -->
-	<div id="page_discounts" class="page_discounts four_pages ">
+	<div id="page_discounts" class="page_discounts pages_group ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
 			<p>В магазине «ХТ» действуют гибкие скидки, программа лояльности и систма бонусов</p>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText ">
 					<h4>Скидка на размере чека</h4>
 					<p>Выберите свой бюджет и получите дополнительную скидку на размере чека до&nbsp;21%.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
-				<video class="forflex" id="" width="495" height="278" src="/themes/default/images/page/discounts/discounts3.mp4" autoplay loop>
-				</video>
+				<div class="forflex">
+					<video class="forflex" src="/themes/default/images/page/discounts/discounts3.mp4" autoplay loop>
+					</video>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -771,18 +780,19 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp flexWrapReverse">
-				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
+				<div class="forflex">
+					<img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
 				<div class="forflex blockOfText">
 					<h4>Скидка на упаковке</h4>
 					<p>Покупайте продукцию упаковками и получайте оптовую скидку от&nbsp;3%&nbsp;до&nbsp;15%.</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline">
+		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Каталог</h5>
@@ -802,18 +812,21 @@
 					<h4>Скидка на паллету</h4>
 					<p>Покупайте продукцию от 10,000 грн. и получайте скидку.</p>
 				</div>
-				<div class="forflex"><img src="/themes/default/images/page/discounts/discounts2.png" alt=""></div>
+				<div class="forflex">
+					<img src="/themes/default/images/page/discounts/discounts2.png" alt=""></div>
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp flexWrapReverse">
-				<video width="495" height="278" src="/themes/default/images/page/discounts/discounts4.mp4" autoplay loop></video>
+				<div class="forflex">
+					<video src="/themes/default/images/page/discounts/discounts4.mp4" autoplay loop></video>
+				</div>
 				<div class="forflex blockOfText">
 					<h4>Программа лояльности</h4>
 					<p>Зарегестрированный пользователь получает бонусы за покупки и расходует их по своему усмотрению.</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -858,21 +871,22 @@
 	</div>
 
 	<!-- Страница "Обеспечение быта" -->
-	<div id="page_provision" class="page_provision four_pages ">
+	<div id="page_provision" class="page_provision pages_group ">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
 			<p>С магазином «ХТ» Вы экономите свое время и финансы</p>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp flexWrapReverse">
-				<div class="forflex"><img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
+				<div class="forflex">
+					<img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Поштучная покупка</h4>
 					<p>Здесь нет минимального чека, отправим даже пару перчаток.</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -896,19 +910,20 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Оптовые цены</h4>
 					<p>150 000 товаров для Вашего дома дешевле чем в ближайшем магазине.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
-				<video class="forflex" width="495" height="278" src="/themes/default/images/page/provision/provision1.mp4" autoplay loop>
-				</video>
+				<div class="forflex">
+					<video src="/themes/default/images/page/provision/provision1.mp4" autoplay loop></video>
+				</div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline">
+		<div class="invisibleblock">
 			<div class="flexwrapp two_inline">
 				<div class="info_circle forflex">
 					<h5>Каталог</h5>
@@ -923,14 +938,16 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp flexWrapReverse">
-				<video width="495" height="278" src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
+				<div class="forflex">
+					<video width="495" height="278" src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
+				</div>
 				<div class="forflex blockOfText">
 					<h4>Покупайте вместе</h4>
 					<p>Приглашайте друзей к заказу и получайте настоящие оптовые скидки.</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -954,25 +971,25 @@
 	</div>
 
 	<!-- Страница "Снабжение предприятий" -->
-	<div id="page_provision_companies" class="page_provision_companies four_pages ">
+	<div id="page_provision_companies" class="page_provision_companies pages_group">
 		<div class="blockline">
 			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
 			<p>Комплексное обеспечение материалами, инструментами, оборудованием и комплектующими на долгосрочной основе</p>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Рибейт</h4>
 					<p>Это когда отдел снабжения получает частичный возврат средств от поставщика.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies1.png" alt=""></div>
 			</div>
 		</div>
-		<div class="invisibleblock blockline">
+		<div class="invisibleblock">
 			<div class="flexwrapp three_inline">
 				<div class="info_circle forflex">
 					<img src="/themes/default/images/page/provision_companies/rebate1.png" alt="">
@@ -988,15 +1005,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="blockline ">
-			<a href="#" class="pos-right btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
+		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Халатность</h4>
 					<p>Это когда поставщик использует своё положение для нарушения договора о поставках.</p>
+					<a href="#" class="pos-right btn_plus">
+						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -1020,13 +1037,13 @@
 			</div>
 		</div>
 		<div class="blockline">
-			<a href="#" class="pos-left btn_plus">
-				<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
-			</a>
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Работа с ХT</h4>
 					<p>Это когда ценообразование прозрачно, а договор подкреплён репутацией.</p>
+					<a href="#" class="pos-left btn_plus">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies3.png" alt=""></div>
 			</div>
