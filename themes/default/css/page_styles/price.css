@@ -16,7 +16,8 @@ h1 {
 	/*position: relative;*/
 	/*position: fixed;*/
     position: absolute;
-    background: #edf5fc;
+    background: #F5F5F5;
+   /*  background: #edf5fc; */
     border: 1px solid #ddd;
     border-radius: 10px;
     box-sizing: border-box;
@@ -84,11 +85,21 @@ h1 {
     padding: 3px;
     border-radius: 5px;
 }
-.price_form .uncheck_all,
-.price_form .uncheck_all:hover {
-	text-decoration: none;
-	border-bottom: 1px dashed;
+
+.price_form .uncheck_all {
+    width: 250px;
 }
+
+.price_form .confirm {
+	text-decoration: none;
+    width: 250px;
+    background: rgb(255, 87, 34);
+    color: #fff;
+}
+.price_form .confirm {
+    margin-top: 5px;
+}
+
 .price_form input,
 .categories_js input {
 	margin: 5px;
@@ -98,6 +109,7 @@ h1 {
 .price_form .ps,
 .price_form .price-counter {
 	padding: .5em;
+    padding-left: 0;
 }
 .price_form .variables {
 	font-weight: bold;

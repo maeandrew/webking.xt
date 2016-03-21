@@ -1,37 +1,52 @@
 $(document).ready(function () {
 	var posBasic = 0;
 	// Для кнопки "btn_plus"
-	$('.btn_plus').click(function (e){
+	if ($(document).width() < 900) {
+			$('.blockOfText a').removeClass('.pos-right, .pos-left');
+		};
+	$('.btn_plus').click(function(e) {
 		e.preventDefault();
 		var target = $(this).closest('.blockline').next(),
-			contentCenter = posBasic;
+			  contentCenter = posBasic;
+
+		
 		if($(this).hasClass('active')){
-			target.slideUp();
+			target.slideUp(); //скрывает блок
 			$(this).removeClass('active');
 		}else{
 			if($(this).hasClass('pos-right')){
 				posBasic = $(this).css('right');
-			}else{
+			}else if($(this).hasClass('pos-right--beta')) {
+		posBasic = $(this).css('right');
+	  }else{
 				posBasic = $(this).css('left');
 			}
 			target.slideDown();
 			$(this).addClass('active');
-			$('html, body').stop().animate({
-				'scrollTop': target.offset().top - ($('header').outerHeight()*1.5 + $(this).find('span').outerHeight())
-			}, 900);
-			contentCenter = $("#content").width()/2 - $(this).find('span').width()/2;
-		}
-		console.log(posBasic);
+	  $('html, body').stop().animate({
+				'scrollTop': target.offset().top - 
+			($('header').outerHeight() + $('.blockline').innerHeight() - 130)
+	   // + $(this).find('span').outerHeight())
+			}, 900);      
+			// $('html, body').stop().animate({
+			// 	'scrollTop': target.offset().top - 
+			// ($('header').outerHeight() + $(this).find('span').outerHeight())
+			// }, 900);
+		
+		contentCenter = $(".blockline").width()/2
+		- $(this).width()/2;
+	}
+	// центрирует btn_plus по середине blockline
 		if($(this).hasClass('pos-right')){
-			$(this).css({
-				'right': contentCenter
-			});
-		}else{
-			$(this).css({
-				'left': contentCenter
-			});
+			$(this).css({'right': contentCenter});
+		}else if($(this).hasClass('pos-right--beta')){
+			$(this).css({'right': contentCenter});
+		}else {
+			$(this).css({'left': contentCenter});
 		}
 	});
+
+
 
 	$('.a_estimateLoad').click(function(event) {
 		openObject('estimateLoad');
@@ -47,7 +62,6 @@ $(document).ready(function () {
 		openObject('delivery2');
 		removeLoadAnimation('#delivery2');
 	});
-
 
 	$('#page_contacts .greenBtn').click(function(event) {
 		openObject('offers');

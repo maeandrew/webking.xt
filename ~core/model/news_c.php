@@ -2,6 +2,7 @@
 class News{
 	public $db;
 	public $fields;
+	public $images;
 	private $usual_fields;
 	public $list;
 	public function __construct (){
@@ -40,8 +41,14 @@ class News{
 		if(!$this->fields){
 			return false;
 		}
+		$sqlImage = "SELECT src
+			FROM "._DB_PREFIX_."image_news
+			WHERE id_news = \"$id_news\"";
+		$this->fields['Img'] = $this->db->GetArray ($sqlImage);
 		return true;
 	}
+
+
 	// Список (0 - только видимые. 1 - все, и видимые и невидимые)
 	public function NewsList($param = 0, $limit = ""){
 		$where = "WHERE visible = 1 ";
@@ -202,7 +209,7 @@ class News{
 	}
 	// Удаление страницы
 	public function DelNews($id_news){
-		$sql = "DELETE FROM "._DB_PREFIX_."news WHERE `id_news` =  $id_news";
+		$sql = "DELETE FROM "._DB_PREFIX_."news WHERE `id_news` = $id_news";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
@@ -214,21 +221,51 @@ class News{
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		}
 	}
-	// Поиск
-	public function Search($query){
-		$sql = "SELECT id_news, title, translit, SUBSTRING(content, 1,300) as content
-			FROM "._DB_PREFIX_."news
-			WHERE visible = 1 AND title like \"%$query%\" OR content like \"%$query%\"";
-		$this->list = $this->db->GetArray($sql);
-		foreach($this->list as $li_id=>$li){
-			$this->list[$li_id]['content'] = preg_replace("#<.*?(>|$)#is"," ",$li['content']);
-		}
-	}
 
 	public function LastNews(){
 		$sql = "SELECT date, title, translit, descr_short FROM "._DB_PREFIX_."news ORDER BY date DESC";
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
+	// Добавление и удаление фото
+	public function UpdatePhoto($id_news, $arr){
+		//$id_news = '430';
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
+		$this->db->StartTrans();// echo '1'; die();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		$f['id_news'] = trim($id_news);
+		if(isset($arr) && !empty($arr)){
+			foreach ($arr as $k=>$src) {
+				if(empty($src)){
+					return false; //Если URL пустой
+				}
+				$f['src'] = trim($src);
+				$this->db->StartTrans();
+				if(!$this->db->Insert(_DB_PREFIX_.'image_news', $f)){
+					$this->db->FailTrans();
+					return false; //Если не удалось записать в базу
+				}
+				$this->db->CompleteTrans();
+			}
+		}
+
+		unset($id_news);
+		unset($f);
+		return true;//Если все ок
+	}
+
+	//Достать Id новости
+//	public function GetID($id){
+//		$sql = "SELECT id
+//			FROM "._DB_PREFIX_."news
+//			WHERE id_news = ".$id;
+//		$arr = $this->db->GetOneRowArray($sql);
+//		if(!$arr){
+//			return false;
+//		}else{
+//			return $arr;
+//		}
+//	}
 }
 ?>

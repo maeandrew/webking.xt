@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/adm/css/page_styles/productedit.css">
+
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
@@ -40,6 +42,54 @@
 				document.getElementById('descr_full').value = editor.getValue();
 			}
 		</script> -->
+
+
+
+
+		<div> <?
+			//print_r($_POST['Img']);
+			for($num=0; $num < count($_POST['Img']); $num++) {
+  				print_r($_POST['Img'][$num]);
+  				echo "<br>";
+			}
+
+		?> </div>
+
+
+		<div id="photobox">
+			<div class="previews">
+				<?if(isset($_POST['images']) && !empty($_POST['images'])){
+					foreach($_POST['images'] as $photo){
+						if(isset($photo['src'])){?>
+							<div class="image_block dz-preview dz-image-preview">
+								<div class="sort_handle"><span class="icon-font">s</span></div>
+								<div class="image">
+									<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].'..'.$photo['src'])?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+								</div>
+								<div class="name">
+									<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
+									<span class="dz-size" data-dz-size></span>
+								</div>
+								<div class="controls">
+									<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
+								</div>
+								<input type="hidden" name="images[]" value="<?=$photo['src']?>">
+							</div>
+						<?}
+					}
+				}?>
+			</div>
+			<div class="image_block_new drop_zone animate">
+				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+			</div>
+		</div>
+
+		
+
+
+
+
 		<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
 		<div id="nav_visible">
@@ -60,6 +110,154 @@
 		<input name="test_distribution" type="submit" id="form_subm1it" class="btn-l-blue" value="Тестовая рассылка">
     </form>
 </div>
+
+<div id="preview-template" style="display: none;">
+	<div class="image_block dz-preview dz-file-preview">
+		<div class="sort_handle"><span class="icon-font">s</span></div>
+		<div class="image">
+			<img data-dz-thumbnail />
+		</div>
+		<div class="name">
+			<span class="dz-filename" data-dz-name></span>
+			<span class="dz-size" data-dz-size></span>
+		</div>
+		<div class="controls">
+			<p><span class="icon-font del_u_photo_js">t</span></p>
+		</div>
+	</div>
+</div>
+
+<script src="/plugins/dropzone.js"></script>
+
+<script type="text/javascript">
+	// AjexFileManager.init({
+	// 	returnTo: 'function'
+	// });
+	var url = URL_base+"newsadd/";
+	$(function(){
+		//Удаление видео
+		$("body").on('click', '.remove_video', function() {
+			if(confirm('Вы точно хотите удалить видео?')){
+				$(this).parent().remove();
+			}
+		});
+
+		//Загрузка Фото на сайт
+		var dropzone = new Dropzone(".drop_zone", {
+			method: 'POST',
+			url: url+"?upload=true",
+			clickable: true,
+			previewsContainer: '.previews', // куда загружает
+			previewTemplate: document.querySelector('#preview-template').innerHTML //шаблон загрузки
+		});
+		var return_arr = new Array();
+		dropzone.on('addedfile', function(file){
+			//askaboutleave();
+		}).on('success', function(file, path){
+			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+			//console.log(file);
+
+		}).on('removedfile', function(file){
+			var date = new Date(),
+				year = date.getFullYear(),
+				month = date.getMonth(),
+				day = date.getDate(),
+				removed_file2 = '/news_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		});
+
+		//Сортировка фото
+		$('.previews').sortable({
+			items: ".image_block",
+			handle: ".sort_handle",
+			connectWith: ".previews",
+			containment: ".previews",
+			placeholder: "ui-sortable-placeholder",
+			axis: "y",
+			scroll: false,
+			tolerance: "pointer",
+			out: function(){
+				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
+				$('.main_photo img').attr('src', main_photo);
+			}
+		});
+
+		//Удаление фото
+		$("body").on('click', '.del_photo_js', function(e) {
+			//e.stopPropagation();
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+				removed_file = path.find('input[name="images[]"]').val();
+				RemovedFile(path, removed_file);
+			}
+		});
+
+		//Удаление только что загруженных фото
+		$("body").on('click', '.del_u_photo_js', function(e) {
+			e.stopPropagation();
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+				removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
+				RemovedFile(path, removed_file);
+			}
+		});
+	});
+
+	function RemovedFile (path, removed_file){
+		path.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+		path.remove();
+	}
+
+	function insertValueLink(link) {
+		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
+			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
+			value = link.closest('tr').find('[name="value"]').val();
+		//console.log(id_spec_prod+','+ id_spec+','+value);
+		$.ajax({
+			url: URL_base+'ajaxproducts',
+			type: "POST",
+			cache: false,
+			dataType : "json",
+			data: {
+				"action": 'specification_update',
+				"id_spec_prod": id_spec_prod,
+				"id_spec": id_spec,
+				"value": value,
+				"id_news": <?=isset($_POST['id_news'])?$_POST['id_news']:'null';?>
+			}
+		});
+		// var href = link.attr('href');
+		// href += link.closest('tr').find('[name="value"]').val();
+		// window.location.replace(href);
+	}
+	function updateTranslit(){
+		$.ajax({
+			url: URL_base+'ajaxproducts',
+			type: "POST",
+			cache: false,
+			dataType: "json",
+			data: {
+				"action":'update_translit',
+				"id_news": <?=isset($_POST['id_news'])?$_POST['id_news']:'null';?>
+			}
+		}).done(function(data){
+			$('#translit p').text(data);
+			$('#updtrans').animate({  borderSpacing: 360 }, {
+				step: function(now,fx) {
+					$(this).css('-webkit-transform','rotate('+now+'deg)');
+					$(this).css('-moz-transform','rotate('+now+'deg)');
+					$(this).css('transform','rotate('+now+'deg)');
+				},
+				duration:'slow'
+			},'linear');
+		});
+	}
+	
+	
+
+</script>
+
+
 <script>
 	//Текстовый редактор
 	CKEDITOR.replace( 'descr_short', {

@@ -86,18 +86,6 @@ class SEO{
 		return true;
 	}
 
-	// Поиск
-	public function Search($query){
-		$sql = "SELECT id_seo_text, title, translit, SUBSTRING(content, 1,300) as content
-			FROM "._DB_PREFIX_."seo_text
-			WHERE visible = 1 AND title like \"%$query%\" OR content like \"%$query%\"";
-		$this->list = $this->db->GetArray($sql);
-		foreach($this->list as $li_id=>$li){
-			$this->list[$li_id]['content'] = preg_replace("#<.*?(>|$)#is"," ",$li['content']);
-		}
-	}
-
-
 	// Поиск слов (тегов) по строке
 	public function GerWord($str){
 		$sql = "SELECT wrord

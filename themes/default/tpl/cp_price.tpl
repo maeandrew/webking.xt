@@ -61,9 +61,11 @@
 						<input type="checkbox" id="checkbox-to" class="mdl-checkbox__input" checked name="column[]" value="3">при заказе до <?=$GLOBALS['CONFIG']['retail_order_margin']?>грн.
 					</label>
 
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="individual">
-						<input type="text" id="individual" class="mdl-checkbox__input" name="margin" id="margin" value="">индивидуальная наценка
-					</label>
+					<div id="individualMargin" class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="text" pattern="(-?[0-9]*(\.[0-9]+)?|-?[0-9]*(,[0-9]+)?)" id="individual" id="margin" name="margin" >
+						<label class="mdl-textfield__label" for="individual">индивидуальная наценка</label>
+						<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
+					</div>
 
 				</fieldset>
 				<fieldset>
@@ -86,7 +88,9 @@
 					</label>
 				</fieldset>
 
-				<input type="button" class="uncheck_all btn-m btn-orange-inv deselect_all" value="Снять все выделения">
+				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">
+				  Снять все выделения
+				</button>
 
 				<p class="ps">Хотите открыть прайс в Excell?<br>Сохраните страницу прайса в браузере, затем откройте сохраненный файл в Excell.</p>
 				<div class="price-counter">
@@ -98,8 +102,10 @@
 					<p class="variables">Лимит<span class="limit-count value">3000</span></p>
 					<p class="variables">Осталось<span class="remain-count value">3000</span></p>
 					<input type="hidden" required name="selected-array" class="selected-array">
-					<input type="submit" class="confirm btn-m-orange" value="Прайс-лист">
-					<!-- <a href="#" class="uncheck_all">Снять все выделения</a> -->
+					<!-- <input type="submit" class="confirm btn-m-orange" value="Прайс-лист"> -->
+					<button class="mdl-button mdl-js-button mdl-button--raised confirm">
+					  Прайс-лист
+					</button>
 				</div>
 			</div>
 		</form>
@@ -109,8 +115,12 @@
 			<?foreach($prices as $price){
 				if($price['visibility'] == 1){?>
 					<section id="pricelist_item">
-						<input type="radio"  name="pricelist_select" class="pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>">
-						<label for="order-<?=$price['order']?>"><?=$price['name']?></label>
+						<!-- <input type="radio"  name="pricelist_select" class="pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>">
+						<label for="order-<?=$price['order']?>"><?=$price['name']?></label> -->
+
+						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order-<?=$price['order']?>">
+						<input type="radio" name="pricelist_select" class="mdl-radio__button" id="order-<?=$price['order']?>" value="<?=$price['id']?>" value="<?=$price['id']?>"><?=$price['name']?>
+						</label>
 					</section>
 				<?}
 			}?>
@@ -202,13 +212,6 @@
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	var params = $('#dynamic-params'),
 		start = parseInt(params.css("top"));
-
-	/*$(window).scroll(function(){
-		if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop());
-		}else{
-			params.css("top", start);
-		}*/
 		var contHeight = $(".content").height();
 		var formHeight = $("#dynamic-params").height();
 		var endScroll = (contHeight - formHeight);
@@ -217,18 +220,6 @@
 		}
 
 	$(window).scroll(function(){
-		/*if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop());
-		}else{
-			params.css("top", start);
-		}*/
-
-
-		/*var endScroll = (($(".content").height()) - ($("#dynamic-params").height()));*/
-		/*console.log(contHeight);
-		console.log(formHeight);
-		console.log(endScroll);*/
-
 		if($(this).scrollTop() > endScroll){
 			params.css('top', endScroll);
 			params.css('z-index', 0);
@@ -310,13 +301,13 @@
 	});
 
 	/* Проверка input индивидуальной наценки */
-	$('#margin').keyup(function(){
+	$('#individual').keyup(function(){
 		var value = $(this).val().replace(/[^0-9.,]/gi,"");
 		if(value.length > 0 && value.length <= 6){
-			$('input[name="column[]"]').prop('disabled',true).closest('label').addClass('is-disabled');
+			$('input[name="column[]"]').prop('disabled',true).closest('label').addClass('is-disabled').css('color', 'gray');
 			$(this).val(value);
 		}else{
-			$('input[name="column[]"]').prop('disabled',false).closest('label').removeClass('is-disabled');
+			$('input[name="column[]"]').prop('disabled',false).closest('label').removeClass('is-disabled').css('color', '');
 			$(this).val('');
 		}
 	});
@@ -374,12 +365,14 @@
 
 	/* Выбор категорий второго уровня */
 	$('.category-select, .category-parent-select').change(function(){
+		console.log("hello");
 		var id = Number($(this).attr('id').replace(/\D+/g,""));
 		var pid = Number($(this).attr('class').replace(/\D+/g,""));
 		var products = Number($(this).val().replace(/\D+/g,""));
 		var limit = Number($('span.limit-count').text().replace(/\D+/g,""));
 		var summary = Number($('span.selected-count').text().replace(/\D+/g,""));
 		var array = 0; var massive = $('.selected-array').val();
+		$(this).closest('label').removeClass('is-semi-checked');
 		if(pid == 0){
 			if($('.pid-'+id).length > 0){
 				if($(this).prop('checked')==true){
@@ -420,10 +413,10 @@
 				if($('.pid-'+pid+':checked').length !== $('.pid-'+pid).length){
 					$('#cat-'+pid).prop('checked',false).prop('indeterminate', true).closest('label').addClass('is-semi-checked');
 				}else{
-					$('#cat-'+pid).prop('checked',true).prop('indeterminate', false).closest('label').removeClass('is-semi-checked');
+					$('#cat-'+pid).prop('checked',true).prop('indeterminate', false).closest('label').removeClass('is-semi-checked').addClass('is-checked');
 				}
 			}else{
-				$('#cat-'+pid).prop('checked',false).prop('indeterminate', false).closest('label').removeClass('is-semi-checked');
+				$('#cat-'+pid).prop('checked',false).prop('indeterminate', false).closest('label').removeClass('is-semi-checked').removeClass('is-checked');
 			}
 		}
 		$('.selected-array').val(massive);
@@ -526,15 +519,4 @@
 			}
 		});
 	});
-
-
-
-
-
-
-
-
-
-
-
 </script>

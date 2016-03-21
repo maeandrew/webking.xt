@@ -4,7 +4,7 @@
 
 	// ---- center ----
 	unset($parsed_res);
-
+	print_r($GLOBALS['REQAR']);
 	if (isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 		$id_news = $GLOBALS['REQAR'][1];
 	}else{

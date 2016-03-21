@@ -10,6 +10,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 if(!$News->SetFieldsById($id_news, 1)){
 	die('Ошибка при выборе новости.');
 }
+
 $tpl->Assign('h1', 'Редактирование новости');
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы

@@ -2310,6 +2310,35 @@ section .stat_year {
 	background-color: #757575;
 	/*border-bottom: 1px solid transparent;*/
 }
+
+#individualMargin {
+	width: 240px;
+	padding-top: 0;
+	padding-bottom: 10px;
+}
+
+#individualMargin .mdl-textfield__input {
+	border-bottom: 1px solid rgba(0,0,0, 0.12);
+}
+
+#individualMargin .mdl-textfield__label {
+	font-size: 14px;
+	top: 10px;
+}
+
+#individualMargin span {
+	top: 29px;
+}
+
+#individualMargin .mdl-textfield__label:after {
+	top: 20px;
+	background-color: #757575;
+	/*border-bottom: 1px solid transparent;*/
+}
+
+
+
+
 .mdl-checkbox__ripple-container .mdl-ripple,
 .mdl-radio__ripple-container .mdl-ripple {
 	background: rgb(255, 87, 34);
