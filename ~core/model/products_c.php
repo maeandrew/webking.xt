@@ -506,11 +506,7 @@ class Products {
 				ON p.id_product = cp.id_product
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON p.id_product = a.id_product
-			LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-				ON a.id_supplier = cs.id_supplier
 			WHERE a.active = 1
-			AND cs.date = '".$date."'
-			AND cs.work_day = 1
 			AND cp.id_category IN (".$GLOBALS['CONFIG']['price_csv_categories'].")
 			GROUP BY p.id_product";
 		$res = $this->db->GetArray($sql);
@@ -1242,19 +1238,13 @@ class Products {
 			a.inusd, i.src AS image,
 			(SELECT MIN(assort.price_mopt_otpusk)
 				FROM '._DB_PREFIX_.'assortiment AS assort
-				LEFT JOIN '._DB_PREFIX_.'calendar_supplier AS cs
-					ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND assort.active = 1
+				WHERE assort.active = 1
 				AND assort.id_product = p.id_product
 				AND price_mopt_otpusk > 0
 				GROUP BY assort.id_product) AS min_mopt_price,
 			(SELECT MIN(assort.price_opt_otpusk)
 				FROM '._DB_PREFIX_.'assortiment AS assort
-				LEFT JOIN '._DB_PREFIX_.'calendar_supplier AS cs
-					ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND assort.active = 1
+				WHERE assort.active = 1
 				AND assort.id_product = p.id_product
 				AND price_opt_otpusk > 0
 				GROUP BY assort.id_product) AS min_opt_price
@@ -1515,6 +1505,9 @@ class Products {
 			WHERE a.id_supplier = ".$id_supplier."
 			ORDER BY a.id_product";
 		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
 		unset($_SESSION['Assort']);
 		foreach($arr as $i){
 			$_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] = $i['price_opt_otpusk'];
@@ -1676,10 +1669,8 @@ class Products {
 			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
 			p.price_mopt AS old_price_mopt, p.price_opt AS old_price_opt
 			FROM "._DB_PREFIX_."assortiment AS a
-			LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-				ON (cs.id_supplier = a.id_supplier OR cs.id_supplier = a.id_supplier)
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
-				ON cs.id_supplier = s.id_user
+				ON a.id_supplier = s.id_user
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON p.id_product = a.id_product
 			WHERE a.active = 1
@@ -1688,16 +1679,13 @@ class Products {
 			OR (a.price_mopt_otpusk != 0 AND a.price_mopt_recommend != 0))";
 		if(is_array($ids_products)){
 			$sql .= " AND a.id_product IN (".implode(", ", $ids_products).")
-				AND cs.date = DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY)
-				AND cs.work_day = 1
 				GROUP BY a.id_supplier, a.id_product";
 			$arr = $this->db->GetArray($sql);
 			foreach($arr as $p){
 				$mass[$p['id_product']][] = $p;
 			}
 		}else{ // пересчет всех товаров ассортимента
-			$sql .= " AND cs.date = DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY)
-				AND cs.work_day = 1
+			$sql .= " 
 				GROUP BY a.id_supplier, a.id_product";
 			$arr = $this->db->GetArray($sql);
 			$ids_products = array();
@@ -3242,10 +3230,7 @@ class Products {
 				ON a.id_product = p.id_product
 			WHERE (SELECT MAX(assort.price_mopt_otpusk)/MIN(assort.price_mopt_otpusk)
 				FROM "._DB_PREFIX_."assortiment AS assort
-				LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-					ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND assort.active = 1
+				WHERE assort.active = 1
 				AND assort.id_product = p.id_product
 				GROUP BY assort.id_product) > ".$diff."
 			AND (p.price_mopt > 0 OR price_opt > 0)
@@ -3258,10 +3243,7 @@ class Products {
 				FROM "._DB_PREFIX_."assortiment AS a
 				LEFT JOIN "._DB_PREFIX_."supplier AS s
 					ON s.id_user = a.id_supplier
-				LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-					ON (cs.id_supplier = a.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND a.active = 1
+				WHERE a.active = 1
 				AND a.id_product = ".$a['id_product']."
 				GROUP BY a.id_supplier";
 			$arr[$k]['suppliers'] = $this->db->GetArray($sql);
