@@ -166,7 +166,7 @@ class mysqlPDO {
 	* @return int
 	*/
 	public function GetCount($table){
-		$query = 'SELECT COUNT(*) as cnt FROM '.$table;
+		$query = 'SELECT COUNT(*) AS cnt FROM '.$table;
 		if($res_id = $this->query($query)){
 			if($res = mysql_num_rows($res_id)){
 				$res = mysql_fetch_object($res_id);
@@ -183,7 +183,7 @@ class mysqlPDO {
 	* @return resourse идентификатор MySql
 	*/
 	public function DeleteRowFrom($table, $field_id_name, $field_id_value){
-		$query = 'delete from '.$table.' where '.$field_id_name.'='.$field_id_value;
+		$query = 'DELETE FROM '.$table.' WHERE '.$field_id_name.'='.$field_id_value;
 		return $this->query($query);
 	}
 
@@ -195,7 +195,7 @@ class mysqlPDO {
 	*/
 	public function DeleteRowsFrom($table, $fv){
 		$str = implode(" AND ", $fv);
-		$query = 'delete from '.$table.' where '.$str;
+		$query = 'DELETE FROM '.$table.' WHERE '.$str;
 		return $this->query($query);
 	}
 
@@ -274,7 +274,6 @@ class mysqlPDO {
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
 		$this->sql = $sql;
-
 		return $this->Query($sql);
 	}
 

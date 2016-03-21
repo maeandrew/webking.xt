@@ -1074,7 +1074,7 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 					ON cp.id_product = a.id_product
 				LEFT JOIN "._DB_PREFIX_."supplier AS s
-						ON s.id_user = a.id_supplier
+					ON s.id_user = a.id_supplier
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
 				WHERE ".$where."
@@ -1203,23 +1203,6 @@ class Products {
 			return 0;
 		}
 		return $cnt;
-	}
-
-	public function SetProductsListBySupplier($id_supplier){
-		$group_by = ' GROUP BY a.id_product';
-		$sql = "SELECT DISTINCT a.id_assortiment,
-			a.id_product, a.price_opt_otpusk,
-			a.price_mopt_otpusk, a.active,
-			a.product_limit, a.sup_comment
-			FROM "._DB_PREFIX_."assortiment a
-			WHERE a.id_supplier = ".$id_supplier."
-			".$group_by;
-		$res = $this->db->GetArray($sql);
-		if(!$res){
-			return false;
-		}else{
-			return $res;
-		}
 	}
 
 	public function SetProductsListSupCab($and = false, $limit = '', $orderby = 'a.inusd, p.name'){

@@ -62,8 +62,10 @@ foreach($groups as &$g){
 	}
 }
 $tpl->Assign('g_forlinks', $groups);
-$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_users.tpl'));
+$parsed_res = array(
+	'issuccess' => TRUE,
+	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_users.tpl')
+);
 if(TRUE == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
 }
