@@ -47,11 +47,11 @@
 
 
 		<div> <?
-			//print_r($_POST['Img']);
-			for($num=0; $num < count($_POST['Img']); $num++) {
-  				print_r($_POST['Img'][$num]);
-  				echo "<br>";
-			}
+			print_r($_POST['Img']);
+			//for($num=0; $num < count($_POST['Img']); $num++) {
+  			//	print_r(implode(',', $_POST['Img'][$num]));
+  			//	echo "<br>";
+			//}
 
 		?> </div>
 
