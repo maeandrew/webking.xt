@@ -35,8 +35,9 @@
 					<td><?=$groups[$i['gid']]['caption']?></td>
 					<td class="right actions">
 						<nobr>
-							<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'edit/'.$i['id_user']?>" class="btn-l-green-inv">редактировать</a>
-							<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'del/'.$i['id_user']?>" onclick="return confirm('Точно удалить?');" class="btn-l-red-inv">удалить</a>
+							<a href="<?=$GLOBALS['URL_base'].'adm/assortment/'.$i['id_user']?>" class="btn-m-green-inv">ассортимент</a>
+							<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'edit/'.$i['id_user']?>" class="btn-m-green-inv">редактировать</a>
+							<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'del/'.$i['id_user']?>" onclick="return confirm('Точно удалить?');" class="btn-m-red-inv">удалить</a>
 						</nobr>
 					</td>
 				</tr>

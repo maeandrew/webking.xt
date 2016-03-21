@@ -1,0 +1,10 @@
+.product_list input.price {
+	max-width: 90px;
+}
+.icon-remove {
+	font-size: 1.5em;
+	cursor: pointer;
+}
+.icon-remove:hover {
+	color: red;
+}

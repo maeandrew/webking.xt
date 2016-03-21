@@ -960,7 +960,8 @@ class Products {
 
 	public function SetProductsList1($s){
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",
+			a.product_limit, a.inusd, a.price_mopt_otpusk, a.price_opt_otpusk
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON cp.id_product = p.id_product
@@ -1374,19 +1375,83 @@ class Products {
 		$this->db->CompleteTrans();
 	}
 
+	public function GetAssort($id_product, $id_supplier){
+		$sql = 'SELECT * FROM '._DB_PREFIX_.'assortiment
+			WHERE id_product = '.$id_product.'
+			AND id_supplier = '.$id_supplier;
+		$res = $this->db->GetOneRowArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	// Обновление позиции ассортимента (ajax)
-	public function UpdateAssort($id_product, $opt, $price_otpusk, $price_recommend, $nacen, $product_limit = null, $active = 0, $sup_comment, $inusd = 'false', $currency_rate){
+	public function UpdateAssort2($id_product, $id_supplier, $mode, $price, $markup, $comment = null){
+		$assort = $this->GetAssort($id_product, $id_supplier);
+		// var_dump($assort);
+		// print_r($id_product);
+		// print_r($id_supplier);
+		// print_r($mode);
+		// print_r($price);
+		// print_r($markup);
+		// print_r($comment);
+		$assort['price_'.$mode.'_otpusk'] = $price;
+		$assort['price_'.$mode.'_recommend'] = $price*$markup[$mode];
+		// $assort['price_'.$mode.'_otpusk_usd'] = $price_otpusk/$currency_rate;
+		if(isset($comment)){
+			$assort['sup_comment'] = $comment;
+		}
+		$f['price_'.$mode.'_recommend'] = $assort['price_'.$mode.'_recommend'];
+		$f['price_'.$mode.'_otpusk'] = $assort['price_'.$mode.'_otpusk'];
+		// $f['price_opt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd']);
+		// $f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
+		// $f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
+		// $f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
+		$f['sup_comment'] = $assort['sup_comment'];
+		// if(!isset($_SESSION['Assort']['products'][$id_product])){
+		// 	$this->InitProduct($id_product);
+		// }
+		// if($product_limit == null){
+		// 	$_SESSION['Assort']['products'][$id_product]['product_limit'] = 0;
+		// }else{
+		// 	$_SESSION['Assort']['products'][$id_product]['product_limit'] = $product_limit;
+		// }
+		// $_SESSION['Assort']['products'][$id_product]['active'] = $active;
+		// if($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] == 0 &&
+		// 	$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] == 0 &&
+		// 	$_SESSION['Assort']['products'][$id_product]['active'] == 0){
+		// 	unset($_SESSION['Assort']['products'][$id_product]);
+		// }
+		// // $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
+
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = $id_product AND id_supplier = ".$id_supplier)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		// //$f[''] = trim($arr['']);
+		// // if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
+		// // 	$this->db->FailTrans();
+		// // 	return false;
+		// // }
+		$this->RecalcSitePrices(array($id_product));
+	}
+
+	// Обновление позиции ассортимента (ajax)
+	public function UpdateAssort($id_product, $opt, $price_otpusk, $price_recommend, $markup, $product_limit = null, $active = 0, $sup_comment, $inusd = 'false', $currency_rate){
 		if(!isset($_SESSION['Assort']['products'][$id_product])){
 			$this->InitProduct($id_product);
 		}
 		if($opt == 1){
 			$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] = $price_otpusk;
-			$_SESSION['Assort']['products'][$id_product]['price_opt_recommend'] = $price_otpusk*$nacen;
+			$_SESSION['Assort']['products'][$id_product]['price_opt_recommend'] = $price_otpusk*$markup;
 			$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd'] = $price_otpusk/$currency_rate;
 			$_SESSION['Assort']['products'][$id_product]['sup_comment'] = $sup_comment;
 		}else{
 			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] = $price_otpusk;
-			$_SESSION['Assort']['products'][$id_product]['price_mopt_recommend'] = $price_otpusk*$nacen;
+			$_SESSION['Assort']['products'][$id_product]['price_mopt_recommend'] = $price_otpusk*$markup;
 			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd'] = $price_otpusk/$currency_rate;
 			$_SESSION['Assort']['products'][$id_product]['sup_comment'] = $sup_comment;
 		}
@@ -1462,6 +1527,24 @@ class Products {
 			$_SESSION['Assort']['products'][$i['id_product']]['active'] = $i['active'];
 			$_SESSION['Assort']['products'][$i['id_product']]['sup_comment'] = $i['sup_comment'];
 		}
+		return true;
+	}
+
+	public function SetAssortList($id_supplier){
+		$sql = "SELECT a.id_product, a.id_supplier,
+			a.price_opt_recommend, a.price_mopt_recommend,
+			a.price_opt_otpusk, a.price_mopt_otpusk,
+			a.price_opt_otpusk_usd, a.price_mopt_otpusk_usd,
+			a.product_limit, a.sup_comment, a.active
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_supplier = ".$id_supplier."
+			ORDER BY a.id_product";
+			print_r($sql);
+		$this->list = $this->db->GetArray($sql);
+		if(!$this->list){
+			return false;
+		}
+		return true;
 	}
 
 	public function AddToAssort($id_product){
@@ -1494,10 +1577,10 @@ class Products {
 		$this->db->CompleteTrans();
 	}
 
-	public function DelFromAssort($id_product){
+	public function DelFromAssort($id_product, $id_supplier){
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
-		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
+		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
 		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($id_product));
 	}
