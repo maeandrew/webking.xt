@@ -774,6 +774,9 @@ footer {
 	vertical-align: middle;
 	font-weight: 300;
 }
+.list tbody td.center {
+	text-align: center;
+}
 .list .date {
 	color: #888;
 	font-style: italic;

@@ -95,6 +95,7 @@
 	</form>
 	<?if(isset($GLOBALS['REQAR'][1])){?>
 		<h2>Дополнительная информация</h2>
+		<a href="<?=_base_url;?>/adm/assortment/<?=$GLOBALS['REQAR'][1];?>">Ассортимент поставщика</a>
 		<div class="row">
 			<div class="col-md-4">
 				<table border="0" cellpadding="0" cellspacing="0" class="list paper_shadow_1">

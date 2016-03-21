@@ -1613,13 +1613,13 @@ function toAssort(id, opt, nacen, comment){
 	var inusd = $('.inusd'+id).prop('checked');
 	var currency_rate = $('#currency_rate').val();
 	if(opt == 1){
-		optw = "opt";
+		mode = "opt";
 	}else{
-		optw = "mopt";
+		mode = "mopt";
 	}
 	var a,b,c;
-	a = parseFloat($("#price_"+optw+"_otpusk_"+id).val().replace(",","."));
-	b = parseFloat($("#price_"+optw+"_otpusk_"+id).val().replace(",","."));
+	a = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
+	b = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
 	if(inusd == true){
 		a = a*currency_rate;
 		b = b*currency_rate;
@@ -1674,7 +1674,7 @@ function toAssort(id, opt, nacen, comment){
 		$("#product_limit_mopt_"+id).val(0);
 	}
 	if(a <= 0 || b <= 0){
-		//$("#checkbox_"+optw+"_"+id).attr('checked','');
+		//$("#checkbox_"+mode+"_"+id).attr('checked','');
 		$("#tr_opt_"+id).removeClass('available').addClass('notavailable notprice');
 		$("#tr_mopt_"+id).removeClass('available').addClass('notavailable notprice');
 	}

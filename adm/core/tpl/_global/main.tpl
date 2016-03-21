@@ -15,7 +15,10 @@
 			echo sprintf($tmpstr, $js['name'], $js['async'] == true?' async':null);
 		}
 	}?>
-	<script>var URL_base = "<?=$GLOBALS['URL_base']?>adm/";</script>
+	<script>
+		var URL_base = "<?=$GLOBALS['URL_base']?>adm/",
+			URL_base_global = "<?=$GLOBALS['URL_base']?>";
+	</script>
 	<link type="image/x-icon" href="/adm/favicon.ico" rel="icon"/>
 	<link type="image/x-icon" href="/adm/favicon.ico" rel="shortcut icon"/>
 	<script type="text/javascript" src="/adm/js/ace/ace.js"></script>

@@ -20,7 +20,7 @@ if(isset($_POST['com_qtn'])){
 	$author = 007;
 	$author_name = $_SESSION['member']['id_user'];
 	$authors_email = $_SESSION['member']['email'];
-	$related33 = $products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
+	$products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
 	header('Location: '.$_SERVER['REQUEST_URI']);
 	exit();
 }

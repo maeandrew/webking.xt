@@ -7,7 +7,7 @@ function ajax(target, action, data, dataType){
 	}
 	dataType = dataType || 'json';
 	var ajax = $.ajax({
-		url: URL_base+'ajax',
+		url: URL_base_global+'ajax',
 		type: "POST",
 		dataType : dataType,
 		data: data
@@ -128,7 +128,6 @@ function ModalGraph(id_graphics){
 		};
 	});
 }
-
 // Установить куки
 function setCookie(name, value) {
 	var valueEscaped = escape(value);
@@ -138,7 +137,6 @@ function setCookie(name, value) {
 	var newCookie = name + "=" + valueEscaped + "; path=/; expires=" + expires;
 	if (valueEscaped.length <= 4000) document.cookie = newCookie + ";";
 }
-
 // Получить куки
 function getCookie(name) {
 	var prefix = name + "=";
@@ -148,7 +146,6 @@ function getCookie(name) {
 	if (cookieEndIndex == -1) cookieEndIndex = document.cookie.length;
 	return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex));
 }
-
 /* Определение расстояния прокрутки страницы */
 function getScrollWindow() {
 	var html = document.documentElement;
@@ -157,7 +154,6 @@ function getScrollWindow() {
 	top -= html.clientTop;
 	return top;
 }
-
 function FixHeader(){
 	var colors = ['red', 'lblue', 'blue', 'orange', 'green', 'default', 'lgrey-inv', 'yellow'];
 	var color = '';
@@ -176,6 +172,95 @@ function FixHeader(){
 			color = '';
 		}
 	});
+}
+
+// Добавление или обновление товара в ассортименте
+function toAssort(id, id_supplier, mode, markup, price, comment){
+	var data = {
+		id_product: id,
+		id_supplier: id_supplier,
+		mode: mode,
+		markup: markup,
+		price: price,
+		comment: comment
+	}
+	ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+		console.log(data);
+	});
+	// var inusd = $('.inusd'+id).prop('checked');
+	// var currency_rate = $('#currency_rate').val();
+	// var a,b,c;
+	// a = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
+	// b = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
+	// if(inusd == true){
+	// 	a = a*currency_rate;
+	// 	b = b*currency_rate;
+	// }
+	// c = parseFloat($("#product_limit_mopt_"+id).val());
+	// $("#product_limit_mopt_"+id).val(c);
+	// active = 0;
+	// if(c > 0){
+	// 	po = parseFloat($("#price_"+mode+"_"+id).val());
+	// 	pom = Number(po - po*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
+	// 	if(po != 0 && a > pom){
+	// 		alert("Предлагаемая Вами цена не позволяет продавать данный товар на сайте.");
+	// 	}
+	// 	pop = Number(po + po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
+	// 	pom = Number(po - po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
+	// 	if(po != 0 && (b > pop || b < pom)){
+	// 		alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
+	// 	}
+	// 	ao = parseFloat($("#price_opt_otpusk_"+id).val());
+	// 	bo = parseFloat($("#price_opt_otpusk_"+id).val());
+	// 	am = parseFloat($("#price_mopt_otpusk_"+id).val());
+	// 	bm = parseFloat($("#price_mopt_otpusk_"+id).val());
+	// 	active = 1;
+	// 	if((ao > 0 && bo == 0) || (ao == 0 && bo > 0)){
+	// 		active = 0;
+	// 		alert("Необходимо заполнить цены.");
+	// 	}else if((am > 0 && bm == 0) || (am == 0 && bm > 0)){
+	// 		active = 0;
+	// 		alert("Необходимо заполнить цены.");
+	// 	}
+	// }
+	// if(active == 1){
+	// 	$("#tr_opt_"+id).removeClass('notavailable notprice').addClass('available');
+	// 	$("#tr_mopt_"+id).removeClass('notavailable notprice').addClass('available');
+	// }else{
+	// 	$("#tr_opt_"+id).removeClass('available').addClass('notavailable');
+	// 	$("#tr_mopt_"+id).removeClass('available').addClass('notavailable');
+	// 	$("#product_limit_opt_"+id).val(0);
+	// 	$("#product_limit_mopt_"+id).val(0);
+	// }
+	// if(a <= 0 || b <= 0){
+	// 	//$("#checkbox_"+mode+"_"+id).attr('checked','');
+	// 	$("#tr_opt_"+id).removeClass('available').addClass('notavailable notprice');
+	// 	$("#tr_mopt_"+id).removeClass('available').addClass('notavailable notprice');
+	// }
+	// if(a < 0){
+	// 	a = 0;
+	// 	$("#price_opt_otpusk_"+id).val(a);
+	// }
+	//if (b<0){ b=0;$("#price_opt_recommend_"+id).val(b);}
+	// $.ajax({
+	// 	url: URL_base+'ajaxassort',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType: "json",
+	// 	data:{
+	// 		"action": "update_assort",
+	// 		"opt": opt,
+	// 		"id_product": id,
+	// 		"price_otpusk": a,
+	// 		"price_recommend": b,
+	// 		"markup": markup,
+	// 		"product_limit": c,
+	// 		"active": active,
+	// 		"sup_comment": comment,
+	// 		"inusd": inusd,
+	// 		"currency_rate": currency_rate
+	// 	}
+	// });
 }
 
 /*MODAL WINDOW*/
