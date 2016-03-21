@@ -17,7 +17,7 @@
 	}?>-->
 
 	<!-- Страница "Доставка" -->
-	<!-- <div id="page_delivery" class="page_delivery ">
+	<div id="page_delivery" class="page_delivery ">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
@@ -57,10 +57,10 @@
 		<div id="delivery2" data-type="modal">
 			<img  src="/themes/default/images/page/delivery/delivery2_big.png" alt="">
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "O нас" -->
-	<!-- <div id="page_about_us" class="page_about_us ">
+	<div id="page_about_us" class="page_about_us ">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
@@ -145,7 +145,7 @@
 			<h4>Мы стараемся ради Вас!</h4>
 			<button data-name="auth" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Присоединяйтесь!</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Справка" -->
 	<div id="page_information" class="page_information pages_group">
@@ -392,7 +392,7 @@
 	</div>
 
 	<!-- Страница "Оплата" -->
-	<!-- <div id="page_payment" class="page_payment pages_group">
+	<div id="page_payment" class="page_payment pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/payment/payment0.png" alt="">
 			<h1>Оплата</h1>
@@ -489,12 +489,12 @@
 				<ul>Безналичный расчёт, без НДС
 					<li>комиссия: 1% обналичка, 4% заморозка цен</li></ul></div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Поставки магазинам" -->
- 	<!-- <div id="page_supply" class="page_supply pages_group ">
+ 	<div id="page_supply" class="page_supply pages_group ">
 		<div class="blockline">
-			<img class="main_img forflex" src="/themes/default/images/page/supply/supply0.png" alt="">
+			<img class="main_img" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
 			<p>С нами у Вас есть возможность создать с нуля свой бизнес, или полностью обеспечить свой магазин товарами</p>
 		</div>
@@ -588,12 +588,12 @@
 		<div class="blockline blockBtn">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Скидки" -->
-	<!-- <div id="page_discounts" class="page_discounts pages_group ">
+	<div id="page_discounts" class="page_discounts pages_group ">
 		<div class="blockline">
-			<img class="main_img forflex" src="/themes/default/images/page/discounts/discounts0.png" alt="">
+			<img class="main_img" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
 			<p>В магазине «ХТ» действуют гибкие скидки, программа лояльности и систма бонусов</p>
 		</div>
@@ -715,12 +715,12 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Обеспечение быта" -->
-	<!-- <div id="page_provision" class="page_provision pages_group ">
+	<div id="page_provision" class="page_provision pages_group ">
 		<div class="blockline">
-			<img class="main_img forflex" src="/themes/default/images/page/provision/provision0.png" alt="">
+			<img class="main_img" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
 			<p>С магазином «ХТ» Вы экономите свое время и финансы</p>
 		</div>
@@ -787,7 +787,7 @@
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
 				<div class="forflex">
-					<video width="495" height="278" src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
+					<video src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
 				</div>
 				<div class="forflex blockOfText">
 					<h4>Покупайте вместе</h4>
@@ -815,12 +815,12 @@
 		<div class="blockline blockBtn">
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Снабжение предприятий" -->
-	<!-- <div id="page_provision_companies" class="page_provision_companies pages_group">
+	<div id="page_provision_companies" class="page_provision_companies pages_group">
 		<div class="blockline">
-			<img class="main_img forflex" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
+			<img class="main_img" src="/themes/default/images/page/provision_companies/provision_companies0.png" alt="">
 			<h1>Снабжение предприятий</h1>
 			<p>Комплексное обеспечение материалами, инструментами, оборудованием и комплектующими на долгосрочной основе</p>
 		</div>
@@ -836,7 +836,7 @@
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies1.png" alt=""></div>
 			</div>
 		</div>
-		<div class="invisibleblock">
+		<div class="invisibleblock blockline">
 			<div class="flexwrapp three_inline">
 				<div class="info_circle forflex">
 					<img src="/themes/default/images/page/provision_companies/rebate1.png" alt="">
@@ -949,10 +949,10 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Контакты" -->
-	<!-- <div id="page_contacts" class="page_contacts ">
+	<div id="page_contacts" class="page_contacts ">
 		<div class="blockline">
 			<video src="/themes/default/images/page/contacts/contacts.mp4" autoplay loop></video>
 			<h1>Контакты</h1>
@@ -1040,12 +1040,12 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Страница "Как стать дилером" -->
-	<!-- <div id="page_dealer" class="page_dealer">
+	<div id="page_dealer" class="page_dealer">
 		<div class="blockline">
-			<img class="main_img forflex" src="/themes/default/images/page/dealer/dealer0.png" alt="">
+			<img class="main_img" src="/themes/default/images/page/dealer/dealer0.png" alt="">
 			<h1>Как стать дилером</h1>
 			<p>Мы дадим Вам все необходимое для создания бизнеса</p>
 		</div>
@@ -1096,5 +1096,5 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </div><!--id="content"-->

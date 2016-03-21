@@ -56,7 +56,6 @@
 	}
 	#content .forflex {
 		flex-basis: 43%;
-		
 	}
 	#content div.flexwrapp.three_inline,
 	#content div.flexwrapp.two_inline {
@@ -116,7 +115,7 @@
 			max-width: 360px;
 			min-width: 340px;
 		}
-	/*Стили для четырех страниц*/
+	/*Стили для группы страниц*/
 		#content .pages_group .flexWrapReverse .blockOfText {
 			margin-left: 0;
 		}
@@ -141,8 +140,8 @@
 		#content .pages_group .invisibleblock {
 			border: none;
 			display: none;
-			padding-left: 7%;
-			padding-right: 7%;
+			padding-left: 3%;
+			padding-right: 3%;
 			padding-bottom: 4%;
 			z-index: 0;
 		}
@@ -274,19 +273,11 @@
 		max-width: 100%;
 		max-height: 790px;
 	}
-	@media (max-width: 1366px) {
-		#delivery2 img {
-			max-width: 100%;
-			max-height: 680px;
-		}
-	}
 	/*Media*/
-		@media (max-width: 964px) {
-			#content .page_delivery .forflex {
-				flex-basis: 46%;
-			}
-			#content .page_delivery .blockOfText p {
+		@media (max-width: 1366px) {
+			#delivery2 img {
 				max-width: 100%;
+				max-height: 680px;
 			}
 		}
 		@media (max-width: 550px) {
@@ -301,12 +292,12 @@
 		margin: 3% auto;
 	}
 	/*Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
-	#content .page_about_us .blockline:nth-child(4){
-		border: none;
-	}
-	#content .page_about_us .blockline:last-child {
-		padding-top: 0;
-	}
+		#content .page_about_us .blockline:nth-child(4){
+			border: none;
+		}
+		#content .page_about_us .blockline:last-child {
+			padding-top: 0;
+		}
 	/*------------------------------------*/
 	#content .page_about_us img.about2 {
 		width: 86%;
@@ -461,11 +452,7 @@
 				line-height: 21px;
 				margin-top: 0;
 			}*/
-
 /* Страница "Справка" / class="page_information" */
-	#content .page_information img {
-		max-width: 76%;
-	}
 	#content a.a_question {
 		color: #454F5D;
 		text-transform: uppercase;
@@ -516,9 +503,9 @@
 		height: 80px;
 	}
 	#content .page_payment ul {
+		list-style: disc;
 		font-size: 1.3em;
 		font-weight: 400;
-		list-style: disc;
 		color: #47525d;
 	}
 	#content .page_payment li {
@@ -532,24 +519,8 @@
 	}
 /* Страница "Обеспечение быта"/ class="page_provision" */
 /* Страница "Снабжение предприятий" / class="page_provision_companies" */
-	#content .page_provision_companies img,
-	#content .page_provision_companies button {
+	#content .page_provision_companies img {
 		max-width: 38% !important;
-	}
-	@media (max-width: 1535px) {
-		#content .page_provision_companies img {
-			max-width: 38% !important;
-		}
-	}
-	@media (max-width: 1100px) {
-		#content .page_provision_companies img {
-			max-width: 17% !important;
-		}
-	}
-	@media (max-width: 600px) {
-		#content .page_provision_companies img {
-			max-width: 25% !important;
-		}
 	}
 
 /* Страница "Контакты" / class="page_contacts" */
@@ -559,14 +530,6 @@
 	}
 	#content .page_contacts h1 {
 		margin-bottom: 54px;
-	}
-	#content .page_contacts .blockOfText {
-		padding: 0;
-	}
-	#content .page_contacts .blockOfText p {
-		margin-top: 0;
-		margin-bottom: 0;
-		width: 50%;
 	}
 	#content .page_contacts .blockOfText p.main_text {
 		margin-top: 35px;
@@ -598,14 +561,8 @@
 		text-align: center;
 		min-height: 100px;
 	}
-		@media (min-width: 600px) and (max-width: 1300px) {
-			#content .page_contacts .blockOfText p {
-				width: 60%;
-			}
-		}
-		@media (max-width: 1100px) {
+		@media (max-width: 1200px) {
 			#content .page_contacts .flexColumn {
-				margin-top: 54px;
 				flex-direction: column;
 			}
 			#content .page_contacts .flexColumn button {
@@ -613,6 +570,8 @@
 				margin-bottom: 20px;
 				min-width: 70%;
 			}
+		}
+		@media (max-width: 1100px) {
 			#content .page_contacts .three_inline .info_circle p {
 				font-size: 1em;
 				width: 140px;
@@ -663,53 +622,17 @@
 		line-height: 1.4em;
 		list-style-type: disc;
 	}
-	#content .page_dealer .dealer1{
-		margin: 0 0 0 auto;
-		min-width: 55%;
-	}
 	#content .page_dealer .info_circle p {
 		font-weight: 500;
 	}
-	@media (max-width: 1535px) {
-		#content .page_dealer .container .blockOfText h4 {
-			text-align: center;
-		}
-
-		#content .page_dealer .container .dealer1 {
-			min-width: 40%;
-			margin: 3% auto 0;
-		}
-		#content .page_dealer .info_circle img {
-			min-width: 55%;
-		}
-	}
 	@media (max-width: 1100px) {
-		#content .page_dealer ul {
-			margin-left: 30%;
-		}
-		#content .page_information .payment_information_img {
-			max-width: 45%;
-		}
-		#content .page_dealer .container .dealer1 {
-			max-width: 40%;
-		}
 		#content .page_dealer li {
 			font-size: 1.2em;
-		}
-		#content .forflex {
-			flex-basis: 55%;
-		}
-		#content .page_payment img,
-		#content .page_information img {
-			max-width: 50%;
-		}
+		}		
 	}
 	@media (max-width: 964px) {
 		#content .page_dealer ul {
-			margin-left: 22%;
-		}
-		#content .page_dealer li {
-			font-size: 1.2em;
+			margin-left: 10%;
 		}
 		#content .page_dealer .info_circle p {
 			font-size: 1.2em;
@@ -718,26 +641,12 @@
 	}
 
 /* Общие медиа запросы */
-	/*@media (max-width: 1535px) {
-		#content img.main_img {
-			max-width: 70% !important;
+	@media (max-width: 1200px) {
+		#content .main_img {
+			width: 50% !important;
 		}
-		#content .blockOfText p {
-			margin: 0 auto;
-		}
-		#content video {
-			max-width: 55%;
-			min-width: 55%;
-		}
-		#content .flexColumn button {
-			min-width: 40%;
-		}
-		#content .flexColumn button {
-			margin-bottom: 20px;
-			min-width: 60%;
-		}*/
-		/*Стили для четырех страниц .pages_group*/
-			/*#content .pages_group .blockline:first-child,
+		/*Стили для группы страниц .pages_group*/
+			#content .pages_group .blockline:first-child,
 			#content .pages_group .blockline:last-child {
 				padding-bottom: 4%;
 			}
@@ -749,37 +658,30 @@
 			}
 			#content button .forflex {
 				flex-basis: 90%;
+			}			
+			#content .page_payment .payment_information_img {
+				max-width: 40%;
 			}
 			#content .pages_group img {
 				max-width: 72%;
 			}
-
 			#content .page_provision button {
 				min-width: 60%;
 			}
-			#content .pages_group .btn_plus.pos-right {
-				right: 32%;
-			}
 	}
-	@media (max-width: 1350px) {
-		#content .block_circles .forflex {
-			flex-basis: 46%;
+	@media (max-width: 900px) {
+		#content .forflex {
+			flex-basis: 55%;
 		}
-	}
-	@media (max-width: 1300px) {
-		#content .ac-container div {
-			margin-bottom: 10px;
-		}
-		#content .pages_group .btn_plus.pos-right {
-			right: 30%;
-		}
-	}
-	@media (max-width: 1100px) {
 		#content .blockOfText {
+			margin-bottom: 20px;
 			text-align: center;
 		}
-		#content .pages_group .blockline {
-			padding-bottom: 12%;
+		.btn_plus {
+			top: 220%;
+		}
+		.btn_plus.active {
+			top: 240% !important;
 		}
 		#content .pages_group .btn_plus.pos-left {
 			left: calc(50% - 70px);
@@ -787,14 +689,12 @@
 		#content .pages_group .btn_plus.pos-right {
 			right: calc(50% - 80px);
 		}
-		#content .page_payment .payment_information_img {
-			max-width: 35%;
-		}
-		#content .page_payment .pages_group .btn_plus {
-			bottom: 10%
+		#content .pages_group .info_circle_img {
+			width: 100px;
+			height: 100px;
 		}
 	}
-	@media (max-width: 964px) {
+	/*@media (max-width: 964px) {
 		#content .pages_group .blockline .container {
 			margin-bottom: 30px;
 		}
@@ -819,7 +719,7 @@
 		#content .page_payment li {
 			margin-left: 30%;
 		}
-	}
+	}*/
 	@media (max-width: 600px) {
 		#content .blockOfText p,
 		#content .page_about_us p {
