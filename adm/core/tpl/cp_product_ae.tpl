@@ -647,7 +647,7 @@
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
-	var url = URL_base+"productadd/";
+	var url = URL_base+'<?=$GLOBALS['CurrentController'];?>/';
 	$(function(){
 		//Заполнение списка артикулов
 		$("#article").keyup(function() {

@@ -29,6 +29,11 @@ $tpl->Assign('specs', $specification->list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
 $tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());
 
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
+	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	exit(0);
+}
 if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	if($_GET['id_spec_prod'] == ''){
 		$specification->AddSpecToProd($_GET, $id_product);
