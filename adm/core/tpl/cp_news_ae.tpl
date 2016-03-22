@@ -47,35 +47,45 @@
 
 
 
-		 <?
-		//	print_r($_POST['Img']);
+		<? 
+		// $id_news = $GLOBALS['REQAR'][1];
+		// 	echo($id_news);
+		// 	print_r($_POST['Img']);
 		//	//for($num=0; $num < count($_POST['Img']); $num++) {
   		//	//	print_r(implode(',', $_POST['Img'][$num]));
   		//	//	echo "<br>";
 		//	//}
 		?>
-
+						<!-- /news_images/474/Screenshot_5.png  -->
 
 		<div id="photobox">
 			<div class="previews">
-				<?if(isset($_POST['Img']) && !empty($_POST['Img'])){
-					foreach($_POST['Img'] as $photo){
-						if(isset($photo['src'])){?>
-							<div class="image_block dz-preview dz-image-preview">
-								<div class="sort_handle"><span class="icon-font">s</span></div>
-								<div class="image">
-									<img data-dz-thumbnail src="<?=$photo['src']?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+				<?$id_news = $GLOBALS['REQAR'][1];?>
+				<?if(isset($id_news)) { // получить ид новости
+					if(isset($_POST['Img']) && !empty($_POST['Img'])){ // определить, есть ли у этой новости массив картинок
+						foreach($_POST['Img'] as $photo){
+							if(isset($photo['src'])){?>
+								<? 	$imgTitle = basename($photo['src']); 
+									$imgSrc = '/news_images/'.$id_news.'/'.$imgTitle;
+									// echo($imgSrc);
+									// echo($imgTitle);?>
+								<div class="image_block dz-preview dz-image-preview">
+									<div class="sort_handle"><span class="icon-font">s</span></div>
+									<div class="image">
+										<img data-dz-thumbnail src="<?=$imgSrc?>"/>
+										<!--src="<?=$imgSrc?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>-->
+									</div>
+									<div class="name">
+										<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
+										<span class="dz-size" data-dz-size></span>
+									</div>
+									<div class="controls">
+										<p><span class="icon-font del_photo_js" data-imgTitle="<?=$imgTitle?>" data-imgid="<?=$photo['id']?>" data-dz-remove>t</span></p>
+									</div>
+									<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 								</div>
-								<div class="name">
-									<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
-									<span class="dz-size" data-dz-size></span>
-								</div>
-								<div class="controls">
-									<p><span class="icon-font del_photo_js" data-imgid="<?=$photo['id']?>" data-dz-remove>t</span></p>
-								</div>
-								<input type="hidden" name="images[]" value="<?=$photo['src']?>">
-							</div>
-						<?}
+							<?}
+						}
 					}
 				}?>
 			</div>
@@ -84,11 +94,7 @@
 				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 			</div>
 		</div>
-
 		
-
-
-
 
 		<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
@@ -156,13 +162,13 @@
 		}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
 			//console.log(file);
-
 		}).on('removedfile', function(file){
 			var date = new Date(),
 				year = date.getFullYear(),
 				month = date.getMonth(),
 				day = date.getDate(),
 				removed_file2 = '/news_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+			// var removed_file2 = '/news_images/'+ +'/'+file.name;
 			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		});
 
@@ -187,13 +193,16 @@
 			//e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
 				var path = $(this).closest('.image_block'),
-				removed_file = path.find('input[name="images[]"]').val();
+					removed_file = path.find('input[name="images[]"]').val(); //    /news_images/482/cat.jpg
+				
+				RemovedFile(path, removed_file);
 				$.ajax({
 					url: URL_base+'ajax', // имя контроллера
 					type: "POST",
 					data: {
 						action: '', // имя метода который будет обрабатывать запрос
-						id: "data-imgid"
+						id: 'data-imgid',
+						name: 'data-imgTitle' // имя картинки в виде blabla.jpg
 					}
 				}).done(function(data){
 					// удалить код со страницы
@@ -208,8 +217,9 @@
 			if(confirm('Изобрежение будет удалено.')){
 				var path = $(this).closest('.image_block'),
 					removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
+					RemovedFile(path, removed_file);
 				$.ajax({
-					url: URL_base+'ajax',
+					url: URL_base+'newsedit',
 					type: "POST",
 					data: {
 						"action": '',
