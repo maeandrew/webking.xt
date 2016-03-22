@@ -8,12 +8,8 @@
 		switch($_POST['action']){
 			case "UpdateAssort":
 				if(isset($_POST['id_product'])){
-					// $active = isset($_POST['active'])?$_POST['active']:1;
-					$res = $products->UpdateAssort2($_POST['id_product'], $_POST['id_supplier'], $_POST['mode'], $_POST['price'], $_POST['markup'], $_POST['comment']);
-					// $arr['id_product'] = $_POST["id_product"];
-					// $arr['error'] = false;
-					// $arr['opt'] = $_POST['opt'];
-					$txt = json_encode($res);
+					$res = $products->UpdateAssort2($_POST);
+					echo json_encode($res);
 				}
 				exit();
 				break;
