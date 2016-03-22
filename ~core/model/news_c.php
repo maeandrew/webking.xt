@@ -229,7 +229,7 @@ class News{
 	}
 	// Добавление и удаление фото
 	public function UpdatePhoto($id_news, $images_arr){
-		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news; print_r(1); die();
 		$this->db->StartTrans();// echo '1'; die();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
@@ -237,7 +237,6 @@ class News{
 		if(isset($images_arr) && !empty($images_arr)) {
 			mkdir($GLOBALS['PATH_global_root'].'news_images/'.$id_news);
 			foreach ($images_arr as $k => $src) {
-				//print_r ($GLOBALS['PATH_global_root'].$src. $GLOBALS['PATH_global_root'].str_replace('temp/', $id_news.'/', $src));
 				rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].str_replace('temp/', $id_news.'/', $src));
 				$src = str_replace('temp/', $id_news . '/', $src);
 				if (empty($src)) {

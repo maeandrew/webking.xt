@@ -11,7 +11,6 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/news/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление новости";
 $Images = new Images();
  if(isset($_GET['upload']) == true){
- 	//$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
  	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
  	echo str_replace($GLOBALS['PATH_root'], '/', $res);
  	exit(0);
@@ -22,7 +21,7 @@ if(isset($_POST['smb'])){
 	list($err, $errm) = News_form_validate();
 
 	//Добавление фото
-	$id_news = $News->AddNews($id);
+	$id_news = $News->SetFieldsById($id);
 	if(isset($_POST['images'])){
 		foreach($_POST['images'] as $k=>$image){
 			//$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
