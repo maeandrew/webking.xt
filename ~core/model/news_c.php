@@ -41,10 +41,10 @@ class News{
 		if(!$this->fields){
 			return false;
 		}
-		$sqlImage = "SELECT src
+		$sqlImage = "SELECT id, src
 			FROM "._DB_PREFIX_."image_news
 			WHERE id_news = \"$id_news\"";
-		$this->fields['Img'] = $this->db->GetArray ($sqlImage);
+		$this->fields['Img'] = $this->db->GetArray($sqlImage);
 		return true;
 	}
 
@@ -228,21 +228,23 @@ class News{
 		return $res;
 	}
 	// Добавление и удаление фото
-	public function UpdatePhoto($id_news, $arr){
-		//$id_news = '430';
-		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
+	public function UpdatePhoto($id_news, $images_arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news; print_r(1); die();
 		$this->db->StartTrans();// echo '1'; die();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);
-		if(isset($arr) && !empty($arr)){
-			foreach ($arr as $k=>$src) {
-				if(empty($src)){
+		if(isset($images_arr) && !empty($images_arr)) {
+			mkdir($GLOBALS['PATH_global_root'].'news_images/'.$id_news);
+			foreach ($images_arr as $k => $src) {
+				rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].str_replace('temp/', $id_news.'/', $src));
+				$src = str_replace('temp/', $id_news . '/', $src);
+				if (empty($src)) {
 					return false; //Если URL пустой
 				}
 				$f['src'] = trim($src);
 				$this->db->StartTrans();
-				if(!$this->db->Insert(_DB_PREFIX_.'image_news', $f)){
+				if (!$this->db->Insert(_DB_PREFIX_ . 'image_news', $f)) {
 					$this->db->FailTrans();
 					return false; //Если не удалось записать в базу
 				}
@@ -252,20 +254,9 @@ class News{
 
 		unset($id_news);
 		unset($f);
+
 		return true;//Если все ок
 	}
 
-	//Достать Id новости
-//	public function GetID($id){
-//		$sql = "SELECT id
-//			FROM "._DB_PREFIX_."news
-//			WHERE id_news = ".$id;
-//		$arr = $this->db->GetOneRowArray($sql);
-//		if(!$arr){
-//			return false;
-//		}else{
-//			return $arr;
-//		}
-//	}
 }
 ?>

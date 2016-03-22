@@ -25,7 +25,7 @@ $config = array (
 	'PATH_contr'		=> $root.'core/contr/',
 	'PATH_tpl'			=> $root.'core/tpl/',
 	'PATH_tpl_global'	=> $root.'core/tpl/_global/',
-	'PATH_news_img'		=> $root.'../news_images/'
+	'PATH_news_img'		=> $root.'../news_images/',
 );
 G::ToGlobals($config);
 unset($config);

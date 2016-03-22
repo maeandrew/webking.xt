@@ -17,7 +17,7 @@
 	}?>-->
 
 	<!-- Страница "Доставка" -->
-	<div id="page_delivery" class="page_delivery ">
+	<div id="page_delivery" class="page_delivery">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
@@ -60,7 +60,7 @@
 	</div>
 
 	<!-- Страница "O нас" -->
-	<div id="page_about_us" class="page_about_us ">
+	<div id="page_about_us" class="page_about_us">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
@@ -143,7 +143,7 @@
 		<div class="blockline">
 			<img class="about4" src="/themes/default/images/page/about/about4.png" alt="">
 			<h4>Мы стараемся ради Вас!</h4>
-			<button data-name="auth" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Присоединяйтесь!</button>
+			<button  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect ">Присоединяйтесь!</button>
 		</div>
 	</div>
 
@@ -164,65 +164,77 @@
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info1.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
-		<div class="invisibleblock flexwrapp">
-			<section class="ac-container">
-				<div>
-					<input id="ab-1" name="accordion-1" type="checkbox" />
-					<label for="ab-1">Какие гарантии на получение товара после его оплаты?</label>
-					<article>
-						<p>Для наших клиентов, перед началом сотрудничества, высылаем счет на оплату, также предоставляем пакет документов - выписка с единого реестра, выписка из реестра плательщиков единого налога. После оформления заказа высылаем на номер телефона смс, в котором указываем номер ТТН и дату прибытия товара.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ab-2" name="accordion-1" type="checkbox" />
-					<label for="ab-2">Какие гарантии на получении качественного товара?</label>
-					<article>
-						<p>На все товары представленные в интернет магазине есть сертификаты качества и соответствия.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ab-3" name="accordion-1" type="checkbox" />
-					<label for="ab-3">Я могу обменять или вернуть товар?</label>
-					<article>
-						<p>Да, вы можете обменять или вернуть товар в течение 14 дней после покупки. Это право гарантирует вам «Закон о защите прав потребителя».
+		<div class="invisibleblock">
+			<div class="flexwrapp">
+				<section class="ac-container">
+					<div>
+						<input id="ab-1" name="accordion-1" type="checkbox" />
+						<label for="ab-1">Какие гарантии на получение товара после его оплаты?</label>
+						<article>
+							<p>Для наших клиентов, перед началом сотрудничества, высылаем счет на оплату, также предоставляем пакет документов - выписка с единого реестра, выписка из реестра плательщиков единого налога. После оформления заказа высылаем на номер телефона смс, в котором указываем номер ТТН и дату прибытия товара.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ab-2" name="accordion-1" type="checkbox" />
+						<label for="ab-2">Какие гарантии на получении качественного товара?</label>
+						<article>
+							<p>На все товары представленные в интернет магазине есть сертификаты качества и соответствия.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ab-3" name="accordion-1" type="checkbox" />
+						<label for="ab-3">Я могу обменять или вернуть товар?</label>
+						<article>
+							<p>Да, вы можете обменять или вернуть товар в течение 14 дней после покупки. Это право гарантирует вам «Закон о защите прав потребителя».
 
-						Чтобы использовать эту возможность, пожалуйста убедитесь что:
+							Чтобы использовать эту возможность, пожалуйста убедитесь что:
 
-						- товар, не был в употреблении и не имеет следов использования: царапин, сколов, потёртостей, на счётчике телефона не более 5 минут разговоров, программное обеспечение не подвергалось изменениям и т. п.;
-						- товар полностью укомплектован и не нарушена целостность упаковки;
-						- сохранены все ярлыки и заводская маркировка.
+							- товар, не был в употреблении и не имеет следов использования: царапин, сколов, потёртостей, на счётчике телефона не более 5 минут разговоров, программное обеспечение не подвергалось изменениям и т. п.;
+							- товар полностью укомплектован и не нарушена целостность упаковки;
+							- сохранены все ярлыки и заводская маркировка.
 
-						Если товар не работает, обмен или возврат товара производится только при наличии заключения сервисного центра, авторизованного производителем, о том, что условия эксплуатации не нарушены.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ab-4" name="accordion-1" type="checkbox" />
-					<label for="ab-4">Какие документы Вы предоставляете для отчетности?</label>
-					<article>
-						<p>Наш интернет вместе с партией товара предоставляет расходную накладную, на основании которой клиент делает сверку на наличие товара согласно заказа и его количество.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ab-5" name="accordion-1" type="checkbox" />
-					<label for="ab-5">Как решаются спорные вопросы по поставленному товару?</label>
-					<article>
-						<p>При возникновении спорных вопросов и ситуаций по количеству отгруженного товара, свяжитесь с нашим менеджером и он примет и оформит Вашу претензию. В течении 2-х календарных дней Ваша претензия будет рассмотрена. Срок подачи претензии - 3 календарных дня с момента получения товара.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ab-6" name="accordion-1" type="checkbox" />
-					<label for="ab-6">Как сделать замену товара, купленного ранее?</label>
-					<article>
-						<p>В соответствии с Законом Украины «О защите прав потребителей» вы можете в течение 14 дней с момента покупки вернуть товары, приобретённые в нашем магазине. Расходы по возвращению не качественного/бракованного несет интернет-магазин.</p>
-					</article>
-				</div>
-				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
-			</section>
+							Если товар не работает, обмен или возврат товара производится только при наличии заключения сервисного центра, авторизованного производителем, о том, что условия эксплуатации не нарушены.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ab-4" name="accordion-1" type="checkbox" />
+						<label for="ab-4">Какие документы Вы предоставляете для отчетности?</label>
+						<article>
+							<p>Наш интернет вместе с партией товара предоставляет расходную накладную, на основании которой клиент делает сверку на наличие товара согласно заказа и его количество.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ab-5" name="accordion-1" type="checkbox" />
+						<label for="ab-5">Как решаются спорные вопросы по поставленному товару?</label>
+						<article>
+							<p>При возникновении спорных вопросов и ситуаций по количеству отгруженного товара, свяжитесь с нашим менеджером и он примет и оформит Вашу претензию. В течении 2-х календарных дней Ваша претензия будет рассмотрена. Срок подачи претензии - 3 календарных дня с момента получения товара.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ab-6" name="accordion-1" type="checkbox" />
+						<label for="ab-6">Как сделать замену товара, купленного ранее?</label>
+						<article>
+							<p>В соответствии с Законом Украины «О защите прав потребителей» вы можете в течение 14 дней с момента покупки вернуть товары, приобретённые в нашем магазине. Расходы по возвращению не качественного/бракованного несет интернет-магазин.</p>
+						</article>
+					</div>
+					<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
+				</section>
+			</div>
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Вопросы и ответы</h4>
@@ -233,89 +245,91 @@
 				</div>
 			</div>
 		</div>
-		<div class="invisibleblock flexwrapp">
-			<section class="ac-container">
-				<div>
-					<input id="ac-1" name="accordion-2" type="checkbox" />
-					<label for="ac-1">Как искать товар на сайте?</label>
-					<article>
-						<p>- по артикулу товара в графе поиск;</p>
+		<div class="invisibleblock">
+			<div class="flexwrapp">
+				<section class="ac-container">
+					<div>
+						<input id="ac-1" name="accordion-2" type="checkbox" />
+						<label for="ac-1">Как искать товар на сайте?</label>
+						<article>
+							<p>- по артикулу товара в графе поиск;</p>
 
-						<p>- искать по названию в графе поиск;</p>
+							<p>- искать по названию в графе поиск;</p>
 
-						<p>- по категориям. </p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-2" name="accordion-2" type="checkbox" />
-					<label for="ac-2">Как можно начать сотрудничество на размещение товара на сайте?</label>
-					<article class="ac-small">
-						<p>- для этого нужно  написать и оставить заявку по адресу - prodazhi@x-torg.com;</p>
-						<p>- связаться с нашими менеджерами или приехать в офис для обсждения условий сотрудничества.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-3" name="accordion-2" type="checkbox" />
-					<label for="ac-3">Какая есть система бонусов при постоянных/больших заказах?</label>
-					<article class="ac-small">
-						<p>Бонусная программа – это получение вознаграждения за каждую покупку!</p>
-						<p>Условия участия: </p>
-						<p>1. Сделайте заказ на сумму свыше 500 гривен. </p>
-						<p>2. Пройдите регистрацию, корректно заполнив все поля.</p>
-						<p>3. Активируйте бонусную карту. Правила активации и карту Вы получите вместе с заказом.</p>
-						<p>Правила начисления бонусов: </p>
-						<p> 1. Вам начисляется от 1% до 3% от суммы заказа на бонусный счет. Впоследствии этими бонусами Вы сможете оплачивать заказы. </p>
-						<p>Бонусная программа рассчитываться по количеству заказов, сделанных в течении 30 дней:
-						Вам начисляется единоразово 20 грн. — сразу при активации карты.</p>
-						<p>1% от суммы заказа - при оформлении 1 заказа в течении 30 дней (несгораемый)
-						2% от суммы заказа - на третий заказ в течении 30 дней
-						3% от суммы заказа - на четвертый и более заказ в течении 30 дней</p>
-						<p>2. Зачисление бонусов производится после отгрузки заказа, сумму этих бонусов Вы будете видеть у себя в личном кабинете. </p>
-						<p>3. Бонусами можно воспользоваться в течении 90 дней с момента начисления, по истечению этого срока начисленные бонусы — сгорают.</p>
-						<p>4. При оплате заказа бонус не может превышать 50% заказа </p>
-						<p>Правила активации</p>
-						<p>1. Пройдите регистрацию на сайте, если Вы еще не зарегистрировались.. Для этого на нашем сайте в верхнем правом углу нажмите кнопку - «Регистрация». Очень важно правильно заполнить все поля!</p>
-						<p>2. В личном кабинете слева нажмите «активировать бонусную карту». Заполните форму, внесите № бонусной карты и нажмите «Сохранить»</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-4" name="accordion-2" type="checkbox" />
-					<label for="ac-4">Какой максимальный объем партии товара Вы можете доставить?</label>
-					<article class="ac-small">
-						<p>В нашем интернет магазине нет ограничений по количеству заказанного товара. Вы можете всегда рассчитывать на максимально полную комплектацию и максимально необходимый объем товаров.
-						</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-5" name="accordion-2" type="checkbox" />
-					<label for="ac-5">Как можно заказать товар, которого нет в наличии?</label>
-					<article class="ac-small">
-						<p>Если товара нет в наличии, его можно  заказать. Сумма заказа в таком случае должна быть не менее 500,00 грн. В течении дня с момента обращения мы сможем решить данный вопрос и подобрать необходимый Вам товар. </p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-6" name="accordion-2" type="checkbox" />
-					<label for="ac-6">Можно ли отследить перемещение заказанного товара?</label>
-					<article class="ac-small">
-						<p>Связавшись с нашими менеджерами, Вы можете отследить время и сроки доставки, а также узнать где сейчас находится Ваш товар. </p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-7" name="accordion-2" type="checkbox" />
-					<label for="ac-7">Как заключить договор на регулярное снабжение нашего магазина?</label>
-					<article>
-						<p>Для этого необходимо подъехать к нам в офис, для обсуждения всех условий сотрудничества, определим ассортимент необходимых Вам товаров, стоимость услуг, сроки поставки, и на основании всех пунктов будет заключен договор, в 2-х экземплярах.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ac-8" name="accordion-2" type="checkbox" />
-					<label for="ac-8"> Как сделать заказ на сайте?</label>
-					<article class="ac-small">
-						<p>Для того, чтобы сделать заказ на сайте выбранного Вами товара, нужно нажать на кнопку «КУПИТЬ» и товар автоматически переместиться в «КОРЗИНУ».  Следует также не забыть выбрать количество добавляемого товара в «КОРЗИНУ».</p>
-					</article>
-				</div>
-				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
-			</section>
+							<p>- по категориям. </p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-2" name="accordion-2" type="checkbox" />
+						<label for="ac-2">Как можно начать сотрудничество на размещение товара на сайте?</label>
+						<article class="ac-small">
+							<p>- для этого нужно  написать и оставить заявку по адресу - prodazhi@x-torg.com;</p>
+							<p>- связаться с нашими менеджерами или приехать в офис для обсждения условий сотрудничества.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-3" name="accordion-2" type="checkbox" />
+						<label for="ac-3">Какая есть система бонусов при постоянных/больших заказах?</label>
+						<article class="ac-small">
+							<p>Бонусная программа – это получение вознаграждения за каждую покупку!</p>
+							<p>Условия участия: </p>
+							<p>1. Сделайте заказ на сумму свыше 500 гривен. </p>
+							<p>2. Пройдите регистрацию, корректно заполнив все поля.</p>
+							<p>3. Активируйте бонусную карту. Правила активации и карту Вы получите вместе с заказом.</p>
+							<p>Правила начисления бонусов: </p>
+							<p> 1. Вам начисляется от 1% до 3% от суммы заказа на бонусный счет. Впоследствии этими бонусами Вы сможете оплачивать заказы. </p>
+							<p>Бонусная программа рассчитываться по количеству заказов, сделанных в течении 30 дней:
+							Вам начисляется единоразово 20 грн. — сразу при активации карты.</p>
+							<p>1% от суммы заказа - при оформлении 1 заказа в течении 30 дней (несгораемый)
+							2% от суммы заказа - на третий заказ в течении 30 дней
+							3% от суммы заказа - на четвертый и более заказ в течении 30 дней</p>
+							<p>2. Зачисление бонусов производится после отгрузки заказа, сумму этих бонусов Вы будете видеть у себя в личном кабинете. </p>
+							<p>3. Бонусами можно воспользоваться в течении 90 дней с момента начисления, по истечению этого срока начисленные бонусы — сгорают.</p>
+							<p>4. При оплате заказа бонус не может превышать 50% заказа </p>
+							<p>Правила активации</p>
+							<p>1. Пройдите регистрацию на сайте, если Вы еще не зарегистрировались.. Для этого на нашем сайте в верхнем правом углу нажмите кнопку - «Регистрация». Очень важно правильно заполнить все поля!</p>
+							<p>2. В личном кабинете слева нажмите «активировать бонусную карту». Заполните форму, внесите № бонусной карты и нажмите «Сохранить»</p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-4" name="accordion-2" type="checkbox" />
+						<label for="ac-4">Какой максимальный объем партии товара Вы можете доставить?</label>
+						<article class="ac-small">
+							<p>В нашем интернет магазине нет ограничений по количеству заказанного товара. Вы можете всегда рассчитывать на максимально полную комплектацию и максимально необходимый объем товаров.
+							</p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-5" name="accordion-2" type="checkbox" />
+						<label for="ac-5">Как можно заказать товар, которого нет в наличии?</label>
+						<article class="ac-small">
+							<p>Если товара нет в наличии, его можно  заказать. Сумма заказа в таком случае должна быть не менее 500,00 грн. В течении дня с момента обращения мы сможем решить данный вопрос и подобрать необходимый Вам товар. </p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-6" name="accordion-2" type="checkbox" />
+						<label for="ac-6">Можно ли отследить перемещение заказанного товара?</label>
+						<article class="ac-small">
+							<p>Связавшись с нашими менеджерами, Вы можете отследить время и сроки доставки, а также узнать где сейчас находится Ваш товар. </p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-7" name="accordion-2" type="checkbox" />
+						<label for="ac-7">Как заключить договор на регулярное снабжение нашего магазина?</label>
+						<article>
+							<p>Для этого необходимо подъехать к нам в офис, для обсуждения всех условий сотрудничества, определим ассортимент необходимых Вам товаров, стоимость услуг, сроки поставки, и на основании всех пунктов будет заключен договор, в 2-х экземплярах.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ac-8" name="accordion-2" type="checkbox" />
+						<label for="ac-8"> Как сделать заказ на сайте?</label>
+						<article class="ac-small">
+							<p>Для того, чтобы сделать заказ на сайте выбранного Вами товара, нужно нажать на кнопку «КУПИТЬ» и товар автоматически переместиться в «КОРЗИНУ».  Следует также не забыть выбрать количество добавляемого товара в «КОРЗИНУ».</p>
+						</article>
+					</div>
+					<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
+				</section>
+			</div>
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp">
@@ -327,47 +341,54 @@
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info3.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
-		<div class="invisibleblock flexwrapp">
-			<section class="ac-container">
-				<div>
-					<input id="ad-1" name="accordion-3" type="checkbox" />
-					<label for="ad-1">Какая стоимость доставки по Украине?</label>
-					<article>
-						<p>Стоимость доставки оговаривается с региональным менеджером в каждом случае индивидуально.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ad-2" name="accordion-3" type="checkbox" />
-					<label for="ad-2">Какие существуют виды доставки?</label>
-					<article>
-						<p>Самовывоз с рынка «Барабашово», включает в себя доставку до автостоянки-бесплатно. Доставка по Украине курьерскими службами и транспортными агентствами. Доставка по Украине нашими региональными представителями.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ad-3" name="accordion-3" type="checkbox" />
-					<label for="ad-3">Какие способы оплаты заказа?</label>
-					<article>
-						<p>Банковский перевод с другого банка, безналичный расчет с НДС и без НДС, Яндекс деньги WEB Money, наложенный платеж, Приват 24, через терминал приема платежей другого банка, наличный расчет — при получении (самовывоз) на территории «Барабашово»</p>
-					</article>
-				</div>
-				<div>
-					<input id="ad-4" name="accordion-3" type="checkbox" />
-					<label for="ad-4">Какая минимальная сумма заказа для оформления доставки?</label>
-					<article>
-						<p>Сумма заказа должна составлять 600 грн.</p>
-					</article>
-				</div>
-				<div>
-					<input id="ad-5" name="accordion-3" type="checkbox" />
-					<label for="ad-5">Какие сроки доставки товара после его заказа и оплаты?</label>
-					<article>
-						<p>Срок доставки оговаривается с региональным менеджером в каждом случае отдельно. Менеджер точно укажет день на который будет поставка, исходя из места доставки.</p>
-					</article>
-				</div>
-				<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
-			</section>
+		<div class="invisibleblock">
+			<div class="flexwrapp">
+				<section class="ac-container">
+					<div>
+						<input id="ad-1" name="accordion-3" type="checkbox" />
+						<label for="ad-1">Какая стоимость доставки по Украине?</label>
+						<article>
+							<p>Стоимость доставки оговаривается с региональным менеджером в каждом случае индивидуально.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ad-2" name="accordion-3" type="checkbox" />
+						<label for="ad-2">Какие существуют виды доставки?</label>
+						<article>
+							<p>Самовывоз с рынка «Барабашово», включает в себя доставку до автостоянки-бесплатно. Доставка по Украине курьерскими службами и транспортными агентствами. Доставка по Украине нашими региональными представителями.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ad-3" name="accordion-3" type="checkbox" />
+						<label for="ad-3">Какие способы оплаты заказа?</label>
+						<article>
+							<p>Банковский перевод с другого банка, безналичный расчет с НДС и без НДС, Яндекс деньги WEB Money, наложенный платеж, Приват 24, через терминал приема платежей другого банка, наличный расчет — при получении (самовывоз) на территории «Барабашово»</p>
+						</article>
+					</div>
+					<div>
+						<input id="ad-4" name="accordion-3" type="checkbox" />
+						<label for="ad-4">Какая минимальная сумма заказа для оформления доставки?</label>
+						<article>
+							<p>Сумма заказа должна составлять 600 грн.</p>
+						</article>
+					</div>
+					<div>
+						<input id="ad-5" name="accordion-3" type="checkbox" />
+						<label for="ad-5">Какие сроки доставки товара после его заказа и оплаты?</label>
+						<article>
+							<p>Срок доставки оговаривается с региональным менеджером в каждом случае отдельно. Менеджер точно укажет день на который будет поставка, исходя из места доставки.</p>
+						</article>
+					</div>
+					<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
+				</section>
+			</div>
 		</div>
 		<div id="question" class="content_modal_win" data-type="modal">
 			<div class="modal_container">
@@ -401,34 +422,46 @@
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Он-лайн оплата</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores quaer.</p>
+					<p>Очень удобная система оплаты товаров и услуг в интернете не выходя из дома.</p>
 					<a href="#" class="pos-left btn_plus">
 						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment1.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div>
-				<img src="/themes/default/images/page/payment/privat24.png" alt="">
-				<ul>Система проведения платежей Приват24<li>комиссия: по тарифам карты</li></ul>
-			</div>
-			<div>
-				<img src="/themes/default/images/page/payment/paypal.png" alt="">
-				<ul>Система проведения платежей PayPal<li>комиссия: 1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</li></ul>
-			</div>
-			<div>
-				<img src="/themes/default/images/page/payment/webmoney.png" alt="">
-				<ul>WebMoney<li>комиссия: по курсу на момент оплаты + 1%</li></ul>
+			<div class="flexwrapp">
+				<div>
+					<img src="/themes/default/images/page/payment/privat24.png" alt="">
+					<ul>Система проведения платежей Приват24<li>комиссия: по тарифам карты</li></ul>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/paypal.png" alt="">
+					<ul>Система проведения платежей PayPal<li>комиссия: 1% от суммы или мин 5 грн, если карта зарубежного банка то 1,95 дол + 1%</li></ul>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/webmoney.png" alt="">
+					<ul>WebMoney<li>комиссия: по курсу на момент оплаты + 1%</li></ul>
+				</div>
 			</div>
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Офф-лайн оплата</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor suscipit tempore quae quas, nihil blanditiis ad q</p>
+					<p>Для оплаты товара в нашем магазине, можно воспользоваться услугами банка.</p>
 					<a href="#" class="pos-right btn_plus">
 						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
 					</a>
@@ -436,47 +469,61 @@
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div class="forflex">
-				<img src="/themes/default/images/page/payment/atm.png" alt="">
-				<ul>Пополнение карточного счёта через терминал<li>согласно тарифов банка 0,5%</li></ul>
-			</div>
-			<div class="forflex">
-				<img src="/themes/default/images/page/payment/bank.png" alt="">
-				<ul>Пополнение карточного счёта в отделении банка<li>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</li></ul>
+			<div class="flexwrapp">
+				<div>
+					<img src="/themes/default/images/page/payment/atm.png" alt="">
+					<ul>Пополнение карточного счёта через терминал<li>согласно тарифов банка 0,5%</li></ul>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/bank.png" alt="">
+					<ul>Пополнение карточного счёта в отделении банка<li>согласно тарифов банка (ПриватБанк 2грн. + 0,5% от суммы)</li></ul>
+				</div>
 			</div>
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp">
 				<div class="forflex blockOfText">
 					<h4>Наличный расчёт</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<p>Свой заказ Вы можете оплатить, при получении, курьеру или в пункте выдачи транспортной службы.</p>
 					<a href="#" class="pos-left btn_plus">
 						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment3.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div class="forflex">
-				<img src="/themes/default/images/page/payment/platej.png" alt="">
-				<ul>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)<li>комиссия: 20грн. + 2% в качестве комиссии перевозчику</li></ul>
+			<div class="flexwrapp">
+				<div>
+					<img src="/themes/default/images/page/payment/platej.png" alt="">
+					<ul>Наложенный платеж (Новая Почта, Интайм, Деливери, Автолюкс)<li>комиссия: 20грн. + 2% в качестве комиссии перевозчику</li></ul>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/deliveryCar.png" alt="">
+					<ul>Оплата наличными при доставке (доставка нашим транспортом)<li>комиссия: 0%</li></ul>
+				</div>
+				<div>
+					<img src="/themes/default/images/page/payment/nal.png" alt="">
+					<ul>Наличный расчет (оплата в точке выдачи)<li>комиссия: 0%</li></ul>
+				</div>
 			</div>
-			<div class="forflex">
-				<img src="/themes/default/images/page/payment/deliveryCar.png" alt="">
-				<ul>Оплата наличными при доставке (доставка нашим транспортом)<li>комиссия: 0%</li></ul>
-			</div>
-			<div class="forflex">
-				<img src="/themes/default/images/page/payment/nal.png" alt="">
-				<ul>Наличный расчет (оплата в точке выдачи)<li>комиссия: 0%</li></ul>
-			</div>
-		</div>
+		</div>		
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment4.png" alt=""></div>
 				<div class="forflex blockOfText">
 					<h4>Безналичный расчёт</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<p>Оплатить товары нашего магазина могут юридические и физические лица.</p>
 					<a href="#" class="pos-right btn_plus">
 						<span class="btn_plus_title">Как это работает</span><span class="btn_plus_sign">+</span>
 					</a>
@@ -484,15 +531,17 @@
 			</div>
 		</div>
 		<div class="invisibleblock">
-			<div>
-				<img src="/themes/default/images/page/payment/cashless_calculation.png" alt="">
-				<ul>Безналичный расчёт, без НДС
+			<div class="flexwrapp">
+				<div>
+					<img src="/themes/default/images/page/payment/cashless_calculation.png" alt="">
+					<ul>Безналичный расчёт, без НДС
 					<li>комиссия: 1% обналичка, 4% заморозка цен</li></ul></div>
-		</div>
+			</div>
+		</div>	
 	</div>
 
 	<!-- Страница "Поставки магазинам" -->
- 	<div id="page_supply" class="page_supply pages_group ">
+	<div id="page_supply" class="page_supply pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
@@ -510,6 +559,11 @@
 				<div class="forflex">
 					<video class="forflex" src="/themes/default/images/page/supply/supply1.mp4" autoplay loop>
 					</video>
+				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -529,6 +583,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<video class="forflex" src="/themes/default/images/page/supply/supply2.mp4" autoplay loop>
 					</video>
@@ -569,6 +628,11 @@
 					<video class="forflex" src="/themes/default/images/page/supply/supply3.mp4" autoplay loop>
 					</video>
 				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -591,7 +655,7 @@
 	</div>
 
 	<!-- Страница "Скидки" -->
-	<div id="page_discounts" class="page_discounts pages_group ">
+	<div id="page_discounts" class="page_discounts pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
@@ -609,6 +673,11 @@
 				<div class="forflex">
 					<video class="forflex" src="/themes/default/images/page/discounts/discounts3.mp4" autoplay loop>
 					</video>
+				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -628,6 +697,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
 				<div class="forflex blockOfText">
@@ -665,6 +739,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<video src="/themes/default/images/page/discounts/discounts4.mp4" autoplay loop></video>
 				</div>
@@ -718,7 +797,7 @@
 	</div>
 
 	<!-- Страница "Обеспечение быта" -->
-	<div id="page_provision" class="page_provision pages_group ">
+	<div id="page_provision" class="page_provision pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
@@ -726,6 +805,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
 				<div class="forflex blockOfText ">
@@ -768,6 +852,11 @@
 				<div class="forflex">
 					<video src="/themes/default/images/page/provision/provision1.mp4" autoplay loop></video>
 				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -786,6 +875,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<video src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
 				</div>
@@ -834,6 +928,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies1.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock blockline">
@@ -854,6 +953,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Халатность</h4>
@@ -893,6 +997,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies3.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
