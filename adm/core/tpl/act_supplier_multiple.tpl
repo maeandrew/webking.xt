@@ -109,19 +109,20 @@
 		.block table tr .price,
 		.block table tr .single_price {
 			position: relative;
-			width: 110px;
+			width: 90px;
 			text-align: left;
 			padding: 0 1%;
 		}
 		.block table tr .date {
-			width: 67px;
+			width: 97px;
 		}
 		.block table tr td.date,
 		.block table tr td.price {
-			font-size: .6em;
+			/*font-size: .6em;*/
+			font-weight: bold;
 		}
 		.block table tr .single_price {
-			width: 220px;
+			width: 180px;
 		}
 	</style>
 </head>
@@ -209,9 +210,9 @@
 			</table>
 			<div class="photo">
 				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'medium', $i['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
+					<img <?=$wh?> src="<?=_base_url;?><?=str_replace('/original/', '/medium/', $i['images'][0]['src'])?>" alt="<?=$i['name']?>">
 				<?}else{?>
-					<img <?=$wh?> src="<?=_base_url?><?=htmlspecialchars(str_replace("image/", "image/500/", $i['img_1']))?>"/>
+					<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/500/", $i['img_1'])?>"/>
 				<?}?>
 			</div>
 		</div>

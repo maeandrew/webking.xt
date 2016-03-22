@@ -204,9 +204,9 @@
 			</table>
 			<div class="photo">
 				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'medium', $i['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$i['name']?>">
+					<img <?=$wh?> src="<?=_base_url;?><?=str_replace('/original/', '/small/', $i['images'][0]['src'])?>" alt="<?=$i['name']?>">
 				<?}else{?>
-					<img <?=$wh?> src="<?=_base_url?><?=htmlspecialchars(str_replace("image/", "image/500/", $i['img_1']))?>"/>
+					<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/250/", $i['img_1'])?>"/>
 				<?}?>
 			</div>
 		</div>
