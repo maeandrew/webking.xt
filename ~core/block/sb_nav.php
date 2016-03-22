@@ -3,7 +3,8 @@ function generateNavigation($list, $lvl = 0){
 	$lvl++;
 	$ul = '<ul '.($lvl == 1?'class="second_nav" ':'').'data-lvl="'.$lvl.'">';
 	foreach($list as $l){
-		$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array('clear'=>true)).'">'.$l['name'].'</a>';
+		// Для восстановления ссылок заменить решетку на '.Link::Category($l['translit'],array('clear'=>true)).'
+		$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="#">'.$l['name'].'</a>';
 		if(!empty($l['subcats'])){
 			/*if($l['pid'] != 0 && $l['category_level'] != 1) {
 				$ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
