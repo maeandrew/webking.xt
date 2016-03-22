@@ -17,7 +17,7 @@
 	}?>-->
 
 	<!-- Страница "Доставка" -->
-	<div id="page_delivery" class="page_delivery ">
+	<div id="page_delivery" class="page_delivery">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/delivery/delivery1.png" alt="">
 			<h1>Доставка</h1>
@@ -60,7 +60,7 @@
 	</div>
 
 	<!-- Страница "O нас" -->
-	<div id="page_about_us" class="page_about_us ">
+	<div id="page_about_us" class="page_about_us">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/about/about1.png" alt="">
 			<h1>Немного о нас</h1>
@@ -143,7 +143,7 @@
 		<div class="blockline">
 			<img class="about4" src="/themes/default/images/page/about/about4.png" alt="">
 			<h4>Мы стараемся ради Вас!</h4>
-			<button data-name="auth" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Присоединяйтесь!</button>
+			<button  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect ">Присоединяйтесь!</button>
 		</div>
 	</div>
 
@@ -164,6 +164,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info1.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -225,6 +230,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Вопросы и ответы</h4>
@@ -331,6 +341,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/info/info3.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -413,6 +428,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment1.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -433,6 +453,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Офф-лайн оплата</h4>
@@ -465,6 +490,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment3.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -485,6 +515,11 @@
 		</div>		
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img class="payment_information_img" src="/themes/default/images/page/payment/payment4.png" alt=""></div>
 				<div class="forflex blockOfText">
 					<h4>Безналичный расчёт</h4>
@@ -506,7 +541,7 @@
 	</div>
 
 	<!-- Страница "Поставки магазинам" -->
- 	<div id="page_supply" class="page_supply pages_group ">
+	<div id="page_supply" class="page_supply pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/supply/supply0.png" alt="">
 			<h1>Поставки магазинам</h1>
@@ -524,6 +559,11 @@
 				<div class="forflex">
 					<video class="forflex" src="/themes/default/images/page/supply/supply1.mp4" autoplay loop>
 					</video>
+				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -543,6 +583,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<video class="forflex" src="/themes/default/images/page/supply/supply2.mp4" autoplay loop>
 					</video>
@@ -583,6 +628,11 @@
 					<video class="forflex" src="/themes/default/images/page/supply/supply3.mp4" autoplay loop>
 					</video>
 				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -605,7 +655,7 @@
 	</div>
 
 	<!-- Страница "Скидки" -->
-	<div id="page_discounts" class="page_discounts pages_group ">
+	<div id="page_discounts" class="page_discounts pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/discounts/discounts0.png" alt="">
 			<h1>Скидки</h1>
@@ -623,6 +673,11 @@
 				<div class="forflex">
 					<video class="forflex" src="/themes/default/images/page/discounts/discounts3.mp4" autoplay loop>
 					</video>
+				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -642,6 +697,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<img src="/themes/default/images/page/discounts/discounts1.png" alt=""></div>
 				<div class="forflex blockOfText">
@@ -679,6 +739,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<video src="/themes/default/images/page/discounts/discounts4.mp4" autoplay loop></video>
 				</div>
@@ -732,7 +797,7 @@
 	</div>
 
 	<!-- Страница "Обеспечение быта" -->
-	<div id="page_provision" class="page_provision pages_group ">
+	<div id="page_provision" class="page_provision pages_group">
 		<div class="blockline">
 			<img class="main_img" src="/themes/default/images/page/provision/provision0.png" alt="">
 			<h1>Обеспечение быта</h1>
@@ -740,6 +805,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<img class="provision2" src="/themes/default/images/page/provision/provision2.png" alt=""></div>
 				<div class="forflex blockOfText ">
@@ -782,6 +852,11 @@
 				<div class="forflex">
 					<video src="/themes/default/images/page/provision/provision1.mp4" autoplay loop></video>
 				</div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
@@ -800,6 +875,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex">
 					<video src="/themes/default/images/page/provision/provision3.mp4" autoplay loop></video>
 				</div>
@@ -848,6 +928,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies1.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock blockline">
@@ -868,6 +953,11 @@
 		</div>
 		<div class="blockline">
 			<div class="container flexwrapp flexWrapReverse">
+				<div>
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies2.png" alt=""></div>
 				<div class="forflex blockOfText ">
 					<h4>Халатность</h4>
@@ -907,6 +997,11 @@
 					</a>
 				</div>
 				<div class="forflex"><img src="/themes/default/images/page/provision_companies/provision_companies3.png" alt=""></div>
+				<div class="forflex">
+					<a href="#" class="btn_plus--beta hidden">
+						<span class="btn_plus_sign">+</span><span class="btn_plus_title">Как это работает</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="invisibleblock">
