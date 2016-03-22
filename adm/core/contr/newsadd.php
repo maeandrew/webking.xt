@@ -10,11 +10,11 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = "Новости";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/news/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление новости";
 $Images = new Images();
- if(isset($_GET['upload']) == true){
- 	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
- 	echo str_replace($GLOBALS['PATH_root'], '/', $res);
- 	exit(0);
- }
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
+	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	exit(0);
+}
 
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
@@ -30,7 +30,6 @@ if(isset($_POST['smb'])){
 			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_news_img']).trim($file['dirname']);
 			$photo_name = $bd_path.'/'.$file['basename'];
 			$images_arr[] = $bd_path.'/'.$file['basename'];
-			$photo_arr[] = $file['basename'];
 		}
 	}else{
 		$images_arr =  array();
@@ -38,9 +37,10 @@ if(isset($_POST['smb'])){
 
 	//$Images->resize(false, $to_resize);
 
+//print_r($err); die();
 
-    if(!$err){
-    	if($id = $News->AddNews($_POST)){
+	if(!$err){
+		if($id = $News->AddNews($_POST)){
 			$News->UpdatePhoto($id, $images_arr);
 			$tpl->Assign('msg', 'Новость добавлена.');
 			unset($_POST);
@@ -48,15 +48,15 @@ if(isset($_POST['smb'])){
 			$tpl->Assign('msg', 'Новость не добавлена.');
 			$tpl->Assign('errm', 1);
 		}
-    }else{
-    	// показываем все заново но с сообщениями об ошибках
-    	if(isset($_POST['date'])&&!isset($errm['date'])){
+	}else{
+		// показываем все заново но с сообщениями об ошибках
+		if(isset($_POST['date'])&&!isset($errm['date'])){
 			list($d,$m,$y) = explode(".", trim($_POST['date']));
 			$_POST['date'] = mktime(0, 0, 0, $m , $d, $y);
-    	}
-    	$tpl->Assign('msg', 'Новость не добавлена.');
-        $tpl->Assign('errm', $errm);
-    }
+		}
+		$tpl->Assign('msg', 'Новость не добавлена.');
+		$tpl->Assign('errm', $errm);
+	}
 }
 if(!isset($_POST['smb'])){
 	$_POST['id_news'] = 0;
