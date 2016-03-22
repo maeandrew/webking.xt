@@ -134,7 +134,7 @@
 										<div class="image_block dz-preview dz-image-preview">
 											<div class="sort_handle"><span class="icon-font">s</span></div>
 											<div class="image">
-												<img data-dz-thumbnail src="<?=file_exists($GLOBALS['PATH_root'].'..'.$photo['src'])?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+												<img data-dz-thumbnail src="<?=$photo['src']?>"/>
 											</div>
 											<div class="name">
 												<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
@@ -647,7 +647,7 @@
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
-	var url = URL_base+'<?=$GLOBALS['CurrentController'];?>/';
+	var url = URL_base+'productadd/';
 	$(function(){
 		//Заполнение списка артикулов
 		$("#article").keyup(function() {

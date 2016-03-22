@@ -957,7 +957,7 @@ class Products {
 	public function SetProductsList1($s){
 		// SQL выборки для админки
 		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",
-			a.product_limit, a.inusd, a.price_mopt_otpusk, a.price_opt_otpusk
+			a.*
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON cp.id_product = p.id_product
@@ -1360,28 +1360,34 @@ class Products {
 	}
 
 	// Обновление позиции ассортимента (ajax)
-	public function UpdateAssort2($id_product, $id_supplier, $mode, $price, $markup, $comment = null){
-		$assort = $this->GetAssort($id_product, $id_supplier);
+	public function UpdateAssort2($data){
+		$assort = $this->GetAssort($data['id_product'], $data['id_supplier']);
+		$Suppliers = new Suppliers();
+		$Suppliers->SetFieldsById($data['id_supplier'], 1);
+		$supplier = $Suppliers->fields;
 		// var_dump($assort);
-		// print_r($id_product);
-		// print_r($id_supplier);
-		// print_r($mode);
-		// print_r($price);
-		// print_r($markup);
-		// print_r($comment);
-		$assort['price_'.$mode.'_otpusk'] = $price;
-		$assort['price_'.$mode.'_recommend'] = $price*$markup[$mode];
-		// $assort['price_'.$mode.'_otpusk_usd'] = $price_otpusk/$currency_rate;
-		if(isset($comment)){
-			$assort['sup_comment'] = $comment;
+		if(isset($data['price'])){
+			if($assort['inusd'] == 1){
+				$f['price_'.$data['mode'].'_otpusk'] = $data['price']*$supplier['currency_rate'];
+				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price'];
+			}else{
+				$f['price_'.$data['mode'].'_otpusk'] = $data['price'];
+				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price']/$supplier['currency_rate'];
+			}
+			$f['price_'.$data['mode'].'_recommend'] = $f['price_'.$data['mode'].'_otpusk']*$supplier['koef_nazen_'.$data['mode']];
 		}
-		$f['price_'.$mode.'_recommend'] = $assort['price_'.$mode.'_recommend'];
-		$f['price_'.$mode.'_otpusk'] = $assort['price_'.$mode.'_otpusk'];
-		// $f['price_opt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd']);
+		if(isset($data['comment'])){
+			$f['sup_comment'] = $data['comment'];
+		}
+		if(isset($data['inusd'])){
+			$f['inusd'] = $data['inusd'];
+		}
+		if(isset($data['active'])){
+			$f['active'] = $data['active'];
+		}
 		// $f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
 		// $f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
 		// $f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
-		$f['sup_comment'] = $assort['sup_comment'];
 		// if(!isset($_SESSION['Assort']['products'][$id_product])){
 		// 	$this->InitProduct($id_product);
 		// }
@@ -1399,7 +1405,7 @@ class Products {
 		// // $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
 
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = $id_product AND id_supplier = ".$id_supplier)){
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$data['id_product']." AND id_supplier = ".$data['id_supplier'])){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -1409,7 +1415,8 @@ class Products {
 		// // 	$this->db->FailTrans();
 		// // 	return false;
 		// // }
-		$this->RecalcSitePrices(array($id_product));
+		$this->RecalcSitePrices(array($data['id_product']));
+		return $this->GetAssort($data['id_product'], $data['id_supplier']);
 	}
 
 	// Обновление позиции ассортимента (ajax)

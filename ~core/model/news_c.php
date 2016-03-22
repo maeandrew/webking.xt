@@ -230,7 +230,8 @@ class News{
 	// Добавление и удаление фото
 	public function UpdatePhoto($id_news, $images_arr){
 		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
-		$this->db->StartTrans();
+		$this->db->StartTrans();// echo '1'; die();
+
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);

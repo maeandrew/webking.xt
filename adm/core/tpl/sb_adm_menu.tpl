@@ -218,6 +218,12 @@
 					</ul>
 				</li>
 			<?}?>
+			<?if(_acl::isAllow('pages')){?>
+				<li>
+					<a href="/adm/users/<?=_ACL_SUPPLIER_?>" <?=$GLOBALS['CurrentController'] == 'users'?'sel':null;?>>Поставщики</a>
+					<a href="/adm/supplieradd/" class="add <?=$GLOBALS['CurrentController'] == 'supplieradd'?'sel':null;?>" title="Добавить поставщика">Добавить поставщика</a>
+				</li>
+			<?}?>
 
 			<?if(_acl::isAllow('remitters')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'remitters'?'class="sel"':null;?>>

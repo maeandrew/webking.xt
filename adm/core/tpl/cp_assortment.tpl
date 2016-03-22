@@ -70,20 +70,30 @@
 							</td>
 							<td>
 								<?if(!empty($item['images'])){?>
-									<img <?=$wh?> src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+									<img <?=$wh?> class="lazy" data-original="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+									<noscript>
+										<img <?=$wh?> src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>" alt="<?=$item['name']?>">
+									</noscript>
 								<?}else{?>
-									<img <?=$wh?> src="http://xt.ua<?=htmlspecialchars(str_replace("image/", "image/250/", $item['img_1']))?>"/>
+									<img <?=$wh?> class="lazy" data-original="<?=_base_url;?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+									<noscript>
+										<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+									</noscript>
 								<?}?>
 							</td>
 							<td>
 								<p><?=$item['name'];?></p>
 								<p>Арт. <?=$item['art'];?></p>
 							</td>
-							<td class="center"><input type="checkbox" disabled title="Функия временно недоступна" <?=$item['product_limit']>0?'checked':null;?>></td>
+							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
-							<td class="center"><input type="number" step="0.01" class="input-m price" data-mode="mopt" value="<?=$item['price_mopt_otpusk'];?>"></td>
-							<td class="center"><input type="number" step="0.01" class="input-m price" data-mode="opt" value="<?=$item['price_opt_otpusk'];?>"></td>
-							<td class="center"><input type="checkbox" disabled title="Функия временно недоступна" <?=$item['inusd'] == 1?'checked':null;?>></td>
+							<td class="center">
+								<input type="number" step="0.01" min="0" class="input-m price" data-mode="mopt" value="<?=$item['inusd'] == 1?$item['price_mopt_otpusk_usd']:$item['price_mopt_otpusk'];?>">
+							</td>
+							<td class="center">
+								<input type="number" step="0.01" min="0" class="input-m price" data-mode="opt" value="<?=$item['inusd'] == 1?$item['price_opt_otpusk_usd']:$item['price_opt_otpusk'];?>">
+							</td>
+							<td class="center"><input type="checkbox" <?=$item['inusd'] == 1?'checked':null;?> class="currency"></td>
 							<td class="center"></td>
 						</tr>
 					<?}?>
@@ -93,8 +103,7 @@
 	</div>
 </div>
 <script>
-	var id_supplier = <?=$id_supplier;?>,
-		markup = {mopt : '<?=$supplier['koef_nazen_mopt']?>', opt: '<?=$supplier['koef_nazen_opt']?>'};
+	var id_supplier = <?=$id_supplier;?>;
 	<?=$supplier['single_price']==0?'TogglePriceColumns("Off");':'TogglePriceColumns("On");';?>
 	$(function(){
 		// Клик по переключателю "Единая цена"
@@ -137,18 +146,56 @@
 				}),
 			});
 		});
-
+		// Переключение активности записи ассортимента
+		$('.active').on('change', function(){
+			var parent = $(this).closest('tr'),
+				active = 0;
+			if(this.checked){
+				active = 1;
+			}
+			var data = {
+				id_product: parent.data('id'),
+				id_supplier: id_supplier,
+				active: active
+			}
+			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+			});
+		});
+		// Переключение валюты
+		$('.currency').on('change', function(){
+			var parent = $(this).closest('tr'),
+				inusd = 0;
+			if(this.checked){
+				inusd = 1;
+			}
+			var data = {
+				id_product: parent.data('id'),
+				id_supplier: id_supplier,
+				inusd: inusd
+			}
+			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+				parent.find('.price').each(function(){
+					var mode = $(this).data('mode');
+					if(data.inusd == 1){
+						$(this).val(data['price_'+mode+'_otpusk_usd']);
+					}else{
+						$(this).val(data['price_'+mode+'_otpusk']);
+					}
+				});
+			});
+		});
 		// Ручное изменение цены
 		$('.price').on('keyup, change', function(){
 			var parent = $(this).closest('tr'),
-				id = parent.data('id'),
-				mode = $(this).data('mode'),
-				price = $(this).val();
-				toAssort(id, id_supplier, mode, markup, price, 'comment example');
-			// $('#price_opt_otpusk_'+id).val($(this).val());
-			// $(this).blur(function(){
-			// 	$('#price_opt_otpusk_'+id).change();
-			// });
+				data = {
+					id_product: parent.data('id'),
+					id_supplier: id_supplier,
+					mode: $(this).data('mode'),
+					price: $(this).val(),
+					comment: 'comment example'
+				};
+			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+			});
 		});
 		// Клик по "Удалить из ассортимента"
 		$('.icon-remove').on('click', function(e){

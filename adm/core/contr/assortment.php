@@ -6,7 +6,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'url' => _base_url.'/cabinet/assortment/'
 );
 if(!isset($GLOBALS['REQAR'][1]) || !is_numeric($GLOBALS['REQAR'][1])){
-	header('Location: '._base_url.'/404/');
+	header('Location: '._base_url.'/adm/404/');
 	exit();
 }
 $id_supplier = $GLOBALS['REQAR'][1];

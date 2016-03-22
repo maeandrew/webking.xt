@@ -1,6 +1,4 @@
 <?php
-if(!_acl::isAllow('users'))
-	die("Access denied");
 if(!isset($GLOBALS['REQAR'][1]) && !is_numeric($GLOBALS['REQAR'][1])){
 	header('Location: /404/');
 	exit();
