@@ -1,5 +1,5 @@
 <?php
-if(!_acl::isAllow('users')){
+if(!_acl::isAllow('users') && $_SESSION['member']['gid'] != _ACL_MODERATOR_){
 	die("Access denied");
 }
 
