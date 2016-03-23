@@ -241,8 +241,10 @@ class News{
 			}
 
 			foreach ($images_arr as $k => $src) {// print_r($GLOBALS['PATH_global_root'].$src); echo'<br>'; print_r($GLOBALS['PATH_global_root'].str_replace('temp/', $id_news.'/', $src)); die();
-				rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].str_replace('temp/', $id_news.'/', $src)); //echo'1'; die();
-				$src = str_replace('temp/', $id_news . '/', $src);
+				if( strpos ( $src, '/temp/') == true) {
+					rename($GLOBALS['PATH_global_root'] . $src, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id_news . '/', $src)); //echo'1'; die();
+					$src = str_replace('temp/', $id_news . '/', $src);
+				}
 				if (empty($src)) {
 					return false; //Если URL пустой
 				}

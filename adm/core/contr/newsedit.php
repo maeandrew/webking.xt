@@ -19,22 +19,28 @@ if(isset($_GET['upload']) == true){
 	echo str_replace($GLOBALS['PATH_root'], '/', $res);
 	exit(0);
 }
+
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = News_form_validate();
 
-
+	//Удаление фото при нажатии на корзину
+	if(isset($_POST['removed_images'])){
+		foreach($_POST['removed_images'] as $k=>$del_image){
+			unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']).$del_image);
+		}
+	}
 
 	//Добавление фото
-	//$id_news = $News->SetFieldsById($id);
 	if(isset($_POST['images'])){
 		foreach($_POST['images'] as $k=>$image){
-			//$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
-			$path = $GLOBALS['PATH_news_img'].$file['dirname'].'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_news_img']).trim($file['dirname']);  //print_r(); die();
-			$photo_name = $bd_path.'/'.$file['basename'];
-			$images_arr[] = $bd_path.'/'.$file['basename']; print_r($file['dirname']); die();
+			if( strpos ($image, '/temp/') == true)
+			{
+				$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
+				$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
+				$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
+				$images_arr[] = $bd_path . '/' . $file['basename'];
+			} else 	$images_arr[] = $image;
 		}
 	}else{
 		$images_arr =  array();
