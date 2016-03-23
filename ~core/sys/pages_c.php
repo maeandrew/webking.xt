@@ -108,7 +108,12 @@ class pages{
 		}
 		$parsed_content = $tpl->Parse($GLOBALS['PATH_tpl'].'pages.tpl');
 
-		$page_base = 'http://'.$_SERVER['HTTP_HOST'].$URL_TMP.'/';
+		// $page_base = 'http://'.$_SERVER['HTTP_HOST'].$URL_TMP.'/';
+		if($GLOBALS['CurrentController'] == 'products'){
+			$page_base = Link::Category($GLOBALS['Rewrite']);
+		}else{
+			$page_base = Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);
+		}
 		if($this->cnt_pages > 1){
 			$prev = $page_base.'p'.($this->cur_page_id-1).'/';
 			$next = $page_base.'p'.($this->cur_page_id+1).'/';
