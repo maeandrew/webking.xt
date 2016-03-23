@@ -1,16 +1,4 @@
-<!-- Скрытая форма со значениями параметров дл яскидок и надбавок, которые можно изменить в панели администратора.
-Инициализация переменных, исходя из этих значений происходит в скрипте func.js !-->
-<form id="cart_discount_and_margin_parameters">
-	<input type="hidden" id="cart_full_wholesale_order_margin" value="<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>"/>
-	<input type="hidden" id="cart_full_wholesale_discount" value="<?=$GLOBALS['CONFIG']['full_wholesale_discount']?>"/>
-	<input type="hidden" id="cart_wholesale_order_margin" value="<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>"/>
-	<input type="hidden" id="cart_wholesale_discount" value="<?=$GLOBALS['CONFIG']['wholesale_discount']?>"/>
-	<input type="hidden" id="cart_retail_order_margin" value="<?=$GLOBALS['CONFIG']['retail_order_margin']?>"/>
-	<input type="hidden" id="cart_retail_multiplyer" value="<?=$GLOBALS['CONFIG']['retail_multiplyer']?>"/>
-	<input type="hidden" id="cart_personal_discount" value="<?=$personal_discount?>"/>
-	<input type="hidden" id="cart_price_mode" value="<?=$_SESSION['price_mode']?>"/>
-</form>
-<!-- Скрытая форма !-->
+<h4 class="title_cart">Корзина</h4>
 <script>
 	var randomManager;
 	qtycontrol = new Array();
@@ -93,27 +81,6 @@
 		</div>
 	<?}?>
 <?}else{?>
-	<?if(isset($errm) && isset($msg)){?>
-		<!-- <div class="msg-error paper_shadow_1">
-			<span class="header">!</span>
-			<p class="content"><?=$msg?></p>
-		</div>-->
-	<?}?>
-	<?=isset($errm['products'])?'<span class="errmsg">'.$errm['products'].'</span>':null;?>
-	<?if(isset($_SESSION['errm'])){?>
-		<?foreach($_SESSION['errm'] as $msg){
-			if(!is_array($msg)){?>
-				<!-- <div class="msg-<?=msg_type?>">
-					<p><?=$msg?></p>
-				</div> -->
-			<?}?>
-			<!-- <script type="text/javascript">
-				$('html, body').animate({
-					scrollTop: 0
-				}, 500, "easeInOutCubic");
-			</script> -->
-		<?}
-	}?>
 	<!-- Недоступные товары -->
 	<?if(!empty($_SESSION['cart']['unavailable_products'])){?>
 		<div class="msg-warning">
@@ -131,7 +98,7 @@
 			</p>
 		</div>
 	<?}?>
-	<?if(isset($User['gid']) && $User['gid'] == _ACL_MANAGER_){?>
+	<?if($User['gid'] == _ACL_MANAGER_){?>
 		<?if(!empty($unlist)){?>
 			<a href="#" class="show_btn" onclick="$(this).next().toggleClass('hidden'); return false;">Показать недоступные товары</a>
 			<div class="unavailable_products hidden animate" id="unavailable_products">
@@ -162,16 +129,13 @@
 	<?}?>
 	<!-- END Недоступные товары -->
 	<!-- NEW Товары в корзине -->
-	<div class="title_cart"><h5>Корзина</h5></div>
 	<div class="order_wrapp clearfix">
-		<div class="order_head mdl-cell--hide-phone">
-			<ul>
-				<li class="photo">Фото</li>
-				<li class="name">Название</li>
-				<li class="price">Цена, Количество</li>
-				<li class="sum_li">Сумма</li>
-			</ul>
-		</div>
+		<ul class="order_head mdl-cell--hide-phone">
+			<li class="photo">Фото</li>
+			<li class="name">Название</li>
+			<li class="price">Цена, Количество</li>
+			<li class="sum_li">Сумма</li>
+		</ul>
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
 		$summ_many = $_SESSION['cart']['cart_sum'];
@@ -182,14 +146,11 @@
 				<i class="material-icons remove_prod mdl-cell--hide-phone" onClick="removeFromCart('<?=$item['id_product']?>')">highlight_off</i>
 				<span class="remove_prod_mob">Удалить</span>
 				<div class="product_photo">
-					<a href="<?=Link::Product($item['translit']);?>" onClick="removeFromCart(<?=$item['id_product']?>)">
+					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
-							<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'small', $item['images'][0]['src']);?>"/>
+							<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
 						<?}else{?>
-							<!-- <?=_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1']));?> -->
-							<!-- <img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="http://lorempixel.com/500/500/"/> -->
-							<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+							<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.jpg"?>"/>
 						<?}?>
 					</a>
 				</div>
@@ -303,7 +264,6 @@
 			</div>
 		</div>
 
-
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="">
@@ -314,7 +274,7 @@
 						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						<!--span class="err_tel">Обязательное поле для ввода!</span-->
 					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="promo_input">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
 						<input class="mdl-textfield__input" type="text" id="sample7">
 						<label class="mdl-textfield__label" for="sample7">Промокод</label>
 					</div>
@@ -331,7 +291,6 @@
 							Добавит Вас к групповой корзине и перенапрвит на нее.
 						</div>
 					</div>-->
-					<div id="container"/>
 
 					<!--<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
@@ -348,21 +307,16 @@
 					</div>-->
 
 					<div id="button-cart1">
-						<button class="mdl-button mdl-js-button" type='submit' value="Отправить">Оформить заказ</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 					</div>
 					<?if(0):?>
 						<div id="button-cart2">
-							<button class="mdl-button mdl-js-button btn_js" type='submit'
-									data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить
-								форму
-							</button>
+							<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
 						</div>
 					<?endif?>
-					<div id="button-cart3">
-						<button class="mdl-button mdl-js-button btn_js" type='submit'
-								data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить">
-						</button>
-					</div>
+					<!-- <div id="button-cart3">
+						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
+					</div> -->
 				</form>
 				<script type='text/javascript'>
 					function validate(obj) {
@@ -414,35 +368,37 @@
 	</div>
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
-		$('input.send_order, input.save_order').click(function (e) {
-			var name = $('#edit #name').val().length;
-			var phone = $('#edit #phone').val().length;
-			var id_manager = $('#edit #id_manager').val();
-			var id_city = $('#edit #id_delivery_department').val();
-			if (name > 3) {
-				if (phone > 0) {
-					if (id_manager != null) {
-						if (id_city != null) {
-							$(this).submit();
+		<?if(!G::isLogged()){?>
+			$('input.send_order, input.save_order').click(function (e) {
+				var name = $('#edit #name').val().length;
+				var phone = $('#edit #phone').val().length;
+				var id_manager = $('#edit #id_manager').val();
+				var id_city = $('#edit #id_delivery_department').val();
+				if (name > 3) {
+					if (phone > 0) {
+						if (id_manager != null) {
+							if (id_city != null) {
+								$(this).submit();
+							} else {
+								e.preventDefault();
+								alert("Город не выбран");
+							}
 						} else {
 							e.preventDefault();
-							alert("Город не выбран");
+							alert("Менеджер не выбран");
 						}
 					} else {
 						e.preventDefault();
-						alert("Менеджер не выбран");
+						$("#phone").removeClass().addClass("unsuccess");
+						alert("Телефон не указан");
 					}
 				} else {
 					e.preventDefault();
-					$("#phone").removeClass().addClass("unsuccess");
-					alert("Телефон не указан");
+					$("#name").removeClass().addClass("unsuccess");
+					alert("Контактное лицо не заполнено");
 				}
-			} else {
-				e.preventDefault();
-				$("#name").removeClass().addClass("unsuccess");
-				alert("Контактное лицо не заполнено");
-			}
-		});
+			});
+		<?}?>
 		$("#name").blur(function () {
 			var name = this.value;
 			var nName = name.replace(/[^A-zА-я ]+/g, "");
