@@ -509,7 +509,7 @@ aside {
 	float: left;
 }
 aside .wrapper {
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 	max-height: 100%;
 }
@@ -1221,6 +1221,7 @@ aside .catalog .second_nav li > ul li > ul li .qnt_products {
 }
 aside .filters {
 	display: none;
+	margin-top: 10px;
 }
 aside .filters .filter_block {
 	padding: 10px;
@@ -1245,6 +1246,38 @@ aside .filters .filter_block label:hover {
 aside .filters .filter_block .mdl-checkbox__label {
 	font-size: inherit;
 	max-width: calc(100% - 40px);
+}
+
+aside .filters #clear_filter, #applyFilter {
+	width: 45%;
+}
+aside .filters .mdl-textfield {
+	width: 25%
+}
+
+aside .filters .mdl-textfield__label:after {
+	background-color: #FF5722;
+}
+
+aside .filters #minPrice, #maxPrice {
+	color: #FF5722;
+	font-weight: bold;
+}
+
+aside .filters .priceValute {
+	width: 13%;
+	color: #FF5722;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+aside .filters .priceValute p {
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+aside .filters #priceFields {
+	display: flex;
+	justify-content: center;
 }
 
 /*News*/
@@ -2453,6 +2486,11 @@ section .stat_year {
 .price_range_block:hover .ui-slider-handle {
 	box-shadow: 0 0 0 3px #FF5722;
 }
+
+
+
+
+
 /*Стили кабинета (start)*/
 .nav{
 	display: none;
@@ -2720,5 +2758,33 @@ section .stat_year {
 	left: calc(50% - 14px);
 	position: absolute;
 }
+
+.xt_news {
+		padding: 0 15px;
+	}
+	.min {
+		padding-top: 15px;
+	}
+	.xt_news h6 {
+		color: #000;
+		margin: 0;
+	}
+	.xt_news .news_description {
+		font-size: 13px;
+	}
+	.xt_news .news_date,
+	.news_more {
+		font-style: italic;
+	}
+	/*hr {
+		width: 90%;
+		margin: 15px auto 0;
+	}*/
+	.xt_news img {
+		width: 100%;
+	    height: 160px;
+	    box-sizing: border-box;
+	    background-color: #999;
+	}
 /* class="mdl-button mdl-js-button mdl-button--raised" */
 /* style="float: right;right: 10px;top:-10px;background:#018B06;"

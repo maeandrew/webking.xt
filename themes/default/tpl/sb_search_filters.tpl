@@ -33,9 +33,13 @@
 		});
 		$( "#amount" ).append($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
 
-		//Очистить фтльтры
+
+
+
+
+		//Очистить фильтры
 		$("#clear_filter").click(function() {
-//          $.cookie('price_range', null);
+          /*$.cookie('price_range', null);*/
 			$(this).addClass('active');
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
@@ -44,40 +48,18 @@
 			$('label').removeClass('is-checked');
 		});
 
-		var filterLink = {
-				47:[16453, 125],
-				56:[19125, 145],
-				};
-		console.log(filterLink);
-
-		/*console.log($.inArray(47, filterLink));*/
-		/*delete filterLink[47];*/
-
-
-
-		/*var arr=[1,2,3,4,5];
-		var value=4;
-		console.log($.inArray(value, arr));
-		arr.splice( $.inArray(value, arr), 1 );
-		console.log(arr);*/
-
-
+		// Добавление/удаление элементов в массиве
+		var filterLink = {};
 
 		$('.filters input').on('change', function() {
 
 			var dataSpec = $(this).data('spec');
 			var dataValue = $(this).data('value');
 
-			/*var searchElem = $.inArray(125, 47);
-			console.log(searchElem);*/
-
-			// Добавление элементов в массив
-
 			if (filterLink[dataSpec] === undefined) {
 				filterLink[dataSpec] = [];
 				filterLink[dataSpec].push(dataValue);
 			}else if (filterLink[dataSpec] !== undefined) {
-
 				for ( var key in filterLink) {
 					if (key == dataSpec) {
 						var chekElem = 0;
@@ -98,17 +80,7 @@
 			if (filterLink[dataSpec].length === 0) {
 				delete filterLink[dataSpec];
 			}
-
 			console.log(filterLink);
-
-
-			// Удаление элементов из массива
-
-			/*if (filterLink[dataSpec] !== undefined) {
-				console.log("удалили");
-				delete filterLink[dataSpec];
-			}*/
-
 		});
 
 
@@ -130,13 +102,10 @@
 		</ul>
 	</div> -->
 
-	<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised" style="width: 47%">
+	<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised">
 		Сбросить все:
 	</button>
-	<!-- <button id="clear_filter_new" class="mdl-button mdl-js-button mdl-button--raised">
-		Сбросить все фильтры NEW:
-	</button> -->
-	<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised" style="width: 47%">
+	<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised">
 		Применить фильтр:
 	</button>
 
@@ -144,17 +113,18 @@
 
 	<div class="filter_block price_range_block">
 		<p>Ценовой диапазон</p>
-
-		<div class="mdl-textfield mdl-js-textfield" style="width: 47%">
-			<input id="minPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" >
-			<label class="mdl-textfield__label" for="minPrice"><?=$min_price?></label>
+		<div id="priceFields">
+			<div class="mdl-textfield mdl-js-textfield">
+				<input id="minPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=$min_price?>">
+				<label class="mdl-textfield__label" for="minPrice"><?=$min_price?></label>
+			</div>
+			<div class="priceValute"><p>грн -</p></div>
+			<div class="mdl-textfield mdl-js-textfield">
+				<input id="maxPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=$max_price?>">
+				<label class="mdl-textfield__label" for="maxPrice"><?=$max_price?></label>
+			</div>
+			<div class="priceValute"><p>грн</p></div>
 		</div>
-
-		<div class="mdl-textfield mdl-js-textfield" style="width: 47%">
-			<input id="maxPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" >
-			<label class="mdl-textfield__label" for="maxPrice"><?=$max_price?></label>
-		</div>
-
 		<ul>
 			<li>
 				<div id="amount"></div>
