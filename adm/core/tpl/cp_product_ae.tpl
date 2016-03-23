@@ -147,7 +147,7 @@
 										</div>
 									<?}
 								}
-							}?>
+							}?>							
 						</div>
 						<div class="image_block_new drop_zone animate">
 							<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
