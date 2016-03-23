@@ -1,6 +1,7 @@
 <?php
 $News = new News();
 unset($parsed_res);
+
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$id_news = $GLOBALS['REQAR'][1];
 }else{
@@ -13,26 +14,33 @@ if(!$News->SetFieldsById($id_news, 1)){
 
 $tpl->Assign('h1', 'Редактирование новости');
 
-//if(isset($_GET['upload']) == true){
-//	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
-//	echo str_replace($GLOBALS['PATH_root'], '/', $res);
-//	exit(0);
-//}
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
+	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	exit(0);
+}
+
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = News_form_validate();
 
+	//Удаление фото при нажатии на корзину
+	if(isset($_POST['removed_images'])){
+		foreach($_POST['removed_images'] as $k=>$del_image){
+			unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']).$del_image);
+		}
+	}
+
 	//Добавление фото
-	$id_news = $News->AddNews($id);
 	if(isset($_POST['images'])){
 		foreach($_POST['images'] as $k=>$image){
-			//$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
-			$path = $GLOBALS['PATH_news_img'].$file['dirname'].'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_news_img']).trim($file['dirname']);
-			$photo_name = $bd_path.'/'.$file['basename'];
-			$images_arr[] = $bd_path.'/'.$file['basename'];
-			$photo_arr[] = $file['basename'];
+			if( strpos ($image, '/temp/') == true)
+			{
+				$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
+				$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
+				$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
+				$images_arr[] = $bd_path . '/' . $file['basename'];
+			} else 	$images_arr[] = $image;
 		}
 	}else{
 		$images_arr =  array();
@@ -40,6 +48,7 @@ if(isset($_POST['smb'])){
 
 	if(!$err){
 		if($id = $News->UpdateNews($_POST)){
+			$News->UpdatePhoto($id_news, $images_arr);
 			$tpl->Assign('msg', 'Новость обновлена.');
 			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1){
 				$Mailer = new Mailer();

@@ -214,6 +214,16 @@ class News{
 	public function DelNews($id_news){
 		$sql = "DELETE FROM "._DB_PREFIX_."news WHERE `id_news` = $id_news";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$sqlWay = "SELECT src FROM "._DB_PREFIX_."image_news WHERE `id_news` = $id_news";
+		$arr = $this->db->GetArray($sqlWay);
+		foreach($arr as $k=>$del_arr){
+			foreach($del_arr as $k=>$del_image){
+				unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']).$del_image);
+			}
+		}
+		rmdir(str_replace('adm\core/../../', '', $GLOBALS['PATH_news_img']).$id_news);
+		$sqlImg = "DELETE FROM "._DB_PREFIX_."image_news WHERE `id_news` = $id_news";
+		$this->db->Query($sqlImg) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
 	// Сортировка страниц
@@ -232,16 +242,21 @@ class News{
 	}
 	// Добавление и удаление фото
 	public function UpdatePhoto($id_news, $images_arr){
-		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news; print_r(1); die();
-		$this->db->StartTrans();// echo '1'; die();
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
+		$this->db->StartTrans();
+
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);
 		if(isset($images_arr) && !empty($images_arr)) {
-			mkdir($GLOBALS['PATH_global_root'].'news_images/'.$id_news);
+			if(!file_exists($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news.'/')){
+				mkdir($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news);
+			}
 			foreach ($images_arr as $k => $src) {
-				rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].str_replace('temp/', $id_news.'/', $src));
-				$src = str_replace('temp/', $id_news . '/', $src);
+				if( strpos ( $src, '/temp/') == true) {
+					rename($GLOBALS['PATH_global_root'] . $src, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id_news . '/', $src));
+					$src = str_replace('temp/', $id_news . '/', $src);
+				}
 				if (empty($src)) {
 					return false; //Если URL пустой
 				}
@@ -257,7 +272,6 @@ class News{
 
 		unset($id_news);
 		unset($f);
-
 		return true;//Если все ок
 	}
 
