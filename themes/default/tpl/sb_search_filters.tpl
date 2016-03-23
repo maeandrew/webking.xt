@@ -4,6 +4,7 @@
 		<?if ($GLOBALS['Filters'] || isset($GLOBALS['Price_range'])) :?>
 			$('[data-nav="filter"]').click();
 		<? endif ?>
+
 		$("#slider_price").slider({
 			range: true,
 			min: <?=$min_price?>,
@@ -22,36 +23,138 @@
 					expires: 2,
 					path: '/'
 				});
-			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';
+
+				$("#applyFilter").click(function() {
+					window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';
+				});
+
+			/*window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';*/
 			}
 		});
 		$( "#amount" ).append($( "#slider_price" ).slider( "values", 0 ) + " грн  -  " + $( "#slider_price" ).slider( "values", 1 ) + " грн");
 
 		//Очистить фтльтры
 		$("#clear_filter").click(function() {
-//			$.cookie('price_range', null);
+//          $.cookie('price_range', null);
 			$(this).addClass('active');
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
+
+		$("#clear_filter_new").click(function() {
+			$('label').removeClass('is-checked');
+		});
+
+		var filterLink = {
+				47:[16453, 125],
+				56:[19125, 145],
+				};
+		console.log(filterLink);
+
+		/*console.log($.inArray(47, filterLink));*/
+		/*delete filterLink[47];*/
+
+
+
+		/*var arr=[1,2,3,4,5];
+		var value=4;
+		console.log($.inArray(value, arr));
+		arr.splice( $.inArray(value, arr), 1 );
+		console.log(arr);*/
+
+
+
+		$('.filters input').on('change', function() {
+
+			var dataSpec = $(this).data('spec');
+			var dataValue = $(this).data('value');
+
+			/*var searchElem = $.inArray(125, 47);
+			console.log(searchElem);*/
+
+			// Добавление элементов в массив
+
+			if (filterLink[dataSpec] === undefined) {
+				filterLink[dataSpec] = [];
+				filterLink[dataSpec].push(dataValue);
+			}else if (filterLink[dataSpec] !== undefined) {
+
+				for ( var key in filterLink) {
+					if (key == dataSpec) {
+						var chekElem = 0;
+						for (var i = 0; i < filterLink[key].length; i++) {
+							if (filterLink[key][i] === dataValue) {
+								chekElem = 1;
+								var searchElem = $.inArray(dataValue, filterLink[key]);
+								filterLink[key].splice(searchElem, 1);
+							}
+						}
+						if (chekElem === 0) {
+							filterLink[dataSpec].push(dataValue);
+						}
+					}
+				}
+			}
+
+			if (filterLink[dataSpec].length === 0) {
+				delete filterLink[dataSpec];
+			}
+
+			console.log(filterLink);
+
+
+			// Удаление элементов из массива
+
+			/*if (filterLink[dataSpec] !== undefined) {
+				console.log("удалили");
+				delete filterLink[dataSpec];
+			}*/
+
+		});
+
+
+
 		//Сделать не активные ссылки у отключенных фильтров
-//		$('.disabled').click(function(event) {
-//			event.preventDefault();
-//		});
+//      $('.disabled').click(function(event) {
+//          event.preventDefault();
+//      });
 
 	});
 </script>
 <div class="filters">
-	<div class="filter_block">
+	<!-- <div class="filter_block">
 		<p>Сбросить все фильтры:</p>
 		<ul>
 			<li id="clear_filter" >
 				<input type="submit" value="Сбросить">
 			</li>
 		</ul>
-	</div>
+	</div> -->
+
+	<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised" style="width: 47%">
+		Сбросить все:
+	</button>
+	<!-- <button id="clear_filter_new" class="mdl-button mdl-js-button mdl-button--raised">
+		Сбросить все фильтры NEW:
+	</button> -->
+	<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised" style="width: 47%">
+		Применить фильтр:
+	</button>
+
+
 
 	<div class="filter_block price_range_block">
 		<p>Ценовой диапазон</p>
+
+		<div class="mdl-textfield mdl-js-textfield" style="width: 47%">
+			<input id="minPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" >
+			<label class="mdl-textfield__label" for="minPrice"><?=$min_price?></label>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield" style="width: 47%">
+			<input id="maxPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" >
+			<label class="mdl-textfield__label" for="maxPrice"><?=$max_price?></label>
+		</div>
+
 		<ul>
 			<li>
 				<div id="amount"></div>
@@ -69,7 +172,7 @@
 						<li>
 							<a  href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
 								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
-									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" <?=$value['checked']?>>
+									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
 									<span>
 										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
 										<!--<span class="qnt_products fright"><?= ($present || in_array($value['id'][0], $id_filter)) ? $value['count'] : ''?></span>-->
