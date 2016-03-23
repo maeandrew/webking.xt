@@ -15,12 +15,22 @@
 			echo sprintf($tmpstr, $js['name'], $js['async'] == true?' async':null);
 		}
 	}?>
-	<script>var URL_base = "<?=$GLOBALS['URL_base']?>adm/";</script>
+	<script>
+		var URL_base = "<?=$GLOBALS['URL_base']?>adm/",
+			URL_base_global = "<?=$GLOBALS['URL_base']?>";
+	</script>
 	<link type="image/x-icon" href="/adm/favicon.ico" rel="icon"/>
 	<link type="image/x-icon" href="/adm/favicon.ico" rel="shortcut icon"/>
 	<script type="text/javascript" src="/adm/js/ace/ace.js"></script>
 	<script type="text/javascript" src="/adm/js/Chart.min.js"></script>
 	<script type="text/javascript" src="/plugins/dropzone.js"></script>
+	<noscript>
+		<style>
+			img.lazy {
+				display: none !important;
+			}
+		</style>
+	</noscript>
 </head>
 <body class="bg-retina_dust">
 	<div id="back_modal" class="hidden"></div>

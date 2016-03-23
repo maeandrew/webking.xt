@@ -506,11 +506,7 @@ class Products {
 				ON p.id_product = cp.id_product
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON p.id_product = a.id_product
-			LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-				ON a.id_supplier = cs.id_supplier
 			WHERE a.active = 1
-			AND cs.date = '".$date."'
-			AND cs.work_day = 1
 			AND cp.id_category IN (".$GLOBALS['CONFIG']['price_csv_categories'].")
 			GROUP BY p.id_product";
 		$res = $this->db->GetArray($sql);
@@ -960,7 +956,8 @@ class Products {
 
 	public function SetProductsList1($s){
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",
+			a.*
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON cp.id_product = p.id_product
@@ -1077,7 +1074,7 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 					ON cp.id_product = a.id_product
 				LEFT JOIN "._DB_PREFIX_."supplier AS s
-						ON s.id_user = a.id_supplier
+					ON s.id_user = a.id_supplier
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
 				WHERE ".$where."
@@ -1208,23 +1205,6 @@ class Products {
 		return $cnt;
 	}
 
-	public function SetProductsListBySupplier($id_supplier){
-		$group_by = ' GROUP BY a.id_product';
-		$sql = "SELECT DISTINCT a.id_assortiment,
-			a.id_product, a.price_opt_otpusk,
-			a.price_mopt_otpusk, a.active,
-			a.product_limit, a.sup_comment
-			FROM "._DB_PREFIX_."assortiment a
-			WHERE a.id_supplier = ".$id_supplier."
-			".$group_by;
-		$res = $this->db->GetArray($sql);
-		if(!$res){
-			return false;
-		}else{
-			return $res;
-		}
-	}
-
 	public function SetProductsListSupCab($and = false, $limit = '', $orderby = 'a.inusd, p.name'){
 		$where = "";
 		if($and !== FALSE && count($and)){
@@ -1241,19 +1221,13 @@ class Products {
 			a.inusd, i.src AS image,
 			(SELECT MIN(assort.price_mopt_otpusk)
 				FROM '._DB_PREFIX_.'assortiment AS assort
-				LEFT JOIN '._DB_PREFIX_.'calendar_supplier AS cs
-					ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND assort.active = 1
+				WHERE assort.active = 1
 				AND assort.id_product = p.id_product
 				AND price_mopt_otpusk > 0
 				GROUP BY assort.id_product) AS min_mopt_price,
 			(SELECT MIN(assort.price_opt_otpusk)
 				FROM '._DB_PREFIX_.'assortiment AS assort
-				LEFT JOIN '._DB_PREFIX_.'calendar_supplier AS cs
-					ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND assort.active = 1
+				WHERE assort.active = 1
 				AND assort.id_product = p.id_product
 				AND price_opt_otpusk > 0
 				GROUP BY assort.id_product) AS min_opt_price
@@ -1374,19 +1348,90 @@ class Products {
 		$this->db->CompleteTrans();
 	}
 
+	public function GetAssort($id_product, $id_supplier){
+		$sql = 'SELECT * FROM '._DB_PREFIX_.'assortiment
+			WHERE id_product = '.$id_product.'
+			AND id_supplier = '.$id_supplier;
+		$res = $this->db->GetOneRowArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	// Обновление позиции ассортимента (ajax)
-	public function UpdateAssort($id_product, $opt, $price_otpusk, $price_recommend, $nacen, $product_limit = null, $active = 0, $sup_comment, $inusd = 'false', $currency_rate){
+	public function UpdateAssort2($data){
+		$assort = $this->GetAssort($data['id_product'], $data['id_supplier']);
+		$Suppliers = new Suppliers();
+		$Suppliers->SetFieldsById($data['id_supplier'], 1);
+		$supplier = $Suppliers->fields;
+		// var_dump($assort);
+		if(isset($data['price'])){
+			if($assort['inusd'] == 1){
+				$f['price_'.$data['mode'].'_otpusk'] = $data['price']*$supplier['currency_rate'];
+				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price'];
+			}else{
+				$f['price_'.$data['mode'].'_otpusk'] = $data['price'];
+				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price']/$supplier['currency_rate'];
+			}
+			$f['price_'.$data['mode'].'_recommend'] = $f['price_'.$data['mode'].'_otpusk']*$supplier['koef_nazen_'.$data['mode']];
+		}
+		if(isset($data['comment'])){
+			$f['sup_comment'] = $data['comment'];
+		}
+		if(isset($data['inusd'])){
+			$f['inusd'] = $data['inusd'];
+		}
+		if(isset($data['active'])){
+			$f['active'] = $data['active'];
+		}
+		// $f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
+		// $f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
+		// $f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
+		// if(!isset($_SESSION['Assort']['products'][$id_product])){
+		// 	$this->InitProduct($id_product);
+		// }
+		// if($product_limit == null){
+		// 	$_SESSION['Assort']['products'][$id_product]['product_limit'] = 0;
+		// }else{
+		// 	$_SESSION['Assort']['products'][$id_product]['product_limit'] = $product_limit;
+		// }
+		// $_SESSION['Assort']['products'][$id_product]['active'] = $active;
+		// if($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] == 0 &&
+		// 	$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] == 0 &&
+		// 	$_SESSION['Assort']['products'][$id_product]['active'] == 0){
+		// 	unset($_SESSION['Assort']['products'][$id_product]);
+		// }
+		// // $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
+
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$data['id_product']." AND id_supplier = ".$data['id_supplier'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		// //$f[''] = trim($arr['']);
+		// // if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
+		// // 	$this->db->FailTrans();
+		// // 	return false;
+		// // }
+		$this->RecalcSitePrices(array($data['id_product']));
+		return $this->GetAssort($data['id_product'], $data['id_supplier']);
+	}
+
+	// Обновление позиции ассортимента (ajax)
+	public function UpdateAssort($id_product, $opt, $price_otpusk, $price_recommend, $markup, $product_limit = null, $active = 0, $sup_comment, $inusd = 'false', $currency_rate){
 		if(!isset($_SESSION['Assort']['products'][$id_product])){
 			$this->InitProduct($id_product);
 		}
 		if($opt == 1){
 			$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] = $price_otpusk;
-			$_SESSION['Assort']['products'][$id_product]['price_opt_recommend'] = $price_otpusk*$nacen;
+			$_SESSION['Assort']['products'][$id_product]['price_opt_recommend'] = $price_otpusk*$markup;
 			$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd'] = $price_otpusk/$currency_rate;
 			$_SESSION['Assort']['products'][$id_product]['sup_comment'] = $sup_comment;
 		}else{
 			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] = $price_otpusk;
-			$_SESSION['Assort']['products'][$id_product]['price_mopt_recommend'] = $price_otpusk*$nacen;
+			$_SESSION['Assort']['products'][$id_product]['price_mopt_recommend'] = $price_otpusk*$markup;
 			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd'] = $price_otpusk/$currency_rate;
 			$_SESSION['Assort']['products'][$id_product]['sup_comment'] = $sup_comment;
 		}
@@ -1450,6 +1495,9 @@ class Products {
 			WHERE a.id_supplier = ".$id_supplier."
 			ORDER BY a.id_product";
 		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
 		unset($_SESSION['Assort']);
 		foreach($arr as $i){
 			$_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] = $i['price_opt_otpusk'];
@@ -1462,6 +1510,24 @@ class Products {
 			$_SESSION['Assort']['products'][$i['id_product']]['active'] = $i['active'];
 			$_SESSION['Assort']['products'][$i['id_product']]['sup_comment'] = $i['sup_comment'];
 		}
+		return true;
+	}
+
+	public function SetAssortList($id_supplier){
+		$sql = "SELECT a.id_product, a.id_supplier,
+			a.price_opt_recommend, a.price_mopt_recommend,
+			a.price_opt_otpusk, a.price_mopt_otpusk,
+			a.price_opt_otpusk_usd, a.price_mopt_otpusk_usd,
+			a.product_limit, a.sup_comment, a.active
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_supplier = ".$id_supplier."
+			ORDER BY a.id_product";
+			print_r($sql);
+		$this->list = $this->db->GetArray($sql);
+		if(!$this->list){
+			return false;
+		}
+		return true;
 	}
 
 	public function AddToAssort($id_product){
@@ -1494,10 +1560,10 @@ class Products {
 		$this->db->CompleteTrans();
 	}
 
-	public function DelFromAssort($id_product){
+	public function DelFromAssort($id_product, $id_supplier){
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
-		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
+		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
 		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($id_product));
 	}
@@ -1593,10 +1659,8 @@ class Products {
 			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
 			p.price_mopt AS old_price_mopt, p.price_opt AS old_price_opt
 			FROM "._DB_PREFIX_."assortiment AS a
-			LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-				ON (cs.id_supplier = a.id_supplier OR cs.id_supplier = a.id_supplier)
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
-				ON cs.id_supplier = s.id_user
+				ON a.id_supplier = s.id_user
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON p.id_product = a.id_product
 			WHERE a.active = 1
@@ -1605,16 +1669,13 @@ class Products {
 			OR (a.price_mopt_otpusk != 0 AND a.price_mopt_recommend != 0))";
 		if(is_array($ids_products)){
 			$sql .= " AND a.id_product IN (".implode(", ", $ids_products).")
-				AND cs.date = DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY)
-				AND cs.work_day = 1
 				GROUP BY a.id_supplier, a.id_product";
 			$arr = $this->db->GetArray($sql);
 			foreach($arr as $p){
 				$mass[$p['id_product']][] = $p;
 			}
 		}else{ // пересчет всех товаров ассортимента
-			$sql .= " AND cs.date = DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY)
-				AND cs.work_day = 1
+			$sql .= " 
 				GROUP BY a.id_supplier, a.id_product";
 			$arr = $this->db->GetArray($sql);
 			$ids_products = array();
@@ -3159,10 +3220,7 @@ class Products {
 				ON a.id_product = p.id_product
 			WHERE (SELECT MAX(assort.price_mopt_otpusk)/MIN(assort.price_mopt_otpusk)
 				FROM "._DB_PREFIX_."assortiment AS assort
-				LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-					ON (cs.id_supplier = assort.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND assort.active = 1
+				WHERE assort.active = 1
 				AND assort.id_product = p.id_product
 				GROUP BY assort.id_product) > ".$diff."
 			AND (p.price_mopt > 0 OR price_opt > 0)
@@ -3175,10 +3233,7 @@ class Products {
 				FROM "._DB_PREFIX_."assortiment AS a
 				LEFT JOIN "._DB_PREFIX_."supplier AS s
 					ON s.id_user = a.id_supplier
-				LEFT JOIN "._DB_PREFIX_."calendar_supplier AS cs
-					ON (cs.id_supplier = a.id_supplier AND cs.date = (CURDATE() + INTERVAL 2 DAY))
-				WHERE cs.work_day = 1
-				AND a.active = 1
+				WHERE a.active = 1
 				AND a.id_product = ".$a['id_product']."
 				GROUP BY a.id_supplier";
 			$arr[$k]['suppliers'] = $this->db->GetArray($sql);

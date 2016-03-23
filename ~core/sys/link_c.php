@@ -30,11 +30,12 @@ class Link {
 		if(isset($GLOBALS['Price_range']) && $GLOBALS['Price_range'] !== ''){
 			$price_range = 'price_range='.$GLOBALS['Price_range'][0].','.$GLOBALS['Price_range'][1];
 		}
-
 		foreach($params as $key => $param){
 			switch ($key) {
+				case 'filters':
+					$filter = $param;
+					break;
 				case 'filter':
-
 					if(isset($filter[$param[0]])){
 						if(in_array($param[1], $filter[$param[0]])) {
 							foreach ($filter[$param[0]] as $key => $fil) {
@@ -53,18 +54,15 @@ class Link {
 						$filter[$param[0]][] = $param[1];
 					}
 					break;
-
 				case 'page':
 					$str_page = '';
 					if($param != 1) {
 						$str_page = 'p'.$param;
 					}
 					break;
-
 				case 'sort':
 					$str_sort = 'sort='.$param;
 					break;
-
 				case 'price_range':
 					$price_range = 'price_range='.$param;
 					break;
@@ -77,7 +75,6 @@ class Link {
 
 		if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {
 			if (isset($filter) && !empty($filter)) {
-
 				foreach ($filter as $key => $filters) {
 					$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
 				}

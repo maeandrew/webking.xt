@@ -273,7 +273,7 @@ class G {
  	 * @return bool
  	 */
  	public static function IsLogged(){
-		return isset($_SESSION['member']) ? TRUE : FALSE;
+		return isset($_SESSION['member']) ? true : false;
 	}
 
 	/**
@@ -289,7 +289,7 @@ class G {
 	 * @return array|bool
 	 */
 	public static function GetLoggedData(){
-		return (G::IsLogged()) ? $_SESSION['member'] : FALSE;
+		return (G::IsLogged()) ? $_SESSION['member'] : false;
 	}
 
 	/**

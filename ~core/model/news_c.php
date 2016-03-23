@@ -2,11 +2,12 @@
 class News{
 	public $db;
 	public $fields;
+	public $images;
 	private $usual_fields;
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation");
+		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid");
 	}
 	// Страница по транслиту
 	public function SetFieldsByRewrite($rewrite, $all = 0){
@@ -18,6 +19,7 @@ class News{
 			FROM "._DB_PREFIX_."news
 			WHERE translit = ".$this->db->Quote($rewrite)."
 			".$visible."
+			AND sid = 1
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
@@ -35,13 +37,20 @@ class News{
 			FROM "._DB_PREFIX_."news
 			WHERE id_news = \"$id_news\"
 			$visible
+			AND sid = 1
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
 		}
+		$sqlImage = "SELECT id, src
+			FROM "._DB_PREFIX_."image_news
+			WHERE id_news = \"$id_news\"";
+		$this->fields['Img'] = $this->db->GetArray($sqlImage);
 		return true;
 	}
+
+
 	// Список (0 - только видимые. 1 - все, и видимые и невидимые)
 	public function NewsList($param = 0, $limit = ""){
 		$where = "WHERE visible = 1 ";
@@ -161,6 +170,7 @@ class News{
 		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
 		$f['translit'] = G::StrToTrans($f['title']);
 		$f['visible'] = 1;
+		$f['sid'] = 1;
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
@@ -204,6 +214,16 @@ class News{
 	public function DelNews($id_news){
 		$sql = "DELETE FROM "._DB_PREFIX_."news WHERE `id_news` = $id_news";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$sqlWay = "SELECT src FROM "._DB_PREFIX_."image_news WHERE `id_news` = $id_news";
+		$arr = $this->db->GetArray($sqlWay);
+		foreach($arr as $k=>$del_arr){
+			foreach($del_arr as $k=>$del_image){
+				unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']).$del_image);
+			}
+		}
+		rmdir(str_replace('adm\core/../../', '', $GLOBALS['PATH_news_img']).$id_news);
+		$sqlImg = "DELETE FROM "._DB_PREFIX_."image_news WHERE `id_news` = $id_news";
+		$this->db->Query($sqlImg) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
 	// Сортировка страниц
@@ -221,29 +241,39 @@ class News{
 		return $res;
 	}
 	// Добавление и удаление фото
-	public function UpdatePhoto($id_news, $arr){
-		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_product=".$id_news;
+	public function UpdatePhoto($id_news, $images_arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
 		$this->db->StartTrans();
+
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);
-		if(isset($arr) && !empty($arr)){
-			foreach ($arr as $k=>$src) {
-				if(empty($src)){
+		if(isset($images_arr) && !empty($images_arr)) {
+			if(!file_exists($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news.'/')){
+				mkdir($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news);
+			}
+			foreach ($images_arr as $k => $src) {
+				if( strpos ( $src, '/temp/') == true) {
+					rename($GLOBALS['PATH_global_root'] . $src, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id_news . '/', $src));
+					$src = str_replace('temp/', $id_news . '/', $src);
+				}
+				if (empty($src)) {
 					return false; //Если URL пустой
 				}
 				$f['src'] = trim($src);
 				$this->db->StartTrans();
-				if(!$this->db->Insert(_DB_PREFIX_.'image_news', $f)){
+				if (!$this->db->Insert(_DB_PREFIX_ . 'image_news', $f)) {
 					$this->db->FailTrans();
 					return false; //Если не удалось записать в базу
 				}
 				$this->db->CompleteTrans();
 			}
 		}
-		unset($id_product);
+
+		unset($id_news);
 		unset($f);
 		return true;//Если все ок
 	}
+
 }
 ?>

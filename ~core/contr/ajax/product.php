@@ -4,13 +4,19 @@
 	$Customer = new Customers();
 	$User = new Users();
 	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
-	if(isset($_POST['action']))
+	if(isset($_POST['action'])){
 		switch($_POST['action']){
+			case "UpdateAssort":
+				if(isset($_POST['id_product'])){
+					$res = $products->UpdateAssort2($_POST);
+					echo json_encode($res);
+				}
+				exit();
+				break;
 			case "DelFromAssort":
 				if(isset($_POST['id'])){
-					$products->DelFromAssort($_POST['id']);
+					$products->DelFromAssort($_POST['id'], $_POST['id_supplier']);
 					$arr['id_product'] = $_POST['id'];
-					$arr['action'] = "del";
 					echo json_encode($arr);
 				}
 				break;
@@ -45,8 +51,7 @@
 					$data['answer'] = 'ok';
 				}
 				echo json_encode($data);
-			;
-			break;
+				break;
 			case "add_in_waitinglist":
 				// Добавление в список ожидания
 				if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
@@ -78,36 +83,30 @@
 				}
 
 				echo json_encode($data);
-			;
-			break;
+				break;
 			case "SaveGraph":
 				echo json_encode($products->AddInsertTwoGraph($_POST));
-			break;
+				break;
 			case "SearchGraph":
 				$values = $products->SearchGraph($_POST['id_graphics']);
 				$tpl->Assign('values', $values);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl');
 				//echo json_encode($products->SearchGraph($_POST['id_graphics']));
-
-			break;
+				break;
 			case "OpenModalGraph":
-
 				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
-			break;
+				break;
 			case "UpdateGraph":
-				if (isset($_POST['moderation'])) {
-					//print_r($_POST);
+				if(isset($_POST['moderation'])){
 					$mode = true;
 					echo json_encode($products->UpdatetGraph($_POST, $mode));
 				}else{
 					echo json_encode($products->UpdatetGraph($_POST));
 				}
-			;
-			break;
+				break;
 			default:
-			;
-			break;
+				break;
 		}
-	exit();
-}
-?>
+		exit();
+	}
+}?>

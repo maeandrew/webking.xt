@@ -5,9 +5,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		$_SESSION['Cart']['products'] = array();
 		$_SESSION['Cart']['sum'] = (float) 0;
 	}
-	if(isset($_SESSION['member'])){
+	if(G::IsLogged()){
 		$User = new Users();
-		$User->SetUser($_SESSION['member']);
+		$User->SetUser(G::GetLoggedData());
 		$Customer = new Customers();
 		$Customer->SetFieldsById($User->fields['id_user']);
 		$personal_discount = $Customer->fields['discount'];
@@ -52,7 +52,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// }else{
 				    if(G::IsLogged()){
 						$User = new Users();
-						$User->SetUser($_SESSION['member']);
+						$User->SetUser(G::GetLoggedData());
 						$tpl->Assign('User', $User->fields);
 					}
 					if(in_array($User->fields['gid'], array(_ACL_CUSTOMER_, _ACL_ANONYMOUS_, _ACL_DILER_, _ACL_MANAGER_, NULL))){ //

@@ -35,8 +35,13 @@
 					<td><?=$groups[$i['gid']]['caption']?></td>
 					<td class="right actions">
 						<nobr>
-							<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'edit/'.$i['id_user']?>" class="btn-l-green-inv">редактировать</a>
-							<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'del/'.$i['id_user']?>" onclick="return confirm('Точно удалить?');" class="btn-l-red-inv">удалить</a>
+							<?if($i['gid'] == _ACL_SUPPLIER_){?>
+								<a href="<?=$GLOBALS['URL_base'].'adm/assortment/'.$i['id_user']?>" class="btn-m-green-inv">ассортимент</a>
+							<?}?>
+							<?if($_SESSION['member']['gid'] != _ACL_MODERATOR_){?>
+								<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'edit/'.$i['id_user']?>" class="btn-m-green-inv">редактировать</a>
+								<a href="<?=$GLOBALS['URL_base'].'adm/'.$g_forlinks[$i['gid']]['name'].'del/'.$i['id_user']?>" onclick="return confirm('Точно удалить?');" class="btn-m-red-inv">удалить</a>
+							<?}?>
 						</nobr>
 					</td>
 				</tr>
