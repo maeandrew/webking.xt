@@ -34,7 +34,8 @@ if(isset($_POST['smb'])){
 			$path = $GLOBALS['PATH_news_img'].$file['dirname'].'/';
 			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_news_img']).trim($file['dirname']);  //print_r(); die();
 			$photo_name = $bd_path.'/'.$file['basename'];
-			$images_arr[] = $bd_path.'/'.$file['basename']; print_r($file['dirname']); die();
+			$images_arr[] = $bd_path.'/'.$file['basename']; 
+			// print_r($file['dirname']); die();
 		}
 	}else{
 		$images_arr =  array();
