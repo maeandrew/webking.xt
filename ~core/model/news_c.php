@@ -7,7 +7,7 @@ class News{
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation");
+		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid");
 	}
 	// Страница по транслиту
 	public function SetFieldsByRewrite($rewrite, $all = 0){
@@ -19,6 +19,7 @@ class News{
 			FROM "._DB_PREFIX_."news
 			WHERE translit = ".$this->db->Quote($rewrite)."
 			".$visible."
+			AND sid = 1
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
@@ -36,6 +37,7 @@ class News{
 			FROM "._DB_PREFIX_."news
 			WHERE id_news = \"$id_news\"
 			$visible
+			AND sid = 1
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
@@ -168,6 +170,7 @@ class News{
 		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
 		$f['translit'] = G::StrToTrans($f['title']);
 		$f['visible'] = 1;
+		$f['sid'] = 1;
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
