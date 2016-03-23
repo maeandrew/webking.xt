@@ -4,9 +4,10 @@
 
 	// ---- center ----
 	unset($parsed_res);
-	print_r($GLOBALS['REQAR']);
+	//print_r($GLOBALS['REQAR']);
 	if (isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 		$id_news = $GLOBALS['REQAR'][1];
+
 	}else{
 		header('Location: '.$GLOBALS['URL_base'].'404/');
 		exit();
