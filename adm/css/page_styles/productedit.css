@@ -409,6 +409,7 @@
 	width: 100%;
 	color: #444;
 	cursor: pointer;
+	margin: 0;
 }
 #photobox .image_block .controls p:hover {
 	color: #f00;
