@@ -1745,3 +1745,60 @@ function removeLoadAnimation(obj) {
 	componentHandler.upgradeDom();
 }
 
+//Добавление товара в избранное
+function AddFavorite(event,id_product){
+	$.ajax({
+		url: URL_base+'ajaxproduct',
+		type: "POST",
+		cache: false,
+		dataType: "json",
+		data: {
+			"action": 'add_favorite',
+			"id_product": id_product
+		}
+	}).done(function(data){
+		//console.log(data);
+		if(data.answer == 'login'){
+			// alert('Войдите или зарегистрируйтесь.');
+			event.preventDefault();
+
+			var target = 'login_form';
+			openModal(target);
+		}else if(data.answer == 'already'){
+			//alert('Товар уже находится в избранных.');
+			event.preventDefault();
+		}else{
+			$('div[data-idfavorite="'+id_product+'"]').attr('title', 'Товар находится в избранных');
+			$('div[data-idfavorite="'+id_product+'"]').find('span.favorite').html('favorites');
+			$('div[data-idfavorite="'+id_product+'"] a').html('В избранном').attr('href', '/cabinet/favorites/');
+			$('.fav_count_js').html(data.fav_count);
+			//alert('ok');
+		}
+	});
+}
+
+//Добавление товара в список ожидания
+function AddInWaitingList(id_product,id_user,email){
+	$.ajax({
+		url: URL_base+'ajaxproduct',
+		type: "POST",
+		cache: false,
+		dataType: "json",
+		data: {
+			"action": 'add_in_waitinglist',
+			"id_product": id_product,
+			"id_user": id_user,
+			"email": email
+		},
+		error: function(){
+			alert('Товар уже добавлен в лист ожидания');
+			location.reload();
+		}
+	}).done(function(data){
+		if(data.answer_data == 'insert_ok'){
+			location.reload();
+		}
+		//console.log(data.answer);
+	});
+	return false;
+}
