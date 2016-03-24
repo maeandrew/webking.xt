@@ -1,4 +1,14 @@
 <script>
+	var filterLink = new Object();
+	var params = new Object();
+	<?if(isset($GLOBALS['Filters'])){?>
+		filterLink = <?=json_encode($GLOBALS['Filters'])?>;
+	<?}?>
+	<?if(isset($GLOBALS['Price_range'])){?>
+		params['price_range'] = '<?=implode(',', $GLOBALS['Price_range']);?>';
+	<?}?>
+	params['filters'] = filterLink;
+	// console.log(params);
 	/** Фильтр по цене */
 	$(function(){
 		// Автопереключение на панель фильтров
@@ -23,22 +33,14 @@
 					expires: 2,
 					path: '/'
 				});
-				$("#applyFilter").click(function() {
-					window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';
-				});
-
-			/*window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('price_range' => "' + price_range + '"))?>';*/
+				params['price_range'] = price_range;
+				// console.log(params);
 			}
 		});
 		$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");
 
-
-
-
-
 		//Очистить фильтры
 		$("#clear_filter").click(function() {
-          /*$.cookie('price_range', null);*/
 			$(this).addClass('active');
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
@@ -48,41 +50,39 @@
 		});
 
 		// Добавление/удаление элементов в массиве
-		var filterLink = {};
-
 		$('.filters input').on('change', function() {
-
 			var dataSpec = $(this).data('spec');
 			var dataValue = $(this).data('value');
-
-			if (filterLink[dataSpec] === undefined) {
+			if(filterLink[dataSpec] === undefined){
 				filterLink[dataSpec] = [];
 				filterLink[dataSpec].push(dataValue);
-			}else if (filterLink[dataSpec] !== undefined) {
-				for ( var key in filterLink) {
-					if (key == dataSpec) {
-						var chekElem = 0;
-						for (var i = 0; i < filterLink[key].length; i++) {
-							if (filterLink[key][i] === dataValue) {
-								chekElem = 1;
-								var searchElem = $.inArray(dataValue, filterLink[key]);
-								filterLink[key].splice(searchElem, 1);
-							}
-						}
-						if (chekElem === 0) {
+			}else if(filterLink[dataSpec] !== undefined){
+				for(var key in filterLink){
+					if(key == dataSpec){
+						var index = $.inArray(dataValue, filterLink[key])
+						if(index >= 0){
+							filterLink[key].splice(index, 1);
+						}else{
 							filterLink[dataSpec].push(dataValue);
 						}
 					}
 				}
 			}
 
-			if (filterLink[dataSpec].length === 0) {
+			if(filterLink[dataSpec].length === 0){
 				delete filterLink[dataSpec];
 			}
-			console.log(filterLink);
+			params['filters'] = filterLink;
+			// console.log(filterLink);
 		});
-
-
+		// Клик на "Применить"
+		$('#applyFilter').on('click', function(e){
+			e.preventDefault();
+			ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
+				console.log(data);
+				// window.location.href = data;
+			});
+		});
 
 		//Сделать не активные ссылки у отключенных фильтров
 //      $('.disabled').click(function(event) {
@@ -140,7 +140,7 @@
 						$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil)) ? false : true; ?>
 						<li>
 							<!-- <?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?> -->
-							<a href="<?=Link::Category($GLOBALS['Rewrite'], array('filter' => $value['id']))?>">
+							<a href="#">
 								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
 									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
 									<span>

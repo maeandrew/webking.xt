@@ -19,8 +19,7 @@ class Link {
 	public static function Category($rewrite, $params = array()){
 		$str_filter = $str_sort = $str_page = $price_range = '';
 		$clear = false;
-
-		$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
+		// $filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
 			$str_sort = 'sort='.$GLOBALS['Sort'];
 		}
@@ -31,23 +30,23 @@ class Link {
 			$price_range = 'price_range='.$GLOBALS['Price_range'][0].','.$GLOBALS['Price_range'][1];
 		}
 		foreach($params as $key => $param){
-			switch ($key) {
+			switch($key){
 				case 'filters':
 					$filter = $param;
 					break;
 				case 'filter':
 					if(isset($filter[$param[0]])){
-						if(in_array($param[1], $filter[$param[0]])) {
-							foreach ($filter[$param[0]] as $key => $fil) {
-								if ($param[1] == $fil) {
-									if (count($filter[$param[0]]) > 1) {
+						if(in_array($param[1], $filter[$param[0]])){
+							foreach($filter[$param[0]] as $key => $fil){
+								if($param[1] == $fil){
+									if(count($filter[$param[0]]) > 1){
 										unset($filter[$param[0]][$key]);
-									} else {
+									}else{
 										unset($filter[$param[0]]);
 									}
 								}
 							}
-						}else {
+						}else{
 							$filter[$param[0]][] = $param[1];
 						}
 					}else{
@@ -73,13 +72,13 @@ class Link {
 			}
 		}
 
-		if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {
-			if (isset($filter) && !empty($filter)) {
-				foreach ($filter as $key => $filters) {
+		// if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {
+			if(isset($filter) && is_array($filter) && !empty($filter)){
+				foreach($filter as $key => $filters){
 					$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
 				}
 			}
-		}
+		// }
 		if($clear){
 			return _base_url.'/'.$rewrite;
 		}

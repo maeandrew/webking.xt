@@ -47,6 +47,9 @@ class G {
 			foreach($param as $p){
 				if(preg_match('/^(.+)=(.*)$/', $p, $match)){
 					$res[$match[1]] = explode(',', $match[2]);
+					foreach($res[$match[1]] as $key => &$value){
+						$value = (integer) $value;
+					}
 				}
 			}
 		}

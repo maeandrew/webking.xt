@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Products = new Products();
-	$where_arr = array('cp.id_category'=>$_POST['id_category']);
+	$where_arr = array('cp.id_category'=>(isset($_POST['id_category'])?$_POST['id_category']:null));
 	$params = array(
 		'group_by' => 'a.id_product',
 		'ajax' => true,
@@ -15,6 +15,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
+			case "getFilterLink":
+				// print_r($_POST['params']);
+				// print_r(Link::Category($_POST['rewrite'], $_POST['params']));
+				echo json_encode(Link::Category($_POST['rewrite'], $_POST['params']));
+				break;
 			case "getmoreproducts":
 				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
 				if($Products->list){
@@ -23,12 +28,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 				}
 				$tpl->Assign('list', $Products->list);
-//				include($GLOBALS['PATH_tpl_global'].'products_list.tpl');
+				//include($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 				//print_r($_POST['shown_products']);
 				$i = $_POST['shown_products']+1;
 				$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 				echo $products_list;
-			break;
+				break;
 			case "getmoreproducts_desktop":
 				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
 				$list = $Products->list;
@@ -180,15 +185,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					</div>
 				<?$i++;
 				}
-			;
-			break;
+				break;
 			case "getproductscount":
 				$cnt = $Products->GetProductsCnt($where_arr, 0, $params);
 				echo $cnt;
-			;
+				break;
 			default:
-			;
-			break;
+				break;
 		}
 		exit();
 	}
