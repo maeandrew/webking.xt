@@ -1,6 +1,7 @@
 <script>
 	var filterLink = new Object();
 	var params = new Object();
+		console.log(filterLink);
 	<?if(isset($GLOBALS['Filters'])){?>
 		filterLink = <?=json_encode($GLOBALS['Filters'])?>;
 	<?}?>
@@ -9,6 +10,7 @@
 	<?}?>
 	params['filters'] = filterLink;
 	// console.log(params);
+	console.log(filterLink);
 	/** Фильтр по цене */
 	$(function(){
 		// Автопереключение на панель фильтров
@@ -45,9 +47,6 @@
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
 
-		$("#clear_filter_new").click(function() {
-			$('label').removeClass('is-checked');
-		});
 
 		// Добавление/удаление элементов в массиве
 		$('.filters input').on('change', function() {
@@ -74,13 +73,14 @@
 			}
 			params['filters'] = filterLink;
 			// console.log(filterLink);
+			console.log(filterLink);
 		});
 		// Клик на "Применить"
 		$('#applyFilter').on('click', function(e){
 			e.preventDefault();
 			ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
 				console.log(data);
-				// window.location.href = data;
+				window.location.href = data;
 			});
 		});
 
