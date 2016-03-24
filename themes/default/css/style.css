@@ -1246,10 +1246,27 @@ aside .filters .filter_block .mdl-checkbox__label {
 }
 
 aside .filters #clear_filter, #applyFilter {
-	width: 45%;
+	width: 48%;
+	background: #FF5722;
+	color: #fff;
+	margin-left: 1%
 }
+/* aside .filters #filterButtons {
+	position: fixed;
+   	background: #f5f5f5;
+    height: 50px;
+    width: 285px;
+    z-index: 10;
+    top: 50px;
+} */
+
+/* aside .filters #clear_filter, #applyFilter {
+	margin-top: 7px;
+} */
+
+
 aside .filters .mdl-textfield {
-	width: 25%
+	width: 32%
 }
 
 aside .filters .mdl-textfield__label:after {
@@ -1260,6 +1277,18 @@ aside .filters #minPrice, #maxPrice {
 	color: #FF5722;
 	font-weight: bold;
 }
+
+aside .filters #priceFields span {
+	font-size: 10px;
+}
+
+aside .filters label {
+	max-height: 45px;
+    height: auto;
+    overflow: hidden;
+}
+
+
 
 aside .filters .priceValute {
 	width: 13%;

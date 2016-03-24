@@ -9,8 +9,7 @@
 		params['price_range'] = '<?=implode(',', $GLOBALS['Price_range']);?>';
 	<?}?>
 	params['filters'] = filterLink;
-	// console.log(params);
-	console.log(filterLink);
+
 	/** Фильтр по цене */
 	$(function(){
 		// Автопереключение на панель фильтров
@@ -26,7 +25,9 @@
 					 <?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>],
 			step: <?=floor(($max_price - $min_price) * 0.01)?>,
 			slide: function(event, ui) {
-				$("#amount").html(ui.values[0]+" грн - "+Math.round(ui.values[1])+" грн");
+				/*$("#amount").html(ui.values[0]+" грн - "+Math.round(ui.values[1])+" грн");*/
+				$('#minPrice').val(ui.values[0]);
+				$('#maxPrice').val(Math.round(ui.values[1]));
 				$('[data-nav="filter"]').addClass('active');
 			},
 			stop: function(event, ui) {
@@ -39,15 +40,12 @@
 				// console.log(params);
 			}
 		});
-		$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");
-
+		/*$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");*/
 		//Очистить фильтры
 		$("#clear_filter").click(function() {
 			$(this).addClass('active');
 			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
 		});
-
-
 		// Добавление/удаление элементов в массиве
 		$('.filters input').on('change', function() {
 			var dataSpec = $(this).data('spec');
@@ -75,6 +73,7 @@
 			// console.log(filterLink);
 			console.log(filterLink);
 		});
+
 		// Клик на "Применить"
 		$('#applyFilter').on('click', function(e){
 			e.preventDefault();
@@ -83,50 +82,67 @@
 				window.location.href = data;
 			});
 		});
-
 		//Сделать не активные ссылки у отключенных фильтров
 //      $('.disabled').click(function(event) {
 //          event.preventDefault();
 //      });
+//
+      /* Проверка ценового диапазона и события применить */
+		$('.priceField').keyup(function(e){
+			var value = $(this).val().replace(/[^0-9.]/gi,"");
+			if(value.length > 0 && value.length <= 9){
+				$('input[name="column[]"]').prop('disabled',true).closest('label').addClass('is-disabled').css('color', 'gray');
+				$(this).val(value);
+			}else{
+				$('input[name="column[]"]').prop('disabled',false).closest('label').removeClass('is-disabled').css('color', '');
+				$(this).val('');
+			}
 
+			var price_range = $('#minPrice').val() + ',' + $('#maxPrice').val();
+					$.cookie('price_range', price_range, {
+						expires: 2,
+						path: '/'
+					});
+					params['price_range'] = price_range;
+
+			if(event.keyCode==13){
+				e.preventDefault();
+				ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
+					console.log(data);
+					window.location.href = data;
+				});
+			}
+		});
 	});
 </script>
 <div class="filters">
-	<!-- <div class="filter_block">
-		<p>Сбросить все фильтры:</p>
-		<ul>
-			<li id="clear_filter" >
-				<input type="submit" value="Сбросить">
-			</li>
-		</ul>
-	</div> -->
-
-	<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised">
-		Сбросить все:
-	</button>
-	<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised">
-		Применить фильтр:
-	</button>
-
-
-
+	<div id="filterButtons">
+		<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised">
+			Сбросить:
+		</button>
+		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised">
+			Применить:
+		</button>
+	</div>
 	<div class="filter_block price_range_block">
 		<p>Ценовой диапазон</p>
 		<div id="priceFields">
 			<div class="mdl-textfield mdl-js-textfield">
-				<input id="minPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=$min_price?>">
-				<label class="mdl-textfield__label" for="minPrice"><?=$min_price?></label>
+				<input id="minPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][0]) ? $GLOBALS['Price_range'][0] : $min_price?>">
+				<label class="mdl-textfield__label" for="minPrice"></label>
+				<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
 			</div>
 			<div class="priceValute"><p>грн -</p></div>
 			<div class="mdl-textfield mdl-js-textfield">
-				<input id="maxPrice" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=$max_price?>">
-				<label class="mdl-textfield__label" for="maxPrice"><?=$max_price?></label>
+				<input id="maxPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>">
+				<label class="mdl-textfield__label" for="maxPrice"></label>
+				<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
 			</div>
 			<div class="priceValute"><p>грн</p></div>
 		</div>
 		<ul>
 			<li>
-				<div id="amount"></div>
+				<!-- <div id="amount"></div> -->
 				<div id="slider_price"></div>
 			</li>
 		</ul>
