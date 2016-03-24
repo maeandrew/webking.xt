@@ -367,15 +367,12 @@
 			<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
 				<div class="mdl-mega-footer__left-section clearfix">
 					<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">
-						<h5>Вопросы</h5>
+						<h5>Навигация</h5>
 						<ul>
-							<li><a href="#">Главная</a></li>
-							<li><a href="#">О нас</a></li>
-							<li><a href="#">Справка</a></li>
-							<li><a href="#">Доставка</a></li>
-							<li><a href="#">Контакты</a></li>
-							<li><a href="#">Стать дилером</a></li>
-							<li><a href="#">Скидки</a></li>
+							<li><a href="<?=Link::Custom('main')?>">Главная</a></li> 
+							<?foreach($list_menu as $menu){?>
+								<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+							<?}?>
 							<li><a href="#">Форум</a></li>
 						</ul>
 					</div>
