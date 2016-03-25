@@ -87,6 +87,62 @@
 //          event.preventDefault();
 //      });
 //
+		$('#changeBntsPos').on('click', function(e){
+			$('#filterButtons').css({
+								background: '#f5f5f5',
+								position: 'fixed',
+								height: '50px',
+    							width: '285px',
+								'z-index': '10',
+								top: '50px'
+								});
+			$('#clear_filter').css('margin-top', '7px');
+			$('#applyFilter').css('margin-top', '7px');
+		});
+
+		$('#returnBntsPos').on('click', function(e){
+			$('#filterButtons').css({
+								background: '',
+								position: '',
+								height: '',
+    							width: '',
+								'z-index': '',
+								top: ''
+								});
+			$('#clear_filter').css('margin-top', '');
+			$('#applyFilter').css('margin-top', '');
+		});
+
+
+		/*Смена позиции кнопок блока фильтра*/
+		$('.wrapper').on("scroll", function(){
+			console.log($('.filters').offset().top-$(window).scrollTop());
+			var height = ($('.filters').offset().top-$(window).scrollTop());
+			if( height <= 50){
+			$('#filterButtons').css({
+						background: '#f5f5f5',
+						position: 'fixed',
+						height: '50px',
+						width: '283px',
+						'z-index': '10',
+						top: '50px'
+						});
+			$('#clear_filter').css('margin-top', '7px');
+			$('#applyFilter').css('margin-top', '7px');
+			}else{
+				$('#filterButtons').css({
+								background: '',
+								position: '',
+								height: '',
+    							width: '',
+								'z-index': '',
+								top: ''
+								});
+			$('#clear_filter').css('margin-top', '');
+			$('#applyFilter').css('margin-top', '');
+			}
+		});
+
       /* Проверка ценового диапазона и события применить */
 		$('.priceField').keyup(function(e){
 			var value = $(this).val().replace(/[^0-9.]/gi,"");
@@ -115,6 +171,12 @@
 		});
 	});
 </script>
+<!-- <script>
+	$('#changeBntsPos').on('click', function(e){
+			$('#filterButtons').css({height: 100px;});
+		});
+</script> -->
+
 <div class="filters">
 	<div id="filterButtons">
 		<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised">
