@@ -267,6 +267,10 @@
 					</div>
 				</div>
 			</div>
+			<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+				<div class="mdl-snackbar__text"></div>
+				<button class="mdl-snackbar__action" type="button"></button>
+			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
 					<li class="favorite" data-id-product="<?=$item['id_product'];?>">

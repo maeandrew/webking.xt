@@ -1744,24 +1744,23 @@ function removeLoadAnimation(obj) {
 
 //Добавление товара в избранное
 function AddFavorite(id_product){
-	// Если product, то срабатывает fail
-	// Если ajaxproduct, то всегда выводится сообщение из строки 1768
-	// Что означает выражение на строке 1786?
-
 	ajax('product', 'add_favorite', {id_product: id_product}).done(function(data){
-		//console.log(data);
 		if(data.answer == 'login'){
 			openObject('auth');
 			removeLoadAnimation('#auth');
 		}else if(data.answer == 'already'){
-			alert('Товар уже находится в избранных');
+			var data = {message: 'Товар уже находится в избранных'};
 		}else{
-			$('div[data-idfavorite="'+id_product+'"]').attr('title', 'Товар находится в избранных');
-			$('div[data-idfavorite="'+id_product+'"]').find('span.favorite').html('favorites');
-			$('div[data-idfavorite="'+id_product+'"] a').html('В избранном').attr('href', '/cabinet/favorites/');
-			$('.fav_count_js').html(data.fav_count);
-			alert('Товар добавлен к избранным');
+			if(data.answer == 'ok'){
+				var data = {message: 'Товар добавлен к избранным'};
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
 		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
 	}).fail(function(data){
 		alert("Error");
 	});
@@ -1780,11 +1779,19 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 			openObject('auth');
 			removeLoadAnimation('#auth');
 		}else if(data.answer == 'already'){
-			alert('Товар уже в списке ожидания');
-		}else{			
-			alert('Товар добавлен в список ожидания');
-			targetClass.addClass('arrow');
+			var data = {message: 'Товар уже в списке ожидания'};
+		}else{
+			if(data.answer == 'ok'){
+				var data = {message: 'Товар добавлен в список ожидания'};
+				targetClass.addClass('arrow');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
 		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
 	}).fail(function(data){
 		alert("Error");
 	});

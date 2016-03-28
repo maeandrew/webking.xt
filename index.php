@@ -20,6 +20,7 @@ G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('reset.css');
 G::AddCSS('../plugins/material/material.css');
+G::AddCSS('../plugins/material/material.min.css');
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
 G::AddCSS('../themes/default/css/footer.css');
 G::AddCSS('../themes/default/css/style.css');
