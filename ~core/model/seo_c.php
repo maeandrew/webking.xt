@@ -6,7 +6,7 @@ class SEO{
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id", "url", "text", "author", "date_create", "visible");
+		$this->usual_fields = array("id", "url", "text", "id_author", "creation_date", "visible");
 	}
 	// Проверка наличия такого url
 	public function SetFieldsByUrl($url, $all = 0){
@@ -22,9 +22,9 @@ class SEO{
 	// Страница по id
 	public function SetFieldsById($id_seo_text, $all = 0){
 
-		$sql = "SELECT ".implode(", ",$this->usual_fields)."
-			FROM "._DB_PREFIX_."seo_text
-			WHERE id = \"$id_seo_text\"";
+		$sql = "SELECT `name` AS username,".implode(", ",$this->usual_fields)."
+			FROM "._DB_PREFIX_."seo_text, "._DB_PREFIX_."user
+			WHERE id = \"$id_seo_text\" AND id_author = id_user";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -33,12 +33,12 @@ class SEO{
 	}
 	// Список SeoText
 	public function SeoTextList($limit = ""){
-
 		if($limit != ""){
 			$limit = " limit $limit";
 		}
-		$sql = "SELECT ".implode(", ",$this->usual_fields)."
-			FROM "._DB_PREFIX_."seo_text
+		$sql = "SELECT `name` AS username,".implode(", ",$this->usual_fields)."
+			FROM "._DB_PREFIX_."seo_text, "._DB_PREFIX_."user
+			WHERE id_author = id_user
 			ORDER BY id desc $limit";
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -52,8 +52,7 @@ class SEO{
 		$f['url'] = trim($arr['url']);
 		$f['text'] = trim($arr['text']);
 		$f['visible'] = 0 + $arr['visible'];
-		$f['author'] = trim($arr['author']);
-
+		$f['id_author'] = trim($arr['id_author']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'seo_text', $f)){
 			$this->db->FailTrans();
@@ -68,7 +67,7 @@ class SEO{
 		$f['url'] = trim($arr['url']);
 		$f['text'] = trim($arr['text']);
 		$f['visible'] = (int)$arr['visible'];
-		$f['author'] = trim($arr['author']);
+		$f['id_author'] = trim($arr['id_author']);
 		$f['id'] = trim($arr['id']);
 
 		$this->db->StartTrans();
