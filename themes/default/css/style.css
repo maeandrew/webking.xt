@@ -1511,6 +1511,8 @@ section .stat_year {
 	float: none;
 	line-height: 30px;
 	height: 30px;
+	width: 100%;
+	box-sizing: border-box;
 }
 .content_header .cart_info {
 	float: right;

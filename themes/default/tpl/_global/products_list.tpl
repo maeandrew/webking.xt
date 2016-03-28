@@ -42,7 +42,7 @@
 				<?}?>
 			</div>
 		</div>
-		<div class="product_info clearfix">
+		<div class="product_info clearfix hidden">
 			<div class="note clearfix">
 				<textarea placeholder="Примечание: "></textarea>
 				<label class="info_key">?</label>

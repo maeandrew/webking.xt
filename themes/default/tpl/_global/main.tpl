@@ -369,7 +369,7 @@
 					<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">
 						<h5>Навигация</h5>
 						<ul>
-							<li><a href="<?=Link::Custom('main')?>">Главная</a></li> 
+							<li><a href="<?=Link::Custom('main')?>">Главная</a></li>
 							<?foreach($list_menu as $menu){?>
 								<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
 							<?}?>
@@ -671,11 +671,6 @@
 				</form>
 			</div>
 		</div>
-		<?if($GLOBALS['CurrentController'] == 'product'){?>
-			<div id="big_photo" data-type="modal">
-				<img src="" alt="">
-			</div>
-		<?}?>
 		<div id="cart" data-type="modal">
 			<div class="modal_container"></div>
 		</div>

@@ -77,7 +77,15 @@
 #owl-product_mini_img_js .owl-prev,
 #owl-product_mini_img_js .owl-next {
 	width: 40px;
+	background: #fff;
 }
+
+/* #owl-product_mobile_img_js .owl-prev,
+#owl-product_mobile_img_js .owl-next {
+	background: #fff;
+} */
+
+
 /*#owl-product_mini_img_js .owl-prev:hover,
 #owl-product_mini_img_js .owl-next:hover {
 	-webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);

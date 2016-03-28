@@ -16,11 +16,14 @@
 			<!-- Ссыдка на редактирование товара для администратором -->
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
+		<div id="big_photo" data-type="modal">
+			<img src="" alt="">
+		</div>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
+				<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
 			<?}else{?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars($item['img_1']):"/images/nofoto.jpg"?>"/>
+				<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['img_1']?htmlspecialchars($item['img_1']):"/images/nofoto.jpg"?>"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -28,7 +31,7 @@
 		</div>
 		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
 			<style>
-				@media (max-width: 727px){
+
 					.product .mdl-cell {
 						padding-right: 0;
 					}
@@ -88,17 +91,18 @@
 					#owl-product_mobile_img_js {
 						clear: both;
 					}
-				}
+
+
 			</style>
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('/image/', '/image/500/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
+							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('/image/', '/image/500/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -139,13 +143,13 @@
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
 						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						<!-- <img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
+						<!-- <img src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
-							<!-- <img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
+							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
+							<!-- <img src="http://xt.ua<?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
 						<?}
 					}
 				}?>
@@ -502,10 +506,10 @@
 				<div class="item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img alt="<?=$p['name']?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
+							<img alt="<?=$p['name']?>" src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="http://xt.ua<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
@@ -522,10 +526,10 @@
 				<div class="item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img alt="<?=$p['name']?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
+							<img alt="<?=$p['name']?>" src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="http://xt.ua<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
 							<?}
 						}?>
 						<span><?=$p['name']?></span>

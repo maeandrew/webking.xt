@@ -1259,7 +1259,9 @@ function openObject(id){
 		closeObject(object.attr('id'));
 		DeactivateBG();
 	}else{
-		addLoadAnimation('#'+id);
+		if(id=="cart"){
+			addLoadAnimation('#'+id);
+		}
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1270,12 +1272,7 @@ function openObject(id){
 		}
 		ActivateBG();
 	}
-	if(object.hasClass('opened') && type == "search"){
-		removeLoadAnimation('#'+id);
-	}
-	if(object.hasClass('opened') && type == "panel"){
-		removeLoadAnimation('#'+id);
-	}
+
 	$(document).keyup(function(e){
 		if(e.keyCode == 27){
 			closeObject(object.attr('id'));
