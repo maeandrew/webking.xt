@@ -53,7 +53,7 @@ class G {
 				}
 			}
 		}
-		return isset($res)?$res:false;
+		return isset($res)?$res:null;
 	}
 	/**
 	 * Defining _base_url global

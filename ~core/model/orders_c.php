@@ -524,18 +524,18 @@ class Orders {
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = 0;
 		$ii = 0;
-		foreach($_SESSION['cart']['products'] as $id_product=>$i){
-			$f[$ii]['id_order'] = $id_order;
-			$f[$ii]['id_product'] = $id_product;
+		foreach($_SESSION['cart']['products'] as $id_product=>$product){
+			$p[$ii]['id_order'] = $id_order;
+			$p[$ii]['id_product'] = $id_product;
 			// Обычный заказ
 			$sup_nb = 0;
-			$f[$ii]['filial_mopt'] = 1;
-			$f[$ii]['filial_opt'] = 1;
+			$p[$ii]['filial_mopt'] = 1;
+			$p[$ii]['filial_opt'] = 1;
 			// Определяем оптового поставщика для товара
-			if($supplier = $this->GetSupplierForProduct($id_product, $i['mode'])){
-				$f[$ii]['id_supplier'] = $supplier['id_supplier'];
-				$f[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $i['mode']);
-				$order_otpusk_prices_sum += round($f[$ii]['price_'.$i['mode'].'_otpusk']*$i['quantity'], 2);
+			if($supplier = $this->GetSupplierForProduct($id_product, $product['mode'])){
+				$p[$ii]['id_supplier'] = $supplier['id_supplier'];
+				$p[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $product['mode']);
+				$order_otpusk_prices_sum += round($p[$ii]['price_'.$product['mode'].'_otpusk']*$product['quantity'], 2);
 				$sup_nb++;
 			}
 			if($sup_nb < 1){
@@ -555,26 +555,26 @@ class Orders {
 			$Products = new Products();
 			$Products->SetFieldsById($id_product);
 			$product = $Products->fields;
-			$f[$ii]['box_qty'] = $i['quantity']/$product['inbox_qty'];
-			$f[$ii][$i['mode'].'_qty'] = $i['quantity'];
-			$f[$ii]['note_'.$i['mode']] = $i['note'];
-			$f[$ii]['default_sum_'.$i['mode']] = $i['summary'][$_SESSION['cart']['cart_column']];
-			if($i['mode'] == 'opt'){
-				$f[$ii]['mopt_qty'] = 0;
-				$f[$ii]['note_mopt'] = '';
-				$f[$ii]['default_sum_mopt'] = 0;
-				$f[$ii]['id_supplier_mopt'] = 0;
-				$f[$ii]['price_mopt_otpusk'] = 0;
+			$p[$ii]['box_qty'] = $product['quantity']/$product['inbox_qty'];
+			$p[$ii][$product['mode'].'_qty'] = $product['quantity'];
+			$p[$ii]['note_'.$product['mode']] = $product['note'];
+			$p[$ii]['default_sum_'.$product['mode']] = $product['summary'][$_SESSION['cart']['cart_column']];
+			if($product['mode'] == 'opt'){
+				$p[$ii]['mopt_qty'] = 0;
+				$p[$ii]['note_mopt'] = '';
+				$p[$ii]['default_sum_mopt'] = 0;
+				$p[$ii]['id_supplier_mopt'] = 0;
+				$p[$ii]['price_mopt_otpusk'] = 0;
 			}else{
-				$f[$ii]['opt_qty'] = 0;
-				$f[$ii]['note_opt'] = '';
-				$f[$ii]['default_sum_opt'] = 0;
-				$f[$ii]['id_supplier'] = 0;
-				$f[$ii]['price_opt_otpusk'] = 0;
+				$p[$ii]['opt_qty'] = 0;
+				$p[$ii]['note_opt'] = '';
+				$p[$ii]['default_sum_opt'] = 0;
+				$p[$ii]['id_supplier'] = 0;
+				$p[$ii]['price_opt_otpusk'] = 0;
 			}
 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-				$f[$ii][$i['mode'].'_sum'] = $i['summary'][$_SESSION['cart']['cart_column']];
-				$f[$ii]['site_price_'.$i['mode']] = $i['actual_prices'][$_SESSION['cart']['cart_column']];
+				$p[$ii][$product['mode'].'_sum'] = $product['summary'][$_SESSION['cart']['cart_column']];
+				$p[$ii]['site_price_'.$product['mode']] = $product['actual_prices'][$_SESSION['cart']['cart_column']];
 			}else{
 				if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
 					$price_column = $arr['price_column'];
@@ -583,15 +583,15 @@ class Orders {
 				}else{
 					$price_column = 3;
 				}
-				$f[$ii][$i['mode'].'_sum'] = $i['summary'][$price_column];
-				$f[$ii]['site_price_'.$i['mode']] = $i['actual_prices'][$price_column];
+				$p[$ii][$product['mode'].'_sum'] = $product['summary'][$price_column];
+				$p[$ii]['site_price_'.$product['mode']] = $product['actual_prices'][$price_column];
 			}
-			if($i['mode'] == 'opt'){
-				$f[$ii]['mopt_sum'] = 0;
-				$f[$ii]['site_price_mopt'] = 0;
+			if($product['mode'] == 'opt'){
+				$p[$ii]['mopt_sum'] = 0;
+				$p[$ii]['site_price_mopt'] = 0;
 			}else{
-				$f[$ii]['opt_sum'] = 0;
-				$f[$ii]['site_price_opt'] = 0;
+				$p[$ii]['opt_sum'] = 0;
+				$p[$ii]['site_price_opt'] = 0;
 			}
 			$ii++;
 		}

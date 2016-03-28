@@ -32,10 +32,10 @@ $products = new Products();
 // Получаем строку поискового запроса ======================
 if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%\/]/', ' ', $_POST['query']);
-	$query = mysql_real_escape_string(trim($query));
+	$query = trim($query);
 }elseif(isset($_GET['query']) && !isset($_POST['query']) && $_GET['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%]/', ' ', $_GET['query']);
-	$query = mysql_real_escape_string(trim($query));
+	$query = trim($query);
 }
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
@@ -55,9 +55,10 @@ if((isset($_SESSION['search']['query']) && $_SESSION['search']['query'] != '') &
 if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
+
 // Категория для поиска ====================================
 if((isset($_POST['category2search']) && $_POST['category2search'] != 0) || (isset($_GET['category2search']) && $_GET['category2search'] != 0)){
-	$_SESSION['search']['category2search'] = $_POST['category2search']?$_POST['category2search']:$_GET['category2search'];
+	$_SESSION['search']['category2search'] = isset($_POST['category2search'])?$_POST['category2search']:$_GET['category2search'];
 	$where_arr['customs'][] = 'cp.id_category IN (
 		SELECT id_category
 		FROM '._DB_PREFIX_.'category c
@@ -71,9 +72,11 @@ if((isset($_POST['category2search']) && $_POST['category2search'] != 0) || (isse
 }else{
 	$_SESSION['search']['category2search'] = 0;
 }
+
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
 	$where_arr['customs'][] = "s.available_today = 1";
 }
+
 // Диапазон цен ============================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN_){
 	if(isset($_POST['pricefrom']) && isset($_POST['priceto'])){
@@ -159,6 +162,7 @@ if(isset($_SESSION['member'])){
 		$gid = _ACL_ADMIN_;
 	}
 }
+
 if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search_engine'] == 'sphinx' && isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_)))){
 	$widened_query = Words2AllForms($query);
 	if(!empty($widened_query)){
@@ -180,6 +184,8 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 			$rel_order = ", MATCH (p.name, p.name_index, p.art) AGAINST ('".$combined_query."') AS rel";
 		}
 	}
+
+
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -375,6 +381,8 @@ if(!empty($list)){
 	}
 }
 $tpl->Assign('list', isset($list)?$list:array());
+$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
+$tpl->Assign('products_list', $products_list);
 
 // Общий код ===============================================
 if($_SESSION['search']['newsearch'] == 1 || isset($_POST['dropfilters'])){
