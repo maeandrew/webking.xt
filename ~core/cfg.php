@@ -51,6 +51,8 @@ $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);
 $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
 foreach($profiles as $profile){
+	print_r('_ACL_'.strtoupper($profile['name']).'_');
+	print_r('<br>');
 	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
 }
 $ACL_PERMS = array(

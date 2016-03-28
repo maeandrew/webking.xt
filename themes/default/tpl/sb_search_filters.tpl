@@ -1,7 +1,7 @@
 <script>
 	var filterLink = new Object();
 	var params = new Object();
-		console.log(filterLink);
+		// console.log(filterLink);
 	<?if(isset($GLOBALS['Filters'])){?>
 		filterLink = <?=json_encode($GLOBALS['Filters'])?>;
 	<?}?>
@@ -70,7 +70,6 @@
 				delete filterLink[dataSpec];
 			}
 			params['filters'] = filterLink;
-			// console.log(filterLink);
 			console.log(filterLink);
 		});
 
@@ -78,7 +77,7 @@
 		$('#applyFilter').on('click', function(e){
 			e.preventDefault();
 			ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
-				console.log(data);
+				// console.log(data);
 				window.location.href = data;
 			});
 		});

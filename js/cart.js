@@ -104,7 +104,7 @@ function completeCartProductAdd(data){
 	$('.summ_many:eq(1)').text(sum_sale);
 	$('.summ_many:eq(2)').text((data.products_sum[3]- sum_sale).toFixed(2));
 
-//----------------обновление облока скидок (start)---------------
+	// обновление облока скидок (start)
 	if(data.products_sum[3] >= 500){
 		$('#percent tr:eq(0)').hide();
 		$('#percent tr:eq(1)').css('color', '#000');

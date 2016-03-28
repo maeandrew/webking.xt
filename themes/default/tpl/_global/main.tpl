@@ -381,11 +381,17 @@
 						<div class="mdl-cell--hide-phone">
 							<h5>Контакты</h5>
 							<ul class="phone_nav_contacts clearfix">
-								<li class="parent_nav"><div class="material-icons">phone</div><span>(063) 225-91-83</span></li>
-								<li><span>(099) 228-69-38</span></li>
-								<li><span>(093) 322-91-83</span></li>
-								<li class="parent_nav"><div class="material-icons">mail</div><span>administration@x-torg.com</span></li>
-								<li class="parent_nav"><div class="material-icons">location_on</div><span>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</span></li>
+								<?if(isset($GLOBALS['CONFIG']['footer_phone']) && $GLOBALS['CONFIG']['footer_phone'] != ''){?>
+									<li class="parent_nav"><div class="material-icons">phone</div><span><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
+								<?}?>
+								<!-- <li><span>(099) 228-69-38</span></li>
+								<li><span>(093) 322-91-83</span></li> -->
+								<?if(isset($GLOBALS['CONFIG']['footer_email']) && $GLOBALS['CONFIG']['footer_email'] != ''){?>
+									<li class="parent_nav"><div class="material-icons">mail</div><span><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
+								<?}?>
+								<?if(isset($GLOBALS['CONFIG']['footer_address']) && $GLOBALS['CONFIG']['footer_address'] != ''){?>
+									<li class="parent_nav"><div class="material-icons">location_on</div><span><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
+								<?}?>
 							</ul>
 						</div>
 						<div class="social">

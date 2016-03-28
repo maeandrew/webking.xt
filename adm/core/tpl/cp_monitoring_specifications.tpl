@@ -52,7 +52,7 @@
 					<td><?=$i++?></td>
 					<td><?=$value['name'];?></td>
 					<td><?=$value['caption'];?></td>
-					<td><?=$value['value'];?></td>
+					<td><?=$value['value'];?> <span class="gray"><?=$value['units'];?></span></td>
 					<td class="center">
 						<div data-target="unload_option" data-cat="<?=$value['id_category']?>" data-spec="<?=$value['id_caption']?>" data-val="<?=$value['value']?>" class="btn-m-default-inv open_modal"><?=$value['count'];?></div>
 					</td>
@@ -63,23 +63,29 @@
 </form>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
 <script>
-	$('.center .btn-m-default-inv').click(function(){
-		var id_category = $(this).data('cat'),
-				spec = $(this).data('spec'),
-				value = $(this).data('val');
-		$.ajax({
-			url: URL_base+'ajaxspecifications',
-			type: "POST",
-			cache: false,
-			dataType : "html",
-			data: {
-				"action": 'get_prodlist_moderation',
-				"id_category": id_category,
-				"specification": spec,
-				"value": value
-			}
-		}).done(function(data){
-			$('#list').html(data);
+	$(function(){
+		$('.center .btn-m-default-inv').click(function(){
+			var id_category = $(this).data('cat'),
+					spec = $(this).data('spec'),
+					value = $(this).data('val');
+			$.ajax({
+				url: URL_base+'ajaxspecifications',
+				type: "POST",
+				cache: false,
+				dataType : "html",
+				data: {
+					"action": 'get_prodlist_moderation',
+					"id_category": id_category,
+					"specification": spec,
+					"value": value
+				}
+			}).done(function(data){
+				$('#list').html(data);
+			});
+		});
+		$('#unload_option #list').on('click', 'a', function(){
+			console.log('trololo');
+			$(this).addClass('clicked');
 		});
 	});
 </script>

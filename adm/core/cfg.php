@@ -205,7 +205,8 @@ $ACL_PERMS = array(
 				'units',
 				'wishes',
 				'segmentations',
-				'product_report'
+				'product_report',
+				'monitoring'
 			)
 		),
 		10 => array(

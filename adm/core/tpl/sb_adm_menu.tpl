@@ -240,7 +240,6 @@
 				<?}?>
 			<?}?>
 			
-			<?if(_acl::isAllow('monitoring')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'monitoring' && !isset($GLOBALS['REQAR'][1])?'class="sel"':null;?>>
 					<a href="/adm/monitoring/">Мониторинг</a>
 				</li>
@@ -251,6 +250,7 @@
 						</li>
 					</ul>
 				</li>
+			<?if(_acl::isAllow('monitoring')){?>
 			<?}?>
 
 			<?if(_acl::isAllow('news')){?>
