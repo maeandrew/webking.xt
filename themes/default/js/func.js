@@ -1233,7 +1233,9 @@ function openObject(id){
 		closeObject(object.attr('id'));
 		DeactivateBG();
 	}else{
-		addLoadAnimation('#'+id);
+		if(id=="cart"){
+			addLoadAnimation('#'+id);
+		}
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1244,12 +1246,7 @@ function openObject(id){
 		}
 		ActivateBG();
 	}
-	if(object.hasClass('opened') && type == "search"){
-		removeLoadAnimation('#'+id);
-	}
-	if(object.hasClass('opened') && type == "panel"){
-		removeLoadAnimation('#'+id);
-	}
+
 	$(document).keyup(function(e){
 		if(e.keyCode == 27){
 			closeObject(object.attr('id'));
@@ -1720,59 +1717,59 @@ function removeLoadAnimation(obj) {
 }
 
 //Добавление товара в избранное
-function AddFavorite(event,id_product){
-	$.ajax({
-		url: URL_base+'ajaxproduct',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action": 'add_favorite',
-			"id_product": id_product
-		}
-	}).done(function(data){
-		//console.log(data);
+function AddFavorite(id_product, targetEl){
+	ajax('product', 'add_favorite', {id_product: id_product}).done(function(data){
 		if(data.answer == 'login'){
-			// alert('Войдите или зарегистрируйтесь.');
-			event.preventDefault();
-
-			var target = 'login_form';
-			openModal(target);
+			openObject('auth');
+			removeLoadAnimation('#auth');
 		}else if(data.answer == 'already'){
-			//alert('Товар уже находится в избранных.');
-			event.preventDefault();
+			var data = {message: 'Товар уже находится в избранных'};
 		}else{
-			$('div[data-idfavorite="'+id_product+'"]').attr('title', 'Товар находится в избранных');
-			$('div[data-idfavorite="'+id_product+'"]').find('span.favorite').html('favorites');
-			$('div[data-idfavorite="'+id_product+'"] a').html('В избранном').attr('href', '/cabinet/favorites/');
-			$('.fav_count_js').html(data.fav_count);
-			//alert('ok');
+			if(data.answer == 'ok'){
+				var data = {message: 'Товар добавлен к избранным'};
+				targetEl.empty().html('favorite').removeClass('notfavorite').addClass('isfavorite');
+				targetEl.next().empty().html('Товар уже в избранных');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
 		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	}).fail(function(data){
+		alert("Error");
 	});
+	return false;
 }
 
 //Добавление товара в список ожидания
-function AddInWaitingList(id_product,id_user,email){
-	$.ajax({
-		url: URL_base+'ajaxproduct',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action": 'add_in_waitinglist',
-			"id_product": id_product,
-			"id_user": id_user,
-			"email": email
-		},
-		error: function(){
-			alert('Товар уже добавлен в лист ожидания');
-			location.reload();
+function AddInWaitingList(id_product, id_user, email, targetClass){
+	var data = {
+		id_product: id_product,
+		id_user: id_user,
+		email: email
+	}
+	ajax('product', 'add_in_waitinglist', data).done(function(data){
+		if(data.answer == 'login'){
+			openObject('auth');
+			removeLoadAnimation('#auth');
+		}else if(data.answer == 'already'){
+			var data = {message: 'Товар уже в списке ожидания'};
+		}else{
+			if(data.answer == 'ok'){
+				var data = {message: 'Товар добавлен в список ожидания'};
+				targetClass.addClass('arrow');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
 		}
-	}).done(function(data){
-		if(data.answer_data == 'insert_ok'){
-			location.reload();
-		}
-		//console.log(data.answer);
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	}).fail(function(data){
+		alert("Error");
 	});
 	return false;
 }

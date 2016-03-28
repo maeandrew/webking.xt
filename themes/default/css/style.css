@@ -1509,6 +1509,8 @@ section .stat_year {
 	float: none;
 	line-height: 30px;
 	height: 30px;
+	width: 100%;
+	box-sizing: border-box;
 }
 .content_header .cart_info {
 	float: right;
@@ -2432,9 +2434,9 @@ section .stat_year {
 	}
 }
 @media (min-width: 728px) and (max-width: 1169px) {
-	.product_page .mdl-cell--4-col-tablet {
-		width: 50%;
-	}
+	/* .product_page .mdl-cell--4-col-tablet {
+		width: 48%;
+	} */
 	.content_header .cart_info {
 		width: 75%;
 	}

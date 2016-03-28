@@ -280,6 +280,11 @@
 		max-width: 100%;
 		max-height: 790px;
 	}
+	#content .blockOfText ul {
+		list-style: disc;
+		font-size: 1.3em;
+		text-align: left;
+	}
 	/*Media*/
 		@media (max-width: 1366px) {
 			#delivery2 img {
@@ -754,8 +759,13 @@
 	}
 	@media (max-width: 600px) {
 		#content .blockOfText p,
-		#content .page_about_us p {
+		#content .page_about_us p,
+		#content .page_dealer li {
+			font-size: 1em;
 			max-width: 100%;
+		}
+		#content h4 {
+			font-size: 1.4em;
 		}
 		#content .page_payment ul {
 			font-size: 1.1em;
@@ -777,7 +787,9 @@
 			#content .pages_group .info_circle h5 {
 				font-size: 1.2em;
 			}
-			#content .pages_group .blockOfText p {
+			#content .pages_group .blockOfText p,
+			#content .pages_group p,
+			#content .blockOfText ul {
 				font-size: 1em;
 				min-width: 100%;
 			}

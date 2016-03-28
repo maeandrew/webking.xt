@@ -399,7 +399,7 @@ $(function(){
 		})
 		$('#big_photo').css({
 			// 'height': (viewport_height - header_outerheight)*0.9,
-			'width': viewport_width*0.9
+			'max-width': viewport_width*0.9
 		});
 	});
 	//Закрытие окна при клике на картинку

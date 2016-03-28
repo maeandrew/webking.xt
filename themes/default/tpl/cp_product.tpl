@@ -10,12 +10,15 @@
 	<div class="mdl-cell mdl-cell--12-col">
 		<h1><?=$item['name']?></h1>
 	</div>
-	<div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		<p class="product_article">Арт: <?=$item['art']?></p>
 		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
 			<!-- Ссыдка на редактирование товара для администратором -->
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
+		<div id="big_photo" data-type="modal">
+			<img src="" alt="">
+		</div>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
 				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
@@ -28,65 +31,95 @@
 		</div>
 		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
 			<style>
-				@media (max-width: 727px){
-					.product .mdl-cell {
-						padding-right: 0;
-					}
-					.product_page h1 {
-						margin: 0;
-						padding: 0;
-					}
-					.breadcrumbs_wrapp {
-						white-space: nowrap;
-						overflow-x: overlay;
-						overflow-y: hidden;
-						padding-bottom: 10px;
-					}
-					.breadcrumbs_wrapp a {
-						font-weight: 300;
-					}
-					.breadcrumbs_wrapp i {
-						font-size: 18px;
-						margin: 0;
-					}
-					.owl-pagination {
-						padding: 5px 0;
-					}
+				#caruselCont {
+					width: 95%;
+				}
+				#specCont {
+					width: 95%;
+				}
+				.product_main_img{
+					display: none;
+				}
+				.owl-video-wrapper {
+					margin: 0 auto;
+				}
 
-					.mobile_carousel .owl-item img {
-						max-width: 100%;
-						margin: 0px auto;
-						display: block;
-					}
-					.owl-dot {
-						width: 20px;
-					}
-					.owl-dot span {
-						display: block;
-						width: 0;
-						height: 0;
-						background: #888;
-						border-radius: 50%;
-						margin: 0 auto;
-						transition: all 0.4s ease-in-out;
-						border: 3px solid #888;
-					}
-					.owl-dot.active span {
-						border: 7px solid #888;
+				.product .mdl-cell {
+					padding-right: 0;
+				}
+				.product_page h1 {
+					margin: 0;
+					padding: 0;
+				}
+				.breadcrumbs_wrapp {
+					white-space: nowrap;
+					overflow-x: overlay;
+					overflow-y: hidden;
+					padding-bottom: 10px;
+				}
+				.breadcrumbs_wrapp a {
+					font-weight: 300;
+				}
+				.breadcrumbs_wrapp i {
+					font-size: 18px;
+					margin: 0;
+				}
+				.owl-pagination {
+					padding: 5px 0;
+				}
+
+				.mobile_carousel .owl-item img {
+					max-width: 100%;
+					margin: 0px auto;
+					display: block;
+				}
+				.owl-dot {
+					width: 20px;
+				}
+				.owl-dot span {
+					display: block;
+					width: 0;
+					height: 0;
+					background: #888;
+					border-radius: 50%;
+					margin: 0 auto;
+					transition: all 0.4s ease-in-out;
+					border: 3px solid #888;
+				}
+				.owl-dot.active span {
+					border: 7px solid #888;
+				}
+
+				.mdl-tabs__tab-bar {
+					min-width: none;
+				}
+				.tabs .mdl-tabs__tab {
+					width: 50%;
+					border-bottom: 1px solid #e0e0e0;
+				}
+				.mdl-grid .mdl-tabs__tab {
+					margin-top: 0;
+				}
+				.fortabs {
+					/*white-space: nowrap;
+					overflow: scroll;
+					overflow-x: hidden; */
+					padding-bottom: 10px;
+					overflow-x: overlay;
+					overflow-y: hidden;
+				}
+				#owl-product_mobile_img_js {
+					clear: both;
+				}
+				.buy_block {
+					padding: 32px 0;
+				}
+				@media (min-width: 700px){
+					.product .mdl-tabs__tab-bar {
+						min-width: 680px;
 					}
 					.tabs .mdl-tabs__tab {
-						width: 170px;
-					}
-					.fortabs {
-						/*white-space: nowrap;
-						overflow: scroll;
-						overflow-x: hidden; */
-						padding-bottom: 10px;
-						overflow-x: overlay;
-						overflow-y: hidden;
-					}
-					#owl-product_mobile_img_js {
-						clear: both;
+					width: 25%;
 					}
 				}
 			</style>
@@ -115,14 +148,14 @@
 					items: 1,
 					loop:true,
 					nav:true,
-					margin:10,
+					margin:20,
 					video:true,
-					videoHeight: 290,
-					videoWidth: 290,
+					videoHeight: 345,
+					videoWidth: 345,
 					lazyLoad:true,
 					center:true,
 					responsive:{
-						320: {items: 1},
+						380: {items: 1},
 						727: {items: 2},
 						950: {items: 3},
 						1250: {items: 4},
@@ -138,7 +171,7 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
 						<!-- <img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
@@ -205,7 +238,7 @@
 			</script>
 		<?}?>
 	</div>
-	<div class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
+	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
 		<div class="content_header mdl-cell--hide-phone clearfix">
 			<?=$cart_info?>
 		</div>
@@ -234,13 +267,26 @@
 					</div>
 				</div>
 			</div>
+			<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+				<div class="mdl-snackbar__text"></div>
+				<button class="mdl-snackbar__action" type="button"></button>
+			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
-					<li><i class="material-icons" title="Добавить товар в избранное">favorite_border</i></li>
-					<li><i class="material-icons" title="Следить за ценой">trending_down</i></li>
-					<li>
-						<i id="shareButton" class="material-icons" title="Поделиться">share</i>
+					<li class="favorite" data-id-product="<?=$item['id_product'];?>">
+						<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
+							<i id="forfavorite" class="isfavorite material-icons">favorite</i>
+							<span class="mdl-tooltip" for="forfavorite">Товар уже в избранных</span></li>
+						<?}else{?>
+							<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
+							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
+						<?}?>
+					<li id="fortrending" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
+						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
 					</li>
+					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div>
+					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
+						<span class="mdl-tooltip" for="shareButton">Поделиться</span></li>
 				</ul>
 				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect social" for="shareButton">
 					<ul class="social">
@@ -556,5 +602,19 @@
 			$('.product_main_img').find('iframe').attr('src', src);
 			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
 			});
+	});
+</script>
+<script>
+	$(function(){
+		//Инициализация добавления товара в избранное
+		$('.favorite i').click(function(e) {
+			e.preventDefault();
+			AddFavorite($(this).closest('li').data('id-product'), $(this));			
+		});
+		//Инициализация добавления товара в список ожидания
+		$('.waiting_list').click(function(e) {
+			e.preventDefault();
+			AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
+		});
 	});
 </script>

@@ -90,8 +90,8 @@ class Page {
 	public function AddPage($arr){
 		$title = trim($arr['title']);
 		$title_ua = trim($arr['title_ua']);
-		$content = trim($arr['pcontent']);
-		$content_ua = trim($arr['pcontent_ua']);
+		$content = trim($arr['editor']);
+		$content_ua = trim($arr['editor_ua']);
 		$page_description = trim($arr['page_description']);
 		$page_description_ua = trim($arr['page_description_ua']);
 		$page_title = trim($arr['page_title']);
@@ -127,8 +127,8 @@ class Page {
 		$page_title_ua = trim($arr['page_title_ua']);
 		$page_keywords = trim($arr['page_keywords']);
 		$page_keywords_ua = trim($arr['page_keywords_ua']);
-		$content = trim($arr['pcontent']);
-		$content_ua = trim($arr['pcontent_ua']);
+		$content = trim($arr['editor']);
+		$content_ua = trim($arr['editor_ua']);
 		$ptype = trim($arr['ptype']);
 		$translit = G::StrToTrans($title);
 		$indexation = (isset($arr['indexation']) && $arr['indexation'] == "on") ? 1 : 0;

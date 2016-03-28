@@ -43,10 +43,10 @@
 						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['text']?></a>
 					</td>
 					<td>
-						<?=$i['author']?>
+						<?=$i['username']?>
 					</td>
 					<td>
-						<?=$i['date_create']?>
+						<?=$i['creation_date']?>
 					</td>
 					<td class="center">
 						<? if($i['visible']==1){?>Вкл<?}else{?>Откл<?}?>
