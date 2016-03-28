@@ -281,11 +281,8 @@
 							<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
 							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
 						<?}?>
-					<li id="fortrending"
-						data-id-product="<?=$item['id_product'];?>"
-						data-id-user="<?=$_SESSION['member']['id_user']?>"
-						data-email="<?=$_SESSION['member']['email']?>">
-						<div class="waiting_list icon material-icons">trending_down</div>
+					<li id="fortrending" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
+						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
 					</li>
 					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div>
 					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
