@@ -10,7 +10,7 @@
 	<div class="mdl-cell mdl-cell--12-col">
 		<h1><?=$item['name']?></h1>
 	</div>
-	<div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		<p class="product_article">Арт: <?=$item['art']?></p>
 		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
 			<!-- Ссыдка на редактирование товара для администратором -->
@@ -21,9 +21,9 @@
 		</div>
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
+				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].$item['images'][0]['src'])?$item['images'][0]['src']:'/efiles/_thumb/nofoto.jpg'?>"/>
 			<?}else{?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['img_1']?htmlspecialchars($item['img_1']):"/images/nofoto.jpg"?>"/>
+				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars($item['img_1']):"/images/nofoto.jpg"?>"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -31,78 +31,107 @@
 		</div>
 		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
 			<style>
+				#caruselCont {
+					width: 95%;
+				}
+				#specCont {
+					width: 95%;
+				}
+				.product_main_img{
+					display: none;
+				}
+				.owl-video-wrapper {
+					margin: 0 auto;
+				}
 
-					.product .mdl-cell {
-						padding-right: 0;
-					}
-					.product_page h1 {
-						margin: 0;
-						padding: 0;
-					}
-					.breadcrumbs_wrapp {
-						white-space: nowrap;
-						overflow-x: overlay;
-						overflow-y: hidden;
-						padding-bottom: 10px;
-					}
-					.breadcrumbs_wrapp a {
-						font-weight: 300;
-					}
-					.breadcrumbs_wrapp i {
-						font-size: 18px;
-						margin: 0;
-					}
-					.owl-pagination {
-						padding: 5px 0;
-					}
+				.product .mdl-cell {
+					padding-right: 0;
+				}
+				.product_page h1 {
+					margin: 0;
+					padding: 0;
+				}
+				.breadcrumbs_wrapp {
+					white-space: nowrap;
+					overflow-x: overlay;
+					overflow-y: hidden;
+					padding-bottom: 10px;
+				}
+				.breadcrumbs_wrapp a {
+					font-weight: 300;
+				}
+				.breadcrumbs_wrapp i {
+					font-size: 18px;
+					margin: 0;
+				}
+				.owl-pagination {
+					padding: 5px 0;
+				}
 
-					.mobile_carousel .owl-item img {
-						max-width: 100%;
-						margin: 0px auto;
-						display: block;
-					}
-					.owl-dot {
-						width: 20px;
-					}
-					.owl-dot span {
-						display: block;
-						width: 0;
-						height: 0;
-						background: #888;
-						border-radius: 50%;
-						margin: 0 auto;
-						transition: all 0.4s ease-in-out;
-						border: 3px solid #888;
-					}
-					.owl-dot.active span {
-						border: 7px solid #888;
+				.mobile_carousel .owl-item img {
+					max-width: 100%;
+					margin: 0px auto;
+					display: block;
+				}
+				.owl-dot {
+					width: 20px;
+				}
+				.owl-dot span {
+					display: block;
+					width: 0;
+					height: 0;
+					background: #888;
+					border-radius: 50%;
+					margin: 0 auto;
+					transition: all 0.4s ease-in-out;
+					border: 3px solid #888;
+				}
+				.owl-dot.active span {
+					border: 7px solid #888;
+				}
+
+				.mdl-tabs__tab-bar {
+					min-width: none;
+				}
+				.tabs .mdl-tabs__tab {
+					width: 50%;
+					border-bottom: 1px solid #e0e0e0;
+				}
+				.mdl-grid .mdl-tabs__tab {
+					margin-top: 0;
+				}
+				.fortabs {
+					/*white-space: nowrap;
+					overflow: scroll;
+					overflow-x: hidden; */
+					padding-bottom: 10px;
+					overflow-x: overlay;
+					overflow-y: hidden;
+				}
+				#owl-product_mobile_img_js {
+					clear: both;
+				}
+				.buy_block {
+					padding: 32px 0;
+				}
+				@media (min-width: 700px){
+					.product .mdl-tabs__tab-bar {
+						min-width: 680px;
 					}
 					.tabs .mdl-tabs__tab {
-						width: 170px;
+					width: 25%;
 					}
-					.fortabs {
-						/*white-space: nowrap;
-						overflow: scroll;
-						overflow-x: hidden; */
-						padding-bottom: 10px;
-						overflow-x: overlay;
-						overflow-y: hidden;
-					}
-					#owl-product_mobile_img_js {
-						clear: both;
-					}
-
-
+				}
 			</style>
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
+						<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('/image/', '/image/500/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
+							<img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('/image/', '/image/500/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -119,14 +148,14 @@
 					items: 1,
 					loop:true,
 					nav:true,
-					margin:10,
+					margin:20,
 					video:true,
-					videoHeight: 290,
-					videoWidth: 290,
+					videoHeight: 345,
+					videoWidth: 345,
 					lazyLoad:true,
 					center:true,
 					responsive:{
-						320: {items: 1},
+						380: {items: 1},
 						727: {items: 2},
 						950: {items: 3},
 						1250: {items: 4},
@@ -142,14 +171,14 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						<!-- <img src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
+						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						<!-- <img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
-							<!-- <img src="http://xt.ua<?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
+							<img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
+							<!-- <img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
 						<?}
 					}
 				}?>
@@ -209,7 +238,7 @@
 			</script>
 		<?}?>
 	</div>
-	<div class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
+	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
 		<div class="content_header mdl-cell--hide-phone clearfix">
 			<?=$cart_info?>
 		</div>
@@ -506,10 +535,10 @@
 				<div class="item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img alt="<?=$p['name']?>" src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
+							<img alt="<?=$p['name']?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="http://xt.ua<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
@@ -526,10 +555,10 @@
 				<div class="item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img alt="<?=$p['name']?>" src="http://xt.ua<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
+							<img alt="<?=$p['name']?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $p['images'][0]['src']))?str_replace('original', 'medium', $p['images'][0]['src']):'/efiles/nofoto.jpg'?>">
 						<?}else{
 							if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="http://xt.ua<?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=$p['img_1']?htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.jpg'?>"/>
 							<?}
 						}?>
 						<span><?=$p['name']?></span>
@@ -584,9 +613,9 @@
 			$('.favorite span').empty().html('Товар уже в избранных');
 		});
 		//Инициализация добавления товара в список ожидания
-		$('.waiting_list').click(function(e) {			
-			e.preventDefault();			
-			AddInWaitingList($(this).data('id-product'), $(this).data('id-user'), $(this).data('email'), $(this));			
+		$('.waiting_list').click(function(e) {
+			e.preventDefault();
+			AddInWaitingList($(this).data('id-product'), $(this).data('id-user'), $(this).data('email'), $(this));
 		});
 	});
 </script>

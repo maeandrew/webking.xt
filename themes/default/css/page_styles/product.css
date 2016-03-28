@@ -243,11 +243,18 @@
 	display: block;
 	border-bottom: none;
 	height: auto;
-	min-width: 680px;
+	/* min-width: 680px; */
 	margin-top: 0px;
 	margin-bottom: 0px;
 	border: 1px solid #e0e0e0;
 }
+
+@media (min-width: 700px){
+	.product .mdl-tabs__tab-bar {
+		min-width: 680px;
+	}
+}
+
 .product .mdl-tabs__tab {
 	padding: 0 10px;
 	/*margin-top: 10px;*/
@@ -533,7 +540,11 @@
 }
  */
 
-
+@media (max-width: 1024px) {
+	.product .mdl-tabs__tab {
+		width: auto;
+	}
+}
 
 
 
