@@ -1743,7 +1743,7 @@ function removeLoadAnimation(obj) {
 }
 
 //Добавление товара в избранное
-function AddFavorite(id_product){
+function AddFavorite(id_product, targetEl){
 	ajax('product', 'add_favorite', {id_product: id_product}).done(function(data){
 		if(data.answer == 'login'){
 			openObject('auth');
@@ -1753,6 +1753,8 @@ function AddFavorite(id_product){
 		}else{
 			if(data.answer == 'ok'){
 				var data = {message: 'Товар добавлен к избранным'};
+				targetEl.empty().html('favorite').removeClass('notfavorite').addClass('isfavorite');
+				targetEl.next().empty().html('Товар уже в избранных');
 			}else{
 				if(data.answer == 'wrong user group'){
 					var data = {message: 'Данный функционал доступен только для клиентов'};

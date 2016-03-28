@@ -609,12 +609,9 @@
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();
-			AddFavorite($(this).closest('li').data('id-product'));
-			$('#forfavorite').empty().html('favorite').removeClass('notfavorite').addClass('isfavorite');
-			$('.favorite span').empty().html('Товар уже в избранных');
+			AddFavorite($(this).closest('li').data('id-product'), $(this));			
 		});
 		//Инициализация добавления товара в список ожидания
-
 		$('.waiting_list').click(function(e) {
 			e.preventDefault();
 			AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
