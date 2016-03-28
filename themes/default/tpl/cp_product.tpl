@@ -236,11 +236,23 @@
 			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
-					<li><i class="material-icons" title="Добавить товар в избранное">favorite_border</i></li>
-					<li><i class="material-icons" title="Следить за ценой">trending_down</i></li>
-					<li>
-						<i id="shareButton" class="material-icons" title="Поделиться">share</i>
+					<li class="favorite" data-id-product="<?=$item['id_product'];?>">
+						<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
+							<i id="forfavorite" class="isfavorite material-icons">favorite</i>
+							<span class="mdl-tooltip" for="forfavorite">Товар уже в избранных</span></li>
+						<?}else{?>
+							<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
+							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
+						<?}?>
+					<li id="fortrending"
+						data-id-product="<?=$item['id_product'];?>"
+						data-id-user="<?=$_SESSION['member']['id_user']?>"
+						data-email="<?=$_SESSION['member']['email']?>">
+						<div class="waiting_list icon material-icons">trending_down</div>
 					</li>
+					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div>
+					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
+						<span class="mdl-tooltip" for="shareButton">Поделиться</span></li>
 				</ul>
 				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect social" for="shareButton">
 					<ul class="social">
@@ -556,5 +568,21 @@
 			$('.product_main_img').find('iframe').attr('src', src);
 			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
 			});
+	});
+</script>
+<script>
+	$(function(){
+		//Инициализация добавления товара в избранное
+		$('.favorite i').click(function(e) {
+			e.preventDefault();
+			AddFavorite($(this).closest('li').data('id-product'));
+			$('#forfavorite').empty().html('favorite').removeClass('notfavorite').addClass('isfavorite');
+			$('.favorite span').empty().html('Товар уже в избранных');
+		});
+		//Инициализация добавления товара в список ожидания
+		$('.waiting_list').click(function(e) {			
+			e.preventDefault();			
+			AddInWaitingList($(this).data('id-product'), $(this).data('id-user'), $(this).data('email'), $(this));			
+		});
 	});
 </script>

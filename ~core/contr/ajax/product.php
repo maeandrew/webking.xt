@@ -38,17 +38,19 @@
 				break;
 			case "add_favorite":
 				// Добавление Избранного товара
-				if(!isset($_SESSION['member'])){
+				if(!G::isLogged()){
 					$data['answer'] = 'login';
-				}elseif(in_array($_POST['id_product'], $_SESSION['member']['favorites'])){
+				}elseif(isset($_SESSION['member']['favorites']) && in_array($_POST['id_product'], $_SESSION['member']['favorites'])){
 					$data['answer'] = 'already';
 				}else{
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
 						$Customer->AddFavorite($User->fields['id_user'], $_POST['id_product']);
+						$_SESSION['member']['favorites'][] = $_POST['id_product'];
+						$data['fav_count'] = count($_SESSION['member']['favorites']);
+						$data['answer'] = 'ok';
+					}else{
+						$data['answer'] = 'wrong user group';
 					}
-					$_SESSION['member']['favorites'][] = $_POST['id_product'];
-					$data['fav_count'] = count($_SESSION['member']['favorites']);
-					$data['answer'] = 'ok';
 				}
 				echo json_encode($data);
 				break;

@@ -1746,59 +1746,49 @@ function removeLoadAnimation(obj) {
 }
 
 //Добавление товара в избранное
-function AddFavorite(event,id_product){
-	$.ajax({
-		url: URL_base+'ajaxproduct',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action": 'add_favorite',
-			"id_product": id_product
-		}
-	}).done(function(data){
+function AddFavorite(id_product){
+	// Если product, то срабатывает fail
+	// Если ajaxproduct, то всегда выводится сообщение из строки 1768
+	// Что означает выражение на строке 1786?
+
+	ajax('product', 'add_favorite', {id_product: id_product}).done(function(data){
 		//console.log(data);
 		if(data.answer == 'login'){
 			// alert('Войдите или зарегистрируйтесь.');
-			event.preventDefault();
-
-			var target = 'login_form';
-			openModal(target);
+			openObject('auth');
 		}else if(data.answer == 'already'){
-			//alert('Товар уже находится в избранных.');
-			event.preventDefault();
+			alert('Товар уже находится в избранных');
 		}else{
 			$('div[data-idfavorite="'+id_product+'"]').attr('title', 'Товар находится в избранных');
 			$('div[data-idfavorite="'+id_product+'"]').find('span.favorite').html('favorites');
 			$('div[data-idfavorite="'+id_product+'"] a').html('В избранном').attr('href', '/cabinet/favorites/');
 			$('.fav_count_js').html(data.fav_count);
-			//alert('ok');
+			alert('Товар добавлен к избранным');
 		}
+	}).fail(function(data){
+		alert("Error");
 	});
 }
 
 //Добавление товара в список ожидания
-function AddInWaitingList(id_product,id_user,email){
-	$.ajax({
-		url: URL_base+'ajaxproduct',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action": 'add_in_waitinglist',
-			"id_product": id_product,
-			"id_user": id_user,
-			"email": email
-		},
-		error: function(){
-			alert('Товар уже добавлен в лист ожидания');
-			location.reload();
+function AddInWaitingList(id_product, id_user, email, targetClass){
+	var data = {
+		id_product: id_product,
+		id_user: id_user,
+		email: email
+	}
+	ajax('product', 'add_in_waitinglist', data).done(function(data){
+		if(data.answer == 'ok'){
+			alert('товар в списке!');
 		}
-	}).done(function(data){
 		if(data.answer_data == 'insert_ok'){
-			location.reload();
+			// location.reload();
 		}
-		//console.log(data.answer);
+		// console.log(data.answer);
+	}).done(function(data){
+		targetClass.addClass('arrow');
+	}).fail(function(data){
+		alert("Error");
 	});
 	return false;
 }
