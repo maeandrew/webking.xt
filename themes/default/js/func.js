@@ -1782,7 +1782,6 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 			// location.reload();
 		}
 		// console.log(data.answer);
-	}).done(function(data){
 		targetClass.addClass('arrow');
 	}).fail(function(data){
 		alert("Error");
