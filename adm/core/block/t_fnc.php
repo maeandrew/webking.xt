@@ -40,8 +40,7 @@ function Page_form_validate(){
 		$errm[$varname] = "Поле обязательно для заполнения.";
 		$err=1;
 	}
-
-	$varname = 'pcontent';
+	$varname = 'editor';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>0, 'PM_glob'=>1);
@@ -51,7 +50,7 @@ function Page_form_validate(){
 		$errm[$varname] = "Страница должна содержать текст.";
 		$err=1;
 	}
-	$varname = 'pcontent_ua';
+	$varname = 'editor_ua';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>0, 'PM_glob'=>1);
@@ -61,7 +60,6 @@ function Page_form_validate(){
 		$errm[$varname] = "Страница должна содержать текст.";
 		$err=1;
 	}
-
 	return array($err, $errm);
 }
 

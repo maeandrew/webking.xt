@@ -613,9 +613,10 @@
 			$('.favorite span').empty().html('Товар уже в избранных');
 		});
 		//Инициализация добавления товара в список ожидания
+
 		$('.waiting_list').click(function(e) {
 			e.preventDefault();
-			AddInWaitingList($(this).data('id-product'), $(this).data('id-user'), $(this).data('email'), $(this));
+			AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 		});
 	});
 </script>
