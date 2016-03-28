@@ -4,30 +4,30 @@
 	</div>
 	<div class="catalog_btn mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
 	<div class="search_wrapp">
-		<form action="" method="post">
+		<form name="search" action="<?=Link::Custom('search');?>" method="get">
 			<div class="mdl-textfield mdl-js-textfield search">
 				<i class="material-icons mob_s_btn">search</i>
-				<input class="mdl-textfield__input btn_js" type="search" id="search" data-name="header_js">
-				<label class="mdl-textfield__label" for="search">Найти...</label>
+				<input class="mdl-textfield__input btn_js" name="query" type="search" id="search" data-name="header_js" value="<?if (isset($_GET['query'])) print_r($_GET['query']);?>">
+				<input class="category2search" name="category2search" type="hidden" value="">
+				<label class="mdl-textfield__label" for="search"><? if(!isset($_GET['query'])){ ?>Найти...<?} else { ?> <?}?></label>
 				<i class="material-icons search_close" title="Закрыть поиск">close</i>
 				<div class="select_category fright mdl-cell--hide-phone imit_select">
-					<button id="category-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+					<button id="category-lower-right"  class="mdl-button mdl-js-button mdl-button--icon">
 						<span class="selected_cat select_field">По всем категориям</span>
 						<i class="material-icons">keyboard_arrow_down</i>
 					</button>
-					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="category-lower-right">
-						<li class="mdl-menu__item active">По всем категориям</li>
-						<li class="mdl-menu__item">Another Action</li>
-						<li disabled class="mdl-menu__item">Disabled Action</li>
-						<li class="mdl-menu__item">Yet Another Action</li>
-						<li class="mdl-menu__item">Lorem ipsum dolor sit amet</li>
+					<ul  class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect category_search" for="category-lower-right">
+						<li data-id-category="0" class="mdl-menu__item cat_li">По всем категориям</li>
+						<?foreach ($navigation as &$v){ ?>
+							<li data-id-category="<?=$v['id_category']?>" class="mdl-menu__item cat_li <?=(isset($_GET['category2search']) && $_GET['category2search'] == $v['id_category'])?'active':null?> "><?=$v['name']?></li>
+							<?if(isset($_GET['category2search']) && $_GET['category2search'] == $v['id_category']){ ?> <script> $('span.selected_cat').html("<?=$v['name']?>"); </script><?}?>
+						<?}?>
 					</ul>
 				</div>
 			</div>
 			<button class="mdl-button mdl-js-button mdl-cell--hide-phone search_btn">Найти</button>
 		</form>
 	</div>
-
 	<ul class="header_nav mdl-cell--hide-phone">
 		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i> Корзина</a></li>
 		<li><a href="#">Поставки магазинам</a></li>
@@ -36,13 +36,13 @@
 				<i class="material-icons">menu</i>
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
-				<?foreach($list_menu as $menu){?>
+				<?foreach($list_menu as $menu){ ?>
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
 				<?}?>
 			</nav>
 		</li>
 		<li>
-			<?if(isset($_SESSION['member'])){?>
+			<?if(isset($_SESSION['member'])){ ?>
 
 				<!-- <a href="#" id="tt4" class="mdl-button mdl-js-button cabinet_btn">Мой кабинет</a>
 				<div class="mdl-tooltip" for="tt4" style="text-align:left">
@@ -140,3 +140,12 @@
 		<a href="#" class="material-icons mdl-badge--overlap cart mdl-badge btn_js" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
 	</nav>
 </div>
+
+<script>
+	var category = $('.category_search li.active').data('id-category');
+	$('input[name="category2search"]').val(category);
+	$('body').on('click', '.category_search li', function () {
+		category = $('.category_search li.active').data('id-category');
+		$('input[name="category2search"]').val(category);
+	});
+</script>

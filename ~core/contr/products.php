@@ -379,7 +379,6 @@ while($cat = $dbtree->NextRow()){
 	}
 	$tpl->Assign('list', $products->list);
 
-
 	// =========================================================
 // }
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
