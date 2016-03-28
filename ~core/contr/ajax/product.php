@@ -56,31 +56,40 @@
 				break;
 			case "add_in_waitinglist":
 				// Добавление в список ожидания
-				if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
-					$data['answer'] = 'ok';
-				}elseif($_POST['email'] != '' && $_POST['id_user'] == ''){
-					$arr['name'] = $_POST['email'];
-					$arr['email'] = $_POST['email'];
-					$arr['passwd'] = substr(md5(time()), 0, 6);
-					$arr['promo_code'] = '';
-					$arr['descr'] = '';
-					$data['answer'] = 'register_ok';
-					if(!$Customer->RegisterCustomer($arr)){
-						$data['answer'] = 'registered';
-					}
-					$User->CheckUserNoPass($arr);
-					$_POST['id_user'] = $User->fields['id_user'];
-				}else{
-					$data['answer'] = 'error';
-				}
-				if($_POST['id_user'] != '' && (($_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_) || $User->fields['gid'] == _ACL_CUSTOMER_)){
-					if($Customer->AddInWaitingList($_POST['id_user'], $_POST['id_product'])){
-						if (isset($_SESSION['member'])) {
-							$_SESSION['member']['waiting_list'][] = $_POST['id_product'];
+
+//				if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+//					$data['answer'] = 'ok';
+//				}elseif($_POST['email'] != '' && $_POST['id_user'] == ''){;
+//					$arr['name'] = $_POST['email'];
+//					$arr['email'] = $_POST['email'];
+//					$arr['passwd'] = substr(md5(time()), 0, 6);
+//					$arr['promo_code'] = '';
+//					$arr['descr'] = '';
+//					$data['answer'] = 'register_ok';
+//					if(!$Customer->RegisterCustomer($arr)){
+//						$data['answer'] = 'registered';
+//					}
+//					$User->CheckUserNoPass($arr);
+//					$_POST['id_user'] = $User->fields['id_user'];
+//				}else{
+//					$data['answer'] = _ACL_CUSTOMER_;
+//					//$data['answer'] = 'error';
+//				}
+				if(!G::isLogged()){
+					$data['answer'] = 'login';
+				}elseif(isset($_SESSION['member']['waiting_list']) && in_array($_POST['id_product'], $_SESSION['member']['waiting_list'])){
+					$data['answer'] = 'already';
+				} else {
+					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_CUSTOMER_){
+						if($Customer->AddInWaitingList($_POST['id_user'], $_POST['id_product']))
+						{
+							if (isset($_SESSION['member'])) {
+								$_SESSION['member']['waiting_list'][] = $_POST['id_product'];
+							}
+							$data['answer'] = 'ok';
+						}else{
+							$data['answer'] = 'insert_error';
 						}
-						$data['answer_data'] = 'insert_ok';
-					}else{
-						$data['answer_data'] = 'insert_error';
 					}
 				}
 
