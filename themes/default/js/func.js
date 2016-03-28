@@ -1751,8 +1751,8 @@ function AddFavorite(id_product){
 	ajax('product', 'add_favorite', {id_product: id_product}).done(function(data){
 		//console.log(data);
 		if(data.answer == 'login'){
-			// alert('Войдите или зарегистрируйтесь.');
 			openObject('auth');
+			removeLoadAnimation('#auth');
 		}else if(data.answer == 'already'){
 			alert('Товар уже находится в избранных');
 		}else{
@@ -1765,6 +1765,7 @@ function AddFavorite(id_product){
 	}).fail(function(data){
 		alert("Error");
 	});
+	return false;
 }
 
 //Добавление товара в список ожидания
@@ -1775,14 +1776,15 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 		email: email
 	}
 	ajax('product', 'add_in_waitinglist', data).done(function(data){
-		if(data.answer == 'ok'){
-			alert('товар в списке!');
+		if(data.answer == 'login'){
+			openObject('auth');
+			removeLoadAnimation('#auth');
+		}else if(data.answer == 'already'){
+			alert('Товар уже в списке ожидания');
+		}else{			
+			alert('Товар добавлен в список ожидания');
+			targetClass.addClass('arrow');
 		}
-		if(data.answer_data == 'insert_ok'){
-			// location.reload();
-		}
-		// console.log(data.answer);
-		targetClass.addClass('arrow');
 	}).fail(function(data){
 		alert("Error");
 	});
