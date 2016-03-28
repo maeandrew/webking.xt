@@ -1066,36 +1066,17 @@ function ChangeView(view){
 function ListenPhotoHover(){
 	preview = $('.list_view .preview');
 	previewOwl = preview.find('#owl-product_slide_js');
-	$('.product_photo').on('mouseover', function(){
-		if($('#view_block_js').hasClass('list_view')){
-			if($(this).hasClass('hovered')){
-			}else{
-				showPreview(1);
-				// console.log('enter');
-				$(this).addClass('hovered');
-				// console.log('hover');
-				rebuildPreview($(this));
-			}
+	$('.list_view .product_photo').on('mouseover', function(){
+		if($(this).not('.hovered')){
+			showPreview(false);
+			$(this).addClass('hovered');
+			rebuildPreview($(this));
 		}
 	}).on('mouseleave', function(e){
 		if($('#view_block_js').hasClass('list_view')){
 			var mp = mousePos(e),
-				obj = $(this),
-				obj2 = $('.product_photo.hovered');
-			// console.log(mp.x+'x'+mp.y);
-			// console.log(preview.offset().left+'x'+preview.offset().top);
-			// console.log(parseFloat(preview.offset().left+preview.width())+'x'+parseFloat(preview.offset().top+preview.height()));
-			if((mp.x > preview.offset().left
-				&& mp.x < preview.offset().left+preview.width()
-				&& mp.y > preview.offset().top
-				&& mp.y < preview.offset().top+preview.height())
-				|| (obj.hasClass('hovered')
-					&& mp.x > obj.offset().left
-					&& mp.x < obj.offset().left+obj.width()
-					&& mp.y > obj.offset().top
-					&& mp.y < obj.offset().top+obj.height())){
-				// console.log('hover2');
-			}else{
+				obj = $(this);
+			if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
 				// console.log('hide');
 				hidePreview();
 				obj.removeClass('hovered');
@@ -1107,9 +1088,7 @@ function ListenPhotoHover(){
 		if($('#view_block_js').hasClass('list_view')){
 			mp = mousePos(e);
 			obj = $('.product_photo.hovered');
-			if(obj.hasClass('hovered') && mp.x >= obj.offset().left && mp.x <= obj.offset().left+obj.width() && mp.y >= obj.offset().top && mp.y <= obj.offset().top+obj.height()){
-				// console.log('hovered_back');
-			}else{
+			if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
 				// console.log('hide2');
 				hidePreview();
 				obj.removeClass('hovered');
@@ -1134,12 +1113,10 @@ function rebuildPreview(obj){
 		viewportHeight = $(window).height(),
 		pos = getScrollWindow(),
 		correctionBottom = correctionTop = 0,
-		marginBottom = marginTop = 15;
-	// if(pos > 50){
-		marginTop += $('header').outerHeight();
-	// }
-	var ovftop = position.top - preview.height()/2 + obj.height()/2 - marginTop,
-		ovfbotton = position.top + preview.height()/2 + obj.height()/2 + marginBottom;
+		marginBottom = 15,
+		marginTop = marginBottom+$('header').outerHeight();
+	var ovftop = position.top - preview.height()/2 + obj.outerHeight()/2 - marginTop,
+		ovfbotton = position.top + preview.height()/2 + obj.outerHeight()/2 + marginBottom;
 	if(pos + viewportHeight < ovfbotton){
 		// console.log('overflow Bottom');
 		correctionBottom = ovfbotton - (pos + viewportHeight);
@@ -1172,7 +1149,7 @@ function rebuildPreview(obj){
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.preview_content').html(data);
 			componentHandler.upgradeDom();
-			showPreview(0);
+			showPreview(true);
 		});
 	}else{
 		preview.hide();
@@ -1200,8 +1177,8 @@ function changeToTop(pos){
 }
 
 function showPreview(ajax){
-	if(ajax == 0){
-		preview.find('#owl-product_slide_js').owlCarousel({
+	if(ajax){
+		preview.removeClass('ajax_loading').find('#owl-product_slide_js').owlCarousel({
 			singleItem: true,
 			lazyLoad: true,
 			lazyFollow: false,
@@ -1209,9 +1186,6 @@ function showPreview(ajax){
 			dots: true,
 			navContainer: true
 		});
-		setTimeout(function(){
-			preview.removeClass('ajax_loading');
-		}, 200);
 	}else{
 		preview.show();
 	}

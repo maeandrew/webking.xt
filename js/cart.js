@@ -164,24 +164,3 @@ function completeCartProductAdd(data){
 	}
 
 }
-//----------------обновление облока скидок (end)---------------
-$(function(){
-	//----------------Создание заказа, нового пользователя только с телефоном (start)---------------
-	$('#cart').on('click', '#button-cart1 button', function (e){
-		e.preventDefault();
-		if($('.phone').val()){
-			var p = $('.phone').val();
-			var phone = p.replace(/[^\d]+/g, "");
-			ajax('cart', 'make_order', {phone: phone}).done(function(arr){
-				$.cookie('id_order', arr.id_order);
-				$.cookie('id_user', arr.id_user);
-				if($('#joint_cart').closest('label').hasClass('is-checked')){
-					location.href = 'cabinet/cooperative/?t=working';
-				}else{
-					openObject('quiz');
-				}
-			});
-			return false;
-		}
-	});
-});

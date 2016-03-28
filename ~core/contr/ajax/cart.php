@@ -210,7 +210,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						/* проверка на ошибки */
 						$errm = $warnings = array();
 						$err = $warn = 0;
-						$cart->IsActualPrices($err, $warn, $errm, $warnings);
+						// $cart->IsActualPrices($err, $warn, $errm, $warnings);
 						if($err){
 							if(isset($_SESSION['errm'])){
 								$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
@@ -300,67 +300,67 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				exit();
 				break;
-//			case "update_qty":
-//				if(isset($_POST['opt']) && isset($_POST['id_product'])){
-//					$note_opt = isset($_POST['opt_note'])?$_POST['opt_note']:"";
-//					$note_mopt = isset($_POST['mopt_note'])?$_POST['mopt_note']:"";
-//					if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
-//						if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
-//							$cart->UpdatePromoProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, null, isset($_POST['mopt_basic_price'])?$_POST['mopt_basic_price']:null);
-//						}else{
-//							exit();
-//						}
-//					}else{
-//						if($_POST['opt'] == 1){
-//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_box_qty', 'order_opt_qty', 'order_opt_sum'))){
-//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], $_POST['order_box_qty'], $_POST['order_opt_qty'], $_POST['order_opt_sum'], $note_opt, $note_mopt, null, $_POST['opt_correction'], $_POST['opt_basic_price']);
-//							}else{
-//								exit();
-//							}
-//						}else{
-//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
-//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, $_POST['mopt_correction'], $_POST['mopt_basic_price']);
-//							}else{
-//								exit();
-//							}
-//						}
-//					}
-//					$cart->SetTotalQty();
-//					$cart->SetAllSums();
-//
-//
-//					//	ob_start();
-//					//	print_r($_SESSION['Cart']);
-//					//	print_r($_POST);
-//					//	$t = ob_POST_clean();
-//					//	G::LogerE($t, "ajax.html", "w");
-//					$arr = array();
-//					$arr['id_product'] = $_POST["id_product"];
-//					$arr['error'] = false;
-//					$arr['opt'] = $_POST['opt'];
-//					$arr['sum'] = $_SESSION['Cart']['sum'];
-//					/***********************************************************/
-//					isset($note_opt)	?	$arr['note_opt'] = $note_opt	:	null;
-//					isset($note_mopt)	?	$arr['note_mopt'] = $note_mopt	:	null;
-//					if(isset($_SESSION['Cart']['sum'])){
-//						$cart->SetPersonalDiscount($personal_discount);
-//						$cart->SetSumDiscount();
-//						$cart->SetAllSums();
-//						$arr['sum_discount'] = $_SESSION['Cart']['sum_discount'];
-//					}
-//					/***********************************************************/
-//					$arr['string'] = $cart->GetString();
-//					$arr['total_quantity'] = $_SESSION['Cart']['prod_qty'];
-//					/***********************************************************/
-//					$arr['order_opt_sum'] = round($_SESSION['Cart']['order_opt_sum_default'], 2);
-//					$arr['order_mopt_sum'] = round($_SESSION['Cart']['order_mopt_sum_default'], 2);
-//					$arr['order_sum'] = $_SESSION['Cart']['order_sum'];
-//					/***********************************************************/
-//					$txt = json_encode($arr);
-//					echo $txt;
-//					exit();
-//				};
-//				break;
+			// case "update_qty":
+				//				if(isset($_POST['opt']) && isset($_POST['id_product'])){
+				//					$note_opt = isset($_POST['opt_note'])?$_POST['opt_note']:"";
+				//					$note_mopt = isset($_POST['mopt_note'])?$_POST['mopt_note']:"";
+				//					if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
+				//						if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
+				//							$cart->UpdatePromoProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, null, isset($_POST['mopt_basic_price'])?$_POST['mopt_basic_price']:null);
+				//						}else{
+				//							exit();
+				//						}
+				//					}else{
+				//						if($_POST['opt'] == 1){
+				//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_box_qty', 'order_opt_qty', 'order_opt_sum'))){
+				//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], $_POST['order_box_qty'], $_POST['order_opt_qty'], $_POST['order_opt_sum'], $note_opt, $note_mopt, null, $_POST['opt_correction'], $_POST['opt_basic_price']);
+				//							}else{
+				//								exit();
+				//							}
+				//						}else{
+				//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
+				//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, $_POST['mopt_correction'], $_POST['mopt_basic_price']);
+				//							}else{
+				//								exit();
+				//							}
+				//						}
+				//					}
+				//					$cart->SetTotalQty();
+				//					$cart->SetAllSums();
+				//
+				//
+				//					//	ob_start();
+				//					//	print_r($_SESSION['Cart']);
+				//					//	print_r($_POST);
+				//					//	$t = ob_POST_clean();
+				//					//	G::LogerE($t, "ajax.html", "w");
+				//					$arr = array();
+				//					$arr['id_product'] = $_POST["id_product"];
+				//					$arr['error'] = false;
+				//					$arr['opt'] = $_POST['opt'];
+				//					$arr['sum'] = $_SESSION['Cart']['sum'];
+				//					/***********************************************************/
+				//					isset($note_opt)	?	$arr['note_opt'] = $note_opt	:	null;
+				//					isset($note_mopt)	?	$arr['note_mopt'] = $note_mopt	:	null;
+				//					if(isset($_SESSION['Cart']['sum'])){
+				//						$cart->SetPersonalDiscount($personal_discount);
+				//						$cart->SetSumDiscount();
+				//						$cart->SetAllSums();
+				//						$arr['sum_discount'] = $_SESSION['Cart']['sum_discount'];
+				//					}
+				//					/***********************************************************/
+				//					$arr['string'] = $cart->GetString();
+				//					$arr['total_quantity'] = $_SESSION['Cart']['prod_qty'];
+				//					/***********************************************************/
+				//					$arr['order_opt_sum'] = round($_SESSION['Cart']['order_opt_sum_default'], 2);
+				//					$arr['order_mopt_sum'] = round($_SESSION['Cart']['order_mopt_sum_default'], 2);
+				//					$arr['order_sum'] = $_SESSION['Cart']['order_sum'];
+				//					/***********************************************************/
+				//					$txt = json_encode($arr);
+				//					echo $txt;
+				//					exit();
+				//				};
+				//				break;
 			case "update_cart_qty":
 				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
 				$res = $cart->UpdateCartQty($_POST);
@@ -382,19 +382,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				exit();
 				break;
 			case "clearCart":
-//				print_r($_SESSION['cart']['id']);
+				// print_r($_SESSION['cart']['id']);
 				$res = $cart->ClearCart($_SESSION['cart']['id']);
 				echo json_encode($res);
 				break;
-			case "make_order":
-				$customers = new Customers();
-				$user = new Users();
-
-				// Если нажата "Оформить заказ"
-
-					if (isset($_POST['phone'])) {
+			case "makeOrder":
+				$Customers = new Customers();
+				$Users = new Users();
+				if(G::isLogged()){
+					$user = G::GetLoggedData();
+				}else{
+					if(isset($_POST['phone'])){
 						$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
-						if (!$id_user = $user->CheckPhoneUniqueness($phone)) {
+						if (!$id_user = $Users->CheckPhoneUniqueness($phone)) {
 							$data = array(
 								'name' => 'user_' . rand(),
 								'email' => null,
@@ -402,25 +402,24 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								'descr' => '',
 								'phone' => $phone
 							);
-							$id_user = $customers->RegisterCustomer($data);
+							$id_user = $Customers->RegisterCustomer($data);
 						};
-						$user->CheckUserNoPass(array('email' => $phone));
-
-						$order = new Orders();
-						$_POST['id_user'] = $id_user;
-						if ($id_order = $order->Add($_POST)) {
-							$res = 'Заказ сформирован!';
-							$customers->updatePhones($phone);
-						} else {
-							$res = 'Ошибка формирования заказа!';
-							$customers->updatePhones($phone);
-						}
-					} else {
+						$Users->CheckUserNoPass(array('email' => $phone));
+					}else{
 						// показываем ошибку не корректности ввода телефона
 						$res = 'Телефон введен не верно!';
 					}
-				$resArr = array('massage'=>$res, 'id_user'=>$id_user, 'id_order'=>$id_order);
-				echo json_encode($resArr);
+					$resArr = array('massage'=>$res, 'id_user'=>$id_user, 'id_order'=>$id_order);
+				}
+				$Orders = new Orders();
+				if($id_order = $Orders->Add()) {
+					$res = 'Заказ сформирован!';
+					// $Customers->updatePhones($phone);
+				}else{
+					$res = 'Ошибка формирования заказа!';
+					// $Customers->updatePhones($phone);
+				}
+				echo json_encode($res);
 				break;
 			case "update_info":
 				$customers = new Customers();
@@ -431,11 +430,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case "add_status_cart":
 				$cart = new Cart();
 				$res = $cart->SetStatusCart();//$_POST['id_order']
-print_r($res);
 				return json_encode($res);
 				break;
 			default:
-				# code...
 				break;
 		}
 	}

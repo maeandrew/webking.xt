@@ -25,7 +25,10 @@ $(window).load(function(){
 });
 
 $(function(){
-	//
+	//Отключение клика на ссылку с #
+	$('a[href="#"]').on('click', function(e){
+		e.preventDefault();
+	});
 
 	//function $_GET(key) {
 	//	var s = window.location.search;

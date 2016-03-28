@@ -116,23 +116,6 @@
 				echo json_encode($data);
 			;
 			break;
-			case "add_favorite":
-				// Добавление Избранного товара
-				if(!isset($_SESSION['member'])){
-					$data['answer'] = 'login';
-				}elseif(in_array($_POST['id_product'], $_SESSION['member']['favorites'])){
-					$data['answer'] = 'already';
-				}else{
-					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
-						$Customer->AddFavorite($User->fields['id_user'], $_POST['id_product']);
-					}
-					$_SESSION['member']['favorites'][] = $_POST['id_product'];
-					$data['fav_count'] = count($_SESSION['member']['favorites']);
-					$data['answer'] = 'ok';
-				}
-				echo json_encode($data);
-			;
-			break;
 			case "add_in_waitinglist":
 				// Добавление в список ожидания
 				if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
