@@ -493,15 +493,13 @@ class Suppliers extends Users {
 		return $retstr;
 	}
 
-	public function GetPriceOtpusk($id_supplier, $id_product, $opt){
-		$optw = "opt";
-		if(!$opt){$optw = "mopt";}
-		$sql = "SELECT price_{$optw}_otpusk
+	public function GetPriceOtpusk($id_supplier, $id_product, $mode){
+		$sql = "SELECT price_".$mode."_otpusk
 			FROM "._DB_PREFIX_."assortiment
-			WHERE id_supplier=$id_supplier
-			AND id_product=$id_product";
+			WHERE id_supplier = ".$id_supplier."
+			AND id_product = ".$id_product;
 		$arr = $this->db->GetOneRowArray($sql);
-		return $arr['price_'.$optw.'_otpusk'];
+		return $arr['price_'.$mode.'_otpusk'];
 	}
 
 	public function GetFilialList(){

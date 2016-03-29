@@ -293,7 +293,7 @@ class Cart {
 			return $product['id_cart_product'];
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
-			if(isset($_SESSION['member'])){
+			if(G::isLogged() && !_acl::isAdmin()){
 				$f['id_user'] = $_SESSION['member']['id_user'];
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){
@@ -369,92 +369,90 @@ class Cart {
 		$this -> SetSumDiscount();
 	}
 	// public function InitProduct($id_product){
-	// 	$_SESSION['Cart']['products'][$id_product]['order_box_qty'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['order_opt_qty'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['order_mopt_qty'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['order_opt_sum'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['order_mopt_sum'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['order_opt_sum_default'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['order_mopt_sum_default'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['note_opt'] = "";
-	// 	$_SESSION['Cart']['products'][$id_product]['note_mopt'] = "";
-	// 	$_SESSION['Cart']['products'][$id_product]['opt_correction_set'] = array();
-	// 	$_SESSION['Cart']['products'][$id_product]['mopt_correction_set'] = array();
-	// 	$_SESSION['Cart']['products'][$id_product]['opt_sum_default'] = array();
-	// 	$_SESSION['Cart']['products'][$id_product]['mopt_sum_default'] = array();
-	// 	$_SESSION['Cart']['products'][$id_product]['basic_opt_price'] = 0;
-	// 	$_SESSION['Cart']['products'][$id_product]['basic_mopt_price'] = 0;
-	// }
+		//	$_SESSION['Cart']['products'][$id_product]['order_box_qty'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['order_opt_qty'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['order_mopt_qty'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['order_opt_sum'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['order_mopt_sum'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['order_opt_sum_default'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['order_mopt_sum_default'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['note_opt'] = "";
+		//	$_SESSION['Cart']['products'][$id_product]['note_mopt'] = "";
+		//	$_SESSION['Cart']['products'][$id_product]['opt_correction_set'] = array();
+		//	$_SESSION['Cart']['products'][$id_product]['mopt_correction_set'] = array();
+		//	$_SESSION['Cart']['products'][$id_product]['opt_sum_default'] = array();
+		//	$_SESSION['Cart']['products'][$id_product]['mopt_sum_default'] = array();
+		//	$_SESSION['Cart']['products'][$id_product]['basic_opt_price'] = 0;
+		//	$_SESSION['Cart']['products'][$id_product]['basic_mopt_price'] = 0;
+	//}
 	// public function SetTotalQty() {
-	// 	$_SESSION['Cart']['prod_qty'] = isset($_SESSION['Cart']['products'])?count($_SESSION['Cart']['products']):0;
+		// 	$_SESSION['Cart']['prod_qty'] = isset($_SESSION['Cart']['products'])?count($_SESSION['Cart']['products']):0;
 	// }
 
 	public function IsActualPrices(&$err, &$warn, &$errors, &$warnings){
-		if(!empty($_SESSION['Cart']['products'])){
+		if(isset($_SESSION['cart']['products']) && !empty($_SESSION['cart']['products'])){
 			global $db;
 			$order_opt_sum = $order_mopt_sum = 0;
-			foreach($_SESSION['Cart']['products'] as $id_product=>$arr){
+			foreach($_SESSION['cart']['products'] as $id_product=>$arr){
 				$sql = "SELECT p.id_product, p.price_opt, p.price_mopt,
-					p.inbox_qty, p.mopt_correction_set, p.opt_correction_set,
-					SUM(a.product_limit) AS product_limit
+					p.inbox_qty, p.mopt_correction_set, p.opt_correction_set
 					FROM "._DB_PREFIX_."product AS p
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a
-						ON a.id_product = p.id_product
+						LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 					WHERE p.id_product = ".$id_product."
 					AND a.active = 1
 					GROUP BY a.id_product";
-				$v = $db->GetOneRowArray($sql);
-				if(!empty($v)){
+				$res = $db->GetOneRowArray($sql);
+				if(!empty($res)){
 					$mopt_correction = 1;
-					if(isset($v['mopt_correction_set'])){
-						if(isset($GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]) && $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']] != ''){
-							$correction = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+					if(isset($res['mopt_correction_set'])){
+						if(isset($GLOBALS['CONFIG']['correction_set_'.$res['mopt_correction_set']]) && $GLOBALS['CONFIG']['correction_set_'.$res['mopt_correction_set']] != ''){
+							$correction = explode(';', $GLOBALS['CONFIG']['correction_set_'.$res['mopt_correction_set']]);
 							$mopt_correction = $correction[$_SESSION['price_column']];
 						}
 					}
 					$opt_correction = 1;
-					if(isset($v['opt_correction_set'])){
-						if(isset($GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]) && $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']] != ''){
-							$correction = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+					if(isset($res['opt_correction_set'])){
+						if(isset($GLOBALS['CONFIG']['correction_set_'.$res['opt_correction_set']]) && $GLOBALS['CONFIG']['correction_set_'.$res['opt_correction_set']] != ''){
+							$correction = explode(';', $GLOBALS['CONFIG']['correction_set_'.$res['opt_correction_set']]);
 							$opt_correction = $correction[$_SESSION['price_column']];
 						}
 					}
 					if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-						$v['price_opt'] = round($v['price_opt']*$_SESSION['Cart']['personal_discount'],2);
-						$v['price_mopt'] = round($v['price_mopt']*$_SESSION['Cart']['personal_discount'],2);
+						$res['price_opt'] = round($res['price_opt']*$_SESSION['cart']['personal_discount'],2);
+						$res['price_mopt'] = round($res['price_mopt']*$_SESSION['cart']['personal_discount'],2);
 					}else{
-						$v['price_opt'] = round($v['price_opt']*$opt_correction, 2);
-						$v['price_mopt'] = round($v['price_mopt']*$mopt_correction, 2);
+						$res['price_opt'] = round($res['price_opt']*$opt_correction, 2);
+						$res['price_mopt'] = round($res['price_mopt']*$mopt_correction, 2);
 					}
-					$new_mopt_price = round($v['price_mopt']*$arr['order_mopt_qty'], 2);
-					$new_opt_price = round($v['price_opt']*$arr['order_opt_qty'], 2);
-					$_SESSION['Cart']['products'][$id_product]['site_price_opt'] = $v['price_opt'];
-					$_SESSION['Cart']['products'][$id_product]['site_price_mopt'] = $v['price_mopt'];
+					$new_mopt_price = round($res['price_mopt']*$arr['order_mopt_qty'], 2);
+					$new_opt_price = round($res['price_opt']*$arr['order_opt_qty'], 2);
+					$_SESSION['cart']['products'][$id_product]['site_price_opt'] = $res['price_opt'];
+					$_SESSION['cart']['products'][$id_product]['site_price_mopt'] = $res['price_mopt'];
 					if($new_mopt_price != $arr['order_mopt_sum_default']){
 						$warnings['products'][$id_product]['price'] = "С момента добавления товара в корзину, его цена изменилась.";
-						$arr['order_mopt_sum'] = (float)($v['price_mopt']*$arr['order_mopt_qty']);
+						$arr['order_mopt_sum'] = (float)($res['price_mopt']*$arr['order_mopt_qty']);
 						$arr['order_mopt_sum_default'] = $arr['order_mopt_sum'];
 						$warn = 1;
 					}
 					if($new_opt_price != $arr['order_opt_sum_default'] && !isset($warnings['products'][$id_product]['price'])){
 						$warnings['products'][$id_product]['price'] = "С момента добавления товара в корзину, его цена изменилась.";
-						$arr['order_opt_sum'] = (float)($v['price_opt']*$arr['order_opt_qty']);
+						$arr['order_opt_sum'] = (float)($res['price_opt']*$arr['order_opt_qty']);
 						$arr['order_opt_sum_default'] = $arr['order_opt_sum'];
 						$warn = 1;
 					}
-					if(round($v['inbox_qty']*$arr['order_box_qty']) != $arr['order_opt_qty']){
-						// $arr['order_opt_qty'] = round($v['inbox_qty']*$arr['order_box_qty']);
+					if(round($res['inbox_qty']*$arr['order_box_qty']) != $arr['order_opt_qty']){
+						// $arr['order_opt_qty'] = round($res['inbox_qty']*$arr['order_box_qty']);
 						$err = 1;
 						$errors['products'][$id_product]['order_opt_qty'] = "Изменилось количество в ящике";
 						$_SESSION['errm']['limit'] = "Необходимо уменьшить количество некоторых товаров";
 					}
-					if($arr['order_mopt_qty'] + $arr['order_opt_qty'] > $v['product_limit']){
+					if($arr['order_mopt_qty'] + $arr['order_opt_qty'] > $res['product_limit']){
 						$err = 1;
-						$errors['products'][$id_product]['order_qty'] = "Доступное количество: ".$v['product_limit'];
+						$errors['products'][$id_product]['order_qty'] = "Доступное количество: ".$res['product_limit'];
 						$_SESSION['errm']['limit'] = "К сожалению некоторые товары недоступны в выбранном количестве. Измените или удалите выделенные товары.";
 					}
-					$order_opt_sum += (float)($v['price_opt']*$arr['order_opt_qty']);
-					$order_mopt_sum += (float)($v['price_mopt']*$arr['order_mopt_qty']);
+					$order_opt_sum += (float)($res['price_opt']*$arr['order_opt_qty']);
+					$order_mopt_sum += (float)($res['price_mopt']*$arr['order_mopt_qty']);
 				}else{
 					$err = 1;
 					$_SESSION['errm'][] = "Некоторые товары сейчас не доступны.";

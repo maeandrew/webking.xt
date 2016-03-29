@@ -42,3 +42,17 @@
 .content {
 	min-height: 500px;
 }
+#unload_option ul {
+	text-align: left;
+}
+#unload_option li {
+	line-height: 1.5em;
+}
+#unload_option li a.clicked {
+	color: #aaa;
+	text-decoration: line-through;
+}
+span.gray {
+	color: #aaa;
+	font-style: italic;
+}

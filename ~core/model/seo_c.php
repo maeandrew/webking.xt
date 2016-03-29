@@ -21,10 +21,12 @@ class SEO{
 	}
 	// Страница по id
 	public function SetFieldsById($id_seo_text, $all = 0){
-
-		$sql = "SELECT `name` AS username,".implode(", ",$this->usual_fields)."
-			FROM "._DB_PREFIX_."seo_text, "._DB_PREFIX_."user
-			WHERE id = \"$id_seo_text\" AND id_author = id_user";
+		$sql = "SELECT ".implode(", ",$this->usual_fields).",
+			name AS username
+			FROM "._DB_PREFIX_."seo_text
+			LEFT JOIN "._DB_PREFIX_."user
+			ON id_author = id_user
+			WHERE id = ".$id_seo_text;
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -36,10 +38,13 @@ class SEO{
 		if($limit != ""){
 			$limit = " limit $limit";
 		}
-		$sql = "SELECT `name` AS username,".implode(", ",$this->usual_fields)."
-			FROM "._DB_PREFIX_."seo_text, "._DB_PREFIX_."user
-			WHERE id_author = id_user
-			ORDER BY id desc $limit";
+		$sql = "SELECT ".implode(", ",$this->usual_fields).",
+			name AS username
+			FROM "._DB_PREFIX_."seo_text
+			LEFT JOIN "._DB_PREFIX_."user
+			ON id_author = id_user
+			ORDER BY id desc ".
+			$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -89,8 +94,7 @@ class SEO{
 	public function GerWord($str){
 		$sql = "SELECT wrord
 			FROM "._DB_PREFIX_."semantic_core
-			WHERE word like \"$str%\"";
-		print_r($sql);
+			WHERE word like '".$str."%'";
 		$this->list = $this->db->GetArray($sql);
 		return $this->list;
 	}

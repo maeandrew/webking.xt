@@ -19,7 +19,7 @@
 			</div>
 		</div>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
-        <div class="row seo_block">
+        <div class="row seo_block hidden">
 			<div class="col-md-6">
 				<label for="page_title">Мета-заголовок (title):</label>
 				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>

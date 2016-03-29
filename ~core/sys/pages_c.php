@@ -67,7 +67,7 @@ class pages{
 			if(is_numeric($key)){														// для исключения пред. и следующ
 				if($this->cur_page_id != $title){
 					if(strstr($URL_TMP, '/adm')) {
-						$url = $URL_TMP.'/p'.$title;
+						$url = $URL_TMP.'/p'.$title.'/';
 					}else{
 						$url = Link::Category($GLOBALS['Rewrite'], array('page' => $title));
 					}

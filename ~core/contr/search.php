@@ -463,7 +463,7 @@ function Transliterate($word){
 }
 
 function Words2AllForms($text){
-	require_once(dirname(__FILE__).'/../sys/phpmorphy/src/common.php');
+	require_once($GLOBALS['PATH_sys'].'phpmorphy/src/common.php');
 	// set some options
 	$opts = array(
 		// storage type, follow types supported

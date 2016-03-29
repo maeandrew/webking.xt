@@ -47,7 +47,7 @@ if(isset($_POST['smb'])){
 			}
 			$Images->resize(false, $to_resize);
 			$products->UpdatePhoto($id, $images_arr);
-
+			
 			if(isset($_POST['id_supplier'])){
 				//Формирем массив поставщиков товара
 				for ($i=0; $i < count($_POST['id_supplier']); $i++) {

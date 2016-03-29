@@ -60,7 +60,8 @@
 	<script type="text/javascript">
 		var URL_base = "<?=_base_url?>/",
 			current_controller = "<?=$GLOBALS['CurrentController']?>",
-			ajax_proceed = false;
+			ajax_proceed = false,
+			isLogged = <?=G::isLogged()?'false':'true';?>;
 	</script>
 	<!-- END define JS global variables -->
 
@@ -83,7 +84,7 @@
 		}
 	}?>
 	<!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script>
-	 	<script src="http://underscorejs.org/underscore.js"></script> -->
+		<script src="http://underscorejs.org/underscore.js"></script> -->
 	<!-- END JS load -->
 
 	<!-- Google Material Icon -->
@@ -387,11 +388,17 @@
 						<div class="mdl-cell--hide-phone">
 							<h5>Контакты</h5>
 							<ul class="phone_nav_contacts clearfix">
-								<li class="parent_nav"><div class="material-icons">phone</div><span>(063) 225-91-83</span></li>
-								<li><span>(099) 228-69-38</span></li>
-								<li><span>(093) 322-91-83</span></li>
-								<li class="parent_nav"><div class="material-icons">mail</div><span>administration@x-torg.com</span></li>
-								<li class="parent_nav"><div class="material-icons">location_on</div><span>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</span></li>
+								<?if(isset($GLOBALS['CONFIG']['footer_phone']) && $GLOBALS['CONFIG']['footer_phone'] != ''){?>
+									<li class="parent_nav"><div class="material-icons">phone</div><span><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
+								<?}?>
+								<!-- <li><span>(099) 228-69-38</span></li>
+								<li><span>(093) 322-91-83</span></li> -->
+								<?if(isset($GLOBALS['CONFIG']['footer_email']) && $GLOBALS['CONFIG']['footer_email'] != ''){?>
+									<li class="parent_nav"><div class="material-icons">mail</div><span><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
+								<?}?>
+								<?if(isset($GLOBALS['CONFIG']['footer_address']) && $GLOBALS['CONFIG']['footer_address'] != ''){?>
+									<li class="parent_nav"><div class="material-icons">location_on</div><span><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
+								<?}?>
 							</ul>
 						</div>
 						<div class="social">
@@ -435,7 +442,6 @@
 			</footer>
 		</section>
 	</section>
-
 	<div class="modals">
 		<div id="quiz" data-type="modal">
 			<div class="modal_container summary_info">
@@ -572,9 +578,9 @@
 					</div>
 				</div>
 				<div id="client_address" class="row delivery_address mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <input id="delivery_address" class="mdl-textfield__input" type="text" name="clientaddress" value="" id="sample3">
-				    <label class="mdl-textfield__label" for="sample3">Доставить по адресу...</label>
-				    <span class="mdl-textfield__error">Введите адрес</span>
+					<input id="delivery_address" class="mdl-textfield__input" type="text" name="clientaddress" value="" id="sample3">
+					<label class="mdl-textfield__label" for="sample3">Доставить по адресу...</label>
+					<span class="mdl-textfield__error">Введите адрес</span>
 				</div>
 
 				<div class="row">
@@ -685,7 +691,6 @@
 			<div class="modal_container"></div>
 		</div>
 	</div>
-
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">
@@ -734,12 +739,12 @@
 
 		<symbol id="shipping" viewBox="0 0 24 24" height="24"  width="24">
 			<path d="M0 0h24v24H0z" fill="none"/>
-    		<path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+			<path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
 		</symbol>
 
 		<symbol id="money" viewBox="0 0 24 24" height="24"  width="24">
 			<path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-    		<path d="M0 0h24v24H0z" fill="none"/>
+			<path d="M0 0h24v24H0z" fill="none"/>
 		</symbol>
 
 		<symbol id="shuffle" viewBox="0 0 24 24" height="24"  width="24">
@@ -750,13 +755,12 @@
 
 		<symbol id="like" viewBox="0 0 24 24" height="24"  width="24">
 			<path d="M0 0h24v24H0z" fill="none"/>
-    	<path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
+		<path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
 		</symbol>
 		<symbol id="dislike" viewBox="0 0 24 24" height="24"  width="24">
 			<path d="M0 0h24v24H0z" fill="none"/>
-    		<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
+			<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
 		</symbol>
 	</svg>
-
 </body>
 </html>

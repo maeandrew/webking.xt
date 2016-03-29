@@ -331,36 +331,36 @@
 						return true;
 					}
 					//   radio button magic
-					componentHandler.upgradeDom();
+					// componentHandler.upgradeDom();
 
-					var checked = false;
-					var old_text = $('.action_block .mdl-button').text();
+					// var checked = false;
+					// var old_text = $('.action_block .mdl-button').text();
 
-					$('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
-						if (checked == false) {
-							$('.action_block .mdl-button').text('Продолжить');
-							$("#button-cart1").hide();
-							$("#button-cart1").show();
-							// $("#button-cart3").hide();
-						}
-					});
+					// $('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
+					// 	if (checked == false) {
+					// 		$('.action_block .mdl-button').text('Продолжить');
+					// 		$("#button-cart1").hide();
+					// 		$("#button-cart1").show();
+					// 		// $("#button-cart3").hide();
+					// 	}
+					// });
 
-					$('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
-						if (checked == false) {
-							$('.action_block .mdl-button').text('Организовать');
-							$("#button-cart1").hide();
-							// $("#button-cart2").hide();
-							$("#button-cart1").show();
-						}
-					});
-					$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-						checked = $(this).find('input').prop('checked');
-					}).on('click', function () {
-						if (checked == true) {
-							$(this).removeClass('is-checked').find('input').attr('checked', false);
-							$('.action_block .mdl-button').text(old_text);
-						}
-					});
+					// $('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
+					// 	if (checked == false) {
+					// 		$('.action_block .mdl-button').text('Организовать');
+					// 		$("#button-cart1").hide();
+					// 		// $("#button-cart2").hide();
+					// 		$("#button-cart1").show();
+					// 	}
+					// });
+					// $('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+					// 	checked = $(this).find('input').prop('checked');
+					// }).on('click', function () {
+					// 	if (checked == true) {
+					// 		$(this).removeClass('is-checked').find('input').attr('checked', false);
+					// 		$('.action_block .mdl-button').text(old_text);
+					// 	}
+					// });
 					//   radio button magic (end)
 				</script>
 			</div>
@@ -368,100 +368,125 @@
 	</div>
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
-		<?if(!G::isLogged()){?>
-			$('input.send_order, input.save_order').click(function (e) {
-				var name = $('#edit #name').val().length;
-				var phone = $('#edit #phone').val().length;
-				var id_manager = $('#edit #id_manager').val();
-				var id_city = $('#edit #id_delivery_department').val();
-				if (name > 3) {
-					if (phone > 0) {
-						if (id_manager != null) {
-							if (id_city != null) {
-								$(this).submit();
+		$(function(){
+			if(isLogged){
+				console.log('loggedin');
+			}
+			// Инициалзация маски для ввода телефонных номеров
+			$(".phone").mask("+38 (099) ?999-99-99");
+			// Создание заказа, нового пользователя только с телефоном (start)
+			$('#cart').on('click', '#button-cart1 button', function(e){
+				e.preventDefault();
+				// var phone = p.replace(/[^\d]+/g, "");
+				ajax('cart', 'makeOrder').done(function(arr){
+					console.log(arr);
+				});
+				// if($('.phone').val()){
+					// var p = $('.phone').val();
+					// var phone = p.replace(/[^\d]+/g, "");
+					// ajax('cart', 'makeOrder', {phone: phone}).done(function(arr){
+					// 	$.cookie('id_order', arr.id_order);
+					// 	$.cookie('id_user', arr.id_user);
+					// 	if($('#joint_cart').closest('label').hasClass('is-checked')){
+					// 		location.href = 'cabinet/cooperative/?t=working';
+					// 	}else{
+					// 		openObject('quiz');
+					// 	}
+					// });
+					// return false;
+				// }
+			});
+			<?if(!G::isLogged()){?>
+				$('input.send_order, input.save_order').click(function (e) {
+					var name = $('#edit #name').val().length;
+					var phone = $('#edit #phone').val().length;
+					var id_manager = $('#edit #id_manager').val();
+					var id_city = $('#edit #id_delivery_department').val();
+					if (name > 3) {
+						if (phone > 0) {
+							if (id_manager != null) {
+								if (id_city != null) {
+									$(this).submit();
+								} else {
+									e.preventDefault();
+									alert("Город не выбран");
+								}
 							} else {
 								e.preventDefault();
-								alert("Город не выбран");
+								alert("Менеджер не выбран");
 							}
 						} else {
 							e.preventDefault();
-							alert("Менеджер не выбран");
+							$("#phone").removeClass().addClass("unsuccess");
+							alert("Телефон не указан");
 						}
 					} else {
 						e.preventDefault();
-						$("#phone").removeClass().addClass("unsuccess");
-						alert("Телефон не указан");
+						$("#name").removeClass().addClass("unsuccess");
+						alert("Контактное лицо не заполнено");
 					}
+				});
+			<?}?>
+			$("#name").blur(function () {
+				var name = this.value;
+				var nName = name.replace(/[^A-zА-я ]+/g, "");
+				var count = nName.length;
+				if (count < 3) {
+					$(this).removeClass().addClass("unsuccess");
 				} else {
-					e.preventDefault();
-					$("#name").removeClass().addClass("unsuccess");
-					alert("Контактное лицо не заполнено");
+					$("#name").prop("value", nName);
+					$(this).removeClass().addClass("success");
 				}
 			});
-		<?}?>
-		$("#name").blur(function () {
-			var name = this.value;
-			var nName = name.replace(/[^A-zА-я ]+/g, "");
-			var count = nName.length;
-			if (count < 3) {
-				$(this).removeClass().addClass("unsuccess");
-			} else {
-				$("#name").prop("value", nName);
-				$(this).removeClass().addClass("success");
-			}
-		});
-		$("#phone").blur(function () {
-			var phone = this.value;
-			var nPhone = phone.replace(/[^0-9]+/g, "");
-			var count = nPhone.length;
-			$("#phone").prop("value", nPhone);
-			if (count == 10) {
-				$(this).removeClass().addClass("success");
-			} else {
-				$(this).removeClass().addClass("unsuccess");
-			}
-		});
-		/** Set Random contragent */
-		if (randomManager == 1) {
-			var arr = new Array();
-			var n = 1;
-			$("#id_manager option").each(function () {
-				arr.push(n);
-				n++;
+			$("#phone").blur(function () {
+				var phone = this.value;
+				var nPhone = phone.replace(/[^0-9]+/g, "");
+				var count = nPhone.length;
+				$("#phone").prop("value", nPhone);
+				if (count == 10) {
+					$(this).removeClass().addClass("success");
+				} else {
+					$(this).removeClass().addClass("unsuccess");
+				}
 			});
-			var random = Math.ceil(Math.random() * arr.length);
-			$("#id_manager .cntr_" + random).prop("selected", "true");
-		}
-		function ResetForm() {
-			$("#id_delivery").val(0);
-			$("#id_city").val(0);
-			$("#cityblock").fadeOut();
-			$("#id_delivery_service").val(0);
-			$("#delivery_serviceblock").fadeOut();
-			$("#id_parking").val(0);
-			$("#parkingblock").fadeOut();
-			$("#id_contragent").val(0);
-			$("#contragentblock").fadeOut();
-			$("#addressdescr").val(0);
-			$("#addressdescr").fadeOut();
-			$("#contrlink").val(0);
-			$("#contrlink").fadeOut();
-		}
-		//---------Проверка на ввод телефона
-		$('#button-cart1').click(function(){
-			if(!$('.phone').val()){
-				$(this).click(function(){
-					$(this).attr('disabled', 'disabled');
+			// Set Random contragent 
+			if (randomManager == 1) {
+				var arr = new Array();
+				var n = 1;
+				$("#id_manager option").each(function () {
+					arr.push(n);
+					n++;
 				});
-				$('.err_tel').css('visibility', 'visible');
-			}else{
-				$(this).removeAttr("disabled");
-				$('.err_tel').css('visibility', '')
+				var random = Math.ceil(Math.random() * arr.length);
+				$("#id_manager .cntr_" + random).prop("selected", "true");
 			}
-		});
-		//-------------Инициалзация маски для ввода телефонных номеров-------
-		$(function(){
-			$(".phone").mask("+38 (099) ?999-99-99");
+			function ResetForm() {
+				$("#id_delivery").val(0);
+				$("#id_city").val(0);
+				$("#cityblock").fadeOut();
+				$("#id_delivery_service").val(0);
+				$("#delivery_serviceblock").fadeOut();
+				$("#id_parking").val(0);
+				$("#parkingblock").fadeOut();
+				$("#id_contragent").val(0);
+				$("#contragentblock").fadeOut();
+				$("#addressdescr").val(0);
+				$("#addressdescr").fadeOut();
+				$("#contrlink").val(0);
+				$("#contrlink").fadeOut();
+			}
+			//---------Проверка на ввод телефона
+			$('#button-cart1').click(function(){
+				if(!$('.phone').val()){
+					$(this).click(function(){
+						$(this).attr('disabled', 'disabled');
+					});
+					$('.err_tel').css('visibility', 'visible');
+				}else{
+					$(this).removeAttr("disabled");
+					$('.err_tel').css('visibility', '')
+				}
+			});
 		});
 	</script>
 <?}?>

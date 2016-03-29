@@ -186,9 +186,23 @@ class Specification{
 		}
 	}
 
+	public function GetSpecsForCats(){
+		$sql = "SELECT sc.*, c.name, s.caption
+			FROM "._DB_PREFIX_."specs_cats AS sc
+			LEFT JOIN "._DB_PREFIX_."category AS c
+			ON c.id_category = sc.id_cat
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+			ON sc.id_spec = s.id";
+		$res = $this->db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	// Список
 	public function GetMonitoringList($limit = false, $where = false){
-		$sql = "SELECT c.id_category, c.name, s.id AS id_caption, s.caption, sp.value, count(*) AS count
+		$sql = "SELECT c.id_category, c.name, s.id AS id_caption, s.caption, s.units, sp.value, count(*) AS count
 			FROM "._DB_PREFIX_."specs_prods AS sp
 			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
