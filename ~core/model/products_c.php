@@ -3888,4 +3888,19 @@ class Products {
 //			print_r($value);
 		}
 	}
+
+	//Находим все значения, которые привязаны к типу товара
+	public function getValuesItem($id, $idcat){
+		$sql = "SELECT DISTINCT v.`value`
+				FROM  "._DB_PREFIX_."specs_prods v INNER JOIN  "._DB_PREFIX_."cat_prod p
+				ON v.id_prod = p.id_product
+				WHERE v.id_spec = ". $id ." AND
+				p.id_category IN(". $idcat .")
+				AND v.`value` !=''";
+		$res = $this->db->GetArray($sql);
+		if (!$res){
+			return false;
+		}
+		return $res;
+	}
 }?>

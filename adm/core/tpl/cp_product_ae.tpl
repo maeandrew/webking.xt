@@ -221,9 +221,17 @@
 														<?=$i['units']?>
 													</td>
 													<td>
-														<input class="input-m" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
+														<input  data-id-type="<?=$i['id_spec']?>" list="features" class="input-m itemvalue" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
 														<input type="hidden" name="id_spec_prod" value="<?=$i['id']?>">
 														<input type="hidden" name="id_spec" value="<?=$i['id_spec']?>">
+														<datalist id="features">
+
+
+															<option value="Firefox">
+															<option value="Chrome">
+															<option value="Opera">
+															<option value="Safari">
+														</datalist>
 													</td>
 													<td class="left actions">
 														<nobr>
@@ -649,6 +657,32 @@
 	// });
 	var url = URL_base+'productadd/';
 	$(function(){
+		//Подтягиваем значения типов характеристик из БД
+		$('.itemvalue').focus(function(){
+			var idcat='';
+			var cat = $('#nav_connection select[name="categories_ids[]"]');
+			cat.each(function(){
+				idcat += $(this).val() + ',';
+			});
+			idcat = idcat.substring(0, idcat.length - 1);
+			$('#features').html('');
+			$.ajax({
+				url: URL_base + 'ajaxspecifications',
+				type: "POST",
+				cache: false,
+				dataType: "html",
+				data: {
+					"action": 'getValuesOfTypes',
+					"id": $(this).data('idType'),
+					"idcat": idcat
+				}
+			}).done(function (data) {
+				$('#features').html(data);
+			}).fail(function () {
+
+			});
+		});
+
 		//Заполнение списка артикулов
 		$("#article").keyup(function() {
 			var inputvalue = $(this).val();
@@ -1068,6 +1102,7 @@
 		});
 
 	}
+
 	function insertValueImg1(filePath) {
 		document.getElementById('img_1').value = filePath;
 		var re = /(\/efiles\/)(.*?)/;
