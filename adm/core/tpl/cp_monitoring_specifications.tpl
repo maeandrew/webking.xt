@@ -16,7 +16,7 @@
 					<select name="id_category" class="input-m">
 						<option value="0">Все</option>
 						<?foreach($cat_spec as $k=>$item){
-							if($k == $_GET['id_category']){
+							if($k != 0 && $k == $_GET['id_category']){
 								$specifications = $item['specs'];
 							}?>
 							<option <?=$k == $_GET['id_category']?'selected="true"':null?> value="<?=$k;?>"><?=$item['name'];?></option>

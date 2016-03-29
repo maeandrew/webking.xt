@@ -1,5 +1,5 @@
 <?php
-if (!_acl::isAllow('monitoring')){
+if(!_acl::isAllow('monitoring')){
 	die("Access denied");
 }
 unset($parsed_res);
@@ -49,13 +49,10 @@ if(isset($GLOBALS['REQAR'][1])){
 				$limit = false;
 			}
 			foreach($specification->list as $value){
-				$categories[$value['id_category']] = $value['name'];
 				$specifications[$value['id_caption']] = $value['caption'];
-				// $product->SetFieldsForMonitoringSpecifications(array('id_category'));
 			}
 			$specification->GetMonitoringList($limit, $arr);
-			// $tpl->Assign('specifications', $specifications);
-			// $tpl->Assign('categories', $categories);
+			$tpl->Assign('specifications', $specifications);
 			$tpl->Assign('list', $specification->list);
 			break;
 		case 'products':
@@ -82,6 +79,4 @@ if(isset($GLOBALS['REQAR'][1])){
 }
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
-}
-
-?>
+}?>

@@ -142,6 +142,20 @@ class Specification{
 		$this->db->CompleteTrans();
 		return true;
 	}
+	// Обновление значения характеристик у продуктов по характеристике из выбраного раздела
+	public function UpdateSpecsValueMonitoring($arr){
+		$sql = "UPDATE "._DB_PREFIX_."specs_prods
+			SET value = '".$arr['value']."'
+			WHERE id_spec = ".$arr['id_spec']."
+			AND id_prod IN (SELECT id_product FROM xt_cat_prod WHERE id_category = ".$arr['id_category'].")";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
 	public function UpdateByName($caption, $units){
 		$f['caption'] = trim($caption);
 		$f['units'] = trim($units);
