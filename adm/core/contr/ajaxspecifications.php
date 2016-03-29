@@ -25,6 +25,13 @@
 					echo "<li><a target='_blank' href='/adm/productedit/".$value['id_prod']."'>".($k+1)." - ".$value['name']."</a></li>";
 				}
 				break;
+			case"getValuesOfTypes":
+				$valitem = $products->getValuesItem($_POST['id'], $_POST['idcat']);
+
+				foreach ($valitem as &$v){
+					echo '<option value="'.$v['value'].'">';
+				}
+				break;
 			default:
 			break;
 		}

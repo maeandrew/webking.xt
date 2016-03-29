@@ -276,4 +276,5 @@ function IsRenameNeeded($path){
 	}
 	return true;
 }
+
 ?>
