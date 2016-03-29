@@ -147,6 +147,7 @@ class Specification{
 		$sql = "UPDATE "._DB_PREFIX_."specs_prods
 			SET value = '".$arr['value']."'
 			WHERE id_spec = ".$arr['id_spec']."
+			AND value = '".$arr['oldValue']."'
 			AND id_prod IN (SELECT id_product FROM xt_cat_prod WHERE id_category = ".$arr['id_category'].")";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){

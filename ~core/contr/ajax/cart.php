@@ -55,239 +55,233 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$User->SetUser(G::GetLoggedData());
 						$tpl->Assign('User', $User->fields);
 					}
-					if(in_array($User->fields['gid'], array(_ACL_CUSTOMER_, _ACL_ANONYMOUS_, _ACL_DILER_, _ACL_MANAGER_, NULL))){ //
-						// if($_SESSION['client']['user_agent'] == 'mobile'){
+					// if($_SESSION['client']['user_agent'] == 'mobile'){
 
-						// Устанавливаем базовый ценовой режим если пользователь не является менеджером
-						if($User->fields['gid'] != _ACL_MANAGER_){
-							$_SESSION['price_mode'] = 3;
-						}
-						// Подключаем необходимые классы
-						$cart = new Cart();
-						$order = new Orders();
-						$customers = new Customers();
-						$cities = new Citys();
-						$contragents = new Contragents();
-						$delivery = new Delivery();
-						$deliveryservice = new DeliveryService();
-						$regions = new Regions();
-						// Все классы подключены
+					// Устанавливаем базовый ценовой режим если пользователь не является менеджером
+					if($User->fields['gid'] != _ACL_MANAGER_){
+						$_SESSION['price_mode'] = 3;
+					}
+					// Подключаем необходимые классы
+					$cart = new Cart();
+					$order = new Orders();
+					$customers = new Customers();
+					$cities = new Citys();
+					$contragents = new Contragents();
+					$delivery = new Delivery();
+					$deliveryservice = new DeliveryService();
+					$regions = new Regions();
+					// Все классы подключены
 
 
-						// выборка базовых данных
+					// выборка базовых данных
 
-						// о покупателе
-						$customers->SetFieldsById($User->fields['id_user']);
-						$customer = $customers->fields;
-						$cont_person = explode(' ', $customer['cont_person']);
-						$customer['last_name'] = $cont_person[0];
-						$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
-						$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
+					// о покупателе
+					$customers->SetFieldsById($User->fields['id_user']);
+					$customer = $customers->fields;
+					$cont_person = explode(' ', $customer['cont_person']);
+					$customer['last_name'] = $cont_person[0];
+					$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
+					$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
 
-						// список всех менеджеров
-						if(substr($User->fields['email'], -11) == "@x-torg.com"){
-							// внутренний
-							// пользователи в служебных аккаунтах видят удаленных менеджеров
-							$contragents->SetList(true, false);
-						}else{
-							// внешний
-							// обычные пользователи не видят удаленных менеджеров
-							$contragents->SetList(false, false);
-						}
-						$managers_list = $contragents->list;
+					// список всех менеджеров
+					if(substr($User->fields['email'], -11) == "@x-torg.com"){
+						// внутренний
+						// пользователи в служебных аккаунтах видят удаленных менеджеров
+						$contragents->SetList(true, false);
+					}else{
+						// внешний
+						// обычные пользователи не видят удаленных менеджеров
+						$contragents->SetList(false, false);
+					}
+					$managers_list = $contragents->list;
 
-						// список всех областей
-						$regions->SetList();
-						$regions_list = $regions->list;
+					// список всех областей
+					$regions->SetList();
+					$regions_list = $regions->list;
 
-						// список всех способов доставки
-						$delivery->SetDeliveryList();
-						$deliverymethods_list = $delivery->list;
+					// список всех способов доставки
+					$delivery->SetDeliveryList();
+					$deliverymethods_list = $delivery->list;
 
-						// выборка сохраненной информации
+					// выборка сохраненной информации
 
-						// сохраненный город
-						if(isset($customer['id_city']) && $customer['id_city'] > 0){
-							$cities->GetSavedFields($customer['id_city']);
-							$saved['city'] = $cities->fields;
-						}else{
-							$saved['city'] = false;
-						}
+					// сохраненный город
+					if(isset($customer['id_city']) && $customer['id_city'] > 0){
+						$cities->GetSavedFields($customer['id_city']);
+						$saved['city'] = $cities->fields;
+					}else{
+						$saved['city'] = false;
+					}
 
-						// способы доставки
-						if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
-							$delivery->GetSavedFields($customer['id_delivery']);
-							$saved['deliverymethod'] = $delivery->fields;
-						}else{
-							$saved['deliverymethod'] = false;
-						}
+					// способы доставки
+					if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
+						$delivery->GetSavedFields($customer['id_delivery']);
+						$saved['deliverymethod'] = $delivery->fields;
+					}else{
+						$saved['deliverymethod'] = false;
+					}
 
-						// сохраненный менеджер
-						if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
-							$contragents->GetSavedFields($customer['id_contragent']);
-							$saved['manager'] = $contragents->fields;
-						}else{
-							$saved['manager'] = false;
-						}
+					// сохраненный менеджер
+					if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
+						$contragents->GetSavedFields($customer['id_contragent']);
+						$saved['manager'] = $contragents->fields;
+					}else{
+						$saved['manager'] = false;
+					}
 
-						// временнный менеджер
-						$tempmanager = false;
-						$_POST['tempmanager'] = 1;
-						if($managers_list){
-							foreach($managers_list as $am){
-								if(!$saved['manager'] || $saved['manager']['id_user'] == $am['id_user']){
-									$_POST['tempmanager'] = 0;
-								}
-							}
-							if($_POST['tempmanager'] == 1){
-								$tempmanager = $managers_list[array_rand($managers_list)];
+					// временнный менеджер
+					$tempmanager = false;
+					$_POST['tempmanager'] = 1;
+					if($managers_list){
+						foreach($managers_list as $am){
+							if(!$saved['manager'] || $saved['manager']['id_user'] == $am['id_user']){
+								$_POST['tempmanager'] = 0;
 							}
 						}
-
-						// Выбор доступных городов, если у пользователя была сохранена область
-						if(isset($saved['city'])){
-							$cities_list = $cities->SetFieldsByInput($saved['city']['region']);
-							if(!$deliveryservice->SetFieldsByInput($saved['city']['names_regions'])){
-								unset($deliverymethods_list[3]);
-							}
-							$deliveryservice->SetListByRegion($saved['city']['names_regions']);
-							$deliveryservices_list = $deliveryservice->list;
-							$delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['names_regions']);
-							$deliverydepartments_list = $delivery->list;
+						if($_POST['tempmanager'] == 1){
+							$tempmanager = $managers_list[array_rand($managers_list)];
 						}
+					}
 
-						/* output data */
-						$tpl->Assign('customer', $customer);
-						$tpl->Assign('regions_list', $regions_list);
-						$tpl->Assign('deliverymethods_list', $deliverymethods_list);
-						$tpl->Assign('cities_list', $cities_list);
-						$tpl->Assign('deliveryservices_list', $deliveryservices_list);
-						$tpl->Assign('deliverydepartments_list', $deliverydepartments_list);
-						$tpl->Assign('managers_list', $managers_list);
-						$tpl->Assign('saved', $saved);
-						$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
+					// Выбор доступных городов, если у пользователя была сохранена область
+					if(isset($saved['city'])){
+						$cities_list = $cities->SetFieldsByInput($saved['city']['region']);
+						if(!$deliveryservice->SetFieldsByInput($saved['city']['names_regions'])){
+							unset($deliverymethods_list[3]);
+						}
+						$deliveryservice->SetListByRegion($saved['city']['names_regions']);
+						$deliveryservices_list = $deliveryservice->list;
+						$delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['names_regions']);
+						$deliverydepartments_list = $delivery->list;
+					}
 
-						/* Дествия */
-						if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
-							if(isset($_POST['add_order'])){
-								// Добавить к корзине товары из заказа
-								$cart->FillByOrderId($GLOBALS['Rewrite'], true);
+					/* output data */
+					$tpl->Assign('customer', $customer);
+					$tpl->Assign('regions_list', $regions_list);
+					$tpl->Assign('deliverymethods_list', $deliverymethods_list);
+					$tpl->Assign('cities_list', $cities_list);
+					$tpl->Assign('deliveryservices_list', $deliveryservices_list);
+					$tpl->Assign('deliverydepartments_list', $deliverydepartments_list);
+					$tpl->Assign('managers_list', $managers_list);
+					$tpl->Assign('saved', $saved);
+					$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
+
+					/* Дествия */
+					if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
+						if(isset($_POST['add_order'])){
+							// Добавить к корзине товары из заказа
+							$cart->FillByOrderId($GLOBALS['Rewrite'], true);
+						}else{
+							// заменить корзину товарами из заказа
+							$cart->FillByOrderId($GLOBALS['Rewrite']);
+						}
+						if($User->fields['gid'] == _ACL_CONTRAGENT_){
+							$customers->updateContPerson($_POST['cont_person']);
+							$customers->updatePhones($_POST['phones']);
+							$customers->updateCity($_POST['id_city']);
+							$customers->updateDelivery($_POST['id_delivery']);
+							if($_POST['bonus_card'] != '') {
+								$_SESSION['member']['bonus_card'] = $_POST['bonus_card'];
 							}else{
-								// заменить корзину товарами из заказа
-								$cart->FillByOrderId($GLOBALS['Rewrite']);
-							}
-							if($User->fields['gid'] == _ACL_CONTRAGENT_){
-								$customers->updateContPerson($_POST['cont_person']);
-								$customers->updatePhones($_POST['phones']);
-								$customers->updateCity($_POST['id_city']);
-								$customers->updateDelivery($_POST['id_delivery']);
-								if($_POST['bonus_card'] != '') {
-									$_SESSION['member']['bonus_card'] = $_POST['bonus_card'];
-								}else{
-									unset($_SESSION['member']['bonus_card']);
-								}
-							}
-							unset($_POST);
-							header('Location: '._base_url.'/cart/');
-							exit();
-						}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'success'){
-							$products = new Products();
-							foreach($_SESSION['cart']['products'] as $id=>$p){
-								$products->SetFieldsById($id);
-								$product = $products->fields;
-								$_SESSION['cart']['products'][$id]['name'] = $product['name'];
-								$_SESSION['cart']['products'][$id]['art'] = $product['art'];
-								$_SESSION['cart']['products'][$id]['id_category'] = $product['id_category'];
-							}
-							$tpl->Assign('cart', $_SESSION['cart']);
-							$cart->ClearCart();
-						}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'clear'){
-							$cart->ClearCart();
-							header('Location: '._base_url.'/cart/');
-							exit();
-						}
-
-						/* проверка на ошибки */
-						$errm = $warnings = array();
-						$err = $warn = 0;
-						// $cart->IsActualPrices($err, $warn, $errm, $warnings);
-						if($err){
-							if(isset($_SESSION['errm'])){
-								$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
-							}else{
-								$_SESSION['errm'] = $errm;
+								unset($_SESSION['member']['bonus_card']);
 							}
 						}
-						unset($_SESSION['warnings']);
-						if($warn){
-							$_SESSION['warnings'] = $warnings;
+						unset($_POST);
+						header('Location: '._base_url.'/cart/');
+						exit();
+					}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'success'){
+						$products = new Products();
+						foreach($_SESSION['cart']['products'] as $id=>$p){
+							$products->SetFieldsById($id);
+							$product = $products->fields;
+							$_SESSION['cart']['products'][$id]['name'] = $product['name'];
+							$_SESSION['cart']['products'][$id]['art'] = $product['art'];
+							$_SESSION['cart']['products'][$id]['id_category'] = $product['id_category'];
 						}
+						$tpl->Assign('cart', $_SESSION['cart']);
+						$cart->ClearCart();
+					}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'clear'){
+						$cart->ClearCart();
+						header('Location: '._base_url.'/cart/');
+						exit();
+					}
 
-						/* collect cart information */
-						$cart->RecalcCart();
-
-						/* fill product list */
-						if(!empty($_SESSION['cart']['products'])){
-							$products = new Products();
-							$arr = array();
-							foreach($_SESSION['cart']['products'] as $id=>$p){
-								$arr[] = $id;
-							}
-							$products->SetProductsListFromArr($arr, '');
-							$list = $products->list;
-							foreach($list as $key => &$value){
-								if(isset($_SESSION['errm']['products'][$value['id_product']])){
-									$value['err'] = 1;
-									$value['errm'] = $_SESSION['errm']['products'][$value['id_product']];
-								}else{
-									$value['err'] = 0;
-								}
-								$errflag[$key] = $value['err'];
-								$value['images'] = $products->GetPhotoById($value['id_product']);
-							}
-							array_multisort($list, SORT_DESC, $errflag);
-							$tpl->Assign('list', $list);
+					/* проверка на ошибки */
+					$errm = $warnings = array();
+					$err = $warn = 0;
+					// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+					if($err){
+						if(isset($_SESSION['errm'])){
+							$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
 						}else{
-							$tpl->Assign('list', false);
+							$_SESSION['errm'] = $errm;
 						}
-						/* fill unavailable_product list */
-						if(!empty($_SESSION['cart']['unavailable_products'])){
-							$products = new Products();
-							$arr = array();
-							foreach($_SESSION['cart']['unavailable_products'] as $p){
-								$products->SetFieldsById($p['id_product'], 1);
-								$unlist[] = $products->fields;
-							}
-							$tpl->Assign('unlist', $unlist);
-						}else{
-							$tpl->Assign('unlist', false);
-						}
+					}
+					unset($_SESSION['warnings']);
+					if($warn){
+						$_SESSION['warnings'] = $warnings;
+					}
 
-						if(isset($success)){
-							// $tpl->Assign('msg', "Заказ успешно сформирован.");
-							$_SESSION['cart']['draft'] = $draft;
-							$_SESSION['cart']['id_order'] = $id_order;
-							$tpl->Assign('cart', $_SESSION['cart']);
-							if($draft == 1){
-								header('Location: '._base_url.'/cart/success/?type=draft');
+					/* collect cart information */
+					$cart->RecalcCart();
+
+					/* fill product list */
+					if(!empty($_SESSION['cart']['products'])){
+						$products = new Products();
+						$arr = array();
+						foreach($_SESSION['cart']['products'] as $id=>$p){
+							$arr[] = $id;
+						}
+						$products->SetProductsListFromArr($arr, '');
+						$list = $products->list;
+						foreach($list as $key => &$value){
+							if(isset($_SESSION['errm']['products'][$value['id_product']])){
+								$value['err'] = 1;
+								$value['errm'] = $_SESSION['errm']['products'][$value['id_product']];
 							}else{
-								header('Location: '._base_url.'/cart/success/?type=order');
+								$value['err'] = 0;
 							}
+							$errflag[$key] = $value['err'];
+							$value['images'] = $products->GetPhotoById($value['id_product']);
+						}
+						array_multisort($list, SORT_DESC, $errflag);
+						$tpl->Assign('list', $list);
+					}else{
+						$tpl->Assign('list', false);
+					}
+					/* fill unavailable_product list */
+					if(!empty($_SESSION['cart']['unavailable_products'])){
+						$products = new Products();
+						$arr = array();
+						foreach($_SESSION['cart']['unavailable_products'] as $p){
+							$products->SetFieldsById($p['id_product'], 1);
+							$unlist[] = $products->fields;
+						}
+						$tpl->Assign('unlist', $unlist);
+					}else{
+						$tpl->Assign('unlist', false);
+					}
+
+					if(isset($success)){
+						// $tpl->Assign('msg', "Заказ успешно сформирован.");
+						$_SESSION['cart']['draft'] = $draft;
+						$_SESSION['cart']['id_order'] = $id_order;
+						$tpl->Assign('cart', $_SESSION['cart']);
+						if($draft == 1){
+							header('Location: '._base_url.'/cart/success/?type=draft');
 						}else{
-							if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'makeorder' && $_SESSION['client']['user_agent'] == 'mobile'){
-								$tpl->Assign('header', 'Оформление заказа');
-								echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart_makeorder.tpl');
-							}else{
-								// Настройка панели действий ===============================
-								$list_controls = array('layout');
-								$tpl->Assign('list_controls', $list_controls);
-								echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart.tpl');
-							}
+							header('Location: '._base_url.'/cart/success/?type=order');
 						}
 					}else{
-						$tpl->Assign('msg_type', 'info');
-						$tpl->Assign('msg', 'Вы не можете использовать корзину.');
-						echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl');
+						if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'makeorder' && $_SESSION['client']['user_agent'] == 'mobile'){
+							$tpl->Assign('header', 'Оформление заказа');
+							echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart_makeorder.tpl');
+						}else{
+							// Настройка панели действий ===============================
+							$list_controls = array('layout');
+							$tpl->Assign('list_controls', $list_controls);
+							echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart.tpl');
+						}
 					}
 				exit();
 				break;

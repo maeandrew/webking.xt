@@ -305,15 +305,16 @@
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
 						</div>
 					</div>-->
-
-					<div id="button-cart1">
-						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
-					</div>
-					<?if(0):?>
-						<div id="button-cart2">
-							<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
+					<?if(!G::isLogged() || _acl::isAdmin()){?>
+						<div id="button-cart1">
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 						</div>
-					<?endif?>
+					<?}else{?>
+						<p>Вы не можете использовать корзину</p>
+					<?}?>
+					<!-- <div id="button-cart2">
+						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
+					</div> -->
 					<!-- <div id="button-cart3">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
 					</div> -->
