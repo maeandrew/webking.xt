@@ -2811,3 +2811,16 @@ section .stat_year {
 	}
 /* class="mdl-button mdl-js-button mdl-button--raised" */
 /* style="float: right;right: 10px;top:-10px;background:#018B06;"
+
+
+/* Блок сео текста */
+
+#seoTextBlock {
+	color: #9E9E9E;
+	text-align: justify;
+	border-top: 1px solid #e0e0e0;
+}
+
+#seoTextBlock p {
+	line-height: 1.5;
+}
