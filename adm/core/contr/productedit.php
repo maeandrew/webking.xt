@@ -71,6 +71,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$no_rename[$k] = $image;
 				}
 			}
+			// print_r($to_rename);die();
 			//Высчитываем номер посл. добавленной картинки
 			if(isset($no_rename) && !empty($no_rename)){
 				$i = 0;
@@ -184,7 +185,6 @@ if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_
 	$category['id_category'] = $item['id_category'];
 }
 $tpl->Assign('list', $list);
-$tpl->Assign('mlist', $products->GetManufacturers());
 
 // get last article
 $sql = "SELECT art AS cnt

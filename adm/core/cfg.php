@@ -71,12 +71,12 @@ $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core',
 foreach($profiles as $profile){
 	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
 }
-$ACL_PERMS = array(
-	// default rights
-	'rights' => $admin_controllers,
-	// groups
-	'groups' => $profiles
-);
+// $ACL_PERMS = array(
+// 	// default rights
+// 	'rights' => $admin_controllers,
+// 	// groups
+// 	'groups' => $profiles
+// );
 $ACL_PERMS = array(
 	// default rights
 	'rights' => array(
@@ -108,7 +108,8 @@ $ACL_PERMS = array(
 		'users',
 		'wishes',
 		'segmentations',
-		'supplier_prov'
+		'supplier_prov',
+		'monitoring'
 	),
 	// groups
 	'groups' => array(

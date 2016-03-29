@@ -31,7 +31,7 @@
 	          </tr>
 	        </thead>
 			<tbody>
-			<?foreach($list as $i):?>
+			<?foreach($list as $i){?>
 				<tr>
 					<td>
 						<?=$i['id']?>
@@ -52,12 +52,12 @@
 						<? if($i['visible']==1){?>Вкл<?}else{?>Откл<?}?>
 					</td>
 					<td class="left actions"><nobr>
-						<a class="btn-l-green-inv" href="/adm/seotextedit/<?=$i['id'];?>">Редактировать</a>
-						<a class="btn-l-red-inv" href="/adm/seotextdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');">Удалить</a>
+						<a class="btn-m-green-inv" href="/adm/seotextedit/<?=$i['id'];?>">Редактировать</a>
+						<a class="btn-m-red-inv" href="/adm/seotextdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');">Удалить</a>
 						</nobr>
 					</td>
 				</tr>
-			<?endforeach?>
+			<?}?>
 			</tbody>
 		</table>
 	</form>

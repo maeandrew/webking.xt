@@ -188,9 +188,8 @@ class Products {
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 	// // Товар по id
 	// public function SetFieldsById($id_product, $all=0){
@@ -1850,7 +1849,6 @@ class Products {
 
 	// Заполнение соответствий категории-товар
 	public function UpdateProductCategories($id_product, $categories_arr){
-
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
@@ -1876,6 +1874,7 @@ class Products {
 			$this->db->FailTrans();
 			return false;
 		}
+		unset($f);
 		$this->db->CompleteTrans();
 		return true;
 	}

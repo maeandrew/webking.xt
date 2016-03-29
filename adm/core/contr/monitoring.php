@@ -14,7 +14,15 @@ if(isset($GLOBALS['REQAR'][1])){
 			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Характеристики";
 			$product = new Products();
 			$specification = new Specification();
-
+			// получить список категорий
+			$res = $specification->GetSpecsForCats();
+			// die();
+			foreach($res as $value){
+				$cat_spec[$value['id_cat']]['name'] = $value['name'];
+				$cat_spec[$value['id_cat']]['specs'][$value['id_spec']] = $value['caption'];
+			}
+			// список категории и характеристик для выпадающего списка фильтров
+			$tpl->Assign('cat_spec', $cat_spec);
 			if(isset($_GET['smb'])){
 				if(isset($_GET['id_category']) && $_GET['id_category'] !== '0'){
 					$arr['id_category'] = $_GET['id_category'];
@@ -46,8 +54,8 @@ if(isset($GLOBALS['REQAR'][1])){
 				// $product->SetFieldsForMonitoringSpecifications(array('id_category'));
 			}
 			$specification->GetMonitoringList($limit, $arr);
-			$tpl->Assign('specifications', $specifications);
-			$tpl->Assign('categories', $categories);
+			// $tpl->Assign('specifications', $specifications);
+			// $tpl->Assign('categories', $categories);
 			$tpl->Assign('list', $specification->list);
 			break;
 		case 'products':

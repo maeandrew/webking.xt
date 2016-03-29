@@ -80,9 +80,8 @@ class Orders {
 	public function SetNote_klient($id_order, $note_klient){
 		$note_klient = mysql_real_escape_string($note_klient);
 		$sql = "SELECT cu.phones, cu.cont_person
-				FROM "._DB_PREFIX_."customer cu
-				WHERE id_user='$note_klient'
-				";
+			FROM "._DB_PREFIX_."customer cu
+			WHERE id_user = ".$note_klient;
 		$arr = $this->db->GetOneRowArray($sql);
 		foreach($arr as $ord){
 			$a=$arr['cont_person'];

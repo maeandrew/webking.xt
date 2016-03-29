@@ -13,16 +13,17 @@
 			<tr class="filter">
 				<td>Фильтры:</td>
 				<td>
-					<!-- <input list="id_category" name="id_category" class="input-m" placeholder="Категория"> -->
 					<select name="id_category" class="input-m">
-						<option value="-- Все --">0</option>
-						<?foreach($categories as $k=>$item){?>
-							<option <?=$k == $_GET['id_category']?'selected="true"':null?> value="<?=$k;?>"><?=$item;?></option>
+						<option value="0">Все</option>
+						<?foreach($cat_spec as $k=>$item){
+							if($k == $_GET['id_category']){
+								$specifications = $item['specs'];
+							}?>
+							<option <?=$k == $_GET['id_category']?'selected="true"':null?> value="<?=$k;?>"><?=$item['name'];?></option>
 						<?}?>
 					</select>
 				</td>
 				<td>
-					<!-- <input list="id_caption" name="id_caption" class="input-m" placeholder="Характеристика"> -->
 					<select name="id_caption" class="input-m">
 						<option value="0">Все</option>
 						<?foreach($specifications as $k=>$item){?>

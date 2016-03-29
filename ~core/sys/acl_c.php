@@ -11,7 +11,7 @@ class _acl {
 	public static function isAllow($perm) {
 		return self::$isAdmin ? self::$isAdmin : (isset(self::$perms[$perm]) ? (self::$perms[$perm] === 1) : false);
 	}
-	public static function isAdmin($perm){
+	public static function isAdmin(){
 		return self::$isAdmin;
 	}
 	private static function setGroup($gid){

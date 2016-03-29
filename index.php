@@ -6,6 +6,7 @@ define('EXECUTE', 1);
 define(DIRSEP, DIRECTORY_SEPARATOR);
 ini_set('session.gc_maxlifetime', 43200);
 ini_set('session.cookie_lifetime', 43200);
+// ini_set('max_execution_time', 30);
 session_start();
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'sys'.DIRSEP.'global_c.php');
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'cfg.php');
@@ -185,7 +186,7 @@ if(isset($GLOBALS['__graph'])){
 
 $Cart = new Cart();
 // Создание базового массива корзины
-if(G::IsLogged()){
+if(G::isLogged() && !_acl::isAdmin()){
 	$Cart->LastClientCart();
 }
 $Cart->RecalcCart();
