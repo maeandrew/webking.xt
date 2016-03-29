@@ -51,16 +51,19 @@ $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);
 $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
 foreach($profiles as $profile){
-	print_r('_ACL_'.strtoupper($profile['name']).'_');
-	print_r('<br>');
 	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
 }
-$ACL_PERMS = array(
-	// default rights
-	'rights' => $admin_controllers,
-	// groups
-	'groups' => $profiles
-);
+G::ToGlobals(array(
+	'ACL_PERMS' => array(
+		// default rights
+		'rights' => $admin_controllers,
+		// groups
+		'groups' => $profiles
+	)
+));
+if(G::isLogged()){
+	_acl::load($_SESSION['member']['gid']);
+}
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config";
 $arr = $db->GetArray($sql);
