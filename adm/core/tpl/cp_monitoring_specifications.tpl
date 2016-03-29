@@ -77,18 +77,18 @@
 		<tbody>
 			<?$i = $GLOBALS['Start']+1;
 			foreach($list as $value){?>
-				<tr>
+				<tr data-cat="<?=$value['id_category']?>" data-spec="<?=$value['id_caption']?>" data-val="<?=$value['value']?>">
 					<td><?=$i++?></td>
 					<td><?=$value['name'];?></td>
 					<td><?=$value['caption'];?></td>
 					<td><span class="specValName"><?=$value['value'];?></span>
 						<span class="gray"><?=$value['units'];?></span>
-						<input class="inputSpecVal hidden" type="text" value="123ghj">
+						<input class="input-m inputSpecVal hidden" type="text" value="123ghj">
 						<i class="icon-font editcat editProdSpecValue">e</i>
 						<i class="icon-font addprod applyProdSpecValue hidden">a</i>
 					</td>
 					<td class="center">
-						<div data-target="unload_option" data-cat="<?=$value['id_category']?>" data-spec="<?=$value['id_caption']?>" data-val="<?=$value['value']?>" class="btn-m-default-inv open_modal"><?=$value['count'];?></div>
+						<div data-target="unload_option" class="btn-m-default-inv open_modal"><?=$value['count'];?></div>
 					</td>
 				</tr>
 			<?}?>
@@ -99,19 +99,19 @@
 <script>
 	$(function(){
 		$('.center .btn-m-default-inv').click(function(){
-			var id_category = $(this).data('cat'),
-					spec = $(this).data('spec'),
-					value = $(this).data('val');
+			var id_category = $(this).closest('tr').data('cat'),
+				spec = $(this).closest('tr').data('spec'),
+				value = $(this).closest('tr').data('val');
 			$.ajax({
 				url: URL_base+'ajaxspecifications',
 				type: "POST",
 				cache: false,
 				dataType : "html",
 				data: {
-					"action": 'get_prodlist_moderation',
-					"id_category": id_category,
-					"specification": spec,
-					"value": value
+					action: 'get_prodlist_moderation',
+					id_category: id_category,
+					specification: spec,
+					value: value
 				}
 			}).done(function(data){
 				$('#list').html(data);
@@ -132,17 +132,34 @@
 		});
 
 		$('.addprod').on('click', function(){
+			var id_category = $(this).closest('tr').data('cat'),
+				spec = $(this).closest('tr').data('spec'),
+				value = $(this).closest('tr').data('val');
 			$(this).closest('td').find('.editcat').removeClass('hidden');
 			$(this).closest('td').find('.inputSpecVal').addClass('hidden');
-			var oldVal = $(this).closest('td').find('.specValName').html();
 			var newVal = $(this).closest('td').find('.inputSpecVal').val();
-			$(this).closest('td').find('.specValName').html(newVal);
+			$(this).closest('td').find('.specValName').html(newVal).css('color', 'green');
 			$(this).closest('td').find('.specValName').removeClass('hidden');
 			$(this).addClass('hidden');
 
-			ajax('ajaxmonitoring', 'ChangeSpecificationValue',  {value: newVal, oldValue: oldVal, id_spec: id_spec, id_category: id_category}).done(function(data){
+			$.ajax({
+				url: URL_base+'ajaxmonitoring',
+				type: "POST",
+				cache: false,
+				dataType : "json",
+				data: {
+					action: 'ChangeSpecificationValue',
+					id_category: id_category,
+					id_spec: spec,
+					value: newVal,
+					oldValue: value
+				}
+			}).done(function(data){
 				closest('data');
 			});
+			// ajax('ajaxmonitoring', 'ChangeSpecificationValue',  {value: newVal, oldValue: oldVal, id_spec: id_spec, id_category: id_category}).done(function(data){
+			// 	closest('data');
+			// });
 
 		});
 
