@@ -367,13 +367,18 @@
 			// Создание заказа, нового пользователя только с телефоном (start)
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
+				addLoadAnimation('#cart');
 				var phone = $('.order_wrapp input.phone').val().replace(/[^\d]+/g, "");
 				if(phone.length == 12){
-					ajax('cart', 'makeOrder', {phone: phone}).done(function(data){
+					ajax('cart', 'makeOrder', {phone: phone}).done(
+
+						function(data){
 						if(data.status == 200){
 							closeObject('cart');
 						}
 					});
+				}else{
+					removeLoadAnimation('#cart');
 				}
 				// if($('.phone').val()){
 					// var p = $('.phone').val();
@@ -443,7 +448,7 @@
 					$(this).removeClass().addClass("unsuccess");
 				}
 			});
-			// Set Random contragent 
+			// Set Random contragent
 			if(randomManager == 1){
 				var arr = new Array();
 				var n = 1;
