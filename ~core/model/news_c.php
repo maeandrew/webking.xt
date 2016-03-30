@@ -185,7 +185,7 @@ class News{
 		return $id_news;
 	}
 	// Обновление статьи
-	public function UpdateNews($arr){
+	public function UpdateNews($arr, $thumb){
 		$f['id_news'] = trim($arr['id_news']);
 		$f['title'] = trim($arr['title']);
 		$f['page_description'] = trim($arr['page_description']);
@@ -193,6 +193,7 @@ class News{
 		$f['page_keywords'] = trim($arr['page_keywords']);
 		$f['descr_short'] = trim($arr['descr_short']);
 		$f['descr_full'] = trim($arr['descr_full']);
+		$f['thumbnail'] = trim($thumb);
 		list($d,$m,$y) = explode(".", trim($arr['date']));
 		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
 		$f['translit'] = G::StrToTrans($f['title']);
