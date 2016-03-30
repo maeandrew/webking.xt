@@ -27,7 +27,7 @@ if(preg_match('/^.*\.html$/', $request)){
 	if($request !== ''){
 		// detecting page if exist
 		if(preg_match('/\/p[0-9]+/', $request, $match)){
-			$GLOBALS['Page_id'] = preg_replace('/^\/p/', '', $match[0]);
+			$GLOBALS['Page_id'] = (integer) preg_replace('/^\/p/', '', $match[0]);
 			$request = preg_replace('/\/p[0-9]+/', '', $request);
 		}
 		// detecting sort if exist

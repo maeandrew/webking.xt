@@ -1000,6 +1000,20 @@ section.center {
 	display: none;
 }
 
+#removingProd {
+	height: 28px;
+    line-height: 28px;
+    /* position: absolute; */
+    /* left: 350px; */
+    /* top: 0px; */
+    background: rgb(255, 87, 34);
+    color: #fff;
+    width: 320px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 50px;
+    float: left;
+}
 
 /*Contacts*/
 ul.phone_nav_contacts li {

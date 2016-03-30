@@ -54,10 +54,12 @@ function SendToAjax(id, qty, button, direction, note){
 function removeFromCart(id){
 	if(!id) {
 		ajax('cart', 'clearCart').done(function (data) {
+			$('#removingProd').addClass('hidden');
 			location.reload();
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
+			$('#removingProd').addClass('hidden');
 			completeCartProductAdd(data);
 			$('#cart_item_' + id).hide(200).remove();
 		});

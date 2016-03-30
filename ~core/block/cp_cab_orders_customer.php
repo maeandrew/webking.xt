@@ -102,7 +102,15 @@ if(isset($_GET['limit'])){
 // 	}
 // }
 // Список заказов
-$orders = $Customer->GetOrders($orderby);
+$GLOBALS['Limit_db'] = 10; // кол-во заказов на одной странице
+$cnt = count($Customer->GetOrders($orderby));
+$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+// print_r(' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']);
+// die();
+$limit = isset($GLOBALS['Start'])?(' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']):"";
+// var_dump($limit);
+$orders = $Customer->GetOrders($orderby, $limit);
+// die();
 $order_statuses = $Order->GetStatuses();
 //print_r($orders);
 

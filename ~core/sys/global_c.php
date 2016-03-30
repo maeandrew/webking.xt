@@ -368,11 +368,12 @@ class G {
 	 */
 	public static function NeedfulPages($cnt){
 		$content = '';
-		if($cnt > $GLOBALS['Limit_db']){										//  если количество выводимого достаточно для появления пагинатора
-			if(!isset($_GET['page_id']) || !is_numeric($_GET['page_id'])){
-				$_GET['page_id'] = '1';
+		if($cnt > $GLOBALS['Limit_db']){
+			// если количество выводимого достаточно для появления пагинатора
+			if(!isset($GLOBALS['Page_id']) || !is_numeric($GLOBALS['Page_id'])){
+				$GLOBALS['Page_id'] = 1;
 			}
-			$pages = new pages($_GET['page_id'], $cnt);							// в конструктор отправляется id текущ страницы  и количество всего записей
+			$pages = new pages($GLOBALS['Page_id'], $cnt);							// в конструктор отправляется id текущ страницы  и количество всего записей
 			$content .= $pages->ShowPages();
 			$GLOBALS['Start'] = ($pages->GetPage() - 1) * $GLOBALS['Limit_db'];	// забить start для использования в других местах
 		}
