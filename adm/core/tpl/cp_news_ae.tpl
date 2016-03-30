@@ -34,14 +34,17 @@
 						<div class="image_block dz-preview dz-image-preview">
 							<div class="sort_handle"><span class="icon-font">s</span></div>
 							<div class="image">
-								<img data-dz-thumbnail src="<?=$_POST['thumbnail']['src']?>"/>
+								<img data-dz-thumbnail src="<?=$_POST['thumbnail']?>"/>
 							</div>
 							<div class="name">
 								<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']['src']?></span>
 								<span class="dz-size" data-dz-size></span>
-							</div>							
+							</div>
+							<div class="controls">
+								<p><span class="icon-font del_photo_js" data-img-src="<?=$_POST['thumbnail']?>" data-dz-remove>t</span></p>
+							</div>
 							<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']['src']?>">
-						</div>							
+						</div>
 					<?}?>
 				<?}?>
 			</div>
