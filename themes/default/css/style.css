@@ -1003,15 +1003,16 @@ section.center {
 #removingProd {
 	height: 28px;
     line-height: 28px;
-    /* position: absolute; */
+    position: absolute;
     /* left: 350px; */
     /* top: 0px; */
+    bottom: 0px;
     background: rgb(255, 87, 34);
     color: #fff;
     width: 320px;
     text-align: center;
     border-radius: 5px;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     float: left;
 }
 
