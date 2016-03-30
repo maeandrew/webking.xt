@@ -2773,7 +2773,7 @@ section .stat_year {
 	left: 0;
 	right: 0;
 	background-color: rgba(255,255,255,.5);
-	z-index: 100;
+	z-index: 10;
 }
 .loadAnimation {
 	top: calc(50% - 14px);
