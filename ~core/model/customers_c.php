@@ -294,7 +294,7 @@ class Customers extends Users {
 	 */
 	public function RegisterCustomer($arr){
 		//рандомный выбор контрагента
-		if(!isset($arr['id_contragent'])) {
+		if(!isset($arr['id_contragent'])){
 			$contragents = new Contragents();
 			$contragents->SetList(false, false);
 			$managers_list = $contragents->list;

@@ -523,7 +523,7 @@ class Orders {
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = 0;
 		$ii = 0;
-		foreach($_SESSION['cart']['products'] as $id_product=>$product){
+		foreach($_SESSION['cart']['products'] as $id_product=>$item){
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
 			// Обычный заказ
@@ -531,10 +531,10 @@ class Orders {
 			$p[$ii]['filial_mopt'] = 1;
 			$p[$ii]['filial_opt'] = 1;
 			// Определяем оптового поставщика для товара
-			if($supplier = $this->GetSupplierForProduct($id_product, $product['mode'])){
+			if($supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
 				$p[$ii]['id_supplier'] = $supplier['id_supplier'];
-				$p[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $product['mode']);
-				$order_otpusk_prices_sum += round($p[$ii]['price_'.$product['mode'].'_otpusk']*$product['quantity'], 2);
+				$p[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $item['mode']);
+				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
 			}
 			if($sup_nb < 1){
@@ -554,11 +554,11 @@ class Orders {
 			$Products = new Products();
 			$Products->SetFieldsById($id_product);
 			$product = $Products->fields;
-			$p[$ii]['box_qty'] = $product['quantity']/$product['inbox_qty'];
-			$p[$ii][$product['mode'].'_qty'] = $product['quantity'];
-			$p[$ii]['note_'.$product['mode']] = $product['note'];
-			$p[$ii]['default_sum_'.$product['mode']] = $product['summary'][$_SESSION['cart']['cart_column']];
-			if($product['mode'] == 'opt'){
+			$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
+			$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
+			$p[$ii]['note_'.$item['mode']] = $item['note'];
+			$p[$ii]['default_sum_'.$item['mode']] = $item['summary'][$_SESSION['cart']['cart_column']];
+			if($item['mode'] == 'opt'){
 				$p[$ii]['mopt_qty'] = 0;
 				$p[$ii]['note_mopt'] = '';
 				$p[$ii]['default_sum_mopt'] = 0;
@@ -572,8 +572,8 @@ class Orders {
 				$p[$ii]['price_opt_otpusk'] = 0;
 			}
 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-				$p[$ii][$product['mode'].'_sum'] = $product['summary'][$_SESSION['cart']['cart_column']];
-				$p[$ii]['site_price_'.$product['mode']] = $product['actual_prices'][$_SESSION['cart']['cart_column']];
+				$p[$ii][$item['mode'].'_sum'] = $item['summary'][$_SESSION['cart']['cart_column']];
+				$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$_SESSION['cart']['cart_column']];
 			}else{
 				if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
 					$price_column = $arr['price_column'];
@@ -582,10 +582,10 @@ class Orders {
 				}else{
 					$price_column = 3;
 				}
-				$p[$ii][$product['mode'].'_sum'] = $product['summary'][$price_column];
-				$p[$ii]['site_price_'.$product['mode']] = $product['actual_prices'][$price_column];
+				$p[$ii][$item['mode'].'_sum'] = $item['summary'][$price_column];
+				$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$price_column];
 			}
-			if($product['mode'] == 'opt'){
+			if($item['mode'] == 'opt'){
 				$p[$ii]['mopt_sum'] = 0;
 				$p[$ii]['site_price_mopt'] = 0;
 			}else{
@@ -595,12 +595,12 @@ class Orders {
 			$ii++;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $f)){
+		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		unset($f);
+		unset($p);
 		if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
 			if($order_status == 1){
 				$User = new Users();

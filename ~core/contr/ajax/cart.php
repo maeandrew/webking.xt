@@ -17,154 +17,118 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'GetCartPage':
 				unset($parsed_res);
-				// $header = 'Корзина';
-				// $tpl->Assign('header', $header);
+			    if(G::IsLogged()){
+					$User = new Users();
+					$User->SetUser(G::GetLoggedData());
+					$tpl->Assign('User', $User->fields);
+				}
+				// Устанавливаем базовый ценовой режим если пользователь не является менеджером
+				if($User->fields['gid'] != _ACL_MANAGER_){
+					$_SESSION['price_mode'] = 3;
+				}
+				// Подключаем необходимые классы
+				$cart = new Cart();
+				$order = new Orders();
+				$customers = new Customers();
+				$cities = new Citys();
+				$contragents = new Contragents();
+				$delivery = new Delivery();
+				$deliveryservice = new DeliveryService();
+				$regions = new Regions();
+				// Все классы подключены
+				
+				// выборка базовых данных
 
-				// // Подключаем необходимые классы
-				// $cart = new Cart();
-				// $order = new Orders();
-				// $customers = new Customers();
-				// $cities = new Citys();
-				// $contragents = new Contragents();
-				// $delivery = new Delivery();
-				// $deliveryservice = new DeliveryService();
-				// $regions = new Regions();
-				// if(G::IsLogged()){
-				// 	// о покупателе
-				// 	$customers->SetFieldsById($User->fields['id_user']);
-				// 	$customer = $customers->fields;
-				// 	$cont_person = explode(' ', $customer['cont_person']);
-				// 	$customer['last_name'] = $cont_person[0];
-				// 	$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
-				// 	$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
-				// }
-				// $parsed_res = array(
-				// 	'issuccess'	=> true,
-				// 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart.tpl')
-				// );
-				// if(true == $parsed_res['issuccess']){
-				// 	echo $parsed_res['html'];
-				// }
-				// if(!G::IsLogged()){
-				// 	$_SESSION['from'] = 'cart';
-				// 	header('Location: '._base_url.'/login/');
-				// 	exit();
-				// }else{
-				    if(G::IsLogged()){
-						$User = new Users();
-						$User->SetUser(G::GetLoggedData());
-						$tpl->Assign('User', $User->fields);
-					}
-					// if($_SESSION['client']['user_agent'] == 'mobile'){
+				// о покупателе
+				$customers->SetFieldsById($User->fields['id_user']);
+				$customer = $customers->fields;
+				$cont_person = explode(' ', $customer['cont_person']);
+				$customer['last_name'] = $cont_person[0];
+				$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
+				$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
 
-					// Устанавливаем базовый ценовой режим если пользователь не является менеджером
-					if($User->fields['gid'] != _ACL_MANAGER_){
-						$_SESSION['price_mode'] = 3;
-					}
-					// Подключаем необходимые классы
-					$cart = new Cart();
-					$order = new Orders();
-					$customers = new Customers();
-					$cities = new Citys();
-					$contragents = new Contragents();
-					$delivery = new Delivery();
-					$deliveryservice = new DeliveryService();
-					$regions = new Regions();
-					// Все классы подключены
+				// список всех менеджеров
+				if(substr($User->fields['email'], -11) == "@x-torg.com"){
+					// внутренний
+					// пользователи в служебных аккаунтах видят удаленных менеджеров
+					$contragents->SetList(true, false);
+				}else{
+					// внешний
+					// обычные пользователи не видят удаленных менеджеров
+					$contragents->SetList(false, false);
+				}
+				$managers_list = $contragents->list;
 
+				// список всех областей
+				$regions->SetList();
+				$regions_list = $regions->list;
 
-					// выборка базовых данных
+				// список всех способов доставки
+				$delivery->SetDeliveryList();
+				$deliverymethods_list = $delivery->list;
 
-					// о покупателе
-					$customers->SetFieldsById($User->fields['id_user']);
-					$customer = $customers->fields;
-					$cont_person = explode(' ', $customer['cont_person']);
-					$customer['last_name'] = $cont_person[0];
-					$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
-					$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
+				// выборка сохраненной информации
 
-					// список всех менеджеров
-					if(substr($User->fields['email'], -11) == "@x-torg.com"){
-						// внутренний
-						// пользователи в служебных аккаунтах видят удаленных менеджеров
-						$contragents->SetList(true, false);
-					}else{
-						// внешний
-						// обычные пользователи не видят удаленных менеджеров
-						$contragents->SetList(false, false);
-					}
-					$managers_list = $contragents->list;
+				// сохраненный город
+				if(isset($customer['id_city']) && $customer['id_city'] > 0){
+					$cities->GetSavedFields($customer['id_city']);
+					$saved['city'] = $cities->fields;
+				}else{
+					$saved['city'] = false;
+				}
 
-					// список всех областей
-					$regions->SetList();
-					$regions_list = $regions->list;
+				// способы доставки
+				if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
+					$delivery->GetSavedFields($customer['id_delivery']);
+					$saved['deliverymethod'] = $delivery->fields;
+				}else{
+					$saved['deliverymethod'] = false;
+				}
 
-					// список всех способов доставки
-					$delivery->SetDeliveryList();
-					$deliverymethods_list = $delivery->list;
+				// сохраненный менеджер
+				if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
+					$contragents->GetSavedFields($customer['id_contragent']);
+					$saved['manager'] = $contragents->fields;
+				}else{
+					$saved['manager'] = false;
+				}
 
-					// выборка сохраненной информации
-
-					// сохраненный город
-					if(isset($customer['id_city']) && $customer['id_city'] > 0){
-						$cities->GetSavedFields($customer['id_city']);
-						$saved['city'] = $cities->fields;
-					}else{
-						$saved['city'] = false;
-					}
-
-					// способы доставки
-					if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
-						$delivery->GetSavedFields($customer['id_delivery']);
-						$saved['deliverymethod'] = $delivery->fields;
-					}else{
-						$saved['deliverymethod'] = false;
-					}
-
-					// сохраненный менеджер
-					if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
-						$contragents->GetSavedFields($customer['id_contragent']);
-						$saved['manager'] = $contragents->fields;
-					}else{
-						$saved['manager'] = false;
-					}
-
-					// временнный менеджер
-					$tempmanager = false;
-					$_POST['tempmanager'] = 1;
-					if($managers_list){
-						foreach($managers_list as $am){
-							if(!$saved['manager'] || $saved['manager']['id_user'] == $am['id_user']){
-								$_POST['tempmanager'] = 0;
-							}
-						}
-						if($_POST['tempmanager'] == 1){
-							$tempmanager = $managers_list[array_rand($managers_list)];
+				// временнный менеджер
+				$tempmanager = false;
+				$_POST['tempmanager'] = 1;
+				if($managers_list){
+					foreach($managers_list as $am){
+						if(!$saved['manager'] || $saved['manager']['id_user'] == $am['id_user']){
+							$_POST['tempmanager'] = 0;
 						}
 					}
-
-					// Выбор доступных городов, если у пользователя была сохранена область
-					if(isset($saved['city'])){
-						$cities_list = $cities->SetFieldsByInput($saved['city']['region']);
-						if(!$deliveryservice->SetFieldsByInput($saved['city']['names_regions'])){
-							unset($deliverymethods_list[3]);
-						}
-						$deliveryservice->SetListByRegion($saved['city']['names_regions']);
-						$deliveryservices_list = $deliveryservice->list;
-						$delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['names_regions']);
-						$deliverydepartments_list = $delivery->list;
+					if($_POST['tempmanager'] == 1){
+						$tempmanager = $managers_list[array_rand($managers_list)];
 					}
+				}
 
-					/* output data */
-					$tpl->Assign('customer', $customer);
-					$tpl->Assign('regions_list', $regions_list);
-					$tpl->Assign('deliverymethods_list', $deliverymethods_list);
-					$tpl->Assign('cities_list', $cities_list);
-					$tpl->Assign('deliveryservices_list', $deliveryservices_list);
-					$tpl->Assign('deliverydepartments_list', $deliverydepartments_list);
-					$tpl->Assign('managers_list', $managers_list);
-					$tpl->Assign('saved', $saved);
-					$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
+				// Выбор доступных городов, если у пользователя была сохранена область
+				if(isset($saved['city'])){
+					$cities_list = $cities->SetFieldsByInput($saved['city']['region']);
+					if(!$deliveryservice->SetFieldsByInput($saved['city']['names_regions'])){
+						unset($deliverymethods_list[3]);
+					}
+					$deliveryservice->SetListByRegion($saved['city']['names_regions']);
+					$deliveryservices_list = $deliveryservice->list;
+					$delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['names_regions']);
+					$deliverydepartments_list = $delivery->list;
+				}
+
+				/* output data */
+				$tpl->Assign('customer', $customer);
+				$tpl->Assign('regions_list', $regions_list);
+				$tpl->Assign('deliverymethods_list', $deliverymethods_list);
+				$tpl->Assign('cities_list', $cities_list);
+				$tpl->Assign('deliveryservices_list', $deliveryservices_list);
+				$tpl->Assign('deliverydepartments_list', $deliverydepartments_list);
+				$tpl->Assign('managers_list', $managers_list);
+				$tpl->Assign('saved', $saved);
+				$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
 
 					/* Дествия */
 					if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
@@ -381,37 +345,49 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case "makeOrder":
-				$Customers = new Customers();
-				$Users = new Users();
-				if(G::isLogged()){
-					$user = G::GetLoggedData();
-				}else{
-					if(isset($_POST['phone'])){
-						$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
-						if (!$id_user = $Users->CheckPhoneUniqueness($phone)) {
-							$data = array(
-								'name' => 'user_' . rand(),
-								'email' => null,
-								'passwd' => $pass = substr(md5(time()), 0, 8),
-								'descr' => '',
-								'phone' => $phone
-							);
-							$id_user = $Customers->RegisterCustomer($data);
-						};
-						$Users->CheckUserNoPass(array('email' => $phone));
-					}else{
-						// показываем ошибку не корректности ввода телефона
-						$res = 'Телефон введен не верно!';
+				if(!G::isLogged()){
+					$Customers = new Customers();
+					$Users = new Users();
+					// Если покупатель не арторизован, получаем получаем введенный номер телефона
+					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
+					// проверяем уникальность введенного номера телефона
+					if($Users->CheckPhoneUniqueness($phone)){
+						$data = array(
+							'name' => 'user_'.rand(),
+							'passwd' => $pass = substr(md5(time()), 0, 8),
+							'descr' => 'Пользователь создан автоматически при оформлении корзины',
+							'phone' => $phone
+						);
+						// регистрируем нового пользователя
+						$Customers->RegisterCustomer($data);
+						$data = array(
+							'email' => $phone,
+							'passwd' => $pass
+						);
+						// авторизуем покупателя в его новый аккаунт
+						if($Users->CheckUser($data)){
+							G::Login($Users->fields);
+							_acl::load($Users->fields['gid']);
+						}
 					}
-					$resArr = array('massage'=>$res, 'id_user'=>$id_user, 'id_order'=>$id_order);
 				}
-				$Orders = new Orders();
-				if($id_order = $Orders->Add()) {
-					$res = 'Заказ сформирован!';
-					// $Customers->updatePhones($phone);
+				if(G::isLogged()){
+					// Если покупатель арторизован, получаем его данные
+					$user = G::GetLoggedData();
+					$Orders = new Orders();
+					// оформляем заказ
+					if($id_order = $Orders->Add()) {
+						$res['message'] = 'Заказ сформирован!';
+						$res['status'] = 200;
+						// $Customers->updatePhones($phone);
+					}else{
+						$res['message'] = 'Ошибка формирования заказа!';
+						$res['status'] = 500;
+						// $Customers->updatePhones($phone);
+					}
 				}else{
-					$res = 'Ошибка формирования заказа!';
-					// $Customers->updatePhones($phone);
+					$res['message'] = 'Ошибка авторизации пользователя';
+					$res['status'] = 500;
 				}
 				echo json_encode($res);
 				break;

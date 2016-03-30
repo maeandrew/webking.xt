@@ -269,7 +269,7 @@
 				<form action="">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label style="color: #7F7F7F">*Телефон</label>
-						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/" onChange="validate($(this))">
+						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/">
 						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
 						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						<!--span class="err_tel">Обязательное поле для ввода!</span-->
@@ -305,7 +305,7 @@
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
 						</div>
 					</div>-->
-					<?if(!G::isLogged() || _acl::isAdmin()){?>
+					<?if(!G::isLogged() || !_acl::isAdmin()){?>
 						<div id="button-cart1">
 							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 						</div>
@@ -320,17 +320,6 @@
 					</div> -->
 				</form>
 				<script type='text/javascript'>
-					function validate(obj) {
-						//Считаем значения из полей name в переменную x
-						var x = obj.val();
-						//Если поле name пустое выведем сообщение и предотвратим отправку формы
-						if (x.length == 0) {
-							console.log('*Вы не ввели телефон');
-							$('#namef').text('*Вы не ввели телефон');
-							return false;
-						}
-						return true;
-					}
 					//   radio button magic
 					// componentHandler.upgradeDom();
 
@@ -371,17 +360,21 @@
 	<script type="text/javascript">
 		$(function(){
 			if(isLogged){
-				console.log('loggedin');
+				// console.log('loggedin');
 			}
 			// Инициалзация маски для ввода телефонных номеров
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
-				// var phone = p.replace(/[^\d]+/g, "");
-				ajax('cart', 'makeOrder').done(function(arr){
-					console.log(arr);
-				});
+				var phone = $('.order_wrapp input.phone').val().replace(/[^\d]+/g, "");
+				if(phone.length == 12){
+					ajax('cart', 'makeOrder', {phone: phone}).done(function(data){
+						if(data.status == 200){
+							closeObject('cart');
+						}
+					});
+				}
 				// if($('.phone').val()){
 					// var p = $('.phone').val();
 					// var phone = p.replace(/[^\d]+/g, "");
@@ -397,38 +390,38 @@
 					// return false;
 				// }
 			});
-			<?if(!G::isLogged()){?>
-				$('input.send_order, input.save_order').click(function (e) {
+			if(!isLogged){
+				$('input.send_order, input.save_order').click(function(e){
 					var name = $('#edit #name').val().length;
 					var phone = $('#edit #phone').val().length;
 					var id_manager = $('#edit #id_manager').val();
 					var id_city = $('#edit #id_delivery_department').val();
-					if (name > 3) {
-						if (phone > 0) {
-							if (id_manager != null) {
-								if (id_city != null) {
+					if(name > 3){
+						if(phone > 0){
+							if(id_manager != null){
+								if(id_city != null){
 									$(this).submit();
-								} else {
+								}else{
 									e.preventDefault();
 									alert("Город не выбран");
 								}
-							} else {
+							}else{
 								e.preventDefault();
 								alert("Менеджер не выбран");
 							}
-						} else {
+						}else{
 							e.preventDefault();
 							$("#phone").removeClass().addClass("unsuccess");
 							alert("Телефон не указан");
 						}
-					} else {
+					}else{
 						e.preventDefault();
 						$("#name").removeClass().addClass("unsuccess");
 						alert("Контактное лицо не заполнено");
 					}
 				});
-			<?}?>
-			$("#name").blur(function () {
+			}
+			$("#name").blur(function(){
 				var name = this.value;
 				var nName = name.replace(/[^A-zА-я ]+/g, "");
 				var count = nName.length;
@@ -439,7 +432,7 @@
 					$(this).removeClass().addClass("success");
 				}
 			});
-			$("#phone").blur(function () {
+			$("#phone").blur(function(){
 				var phone = this.value;
 				var nPhone = phone.replace(/[^0-9]+/g, "");
 				var count = nPhone.length;
@@ -451,17 +444,17 @@
 				}
 			});
 			// Set Random contragent 
-			if (randomManager == 1) {
+			if(randomManager == 1){
 				var arr = new Array();
 				var n = 1;
-				$("#id_manager option").each(function () {
+				$("#id_manager option").each(function(){
 					arr.push(n);
 					n++;
 				});
-				var random = Math.ceil(Math.random() * arr.length);
-				$("#id_manager .cntr_" + random).prop("selected", "true");
+				var random = Math.ceil(Math.random()*arr.length);
+				$("#id_manager .cntr_"+random).prop("selected", "true");
 			}
-			function ResetForm() {
+			function ResetForm(){
 				$("#id_delivery").val(0);
 				$("#id_city").val(0);
 				$("#cityblock").fadeOut();

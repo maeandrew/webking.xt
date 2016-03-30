@@ -778,6 +778,7 @@ section.center {
 #cart ul.order_head {
 	text-align: left;
 	overflow: hidden;
+	line-height: 36px;
 	padding: 0;
 	background-color: #F5F5F5;
 	border-bottom: 1px solid #e0e0e0;

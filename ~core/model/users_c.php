@@ -31,8 +31,6 @@ class Users {
 	public function CheckUser($arr){
 		$f['email'] = trim($arr['email']);
 		$f['passwd'] = trim($arr['passwd']);
-
-
 		$sql = "SELECT id_user, email, gid, promo_code, name, phones
 			FROM "._DB_PREFIX_."user
 			WHERE (email = '".$f['email']."'
@@ -40,10 +38,10 @@ class Users {
 			OR phones = '".$f['email']."')
 			AND passwd = '".md5($f['passwd'])."'
 			AND active = 1";
-
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
+		// получаем список избранных товаров
 		$sql2 = "SELECT f.id_product
 			FROM "._DB_PREFIX_."favorites AS f
 			WHERE f.id_user = ".$this->fields['id_user'];
@@ -51,6 +49,7 @@ class Users {
 		foreach($this->fields['favorites'] as $key => $value){
 			$this->fields['favorites'][$key] = $value['id_product'];
 		}
+		// получаем лист ожидания
 		$sql3 = "SELECT wl.id_product
 			FROM "._DB_PREFIX_."waiting_list AS wl
 			WHERE wl.id_user = ".$this->fields['id_user'];
@@ -58,29 +57,28 @@ class Users {
 		foreach($this->fields['waiting_list'] as $key => $value){
 			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
+		// получаем данные о личном менеджере
 		$sql4 = "SELECT ct.name_c, ct.phones
 			FROM "._DB_PREFIX_."customer cr
 			LEFT JOIN "._DB_PREFIX_."contragent ct
 			ON cr.id_contragent = ct.id_user
 			WHERE cr.id_user = ".$this->fields['id_user'];
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
-
-		return $sql;
+		return true;
 	}
 
-	public function CheckUserNoPass($arr){
-		$f['email'] = trim($arr['email']);
+	public function CheckUserNoPass($data){
+		$data = trim($data);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
 			FROM "._DB_PREFIX_."user AS u
-			WHERE u.email = '".$f['email']."'
-			OR u.phones = '".$f['email']."'
+			WHERE u.email = '".$data."'
+			OR u.phones = '".$data."'
 			AND u.active = 1";
-			print_r($sql);
-		if($this->fields = $this->db->GetOneRowArray($sql)){
-			return $this->fields;
-		}else{
+		$this->fields = $this->db->GetOneRowArray($sql);
+		if(!$this->fields){
 			return false;
 		}
+		return $this->fields;
 	}
 
 	public function GetFields(){
@@ -144,12 +142,24 @@ class Users {
 
 	// Добавить пользователя
 	public function AddUser($arr){
-		if(isset($arr['name'])) {$f['name'] = trim($arr['name']);}
-		if(isset($arr['email'])) {$f['email'] = trim($arr['email']);}
-		if(isset($arr['passwd'])) {$f['passwd'] = md5(trim($arr['passwd']));}
-		if(isset($arr['gid'])) {$f['gid'] = trim($arr['gid']);}
-		if(isset($arr['descr'])) {$f['descr'] = trim($arr['descr']);}
-		if(isset($arr['phone'])) {$f['phones'] = trim($arr['phone']);}
+		if(isset($arr['name'])){
+			$f['name'] = trim($arr['name']);
+		}
+		if(isset($arr['email'])){
+			$f['email'] = trim($arr['email']);
+		}
+		if(isset($arr['passwd'])){
+			$f['passwd'] = md5(trim($arr['passwd']));
+		}
+		if(isset($arr['gid'])){
+			$f['gid'] = trim($arr['gid']);
+		}
+		if(isset($arr['descr'])){
+			$f['descr'] = trim($arr['descr']);
+		}
+		if(isset($arr['phone'])){
+			$f['phones'] = trim($arr['phone']);
+		}
 		if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
 			$arr['promo_code'] = trim($arr['promo_code']);
 			$supplier = new Suppliers();
@@ -429,17 +439,20 @@ class Users {
 		return $arr;
 	}
 
-	//Проверка уникальности телефона
+	// Проверка уникальности телефона
+	/**
+	 * Проверка уникальности номера телефона
+	 * Если введенного номера телефона нет в базе данных, возвращает true, иначе false
+	 * @param string $phone номер телефона
+	 */
 	public function CheckPhoneUniqueness($phone){
-		$sql = "SELECT id_user
+		$sql = "SELECT COUNT(id_user) AS count
 			FROM "._DB_PREFIX_."user
-			WHERE phones = ".$phone."
-			LIMIT 1";
-		if($id_user = $this->db->GetOneRowArray($sql)){
-
-			return $id_user['id_user'];
+			WHERE phones = ".$phone;
+		$res = $this->db->GetOneRowArray($sql);
+		if($res['count'] > 0){
+			return false;
 		}
-		return false;
+		return true;
 	}
-
 }?>
