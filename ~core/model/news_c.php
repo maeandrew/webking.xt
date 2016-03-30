@@ -7,7 +7,7 @@ class News{
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid");
+		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid", "thumbnail");
 	}
 	// Страница по транслиту
 	public function SetFieldsByRewrite($rewrite, $all = 0){
@@ -186,11 +186,10 @@ class News{
 	}
 	// Обновление статьи
 	public function UpdateNews($arr, $thumb = ''){
-		if( strpos ( $thumb, '/temp/') == true) {print_r(1); die();
-			rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', trim($arr['id_news']) . '/', $thumb));print_r(1); die();
-			$thumb = str_replace('temp/', trim($arr['id_news']) . '/', $thumb);
+		if( strpos ( $thumb, '/temp/') == true) {
+			rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb));
+			$thumb = str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb);
 		}
-		print_r($thumb); die();
 		$f['id_news'] = trim($arr['id_news']);
 		$f['title'] = trim($arr['title']);
 		$f['page_description'] = trim($arr['page_description']);
@@ -247,10 +246,9 @@ class News{
 		return $res;
 	}
 	// Добавление и удаление фото
-	public function UpdatePhoto($id_news, $images_arr, $thumb){
+	public function UpdatePhoto($id_news, $images_arr = null, $thumb = null){
 		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
 		$this->db->StartTrans();
-
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);
@@ -288,7 +286,7 @@ class News{
 			}
 
 			$sql = "UPDATE "._DB_PREFIX_."news SET `thumbnail` = '".$thumb."'
-				WHERE id_news = $id_news";
+					WHERE id_news = $id_news";
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		}
 

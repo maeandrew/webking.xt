@@ -5,7 +5,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="newsae">
 	<form action="<?=$GLOBALS['URL_request']?>" method="post">
-		<?if(isset($_POST['id_news']) && $_POST['id_news']){?>
+		<?if(isset($_POST['id_news']) && $_POST['id_news']){ ?>
 			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>news/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
 		<?}?>
 		<label for="title">Заголовок:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
