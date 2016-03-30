@@ -46,6 +46,10 @@ if(isset($_POST['smb'])){
 		$images_arr =  array();
 	}
 
+
+
+
+
 	//Добавление миниатюры
 	if(isset($_POST['thumb'])) {
 		$thumb = $_POST['thumb'];
@@ -54,7 +58,8 @@ if(isset($_POST['smb'])){
 			$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
 			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
 			$thumb = $bd_path . '/' . $file['basename'];
-		}
+			//print_r($thumb); die();
+		} else $thumb = $thumb;
 	}
 
 	if(!$err){

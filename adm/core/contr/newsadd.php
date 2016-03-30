@@ -35,13 +35,25 @@ if(isset($_POST['smb'])){
 		$images_arr =  array();
 	}
 
+	//Добавление миниатюры
+	if(isset($_POST['thumb'])) {
+		$thumb = $_POST['thumb'];
+		if (strpos($thumb, '/temp/') == true) {
+			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $thumb));
+			$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
+			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
+			$thumb = $bd_path . '/' . $file['basename'];
+		}
+	}else{
+		$thumb =  '';
+	}
+
 	//$Images->resize(false, $to_resize);
 
-//print_r($err); die();
 
 	if(!$err){
 		if($id = $News->AddNews($_POST)){
-			$News->UpdatePhoto($id, $images_arr);
+			$News->UpdatePhoto($id, $images_arr, $thumb);
 			$tpl->Assign('msg', 'Новость добавлена.');
 			unset($_POST);
 		}else{
