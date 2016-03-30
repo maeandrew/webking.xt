@@ -12,7 +12,7 @@
 		<input type="text" name="title" id="title" class="input-l" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>
 		<div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
 		<div class="row seo_block">
-			<div class="col-md-12">
+			<div class="col-md-12 hidden">
 				<label for="page_title">Мета-заголовок (title):</label>
 				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
 				<input type="text" name="page_title" id="page_title" class="input-l" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
@@ -24,6 +24,36 @@
 				<textarea class="input-l" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
 		</div>
+		<label for="photobox">Миниатюра:</label>
+		<div id="photobox">
+			<div class="thumbpreviews">
+				<?$id_news = $GLOBALS['REQAR'][1];?>
+				<?if(isset($id_news)) {
+					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>									
+						<div class="image_block dz-preview dz-image-preview">
+							<div class="sort_handle"><span class="icon-font">s</span></div>
+							<div class="image">
+								<img data-dz-thumbnail src="<?=$_POST['thumbnail']['src']?>"/>										
+							</div>
+							<div class="name">
+								<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']['src']?></span>
+								<span class="dz-size" data-dz-size></span>
+							</div>
+							<div class="controls">
+								<p><span class="icon-font del_photo_js" data-img-src="<?=$_POST['thumbnail']['src']?>" data-dz-remove>t</span></p>
+							</div>
+							<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']['src']?>">
+						</div>
+							
+					<?}?>
+				<?}?>
+			</div>
+			<div class="image_block_new drop_zone animate">
+				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+			</div>
+		</div>
+
 		<label for="descr_short">Короткое описание:</label><?=isset($errm['descr_short'])?"<span class=\"errmsg\">".$errm['descr_short']."</span><br>":null?>
 		<textarea name="descr_short" id="descr_short" class="input-l" rows="18" cols="195"><?=isset($_POST['descr_short'])?htmlspecialchars($_POST['descr_short']):null?></textarea>
 		<p><b>Полное описание:</b></p><?=isset($errm['descr_full'])?"<span class=\"errmsg\"><br>".$errm['descr_full']."</span>":null?>
@@ -74,7 +104,7 @@
 			</div>
 			<div class="image_block_new drop_zone animate">
 				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
-				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 			</div>
 		</div>
 		
@@ -131,6 +161,24 @@
 			}
 		});
 
+		//Загрузка единственного фото (thumb) на сайт
+		var singledropzone = new Dropzone(".drop_zone", {
+			method: 'POST',
+			url: url+"?upload=true",
+			clickable: true,
+			previewsContainer: '.thumbpreviews',
+			previewTemplate: document.querySelector('#preview-template').innerHTML
+		});
+		singledropzone.on('addedfile', function(file){
+
+		}).on('success', function(file, path){
+			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+path+'">';
+			
+		}).on('removedfile', function(file){
+			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;	
+			$('.previews').append('<input type="hidden" name="removed_thumb" value="'+removed_file2+'">');
+		});
+
 		//Загрузка Фото на сайт
 		var dropzone = new Dropzone(".drop_zone", {
 			method: 'POST',
@@ -139,7 +187,7 @@
 			previewsContainer: '.previews', // куда загружает
 			previewTemplate: document.querySelector('#preview-template').innerHTML //шаблон загрузки
 		});
-		var return_arr = new Array();
+		// var return_arr = new Array();
 		dropzone.on('addedfile', function(file){
 			//askaboutleave();
 		}).on('success', function(file, path){
