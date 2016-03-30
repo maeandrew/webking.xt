@@ -242,14 +242,17 @@ header [for="user_profile"] .listItems {
 header [for="user_profile"] .manager_contacts i {
 	margin-right: 0;
 }
-header #userPic img {
+header #userPic .avatarWrapp {
 	width: 80px;
 	height: 80px;
-	margin: 0 auto;
 	border-radius: 50%;
-	display: block;
-	/*margin-top: calc(50% - 50px);*/
-	background-color: #bbb;
+	margin: 0 auto;
+	background-color: #000;
+	overflow: hidden;
+}
+header #userPic img {
+	max-width: 100%;
+	max-height: 100%;	
 }
 header #userNameInf {
 	font-size: 1.2em;
@@ -267,7 +270,7 @@ header #editUserProf {
 	line-height: 30px;
 }
 header #menuBorder {
-	border-top: 1px solid #b0b0b0;
+	border-top: 1px solid #CFCFCF;
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -282,6 +285,45 @@ header #userNameBlock {
 	display: flex;
 	justify-content: center;
 }
+
+header #userFavoritesList {
+	padding: 7px; 
+}
+
+header #userFavoritesList i{
+	color: red;
+	font-size: 2em;
+}
+header #userWaitingList i{
+	color: orange;
+	font-size: 2em;
+}
+
+header #userFavoritesList .favleft,
+header #userWaitingList .favleft {
+	float: left;
+    margin-top: 3%;	
+}
+header #userFavoritesList .favright,
+header #userWaitingList .favright {
+	float: right;
+	margin-right: 12%;
+}
+header #userFavoritesList .favright p:first-child,
+header #userWaitingList .favright p:first-child{
+	margin-bottom: 5%;
+}
+header #userFavoritesList .favright p:last-child,
+header #userWaitingList .favright p:last-child {
+	font-size: 1.1em;	
+}
+header #userWaitingList .favleft {
+	margin-left: 10%;
+}
+header #userWaitingList .favright {
+	margin-right: 20%;
+}
+
 header .menuUserInfBtn {
 	width: 50%;
 	height: 60px;
@@ -296,10 +338,8 @@ header .menuUserInfBtn {
 	outline: none;
 }
 header .menuUserInfBtn:hover {
-	/*background-color: #ff5722;*/
-	/*color: #fff;*/
-	cursor: pointer;
-	opacity: 1;
+	background-color: #eee;
+	cursor: pointer;	
 }
 header #mycabMenuUserInfBtn:hover {
 	/*background-color: #018b06;*/
