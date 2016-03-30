@@ -305,7 +305,7 @@
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
 						</div>
 					</div>-->
-					<?if(!G::isLogged() || _acl::isAdmin()){?>
+					<?if(!G::isLogged() || !_acl::isAdmin()){?>
 						<div id="button-cart1">
 							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 						</div>
@@ -450,7 +450,7 @@
 					$(this).removeClass().addClass("unsuccess");
 				}
 			});
-			// Set Random contragent 
+			// Set Random contragent
 			if (randomManager == 1) {
 				var arr = new Array();
 				var n = 1;
