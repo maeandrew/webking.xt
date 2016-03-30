@@ -36,6 +36,7 @@
 	<div id="back_modal" class="hidden"></div>
 	<section id="wrapper">
 		<header class="paper_shadow_1 animate">
+			<!-- <i class="icon-font">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</i> -->
 			<?=$__header?>
 		</header>
 		<aside>

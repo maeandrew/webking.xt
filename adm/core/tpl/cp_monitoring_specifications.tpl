@@ -85,7 +85,7 @@
 						<span class="gray"><?=$value['units'];?></span>
 						<input class="input-m inputSpecVal hidden" type="text" value="123ghj">
 						<i class="icon-font editcat editProdSpecValue">e</i>
-						<i class="icon-font addprod applyProdSpecValue hidden">a</i>
+						<i class="icon-font addprod applyProdSpecValue hidden">y</i>
 					</td>
 					<td class="center">
 						<div data-target="unload_option" class="btn-m-default-inv open_modal"><?=$value['count'];?></div>
