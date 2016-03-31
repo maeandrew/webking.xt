@@ -1,5 +1,5 @@
 <?if(isset($data_graph) && !empty($data_graph)){?>
-	<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix">
+	<div class="stat_year mdl-color--grey-100 mdl-cell--hide-phone clearfix hidden">
 		<div class="parent_opacity_line" style="position: relative;padding:0 0 10px 50px;">
 			<?if(isset($_SESSION['member'])){?>
 				<div id="top_block_graph">
