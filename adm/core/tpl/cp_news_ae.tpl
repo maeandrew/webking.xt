@@ -47,7 +47,7 @@
 					<?}?>
 				<?}?>
 			</div>
-			<div class="image_block_new drop_zone_thumb animate">
+			<div class="image_block_new thumb_block drop_zone_thumb animate">
 				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
 				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 			</div>
@@ -181,6 +181,7 @@
 			url: url+"?upload=true",
 			uploadMultiple: false,
 			clickable: true,
+			acceptedFiles: 'image/jpeg,image/png',
 			maxFiles: 1,
 			previewsContainer: '.thumbpreviews',
 			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
@@ -192,11 +193,11 @@
 			// }
 		}).on('removedfile', function(file){			
 			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;
-			$('.image_block_new').removeClass('hidden');
+			$('.thumb_block').removeClass('hidden');
 			$('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		}).on('addedfile', function(file){
 			$('.thumbpreviews .image_block.preloaded').remove();
-			$('.image_block_new').addClass('hidden');
+			$('.thumb_block').addClass('hidden');
 		}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+path+'">';			
 		});
@@ -206,6 +207,7 @@
 			method: 'POST',
 			url: url+"?upload=true",
 			clickable: true,
+			acceptedFiles: 'image/jpeg,image/png',
 			previewsContainer: '.previews',
 			previewTemplate: document.querySelector('#preview-template').innerHTML
 		});
