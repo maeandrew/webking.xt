@@ -261,12 +261,21 @@
 
 //Удаление заказа в кабинете
 $(function(){
+
+	var prod_id = <?=$i['id_order']?>;
+
 	$('#cnslOrderBtn').on('click', function(e){
-		var prod_id= <?=$i['id_order']?>;
 		ajax('order', 'cancelOrder', 'prod_id').done(
 
-		});
+		);
 	/*e.preventDefault();*/
 	});
+
+	$('#delOrderBtn').on('click', function(e){
+		ajax('order', 'deleteOrder', 'prod_id').done(
+
+		);
+	});
+
 });
 </script>
