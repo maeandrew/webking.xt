@@ -157,7 +157,12 @@
 				<?if($price === true){?>
 					<tr class="min_price">
 						<td colspan="3">
-							<?if((isset($i['min_opt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']) || (isset($i['min_mopt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
+							<?if((isset($i['min_opt_price'])
+								&& $i['price_opt_otpusk'] > 0
+								&& $i['price_opt_otpusk'] > $i['min_opt_price'])
+							|| (isset($i['min_mopt_price'])
+								&& $i['price_mopt_otpusk'] > 0
+								&& $i['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
 								<p style="color:#f00;">Товар заблокирован для продажи.<br> Рекомендованная цена: <?="<".($i['min_mopt_price']-0.01)." грн.";?></p>
 							<?}?>
 						</td>
@@ -173,14 +178,14 @@
 				</tr>
 				<tr>
 					<td class="info">мин.</td>
-					<td class="quantity"><p><?=$i['min_mopt_qty'] !== '0'?$i['min_mopt_qty']:null;?></p></td>
+					<td class="quantity"><p><?=$i['min_mopt_qty'] != 0?$i['min_mopt_qty']:null;?></p></td>
 					<td class="price">
 						<p>
 							<?if($price === true){
 								if($i['inusd'] == 1){?>
-									<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?=$i['price_mopt_otpusk'] != 0?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
 								<?}else{?>
-									<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+									<?=$i['price_mopt_otpusk'] != 0?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
 								<?}
 							}?>
 						</p>
@@ -188,14 +193,14 @@
 				</tr>
 				<tr>
 					<td class="info">ящ.</td>
-					<td class="quantity"><p><?=$i['inbox_qty'] !== '0'?$i['inbox_qty']:null;?></p></td>
+					<td class="quantity"><p><?=$i['inbox_qty'] != 0?$i['inbox_qty']:null;?></p></td>
 					<td class="price">
 						<p>
 							<?if($price === true){
 								if($i['inusd'] == 1){?>
-									<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?=$i['price_opt_otpusk'] != 0?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
 								<?}else{?>
-									<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
+									<?=$i['price_opt_otpusk'] != 0?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
 								<?}
 							}?>
 						</p>
