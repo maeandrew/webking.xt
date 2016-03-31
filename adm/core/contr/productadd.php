@@ -37,14 +37,38 @@ if(isset($_POST['smb'])){
 				foreach($_POST['images'] as $k=>$image){
 					$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
 					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-					$path = $GLOBALS['PATH_product_img'].$file['dirname'].'/';
-					$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).$file['dirname'];
+					$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
+					$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
 					rename($path.$file['basename'], $path.$newname);
 					$images_arr[] = $bd_path.'/'.$newname;
+					$patch = $GLOBALS['PATH_root'].'../';
 				}
 			}else{
 				$images_arr =  array();
 			}
+
+			//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+			foreach($images_arr as $filename){
+				$patch = $GLOBALS['PATH_root'].'../';
+				$size = getimagesize($patch.$filename); //Получаем ширину, высоту, тип картинки
+				if ($size[0] > 1000 || $size[1] > 1000 ) {
+					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
+					//Определяем размеры нового изображения
+					if(max($size[0], $size[1]) == $size[0]){
+						$width = 1000;
+						$height = 1000/$ratio;
+					} else if(max($size[0], $size[1]) == $size[1]) {
+						$width = 1000*$ratio;
+						$height = 1000;
+					}
+				}
+				$res = imagecreatetruecolor($width, $height);
+				imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+				$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($patch.$filename):imagecreatefrompng($patch.$filename);
+				imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+				imagejpeg($res, $patch.$filename);
+			}
+
 			$Images->resize(false, $to_resize);
 			$products->UpdatePhoto($id, $images_arr);
 			
