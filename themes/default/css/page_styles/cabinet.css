@@ -1516,7 +1516,7 @@ html {
 	border-radius: .2em .2em 0 0;
 }
 .order.expanded .title {
-	background: #f0f0f0; 
+	background: #f0f0f0;
 	border: 0;
 	z-index: 10;
 	padding-bottom: 0;
@@ -1605,3 +1605,27 @@ html {
 /* .number {
 	width: 80%;
 } */
+#orderBnts {
+	float: right;
+}
+#orderBnts button {
+	margin-left: 5px;
+	width: 130px;
+}
+#orderBnts h5 {
+	float: left;
+	margin-top: 8px;
+}
+.modalEditOrder #removeOrderBtn, #cancelRemoveOrderBtn {
+	color: #fff;
+	margin-left: 45px;
+}
+.modalEditOrder h5 {
+	color: rgb(136, 136, 136);
+}
+.modalEditOrder #removeOrderBtn {
+	background: #FF5722;
+}
+.modalEditOrder #cancelRemoveOrderBtn {
+	background: #018b06;
+}

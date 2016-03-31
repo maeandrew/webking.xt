@@ -823,7 +823,7 @@ $(function(){
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){
 		openObject('auth');
-		removeLoadAnimation('#auth');
+		/*removeLoadAnimation('#auth');*/
 		$('#auth #login').show().removeClass('hidden');
 		$('#auth #registration').hide().addClass('hidden');
 		e.preventDefault();

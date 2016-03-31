@@ -3,7 +3,6 @@
 		<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
 	</div>
 	<div id="orders_history">
-
 		<?!isset($_GET['t'])?$_GET['t']='all':null;?>
 		<div class="<?switch ($_GET['t']){
 			case 'working':
@@ -78,6 +77,20 @@
 										<div class="tabs mdl-tabs__tab-bar">
 											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active">Детали</a>
 											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
+
+											<div id="orderBnts">
+												<h5>Заказ:</h5>
+												<a href="http://xt/" target="blank"><button id="NewOrderBtn" class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<button id="clonOrderBtn"class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="editOrder">Дублировать</button>
+
+												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
+													<button id="delOrderBtn" class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="confirmDelOrder">Удалить</button>
+												<?}else if ($i['id_order_status'] == 6){?>
+													<button class="hidden"></button>
+												<?}else{?>
+													<button id="cnslOrderBtn" class="mdl-button mdl-js-button mdl-button--raised">Отменить</button>
+												<?}?>
+											</div>
 										</div>
 									</div>
 									<div class="content">
@@ -242,3 +255,18 @@
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 
+<script>
+
+/*ПОТОМ ВСЕ ВЫНЕСТИ В МЭЙН Ж ЭС (НАВЕРНО)*/
+
+//Удаление заказа в кабинете
+$(function(){
+	$('#cnslOrderBtn').on('click', function(e){
+		var prod_id= <?=$i['id_order']?>;
+		ajax('order', 'cancelOrder', 'prod_id').done(
+
+		});
+	/*e.preventDefault();*/
+	});
+});
+</script>
