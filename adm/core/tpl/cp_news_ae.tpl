@@ -29,21 +29,20 @@
 			<div class="thumbpreviews">
 				<?$id_news = $GLOBALS['REQAR'][1];?>
 				<?if(isset($id_news)) {
-					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>
-						<?print_r($_POST['thumbnail']['src'])?>
-						<div class="image_block dz-preview dz-image-preview">
+					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>						
+						<div class="image_block preloaded dz-preview dz-image-preview">
 							<div class="sort_handle"><span class="icon-font">s</span></div>
 							<div class="image">
 								<img data-dz-thumbnail src="<?=$_POST['thumbnail']?>"/>
 							</div>
 							<div class="name">
-								<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']['src']?></span>
+								<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']?></span>
 								<span class="dz-size" data-dz-size></span>
 							</div>
 							<div class="controls">
-								<p><span class="icon-font del_photo_js" data-img-src="<?=$_POST['thumbnail']?>" data-dz-remove>t</span></p>
+								<p><span class="icon-font del_miniphoto_js" data-img-src="<?=$_POST['thumbnail']?>" data-dz-remove>t</span></p>
 							</div>
-							<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']['src']?>">
+							<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']?>">
 						</div>
 					<?}?>
 				<?}?>
@@ -154,7 +153,10 @@
 		<div class="name">
 			<span class="dz-filename" data-dz-name></span>
 			<span class="dz-size" data-dz-size></span>
-		</div>		
+		</div>
+		<div class="controls">
+			<p><span class="icon-font del_t_photo_js">t</span></p>
+		</div>
 	</div>
 </div>
 
@@ -173,29 +175,30 @@
 			}
 		});
 
-		//Загрузка единственного фото (thumb) на сайт
+		//Загрузка миниатюры на сайт
 		var singledropzone = new Dropzone(".drop_zone_thumb", {
 			method: 'POST',
 			url: url+"?upload=true",
+			uploadMultiple: false,
 			clickable: true,
 			maxFiles: 1,
 			previewsContainer: '.thumbpreviews',
 			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
-			init: function() {
-				this.on("maxfilesexceeded", function(file) {
-					this.removeAllFiles();
-					this.addFile(file);
-				});
-			}
-		});
-		singledropzone.on('addedfile', function(file){
-
+			// init: function() {
+			// 	this.on("maxfilesexceeded", function(file) {
+			// 		this.removeAllFiles();
+			// 		this.addFile(file);
+			// 	});
+			// }
+		}).on('removedfile', function(file){			
+			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;
+			$('.image_block_new').removeClass('hidden');
+			$('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		}).on('addedfile', function(file){
+			$('.thumbpreviews .image_block.preloaded').remove();
+			$('.image_block_new').addClass('hidden');
 		}).on('success', function(file, path){
-			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+path+'">';
-			
-		}).on('removedfile', function(file){
-			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;	
-			$('.previews').append('<input type="hidden" name="removed_thumb" value="'+removed_file2+'">');
+			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+path+'">';			
 		});
 
 		//Загрузка Фото на сайт
@@ -203,17 +206,16 @@
 			method: 'POST',
 			url: url+"?upload=true",
 			clickable: true,
-			previewsContainer: '.previews', // куда загружает
-			previewTemplate: document.querySelector('#preview-template').innerHTML //шаблон загрузки
+			previewsContainer: '.previews',
+			previewTemplate: document.querySelector('#preview-template').innerHTML
 		});
-		// var return_arr = new Array();
 		dropzone.on('addedfile', function(file){
 			//askaboutleave();
 		}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
-			//console.log(file);
-		}).on('removedfile', function(file){
-			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name; // физический путь картинки			
+			
+		}).on('removedfile', function(file){			
+			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name; // физический путь картинки
 			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		});
 
@@ -242,6 +244,16 @@
 				RemovedFile(path, removed_file);
 			}
 		});
+		$("body").on('click', '.del_miniphoto_js', function(e) {
+			//e.stopPropagation();
+			if(confirm('Изобрежение trhrty будет удалено.')){
+				var path = $(this).closest('.image_block'),
+					removed_file = path.find('input[name="thumb"]').val(); //  /news_images/482/cat.jpg
+					path.closest('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+					path.remove();
+				// RemovedFile(path, removed_file);
+			}
+		});
 
 		//Удаление только что загруженных фото
 		$("body").on('click', '.del_u_photo_js', function(e) {
@@ -250,6 +262,14 @@
 				var path = $(this).closest('.image_block'),
 					removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
 				RemovedFile(path, removed_file);
+			}
+		});
+		$("body").on('click', '.del_t_photo_js', function(e) {
+			e.stopPropagation();
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+					removed_file = path.find('input[name="thumb"]').val();
+					singledropzone.removeAllFiles();
 			}
 		});
 	});
