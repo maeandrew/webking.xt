@@ -1616,16 +1616,16 @@ html {
 	float: left;
 	margin-top: 8px;
 }
-.modalEditOrder #removeOrderBtn, #cancelRemoveOrderBtn {
+.modalEditOrder button {
 	color: #fff;
 	margin-left: 45px;
 }
 .modalEditOrder h5 {
 	color: rgb(136, 136, 136);
 }
-.modalEditOrder #removeOrderBtn {
+.modalEditOrder .applyBtn {
 	background: #FF5722;
 }
-.modalEditOrder #cancelRemoveOrderBtn {
+.modalEditOrder .cancelBtn {
 	background: #018b06;
 }

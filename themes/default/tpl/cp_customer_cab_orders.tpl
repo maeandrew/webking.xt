@@ -81,14 +81,14 @@
 											<div id="orderBnts">
 												<h5>Заказ:</h5>
 												<a href="http://xt/" target="blank"><button id="NewOrderBtn" class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
-												<button id="clonOrderBtn"class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="editOrder">Дублировать</button>
+												<button id="cloneOrderBtn"class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="cloneOrder">Дублировать</button>
 
 												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
 													<button id="delOrderBtn" class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="confirmDelOrder">Удалить</button>
 												<?}else if ($i['id_order_status'] == 6){?>
 													<button class="hidden"></button>
 												<?}else{?>
-													<button id="cnslOrderBtn" class="mdl-button mdl-js-button mdl-button--raised">Отменить</button>
+													<button id="cnslOrderBtn" class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="confirmCnclOrder">Отменить</button>
 												<?}?>
 											</div>
 										</div>
@@ -264,7 +264,7 @@ $(function(){
 
 	var prod_id = <?=$i['id_order']?>;
 
-	$('#cnslOrderBtn').on('click', function(e){
+	$('#cnclOrderBtn').on('click', function(e){
 		ajax('order', 'cancelOrder', 'prod_id').done(
 
 		);
