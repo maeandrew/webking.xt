@@ -379,6 +379,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					if($id_order = $Orders->Add()) {
 						$res['message'] = 'Заказ сформирован!';
 						$res['status'] = 200;
+						$cart = new Cart();
+						$cart->clearCart($_SESSION['cart']['id']);
 						// $Customers->updatePhones($phone);
 					}else{
 						$res['message'] = 'Ошибка формирования заказа!';

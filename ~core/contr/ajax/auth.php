@@ -32,6 +32,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									}
 									$User->LastLoginRemember($User->fields['id_user']);
 									G::Login($User->fields);
+									_acl::load($Users->fields['gid']);
 									$echo['errm'] = 0;
 								}else{
 									$echo['msg'] = 'Неверный email или пароль.';
@@ -41,6 +42,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								if($User->CheckUser($_POST)){
 									$User->LastLoginRemember($User->fields['id_user']);
 									G::Login($User->fields);
+									_acl::load($User->fields['gid']);
 									$echo['member'] = $_SESSION['member'];
 									$echo['errm'] = 0;
 

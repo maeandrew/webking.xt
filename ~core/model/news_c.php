@@ -7,7 +7,7 @@ class News{
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid");
+		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid", "thumbnail");
 	}
 	// Страница по транслиту
 	public function SetFieldsByRewrite($rewrite, $all = 0){
