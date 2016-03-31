@@ -185,7 +185,11 @@ class News{
 		return $id_news;
 	}
 	// Обновление статьи
-	public function UpdateNews($arr){
+	public function UpdateNews($arr, $thumb = ''){
+		if( strpos ( $thumb, '/temp/') == true) {
+			rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb));
+			$thumb = str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb);
+		}
 		$f['id_news'] = trim($arr['id_news']);
 		$f['title'] = trim($arr['title']);
 		$f['page_description'] = trim($arr['page_description']);
@@ -193,6 +197,7 @@ class News{
 		$f['page_keywords'] = trim($arr['page_keywords']);
 		$f['descr_short'] = trim($arr['descr_short']);
 		$f['descr_full'] = trim($arr['descr_full']);
+		$f['thumbnail'] = trim($thumb);
 		list($d,$m,$y) = explode(".", trim($arr['date']));
 		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
 		$f['translit'] = G::StrToTrans($f['title']);
@@ -241,10 +246,9 @@ class News{
 		return $res;
 	}
 	// Добавление и удаление фото
-	public function UpdatePhoto($id_news, $images_arr){
+	public function UpdatePhoto($id_news, $images_arr = null, $thumb = null){
 		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
 		$this->db->StartTrans();
-
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		$f['id_news'] = trim($id_news);
@@ -269,9 +273,26 @@ class News{
 				$this->db->CompleteTrans();
 			}
 		}
+		if(isset($thumb) && $thumb !='') {
+			if(!file_exists($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news.'/')){
+				mkdir($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news);
+			}
+			if( strpos ( $thumb, '/temp/') == true) {
+				rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id_news . '/thumb_', $thumb));
+				$thumb = str_replace('temp/', $id_news . '/thumb_', $thumb);
+			}
+			if (empty($thumb)) {
+				return false; //Если URL пустой
+			}
+
+			$sql = "UPDATE "._DB_PREFIX_."news SET `thumbnail` = '".$thumb."'
+					WHERE id_news = $id_news";
+			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		}
 
 		unset($id_news);
 		unset($f);
+		unset($thumb);
 		return true;//Если все ок
 	}
 

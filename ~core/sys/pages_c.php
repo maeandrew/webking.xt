@@ -56,8 +56,10 @@ class pages{
 	}
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
-	function ShowPages(){																// выводит всю строку страниц
-		$URL_TMP = preg_replace("#/p[\d]+#is", '', $GLOBALS['URL_request']);			// урл текущей страницы без page_id=N
+	// выводит всю строку страниц
+	function ShowPages(){
+		// урл текущей страницы без page_id=N
+		$URL_TMP = preg_replace("#/p[\d]+#is", '', $_SERVER['REQUEST_URI']);
 		$string_array = explode("?", $URL_TMP);
 		$URL_TMP = $string_array[0]; // строка после вопросительного знака
 		$URL_TMP = preg_replace("#/$#is", '', $URL_TMP);
@@ -69,7 +71,11 @@ class pages{
 					if(strstr($URL_TMP, '/adm')) {
 						$url = $URL_TMP.'/p'.$title.'/';
 					}else{
-						$url = Link::Category($GLOBALS['Rewrite'], array('page' => $title));
+						if($GLOBALS['CurrentController'] == 'products'){
+							$url = Link::Category($GLOBALS['Rewrite'], array('page' => $title));
+						}else{
+							$url = $URL_TMP.'/p'.$title;
+						}
 					}
 					isset($string_array[1])?$url .= '?'.$string_array[1]:null;
 					//$name[] =  '<a class="page" href='.$url.'>'.$title.'</a>';
@@ -127,7 +133,7 @@ class pages{
 				if($this->cur_page_id == 2){
 					$GLOBALS['meta_prev'] = $page_base;
 				}else{
-					$GLOBALS['meta_prev'] = $prev;					
+					$GLOBALS['meta_prev'] = $prev;
 				}
 				$GLOBALS['meta_next'] = $next;
 			}

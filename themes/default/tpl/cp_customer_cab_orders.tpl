@@ -238,6 +238,7 @@
 				<p class="no_orders">У Вас нету ни одного заказа</p>
 			<?}?>
 		</div>
+		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 

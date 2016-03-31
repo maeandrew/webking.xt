@@ -345,7 +345,6 @@ while($cat = $dbtree->NextRow()){
 		$GLOBALS['Limit_db'] = 0;
 		$limit = '';
 	}
-
 	// =========================================================
 
 	$time_end = microtime(true);

@@ -105,7 +105,9 @@ if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code']
 	$parsed_res = array('issuccess' => TRUE,
 						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_promo_cab.tpl'));
 }else{
-	$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab.tpl'));
+	$parsed_res = array(
+		'issuccess' => true,
+		'html' => $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab.tpl')
+	);
 }
 ?>
