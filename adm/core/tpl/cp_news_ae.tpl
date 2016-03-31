@@ -181,7 +181,7 @@
 			url: url+"?upload=true",
 			uploadMultiple: false,
 			clickable: true,
-			acceptedFiles: 'image/jpeg,image/png',
+			acceptedFiles: '.jpeg,.png',
 			maxFiles: 1,
 			previewsContainer: '.thumbpreviews',
 			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
