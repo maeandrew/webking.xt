@@ -676,8 +676,8 @@
 						<input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
 						<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
 						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-						<!-- <div id="password_error"></div>
-						<div class="error_description"></div> -->
+						<div id="password_error"></div>
+						<div class="error_description"></div>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-up">Регистрация</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="login">Вход</button>
@@ -690,6 +690,23 @@
 		<div id="graph" data-type="modal" data-target="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']))?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
+		<!-- Модалки кабинета. Заказы -->
+		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
+			<h5>Очистить текущую корзину или оставить?</h5>
+			<button id="clearCatBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, очистить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="cloneOrder">Нет, оставить!</button>
+		</div>
+		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
+			<h5>Вы действительно хотите удалить заказ?</h5>
+			<button id="delOrderBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
+		</div>
+		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
+			<h5>Вы действительно хотите отменить заказ?</h5>
+			<button id="cnclOrderBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
+		</div>
+
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
