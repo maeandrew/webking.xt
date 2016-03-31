@@ -73,7 +73,7 @@
 			border-collapse: collapse;
 		}
 		.block table tr {
-			height: 48px;
+			height: 35px;
 			border-top: 0;
 		}
 		.block table tr th,
@@ -154,7 +154,12 @@
 				<?if(isset($_POST['price']) == true){?>
 					<tr class="min_price">
 						<td colspan="3">
-							<?if((isset($i['min_opt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']) || (isset($i['min_mopt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
+							<?if((isset($i['min_opt_price'])
+								&& $i['price_opt_otpusk'] > 0
+								&& $i['price_opt_otpusk'] > $i['min_opt_price'])
+							|| (isset($i['min_mopt_price'])
+								&& $i['price_mopt_otpusk'] > 0
+								&& $i['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
 								<p style="color:#f00;">Товар заблокирован для продажи.<br> Рекомендованная цена: <?="<".($i['min_mopt_price']-0.01)." грн.";?></p>
 							<?}?>
 						</td>

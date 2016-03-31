@@ -171,7 +171,7 @@
 							<?if(isset($_POST['translit'])){?>
 								<div id="translit">
 									<label>URL сраницы:</label>
-									<p>http:<?=$GLOBALS['URL_base'].'product/'.$_POST['id_product'].'/'.$_POST['translit']?></p>
+									<p><?=$GLOBALS['URL_base'].$_POST['translit']?></p>
 									<a href="#" id="updtrans" class="refresh_btn icon-font" title="Нажимать, только при полной замене товара" onclick="updateTranslit();">f</a>
 								</div>
 							<?}?>
