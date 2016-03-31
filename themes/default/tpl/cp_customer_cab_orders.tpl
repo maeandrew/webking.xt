@@ -265,16 +265,19 @@ $(function(){
 	var prod_id = <?=$i['id_order']?>;
 
 	$('#cnclOrderBtn').on('click', function(e){
-		ajax('order', 'cancelOrder', 'prod_id').done(
-
-		);
-	/*e.preventDefault();*/
+		ajax('order', 'cancelOrder', 'prod_id').done(function(data){
+			console.log(typeof(data));
+			if (data !== true) {
+				openObject('modal_message');
+			};
+		});
 	});
 
 	$('#delOrderBtn').on('click', function(e){
 		ajax('order', 'deleteOrder', 'prod_id').done(
 
 		);
+	/*e.preventDefault();*/
 	});
 
 });
