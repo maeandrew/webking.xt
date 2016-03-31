@@ -181,7 +181,7 @@
 			url: url+"?upload=true",
 			uploadMultiple: false,
 			clickable: true,
-			acceptedFiles: '.jpeg,.png',
+			// acceptedFiles: '.jpeg,.png',
 			maxFiles: 1,
 			previewsContainer: '.thumbpreviews',
 			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
@@ -207,7 +207,7 @@
 			method: 'POST',
 			url: url+"?upload=true",
 			clickable: true,
-			acceptedFiles: 'image/jpeg,image/png',
+			// acceptedFiles: 'image/jpeg,image/png',
 			previewsContainer: '.previews',
 			previewTemplate: document.querySelector('#preview-template').innerHTML
 		});
