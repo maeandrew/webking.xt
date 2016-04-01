@@ -265,16 +265,16 @@ $(function(){
 	var prod_id = <?=$i['id_order']?>;
 
 	$('#cnclOrderBtn').on('click', function(e){
-		ajax('order', 'cancelOrder', 'prod_id').done(function(data){
+		ajax('order', 'CancelOrder', 'prod_id').done(function(data){
 			console.log(typeof(data));
-			if (data !== true) {
-				openObject('modal_message');
+			if (data === true) {
+				closeObject('confirmCnclOrder');
 			};
 		});
 	});
 
 	$('#delOrderBtn').on('click', function(e){
-		ajax('order', 'deleteOrder', 'prod_id').done(
+		ajax('order', 'DeleteOrder', 'prod_id').done(
 
 		);
 	/*e.preventDefault();*/
