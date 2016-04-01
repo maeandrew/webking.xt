@@ -8,7 +8,7 @@ class Post {
 	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation');
+		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation', 'thumbnail');
 	}
 
 	// Статья по id

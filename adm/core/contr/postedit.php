@@ -10,7 +10,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 if(!$Post->SetFieldsById($id, 1)){
 	die('Ошибка при выборе статьи.');
 }
-$header = 'Редактирование новости';
+$header = 'Редактирование статьи';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Статьи';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = '/adm/posts/';
