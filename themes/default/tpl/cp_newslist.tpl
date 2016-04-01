@@ -13,10 +13,6 @@
 							echo date("d.m.Y", $i['date']);
 						}?>
 					</div>
-					<!-- <div class="item_description mdl-grid">
-						<div class="item_thumb mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--12-col-phone"><img class="image" src="<?=$i['thumbnail']?>" alt=""></div>
-						<div class="item_descr mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet"><?=$i['descr_short']?></div>
-					</div> -->
 					<div class="item_description">
 						<div class="item_thumb"><img class="image" src="<?=$i['thumbnail']?>" alt=""></div>
 						<div class="item_descr"><?=$i['descr_short']?></div>
