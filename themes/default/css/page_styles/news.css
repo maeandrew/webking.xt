@@ -1,53 +1,77 @@
+#content {
+	padding-bottom: 15px;
+}
+.newslist .mdl-grid {
+	padding: 0;
+}
+.content_date {
+	font-weight: 300;
+	font-style: italic;
+	margin: 15px 0 15px 0;
+}
+.content_news {
+	text-align: right;
+}
+.content_page p,
+.newslist .item .item_description p {
+	font-size: 16px;
+	line-height: 1.4em;
+	text-align: justify;
+}
 .newslist .item {
-	/*margin-bottom: 30px;*/
 	padding: 15px;
 	cursor: default;
 	border-bottom: 1px solid #ddd;
-	/*border-top: 1px solid #ddd;*/
 }
-/*.newslist .item:hover {
-	webkit-box-shadow: 0 6px 17px 0 rgba(0, 0, 0, .2),
-		0 6px 20px 0 rgba(0, 0, 0, .05);
-    box-shadow: 0 6px 17px 0 rgba(0, 0, 0, .2),
-		0 6px 20px 0 rgba(0, 0, 0, .05);
-}*/
 .newslist .item .item_title {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	margin: 8px;
 }
 .newslist .item .item_date {
 	color: #888;
 	font-style: italic;
 }
 .newslist .item .item_description {
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	margin-top: 15px;
 	height: 125px;
 	overflow: hidden;
 	text-align: justify;
 }
-.newslist .item .item_description img {
-	/*margin: 0 auto;*/
-	/*display: block;*/
+.newslist .item .item_description img {	
 	max-width: 100%;
-	max-height: 130px;
-	height: auto !important;
 	border: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 }
 .newslist .item .read_more {
-	/*opacity: 0;*/
-	/*border-top: 1px solid #ddd;*/
 	text-align: right;
-	padding-top: 11px;
+	padding-top: 5px;
 }
 
-.newslist .item:hover .read_more {
-	/*opacity: 1;*/
+@media (max-width: 1050px) {
+	.content_page p,
+	.newslist .item .item_description p {
+		font-size: 14px;
+		line-height: 1.3em;
+	}
+	.newslist .item .item_title {
+		font-size: 26px;
+	}	
+}
+@media (max-width: 839px) {
+	.newslist .item .item_description {
+		height: auto;
+	}	
+}
+@media (max-width: 839px) and (min-width: 480px) {
+	.mdl-cell--2-col, .mdl-cell--2-col-tablet.mdl-cell--2-col-tablet {
+		width: 300px;
+		margin: 0 auto;
+	}
+}
+@media (max-width: 479px) {
+	.mdl-cell--2-col, .mdl-cell--2-col-tablet.mdl-cell--2-col-tablet {
+		width: auto;		
+	}	
 }

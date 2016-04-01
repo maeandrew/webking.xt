@@ -1,5 +1,7 @@
+<!-- <link rel="stylesheet" href="/themes/default/css/page_styles/news.css"> -->
+
 <div id="content">
-	<p class="color-grey" style="font-weight: 300; font-style: italic;">Опубликовано:
+	<p class="content_date color-grey">Опубликовано:
 		<?if(date("d") == date("d", $data['date'])){?>
 			Сегодня
 		<?}elseif(date("d")-1 == date("d", $data['date'])){?>
@@ -10,5 +12,5 @@
 	<div class="content_page">
 		<?=$data['descr_full']?>
     </div>
-	<a href="<?=Link::Custom('news');?>">Другие новости</a>
+	<div class="content_news"><a href="<?=Link::Custom('news');?>">Другие новости</a></div>
 </div><!--id="content"-->

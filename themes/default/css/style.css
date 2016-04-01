@@ -2839,11 +2839,17 @@ section .stat_year {
 	line-height: 1.5;
 }
 
-
 /* Стили функции редактирования характеристик товара в админке */
 
 #editProdSpecValue {
 	background: #e0e0e0;
 	font-size: 16px;
 	color: red;
+}
+
+/* Скрыть сайдбар */
+@media (min-width: 480px) and (max-width: 728px) {
+	aside {
+		display: none !important;
+	}
 }

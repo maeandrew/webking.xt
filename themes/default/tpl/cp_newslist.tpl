@@ -3,9 +3,9 @@
 		foreach($list as $i){?>
 
 			<li>
-				<div class="item animate">
-					<h3 class="item_title"><?=$i['title']?></h3>
-					<div class="item_date">
+				<div class="item animate mdl-grid">
+					<h3 class="item_title mdl-cell mdl-cell--12-col mdl-cell--12-col-phone"><?=$i['title']?></h3>
+					<div class="item_date mdl-cell mdl-cell--12-col mdl-cell--12-col-phone">
 						<?if(date('d-m-Y') == date("d-m-Y", $i['date'])){?>
 							Сегодня
 						<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $i['date'])){?>
@@ -14,13 +14,12 @@
 							echo date("d.m.Y", $i['date']);
 						}?>
 					</div>
-					<?if(!empty($i['thumbnail']))  var_dump($i['thumbnail'])?>
-					<div class="item_description">
-						<!-- <div class="item_thumb"><?=$i['thumbnail']?></div> -->
-						<div class="item_thumb"><img src="" alt=""></div>
-						<div class="item_descr"><?=$i['descr_short']?></div>						
+					
+					<div class="item_description mdl-grid">
+						<div class="item_thumb mdl-cell mdl-cell--2-col mdl-cell--12-col-phone"><img class="image" src="<?=$i['thumbnail']?>" alt=""></div>
+						<div class="item_descr mdl-cell mdl-cell--10-col mdl-cell--12-col-tablet"><?=$i['descr_short']?></div>						
 					</div>
-					<div class="read_more">
+					<div class="read_more mdl-cell--12-col mdl-cell--12-col-phone">
 						<a href="<?=Link::Custom('news', $i['translit']);?>">Читать новость</a>
 					</div>
 				</div>
@@ -30,4 +29,3 @@
 		Новостей нет
 	<?}?>
 </ul>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas architecto sequi omnis accusamus sapiente velit quis maxime mollitia, natus expedita dignissimos quidem repudiandae hic, distinctio a totam, obcaecati. Veniam, mollitia!
