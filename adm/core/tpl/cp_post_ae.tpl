@@ -105,7 +105,7 @@
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
-	var url = URL_base+"newsadd/";
+	var url = URL_base+"postadd/";
 	$(function(){
 		//Загрузка миниатюры на сайт
 		var singledropzone = new Dropzone(".drop_zone_thumb", {
