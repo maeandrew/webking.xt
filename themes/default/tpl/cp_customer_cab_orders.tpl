@@ -262,22 +262,22 @@
 //Удаление заказа в кабинете
 $(function(){
 
-	var prod_id = <?=$i['id_order']?>;
+	var id_order = <?=$i['id_order']?>;
 
 	$('#cnclOrderBtn').on('click', function(e){
-		ajax('order', 'CancelOrder', 'prod_id').done(function(data){
+		ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
 			console.log(typeof(data));
-			if (data === true) {
+			if(data === true){
 				closeObject('confirmCnclOrder');
 			};
 		});
 	});
 
 	$('#delOrderBtn').on('click', function(e){
-		ajax('order', 'DeleteOrder', 'prod_id').done(
+		ajax('order', 'DeleteOrder', {id_order: id_order}).done(function(data){
 
-		);
-	/*e.preventDefault();*/
+		});
+		/*e.preventDefault();*/
 	});
 
 });

@@ -1023,7 +1023,7 @@ function ajax(target, action, data, dataType){
 		data['target'] = target;
 		data['action'] = action;
 	}else{
-		data = {'target': target, 'action': action};
+		data = {target: target, action: action};
 	}
 	dataType = dataType || 'json';
 	var ajax = $.ajax({
