@@ -51,9 +51,11 @@
 .newslist .item .item_description .item_thumb {
 	flex-basis: 20%;
 	margin-bottom: 8px;
+	margin-right: 20px;
 }
 .newslist .item .item_description .item_descr {
 	flex-basis: 77%;
+	flex-grow: 1;
 }
 
 @media (max-width: 1050px) {
@@ -73,6 +75,7 @@
 	}
 	.newslist .item .item_description .item_thumb {
 		flex-basis: 100%;
+		margin-right: 0;
 	}
 	.newslist .item .item_description .item_descr {
 		flex-basis: 100%;
