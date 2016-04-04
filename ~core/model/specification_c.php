@@ -217,12 +217,23 @@ class Specification{
 
 	// Список
 	public function GetMonitoringList($limit = false, $where = false){
-		$sql = "SELECT c.id_category, c.`name`, s.id AS id_caption, s.caption, s.units, sp.`value`, count(*) AS count
+		$sql2 = "SELECT id AS id_caption, caption, units FROM  "._DB_PREFIX_."specs";//достаем из БД характеристики
+		$list2 = $this->db->GetArray($sql2);
+		if(!$list2){
+			return false;
+		}
+
+		$sql3 = "SELECT id_category, `name` FROM  "._DB_PREFIX_."category WHERE visible = 1";//достаем из БД имена категорий
+		$list3 = $this->db->GetArray($sql3);
+		if(!$list3){
+			return false;
+		}
+
+		$sql = "SELECT cp.id_category, sp.id_spec AS id_caption, sp.`value`, count(*) AS count
 			FROM "._DB_PREFIX_."specs_prods AS sp
-			LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
-			LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category AND c.id_category IS NOT NULL
-			GROUP BY sp.value, s.caption, c.name";
+			WHERE sp.`value` <> ''  AND cp.id_category IS NOT NULL
+			GROUP BY cp.id_category, sp.id_spec, sp.`value`";
 		if($where){
 			$sql .= " HAVING ";
 			$i = 0;
@@ -236,11 +247,29 @@ class Specification{
 				$i++;
 			}
 		}
-		$sql .= " ORDER BY c.name, s.caption".
+		$sql .= "ORDER BY cp.id_category, sp.id_spec".
 			($limit ?  " LIMIT". $limit : '');
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
+		}
+
+		foreach($list3 as $val){
+			$cat[$val['id_category']] = $val['name'];
+		}
+		foreach($this->list as &$v){
+			$v['name'] = $cat[$v['id_category']];
+		}
+
+		foreach($list2 as $val){
+			$specs[$val['id_caption']] = array(
+				'caption' => $val['caption'],
+				'units' => $val['units']
+			);
+		}
+		foreach($this->list as &$v){
+			$v['caption'] = $specs[$v['id_caption']]['caption'];
+			$v['units'] = $specs[$v['id_caption']]['units'];
 		}
 		return true;
 	}
