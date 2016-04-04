@@ -23,12 +23,13 @@ if(preg_match('/^.*\.html$/', $request)){
 	$rewrite_arr = explode('/', $request);
 	$GLOBALS['Rewrite'] = str_replace('.html', '', array_pop($rewrite_arr));
 }else{
-
 	if($request !== ''){
 		// detecting page if exist
 		if(preg_match('/\/p[0-9]+/', $request, $match)){
 			$GLOBALS['Page_id'] = (integer) preg_replace('/^\/p/', '', $match[0]);
 			$request = preg_replace('/\/p[0-9]+/', '', $request);
+		}else{
+			$GLOBALS['Page_id'] = 1;
 		}
 		// detecting sort if exist
 		if(preg_match('/\/sort=[^\/]+/', $request, $match)){
@@ -49,6 +50,7 @@ if(preg_match('/^.*\.html$/', $request)){
 			$GLOBALS['Rewrite'] = array_shift($rewrite_arr);
 			$GLOBALS['Rewrite'] = $GLOBALS['Rewrite'] == $GLOBALS['CurrentController']?false:$GLOBALS['Rewrite'];
 		}
+		// парсим строку с примененными фильтрами
 		$GLOBALS['Filters'] = G::ParseUrlParams(array_pop($rewrite_arr));
 	}
 }

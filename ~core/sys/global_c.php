@@ -366,16 +366,17 @@ class G {
 	 * @param int $cnt
 	 * @return html
 	 */
-	public static function NeedfulPages($cnt){
-		$content = '';
-		if($cnt > $GLOBALS['Limit_db']){
-			// если количество выводимого достаточно для появления пагинатора
-			if(!isset($GLOBALS['Page_id']) || !is_numeric($GLOBALS['Page_id'])){
-				$GLOBALS['Page_id'] = 1;
-			}
-			$pages = new pages($GLOBALS['Page_id'], $cnt);							// в конструктор отправляется id текущ страницы  и количество всего записей
-			$content .= $pages->ShowPages();
-			$GLOBALS['Start'] = ($pages->GetPage() - 1) * $GLOBALS['Limit_db'];	// забить start для использования в других местах
+	public static function NeedfulPages($cnt, $items_per_page = null){
+		if(!isset($items_per_page)){
+			$items_per_page = $GLOBALS['Limit_db'];
+		}
+		if($cnt > $items_per_page){
+			// в конструктор отправляется id текущ страницы и количество всего записей
+			$Paginator = new Paginator(isset($GLOBALS['Page_id'])?$GLOBALS['Page_id']:1, $cnt, $items_per_page);
+			$content = $Paginator->ShowPages();
+			$GLOBALS['Start'] = ($Paginator->GetPage() - 1) * $items_per_page;	// забить start для использования в других местах
+		}else{
+			$content = '';
 		}
 		return $content;
 	}

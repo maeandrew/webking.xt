@@ -31,7 +31,7 @@ require($GLOBALS['PATH_sys'].'link_c.php');
 require($GLOBALS['PATH_sys'].'tpl_c.php');
 require($GLOBALS['PATH_sys'].'db_c.php');
 require($GLOBALS['PATH_sys'].'dbtree_c.php');
-require($GLOBALS['PATH_sys'].'pages_c.php');
+require($GLOBALS['PATH_sys'].'paginator_c.php');
 require($GLOBALS['PATH_sys'].'acl_c.php');
 require($GLOBALS['PATH_sys'].'mailer_c.php');
 require($GLOBALS['PATH_sys'].'sfYaml.php');

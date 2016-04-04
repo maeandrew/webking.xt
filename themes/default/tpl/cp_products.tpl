@@ -52,7 +52,7 @@
 								<a href="<?=_base_url?>/products/<?=$curcat['id_category']?>/<?=$curcat['translit']?>/limitall/" <?=(isset($_GET['limit']) && $_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
 							<?}?>
 						</div> -->
-						<?if($_GET['page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
+						<?if($GLOBALS['Page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
 							<p class="show_more"><a href="#" id="show_more_products">Показать еще 30 товаров</a></p>
 						<?}?>
 					<?}?>
