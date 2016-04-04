@@ -143,7 +143,6 @@
 	<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
 	<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
 	</p>
-
 	<?foreach($products as $i){?>
 		<?$wh = "height=\"250\" width=\"250\"";?>
 		<div class="block">
@@ -151,20 +150,18 @@
 				<p><?=$i['name']?></p>
 			</div>
 			<table cellpadding="0" cellspacing="0">
-				<?if(isset($_POST['price']) == true){?>
-					<tr class="min_price">
-						<td colspan="3">
-							<?if((isset($i['min_opt_price'])
-								&& $i['price_opt_otpusk'] > 0
-								&& $i['price_opt_otpusk'] > $i['min_opt_price'])
-							|| (isset($i['min_mopt_price'])
-								&& $i['price_mopt_otpusk'] > 0
-								&& $i['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
-								<p style="color:#f00;">Товар заблокирован для продажи.<br> Рекомендованная цена: <?="<".($i['min_mopt_price']-0.01)." грн.";?></p>
-							<?}?>
-						</td>
-					</tr>
-				<?}?>
+				<tr class="min_price">
+					<td colspan="3">
+						<?if((isset($i['min_opt_price'])
+							&& $i['price_opt_otpusk'] > 0
+							&& $i['price_opt_otpusk'] > $i['min_opt_price'])
+						|| (isset($i['min_mopt_price'])
+							&& $i['price_mopt_otpusk'] > 0
+							&& $i['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
+							<p style="color:#f00;">Товар заблокирован для продажи.<br> Рекомендованная цена: <?="<".($i['min_mopt_price']-0.01)." грн.";?></p>
+						<?}?>
+					</td>
+				</tr>
 				<tr class="art">
 					<td colspan="3">Арт. <?=$i['art'];?><?if($i['product_limit'] > 0){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
 				</tr>
