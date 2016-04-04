@@ -177,7 +177,7 @@
 		foreach($filter_cat as $spec){?>
 			<div class="filter_block">
 				<p><?=$spec['caption']?></p>
-				<ul>
+				<ul>					
 					<?foreach($spec['values'] as $value){
 						$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
 						<li>
@@ -189,8 +189,22 @@
 							</label>
 						</li>
 					<?}?>
+					<div class="more <?=count($spec['values'])>5?'hid':'hidden';?>"><i class="material-icons">expand_more</i><span>Больше</span></div>
 				</ul>
 			</div>
 		<?}
 	}?>
 </div>
+<script>
+	$(document).ready(function() {
+		$('.more').click(function(event) {
+			if ($(this).hasClass('hid')) {
+				$(this).closest('.filter_block').find('li:nth-child(n+6)').css({"display": "block"});
+				$(this).removeClass('hid').find('.material-icons').empty().html("expand_less").next('span').empty().html("Скрыть");
+			}else{
+				$(this).closest('.filter_block').find('li:nth-child(n+6)').css({"display": "none"});
+				$(this).addClass('hid').find('.material-icons').empty().html("expand_more").next('span').empty().html("Больше");
+			}
+		});
+	});
+</script>
