@@ -26,7 +26,6 @@ class Orders {
 	}
 
 	public function SetNote($id_order, $note){
-		$note = mysql_real_escape_string($note);
 		$sql = "UPDATE "._DB_PREFIX_."order SET note='$note' WHERE id_order=$id_order";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
@@ -39,7 +38,6 @@ class Orders {
 	}
 
 	public function SetNote2($id_order, $note2){
-		$note2 = mysql_real_escape_string($note2);
 		$sql = "UPDATE "._DB_PREFIX_."order SET note2='$note2' WHERE id_order=$id_order";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
@@ -52,7 +50,6 @@ class Orders {
 	}
 
 	public function SetNote_diler($id_order, $note_diler){
-		$note_diler = mysql_real_escape_string($note_diler);
 		$sql = "UPDATE "._DB_PREFIX_."order SET id_klient='$note_diler' WHERE id_order=$id_order";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
@@ -65,7 +62,6 @@ class Orders {
 	}
 
 	public function SetNote_customer($id_order, $note_customer){
-		$note_customer = mysql_real_escape_string($note_customer);
 		$sql = "UPDATE "._DB_PREFIX_."order SET note_customer='$note_customer' WHERE id_order=$id_order";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
@@ -78,7 +74,6 @@ class Orders {
 	}
 
 	public function SetNote_klient($id_order, $note_klient){
-		$note_klient = mysql_real_escape_string($note_klient);
 		$sql = "SELECT cu.phones, cu.cont_person
 			FROM "._DB_PREFIX_."customer cu
 			WHERE id_user = ".$note_klient;
@@ -354,7 +349,6 @@ class Orders {
 	}
 
 	public function GetSupplier($id_supplier){
-		$id_supplier = mysql_real_escape_string($id_supplier);
 		$sql = "SELECT u.id_user as id_supplier, u.name
 			FROM "._DB_PREFIX_."user u
 			WHERE u.id_user = $id_supplier
@@ -1194,7 +1188,6 @@ class Orders {
 		$prices = $this->db->GetArray($sql, "id_product");
 		if(isset($arr['contr_qty'])){
 			foreach($arr['contr_qty'] as $id_product=>$contr_qty){
-				$contr_qty = mysql_real_escape_string($contr_qty);
 				$sql = "UPDATE "._DB_PREFIX_."osp
 					SET contragent_qty = ".$contr_qty.",
 						contragent_sum = ".round($arr['contr_qty'][$id_product]*$prices[$id_product]['site_price_opt'],2).",
@@ -1212,7 +1205,6 @@ class Orders {
 		}
 		if(isset($arr['contr_mqty'])){
 			foreach($arr['contr_mqty'] as $id_product=>$contr_mqty){
-				$contr_mqty = mysql_real_escape_string($contr_mqty);
 				$sql = "UPDATE "._DB_PREFIX_."osp
 					SET contragent_mqty = ".$contr_mqty.",
 						contragent_msum = ".round($arr['contr_mqty'][$id_product]*$prices[$id_product]['site_price_mopt'],2).",
@@ -1504,7 +1496,6 @@ class Orders {
 		// Заполнение факт кол-ва существующих позиций
 		if(isset($arr['fact_qty'])){
 			foreach($arr['fact_qty'] as $id_product=>$fact_qty){
-				$fact_qty = mysql_real_escape_string($fact_qty);
 				$sql = "UPDATE "._DB_PREFIX_."osp
 					SET fact_qty = ".$fact_qty.",
 						fact_sum = ".round($arr['fact_qty'][$id_product]*$prices[$id_product]['site_price_opt'],2)."
@@ -1519,7 +1510,6 @@ class Orders {
 		}
 		if(isset($arr['fact_mqty'])){
 			foreach($arr['fact_mqty'] as $id_product=>$fact_mqty){
-				$fact_mqty = mysql_real_escape_string($fact_mqty);
 				$sql = "UPDATE "._DB_PREFIX_."osp
 					SET fact_mqty = ".$fact_mqty.",
 						fact_msum = ".round($arr['fact_mqty'][$id_product]*$prices[$id_product]['site_price_mopt'],2)."
@@ -1537,10 +1527,10 @@ class Orders {
 		if(isset($arr['pretense_article'])){
 			foreach($arr['pretense_article'] as $ii=>$pretense_article){
 				$f['id_order'] = $id_order;
-				$f['article'] = mysql_real_escape_string($pretense_article);
-				$f['name'] = mysql_real_escape_string($arr['pretense_name'][$ii]);
-				$f['price'] = mysql_real_escape_string($arr['pretense_price'][$ii]);
-				$f['qty'] = mysql_real_escape_string($arr['pretense_qty'][$ii]);
+				$f['article'] = $pretense_article;
+				$f['name'] = $arr['pretense_name'][$ii];
+				$f['price'] = $arr['pretense_price'][$ii];
+				$f['qty'] = $arr['pretense_qty'][$ii];
 				if(!$this->db->Insert(_DB_PREFIX_.'pretense', $f)){
 					$this->db->FailTrans();
 					return false;
@@ -1582,7 +1572,6 @@ class Orders {
 		// обработка строк по крупному опту
 		if(isset($arr['return_qty'])){
 			foreach($arr['return_qty'] as $id_product=>$return_qty){
-				$return_qty = mysql_real_escape_string($return_qty);
 				$sql = "UPDATE "._DB_PREFIX_."osp
 					SET return_qty = ".$return_qty.",
 						return_sum = ".round($arr['return_qty'][$id_product]*$prices[$id_product]['site_price_opt'], 2)."
@@ -1598,7 +1587,6 @@ class Orders {
 		// обработка строк по мелкому опту
 		if(isset($arr['return_mqty'])){
 			foreach($arr['return_mqty'] as $id_product=>$return_mqty){
-				$return_mqty = mysql_real_escape_string($return_mqty);
 				$sql = "UPDATE "._DB_PREFIX_."osp
 					SET return_mqty = ".$return_mqty.",
 						return_msum = ".round($arr['return_mqty'][$id_product]*$prices[$id_product]['site_price_mopt'], 2)."
