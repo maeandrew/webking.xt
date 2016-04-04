@@ -8,7 +8,7 @@ class Post {
 	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation');
+		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation', 'thumbnail');
 	}
 
 	// Статья по id
@@ -119,6 +119,13 @@ class Post {
 
 	// Удаление статьи
 	public function DelPage($id){
+		$imgdel = scandir((str_replace('adm\core/../', '', $GLOBALS['PATH_root'])).'post_images/'.$id);
+		foreach($imgdel as $k=>$del_img){
+			if($del_img!='.' && $del_img!='..') {
+				unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']) . 'post_images/' . $id . '/' . $del_img);
+			}
+		}
+		rmdir(str_replace('adm\core/../../', '', $GLOBALS['PATH_post_img']).$id);
 		$sql = "DELETE FROM "._DB_PREFIX_."post WHERE id = ".$id;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
@@ -144,4 +151,27 @@ class Post {
 		}
 		return $res;
 	}
+
+	// Добавление и удаление фото
+	public function UpdatePhoto($id, $thumb = null){
+		if(isset($thumb) && $thumb !='') {
+			if(!file_exists($GLOBALS['PATH_global_root'] . 'post_images/' . $id.'/')){
+				mkdir($GLOBALS['PATH_global_root'] . 'post_images/' . $id);
+			}
+			if( strpos ( $thumb, '/temp/') == true) {
+				rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id . '/thumb_', $thumb));
+				$thumb = str_replace('temp/', $id . '/thumb_', $thumb);
+			}
+			if (empty($thumb)) {
+				return false; //Если URL пустой
+			}
+			$sql = "UPDATE "._DB_PREFIX_."post SET `thumbnail` = '".$thumb."'
+					WHERE id = $id";
+			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		}
+		unset($id);
+		unset($thumb);
+		return true;//Если все ок
+	}
+
 }?>

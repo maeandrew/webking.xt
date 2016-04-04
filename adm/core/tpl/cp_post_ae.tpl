@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/adm/css/page_styles/productedit.css">
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
@@ -9,7 +10,7 @@
 		<label for="title">Заголовок:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
 		<input type="text" name="title" id="title" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
-        <div class="row seo_block">
+        <div class="row seo_block hidden">
 			<div class="col-md-12">
 				<label for="page_title">Мета-заголовок (title):</label>
 				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
@@ -20,6 +21,34 @@
 				<label for="keywords">Ключевые слова (keywords):</label>
 				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
 				<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
+			</div>
+		</div>
+		<label for="photobox">Миниатюра:</label>
+		<div id="photobox">
+			<div class="thumbpreviews">
+				<?$id_news = $GLOBALS['REQAR'][1];?>
+				<?if(isset($id_news)) {
+					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>
+						<div class="image_block preloaded dz-preview dz-image-preview">
+							<div class="sort_handle"><span class="icon-font">s</span></div>
+							<div class="image">
+								<img data-dz-thumbnail src="<?=$_POST['thumbnail']?>"/>
+							</div>
+							<div class="name">
+								<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']?></span>
+								<span class="dz-size" data-dz-size></span>
+							</div>
+							<div class="controls">
+								<p><span class="icon-font del_miniphoto_js" data-img-src="<?=$_POST['thumbnail']?>" data-dz-remove>t</span></p>
+							</div>
+							<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']?>">
+						</div>
+					<?}?>
+				<?}?>
+			</div>
+			<div class="image_block_new thumb_block drop_zone_thumb animate">
+				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 			</div>
 		</div>
         <label for="content_preview">Короткое описание:</label><?=isset($errm['content_preview'])?"<span class=\"errmsg\">".$errm['content_preview']."</span><br>":null?>
@@ -53,6 +82,75 @@
 		<button name="smb" type="submit" id="form_submit1" class="save-btn btn-l-default">Сохранить</button>
     </form>
 </div>
+
+<div id="preview-thumbtemplate" style="display: none;">
+	<div class="image_block dz-preview dz-file-preview">
+		<div class="sort_handle"><span class="icon-font">s</span></div>
+		<div class="image">
+			<img data-dz-thumbnail />
+		</div>
+		<div class="name">
+			<span class="dz-filename" data-dz-name></span>
+			<span class="dz-size" data-dz-size></span>
+		</div>
+		<div class="controls">
+			<p><span class="icon-font del_t_photo_js">t</span></p>
+		</div>
+	</div>
+</div>
+
+<script src="/plugins/dropzone.js"></script>
+
+<script type="text/javascript">
+	// AjexFileManager.init({
+	// 	returnTo: 'function'
+	// });
+	var url = URL_base+"postadd/";
+	$(function(){
+		//Загрузка миниатюры на сайт
+		var singledropzone = new Dropzone(".drop_zone_thumb", {
+			method: 'POST',
+			url: url+"?upload=true",
+			uploadMultiple: false,
+			clickable: true,
+			// acceptedFiles: '.jpeg,.png',
+			maxFiles: 1,
+			previewsContainer: '.thumbpreviews',
+			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
+			
+		}).on('removedfile', function(file){			
+			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;
+			$('.thumb_block').removeClass('hidden');
+			$('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		}).on('addedfile', function(file){
+			$('.thumbpreviews .image_block.preloaded').remove();
+			$('.thumb_block').addClass('hidden');
+		}).on('success', function(file, path){
+			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+path+'">';			
+		});
+
+		//Удаление ранее загруженных фото
+		$("body").on('click', '.del_miniphoto_js', function(e) {
+			//e.stopPropagation();
+			if(confirm('Изобрежение trhrty будет удалено.')){
+				var path = $(this).closest('.image_block'),
+					removed_file = path.find('input[name="thumb"]').val(); //  /news_images/482/cat.jpg
+					path.closest('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+					path.remove();
+			}
+		});
+
+		//Удаление только что загруженных фото
+		$("body").on('click', '.del_t_photo_js', function(e) {
+			e.stopPropagation();
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+					removed_file = path.find('input[name="thumb"]').val();
+					singledropzone.removeAllFiles();
+			}
+		});
+	});
+</script>
 <script>
 	//Текстовый редактор
 	CKEDITOR.replace( 'content_preview', {

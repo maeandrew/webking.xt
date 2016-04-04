@@ -10,17 +10,34 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 if(!$Post->SetFieldsById($id, 1)){
 	die('Ошибка при выборе статьи.');
 }
-$header = 'Редактирование новости';
+$header = 'Редактирование статьи';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Статьи';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = '/adm/posts/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
+if(isset($_GET['upload']) == true){
+	$res = $Images->upload($_FILES, $GLOBALS['PATH_post_img'].'temp/');
+	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	exit(0);
+}
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Post_form_validate();
+
+	//Добавление миниатюры
+	if(isset($_POST['thumb'])) {
+		$thumb = $_POST['thumb'];
+		if (strpos($thumb, '/temp/') == true) {
+			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_post_img']), '', $thumb));
+			$path = $GLOBALS['PATH_post_img'] . $file['dirname'] . '/';
+			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_post_img']) . trim($file['dirname']);
+			$thumb = $bd_path . '/' . $file['basename'];
+		} else $thumb = $thumb;
+	}
 	if(!$err){
-		if($Post->UpdatePost($_POST)){
+		if($Post->UpdatePost($_POST, $thumb)){
+			$Post->UpdatePhoto($id, $thumb);
 			$tpl->Assign('msg', 'Статья обновлена.');
 			unset($_POST);
 			if(!$Post->SetFieldsById($id, 1)) die('Ошибка при выборе новости.');

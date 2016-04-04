@@ -26,6 +26,7 @@ $config = array (
 	'PATH_tpl'			=> $root.'core/tpl/',
 	'PATH_tpl_global'	=> $root.'core/tpl/_global/',
 	'PATH_news_img'		=> $root.'../news_images/',
+	'PATH_post_img'		=> $root.'../post_images/',
 );
 G::ToGlobals($config);
 unset($config);

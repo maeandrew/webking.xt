@@ -370,7 +370,9 @@ header #mycabMenuUserInfBtn {
 /*PHONE*/
 
 @media (max-width: 727px) {
-
+	header .header_nav {
+		display: none !important;
+	}
 	header {
 		max-height: 45px;
 		padding-left: 10px;

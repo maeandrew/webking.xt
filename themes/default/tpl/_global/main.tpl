@@ -185,25 +185,27 @@
 		<aside id="catalog" class="mdl-color--grey-100 mdl-cell--hide-phone" data-type="panel">
 			<div class="wrapper">
 				<?=$__sidebar_l?>
-				<div class="xt_news">
-					<a href="<?=Link::Custom('news', $news['translit']);?>">
-						<h6 class="min news_title"><?=$news['title']?></h6>
-						<div class="min news_description"><?=$news['descr_short']?></div>
-						<div class="min news_date">
-							<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
-								Опубликовано Сегодня
-							<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
-								Опубликовано Вчера
-							<?}else{?>
-								Опубликовано
-							<?  echo date("d.m.Y", $news['date']);
-							}?>
+				<?if($news != false){?>
+					<div class="xt_news">
+						<a href="<?=Link::Custom('news', $news['translit']);?>">
+							<h6 class="min news_title"><?=$news['title']?></h6>
+							<div class="min news_description"><?=$news['descr_short']?></div>
+							<div class="min news_date">
+								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
+									Опубликовано Сегодня
+								<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
+									Опубликовано Вчера
+								<?}else{?>
+									Опубликовано
+								<?  echo date("d.m.Y", $news['date']);
+								}?>
+							</div>
+						</a>
+						<div class="min news_more">
+							<a href="<?=Link::Custom('news');?>">Все новости >>></a>
 						</div>
-					</a>
-					<div class="min news_more">
-						<a href="<?=Link::Custom('news');?>">Все новости >>></a>
 					</div>
-				</div>
+				<?}?>
 				<?if($post != false){?>
 					<div class="xt_news" style="margin-bottom:50px;">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
@@ -238,25 +240,27 @@
 			<aside class="mdl-color--grey-100 mdl-cell--hide-phone">
 				<div class="wrapper">
 					<?=$__sidebar_l?>
-					<div class="xt_news">
-						<a href="<?=Link::Custom('news', $news['translit']);?>">
-							<h6 class="min news_title"><?=$news['title']?></h6>
-							<div class="min news_description"><?=$news['descr_short']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
-									Опубликовано Сегодня
-								<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?  echo date("d.m.Y", $news['date']);
-								}?>
+						<?if($news != false){?>
+							<div class="xt_news">
+								<a href="<?=Link::Custom('news', $news['translit']);?>">
+									<h6 class="min news_title"><?=$news['title']?></h6>
+									<div class="min news_description"><?=$news['descr_short']?></div>
+									<div class="min news_date">
+										<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
+											Опубликовано Сегодня
+										<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
+											Опубликовано Вчера
+										<?}else{?>
+											Опубликовано
+										<?  echo date("d.m.Y", $news['date']);
+										}?>
+									</div>
+								</a>
+								<div class="min news_more">
+									<a href="<?=Link::Custom('news');?>">Все новости >>></a>
+								</div>
 							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('news');?>">Все новости >>></a>
-						</div>
-					</div>
+						<?}?>
 				</div>
 			</aside>
 		<?}?>
@@ -698,12 +702,12 @@
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
-			<button id="delOrderBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
+			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите отменить заказ?</h5>
-			<button id="cnclOrderBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
+			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
 

@@ -1605,14 +1605,14 @@ html {
 /* .number {
 	width: 80%;
 } */
-#orderBnts {
+.orderBnts {
 	float: right;
 }
-#orderBnts button {
+.orderBnts button {
 	margin-left: 5px;
 	width: 130px;
 }
-#orderBnts h5 {
+.orderBnts h5 {
 	float: left;
 	margin-top: 8px;
 }
@@ -1628,4 +1628,8 @@ html {
 }
 .modalEditOrder .cancelBtn {
 	background: #018b06;
+}
+
+.paginator {
+	padding-top: 30px;
 }

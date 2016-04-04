@@ -1,6 +1,7 @@
 <!-- <link rel="stylesheet" href="/themes/default/css/page_styles/news.css"> -->
 
 <div id="content">
+	<h3 class="item_title"><?=$data['title']?></h3>
 	<p class="content_date color-grey">Опубликовано:
 		<?if(date("d") == date("d", $data['date'])){?>
 			Сегодня

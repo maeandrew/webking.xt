@@ -29,7 +29,7 @@
 			<div class="thumbpreviews">
 				<?$id_news = $GLOBALS['REQAR'][1];?>
 				<?if(isset($id_news)) {
-					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>						
+					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>
 						<div class="image_block preloaded dz-preview dz-image-preview">
 							<div class="sort_handle"><span class="icon-font">s</span></div>
 							<div class="image">
@@ -279,8 +279,7 @@
 	function RemovedFile (path, removed_file){
 		path.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
 		path.remove();
-	}
-	
+	}	
 </script>
 
 

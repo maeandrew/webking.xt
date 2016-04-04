@@ -1,4 +1,4 @@
-.postslist .item {
+/*.postslist .item {
     margin-bottom: 30px;
     padding: 15px;
     cursor: default;
@@ -46,4 +46,85 @@
 
 .postslist .item:hover .read_more {
     opacity: 1;
+}*/
+
+/******/
+#content {
+    padding: 15px;
+}
+.postslist .mdl-grid {
+    padding: 0;
+}
+.content_date {
+    font-weight: 300;
+    font-style: italic;
+    margin: 15px 0 15px 0;
+}
+.content_news {
+    text-align: right;
+}
+.content_page p,
+.postslist .item .item_description p {
+    font-size: 16px;
+    line-height: 1.4em;
+    text-align: justify;
+}
+.postslist .item {
+    padding: 15px;
+    cursor: default;
+    border-bottom: 1px solid #ddd;
+}
+.postslist .item .item_title,
+#content .item_title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+.postslist .item .item_date {
+    color: #888;
+    font-style: italic;
+    margin: 0 0 8px 0;
+}
+.postslist .item .item_description img { 
+    width: 100%;
+}
+.postslist .item .read_more {
+    text-align: right;
+    padding-top: 5px;
+}
+.postslist .item .item_description {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-right: 15px;
+}
+.postslist .item .item_description .item_thumb {
+    flex-basis: 20%;
+    margin-bottom: 8px;
+}
+.postslist .item .item_description .item_descr {
+    flex-basis: 77%;
+}
+
+@media (max-width: 1050px) {
+    .content_page p,
+    .postslist .item .item_description p {
+        font-size: 14px;
+        line-height: 1.3em;
+    }
+    .postslist .item .item_title {
+        font-size: 26px;
+    }   
+}
+@media (max-width: 479px) { 
+    .postslist .item .item_description {
+        flex-wrap: wrap;
+    }
+    .postslist .item .item_description .item_thumb {
+        flex-basis: 100%;
+    }
+    .postslist .item .item_description .item_descr {
+        flex-basis: 100%;
+    }
 }

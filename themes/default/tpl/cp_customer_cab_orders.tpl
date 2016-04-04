@@ -78,17 +78,22 @@
 											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active">Детали</a>
 											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
 
-											<div id="orderBnts">
+											<div class="orderBnts">
 												<h5>Заказ:</h5>
-												<a href="http://xt/" target="blank"><button id="NewOrderBtn" class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
-												<button id="cloneOrderBtn"class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="cloneOrder">Дублировать</button>
+												<a href="http://xt/" target="blank"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<button class="mdl-button mdl-js-button mdl-button--raised btn_js cloneOrderBtn" data-name="cloneOrder">Дублировать</button>
+
+												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
 
 												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
-													<button id="delOrderBtn" class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="confirmDelOrder">Удалить</button>
+													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn" data-name="confirmDelOrder">Удалить</button>
 												<?}else if ($i['id_order_status'] == 6){?>
 													<button class="hidden"></button>
 												<?}else{?>
-													<button id="cnslOrderBtn" class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="confirmCnclOrder">Отменить</button>
+													<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить</button>
+													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn hidden" data-name="confirmDelOrder">Удалить</button>
+													<!-- ВОТ ЭТО ПОТОМ ЗАМЕНИТЬ -->
+
 												<?}?>
 											</div>
 										</div>
@@ -258,27 +263,60 @@
 <script>
 
 /*ПОТОМ ВСЕ ВЫНЕСТИ В МЭЙН Ж ЭС (НАВЕРНО)*/
+var statuses = {
+	<?for($status = 1; isset($order_statuses[$status]); $status++){
+		echo $status.": '".$order_statuses[$status]['name']."',";
+	}?>
+}
+console.log(statuses);
 
 //Удаление заказа в кабинете
 $(function(){
 
 	var id_order = <?=$i['id_order']?>;
+	console.log(id_order);
 
-	$('#cnclOrderBtn').on('click', function(e){
+	/*Определение текущего ID заказа и Отмена*/
+	$('.cnslOrderBtn').on('click', function(e){
+		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
+		console.log(id_order);
+		$('.editing').find('li').removeClass('canceledOrder');
+		$(this).closest('li').addClass('canceledOrder');
+	});
+
+	/* "Черная метка" - удаление заказа*/
+	$('.delOrderBtn').on('click', function(e){
+		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
+		console.log(id_order);
+		$('.editing').find('li').removeClass('deletedOrder');
+		$(this).closest('li').addClass('deletedOrder');
+	});
+
+	/*$('.cancelBtn').on('click', function(e){
+		$('.editing').find('li.deletedOrder').removeClass('deletedOrder');
+	});*/
+
+	/*Отмена заказа*/
+	$('#cnclOrderBtnMod').on('click', function(e){
+		console.log(id_order);
 		ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
-			console.log(typeof(data));
+			console.log(data);
 			if(data === true){
 				closeObject('confirmCnclOrder');
+				$('.canceledOrder').find('.status').html(statuses[5]);
+				$('.editing').find('li.canceledOrder').find('.cnslOrderBtn').addClass('hidden')
+				$('.editing').find('li.canceledOrder').find('.delOrderBtn').removeClass('hidden');
 			};
 		});
 	});
 
-	$('#delOrderBtn').on('click', function(e){
+	$('#delOrderBtnMod').on('click', function(e){
 		ajax('order', 'DeleteOrder', {id_order: id_order}).done(function(data){
-
+			if(data === true){
+				closeObject('confirmDelOrder');
+				$('.orders_list').find('.deletedOrder').remove();
+			};
 		});
-		/*e.preventDefault();*/
 	});
-
 });
 </script>
