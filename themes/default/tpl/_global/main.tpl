@@ -689,7 +689,133 @@
 			</div>
 		</div>
 		<div id="cart" data-type="modal">
+			<h4 class="title_cart">Корзина</h4>
+			<div class="clear_cart fleft">
+					<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
+			</div>
+			<ul class="order_head mdl-cell--hide-phone">
+				<li class="photo">Фото</li>
+				<li class="name">Название</li>
+				<li class="price">Цена, Количество</li>
+				<li class="sum_li">Сумма</li>
+			</ul>
 			<div class="modal_container"></div>
+			<?$cart_sum = $_SESSION['cart']['products_sum']['3'];
+			$percent_sum = $total = 0;
+			if($cart_sum >= 0 && $cart_sum < $GLOBALS['CONFIG']['retail_order_margin']) {
+				$percent = $percent_sum = 0;
+				$total = $cart_sum;
+			}elseif($cart_sum >= $GLOBALS['CONFIG']['retail_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['wholesale_order_margin']) {
+				$percent = 10;
+				$percent_sum = $cart_sum * 0.10;
+				$total = $cart_sum - $percent_sum;
+			}elseif($cart_sum >= $GLOBALS['CONFIG']['wholesale_order_margin'] && $cart_sum < $GLOBALS['CONFIG']['full_wholesale_order_margin']) {
+				$percent = 16;
+				$percent_sum = $cart_sum * 0.16;
+				$total = $cart_sum - $percent_sum;
+			}elseif($cart_sum >= $GLOBALS['CONFIG']['full_wholesale_order_margin']){
+				$percent = 21;
+				$percent_sum = $cart_sum * 0.21;
+				$total = $cart_sum - $percent_sum;
+			};?>
+			<div id="cartFooterBorder"></div>
+			<div class="cart">
+
+				<div id="total" class="fright">
+					<div class="total">
+						<div class="label totaltext">Итого</div>
+						<div class="total_summ totalnumb">
+							<span id="summ_many" class="summ_many">
+								<?=isset($cart_sum)? $cart_sum : "0.00"?>
+							</span>  ГРН	</div>
+					</div>
+					<div class="total">
+						<div class="label totaltext">Вы экономите</div>
+						<div class="total_summ totalnumb">
+							<span class="summ_many">
+								<?=round($percent_sum, 2)?>
+							</span>  ГРН	</div>
+					</div>
+					<div class="total">
+						<div class="label" style="color: #000">К оплате</div>
+						<div class="total_summ">
+							<span class="summ_many" style='font-size: 1.2em'><?=number_format($total, 2, ",", "")?>
+							</span>  ГРН	</div>
+					</div>
+				</div>
+				<div class="cart_info fleft order_balance">
+					<table id="percent">
+						<tr <?=$percent == 0 ? '': "style='display:none'"?>>
+							<td>Добавьте:</td>
+							<td><?=round(500-$cart_sum,2)?>грн</td>
+							<td>Получите скидку:</td>
+							<td>50грн (10%)</td>
+						</tr>
+						<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
+							<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
+							<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
+							<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
+							<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
+						</tr>
+						<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
+							<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
+							<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
+							<td><?=$percent == 16 ? 'Получите скидку' : ''?></td>
+							<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
+						</tr>
+						<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
+					</table>
+					<div class="price_nav"></div>
+				</div>
+			</div>
+			<div class="action_block">
+				<div id="removingProd" class="hidden">
+					Подождите идет удаление...
+				</div>
+				<div class="wrapp">
+					<form action="">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label style="color: #7F7F7F">*Телефон</label>
+							<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/">
+							<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
+							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
+						</div>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
+							<input class="mdl-textfield__input" type="text" id="sample7">
+							<label class="mdl-textfield__label" for="sample7">Промокод</label>
+						</div>
+						<?if(!G::isLogged() || !_acl::isAdmin()){?>
+							<div id="button-cart1">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
+							</div>
+						<?}else{?>
+							<p>Вы не можете использовать корзину</p>
+						<?}?>
+					</form>
+					<script type='text/javascript'>
+						$(function(){
+							$(".phone").mask("+38 (099) ?999-99-99");
+							$('#cart').on('click', '#button-cart1 button', function(e){
+								e.preventDefault();
+								addLoadAnimation('#cart');
+								var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
+								if(phone.length == 12){
+									ajax('cart', 'makeOrder', {phone: phone}).done(
+										function(data){
+										if(data.status == 200){
+											closeObject('cart');
+											openObject('quiz');
+											/*location.reload();*/
+										}
+									});
+								}else{
+									removeLoadAnimation('#cart');
+								}
+							});
+						});
+					</script>
+				</div>
+			</div>
 		</div>
 		<div id="graph" data-type="modal" data-target="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']))?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>

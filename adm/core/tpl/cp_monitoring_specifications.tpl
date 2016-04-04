@@ -77,20 +77,20 @@
 		<tbody>
 			<?$i = $GLOBALS['Start']+1;
 			foreach($list as $value){?>
-				<tr data-cat="<?=$value['id_category']?>" data-spec="<?=$value['id_caption']?>" data-val="<?=$value['value']?>">
-					<td><?=$i++?></td>
-					<td><?=$value['name'];?></td>
-					<td><?=$value['caption'];?></td>
-					<td><span class="specValName"><?=$value['value'];?></span>
-						<span class="gray"><?=$value['units'];?></span>
-						<input class="input-m inputSpecVal hidden" type="text" value="123ghj">
-						<i class="icon-font editcat editProdSpecValue">e</i>
-						<i class="icon-font addprod applyProdSpecValue hidden">y</i>
-					</td>
-					<td class="center">
-						<div data-target="unload_option" class="btn-m-default-inv open_modal"><?=$value['count'];?></div>
-					</td>
-				</tr>
+			<tr data-cat="<?=$value['id_category']?>" data-spec="<?=$value['id_caption']?>" data-val="<?=$value['value']?>">
+			<td><?=$i++?></td>
+			<td><?=$value['name'];?></td>
+			<td><?=$value['caption'];?></td>
+			<td><span class="specValName"><?=$value['value'];?></span>
+			<span class="gray"><?=$value['units'];?></span>
+			<input class="input-m inputSpecVal hidden" type="text" value="123ghj">
+			<i class="icon-font editcat editProdSpecValue">e</i>
+			<i class="icon-font addprod applyProdSpecValue hidden">y</i>
+			</td>
+			<td class="center">
+			<div data-target="unload_option" class="btn-m-default-inv open_modal"><?=$value['count'];?></div>
+			</td>
+			</tr>
 			<?}?>
 		</tbody>
 	</table>
