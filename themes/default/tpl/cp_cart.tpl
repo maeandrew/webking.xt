@@ -262,9 +262,9 @@
 				</table>
 				<div class="price_nav"></div>
 			</div>
-		</div> -->
+		</div>
 
-		<!-- <div class="action_block">
+		<div class="action_block">
 			<div id="removingProd" class="hidden">
 				Подождите идет удаление...
 			</div>
