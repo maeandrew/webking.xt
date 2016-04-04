@@ -12,7 +12,7 @@
 				<div class="fr">
 					<span><b>Наличие:</b> <?=($_POST['price_opt'] > 0 || $_POST['price_mopt'] > 0)  && $_POST['visible'] != 0?'Есть':'Нет'?></span>
 					<button name="smb_duplicate" type="submit" class="btn-m-lblue">Дублировать</button>
-					<span class="product_view"><a href="<?=$GLOBALS['URL_base']?>product/<?=$_POST['id_product']?>/<?=isset($_POST['translit'])?$_POST['translit']:null?>" target="_blank">Просмотр товара</a></span>
+					<span class="product_view"><a href="<?=$GLOBALS['URL_base'].$_POST['translit']?>.html" target="_blank">Просмотр товара</a></span>
 					<input type="hidden" name="id_product" id="id_product" value="<?=isset($_POST['id_product'])?$_POST['id_product']:0?>">
 					<button name="smb_new" type="submit" class="btn-m-default">Сохранить и создать новый</button>
 					<button name="smb" type="submit" class="btn-m-default fr">Сохранить</button>
@@ -28,7 +28,7 @@
 						<li class="active"><a href="#nav_comment">Вопросы по товару</a></li>
 					<?}?>
 					<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="active"':null?>><a href="#nav_product">Товар, фото, видео</a></li>
-					<li><a href="#nav_seo">SEO</a></li>
+					<!-- <li><a href="#nav_seo">SEO</a></li> -->
 					<li><a href="#nav_content">Контент товара</a></li>
 					<li><a href="#nav_params">Параметры товара</a></li>
 					<li><a href="#nav_delivery">Доставка</a></li>
@@ -64,7 +64,7 @@
 								  </tr>
 								</thead>
 								<tbody>
-								<?foreach ($list_comment as $i){?>
+								<?foreach($list_comment as $i){?>
 									<?$interval = date_diff(date_create(date("d.m.Y", strtotime($i['date_comment']))), date_create(date("d.m.Y")));?>
 									<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
 										<td><span class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></span> <?=!$i['visible']?'<span class="invisible">скрытый</span>':null?><br><?=$i['text_coment']?></td>
@@ -98,6 +98,16 @@
 						<div class="col-md-10">
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
 							<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
+						</div>
+						
+						<div class="col-md-12">
+							<?if(isset($_POST['translit'])){?>
+								<div id="translit">
+									<label>URL сраницы:</label>
+									<p><?=$GLOBALS['URL_base'].$_POST['translit']?>.html</p>
+									<a href="#" id="updtrans" class="refresh_btn icon-font" title="Нажимать, только при полной замене товара" onclick="updateTranslit();">f</a>
+								</div>
+							<?}?>
 						</div>
 					</div>
 					<label>Изображения товара на x-torg.com:</label>
@@ -164,17 +174,11 @@
 						}?>
 					</ul>
 				</div>
-				<div id="nav_seo">
+				<div id="nav_seo" chass="hidden">
 					<h2>SEO</h2>
 					<div class="row">
 						<div class="col-md-12">
-							<?if(isset($_POST['translit'])){?>
-								<div id="translit">
-									<label>URL сраницы:</label>
-									<p><?=$GLOBALS['URL_base'].$_POST['translit']?></p>
-									<a href="#" id="updtrans" class="refresh_btn icon-font" title="Нажимать, только при полной замене товара" onclick="updateTranslit();">f</a>
-								</div>
-							<?}?>
+							
 							<label for="page_title">Мета-заголовок (title):</label>
 							<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
 							<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
