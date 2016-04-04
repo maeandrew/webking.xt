@@ -30,13 +30,17 @@
 	</div>
 	<ul class="header_nav mdl-cell--hide-phone">
 		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i> Корзина</a></li>
-		<li><a href="#">Поставки магазинам</a></li>
+		<li>
+			<?$rand = rand(0, count($list_menu)-1);?>
+			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>"><?=$list_menu[$rand]['title']?></a>
+		</li>
 		<li>
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon navigation">
 				<i class="material-icons">menu</i>
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
-				<?foreach($list_menu as $menu){ ?>
+				<?unset($list_menu[$rand]);?>
+				<?foreach($list_menu as &$menu){?>
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
 				<?}?>
 			</nav>
@@ -153,7 +157,7 @@
 	<nav class="phone_menu">
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
 		<a href="#" class="material-icons mdl-badge--overlap cart mdl-badge btn_js" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
-	</nav>
+	</nav>	
 </div>
 
 <script>
