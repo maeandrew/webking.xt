@@ -121,7 +121,9 @@ class Post {
 	public function DelPage($id){
 		$imgdel = scandir((str_replace('adm\core/../', '', $GLOBALS['PATH_root'])).'post_images/'.$id);
 		foreach($imgdel as $k=>$del_img){
-			unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']).'post_images/'.$id.'/'.$del_img);
+			if($del_img!='.' && $del_img!='..') {
+				unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']) . 'post_images/' . $id . '/' . $del_img);
+			}
 		}
 		rmdir(str_replace('adm\core/../../', '', $GLOBALS['PATH_post_img']).$id);
 		$sql = "DELETE FROM "._DB_PREFIX_."post WHERE id = ".$id;
