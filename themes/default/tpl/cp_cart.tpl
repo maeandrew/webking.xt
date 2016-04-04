@@ -1,4 +1,4 @@
-<h4 class="title_cart">Корзина</h4>
+<!-- <h4 class="title_cart">Корзина</h4> -->
 <script>
 	var randomManager;
 	qtycontrol = new Array();
@@ -130,12 +130,12 @@
 	<!-- END Недоступные товары -->
 	<!-- NEW Товары в корзине -->
 	<div class="order_wrapp clearfix">
-		<ul class="order_head mdl-cell--hide-phone">
+		<!-- <ul class="order_head mdl-cell--hide-phone">
 			<li class="photo">Фото</li>
 			<li class="name">Название</li>
 			<li class="price">Цена, Количество</li>
 			<li class="sum_li">Сумма</li>
-		</ul>
+		</ul> -->
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
 		$summ_many = $_SESSION['cart']['cart_sum'];
@@ -212,7 +212,7 @@
 			$percent_sum = $cart_sum * 0.21;
 			$total = $cart_sum - $percent_sum;
 		};?>
-		<div class="cart">
+		<!-- <div class="cart">
 			<div class="clear_cart fleft">
 				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
 			</div>
@@ -262,9 +262,9 @@
 				</table>
 				<div class="price_nav"></div>
 			</div>
-		</div>
+		</div> -->
 
-		<div class="action_block">
+		<!-- <div class="action_block">
 			<div id="removingProd" class="hidden">
 				Подождите идет удаление...
 			</div>
@@ -275,13 +275,13 @@
 						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/">
 						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
 						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
-						<!--span class="err_tel">Обязательное поле для ввода!</span-->
+						span class="err_tel">Обязательное поле для ввода!</span
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
 						<input class="mdl-textfield__input" type="text" id="sample7">
 						<label class="mdl-textfield__label" for="sample7">Промокод</label>
 					</div>
-					<!--<div class="tooltip_wrapp clearfix">
+					<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button" name="options" value="1">
 							<span class="mdl-radio__label">Групповая корзина</span>
@@ -293,9 +293,9 @@
 						<div class="info_description">
 							Добавит Вас к групповой корзине и перенапрвит на нее.
 						</div>
-					</div>-->
+					</div>
 
-					<!--<div class="tooltip_wrapp clearfix">
+					<div class="tooltip_wrapp clearfix">
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 							<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 							<span class="mdl-radio__label">Совместная покупка</span>
@@ -307,7 +307,7 @@
 						<div class="info_description">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
 						</div>
-					</div>-->
+					</div>
 					<?if(!G::isLogged() || !_acl::isAdmin()){?>
 						<div id="button-cart1">
 							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
@@ -315,12 +315,12 @@
 					<?}else{?>
 						<p>Вы не можете использовать корзину</p>
 					<?}?>
-					<!-- <div id="button-cart2">
+					<div id="button-cart2">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
-					</div> -->
-					<!-- <div id="button-cart3">
+					</div>
+					<div id="button-cart3">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
-					</div> -->
+					</div>
 				</form>
 				<script type='text/javascript'>
 					//   radio button magic
@@ -357,7 +357,7 @@
 					//   radio button magic (end)
 				</script>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
@@ -366,7 +366,7 @@
 				// console.log('loggedin');
 			}
 			// Инициалзация маски для ввода телефонных номеров
-			$(".phone").mask("+38 (099) ?999-99-99");
+			/*$(".phone").mask("+38 (099) ?999-99-99");*/
 			// Создание заказа, нового пользователя только с телефоном (start)
 
 			$('.remove_prod').on('click', function(e){
@@ -374,7 +374,7 @@
 				$('#removingProd').removeClass('hidden');
 			});
 
-			$('#cart').on('click', '#button-cart1 button', function(e){
+			/*$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				addLoadAnimation('#cart');
 				var phone = $('.order_wrapp input.phone').val().replace(/[^\d]+/g, "");
@@ -388,21 +388,7 @@
 				}else{
 					removeLoadAnimation('#cart');
 				}
-				// if($('.phone').val()){
-					// var p = $('.phone').val();
-					// var phone = p.replace(/[^\d]+/g, "");
-					// ajax('cart', 'makeOrder', {phone: phone}).done(function(arr){
-					// 	$.cookie('id_order', arr.id_order);
-					// 	$.cookie('id_user', arr.id_user);
-					// 	if($('#joint_cart').closest('label').hasClass('is-checked')){
-					// 		location.href = 'cabinet/cooperative/?t=working';
-					// 	}else{
-					// 		openObject('quiz');
-					// 	}
-					// });
-					// return false;
-				// }
-			});
+			});*/
 			if(!isLogged){
 				$('input.send_order, input.save_order').click(function(e){
 					var name = $('#edit #name').val().length;
