@@ -702,12 +702,12 @@
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
-			<button id="delOrderBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
+			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите отменить заказ?</h5>
-			<button id="cnclOrderBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
+			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
 
