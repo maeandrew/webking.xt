@@ -60,7 +60,7 @@ function removeFromCart(id){
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
 			$('#removingProd').addClass('hidden');
-			Position('cart');
+			/*Position('cart');*/
 			completeCartProductAdd(data);
 			$('#cart_item_' + id).hide(200).remove();
 		});
