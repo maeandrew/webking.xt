@@ -1,5 +1,3 @@
-<!-- <link rel="stylesheet" href="/themes/default/css/page_styles/news.css"> -->
-
 <div id="content">
 	<h3 class="item_title"><?=$data['title']?></h3>
 	<p class="content_date color-grey">Опубликовано:
@@ -12,6 +10,6 @@
 		}?></p>
 	<div class="content_page">
 		<?=$data['descr_full']?>
-    </div>
+	</div>
 	<div class="content_news"><a href="<?=Link::Custom('news');?>">Другие новости</a></div>
 </div><!--id="content"-->

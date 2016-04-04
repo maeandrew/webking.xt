@@ -62,7 +62,8 @@
 		font-size: 14px;
 		line-height: 1.3em;
 	}
-	.newslist .item .item_title {
+	.newslist .item .item_title,
+	#content .item_title {	
 		font-size: 26px;
 	}	
 }
