@@ -21,7 +21,7 @@ if(isset($_POST['smb'])){
 	list($err, $errm) = News_form_validate();
 
 	//Добавление фото
-	$id_news = $News->SetFieldsById($id);
+	$id_news = $News->SetFieldsById($id, false);
 	if(isset($_POST['images'])){
 		foreach($_POST['images'] as $k=>$image){
 			//$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';

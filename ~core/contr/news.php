@@ -4,7 +4,7 @@ $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 if(isset($GLOBALS['Rewrite'])){
-	if(!$News->SetFieldsByRewrite($GLOBALS['Rewrite'])){
+	if(!$News->SetFieldsByRewrite($GLOBALS['Rewrite'], true, 1)){
 		header('Location: '._base_url.'/404/');
 		exit();
 	}
@@ -30,7 +30,7 @@ if(isset($GLOBALS['Rewrite'])){
 		'title' => $header,
 		'url' => Link::Custom('news')
 	);
-	if($News->NewsList()){
+	if($News->NewsList(0, '', 1)){
 		$tpl->Assign('list', $News->list);
 	}
 	$template = 'cp_newslist.tpl';

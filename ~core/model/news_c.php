@@ -9,35 +9,36 @@ class News{
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid", "thumbnail");
 	}
-	// Страница по транслиту
-	public function SetFieldsByRewrite($rewrite, $all = 0){
-		$visible = "AND visible = 1";
-		if($all == 1){
-			$visible = '';
-		}
+	/**
+	 * Получить поля новости по транслиту
+	 * @param string  $rewrite Транслит новости
+	 * @param boolean $visible true - показать только видимые новости, false - все
+	 * @param integer $sid     идентификатор магазина
+	 */
+	public function SetFieldsByRewrite($rewrite, $visible = true, $sid = null){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."news
-			WHERE translit = ".$this->db->Quote($rewrite)."
-			".$visible."
-			AND sid = 1
-			ORDER BY ord";
+			WHERE translit = ".$this->db->Quote($rewrite).
+			($visible?' AND visible = 1':null).
+			(isset($sid)?' AND sid = '.$sid:null);
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
 		}
 		return true;
 	}
-	// Страница по id
-	public function SetFieldsById($id_news, $all = 0){
-		$visible = "AND visible = 1";
-		if($all == 1){
-			$visible = '';
-		}
+	/**
+	 * Получить поля новости по id
+	 * @param integer $id_news id новости
+	 * @param boolean $visible true - показать только видимые новости, false - все
+	 * @param integer $sid     идентификатор магазина
+	 */
+	public function SetFieldsById($id_news, $visible = true, $sid = null){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."news
-			WHERE id_news = \"$id_news\"
-			$visible
-			AND sid = 1
+			WHERE id_news = '".$id_news."'".
+			($visible?' AND visible = 1':null).
+			(isset($sid)?' AND sid = '.$sid:null)."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
@@ -45,25 +46,26 @@ class News{
 		}
 		$sqlImage = "SELECT id, src
 			FROM "._DB_PREFIX_."image_news
-			WHERE id_news = \"$id_news\"";
+			WHERE id_news = '".$id_news."'";
 		$this->fields['Img'] = $this->db->GetArray($sqlImage);
 		return true;
 	}
 
 
 	// Список (0 - только видимые. 1 - все, и видимые и невидимые)
-	public function NewsList($param = 0, $limit = ""){
-		$where = "WHERE visible = 1 ";
+	public function NewsList($param = 0, $limit = "", $sid = null){
+		$where = " WHERE visible = 1 ".(isset($sid)?' AND sid = '.$sid:null);
 		if($param == 1){
-			$where = '';
+			$where = isset($sid)?' WHERE sid = '.$sid:null;
 		}
 		if($limit != ""){
 			$limit = "LIMIT $limit";
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
-			FROM "._DB_PREFIX_."news
-			$where
-			ORDER BY date desc, ord $limit";
+			FROM "._DB_PREFIX_."news".
+			$where."
+			ORDER BY date desc, ord".
+			$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -163,18 +165,15 @@ class News{
 
 	// Добавить
 	public function AddNews($arr){
-		$f['title'] = trim($arr['title']);
-		$f['descr_short'] = trim($arr['descr_short']);
-		$f['descr_full'] = trim($arr['descr_full']);
-		list($d,$m,$y) = explode(".", trim($arr['date']));
-		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
-		$f['translit'] = G::StrToTrans($f['title']);
-		$f['visible'] = 1;
-		$f['sid'] = 1;
-		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$f['visible'] = 0;
-		}
+		$f['title']			= trim($arr['title']);
+		$f['descr_short']	= trim($arr['descr_short']);
+		$f['descr_full']	= trim($arr['descr_full']);
+		list($d,$m,$y)		= explode(".", trim($arr['date']));
+		$f['date']			= mktime(0, 0, 0, $m , $d, $y);
+		$f['translit']		= G::StrToTrans($f['title']);
+		$f['sid']			= $arr['sid'];
+		$f['indexation']	= (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		$f['visible']		= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'news', $f)){
 			$this->db->FailTrans();
@@ -190,24 +189,21 @@ class News{
 			rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb));
 			$thumb = str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb);
 		}
-		$f['id_news'] = trim($arr['id_news']);
-		$f['title'] = trim($arr['title']);
-		$f['page_description'] = trim($arr['page_description']);
-		$f['page_title'] = trim($arr['page_title']);
-		$f['page_keywords'] = trim($arr['page_keywords']);
-		$f['descr_short'] = trim($arr['descr_short']);
-		$f['descr_full'] = trim($arr['descr_full']);
-		$f['thumbnail'] = trim($thumb);
-		list($d,$m,$y) = explode(".", trim($arr['date']));
-		$f['date'] = mktime(0, 0, 0, $m , $d, $y);
-		$f['translit'] = G::StrToTrans($f['title']);
-		$f['visible'] = 1;
-		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$f['visible'] = 0;
-		}
+		$f['title']				= trim($arr['title']);
+		$f['page_description']	= trim($arr['page_description']);
+		$f['page_title']		= trim($arr['page_title']);
+		$f['page_keywords']		= trim($arr['page_keywords']);
+		$f['descr_short']		= trim($arr['descr_short']);
+		$f['descr_full']		= trim($arr['descr_full']);
+		$f['thumbnail']			= trim($thumb);
+		list($d,$m,$y)			= explode(".", trim($arr['date']));
+		$f['date']				= mktime(0, 0, 0, $m , $d, $y);
+		$f['translit']			= G::StrToTrans($f['title']);
+		$f['sid']				= $arr['sid'];
+		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
+		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."news", $f, "id_news = {$f['id_news']}")){
+		if(!$this->db->Update(_DB_PREFIX_."news", $f, "id_news = {$arr['id_news']}")){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -240,8 +236,12 @@ class News{
 		}
 	}
 
-	public function LastNews(){
-		$sql = "SELECT date, title, translit, descr_short FROM "._DB_PREFIX_."news ORDER BY date DESC";
+	public function LastNews($sid = null){
+		$sql = "SELECT date, title, translit, descr_short
+			FROM "._DB_PREFIX_."news
+			WHERE visible = 1".
+			(isset($sid)?' AND sid = '.$sid:null)."
+			ORDER BY date DESC";
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}

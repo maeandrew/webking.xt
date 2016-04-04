@@ -175,7 +175,7 @@ if($GLOBALS['CurrentController'] == 'main'){
 	}
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title'])." | Новости оптового интернет-магазина ".$GLOBALS['CONFIG']['shop_name'];
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(" ", $GLOBALS['__page_description']);
+	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".(isset($GLOBALS['__page_description'])?implode(" ", $GLOBALS['__page_description']):null);
 }else{
 	$GLOBALS['__page_title'] = array();
 	$GLOBALS['__page_kw'] = array();

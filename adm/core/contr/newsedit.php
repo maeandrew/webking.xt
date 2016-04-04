@@ -8,7 +8,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	header('Location: '.$GLOBALS['URL_base'].'404/');
 	exit();
 }
-if(!$News->SetFieldsById($id_news, 1)){
+if(!$News->SetFieldsById($id_news, false)){
 	die('Ошибка при выборе новости.');
 }
 
@@ -46,10 +46,6 @@ if(isset($_POST['smb'])){
 		$images_arr =  array();
 	}
 
-
-
-
-
 	//Добавление миниатюры
 	if(isset($_POST['thumb'])) {
 		$thumb = $_POST['thumb'];
@@ -71,7 +67,7 @@ if(isset($_POST['smb'])){
 				// $Mailer->SendNewsToCustomersInterview($_POST);
 			}
 			unset($_POST);
-			if(!$News->SetFieldsById($id_news, 1)) die('Ошибка при выборе новости.');
+			if(!$News->SetFieldsById($id_news, false)) die('Ошибка при выборе новости.');
 		}else{
 			$tpl->Assign('msg', 'Ошибка при обновлении новости.');
 			$tpl->Assign('errm', 1);
