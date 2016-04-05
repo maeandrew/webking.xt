@@ -98,7 +98,7 @@
 			</p>
 		</div>
 	<?}?>
-	<?if($User['gid'] == _ACL_MANAGER_){?>
+	<?if(G::isLogged() && $_SESSION['member']['gid'] == _ACL_MANAGER_){?>
 		<?if(!empty($unlist)){?>
 			<a href="#" class="show_btn" onclick="$(this).next().toggleClass('hidden'); return false;">Показать недоступные товары</a>
 			<div class="unavailable_products hidden animate" id="unavailable_products">
