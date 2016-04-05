@@ -359,7 +359,7 @@ header #mycabMenuUserInfBtn {
 	}
 	header.opened .search_wrapp {
 		width: calc(100% - 230px);
-		margin-right: 70px;
+		margin-right: 30px;
 	}
 	header.opened .search {
 		width: 78%;
@@ -368,9 +368,14 @@ header #mycabMenuUserInfBtn {
 		margin-right: 10px;
 	}	
 }
+
 @media (min-width: 728px) and (max-width: 840px){
 	header .search {
 		margin-left: 15px;
+	}
+	header.opened .search_wrapp {
+		width: calc(100% - 230px);
+		margin-right: 70px;
 	}
 }
 
