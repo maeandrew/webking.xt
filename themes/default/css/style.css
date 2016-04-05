@@ -1840,7 +1840,6 @@ section .stat_year {
 	padding-top: 50px;
 }
 .products .card {
-	display: flex;
 	border-bottom: 1px solid #e0e0e0;
 	/*box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);*/
 	/*border-radius: .2em;*/
@@ -1858,15 +1857,6 @@ section .stat_year {
 .products .card .count_cell,
 .products .card .product_check {
 	text-align: center;
-}
-.products .card .card_item {
-	flex: 1;
-}
-.products .card .product_name {
-	flex: 4;
-}
-.products .card .product_check {
-	flex: 1;
 }
 .products .card .product_check .mdl-checkbox {
 	display: inline;
@@ -2190,7 +2180,6 @@ section .stat_year {
 	.products .product_info,
 	.products .product_buy {
 		width: auto;
-		width: calc(100% - 130px);
 	}
 	.products .product_info {
 		margin: 0;

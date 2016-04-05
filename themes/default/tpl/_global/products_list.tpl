@@ -22,7 +22,7 @@
 			</a>
 		</div>
 		<p class="product_name"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a> <span class="product_article">Арт: <?=$item['art'];?></span></p>
-		<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+		<div class="product_buy<?=$GLOBALS['CurrentController'] == 'main'?' hidden':null;?>" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<div class="price">
