@@ -1279,7 +1279,7 @@ class Products {
 		if(is_numeric($limit)){
 			$limit = "limit $limit";
 		}
-		$order_by = 'p.ord, p.name';
+		$order_by = 'c.id_cart_product ASC';
 		if(isset($params['order_by'])){
 			$order_by = $params['order_by'];
 		}
@@ -1287,6 +1287,9 @@ class Products {
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
+			LEFT JOIN "._DB_PREFIX_."cart_product AS c
+				ON p.id_product = c.id_product
+				AND c.id_cart = ".$_SESSION['cart']['id']."
 			WHERE p.id_product IN (".$in.")
 			AND p.visible = 1
 			ORDER BY ".$order_by."

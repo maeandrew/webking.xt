@@ -210,7 +210,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$errflag[$key] = $value['err'];
 							$value['images'] = $products->GetPhotoById($value['id_product']);
 						}
-						array_multisort($list, SORT_DESC, $errflag);
+						//array_multisort($list, SORT_DESC, $errflag);
 						$tpl->Assign('list', $list);
 					}else{
 						$tpl->Assign('list', false);
