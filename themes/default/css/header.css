@@ -388,6 +388,9 @@ header #mycabMenuUserInfBtn {
 	header .header_nav li:nth-child(4) button.user_profile .mdl-button--icon {
 		height: 25px !important;
 	}
+	header.opened .search_wrapp .search_btn {
+		height: 35px;
+	}
 	header {
 		max-height: 45px;
 		padding-left: 10px;
