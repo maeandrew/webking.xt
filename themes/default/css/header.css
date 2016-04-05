@@ -43,7 +43,7 @@ header .search {
 	margin-right: 10px;
 	float: left;
 	position: relative;
-	max-width: 170px;
+	max-width: 250px;
 }
 header .search .mob_s_btn {
 	position: absolute;
@@ -142,6 +142,9 @@ header .search .select_category .mdl-menu__item {
 header .search_wrapp .search_btn {
 	display: none;
 }
+header .search .select_category.fright.imit_select {
+	height: 28px;
+}
 header.opened .search_wrapp {
 	position: absolute;
 	right: 0;
@@ -161,7 +164,7 @@ header.opened .search_wrapp .search_btn {
 }
 header.opened .search .mdl-textfield__input,
 header.opened .search .mdl-textfield__label {
-	padding-right: 155px;
+	padding-right: 160px;
 }
 
 /*Navigation ================================================================*/
@@ -276,7 +279,7 @@ header #menuBorder {
 }
 header #manager {
 	height: 25px;
-    line-height: 25px;
+	line-height: 25px;
 }
 header #manager .user_contr {
 	color: #666666;
@@ -302,7 +305,7 @@ header #userWaitingList i{
 header #userFavoritesList .favleft,
 header #userWaitingList .favleft {
 	float: left;
-    margin-top: 3%;	
+	margin-top: 3%;	
 }
 header #userFavoritesList .favright,
 header #userWaitingList .favright {
@@ -351,27 +354,39 @@ header #mycabMenuUserInfBtn {
 /*TABLET*/
 
 @media (min-width: 728px) and (max-width: 1169px) {
-
 	header .search {
 		margin-left: 15px;
-		max-width: 90px;
 	}
 	header.opened .search_wrapp {
-		width: calc(100% - 270px);
+		width: calc(100% - 230px);
+	}
+	header.opened .search_wrapp {
+		margin-right: 120px;
 	}
 	header.opened .search {
 		width: 78%;
 	}
 	header .header_nav > li {
 		margin-right: 10px;
-	}
+	}	
 }
 
 /*PHONE*/
 
 @media (max-width: 727px) {
-	header .header_nav {
+	header .header_nav li:nth-child(1),
+	header .header_nav li:nth-child(2),
+	header .header_nav li:nth-child(3) {
 		display: none !important;
+	}
+	header.opened .search_wrapp {
+		margin-right: 0px;
+	}
+	header.opened .search .select_category {
+		display: none;
+	}
+	header .header_nav li:nth-child(4) button.user_profile .mdl-button--icon {
+		height: 25px !important;
 	}
 	header {
 		max-height: 45px;
@@ -385,8 +400,8 @@ header #mycabMenuUserInfBtn {
 		height: 24px;
 	}
 	header.opened .search_wrapp {
-		position: static;
-		width: auto;
+		position: absolute;
+		width: 100%;
 	}
 	header.opened .search {
 		width: auto;
@@ -421,10 +436,24 @@ header #mycabMenuUserInfBtn {
 		box-shadow: 0px 0px 0px 10px rgba(255,255,255,1);
 	}
 	header.opened .search .mdl-textfield__input {
-		padding-right: 25px;
+		padding-right: 0;
 	}
 	header.opened .search .search_close {
 		display: block;
+		padding-right: 0;
+		background-color: white;
+		height: 20px;
+	}
+	header .search .select_category.fright.imit_select {
+		height: 25px;
+	}
+}
+@media (max-width: 480px) {
+	header.opened .search .search_close {
+		padding-right: 0;
+	}
+	header.opened .search .mdl-textfield__input {
+		padding-right: 4px;
 	}
 }
 @media (max-width: 360px) {

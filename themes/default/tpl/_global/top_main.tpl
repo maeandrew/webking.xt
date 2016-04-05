@@ -11,6 +11,7 @@
 				<input class="category2search" name="category2search" type="hidden" value="">
 				<label class="mdl-textfield__label" for="search"><? if(!isset($_GET['query'])){ ?>Найти...<?} else { ?> <?}?></label>
 				<i class="material-icons search_close" title="Закрыть поиск">close</i>
+				
 				<div class="select_category fright mdl-cell--hide-phone imit_select">
 					<button id="category-lower-right"  class="mdl-button mdl-js-button mdl-button--icon">
 						<span class="selected_cat select_field">По всем категориям</span>
@@ -28,7 +29,7 @@
 			<button class="mdl-button mdl-js-button mdl-cell--hide-phone search_btn">Найти</button>
 		</form>
 	</div>
-	<ul class="header_nav mdl-cell--hide-phone">
+	<ul class="header_nav">
 		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i> Корзина</a></li>
 		<li>
 			<?$rand = rand(0, count($list_menu)-1);?>
