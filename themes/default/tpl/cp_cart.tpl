@@ -267,11 +267,11 @@
 		<div class="wrapp">
 			<form action="">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<label style="color: #7F7F7F">*Телефон</label>
-							<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/">
-							<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
-							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
-						</div>
+					<label style="color: #7F7F7F">*Телефон</label>
+					<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/">
+					<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
+					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
+				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
 					<input class="mdl-textfield__input" type="text" id="sample7">
 					<label class="mdl-textfield__label" for="sample7">Промокод</label>
