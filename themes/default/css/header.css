@@ -39,11 +39,11 @@ header .catalog_btn {
 /*Search =====================================================================*/
 
 header .search {
-	margin-left: 30px;
-	margin-right: 10px;
+	margin-left: 6px;
+	/*margin-right: 10px;*/
 	float: left;
 	position: relative;
-	max-width: 250px;
+	max-width: 220px;
 }
 header .search .mob_s_btn {
 	position: absolute;
@@ -355,13 +355,11 @@ header #mycabMenuUserInfBtn {
 
 @media (min-width: 728px) and (max-width: 1169px) {
 	header .search {
-		margin-left: 15px;
+		margin-left: -70px;
 	}
 	header.opened .search_wrapp {
 		width: calc(100% - 230px);
-	}
-	header.opened .search_wrapp {
-		margin-right: 120px;
+		margin-right: 70px;
 	}
 	header.opened .search {
 		width: 78%;
@@ -369,6 +367,11 @@ header #mycabMenuUserInfBtn {
 	header .header_nav > li {
 		margin-right: 10px;
 	}	
+}
+@media (min-width: 728px) and (max-width: 840px){
+	header .search {
+		margin-left: 15px;
+	}
 }
 
 /*PHONE*/
