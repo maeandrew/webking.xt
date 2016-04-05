@@ -461,6 +461,9 @@ header #mycabMenuUserInfBtn {
 	header.opened .search .mdl-textfield__input {
 		padding-right: 4px;
 	}
+	header .search {		
+		width: 38%;
+	}
 }
 @media (max-width: 360px) {
 	header {
