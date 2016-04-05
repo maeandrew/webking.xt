@@ -212,153 +212,149 @@
 			$percent_sum = $cart_sum * 0.21;
 			$total = $cart_sum - $percent_sum;
 		};?>
-		<!-- <div class="cart">
-			<div class="clear_cart fleft">
-				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
+	</div>
+	<div id="cartFooterBorder"></div>
+	<div class="cart">
+		<div id="total" class="fright">
+			<div class="total">
+				<div class="label totaltext">Итого</div>
+				<div class="total_summ totalnumb">
+					<span id="summ_many" class="summ_many">
+						<?=isset($cart_sum)? $cart_sum : "0.00"?>
+					</span>  ГРН	</div>
 			</div>
-			<div id="total" class="fright">
-				<div class="total">
-					<div class="label totaltext">Итого</div>
-					<div class="total_summ totalnumb">
-						<span id="summ_many" class="summ_many">
-							<?=isset($cart_sum)? $cart_sum : "0.00"?>
-						</span>  ГРН	</div>
-				</div>
-				<div class="total">
-					<div class="label totaltext">Вы экономите</div>
-					<div class="total_summ totalnumb">
-						<span class="summ_many">
-							<?=round($percent_sum, 2)?>
-						</span>  ГРН	</div>
-				</div>
-				<div class="total">
-					<div class="label" style="color: #000">К оплате</div>
-					<div class="total_summ">
-						<span class="summ_many" style='font-size: 1.2em'><?=number_format($total, 2, ",", "")?>
-						</span>  ГРН	</div>
-				</div>
+			<div class="total">
+				<div class="label totaltext">Вы экономите</div>
+				<div class="total_summ totalnumb">
+					<span class="summ_many">
+						<?=round($percent_sum, 2)?>
+					</span>  ГРН	</div>
 			</div>
-			<div class="cart_info fleft order_balance">
-				<table id="percent">
-					<tr <?=$percent == 0 ? '': "style='display:none'"?>>
-						<td>Добавьте:</td>
-						<td><?=round(500-$cart_sum,2)?>грн</td>
-						<td>Получите скидку:</td>
-						<td>50грн (10%)</td>
-					</tr>
-					<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
-						<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
-						<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
-						<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
-					</tr>
-					<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
-						<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
-						<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
-						<td><?=$percent == 16 ? 'Получите скидку' : ''?></td>
-						<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
-					</tr>
-					<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
-				</table>
-				<div class="price_nav"></div>
+			<div class="total">
+				<div class="label" style="color: #000">К оплате</div>
+				<div class="total_summ">
+					<span class="summ_many" style='font-size: 1.2em'><?=number_format($total, 2, ",", "")?>
+					</span>  ГРН	</div>
 			</div>
 		</div>
-
-		<div class="action_block">
-			<div id="removingProd" class="hidden">
-				Подождите идет удаление...
-			</div>
-			<div class="wrapp">
-				<form action="">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label style="color: #7F7F7F">*Телефон</label>
-						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="/[^\d]+/">
-						<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
-						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
-						span class="err_tel">Обязательное поле для ввода!</span
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
-						<input class="mdl-textfield__input" type="text" id="sample7">
-						<label class="mdl-textfield__label" for="sample7">Промокод</label>
-					</div>
-					<div class="tooltip_wrapp clearfix">
-						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-							<input type="radio" class="mdl-radio__button" name="options" value="1">
-							<span class="mdl-radio__label">Групповая корзина</span>
-								<label class="info_key" style="position: initial;">?</label>
-								<div class="info_description">
-									<p>Групповая корзина Групповая корзина Групповая корзина.</p>
-								</div>
-						</label>
-						<div class="info_description">
-							Добавит Вас к групповой корзине и перенапрвит на нее.
-						</div>
-					</div>
-
-					<div class="tooltip_wrapp clearfix">
-						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-							<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
-							<span class="mdl-radio__label">Совместная покупка</span>
-								<label class="info_key" style="position: initial;">?</label>
-								<div class="info_description">
-									<p>Перейти к оформлению совместной корзины</p>
-								</div>
-						</label>
-						<div class="info_description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
-						</div>
-					</div>
-					<?if(!G::isLogged() || !_acl::isAdmin()){?>
-						<div id="button-cart1">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
-						</div>
-					<?}else{?>
-						<p>Вы не можете использовать корзину</p>
-					<?}?>
-					<div id="button-cart2">
-						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
-					</div>
-					<div id="button-cart3">
-						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
-					</div>
-				</form>
-				<script type='text/javascript'>
-					//   radio button magic
-					// componentHandler.upgradeDom();
-
-					// var checked = false;
-					// var old_text = $('.action_block .mdl-button').text();
-
-					// $('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
-					// 	if (checked == false) {
-					// 		$('.action_block .mdl-button').text('Продолжить');
-					// 		$("#button-cart1").hide();
-					// 		$("#button-cart1").show();
-					// 		// $("#button-cart3").hide();
-					// 	}
-					// });
-
-					// $('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
-					// 	if (checked == false) {
-					// 		$('.action_block .mdl-button').text('Организовать');
-					// 		$("#button-cart1").hide();
-					// 		// $("#button-cart2").hide();
-					// 		$("#button-cart1").show();
-					// 	}
-					// });
-					// $('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-					// 	checked = $(this).find('input').prop('checked');
-					// }).on('click', function () {
-					// 	if (checked == true) {
-					// 		$(this).removeClass('is-checked').find('input').attr('checked', false);
-					// 		$('.action_block .mdl-button').text(old_text);
-					// 	}
-					// });
-					//   radio button magic (end)
-				</script>
-			</div>
-		</div> -->
+		<div class="cart_info fleft order_balance">
+			<table id="percent">
+				<tr <?=$percent == 0 ? '': "style='display:none'"?>>
+					<td>Добавьте:</td>
+					<td><?=round(500-$cart_sum,2)?>грн</td>
+					<td>Получите скидку:</td>
+					<td>50грн (10%)</td>
+				</tr>
+				<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
+					<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
+					<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
+					<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
+					<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
+				</tr>
+				<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
+					<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
+					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
+					<td><?=$percent == 16 ? 'Получите скидку' : ''?></td>
+					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
+				</tr>
+				<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
+			</table>
+			<div class="price_nav"></div>
+		</div>
 	</div>
+
+	<div class="action_block">
+		<div class="wrapp">
+			<form action="">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label style="color: #7F7F7F">*Телефон</label>
+					<input class="mdl-textfield__input phone" type="text" id="user_number"
+					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
+					<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
+					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
+					<input class="mdl-textfield__input" type="text" id="sample7">
+					<label class="mdl-textfield__label" for="sample7">Промокод</label>
+				</div>
+				<!-- <div class="tooltip_wrapp clearfix">
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+						<input type="radio" class="mdl-radio__button" name="options" value="1">
+						<span class="mdl-radio__label">Групповая корзина</span>
+							<label class="info_key" style="position: initial;">?</label>
+							<div class="info_description">
+								<p>Групповая корзина Групповая корзина Групповая корзина.</p>
+							</div>
+					</label>
+					<div class="info_description">
+						Добавит Вас к групповой корзине и перенапрвит на нее.
+					</div>
+				</div>
+
+				<div class="tooltip_wrapp clearfix">
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+						<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
+						<span class="mdl-radio__label">Совместная покупка</span>
+							<label class="info_key" style="position: initial;">?</label>
+							<div class="info_description">
+								<p>Перейти к оформлению совместной корзины</p>
+							</div>
+					</label>
+					<div class="info_description">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
+					</div>
+				</div> -->
+				<?if(!G::isLogged() || !_acl::isAdmin()){?>
+					<div id="button-cart1">
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
+					</div>
+				<?}else{?>
+					<p>Вы не можете использовать корзину</p>
+				<?}?>
+				<!-- <div id="button-cart2">
+					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
+				</div>
+				<div id="button-cart3">
+					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
+				</div> -->
+			</form>
+			<script type='text/javascript'>
+				//   radio button magic
+				// componentHandler.upgradeDom();
+
+				// var checked = false;
+				// var old_text = $('.action_block .mdl-button').text();
+
+				// $('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
+				// 	if (checked == false) {
+				// 		$('.action_block .mdl-button').text('Продолжить');
+				// 		$("#button-cart1").hide();
+				// 		$("#button-cart1").show();
+				// 		// $("#button-cart3").hide();
+				// 	}
+				// });
+
+				// $('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
+				// 	if (checked == false) {
+				// 		$('.action_block .mdl-button').text('Организовать');
+				// 		$("#button-cart1").hide();
+				// 		// $("#button-cart2").hide();
+				// 		$("#button-cart1").show();
+				// 	}
+				// });
+				// $('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+				// 	checked = $(this).find('input').prop('checked');
+				// }).on('click', function () {
+				// 	if (checked == true) {
+				// 		$(this).removeClass('is-checked').find('input').attr('checked', false);
+				// 		$('.action_block .mdl-button').text(old_text);
+				// 	}
+				// });
+				//   radio button magic (end)
+			</script>
+		</div>
+	</div>
+
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
 		$(function(){
@@ -366,7 +362,7 @@
 				// console.log('loggedin');
 			}
 			// Инициалзация маски для ввода телефонных номеров
-			/*$(".phone").mask("+38 (099) ?999-99-99");*/
+			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
 
 			$('.remove_prod').on('click', function(e){
@@ -374,10 +370,10 @@
 				$('#removingProd').removeClass('hidden');
 			});
 
-			/*$('#cart').on('click', '#button-cart1 button', function(e){
+			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				addLoadAnimation('#cart');
-				var phone = $('.order_wrapp input.phone').val().replace(/[^\d]+/g, "");
+				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
 				if(phone.length == 12){
 					ajax('cart', 'makeOrder', {phone: phone}).done(
 						function(data){
@@ -387,8 +383,9 @@
 					});
 				}else{
 					removeLoadAnimation('#cart');
+					$('.err_tel').css('visibility', 'visible');
 				}
-			});*/
+			});
 			if(!isLogged){
 				$('input.send_order, input.save_order').click(function(e){
 					var name = $('#edit #name').val().length;

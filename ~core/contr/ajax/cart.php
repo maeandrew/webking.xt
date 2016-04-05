@@ -46,6 +46,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$customer['last_name'] = $cont_person[0];
 				$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
 				$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
+				$customer['phone'] = isset($phones)?$phones:'';
+				$tpl->Assign('phone',$customer['phones']);
 
 				// список всех менеджеров
 				if(substr($User->fields['email'], -11) == "@x-torg.com"){
@@ -208,7 +210,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$errflag[$key] = $value['err'];
 							$value['images'] = $products->GetPhotoById($value['id_product']);
 						}
-						array_multisort($list, SORT_DESC, $errflag);
+						//array_multisort($list, SORT_DESC, $errflag);
 						$tpl->Assign('list', $list);
 					}else{
 						$tpl->Assign('list', false);

@@ -1303,7 +1303,7 @@ class Orders {
 	}
 
 	public function UpdateStatus($id_order, $status, $date = false){
-		if(isset($date)){
+		if($date !== false){
 			$sql = "UPDATE "._DB_PREFIX_."order
 				SET id_order_status = ".$status.",
 					target_date = UNIX_TIMESTAMP('".$date."')
@@ -1313,6 +1313,7 @@ class Orders {
 				SET id_order_status = ".$status."
 				WHERE id_order = ".$id_order;
 		}
+		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			G::DieLoger("SQL error - $sql");
 			$this->db->FailTrans();

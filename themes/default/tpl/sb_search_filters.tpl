@@ -75,10 +75,13 @@
 
 		// Клик на "Применить"
 		$('#applyFilter').on('click', function(e){
+			addLoadAnimation('.filters');
 			e.preventDefault();
 			ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
 				// console.log(data);
 				window.location.href = data;
+			}).fail(function(data){
+				removeLoadAnimation('.filters');
 			});
 		});
 		//Сделать не активные ссылки у отключенных фильтров
@@ -134,9 +137,12 @@
 
 			if(event.keyCode==13){
 				e.preventDefault();
+				addLoadAnimation('.filters');
 				ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
 					console.log(data);
 					window.location.href = data;
+				}).fail(function(data){
+				removeLoadAnimation('.filters');
 				});
 			}
 		});
@@ -177,7 +183,7 @@
 		foreach($filter_cat as $spec){?>
 			<div class="filter_block">
 				<p><?=$spec['caption']?></p>
-				<ul>					
+				<ul>
 					<?foreach($spec['values'] as $value){
 						$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
 						<li>
