@@ -617,9 +617,6 @@ class Products {
 			}
 			$where .= implode(" AND ", $where_a);
 		}
-//		if($limit == '' || isset($params['ajax'])){
-//			$qqq = 1;
-//		}
 		$group_by = '';
 		if(isset($params['group_by'])){
 			$group_by = ' GROUP BY '.$params['group_by'];
@@ -636,7 +633,7 @@ class Products {
 				}
 			}
 		}else{
-			$order_by = ' popularity DESC';
+			$order_by = 'popularity DESC';
 		}
 		if(isset($params['administration'])){
 			// SQL выборки для админки
@@ -688,7 +685,6 @@ class Products {
 					AND a.active = 1
 				ORDER BY ".$order_by
 				.$limit;
-//			print_r($sql);
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -726,7 +722,6 @@ class Products {
 
 	// Добавление двух графиков (по категории)
 	public function AddInsertTwoGraph($data){
-		//print_r($data);
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $data['id_category'];
 		$arr['name_user'] = $data['name_user'];
@@ -787,9 +782,6 @@ class Products {
 				$arr['value_'.$k] = $val;
 			}
 		}
-		/*print_r($arr);
-		print_r($id_graphics);
-		print_r($where);*/
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."graph", $arr, $where)){
 			$this->db->FailTrans();
@@ -819,7 +811,6 @@ class Products {
 		//$id_category = $id_category?$id_category:0;
 		if(!$id_category){
 			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
-			//print_r($sql);
 		}elseif(is_numeric($id_category)){
 			$sql = "SELECT g.*, u.name
 				FROM "._DB_PREFIX_."graph g
@@ -1155,48 +1146,49 @@ class Products {
 
 	public function GetProductsCnt($and = false, $gid = 0, $params = array()){
 		$where = "";
-		if($and !== false && count($and)){
-			// $where = " AND ";
+		if($this->filter === false) return false;
+
+		$where2 = $this->filter;
+
+		if($and !== FALSE && count($and)){
+			$where = " AND ";
 			foreach ($and as $k=>$v){
 				if($k=='customs'){
 					foreach($v as $a){
 						$where_a[] = $a;
 					}
 				}else{
-					$where_a[] = "$k = \"$v\"";
+					$where_a[] = "$k=\"$v\"";
 				}
 			}
 			$where .= implode(" AND ", $where_a);
 		}
+		//		if($limit == '' || isset($params['ajax'])){
+		//			$qqq = 1;
+		//		}
 		$group_by = '';
 		if(isset($params['group_by'])){
 			$group_by = ' GROUP BY '.$params['group_by'];
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
+			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
 		}
 		$sql = "SELECT p.id_product,
 				p.visible,
 				p.price_opt,
-				p.price_mopt
+				p.price_mopt,
+				a.active
 			FROM "._DB_PREFIX_."cat_prod AS cp
-				INNER JOIN "._DB_PREFIX_."product AS p ON p.id_product = cp.id_product
-			WHERE ";
-		// $sql = "SELECT p.visible, p.price_opt, p.price_mopt, a.active
-		// 	FROM "._DB_PREFIX_."product AS p
-		// 		INNER JOIN "._DB_PREFIX_."cat_prod AS cp ON p.id_product = cp.id_product
-		// 		LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-		// 	WHERE ";
-		if(in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_, _ACL_MODERATOR_, _ACL_SEO_))){
-			$sql .= $where;
-		}else{
-			$sql .= $where."
-				HAVING p.visible = 1
-					AND (p.price_opt > 0 OR p.price_mopt > 0)
-					AND (SELECT MAX(active) FROM "._DB_PREFIX_."assortiment AS a WHERE a.id_product = p.id_product) > 0"
-			. $this->filter . $this->price_range;
-		}
+				RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
+				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+			WHERE cp.id_product IS NOT NULL
+			".$where.$where2.$this->price_range."
+			GROUP BY price_opt
+			HAVING p.visible = 1
+				".$prices_zero."
+				AND a.active = 1";
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
 			return 0;
@@ -1521,7 +1513,6 @@ class Products {
 			FROM "._DB_PREFIX_."assortiment AS a
 			WHERE a.id_supplier = ".$id_supplier."
 			ORDER BY a.id_product";
-			print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -3796,7 +3787,6 @@ class Products {
 				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
 				GROUP BY sp.id_prod
 				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
-//                 print_r($sql);
 			$arr = $this->db->GetArray($sql);
 		}
 
@@ -3815,14 +3805,13 @@ class Products {
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-		// print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		return  $arr ? $arr : false;
 	}
 
 	public function DuplicateProduct($data){
 		// creating new article
-		$art = $this->CheckArticle((int) $data['art']);
+		$art = $this->CheckArticle((int) $this->GetLastArticle());
 		// duplicating main product information & category
 		$this->SetFieldsById($data['id_product']);
 		$old_product_info = $this->fields;
@@ -3902,5 +3891,18 @@ class Products {
 			return false;
 		}
 		return $res;
+	}
+	/**
+	 * Получить последний артикул в БД
+	 */
+	public function GetLastArticle(){
+		$sql = "SELECT art
+			FROM "._DB_PREFIX_."product
+			WHERE (SELECT MAX(id_product) FROM "._DB_PREFIX_."product) = id_product";
+		$res = $this->db->GetOneRowArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res['art'];
 	}
 }?>

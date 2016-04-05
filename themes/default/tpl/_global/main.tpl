@@ -366,13 +366,13 @@
 					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
-			<div class="mdl-grid">
-				<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-					<?if(isset($seotext)){?>
+			<?if(isset($seotext)){?>
+				<div class="mdl-grid">
+					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
 						<?=$seotext?>
-					<?}?>
+					</div>
 				</div>
-			</div>
+			<?}?>
 			<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
 				<div class="mdl-mega-footer__left-section clearfix">
 					<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">

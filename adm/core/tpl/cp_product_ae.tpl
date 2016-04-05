@@ -92,12 +92,12 @@
 					<div class="row">
 						<div class="col-md-2">
 							<label for="art">Артикул:</label><?=isset($errm['art'])?"<span class=\"errmsg\">".$errm['art']."</span><br>":null?>
-							<input type="text" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt?>" disabled="disabled">
-							<input type="hidden" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?htmlspecialchars($_POST['art']):$max_cnt?>">
+							<input type="text" class="input-m" value="<?=isset($_POST['art'])?$_POST['art']:$last_article?>" disabled="disabled">
+							<input type="hidden" name="art" id="art" class="input-m" value="<?=isset($_POST['art'])?$_POST['art']:$last_article?>">
 						</div>
 						<div class="col-md-10">
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
-							<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
+							<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?$_POST['name']:null?>">
 						</div>
 						
 						<div class="col-md-12">
@@ -113,26 +113,26 @@
 					<label>Изображения товара на x-torg.com:</label>
 					<div class="row" id="preview1">
 						<div class="col-md-2">
-							<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1'])):"/efiles/_thumb/nofoto.jpg"?>">
+							<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1']):"/efiles/_thumb/nofoto.jpg"?>">
 						</div>
 						<div class="col-md-10">
-							<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?htmlspecialchars($_POST['img_1']):null?>">
+							<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?$_POST['img_1']:null?>">
 						</div>
 					</div>
 					<div class="row" id="preview2">
 						<div class="col-md-2">
-							<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2'])):"/efiles/_thumb/nofoto.jpg"?>">
+							<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2']):"/efiles/_thumb/nofoto.jpg"?>">
 						</div>
 						<div class="col-md-10">
-							<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?htmlspecialchars($_POST['img_2']):null?>">
+							<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?$_POST['img_2']:null?>">
 						</div>
 					</div>
 					<div class="row" id="preview3">
 						<div class="col-md-2">
-							<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3'])):"/efiles/_thumb/nofoto.jpg"?>">
+							<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3']):"/efiles/_thumb/nofoto.jpg"?>">
 						</div>
 						<div class="col-md-10">
-							<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?htmlspecialchars($_POST['img_3']):null?>">
+							<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?$_POST['img_3']:null?>">
 						</div>
 					</div>
 					<label>Изображения товара xt.ua:</label>
@@ -181,13 +181,13 @@
 							
 							<label for="page_title">Мета-заголовок (title):</label>
 							<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
-							<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
+							<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?$_POST['page_title']:null?>">
 							<label for="page_description">Мета-описание (description):</label>
 							<?=isset($errm['page_description'])?"<span class=\"errmsg\">".$errm['page_description']."</span><br>":null?>
 							<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-m"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
 							<label for="keywords">Ключевые слова (keywords):</label>
 							<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
-							<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
+							<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?$_POST['page_keywords']:null?></textarea>
 						</div>
 					</div>
 				</div>

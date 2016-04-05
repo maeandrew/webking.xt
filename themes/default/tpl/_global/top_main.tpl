@@ -29,7 +29,7 @@
 		</form>
 	</div>
 	<ul class="header_nav mdl-cell--hide-phone">
-		<li><a href="#" class="checkout btn_js<?=!empty($_SESSION['cart']['products'])?'':' hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i> Корзина</a></li>
+		<li><a href="#" class="checkout btn_js" data-name="cart"><i class="material-icons">shopping_cart</i> Корзина</a></li>
 		<li>
 			<?$rand = rand(0, count($list_menu)-1);?>
 			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>"><?=$list_menu[$rand]['title']?></a>

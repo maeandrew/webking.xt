@@ -209,41 +209,13 @@ if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_
 $tpl->Assign('list', $list);
 
 // get last article
-$sql = "SELECT art AS cnt
-	FROM "._DB_PREFIX_."product
-	WHERE (SELECT MAX(id_product) FROM "._DB_PREFIX_."product) = id_product";
-$res = $db->GetOneRowArray($sql);
-$max_cnt = $res['cnt'];
+$tpl->Assign('last_article', $products->GetLastArticle());
+
 //Дубликат товара
 if(isset($_POST['smb_duplicate'])){
 	if($id = $products->DuplicateProduct($_POST)){
 		header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
 	}else{
-		$tpl->Assign('msg', 'Товар не добавлен.');
-		$tpl->Assign('errm', $errm);
-	}
-
-
-	$_POST['art'] = $products->CheckArticle((int) $_POST['art']);
-	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	if(isset($_POST['price']) && $_POST['price'] == ""){
-		$_POST['price'] = 0;
-	}
-	list($err, $errm) = Product_form_validate();
-	if(!$err){
-		die();
-		if($id = $products->AddProduct($_POST)){
-			$products->UpdateVideo($id, $_POST['video']);
-			$products->UpdatePhoto($id, $_POST['images']);
-			header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
-			$tpl->Assign('msg', 'Товар добавлен.');
-			unset($_POST);
-		}else{
-			$tpl->Assign('msg', 'Товар не добавлен.');
-			$tpl->Assign('errm', $errm);
-		}
-	}else{
-		// показываем все заново но с сообщениями об ошибках
 		$tpl->Assign('msg', 'Товар не добавлен.');
 		$tpl->Assign('errm', $errm);
 	}

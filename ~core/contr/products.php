@@ -338,6 +338,7 @@ while($cat = $dbtree->NextRow()){
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
+		
 		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 		unset($cnt);
 		$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];

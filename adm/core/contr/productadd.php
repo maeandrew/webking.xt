@@ -122,11 +122,7 @@ if(isset($_POST['smb'])){
 }
 if(!isset($_POST['art'])){
 	// get last article
-	$sql = "SELECT art
-		FROM "._DB_PREFIX_."product
-		WHERE id_product = (SELECT MAX(id_product) FROM "._DB_PREFIX_."product)";
-	$res = $db->GetOneRowArray($sql);
-	$tpl->Assign("max_cnt", $res['art']+1);
+	$tpl->Assign('last_article', $products->GetLastArticle()+1);
 }
 // Формирование списка категорий для выпадающего списка
 $list = $dbtree->Full(array('id_category', 'category_level', 'name'));

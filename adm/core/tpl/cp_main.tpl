@@ -133,7 +133,7 @@
 							</tr>
 							<tr>
 								<td>Последний артикул:</td>
-								<td><b><?=$max_cnt?></b></td>
+								<td><b><?=$last_article?></b></td>
 							</tr>
 						</tbody>
 					</table>
