@@ -363,17 +363,14 @@
 					<script>
 						ListenPhotoHover(); //Инициализания Preview
 					</script>
-					<div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div>
+					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
 			<div class="mdl-grid">
 				<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
 					<?if(isset($seotext)){?>
-						<div><?=$seotext?></div>
+						<?=$seotext?>
 					<?}?>
-
-					<h5>СЕО ТЕКСТ</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic perspiciatis neque, dicta vero ipsam cupiditate expedita eum nisi aliquid nam vitae necessitatibus tempora, eaque in impedit quia, quis laudantium provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic perspiciatis neque, dicta vero ipsam cupiditate expedita eum nisi aliquid nam vitae necessitatibus tempora, eaque in impedit quia, quis laudantium provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic perspiciatis neque, dicta vero ipsam cupiditate expedita eum nisi aliquid nam vitae necessitatibus tempora, eaque in impedit quia, quis laudantium provident.</p>
 				</div>
 			</div>
 			<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
