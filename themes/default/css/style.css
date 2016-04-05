@@ -433,8 +433,8 @@ body:not(.c_main) .banner {
 }
 [data-type="modal"] .modal_container {
 	position: relative;
-	overflow: hidden;
-	overflow-y: auto;
+	/* overflow: hidden;
+	overflow-y: auto; */
 	min-height: 65px;
 	max-height: 550px;
 }
@@ -785,6 +785,9 @@ section.center {
 }
 #cart .order_wrapp {
 	clear: both;
+	overflow: hidden;
+	overflow-y: auto;
+	max-height: 500px;
 }
 #cart ul.order_head {
 	text-align: left;
