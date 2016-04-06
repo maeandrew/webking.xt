@@ -1207,7 +1207,66 @@ function ChangePriceRange(id, sum){
 	sum = 'Еще заказать на '+sum;
 	$('.order_balance').text(sum);
 
-	//console.log(sum);
+	switch(id) {
+		case 0:
+			$('.buy_block').each(function(){
+				var minQty = $(this).find('.minQty').val();
+				var curentQty =	$(this).find('.qty_js').val();
+				var priceOpt = $(this).find('.priceOpt0').val();
+				var priceMopt = $(this).find('.priceMopt0').val();
+
+				if (curentQty >= minQty) {
+					$(this).find('.price').html(priceOpt);
+				}else if (curentQty < minQty) {
+					$(this).find('.price').html(priceMopt);
+				}
+			});
+			break;
+		case 1:
+			$('.buy_block').each(function(){
+				var minQty = $(this).find('.minQty').val();
+				var curentQty =	$(this).find('.qty_js').val();
+				var priceOpt = $(this).find('.priceOpt1').val();
+				var priceMopt = $(this).find('.priceMopt1').val();
+
+				if (curentQty >= minQty) {
+					$(this).find('.price').html(priceOpt);
+				}else if (curentQty < minQty) {
+					$(this).find('.price').html(priceMopt);
+				}
+			});
+			break;
+		case 2:
+			$('.buy_block').each(function(){
+				var minQty = $(this).find('.minQty').val();
+				var curentQty =	$(this).find('.qty_js').val();
+				var priceOpt = $(this).find('.priceOpt2').val();
+				var priceMopt = $(this).find('.priceMopt2').val();
+
+				if (curentQty >= minQty) {
+					$(this).find('.price').html(priceOpt);
+				}else if (curentQty < minQty) {
+					$(this).find('.price').html(priceMopt);
+				}
+			});
+			break;
+		case 3:
+			$('.buy_block').each(function(){
+				var minQty = $(this).find('.minQty').val();
+				var curentQty =	$(this).find('.qty_js').val();
+				var priceOpt = $(this).find('.priceOpt3').val();
+				var priceMopt = $(this).find('.priceMopt3').val();
+
+				if (curentQty >= minQty) {
+					$(this).find('.price').html(priceOpt);
+				}else if (curentQty < minQty) {
+					$(this).find('.price').html(priceMopt);
+				}
+			});
+			break;
+		/*default:
+			default code block*/
+	}
 
 	setTimeout(function(){
 		$('.product_buy .price').stop(true,true).css({

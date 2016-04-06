@@ -47,6 +47,17 @@ function SendToAjax(id, qty, button, direction, note){
 			$('div[data-idproduct="'+id+'"]').find('.other_price .mode_js').text(mode_text);
 		}
 		removeLoadAnimation('div[data-idproduct="'+id+'"]');
+
+		var minQty = $('.product_buy[data-idproduct="'+id+'"]').find('.minQty').val();
+		var curentQty =	$('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val();
+		console.log(minQty);
+		console.log(curentQty);
+
+		if (curentQty < minQty){
+			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').removeClass('hidden');
+		}else{
+			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').addClass('hidden');
+		}
 	});
 }
 
@@ -60,18 +71,10 @@ function removeFromCart(id){
 			$('.products').find('.buy_btn_js').removeClass('hidden');
 
 			$('.quantity').each(function(){
-			    var minQty = $(this).find('.minQty').val();
-			    console.log(minQty);
-			    $(this).find('.qty_js').val(minQty);
+				var minQty = $(this).find('.minQty').val();
+				console.log(minQty);
+				$(this).find('.qty_js').val(minQty);
 			});
-
-			/*$('.card').each(function(){
-
-				console.log($(this).find('.quantity input[type="text"]').val())
-			});*/
-
-
-			/*location.reload();*/
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {

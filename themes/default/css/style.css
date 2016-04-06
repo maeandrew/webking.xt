@@ -1949,6 +1949,13 @@ section .stat_year {
 	border-radius: .2em;
 	margin-left: 10px;
 }
+
+.product_buy .priceMoptInf {
+	line-height: 15px;
+	width: 75px;
+	color: rgb(158, 158, 158);
+	margin-left: 20px;
+}
 /*.products .card .price {
 	font-size: 1em;
 	line-height: 20px;
@@ -2061,7 +2068,7 @@ section .stat_year {
 .product_buy .buy_block .quantity .units {
 	float: right;
 	margin-left: .5em;
-	width: 50px;
+	width: 40px;
 }
 .product_buy .buy_block .quantity .qty_js {
 	text-align: center;
