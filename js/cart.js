@@ -55,8 +55,48 @@ function SendToAjax(id, qty, button, direction, note){
 
 		if (curentQty < minQty){
 			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').removeClass('hidden');
+			switch(parseInt($.cookie('sum_range'))) {
+				case 0:
+					var priceMopt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceMopt0').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceMopt);
+					break;
+				case 1:
+					var priceMopt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceMopt1').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceMopt);
+					break;
+				case 2:
+					var priceMopt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceMopt2').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceMopt);
+					break;
+				case 3:
+					var priceMopt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceMopt3').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceMopt);
+					break;
+				default:
+					console.log('не работает');
+			}
 		}else{
 			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').addClass('hidden');
+			switch(parseInt($.cookie('sum_range'))) {
+				case 0:
+					var priceOpt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceOpt0').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceOpt);
+					break;
+				case 1:
+					var priceOpt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceOpt1').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceOpt);
+					break;
+				case 2:
+					var priceOpt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceOpt2').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceOpt);
+					break;
+				case 3:
+					var priceOpt = $('.product_buy[data-idproduct="'+id+'"]').find('.priceOpt3').val();
+					$('.product_buy[data-idproduct="'+id+'"]').find('.price').html(priceOpt);
+					break;
+				default:
+					console.log('не работает');
+			}
 		}
 	});
 }
