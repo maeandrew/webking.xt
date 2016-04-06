@@ -2,8 +2,9 @@
 G::GetUserInfo();
 G::DefineBaseURL();
 G::DefineRootDirectory();
-$root = dirname(__FILE__);
-$root .= '/../';
+$root = str_replace('core', '', dirname(__FILE__));
+$g_root = str_replace('adm'.DIRECTORY_SEPARATOR, '', $root);
+// $root .= '/../';
 require($root.'../config.php');
 // ******************************** Начальное конфигурирование *************************************
 $baseUrl = 'http://'.$_SERVER['SERVER_NAME'].'/';
@@ -16,7 +17,7 @@ $config = array (
 	'URL_js'			=> $baseUrl.'adm/js/',
 
 	'PATH_root'			=> $root,
-	'PATH_global_root'	=> $root.'../',
+	'PATH_global_root'	=> $g_root,
 	'PATH_core'			=> $root.'core/',
 	'PATH_sys'			=> $root.'../~core/sys/',
 	'PATH_model'		=> $root.'../~core/model/',
@@ -25,8 +26,8 @@ $config = array (
 	'PATH_contr'		=> $root.'core/contr/',
 	'PATH_tpl'			=> $root.'core/tpl/',
 	'PATH_tpl_global'	=> $root.'core/tpl/_global/',
-	'PATH_news_img'		=> $root.'../news_images/',
-	'PATH_post_img'		=> $root.'../post_images/',
+	'PATH_news_img'		=> $g_root.'/news_images/',
+	'PATH_post_img'		=> $g_root.'/post_images/',
 );
 G::ToGlobals($config);
 unset($config);

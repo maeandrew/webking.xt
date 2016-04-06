@@ -314,7 +314,6 @@
 #photobox {
 	position: relative;
 	clear: both;
-	float: left;
 	min-height: 50px;
 	width: 100%;
 }

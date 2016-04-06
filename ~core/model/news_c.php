@@ -184,10 +184,15 @@ class News{
 		return $id_news;
 	}
 	// Обновление статьи
-	public function UpdateNews($arr, $thumb = ''){
-		if( strpos ( $thumb, '/temp/') == true) {
-			rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb));
-			$thumb = str_replace('temp/', trim($arr['id_news']) . '/thumb_', $thumb);
+	public function UpdateNews($arr){
+		if(strpos($arr['thumb'], '/temp/') == true){
+			$images = new Images();
+			$path = $GLOBALS['PATH_news_img'].$arr['id_news'].'/';
+			$images->checkStructure($path);
+			$arr['thumb'] = trim($arr['thumb']);
+			$new_path = str_replace('temp/', trim($arr['id_news']).'/thumb_', $arr['thumb']);
+			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].str_replace('temp/', trim($arr['id_news']).'/thumb_', $arr['thumb']));
+			$arr['thumb'] = $new_path;
 		}
 		$f['title']				= trim($arr['title']);
 		$f['page_description']	= trim($arr['page_description']);
@@ -195,7 +200,7 @@ class News{
 		$f['page_keywords']		= trim($arr['page_keywords']);
 		$f['descr_short']		= trim($arr['descr_short']);
 		$f['descr_full']		= trim($arr['descr_full']);
-		$f['thumbnail']			= trim($thumb);
+		$f['thumbnail']			= trim($arr['thumb']);
 		list($d,$m,$y)			= explode(".", trim($arr['date']));
 		$f['date']				= mktime(0, 0, 0, $m , $d, $y);
 		$f['translit']			= G::StrToTrans($f['title']);
@@ -237,7 +242,7 @@ class News{
 	}
 
 	public function LastNews($sid = null){
-		$sql = "SELECT date, title, translit, descr_short
+		$sql = "SELECT *
 			FROM "._DB_PREFIX_."news
 			WHERE visible = 1".
 			(isset($sid)?' AND sid = '.$sid:null)."

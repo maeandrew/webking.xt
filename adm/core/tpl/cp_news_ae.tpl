@@ -217,8 +217,8 @@
 		}).on('addedfile', function(file){
 			$('.thumbpreviews .image_block.preloaded').remove();
 			$('.thumb_block').addClass('hidden');
-		}).on('success', function(file, path){
-			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+path+'">';			
+		}).on('success', function(file, value){
+			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+value+'">';			
 		});
 
 		//Загрузка Фото на сайт
@@ -232,8 +232,8 @@
 		});
 		dropzone.on('addedfile', function(file){
 			//askaboutleave();
-		}).on('success', function(file, path){
-			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+		}).on('success', function(file, value){
+			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+value+'">';
 			
 		}).on('removedfile', function(file){			
 			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name; // физический путь картинки

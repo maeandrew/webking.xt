@@ -2860,7 +2860,6 @@ section .stat_year {
 	}*/
 	.xt_news img {
 		width: 100%;
-		height: 160px;
 		box-sizing: border-box;
 		background-color: #999;
 	}

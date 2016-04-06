@@ -189,6 +189,9 @@
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
+							<?if(isset($news['thumbnail'])){?>
+								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
+							<?}?>
 							<div class="min news_description"><?=$news['descr_short']?></div>
 							<div class="min news_date">
 								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
@@ -244,6 +247,9 @@
 							<div class="xt_news">
 								<a href="<?=Link::Custom('news', $news['translit']);?>">
 									<h6 class="min news_title"><?=$news['title']?></h6>
+									<?if(isset($news['thumbnail'])){?>
+										<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
+									<?}?>
 									<div class="min news_description"><?=$news['descr_short']?></div>
 									<div class="min news_date">
 										<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>

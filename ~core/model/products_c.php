@@ -1271,21 +1271,33 @@ class Products {
 		if(is_numeric($limit)){
 			$limit = "limit $limit";
 		}
-		$order_by = 'c.id_cart_product ASC';
+		// $order_by = 'c.id_cart_product ASC';
+		$order_by = 'p.art';
 		if(isset($params['order_by'])){
 			$order_by = $params['order_by'];
 		}
-		$sql = "SELECT ".implode(", ",$this->usual_fields_cart)."
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."units AS un
-				ON un.id = p.id_unit
-			LEFT JOIN "._DB_PREFIX_."cart_product AS c
-				ON p.id_product = c.id_product
-				AND c.id_cart = ".$_SESSION['cart']['id']."
-			WHERE p.id_product IN (".$in.")
-			AND p.visible = 1
-			ORDER BY ".$order_by."
-			".$limit;
+		if(isset($_SESSION['cart']['id'])){
+			$sql = "SELECT ".implode(", ",$this->usual_fields_cart)."
+				FROM "._DB_PREFIX_."product AS p
+				LEFT JOIN "._DB_PREFIX_."units AS un
+					ON un.id = p.id_unit
+				LEFT JOIN "._DB_PREFIX_."cart_product AS c
+					ON p.id_product = c.id_product
+					AND c.id_cart = ".$_SESSION['cart']['id']."
+				WHERE p.id_product IN (".$in.")
+				AND p.visible = 1
+				ORDER BY ".$order_by."
+				".$limit;
+		}else{
+			$sql = "SELECT ".implode(", ",$this->usual_fields_cart)."
+				FROM "._DB_PREFIX_."product AS p
+				LEFT JOIN "._DB_PREFIX_."units AS un
+					ON un.id = p.id_unit
+				WHERE p.id_product IN (".$in.")
+				AND p.visible = 1
+				ORDER BY ".$order_by."
+				".$limit;
+		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;

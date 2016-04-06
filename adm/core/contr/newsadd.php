@@ -12,7 +12,8 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление новости";
 $Images = new Images();
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
-	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	$res = str_replace($GLOBALS['PATH_global_root'], '', $res);
+	echo $res;
 	exit(0);
 }
 

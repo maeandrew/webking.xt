@@ -16,7 +16,7 @@ $tpl->Assign('h1', 'Редактирование новости');
 
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
-	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	echo str_replace('/../', '/', $res);
 	exit(0);
 }
 
@@ -37,7 +37,6 @@ if(isset($_POST['smb'])){
 			if( strpos ($image, '/temp/') == true)
 			{
 				$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
-				$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
 				$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
 				$images_arr[] = $bd_path . '/' . $file['basename'];
 			} else 	$images_arr[] = $image;
@@ -46,19 +45,8 @@ if(isset($_POST['smb'])){
 		$images_arr =  array();
 	}
 
-	//Добавление миниатюры
-	if(isset($_POST['thumb'])) {
-		$thumb = $_POST['thumb'];
-		if (strpos($thumb, '/temp/') == true) {
-			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $thumb));
-			$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
-			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
-			$thumb = $bd_path . '/' . $file['basename'];
-		} else $thumb = $thumb;
-	}
-
 	if(!$err){
-		if($id = $News->UpdateNews($_POST, $thumb)){
+		if($id = $News->UpdateNews($_POST)){
 			$News->UpdatePhoto($id_news, $images_arr);
 			$tpl->Assign('msg', 'Новость обновлена.');
 			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1){
