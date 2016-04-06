@@ -10,7 +10,8 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
 		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'left' ] },
 		{ name: 'styles', items: [ 'Styles', 'Format' ] },
-		{ name: 'about', items: [ 'About' ] }
+		{ name: 'about', items: [ 'About' ] },
+		{ name: 'justify', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
 	];
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
@@ -32,4 +33,3 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	config.skin = 'icy_orange';
 };
-console.log(CKEDITOR.editorConfig.config.toolbar);
