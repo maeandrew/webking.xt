@@ -1111,7 +1111,7 @@ ul.phone_nav_contacts li span {
 aside {
 	padding-bottom: 20px;
 	position: absolute;
-	/*height: 100%;*/
+	height: 94%;
 }
 .banner_hide aside {
 	position: fixed;

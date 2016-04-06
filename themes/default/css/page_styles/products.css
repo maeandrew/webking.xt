@@ -987,10 +987,8 @@ h5 {
 		overflow: hidden;
 	}
 	#view_block_js .products .card .product_buy {
-		position: absolute;
-		bottom: 10px;
-		right: 0;
-		height: auto;
+		clear: both;
+		width: 100%;
 	}
 	#view_block_js .products .card .product_buy .buy_block {
 		margin: 0;
