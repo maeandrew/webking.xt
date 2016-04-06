@@ -616,5 +616,9 @@
 			e.preventDefault();
 			AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 		});
+		
+		$('.product_main_img').click(function(event) {			
+			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+		});
 	});
 </script>
