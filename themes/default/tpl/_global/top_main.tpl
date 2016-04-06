@@ -151,7 +151,7 @@
 						<a href="<?=Link::Custom('cabinet')?>" style="color:#fff">Мой Кабинет</a>
 					</button>
 				</ul>
-				<a href="#" class="mdl-button mdl-js-button login_btn">Войти</a>
+				<a href="#" class="mdl-button mdl-js-button login_btn login_btn_hum">Войти</a>
 			<?}?>
 		</li>
 	</ul>
@@ -162,10 +162,16 @@
 </div>
 
 <script>
-	var category = $('.category_search li.active').data('id-category');
-	$('input[name="category2search"]').val(category);
-	$('body').on('click', '.category_search li', function () {
-		category = $('.category_search li.active').data('id-category');
+	$(document).ready(function($) {
+		if ($(document).width() < 900) {
+			$('.login_btn_hum').addClass('mdl-button--icon').empty().append('<i class="material-icons">account_circle</i>');
+		};
+		
+		var category = $('.category_search li.active').data('id-category');
 		$('input[name="category2search"]').val(category);
+		$('body').on('click', '.category_search li', function () {
+			category = $('.category_search li.active').data('id-category');
+			$('input[name="category2search"]').val(category);
+		});
 	});
 </script>

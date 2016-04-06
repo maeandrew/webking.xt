@@ -355,7 +355,7 @@ header #mycabMenuUserInfBtn {
 
 @media (min-width: 728px) and (max-width: 1169px) {
 	header .search {
-		margin-left: -70px;
+		margin-left: -80px;
 	}
 	header.opened .search_wrapp {
 		width: calc(100% - 230px);
@@ -467,7 +467,7 @@ header #mycabMenuUserInfBtn {
 		padding-right: 4px;
 	}
 	header .search {		
-		width: 38%;
+		width: 20%;
 	}
 }
 @media (max-width: 360px) {
