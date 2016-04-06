@@ -115,6 +115,39 @@ function removeFromCart(id){
 				console.log(minQty);
 				$(this).find('.qty_js').val(minQty);
 			});
+
+			switch(parseInt($.cookie('sum_range'))) {
+				case 0:
+					$('.product_buy').each(function(){
+						var priceOpt = $(this).find('.priceOpt0').val();
+						$(this).find('.price').html(priceOpt);
+						$(this).find('.priceMoptInf').addClass('hidden');
+					});
+					break;
+				case 1:
+					$('.product_buy').each(function(){
+						var priceOpt = $(this).find('.priceOpt1').val();
+						$(this).find('.price').html(priceOpt);
+						$(this).find('.priceMoptInf').addClass('hidden');
+					});
+					break;
+				case 2:
+					$('.product_buy').each(function(){
+						var priceOpt = $(this).find('.priceOpt2').val();
+						$(this).find('.price').html(priceOpt);
+						$(this).find('.priceMoptInf').addClass('hidden');
+					});
+					break;
+				case 3:
+					$('.product_buy').each(function(){
+						var priceOpt = $(this).find('.priceOpt3').val();
+						$(this).find('.price').html(priceOpt);
+						$(this).find('.priceMoptInf').addClass('hidden');
+					});
+					break;
+				default:
+					console.log('не работает');
+			}
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
