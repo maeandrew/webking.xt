@@ -28,29 +28,12 @@
 					<div class="price">
 						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
 					</div>
-
-
-
 					<div class="prodPrices hidden">
- 						<?for ($i = 0; $i < 4; $i++){?>
- 							<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt']['i']?>">
- 							<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt']['i']?>">
- 						<?}?>
-					 </div>
-
-
-
-					<!-- <div class="prodPricesTest hidden">
-						<input class="priceOpt0" value="100">
-						<input class="priceOpt1" value="110">
-						<input class="priceOpt2" value="120">
-						<input class="priceOpt3" value="130">
-						<input class="priceMopt0" value="200">
-						<input class="priceMopt1" value="210">
-						<input class="priceMopt2" value="220">
-						<input class="priceMopt3" value="230">
-					</div> -->
-
+						<?for ($i = 0; $i < 4; $i++){?>
+							<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+							<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+						<?}?>
+					</div>
 					<div class="btn_buy">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
