@@ -50,8 +50,6 @@ function SendToAjax(id, qty, button, direction, note){
 
 		var minQty = $('.product_buy[data-idproduct="'+id+'"]').find('.minQty').val();
 		var curentQty =	$('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val();
-		console.log(minQty);
-		console.log(curentQty);
 
 		if (curentQty < minQty){
 			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').removeClass('hidden');
@@ -104,8 +102,10 @@ function SendToAjax(id, qty, button, direction, note){
 // Удаление в корзине товара при нажатии на иконку
 function removeFromCart(id){
 	if(!id) {
+
 		ajax('cart', 'clearCart').done(function (data) {
 			$('#removingProd').addClass('hidden');
+			$('#clearCart').addClass('hidden');
 			$('.modal_container').find('.card').addClass('hidden');
 			$('.products').find('.in_cart_js').addClass('hidden');
 			$('.products').find('.buy_btn_js').removeClass('hidden');
@@ -119,6 +119,7 @@ function removeFromCart(id){
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
 			$('#removingProd').addClass('hidden');
+			$('#clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
 			/*console.log(minQty);*/
 			/*Position('cart');*/

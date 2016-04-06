@@ -696,8 +696,11 @@
 				<li class="price">Цена, Количество</li>
 				<li class="sum_li">Сумма</li>
 			</ul>
-			<div id="removingProd" class="hidden">
+			<div id="removingProd" class="cartInfBlock hidden">
 				Подождите идет удаление...
+			</div>
+			<div id="clearCart" class="cartInfBlock hidden">
+				Подождите идет очистка корзины...
 			</div>
 			<div class="modal_container"></div>
 		</div>

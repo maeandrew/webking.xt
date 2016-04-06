@@ -186,6 +186,18 @@
 							<div class="units"><?=$item['units'];?></div>
 						</div>
 					</div>
+
+
+					<!-- ТУТ НЕ РАБОТАЕТ ПХП. ПРОСИТЬ ПОМОЩИ У ВЫСШИХ СИЛ -->
+
+
+					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
+
+
+					<!-- ТУТ НЕ РАБОТАЕТ ПХП. ПРОСИТЬ ПОМОЩИ У ВЫСШИХ СИЛ -->
+
+
+
 				</div>
 				<div class="summ">
 					<span class="order_mopt_sum_<?=$item['id_product']?>">
@@ -368,6 +380,10 @@
 			$('.remove_prod').on('click', function(e){
 				$(this).closest('.card').addClass('hidden');
 				$('#removingProd').removeClass('hidden');
+			});
+
+			$('.clear_cart').on('click', function(e){
+				$('#clearCart').removeClass('hidden');
 			});
 
 			$('#cart').on('click', '#button-cart1 button', function(e){
