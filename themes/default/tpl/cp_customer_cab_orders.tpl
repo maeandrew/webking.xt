@@ -268,13 +268,11 @@ var statuses = {
 		echo $status.": '".$order_statuses[$status]['name']."',";
 	}?>
 }
-console.log(statuses);
+/*console.log(statuses);*/
 
 //Удаление заказа в кабинете
 $(function(){
-
 	var id_order = <?=$i['id_order']?>;
-	console.log(id_order);
 
 	/*Определение текущего ID заказа и Отмена*/
 	$('.cnslOrderBtn').on('click', function(e){

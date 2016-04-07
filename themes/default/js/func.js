@@ -36,6 +36,7 @@ function GetCartAjax(){
 function GetCabProdAjax(id_order){
 	$('.content').addClass('loading');
 	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
+		console.log(data);
 		$('.mdl-tabs__panel > #products').html(data);
 		$('.content').removeClass('loading');
 	});

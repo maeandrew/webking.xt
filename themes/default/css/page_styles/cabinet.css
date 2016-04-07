@@ -1633,3 +1633,8 @@ html {
 .paginator {
 	padding-top: 30px;
 }
+
+#products img {
+	width: 70px;
+	height: 70px;
+}

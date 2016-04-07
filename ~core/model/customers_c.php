@@ -398,7 +398,8 @@ class Customers extends Users {
 		return true;
 	}
 
-	public function GetOrders($order_by = 'o.target_date desc', $limit = '', $status = false){
+	public function GetOrders($order_by = false, $limit = '', $status = false){
+		if(!$order_by) $order_by = 'o.target_date desc';
 		$id_customer = $this->fields['id_user'];
 		/*$sql = "SELECT o.target_date, o.id_order, o.skey, o.id_order_status, SUM(osp.opt_sum+osp.mopt_sum) AS sum,
 				o.id_pretense_status, o.id_return_status, o.sum_discount, o.discount
