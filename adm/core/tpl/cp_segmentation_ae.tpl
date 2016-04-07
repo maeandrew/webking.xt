@@ -11,7 +11,7 @@
 				<label for="type">Выбор сегментации:</label>
 				<select name="type" id="type" class="input-m">
 					<?if(isset($typelist) && !empty($typelist)){
-						foreach ($typelist as $t){?>
+						foreach($typelist as $t){?>
 							<option <?=$t['id']==$_POST['type']?'selected':null;?> value="<?=$t['id']?>" data-date="<?=$t['use_date']?>"><?=$t['type_name']?></option>
 						<?}
 					}else{?>
@@ -20,7 +20,7 @@
 				</select>
 				<label for="name">Название:</label>
 				<input type="text" name="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>" required>
-				<div class="developments">
+				<div class="developments<?=$t['use_date']==0?' hidden':null;?>">
 					<label for="date">Дата:</label>
 					<input type="date" name="date" id="date" class="input-m" value="<?=isset($_POST['date'])?htmlspecialchars($_POST['date']):null?>">
 					<label for="count_days">Количество дней:</label>
@@ -33,15 +33,22 @@
 </div>
 <script>
 	$(function(){
+		var id_type = $('[name="type"]').val(),
+		use_date = $('option[value="'+id_type+'"]').data('date');
+		if(use_date == 1){
+			$('.developments').slideDown().find('input').attr('required', 'required');
+		}else{
+			$('.developments').slideUp().find('input[name="date"], input[name="count_days"]').removeAttr('required');
+		}
 		// Показать|Скрыть блок событий
-		$('#type').on('change', function() {
-			var id_type = $(this).val(),
-				use_date = $('option[value="'+id_type+'"]').data('date');
+		$('#type').on('change', function(){
+			id_type = $(this).val();
+			use_date = $('option[value="'+id_type+'"]').data('date');
 			if(use_date == 1){
 				$('.developments').slideDown().find('input').attr('required', 'required');
 			}else{
 				$('.developments').slideUp().find('input[name="date"], input[name="count_days"]').removeAttr('required');
-			};
+			}
 		});
 	});
 </script>
