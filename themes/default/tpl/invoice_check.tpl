@@ -158,7 +158,7 @@ h1.filial { text-align: center; font-size: 27px; }
 										</td>
 										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_opt']!=''){?> <span class="note_red"><?=$i['note_opt']?></span><?}?></td>
 										<td class="c6"><?=$i['site_price_opt']?></td>
-										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?></td>
+										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
 										<td class="c8" style="<?=($i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0)? 'color: #f00; font-weight: bold;':null;?>">
 											<?=$i['contragent_qty'] >= 0 ? $i['contragent_qty'] : null;?>
 										</td>
@@ -191,7 +191,7 @@ h1.filial { text-align: center; font-size: 27px; }
 										</td>
 										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
 										<td class="c6"><?=$i['site_price_mopt']?></td>
-										<td class="c7"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?></td>
+										<td class="c7"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
 										<td class="c8" style="<?if($i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0){?>color: #f00; font-weight: bold;<?}?>">
 											<?=$i['contragent_mqty'] >= 0 ? $i['contragent_mqty'] : null;?>
 										</td>
