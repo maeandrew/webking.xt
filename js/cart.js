@@ -161,6 +161,27 @@ function removeFromCart(id){
 			$('.products #in_cart_' + id).addClass('hidden');
 			$('.products #in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
 			$('.products #in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
+			$('.products #in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
+			switch(parseInt($.cookie('sum_range'))) {
+				case 0:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt0').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				case 1:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt1').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				case 2:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt2').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				case 3:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt3').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				default:
+					console.log('не работает');
+			}
 		});
 	}
 }
