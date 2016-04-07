@@ -15,6 +15,7 @@ class Link {
 	/**
 	 * Генерация ссылки на раздел
 	 * @param string $rewrite идентификатор раздела
+	 * @param array $params массив дополнительных настроек (страница, фильтр, сортировка)
 	 */
 	public static function Category($rewrite, $params = array()){
 		$str_filter = $str_sort = $str_page = $price_range = '';
