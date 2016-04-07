@@ -77,6 +77,7 @@ $tpl->Assign('available_filter_values', $available_filter_values);
 $tpl->Assign('filters', $filters);
 // =========================================================
 
+$status ='';
 if (isset($_GET['t']) && !empty($_GET['t']) ){
 	switch($_GET['t']){
 		case 'working':

@@ -15,6 +15,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
+			case "duplicate":
+				 $cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
+
+				break;
 			case 'GetCartPage':
 				unset($parsed_res);
 			    if(G::IsLogged()){
@@ -402,7 +406,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				return json_encode(true);
 				break;
 			case "add_status_cart":
-				$cart = new Cart();
 				$res = $cart->SetStatusCart();//$_POST['id_order']
 				return json_encode($res);
 				break;

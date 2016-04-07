@@ -51,9 +51,6 @@ function SendToAjax(id, qty, button, direction, note){
 		var minQty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.minQty').val());
 		var curentQty =	parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 
-		console.log(minQty);
-		console.log(curentQty);
-
 		if (curentQty < minQty){
 			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').removeClass('hidden');
 			switch(parseInt($.cookie('sum_range'))) {

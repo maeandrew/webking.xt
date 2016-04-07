@@ -80,8 +80,8 @@
 
 											<div class="orderBnts">
 												<h5>Заказ:</h5>
-												<a href="http://xt/" target="blank"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
-												<button class="mdl-button mdl-js-button mdl-button--raised btn_js cloneOrderBtn" data-name="cloneOrder">Дублировать</button>
+												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Дублировать</button>
 
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
 
@@ -290,9 +290,30 @@ $(function(){
 		$(this).closest('li').addClass('deletedOrder');
 	});
 
-	/*$('.cancelBtn').on('click', function(e){
-		$('.editing').find('li.deletedOrder').removeClass('deletedOrder');
-	});*/
+	$('.replaceOrderBtn').on('click', function(e){
+		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
+		console.log(id_order);
+	});
+
+	// Новый заказ на основе
+	$('#replaceCartMod').on('click', function(e){
+		console.log(id_order);
+		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
+			console.log(data);
+		});
+	});
+
+	$('#addtoCartMod').on('click', function(e){
+		console.log(id_order);
+		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
+			console.log(data);
+		});
+	});
+
+
+	$('.checkout').on('click', function(e){
+		$('#cart').find('no_items').addClass('hidden');
+	});
 
 	/*Отмена заказа*/
 	$('#cnclOrderBtnMod').on('click', function(e){

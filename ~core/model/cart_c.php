@@ -182,6 +182,15 @@ class Cart {
 		return true;
 	}
 
+	//(
+//[id_product] => 77081
+//[quantity] => 3
+//[button] => false
+//[direction] => false
+
+//)
+
+
 	// Заполняет корзину товарами, такими как в заказе $id_order
 	public function FillByOrderId($id_order, $add = null){
 		$Order = new Orders();
@@ -201,14 +210,9 @@ class Cart {
 				);
 			}
 		}
-		$Products = new Products();
 		$products = $Order->GetOrderForCart(array('o.id_order'=>$id_order));
-		$personal_discount = 0;
-		if(isset($_SESSION['cart']['personal_discount'])){
-			$personal_discount = $_SESSION['cart']['personal_discount'];
-		}
 		if($add == null){
-			$this->ClearCart();
+			$this->ClearCart($_SESSION['cart']['id']);
 		}
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$_SESSION['cart']['base_order'] = $id_order;
@@ -255,10 +259,10 @@ class Cart {
 	public function IsActualPrice($product){
 
 
-		print_r($product);die();
+		//print_r($product);die();
 
 
-		return $res;
+		return true;
 	}
 
 
