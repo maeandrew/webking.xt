@@ -102,7 +102,6 @@ function SendToAjax(id, qty, button, direction, note){
 // Удаление в корзине товара при нажатии на иконку
 function removeFromCart(id){
 	if(!id) {
-
 		ajax('cart', 'clearCart').done(function (data) {
 			$('#removingProd').addClass('hidden');
 			$('#clearCart').addClass('hidden');
@@ -148,25 +147,55 @@ function removeFromCart(id){
 				default:
 					console.log('не работает');
 			}
+			$('.no_items').removeClass('hidden');
+			$('.action_block').addClass('hidden');
+			$('.cart').addClass('hidden');
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
 			$('#removingProd').addClass('hidden');
 			$('#clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
-			/*console.log(minQty);*/
-			/*Position('cart');*/
 			completeCartProductAdd(data);
 			$('#cart_item_' + id).hide(200).remove();
 			$('.products #in_cart_' + id).addClass('hidden');
 			$('.products #in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
 			$('.products #in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
+			$('.products #in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
+
+			switch(parseInt($.cookie('sum_range'))) {
+				case 0:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt0').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				case 1:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt1').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				case 2:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt2').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				case 3:
+					var priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt3').val();
+					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+					break;
+				default:
+					console.log('не работает');
+			}
+
+			if (data.products.length == 0){
+			$('.no_items').removeClass('hidden');
+			$('.action_block').addClass('hidden');
+			$('.cart').addClass('hidden');
+			}
 		});
 	}
 }
 
 function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
+	$('.no_items').addClass('hidden');
 	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 	addLoadAnimation('.product_buy[data-idproduct="'+id+'"]');
 	if(current_controller == 'cart'){

@@ -696,6 +696,11 @@
 				<li class="price">Цена, Количество</li>
 				<li class="sum_li">Сумма</li>
 			</ul>
+			<div class="no_items hidden">
+				<h2 class="cat_no_items">Ваша корзина пуста!</h2>
+				<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Ваша корзина пуста!">
+				<p>Перейдите в <a href="/">каталог</a> для совершения покупок</p>
+			</div>
 			<div id="removingProd" class="cartInfBlock hidden">
 				Подождите идет удаление...
 			</div>

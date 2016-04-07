@@ -186,18 +186,7 @@
 							<div class="units"><?=$item['units'];?></div>
 						</div>
 					</div>
-
-
-					<!-- ТУТ НЕ РАБОТАЕТ ПХП. ПРОСИТЬ ПОМОЩИ У ВЫСШИХ СИЛ -->
-
-
-					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
-
-
-					<!-- ТУТ НЕ РАБОТАЕТ ПХП. ПРОСИТЬ ПОМОЩИ У ВЫСШИХ СИЛ -->
-
-
-
+					<div class="priceMoptInf<?=($_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 				</div>
 				<div class="summ">
 					<span class="order_mopt_sum_<?=$item['id_product']?>">

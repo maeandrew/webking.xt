@@ -77,6 +77,26 @@ $tpl->Assign('available_filter_values', $available_filter_values);
 $tpl->Assign('filters', $filters);
 // =========================================================
 
+if (isset($_GET['t']) && !empty($_GET['t']) ){
+	switch($_GET['t']){
+		case 'working':
+			$status = ' AND id_order_status IN (1,6)';
+			break;
+		case 'completed':
+			$status = ' AND id_order_status = 2';
+			break;
+		case 'canceled':
+			$status = ' AND id_order_status IN (5,4)';
+			break;
+		case 'drafts':
+			$status = ' AND id_order_status = 3';
+			break;
+		default:
+			$status= false;
+			break;
+	}
+}
+
 $fields = array('creation_date', 'target_date', 'id_order', 'status', 'pretense', 'pretense_status', 'return', 'return_status');
 $f_assoc = array(
 	'creation_date'		=>'o.creation_date',
@@ -103,13 +123,13 @@ if(isset($_GET['limit'])){
 // }
 // Список заказов
 $GLOBALS['Limit_db'] = 10; // кол-во заказов на одной странице
-$cnt = count($Customer->GetOrders($orderby));
+$cnt = count($Customer->GetOrders($status, $orderby));
 $GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 // print_r(' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']);
 // die();
 $limit = isset($GLOBALS['Start'])?(' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']):"";
 // var_dump($limit);
-$orders = $Customer->GetOrders($orderby, $limit);
+$orders = $Customer->GetOrders($status, $orderby, $limit);
 // die();
 $order_statuses = $Order->GetStatuses();
 //print_r($orders);

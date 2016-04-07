@@ -398,7 +398,7 @@ class Customers extends Users {
 		return true;
 	}
 
-	public function GetOrders($order_by = 'o.target_date desc', $limit = ''){
+	public function GetOrders($order_by = 'o.target_date desc', $limit = '', $status = false){
 		$id_customer = $this->fields['id_user'];
 		/*$sql = "SELECT o.target_date, o.id_order, o.skey, o.id_order_status, SUM(osp.opt_sum+osp.mopt_sum) AS sum,
 				o.id_pretense_status, o.id_return_status, o.sum_discount, o.discount
@@ -421,11 +421,12 @@ class Customers extends Users {
 			LEFT JOIN "._DB_PREFIX_."contragent AS c
 			ON o.id_contragent = c.id_user
 			WHERE o.id_customer = '".$id_customer."'
-			AND o.visibility = 1
+			AND o.visibility = 1".$status."
 			GROUP BY o.id_order
 			ORDER BY ".$order_by.
 			$limit;
 		$arr = $this->db->GetArray($sql);
+
 		//$date = time()+3600*24;
 		//$date2 = time()-3600*24*60;//echo time()-3600*24*10;
 		//$sql = "SELECT o.target_date, o.id_order, o.id_order_status, SUM(osp.opt_sum+osp.mopt_sum) AS sum,
@@ -456,6 +457,7 @@ class Customers extends Users {
 		//else
 		//	$arr = array_merge($arr, $arr2);
 		return $arr;
+
 	}
 
 	public function GetPromoOrders(){
