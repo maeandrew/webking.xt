@@ -49,7 +49,6 @@
 				<?}?>
 			</div>
 			<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
-			<? print_r($_SESSION['cart']['cart_column']);?>
 		</div>
 		<div class="product_info clearfix hidden">
 			<div class="note clearfix">
