@@ -80,7 +80,7 @@
 
 											<div class="orderBnts">
 												<h5>Заказ:</h5>
-												<a href="http://xt/" target="blank"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js cloneOrderBtn" data-name="cloneOrder">Дублировать</button>
 
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
@@ -289,6 +289,29 @@ $(function(){
 		$('.editing').find('li').removeClass('deletedOrder');
 		$(this).closest('li').addClass('deletedOrder');
 	});
+
+	// Новый заказ на основе
+
+	$('.replaceCart').on('click', function(e){
+		ajax('cart', 'duplicate', {id_order: id_order;}).done(function(data){
+			console.log('корзина заменена');
+			};
+		});
+	});
+
+	$('.addtoCart').on('click', function(e){
+		ajax('cart', 'duplicate', {id_order: id_order; clear_cart: no;}).done(function(data){
+			console.log('товары добавлены в тек корз');
+			};
+		});
+	});
+
+
+	/*$('.duplicateOrder').on('click', function(e){
+		closeObject('cloneOrder');
+		openObject('cart');
+	});*/
+
 
 	/*$('.cancelBtn').on('click', function(e){
 		$('.editing').find('li.deletedOrder').removeClass('deletedOrder');

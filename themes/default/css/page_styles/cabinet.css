@@ -1622,6 +1622,7 @@ html {
 }
 .modalEditOrder h5 {
 	color: rgb(136, 136, 136);
+	text-align: center;
 }
 .modalEditOrder .applyBtn {
 	background: #FF5722;

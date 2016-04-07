@@ -714,9 +714,9 @@
 		</div>
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
-			<h5>Очистить текущую корзину или оставить?</h5>
-			<button id="clearCatBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, очистить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="cloneOrder">Нет, оставить!</button>
+			<h5>Заменить товар в корзине или добавить в текущую?</h5>
+			<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn replaceCart">Заменить!</button></a>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js addtoCart" data-name="cart">Добавить!</button>
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
@@ -728,7 +728,6 @@
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
-
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
