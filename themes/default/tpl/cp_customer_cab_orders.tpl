@@ -305,7 +305,7 @@ $(function(){
 
 	$('#addtoCartMod').on('click', function(e){
 		console.log(id_order);
-		ajax('cart', 'duplicate', {id_order: id_order, clear_crt: 1}).done(function(data){
+		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
 			console.log(data);
 		});
 	});
