@@ -76,7 +76,7 @@ class PHPMailer{
 	* Sets the From name of the message.
 	* @var string
 	*/
-	public $FromName          = 'Root User';
+	public $FromName          = 'XT.UA';
 	/**
 	* Sets the Sender email (Return-Path) of the message.  If not empty,
 	* will be sent via -f to sendmail or as 'MAIL FROM' in smtp mode.

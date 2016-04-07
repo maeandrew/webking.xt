@@ -86,7 +86,7 @@ class Mailer extends PHPMailer {
 			'subject' => $data['topic'],
 			'encoding' => "UTF-8",
 			'from' => array(
-				'name' => $_SERVER['SERVER_NAME'],
+				'name' => $this->FromName,
 				'email' => 'callback@x-torg.com',
 			),
 			'to' => array(
