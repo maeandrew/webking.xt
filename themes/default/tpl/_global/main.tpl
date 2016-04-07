@@ -714,10 +714,9 @@
 		</div>
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
-			<h5>Заменить товар в корзине или добавить в текущую?</h5>
-			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Заменить!</button>
-			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js">Добавить!</button>
-			<!-- <button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="cart">Добавить!</button> -->
+			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>
+			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
+			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>

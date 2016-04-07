@@ -310,6 +310,11 @@ $(function(){
 		});
 	});
 
+
+	$('.checkout').on('click', function(e){
+		$('#cart').find('no_items').addClass('hidden');
+	});
+
 	/*Отмена заказа*/
 	$('#cnclOrderBtnMod').on('click', function(e){
 		console.log(id_order);
