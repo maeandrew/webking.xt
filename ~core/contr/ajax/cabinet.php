@@ -4,14 +4,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'GetProdList':
 				$Order = new Orders();
-				$products = $Order->GetOrderForCustomer(array("o.id_order" => $_POST['id_order']));
-				$tpl->Assign('products', $products);
+				$products = new Products();
+				$list = $Order->GetOrderForCustomer(array("o.id_order" => $_POST['id_order']));
+				foreach($list as &$p){
+					$p['images'] = $products->GetPhotoById($p['id_product']);
+				}
+				$tpl->Assign('list', $list);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
 			break;
 			case 'GetProdListForCart':
 				$Cart = new Cart();
-				$products = $Cart->GetProductsForCart($_POST['id_cart']);
-				$tpl->Assign('products', $products);
+				$list = $Cart->GetProductsForCart($_POST['id_cart']);
+				$tpl->Assign('list', $list);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
 			break;
 			case 'GetRating':
