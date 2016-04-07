@@ -48,8 +48,11 @@ function SendToAjax(id, qty, button, direction, note){
 		}
 		removeLoadAnimation('div[data-idproduct="'+id+'"]');
 
-		var minQty = $('.product_buy[data-idproduct="'+id+'"]').find('.minQty').val();
-		var curentQty =	$('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val();
+		var minQty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.minQty').val());
+		var curentQty =	parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+
+		console.log(minQty);
+		console.log(curentQty);
 
 		if (curentQty < minQty){
 			$('.product_buy[data-idproduct="'+id+'"]').find('.priceMoptInf').removeClass('hidden');

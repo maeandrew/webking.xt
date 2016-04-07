@@ -13,8 +13,8 @@
 		        <th>Cумма</th>
 		    </tr>
 		</thead>
-<?foreach ($products as $product) {
-	if($product['opt_qty'] > 0){
+<?foreach ($list as $item) {
+	if($item['opt_qty'] > 0){
 		$mode = 'opt';
 	}else{
 		$mode = 'mopt';
@@ -23,14 +23,19 @@
 		    <tr>
 		        <td class="mdl-data-table__cell--non-numeric">
 		            <div class="avatar">
-		            	<!-- <img alt="<?=G::CropString($product['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $product['img_1']);?>"/> -->
-		            	<img src="http://lorempixel.com/fashion/70/70/" alt="avatar" />
+		            	<?if(!empty($item['images'])){?>
+							<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+						<?}else{?>
+							<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+						<?}?>
+		            	<!-- <img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /> -->
 		            </div>
+
 		        </td>
-		        <td class="mdl-data-table__cell--non-numeric"><div><?=$product['name'];?></div></td>
-		        <td><div class="cent"><?=$product['site_price_'.$mode]?></div></td>
-		        <td><div class="cent"><?=$product[$mode.'_qty'];?></div></td>
-		        <td><div class="cent"><?=$product[$mode.'_sum'];?></div></td>
+		        <td class="mdl-data-table__cell--non-numeric"><div><?=$item['name'];?></div></td>
+		        <td><div class="cent"><?=$item['site_price_'.$mode]?></div></td>
+		        <td><div class="cent"><?=$item[$mode.'_qty'];?></div></td>
+		        <td><div class="cent"><?=$item[$mode.'_sum'];?></div></td>
 		    </tr>
 		</tbody>
 <?}?>
