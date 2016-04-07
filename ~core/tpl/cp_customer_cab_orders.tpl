@@ -66,8 +66,7 @@
 									<p class="details">
 										<a href="<?=_base_url?>/customer_order/<?=$i['id_order']?>">Подробности заказа</a>
 									</p>
-								</div>
-								<div class="order_content">
+									<div class="order_content">
 									<p><b>Сумма к оплате:</b> <?=number_format($i['sum_discount'],2,',','')?>грн.</p>
 									<p><b>Менеджер заказа:</b> <?=$i['contragent']?></p>
 									<p><b>Информация по заказу:</b> <?=(isset($i['note_customer']) && $i['note_customer'] != '')?$i['note_customer']:'отсутствует';?></p>
