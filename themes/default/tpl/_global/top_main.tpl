@@ -65,69 +65,70 @@
 					<i class="material-icons">account_circle</i>
 				</button>
 
-				<div class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-grid" for="user_profile">
-					<div id="userPic" class="mdl-cell mdl-cell--5-col">
-						<div class="avatarWrapp">
-							<img src="/themes/default/images/noavatar.jpg"/>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-cell--7-col mainUserInf">
-						<div id="userNameBlock">
-							<div id="userNameInf" class="listItems">
-								<span class="user_name"><?=$_SESSION['member']['name']?></span>
+				<div class="mdl-menu mdl-menu--bottom-right mdl-js-menu " for="user_profile">
+					<div class="userContainer" >
+						<div id="userPic">
+							<div class="avatarWrapp">
+								<img src="/themes/default/images/noavatar.jpg"/>
 							</div>
-							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
-							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
 						</div>
-						<div class="listItems <?=!isset($_SESSION['member']['email']) && $_SESSION['member']['email'] == ''?'hidden':null ?>">
-							<i class="material-icons">mail_outline</i>
-							<span class="user_email"><?=$_SESSION['member']['email']?></span>
-						</div>
-						
-						<div class="listItems">
-							<i class="material-icons">location_on</i>
-							<span class="user_email">г. Харьков, Украина</span>
-						</div>
-					</div>
-					
-					<div class="mdl-grid <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
-						<div id="menuBorder" class="mdl-cell mdl-cell--12-col"></div>
-						
-						<div id="manager" class="mdl-cell mdl-cell--12-col">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
-						</div>
-						
-						<div class="manager_contacts mdl-cell mdl-cell--6-col">
-							<a href="tel:+380667205488">
-								<i class="material-icons .noLink">phone</i>
-								<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
-							</a>
-						</div>
-						
-						<div class="manager_contacts mdl-cell mdl-cell--6-col">
-							<a href="mailto:manager@xt.ua" target="blank">
+						<div class="mainUserInf">
+							<div id="userNameBlock">
+								<div id="userNameInf" class="listItems">
+									<span class="user_name"><?=$_SESSION['member']['name']?></span>
+								</div>
+								<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+								<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
+							</div>
+							<div class="listItems <?=!isset($_SESSION['member']['email']) && $_SESSION['member']['email'] == ''?'hidden':null ?>">
 								<i class="material-icons">mail_outline</i>
-								<span class="user_contr_phones">manager@xt.ua</span>
-							</a>
+								<span class="user_email"><?=$_SESSION['member']['email']?></span>
+							</div>
+							
+							<div class="listItems">
+								<i class="material-icons">location_on</i>
+								<span class="user_email">г. Харьков, Украина</span>
+							</div>
 						</div>
+						
+						<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
+							
+							<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
+							</div>
+							
+							<div class="manager_contacts">
+								<a href="tel:+380667205488">
+									<i class="material-icons .noLink">phone</i>
+									<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
+								</a>
+							</div>
+							
+							<div class="manager_contacts">
+								<a href="mailto:manager@xt.ua" target="blank">
+									<i class="material-icons">mail_outline</i>
+									<span class="user_contr_phones">manager@xt.ua</span>
+								</a>
+							</div>
+						</div>
+
+						<div class="userChoice">
+							<div id="userFavoritesList">
+								<a href="#"><div class="favleft"><i class="material-icons">favorite</i></div>
+								<div class="favright"><p>Избранные</p><p>(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
+							</div>
+							<div id="userWaitingList">
+								<a href="#"><div class="favleft"><i class="material-icons">trending_down</i></div>
+								<div class="favright"><p>Лист<br> ожидания</p><p>(<?=count($_SESSION['member']['waiting_list'])?>)</p></div></a>
+							</div>
+						</div>
+
+						<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
+
+						<button class="menuUserInfBtn" id="mycabMenuUserInfBtn"
+						onclick="window.location.href='<?=Link::Custom('cabinet')?>'">Мой кабинет</button>
+
+						<button class="menuUserInfBtn" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
 					</div>
-
-					<div id="menuBorder" class="mdl-cell mdl-cell--12-col"></div>
-
-					<div id="userFavoritesList" class="mdl-cell mdl-cell--6-col">
-						<a href="#"><div class="favleft"><i class="material-icons">favorite</i></div>
-						<div class="favright"><p>Избранные</p><p>(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
-					</div>
-					<div id="userWaitingList" class="mdl-cell mdl-cell--6-col">
-						<a href="#"><div class="favleft"><i class="material-icons">trending_down</i></div>
-						<div class="favright"><p>Лист<br> ожидания</p><p>(<?=count($_SESSION['member']['waiting_list'])?>)</p></div></a>
-					</div>
-
-					<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
-
-					<button class="menuUserInfBtn mdl-cell mdl-cell--6-col" id="mycabMenuUserInfBtn"
-					onclick="window.location.href='<?=Link::Custom('cabinet')?>'">Мой кабинет</button>
-
-					<button class="menuUserInfBtn mdl-cell mdl-cell--6-col" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
 				</div>
 				<!-- <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
 					<li class="mdl-menu__item active">По рейтингу</li>
