@@ -26,7 +26,7 @@
 					</ul>
 				</div>
 			</div>
-			<button class="mdl-button mdl-js-button mdl-cell--hide-phone search_btn">Найти</button>
+			<button type="submit" class="mdl-button mdl-js-button mdl-cell--hide-phone search_btn">Найти</button>
 		</form>
 	</div>
 	<ul class="header_nav">
