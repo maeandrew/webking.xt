@@ -71,12 +71,8 @@
 		</script> -->
 		<label for="date">Дата создания:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
-		<label for="date_update">Дата редактирования:</label><?=isset($errm['date_update'])?"<span class=\"errmsg\">".$errm['date_update']."</span><br>":null?>
-		<input disabled type="text" name="date_update" id="date_update" class="input-l wa" value="<?=(isset($_POST['date_update'])&&!isset($errm['date_update']))?htmlspecialchars($_POST['date_update']): ''?>"/>
-		<label for="user">Редактор:</label><?=isset($errm['user'])?"<span class=\"errmsg\">".$errm['user']."</span><br>":null?>
-		<input disabled type="text" name="user" id="user" class="input-l wa" value="<?=(isset($_POST['user'])&&!isset($errm['user']))?htmlspecialchars($_POST['user']): ''?>"/>
-
-
+		<label>Дата редактирования: <span><?=(isset($_POST['user'])&&!isset($errm['date_update']))?htmlspecialchars($_POST['date_update']): ''?></span></label>
+		<label>Редактор: <span><?=(isset($_POST['user'])&&!isset($errm['user']))?htmlspecialchars($_POST['user']): ''?></span></label>
 		<div id="nav_visible">
 			<h2 class="blue-line">Видимость и индексация</h2>
 			<p><b>Скрыть новость &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
