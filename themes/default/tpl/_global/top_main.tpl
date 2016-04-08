@@ -46,7 +46,7 @@
 				<?}?>
 			</nav>
 		</li>
-		<li>
+		<li class="user_profile">
 			<?if(isset($_SESSION['member'])){ ?>
 
 				<!-- <a href="#" id="tt4" class="mdl-button mdl-js-button cabinet_btn">Мой кабинет</a>
@@ -172,6 +172,15 @@
 		$('body').on('click', '.category_search li', function () {
 			category = $('.category_search li.active').data('id-category');
 			$('input[name="category2search"]').val(category);
+		});
+
+		if ($(document).width() < 500) {
+			$('.search_wrapp label[for="search"]').empty();
+			$('.header_nav li.user_profile').css('display', 'none');
+		};
+
+		$('.search_wrapp .mob_s_btn').click(function(){ 
+			$('#header_js').addClass('opened').closest('.sidebar, .no-sidebar').addClass('active_bg').find('.search_wrapp input[type="search"]').focus();
 		});
 	});
 </script>

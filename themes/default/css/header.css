@@ -167,6 +167,12 @@ header.opened .search .mdl-textfield__label {
 	padding-right: 160px;
 }
 
+@media (max-width: 480px) {
+	.search_wrapp input[type="search"] {
+		border-bottom: none;
+	}	
+}
+
 /*Navigation ================================================================*/
 
 header.opened .header_nav > li > a {
@@ -466,12 +472,17 @@ header #mycabMenuUserInfBtn {
 	header.opened .search .mdl-textfield__input {
 		padding-right: 4px;
 	}
-	header .search {		
-		width: 20%;
+	header .search {
+		width: 6%;
+		position: absolute;
+		right: 80px;
+	}
+	header .search.mdl-textfield {
+		padding: 3px 0;
 	}
 }
 @media (max-width: 360px) {
-	header {
+	/*header {
 		background: #fff;
 	}
 	header .header_wrapp {
@@ -499,5 +510,5 @@ header #mycabMenuUserInfBtn {
 	header .phone_menu .material-icons {
 		margin: 0;
 		margin-left: 10px;
-	}
+	}*/
 }
