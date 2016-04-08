@@ -23,12 +23,14 @@ class Post {
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
-		$sqlUser = "SELECT `name`
-			FROM "._DB_PREFIX_."user
-			WHERE id_user = '".$_SESSION['member'][id_user]."'";
-		$this->fieldsU = $this->db->GetOneRowArray($sqlUser);
-		foreach($this->fieldsU as $v){
-			$this->fields['user'] = $v;
+		if(isset($this->fields[id_user])) {
+			$sqlUser = "SELECT `name`
+				FROM " . _DB_PREFIX_ . "user
+				WHERE id_user = '" . $this->fields[id_user] . "'";
+			$this->fieldsU = $this->db->GetOneRowArray($sqlUser);
+			foreach ($this->fieldsU as $v) {
+				$this->fields['user'] = $v;
+			}
 		}
 		if(!$this->fields){
 			return false;
