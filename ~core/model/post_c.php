@@ -8,7 +8,7 @@ class Post {
 		$this->usual_fields = array('id', 'title', 'translit',
 			'content_preview', 'content', 'date', 'visible', 'ord',
 			'page_title', 'page_description', 'page_keywords',
-			'indexation', 'sid', 'thumbnail');
+			'indexation', 'sid', 'thumbnail', 'date_update', 'id_user');
 	}
 
 	// Статья по id
@@ -23,6 +23,13 @@ class Post {
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
+		$sqlUser = "SELECT `name`
+			FROM "._DB_PREFIX_."user
+			WHERE id_user = '".$_SESSION['member'][id_user]."'";
+		$this->fieldsU = $this->db->GetOneRowArray($sqlUser);
+		foreach($this->fieldsU as $v){
+			$this->fields['user'] = $v;
+		}
 		if(!$this->fields){
 			return false;
 		}
@@ -74,6 +81,8 @@ class Post {
 		$f['sid']				= $arr['sid'];
 		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
 		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']   = Date('Y-m-d H:i:s');
+		$f['id_user']		= $_SESSION['member'][id_user];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'post', $f)){
 			$this->db->FailTrans();
@@ -111,6 +120,8 @@ class Post {
 		$f['sid']				= $arr['sid'];
 		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
 		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']   = Date('Y-m-d H:i:s');
+		$f['id_user']		= $_SESSION['member'][id_user];
 		$this->db->StartTrans();
 		if(!$sql = $this->db->Update(_DB_PREFIX_."post", $f, "id = ".$arr['id'])){
 			$this->db->FailTrans();

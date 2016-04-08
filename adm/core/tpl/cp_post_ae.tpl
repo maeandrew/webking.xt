@@ -75,8 +75,10 @@
 				}
 			</script> -->
 			<div class="col-md-12">
-				<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
+				<label for="date">Дата создания:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 				<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
+				<label>Дата редактирования: <span><?=(isset($_POST['user'])&&!isset($errm['date_update']))?htmlspecialchars($_POST['date_update']): ''?></span></label>
+				<label>Редактор: <span><?=(isset($_POST['user'])&&!isset($errm['user']))?htmlspecialchars($_POST['user']): ''?></span></label>
 			</div>
 			<div class="col-md-12" id="nav_visible">
 				<h2 class="blue-line">Видимость и индексация</h2>
