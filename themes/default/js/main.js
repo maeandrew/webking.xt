@@ -112,7 +112,7 @@ $(function(){
 	}
 	$('#cart .order_wrapp').css('max-height', (viewport_height - header_outerheight)*coeff);
 
-	Отправка формы Search
+	//Отправка формы Search
 	$('.mob_s_btn').on('click', function() {
 		// alert('dfs');
 		$(this).closest('form').submit();
@@ -120,10 +120,10 @@ $(function(){
 	});
 
 	// Фокусировка Search
-	// $('#search').on('focus', function() {
-	// 	$('html').css('overflow-y', 'scroll');
-	// 	$('body').addClass('active_search');
-	// });
+	$('#search').on('focus', function() {
+		$('html').css('overflow-y', 'scroll');
+		$('body').addClass('active_search');
+	});
 	// Активация кнопки поиска при вводе
 	$('#search').on('keyup', function() {
 		var val = $(this).val();
