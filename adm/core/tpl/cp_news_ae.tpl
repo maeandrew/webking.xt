@@ -117,6 +117,10 @@
 			<div class="col-md-12">
 				<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 				<input type="text" name="date" id="date" class="input-m wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
+				<label for="date_update">Дата редактирования:</label><?=isset($errm['date_update'])?"<span class=\"errmsg\">".$errm['date_update']."</span><br>":null?>
+				<input disabled type="text" name="date_update" id="date_update" class="input-m wa" value="<?=(isset($_POST['date_update'])&&!isset($errm['date_update']))?htmlspecialchars($_POST['date_update']): ''?>"/>
+				<label for="user">Редактор:</label><?=isset($errm['user'])?"<span class=\"errmsg\">".$errm['user']."</span><br>":null?>
+				<input disabled type="text" name="user" id="user" class="input-m wa" value="<?=(isset($_POST['user'])&&!isset($errm['user']))?htmlspecialchars($_POST['user']): ''?>"/>
 			</div>
 			<div class="col-md-12" id="nav_visible">
 				<h2 class="blue-line">Видимость и индексация</h2>

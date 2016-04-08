@@ -7,7 +7,7 @@ class News{
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid", "thumbnail");
+		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid", "thumbnail", "date_update", "id_user");
 	}
 	/**
 	 * Получить поля новости по транслиту
@@ -48,9 +48,15 @@ class News{
 			FROM "._DB_PREFIX_."image_news
 			WHERE id_news = '".$id_news."'";
 		$this->fields['Img'] = $this->db->GetArray($sqlImage);
+		$sqlUser = "SELECT `name`
+			FROM "._DB_PREFIX_."user
+			WHERE id_user = '".$_SESSION['member'][id_user]."'";
+		$this->fieldsU = $this->db->GetOneRowArray($sqlUser);
+		foreach($this->fieldsU as $v){
+			$this->fields['user'] = $v;
+		}
 		return true;
 	}
-
 
 	// Список (0 - только видимые. 1 - все, и видимые и невидимые)
 	public function NewsList($param = 0, $limit = "", $sid = null){
@@ -174,6 +180,8 @@ class News{
 		$f['sid']			= $arr['sid'];
 		$f['indexation']	= (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		$f['visible']		= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']   = Date('Y-m-d H:i:s');
+		$f['id_user']		= $_SESSION['member'][id_user];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'news', $f)){
 			$this->db->FailTrans();
@@ -207,6 +215,8 @@ class News{
 		$f['sid']				= $arr['sid'];
 		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
 		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']			= Date('Y-m-d H:i:s');
+		$f['id_user']			= $_SESSION['member'][id_user];
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."news", $f, "id_news = {$arr['id_news']}")){
 			$this->db->FailTrans();

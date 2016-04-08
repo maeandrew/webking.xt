@@ -8,7 +8,7 @@ class Post {
 	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation', 'thumbnail');
+		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation', 'thumbnail', "date_update", "id_user");
 	}
 
 	// Статья по id
@@ -23,7 +23,13 @@ class Post {
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
-//		print_r($sql); die();
+		$sqlUser = "SELECT `name`
+			FROM "._DB_PREFIX_."user
+			WHERE id_user = '".$_SESSION['member'][id_user]."'";
+		$this->fieldsU = $this->db->GetOneRowArray($sqlUser);
+		foreach($this->fieldsU as $v){
+			$this->fields['user'] = $v;
+		}
 		if(!$this->fields){
 			return false;
 		}
@@ -66,6 +72,8 @@ class Post {
 	}
 	// Добавить статью
 	public function AddPost($arr){
+		list($d,$m,$y)		= explode(".", trim($arr['date']));
+		$f['date']			= mktime(0, 0, 0, $m , $d, $y);
 		$f['title'] = trim($arr['title']);
 		$f['content_preview'] = trim($arr['content_preview']);
 		$f['content'] = trim($arr['content']);
@@ -75,6 +83,8 @@ class Post {
 		$f['translit'] = G::StrToTrans($arr['title']);
 		$f['visible'] = 1;
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		$f['date_update']   = Date('Y-m-d H:i:s');
+		$f['id_user']		= $_SESSION['member'][id_user];
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
 		}
@@ -93,6 +103,8 @@ class Post {
 	public function UpdatePost($arr){
 
 //		$f['id'] = trim($arr['id']);
+		list($d,$m,$y)		= explode(".", trim($arr['date']));
+		$f['date']			= mktime(0, 0, 0, $m , $d, $y);
 		$f['title'] = trim($arr['title']);
 		$f['content_preview'] = trim($arr['content_preview']);
 		$f['content'] = trim($arr['content']);
@@ -102,6 +114,8 @@ class Post {
 		$f['translit'] = G::StrToTrans($arr['title']);
 		$f['visible'] = 1;
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		$f['date_update']   = Date('Y-m-d H:i:s');
+		$f['id_user']		= $_SESSION['member'][id_user];
 		if(isset($arr['visible']) && $arr['visible'] == "on"){
 			$f['visible'] = 0;
 		}
