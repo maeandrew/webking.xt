@@ -104,24 +104,26 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 		}
 
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		foreach($to_resize as $filename){
-			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-			if ($size[0] > 1000 || $size[1] > 1000 ) {
-				$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
-				//Определяем размеры нового изображения
-				if(max($size[0], $size[1]) == $size[0]){
-					$width = 1000;
-					$height = 1000/$ratio;
-				} else if(max($size[0], $size[1]) == $size[1]) {
-					$width = 1000*$ratio;
-					$height = 1000;
+		if(!empty($to_resize)){
+			foreach($to_resize as $filename){
+				$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+				if ($size[0] > 1000 || $size[1] > 1000 ) {
+					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
+					//Определяем размеры нового изображения
+					if(max($size[0], $size[1]) == $size[0]){
+						$width = 1000;
+						$height = 1000/$ratio;
+					} else if(max($size[0], $size[1]) == $size[1]) {
+						$width = 1000*$ratio;
+						$height = 1000;
+					}
 				}
+				$res = imagecreatetruecolor($width, $height);
+				imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+				$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+				imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+				imagejpeg($res, $path.$filename);
 			}
-			$res = imagecreatetruecolor($width, $height);
-			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-			$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
-			imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
-			imagejpeg($res, $path.$filename);
 		}
 
 		if($products->UpdateProduct($_POST)){
