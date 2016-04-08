@@ -3,12 +3,12 @@ class Post {
 	public $db;
 	public $fields;
 	public $list;
-	/** Конструктор
-	 * @return
-	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id', 'title', 'translit', 'content_preview', 'content', 'date', 'visible', 'ord', 'page_title', 'page_description', 'page_keywords', 'indexation', 'thumbnail');
+		$this->usual_fields = array('id', 'title', 'translit',
+			'content_preview', 'content', 'date', 'visible', 'ord',
+			'page_title', 'page_description', 'page_keywords',
+			'indexation', 'sid', 'thumbnail');
 	}
 
 	// Статья по id
@@ -23,7 +23,6 @@ class Post {
 			".$visible."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
-//		print_r($sql); die();
 		if(!$this->fields){
 			return false;
 		}
@@ -66,18 +65,15 @@ class Post {
 	}
 	// Добавить статью
 	public function AddPost($arr){
-		$f['title'] = trim($arr['title']);
-		$f['content_preview'] = trim($arr['content_preview']);
-		$f['content'] = trim($arr['content']);
-		$f['page_title'] = trim($arr['page_title']);
-		$f['page_keywords'] = trim($arr['page_keywords']);
-		$f['page_description'] = trim($arr['page_description']);
-		$f['translit'] = G::StrToTrans($arr['title']);
-		$f['visible'] = 1;
-		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$f['visible'] = 0;
-		}
+		$f['title']				= trim($arr['title']);
+		$f['content_preview']	= trim($arr['content_preview']);
+		$f['content']			= trim($arr['content']);
+		list($d,$m,$y)			= explode(".", trim($arr['date']));
+		$f['date']				= mktime(0, 0, 0, $m , $d, $y);
+		$f['translit']			= G::StrToTrans($arr['title']);
+		$f['sid']				= $arr['sid'];
+		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
+		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'post', $f)){
 			$this->db->FailTrans();
@@ -91,29 +87,36 @@ class Post {
 
 	// Обновление статьи
 	public function UpdatePost($arr){
-
-//		$f['id'] = trim($arr['id']);
-		$f['title'] = trim($arr['title']);
-		$f['content_preview'] = trim($arr['content_preview']);
-		$f['content'] = trim($arr['content']);
-		$f['page_description'] = trim($arr['page_description']);
-		$f['page_title'] = trim($arr['page_title']);
-		$f['page_keywords'] = trim($arr['page_keywords']);
-		$f['translit'] = G::StrToTrans($arr['title']);
-		$f['visible'] = 1;
-		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$f['visible'] = 0;
+		if(strpos($arr['thumb'], '/temp/')){
+			$images = new Images();
+			$path = $GLOBALS['PATH_post_img'].$arr['id'].'/';
+			$images->checkStructure($path);
+			if(preg_match('/[А-Яа-яЁё]/u', $arr['thumb'])){
+				$file = pathinfo($GLOBALS['PATH_global_root'].$arr['thumb']);
+				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
+				rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
+				$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+			}
+			$new_path = str_replace('temp/', trim($arr['id']).'/thumb_', $arr['thumb']);
+			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].$new_path);
+			$arr['thumb'] = $new_path;
 		}
-//		print_r($f); die();
+		$f['title']				= trim($arr['title']);
+		$f['thumbnail']			= trim($arr['thumb']);
+		list($d,$m,$y)			= explode(".", trim($arr['date']));
+		$f['date']				= mktime(0, 0, 0, $m , $d, $y);
+		$f['content_preview']	= trim($arr['content_preview']);
+		$f['content']			= trim($arr['content']);
+		$f['translit']			= G::StrToTrans($arr['title']);
+		$f['sid']				= $arr['sid'];
+		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
+		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
 		$this->db->StartTrans();
 		if(!$sql = $this->db->Update(_DB_PREFIX_."post", $f, "id = ".$arr['id'])){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		//return true;
-//		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
 
@@ -151,27 +154,4 @@ class Post {
 		}
 		return $res;
 	}
-
-	// Добавление и удаление фото
-	public function UpdatePhoto($id, $thumb = null){
-		if(isset($thumb) && $thumb !='') {
-			if(!file_exists($GLOBALS['PATH_global_root'] . 'post_images/' . $id.'/')){
-				mkdir($GLOBALS['PATH_global_root'] . 'post_images/' . $id);
-			}
-			if( strpos ( $thumb, '/temp/') == true) {
-				rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id . '/thumb_', $thumb));
-				$thumb = str_replace('temp/', $id . '/thumb_', $thumb);
-			}
-			if (empty($thumb)) {
-				return false; //Если URL пустой
-			}
-			$sql = "UPDATE "._DB_PREFIX_."post SET `thumbnail` = '".$thumb."'
-					WHERE id = $id";
-			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		}
-		unset($id);
-		unset($thumb);
-		return true;//Если все ок
-	}
-
-}?>
+}

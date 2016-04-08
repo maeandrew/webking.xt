@@ -4,57 +4,37 @@ if(!_acl::isAllow('news')){
 }
 $News = new News();
 unset($parsed_res);
-$tpl->Assign('h1', 'Добавление новости');
+$header = 'Добавление новости';
+$tpl->Assign('h1', $header);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Новости";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/news/';
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление новости";
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $Images = new Images();
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
-	$res = str_replace($GLOBALS['PATH_global_root'], '', $res);
-	echo $res;
+	echo str_replace($GLOBALS['PATH_global_root'], '', $res);
 	exit(0);
 }
-
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = News_form_validate();
-
-	//Добавление фото
-	$id_news = $News->SetFieldsById($id, false);
-	if(isset($_POST['images'])){
-		foreach($_POST['images'] as $k=>$image){
-			//$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
-			$path = $GLOBALS['PATH_news_img'].$file['dirname'].'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_news_img']).trim($file['dirname']);
-			$photo_name = $bd_path.'/'.$file['basename'];
-			$images_arr[] = $bd_path.'/'.$file['basename'];
-		}
-	}else{
-		$images_arr =  array();
-	}
-
-	//Добавление миниатюры
-	if(isset($_POST['thumb'])) {
-		$thumb = $_POST['thumb'];
-		if (strpos($thumb, '/temp/') == true) {
-			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $thumb));
-			$path = $GLOBALS['PATH_news_img'] . $file['dirname'] . '/';
-			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
-			$thumb = $bd_path . '/' . $file['basename'];
-		}
-	}else{
-		$thumb =  '';
-	}
-
-	//$Images->resize(false, $to_resize);
-
-
 	if(!$err){
 		if($id = $News->AddNews($_POST)){
-			$News->UpdatePhoto($id, $images_arr, $thumb);
+			//Добавление фото
+			if(isset($_POST['images'])){
+				foreach($_POST['images'] as &$image){
+					if(preg_match('/[А-Яа-яЁё]/u', $image)){
+						$file = pathinfo($GLOBALS['PATH_global_root'].$image);
+						$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
+						rename($GLOBALS['PATH_global_root'].$image, $new_file);
+						$image = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+					}
+				}
+			}
+			$News->UpdatePhoto($id, $_POST['images']);
+			$_POST['id_news'] = $id;
+			$News->UpdateNews($_POST);
 			$tpl->Assign('msg', 'Новость добавлена.');
 			unset($_POST);
 		}else{
