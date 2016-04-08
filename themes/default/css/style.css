@@ -306,6 +306,16 @@ ul.phone_nav_contacts li span {
 }
 
 /*User Profile*/
+@media (min-width: 480px) and (max-width: 727px), handheld and (orientation: landscape) {
+	.header_nav li.user_profile{
+		display: none;
+	}
+}
+@media (max-width: 480px), handheld {
+	.header_nav li.user_profile{
+		display: none;
+	}
+}
 .phone_user_profile .userContainer {
 	height: 400px;
 	display: none;
@@ -2613,6 +2623,7 @@ section .stat_year {
 }
 .mdl-badge[data-badge]:after {
 	background: #FF5722;
+	color: #fff;
 }
 .mdl-badge[data-badge].active:after {
 	background: #FF5722;

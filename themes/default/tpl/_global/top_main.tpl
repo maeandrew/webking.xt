@@ -67,30 +67,31 @@
 
 				<div class="mdl-menu mdl-menu--bottom-right mdl-js-menu " for="user_profile">
 					<div class="userContainer" >
-						<div id="userPic">
-							<div class="avatarWrapp">
-								<img src="/themes/default/images/noavatar.jpg"/>
-							</div>
-						</div>
-						<div class="mainUserInf">
-							<div id="userNameBlock">
-								<div id="userNameInf" class="listItems">
-									<span class="user_name"><?=$_SESSION['member']['name']?></span>
+						<div class="UserInfBlock">
+							<div id="userPic">
+								<div class="avatarWrapp">
+									<img src="/themes/default/images/noavatar.jpg"/>
 								</div>
-								<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
-								<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
 							</div>
-							<div class="listItems <?=!isset($_SESSION['member']['email']) && $_SESSION['member']['email'] == ''?'hidden':null ?>">
-								<i class="material-icons">mail_outline</i>
-								<span class="user_email"><?=$_SESSION['member']['email']?></span>
-							</div>
-							
-							<div class="listItems">
-								<i class="material-icons">location_on</i>
-								<span class="user_email">г. Харьков, Украина</span>
+							<div class="mainUserInf">
+								<div id="userNameBlock">
+									<div id="userNameInf" class="listItems">
+										<span class="user_name"><?=$_SESSION['member']['name']?></span>
+									</div>
+									<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+									<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
+								</div>
+								<div class="listItems <?=!isset($_SESSION['member']['email']) && $_SESSION['member']['email'] == ''?'hidden':null ?>">
+									<i class="material-icons">mail_outline</i>
+									<span class="user_email"><?=$_SESSION['member']['email']?></span>
+								</div>
+								
+								<div class="listItems">
+									<i class="material-icons">location_on</i>
+									<span class="user_email">г. Харьков, Украина</span>
+								</div>
 							</div>
 						</div>
-						
 						<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
 							
 							<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
@@ -161,7 +162,8 @@
 	</ul>
 	<nav class="phone_menu">
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
-		<a href="#" class="material-icons mdl-badge--overlap cart mdl-badge btn_js" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
+		<!-- <a href="#" class="material-icons mdl-badge--overlap cart btn_js<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a> -->
+		<a href="#" class="material-icons mdl-badge--overlap cart btn_js<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
 	</nav>	
 </div>
 
@@ -180,7 +182,6 @@
 
 		if ($(document).width() < 500) {
 			$('.search_wrapp label[for="search"]').empty();
-			$('.header_nav li.user_profile').css('display', 'none');
 		};
 
 		$('.search_wrapp .mob_s_btn').click(function(){ 
