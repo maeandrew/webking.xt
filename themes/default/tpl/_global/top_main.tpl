@@ -13,10 +13,13 @@
 				<i class="material-icons search_close" title="Закрыть поиск">close</i>
 				
 				<div class="select_category fright mdl-cell--hide-phone imit_select">
-					<button id="category-lower-right"  class="mdl-button mdl-js-button mdl-button--icon">
-						<span class="selected_cat select_field">По всем категориям</span>
-						<i class="material-icons">keyboard_arrow_down</i>
-					</button>
+					<?if(!G::isMobile()){?>
+						<button id="category-lower-right"  class="mdl-button mdl-js-button mdl-button--icon">
+							<span class="selected_cat select_field">По всем категориям</span>
+							<i class="material-icons">keyboard_arrow_down</i>
+						</button>
+					<?}?>
+					<input id="category-lower-right"  class="mdl-button mdl-js-button mdl-button--icon"/>
 					<ul  class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect category_search" for="category-lower-right">
 						<li data-id-category="0" class="mdl-menu__item cat_li">По всем категориям</li>
 						<?foreach ($navigation as &$v){ ?>

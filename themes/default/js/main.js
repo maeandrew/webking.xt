@@ -115,14 +115,14 @@ $(function(){
 	//Отправка формы Search
 	$('.mob_s_btn').on('click', function() {
 		// alert('dfs');
-		$(this).closest('form').submit();
+		// $(this).closest('form').submit();
 		$('#search').focus();
 	});
 
 	// Фокусировка Search
 	$('#search').on('focus', function() {
 		$('html').css('overflow-y', 'scroll');
-		$('body').addClass('active_search');
+		// $('body').addClass('active_bg');
 	});
 	// Активация кнопки поиска при вводе
 	$('#search').on('keyup', function() {
