@@ -64,6 +64,18 @@ G::ToGlobals(array(
 if(G::isLogged()){
 	_acl::load($_SESSION['member']['gid']);
 }
+
+// save ip activity
+$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."'";
+$ips = $db->GetOneRowArray($sql);
+if(!$ips){
+	$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections) VALUES ('".$_SESSION['client']['ip']."', 1)";
+}else{
+	$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1)." WHERE ip = '".$_SESSION['client']['ip']."'";
+}
+$db->Query($sql);
+
+
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config";
 $arr = $db->GetArray($sql);

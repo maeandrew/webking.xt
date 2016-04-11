@@ -316,6 +316,9 @@
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
+							<?if(isset($news['thumbnail'])){?>
+								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
+							<?}?>
 							<div class="min news_description"><?=$news['descr_short']?></div>
 							<div class="min news_date">
 								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
@@ -371,6 +374,9 @@
 							<div class="xt_news">
 								<a href="<?=Link::Custom('news', $news['translit']);?>">
 									<h6 class="min news_title"><?=$news['title']?></h6>
+									<?if(isset($news['thumbnail'])){?>
+										<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
+									<?}?>
 									<div class="min news_description"><?=$news['descr_short']?></div>
 									<div class="min news_date">
 										<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
@@ -529,7 +535,7 @@
 								<?}?>
 							</ul>
 						</div>
-						<div class="social">
+						<div class="social hidden">
 							<ul>
 								<li><a href="https://vk.com/xt_ua" target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
 								<li><a href="http://ok.ru/group/54897683202077" target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>

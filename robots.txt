@@ -1,2 +1,19 @@
-﻿User-agent: *
+User-agent: *
+Disallow: /adm/*
+Disallow: /cabinet/*
+Disallow: /cart/*
+Disallow: /register/*
+Disallow: /remind/*
+Disallow: /login/*
+Disallow: /logout/*
+Disallow: /search/*
+
+User-agent: MJ12bot
 Disallow: /
+
+User-agent: MSNbot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+Host: xt.ua
