@@ -19,7 +19,7 @@
 							<i class="material-icons">keyboard_arrow_down</i>
 						</button>
 					<?}?>
-					<input id="category-lower-right"  class="mdl-button mdl-js-button mdl-button--icon"/>
+					<button id="category-lower-right" class="mdl-button mdl-js-button mdl-button--icon"></button>
 					<ul  class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect category_search" for="category-lower-right">
 						<li data-id-category="0" class="mdl-menu__item cat_li">По всем категориям</li>
 						<?foreach ($navigation as &$v){ ?>
@@ -181,6 +181,7 @@
 
 		if ($(document).width() < 500) {
 			$('.search_wrapp label[for="search"]').empty();
+			var select_category = $('.search_wrapp .select_category').detach();
 		};
 
 		$('.search_wrapp .mob_s_btn').click(function(){ 
