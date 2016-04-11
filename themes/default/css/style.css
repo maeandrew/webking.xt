@@ -2467,7 +2467,6 @@ section .stat_year {
 	
 	.search_wrapp .search {
 		position: absolute;
-		right: 74px;
 		top: 0;
 	}
 
@@ -2484,9 +2483,13 @@ section .stat_year {
 	}
 	.panel ul.phone_nav_contacts li {
 		font-size: 15px;
-	}
-	.panel ul.phone_nav_contacts li {
 		line-height: 20px;
+	}
+	.panel ul.phone_nav_contacts li a {
+		margin-left: 24px;
+	}
+	.panel ul.phone_nav_contacts .parent_nav a {
+		margin-left: 8px;
 	}
 	.phone_menu .cart {
 		margin-left: 10px;

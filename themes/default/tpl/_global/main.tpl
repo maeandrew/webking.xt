@@ -276,10 +276,10 @@
 		</ul>
 		
 		<ul class="phone_nav_contacts clearfix">
-			<li class="parent_nav"><div class="material-icons">phone</div><span>(063) 225-91-83</span></li>
-			<li><span>(099) 228-69-38</span></li>
-			<li><span>(093) 322-91-83</span></li>
-			<li class="parent_nav"><div class="material-icons">mail</div><span>administration@x-torg.com</span></li>
+			<li class="parent_nav"><div class="material-icons">phone</div><a href="tel:(063) 225-91-83">(063) 225-91-83</a></li>
+			<li><a href="tel:(099) 228-69-38">(099) 228-69-38</a></li>
+			<li><a href="tel:(093) 322-91-83">(093) 322-91-83</a></li>
+			<li class="parent_nav"><div class="material-icons">mail</div><a href="mailto:administration@x-torg.com">administration@x-torg.com</a></li>
 			<li class="parent_nav"><div class="material-icons">location_on</div><span>г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</span></li>
 		</ul>
 	</div>
