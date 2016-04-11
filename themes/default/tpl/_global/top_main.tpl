@@ -161,8 +161,7 @@
 		</li>
 	</ul>
 	<nav class="phone_menu">
-		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
-		<!-- <a href="#" class="material-icons mdl-badge--overlap cart btn_js<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a> -->
+		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>		
 		<a href="#" class="material-icons mdl-badge--overlap cart btn_js<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
 	</nav>	
 </div>
