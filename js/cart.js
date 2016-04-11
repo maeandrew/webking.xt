@@ -1,6 +1,16 @@
 function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'update_cart_qty', data).done(function(data){
+		function countOfOject(obj) {
+			var i=0;
+			if (typeof(obj)!="object" || obj==null) return 0;
+			for (x in obj) i++;				
+				if (i>=1) { $('header .phone_menu a.cart').addClass('mdl-badge') }
+				else { $('header .phone_menu a.cart').removeClass('mdl-badge') };
+			return i;
+		}
+		$('header .phone_menu a.cart').attr('data-badge', countOfOject(data.cart.products));
+
 		completeCartProductAdd(data.cart);
 		qty = data.product.quantity;
 		//console.log(data.cart.cart_column);
