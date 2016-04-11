@@ -687,7 +687,6 @@ section.center {
 	padding: 0;
 }
 
-
 /* Modal from end_order ======================================================== */
 #quiz {
 	padding: 0;
@@ -2359,6 +2358,7 @@ section .stat_year {
 @media (max-width: 727px) {
 	div#cart.opened {
 		top: 0 !important;
+		position: fixed;
 	}
 
 	#cart {
