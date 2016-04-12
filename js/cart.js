@@ -2,8 +2,39 @@ function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'update_cart_qty', data).done(function(data){
 		completeCartProductAdd(data.cart);
+		// console.log(data.cart);
+		// console.log(data.cart.products_sum[3]);
+
+		// Автоматический пересчет скидки
+		/*var cookieVal = ;
+		console.log(cookieVal);*/
+		/*if ($.cookie('manual') == 0) {*/
+		switch(data.cart.cart_column) {
+				case 0:
+					console.log("21");
+					ChangePriceRange(0, 0, 0);
+					break;
+				case 1:
+					console.log("16");
+					var sum = Math.round(10000 - data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(1, sum, 0);
+					break;
+				case 2:
+					console.log("10");
+					var sum = Math.round(3000 - data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(2, sum, 0);
+					break;
+				case 3:
+					console.log("0");
+					var sum = Math.round(500 - data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(3, sum, 0);
+					break;
+				default:
+					console.log('не работает все');
+			}
+		/*}*/
+
 		qty = data.product.quantity;
-		//console.log(data.cart.cart_column);
 		var mode_text = 'от';
 		if(qty == 0){
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(0);
@@ -108,6 +139,7 @@ function removeFromCart(id){
 			$('.modal_container').find('.card').addClass('hidden');
 			$('.products').find('.in_cart_js').addClass('hidden');
 			$('.products').find('.buy_btn_js').removeClass('hidden');
+			$.cookie('manual', 0);
 
 			$('.quantity').each(function(){
 				var minQty = $(this).find('.minQty').val();
@@ -188,6 +220,7 @@ function removeFromCart(id){
 			$('.no_items').removeClass('hidden');
 			$('.action_block').addClass('hidden');
 			$('.cart').addClass('hidden');
+			$.cookie('manual', 0);
 			}
 		});
 	}
@@ -210,7 +243,6 @@ function ChangeCartQty(id, direction){
 	}else{
 		SendToAjax(id, qty, false, false, note);
 	}
-
 }
 
 function completeCartProductAdd(data){
