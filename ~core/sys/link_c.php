@@ -21,7 +21,7 @@ class Link {
 		$str_filter = $str_sort = $str_page = $price_range = '';
 		$clear = false;
 		if(!isset($params['clear']) || $params['clear'] === false){
-			// $filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
+			$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
 			if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
 				$str_sort = 'sort='.$GLOBALS['Sort'];
 			}
