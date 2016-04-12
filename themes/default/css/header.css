@@ -350,11 +350,13 @@ header.opened {
 /*Отображение header через flex*/
 	header .header_wrapp {
 		display: flex;
-		justify-content: space-around;
+		justify-content: flex-end;
 	}
-	header .header_wrapp > * {
-		flex: 0 1;
+	header .header_wrapp .logo {
+		position: absolute;
+		left: 0;
 	}
+	
 	header .header_wrapp > .cart_item > a,
 	header .header_wrapp > .pages_list_item > a {
 		line-height: 32px;
@@ -366,29 +368,18 @@ header.opened {
 		position: absolute;
 		left: 19%;
 	}
-
-	header .header_wrapp .cart_item {
-		flex-basis: 105px;
-	}
 	header .header_wrapp .pages_list_item {
-		flex-basis: 190px;
+		padding: 0 30px;
 		text-align: center;
 	}
 	header.opened .header_wrapp .user_profile {
 		display: none;
 	}
-	header .header_wrapp {
-		justify-content: flex-end;
-	}
-	header .header_wrapp .logo {
-		position: absolute;
-		left: 0;
+	header .header_wrapp .user_profile {
+		margin-left: 20px; 
 	}
 
 @media (max-width: 1150px) {
-	header .header_wrapp .user_profile {
-		margin-left: 10px; 
-	}
 	header .header_wrapp .search_wrapp {
 		left: 15%;
 	}
@@ -415,11 +406,8 @@ header.opened {
 		display: none !important;
 	}
 	header .header_wrapp > .cart_item > a {
-		line-height: 24px;
-	}
-	header .header_wrapp .pages_list .mdl-button--icon {
-		height: 24px;
-	}
+		line-height: 32px;
+	}	
 }
 
 /*TABLET*/

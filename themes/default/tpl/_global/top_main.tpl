@@ -34,16 +34,13 @@
 
 	<div class="cart_item">
 		<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span> Корзина</span></a>
-		<!-- <a href="#" class="checkout btn_js" data-name="cart"><i class="material-icons">shopping_cart</i><span>Корзина</span></a> -->
-		<!-- <a href="#" class="material-icons mdl-badge--overlap cart btn_js<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a> -->
-
 	</div>
 
 	<div class="pages_list_item">
 		<?$rand = rand(0, count($list_menu)-1);?> 
 		<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>"><?=$list_menu[$rand]['title']?></a>
-		<!-- <a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>">Контактная информация</a>-->
 	</div>
+
 	<div class="pages_list">
 		<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon navigation">
 			<i class="material-icons">menu</i>
@@ -55,6 +52,7 @@
 			<?}?>
 		</nav>
 	</div>
+	
 	<div class="user_profile">
 		<?if(isset($_SESSION['member'])){ ?>
 
