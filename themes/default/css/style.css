@@ -331,7 +331,7 @@ ul.phone_nav_contacts li span {
 }
 .phone_user_profile .userContainer #userPic img {
 	max-width: 100%;
-	max-height: 100%;	
+	max-height: 100%;
 }
 .phone_user_profile .userContainer #userNameInf {
 	font-size: 1.2em;
@@ -411,7 +411,7 @@ ul.phone_nav_contacts li span {
 #authorized {
 	display: flex;
 	justify-content: space-between;
-	position: relative;	
+	position: relative;
 }
 #authorized > div {
 	flex: 2;
@@ -422,7 +422,7 @@ ul.phone_nav_contacts li span {
 	margin-top: 5px;
 	transition: 0.3s;
 }
-#authorized .more_cat {	
+#authorized .more_cat {
 	width: 30px;
 	float: right;
 	position: absolute;
@@ -1039,6 +1039,18 @@ section.center {
 }
 .card .product_info {
 	margin-top: 10px;
+}
+.cartInfBlock {
+	height: 28px;
+    line-height: 28px;
+    position: absolute;
+    left: calc(50% - 160px);
+    top: 25px;
+    background: rgb(255, 87, 34);
+    color: #fff;
+    width: 320px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .card .product_buy {

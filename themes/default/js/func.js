@@ -1182,10 +1182,15 @@ function ChangePriceRange(id, sum, cookieVal){
 	document.cookie="sum_range="+id+"; path=/";
 	if (cookieVal == 1){
 		document.cookie="manual=1; path=/";
+		$('li.sum_range').removeClass('active');
+		$('li.sum_range_'+id).addClass('active');
+
 	}
 
-	$('li.sum_range').removeClass('active');
-	$('li.sum_range_'+id).addClass('active');
+	ajax('cart', 'GetCart').done(function(data){
+			console.log(data.cart.products_sum[3]);
+			console.log("123");
+		});
 
 	/*sum = 'Дозаказать еще на '+ sum + ' грн.';
 		$('.order_balance').text(sum);*/
@@ -1197,6 +1202,9 @@ function ChangePriceRange(id, sum, cookieVal){
 		$('.order_balance').text(sum);
 	}*/
 	if ($.cookie('manual') == 1){
+		/*console.log(sum);*/
+		/*console.log('<?=500 - $_SESSION['cart']['products_sum'][3];?>');*/
+
 
 		switch(id) {
 			case 0:
@@ -1282,6 +1290,8 @@ function ChangePriceRange(id, sum, cookieVal){
 				console.log("Что-то не работает")
 		}
 	}else{
+		$('li.sum_range').removeClass('active');
+		$('li.sum_range_'+id).addClass('active');
 		switch(id) {
 			case 0:
 				$('.buy_block').each(function(){
