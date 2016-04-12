@@ -634,7 +634,7 @@ header {
 	position: fixed;
 	max-height: 52px;
 	width: 100%;
-	padding: 10px 0;
+	padding: 10px;
 	top: 0;
 	z-index: 100;
 	box-sizing: border-box;
@@ -2464,13 +2464,6 @@ section .stat_year {
 	#cart .info_key {
 		top: 24px;
 	}
-	
-	.search_wrapp .search {
-		position: absolute;
-		top: 0;
-	}
-
-
 	.phone_menu {
 		display: block;
 		color: #9e9e9e;

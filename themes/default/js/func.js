@@ -839,28 +839,6 @@ function Graf3d(){
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function ModalGraph(id_graphics, moderation){
 	ajax('product', 'OpenModalGraph').done(function(data){
 		$('#graph').html(data);
@@ -1200,75 +1178,194 @@ function mousePos(e){
 }
 
 /* Смена отображаемой цены */
-function ChangePriceRange(id, sum){
+function ChangePriceRange(id, sum, cookieVal){
 	document.cookie="sum_range="+id+"; path=/";
-	document.cookie="manual=1; path=/";
-	$('li.sum_range').removeClass('active');
-	$('li.sum_range_'+id).addClass('active');
-	sum = 'Еще заказать на '+sum;
-	$('.order_balance').text(sum);
-
-	switch(id) {
-		case 0:
-			$('.buy_block').each(function(){
-				var minQty = $(this).find('.minQty').val();
-				var curentQty =	$(this).find('.qty_js').val();
-				var priceOpt = $(this).find('.priceOpt0').val();
-				var priceMopt = $(this).find('.priceMopt0').val();
-
-				if (curentQty >= minQty) {
-					$(this).find('.price').html(priceOpt);
-				}else if (curentQty < minQty) {
-					$(this).find('.price').html(priceMopt);
-				}
-			});
-			break;
-		case 1:
-			$('.buy_block').each(function(){
-				var minQty = $(this).find('.minQty').val();
-				var curentQty =	$(this).find('.qty_js').val();
-				var priceOpt = $(this).find('.priceOpt1').val();
-				var priceMopt = $(this).find('.priceMopt1').val();
-
-				if (curentQty >= minQty) {
-					$(this).find('.price').html(priceOpt);
-				}else if (curentQty < minQty) {
-					$(this).find('.price').html(priceMopt);
-				}
-			});
-			break;
-		case 2:
-			$('.buy_block').each(function(){
-				var minQty = $(this).find('.minQty').val();
-				var curentQty =	$(this).find('.qty_js').val();
-				var priceOpt = $(this).find('.priceOpt2').val();
-				var priceMopt = $(this).find('.priceMopt2').val();
-
-				if (curentQty >= minQty) {
-					$(this).find('.price').html(priceOpt);
-				}else if (curentQty < minQty) {
-					$(this).find('.price').html(priceMopt);
-				}
-			});
-			break;
-		case 3:
-			$('.buy_block').each(function(){
-				var minQty = $(this).find('.minQty').val();
-				var curentQty =	$(this).find('.qty_js').val();
-				var priceOpt = $(this).find('.priceOpt3').val();
-				var priceMopt = $(this).find('.priceMopt3').val();
-
-				if (curentQty >= minQty) {
-					$(this).find('.price').html(priceOpt);
-				}else if (curentQty < minQty) {
-					$(this).find('.price').html(priceMopt);
-				}
-			});
-			break;
-		/*default:
-			default code block*/
+	if (cookieVal == 1){
+		document.cookie="manual=1; path=/";
 	}
 
+	$('li.sum_range').removeClass('active');
+	$('li.sum_range_'+id).addClass('active');
+
+	/*sum = 'Дозаказать еще на '+ sum + ' грн.';
+		$('.order_balance').text(sum);*/
+
+	/*if (data.cart.products_sum[3] < 0){
+		$('.order_balance').text('Заказано достаточно!');
+	}else{
+		sum = 'Заказать еще на '+ sum + ' грн.';
+		$('.order_balance').text(sum);
+	}*/
+	if ($.cookie('manual') == 1){
+
+		switch(id) {
+			case 0:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt0').val();
+					var priceMopt = $(this).find('.priceMopt0').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				if (sum < 0){
+					$('.order_balance').text('Заказано достаточно!');
+				}else{
+					sum = 'Дозаказать еще на '+ sum + ' грн.';
+					$('.order_balance').text(sum);
+				}
+				break;
+			case 1:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt1').val();
+					var priceMopt = $(this).find('.priceMopt1').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				if (sum < 0){
+					$('.order_balance').text('Заказано достаточно!');
+				}else{
+					sum = 'Дозаказать еще на '+ sum + ' грн.';
+					$('.order_balance').text(sum);
+				}
+				break;
+			case 2:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt2').val();
+					var priceMopt = $(this).find('.priceMopt2').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				if (sum < 0){
+					$('.order_balance').text('Заказано достаточно!');
+				}else{
+					sum = 'Дозаказать еще на '+ sum + ' грн.';
+					$('.order_balance').text(sum);
+				}
+				break;
+			case 3:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt3').val();
+					var priceMopt = $(this).find('.priceMopt3').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				$('.order_balance').text('Без скидки!');
+				break;
+			default:
+				console.log("Что-то не работает")
+		}
+	}else{
+		switch(id) {
+			case 0:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt0').val();
+					var priceMopt = $(this).find('.priceMopt0').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				if (sum < 0){
+					$('.order_balance').text('Заказано достаточно!');
+				}else{
+					sum = 'До следующей скидки '+ sum + ' грн.';
+					$('.order_balance').text(sum);
+				}
+				break;
+			case 1:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt1').val();
+					var priceMopt = $(this).find('.priceMopt1').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				if (sum < 0){
+					$('.order_balance').text('Заказано достаточно!');
+				}else{
+					sum = 'До следующей скидки '+ sum + ' грн.';
+					$('.order_balance').text(sum);
+				}
+				break;
+			case 2:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt2').val();
+					var priceMopt = $(this).find('.priceMopt2').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				if (sum < 0){
+					$('.order_balance').text('Заказано достаточно!');
+				}else{
+					sum = 'До следующей скидки '+ sum + ' грн.';
+					$('.order_balance').text(sum);
+				}
+				break;
+			case 3:
+				$('.buy_block').each(function(){
+					var minQty = parseInt($(this).find('.minQty').val());
+					var curentQty =	parseInt($(this).find('.qty_js').val());
+					var priceOpt = $(this).find('.priceOpt3').val();
+					var priceMopt = $(this).find('.priceMopt3').val();
+
+					if (curentQty >= minQty) {
+						$(this).find('.price').html(priceOpt);
+					}else if (curentQty < minQty) {
+						$(this).find('.price').html(priceMopt);
+					}
+				});
+
+				$('.order_balance').text('Без скидки!');
+				break;
+			default:
+				console.log("Что-то не работает")
+		}
+	}
 	setTimeout(function(){
 		$('.product_buy .price').stop(true,true).css({
 			"background-color": "#b0eeb2"

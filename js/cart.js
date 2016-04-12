@@ -1,12 +1,43 @@
 function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'update_cart_qty', data).done(function(data){
-		
-		$('header .phone_menu a.cart').attr('data-badge', countOfOject(data.cart.products));
+
+		$('header .cart_item a.cart').attr('data-badge', countOfOject(data.cart.products));
 
 		completeCartProductAdd(data.cart);
+		// console.log(data.cart);
+		// console.log(data.cart.products_sum[3]);
+
+		// Автоматический пересчет скидки
+		/*var cookieVal = ;
+		console.log(cookieVal);*/
+		/*if ($.cookie('manual') == 0) {*/
+		switch(data.cart.cart_column) {
+				case 0:
+					console.log("21");
+					ChangePriceRange(0, 0, 0);
+					break;
+				case 1:
+					console.log("16");
+					var sum = Math.round(10000 - data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(1, sum, 0);
+					break;
+				case 2:
+					console.log("10");
+					var sum = Math.round(3000 - data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(2, sum, 0);
+					break;
+				case 3:
+					console.log("0");
+					var sum = Math.round(500 - data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(3, sum, 0);
+					break;
+				default:
+					console.log('не работает все');
+			}
+		/*}*/
+
 		qty = data.product.quantity;
-		//console.log(data.cart.cart_column);
 		var mode_text = 'от';
 		if(qty == 0){
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(0);
@@ -115,12 +146,13 @@ function countOfOject(obj) {
 // Удаление в корзине товара при нажатии на иконку
 function removeFromCart(id){
 	if(!id) {
-		ajax('cart', 'clearCart').done(function (data) {			
+		ajax('cart', 'clearCart').done(function (data) {
 			$('#removingProd').addClass('hidden');
 			$('#clearCart').addClass('hidden');
 			$('.modal_container').find('.card').addClass('hidden');
 			$('.products').find('.in_cart_js').addClass('hidden');
 			$('.products').find('.buy_btn_js').removeClass('hidden');
+			$.cookie('manual', 0);
 
 			$('.quantity').each(function(){
 				var minQty = $(this).find('.minQty').val();
@@ -165,7 +197,7 @@ function removeFromCart(id){
 			$('.cart').addClass('hidden');
 		});
 	}else {
-		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {			
+		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
 			$('#removingProd').addClass('hidden');
 			$('#clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
@@ -201,7 +233,7 @@ function removeFromCart(id){
 			$('.no_items').removeClass('hidden');
 			$('.action_block').addClass('hidden');
 			$('.cart').addClass('hidden');
-			// $('header .phone_menu a.cart').removeClass('mdl-badge');
+			$.cookie('manual', 0);
 			}
 
 		});
@@ -225,7 +257,6 @@ function ChangeCartQty(id, direction){
 	}else{
 		SendToAjax(id, qty, false, false, note);
 	}
-
 }
 
 function completeCartProductAdd(data){
