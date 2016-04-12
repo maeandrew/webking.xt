@@ -211,7 +211,7 @@ class Cart {
 			}
 		}
 		$products = $Order->GetOrderForCart(array('o.id_order'=>$id_order));
-		if($add == null){
+		if($add == null && isset($_SESSION['cart']['id'])){
 			$this->ClearCart($_SESSION['cart']['id']);
 		}
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
@@ -225,31 +225,6 @@ class Cart {
 			}else{
 				$_SESSION['cart']['unavailable_products'][] = $p;
 			}
-			// if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-			// 	if($this->IsAvailableProduct($p['id_product'])){
-
-			// 		$this->UpdateProduct($p['id_product'], 1, $p['box_qty'], $p['opt_qty'], round($p['opt_sum'] * $personal_discount, 2), $p['note_opt'], $p['note_mopt'], round($p['default_sum_opt'] * $personal_discount, 2), explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]), $product['price_opt']);
-			// 	}else{
-			// 		$_SESSION['cart']['unavailable_products'][] = $p;
-			// 	}
-			// }else{
-			// 	if($_SESSION['client']['user_agent'] == 'desktop'){
-			// 		if($p['opt_qty'] > 0){
-			// 			if($this->IsAvailableProduct($p['id_product'])){
-			// 				$this->UpdateProduct($p['id_product'], 1, $p['box_qty'], $p['opt_qty'], $p['opt_sum'], $p['note_opt'], $p['note_mopt'], $p['default_sum_opt'], explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]), $product['price_opt']);
-			// 			}else{
-			// 				$_SESSION['Cart']['unavailable_products'][] = $p;
-			// 			}
-			// 		}
-			// 	}
-			// 	if($p['mopt_qty'] > 0){
-			// 		if($this->IsAvailableProduct($p['id_product'])){
-			// 			$this->UpdateProduct($p['id_product'], 0, null, $p['mopt_qty'], $p['mopt_sum'], $p['note_opt'], $p['note_mopt'], $p['default_sum_mopt'], explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['mopt_correction_set']]), $product['price_mopt']);
-			// 		}else{
-			// 			$_SESSION['Cart']['unavailable_products'][] = $p;
-			// 		}
-			// 	}
-			// }
 		}
 		// print_r($_SESSION['cart']);
 		// die();
@@ -555,5 +530,4 @@ class Cart {
 		}
 		return $res;
 	}
-}?>
-
+}

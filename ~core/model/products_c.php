@@ -684,7 +684,7 @@ class Products {
 					".$prices_zero."
 					AND a.active = 1
 				ORDER BY ".$order_by
-				.$limit;
+				.$limit; 
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -876,15 +876,17 @@ class Products {
 
 	public function SetProductsListByFilter(){
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
-			$fl_v = '';
+			$fl_v = 'sp2.id IN (';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {
-				if ($fl_v != '') $fl_v .= ' AND ';
-				$fl_v .= "sp2.id IN (" . implode(', ',$filter) .")";
+				//if ($fl_v != '') $fl_v .= ' AND ';
+				$fl_v .= implode(', ',$filter) .",";
 
 				foreach ($filter as $fil) {
 					$filters[] = $fil;
 				}
 			}
+			$fl_v = substr($fl_v,0,-1);
+			$fl_v .= ')';
 
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
@@ -1559,7 +1561,7 @@ class Products {
 		$f['price_opt_otpusk_usd'] = 0;
 		$f['price_mopt_otpusk_usd'] = 0;
 		$f['product_limit'] = 0;
-		$f['active'] = 0;
+		$f['active'] = 1;
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
@@ -3900,7 +3902,7 @@ class Products {
 
 	public function SetFieldsForMonitoringSpecifications($params){
 		foreach($params as $key => $value){
-//			print_r($value);
+
 		}
 	}
 

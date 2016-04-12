@@ -144,7 +144,7 @@
 			$item['price_opt'] > 0 ? $opt_available = true : $opt_available = false;?>
 			<div class="card clearfix" id="cart_item_<?=$item['id_product']?>">
 				<i class="material-icons remove_prod mdl-cell--hide-phone" onClick="removeFromCart('<?=$item['id_product']?>')">highlight_off</i>
-				<span class="remove_prod_mob">Удалить</span>
+				<span class="remove_prod_mob" onClick="removeFromCart('<?=$item['id_product']?>')">Удалить</span>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -366,7 +366,7 @@
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
 
-			$('.remove_prod').on('click', function(e){
+			$('.remove_prod, .remove_prod_mob').on('click', function(e){
 				$(this).closest('.card').addClass('hidden');
 				$('#removingProd').removeClass('hidden');
 			});

@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/adm/css/page_styles/productedit.css">
-
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
@@ -86,20 +85,18 @@
 							if(isset($_POST['Img']) && !empty($_POST['Img'])){ // определить, есть ли у этой новости массив картинок
 								foreach($_POST['Img'] as $photo){
 									if(isset($photo['src'])){?>
-										<? $imgTitle = basename($photo['src']); 
-											$imgSrc = '/news_images/'.$id_news.'/'.$imgTitle;?>
 										<div class="image_block dz-preview dz-image-preview">
 											<div class="sort_handle"><span class="icon-font">s</span></div>
 											<div class="image">
-												<img data-dz-thumbnail src="<?=$imgSrc?>"/>
-												<!--src="<?=$imgSrc?htmlspecialchars($photo['src']):'/efiles/_thumb/nofoto.jpg'?>"/>-->
+												<img data-dz-thumbnail src="<?=$photo['src']?>"/>
+												<!--src="<?=$photo['src'];?>"/>-->
 											</div>
 											<div class="name">
-												<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
+												<span class="dz-filename" data-dz-name><?=_base_url?><?=$photo['src']?></span>
 												<span class="dz-size" data-dz-size></span>
 											</div>
 											<div class="controls">
-												<p><span class="icon-font del_photo_js" data-img-src="<?=$imgSrc?>" data-dz-remove>t</span></p>
+												<p><span class="icon-font del_photo_js" data-img-src="<?=$photo['src']?>" data-dz-remove>t</span></p>
 											</div>
 											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 										</div>
@@ -117,6 +114,8 @@
 			<div class="col-md-12">
 				<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
 				<input type="text" name="date" id="date" class="input-m wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
+				<label>Дата редактирования: <span><?=(isset($_POST['date_update'])&&!isset($errm['date_update']))?htmlspecialchars($_POST['date_update']): ''?></span></label>
+				<label>Редактор: <span><?=(isset($_POST['user'])&&!isset($errm['user']))?htmlspecialchars($_POST['user']): ''?></span></label>
 			</div>
 			<div class="col-md-12" id="nav_visible">
 				<h2 class="blue-line">Видимость и индексация</h2>

@@ -23,9 +23,9 @@
 						<input type="text" name="ord[<?=$i['id']?>]" class="input-s" value="<?=$i['ord']?>"/>
 					</td>
 					<td class="left actions"><nobr>
-						<a class="btn-l-green-inv" href="/adm/postedit/<?=$i['id'];?>">редактировать</a>
-						<a class="btn-l-green-inv" href="/posts/<?=$i['id'].'/'.$i['translit'];?>/">смотреть</a>
-						<a class="btn-l-red-inv" href="/adm/postdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');">удалить</a>
+						<a class="btn-m-green-inv" href="/adm/postedit/<?=$i['id'];?>">редактировать</a>
+						<a class="btn-m-green-inv" href="/posts/<?=$i['id'].'/'.$i['translit'];?>/">смотреть</a>
+						<a class="btn-m-red-inv" href="/adm/postdel/<?=$i['id'];?>" onclick="return confirm('Точно удалить?');">удалить</a>
 						</nobr>
 					</td>
 				</tr>
@@ -34,7 +34,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td class="center">
-					<input class="btn-l-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"/>
+					<input class="btn-m-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"/>
 				</td>
 				<td>&nbsp;</td>
 			</tr>

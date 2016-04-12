@@ -7,7 +7,10 @@ class News{
 	public $list;
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_news", "title", "translit", "descr_short", "descr_full", "date", "visible", "ord", "page_title", "page_description", "page_keywords", "indexation", "sid", "thumbnail");
+		$this->usual_fields = array('id_news', 'title', 'translit',
+			'descr_short', 'descr_full', 'date', 'visible', 'ord',
+			'page_title', 'page_description', 'page_keywords',
+			'indexation', 'sid', 'thumbnail', 'date_update', 'id_user');
 	}
 	/**
 	 * Получить поля новости по транслиту
@@ -48,9 +51,17 @@ class News{
 			FROM "._DB_PREFIX_."image_news
 			WHERE id_news = '".$id_news."'";
 		$this->fields['Img'] = $this->db->GetArray($sqlImage);
+		if(isset($this->fields[id_user])) {
+			$sqlUser = "SELECT `name`
+				FROM " . _DB_PREFIX_ . "user
+				WHERE id_user = '" . $this->fields[id_user] . "'";
+			$this->fieldsU = $this->db->GetOneRowArray($sqlUser);
+			foreach ($this->fieldsU as $v) {
+				$this->fields['user'] = $v;
+			}
+		}
 		return true;
 	}
-
 
 	// Список (0 - только видимые. 1 - все, и видимые и невидимые)
 	public function NewsList($param = 0, $limit = "", $sid = null){
@@ -174,6 +185,8 @@ class News{
 		$f['sid']			= $arr['sid'];
 		$f['indexation']	= (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		$f['visible']		= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']   = Date('Y-m-d H:i:s');
+		$f['id_user']		= $_SESSION['member'][id_user];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'news', $f)){
 			$this->db->FailTrans();
@@ -183,21 +196,24 @@ class News{
 		$this->db->CompleteTrans();
 		return $id_news;
 	}
+
 	// Обновление статьи
 	public function UpdateNews($arr){
-		if(strpos($arr['thumb'], '/temp/') == true){
+		if(strpos($arr['thumb'], '/temp/')){
 			$images = new Images();
 			$path = $GLOBALS['PATH_news_img'].$arr['id_news'].'/';
 			$images->checkStructure($path);
-			$arr['thumb'] = trim($arr['thumb']);
+			if(preg_match('/[А-Яа-яЁё]/u', $arr['thumb'])){
+				$file = pathinfo($GLOBALS['PATH_global_root'].$arr['thumb']);
+				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
+				rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
+				$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+			}
 			$new_path = str_replace('temp/', trim($arr['id_news']).'/thumb_', $arr['thumb']);
-			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].str_replace('temp/', trim($arr['id_news']).'/thumb_', $arr['thumb']));
+			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].$new_path);
 			$arr['thumb'] = $new_path;
 		}
 		$f['title']				= trim($arr['title']);
-		$f['page_description']	= trim($arr['page_description']);
-		$f['page_title']		= trim($arr['page_title']);
-		$f['page_keywords']		= trim($arr['page_keywords']);
 		$f['descr_short']		= trim($arr['descr_short']);
 		$f['descr_full']		= trim($arr['descr_full']);
 		$f['thumbnail']			= trim($arr['thumb']);
@@ -207,6 +223,8 @@ class News{
 		$f['sid']				= $arr['sid'];
 		$f['indexation']		= isset($arr['indexation']) && $arr['indexation'] == "on"?1:0;
 		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']			= Date('Y-m-d H:i:s');
+		$f['id_user']			= $_SESSION['member'][id_user];
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."news", $f, "id_news = {$arr['id_news']}")){
 			$this->db->FailTrans();
@@ -240,7 +258,10 @@ class News{
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		}
 	}
-
+	/**
+	 * Получить последнюю новость
+	 * @param integer	$sid	id магазина
+	 */
 	public function LastNews($sid = null){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."news
@@ -250,56 +271,38 @@ class News{
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
-	// Добавление и удаление фото
-	public function UpdatePhoto($id_news, $images_arr = null, $thumb = null){
-		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news=".$id_news;
+
+	/**
+	 * Добавление и удаление фото
+	 * @param integer	$id_news		id новости
+	 * @param array		$images_arr		массив фотографий
+	 */
+	public function UpdatePhoto($id_news, $images_arr = array()){
+		$sql = "DELETE FROM "._DB_PREFIX_."image_news WHERE id_news = ".$id_news;
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
-		$f['id_news'] = trim($id_news);
-		if(isset($images_arr) && !empty($images_arr)) {
-			if(!file_exists($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news.'/')){
-				mkdir($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news);
-			}
-			foreach ($images_arr as $k => $src) {
-				if( strpos ( $src, '/temp/') == true) {
-					rename($GLOBALS['PATH_global_root'] . $src, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id_news . '/', $src));
-					$src = str_replace('temp/', $id_news . '/', $src);
+		$f['id_news'] = $id_news;
+		if(isset($images_arr) && !empty($images_arr)){
+			$images = new Images();
+			$path = $GLOBALS['PATH_news_img'].$id_news.'/';
+			$images->checkStructure($path);
+			foreach($images_arr as $src){
+				if(strpos($src, '/temp/')){
+					$new_path = str_replace('/temp/', '/'.$id_news.'/', $src);
+					rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].$new_path);
+					$src = $new_path;
 				}
-				if (empty($src)) {
-					return false; //Если URL пустой
-				}
-				$f['src'] = trim($src);
+				$f['src'] = $src;
 				$this->db->StartTrans();
-				if (!$this->db->Insert(_DB_PREFIX_ . 'image_news', $f)) {
+				if(!$this->db->Insert(_DB_PREFIX_.'image_news', $f)){
 					$this->db->FailTrans();
-					return false; //Если не удалось записать в базу
+					return false;
 				}
 				$this->db->CompleteTrans();
 			}
 		}
-		if(isset($thumb) && $thumb !='') {
-			if(!file_exists($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news.'/')){
-				mkdir($GLOBALS['PATH_global_root'] . 'news_images/' . $id_news);
-			}
-			if( strpos ( $thumb, '/temp/') == true) {
-				rename($GLOBALS['PATH_global_root'] . $thumb, $GLOBALS['PATH_global_root'] . str_replace('temp/', $id_news . '/thumb_', $thumb));
-				$thumb = str_replace('temp/', $id_news . '/thumb_', $thumb);
-			}
-			if (empty($thumb)) {
-				return false; //Если URL пустой
-			}
-
-			$sql = "UPDATE "._DB_PREFIX_."news SET `thumbnail` = '".$thumb."'
-					WHERE id_news = $id_news";
-			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		}
-
-		unset($id_news);
-		unset($f);
-		unset($thumb);
-		return true;//Если все ок
+		unset($id_news, $sql, $new_path, $f);
+		return true;
 	}
-
 }
-?>

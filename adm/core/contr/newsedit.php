@@ -1,53 +1,47 @@
 <?php
 $News = new News();
 unset($parsed_res);
-
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-	$id_news = $GLOBALS['REQAR'][1];
+	$id = $GLOBALS['REQAR'][1];
 }else{
 	header('Location: '.$GLOBALS['URL_base'].'404/');
 	exit();
 }
-if(!$News->SetFieldsById($id_news, false)){
+if(!$News->SetFieldsById($id, false)){
 	die('Ошибка при выборе новости.');
 }
-
-$tpl->Assign('h1', 'Редактирование новости');
-
+$header = 'Редактирование новости';
+$tpl->Assign('h1', $header);
 if(isset($_GET['upload']) == true){
-	$res = $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
-	echo str_replace('/../', '/', $res);
+	echo $Images->upload($_FILES, $GLOBALS['PATH_news_img'].'temp/');
 	exit(0);
 }
-
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = News_form_validate();
 
 	//Удаление фото при нажатии на корзину
 	if(isset($_POST['removed_images'])){
-		foreach($_POST['removed_images'] as $k=>$del_image){
-			unlink(str_replace('adm\core/../', '', $GLOBALS['PATH_root']).$del_image);
+		foreach($_POST['removed_images'] as $del_image){
+			unlink($GLOBALS['PATH_global_root'].$del_image);
 		}
 	}
 
 	//Добавление фото
 	if(isset($_POST['images'])){
-		foreach($_POST['images'] as $k=>$image){
-			if( strpos ($image, '/temp/') == true)
-			{
-				$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_news_img']), '', $image));
-				$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_news_img']) . trim($file['dirname']);
-				$images_arr[] = $bd_path . '/' . $file['basename'];
-			} else 	$images_arr[] = $image;
+		foreach($_POST['images'] as &$image){
+			if(preg_match('/[А-Яа-яЁё]/u', $image)){
+				$file = pathinfo($GLOBALS['PATH_global_root'].$image);
+				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
+				rename($GLOBALS['PATH_global_root'].$image, $new_file);
+				$image = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+			}
 		}
-	}else{
-		$images_arr =  array();
 	}
 
 	if(!$err){
 		if($id = $News->UpdateNews($_POST)){
-			$News->UpdatePhoto($id_news, $images_arr);
+			$News->UpdatePhoto($id, $_POST['images']);
 			$tpl->Assign('msg', 'Новость обновлена.');
 			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1){
 				$Mailer = new Mailer();
@@ -55,7 +49,7 @@ if(isset($_POST['smb'])){
 				// $Mailer->SendNewsToCustomersInterview($_POST);
 			}
 			unset($_POST);
-			if(!$News->SetFieldsById($id_news, false)) die('Ошибка при выборе новости.');
+			if(!$News->SetFieldsById($id, false)) die('Ошибка при выборе новости.');
 		}else{
 			$tpl->Assign('msg', 'Ошибка при обновлении новости.');
 			$tpl->Assign('errm', 1);
@@ -87,8 +81,8 @@ $parsed_res = array(
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Новости";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/news/';
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Редактирование новости";
-if(TRUE == $parsed_res['issuccess']){
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
+if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
 ?>

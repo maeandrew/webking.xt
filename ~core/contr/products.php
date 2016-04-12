@@ -240,8 +240,8 @@ while($cat = $dbtree->NextRow()){
 	if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 		$available_sorting_values = array(
 			'popularity desc' => 'популярные сверху',
-			'price_opt_otpus asc' => 'от дешевых к дорогим',
-			'price_opt_otpus desc' => 'от дорогих к дешевым',
+			'price_opt asc' => 'от дешевых к дорогим',
+			'price_opt desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
 			'name desc' => 'по названию от Я до А',
 		);
@@ -362,7 +362,7 @@ while($cat = $dbtree->NextRow()){
 		$products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	}else{
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid']);
+			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('order_by' => isset($orderby) ? $orderby : null));
 		}else{
 			$products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
 		}

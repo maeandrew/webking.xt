@@ -10,8 +10,8 @@
 		<label for="title">Заголовок:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
 		<input type="text" name="title" id="title" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
-        <div class="row seo_block hidden">
-			<div class="col-md-12">
+        <div class="row seo_block">
+			<div class="col-md-12 hidden">
 				<label for="page_title">Мета-заголовок (title):</label>
 				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
 				<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
@@ -22,64 +22,83 @@
 				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
 				<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
-		</div>
-		<label for="photobox">Миниатюра:</label>
-		<div id="photobox">
-			<div class="thumbpreviews">
-				<?$id_news = $GLOBALS['REQAR'][1];?>
-				<?if(isset($id_news)) {
-					if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>
-						<div class="image_block preloaded dz-preview dz-image-preview">
-							<div class="sort_handle"><span class="icon-font">s</span></div>
-							<div class="image">
-								<img data-dz-thumbnail src="<?=$_POST['thumbnail']?>"/>
-							</div>
-							<div class="name">
-								<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']?></span>
-								<span class="dz-size" data-dz-size></span>
-							</div>
-							<div class="controls">
-								<p><span class="icon-font del_miniphoto_js" data-img-src="<?=$_POST['thumbnail']?>" data-dz-remove>t</span></p>
-							</div>
-							<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']?>">
-						</div>
-					<?}?>
-				<?}?>
+			<div class="col-md-12">
+				<label for="photobox">Миниатюра:</label>
+				<div id="photobox">
+					<div class="thumbpreviews">
+						<?if(isset($_POST['id'])){
+							if(isset($_POST['thumbnail']) && !empty($_POST['thumbnail'])) {?>
+								<div class="image_block preloaded dz-preview dz-image-preview">
+									<div class="sort_handle"><span class="icon-font">s</span></div>
+									<div class="image">
+										<img data-dz-thumbnail src="<?=$_POST['thumbnail']?>"/>
+									</div>
+									<div class="name">
+										<span class="dz-filename" data-dz-name><?=$_POST['thumbnail']?></span>
+										<span class="dz-size" data-dz-size></span>
+									</div>
+									<div class="controls">
+										<p><span class="icon-font del_miniphoto_js" data-img-src="<?=$_POST['thumbnail']?>" data-dz-remove>t</span></p>
+									</div>
+									<input type="hidden" name="thumb" value="<?=$_POST['thumbnail']?>">
+								</div>
+							<?}?>
+						<?}?>
+					</div>
+					<div class="image_block_new thumb_block drop_zone_thumb animate">
+						<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+						<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+					</div>
+				</div>
 			</div>
-			<div class="image_block_new thumb_block drop_zone_thumb animate">
-				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
-				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+			<div class="col-md-12">
+		        <label for="content_preview">Короткое описание:</label><?=isset($errm['content_preview'])?"<span class=\"errmsg\">".$errm['content_preview']."</span><br>":null?>
+				<textarea name="content_preview" id="content_preview" class="input-m" rows="18" cols="195"><?=isset($_POST['content_preview'])?htmlspecialchars($_POST['content_preview']):null?></textarea>
+			</div>
+			<div class="col-md-12">
+				<label for="descr_full">Полное описание:</label>
+				<?=isset($errm['content'])?"<span class=\"errmsg\"><br>".$errm['content']."</span>":null?>
+				<textarea name="content" id="content" rows="38" cols="200"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
+			</div>
+			<!-- <div id="edit-container">
+				<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></div>
+			</div>
+			<script>
+				var editor = ace.edit("editor");
+				editor.setTheme("ace/theme/dreamweaver");
+				//editor.setTheme("ace/theme/clouds_midnight");
+				editor.setFontSize(15);
+				editor.getSession().setUseWrapMode(true);
+				editor.getSession().setMode("ace/mode/html");
+				function moreStuff(){
+					document.getElementById('content').value = editor.getValue();
+				}
+			</script> -->
+			<div class="col-md-12">
+				<label for="date">Дата создания:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
+				<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
+				<label>Дата редактирования: <span><?=(isset($_POST['user'])&&!isset($errm['date_update']))?htmlspecialchars($_POST['date_update']): ''?></span></label>
+				<label>Редактор: <span><?=(isset($_POST['user'])&&!isset($errm['user']))?htmlspecialchars($_POST['user']): ''?></span></label>
+			</div>
+			<div class="col-md-12" id="nav_visible">
+				<h2 class="blue-line">Видимость и индексация</h2>
+				<p><b>Скрыть статью &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
+				<label for="indexation"><b>Индексация &nbsp;</b>
+					<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
+				</label>
+			</div>
+			<div class="col-md-12">
+				<label for="sid">Сайт:</label>
+				<select class="input-m" name="sid" id="sid">
+					<option <?=isset($_POST['sid']) && $_POST['sid'] == 0?'selected':null;?> value="0">x-torg.com</option>
+					<option <?=isset($_POST['sid']) && $_POST['sid'] == 1?'selected':null;?> value="1">xt.ua</option>
+				</select>
+			</div>
+			<div class="col-md-12">
+				<input type="hidden" name="id" id="id" value="<?=isset($_POST['id'])?$_POST['id']:0;?>"/>
+				<button name="smb" type="submit" id="form_submit1" class="save-btn btn-l-default">Сохранить</button>
 			</div>
 		</div>
-        <label for="content_preview">Короткое описание:</label><?=isset($errm['content_preview'])?"<span class=\"errmsg\">".$errm['content_preview']."</span><br>":null?>
-		<textarea name="content_preview" id="content_preview" class="input-m" rows="18" cols="195"><?=isset($_POST['content_preview'])?htmlspecialchars($_POST['content_preview']):null?></textarea>
-		<p><b>Полное описание:</b></p><?=isset($errm['content'])?"<span class=\"errmsg\"><br>".$errm['content']."</span>":null?>
-		<textarea name="content" id="content" rows="38" cols="200"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></textarea>
-		<!-- <div id="edit-container">
-			<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['content'])?htmlspecialchars($_POST['content']):null?></div>
-		</div>
-		<script>
-			var editor = ace.edit("editor");
-			editor.setTheme("ace/theme/dreamweaver");
-			//editor.setTheme("ace/theme/clouds_midnight");
-			editor.setFontSize(15);
-			editor.getSession().setUseWrapMode(true);
-			editor.getSession().setMode("ace/mode/html");
-			function moreStuff(){
-				document.getElementById('content').value = editor.getValue();
-			}
-		</script> -->
-		<label for="date">Дата:</label><?=isset($errm['date'])?"<span class=\"errmsg\">".$errm['date']."</span><br>":null?>
-		<input type="text" name="date" id="date" class="input-l wa" value="<?=(isset($_POST['date'])&&!isset($errm['date']))?date("d.m.Y", $_POST['date']):date("d.m.Y", time())?>"/>
-		<div id="nav_visible">
-			<h2 class="blue-line">Видимость и индексация</h2>
-			<p><b>Скрыть новость &nbsp;</b><input class="vam" type="checkbox" name="visible" id="visible" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>/></p>
-			<label for="indexation"><b>Индексация &nbsp;</b>
-				<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
-			</label>
-		</div>
-		<input type="hidden" name="id" id="id" value="<?=isset($_POST['id'])?$_POST['id']:0;?>"/>
-		<button name="smb" type="submit" id="form_submit1" class="save-btn btn-l-default">Сохранить</button>
     </form>
 </div>
 
@@ -119,7 +138,7 @@
 			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
 			
 		}).on('removedfile', function(file){			
-			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;
+			removed_file2 = '/news_images/'+ <?=$_POST['id']?> +'/'+file.name;
 			$('.thumb_block').removeClass('hidden');
 			$('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		}).on('addedfile', function(file){
