@@ -332,7 +332,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				exit();
 				break;
-			case "get_cart":
+			case "GetCart":
 				echo json_encode($_SESSION['cart']);
 				break;
 			case "update_note":
