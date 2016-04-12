@@ -38,7 +38,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode(Link::Category($_POST['rewrite'], $_POST['params']));
 				break;
 			case "getmoreproducts":
-				
+
 				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
 				if($Products->list){
 					foreach($Products->list as &$p){

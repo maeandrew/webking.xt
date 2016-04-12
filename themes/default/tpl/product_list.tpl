@@ -28,7 +28,7 @@
 		<div class="count_cell card_item">Кол-во<br>в ящике</div>
 		<div class="product_check card_item">Добавить в<br>ассортимент</div>
 	</div>
-	<?foreach($list as $p){?>
+	<?foreach($list as $p){ ?>
 		<div class="card clearfix">
 			<div class="product_photo card_item">
 				<a href="#">
