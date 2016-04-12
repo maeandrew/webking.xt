@@ -2,7 +2,7 @@ function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'update_cart_qty', data).done(function(data){
 		
-		$('header .phone_menu a.cart').attr('data-badge', countOfOject(data.cart.products));
+		$('header .cart_item a.cart').attr('data-badge', countOfOject(data.cart.products));
 
 		completeCartProductAdd(data.cart);
 		qty = data.product.quantity;
