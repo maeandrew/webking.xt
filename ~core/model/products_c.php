@@ -1559,7 +1559,7 @@ class Products {
 		$f['price_opt_otpusk_usd'] = 0;
 		$f['price_mopt_otpusk_usd'] = 0;
 		$f['product_limit'] = 0;
-		$f['active'] = 0;
+		$f['active'] = 1;
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
