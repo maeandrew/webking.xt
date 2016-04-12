@@ -19,17 +19,17 @@ function SendToAjax(id, qty, button, direction, note){
 					break;
 				case 1:
 					console.log("16");
-					var sum = Math.round(10000 - data.cart.products_sum[3]).toFixed(2);
+					var sum = (10000 - data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(1, sum, 0);
 					break;
 				case 2:
 					console.log("10");
-					var sum = Math.round(3000 - data.cart.products_sum[3]).toFixed(2);
+					var sum = (3000 - data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(2, sum, 0);
 					break;
 				case 3:
 					console.log("0");
-					var sum = Math.round(500 - data.cart.products_sum[3]).toFixed(2);
+					var sum = (500 - data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(3, sum, 0);
 					break;
 				default:

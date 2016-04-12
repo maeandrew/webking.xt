@@ -1178,34 +1178,18 @@ function mousePos(e){
 }
 
 /* Смена отображаемой цены */
-function ChangePriceRange(id, sum, cookieVal){
+function ChangePriceRange(id, sum, val){
+
 	document.cookie="sum_range="+id+"; path=/";
-	if (cookieVal == 1){
+
+	if (val == 1){
 		document.cookie="manual=1; path=/";
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
-
 	}
 
-	ajax('cart', 'GetCart').done(function(data){
-			console.log(data.cart.products_sum[3]);
-			console.log("123");
-		});
 
-	/*sum = 'Дозаказать еще на '+ sum + ' грн.';
-		$('.order_balance').text(sum);*/
-
-	/*if (data.cart.products_sum[3] < 0){
-		$('.order_balance').text('Заказано достаточно!');
-	}else{
-		sum = 'Заказать еще на '+ sum + ' грн.';
-		$('.order_balance').text(sum);
-	}*/
 	if ($.cookie('manual') == 1){
-		/*console.log(sum);*/
-		/*console.log('<?=500 - $_SESSION['cart']['products_sum'][3];?>');*/
-
-
 		switch(id) {
 			case 0:
 				$('.buy_block').each(function(){
@@ -1220,12 +1204,25 @@ function ChangePriceRange(id, sum, cookieVal){
 						$(this).find('.price').html(priceMopt);
 					}
 				});
-
-				if (sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
+				if (val == 0) {
+					if (sum < 0){
+						$('.order_balance').text('Заказано достаточно!');
+					}else{
+						sum = 'Дозаказать еще на '+ sum + ' грн.';
+						$('.order_balance').text(sum);
+					}
 				}else{
-					sum = 'Дозаказать еще на '+ sum + ' грн.';
-					$('.order_balance').text(sum);
+					addLoadAnimation('.order_balance');
+					ajax('cart', 'GetCart').done(function(data){
+						removeLoadAnimation('.order_balance');
+						var newSum = 10000 - data.products_sum[3];
+						if (newSum < 0){
+						$('.order_balance').text('Заказано достаточно!');
+						}else{
+							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							$('.order_balance').text(newSum);
+						}
+					});
 				}
 				break;
 			case 1:
@@ -1242,11 +1239,25 @@ function ChangePriceRange(id, sum, cookieVal){
 					}
 				});
 
-				if (sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
+				if (val == 0) {
+					if (sum < 0){
+						$('.order_balance').text('Заказано достаточно!');
+					}else{
+						sum = 'Дозаказать еще на '+ sum + ' грн.';
+						$('.order_balance').text(sum);
+					}
 				}else{
-					sum = 'Дозаказать еще на '+ sum + ' грн.';
-					$('.order_balance').text(sum);
+					addLoadAnimation('.order_balance');
+					ajax('cart', 'GetCart').done(function(data){
+						removeLoadAnimation('.order_balance');
+						var newSum = 3000 - data.products_sum[3];
+						if (newSum < 0){
+						$('.order_balance').text('Заказано достаточно!');
+						}else{
+							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							$('.order_balance').text(newSum);
+						}
+					});
 				}
 				break;
 			case 2:
@@ -1263,11 +1274,25 @@ function ChangePriceRange(id, sum, cookieVal){
 					}
 				});
 
-				if (sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
+				if (val == 0) {
+					if (sum < 0){
+						$('.order_balance').text('Заказано достаточно!');
+					}else{
+						sum = 'Дозаказать еще на '+ sum + ' грн.';
+						$('.order_balance').text(sum);
+					}
 				}else{
-					sum = 'Дозаказать еще на '+ sum + ' грн.';
-					$('.order_balance').text(sum);
+					addLoadAnimation('.order_balance');
+					ajax('cart', 'GetCart').done(function(data){
+						removeLoadAnimation('.order_balance');
+						var newSum = 500 - data.products_sum[3];
+						if (newSum < 0){
+						$('.order_balance').text('Заказано достаточно!');
+						}else{
+							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							$('.order_balance').text(newSum);
+						}
+					});
 				}
 				break;
 			case 3:
