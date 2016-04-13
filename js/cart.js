@@ -5,14 +5,10 @@ function SendToAjax(id, qty, button, direction, note){
 		$('header .cart_item a.cart').attr('data-badge', countOfOject(data.cart.products));
 
 		completeCartProductAdd(data.cart);
-		// console.log(data.cart);
-		// console.log(data.cart.products_sum[3]);
 
 		// Автоматический пересчет скидки
-		/*var cookieVal = ;
-		console.log(cookieVal);*/
-		/*if ($.cookie('manual') == 0) {*/
-		switch(data.cart.cart_column) {
+		if ($.cookie('manual') == 0){
+			switch(data.cart.cart_column) {
 				case 0:
 					console.log("21");
 					ChangePriceRange(0, 0, 0);
@@ -34,8 +30,32 @@ function SendToAjax(id, qty, button, direction, note){
 					break;
 				default:
 					console.log('не работает все');
+				}
+		}else{
+			switch(data.cart.cart_column) {
+				case 0:
+					console.log("21");
+					ChangePriceRange(0, 0, 0);
+					break;
+				case 1:
+					console.log("16");
+					var sum = (data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(1, sum, 0);
+					break;
+				case 2:
+					console.log("10");
+					var sum = (data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(2, sum, 0);
+					break;
+				case 3:
+					console.log("0");
+					var sum = (data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(3, sum, 0);
+					break;
+				default:
+					console.log('не работает все');
 			}
-		/*}*/
+		}
 
 		qty = data.product.quantity;
 		var mode_text = 'от';

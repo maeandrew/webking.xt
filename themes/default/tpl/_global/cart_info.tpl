@@ -39,17 +39,25 @@
 					?>Без скидки!<?
 					break;
 				case 2:
-					if ((500 - $_SESSION['cart']['products_sum'][3]) < 0) {
-						?>Заказано достаточно!<?
+					if ($_COOKIE['manual'] == 1){
+						if ((500 - $_SESSION['cart']['products_sum'][3]) < 0) {
+							?>Заказано достаточно!<?
+						}else{
+							?>Дозаказать еще на: <span class="summ"><?=number_format(500 - $_SESSION['cart']['products_sum'][3], 2, ',', '');?></span> грн.<?
+						}
 					}else{
-						?>Дозаказать еще на: <span class="summ"><?=number_format(500 - $_SESSION['cart']['products_sum'][3], 2, ',', '');?></span> грн.<?
+						?>До следующей скидки <span class="summ"><?=number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '');?></span> грн.<?
 					}
 					break;
 				case 1:
-					if ((3000 - $_SESSION['cart']['products_sum'][3]) < 0) {
-						?>Заказано достаточно!<?
+					if ($_COOKIE['manual'] == 1){
+						if ((3000 - $_SESSION['cart']['products_sum'][3]) < 0) {
+							?>Заказано достаточно!<?
+						}else{
+						?>Дзаказать еще на: <span class="summ"><?=number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '')?></span> грн.<?
+						}
 					}else{
-					?>Дзаказать еще на: <span class="summ"><?=number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '')?></span> грн.<?
+						?>До следующей скидки <span class="summ"><?=number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '');?></span> грн.<?
 					}
 					break;
 				case 0:

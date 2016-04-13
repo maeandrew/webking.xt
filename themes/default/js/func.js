@@ -1179,15 +1179,12 @@ function mousePos(e){
 
 /* Смена отображаемой цены */
 function ChangePriceRange(id, sum, val){
-
-	document.cookie="sum_range="+id+"; path=/";
-
 	if (val == 1){
+		document.cookie="sum_range="+id+"; path=/";
 		document.cookie="manual=1; path=/";
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
 	}
-
 
 	if ($.cookie('manual') == 1){
 		switch(id) {
@@ -1205,7 +1202,7 @@ function ChangePriceRange(id, sum, val){
 					}
 				});
 				if (val == 0) {
-					if (sum < 0){
+					if (sum == 0){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
 						sum = 'Дозаказать еще на '+ sum + ' грн.';
@@ -1240,11 +1237,13 @@ function ChangePriceRange(id, sum, val){
 				});
 
 				if (val == 0) {
-					if (sum < 0){
+					var newSum = 10000 - sum;
+					var sumRange = $.cookie('sum_range');
+					if (newSum > 3000 && sumRange != 0){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
-						sum = 'Дозаказать еще на '+ sum + ' грн.';
-						$('.order_balance').text(sum);
+						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+						$('.order_balance').text(newSum);
 					}
 				}else{
 					addLoadAnimation('.order_balance');
@@ -1275,11 +1274,13 @@ function ChangePriceRange(id, sum, val){
 				});
 
 				if (val == 0) {
-					if (sum < 0){
+					var newSum = 3000 - sum;
+					var sumRange = $.cookie('sum_range');
+					if (newSum > 500 && sumRange != 1){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
-						sum = 'Дозаказать еще на '+ sum + ' грн.';
-						$('.order_balance').text(sum);
+						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+						$('.order_balance').text(newSum);
 					}
 				}else{
 					addLoadAnimation('.order_balance');
@@ -1309,12 +1310,24 @@ function ChangePriceRange(id, sum, val){
 					}
 				});
 
-				$('.order_balance').text('Без скидки!');
+				if (val == 0) {
+					var newSum = 500 - sum;
+					var sumRange = $.cookie('sum_range');
+					if (newSum > 0 && sumRange != 2){
+						$('.order_balance').text('Заказано достаточно!');
+					}else{
+						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+						$('.order_balance').text(newSum);
+					}
+				}else{
+					$('.order_balance').text('Без скидки!');
+				}
 				break;
 			default:
 				console.log("Что-то не работает")
 		}
 	}else{
+		document.cookie="sum_range="+id+"; path=/";
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
 		switch(id) {
@@ -1331,13 +1344,7 @@ function ChangePriceRange(id, sum, val){
 						$(this).find('.price').html(priceMopt);
 					}
 				});
-
-				if (sum < 0){
 					$('.order_balance').text('Заказано достаточно!');
-				}else{
-					sum = 'До следующей скидки '+ sum + ' грн.';
-					$('.order_balance').text(sum);
-				}
 				break;
 			case 1:
 				$('.buy_block').each(function(){
