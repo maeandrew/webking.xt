@@ -813,14 +813,14 @@ class dbtree {
 	}
 
 	public function GetTranslitById($id_category){
-		$sql = "SELECT translit FROM xt_category  WHERE id_category = ".$id_category;
+		$sql = "SELECT translit FROM "._DB_PREFIX_."category  WHERE id_category = ".$id_category;
 		//
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
 
 	public function GetNameById($id_category){
-		$sql = "SELECT name FROM xt_category  WHERE id_category = ".$id_category;
+		$sql = "SELECT name FROM "._DB_PREFIX_."category  WHERE id_category = ".$id_category;
 		//
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
@@ -882,13 +882,39 @@ class dbtree {
 		return $res;
 	}
 
+	//Достаем категории для сегментации=================================================================================
+	public function GetCatSegmentation($segmtype){
+		$sql = 'SELECT id_category FROM '._DB_PREFIX_.'category
+			WHERE id_category IN (SELECT id_category FROM '._DB_PREFIX_.'cat_prod
+			WHERE id_product IN (SELECT id_product FROM '._DB_PREFIX_.'segment_prods
+			WHERE id_segment IN  (SELECT id FROM '._DB_PREFIX_.'segmentation
+			WHERE type = '.$segmtype.'))) AND visible > 0';
+		$res = $this->db->GetArray($sql); //print_r($res); die();
+		return $res;
+	}
+
+	public function GetParentCatsSegmentation($ID, $fields, $level){
+		if(is_array($fields)){
+			$fields = implode(', ', $fields);
+		}else{
+			$fields = '*';
+		}
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 ORDER BY position';
+		$res = $this->db->GetArray($sql);// print_r($res); die();
+		return $res;
+	}
+
+
+
+	//------------------------------------------------------------------------------------------------------------------
+
 	public function GetCats($fields, $level){
 		if(is_array($fields)){
 			$fields = implode(', ', $fields);
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position'; //print_r($sql); die();
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -899,7 +925,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position'; //print_r($sql); die();
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -922,7 +948,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE xt_category.pid = '.$ID.' ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '._DB_PREFIX_.'category.pid = '.$ID.' ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -931,7 +957,7 @@ class dbtree {
 	public function UpdateCatPosition($pos, $cat_id){
 		$category_id = $this->db->Quote($cat_id);
 		$position = $this->db->Quote($pos);
-		$sql = 'UPDATE xt_category SET position = '.$position.' WHERE id_category = '.$category_id;
+		$sql = 'UPDATE '._DB_PREFIX_.'category SET position = '.$position.' WHERE id_category = '.$category_id;
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->db->FailTrans();
@@ -943,7 +969,7 @@ class dbtree {
 
 	public function GetTagsLevelsList($category_id){
 		$category_id = $this->db->Quote($category_id);
-		$sql = 'SELECT tag_level, tag_level_name FROM xt_category_tags WHERE id_category = '.$category_id.' GROUP BY tag_level ORDER BY tag_level, tag_level_name';
+		$sql = 'SELECT tag_level, tag_level_name FROM '._DB_PREFIX_.'category_tags WHERE id_category = '.$category_id.' GROUP BY tag_level ORDER BY tag_level, tag_level_name';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -951,21 +977,21 @@ class dbtree {
 	public function GetTagsList($category_id, $tag_level){
 		$category_id = $this->db->Quote($category_id);
 		$tag_level = $this->db->Quote($tag_level);
-		$sql = 'SELECT * FROM xt_category_tags WHERE id_category = '.$category_id.' AND tag_level = '.$tag_level.' ORDER BY tag_level, tag_name';
+		$sql = 'SELECT * FROM '._DB_PREFIX_.'category_tags WHERE id_category = '.$category_id.' AND tag_level = '.$tag_level.' ORDER BY tag_level, tag_name';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
 
 	public function GetTagById($tag_id){
 		$tag_id = $this->db->Quote($tag_id);
-		$sql = 'SELECT * FROM xt_category_tags WHERE tag_id = '.$tag_id;
+		$sql = 'SELECT * FROM '._DB_PREFIX_.'category_tags WHERE tag_id = '.$tag_id;
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
 
 	public function DropTagById($tag_id){
 		$tag_id = $this->db->Quote($tag_id);
-		$sql = 'DELETE FROM xt_category_tags WHERE tag_id = '.$tag_id;
+		$sql = 'DELETE FROM '._DB_PREFIX_.'category_tags WHERE tag_id = '.$tag_id;
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
 			$this->db->CompleteTrans();
@@ -979,7 +1005,7 @@ class dbtree {
 	public function DropLevelById($category_id, $tag_level){
 		$category_id = $this->db->Quote($category_id);
 		$tag_level = $this->db->Quote($tag_level);
-		$sql = 'DELETE FROM xt_category_tags WHERE tag_level = '.$tag_level.' AND id_category = '.$category_id;
+		$sql = 'DELETE FROM '._DB_PREFIX_.'category_tags WHERE tag_level = '.$tag_level.' AND id_category = '.$category_id;
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
 			$this->db->CompleteTrans();
@@ -996,7 +1022,7 @@ class dbtree {
 		$keys = $this->db->Quote($keys);
 		$level = $this->db->Quote($level);
 		$level_name = $this->db->Quote($level_name);
-		$sql = 'INSERT INTO xt_category_tags (id_category, tag_name, tag_keys, tag_level, tag_level_name) VALUES ('.$category_id.', '.$name.', '.$keys.', '.$level.', '.$level_name.')';
+		$sql = 'INSERT INTO '._DB_PREFIX_.'category_tags (id_category, tag_name, tag_keys, tag_level, tag_level_name) VALUES ('.$category_id.', '.$name.', '.$keys.', '.$level.', '.$level_name.')';
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
 			$this->db->CompleteTrans();
@@ -1014,7 +1040,7 @@ class dbtree {
 		$keys = $this->db->Quote($keys);
 		$level = $this->db->Quote($level);
 		$level_name = $this->db->Quote($level_name);
-		$sql = 'UPDATE xt_category_tags SET id_category = '.$category_id.', tag_name = '.$name.', tag_keys = '.$keys.', tag_level = '.$level.', tag_level_name = '.$level_name.' WHERE tag_id = '.$tag_id;
+		$sql = 'UPDATE '._DB_PREFIX_.'category_tags SET id_category = '.$category_id.', tag_name = '.$name.', tag_keys = '.$keys.', tag_level = '.$level.', tag_level_name = '.$level_name.' WHERE tag_id = '.$tag_id;
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
 			$this->db->CompleteTrans();
@@ -1029,7 +1055,7 @@ class dbtree {
 		$category_id = $this->db->Quote($category_id);
 		$level = $this->db->Quote($level);
 		$level_name = $this->db->Quote($level_name);
-		$sql = 'UPDATE xt_category_tags SET tag_level_name = '.$level_name.' WHERE tag_level = '.$level.' AND id_category = '.$category_id;
+		$sql = 'UPDATE '._DB_PREFIX_.'category_tags SET tag_level_name = '.$level_name.' WHERE tag_level = '.$level.' AND id_category = '.$category_id;
 		$this->db->StartTrans();
 		if($this->db->Execute($sql)){
 			$this->db->CompleteTrans();

@@ -1,6 +1,6 @@
 <div class="catalog">
 	<ul class="main_nav">
-		<!-- <li data-nav="organization">
+		<li data-nav="organization">
 			<i class="material-icons">work</i>Для организаций
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -20,7 +20,7 @@
 			<div class="info_description">
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
-		</li> -->
+		</li>
 		<?if($GLOBALS['CurrentController'] != 'main' && in_array($GLOBALS['CurrentController'], array('main', 'products'))){?>			
 			<li data-nav="filter">
 				<i class="material-icons">filter_list</i>

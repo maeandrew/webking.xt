@@ -1,5 +1,5 @@
 <?php
-function generateNavigation($list, $lvl = 0){
+function generateNavigation($list, $lvl = 0){ //print_r($list); die();
 	$lvl++;
 	$ul = '<ul '.($lvl == 1?'class="second_nav" ':'').'data-lvl="'.$lvl.'">';
 	foreach($list as $l){
