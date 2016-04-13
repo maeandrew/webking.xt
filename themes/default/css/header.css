@@ -376,7 +376,11 @@ header.opened {
 		display: none;
 	}
 	header .header_wrapp .user_profile {
-		margin-left: 10px; 
+		margin-left: 10px;
+	}
+	header .header_wrapp .user_profile a.login_btn {
+		height: 32px;
+		line-height: 32px;
 	}
 
 @media (max-width: 1150px) {
