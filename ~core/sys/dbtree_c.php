@@ -890,6 +890,9 @@ class dbtree {
 			WHERE id_segment IN  (SELECT id FROM '._DB_PREFIX_.'segmentation
 			WHERE type = '.$segmtype.'))) AND visible > 0';
 		$res = $this->db->GetArray($sql); //print_r($res); die();
+		foreach($res as $key => &$value){
+			$value = $value['id_category'];
+		}
 		return $res;
 	}
 
