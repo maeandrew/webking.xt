@@ -32,43 +32,48 @@ require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 
 if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	// Шапка сайта
-	$custom = 0;
+	//$time_start = microtime(true);
+//	$custom = 0;
 	$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
-	if($custom == 0){
-		foreach($navigation as &$l1){
-			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
-			foreach($level2 as &$l2){
-				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
-				$l2['subcats'] = $level3;
-			}
-			$l1['subcats'] = $level2;
+	foreach($navigation as &$l1){
+		$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
+		foreach($level2 as &$l2){
+			$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
+			$l2['subcats'] = $level3;
 		}
-	}else{
-		$needed = $dbtree->GetCatSegmentation(1);
-		foreach($navigation as $key1 => &$l1){
-			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
-			foreach($level2 as $key2 => &$l2){
-				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
-				foreach($level3 as $key3 => &$l3){
-					if(!in_array($l3['id_category'], $needed)){
-						unset($level3[$key3]);
-					}
-				}
-				if(in_array($l2['id_category'], $needed) || !empty($level3)){
-					$l2['subcats'] = $level3;
-				}else{
-					unset($level2[$key2]);
-				}
-			}
-			if(in_array($l1['id_category'], $needed) || !empty($level2)){
-				$l1['subcats'] = $level2;
-			}else{
-				unset($navigation[$key1]);
-			}
-		}
+		$l1['subcats'] = $level2;
 	}
+//	if($custom == 0){
+//	}else{
+//		$needed = $dbtree->GetCatSegmentation(1);
+//		foreach($navigation as $key1 => &$l1){
+//			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
+//			foreach($level2 as $key2 => &$l2){
+//				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
+//				foreach($level3 as $key3 => &$l3){
+//					if(!in_array($l3['id_category'], $needed)){
+//						unset($level3[$key3]);
+//					}
+//				}
+//				if(in_array($l2['id_category'], $needed) || !empty($level3)){
+//					$l2['subcats'] = $level3;
+//				}else{
+//					unset($level2[$key2]);
+//				}
+//			}
+//			if(in_array($l1['id_category'], $needed) || !empty($level2)){
+//				$l1['subcats'] = $level2;
+//			}else{
+//				unset($navigation[$key1]);
+//			}
+//		}
+//	}
+	//$time_end = microtime(true);
+	//$time = $time_end - $time_start;
+	//print_r($time); die();
 	$tpl->Assign('navigation', $navigation);
 	$tpl_header .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'top_main.tpl');
+
 
 	// GRAPH
 	if($GLOBALS['CurrentController'] == 'main'){

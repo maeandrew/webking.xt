@@ -1,19 +1,29 @@
 <?
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-//Segmentation
-if(isset($_POST['segmtype']) && $_POST['segmtype'] !='' ){
-    $navigation = $dbtree->GetCatSegmentation(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), $_POST['segmtype']);
-    foreach($navigation as &$l1){
-        $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
-        foreach($level2 as &$l2){
-            $level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
-            foreach ($level3 as &$l3) {
-                if(!$l3['id_category']){
-                    unset($l3);
-                }
+//Достаем сегменты, которые попадают под тип сегментации
+$segments = $dbtree->Getsegments(1);
+//Достаем категории 1-го уровня
+$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
+//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
+$needed = $dbtree->GetCatSegmentation(1, 12);
+foreach($navigation as $key1 => &$l1){
+    $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
+    foreach($level2 as $key2 => &$l2){
+        $level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
+        foreach($level3 as $key3 => &$l3){
+            if(!in_array($l3['id_category'], $needed)){
+                unset($level3[$key3]);
             }
-            $l2['subcats'] = $level3;
         }
+        if(in_array($l2['id_category'], $needed) || !empty($level3)){
+            $l2['subcats'] = $level3;
+        }else{
+            unset($level2[$key2]);
+        }
+    }
+    if(in_array($l1['id_category'], $needed) || !empty($level2)){
         $l1['subcats'] = $level2;
+    }else{
+        unset($navigation[$key1]);
     }
 }

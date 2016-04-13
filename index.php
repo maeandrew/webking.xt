@@ -17,30 +17,6 @@ $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 require($GLOBALS['PATH_core'].'routes.php');
 
-$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$navigation = $dbtree->GetCatSegmentation(1);
-foreach($navigation as &$val) {
-	$level3 = $dbtree->GetParentCatsSegmentation($val['id_category'], array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 3);
-	foreach($level3 as &$l3){
-		$val2[]['id_category'] = $l3['pid'];
-		$lev3[] = $l3;
-		$levdel[]['id_category'] = $l3['id_category'];
-
-	}
-}
-$result = array_merge($navigation, $val2);
-
-
-echo'<pre>';
-	print_r($lev3);
-	//print_r($navigation);
-	//print_r($val2);
-	//print_r($result);
-	//print_r($levdel);
-echo'</pre>';
-die();
-
-
 G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('reset.css');

@@ -882,15 +882,22 @@ class dbtree {
 		return $res;
 	}
 
-	//Достаем категории для сегментации=================================================================================
-	public function GetCatSegmentation($segmtype){
+	//Достаем сегменты и  категории для сегментации=====================================================================
+	public function Getsegments($segmtype){
+		$sql = 'SELECT * FROM xt_segmentation
+			WHERE type = '. $segmtype .' AND id IN (SELECT id_segment FROM xt_segment_prods)';
+		$res = $this->db->GetArray($sql);
+		return $res;
+	}
+
+	public function GetCatSegmentation($segmtype, $id_segm){
 		$sql = 'SELECT id_category FROM '._DB_PREFIX_.'category
 			WHERE id_category IN (SELECT id_category FROM '._DB_PREFIX_.'cat_prod
 			WHERE id_product IN (SELECT id_product FROM '._DB_PREFIX_.'segment_prods
 			WHERE id_segment IN  (SELECT id FROM '._DB_PREFIX_.'segmentation
-			WHERE type = '.$segmtype.'))) AND visible > 0';
-		$res = $this->db->GetArray($sql); //print_r($res); die();
-		foreach($res as $key => &$value){
+			WHERE type = '.$segmtype.' AND id = '. $id_segm .'))) AND visible > 0';
+		$res = $this->db->GetArray($sql);
+		foreach($res as &$value){
 			$value = $value['id_category'];
 		}
 		return $res;
@@ -903,12 +910,9 @@ class dbtree {
 			$fields = '*';
 		}
 		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 ORDER BY position';
-		$res = $this->db->GetArray($sql);// print_r($res); die();
+		$res = $this->db->GetArray($sql);
 		return $res;
 	}
-
-
-
 	//------------------------------------------------------------------------------------------------------------------
 
 	public function GetCats($fields, $level){
@@ -917,7 +921,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position'; //print_r($sql); die();
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -928,7 +932,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position'; //print_r($sql); die();
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
