@@ -177,7 +177,7 @@
 					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
 					<div class="buy_block">
 						<div class="price">
-							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", "");?>
+							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "");?>
 						</div>
 						<div class="quantity">
 							<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
