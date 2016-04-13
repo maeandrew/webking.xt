@@ -80,18 +80,18 @@ if(G::isLogged()){
 // 		$db->Query($sql);
 // 	}
 // }
-$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."'";
+$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 $ips = $db->GetOneRowArray($sql);
 if(!$ips){
-	$accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
-	$url            = "https://api.udger.com/v3/parse";
-	$ua             = $_SERVER['HTTP_USER_AGENT'];
-	$ip             = "66.249.64.1";
+	// $accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
+	// $url            = "https://api.udger.com/v3/parse";
+	// $ua             = $_SERVER['HTTP_USER_AGENT'];
+	// $ip             = "66.249.64.1";
 
-	$res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
-	$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent, explanation) VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."', '".$res."')";
+	// $res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
+	$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent) VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."')";
 }else{
-	$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."' WHERE ip = '".$_SESSION['client']['ip']."'";
+	$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."' WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 }
 $db->Query($sql);
 $block = array(/*'69.162.124.231',*/ '38.100.118.15');
