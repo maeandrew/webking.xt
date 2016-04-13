@@ -179,6 +179,12 @@
 						<div class="price">
 							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "");?>
 						</div>
+						<div class="prodPrices hidden">
+							<?for ($i = 0; $i < 4; $i++){?>
+								<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+								<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+							<?}?>
+						</div>
 						<div class="quantity">
 							<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 							<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">

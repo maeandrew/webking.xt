@@ -1187,20 +1187,9 @@ function ChangePriceRange(id, sum, val){
 	}
 
 	if ($.cookie('manual') == 1){
+		var column = $.cookie('sum_range');
 		switch(id) {
 			case 0:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt0').val();
-					var priceMopt = $(this).find('.priceMopt0').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
 				if (val == 0) {
 					if (sum == 0){
 						$('.order_balance').text('Заказано достаточно!');
@@ -1223,23 +1212,9 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 1:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt1').val();
-					var priceMopt = $(this).find('.priceMopt1').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
-
 				if (val == 0) {
 					var newSum = 10000 - sum;
-					var sumRange = $.cookie('sum_range');
-					if (newSum > 3000 && sumRange != 0){
+					if (newSum > 3000 && column != 0){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
 						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
@@ -1260,24 +1235,10 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 2:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt2').val();
-					var priceMopt = $(this).find('.priceMopt2').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
-
 				if (val == 0) {
 					var newSum = 3000 - sum;
-					var sumRange = $.cookie('sum_range');
-					if (newSum > 500 && sumRange != 1){
-						if (sumRange == 0){
+					if (newSum > 500 && column != 1){
+						if (column == 0){
 							newSum = 10000 - sum;
 							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
 							$('.order_balance').text(newSum);
@@ -1296,44 +1257,29 @@ function ChangePriceRange(id, sum, val){
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}
 					});
 				}
 				break;
 			case 3:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt3').val();
-					var priceMopt = $(this).find('.priceMopt3').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
-
 				if (val == 0) {
 					var newSum = 500 - sum;
-					var sumRange = $.cookie('sum_range');
-
-					if (newSum > 0 && sumRange != 2){
-						if (sumRange == 1){
+					if (newSum > 0 && column != 2){
+						if (column == 1){
 							newSum = 3000 - sum;
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
-						}else if (sumRange == 0){
+						}else if (column == 0){
 							newSum = 10000 - sum;
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
 							$('.order_balance').text('Заказано достаточно!');
 						}
 					}else{
-						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+						newSum = 'Дозаказать еще на '+newSum+' грн.';
 						$('.order_balance').text(newSum);
 					}
 				}else{
@@ -1347,36 +1293,12 @@ function ChangePriceRange(id, sum, val){
 		document.cookie="sum_range="+id+"; path=/";
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
+		var column = id;
 		switch(id) {
 			case 0:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt0').val();
-					var priceMopt = $(this).find('.priceMopt0').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
 					$('.order_balance').text('Заказано достаточно!');
 				break;
 			case 1:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt1').val();
-					var priceMopt = $(this).find('.priceMopt1').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
-
 				if (sum < 0){
 					$('.order_balance').text('Заказано достаточно!');
 				}else{
@@ -1385,19 +1307,6 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 2:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt2').val();
-					var priceMopt = $(this).find('.priceMopt2').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
-
 				if (sum < 0){
 					$('.order_balance').text('Заказано достаточно!');
 				}else{
@@ -1406,25 +1315,25 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 3:
-				$('.buy_block').each(function(){
-					var minQty = parseInt($(this).find('.minQty').val());
-					var curentQty =	parseInt($(this).find('.qty_js').val());
-					var priceOpt = $(this).find('.priceOpt3').val();
-					var priceMopt = $(this).find('.priceMopt3').val();
-
-					if (curentQty >= minQty) {
-						$(this).find('.price').html(priceOpt);
-					}else if (curentQty < minQty) {
-						$(this).find('.price').html(priceMopt);
-					}
-				});
-
 				$('.order_balance').text('Без скидки!');
 				break;
 			default:
 				console.log("Что-то не работает")
 		}
 	}
+	$('.product_buy').each(function(){
+		var minQty = parseInt($(this).find('.minQty').val());
+		var curentQty =	parseInt($(this).find('.qty_js').val());
+
+		if(curentQty >= minQty){
+			var price = $(this).find('.priceOpt'+column).val();
+			$(this).find('.priceMoptInf').addClass('hidden');
+		}else{
+			var price = $(this).find('.priceMopt'+column).val();
+			$(this).find('.priceMoptInf').removeClass('hidden');
+		}
+		$(this).find('.price').html(price);
+	});
 	setTimeout(function(){
 		$('.product_buy .price').stop(true,true).css({
 			"background-color": "#b0eeb2"
