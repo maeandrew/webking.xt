@@ -1277,7 +1277,13 @@ function ChangePriceRange(id, sum, val){
 					var newSum = 3000 - sum;
 					var sumRange = $.cookie('sum_range');
 					if (newSum > 500 && sumRange != 1){
-						$('.order_balance').text('Заказано достаточно!');
+						if (sumRange == 0){
+							newSum = 10000 - sum;
+							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							$('.order_balance').text(newSum);
+						}else{
+							$('.order_balance').text('Заказано достаточно!');
+						}
 					}else{
 						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
 						$('.order_balance').text(newSum);
@@ -1313,8 +1319,19 @@ function ChangePriceRange(id, sum, val){
 				if (val == 0) {
 					var newSum = 500 - sum;
 					var sumRange = $.cookie('sum_range');
+
 					if (newSum > 0 && sumRange != 2){
-						$('.order_balance').text('Заказано достаточно!');
+						if (sumRange == 1){
+							newSum = 3000 - sum;
+							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							$('.order_balance').text(newSum);
+						}else if (sumRange == 0){
+							newSum = 10000 - sum;
+							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							$('.order_balance').text(newSum);
+						}else{
+							$('.order_balance').text('Заказано достаточно!');
+						}
 					}else{
 						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
 						$('.order_balance').text(newSum);
