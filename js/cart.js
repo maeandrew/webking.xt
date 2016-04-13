@@ -55,21 +55,17 @@ function SendToAjax(id, qty, button, direction, note){
 		if ($.cookie('manual') == 0){
 			switch(data.cart.cart_column) {
 				case 0:
-					console.log("21");
 					ChangePriceRange(0, 0, 0);
 					break;
 				case 1:
-					console.log("16");
 					var sum = (10000 - data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(1, sum, 0);
 					break;
 				case 2:
-					console.log("10");
 					var sum = (3000 - data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(2, sum, 0);
 					break;
 				case 3:
-					console.log("0");
 					var sum = (500 - data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(3, sum, 0);
 					break;
@@ -79,21 +75,17 @@ function SendToAjax(id, qty, button, direction, note){
 		}else{
 			switch(data.cart.cart_column) {
 				case 0:
-					console.log("21");
 					ChangePriceRange(0, 0, 0);
 					break;
 				case 1:
-					console.log("16");
 					var sum = (data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(1, sum, 0);
 					break;
 				case 2:
-					console.log("10");
 					var sum = (data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(2, sum, 0);
 					break;
 				case 3:
-					console.log("0");
 					var sum = (data.cart.products_sum[3]).toFixed(2);
 					ChangePriceRange(3, sum, 0);
 					break;

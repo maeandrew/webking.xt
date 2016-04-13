@@ -1237,10 +1237,10 @@ function ChangePriceRange(id, sum, val){
 			case 2:
 				if (val == 0) {
 					var newSum = 3000 - sum;
-					if (newSum > 500 && column != 1){
+					if (newSum > 0 && column != 1){
 						if (column == 0){
 							newSum = 10000 - sum;
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
+							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
 							$('.order_balance').text('Заказано достаточно!');
