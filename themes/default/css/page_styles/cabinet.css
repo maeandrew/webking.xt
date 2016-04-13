@@ -44,6 +44,58 @@ hr {
 .cabinet_content {
 	width: calc(100% - 300px);
 	float: right;
+	text-align: justify;
+	margin-top: 20px;
+}
+
+.cabinet_content .editproduct {
+	float: left;
+	width: 33%;
+	padding: 0 0 40px 40px;
+}
+.cabinet_content .help_block {
+	float: right;
+	width: 62%;
+	padding: 0 10px;
+}
+.cabinet_content .editproduct .num_item {
+	margin-right: 5px;
+}
+.cabinet_content .editproduct .col-md-12 {
+	margin-bottom: 10px;	
+}
+.cabinet_content .editproduct .input_row {
+	display: flex;
+    align-items: center;
+    width: 100%;
+}
+.cabinet_content .editproduct .input_col {
+	flex-direction: column;
+}
+.cabinet_content .editproduct .input_col > * {
+	align-self: flex-start;
+}
+.cabinet_content .editproduct .input_row .span_for_checkbox {
+	width: 900px;
+}
+.cabinet_content .editproduct .input_row .label_imit {
+	width: 170px;
+}
+.cabinet_content .editproduct .input_row .mdl-textfield {
+	width: 330px;
+}
+.cabinet_content .editproduct select[name="id_unit"] {
+	padding: 0;
+}
+.cabinet_content .editproduct select#units {
+	width: 100px;	
+}
+.cabinet_content .editproduct .col-md-12 .gabarits {
+	margin-left: 23px;
+}
+.cabinet_content .editproduct .col-md-12 button[name="editionsubmit"] {
+	background-color: #018b06;
+	color: #fff;
 }
 
 /* Contragent cabinet ====================================================== */
@@ -652,7 +704,7 @@ table.supplier_assort_table {
 .editproduct label {
 	float: left;
 	clear: both;
-	width: 100%;
+	/*width: 100%;*/
 }
 .editproduct label[for="height"],
 .editproduct label[for="width"],
@@ -676,14 +728,18 @@ table.supplier_assort_table {
 }
 #editbox .error {
 	display: block;
+	margin: 0 16px;
 	width: 60%;
 	font-weight: normal;
-	float: right;
+	/*float: right;*/
 	color: #f00;
 	clear: both;
+	/*padding: 10px;*/
+	/*text-align: center;*/
 }
 #editbox select {
 	background: #fff;
+	outline: none;
 }
 #editbox #photobox {
 	position: relative;
@@ -818,6 +874,8 @@ table.supplier_assort_table {
 	clear: both;
 }
 #help li {
+	clear: both;
+    width: 99%;
 	padding: .5em;
 	margin-bottom: .5em;
 	border: 1px solid transparent;
