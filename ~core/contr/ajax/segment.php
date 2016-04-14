@@ -8,8 +8,9 @@ $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 if(isset($_POST['action'])){
     switch($_POST['action']){
         case "segments":
-           // $segments = $dbtree->Getsegments($_POST['segmentation']);
-            echo json_encode($dbtree->Getsegments($_POST['type']));
+            $segments = $dbtree->Getsegments($_POST['type']);
+            echo json_encode($segments);
+            exit();
             break;
         case "segmcat":
             //Достаем категории 1-го уровня
