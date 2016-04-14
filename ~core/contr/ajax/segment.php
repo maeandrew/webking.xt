@@ -8,8 +8,15 @@ $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 if(isset($_POST['action'])){
     switch($_POST['action']){
         case "segments":
-           // $segments = $dbtree->Getsegments($_POST['segmentation']);
-            echo json_encode($dbtree->Getsegments($_POST['type']));
+            $segments = $dbtree->Getsegments($_POST['type']);
+
+            $segm = '<ul>';
+                foreach($segments as &$v){
+                    $segm .= '<li data-id="'.$v['id'].'">' . $v['name'] . '</li>';
+                }
+            $segm .= '</ul>';
+            echo $segm;
+            exit();
             break;
         case "segmcat":
             //Достаем категории 1-го уровня
@@ -37,6 +44,8 @@ if(isset($_POST['action'])){
                     unset($navigation[$key1]);
                 }
             }
+            echo json_encode($navigation);
+            exit();
             break;
         default:
             break;

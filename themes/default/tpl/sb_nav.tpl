@@ -40,16 +40,17 @@
 $(function(){
 	$("#organization").click(function() {
 			console.log('орг-н');
-			ajax('segment', 'segments', {type: 1}).done(function(){
-					console.log("орг-н бек");
-				});
+			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
+				console.log(data);
+
+			});
 		})
 
 	$("#store").click(function() {
 			console.log('стор');
-			ajax('segment', 'segments', {type: 2}).done(function(){
-					console.log("сторе бек");
-				});
+			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
+				console.log(data);
+			});
 		})
 ;});
 </script>
