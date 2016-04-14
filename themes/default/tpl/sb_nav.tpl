@@ -14,7 +14,7 @@
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</li>
-		<li class="active" data-nav="all_section">
+		<li id="allSection" class="active" data-nav="all_section">
 			<i class="material-icons">list</i>Все разделы
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -34,23 +34,39 @@
 	<?if(isset($sbheader) && isset($nav)){?>
 		<?=$nav;?>
 	<?}?>
+	<div id="segmentNavOrg"></div>
+	<div id="segmentNavStore"></div>
 </div>
 
 <script>
 $(function(){
 	$("#organization").click(function() {
 			console.log('орг-н');
+			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
+				removeLoadAnimation('.catalog');
 				console.log(data);
+				$(".second_nav").addClass('hidden');
+				$("#segmentNavOrg").append(data);
 
 			});
-		})
+	})
 
 	$("#store").click(function() {
 			console.log('стор');
+			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
+				removeLoadAnimation('.catalog');
 				console.log(data);
+				$(".second_nav").addClass('hidden');
+				$("#segmentNavStore").append(data);
 			});
-		})
+	})
+
+	$("#allSection").click(function() {
+			console.log('все секции');
+			$(".second_nav").addClass('hidden');
+			$(".allSections").removeClass('hidden');
+	})
 ;});
 </script>

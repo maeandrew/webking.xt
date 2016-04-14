@@ -4269,4 +4269,31 @@ class Products {
 		}
 		return $res['art'];
 	}
-}
+	/**
+	 * [generateNavigation description]
+	 * @param  [type]  $list [description]
+	 * @param  integer $lvl  [description]
+	 * @return [type]        [description]
+	 */
+	public function generateNavigation($list, $lvl = 0){ //print_r($list); die();
+		$lvl++;
+		$ul = '<ul '.($lvl == 1?'class="second_nav" ':'').'data-lvl="'.$lvl.'">';
+		foreach($list as $l){
+			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array('clear'=>true)).'">'.$l['name'].'</a>';
+			if(!empty($l['subcats'])){
+				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
+                    $ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
+                }else{
+                    $ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
+                }*/
+				$ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
+				$ul .= $this->generateNavigation($l['subcats'], $lvl);
+				$ul .= '</li>';
+			}else{
+				$ul .= '</span></li>';
+			}
+		}
+		$ul .= '</ul>';
+		return $ul;
+	}
+}?>

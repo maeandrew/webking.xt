@@ -1909,3 +1909,13 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 	});
 	return false;
 }
+
+function segmentOpen(id){
+	console.log('тест клик');
+	console.log(id);
+	addLoadAnimation('.catalog');
+	ajax('segment', 'segmid', {id: id}, 'html').done(function(data){
+				removeLoadAnimation('.catalog');
+				console.log(data);
+			});
+}
