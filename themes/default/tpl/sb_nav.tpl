@@ -47,7 +47,7 @@ $(function(){
 
 	$("#store").click(function() {
 			console.log('стор');
-			ajax('segment', 'segments', {type: 1}).done(function(){
+			ajax('segment', 'segments', {type: 2}).done(function(){
 					console.log("сторе бек");
 				});
 		})
