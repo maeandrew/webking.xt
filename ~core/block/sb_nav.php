@@ -1,7 +1,7 @@
 <?php
 function generateNavigation($list, $lvl = 0){ //print_r($list); die();
 	$lvl++;
-	$ul = '<ul '.($lvl == 1?'class="second_nav" ':'').'data-lvl="'.$lvl.'">';
+	$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
 	foreach($list as $l){
 		$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array('clear'=>true)).'">'.$l['name'].'</a>';
 		if(!empty($l['subcats'])){
