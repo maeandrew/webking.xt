@@ -3,17 +3,18 @@
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 
 
-//Äîñòàåì ñåãìåíòû, êîòîðûå ïîïàäàþò ïîä òèï ñåãìåíòàöèè
+//Ð”Ð¾ÑÑ‚Ð°ÐµÐ¼ ÑÐµÐ³Ð¼ÐµÐ½Ñ‚Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¿Ð¾Ð¿Ð°Ð´Ð°ÑŽÑ‚ Ð¿Ð¾Ð´ Ñ‚Ð¸Ð¿ ÑÐµÐ³Ð¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸
 
 if(isset($_POST['action'])){
     switch($_POST['action']){
         case "segments":
-            $segments = $dbtree->Getsegments($_POST['segmentation']);
+           // $segments = $dbtree->Getsegments($_POST['segmentation']);
+            echo json_encode($dbtree->Getsegments($_POST['segmentation']));
             break;
         case "segmcat":
-            //Äîñòàåì êàòåãîðèè 1-ãî óðîâíÿ
+            //Ð”Ð¾ÑÑ‚Ð°ÐµÐ¼ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ 1-Ð³Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ
             $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
-            //Ïåðåáèðàåì êàòåãîðèè 2-ãî è 3-ãî óðîâíÿ, îòñåêàÿ íåíóæíûå
+            //ÐŸÐµÑ€ÐµÐ±Ð¸Ñ€Ð°ÐµÐ¼ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ 2-Ð³Ð¾ Ð¸ 3-Ð³Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ, Ð¾Ñ‚ÑÐµÐºÐ°Ñ Ð½ÐµÐ½ÑƒÐ¶Ð½Ñ‹Ðµ
             $needed = $dbtree->GetCatSegmentation(1, 12);
             foreach($navigation as $key1 => &$l1){
                 $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
@@ -44,9 +45,9 @@ if(isset($_POST['action'])){
 
 
 //$segments = $dbtree->Getsegments($_POST['action']);
-//Äîñòàåì êàòåãîðèè 1-ãî óðîâíÿ
+//Ð”Ð¾ÑÑ‚Ð°ÐµÐ¼ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ 1-Ð³Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ
 //$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
-//Ïåðåáèðàåì êàòåãîðèè 2-ãî è 3-ãî óðîâíÿ, îòñåêàÿ íåíóæíûå
+//ÐŸÐµÑ€ÐµÐ±Ð¸Ñ€Ð°ÐµÐ¼ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ 2-Ð³Ð¾ Ð¸ 3-Ð³Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ, Ð¾Ñ‚ÑÐµÐºÐ°Ñ Ð½ÐµÐ½ÑƒÐ¶Ð½Ñ‹Ðµ
 //$needed = $dbtree->GetCatSegmentation(1, 12);
 //foreach($navigation as $key1 => &$l1){
 //    $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
