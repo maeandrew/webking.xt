@@ -885,15 +885,15 @@ class Products {
 					$filters[] = $fil;
 				}
 			}
-			$fl_v = substr($fl_v,0,-1);
+			$fl_v = substr($fl_v, 0, -1);
 			$fl_v .= ')';
 
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
-									  FROM xt_specs_prods AS sp2
-									  WHERE " . $fl_v . $this->price_range ."
-									  )";
+						FROM xt_specs_prods AS sp2
+						WHERE " . $fl_v . $this->price_range ."
+						)";
 
 			$result = $this->db->GetArray($sql);
 			if($result){
