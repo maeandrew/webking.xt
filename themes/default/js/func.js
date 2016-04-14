@@ -1914,9 +1914,8 @@ function segmentOpen(id){
 	console.log('тест клик');
 	console.log(id);
 	addLoadAnimation('.catalog');
-	ajax('segment', 'segmid', 'id', 'html').done(function(data){
+	ajax('segment', 'segmid', {id: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				console.log(data);
-
 			});
 }
