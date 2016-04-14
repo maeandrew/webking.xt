@@ -577,25 +577,25 @@ $group_arr = $for_sql = $id_spec = [];
 
 $filter_cat = $products->GetFilterFromCategory($res);
 
-$actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
-if($actualFilters){
-	foreach($actualFilters as $filters){
-		$id_spec[] = $filters['value'];
-	}
+// $actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
+// if($actualFilters){
+// 	foreach($actualFilters as $filters){
+// 		$id_spec[] = $filters['value'];
+// 	}
 
-	$tpl->Assign('visible_fil' ,array_unique($id_spec));
-}
+// 	$tpl->Assign('visible_fil', array_unique($id_spec));
+// }
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
 $cntF = $products->GetCntFilterNow($res);//$id_category
 if($GLOBALS['Filters']) {
-	foreach ($GLOBALS['Filters'] as $id_fil => $val) {
+	foreach($GLOBALS['Filters'] as $id_fil => $val){
 		$id_filter[] = $id_fil;
 	}
 	$tpl->Assign('id_filter', $id_filter); //id активных фильтров для отображения всех значений (отмена disabled)
 }
-if($filter_cat) {
-	foreach ($filter_cat as $value) {
-		if (!isset($group_arr[$value['id']])) {
+if($filter_cat){
+	foreach($filter_cat as $value){
+		if(!isset($group_arr[$value['id']])){
 			$group_arr[$value['id']] = array(
 				'caption' => $value['caption'],
 				'units' => $value['units'],
@@ -611,7 +611,6 @@ if($filter_cat) {
 				}
 			}
 		}
-
 		$group_arr[$value['id']]['values'][] = array(
 			'id' => array($value['id'], $value['id_val']),
 			'value' => $value['value'],
@@ -623,22 +622,18 @@ if($filter_cat) {
 }
 
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
-
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
 };
 
 // MIN/MAX цена для вывода в фильтре
 $price = $products->GetMinMaxPrice($where_arr);
-
-	$max_price = ceil($price['max_price']);
-
-	if($price['min_price'] < 1 && $price['min_price'] > 0 && !isset($GLOBALS['Price_range'])) {
-		$min_price = $price['min_price'];
-	}else{
-		$min_price = floor($price['min_price']);
-	}
-
+$max_price = ceil($price['max_price']);
+if($price['min_price'] < 1 && $price['min_price'] > 0 && !isset($GLOBALS['Price_range'])) {
+	$min_price = $price['min_price'];
+}else{
+	$min_price = floor($price['min_price']);
+}
 $tpl->Assign('max_price', $max_price);
 $tpl->Assign('min_price', $min_price);
 
