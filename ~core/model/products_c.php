@@ -885,15 +885,15 @@ class Products {
 					$filters[] = $fil;
 				}
 			}
-			$fl_v = substr($fl_v,0,-1);
+			$fl_v = substr($fl_v, 0, -1);
 			$fl_v .= ')';
 
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
-									  FROM xt_specs_prods AS sp2
-									  WHERE " . $fl_v . $this->price_range ."
-									  )";
+						FROM xt_specs_prods AS sp2
+						WHERE " . $fl_v . $this->price_range ."
+						)";
 
 			$result = $this->db->GetArray($sql);
 			if($result){
@@ -1315,6 +1315,17 @@ class Products {
 		if(!$this->list){
 			return false;
 		}
+		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
+		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
+		//Добавляем эти значения в массв $list
+		foreach ($this->list as &$v) {
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+			}
+		}
 		return true;
 	}
 
@@ -1561,7 +1572,7 @@ class Products {
 		$f['price_opt_otpusk_usd'] = 0;
 		$f['price_mopt_otpusk_usd'] = 0;
 		$f['product_limit'] = 0;
-		$f['active'] = 0;
+		$f['active'] = 1;
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
