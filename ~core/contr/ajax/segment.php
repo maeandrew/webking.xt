@@ -3,15 +3,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
     $dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $db);
     $nav = new Products;
 
-    //Достаем сегменты, которые попадают под тип сегментации
-    if (isset($_POST['action'])) {
-        switch ($_POST['action']) {
-            case "segments":
-                $segments = $dbtree->Getsegments($_POST['type']);
+//Достаем сегменты, которые попадают под тип сегментации
 
-                $segm = '<ul class="second_nav">';
-                foreach ($segments as &$v) {
-                    $segm .= '<li data-id="' . $v['id'] . '"> <span class="link_wrapp"><a>' . $v['name'] . '</a><span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span> </li>';
+if(isset($_POST['action'])){
+    switch($_POST['action']){
+        case "segments":
+            $segments = $dbtree->Getsegments($_POST['type']);
+
+            $segm = '<ul class="second_nav">';
+                foreach($segments as &$v){
+                    $segm .= '<li data-id="'.$v['id'].'" onclick="segmentOpen('.$v['id'].')"> <span class="link_wrapp"><a href="#">' . $v['name'] . '</a><span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span> </li>';
                 }
                 $segm .= '</ul>';
                 echo $segm;
