@@ -3945,7 +3945,7 @@ class Products {
 		return $res['art'];
 	}
 
-	function generateNavigation($list, $lvl = 0){ //print_r($list); die();
+	public function generateNavigation($list, $lvl = 0){ //print_r($list); die();
 		$lvl++;
 		$ul = '<ul '.($lvl == 1?'class="second_nav" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
@@ -3957,7 +3957,7 @@ class Products {
                     $ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
                 }*/
 				$ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
-				$ul .= generateNavigation($l['subcats'], $lvl);
+				$ul .= $this->generateNavigation($l['subcats'], $lvl);
 				$ul .= '</li>';
 			}else{
 				$ul .= '</span></li>';
