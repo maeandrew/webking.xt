@@ -1,13 +1,13 @@
 <div class="catalog">
 	<ul class="main_nav">
-		<!-- <li data-nav="organization">
+		<li id="organization" data-nav="organization">
 			<i class="material-icons">work</i>Для организаций
 			<label class="info_key">?</label>
 			<div class="info_description">
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</li>
-		<li data-nav="store">
+		<li id="store" data-nav="store">
 			<i class="material-icons">store</i>Для магазинов
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -20,7 +20,7 @@
 			<div class="info_description">
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
-		</li> -->
+		</li>
 		<?if($GLOBALS['CurrentController'] != 'main' && in_array($GLOBALS['CurrentController'], array('main', 'products'))){?>
 			<li data-nav="filter">
 				<i class="material-icons">filter_list</i>
@@ -35,3 +35,21 @@
 		<?=$nav;?>
 	<?}?>
 </div>
+
+<script>
+$(function(){
+	$("#organization").click(function() {
+			console.log('орг-н');
+			ajax('segment', 'segments', {type: 1}).done(function(){
+					console.log("орг-н бек");
+				});
+		})
+
+	$("#store").click(function() {
+			console.log('стор');
+			ajax('segment', 'segments', {type: 1}).done(function(){
+					console.log("сторе бек");
+				});
+		})
+;});
+</script>
