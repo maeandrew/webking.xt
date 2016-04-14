@@ -9,7 +9,7 @@ if(isset($_POST['action'])){
     switch($_POST['action']){
         case "segments":
            // $segments = $dbtree->Getsegments($_POST['segmentation']);
-            echo json_encode($dbtree->Getsegments($_POST['segmentation']));
+            echo json_encode($dbtree->Getsegments($_POST['type']));
             break;
         case "segmcat":
             //Достаем категории 1-го уровня
