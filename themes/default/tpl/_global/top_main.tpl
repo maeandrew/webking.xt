@@ -87,7 +87,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="contacts">
+				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
 					<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
 					</div>
 					<div class="manager_contacts">
@@ -142,8 +142,7 @@
 					<a href="#" class="mdl-button mdl-js-button login_btn cabinet_btn" data-upgraded=",MaterialButton">Войти</a>
 				</button>
 				<!-- <a href="#" class="mdl-button mdl-js-button login_btn login_btn_hum">Войти</a> -->
-			<?}?>
-			
+			<?}?>			
 			<div class="userContainer" >
 				<div id="userPic" class="">
 					<div class="avatarWrapp">
@@ -167,9 +166,8 @@
 						<i class="material-icons">location_on</i>
 						<span>г. Харьков, Украина</span>
 					</div>
-				</div>
-				
-				<div class="contacts">
+				</div>				
+				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
 					<div id="manager" class="">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span></div>
 					<div class="manager_contacts">
 						<a href="tel:+380667205488">
