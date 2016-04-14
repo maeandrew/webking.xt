@@ -890,12 +890,12 @@ class dbtree {
 		return $res;
 	}
 
-	public function GetCatSegmentation($segmtype, $id_segm){
+	public function GetCatSegmentation($id_segm){
 		$sql = 'SELECT id_category FROM '._DB_PREFIX_.'category
 			WHERE id_category IN (SELECT id_category FROM '._DB_PREFIX_.'cat_prod
 			WHERE id_product IN (SELECT id_product FROM '._DB_PREFIX_.'segment_prods
 			WHERE id_segment IN  (SELECT id FROM '._DB_PREFIX_.'segmentation
-			WHERE type = '.$segmtype.' AND id = '. $id_segm .'))) AND visible > 0';
+			WHERE id = '. $id_segm .'))) AND visible > 0';
 		$res = $this->db->GetArray($sql);
 		foreach($res as &$value){
 			$value = $value['id_category'];

@@ -43,31 +43,6 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 		}
 		$l1['subcats'] = $level2;
 	}
-//	if($custom == 0){
-//	}else{
-//		$needed = $dbtree->GetCatSegmentation(1);
-//		foreach($navigation as $key1 => &$l1){
-//			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
-//			foreach($level2 as $key2 => &$l2){
-//				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
-//				foreach($level3 as $key3 => &$l3){
-//					if(!in_array($l3['id_category'], $needed)){
-//						unset($level3[$key3]);
-//					}
-//				}
-//				if(in_array($l2['id_category'], $needed) || !empty($level3)){
-//					$l2['subcats'] = $level3;
-//				}else{
-//					unset($level2[$key2]);
-//				}
-//			}
-//			if(in_array($l1['id_category'], $needed) || !empty($level2)){
-//				$l1['subcats'] = $level2;
-//			}else{
-//				unset($navigation[$key1]);
-//			}
-//		}
-//	}
 	//$time_end = microtime(true);
 	//$time = $time_end - $time_start;
 	//print_r($time); die();

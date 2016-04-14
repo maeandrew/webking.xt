@@ -12,7 +12,7 @@ if(isset($_POST['action'])){
 
             $segm = '<ul>';
                 foreach($segments as &$v){
-                    $segm .= '<li data-id="'.$v['id'].'">' . $v['name'] . '</li>';
+                    $segm .= '<li data-id="'.$v['id'].'"> <span class="link_wrapp"><a>' . $v['name'] . '</a><span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span> </li>';
                 }
             $segm .= '</ul>';
             echo $segm;
@@ -22,7 +22,7 @@ if(isset($_POST['action'])){
             //Достаем категории 1-го уровня
             $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
             //Перебираем категории 2-го и 3-го уровня, отсекая ненужные
-            $needed = $dbtree->GetCatSegmentation(1, 12);
+            $needed = $dbtree->GetCatSegmentation(12);
             foreach($navigation as $key1 => &$l1){
                 $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
                 foreach($level2 as $key2 => &$l2){
