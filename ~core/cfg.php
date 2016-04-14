@@ -66,15 +66,39 @@ if(G::isLogged()){
 }
 
 // save ip activity
-$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."'";
+// $sql = "SELECT * FROM "._DB_PREFIX_."ip_connections";
+// $ips = $db->GetArray($sql);
+// foreach($ips as $key => $value) {
+// 	if(!$value['explanation'] && $value['user_agent']){
+// 		$accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
+// 		$url            = "https://api.udger.com/v3/parse";
+// 		$ua             = $value['user_agent'];
+// 		$ip             = "66.249.64.1";
+
+// 		$res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
+// 		$sql = "UPDATE "._DB_PREFIX_."ip_connections SET explanation = '".$res."' WHERE id = ".$value['id'];
+// 		$db->Query($sql);
+// 	}
+// }
+$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 $ips = $db->GetOneRowArray($sql);
 if(!$ips){
-	$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections) VALUES ('".$_SESSION['client']['ip']."', 1)";
+	// $accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
+	// $url            = "https://api.udger.com/v3/parse";
+	// $ua             = $_SERVER['HTTP_USER_AGENT'];
+	// $ip             = "66.249.64.1";
+
+	// $res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
+	$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent) VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."')";
 }else{
-	$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1)." WHERE ip = '".$_SESSION['client']['ip']."'";
+	$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."' WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 }
 $db->Query($sql);
-
+$block = array(/*'69.162.124.231',*/ '38.100.118.15');
+if(in_array($_SESSION['client']['ip'], $block)){
+	header('Location: http://google.com');
+	exit();
+}
 
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config";
@@ -91,7 +115,8 @@ $GLOBALS['MainTemplate']		= 'main.tpl';
 // пустой макет
 $GLOBALS['MainEmptyTemplate']	= 'main_empty.tpl';
 // страницы с левым сайдбаром
-$GLOBALS['LeftSideBar']			= array('main',
+$GLOBALS['LeftSideBar']			= array(
+	'main',
 	'products',
 	'page',
 	'newslist',
@@ -106,7 +131,8 @@ $GLOBALS['LeftSideBar']			= array('main',
 	'login',
 	'customer_order',
 	'pdf_bill_form',
-	'404');
+	'404'
+);
 // если кабинет поставщика или пользователя - отобразить левый сайдбар
 // if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONYMOUS_))){
 // 	array_push($GLOBALS['LeftSideBar'], 'cabinet');

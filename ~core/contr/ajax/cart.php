@@ -332,7 +332,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				exit();
 				break;
-			case "get_cart":
+			case "GetCart":
 				echo json_encode($_SESSION['cart']);
 				break;
 			case "update_note":
@@ -347,7 +347,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case "clearCart":
 				// print_r($_SESSION['cart']['id']);
-				$res = $cart->ClearCart($_SESSION['cart']['id']);
+				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
 			case "makeOrder":
