@@ -41,13 +41,6 @@ hr {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.cabinet_content {
-	width: calc(100% - 300px);
-	float: right;
-	text-align: justify;
-	margin-top: 20px;
-}
-
 .cabinet_content .editproduct {
 	float: left;
 	width: 33%;
@@ -66,8 +59,8 @@ hr {
 }
 .cabinet_content .editproduct .input_row {
 	display: flex;
-    align-items: center;
-    width: 100%;
+	align-items: center;
+	width: 100%;
 }
 .cabinet_content .editproduct .input_col {
 	flex-direction: column;
@@ -448,7 +441,13 @@ table.kontrag.table{
 /* Supplier Cab ============================================================ */
 
 #supplier_cab {
-	/*clear: both;*/
+	width: calc(100% - 300px);
+	float: right;
+	text-align: justify;
+	margin-top: 20px;
+}
+#supplier_cab #second {
+	margin-left: 25px;
 }
 #supplier_cab .sort_page_top {
 	float: left;
@@ -583,6 +582,11 @@ table.supplier_assort_table {
 	text-align: left;
 	padding-left: 20px;
 	padding-right: 10px;
+	line-height: 1.2em;
+	text-align: justify;
+}
+#supplier_cab #second .photo_cell {
+	padding: 5px;
 }
 #supplier_cab .photo_cell a {
 	display: block;
@@ -602,6 +606,11 @@ table.supplier_assort_table {
 	/*background-color: #F1EEEE;*/
 	/*padding: 0px 10px;*/
 	/*border-radius: 3px;*/
+}
+#supplier_cab #second .controls a {
+	margin: 10px;
+	position: relative;
+	top: 5px; 
 }
 #supplier_cab .name_cell .err_mark:hover {
 	text-decoration: underline;
@@ -756,11 +765,16 @@ table.supplier_assort_table {
 #editbox #photobox .image_block_new {
 	position: relative;
 	border: 1px solid #ccc;
-	height: 82px;
+	height: 76px;
 	padding: 5px;
 	margin-bottom: 5px;
 	margin-right: 25px;
 	background: #fff;
+}
+
+#editbox #photobox .image_block .controls .del_photo_js i {
+	position: relative;
+	top: 25px;
 }
 #editbox #photobox .image_block:first-of-type:after {
 	content: 'Основное';
@@ -788,13 +802,19 @@ table.supplier_assort_table {
 	background: #fafafa;
 }
 #editbox #photobox .image_block .sort_handle {
-	line-height: 70px;
+	line-height: 30px;
 	width: 20px;
 	text-align: center;
 	margin-right: 5px;
 	float: left;
 	cursor: move;
 	cursor: -webkit-grab;
+}
+#editbox #photobox .image_block .sort_handle > * {
+	position: relative;
+}
+#editbox #photobox .image_block .sort_handle i:first-child {
+	top: 20px;
 }
 #editbox #photobox .image_block .image {
 	width: 70px;
@@ -817,15 +837,15 @@ table.supplier_assort_table {
 }
 #editbox #photobox .image_block .name .dz-filename,
 #editbox #photobox .image_block .name .dz-size {
-	line-height: 70px;
-	width: 75%;
+	line-height: 75px;
+	width: 70%;
 	display: inline-block;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 #editbox #photobox .image_block .name .dz-size {
-	width: 15%;
+	width: 25%;
 	float: right;
 }
 #editbox #photobox .image_block .controls {
@@ -875,7 +895,7 @@ table.supplier_assort_table {
 }
 #help li {
 	clear: both;
-    width: 99%;
+	width: 99%;
 	padding: .5em;
 	margin-bottom: .5em;
 	border: 1px solid transparent;
