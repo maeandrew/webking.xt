@@ -18,11 +18,11 @@ if(isset($_POST['action'])){
                 echo $segm;
                 exit();
                 break;
-            case "segmid": print_r($_POST); die();
+            case "segmid":
                 //Достаем категории 1-го уровня
                 $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
                 //Перебираем категории 2-го и 3-го уровня, отсекая ненужные
-                $needed = $dbtree->GetCatSegmentation(12);
+                $needed = $dbtree->GetCatSegmentation($_POST['id']);
                 foreach ($navigation as $key1 => &$l1) {
                     $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
                     foreach ($level2 as $key2 => &$l2) {
@@ -45,9 +45,9 @@ if(isset($_POST['action'])){
                     }
                 }
 
-                $nav->generateNavigation($navigation);
+                $segmcat = $nav->generateNavigation($navigation);
 
-                echo 'ok';
+                echo $segmcat;
                 exit();
                 break;
             default:
