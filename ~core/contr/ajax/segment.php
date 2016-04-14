@@ -9,7 +9,13 @@ if(isset($_POST['action'])){
     switch($_POST['action']){
         case "segments":
             $segments = $dbtree->Getsegments($_POST['type']);
-            echo json_encode($segments);
+
+            $segm = '<ul>';
+                foreach($segments as &$v){
+                    $segm .= '<li data-id="'.$v['id'].'">' . $v['name'] . '</li>';
+                }
+            $segm .= '</ul>';
+            echo $segm;
             exit();
             break;
         case "segmcat":
@@ -38,6 +44,8 @@ if(isset($_POST['action'])){
                     unset($navigation[$key1]);
                 }
             }
+            echo json_encode($navigation);
+            exit();
             break;
         default:
             break;
