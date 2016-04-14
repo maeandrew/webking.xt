@@ -129,7 +129,7 @@
 	<?}?>
 	<!-- END Недоступные товары -->
 	<!-- NEW Товары в корзине -->
-	<div class="order_wrapp clearfix">
+	<div class="order_wrapp">
 		<!-- <ul class="order_head mdl-cell--hide-phone">
 			<li class="photo">Фото</li>
 			<li class="name">Название</li>
@@ -142,62 +142,67 @@
 		foreach($list as $item){
 			$item['price_mopt'] > 0 ? $mopt_available = true : $mopt_available = false;
 			$item['price_opt'] > 0 ? $opt_available = true : $opt_available = false;?>
-			<div class="card clearfix" id="cart_item_<?=$item['id_product']?>">
-				<i class="material-icons remove_prod mdl-cell--hide-phone" onClick="removeFromCart('<?=$item['id_product']?>')">highlight_off</i>
-				<span class="remove_prod_mob" onClick="removeFromCart('<?=$item['id_product']?>')">Удалить</span>
-				<div class="product_photo">
-					<a href="<?=Link::Product($item['translit']);?>">
-						<?if(!empty($item['images'])){?>
-							<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
-						<?}else{?>
-							<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.jpg"?>"/>
-						<?}?>
-					</a>
-				</div>
-				<div class="product_name">
-					<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>">
-						<?=G::CropString($item['name'])?>
-					</a>
-					<span class="product_article">Артикул: <?=$item['art']?></span>
-					<div class="product_info clearfix">
-						<div class="note in_cart clearfix">
-							<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
-									  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
-							<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
-							</textarea>
-							<label class="info_key">?</label>
-							<div class="info_description">
-								<p>Поле для ввода примечания к товару.</p>
+			<div class="card" id="cart_item_<?=$item['id_product']?>">
+				<div class="card_wrapper">
+					<span class="remove_prod_mob" onClick="removeFromCart('<?=$item['id_product']?>')">Удалить</span>
+					<div class="product_photo">
+						<a href="<?=Link::Product($item['translit']);?>">
+							<?if(!empty($item['images'])){?>
+								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
+							<?}else{?>
+								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.jpg"?>"/>
+							<?}?>
+						</a>
+					</div>
+					<div class="product_name">
+						<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>">
+							<?=G::CropString($item['name'])?>
+						</a>
+						<span class="product_article">Артикул: <?=$item['art']?></span>
+						<div class="product_info">
+							<div class="note in_cart">
+								<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
+										  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
+								<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
+								</textarea>
+								<label class="info_key">?</label>
+								<div class="info_description">
+									<p>Поле для ввода примечания к товару.</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
-					<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
-					<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
-					<div class="buy_block">
-						<div class="price">
-							<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "");?>
+					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+						<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
+						<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
+						<div class="buy_block">
+							<div class="price">
+								<?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ".", "");?>
+							</div>
+							<div class="prodPrices hidden">
+								<?for ($i = 0; $i < 4; $i++){?>
+									<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+									<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+								<?}?>
+							</div>
+							<div class="quantity">
+								<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
+								<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+								<div class="units"><?=$item['units'];?></div>
+							</div>
 						</div>
-						<div class="prodPrices hidden">
-							<?for ($i = 0; $i < 4; $i++){?>
-								<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
-								<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
-							<?}?>
-						</div>
-						<div class="quantity">
-							<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
-							<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
-							<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
-							<div class="units"><?=$item['units'];?></div>
-						</div>
+						<div class="priceMoptInf<?=($_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 					</div>
-					<div class="priceMoptInf<?=($_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
-				</div>
-				<div class="summ">
-					<span class="order_mopt_sum_<?=$item['id_product']?>">
-						<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
-					</span>
+					<div class="summ">
+						<span class="order_mopt_sum_<?=$item['id_product']?>">
+							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
+						</span>
+					</div>
+					<div class="remove_prod">
+						<i id="tt<?=$item['id_product']?>" class="material-icons mdl-cell--hide-phone" onClick="removeFromCart('<?=$item['id_product']?>')">cancel</i>
+						<div class="mdl-tooltip" for="tt<?=$item['id_product']?>">Удалить из корзины</div>
+					</div>
 				</div>
 			</div>
 		<?}
@@ -220,8 +225,7 @@
 			$total = $cart_sum - $percent_sum;
 		};?>
 	</div>
-	<div id="cartFooterBorder"></div>
-	<div class="cart">
+	<div class="cart_footer">
 		<div id="total" class="fright">
 			<div class="total">
 				<div class="label totaltext">Итого</div>
@@ -269,7 +273,6 @@
 			<div class="price_nav"></div>
 		</div>
 	</div>
-
 	<div class="action_block">
 		<div class="wrapp">
 			<form action="">
@@ -284,7 +287,7 @@
 					<input class="mdl-textfield__input" type="text" id="sample7">
 					<label class="mdl-textfield__label" for="sample7">Промокод</label>
 				</div>
-				<!-- <div class="tooltip_wrapp clearfix">
+				<!-- <div class="tooltip_wrapp">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 						<input type="radio" class="mdl-radio__button" name="options" value="1">
 						<span class="mdl-radio__label">Групповая корзина</span>
@@ -298,7 +301,7 @@
 					</div>
 				</div>
 
-				<div class="tooltip_wrapp clearfix">
+				<div class="tooltip_wrapp">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 						<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 						<span class="mdl-radio__label">Совместная покупка</span>
@@ -332,7 +335,7 @@
 				// var checked = false;
 				// var old_text = $('.action_block .mdl-button').text();
 
-				// $('#cart .tooltip_wrapp.clearfix:eq(0)').on('click', function () {
+				// $('#cart .tooltip_wrapp:eq(0)').on('click', function () {
 				// 	if (checked == false) {
 				// 		$('.action_block .mdl-button').text('Продолжить');
 				// 		$("#button-cart1").hide();
@@ -341,7 +344,7 @@
 				// 	}
 				// });
 
-				// $('#cart .tooltip_wrapp.clearfix:eq(1)').on('click', function () {
+				// $('#cart .tooltip_wrapp:eq(1)').on('click', function () {
 				// 	if (checked == false) {
 				// 		$('.action_block .mdl-button').text('Организовать');
 				// 		$("#button-cart1").hide();
