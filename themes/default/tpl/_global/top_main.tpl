@@ -137,8 +137,7 @@
 					<a href="#" class="mdl-button mdl-js-button login_btn cabinet_btn" data-upgraded=",MaterialButton">Войти</a>
 				</button>
 				<!-- <a href="#" class="mdl-button mdl-js-button login_btn login_btn_hum">Войти</a> -->
-			<?}?>
-			
+			<?}?>			
 			<div class="userContainer" >
 
 
