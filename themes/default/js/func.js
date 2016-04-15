@@ -1911,22 +1911,23 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function segmentOpen(id){
-	$('#' + id).each(function(){
+	console.log('123');
+	$('[data-id="'+id+'"]').each(function(){
 	    var list = $(this).find('ul');
 	    if(list.length > 0){
-	      console.log('есть')
+	      console.log('есть');
 	    }else{
-	    	console.log('нету')
+	    	console.log('нету');
 	    	addLoadAnimation('.catalog');
 			ajax('segment', 'segmid', {id: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				console.log(data);
-				$('#' + id).append(data);
-				$('#' + id).find('.link_wrapp').find('span').addClass('more_cat');
-				var lvl = $('#' + id).find('ul').data('lvl');
-				var parent = $('#' + id);
+				$('[data-id="'+id+'"]').append(data);
+				$('[data-id="'+id+'"]').find('.link_wrapp').find('span').addClass('more_cat');
+				var lvl = $('[data-id="'+id+'"]').find('ul').data('lvl');
+				var parent = $('[data-id="'+id+'"]');
 				var parent_active = parent.hasClass('active');
-				$('#' + id).find('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
+				$('[data-id="'+id+'"]').find('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
 				if(!parent_active){
 					parent.addClass('active').find('> ul').stop(true, true).slideDown();
 				}
