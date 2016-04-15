@@ -38,7 +38,7 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
                 //Достаем категории 1-го уровня
                 $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
                 //Перебираем категории 2-го и 3-го уровня, отсекая ненужные
-                $needed = $dbtree->GetCatSegmentation($_POST['id']);
+                $needed = $dbtree->GetCatSegmentation($_POST['idsegment']);
                 foreach ($navigation as $key1 => &$l1) {
                     $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
                     foreach ($level2 as $key2 => &$l2) {

@@ -1919,7 +1919,7 @@ function segmentOpen(id){
 	    }else{
 	    	console.log('нету');
 	    	addLoadAnimation('.catalog');
-			ajax('segment', 'segmid', {id: id}, 'html').done(function(data){
+			ajax('segment', 'segmid', {idsegment: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				console.log(data);
 				$('[data-id="'+id+'"]').append(data);

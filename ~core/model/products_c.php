@@ -697,7 +697,7 @@ class Products {
 					".$prices_zero."
 					AND a.active = 1
 				ORDER BY ".$order_by
-				.$limit;
+				.$limit; //print_r($sql); die();
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -4279,7 +4279,7 @@ class Products {
 		$lvl++;
 		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
-			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array('clear'=>true)).'">'.$l['name'].'</a>';
+			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array('segment'=>$_POST['idsegment'], 'clear'=>true)).'">'.$l['name'].'</a>';
 			if(!empty($l['subcats'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
                     $ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
