@@ -849,17 +849,23 @@ $(function(){
 		form.find('.error').fadeOut();
 		e.preventDefault();
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
-			var parent = $('.header_nav [for="demo-menu-lower-right"]');
+			var parent = $('.header_wrapp #user_pro, #phone_menu .phone_user_profile');
 			removeLoadAnimation('#auth');
 			if(data.errm != 1){
-				parent.find('.mdl-menu__item .user_name').text(data.member.name);
-				parent.find('.mdl-menu__item .user_email').text(data.member.email);
-				parent.find('.mdl-menu__item .user_contr').text(data.member.contragent.name_c);
-				parent.find('.mdl-menu__item .user_contr_phones').text(data.member.contragent.phones);
-				parent.find('.mdl-menu__item .user_promo').text(data.member.promo_code);
+				// parent.find('.user_name').text(data.member.name);
+				// parent.find('.user_email').text(data.member.email);
+				// parent.find('.user_contr').text(data.member.contragent.name_c);
+				// parent.find('.user_contr_phones').text(data.member.contragent.phones);
+				// parent.find('.user_promo').text(data.member.promo_code);
+				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
+				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 				closeObject('auth');
+				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+					$('#user_pro').html(data);
+				});
 				$('.cabinet_btn').removeClass('hidden');
 				$('.login_btn').addClass('hidden');
+				$('button[value="Неавторизован"]').addClass('hidden');
 			}else{
 				form.find('.error').text(data.msg).fadeIn();
 			}

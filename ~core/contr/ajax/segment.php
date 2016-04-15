@@ -10,8 +10,6 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
             case "segments":
                 //Устанавливаем куку с типом сегмента
                 setcookie("Segmentation", $_POST['type'], time() + 60 * 60 * 24 * 7);
-
-
                 if($_POST['type'] == 1 || $_POST['type'] == 2) {
                     $segments = $dbtree->Getsegments($_POST['type']);
                     $segm = '<ul class="second_nav">';
@@ -21,7 +19,6 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
                     $segm .= '</ul>';
                     echo $segm;
                     exit();
-
                 }
                 break;
             case "segmid":

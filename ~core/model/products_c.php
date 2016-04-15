@@ -54,12 +54,17 @@ class Products {
 			"tp.qty_control", "tp.weight", "tp.volume", "tp.product_limit", "tp.id_supplier",
 			"tp.moderation_status", "tp.comment", "tp.creation_date", "tp.images", "tp.height", "tp.width", "tp.length", "tp.coefficient_volume");
 	}
-
-	public function GetRelatedProducts($id, $category_id, $howfar=10000, $howmany=20, $min_interval = 50){
-		$from_right = $id + $min_interval ;
+	/**
+	 * Получить список сопутствующих товаров
+	 * @param integer	$id           id основного товара
+	 * @param integer	$category_id  категория, в которой искать похожие товары
+	 * @param integer	$howfar       [description]
+	 * @param integer	$howmany      [description]
+	 * @param integer	$min_interval [description]
+	 */
+	public function GetRelatedProducts($id, $category_id, $howfar = 10000, $howmany = 20, $min_interval = 50){
 		$to_right = $id + $howfar + $min_interval;
 		$from_left = $id - $howfar - $min_interval;
-		$to_left = $id - $min_interval;
 		$sql = "SELECT p.id_product, p.name, p.translit, p.img_1, p.price_mopt
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
@@ -78,12 +83,13 @@ class Products {
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
-		}else{
-			return $result;
 		}
+		return $result;
 	}
 
-	// Удаление нулевых позиций поставщиков (с 0 лимитом, но активных)
+	/**
+	 * Удаление нулевых позиций поставщиков (с 0 лимитом, но активных)
+	 */
 	public function Re_null(){
 		$this->db->StartTrans();
 		$sql = "UPDATE "._DB_PREFIX_."assortiment
@@ -94,10 +100,14 @@ class Products {
 		$this->db->CompleteTrans();
 	}
 
-	// Товар по id
-	public function SetFieldsById($id_product, $all=0){
+	/**
+	 * Установить данные о товаре по его id
+	 * @param integer $id_product	id товара
+	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
+	 */
+	public function SetFieldsById($id_product, $visibility = 0){
 		$visible = "AND p.visible = 1";
-		if($all == 1){
+		if($visibility == 1){
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
@@ -130,10 +140,14 @@ class Products {
 		return true;
 	}
 
-	// Товар по id
-	public function SetFieldsByRewrite($rewrite, $all=0){
+	/**
+	 * Товар по rewrite
+	 * @param string  $rewrite		rewrite товара
+	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
+	 */
+	public function SetFieldsByRewrite($rewrite, $visibility = 0){
 		$visible = "AND p.visible = 1";
-		if($all == 1){
+		if($visibility == 1){
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
@@ -166,6 +180,10 @@ class Products {
 		return true;
 	}
 
+	/**
+	 * Получить характеристики товара
+	 * @param integer $id_product id товара
+	 */
 	public function GetSpecificationList($id_product){
 		$sql = "SELECT s.caption, s.units, sp.value
 			FROM "._DB_PREFIX_."specs_prods AS sp
@@ -180,58 +198,24 @@ class Products {
 		return $arr;
 	}
 
-	//Артикул по Id
-	public function GetArtByID($id){
+	/**
+	 * Получить артикул товара по его id
+	 * @param integer $id_product id товара
+	 */
+	public function GetArtByID($id_product){
 		$sql = "SELECT art
 			FROM "._DB_PREFIX_."product
-			WHERE id_product = ".$id;
+			WHERE id_product = ".$id_product;
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
 		}
 		return $arr;
 	}
-	// // Товар по id
-	// public function SetFieldsById($id_product, $all=0){
-	// 	$visible = "AND p.visible = 1";
-	// 	if($all == 1){
-	// 		$visible = '';
-	// 	}
-	// 	$sql = "SELECT ".implode(", ",$this->usual_fields).",
-	// 		u.name AS username,ucr.name AS createname, un.unit_prom, a.product_limit,
-	// 		(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-	// 		(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-	// 		(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-	// 		FROM "._DB_PREFIX_."product AS p
-	// 		LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-	// 			ON cp.id_product = p.id_product
-	// 		LEFT JOIN "._DB_PREFIX_."user AS u
-	// 			ON u.id_user = p.edit_user
-	// 		LEFT JOIN "._DB_PREFIX_."user AS ucr
-	// 			ON u.id_user = p.create_user
-	// 		LEFT JOIN "._DB_PREFIX_."units AS un
-	// 			ON un.id = p.id_unit
-	// 		LEFT JOIN "._DB_PREFIX_."assortiment AS a
-	// 			ON a.id_product = p.id_product
-	// 		WHERE p.id_product = ".$id_product."
-	// 		".$visible."
-	// 		ORDER BY cp.id";
-	// 	$arr = $this->db->GetArray($sql);
-	// 	if(!$arr){
-	// 		return false;
-	// 	}
-	// 	$catarr = array();
-	// 	foreach ($arr as $p){
-	// 		$catarr[] = $p['id_category'];
-	// 	}
-	// 	$arr[0]['categories_ids'] = $catarr;
-	// 	$this->fields = $arr[0];
-	// 	return true;
-	// }
 
 	/**
 	 * Получить комментарии к товару по его id
-	 * @param int $id_product		идентификатор товара
+	 * @param integer $id_product id товара
 	 */
 	public function GetComentByProductId($id_product){
 		$sql = "SELECT cm.text_coment,
@@ -253,16 +237,16 @@ class Products {
 
 	/**
 	 * Записать комментарий к товару
-	 * @param string $text			текст комментария
-	 * @param ? $author				автор комментария
-	 * @param ? $author_name		имя автора
-	 * @param string $authors_email e-mail автора
-	 * @param ? $id_product         id товара
-	 * @param int $rating 			оценка товара
+	 * @param string	$text			текст комментария
+	 * @param ?			$author			автор комментария
+	 * @param string	$author_name	имя автора
+	 * @param string	$authors_email	e-mail автора
+	 * @param integer	$id_product		id товара
+	 * @param integer	$rating			оценка товара
 	 */
 	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null){
 		if(empty($text)){
-			return false; //Если имя пустое
+			return false;
 		}
 		$f['text_coment'] = trim($text);
 		$f['url_coment'] = trim($id_product);
@@ -274,16 +258,16 @@ class Products {
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'coment', $f)){
 			$this->db->FailTrans();
-			return false; //Если не удалось записать в базу
+			return false;
 		}
 		unset($f);
 		$this->db->CompleteTrans();
-		return true;//Если все ок
+		return true;
 	}
 
 	/**
-	 * Получить видео по id товара
-	 * @param int $id_product		идентификатор товара
+	 * Получить видео товара по его id
+	 * @param integer $id_product id товара
 	 */
 	public function GetVideoById($id_product){
 		$sql = "SELECT url
@@ -294,13 +278,17 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-		foreach ($arr as $value) {
-			$res[] = $value['url'];
+		foreach($arr as &$value){
+			$value = $value['url'];
 		}
-		return $res;
+		return $arr;
 	}
 
-	// Добавление и удаление видео
+	/**
+	 * Добавление и удаление видео товара
+	 * @param integer	$id_product		id товара
+	 * @param array		$arr			массив ссылок на видео
+	 */
 	public function UpdateVideo($id_product, $arr){
 		$sql = "DELETE FROM "._DB_PREFIX_."video WHERE id_product=".$id_product;
 		$this->db->StartTrans();
@@ -309,24 +297,24 @@ class Products {
 		$f['id_product'] = trim($id_product);
 		foreach($arr as &$value){
 			if(empty($value)){
-				return false; //Если URL пустой
+				return false;
 			}
 			$f['url'] = trim($value);
 			$this->db->StartTrans();
 			if(!$this->db->Insert(_DB_PREFIX_.'video', $f)){
 				$this->db->FailTrans();
-				return false; //Если не удалось записать в базу
+				return false;
 			}
 			$this->db->CompleteTrans();
 		}
 		unset($id_product);
 		unset($f);
-		return true;//Если все ок
+		return true;
 	}
 
 	/**
 	 * Получить id категории по ее артикулу
-	 * @param int $art		артикул категории
+	 * @param integer	$art	артикул категории
 	 */
 	public function GetCategoryIdByArt($art){
 		$sql = "SELECT c.id_category
@@ -341,7 +329,7 @@ class Products {
 
 	/**
 	 * Получить id товара по его артикулу
-	 * @param int $art		артикул товара
+	 * @param integer	$art	артикул товара
 	 */
 	public function GetIdByArt($art){
 		$sql = "SELECT p.id_product
@@ -356,7 +344,7 @@ class Products {
 
 	/**
 	 * Получение массива id_products по артикулу и по его началу
-	 * @param int $art идентификатор товара
+	 * @param integer	$art	идентификатор товара
 	 */
 	public function GetIdOneRowArrayByArt($art){
 		$sql = "SELECT p.id_product, CONCAT(p.art,' - ',p.name) AS response
@@ -368,7 +356,10 @@ class Products {
 		}
 		return $arr;
 	}
-
+	/**
+	 * [SetProductsListDropDownSearch description]
+	 * @param boolean $and [description]
+	 */
 	public function SetProductsListDropDownSearch($and = false){
 		$where = "";
 		if($and !== FALSE && count($and)){
@@ -410,7 +401,13 @@ class Products {
 			return $res;
 		}
 	}
-
+	/**
+	 * [SetProductsList4Search description]
+	 * @param boolean $and    [description]
+	 * @param string  $limit  [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
 	public function SetProductsList4Search($and = false, $limit='', $gid=0, $params = array()){
 		$where = "";
 		if($and !== FALSE && count($and)){
@@ -495,7 +492,9 @@ class Products {
 		}
 		return $res;
 	}
-
+	/**
+	 * [SetProductsList4csv description]
+	 */
 	public function SetProductsList4csv(){
 		$date = date("Y-m-d", (time()+3600*24*2));
 		$sql = "SELECT p.name, p.price_mopt,
@@ -514,7 +513,9 @@ class Products {
 		}
 		return $res;
 	}
-
+	/**
+	 * [SetProductsList4csvProm description]
+	 */
 	public function SetProductsList4csvProm(){
 		$sql = "SELECT p.art, p.name, p.descr, p.img_1,
 			un.unit_prom AS units, p.price_opt, p.name_index,
@@ -538,7 +539,9 @@ class Products {
 		}
 		return $res;
 	}
-
+	/**
+	 * [SetProductsList4csvTatet description]
+	 */
 	public function SetProductsList4csvTatet(){
 		$value = "SELECT value
 			FROM "._DB_PREFIX_."config
@@ -567,7 +570,11 @@ class Products {
 		}
 		return $res;
 	}
-
+	/**
+	 * [SetProductsList4SuppliersCSV description]
+	 * @param [type] $id_order    [description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function SetProductsList4SuppliersCSV($id_order, $id_supplier){
 		$where = "((osp.id_supplier = ".$id_supplier."
 				AND osp.opt_qty > 0
@@ -597,7 +604,13 @@ class Products {
 		}
 		return $res;
 	}
-
+	/**
+	 * [SetProductsList description]
+	 * @param boolean $and    [description]
+	 * @param string  $limit  [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
 	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
 		$where = "";
 		if($this->filter === false) return false;
@@ -703,8 +716,10 @@ class Products {
 		}
 		return true;
 	}
-
-	// Добавление графика (по категории)
+	/**
+	 * Добавление графика (по категории)
+	 * @param [type] $data [description]
+	 */
 	public function AddInsertGraph($data){
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $_POST['id_category'];
@@ -730,8 +745,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	// Добавление двух графиков (по категории)
+	/**
+	 * Добавление двух графиков (по категории)
+	 * @param [type] $data [description]
+	 */
 	public function AddInsertTwoGraph($data){
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $data['id_category'];
@@ -769,7 +786,11 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
+	/**
+	 * [UpdateGraph description]
+	 * @param [type]  $graph [description]
+	 * @param boolean $mode  [description]
+	 */
 	public function UpdateGraph($graph, $mode=false){
 		$id_graphics = $graph['id_graphics'];
 		$where = "id_graphics = ".$id_graphics;
@@ -801,8 +822,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	// Поиск графика
+	/**
+	 * Поиск графика
+	 * @param [type] $id_graphics [description]
+	 */
 	public function SearchGraph($id_graphics){
 		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_graphics = ".$id_graphics;
 		$result = $this->db->GetOneRowArray($sql);
@@ -815,9 +838,10 @@ class Products {
 		$result = $this->db->GetArray($sql);
 		return $result;
 	}
-
-
-	// Выборка графика
+	/**
+	 * Выборка графика
+	 * @param boolean $id_category [description]
+	 */
 	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
 		if(!$id_category){
@@ -843,8 +867,9 @@ class Products {
 		return array('graph' => $result, 'users' => $result2);*/
 		return $result;
 	}
-
-	// Выборка товаров для главной
+	/**
+	 * Выборка товаров для главной
+	 */
 	public function GetRandomList(){
 		$sql = "SELECT *
 				FROM "._DB_PREFIX_."product p
@@ -872,8 +897,9 @@ class Products {
 		}
 		return $result;
 	}
-
-
+	/**
+	 * [SetProductsListByFilter description]
+	 */
 	public function SetProductsListByFilter(){
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
 			$fl_v = 'sp2.id IN (';
@@ -891,7 +917,7 @@ class Products {
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
-						FROM xt_specs_prods AS sp2
+						FROM "._DB_PREFIX_."specs_prods AS sp2
 						WHERE " . $fl_v . $this->price_range ."
 						)";
 
@@ -909,9 +935,14 @@ class Products {
 		}
 		return true;
 	}
-
-	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array())
-	{
+	/**
+	 * [GetMinMaxPrice description]
+	 * @param boolean $and    [description]
+	 * @param string  $limit  [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
+	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array()){
 		$where = "";
 		$where2 = $this->filter;
 
@@ -947,16 +978,20 @@ class Products {
 		}
 		return $this->list;
 	}
-
-	public function SetMinMaxPrice()
-	{
+	/**
+	 * [SetMinMaxPrice description]
+	 */
+	public function SetMinMaxPrice(){
 		$this->price_range = '';
 		if (isset($GLOBALS['Price_range'])) {
 
 			$this->price_range = " AND p.price_opt BETWEEN " . $GLOBALS['Price_range'][0]. " AND " . $GLOBALS['Price_range'][1];
 		}
 	}
-
+	/**
+	 * [SetProductsList1 description]
+	 * @param [type] $s [description]
+	 */
 	public function SetProductsList1($s){
 		// SQL выборки для админки
 		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",
@@ -976,7 +1011,13 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [SetProductsListFilter description]
+	 * @param boolean $and    [description]
+	 * @param string  $limit  [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
 	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array()){
 		$where = "";
 		if($and !== FALSE && count($and)){
@@ -1027,8 +1068,13 @@ class Products {
 		}
 		return true;
 	}
-
-	//функция для отображения результатов поиска без дублей ( нет категорий)
+	/**
+	 * функция для отображения результатов поиска без дублей ( нет категорий)
+	 * @param boolean $and    [description]
+	 * @param string  $limit  [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
 	public function SetProductsListOldSearch($and = false, $limit='', $gid=0, $params = array()){
 		$where = " ";
 		if($and !== FALSE && count($and)){
@@ -1156,7 +1202,12 @@ class Products {
 			return $res;
 		}
 	}
-
+	/**
+	 * [GetProductsCnt description]
+	 * @param boolean $and    [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
 	public function GetProductsCnt($and = false, $gid = 0, $params = array()){
 		$where = "";
 		if($this->filter === false) return false;
@@ -1208,7 +1259,12 @@ class Products {
 		}
 		return $cnt;
 	}
-
+	/**
+	 * [SetProductsListSupCab description]
+	 * @param boolean $and     [description]
+	 * @param string  $limit   [description]
+	 * @param string  $orderby [description]
+	 */
 	public function SetProductsListSupCab($and = false, $limit = '', $orderby = 'a.inusd, p.name'){
 		$where = "";
 		if($and !== FALSE && count($and)){
@@ -1256,7 +1312,11 @@ class Products {
 			return true;
 		}
 	}
-
+	/**
+	 * [GetProductsCntSupCab description]
+	 * @param boolean $and    [description]
+	 * @param string  $params [description]
+	 */
 	public function GetProductsCntSupCab($and = false, $params = ''){
 		$where = " ";
 		if($and !== FALSE && count($and)){
@@ -1278,7 +1338,12 @@ class Products {
 			return $arr['cnt'];
 		}
 	}
-
+	/**
+	 * [SetProductsListFromArr description]
+	 * @param [type] $arr    [description]
+	 * @param string $limit  [description]
+	 * @param array  $params [description]
+	 */
 	public function SetProductsListFromArr($arr, $limit='', $params = array()){
 		$in = implode(", ", $arr);
 		if(is_numeric($limit)){
@@ -1328,7 +1393,11 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [SetPromoProductsListFromArr description]
+	 * @param [type] $arr  [description]
+	 * @param [type] $code [description]
+	 */
 	public function SetPromoProductsListFromArr($arr, $code){
 		$in = implode(", ", $arr);
 		$sql = "SELECT ".implode(", ",$this->usual_fields_cart).",
@@ -1352,7 +1421,10 @@ class Products {
 			return true;
 		}
 	}
-
+	/**
+	 * [SetExclusivList description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function SetExclusivList($id_supplier){
 		$sql = "SELECT p.id_product
 			FROM "._DB_PREFIX_."product p
@@ -1364,7 +1436,12 @@ class Products {
 			return true;
 		}
 	}
-
+	/**
+	 * [SetExclusiveSupplier description]
+	 * @param [type] $id_product  [description]
+	 * @param [type] $id_supplier [description]
+	 * @param [type] $active      [description]
+	 */
 	public function SetExclusiveSupplier($id_product, $id_supplier, $active){
 		$this->db->StartTrans();
 		$f['exclusive_supplier'] = $id_supplier;
@@ -1377,7 +1454,11 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 	}
-
+	/**
+	 * [GetAssort description]
+	 * @param [type] $id_product  [description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function GetAssort($id_product, $id_supplier){
 		$sql = 'SELECT * FROM '._DB_PREFIX_.'assortiment
 			WHERE id_product = '.$id_product.'
@@ -1388,8 +1469,10 @@ class Products {
 		}
 		return $res;
 	}
-
-	// Обновление позиции ассортимента (ajax)
+	/**
+	 * Обновление позиции ассортимента (ajax)
+	 * @param [type] $data [description]
+	 */
 	public function UpdateAssort2($data){
 		$assort = $this->GetAssort($data['id_product'], $data['id_supplier']);
 		$Suppliers = new Suppliers();
@@ -1448,8 +1531,19 @@ class Products {
 		$this->RecalcSitePrices(array($data['id_product']));
 		return $this->GetAssort($data['id_product'], $data['id_supplier']);
 	}
-
-	// Обновление позиции ассортимента (ajax)
+	/**
+	 * Обновление позиции ассортимента (ajax)
+	 * @param [type]  $id_product      [description]
+	 * @param [type]  $opt             [description]
+	 * @param [type]  $price_otpusk    [description]
+	 * @param [type]  $price_recommend [description]
+	 * @param [type]  $markup          [description]
+	 * @param [type]  $product_limit   [description]
+	 * @param integer $active          [description]
+	 * @param [type]  $sup_comment     [description]
+	 * @param string  $inusd           [description]
+	 * @param [type]  $currency_rate   [description]
+	 */
 	public function UpdateAssort($id_product, $opt, $price_otpusk, $price_recommend, $markup, $product_limit = null, $active = 0, $sup_comment, $inusd = 'false', $currency_rate){
 		if(!isset($_SESSION['Assort']['products'][$id_product])){
 			$this->InitProduct($id_product);
@@ -1502,7 +1596,10 @@ class Products {
 		// }
 		$this->RecalcSitePrices(array($id_product));
 	}
-
+	/**
+	 * [InitProduct description]
+	 * @param [type] $id_product [description]
+	 */
 	public function InitProduct($id_product){
 		$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] = 0;
 		$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd'] = 0;
@@ -1514,7 +1611,10 @@ class Products {
 		$_SESSION['Assort']['products'][$id_product]['active'] = 0;
 		$_SESSION['Assort']['products'][$id_product]['sup_comment'] = 0;
 	}
-
+	/**
+	 * [FillAssort description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function FillAssort($id_supplier){
 		$sql = "SELECT a.id_product, a.id_supplier,
 			a.price_opt_recommend, a.price_mopt_recommend,
@@ -1542,7 +1642,10 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [SetAssortList description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function SetAssortList($id_supplier){
 		$sql = "SELECT a.id_product, a.id_supplier,
 			a.price_opt_recommend, a.price_mopt_recommend,
@@ -1558,7 +1661,10 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [AddToAssort description]
+	 * @param [type] $id_product [description]
+	 */
 	public function AddToAssort($id_product){
 		$this->InitProduct($id_product);
 		$suppliers = new suppliers();
@@ -1579,7 +1685,11 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 	}
-
+	/**
+	 * [SwitchActiveEDInAssort description]
+	 * @param [type] $id_product [description]
+	 * @param [type] $active     [description]
+	 */
 	public function SwitchActiveEDInAssort($id_product, $active){
 		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
 		$f['active'] = $active;
@@ -1588,7 +1698,11 @@ class Products {
 		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
 	}
-
+	/**
+	 * [DelFromAssort description]
+	 * @param [type] $id_product  [description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function DelFromAssort($id_product, $id_supplier){
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
@@ -1596,8 +1710,10 @@ class Products {
 		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($id_product));
 	}
-
-	//Привязка поставщика к товару с админки
+	/**
+	 * Привязка поставщика к товару с админки
+	 * @param [type] $arr [description]
+	 */
 	public function AddToAssortWithAdm($arr){
 		$suppliers = new Suppliers();
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
@@ -1632,8 +1748,10 @@ class Products {
 		$this->RecalcSitePrices(array($arr['id_product']));
 		return false;
 	}
-
-	//Обновление данных Ассортимента с админки
+	/**
+	 * Обновление данных Ассортимента с админки
+	 * @param [type] $arr [description]
+	 */
 	public function UpdateAssortWithAdm($arr){
 		$suppliers = new Suppliers();
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
@@ -1662,8 +1780,11 @@ class Products {
 		$this->RecalcSitePrices(array($arr['id_product']));
 		return true;
 	}
-
-	//Отвязываем поставщика от товара
+	/**
+	 * Отвязываем поставщика от товара
+	 * @param [type] $id_assort  [description]
+	 * @param [type] $id_product [description]
+	 */
 	public function DelFromAssortWithAdm($id_assort, $id_product){
 		$this->db->StartTrans();
 		$this->db->DeleteRowFrom(_DB_PREFIX_."assortiment", "id_assortiment", $id_assort);
@@ -1675,9 +1796,9 @@ class Products {
 		// $this->RecalcSitePrices(array($id_product));
 		// $this->db->CompleteTrans();
 	}
-
-	/*
+	/**
 	 * Пересчет цен на сайте
+	 * @param [type] $ids_products [description]
 	 */
 	public function RecalcSitePrices($ids_products = null){
 		set_time_limit(3600);
@@ -1772,7 +1893,10 @@ class Products {
 		//echo "execution time <b>$time</b> seconds\n";
 		return true;
 	}
-
+	/**
+	 * [UpdateSitePricesMassive description]
+	 * @param [type] $arr [description]
+	 */
 	public function UpdateSitePricesMassive($arr){
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
@@ -1789,7 +1913,12 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [UpdateSitePrices description]
+	 * @param [type] $id_product [description]
+	 * @param [type] $opt_sr     [description]
+	 * @param [type] $mopt_sr    [description]
+	 */
 	public function UpdateSitePrices($id_product, $opt_sr, $mopt_sr){
 		$f['price_opt'] = "ROUND(".$opt_sr."*price_coefficient_opt, 2)";
 		$f['price_mopt'] = "ROUND(".$mopt_sr."*price_coefficient_mopt, 2)";
@@ -1801,8 +1930,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	// Добавление
+	/**
+	 * Добавление
+	 * @param [type] $arr [description]
+	 */
 	public function AddProduct($arr){
 		if (isset($arr['dupl_idproduct'])) {
 			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
@@ -1855,8 +1986,11 @@ class Products {
 		//$this->RecalcSitePrices(array($id_product));
 		return $id_product;
 	}
-
-	//Запись просмотренных товаров
+	/**
+	 * Запись просмотренных товаров
+	 * @param [type] $id_product [description]
+	 * @param [type] $id_user    [description]
+	 */
 	public function AddViewProduct($id_product, $id_user){
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'visited_products', array('id_product' => $id_product, 'id_user' => $id_user))){
@@ -1866,7 +2000,11 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-	//Обновление счетчика просмотренных товаров
+	/**
+	 * Обновление счетчика просмотренных товаров
+	 * @param [type] $count_views [description]
+	 * @param [type] $id_product  [description]
+	 */
 	public function UpdateViewsProducts($count_views, $id_product){
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."product", array('count_views' => $count_views = $count_views + 1), "id_product = {$id_product}")){
@@ -1876,8 +2014,11 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	// Заполнение соответствий категории-товар
+	/**
+	 * Заполнение соответствий категории-товар
+	 * @param [type] $id_product     [description]
+	 * @param [type] $categories_arr [description]
+	 */
 	public function UpdateProductCategories($id_product, $categories_arr){
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
@@ -1908,8 +2049,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	// Обновление
+	/**
+	 * Обновление
+	 * @param [type] $arr [description]
+	 */
 	public function UpdateProduct($arr){
 		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
@@ -1984,7 +2127,10 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [UpdateTranslit description]
+	 * @param [type] $id_product [description]
+	 */
 	public function UpdateTranslit($id_product){
 		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
@@ -1999,8 +2145,10 @@ class Products {
 
 		return $f['translit'];
 	}
-
-	// Удаление
+	/**
+	 * Удаление
+	 * @param [type] $id_product [description]
+	 */
 	public function DelProduct($id_product){
 		$this->db->StartTrans();
 		$this->db->DeleteRowFrom(_DB_PREFIX_."product", "id_product", $id_product);
@@ -2009,8 +2157,10 @@ class Products {
 		//$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
-
-	// Сортировка
+	/**
+	 * Сортировка
+	 * @param [type] $arr [description]
+	 */
 	public function Reorder($arr){
 		$this->db->StartTrans();
 		foreach($arr['ord'] as $id_product=>$ord){
@@ -2020,8 +2170,10 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 	}
-
-	// Генерация массива строк для экспорта в прайс-лист//
+	/**
+	 * Генерация массива строк для экспорта в прайс-лист//
+	 * @param [type] $list [description]
+	 */
 	public function GetExportRowsPrice($list){
 		$r = array();
 		$ii = 0;
@@ -2045,8 +2197,11 @@ class Products {
 		}
 		return array($r);
 	}
-
-	// Генерация и выдача для скачивания файла excel (Экспорт)
+	/**
+	 * Генерация и выдача для скачивания файла excel (Экспорт)
+	 * @param [type] $header [description]
+	 * @param [type] $rows   [description]
+	 */
 	public function GenExcelFileFullPrice($header, $rows){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -2102,8 +2257,12 @@ class Products {
 		header('Cache-Control: max-age=0');
 		$objWriter->save('php://output');
 	}
-
-	// Генерация и выдача для скачивания файла excel (Экспорт)
+	/**
+	 * Генерация и выдача для скачивания файла excel (Экспорт)
+	 * @param [type] $header    [description]
+	 * @param [type] $rows      [description]
+	 * @param [type] $cats_cols [description]
+	 */
 	public function GenExcelFile($header, $rows, $cats_cols){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -2176,8 +2335,10 @@ class Products {
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
 	}
-
-	// Генерация массива строк для экспорта
+	/**
+	 * Генерация массива строк для экспорта
+	 * @param [type] $list [description]
+	 */
 	public function GetExportRows($list){
 		$r = array();
 		$ii = 0;
@@ -2216,7 +2377,10 @@ class Products {
 		}
 		return array($r,$cats_cols);
 	}
-
+	/**
+	 * [GetCatsOfProduct description]
+	 * @param [type] $id_product [description]
+	 */
 	public function GetCatsOfProduct($id_product){
 		$sql = "SELECT cp.id_category, c.art
 			FROM "._DB_PREFIX_."cat_prod AS cp
@@ -2226,9 +2390,10 @@ class Products {
 		$arr = $this->db->GetArray($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return $arr;
 	}
-
-	// Проверка загруженного файла
-
+	/**
+	 * Проверка загруженного файла
+	 * @param [type] $filename [description]
+	 */
 	public function CheckProductsFile($filename){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel1 = PHPExcel_IOFactory::load($filename);
@@ -2269,8 +2434,10 @@ class Products {
 			return $str;
 		}
 	}
-
-	// Обработка загруженного файла
+	/**
+	 * Обработка загруженного файла
+	 * @param [type] $filename [description]
+	 */
 	public function ProcessProductsFile($filename){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($filename);
@@ -2294,7 +2461,10 @@ class Products {
 		}
 		return $this->CompleteProductsFile($array);
 	}
-
+	/**
+	 * [CompleteProductsFile description]
+	 * @param [type] $array [description]
+	 */
 	public function CompleteProductsFile($array){
 		// Вычисление кол-ва категорий
 		$cols_cnt=0;
@@ -2357,8 +2527,11 @@ class Products {
 		}
 		return array($total_added,$total_updated);
 	}
-
-	// Генерация массива строк для экспорта ассортимента
+	/**
+	 * Генерация массива строк для экспорта ассортимента
+	 * @param [type] $list        [description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function GetExportAssortRows($list, $id_supplier){
 		$r = array();
 		$ii = 0;
@@ -2384,7 +2557,11 @@ class Products {
 		}
 		return $r;
 	}
-
+	/**
+	 * [GetExportAssortRowsUSD description]
+	 * @param [type] $list        [description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function GetExportAssortRowsUSD($list, $id_supplier){
 		$r = array();
 		$ii = 0;
@@ -2410,7 +2587,9 @@ class Products {
 		}
 		return $r;
 	}
-
+	/**
+	 * [GetExcelAssortColumnsArray description]
+	 */
 	public function GetExcelAssortColumnsArray(){
 		$ii=0;
 		$ca[$ii++] = array('h'=>'Артикул', 						'n' => 'art', 					'w'=>'9');
@@ -2421,8 +2600,10 @@ class Products {
 		$ca[$ii++] = array('h'=>'Артикул поставщика',			'n' => 'sup_comment', 			'w'=>'50');
 		return $ca;
 	}
-
-	// Генерация и выдача для скачивания файла excel Ассортимент (Экспорт)
+	/**
+	 * Генерация и выдача для скачивания файла excel Ассортимент (Экспорт)
+	 * @param [type] $rows [description]
+	 */
 	public function GenExcelAssortFile($rows){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -2473,8 +2654,10 @@ class Products {
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
 	}
-
-	// Обработка загруженного файла ассортимента
+	/**
+	 * Обработка загруженного файла ассортимента
+	 * @param [type] $filename [description]
+	 */
 	public function ProcessAssortimentFile($filename){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($filename);
@@ -2537,8 +2720,10 @@ class Products {
 		}
 		return array($total_added,$total_updated);
 	}
-
-	// Обработка загруженного файла ассортимента
+	/**
+	 * Обработка загруженного файла ассортимента
+	 * @param [type] $filename [description]
+	 */
 	public function ProcessAssortimentFileUSD($filename){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($filename);
@@ -2603,7 +2788,11 @@ class Products {
 		}
 		return array($total_added,$total_updated);
 	}
-
+	/**
+	 * [IsInAssort description]
+	 * @param [type] $id_product  [description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function IsInAssort($id_product, $id_supplier){
 		$sql = "SELECT id_product
 			FROM "._DB_PREFIX_."assortiment
@@ -2616,7 +2805,15 @@ class Products {
 			return false;
 		}
 	}
-
+	/**
+	 * [AddProductToAssort description]
+	 * @param [type]  $id_product      [description]
+	 * @param [type]  $id_supplier     [description]
+	 * @param [type]  $arr             [description]
+	 * @param [type]  $koef_nazen_opt  [description]
+	 * @param [type]  $koef_nazen_mopt [description]
+	 * @param boolean $inusd           [description]
+	 */
 	public function AddProductToAssort($id_product, $id_supplier, $arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
 		$this->db->StartTrans();
 		$f['id_product'] = $id_product;
@@ -2644,8 +2841,13 @@ class Products {
 		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
 	}
-
-	// Обновление
+	/**
+	 * Обновление
+	 * @param [type]  $arr             [description]
+	 * @param [type]  $koef_nazen_opt  [description]
+	 * @param [type]  $koef_nazen_mopt [description]
+	 * @param boolean $inusd           [description]
+	 */
 	public function UpdateSupplierAssortiment($arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
 		$id_product = trim($arr['id_product']);
 		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
@@ -2675,7 +2877,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
+	/**
+	 * [UpdatePriceSupplierAssortiment description]
+	 * @param [type] $kurs_griwni [description]
+	 */
 	public function UpdatePriceSupplierAssortiment($kurs_griwni){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
@@ -2693,7 +2898,9 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [UpdatePriceRecommendAssortiment description]
+	 */
 	public function UpdatePriceRecommendAssortiment(){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
@@ -2719,7 +2926,9 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [UpdateOldPrice1 description]
+	 */
 	public function UpdateOldPrice1(){
 		$sql = "UPDATE "._DB_PREFIX_."product
 			SET old_price_mopt = price_mopt,
@@ -2729,6 +2938,9 @@ class Products {
 			return false;
 		}
 	}
+	/**
+	 * [UpdateOldPrice2 description]
+	 */
 	public function UpdateOldPrice2(){
 		$sql = "UPDATE "._DB_PREFIX_."product
 			SET old_price_mopt = price_mopt,
@@ -2738,6 +2950,11 @@ class Products {
 			return false;
 		}
 	}
+	/**
+	 * [GetPopularsOfCategory description]
+	 * @param [type]  $id_category [description]
+	 * @param boolean $forDisplay  [description]
+	 */
 	public function GetPopularsOfCategory($id_category, $forDisplay = false){
 		if(!$forDisplay){
 			$sql = "SELECT id_product
@@ -2756,8 +2973,11 @@ class Products {
 		$arr = $this->db->GetArray($sql,"id_product");
 		return $arr;
 	}
-
-	// Добавление популярного продукта
+	/**
+	 * Добавление популярного продукта
+	 * @param [type] $id_product  [description]
+	 * @param [type] $id_category [description]
+	 */
 	public function SetPopular($id_product, $id_category){
 		$this->db->StartTrans();
 		$f['id_product'] = $id_product;
@@ -2768,23 +2988,29 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 	}
-
-	// Удаление популярного продукта
+	/**
+	 * Удаление популярного продукта
+	 * @param [type] $id_product  [description]
+	 * @param [type] $id_category [description]
+	 */
 	public function DelPopular($id_product, $id_category){
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."popular_products", array ("id_product = $id_product", "id_category = ".$id_category));
 		$this->db->CompleteTrans();
 	}
-
-	//Очистка списка популярных товаров
+	/**
+	 * Очистка списка популярных товаров
+	 */
 	public function ClearPopular(){
 		$this->db->StartTrans();
 		$sql = "DELETE FROM "._DB_PREFIX_."popular_products";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 	}
-
-	// Статистика продаж товаров в период
+	/**
+	 * Статистика продаж товаров в период
+	 * @param boolean $and [description]
+	 */
 	public function GetSalesStatistic($and=false){
 		$dates = false;
 		$date_where = array();
@@ -2820,8 +3046,9 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		return $arr;
 	}
-
-	// Объявление полей для экспорта "Заказы по поставщикам"
+	/**
+	 * Объявление полей для экспорта "Заказы по поставщикам"
+	 */
 	public function GetExcelStatColumnsArray(){
 		$ii=0;
 		$ca[$ii++] = array('h'=>'Артикул', 						'n' => 'art',					'w'=>'14');
@@ -2831,8 +3058,10 @@ class Products {
 		$ca[$ii++] = array('h'=>'Сумма', 						'n' => 'total_sum', 			'w'=>'20');
 		return $ca;
 	}
-
-	// Генерация и выдача для скачивания файла excel "Заказы по поставщикам"
+	/**
+	 * Генерация и выдача для скачивания файла excel "Заказы по поставщикам"
+	 * @param [type] $rows [description]
+	 */
 	public function GenExcelStatFile($rows){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -2872,8 +3101,9 @@ class Products {
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
 	}
-
-	// Получить айдишники работающих поставщиков в доступный для заказа диапазон дат
+	/**
+	 * Получить айдишники работающих поставщиков в доступный для заказа диапазон дат
+	 */
 	public function GetSuppliersIdsForCurrentDateDiapason(){
 		$Order = new Orders();
 		$sql = "SELECT s.id_user as id_supplier
@@ -2898,8 +3128,10 @@ class Products {
 			return array('NULL');
 		}
 	}
-
-	// Получить поставщиков для товара
+	/**
+	 * Получить поставщиков для товара
+	 * @param [type] $id_product [description]
+	 */
 	public function GetSuppliersForProduct($id_product){
 		$sql = "SELECT a.id_supplier, s.article, a.product_limit,
 			ROUND(a.price_opt_otpusk,2) as price_opt_otpusk,
@@ -2913,8 +3145,10 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		return $arr;
 	}
-
-	// Получить поставщиков для товара по id
+	/**
+	 * Получить поставщиков для товара по id
+	 * @param [type] $id_product [description]
+	 */
 	public function GetSuppliersInfoForProduct($id_product){
 		$sql = "SELECT a.id_supplier, s.article, s.real_phone, a.product_limit,
 			a.active, a.inusd, u.name, a.id_assortiment,
@@ -2932,7 +3166,10 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		return $arr;
 	}
-	// Получить данные поставщика по Артикулу
+	/**
+	 * Получить данные поставщика по Артикулу
+	 * @param [type] $art [description]
+	 */
 	public function GetSupplierInfoByArticle($art){
 		$sql = "SELECT s.id_user, s.real_phone, u.name
 			FROM "._DB_PREFIX_."supplier AS s
@@ -2946,7 +3183,10 @@ class Products {
 			return $arr;
 		}
 	}
-
+	/**
+	 * [GetExportSupPricesRows description]
+	 * @param [type] $arr [description]
+	 */
 	public function GetExportSupPricesRows($arr){
 		$suppliers = array();
 		$suppliers_qty = 0;
@@ -2974,8 +3214,10 @@ class Products {
 		}
 		return array($rE, $suppliers_qty);
 	}
-
-	// Объявление полей для экспорта товаров с поставщиками и ценами
+	/**
+	 * Объявление полей для экспорта товаров с поставщиками и ценами
+	 * @param [type] $suppliers_qty [description]
+	 */
 	public function GetExcelSupPricesColumnsArray($suppliers_qty){
 		$ii=0;
 		$ca[$ii++] = array('h'=>'Артикул', 										'n' => 'article',							'w'=>'14');
@@ -2992,8 +3234,11 @@ class Products {
 		}
 		return $ca;
 	}
-
-	// Генерация и выдача для скачивания файла excel товаров с поставщиками и ценами
+	/**
+	 * Генерация и выдача для скачивания файла excel товаров с поставщиками и ценами
+	 * @param [type] $rows          [description]
+	 * @param [type] $suppliers_qty [description]
+	 */
 	public function GenExcelSupPricesFile($rows,$suppliers_qty){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -3036,15 +3281,18 @@ class Products {
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
 	}
-
-	// Список производителей
+	/**
+	 * Список производителей
+	 */
 	public function GetManufacturers(){
 		$sql = "SELECT manufacturer_id, name
 			FROM "._DB_PREFIX_."manufacturers
 			order by ord, name";
 		return $this->db->GetArray($sql);
 	}
-
+	/**
+	 * [GetCountNameIndex description]
+	 */
 	public function GetCountNameIndex(){
 		$qry = "SELECT id_product
 			FROM "._DB_PREFIX_."product
@@ -3056,7 +3304,10 @@ class Products {
 			return $result;
 		}
 	}
-
+	/**
+	 * [GetName description]
+	 * @param [type] $i [description]
+	 */
 	public function GetName($i){
 		$qry = "SELECT name
 			FROM "._DB_PREFIX_."product
@@ -3068,14 +3319,20 @@ class Products {
 			return $name[0]['name'];
 		}
 	}
-
+	/**
+	 * [Morphy description]
+	 * @param [type] $i          [description]
+	 * @param [type] $name_index [description]
+	 */
 	public function Morphy($i, $name_index){
 		$qry = "UPDATE "._DB_PREFIX_."product
 			SET name_index='$name_index'
 			WHERE id_product='$i'";
 		$this->db->Query($qry);
 	}
-
+	/**
+	 * [PriceListProductCount description]
+	 */
 	public function PriceListProductCount(){
 		$sql = "SELECT c.id_category, c.category_level, c.name,
 			c.pid, c.visible, COUNT(p.id_product) AS products
@@ -3095,7 +3352,10 @@ class Products {
 			return $arr;
 		}
 	}
-
+	/**
+	 * [PriceListProductsByCat description]
+	 * @param [type] $id_category [description]
+	 */
 	public function PriceListProductsByCat($id_category){
 		$and = "AND (p.price_opt <> 0 OR p.price_mopt <> 0) ";
 		$sql = "SELECT *
@@ -3114,7 +3374,10 @@ class Products {
 			return $count;
 		}
 	}
-
+	/**
+	 * [AddPriceList description]
+	 * @param [type] $pricelist [description]
+	 */
 	public function AddPriceList($pricelist){
 		$sql = "SELECT MAX(ord) AS ord
 			FROM "._DB_PREFIX_."pricelists";
@@ -3133,7 +3396,10 @@ class Products {
 		$arr = $this->db->GetOneRowArray($sql);
 		return $arr['id'];
 	}
-
+	/**
+	 * [SortPriceLists description]
+	 * @param [type] $pricelists [description]
+	 */
 	public function SortPriceLists($pricelists){
 		foreach($pricelists as $k=>$v){
 			$sql = "UPDATE "._DB_PREFIX_."pricelists
@@ -3143,7 +3409,10 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [UpdatePriceList description]
+	 * @param [type] $pricelist [description]
+	 */
 	public function UpdatePriceList($pricelist){
 		$f['order'] = $pricelist['order'];
 		$f['name'] = $pricelist['name'];
@@ -3155,7 +3424,10 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [UpdateSetByOrder description]
+	 * @param [type] $pricelist [description]
+	 */
 	public function UpdateSetByOrder($pricelist){
 		$f['opt_correction_set'] = $pricelist['set'];
 		$f['mopt_correction_set'] = $pricelist['set'];
@@ -3171,22 +3443,25 @@ class Products {
 		}
 		if($err > 0){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
-
+	/**
+	 * [DeletePriceList description]
+	 * @param [type] $id [description]
+	 */
 	public function DeletePriceList($id){
 		$sql = "DELETE
 			FROM "._DB_PREFIX_."pricelists
 			WHERE id = ".$id;
 		if(!$this->db->Query($sql)){
 			return false;
-		}else{
-			return $id;
 		}
+		return $id;
 	}
-
+	/**
+	 * [GetPricelistFullList description]
+	 */
 	public function GetPricelistFullList(){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."pricelists
@@ -3194,11 +3469,13 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr === true){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
-
+	/**
+	 * [GetPricelistById description]
+	 * @param [type] $id [description]
+	 */
 	public function GetPricelistById($id){
 		$sql = "SELECT pl.id, pl.order, pl.name AS price_name, p.id_product,
 			p.art, p.name, p.img_1, p.min_mopt_qty, p.inbox_qty, un.unit_xt AS units,
@@ -3220,11 +3497,12 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr === true){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
-
+	/**
+	 * [GetPricelistProducts description]
+	 */
 	public function GetPricelistProducts(){
 		$sql = "SELECT osp.id_product
 			FROM "._DB_PREFIX_."osp AS osp
@@ -3237,11 +3515,13 @@ class Products {
 		}
 		if(!isset($prods)){
 			return false;
-		}else{
-			return $prods;
 		}
+		return $prods;
 	}
-
+	/**
+	 * [ProductReport description]
+	 * @param [type] $diff [description]
+	 */
 	public function ProductReport($diff){
 		$sql = "SELECT p.id_product, p.art, p.name
 			FROM "._DB_PREFIX_."product AS p
@@ -3269,11 +3549,13 @@ class Products {
 		}
 		if(!$arr === true){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
-
+	/**
+	 * [AddSupplierProduct description]
+	 * @param [type] $data [description]
+	 */
 	public function AddSupplierProduct($data){
 		$f['name'] = $data['name'];
 		$f['descr'] = nl2br($data['descr'], false);
@@ -3314,7 +3596,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
+	/**
+	 * [GetProductsOnModeration description]
+	 * @param [type] $id_supplier [description]
+	 */
 	public function GetProductsOnModeration($id_supplier = null){
 		$sql = "SELECT ".implode(", ",$this->usual_fields_temp_prods).",
 			ms.name AS status_name, unit_xt AS units
@@ -3333,8 +3618,10 @@ class Products {
 		}
 		return $arr;
 	}
-
-	//Проверка наличия картинки в базах
+	/**
+	 * Проверка наличия картинки в базах
+	 * @param [type] $path [description]
+	 */
 	public function CheckImages($path){
 		$sql = "SELECT COUNT(id) AS count
 			FROM "._DB_PREFIX_."image
@@ -3345,7 +3632,12 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [SetModerationStatus description]
+	 * @param [type] $id      [description]
+	 * @param [type] $status  [description]
+	 * @param [type] $comment [description]
+	 */
 	public function SetModerationStatus($id, $status, $comment = null){
 		$f['id'] = $id;
 		$f['moderation_status'] = $status;
@@ -3358,7 +3650,10 @@ class Products {
 		}
 		return true;
 	}
-
+	/**
+	 * [GetProductOnModeration description]
+	 * @param [type] $id [description]
+	 */
 	public function GetProductOnModeration($id){
 		$sql = "SELECT ".implode(", ",$this->usual_fields_temp_prods).",
 			ms.name AS status_name
@@ -3372,7 +3667,10 @@ class Products {
 		}
 		return $arr;
 	}
-
+	/**
+	 * [DeleteProductFromModeration description]
+	 * @param [type] $id_product [description]
+	 */
 	public function DeleteProductFromModeration($id_product){
 		$prod = $this->GetProductOnModeration($id_product);
 		$images = explode(';', $prod['images']);
@@ -3398,7 +3696,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
+	/**
+	 * [AcceptProductModeration description]
+	 * @param [type] $data [description]
+	 */
 	public function AcceptProductModeration($data){
 		$product = $this->GetProductOnModeration($data['id']);
 		$f['art'] = $data['art'];
@@ -3501,7 +3802,11 @@ class Products {
 		$this->db->CompleteTrans();
 		return $id;
 	}
-
+	/**
+	 * [GetPromoProducts description]
+	 * @param [type] $promo_code [description]
+	 * @param string $limit      [description]
+	 */
 	public function GetPromoProducts($promo_code, $limit = ''){
 		if(is_numeric($limit)){
 			$limit = "LIMIT $limit";
@@ -3528,7 +3833,10 @@ class Products {
 		}
 		return $arr;
 	}
-
+	/**
+	 * [GetPromoProductsCnt description]
+	 * @param [type] $promo_code [description]
+	 */
 	public function GetPromoProductsCnt($promo_code){
 		$sql = "SELECT COUNT(a.id_product) AS cnt
 			FROM "._DB_PREFIX_."assortiment AS a
@@ -3542,11 +3850,12 @@ class Products {
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr['cnt']){
 			return 0;
-		}else{
-			return $arr['cnt'];
 		}
+		return $arr['cnt'];
 	}
-
+	/**
+	 * [UpdateProductsPopularity description]
+	 */
 	public function UpdateProductsPopularity(){
 		$this->db->StartTrans();
 		$sql = "UPDATE "._DB_PREFIX_."product AS p
@@ -3561,7 +3870,10 @@ class Products {
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 	}
-
+	/**
+	 * [GetProductRating description]
+	 * @param [type] $id_product [description]
+	 */
 	public function GetProductRating($id_product){
 		$sql = "SELECT * FROM "._DB_PREFIX_."product_rating AS pr WHERE pr.id_product = ".$id_product;
 		$arr = $this->db->GetArray($sql);
@@ -3570,7 +3882,12 @@ class Products {
 		}
 		return $arr;
 	}
-
+	/**
+	 * [ToggleDuplicate description]
+	 * @param [type] $id_product        [description]
+	 * @param [type] $duplicate_user    [description]
+	 * @param [type] $duplicate_comment [description]
+	 */
 	public function ToggleDuplicate($id_product, $duplicate_user, $duplicate_comment){
 		$sql = "SELECT duplicate
 			FROM "._DB_PREFIX_."product
@@ -3591,7 +3908,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
+	/**
+	 * [GetDuplicateProducts description]
+	 * @param string $limit [description]
+	 */
 	public function GetDuplicateProducts($limit = ''){
 		if($limit != ''){
 			$limit = "LIMIT $limit";
@@ -3615,34 +3935,16 @@ class Products {
 		}
 		return $arr;
 	}
-	// public function GetDuplicateProducts($limit = ''){
-	// 	if($limit != ''){
-	// 		$limit = "LIMIT $limit";
-	// 	}
-	// 	$sql = "SELECT ".implode(', ',$this->usual_fields).",
-	// 		u.email
-	// 		FROM "._DB_PREFIX_."product AS p
-	// 		LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-	// 			ON p.id_product = cp.id_product
-	// 		LEFT JOIN "._DB_PREFIX_."user AS u
-	// 			ON p.duplicate_user = u.id_user
-	// 		LEFT JOIN "._DB_PREFIX_."units AS un
-	// 			ON un.id = p.id_unit
-	// 		WHERE p.duplicate = 1
-	// 		OR p.duplicate_user > 0
-	// 		GROUP BY id_product
-	// 		$limit";
-	// 	$arr = $this->db->GetArray($sql);
-	// 	if(empty($arr)){
-	// 		return false;
-	// 	}
-	// 	return $arr;
-	// }
 
-	/*Сопуцтвуещие товары*/
+	/**
+	 * СОПУЦТВУЕЩИЕ ТОВАРЫ
+	 */
 
-
-	//Добавление товара
+	/**
+	 * Добавление товара
+	 * @param [type] $id_product      [description]
+	 * @param [type] $id_related_prod [description]
+	 */
 	public function AddRelatedProduct($id_product, $id_related_prod){
 		$f['id_prod'] = trim($id_product);
 		$f['id_related_prod'] = trim($id_related_prod);
@@ -3652,9 +3954,13 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
+		return true;
 	}
-
-	// Удаление товара
+	/**
+	 * Удаление товара
+	 * @param [type] $id_product      [description]
+	 * @param [type] $id_related_prod [description]
+	 */
 	public function DelRelatedProduct($id_product, $id_related_prod){
 		$this->db->StartTrans();
 		$sql = "DELETE FROM "._DB_PREFIX_."related_prods WHERE `id_prod` = ".$id_product." AND `id_related_prod` = ".$id_related_prod;
@@ -3662,8 +3968,10 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	//Получение массива сопуцтвующих товаров
+	/**
+	 * Получение массива сопуцтвующих товаров
+	 * @param [type] $id_product [description]
+	 */
 	public function GetArrayRelatedProducts($id_product){
 		$sql = "SELECT p.id_product, p.*
 			FROM "._DB_PREFIX_."related_prods AS rp
@@ -3673,16 +3981,18 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 
 	/**
 	 * PHOTO ACTIONS
 	 */
 
-	// Проверить, нет ли такого фото в другом товаре
+	/**
+	 * Проверить, нет ли такого фото в другом товаре
+	 * @param [type] $image [description]
+	 */
 	public function CheckPhotosOnModeration($image){
 		$sql = "SELECT COUNT(id) AS count
 			FROM "._DB_PREFIX_."temp_products
@@ -3696,8 +4006,10 @@ class Products {
 		}
 		return true;
 	}
-
-	// Получить список изображений по id товара
+	/**
+	 * Получить список изображений по id товара
+	 * @param [type] $id [description]
+	 */
 	public function GetPhotoById($id){
 		$sql = "SELECT src
 			FROM "._DB_PREFIX_."image
@@ -3712,8 +4024,11 @@ class Products {
 		}
 		return $arr;
 	}
-
-	// Добавление и удаление фото
+	/**
+	 * Добавление и удаление фото
+	 * @param [type] $id_product [description]
+	 * @param [type] $arr        [description]
+	 */
 	public function UpdatePhoto($id_product, $arr){
 		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
 		$this->db->StartTrans();
@@ -3739,12 +4054,10 @@ class Products {
 		unset($f);
 		return true;//Если все ок
 	}
-
-
-	//Проверка Артикула
 	/**
-	 * @param int $art Артикул нового товара
-	 * @param array $art_arr Массив с имеющимися артикулами
+	 * Проверка доступности артикула
+	 * @param integer	$art		Артикул нового товара
+	 * @param array		$art_arr	Массив с имеющимися артикулами
 	 */
 	public function CheckArticle($art, $art_arr = null){
 		if($art_arr == null){
@@ -3761,77 +4074,76 @@ class Products {
 		}
 		return $art;
 	}
-
-	// Отвязка товаров от категории "Новинки" по истечению определенного срока
+	/**
+	 * Отвязка товаров от категории "Новинки" по истечению определенного срока
+	 */
 	public function ClearNewCategory(){
 		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod
 			WHERE id_category = ".$GLOBALS['CONFIG']['new_catalog_id']."
 			AND (SELECT p.create_date
 				FROM "._DB_PREFIX_."product AS p
-				WHERE p.id_product = xt_cat_prod.id_product) < (NOW() - INTERVAL ".$GLOBALS['CONFIG']['new_products_lifetime']." DAY)";
+				WHERE p.id_product = "._DB_PREFIX_."cat_prod.id_product) < (NOW() - INTERVAL ".$GLOBALS['CONFIG']['new_products_lifetime']." DAY)";
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
-
-	//Вернуть все фильтры для заданной категории
-	public function GetFilterFromCategory($id_categorys){
-//		if (isset($GLOBALS['Price_range'])){
-//			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
-//			FROM "._DB_PREFIX_."cat_prod AS cp
-//			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
-//				ON cp.id_product = sp.id_prod
-//			LEFT JOIN "._DB_PREFIX_."specs AS s
-//				ON sp.id_spec = s.id
-//			LEFT JOIN xt_product AS p
-//				ON p.id_product = sp.id_prod
-//			WHERE cp.id_category = ".$id_category . $this->price_range."
-//			AND s.id IS NOT NULL
-//			AND sp.value <> ''
-//			GROUP BY s.id, sp.value";
-//		}else{
+	/**
+	 * Вернуть все фильтры для заданной категории
+	 * @param [type] $id_category id категории
+	 */
+	public function GetFilterFromCategory($id_category){
 			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
+			WHERE cp.id_category IN (".implode(', ', $id_category).")
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
-//		}
 		$arr = $this->db->GetArray($sql);
-		return  $arr ? : false;
+		if(!$arr){
+			return false;
+		}
+		return true;
 	}
-
-	//Вернуть актуальные фильтры с учетом выбраных
-	public function GetFilterFromCategoryNow($add_filters = NULL, $id_category){
+	/**
+	 * Вернуть актуальные фильтры с учетом выбраных
+	 * @param [type] $add_filters [description]
+	 * @param [type] $id_category [description]
+	 */
+	public function GetFilterFromCategoryNow($add_filters = null, $id_category){
 		$spec_str = '';
 		$cnt_active_filter = 0;
-		if($add_filters) {
+		if($add_filters){
 			foreach($add_filters as $spec => $filter) {
 				if($spec_str != '') {
 					$spec_str .= "OR ";
 				}
-				$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM xt_specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
+				$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM "._DB_PREFIX_."specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
 				$cnt_active_filter++;
 			}
 
 			$sql = "SELECT *
-			FROM xt_specs_prods as sp1
+			FROM "._DB_PREFIX_."specs_prods as sp1
 			WHERE  sp1.id_prod IN (SELECT sp.id_prod
-				FROM xt_specs_prods as sp
+				FROM "._DB_PREFIX_."specs_prods as sp
 				WHERE ". $spec_str ."
-				AND sp.id_prod IN (SELECT cp.id_product FROM xt_cat_prod as cp WHERE cp.id_category = ".$id_category." )
+				AND sp.id_prod IN (SELECT cp.id_product FROM "._DB_PREFIX_."cat_prod as cp WHERE cp.id_category = ".$id_category." )
 				GROUP BY sp.id_prod
 				HAVING COUNT(sp.id_prod) = ".$cnt_active_filter.")";
 			$arr = $this->db->GetArray($sql);
 		}
-
-		return  isset($arr) ? $arr : false;
+		if(!$arr){
+			return false;
+		}
+		return true;
 	}
-
+	/**
+	 * [GetCntFilterNow description]
+	 * @param [type] $id_categorys [description]
+	 */
 	public function GetCntFilterNow($id_categorys){
 		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
 			FROM "._DB_PREFIX_."cat_prod AS cp
@@ -3845,9 +4157,15 @@ class Products {
 			AND sp.value <> ''
 			GROUP BY s.id, sp.value";
 		$arr = $this->db->GetArray($sql);
-		return  $arr ? $arr : false;
+		if(!$arr){
+			return false;
+		}
+		return true;
 	}
-
+	/**
+	 * [DuplicateProduct description]
+	 * @param [type] $data [description]
+	 */
 	public function DuplicateProduct($data){
 		// creating new article
 		$art = $this->CheckArticle((int) $this->GetLastArticle());
@@ -3910,14 +4228,21 @@ class Products {
 		}
 		return $id_product;
 	}
-
+	/**
+	 * [SetFieldsForMonitoringSpecifications description]
+	 * @param [type] $params [description]
+	 */
 	public function SetFieldsForMonitoringSpecifications($params){
 		foreach($params as $key => $value){
 
 		}
 	}
-
-	//Находим все значения, которые привязаны к типу товара
+	/**
+	 * Находим все значения, которые привязаны к типу товара
+	 * @param  [type] $id    [description]
+	 * @param  [type] $idcat [description]
+	 * @return [type]        [description]
+	 */
 	public function getValuesItem($id, $idcat){
 		$sql = "SELECT DISTINCT v.`value`
 				FROM  "._DB_PREFIX_."specs_prods v INNER JOIN  "._DB_PREFIX_."cat_prod p
@@ -3944,7 +4269,12 @@ class Products {
 		}
 		return $res['art'];
 	}
-
+	/**
+	 * [generateNavigation description]
+	 * @param  [type]  $list [description]
+	 * @param  integer $lvl  [description]
+	 * @return [type]        [description]
+	 */
 	public function generateNavigation($list, $lvl = 0){ //print_r($list); die();
 		$lvl++;
 		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';

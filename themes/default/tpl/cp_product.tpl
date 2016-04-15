@@ -304,7 +304,7 @@
 							<a href="https://plus.google.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+">
 							</a>
-						</li>
+						</li>						
 						<li>
 							<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
