@@ -3056,8 +3056,14 @@ section .stat_year {
 		background-color: #999;
 	}
 /* class="mdl-button mdl-js-button mdl-button--raised" */
-/* style="float: right;right: 10px;top:-10px;background:#018B06;"
+/* style="float: right;right: 10px;top:-10px;background:#018B06;"*/
 
+
+/* Стиль активного сегмена */
+
+.catalog .main_nav .activeSegment {
+	color: black;
+}
 
 /* Блок сео текста */
 
