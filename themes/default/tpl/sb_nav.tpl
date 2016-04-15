@@ -36,7 +36,7 @@
 	<?}?>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
-	<!-- <div id="testCategotyCont"></div> -->
+	<div id="allCategotyCont"></div>
 </div>
 
 <script>
@@ -67,7 +67,9 @@ $(function(){
 			removeLoadAnimation('.catalog');
 			console.log('все секции');
 			$(".second_nav").addClass('hidden');
-			$(".allSections").removeClass('hidden');
+			/*$(".allSections").removeClass('hidden');*/
+			$("#allCategotyCont").append(data);
+
 		});
 	})
 ;});
