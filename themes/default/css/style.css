@@ -3059,10 +3059,14 @@ section .stat_year {
 /* style="float: right;right: 10px;top:-10px;background:#018B06;"*/
 
 
-/* Стиль активного сегмена */
+/* Стиль активного сегмена и выделение при наведении */
 
 .catalog .main_nav .activeSegment {
 	color: black;
+}
+
+.catalog .main_nav li:hover {
+	background: #fff;
 }
 
 /* Блок сео текста */
