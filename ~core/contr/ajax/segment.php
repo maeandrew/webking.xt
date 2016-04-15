@@ -20,6 +20,7 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
                     echo $segm;
                     exit();
                 } else if ($_POST['type'] == 0){
+                    $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
                     $cat = $nav->generateNavigation($navigation);
                     echo $cat;
                     exit();
