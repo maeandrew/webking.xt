@@ -5,7 +5,7 @@ if (isset($_COOKIE['Segmentation']) && ($_COOKIE['Segmentation'] == 1 || $_COOKI
     $segments = $dbtree->Getsegments($_COOKIE['Segmentation']);
     $segm = '<ul class="second_nav">';
     foreach ($segments as &$v) {
-        $segm .= '<li data-id="' . $v['id'] . '" onclick="segmentOpen(' . $v['id'] . ')"> <span class="link_wrapp"><a href="#">' . $v['name'] . '</a><span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span> </li>';
+        $segm .= '<li data-id="' . $v['id'] . '" onclick="segmentOpen(' . $v['id'] . ')"> <span class="link_wrapp"><a href="#">' . $v['name'] . '</a><span><i class="material-icons">keyboard_arrow_right</i></span></span> </li>';
     }
     $segm .= '</ul>';
 

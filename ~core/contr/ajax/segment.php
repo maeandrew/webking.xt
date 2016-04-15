@@ -19,6 +19,10 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
                     $segm .= '</ul>';
                     echo $segm;
                     exit();
+                } else if ($_POST['type'] == 0){
+                    $cat = $nav->generateNavigation($navigation);
+                    echo $cat;
+                    exit();
                 }
                 break;
             case "segmid":
