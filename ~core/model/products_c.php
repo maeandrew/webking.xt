@@ -4277,10 +4277,13 @@ class Products {
 	 */
 	public function generateNavigation($list, $lvl = 0){ //print_r($list); die();
 		$lvl++;
-		isset($_POST['idsegment'])?$segm = "'segment'=>".$_POST['idsegment']:'';
+		$arr=  "'clear'=>true";
+		if(isset($_POST['idsegment'])){
+			$arr = "'segment'=>".$_POST['idsegment'];
+		} else '';
 		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
-			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array($segm, 'clear'=>true)).'">'.$l['name'].'</a>';
+			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array($arr, 'clear'=>true)).'">'.$l['name'].'</a>';
 			if(!empty($l['subcats'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
                     $ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
