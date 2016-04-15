@@ -36,37 +36,39 @@
 	<?}?>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
+	<!-- <div id="testCategotyCont"></div> -->
 </div>
 
 <script>
 $(function(){
 	$("#organization").click(function() {
-			console.log('орг-н');
-			addLoadAnimation('.catalog');
-			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
-				removeLoadAnimation('.catalog');
-				console.log(data);
-				$(".second_nav").addClass('hidden');
-				$("#segmentNavOrg").append(data);
-
-			});
+		addLoadAnimation('.catalog');
+		ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
+			removeLoadAnimation('.catalog');
+			console.log(data);
+			$(".second_nav").addClass('hidden');
+			$("#segmentNavOrg").append(data);
+		});
 	})
 
 	$("#store").click(function() {
-			console.log('стор');
-			addLoadAnimation('.catalog');
-			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
-				removeLoadAnimation('.catalog');
-				console.log(data);
-				$(".second_nav").addClass('hidden');
-				$("#segmentNavStore").append(data);
-			});
+		addLoadAnimation('.catalog');
+		ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
+			removeLoadAnimation('.catalog');
+			console.log(data);
+			$(".second_nav").addClass('hidden');
+			$("#segmentNavStore").append(data);
+		});
 	})
 
 	$("#allSection").click(function() {
+		addLoadAnimation('.catalog');
+		ajax('segment', 'segments', {type: 0}, 'html').done(function(data){
+			removeLoadAnimation('.catalog');
 			console.log('все секции');
 			$(".second_nav").addClass('hidden');
 			$(".allSections").removeClass('hidden');
+		});
 	})
 ;});
 </script>

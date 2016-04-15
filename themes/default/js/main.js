@@ -230,7 +230,7 @@ $(function(){
 	});
 
 	//Меню
-	$('.more_cat').on('click', function() {
+	$('aside').on('click','.more_cat', function() {
 		var lvl = $(this).closest('ul').data('lvl'),
 			parent = $(this).closest('li'),
 			parent_active = parent.hasClass('active');
@@ -242,6 +242,8 @@ $(function(){
 			// $(this).find('.material-icons').addClass('rotate');
 		}
 	});
+
+
 
 
 	//Кабинет

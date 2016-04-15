@@ -145,21 +145,21 @@
 	
 	<section class="banner">
 		<div class="cont">
-			<a href="#">
+			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 					<h3>Снабжение<br> предриятий</h3>
 
 				</span>
 			</a>
-			<a href="#">
+			<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 					<h3>Поставки<br> магазинам</h3>
 
 				</span>
 			</a>
-			<a href="#">
+			<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 					<h3>Обеспечение<br> быта</h3>

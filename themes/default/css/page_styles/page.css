@@ -207,8 +207,8 @@
 			.btn_plus .btn_plus_sign,
 			.btn_plus--beta .btn_plus_sign {
 				display: inline-block;
-				width: 25px;
-				height: 25px;
+				width: 27px;
+				height: 27px;
 				border-radius: 50%;
 				border: 1px solid #535E68;
 				-webkit-transition: all .4s ease-in-out;

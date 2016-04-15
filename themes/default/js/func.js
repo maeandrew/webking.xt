@@ -1911,11 +1911,29 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function segmentOpen(id){
-	console.log('тест клик');
-	console.log(id);
-	addLoadAnimation('.catalog');
-	ajax('segment', 'segmid', {id: id}, 'html').done(function(data){
+	$('#' + id).each(function(){
+	    var list = $(this).find('ul');
+	    if(list.length > 0){
+	      console.log('есть')
+	    }else{
+	    	console.log('нету')
+	    	addLoadAnimation('.catalog');
+			ajax('segment', 'segmid', {id: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				console.log(data);
+				$('#' + id).append(data);
+				$('#' + id).find('.link_wrapp').find('span').addClass('more_cat');
+				var lvl = $('#' + id).find('ul').data('lvl');
+				var parent = $('#' + id);
+				var parent_active = parent.hasClass('active');
+				$('#' + id).find('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
+				if(!parent_active){
+					parent.addClass('active').find('> ul').stop(true, true).slideDown();
+				}
 			});
+	    }
+	})
 }
+
+
+
