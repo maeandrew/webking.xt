@@ -1,20 +1,20 @@
 <div class="catalog">
 	<ul class="main_nav">
-		<li id="organization" data-nav="organization">
+		<li id="organization" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 1)?'activeSegment':null;?>" data-nav="organization">
 			<i class="material-icons">work</i>Для организаций
 			<label class="info_key">?</label>
 			<div class="info_description">
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</li>
-		<li id="store" data-nav="store">
+		<li id="store" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 2)?'activeSegment':null;?>" data-nav="store">
 			<i class="material-icons">store</i>Для магазинов
 			<label class="info_key">?</label>
 			<div class="info_description">
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</li>
-		<li id="allSection" class="active" data-nav="all_section">
+		<li id="allSection" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 0)?'activeSegment':'active';?>" data-nav="all_section">
 			<i class="material-icons">list</i>Все разделы
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -22,7 +22,7 @@
 			</div>
 		</li>
 		<?if($GLOBALS['CurrentController'] != 'main' && in_array($GLOBALS['CurrentController'], array('main', 'products'))){?>
-			<li data-nav="filter">
+			<li data-nav="filter" class="hidden">
 				<i class="material-icons">filter_list</i>
 				<span>
 					<span class="title">Фильтры</span>
@@ -36,24 +36,29 @@
 	<?}?>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
+	<div id="allCategotyCont"></div>
 </div>
 
 <script>
 $(function(){
 	$("#organization").click(function() {
-			console.log('орг-н');
+		if ($.cookie('Segmentation') != 1){
+			$(".main_nav li").removeClass('activeSegment');
+			$("#organization").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavOrg").append(data);
-
 			});
+		}
 	})
 
 	$("#store").click(function() {
-			console.log('стор');
+		if ($.cookie('Segmentation') != 2){
+			$(".main_nav li").removeClass('activeSegment');
+			$("#store").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
@@ -61,12 +66,22 @@ $(function(){
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavStore").append(data);
 			});
+		}
 	})
 
 	$("#allSection").click(function() {
-			console.log('все секции');
-			$(".second_nav").addClass('hidden');
-			$(".allSections").removeClass('hidden');
+		if ($.cookie('Segmentation') != 0){
+			$(".main_nav li").removeClass('activeSegment');
+			$("#allSection").addClass('activeSegment');
+			addLoadAnimation('.catalog');
+			ajax('segment', 'segments', {type: 0}, 'html').done(function(data){
+				removeLoadAnimation('.catalog');
+				console.log('все секции');
+				$(".second_nav").addClass('hidden');
+				/*$(".allSections").removeClass('hidden');*/
+				$("#allCategotyCont").append(data);
+			});
+		}
 	})
 ;});
 </script>

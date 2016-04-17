@@ -25,6 +25,12 @@ $(window).load(function(){
 });
 
 $(function(){
+	if(($('.second_nav > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('.second_nav ul[data-lvl="3"] > li').hasClass('active')) { 
+		$('.main_nav li:last-child').removeClass('hidden');
+	}
+	if(($('.second_nav li.active').find('li.active')).length == 0) {
+		$('.main_nav li:last-child').addClass('hidden');
+	}
 	//Отключение клика на ссылку с #
 	$('a[href="#"]').on('click', function(e){
 		e.preventDefault();
@@ -230,7 +236,7 @@ $(function(){
 	});
 
 	//Меню
-	$('.more_cat').on('click', function() {
+	$('aside').on('click','.more_cat', function() {
 		var lvl = $(this).closest('ul').data('lvl'),
 			parent = $(this).closest('li'),
 			parent_active = parent.hasClass('active');
@@ -242,6 +248,8 @@ $(function(){
 			// $(this).find('.material-icons').addClass('rotate');
 		}
 	});
+
+
 
 
 	//Кабинет

@@ -18,7 +18,7 @@ class Link {
 	 * @param array $params массив дополнительных настроек (страница, фильтр, сортировка)
 	 */
 	public static function Category($rewrite, $params = array()){
-		$str_filter = $str_sort = $str_page = $price_range = '';
+		$str_filter = $str_sort = $str_page = $price_range = $str_segment = '';
 		$clear = false;
 		if(!isset($params['clear']) || $params['clear'] === false){
 			$filter = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
@@ -30,6 +30,9 @@ class Link {
 			}
 			if(isset($GLOBALS['Price_range']) && $GLOBALS['Price_range'] !== ''){
 				$price_range = 'price_range='.$GLOBALS['Price_range'][0].','.$GLOBALS['Price_range'][1];
+			}
+			if(isset($GLOBALS['Segment']) && $GLOBALS['Segment'] !== ''){
+				$str_segment = 'segment='.$GLOBALS['Segment'];
 			}
 		}else{
 			$clear = $params['clear'];
@@ -67,6 +70,9 @@ class Link {
 				case 'sort':
 					$str_sort = 'sort='.$param;
 					break;
+				case 'segment':
+					$str_segment = 'segment='.$param;
+					break;
 				case 'price_range':
 					$price_range = 'price_range='.$param;
 					break;
@@ -83,7 +89,7 @@ class Link {
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }
-		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : ''). ($price_range ? '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_page ? '/' . $str_page : '');
+		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : ''). ($price_range ? '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_segment ?  '/' . $str_segment : '') . ($str_page ? '/' . $str_page : '');
 	}
 
 	/**

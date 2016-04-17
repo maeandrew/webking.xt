@@ -36,6 +36,11 @@ if(preg_match('/^.*\.html$/', $request)){
 			$GLOBALS['Sort'] = preg_replace('/^\/sort=/', '', $match[0]);
 			$request = preg_replace('/\/sort=[^\/]+/', '', $request);
 		}
+		// detecting segment if exist
+		if(preg_match('/\/segment=[^\/]+/', $request, $match)){
+			$GLOBALS['Segment'] = preg_replace('/^\/segment=/', '', $match[0]);
+			$request = preg_replace('/\/segment=[^\/]+/', '', $request);
+		}
 		//Диапазон цен
 		if(preg_match('/\/price_range=[^\/]+/', $request, $match)){
 			$GLOBALS['Price_range'] = explode(',', preg_replace('/^\/price_range=/', '', $match[0]));

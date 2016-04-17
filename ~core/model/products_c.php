@@ -617,6 +617,11 @@ class Products {
 
 		$where2 = $this->filter;
 
+		if (isset($GLOBALS['Segment'])){
+			$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
+					WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
+		} else $selectsegm= '';
+
 		if($and !== FALSE && count($and)){
 			$where = " AND ";
 			foreach ($and as $k=>$v){
@@ -687,7 +692,7 @@ class Products {
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
 				(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
 				FROM "._DB_PREFIX_."cat_prod AS cp
-					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
@@ -697,7 +702,7 @@ class Products {
 					".$prices_zero."
 					AND a.active = 1
 				ORDER BY ".$order_by
-				.$limit; 
+				.$limit; //print_r($sql); die();
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -1214,6 +1219,11 @@ class Products {
 
 		$where2 = $this->filter;
 
+		if (isset($GLOBALS['Segment'])){
+			$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
+					WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
+		} else $selectsegm= '';
+
 		if($and !== FALSE && count($and)){
 			$where = " AND ";
 			foreach ($and as $k=>$v){
@@ -1244,7 +1254,7 @@ class Products {
 				p.price_mopt,
 				a.active
 			FROM "._DB_PREFIX_."cat_prod AS cp
-				RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
+				RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product". $selectsegm ."
 				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 			WHERE cp.id_product IS NOT NULL
@@ -1253,7 +1263,7 @@ class Products {
 			HAVING p.visible = 1
 				".$prices_zero."
 				AND a.active = 1";
-		$cnt = count($this->db->GetArray($sql));
+		$cnt = count($this->db->GetArray($sql)); //print_r($sql); die();
 		if(!$cnt){
 			return 0;
 		}
@@ -1825,7 +1835,7 @@ class Products {
 				$mass[$p['id_product']][] = $p;
 			}
 		}else{ // пересчет всех товаров ассортимента
-			$sql .= " 
+			$sql .= "
 				GROUP BY a.id_supplier, a.id_product";
 			$arr = $this->db->GetArray($sql);
 			$ids_products = array();
@@ -4277,9 +4287,13 @@ class Products {
 	 */
 	public function generateNavigation($list, $lvl = 0){ //print_r($list); die();
 		$lvl++;
-		$ul = '<ul '.($lvl == 1?'class="second_nav" ':'').'data-lvl="'.$lvl.'">';
+		$arr['clear']='true';
+		if(isset($_POST['idsegment'])){
+			$arr['segment']=$_POST['idsegment'];
+		}
+		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
-			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],array('clear'=>true)).'">'.$l['name'].'</a>';
+			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
 			if(!empty($l['subcats'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
                     $ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
