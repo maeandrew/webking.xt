@@ -19,6 +19,7 @@
 		<?}?>
 	</div>
 <?}?>
+<div class="separateBlocks"></div>
 <div class="products">
 	<div class="card card_wrapper clearfix">
 		<div class="product_photo card_item">Фото товара</div>
@@ -66,7 +67,7 @@
 							</button>
 						</div>
 
-						<!-- <input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">
+						<!-- <input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$p['id_product']]['quantity']?>">
 						<div class="btn_buy">
 							<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
 						</div> -->
@@ -74,7 +75,7 @@
 				</div>
 			<?} else {?>
 			<div class="suplierPriceBlock">
-				<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
+				<div class="price card_item"><p id="price_mopt_<?=$p['id_product']?>">
 					<?if($p['price_opt_otpusk'] != 0){
 						echo number_format($p['price_opt_otpusk'], 2, ".", "").' грн.';
 					}else{
@@ -82,16 +83,16 @@
 					}?>
 				</p></div>
 				<div class="count_cell card_item">
-					<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
+					<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
 				</div>
 				<div class="count_cell card_item">
-					<p id="inbox_qty_<?=$item['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
+					<p id="inbox_qty_<?=$p['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
 				</div>
 
 				<div class="product_check card_item">
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$p['id_product']?>">
 						<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
-						<input type="checkbox" class="chek mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+						<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$p['id_product']?>)"/>
 					</label>
 				</div>
 			</div>

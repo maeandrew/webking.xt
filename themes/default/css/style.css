@@ -1818,6 +1818,7 @@ section .stat_year {
 .products .card_wrapper .product_name {
 	margin-top: 8px;
 	font-weight: 500;
+	width: 150px;
 }
 
 .products .card .product_check .mdl-checkbox {
@@ -1852,7 +1853,7 @@ section .stat_year {
 }
 .products .card .product_photo {
 	position: relative;
-	height: 100px;
+	/* height: 100px; */
 	width: 130px;
 	float: left;
 	padding: 5px 10px 5px 0;
@@ -1872,9 +1873,13 @@ section .stat_year {
 	max-width: 750px;
 }
 
+.separateBlocks {
+	clear: both;
+}
+
 @media (max-width: 1024px) {
 	.products .card .product_name {
-		max-width: 270px;
+		max-width: 260px;
 	}
 	.products .card_wrapper {
 		display: block;
