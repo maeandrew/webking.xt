@@ -77,9 +77,17 @@
 							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
 							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
 						</div>
+
 						<div class="listItems">
 							<i class="material-icons">mail_outline</i>
 							<span class="user_email"><?=isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != ''?$_SESSION['member']['email']:"Регистрация без e-mail"?></span>
+
+						<div class="manager_contacts">
+							<a href="#">
+								<i class="material-icons .noLink">phone</i>
+								<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
+							</a>
+
 						</div>
 						<div class="listItems">
 							<i class="material-icons">location_on</i>
@@ -170,7 +178,7 @@
 				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
 					<div id="manager" class="">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span></div>
 					<div class="manager_contacts">
-						<a href="tel:+380667205488">
+						<a href="#">
 							<i class="material-icons .noLink">phone</i>
 							<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 						</a>

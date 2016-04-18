@@ -57,8 +57,8 @@
 				<h2>Черновик сохранен</h2>
 				<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/draft__saved.png')?_base_url.'/images/draft__saved.png':'/efiles/_thumb/nofoto.jpg'?>" alt="draft saved">
 				<p>
-					<a href="/customer_order/<?=$cart['id_order']?>" class="btn-m-green fleft">Посмотреть состав черновика</a>
-					<a href="/cabinet/" class="btn-m-green fright">Перейти в личный кабинет</a>
+					<a href="/customer_order/<?=$cart['id_order']?>" class="btn-m-green">Посмотреть состав черновика</a>
+					<a href="/cabinet/" class="btn-m-green">Перейти в личный кабинет</a>
 				</p>
 			<?}else{?>
 				<h2>Спасибо за Ваш заказ</h2>
@@ -68,8 +68,8 @@
 					<p>В ближайшее время с Вами свяжется менеджер.</p>
 				</div>
 				<p>
-					<a href="/customer_order/<?=$cart['id_order']?>" class="btn-m-green fleft">Посмотреть состав заказа</a>
-					<a href="/cabinet/" class="btn-m-green fright">Перейти в личный кабинет</a>
+					<a href="/customer_order/<?=$cart['id_order']?>" class="btn-m-green">Посмотреть состав заказа</a>
+					<a href="/cabinet/" class="btn-m-green">Перейти в личный кабинет</a>
 				</p>
 			<?}?>
 		</div>
@@ -156,7 +156,7 @@
 					</div>
 					<div class="product_name">
 						<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>">
-							<?=G::CropString($item['name'])?>
+							<?=G::CropString($item['name'], 180)?>
 						</a>
 						<span class="product_article">Артикул: <?=$item['art']?></span>
 						<div class="product_info">
@@ -226,29 +226,27 @@
 		};?>
 	</div>
 	<div class="cart_footer">
-		<div id="total" class="fright">
+		<div id="total">
 			<div class="total">
 				<div class="label totaltext">Итого</div>
 				<div class="total_summ totalnumb">
-					<span id="summ_many" class="summ_many">
-						<?=isset($cart_sum)? $cart_sum : "0.00"?>
-					</span>  ГРН	</div>
+					<span class="summ_many"><?=isset($cart_sum)?number_format($cart_sum, 2, ",", ""):"0,00"?></span> грн.
+				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">Вы экономите</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many">
-						<?=round($percent_sum, 2)?>
-					</span>  ГРН	</div>
+					<span class="summ_many"><?=number_format($percent_sum, 2, ",", "")?></span> грн.
+				</div>
 			</div>
 			<div class="total">
-				<div class="label" style="color: #000">К оплате</div>
+				<div class="label totaltext">К оплате</div>
 				<div class="total_summ">
-					<span class="summ_many" style='font-size: 1.2em'><?=number_format($total, 2, ",", "")?>
-					</span>  ГРН	</div>
+					<span class="summ_many"><?=number_format($total, 2, ",", "")?></span> грн.
+				</div>
 			</div>
 		</div>
-		<div class="cart_info fleft order_balance">
+		<div class="order_balance">
 			<table id="percent">
 				<tr <?=$percent == 0 ? '': "style='display:none'"?>>
 					<td>Добавьте:</td>
@@ -375,7 +373,7 @@
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
 
-			$('.remove_prod, .remove_prod_mob').on('click', function(e){
+			$('.remove_prod i, .remove_prod_mob').on('click', function(e){
 				$(this).closest('.card').addClass('hidden');
 				$('#removingProd').removeClass('hidden');
 			});
