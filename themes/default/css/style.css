@@ -903,15 +903,15 @@ section.center {
 }
 .cartInfBlock {
 	height: 28px;
-    line-height: 28px;
-    position: absolute;
-    left: calc(50% - 160px);
-    top: 25px;
-    background: rgb(255, 87, 34);
-    color: #fff;
-    width: 320px;
-    border-radius: 10px;
-    text-align: center;
+	line-height: 28px;
+	position: absolute;
+	left: calc(50% - 160px);
+	top: 25px;
+	background: rgb(255, 87, 34);
+	color: #fff;
+	width: 320px;
+	border-radius: 10px;
+	text-align: center;
 }
 #cart #total {
 	width: 300px;
@@ -1808,14 +1808,44 @@ section .stat_year {
 	height: 70px;
 	font-weight: 500;
 }
+
 .products .card_wrapper .card_item,
 .products .card .price,
 .products .card .count_cell,
 .products .card .product_check {
 	text-align: center;
 }
+
+.products .card_wrapper .product_photo {
+	margin-top: 10px;
+}
+
+.products .card_wrapper .product_name {
+	margin-top: 8px;
+	font-weight: 500;
+	width: 150px;
+}
+
 .products .card .product_check .mdl-checkbox {
 	display: inline;
+}
+
+.suplierPriceBlock {
+	float: right;
+	margin-top: 40px;
+}
+.headerPriceBlock {
+	margin-top: 0;
+}
+
+.suplierPriceBlock .card_item,
+.suplierPriceBlock .price,
+.suplierPriceBlock .count_cell,
+.suplierPriceBlock .product_check {
+	text-align: center;
+	margin-left: 5px;
+	float: left;
+	width: 80px;
 }
 
 
@@ -1828,7 +1858,7 @@ section .stat_year {
 }
 .products .card .product_photo {
 	position: relative;
-	height: 100px;
+	/* height: 100px; */
 	width: 130px;
 	float: left;
 	padding: 5px 10px 5px 0;
@@ -1842,6 +1872,52 @@ section .stat_year {
 	max-width: 100%;
 	margin: 0 auto;
 }
+
+.products .card .product_name {
+	padding-top: 10px;
+	max-width: 750px;
+}
+
+.separateBlocks {
+	clear: both;
+}
+
+@media (max-width: 1024px) {
+	.products .card .product_name {
+		max-width: 260px;
+	}
+	.products .card_wrapper {
+		display: block;
+	}
+}
+
+@media (max-width: 1022px) {
+	.products .card_wrapper {
+		display: none;
+	}
+	.suplierPriceBlock .count_cell {
+		display: none;
+	}
+	.suplierPriceBlock {
+		margin-top: 20px;
+		margin-right: 0px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	.products .card .product_name {
+		max-width: 430px;
+	}
+}
+
+@media (min-width: 1281px) and (max-width: 1599px) {
+	.products .card .product_name {
+		max-width: 485px;
+	}
+}
+
+/*#cart .product_name a,*/
+
 .products .card .product_name a {
 	font-weight: 500;
 	color: inherit;
@@ -2144,12 +2220,17 @@ section .stat_year {
 /*PHONE*/
 
 @media (max-width: 727px) {
-	div#cart.opened {
+	div#graph.opened,
+	div#quiz.opened,
+	div#cart.opened,
+	div#auth.opened,
+	div.modalEditOrder {
 		top: 0 !important;
+		left: 0;
 		position: fixed;
 	}
 
-	#cart {
+	#cart, #auth, .modalEditOrder {
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -2159,7 +2240,7 @@ section .stat_year {
 		max-height: 100%;
 		max-width: 100%;
 		box-sizing: border-box;
-		padding: 25px 0;
+		padding: 25px;
 	}
 	#cart .cart {
 		height: 110px;
@@ -2260,7 +2341,7 @@ section .stat_year {
 		margin-top: 3px;
 
 		position: absolute;
-	    right: 0;
+		right: 0;
 	}
 	.panel ul.phone_nav_contacts li {
 		font-size: 15px;
@@ -2855,9 +2936,52 @@ section .stat_year {
 	color: red;
 }
 
+/*div#quiz.opened,
+div#cart.opened,
+div#auth.opened,
+div.modalEditOrder {
+	padding: 30px;
+	width: 100%;
+	max-width: 1000px;
+	max-height: 100%;
+}*/
+@media (max-width: 480px) {
+	div#graph.opened,
+	div#quiz.opened,
+	div#cart.opened,
+	div#auth.opened,
+	div.modalEditOrder {
+		top: 0 !important;
+		left: 0;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		max-width: 1000px;
+		max-height: 100%;
+	}
+	#graph[data-type="modal"] {
+		min-width: 100px;
+		left: 0 !important;
+	}
+}
+
+/* Стиль для модальных окон с классом modalEditOrder */
+div.modalEditOrder {
+	padding: 20px;
+	text-align: center;
+}
+div.modalEditOrder h5 {
+	line-height: 1.2em;
+}
+div.modalEditOrder .applyBtn {
+	margin-right: 20px;
+}
+
+
 /* Скрыть сайдбар */
 /*@media (min-width: 480px) and (max-width: 728px) {
 	aside {
 		display: none !important;
 	}
 }*/
+

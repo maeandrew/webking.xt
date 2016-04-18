@@ -267,6 +267,7 @@
 			<?php if(isset($__graph)){
 				echo $__graph;
 			}?>
+			<!--  <?php echo $__graph; ?> -->
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>

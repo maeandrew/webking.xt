@@ -521,7 +521,7 @@ header .catalog_btn {
 	header .header_wrapp .pages_list .menu,  {
 		display: block;
 	}
-	header .header_wrapp .user_profile,
+	header .header_wrapp [data-name="user_pro"],
 	header .header_wrapp #menu-lower-right {
 		display: none;
 	}

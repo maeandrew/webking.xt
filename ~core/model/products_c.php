@@ -906,10 +906,13 @@ class Products {
 	 * [SetProductsListByFilter description]
 	 */
 	public function SetProductsListByFilter(){
+
+
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
+			$time_start = G::getmicrotime(true);
 			$fl_v = 'sp2.id IN (';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {
-				//if ($fl_v != '') $fl_v .= ' AND ';
+				if ($fl_v != '') $fl_v .= ' AND ';
 				$fl_v .= implode(', ',$filter) .",";
 
 				foreach ($filter as $fil) {
@@ -919,14 +922,24 @@ class Products {
 			$fl_v = substr($fl_v, 0, -1);
 			$fl_v .= ')';
 
+			$time_end = G::getmicrotime(true);
+			$time = $time_end - $time_start;
+			//echo "execution time 3 <b>$time</b> seconds\n";
+
+			$time_start = G::getmicrotime(true);
+
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
 					WHERE sp.value IN (SELECT sp2.value
-						FROM "._DB_PREFIX_."specs_prods AS sp2
+						FROM xt_specs_prods AS sp2
 						WHERE " . $fl_v . $this->price_range ."
 						)";
 
-			$result = $this->db->GetArray($sql);
+			$time_end = G::getmicrotime(true);
+			$time = $time_end - $time_start;
+			//echo "execution time 4 <b>$time</b> seconds\n";
+
+			$result = $this->db->GetArray($sql);   //print_r($sql); die();
 			if($result){
 				foreach ($result as $res) {
 					$resul[] = $res['id_prod'];
@@ -937,7 +950,10 @@ class Products {
 			}else {
 				$this->filter = false;
 			}
+			//print_r($sql); die();
 		}
+
+
 		return true;
 	}
 	/**
@@ -977,7 +993,6 @@ class Products {
 				AND a.active = 1
 				ORDER BY p.price_opt";
 		$this->list = $this->db->GetOneRowArray($sql);
-
 		if(!$this->list){
 			return false;
 		}
@@ -1024,6 +1039,12 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array()){
+
+
+
+		$time_start = microtime(true);
+
+
 		$where = "";
 		if($and !== FALSE && count($and)){
 			$where = " WHERE ";
@@ -1052,6 +1073,13 @@ class Products {
 		}else{
 			$order_by = 'ord, name';
 		}
+
+		$time_end = microtime(true);
+		$time = $time_end - $time_start;
+		//echo "execution time 1 <b>$time</b> seconds\n";
+
+		$time_start = microtime(true);
+
 		$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
@@ -1067,6 +1095,12 @@ class Products {
 			".$group_by."
 			ORDER BY ".$order_by."
 			".$limit;
+
+		$time_end = microtime(true);
+		$time = $time_end - $time_start;
+		//echo "execution time 2 <b>$time</b> seconds\n";
+
+
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -4102,7 +4136,8 @@ class Products {
 	 * @param [type] $id_category id категории
 	 */
 	public function GetFilterFromCategory($id_category){
-			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value -- , COUNT(sp.id_prod) as cnt
+		$time_start = microtime(true);
+			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
@@ -4116,7 +4151,13 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-		return true;
+		$time_end = microtime(true);
+		$time = $time_end - $time_start;
+		//echo "execution time <b>$time</b> seconds\n";
+
+		//print_r($arr); die();
+
+		return $arr;
 	}
 	/**
 	 * Вернуть актуальные фильтры с учетом выбраных
@@ -4307,7 +4348,37 @@ class Products {
 				$ul .= '</span></li>';
 			}
 		}
-		$ul .= '</ul>';
+		$ul .= '</ul>'; //print_r($GLOBALS['current_categories']); die();
 		return $ul;
+	}
+
+	public function navigation($idsegm){
+		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
+		//Достаем категории 1-го уровня
+		$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
+		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
+		$needed = $dbtree->GetCatSegmentation($idsegm);
+		foreach ($navigation as $key1 => &$l1) {
+			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
+			foreach ($level2 as $key2 => &$l2) {
+				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
+				foreach ($level3 as $key3 => &$l3) {
+					if (!in_array($l3['id_category'], $needed)) {
+						unset($level3[$key3]);
+					}
+				}
+				if (in_array($l2['id_category'], $needed) || !empty($level3)) {
+					$l2['subcats'] = $level3;
+				} else {
+					unset($level2[$key2]);
+				}
+			}
+			if (in_array($l1['id_category'], $needed) || !empty($level2)) {
+				$l1['subcats'] = $level2;
+			} else {
+				unset($navigation[$key1]);
+			}
+		}
+		return $navigation;
 	}
 }?>

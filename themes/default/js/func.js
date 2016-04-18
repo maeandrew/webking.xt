@@ -842,7 +842,7 @@ function Graf3d(){
 
 function ModalGraph(id_graphics, moderation){
 	ajax('product', 'OpenModalGraph').done(function(data){
-		$('#graph').html(data);
+		$('#graph .modal_container').html(data);
 		componentHandler.upgradeDom();
 
 		if(id_graphics){
@@ -852,7 +852,7 @@ function ModalGraph(id_graphics, moderation){
 				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
 					if(data != null){
 						//console.log(data);
-						$('#graph').html(data);
+						$('#graph .modal_container').html(data);
 						//foo(d3.selectAll("div").text('some text'));
 
 						componentHandler.upgradeDom();
@@ -1922,7 +1922,7 @@ function segmentOpen(id){
 	    	addLoadAnimation('.catalog');
 			ajax('segment', 'segmid', {idsegment: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log(data);
+				$('.second_nav li').removeClass('active');
 				$('[data-id="'+id+'"]').append(data);
 				$('[data-id="'+id+'"]').find('.link_wrapp').find('span').addClass('more_cat');
 				var lvl = $('[data-id="'+id+'"]').find('ul').data('lvl');

@@ -24,13 +24,40 @@ $(window).load(function(){
 	$("html,body").trigger("scroll");
 });
 
+window.onbeforeunload = function(e) {
+// window.onpopstate = function(e) {
+		// if ( $(window).width() < 500 && $('div[data-type="modal"]').hasClass('opened')) {
+
+
+		// 	console.log($(window).width());
+		// 	console.log($('div[data-type="modal"].opened'));
+		// 	console.log($('div[data-type="modal"]').hasClass('opened'));
+		// 	var curUrl = window.location.href;
+		// 	console.log(curUrl);
+
+		// 	$('div[data-type="modal"]').removeClass('opened').addClass('hidden');
+		// 	$('.background_panel').addClass('hidden');
+
+		// 	location.replace(curUrl);
+			// history.back(0);
+			// $('div[data-type="modal"]').close();
+		// };
+		// return "You work will be lost.";
+	};
+
+// window.addEventListener("popstate", function(e) {
+//     swapPhoto(location.pathname);
+// }, false)
+
 $(function(){
 	if(($('.second_nav > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('.second_nav ul[data-lvl="3"] > li').hasClass('active')) { 
 		$('.main_nav li:last-child').removeClass('hidden');
 	}
+
 	if(($('.second_nav li.active').find('li.active')).length == 0) {
 		$('.main_nav li:last-child').addClass('hidden');
 	}
+
 	//Отключение клика на ссылку с #
 	$('a[href="#"]').on('click', function(e){
 		e.preventDefault();
