@@ -897,15 +897,15 @@ section.center {
 }
 .cartInfBlock {
 	height: 28px;
-    line-height: 28px;
-    position: absolute;
-    left: calc(50% - 160px);
-    top: 25px;
-    background: rgb(255, 87, 34);
-    color: #fff;
-    width: 320px;
-    border-radius: 10px;
-    text-align: center;
+	line-height: 28px;
+	position: absolute;
+	left: calc(50% - 160px);
+	top: 25px;
+	background: rgb(255, 87, 34);
+	color: #fff;
+	width: 320px;
+	border-radius: 10px;
+	text-align: center;
 }
 #cart #total {
 	width: 300px;
@@ -2215,10 +2215,12 @@ section .stat_year {
 /*PHONE*/
 
 @media (max-width: 727px) {
+	div#quiz.opened,
 	div#cart.opened,
 	div#auth.opened,
 	div.modalEditOrder {
 		top: 0 !important;
+		left: 0;
 		position: fixed;
 	}
 
@@ -2333,7 +2335,7 @@ section .stat_year {
 		margin-top: 3px;
 
 		position: absolute;
-	    right: 0;
+		right: 0;
 	}
 	.panel ul.phone_nav_contacts li {
 		font-size: 15px;
@@ -2928,25 +2930,40 @@ section .stat_year {
 	color: red;
 }
 
-
+/*div#quiz.opened,
 div#cart.opened,
 div#auth.opened,
 div.modalEditOrder {
 	padding: 30px;
 	width: 100%;
 	max-width: 1000px;
-}
+	max-height: 100%;
+}*/
 @media (max-width: 480px) {
-	[data-type="modal"].opened {
-		width: 100%;
-		height: 100%;
-	}
+	div#quiz.opened,
 	div#cart.opened,
 	div#auth.opened,
 	div.modalEditOrder {
+		top: 0 !important;
+		left: 0;
+		position: fixed;
 		width: 100%;
 		height: 100%;
+		max-width: 1000px;
+		max-height: 100%;
 	}
+}
+
+/* Стиль для модальных окон с классом modalEditOrder */
+div.modalEditOrder {
+	padding: 20px;
+	text-align: center;
+}
+div.modalEditOrder h5 {
+	line-height: 1.2em;
+}
+div.modalEditOrder .applyBtn {
+	margin-right: 20px;
 }
 
 
