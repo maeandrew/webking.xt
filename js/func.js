@@ -234,6 +234,7 @@ function onSwitchSupSuccess(obj){
 
 /*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
 function AddDelProductAssortiment(obj, id){
+	console.log('123');
 	if (obj.checked){
 		action = "add_product";
 	}else{

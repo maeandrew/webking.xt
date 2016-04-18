@@ -50,69 +50,82 @@
 		</nav>
 	</div>	
 	<div class="user_profile">
-		<button data-name="user_pro" id="user_profile" class="mdl-button mdl-js-button mdl-button--icon<?=!G::isLogged()?' cabinet_btn hidden':null;?>">
-			<i class="material-icons">account_circle</i>
-		</button>
-		<a href="#" class="mdl-button mdl-js-button login_btn<?=!G::isLogged()?' login_btn_hum':' hidden';?>">Войти</a>
+		<?if(isset($_SESSION['member'])){ ?>
+			<button data-name="user_pro" id="user_profile" class="mdl-button mdl-js-button mdl-button--icon">
+				<i class="material-icons">account_circle</i>
+			</button>
+			<a href="#" class="mdl-button mdl-js-button hidden login_btn">Войти</a>
+		<?}else{?>
+			<button data-name="user_pro" id="user_profile" class="mdl-button mdl-js-button mdl-button--icon cabinet_btn hidden">
+				<i class="material-icons">account_circle</i>
+			</button>
+			<a href="#" class="mdl-button mdl-js-button login_btn login_btn_hum">Войти</a>
+		<?}?>
 		<div data-type="panel" id="user_pro" class="mdl-menu mdl-menu--bottom-right mdl-js-menu " for="user_profile">
-			<?if(G::isLogged()){?>
-				<div class="userContainer" >
-					<div class="UserInfBlock">
-						<div id="userPic">
-							<div class="avatarWrapp">
-								<img src="/themes/default/images/noavatar.jpg"/>
-							</div>
-						</div>
-						<div class="mainUserInf">
-							<div id="userNameBlock">
-								<div id="userNameInf" class="listItems">
-									<span class="user_name"><?=$_SESSION['member']['name']?></span>
-								</div>
-								<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
-								<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
-							</div>
-							<div class="listItems">
-								<i class="material-icons">mail_outline</i>
-								<span class="user_email"><?=isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != ''?$_SESSION['member']['email']:"Регистрация без e-mail"?></span>
-							</div>
-							<div class="listItems">
-								<i class="material-icons">location_on</i>
-								<span>г. Харьков, Украина</span>
-							</div>
+			<div class="userContainer" >
+				<div class="UserInfBlock">
+					<div id="userPic">
+						<div class="avatarWrapp">
+							<img src="/themes/default/images/noavatar.jpg"/>
 						</div>
 					</div>
-					<div class="contacts">
-						<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
+					<div class="mainUserInf">
+						<div id="userNameBlock">
+							<div id="userNameInf" class="listItems">
+								<span class="user_name"><?=$_SESSION['member']['name']?></span>
+							</div>
+							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
 						</div>
+
+						<div class="listItems">
+							<i class="material-icons">mail_outline</i>
+							<span class="user_email"><?=isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != ''?$_SESSION['member']['email']:"Регистрация без e-mail"?></span>
+
 						<div class="manager_contacts">
-							<a href="tel:+380667205488">
+							<a href="#">
 								<i class="material-icons .noLink">phone</i>
 								<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 							</a>
+
 						</div>
-						<div class="manager_contacts">
-							<a href="mailto:manager@xt.ua" target="blank">
-								<i class="material-icons">mail_outline</i>
-								<span>manager@xt.ua</span>
-							</a>
-						</div>
-					</div>
-					<div class="userChoice">
-						<div id="userFavoritesList">
-							<a href="#"><div class="favleft"><i class="material-icons">favorite</i></div>
-							<div class="favright"><p>Избранные</p><p class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
-						</div>
-						<div id="userWaitingList">
-							<a href="#"><div class="favleft"><i class="material-icons">trending_down</i></div>
-							<div class="favright"><p>Лист<br> ожидания</p><p class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</p></div></a>
+						<div class="listItems">
+							<i class="material-icons">location_on</i>
+							<span>г. Харьков, Украина</span>
 						</div>
 					</div>
-					<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
-					<button class="menuUserInfBtn" id="mycabMenuUserInfBtn"
-					onclick="window.location.href='<?=Link::Custom('cabinet')?>'">Мой кабинет</button>
-					<button class="menuUserInfBtn" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
 				</div>
-			<?}?>
+				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
+					<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
+					</div>
+					<div class="manager_contacts">
+						<a href="tel:+380667205488">
+							<i class="material-icons .noLink">phone</i>
+							<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
+						</a>
+					</div>
+					<div class="manager_contacts">
+						<a href="mailto:manager@xt.ua" target="blank">
+							<i class="material-icons">mail_outline</i>
+							<span>manager@xt.ua</span>
+						</a>
+					</div>
+				</div>
+				<div class="userChoice">
+					<div id="userFavoritesList">
+						<a href="#"><div class="favleft"><i class="material-icons">favorite</i></div>
+						<div class="favright"><p>Избранные</p><p class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
+					</div>
+					<div id="userWaitingList">
+						<a href="#"><div class="favleft"><i class="material-icons">trending_down</i></div>
+						<div class="favright"><p>Лист<br> ожидания</p><p class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</p></div></a>
+					</div>
+				</div>
+				<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
+				<button class="menuUserInfBtn" id="mycabMenuUserInfBtn"
+				onclick="window.location.href='<?=Link::Custom('cabinet')?>'">Мой кабинет</button>
+				<button class="menuUserInfBtn" onclick="window.location.href='<?=Link::Custom('logout')?>'">Выйти</button>
+			</div>
 		</div>
 	</div>
 	
@@ -139,38 +152,33 @@
 				<!-- <a href="#" class="mdl-button mdl-js-button login_btn login_btn_hum">Войти</a> -->
 			<?}?>			
 			<div class="userContainer" >
-
-
-
-				<div class="UserInfBlock">
-					<div id="userPic" class="">
-						<div class="avatarWrapp">
-							<img src="/themes/default/images/noavatar.jpg"/>
-						</div>
-					</div>
-					<div class="mainUserInf">
-						<div id="userNameBlock">
-							<div id="userNameInf" class="listItems">
-								<span class="user_name"><?=$_SESSION['member']['name']?></span>
-							</div>
-							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
-							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
-						</div>
-						<div class="listItems <?=!isset($_SESSION['member']['email']) && $_SESSION['member']['email'] == ''?'hidden':null ?>">
-							<i class="material-icons">mail_outline</i>
-							<span class="user_email"><?=$_SESSION['member']['email']?></span>
-						</div>
-						
-						<div class="listItems">
-							<i class="material-icons">location_on</i>
-							<span>г. Харьков, Украина</span>
-						</div>
+				<div id="userPic" class="">
+					<div class="avatarWrapp">
+						<img src="/themes/default/images/noavatar.jpg"/>
 					</div>
 				</div>
-				<div class="contacts">
+				<div class="mainUserInf">
+					<div id="userNameBlock">
+						<div id="userNameInf" class="listItems">
+							<span class="user_name"><?=$_SESSION['member']['name']?></span>
+						</div>
+						<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+						<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
+					</div>
+					<div class="listItems <?=!isset($_SESSION['member']['email']) && $_SESSION['member']['email'] == ''?'hidden':null ?>">
+						<i class="material-icons">mail_outline</i>
+						<span class="user_email"><?=$_SESSION['member']['email']?></span>
+					</div>
+					
+					<div class="listItems">
+						<i class="material-icons">location_on</i>
+						<span>г. Харьков, Украина</span>
+					</div>
+				</div>				
+				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
 					<div id="manager" class="">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span></div>
 					<div class="manager_contacts">
-						<a href="tel:+380667205488">
+						<a href="#">
 							<i class="material-icons .noLink">phone</i>
 							<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 						</a>

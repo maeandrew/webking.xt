@@ -1,5 +1,7 @@
 /*HEADER*/
-
+header a {
+	line-height: 32px;
+}
 header.filled {
 	background: #fff;
 	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
@@ -29,9 +31,6 @@ header .catalog_btn {
 	width: 170px;
 	height: 30px;
 	float: left;
-}
-header.opened {
-	height: 52px;
 }
 
 /*Search =====================================================================*/
@@ -242,10 +241,10 @@ header.opened {
 
 	header .userContainer .UserInfBlock {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-around;
 		border-bottom: 1px solid #E5E5E5;
 	}
-
 	header #userPic .avatarWrapp {
 		width: 80px;
 		height: 80px;
@@ -256,7 +255,7 @@ header.opened {
 	}
 	header #userPic img {
 		max-width: 100%;
-		max-height: 100%;	
+		max-height: 100%;
 	}
 	header #userNameInf {
 		font-size: 1.2em;
@@ -356,17 +355,12 @@ header.opened {
 		position: absolute;
 		left: 0;
 	}
-	
-	header .header_wrapp > .cart_item > a,
-	header .header_wrapp > .pages_list_item > a {
-		line-height: 32px;
-	}
 	header .header_wrapp .pages_list .mdl-button--icon {
 		height: 32px;
 	}
 	header .header_wrapp .search_wrapp {
 		position: absolute;
-		left: 19%;
+		left: 15%;
 	}
 	header .header_wrapp .pages_list_item {
 		padding: 0 30px;
@@ -383,12 +377,6 @@ header.opened {
 		line-height: 32px;
 	}
 
-@media (max-width: 1150px) {
-	header .header_wrapp .search_wrapp {
-		left: 15%;
-	}
-}
-
 @media (min-width: 480px) {
 	header .header_wrapp .pages_list .menu {
 		display: none;
@@ -396,7 +384,7 @@ header.opened {
 }
 
 @media (max-width: 900px) {
-	header .header_wrapp .cart_item a.cart span {
+	header .header_wrapp .cart_item .cart span {
 		display: none;
 	}	
 	header .header_wrapp .search_wrapp {
@@ -412,9 +400,6 @@ header.opened {
 	header .pages_list_item {
 		display: none !important;
 	}
-	header .header_wrapp > .cart_item > a {
-		line-height: 32px;
-	}	
 }
 
 /*TABLET*/
@@ -433,6 +418,9 @@ header.opened {
 
 /*PHONE*/
 @media (max-width: 727px) {
+	header.header_wrapp .search_wrapp {
+		left: 100px;
+	}
 	header.opened .search_wrapp {
 		margin-right: 0px;
 	}
@@ -446,7 +434,7 @@ header.opened {
 		display: none;
 	}
 	header {
-		max-height: 45px;
+		/*max-height: 45px;*/
 		padding-left: 10px;
 		padding-right: 10px;
 	}
@@ -496,9 +484,6 @@ header.opened {
 	header .search .select_category.fright.imit_select {
 		height: 24px;
 	}
-	header .header_wrapp .search_wrapp {
-		left: 17%;
-	}
 
 }
 
@@ -530,13 +515,15 @@ header.opened {
 	header.opened .search {
 		left: 0;
 	}
-
 	header .header_wrapp .pages_list .menu,  {
 		display: block;
 	}
-	header .header_wrapp .user_profile,
+	/*header .header_wrapp .user_profile,*/
 	header .header_wrapp #menu-lower-right {
 		display: none;
+	}
+	header .cart_item a {
+	line-height: 24px;
 	}
 }
 
@@ -604,9 +591,15 @@ ul.phone_nav_contacts li span {
 	}
 }
 .phone_user_profile .userContainer {
-	height: 400px;
+	min-height: 400px;
+	height: auto;
 	display: none;
 	margin-top: 15px;
+}
+.phone_user_profile .userContainer #userPic {
+	flex-basis: 100%;
+	flex-shrink: 0;
+	padding-bottom: 10px;
 }
 .phone_user_profile .userContainer #userPic .avatarWrapp {
 	width: 80px;
@@ -646,7 +639,6 @@ ul.phone_nav_contacts li span {
 }
 .phone_user_profile .userContainer .mainUserInf {
 	padding-bottom: 10px;
-	border-bottom: 1px solid #E5E5E5;
 	text-align: center;
 }
 .phone_user_profile .userContainer #manager .user_contr {
@@ -691,6 +683,7 @@ ul.phone_nav_contacts li span {
 	display: flex;
 	justify-content: space-around;
 	padding: 10px;
+	padding-bottom: 0;
 }
 .phone_user_profile .userContainer .btnContainer button:first-child {
 	background-color: #018b06;

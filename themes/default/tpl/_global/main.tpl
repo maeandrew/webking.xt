@@ -267,6 +267,7 @@
 			<?php if(isset($__graph)){
 				echo $__graph;
 			}?>
+			<!--  <?php echo $__graph; ?> -->
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
@@ -437,7 +438,7 @@
 		</section>
 	</section>
 	<div class="modals">
-		<div id="quiz" data-type="modal">
+		<div id="quiz" data-type="modal" class="opened">
 			<div class="modal_container summary_info">
 				<div class="row hidden">
 					<span class="span_title">Фамилия: </span>
@@ -706,17 +707,17 @@
 			<div class="modal_container"></div>
 		</div>
 		<!-- Модалки кабинета. Заказы -->
-		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
+		<div id="cloneOrder" class="modalEditOrder opened" data-type="modal">
 			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>
 			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
 			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>
-		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
+		<div id="confirmDelOrder" class="modalEditOrder opened" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
 			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
 		</div>
-		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
+		<div id="confirmCnclOrder" class="modalEditOrder opened" data-type="modal">
 			<h5>Вы действительно хотите отменить заказ?</h5>
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
