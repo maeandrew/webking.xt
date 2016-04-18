@@ -3,6 +3,7 @@
 
 // Получение корзины
 function GetCartAjax(){
+	$('#cart > .modal_container').html('');
 	openObject('cart');
 	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
 		//console.log(data);

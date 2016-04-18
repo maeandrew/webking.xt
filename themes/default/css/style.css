@@ -560,6 +560,7 @@ section.center {
 }
 #quiz .modal_container.summary_info {
 	padding-bottom: 0;
+	overflow: auto;
 }
 
 #quiz .modal_container.summary_info .row span.span_title {
@@ -597,7 +598,7 @@ section.center {
 	color: #fff;
 	padding: 1em 1.5em;
 	margin: 1em -1.5em 0;
-	font-size: 20px;
+	font-size: 1.35em;
 }
 #quiz .head_top > span {
 	display: block;
@@ -777,6 +778,10 @@ section.center {
 	width: 100%;
 	max-width: 1000px;
 }
+#cart .modal_container {
+	overflow: hidden;
+	overflow-y: auto;
+}
 #cart .title_cart {
 	width: 100%;
 	background-color: white;
@@ -793,9 +798,7 @@ section.center {
 }
 #cart .order_wrapp {
 	clear: both;
-	overflow: hidden;
-	overflow-y: auto;
-	max-height: 500px;
+	/*max-height: 350px;*/
 	border-left: 1px solid #e0e0e0;
 	border-right: 1px solid #e0e0e0;
 }
@@ -837,8 +840,11 @@ section.center {
 }
 #cart .card {
 	clear: both;
-	border-bottom: 1px solid #e0e0e0;
+	border-top: 1px solid #e0e0e0;
 	overflow: auto;
+}
+#cart .card:first-of-type {
+	border-top: 0;
 }
 #cart .card .product_name {
 	float: left;
@@ -916,7 +922,6 @@ section.center {
 }
 #cart .cart_footer {
 	border: 1px solid #e0e0e0;
-	border-top: 0;
 	background: #f5f5f5;
 	overflow: auto;
 }
@@ -2089,7 +2094,7 @@ section .stat_year {
 		right: 0;
 	}
 	#cart .action_block .wrapp {
-		width: 305px;
+		width: 300px;
 	}
 	#cart .action_block .wrapp:first-of-type {
 		padding-left: 0;
@@ -2099,7 +2104,7 @@ section .stat_year {
 	}
 	#cart .action_block .mdl-textfield {
 		/*margin-top: 45px;*/
-		max-width: 250px;
+		/*max-width: 250px;*/
 	}
 	.stat_year {
 		padding: 0;

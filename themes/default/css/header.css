@@ -1,4 +1,7 @@
 /*HEADER*/
+header {
+	background: #fff;
+}
 header a {
 	line-height: 32px;
 }
@@ -41,6 +44,7 @@ header .catalog_btn {
 	header .search .mob_s_btn {
 		position: absolute;
 		left: 0;
+		top: 4px;
 		color: #9E9E9E;
 	}
 	header .search .search_close {
@@ -55,34 +59,27 @@ header .catalog_btn {
 	header .search .search_close:active {
 		color: #757575;
 	}
-	header .search input:hover {
-		border: none;
-		border-bottom: 1px solid rgba(0,0,0, 0.12);
-	}
 	header .search.mdl-textfield,
 	header .search .mdl-textfield__input,
 	header .search .mdl-textfield__label {
 		font-size: 15px;
+		line-height: 24px;
 	}
 	header .search .mdl-textfield__input,
 	header .search .mdl-textfield__label {
 		padding-left: 25px;
-	}
-	header .search .mdl-textfield__input:focus {
-		border: none;
+		padding-right: 155px;
 	}
 	header .search.mdl-textfield,
 	header .search .mdl-textfield__label {
 		box-sizing: border-box;
 	}
 	header .search .mdl-textfield__label {
-		line-height: 18px;
-		top: 7px;
-		font-weight: 500;
+		top: 6px;
 		color: #9E9E9E;
 	}
 	header .mdl-textfield__label:after {
-		bottom: 3px;
+		bottom: 0;
 	}
 	header .search .select_category button {
 		border: none;
@@ -151,9 +148,6 @@ header .catalog_btn {
 	}
 	header.opened .search_wrapp .search_btn {
 		display: inline-block;
-	}
-	header.opened .search .mdl-textfield__input {
-		line-height: 20px;
 	}
 	header.opened .header_wrapp .cart_item,
 	header.opened .header_wrapp .pages_list_item,
@@ -418,6 +412,11 @@ header .catalog_btn {
 
 /*PHONE*/
 @media (max-width: 727px) {
+	header .search.mdl-textfield,
+	header .search .mdl-textfield__input,
+	header .search .mdl-textfield__label {
+		line-height: 1;
+	}
 	header.header_wrapp .search_wrapp {
 		left: 100px;
 	}
@@ -454,14 +453,17 @@ header .catalog_btn {
 		width: 45%;
 		margin-right: 0;
 	}
-	header .search .mdl-textfield__label {
-		top: 4px;
-	}
 	header .mdl-textfield__label:after {
 		bottom: 0;
 	}
+	header .header_wrapp form .search .mob_s_btn {
+		top: 0;	
+	}
 	header .search .mdl-textfield__input {
 		padding-right: 0;
+	}
+	header .header_wrapp form {
+		max-height: 24px;
 	}
 	header.opened .header_wrapp form .search {
 		width: 100%;
@@ -479,10 +481,10 @@ header .catalog_btn {
 		display: block;
 		padding-right: 0;
 		background-color: white;
-		height: 88%;
+		height: 24px;
 	}
 	header .search .select_category.fright.imit_select {
-		height: 24px;
+		height: 23px;
 	}
 
 }
@@ -504,6 +506,7 @@ header .catalog_btn {
 	}
 	header .header_wrapp form .search {
 		width: 25px;
+		overflow: hidden;
 	}
 	header .header_wrapp .search_wrapp {
 		width: 25px;

@@ -367,9 +367,18 @@
 	padding-bottom: 5px;
 	border-bottom: 1px solid #e0e0e0;
 }
+#comments .feedback_container .feedback_hidden {
+	color: #f00;
+	display: block;
+	font-style: italic;
+}
 #comments .feedback_container .feedback_author {
 	font-size: 15px;
 	font-weight: bold;
+	float: left;
+}
+#comments .feedback_container .feedback_date {
+	float: left;
 }
 #comments .feedback_container .feedback_date,
 #comments .feedback_container .rating_stars li {
@@ -383,7 +392,8 @@
 }
 #comments .feedback_rating {
 	display: inline-block;
-	margin-left: 10px;
+	clear: both;
+	float: left;
 }
 #comments .feedback_container .rating_stars {
 	overflow: hidden;
@@ -399,6 +409,7 @@
 }
 #comments .feedback_container p.feedback_comment {
 	padding-top: 5px;
+	clear: both;
 }
 #big_photo {
 	padding: 0;

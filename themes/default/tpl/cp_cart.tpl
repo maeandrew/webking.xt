@@ -389,8 +389,17 @@
 				if(phone.length == 12){
 					ajax('cart', 'makeOrder', {phone: phone}).done(
 						function(data){
-						if(data.status == 200){
-							closeObject('cart');
+						switch(data.status){
+							case 200:
+								// closeObject('cart');
+								openObject('quiz');
+								break;
+							case 500:
+								console.log('error');
+								removeLoadAnimation('#cart');
+								break;
+							default:
+								console.log('default statemant');
 						}
 					});
 				}else{

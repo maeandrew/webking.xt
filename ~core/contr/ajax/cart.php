@@ -15,9 +15,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
-			case "duplicate":
-				 $cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
-
+			case 'duplicate':
+				$cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
 				break;
 			case 'GetCartPage':
 				unset($parsed_res);
@@ -255,7 +254,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 				exit();
 				break;
-			case "remove_from_cart":
+			case 'remove_from_cart':
 				if (isset($_POST['id'])){
 					$res = $cart->RemoveFromCart($_POST['id'], $_SESSION['cart']['id']);
 				}else {
@@ -264,7 +263,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				exit();
 				break;
-			// case "update_qty":
+			// case 'update_qty':
 				//				if(isset($_POST['opt']) && isset($_POST['id_product'])){
 				//					$note_opt = isset($_POST['opt_note'])?$_POST['opt_note']:"";
 				//					$note_mopt = isset($_POST['mopt_note'])?$_POST['mopt_note']:"";
@@ -325,17 +324,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//					exit();
 				//				};
 				//				break;
-			case "update_cart_qty":
+			case 'update_cart_qty':
 				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
 				$res = $cart->UpdateCartQty($_POST);
 				$cart->InsertMyCart();
 				echo json_encode($res);
 				exit();
 				break;
-			case "GetCart":
+			case 'GetCart':
 				echo json_encode($_SESSION['cart']);
 				break;
-			case "update_note":
+			case 'update_note':
 				if(isset($_SESSION['cart']['products'][$_POST['id_product']]) && !empty($_SESSION['cart']['products'][$_POST['id_product']])){
 					$_SESSION['cart']['products'][$_POST['id_product']]['note'] = $_POST['note'];
 					$txt = 'ok';
@@ -345,12 +344,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($txt);
 				exit();
 				break;
-			case "clearCart":
+			case 'clearCart':
 				// print_r($_SESSION['cart']['id']);
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case "makeOrder":
+			case 'makeOrder':
 				if(!G::isLogged()){
 					$Customers = new Customers();
 					$Users = new Users();
@@ -383,10 +382,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$Orders = new Orders();
 					// оформляем заказ
 					if($id_order = $Orders->Add()) {
+						$cart = new Cart();
+					$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 						$res['message'] = 'Заказ сформирован!';
 						$res['status'] = 200;
-						$cart = new Cart();
-						$cart->clearCart($_SESSION['cart']['id']);
 						// $Customers->updatePhones($phone);
 					}else{
 						$res['message'] = 'Ошибка формирования заказа!';
@@ -399,13 +398,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
-			case "update_info":
+			case 'update_info':
 				$customers = new Customers();
 				$customers->updateInfoPerson($_POST);
 
 				return json_encode(true);
 				break;
-			case "add_status_cart":
+			case 'add_status_cart':
 				$res = $cart->SetStatusCart();//$_POST['id_order']
 				return json_encode($res);
 				break;
@@ -415,4 +414,3 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	}
 }
 exit();
-?>

@@ -26,7 +26,7 @@ $GLOBALS['prod_title'] = $product['name'];
 $GLOBALS['product_canonical'] = Link::Product($product['translit']);
 /* product comments ======================================== */
 $res = $products->GetComentByProductId($id_product);
-$tpl->Assign('coment', $res);
+$tpl->Assign('comment', $res);
 /* product comments ======================================== */
 
 /* product rating ========================================== */

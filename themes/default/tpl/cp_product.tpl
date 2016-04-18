@@ -475,40 +475,43 @@
 						</form>
 					</div>
 					<div class="feedback_container">
-						<?if(empty($coment)){?>
+						<?if(empty($comment)){?>
 							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
 						<?}else{
-							foreach($coment as $i){?>
-								<span class="feedback_author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
-								<span class="feedback_date"><i class="material-icons">query_builder</i>
-									<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
-										Сегодня
-									<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
-										Вчера
-									<?}else{
-										echo date("d.m.Y", strtotime($i['date_comment']));
-									}?>
-								</span>
-								<?if ($i['rating'] > 0) {?>
-									<div class="feedback_rating">
-										Оценка товара:
-										<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
-											<?for($j = 1; $j <= 5; $j++){
-												$star = 'star';
-												if($j > floor($i['rating'])){
-													if($j == ceil($i['rating'])){
-														$star .= '_half';
-													}else{
-														$star .= '_border';
-													}
-												}?>
-												<li><i class="material-icons"><?=$star?></i></li>
-											<?}?>
-										</ul>
-									</div>
-								<?}?>
-								<p class="feedback_comment"><?=$i['text_coment'];?></p>
-							<?}
+							foreach($comment as $i){
+								if(_acl::isAdmin() || $i['visible'] == 1){?>
+									<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
+									<span class="feedback_author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
+									<span class="feedback_date"><i class="material-icons">query_builder</i>
+										<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
+											Сегодня
+										<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
+											Вчера
+										<?}else{
+											echo date("d.m.Y", strtotime($i['date_comment']));
+										}?>
+									</span>
+									<?if($i['rating'] > 0){?>
+										<div class="feedback_rating">
+											Оценка товара:
+											<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
+												<?for($j = 1; $j <= 5; $j++){
+													$star = 'star';
+													if($j > floor($i['rating'])){
+														if($j == ceil($i['rating'])){
+															$star .= '_half';
+														}else{
+															$star .= '_border';
+														}
+													}?>
+													<li><i class="material-icons"><?=$star?></i></li>
+												<?}?>
+											</ul>
+										</div>
+									<?}?>
+									<p class="feedback_comment"><?=$i['text_coment'];?></p>
+								<?}
+							}
 						}?>
 					</div>
 				</div>

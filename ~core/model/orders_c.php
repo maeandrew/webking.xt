@@ -527,7 +527,7 @@ class Orders {
 			// Определяем оптового поставщика для товара
 			if($supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
 				$p[$ii]['id_supplier'] = $supplier['id_supplier'];
-				$p[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $item['mode']);
+				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
 			}

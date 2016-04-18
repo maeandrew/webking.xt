@@ -1,3 +1,11 @@
+/**
+ * [SendToAjax description]
+ * @param {[type]} id        [description]
+ * @param {[type]} qty       [description]
+ * @param {[type]} button    [description]
+ * @param {[type]} direction [description]
+ * @param {[type]} note      [description]
+ */
 function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'update_cart_qty', data).done(function(data){
@@ -102,8 +110,11 @@ function SendToAjax(id, qty, button, direction, note){
 
 	});
 }
-
-// Определение количества товаров в корзине
+/**
+ * Определение количества товаров в корзине
+ * @param  {[type]} obj [description]
+ * @return {[type]}     [description]
+ */
 function countOfOject(obj) {
 	var i=0;
 	if (typeof(obj)!="object" || obj==null) return 0;
@@ -112,8 +123,11 @@ function countOfOject(obj) {
 		else { $('header .phone_menu a.cart').removeClass('mdl-badge') };
 	return i;
 }
-
-// Удаление в корзине товара при нажатии на иконку
+/**
+ * Удаление в корзине товара при нажатии на иконку
+ * @param  {[type]} id [description]
+ * @return {[type]}    [description]
+ */
 function removeFromCart(id){
 	if(!id) {
 		ajax('cart', 'clearCart').done(function (data) {
@@ -209,7 +223,11 @@ function removeFromCart(id){
 		});
 	}
 }
-
+/**
+ * [ChangeCartQty description]
+ * @param {[type]} id        [description]
+ * @param {[type]} direction [description]
+ */
 function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
 	$('.no_items').addClass('hidden');
@@ -228,7 +246,11 @@ function ChangeCartQty(id, direction){
 		SendToAjax(id, qty, false, false, note);
 	}
 }
-
+/**
+ * [completeCartProductAdd description]
+ * @param  {[type]} data [description]
+ * @return {[type]}      [description]
+ */
 function completeCartProductAdd(data){
 	var products_count = Object.keys(data.products).length.toString();
 	var	str = products_count+' товар';
@@ -308,5 +330,4 @@ function completeCartProductAdd(data){
 		$('#percent tr:eq(2)').hide();
 		$('#perc_cont .your_discount').text('Ваша скидка '+ (data.cart_sum * 0.21).toFixed(2) +' грн (21%)');
 	}
-
 }
