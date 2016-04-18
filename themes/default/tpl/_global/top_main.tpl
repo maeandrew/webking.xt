@@ -85,7 +85,7 @@
 						<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
 						</div>
 						<div class="manager_contacts">
-							<a href="tel:+380667205488">
+							<a href="#">
 								<i class="material-icons .noLink">phone</i>
 								<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 							</a>
@@ -170,7 +170,7 @@
 				<div class="contacts">
 					<div id="manager" class="">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span></div>
 					<div class="manager_contacts">
-						<a href="tel:+380667205488">
+						<a href="#">
 							<i class="material-icons .noLink">phone</i>
 							<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 						</a>
