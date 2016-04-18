@@ -23,10 +23,12 @@
 	<div class="card card_wrapper clearfix">
 		<div class="product_photo card_item">Фото товара</div>
 		<p class="product_name card_item">Наименование товара</p>
-		<div class="price card_item">Цена<br>за еденицу товара</div>
-		<div class="count_cell card_item">Минимальное<br>количество</div>
-		<div class="count_cell card_item">Кол-во<br>в ящике</div>
-		<div class="product_check card_item">Добавить в<br>ассортимент</div>
+		<div class="suplierPriceBlock headerPriceBlock">
+			<div class="price card_item">Цена<br>за еденицу товара</div>
+			<div class="count_cell card_item">Минимальное<br>количество</div>
+			<div class="count_cell card_item">Кол-во<br>в ящике</div>
+			<div class="product_check card_item">Добавить в<br>ассортимент</div>
+		</div>
 	</div>
 	<?foreach($list as $p){ ?>
 		<div class="card clearfix">
@@ -71,25 +73,27 @@
 					</div>
 				</div>
 			<?} else {?>
-			<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
-				<?if($p['price_opt_otpusk'] != 0){
-					echo number_format($p['price_opt_otpusk'], 2, ".", "").' грн.';
-				}else{
-					echo number_format($p['price_mopt_otpusk'], 2, ".", "").' грн.';
-				}?>
-			</p></div>
-			<div class="count_cell card_item">
-				<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
-			</div>
-			<div class="count_cell card_item">
-				<p id="inbox_qty_<?=$item['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
-			</div>
+			<div class="suplierPriceBlock">
+				<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
+					<?if($p['price_opt_otpusk'] != 0){
+						echo number_format($p['price_opt_otpusk'], 2, ".", "").' грн.';
+					}else{
+						echo number_format($p['price_mopt_otpusk'], 2, ".", "").' грн.';
+					}?>
+				</p></div>
+				<div class="count_cell card_item">
+					<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
+				</div>
+				<div class="count_cell card_item">
+					<p id="inbox_qty_<?=$item['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
+				</div>
 
-			<div class="product_check card_item">
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">
-					<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
-					<input type="checkbox" class="chek mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
-				</label>
+				<div class="product_check card_item">
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">
+						<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
+						<input type="checkbox" class="chek mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+					</label>
+				</div>
 			</div>
 			<?}?>
 		</div>

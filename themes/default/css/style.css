@@ -2028,14 +2028,43 @@ section .stat_year {
 	height: 70px;
 	font-weight: 500;
 }
+
 .products .card_wrapper .card_item,
 .products .card .price,
 .products .card .count_cell,
 .products .card .product_check {
 	text-align: center;
 }
+
+.products .card_wrapper .product_photo {
+	margin-top: 10px;
+}
+
+.products .card_wrapper .product_name {
+	margin-top: 8px;
+	font-weight: 500;
+}
+
 .products .card .product_check .mdl-checkbox {
 	display: inline;
+}
+
+.suplierPriceBlock {
+	float: right;
+	margin-top: 40px;
+}
+.headerPriceBlock {
+	margin-top: 0;
+}
+
+.suplierPriceBlock .card_item,
+.suplierPriceBlock .price,
+.suplierPriceBlock .count_cell,
+.suplierPriceBlock .product_check {
+	text-align: center;
+	margin-left: 5px;
+	float: left;
+	width: 80px;
 }
 
 
@@ -2054,7 +2083,7 @@ section .stat_year {
 /*#cart .card .product_photo,*/
 .products .card .product_photo {
 	position: relative;
-	height: 90px;
+	/* height: 90px; */
 	width: 120px;
 	float: left;
 	padding: 5px 10px 5px 0;
@@ -2072,7 +2101,43 @@ section .stat_year {
 }
 .products .card .product_name {
 	padding-top: 10px;
+	max-width: 750px;
 }
+
+@media (max-width: 1024px) {
+	.products .card .product_name {
+		max-width: 270px;
+	}
+	.products .card_wrapper {
+		display: block;
+	}
+}
+
+@media (max-width: 1022px) {
+	.products .card_wrapper {
+		display: none;
+	}
+	.suplierPriceBlock .count_cell {
+		display: none;
+	}
+	.suplierPriceBlock {
+		margin-top: 20px;
+		margin-right: 0px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	.products .card .product_name {
+		max-width: 430px;
+	}
+}
+
+@media (min-width: 1281px) and (max-width: 1599px) {
+	.products .card .product_name {
+		max-width: 485px;
+	}
+}
+
 /*#cart .product_name a,*/
 .products .card .product_name a {
 	font-weight: 500;
