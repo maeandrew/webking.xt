@@ -2215,6 +2215,7 @@ section .stat_year {
 /*PHONE*/
 
 @media (max-width: 727px) {
+	div#graph.opened,
 	div#quiz.opened,
 	div#cart.opened,
 	div#auth.opened,
@@ -2234,7 +2235,7 @@ section .stat_year {
 		max-height: 100%;
 		max-width: 100%;
 		box-sizing: border-box;
-		padding: 25px 0;
+		padding: 25px;
 	}
 	#cart .cart {
 		height: 110px;
@@ -2940,6 +2941,7 @@ div.modalEditOrder {
 	max-height: 100%;
 }*/
 @media (max-width: 480px) {
+	div#graph.opened,
 	div#quiz.opened,
 	div#cart.opened,
 	div#auth.opened,
@@ -2951,6 +2953,10 @@ div.modalEditOrder {
 		height: 100%;
 		max-width: 1000px;
 		max-height: 100%;
+	}
+	#graph[data-type="modal"] {
+		min-width: 100px;
+		left: 0 !important;
 	}
 }
 
