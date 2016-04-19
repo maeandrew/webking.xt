@@ -130,12 +130,12 @@ function countOfOject(obj) {
  */
 function removeFromCart(id){
 	if(!id) {
-		ajax('cart', 'clearCart').done(function (data) {
-			$('#removingProd').addClass('hidden');
-			$('#clearCart').addClass('hidden');
-			$('.modal_container').find('.card').addClass('hidden');
-			$('.products').find('.in_cart_js').addClass('hidden');
-			$('.products').find('.buy_btn_js').removeClass('hidden');
+		ajax('cart', 'clearCart').done(function(data){
+			$('#removingProd, #clearCart').addClass('hidden');
+			$('#cart .no_items').removeClass('hidden');
+			$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block').addClass('hidden');
+			$('.products .in_cart_js').addClass('hidden');
+			$('.products .buy_btn_js').removeClass('hidden');
 			$.cookie('manual', 0);
 
 			$('.quantity').each(function(){
@@ -176,14 +176,11 @@ function removeFromCart(id){
 			// 	default:
 			// 		console.log('не работает');
 			// }
-			$('.no_items').removeClass('hidden');
-			$('.action_block').addClass('hidden');
 			// $('.cart').addClass('hidden');
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
-			$('#removingProd').addClass('hidden');
-			$('#clearCart').addClass('hidden');
+			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
 			completeCartProductAdd(data);
 			$('#cart_item_' + id).hide(200).remove();
@@ -213,11 +210,10 @@ function removeFromCart(id){
 					console.log('не работает');
 			}
 
-			if (data.products.length == 0){
-			$('.no_items').removeClass('hidden');
-			$('.action_block').addClass('hidden');
-			$('.cart').addClass('hidden');
-			$.cookie('manual', 0);
+			if(data.products.length == 0){
+				$('#cart .no_items').removeClass('hidden');
+				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block').addClass('hidden');
+				$.cookie('manual', 0);
 			}
 
 		});

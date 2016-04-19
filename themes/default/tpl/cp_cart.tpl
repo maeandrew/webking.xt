@@ -144,7 +144,6 @@
 			$item['price_opt'] > 0 ? $opt_available = true : $opt_available = false;?>
 			<div class="card" id="cart_item_<?=$item['id_product']?>">
 				<div class="card_wrapper">
-					<span class="remove_prod_mob" onClick="removeFromCart('<?=$item['id_product']?>')">Удалить</span>
 					<div class="product_photo">
 						<a href="<?=Link::Product($item['translit']);?>">
 							<?if(!empty($item['images'])){?>
@@ -200,7 +199,7 @@
 						</span>
 					</div>
 					<div class="remove_prod">
-						<i id="tt<?=$item['id_product']?>" class="material-icons mdl-cell--hide-phone" onClick="removeFromCart('<?=$item['id_product']?>')">cancel</i>
+						<i id="tt<?=$item['id_product']?>" class="material-icons" onClick="removeFromCart('<?=$item['id_product']?>')">cancel</i>
 						<div class="mdl-tooltip" for="tt<?=$item['id_product']?>">Удалить из корзины</div>
 					</div>
 				</div>

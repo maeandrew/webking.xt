@@ -293,6 +293,7 @@ header .catalog_btn {
 		display: flex;
 		border-top: 1px solid #E5E5E5;
 		padding: 5px;
+		flex-grow: 1;
 	}
 	header .userChoice > * {
 		flex: 1;

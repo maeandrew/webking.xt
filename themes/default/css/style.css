@@ -201,8 +201,9 @@ label:hover + .info_description {
 }
 .clear_cart {
 	position: absolute;
-	top: 40px;
-	right: 50px;
+    top: 30px;
+    line-height: 32px;
+    right: 30px;
 }
 .clear_cart a {
 	color: #ff5722;
@@ -447,7 +448,7 @@ body:not(.c_main) .banner {
 	/* overflow: hidden;
 	overflow-y: auto; */
 	min-height: 65px;
-	max-height: 550px;
+	max-height: calc(100% - 50px);
 }
 [data-type="modal"] a.close_modal{
 	color: #bcbcbc;
@@ -787,7 +788,6 @@ section.center {
 	background-color: white;
 	z-index: 1;
 	margin: 0;
-	margin-bottom: 5px;
 }
 #cart #percent td {
 	padding: 0 1em 0.25em 0;
@@ -2220,17 +2220,23 @@ section .stat_year {
 /*PHONE*/
 
 @media (max-width: 727px) {
-	div#graph.opened,
+	/*div#graph.opened,
 	div#quiz.opened,
 	div#cart.opened,
 	div#auth.opened,
-	div.modalEditOrder {
+	div.modalEditOrder*/
+	[data-type="modal"].opened {
 		top: 0 !important;
 		left: 0;
+		border-radius: 0;
 		position: fixed;
+		padding: 25px 0 !important;
+	}
+	[data-type="modal"].opened .modal_container {
+		padding: 0 25px;
 	}
 
-	#cart, #auth, .modalEditOrder {
+	[data-type="modal"] {
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -2242,34 +2248,29 @@ section .stat_year {
 		box-sizing: border-box;
 		padding: 25px;
 	}
+	#cart .title_cart {
+		padding: 0 25px;
+	}
 	#cart .cart {
 		height: 110px;
 	}
 	#cart .card {
 		position: relative;
-		margin-top: 30px;
-		padding: 5px;
-		box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
+		margin: 0;
+		padding: 10px;
 	}
-	/*#cart .card:first-of-type {
-		margin-top: 15px;
-	}*/
-	#cart .remove_prod_mob {
-		display: block;
-		cursor: pointer;
-		background: #F3F3F3;
-		position: absolute;
-		bottom: 100%;
-		left: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 3px 3px 0 0;
-		box-sizing: border-box;
-		padding: 2px 10px;
-		line-height: 15px;
+	#cart .card:first-of-type {
+		border-top: 1px solid #e0e0e0;
+	}
+	#cart .card .remove_prod {
+		width: 30px;
+		text-align: center;
+		height: 50px;
+		padding: 15px 0;
 	}
 	#cart .card .product_photo {
 		padding: 0 !important;
-		padding-right: 10px !important;
+		/*padding-right: 10px !important;*/
 	}
 	#cart .action_block .wrapp {
 		width: 98%;
@@ -2287,8 +2288,8 @@ section .stat_year {
 		min-width: auto;
 		padding: 0 5px;
 	}
-	#cart .action_block .mdl-textfield {
-		max-width: 250px;
+	#cart .order_wrapp {
+		margin-top: 15px;
 	}
 	#cart .card .product_info {
 		float: none;
@@ -2298,29 +2299,36 @@ section .stat_year {
 		padding-right: 10px;
 	}
 	#cart .card .product_name {
-		padding-top: 0;
-		width: calc( 100% - 110px);
+		padding: 0;
+		width: calc(100% - 110px);
 		float: left;
 	}
 	#cart .card .product_buy {
-		margin-top: 0;
-		margin-bottom: 0;
-		width: 100%;
+		margin: 0;
+		width: 60%;
 		justify-content: center;
+		padding: 7px 0;
+		height: 50px;
 	}
 	#cart .card .summ {
-		width: 10%;
-		float: right;
+		width: calc(40% - 30px);
+		float: left;
 		text-align: right;
+		line-height: 36px;
+		padding: 7px 0;
 	}
-	#cart .btn_remove, #cart .btn_buy {
+	#cart .btn_remove,
+	#cart .btn_buy,
+	#cart .btn_add {
 		display: none;
+	}
+	#cart .qty_js {
+	    width: 50px;
 	}
 	#cart .product_info {
 		clear: both;
 	}
 	#cart .note {
-		padding-top: 10px;
 		clear: both;
 		float: none;
 		max-width: none;
@@ -2332,6 +2340,13 @@ section .stat_year {
 	}
 	#cart .info_key {
 		top: 24px;
+	}
+	#cart .order_balance {
+		display: none;
+	}
+	#cart #total {
+		width: 100%;
+		border: none;
 	}
 	.phone_menu {
 		display: block;
@@ -2776,35 +2791,18 @@ section .stat_year {
 	}
 }
 @media (max-width: 480px) {
-	#cart .card .product_buy {
-		clear: both;
-		width: 100%;
-		margin-left: 15px;
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
 	#cart .product_buy .summ {
 		text-align: left;
 	}
-	#cart .info_key {
-		top: 24px;
-		right: 25px;
-	}
 	#cart .note textarea,
 	.products .note textarea {
-		width: 95%;
+		width: 100%;
 	}
 	#cart .card .product_name {
-		padding: 5px;
 		width: 100%;
 	}
 	#cart .card .product_photo {
-		margin-left: 10px;
-	}
-	#cart .product_buy .buy_block {
-		float: left;
-		width: auto;
-		min-width: 100px;
+		margin: 0 auto;
 	}
 	.product_buy .price {
 		float: left;
@@ -2835,7 +2833,6 @@ section .stat_year {
 		width: 150px;
 	}
 	#cart .card .product_name {
-		padding: 5px;
 		width: 100%;
 	}
 	#cart .card .product_photo {
@@ -2846,16 +2843,13 @@ section .stat_year {
 		padding-right: 0;
 	}
 	#cart .card .product_photo a img {
-		max-height: 280px;
-		margin-left: 15px;
+		/*max-height: 280px;*/
+		margin: 0 auto;
+		display: block;
 	}
 	#cart .info_key {
 		top: 24px;
 		right: 15px;
-	}
-	#cart .note textarea,
-	.products .note textarea {
-		width: 97%;
 	}
 }
 
@@ -2946,19 +2940,7 @@ div.modalEditOrder {
 	max-height: 100%;
 }*/
 @media (max-width: 480px) {
-	div#graph.opened,
-	div#quiz.opened,
-	div#cart.opened,
-	div#auth.opened,
-	div.modalEditOrder {
-		top: 0 !important;
-		left: 0;
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		max-width: 1000px;
-		max-height: 100%;
-	}
+	
 	#graph[data-type="modal"] {
 		min-width: 100px;
 		left: 0 !important;

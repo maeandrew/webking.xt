@@ -345,7 +345,7 @@ class mysqlPDO {
 			$sql = 'insert into ' . addslashes(strtoupper($seqname)) . ' values (' . (int)($start-1) . ')';
 			$this->Execute($sql);
 		}
-		return mysql_insert_id($this->conn);
+		return $this->GetLastId();
 	}
 
 	/**

@@ -82,7 +82,7 @@
 							<i class="material-icons">mail_outline</i>
 							<span class="user_email"><?=isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != ''?$_SESSION['member']['email']:"Регистрация без e-mail"?></span>
 
-						<div class="manager_contacts">
+						<div class="manager_contacts hidden">
 							<a href="#">
 								<i class="material-icons .noLink">phone</i>
 								<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>

@@ -23,16 +23,13 @@ if (isset($_POST['smb'])){
 	list($err, $errm) = Cat_form_validate();
 	if (!$err){
 		$arr = array();
-		$arr['name'] = mysql_real_escape_string(trim($_POST['name']));
-		$arr['art'] = mysql_real_escape_string(trim($_POST['art']));
-		$arr['content'] = mysql_real_escape_string(trim($_POST['content']));
-		$arr['content_xt'] = mysql_real_escape_string(trim($_POST['content_xt']));
+		$arr['name'] = trim($_POST['name']);
+		$arr['art'] = trim($_POST['art']);
+		$arr['content'] = trim($_POST['content']);
+		$arr['content_xt'] = trim($_POST['content_xt']);
 		$arr['translit'] = G::StrToTrans($_POST['name']);
-		$arr['pid'] = mysql_real_escape_string(trim($_POST['pid']));
-
-		$arr['visible'] = 1;
-		if (isset($_POST['visible']) && $_POST['visible'] == "on")
-			$arr['visible'] = 0;
+		$arr['pid'] = trim($_POST['pid']);
+		$arr['visible'] = isset($_POST['visible']) && $_POST['visible'] == "on"?0:1;
 		if ($id = $dbtree->Insert($arr['pid'], '', $arr)){
 			$tpl->Assign('msg', 'Категория добавлена.');
 			unset($_POST);
