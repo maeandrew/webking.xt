@@ -37,6 +37,7 @@ class Link {
 		}else{
 			$clear = $params['clear'];
 		}
+		if(isset($params)&&$params !==''){
 		foreach($params as $key => $param){
 			switch($key){
 				case 'filters':
@@ -77,6 +78,7 @@ class Link {
 					$price_range = 'price_range='.$param;
 					break;
 			}
+		}
 		}
 
 		// if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {

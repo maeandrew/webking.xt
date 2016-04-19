@@ -50,13 +50,14 @@ window.onbeforeunload = function(e) {
 // }, false)
 
 $(function(){
-	if(($('.second_nav > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('.second_nav ul[data-lvl="3"] > li').hasClass('active')) { 
+	if(($('.second_nav > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('.second_nav ul[data-lvl="3"] > li').hasClass('active')) {
 		$('.main_nav li:last-child').removeClass('hidden');
 	}
 
-	if(($('.second_nav li.active').find('li.active')).length == 0) {
-		$('.main_nav li:last-child').addClass('hidden');
-	}
+	//if(($('.second_nav li.active').find('li.active')).length == 0) {
+	//	$('.main_nav li:last-child').addClass('hidden');
+	//}
+
 
 	//Отключение клика на ссылку с #
 	$('a[href="#"]').on('click', function(e){
