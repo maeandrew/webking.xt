@@ -158,6 +158,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'GetUserProfile':
 				?>
+
 				<div class="userContainer" >
 					<div class="UserInfBlock">
 						<div id="userPic">
@@ -177,9 +178,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								<i class="material-icons">mail_outline</i>
 								<span class="user_email"><?=isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != ''?$_SESSION['member']['email']:"Регистрация без e-mail"?></span>
 							</div>
+							<script>GetLocation();</script>
 							<div class="listItems">
 								<i class="material-icons">location_on</i>
-								<span>г. Харьков, Украина</span>
+								<span class="userlocation"></span>
 							</div>
 						</div>
 					</div>

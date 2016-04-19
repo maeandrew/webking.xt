@@ -1,5 +1,30 @@
 //addLoadAnimation('#cart');
 
+// Определение местоположения устройства из которого был осуществлен вход на сайт
+function GetLocation() {
+	var loc;
+	navigator.geolocation.getCurrentPosition(function(position){
+		var geocoder = new google.maps.Geocoder,
+			latlng = { 
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+
+		geocoder.geocode({'location': latlng}, function(results, status) {
+			if (status === google.maps.GeocoderStatus.OK) {
+				console.log(results);
+				if (results[2]) {
+					$('.mainUserInf .userlocation').html(results[2].formatted_address);
+				} else {
+					$('.mainUserInf .userlocation').html(results[6].formatted_address);
+				}
+			} else {
+				$('.mainUserInf .userlocation').addClass('hidden');
+			}
+		});
+	});
+	return loc;
+}
 
 // Получение корзины
 function GetCartAjax(){

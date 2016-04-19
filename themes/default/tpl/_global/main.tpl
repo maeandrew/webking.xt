@@ -124,6 +124,10 @@
 			}
 		</style>
 	</noscript>
+
+	<script type="text/javascript"
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
+	</script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
 	<!-- Yandex.Metrika counter -->

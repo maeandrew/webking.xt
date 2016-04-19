@@ -220,6 +220,9 @@ header .catalog_btn {
 		text-align: center;
 		color: #9e9e9e;
 	}
+	header .mainUserInf .listItems:last-child {
+		line-height: 16px;
+	}
 	/*header [for="user_profile"] .manager_contacts {
 		float: left;
 		overflow: hidden;

@@ -81,9 +81,10 @@
 							<i class="material-icons">mail_outline</i>
 							<span class="user_email"><?=isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != ''?$_SESSION['member']['email']:"Регистрация без e-mail"?></span>
 						</div>
+
 						<div class="listItems">
 							<i class="material-icons">location_on</i>
-							<span>г. Харьков, Украина</span>
+							<span class="userlocation"></span>
 						</div>
 					</div>
 				</div>
@@ -164,7 +165,7 @@
 					
 					<div class="listItems">
 						<i class="material-icons">location_on</i>
-						<span>г. Харьков, Украина</span>
+						<span class="userlocation"></span>
 					</div>
 				</div>				
 				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
