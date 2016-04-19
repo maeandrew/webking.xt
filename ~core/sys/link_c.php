@@ -31,13 +31,12 @@ class Link {
 			if(isset($GLOBALS['Price_range']) && $GLOBALS['Price_range'] !== ''){
 				$price_range = 'price_range='.$GLOBALS['Price_range'][0].','.$GLOBALS['Price_range'][1];
 			}
-			if(isset($GLOBALS['Segment']) && $GLOBALS['Segment'] !== ''){
-				$str_segment = 'segment='.$GLOBALS['Segment'];
-			}
 		}else{
 			$clear = $params['clear'];
 		}
-		if(isset($params)&&$params !==''){
+		if(isset($GLOBALS['Segment']) && $GLOBALS['Segment'] !== ''){
+			$str_segment = 'segment='.$GLOBALS['Segment'];
+		}
 		foreach($params as $key => $param){
 			switch($key){
 				case 'filters':
@@ -79,7 +78,7 @@ class Link {
 					break;
 			}
 		}
-		}
+
 
 		// if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {
 			if(isset($filter) && is_array($filter) && !empty($filter)){
