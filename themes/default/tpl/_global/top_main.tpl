@@ -136,8 +136,8 @@
 
 	<div id="phone_menu" class="panel" data-type="panel">
 		<ul class="phone_user_profile">
-			<?if(isset($_SESSION['member'])){ ?>
-				<div id="authorized">
+			
+				<div id="authorized" class="<?=!G::IsLogged()?'hidden':null;?>">
 					<button class="mdl-button mdl-js-button mdl-button--icon" value="Авторизован">
 						<i class="material-icons">account_circle</i>
 					</button>
@@ -145,14 +145,14 @@
 					<div class="more_cat"><i class="expand material-icons">expand_more</i></div>
 				</div>
 				<!-- <a href="#" class="mdl-button mdl-js-button hidden login_btn">Войти</a> -->
-			<?}else{?>
-				<button id="demo-menu-lower-right" value="Неавторизован">
+			
+				<button id="demo-menu-lower-right" value="Неавторизован" class="<?=G::IsLogged()?'hidden':null;?>">
 					<a href="#" class="mdl-button mdl-js-button login_btn cabinet_btn" data-upgraded=",MaterialButton">Войти</a>
 				</button>
 				<!-- <a href="#" class="mdl-button mdl-js-button login_btn login_btn_hum">Войти</a> -->
-			<?}?>			
-			<div class="userContainer" >
-				<div id="userPic" class="">
+
+			<div class="userContainer <?=!G::IsLogged()?'hidden':null;?>">
+				<div id="userPic">
 					<div class="avatarWrapp">
 						<img src="/themes/default/images/noavatar.jpg"/>
 					</div>
@@ -160,7 +160,7 @@
 				<div class="mainUserInf">
 					<div id="userNameBlock">
 						<div id="userNameInf" class="listItems">
-							<span class="user_name"><?=$_SESSION['member']['name']?></span>
+							<span class="user_name"><?=isset($_SESSION['member']['name'])?$_SESSION['member']['name']:'';?></span>
 						</div>
 						<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
 						<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
