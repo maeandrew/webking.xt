@@ -884,8 +884,8 @@ class dbtree {
 
 	//Достаем сегменты и  категории для сегментации=====================================================================
 	public function Getsegments($segmtype){
-		$sql = 'SELECT * FROM xt_segmentation
-			WHERE type = '. $segmtype .' AND id IN (SELECT id_segment FROM xt_segment_prods)';
+		$sql = 'SELECT * FROM '._DB_PREFIX_.'segmentation
+			WHERE type = '. $segmtype .' AND id IN (SELECT id_segment FROM '._DB_PREFIX_.'segment_prods)';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}

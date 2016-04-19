@@ -641,7 +641,7 @@ class Products {
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
+			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
 		if(isset($params['order_by'])){
 			if($params['order_by'] != null){
@@ -694,15 +694,14 @@ class Products {
 				FROM "._DB_PREFIX_."cat_prod AS cp
 					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product AND a.active = 1
 				WHERE cp.id_product IS NOT NULL
 				".$where . $where2. $this->price_range ."
-				GROUP BY price_opt
+				GROUP BY p.id_product
 				HAVING p.visible = 1
 					".$prices_zero."
-					AND a.active = 1
 				ORDER BY ".$order_by
-				.$limit; //print_r($sql); die();
+				.$limit;
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -910,36 +909,17 @@ class Products {
 
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
 			$time_start = G::getmicrotime(true);
-			$fl_v = 'sp2.id IN (';
+			$fl_v='';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {
 				if ($fl_v != '') $fl_v .= ' AND ';
-				$fl_v .= implode(', ',$filter) .",";
-
-				foreach ($filter as $fil) {
-					$filters[] = $fil;
-				}
+				$fl_v .= 'sp.id_prod IN (SELECT  sp1.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp1 WHERE sp1.id_spec = '.$key.'
+				AND sp1.value IN (SELECT sp2.value FROM '._DB_PREFIX_.'specs_prods AS sp2  WHERE sp2.id IN ('.implode(', ',$filter).')))';
 			}
-			$fl_v = substr($fl_v, 0, -1);
-			$fl_v .= ')';
-
-			$time_end = G::getmicrotime(true);
-			$time = $time_end - $time_start;
-			//echo "execution time 3 <b>$time</b> seconds\n";
-
-			$time_start = G::getmicrotime(true);
 
 			$sql = "SELECT DISTINCT sp.id_prod
 					FROM "._DB_PREFIX_."specs_prods AS sp
-					WHERE sp.value IN (SELECT sp2.value
-						FROM xt_specs_prods AS sp2
-						WHERE " . $fl_v . $this->price_range ."
-						)";
-
-			$time_end = G::getmicrotime(true);
-			$time = $time_end - $time_start;
-			//echo "execution time 4 <b>$time</b> seconds\n";
-
-			$result = $this->db->GetArray($sql);   //print_r($sql); die();
+					HAVING " . $fl_v;
+			$result = $this->db->GetArray($sql);
 			if($result){
 				foreach ($result as $res) {
 					$resul[] = $res['id_prod'];
@@ -950,7 +930,6 @@ class Products {
 			}else {
 				$this->filter = false;
 			}
-			//print_r($sql); die();
 		}
 
 
@@ -1039,12 +1018,6 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function SetProductsListFilter($and = false, $limit='', $gid = 0, $params = array()){
-
-
-
-		$time_start = microtime(true);
-
-
 		$where = "";
 		if($and !== FALSE && count($and)){
 			$where = " WHERE ";
@@ -1074,12 +1047,6 @@ class Products {
 			$order_by = 'ord, name';
 		}
 
-		$time_end = microtime(true);
-		$time = $time_end - $time_start;
-		//echo "execution time 1 <b>$time</b> seconds\n";
-
-		$time_start = microtime(true);
-
 		$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
@@ -1095,12 +1062,6 @@ class Products {
 			".$group_by."
 			ORDER BY ".$order_by."
 			".$limit;
-
-		$time_end = microtime(true);
-		$time = $time_end - $time_start;
-		//echo "execution time 2 <b>$time</b> seconds\n";
-
-
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1297,7 +1258,7 @@ class Products {
 			HAVING p.visible = 1
 				".$prices_zero."
 				AND a.active = 1";
-		$cnt = count($this->db->GetArray($sql)); //print_r($sql); die();
+		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
 			return 0;
 		}
@@ -4136,9 +4097,9 @@ class Products {
 	 * @param [type] $id_category id категории
 	 */
 	public function GetFilterFromCategory($id_category){
-		$time_start = microtime(true);
 			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
 			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
@@ -4146,17 +4107,12 @@ class Products {
 			WHERE cp.id_category IN (".implode(', ', $id_category).")
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
+			AND p.visible > 0 AND (p.price_opt >0 OR p.price_mopt>0)
 			GROUP BY s.id, sp.value";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
 		}
-		$time_end = microtime(true);
-		$time = $time_end - $time_start;
-		//echo "execution time <b>$time</b> seconds\n";
-
-		//print_r($arr); die();
-
 		return $arr;
 	}
 	/**
@@ -4326,7 +4282,7 @@ class Products {
 	 * @param  integer $lvl  [description]
 	 * @return [type]        [description]
 	 */
-	public function generateNavigation($list, $lvl = 0){ //print_r($list); die();
+	public function generateNavigation($list, $lvl = 0){
 		$lvl++;
 		$arr['clear']='true';
 		if(isset($_POST['idsegment'])){
@@ -4348,7 +4304,7 @@ class Products {
 				$ul .= '</span></li>';
 			}
 		}
-		$ul .= '</ul>'; //print_r($GLOBALS['current_categories']); die();
+		$ul .= '</ul>';
 		return $ul;
 	}
 

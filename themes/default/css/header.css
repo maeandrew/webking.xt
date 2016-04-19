@@ -382,9 +382,9 @@ header .catalog_btn {
 	header .header_wrapp .cart_item .cart span {
 		display: none;
 	}	
-	header .header_wrapp .search_wrapp {
+	/*header .header_wrapp .search_wrapp {
 		width: 100%;
-	}
+	}*/
 	header .header_wrapp .cart_item,
 	header .header_wrapp .pages_list {
 		margin-left: 10px; 
@@ -522,6 +522,7 @@ header .catalog_btn {
 	header .header_wrapp .pages_list .menu,  {
 		display: block;
 	}
+	header .header_wrapp [data-name="user_pro"] + a,
 	header .header_wrapp [data-name="user_pro"],
 	header .header_wrapp #menu-lower-right {
 		display: none;
@@ -654,6 +655,7 @@ ul.phone_nav_contacts li span {
 }
 .phone_user_profile .userContainer .contacts {
 	padding: 10px;
+	border-top: 1px solid #E5E5E5;
 }
 .phone_user_profile .userContainer .userChoice {
 	display: flex;
