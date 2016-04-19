@@ -897,6 +897,9 @@ $(function(){
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 					$('#user_pro').html(data);
 
+					$('.cabinet_btn').removeClass('hidden');
+					$('.login_btn').addClass('hidden');					
+
 					$('#authorized').removeClass('hidden');
 					$('.userContainer').removeClass('hidden');
 					$('button[value="Неавторизован"]').addClass('hidden');
