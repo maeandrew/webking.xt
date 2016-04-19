@@ -381,9 +381,9 @@ header .catalog_btn {
 	header .header_wrapp .cart_item .cart span {
 		display: none;
 	}	
-	header .header_wrapp .search_wrapp {
+	/*header .header_wrapp .search_wrapp {
 		width: 100%;
-	}
+	}*/
 	header .header_wrapp .cart_item,
 	header .header_wrapp .pages_list {
 		margin-left: 10px; 

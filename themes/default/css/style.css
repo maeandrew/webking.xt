@@ -2979,9 +2979,9 @@ div.modalEditOrder .applyBtn {
 
 
 /* Скрыть сайдбар */
-/*@media (min-width: 480px) and (max-width: 728px) {
+@media (min-width: 480px) and (max-width: 728px) {
 	aside {
 		display: none !important;
 	}
-}*/
+}
 
