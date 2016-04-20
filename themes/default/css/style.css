@@ -455,8 +455,8 @@ body:not(.c_main) .banner {
 	border-radius: .4em;
 	position: absolute;
 	text-decoration: none;
-	right: 0;
-	top: 0;
+	right: 5px;
+	top: 5px;
 	z-index: 200;
 	line-height: 30px;
 	width: 30px;
@@ -468,6 +468,14 @@ body:not(.c_main) .banner {
 }
 [data-type="modal"] a.close_modal:hover{
 	color: #f00;
+}
+
+[data-type="modal"] a.close_modal i {
+	color: red;
+}
+
+[data-type="modal"] a.close_modal i.mdl-cell--hide-phone {
+	color: #bcbcbc;
 }
 
 /*Breadcrumbs ================================================================*/
@@ -2339,7 +2347,7 @@ section .stat_year {
 		display: block;
 	}
 	#cart .info_key {
-		top: 24px;
+		top: 15px;
 	}
 	#cart .order_balance {
 		display: none;

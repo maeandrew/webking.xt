@@ -425,7 +425,7 @@ $(function(){
 
 	// Добавление кнопки Закрыть всем модальным окнам
 	$('[data-type="modal"]').each(function(index, el){
-		$(this).append('<a href="#" class="material-icons close_modal btn_js" data-name="'+$(this).attr('id')+'">close</a>');
+		$(this).append('<a href="#" class="close_modal btn_js" data-name="'+$(this).attr('id')+'"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');
 	});
 
 	//Замена картинки для открытия в ориг размере
