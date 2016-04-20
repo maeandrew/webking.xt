@@ -471,7 +471,7 @@ body:not(.c_main) .banner {
 }
 
 [data-type="modal"] a.close_modal i {
-	color: red;
+	color: #FF5722;
 }
 
 [data-type="modal"] a.close_modal i.mdl-cell--hide-phone {
