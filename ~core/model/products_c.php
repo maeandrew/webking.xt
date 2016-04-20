@@ -905,8 +905,6 @@ class Products {
 	 * [SetProductsListByFilter description]
 	 */
 	public function SetProductsListByFilter(){
-
-
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
 			$time_start = G::getmicrotime(true);
 			$fl_v='';
@@ -931,8 +929,6 @@ class Products {
 				$this->filter = false;
 			}
 		}
-
-
 		return true;
 	}
 	/**

@@ -1,6 +1,8 @@
 <div class="products_page">
 	<div class="row">
 		<?if(!empty($list)){ ?>
+
+
 			<div class="content_header clearfix">
 				<div class="sort imit_select">
 					<button id="sort-lower-left" class="mdl-button mdl-js-button">

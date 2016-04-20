@@ -64,8 +64,59 @@ class Users {
 			ON cr.id_contragent = ct.id_user
 			WHERE cr.id_user = ".$this->fields['id_user'];
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
+		// получаем список товаров, которые уже были в заказе
+		$sql5 = "SELECT DISTINCT osp.id_product
+			FROM "._DB_PREFIX_."osp osp
+			LEFT JOIN "._DB_PREFIX_."order ord
+			ON osp.id_order = ord.id_order
+			WHERE (opt_qty<>0 OR mopt_qty<>0) AND
+			ord.id_customer = ".$this->fields['id_user'];
+		$this->fields['ordered_prod'] = $this->db->GetArray($sql5);
+		foreach($this->fields['ordered_prod'] as $key => $value){
+			$this->fields['ordered_prod'][$key] = $value['id_product'];
+		}
 		return true;
 	}
+
+	public function SetUserAdditionalInfo($id_user){
+		// получаем список избранных товаров
+		$sql2 = "SELECT f.id_product
+			FROM "._DB_PREFIX_."favorites AS f
+			WHERE f.id_user = ".$id_user;
+		$this->fields['favorites'] = $this->db->GetArray($sql2);
+		foreach($this->fields['favorites'] as $key => $value){
+			$this->fields['favorites'][$key] = $value['id_product'];
+		}
+		// получаем лист ожидания
+		$sql3 = "SELECT wl.id_product
+			FROM "._DB_PREFIX_."waiting_list AS wl
+			WHERE wl.id_user = ".$id_user;
+		$this->fields['waiting_list'] = $this->db->GetArray($sql3);
+		foreach($this->fields['waiting_list'] as $key => $value){
+			$this->fields['waiting_list'][$key] = $value['id_product'];
+		}
+		// получаем данные о личном менеджере
+		$sql4 = "SELECT ct.name_c, ct.phones
+			FROM "._DB_PREFIX_."customer cr
+			LEFT JOIN "._DB_PREFIX_."contragent ct
+			ON cr.id_contragent = ct.id_user
+			WHERE cr.id_user = ".$id_user;
+		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
+		// получаем список товаров, которые уже были в заказе
+		$sql5 = "SELECT DISTINCT osp.id_product
+			FROM "._DB_PREFIX_."osp osp
+			LEFT JOIN "._DB_PREFIX_."order ord
+			ON osp.id_order = ord.id_order
+			WHERE (opt_qty<>0 OR mopt_qty<>0) AND
+			ord.id_customer = ".$id_user;
+		$this->fields['ordered_prod'] = $this->db->GetArray($sql5);
+		foreach($this->fields['ordered_prod'] as $key => $value){
+			$this->fields['ordered_prod'][$key] = $value['id_product'];
+		}
+		return true;
+	}
+
+
 
 	public function CheckUserNoPass($data){
 		$data = trim($data);

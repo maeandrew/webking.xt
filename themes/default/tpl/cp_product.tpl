@@ -13,7 +13,7 @@
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		<p class="product_article">Арт: <?=$item['art']?></p>
 		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
-			<!-- Ссыдка на редактирование товара для администратором -->
+			<!-- Ссылка на редактирование товара для администратором -->
 			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 		<?}?>
 		<div id="big_photo" data-type="modal">

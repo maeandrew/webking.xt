@@ -185,9 +185,15 @@ if(isset($GLOBALS['__graph'])){
 }
 
 $Cart = new Cart();
+$Users = new Users();
 // Создание базового массива корзины
 if(G::isLogged() && !_acl::isAdmin()){
 	$Cart->LastClientCart();
+	$Users->SetUserAdditionalInfo($_SESSION['member']['id_user']);
+	$_SESSION['member']['favorites'] = $Users->fields['favorites'];
+	$_SESSION['member']['waiting_list'] = $Users->fields['waiting_list'];
+	$_SESSION['member']['contragent'] = $Users->fields['contragent'];
+	$_SESSION['member']['ordered_prod'] = $Users->fields['ordered_prod'];
 }
 $Cart->RecalcCart();
 

@@ -7,6 +7,8 @@
 	?>
 	<div class="card clearfix">
 		<div class="product_photo">
+
+
 			<a href="#">
 				<?if(!empty($item['images'])){?>
 					<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'medium', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
@@ -22,6 +24,7 @@
 			</a>
 		</div>
 		<p class="product_name"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a> <span class="product_article">Арт: <?=$item['art'];?></span></p>
+		<?if(in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?><i class="material-icons">check_circle</i><?}?>
 		<div class="product_buy<?=$GLOBALS['CurrentController'] == 'main'?' hidden':null;?>" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
