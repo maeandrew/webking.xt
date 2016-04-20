@@ -12,7 +12,6 @@ function GetLocation() {
 
 		geocoder.geocode({'location': latlng}, function(results, status) {
 			if (status === google.maps.GeocoderStatus.OK) {
-				console.log(results);
 				if (results[2]) {
 					$('.mainUserInf .userlocation').html(results[2].formatted_address);
 				} else {
