@@ -295,7 +295,7 @@
 								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 							<?}?>
 						</div>
-						<div class="cart_info mdl-cell--hide-phone clearfix">
+						<div class="cart_info mdl-cell--hide-phone clearfix <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
 							<div class="your_discount">Ваша скидка</div>
 							<div class="tabs_container">
 								<ul>
