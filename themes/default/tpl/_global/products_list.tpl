@@ -24,7 +24,7 @@
 			</a>
 		</div>
 		<p class="product_name"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a> <span class="product_article">Арт: <?=$item['art'];?></span></p>
-		<?if(in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?><i class="material-icons">check_circle</i><?}?>
+		<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?><i class="material-icons">check_circle</i><?}?>
 		<div class="product_buy<?=$GLOBALS['CurrentController'] == 'main'?' hidden':null;?>" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
