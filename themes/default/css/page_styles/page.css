@@ -702,10 +702,10 @@
 			#content .pages_group.page_information .blockline {
 				padding-bottom: 4%;
 			}
-			#content button {
+			#content .psevdo_btn {
 				min-width: 60%;
 			}
-			#content button .forflex {
+			#content .psevdo_btn .forflex {
 				flex-basis: 90%;
 			}			
 
@@ -725,16 +725,18 @@
 			#content .page_payment ul {
 				font-size: 1.1em;
 			}
-	}	
+	}
 	@media (max-width: 964px) {
 		#content .page_delivery .blockOfText {
 			margin-bottom: 20px;
 			text-align: center;
 		}
-		#content button,
+		#content .psevdo_btn,
 		#content .pages_group .flexColumn button {
-			min-width: 80%;
-		}		
+			min-width: 95%;
+			margin-bottom: 20px;
+			font-size: 1em;
+		}
 		#content h1 {
 			font-size: 1.7em;
 		}
@@ -811,7 +813,7 @@
 			}
 			#content .pages_group button,
 			#content .pages_group .flexColumn button {
-				min-width: 90%;
+				min-width: 95%;
 				font-size: 1.1em;
 			}
 			#content .pages_group .info_circle_img {
