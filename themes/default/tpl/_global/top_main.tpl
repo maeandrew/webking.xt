@@ -43,10 +43,11 @@
 		</button>
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
 		<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
-			<?unset($list_menu[$rand]);?>
-			<?foreach($list_menu as &$menu){?>
-				<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
-			<?}?>
+			<?foreach($list_menu as $key => &$menu){
+				if($key != $rand){?>
+					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
+				<?}
+			}?>
 		</nav>
 	</div>	
 	<div class="user_profile">
@@ -211,10 +212,10 @@
 					});
 				});
 			</script>
-		</ul>		
+		</ul>
 		<ul class="phone_nav">
-			<?foreach($list_menu as $menu){?>
-				<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+			<?foreach($list_menu as &$menu){?>
+				<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>				
 			<?}?>
 		</ul>		
 		<ul class="phone_nav_contacts clearfix">
