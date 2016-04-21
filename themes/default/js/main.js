@@ -65,11 +65,6 @@ $(function(){
 		e.preventDefault();
 	});
 
-	$('#estimate').click(function(event) {
-		openObject('estimateLoad');
-		removeLoadAnimation('#estimateLoad');
-	});
-
 	//function $_GET(key) {
 	//	var s = window.location.search;
 	//	s = s.match(new RegExp(key + '=([^&=]+)'));

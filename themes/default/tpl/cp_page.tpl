@@ -1029,7 +1029,7 @@
 			</div>
 		</div>
 		<div class="blockline flexwrapp flexColumn blockBtn">
-			<button class="a_estimateLoad forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить свою смету</button>
+			<button data-name="estimateLoad" class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Загрузить свою смету</button>
 			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</button>
 		</div>
 	</div>
