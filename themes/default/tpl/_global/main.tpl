@@ -623,6 +623,31 @@
 				<span class="go">Заполнено: </span>
 			</div>
 		</div>
+		<!-- Загрузка сметы -->
+		<div id="estimateLoad" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<p>Вы можете загрузить свою смету</p>
+					<form action="">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" id="sample1">
+							<label class="mdl-textfield__label" for="sample1">Имя...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" id="sample2">
+							<label class="mdl-textfield__label" for="sample2">Номер телефона...</label>
+						</div>
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="file" id="sample3">
+							<label class="mdl-textfield__label" for="sample3"></label>
+						</div>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить смету</button>
+				</div>
+			</div>
+		</div>
 		<!-- Authentication -->
 		<div id="auth" data-type="modal">
 			<div id="login" class="modal_container">

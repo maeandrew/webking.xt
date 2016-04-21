@@ -63,7 +63,12 @@ $(document).ready(function () {
 		removeLoadAnimation('#auth');
 	}); 
 
+	// Модалка для сметы
 	$('.a_estimateLoad').click(function(event) {
+		openObject('estimateLoad');
+		removeLoadAnimation('#estimateLoad');
+	});
+	$('#estimate').click(function(event) {
 		openObject('estimateLoad');
 		removeLoadAnimation('#estimateLoad');
 	});

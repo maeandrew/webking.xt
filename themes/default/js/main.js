@@ -60,10 +60,14 @@ $(function(){
 		$('.main_nav li:last-child').addClass('hidden');
 	}
 
-
 	//Отключение клика на ссылку с #
 	$('a[href="#"]').on('click', function(e){
 		e.preventDefault();
+	});
+
+	$('#estimate').click(function(event) {
+		openObject('estimateLoad');
+		removeLoadAnimation('#estimateLoad');
 	});
 
 	//function $_GET(key) {
