@@ -648,7 +648,7 @@
 			</div>
 		</div>
 		<div class="blockline blockBtn">
-			<a href="<?=Link::Custom('main')?>" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</a>
+			<a href="/" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</a>
 		</div>
 	</div>
 
@@ -905,7 +905,7 @@
 			</div>
 		</div>
 		<div class="blockline blockBtn">
-			<a href="<?=Link::Custom('main')?>" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</a>
+			<a href="/" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</a>
 		</div>
 	</div>
 
@@ -1030,7 +1030,7 @@
 		</div>
 		<div class="blockline flexwrapp flexColumn blockBtn">
 			<button data-name="estimateLoad" class="psevdo_btn forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Загрузить свою смету</button>
-			<a href="<?=Link::Custom('main')?>" class="psevdo_btn forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</a>
+			<a href="/" class="psevdo_btn forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</a>
 		</div>
 	</div>
 
