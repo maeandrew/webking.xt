@@ -79,14 +79,11 @@ class Link {
 			}
 		}
 
-
-		// if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == $rewrite) {
-			if(isset($filter) && is_array($filter) && !empty($filter)){
-				foreach($filter as $key => $filters){
-					$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
-				}
+		if(isset($filter) && is_array($filter) && !empty($filter)){
+			foreach($filter as $key => $filters){
+				$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
 			}
-		// }
+		}
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }

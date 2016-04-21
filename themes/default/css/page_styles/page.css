@@ -149,7 +149,7 @@
 		#content .pages_group .invisibleblock .flexwrapp {
 			align-items: stretch;
 		}
-		#content button {
+		#content .psevdo_btn {
 			background-color: #69ab3f;
 			min-width: 34%;
 			width: 50%;
@@ -163,6 +163,9 @@
 		}
 		#content .three_inline .info_circle img {
 			width: 61%;
+		}
+		#content .modal_container .mdl-card__supporting-text {
+			margin: 0 auto;
 		}
 		/******.btn_plus******/
 			.btn_plus,
@@ -216,10 +219,14 @@
 				transition: all .4s ease-in-out;
 			}
 			.btn_plus.active {
-				top: 150% !important;
+				top: 140% !important;
 			}
 			.btn_plus--beta.active {
 				top: 160% !important;
+			}
+			#content .page_information .btn_plus.active,
+			#content .page_payment .btn_plus.active {
+			    top: 130% !important;
 			}
 			.btn_plus.active .btn_plus_sign,
 			.btn_plus--beta.active .btn_plus_sign {
@@ -284,6 +291,7 @@
 		list-style: disc;
 		font-size: 1.3em;
 		text-align: left;
+		font-weight: 100;
 	}
 	/*Media*/
 		@media (max-width: 1366px) {
@@ -694,10 +702,10 @@
 			#content .pages_group.page_information .blockline {
 				padding-bottom: 4%;
 			}
-			#content button {
+			#content .psevdo_btn {
 				min-width: 60%;
 			}
-			#content button .forflex {
+			#content .psevdo_btn .forflex {
 				flex-basis: 90%;
 			}			
 
@@ -717,16 +725,18 @@
 			#content .page_payment ul {
 				font-size: 1.1em;
 			}
-	}	
+	}
 	@media (max-width: 964px) {
 		#content .page_delivery .blockOfText {
 			margin-bottom: 20px;
 			text-align: center;
 		}
-		#content button,
+		#content .psevdo_btn,
 		#content .pages_group .flexColumn button {
-			min-width: 80%;
-		}		
+			min-width: 95%;
+			margin-bottom: 20px;
+			font-size: 1em;
+		}
 		#content h1 {
 			font-size: 1.7em;
 		}
@@ -803,7 +813,7 @@
 			}
 			#content .pages_group button,
 			#content .pages_group .flexColumn button {
-				min-width: 90%;
+				min-width: 95%;
 				font-size: 1.1em;
 			}
 			#content .pages_group .info_circle_img {
