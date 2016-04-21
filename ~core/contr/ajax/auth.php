@@ -185,7 +185,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							</div>
 						</div>
 					</div>
-					<div class="contacts">
+					<div class="contacts <?=isset($_SESSION['member']['contragent']) && empty($_SESSION['member']['contragent'])?'hidden':null;?>">
 						<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
 						</div>
 						<div class="manager_contacts">
