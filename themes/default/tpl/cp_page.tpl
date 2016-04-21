@@ -48,7 +48,7 @@
 		</div>
 		<div class="blockline flexwrapp flexWrapReverse">
 			<div class="forflex">
-				<img class="delivery2" src="/themes/default/images/page/delivery/delivery2.png" alt="">
+				<img data-name="delivery2" class="delivery2 btn_js" src="/themes/default/images/page/delivery/delivery2.png" alt="">
 			</div>
 			<div class="forflex blockOfText">
 				<h4>Самовывоз</h4>
@@ -148,7 +148,7 @@
 		<div class="blockline">
 			<img class="about4" src="/themes/default/images/page/about/about4.png" alt="">
 			<h4>Мы стараемся ради Вас!</h4>
-			<button  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect ">Присоединяйтесь!</button>
+			<button data-name="auth" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Присоединяйтесь!</button>
 		</div>
 	</div>
 
@@ -222,7 +222,7 @@
 							<p>При возникновении спорных вопросов и ситуаций по количеству отгруженного товара, свяжитесь с нашим менеджером и он примет и оформит Вашу претензию. В течении 2-х календарных дней Ваша претензия будет рассмотрена. Срок подачи претензии - 3 календарных дня с момента получения товара.</p>
 						</article>
 					</div>					
-					<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
+					<label><a data-name="question" class="btn_js" href="#">Не нашли ответ на свой вопрос?</a></label>
 				</section>
 			</div>
 		</div>
@@ -325,7 +325,7 @@
 							<p>Для того, чтобы сделать заказ на сайте выбранного Вами товара, нужно нажать на кнопку «КУПИТЬ» и товар автоматически переместиться в «КОРЗИНУ».  Следует также не забыть выбрать количество добавляемого товара в «КОРЗИНУ».</p>
 						</article>
 					</div>
-					<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
+					<label><a data-name="question" class="btn_js" href="#">Не нашли ответ на свой вопрос?</a></label>
 				</section>
 			</div>
 		</div>
@@ -384,7 +384,7 @@
 							<p>Срок доставки оговаривается с региональным менеджером в каждом случае отдельно. Менеджер точно укажет день на который будет поставка, исходя из места доставки.</p>
 						</article>
 					</div>
-					<label><a class="a_question" href="#">Не нашли ответ на свой вопрос?</a></label>
+					<label><a data-name="question" class="btn_js" href="#">Не нашли ответ на свой вопрос?</a></label>
 				</section>
 			</div>
 		</div>
@@ -648,7 +648,7 @@
 			</div>
 		</div>
 		<div class="blockline blockBtn">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
+			<a href="<?=Link::Custom('main')?>" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</a>
 		</div>
 	</div>
 
@@ -905,7 +905,7 @@
 			</div>
 		</div>
 		<div class="blockline blockBtn">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</button>
+			<a href="<?=Link::Custom('main')?>" class="psevdo_btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для магазинов</a>
 		</div>
 	</div>
 
@@ -1029,8 +1029,8 @@
 			</div>
 		</div>
 		<div class="blockline flexwrapp flexColumn blockBtn">
-			<button data-name="estimateLoad" class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Загрузить свою смету</button>
-			<button class="forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</button>
+			<button data-name="estimateLoad" class="psevdo_btn forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js">Загрузить свою смету</button>
+			<a href="<?=Link::Custom('main')?>" class="psevdo_btn forflex mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Перейти к каталогу для организаций</a>
 		</div>
 	</div>
 
@@ -1055,8 +1055,8 @@
 				<p class="pEmail ">administration@xt.ua</p>
 			</div>
 			<div class="flexwrapp flexColumn">
-				<button class="forflex greenBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Пожелания</button>
-				<button class="forflex orangeBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Жалобы</button>
+				<button data-name="offers" class="btn_js forflex greenBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Пожелания</button>
+				<button data-name="lament" class="btn_js forflex orangeBtn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Жалобы</button>
 			</div>
 		</div>
 		<div class="blockline">

@@ -57,33 +57,4 @@ $(document).ready(function () {
 			}
 		});
 	}
-
-	$('.page_about_us button').click(function(event) {
-		openObject('auth')
-		removeLoadAnimation('#auth');
-	}); 
-
-	// $('.a_estimateLoad').click(function(event) {
-	// 	openObject('estimateLoad');
-	// 	removeLoadAnimation('#estimateLoad');
-	// });
-
-	$('.a_question').click(function(event) {
-		openObject('question');
-		removeLoadAnimation('#question');
-	});
-
-	$('.delivery2').click(function(event) {
-		openObject('delivery2');
-		removeLoadAnimation('#delivery2');
-	});
-
-	$('#page_contacts .greenBtn').click(function(event) {
-		openObject('offers');
-		removeLoadAnimation('#offers');
-	});
-	$('#page_contacts .orangeBtn').click(function(event) {
-		openObject('lament');
-		removeLoadAnimation('#lament');
-	});
 });

@@ -275,7 +275,7 @@ label:hover + .info_description {
 	/*z-index: 1;*/
 }
 
-#estimateLoad div.mdl-card__supporting-text {
+[data-type="modal"] .modal_container div.mdl-card__supporting-text {
 	margin: 0 auto;
 }
 

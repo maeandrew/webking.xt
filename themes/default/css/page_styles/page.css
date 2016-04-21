@@ -149,7 +149,7 @@
 		#content .pages_group .invisibleblock .flexwrapp {
 			align-items: stretch;
 		}
-		#content button {
+		#content .psevdo_btn {
 			background-color: #69ab3f;
 			min-width: 34%;
 			width: 50%;
@@ -163,6 +163,9 @@
 		}
 		#content .three_inline .info_circle img {
 			width: 61%;
+		}
+		#content .modal_container .mdl-card__supporting-text {
+			margin: 0 auto;
 		}
 		/******.btn_plus******/
 			.btn_plus,
@@ -216,10 +219,14 @@
 				transition: all .4s ease-in-out;
 			}
 			.btn_plus.active {
-				top: 150% !important;
+				top: 140% !important;
 			}
 			.btn_plus--beta.active {
 				top: 160% !important;
+			}
+			#content .page_information .btn_plus.active,
+			#content .page_payment .btn_plus.active {
+			    top: 130% !important;
 			}
 			.btn_plus.active .btn_plus_sign,
 			.btn_plus--beta.active .btn_plus_sign {
@@ -284,6 +291,7 @@
 		list-style: disc;
 		font-size: 1.3em;
 		text-align: left;
+		font-weight: 100;
 	}
 	/*Media*/
 		@media (max-width: 1366px) {
