@@ -1326,19 +1326,19 @@ table.supplier_assort_table {
 .customer_cab #waiting_list .table_tbody .product_article {
 	color: #818181;
 }
-.customer_cab #favorites .icon-font,
-.customer_cab #waiting_list .icon-font {
+.customer_cab #favorites .material-icons,
+.customer_cab #waiting_list .material-icons {
 	text-decoration: none;
 	cursor: pointer;
 	color: #A2A2A2;
 	font-size: 20px;
 }
-.customer_cab #favorites .icon-font.in_page:hover,
-.customer_cab #waiting_list .icon-font.in_page:hover {
+.customer_cab #favorites .material-icons.in_page:hover,
+.customer_cab #waiting_list .material-icons.in_page:hover {
 	color: #52cf55;
 }
-.customer_cab #favorites .icon-font.remove_favor_js:hover,
-.customer_cab #waiting_list .icon-font.remove_waitinglist_js:hover {
+.customer_cab #favorites .material-icons.remove_favor_js:hover,
+.customer_cab #waiting_list .material-icons.remove_waitinglist_js:hover {
 	color: #f36711;
 }
 

@@ -203,11 +203,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					</div>
 					<div class="userChoice">
 						<div id="userFavoritesList">
-							<a href="#"><div class="favleft"><i class="material-icons">favorite</i></div>
+							<a href="<?=Link::Custom('cabinet','favorites')?>"><div class="favleft"><i class="material-icons">favorite</i></div>
 							<div class="favright"><p>Избранные</p><p class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
 						</div>
 						<div id="userWaitingList">
-							<a href="#"><div class="favleft"><i class="material-icons">trending_down</i></div>
+							<a href="<?=Link::Custom('cabinet','waitinglist')?>"><div class="favleft"><i class="material-icons">trending_down</i></div>
 							<div class="favright"><p>Лист<br> ожидания</p><p class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</p></div></a>
 						</div>
 					</div>

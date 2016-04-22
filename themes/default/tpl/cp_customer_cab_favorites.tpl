@@ -24,12 +24,16 @@
 						<col width="5%">
 						<col width="5%">
 					</colgroup>
-					<tbody>
+					<tbody>					
 					<?foreach($favorites as $p){?>
 						<tr class="favorite_js" data-idproduct="<?=$p['id_product']?>">
 							<td class="image_cell">
 								<a href="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars($p['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
-									<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения">
+									<?if(!empty($p['img_1'])){?>
+										<img alt="<?=G::CropString($p['name'])?>" src="http://xt.ua/<?=str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])?>" title="Нажмите для увеличения">
+									<?}else{?>
+										<img alt="<?=G::CropString($p['name'])?>" src="http://xt.ua/images/nofoto.jpg"?>
+									<?}?>
 								</a>
 							</td>
 							<td class="name_cell">
@@ -40,10 +44,10 @@
 								<p><?=$p['availability']?></p>
 							</td>
 							<td>
-								<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="icon-font in_page" title="Перейти на страницу товара">eye</a>
+								<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="material-icons in_page" title="Перейти на страницу товара">remove_red_eye</a>
 							</td>
 							<td>
-								<span class="icon-font remove_favor_js" title="Удалить товар из списка">delete</span>
+								<span class="material-icons remove_favor_js" title="Удалить товар из списка">delete</span>
 							</td>
 						</tr>
 					<?}?>
