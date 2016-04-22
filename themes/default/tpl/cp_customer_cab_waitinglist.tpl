@@ -36,11 +36,11 @@
 							<td class="image_cell">
 								<div class="btn_js" data-name="big_photo">
 									<?if(!empty($p['img_1'])){?>
-										<img id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])?>" data-original-photo="<?=_base_url?><?=$p['img_1']?>">
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])?>" data-original-photo="<?=_base_url?><?=$p['img_1']?>">
 									<?}else if(!empty($p['images'])){?>
-										<img id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $p['images'][0]['src'])?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>">
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $p['images'][0]['src'])?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>">
 									<?}else{?>
-										<img id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?>/images/nofoto.jpg" data-original-photo="<?=_base_url?>/images/nofoto.jpg">
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?>/images/nofoto.jpg" data-original-photo="<?=_base_url?>/images/nofoto.jpg">
 									<?}?>
 									<div class="mdl-tooltip" for="big_photo_<?=$p['id_product']?>">Нажмите<br>для увеличения</div>
 								</div>

@@ -469,6 +469,9 @@ table.kontrag.table{
 #supplier_cab table .mdl-checkbox__label {
 	top: -5px;
 }
+#supplier_cab .photo_cell img:hover {
+	cursor: pointer;
+}
 table.supplier_assort_table {
 	margin-bottom: 0;
 }
