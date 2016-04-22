@@ -105,7 +105,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="userChoice">
+				<div class="userChoice <?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?'hidden':null;?>">
 					<div id="userFavoritesList">
 						<a href="<?=Link::Custom('cabinet','favorites')?>"><div class="favleft"><i class="material-icons">favorite</i></div>
 						<div class="favright"><p>Избранные</p><p class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
