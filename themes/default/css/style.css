@@ -2981,3 +2981,20 @@ div.modalEditOrder .applyBtn {
 	}
 }
 
+#big_photo {
+	padding: 0;
+	border: 0;
+}
+#big_photo[data-type="modal"].opened a.close_modal {
+	top: 5px;
+	right: 5px;
+	color: #fff;
+	background: rgba(0,0,0,0.1);
+	border-radius: 50%;
+	line-height: 24px;
+	width: 24px;
+	margin: 0;
+}
+#big_photo[data-type="modal"].opened a.close_modal:hover {
+	background: rgba(0,0,0,0.5);
+}

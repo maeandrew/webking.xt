@@ -992,6 +992,9 @@ $(function(){
 
 	$('#percent tr:first').css('color', '#000');
 
+	$('.customer_cab .image_cell img').click(function(event) {
+		$("#big_photo img").attr("src", $(this).data('original-photo'));//.css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+	});
 
 	/*Перенос модалок в main.tpl*/
 
