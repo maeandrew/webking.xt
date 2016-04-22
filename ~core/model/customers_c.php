@@ -40,7 +40,13 @@ class Customers extends Users {
 				ON f.id_product = p.id_product
 			WHERE f.id_user = '".$id_user."'
 			ORDER BY id_favorite";
-		$arr = $this->db->GetArray($sql);
+		if(!$arr = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach($arr as &$value){
+			$products = new Products();
+			$value['images'] = $products->GetPhotoById($value['id_product']);
+		}
 		return $arr;
 	}
 
@@ -81,7 +87,13 @@ class Customers extends Users {
 				ON wl.id_product = p.id_product
 			WHERE wl.id_user = '".$id_user."'
 			ORDER BY id_followprice";
-		$arr = $this->db->GetArray($sql);
+		if(!$arr = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach($arr as &$value){
+			$products = new Products();
+			$value['images'] = $products->GetPhotoById($value['id_product']);
+		}
 		return $arr;
 	}
 
