@@ -1,5 +1,6 @@
 <?php
 // echo memory_get_peak_usage()/pow(1000, 2);
+session_start();
 header("Content-type: text/html; charset=utf-8");
 date_default_timezone_set('Europe/Kiev');
 define('EXECUTE', 1);
@@ -7,7 +8,6 @@ define(DIRSEP, DIRECTORY_SEPARATOR);
 ini_set('session.gc_maxlifetime', 43200);
 ini_set('session.cookie_lifetime', 43200);
 // ini_set('max_execution_time', 30);
-session_start();
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'sys'.DIRSEP.'global_c.php');
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'cfg.php');
 // Memcached init
@@ -73,14 +73,11 @@ if($GLOBALS['CurrentController'] == 'main'){
 	$slides = $Slides->fields;
 	$tpl->Assign('main_slides', $slides);
 }
+unset($slides);
 if(in_array($GLOBALS['CurrentController'], array('promo_cart', 'promo'))){
 	G::AddJS('promo_cart.js');
 }
-$active_tab = 1;
-if(isset($_SESSION['ActiveTab']) && $_SESSION['ActiveTab'] == '0'){
-	$active_tab = 0;
-}
-$_SESSION['ActiveTab'] = $active_tab;
+$_SESSION['ActiveTab'] = isset($_SESSION['ActiveTab']) && $_SESSION['ActiveTab'] == '0'?0:1;
 if(!isset($_SESSION['layout'])){
 	$_SESSION['layout'] = 'block';
 }elseif(isset($_POST['layout']) && $_POST['layout'] != $_SESSION['layout']){
@@ -94,7 +91,6 @@ if(isset($_SESSION['member'])){
 		$GLOBALS['user'] = $User->fields;
 	}
 }
-unset($active_tab);
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
 if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
@@ -108,7 +104,6 @@ if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'
 	$tpl->Assign('promo_supplier', $promo_supplier->fields);
 	unset($promo_supplier);
 }
-unset($Customer);
 
 // Выборка просмотренных товаров
 $products = new Products();
@@ -122,7 +117,7 @@ if(isset($_COOKIE['view_products'])){
 		$result[] = $product;
 	}
 	$tpl->Assign('view_products_list', array_reverse($result));
-	unset($result);
+	unset($result, $product, $value);
 }
 
 // Выборка популярных товаров
@@ -131,8 +126,7 @@ foreach($pops AS &$pop){
 	$pop['images'] = $products->GetPhotoById($pop['id_product']);
 }
 $tpl->Assign('pops', $pops);
-unset($pops);
-
+unset($pops, $pop);
 // =========================================================
 
 // Обработка фильтров ======================================
@@ -158,6 +152,7 @@ if(isset($GLOBALS['Sort'])){
 }elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
 	$sorting = $sort[$GLOBALS['CurrentController']];
 }
+unset($sort_value, $sort);
 // =========================================================
 /*if($GLOBALS['CurrentController'] == 'main'){
 	$data = $products->ListGraph($id_category);
@@ -185,15 +180,14 @@ if(isset($GLOBALS['__graph'])){
 }
 
 $Cart = new Cart();
-$Users = new Users();
 // Создание базового массива корзины
 if(G::isLogged() && !_acl::isAdmin()){
 	$Cart->LastClientCart();
-	$Users->SetUserAdditionalInfo($_SESSION['member']['id_user']);
-	$_SESSION['member']['favorites'] = $Users->fields['favorites'];
-	$_SESSION['member']['waiting_list'] = $Users->fields['waiting_list'];
-	$_SESSION['member']['contragent'] = $Users->fields['contragent'];
-	$_SESSION['member']['ordered_prod'] = $Users->fields['ordered_prod'];
+	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
+	$_SESSION['member']['favorites'] = $User->fields['favorites'];
+	$_SESSION['member']['waiting_list'] = $User->fields['waiting_list'];
+	$_SESSION['member']['contragent'] = $User->fields['contragent'];
+	$_SESSION['member']['ordered_prod'] = $User->fields['ordered_prod'];
 }
 $Cart->RecalcCart();
 
@@ -210,6 +204,6 @@ echo $tpl->Parse($GLOBALS['PATH_tpl_global'].$GLOBALS['MainTemplate']);
 $e_time = G::getmicrotime();
 //if ($GLOBALS['CurrentController'] != 'feed')
 echo "<!--".date("d.m.Y H:i:s", time())." ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time-$s_time)." -->";
+unset($s_time, $e_time);
 // echo memory_get_peak_usage()/pow(1000, 2);
 session_write_close();
-?>

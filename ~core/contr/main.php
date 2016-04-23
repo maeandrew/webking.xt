@@ -25,13 +25,7 @@ $header = 'Главная';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = _base_url;
-// $parsed_res = array(
-// 	'issuccess'	=> true,
-// 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_main.tpl')
-// );
-// if(true == $parsed_res['issuccess']){
-// 	$tpl_center .= $parsed_res['html'];
-// }
+
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 

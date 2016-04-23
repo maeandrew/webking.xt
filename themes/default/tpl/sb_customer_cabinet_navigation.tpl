@@ -2,35 +2,47 @@
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
 		<li>
+			<i class="material-icons">face</i>
+			<a class="menus" href="#">Личные данные</a>
+			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
+				<li class="child">
+					<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
+				</li>
+				<li>
+					<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=delivery">Адрес доставки</a>
+				</li>
+			</ul>
+		</li>
+		<li>
 			<i class="material-icons">shopping_cart</i>
 			<a class="menus" href="#">Мои заказы</a>
-			<ul class="nav">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active':null;?>">
 				<li>
-					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet')?>?t=all">Все</a>
+					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
 				</li>
 				<li>
-					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>" href="<?=Link::Custom('cabinet')?>?t=working">Выполняются</a>
+					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=working">Выполняются</a>
 				</li>
 				<li>
-					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet')?>?t=completed">Выполненные</a>
+					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=completed">Выполненные</a>
 				</li>
 				<li>
-					<a name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>" href="<?=Link::Custom('cabinet')?>?t=canceled">Отмененные</a>
+					<a name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=canceled">Отмененные</a>
 				</li>
 				<li>
-					<a name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>" href="<?=Link::Custom('cabinet')?>?t=drafts">Черновики</a>
+					<a name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=drafts">Черновики</a>
 				</li>
 			</ul>
 		</li>
 		<!-- <li>
 			<i class="material-icons">person_add</i>
 			<a class="menus"  href="#">Совместные заказы</a>
-			<ul class="nav <?=(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative') ? active : null;?>">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active':null;?>">
 				<li>
 					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=all">Все</a>
 				</li>
 				<li>
-					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? active : null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=working">Выполняются</a>
+					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=working">Выполняются</a>
 				</li>
 				<li>
 					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=completed">Выполненные</a>
@@ -38,25 +50,13 @@
 			 </ul>
 		</li> -->
 		<li>
-			<i class="material-icons">face</i>
-			<a class="menus" href="#">Личные данные</a>
-			<ul class="nav <?=(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'personal') ? active : null;?>">
-				<li class="child">
-					<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','personal')?>?t=contacts">Основная информация</a>
-				</li>
-				<li>
-					<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','personal')?>?t=delivery">Адрес доставки</a>
-				</li>
-			</ul>
-		</li>
-		<li>
 			<i class="material-icons">people</i>
 			<a href="#">Списки друзей</a>
 		</li>
 		<li>
 			<i class="material-icons">settings</i>
 			<a class="menus" href="#">Настройки</a>
-			<ul class="nav <?=(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings') ? active : null;?>">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'active':null;?>">
 				<li>
 					<a name="t" value="basic" <?=(isset($_GET['t']) && $_GET['t']) == 'basic'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
 				</li>
@@ -69,7 +69,7 @@
 			<i class="material-icons">add_shopping_cart</i>
 			<a class="menus" href="#">Бонусная программа</a>
 			<?if(isset($GLOBALS['Rewrite'])){ ?>
-				<ul class="nav <?=(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus') ? active : null;?>">
+				<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active':null;?>">
 					<li class="child">
 						<a name="t" value="bonus_info" <?=(isset($_GET['t']) && $_GET['t']) == 'bonus_info'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','bonus')?>?t=bonus_info">Мой бонусный счет</a>
 					</li>

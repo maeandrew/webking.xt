@@ -150,12 +150,8 @@
 </script>
 <div class="filters">
 	<div id="filterButtons">
-		<button id="clear_filter" class="mdl-button mdl-js-button mdl-button--raised">
-			Сбросить:
-		</button>
-		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised">
-			Применить:
-		</button>
+		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Применить</button>
+		<button id="clear_filter" class="mdl-button mdl-js-button mdl-js-ripple-effect">Сбросить</button>
 	</div>
 	<div class="filter_block price_range_block">
 		<p>Ценовой диапазон</p>

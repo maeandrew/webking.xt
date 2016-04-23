@@ -195,4 +195,5 @@ if($GLOBALS['CurrentController'] == 'main'){
 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
 	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']) . "| Киев, Харьков, Днепропетровск, Донецк, Запорожье, Луганск, Крым, Одесса, Львов, Полтава, Сумы, Чернигов, Ивано-Франковск, Закарпатье ";
 	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(". ", $GLOBALS['__page_description'])." | Дешевый интернет магазин недорогих товаров" ;
-}?>
+}
+unset($tpl_header, $tpl_center, $tpl_nav, $tpl_aside, $tpl_breadcrumbs, $tpl_sidebar_l, $tpl_sidebar_r, $tpl_popular, $tpl_graph, $k, $i, $l1, $l2, $l3, $level1, $level2, $level3, $id_category, $data_graph, $sb_count);

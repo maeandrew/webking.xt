@@ -73,4 +73,3 @@ if(isset($rewrite_arr) && count($rewrite_arr) > 0){
 	}
 }
 unset($rewrite_arr, $request_url, $request);
-?>

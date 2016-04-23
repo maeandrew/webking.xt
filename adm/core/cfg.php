@@ -62,9 +62,9 @@ require($GLOBALS['PATH_sys'].'sfYamlParser.php');
 // require(_root.'config.php');
 // connection to mysql server
 if(phpversion() >= 5.6){
-	$db = new mysqlPDO($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+	$db = new mysqlPDO($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 }else{
-	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+	$db = new mysqlDb($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 }
 $GLOBALS['db'] =& $db;
 $sql = "SELECT * FROM "._DB_PREFIX_."profiles";

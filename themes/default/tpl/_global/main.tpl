@@ -124,7 +124,6 @@
 			}
 		</style>
 	</noscript>
-
 	<script type="text/javascript"
 	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
 	</script>
@@ -229,7 +228,7 @@
 		</aside>
 	<?}?>
 	<div id="newheader_wrapp"></div>
-	<section class="main <?=$GLOBALS['CurrentController'] == 'product'?'product_page':null?>">
+	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<?if(in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 			<aside class="mdl-color--grey-100 mdl-cell--hide-phone">
 				<div class="wrapper">
@@ -268,13 +267,10 @@
 					height: 300px;
 				}
 			</style>
-			<?php if(isset($__graph)){
-				echo $__graph;
-			}?>
+			<?=isset($__graph)?$__graph:null;?>
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
-					<!-- <h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1> -->
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header clearfix">
@@ -315,24 +311,36 @@
 										<span class="material-icons">shopping_cart</span></a>
 									</li> -->
 									<!-- <li onclick="ChangePriceRange(3, 0)" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'active':null;?>">0%</li>
-									<li onclick="ChangePriceRange(2,<?=$sum = 500 - $_SESSION['cart']['products_sum[3]'];?>);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
-									<li onclick="ChangePriceRange(1,<?=$sum = 3000 - $_SESSION['cart']['products_sum[3]'];?>);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
-									<li onclick="ChangePriceRange(0,<?=$sum = 10000 - $_SESSION['cart']['products_sum[3]'];?>);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'active':null;?>">21%</li> -->
+									<li onclick="ChangePriceRange(2,<?=$sum = 500 - $_SESSION['cart']['products_sum'][3];?>);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
+									<li onclick="ChangePriceRange(1,<?=$sum = 3000 - $_SESSION['cart']['products_sum'][3];?>);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
+									<li onclick="ChangePriceRange(0,<?=$sum = 10000 - $_SESSION['cart']['products_sum'][3];?>);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'active':null;?>">21%</li> -->
 								</ul>
 							</div>
 							<!-- <div class="order_balance">
-								<?if($_COOKIE['sum_range'] == 3) {;?>
-									Без скидки!
-								<?}elseif($_COOKIE['sum_range'] == 2){
-									$sum = 500 - $_SESSION['cart']['products_sum[3]'];?>
-									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ');?></span> грн.
-								<?}elseif($_COOKIE['sum_range'] == 1){
-									$sum = 3000 - $_SESSION['cart']['products_sum[3]'];?>
-									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.
-								<?}elseif($_COOKIE['sum_range'] == 0){
-									$sum = 10000 - $_SESSION['cart']['products_sum[3]'];?>
-									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.
-								<?}?>
+								<?php
+								if(isset($_COOKIE['sum_range'])){
+									switch ($_COOKIE['sum_range']) {
+										case 3:
+											echo 'Без скидки!';
+											break;
+										case 2:
+											$sum = 500 - $_SESSION['cart']['products_sum'][3];
+											echo 'Еще заказать на <span class="summ">'.number_format($sum, 2, ',', '').'</span> грн.';
+											break;
+										case 1:
+											$sum = 3000 - $_SESSION['cart']['products_sum'][3];
+											echo 'Еще заказать на <span class="summ">'.number_format($sum, 2, ',', '').'</span> грн.';
+											break;
+										case 0:
+											$sum = 10000 - $_SESSION['cart']['products_sum'][3];
+											echo 'Еще заказать на <span class="summ">'.number_format($sum, 2, ',', '').'</span> грн.';
+											break;
+										
+										default:
+											# code...
+											break;
+									}
+								}?>
 							</div> -->
 							<div class="price_nav"></div>
 						</div>
@@ -731,7 +739,7 @@
 			</div>
 			<div class="modal_container"></div>
 		</div>
-		<div id="graph" data-type="modal" data-target="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']))?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
+		<div id="graph" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
 		<!-- Модалки кабинета. Заказы -->

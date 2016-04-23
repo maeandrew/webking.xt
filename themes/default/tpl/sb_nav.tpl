@@ -1,6 +1,6 @@
 <div class="catalog">
 	<ul class="main_nav">
-		<li id="estimate" data-name="estimateLoad" class="btn_js <?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 2)?'activeSegment':null;?>" data-nav="estimate">
+		<li id="estimate" data-name="estimateLoad" class="btn_js" data-nav="estimate">
 			<i class="material-icons">assignment</i>Загрузить свою смету
 			<label class="info_key">?</label>
 			<div class="info_description">

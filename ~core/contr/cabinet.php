@@ -21,9 +21,9 @@ switch($User->fields['gid']){
 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
 			require($GLOBALS['PATH_block'].'cp_cab_promo_customer.php');
 		}else{
-			if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "personal"){
-				$header = 'Личные данные';
-				require($GLOBALS['PATH_block'].'cp_cab_personal_customer.php');
+			if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "orders"){
+				$header = 'Мои заказы';
+				require($GLOBALS['PATH_block'].'cp_cab_orders_customer.php');
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == "settings"){
 				$header = 'Настройки';
 				require($GLOBALS['PATH_block'].'cp_cab_settings_customer.php');
@@ -43,8 +43,8 @@ switch($User->fields['gid']){
 				$header = 'Совместные заказы';
 				require($GLOBALS['PATH_block'].'cp_cab_cooperative.php');
 			}else{
-				$header = 'Мои заказы';
-				require($GLOBALS['PATH_block'].'cp_cab_orders_customer.php');
+				$header = 'Личные данные';
+				require($GLOBALS['PATH_block'].'cp_cab_personal_customer.php');
 			}
 		}
 		if(true == $parsed_res['issuccess']){
