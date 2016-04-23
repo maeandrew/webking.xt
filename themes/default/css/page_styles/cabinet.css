@@ -469,6 +469,9 @@ table.kontrag.table{
 #supplier_cab table .mdl-checkbox__label {
 	top: -5px;
 }
+#supplier_cab .photo_cell img:hover {
+	cursor: pointer;
+}
 table.supplier_assort_table {
 	margin-bottom: 0;
 }
@@ -1317,6 +1320,10 @@ table.supplier_assort_table {
 	padding: 5px 0;
 	height: 90px;
 }
+.customer_cab #favorites .table_tbody .image_cell img:hover,
+.customer_cab #waiting_list .table_tbody .image_cell img:hover {
+	cursor: pointer;
+}
 .customer_cab #favorites .table_tbody .name_cell,
 .customer_cab #waiting_list .table_tbody .name_cell {
 	text-align: left;
@@ -1326,20 +1333,24 @@ table.supplier_assort_table {
 .customer_cab #waiting_list .table_tbody .product_article {
 	color: #818181;
 }
-.customer_cab #favorites .icon-font,
-.customer_cab #waiting_list .icon-font {
+.customer_cab #favorites .material-icons,
+.customer_cab #waiting_list .material-icons {
 	text-decoration: none;
 	cursor: pointer;
 	color: #A2A2A2;
 	font-size: 20px;
 }
-.customer_cab #favorites .icon-font.in_page:hover,
-.customer_cab #waiting_list .icon-font.in_page:hover {
+.customer_cab #favorites .material-icons.in_page:hover,
+.customer_cab #waiting_list .material-icons.in_page:hover {
 	color: #52cf55;
 }
-.customer_cab #favorites .icon-font.remove_favor_js:hover,
-.customer_cab #waiting_list .icon-font.remove_waitinglist_js:hover {
+.customer_cab #favorites .material-icons.remove_favor_js:hover,
+.customer_cab #waiting_list .material-icons.remove_waitinglist_js:hover {
 	color: #f36711;
+}
+.customer_cab #favorites .mdl-tooltip,
+.customer_cab #waiting_list .mdl-tooltip {
+	font-size: 12px;
 }
 
 /* Customer cab Waitinglist ================================================= */

@@ -758,6 +758,9 @@
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
+		<div id="big_photo" data-type="modal">
+			<img src="" alt="">
+		</div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">

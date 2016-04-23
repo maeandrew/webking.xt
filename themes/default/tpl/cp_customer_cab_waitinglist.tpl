@@ -34,9 +34,16 @@
 					<?foreach($waiting_list as $p){?>
 						<tr class="waiting_list_js" data-idproduct="<?=$p['id_product']?>">
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars($p['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
-									<img alt="<?=G::CropString($p['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])):'/efiles/_thumb/nofoto.jpg'?>" title="Нажмите для увеличения">
-								</a>
+								<div class="btn_js" data-name="big_photo">
+									<?if(!empty($p['img_1'])){?>
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])?>" data-original-photo="<?=_base_url?><?=$p['img_1']?>">
+									<?}else if(!empty($p['images'])){?>
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $p['images'][0]['src'])?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>">
+									<?}else{?>
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?>/images/nofoto.jpg" data-original-photo="<?=_base_url?>/images/nofoto.jpg">
+									<?}?>
+									<div class="mdl-tooltip" for="big_photo_<?=$p['id_product']?>">Нажмите<br>для увеличения</div>
+								</div>
 							</td>
 							<td class="name_cell">
 								<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/"><?=G::CropString($p['name'])?></a>
@@ -60,10 +67,12 @@
 								<p><?=$p['availability']?></p>
 							</td>
 							<td>
-								<a href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="icon-font in_page" title="Перейти на страницу товара">eye</a>
+								<a id="toSee_<?=$p['id_product']?>" href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="material-icons in_page">remove_red_eye</a>
+								<div class="mdl-tooltip" for="toSee_<?=$p['id_product']?>">Перейти на<br>страницу товара</div>
 							</td>
 							<td>
-								<span class="icon-font remove_waitinglist_js" title="Удалить товар из списка">delete</span>
+								<span id="remove_<?=$p['id_product']?>" class="icon material-icons remove_waitinglist_js">delete</span>
+								<div class="mdl-tooltip" for="remove_<?=$p['id_product']?>">Удалить товар<br>из списка</div>
 							</td>
 						</tr>
 					<?}?>
