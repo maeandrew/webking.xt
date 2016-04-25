@@ -450,6 +450,11 @@ body:not(.c_main) .banner {
 [data-type="modal"] .modal_container {
 	max-height: calc(90vh - 52px - 60px - 64px);
 	position: relative;
+	text-align: center;
+}
+[data-type="modal"] .modal_container .mdl-card__supporting-text p {
+	font-size: 20px;
+    text-transform: uppercase;
 }
 [data-type="modal"] a.close_modal{
 	color: #bcbcbc;
