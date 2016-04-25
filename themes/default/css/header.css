@@ -281,6 +281,7 @@ header .catalog_btn {
 	header .mainUserInf {
 		padding-bottom: 10px;	
 		text-align: center;
+		max-width: calc(100% - 20px);
 	}
 	header #manager .user_contr {
 		color: #666666;
@@ -288,7 +289,6 @@ header .catalog_btn {
 	header #userNameBlock {
 		display: flex;
 		justify-content: center;
-		max-width: 325px;
 	}
 	header .contacts {
 		padding: 10px;

@@ -442,7 +442,7 @@
 					<?}?>
 				</div>
 				<div class="copyright">
-					<p>&copy; Отдел снабжения XT.ua 2015</p>
+					<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
 					<p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p>
 				</div>
 			</footer>

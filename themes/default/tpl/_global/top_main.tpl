@@ -73,7 +73,13 @@
 					<div class="mainUserInf">
 						<div id="userNameBlock">
 							<div id="userNameInf" class="listItems">
-								<span class="user_name"><?=$_SESSION['member']['name']?></span>
+								<?if ($_SESSION['member']['email']) {
+									$etChar = strpos($_SESSION['member']['email'], "@");
+									$userNameFromMail = substr($_SESSION['member']['email'], 0, $etChar);
+								}?>
+								<span class="user_name"><?
+									if($_SESSION['member']['name']) { echo $_SESSION['member']['name']; }
+									else { echo $userNameFromMail; } ?></span>
 							</div>
 							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
 							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
@@ -154,7 +160,9 @@
 				<div class="mainUserInf">
 					<div id="userNameBlock">
 						<div id="userNameInf" class="listItems">
-							<span class="user_name"><?=isset($_SESSION['member']['name'])?$_SESSION['member']['name']:'';?></span>
+							<span class="user_name"><?
+									if($_SESSION['member']['name']) { echo $_SESSION['member']['name']; }
+									else { echo $userNameFromMail; } ?></span>
 						</div>
 						<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
 						<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
