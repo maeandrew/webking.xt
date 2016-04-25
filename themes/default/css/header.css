@@ -288,6 +288,7 @@ header .catalog_btn {
 	header #userNameBlock {
 		display: flex;
 		justify-content: center;
+		max-width: 325px;
 	}
 	header .contacts {
 		padding: 10px;

@@ -69,7 +69,6 @@ $(function(){
 	}
 	$('.main_nav > li').click(function() {
 		$('ul.second_nav li').removeClass('active');
-		alert('remove');
 		if ($('.main_nav > li').hasClass('active') && !$('ul.second_nav li').hasClass('active')) {
 			$('.main_nav li[data-nav="filter"]').addClass('hidden');
 		};
