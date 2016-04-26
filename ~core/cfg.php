@@ -195,4 +195,4 @@ $GLOBALS['MAIL_CONFIG']['smtp_host'] = null;
 $GLOBALS['MAIL_CONFIG']['smtp_port'] = null;
 $GLOBALS['MAIL_CONFIG']['smtp_username'] = null;
 
-unset($theme, $sql, $profiles, $admin_controllers, $profile, $unwatch, $block, $arr, $i, $ips);
+// unset($theme, $sql, $profiles, $admin_controllers, $profile, $unwatch, $block, $arr, $i, $ips);
