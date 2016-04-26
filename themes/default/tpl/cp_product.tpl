@@ -186,8 +186,8 @@
 					foreach($item['videos'] as $i => $video){?>
 					<div class="videoBlock">
 						<div class="videoBlockShield"></div>
-						<iframe width="120" height="120" src="<?=str_replace('watch?v=', 'embed/', $video)?><?=file_exists($GLOBALS['PATH_root'].str_replace('watch?v=', 'embed/', $video))?str_replace('watch?v=', 'embed/', $video):'/efiles/nofoto.jpg'?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>">
-						</iframe>
+						<iframe width="120" height="120" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>">
+                        </iframe>
 					</div>
 					<?}
 				}?>
