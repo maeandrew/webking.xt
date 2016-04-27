@@ -24,7 +24,6 @@ if (isset($_POST['smb'])){
 	if (!$err){
 		$arr = array();
 		$arr['name'] = mysql_real_escape_string(trim($_POST['name']));
-		$arr['art'] = mysql_real_escape_string(trim($_POST['art']));
 		$arr['content'] = mysql_real_escape_string(trim($_POST['content']));
 		$arr['translit'] = G::StrToTrans($_POST['name']);
 		$arr['pid'] = mysql_real_escape_string(trim($_POST['pid']));
@@ -32,7 +31,7 @@ if (isset($_POST['smb'])){
 		$arr['visible'] = 1;
 		if (isset($_POST['visible']) && $_POST['visible'] == "on")
 			$arr['visible'] = 0;
-		if ($id = $dbtree->Insert($arr['pid'], '', $arr)){
+		if ($id = $dbtree->Insert($arr['pid'], $arr)){
 			$tpl->Assign('msg', 'Категория добавлена.');
 			unset($_POST);
 		}else{

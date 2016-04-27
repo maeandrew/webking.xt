@@ -11,12 +11,15 @@ unset($parsed_res);
 
 $tpl->Assign('h1', 'Добавление категории');
 
+
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление категории";
 
-if (isset($_POST['smb'])){
+
+
+if (isset($_POST['smb'])){ //print_r($_POST); die();
 
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 
@@ -24,13 +27,15 @@ if (isset($_POST['smb'])){
 	if (!$err){
 		$arr = array();
 		$arr['name'] = trim($_POST['name']);
-		$arr['art'] = trim($_POST['art']);
-		$arr['content'] = trim($_POST['content']);
-		$arr['content_xt'] = trim($_POST['content_xt']);
 		$arr['translit'] = G::StrToTrans($_POST['name']);
-		$arr['pid'] = trim($_POST['pid']);
+		$arr['pid'] = ($_POST['pid'] != 1)?trim($_POST['pid']):0;
 		$arr['visible'] = isset($_POST['visible']) && $_POST['visible'] == "on"?0:1;
-		if ($id = $dbtree->Insert($arr['pid'], '', $arr)){
+		$arr['indexation'] = isset($_POST['indexation']) && $_POST['indexation'] == "on"?1:0;
+		$arr['edit_user'] = $_SESSION['member'][id_user];
+
+
+
+		if ($id = $dbtree->Insert($arr['pid'], $arr)){
 			$tpl->Assign('msg', 'Категория добавлена.');
 			unset($_POST);
 		}else{

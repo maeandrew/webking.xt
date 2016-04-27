@@ -12,6 +12,9 @@ unset($parsed_res);
 		exit();
 	}
 
+
+
+
 	$tpl->Assign('h1', 'Удаление категории');
 
 	$ii = count($GLOBALS['IERA_LINKS']);
@@ -19,9 +22,17 @@ unset($parsed_res);
 	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Удаление категории";
 
-	if (!$dbtree->DeleteAll($id_category)) die('Ошибка при удалении категории.');
 
-	$tpl->Assign('msg', 'Категория удалена.');
+	$res = $dbtree->DeleteAll($id_category);
+	if ($res === true){
+		$tpl->Assign('msg', 'Категория удалена.');
+
+	}else{
+	$tpl->Assign('msg', $res);
+	$tpl->Assign('errm', 1);
+	}
+
+
 
 	$parsed_res = array('issuccess' => TRUE,
  						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl'));

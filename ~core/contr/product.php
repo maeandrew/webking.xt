@@ -44,10 +44,9 @@ $dbtree->Parents($id_category, array('id_category', 'name', 'category_level', 't
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
-// print_r($dbtree->NextRow());
+
 while($cat = $dbtree->NextRow()){
-	// print_r($cat);
-	if(0 <> $cat['category_level']){
+	if($cat['category_level'] != 0){
 		$GLOBALS['IERA_LINKS'][] = array(
 			'title' => $cat['name'],
 			'url' => Link::Category($cat['translit'])

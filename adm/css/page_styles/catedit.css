@@ -6,3 +6,9 @@
 	width: 20px;
 	height: 20px;
 }
+
+#sid {
+	width:285px;
+	float: left;
+	margin-right: 10px;
+}

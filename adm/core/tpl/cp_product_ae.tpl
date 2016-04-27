@@ -351,13 +351,12 @@
 				</div>
 				<div id="nav_connection">
 					<h2>Категория и связь</h2>
+					<?print_r($_POST['categories_ids'])?>
 					<?foreach($_POST['categories_ids'] as $cid){?>
 						<div id="catblock">
 							<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
 							<select name="categories_ids[]" class="input-m">
-								<?foreach($list as $item){?>
-									<option <?=($item['id_category'] == $cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
-								<?}?>
+								<?=$list?>
 							</select>
 						</div>
 					<?}?>
@@ -649,9 +648,7 @@
 <div id="templates" class="hidden">
 	<div id="catblock">
 		<select name="categories_ids[]" class="input-m">
-			<?foreach($list as $item){?>
-				<option value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
-			<?}?>
+			<?=$list?>
 		</select>
 	</div>
 </div>

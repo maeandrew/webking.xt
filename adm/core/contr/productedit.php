@@ -202,9 +202,24 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 }
 if(!$products->SetFieldsById($id_product, 1)) die('Ошибка при выборе товара.');
 // Формирование списка категорий для выпадающего списка
-$list = $dbtree->Full(array('id_category', 'category_level', 'name'));
+$cat_arr = $dbtree->GetAllCats(array('id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible'), 1);
+if(!empty($cat_arr)){
+	foreach($cat_arr as &$l1){
+		$level2 = $dbtree->GetAllSubCats($l1['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
+		foreach($level2 as &$l2){
+			$level3 = $dbtree->GetAllSubCats($l2['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
+			$l2['subcats'] = $level3;
+		}
+		$l1['subcats'] = $level2;
+	}
+}
+
+$list = $products->generateCategory($cat_arr);
+
+//$list = $dbtree->Full(array('id_category', 'category_level', 'name'));
 // Определение категории к которой принадлежит товар
 if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_category']){
+
 	$category['name'] = $item['name'];
 	$category['id_category'] = $item['id_category'];
 }

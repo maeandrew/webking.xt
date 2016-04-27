@@ -88,6 +88,10 @@
 	color: #04CDFF;
 	text-shadow: 2px 2px 4px rgba(150, 150, 150, 1);
 }
+.wrapp .icon-font.delcat:hover {
+	color: #ff1d31;
+	text-shadow: 2px 2px 4px rgba(150, 150, 150, 1);
+}
 .wrapp.ajax_loading:before {
 	background-position: 50% 100px;
 }
@@ -147,4 +151,7 @@
 }
 .legend .icon-font.lockcat {
 	color: #04CDFF;
+}
+.legend .icon-font.delcat {
+	color:  #ff1d31;
 }

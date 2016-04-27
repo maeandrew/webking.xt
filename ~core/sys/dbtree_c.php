@@ -28,14 +28,6 @@ class dbtree {
 	*/
 	var $table_id;
 	/**
-	* @var integer
-	*/
-	var $table_left;
-	/**
-	* @var integer
-	*/
-	var $table_right;
-	/**
 	* Level of nesting.
 	*
 	* @var integer
@@ -68,8 +60,6 @@ class dbtree {
 		$this->db = &$db;
 		$this->table = $table;
 		$this->table_id = 'id_'.$prefix;
-		$this->table_left = $prefix.'_left';
-		$this->table_right = $prefix.'_right';
 		$this->table_level = $prefix.'_level';
 		unset($prefix, $table);
 		$sql = 'SET AUTOCOMMIT=0';
@@ -105,7 +95,7 @@ class dbtree {
 			$fld_names = implode(', ', array_keys($data)).', ';
 			$fld_values = '\''.implode('\', \'', array_values($data)).'\', ';
 		}
-		$fld_names .= $this->table_left.', '.$this->table_right.', '.$this->table_level;
+		$fld_names .= $this->table_level;
 		$fld_values .= '1, 2, 0';
 		$id = $this->db->GenID($this->table.'_seq', 1);
 		$sql = ' INTO '.$this->table.' ('.$this->table_id.', '.$fld_names.') VALUES ('.$id.', '.$fld_values.')';
@@ -141,24 +131,25 @@ class dbtree {
 	* @return array - left, right, level
 	*/
 	public function GetNodeInfo($section_id, $cache = false){
-		$sql = 'SELECT '.$this->table_left.', '.$this->table_right.', '.$this->table_level.' FROM '.$this->table.' WHERE '.$this->table_id.' = '.(int)$section_id;
-		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
-			$res = $this->db->Execute($sql);
-		}else{
-			$res = $this->db->CacheExecute((int)$cache, $sql);
-		}
-		if(false === $res) {
-			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return false;
-		}
-		if(0 == $res->RecordCount()){
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('no_element_in_tree') : 'no_element_in_tree';
-			return false;
-		}
-		$data = $res->FetchRow();
-		unset($res);
-		return array($data[$this->table_left], $data[$this->table_right], $data[$this->table_level]);
+		$sql = 'SELECT '.$this->table_level.' FROM '.$this->table.' WHERE '.$this->table_id.' = '.(int)$section_id;
+		$res = $this->db->GetOneRowArray($sql);
+//		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
+//			$res = $this->db->Execute($sql);
+//		}else{
+//			$res = $this->db->CacheExecute((int)$cache, $sql);
+//		}
+//		if(false === $res) {
+//			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
+//			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
+//			return false;
+//		}
+//		if(0 == $res->RecordCount()){
+//			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('no_element_in_tree') : 'no_element_in_tree';
+//			return false;
+//		}
+//		$data = $res->FetchRow();
+//		unset($res);
+		return array($res[$this->table_level]);
 	}
 	/**
 	* Receives parent left, right and level for unit with number $id.
@@ -178,7 +169,7 @@ class dbtree {
 		if(!empty($condition)){
 			$condition = $this->_PrepareCondition($condition);
 		}
-		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_left.' < '.$leftId.' AND '.$this->table_right.' > '.$rightId.' AND '.$this->table_level.' = '.$level.$condition.' ORDER BY '. $this->table_left;
+		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.$condition /*ORDER BY  $this->table_left*/;
 		if(false === DB_CACHE || false === $cache || 0 == (int)$cache){
 			$res = $this->db->Execute($sql);
 		}else{
@@ -199,53 +190,61 @@ class dbtree {
 	* @param array $data Contains parameters for additional fields of a tree (if is): array('filed name' => 'importance', etc)
 	* @return integer Inserted element id
 	*/
-	public function Insert($section_id, $condition = '', $data = array()){
-		$node_info = $this->GetNodeInfo($section_id);
-		if(false === $node_info){
+	public function Insert($section_id, $data = array()){
+		$sqltranslit = "SELECT translit FROM "._DB_PREFIX_."category WHERE translit = '".$data['translit']."'";
+		$restranslit = $this->db->GetOneRowArray($sqltranslit);
+
+		if($restranslit){
 			return false;
-		}
-		list($leftId, $rightId, $level) = $node_info;
-		$data[$this->table_left] = $rightId;
-		$data[$this->table_right] = ($rightId + 1);
-		$data[$this->table_level] = ($level + 1);
-		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition);
-		}
-		$sql = 'UPDATE '.$this->table.' SET '
-		.$this->table_left.'=CASE WHEN '.$this->table_left.'>'.$rightId.' THEN '.$this->table_left.'+2 ELSE '.$this->table_left.' END, '
-		.$this->table_right.'=CASE WHEN '.$this->table_right.'>='.$rightId.' THEN '.$this->table_right.'+2 ELSE '.$this->table_right.' END '
-		.'WHERE '.$this->table_right.'>='.$rightId;
-		$sql .= $condition;
-		$this->db->StartTrans();
-		$res = $this->db->Execute($sql);
-		if(false === $res){
-			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			$this->db->FailTrans();
-			return false;
-		}
-		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_id.' = -1';
-		$res = $this->db->Execute($sql);
-		if(false === $res){
-			$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			$this->db->FailTrans();
-			return false;
-		}
-		$data[$this->table_id] = $this->db->GenID($this->table.'_seq', 2);
-		$sql = $this->db->GetInsertSQL($res, $data);
-		if(!empty($sql)){
-			$res = $this->db->Execute($sql);
-			if(false === $res){
-				$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-				$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-				$this->db->FailTrans();
+		}else {
+			$node_info = $this->GetNodeInfo($section_id);
+			if (false === $node_info) {
 				return false;
 			}
+			$data[category_level] = ($node_info[0] + 1);
+			$data['edit_date'] = date('Y-m-d H:m:s');
+			$this->db->StartTrans();
+			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data[category_level] . ', "' . $data[name] . '", "' . $data[translit] . '", ' . $data[pid] . ', ' . $data[visible] . ', ' . $data[edit_user] . ', "' . $data[edit_date] . '", ' . $data[indexation] . ')';
+			$this->db->Execute($sql);
+			$this->db->CompleteTrans();
+			return true;
 		}
-		$this->db->CompleteTrans();
-		return $data[$this->table_id];
+//		$sql = 'UPDATE '.$this->table.' SET '
+//		.$this->table_left.'=CASE WHEN '.$this->table_left.'>'.$rightId.' THEN '.$this->table_left.'+2 ELSE '.$this->table_left.' END, '
+//		.$this->table_right.'=CASE WHEN '.$this->table_right.'>='.$rightId.' THEN '.$this->table_right.'+2 ELSE '.$this->table_right.' END '
+//		.'WHERE '.$this->table_right.'>='.$rightId;
+//		$sql .= $condition;
+//		$this->db->StartTrans(); //  print_r($sql); die();
+//		$res = $this->db->Execute($sql);
+//		if(false === $res){
+//			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
+//			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
+//			$this->db->FailTrans();
+//			return false;
+//		}
+//		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table_id.' = -1';
+//		$res = $this->db->Execute($sql);
+//		if(false === $res){
+//			$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
+//			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
+//			$this->db->FailTrans();
+//			return false;
+//		}
+//		$data[$this->table_id] = $this->db->GenID($this->table.'_seq', 2);
+//		$sql = $this->db->GetInsertSQL($res, $data);
+//		if(!empty($sql)){
+//			$res = $this->db->Execute($sql);
+//			if(false === $res){
+//				$this->ERRORS[] = array(2, 'SQL query error', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
+//				$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
+//				$this->db->FailTrans();
+//				return false;
+//			}
+//		}
+//		$this->db->CompleteTrans();
+//		return $data[$this->table_id];
 	}
+
 	/**
 	* Add a new element in the tree near element with number id.
 	*
@@ -385,8 +384,6 @@ class dbtree {
 		}
 		list($leftId2, $rightId2, $level2) = $node_info;
 		$sql = 'UPDATE '.$this->table.' SET '
-		.$this->table_left.' = '.$leftId2 .', '
-		.$this->table_right.' = '.$rightId2 .', '
 		.$this->table_level.' = '.$level2 .' '
 		.'WHERE '.$this->table_id.' = '.(int)$id1;
 		$this->db->StartTrans();
@@ -398,8 +395,6 @@ class dbtree {
 			return false;
 		}
 		$sql = 'UPDATE '.$this->table.' SET '
-		.$this->table_left.' = '.$leftId1 .', '
-		.$this->table_right.' = '.$rightId1 .', '
 		.$this->table_level.' = '.$level1 .' '
 		.'WHERE '.$this->table_id.' = '.(int)$id2;
 		$res = $this->db->Execute($sql);
@@ -537,39 +532,59 @@ class dbtree {
 	* @param array $condition Array structure: array('and' => array('id = 0', 'id2 >= 3'), 'or' => array('sec = \'www\'', 'sec2 <> \'erere\'')), etc where array key - condition (AND, OR, etc), value - condition string
 	* @return bool true if successful, false otherwise.
 	*/
-	public function DeleteAll($ID, $condition = ''){
-		$node_info = $this->GetNodeInfo($ID);
-		if(false === $node_info){
-			return false;
+	public function DeleteAll($id_category, $condition = ''){
+		$errm = "Ошибка удаления.";
+		$sqlcat = "SELECT * FROM "._DB_PREFIX_."category WHERE	pid = ".$id_category;
+		$rescat = $this->db->GetArray($sqlcat);
+		$sqlprod = "SELECT * FROM "._DB_PREFIX_."cat_prod WHERE	id_category = ".$id_category;
+		$resprod = $this->db->GetArray($sqlprod);
+
+		//print_r($sqlcat); die();
+
+		if($rescat)  $errm .= " Категория содержит подкатегории.";
+		if($resprod) $errm .= " Категория содержит товары.";
+		if(!$rescat && !$resprod){
+			$sql = "DELETE FROM "._DB_PREFIX_."category WHERE id_category = ".$id_category;
+			$this->db->StartTrans();
+			$this->db->Execute($sql);
+			$this->db->CompleteTrans();
+			return true;
+		} else {
+			return $errm;
 		}
-		list($leftId, $rightId) = $node_info;
-		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition);
-		}
-		$sql = 'DELETE FROM '.$this->table.' WHERE '.$this->table_left.' BETWEEN '.$leftId.' AND '.$rightId;
-		$this->db->StartTrans();
-		$res = $this->db->Execute($sql);
-		if(false === $res){
-			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			$this->db->FailTrans();
-			return false;
-		}
-		$deltaId = (($rightId - $leftId) + 1);
-		$sql = 'UPDATE '.$this->table.' SET '
-		.$this->table_left.' = CASE WHEN '.$this->table_left.' > '.$leftId.' THEN '.$this->table_left.' - '.$deltaId.' ELSE '.$this->table_left.' END, '
-		.$this->table_right.' = CASE WHEN '.$this->table_right.' > '.$leftId.' THEN '.$this->table_right.' - '.$deltaId.' ELSE '.$this->table_right.' END '
-		.'WHERE '.$this->table_right.' > '.$rightId;
-		$sql .= $condition;
-		$res = $this->db->Execute($sql);
-		if(false === $res){
-			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-		return true;
+
+//		$node_info = $this->GetNodeInfo($ID);
+//		if(false === $node_info){
+//			return false;
+//		}
+//		list($leftId, $rightId) = $node_info;
+//		if(!empty($condition)){
+//			$condition = $this->_PrepareCondition($condition);
+//		}
+//		$sql = 'DELETE FROM '.$this->table.' WHERE '.$this->table_left.' BETWEEN '.$leftId.' AND '.$rightId;
+//		$this->db->StartTrans();
+//		$res = $this->db->Execute($sql);
+//		if(false === $res){
+//			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
+//			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
+//			$this->db->FailTrans();
+//			return false;
+//		}
+//		$deltaId = (($rightId - $leftId) + 1);
+//		$sql = 'UPDATE '.$this->table.' SET '
+//		.$this->table_left.' = CASE WHEN '.$this->table_left.' > '.$leftId.' THEN '.$this->table_left.' - '.$deltaId.' ELSE '.$this->table_left.' END, '
+//		.$this->table_right.' = CASE WHEN '.$this->table_right.' > '.$leftId.' THEN '.$this->table_right.' - '.$deltaId.' ELSE '.$this->table_right.' END '
+//		.'WHERE '.$this->table_right.' > '.$rightId;
+//		$sql .= $condition;
+//		$res = $this->db->Execute($sql);
+//		if(false === $res){
+//			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
+//			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
+//			$this->db->FailTrans();
+//			return false;
+//		}
+//		$this->db->CompleteTrans();
+//		return true;
 	}
 	/**
 	* Returns all elements of the tree sortet by left.
@@ -579,18 +594,32 @@ class dbtree {
 	* @param integer $cache Recordset is cached for $cache microseconds
 	* @return array needed fields
 	*/
-	public function Full($fields, $condition = '', $cache = false){
-		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition, true);
-		}
+	public function Full($fields, $id_category=false, $cache = false){
 		if(is_array($fields)){
-			$fields = implode(', ', $fields);
+			$fields = 'c.'.implode(', c.', $fields);
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table;
-		$sql .= $condition;
-		$sql .= ' ORDER BY '.$this->table_left;
+		if ($id_category !==false){
+			$where = ' WHERE c.id_category = '.$id_category;
+		} else{
+			$where = ' WHERE c.category_level<3';
+		}
+		$sql = 'SELECT '.$fields.', (CASE WHEN c.category_level = 1 THEN c.id_category ELSE c.pid END) AS sort , u.`name` AS username
+		 	FROM '.$this->table.' c LEFT JOIN '._DB_PREFIX_.'user u ON c.edit_user = u.id_user';
+		$sql .= $where;
+		$sql .=  ' ORDER BY sort, c.pid'; //print_r($sql); die();
+		$result = $this->db->GetArray($sql);
+
+//
+//		echo '<pre>';
+//		print_r($result);
+//		echo '</pre>';
+//
+//
+//
+//		die();
+
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->GetArray($sql);
 		}else{
@@ -648,16 +677,22 @@ class dbtree {
 	*/
 	public function Parents($ID, $fields, $condition = '', $cache = false){
 		if(is_array($fields)){
-			$fields = 'A.'.implode(', A.', $fields);
+			$fields = implode(', ', $fields);
 		}else{
-			$fields = 'A.*';
+			$fields = '*';
 		}
-		if(!empty($condition)){
-			$condition = $this->_PrepareCondition($condition, false, 'A.');
+		$sql = 'SELECT '. $fields. ', pid FROM '.$this->table.' WHERE id_category = '.(int)$ID;
+		$res1 = $this->db->GetOneRowArray($sql);
+		if($res1['pid']>0){
+			$sql .= ' UNION SELECT '. $fields. ', pid FROM '.$this->table.' WHERE id_category = '.$res1['pid'];
+			unset($res1);
+			$res2 = $this->db->GetArray($sql);
+			if($res2[1]['pid']>0){
+				$sql .= ' UNION SELECT '. $fields. ', pid FROM '.$this->table.' WHERE id_category = '.$res2[1]['pid'];
+				unset($res2);
+			}
 		}
-		$sql = 'SELECT '.$fields.', CASE WHEN A.'.$this->table_left.' + 1 < A.'.$this->table_right.' THEN 1 ELSE 0 END AS nflag FROM '.$this->table.' A, '.$this->table.' B WHERE B.'.$this->table_id.' = '.(int)$ID.' AND B.'.$this->table_left.' BETWEEN A.'.$this->table_left.' AND A.'.$this->table_right;
-		$sql .= $condition;
-		$sql .= ' ORDER BY A.'.$this->table_left;
+		$sql .= ' ORDER BY category_level';
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->Execute($sql);
 		}else{
@@ -741,25 +776,47 @@ class dbtree {
 	}
 
 	public function Update($id_category, $arr){
+		if($arr['visible'] == 0){
+			$unvisible ='';
+			$sql2 = "SELECT id_category, category_level FROM "._DB_PREFIX_."category WHERE	pid = ".$id_category;
+			$res2 = $this->db->GetArray($sql2);
+			$sql3 = "UPDATE "._DB_PREFIX_."category SET visible = 0 WHERE pid =".$id_category;
+			$this->db->Execute($sql3);
+			foreach ($res2 as &$v){
+				if($v['category_level'] == 2){
+					$unvisible .= $v['id_category'].',';
+				}
+			}
+			$unvisible =substr ($unvisible,0, -1 );
+			$sql4 = "UPDATE "._DB_PREFIX_."category SET visible = 0 WHERE pid IN (".$unvisible.")";
+			$this->db->Execute($sql4);
+			unset($unvisible);
+		} else {
+			$visible = '';
+			$sql2 = "SELECT pid, category_level FROM "._DB_PREFIX_."category WHERE id_category = " . $id_category;
+			$res2 = $this->db->GetOneRowArray($sql2);
+			if ($res2['category_level'] != 1) {
+				$visible = $res2['pid'];
+				$sql3 = "SELECT pid, category_level FROM "._DB_PREFIX_."category WHERE id_category = " . $res2['pid'];
+				$res3 = $this->db->GetOneRowArray($sql3);
+				$visible .= ','.$res3['pid'];
+				$sql4 = "UPDATE "._DB_PREFIX_."category SET visible = 1 WHERE id_category IN (".$visible.")";
+				$this->db->Execute($sql4);
+			}
+			unset($visible);
+		}
+		if($arr['prom_id'] !== ''){
+			$prom_id = "`prom_id` = '".$arr['prom_id']."', ";
+		} else $prom_id = "`prom_id` = NULL, ";
 		$sql = "UPDATE ".$this->table."
 			SET `name` = ".$this->db->Quote($arr['name']).",
-			`category_img` = ".$this->db->Quote($arr['category_img']).",
-			`category_banner` = ".$this->db->Quote($arr['category_banner']).",
-			`banner_href` = ".$this->db->Quote($arr['banner_href']).",
-			`edit_user` = '".$_SESSION['member']['id_user']."',
-			`edit_date` = '".date('Y-m-d H:i:s')."',
-			`art` = '".$arr['art']."',
-			`content` = ".$this->db->Quote($arr['content']).",
+			`edit_user` = '".$_SESSION['member']['id_user']."',";
+		$sql .= $prom_id;
+		$sql .=	"`edit_date` = '".date('Y-m-d H:i:s')."',
 			`pid` = '".$arr['pid']."',
 			`visible` = '".$arr['visible']."',
-			`filial_link` = ".$this->db->Quote($arr['filial_link']).",
-			`prom_id` = '".$arr['prom_id']."',
-			`page_title` = ".$this->db->Quote($arr['page_title']).",
-			`page_description` = ".$this->db->Quote($arr['page_description']).",
-			`page_keywords` = ".$this->db->Quote($arr['page_keywords']).",
 			`indexation` = '".$arr['indexation']."'
 			WHERE ".$this->table_id." = ".$id_category;
-			// print_r($sql);die();
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
@@ -768,9 +825,6 @@ class dbtree {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		if($arr['old_pid'] <> $arr['pid']){
-			$this->MoveAll($id_category, $arr['pid']);
-		}
 		return true;
 	}
 
@@ -877,7 +931,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).' AND visible = 1 ORDER BY '.$this->table_left;
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).' AND visible = 1';
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}

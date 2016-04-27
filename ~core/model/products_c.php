@@ -848,7 +848,7 @@ class Products {
 	 */
 	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
-		if(!$id_category){
+		if(!$id_category){ //print_r(1); die();
 			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
 		}elseif(is_numeric($id_category)){
 			$sql = "SELECT g.*, u.name
@@ -2383,7 +2383,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetCatsOfProduct($id_product){
-		$sql = "SELECT cp.id_category, c.art
+		$sql = "SELECT cp.id_category
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
@@ -4307,7 +4307,7 @@ class Products {
 	public function navigation($idsegm){
 		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
 		//Достаем категории 1-го уровня
-		$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
+		$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
 		$needed = $dbtree->GetCatSegmentation($idsegm);
 		foreach ($navigation as $key1 => &$l1) {
@@ -4332,5 +4332,21 @@ class Products {
 			}
 		}
 		return $navigation;
+	}
+
+	public function generateCategory($list, $lvl = 0){
+		$lvl++;
+		$option = '';
+		foreach($list as $l){
+			$option .= '<option class="cat" value="'.$l['id_category'] .'">'.str_repeat("&nbsp;&nbsp;&nbsp;", $l['category_level']).$l['name'];
+			if(!empty($l['subcats'])){
+				$option .= $this->generateCategory($l['subcats'], $lvl);
+				$option .= '</option>';
+			}else{
+				$option .= '</option>';
+			}
+		}
+		$option .= '</option>';
+		return $option;
 	}
 }?>

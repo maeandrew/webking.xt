@@ -1,7 +1,7 @@
 <?php
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 if($GLOBALS['CurrentController'] == 'products'){
-	$curcat = $dbtree->CheckParent($GLOBALS['Rewrite'], array('id_category', 'name', 'translit', 'art', 'category_level', 'content', 'pid', 'filial_link'));
+	$curcat = $dbtree->CheckParent($GLOBALS['Rewrite'], array('id_category', 'name', 'translit', 'category_level', 'pid'));
 	if(!$curcat || empty($curcat)){
 		header('Location: /404/');
 		exit();
@@ -10,7 +10,7 @@ if($GLOBALS['CurrentController'] == 'products'){
 
 	$id_category = $curcat['id_category'];
 	$GLOBALS['CURRENT_ID_CATEGORY'] = $id_category;
-	$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'art', 'pid', 'visible'));
+	$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'pid', 'visible'));
 	foreach($subcats as &$s){
 		$subcats2 = count($dbtree->GetSubCats($s['id_category'], 'all'));
 		$s['subcats'] = $subcats2;

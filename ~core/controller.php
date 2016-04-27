@@ -34,7 +34,7 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	// Шапка сайта
 	//$time_start = microtime(true);
 //	$custom = 0;
-	$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
+	$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 	foreach($navigation as &$l1){
 		$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
 		foreach($level2 as &$l2){
