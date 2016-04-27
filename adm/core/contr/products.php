@@ -72,7 +72,7 @@ $products->SetProductsList(array('cp.id_category'=>$id_category), '',$_SESSION['
 $arr = $dbtree->GetNodeFields($id_category, array('name', 'category_level'));
 // --- --- --- subcats
 $l = $arr['category_level']+1;
-$dbtree->Branch($id_category, array('id_category', 'name', 'translit', 'art', 'category_level'), array('and' => array('visible = 1', "category_level = $l")));
+$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'art', 'category_level'), array('and' => array('visible = 1', "category_level = $l")));
 if(!empty($dbtree->ERRORS_MES)) {
 	die('Error dbtree');
 }

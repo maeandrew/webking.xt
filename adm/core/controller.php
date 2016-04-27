@@ -62,7 +62,7 @@ $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 $products = new Products();
 $data_graph = $products->GetGraphList();
 $tpl->Assign('data_graph', $data_graph);
-$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+$tpl_graph = $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
 $GLOBALS['__graph'] = $tpl_graph;
 /*
   echo "title - ".strlen($GLOBALS['__page_title']);

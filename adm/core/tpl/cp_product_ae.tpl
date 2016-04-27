@@ -97,7 +97,7 @@
 						</div>
 						<div class="col-md-10">
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
-							<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
+							<input required type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 						</div>
 						
 						<div class="col-md-12">
@@ -306,7 +306,7 @@
 					<label for="min_mopt_qty">Минимальное количество по мелкому опту:</label><?=isset($errm['min_mopt_qty'])?"<span class=\"errmsg\">".$errm['min_mopt_qty']."</span><br>":null?>
 					<input type="text" name="min_mopt_qty" id="min_mopt_qty" class="input-m" value="<?=isset($_POST['min_mopt_qty'])?htmlspecialchars($_POST['min_mopt_qty']):1?>">
 					<label for="inbox_qty">Количество в ящике:</label><?=isset($errm['inbox_qty'])?"<span class=\"errmsg\">".$errm['inbox_qty']."</span><br>":null?>
-					<input type="text" name="inbox_qty" id="inbox_qty" class="input-m" value="<?=isset($_POST['inbox_qty'])?htmlspecialchars($_POST['inbox_qty']):null?>">
+					<input type="text" name="inbox_qty" id="inbox_qty" class="input-m" value="<?=isset($_POST['inbox_qty'])?htmlspecialchars($_POST['inbox_qty']):1?>">
 					<label for="qty_control">
 						<input style="vertical-align:middle;" type="checkbox" name="qty_control" id="qty_control" class="input-m" <?=isset($_POST['qty_control'])&&($_POST['qty_control'])?'checked="checked" value="on"':null?>>
 						<b>Необходима кратность &nbsp;</b>
@@ -351,14 +351,16 @@
 				</div>
 				<div id="nav_connection">
 					<h2>Категория и связь</h2>
-					<?foreach($_POST['categories_ids'] as $cid){?>
-						<div id="catblock">
-							<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
-							<select name="categories_ids[]" class="input-m">
+					<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
+					<?foreach($_POST['categories_ids'] as $cid){ ?>
+						<div class="catblock">
+							<select required name="categories_ids[]" class="input-m">
+								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 								<?foreach($list as $item){?>
 									<option <?=($item['id_category'] == $cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 								<?}?>
 							</select>
+							<span class="icon-font delcat" title="Удалить">t</span>
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -647,12 +649,14 @@
 	</div>
 </div>
 <div id="templates" class="hidden">
-	<div id="catblock">
-		<select name="categories_ids[]" class="input-m">
+	<div class="catblock hidden">
+		<select required name="categories_ids[]" class="input-m">
+			<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 			<?foreach($list as $item){?>
-				<option value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+				<option  value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 			<?}?>
 		</select>
+		<span class="icon-font delcat" title="Удалить">t</span>
 	</div>
 </div>
 <script type="text/javascript">
@@ -661,6 +665,20 @@
 	// });
 	var url = URL_base+'productadd/';
 	$(function(){
+		if($('.catblock:not(.hidden)').length > 1){
+			$('.delcat').show();
+		}else{
+			$('.delcat').hide();
+		}
+		//Удаляем div выбора дополнительной категории
+		$("body").on('click', '.delcat', function(){
+			$(this).closest(".catblock").remove();
+			if($('.catblock:not(.hidden)').length > 1){
+				$('.delcat').show();
+			}else{
+				$('.delcat').hide();
+			}
+		});
 		//Подтягиваем значения типов характеристик из БД
 		$('.itemvalue').focus(function(){
 			var idcat='';
@@ -730,8 +748,6 @@
 			//askaboutleave();
 		}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
-			//console.log(file);
-
 		}).on('removedfile', function(file){
 			var date = new Date(),
 				year = date.getFullYear(),
@@ -987,7 +1003,6 @@
 		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
 			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
 			value = link.closest('tr').find('[name="value"]').val();
-		//console.log(id_spec_prod+','+ id_spec+','+value);
 		$.ajax({
 			url: URL_base+'ajaxproducts',
 			type: "POST",
@@ -1030,7 +1045,6 @@
 	function insertSpecToProd(link) {
 		var value = link.prev().val(),
 			id_spec = link.prev().prev().val();
-		//console.log(id_spec+','+value);
 		$.ajax({
 			url: URL_base+'ajaxproducts',
 			type: "POST",
@@ -1058,7 +1072,6 @@
 			}
 		}).done(function(data){
 			var optionlist = '';
-			// console.log(data);
 			$.each(data, function(k, v){
 				// if(v !=){
 					optionlist += '<option>'+v['response']+' | '+v['id_product']+'</option>';
@@ -1132,7 +1145,12 @@
 	// 	document.getElementById('sertificate').value = filePath;
 	// }
 	function AddCat(){
-		$('#templates #catblock').clone().insertBefore('#addlink');
+		$('#templates .catblock').clone().insertBefore('#addlink').removeClass('hidden');
+		if($('.catblock:not(.hidden)').length > 1){
+			$('.delcat').show();
+		}else{
+			$('.delcat').hide();
+		}
 	}
 
 	$(window).scroll(function(){

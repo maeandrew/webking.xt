@@ -40,7 +40,7 @@ if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'art', 'category_level', 'page_title', 'page_description', 'page_keywords', 'indexation'));
+$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
@@ -56,10 +56,10 @@ while($cat = $dbtree->NextRow()){
 		);
 	}
 	$GLOBALS['products_canonical'] = end($GLOBALS['IERA_LINKS'])['url'];
-	$GLOBALS['products_title'] = $cat['page_title'];
-	$GLOBALS['products_description'] = $cat['page_description'];
-	$GLOBALS['products_keywords'] = $cat['page_keywords'];
-	$tpl->Assign('indexation', $cat['indexation']);
+	//$GLOBALS['products_title'] = $cat['page_title'];
+	//$GLOBALS['products_description'] = $cat['page_description'];
+	//$GLOBALS['products_keywords'] = $cat['page_keywords'];
+	//$tpl->Assign('indexation', $cat['indexation']);
 	$tpl->Assign('header', $cat['name']);
 }
 
@@ -71,7 +71,7 @@ while($cat = $dbtree->NextRow()){
 	// $where_arr = array('cp.id_category' => $id_category);
 
 	function selectAll($dbtree, $id_category = null, $str = array()){
-		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'category_img', 'name', 'translit', 'art', 'pid', 'visible'));
+		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'pid', 'visible'));
 		if($id_category != 0){
 			$str[] = $id_category;
 		}

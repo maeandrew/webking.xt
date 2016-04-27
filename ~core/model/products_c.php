@@ -848,7 +848,7 @@ class Products {
 	 */
 	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
-		if(!$id_category){
+		if(!$id_category){ //print_r(1); die();
 			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
 		}elseif(is_numeric($id_category)){
 			$sql = "SELECT g.*, u.name
@@ -2024,11 +2024,11 @@ class Products {
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
-		foreach($categories_arr as $k=>$v){
-			if($v == 0){
-				unset($categories_arr[$k]);
-			}
-		}
+//		foreach($categories_arr as $k=>$v){
+//			if($v == 1){
+//				unset($categories_arr[$k]);
+//			}
+//		}
 		// Записываем данные в таблицу соответствий категория-товар
 		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product;
 		$this->db->StartTrans();
@@ -2383,7 +2383,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetCatsOfProduct($id_product){
-		$sql = "SELECT cp.id_category, c.art
+		$sql = "SELECT cp.id_category
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
@@ -4307,7 +4307,7 @@ class Products {
 	public function navigation($idsegm){
 		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
 		//Достаем категории 1-го уровня
-		$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'category_banner', 'banner_href', 'translit', 'pid'), 1);
+		$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
 		$needed = $dbtree->GetCatSegmentation($idsegm);
 		foreach ($navigation as $key1 => &$l1) {
@@ -4333,4 +4333,25 @@ class Products {
 		}
 		return $navigation;
 	}
+
+	public function generateCategory(){
+		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
+				(CASE
+					WHEN c.category_level = 1 THEN c.id_category
+					WHEN c.category_level = 2 THEN c.pid
+					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
+				END) AS sort,
+				(CASE
+					WHEN c.category_level = 2 THEN c.id_category
+					WHEN c.category_level = 3 THEN c.pid
+					ELSE 0
+				END) AS sort2
+				FROM '._DB_PREFIX_.'category AS c
+				WHERE c.category_level <>0
+				ORDER BY sort, sort2, category_level';
+		$res = $this->db->GetArray($sql);
+
+		return $res;
+	}
+
 }?>

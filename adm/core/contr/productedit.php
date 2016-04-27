@@ -202,9 +202,11 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 }
 if(!$products->SetFieldsById($id_product, 1)) die('Ошибка при выборе товара.');
 // Формирование списка категорий для выпадающего списка
-$list = $dbtree->Full(array('id_category', 'category_level', 'name'));
+$list = $products->generateCategory();
+
 // Определение категории к которой принадлежит товар
 if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_category']){
+
 	$category['name'] = $item['name'];
 	$category['id_category'] = $item['id_category'];
 }
