@@ -670,7 +670,7 @@
 		</div>
 		<div id="cart" data-type="modal">
 			<h4 class="title_cart">Корзина</h4>
-			<div class="clear_cart">
+			<div class="clear_cart ">
 				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
 			</div>
 			<ul class="order_head mdl-cell--hide-phone">

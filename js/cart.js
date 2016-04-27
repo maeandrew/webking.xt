@@ -11,6 +11,7 @@ function SendToAjax(id, qty, button, direction, note){
 	ajax('cart', 'update_cart_qty', data).done(function(data){
 
 		$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.cart.products));
+		$('.clear_cart').removeClass('hidden');
 
 		completeCartProductAdd(data.cart);
 
@@ -131,7 +132,7 @@ function removeFromCart(id){
 	if(!id) {
 		ajax('cart', 'clearCart').done(function(data){
 			$('header .cart_item a.cart i').removeClass('mdl-badge');
-			$('#removingProd, #clearCart').addClass('hidden');
+			$('#removingProd, #clearCart, .clear_cart').addClass('hidden');
 			$('#cart .no_items').removeClass('hidden');
 			$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block').addClass('hidden');
 			$('.products .in_cart_js').addClass('hidden');
@@ -140,7 +141,7 @@ function removeFromCart(id){
 
 			$('.quantity').each(function(){
 				var minQty = $(this).find('.minQty').val();
-				console.log(minQty);
+				// console.log(minQty);
 				$(this).find('.qty_js').val(minQty);
 			});
 			ChangePriceRange(0, 0, 0);
