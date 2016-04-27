@@ -42,15 +42,15 @@ require($GLOBALS['PATH_sys'].'images_c.php');
 require(_root.'config.php');
 // connection to mysql server
 if(phpversion() >= 5.6){
-	$db = new mysqlPDO($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+	$db = new mysqlPDO($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 }else{
-	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+	$db = new mysqlDb($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 }
 $GLOBALS['db'] =& $db;
 $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);
 $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
-foreach($profiles as $profile){
+foreach($profiles as &$profile){
 	define('_ACL_'.strtoupper($profile['name']).'_', $profile['id_profile']);
 }
 G::ToGlobals(array(
@@ -80,26 +80,28 @@ if(G::isLogged()){
 // 		$db->Query($sql);
 // 	}
 // }
-$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
-$ips = $db->GetOneRowArray($sql);
-if(!$ips){
-	// $accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
-	// $url            = "https://api.udger.com/v3/parse";
-	// $ua             = $_SERVER['HTTP_USER_AGENT'];
-	// $ip             = "66.249.64.1";
+$unwatch = array('95.69.190.43', '178.150.144.143');
+if(!in_array($_SESSION['client']['ip'], $unwatch)){
+	$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
+	$ips = $db->GetOneRowArray($sql);
+	if(!$ips){
+		// $accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
+		// $url            = "https://api.udger.com/v3/parse";
+		// $ua             = $_SERVER['HTTP_USER_AGENT'];
+		// $ip             = "66.249.64.1";
 
-	// $res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
-	$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent) VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."')";
-}else{
-	$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."' WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
+		// $res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
+		$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent) VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."')";
+	}else{
+		$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."' WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
+	}
+	$db->Query($sql);
+	$block = array(/*'69.162.124.231',*/ '193.106.92.242');
+	if(in_array($_SESSION['client']['ip'], $block)){
+		header('Location: http://google.com');
+		exit();
+	}
 }
-$db->Query($sql);
-$block = array(/*'69.162.124.231',*/ '38.100.118.15');
-if(in_array($_SESSION['client']['ip'], $block)){
-	header('Location: http://google.com');
-	exit();
-}
-
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config";
 $arr = $db->GetArray($sql);
@@ -107,7 +109,6 @@ $arr = $db->GetArray($sql);
 foreach($arr as $i){
 	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
 }
-unset($sql, $arr);
 // default controller, if no one else has come
 $GLOBALS['DefaultController']	= 'main';
 // макет
@@ -193,4 +194,5 @@ $GLOBALS['MAIL_CONFIG']['smtp_mode'] = 'disabled'; // enabled or disabled (вк�
 $GLOBALS['MAIL_CONFIG']['smtp_host'] = null;
 $GLOBALS['MAIL_CONFIG']['smtp_port'] = null;
 $GLOBALS['MAIL_CONFIG']['smtp_username'] = null;
-?>
+
+// unset($theme, $sql, $profiles, $admin_controllers, $profile, $unwatch, $block, $arr, $i, $ips);

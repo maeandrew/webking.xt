@@ -8,13 +8,13 @@ require('/home/xtorg/x-torg.com/www/~core/model/products_c.php');
 
 	$GLOBALS['DOMAIN'] = '179053.xtorg.web.hosting-test.net';
 
-	$GLOBALS['DB_HOST']  = "xtorg.mysql.ukraine.com.ua";
-	$GLOBALS['DB_NAME']= "xtorg_db";
-	$GLOBALS['DB_USER']    = "xtorg_db";
-	$GLOBALS['DB_PASSWORD']= "sayLt23f";
+	$GLOBALS['DB']['HOST']  = "xtorg.mysql.ukraine.com.ua";
+	$GLOBALS['DB']['NAME']= "xtorg_db";
+	$GLOBALS['DB']['USER']    = "xtorg_db";
+	$GLOBALS['DB']['PASSWORD']= "sayLt23f";
 	define('_DB_PREFIX_', "xt_");
 
-	$db = new mysqlDb($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+	$db = new mysqlDb($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 	$GLOBALS['db'] =& $db;
 	$product = new Products();
 	$db->StartTrans();

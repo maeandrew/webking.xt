@@ -137,10 +137,10 @@ class Users {
 	}
 
 	public function SetUser($arr){
-		if(!empty($arr)){
-			return $this->SetFieldsById($arr['id_user']);
+		if(empty($arr)){
+			return false;
 		}
-		return false;
+		return $this->SetFieldsById($arr['id_user']);
 	}
 
 	// Пользователь по id
@@ -154,8 +154,7 @@ class Users {
 			FROM "._DB_PREFIX_."user
 			WHERE id_user = \"$id\"
 			$active";
-		$this->fields = $this->db->GetOneRowArray($sql);
-		if(!$this->fields){
+		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return true;

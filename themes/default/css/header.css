@@ -281,6 +281,7 @@ header .catalog_btn {
 	header .mainUserInf {
 		padding-bottom: 10px;	
 		text-align: center;
+		max-width: calc(100% - 20px);
 	}
 	header #manager .user_contr {
 		color: #666666;
@@ -311,6 +312,10 @@ header .catalog_btn {
 	header #userFavoritesList a > *,
 	header #userWaitingList a > * {
 		align-self: center;
+	}
+	header #userFavoritesList .favleft i,
+	header #userWaitingList .favleft i {
+		cursor: pointer;
 	}
 	header #userFavoritesList i{
 		color: red;

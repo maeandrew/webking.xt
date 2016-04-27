@@ -43,10 +43,11 @@
 		</button>
 		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
 		<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
-			<?unset($list_menu[$rand]);?>
-			<?foreach($list_menu as &$menu){?>
-				<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
-			<?}?>
+			<?foreach($list_menu as $key => &$menu){
+				if($key != $rand){?>
+					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
+				<?}
+			}?>
 		</nav>
 	</div>	
 	<div class="user_profile">
@@ -72,7 +73,13 @@
 					<div class="mainUserInf">
 						<div id="userNameBlock">
 							<div id="userNameInf" class="listItems">
-								<span class="user_name"><?=$_SESSION['member']['name']?></span>
+								<?if ($_SESSION['member']['email']) {
+									$etChar = strpos($_SESSION['member']['email'], "@");
+									$userNameFromMail = substr($_SESSION['member']['email'], 0, $etChar);
+								}?>
+								<span class="user_name"><?
+									if($_SESSION['member']['name']) { echo $_SESSION['member']['name']; }
+									else { echo $userNameFromMail; } ?></span>
 							</div>
 							<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
 							<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
@@ -88,7 +95,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="contacts <?=!is_array($_SESSION['member']['contragent'])?'hidden':null;?>">
+				<div class="contacts <?=isset($_SESSION['member']['contragent']) && empty($_SESSION['member']['contragent'])?'hidden':null;?>">
 					<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
 					</div>
 					<div class="manager_contacts">
@@ -104,13 +111,13 @@
 						</a>
 					</div>
 				</div>
-				<div class="userChoice">
+				<div class="userChoice <?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?'hidden':null;?>">
 					<div id="userFavoritesList">
-						<a href="#"><div class="favleft"><i class="material-icons">favorite</i></div>
+						<a href="<?=Link::Custom('cabinet','favorites')?>"><div class="favleft"><i class="material-icons">favorite</i></div>
 						<div class="favright"><p>Избранные</p><p class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</p></div></a>
 					</div>
 					<div id="userWaitingList">
-						<a href="#"><div class="favleft"><i class="material-icons">trending_down</i></div>
+						<a href="<?=Link::Custom('cabinet','waitinglist')?>"><div class="favleft"><i class="material-icons">trending_down</i></div>
 						<div class="favright"><p>Лист<br> ожидания</p><p class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</p></div></a>
 					</div>
 				</div>
@@ -153,7 +160,9 @@
 				<div class="mainUserInf">
 					<div id="userNameBlock">
 						<div id="userNameInf" class="listItems">
-							<span class="user_name"><?=isset($_SESSION['member']['name'])?$_SESSION['member']['name']:'';?></span>
+							<span class="user_name"><?
+									if($_SESSION['member']['name']) { echo $_SESSION['member']['name']; }
+									else { echo $userNameFromMail; } ?></span>
 						</div>
 						<a id="editUserProf" class="material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
 						<div class="mdl-tooltip" for="editUserProf">Изменить<br>профиль</div>
@@ -211,10 +220,10 @@
 					});
 				});
 			</script>
-		</ul>		
+		</ul>
 		<ul class="phone_nav">
-			<?foreach($list_menu as $menu){?>
-				<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+			<?foreach($list_menu as &$menu){?>
+				<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>				
 			<?}?>
 		</ul>		
 		<ul class="phone_nav_contacts clearfix">

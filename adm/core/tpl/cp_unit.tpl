@@ -15,7 +15,7 @@
 			<thead>
 	          <tr>
 	          	<td class="left">id</td>
-	            <td class="left">x-torg.com</td>
+	            <td class="left">xt.ua</td>
 	            <td class="left">prom.ua</td>
 	            <td class="left">Управление</td>
 	          </tr>

@@ -1,5 +1,12 @@
 <div class="catalog">
 	<ul class="main_nav">
+		<li id="estimate" data-name="estimateLoad" class="btn_js" data-nav="estimate">
+			<i class="material-icons">assignment</i>Загрузить свою смету
+			<label class="info_key">?</label>
+			<div class="info_description">
+				<p>Вы можете загрузить свою смету.</p>
+			</div>
+		</li>
 		<li id="organization" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 1)?'activeSegment':null;?>" data-nav="organization">
 			<i class="material-icons">work</i>Для организаций
 			<label class="info_key">?</label>
@@ -36,7 +43,7 @@
 	<?}?>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
-	<div id="allCategotyCont"></div>
+	<div id="allCategotyCont"></div>	
 </div>
 
 <script>

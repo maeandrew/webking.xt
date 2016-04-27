@@ -57,19 +57,18 @@
 												</div>
 												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="min-width:160px; !important">
 													<li class="mdl-menu__item">
-														<a href="#" style="color: #9E9E9E;">
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;">
 															<svg class="icon" id="tt1" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
 														</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="#" style="color: #9E9E9E;"><svg class="icon" id="tt2" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#txt"></use></svg>Для реализатора</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;"><svg class="icon" id="tt2" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#txt"></use></svg>Для реализатора</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="#" style="color: #9E9E9E;"><svg class="icon" id="tt3" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#img"></use></svg>С картинками</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>" style="color: #9E9E9E;"><svg class="icon" id="tt3" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#img"></use></svg>С картинками</a>
 													</li>
-
 													<li class="mdl-menu__item">
-														<a href="#" style="color: #9E9E9E;"><svg class="icon" id="tt4" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#paper"></use></svg>Документом</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;"><svg class="icon" id="tt4" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#paper"></use></svg>Документом</a>
 													</li>
 												</ul>
 											</div>

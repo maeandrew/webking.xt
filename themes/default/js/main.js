@@ -53,13 +53,33 @@ window.onbeforeunload = function(e) {
 // }, false)
 
 $(function(){
-	if(($('.second_nav > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('.second_nav ul[data-lvl="3"] > li').hasClass('active')) {
-		$('.main_nav li:last-child').removeClass('hidden');
+	if ($(window.location.hash).length == 1) {
+		openObject((window.location.hash).replace('#', ''));
+	};
+	//Скрытие фильтров в зависимости от выбранного уровня товара ---
+	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
+		$('.main_nav li[data-nav="filter"]').removeClass('hidden');
+	}else{
+		$('.main_nav li[data-nav="filter"]').addClass('hidden');
 	}
-	if(($('.second_nav li.active').find('li.active')).length == 0) {
-		$('.main_nav li:last-child').addClass('hidden');
+	if(($('ul.second_nav.allSections li.active').find('li.active')).length == 0) {
+		$('.main_nav li[data-nav="filter"]').addClass('hidden');
 	}
-
+	if ($('#segmentNavOrg, #segmentNavStore, #allCategotyCont').find('li.active')) {
+		if (($('ul.second_nav li.active').find('li.active')).length == 0) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		}
+	}
+	$('.main_nav > li').click(function() {
+		$('ul.second_nav li').removeClass('active');
+		if ($('.main_nav > li').hasClass('active') && !$('ul.second_nav li').hasClass('active')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		};
+	});
+	$('.second_nav > li[onclick^="segmentOpen"]').click(function() {
+		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+	});
+	//---
 
 	//Отключение клика на ссылку с #
 	$('a[href="#"]').on('click', function(e){
@@ -993,6 +1013,9 @@ $(function(){
 
 	$('#percent tr:first').css('color', '#000');
 
+	$('.toBigPhoto').click(function(event) {
+		$("#big_photo img").attr("src", $(this).data('original-photo'));//.css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+	});
 
 	/*Перенос модалок в main.tpl*/
 

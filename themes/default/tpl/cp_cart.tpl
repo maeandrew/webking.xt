@@ -391,7 +391,8 @@
 						switch(data.status){
 							case 200:
 								// closeObject('cart');
-								openObject('quiz');
+								window.location.hash = "quiz";
+								openObject('quiz');								
 								break;
 							case 500:
 								console.log('error');

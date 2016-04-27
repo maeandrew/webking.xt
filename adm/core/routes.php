@@ -19,12 +19,12 @@ $GLOBALS['CurrentController'] = $ma[1][0];
 $GLOBALS['REQAR'] = $ma[1];
 //$GLOBALS['__graph'] = $tpl_graph;
 
-if (!G::IsLogged()){
+if(!G::IsLogged()){
 	$GLOBALS['CurrentController'] = 'login';
 	$GLOBALS['REQAR'] = array();
 }else{
 	$User = new Users();
-	$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
+	$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.1');
 	_acl::load($User->fields['gid']);
 }
 /**

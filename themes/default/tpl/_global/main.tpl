@@ -124,7 +124,6 @@
 			}
 		</style>
 	</noscript>
-
 	<script type="text/javascript"
 	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
 	</script>
@@ -229,7 +228,7 @@
 		</aside>
 	<?}?>
 	<div id="newheader_wrapp"></div>
-	<section class="main <?=$GLOBALS['CurrentController'] == 'product'?'product_page':null?>">
+	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<?if(in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 			<aside class="mdl-color--grey-100 mdl-cell--hide-phone">
 				<div class="wrapper">
@@ -268,13 +267,10 @@
 					height: 300px;
 				}
 			</style>
-			<?php if(isset($__graph)){
-				echo $__graph;
-			}?>
+			<?=isset($__graph)?$__graph:null;?>
 			<div class="content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
-					<!-- <h1 class="page_header"><?=$GLOBALS['CurrentController'] == 'products'?$curcat['name']:$header;?></h1> -->
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header clearfix">
@@ -297,43 +293,6 @@
 						</div>
 						<div class="cart_info mdl-cell--hide-phone clearfix <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
 							<div class="your_discount">Ваша скидка</div>
-							<div class="tabs_container">
-								<ul>
-									<!-- <li class="in_cart_block">
-										<a href="#" class="btn_js" data-name="cart">
-										<?php
-											$str = count($_SESSION['cart']['products']). ' товар';
-											$count = count($_SESSION['cart']['products']);
-											if(substr($count,-1) == 1 && substr($count,-2) != 1)
-												$str .= '';
-											else if(substr($count,-1) >= 2 && substr($count,-1) <= 4)
-												$str .= 'а';
-											else
-												$str .= 'ов';
-										?>
-										<div class="order_cart"><?=$str?></div>
-										<span class="material-icons">shopping_cart</span></a>
-									</li> -->
-									<!-- <li onclick="ChangePriceRange(3, 0)" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'active':null;?>">0%</li>
-									<li onclick="ChangePriceRange(2,<?=$sum = 500 - $_SESSION['cart']['products_sum[3]'];?>);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
-									<li onclick="ChangePriceRange(1,<?=$sum = 3000 - $_SESSION['cart']['products_sum[3]'];?>);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
-									<li onclick="ChangePriceRange(0,<?=$sum = 10000 - $_SESSION['cart']['products_sum[3]'];?>);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'active':null;?>">21%</li> -->
-								</ul>
-							</div>
-							<!-- <div class="order_balance">
-								<?if($_COOKIE['sum_range'] == 3) {;?>
-									Без скидки!
-								<?}elseif($_COOKIE['sum_range'] == 2){
-									$sum = 500 - $_SESSION['cart']['products_sum[3]'];?>
-									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ');?></span> грн.
-								<?}elseif($_COOKIE['sum_range'] == 1){
-									$sum = 3000 - $_SESSION['cart']['products_sum[3]'];?>
-									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.
-								<?}elseif($_COOKIE['sum_range'] == 0){
-									$sum = 10000 - $_SESSION['cart']['products_sum[3]'];?>
-									Еще заказать на <span class="summ"><?=number_format($sum, 2, ',', ' ')?></span> грн.
-								<?}?>
-							</div> -->
 							<div class="price_nav"></div>
 						</div>
 					</div>
@@ -434,7 +393,7 @@
 					<?}?>
 				</div>
 				<div class="copyright">
-					<p>&copy; Отдел снабжения XT.ua 2015</p>
+					<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
 					<p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p>
 				</div>
 			</footer>
@@ -594,20 +553,22 @@
 					<h6>Виталий Петрович, у меня есть необходимые данные для отправки заказа.</h6>
 					<span>Вы готовы внести предоплату?</span>
 				</div>
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
-					<input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
-					<span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
-				</label>
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
-					<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
-					<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
-				</label>
+				<div class="label_wrap">
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
+						<input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
+						<span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
+						<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
+						<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
+					</label>
+				</div>
 				<div class="company_details">
 					<h4>Реквизиты компании</h4>
 				</div>
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5" onclick="javascript:window.location.hash = ''">Отправить</button>
 				</div>
 			</div>
 			<div class="modal_container step_5 " data-step="5">
@@ -621,6 +582,31 @@
 					<div class="line_active"></div>
 				</div>
 				<span class="go">Заполнено: </span>
+			</div>
+		</div>
+		<!-- Загрузка сметы -->
+		<div id="estimateLoad" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<p>Вы можете загрузить свою смету</p>
+					<form action="">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" id="sample1">
+							<label class="mdl-textfield__label" for="sample1">Имя...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" id="sample2">
+							<label class="mdl-textfield__label" for="sample2">Номер телефона...</label>
+						</div>
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="file" id="sample3">
+							<label class="mdl-textfield__label" for="sample3"></label>
+						</div>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить смету</button>
+				</div>
 			</div>
 		</div>
 		<!-- Authentication -->
@@ -706,7 +692,7 @@
 			</div>
 			<div class="modal_container"></div>
 		</div>
-		<div id="graph" data-type="modal" data-target="<?=(isset($GLOBALS['CURRENT_ID_CATEGORY']))?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
+		<div id="graph" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
 		<!-- Модалки кабинета. Заказы -->
@@ -724,6 +710,9 @@
 			<h5>Вы действительно хотите отменить заказ?</h5>
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
+		</div>
+		<div id="big_photo" data-type="modal">
+			<img src="" alt="">
 		</div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
