@@ -351,9 +351,9 @@
 				</div>
 				<div id="nav_connection">
 					<h2>Категория и связь</h2>
+					<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
 					<?foreach($_POST['categories_ids'] as $cid){ ?>
-						<div id="catblock">
-							<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
+						<div class="catblock">
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 								<?foreach($list as $item){?>
@@ -649,7 +649,7 @@
 	</div>
 </div>
 <div id="templates" class="hidden">
-	<div id="catblock">
+	<div class="catblock hidden">
 		<select required name="categories_ids[]" class="input-m">
 			<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 			<?foreach($list as $item){?>
@@ -660,15 +660,25 @@
 	</div>
 </div>
 <script type="text/javascript">
-	//Удаляем div выбора дополнительной категории
-	$("body").on('click', '.delcat', function() {
-		$(this).closest("#catblock").remove();
-	});
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
 	var url = URL_base+'productadd/';
 	$(function(){
+		if($('.catblock:not(.hidden)').length > 1){
+			$('.delcat').show();
+		}else{
+			$('.delcat').hide();
+		}
+		//Удаляем div выбора дополнительной категории
+		$("body").on('click', '.delcat', function(){
+			$(this).closest(".catblock").remove();
+			if($('.catblock:not(.hidden)').length > 1){
+				$('.delcat').show();
+			}else{
+				$('.delcat').hide();
+			}
+		});
 		//Подтягиваем значения типов характеристик из БД
 		$('.itemvalue').focus(function(){
 			var idcat='';
@@ -738,8 +748,6 @@
 			//askaboutleave();
 		}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
-			//console.log(file);
-
 		}).on('removedfile', function(file){
 			var date = new Date(),
 				year = date.getFullYear(),
@@ -995,7 +1003,6 @@
 		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
 			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
 			value = link.closest('tr').find('[name="value"]').val();
-		//console.log(id_spec_prod+','+ id_spec+','+value);
 		$.ajax({
 			url: URL_base+'ajaxproducts',
 			type: "POST",
@@ -1038,7 +1045,6 @@
 	function insertSpecToProd(link) {
 		var value = link.prev().val(),
 			id_spec = link.prev().prev().val();
-		//console.log(id_spec+','+value);
 		$.ajax({
 			url: URL_base+'ajaxproducts',
 			type: "POST",
@@ -1066,7 +1072,6 @@
 			}
 		}).done(function(data){
 			var optionlist = '';
-			// console.log(data);
 			$.each(data, function(k, v){
 				// if(v !=){
 					optionlist += '<option>'+v['response']+' | '+v['id_product']+'</option>';
@@ -1140,7 +1145,12 @@
 	// 	document.getElementById('sertificate').value = filePath;
 	// }
 	function AddCat(){
-		$('#templates #catblock').clone().insertBefore('#addlink');
+		$('#templates .catblock').clone().insertBefore('#addlink').removeClass('hidden');
+		if($('.catblock:not(.hidden)').length > 1){
+			$('.delcat').show();
+		}else{
+			$('.delcat').hide();
+		}
 	}
 
 	$(window).scroll(function(){
