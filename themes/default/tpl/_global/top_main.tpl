@@ -31,7 +31,7 @@
 		</form>
 	</div>
 	<div class="cart_item">
-		<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span> Корзина</span></a>
+		<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=count($_SESSION['cart']['products'])?>">shopping_cart</i><span> Корзина</span></a>
 	</div>
 	<div class="pages_list_item">
 		<?$rand = rand(0, count($list_menu)-1);?> 

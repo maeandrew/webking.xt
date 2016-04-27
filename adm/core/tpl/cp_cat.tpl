@@ -50,7 +50,7 @@
         <a class="icon-font editcat" title="Редактировать категорию" href="/adm/catedit/<?=$l1['id_category']?>">e</a>
         <a class="icon-font addsubcat" title="Добавить подкатегорию" href="/adm/catadd/<?=$l1['id_category']?>">A</a>
         <a class="icon-font delcat" title="Удалить категорию" href="/adm/catdel/<?=$l1['id_category']?>">t</a>
-        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/products/<?=$l1['id_category'].'/'.$l1['translit']?>/">v</a>
+        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/<?=$l1['translit']?>">v</a>
         </div>
         <?if(!empty($l1['subcats'])){?>
         <ul id="cat_<?=$l1['id_category']?>" class="first_submenu">
@@ -72,7 +72,7 @@
         <a class="icon-font editcat" title="Редактировать категорию" href="/adm/catedit/<?=$l2['id_category']?>">e</a>
         <a class="icon-font addsubcat" title="Добавить подкатегорию" href="/adm/catadd/<?=$l2['id_category']?>">A</a>
         <a class="icon-font delcat" title="Удалить категорию" href="/adm/catdel/<?=$l2['id_category']?>">t</a>
-        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/products/<?=$l2['id_category'].'/'.$l2['translit']?>/">v</a>
+        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/<?=$l2['translit']?>">v</a>
         </div>
         <?if(!empty($l2['subcats'])){?>
         <ul id="cat_<?=$l2['id_category']?>" class="second_submenu">
@@ -89,7 +89,7 @@
         <a class="icon-font editcat" title="Редактировать категорию" href="/adm/catedit/<?=$l3['id_category']?>">e</a>
         <a class="icon-font addsubcat" title="Добавить подкатегорию" href="/adm/catadd/<?=$l3['id_category']?>">A</a>
         <a class="icon-font delcat" title="Удалить категорию" href="/adm/catdel/<?=$l3['id_category']?>">t</a>
-        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/products/<?=$l3['id_category'].'/'.$l3['translit']?>/">v</a>
+        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/<?=$l3['translit']?>">v</a>
         </div>
         </li>
         <?}?>

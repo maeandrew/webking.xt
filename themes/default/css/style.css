@@ -744,7 +744,7 @@ section.center {
 	width: 200px;
 }
 #quiz .label_wrap {
-    text-align: left;
+	text-align: left;
 }
 @media(max-width: 654px){
 	#quiz .line {
@@ -869,6 +869,7 @@ section.center {
 	#cart .card .product_name {
 		float: left;
 		display: table-row;
+		min-width: 300px;
 		width: calc(65% - 160px);
 		text-align: left;
 		padding: 5px;
@@ -1014,6 +1015,10 @@ section.center {
 	}
 	#cart .no_items p {
 		text-align: center;
+	}
+	#cart .no_items img {
+		display: block;
+		margin: 0 auto;
 	}
 	#button-cart2,
 	#button-cart3 {
@@ -2179,6 +2184,17 @@ section .stat_year {
 	.product_buy .price {
 		min-width: 90px;
 	}
+	#cart .card .product_name {
+		/*padding: 0;*/
+		min-width: 190px;
+		/*float: left;*/
+	}
+	#cart {
+		padding: 15px;
+	}
+	#cart #percent td {
+		padding: 0 0.2em;
+	}
 }
 
 /*PHONE*/
@@ -2260,6 +2276,7 @@ section .stat_year {
 	}
 	#cart .card .product_name {
 		padding: 0;
+		min-width: 250px;
 		width: calc(100% - 110px);
 		float: left;
 	}

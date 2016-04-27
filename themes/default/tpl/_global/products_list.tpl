@@ -7,8 +7,6 @@
 	?>
 	<div class="card clearfix">
 		<div class="product_photo">
-
-
 			<a href="#">
 				<?if(!empty($item['images'])){?>
 					<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'medium', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>

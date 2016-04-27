@@ -24,7 +24,7 @@
 					</td>
 					<td class="left actions"><nobr>
 						<a class="btn-m-green-inv" href="/adm/newsedit/<?=$i['id_news'];?>">редактировать</a>
-						<a class="btn-m-green-inv" href="/news/<?=$i['id_news'].'/'.$i['translit'];?>/">смотреть</a>
+						<a class="btn-m-green-inv" href="/news/<?=$i['translit'];?>/">смотреть</a>
 						<a class="btn-m-red-inv" href="/adm/newsdel/<?=$i['id_news'];?>" onclick="return confirm('Точно удалить?');">удалить</a>
 						</nobr>
 					</td>

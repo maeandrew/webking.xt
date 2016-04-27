@@ -10,7 +10,8 @@ function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'update_cart_qty', data).done(function(data){
 
-		$('header .cart_item a.cart').attr('data-badge', countOfOject(data.cart.products));
+		$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.cart.products));
+		$('.clear_cart').removeClass('hidden');
 
 		completeCartProductAdd(data.cart);
 
@@ -119,8 +120,7 @@ function countOfOject(obj) {
 	var i=0;
 	if (typeof(obj)!="object" || obj==null) return 0;
 	for (x in obj) i++;
-		if (i>=1) { $('header .phone_menu a.cart').addClass('mdl-badge') }
-		else { $('header .phone_menu a.cart').removeClass('mdl-badge') };
+		if (i>=1) { $('header .cart_item a.cart i').addClass('mdl-badge') };
 	return i;
 }
 /**
@@ -131,7 +131,8 @@ function countOfOject(obj) {
 function removeFromCart(id){
 	if(!id) {
 		ajax('cart', 'clearCart').done(function(data){
-			$('#removingProd, #clearCart').addClass('hidden');
+			$('header .cart_item a.cart i').removeClass('mdl-badge');
+			$('#removingProd, #clearCart, .clear_cart').addClass('hidden');
 			$('#cart .no_items').removeClass('hidden');
 			$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block').addClass('hidden');
 			$('.products .in_cart_js').addClass('hidden');
@@ -140,7 +141,7 @@ function removeFromCart(id){
 
 			$('.quantity').each(function(){
 				var minQty = $(this).find('.minQty').val();
-				console.log(minQty);
+				// console.log(minQty);
 				$(this).find('.qty_js').val(minQty);
 			});
 			ChangePriceRange(0, 0, 0);
@@ -180,6 +181,7 @@ function removeFromCart(id){
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
+			$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
 			completeCartProductAdd(data);
@@ -211,6 +213,7 @@ function removeFromCart(id){
 			}
 
 			if(data.products.length == 0){
+				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
 				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block').addClass('hidden');
 				$.cookie('manual', 0);

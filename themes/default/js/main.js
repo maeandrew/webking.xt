@@ -968,6 +968,10 @@ $(function(){
 
 	});
 
+	if($('#cart .order_wrapp .card').length == 0) {
+		$('#cart .clear_cart').addClass('hidden');
+	}
+
 
 	/*$("#login_email").blur(function(){
 		var name = this.value;
