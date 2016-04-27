@@ -2024,11 +2024,11 @@ class Products {
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
-		foreach($categories_arr as $k=>$v){
-			if($v == 1){
-				unset($categories_arr[$k]);
-			}
-		}
+//		foreach($categories_arr as $k=>$v){
+//			if($v == 1){
+//				unset($categories_arr[$k]);
+//			}
+//		}
 		// Записываем данные в таблицу соответствий категория-товар
 		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product;
 		$this->db->StartTrans();
@@ -4347,6 +4347,7 @@ class Products {
 					ELSE 0
 				END) AS sort2
 				FROM '._DB_PREFIX_.'category AS c
+				WHERE c.category_level <>0
 				ORDER BY sort, sort2, category_level';
 		$res = $this->db->GetArray($sql);
 

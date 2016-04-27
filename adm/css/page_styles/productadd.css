@@ -481,3 +481,8 @@
 	color: #f00;
 }
 
+.icon-font.delcat:hover {
+	color: #ff1d31;
+	text-shadow: 2px 2px 4px rgba(150, 150, 150, 1);
+	cursor: pointer;
+}

@@ -97,7 +97,7 @@
 						</div>
 						<div class="col-md-10">
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
-							<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
+							<input required type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 						</div>
 						
 						<div class="col-md-12">
@@ -306,7 +306,7 @@
 					<label for="min_mopt_qty">Минимальное количество по мелкому опту:</label><?=isset($errm['min_mopt_qty'])?"<span class=\"errmsg\">".$errm['min_mopt_qty']."</span><br>":null?>
 					<input type="text" name="min_mopt_qty" id="min_mopt_qty" class="input-m" value="<?=isset($_POST['min_mopt_qty'])?htmlspecialchars($_POST['min_mopt_qty']):1?>">
 					<label for="inbox_qty">Количество в ящике:</label><?=isset($errm['inbox_qty'])?"<span class=\"errmsg\">".$errm['inbox_qty']."</span><br>":null?>
-					<input type="text" name="inbox_qty" id="inbox_qty" class="input-m" value="<?=isset($_POST['inbox_qty'])?htmlspecialchars($_POST['inbox_qty']):null?>">
+					<input type="text" name="inbox_qty" id="inbox_qty" class="input-m" value="<?=isset($_POST['inbox_qty'])?htmlspecialchars($_POST['inbox_qty']):1?>">
 					<label for="qty_control">
 						<input style="vertical-align:middle;" type="checkbox" name="qty_control" id="qty_control" class="input-m" <?=isset($_POST['qty_control'])&&($_POST['qty_control'])?'checked="checked" value="on"':null?>>
 						<b>Необходима кратность &nbsp;</b>
@@ -354,11 +354,13 @@
 					<?foreach($_POST['categories_ids'] as $cid){ ?>
 						<div id="catblock">
 							<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
-							<select name="categories_ids[]" class="input-m">
+							<select required name="categories_ids[]" class="input-m">
+								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 								<?foreach($list as $item){?>
 									<option <?=($item['id_category'] == $cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 								<?}?>
 							</select>
+							<span class="icon-font delcat" title="Удалить">t</span>
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -648,14 +650,20 @@
 </div>
 <div id="templates" class="hidden">
 	<div id="catblock">
-		<select name="categories_ids[]" class="input-m">
+		<select required name="categories_ids[]" class="input-m">
+			<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 			<?foreach($list as $item){?>
-				<option <?=($item['id_category'] == $cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+				<option  value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 			<?}?>
 		</select>
+		<span class="icon-font delcat" title="Удалить">t</span>
 	</div>
 </div>
 <script type="text/javascript">
+	//Удаляем div выбора дополнительной категории
+	$("body").on('click', '.delcat', function() {
+		$(this).closest("#catblock").remove();
+	});
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
