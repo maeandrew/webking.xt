@@ -12,7 +12,7 @@
 							Сегодня
 							<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', strtotime($i['date']))){?>
 							Вчера
-							<?}else{echo date('d-m-Y', strtotime($i['date']));}?>
+							<?}else{echo date("d.m.Y", $i['date']);}?>
 						</div>
 						<div class="item_description">
 							<div class="item_thumb <?=!isset($i['thumbnail'])?'hidden':null;?>"><img src="<?=$i['thumbnail']?>" alt=""></div>
@@ -38,7 +38,7 @@
 			<?}elseif(date("d")-1 == strtotime(date("d", $data['date']))){?>
 				Вчера
 			<?}else{
-				echo strtotime(date("d.m.Y", $data['date']));
+				echo date("d.m.Y", $data['date']);
 			}?></p>
 		<div class="content_page">
 			<?=$data['content']?>

@@ -12,7 +12,7 @@ if(isset($_POST['smb']) && isset($_POST['ord'])){
 	$Post->Reorder($_POST);
 	$tpl->Assign('msg', 'Сортировка выполнена успешно.');
 }
-if($Post->SetList(1)){// die('Ошибка при формировании списка новостей.');
+if($Post->SetList(1)){// die('Ошибка при формировании списка статей.');
 	$tpl->Assign('list', $Post->list);
 }
 $parsed_res = array(
