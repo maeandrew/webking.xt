@@ -608,18 +608,7 @@ class dbtree {
 		$sql = 'SELECT '.$fields.', (CASE WHEN c.category_level = 1 THEN c.id_category ELSE c.pid END) AS sort , u.`name` AS username
 		 	FROM '.$this->table.' c LEFT JOIN '._DB_PREFIX_.'user u ON c.edit_user = u.id_user';
 		$sql .= $where;
-		$sql .=  ' ORDER BY sort, c.pid'; //print_r($sql); die();
-		$result = $this->db->GetArray($sql);
-
-//
-//		echo '<pre>';
-//		print_r($result);
-//		echo '</pre>';
-//
-//
-//
-//		die();
-
+		$sql .=  ' ORDER BY sort, c.pid';
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->GetArray($sql);
 		}else{

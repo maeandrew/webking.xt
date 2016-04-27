@@ -2025,7 +2025,7 @@ class Products {
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
 		foreach($categories_arr as $k=>$v){
-			if($v == 0){
+			if($v == 1){
 				unset($categories_arr[$k]);
 			}
 		}
@@ -4334,19 +4334,23 @@ class Products {
 		return $navigation;
 	}
 
-	public function generateCategory($list, $lvl = 0){
-		$lvl++;
-		$option = '';
-		foreach($list as $l){
-			$option .= '<option class="cat" value="'.$l['id_category'] .'">'.str_repeat("&nbsp;&nbsp;&nbsp;", $l['category_level']).$l['name'];
-			if(!empty($l['subcats'])){
-				$option .= $this->generateCategory($l['subcats'], $lvl);
-				$option .= '</option>';
-			}else{
-				$option .= '</option>';
-			}
-		}
-		$option .= '</option>';
-		return $option;
+	public function generateCategory(){
+		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
+				(CASE
+					WHEN c.category_level = 1 THEN c.id_category
+					WHEN c.category_level = 2 THEN c.pid
+					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
+				END) AS sort,
+				(CASE
+					WHEN c.category_level = 2 THEN c.id_category
+					WHEN c.category_level = 3 THEN c.pid
+					ELSE 0
+				END) AS sort2
+				FROM '._DB_PREFIX_.'category AS c
+				ORDER BY sort, sort2, category_level';
+		$res = $this->db->GetArray($sql);
+
+		return $res;
 	}
+
 }?>

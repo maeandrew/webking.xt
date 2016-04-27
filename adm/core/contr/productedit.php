@@ -47,176 +47,169 @@ if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
 if(isset($_POST['smb']) || isset($_POST['smb_new'])){
-	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	if(isset($_POST['price']) && $_POST['price'] == ""){
-		$_POST['price'] = 0;
-	}
-	list($err, $errm) = Product_form_validate();
-	if(!$err){
-		if(isset($_POST['images']) && !empty($_POST['images'])){
-			$to_resize = array();
-			//Физическое удалание файлов
-			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
-				foreach($_POST['removed_images'] as $k=>$path){
-					if(file_exists($path) && $products->CheckImages($path)){
-						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
-					}
-				}
-			}
-			//Добавление фото
-			foreach($_POST['images'] as $k=>$image){
-				if(IsRenameNeeded($image)){
-					$to_rename[$k] = $image;
-				}else{
-					$no_rename[$k] = $image;
-				}
-			}
-			// print_r($to_rename);die();
-			//Высчитываем номер посл. добавленной картинки
-			if(isset($no_rename) && !empty($no_rename)){
-				$i = 0;
-				foreach($no_rename as $k=>$value){
-					$img_info = pathinfo($value);
-					$num_arr = explode('-',$img_info['filename']);
-					$num = array_pop($num_arr);
-					if($num > $i){
-						$i = $num;
-					}
-				}
-			}else{
-				$i = 0;
-			}
-			if(isset($to_rename) && !empty($to_rename)){
-				foreach($to_rename as $key => $value){
-					//$newname = $_POST['art'].'-'.(count($_POST['images'])-count($to_rename)+$i+1).'.jpg';
-					$newname = $_POST['art'].'-'.($i+1).'.jpg';
-					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
-					$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
-					if(is_dir($path) && file_exists($path.$file['basename'])){
-						rename($path.$file['basename'], $path.$newname);
-						$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
-						$i++;
-					}
-					$to_resize[] = $newname;
-				}
-			}
-			$response = $Images->resize(false, $to_resize);
+	if(count($_POST[categories_ids])==1 && $_POST[categories_ids][0] == 1){
+		$tpl->Assign('msg', 'Товар не обновлен. Выберите категорию');
+		$tpl->Assign('errm', 1);
+		//exit();
+	} else {
+		require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
+		if(isset($_POST['price']) && $_POST['price'] == ""){
+			$_POST['price'] = 0;
 		}
-
-		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		if(!empty($to_resize)){
-			foreach($to_resize as $filename){
-				$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-				if ($size[0] > 1000 || $size[1] > 1000 ) {
-					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
-					//Определяем размеры нового изображения
-					if(max($size[0], $size[1]) == $size[0]){
-						$width = 1000;
-						$height = 1000/$ratio;
-					} else if(max($size[0], $size[1]) == $size[1]) {
-						$width = 1000*$ratio;
-						$height = 1000;
-					}
-				}
-				$res = imagecreatetruecolor($width, $height);
-				imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-				$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
-				imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
-				imagejpeg($res, $path.$filename);
-			}
-		}
-
-		if($products->UpdateProduct($_POST)){
-			$err_mes = '';
-			//обновление видео товара
-			if(!empty($_POST['video'])){
-				$products->UpdateVideo($id_product, $_POST['video']);
-			}
-			//обновление Фото товара
-			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
-
-			if(isset($_POST['id_supplier'])){
-				//Формирем массив поставщиков товара
-				for ($i=0; $i < count($_POST['id_supplier']); $i++) {
-					$supp_arr[] = array(
-						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
-						"id_supplier" => $_POST['id_supplier'][$i],
-						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
-						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
-						"product_limit" => $_POST['product_limit'][$i],
-						"inusd" => $_POST['inusd'][$i]
-					);
-				}
-
-				foreach($supp_arr as $k => $value){
-					$value['id_product'] = $id_product;
-					if($value['id_assortiment'] == false){
-						//Добавляем поставщика в ассортимент
-						if(!$products->AddToAssortWithAdm($value)){
-							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
+		list($err, $errm) = Product_form_validate();
+		if(!$err){
+			if(isset($_POST['images']) && !empty($_POST['images'])){
+				$to_resize = array();
+				//Физическое удалание файлов
+				if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
+					foreach($_POST['removed_images'] as $k=>$path){
+						if(file_exists($path) && $products->CheckImages($path)){
+							$Images->remove($GLOBALS['PATH_root'].'..'.$path);
 						}
+					}
+				}
+				//Добавление фото
+				foreach($_POST['images'] as $k=>$image){
+					if(IsRenameNeeded($image)){
+						$to_rename[$k] = $image;
 					}else{
-						//Обновляем данные в ассортименте
-						$products->UpdateAssortWithAdm($value);
+						$no_rename[$k] = $image;
 					}
+				}
+				// print_r($to_rename);die();
+				//Высчитываем номер посл. добавленной картинки
+				if(isset($no_rename) && !empty($no_rename)){
+					$i = 0;
+					foreach($no_rename as $k=>$value){
+						$img_info = pathinfo($value);
+						$num_arr = explode('-',$img_info['filename']);
+						$num = array_pop($num_arr);
+						if($num > $i){
+							$i = $num;
+						}
+					}
+				}else{
+					$i = 0;
+				}
+				if(isset($to_rename) && !empty($to_rename)){
+					foreach($to_rename as $key => $value){
+						//$newname = $_POST['art'].'-'.(count($_POST['images'])-count($to_rename)+$i+1).'.jpg';
+						$newname = $_POST['art'].'-'.($i+1).'.jpg';
+						$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
+						$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
+						if(is_dir($path) && file_exists($path.$file['basename'])){
+							rename($path.$file['basename'], $path.$newname);
+							$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
+							$i++;
+						}
+						$to_resize[] = $newname;
+					}
+				}
+				$response = $Images->resize(false, $to_resize);
+			}
+
+			//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+			if(!empty($to_resize)){
+				foreach($to_resize as $filename){
+					$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+					if ($size[0] > 1000 || $size[1] > 1000 ) {
+						$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
+						//Определяем размеры нового изображения
+						if(max($size[0], $size[1]) == $size[0]){
+							$width = 1000;
+							$height = 1000/$ratio;
+						} else if(max($size[0], $size[1]) == $size[1]) {
+							$width = 1000*$ratio;
+							$height = 1000;
+						}
+					}
+					$res = imagecreatetruecolor($width, $height);
+					imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+					$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+					imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+					imagejpeg($res, $path.$filename);
 				}
 			}
 
-			//Отвязываем постащика от товара
-			if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
-				foreach($_POST['del_from_assort'] as &$id_assort){
-					$products->DelFromAssortWithAdm($id_assort, $id_product);
+			if($products->UpdateProduct($_POST)){
+				$err_mes = '';
+				//обновление видео товара
+				if(!empty($_POST['video'])){
+					$products->UpdateVideo($id_product, $_POST['video']);
 				}
-			}
+				//обновление Фото товара
+				$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
 
-			//Привязываем сегментяцию к продукту
-			if(isset($_POST['id_segment'])){
-				foreach ($_POST['id_segment'] as &$id_segment) {
-					if(!$segmentation->AddSegmentInProduct($id_product, $id_segment)){
-						$err_mes = '<script>alert("Ошибка при добавлении сегмента!\nСегмент уже закреплен за данным товаром!");</script>';
+				if(isset($_POST['id_supplier'])){
+					//Формирем массив поставщиков товара
+					for ($i=0; $i < count($_POST['id_supplier']); $i++) {
+						$supp_arr[] = array(
+							"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
+							"id_supplier" => $_POST['id_supplier'][$i],
+							"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
+							"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
+							"product_limit" => $_POST['product_limit'][$i],
+							"inusd" => $_POST['inusd'][$i]
+						);
+					}
+
+					foreach($supp_arr as $k => $value){
+						$value['id_product'] = $id_product;
+						if($value['id_assortiment'] == false){
+							//Добавляем поставщика в ассортимент
+							if(!$products->AddToAssortWithAdm($value)){
+								$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
+							}
+						}else{
+							//Обновляем данные в ассортименте
+							$products->UpdateAssortWithAdm($value);
+						}
 					}
 				}
-			}
-			//Удаляем сегментяцию с товара
-			if(isset($_POST['del_segment_prod']) && !empty($_POST['del_segment_prod'])){
-				foreach($_POST['del_segment_prod'] as $id_segment){
-					$segmentation->DelSegmentInProduct($id_product, $id_segment);
+
+				//Отвязываем постащика от товара
+				if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
+					foreach($_POST['del_from_assort'] as &$id_assort){
+						$products->DelFromAssortWithAdm($id_assort, $id_product);
+					}
 				}
+
+				//Привязываем сегментяцию к продукту
+				if(isset($_POST['id_segment'])){
+					foreach ($_POST['id_segment'] as &$id_segment) {
+						if(!$segmentation->AddSegmentInProduct($id_product, $id_segment)){
+							$err_mes = '<script>alert("Ошибка при добавлении сегмента!\nСегмент уже закреплен за данным товаром!");</script>';
+						}
+					}
+				}
+				//Удаляем сегментяцию с товара
+				if(isset($_POST['del_segment_prod']) && !empty($_POST['del_segment_prod'])){
+					foreach($_POST['del_segment_prod'] as $id_segment){
+						$segmentation->DelSegmentInProduct($id_product, $id_segment);
+					}
+				}
+				$tpl->Assign('msg', 'Товар обновлен.'.$err_mes);
+				if(isset($_POST['smb_new'])){
+					header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
+					exit();
+				}
+				header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
+				unset($_POST);
+			}else{
+				$tpl->Assign('msg', 'Товар не обновлен.');
+				$tpl->Assign('errm', $errm);
 			}
-			$tpl->Assign('msg', 'Товар обновлен.'.$err_mes);
-			if(isset($_POST['smb_new'])){
-				header('Location: '.$GLOBALS['URL_base'].'adm/productadd/');
-				exit();
-			}
-			header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
-			unset($_POST);
 		}else{
-			$tpl->Assign('msg', 'Товар не обновлен.');
+			// показываем все заново но с сообщениями об ошибках
+			$tpl->Assign('msg', 'Товар не обновлен2.');
 			$tpl->Assign('errm', $errm);
 		}
-	}else{
-		// показываем все заново но с сообщениями об ошибках
-		$tpl->Assign('msg', 'Товар не обновлен2.');
-		$tpl->Assign('errm', $errm);
 	}
 }
 if(!$products->SetFieldsById($id_product, 1)) die('Ошибка при выборе товара.');
 // Формирование списка категорий для выпадающего списка
-$cat_arr = $dbtree->GetAllCats(array('id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible'), 1);
-if(!empty($cat_arr)){
-	foreach($cat_arr as &$l1){
-		$level2 = $dbtree->GetAllSubCats($l1['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
-		foreach($level2 as &$l2){
-			$level3 = $dbtree->GetAllSubCats($l2['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
-			$l2['subcats'] = $level3;
-		}
-		$l1['subcats'] = $level2;
-	}
-}
+$list = $products->generateCategory();
 
-$list = $products->generateCategory($cat_arr);
-
-//$list = $dbtree->Full(array('id_category', 'category_level', 'name'));
 // Определение категории к которой принадлежит товар
 if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_category']){
 
