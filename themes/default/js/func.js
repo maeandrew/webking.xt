@@ -1930,7 +1930,9 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 		var snackbarContainer = document.querySelector('#demo-toast-example');
 		snackbarContainer.MaterialSnackbar.showSnackbar(data);
 	}).fail(function(data){
-		alert("Error");
+		var data = {message: 'Данный функционал доступен только для клиентов'};
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
 	});
 	return false;
 }

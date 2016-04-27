@@ -393,7 +393,7 @@
 					<?}?>
 				</div>
 				<div class="copyright">
-					<p>&copy; Отдел снабжения XT.ua 2015</p>
+					<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
 					<p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p>
 				</div>
 			</footer>
@@ -553,14 +553,16 @@
 					<h6>Виталий Петрович, у меня есть необходимые данные для отправки заказа.</h6>
 					<span>Вы готовы внести предоплату?</span>
 				</div>
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
-					<input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
-					<span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
-				</label>
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
-					<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
-					<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
-				</label>
+				<div class="label_wrap">
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
+						<input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
+						<span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
+						<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
+						<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
+					</label>
+				</div>
 				<div class="company_details">
 					<h4>Реквизиты компании</h4>
 				</div>

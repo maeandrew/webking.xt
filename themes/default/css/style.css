@@ -201,9 +201,9 @@ label:hover + .info_description {
 }
 .clear_cart {
 	position: absolute;
-    top: 30px;
-    line-height: 32px;
-    right: 30px;
+	top: 30px;
+	line-height: 32px;
+	right: 30px;
 }
 .clear_cart a {
 	color: #ff5722;
@@ -450,6 +450,11 @@ body:not(.c_main) .banner {
 [data-type="modal"] .modal_container {
 	max-height: calc(90vh - 52px - 60px - 64px);
 	position: relative;
+	text-align: center;
+}
+[data-type="modal"] .modal_container .mdl-card__supporting-text p {
+	font-size: 20px;
+	text-transform: uppercase;
 }
 [data-type="modal"] a.close_modal{
 	color: #bcbcbc;
@@ -707,6 +712,7 @@ section.center {
 }
 #quiz .step_3 .delivery_service > div {
 	padding: .5em 0;
+	text-align: left;
 }
 #quiz .delivery_address,
 #quiz .company_details,
@@ -724,6 +730,21 @@ section.center {
 #quiz .step_5 .msg_for_client {
 	padding-top: 15px;
 	font-size: 160%;
+}
+#quiz .number_label,
+#quiz .number_label + div.imit_select  {
+	display: inline-block;
+}
+#quiz .number_label {
+	width: 80px;
+	text-align: right;
+	padding: 10px;
+}
+#quiz .delivery_type {
+	width: 200px;
+}
+#quiz .label_wrap {
+    text-align: left;
 }
 @media(max-width: 654px){
 	#quiz .line {
@@ -2268,7 +2289,7 @@ section .stat_year {
 		display: none;
 	}
 	#cart .qty_js {
-	    width: 50px;
+		width: 50px;
 	}
 	#cart .product_info {
 		clear: both;
