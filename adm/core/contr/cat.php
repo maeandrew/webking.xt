@@ -25,7 +25,7 @@ $tpl->Assign('cat_arr', $cat_arr);
 
 $parsed_res = array(
 	'issuccess' => TRUE,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cat1.tpl')
+	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cat.tpl')
 );
 if(TRUE == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];

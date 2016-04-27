@@ -2,37 +2,37 @@
 <br>
 <?if (isset($errm) && isset($msg)){?>
 <div class="notification error">
-<span class="strong">Ошибка!</span><?=$msg?>
+<span class="strong">РћС€РёР±РєР°!</span><?=$msg?>
 </div>
 <br>
 <?}elseif(isset($msg)){?>
 <div class="notification success">
-<span class="strong">Сделано!</span><?=$msg?>
+<span class="strong">РЎРґРµР»Р°РЅРѕ!</span><?=$msg?>
 </div>
 <br>
 <?}?>
-<button class="all_slide_down btn-m-green">Развернкть все</button>
-<button class="all_slide_up btn-m-orange">Свернуть все</button>
+<button class="all_slide_down btn-m-green">Р Р°Р·РІРµСЂРЅРєС‚СЊ РІСЃРµ</button>
+<button class="all_slide_up btn-m-orange">РЎРІРµСЂРЅСѓС‚СЊ РІСЃРµ</button>
 <div class="legend fr">
     <p>
-        <span class="icon-font addprod">a</span> — добавить товар в категори
+        <span class="icon-font addprod">a</span> вЂ” РґРѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ РІ РєР°С‚РµРіРѕСЂРё
 
 
 
 
-        ю
-        <span class="icon-font editcat">e</span> — редактировать
-        <span class="icon-font addsubcat">A</span> — добавить подкатегорию
-        <span class="icon-font delcat">t</span> — удалить категорию
-        <span class="icon-font lockcat">v</span> — посмотреть на сайте
+        СЋ
+        <span class="icon-font editcat">e</span> вЂ” СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ
+        <span class="icon-font addsubcat">A</span> вЂ” РґРѕР±Р°РІРёС‚СЊ РїРѕРґРєР°С‚РµРіРѕСЂРёСЋ
+        <span class="icon-font delcat">t</span> вЂ” СѓРґР°Р»РёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ
+        <span class="icon-font lockcat">v</span> вЂ” РїРѕСЃРјРѕС‚СЂРµС‚СЊ РЅР° СЃР°Р№С‚Рµ
     </p>
 </div>
 <div class="cat_head">
     <ul>
         <li class="icon-font draggable">s</li>
         <li class="prom_id">Prom ID</li>
-        <li class="section_name">Название раздела</li>
-        <li class="fr controlls">Управление</li>
+        <li class="section_name">РќР°Р·РІР°РЅРёРµ СЂР°Р·РґРµР»Р°</li>
+        <li class="fr controlls">РЈРїСЂР°РІР»РµРЅРёРµ</li>
     </ul>
 </div>
 <div class="wrapp">
@@ -47,15 +47,15 @@
         </div>
         <div class="fl">
         <span class="prom_id"><?=$l1['prom_id']?></span>
-        <?=!$l1['visible']?'<span class="invisible">(скрытая) </span>':null?>
+        <?=!$l1['visible']?'<span class="invisible">(СЃРєСЂС‹С‚Р°СЏ) </span>':null?>
         <a href="<?=$GLOBALS['URL_base'].'adm/products/'.$l1['id_category']?>"><?=$l1['name']?></a>
         </div>
         <div class="controls fr">
-        <a class="icon-font addprod" title="Добавить товар" href="/adm/productadd/<?=$l1['id_category']?>">a</a>
-        <a class="icon-font editcat" title="Редактировать категорию" href="/adm/catedit/<?=$l1['id_category']?>">e</a>
-        <a class="icon-font addsubcat" title="Добавить подкатегорию" href="/adm/catadd/<?=$l1['id_category']?>">A</a>
-        <a class="icon-font delcat" title="Удалить категорию" href="/adm/catdel/<?=$l1['id_category']?>">t</a>
-        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/products/<?=$l1['id_category'].'/'.$l1['translit']?>/">v</a>
+        <a class="icon-font addprod" title="Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ" href="/adm/productadd/<?=$l1['id_category']?>">a</a>
+        <a class="icon-font editcat" title="Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catedit/<?=$l1['id_category']?>">e</a>
+        <a class="icon-font addsubcat" title="Р”РѕР±Р°РІРёС‚СЊ РїРѕРґРєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catadd/<?=$l1['id_category']?>">A</a>
+        <a class="icon-font delcat" title="РЈРґР°Р»РёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catdel/<?=$l1['id_category']?>">t</a>
+        <a class="icon-font lockcat" title="РџРѕСЃРјРѕС‚СЂРµС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ РЅР° СЃР°Р№С‚Рµ" href="/products/<?=$l1['id_category'].'/'.$l1['translit']?>/">v</a>
         </div>
         <?if(!empty($l1['subcats'])){?>
         <ul id="cat_<?=$l1['id_category']?>" class="first_submenu">
@@ -69,15 +69,15 @@
         </div>
         <div class="fl">
         <span class="prom_id"><?=$l2['prom_id']?></span>
-        <?=!$l2['visible']?'<span class="invisible">(скрытая) </span>':null?>
+        <?=!$l2['visible']?'<span class="invisible">(СЃРєСЂС‹С‚Р°СЏ) </span>':null?>
         <a href="<?=$GLOBALS['URL_base'].'adm/products/'.$l2['id_category']?>"><?=$l2['name']?></a>
         </div>
         <div class="controls fr">
-        <a class="icon-font addprod" title="Добавить товар" href="/adm/productadd/<?=$l2['id_category']?>">a</a>
-        <a class="icon-font editcat" title="Редактировать категорию" href="/adm/catedit/<?=$l2['id_category']?>">e</a>
-        <a class="icon-font addsubcat" title="Добавить подкатегорию" href="/adm/catadd/<?=$l2['id_category']?>">A</a>
-        <a class="icon-font delcat" title="Удалить категорию" href="/adm/catdel/<?=$l2['id_category']?>">t</a>
-        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/products/<?=$l2['id_category'].'/'.$l2['translit']?>/">v</a>
+        <a class="icon-font addprod" title="Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ" href="/adm/productadd/<?=$l2['id_category']?>">a</a>
+        <a class="icon-font editcat" title="Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catedit/<?=$l2['id_category']?>">e</a>
+        <a class="icon-font addsubcat" title="Р”РѕР±Р°РІРёС‚СЊ РїРѕРґРєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catadd/<?=$l2['id_category']?>">A</a>
+        <a class="icon-font delcat" title="РЈРґР°Р»РёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catdel/<?=$l2['id_category']?>">t</a>
+        <a class="icon-font lockcat" title="РџРѕСЃРјРѕС‚СЂРµС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ РЅР° СЃР°Р№С‚Рµ" href="/products/<?=$l2['id_category'].'/'.$l2['translit']?>/">v</a>
         </div>
         <?if(!empty($l2['subcats'])){?>
         <ul id="cat_<?=$l2['id_category']?>" class="second_submenu">
@@ -86,15 +86,15 @@
         <div class="icon-font hndlr3 fl">m</div>
         <div class="fl">
         <span class="prom_id"><?=$l3['prom_id']?></span>
-        <?=!$l3['visible']?'<span class="invisible">(скрытая) </span>':null?>
+        <?=!$l3['visible']?'<span class="invisible">(СЃРєСЂС‹С‚Р°СЏ) </span>':null?>
         <a href="<?=$GLOBALS['URL_base'].'adm/products/'.$l3['id_category']?>"><?=$l3['name']?></a>
         </div>
         <div class="controls fr">
-        <a class="icon-font addprod" title="Добавить товар" href="/adm/productadd/<?=$l3['id_category']?>">a</a>
-        <a class="icon-font editcat" title="Редактировать категорию" href="/adm/catedit/<?=$l3['id_category']?>">e</a>
-        <a class="icon-font addsubcat" title="Добавить подкатегорию" href="/adm/catadd/<?=$l3['id_category']?>">A</a>
-        <a class="icon-font delcat" title="Удалить категорию" href="/adm/catdel/<?=$l3['id_category']?>">t</a>
-        <a class="icon-font lockcat" title="Посмотреть категорию на сайте" href="/products/<?=$l3['id_category'].'/'.$l3['translit']?>/">v</a>
+        <a class="icon-font addprod" title="Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ" href="/adm/productadd/<?=$l3['id_category']?>">a</a>
+        <a class="icon-font editcat" title="Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catedit/<?=$l3['id_category']?>">e</a>
+        <a class="icon-font addsubcat" title="Р”РѕР±Р°РІРёС‚СЊ РїРѕРґРєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catadd/<?=$l3['id_category']?>">A</a>
+        <a class="icon-font delcat" title="РЈРґР°Р»РёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ" href="/adm/catdel/<?=$l3['id_category']?>">t</a>
+        <a class="icon-font lockcat" title="РџРѕСЃРјРѕС‚СЂРµС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ РЅР° СЃР°Р№С‚Рµ" href="/products/<?=$l3['id_category'].'/'.$l3['translit']?>/">v</a>
         </div>
         </li>
         <?}?>
@@ -149,12 +149,12 @@
             $(this).closest('li[id^="item_"]').children('ul[id^="cat_"]').stop(true,true).slideToggle();
             $(this).toggleClass('switch_minus');
         });
-        //Развернуть все категории
+        //Р Р°Р·РІРµСЂРЅСѓС‚СЊ РІСЃРµ РєР°С‚РµРіРѕСЂРёРё
         $('.all_slide_down').on('click', function(){
             $('ul[id^="cat_"]').slideDown();
             $('.switch_slide span').addClass('switch_minus');
         });
-        //Свернуть все категории
+        //РЎРІРµСЂРЅСѓС‚СЊ РІСЃРµ РєР°С‚РµРіРѕСЂРёРё
         $('.all_slide_up').on('click', function(){
             $('ul[id^="cat_"]').slideUp();
             $('.switch_slide span').removeClass('switch_minus');
