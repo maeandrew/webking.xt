@@ -191,7 +191,7 @@ class dbtree {
 	* @return integer Inserted element id
 	*/
 	public function Insert($section_id, $data = array()){
-		$sqltranslit = "SELECT translit FROM "._DB_PREFIX_."category WHERE translit = '".$data['translit']."'";
+		$sqltranslit = "SELECT translit FROM "._DB_PREFIX_."category WHERE sid =1 AND translit = '".$data['translit']."'";
 		$restranslit = $this->db->GetOneRowArray($sqltranslit);
 
 		if($restranslit){
