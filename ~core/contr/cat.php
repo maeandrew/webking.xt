@@ -14,7 +14,7 @@ unset($parsed_res);
 $list = $dbtree->Full(array('id_category', 'category_level', 'name', 'translit', 'pid', 'visible'), array('and'=>array('visible=1')));
 $tpl->Assign('list', $list);
 $parsed_res = array('issuccess' => TRUE,
-					'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cat.tpl'));
+					'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cat1.tpl'));
 if(TRUE == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
 }?>
