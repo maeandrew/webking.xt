@@ -568,7 +568,7 @@
 				</div>
 				<div class="row">
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5">Отправить</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5" onclick="javascript:window.location.hash = ''">Отправить</button>
 				</div>
 			</div>
 			<div class="modal_container step_5 " data-step="5">

@@ -53,6 +53,9 @@ window.onbeforeunload = function(e) {
 // }, false)
 
 $(function(){
+	if ($(window.location.hash).length == 1) {
+		openObject((window.location.hash).replace('#', ''));
+	};
 	//Скрытие фильтров в зависимости от выбранного уровня товара ---
 	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
 		$('.main_nav li[data-nav="filter"]').removeClass('hidden');
