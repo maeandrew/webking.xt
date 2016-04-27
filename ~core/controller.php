@@ -27,13 +27,12 @@ if($Seo->SetFieldsByUrl(_base_url.$_SERVER['REQUEST_URI'])){
 		$tpl->Assign('seotext', $Seo->fields['text']);
 	}
 }
-
 require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 
 if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	// Шапка сайта
 	//$time_start = microtime(true);
-//	$custom = 0;
+	//	$custom = 0;
 	$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 	foreach($navigation as &$l1){
 		$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
@@ -49,7 +48,6 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	$tpl->Assign('navigation', $navigation);
 	$tpl_header .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'top_main.tpl');
 
-
 	// GRAPH
 	if($GLOBALS['CurrentController'] == 'main'){
 		$id_category = 0;
@@ -64,7 +62,6 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 			$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
 		}
 	}
-
 
 	// Хлебные крошки
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
@@ -95,22 +92,6 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 				}
 			}
 		// }
-		// Правый сайдбар
-		if(in_array($GLOBALS['CurrentController'], $GLOBALS['RightSideBar'])){
-			$sb_count++;
-			// Блок новостей
-			unset($parsed_res);
-			require($GLOBALS['PATH_block'].'sb_news.php');
-			if(true == @$parsed_res['issuccess']){
-				$tpl_sidebar_r .= $parsed_res['html'];
-			}
-			// Блок статей
-			unset($parsed_res);
-			require($GLOBALS['PATH_block'].'sb_posts.php');
-			if(true == @$parsed_res['issuccess']){
-				$tpl_sidebar_r .= $parsed_res['html'];
-			}
-		}
 		// connecting sidebar correction stylesheets
 		// if($sb_count == 2){
 		// 	G::AddCSS('twosidebars.css');

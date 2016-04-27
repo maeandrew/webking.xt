@@ -238,47 +238,6 @@ tr.min td {
 				</td>
 			</tr>
 		</table>
-		<table class="table_main" cellspacing="0" style="display: none; float: left; width: 627px;" >
-			<thead>
-				<tr class="hdr">
-					<th class="bl bt">№</th>
-					<th class="bt">Арт</th>
-					<th class="bt">поставщик, телефон, площадка, контейнер</th>
-					<th class="bt">Заказов</th>
-					<th class="bt">Сумма,<br>грн</th>
-					<th class="bt">Оплачено,<br>грн</th>
-					<th class="bt">Объём</th>
-					<th class="bt">Вес</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?$sum_order = 0;
-				$sweight = 0;
-				$svolume = 0;
-				$ii = 1;
-				foreach($suppliers as $s){?>
-					<tr>
-						<td class="bl" style="height: 30px;"><?=$ii++?></td>
-						<td><?=$s['art']?></td>
-						<td class="postname"><?=$s['name']?>, <?=$s['phone']?>, <?=$s['place']?></td>
-						<td><?=$s['num_orders']?></td>
-						<td class="note_red"><?=(isset($_GET['no_prices']) == false)?number_format($s['sum_otpusk'],2,",",""):null;?></td>
-						<?$sum_order+=$s['sum_otpusk']?>
-						<td>&nbsp;</td>
-						<td><p style="color: #f00;"><?=$s['sweight']?></p></td>
-						<td><p style="color: #444;"><?=$s['svolume']?></p></td>
-						<?$svolume += $s['sweight'];$sweight += $s['svolume']?>
-					</tr>
-				<?}?>
-				<tr>
-					<td class="bnb" style="height: 30px;" colspan="4">&nbsp;</td>
-					<td class="br bb "><?=number_format($sum_order, 2 , ",", "");?></td>
-					<td class="bnb" style="width: 80px"></td>
-					<td class="br bb"><p style="color: #f00;"><?=$svolume?></p></td>
-					<td><p style="color: #444;"><?=$sweight?></p></td>
-				</tr>
-			</tbody>
-		</table>
 		<table class="table_main" cellspacing="0" style="clear: none; float: left;">
 			<thead>
 				<tr class="hdr" style="height: 25px;">

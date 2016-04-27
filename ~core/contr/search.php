@@ -545,4 +545,4 @@ function r_implode( $glue, $pieces ){
 		}
 	}
 	return implode( $glue, $retVal );
-}?>
+}

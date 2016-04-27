@@ -1015,9 +1015,6 @@ section.center {
 	#cart .no_items p {
 		text-align: center;
 	}
-	#cart .no_items img {
-		margin-left: calc(50% - 102px);
-	}
 	#button-cart2,
 	#button-cart3 {
 		display: none;

@@ -1,7 +1,7 @@
 <div class="header_wrapp">
 	<div class="logo">
 		<a href="<?=Link::Custom('main')?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
-	</div>	
+	</div>
 	<div class="search_wrapp">
 		<form name="search" action="<?=Link::Custom('search');?>" method="get">
 			<div class="mdl-textfield mdl-js-textfield search">
@@ -49,7 +49,7 @@
 				<?}
 			}?>
 		</nav>
-	</div>	
+	</div>
 	<div class="user_profile">
 		<?if(isset($_SESSION['member'])){ ?>
 			<button data-name="user_pro" id="user_profile" class="mdl-button mdl-js-button mdl-button--icon">
@@ -128,12 +128,6 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- <nav class="phone_menu hidden">
-		<span class="material-icons menu btn_js" data-name="phone_menu">menu</span>
-		<a href="#" class="material-icons mdl-badge--overlap cart btn_js<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=!empty($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>" data-name="cart">shopping_cart</a>
-	</nav> -->
-
 	<div id="phone_menu" class="panel" data-type="panel">
 		<ul class="phone_user_profile">
 			
