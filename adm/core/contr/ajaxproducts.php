@@ -51,6 +51,9 @@
 				echo json_encode($products->UpdateGraph($_POST, true));
 			;
 			break;
+//			case "removeProductAll":
+//				$products->DelProduct($_POST['id_prod']);
+//				break;
 			default:
 			;
 			break;
