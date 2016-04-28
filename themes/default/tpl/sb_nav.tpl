@@ -21,7 +21,7 @@
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</li>
-		<li id="allSection" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 0)?'activeSegment':'active';?>" data-nav="all_section">
+		<li id="allSection" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 0 || $_COOKIE['Segmentation'] == null)?'activeSegment':'active';?>" data-nav="all_section">
 			<i class="material-icons">list</i>Все разделы
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -43,7 +43,7 @@
 	<?}?>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
-	<div id="allCategotyCont"></div>	
+	<div id="allCategotyCont"></div>
 </div>
 
 <script>
