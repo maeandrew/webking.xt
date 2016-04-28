@@ -73,8 +73,11 @@
 							<a class="small mr6" title="Редактировать" href="/adm/productedit/<?=$i['id_product']?>">
 								<img alt="Редактировать" src="/adm/images/edit.png" width="16" height="16">
 							</a>
-							<a class="small mr6" title="Посмотреть товар на сайте" href="/product/<?=$i['id_product']?>/<?=$i['translit']?>">
+							<a class="small mr6" title="Посмотреть товар на сайте" href="/product/<?=$i['translit']?>">
 								<img alt="Посмотреть на сайте" src="/adm/images/globe.png" width="16" height="16">
+							</a>
+							<a class="small mr6" title="Удалить товар" href="/adm/productdel/<?=$i['id_product']?>">
+								<img alt="Удалить товар" src="/adm/images/delete.png" width="16" height="16">
 							</a>
 						</td>
 					</tr>

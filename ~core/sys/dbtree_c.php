@@ -205,7 +205,7 @@ class dbtree {
 			$data['edit_date'] = date('Y-m-d H:m:s');
 			$this->db->StartTrans();
 			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data[category_level] . ', "' . $data[name] . '", "' . $data[translit] . '", ' . $data[pid] . ', ' . $data[visible] . ', ' . $data[edit_user] . ', "' . $data[edit_date] . '", ' . $data[indexation] . ')';
-			$this->db->Execute($sql);
+			$this->db->Execute($sql); print_r($sql); die();
 			$this->db->CompleteTrans();
 			return true;
 		}
@@ -600,15 +600,30 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		if ($id_category !==false){
-			$where = ' WHERE c.id_category = '.$id_category;
-		} else{
-			$where = ' WHERE c.category_level<3';
-		}
-		$sql = 'SELECT '.$fields.', (CASE WHEN c.category_level = 1 THEN c.id_category ELSE c.pid END) AS sort , u.`name` AS username
-		 	FROM '.$this->table.' c LEFT JOIN '._DB_PREFIX_.'user u ON c.edit_user = u.id_user';
-		$sql .= $where;
-		$sql .=  ' ORDER BY sort, c.pid';
+//		if ($id_category !==false){
+//			$where = ' WHERE c.id_category = '.$id_category;
+//		} else{
+//			$where = ' WHERE c.category_level<3';
+//		}
+//		$sql = 'SELECT '.$fields.', (CASE WHEN c.category_level = 1 THEN c.id_category ELSE c.pid END) AS sort , u.`name` AS username
+//		 	FROM '.$this->table.' c LEFT JOIN '._DB_PREFIX_.'user u ON c.edit_user = u.id_user';
+//		$sql .= $where;
+//		$sql .=  ' ORDER BY sort, c.pid';
+
+		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
+				(CASE
+					WHEN c.category_level = 1 THEN c.id_category
+					WHEN c.category_level = 2 THEN c.pid
+					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
+				END) AS sort,
+				(CASE
+					WHEN c.category_level = 2 THEN c.id_category
+					WHEN c.category_level = 3 THEN c.pid
+					ELSE 0
+				END) AS sort2
+				FROM '._DB_PREFIX_.'category AS c
+				ORDER BY sort, sort2, category_level';
+
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->GetArray($sql);
 		}else{
