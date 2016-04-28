@@ -777,6 +777,16 @@ footer {
 .list tbody td.center {
 	text-align: center;
 }
+
+.list tbody td.center a {
+	font-size: 18px;
+}
+
+.list .watchSeoText {
+	float: right;
+}
+
+
 .list .date {
 	color: #888;
 	font-style: italic;
@@ -828,7 +838,6 @@ footer {
 .listnb .np {
 	padding: 0px;
 }
-
 
 /* PAGINATOR */
 

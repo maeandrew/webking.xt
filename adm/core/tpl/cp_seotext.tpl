@@ -38,6 +38,7 @@
 					</td>
 					<td>
 						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['url']?></a>
+						<a class="icon-font btn-m-orange-inv watchSeoText" title="Посмотреть текст на странице" href="<?=$i['url']?>">v</a>
 					</td>
 					<td>
 						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['text']?></a>
