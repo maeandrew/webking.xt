@@ -26,12 +26,13 @@
 			<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
 			<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
 		<?}?>
-		<div class="product_buy<?=$GLOBALS['CurrentController'] == 'main'?' hidden':null;?>" data-idproduct="<?=$item['id_product']?>">
+		<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
-				<?if($GLOBALS['CurrentController'] != 'main'){?>
+
 					<div class="price">
 						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
 					</div>
+					<? print_r($item);?>
 					<div class="prodPrices hidden">
 						<?for ($i = 0; $i < 4; $i++){?>
 							<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
@@ -50,7 +51,7 @@
 						<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 						<div class="units"><?=$item['units'];?></div>
 					</div>
-				<?}?>
+
 			</div>
 			<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 		</div>
