@@ -1,7 +1,7 @@
 <h1>Товары категории "<?=$catname?>"</h1>
 <br>
 <div class="addproduct">
-	<a id="form_submit" class="btn-l-default" href="<?=$GLOBALS['URL_base'].'adm/productadd/'.$id_category?>">Добавить товар</a>
+	<a id="form_submit" class="btn-m-default" href="<?=$GLOBALS['URL_base'].'adm/productadd/'.$id_category?>">Добавить товар</a>
 </div>
 <br>
 <?if (isset($errm) && isset($msg)){?>
@@ -76,9 +76,9 @@
 							<a class="small mr6" title="Посмотреть товар на сайте" href="/product/<?=$i['translit']?>">
 								<img alt="Посмотреть на сайте" src="/adm/images/globe.png" width="16" height="16">
 							</a>
-							<a class="small mr6" title="Удалить товар" href="/adm/productdel/<?=$i['id_product']?>">
+							<!--<a class="small mr6" title="Отвязать товар от категории" href="/adm/productdel/<?=$i['id_product']?>">
 								<img alt="Удалить товар" src="/adm/images/delete.png" width="16" height="16">
-							</a>
+							</a>-->
 						</td>
 					</tr>
 				<?}?>
@@ -89,7 +89,7 @@
 						<td>&nbsp;</td>
 					<?}?>
 					<td class="center">
-						<input type="submit" name="smb" id="form_submit" class="btn-l-default-inv" value="&uarr;&darr;">
+						<input type="submit" name="smb" id="form_submit" class="btn-m-default-inv" value="&uarr;&darr;">
 					</td>
 					<td>&nbsp;</td>
 				</tr>
@@ -97,10 +97,10 @@
 		</table>
 	</form>
 	<div class="fr">
-		<p><img src="/adm/images/edit.png" width="16" height="16"> — редактировать	<img src="/adm/images/globe.png" width="16" height="16"> — посмотреть на сайте	<img src="/adm/images/delete.png" width="16" height="16"> — удалить</p>
+		<p><img src="/adm/images/edit.png" width="16" height="16"> — редактировать	<img src="/adm/images/globe.png" width="16" height="16"> — посмотреть на сайте	<!--<img src="/adm/images/delete.png" width="16" height="16"> — удалить</p> -->
 	</div>
 	<div class="addproduct">
-		<a id="form_submit" class="btn-l-default" href="<?=$GLOBALS['URL_base'].'adm/productadd/'.$id_category?>">Добавить товар</a>
+		<a id="form_submit" class="btn-m-default" href="<?=$GLOBALS['URL_base'].'adm/productadd/'.$id_category?>">Добавить товар</a>
 	</div>
 	<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_MODERATOR_)){?>
 		<div style="padding-top: 20px;">
@@ -121,16 +121,16 @@
 <br>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
 	<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
-		<input type="file" name="import_file" class="input-l" style="width: auto;">
-		<input type="submit" name="smb_check" class="btn-l-red" value="Импорт">
-		<!-- <input type="submit" name="smb_import" class="btn-l-default" value="Импорт"> -->
+		<input type="file" name="import_file" class="input-m" style="width: auto;">
+		<input type="submit" name="smb_check" class="btn-m-red" value="Импорт">
+		<!-- <input type="submit" name="smb_import" class="btn-m-default" value="Импорт"> -->
 	</form>
 <?}?>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
     <form action="<?=$GLOBALS['URL_request']?>" method="post">
 		<p style="margin-top:25px">Введите ID поставщика для выгрузки позиций:</p>
-		<input type="text" name="supl" id="supl" class="input-l" style="width: auto;">
- 		<input style="margin: 0 0 20px 0;" name="smb" type="submit" id="form_submi1t" class="btn-l-default" value="Выгрузить позиции" />
+		<input type="text" name="supl" id="supl" class="input-m" style="width: auto;">
+ 		<input style="margin: 0 0 20px 0;" name="smb" type="submit" id="form_submi1t" class="btn-m-default" value="Выгрузить позиции" />
     </form>
 <?}?>
 <?if(isset($total_added)){?>

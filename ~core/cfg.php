@@ -103,7 +103,7 @@ if(!in_array($_SESSION['client']['ip'], $unwatch)){
 	}
 }
 // получение всех настроек с БД
-$sql = "SELECT name, value FROM "._DB_PREFIX_."config";
+$sql = "SELECT name, value FROM "._DB_PREFIX_."config WHERE sid = 1";
 $arr = $db->GetArray($sql);
 // формирование глобального массива настроек
 foreach($arr as $i){

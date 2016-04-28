@@ -545,7 +545,7 @@ class Products {
 	public function SetProductsList4csvTatet(){
 		$value = "SELECT value
 			FROM "._DB_PREFIX_."config
-			WHERE name = 'tatet_catlist'";
+			WHERE name = 'tatet_catlist' AND sid = 1";
 			$res = $this->db->GetOneRowArray($value);
 		$sql = "SELECT p.art, p.name, p.descr,
 			un.unit_xt AS units, p.img_1, p.price_opt, p.name_index,
