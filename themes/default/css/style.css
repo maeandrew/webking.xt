@@ -201,9 +201,9 @@ label:hover + .info_description {
 }
 .clear_cart {
 	position: absolute;
-	top: 30px;
-	line-height: 32px;
-	right: 30px;
+	top: 20px;
+    line-height: 32px;
+    right: 50px;
 }
 .clear_cart a {
 	color: #ff5722;

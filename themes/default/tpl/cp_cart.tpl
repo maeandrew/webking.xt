@@ -73,12 +73,6 @@
 				</p>
 			<?}?>
 		</div>
-	<?}else{?>
-		<div class="no_items">
-			<h2 class="cat_no_items">Ваша корзина пуста!</h2>
-			<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Ваша корзина пуста!">
-			<p>Перейдите в <a href="/">каталог</a> для совершения покупок</p>
-		</div>
 	<?}?>
 <?}else{?>
 	<!-- Недоступные товары -->
@@ -498,6 +492,14 @@
 					$('.err_tel').css('visibility', '')
 				}
 			});
+
+
 		});
 	</script>
 <?}?>
+
+<div class="no_items <?=isset($_SESSION['cart']['products']) && !empty($_SESSION['cart']['products'])?'hidden':null;?>">
+	<h2 class="cat_no_items">Ваша корзина пуста!</h2>
+	<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Ваша корзина пуста!">
+	<p>Перейдите в <a href="/">каталог</a> для совершения покупок</p>
+</div>
