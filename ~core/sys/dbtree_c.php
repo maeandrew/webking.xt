@@ -198,14 +198,18 @@ class dbtree {
 			return false;
 		}else {
 			$node_info = $this->GetNodeInfo($section_id);
-			if (false === $node_info) {
+			if(false === $node_info){
 				return false;
 			}
-			$data[category_level] = ($node_info[0] + 1);
+			$data['category_level'] = ($node_info[0] + 1);
 			$data['edit_date'] = date('Y-m-d H:m:s');
 			$this->db->StartTrans();
-			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data[category_level] . ', "' . $data[name] . '", "' . $data[translit] . '", ' . $data[pid] . ', ' . $data[visible] . ', ' . $data[edit_user] . ', "' . $data[edit_date] . '", ' . $data[indexation] . ')';
-			$this->db->Execute($sql); print_r($sql); die();
+			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data['category_level'] . ', "' . $data['name'] . '", "' . $data['translit'] . '", ' . $data['pid'] . ', ' . $data['visible'] . ', ' . $data['edit_user'] . ', "' . $data['edit_date'] . '", ' . $data['indexation'] . ')';
+			if(!$this->db->Execute($sql)){
+				print_r($sql); die();
+				$this->db->FailTrans();
+				return false;
+			}
 			$this->db->CompleteTrans();
 			return true;
 		}

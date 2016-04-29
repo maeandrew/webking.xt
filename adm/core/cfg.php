@@ -111,7 +111,8 @@ $ACL_PERMS = array(
 		'wishes',
 		'segmentations',
 		'supplier_prov',
-		'monitoring'
+		'monitoring',
+		'seotext'
 	),
 	// groups
 	'groups' => array(
@@ -209,7 +210,8 @@ $ACL_PERMS = array(
 				'wishes',
 				'segmentations',
 				'product_report',
-				'monitoring'
+				'monitoring',
+				'seotext'
 			)
 		),
 		10 => array(
