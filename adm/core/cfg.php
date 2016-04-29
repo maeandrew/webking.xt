@@ -275,7 +275,7 @@ require($GLOBALS['PATH_model'].'specification_c.php');
 require($GLOBALS['PATH_model'].'config_c.php');
 require($GLOBALS['PATH_model'].'seo_c.php');
 // получение всех настроек с БД
-$sql = "SELECT name, value FROM "._DB_PREFIX_."config";
+$sql = "SELECT name, value FROM "._DB_PREFIX_."config WHERE sid = 1";
 $arr = $db->GetArray($sql);
 // формирование глобального массива настроек
 foreach ($arr as $i){

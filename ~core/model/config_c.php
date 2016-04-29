@@ -17,7 +17,7 @@ class Config{
 	public function SetFieldsById($id){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."config
-			WHERE id_config = \"$id\"";
+			WHERE sid = 1 AND id_config = \"$id\"";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -29,7 +29,7 @@ class Config{
 	public function SetFieldsByName($name){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."config
-			WHERE name = '".$name."'";
+			WHERE sid = 1 AND name = '".$name."'";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -44,6 +44,7 @@ class Config{
 		}
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."config
+			WHERE sid = 1
 			ORDER BY ord, name
 			$limit";
 		$this->list = $this->db->GetArray($sql);

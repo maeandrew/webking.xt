@@ -205,7 +205,7 @@ class dbtree {
 			$data['edit_date'] = date('Y-m-d H:m:s');
 			$this->db->StartTrans();
 			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data[category_level] . ', "' . $data[name] . '", "' . $data[translit] . '", ' . $data[pid] . ', ' . $data[visible] . ', ' . $data[edit_user] . ', "' . $data[edit_date] . '", ' . $data[indexation] . ')';
-			$this->db->Execute($sql); print_r($sql); die();
+			$this->db->Execute($sql); //print_r($sql); die();
 			$this->db->CompleteTrans();
 			return true;
 		}
@@ -544,9 +544,11 @@ class dbtree {
 		if($rescat)  $errm .= " Категория содержит подкатегории.";
 		if($resprod) $errm .= " Категория содержит товары.";
 		if(!$rescat && !$resprod){
-			$sql = "DELETE FROM "._DB_PREFIX_."category WHERE id_category = ".$id_category;
 			$this->db->StartTrans();
-			$this->db->Execute($sql);
+			//удаляем категорию
+			$this->db->Execute("DELETE FROM "._DB_PREFIX_."category WHERE id_category = ".$id_category);
+			//отвязываем спецификации
+			$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_cats WHERE id_cat = '.$id_category);
 			$this->db->CompleteTrans();
 			return true;
 		} else {
