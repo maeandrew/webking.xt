@@ -16,6 +16,10 @@ if(!empty($cat_arr)){
 		$level2 = $dbtree->GetAllSubCats($l1['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
 		foreach($level2 as &$l2){
 			$level3 = $dbtree->GetAllSubCats($l2['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
+			foreach($level3 as &$l3){
+				$level4 = $dbtree->GetAllSubCats($l3['id_category'], 'id_category', 'category_level', 'name', 'translit', 'prom_id', 'pid', 'visible');
+				$l3['subcats'] = $level4;
+			}
 			$l2['subcats'] = $level3;
 		}
 		$l1['subcats'] = $level2;

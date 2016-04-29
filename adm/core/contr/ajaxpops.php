@@ -25,8 +25,6 @@ ob_start();
 			G::LogerE($t, "ajax.html", "w");
 			/*				
 			ob_start();
-			print_r($_SESSION['Cart']);
-			print_r($_POST);
 			$t = ob_get_clean();
 			G::LogerE($t, "ajax.html", "w");
 			*/
