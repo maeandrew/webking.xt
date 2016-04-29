@@ -35,6 +35,9 @@
 					<li><a href="#nav_connection">Категория и связь</a></li>
 					<li><a href="#nav_information">Информация</a></li>
 					<li><a href="#nav_visible">Видимость и индексация</a></li>
+					<?if($GLOBALS['CurrentController'] == 'productedit'){?>
+						<li><a href="#nav_delete">Удаление товара</a></li>
+					<?}?>
 					<li class="main_photo">
 						<img src="<?if(isset($_POST['images'])){
 							echo file_exists($GLOBALS['PATH_root'].'..'.$_POST['images'][0]['src'])?htmlspecialchars($_POST['images'][0]['src']):'/efiles/_thumb/nofoto.jpg';
@@ -629,7 +632,14 @@
 						<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
 					</label>
 				</div>
-			</div>
+				<div id="nav_delete">
+					<h2>Удаление товара</h2>
+					<label>Внимание! При удалении товара, он удалится из таблицы спецификаций, карзины, сопутствующих товаров, сегментации,
+							ассортимента поставщика, избранных товаров, посещаемых товаров, листа ожидания.
+					</label>
+					<a class="btn-m-red delete_prod" onclick="if(confirm('Точно удалить товар?')){DelProds(<?=$_POST['id_product']?>);} return false;">Удалить товар</a>
+				</div>
+</div>
 		</div>
 	</form>
 </div>
@@ -1118,6 +1128,21 @@
 			location.reload();
 		});
 
+	}
+	//Удаление товара
+	function DelProds(id, action) {
+		url = '/adm/productdel/'+id;
+		$(location).attr('href',url);
+//		$.ajax({
+//			url: URL_base+'ajaxproducts',
+//			type: "POST",
+//			cache: false,
+//			dataType : "json",
+//			data: {
+//				"action": action,
+//				"id_prod": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>,
+//			}
+//		})
 	}
 
 	function insertValueImg1(filePath) {

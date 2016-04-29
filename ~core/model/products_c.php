@@ -545,7 +545,7 @@ class Products {
 	public function SetProductsList4csvTatet(){
 		$value = "SELECT value
 			FROM "._DB_PREFIX_."config
-			WHERE name = 'tatet_catlist'";
+			WHERE name = 'tatet_catlist' AND sid = 1";
 			$res = $this->db->GetOneRowArray($value);
 		$sql = "SELECT p.art, p.name, p.descr,
 			un.unit_xt AS units, p.img_1, p.price_opt, p.name_index,
@@ -898,6 +898,14 @@ class Products {
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
+		}
+		foreach ($result as &$v) {
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+			}
 		}
 		return $result;
 	}
@@ -2152,8 +2160,26 @@ class Products {
 	 */
 	public function DelProduct($id_product){
 		$this->db->StartTrans();
-		$this->db->DeleteRowFrom(_DB_PREFIX_."product", "id_product", $id_product);
-		$this->db->DeleteRowFrom(_DB_PREFIX_."cat_prod", "id_product", $id_product);
+		// делаем товар неактивным
+		$this->db->Execute('UPDATE '._DB_PREFIX_.'product SET visible = 0 WHERE id_product = '.$id_product);
+		//удаляем товар с таблицы, где привязываем его к категориям
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cat_prod WHERE id_product = '.$id_product);
+		//отвязываем спецификации
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_prods WHERE id_prod = '.$id_product);
+		//удаляем из корзины
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cart_product WHERE id_product = '.$id_product);
+		//удаляем из таблицы сопутствующих товаров
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'related_prods WHERE id_prod = '.$id_product.' OR id_related_prod = '.$id_product);
+		//отвязываем товар от сегментации
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'segment_prods WHERE id_product = '.$id_product);
+		//удаляем товар из ассортимента поставщика
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'assortiment WHERE id_product = '.$id_product);
+		//удаляем товар из таблицы любимых товаров
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'favorites WHERE id_product = '.$id_product);
+		//удаляем товар с таблицы посещаемых товаров
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'visited_products WHERE id_product = '.$id_product);
+		//удаляем этот товар с листа ожидания
+		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'waiting_list WHERE id_product = '.$id_product);
 		$this->db->CompleteTrans();
 		//$this->RecalcSitePrices(array($id_product));
 		return true;

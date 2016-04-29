@@ -38,6 +38,27 @@ p {
 	margin-bottom: 0;
 	line-height: 16px;
 }
+h1, h2, h3, h4, h5, h6 {
+	font-size: 14px;
+}
+h1 {
+	font-size: 2.8em;
+}
+h2 {
+	font-size: 2.3em;
+}
+h3 {
+	font-size: 2em;
+}
+h4 {
+	font-size: 1.6em;
+}
+h5 {
+	font-size: 1.3em;
+}
+h6 {
+	font-size: 1em;
+}
 #newheader_wrapp {
 	position: relative;
 }
@@ -201,9 +222,9 @@ label:hover + .info_description {
 }
 .clear_cart {
 	position: absolute;
-	top: 30px;
-	line-height: 32px;
-	right: 30px;
+	top: 20px;
+    line-height: 32px;
+    right: 50px;
 }
 .clear_cart a {
 	color: #ff5722;
@@ -806,6 +827,7 @@ section.center {
 	#cart .modal_container {
 		overflow: hidden;
 		overflow-y: auto;
+		min-width: 60vw;
 	}
 	#cart .title_cart {
 		width: 100%;

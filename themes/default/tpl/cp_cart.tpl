@@ -73,12 +73,6 @@
 				</p>
 			<?}?>
 		</div>
-	<?}else{?>
-		<div class="no_items">
-			<h2 class="cat_no_items">Ваша корзина пуста!</h2>
-			<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Ваша корзина пуста!">
-			<p>Перейдите в <a href="/">каталог</a> для совершения покупок</p>
-		</div>
 	<?}?>
 <?}else{?>
 	<!-- Недоступные товары -->
@@ -186,6 +180,7 @@
 							</div>
 							<div class="quantity">
 								<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
 								<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="units"><?=$item['units'];?></div>
@@ -392,7 +387,7 @@
 							case 200:
 								// closeObject('cart');
 								window.location.hash = "quiz";
-								openObject('quiz');								
+								openObject('quiz');
 								break;
 							case 500:
 								console.log('error');
@@ -498,6 +493,14 @@
 					$('.err_tel').css('visibility', '')
 				}
 			});
+
+
 		});
 	</script>
 <?}?>
+
+<div class="no_items <?=isset($_SESSION['cart']['products']) && !empty($_SESSION['cart']['products'])?'hidden':null;?>">
+	<h2 class="cat_no_items">Ваша корзина пуста!</h2>
+	<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Ваша корзина пуста!">
+	<p>Перейдите в <a href="/">каталог</a> для совершения покупок</p>
+</div>

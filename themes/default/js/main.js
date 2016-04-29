@@ -968,10 +968,9 @@ $(function(){
 
 	});
 
-	if($('#cart .order_wrapp .card').length == 0) {
+	if($('header .cart_item a.cart i').data('badge') == 0) {
 		$('#cart .clear_cart').addClass('hidden');
 	}
-
 
 	/*$("#login_email").blur(function(){
 		var name = this.value;
