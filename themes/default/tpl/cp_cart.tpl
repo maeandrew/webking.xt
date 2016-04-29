@@ -279,6 +279,8 @@
 					<input class="mdl-textfield__input" type="text" id="sample7">
 					<label class="mdl-textfield__label" for="sample7">Промокод</label>
 				</div>
+				<p class="err_msg"></p>
+				<a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a>
 				<!-- <div class="tooltip_wrapp">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 						<input type="radio" class="mdl-radio__button" name="options" value="1">
@@ -387,11 +389,25 @@
 							case 200:
 								// closeObject('cart');
 								window.location.hash = "quiz";
+								$('a.login_btn_hum').addClass('hidden');
+								$('.cabinet_btn').removeClass('hidden');
+							
 								openObject('quiz');
 								break;
 							case 500:
 								console.log('error');
 								removeLoadAnimation('#cart');
+								break;
+							case 501:
+								removeLoadAnimation('#cart');
+								$('.err_msg').html(data.message);
+								setTimeout(function() {
+									$('.err_msg + .cart_login_btn').removeClass('hidden');
+								}, 1000);
+								$('.err_msg + .cart_login_btn').click(function(event) {
+									event.preventDefault;
+									openObject('auth');
+								});
 								break;
 							default:
 								console.log('default statemant');
