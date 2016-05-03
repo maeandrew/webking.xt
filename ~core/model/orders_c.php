@@ -422,6 +422,7 @@ class Orders {
 	public function Add($arr = null){
 		// Если список товаров в корзине пуст
 		if(empty($_SESSION['cart']['products'])){
+			print_r('products error');
 			return false;
 		}
 		// $discount = 0;
@@ -507,6 +508,7 @@ class Orders {
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
+			print_r('order insert error');
 			return false;
 		}
 		// Получаем id нового заказа
@@ -531,10 +533,11 @@ class Orders {
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
 			}
-			if($sup_nb < 1){
-				$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
-				return false;
-			}
+			// if($sup_nb < 1){
+			// 	$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
+			// 	print_r('sup_nb error');
+			// 	return false;
+			// }
 			// Сохранить сумму заказа по отпускным ценам
 			$sql = "UPDATE "._DB_PREFIX_."order
 				SET otpusk_prices_sum = ".round($order_otpusk_prices_sum, 2)."
@@ -542,6 +545,7 @@ class Orders {
 			$this->db->StartTrans();
 			if(!$this->db->Query($sql)){
 				$this->db->FailTrans();
+				print_r('order update error');
 				return false;
 			}
 			$this->db->CompleteTrans();
@@ -591,6 +595,7 @@ class Orders {
 		$this->db->StartTrans();
 		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
 			$this->db->FailTrans();
+			print_r('osp insert error');
 			return false;
 		}
 		$this->db->CompleteTrans();

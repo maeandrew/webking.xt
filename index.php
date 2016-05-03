@@ -19,24 +19,24 @@ require($GLOBALS['PATH_core'].'routes.php');
 
 G::Start();
 /* Объявление CSS файлов */
-G::AddCSS('reset.css');
+G::AddCSS('../themes/'.$theme.'/css/reset.css');
 G::AddCSS('../plugins/material/material.css');
 G::AddCSS('../plugins/material/material.min.css');
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
-G::AddCSS('../themes/default/css/footer.css');
-G::AddCSS('../themes/default/css/style.css');
-G::AddCSS('../themes/default/css/header.css');
-// G::AddCSS('../themes/default/css/sidebar.css');
+G::AddCSS('../themes/'.$theme.'/css/footer.css');
+G::AddCSS('../themes/'.$theme.'/css/style.css');
+G::AddCSS('../themes/'.$theme.'/css/header.css');
+// G::AddCSS('../themes/'.$theme.'/css/sidebar.css');
 
-G::AddCSS('../themes/default/css/custom.css');
+G::AddCSS('../themes/'.$theme.'/css/custom.css');
 
-G::AddCSS('../themes/default/css/d3graph.css');
+G::AddCSS('../themes/'.$theme.'/css/d3graph.css');
 
-G::AddCSS('jquery-ui.css');
+G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css');
 /* plugins css */
 // G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
 // G::AddCSS('../plugins/icomoon/style.css');
-G::AddCSS('../themes/default/css/page_styles/'.$GLOBALS['CurrentController'].'.css');
+G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].'.css');
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
 G::AddJS('jquery-ui.min.js');
@@ -47,8 +47,8 @@ G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('../js/nutrients.json');
 G::AddJS('../plugins/material/material.js');
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
-G::AddJS('../themes/default/js/func.js');
-G::AddJS('../themes/default/js/main.js');
+G::AddJS('../themes/'.$theme.'/js/func.js');
+G::AddJS('../themes/'.$theme.'/js/main.js');
 if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js');
 }else{
@@ -62,7 +62,7 @@ G::AddJS('../plugins/jquery.cookie.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
 // G::AddJS('../plugins/icomoon/liga.js', true);
 if($GLOBALS['CurrentController'] == 'page'){
-	G::AddJS('../themes/default/js/page.js', true);
+	G::AddJS('../themes/'.$theme.'/js/page.js', true);
 }
 // G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
 

@@ -392,13 +392,13 @@ class G {
 			switch ($ckey){
 				case 'Lmin':
 					if(strlen($var) < $cval){
-						$errm = 'Cлишком короткое. Минимальное количество символов '.$cval;
+						$errm = 'Минимальное количество символов - '.$cval;
 						return array(FALSE, $errm);
 					}
 				break;
 				case 'Lmax':
 					if(strlen($var) > $cval){
-						$errm = 'Cлишком длинное. Максимальное количество символов '.$cval;
+						$errm = 'Максимальное количество символов - '.$cval;
 						return array(FALSE, $errm);
 					}
 				break;

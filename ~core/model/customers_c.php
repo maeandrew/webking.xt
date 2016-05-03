@@ -331,7 +331,7 @@ class Customers extends Users {
 			$f['id_city'] = trim($arr['id_city']);
 			$f['id_delivery'] = trim($arr['id_delivery']);
 		}else{
-			$f['phones'] = trim($arr['phone']);
+			$f['phones'] = isset($arr['phone'])?trim($arr['phone']):'';
 			$f['id_contragent'] = $arr['id_contragent'];
 			$f['id_city'] = 0;
 			$f['id_delivery'] = 0;
@@ -341,7 +341,6 @@ class Customers extends Users {
 		}
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'customer', $f)){
-			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();
 			return false;
 		}

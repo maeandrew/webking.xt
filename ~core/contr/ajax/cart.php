@@ -381,9 +381,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$user = G::GetLoggedData();
 					$Orders = new Orders();
 					// оформляем заказ
-					if($id_order = $Orders->Add()) {
+					if($id_order = $Orders->Add()){
 						$cart = new Cart();
-					$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+						$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 						$res['message'] = 'Заказ сформирован!';
 						$res['status'] = 200;
 						// $Customers->updatePhones($phone);
