@@ -268,7 +268,7 @@
 				}
 			</style>
 			<?=isset($__graph)?$__graph:null;?>
-			<div class="content">
+			<div class="page_content">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
 					<?=$__center?>
@@ -708,6 +708,9 @@
 		</div>
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">
+		</div>
+		<div id="registerComplete" data-type="modal">
+			<div class="modal_container">Спасибо за регистрацию!</div>
 		</div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

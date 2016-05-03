@@ -389,9 +389,12 @@
 							case 200:
 								// closeObject('cart');
 								window.location.hash = "quiz";
-								$('a.login_btn_hum').addClass('hidden');
-								$('.cabinet_btn').removeClass('hidden');
-							
+								ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+									$('#user_pro').html(data);
+
+									$('.cabinet_btn').removeClass('hidden');
+									$('.login_btn').addClass('hidden');
+								});
 								openObject('quiz');
 								break;
 							case 500:

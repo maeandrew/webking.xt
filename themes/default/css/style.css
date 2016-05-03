@@ -577,7 +577,7 @@ section.center {
 	width: 100%;
 }
 
-.no-sidebar .content {
+.no-sidebar .page_content {
 	padding: 0;
 }
 
@@ -937,6 +937,10 @@ section.center {
 		padding: 5px;
 		width: 130px;
 		float: left;
+	}
+	#cart .card .product_photo img {
+		max-width: 100%;
+		max-height: 80px;
 	}
 	#cart .card .summ {
 		width: 10%;
@@ -1400,9 +1404,9 @@ section.center {
 			transform: scale(1.25);
 		}
 
-/*CONTENT*/
+/*PAGE CONTENT*/
 
-	.content {
+	.page_content {
 		padding: 0 15px;
 		min-height: calc(100vh - 370px);
 	}
@@ -2210,7 +2214,7 @@ section .stat_year {
 		height: 70px;
 	}
 	.product_buy .price {
-		min-width: 90px;
+		/*min-width: 90px;*/
 	}
 	#cart .card .product_name {
 		/*padding: 0;*/

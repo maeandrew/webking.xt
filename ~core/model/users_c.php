@@ -41,41 +41,21 @@ class Users {
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
-		// получаем список избранных товаров
-		$sql2 = "SELECT f.id_product
-			FROM "._DB_PREFIX_."favorites AS f
-			WHERE f.id_user = ".$this->fields['id_user'];
-		$this->fields['favorites'] = $this->db->GetArray($sql2);
-		foreach($this->fields['favorites'] as $key => $value){
-			$this->fields['favorites'][$key] = $value['id_product'];
-		}
-		// получаем лист ожидания
-		$sql3 = "SELECT wl.id_product
-			FROM "._DB_PREFIX_."waiting_list AS wl
-			WHERE wl.id_user = ".$this->fields['id_user'];
-		$this->fields['waiting_list'] = $this->db->GetArray($sql3);
-		foreach($this->fields['waiting_list'] as $key => $value){
-			$this->fields['waiting_list'][$key] = $value['id_product'];
-		}
-		// получаем данные о личном менеджере
-		$sql4 = "SELECT ct.name_c, ct.phones
-			FROM "._DB_PREFIX_."customer cr
-			LEFT JOIN "._DB_PREFIX_."contragent ct
-			ON cr.id_contragent = ct.id_user
-			WHERE cr.id_user = ".$this->fields['id_user'];
-		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
-		// получаем список товаров, которые уже были в заказе
-		$sql5 = "SELECT DISTINCT osp.id_product
-			FROM "._DB_PREFIX_."osp osp
-			LEFT JOIN "._DB_PREFIX_."order ord
-			ON osp.id_order = ord.id_order
-			WHERE (opt_qty<>0 OR mopt_qty<>0) AND
-			ord.id_customer = ".$this->fields['id_user'];
-		$this->fields['ordered_prod'] = $this->db->GetArray($sql5);
-		foreach($this->fields['ordered_prod'] as $key => $value){
-			$this->fields['ordered_prod'][$key] = $value['id_product'];
-		}
+		$this->SetUserAdditionalInfo($this->fields['id_user']);
 		return true;
+	}
+
+	public function CheckUserNoPass($data){
+		$data = trim($data);
+		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
+			FROM "._DB_PREFIX_."user AS u
+			WHERE (u.email = '".$data."' OR u.phones = '".$data."')
+			AND u.active = 1";
+		if(!$this->fields = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		$this->SetUserAdditionalInfo($this->fields['id_user']);
+		return $this->fields;
 	}
 
 	public function SetUserAdditionalInfo($id_user){
@@ -114,22 +94,6 @@ class Users {
 			$this->fields['ordered_prod'][$key] = $value['id_product'];
 		}
 		return true;
-	}
-
-
-
-	public function CheckUserNoPass($data){
-		$data = trim($data);
-		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
-			FROM "._DB_PREFIX_."user AS u
-			WHERE u.email = '".$data."'
-			OR u.phones = '".$data."'
-			AND u.active = 1";
-		$this->fields = $this->db->GetOneRowArray($sql);
-		if(!$this->fields){
-			return false;
-		}
-		return $this->fields;
 	}
 
 	public function GetFields(){
@@ -233,7 +197,7 @@ class Users {
 		}
 		$id_user = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		if(isset($arr['email'])) {
+		if(isset($arr['email'])){
 			$mailer = new Mailer();
 			$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
 		}elseif($arr['phone'] && $arr['email'] = null){
@@ -356,8 +320,8 @@ class Users {
 		}
 		$id_user1 = $this->fields['id_user'];
 		$sql = "UPDATE "._DB_PREFIX_."user
-			SET `news` = '".$keu_reg."'
-			WHERE `id_user`='".$id_user1."'";
+			SET news = '".$keu_reg."'
+			WHERE id_user = '".$id_user1."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -370,12 +334,11 @@ class Users {
 	public function ValidateEmail($email){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."user
-			WHERE email = \"$email\"";
+			WHERE email = '".$email."'";
 		if(count($this->db->GetArray($sql)) == 0){
-			return 'good';
-		}else{
-			return false;
+			return true;
 		}
+		return false;
 	}
 
 	// Update password for user
@@ -505,4 +468,5 @@ class Users {
 		}
 		return true;
 	}
-}?>
+
+}

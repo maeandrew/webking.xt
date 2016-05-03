@@ -907,7 +907,7 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#auth');
-			if(data.errm != 1){
+			if(data.err != 1){
 				// parent.find('.user_name').text(data.member.name);
 				// parent.find('.user_email').text(data.member.email);
 				// parent.find('.user_contr').text(data.member.contragent.name_c);
@@ -920,7 +920,7 @@ $(function(){
 					$('#user_pro').html(data);
 
 					$('.cabinet_btn').removeClass('hidden');
-					$('.login_btn').addClass('hidden');					
+					$('.login_btn').addClass('hidden');
 
 					$('#authorized').removeClass('hidden');
 					$('.userContainer').removeClass('hidden');
@@ -962,10 +962,28 @@ $(function(){
 		e.preventDefault();
 		addLoadAnimation('#registration');
 		var parent = $(this).closest('form'),
-			name = parent.find('input#name').val(),
-			email = parent.find('input#email').val();
-		ValidateEmail(email, 1);
-
+			fields = {};
+		parent.find('.mdl-textfield__input').each(function(index, el) {
+			fields[$(el).attr('name')] = $(el).val();
+		});
+		// var res = ValidateEmail(data, 1);
+		ajax('auth', 'register', fields).done(function(data){
+			if(data.err == 0){
+				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+					$('#user_pro').html(data);
+					$('.cabinet_btn').removeClass('hidden');
+					$('.login_btn').addClass('hidden');	
+				});
+				openObject('registerComplete');
+			}else{
+				$.each(data.errm, function(key, value) {
+					// console.log(key);
+					// $('[name="'+key+'"] + .mdl-textfield__error').append(value);
+					$('[name="'+key+'"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').html(value);
+				});
+			}
+			removeLoadAnimation('#registration');
+		});
 	});
 
 	if($('header .cart_item a.cart i').data('badge') == 0) {

@@ -1598,75 +1598,72 @@ function ValidatePass(passwd){
 }
 var req = null;
 /** Валидация email **/
-function ValidateEmail(email, type){
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var name = $('#registration #name').val();
-	console.log(name);
-	var pass = $('#passwd').val();
-	var passconfirm = $('#passwdconfirm').val();
-	var error = '';
-	/*var confirmps = $('#confirmps').prop('checked');*/
-	var result;
+function ValidateEmail(fields, type){
+	// var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	// var name = $('#registration #name').val();
+	// var pass = $('#passwd').val();
+	// var passconfirm = $('#passwdconfirm').val();
+	// var error = '';
+	// /*var confirmps = $('#confirmps').prop('checked');*/
+	// var result;
 
-	if (req != null) req.abort();
+	ajax('auth', 'register', fields).done(function(data){
+		return data;
+	// 	console.log(data);
+	// 	if(email.length == 0){
+	// 		$('#email + #email_error').empty();
+	// 		error = 'Введите email';
+	// 		$('#email + .mdl-textfield__error').append(error);
+	// 		$('#email').closest('.mdl-textfield ').addClass('is-invalid');
+	// 		result = false;
+	// 	}else if(!re.test(email)){
+	// 		$('#email + .mdl-textfield__error').empty();
+	// 		error = 'Введен некорректный email';
+	// 		$('#email + .mdl-textfield__error').append(error);
+	// 		$('#email').closest('.mdl-textfield ').addClass('is-invalid');
+	// 		result = false;
+	// 	}else if(data == "true"){
 
-	req = ajax('auth', 'register', {email: email}).done(function(data){
-		console.log(data);
-		if(email.length == 0){
-			$('#email + #email_error').empty();
-			error = 'Введите email';
-			$('#email + .mdl-textfield__error').append(error);
-			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
-			result = false;
-		}else if(!re.test(email)){
-			$('#email + .mdl-textfield__error').empty();
-			error = 'Введен некорректный email';
-			$('#email + .mdl-textfield__error').append(error);
-			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
-			result = false;
-		}else if(data == "true"){
+	// 		$('#email ~ .mdl-textfield__error').empty();
+	// 		error = 'Пользователь с таким email уже зарегистрирован';
+	// 		$('#email ~ .mdl-textfield__error').append(error);
+	// 		$('#email').closest('.mdl-textfield ').addClass('is-invalid');
+	// 		result = false;
+	// 	}else if(data == "false"){
+	// 		$('#email ~ .mdl-textfield__error').empty();
+	// 		error = '';
+	// 		result = true;
+	// 	}
+	// 	if(type == 1){
 
-			$('#email ~ .mdl-textfield__error').empty();
-			error = 'Пользователь с таким email уже зарегистрирован';
-			$('#email ~ .mdl-textfield__error').append(error);
-			$('#email').closest('.mdl-textfield ').addClass('is-invalid');
-			result = false;
-		}else if(data == "false"){
-			$('#email ~ .mdl-textfield__error').empty();
-			error = '';
-			result = true;
-		}
-		if(type == 1){
-
-			if(CompleteValidation(name, error, pass, passconfirm)){
-				result = true;
-				if(passconfirm){
-					/*console.log('TRUE');*/
-					/*Regist();*/
-				}else{
-					/*$('#regs .regist').on('click', function() {
-						$(this).closest('.mdl-textfield').find('#passwd').text('ERROR');
-					});*/
-					$('label[for="confirmps"]').stop(true,true).animate({
-						"color": "#fff",
-						"font-weight": "bold",
-						"background-color": "#f00",
-						"border-radius": "5px"
-					},500)
-					.delay(300)
-					.animate({
-						"color": "#000",
-						"font-weight": "normal",
-						"background-color": "#fff"
-					},500);
-				}
-			}else{
-				console.log('FALSE');
-				result = false;
-			}
-		}
+	// 		if(CompleteValidation(name, error, pass, passconfirm)){
+	// 			result = true;
+	// 			if(passconfirm){
+	// 				/*console.log('TRUE');*/
+	// 				/*Regist();*/
+	// 			}else{
+	// 				/*$('#regs .regist').on('click', function() {
+	// 					$(this).closest('.mdl-textfield').find('#passwd').text('ERROR');
+	// 				});*/
+	// 				$('label[for="confirmps"]').stop(true,true).animate({
+	// 					"color": "#fff",
+	// 					"font-weight": "bold",
+	// 					"background-color": "#f00",
+	// 					"border-radius": "5px"
+	// 				},500)
+	// 				.delay(300)
+	// 				.animate({
+	// 					"color": "#000",
+	// 					"font-weight": "normal",
+	// 					"background-color": "#fff"
+	// 				},500);
+	// 			}
+	// 		}else{
+	// 			result = false;
+	// 		}
+	// 	}
+	// 	return result;
 		removeLoadAnimation('#registration');
-		return result;
 	});
 }
 

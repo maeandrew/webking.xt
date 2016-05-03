@@ -1,51 +1,63 @@
 <?php
-function Register_form_validate($nocheck=array()){
+function Register_form_validate($nocheck = array()){
 	$errm = array();
-	$err=0;
+	$err = 0;
 	$varname = 'email';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_email'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 1, 'Lmax' => 255, 'PM_email' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}else{
+			$errm[$varname] = "Поле обязательно для заполнения";
+			$err = 1;
+		}
 	}
 	$varname = 'passwd';
-	if (!in_array($varname, $nocheck))
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>4, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Пользователю должен быть назначен пароль.";
-		$err=1;
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 4, 'PM_glob' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}else{
+			$errm[$varname] = "Пользователю должен быть назначен пароль";
+			$err = 1;
+		}
 	}
 	$varname = 'passwdconfirm';
-	if (!in_array($varname, $nocheck))
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>4, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-		else{
-			if ($_POST['passwd'] != $_POST['passwdconfirm']){
-				$errm[$varname] = "Пароли не совпадают.";
-				$err=1;
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			if($_POST['passwd'] != $_POST['passwdconfirm']){
+				$errm[$varname] = "Пароли не совпадают";
+				$err = 1;
 			}
+		}else{
+			$errm[$varname] = "Требуется подтверждение пароля";
+			$err = 1;
 		}
-	}else{
-		$errm[$varname] = "Требуется подтверждение пароля.";
-		$err=1;
 	}
 	$varname = 'name';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'Lmax'=>255, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 3, 'Lmax' => 255, 'PM_glob' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}else{
+			$errm[$varname] = "Введите имя";
+			$err = 1;
+		}
 	}
 
 	/*$varname = 'confirmps';
