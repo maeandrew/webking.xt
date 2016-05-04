@@ -23,7 +23,7 @@ class Products {
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
-			"p.page_keywords", "p.count_views", "notation_price", "instruction", "p.indexation");
+			"p.page_keywords", "notation_price", "instruction", "p.indexation");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
@@ -111,7 +111,7 @@ class Products {
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			un.unit_prom, a.product_limit,
+			un.unit_prom, a.product_limit, pv.count_views,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -124,6 +124,8 @@ class Products {
 				ON un.id = p.id_unit
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				ON pv.id_product = p.id_product
 			WHERE p.id_product = ".$id_product."
 			".$visible;
 		$arr = $this->db->GetArray($sql);
@@ -150,7 +152,7 @@ class Products {
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			un.unit_prom, a.product_limit,
+			un.unit_prom, a.product_limit, pv.count_views,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -163,6 +165,8 @@ class Products {
 				ON un.id = p.id_unit
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				ON pv.id_product = p.id_product
 			WHERE p.translit = ".$this->db->Quote($rewrite)."
 			".$visible."
 			LIMIT 1";
@@ -442,7 +446,7 @@ class Products {
 				$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
 		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_){
-			$sql = "SELECT DISTINCT a.active, s.available_today,
+			$sql = "SELECT DISTINCT a.active, s.available_today, pv.count_views,
 				".implode(", ",$this->usual_fields).",
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
@@ -456,6 +460,8 @@ class Products {
 					ON un.id = p.id_unit
 				LEFT JOIN "._DB_PREFIX_."supplier AS s
 					ON s.id_user = a.id_supplier
+				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+					ON pv.id_product = p.id_product
 				WHERE p.visible = 1
 				AND a.product_limit > 0
 				".$where."
@@ -463,7 +469,7 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			$sql = "SELECT DISTINCT a.active, s.available_today,
+			$sql = "SELECT DISTINCT a.active, s.available_today, pv.count_views,
 				".implode(", ",$this->usual_fields).",
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
@@ -477,6 +483,8 @@ class Products {
 					ON un.id = p.id_unit
 				LEFT JOIN "._DB_PREFIX_."supplier AS s
 					ON s.id_user = a.id_supplier
+				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+					ON pv.id_product = p.id_product
 				WHERE p.visible = 1
 				AND a.product_limit > 0
 				".$where."
@@ -654,7 +662,7 @@ class Products {
 		}
 		if(isset($params['administration'])){
 			// SQL выборки для админки
-			$sql = "(SELECT '0' AS sort, a.active,
+			$sql = "(SELECT '0' AS sort, a.active, pv.count_views,
 				".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."assortiment AS a
@@ -663,13 +671,15 @@ class Products {
 					ON cp.id_product = p.id_product
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
+				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+					ON pv.id_product = p.id_product
 				WHERE (p.price_opt > 0 OR p.price_mopt > 0)
 				AND a.active = 1
 				AND p.visible = 1
 				".$where."
 				".$group_by.")
 				UNION
-				(SELECT '1' AS sort, a.active,
+				(SELECT '1' AS sort, a.active, pv.count_views,
 				".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."assortiment AS a
@@ -678,6 +688,8 @@ class Products {
 					ON cp.id_product = p.id_product
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
+				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+					ON pv.id_product = p.id_product
 				WHERE ((p.price_opt <= 0 OR p.price_mopt <= 0)
 				OR p.visible = 0)
 				".$where."
@@ -685,7 +697,7 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			$sql = "SELECT p.*, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
+			$sql = "SELECT p.*, pv.count_views, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -694,6 +706,7 @@ class Products {
 					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product AND a.active = 1
+					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL
 				".$where . $where2. $this->price_range ."
 				GROUP BY p.id_product
@@ -874,16 +887,18 @@ class Products {
 	 * Выборка товаров для главной
 	 */
 	public function GetRandomList(){
-		$sql = "SELECT *
+		$sql = "SELECT *, pv.count_views,
 				FROM "._DB_PREFIX_."product p
 				JOIN "._DB_PREFIX_."prod_status s
+				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+					ON pv.id_product = p.id_product
 				WHERE p.prod_status = s.id
 				AND s.id = 3 ORDER BY";
 		/*$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
 		}*/
-		$sql = "SELECT p.*, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
+		$sql = "SELECT p.*, pv.count_views, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -892,6 +907,7 @@ class Products {
 					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND p.prod_status = 3  ORDER BY RAND() LIMIT 10";
 		$result = $this->db->GetArray($sql);
@@ -996,7 +1012,7 @@ class Products {
 	 */
 	public function SetProductsList1($s){
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",
+		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",  pv.count_views,
 			a.*
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
@@ -1005,6 +1021,8 @@ class Products {
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
+			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				ON pv.id_product = p.id_product
 			WHERE a.id_supplier = ".$s."
 			GROUP BY p.id_product";
 		$this->list = $this->db->GetArray($sql);
@@ -1050,7 +1068,7 @@ class Products {
 			$order_by = 'ord, name';
 		}
 
-		$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT DISTINCT  pv.count_views, a.active, ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON cp.id_product = p.id_product
@@ -1058,6 +1076,8 @@ class Products {
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
+			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				ON pv.id_product = p.id_product
 			".$where."
 			AND p.visible = 1
 			AND (p.price_opt > 0 OR p.price_mopt > 0)
@@ -1117,7 +1137,7 @@ class Products {
 			// ,(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-			$sql = "SELECT DISTINCT a.active, a.price_opt_otpusk, a.price_mopt_otpusk, s.available_today,
+			$sql = "SELECT DISTINCT a.active, a.price_opt_otpusk, a.price_mopt_otpusk, s.available_today, pv.count_views,
 				".implode(", ",$this->usual_fields)."
 
 				FROM "._DB_PREFIX_."product AS p
@@ -1129,6 +1149,8 @@ class Products {
 					ON s.id_user = a.id_supplier
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
+				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+					ON pv.id_product = p.id_product
 				WHERE ".$where."
 				".$group_by."
 				ORDER BY ".$order_by."
@@ -1157,7 +1179,7 @@ class Products {
 					ORDER BY ".$order_by."
 					".$limit;
 			}else{
-				$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields).",
+				$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields).", pv.count_views,
 					(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 					(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 					(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
@@ -1170,6 +1192,8 @@ class Products {
 						ON s.id_user = a.id_supplier
 					LEFT JOIN "._DB_PREFIX_."units AS un
 						ON un.id = p.id_unit
+					LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+						ON pv.id_product = p.id_product
 					WHERE p.visible = 1
 					AND ".$where."
 					".$group_by."
@@ -2015,7 +2039,7 @@ class Products {
 	 */
 	public function UpdateViewsProducts($count_views, $id_product){
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."product", array('count_views' => $count_views = $count_views + 1), "id_product = {$id_product}")){
+		if(!$this->db->Update(_DB_PREFIX_."prod_views", array('count_views' => $count_views = $count_views + 1), "id_product = {$id_product}")){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -3942,7 +3966,7 @@ class Products {
 		if($limit != ''){
 			$limit = "LIMIT $limit";
 		}
-		$sql = "SELECT ".implode(', ',$this->usual_fields).",
+		$sql = "SELECT ".implode(', ',$this->usual_fields).", pv.count_views,
 			u.email
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
@@ -3950,7 +3974,9 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON p.duplicate_user = u.id_user
 			LEFT JOIN "._DB_PREFIX_."units AS un
-				ON un.id = p.id_unit
+				ON un.id = p.
+			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				ON pv.id_product = p.id_product
 			WHERE p.visible = 1
 			AND (p.duplicate = 1 OR p.duplicate_user > 0)
 			GROUP BY id_product
