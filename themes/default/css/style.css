@@ -343,7 +343,6 @@ ul.phone_nav_contacts li span {
 
 .paginator {
 	text-align: center;
-	height: 30px;
 	padding-bottom: 30px;
 	clear: both;
 }
@@ -360,6 +359,7 @@ ul.phone_nav_contacts li span {
 .paginator li a {
 	background: #ffffff;
 	line-height: 30px;
+	height: 30px;
 	border-radius: 100%;
 	color: #444;
 	display: block;
@@ -908,9 +908,9 @@ section.center {
 	#cart .card .product_buy .buy_block .price {
 		font-size: 1em;
 	}
-	#cart .card .product_buy .buy_block .quantity button {
+	/*#cart .card .product_buy .buy_block .quantity button {
 		opacity: 1;
-	}
+	}*/
 	#cart .card .remove_prod_mob {
 		display: none;
 	}
