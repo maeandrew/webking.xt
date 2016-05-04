@@ -451,17 +451,30 @@ class Users {
 		}
 		return $arr;
 	}
-
-	// Проверка уникальности телефона
+	/**
+	 * Проверка уникальности email
+	 * Если введенного email нет в базе данных, возвращает true, иначе false
+	 * @param string $email номер телефона
+	 */
+	public function CheckEmailUniqueness($email){
+		$sql = "SELECT COUNT(*) AS count
+			FROM "._DB_PREFIX_."user
+			WHERE email = '".$email."'";
+		$res = $this->db->GetOneRowArray($sql);
+		if($res['count'] > 0){
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * Проверка уникальности номера телефона
 	 * Если введенного номера телефона нет в базе данных, возвращает true, иначе false
 	 * @param string $phone номер телефона
 	 */
 	public function CheckPhoneUniqueness($phone){
-		$sql = "SELECT COUNT(id_user) AS count
+		$sql = "SELECT COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
-			WHERE phones = ".$phone;
+			WHERE phones = '".$phone."'";
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
 			return false;
