@@ -378,7 +378,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				if(G::isLogged()){
 					// Если покупатель арторизован, получаем его данные
-					$user = G::GetLoggedData();
 					$Orders = new Orders();
 					// оформляем заказ
 					if($id_order = $Orders->Add()){

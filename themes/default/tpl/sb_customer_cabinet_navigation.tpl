@@ -2,8 +2,7 @@
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
 		<li>
-			<i class="material-icons">face</i>
-			<a class="menus" href="#">Личные данные</a>
+			<a href="#"><i class="material-icons">face</i>Личные данные</a>
 			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 				<li class="child">
 					<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
@@ -14,8 +13,7 @@
 			</ul>
 		</li>
 		<li>
-			<i class="material-icons">shopping_cart</i>
-			<a class="menus" href="#">Мои заказы</a>
+			<a href="#"><i class="material-icons">shopping_cart</i>Мои заказы</a>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active':null;?>">
 				<li>
 					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
@@ -35,8 +33,7 @@
 			</ul>
 		</li>
 		<!-- <li>
-			<i class="material-icons">person_add</i>
-			<a class="menus"  href="#">Совместные заказы</a>
+			<a href="#"><i class="material-icons">person_add</i>Совместные заказы</a>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active':null;?>">
 				<li>
 					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=all">Все</a>
@@ -50,12 +47,10 @@
 			 </ul>
 		</li> -->
 		<li>
-			<i class="material-icons">people</i>
-			<a href="#">Списки друзей</a>
+			<a href="#"><i class="material-icons">people</i>Списки друзей</a>
 		</li>
 		<li>
-			<i class="material-icons">settings</i>
-			<a class="menus" href="#">Настройки</a>
+			<a href="#"><i class="material-icons">settings</i>Настройки</a>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'active':null;?>">
 				<li>
 					<a name="t" value="basic" <?=(isset($_GET['t']) && $_GET['t']) == 'basic'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
@@ -66,8 +61,7 @@
 			</ul>
 		</li>
 		<li>
-			<i class="material-icons">add_shopping_cart</i>
-			<a class="menus" href="#">Бонусная программа</a>
+			<a href="#"><i class="material-icons">add_shopping_cart</i>Бонусная программа</a>
 			<?if(isset($GLOBALS['Rewrite'])){ ?>
 				<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active':null;?>">
 					<li class="child">
@@ -82,12 +76,10 @@
 			<?}?>
 		</li>
 		<li>
-			<i class="material-icons">flag</i>
-			<a href="<?=Link::Custom('cabinet','favorites')?>">Избраное</a>
+			<a href="<?=Link::Custom('cabinet','favorites')?>"><i class="material-icons">flag</i>Избраное</a>
 		</li>
 		<li>
-			<i class="material-icons">timeline</i>
-			<a href="<?=Link::Custom('cabinet','waitinglist')?>">Лист ожидания</a>
+			<a href="<?=Link::Custom('cabinet','waitinglist')?>"><i class="material-icons">timeline</i>Лист ожидания</a>
 		</li>
 	</ul>
 </div>

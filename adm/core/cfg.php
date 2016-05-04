@@ -79,164 +79,166 @@ foreach($profiles as $profile){
 // 	// groups
 // 	'groups' => $profiles
 // );
-$ACL_PERMS = array(
-	// default rights
-	'rights' => array(
-		'admin_panel',
-		'anonim_cab',
-		'catalog',
-		'configs',
-		'contragent_cab',
-		'customer_cab',
-		'diler_cab',
-		'duplicates',
-		'locations',
-		'manager_cab',
-		'manufacturers',
-		'moderation_edit_product',
-		'news',
-		'orders',
-		'pages',
-		'posts',
-		'pricelist',
-		'product',
-		'product_moderation',
-		'product_report',
-		'remitters',
-		'slides',
-		'specifications',
-		'supplier_cab',
-		'units',
-		'users',
-		'wishes',
-		'segmentations',
-		'supplier_prov',
-		'monitoring',
-		'seotext'
-	),
-	// groups
-	'groups' => array(
-		0 => array(
-			'name' => 'guest',
-			'caption' => 'Все',
-			'permissions' => 0 // disallow all
+G::ToGlobals(array(
+	'ACL_PERMS' => array(
+		// default rights
+		'rights' => array(
+			'admin_panel',
+			'anonim_cab',
+			'catalog',
+			'configs',
+			'contragent_cab',
+			'customer_cab',
+			'diler_cab',
+			'duplicates',
+			'locations',
+			'manager_cab',
+			'manufacturers',
+			'moderation_edit_product',
+			'news',
+			'orders',
+			'pages',
+			'posts',
+			'pricelist',
+			'product',
+			'product_moderation',
+			'product_report',
+			'remitters',
+			'slides',
+			'specifications',
+			'supplier_cab',
+			'units',
+			'users',
+			'wishes',
+			'segmentations',
+			'supplier_prov',
+			'monitoring',
+			'seotext'
 		),
-		1 => array(
-			'name' => 'admin',
-			'caption' => 'Администратор',
-			'permissions' => 1 // allow all
-		),
-		2 => array(
-			'name' => 'moderator',
-			'caption' => 'Администратор наполнения',
-			'permissions' => array(
-				'admin_panel',
-				'catalog',
-				'product',
-				'news',
-				'product_report',
-				'product_moderation',
-				'moderation_edit_product',
-				'pages',
-				'pageedit',
-				'slides',
-				'duplicates',
-				'specifications',
-				'units',
-				'wishes',
-				'segmentations',
-				'pricelist',
-				'supplier_prov'
-			)
-		),
-		3 => array(
-			'name' => 'supplier',
-			'caption' => 'Поставщик',
-			'permissions' => array(
-				'supplier_cab'
-			)
-		),
-		4 => array(
-			'name' => 'contragent',
-			'caption' => 'Контрагент',
-			'permissions' => array(
-				'contragent_cab'
-			)
-		),
-		5 => array(
-			'name' => 'customer',
-			'caption' => 'Покупатель',
-			'permissions' => array(
-				'customer_cab'
-			)
-		),
-		6 => array(
-			'name' => 'manager',
-			'caption' => 'Менеджер',
-			'permissions' => array(
-				'manager_cab'
-			)
-		),
-		7 => array(
-			'name' => 'diler',
-			'caption' => 'Дилер',
-			'permissions' => array(
-				'diler_cab'
-			)
-		),
-		8 => array(
-			'name' => 'anonim',
-			'caption' => 'Покупатель аноним',
-			'permissions' => array(
-				'anonim_cab'
-			)
-		),
-		9 => array(
-			'name' => 'SEO_optimizator',
-			'caption' => 'СЕО - оптимизатор',
-			'permissions' => array(
-				'admin_panel',
-				'pages',
-				'pageedit',
-				'news',
-				'catalog',
-				'product',
-				'product_moderation',
-				'moderation_edit_product',
-				'slides',
-				'duplicates',
-				'specifications',
-				'units',
-				'wishes',
-				'segmentations',
-				'product_report',
-				'monitoring',
-				'seotext'
-			)
-		),
-		10 => array(
-			'name' => 'm_diler',
-			'caption' => 'M-Дилер',
-			'permissions' => array(
-				'm_diler_cab'
-			)
-		),
-		11 => array(
-			'name' => 'terminal',
-			'caption' => 'Терминальный клиент',
-			'permissions' => array(
-				'terminal_cab'
-			)
-		),
-		12 => array(
-			'name' => 'supplier_manager',
-			'caption' => 'Менеджер поставщиков',
-			'permissions' => array(
-				'supplier_manager_cab'
+		// groups
+		'groups' => array(
+			0 => array(
+				'name' => 'guest',
+				'caption' => 'Все',
+				'permissions' => 0 // disallow all
+			),
+			1 => array(
+				'name' => 'admin',
+				'caption' => 'Администратор',
+				'permissions' => 1 // allow all
+			),
+			2 => array(
+				'name' => 'moderator',
+				'caption' => 'Администратор наполнения',
+				'permissions' => array(
+					'admin_panel',
+					'catalog',
+					'product',
+					'news',
+					'product_report',
+					'product_moderation',
+					'moderation_edit_product',
+					'pages',
+					'pageedit',
+					'slides',
+					'duplicates',
+					'specifications',
+					'units',
+					'wishes',
+					'segmentations',
+					'pricelist',
+					'supplier_prov'
+				)
+			),
+			3 => array(
+				'name' => 'supplier',
+				'caption' => 'Поставщик',
+				'permissions' => array(
+					'supplier_cab'
+				)
+			),
+			4 => array(
+				'name' => 'contragent',
+				'caption' => 'Контрагент',
+				'permissions' => array(
+					'contragent_cab'
+				)
+			),
+			5 => array(
+				'name' => 'customer',
+				'caption' => 'Покупатель',
+				'permissions' => array(
+					'customer_cab'
+				)
+			),
+			6 => array(
+				'name' => 'manager',
+				'caption' => 'Менеджер',
+				'permissions' => array(
+					'manager_cab'
+				)
+			),
+			7 => array(
+				'name' => 'diler',
+				'caption' => 'Дилер',
+				'permissions' => array(
+					'diler_cab'
+				)
+			),
+			8 => array(
+				'name' => 'anonim',
+				'caption' => 'Покупатель аноним',
+				'permissions' => array(
+					'anonim_cab'
+				)
+			),
+			9 => array(
+				'name' => 'SEO_optimizator',
+				'caption' => 'СЕО - оптимизатор',
+				'permissions' => array(
+					'admin_panel',
+					'pages',
+					'pageedit',
+					'news',
+					'catalog',
+					'product',
+					'product_moderation',
+					'moderation_edit_product',
+					'slides',
+					'duplicates',
+					'specifications',
+					'units',
+					'wishes',
+					'segmentations',
+					'product_report',
+					'monitoring',
+					'seotext'
+				)
+			),
+			10 => array(
+				'name' => 'm_diler',
+				'caption' => 'M-Дилер',
+				'permissions' => array(
+					'm_diler_cab'
+				)
+			),
+			11 => array(
+				'name' => 'terminal',
+				'caption' => 'Терминальный клиент',
+				'permissions' => array(
+					'terminal_cab'
+				)
+			),
+			12 => array(
+				'name' => 'supplier_manager',
+				'caption' => 'Менеджер поставщиков',
+				'permissions' => array(
+					'supplier_manager_cab'
+				)
 			)
 		)
 	)
-);
+));
 // Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(

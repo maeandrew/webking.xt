@@ -14,10 +14,10 @@ class Cart {
 	// добавление товара в корзину или изменение его количества
 	public function UpdateCartQty($data){
 		$products = new Products();
-		$products->SetFieldsById($data['id_product']);
+		$products->SetFieldsById($data['id_product'], 1);
 		$product = $products->fields;
 		$quantity = $data['quantity'];
-		if(isset($data['button'])){
+		if(isset($data['button']) && $data['button']){
 			if($data['direction'] == 1){
 				if($product['qty_control'] == 1 && fmod($quantity, $product['min_mopt_qty']) != 0){
 					$quantity = $product['min_mopt_qty']*ceil($quantity/$product['min_mopt_qty']);

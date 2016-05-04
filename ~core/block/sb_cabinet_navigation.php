@@ -2,9 +2,10 @@
 	if(isset($GLOBALS['Rewrite'])){
 		$tpl->Assign('cabinet_page', $GLOBALS['Rewrite']);
 	}
-	foreach($GLOBALS['profiles'] as $value){
-		if($value['id_profile'] == $_SESSION['member']['gid']){
-			$profile = $value['name'];
+	$Users = new Users();
+	foreach($Users->GetGroups() as $group){
+		if($group['gid'] == $_SESSION['member']['gid']){
+			$profile = $group['name'];
 		}
 	}
 	$classname = $profile.'s';

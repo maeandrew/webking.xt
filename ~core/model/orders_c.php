@@ -93,11 +93,14 @@ class Orders {
 		return true;
 	}
 
-	// по id
-	public function SetFieldsById($id){
+	/**
+	 * Получить данные о заказе по его id
+	 * @param integer $id_order id заказа
+	 */
+	public function SetFieldsById($id_order){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."order o
-			WHERE o.id_order = \"$id\"";
+			WHERE o.id_order = ".$id_order;
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -513,89 +516,89 @@ class Orders {
 		}
 		// Получаем id нового заказа
 		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
-		$this->db->CompleteTrans();
 		unset($f);
 		// Заполнение связки заказ-товары
 		$Supplier = new Suppliers();
-		$order_otpusk_prices_sum = 0;
-		$ii = 0;
+		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
 		foreach($_SESSION['cart']['products'] as $id_product=>$item){
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
 			// Обычный заказ
-			$sup_nb = 0;
 			$p[$ii]['filial_mopt'] = 1;
 			$p[$ii]['filial_opt'] = 1;
-			// Определяем оптового поставщика для товара
-			if($supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
-				$p[$ii]['id_supplier'] = $supplier['id_supplier'];
-				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($supplier['id_supplier'], $id_product, $item['mode']);
+			// Определяем поставщика для товара
+			if($id_supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
+				if($item['mode'] == 'mopt'){
+					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
+				}else{
+					$p[$ii]['id_supplier'] = $id_supplier;
+				}
+				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
-			}
-			// if($sup_nb < 1){
-			// 	$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
-			// 	print_r('sup_nb error');
-			// 	return false;
-			// }
-			// Сохранить сумму заказа по отпускным ценам
-			$sql = "UPDATE "._DB_PREFIX_."order
-				SET otpusk_prices_sum = ".round($order_otpusk_prices_sum, 2)."
-				WHERE id_order = ".$id_order;
-			$this->db->StartTrans();
-			if(!$this->db->Query($sql)){
-				$this->db->FailTrans();
-				print_r('order update error');
-				return false;
-			}
-			$this->db->CompleteTrans();
-			$Products = new Products();
-			$Products->SetFieldsById($id_product);
-			$product = $Products->fields;
-			$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
-			$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
-			$p[$ii]['note_'.$item['mode']] = $item['note'];
-			$p[$ii]['default_sum_'.$item['mode']] = $item['summary'][$_SESSION['cart']['cart_column']];
-			if($item['mode'] == 'opt'){
-				$p[$ii]['mopt_qty'] = 0;
-				$p[$ii]['note_mopt'] = '';
-				$p[$ii]['default_sum_mopt'] = 0;
-				$p[$ii]['id_supplier_mopt'] = 0;
-				$p[$ii]['price_mopt_otpusk'] = 0;
-			}else{
-				$p[$ii]['opt_qty'] = 0;
-				$p[$ii]['note_opt'] = '';
-				$p[$ii]['default_sum_opt'] = 0;
-				$p[$ii]['id_supplier'] = 0;
-				$p[$ii]['price_opt_otpusk'] = 0;
-			}
-			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-				$p[$ii][$item['mode'].'_sum'] = $item['summary'][$_SESSION['cart']['cart_column']];
-				$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$_SESSION['cart']['cart_column']];
-			}else{
-				if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
-					$price_column = $arr['price_column'];
-				}elseif(isset($_SESSION['cart']['cart_column'])){
-					$price_column = $_SESSION['cart']['cart_column'];
+
+				$Products = new Products();
+				$Products->SetFieldsById($id_product);
+				$product = $Products->fields;
+				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
+				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
+				$p[$ii]['note_'.$item['mode']] = $item['note'];
+				$p[$ii]['default_sum_'.$item['mode']] = $item['summary'][$_SESSION['cart']['cart_column']];
+				if($item['mode'] == 'opt'){
+					$p[$ii]['mopt_qty'] = 0;
+					$p[$ii]['note_mopt'] = '';
+					$p[$ii]['default_sum_mopt'] = 0;
+					$p[$ii]['id_supplier_mopt'] = 0;
+					$p[$ii]['price_mopt_otpusk'] = 0;
 				}else{
-					$price_column = 3;
+					$p[$ii]['opt_qty'] = 0;
+					$p[$ii]['note_opt'] = '';
+					$p[$ii]['default_sum_opt'] = 0;
+					$p[$ii]['id_supplier'] = 0;
+					$p[$ii]['price_opt_otpusk'] = 0;
 				}
-				$p[$ii][$item['mode'].'_sum'] = $item['summary'][$price_column];
-				$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$price_column];
-			}
-			if($item['mode'] == 'opt'){
-				$p[$ii]['mopt_sum'] = 0;
-				$p[$ii]['site_price_mopt'] = 0;
-			}else{
-				$p[$ii]['opt_sum'] = 0;
-				$p[$ii]['site_price_opt'] = 0;
+				if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
+					$p[$ii][$item['mode'].'_sum'] = $item['summary'][$_SESSION['cart']['cart_column']];
+					$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$_SESSION['cart']['cart_column']];
+				}else{
+					if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
+						$price_column = $arr['price_column'];
+					}elseif(isset($_SESSION['cart']['cart_column'])){
+						$price_column = $_SESSION['cart']['cart_column'];
+					}else{
+						$price_column = 3;
+					}
+					$p[$ii][$item['mode'].'_sum'] = $item['summary'][$price_column];
+					$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$price_column];
+				}
+				if($item['mode'] == 'opt'){
+					$p[$ii]['mopt_sum'] = 0;
+					$p[$ii]['site_price_mopt'] = 0;
+				}else{
+					$p[$ii]['opt_sum'] = 0;
+					$p[$ii]['site_price_opt'] = 0;
+				}
 			}
 			$ii++;
 		}
-		$this->db->StartTrans();
+		// Если ни у одного товара нет поставщика
+		if($sup_nb == 0){
+			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
+			print_r('sup_nb error');
+			return false;
+		}
 		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
 			$this->db->FailTrans();
 			print_r('osp insert error');
+			return false;
+		}
+		// Сохранить сумму заказа по отпускным ценам
+		$sql = "UPDATE "._DB_PREFIX_."order
+			SET otpusk_prices_sum = ".round($order_otpusk_prices_sum, 2)."
+			WHERE id_order = ".$id_order;
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			print_r('order update error');
 			return false;
 		}
 		$this->db->CompleteTrans();
@@ -910,97 +913,61 @@ class Orders {
 		return $a;
 	}
 
-	// Возвращает id вычисленного поставщика для товара
+	/**
+	 * Возвращает id вычисленного поставщика для товара
+	 * @param [type] $id_product [description]
+	 * @param [type] $mode       [description]
+	 */
 	public function GetSupplierForProduct($id_product, $mode){
 		// если продукт имеет эксклюзивного поставщика
-		if($id = $this->ExclusivSupplier($id_product, $mode)){
-			return array($id, 0);
-		}else{
-			// определение списка доступных поставщиков
-			$sql = "SELECT a.id_product, a.id_supplier,
-				a.price_opt_otpusk, a.price_mopt_otpusk
-				FROM "._DB_PREFIX_."assortiment AS a
-					LEFT JOIN "._DB_PREFIX_."supplier AS s ON a.id_supplier = s.id_user
-				WHERE a.active = 1
-				AND (a.price_".$mode."_otpusk <> 0 AND a.price_".$mode."_recommend <> 0)
-				AND a.id_product = ".$id_product."
-				ORDER BY a.price_".$mode."_otpusk DESC";
-			$arr = $this->db->GetArray($sql);
-			if(!$arr){
-				return false;
-			}
-			foreach($arr as $s){
-				if($this->CheckRentabPrice($id_product, $s['id_supplier'], $mode)){
-					$supplier = $s;
-				}
-			}
-			return $supplier;
-
-			// $retarr = array();
-			// if(count($sups) > 1){
-			// 	return array($sups[0], $sups[1]);
-			// }
-			// if(count($sups)){
-			// 	$retarr[0] = $sups[0];
-			// }
-			// $sups = array();
-			// $sups_limit = array();
-			// foreach($arr as $i){
-			// 	if($this->CheckRentabPrice($id_product, $i['id_supplier'], $mode)){
-			// 		$sups[] = $i;
-			// 	}
-			// }
-			// // есть основной поставщик, а еще не нашли
-			// if(isset($retarr[0]) && !count($sups)){
-			// 	return array($retarr[0], 0);
-			// }
-			// // есть основной поставщик и нашли еще
-			// if(isset($retarr[0]) && count($sups)){
-			// 	return array($retarr[0], $sups[0]);
-			// }
-			// // не было основного и нашли больше одного
-			// if(!isset($retarr[0]) && count($sups)>1){
-			// 	return array($sups[0], $sups[1]);
-			// }
-			// // не было основного и нашли только одного
-			// if(!isset($retarr[0]) && count($sups)){
-			// 	return array($sups[0], 0);
-			// }
-			// if(count($sups_limit)){
-			// 	$max_available_limit = 0;
-			// 	foreach($sups_limit as $k=>$v){
-			// 		if($v['product_limit']>$max_available_limit){
-			// 			$max_available_limit = $v['product_limit'];
-			// 		}
-			// 	}
-			// if(isset($GLOBALS['temp_product_limit'])) $max_available_limit += $GLOBALS['temp_product_limit'];
-			// 	$_SESSION['errm']['products'][$id_product]['order_qty'] = "Доступное количество: ".$max_available_limit;
-			// 	return false;
-			// }else{
-			// 	$_SESSION['errm']['products'][$id_product]['order_qty'] = "Данного товара нет на складе.";
-			// 	return false;
-			// }
+		if($id_supplier = $this->HasExclusiveSupplier($id_product, $mode)){
+			return $id_supplier;
 		}
-	}
-
-	// Проверка на эксклюзивного поставщика
-	public function ExclusivSupplier($id_product, $mode){
-		$sql = "SELECT p.exclusive_supplier AS id_supplier, p.filial
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."supplier AS s ON p.exclusive_supplier = s.id_user
-			WHERE p.id_product = $id_product";
-		$arr = $this->db->GetOneRowArray($sql);
-		if($arr['id_supplier'] == 0){
+		// определение списка доступных поставщиков
+		$sql = "SELECT a.id_product, a.id_supplier,
+			a.price_opt_otpusk, a.price_mopt_otpusk
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.active = 1
+			AND (a.price_".$mode."_otpusk <> 0 AND a.price_".$mode."_recommend <> 0)
+			AND a.id_product = ".$id_product."
+			ORDER BY a.price_".$mode."_otpusk DESC";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
 			return false;
 		}
-		// Если поставщик доступен по дате и у него достаточное количество товара
-		if($this->CheckRentabPrice($id_product, $arr['id_supplier'], $mode)){
-			return $arr;
+		foreach($arr as $s){
+			if($this->CheckRentabPrice($id_product, $s['id_supplier'], $mode)){
+				$id_supplier = $s['id_supplier'];
+			}
+		}
+		return $id_supplier;
+	}
+
+	/**
+	 * Проверка на эксклюзивного поставщика
+	 * @param integer	$id_product id товара
+	 * @param string	$mode       режим opt/mopt
+	 */
+	public function HasExclusiveSupplier($id_product, $mode){
+		$sql = "SELECT p.exclusive_supplier AS id_supplier
+			FROM "._DB_PREFIX_."product AS p
+			RIGHT JOIN "._DB_PREFIX_."supplier AS s ON p.exclusive_supplier = s.id_user
+			WHERE p.id_product = ".$id_product;
+		if($arr = $this->db->GetOneRowArray($sql)){
+			// Если поставщик доступен по дате и у него достаточное количество товара
+			if($this->CheckRentabPrice($id_product, $arr['id_supplier'], $mode)){
+				return $arr;
+			}
 		}
 		return false;
 	}
 
-	// Проверка на рентабельность цен поставщика
+	/**
+	 * Проверка на рентабельность цен поставщика
+	 * @param integer $id_product  [description]
+	 * @param integer $id_supplier [description]
+	 * @param string $mode        [description]
+	 */
 	public function CheckRentabPrice($id_product, $id_supplier, $mode){
 		$sql = "SELECT p.price_".$mode." AS site_price, a.price_".$mode."_otpusk AS price_otpusk
 			FROM "._DB_PREFIX_."product AS p
@@ -1009,7 +976,7 @@ class Orders {
 			AND a.id_supplier = ".$id_supplier;
 		$arr = $this->db->GetOneRowArray($sql);
 		$delta = round(($arr['site_price']*$GLOBALS['CONFIG']['proc_supplier']/100), 2);
-		if($arr['price_otpusk'] > ($arr['site_price']-$delta) || $arr['price_otpusk'] <= 0){
+		if($arr['site_price']-$arr['price_otpusk'] < $delta || $arr['price_otpusk'] <= 0){
 			return false;
 		}
 		return true;

@@ -335,7 +335,7 @@
 				</ul>
 			<?}?>
 		</div>
-		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+		<div class="mdl-tabs mdl-js-tabs">
 			<div class="fortabs">
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
 					<a href="#description" class="mdl-tabs__tab is-active">Описание</a>

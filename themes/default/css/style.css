@@ -900,6 +900,7 @@ section.center {
 		width: 25%;
 		float: left;
 		position: relative;
+		min-width: auto;
 	}
 	#cart .card .product_buy .buy_block {
 		justify-content: space-around;
@@ -1938,6 +1939,7 @@ section .stat_year {
 .product_buy {
 	width: 40%;
 	max-width: 450px;
+	min-width: 350px;
 	float: right;
 	height: 100px;
 	padding: 32px 0;
@@ -2635,49 +2637,6 @@ section .stat_year {
 	box-shadow: 0 0 0 3px #FF5722;
 }
 
-
-
-
-
-/*Стили кабинета (start)*/
-.nav{
-	display: none;
-}
-.nav.active {
-	display: block;
-}
-#cab_left_bar ul{
-	padding: 0 1.5em 0 1.5em;
-}
-#cab_left_bar li {
-	margin-bottom: 0.5em;
-}
-.nav li {
-	margin-left: 2.5em;
-}
-.material-icons {
-	vertical-align: top;
-}
-.msg-info {
-	margin: 1em;
-}
-.del_x i {
-	padding: 5px;
-	background: #FFF;
-	border-radius: 50%;
-	font-size: 1.3em;
-	cursor: pointer;
-}
-.del_x i:hover {
-	color: #f00;
-
-}
-.order .avatar.img {
-	margin-top: -6px;
-	width: 36px;
-	height: 36px;
-}
-/*Стили кабинета (ent)*/
 
 .mdl-grid .mdl-tabs__tab-bar {
 	display: block;

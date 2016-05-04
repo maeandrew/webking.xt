@@ -956,7 +956,37 @@ table.supplier_assort_table {
 }
 
 /* Customer cab ============================================================= */
+#cab_left_bar ul{
+	padding: 0 1.5em 0 1.5em;
+}
+#cab_left_bar li {
+	margin-bottom: 0.5em;
+}
+.nav li {
+	margin-left: 2.5em;
+}
+.material-icons {
+	vertical-align: top;
+}
+.msg-info {
+	margin: 1em;
+}
+.del_x i {
+	padding: 5px;
+	background: #FFF;
+	border-radius: 50%;
+	font-size: 1.3em;
+	cursor: pointer;
+}
+.del_x i:hover {
+	color: #f00;
 
+}
+.order .avatar.img {
+	margin-top: -6px;
+	width: 36px;
+	height: 36px;
+}
 .customer_cab {
 	position: relative;
 	float: right;

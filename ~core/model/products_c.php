@@ -125,8 +125,7 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			WHERE p.id_product = ".$id_product."
-			".$visible."
-			ORDER BY cp.id";
+			".$visible;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
@@ -166,7 +165,7 @@ class Products {
 				ON a.id_product = p.id_product
 			WHERE p.translit = ".$this->db->Quote($rewrite)."
 			".$visible."
-			ORDER BY cp.id";
+			LIMIT 1";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
@@ -694,7 +693,7 @@ class Products {
 				FROM "._DB_PREFIX_."cat_prod AS cp
 					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product AND a.active = 1
+					RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product AND a.active = 1
 				WHERE cp.id_product IS NOT NULL
 				".$where . $where2. $this->price_range ."
 				GROUP BY p.id_product
@@ -1255,7 +1254,7 @@ class Products {
 			FROM "._DB_PREFIX_."cat_prod AS cp
 				RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product". $selectsegm ."
 				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+				RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 			WHERE cp.id_product IS NOT NULL
 			".$where.$where2.$this->price_range."
 			GROUP BY price_opt
@@ -2143,9 +2142,9 @@ class Products {
 	public function UpdateTranslit($id_product){
 		$f['edit_user'] = trim($_SESSION['member']['id_user']);
 		$f['edit_date'] = date('Y-m-d H:i:s');
-		$this->SetFieldsById($id_product);
-		$this->db->StartTrans();
+		$this->SetFieldsById($id_product, 1);
 		$f['translit'] = G::StrToTrans($this->fields['name']);
+		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
 			$this->db->FailTrans();
 			return false;
