@@ -1,4 +1,5 @@
-<?if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
+<?php
+if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	header('Content-Type: text/javascript; charset=utf-8');
 	$products = new Products();
 	$Customer = new Customers();
@@ -120,4 +121,4 @@
 		}
 		exit();
 	}
-}?>
+}
