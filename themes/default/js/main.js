@@ -878,6 +878,27 @@ $(function(){
 		return false;
 	});
 
+	$('#password_recovery').on('click', 'label[for="chosen_mail"]', function(){
+		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
+		$('#password_recovery .input_container').empty().append('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email">Email</label><span class="mdl-textfield__error"></span></div>');
+		componentHandler.upgradeDom();
+	});
+	$('#password_recovery').on('click', 'label[for="chosen_sms"]', function(){
+		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
+		$('#password_recovery .input_container').empty().append('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="text" id="recovery_phone"><label class="mdl-textfield__label" for="recovery_phone">Номер телефона</label><span class="mdl-textfield__error"></span></div>');
+		componentHandler.upgradeDom();
+	});
+	$('#password_recovery').on('click', 'button', function(){
+		if ($('label[for="chosen_mail"]').hasClass('is-checked')) {
+			$('#password_recovery .password_recovery_container').empty().append('На указанный email отправлено письмо.<br>Проверьте Вашу почту.');			
+		};
+		if ($('label[for="chosen_sms"]').hasClass('is-checked')) {
+			$('#password_recovery .password_recovery_container').empty().append('<p class="info_text">На указанный номер телефона отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="number" id="recovery_code"><label class="mdl-textfield__label" for="recovery_code">Введите код</label><span class="mdl-textfield__error"></span></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>');			
+		};
+		componentHandler.upgradeDom();
+	});
+
+
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){
 		openObject('auth');
