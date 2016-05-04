@@ -626,6 +626,45 @@
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="error"></div>
+					<div id="recovery_pass" class="btn_js" data-name="password_recovery">
+						Восстановить доступ
+					</div>
+					<div id="password_recovery" data-type="modal">
+						<div class="password_recovery_container">
+							<p>Восстановление доступа</p>
+							<form action="#">
+								<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_mail">
+									<input type="radio" id="chosen_mail" class="mdl-radio__button" name="way_to_recovery" value="" checked>
+									<span class="mdl-radio__label">через email</span>
+								</label></div>
+								<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_sms">
+									<input type="radio" id="chosen_sms" class="mdl-radio__button" name="way_to_recovery" value="">
+									<span class="mdl-radio__label">по номеру телефона</span>
+								</label></div>
+								<div class="input_container">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="email" id="recovery_email">
+										<label class="mdl-textfield__label" for="recovery_email">Email</label>
+										<span class="mdl-textfield__error"></span>
+									</div>
+								</div>								
+								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
+							</form>
+						</div>
+						<div id="sub_password_recovery" data-type="modal">
+							<div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="password" id="new_pass">
+								<label class="mdl-textfield__label" for="new_pass">Новый пароль</label>
+								<span class="mdl-textfield__error"></span>
+							</div></div>
+							<div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="password" id="new_pass_one_more">
+								<label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label>
+								<span class="mdl-textfield__error"></span>
+							</div></div>
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button>
+						</div>
+					</div>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-in">Вход</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="registration">Регистрация</button>
 				</form>

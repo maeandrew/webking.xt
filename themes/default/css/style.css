@@ -818,6 +818,27 @@ section.center {
 		display: block;
 		padding: 1em 0;
 	}
+	#recovery_pass {
+		text-align: left;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+	#password_recovery, #sub_password_recovery {
+		padding: 50px;
+	}
+	#password_recovery p {
+		text-align: center;
+		margin-bottom: 1em;
+		font-size: 1.2em;
+		font-weight: 500;
+	    max-width: 300px;
+	}
+	#password_recovery button,
+	#sub_password_recovery button {
+		background-color: #018b06;
+		display: block;
+		margin: 0 auto;
+	}
 
 /*Cart =======================================================================*/
 
