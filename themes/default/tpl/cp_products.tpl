@@ -27,6 +27,7 @@
 					<?}?>
 
 				</div>
+				<div class="catalog_btn btn_js" data-name="catalog">Каталог</div>
 				<?=$cart_info;?>
 			</div>
 

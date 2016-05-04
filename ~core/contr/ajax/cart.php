@@ -393,7 +393,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						// $Customers->updatePhones($phone);
 					}
 				}else{
-					$res['message'] = 'Пользователь с таким номером телефона уже зарегестрирован!</br></br>Авторизуйтесь!';
+					$res['message'] = 'Пользователь с таким номером телефона уже зарегестрирован!';
 					$res['status'] = 501;
 				}
 				echo json_encode($res);
