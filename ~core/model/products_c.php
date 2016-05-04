@@ -3649,7 +3649,7 @@ class Products {
 	 * @param [type] $path [description]
 	 */
 	public function CheckImages($path){
-		$sql = "SELECT COUNT(id) AS count
+		$sql = "SELECT COUNT(*) AS count
 			FROM "._DB_PREFIX_."image
 			WHERE src LIKE '%".$path."'";
 		$arr = $this->db->GetOneRowArray($sql);

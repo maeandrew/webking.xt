@@ -47,7 +47,7 @@ class News{
 		if(!$this->fields){
 			return false;
 		}
-		$sqlImage = "SELECT id, src
+		$sqlImage = "SELECT id_news, src
 			FROM "._DB_PREFIX_."image_news
 			WHERE id_news = '".$id_news."'";
 		$this->fields['Img'] = $this->db->GetArray($sqlImage);

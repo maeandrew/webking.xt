@@ -94,7 +94,7 @@ class Cart {
 		unset($_SESSION['cart']['products'][$id_product]);
 
 
-		$sql = "DELETE FROM xt_cart_product
+		$sql = "DELETE FROM "._DB_PREFIX_."cart_product
 				WHERE id_cart = ". $id_cart ." AND id_product = ".$id_product;
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)) {
@@ -153,7 +153,7 @@ class Cart {
 		}
 		unset($_SESSION['cart']['id']);
 		if($id_cart){
-			$sql = "DELETE FROM xt_cart_product
+			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
 					WHERE id_cart = ". $id_cart;
 			$this->db->StartTrans();
 			if(!$this->db->Query($sql)) {
@@ -491,12 +491,12 @@ class Cart {
 		(CASE WHEN cp.quantity >= p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as base_price,
 		p.id_product, p.name,
 		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as img
-		FROM xt_cart_product as cp
-		LEFT JOIN  xt_cart as c
+		FROM "._DB_PREFIX_."cart_product as cp
+		LEFT JOIN  "._DB_PREFIX_."cart as c
 		ON cp.id_cart = c.id_cart
-		LEFT JOIN xt_product as p
+		LEFT JOIN "._DB_PREFIX_."product as p
 		ON cp.id_product = p.id_product
-		LEFT JOIN xt_image as i
+		LEFT JOIN "._DB_PREFIX_."image as i
 		ON cp.id_product = i.id_product AND i.ord = 0
 		WHERE c.id_cart = '".$id_cart."';";
 		$res = $db->GetArray($sql);

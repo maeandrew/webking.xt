@@ -1133,16 +1133,6 @@
 	function DelProds(id, action) {
 		url = '/adm/productdel/'+id;
 		$(location).attr('href',url);
-//		$.ajax({
-//			url: URL_base+'ajaxproducts',
-//			type: "POST",
-//			cache: false,
-//			dataType : "json",
-//			data: {
-//				"action": action,
-//				"id_prod": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>,
-//			}
-//		})
 	}
 
 	function insertValueImg1(filePath) {

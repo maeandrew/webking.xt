@@ -257,7 +257,7 @@ $GLOBALS['tpl'] =& $tpl;
 require($GLOBALS['PATH_model'].'users_c.php');
 require($GLOBALS['PATH_model'].'customers_c.php');
 require($GLOBALS['PATH_model'].'suppliers_c.php');
-require($GLOBALS['PATH_model'].'contragents_c.php');
+//require($GLOBALS['PATH_model'].'contragents1_c.php');
 require($GLOBALS['PATH_model'].'managers_c.php');
 require($GLOBALS['PATH_model'].'page_c.php');
 require($GLOBALS['PATH_model'].'news_c.php');

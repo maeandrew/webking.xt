@@ -464,22 +464,6 @@ function CheckOtpRecPrices(id, opt){
 	}
 }
 
-function SwitchContragentDate(date,dn){
-	//alert($("#limit_sum_"+dn+"_"+date).val());
-	sum = parseFloat($("#limit_sum_"+dn+"_"+date).val());
-	$.ajax({
-		url: URL_base+'ajaxcontragents',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data:{
-			"dn":dn,
-			"date":date,
-			"sum":sum
-		}
-	});
-}
-
 function refreshkcaptcha(){
 	src = $("#kcaptcha").attr("src");
 	$("#kcaptcha").attr("src", src+ Math.random());
