@@ -894,23 +894,21 @@ $(function(){
 			value = parent.find('[name="value"]').val();
 		data = {method: method, value: value};
 
-		ajax('auth', 'accsessRecovery', data).done(function(response){
-			console.log("success");
-		})
-		.fail(function(data) {
-			console.log("error");
-		})
-		.always(function(data) {
-			console.log("complete");
+		ajax('auth', 'accessRecovery', data).done(function(response){
+			if (response.success) {
+				parent.find('.password_recovery_container').html(response.content);
+			}else{
+				parent.find('.password_recovery_container').html(response.msg);
+			};
+			componentHandler.upgradeDom();
 		});
 		
-		if ($('label[for="chosen_mail"]').hasClass('is-checked')) {
-			$('#password_recovery .password_recovery_container').empty().append('На указанный email отправлено письмо.<br>Проверьте Вашу почту.');			
-		};
-		if ($('label[for="chosen_sms"]').hasClass('is-checked')) {
-			$('#password_recovery .password_recovery_container').empty().append('<p class="info_text">На указанный номер телефона отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="number" id="recovery_code"><label class="mdl-textfield__label" for="recovery_code">Введите код</label><span class="mdl-textfield__error"></span></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>');			
-		};
-		componentHandler.upgradeDom();
+		// if ($('label[for="chosen_mail"]').hasClass('is-checked')) {
+		// 	$('#password_recovery .password_recovery_container').empty().append('На указанный email отправлено письмо.<br>Проверьте Вашу почту.');			
+		// };
+		// if ($('label[for="chosen_sms"]').hasClass('is-checked')) {
+		// 	$('#password_recovery .password_recovery_container').empty().append('<p class="info_text">На указанный номер телефона отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="number" id="recovery_code"><label class="mdl-textfield__label" for="recovery_code">Введите код</label><span class="mdl-textfield__error"></span></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>');			
+		// };
 	});
 
 
