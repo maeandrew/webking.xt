@@ -880,15 +880,30 @@ $(function(){
 
 	$('#password_recovery').on('click', 'label[for="chosen_mail"]', function(){
 		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').empty().append('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email">Email</label><span class="mdl-textfield__error"></span></div>');
+		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email">Email</label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
 	$('#password_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').empty().append('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="text" id="recovery_phone"><label class="mdl-textfield__label" for="recovery_phone">Номер телефона</label><span class="mdl-textfield__error"></span></div>');
+		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" name="value" type="number" id="recovery_phone"><label class="mdl-textfield__label" for="recovery_phone">Номер телефона</label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
-	$('#password_recovery').on('click', 'button', function(){
+	$('#password_recovery').on('click', 'button', function() {
+		var parent = $(this).closest('[data-type="modal"]'),
+			method = parent.find('[name="recovery_method"]:checked').data('value'),
+			value = parent.find('[name="value"]').val();
+		data = {method: method, value: value};
+
+		ajax('auth', 'accsessRecovery', data).done(function(response){
+			console.log("success");
+		})
+		.fail(function(data) {
+			console.log("error");
+		})
+		.always(function(data) {
+			console.log("complete");
+		});
+		
 		if ($('label[for="chosen_mail"]').hasClass('is-checked')) {
 			$('#password_recovery .password_recovery_container').empty().append('На указанный email отправлено письмо.<br>Проверьте Вашу почту.');			
 		};
