@@ -394,6 +394,9 @@
 
 									$('.cabinet_btn').removeClass('hidden');
 									$('.login_btn').addClass('hidden');
+									$('header .cart_item a.cart i').removeClass('mdl-badge');
+									$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+									$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 								});
 								openObject('quiz');
 								break;
