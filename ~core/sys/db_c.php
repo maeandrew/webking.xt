@@ -1033,4 +1033,3 @@ class recordset {
 		return $this->recordset->fetch(PDO::FETCH_ASSOC);
 	}
 }
-?>

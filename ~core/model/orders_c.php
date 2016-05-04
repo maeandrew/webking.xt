@@ -1817,4 +1817,3 @@ class Orders {
 		return $arr;
 	}
 }
-?>

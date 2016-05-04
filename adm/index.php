@@ -58,4 +58,3 @@ $e_time = G::getmicrotime();
 //if ($GLOBALS['CurrentController'] != 'feed')
 echo "<!--".date("d.m.Y H:i:s", time())."  ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time - $s_time)." -->";
 session_write_close();
-?>
