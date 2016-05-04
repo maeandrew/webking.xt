@@ -890,15 +890,15 @@ $(function(){
 	});
 	$('#password_recovery').on('click', 'button', function() {
 		var parent = $(this).closest('[data-type="modal"]'),
-			method = parent.find('[name="recovery_method"]:checked').data('value'),
-			value = parent.find('[name="value"]').val();
-		data = {method: method, value: value};
+			method = parent.find('[name="recovery_method"]:checked'),
+			value = parent.find('[name="value"]');
+		data = {method: method.data('value'), value: value.val()};
 
 		ajax('auth', 'accessRecovery', data).done(function(response){
 			if (response.success) {
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
-				parent.find('.password_recovery_container').html(response.msg);
+				value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
 			};
 			componentHandler.upgradeDom();
 		});
