@@ -217,7 +217,7 @@ class Users {
 	}
 
 	// Обновление пользователя
-	public function UpdateUser($arr){
+	public function UpdateUser($arr){ //print_r($arr);
 		$f['id_user'] = trim($arr['id_user']);
 		if(isset($arr['name']) && $arr['name'] != ''){
 			$f['name'] = trim($arr['name']);
@@ -517,7 +517,7 @@ class Users {
 				return false;
 			}
 			$this->db->CompleteTrans();
-			return true;
+			return $id_user;
 		}
 		return false;
 	}
