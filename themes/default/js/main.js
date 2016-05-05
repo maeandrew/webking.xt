@@ -903,6 +903,23 @@ $(function(){
 			componentHandler.upgradeDom();
 		});
 	});
+	$('#password_recovery').on('click', 'button#restore', function(){
+		var parent = $(this).closest('[data-type="modal"]'),
+			code = parent.find('selector');
+		ajax('auth', 'checkСode', data).done(function(data){
+			if (data.success) {
+				parent.find('.password_recovery_container').html(data.content);
+			}else{
+				value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+			};
+			componentHandler.upgradeDom();
+		});
+		alert('!!');
+		$('#password_recovery .password_recovery_container').html('<div id="sub_password_recovery"><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" id="new_pass"><label class="mdl-textfield__label" for="new_pass">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" id="new_pass_one_more"><label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>');
+	
+	});
+
+
 	// Инициалзация маски для ввода телефонных номеров
 	$("#password_recovery input.phone").mask("+38 (099) ?999-99-99");
 
@@ -973,7 +990,7 @@ $(function(){
 	$('#auth').on('click', '.sign-in', function(e){
 		e.preventDefault();
 		addLoadAnimation('#auth');
-		var form = $(this).closest('#login').find('form'),
+		var form = $(this).closest('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
 		form.find('.error').fadeOut();

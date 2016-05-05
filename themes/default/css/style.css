@@ -829,7 +829,7 @@ section.center {
 		margin-bottom: 10px;
 		cursor: pointer;
 	}
-	#password_recovery, #sub_password_recovery {
+	#password_recovery {
 		padding: 50px;
 	}
 	#password_recovery p {
@@ -838,6 +838,14 @@ section.center {
 		font-size: 1.2em;
 		font-weight: 500;
 	    max-width: 300px;
+	}
+	#password_recovery p.info_text {
+		font-weight: 100;
+		line-height: 1.2em;
+		text-align: justify;
+	}
+	#password_recovery p.info_text .bold_text {
+		font-weight: 500;
 	}
 	#password_recovery button,
 	#sub_password_recovery button {
