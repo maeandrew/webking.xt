@@ -956,19 +956,14 @@ $(function(){
 			id_user = parent.find('[type="hidden"]').val(),
 			code = parent.find('[name="code"]').val();			
 		data = {id_user: id_user, code: code};
-		// ajax('auth', 'checkСode', data).done(function(response){
-		// 	if (response.success) {
-		// 		parent.find('.password_recovery_container').html(response.content);
-		// 	}else{
-		// 		value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-		// 	};
-		// 	// parent.find('.password_recovery_container').html(response.content);
-		// 	// componentHandler.upgradeDom();
-		// }).fail(function(response){
-		// 	console.log('fail');
-		// });
-		parent.find('.password_recovery_container').html('<div id="sub_password_recovery"><div><input class="mdl-textfield__input" type="hidden" id="id_user"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="passwd"><label class="mdl-textfield__label" for="passwd">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="passwdconfirm"><label class="mdl-textfield__label" for="passwdconfirm">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>');
-		componentHandler.upgradeDom();
+		ajax('auth', 'checkСode', data).done(function(response){
+			if (response.success) {
+				parent.find('.password_recovery_container').html(response.content);
+			}else{
+				parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+			};
+			componentHandler.upgradeDom();
+		});
 	});
 
 	$('#password_recovery').on('click', '#confirm_btn', function(e) {
