@@ -40,6 +40,7 @@ p {
 }
 h1, h2, h3, h4, h5, h6 {
 	font-size: 14px;
+	line-height: 1em;
 }
 h1 {
 	font-size: 2em;
@@ -58,6 +59,10 @@ h5 {
 }
 h6 {
 	font-size: 1em;
+}
+ol {
+	list-style-type: decimal;
+	margin-left: 15px;
 }
 #newheader_wrapp {
 	position: relative;
@@ -2916,6 +2921,7 @@ section .stat_year {
 
 #seoTextBlock p {
 	line-height: 1.5;
+	width: 100%;
 }
 
 /* Стили функции редактирования характеристик товара в админке */
