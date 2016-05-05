@@ -939,19 +939,22 @@ $(function(){
 	$('#password_recovery').on('click', 'button#restore', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
-			code = parent.find('[name="code"]').val();
-			console.log(code);
-		// ajax('auth', 'checkСode', data).done(function(data){
-		// 	if (data.success) {
-		// 		parent.find('.password_recovery_container').html(data.content);
-		// 	}else{
-		// 		value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
-		// 	};
-		// 	componentHandler.upgradeDom();
-		// });
-		$('#password_recovery .password_recovery_container').html('<div id="sub_password_recovery"><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="new_pass"><label class="mdl-textfield__label" for="new_pass">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="new_pass_one_more"><label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>');
+			id_user = parent.find('[type="hidden"]').val(),
+			code = parent.find('[name="code"]').val();			
+		data = {id_user: id_user, code: code};
+		ajax('auth', 'checkСode', data).done(function(data){
+			if (data.success) {
+				parent.find('.password_recovery_container').html(data.content);
+			}else{
+				value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+			};
+			componentHandler.upgradeDom();
+		});
+		$('#password_recovery .password_recovery_container').html('<div id="sub_password_recovery"><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="passwd"><label class="mdl-textfield__label" for="new_pass">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="passwdconfirm"><label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>');
 		componentHandler.upgradeDom();
 	});
+
+	
 
 	$('#password_recovery').on('click', '#confirm_btn', function(e) {
 		e.preventDefault();
@@ -960,9 +963,6 @@ $(function(){
 			passwd = parent.find('input[name="new_password"]'),
 			confirm_passwd = parent.find('input[name="confirm_new_password"]');
 
-		
-
-		
 		data = {passwd: passwd.val(), confirm_passwd: confirm_passwd.val()};
 
 		// ajax('auth', 'accessConfirm', data).done(function(response){
