@@ -29,13 +29,18 @@ class Users {
 	// }
 
 	public function CheckUser($arr){
-		$f['email'] = trim($arr['email']);
 		$f['passwd'] = trim($arr['passwd']);
+		if(isset($arr['id_user'])){
+			$where = " id_user = ".$arr['id_user'];
+		}else{
+			$f['email'] = trim($arr['email']);
+			$where = "(email = '".$f['email']."'
+			OR email = '".$f['email']."@x-torg.com'
+			OR phones = '".$f['email']."')";
+		}
 		$sql = "SELECT id_user, email, gid, promo_code, name, phones
 			FROM "._DB_PREFIX_."user
-			WHERE (email = '".$f['email']."'
-			OR email = '".$f['email']."@x-torg.com'
-			OR phones = '".$f['email']."')
+			WHERE ".$where."
 			AND passwd = '".md5($f['passwd'])."'
 			AND active = 1";
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
@@ -457,12 +462,12 @@ class Users {
 	 * @param string $email номер телефона
 	 */
 	public function CheckEmailUniqueness($email){
-		$sql = "SELECT COUNT(*) AS count
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE email = '".$email."'";
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			return false;
+			return $res['id_user'];
 		}
 		return true;
 	}
@@ -472,14 +477,54 @@ class Users {
 	 * @param string $phone номер телефона
 	 */
 	public function CheckPhoneUniqueness($phone){
-		$sql = "SELECT COUNT(*) AS count
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE phones = '".$phone."'";
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			return false;
+			return $res['id_user'];
 		}
 		return true;
+	}
+
+	public function SetVerificationCode($id_user, $method, $adress){
+		$f['id_user'] = $id_user;
+		$f['verification_code'] = G::GenerateVerificationCode();
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'verification_code', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+
+		if($method == 'email'){
+			// Функция отправки сообщения на email
+		} else if($method == 'sms'){
+			// Функция отправки сообщения по sms
+		}
+
+		return true;
+	}
+
+	public function GetVerificationCode($id_user, $verification_code){
+		$f[] = 'id_user = '.$id_user;
+		$f[] = 'verification_code = '.$verification_code;
+		$sql = "SELECT COUNT(*) AS count
+ 				FROM "._DB_PREFIX_."verification_code
+ 				WHERE id_user = ".$id_user."
+ 				AND verification_code = ".$verification_code."
+ 				AND end_date >= CURTIME()";
+		$res = $this->db->GetOneRowArray($sql);
+		if($res['count'] > 0){
+			$this->db->StartTrans();
+			if(!$this->db->DeleteRowsFrom(_DB_PREFIX_.'verification_code', $f)){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+			return true;
+		}
+		return false;
 	}
 
 }

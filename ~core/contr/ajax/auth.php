@@ -105,32 +105,75 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$User = new Users();
 				switch($_POST['method']){
 					case 'email':
-						if($User->CheckEmailUniqueness($_POST['value'])){
+						$id_user = $User->CheckEmailUniqueness($_POST['value']);
+						if($id_user === true ){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким email не найдено.';
 						}else{
 							$res['success'] = true;
-							$res['content'] = 'На указанный email ['.$_POST['value'].'] отправлено письмо.<br>Проверьте Вашу почту.';
+							$res['content'] = '<p class="info_text tac">На указанный email<br>[<span class="bold_text">'.$_POST['value'].'</span>]<br>отправлено письмо с кодом для восстановления доступа к вашему профилю.</p><p class="info_text tac">Проверьте Вашу почту.</p>
+								<input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$id_user.'">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="recovery_code" name="code">
+									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
+									<span class="mdl-textfield__error"></span>
+								</div>
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
 						}
 						break;
 					case 'sms':
-						if($User->CheckPhoneUniqueness($_POST['value'])){
+						$id_user = $User->CheckPhoneUniqueness($_POST['value']);
+						if($id_user === true){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким телефоном не найдено.';
 						}else{
 							$res['success'] = true;
-							$res['content'] = '<p class="info_text">На указанный номер телефона ['.$_POST['value'].'] отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p>
+							$res['content'] = '<p class="info_text">На указанный номер телефона [<span class="bold_text">'.$_POST['value'].'</span>] отправлен код для восстановления доступа к вашему профилю.</p><p class="info_text">Код будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
+								<input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$id_user.'">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input" type="number" id="recovery_code">
+									<input class="mdl-textfield__input" type="number" id="recovery_code" name="code">
 									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
 									<span class="mdl-textfield__error"></span>
 								</div>
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>';
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
 						}
 						break;
 				}
+				if($res['success']) {
+					if(!$User->SetVerificationCode($id_user, $_POST['method'], $_POST['value'])){
+						$res['success'] = false;
+						$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';
+					}
+				}
 				echo json_encode($res);
 				break;
+			case 'checkСode':
+				if(!$User->GetVerificationCode($_POST['id_user'],$_POST['code'])){
+					$res['success'] = false;
+					$res['msg'] = 'Введен неверный код.';
+				} else {
+					$res['success'] = true;
+					$res['content'] = '<div id="sub_password_recovery"><div><input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$_POST['id_user'].'"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="new_pass"><label class="mdl-textfield__label" for="new_pass">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="new_pass_one_more"><label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>';
+				}
+				echo json_encode($res);
+				break;
+
+			case 'accessConfirm':
+				if(isset($_POST['id_user']) && isset($_POST['passwd'])){
+					$arr['id_user'] = $_POST['id_user'];
+					$arr['passwd'] = $_POST['passwd'];
+					if($User->UpdateUser($arr)){
+						if($User->CheckUser($arr)) {
+							$User->LastLoginRemember($User->fields['id_user']);
+							G::Login($User->fields);
+							_acl::load($User->fields['gid']);
+							$res['success'] = true;
+						}
+					}
+				}
+				echo json_encode($res);
+				break;
+
 			default:
 				break;
 		}

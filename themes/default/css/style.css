@@ -823,12 +823,18 @@ section.center {
 		display: block;
 		padding: 1em 0;
 	}
-	#recovery_pass {
+	#login.modal_container {
 		text-align: left;
+	}
+	#login.modal_container h4 {
+		text-align: center;
+	}
+	#login.modal_container #recovery_pass {
+		display: block;
 		margin-bottom: 10px;
 		cursor: pointer;
 	}
-	#password_recovery, #sub_password_recovery {
+	#password_recovery {
 		padding: 50px;
 	}
 	#password_recovery p {
@@ -838,11 +844,22 @@ section.center {
 		font-weight: 500;
 	    max-width: 300px;
 	}
+	#password_recovery p.info_text {
+		font-weight: 100;
+		line-height: 1.2em;
+		text-align: justify;
+	}
+	#password_recovery p.info_text.tac {
+		text-align: center;
+	}
+	#password_recovery p.info_text .bold_text {
+		font-weight: 500;
+	}
 	#password_recovery button,
 	#sub_password_recovery button {
 		background-color: #018b06;
 		display: block;
-		margin: 0 auto;
+		margin: 10px auto 0;
 	}
 
 /*Cart =======================================================================*/

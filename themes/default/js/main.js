@@ -880,38 +880,120 @@ $(function(){
 
 	$('#password_recovery').on('click', 'label[for="chosen_mail"]', function(){
 		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email">Email</label><span class="mdl-textfield__error"></span></div>');
+		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
 	$('#password_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" name="value" type="number" id="recovery_phone"><label class="mdl-textfield__label" for="recovery_phone">Номер телефона</label><span class="mdl-textfield__error"></span></div>');
+		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
-	$('#password_recovery').on('click', 'button', function() {
+	$('#password_recovery').on('blur', 'input[type="email"]', function(){
+		var email = $(this).val();
+		if(email != '') {
+			// Поле email заполнено (здесь будем писать код валидации)
+			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+			if(pattern.test(email)){
+				$(this).css({'color' : 'green'});
+			} else {
+				$(this).css({'color' : 'red'});
+				$('.mdl-textfield__error').text('Введите Email правильно');
+			}
+		} else {
+			// Поле email пустое, выводим предупреждающее сообщение
+			$(this).css({'color' : 'red'});
+			$('.mdl-textfield__error').text('Введите Email');
+		}
+	});
+	$('#password_recovery').on('click', '#continue', function(e) {
+		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
-			method = parent.find('[name="recovery_method"]:checked').data('value'),
+			method = parent.find('[name="recovery_method"]:checked'),
+			value;
+		if(method.data('value') == "sms") {
+			var phone = $('#password_recovery .phone').val().replace(/[^\d]+/g, "");
+			if(phone.length == 12){
+				value = phone;
+			}else{
+				console.log("error");
+			}
+		}else if(method.data('value') == "email"){
 			value = parent.find('[name="value"]').val();
-		data = {method: method, value: value};
+		};
 
-		ajax('auth', 'accsessRecovery', data).done(function(response){
-			console.log("success");
-		})
-		.fail(function(data) {
-			console.log("error");
-		})
-		.always(function(data) {
-			console.log("complete");
+		data = {method: method.data('value'), value: value};
+		ajax('auth', 'accessRecovery', data).done(function(response){
+			if (response.success) {
+				parent.find('.password_recovery_container').html(response.content);
+			}else{
+				parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+			};
+			componentHandler.upgradeDom();
 		});
-		
-		if ($('label[for="chosen_mail"]').hasClass('is-checked')) {
-			$('#password_recovery .password_recovery_container').empty().append('На указанный email отправлено письмо.<br>Проверьте Вашу почту.');			
-		};
-		if ($('label[for="chosen_sms"]').hasClass('is-checked')) {
-			$('#password_recovery .password_recovery_container').empty().append('<p class="info_text">На указанный номер телефона отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="number" id="recovery_code"><label class="mdl-textfield__label" for="recovery_code">Введите код</label><span class="mdl-textfield__error"></span></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>');			
-		};
-		componentHandler.upgradeDom();
 	});
+
+	$('#password_recovery').on('keyup', '#passwd', function(event) {
+		event.preventDefault();
+		var passwd = $(this).val(),
+			passconfirm = $('#password_recovery #passwdconfirm').val();
+		ValidatePass(passwd);
+		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
+		if(passconfirm !== ''){
+			ValidatePassConfirm(passwd, passconfirm);
+		}
+	});
+
+	$('#password_recovery').on('keyup', '#passwdconfirm', function(){
+		var passwd = $('#password_recovery #passwd').val(),
+			passconfirm = $(this).val();
+		ValidatePassConfirm(passwd, passconfirm);
+	});
+
+	$('#password_recovery').on('click', '#restore', function(e){
+		e.preventDefault();
+		var parent = $(this).closest('[data-type="modal"]'),
+			id_user = parent.find('[type="hidden"]').val(),
+			code = parent.find('[name="code"]').val();			
+		data = {id_user: id_user, code: code};
+		ajax('auth', 'checkСode', data).done(function(response){
+			if (response.success) {
+				parent.find('.password_recovery_container').html(response.content);
+			}else{
+				parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+			};
+			componentHandler.upgradeDom();
+		});
+	});
+
+	$('#password_recovery').on('click', '#confirm_btn', function(e) {
+		e.preventDefault();
+		// addLoadAnimation('#password_recovery');
+		var parent = $(this).closest('[data-type="modal"]'),
+			id_user = parent.find('[type="hidden"]').val(),
+			passwd = parent.find('input[name="new_password"]'),
+			confirm_passwd = parent.find('input[name="confirm_new_password"]');
+		ValidatePass(passwd);
+		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
+		if(confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
+			data = {id_user: id_user, passwd: confirm_passwd.val()};
+			console.log(data);
+			ajax('auth', 'accessConfirm', data).done(function(response){
+				// if (response.success) {
+				// 	parent.find('.password_recovery_container').html(response.content);
+				// 	removeLoadAnimation('#password_recovery');
+				// }else{
+				// 	value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+				// };
+				componentHandler.upgradeDom();
+			});
+
+		}
+		
+
+	});
+
+	
 
 
 	// Открыть Форму авторизации
@@ -985,7 +1067,7 @@ $(function(){
 			ValidatePassConfirm(passwd, passconfirm);
 		}
 	});
-
+	
 	/** Проверка подтверждения пароля на странице регистрации */
 	$('#registration #passwdconfirm').keyup(function(){
 		var passwd = $('#registration #passwd').val();
