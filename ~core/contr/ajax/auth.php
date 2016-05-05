@@ -168,6 +168,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							G::Login($User->fields);
 							_acl::load($User->fields['gid']);
 							$res['success'] = true;
+							$res['content'] = '<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p>';
 						}
 					}
 				}

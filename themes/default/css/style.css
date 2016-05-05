@@ -842,6 +842,7 @@ section.center {
 		margin-bottom: 1em;
 		font-size: 1.2em;
 		font-weight: 500;
+		min-width: 300px;
 	    max-width: 300px;
 	}
 	#password_recovery p.info_text {
@@ -860,6 +861,14 @@ section.center {
 		background-color: #018b06;
 		display: block;
 		margin: 10px auto 0;
+	}
+	#password_recovery .auth_ok {
+		text-align: center;
+	}
+	#password_recovery .auth_ok i.material-icons {
+		color: #018b06;
+	    font-size: 5em;
+        margin-bottom: 0.3em;
 	}
 
 /*Cart =======================================================================*/

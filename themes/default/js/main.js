@@ -975,26 +975,30 @@ $(function(){
 			confirm_passwd = parent.find('input[name="confirm_new_password"]');
 		ValidatePass(passwd);
 		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
-		if(confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
+		if(passwd.val() >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd.val()};
 			console.log(data);
 			ajax('auth', 'accessConfirm', data).done(function(response){
-				// if (response.success) {
-				// 	parent.find('.password_recovery_container').html(response.content);
-				// 	removeLoadAnimation('#password_recovery');
-				// }else{
-				// 	value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-				// };
+				if (response.success) {
+					$('.cabinet_btn').removeClass('hidden');
+					$('.login_btn').addClass('hidden');
+					ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+						$('#user_pro').html(data);
+
+						$('.cabinet_btn').removeClass('hidden');
+						$('.login_btn').addClass('hidden');
+						$('header .cart_item a.cart i').removeClass('mdl-badge');
+						$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+						$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
+					});
+					parent.find('.password_recovery_container').html(response.content);
+				}else{
+					value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+				};
 				componentHandler.upgradeDom();
 			});
-
 		}
-		
-
 	});
-
-	
-
 
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){
