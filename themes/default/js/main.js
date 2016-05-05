@@ -927,7 +927,7 @@ $(function(){
 			if (response.success) {
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
-				value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+				parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
 			};
 			componentHandler.upgradeDom();
 		});
