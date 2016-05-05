@@ -42,7 +42,33 @@ class Mailer extends PHPMailer {
 		$this->oApi = new SmtpApi($sPubKey);
 		$this->oApi->setPublicKey($sPubKey);
 	}
-	
+
+	public function SendCustomEmail($address, $subject = '', $content){
+		// Устанавливаем тему письма
+		$this->Subject = $subject;
+		// Задаем тело письма
+		$this->Body = $content;
+		// Добавляем адрес в список получателей
+		$this->isHTML(true);
+		$this->AddAddress($address);
+		if(!$this->echo){
+			ob_start();
+		}
+		if(!$this->Send()){
+			$this->ClearAddresses();
+			$this->ClearAttachments();
+			if($this->echo) echo $address." - Не могу отослать письмо! \n<br>";
+			return false;
+		}else{
+			$this->ClearAddresses();
+			$this->ClearAttachments();
+			if($this->echo) echo $address." - Письмо отослано! \n<br>";
+			return true;
+		}
+		if(!$this->echo){
+			ob_end_clean();
+		}
+	}
 	// Отсылка письма контрагенту со ссылками на накладные покупателя и контрагета
 	public function SendOrderInvoicesToContragent($id_order){
 		global $db;

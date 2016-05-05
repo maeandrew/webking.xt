@@ -499,10 +499,21 @@ class Users {
 
 		if($method == 'email'){
 			// Функция отправки сообщения на email
-		} else if($method == 'sms'){
-			// Функция отправки сообщения по sms
+			$Mailer = new Mailer();
+			$Mailer->SendCustomEmail('Код подтверждения - '.$f['verification_code'].'. Код действителен в течении 24 часов.', 'Код подтверждения. '.$_SERVER['SERVER_NAME'], $adress);
+		}elseif($method == 'sms'){
+			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+			if($adress != ''){
+				$data = array(
+					'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+					'text' => 'Код подтверждения - '.$f['verification_code'],
+					'phone' => $adress, //'38'.
+					'datetime' => null,
+					'sms_lifetime' => 0
+				);
+				$res = $Gateway->execCommad('sendSMS', $data);
+			}
 		}
-
 		return true;
 	}
 
