@@ -885,7 +885,7 @@ $(function(){
 	});
 	$('#password_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" name="value" type="number" id="recovery_phone"><label class="mdl-textfield__label" for="recovery_phone">Номер телефона</label><span class="mdl-textfield__error"></span></div>');
+		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input phone" name="value" type="number" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone">Номер телефона</label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
 	$('#password_recovery').on('click', 'button', function() {
@@ -902,13 +902,53 @@ $(function(){
 			};
 			componentHandler.upgradeDom();
 		});
-		
-		// if ($('label[for="chosen_mail"]').hasClass('is-checked')) {
-		// 	$('#password_recovery .password_recovery_container').empty().append('На указанный email отправлено письмо.<br>Проверьте Вашу почту.');			
-		// };
-		// if ($('label[for="chosen_sms"]').hasClass('is-checked')) {
-		// 	$('#password_recovery .password_recovery_container').empty().append('<p class="info_text">На указанный номер телефона отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="number" id="recovery_code"><label class="mdl-textfield__label" for="recovery_code">Введите код</label><span class="mdl-textfield__error"></span></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>');			
-		// };
+	});
+	// Инициалзация маски для ввода телефонных номеров
+	$("#password_recovery input.phone").mask("+38 (099) ?999-99-99");
+
+	$('#password_recovery').on('change', 'input.phone', function(e){
+		var phone = $('input.phone').val().replace(/[^\d]+/g, "");
+		if(phone.length == 12){
+			// ajax('cart', 'makeOrder', {phone: phone}).done(
+			// 	function(data){
+			// 	switch(data.status){
+			// 		case 200:
+			// 			// closeObject('cart');
+			// 			window.location.hash = "quiz";
+			// 			ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+			// 				$('#user_pro').html(data);
+
+			// 				$('.cabinet_btn').removeClass('hidden');
+			// 				$('.login_btn').addClass('hidden');
+			// 				$('header .cart_item a.cart i').removeClass('mdl-badge');
+			// 				$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+			// 				$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
+			// 			});
+			// 			openObject('quiz');
+			// 			break;
+			// 		case 500:
+			// 			console.log('error');
+			// 			removeLoadAnimation('#cart');
+			// 			break;
+			// 		case 501:
+			// 			removeLoadAnimation('#cart');
+			// 			$('.err_msg').html(data.message);
+			// 			setTimeout(function() {
+			// 				$('.err_msg + .cart_login_btn').removeClass('hidden');
+			// 			}, 1000);
+			// 			$('.err_msg + .cart_login_btn').click(function(event) {
+			// 				event.preventDefault;
+			// 				openObject('auth');
+			// 			});
+			// 			break;
+			// 		default:
+			// 			console.log('default statemant');
+			// 	}
+			// });
+			console.log("success");
+		}else{
+			console.log("error");
+		}
 	});
 
 
@@ -933,7 +973,7 @@ $(function(){
 	$('#auth').on('click', '.sign-in', function(e){
 		e.preventDefault();
 		addLoadAnimation('#auth');
-		var form = $(this).closest('form'),
+		var form = $(this).closest('#login').find('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
 		form.find('.error').fadeOut();

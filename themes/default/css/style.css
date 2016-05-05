@@ -818,8 +818,14 @@ section.center {
 		display: block;
 		padding: 1em 0;
 	}
-	#recovery_pass {
+	#login.modal_container {
 		text-align: left;
+	}
+	#login.modal_container h4 {
+		text-align: center;
+	}
+	#login.modal_container #recovery_pass {
+		display: block;
 		margin-bottom: 10px;
 		cursor: pointer;
 	}
@@ -837,7 +843,7 @@ section.center {
 	#sub_password_recovery button {
 		background-color: #018b06;
 		display: block;
-		margin: 0 auto;
+		margin: 10px auto 0;
 	}
 
 /*Cart =======================================================================*/
