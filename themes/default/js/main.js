@@ -918,7 +918,8 @@ $(function(){
 			}else{
 				console.log("error");
 			}
-		}else if(method.data('value') == "email"){
+		}
+		if(method.data('value') == "email"){
 			value = parent.find('[name="value"]').val();
 		};
 
@@ -975,7 +976,7 @@ $(function(){
 			confirm_passwd = parent.find('input[name="confirm_new_password"]');
 		ValidatePass(passwd);
 		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
-		if(passwd.val() >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
+		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd.val()};
 			console.log(data);
 			ajax('auth', 'accessConfirm', data).done(function(response){

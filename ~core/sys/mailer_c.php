@@ -43,7 +43,7 @@ class Mailer extends PHPMailer {
 		$this->oApi->setPublicKey($sPubKey);
 	}
 
-	public function SendCustomEmail($address, $subject = '', $content){
+	public function SendCustomEmail($address, $subject = '', $content = ''){
 		// Устанавливаем тему письма
 		$this->Subject = $subject;
 		// Задаем тело письма

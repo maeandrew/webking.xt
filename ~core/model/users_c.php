@@ -487,7 +487,7 @@ class Users {
 		return true;
 	}
 
-	public function SetVerificationCode($id_user, $method, $adress){
+	public function SetVerificationCode($id_user, $method, $address){
 		$f['id_user'] = $id_user;
 		$f['verification_code'] = G::GenerateVerificationCode();
 		$this->db->StartTrans();
@@ -500,14 +500,14 @@ class Users {
 		if($method == 'email'){
 			// Функция отправки сообщения на email
 			$Mailer = new Mailer();
-			$Mailer->SendCustomEmail('Код подтверждения - '.$f['verification_code'].'. Код действителен в течении 24 часов.', 'Код подтверждения. '.$_SERVER['SERVER_NAME'], $adress);
+			$Mailer->SendCustomEmail($address, 'Код подтверждения. '.$_SERVER['SERVER_NAME'], 'Код подтверждения - '.$f['verification_code'].'. Код действителен в течении 24 часов.');
 		}elseif($method == 'sms'){
 			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-			if($adress != ''){
+			if($address != ''){
 				$data = array(
 					'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
 					'text' => 'Код подтверждения - '.$f['verification_code'],
-					'phone' => $adress, //'38'.
+					'phone' => $address, //'38'.
 					'datetime' => null,
 					'sms_lifetime' => 0
 				);
