@@ -111,7 +111,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['msg'] = 'Пользователя с таким email не найдено.';
 						}else{
 							$res['success'] = true;
-							$res['content'] = 'На указанный email ['.$_POST['value'].'] отправлено письмо.<br>Проверьте Вашу почту.';
+							$res['content'] = '<p class="info_text tac">На указанный email<br>[<span class="bold_text">'.$_POST['value'].'</span>]<br>отправлено письмо с кодом для восстановления доступа к вашему профилю.</p><p class="info_text tac">Проверьте Вашу почту.</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="recovery_code" name="code">
+									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
+									<span class="mdl-textfield__error"></span>
+								</div>
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
 						}
 						break;
 					case 'sms':
@@ -121,14 +126,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['msg'] = 'Пользователя с таким телефоном не найдено.';
 						}else{
 							$res['success'] = true;
-							$res['content'] = '<p class="info_text">На указанный номер телефона ['.$_POST['value'].'] отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p>
+							$res['content'] = '<p class="info_text">На указанный номер телефона [<span class="bold_text">'.$_POST['value'].'</span>] отправлен код для восстановления доступа к вашему профилю.</p><p class="info_text">Код будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
 								<input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$id_user.'">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input" type="number" id="recovery_code">
+									<input class="mdl-textfield__input" type="number" id="recovery_code" name="code">
 									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
 									<span class="mdl-textfield__error"></span>
 								</div>
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>';
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
 						}
 						break;
 				}
@@ -140,6 +145,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
+			// case 'checkСode':
+			// 	# code... проверка, тот ли код ввел пользователь, который мы ему отправили на его номер телефона
+			// 	break;
+
+			// case 'accessConfirm':
+			// 	# code... занести новый пароль в БД и авторизовать его по номеру телефона
+			// 	break;
+
 			default:
 				break;
 		}
