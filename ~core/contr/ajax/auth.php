@@ -105,7 +105,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$User = new Users();
 				switch($_POST['method']){
 					case 'email':
-						if($User->CheckEmailUniqueness($_POST['value'])){
+						$id_user = $User->CheckEmailUniqueness($_POST['value']);
+						if($id_user === true ){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким email не найдено.';
 						}else{
@@ -114,12 +115,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						}
 						break;
 					case 'sms':
-						if($User->CheckPhoneUniqueness($_POST['value'])){
+						$id_user = $User->CheckPhoneUniqueness($_POST['value']);
+						if($id_user === true){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким телефоном не найдено.';
 						}else{
 							$res['success'] = true;
 							$res['content'] = '<p class="info_text">На указанный номер телефона ['.$_POST['value'].'] отправлен код для восстановления доступа к вашему профилю.<br>Код будет действителен в течение следующих 24 часов</p>
+								<input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$id_user.'">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input" type="number" id="recovery_code">
 									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
@@ -128,6 +131,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js" data-name="sub_password_recovery">Восстановить</button>';
 						}
 						break;
+				}
+				if($res['success']) {
+					if(!$User->SetVerificationCode($id_user, $_POST['method'], $_POST['value'])){
+						$res['success'] = false;
+						$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';
+					}
 				}
 				echo json_encode($res);
 				break;

@@ -457,12 +457,12 @@ class Users {
 	 * @param string $email номер телефона
 	 */
 	public function CheckEmailUniqueness($email){
-		$sql = "SELECT COUNT(*) AS count
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE email = '".$email."'";
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			return false;
+			return $res['id_user'];
 		}
 		return true;
 	}
@@ -472,13 +472,32 @@ class Users {
 	 * @param string $phone номер телефона
 	 */
 	public function CheckPhoneUniqueness($phone){
-		$sql = "SELECT COUNT(*) AS count
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE phones = '".$phone."'";
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
+			return $res['id_user'];
+		}
+		return true;
+	}
+
+	public function SetVerificationCode($id_user, $method, $adress){
+		$f['id_user'] = $id_user;
+		$f['verification_code'] = G::GenerateVerificationCode();
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'verification_code', $f)){
+			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
+
+		if($method == 'email'){
+			// Функция отправки сообщения на email
+		} else if($method == 'sms'){
+			// Функция отправки сообщения по sms
+		}
+
 		return true;
 	}
 

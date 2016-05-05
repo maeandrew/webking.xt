@@ -545,4 +545,8 @@ class G {
 		$good = ereg_replace(" +", " ", $good);
 		return $good;
 	}
-}?>
+
+	public static function GenerateVerificationCode(){
+		return str_pad(rand(0,9999),4,'0');
+	}
+}
