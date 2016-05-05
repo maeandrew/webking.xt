@@ -29,13 +29,18 @@ class Users {
 	// }
 
 	public function CheckUser($arr){
-		$f['email'] = trim($arr['email']);
 		$f['passwd'] = trim($arr['passwd']);
+		if(isset($arr['id_user'])){
+			$where = " id_user = ".$arr['id_user'];
+		}else{
+			$f['email'] = trim($arr['email']);
+			$where = "(email = '".$f['email']."'
+			OR email = '".$f['email']."@x-torg.com'
+			OR phones = '".$f['email']."')";
+		}
 		$sql = "SELECT id_user, email, gid, promo_code, name, phones
 			FROM "._DB_PREFIX_."user
-			WHERE (email = '".$f['email']."'
-			OR email = '".$f['email']."@x-torg.com'
-			OR phones = '".$f['email']."')
+			WHERE ".$where."
 			AND passwd = '".md5($f['passwd'])."'
 			AND active = 1";
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
@@ -217,7 +222,7 @@ class Users {
 	}
 
 	// Обновление пользователя
-	public function UpdateUser($arr){ //print_r($arr);
+	public function UpdateUser($arr){
 		$f['id_user'] = trim($arr['id_user']);
 		if(isset($arr['name']) && $arr['name'] != ''){
 			$f['name'] = trim($arr['name']);
@@ -517,7 +522,7 @@ class Users {
 				return false;
 			}
 			$this->db->CompleteTrans();
-			return $id_user;
+			return true;
 		}
 		return false;
 	}
