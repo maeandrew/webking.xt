@@ -891,7 +891,6 @@ $(function(){
 	});
 	$('#password_recovery').on('blur', 'input[type="email"]', function(){
 		var email = $(this).val();
-		console.log(email);  
 		if(email != '') {
 			// Поле email заполнено (здесь будем писать код валидации)
 			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
@@ -914,10 +913,8 @@ $(function(){
 			value;
 		if(method.data('value') == "sms") {
 			var phone = $('#password_recovery .phone').val().replace(/[^\d]+/g, "");
-			console.log(phone);
 			if(phone.length == 12){
 				value = phone;
-				console.log("success");
 			}else{
 				console.log("error");
 			}
@@ -936,42 +933,68 @@ $(function(){
 		});
 	});
 
-	$('#password_recovery').on('click', 'button#restore', function(e){
+	$('#password_recovery').on('keyup', '#passwd', function(event) {
+		event.preventDefault();
+		var passwd = $(this).val(),
+			passconfirm = $('#password_recovery #passwdconfirm').val();
+		ValidatePass(passwd);
+		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
+		if(passconfirm !== ''){
+			ValidatePassConfirm(passwd, passconfirm);
+		}
+	});
+
+	$('#password_recovery').on('keyup', '#passwdconfirm', function(){
+		var passwd = $('#password_recovery #passwd').val(),
+			passconfirm = $(this).val();
+		ValidatePassConfirm(passwd, passconfirm);
+	});
+
+	$('#password_recovery').on('click', '#restore', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
 			code = parent.find('[name="code"]').val();			
 		data = {id_user: id_user, code: code};
-		ajax('auth', 'checkСode', data).done(function(data){
-			if (data.success) {
-				parent.find('.password_recovery_container').html(data.content);
-			}else{
-				value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
-			};
-			componentHandler.upgradeDom();
-		});
-	});
-
-	
-
-	$('#password_recovery').on('click', '#confirm_btn', function(e) {
-		e.preventDefault();
-		addLoadAnimation('#password_recovery');
-		var parent = $(this).closest('[data-type="modal"]'),
-			passwd = parent.find('input[name="new_password"]'),
-			confirm_passwd = parent.find('input[name="confirm_new_password"]');
-
-		data = {passwd: passwd.val(), confirm_passwd: confirm_passwd.val()};
-
-		// ajax('auth', 'accessConfirm', data).done(function(response){
+		// ajax('auth', 'checkСode', data).done(function(response){
 		// 	if (response.success) {
 		// 		parent.find('.password_recovery_container').html(response.content);
-		// 		removeLoadAnimation('#password_recovery');
 		// 	}else{
 		// 		value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
 		// 	};
-		// 	componentHandler.upgradeDom();
+		// 	// parent.find('.password_recovery_container').html(response.content);
+		// 	// componentHandler.upgradeDom();
+		// }).fail(function(response){
+		// 	console.log('fail');
 		// });
+		parent.find('.password_recovery_container').html('<div id="sub_password_recovery"><div><input class="mdl-textfield__input" type="hidden" id="id_user"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="passwd"><label class="mdl-textfield__label" for="passwd">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="passwdconfirm"><label class="mdl-textfield__label" for="passwdconfirm">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>');
+		componentHandler.upgradeDom();
+	});
+
+	$('#password_recovery').on('click', '#confirm_btn', function(e) {
+		e.preventDefault();
+		// addLoadAnimation('#password_recovery');
+		var parent = $(this).closest('[data-type="modal"]'),
+			id_user = parent.find('[type="hidden"]').val(),
+			passwd = parent.find('input[name="new_password"]'),
+			confirm_passwd = parent.find('input[name="confirm_new_password"]');
+		ValidatePass(passwd);
+		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
+		if(passconfirm !== '' && !ValidatePassConfirm(passwd, passconfirm)){
+			data = {id_user: id_user, passwd: confirm_passwd.val()};
+			ajax('auth', 'accessConfirm', data).done(function(response){
+				// if (response.success) {
+				// 	parent.find('.password_recovery_container').html(response.content);
+				// 	removeLoadAnimation('#password_recovery');
+				// }else{
+				// 	value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+				// };
+				componentHandler.upgradeDom();
+			});
+
+		}
+		
+
 	});
 
 	
@@ -1048,7 +1071,7 @@ $(function(){
 			ValidatePassConfirm(passwd, passconfirm);
 		}
 	});
-
+	
 	/** Проверка подтверждения пароля на странице регистрации */
 	$('#registration #passwdconfirm').keyup(function(){
 		var passwd = $('#registration #passwd').val();

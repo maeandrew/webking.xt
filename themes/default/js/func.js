@@ -1674,9 +1674,12 @@ function ValidatePassConfirm(passwd, passconfirm){
 		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('#passwdconfirm').closest('.mdl-textfield ').addClass('is-invalid');
 		$('#passwdconfirm + .mdl-textfield__error').append('Пароли не совпадают');
+		console.log('Пароли не совпадают');
+		$('#passwdconfirm').css('border', '1px solid red');
 	}else{
 		console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
+		$('#passwdconfirm').css('border', '1px solid green');
 		return false;
 	}
 }
