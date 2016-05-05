@@ -844,6 +844,9 @@ section.center {
 		line-height: 1.2em;
 		text-align: justify;
 	}
+	#password_recovery p.info_text.tac {
+		text-align: center;
+	}
 	#password_recovery p.info_text .bold_text {
 		font-weight: 500;
 	}

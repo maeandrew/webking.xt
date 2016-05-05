@@ -639,7 +639,7 @@
 					<form action="#">
 						<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_mail">
 							<input type="radio" id="chosen_mail" class="mdl-radio__button" name="recovery_method" data-value="email" checked>
-							<span class="mdl-radio__label">через email</span>
+							<span class="mdl-radio__label">через Email</span>
 						</label></div>
 						<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_sms">
 							<input type="radio" id="chosen_sms" class="mdl-radio__button" name="recovery_method" data-value="sms">
@@ -652,7 +652,7 @@
 								<span class="mdl-textfield__error"></span>
 							</div>
 						</div>
-						<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
+						<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
 					</form>
 				</div>
 			</div>
