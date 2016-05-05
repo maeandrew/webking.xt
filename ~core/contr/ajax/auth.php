@@ -111,7 +111,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['msg'] = 'Пользователя с таким email не найдено.';
 						}else{
 							$res['success'] = true;
-							$res['content'] = '<p class="info_text tac">На указанный email<br>[<span class="bold_text">'.$_POST['value'].'</span>]<br>отправлено письмо с кодом для восстановления доступа к вашему профилю.</p><p class="info_text tac">Проверьте Вашу почту.</p><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							$res['content'] = '<p class="info_text tac">На указанный email<br>[<span class="bold_text">'.$_POST['value'].'</span>]<br>отправлено письмо с кодом для восстановления доступа к вашему профилю.</p><p class="info_text tac">Проверьте Вашу почту.</p>
+								<input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$id_user.'">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input" type="number" id="recovery_code" name="code">
 									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
 									<span class="mdl-textfield__error"></span>
