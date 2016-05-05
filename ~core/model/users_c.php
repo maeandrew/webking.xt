@@ -502,8 +502,24 @@ class Users {
 	}
 
 	public function GetVerificationCode($id_user, $verification_code){
-		//$sql = ""
-
+		$f[] = 'id_user = '.$id_user;
+		$f[] = 'verification_code = '.$verification_code;
+		$sql = "SELECT COUNT(*) AS count
+ 				FROM "._DB_PREFIX_."verification_code
+ 				WHERE id_user = ".$id_user."
+ 				AND verification_code = ".$verification_code."
+ 				AND end_date >= CURTIME()";
+		$res = $this->db->GetOneRowArray($sql);
+		if($res['count'] > 0){
+			$this->db->StartTrans();
+			if(!$this->db->DeleteRowsFrom(_DB_PREFIX_.'verification_code', $f)){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -147,10 +147,15 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
-			case 'checkСode': print_r($_POST);
-			 	# code... проверка, тот ли код ввел пользователь, который мы ему отправили на его номер телефона
-				$res['content'] = '<div id="sub_password_recovery"><div><input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$_POST['id_user'].'"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="new_pass"><label class="mdl-textfield__label" for="new_pass">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="new_pass_one_more"><label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>';
-				$res['success'] = true;
+			case 'checkСode':
+
+				if(!$User->GetVerificationCode($_POST['id_user'],$_POST['code'])){
+					$res['success'] = false;
+					$res['msg'] = 'Введен неверный код.';
+				} else {
+					$res['success'] = true;
+					$res['content'] = '<div id="sub_password_recovery"><div><input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$_POST['id_user'].'"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_password" id="new_pass"><label class="mdl-textfield__label" for="new_pass">Новый пароль</label><span class="mdl-textfield__error"></span></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="confirm_new_password" id="new_pass_one_more"><label class="mdl-textfield__label" for="new_pass_one_more">Введите повторно новый пароль</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>';
+				}
 				echo json_encode($res);
 				break;
 
