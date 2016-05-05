@@ -980,8 +980,9 @@ $(function(){
 			confirm_passwd = parent.find('input[name="confirm_new_password"]');
 		ValidatePass(passwd);
 		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
-		if(passconfirm !== '' && !ValidatePassConfirm(passwd, passconfirm)){
+		if(confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd.val()};
+			console.log(data);
 			ajax('auth', 'accessConfirm', data).done(function(response){
 				// if (response.success) {
 				// 	parent.find('.password_recovery_container').html(response.content);
