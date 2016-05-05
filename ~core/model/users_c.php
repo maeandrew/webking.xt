@@ -501,4 +501,9 @@ class Users {
 		return true;
 	}
 
+	public function GetVerificationCode($id_user, $verification_code){
+		//$sql = ""
+
+	}
+
 }
