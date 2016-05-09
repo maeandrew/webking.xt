@@ -59,7 +59,6 @@ $(function(){
 
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
 	var seoText = $('#seoTextBlock').text();
-	console.log(seoText.length);
 	if (seoText.length > 1000) {
 		$('#seoTextBlock').css('height', '175px').parent('.mdl-grid')
 		.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect hidden">Свернуть</button>');
@@ -988,16 +987,15 @@ $(function(){
 
 	$('#password_recovery').on('click', '#confirm_btn', function(e) {
 		e.preventDefault();
+		$('#password_recovery #sub_password_recovery .mdl-textfield__error').empty();
 		// addLoadAnimation('#password_recovery');
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
-			passwd = parent.find('input[name="new_password"]'),
-			confirm_passwd = parent.find('input[name="confirm_new_password"]');
+			passwd = parent.find('input[name="new_passwd"]'),
+			confirm_passwd = parent.find('input[name="passwdconfirm"]');
 		ValidatePass(passwd);
-		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
 		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd.val()};
-			console.log(data);
 			ajax('auth', 'accessConfirm', data).done(function(response){
 				if (response.success) {
 					$('.cabinet_btn').removeClass('hidden');
@@ -1007,9 +1005,9 @@ $(function(){
 
 						$('.cabinet_btn').removeClass('hidden');
 						$('.login_btn').addClass('hidden');
-						$('header .cart_item a.cart i').removeClass('mdl-badge');
-						$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
-						$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
+						// $('header .cart_item a.cart i').removeClass('mdl-badge');
+						// $('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+						// $('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 					});
 					parent.find('.password_recovery_container').html(response.content);
 				}else{
@@ -1019,6 +1017,24 @@ $(function(){
 			});
 		}
 	});
+	
+//---
+	$('#regpasswd').keyup(function(event) {
+		event.preventDefault();
+		var passwd = $(this).val(),
+			passconfirm = $('#settings #passwdconfirm').val();
+		ValidatePass(passwd);
+		if(passconfirm !== ''){
+			ValidatePassConfirm(passwd, passconfirm);
+		}
+	});
+	$('#passwdconfirm').keyup(function(){
+		var passwd = $('#settings #regpasswd').val(),
+			passconfirm = $(this).val();
+			console.log('passconfirm ' + passconfirm);
+		ValidatePassConfirm(passwd, passconfirm);
+	});
+//---
 
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){

@@ -1763,3 +1763,12 @@ html {
 	width: 70px;
 	height: 70px;
 }
+
+
+#settings form {
+	padding: 10px;
+	width: 300px;
+}
+#settings .buttons_cab {
+	margin-top: 10px;
+}

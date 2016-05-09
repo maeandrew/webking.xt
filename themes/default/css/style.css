@@ -870,7 +870,7 @@ section.center {
 		font-size: 5em;
 		margin-bottom: 0.3em;
 	}
-	#password_recovery .passstrength {
+	#passstrength {
 		height: 5px;
 		width: 100%;
 		border-radius: 5px;
@@ -878,33 +878,29 @@ section.center {
 		border: 1px solid #cdcdcd;
 		margin: 5px 0 5px 0;
 	}
-	#password_recovery .passstrength .passstrengthlevel {
+	#passstrengthlevel {
 		background: #DDDDDD;
 		float: right;
 		width: 100%;
 		height: 100%;
 		transition: width .4s ease;
 	}
-	#password_recovery .passstrengthlevel.bad {
+	#passstrengthlevel.bad {
 		width: 75%;
 		background: #fff;
 	}
-	#password_recovery .passstrengthlevel.better {
+	#passstrengthlevel.better {
 		width: 50%;
 		background: #fff;
 	}
-	#password_recovery .passstrengthlevel.ok {
+	#passstrengthlevel.ok {
 		width: 25%;
 		background: #fff;
 	}
-	#password_recovery .passstrengthlevel.best {
+	#passstrengthlevel.best {
 		width: 0%;
 		background: #fff;
 	}
-    #password_recovery .mdl-textfield.is-focusGreen .mdl-textfield__input {
-    	border-bottom-color: green;
-    }
-
 
 /*Cart =======================================================================*/
 

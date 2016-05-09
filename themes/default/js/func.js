@@ -1568,30 +1568,31 @@ function ValidatePass(passwd){
 
 	if(protect == 1) {
 		$('#passwd + .mdl-textfield__error').empty();
-		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('bad').removeClass('better');
+		$('#passstrengthlevel').addClass('bad').removeClass('better');
 		result = false;
 	}
 	if(protect == 2) {
-		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('better').removeClass('ok');
+		$('#passstrengthlevel').addClass('better').removeClass('ok');
 		result = false;
 	}
 	if(protect == 3) {
-		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('ok').removeClass('best');
+		$('#passstrengthlevel').addClass('ok').removeClass('best');
 		result = false;
 	}
 	if(protect == 4) {
-		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('best');
+		$('#passstrengthlevel').addClass('best');
 		result = false;
 	}
 	if(passwd.length == 0){
 		$('#passwd + .mdl-textfield__error').empty();
-		$('#password_recovery [name="new_password"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
+		$('#passstrengthlevel').removeClass('bad');
+		$('[name="new_passwd"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
 		// $('#passstrengthlevel').attr('class', 'small');
 		// result = 'Введите пароль';
 		// $('#passwd + .mdl-textfield__error').append(result);
 	}else if(passwd.length < 4) {
 		$('#passwd + .mdl-textfield__error').empty();
-		$('#password_recovery [name="new_password"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
+		$('[name="new_passwd"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
 		// result = 'Пароль слишком короткий';
 		// $('#passwd + .mdl-textfield__error').append(result);
 	}
@@ -1672,12 +1673,12 @@ function ValidateEmail(fields, type){
 function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
 		$('#passwdconfirm + .mdl-textfield__error').empty();
-		$('#password_recovery [name="confirm_new_password"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
+		$('[name="passwdconfirm"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
 		console.log('Пароли не совпадают');
 	}else{
 		console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
-		$('#password_recovery [name="confirm_new_password"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
+		$('[name="passwdconfirm"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
 		return false;
 	}
 }
