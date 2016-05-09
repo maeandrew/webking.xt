@@ -1568,31 +1568,32 @@ function ValidatePass(passwd){
 
 	if(protect == 1) {
 		$('#passwd + .mdl-textfield__error').empty();
-		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'bad');
+		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('bad').removeClass('better');
 		result = false;
 	}
 	if(protect == 2) {
-		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'better');
+		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('better').removeClass('ok');
 		result = false;
 	}
 	if(protect == 3) {
-		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'ok');
+		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('ok').removeClass('best');
 		result = false;
 	}
 	if(protect == 4) {
-		$('.mdl-textfield__error').closest('.mdl-textfield #passwd').attr('class', 'best');
+		$('#password_recovery #sub_password_recovery .passstrengthlevel').addClass('best');
 		result = false;
 	}
 	if(passwd.length == 0){
 		$('#passwd + .mdl-textfield__error').empty();
-		$('#passstrengthlevel').attr('class', 'small');
-		result = 'Введите пароль';
-		$('#passwd + .mdl-textfield__error').append(result);
+		$('#password_recovery [name="new_password"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
+		// $('#passstrengthlevel').attr('class', 'small');
+		// result = 'Введите пароль';
+		// $('#passwd + .mdl-textfield__error').append(result);
 	}else if(passwd.length < 4) {
 		$('#passwd + .mdl-textfield__error').empty();
-		$('#passstrengthlevel').attr('class', 'small');
-		result = 'Пароль слишком короткий';
-		$('#passwd + .mdl-textfield__error').append(result);
+		$('#password_recovery [name="new_password"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
+		// result = 'Пароль слишком короткий';
+		// $('#passwd + .mdl-textfield__error').append(result);
 	}
 	return result;
 }
@@ -1670,16 +1671,13 @@ function ValidateEmail(fields, type){
 /** Валидация подтверждения пароля **/
 function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
-		/*console.log('Error');*/
 		$('#passwdconfirm + .mdl-textfield__error').empty();
-		$('#passwdconfirm').closest('.mdl-textfield ').addClass('is-invalid');
-		$('#passwdconfirm + .mdl-textfield__error').append('Пароли не совпадают');
+		$('#password_recovery [name="confirm_new_password"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
 		console.log('Пароли не совпадают');
-		$('#passwdconfirm').css('border', '1px solid red');
 	}else{
 		console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
-		$('#passwdconfirm').css('border', '1px solid green');
+		$('#password_recovery [name="confirm_new_password"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
 		return false;
 	}
 }

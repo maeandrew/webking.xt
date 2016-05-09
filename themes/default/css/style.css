@@ -228,8 +228,8 @@ label:hover + .info_description {
 .clear_cart {
 	position: absolute;
 	top: 20px;
-    line-height: 32px;
-    right: 50px;
+	line-height: 32px;
+	right: 50px;
 }
 .clear_cart a {
 	color: #ff5722;
@@ -843,7 +843,7 @@ section.center {
 		font-size: 1.2em;
 		font-weight: 500;
 		min-width: 300px;
-	    max-width: 300px;
+		max-width: 300px;
 	}
 	#password_recovery p.info_text {
 		font-weight: 100;
@@ -860,16 +860,51 @@ section.center {
 	#sub_password_recovery button {
 		background-color: #018b06;
 		display: block;
-		margin: 10px auto 0;
+		margin: 20px auto 0;
 	}
 	#password_recovery .auth_ok {
 		text-align: center;
 	}
 	#password_recovery .auth_ok i.material-icons {
 		color: #018b06;
-	    font-size: 5em;
-        margin-bottom: 0.3em;
+		font-size: 5em;
+		margin-bottom: 0.3em;
 	}
+	#password_recovery .passstrength {
+		height: 5px;
+		width: 100%;
+		border-radius: 5px;
+		background: linear-gradient(to right, #b50000 0%,#f7da00 50%,#399e00 100%);
+		border: 1px solid #cdcdcd;
+		margin: 5px 0 5px 0;
+	}
+	#password_recovery .passstrength .passstrengthlevel {
+		background: #DDDDDD;
+		float: right;
+		width: 100%;
+		height: 100%;
+		transition: width .4s ease;
+	}
+	#password_recovery .passstrengthlevel.bad {
+		width: 75%;
+		background: #fff;
+	}
+	#password_recovery .passstrengthlevel.better {
+		width: 50%;
+		background: #fff;
+	}
+	#password_recovery .passstrengthlevel.ok {
+		width: 25%;
+		background: #fff;
+	}
+	#password_recovery .passstrengthlevel.best {
+		width: 0%;
+		background: #fff;
+	}
+    #password_recovery .mdl-textfield.is-focusGreen .mdl-textfield__input {
+    	border-bottom-color: green;
+    }
+
 
 /*Cart =======================================================================*/
 
