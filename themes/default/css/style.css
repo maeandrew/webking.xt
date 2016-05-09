@@ -2978,11 +2978,14 @@ section .stat_year {
 	text-align: justify;
 	border-top: 1px solid #e0e0e0;
 	padding: 1em 0;
+	overflow: hidden;
 }
-
 #seoTextBlock p {
 	line-height: 1.5;
 	width: 100%;
+}
+#expand_btn, #rollUp_btn {
+	margin: 10px;
 }
 
 /* Стили функции редактирования характеристик товара в админке */
