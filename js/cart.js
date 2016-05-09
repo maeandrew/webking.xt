@@ -216,7 +216,7 @@ function removeFromCart(id){
 			if(data.products.length == 0){
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
-				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .clear_cart').addClass('hidden');			
+				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .clear_cart').addClass('hidden');
 				$.cookie('manual', 0);
 			}
 
@@ -231,7 +231,13 @@ function removeFromCart(id){
 function ChangeCartQty(id, direction){
 	/* direction: 0 - minus, 1 - plus; */
 	$('#cart .no_items').addClass('hidden');
-	var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+
+	if($('#cart').hasClass('opened')){
+		var qty = parseInt($('#cart .product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+	}else{
+		var qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+	}
+
 	addLoadAnimation('.product_buy[data-idproduct="'+id+'"]');
 	if(current_controller == 'cart'){
 		var note = $('#cart_item_'+id).find('.note textarea').val();
