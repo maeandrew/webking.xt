@@ -240,7 +240,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="order_balance">
+		<div class="order_balance_cart">
 			<table id="percent">
 				<tr <?=$percent == 0 ? '': "style='display:none'"?>>
 					<td>Добавьте:</td>
@@ -251,16 +251,16 @@
 				<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
 					<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
 					<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
-					<td><?=$percent == 10 ? 'Получите скидку' : ''?></td>
+					<td><?=$percent == 10 ? 'Получите скидку:' : ''?></td>
 					<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
 				</tr>
 				<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
-					<td><?=$percent == 16 ? 'Добавьте' : ''?></td>
+					<td><?=$percent == 16 ? 'Добавьте:' : ''?></td>
 					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
-					<td><?=$percent == 16 ? 'Получите скидку' : ''?></td>
+					<td><?=$percent == 16 ? 'Получите скидку:' : ''?></td>
 					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
 				</tr>
-				<?=$percent == 21 ? 'Ваша скидка 21%' : ''?>
+				<tr><td><?=$percent == 21 ? 'Ваша скидка 21%' : ''?></td></tr>
 			</table>
 			<div class="price_nav"></div>
 		</div>

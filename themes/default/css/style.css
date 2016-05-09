@@ -1157,6 +1157,11 @@ section.center {
 		float: left;
 	}
 
+	#percent {
+		margin-top: 10px;
+    	margin-left: 10px;
+	}
+
 /*CONTACTS*/
 
 	ul.phone_nav_contacts li {
