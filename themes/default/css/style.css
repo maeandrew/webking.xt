@@ -1009,7 +1009,7 @@ section.center {
 		line-height: 28px;
 		position: absolute;
 		left: calc(50% - 160px);
-		top: 25px;
+		top: 15px;
 		background: rgb(255, 87, 34);
 		color: #fff;
 		width: 320px;
@@ -1113,7 +1113,7 @@ section.center {
 		line-height: 28px;
 		position: absolute;
 		left: calc(50% - 160px);
-		top: 25px;
+		top: 15px;
 		background: rgb(255, 87, 34);
 		color: #fff;
 		width: 320px;
@@ -1360,7 +1360,7 @@ section.center {
 	aside .filters #filterButtons {
 		display: flex;
 		justify-content: space-around;
-	} 
+	}
 	aside .filters .mdl-textfield {
 		width: 30%
 	}
@@ -2960,7 +2960,7 @@ section .stat_year {
 
 
 @media (max-width: 480px) {
-	
+
 	#graph[data-type="modal"] {
 		min-width: 100px;
 		left: 0 !important;

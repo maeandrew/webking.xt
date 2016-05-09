@@ -181,7 +181,10 @@ function removeFromCart(id){
 			// $('.cart').addClass('hidden');
 		});
 	}else {
-		ajax('cart', 'remove_from_cart', {id: id}).done(function (data) {
+			/*console.log('удалили');
+			console.log(id);*/
+		ajax('cart', 'remove_from_cart', {id: id}).done(function(data){
+			console.log('аякс прошел');
 			$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
