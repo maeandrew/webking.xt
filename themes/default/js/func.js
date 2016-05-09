@@ -1585,14 +1585,14 @@ function ValidatePass(passwd){
 	}
 	if(passwd.length == 0){
 		$('#passwd + .mdl-textfield__error').empty();
-		$('#passstrengthlevel').removeClass('bad');
-		$('[name="new_passwd"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
+		$('#passstrengthlevel').removeAttr('class');
+		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
 		// $('#passstrengthlevel').attr('class', 'small');
 		// result = 'Введите пароль';
 		// $('#passwd + .mdl-textfield__error').append(result);
 	}else if(passwd.length < 4) {
 		$('#passwd + .mdl-textfield__error').empty();
-		$('[name="new_passwd"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
+		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
 		// result = 'Пароль слишком короткий';
 		// $('#passwd + .mdl-textfield__error').append(result);
 	}
@@ -1674,9 +1674,9 @@ function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
 		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
-		console.log('Пароли не совпадают');
+		// console.log('Пароли не совпадают');
 	}else{
-		console.log('Пароли совпали');
+		// console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
 		return false;

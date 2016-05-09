@@ -1031,7 +1031,6 @@ $(function(){
 	$('#passwdconfirm').keyup(function(){
 		var passwd = $('#settings #regpasswd').val(),
 			passconfirm = $(this).val();
-			console.log('passconfirm ' + passconfirm);
 		ValidatePassConfirm(passwd, passconfirm);
 	});
 //---
