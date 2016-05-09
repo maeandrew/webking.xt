@@ -4,7 +4,8 @@ class Customers extends Users {
 	public function __construct(){
 		parent::__construct();
 		$this->usual_fields = array("id_user", "cont_person", "phones", "discount", "id_contragent", "id_city",
-									"id_delivery", "bonus_card", "bonus_balance", "bonus_discount", "balance");
+									"id_delivery", "bonus_card", "bonus_balance", "bonus_discount", "balance",
+									"sex", "birthday", "address_ur");
 	}
 	// Покупатель по id
 	public function SetFieldsById($id, $all = 0){
@@ -152,6 +153,7 @@ class Customers extends Users {
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
 			$f['id_user'] = trim($user_id);
+			$this->db->StartTrans();
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -177,7 +179,6 @@ class Customers extends Users {
 				$this->db->FailTrans();
 				return false; //Если не удалось записать в базу
 			}
-
 //			$this->db->CompleteTrans();
 			return true;//Если все ок
 		}else{
@@ -271,6 +272,7 @@ class Customers extends Users {
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
 			$f['id_user'] = trim($user_id);
+			$this->db->StartTrans();
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -290,6 +292,7 @@ class Customers extends Users {
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
 			$f['id_user'] = trim($user_id);
+			$this->db->StartTrans();
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
@@ -380,6 +383,7 @@ class Customers extends Users {
 	public function UpdateCustomer($arr){
 		global $User;
 		$arr['gid'] = $User->fields['gid'];
+		$arr['name'] = $arr['cont_person'];
 		if(!$User->UpdateUser($arr)){
 			$this->db->FailTrans();
 			return false;
@@ -387,7 +391,10 @@ class Customers extends Users {
 		$id_user = $this->db->GetLastId();
 		unset($f);
 		$f['id_user'] = trim($arr['id_user']);
-		$f['address_ur'] = $arr['address_ur'];
+		$f['sex'] = trim($arr['gender']);
+		$f['birthday'] = trim($arr['birthday']);
+		$f['address_ur'] = $arr['address'];
+		$f['phones'] = $arr['phones'];
 		if(isset($arr['discount'])){
 			$discount = str_replace(",",".",trim($arr['discount']));
 			$f['discount'] = (1-$discount)*100;
@@ -397,7 +404,7 @@ class Customers extends Users {
 			$this->db->FailTrans();
 			return false;
 		}
-		$this->db->CompleteTrans();
+		//$this->db->CompleteTrans();
 		return true;
 	}
 	// Удаление

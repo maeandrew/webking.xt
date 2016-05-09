@@ -17,12 +17,12 @@
 	/* selecting clear data */
 
 	// about customer
-	$Customers->SetFieldsById($User->fields['id_user']);
+	$Customers->SetFieldsById($User->fields['id_user']);  //print_r($Customer); die();
 	$Customer = $Customers->fields;
 	$cont_person = explode(' ', $Customer['cont_person']);
-	$Customer['last_name'] = $cont_person[0];
-	$Customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
-	$Customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
+	$Customer['last_name'] = $cont_person[2];
+	$Customer['first_name'] = isset($cont_person[0])?$cont_person[0]:'';
+	$Customer['middle_name'] = isset($cont_person[1])?$cont_person[1]:'';
 	// print_r($Customer);
 	// outside managers
 	$contragents->SetList(false, false);
@@ -125,7 +125,7 @@
 	// $tpl->Assign('SavedContragent', $contragents->fields);
 	// $tpl->Assign('DeliveryMethod', $delivery->list);
 	// $tpl->Assign('SavedDeliveryMethod', $delivery->fields);
-	if(isset($_POST['save_contacts'])){
+	if(isset($_POST['save_contacts'])){//print_r($_POST); die();
 		if(!$_POST['cont_person']){
 			$_POST['cont_person'] = trim($_POST['last_name']).' '.trim($_POST['first_name']).' '.trim($_POST['middle_name']);
 		}

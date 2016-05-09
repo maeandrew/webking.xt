@@ -1962,5 +1962,105 @@ function segmentOpen(id){
 	})
 }
 
+function regionSelect(value){
+	if(value != '' && value != 'Выберите область')
+		$.ajax({
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			data:({
+				"region": value,
+				"action":'regionSelect'
+			}),
+		}).done(function(data){
+			$('#id_city option, #id_delivery option, #id_delivery_service option, #id_delivery_department option').remove();
+			$('#id_city').append(data);
+			$('#delivery_service, #insurance, #delivery_department').slideUp();
+			citySelect();
+		});
+}
+
+function citySelect(){
+	var value = $('#id_city').val();
+	if(value!='')
+		$.ajax({
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			data:({
+				"city": value,
+				"action":'citySelect'
+			}),
+		}).done(function(data){
+			$('#id_delivery option, #id_delivery_service option, #id_delivery_department option').remove();
+			$('#id_delivery').append(data);
+			$('#delivery_service, #insurance, #delivery_department').slideUp();
+			deliverySelect();
+		});
+}
+
+function deliverySelect(){
+	var value = $('#id_delivery').val();
+	var city = $('#id_city').val();
+	if(value == "3"){
+		$.ajax({
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			data:({
+				"city": city,
+				"action":'deliverySelect'
+			}),
+		}).done(function(data){
+			$('#id_delivery_service, #id_delivery_department').prop('required',true);
+			$('#id_delivery_service option').remove();
+			$('#delivery_service, #insurance, #delivery_department').slideDown();
+			$('#id_delivery_service').append(data);
+			$('.content-insurance').slideDown();
+			deliveryServiceSelect($('#id_delivery_service').val());
+		});
+	}else if(value == "2"){
+		$.ajax({
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			data:({
+				"city": city,
+				"action":'getCityId'
+			}),
+		}).done(function(data){
+			$('#delivery_service, #insurance, #delivery_department').slideUp();
+			$('#id_delivery_department option').remove();
+			$('#id_delivery_department').append(data);
+			$('.content-insurance').slideUp();
+		});
+	}else if(value == "1"){
+		$.ajax({
+			url: URL_base+'ajaxorder',
+			type: "POST",
+			data:({
+				"city": city,
+				"action":'getCityId'
+			}),
+		}).done(function(data){
+			$('#delivery_service, #insurance, #delivery_department').slideUp();
+			$('#id_delivery_department option').remove();
+			$('#id_delivery_department').append(data);
+			$('.content-insurance').slideUp();
+		});
+	}
+}
+
+function deliveryServiceSelect(value){
+	var city = $('#id_city').val();
+	$.ajax({
+		url: URL_base+'ajaxorder',
+		type: "POST",
+		data:({
+			"city": city,
+			"shipping_comp": value,
+			"action":'deliveryServiceSelect'
+		}),
+	}).done(function(data){
+		$('#id_delivery_department option').remove();
+		$('#id_delivery_department').append(data);
+	});
+}
 
 

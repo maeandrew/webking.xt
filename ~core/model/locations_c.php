@@ -330,7 +330,7 @@ class DeliveryService {
         $string = $this->db->Quote($string);
         $sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."city
-			WHERE names_regions LIKE ".$this->db->Quote($string)."
+			WHERE names_regions LIKE ".$string."
 			AND shipping_comp <> ''
 			AND closed = 0
 			GROUP BY shipping_comp DESC";

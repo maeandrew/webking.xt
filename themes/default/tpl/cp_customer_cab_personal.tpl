@@ -9,9 +9,12 @@
 					default:?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="email">E-mail:</label>
-						<input disabled class="mdl-textfield__input" required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+						<input class="mdl-textfield__input" required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
 					</div>
-
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
+						<input class="mdl-textfield__input phone" required="required" type="tel" name="phones" id="phones" maxlength="15" value="<?=$Customer['phones']?>"/>
+					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
 						<input class="mdl-textfield__input" type="text" required="required" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
@@ -24,9 +27,24 @@
 						<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
 						<input class="mdl-textfield__input" required="required" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 					</div>
+					<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="label_for_gender" for="gender">Пол:</label>
+						<div id="gender">
+							<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="male">
+								<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="male" value="male">Мужской
+							</label> &nbsp;&nbsp;
+							<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="female">
+								<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="female" value="female">Женский
+							</label>
+						</div>
+					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-						<input class="mdl-textfield__input phone" required="required" type="tel" name="phones" id="phone" maxlength="15" value="<?=$Customer['phones']?>"/>
+						<label for="birthday" class="mdl-textfield__label">Дата рождения:</label>
+						<input class="mdl-textfield__input" type="text" name="birthday" id="birthday"  value="<?=$Customer['birthday']?>"/>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="address" class="mdl-textfield__label">Адрес:</label>
+						<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<button name="save_contacts" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
@@ -37,7 +55,7 @@
 						<label for="id_region">Область</label>
 						<select required="required" name="id_region" id="id_region" onChange="regionSelect(id_region.value);">
 							<option selected="selected" disabled="disabled">Выберите область</option>
-							<?foreach($allregions as $region){?>
+							<?foreach($allregions as $region){ ?>
 								<option <?=$region['region'] == $savedcity['region']?'selected="selected"':null;?> value="<?=$region['region']?>"><?=$region['region']?></option>
 							<?}?>
 						</select>

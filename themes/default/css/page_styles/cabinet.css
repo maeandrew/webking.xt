@@ -281,7 +281,7 @@ table.kontrag.table{
 .bill-form .line textarea {
 	height: 65px;
 }
-.select-status button_block,
+.select-status .button_block,
 .select-status .target_date,
 .bill-form .line label[for='margin'] {
 	border: 1px solid #b4b4b4;
@@ -1116,7 +1116,7 @@ table.supplier_assort_table {
 #products .cent {
 	text-align: center;
 }
-//* Product List*/
+/* Product List*/
 #products .prod_list {
 	border: 1px solid #E0E0E0;
 }
@@ -1539,7 +1539,7 @@ html {
 	overflow: auto;
 	padding-bottom: 1.429em;
 	display: flex;
-	flex-wrap: no-wrap;
+	flex-wrap: nowrap;
 }
 .order .content .info > div {
 	flex-basis: 30%;
@@ -1671,7 +1671,7 @@ html {
 	border-collapse: collapse;
 	white-space: inherit;
 	font-size: 14px;
-	background-color: none;
+	background-color: transparent;
 	width: 100%;
 }
 .over_sum {
@@ -1763,7 +1763,14 @@ html {
 	width: 70px;
 	height: 70px;
 }
-
+.label_for_gender{
+	font-size: 12px;
+	color: #867598;
+}
+#gend_block{
+	margin: -25px 0 7px;
+	border-bottom: solid 1px #E0E0E0;
+}
 
 #settings form {
 	padding: 10px;
