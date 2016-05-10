@@ -870,6 +870,10 @@ section.center {
 		font-size: 5em;
 		margin-bottom: 0.3em;
 	}
+	#passStrengthTitle {
+		color: #757575;
+		font-size: .8em !important;
+	}
 	#passstrength {
 		height: 5px;
 		width: 100%;
@@ -2986,7 +2990,9 @@ section .stat_year {
 	width: 100%;
 }
 #expand_btn, #rollUp_btn {
-	margin: 10px;
+	margin: 5px;
+	box-shadow: none;
+	background-color: transparent;
 }
 
 /* Стили функции редактирования характеристик товара в админке */

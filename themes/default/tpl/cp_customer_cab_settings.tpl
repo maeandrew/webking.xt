@@ -52,6 +52,7 @@
 							<div class="error_description"></div>
 							<span class="mdl-textfield__error"></span>
 						</div>
+						<p id="passStrengthTitle">надежность пароля</p>
 						<div id="passstrength"><div id="passstrengthlevel"></div></div>
 						<div class="passwdconfirm mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение нового пароля:</label>
