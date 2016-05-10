@@ -1157,10 +1157,49 @@ section.center {
 		float: left;
 	}
 
-	#percent {
+	#discountBlock {
+		display: flex;
+		justify-content: space-between;
 		margin-top: 10px;
-    	margin-left: 10px;
 	}
+
+	#discountTable {
+		display: flex;
+		justify-content: flex-start;
+    	width: 100%
+	}
+
+	#discountTable .discountTableElem {
+	    display: flex;
+	    flex-direction: column;
+	    text-align: left;
+	    margin-left: 10px;
+	}
+
+	#discountTable .addMoreProducts,
+	#discountTable .getNewDiscount {
+		color:#9E9E9E;
+	}
+
+	.currentDiscountBlock {
+		background: #ff5722;
+		color: #fff;
+		text-align: center;
+		border-radius: 5px;
+		margin-right: 10px;
+		height: 60px;
+		width: 120px;
+	}
+
+	.currentDiscountBlock span {
+		text-align: center;
+	}
+
+	#currentDiscount {
+		font-size: 35px;
+    	line-height: 35px;
+	}
+
 
 /*CONTACTS*/
 
