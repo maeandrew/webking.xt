@@ -67,7 +67,7 @@
 				}?>
 			</form>
 		</div>
-		<?if(isset($_GET['success'])){?>
+		<?if(isset($_GET['success'])){ ?>
 			<div class="msg-success">
 				<p><b>Успех!</b> Изменения успешно сохранены.</p>
 			</div>

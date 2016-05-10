@@ -39,7 +39,7 @@
 						</div>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="birthday" class="mdl-textfield__label">Дата рождения:</label>
+						<label for="birthday" class="mdl-textfield__label">Дата рождения: (год-месяц-число)</label>
 						<input class="mdl-textfield__input" type="text" name="birthday" id="birthday"  value="<?=$Customer['birthday']?>"/>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
