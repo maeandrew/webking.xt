@@ -241,7 +241,7 @@
 			</div>
 		</div>
 		<div class="order_balance_cart">
-			<table id="percent">
+			<!-- <table id="percent">
 				<tr <?=$percent == 0 ? '': "style='display:none'"?>>
 					<td>Добавьте:</td>
 					<td><?=round(500-$cart_sum,2)?>грн</td>
@@ -261,7 +261,38 @@
 					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
 				</tr>
 				<tr><td><?=$percent == 21 ? 'Ваша скидка 21%' : ''?></td></tr>
-			</table>
+			</table> -->
+
+			<div id="discountBlock">
+				<div id="discountTable">
+					<div class="addMoreProducts discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>">
+						Добавьте:
+					</div>
+					<div class="neededSum discountTableElem">
+						<span id="sumPer0" <?=$percent == 0 ? '': "class='hidden'"?>>
+						<?=round(500-$cart_sum,2)?> грн</span>
+						<span id="sumPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>><?=round(3000-$cart_sum,2)?> грн</span>
+						<span id="sumPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>><?=round(10000-$cart_sum,2)?> грн</span>
+					</div>
+					<div class="getNewDiscount discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>" >
+						Получите скидку:
+					</div>
+					<div class="nextDiscount discountTableElem">
+						<span id="dicsPer0" <?=$percent == 0 ? '': "class='hidden'"?>>50 грн (10%)</span>
+						<span id="dicsPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>>480грн (16%)</span>
+						<span id="dicsPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>>2100грн (21%)</span>
+					</div>
+				</div>
+				<div class="currentDiscountBlock">
+					<span>Ваша скидка:</span>
+					<span id="currentDiscount">
+						<?=$percent == 0 ? '0%': ""?>
+						<?=$percent == 10 ? '10%': ""?>
+						<?=$percent == 16 ? '16%': ""?>
+						<?=$percent == 21 ? '21%': ""?>
+					</span>
+				</div>
+			</div>
 			<div class="price_nav"></div>
 		</div>
 	</div>

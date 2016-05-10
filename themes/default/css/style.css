@@ -870,6 +870,10 @@ section.center {
 		font-size: 5em;
 		margin-bottom: 0.3em;
 	}
+	#passStrengthTitle {
+		color: #757575;
+		font-size: .8em !important;
+	}
 	#passstrength {
 		height: 5px;
 		width: 100%;
@@ -1153,10 +1157,49 @@ section.center {
 		float: left;
 	}
 
-	#percent {
+	#discountBlock {
+		display: flex;
+		justify-content: space-between;
 		margin-top: 10px;
-    	margin-left: 10px;
 	}
+
+	#discountTable {
+		display: flex;
+		justify-content: flex-start;
+    	width: 100%
+	}
+
+	#discountTable .discountTableElem {
+	    display: flex;
+	    flex-direction: column;
+	    text-align: left;
+	    margin-left: 10px;
+	}
+
+	#discountTable .addMoreProducts,
+	#discountTable .getNewDiscount {
+		color:#9E9E9E;
+	}
+
+	.currentDiscountBlock {
+		background: #ff5722;
+		color: #fff;
+		text-align: center;
+		border-radius: 5px;
+		margin-right: 10px;
+		height: 60px;
+		width: 120px;
+	}
+
+	.currentDiscountBlock span {
+		text-align: center;
+	}
+
+	#currentDiscount {
+		font-size: 35px;
+    	line-height: 35px;
+	}
+
 
 /*CONTACTS*/
 
@@ -2986,7 +3029,9 @@ section .stat_year {
 	width: 100%;
 }
 #expand_btn, #rollUp_btn {
-	margin: 10px;
+	margin: 5px;
+	box-shadow: none;
+	background-color: transparent;
 }
 
 /* Стили функции редактирования характеристик товара в админке */

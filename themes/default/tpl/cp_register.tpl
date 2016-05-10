@@ -25,9 +25,8 @@
 			<div class="reg_section">
 				<label for="regpasswd">Пароль</label>
 				<input required type="password" name="passwd" id="regpasswd"/>
-				<div id="passstrength">
-					<div id="passstrengthlevel"></div>
-				</div>
+				<!-- <p id="passStrengthTitle">надежность пароля</p> -->
+				<div id="passstrength"><div id="passstrengthlevel"></div></div>
 				<div id="password_error"></div>
 				<div class="error_description"></div>
 			</div>
