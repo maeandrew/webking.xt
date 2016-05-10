@@ -1583,14 +1583,14 @@ function ValidatePass(passwd){
 		$('#passstrengthlevel').addClass('best');
 		result = false;
 	}
-	if(passwd.length == 0){
+	if(passwd.length < 1){
 		$('#passwd + .mdl-textfield__error').empty();
 		$('#passstrengthlevel').removeAttr('class');
 		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
 		// $('#passstrengthlevel').attr('class', 'small');
 		// result = 'Введите пароль';
 		// $('#passwd + .mdl-textfield__error').append(result);
-	}else if(passwd.length < 4) {
+	}else if(passwd.length >= 1 && passwd.length < 4) {
 		$('#passwd + .mdl-textfield__error').empty();
 		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
 		// result = 'Пароль слишком короткий';
@@ -1679,6 +1679,75 @@ function ValidatePassConfirm(passwd, passconfirm){
 		// console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
+		return false;
+	}
+}
+/** Валидация пароля в окне восстановления пароля **/
+function ValidatePassInPassRecovery(passwd){
+	var protect = 0;
+	var result;
+	var small = new RegExp("^(?=.*[a-zа-я]).*$", "g");
+	if(small.test(passwd)) {
+		protect++;
+	}
+
+	var big = new RegExp("^(?=.*[A-ZА-Я]).*$", "g");
+	if(big.test(passwd)) {
+		protect++;
+	}
+
+	var numb = new RegExp("^(?=.*[0-9]).*$", "g");
+	if(numb.test(passwd)) {
+		protect++;
+	}
+
+	var vv = new RegExp("^(?=.*[!,@,#,$,%,^,&,*,?,_,~,-,=]).*$", "g");
+	if(vv.test(passwd)) {
+		protect++;
+	}
+
+	if(protect == 1) {
+		$('#passwd + .mdl-textfield__error').empty();
+		$('#passstrengthlevel2').addClass('bad').removeClass('better');
+		result = false;
+	}
+	if(protect == 2) {
+		$('#passstrengthlevel2').addClass('better').removeClass('ok');
+		result = false;
+	}
+	if(protect == 3) {
+		$('#passstrengthlevel2').addClass('ok').removeClass('best');
+		result = false;
+	}
+	if(protect == 4) {
+		$('#passstrengthlevel2').addClass('best');
+		result = false;
+	}
+	if(passwd.length < 1){
+		$('#passwd + .mdl-textfield__error').empty();
+		$('#passstrengthlevel2').removeAttr('class');
+		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
+		// $('#passstrengthlevel2').attr('class', 'small');
+		// result = 'Введите пароль';
+		// $('#passwd + .mdl-textfield__error').append(result);
+	}else if(passwd.length >= 1 && passwd.length < 4) {
+		$('#passwd + .mdl-textfield__error').empty();
+		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароль слишком короткий');
+		// result = 'Пароль слишком короткий';
+		// $('#passwd + .mdl-textfield__error').append(result);
+	}
+	return result;
+}
+/** Валидация подтверждения пароля в окне восстановления пароля**/
+function ValidatePassConfirmInPassRecovery(passwd, passconfirm){
+	if(passconfirm !== passwd || !passconfirm){
+		// $('[name="passwdconfirm2"] + .mdl-textfield__error').empty();
+		$('[name="passwdconfirm2"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').html('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
+		// console.log('Пароли не совпадают');
+	}else{
+		// console.log('Пароли совпали');
+		// $('[name="passwdconfirm2"] ~ .mdl-textfield__error').empty();
+		$('[name="passwdconfirm2"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').html('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
 		return false;
 	}
 }
