@@ -5,7 +5,7 @@ function GetLocation() {
 	var loc;
 	navigator.geolocation.getCurrentPosition(function(position){
 		var geocoder = new google.maps.Geocoder,
-			latlng = { 
+			latlng = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude
 			};
@@ -1235,7 +1235,7 @@ function ChangePriceRange(id, sum, val){
 					addLoadAnimation('.order_balance');
 					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
 						removeLoadAnimation('.order_balance');
-						var newSum = 10000 - data.products_sum[3];
+						var newSum = (10000 - data.products_sum[3]).toFixed(2);
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
@@ -1247,7 +1247,7 @@ function ChangePriceRange(id, sum, val){
 				break;
 			case 1:
 				if (val == 0) {
-					var newSum = 10000 - sum;
+					var newSum = (10000 - sum).toFixed(2);
 					if (newSum > 3000 && column != 0){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
@@ -1258,7 +1258,7 @@ function ChangePriceRange(id, sum, val){
 					addLoadAnimation('.order_balance');
 					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
 						removeLoadAnimation('.order_balance');
-						var newSum = 3000 - data.products_sum[3];
+						var newSum = (3000 - data.products_sum[3]).toFixed(2);
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
@@ -1270,7 +1270,7 @@ function ChangePriceRange(id, sum, val){
 				break;
 			case 2:
 				if (val == 0) {
-					var newSum = 3000 - sum;
+					var newSum = (3000 - sum).toFixed(2);
 					if (newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if (column == 0){
 							newSum = 10000 - sum;
@@ -1287,7 +1287,7 @@ function ChangePriceRange(id, sum, val){
 					addLoadAnimation('.order_balance');
 					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
 						removeLoadAnimation('.order_balance');
-						var newSum = 500 - data.products_sum[3];
+						var newSum = (500 - data.products_sum[3]).toFixed(2);
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
@@ -1299,7 +1299,7 @@ function ChangePriceRange(id, sum, val){
 				break;
 			case 3:
 				if (val == 0) {
-					var newSum = 500 - sum;
+					var newSum = (500 - sum).toFixed(2);
 					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if (column == 1){
 							newSum = 3000 - sum;

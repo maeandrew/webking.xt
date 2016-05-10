@@ -145,7 +145,7 @@ function removeFromCart(id){
 				// console.log(minQty);
 				$(this).find('.qty_js').val(minQty);
 			});
-			ChangePriceRange(0, 0, 0);
+			ChangePriceRange(3, 0, 0);
 			// switch(parseInt($.cookie('sum_range'))) {
 			// 	case 0:
 			// 		$('.product_buy').each(function(){
@@ -182,6 +182,49 @@ function removeFromCart(id){
 		});
 	}else {
 		ajax('cart', 'remove_from_cart', {id: id}).done(function(data){
+			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
+			if ($.cookie('manual') == 0){
+				switch(data.cart_column) {
+					case 0:
+						ChangePriceRange(0, 0, 0);
+						break;
+					case 1:
+						var sum = (10000 - data.products_sum[3]).toFixed(2);
+						ChangePriceRange(1, sum, 0);
+						break;
+					case 2:
+						var sum = (3000 - data.products_sum[3]).toFixed(2);
+						ChangePriceRange(2, sum, 0);
+						break;
+					case 3:
+						var sum = (500 - data.products_sum[3]).toFixed(2);
+						ChangePriceRange(3, sum, 0);
+						break;
+					default:
+						console.log('не работает все');
+					}
+			}else{
+				switch(data.cart_column) {
+					case 0:
+						ChangePriceRange(0, 0, 0);
+						break;
+					case 1:
+						var sum = (data.products_sum[3]).toFixed(2);
+						ChangePriceRange(1, sum, 0);
+						break;
+					case 2:
+						var sum = (data.products_sum[3]).toFixed(2);
+						ChangePriceRange(2, sum, 0);
+						break;
+					case 3:
+						var sum = (data.products_sum[3]).toFixed(2);
+						ChangePriceRange(3, sum, 0);
+						break;
+					default:
+						console.log('не работает все');
+				}
+			}
+
 			$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
@@ -214,6 +257,7 @@ function removeFromCart(id){
 			}
 
 			if(data.products.length == 0){
+				ChangePriceRange(3, 0, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
 				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .clear_cart').addClass('hidden');

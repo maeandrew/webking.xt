@@ -921,6 +921,7 @@ section.center {
 		background-color: white;
 		z-index: 1;
 		margin: 0;
+		margin-bottom: 5px;
 	}
 	#cart #percent td {
 		padding: 0 1em 0.25em 0;
@@ -979,7 +980,7 @@ section.center {
 		float: left;
 		display: table-row;
 		min-width: 300px;
-		width: calc(65% - 160px);
+		width: calc(65% - 170px);
 		text-align: left;
 		padding: 5px;
 	}
@@ -1157,6 +1158,10 @@ section.center {
 		float: left;
 	}
 
+	.order_balance_cart {
+		min-width: 800px;
+	}
+
 	#discountBlock {
 		display: flex;
 		justify-content: space-between;
@@ -1174,6 +1179,7 @@ section.center {
 	    flex-direction: column;
 	    text-align: left;
 	    margin-left: 10px;
+	    /* min-width: 100px; */
 	}
 
 	#discountTable .addMoreProducts,
