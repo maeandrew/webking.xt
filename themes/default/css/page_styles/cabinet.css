@@ -1773,13 +1773,16 @@ html {
 }
 
 #date_container {
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 35px;
+	margin-bottom: 15px;
 }
-#edit_personal #year, #edit_personal #month, #edit_personal #day {
+#date_container .mdl-textfield {
 	padding: 0;
 	display: inline-block;
-	width: auto;
+	width: 91px;
+}
+#date_container select {
+	margin: 0 10px;
 }
 #settings form {
 	padding: 10px;
