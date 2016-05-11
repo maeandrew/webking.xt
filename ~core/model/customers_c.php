@@ -5,7 +5,7 @@ class Customers extends Users {
 		parent::__construct();
 		$this->usual_fields = array("id_user", "cont_person", "phones", "discount", "id_contragent", "id_city",
 									"id_delivery", "bonus_card", "bonus_balance", "bonus_discount", "balance",
-									"sex", "birthday", "address_ur");
+									"sex", "birthday", "address_ur", "b_year", "b_month", "b_day");
 	}
 	// Покупатель по id
 	public function SetFieldsById($id, $all = 0){
@@ -146,45 +146,45 @@ class Customers extends Users {
 		return $kl1;
 	}
 
-	public function updateContPerson($cont_person){
-		if(!empty($cont_person)){
-			$f['cont_person'] = trim($cont_person);
-			$User = new Users();
-			$User->SetUser($_SESSION['member']);
-			$user_id = $User->fields['id_user'];
-			$f['id_user'] = trim($user_id);
-			$this->db->StartTrans();
-			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
-				echo $this->db->ErrorMsg();
-				$this->db->FailTrans();
-				return false; //Если не удалось записать в базу
-			}
-			$this->db->CompleteTrans();
-			return true;//Если все ок
-		}else{
-			return false; //Если имя пустое
-		}
-	}
+//	public function updateContPerson($cont_person){
+//		if(!empty($cont_person)){
+//			$f['cont_person'] = trim($cont_person);
+//			$User = new Users();
+//			$User->SetUser($_SESSION['member']);
+//			$user_id = $User->fields['id_user'];
+//			$f['id_user'] = trim($user_id);
+//			$this->db->StartTrans();
+//			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
+//				echo $this->db->ErrorMsg();
+//				$this->db->FailTrans();
+//				return false; //Если не удалось записать в базу
+//			}
+//			$this->db->CompleteTrans();
+//			return true;//Если все ок
+//		}else{
+//			return false; //Если имя пустое
+//		}
+//	}
 
-	public function updatePhones($phones){
-		if(!empty($phones)){
-			$f['phones'] = trim($phones);
-			$User = new Users();
-			$User->SetUser($_SESSION['member']);
-			$user_id = $User->fields['id_user'];
-			$f['id_user'] = trim($user_id);
-			$this->db->StartTrans();
-			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
-				echo $this->db->ErrorMsg();
-				$this->db->FailTrans();
-				return false; //Если не удалось записать в базу
-			}
-			$this->db->CompleteTrans();
-			return true;//Если все ок
-		}else{
-			return false; //Если телефон пустой
-		}
-	}
+//	public function updatePhones($phones){
+//		if(!empty($phones)){
+//			$f['phones'] = trim($phones);
+//			$User = new Users();
+//			$User->SetUser($_SESSION['member']);
+//			$user_id = $User->fields['id_user'];
+//			$f['id_user'] = trim($user_id);
+//			$this->db->StartTrans();
+//			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
+//				echo $this->db->ErrorMsg();
+//				$this->db->FailTrans();
+//				return false; //Если не удалось записать в базу
+//			}
+//			$this->db->CompleteTrans();
+//			return true;//Если все ок
+//		}else{
+//			return false; //Если телефон пустой
+//		}
+//	}
 
 	public function updateContragentOnRegistration($contragent, $id_customer){
 		if(!empty($contragent) && !empty($id_customer)){
@@ -382,34 +382,35 @@ class Customers extends Users {
 	 */
 	public function UpdateCustomer($arr){
 		global $User;
-		$f['id_user'] = trim($arr['id_user']);
-		$f['gid'] = $User->fields['gid'];
-		$f['name'] = $arr['cont_person'];
-		$f['email'] = $arr['email'];
-		$f['phones'] = $arr['phones'];
-		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_.'user', $f, "id_user = {$f['id_user']}")){
-			echo $this->db->ErrorMsg();
+		$arr['gid'] = $User->fields['gid'];
+		$arr['name'] = $arr['cont_person'];
+		if(!$User->UpdateUser($arr)){
 			$this->db->FailTrans();
 			return false;
 		}
-//		$arr['gid'] = $User->fields['gid'];
-//		$arr['name'] = $arr['cont_person'];
-//		if(!$User->UpdateUser($arr)){
-//			$this->db->FailTrans();
-//			return false;
-//		}
 		$id_user = $this->db->GetLastId();
 		unset($f);
 		$f['id_user'] = trim($arr['id_user']);
-		$f['sex'] = trim($arr['gender']);
-		$f['birthday'] = trim($arr['birthday']);
-		$f['address_ur'] = $arr['address'];
-		//$f['phones'] = $arr['phones'];
+		if(isset($arr['cont_person'])) {
+			$f['cont_person'] = trim($arr['cont_person']);
+		}
+		if(isset($arr['gender'])) {
+			$f['sex'] = trim($arr['gender']);
+		}
+		if(isset($arr['birthday'])) {
+			$f['birthday'] = trim($arr['birthday']);
+		}
+		if(isset($arr['address'])) {
+			$f['address_ur'] = trim($arr['address']);
+		}
+		if(isset($arr['phones'])) {
+			$f['phones'] = trim($arr['phones']);
+		}
 		if(isset($arr['discount'])){
 			$discount = str_replace(",",".",trim($arr['discount']));
 			$f['discount'] = (1-$discount)*100;
 		}
+		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();

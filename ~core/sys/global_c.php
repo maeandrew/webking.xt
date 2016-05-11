@@ -546,7 +546,7 @@ class G {
 		return $good;
 	}
 
-	public static function GenerateVerificationCode(){
-		return str_pad(rand(0,9999),4,'0');
+	public static function GenerateVerificationCode($length=4){
+		return str_pad(rand(0,str_repeat("9", $length)),$length,'0');
 	}
 }
