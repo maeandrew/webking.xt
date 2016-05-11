@@ -745,22 +745,22 @@
 				<input class="mdl-textfield__input" type="password" name="cur_passwd" id="cur_passwd"/>
 				<span class="mdl-textfield__error"></span>
 			</div>
-		</div>
-		<a href="#">Забыли пароль? Выберите удобный для Вас способ подтверждения доступа</a>
-		<div id="verification_meth">
-			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_mail">
-				<input type="radio" id="choise_mail" class="mdl-radio__button" name="verification_meth" data-value="email" checked>
-				<span class="mdl-radio__label">письмо на Ваш Email</span>
-			</label></div>
-			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_sms">
-				<input type="radio" id="choise_sms" class="mdl-radio__button" name="verification_meth" data-value="sms">
-				<span class="mdl-radio__label">SMS на номер Ваш телефона</span>
-			</label></div>
-			<div class="input_container">
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
-					<label class="mdl-textfield__label" for="recovery_email">Email</label>
-					<span class="mdl-textfield__error"></span>
+			<a href="#">Забыли пароль? Выберите удобный для Вас способ подтверждения доступа</a>
+			<div id="verification_meth">
+				<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_mail">
+					<input type="radio" id="choise_mail" class="mdl-radio__button" name="verification_meth" data-value="email" checked>
+					<span class="mdl-radio__label">письмо на Ваш Email</span>
+				</label></div>
+				<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_sms">
+					<input type="radio" id="choise_sms" class="mdl-radio__button" name="verification_meth" data-value="sms">
+					<span class="mdl-radio__label">SMS на номер Ваш телефона</span>
+				</label></div>
+				<div class="input_container">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
+						<label class="mdl-textfield__label" for="recovery_email">Email</label>
+						<span class="mdl-textfield__error"></span>
+					</div>
 				</div>
 			</div>
 		</div>
