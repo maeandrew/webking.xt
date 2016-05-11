@@ -27,7 +27,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 
 			break;
-			case 'ChangeInfoUser':
+			case 'ChangeInfoUser': print_r($_POST); die();
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 				list($err, $errm) = Change_Info_validate();
 

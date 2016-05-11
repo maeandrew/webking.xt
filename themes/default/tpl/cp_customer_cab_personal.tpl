@@ -77,7 +77,7 @@
 						<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
 					</div>
 					
-					<button name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
+					<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 					
 				<?break;
 				case 'delivery':?>
@@ -158,7 +158,7 @@
 			};
 		});
 
-		$('#edit_contacts button[name="save_contacts"]').click(function(event) {
+		$('#edit_contacts input[name="save_contacts"]').click(function(event) {
 			var parent = $(this).closest('form'),
 				email = parent.find('[name="email"]').val(),
 				phone = parent.find('[name="phones"]').val(),
