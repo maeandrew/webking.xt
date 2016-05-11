@@ -11,13 +11,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				$tpl->Assign('list', $list);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
-			break;
+				break;
 			case 'GetProdListForCart':
 				$Cart = new Cart();
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
 				$tpl->Assign('list', $list);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
-			break;
+				break;
 			case 'GetRating':
 				$C = new Contragents();
 				// print_r($_POST);
@@ -25,7 +25,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//var_dump($res);
 				echo json_encode($res);
 
-			break;
+				break;
 		}
 	}
 }
