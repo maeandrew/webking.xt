@@ -38,9 +38,24 @@
 							</label>
 						</div>
 					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="birthday" class="mdl-textfield__label">Дата рождения: (год-месяц-число)</label>
-						<input class="mdl-textfield__input" type="date" name="birthday" id="birthday"  value="<?=$Customer['birthday']?>"/>
+					<!-- <div id="forBirthday" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="birthday" class="mdl-textfield__label">Дата рождения:</label>
+						<input class="mdl-textfield__input" type="text" name="birthday" id="birthday" value="" placeholder="Выберите дату рождения" disabled="disabled" />
+					</div> -->
+					<div id="date_container">					
+						<select name="year" id="year" class="mdl-textfield mdl-js-textfield">
+							<option value="1935" class="mdl-textfield__input">1935</option>
+							<option value="2000" class="mdl-textfield__input">2000</option>
+						</select>
+						<select name="month" id="month" class="mdl-textfield mdl-js-textfield">
+							<option value="Jan" class="mdl-textfield__input">Jan</option>
+							<option value="Sep" class="mdl-textfield__input">Sep</option>
+						</select>
+						<select name="day" id="day" class="mdl-textfield mdl-js-textfield">
+							<option value="1" class="mdl-textfield__input">1</option>
+							<option value="28" class="mdl-textfield__input">28</option>
+						</select>
+
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="address" class="mdl-textfield__label">Адрес:</label>

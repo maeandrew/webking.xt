@@ -882,26 +882,26 @@ section.center {
 		border: 1px solid #cdcdcd;
 		margin: 5px 0 5px 0;
 	}
-	#passstrengthlevel {
+	#passstrengthlevel, #passstrengthlevel2 {
 		background: #DDDDDD;
 		float: right;
 		width: 100%;
 		height: 100%;
 		transition: width .4s ease;
 	}
-	#passstrengthlevel.bad {
+	#passstrengthlevel.bad, #passstrengthlevel2.bad {
 		width: 75%;
 		background: #fff;
 	}
-	#passstrengthlevel.better {
+	#passstrengthlevel.better, #passstrengthlevel2.better {
 		width: 50%;
 		background: #fff;
 	}
-	#passstrengthlevel.ok {
+	#passstrengthlevel.ok, #passstrengthlevel2.ok {
 		width: 25%;
 		background: #fff;
 	}
-	#passstrengthlevel.best {
+	#passstrengthlevel.best, #passstrengthlevel2.best {
 		width: 0%;
 		background: #fff;
 	}
