@@ -87,7 +87,7 @@ function Register_form_validate($nocheck = array()){
 		$errm[$varname] = "Поле обязательно для заполнения.";
 		$err=1;
 	}*/
-/*
+	/*
 	$varname = 'cont_person';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
@@ -123,7 +123,7 @@ function Register_form_validate($nocheck = array()){
 		$errm[$varname] = "Поле обязательно для заполнения.";
 		$err=1;
 	}
-*/
+	*/
 	return array($err, $errm);
 }
 function Remind_form_validate($nocheck=array()){
@@ -192,7 +192,7 @@ function Order_form_validate($nocheck = array()){
 		$errm[$varname] = "Поле обязательно для заполнения.";
 		$err = 1;
 	}
-/*
+	/*
 	$varname = 'id_delivery';
 	if(isset($_POST[$varname]) && $_POST[$varname] != 0){
 		$_POST[$varname] = trim($_POST[$varname]);
@@ -262,7 +262,6 @@ function Order_form_validate($nocheck = array()){
 		$errm[$varname] = "Не выбран способ доставки.";
 		$err=1;
 	}
-*/
+	*/
 	return array($err, $errm);
 }
-?>

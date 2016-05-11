@@ -359,7 +359,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					if($Users->CheckPhoneUniqueness($phone)){
 						$data = array(
 							'name' => 'user_'.rand(),
-							'passwd' => $pass = substr(md5(time()), 0, 8),
+							//'passwd' => $pass = substr(md5(time()), 0, 8),
+							'passwd' => $pass = G::GenerateVerificationCode(6),
 							'descr' => 'Пользователь создан автоматически при оформлении корзины',
 							'phone' => $phone
 						);

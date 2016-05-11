@@ -227,14 +227,14 @@ class Users {
 		if(isset($arr['name']) && $arr['name'] != ''){
 			$f['name'] = trim($arr['name']);
 		}
-		if(isset($arr['email']) && $arr['passwd'] != ''){
+		if(isset($arr['email']) && $arr['email'] != ''){
 			$f['email'] = trim($arr['email']);
 		}
-//		if(isset($arr['email']) && $arr['email'] != ''){
-//			$f['email'] = trim($arr['email']);
-//		}
-		if(isset($arr['phone']) && $arr['phone'] != ''){
-			$f['phone'] = trim($arr['email']);
+		if(isset($arr['phones']) && $arr['phones'] != '') {
+			//Проверяем, существует ли такой телефон в таблице User
+			if($this->CheckPhoneUniqueness($arr['phones']) === true) {
+				$f['phones'] = trim($arr['phones']);
+			}
 		}
 		if(isset($arr['passwd']) && $arr['passwd'] != ''){
 			$f['passwd'] = md5(trim($arr['passwd']));
