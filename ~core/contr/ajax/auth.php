@@ -75,21 +75,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$echo['err'] = 1;
 							$echo['msg'] = 'Ой, что-то пошло не так';
 						}
-						
-						// if($User->CheckUser($_POST)){
-						// 	if(isset($_POST['contr'])){
-						// 		$Customers->updateContragentOnRegistration($_POST['contr'], $User->fields['id_user']);
-						// 	}
-						// 	$User->LastLoginRemember($User->fields['id_user']);
-						// 	G::Login($User->fields);
-						// }else{
-						// 	$tpl->Assign('msg_type', 'error');
-						// 	$tpl->Assign('msg', 'Ошибка! Неверный email или пароль.');
-						// 	$tpl->Assign('errm', 1);
-						// }
 					}else{
-						$echo['errm']['email'] = 'Введен некорректный email';
 						$echo['err'] = 1;
+						$echo['errm']['email'] = 'Введен некорректный email';
 					}
 				}else{
 					$echo['err'] = 1;

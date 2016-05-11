@@ -24,16 +24,6 @@
 		</ul>
 	</div>
 	<div class="order_balance">
-		<!-- <?if($_COOKIE['sum_range'] == 3) { ?>
-			Без скидки!
-		<?}elseif($_COOKIE['sum_range'] == 2){ ?>
-			Дозаказать еще на: <br> <span class="summ"><?=number_format(500 - $_SESSION['cart']['products_sum'][3], 2, ',', '');?></span> грн.
-		<?}elseif($_COOKIE['sum_range'] == 1){ ?>
-			Дзаказать еще на: <br> <span class="summ"><?=number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '')?></span> грн.
-		<?}elseif($_COOKIE['sum_range'] == 0){ ?>
-			Дозаказать еще на: <br> <span class="summ"><?=number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '')?></span> грн.
-		<?}?> -->
-
 		<?switch ($_COOKIE['sum_range']) {
 				case 3:
 					?>Без скидки!<?

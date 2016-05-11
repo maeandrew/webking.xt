@@ -91,13 +91,13 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 	<!-- END include specific js templates for controllers -->
-	<?if(!isset($_SESSION['member']['gid']) || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
+	<?if(!G::isLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
 		<!-- Google counter -->
-		<?=isset($GLOBALS['CONFIG']['google_counter_xt'])?$GLOBALS['CONFIG']['google_counter_xt']:null;?>
+		<?=isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
 
 		<!-- Yandex.Metrika counter -->
-		<?=isset($GLOBALS['CONFIG']['yandex_counter_xt'])?$GLOBALS['CONFIG']['yandex_counter_xt']:null?>
+		<?=isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
 		<!-- END Yandex.Metrika counter -->
 		<!--<script>ga('require', 'ecommerce');</script>-->
 	<?}?>
@@ -738,6 +738,31 @@
 		</div>
 		<div id="registerComplete" data-type="modal">
 			<div class="modal_container">Спасибо за регистрацию!</div>
+		</div>
+		<div id="verification" data-type="modal">
+			<div class="cur_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label class="mdl-textfield__label" for="cur_passwd">Текущий пароль:</label>
+				<input class="mdl-textfield__input" type="password" name="cur_passwd" id="cur_passwd"/>
+				<span class="mdl-textfield__error"></span>
+			</div>
+		</div>
+		<a href="#">Забыли пароль? Выберите удобный для Вас способ подтверждения доступа</a>
+		<div id="verification_meth">
+			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_mail">
+				<input type="radio" id="choise_mail" class="mdl-radio__button" name="verification_meth" data-value="email" checked>
+				<span class="mdl-radio__label">письмо на Ваш Email</span>
+			</label></div>
+			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_sms">
+				<input type="radio" id="choise_sms" class="mdl-radio__button" name="verification_meth" data-value="sms">
+				<span class="mdl-radio__label">SMS на номер Ваш телефона</span>
+			</label></div>
+			<div class="input_container">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
+					<label class="mdl-textfield__label" for="recovery_email">Email</label>
+					<span class="mdl-textfield__error"></span>
+				</div>
+			</div>
 		</div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
