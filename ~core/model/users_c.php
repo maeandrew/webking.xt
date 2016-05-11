@@ -544,4 +544,19 @@ class Users {
 		return false;
 	}
 
+	//Отправка смс с паролем при оформлении заказа по номеру телефона
+	public function SendPassword($passwd, $phone){
+		$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+		if($phone != ''){
+			$data = array(
+				'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+				'text' => "xt.ua \nВаш временный пароль - ".$passwd,
+				'phone' => $phone, //'38'.
+				'datetime' => null,
+				'sms_lifetime' => 0
+			);
+			$Gateway->execCommad('sendSMS', $data);
+		}
+	}
+
 }

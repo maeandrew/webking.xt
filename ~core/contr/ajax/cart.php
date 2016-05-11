@@ -365,7 +365,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							'phone' => $phone
 						);
 						// регистрируем нового пользователя
-						$Customers->RegisterCustomer($data);
+						if($Customers->RegisterCustomer($data)){
+							$Users->SendPassword($data['passwd'],$data['phone']);
+						}
 						$data = array(
 							'email' => $phone,
 							'passwd' => $pass
