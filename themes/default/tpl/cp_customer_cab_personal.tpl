@@ -45,21 +45,30 @@
 					<div id="date_container">
 						<div class="mdl-textfield mdl-js-textfield">
 							<label for="day" class="mdl-textfield__label">день</label>
-							<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input">
+							<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
 							<span class="mdl-textfield__error"></span>
 						</div>
-						<select name="month" id="month" class="mdl-textfield mdl-js-textfield">
-							<option value="месяц" class="mdl-textfield__input">месяц</option>
+						<input id="customer_month" type="hidden" value="<?=isset($Customer['b_month'])?$Customer['b_month']:'';?>">
+						<select name="month" id="month">							
 							<script>
 								var month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+								var customer_month = $('#customer_month').val();
+								var temp;
 								for (var i = 0; i < month.length; i++) {
-									document.write('<option value="' + (i+1) + '" class="mdl-textfield__input">'+ month[i] +'</option>');
+									temp = ((i<9)?'0'+(i+1):(i+1));
+									if (customer_month == '') {
+										document.write('<option value="месяц">месяц</option>');
+									};
+									document.write('<option value="' + temp + '">'+ month[i] +'</option>');
+									if (temp == customer_month) {
+										$('#month').find('option[value="'+temp+'"]').attr('selected', 'selected');
+									}
 								};
 							</script>
 						</select>
 						<div class="mdl-textfield mdl-js-textfield">
 							<label for="year" class="mdl-textfield__label">год</label>
-							<input id="year" name="year" pattern="^(19|20)\d{2}$" type="text" placeholder="год" maxlength="4" size="8" class="mdl-textfield__input">
+							<input id="year" name="year" pattern="^(19|20)\d{2}$" type="text" placeholder="год" maxlength="4" size="8" class="mdl-textfield__input" value="<?=isset($Customer['b_year'])?$Customer['b_year']:null;?>">
 							<span class="mdl-textfield__error"></span>
 						</div>
 					</div>
@@ -68,7 +77,7 @@
 						<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
 					</div>
 					
-					<button name="save_contacts" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
+					<button name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 					
 				<?break;
 				case 'delivery':?>
@@ -138,8 +147,14 @@
 		$('#day').change(function(event) {
 			if ($('#month').val() == 'месяц') {
 				$('#month').css('border-color', 'red');
-				console.log($(this));
 				$(this).closest('.mdl-textfield').find('.mdl-textfield__error').html('Выберите месяц');
+			};
+		});
+		$('#month').change(function(event) {
+			if ($('#day').val() == '') {
+				$('#day').css('border-color', 'red');
+				$(this).closest('.mdl-textfield').find('.mdl-textfield__error').html('Выберите день');
+				$('option[value="месяц"]').addClass('hidden');
 			};
 		});
 
@@ -151,20 +166,18 @@
 				first_name = parent.find('[name="first_name"]').val(),
 				middle_name = parent.find('[name="middle_name"]').val(),
 				gender = parent.find('[name="gender"]').val(),
-				birthday,
+				day, month, year,
 				address = parent.find('[name="address"]').val();
 
-				if ($('#day').val()=='' && $('#month').val()=='месяц' && $('#year').val()=='') {
-					console.log('ДА.');
-				}else{console.log('NO.');}
+			$('#day').val()!=''?day=$('#day').val():day='';
+			$('#month').val()!='месяц'?month=$('#month').val():month='';
+			$('#year').val()!=''?year=$('#year').val():year='';
 
-				data = { email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, address: address }
+			data = { email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
 
-				ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
-				
-					componentHandler.upgradeDom();
-				});
-
+			ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
+				console.log('ajax успешно сработал!');
+			});
 		});
 	});
 </script>
