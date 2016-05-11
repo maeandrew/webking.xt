@@ -26,6 +26,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 
 			break;
+			case 'ChangeInfoUser':
+				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
+				list($err, $errm) = Change_Info_validate();
+
+
+				break;
 		}
 	}
 }

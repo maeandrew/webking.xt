@@ -1,4 +1,10 @@
 <?php
+function Change_Info_validate(){
+	$errm = array();
+	$err = 0;
+
+}
+
 function Register_form_validate($nocheck = array()){
 	$errm = array();
 	$err = 0;

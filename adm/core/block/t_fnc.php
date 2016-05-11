@@ -996,4 +996,3 @@ function Seotext_form_validate(){
 
 	return array($err, $errm);
 }
-?>
