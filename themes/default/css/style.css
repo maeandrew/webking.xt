@@ -921,7 +921,7 @@ section.center {
 		background-color: white;
 		z-index: 1;
 		margin: 0;
-		margin-bottom: 5px;
+		line-height: 32px;
 	}
 	#cart #percent td {
 		padding: 0 1em 0.25em 0;
@@ -1118,6 +1118,7 @@ section.center {
 	#cart .action_block .wrapp button {
 		float: right;
 		margin: 0;
+		margin-right: 10px;
 	}
 	#cart .action_block form .mdl-checkbox {
 		float: left;
@@ -1158,9 +1159,9 @@ section.center {
 		float: left;
 	}
 
-	.order_balance_cart {
+	/* .order_balance_cart {
 		min-width: 800px;
-	}
+	} */
 
 	#discountBlock {
 		display: flex;
@@ -1171,15 +1172,15 @@ section.center {
 	#discountTable {
 		display: flex;
 		justify-content: flex-start;
-    	width: 100%
+    	width: 250px;
+    	font-size: 12px;
 	}
 
 	#discountTable .discountTableElem {
 	    display: flex;
 	    flex-direction: column;
 	    text-align: left;
-	    margin-left: 10px;
-	    /* min-width: 100px; */
+	    margin-left: 20px;
 	}
 
 	#discountTable .addMoreProducts,
@@ -1204,8 +1205,26 @@ section.center {
 	#currentDiscount {
 		font-size: 35px;
     	line-height: 35px;
+    	display: block;
 	}
 
+	.orderNote {
+		float: left;
+    	width: calc(100% - 300px);
+    	padding-top: 10px;
+	}
+
+	.orderNote textarea {
+		width: 100%;
+		height: 67px;
+		padding: 5px;
+	}
+
+	@media (max-width: 979px) {
+		#cart #total {
+			width: auto;
+		}
+	}
 
 /*CONTACTS*/
 
@@ -2499,6 +2518,73 @@ section .stat_year {
 		width: 100%;
 		border: none;
 	}
+
+	/* Медиа для блока скидок
+
+	@media (max-width: 739px) {
+		.cart_footer {
+			display: flex;
+		    flex-direction: column-reverse;
+		}
+		#total {
+			border-top: 1px solid #e0e0e0;
+		}
+
+		#cart #total .total .total_summ {
+			text-align: left;
+		}
+		#discountBlock {
+			flex-direction: column-reverse;
+		}
+		.currentDiscountBlock {
+			margin: 0 auto;
+	   			margin-bottom: 10px;
+		}
+
+		#discountTable {
+			justify-content: center;
+			margin-left: 10px;
+			width: 100%;
+		}
+		.orderNote {
+			width: 100%;
+		}
+
+		#cart .action_block {
+			padding: 0;
+			padding-top: 10px;
+		}
+
+		#cart .action_block .wrapp {
+			max-width: 100%;
+			margin: 0;
+		}
+
+		#cart .action_block .wrapp form {
+			display: flex;
+	   			justify-content: space-between;
+		}
+		#cart .action_block .wrapp button {
+			margin: 0;
+		}
+
+		#cart .action_block .wrapp form div {
+			width: 50%;
+			text-align: left;
+		}
+	}
+
+	@media (max-width: 414px) {
+		#cart .action_block .wrapp form {
+			display: block;
+		}
+
+		#cart .action_block .wrapp form div {
+			width: 100%;
+			text-align: center;
+		}
+	} */
+
 	.phone_menu {
 		display: block;
 		color: #9e9e9e;
@@ -2597,6 +2683,77 @@ section .stat_year {
 		max-width: 100%;
 	}
 }
+
+/* Медиа для блока скидок*/
+
+	@media (max-width: 739px) {
+		.cart_footer {
+			display: flex;
+		    flex-direction: column-reverse;
+		}
+		.order_balance_cart {
+			width: 98%;
+		}
+		#total {
+			border-top: 1px solid #e0e0e0;
+		}
+
+		#cart #total .total .total_summ {
+			text-align: left;
+		}
+		#discountBlock {
+			flex-direction: column-reverse;
+		}
+		.currentDiscountBlock {
+			margin: 0 auto;
+   			margin-bottom: 10px;
+		}
+
+		#discountTable {
+			justify-content: center;
+			margin-left: 13px;
+			width: 100%;
+		}
+		.orderNote {
+			width: 100%;
+		}
+
+		#cart .action_block {
+			padding: 0;
+			padding-top: 10px;
+			padding-bottom: 20px;
+		}
+
+		#cart .action_block .wrapp {
+			max-width: 100%;
+			margin: 0;
+		}
+
+		#cart .action_block .wrapp form {
+			display: flex;
+   			justify-content: space-between;
+		}
+		#cart .action_block .wrapp button {
+			margin: 0;
+		}
+
+		#cart .action_block .wrapp form div {
+			width: 50%;
+			text-align: left;
+		}
+	}
+
+	@media (max-width: 414px) {
+		#cart .action_block .wrapp form {
+			display: block;
+		}
+
+		#cart .action_block .wrapp form div {
+			width: 100%;
+			text-align: center;
+		}
+	}
+
 
 /*MATERIAL UPGRADE*/
 
