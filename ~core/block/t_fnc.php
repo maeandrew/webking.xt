@@ -1,8 +1,87 @@
 <?php
-function Change_Info_validate(){
+
+function Change_Info_validate($nocheck = array()){
 	$errm = array();
 	$err = 0;
-
+	$varname = 'email';
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 1, 'Lmax' => 255, 'PM_email' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}else{
+			$errm[$varname] = "Поле обязательно для заполнения";
+			$err = 1;
+		}
+	}
+	$varname = 'phone';
+	if(isset($_POST[$varname]) && $_POST[$varname]){
+		$_POST[$varname] = trim($_POST[$varname]);
+		$carr = array('Lmin'=>10, 'Lmax'=>12, 'PM_tel'=>1);
+		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+		if(!$errf){
+			$errm[$varname] = $errmsg;
+			$err = 1;
+		}
+	}else{
+		$errm[$varname] = "Поле обязательно для заполнения.";
+		$err = 1;
+	}
+	$varname = 'first_name';
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 2, 'Lmax' => 55, 'PM_name' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}
+	}
+	$varname = 'middle_name';
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 2, 'Lmax' => 55, 'PM_name' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}
+	}
+	$varname = 'last_name';
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin' => 2, 'Lmax' => 55, 'PM_name' => 1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}
+	}
+	$varname = 'check_date';
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST['month']) && isset($_POST['day'])&& $_POST['month'] !=''&& $_POST['day'] !=''){
+			$var['month'] = $_POST['month'];
+			$var['day'] = $_POST['day'];
+			$var['year'] = (isset($_POST['year'])&& $_POST['year'] !='')?$_POST['year']:'2000';
+			$carr = array('IsDate' => 1);
+			list($errf, $errmsg) = G::CheckV($var, $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
+		}
+	}
+	return array($err, $errm);
 }
 
 function Register_form_validate($nocheck = array()){

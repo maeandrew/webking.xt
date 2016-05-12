@@ -380,7 +380,7 @@ class Customers extends Users {
 	/* Обновление пользователя
 	 *
 	 */
-	public function UpdateCustomer($arr){
+	public function UpdateCustomer($arr){ //print_r($arr); die();
 		global $User;
 		$arr['gid'] = $User->fields['gid'];
 		$arr['name'] = $arr['cont_person'];
@@ -397,14 +397,20 @@ class Customers extends Users {
 		if(isset($arr['gender'])) {
 			$f['sex'] = trim($arr['gender']);
 		}
-		if(isset($arr['birthday'])) {
-			$f['birthday'] = trim($arr['birthday']);
+		if(isset($arr['year'])) {
+			$f['b_year'] = trim($arr['year']);
+		}
+		if(isset($arr['month'])) {
+			$f['b_month'] = trim($arr['month']);
+		}
+		if(isset($arr['day'])) {
+			$f['b_day'] = trim($arr['day']);
 		}
 		if(isset($arr['address'])) {
 			$f['address_ur'] = trim($arr['address']);
 		}
-		if(isset($arr['phones'])) {
-			$f['phones'] = trim($arr['phones']);
+		if(isset($arr['phone'])) {
+			$f['phones'] = trim($arr['phone']);
 		}
 		if(isset($arr['discount'])){
 			$discount = str_replace(",",".",trim($arr['discount']));

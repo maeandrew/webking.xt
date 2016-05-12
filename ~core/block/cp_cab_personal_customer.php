@@ -129,23 +129,23 @@
 	// $tpl->Assign('DeliveryMethod', $delivery->list);
 	// $tpl->Assign('SavedDeliveryMethod', $delivery->fields);
 	if(isset($_POST['save_contacts'])) {
-		$yaer = (isset($_POST['year']))?$_POST['year']:2001;
-		if(isset($_POST['month']) && isset($_POST['day'])){
-			if (checkdate($_POST['month'], $_POST['day'], $yaer) === false) {
-				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&novalidatebirthday");
-			}
-		}
-		else{
+//		$yaer = (isset($_POST['year']))?$_POST['year']:2001;
+//		if(isset($_POST['month']) && isset($_POST['day'])){
+//			if (checkdate($_POST['month'], $_POST['day'], $yaer) === false) {
+//				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&novalidatebirthday");
+//			}
+//		}
+//		else{
 			if (!$_POST['cont_person']) {
 				$_POST['cont_person'] = trim($_POST['last_name']) . ' ' . trim($_POST['first_name']) . ' ' . trim($_POST['middle_name']);
 			}
-			if ($Customers->updateCustomer($_POST)) //	&&	$Customers->updateContPerson($_POST['cont_person']) &&	$Customers->updatePhones($_POST['phones']))
+			if ($Customers->updateCustomer($_POST))
 			{
 				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&success");
 			} else {
 				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&unsuccess");
 			}
-		}
+		//}
 	}elseif(isset($_POST['save_delivery'])){
 		if($Customers->updateCity($_POST['id_delivery_department']) && $Customers->updateDelivery($_POST['id_delivery'])){
 			header("Location: /cabinet/personal/?t=delivery&success");

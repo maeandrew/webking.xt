@@ -239,7 +239,7 @@ class Users {
 		if(isset($arr['passwd']) && $arr['passwd'] != ''){
 			$f['passwd'] = md5(trim($arr['passwd']));
 		}
-		if(isset($arr['gid']) && $arr['passwd'] != ''){
+		if(isset($arr['gid']) && isset($arr['passwd']) && $arr['passwd'] != ''){
 			$f['gid'] = trim($arr['gid']);
 		}
 		if(isset($arr['descr'])){

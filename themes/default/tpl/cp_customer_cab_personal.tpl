@@ -16,16 +16,16 @@
 						<input class="mdl-textfield__input phone" required="required" type="tel" name="phones" id="phones" maxlength="15" value="<?=$Customer['phones']?>"/>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
-						<input class="mdl-textfield__input" type="text" required="required" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+						<label for="name" class="mdl-textfield__label">Фамилия:</label>
+						<input class="mdl-textfield__input" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="name" class="mdl-textfield__label">Имя:</label>
-						<input class="mdl-textfield__input" required="required" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+						<label for="middle_name" class="mdl-textfield__label">Имя:</label>
+						<input class="mdl-textfield__input" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
-						<input class="mdl-textfield__input" required="required" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+						<label for="last_name" class="mdl-textfield__label">Отчество:</label>
+						<input class="mdl-textfield__input" type="text" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
 					</div>
 					<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="label_for_gender" for="gender">Пол:</label>
@@ -160,6 +160,7 @@
 
 		$('#edit_contacts input[name="save_contacts"]').click(function(event) {
 			var parent = $(this).closest('form'),
+				id_user = parent.find('[name="id_user"]').val(),
 				email = parent.find('[name="email"]').val(),
 				phone = parent.find('[name="phones"]').val(),
 				last_name = parent.find('[name="last_name"]').val(),
@@ -173,7 +174,7 @@
 			$('#month').val()!='месяц'?month=$('#month').val():month='';
 			$('#year').val()!=''?year=$('#year').val():year='';
 
-			data = { email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
+			data = {id_user: id_user, email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
 
 			ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
 				console.log('ajax успешно сработал!');
