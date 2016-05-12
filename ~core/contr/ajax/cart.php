@@ -255,9 +255,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				exit();
 				break;
 			case 'remove_from_cart':
-				if (isset($_POST['id'])){
-					$res = $cart->RemoveFromCart($_POST['id'], $_SESSION['cart']['id']);
-				}else {
+				if(isset($_POST['id'])){
+					$res = $cart->RemoveFromCart($_POST['id'], isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:false);
+				}else{
 					$res = null;
 				}
 				echo json_encode($res);
