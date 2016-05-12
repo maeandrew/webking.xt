@@ -402,7 +402,6 @@
 	<script type="text/javascript">
 		$(window).resize(function() {
     		Position($('#cart'));
-    		console.log('респонс');
 		});
 
 		$(function(){
