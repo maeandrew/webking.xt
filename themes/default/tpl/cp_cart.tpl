@@ -400,6 +400,11 @@
 
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
+		$(window).resize(function() {
+    		Position($('#cart'));
+    		console.log('респонс');
+		});
+
 		$(function(){
 			if(isLogged){
 				// console.log('loggedin');
@@ -554,8 +559,6 @@
 					$('.err_tel').css('visibility', '')
 				}
 			});
-
-
 		});
 	</script>
 <?}?>
