@@ -268,7 +268,7 @@
 				}
 			</style>
 			<?=isset($__graph)?$__graph:null;?>
-			<div class="page_content">
+			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] != 'main'){?>
 					<?=$__breadcrumbs?>
 					<?=$__center?>
@@ -631,7 +631,7 @@
 					</a>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-in">Вход</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="registration">Регистрация</button>
-				</form>				
+				</form>
 			</div>
 			<div id="password_recovery" data-type="modal">
 				<div class="password_recovery_container">
@@ -682,7 +682,7 @@
 
 					<p id="passStrengthTitle">надежность пароля</p>
 					<div id="passstrength"><div id="passstrengthlevel"></div></div>
-					
+
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
 						<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
