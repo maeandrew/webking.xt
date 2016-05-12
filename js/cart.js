@@ -260,7 +260,7 @@ function removeFromCart(id){
 				ChangePriceRange(3, 0, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
-				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .clear_cart').addClass('hidden');
+				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart').addClass('hidden');
 				$.cookie('manual', 0);
 			}
 		});
