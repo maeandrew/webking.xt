@@ -26,15 +26,25 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 			break;
 			case 'ChangeInfoUser':
+				$Users = new Users();
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 				list($err, $errm) = Change_Info_validate();
+				$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone'], $_POST['id_user']);
+				$unique_email = $Users->CheckEmailUniqueness($_POST['email'], $_POST['id_user']);
+				if($unique_phone !== true) {
+					$err = 1;
+					$errm['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
+				}
+				if($unique_email !== true) {
+					$err = 1;
+					$errm['email'] = 'Пользователь с таким email уже зарегистрирован!';
+				}
 				if(!$err){
 					$Customers = new Customers();
 					$_POST['cont_person'] = (isset($_POST['first_name'])?trim($_POST['first_name']):null) . ' ' . (isset($_POST['middle_name'])?trim($_POST['middle_name']):null) . ' ' . (isset($_POST['last_name'])?trim($_POST['last_name']):null);
 					if($Customers->updateCustomer($_POST)) echo json_encode(true);
-
-
 				}else{
+					//echo json_encode($errm);
 					print_r($errm);
 				}
 
@@ -43,4 +53,3 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	}
 }
 exit();
-?>
