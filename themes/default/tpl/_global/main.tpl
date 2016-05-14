@@ -61,7 +61,7 @@
 		var URL_base = "<?=_base_url?>/",
 			current_controller = "<?=$GLOBALS['CurrentController']?>",
 			ajax_proceed = false,
-			isLogged = <?=G::isLogged()?false:true;?>;
+			isLogged = <?=G::isLogged()?'false':'true';?>;
 	</script>
 	<!-- END define JS global variables -->
 

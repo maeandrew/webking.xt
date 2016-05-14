@@ -814,6 +814,7 @@ section.center {
 		max-width: 300px;
 	}
 	#access_recovery p.info_text {
+		width: 300px;
 		font-weight: 100;
 		line-height: 1.2em;
 		text-align: justify;

@@ -9901,7 +9901,8 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   font-size: 12px;
   margin-top: 3px;
   visibility: hidden;
-  display: block; }
+  display: block;
+  line-height: 1em }
   .mdl-textfield.is-invalid .mdl-textfield__error {
     visibility: visible; }
 

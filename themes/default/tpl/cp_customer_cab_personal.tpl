@@ -14,7 +14,7 @@
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-						<input class="mdl-textfield__input phone" type="tel" name="phones" id="phones" value="<?=$Customer['phones']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
+						<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$Customer['phones']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
 						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -183,7 +183,8 @@
 				$('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
 				$('[name="email"]').closest('.mdl-textfield').removeClass('is-invalid');
 			}else if($('input.phone').val().replace(/[^\d]+/g, "").length == 0 || $('input.phone').val().replace(/[^\d]+/g, "").length == 3){
-				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'hidden');
+				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible');
+				$('input.phone').closest('.mdl-textfield').addClass('is-invalid');
 				// console.log($('input.phone').val().replace(/[^\d]+/g, "").length);
 			} else {
 				// console.log("error");
@@ -239,22 +240,28 @@
 						$('.errMsg_js').text('');
 						$('.date_container').css('border', 'none');
 					}else{
+						console.log(response);
 						for (var i in response) {
 							switch (i) {
 								case 'email':
-									alert( 'Поле обязательно для заполнения' );
+									$('[name="email"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
 								break;
 								case 'phone':
-									alert( 'Введите правильный номер телефона' );
+									$('[name="phones"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
 								break;
 								case 'first_name':
+									$('[name="first_name"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
+									break;
 								case 'middle_name':
+									$('[name="middle_name"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
+									break;
 								case 'last_name':
-									alert( 'Использованы недопустимые символы' );
+									$('[name="last_name"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
+									break;
 								break;
 								case 'check_date':
 									$('.errMsg_js').text(response[i]);
-									$('.date_container').css('border', '1px solid #D50000');
+									$('.date_container').css('box-shadow', '0 0 10px rgba(216, 1, 1, 0.8)');
 								break;
 								default:
 									alert( 'Заполните Ваши данные корректно' );

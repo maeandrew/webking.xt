@@ -1003,10 +1003,7 @@ $(function(){
 				parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
 			};
 			componentHandler.upgradeDom();
-		});
-
-		parent.find('.password_recovery_container').html('<div id="sub_password_recovery"><div><input class="mdl-textfield__input" type="hidden" id="id_user" value=".$_POST[id_user]."><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_passwd" id="passwd" required><label class="mdl-textfield__label" for="new_pass">Новый пароль:</label><span class="mdl-textfield__error"></span></div></div><p id="passStrengthTitle">надежность пароля</p><div id="passstrength"><div id="passstrengthlevel2"></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="passwdconfirm2" id="passwdconfirm"><label class="mdl-textfield__label" for="new_pass_one_more">Подтверждение нового пароля:</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>');
-		
+		});		
 	});
 
 	$('#access_recovery').on('click', '#confirm_btn', function(e) {
