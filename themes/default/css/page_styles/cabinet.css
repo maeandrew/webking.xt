@@ -1775,6 +1775,8 @@ html {
 .date_container {
 	margin-top: 35px;
 	margin-bottom: 15px;
+	width: 300px;
+    border-radius: 3px;
 }
 .date_container .mdl-textfield {
 	padding: 0;
@@ -1789,6 +1791,9 @@ html {
 }
 .date_container select + .mdl-textfield__error{
 	width: 100px;
+}
+.errMsg_js {
+	color: #D50000;
 }
 #settings form {
 	padding: 10px;
