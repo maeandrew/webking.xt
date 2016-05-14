@@ -9,23 +9,28 @@
 					default:?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="email">E-mail:</label>
-						<input class="mdl-textfield__input" required="required" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+						<input class="mdl-textfield__input" pattern="\w+@[a-zA-Z_]+\.[a-zA-Z]" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+						<span class="mdl-textfield__error">Введите корректный Email</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-						<input class="mdl-textfield__input phone" required="required" type="tel" name="phones" id="phones" maxlength="15" value="<?=$Customer['phones']?>"/>
+						<input class="mdl-textfield__input phone" type="tel" name="phones" id="phones" value="<?=$Customer['phones']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
+						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
-						<input class="mdl-textfield__input" type="text" required="required" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+						<label for="name" class="mdl-textfield__label">Фамилия:</label>
+						<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+						<span class="mdl-textfield__error">Использованы не корректные символы</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="name" class="mdl-textfield__label">Имя:</label>
-						<input class="mdl-textfield__input" required="required" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+						<label for="middle_name" class="mdl-textfield__label">Имя:</label>
+						<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+						<span class="mdl-textfield__error">Использованы не корректные символы</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
-						<input class="mdl-textfield__input" required="required" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+						<label for="last_name" class="mdl-textfield__label">Отчество:</label>
+						<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+						<span class="mdl-textfield__error">Использованы не корректные символы</span>
 					</div>
 					<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="label_for_gender" for="gender">Пол:</label>
@@ -42,33 +47,36 @@
 						<label for="birthday" class="mdl-textfield__label">Дата рождения:</label>
 						<input class="mdl-textfield__input" type="text" name="birthday" id="birthday" value="" placeholder="Выберите дату рождения" disabled="disabled" />
 					</div> -->
-					<div id="date_container">
+					<div class="date_container">
 						<div class="mdl-textfield mdl-js-textfield">
 							<label for="day" class="mdl-textfield__label">день</label>
-							<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
-							<span class="mdl-textfield__error"></span>
+							<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input day_js day" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
+							<span class="mdl-textfield__error">Укажите день</span>
 						</div>
-						<input id="customer_month" type="hidden" value="<?=isset($Customer['b_month'])?$Customer['b_month']:'';?>">
-						<select name="month" id="month">							
-							<script>
-								var month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
-								var customer_month = $('#customer_month').val();
-								var temp;
-								for (var i = 0; i < month.length; i++) {
-									temp = ((i<9)?'0'+(i+1):(i+1));
-									if (customer_month == '') {
-										document.write('<option value="месяц">месяц</option>');
+						<input id="customer_month" type="hidden" value="<?=isset($Customer['b_month'])?$Customer['b_month']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield">
+							<select name="month" class="month_js month">
+								<?=!isset($Customer['b_month'])?print_r('<option value="месяц">месяц</option>'):null;?>
+								<script>
+									var month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],
+										customer_month = $('#customer_month').val(),
+										temp;
+										console.log(customer_month);
+
+									for (var i = 0; i < month.length; i++) {
+										temp = ((i<9)?'0'+(i+1):(i+1));										
+										document.write('<option value="' + temp + '">'+ month[i] +'</option>');
+										if (temp == customer_month) {
+											$('.month_js').find('option[value="'+temp+'"]').attr('selected', 'selected');
+										}
 									};
-									document.write('<option value="' + temp + '">'+ month[i] +'</option>');
-									if (temp == customer_month) {
-										$('#month').find('option[value="'+temp+'"]').attr('selected', 'selected');
-									}
-								};
-							</script>
-						</select>
+								</script>
+							</select>
+							<span class="mdl-textfield__error">Выберите месяц</span>
+						</div>
 						<div class="mdl-textfield mdl-js-textfield">
 							<label for="year" class="mdl-textfield__label">год</label>
-							<input id="year" name="year" pattern="^(19|20)\d{2}$" type="text" placeholder="год" maxlength="4" size="8" class="mdl-textfield__input" value="<?=isset($Customer['b_year'])?$Customer['b_year']:null;?>">
+							<input id="year" name="year" pattern="^(19|20)\d{2}$" type="text" placeholder="год" maxlength="4" size="8" class="mdl-textfield__input year_js year" value="<?=isset($Customer['b_year'])?$Customer['b_year']:null;?>">
 							<span class="mdl-textfield__error"></span>
 						</div>
 					</div>
@@ -76,9 +84,7 @@
 						<label for="address" class="mdl-textfield__label">Адрес:</label>
 						<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
 					</div>
-					
-					<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-					
+					<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">					
 				<?break;
 				case 'delivery':?>
 					<div class="line region">
@@ -129,7 +135,7 @@
 				}?>
 			</form>
 		</div>
-		<?if(isset($_GET['success'])){?>
+		<!--<?if(isset($_GET['success'])){?>
 			<div class="msg-success">
 				<p><b>Успех!</b> Изменения успешно сохранены.</p>
 			</div>
@@ -138,46 +144,98 @@
 				<p><b>Упс!</b> Что-то пошло не так.</p>
 			</div>
 		<?}?>
-	</div> <!-- END class="edit_personal" -->
+	</div> --> <!-- END class="edit_personal" -->
 </div>
 <script>
 	$(document).ready(function() {
 		$('div[class^="msg-"]').delay(3000).fadeOut(2000);
 		
-		$('#day').change(function(event) {
-			if ($('#month').val() == 'месяц') {
-				$('#month').css('border-color', 'red');
-				$(this).closest('.mdl-textfield').find('.mdl-textfield__error').html('Выберите месяц');
+		$('.day_js').change(function(event) {
+			if ($('.day_js').val()!='' && $('.month_js').val() == 'месяц') {
+				$('.month_js').closest('.mdl-textfield').addClass('is-invalid');
+			}else if($('.day_js').val()=='' && $('.month_js').val() != 'месяц'){
+				$('.day_js').closest('.mdl-textfield').addClass('is-invalid');
+			}else if($('.day_js').val()!='' && $('.month_js').val() != 'месяц'){
+				$('.month_js').closest('.mdl-textfield').removeClass('is-invalid');
 			};
 		});
-		$('#month').change(function(event) {
-			if ($('#day').val() == '') {
-				$('#day').css('border-color', 'red');
-				$(this).closest('.mdl-textfield').find('.mdl-textfield__error').html('Выберите день');
-				$('option[value="месяц"]').addClass('hidden');
-			};
+		$('.month_js').change(function(event) {
+			if ($('.day_js').val() == '') {
+				$('.day_js').closest('.mdl-textfield').addClass('is-invalid');
+			}else if($('.day_js').val()!='' && $('.month_js').val() != 'месяц'){
+				$('.month_js').closest('.mdl-textfield').removeClass('is-invalid');
+			}
+			$(this).find('option[value="месяц"]').remove();
 		});
 
-		$('#edit_contacts input[name="save_contacts"]').click(function(event) {
+		$('[name="email"]').keyup(function(event) {
+			$(this).closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите корректный Email');
+			if($(this).val()!='') $('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
+		});
+
+		// checkPhoneNumber($('input.phone').val());
+		$('input.phone').focusout(function(event) {
+			// checkPhoneNumber($('input.phone').val());
+			if($('input.phone').val().replace(/[^\d]+/g, "").length == 12){
+				$('input.phone').data('value', $('input.phone').val().replace(/[^\d]+/g, ""));
+				// console.log($('input.phone').data('value'));
+				$('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
+				$('[name="email"]').closest('.mdl-textfield').removeClass('is-invalid');
+			}else if($('input.phone').val().replace(/[^\d]+/g, "").length == 0 || $('input.phone').val().replace(/[^\d]+/g, "").length == 3){
+				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'hidden');
+				// console.log($('input.phone').val().replace(/[^\d]+/g, "").length);
+			} else {
+				// console.log("error");
+				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите все цифры Вашего номера телефона');
+			}
+		});
+
+		$('input[name="save_contacts"]').click(function(event) {			
 			var parent = $(this).closest('form'),
 				email = parent.find('[name="email"]').val(),
-				phone = parent.find('[name="phones"]').val(),
+				phone_num = parent.find('[name="phones"]').val().replace(/[^\d]+/g, ""),
+				phone,
 				last_name = parent.find('[name="last_name"]').val(),
 				first_name = parent.find('[name="first_name"]').val(),
 				middle_name = parent.find('[name="middle_name"]').val(),
-				gender = parent.find('[name="gender"]').val(),
+				gender = parent.find('[name="gender"]:checked').val(),
 				day, month, year,
-				address = parent.find('[name="address"]').val();
+				address = parent.find('[name="address"]').val(),
+				snackbarMsg,
+				snackbarContainer = document.querySelector('#snackbar');
 
-			$('#day').val()!=''?day=$('#day').val():day='';
-			$('#month').val()!='месяц'?month=$('#month').val():month='';
-			$('#year').val()!=''?year=$('#year').val():year='';
+			if(phone_num.length == 12){
+				phone = phone_num;
+			}else if(phone_num == ''){
+				phone = phone_num;
+				console.log('empty string');
+			}else{
+				console.log('error');
+			}
+
+			$('.day_js').val()!=''?day=$('.day_js').val():day='';
+			$('.month_js').val()!='месяц'?month=$('.month_js').val():month='';
+			$('.year_js').val()!=''?year=$('.year_js').val():year='';
 
 			data = { email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
+			console.log(data);
 
-			ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
-				console.log('ajax успешно сработал!');
-			});
+			if(email == '' && phone_num == ''){
+				snackbarMsg = {message: 'Введите Email или Ваш номер телефона'},
+				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
+				$('[name="email"], [name="phones"]').closest('.mdl-textfield').addClass('is-invalid');
+				$('[name="email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Укажите Email');
+				$('[name="phones"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Укажите контактный номер телефона');
+			}
+			else if(parent.find('.mdl-textfield').hasClass('is-invalid')){
+				snackbarMsg = {message: 'Заполните поля корректно'},
+				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
+			}else{
+				ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
+					snackbarMsg = {message: 'Ваши данные успешно сохранены'},
+					snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
+				});				
+			}
 		});
 	});
 </script>

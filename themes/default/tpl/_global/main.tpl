@@ -717,6 +717,11 @@
 		<div id="graph" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
+		<!-- Аналог alert -->
+		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+			<div class="mdl-snackbar__text"></div>
+			<button class="mdl-snackbar__action" type="button"></button>
+		</div>
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>

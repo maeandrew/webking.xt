@@ -2132,4 +2132,13 @@ function deliveryServiceSelect(value){
 	});
 }
 
-
+// function checkPhoneNumber(pnoneNumber){
+// 	if(pnoneNumber.replace(/[^\d]+/g, "").length == 12){
+// 		$('input.phone').data('value', pnoneNumber.replace(/[^\d]+/g, ""));
+// 		console.log($('input.phone').data('value'));
+// 		$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'hidden');
+// 	}else{
+// 		console.log("YTN");
+// 		$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible');
+// 	}
+// }

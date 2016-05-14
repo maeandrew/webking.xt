@@ -865,6 +865,7 @@ $(function(){
 		}
 		//$('.mdl-color--grey-100').toggleClass('hidden');
 	  });*/
+	$(".phone").mask("+38 (099) ?999-99-99");
 
 	$('input[name="options"]').on('change', function() {
 		$('#quiz .company_details').css('display', 'block');

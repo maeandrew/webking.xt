@@ -1772,18 +1772,23 @@ html {
 	border-bottom: solid 1px #E0E0E0;
 }
 
-#date_container {
+.date_container {
 	margin-top: 35px;
 	margin-bottom: 15px;
 }
-#date_container .mdl-textfield {
+.date_container .mdl-textfield {
 	padding: 0;
-	display: inline-block;
+	display: inline-block !important;
 	width: 91px;
 }
-#date_container select {
-	margin: 0 10px;
-	font-size: 1.1em;
+.date_container .mdl-textfield input {
+	text-align: center;
+}
+.date_container select {
+	font-size: 1em;
+}
+.date_container select + .mdl-textfield__error{
+	width: 100px;
 }
 #settings form {
 	padding: 10px;
