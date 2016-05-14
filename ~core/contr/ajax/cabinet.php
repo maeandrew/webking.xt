@@ -30,14 +30,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 				list($err, $errm) = Change_Info_validate();
 				$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone'], $_POST['id_user']);
-				$unique_email = $Users->CheckEmailUniqueness($_POST['email'], $_POST['id_user']);
+				if((isset($_POST['email']) && $_POST['email'] !='')) {
+					$unique_email = $Users->CheckEmailUniqueness($_POST['email'], $_POST['id_user']);
+					if($unique_email !== true) {
+						$err = 1;
+						$errm['email'] = 'Пользователь с таким email уже зарегистрирован!';
+					}
+				}
 				if($unique_phone !== true) {
 					$err = 1;
 					$errm['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
-				}
-				if($unique_email !== true) {
-					$err = 1;
-					$errm['email'] = 'Пользователь с таким email уже зарегистрирован!';
 				}
 				if(!$err){
 					$Customers = new Customers();
