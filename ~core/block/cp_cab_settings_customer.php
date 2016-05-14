@@ -25,10 +25,9 @@
 		}else{
 			header("Location: /cabinet/settings/?t=basic&unsuccess");
 		}
-	}elseif(isset($_POST['save_password'])){ echo'1'; print_r($_POST); die();
+	}elseif(isset($_POST['save_password'])){
 		$_POST['passwd'] = $_POST['new_passwd'];
 		if(isset($_POST['passwd']) && $_POST['passwd'] != '' && $_POST['passwd'] == $_POST['passwdconfirm']){
-			// print_r($_POST);die();
 			if($User->updateUser($_POST)){
 				header("Location: /cabinet/settings/?t=password&success");
 			}else{
