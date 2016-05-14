@@ -42,10 +42,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(!$err){
 					$Customers = new Customers();
 					$_POST['cont_person'] = (isset($_POST['first_name'])?trim($_POST['first_name']):null) . ' ' . (isset($_POST['middle_name'])?trim($_POST['middle_name']):null) . ' ' . (isset($_POST['last_name'])?trim($_POST['last_name']):null);
-					if($Customers->updateCustomer($_POST)) echo json_encode(true);
+					if($Customers->updateCustomer($_POST)) echo json_encode('true');
 				}else{
-					//echo json_encode($errm);
-					print_r($errm);
+					echo json_encode($errm);
 				}
 
 				break;

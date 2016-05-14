@@ -68,7 +68,7 @@
 				}?>
 			</form>
 		</div>
-		<button data-name="verification" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js">Сохранить</button>
+		<!-- <button data-name="verification" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js">Сохранить</button> -->
 		<?if(isset($_GET['success'])){ ?>
 			<div class="msg-success">
 				<p><b>Успех!</b> Изменения успешно сохранены.</p>

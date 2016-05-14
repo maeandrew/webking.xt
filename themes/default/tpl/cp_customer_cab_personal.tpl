@@ -20,17 +20,17 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="name" class="mdl-textfield__label">Фамилия:</label>
 						<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
-						<span class="mdl-textfield__error">Использованы не корректные символы</span>
+						<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="middle_name" class="mdl-textfield__label">Имя:</label>
 						<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
-						<span class="mdl-textfield__error">Использованы не корректные символы</span>
+						<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="last_name" class="mdl-textfield__label">Отчество:</label>
 						<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
-						<span class="mdl-textfield__error">Использованы не корректные символы</span>
+						<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 					</div>
 					<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="label_for_gender" for="gender">Пол:</label>
@@ -80,6 +80,7 @@
 							<span class="mdl-textfield__error"></span>
 						</div>
 					</div>
+					<div class="errMsg_js"></div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="address" class="mdl-textfield__label">Адрес:</label>
 						<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
@@ -232,9 +233,35 @@
 				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 			}else{
 				ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
-					snackbarMsg = {message: 'Ваши данные успешно сохранены'},
-					snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
-				});				
+					if (response == 'true') {
+						snackbarMsg = {message: 'Ваши данные успешно сохранены'},
+						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
+						$('.errMsg_js').text('');
+						$('.date_container').css('border', 'none');
+					}else{
+						for (var i in response) {
+							switch (i) {
+								case 'email':
+									alert( 'Поле обязательно для заполнения' );
+								break;
+								case 'phone':
+									alert( 'Введите правильный номер телефона' );
+								break;
+								case 'first_name':
+								case 'middle_name':
+								case 'last_name':
+									alert( 'Использованы недопустимые символы' );
+								break;
+								case 'check_date':
+									$('.errMsg_js').text(response[i]);
+									$('.date_container').css('border', '1px solid #D50000');
+								break;
+								default:
+									alert( 'Заполните Ваши данные корректно' );
+							}
+						}
+					};
+				});
 			}
 		});
 	});
