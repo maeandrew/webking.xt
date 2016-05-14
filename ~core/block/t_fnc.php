@@ -3,32 +3,35 @@
 function Change_Info_validate($nocheck = array()){
 	$errm = array();
 	$err = 0;
-	$varname = 'email';
-	if(!in_array($varname, $nocheck)){
-		if(isset($_POST[$varname]) && $_POST[$varname]){
-			$_POST[$varname] = trim($_POST[$varname]);
-			$carr = array('Lmin' => 1, 'Lmax' => 255, 'PM_email' => 1);
-			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-			if(!$errf){
-				$errm[$varname] = $errmsg;
-				$err = 1;
+	if((isset($_POST['phone']) && $_POST['phone'] !='') || (isset($_POST['email']) && $_POST['email'] !='')){
+		$varname = 'email';
+		if(!in_array($varname, $nocheck)){
+			if(isset($_POST[$varname]) && $_POST[$varname]){
+				$_POST[$varname] = trim($_POST[$varname]);
+				$carr = array('Lmin' => 1, 'Lmax' => 255, 'PM_email' => 1);
+				list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+				if(!$errf){
+					$errm[$varname] = $errmsg;
+					$err = 1;
+				}
 			}
-		}else{
-			$errm[$varname] = "Поле обязательно для заполнения";
-			$err = 1;
+		}
+		$varname = 'phone';
+		if(!in_array($varname, $nocheck)){
+			if(isset($_POST[$varname]) && $_POST[$varname]){
+				$_POST[$varname] = trim($_POST[$varname]);
+				$carr = array('Lmin'=>10, 'Lmax'=>12, 'PM_tel'=>1);
+				list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+				if(!$errf){
+					$errm[$varname] = $errmsg;
+					$err = 1;
+				}
+			}
 		}
 	}
-	$varname = 'phone';
-	if(isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>10, 'Lmax'=>12, 'PM_tel'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if(!$errf){
-			$errm[$varname] = $errmsg;
-			$err = 1;
-		}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
+	else {
+		$errm['phone'] = "Одно из полей обязательно для заполнения.";
+		$errm['email'] = "Одно из полей обязательно для заполнения.";
 		$err = 1;
 	}
 	$varname = 'first_name';

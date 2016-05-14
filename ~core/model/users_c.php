@@ -467,10 +467,11 @@ class Users {
 	 * Если введенного email нет в базе данных, возвращает true, иначе false
 	 * @param string $email номер телефона
 	 */
-	public function CheckEmailUniqueness($email){
+	public function CheckEmailUniqueness($email, $id_user = false){
 		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE email = '".$email."'";
+		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
 			return $res['id_user'];
@@ -482,10 +483,11 @@ class Users {
 	 * Если введенного номера телефона нет в базе данных, возвращает true, иначе false
 	 * @param string $phone номер телефона
 	 */
-	public function CheckPhoneUniqueness($phone){
+	public function CheckPhoneUniqueness($phone, $id_user = false){
 		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE phones = '".$phone."'";
+		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
 			return $res['id_user'];
