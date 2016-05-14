@@ -422,18 +422,24 @@ class G {
 						}
 					}
 				break;
+				case 'IsDate':
+					if(checkdate($var['month'], $var['day'], $var['year']) === false){
+						$errm = 'Такой даты не существует.';
+						return array(FALSE, $errm);
+					}
+				break;
 				case 'PM_glob':
 					// пропускает все
 				break;
 				case 'PM_login':
-					if(!(preg_match("/^[A-z0-9,\.>)}@{(<~_=-]+$/i", $var) && preg_match("/^[^'\"\\\]+$/i", $var))){
+					if(!(preg_match("^[A/-z0-9,\.>)}@{(<~_=-]+$/i", $var) && preg_match("/^[^'\"\\\]+$/i", $var))){
 						$errm = 'Недопустимый символ.';
 						return array(FALSE, $errm);
 					}
 				break;
 				case 'PM_tel':
-					if(!(preg_match("/^[0-9)(-\s,\.]+$/i", $var) && preg_match("/^[^'\"\\\]+$/i", $var))){
-						$errm = 'Недопустимый символ.';
+					if(!(preg_match("/^( +)?(38)?(\(\d{3}\)|0\d{2})?(\d{3}\d{2}\d{2})( +)?$/i", $var))){
+						$errm = 'Недопустимый формат (пример: 38012345678)';
 						return array(FALSE, $errm);
 					}
 				break;
@@ -452,6 +458,12 @@ class G {
 				case 'PM_url':
 					if(!(preg_match("#^(http://)*(.*?)\.(.*?)$#i", $var) && preg_match("/^[^ '\"\\\]+$/i", $var))){
 						$errm = 'Недопустимый формат ссылки (пример: http://mysite.com/).';
+						return array(FALSE, $errm);
+					}
+				break;
+				case 'PM_name':
+					if(!(preg_match("/^[a-zA-Zа-яёіїА`-ЯЁІЇ\s\-]+$/i", $var))){
+						$errm = 'Недопустимый символ.';
 						return array(FALSE, $errm);
 					}
 				break;

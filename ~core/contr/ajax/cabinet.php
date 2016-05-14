@@ -20,9 +20,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'GetRating':
 				$C = new Contragents();
-				// print_r($_POST);
 				$res = $C->GetRating($_POST);
-				//var_dump($res);
 				echo json_encode($res);
 
 
@@ -30,6 +28,15 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'ChangeInfoUser':
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 				list($err, $errm) = Change_Info_validate();
+				if(!$err){
+					$Customers = new Customers();
+					$_POST['cont_person'] = (isset($_POST['first_name'])?trim($_POST['first_name']):null) . ' ' . (isset($_POST['middle_name'])?trim($_POST['middle_name']):null) . ' ' . (isset($_POST['last_name'])?trim($_POST['last_name']):null);
+					if($Customers->updateCustomer($_POST)) echo json_encode(true);
+
+
+				}else{
+					print_r($errm);
+				}
 
 				break;
 		}

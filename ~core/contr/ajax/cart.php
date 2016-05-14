@@ -255,9 +255,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				exit();
 				break;
 			case 'remove_from_cart':
-				if (isset($_POST['id'])){
-					$res = $cart->RemoveFromCart($_POST['id'], $_SESSION['cart']['id']);
-				}else {
+				if(isset($_POST['id'])){
+					$res = $cart->RemoveFromCart($_POST['id'], isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:false);
+				}else{
 					$res = null;
 				}
 				echo json_encode($res);
@@ -356,7 +356,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// Если покупатель не арторизован, получаем получаем введенный номер телефона
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					// проверяем уникальность введенного номера телефона
-					if($Users->CheckPhoneUniqueness($phone)){
+					$unique_phone = $Users->CheckPhoneUniqueness($phone);
+					//print_r($unique_phone); die();
+					if($unique_phone === true){
 						$data = array(
 							'name' => 'user_'.rand(),
 							//'passwd' => $pass = substr(md5(time()), 0, 8),
@@ -366,7 +368,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						);
 						// регистрируем нового пользователя
 						if($Customers->RegisterCustomer($data)){
-							$Users->SendPassword($data['passwd'],$data['phone']);
+							$Users->SendPassword($data['passwd'], $data['phone']);
 						}
 						$data = array(
 							'email' => $phone,
@@ -377,6 +379,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							G::Login($Users->fields);
 							_acl::load($Users->fields['gid']);
 						}
+					} else {
+						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
+						$res['status'] = 501;
 					}
 				}
 				if(G::isLogged()){
@@ -395,7 +400,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						// $Customers->updatePhones($phone);
 					}
 				}else{
-					$res['message'] = 'Пользователь с таким номером телефона уже зарегестрирован!';
+					$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 					$res['status'] = 501;
 				}
 				echo json_encode($res);

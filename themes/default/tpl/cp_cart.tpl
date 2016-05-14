@@ -222,19 +222,19 @@
 	<div class="cart_footer">
 		<div id="total">
 			<div class="total">
-				<div class="label totaltext">Итого</div>
+				<div class="label totaltext">Итого:</div>
 				<div class="total_summ totalnumb">
 					<span class="summ_many"><?=isset($cart_sum)?number_format($cart_sum, 2, ",", ""):"0,00"?></span> грн.
 				</div>
 			</div>
 			<div class="total">
-				<div class="label totaltext">Вы экономите</div>
+				<div class="label totaltext">Вы экономите:</div>
 				<div class="total_summ totalnumb">
 					<span class="summ_many"><?=number_format($percent_sum, 2, ",", "")?></span> грн.
 				</div>
 			</div>
 			<div class="total">
-				<div class="label totaltext">К оплате</div>
+				<div class="label totaltext">К оплате:</div>
 				<div class="total_summ">
 					<span class="summ_many"><?=number_format($total, 2, ",", "")?></span> грн.
 				</div>
@@ -265,22 +265,26 @@
 
 			<div id="discountBlock">
 				<div id="discountTable">
-					<div class="addMoreProducts discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>">
-						Добавьте:
+					<div class="mediaDiscountBlocks">
+						<div class="addMoreProducts discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>">
+							Добавьте:
+						</div>
+						<div class="neededSum discountTableElem">
+							<span id="sumPer0" <?=$percent == 0 ? '': "class='hidden'"?>>
+							<?=round(500-$cart_sum,2)?> грн</span>
+							<span id="sumPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>><?=round(3000-$cart_sum,2)?> грн</span>
+							<span id="sumPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>><?=round(10000-$cart_sum,2)?> грн</span>
+						</div>
 					</div>
-					<div class="neededSum discountTableElem">
-						<span id="sumPer0" <?=$percent == 0 ? '': "class='hidden'"?>>
-						<?=round(500-$cart_sum,2)?> грн</span>
-						<span id="sumPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>><?=round(3000-$cart_sum,2)?> грн</span>
-						<span id="sumPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>><?=round(10000-$cart_sum,2)?> грн</span>
-					</div>
-					<div class="getNewDiscount discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>" >
-						Получите скидку:
-					</div>
-					<div class="nextDiscount discountTableElem">
-						<span id="dicsPer0" <?=$percent == 0 ? '': "class='hidden'"?>>50 грн (10%)</span>
-						<span id="dicsPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>>480грн (16%)</span>
-						<span id="dicsPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>>2100грн (21%)</span>
+					<div class="mediaDiscountBlocks">
+						<div class="getNewDiscount discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>" >
+							Получите скидку:
+						</div>
+						<div class="nextDiscount discountTableElem">
+							<span id="dicsPer0" <?=$percent == 0 ? '': "class='hidden'"?>>50 грн (10%)</span>
+							<span id="dicsPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>>480грн (16%)</span>
+							<span id="dicsPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>>2100грн (21%)</span>
+						</div>
 					</div>
 				</div>
 				<div class="currentDiscountBlock">
@@ -295,6 +299,9 @@
 			</div>
 			<div class="price_nav"></div>
 		</div>
+	</div>
+	<div class="orderNote">
+		<textarea name="orderNote" placeholder="Примечания к заказу..."></textarea>
 	</div>
 	<div class="action_block">
 		<div class="wrapp">
@@ -390,8 +397,13 @@
 		</div>
 	</div>
 
+
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
+		$(window).resize(function() {
+    		Position($('#cart'));
+		});
+
 		$(function(){
 			if(isLogged){
 				// console.log('loggedin');
@@ -546,8 +558,6 @@
 					$('.err_tel').css('visibility', '')
 				}
 			});
-
-
 		});
 	</script>
 <?}?>

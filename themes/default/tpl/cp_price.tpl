@@ -212,7 +212,7 @@
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	var params = $('#dynamic-params'),
 		start = parseInt(params.css("top"));
-		var contHeight = $(".content").height();
+		var contHeight = $(".page_content_js").height();
 		var formHeight = $("#dynamic-params").height();
 		var endScroll = (contHeight - formHeight);
 		if(contHeight < formHeight){

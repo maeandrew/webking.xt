@@ -11,15 +11,13 @@ class Customers extends Users {
 	public function SetFieldsById($id, $all = 0){
 		global $User;
 		$User->SetFieldsById($id, $all);
-		$sql = "SELECT ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT *
 			FROM  "._DB_PREFIX_."customer
-			WHERE id_user = '".$id."'";
-		$this->fields = $this->db->GetOneRowArray($sql);
-		if(!$this->fields){
+			WHERE id_user = ".$id;
+		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
-		}else{
-			return $this->fields;
 		}
+		return $this->fields;
 	}
 
 	public function SetList($email_klient){
@@ -313,7 +311,7 @@ class Customers extends Users {
 			$contragents = new Contragents();
 			$contragents->SetList(false, false);
 			$managers_list = $contragents->list;
-			$arr['id_contragent'] = $managers_list[array_rand($managers_list)]['id_user'];
+			$arr['id_contragent'] = $contragents->list[array_rand($contragents->list)]['id_user'];
 		}
 		return $this->AddCustomer($arr);
 	}
@@ -330,15 +328,14 @@ class Customers extends Users {
 		if(isset($arr['discount'])){
 			$f['cont_person'] = trim($arr['cont_person']);
 			$f['phones'] = trim($arr['phones']);
-			$f['id_contragent'] = trim($arr['id_contragent']);
 			$f['id_city'] = trim($arr['id_city']);
 			$f['id_delivery'] = trim($arr['id_delivery']);
 		}else{
 			$f['phones'] = isset($arr['phone'])?trim($arr['phone']):'';
-			$f['id_contragent'] = $arr['id_contragent'];
 			$f['id_city'] = 0;
 			$f['id_delivery'] = 0;
 		}
+		$f['id_contragent'] = $arr['id_contragent'];
 		if(isset($arr['discount'])){
 			$f['discount'] = trim($arr['discount']);
 		}
@@ -380,7 +377,7 @@ class Customers extends Users {
 	/* Обновление пользователя
 	 *
 	 */
-	public function UpdateCustomer($arr){
+	public function UpdateCustomer($arr){ //print_r($arr); die();
 		global $User;
 		$arr['gid'] = $User->fields['gid'];
 		$arr['name'] = $arr['cont_person'];
@@ -397,14 +394,20 @@ class Customers extends Users {
 		if(isset($arr['gender'])) {
 			$f['sex'] = trim($arr['gender']);
 		}
-		if(isset($arr['birthday'])) {
-			$f['birthday'] = trim($arr['birthday']);
+		if(isset($arr['year'])) {
+			$f['b_year'] = trim($arr['year']);
+		}
+		if(isset($arr['month'])) {
+			$f['b_month'] = trim($arr['month']);
+		}
+		if(isset($arr['day'])) {
+			$f['b_day'] = trim($arr['day']);
 		}
 		if(isset($arr['address'])) {
 			$f['address_ur'] = trim($arr['address']);
 		}
-		if(isset($arr['phones'])) {
-			$f['phones'] = trim($arr['phones']);
+		if(isset($arr['phone'])) {
+			$f['phones'] = trim($arr['phone']);
 		}
 		if(isset($arr['discount'])){
 			$discount = str_replace(",",".",trim($arr['discount']));

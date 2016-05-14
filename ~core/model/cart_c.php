@@ -88,21 +88,24 @@ class Cart {
 		$this->RecalcCart();
 		return array('cart'=>$_SESSION['cart'], 'product'=>$product);
 	}
-
-	// удаляет товар из корзины
-	public function RemoveFromCart($id_product, $id_cart){
+	/**
+	 * удаляет товар из корзины
+	 * @param integer $id_product [description]
+	 * @param boolean $id_cart    [description]
+	 */
+	public function RemoveFromCart($id_product, $id_cart = false){
 		unset($_SESSION['cart']['products'][$id_product]);
-
-
-		$sql = "DELETE FROM "._DB_PREFIX_."cart_product
-				WHERE id_cart = ". $id_cart ." AND id_product = ".$id_product;
-		$this->db->StartTrans();
-		if(!$this->db->Query($sql)) {
-			$this->db->FailTrans();
-			return false;
+		if($id_cart){
+			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
+				WHERE id_cart = ". $id_cart ."
+				AND id_product = ".$id_product;
+			$this->db->StartTrans();
+			if(!$this->db->Query($sql)){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
 		}
-		$this->db->CompleteTrans();
-
 		$this->RecalcCart();
 		return $_SESSION['cart'];
 	}

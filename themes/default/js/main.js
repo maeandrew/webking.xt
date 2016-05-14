@@ -268,8 +268,8 @@ $(function(){
 	//Scroll Magic
 	var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
-		banner_height = $('.banner').height(),
-		header_height = header.height();
+		banner_height = $('.banner').outerHeight(),
+		header_height = header.outerHeight();
 	$(window).scroll(function(){
 		if(over_scroll == false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
@@ -277,13 +277,16 @@ $(function(){
 			}else if($(this).scrollTop() <= banner_height/2 - header_height && header.hasClass("filled")){
 				header.removeClass("filled").addClass("default");
 			}
-			//Скрытия баннера
+			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
 			}
+			$('aside').css('bottom', 'auto');
+		}else{
+			$('aside').css('bottom', $(this).height()-($('section.center').height()-$(this).scrollTop()+header_height));
 		}
 	});
 
@@ -300,6 +303,7 @@ $(function(){
 			$('body').removeClass('banner_hide');
 			header.removeClass("fixed_panel").addClass("default");
 			setTimeout(function(){over_scroll = false;},305);
+			$('aside').css('bottom', 'auto');
 		}
 	});
 
@@ -1049,8 +1053,8 @@ $(function(){
 	$('.login_btn').on('click', function(e){
 		openObject('auth');
 		/*removeLoadAnimation('#auth');*/
-		$('#auth #login').show().removeClass('hidden');
-		$('#auth #registration').hide().addClass('hidden');
+		$('#auth #sign_in').show().removeClass('hidden');
+		$('#auth #sign_up').hide().addClass('hidden');
 		e.preventDefault();
 	});
 
@@ -1063,7 +1067,7 @@ $(function(){
 	});
 
 	// Проверка формы входа
-	$('#auth').on('click', '.sign-in', function(e){
+	$('#auth').on('click', '.sign_in', function(e){
 		e.preventDefault();
 		addLoadAnimation('#auth');
 		var form = $(this).closest('form'),
@@ -1107,9 +1111,9 @@ $(function(){
 	});
 
 	// Проверка надежности пароля
-	$('#registration #passwd').keyup(function(){
+	$('#sign_up #passwd').keyup(function(){
 		var passwd = $(this).val();
-		var passconfirm = $('#registration #passwdconfirm').val();
+		var passconfirm = $('#sign_up #passwdconfirm').val();
 		ValidatePass(passwd);
 		/*$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');*/
 		if(passconfirm !== ''){
@@ -1118,16 +1122,16 @@ $(function(){
 	});
 	
 	/** Проверка подтверждения пароля на странице регистрации */
-	$('#registration #passwdconfirm').keyup(function(){
-		var passwd = $('#registration #passwd').val();
+	$('#sign_up #passwdconfirm').keyup(function(){
+		var passwd = $('#sign_up #passwd').val();
 		var passconfirm = $(this).val();
 		ValidatePassConfirm(passwd, passconfirm);
 	});
 
 	// Проверка формы регистрации
-	$('#registration .sign-up').click(function(e){
+	$('#sign_up .sign_up').click(function(e){
 		e.preventDefault();
-		addLoadAnimation('#registration');
+		addLoadAnimation('#sign_up');
 		var parent = $(this).closest('form'),
 			fields = {};
 		parent.find('.mdl-textfield__input').each(function(index, el) {
@@ -1149,7 +1153,7 @@ $(function(){
 					$('[name="'+key+'"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').html(value);
 				});
 			}
-			removeLoadAnimation('#registration');
+			removeLoadAnimation('#sign_up');
 		});
 	});
 

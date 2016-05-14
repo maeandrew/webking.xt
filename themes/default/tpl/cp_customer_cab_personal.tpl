@@ -192,6 +192,7 @@
 
 		$('input[name="save_contacts"]').click(function(event) {			
 			var parent = $(this).closest('form'),
+				id_user = parent.find('[name="id_user"]').val(),
 				email = parent.find('[name="email"]').val(),
 				phone_num = parent.find('[name="phones"]').val().replace(/[^\d]+/g, ""),
 				phone,
@@ -217,8 +218,7 @@
 			$('.month_js').val()!='месяц'?month=$('.month_js').val():month='';
 			$('.year_js').val()!=''?year=$('.year_js').val():year='';
 
-			data = { email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
-			console.log(data);
+			data = {id_user: id_user, email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
 
 			if(email == '' && phone_num == ''){
 				snackbarMsg = {message: 'Введите Email или Ваш номер телефона'},

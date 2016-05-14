@@ -860,7 +860,7 @@ class Products {
 	 */
 	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
-		if(!$id_category){ //print_r(1); die();
+		if(!$id_category){
 			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
 		}elseif(is_numeric($id_category)){
 			$sql = "SELECT g.*, u.name
@@ -1510,7 +1510,6 @@ class Products {
 		$Suppliers = new Suppliers();
 		$Suppliers->SetFieldsById($data['id_supplier'], 1);
 		$supplier = $Suppliers->fields;
-		// var_dump($assort);
 		if(isset($data['price'])){
 			if($assort['inusd'] == 1){
 				$f['price_'.$data['mode'].'_otpusk'] = $data['price']*$supplier['currency_rate'];
