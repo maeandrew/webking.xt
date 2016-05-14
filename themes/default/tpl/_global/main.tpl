@@ -329,81 +329,81 @@
 					</div>
 				</div>
 			<?}?>
-			<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
-				<div class="mdl-mega-footer__left-section clearfix">
-					<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">
-						<h5>Навигация</h5>
-						<ul>
-							<li><a href="<?=Link::Custom('main')?>">Главная</a></li>
-							<?foreach($list_menu as $menu){?>
-								<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+		</section>
+		<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
+			<div class="mdl-mega-footer__left-section clearfix">
+				<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">
+					<h5>Навигация</h5>
+					<ul>
+						<li><a href="<?=Link::Custom('main')?>">Главная</a></li>
+						<?foreach($list_menu as $menu){?>
+							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+						<?}?>
+						<li><a href="#">Форум</a></li>
+					</ul>
+				</div>
+				<div class="contacts">
+					<div class="mdl-cell--hide-phone">
+						<h5>Контакты</h5>
+						<ul class="phone_nav_contacts clearfix">
+							<?if(isset($GLOBALS['CONFIG']['footer_phone']) && $GLOBALS['CONFIG']['footer_phone'] != ''){?>
+								<li class="parent_nav"><div class="material-icons">phone</div><span><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
 							<?}?>
-							<li><a href="#">Форум</a></li>
+							<!-- <li><span>(099) 228-69-38</span></li>
+							<li><span>(093) 322-91-83</span></li> -->
+							<?if(isset($GLOBALS['CONFIG']['footer_email']) && $GLOBALS['CONFIG']['footer_email'] != ''){?>
+								<li class="parent_nav"><div class="material-icons">mail</div><span><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
+							<?}?>
+							<?if(isset($GLOBALS['CONFIG']['footer_address']) && $GLOBALS['CONFIG']['footer_address'] != ''){?>
+								<li class="parent_nav"><div class="material-icons">location_on</div><span><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
+							<?}?>
 						</ul>
 					</div>
-					<div class="contacts">
-						<div class="mdl-cell--hide-phone">
-							<h5>Контакты</h5>
-							<ul class="phone_nav_contacts clearfix">
-								<?if(isset($GLOBALS['CONFIG']['footer_phone']) && $GLOBALS['CONFIG']['footer_phone'] != ''){?>
-									<li class="parent_nav"><div class="material-icons">phone</div><span><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
-								<?}?>
-								<!-- <li><span>(099) 228-69-38</span></li>
-								<li><span>(093) 322-91-83</span></li> -->
-								<?if(isset($GLOBALS['CONFIG']['footer_email']) && $GLOBALS['CONFIG']['footer_email'] != ''){?>
-									<li class="parent_nav"><div class="material-icons">mail</div><span><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
-								<?}?>
-								<?if(isset($GLOBALS['CONFIG']['footer_address']) && $GLOBALS['CONFIG']['footer_address'] != ''){?>
-									<li class="parent_nav"><div class="material-icons">location_on</div><span><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
-								<?}?>
-							</ul>
-						</div>
-						<div class="social hidden">
-							<ul>
-								<li><a href="https://vk.com/xt_ua" target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
-								<li><a href="http://ok.ru/group/54897683202077" target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
-								<li><a href="https://plus.google.com/+X-torg/" target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
-								<li><a href="https://www.facebook.com/KharkovTorg" target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
-								<li><a href="https://twitter.com/we_xt_ua" target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
-								<li><a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank" class="y_t" title="Yuotube"><img src="<?=$GLOBALS['URL_img_theme']?>youtube.svg" alt="Yuotube"></a></li>
-							</ul>
-						</div>
+					<div class="social hidden">
+						<ul>
+							<li><a href="https://vk.com/xt_ua" target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
+							<li><a href="http://ok.ru/group/54897683202077" target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
+							<li><a href="https://plus.google.com/+X-torg/" target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
+							<li><a href="https://www.facebook.com/KharkovTorg" target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
+							<li><a href="https://twitter.com/we_xt_ua" target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
+							<li><a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank" class="y_t" title="Yuotube"><img src="<?=$GLOBALS['URL_img_theme']?>youtube.svg" alt="Yuotube"></a></li>
+						</ul>
 					</div>
 				</div>
-				<div class="ad_sense">
-					<?if($GLOBALS['CurrentController'] == 'products'){?>
-						<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
-							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-							<!-- Категории -->
-							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins> -->
-							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
-						<?}elseif($GLOBALS['CURRENT_ID_CATEGORY'] == 479){?>
-							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-							<!-- test -->
-							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins> -->
-							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
-						<?}elseif($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 480){?>
-							<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-							<!-- Категории2 -->
-							<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins> -->
-							<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
-						<?}?>
-					<?}else{?>
-						<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+			</div>
+			<div class="ad_sense">
+				<?if($GLOBALS['CurrentController'] == 'products'){?>
+					<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
+						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+						<!-- Категории -->
+						<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins> -->
+						<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+					<?}elseif($GLOBALS['CURRENT_ID_CATEGORY'] == 479){?>
+						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+						<!-- test -->
+						<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins> -->
+						<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+					<?}elseif($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 480){?>
+						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+						<!-- Категории2 -->
+						<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins> -->
+						<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
 					<?}?>
-				</div>
-				<div class="copyright">
-					<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
-					<p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p>
-				</div>
-			</footer>
-		</section>
+				<?}else{?>
+					<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+				<?}?>
+			</div>
+			<div class="copyright">
+				<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
+				<p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p>
+			</div>
+		</footer>
 	</section>
 	<div class="modals">
 		<div id="quiz" data-type="modal">
 			<div class="modal_container summary_info">
 				<div class="row hidden">
-					<span class="span_title">Фамилия: </span>
+					<span class="span_title">Фамилия:</span>
 					<span class="lastname"></span>
 				</div>
 				<div class="row hidden">
@@ -611,7 +611,7 @@
 		</div>
 		<!-- Authentication -->
 		<div id="auth" data-type="modal">
-			<div id="login" class="modal_container">
+			<div id="sign_in" class="modal_container">
 				<h4>Вход</h4>
 				<span>Сопроводительный текст к форме входа.</span>
 				<form action="#">
@@ -626,37 +626,14 @@
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="error"></div>
-					<a href="#" id="recovery_pass" class="btn_js" data-name="password_recovery">
+					<a href="#" class="access_recovery btn_js" data-name="access_recovery">
 						Забыли пароль?
 					</a>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-in">Вход</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="registration">Регистрация</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Вход</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_up">Регистрация</button>
 				</form>
 			</div>
-			<div id="password_recovery" data-type="modal">
-				<div class="password_recovery_container">
-					<p>Восстановление доступа</p>
-					<form action="#">
-						<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_mail">
-							<input type="radio" id="chosen_mail" class="mdl-radio__button" name="recovery_method" data-value="email" checked>
-							<span class="mdl-radio__label">через Email</span>
-						</label></div>
-						<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_sms">
-							<input type="radio" id="chosen_sms" class="mdl-radio__button" name="recovery_method" data-value="sms">
-							<span class="mdl-radio__label">по номеру телефона</span>
-						</label></div>
-						<div class="input_container">
-							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
-								<label class="mdl-textfield__label" for="recovery_email">Email</label>
-								<span class="mdl-textfield__error"></span>
-							</div>
-						</div>
-						<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
-					</form>
-				</div>
-			</div>
-			<div id="registration" class="hidden modal_container">
+			<div id="sign_up" class="hidden modal_container">
 				<h4>Регистрация</h4>
 				<span>Сопроводительный текст к форме регистрации.</span>
 				<form action="#">
@@ -690,11 +667,38 @@
 						<div id="password_error"></div>
 						<div class="error_description"></div>
 					</div>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign-up">Регистрация</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="login">Вход</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_up">Регистрация</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_in">Вход</button>
 				</form>
 			</div>
 		</div>
+		<div id="access_recovery" data-type="modal">
+			<div class="password_recovery_container">
+				<h4>Восстановление доступа</h4>
+				<form action="#">
+					<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_mail">
+						<input type="radio" id="chosen_mail" class="mdl-radio__button" name="recovery_method" data-value="email" checked>
+						<span class="mdl-radio__label">через Email</span>
+					</label></div>
+					<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_sms">
+						<input type="radio" id="chosen_sms" class="mdl-radio__button" name="recovery_method" data-value="sms">
+						<span class="mdl-radio__label">по номеру телефона</span>
+					</label></div>
+					<div class="input_container">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
+							<label class="mdl-textfield__label" for="recovery_email">Email</label>
+							<span class="mdl-textfield__error"></span>
+						</div>
+					</div>
+					<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
+				</form>
+			</div>
+		</div>
+		<div id="registerComplete" data-type="modal">
+			<div class="modal_container">Спасибо за регистрацию!</div>
+		</div>
+		<!-- Cart -->
 		<div id="cart" data-type="modal">
 			<h4 class="title_cart">Корзина</h4>
 			<div class="clear_cart ">
@@ -733,11 +737,9 @@
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
+		<!-- Authentication -->
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">
-		</div>
-		<div id="registerComplete" data-type="modal">
-			<div class="modal_container">Спасибо за регистрацию!</div>
 		</div>
 		<div id="verification" data-type="modal">
 			<div class="cur_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

@@ -771,11 +771,8 @@ section.center {
 
 /* Auth modal ===============================================================*/
 	#auth {
-		left: calc(50% - 200px);
-		top: calc(50% - 300px);
 		width: 400px;
-		height: 600px;
-		box-sizing: border-box;
+		height: auto;
 		overflow-y: auto;
 	}
 	#auth h4 {
@@ -792,43 +789,30 @@ section.center {
 		padding-right: 1em;
 		text-align: right;
 	}
-	#login,
-	#registration {
-		position: absolute;
-		left: 15%;
-		right: 15%;
-		max-width: 70%;
+	#sign_in,
+	#sign_up {
 		max-height: 100%;
-		overflow: visible;
+		overflow: auto;
+		padding: 15%;
 	}
-	#login {
-		top: 25%;
-		bottom: 25%;
-	}
-	#registration {
-		top: 13%;
-		bottom: 13%;
-	}
-	#login > span,
-	#registration > span {
+	#sign_in > span,
+	#sign_up > span {
 		display: block;
 		padding: 1em 0;
 	}
-	#login.modal_container {
-		text-align: left;
-	}
-	#login.modal_container h4 {
+	#sign_in.modal_container h4 {
 		text-align: center;
 	}
-	#login.modal_container #recovery_pass {
+	#sign_in.modal_container .access_recovery {
 		display: block;
 		margin-bottom: 10px;
 		cursor: pointer;
+		text-align: left;
 	}
-	#password_recovery {
+	#access_recovery {
 		padding: 50px;
 	}
-	#password_recovery p {
+	#access_recovery h4 {
 		text-align: center;
 		margin-bottom: 1em;
 		font-size: 1.2em;
@@ -836,27 +820,27 @@ section.center {
 		min-width: 300px;
 		max-width: 300px;
 	}
-	#password_recovery p.info_text {
+	#access_recovery p.info_text {
 		font-weight: 100;
 		line-height: 1.2em;
 		text-align: justify;
 	}
-	#password_recovery p.info_text.tac {
+	#access_recovery p.info_text.tac {
 		text-align: center;
 	}
-	#password_recovery p.info_text .bold_text {
+	#access_recovery p.info_text .bold_text {
 		font-weight: 500;
 	}
-	#password_recovery button,
-	#sub_password_recovery button {
+	#access_recovery button,
+	#sub_access_recovery button {
 		background-color: #018b06;
 		display: block;
 		margin: 20px auto 0;
 	}
-	#password_recovery .auth_ok {
+	#access_recovery .auth_ok {
 		text-align: center;
 	}
-	#password_recovery .auth_ok i.material-icons {
+	#access_recovery .auth_ok i.material-icons {
 		color: #018b06;
 		font-size: 5em;
 		margin-bottom: 0.3em;
@@ -1265,6 +1249,8 @@ section.center {
 		width: 300px;
 		position: absolute;
 		float: left;
+		top: auto;
+		bottom: auto;
 	}
 	aside .wrapper {
 		overflow-y: auto;
