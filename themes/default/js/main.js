@@ -869,6 +869,22 @@ $(function(){
 		}
 		//$('.mdl-color--grey-100').toggleClass('hidden');
 	  });*/
+		
+		$('#verification').on('click', 'label[for="choise_mail"]', function(){
+			console.log('chosen_mail');
+			$('#verification #recovery_email').closest('div').addClass('hidden');
+			$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+			componentHandler.upgradeDom();
+		});
+		$('#verification').on('click', 'label[for="choise_sms"]', function(){
+			console.log('chosen_sms');
+			$('#verification #recovery_email').closest('div').addClass('hidden');
+			$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+			$(".phone").mask("+38 (099) ?999-99-99");
+			componentHandler.upgradeDom();
+		});
+
+
 	$(".phone").mask("+38 (099) ?999-99-99");
 
 	$('input[name="options"]').on('change', function() {
@@ -901,18 +917,18 @@ $(function(){
 		return false;
 	});
 
-	$('#password_recovery').on('click', 'label[for="chosen_mail"]', function(){
-		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+	$('#access_recovery').on('click', 'label[for="chosen_mail"]', function(){
+		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
-	$('#password_recovery').on('click', 'label[for="chosen_sms"]', function(){
-		$('#password_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#password_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
+		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
-	$('#password_recovery').on('blur', 'input[type="email"]', function(){
+	$('#access_recovery').on('blur', 'input[type="email"]', function(){
 		var email = $(this).val();
 		if(email !== ''){
 			// Поле email заполнено (здесь будем писать код валидации)
@@ -929,13 +945,13 @@ $(function(){
 			$('.mdl-textfield__error').text('Введите Email');
 		}
 	});
-	$('#password_recovery').on('click', '#continue', function(e) {
+	$('#access_recovery').on('click', '#continue', function(e) {
 		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
 			method = parent.find('[name="recovery_method"]:checked'),
 			value;
 		if(method.data('value') == "sms") {
-			var phone = $('#password_recovery .phone').val().replace(/[^\d]+/g, "");
+			var phone = $('#access_recovery .phone').val().replace(/[^\d]+/g, "");
 			if(phone.length == 12){
 				value = phone;
 			}else{
@@ -957,10 +973,10 @@ $(function(){
 		});
 	});
 
-	$('#password_recovery').on('keyup', '#passwd', function(event) {
+	$('#access_recovery').on('keyup', '#passwd', function(event) {
 		event.preventDefault();
 		var passwd = $(this).val(),
-			passconfirm = $('#password_recovery #passwdconfirm').val();
+			passconfirm = $('#access_recovery #passwdconfirm').val();
 		ValidatePassInPassRecovery(passwd);
 		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
 		if(passconfirm !== ''){
@@ -968,13 +984,13 @@ $(function(){
 		}
 	});
 
-	$('#password_recovery').on('keyup', '#passwdconfirm', function(){
-		var passwd = $('#password_recovery #passwd').val(),
+	$('#access_recovery').on('keyup', '#passwdconfirm', function(){
+		var passwd = $('#access_recovery #passwd').val(),
 			passconfirm = $(this).val();
 		ValidatePassConfirmInPassRecovery(passwd, passconfirm);
 	});
 
-	$('#password_recovery').on('click', '#restore', function(e){
+	$('#access_recovery').on('click', '#restore', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
@@ -993,9 +1009,9 @@ $(function(){
 		
 	});
 
-	$('#password_recovery').on('click', '#confirm_btn', function(e) {
+	$('#access_recovery').on('click', '#confirm_btn', function(e) {
 		e.preventDefault();
-		$('#password_recovery #sub_password_recovery .mdl-textfield__error').empty();
+		$('#access_recovery .mdl-textfield__error').empty();
 		// addLoadAnimation('#password_recovery');
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
