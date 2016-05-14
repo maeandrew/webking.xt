@@ -801,7 +801,8 @@ section.center {
 		cursor: pointer;
 		text-align: left;
 	}
-	#access_recovery {
+	#access_recovery,
+	#verification {
 		padding: 50px;
 	}
 	#access_recovery h4 {
@@ -823,8 +824,7 @@ section.center {
 	#access_recovery p.info_text .bold_text {
 		font-weight: 500;
 	}
-	#access_recovery button,
-	#sub_access_recovery button {
+	#access_recovery button {
 		background-color: #018b06;
 		display: block;
 		margin: 20px auto 0;
