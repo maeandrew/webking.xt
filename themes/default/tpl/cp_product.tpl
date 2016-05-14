@@ -1,7 +1,5 @@
 <div class="product mdl-grid">
-	<?$Status = new Status();
-	$st = $Status->GetStstusById($item['id_product']);
-	// Проверяем доступнось розницы
+	<?// Проверяем доступнось розницы
 	($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?$mopt_available = true:$mopt_available = false;
 	// Проверяем доступнось опта
 	($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
@@ -28,7 +26,7 @@
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
-		<?if($_SESSION['client']['user_agent'] == 'mobile'){?>
+		<?if(G::isMobile()){?>
 			<style>
 				#caruselCont {
 					width: 95%;
@@ -165,7 +163,6 @@
 									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 				});
 			</script>
-
 		<?}else{?>
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
@@ -531,46 +528,50 @@
 			</div>
 		</div>
 	</div>
-	<div class="slider_products">
-		<h4>Популярные товары</h4>
-		<div id="owl-popular" class="owl-carousel">
-			<?foreach($pops as $p){?>
-				<div class="item">
-					<a href="<?=Link::Product($p['translit']);?>">
-						<?if(!empty($p['images'])){?>
-							<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
-						<?}else	if(!empty($p['img_1'])){?>
-							<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
-						<?}else{?>
-							<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
-						<?}?>
-						<span><?=$p['name']?></span>
-						<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
-					</a>
-				</div>
-			<?}?>
+	<?if(isset($pops) && !empty($pops)){?>
+		<div class="slider_products">
+			<h4>Популярные товары</h4>
+			<div id="owl-popular" class="owl-carousel">
+				<?foreach($pops as $p){?>
+					<div class="item">
+						<a href="<?=Link::Product($p['translit']);?>">
+							<?if(!empty($p['images'])){?>
+								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+							<?}else	if(!empty($p['img_1'])){?>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+							<?}else{?>
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+							<?}?>
+							<span><?=$p['name']?></span>
+							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
+						</a>
+					</div>
+				<?}?>
+			</div>
 		</div>
-	</div>
-	<div class="slider_products">
-		<h4>Просмотренные товары</h4>
-		<div id="owl-last-viewed" class="owl-carousel">
-			<?foreach($view_products_list as $p){?>
-				<div class="item">
-					<a href="<?=Link::Product($p['translit']);?>">
-						<?if(!empty($p['images'])){?>
-							<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
-						<?}else	if(!empty($p['img_1'])){?>
-							<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
-						<?}else{?>
-							<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
-						<?}?>
-						<span><?=$p['name']?></span>
-						<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
-					</a>
-				</div>
-			<?}?>
+	<?}?>
+	<?if(isset($view_products_list) && !empty($view_products_list)){?>
+		<div class="slider_products">
+			<h4>Просмотренные товары</h4>
+			<div id="owl-last-viewed" class="owl-carousel">
+				<?foreach($view_products_list as $p){?>
+					<div class="item">
+						<a href="<?=Link::Product($p['translit']);?>">
+							<?if(!empty($p['images'])){?>
+								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+							<?}else	if(!empty($p['img_1'])){?>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+							<?}else{?>
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+							<?}?>
+							<span><?=$p['name']?></span>
+							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
+						</a>
+					</div>
+				<?}?>
+			</div>
 		</div>
-	</div>
+	<?}?>
 </section>
 <script>
 	$(function(){

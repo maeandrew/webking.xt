@@ -75,7 +75,7 @@ $(function(){
 	});
 
 	//Скрытие фильтров в зависимости от выбранного уровня товара ---
-	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length == 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
+	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length === 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
 		$('.main_nav li[data-nav="filter"]').removeClass('hidden');
 	}else{
 		$('.main_nav li[data-nav="filter"]').addClass('hidden');
@@ -92,7 +92,7 @@ $(function(){
 		$('ul.second_nav li').removeClass('active');
 		if ($('.main_nav > li').hasClass('active') && !$('ul.second_nav li').hasClass('active')) {
 			$('.main_nav li[data-nav="filter"]').addClass('hidden');
-		};
+		}
 	});
 	$('.second_nav > li[onclick^="segmentOpen"]').click(function() {
 		$('.main_nav li[data-nav="filter"]').addClass('hidden');
@@ -179,7 +179,7 @@ $(function(){
 	});
 
 	//Максимальная высота корзины
-	if(viewport_width > 712) {
+	if(viewport_width > 712){
 		var coeff = 0.8;
 	}else{
 		var coeff = 0.9;
@@ -201,7 +201,7 @@ $(function(){
 	// Активация кнопки поиска при вводе
 	$('#search').on('keyup', function() {
 		var val = $(this).val();
-		if(val != ''){
+		if(val !== ''){
 			if(!$('.search_btn').hasClass('color-grey-search')){
 				$('.search_btn').addClass('color-grey-search');
 			}
@@ -914,7 +914,7 @@ $(function(){
 	});
 	$('#password_recovery').on('blur', 'input[type="email"]', function(){
 		var email = $(this).val();
-		if(email != '') {
+		if(email !== ''){
 			// Поле email заполнено (здесь будем писать код валидации)
 			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
 			if(pattern.test(email)){
@@ -944,7 +944,7 @@ $(function(){
 		}
 		if(method.data('value') == "email"){
 			value = parent.find('[name="value"]').val();
-		};
+		}
 
 		data = {method: method.data('value'), value: value};
 		ajax('auth', 'accessRecovery', data).done(function(response){
@@ -952,7 +952,7 @@ $(function(){
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
 				parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-			};
+			}
 			componentHandler.upgradeDom();
 		});
 	});

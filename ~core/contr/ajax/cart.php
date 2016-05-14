@@ -261,7 +261,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res = null;
 				}
 				echo json_encode($res);
-				exit();
 				break;
 			// case 'update_qty':
 				//				if(isset($_POST['opt']) && isset($_POST['id_product'])){
@@ -324,12 +323,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//					exit();
 				//				};
 				//				break;
-			case 'update_cart_qty':
+			case 'updateCartQty':
 				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
 				$res = $cart->UpdateCartQty($_POST);
 				$cart->InsertMyCart();
 				echo json_encode($res);
-				exit();
 				break;
 			case 'GetCart':
 				echo json_encode($_SESSION['cart']);

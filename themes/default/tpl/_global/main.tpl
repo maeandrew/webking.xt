@@ -61,7 +61,7 @@
 		var URL_base = "<?=_base_url?>/",
 			current_controller = "<?=$GLOBALS['CurrentController']?>",
 			ajax_proceed = false,
-			isLogged = <?=G::isLogged()?'false':'true';?>;
+			isLogged = <?=G::isLogged()?false:true;?>;
 	</script>
 	<!-- END define JS global variables -->
 
@@ -541,9 +541,7 @@
 				</div>
 
 				<div class="row">
-					<div class="error_div hidden">
-
-					</div>
+					<div class="error_div hidden"></div>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Назад</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="4">Далее</button>
 				</div>

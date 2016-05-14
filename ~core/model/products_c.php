@@ -11,7 +11,7 @@ class Products {
 	/** Конструктор
 	 * @return
 	 */
-	public function __construct (){
+	public function __construct(){
 		$this->db =& $GLOBALS['db'];
 		$this->SetProductsListByFilter();
 		$this->SetMinMaxPrice();

@@ -969,10 +969,6 @@ h5 {
 	.list_view .card .product_buy .buy_block .units {
 		display: none;
 	}
-	.pb_wrapper .product_buy .buy_block .btn_buy button,
-	.card .product_buy .buy_block .btn_buy button {
-		background: #b0eeb2;
-	}
 	.pb_wrapper .product_buy .buy_block .btn_buy:hover button,
 	.card .product_buy .buy_block .btn_buy:hover button {
 		height: 36px;
@@ -980,9 +976,6 @@ h5 {
 	}
 }
 @media (max-width: 360px) {
-	.products_page {
-		padding: 0 10px;
-	}
 	#view_block_js .products .card {
 		position: relative;
 		padding: 10px 0;
