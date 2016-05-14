@@ -478,33 +478,9 @@ class Orders {
 			$f['id_delivery'] = 1;
 			$f['id_city'] = 0;
 			$f['strachovka'] = 0;
-			$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
 		}else{
-			/*$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
-			$f['id_city'] = mysql_real_escape_string(trim($arr['id_delivery_department']));
-			$f['id_delivery_service'] = mysql_real_escape_string(trim(isset($arr['id_delivery_service'])?$arr['id_delivery_service']:0));
-			$f['id_contragent'] = mysql_real_escape_string(trim($arr['id_manager']));
-			$f['cont_person'] = mysql_real_escape_string(trim($arr['cont_person']));
-			$f['strachovka'] = mysql_real_escape_string(trim($arr['strachovka']));
-			if(isset($arr['bonus_card']) && $arr['bonus_card'] != ''){
-				$f['bonus_card'] = mysql_real_escape_string(trim($arr['bonus_card']));
-			}
-			if(isset($arr['promo-code']) && $arr['promo-code'] != ''){
-				$f['promo_code'] = mysql_real_escape_string(trim($arr['promo-code']));
-			}
-			$f['descr'] = mysql_real_escape_string(trim($arr['description']));*/
-			// if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
-			// 	// Исскуственное изменение колонки менеджером
-			// 	$f['sum_opt'] = $f['sum_mopt'] = $f['sum_discount'] = $f['sum'] = $_SESSION['cart']['products_sum'][$arr['price_column']];
-			// 	$f['manual_price_change'] = $arr['price_column'].' - '.$arr['reason'];
-			// }else{
-				$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
-			// }
-			// $f['discount'] = $arr['discount'];
-			// if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 0){
-			// 	$f['discount'] = null;
-			// }
 		}
+		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');

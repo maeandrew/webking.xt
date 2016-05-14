@@ -11,15 +11,13 @@ class Customers extends Users {
 	public function SetFieldsById($id, $all = 0){
 		global $User;
 		$User->SetFieldsById($id, $all);
-		$sql = "SELECT ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT *
 			FROM  "._DB_PREFIX_."customer
-			WHERE id_user = '".$id."'";
-		$this->fields = $this->db->GetOneRowArray($sql);
-		if(!$this->fields){
+			WHERE id_user = ".$id;
+		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
-		}else{
-			return $this->fields;
 		}
+		return $this->fields;
 	}
 
 	public function SetList($email_klient){
@@ -313,7 +311,7 @@ class Customers extends Users {
 			$contragents = new Contragents();
 			$contragents->SetList(false, false);
 			$managers_list = $contragents->list;
-			$arr['id_contragent'] = $managers_list[array_rand($managers_list)]['id_user'];
+			$arr['id_contragent'] = $contragents->list[array_rand($contragents->list)]['id_user'];
 		}
 		return $this->AddCustomer($arr);
 	}
@@ -330,15 +328,14 @@ class Customers extends Users {
 		if(isset($arr['discount'])){
 			$f['cont_person'] = trim($arr['cont_person']);
 			$f['phones'] = trim($arr['phones']);
-			$f['id_contragent'] = trim($arr['id_contragent']);
 			$f['id_city'] = trim($arr['id_city']);
 			$f['id_delivery'] = trim($arr['id_delivery']);
 		}else{
 			$f['phones'] = isset($arr['phone'])?trim($arr['phone']):'';
-			$f['id_contragent'] = $arr['id_contragent'];
 			$f['id_city'] = 0;
 			$f['id_delivery'] = 0;
 		}
+		$f['id_contragent'] = $arr['id_contragent'];
 		if(isset($arr['discount'])){
 			$f['discount'] = trim($arr['discount']);
 		}

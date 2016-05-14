@@ -16,7 +16,6 @@ require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'cfg.php');
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 require($GLOBALS['PATH_core'].'routes.php');
-
 G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('../themes/'.$theme.'/css/reset.css');
