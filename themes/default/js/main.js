@@ -870,19 +870,23 @@ $(function(){
 		//$('.mdl-color--grey-100').toggleClass('hidden');
 	  });*/
 		
-		$('#verification').on('click', 'label[for="choise_mail"]', function(){
-			console.log('chosen_mail');
-			$('#verification #recovery_email').closest('div').addClass('hidden');
-			$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
-			componentHandler.upgradeDom();
-		});
-		$('#verification').on('click', 'label[for="choise_sms"]', function(){
-			console.log('chosen_sms');
-			$('#verification #recovery_email').closest('div').addClass('hidden');
-			$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
-			$(".phone").mask("+38 (099) ?999-99-99");
-			componentHandler.upgradeDom();
-		});
+	$('#verification').on('click', 'label[for="choise_mail"]', function(){
+		console.log('chosen_mail');
+		$('#verification #recovery_email').closest('div').addClass('hidden');
+		$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+		componentHandler.upgradeDom();
+	});
+	$('#verification').on('click', 'label[for="choise_sms"]', function(){
+		console.log('chosen_sms');
+		$('#verification #recovery_email').closest('div').addClass('hidden');
+		$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+		$(".phone").mask("+38 (099) ?999-99-99");
+		componentHandler.upgradeDom();
+	});
+	$('.send_code_js').click(function(event) {
+		$('.for_verification_code_js').removeClass('hidden');
+		$('.send_code_js').text('Подтвердить');
+	});
 
 
 	$(".phone").mask("+38 (099) ?999-99-99");

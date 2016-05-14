@@ -69,7 +69,7 @@
 			</form>
 		</div>
 		<button data-name="verification" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js">Сохранить</button>
-		<?if(isset($_GET['success'])){ ?>
+		<!--<?if(isset($_GET['success'])){ ?>
 			<div class="msg-success">
 				<p><b>Успех!</b> Изменения успешно сохранены.</p>
 			</div>
@@ -77,7 +77,7 @@
 			<div class="msg-error">
 				<p><b>Упс!</b> Что-то пошло не так.</p>
 			</div>
-		<?}?>
+		<?}?>-->
 		<script type="text/javascript">
 			$('div[class^="msg-"]').delay(3000).fadeOut(2000);
 		</script>

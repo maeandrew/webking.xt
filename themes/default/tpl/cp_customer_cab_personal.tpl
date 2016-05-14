@@ -238,7 +238,7 @@
 						snackbarMsg = {message: 'Ваши данные успешно сохранены'},
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
-						$('.date_container').css('border', 'none');
+						$('.date_container').css('box-shadow', 'none');
 					}else{
 						console.log(response);
 						for (var i in response) {

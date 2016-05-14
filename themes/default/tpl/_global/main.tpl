@@ -745,13 +745,14 @@
 			<img src="" alt="">
 		</div>
 		<div id="verification" data-type="modal">
+			<h4>Подтверждение доступа</h4>
 			<div class="cur_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label" for="cur_passwd">Текущий пароль:</label>
 				<input class="mdl-textfield__input" type="password" name="cur_passwd" id="cur_passwd"/>
 				<span class="mdl-textfield__error"></span>
 			</div>
 			<div><a href="#">Забыли пароль?</a></div>
-			<p>Выберите удобный для Вас<br>способ подтверждения доступа</p>
+			<p class="info_text">Выберите удобный для Вас<br>способ подтверждения доступа</p>
 			<div class="verification_meth">
 				<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_mail">
 					<input type="radio" id="choise_mail" class="mdl-radio__button" name="verification_meth" data-value="email" checked>
@@ -759,17 +760,22 @@
 				</label></div>
 				<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_sms">
 					<input type="radio" id="choise_sms" class="mdl-radio__button" name="verification_meth" data-value="sms">
-					<span class="mdl-radio__label">SMS на номер Ваш телефона</span>
+					<span class="mdl-radio__label">SMS на Ваш номер телефона</span>
 				</label></div>
 				<div class="verification_input_container">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
+						<input class="mdl-textfield__input" type="email" name="value" id="recovery_email" value="<?=$User['email']?>">
 						<label class="mdl-textfield__label" for="recovery_email">Email</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
 				</div>
 			</div>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Подтверждение</button>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js hidden">
+				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code">
+				<label class="mdl-textfield__label" for="verification_code">Введите код</label>
+				<span class="mdl-textfield__error"></span>
+			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect send_code_js">Выслать код подтверждения</button>
 		</div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
