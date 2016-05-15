@@ -277,7 +277,7 @@ label:hover + .info_description {
 }
 [class^="active_"],
 [class*=" active_"] {
-	/*overflow: hidden;*/
+	overflow: hidden;
 	/*height: calc(100% - 52px);*/
 	/*box-sizing: border-box;*/
 }

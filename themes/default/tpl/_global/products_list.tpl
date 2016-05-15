@@ -32,7 +32,7 @@
 					<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
 				</div>
 				<div class="prodPrices hidden">
-					<?for ($i = 0; $i < 4; $i++){?>
+					<?for($i = 0; $i < 4; $i++){?>
 						<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
 						<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
 					<?}?>

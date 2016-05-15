@@ -1416,7 +1416,7 @@ function openObject(id){
 }
 
 function closeObject(id){
-	if(id == undefined){
+	if(id === undefined){
 		$('.opened').each(function(index, el) {
 			closeObject($(this).attr('id'));
 		});
@@ -1437,11 +1437,11 @@ function Position(object){
 
 //Активация подложки
 function ActivateBG(){
-	$('body').addClass('active_bg');
+	$('html').addClass('active_bg');
 }
 //Деактивация подложки
 function DeactivateBG(){
-	$('body').removeClass('active_bg');
+	$('html').removeClass('active_bg');
 }
 
 //Закрытие Панели мобильного меню
