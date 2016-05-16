@@ -65,23 +65,37 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 
 			case 'ChangePassword':
-				$arr['id_user'] = (isset($_POST['id_user']) && $_POST['id_user'] !='')?$_POST['id_user']:false;
-				$arr['passwd'] = (isset($_POST['passwd']) && $_POST['passwd'] !='')?$_POST['passwd']:false;
+				$pas['id_user'] = (isset($_POST['id_user']) && $_POST['id_user'] !='')?$_POST['id_user']:false;
+				$pas['passwd'] = (isset($_POST['new_passwd']) && $_POST['new_passwd'] !='')?$_POST['new_passwd']:false;
 				$Users = new Users();
 				switch ($_POST['method']){
-					case 'сheckCurrentPasswd':
-						$Users->CheckCurrentPassword($_POST['method'], $_POST['id_user']);
+					case 'current_pass':
+						if(!$Users->CheckCurrentPasswd($_POST['curr_pass'], $_POST['id_user'])){
+							$res['success'] = false;
+							$res['msg'] = 'Неверный пароль';
+						} else{
+							$update = $Users->UpdateUser($pas);
+						}
 						break;
 					case 'verification_code';
-
+						if(!$Users->CheckCurrentPasswd($_POST['code'], $_POST['id_user'])){
+							$res['success'] = false;
+							$res['msg'] = 'Вы ввели неверное значение';
+						} else{
+							$update = $Users->UpdateUser($pas);
+						}
 						break;
 				}
+				if($update === true){
+					$res['success'] = 'Ура! У нас получилось';
+				} else{
+					$res['success'] = false;
+					$res['msg'] = 'Ой, что-то пошло не так! Повторите попытку позже.';
+				}
+
+				print_r($res);
 
 
-
-
-				$res = $Users->UpdateUser($arr);
-				print_r(1);
 				//echo json_encode($res);
 				break;
 		}
