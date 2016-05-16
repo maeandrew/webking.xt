@@ -862,24 +862,98 @@ $(function(){
 		//$('.mdl-color--grey-100').toggleClass('hidden');
 	  });*/
 		
-	$('#verification').on('click', 'label[for="choise_mail"]', function(){
-		console.log('chosen_mail');
-		$('#verification #recovery_email').closest('div').addClass('hidden');
-		$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+	// $('#verification').on('click', 'label[for="choise_sms"]', function(){
+	// 	console.log('chosen_sms');
+	// 	$('#verification #recovery_email').closest('div').addClass('hidden');
+	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+	// 	$(".phone").mask("+38 (099) ?999-99-99");
+	// 	componentHandler.upgradeDom();
+	// });
+	$('#verification').on('click', '[for="choise_current_pass"]', function(){
+		$('.cur_passwd_container, .confirm_btn_js').removeClass('hidden');
+		$('.verification_meth, .for_verification_code_js, .confirm_code_js, .send_code_js').addClass('hidden');
+		$('.confirm_pass_js').removeClass('hidden');
 		componentHandler.upgradeDom();
 	});
-	$('#verification').on('click', 'label[for="choise_sms"]', function(){
-		console.log('chosen_sms');
-		$('#verification #recovery_email').closest('div').addClass('hidden');
-		$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
-		$(".phone").mask("+38 (099) ?999-99-99");
+	$('#verification').on('click', '[for="choise_verification_code"]', function(){
+		$('.verification_meth, .send_code_js').removeClass('hidden');
+		$('.cur_passwd_container, .confirm_pass_js, .for_verification_code_js').addClass('hidden');
+		$('.confirm_code_js').removeClass('hidden');
 		componentHandler.upgradeDom();
-	});
-	$('.send_code_js').click(function(event) {
-		$('.for_verification_code_js').removeClass('hidden');
-		$('.send_code_js').text('Подтвердить');
 	});
 
+	$('.send_code_js').click(function(event) {
+		$('.for_verification_code_js').removeClass('hidden');
+		$('.send_code_js').addClass('hidden');
+		$('.confirm_btn_js').removeClass('hidden').attr('disabled', 'disabled');
+		var id_user = $('[name="id_user"]').val(),
+			phone_num = $('.phone').val().replace(/[^\d]+/g, "");
+			if(phone_num.length == 12){
+				phone = phone_num;
+			}else{
+				console.log("Неверный формат номера телефона");
+			}
+		data = {id_user: id_user, phone: phone};
+		console.log(data);
+		$('.confirm_btn_js').removeAttr('disabled');
+		// ajax('cabinet', 'accessCode', data).done(function(response){
+		// 	if (response.success) {
+		// 		$('.confirm_btn_js').removeAttr('disabled');
+		// 	}else{
+		// 		// parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+		// 	};
+		// 	componentHandler.upgradeDom();
+		// });
+	});
+
+	$('.confirm_pass_js').click(function(event) {
+		var id_user = $('[name="id_user"]').val(),
+			new_passwd = $('[name="new_passwd"]').val(),
+			method = $('[name="verification"]:checked').data('value'),
+			curr_pass = $('[name="cur_passwd"]').val();
+
+		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass};
+		console.log(data);
+		alert('Пароль подтвержден');
+		// ajax('cabinet', '', data).done(function(response){
+		// 	if (response.success) {
+				
+		// 	}else{
+
+		// 	};
+		// 	componentHandler.upgradeDom();
+		// });
+	});
+
+	$('.confirm_code_js').click(function(event) {
+		var id_user = $('[name="id_user"]').val(),
+			new_passwd = $('[name="new_passwd"]').val(),
+			method = $('[name="verification"]:checked').data('value'),
+			phone = $('.phone').val();
+			code = $('[name="verification_code"]').val();
+		data = {id_user: id_user, code: code, new_passwd: new_passwd};
+		console.log(data);
+		
+		// ajax('cabinet', '', data).done(function(response){
+		// 	if (true) {
+		// 		data = {id_user: id_user, new_passwd: new_passwd, method: method, val: val};
+		// 		console.log(data);
+		// 		ajax('cabinet', '', data).done(function(response){
+		// 			if (true) {
+						
+		// 			}else{
+						
+		// 			};
+		// 			componentHandler.upgradeDom();
+		// 		});
+		// 	}else{
+				
+		// 	};
+		// 	componentHandler.upgradeDom();
+		// });
+	});
+
+	
 
 	$(".phone").mask("+38 (099) ?999-99-99");
 
@@ -999,7 +1073,7 @@ $(function(){
 				parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
 			};
 			componentHandler.upgradeDom();
-		});		
+		});
 	});
 
 	$('#access_recovery').on('click', '#confirm_btn', function(e) {

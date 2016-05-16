@@ -62,13 +62,12 @@
 							<span class="mdl-textfield__error"></span>
 						</div>
 						<div class="buttons_cab">
-							<button type="submit" data-role="none" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
+							<input type="button" data-role="none" data-name="verification" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js verification_btn" value="Сохранить">
 						</div>
 					<?break;
 				}?>
 			</form>
 		</div>
-		<button data-name="verification" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js">Сохранить</button>
 		<!--<?if(isset($_GET['success'])){ ?>
 			<div class="msg-success">
 				<p><b>Успех!</b> Изменения успешно сохранены.</p>

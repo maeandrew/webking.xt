@@ -814,8 +814,8 @@ section.center {
 		min-width: 300px;
 		max-width: 300px;
 	}
-	#verification h4{
-		margin: 0;
+	#verification h4 {
+		margin-top: 0;
 	}
 	#access_recovery p.info_text,
 	#verification p.info_text {
