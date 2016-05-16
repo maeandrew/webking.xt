@@ -262,7 +262,7 @@ $(function(){
 		banner_height = $('.banner').outerHeight(),
 		header_height = header.outerHeight();
 	$(window).scroll(function(){
-		if(over_scroll == false){
+		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
 			}else if($(this).scrollTop() <= banner_height/2 - header_height && header.hasClass("filled")){
@@ -468,7 +468,7 @@ $(function(){
 		$('#big_photo img').attr({
 			src: img_src,
 			alt: img_alt
-		})
+		});
 		$('#big_photo').css({
 			// 'height': (viewport_height - header_outerheight)*0.9,
 			'max-width': viewport_width*0.9
@@ -482,7 +482,7 @@ $(function(){
 	//Открытие обьектов с подложкой
 	$('body').on('click', '.btn_js', function(){
 		var name = $(this).data('name');
-		if(name != undefined){
+		if(name !== undefined){
 			if(name == 'cart'){
 				GetCartAjax();
 			}else{
@@ -580,10 +580,9 @@ $(function(){
 	});
 
 	$('.xgraph_up').on('click', function() {
-		if ($(this).hasClass('two')) {
-			var moderation = 1;
-		}else{
-			var moderation = 0;
+		var moderation = 0;
+		if($(this).hasClass('two')){
+			moderation = 1;
 		}
 		var id_graphics = false;
 		ModalGraph(id_graphics, moderation);
@@ -665,19 +664,19 @@ $(function(){
 				all.summary.find('.lastname').text(lastname).closest('.row').removeClass('hidden');
 				all.summary.find('.firstname').text(firstname).closest('.row').removeClass('hidden');
 				all.summary.find('.middlename').text(middlename).closest('.row').removeClass('hidden');
-				if(lastname == ''){
+				if(lastname === ''){
 					i++;
 					$('#lastname').addClass('is-invalid');
 				}
-				if(firstname == ''){
+				if(firstname === ''){
 					i++;
 					$('#firstname').addClass('is-invalid');
 				}
-				if(middlename == ''){
+				if(middlename === ''){
 					i++;
 					$('#middlename').addClass('is-invalid');
 				}
-				if(i == 0){
+				if(i === 0){
 					data = {firstname: firstname, lastname: lastname, middlename:middlename};
 
 					ajax('cart', 'update_info', data, 'text').done(function(response){
@@ -713,7 +712,7 @@ $(function(){
 					$('.error_div').removeClass('hidden').text("Выберите город");
 				}
 
-				if(i == 0){
+				if(i === 0){
 					data = {selected_region: selected_region, selected_city: selected_city};
 
 					ajax('cart', 'update_info', data, 'html').done(function(response){
@@ -725,7 +724,7 @@ $(function(){
 						validateq(all);
 					});
 				}
-			}else if(all.current_step = 4){
+			}else if(all.current_step == 4){
 				all.summary.find('.delivery_service').closest('.row').addClass('hidden');
 				all.summary.find('.delivery_method').closest('.row').addClass('hidden');
 				all.summary.find('.client_address').closest('.row').addClass('hidden');
@@ -743,41 +742,39 @@ $(function(){
 				if(typeof delivery_service !== 'undefined') {
 					all.summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
 				}
-				if(delivery_method != "Выбрать"){
+				if(delivery_method != 'Выбрать'){
 					all.summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');
 				}
 
 
-				if(delivery_method == "Адресная доставка" && delivery_address != "") {
+				if(delivery_method == 'Адресная доставка' && delivery_address !== '') {
 					all.summary.find('.client_address').text(delivery_address).closest('.row').removeClass('hidden');
 				}
-				if(delivery_method == "Забрать со склада" && selected_post_office != "Выбрать отделение"){
+				if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение'){
 					all.summary.find('.client_address').text(delivery_address).closest('.row').addClass('hidden');
 					all.summary.find('.post_office_address').text(selected_post_office).closest('.row').removeClass('hidden');
 				}
-				if(delivery_method == "Забрать со склада"
-				 && selected_post_office != "Выбрать отделение"
-				 && delivery_address != "") {
-					$('#delivery_address').val("");
+				if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение' && delivery_address !== ''){
+					$('#delivery_address').val('');
 				}
 
 				if(typeof delivery_service === 'undefined'){
 					i++;
-					$('.error_div').removeClass('hidden').text("Выберите службу доставки");
-				}else if(delivery_method == "Выбрать"){
+					$('.error_div').removeClass('hidden').text('Выберите службу доставки');
+				}else if(delivery_method == 'Выбрать'){
 					i++;
-					$('.error_div').removeClass('hidden').text("Выберите способ доставки");
-				}else if(delivery_method == "Адресная доставка" && delivery_address == ""){
+					$('.error_div').removeClass('hidden').text('Выберите способ доставки');
+				}else if(delivery_method == 'Адресная доставка' && delivery_address === ''){
 					i++;
 					$('.error_div').addClass('hidden');
 					$('#client_address').addClass('is-invalid');
-				}else if(delivery_method == "Забрать со склада" && selected_post_office == "Выбрать отделение"){
+				}else if(delivery_method == 'Забрать со склада' && selected_post_office == 'Выбрать отделение'){
 					i++;
-					$('.error_div').removeClass('hidden').text("Выберите отделение");
+					$('.error_div').removeClass('hidden').text('Выберите отделение');
 				}else {
 					$('.error_div').addClass('hidden');
 				}
-				if(i == 0){
+				if(i === 0){
 					data = {
 						delivery_service: delivery_service,
 						delivery_method: delivery_method,
@@ -798,7 +795,7 @@ $(function(){
 
 			}
 
-			if(i == 0){
+			if(i === 0){
 				data = {delivery_service: delivery_service, delivery_method: delivery_method};
 
 				ajax('cart', 'update_info', data, 'text').done(function(response){
@@ -809,12 +806,12 @@ $(function(){
 		}
 		function validateq(all){
 
-			if(all.validate == true || all.target_step < all.current_step){
+			if(all.validate === true || all.target_step < all.current_step){
 				all.current.removeClass('active');
 				all.target.addClass('active');
 				Position($(this).closest('[data-type="modal"]'));
 			}
-		};
+		}
 	});
 	// $('submit').on('click', function(e){
 	// 	e.preventDefault();
@@ -951,7 +948,7 @@ $(function(){
 	$('.delivery_type [data-value="1"]').on('click', function(){
 		$('.delivery_address').css('display', 'block');
 		$('.post_office').css('display', 'none');
-	})
+	});
 
 	$('.delivery_type [data-value="2"]').on('click', function(){
 		if($('.delivery_service input[name="service"]:checked')){
@@ -960,7 +957,7 @@ $(function(){
 
 			GetDeliveryMethods($('.delivery_service input[name="service"]:checked').val(), $('#city_select .select_field').text());
 		}
-	})
+	});
 
 	$('#quiz .mdl-button').on('click', function(e){
 		e.preventDefault();
@@ -1051,7 +1048,7 @@ $(function(){
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
 				parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-			};
+			}
 			componentHandler.upgradeDom();
 		});
 	});
@@ -1083,7 +1080,7 @@ $(function(){
 					parent.find('.password_recovery_container').html(response.content);
 				}else{
 					value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-				};
+				}
 				componentHandler.upgradeDom();
 			});
 		}
@@ -1202,7 +1199,7 @@ $(function(){
 		});
 		// var res = ValidateEmail(data, 1);
 		ajax('auth', 'register', fields).done(function(data){
-			if(data.err == 0){
+			if(data.err === 0){
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 					$('#user_pro').html(data);
 					$('.cabinet_btn').removeClass('hidden');
@@ -1220,7 +1217,7 @@ $(function(){
 		});
 	});
 
-	if($('header .cart_item a.cart i').data('badge') == 0) {
+	if($('header .cart_item a.cart i').data('badge') === 0) {
 		$('#cart .clear_cart').addClass('hidden');
 	}
 

@@ -249,6 +249,9 @@
 						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/specifications/">Характеристики</a>
 						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'ip_connections'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/ip_connections/">IP соединения</a>
+						</li>
 					</ul>
 				</li>
 			<?}?>

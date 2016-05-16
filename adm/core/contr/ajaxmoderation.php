@@ -5,8 +5,7 @@
 		switch($_POST['action']){
 			case "decline":
 				$products->SetModerationStatus($_POST['id'], $_POST['status'], nl2br($_POST['comment']));
-			;
-			break;
+				break;
 			case "accept":
 				$_POST['art'] = $products->CheckArticle((int) $GLOBALS['CONFIG']['last_manual_product_article'] + 1);
 				if($id = $products->AcceptProductModeration($_POST)){
@@ -17,12 +16,9 @@
 				$products->UpdateProductCategories($id, $_POST['category']);
 				$products->RecalcSitePrices(array($id));
 				$products->SetModerationStatus($_POST['id'], $_POST['status']);
-			;
-			break;
-
+				break;
 			default:
-			;
-			break;
+				break;
 		}
 	}
 	exit();

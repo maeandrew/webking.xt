@@ -64,42 +64,24 @@ G::ToGlobals(array(
 if(G::isLogged()){
 	_acl::load($_SESSION['member']['gid']);
 }
-
-// save ip activity
-// $sql = "SELECT * FROM "._DB_PREFIX_."ip_connections";
-// $ips = $db->GetArray($sql);
-// foreach($ips as $key => $value) {
-// 	if(!$value['explanation'] && $value['user_agent']){
-// 		$accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
-// 		$url            = "https://api.udger.com/v3/parse";
-// 		$ua             = $value['user_agent'];
-// 		$ip             = "66.249.64.1";
-
-// 		$res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
-// 		$sql = "UPDATE "._DB_PREFIX_."ip_connections SET explanation = '".$res."' WHERE id = ".$value['id'];
-// 		$db->Query($sql);
-// 	}
-// }
 $unwatch = array('95.69.190.43', '178.150.144.143');
 if(!in_array($_SESSION['client']['ip'], $unwatch)){
-	$sql = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
-	$ips = $db->GetOneRowArray($sql);
+	$sql1 = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
+	$ips = $db->GetOneRowArray($sql1);
 	if(!$ips){
-		// $accesskey      = "b488dd868442f561e351b27568d5c9f5"; // Your access key
-		// $url            = "https://api.udger.com/v3/parse";
-		// $ua             = $_SERVER['HTTP_USER_AGENT'];
-		// $ip             = "66.249.64.1";
-
-		// $res = file_get_contents($url."?accesskey=".$accesskey."&ua=".urlencode($ua)."&ip=".urlencode($ip));
-		$sql = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent) VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."')";
+		$sql2 = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent".(G::isLogged()?', id_user':null).") VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."'".(G::isLogged()?', '.$_SESSION['member']['id_user']:null).")";
 	}else{
-		$sql = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."' WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
+		$sql2 = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."'".(G::isLogged()?", id_user = ".$_SESSION['member']['id_user']:null)." WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 	}
-	$db->Query($sql);
-	$block = array(/*'69.162.124.231',*/ '193.106.92.242');
-	if(in_array($_SESSION['client']['ip'], $block)){
+	$db->Query($sql2);
+	$ips = $db->GetOneRowArray($sql1);
+	if($ips['block'] == 1){
 		header('Location: http://google.com');
 		exit();
+		// $block = array('77.108.80.2', '193.106.92.242', '89.223.35.117'); x-torg.com
+		// $block = array(/*'69.162.124.231',*/ '193.106.92.242');
+		// if(in_array($_SESSION['client']['ip'], $block)){
+		// }
 	}
 }
 // получение всех настроек с БД

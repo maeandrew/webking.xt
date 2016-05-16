@@ -63,6 +63,42 @@ if(isset($GLOBALS['REQAR'][1])){
 			$product = new Products();
 			// $product->
 			break;
+		case 'ip_connections':
+			$where = '';
+			if(isset($_GET['smb'])){
+				if(isset($_GET['sid'])){
+					$where .= 'WHERE sid = '.$_GET['sid'];
+				}
+			}elseif(isset($_GET['clear_filters'])){
+				unset($_GET);
+				$url = explode('?',$_SERVER['REQUEST_URI']);
+				header('Location: '.$url[0]);
+				exit();
+			}
+			$sql = 'SELECT COUNT(*) AS cnt FROM '._DB_PREFIX_.'ip_connections '.$where.' ORDER BY connections DESC';
+			$res = $GLOBALS['db']->GetOneRowArray($sql);
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit'])){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = $res['cnt'];
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = false;
+			}
+			$sql = 'SELECT * FROM '._DB_PREFIX_.'ip_connections '.$where.' ORDER BY connections DESC LIMIT '.$limit;
+			$list = $GLOBALS['db']->GetArray($sql);
+			foreach($list as &$v){
+				if($v['id_user'] !== null){
+					$User = new Users();
+					$User->SetFieldsById($v['id_user']);
+					$v['email'] = $User->fields['email'];
+				}
+			}
+			$tpl->Assign('list', $list);
+			break;
 		default:
 			break;
 	}
@@ -79,4 +115,4 @@ if(isset($GLOBALS['REQAR'][1])){
 }
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
-}?>
+}

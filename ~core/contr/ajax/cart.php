@@ -1,6 +1,5 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
-
 	if(!isset($_SESSION['Cart'])){
 		$_SESSION['Cart']['products'] = array();
 		$_SESSION['Cart']['sum'] = (float) 0;
@@ -20,7 +19,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'GetCartPage':
 				unset($parsed_res);
-			    if(G::IsLogged()){
+				if(G::IsLogged()){
 					$User = new Users();
 					$User->SetUser(G::GetLoggedData());
 					$tpl->Assign('User', $User->fields);

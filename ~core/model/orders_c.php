@@ -482,7 +482,6 @@ class Orders {
 			$f['id_delivery'] = 1;
 			$f['id_city'] = 0;
 			$f['strachovka'] = 0;
-		}else{
 		}
 		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];

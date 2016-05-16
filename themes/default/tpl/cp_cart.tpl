@@ -1,17 +1,17 @@
 <!-- <h4 class="title_cart">Корзина</h4> -->
 <script>
-	var randomManager;
-	qtycontrol = new Array();
-	notecontrol = new Array();
+	var randomManager,
+	qtycontrol = [],
+	notecontrol = [];
 </script>
 <?if(empty($list)){
 	if(isset($cart['id_order'])){
 		if($_GET['type'] == 'order'){?>
 			<script>
 				ga('ecommerce:addTransaction', {
-					'id': '<?=$cart['id_order']?>',									// Transaction ID. Required.
-					'affiliation': '<?=$GLOBALS['CONFIG']['invoice_logo_text']?>',	// Affiliation or store name.
-					'revenue': '<?=$cart['sum_discount']?>'							// Grand Total.
+					id: '<?=$cart['id_order'];?>',									// Transaction ID. Required.
+					affiliation: '<?=$GLOBALS['CONFIG']['invoice_logo_text']?>',	// Affiliation or store name.
+					revenue: '<?=$cart['sum_discount']?>'							// Grand Total.
 				});
 			</script>
 			<?foreach($cart['products'] as $p){?>
@@ -124,12 +124,6 @@
 	<!-- END Недоступные товары -->
 	<!-- NEW Товары в корзине -->
 	<div class="order_wrapp">
-		<!-- <ul class="order_head mdl-cell--hide-phone">
-			<li class="photo">Фото</li>
-			<li class="name">Название</li>
-			<li class="price">Цена, Количество</li>
-			<li class="sum_li">Сумма</li>
-		</ul> -->
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
 		$summ_many = $_SESSION['cart']['cart_sum'];
@@ -307,10 +301,10 @@
 		<div class="wrapp">
 			<form action="">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label style="color: #7F7F7F">*Телефон</label>
+					<label for="user_number">*Телефон</label>
 					<input class="mdl-textfield__input phone" type="text" id="user_number"
 					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
-					<label class="mdl-textfield__label" for="user_number" style="color: #FF5722;"></label>
+					<label class="mdl-textfield__label" for="user_number"></label>
 					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
