@@ -505,7 +505,7 @@ body:not(.c_main) .banner {
 /*Breadcrumbs ================================================================*/
 
 .breadcrumbs_wrapp {
-	padding-top: 20px;
+	padding-top: 10px;
 }
 #breadcrumbs {
 	line-height: 42px;
@@ -2016,10 +2016,13 @@ section .stat_year {
 }
 .products .card .product_name {
 	padding-top: 10px;
-	max-width: 750px;
+	position: relative;
 }
 .products .card .ordered {
+	position: absolute;
 	color: #018b06;
+	right: 0;
+	top: 10px;
 }
 .products .card [for^="ordered-"] {
 	font-size: 12px;
@@ -2029,9 +2032,6 @@ section .stat_year {
 }
 
 @media (max-width: 1024px) {
-	.products .card .product_name {
-		max-width: 260px;
-	}
 	.products .card_wrapper {
 		display: block;
 	}
@@ -2046,19 +2046,7 @@ section .stat_year {
 	}
 	.suplierPriceBlock {
 		margin-top: 20px;
-		margin-right: 0px;
-	}
-}
-
-@media (min-width: 1025px) and (max-width: 1280px) {
-	.products .card .product_name {
-		max-width: 430px;
-	}
-}
-
-@media (min-width: 1281px) and (max-width: 1599px) {
-	.products .card .product_name {
-		max-width: 485px;
+		margin-right: 0;
 	}
 }
 
@@ -2081,8 +2069,8 @@ section .stat_year {
 	vertical-align: top;
 }
 .product_buy {
-	width: 40%;
-	max-width: 450px;
+	/*width: 40%;*/
+	max-width: 350px;
 	min-width: 350px;
 	float: right;
 	height: 100px;
@@ -2095,10 +2083,6 @@ section .stat_year {
 	color: #9e9e9e;
 }
 .product_buy .buy_block {
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -2126,11 +2110,9 @@ section .stat_year {
 .product_buy .buy_block .btn_buy {
 	position: relative;
 	width: 120px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 }
-.product_buy .buy_block .btn_buy .in_cart_js {
+.product_buy .buy_block .btn_buy .in_cart_js,
+.product_buy .buy_block .btn_buy .in_cart_js:focus {
 	padding: 6px 0;
 	position: absolute;
 	top: 0;
@@ -2139,9 +2121,6 @@ section .stat_year {
 	width: 36px;
 	color: #ff5722;
 	text-align: center;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 	cursor: pointer;
 	z-index: 10;
 	outline: 0;
@@ -2941,7 +2920,7 @@ section .stat_year {
 
 .product_name {
 	float: left;
-	width: calc(60% - 130px);
+	width: calc(100% - 130px - 350px);
 	display: table-row;
 }
 .product_name > a {
