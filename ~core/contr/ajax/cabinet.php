@@ -59,44 +59,51 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				if(!$User->SetVerificationCode($_POST['id_user'], $_POST['method'], $_POST['phone'])){
 					$res['success'] = false;
-					$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';
+					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
 				}
 				echo json_encode($res);
 				break;
 
 			case 'ChangePassword':
-				$pas['id_user'] = (isset($_POST['id_user']) && $_POST['id_user'] !='')?$_POST['id_user']:false;
-				$pas['passwd'] = (isset($_POST['new_passwd']) && $_POST['new_passwd'] !='')?$_POST['new_passwd']:false;
-				$Users = new Users();
-				switch ($_POST['method']){
-					case 'current_pass':
-						if(!$Users->CheckCurrentPasswd($_POST['curr_pass'], $_POST['id_user'])){
-							$res['success'] = false;
-							$res['msg'] = 'Неверный пароль';
-						} else{
-							if($update = $Users->UpdateUser($pas)) {
-								$res['success'] = true;
-								$res['msg'] = 'Ура! У нас получилось';
+				if((isset($_POST['id_user']) && $_POST['id_user'] !='') && (isset($_POST['new_passwd']) && $_POST['new_passwd'] !='')){
+					$pas['id_user'] = $_POST['id_user'];
+					$pas['passwd'] = $_POST['new_passwd'];
+					$Users = new Users();
+					switch ($_POST['method']){
+						case 'current_pass':
+							if(!$Users->CheckCurrentPasswd($_POST['curr_pass'], $_POST['id_user'])){
+								$res['success'] = false;
+								$res['msg'] = 'Неверный пароль';
+							} else{
+								if($update = $Users->UpdateUser($pas)) {
+									$res['success'] = true;
+									$res['msg'] = 'Ура! У нас получилось';
+								} else {
+									$res['success'] = false;
+									$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
+								}
 							}
-						}
-						break;
-					case 'verification_code';
-						if(!$Users->GetVerificationCode($_POST['id_user'], $_POST['code'])){
-							$res['success'] = false;
-							$res['msg'] = 'Вы ввели неверное значение';
-						} else{
-							if($update = $Users->UpdateUser($pas)) {
-								$res['success'] = true;
-								$res['msg'] = 'Ура! У нас получилось';
+							break;
+						case 'verification_code';
+							if(!$Users->GetVerificationCode($_POST['id_user'], $_POST['code'])){
+								$res['success'] = false;
+								$res['msg'] = 'Вы ввели неверное значение';
+							} else{
+								if($update = $Users->UpdateUser($pas)) {
+									$res['success'] = true;
+									$res['msg'] = 'Ура! У нас получилось';
+								} else {
+									$res['success'] = false;
+									$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
+								}
 							}
-						}
-						break;
+							break;
+					}
+				} else {
+					$res['success'] = false;
+					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
 				}
-
-				print_r($res);
-
-
-				//echo json_encode($res);
+				echo json_encode($res);
 				break;
 		}
 	}
