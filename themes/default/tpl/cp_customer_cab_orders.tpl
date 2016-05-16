@@ -299,6 +299,10 @@ $(function(){
 		/*console.log(id_order);*/
 		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
 			console.log(data);
+			ajax('cart', 'GetCart').done(function(data){
+				console.log(data);
+				$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
+			});
 		});
 	});
 
@@ -306,6 +310,10 @@ $(function(){
 		/*console.log(id_order);*/
 		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
 			console.log(data);
+			ajax('cart', 'GetCart').done(function(data){
+				console.log(data);
+				$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
+			});
 		});
 	});
 

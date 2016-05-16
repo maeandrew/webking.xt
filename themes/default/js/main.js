@@ -257,7 +257,7 @@ $(function(){
 	});
 
 	//Scroll Magic
-	var header = $("header"),
+	/*var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
 		banner_height = $('.banner').outerHeight(),
 		header_height = header.outerHeight();
@@ -279,7 +279,7 @@ $(function(){
 		}else{
 			$('aside').css('bottom', $(this).height()-($('section.center').height()-$(this).scrollTop()+header_height));
 		}
-	});
+	});*/
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
