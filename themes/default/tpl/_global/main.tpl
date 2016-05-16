@@ -755,8 +755,8 @@
 			<div class="cur_passwd_container">
 				<div class="cur_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label class="mdl-textfield__label" for="cur_passwd">Введите текущий пароль:</label>
-					<input class="mdl-textfield__input" type="password" name="cur_passwd" id="cur_passwd"/>
-					<span class="mdl-textfield__error"></span>
+					<input class="mdl-textfield__input" type="password" name="cur_passwd" id="cur_passwd" required/>
+					<span class="mdl-textfield__error">Чтобы продолжить введите Ваш текущий пароль</span>
 				</div>
 				<div><a href="#" class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a></div>
 			</div>
@@ -773,9 +773,9 @@
 				<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect send_code_js hidden">Выслать код подтверждения</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_pass_js">Подтвердить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_code_js hidden">Подтвердить</button>
+			<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect verification_btn send_code_js hidden" value="Выслать код подтверждения">
+			<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect verification_btn confirm_pass_js" value="Подтвердить">
+			<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect verification_btn confirm_code_js hidden" value="Подтвердить">
 		</div>
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

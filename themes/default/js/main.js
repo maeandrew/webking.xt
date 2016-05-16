@@ -877,15 +877,16 @@ $(function(){
 	});
 	$('#verification').on('click', '[for="choise_verification_code"]', function(){
 		$('.verification_meth, .send_code_js').removeClass('hidden');
-		$('.cur_passwd_container, .confirm_pass_js, .for_verification_code_js').addClass('hidden');
-		$('.confirm_code_js').removeClass('hidden');
+		$('.cur_passwd_container, .confirm_pass_js').addClass('hidden');
+		$('.confirm_code_js').addClass('hidden');
 		componentHandler.upgradeDom();
 	});
 
 	$('.send_code_js').click(function(event) {
 		$('.for_verification_code_js').removeClass('hidden');
 		$('.send_code_js').addClass('hidden');
-		$('.confirm_btn_js').removeClass('hidden').attr('disabled', 'disabled');
+		$('.confirm_code_js').removeClass('hidden').attr('disabled', 'disabled');
+		// $('.confirm_btn_js').removeClass('hidden').attr('disabled', 'disabled');
 		var id_user = $('[name="id_user"]').val(),
 			phone_num = $('.phone').val().replace(/[^\d]+/g, "");
 
@@ -902,6 +903,11 @@ $(function(){
 		});
 	});
 
+	$('[name="verification_code"]').change(function(event) {
+		if ($(this).val().length == 4) {$('.confirm_code_js').removeAttr('disabled')}
+		else { $('.confirm_code_js').attr('disabled', 'disabled')}
+	});
+
 	$('.confirm_pass_js').click(function(event) {
 		var id_user = $('[name="id_user"]').val(),
 			new_passwd = $('[name="new_passwd"]').val(),
@@ -909,10 +915,14 @@ $(function(){
 			curr_pass = $('[name="cur_passwd"]').val();
 
 		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass, method: method};
-		console.log(data);
-		ajax('cabinet', 'ChangePassword', data).done(function(response){
-			alert('Успешно!');
-		});
+		if (curr_pass != '') {
+			console.log(data);
+			ajax('cabinet', 'ChangePassword', data).done(function(response){
+				alert('Успешно!');
+			});
+		}else{
+			$('[name="cur_passwd"]').closest('.mdl-textfield').addClass('is-invalid');
+		}
 	});
 
 	$('.confirm_code_js').click(function(event) {
@@ -922,12 +932,13 @@ $(function(){
 			code = $('[name="verification_code"]').val();
 		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
 		console.log(data);
-		
-		ajax('cabinet', 'ChangePassword', data).done(function(response){
-			// alert('Успешно!');
-		}).fail(function(response){
-			alert('Успешно!');
-		});
+		if (code != '' && code.length == 4) {
+			ajax('cabinet', 'ChangePassword', data).done(function(response){
+				// alert('Успешно!');
+			}).fail(function(response){
+				alert('Успешно!');
+			});
+		}		
 	});
 
 	

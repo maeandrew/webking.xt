@@ -837,7 +837,7 @@ section.center {
 		font-weight: 500;
 	}
 	#access_recovery button,
-	#verification button {
+	#verification .verification_btn {
 		background-color: #018b06;
 		display: block;
 		margin: 20px auto 0;
