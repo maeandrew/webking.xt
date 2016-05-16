@@ -272,11 +272,11 @@ var statuses = {
 //Удаление заказа в кабинете
 $(function(){
 	var id_order = <?=$i['id_order']?>;
-
+	/*console.log(id_order);*/
 	/*Определение текущего ID заказа и Отмена*/
 	$('.cnslOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		console.log(id_order);
+		/*console.log(id_order);*/
 		$('.editing').find('li').removeClass('canceledOrder');
 		$(this).closest('li').addClass('canceledOrder');
 	});
@@ -284,31 +284,30 @@ $(function(){
 	/* "Черная метка" - удаление заказа*/
 	$('.delOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		console.log(id_order);
+		/*console.log(id_order);*/
 		$('.editing').find('li').removeClass('deletedOrder');
 		$(this).closest('li').addClass('deletedOrder');
 	});
 
 	$('.replaceOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		console.log(id_order);
+		/*console.log(id_order);*/
 	});
 
 	// Новый заказ на основе
 	$('#replaceCartMod').on('click', function(e){
-		console.log(id_order);
+		/*console.log(id_order);*/
 		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
 			console.log(data);
 		});
 	});
 
 	$('#addtoCartMod').on('click', function(e){
-		console.log(id_order);
+		/*console.log(id_order);*/
 		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
 			console.log(data);
 		});
 	});
-
 
 	$('.checkout').on('click', function(e){
 		$('#cart').find('no_items').addClass('hidden');
@@ -316,7 +315,7 @@ $(function(){
 
 	/*Отмена заказа*/
 	$('#cnclOrderBtnMod').on('click', function(e){
-		console.log(id_order);
+		/*console.log(id_order);*/
 		ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
 			console.log(data);
 			if(data === true){

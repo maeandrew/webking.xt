@@ -21,8 +21,11 @@
 	padding-left: 5px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-
-	vertical-align: middle;
+	vertical-align: middle;	
+}
+.returns_table .price_cell,
+.returns_table .count_cell {
+	text-align: center;
 }
 .returns_table th.client {
 	position: relative;
@@ -47,9 +50,9 @@
 .returns_table .name_cell {
 	text-align: left;
 }
-.returns_table tr.itogo {
+/*.returns_table tr.itogo {
 	border-bottom: none;
-}
+}*/
 .returns_table .itogo p {
 	font-weight: bold;
 }
@@ -57,16 +60,48 @@
 .returns_table .itogo td {
 	height: 40px;
 }
-.price-order {
-	width: 300px;
-    float: right;
-    text-align: center;
-    border: 1px solid #b4b4b4;
-    padding: 10px
+.customerOrderFooter {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+	flex-wrap: wrap;
 }
+.customerOrderFooter .customer {
+	display: flex;
+	flex-direction: column;
+}
+.customerOrderFooter .buttons_order button {
+	float: right;
+	margin-top: 20px;
+}
+
+.customerOrderFooter .customer,
+.customerOrderFooter .price-order,
+.customerOrderFooter .buttons_order {
+	margin-bottom: 10px;
+}
+
+
+.customerOrderFooter .price-order {
+	/*width: 300px;*/
+    /*float: right;*/
+    text-align: center;
+    /*border: 1px solid #b4b4b4;*/    
+   /* padding-top: 10px;
+    padding-bottom: 10px;*/
+   /* float: left;*/
+}
+.price-order form {
+	display: flex;
+}
+.price-order button {
+	margin: 5px;
+}
+
 .price-order input {
-	display: block;
-    margin: 10px auto;
+	display: block;   
+    margin-right: 5px;
+    margin-top: 10px;
     height: 30px;
     padding: 8px;
 }

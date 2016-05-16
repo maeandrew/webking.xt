@@ -224,8 +224,8 @@ $(function(){
 	});
 	$('.sort.imit_select .mdl-menu__item').on('click', function(){
 		var sort = JSON.parse($.cookie('sorting'));
-		if(sort[current_controller] !== undefined){
-			sort[current_controller]['value'] = ($(this).data('value'));
+		if(sort.current_controller !== undefined){
+			sort.current_controller.value = ($(this).data('value'));
 			var sorting = JSON.stringify(sort);
 			$.cookie('sorting', sorting, {
 				expires: 2,

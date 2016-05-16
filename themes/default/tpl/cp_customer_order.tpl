@@ -221,40 +221,69 @@
 		</tr>
 		</table>
 		<?if($gid == _ACL_CONTRAGENT_){?>
-			<div class="customer">Покупатель: <?=$order['cont_person']?>, тел. <?=$order['phones']?></div>
-			<div class="price-order">
-			<p>Чтобы сформировать прайс-лист на основании данного заказа, нажмите одну из этих кнопок:</p>
-			<form action="/pricelist-order/<?=$order['id_order']?>/" method="get" target="_blank">
-				<input type="text" name="margin" placeholder="Наценка"/>
-				<button class="price-order-photo btn-m-lblue mdl-button mdl-js-button mdl-js-ripple-effect" name="photo" value="0">без фото</button>
-				<button class="price-order-photo btn-m-lblue mdl-button mdl-js-button mdl-js-ripple-effect" name="photo" value="1">с фото</button>
-			</form>
-			</div>
-			<div class="buttons_order">
-			<form action="<?=_base_url?>/cart/<?=$i['id_order']?>" method="post" class="fleft">
-				<button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button mdl-js-ripple-effect" data-target="order_remake_js">Сформировать заказ на основании данного</button>
-			</form>
-			<?if($i['id_order_status'] == 1){?>
-				<form action="" method="post">
-					<button type="submit" name="smb_cancel" class="cancel_order btn-m-red mdl-button mdl-js-button mdl-js-ripple-effect">Отменить заказ</button>
-				</form>
-			<?}?>
-			<!-- ORDER REMAKE MODAL FORM -->
-			<div id="order_remake_js" class="modal_hidden">
-				<form action="<?=_base_url?>/cart/" method="post"  class="order_remake">
-					<p><b>Добавить</b> товары из данного заказа к товарам из текущей корзины или <b>заменить</b> содержимое корзины содержимым данного заказа?</p>
-					<input type="hidden" name="id_city" value="<?=$order['id_city']?>"/>
-					<input type="hidden" name="id_delivery" value="<?=$order['id_delivery']?>"/>
-					<input type="hidden" name="cont_person" value="<?=$order['cont_person']?>"/>
-					<input type="hidden" name="phones" value="<?=$order['phones']?>"/>
-					<input type="hidden" name="bonus_card" value="<?=$order['bonus_card']?>"/>
-					<button type="submit" name="add_order" class="btn-m-green fleft mdl-button mdl-js-button mdl-js-ripple-effect">Добавить к корзине</button>
-					<button type="submit" name="remake_order" class="btn-m-green fright mdl-button mdl-js-button mdl-js-ripple-effect">Заменить корзину</button>
-				</form>
-			</div>
+			<div class="customerOrderFooter">
+				<div class="customer">
+					<span>Покупатель</span>
+					<span>Имя: <?=$order['cont_person']?></span> 
+					<span>тел.: <?=$order['phones']?></span>						
+				</div>
+				<div class="price-order">
+					<p>Cформировать прайс-лист:</p>
+						<form action="/pricelist-order/<?=$order['id_order']?>/" method="get" target="_blank">
+							<input type="text" name="margin" placeholder="Наценка"/>
+							<button class="price-order-photo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="photo" value="0">без фото</button>
+							<button class="price-order-photo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="photo" value="1">с фото</button>
+						</form>
+				</div>
+				<div class="buttons_order">
+					<div class="current_id_order" data-value="<?=$order['id_order']?>"></div>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn_js" data-name="cloneOrder">Сформировать заказ на основании данного</button>
+					<form action="<?=_base_url?>/cart/<?=$i['id_order']?>" method="post" class="fleft">
+						<!-- <button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button mdl-js-ripple-effect" data-target="order_remake_js">Сформировать заказ на основании данного</button> -->				
+					</form>
+					<?if($i['id_order_status'] == 1){?>
+						<form action="" method="post">
+							<button type="submit" name="smb_cancel" class="cancel_order btn-m-red mdl-button mdl-js-button mdl-js-ripple-effect">Отменить заказ</button>
+						</form>
+					<?}?>
+					<!-- ORDER REMAKE MODAL FORM -->
+					<!-- <div id="order_remake_js" class="modal_hidden">
+					<form action="<?=_base_url?>/cart/" method="post"  class="order_remake">
+						<p><b>Добавить</b> товары из данного заказа к товарам из текущей корзины или <b>заменить</b> содержимое корзины содержимым данного заказа?</p>
+						<input type="hidden" name="id_city" value="<?=$order['id_city']?>"/>
+						<input type="hidden" name="id_delivery" value="<?=$order['id_delivery']?>"/>
+						<input type="hidden" name="cont_person" value="<?=$order['cont_person']?>"/>
+						<input type="hidden" name="phones" value="<?=$order['phones']?>"/>
+						<input type="hidden" name="bonus_card" value="<?=$order['bonus_card']?>"/>
+						<button type="submit" name="add_order" class="btn-m-green fleft mdl-button mdl-js-button mdl-js-ripple-effect">Добавить к корзине</button>
+						<button type="submit" name="remake_order" class="btn-m-green fright mdl-button mdl-js-button mdl-js-ripple-effect">Заменить корзину</button>
+					</form>
+					</div> -->
+				</div>
+					
 			</div>
 		<?}?>
+</div><!--class="cabinet"-->
 <script type="text/javascript">
+
+	/*Создать новый заказ на основе текущего*/
+	$(function(){ 
+		var id_order = $('.current_id_order').data('value');		
+		console.log(id_order);
+		
+		$('#replaceCartMod').on('click', function(e){		
+		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){		
+			console.log('заменили');
+			});
+		});
+
+		$('#addtoCartMod').on('click', function(e){	
+		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
+			console.log("добавили");	
+			});
+		});
+	});
+
 	function AddPretenseRow(obj){
 		$("#row_tpl").clone(false).insertAfter('#pretense_row').css("display", "").attr("id","row");
 	};
@@ -284,4 +313,3 @@
 		$("#pfact_sum").text(fact_sum.toFixed(2));
 	}
 </script>
-</div><!--class="cabinet"-->

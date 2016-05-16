@@ -9,7 +9,7 @@
 function SendToAjax(id, qty, button, direction, note){
 	var data = {id_product: id, quantity: qty, button: button, direction: direction, note: note};
 	ajax('cart', 'updateCartQty', data).done(function(data){
-		$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.cart.products));
+		$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.cart.products));
 		$('.clear_cart').removeClass('hidden');
 
 		completeCartProductAdd(data.cart);
@@ -117,7 +117,7 @@ function SendToAjax(id, qty, button, direction, note){
  * @param  {[type]} obj [description]
  * @return {[type]}     [description]
  */
-function countOfOject(obj) {
+function countOfObject(obj) {
 	var i = 0;
 	if (typeof(obj)!="object" || obj === null) return 0;
 	for(var x in obj) i++;
@@ -138,7 +138,7 @@ function removeFromCart(id){
 			$('#removingProd, #clearCart, #cart .clear_cart').addClass('hidden');
 			$('header .cart_item a.cart i').attr('data-badge', 0);
 			$('#cart .no_items').removeClass('hidden');
-			$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block').addClass('hidden');
+			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block').addClass('hidden');
 			$('.products .in_cart_js').addClass('hidden');
 			$('.products .buy_btn_js').removeClass('hidden');
 			$.cookie('manual', 0);
@@ -195,7 +195,7 @@ function removeFromCart(id){
 				}
 			}
 
-			$('header .cart_item a.cart i').attr('data-badge', countOfOject(data.products));
+			$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
 			completeCartProductAdd(data);

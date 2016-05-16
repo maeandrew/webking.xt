@@ -142,11 +142,11 @@ table {
 }
 
 
-.returns_table.table tbody tr:hover {
+.returns_table .table tbody tr:hover {
 	background-color: rgb(255,234,221);
 }
 
-.returns_table.table thead th a {
+.returns_table .table thead th a {
 	font-weight: 500;
 }
 
@@ -1742,20 +1742,20 @@ html {
 	float: left;
 	margin-top: 8px;
 }
-.modalEditOrder button {
+/*.modalEditOrder button {
 	color: #fff;
 	margin-left: 11.5%;
-}
+}*/
 .modalEditOrder h5 {
 	color: rgb(136, 136, 136);
 	text-align: center;
 }
-.modalEditOrder .applyBtn {
+/*.modalEditOrder .applyBtn {
 	background: #FF5722;
-}
-.modalEditOrder .cancelBtn {
+}*/
+/*.modalEditOrder .cancelBtn {
 	background: #018b06;
-}
+}*/
 
 .paginator {
 	padding-top: 30px;
