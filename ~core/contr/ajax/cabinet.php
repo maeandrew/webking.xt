@@ -74,7 +74,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['success'] = false;
 							$res['msg'] = 'Неверный пароль';
 						} else{
-							$update = $Users->UpdateUser($pas);
+							if($update = $Users->UpdateUser($pas)) $res['success'] = 'Ура! У нас получилось';
 						}
 						break;
 					case 'verification_code';
@@ -82,16 +82,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['success'] = false;
 							$res['msg'] = 'Вы ввели неверное значение';
 						} else{
-							$update = $Users->UpdateUser($pas);
+							if($update = $Users->UpdateUser($pas)) $res['success'] = 'Ура! У нас получилось';
 						}
 						break;
 				}
-				if($update === true){
-					$res['success'] = 'Ура! У нас получилось';
-				} else{
-					$res['success'] = false;
-					$res['msg'] = 'Ой, что-то пошло не так! Повторите попытку позже.';
-				}
+//				if($update === true){
+//					$res['success'] = 'Ура! У нас получилось';
+//				} else{
+//					$res['success'] = false;
+//					$res['msg'] = 'Ой, что-то пошло не так! Повторите попытку позже.';
+//				}
 
 				print_r($res);
 
