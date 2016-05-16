@@ -561,4 +561,16 @@ class Users {
 		}
 	}
 
+	public function CheckCurrentPasswd($passwd, $id_user){
+		$sql = "SELECT count(*) AS count
+				FROM "._DB_PREFIX_."user
+				WHERE id_user = ".$id_user."
+				AND passwd = ".md5($passwd);
+		$res = $this->db->GetOneRowArray($sql);
+		if($res['count']<>1){
+			return false;
+		}
+		return true;
+	}
+
 }

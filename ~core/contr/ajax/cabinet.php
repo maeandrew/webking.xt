@@ -22,9 +22,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$C = new Contragents();
 				$res = $C->GetRating($_POST);
 				echo json_encode($res);
-
-
-			break;
+				break;
 			case 'ChangeInfoUser':
 				$Users = new Users();
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
@@ -49,6 +47,52 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($errm);
 				}
 
+				break;
+			case 'accessCode';
+				$Users = new Users();
+				$id_user = $User->CheckPhoneUniqueness($_POST['value']);
+				if($id_user === true){
+					$res['success'] = false;
+					$res['msg'] = 'Пользователя с таким телефоном не найдено.';
+				}else{
+					$res['success'] = true;
+					$res['content'] = '<p class="info_text">На указанный номер телефона [<span class="bold_text">'.$_POST['value'].'</span>] отправлен код подтверждения смены пароля.</p><p class="info_text">Код будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
+								<input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$id_user.'">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="recovery_code" name="code">
+									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
+									<span class="mdl-textfield__error"></span>
+								</div>
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
+				}
+				break;
+				if(!$User->SetVerificationCode($id_user, $_POST['method'], $_POST['value'])){
+					$res['success'] = false;
+					$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';
+				}
+				echo json_encode($res);
+				break;
+
+				break;
+			case 'changePassword':
+				$arr['id_user'] = (isset($_POST['id_user']) && $_POST['id_user'] !='')?$_POST['id_user']:false;
+				$arr['passwd'] = (isset($_POST['passwd']) && $_POST['passwd'] !='')?$_POST['passwd']:false;
+				$Users = new Users();
+				switch ($_POST['method']){
+					case 'CheckCurrentPasswd':
+						$Users->CheckCurrentPassword($_POST['method'], $_POST['id_user']);
+						break;
+					case 'verification_code';
+
+						break;
+				}
+
+
+
+
+				$res = $Users->UpdateUser($arr);
+				print_r(1);
+				//echo json_encode($res);
 				break;
 		}
 	}
