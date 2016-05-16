@@ -74,24 +74,24 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['success'] = false;
 							$res['msg'] = 'Неверный пароль';
 						} else{
-							if($update = $Users->UpdateUser($pas)) $res['success'] = 'Ура! У нас получилось';
+							if($update = $Users->UpdateUser($pas)) {
+								$res['success'] = true;
+								$res['msg'] = 'Ура! У нас получилось';
+							}
 						}
 						break;
 					case 'verification_code';
-						if(!$Users->CheckCurrentPasswd($_POST['code'], $_POST['id_user'])){
+						if(!$Users->GetVerificationCode($_POST['id_user'], $_POST['code'])){
 							$res['success'] = false;
 							$res['msg'] = 'Вы ввели неверное значение';
 						} else{
-							if($update = $Users->UpdateUser($pas)) $res['success'] = 'Ура! У нас получилось';
+							if($update = $Users->UpdateUser($pas)) {
+								$res['success'] = true;
+								$res['msg'] = 'Ура! У нас получилось';
+							}
 						}
 						break;
 				}
-//				if($update === true){
-//					$res['success'] = 'Ура! У нас получилось';
-//				} else{
-//					$res['success'] = false;
-//					$res['msg'] = 'Ой, что-то пошло не так! Повторите попытку позже.';
-//				}
 
 				print_r($res);
 
