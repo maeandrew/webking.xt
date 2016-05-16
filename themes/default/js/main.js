@@ -869,6 +869,9 @@ $(function(){
 	// 	$(".phone").mask("+38 (099) ?999-99-99");
 	// 	componentHandler.upgradeDom();
 	// });
+
+	$('.verification_btn').attr('disabled', 'disabled');
+
 	$('#verification').on('click', '[for="choise_current_pass"]', function(){
 		$('.cur_passwd_container, .confirm_btn_js').removeClass('hidden');
 		$('.verification_meth, .for_verification_code_js, .confirm_code_js, .send_code_js').addClass('hidden');
@@ -888,21 +891,17 @@ $(function(){
 		$('.confirm_btn_js').removeClass('hidden').attr('disabled', 'disabled');
 		var id_user = $('[name="id_user"]').val(),
 			phone_num = $('.phone').val().replace(/[^\d]+/g, "");
+
 			if(phone_num.length == 12){
 				phone = phone_num;
 			}else{
 				console.log("Неверный формат номера телефона");
 			}
-		data = {id_user: id_user, phone: phone};
+		data = {id_user: id_user, phone: phone, method: 'sms'};
 		console.log(data);
 		// $('.confirm_btn_js').removeAttr('disabled');
 		ajax('cabinet', 'AccessCode', data).done(function(response){
-			if (response.success) {
-				$('.confirm_btn_js').removeAttr('disabled');
-			}else{
-				// parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-			};
-			componentHandler.upgradeDom();
+			$('.confirm_btn_js').removeAttr('disabled');			
 		});
 	});
 
@@ -922,13 +921,14 @@ $(function(){
 	$('.confirm_code_js').click(function(event) {
 		var id_user = $('[name="id_user"]').val(),
 			new_passwd = $('[name="new_passwd"]').val(),
-			method = $('[name="verification"]:checked').data('value'),
-			phone = $('.phone').val();
+			method = $('[name="verification"]:checked').data('value'),			
 			code = $('[name="verification_code"]').val();
 		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
 		console.log(data);
 		
 		ajax('cabinet', 'ChangePassword', data).done(function(response){
+			// alert('Успешно!');
+		}).fail(function(response){
 			alert('Успешно!');
 		});
 	});

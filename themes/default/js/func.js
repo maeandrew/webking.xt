@@ -1540,11 +1540,13 @@ function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
 		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
+		$('.verification_btn').attr('disabled', 'disabled');
 		// console.log('Пароли не совпадают');
 	}else{
 		// console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
+		$('.verification_btn').removeAttr('disabled');
 		return false;
 	}
 }
