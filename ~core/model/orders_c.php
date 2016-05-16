@@ -472,7 +472,11 @@ class Orders {
 		$Customers = new Customers();
 		$Customers->SetFieldsById($_SESSION['member']['id_user']);
 		$customer = $Customers->fields;
-		$f['id_contragent'] = $id_contragent = $customer['id_contragent'];
+		if($_SESSION['member']['gid'] = _ACL_CONTRAGENT_){
+			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
+		}else{
+			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];
+		}
 		// Если клиент не зарегистрирован и не ввел номер телефона
 		if($f['id_order_status'] == 3){
 			$f['id_delivery'] = 1;

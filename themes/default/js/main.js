@@ -22,13 +22,11 @@
 // });
 $(window).load(function(){
 	$("html, body").trigger("scroll");
-
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
 	GetLocation();
 });
-
-window.onbeforeunload = function(e) {
-// window.onpopstate = function(e) {
+window.onbeforeunload = function(e){
+	// window.onpopstate = function(e) {
 	// if ( $(window).width() < 500 && $('div[data-type="modal"]').hasClass('opened')) {
 
 
@@ -47,13 +45,10 @@ window.onbeforeunload = function(e) {
 	// };
 	// return "You work will be lost.";
 };
-
 // window.addEventListener("popstate", function(e) {
 //     swapPhoto(location.pathname);
 // }, false)
-
 $(function(){
-
 	if($(window.location.hash).length == 1){
 		openObject((window.location.hash).replace('#', ''));
 	}
@@ -73,7 +68,6 @@ $(function(){
 		$(this).addClass('hidden');
 		$('#expand_btn').removeClass('hidden');
 	});
-
 	//Скрытие фильтров в зависимости от выбранного уровня товара ---
 	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length === 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
 		$('.main_nav li[data-nav="filter"]').removeClass('hidden');
@@ -98,12 +92,10 @@ $(function(){
 		$('.main_nav li[data-nav="filter"]').addClass('hidden');
 	});
 	//---
-
 	//Отключение клика на ссылку с #
 	$('body').on('click', 'a[href="#"]', function(e){
 		e.preventDefault();
 	});
-
 	//function $_GET(key) {
 	//	var s = window.location.search;
 	//	s = s.match(new RegExp(key + '=([^&=]+)'));

@@ -79,21 +79,21 @@ function GetCabCoopProdAjax(id_cart){
 function UserRating(obj){
 	var id_user = $('.manager').data('id');
 	var bool = 0;
-	if (obj.is('.like')) {
+	if(obj.is('.like')){
 		bool = 1;
-	};
+	}
 	ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
 		//typeof(data);
-		if (data == 0) {
+		if(data === 0){
 			openObject('modal_message');
-		};
+		}
 	});
 }
 // lib d3
 /*function foo(selection) {
-  selection
-	  .attr("name1", "value1")
-	  .attr("name2", "value2");
+	selection
+		.attr("name1", "value1")
+		.attr("name2", "value2");
 }*/
 
 function Graf3d(){
@@ -127,36 +127,36 @@ function Graf3d(){
 		excluded_groups = [];
 
 	var colors = {
-	  "Baby Foods": [185,56,73],
-	  "Baked Products": [37,50,75],
-	  "Beef Products": [325,50,39],
-	  "Beverages": [10,28,67],
-	  "Breakfast Cereals": [271,39,57],
-	  "Cereal Grains and Pasta": [56,58,73],
-	  "Dairy and Egg Products": [28,100,52],
-	  "Ethnic Foods": [41,75,61],
-	  "Fast Foods": [60,86,61],
-	  "Fats and Oils": [30,100,73],
-	  "Finfish and Shellfish Products": [318,65,67],
-	  "Fruits and Fruit Juices": [274,30,76],
-	  "Lamb, Veal, and Game Products": [20,49,49],
-	  "Legumes and Legume Products": [334,80,84],
-	  "Meals, Entrees, and Sidedishes": [185,80,45],
-	  "Nut and Seed Products": [10,30,42],
-	  "Pork Products": [339,60,49],
-	  "Poultry Products": [359,69,49],
-	  "Restaurant Foods": [204,70,41],
-	  "Sausages and Luncheon Meats": [1,100,79],
-	  "Snacks": [189,57,75],
-	  "Soups, Sauces, and Gravies": [110,57,70],
-	  "Spices and Herbs": [214,55,79],
-	  "Sweets": [339,60,75],
-	  "Vegetables and Vegetable Products": [120,56,40]
+		"Baby Foods": [185,56,73],
+		"Baked Products": [37,50,75],
+		"Beef Products": [325,50,39],
+		"Beverages": [10,28,67],
+		"Breakfast Cereals": [271,39,57],
+		"Cereal Grains and Pasta": [56,58,73],
+		"Dairy and Egg Products": [28,100,52],
+		"Ethnic Foods": [41,75,61],
+		"Fast Foods": [60,86,61],
+		"Fats and Oils": [30,100,73],
+		"Finfish and Shellfish Products": [318,65,67],
+		"Fruits and Fruit Juices": [274,30,76],
+		"Lamb, Veal, and Game Products": [20,49,49],
+		"Legumes and Legume Products": [334,80,84],
+		"Meals, Entrees, and Sidedishes": [185,80,45],
+		"Nut and Seed Products": [10,30,42],
+		"Pork Products": [339,60,49],
+		"Poultry Products": [359,69,49],
+		"Restaurant Foods": [204,70,41],
+		"Sausages and Luncheon Meats": [1,100,79],
+		"Snacks": [189,57,75],
+		"Soups, Sauces, and Gravies": [110,57,70],
+		"Spices and Herbs": [214,55,79],
+		"Sweets": [339,60,75],
+		"Vegetables and Vegetable Products": [120,56,40]
 	};
 
 	// Scale chart and canvas height
 	d3.select("#chart")
-		.style("height", (h) + "px")
+		.style("height", (h) + "px");
 
 	d3.selectAll("canvas")
 		.attr("width", w)
@@ -185,313 +185,310 @@ function Graf3d(){
 	var svg = d3.select("svg")
 		.attr("width", w)
 		.attr("height", h)
-	  .append("svg:g")
+		.append("svg:g")
 		.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
 	// Load the data and visualization
 	//d3.csv(URL_base+"js/nutrients.csv", function(raw_data) {
-	  // Convert quantitative scales to floats
+		// Convert quantitative scales to floats
 
 	// Load the data and visualization
 	d3.json(URL_base+"js/nutrients.json", function(raw_data) {
 		//map = JSON.parse(user);
 
-		var raw = new Array();
-		raw = raw_data;
+		// var raw = new Array();
+		var raw = raw_data;
 
-		console.log(raw);
-		data = raw.map(function(d) {
-			for (var k in d) {
+		data = raw.map(function(d){
+			for(var k in d){
 				console.log(k,d);
-				if (!_.isNaN(raw_data[0][k] - 0) && k != 'id') {
+				if (!_.isNaN(raw_data[0][k] - 0) && k != 'id'){
 					d[k] = parseFloat(d[k]) || 0;
 					console.log(d[k]);
 					console.log(parseFloat(d[k]));
 				}
-			};
+			}
 			return d;
 		});
-		console.log(data);
 
-	  // Extract the list of numerical dimensions and create a scale for each.
-	  xscale.domain(dimensions = d3.keys(data[0]).filter(function(k) {
+		// Extract the list of numerical dimensions and create a scale for each.
+		xscale.domain(dimensions = d3.keys(data[0]).filter(function(k) {
 		return (_.isNumber(data[0][k])) && (yscale[k] = d3.scale.linear()
-		  .domain(d3.extent(data, function(d) { return +d[k]; }))
-		  .range([h, 0]));
-	  }).sort());
+			.domain(d3.extent(data, function(d) { return +d[k]; }))
+			.range([h, 0]));
+		}).sort());
 
-	  // Add a group element for each dimension.
-	  var g = svg.selectAll(".dimension")
-		  .data(dimensions)
+		// Add a group element for each dimension.
+		var g = svg.selectAll(".dimension")
+		.data(dimensions)
 		.enter().append("svg:g")
-		  .attr("class", "dimension")
-		  .attr("transform", function(d) { return "translate(" + xscale(d) + ")"; })
-		  .call(d3.behavior.drag()
-			.on("dragstart", function(d) {
-			  dragging[d] = this.__origin__ = xscale(d);
-			  this.__dragged__ = false;
-			  d3.select("#foreground").style("opacity", "0.35");
-			})
-			.on("drag", function(d) {
-			  dragging[d] = Math.min(w, Math.max(0, this.__origin__ += d3.event.dx));
-			  dimensions.sort(function(a, b) { return position(a) - position(b); });
-			  xscale.domain(dimensions);
-			  g.attr("transform", function(d) { return "translate(" + position(d) + ")"; });
-			  brush_count++;
-			  this.__dragged__ = true;
+		.attr("class", "dimension")
+		.attr("transform", function(d) { return "translate(" + xscale(d) + ")"; })
+		.call(d3.behavior.drag()
+		.on("dragstart", function(d) {
+			dragging[d] = this.__origin__ = xscale(d);
+			this.__dragged__ = false;
+			d3.select("#foreground").style("opacity", "0.35");
+		})
+		.on("drag", function(d) {
+			dragging[d] = Math.min(w, Math.max(0, this.__origin__ += d3.event.dx));
+			dimensions.sort(function(a, b) { return position(a) - position(b); });
+			xscale.domain(dimensions);
+			g.attr("transform", function(d) { return "translate(" + position(d) + ")"; });
+			brush_count++;
+			this.__dragged__ = true;
 
-			  // Feedback for axis deletion if dropped
-			  if (dragging[d] < 12 || dragging[d] > w-12) {
-				d3.select(this).select(".background").style("fill", "#b00");
-			  } else {
-				d3.select(this).select(".background").style("fill", null);
-			  }
-			})
-			.on("dragend", function(d) {
-			  if (!this.__dragged__) {
+			// Feedback for axis deletion if dropped
+			if(dragging[d] < 12 || dragging[d] > w-12){
+			d3.select(this).select(".background").style("fill", "#b00");
+			} else {
+			d3.select(this).select(".background").style("fill", null);
+			}
+		})
+		.on("dragend", function(d) {
+			var extent = null;
+			if (!this.__dragged__) {
 				// no movement, invert axis
-				var extent = invert_axis(d);
-
-			  } else {
+				extent = invert_axis(d);
+			}else{
 				// reorder axes
 				d3.select(this).transition().attr("transform", "translate(" + xscale(d) + ")");
+				extent = yscale[d].brush.extent();
+			}
 
-				var extent = yscale[d].brush.extent();
-			  }
+			// remove axis if dragged all the way left
+			if (dragging[d] < 12 || dragging[d] > w-12) {
+			remove_axis(d,g);
+			}
 
-			  // remove axis if dragged all the way left
-			  if (dragging[d] < 12 || dragging[d] > w-12) {
-				remove_axis(d,g);
-			  }
+			// TODO required to avoid a bug
+			xscale.domain(dimensions);
+			update_ticks(d, extent);
 
-			  // TODO required to avoid a bug
-			  xscale.domain(dimensions);
-			  update_ticks(d, extent);
+			// rerender
+			d3.select("#foreground").style("opacity", null);
+			brush();
+			delete this.__dragged__;
+			delete this.__origin__;
+			delete dragging[d];
+		}));
 
-			  // rerender
-			  d3.select("#foreground").style("opacity", null);
-			  brush();
-			  delete this.__dragged__;
-			  delete this.__origin__;
-			  delete dragging[d];
-			}))
-
-	  // Add an axis and title.
-	  g.append("svg:g")
-		  .attr("class", "axis")
-		  .attr("transform", "translate(0,0)")
-		  .each(function(d) { d3.select(this).call(axis.scale(yscale[d])); })
+		// Add an axis and title.
+		g.append("svg:g")
+			.attr("class", "axis")
+			.attr("transform", "translate(0,0)")
+			.each(function(d) { d3.select(this).call(axis.scale(yscale[d])); })
 		.append("svg:text")
-		  .attr("text-anchor", "middle")
-		  .attr("y", function(d,i) { return i%2 == 0 ? -14 : -30 } )
-		  .attr("x", 0)
-		  .attr("class", "label")
-		  .text(String)
-		  .append("title")
+			.attr("text-anchor", "middle")
+			.attr("y", function(d, i){ return i%2 === 0 ? -14 : -30; })
+			.attr("x", 0)
+			.attr("class", "label")
+			.text(String)
+			.append("title")
 			.text("Click to invert. Drag to reorder");
-
-	  // Add and store a brush for each axis.
-	  g.append("svg:g")
-		  .attr("class", "brush")
-		  .each(function(d) { d3.select(this).call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush)); })
+			// Add and store a brush for each axis.
+		g.append("svg:g")
+			.attr("class", "brush")
+			.each(function(d) { d3.select(this).call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush)); })
 		.selectAll("rect")
-		  .style("visibility", null)
-		  .attr("x", -23)
-		  .attr("width", 36)
-		  .append("title")
+			.style("visibility", null)
+			.attr("x", -23)
+			.attr("width", 36)
+			.append("title")
 			.text("Drag up or down to brush along this axis");
 
-	  g.selectAll(".extent")
-		  .append("title")
+		g.selectAll(".extent")
+			.append("title")
 			.text("Drag or resize this filter");
 
 
-	  legend = create_legend(colors,brush);
+		legend = create_legend(colors,brush);
 
-	  // Render full foreground
-	  brush();
+		// Render full foreground
+		brush();
 
 	});
 
 	// copy one canvas to another, grayscale
 	function gray_copy(source, target) {
-	  var pixels = source.getImageData(0,0,w,h);
-	  target.putImageData(grayscale(pixels),0,0);
+		var pixels = source.getImageData(0,0,w,h);
+		target.putImageData(grayscale(pixels),0,0);
 	}
 
 	// http://www.html5rocks.com/en/tutorials/canvas/imagefilters/
 	function grayscale(pixels, args) {
-	  var d = pixels.data;
-	  for (var i=0; i<d.length; i+=4) {
-		var r = d[i];
-		var g = d[i+1];
-		var b = d[i+2];
-		// CIE luminance for the RGB
-		// The human eye is bad at seeing red and blue, so we de-emphasize them.
-		var v = 0.2126*r + 0.7152*g + 0.0722*b;
-		d[i] = d[i+1] = d[i+2] = v
-	  }
-	  return pixels;
-	};
+		var d = pixels.data;
+		for (var i=0; i<d.length; i+=4) {
+			var r = d[i];
+			var g = d[i+1];
+			var b = d[i+2];
+			// CIE luminance for the RGB
+			// The human eye is bad at seeing red and blue, so we de-emphasize them.
+			var v = 0.2126*r + 0.7152*g + 0.0722*b;
+			d[i] = d[i+1] = d[i+2] = v;
+		}
+		return pixels;
+	}
 
 	function create_legend(colors,brush) {
-	  // create legend
-	  var legend_data = d3.select("#legend")
+		// create legend
+		var legend_data = d3.select("#legend")
 		.html("")
 		.selectAll(".row")
-		.data( _.keys(colors).sort() )
+		.data( _.keys(colors).sort() );
 
-	  // filter by group
-	  var legend = legend_data
+		// filter by group
+		var legend = legend_data
 		.enter().append("div")
-		  .attr("title", "Hide group")
-		  .on("click", function(d) {
+			.attr("title", "Hide group")
+			.on("click", function(d) {
 			// toggle food group
 			if (_.contains(excluded_groups, d)) {
-			  d3.select(this).attr("title", "Hide group")
-			  excluded_groups = _.difference(excluded_groups,[d]);
-			  brush();
+				d3.select(this).attr("title", "Hide group");
+				excluded_groups = _.difference(excluded_groups,[d]);
+				brush();
 			} else {
-			  d3.select(this).attr("title", "Show group")
-			  excluded_groups.push(d);
-			  brush();
+				d3.select(this).attr("title", "Show group");
+				excluded_groups.push(d);
+				brush();
 			}
-		  });
+			});
 
-	  legend
+		legend
 		.append("span")
-		.style("background", function(d,i) { return color(d,0.85)})
+		.style("background", function(d,i) { return color(d,0.85); })
 		.attr("class", "color-bar");
 
-	  legend
+		legend
 		.append("span")
 		.attr("class", "tally")
-		.text(function(d,i) { return 0});
+		.text(function(d,i) { return 0;});
 
-	  legend
+		legend
 		.append("span")
-		.text(function(d,i) { return " " + d});
+		.text(function(d,i) { return " " + d;});
 
-	  return legend;
+		return legend;
 	}
 
 	// render polylines i to i+render_speed
 	function render_range(selection, i, max, opacity) {
-	  selection.slice(i,max).forEach(function(d) {
+		selection.slice(i,max).forEach(function(d) {
 		path(d, foreground, color(d.group,opacity));
-	  });
-	};
+		});
+	}
 
 	// simple data table
-	function data_table(sample) {
-	  // sort by first column
-	  var sample = sample.sort(function(a,b) {
+	function data_table(data) {
+		// sort by first column
+		var sample = data.sort(function(a,b) {
 		var col = d3.keys(a)[0];
 		return a[col] < b[col] ? -1 : 1;
-	  });
+		});
 
-	  var table = d3.select("#food-list")
+		var table = d3.select("#food-list")
 		.html("")
 		.selectAll(".row")
-		  .data(sample)
+			.data(sample)
 		.enter().append("div")
-		  .on("mouseover", highlight)
-		  .on("mouseout", unhighlight);
+			.on("mouseover", highlight)
+			.on("mouseout", unhighlight);
 
-	  table
+		table
 		.append("span")
-		  .attr("class", "color-block")
-		  .style("background", function(d) { return color(d.group,0.85) })
+			.attr("class", "color-block")
+			.style("background", function(d) { return color(d.group,0.85); });
 
-	  table
+		table
 		.append("span")
-		  .text(function(d) { return d.name; })
+			.text(function(d) { return d.name; });
 	}
 
 	// Adjusts rendering speed
 	function optimize(timer) {
-	  var delta = (new Date()).getTime() - timer;
-	  render_speed = Math.max(Math.ceil(render_speed * 30 / delta), 8);
-	  render_speed = Math.min(render_speed, 300);
-	  return (new Date()).getTime();
+		var delta = (new Date()).getTime() - timer;
+		render_speed = Math.max(Math.ceil(render_speed * 30 / delta), 8);
+		render_speed = Math.min(render_speed, 300);
+		return (new Date()).getTime();
 	}
 
 	// Feedback on rendering progress
 	function render_stats(i,n,render_speed) {
-	  d3.select("#rendered-count").text(i);
-	  d3.select("#rendered-bar")
+		d3.select("#rendered-count").text(i);
+		d3.select("#rendered-bar")
 		.style("width", (100*i/n) + "%");
-	  d3.select("#render-speed").text(render_speed);
+		d3.select("#render-speed").text(render_speed);
 	}
 
 	// Feedback on selection
 	function selection_stats(opacity, n, total) {
-	  d3.select("#data-count").text(total);
-	  d3.select("#selected-count").text(n);
-	  d3.select("#selected-bar").style("width", (100*n/total) + "%");
-	  d3.select("#opacity").text((""+(opacity*100)).slice(0,4) + "%");
+		d3.select("#data-count").text(total);
+		d3.select("#selected-count").text(n);
+		d3.select("#selected-bar").style("width", (100*n/total) + "%");
+		d3.select("#opacity").text((""+(opacity*100)).slice(0,4) + "%");
 	}
 
 	// Highlight single polyline
 	function highlight(d) {
-	  d3.select("#foreground").style("opacity", "0.25");
-	  d3.selectAll(".row").style("opacity", function(p) { return (d.group == p) ? null : "0.3" });
-	  path(d, highlighted, color(d.group,1));
+		d3.select("#foreground").style("opacity", "0.25");
+		d3.selectAll(".row").style("opacity", function(p) { return (d.group == p) ? null : "0.3"; });
+		path(d, highlighted, color(d.group,1));
 	}
 
 	// Remove highlight
 	function unhighlight() {
-	  d3.select("#foreground").style("opacity", null);
-	  d3.selectAll(".row").style("opacity", null);
-	  highlighted.clearRect(0,0,w,h);
+		d3.select("#foreground").style("opacity", null);
+		d3.selectAll(".row").style("opacity", null);
+		highlighted.clearRect(0,0,w,h);
 	}
 
 	function invert_axis(d) {
-	  // save extent before inverting
-	  if (!yscale[d].brush.empty()) {
-		var extent = yscale[d].brush.extent();
-	  }
-	  if (yscale[d].inverted == true) {
+		var extent = null;
+		// save extent before inverting
+		if (!yscale[d].brush.empty()) {
+			extent = yscale[d].brush.extent();
+		}
+		if (yscale[d].inverted === true) {
 		yscale[d].range([h, 0]);
 		d3.selectAll('.label')
-		  .filter(function(p) { return p == d; })
-		  .style("text-decoration", null);
+			.filter(function(p) { return p == d; })
+			.style("text-decoration", null);
 		yscale[d].inverted = false;
-	  } else {
+		} else {
 		yscale[d].range([0, h]);
 		d3.selectAll('.label')
-		  .filter(function(p) { return p == d; })
-		  .style("text-decoration", "underline");
+			.filter(function(p) { return p == d; })
+			.style("text-decoration", "underline");
 		yscale[d].inverted = true;
-	  }
-	  return extent;
+		}
+		return extent;
 	}
 
 	// Draw a single polyline
 	/*
 	function path(d, ctx, color) {
-	  if (color) ctx.strokeStyle = color;
-	  var x = xscale(0)-15;
-		  y = yscale[dimensions[0]](d[dimensions[0]]);   // left edge
-	  ctx.beginPath();
-	  ctx.moveTo(x,y);
-	  dimensions.map(function(p,i) {
+		if (color) ctx.strokeStyle = color;
+		var x = xscale(0)-15;
+			y = yscale[dimensions[0]](d[dimensions[0]]);   // left edge
+		ctx.beginPath();
+		ctx.moveTo(x,y);
+		dimensions.map(function(p,i) {
 		x = xscale(p),
 		y = yscale[p](d[p]);
 		ctx.lineTo(x, y);
-	  });
-	  ctx.lineTo(x+15, y);                               // right edge
-	  ctx.stroke();
+		});
+		ctx.lineTo(x+15, y);                               // right edge
+		ctx.stroke();
 	}
 	*/
 
 	function path(d, ctx, color) {
-	  if (color) ctx.strokeStyle = color;
-	  ctx.beginPath();
-	  var x0 = xscale(0)-15,
-		  y0 = yscale[dimensions[0]](d[dimensions[0]]);   // left edge
-	  ctx.moveTo(x0,y0);
-	  dimensions.map(function(p,i) {
+		if (color) ctx.strokeStyle = color;
+		ctx.beginPath();
+		var x0 = xscale(0)-15,
+			y0 = yscale[dimensions[0]](d[dimensions[0]]);   // left edge
+		ctx.moveTo(x0,y0);
+		dimensions.map(function(p,i) {
 		var x = xscale(p),
 			y = yscale[p](d[p]);
 		var cp1x = x - 0.88*(x-x0);
@@ -501,183 +498,180 @@ function Graf3d(){
 		ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
 		x0 = x;
 		y0 = y;
-	  });
-	  ctx.lineTo(x0+15, y0);                               // right edge
-	  ctx.stroke();
-	};
+		});
+		ctx.lineTo(x0+15, y0);                               // right edge
+		ctx.stroke();
+	}
 
 	function color(d,a) {
-	  var c = colors[d];
-	  //return ["hsla(",c[0],",",c[1],"%,",c[2],"%,",a,")"].join("");
-	  return ["hsl(120,100%,25%)"].join("");
+		var c = colors[d];
+		//return ["hsla(",c[0],",",c[1],"%,",c[2],"%,",a,")"].join("");
+		return ["hsl(120,100%,25%)"].join("");
 	}
 
 	function position(d) {
-	  var v = dragging[d];
-	  return v == null ? xscale(d) : v;
+		var v = dragging[d];
+		return v === null ? xscale(d) : v;
 	}
 
 	// Handles a brush event, toggling the display of foreground lines.
 	// TODO refactor
 	function brush() {
-	  brush_count++;
-	  var actives = dimensions.filter(function(p) { return !yscale[p].brush.empty(); }),
-		  extents = actives.map(function(p) { return yscale[p].brush.extent(); });
+		brush_count++;
+		var actives = dimensions.filter(function(p) { return !yscale[p].brush.empty(); }),
+			extents = actives.map(function(p) { return yscale[p].brush.extent(); });
 
-	  // hack to hide ticks beyond extent
-	  var b = d3.selectAll('.dimension')[0]
+		// hack to hide ticks beyond extent
+		var b = d3.selectAll('.dimension')[0]
 		.forEach(function(element, i) {
-		  var dimension = d3.select(element).data()[0];
-		  if (_.include(actives, dimension)) {
+			var dimension = d3.select(element).data()[0];
+			if (_.include(actives, dimension)) {
 			var extent = extents[actives.indexOf(dimension)];
 			d3.select(element)
-			  .selectAll('text')
-			  .style('font-weight', 'bold')
-			  .style('font-size', '13px')
-			  .style('display', function() {
+				.selectAll('text')
+				.style('font-weight', 'bold')
+				.style('font-size', '13px')
+				.style('display', function() {
 				var value = d3.select(this).data();
-				return extent[0] <= value && value <= extent[1] ? null : "none"
-			  });
-		  } else {
+				return extent[0] <= value && value <= extent[1] ? null : "none";
+				});
+			} else {
 			d3.select(element)
-			  .selectAll('text')
-			  .style('font-size', null)
-			  .style('font-weight', null)
-			  .style('display', null);
-		  }
-		  d3.select(element)
+				.selectAll('text')
+				.style('font-size', null)
+				.style('font-weight', null)
+				.style('display', null);
+			}
+			d3.select(element)
 			.selectAll('.label')
 			.style('display', null);
 		});
-		;
 
-	  // bold dimensions with label
-	  d3.selectAll('.label')
+		// bold dimensions with label
+		d3.selectAll('.label')
 		.style("font-weight", function(dimension) {
-		  if (_.include(actives, dimension)) return "bold";
-		  return null;
+			if (_.include(actives, dimension)) return "bold";
+			return null;
 		});
 
-	  // Get lines within extents
-	  var selected = [];
-	  data
+		// Get lines within extents
+		var selected = [];
+		data
 		.filter(function(d) {
-		  return !_.contains(excluded_groups, d.group);
+			return !_.contains(excluded_groups, d.group);
 		})
 		.map(function(d) {
-		  return actives.every(function(p, dimension) {
+			return actives.every(function(p, dimension) {
 			return extents[dimension][0] <= d[p] && d[p] <= extents[dimension][1];
-		  }) ? selected.push(d) : null;
+			}) ? selected.push(d) : null;
 		});
 
-	  // free text search
-	  var query = d3.select("#search")[0][0].value;
-	  if (query.length > 0) {
-		selected = search(selected, query);
-	  }
+		// free text search
+		var query = d3.select("#search")[0][0].value;
+		if (query.length > 0) {
+			selected = search(selected, query);
+		}
 
-	  if (selected.length < data.length && selected.length > 0) {
-		d3.select("#keep-data").attr("disabled", null);
-		d3.select("#exclude-data").attr("disabled", null);
-	  } else {
-		d3.select("#keep-data").attr("disabled", "disabled");
-		d3.select("#exclude-data").attr("disabled", "disabled");
-	  };
+		if (selected.length < data.length && selected.length > 0) {
+			d3.select("#keep-data").attr("disabled", null);
+			d3.select("#exclude-data").attr("disabled", null);
+		} else {
+			d3.select("#keep-data").attr("disabled", "disabled");
+			d3.select("#exclude-data").attr("disabled", "disabled");
+		}
 
-	  // total by food group
-	  var tallies = _(selected)
-		.groupBy(function(d) { return d.group; })
+		// total by food group
+		var tallies = _(selected)
+		.groupBy(function(d) { return d.group; });
 
-	  // include empty groups
-	  _(colors).each(function(v,k) { tallies[k] = tallies[k] || []; });
+		// include empty groups
+		_(colors).each(function(v,k) { tallies[k] = tallies[k] || []; });
 
-	  legend
+		legend
 		.style("text-decoration", function(d) { return _.contains(excluded_groups,d) ? "line-through" : null; })
 		.attr("class", function(d) {
-		  return (tallies[d].length > 0)
-			   ? "row"
-			   : "row off";
+			return (tallies[d].length > 0) ? "row" : "row off";
 		});
 
-	  legend.selectAll(".color-bar")
+		legend.selectAll(".color-bar")
 		.style("width", function(d) {
-		  return Math.ceil(600*tallies[d].length/data.length) + "px"
+			return Math.ceil(600*tallies[d].length/data.length) + "px";
 		});
 
-	  legend.selectAll(".tally")
-		.text(function(d,i) { return tallies[d].length });
+		legend.selectAll(".tally")
+		.text(function(d,i) { return tallies[d].length; });
 
-	  // Render selected lines
-	  paths(selected, foreground, brush_count, true);
+		// Render selected lines
+		paths(selected, foreground, brush_count, true);
 	}
 
 	// render a set of polylines on a canvas
 	function paths(selected, ctx, count) {
-	  var n = selected.length,
-		  i = 0,
-		  opacity = d3.min([2/Math.pow(n,0.3),1]),
-		  timer = (new Date()).getTime();
+		var n = selected.length,
+			i = 0,
+			opacity = d3.min([2/Math.pow(n,0.3),1]),
+			timer = (new Date()).getTime();
 
-	  selection_stats(opacity, n, data.length)
+		selection_stats(opacity, n, data.length);
 
-	  shuffled_data = _.shuffle(selected);
+		shuffled_data = _.shuffle(selected);
 
-	  data_table(shuffled_data.slice(0,25));
+		data_table(shuffled_data.slice(0,25));
 
-	  ctx.clearRect(0,0,w+1,h+1);
+		ctx.clearRect(0,0,w+1,h+1);
 
-	  // render all lines until finished or a new brush event
-	  function animloop(){
+		// render all lines until finished or a new brush event
+		function animloop(){
 		if (i >= n || count < brush_count) return true;
-		var max = d3.min([i+render_speed, n]);
-		render_range(shuffled_data, i, max, opacity);
-		render_stats(max,n,render_speed);
-		i = max;
-		timer = optimize(timer);  // adjusts render_speed
-	  };
+			var max = d3.min([i+render_speed, n]);
+			render_range(shuffled_data, i, max, opacity);
+			render_stats(max,n,render_speed);
+			i = max;
+			timer = optimize(timer);  // adjusts render_speed
+		}
 
-	  d3.timer(animloop);
+		d3.timer(animloop);
 	}
 
 	// transition ticks for reordering, rescaling and inverting
 	function update_ticks(d, extent) {
-	  // update brushes
-	  if (d) {
+		// update brushes
+		if (d) {
 		var brush_el = d3.selectAll(".brush")
 			.filter(function(key) { return key == d; });
 		// single tick
 		if (extent) {
-		  // restore previous extent
-		  brush_el.call(yscale[d].brush = d3.svg.brush().y(yscale[d]).extent(extent).on("brush", brush));
+			// restore previous extent
+			brush_el.call(yscale[d].brush = d3.svg.brush().y(yscale[d]).extent(extent).on("brush", brush));
 		} else {
-		  brush_el.call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush));
+			brush_el.call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush));
 		}
-	  } else {
+		} else {
 		// all ticks
 		d3.selectAll(".brush")
-		  .each(function(d) { d3.select(this).call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush)); })
-	  }
+			.each(function(d) { d3.select(this).call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush)); });
+		}
 
-	  brush_count++;
+		brush_count++;
 
-	  show_ticks();
+		show_ticks();
 
-	  // update axes
-	  d3.selectAll(".axis")
+		// update axes
+		d3.selectAll(".axis")
 		.each(function(d,i) {
-		  // hide lines for better performance
-		  d3.select(this).selectAll('line').style("display", "none");
+			// hide lines for better performance
+			d3.select(this).selectAll('line').style("display", "none");
 
-		  // transition axis numbers
-		  d3.select(this)
+			// transition axis numbers
+			d3.select(this)
 			.transition()
 			.duration(720)
 			.call(axis.scale(yscale[d]));
 
-		  // bring lines back
-		  d3.select(this).selectAll('line').transition().delay(800).style("display", null);
+			// bring lines back
+			d3.select(this).selectAll('line').transition().delay(800).style("display", null);
 
-		  d3.select(this)
+			d3.select(this)
 			.selectAll('text')
 			.style('font-weight', null)
 			.style('font-size', null)
@@ -687,134 +681,134 @@ function Graf3d(){
 
 	// Rescale to new dataset domain
 	function rescale() {
-	  // reset yscales, preserving inverted state
-	  dimensions.forEach(function(d,i) {
+		// reset yscales, preserving inverted state
+		dimensions.forEach(function(d,i) {
 		if (yscale[d].inverted) {
-		  yscale[d] = d3.scale.linear()
-			  .domain(d3.extent(data, function(p) { return +p[d]; }))
-			  .range([0, h]);
-		  yscale[d].inverted = true;
+			yscale[d] = d3.scale.linear()
+				.domain(d3.extent(data, function(p) { return +p[d]; }))
+				.range([0, h]);
+			yscale[d].inverted = true;
 		} else {
-		  yscale[d] = d3.scale.linear()
-			  .domain(d3.extent(data, function(p) { return +p[d]; }))
-			  .range([h, 0]);
+			yscale[d] = d3.scale.linear()
+				.domain(d3.extent(data, function(p) { return +p[d]; }))
+				.range([h, 0]);
 		}
-	  });
+		});
 
-	  update_ticks();
+		update_ticks();
 
-	  // Render selected data
-	  paths(data, foreground, brush_count);
+		// Render selected data
+		paths(data, foreground, brush_count);
 	}
 
 	// Get polylines within extents
 	function actives() {
-	  var actives = dimensions.filter(function(p) { return !yscale[p].brush.empty(); }),
-		  extents = actives.map(function(p) { return yscale[p].brush.extent(); });
+		var actives = dimensions.filter(function(p) { return !yscale[p].brush.empty(); }),
+			extents = actives.map(function(p) { return yscale[p].brush.extent(); });
 
-	  // filter extents and excluded groups
-	  var selected = [];
-	  data
+		// filter extents and excluded groups
+		var selected = [];
+		data
 		.filter(function(d) {
-		  return !_.contains(excluded_groups, d.group);
+			return !_.contains(excluded_groups, d.group);
 		})
 		.map(function(d) {
 		return actives.every(function(p, i) {
-		  return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+			return extents[i][0] <= d[p] && d[p] <= extents[i][1];
 		}) ? selected.push(d) : null;
-	  });
+		});
 
-	  // free text search
-	  var query = d3.select("#search")[0][0].value;
-	  if (query > 0) {
+		// free text search
+		var query = d3.select("#search")[0][0].value;
+		if (query > 0) {
 		selected = search(selected, query);
-	  }
+		}
 
-	  return selected;
+		return selected;
 	}
 
 	// Export data
 	function export_csv() {
-	  var keys = d3.keys(data[0]);
-	  var rows = actives().map(function(row) {
-		return keys.map(function(k) { return row[k]; })
-	  });
-	  var csv = d3.csv.format([keys].concat(rows)).replace(/\n/g,"<br/>\n");
-	  var styles = "<style>body { font-family: sans-serif; font-size: 12px; }</style>";
-	  window.open("text/csv").document.write(styles + csv);
+		var keys = d3.keys(data[0]);
+		var rows = actives().map(function(row) {
+		return keys.map(function(k) { return row[k]; });
+		});
+		var csv = d3.csv.format([keys].concat(rows)).replace(/\n/g,"<br/>\n");
+		var styles = "<style>body { font-family: sans-serif; font-size: 12px; }</style>";
+		window.open("text/csv").document.write(styles + csv);
 	}
 
 	// scale to window size
 	window.onresize = function() {
-	  width = 900,
-	  height = 260;
+		width = 900;
+		height = 260;
 
-	  w = width,
-	  h = height;
+		w = width;
+		h = height;
 
-	  d3.select("#chart")
-		  .style("height", (h) + "px")
+		d3.select("#chart")
+			.style("height", (h) + "px");
 
-	  d3.selectAll("canvas")
-		  .attr("width", w)
-		  .attr("height", h)
-		  .style("padding", m.join("px ") + "px");
+		d3.selectAll("canvas")
+			.attr("width", w)
+			.attr("height", h)
+			.style("padding", m.join("px ") + "px");
 
-	  d3.select("svg")
-		  .attr("width", w)
-		  .attr("height", h)
+		d3.select("svg")
+			.attr("width", w)
+			.attr("height", h)
 		.select("g")
-		  .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+			.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-	  xscale = d3.scale.ordinal().rangePoints([0, w], 1).domain(dimensions);
-	  dimensions.forEach(function(d) {
+		xscale = d3.scale.ordinal().rangePoints([0, w], 1).domain(dimensions);
+		dimensions.forEach(function(d) {
 		yscale[d].range([h, 0]);
-	  });
+		});
 
-	  d3.selectAll(".dimension")
-		.attr("transform", function(d) { return "translate(" + xscale(d) + ")"; })
-	  // update brush placement
-	  d3.selectAll(".brush")
-		.each(function(d) { d3.select(this).call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush)); })
-	  brush_count++;
+		d3.selectAll(".dimension")
+		.attr("transform", function(d) { return "translate(" + xscale(d) + ")"; });
+		// update brush placement
+		d3.selectAll(".brush")
+		.each(function(d) { d3.select(this).call(yscale[d].brush = d3.svg.brush().y(yscale[d]).on("brush", brush)); });
+		brush_count++;
 
-	  // update axis placement
-	  axis = axis.ticks(1+height/50),
-	  d3.selectAll(".axis")
-		.each(function(d) { d3.select(this).call(axis.scale(yscale[d])); });
+		// update axis placement
+		axis = axis.ticks(1+height/50);
+		d3.selectAll(".axis")
+		.each( function(d){ d3.select(this).call(axis.scale(yscale[d])); });
 
-	  // render data
-	  brush();
+		// render data
+		brush();
 	};
 
 	// Remove all but selected from the dataset
 	function keep_data() {
-	  new_data = actives();
-	  if (new_data.length == 0) {
+		new_data = actives();
+		if (new_data.length === 0) {
 		alert("I don't mean to be rude, but I can't let you remove all the data.\n\nTry removing some brushes to get your data back. Then click 'Keep' when you've selected data you want to look closer at.");
 		return false;
-	  }
-	  data = new_data;
-	  rescale();
+		}
+		data = new_data;
+		rescale();
 	}
 
 	// Exclude selected from the dataset
 	function exclude_data() {
-	  new_data = _.difference(data, actives());
-	  if (new_data.length == 0) {
+		new_data = _.difference(data, actives());
+		if (new_data.length === 0) {
 		alert("I don't mean to be rude, but I can't let you remove all the data.\n\nTry selecting just a few data points then clicking 'Exclude'.");
 		return false;
-	  }
-	  data = new_data;
-	  rescale();
+		}
+		data = new_data;
+		rescale();
 	}
 
 	function remove_axis(d,g) {
-	  dimensions = _.difference(dimensions, [d]);
-	  xscale.domain(dimensions);
-	  g.attr("transform", function(p) { return "translate(" + position(p) + ")"; });
-	  g.filter(function(p) { return p == d; }).remove();
-	  update_ticks();
+		dimensions = _.difference(dimensions, [d]);
+		xscale.domain(dimensions);
+		g.attr("transform", function(p) { return "translate(" + position(p) + ")"; });
+		g.filter(function(p) { return p == d; }).remove();
+		update_ticks();
 	}
 
 	d3.select("#keep-data").on("click", keep_data);
@@ -830,36 +824,36 @@ function Graf3d(){
 	d3.select("#light-theme").on("click", light_theme);
 
 	function hide_ticks() {
-	  d3.selectAll(".axis g").style("display", "none");
-	  //d3.selectAll(".axis path").style("display", "none");
-	  d3.selectAll(".background").style("visibility", "hidden");
-	  d3.selectAll("#hide-ticks").attr("disabled", "disabled");
-	  d3.selectAll("#show-ticks").attr("disabled", null);
-	};
+		d3.selectAll(".axis g").style("display", "none");
+		//d3.selectAll(".axis path").style("display", "none");
+		d3.selectAll(".background").style("visibility", "hidden");
+		d3.selectAll("#hide-ticks").attr("disabled", "disabled");
+		d3.selectAll("#show-ticks").attr("disabled", null);
+	}
 
 	function show_ticks() {
-	  d3.selectAll(".axis g").style("display", null);
-	  //d3.selectAll(".axis path").style("display", null);
-	  d3.selectAll(".background").style("visibility", null);
-	  d3.selectAll("#show-ticks").attr("disabled", "disabled");
-	  d3.selectAll("#hide-ticks").attr("disabled", null);
-	};
+		d3.selectAll(".axis g").style("display", null);
+		//d3.selectAll(".axis path").style("display", null);
+		d3.selectAll(".background").style("visibility", null);
+		d3.selectAll("#show-ticks").attr("disabled", "disabled");
+		d3.selectAll("#hide-ticks").attr("disabled", null);
+	}
 
 	function dark_theme() {
-	  d3.select("body").attr("class", "dark");
-	  d3.selectAll("#dark-theme").attr("disabled", "disabled");
-	  d3.selectAll("#light-theme").attr("disabled", null);
+		d3.select("body").attr("class", "dark");
+		d3.selectAll("#dark-theme").attr("disabled", "disabled");
+		d3.selectAll("#light-theme").attr("disabled", null);
 	}
 
 	function light_theme() {
-	  d3.select("body").attr("class", null);
-	  d3.selectAll("#light-theme").attr("disabled", "disabled");
-	  d3.selectAll("#dark-theme").attr("disabled", null);
+		d3.select("body").attr("class", null);
+		d3.selectAll("#light-theme").attr("disabled", "disabled");
+		d3.selectAll("#dark-theme").attr("disabled", null);
 	}
 
 	function search(selection,str) {
-	  pattern = new RegExp(str,"i")
-	  return _(selection).filter(function(d) { return pattern.exec(d.name); });
+		pattern = new RegExp(str,"i");
+		return _(selection).filter(function(d) { return pattern.exec(d.name); });
 	}
 
 }
@@ -874,7 +868,7 @@ function ModalGraph(id_graphics, moderation){
 				//$('a').on('click', function(){
 				//var id_graphics = $(this).attr('id');
 				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
-					if(data != null){
+					if(data !== null){
 						//console.log(data);
 						$('#graph .modal_container').html(data);
 						//foo(d3.selectAll("div").text('some text'));
@@ -928,20 +922,20 @@ function ModalGraph(id_graphics, moderation){
 				}
 				//if (true) {};
 				arr.each(function(index, val){
-					values['roz'][index] = $(val).val();
+					values.roz[index] = $(val).val();
 				});
 				arr2.each(function(index, val){
-					values['opt'][index] = $(val).val();
+					values.opt[index] = $(val).val();
 				});
 				//console.log(values);
 				ajax('product', 'SaveGraph',{
-												'values': values,
-												'id_category': id_category,
-												'name_user': name_user,
-												'moderation': moderation,
-												'text': text,
-												'opt': is_opt
-											}).done(function(data){
+					'values': values,
+					'id_category': id_category,
+					'name_user': name_user,
+					'moderation': moderation,
+					'text': text,
+					'opt': is_opt
+				}).done(function(data){
 					if(data === true){
 						console.log('Your data has been saved successfully!');
 						closeObject('graph');
@@ -951,81 +945,14 @@ function ModalGraph(id_graphics, moderation){
 					}
 				});
 			});
-		};
+		}
 	});
 }
 
-//function toArray(data){ return [].slice.call(data) }
-/*function SaveGraph(){
-	$('#graph').on('click', '.btn_js.save', function(){
-		var parent =  $(this).closest('#graph'),
-			id_category = parent.data('target'),
-			opt = 0,
-			name_user = parent.find('#name_user').val(),
-			text = parent.find('textarea').val(),
-			arr = parent.find('input[type="range"]'),
-			values = {};
-		if ($('.select_go label').is(':checked')) {
-			var opt = 1;
-		};
-		arr.each(function(index, val){
-			values[index] = $(val).val();
-		});
-		ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
-			if(data === true){
-				console.log('Your data has been saved successfully!');
-				closeObject('graph');
-				location.reload();
-			}else{
-				console.log('Something goes wrong!');
-			}
-		});
-	});
-}*/
-
-/*function UpdateGraph(id_graphics){
-	if(val == 0){
-		$('a.updat').on('click', function(){
-			var id_graphics = $(this).attr('id');
-			ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
-				//console.log(data);
-
-				if(data != null){
-					$('#graph .modal_container').html(data);
-					// var ev = 'a.update';
-					// $.each(data, function(index, el){
-
-					// 	if(index.indexOf('value_') >= 0){
-					// 		$('#graph .'+index).val(el).trigger('change');
-					// 	}else{
-					// 		console.log('err');
-					// 	};
-					// });
-					componentHandler.upgradeDom();
-					openObject('graph');
-					//ModalGraph(ev);
-
-				}else{
-					console.log('Something goes wrong!');
-				}
-			});
-		});
-	}else{
-		console.log('else');
-	};
-}*/
-
-/*function GetGraphAjax(data){
-	ajax('products', 'GetGraphList', {'id_category': id_category}, 'html').done(function(data){
-		console.log(data);
-		$('#graph > .modal_container').html(data);
-	});
-}*/
-
 function ajax(target, action, data, dataType){
 	if(typeof(data) == 'object'){
-		data['target'] = target;
-		data['action'] = action;
+		data.target = target;
+		data.action = action;
 	}else{
 		data = {target: target, action: action};
 	}
@@ -1034,7 +961,7 @@ function ajax(target, action, data, dataType){
 		url: URL_base+'ajax',
 		beforeSend: function(ajax){
 			// console.log(ajax_proceed);
-			if(ajax_proceed == true){
+			if(ajax_proceed === true){
 				ajax.abort();
 			}
 			ajax_proceed = true;
@@ -1116,7 +1043,8 @@ function rebuildPreview(obj){
 		viewportWidth = $(window).width(),
 		viewportHeight = $(window).height(),
 		pos = getScrollWindow(),
-		correctionBottom = correctionTop = 0,
+		correctionBottom = 0,
+		correctionTop = 0,
 		marginBottom = 15,
 		marginTop = marginBottom+$('header').outerHeight();
 	var ovftop = position.top - preview.height()/2 + obj.outerHeight()/2 - marginTop,
@@ -1170,7 +1098,7 @@ function getScrollWindow() {
 function changeToTop(pos){
 	var totop = $('#toTop');
 	if(pos > $('html').height()/8){
-		if(totop.hasClass('visible') == false){
+		if(totop.hasClass('visible') === false){
 			totop.addClass('visible');
 		}
 	}else{
@@ -1215,8 +1143,9 @@ function ChangePriceRange(id, sum, val){
 	 * [Формирование цен и скидки в зависимоти от ручного или автоматического выбора управления скидкой]
 	 * @param  {[int]} $.cookie('manual') [Значение берется из куков. 0 - скидка формируется автоматически, 1 - установлена вручную]
 	 */
+	var column = $.cookie('sum_range');
 	if ($.cookie('manual') == 1){ // выполняется если выбрали скидку в ручную
-		var column = $.cookie('sum_range');
+		var newSum = 0;
 		/**
 		 * [Формирование цен и скидки в соответствии с суммой корзины]
 		 * @param  {[int]} id [колонка скидки корзины. передается в функцию из места ее вызова]
@@ -1224,8 +1153,8 @@ function ChangePriceRange(id, sum, val){
 		 */
 		switch(id) {
 			case 0:
-				if (val == 0) { // выполняется если функция была вызвана из аякса (автом. формирование)
-					if (sum == 0){
+				if (val === 0) { // выполняется если функция была вызвана из аякса (автом. формирование)
+					if (sum === 0){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
 						sum = 'Дозаказать еще на '+ sum + ' грн.';
@@ -1235,7 +1164,7 @@ function ChangePriceRange(id, sum, val){
 					addLoadAnimation('.order_balance');
 					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
 						removeLoadAnimation('.order_balance');
-						var newSum = (10000 - data.products_sum[3]).toFixed(2);
+						newSum = (10000 - data.products_sum[3]).toFixed(2);
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
@@ -1246,9 +1175,9 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 1:
-				if (val == 0) {
-					var newSum = (10000 - sum).toFixed(2);
-					if (newSum > 3000 && column != 0){
+				if (val === 0) {
+					newSum = (10000 - sum).toFixed(2);
+					if (newSum > 3000 && column !== 0){
 						$('.order_balance').text('Заказано достаточно!');
 					}else{
 						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
@@ -1258,7 +1187,7 @@ function ChangePriceRange(id, sum, val){
 					addLoadAnimation('.order_balance');
 					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
 						removeLoadAnimation('.order_balance');
-						var newSum = (3000 - data.products_sum[3]).toFixed(2);
+						newSum = (3000 - data.products_sum[3]).toFixed(2);
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
@@ -1269,10 +1198,10 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 2:
-				if (val == 0) {
-					var newSum = (3000 - sum).toFixed(2);
-					if (newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
-						if (column == 0){
+				if(val === 0){
+					newSum = (3000 - sum).toFixed(2);
+					if(newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
+						if(column === 0){
 							newSum = 10000 - sum;
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
@@ -1287,7 +1216,7 @@ function ChangePriceRange(id, sum, val){
 					addLoadAnimation('.order_balance');
 					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
 						removeLoadAnimation('.order_balance');
-						var newSum = (500 - data.products_sum[3]).toFixed(2);
+						newSum = (500 - data.products_sum[3]).toFixed(2);
 						if (newSum < 0){
 						$('.order_balance').text('Заказано достаточно!');
 						}else{
@@ -1298,14 +1227,14 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			case 3:
-				if (val == 0) {
-					var newSum = (500 - sum).toFixed(2);
+				if(val === 0){
+					newSum = (500 - sum).toFixed(2);
 					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if (column == 1){
 							newSum = 3000 - sum;
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
-						}else if (column == 0){
+						}else if (column === 0){
 							newSum = 10000 - sum;
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
@@ -1321,20 +1250,19 @@ function ChangePriceRange(id, sum, val){
 				}
 				break;
 			default:
-				console.log("Что-то не работает")
+				console.log("Что-то не работает");
 		}
 	}else{ // выполняется если скидка формируется автоматом. Получает уже сформированную разницу суммы корзины и в соответсвии с ней переключает колонки скидок на странице
-		var column = $.cookie('sum_range');
 		document.cookie="sum_range="+id+"; path=/";
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
-		var column = id;
+		column = id;
 		switch(id) {
 			case 0:
-					$('.order_balance').text('Заказано достаточно!');
+				$('.order_balance').text('Заказано достаточно!');
 				break;
 			case 1:
-				if (sum < 0){
+				if(sum < 0){
 					$('.order_balance').text('Заказано достаточно!');
 				}else{
 					sum = 'До следующей скидки '+ sum + ' грн.';
@@ -1353,7 +1281,7 @@ function ChangePriceRange(id, sum, val){
 				$('.order_balance').text('Без скидки!');
 				break;
 			default:
-				console.log("Что-то не работает")
+				console.log("Что-то не работает");
 		}
 	}
 	$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
@@ -1385,7 +1313,7 @@ function ChangePriceRange(id, sum, val){
 function openObject(id){
 	var object = $('#'+id),
 		type = object.data('type');
-	if($('body').hasClass('active_bg')){
+	if($('html').hasClass('active_bg')){
 		$('.opened:not([id="'+object.attr('id')+'"])').each(function(index, el) {
 			closeObject($(this).attr('id'));
 		});
@@ -1424,7 +1352,7 @@ function closeObject(id){
 		$('#'+id).removeClass('opened');
 		if(id == 'phone_menu'){
 			$('[data-name="phone_menu"]').html('menu');
-		};
+		}
 	}
 	DeactivateBG();
 }
@@ -1601,71 +1529,9 @@ function ValidatePass(passwd){
 var req = null;
 /** Валидация email **/
 function ValidateEmail(fields, type){
-	// var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	// var name = $('#registration #name').val();
-	// var pass = $('#passwd').val();
-	// var passconfirm = $('#passwdconfirm').val();
-	// var error = '';
-	// /*var confirmps = $('#confirmps').prop('checked');*/
-	// var result;
-
 	ajax('auth', 'register', fields).done(function(data){
-		return data;
-	// 	console.log(data);
-	// 	if(email.length == 0){
-	// 		$('#email + #email_error').empty();
-	// 		error = 'Введите email';
-	// 		$('#email + .mdl-textfield__error').append(error);
-	// 		$('#email').closest('.mdl-textfield ').addClass('is-invalid');
-	// 		result = false;
-	// 	}else if(!re.test(email)){
-	// 		$('#email + .mdl-textfield__error').empty();
-	// 		error = 'Введен некорректный email';
-	// 		$('#email + .mdl-textfield__error').append(error);
-	// 		$('#email').closest('.mdl-textfield ').addClass('is-invalid');
-	// 		result = false;
-	// 	}else if(data == "true"){
-
-	// 		$('#email ~ .mdl-textfield__error').empty();
-	// 		error = 'Пользователь с таким email уже зарегистрирован';
-	// 		$('#email ~ .mdl-textfield__error').append(error);
-	// 		$('#email').closest('.mdl-textfield ').addClass('is-invalid');
-	// 		result = false;
-	// 	}else if(data == "false"){
-	// 		$('#email ~ .mdl-textfield__error').empty();
-	// 		error = '';
-	// 		result = true;
-	// 	}
-	// 	if(type == 1){
-
-	// 		if(CompleteValidation(name, error, pass, passconfirm)){
-	// 			result = true;
-	// 			if(passconfirm){
-	// 				/*console.log('TRUE');*/
-	// 				/*Regist();*/
-	// 			}else{
-	// 				/*$('#regs .regist').on('click', function() {
-	// 					$(this).closest('.mdl-textfield').find('#passwd').text('ERROR');
-	// 				});*/
-	// 				$('label[for="confirmps"]').stop(true,true).animate({
-	// 					"color": "#fff",
-	// 					"font-weight": "bold",
-	// 					"background-color": "#f00",
-	// 					"border-radius": "5px"
-	// 				},500)
-	// 				.delay(300)
-	// 				.animate({
-	// 					"color": "#000",
-	// 					"font-weight": "normal",
-	// 					"background-color": "#fff"
-	// 				},500);
-	// 			}
-	// 		}else{
-	// 			result = false;
-	// 		}
-	// 	}
-	// 	return result;
 		removeLoadAnimation('#registration');
+		return data;
 	});
 }
 
@@ -1757,7 +1623,7 @@ function ValidateName(name){
 	if(name.length < 3){
 		$('#name ~ .mdl-textfield__error').empty();
 		$('#name').closest('.mdl-textfield ').addClass('is-invalid');
-		if(name.length == 0){
+		if(name.length === 0){
 			$('#name ~ .mdl-textfield__error').append('Введите имя');
 		}else{
 			$('#name ~ .mdl-textfield__error').append('Имя слишком короткое');
@@ -1820,7 +1686,7 @@ function toAssort(id, opt, nacen, comment){
 	var a,b,c;
 	a = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
 	b = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
-	if(inusd == true){
+	if(inusd === true){
 		a = a*currency_rate;
 		b = b*currency_rate;
 	}
@@ -1831,23 +1697,23 @@ function toAssort(id, opt, nacen, comment){
 		if(opt){
 			po = parseFloat($("#price_opt_"+id).val());
 			pom = Number(po - po*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
-			if(po != 0 && a > pom){
+			if(po !== 0 && a > pom){
 				alert("Предлагаемая Вами крупнооптовая цена не позволяет продавать данный товар на сайте.");
 			}
 			pop = Number(po + po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
 			pom = Number(po - po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
-			if(po != 0 && (b > pop || b < pom)){
+			if(po !== 0 && (b > pop || b < pom)){
 				alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
 			}
 		}else{
 			pm = parseFloat($("#price_mopt_"+id).val());
 			pmm = Number(pm - pm*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
-			if(pm != 0 && a > pmm){
+			if(pm !== 0 && a > pmm){
 				alert("Предлагаемая Вами мелкооптовая цена не позволяет продавать данный товар на сайте.");
 			}
 			pmp = Number(pm + pm*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
 			pmm = Number(pm - pm*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
-			if(pm != 0 && (b > pmp || b < pmm)){
+			if(pm !== 0 && (b > pmp || b < pmm)){
 				alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
 			}
 		}
@@ -1856,10 +1722,10 @@ function toAssort(id, opt, nacen, comment){
 		am = parseFloat($("#price_mopt_otpusk_"+id).val());
 		bm = parseFloat($("#price_mopt_otpusk_"+id).val());
 		active = 1;
-		if((ao > 0 && bo == 0) || (ao == 0 && bo > 0)){
+		if((ao > 0 && bo === 0) || (ao === 0 && bo > 0)){
 			active = 0;
 			alert("Необходимо заполнить цены.");
-		}else if((am > 0 && bm == 0) || (am == 0 && bm > 0)){
+		}else if((am > 0 && bm === 0) || (am === 0 && bm > 0)){
 			active = 0;
 			alert("Необходимо заполнить цены.");
 		}
@@ -1978,7 +1844,7 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 		id_product: id_product,
 		id_user: id_user,
 		email: email
-	}
+	};
 	ajax('product', 'add_in_waitinglist', data).done(function(data){
 		if(data.answer == 'login'){
 			openObject('auth');
@@ -2008,12 +1874,12 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 function segmentOpen(id){
 	console.log('123');
 	$('[data-id="'+id+'"]').each(function(){
-	    var list = $(this).find('ul');
-	    if(list.length > 0){
-	      console.log('есть');
-	    }else{
-	    	console.log('нету');
-	    	addLoadAnimation('.catalog');
+			var list = $(this).find('ul');
+			if(list.length > 0){
+				console.log('есть');
+			}else{
+				console.log('нету');
+				addLoadAnimation('.catalog');
 			ajax('segment', 'segmid', {idsegment: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				$('.second_nav li').removeClass('active');
@@ -2027,12 +1893,12 @@ function segmentOpen(id){
 					parent.addClass('active').find('> ul').stop(true, true).slideDown();
 				}
 			});
-	    }
-	})
+			}
+	});
 }
 
 function regionSelect(value){
-	if(value != '' && value != 'Выберите область')
+	if(value !== '' && value != 'Выберите область'){
 		$.ajax({
 			url: URL_base+'ajaxorder',
 			type: "POST",
@@ -2046,11 +1912,12 @@ function regionSelect(value){
 			$('#delivery_service, #insurance, #delivery_department').slideUp();
 			citySelect();
 		});
+	}
 }
 
 function citySelect(){
 	var value = $('#id_city').val();
-	if(value!='')
+	if(value !== ''){
 		$.ajax({
 			url: URL_base+'ajaxorder',
 			type: "POST",
@@ -2064,6 +1931,7 @@ function citySelect(){
 			$('#delivery_service, #insurance, #delivery_department').slideUp();
 			deliverySelect();
 		});
+	}
 }
 
 function deliverySelect(){

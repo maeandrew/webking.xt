@@ -624,9 +624,7 @@
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="error"></div>
-					<a href="#" class="access_recovery btn_js" data-name="access_recovery">
-						Забыли пароль?
-					</a>
+					<a href="#" class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Вход</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_up">Регистрация</button>
 				</form>
@@ -651,8 +649,8 @@
 						<input type="password" class="mdl-textfield__input" id="passwd"	name="passwd">
 						<label class="mdl-textfield__label" for="passwd">Пароль</label>
 						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-							<div id="password_error"></div>
-							<div class="error_description"></div>
+						<div id="password_error"></div>
+						<div class="error_description"></div>
 					</div>
 
 					<p id="passStrengthTitle">надежность пароля</p>

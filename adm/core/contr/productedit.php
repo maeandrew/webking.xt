@@ -107,13 +107,13 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 		if(!empty($to_resize)){
 			foreach($to_resize as $filename){
 				$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-				if ($size[0] > 1000 || $size[1] > 1000 ) {
+				if($size[0] > 1000 || $size[1] > 1000){
 					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
 					//Определяем размеры нового изображения
 					if(max($size[0], $size[1]) == $size[0]){
 						$width = 1000;
 						$height = 1000/$ratio;
-					} else if(max($size[0], $size[1]) == $size[1]) {
+					}else if(max($size[0], $size[1]) == $size[1]){
 						$width = 1000*$ratio;
 						$height = 1000;
 					}
@@ -125,7 +125,6 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 				imagejpeg($res, $path.$filename);
 			}
 		}
-
 		if($products->UpdateProduct($_POST)){
 			$err_mes = '';
 			//обновление видео товара
@@ -137,7 +136,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 
 			if(isset($_POST['id_supplier'])){
 				//Формирем массив поставщиков товара
-				for ($i=0; $i < count($_POST['id_supplier']); $i++) {
+				for($i=0; $i < count($_POST['id_supplier']); $i++){
 					$supp_arr[] = array(
 						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
 						"id_supplier" => $_POST['id_supplier'][$i],
@@ -147,7 +146,6 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 						"inusd" => $_POST['inusd'][$i]
 					);
 				}
-
 				foreach($supp_arr as $k => $value){
 					$value['id_product'] = $id_product;
 					if($value['id_assortiment'] == false){
@@ -161,17 +159,15 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					}
 				}
 			}
-
 			//Отвязываем постащика от товара
 			if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
 				foreach($_POST['del_from_assort'] as &$id_assort){
 					$products->DelFromAssortWithAdm($id_assort, $id_product);
 				}
 			}
-
 			//Привязываем сегментяцию к продукту
 			if(isset($_POST['id_segment'])){
-				foreach ($_POST['id_segment'] as &$id_segment) {
+				foreach ($_POST['id_segment'] as &$id_segment){
 					if(!$segmentation->AddSegmentInProduct($id_product, $id_segment)){
 						$err_mes = '<script>alert("Ошибка при добавлении сегмента!\nСегмент уже закреплен за данным товаром!");</script>';
 					}
@@ -203,18 +199,14 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 if(!$products->SetFieldsById($id_product, 1)) die('Ошибка при выборе товара.');
 // Формирование списка категорий для выпадающего списка
 $list = $products->generateCategory();
-
 // Определение категории к которой принадлежит товар
 if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_category']){
-
 	$category['name'] = $item['name'];
 	$category['id_category'] = $item['id_category'];
 }
 $tpl->Assign('list', $list);
-
 // get last article
 $tpl->Assign('last_article', $products->GetLastArticle());
-
 //Дубликат товара
 if(isset($_POST['smb_duplicate'])){
 	if($id = $products->DuplicateProduct($_POST)){
@@ -224,7 +216,6 @@ if(isset($_POST['smb_duplicate'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
-
 $tpl->Assign('suppliers_info', $products->GetSuppliersInfoForProduct($id_product));
 //Получение списка сегментаций прикрепленных к тоавру
 $tpl->Assign('segmentations', $segmentation->GetSegmentationsForProduct($id_product));
@@ -250,8 +241,9 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 if(isset($category['id_category'])){
 	$dbtree->Parents($category['id_category'], array('id_category', 'name', 'category_level'));
-	if(!empty($dbtree->ERRORS_MES)) {
-	    print_r($dbtree->ERRORS_MES);die();
+	if(!empty($dbtree->ERRORS_MES)){
+	    print_r($dbtree->ERRORS_MES);
+	    die();
 	}
 	while($cat = $dbtree->NextRow()){
 		if(0 <> $cat['category_level']){
@@ -264,7 +256,6 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = "Редактирование товар�
 if(true == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
 }
-
 function IsRenameNeeded($path){
 	$path_arr = explode('/', $path);
 	$file_name = array_pop($path_arr);
@@ -274,5 +265,3 @@ function IsRenameNeeded($path){
 	}
 	return true;
 }
-
-?>

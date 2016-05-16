@@ -8,6 +8,4 @@ class Currency {
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
 	}
-	
-
-}?>
+}
