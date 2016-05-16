@@ -895,15 +895,15 @@ $(function(){
 			}
 		data = {id_user: id_user, phone: phone};
 		console.log(data);
-		$('.confirm_btn_js').removeAttr('disabled');
-		// ajax('cabinet', 'accessCode', data).done(function(response){
-		// 	if (response.success) {
-		// 		$('.confirm_btn_js').removeAttr('disabled');
-		// 	}else{
-		// 		// parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-		// 	};
-		// 	componentHandler.upgradeDom();
-		// });
+		// $('.confirm_btn_js').removeAttr('disabled');
+		ajax('cabinet', 'AccessCode', data).done(function(response){
+			if (response.success) {
+				$('.confirm_btn_js').removeAttr('disabled');
+			}else{
+				// parent.find('[name="code"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+			};
+			componentHandler.upgradeDom();
+		});
 	});
 
 	$('.confirm_pass_js').click(function(event) {
@@ -912,17 +912,11 @@ $(function(){
 			method = $('[name="verification"]:checked').data('value'),
 			curr_pass = $('[name="cur_passwd"]').val();
 
-		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass};
+		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass, method: method};
 		console.log(data);
-		alert('Пароль подтвержден');
-		// ajax('cabinet', '', data).done(function(response){
-		// 	if (response.success) {
-				
-		// 	}else{
-
-		// 	};
-		// 	componentHandler.upgradeDom();
-		// });
+		ajax('cabinet', 'ChangePassword', data).done(function(response){
+			alert('Успешно!');
+		});
 	});
 
 	$('.confirm_code_js').click(function(event) {
@@ -931,26 +925,12 @@ $(function(){
 			method = $('[name="verification"]:checked').data('value'),
 			phone = $('.phone').val();
 			code = $('[name="verification_code"]').val();
-		data = {id_user: id_user, code: code, new_passwd: new_passwd};
+		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
 		console.log(data);
 		
-		// ajax('cabinet', '', data).done(function(response){
-		// 	if (true) {
-		// 		data = {id_user: id_user, new_passwd: new_passwd, method: method, val: val};
-		// 		console.log(data);
-		// 		ajax('cabinet', '', data).done(function(response){
-		// 			if (true) {
-						
-		// 			}else{
-						
-		// 			};
-		// 			componentHandler.upgradeDom();
-		// 		});
-		// 	}else{
-				
-		// 	};
-		// 	componentHandler.upgradeDom();
-		// });
+		ajax('cabinet', 'ChangePassword', data).done(function(response){
+			alert('Успешно!');
+		});
 	});
 
 	
