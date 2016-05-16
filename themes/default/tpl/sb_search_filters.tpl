@@ -135,7 +135,7 @@
 					});
 					params['price_range'] = price_range;
 
-			if(event.keyCode==13){
+			if(event.keyCode === 13){
 				e.preventDefault();
 				addLoadAnimation('.filters');
 				ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){

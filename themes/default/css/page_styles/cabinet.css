@@ -6,6 +6,7 @@ hr {
 }
 .table tr {
 	line-height: 2em !important;
+	border-bottom: 1px solid #d7d7d7;
 }
 .color-red {
 	color:#f00;
@@ -154,7 +155,6 @@ table.table thead tr {
 	background: #fafafa;
 	border-bottom: 1px solid #d7d7d7;
 }
-
 .returns_table a {
 	color: #009e00;
 	font-size: 16px;
@@ -162,7 +162,9 @@ table.table thead tr {
 	font-weight: 300;
 	text-decoration: none;
 }
-
+.returns_table td {
+	vertical-align: middle;
+}
 .returns_table th.client {
 	position: relative;
 }

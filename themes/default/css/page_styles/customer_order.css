@@ -12,11 +12,17 @@
 }
 .returns_table.table tr {
 	line-height: 2em;
+	border-bottom: 1px solid #d7d7d7;
+	min-height: 110px;
 }
 .returns_table.table th,
 .returns_table.table td {
 	padding-right: 5px;
 	padding-left: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	vertical-align: middle;
 }
 .returns_table th.client {
 	position: relative;
@@ -26,18 +32,28 @@
 	top: 8px;
 	right: 8px;
 }
-.returns_table .image_cell a {
+/*.returns_table .image_cell a {
 	vertical-align: middle;
-}
+}*/
 .returns_table .image_cell img {
-	max-height: 100px;
-    max-width: 100%;
+	/*max-height: 100px;
+    max-width: 100%;*/
+    height: 90px;
+    width: 90px;
     vertical-align: middle;
-    padding: 5px 0;
+    /*padding: 5px 0;*/
+
 }
 .returns_table .name_cell {
 	text-align: left;
 }
+.returns_table tr.itogo {
+	border-bottom: none;
+}
+.returns_table .itogo p {
+	font-weight: bold;
+}
+
 .returns_table .itogo td {
 	height: 40px;
 }
@@ -51,6 +67,8 @@
 .price-order input {
 	display: block;
     margin: 10px auto;
+    height: 30px;
+    padding: 8px;
 }
 .remake_order {
 	margin: 20px 0;
