@@ -9,7 +9,7 @@
 			</div>
 		</div>
 	<?}else{?>
-		<form id="reg_form" class="col-lg-6 col-md-8 col-sm-12 col-xs-12" action="<?=_base_url?>/register/" method="post">
+		<form id="reg_form" class="col-lg-6 col-md-8 col-sm-12 col-xs-12 forPassStrengthContainer_js" action="<?=_base_url?>/register/" method="post">
 			<div class="reg_section">
 				<label for="name">Имя</label>
 				<input type="text" name="name" id="regname" required="required"/>
@@ -25,8 +25,12 @@
 			<div class="reg_section">
 				<label for="regpasswd">Пароль</label>
 				<input required type="password" name="passwd" id="regpasswd"/>
-				<!-- <p id="passStrengthTitle">надежность пароля</p> -->
-				<div id="passstrength"><div id="passstrengthlevel"></div></div>
+				<div class="passStrengthContainer_js">
+					<p class="ps_title">надежность пароля</p>
+					<div class="ps">
+						<div class="ps_lvl ps_lvl_js"></div>
+					</div>
+				</div>
 				<div id="password_error"></div>
 				<div class="error_description"></div>
 			</div>

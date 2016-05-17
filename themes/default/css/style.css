@@ -860,11 +860,13 @@ section.center {
 		font-size: 5em;
 		margin-bottom: 0.3em;
 	}
-	#passStrengthTitle {
+
+/* passStrength */
+	.ps_title {
 		color: #757575;
 		font-size: .8em !important;
 	}
-	#passstrength {
+	.ps {
 		height: 5px;
 		width: 100%;
 		border-radius: 5px;
@@ -872,29 +874,30 @@ section.center {
 		border: 1px solid #cdcdcd;
 		margin: 5px 0 5px 0;
 	}
-	#passstrengthlevel, #passstrengthlevel2 {
+	.ps_lvl {
 		background: #DDDDDD;
 		float: right;
 		width: 100%;
 		height: 100%;
 		transition: width .4s ease;
 	}
-	#passstrengthlevel.bad, #passstrengthlevel2.bad {
+	.ps_lvl.bad {
 		width: 75%;
 		background: #fff;
 	}
-	#passstrengthlevel.better, #passstrengthlevel2.better {
+	.ps_lvl.better {
 		width: 50%;
 		background: #fff;
 	}
-	#passstrengthlevel.ok, #passstrengthlevel2.ok {
+	.ps_lvl.ok {
 		width: 25%;
 		background: #fff;
 	}
-	#passstrengthlevel.best, #passstrengthlevel2.best {
+	.ps_lvl.best {
 		width: 0%;
 		background: #fff;
 	}
+/* --- */
 
 /*Cart =======================================================================*/
 

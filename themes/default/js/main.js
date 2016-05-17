@@ -1052,17 +1052,17 @@ $(function(){
 		event.preventDefault();
 		var passwd = $(this).val(),
 			passconfirm = $('#access_recovery #passwdconfirm').val();
-		ValidatePassInPassRecovery(passwd);
+		ValidatePass(passwd);
 		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
 		if(passconfirm !== ''){
-			ValidatePassConfirmInPassRecovery(passwd, passconfirm);
+			ValidatePassConfirm(passwd, passconfirm);
 		}
 	});
 
 	$('#access_recovery').on('keyup', '#passwdconfirm', function(){
 		var passwd = $('#access_recovery #passwd').val(),
 			passconfirm = $(this).val();
-		ValidatePassConfirmInPassRecovery(passwd, passconfirm);
+		ValidatePassConfirm(passwd, passconfirm);
 	});
 
 	$('#access_recovery').on('click', '#restore', function(e){
@@ -1089,8 +1089,8 @@ $(function(){
 			id_user = parent.find('[type="hidden"]').val(),
 			passwd = parent.find('input[name="new_passwd"]'),
 			confirm_passwd = parent.find('input[name="passwdconfirm2"]');
-		ValidatePassInPassRecovery(passwd);
-		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirmInPassRecovery(passwd, confirm_passwd)){
+		ValidatePass(passwd);
+		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd.val()};
 			ajax('auth', 'accessConfirm', data).done(function(response){
 				if (response.success) {

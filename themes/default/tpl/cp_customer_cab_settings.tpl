@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="settings">
-			<form class="editing" action="" method="post">
+			<form class="editing forPassStrengthContainer_js" action="" method="post">
 				<input required="required" type="hidden" name="id_user" value="<?=$User['id_user']?>"/>
 				<?!isset($_GET['t'])?$var = '':$var = $_GET['t'];
 				switch($var){
@@ -43,16 +43,16 @@
 						<div class="new_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label class="mdl-textfield__label" for="regpasswd">Новый пароль:</label>
 							<input class="mdl-textfield__input" type="password" name="new_passwd" id="regpasswd"/>
-
-							<!-- <div id="passstrength">
-								<div id="passstrengthlevel"></div>
-							</div> -->
 							<div id="password_error"></div>
 							<div class="error_description"></div>
 							<span class="mdl-textfield__error"></span>
 						</div>
-						<p id="passStrengthTitle">надежность пароля</p>
-						<div id="passstrength"><div id="passstrengthlevel"></div></div>
+						<div class="passStrengthContainer_js">
+							<p class="ps_title">надежность пароля</p>
+							<div class="ps">
+								<div class="ps_lvl ps_lvl_js"></div>
+							</div>
+						</div>
 						<div class="passwdconfirm mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение нового пароля:</label>
 							<input class="mdl-textfield__input" type="password" name="passwdconfirm" id="passwdconfirm"/>

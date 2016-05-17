@@ -634,7 +634,7 @@
 			<div id="sign_up" class="hidden modal_container">
 				<h4>Регистрация</h4>
 				<span>Сопроводительный текст к форме регистрации.</span>
-				<form action="#">
+				<form action="#" class="forPassStrengthContainer_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="name" name="name">
 						<label class="mdl-textfield__label" for="name">Имя</label>
@@ -655,8 +655,12 @@
 						<div class="error_description"></div>
 					</div>
 
-					<p id="passStrengthTitle">надежность пароля</p>
-					<div id="passstrength"><div id="passstrengthlevel"></div></div>
+					<div class="passStrengthContainer_js">
+						<p class="ps_title">надежность пароля</p>
+						<div class="ps">
+							<div class="ps_lvl ps_lvl_js"></div>
+						</div>
+					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
