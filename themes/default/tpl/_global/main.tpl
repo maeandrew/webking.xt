@@ -331,10 +331,10 @@
 			<?}?>
 		</section>
 	</section>
-	<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
-		<div class="wrap">
-			<div class="mdl-mega-footer__left-section clearfix">
-				<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">
+	<footer class="mdl-mega-footer mdl-color--grey-100">
+		<div class="footer_wrapp">
+			<div class="mdl-mega-footer__left-section">
+				<div class="questions">
 					<h5>Навигация</h5>
 					<ul>
 						<li><a href="<?=Link::Custom('main')?>">Главная</a></li>
@@ -345,19 +345,19 @@
 					</ul>
 				</div>
 				<div class="contacts">
-					<div class="mdl-cell--hide-phone">
+					<div>
 						<h5>Контакты</h5>
-						<ul class="phone_nav_contacts clearfix">
+						<ul class="phone_nav_contacts">
 							<?if(isset($GLOBALS['CONFIG']['footer_phone']) && $GLOBALS['CONFIG']['footer_phone'] != ''){?>
-								<li class="parent_nav"><div class="material-icons">phone</div><span><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
+								<li><span><div class="material-icons">phone</div><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
 							<?}?>
 							<!-- <li><span>(099) 228-69-38</span></li>
 							<li><span>(093) 322-91-83</span></li> -->
 							<?if(isset($GLOBALS['CONFIG']['footer_email']) && $GLOBALS['CONFIG']['footer_email'] != ''){?>
-								<li class="parent_nav"><div class="material-icons">mail</div><span><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
+								<li><span><div class="material-icons">mail</div><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
 							<?}?>
 							<?if(isset($GLOBALS['CONFIG']['footer_address']) && $GLOBALS['CONFIG']['footer_address'] != ''){?>
-								<li class="parent_nav"><div class="material-icons">location_on</div><span><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
+								<li><span><div class="material-icons">location_on</div><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
 							<?}?>
 						</ul>
 					</div>
@@ -373,7 +373,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ad_sense">
+			<div class="ad_sense mdl-color--grey-200">
 				<?if($GLOBALS['CurrentController'] == 'products'){?>
 					<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
 						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
@@ -430,8 +430,6 @@
 					<span class="span_title">Способ доставки:</span>
 					<span class="delivery_method"></span>
 				</div>
-
-
 				<div class="row hidden">
 					<span class="span_title">Адрес клиента:</span>
 					<span class="client_address"></span>

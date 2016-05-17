@@ -24,12 +24,19 @@ body {
 }
 a {
 	text-decoration: none;
-	color: #9E9E9E;
+	color: #444;
 	font-weight: 500;
 	outline: none;
+	-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .2s cubic-bezier(.4,0,.2,1);
+	transition: all .2s cubic-bezier(.4,0,.2,1);
 }
 a:hover {
-	color: #343030;
+	/*color: #343030;*/
+	color: #ff5722;
+	-webkit-transition: none;
+	-o-transition: none;
+	transition: none;
 }
 p a {
 	text-decoration: underline;
@@ -315,25 +322,6 @@ label:hover + .info_description {
 	line-height: 15px;
 	padding: 10px 0;
 	font-size: 1.071em;
-}
-
-/*Contacts*/
-ul.phone_nav_contacts li {
-	padding: 0;
-	float: left;
-	width: 100%;
-}
-ul.phone_nav_contacts li.parent_nav {
-	margin-top: 10px;
-}
-ul.phone_nav_contacts li .material-icons {
-	line-height: 20px;
-	float: left;
-	font-size: 16px;
-}
-ul.phone_nav_contacts li span {
-	width: calc(100% - 23px);
-	float: right;
 }
 
 /*Paginator ==================================================================*/
@@ -1214,26 +1202,6 @@ section.center {
 		#cart #total {
 			width: auto;
 		}
-	}
-
-/*CONTACTS*/
-
-	ul.phone_nav_contacts li {
-		padding: 0;
-		float: left;
-		width: 100%;
-	}
-	ul.phone_nav_contacts li.parent_nav {
-		margin-top: 10px;
-	}
-	ul.phone_nav_contacts li .material-icons {
-		line-height: 20px;
-		float: left;
-		font-size: 16px;
-	}
-	ul.phone_nav_contacts li span {
-		width: calc(100% - 23px);
-		float: right;
 	}
 
 /*SIDEBAR*/
