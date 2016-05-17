@@ -836,7 +836,8 @@ section.center {
 	#access_recovery p.info_text.tac {
 		text-align: center;
 	}
-	#access_recovery p.info_text .bold_text {
+	#access_recovery p.info_text .bold_text,
+	#verification .bold_text {
 		font-weight: 500;
 	}
 	#access_recovery button,

@@ -871,7 +871,7 @@ $(function(){
 
 	$('#verification').on('click', '[for="choise_current_pass"]', function(){
 		$('.cur_passwd_container, .confirm_btn_js').removeClass('hidden');
-		$('.verification_meth, .for_verification_code_js, .confirm_code_js, .send_code_js').addClass('hidden');
+		$('.verification_meth, .for_verification_code_js, .confirm_code_js, .send_code_js, .ver_info_js').addClass('hidden');
 		$('.confirm_pass_js').removeClass('hidden');
 		componentHandler.upgradeDom();
 	});
@@ -899,7 +899,7 @@ $(function(){
 	$('.send_code_js').click(function(event) {
 		$('.for_verification_code_js').removeClass('hidden');
 		$('.send_code_js').addClass('hidden');
-		$('.confirm_code_js').removeClass('hidden');
+		$('.confirm_code_js, .ver_info_js').removeClass('hidden');
 		// $('.confirm_btn_js').removeClass('hidden').attr('disabled', 'disabled');
 		var id_user = $('[name="id_user"]').val(),
 			phone_num = $('.phone').val().replace(/[^\d]+/g, "");
@@ -923,26 +923,26 @@ $(function(){
 			curr_pass = $('[name="cur_passwd"]').val();
 
 		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass, method: method};
-		if (curr_pass != '') {
+		if (!$('.cur_passwd').hasClass('is-invalid')) {
 			console.log(data);
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
-				if(resp){
-					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');
+				console.log(resp.success);
+				if(!resp.success){
+					$('.error_msg').text(resp.msg).css('color', '#D50000');;
+				}else{
+					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');					
 				}
 			});
-		}else{
-			$('[name="cur_passwd"]').closest('.mdl-textfield').addClass('is-invalid');
 		}
 	});
 
 	$('.confirm_code_js').click(function(event) {
 		var id_user = $('[name="id_user"]').val(),
 			new_passwd = $('[name="new_passwd"]').val(),
-			method = $('[name="verification"]:checked').data('value'),			
+			method = $('[name="verification"]:checked').data('value'),
 			code = $('[name="verification_code"]').val();
 		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
-		console.log(data);
-		if (code != '' && code.length == 4) {
+		if (!$('.for_verification_code_js').hasClass('is-invalid')) {
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
 				if(resp){
 					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');

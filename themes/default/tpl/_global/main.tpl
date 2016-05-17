@@ -761,6 +761,7 @@
 					<span class="mdl-textfield__error">Чтобы продолжить введите Ваш текущий пароль</span>
 				</div>
 			</div>
+			<p class="error_msg"></p>
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
@@ -769,8 +770,11 @@
 					<span class="mdl-textfield__error"></span>
 				</div>
 			</div>
+			<div class="ver_info_js hidden">
+				<p class="info_text">На Ваш номер телефона отправлено<br>SMS-сообщение c кодом для подтверждения доступа, который будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
+			</div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js hidden">
-				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" pattern="\d{4}\">
+				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" pattern="^\d{4}$">
 				<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
