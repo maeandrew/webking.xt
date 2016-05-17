@@ -50,16 +50,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'AccessCode';
 				$Users = new Users();
-				$id_user = $User->CheckPhoneUniqueness($_POST['phone'], $_POST['id_user']);
-				if($id_user === true){
-					$res['success'] = false;
-					$res['msg'] = 'Пользователя с таким телефоном не найдено.';
-				}else{
-					$res['success'] = true;
-				}
 				if(!$User->SetVerificationCode($_POST['id_user'], $_POST['method'], $_POST['phone'])){
 					$res['success'] = false;
 					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
+				}else{
+					$res['success'] = true;
 				}
 				echo json_encode($res);
 				break;

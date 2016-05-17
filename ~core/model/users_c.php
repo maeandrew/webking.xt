@@ -232,7 +232,7 @@ class Users {
 		}
 		if(isset($arr['phones']) && $arr['phones'] != '') {
 			//Проверяем, существует ли такой телефон в таблице User
-			if($this->CheckPhoneUniqueness($arr['phones']) === true) {
+			if($this->CheckPhoneUniqueness($arr['phones'], $arr['id_user']) === true) {
 				$f['phones'] = trim($arr['phones']);
 			}
 		}

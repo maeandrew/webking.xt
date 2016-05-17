@@ -382,6 +382,7 @@ class Customers extends Users {
 		global $User;
 		$arr['gid'] = $User->fields['gid'];
 		$arr['name'] = $arr['cont_person'];
+		$arr['phones'] = $arr['phone'];
 		if(!$User->UpdateUser($arr)){
 			$this->db->FailTrans();
 			return false;
