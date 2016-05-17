@@ -97,9 +97,6 @@
 					margin-top: 0;
 				}
 				.fortabs {
-					/*white-space: nowrap;
-					overflow: scroll;
-					overflow-x: hidden; */
 					padding-bottom: 10px;
 					overflow-x: overlay;
 					overflow-y: hidden;
@@ -107,9 +104,6 @@
 				#owl-product_mobile_img_js {
 					clear: both;
 				}
-/* 				.buy_block {
-	padding: 32px 0;
-} */
 				@media (min-width: 700px){
 					.product .mdl-tabs__tab-bar {
 						min-width: 680px;
@@ -142,15 +136,15 @@
 				//Инициализация owl carousel
 				$('#owl-product_mobile_img_js').owlCarousel({
 					items: 1,
-					loop:true,
-					nav:true,
-					margin:20,
-					video:true,
+					loop: true,
+					nav: true,
+					margin: 20,
+					video: true,
 					videoHeight: 345,
 					videoWidth: 345,
-					lazyLoad:true,
-					center:true,
-					responsive:{
+					lazyLoad: true,
+					center: true,
+					responsive: {
 						380: {items: 1},
 						727: {items: 2},
 						950: {items: 3},
@@ -235,15 +229,11 @@
 	</div>
 	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
 		<div class="content_header mdl-cell--hide-phone clearfix">
-			<?=$cart_info?>
+			<?=$cart_info;?>
 		</div>
 		<div class="pb_wrapper">
-			<?$in_cart = false;
-				if(!empty($_SESSION['cart']['products'][$item['id_product']])){
-					$in_cart = true;
-				}
-				$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
-			?>
+			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
+			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="product_buy clearfix" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block">
 					<div class="price">

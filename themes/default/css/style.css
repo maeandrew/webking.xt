@@ -277,7 +277,9 @@ label:hover + .info_description {
 [class^="active_"] .banner,
 [class*=" active_"] .banner,
 [class^="active_"] .main ,
-[class*=" active_"] .main {
+[class*=" active_"] .main,
+[class^="active_"] footer,
+[class*=" active_"] footer {
 	-webkit-filter: blur(2px);
 	-o-filter: blur(2px);
 	filter: blur(2px);
@@ -1985,7 +1987,9 @@ section .stat_year {
 
 /****************************************/
 
-
+.products .card {
+    overflow: auto;
+}
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
 }
