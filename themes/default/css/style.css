@@ -1664,6 +1664,17 @@ section .stat_year {
 	width: 100%;
 	box-sizing: border-box;
 }
+
+.content_header .catalog_btn,
+.content_header .productsListView {
+	display: inline-block;
+	cursor: pointer;
+	color: #bdbdbd;
+}
+.card {
+	overflow: auto;
+}
+
 .content_header .cart_info {
 	float: right;
 	width: 500px;

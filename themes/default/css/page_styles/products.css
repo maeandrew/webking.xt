@@ -76,11 +76,11 @@ h5 {
 
 /*======Content text==========================================================*/
 
+.card {
+	overflow: auto;
+}
 .products .content_wrapp {
 	overflow: hidden;
-}
-.products .card {
-	overflow: auto;
 }
 .products .content_text {
 	color: #999;
@@ -430,7 +430,7 @@ h5 {
 
 .block_view .products .card .product_name a {
 	display: block;
-	height: 49px;	
+	height: 40px;	
 }
 
 .block_view .products .card .product_buy {
