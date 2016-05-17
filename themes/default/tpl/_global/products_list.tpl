@@ -10,27 +10,24 @@
 			<a href="#">
 				<?if(!empty($item['images'])){?>
 					<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'medium', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
-					<noscript>
-						<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'medium', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
-					</noscript>
+					<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'medium', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/></noscript>
 				<?}else{?>
 					<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
-					<noscript>
-						<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
-					</noscript>
+					<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/_thumb/image/", $item['img_1'])):"/images/nofoto.jpg"?>"/></noscript>
 				<?}?>
 			</a>
 		</div>
-		<p class="product_name"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a> <span class="product_article">Арт: <?=$item['art'];?></span></p>
-		<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
-			<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
-			<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
-		<?}?>
+		<div class="product_name">
+			<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
+			<span class="product_article">Арт: <?=$item['art'];?></span>
+			<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
+				<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+				<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+			<?}?>
+		</div>
 		<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
-				<div class="price">
-					<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
-				</div>
+				<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
 				<div class="prodPrices hidden">
 					<?for($i = 0; $i < 4; $i++){?>
 						<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">

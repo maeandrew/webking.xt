@@ -506,6 +506,9 @@ h5 {
 	top: 50%;
 	z-index: 111;
 }
+.preview .mdl-tabs {
+	clear: both;
+}
 .preview.ajax_loading .mdl-progress {
 	display: block;
 }

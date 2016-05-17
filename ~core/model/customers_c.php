@@ -207,6 +207,7 @@ class Customers extends Users {
 			$User->SetUser($_SESSION['member']);
 			$user_id = $User->fields['id_user'];
 			$f['id_user'] = trim($user_id);
+			$this->db->StartTrans();
 			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();

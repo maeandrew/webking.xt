@@ -272,14 +272,22 @@
 		console.log(id_order);
 		
 		$('#replaceCartMod').on('click', function(e){		
-		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){		
-			console.log('заменили');
+			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){		
+				console.log('заменили');
+				ajax('cart', 'GetCart').done(function(data){
+					console.log(data);
+					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
+				});
 			});
 		});
 
 		$('#addtoCartMod').on('click', function(e){	
-		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
-			console.log("добавили");	
+			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
+				console.log("добавили");
+				ajax('cart', 'GetCart').done(function(data){
+					console.log(data);
+					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
+				});	
 			});
 		});
 	});

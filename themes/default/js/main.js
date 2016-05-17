@@ -257,7 +257,7 @@ $(function(){
 	});
 
 	//Scroll Magic
-	var header = $("header"),
+	/*var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
 		banner_height = $('.banner').outerHeight(),
 		header_height = header.outerHeight();
@@ -279,7 +279,7 @@ $(function(){
 		}else{
 			$('aside').css('bottom', $(this).height()-($('section.center').height()-$(this).scrollTop()+header_height));
 		}
-	});
+	});*/
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
@@ -881,11 +881,25 @@ $(function(){
 		$('.confirm_code_js').addClass('hidden');
 		componentHandler.upgradeDom();
 	});
+	$('[name="cur_passwd"]').change(function(event) {
+		if($(this).val() == '') {
+			$(this).closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Чтобы продолжить введите Ваш текущий пароль');
+		}else if($(this).val().length < 4) {
+			$(this).closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Введите корректный пароль');
+		}
+	});
+	$('[name="verification_code"]').change(function(event) {
+		if($(this).val() == '') {
+			$(this).closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Чтобы продолжить введите код подтверждения');
+		}else if($(this).val().length != 4) {
+			$(this).closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Введите корректный код подтверждения');
+		}
+	});
 
 	$('.send_code_js').click(function(event) {
 		$('.for_verification_code_js').removeClass('hidden');
 		$('.send_code_js').addClass('hidden');
-		$('.confirm_code_js').removeClass('hidden').attr('disabled', 'disabled');
+		$('.confirm_code_js').removeClass('hidden');
 		// $('.confirm_btn_js').removeClass('hidden').attr('disabled', 'disabled');
 		var id_user = $('[name="id_user"]').val(),
 			phone_num = $('.phone').val().replace(/[^\d]+/g, "");
@@ -902,12 +916,6 @@ $(function(){
 			$('.confirm_btn_js').removeAttr('disabled');			
 		});
 	});
-
-	$('[name="verification_code"]').change(function(event) {
-		if ($(this).val().length == 4) {$('.confirm_code_js').removeAttr('disabled')}
-		else { $('.confirm_code_js').attr('disabled', 'disabled')}
-	});
-
 	$('.confirm_pass_js').click(function(event) {
 		var id_user = $('[name="id_user"]').val(),
 			new_passwd = $('[name="new_passwd"]').val(),
@@ -917,8 +925,10 @@ $(function(){
 		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass, method: method};
 		if (curr_pass != '') {
 			console.log(data);
-			ajax('cabinet', 'ChangePassword', data).done(function(response){
-				alert('Успешно!');
+			ajax('cabinet', 'ChangePassword', data).done(function(resp){
+				if(resp){
+					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');
+				}
 			});
 		}else{
 			$('[name="cur_passwd"]').closest('.mdl-textfield').addClass('is-invalid');
@@ -933,10 +943,12 @@ $(function(){
 		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
 		console.log(data);
 		if (code != '' && code.length == 4) {
-			ajax('cabinet', 'ChangePassword', data).done(function(response){
-				// alert('Успешно!');
+			ajax('cabinet', 'ChangePassword', data).done(function(resp){
+				if(resp){
+					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');
+				}
 			}).fail(function(response){
-				alert('Успешно!');
+				alert('Ошибка!');
 			});
 		}		
 	});

@@ -31,16 +31,15 @@
 				#caruselCont {
 					width: 95%;
 				}
-				#specCont {
+				 #specCont {
 					width: 95%;
-				}
+				} 
 				.product_main_img{
 					display: none;
 				}
 				.owl-video-wrapper {
 					margin: 0 auto;
 				}
-
 				.product .mdl-cell {
 					padding-right: 0;
 				}
@@ -108,9 +107,9 @@
 				#owl-product_mobile_img_js {
 					clear: both;
 				}
-				.buy_block {
-					padding: 32px 0;
-				}
+/* 				.buy_block {
+	padding: 32px 0;
+} */
 				@media (min-width: 700px){
 					.product .mdl-tabs__tab-bar {
 						min-width: 680px;

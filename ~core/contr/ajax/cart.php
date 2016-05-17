@@ -16,6 +16,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'duplicate':
 				$cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
+				echo json_encode(true);
 				break;
 			case 'GetCartPage':
 				unset($parsed_res);
