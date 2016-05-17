@@ -1546,7 +1546,7 @@ function ValidatePassConfirm(passwd, passconfirm){
 		// console.log('Пароли совпали');
 		$('#passwdconfirm ~ .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
-		$('.verification_btn').removeAttr('disabled');
+		if($('[name="passwdconfirm"]').val().length >= 4) $('.verification_btn').removeAttr('disabled');
 		return false;
 	}
 }

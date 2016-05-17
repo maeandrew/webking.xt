@@ -830,6 +830,9 @@ section.center {
 		font-size: 1em;
 		font-weight: 400;
 	}
+	#verification .mdl-textfield.is-disabled .mdl-textfield__input {
+		color: #343030;
+	}
 	#access_recovery p.info_text.tac {
 		text-align: center;
 	}
@@ -837,16 +840,18 @@ section.center {
 		font-weight: 500;
 	}
 	#access_recovery button,
-	#verification .verification_btn {
+	#verification button {
 		background-color: #018b06;
 		display: block;
 		margin: 20px auto 0;
 		color: #fff;
 	}
-	#access_recovery .auth_ok {
+	#access_recovery .auth_ok,
+	#verification .auth_ok {
 		text-align: center;
 	}
-	#access_recovery .auth_ok i.material-icons {
+	#access_recovery .auth_ok i.material-icons,
+	#verification .auth_ok i.material-icons {
 		color: #018b06;
 		font-size: 5em;
 		margin-bottom: 0.3em;
