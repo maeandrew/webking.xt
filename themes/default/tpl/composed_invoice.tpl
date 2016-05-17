@@ -234,7 +234,7 @@ tr.min td {
 		<table class="table_header">
 			<tr class="top">
 				<td>
-					<span class="invoice">Сборочная накладная от <?=date("d.m.Y",time())?></span>
+					<span class="invoice">Сборочная накладная от <?=date("d.m.Y", strtotime("tomorrow"))?></span>
 				</td>
 			</tr>
 		</table>
@@ -295,7 +295,7 @@ tr.min td {
 				<?}?>
 			</tbody>
 		</table>
-	<div style="clear: both;"></div>
+		<div style="clear: both;"></div>
 	</div>
 	<?
 	$c1 = 30;
@@ -308,7 +308,7 @@ tr.min td {
 	$c8 = 60;
 	$c9 = 60;
 	$c10 = 80;
-	$supii =1;
+	$supii = 1;
 	$aaaaaaa = '';
 	foreach($suppliers as $id_supplier=>$supplier){
 		$pickers = explode(';', $supplier['pickers']);
@@ -322,7 +322,7 @@ tr.min td {
 						<!-- <span style="font-size: 23px; float: right; clear: both;">$1 = <?=number_format($supplier['currency_rate'], 2, ",", "");?>грн.</span> -->
 					<?}?>
 				</div>
-				<h1 style="text-align: center; margin: 0 auto 15px; width: 60%;">Чек от <?=isset($_GET['date']) && $_GET['date'] != ''?date("d.m.Y", strtotime($_GET['date'])):date("d.m.Y",time());?></h1>
+				<h1 style="text-align: center; margin: 0 auto 15px; width: 60%;">Чек от <?=isset($_GET['date']) && $_GET['date'] != ''?date("d.m.Y", strtotime($_GET['date'])):date("d.m.Y", strtotime("tomorrow"));?></h1>
 				<p class="note_red" style="text-align: center; line-height: 15px; width: 60%; margin: 0 auto;">Чек остается у партнера до момента получения денег.</p>
 				<div style="clear: both; float:left; margin: 10px; font-size: 14px; width: 380px; padding-left: 10px;"><?=$supplier['name']?>, <?=$supplier['place']?></div>
 				<div style="float:left; margin: 10px; white-space: normal; width: 433px; padding-left: 10px; font-size: 19px;" class="bl">
@@ -382,7 +382,7 @@ tr.min td {
 						<!-- <span style="font-size: 23px; float: right; clear: both;">$1 = <?=number_format($supplier['currency_rate'], 2, ",", "");?>грн.</span> -->
 					<?}?>
 				</div>
-				<h1 style="text-align: center; margin: 0 auto 15px; width: 60%">Сборочная накладная от <?=isset($_GET['date']) && $_GET['date'] != ''?date("d.m.Y", strtotime($_GET['date'])):date("d.m.Y",time());?></h1>
+				<h1 style="text-align: center; margin: 0 auto 15px; width: 60%">Сборочная накладная от <?=isset($_GET['date']) && $_GET['date'] != ''?date("d.m.Y", strtotime($_GET['date'])):date("d.m.Y",strtotime("tomorrow"));?></h1>
 			</div>
 			<div style="clear: both; float:left; margin: 10px; font-size: 14px; width: 380px; padding-left: 10px;"><?=$supplier['name']?>, <?=$supplier['place']?></div>
 			<div style="float:left; margin: 10px; white-space: normal; width: 433px; padding-left: 10px; font-size: 19px;" class="bl">
