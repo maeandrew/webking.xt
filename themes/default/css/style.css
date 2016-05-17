@@ -2108,13 +2108,6 @@ section .stat_year {
 .product_buy .buy_block .btn_buy .in_cart_js .material-icons {
 	margin: 0;
 }
-.product_buy .buy_block .btn_buy:after {
-	content: '';
-	position: absolute;
-	top: calc(-35px / 2);
-	width: 100%;
-	height: 70px;
-}
 .product_buy .buy_block .btn_buy button {
 	text-transform: capitalize;
 	position: absolute;
@@ -2175,12 +2168,12 @@ section .stat_year {
 .product_buy .buy_block .quantity button.btn_add {
 	bottom: 95%;
 	border-bottom: 0 !important;
-	border-radius: .2em .2em 0 0 !important;
+	border-radius: .2em .2em 0 0;
 }
 .product_buy .buy_block .quantity button.btn_remove {
 	top: 95%;
 	border-top: 0 !important;
-	border-radius: 0 0 .2em .2em !important;
+	border-radius: 0 0 .2em .2em;
 }
 .product_buy .buy_block .quantity button.btn_add:hover {
 	background: #b0eeb2;

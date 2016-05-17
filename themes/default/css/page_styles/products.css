@@ -79,6 +79,9 @@ h5 {
 .products .content_wrapp {
 	overflow: hidden;
 }
+.products .card {
+	overflow: auto;
+}
 .products .content_text {
 	color: #999;
 	margin: 30px 0 20px 0;
@@ -304,7 +307,7 @@ h5 {
     vertical-align: top;
 }
 
-/* Lisi View =================================================================*/
+/* List View =================================================================*/
 
 .list_view .product_section {
 	border-bottom: 1px solid #d9d9d9;
@@ -370,6 +373,21 @@ h5 {
 .list_view .product_section .product_info textarea {
   	width: 100%
 }
+.list_view .products .card .product_buy .buy_block .quantity button.btn_add {
+	border-radius: .2em .2em 0 0;
+}
+
+.list_view .products .card .product_buy .buy_block .quantity button.btn_remove {
+	border-radius: 0 0 .2em .2em;
+}
+
+.list_view .product_buy .buy_block .btn_buy:after {
+	content: '';
+	position: absolute;
+	top: calc(-35px / 2);
+	width: 100%;
+	height: 70px;
+}
 /*.list_view .product_section .product_buy {
 	position: relative;
 	float: right;
@@ -377,6 +395,128 @@ h5 {
 	margin: auto;
 	margin-right: 0;
 }*/
+
+/*block view =================================================================*/
+
+.block_view .products {
+	display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.block_view .products .card {
+	width: calc(20% - 10px);
+	border: 1px solid #d9d9d9;	    
+    margin: 5px;
+
+}
+.block_view .products .card:hover {
+	border: 1px solid #aaa;
+}
+
+.block_view .products .card .product_photo {
+	float: none;
+	width: 100%;
+}
+
+.block_view .products .card .product_photo img {
+	width: 100%;
+	max-height: none;
+}
+
+.block_view .products .card .product_name {
+	width: 100%;	
+}
+
+.block_view .products .card .product_name a {
+	display: block;
+	height: 49px;	
+}
+
+.block_view .products .card .product_buy {
+	width: 100%;
+	height: auto;
+	max-width: none;
+	min-width: auto;
+	padding: 0;
+	position: relative;
+}
+
+.block_view .products .card .product_buy .buy_block {
+	flex-direction: column;
+}
+
+.block_view .products .card .product_buy .buy_block .btn_buy {
+	width: 100%;
+	height: 55px;
+}
+
+.block_view .products .card .product_buy .buy_block .btn_buy button {
+	position: relative;
+	width: 100%;
+	left: 0;
+	right: 0;
+}
+.block_view .products .card .product_buy .buy_block .btn_buy div {
+	position: relative;
+}
+
+.block_view .products .card .product_buy .buy_block .btn_buy:hover button {
+	height: 36px;
+	top: 0px;
+}
+
+.block_view .products .card .product_buy .buy_block .quantity {
+	display: flex;
+	justify-content: center;
+}
+
+.block_view .products .card .product_buy .buy_block .quantity button {
+	position: relative;
+	opacity: 1;
+	width: 40px;
+	max-height: 100%;
+	border-radius: .2em;
+}
+
+.block_view .products .card .product_buy .buy_block .quantity .units {
+	width: 0;
+	margin: 0;
+	text-align: center;
+}
+
+@media (max-width: 1440px) {
+	.block_view .products .card {
+		width: calc(25% - 10px);	
+	}	
+}
+
+@media (max-width: 1280px) {
+	.block_view .products .card {
+		width: calc(33% - 10px);	
+	}
+	.block_view .products .card .product_buy .buy_block .quantity .units {
+		width: 40px;		
+	}
+}
+
+@media (max-width: 950px) {
+	.block_view .products .card {
+		width: calc(50% - 10px);	
+	}	
+}
+
+@media (max-width: 728px) {
+	.block_view .products .card {
+		width: calc(50% - 10px);	
+	}
+	.block_view .products .card .product_buy .buy_block .quantity button {
+		display: none;
+	}
+}
+
+
+
 
 /* Module View ===============================================================*/
 
