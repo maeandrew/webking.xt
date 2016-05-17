@@ -1,6 +1,10 @@
 
 /*FOOTER*/
 
+footer .wrap {
+	margin: 0 auto;
+	max-width: 1600px;
+}
 footer h5 {
 	margin: 15px 0 4px 0;
 	color: #757575;
@@ -67,27 +71,28 @@ footer .ad_sense img {
 	display: block;
 	margin: 0 auto;
 }
-footer .social ul li a.vk:hover {
+footer .social ul li .vk:hover {
 	background-color: #4c75a3;
 }
-footer .social ul li a.ok:hover {
+footer .social ul li .ok:hover {
 	background-color: #ff9c43;
 }
-footer .social ul li a.g_pl:hover {
+footer .social ul li .g_pl:hover {
 	background-color: #ff6d4a;
 }
-footer .social ul li a.f:hover {
+footer .social ul li .f:hover {
 	background-color: #496194;
 }
-footer .social ul li a.tw:hover {
+footer .social ul li .tw:hover {
 	background-color: #28c3ff;
 }
-footer .social ul li a.y_t:hover {
+footer .social ul li .y_t:hover {
 	background-color: #cc181e;
 }
 footer .copyright {
 	clear: both;
 	padding: 15px 10px;
+	border-top: 1px solid #e0e0e0;
 	overflow: hidden;
 }
 footer .copyright p {

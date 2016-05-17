@@ -269,7 +269,7 @@
 			</style>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
-				<?if($GLOBALS['CurrentController'] != 'main'){?>
+				<?if($GLOBALS['CurrentController'] !== 'main'){?>
 					<?=$__breadcrumbs?>
 					<?=$__center?>
 				<?}else{?>
@@ -330,7 +330,9 @@
 				</div>
 			<?}?>
 		</section>
-		<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
+	</section>
+	<footer class="mdl-mega-footer mdl-color--grey-100 clearfix">
+		<div class="wrap">
 			<div class="mdl-mega-footer__left-section clearfix">
 				<div class="questions mdl-cell--hide-tablet mdl-cell--hide-phone">
 					<h5>Навигация</h5>
@@ -397,8 +399,8 @@
 				<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
 				<p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p>
 			</div>
-		</footer>
-	</section>
+		</div>
+	</footer>
 	<div class="modals">
 		<div id="quiz" data-type="modal">
 			<div class="modal_container summary_info">
