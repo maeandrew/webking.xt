@@ -873,12 +873,14 @@ $(function(){
 		$('.cur_passwd_container, .confirm_btn_js').removeClass('hidden');
 		$('.verification_meth, .for_verification_code_js, .confirm_code_js, .send_code_js, .ver_info_js').addClass('hidden');
 		$('.confirm_pass_js').removeClass('hidden');
+		$('.error_msg_js').text('');
 		componentHandler.upgradeDom();
 	});
 	$('#verification').on('click', '[for="choise_verification_code"]', function(){
 		$('.verification_meth, .send_code_js').removeClass('hidden');
 		$('.cur_passwd_container, .confirm_pass_js').addClass('hidden');
 		$('.confirm_code_js').addClass('hidden');
+		$('.error_msg_js').text('');
 		componentHandler.upgradeDom();
 	});
 	$('[name="cur_passwd"]').change(function(event) {
@@ -928,7 +930,7 @@ $(function(){
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
 				console.log(resp.success);
 				if(!resp.success){
-					$('.error_msg').text(resp.msg).css('color', '#D50000');;
+					$('.error_msg_js').text(resp.msg);
 				}else{
 					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');					
 				}
@@ -946,7 +948,7 @@ $(function(){
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
 				console.log(resp);
 				if(!resp.success){
-					$('.error_msg').text(resp.msg).css('color', '#D50000');;
+					$('.error_msg_js').text(resp.msg);
 				}else{
 					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');					
 				}

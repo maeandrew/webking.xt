@@ -761,7 +761,6 @@
 					<span class="mdl-textfield__error">Чтобы продолжить введите Ваш текущий пароль</span>
 				</div>
 			</div>
-			<p class="error_msg"></p>
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
@@ -778,6 +777,7 @@
 				<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
+			<p class="error_msg_js error_msg"></p>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect send_code_js hidden">Выслать код подтверждения</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_pass_js">Подтвердить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_code_js hidden">Подтвердить</button>

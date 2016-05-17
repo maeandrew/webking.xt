@@ -840,6 +840,9 @@ section.center {
 	#verification .bold_text {
 		font-weight: 500;
 	}
+	#verification .error_msg {
+		color: #D50000;
+	}
 	#access_recovery button,
 	#verification button {
 		background-color: #018b06;
