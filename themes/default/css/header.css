@@ -580,13 +580,16 @@ ul.phone_nav_contacts li.parent_nav {
 	margin-top: 10px;
 }
 ul.phone_nav_contacts li .material-icons {
-	line-height: 20px;
-	float: left;
+	line-height: 24px;
+	width: 24px;
+	/*float: left;*/
 	font-size: 16px;
+	vertical-align: middle;
+	text-align: center;
 }
 ul.phone_nav_contacts li span {
-	width: calc(100% - 23px);
-	float: right;
+	/*width: calc(100% - 24px);*/
+	/*float: right;*/
 }
 
 /*User Profile*/
