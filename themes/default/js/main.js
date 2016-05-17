@@ -944,8 +944,11 @@ $(function(){
 		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
 		if (!$('.for_verification_code_js').hasClass('is-invalid')) {
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
-				if(resp){
-					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');
+				console.log(resp);
+				if(!resp.success){
+					$('.error_msg').text(resp.msg).css('color', '#D50000');;
+				}else{
+					$('#verification').html('<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p><a href="#" class="close_modal btn_js" data-name="verification"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');					
 				}
 			}).fail(function(response){
 				alert('Ошибка!');
