@@ -1,6 +1,5 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
-
 		<div id="settings">
 			<form class="editing" action="" method="post">
 				<input required="required" type="hidden" name="id_user" value="<?=$User['id_user']?>"/>

@@ -9,7 +9,7 @@ class Users {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_user", "name", "email", "descr", "gid", "active", "news", "promo_code");
+		$this->usual_fields = array("id_user", "name", "email", "descr", "gid", "active", "news", "promo_code", "phones");
 	}
 
 	// public function CheckUser($arr){
