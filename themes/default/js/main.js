@@ -1052,7 +1052,7 @@ $(function(){
 		event.preventDefault();
 		var passwd = $(this).val(),
 			passconfirm = $('#access_recovery #passwdconfirm').val();
-		ValidatePass(passwd);
+		ValidatePass(passwd, $(this));
 		// $('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');
 		if(passconfirm !== ''){
 			ValidatePassConfirm(passwd, passconfirm);
@@ -1088,29 +1088,32 @@ $(function(){
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
 			passwd = parent.find('input[name="new_passwd"]'),
-			confirm_passwd = parent.find('input[name="passwdconfirm2"]');
-		ValidatePass(passwd);
-		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd, confirm_passwd)){
-			data = {id_user: id_user, passwd: confirm_passwd.val()};
-			ajax('auth', 'accessConfirm', data).done(function(response){
-				if (response.success) {
-					$('.cabinet_btn').removeClass('hidden');
-					$('.login_btn').addClass('hidden');
-					ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-						$('#user_pro').html(data);
-
+			confirm_passwd = parent.find('input[name="passwdconfirm"]').val();
+		ValidatePass(passwd.val(), passwd);
+		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd.val(), confirm_passwd)){
+			data = {id_user: id_user, passwd: confirm_passwd};
+			if(!parent.find('.mdl-textfield').hasClass('is-invalid')) {
+				ajax('auth', 'accessConfirm', data).done(function(response){
+					console.log(response);
+					if (response.success) {
 						$('.cabinet_btn').removeClass('hidden');
 						$('.login_btn').addClass('hidden');
-						// $('header .cart_item a.cart i').removeClass('mdl-badge');
-						// $('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
-						// $('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
-					});
-					parent.find('.password_recovery_container').html(response.content);
-				}else{
-					value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
-				}
-				componentHandler.upgradeDom();
-			});
+						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+							$('#user_pro').html(data);
+
+							$('.cabinet_btn').removeClass('hidden');
+							$('.login_btn').addClass('hidden');
+							// $('header .cart_item a.cart i').removeClass('mdl-badge');
+							// $('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+							// $('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
+						});
+						parent.find('.password_recovery_container').html(response.content);
+					}else{
+						value.closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+					}
+					componentHandler.upgradeDom();
+				});
+			}
 		}
 	});
 	
@@ -1119,7 +1122,7 @@ $(function(){
 		event.preventDefault();
 		var passwd = $(this).val(),
 			passconfirm = $('#settings #passwdconfirm').val();
-		ValidatePass(passwd);
+		ValidatePass(passwd, $(this));
 		if(passconfirm !== ''){
 			ValidatePassConfirm(passwd, passconfirm);
 		}
@@ -1131,10 +1134,10 @@ $(function(){
 	});
 //---
 
-	$('#passwd, #regpasswd, [name="passwdconfirm"], [name="passwdconfirm2"]').focusout(function(e){
+	$('#passwd, #regpasswd, [name="passwdconfirm"]').focusout(function(e){
 		e.preventDefault();
 		$(this).closest('.mdl-textfield').find('.mdl-textfield__error').empty();
-		// $('[name="passwdconfirm2"]').closest('.mdl-textfield').find('.mdl-textfield__error').html('');
+		// $('[name="passwdconfirm"]').closest('.mdl-textfield').find('.mdl-textfield__error').html('');
 	});
 
 	// Открыть Форму авторизации
@@ -1202,7 +1205,7 @@ $(function(){
 	$('#sign_up #passwd').keyup(function(){
 		var passwd = $(this).val();
 		var passconfirm = $('#sign_up #passwdconfirm').val();
-		ValidatePass(passwd);
+		ValidatePass(passwd, $(this));
 		/*$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');*/
 		if(passconfirm !== ''){
 			ValidatePassConfirm(passwd, passconfirm);

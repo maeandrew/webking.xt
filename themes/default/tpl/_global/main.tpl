@@ -614,12 +614,12 @@
 				<span>Сопроводительный текст к форме входа.</span>
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email" required>
+						<input class="mdl-textfield__input" type="text" id="email">
 						<label class="mdl-textfield__label" for="email">Email или телефон</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="password" id="passwd" required>
+						<input class="mdl-textfield__input" type="password" id="passwd">
 						<label class="mdl-textfield__label" for="passwd">Пароль</label>
 						<span class="mdl-textfield__error"></span>
 					</div>

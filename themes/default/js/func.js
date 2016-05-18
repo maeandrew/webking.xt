@@ -1471,11 +1471,11 @@ function GetDeliveryMethods(service, city){
 }
 
 /** Валидация пароля **/
-function ValidatePass(passwd){
+function ValidatePass(passwd, el){
 	var protect = 0,
 		result,
-		parent = passwd.closest('.forPassStrengthContainer_js');
-
+		parent = el.closest('.forPassStrengthContainer_js');
+	
 	var small = new RegExp("^(?=.*[a-zа-я]).*$", "g");
 	if(small.test(passwd)) {
 		protect++;
@@ -1498,11 +1498,11 @@ function ValidatePass(passwd){
 
 	if(protect == 1) {
 		$('#passwd + .mdl-textfield__error').empty();
-		parent.find('.ps_lvl_js').addClass('bad').removeClass('better');
+		parent.find('.ps_lvl_js').addClass('bad').removeClass('better').removeClass('ok').removeClass('best');
 		result = false;
 	}
 	if(protect == 2) {
-		parent.find('.ps_lvl_js').addClass('better').removeClass('ok');
+		parent.find('.ps_lvl_js').addClass('better').removeClass('ok').removeClass('best');;
 		result = false;
 	}
 	if(protect == 3) {
@@ -1515,7 +1515,7 @@ function ValidatePass(passwd){
 	}
 	if(passwd.length < 1){
 		$('#passwd + .mdl-textfield__error').empty();
-		parent.find('.ps_lvl_js').removeClass('bad');
+		parent.find('.ps_lvl_js').removeClass('bad').removeClass('better').removeClass('ok').removeClass('best');
 		$('[name="new_passwd"], [name="passwd"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите пароль');
 	}else if(passwd.length >= 1 && passwd.length < 4) {
 		$('#passwd + .mdl-textfield__error').empty();
@@ -1527,11 +1527,9 @@ function ValidatePass(passwd){
 /** Валидация подтверждения пароля **/
 function ValidatePassConfirm(passwd, passconfirm){
 	if(passconfirm !== passwd || !passconfirm){
-		$('#passwdconfirm + .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text('Пароли не совпадают').css({'visibility': 'visible', 'color': '#D50000'});
 		$('.verification_btn').attr('disabled', 'disabled');
 	}else{
-		$('#passwdconfirm ~ .mdl-textfield__error').empty();
 		$('[name="passwdconfirm"]').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').text('Пароли совпали').css({'visibility': 'visible', 'color': '#018b06'});
 		if($('[name="passwdconfirm"]').val().length >= 4) $('.verification_btn').removeAttr('disabled');
 		return false;
