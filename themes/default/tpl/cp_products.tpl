@@ -17,12 +17,13 @@
 						<?}?>
 					</ul>
 
-					<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
+					<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 					<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
 						<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
 					<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
 						<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 					<?}?>
+					-->
 
 				</div>
 				<div class="productsListView">
@@ -33,7 +34,7 @@
 					<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 					<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 				</div>
-				<div class="catalog_btn btn_js" data-name="catalog">Каталог</div>
+				<!-- <div class="catalog_btn btn_js" data-name="catalog">Каталог</div> -->
 				<?=$cart_info;?>
 			</div>
 			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">
@@ -61,7 +62,7 @@
 							<?}?>
 						</div> -->
 						<?if($GLOBALS['Page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
-							<p class="show_more"><a href="#" id="show_more_products">Показать еще 30 товаров</a></p>
+							<p class="show_more"><a href="#" id="show_more_products" data-cnt="<?=$cnt;?>">Показать еще 30 товаров</a></p>
 						<?}?>
 					<?}?>
 				</div>
@@ -95,13 +96,13 @@
 		$('#show_more_products').on('click', function(e){
 			e.preventDefault();
 			var page = $(this).closest('.products_page'),
-				id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
+				id_category = current_id_category,
 				start_page = parseInt(page.find('.paginator li.active').first().text()),
 				current_page = parseInt(page.find('.paginator li.active').last().text()),
 				next_page = current_page+1,
 				shown_products = (page.find('.card').get()).length,
 				skipped_products = 30*(start_page-1),
-				count = <?=isset($cnt)?$cnt:0;?>;
+				count = $(this).data('cnt');
 			console.log(page.find('.paginator li.active'));
 			console.log('start_page '+start_page);
 			console.log('shown_products '+shown_products);
