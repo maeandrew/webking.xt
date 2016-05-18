@@ -55,38 +55,10 @@ $(function(){
 
 	// Смена вида отображения списка товаров
 	$('.changeView_js').on('click', function(){
-			var view = $(this).data('view');
-			$('.productsListView i').removeClass('activeView');
-			$(this).addClass('activeView');
-			ChangeView(view);
-			/*switch (view) {
-				case 'list':
-					$('#view_block_js').removeClass('block_view').removeClass('column_view').addClass('list_view');					
-					$.cookie('product_view', 'list');
-					break;
-				case 'block':
-					$('#view_block_js').removeClass('list_view').removeClass('column_view').addClass('block_view');
-					$.cookie('product_view', 'block');
-					break;
-				case 'column':
-					$('#view_block_js').removeClass('list_view').removeClass('block_view').addClass('column_view');
-					$.cookie('product_view', 'column');
-					break;
-			}*/
-
-			/*if (currentCookie == 'list'){
-				$('#view_block_js').removeClass('list_view');
-				$('#view_block_js').addClass('block_view');
-				$('.view_list_js').removeClass('hidden');
-				$('.block_list_js').addClass('hidden');
-				$.cookie('product_view', 'block');
-			}else{
-				$('#view_block_js').addClass('list_view');
-				$('#view_block_js').removeClass('block_view');
-				$('.view_list_js').addClass('hidden');
-				$('.block_list_js').removeClass('hidden');
-				$.cookie('product_view', 'list');
-			}*/
+		var view = $(this).data('view');
+		$('.productsListView i').removeClass('activeView');
+		$(this).addClass('activeView');
+		ChangeView(view);
 	});
 
 

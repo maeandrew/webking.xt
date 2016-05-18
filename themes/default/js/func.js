@@ -980,31 +980,15 @@ function ajax(target, action, data, dataType){
 function ChangeView(view){
 	switch (view) {
 		case 'list':
-			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');					
-			$.cookie('product_view', 'list');
+			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');
 			break;
 		case 'block':
 			$('#view_block_js').removeClass().addClass('block_view col-md-12 ajax_loading');
-			$.cookie('product_view', 'block');
 			break;
 		case 'column':
 			$('#view_block_js').removeClass().addClass('column_view col-md-12 ajax_loading');
-			$.cookie('product_view', 'column');
 			break;
 	}
-
-	/*if(view == 'list'){
-		$('.prod_structure span.list').removeClass('disabled');
-		$('#view_block_js').removeClass('module_view').addClass('list_view');
-		$('#view_block_js .col-md-4').removeClass().addClass('col-md-12 clearfix');
-		$('.prod_structure span.module').addClass('disabled');
-	}else if(view == 'module'){
-		$('.prod_structure span.module').removeClass('disabled');
-		$('#view_block_js').removeClass('list_view').addClass('module_view');
-		$('#view_block_js .col-md-12').removeClass().addClass('col-lg-3 col-md-4 col-sm-6 col-xs-12 clearfix');
-		$('.prod_structure span.list').addClass('disabled');
-	}*/
-
 	ListenPhotoHover();
 	document.cookie="product_view="+view+"; path=/";
 }

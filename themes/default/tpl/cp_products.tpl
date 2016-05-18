@@ -26,23 +26,14 @@
 
 				</div>
 				<div class="productsListView">
-					<!-- <i class="material-icons view_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'hidden' : NULL?>">view_list</i>
-					<i class="material-icons block_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'hidden' : NULL?>">view_module</i> -->
-
-
-
-
-
 					<i class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
 					<i class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
 					<i class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
-
 				</div>
 				<div class="catalog_btn btn_js" data-name="catalog">Каталог</div>
 				<?=$cart_info;?>
 			</div>
-
-			<div id="view_block_js" class="<?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'list_view' : 'NULL'?> <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'block_view' : 'NULL'?> <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'column_view' : 'NULL'?> col-md-12 ajax_loading">
+			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">
 				<div class="row">
 					<div class="products">
 						<?=$products_list;?>
@@ -135,13 +126,9 @@
 					page.find('.paginator li.page'+next_page).addClass('active').find('a').attr('href','#');
 				}
 
-		   		if(show_count < 0){
-		   			$('#show_more_products').hide();
-		   		}
-
-		   		if(product_view != 'list'){ //Инициализания модульного просмотра
-		   			ChangeView('module');
-		   		}
+				if(show_count < 0){
+					$('#show_more_products').hide();
+				}
 
 				//Инициализация добавления товара в избранное
 				$('.preview_favorites').click(function(event) {
