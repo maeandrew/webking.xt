@@ -26,14 +26,23 @@
 
 				</div>
 				<div class="productsListView">
-					<i class="material-icons view_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'hidden' : NULL?>">view_list</i>
-					<i class="material-icons block_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'hidden' : NULL?>">view_module</i>
+					<!-- <i class="material-icons view_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'hidden' : NULL?>">view_list</i>
+					<i class="material-icons block_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'hidden' : NULL?>">view_module</i> -->
+
+
+
+
+
+					<i class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+					<i class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+					<i class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
+
 				</div>
 				<div class="catalog_btn btn_js" data-name="catalog">Каталог</div>
 				<?=$cart_info;?>
 			</div>
 
-			<div id="view_block_js" class="<?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'list_view' : 'block_view'?> col-md-12 ajax_loading">
+			<div id="view_block_js" class="<?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'list_view' : 'NULL'?> <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'block_view' : 'NULL'?> <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'column_view' : 'NULL'?> col-md-12 ajax_loading">
 				<div class="row">
 					<div class="products">
 						<?=$products_list;?>
@@ -87,29 +96,6 @@
 		// 	previewOwl = preview.find('#owl-product_slide_js');
 
 		ListenPhotoHover();//Инициализания Preview
-
-		// ПЕРЕКЛЮЧЕНИЯ ВИДА СПИСКА ТОВАРОВ
-		$('.productsListView').on('click', function(){
-			
-			var currentCookie = $.cookie('product_view');
-
-			if (currentCookie == 'list'){
-				$('#view_block_js').removeClass('list_view');
-				$('#view_block_js').addClass('block_view');
-				$('.view_list_js').removeClass('hidden');
-				$('.block_list_js').addClass('hidden');
-				$.cookie('product_view', 'block');
-			}else{
-				$('#view_block_js').addClass('list_view');
-				$('#view_block_js').removeClass('block_view');
-				$('.view_list_js').addClass('hidden');
-				$('.block_list_js').removeClass('hidden');
-				$.cookie('product_view', 'list');
-			}
-		});
-
-
-
 
 		//Показать еще 30 товаров
 		$('#show_more_products').on('click', function(e){
