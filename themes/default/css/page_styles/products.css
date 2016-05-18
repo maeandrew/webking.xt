@@ -380,6 +380,12 @@ label.info_key {
 .list_view .products .card .product_buy .buy_block .quantity button.btn_remove {
 	border-radius: 0 0 .2em .2em;
 }
+.list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock {
+	float: left;
+}
+.list_view .products .card .product_buy .buy_block span {	
+	font-weight: 500;
+}
 
 .list_view .product_buy .buy_block .btn_buy:after {
 	content: '';
@@ -449,6 +455,13 @@ label.info_key {
 }
 .block_view .products .card .product_buy .buy_block .price {
 	font-weight: 600;
+	margin: 0;
+}
+.block_view .products .card .product_buy .buy_block span {
+	position: absolute;
+	top: 0;
+	right: 20%;
+	font-weight: bold;
 }
 .block_view .products .card .product_buy .buy_block .btn_buy {
 	width: 100%;
@@ -474,9 +487,15 @@ label.info_key {
 	display: flex;
 	justify-content: center;
 }
+.block_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock {
+	display: flex;
+	flex-direction: row-reverse;
+}
 
 .block_view .products .card .product_buy .buy_block .quantity button {
 	position: relative;
+	top: 0;
+	bottom: 0;
 	opacity: 1;
 	width: 40px;
 	max-height: 100%;
@@ -502,6 +521,9 @@ label.info_key {
 	.block_view .products .card .product_buy .buy_block .quantity .units {
 		width: 40px;		
 	}
+	/*.block_view .products .card .product_buy .buy_block span {	
+		right: 70px;
+	}*/
 }
 
 @media (max-width: 950px) {

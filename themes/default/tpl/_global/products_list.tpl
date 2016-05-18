@@ -27,7 +27,7 @@
 		</div>
 		<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
-				<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+				<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
 				<div class="prodPrices hidden">
 					<?for($i = 0; $i < 4; $i++){?>
 						<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
@@ -41,10 +41,12 @@
 					
 				</div>
 				<div class="quantity">
-					<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
-					<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-					<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" min="0" step="<?=$item['min_mopt_qty'];?>">
-					<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+					<div class="quantityReverseBlock">
+						<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+						<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
+						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" min="0" step="<?=$item['min_mopt_qty'];?>">
+						<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+					</div>
 					<div class="units"><?=$item['units'];?></div>
 				</div>
 			</div>

@@ -330,6 +330,7 @@ label:hover + .info_description {
 
 .paginator {
 	text-align: center;
+	padding-top: 30px;
 	padding-bottom: 30px;
 	clear: both;
 }
@@ -1932,7 +1933,7 @@ section .stat_year {
 /*Producs*/
 
 .products {
-	padding-bottom: 30px;
+	/*padding-bottom: 30px;*/
 	/*padding-top: 50px;*/
 }
 .products .card {
@@ -2048,6 +2049,9 @@ section .stat_year {
 		margin-top: 20px;
 		margin-right: 0;
 	}
+}
+.list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock {
+	float: left;
 }
 
 /*#cart .product_name a,*/
@@ -2264,11 +2268,12 @@ section .stat_year {
 	top: 14px;
 }
 
-.show_more {
+.show_more {	
 	clear: both;
 	text-align: center;
 	font-size: 1.429em;
-	padding-bottom: 30px;
+	padding-top: 30px;	
+	position: relative;
 }
 
 /*TABLET*/

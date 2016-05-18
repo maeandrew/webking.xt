@@ -163,7 +163,7 @@
 						<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 						<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
 						<div class="buy_block">
-							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div>
+							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div><span>грн.</span>
 							<div class="prodPrices hidden">
 								<?for ($i = 0; $i < 4; $i++){?>
 									<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">

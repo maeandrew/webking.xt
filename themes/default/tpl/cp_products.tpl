@@ -62,7 +62,7 @@
 							<?}?>
 						</div> -->
 						<?if($GLOBALS['Page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
-							<p class="show_more"><a href="#" id="show_more_products" data-cnt="<?=$cnt;?>">Показать еще 30 товаров</a></p>
+							<p class="show_more show_more_js"><a href="#" data-cnt="<?=$cnt;?>">Показать еще 30 товаров</a></p>
 						<?}?>
 					<?}?>
 				</div>
@@ -93,7 +93,7 @@
 		ListenPhotoHover();//Инициализания Preview
 
 		//Показать еще 30 товаров
-		$('#show_more_products').on('click', function(e){
+		/*$('.show_more_js').on('click', function(e){
 			e.preventDefault();
 			var page = $(this).closest('.products_page'),
 				id_category = current_id_category,
@@ -157,7 +157,7 @@
 
 				$('.load_more').remove();
 		   });
-		});
+		});*/
 
 	});
 
