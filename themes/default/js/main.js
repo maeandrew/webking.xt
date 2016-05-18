@@ -58,6 +58,11 @@ $(function(){
 		var view = $(this).data('view');
 		$('.productsListView i').removeClass('activeView');
 		$(this).addClass('activeView');
+		if (view == 'list') {
+			$('.cart_info .price_nav').removeClass('hidden');
+		}else{
+			$('.cart_info .price_nav').addClass('hidden');
+		}
 		ChangeView(view);
 	});
 

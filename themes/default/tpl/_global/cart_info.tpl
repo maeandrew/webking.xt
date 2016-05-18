@@ -60,6 +60,6 @@
 			}
 		?>
 	</div>
-	<div class="price_nav"></div>
+	<div class="<?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'price_nav' : ''?> <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] != 'list' ? 'hidden' : ''?>"></div>
 </div>
 

@@ -980,7 +980,7 @@ function ajax(target, action, data, dataType){
 function ChangeView(view){
 	switch (view) {
 		case 'list':
-			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');
+			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');			
 			break;
 		case 'block':
 			$('#view_block_js').removeClass().addClass('block_view col-md-12 ajax_loading');
