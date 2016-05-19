@@ -195,10 +195,10 @@ h5 {
 	width: 25px;
 }
 .center_wrap .sorting .jq-selectbox__select:hover {
-	border-color:#52cf55;
+	border-color: #52cf55;
 }
 .center_wrap .sorting .jq-selectbox__select:hover .jq-selectbox__trigger{
-	color:#52cf55;
+	color: #52cf55;
 }
 .center_wrap .sorting .jq-selectbox__trigger:after{
 	content: "\e10f";
@@ -363,6 +363,7 @@ label.info_key {
 	vertical-align: bottom;
 }
 .list_view .product_section .product_info .product_article {
+	display: block;
 	line-height: 20px;
 }
 .list_view .product_section .product_info form {
@@ -383,21 +384,28 @@ label.info_key {
 .list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock {
 	float: left;
 }
-.list_view .products .card .product_buy .buy_block span {	
-	font-weight: 500;
+.list_view .card .buy_block span {
+	display: none;
+	margin-left: 5px;
 }
-.list_view .products .card .product_name {
+.list_view .card .product_name {
 	min-height: 100px;
+	float: left;
+	width: calc(100% - 130px - 350px);
+	display: table-row;
 }
-.list_view .products .card .ordered {
+.list_view .card .product_name > a {
+	display: table-cell;
+}
+.list_view .card .ordered {
 	top: calc(50% - 12px);
 }
 
-.list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock .qty_js {
+.list_view .card .product_buy .buy_block .quantity .quantityReverseBlock .qty_js {
 	float: left;
 }
 
-.list_view .product_buy .buy_block .btn_buy:after {
+.list_view .buy_block .btn_buy:after {
 	content: '';
 	position: absolute;
 	top: calc(-35px / 2);
@@ -423,9 +431,9 @@ label.info_key {
 
 .block_view .products .card {
 	width: calc(20% - 10px);
-	border: 1px solid #d9d9d9;	    
-    margin: 5px;
-    position: relative;
+	border: 1px solid #d9d9d9;
+	margin: 5px;
+	position: relative;
 }
 .block_view .products .card:hover {
 	border: 1px solid #aaa;
@@ -458,60 +466,64 @@ label.info_key {
     top: 5px;
 }
 
-.block_view .products .card .product_buy,
-.block_view .products .card .suplierPriceBlock {
+.block_view .card .product_buy,
+.block_view .card .suplierPriceBlock {
 	width: 100%;
 	height: auto;
 	max-width: none;
 	min-width: 100%;
 	padding: 0;
 	position: relative;
-} 
+}
 
-.block_view .products .card .product_buy .buy_block {
+.block_view .buy_block {
 	flex-wrap: wrap;
 	justify-content: center;
 }
-.block_view .products .card .product_buy .buy_block .price {
-	font-weight: 600;
+.block_view .buy_block .product_price {
+	white-space: nowrap;
+	text-align: center;
+}
+.block_view .buy_block .price {
+	display: inline-block;
 	margin: 0;
 }
-.block_view .products .card .product_buy .buy_block span {
-	position: absolute;
-	top: 0;
-	right: 20%;
-	font-weight: bold;
+.block_view .buy_block span {
+	padding-top: 3px;
+	margin-left: 5px;
 }
-.block_view .products .card .product_buy .buy_block .btn_buy {
+.block_view .buy_block .btn_buy {
 	width: 100%;
-	height: 55px;
+	height: 36px;
+	margin-bottom: 10px;
 }
 
-.block_view .products .card .product_buy .buy_block .btn_buy button {
+.block_view .buy_block .btn_buy button {
 	position: relative;
 	width: 100%;
 	left: 0;
 	right: 0;
 }
-.block_view .products .card .product_buy .buy_block .btn_buy div {
+.block_view .buy_block .btn_buy div {
 	position: relative;
 }
 
-.block_view .products .card .product_buy .buy_block .btn_buy:hover button {
+.block_view .card .buy_block .btn_buy:hover button {
+	position: relative;
 	height: 36px;
 	top: 0px;
 }
 
-.block_view .products .card .product_buy .buy_block .quantity {
+.block_view .card .quantity {
 	display: flex;
 	justify-content: center;
 }
-.block_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock {
+.block_view .card .quantity .quantityReverseBlock {
 	display: flex;
 	flex-direction: row-reverse;
 }
 
-.block_view .products .card .product_buy .buy_block .quantity button {
+.block_view .card .quantity button {
 	position: relative;
 	top: 0;
 	bottom: 0;
@@ -552,8 +564,11 @@ label.info_key {
 }
 
 @media (max-width: 728px) {
-	.block_view .products .card {
+	.block_view .products .card,
+	.block_view .products .card:hover {
 		width: calc(50% - 10px);	
+		background: #fff;
+		border: 0;
 	}
 	.block_view .products .card .product_buy .buy_block .quantity button {
 		display: none;
@@ -1130,8 +1145,37 @@ label.info_key {
 	}
 }
 @media (max-width: 768px){
+	.products .card {
+		position: relative;
+		padding: 0;
+		border: 0;
+		background: #fff;
+		margin-bottom: 10px;
+	}
+	.products .card .product_name {
+		padding: 10px;
+		padding-bottom: 0;
+	}
+	.products .card .product_buy {
+		clear: both;
+		width: 100%;
+		padding: 10px;
+		height: auto;
+	}
+	.list_view .products .card {
+		padding: 10px;
+	}
 	.module_view .product_section .product_buy .buy_block {
 		justify-content: space-around !important;
+	}
+	.list_view .card .product_buy .buy_block .product_price {
+		background: #f5f5f5;
+		border-radius: .2em;
+		padding: 0 10px;
+		flex-basis: auto;
+	}
+	.block_view .card .product_buy .buy_block .product_price {
+		flex-basis: auto;
 	}
 	.module_view div[class^="col-"] {
 		border-top: none;
@@ -1146,6 +1190,11 @@ label.info_key {
 	.list_view .card .product_buy .buy_block .btn_add,
 	.list_view .card .product_buy .buy_block .btn_remove {
 		display: none !important;
+	}
+	.list_view .products .card .product_name {
+		padding: 0;
+		width: calc(100% - 130px);
+		float: left;
 	}
 }
 
@@ -1164,26 +1213,23 @@ label.info_key {
 	}
 }
 @media (max-width: 360px) {
-	.products .card {
-		position: relative;
-		padding: 10px 0;
-	}
 	.products .card .product_name a {
 		max-height: 3.4em;
 		overflow: hidden;
 	}
-	.products .card .product_buy {
-		clear: both;
-		width: 100%;
+	.list_view .products .card .product_buy {
+		padding: 0;
 	}
 	.products .card .product_buy .buy_block {
 		margin: 0;
 		padding: 0;
 	}
+	.products .card .product_buy .buy_block .quantity {
+		display: none;
+	}
 	.products .card .product_buy .btn_buy,
 	.products .card .product_buy .btn_buy button {
 		font-size: 0.9em;
-		width: 64px;
 		padding: 0;
 	}
 	.products .card .product_buy .btn_buy button.material-icons {

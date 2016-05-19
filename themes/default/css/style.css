@@ -71,9 +71,6 @@ ol {
 	list-style-type: decimal;
 	margin-left: 15px;
 }
-#newheader_wrapp {
-	position: relative;
-}
 input.mdl-textfield__input,
 textarea.mdl-textfield__input {
 	border-radius: 0;
@@ -276,8 +273,8 @@ label:hover + .info_description {
 }
 [class^="active_"] .banner,
 [class*=" active_"] .banner,
-[class^="active_"] .main ,
-[class*=" active_"] .main,
+[class^="active_"] .center ,
+[class*=" active_"] .center,
 [class^="active_"] footer,
 [class*=" active_"] footer {
 	-webkit-filter: blur(2px);
@@ -512,25 +509,12 @@ body:not(.c_main) .banner {
 
 /*LAYOUT*/
 
-header {
-	position: fixed;
-	max-height: 52px;
-	width: 100%;
-	padding: 10px;
-	top: 0;
-	z-index: 100;
-	box-sizing: border-box;
-	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
-	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
-	transition: all .4s cubic-bezier(.4, 0, .2, 1);
-}
-.header_wrapp,
 .main {
 	width: 100%;
-	
-}
-.main {
 	overflow: hidden;
+	margin: 0 auto;
+	max-width: 1600px;
+	/*background: #faa;*/
 }
 aside,
 .center {
@@ -1512,6 +1496,9 @@ section.center {
 			z-index: 100;
 			left: -360px;
 			height: calc(100vh - 52px);
+			-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+			-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+			transition: all .4s cubic-bezier(.4,0,.2,1);
 		}
 		.no-sidebar aside.opened {
 			top: 52px;
@@ -2046,7 +2033,7 @@ section .stat_year {
 /****************************************/
 
 .products .card {
-    overflow: auto;
+    overflow: hidden;
 }
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
@@ -2143,14 +2130,16 @@ section .stat_year {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	font-size: 1.4em;
+}
+.product_buy .buy_block .product_price {
+	flex-basis: 20%;
+	white-space: nowrap;
 }
 .product_buy .buy_block .price {
-	font-size: 1.4em;
-	flex-basis: 20%;
 	text-align: center;
 	line-height: 36px;
 	border-radius: .2em;
-	margin-left: 10px;
 }
 
 .product_buy .priceMoptInf {
@@ -2198,12 +2187,11 @@ section .stat_year {
 	z-index: 10;
 	border: 1px solid #f1f1f1;
 }
-.product_buy .buy_block .btn_buy:hover button {
+.card .product_buy .buy_block .btn_buy:hover button {
 	position: absolute;
 	top: calc(-35px / 2);
 	height: 70px;
 }
-.pb_wrapper:hover .product_buy .buy_block .btn_buy button,
 .card:hover .product_buy .buy_block .btn_buy button {
 	background: #b0eeb2;
 	border-color: #b0eeb2;
@@ -2262,6 +2250,7 @@ section .stat_year {
 	float: right;
 	margin-left: .5em;
 	width: 40px;
+	font-size: 0.7em;
 }
 .product_buy .buy_block .quantity .qty_js {
 	text-align: center;
@@ -2377,7 +2366,7 @@ section .stat_year {
 	.content {
 		padding: 0 5px;
 	}
-	.products .product_name {
+	.list_view .products .card .product_name {
 		width: calc(100% - 130px);
 	}
 	.products .product_info,
@@ -2592,11 +2581,8 @@ section .stat_year {
 		width: auto;
 	}
 	.products .card .product_photo {
+		padding: 0;
 		padding-right: 10px;
-	}
-	.products .card .product_name {
-		width: calc(100% - 130px);
-		float: left;
 	}
 	.products .product_buy {
 		width: calc(100% - 130px);
@@ -2615,6 +2601,9 @@ section .stat_year {
 		border: 0;
 		top: 0;
 		height: 36px;
+	}
+	.products .card .product_buy .product_price span {
+		display: inline;
 	}
 	/*.product_buy .price {
 		text-align: left;
@@ -2848,7 +2837,6 @@ section .stat_year {
 @media (min-width: 728px) and (max-width: 880px) {
 	.content_header .cart_info {
 		width: 100%;
-		margin-top: 13px;
 	}
 }
 @media (min-width: 1170px) {
@@ -2969,20 +2957,6 @@ section .stat_year {
 	text-align: center;
 }
 
-.product_name {
-	float: left;
-	width: calc(100% - 130px - 350px);
-	display: table-row;
-}
-.product_name > a {
-	display: table-cell;
-}
-
-.product_name .product_article {
-	display: block;
-}
-
-
 @media (min-width: 481px) and (max-width: 900px) {
 	#cart .product_buy .buy_block .btn_remove,
 	#cart .product_buy .buy_block .btn_buy {
@@ -3005,13 +2979,16 @@ section .stat_year {
 		padding-left: 1em;
 	}
 }
-@media (min-width: 481px) and (max-width: 727px) {
+@media (max-width: 727px) {
 	.card .product_info {
 		margin-top: 0;
 	}
 	#cart .note {
 		min-width: 150px;
 		max-width: 400px;
+	}
+	.page_content {
+		background: #f5f5f5;
 	}
 	.product_buy .price {
 		float: left;
@@ -3027,6 +3004,9 @@ section .stat_year {
 	}
 }
 @media (max-width: 480px) {
+	body {
+		padding-top: 45px;
+	}
 	#cart .product_buy .summ {
 		text-align: left;
 	}

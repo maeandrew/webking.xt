@@ -1,19 +1,9 @@
 <div class="product mdl-grid">
 	<?// Проверяем доступнось розницы
-	($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?$mopt_available = true:$mopt_available = false;
+	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
-	($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
-	<!-- SHOWCASE SLIDER -->
-
-	<div class="mdl-cell mdl-cell--12-col">
-		<h1><?=$item['name']?></h1>
-	</div>
-	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
-		<p class="product_article">Арт: <?=$item['art']?></p>
-		<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
-			<!-- Ссылка на редактирование товара для администратором -->
-			<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
-		<?}?>
+	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;?>
+	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
 				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
@@ -227,18 +217,24 @@
 			</script>
 		<?}?>
 	</div>
-	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet">
-		<div class="content_header mdl-cell--hide-phone clearfix">
+	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
+		<div class="product_name">
+			<h1><?=$item['name']?></h1>
+			<p class="product_article">арт: <?=$item['art']?></p>
+			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
+				<!-- Ссылка на редактирование товара для администратором -->
+				<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
+			<?}?>
+		</div>
+		<div class="content_header mdl-cell--hide-phone">
 			<?=$cart_info;?>
 		</div>
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy clearfix" data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block">
-					<div class="price">
-						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
-					</div>
+					<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
 					<div class="btn_buy">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>

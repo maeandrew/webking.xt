@@ -19,7 +19,7 @@
 		</div>
 		<div class="product_name">
 			<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
-			<span class="product_article">Арт: <?=$item['art'];?></span>
+			<span class="product_article">арт: <?=$item['art'];?></span>
 			<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
 				<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
 				<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
@@ -27,7 +27,9 @@
 		</div>
 		<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 			<div class="buy_block">
-				<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+				<div class="product_price">
+					<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+				</div>
 				<div class="prodPrices hidden">
 					<?for($i = 0; $i < 4; $i++){?>
 						<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
