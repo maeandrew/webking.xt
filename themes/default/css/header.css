@@ -542,7 +542,7 @@ header .catalog_btn {
 	line-height: 20px;
 }
 .panel ul.phone_nav_contacts li a {
-	margin-left: 24px;
+	margin-left: 32px;
 }
 .panel ul.phone_nav_contacts .parent_nav a {
 	margin-left: 8px;
@@ -561,6 +561,7 @@ header .catalog_btn {
 #phone_menu .phone_nav {
 	border-top: 1px solid #E5E5E5;
 	border-bottom: 1px solid #E5E5E5;
+	clear: both;
 }
 .panel ul.phone_nav li a {
 	display: block;

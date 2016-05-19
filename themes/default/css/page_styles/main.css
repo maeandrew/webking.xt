@@ -22,7 +22,7 @@
 	max-width: 1600px;
 	margin: 0 auto;
 	padding: 2%;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: space-between;
 	box-sizing: border-box;
 }
@@ -122,7 +122,7 @@
 		line-height: 1em;
 	}
 	.cont > a {
-		flex-basis: 30%;
+		flex-basis: calc(100%/3 - 2%);
 	}
 
 

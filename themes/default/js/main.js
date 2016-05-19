@@ -1040,7 +1040,7 @@ $(function(){
 			}).fail(function(response){
 				alert('Ошибка!');
 			});
-		}		
+		}
 	});
 
 	
