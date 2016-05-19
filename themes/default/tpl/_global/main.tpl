@@ -116,6 +116,7 @@
 				}
 			}
 		</script>
+		<link href="http://xt/css/../themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
 	<?}?>
 	<!-- END define search box in google sitelinks -->
 	<noscript>
@@ -153,21 +154,18 @@
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 					<h3>Снабжение<br> предриятий</h3>
-
 				</span>
 			</a>
 			<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 					<h3>Поставки<br> магазинам</h3>
-
 				</span>
 			</a>
 			<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 					<h3>Обеспечение<br> быта</h3>
-
 				</span>
 			</a>
 		</div>
@@ -267,7 +265,7 @@
 					width: 100%;
 					height: 300px;
 				}
-			</style>
+			</style>			
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] !== 'main'){?>
@@ -296,8 +294,16 @@
 							<div class="your_discount">Ваша скидка</div>
 							<div class="price_nav"></div>
 						</div>
+						<div class="productsListView">
+							<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+							<span class="mdl-tooltip" for="changeToList">Вид списком</span>
+							<i id="changeToBlock" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+							<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
+							<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
+							<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
+						</div>
 					</div>
-					<div id="view_block_js" class="list_view col-md-12 ajax_loading">
+					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">
 						<div class="row">
 							<div class="products">
 								<?=$products_list;?>
@@ -730,18 +736,18 @@
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>
-			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
-			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
+			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
+			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
-			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, удалить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
+			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, удалить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите отменить заказ?</h5>
-			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect applyBtn">Да, отменить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
+			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, отменить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
 		<!-- Authentication -->
 		<div id="big_photo" data-type="modal">
