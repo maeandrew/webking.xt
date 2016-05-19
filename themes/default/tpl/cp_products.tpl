@@ -35,7 +35,7 @@
 					<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 					<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 				</div>
-				<!-- <div class="catalog_btn btn_js" data-name="catalog">Каталог</div> -->
+				<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 				<?=$cart_info;?>
 			</div>
 			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">

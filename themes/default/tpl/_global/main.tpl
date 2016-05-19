@@ -171,7 +171,7 @@
 		</div>
 	</section>
 	
-	<aside class="mdl-color--grey-100 <?=isset($navigation) && in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'basic_sb':'alternative_sb'?>">
+	<aside class="mdl-color--grey-100" id="catalog" <?=(isset($navigation) && in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])) || !G::isMobile()?null:'data-type="panel"'?>>
 		<div class="wrapper">
 			<?=$__sidebar_l?>
 			<?if($news != false){?>
@@ -221,7 +221,7 @@
 				</div>
 			<?}?>
 		</div>
-		<div class="catalog_close btn_js hidden" data-name="catalog">
+		<div class="catalog_close btn_js" data-name="catalog">
 			<i class="material-icons" title="Закрыть каталог">close</i>
 		</div>
 	</aside>
@@ -280,8 +280,7 @@
 							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
 								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 							<?}?>
-						</div>
-						
+						</div>						
 						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 						<div class="cart_info mdl-cell--hide-phone clearfix <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
 							<div class="your_discount">Ваша скидка</div>
