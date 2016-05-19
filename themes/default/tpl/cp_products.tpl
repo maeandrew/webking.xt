@@ -9,7 +9,6 @@
 
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
 						<?foreach($available_sorting_values as $key => $alias){ ?>
-							<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
 								<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
 									<?=$alias?>
 								</li>

@@ -18,7 +18,6 @@ class Link {
 	 * @param array $params массив дополнительных настроек (страница, фильтр, сортировка)
 	 */
 	public static function Category($rewrite, $params = array()){
-		//print_r($rewrite); die();
 		$str_filter = $str_sort = $str_page = $price_range = $str_segment = '';
 		$clear = false;
 		if(!isset($params['clear']) || $params['clear'] === false){
@@ -84,9 +83,9 @@ class Link {
 				$str_filter .= ($str_filter !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
 			}
 		}
-		// if($clear){
-		// 	return _base_url.'/'.$rewrite;
-		// }
+		 if($clear){
+		 	return _base_url.'/'.$rewrite;
+		 }
 		return _base_url.'/'.$rewrite. ($str_filter ?  '/' . $str_filter : ''). ($price_range ? '/' . $price_range : '') . ($str_sort ?  '/' . $str_sort : '') . ($str_segment ?  '/' . $str_segment : '') . ($str_page ? '/' . $str_page : '');
 	}
 
