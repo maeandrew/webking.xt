@@ -18,7 +18,7 @@ class Link {
 	 * @param array $params массив дополнительных настроек (страница, фильтр, сортировка)
 	 */
 	public static function Category($rewrite, $params = array()){
-		print_r($rewrite); die();
+		//print_r($rewrite); die();
 		$str_filter = $str_sort = $str_page = $price_range = $str_segment = '';
 		$clear = false;
 		if(!isset($params['clear']) || $params['clear'] === false){
