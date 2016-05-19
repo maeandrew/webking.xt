@@ -3007,6 +3007,9 @@ section .stat_year {
 	body {
 		padding-top: 45px;
 	}
+	aside.opened {
+		top: 45px;
+	}
 	#cart .product_buy .summ {
 		text-align: left;
 	}

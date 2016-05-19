@@ -1,10 +1,9 @@
 <?foreach($list as $item){
 	$in_cart = false;
-		if(!empty($_SESSION['cart']['products'][$item['id_product']])){
-			$in_cart = true;
-		}
-		$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
-	?>
+	if(isset($_SESSION['cart']['products'][$item['id_product']])){
+		$in_cart = true;
+	}
+	$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 	<div class="card">
 		<div class="product_photo">
 			<a href="#">
