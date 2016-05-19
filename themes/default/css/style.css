@@ -2024,6 +2024,7 @@ section .stat_year {
 	color: #018b06;
 	right: 0;
 	top: 10px;
+	cursor: help;
 }
 .products .card [for^="ordered-"] {
 	font-size: 12px;
