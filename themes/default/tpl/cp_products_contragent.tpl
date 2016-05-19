@@ -1,7 +1,7 @@
 <?if(!empty($list) && empty($subcats)){?>
 	<div class="sorting">
 		<!--Сортировка по названию !-->
-		<?if(!isset($_GET['search_in_cat'])){?>
+		<!--<?if(!isset($_GET['search_in_cat'])){?>
 			<form action="" method="POST">
 				<?if(in_array('sorting', $list_controls)){?>
 					<label for="sort_prod">Сортировка</label>
@@ -16,11 +16,39 @@
 					</select>
 				<?}?>
 			</form>
-		<?}?>
+		<?}?>-->
 		<!--сортировка по названию!-->
-		<div class="prod_structure">
+		<!--<div class="prod_structure">
 			<span class="icon-font list">view_list</span>
 			<span class="icon-font module disabled">view_module</span>
+		</div>-->
+	</div>
+	<div class="content_header clearfix">
+		<div class="sort imit_select">
+			<button id="sort-lower-left" class="mdl-button mdl-js-button">
+				<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
+			</button>
+
+			<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
+				<?foreach($available_sorting_values as $key => $alias){ ?>
+					<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
+						<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
+							<?=$alias?>
+						</li>
+					</a>
+				<?}?>
+			</ul>
+
+			<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
+			<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+				<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+			<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+				<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+			<?}?>
+		</div>
+		<div class="productsListView">
+			<i class="material-icons view_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'hidden' : NULL?>">view_list</i>
+			<i class="material-icons block_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'hidden' : NULL?>">view_module</i>
 		</div>
 	</div>
 <?}?>

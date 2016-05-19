@@ -170,95 +170,64 @@
 			</a>
 		</div>
 	</section>
-	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
-		<aside id="catalog" class="mdl-color--grey-100 mdl-cell--hide-phone" data-type="panel">
-			<div class="wrapper">
-				<?=$__sidebar_l?>
-				<?if($news != false){?>
-					<div class="xt_news">
-						<a href="<?=Link::Custom('news', $news['translit']);?>">
-							<h6 class="min news_title"><?=$news['title']?></h6>
-							<?if(isset($news['thumbnail'])){?>
-								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
-							<?}?>
-							<div class="min news_description"><?=$news['descr_short']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
-									Опубликовано Сегодня
-								<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?  echo date("d.m.Y", $news['date']);
-								}?>
-							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('news');?>">Все новости >>></a>
+	
+	<aside class="mdl-color--grey-100 <?=isset($navigation) && in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'basic_sb':'alternative_sb'?>">
+		<div class="wrapper">
+			<?=$__sidebar_l?>
+			<?if($news != false){?>
+				<div class="xt_news">
+					<a href="<?=Link::Custom('news', $news['translit']);?>">
+						<h6 class="min news_title"><?=$news['title']?></h6>
+						<?if(isset($news['thumbnail'])){?>
+							<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
+						<?}?>
+						<div class="min news_description"><?=$news['descr_short']?></div>
+						<div class="min news_date">
+							<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
+								Опубликовано Сегодня
+							<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
+								Опубликовано Вчера
+							<?}else{?>
+								Опубликовано
+							<?  echo date("d.m.Y", $news['date']);
+							}?>
 						</div>
+					</a>
+					<div class="min news_more">
+						<a href="<?=Link::Custom('news');?>">Все новости >>></a>
 					</div>
-				<?}?>
-				<?if($post != false){?>
-					<div class="xt_news" style="margin-bottom:50px;">
-						<a href="<?=Link::Custom('news', $news['translit']);?>">
-							<h6 class="min news_title"><?=$post['title']?></h6>
-							<img style="margin-top:15px;">
-							<div class="min news_description"><?=$post['content_preview']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == $post['date']){?>
-									Опубликовано Сегодня
-								<?}elseif($post['date']){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?echo $post['date'];
-								}?>
-							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('post');?>">Все статьи >>></a>
+				</div>
+			<?}?>
+			<?if($post != false){?>
+				<div class="xt_news" style="margin-bottom:50px;">
+					<a href="<?=Link::Custom('news', $news['translit']);?>">
+						<h6 class="min news_title"><?=$post['title']?></h6>
+						<img style="margin-top:15px;">
+						<div class="min news_description"><?=$post['content_preview']?></div>
+						<div class="min news_date">
+							<?if(date('d-m-Y') == $post['date']){?>
+								Опубликовано Сегодня
+							<?}elseif($post['date']){?>
+								Опубликовано Вчера
+							<?}else{?>
+								Опубликовано
+							<?echo $post['date'];
+							}?>
 						</div>
+					</a>
+					<div class="min news_more">
+						<a href="<?=Link::Custom('post');?>">Все статьи >>></a>
 					</div>
-				<?}?>
-			</div>
-			<div class="catalog_close btn_js" data-name="catalog">
-				<i class="material-icons" title="Закрыть каталог">close</i>
-			</div>
-		</aside>
-	<?}?>
+				</div>
+			<?}?>
+		</div>
+		<div class="catalog_close btn_js hidden" data-name="catalog">
+			<i class="material-icons" title="Закрыть каталог">close</i>
+		</div>
+	</aside>
+	
 	<div id="newheader_wrapp"></div>
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<?if(in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
-			<aside class="mdl-cell--hide-phone">
-				<div class="wrapper">
-					<?=$__sidebar_l?>
-					<?if($news != false){?>
-						<div class="xt_news">
-							<a href="<?=Link::Custom('news', $news['translit']);?>">
-								<h6 class="min news_title"><?=$news['title']?></h6>
-								<?if(isset($news['thumbnail'])){?>
-									<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
-								<?}?>
-								<div class="min news_description"><?=$news['descr_short']?></div>
-								<div class="min news_date">
-									<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
-										Опубликовано Сегодня
-									<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
-										Опубликовано Вчера
-									<?}else{?>
-										Опубликовано
-									<?  echo date("d.m.Y", $news['date']);
-									}?>
-								</div>
-							</a>
-							<div class="min news_more">
-								<a href="<?=Link::Custom('news');?>">Все новости >>></a>
-							</div>
-						</div>
-					<?}?>
-				</div>
-			</aside>
-		<?}?>
 		<section class="center">
 			<style>
 				#last_orders_count {
@@ -273,7 +242,7 @@
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header clearfix">
-						<div class="sort imit_select">
+						<!-- <div class="sort imit_select">
 							<button id="sort-lower-left" class="mdl-button mdl-js-button">
 								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
 							</button>
@@ -289,7 +258,31 @@
 							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
 								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 							<?}?>
+						</div> -->
+						<div class="sort imit_select">
+							<button id="sort-lower-left" class="mdl-button mdl-js-button">
+								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
+							</button>
+
+							<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
+								<?foreach($available_sorting_values as $key => $alias){ ?>
+									<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
+										<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
+											<?=$alias?>
+										</li>
+									</a>
+								<?}?>
+							</ul>
+
+							<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
+							<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+								<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+							<?}?>
 						</div>
+						
+						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 						<div class="cart_info mdl-cell--hide-phone clearfix <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
 							<div class="your_discount">Ваша скидка</div>
 							<div class="price_nav"></div>

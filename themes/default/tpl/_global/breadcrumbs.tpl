@@ -1,6 +1,6 @@
 <div class="breadcrumbs_wrapp clearfix">
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
-		<div class="catalog_btn mdl-cell--hide-phone btn_js" data-name="catalog">Каталог<i class="material-icons">keyboard_arrow_right</i></div>
+		<div class="catalog_btn btn_js" data-name="catalog">Каталог<i class="material-icons">keyboard_arrow_right</i></div>
 	<?}?>
 	<ul id="breadcrumbs" class="clearfix">
 		<?if(count($GLOBALS['IERA_LINKS'])>1){

@@ -49,6 +49,18 @@ window.onbeforeunload = function(e){
 //     swapPhoto(location.pathname);
 // }, false)
 $(function(){
+	if($(document).outerWidth() < 727) {
+		$('aside').addClass('alternative_sb').removeClass('basic_sb');
+	}
+	if($('aside').hasClass('alternative_sb')){
+		$('aside').attr({
+			'id': 'catalog',
+			'data-type': 'panel'
+		}).find('.catalog_close').removeClass('hidden');
+	}else if($('aside').hasClass('basic_sb')){
+		$('aside').removeAttr('id, data-type').find('.catalog_close').addClass('hidden');
+	}
+
 	if($(window.location.hash).length == 1){
 		openObject((window.location.hash).replace('#', ''));
 	}

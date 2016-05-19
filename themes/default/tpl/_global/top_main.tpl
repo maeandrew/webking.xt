@@ -241,5 +241,11 @@
 		$('.search_wrapp .mob_s_btn').click(function(){ 
 			$('#header_js').addClass('opened').closest('.sidebar, .no-sidebar').addClass('active_bg').find('.search_wrapp input[type="search"]').focus();
 		});
+		$('.search_close').click(function(event) {
+			$('.sidebar, .no-sidebar').removeClass('active_bg');
+		});
+		$('body > *:not(header)').click(function(event) {
+			$('.sidebar, .no-sidebar').removeClass('active_bg');
+		});
 	});
 </script>

@@ -1221,6 +1221,7 @@ section.center {
 		border: 1px solid #e0e0e0;
 		padding: 10px;
 		width: 19.07%;
+		min-width: 105px;
 		box-sizing: border-box;
 		margin-right: 20px;
 		cursor: pointer;
@@ -1237,6 +1238,7 @@ section.center {
 	aside {
 		width: 300px;
 		position: absolute;
+		/*position: fixed;*/
 		float: left;
 		top: auto;
 		bottom: auto;
@@ -1502,12 +1504,15 @@ section.center {
 		aside#catalog {
 			z-index: 100;
 			left: -360px;
-			height: calc(100% - 72px);
+			height: calc(100% - 44px);
 		}
 		aside#catalog.opened {
+			top: 52px;
 			left: 0;
+			-webkit-filter: inherit;
+			position: fixed;
 		}
-		aside#catalog .catalog_close {
+		aside .catalog_close {
 			width: 50px;
 			height: 50px;
 			position: absolute;
@@ -1518,7 +1523,7 @@ section.center {
 			border-left: none;
 			cursor: pointer;
 		}
-		aside#catalog .catalog_close i {
+		aside .catalog_close i {
 			line-height: 50px;
 			padding: 0 13px;
 			color: #bdbdbd;
@@ -1526,7 +1531,7 @@ section.center {
 			-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 			transition: all .4s cubic-bezier(.4,0,.2,1);
 		}
-		aside#catalog .catalog_close:hover i {
+		aside .catalog_close:hover i {
 			color: inherit;
 			position: absolute;
 			transform: scale(1.25);
@@ -3157,11 +3162,11 @@ div.modalEditOrder .applyBtn {
 
 
 /* Скрыть сайдбар */
-@media (min-width: 480px) and (max-width: 728px) {
+/*@media (min-width: 480px) and (max-width: 728px) {
 	aside {
 		display: none !important;
 	}
-}
+}*/
 
 #big_photo {
 	padding: 0;
@@ -3179,4 +3184,42 @@ div.modalEditOrder .applyBtn {
 }
 #big_photo[data-type="modal"].opened a.close_modal:hover {
 	background: rgba(0,0,0,0.5);
+}
+
+
+@media (min-width: 728px) and (max-width: 840px), (min-width: 728px) and (orientation: landscape) {
+	.content_header .catalog_btn {
+		display: none !important;
+	}
+}
+@media (min-width: 728px) and (orientation: landscape) {
+	.breadcrumbs_wrapp .catalog_btn {
+		font-size: 1em;
+		width: 19%;
+		margin-right: 10px;
+	}
+}
+@media (max-width: 727px)  {
+	.breadcrumbs_wrapp .catalog_btn {
+		font-size: 1em;
+		float: left;
+		border: 1px solid #e0e0e0;
+		padding: 10px;
+	}
+	.catalog_btn {
+		font-size: 1em;
+		float: right;		
+		padding: 10px;
+		width: 26%;
+		margin-right: 10px;
+		background: #F5F5F5;
+		color: #757575;
+		border: 1px solid #e0e0e0;
+		text-align: center;
+	}
+}
+@media (max-width: 350px) {
+	aside {
+		width: 270px;
+	}
 }
