@@ -381,14 +381,20 @@ while($cat = $dbtree->NextRow()){
 
 	// =========================================================
 // }
-$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'supplier_products_list.tpl');
+$template = '';
+if(G::isLogged()){
+	$template = $GLOBALS['profiles'][$_SESSION['member']['gid']]['name'].'_';
+}
+print_r($template.'products_list.tpl');
+// var_dump($template); die();
+$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].$template.'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$products->FillAssort($_SESSION['member']['id_user']);
 	$parsed_res = array(
 		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'product_list.tpl')
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
 		// 'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl')
 	);
 }elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_MANAGER_){
@@ -419,7 +425,7 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 	$tpl->Assign('warehouse', $prods);
 	$parsed_res = array(
 		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products_contragent.tpl')
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
 	);
 }else{
 	$_SESSION['price_mode'] = 3;

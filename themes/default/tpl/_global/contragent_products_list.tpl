@@ -31,7 +31,7 @@
 				<div class="fright service_block">
 					<p class="comment_question open_modal" data-target="comment_question">Отзывы и вопросы</p>
 					<?if($item['available_today'] == 1){?>
-						<p class="available_today"><span class="icon-font">clock</span>Отгрузка за 2 часа</p>
+						<p class="available_today"><span class="material-icons icon-font">timer</span>Отгрузка за 2 часа</p>
 					<?}?>
 				</div>
 			</div>
@@ -56,9 +56,9 @@
 					<?if(($item['price_opt'] > 0 || $item['price_mopt'] > 0)  && $item['visible'] != 0){?>
 						<div class="buy_buttons">
 							<!--удаление товара оптом из корзины-->
-							<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
+							<a href="#" class="material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
 							<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
-							<a href="#"	class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">add</a>
+							<a href="#"	class="material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">add</a>
 							<!--количество заказываемых товаров-->
 						</div>
 						<?if(!$in_cart){?>
@@ -94,7 +94,7 @@
 			<div class="product_info">
 				<div class="rating_block">
 					<div class="preview_favorites" data-idfavorite="<?=$item['id_product']?>" title="<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'Добавить товар в избранное':'Товар находится в избранных'?>">
-						<span class="icon-font favorite">favorites<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'-o':null?></span>
+						<span class="material-icons icon-font favorite">favorites<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'-o':null?></span>
 					</div>
 					<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/#tabs-2" class="rating">
 						<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
@@ -108,7 +108,7 @@
 										$star .= '_outline';
 									}
 								}?>
-								<li><span class="icon-font"><?=$star?></span></li>
+								<li><span class="material-icons icon-font"><?=$star?></span></li>
 							<?}?>
 						</ul>
 						<span class="comments"><?=$item['c_count']?>
