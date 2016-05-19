@@ -1,5 +1,8 @@
 <?php
 $request = $request_url = preg_replace('/^\//', '', preg_replace('/\/$/', '', isset($_GET['q'])?$_GET['q']:$_SERVER['REQUEST_URI']));
+// print_r($request);die();
+preg_match('/[\?].*$/', $_SERVER['REQUEST_URI'], $match);
+$GLOBALS['GetString'] = $match[0];
 preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
 $GLOBALS['REQAR'] = $ma[1];
 // Redirecting old pages to new format
