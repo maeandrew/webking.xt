@@ -458,15 +458,15 @@ label.info_key {
     top: 5px;
 }
 
-
-.block_view .products .card .product_buy {
+.block_view .products .card .product_buy,
+.block_view .products .card .suplierPriceBlock {
 	width: 100%;
 	height: auto;
 	max-width: none;
 	min-width: 100%;
 	padding: 0;
 	position: relative;
-}
+} 
 
 .block_view .products .card .product_buy .buy_block {
 	flex-wrap: wrap;
