@@ -1247,7 +1247,7 @@ section.center {
 		max-height: 100%;
 	}
 	.banner_hide aside {
-		position: fixed;
+		position: absolute;
 		top: 52px;
 		bottom: 0;
 	}

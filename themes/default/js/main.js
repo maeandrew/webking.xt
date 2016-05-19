@@ -344,7 +344,7 @@ $(function(){
 	var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
 		banner_height = $('.banner').outerHeight(),
-		header_height = header.outerHeight();
+		header_height = header.outerHeight();		
 	$(window).scroll(function(){
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
@@ -359,9 +359,10 @@ $(function(){
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
 			}
-			$('aside').css('bottom', 'auto');
+			$('aside').css('bottom', 'auto');			
 		}else{
 			$('aside').css('bottom', $(this).height()-($('section.center').height()-$(this).scrollTop()+header_height));
+			$('aside').css('position', 'fixed');
 		}
 	});
 
