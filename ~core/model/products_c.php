@@ -23,7 +23,7 @@ class Products {
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
-			"p.page_keywords", "notation_price", "instruction", "p.indexation");
+			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
@@ -707,8 +707,9 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 					RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product AND a.active = 1
 					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
-				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. $this->price_range ."
+				WHERE cp.id_product IS NOT NULL "
+				.(($gid == _ACL_SUPPLIER_)?"AND p.access_assort = 1 ":null).
+				$where . $where2. $this->price_range ."
 				GROUP BY p.id_product
 				HAVING p.visible = 1
 					".$prices_zero."
@@ -1151,7 +1152,7 @@ class Products {
 					ON un.id = p.id_unit
 				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 					ON pv.id_product = p.id_product
-				WHERE ".$where."
+				WHERE ".(($gid == _ACL_SUPPLIER_)?"p.access_assort = 1 AND ":null) .$where."
 				".$group_by."
 				ORDER BY ".$order_by."
 				".$limit;
@@ -2158,6 +2159,7 @@ class Products {
 			$f['notation_price'] = trim($arr['notation_price']);
 			$f['instruction'] = trim($arr['instruction']);
 			$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+			$f['access_assort'] = (isset($arr['access_assort']) && $arr['access_assort'] == "on")?1:0;
 		}
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
