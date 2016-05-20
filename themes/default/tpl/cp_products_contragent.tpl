@@ -50,6 +50,7 @@
 			<i class="material-icons view_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'hidden' : NULL?>">view_list</i>
 			<i class="material-icons block_list_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'hidden' : NULL?>">view_module</i>
 		</div>
+		<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 	</div>
 <?}?>
 <div class="products">

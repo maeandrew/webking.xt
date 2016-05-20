@@ -9,8 +9,7 @@
 
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
 						<?foreach($available_sorting_values as $key => $alias){ ?>
-							<a <?if(!isset($GLOBALS['Rewrite'])) { ?> href="<?=Link::Custom('search', null, array('sort' => $key))?>"
-								<?} else{ ?> href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>" <?} ?>                     >
+							<a href="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>">
 								<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
 									<?=$alias?>
 								</li>
@@ -35,7 +34,7 @@
 					<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 					<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 				</div>
-				<!-- <div class="catalog_btn btn_js" data-name="catalog">Каталог</div> -->
+				<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 				<?=$cart_info;?>
 			</div>
 			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">

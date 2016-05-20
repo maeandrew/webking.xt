@@ -1,8 +1,18 @@
 /*HEADER*/
 header {
+	position: fixed;
 	background: #fff;
 	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+	max-height: 52px;
+	width: 100%;
+	padding: 10px;
+	top: 0;
+	z-index: 100;
+	box-sizing: border-box;
+	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
+	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
+	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 }
 header a {
 	line-height: 32px;
@@ -350,6 +360,9 @@ header .catalog_btn {
 	header .header_wrapp {
 		display: flex;
 		justify-content: flex-end;
+		position: relative;
+		max-width: 1600px;
+		margin: 0 auto;
 	}
 	header .header_wrapp .logo {
 		position: absolute;

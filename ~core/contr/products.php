@@ -382,10 +382,10 @@ while($cat = $dbtree->NextRow()){
 	// =========================================================
 // }
 $template = '';
-if(G::isLogged()){
+if(G::isLogged() && !in_array($_SESSION['member']['gid'], array(_ACL_ADMIN_, _ACL_CUSTOMER_))){
 	$template = $GLOBALS['profiles'][$_SESSION['member']['gid']]['name'].'_';
 }
-print_r($template.'products_list.tpl');
+// print_r($template.'products_list.tpl');
 // var_dump($template); die();
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].$template.'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
