@@ -40,12 +40,10 @@ class Link {
 		if(!empty($params)){
 			self::ParseParams($params, $data);
 		}
-
-		// print_r($data);die();
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }
-		return _base_url.'/'.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data);
+		return _base_url.'/'.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).((isset($GLOBALS['Rewrite']) && $rewrite == $GLOBALS['Rewrite'])?$GLOBALS['GetString']:null);
 	}
 
 	/**
@@ -59,7 +57,7 @@ class Link {
 			self::ParseParams($params, $data);
 		}
 		$controller = $controller=='main'?'':$controller;
-		return _base_url.'/'.$controller.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data);
+		return _base_url.'/'.$controller.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).(($controller == $GLOBALS['CurrentController'])?$GLOBALS['GetString']:null);
 	}
 
 	/**
@@ -127,7 +125,6 @@ class Link {
 		foreach ($data as $key=>&$v){
 			$url .= '/'.$v;
 		}
-		$url .= $GLOBALS['GetString'];
 		return $url;
 	}
 }
