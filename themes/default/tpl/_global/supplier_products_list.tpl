@@ -27,18 +27,22 @@
 				}?>
 			</p></div>
 			<div class="count_cell card_item">
-				<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>
+				<span>Минимальное кол-во:</span>
+				<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>			
 			</div>
 			<div class="count_cell card_item">
+				<span>Количество в ящике:</span>
 				<p id="inbox_qty_<?=$p['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
 			</div>
 
 			<div class="product_check card_item">
-				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$p['id_product']?>">
+				<span>Добавить:</span>			
+				<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$p['id_product']?>">				
 					<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
 					<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$p['id_product']?>)"/>
-				</label>
+				</label>				
 			</div>
+
 		</div>
 	</div>
 <?}?>
