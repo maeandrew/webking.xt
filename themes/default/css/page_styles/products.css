@@ -412,6 +412,23 @@ label.info_key {
 	width: 100%;
 	height: 70px;
 }
+.list_view .products .card_wrapper {
+	height: 60px;	
+}
+.list_view .products .card_wrapper .product_photo,
+.list_view .products .card_wrapper .product_name {
+	padding: 0;
+}
+.list_view .products .card_wrapper .product_photo {
+	margin-top: 13px;
+}
+.list_view .products .card_wrapper .product_name {
+	margin-top: 15px;
+}
+.list_view .products .card .suplierPriceBlock .count_cell .suplierPriceBlockLabel,
+.list_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel {
+	display: none;
+}
 /*.list_view .product_section .product_buy {
 	position: relative;
 	float: right;
@@ -535,7 +552,9 @@ label.info_key {
 }
 
 /*Стили для блочного списка поставщика*/
-
+.block_view .products .card_wrapper {
+	display: none;
+}
 .block_view .products .card .suplierPriceBlock {	
 	display: flex;
     flex-wrap: wrap;
@@ -566,8 +585,8 @@ label.info_key {
 	line-height: 20px;
 	font-weight: 600;
 }
-.block_view .products .card .suplierPriceBlock .count_cell span,
-.block_view .products .card .suplierPriceBlock .product_check span{
+.block_view .products .card .suplierPriceBlock .count_cell .suplierPriceBlockLabel,
+.block_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel{
 	margin-right: 5px;
 	font-weight: 600;
 }

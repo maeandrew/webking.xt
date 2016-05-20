@@ -44,6 +44,9 @@
 <?}?>
 <div class="separateBlocks"></div>
 <div class="products">
+	<?=$products_list;?>
+</div>
+<!-- <div class="products">
 	<div class="card card_wrapper clearfix">
 		<div class="product_photo card_item">Фото товара</div>
 		<p class="product_name card_item">Наименование товара</p>
@@ -54,8 +57,5 @@
 			<div class="product_check card_item">Добавить в<br>ассортимент</div>
 		</div>
 	</div>
-	<!-- тут был блок из supplier_products_list.tpl -->
-	<div class="products">
-		<?=$products_list;?>
-	</div>
-</div>
+	тут был блок из supplier_products_list.tpl	
+</div> -->
