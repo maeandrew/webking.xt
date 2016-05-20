@@ -96,9 +96,11 @@
 					</a>
 				</div>
 				<div class="fright service_block">
-					<p class="comment_question open_modal" data-target="comment_question">Отзывы и вопросы</p>
+					<!-- <p class="comment_question open_modal" data-target="comment_question">Отзывы и вопросы</p> -->
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
+
 					<?if($item['available_today'] == 1){?>
-						<span class="material-icons icon-font">timer</span>
+						<span class="material-icons icon-font timerIcon">timer</span>
 						<p class="available_today">
 							Отгрузка за 2 часа
 						</p>

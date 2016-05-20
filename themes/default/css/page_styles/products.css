@@ -436,6 +436,10 @@ label.info_key {
 .list_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel {
 	display: none;
 }
+.list_view .product_section .product_info .service_block .timerIcon,
+.list_view .product_section .product_info .service_block .available_today {
+	margin-top: 4px;
+}
 
 /*Отображения списка товаров для профиля контрагента*/
 
@@ -620,9 +624,8 @@ label.info_key {
 	flex-wrap: wrap;
 	justify-content: center;
 }
-.block_view .product_section .product_info .service_block .comment_question {
-	width: 100%;
-	text-align: center;
+.block_view .product_section .product_info .service_block .comment_question_btn {
+	width: 100%;	
 	margin-bottom: 5px;
 }
 .block_view .products .card .product_section .product_buy .priceMoptInf {
