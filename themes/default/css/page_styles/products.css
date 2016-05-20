@@ -564,8 +564,7 @@ label.info_key {
 }
 .block_view .products .card .product_buy .priceMoptInf {
 	text-align: center;
-    width: 100%;
-    position: absolute;
+    width: 100%;   
 }
 
 /*Стили для блочного списка поставщика*/
@@ -624,6 +623,9 @@ label.info_key {
 	width: 100%;
 	text-align: center;
 	margin-bottom: 5px;
+}
+.block_view .product_section .priceMoptInf {
+	position: absolute;
 }
 
 @media (max-width: 1440px) {
