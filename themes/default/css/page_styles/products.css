@@ -310,9 +310,10 @@ label.info_key {
 /* List View =================================================================*/
 
 .list_view .product_section {
-	border-bottom: 1px solid #d9d9d9;
+	/*border-bottom: 1px solid #d9d9d9;*/
 	background: #fff;
-	display: flex;
+	/*display: flex;
+	flex-wrap: wrap;*/
 }
 .list_view div[class^="col-"]:nth-child(even) > .product_section {
 	background: #f7f7f7;
@@ -324,7 +325,7 @@ label.info_key {
 }
 .list_view .product_section .product_photo {
 	float: left;
-	height: 110px;
+	/*height: 110px;*/
 	width: 120px;
 	margin-right: 10px;
 	padding: 5px 0;
@@ -340,28 +341,34 @@ label.info_key {
 }
 .list_view .product_section .product_name {
 	padding: 7px 0 5px 0;
-	max-width: 455px;
-	margin-left: 130px;
+	/*max-width: 350px;*/
+	/*margin-left: 130px;*/
 }
 .list_view .product_article {
 	margin-left: 35%;
 }
 .list_view .product_section .product_info {
 	float: right;
-	margin: auto 0;
-	margin-left: 40px;
+	margin: 0;
+	width: 100%;
+	/*margin: auto 0;*/
+	/*margin-left: 40px;*/
 	min-width: 220px;
-	padding-top: 5px;
+	/*padding-top: 5px;*/
 }
 .list_view .product_section .product_info span.icon-font {
-	margin-right: 5px;
+	margin-left: 10px;
 }
 .list_view .product_section .product_info ul {
-	display: inline-block;
+	display: inline;
 	overflow: hidden;
 	margin-right: 5px;
 	vertical-align: bottom;
 }
+.list_view .product_section .product_info ul li {
+	display: inline-block;	
+}
+
 .list_view .product_section .product_info .product_article {
 	display: block;
 	line-height: 20px;
@@ -429,6 +436,11 @@ label.info_key {
 .list_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel {
 	display: none;
 }
+
+/*Отображения списка товаров для профиля контрагента*/
+
+
+
 /*.list_view .product_section .product_buy {
 	position: relative;
 	float: right;
@@ -437,7 +449,7 @@ label.info_key {
 	margin-right: 0;
 }*/
 
-/*block view =================================================================*/
+/*BLOCK VIEW =================================================================*/
 
 .block_view .products {
 	display: flex;
@@ -550,6 +562,11 @@ label.info_key {
 	margin: 0;
 	text-align: center;
 }
+.block_view .products .card .product_buy .priceMoptInf {
+	text-align: center;
+    width: 100%;
+    position: absolute;
+}
 
 /*Стили для блочного списка поставщика*/
 .block_view .products .card_wrapper {
@@ -595,8 +612,19 @@ label.info_key {
 	font-weight: 600;
     font-size: 1.4em;
 }
-
-
+.block_view .product_section .product_info {
+	clear: both;
+	padding-top: 15px;
+}
+.block_view .product_section .product_info .service_block {
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.block_view .product_section .product_info .service_block .comment_question {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 5px;
+}
 
 @media (max-width: 1440px) {
 	.block_view .products .card {
@@ -979,7 +1007,7 @@ label.info_key {
     margin-right: 5px;
 }
 .available_today {
-	margin-bottom: 5px;
+	padding: 5px;
 }
 .available_today span {
 	padding-right: 5px;
@@ -987,14 +1015,21 @@ label.info_key {
 
 .service_block {
 	text-align: right;
+	display: flex;
+	float: none;
+	margin-top: 5px;
+    margin-bottom: 5px;
 }
 .service_block .comment_question {
-	margin-bottom: 5px;
+	/*margin-bottom: 5px;*/
 	cursor: pointer;
 	background-color: #E3F6FF;
     padding: 5px 10px;
     border-radius: 3px;
 }
+/*.service_block .available_today {
+	margin-left: 10px;
+}*/
 
 /* Comment and Question Modal ============================= */
 

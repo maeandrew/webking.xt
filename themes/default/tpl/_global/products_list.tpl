@@ -38,8 +38,7 @@
 				<div class="btn_buy">
 					<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 					<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-					<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
-					
+					<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>		
 				</div>
 				<div class="quantity">
 					<div class="quantityReverseBlock">
