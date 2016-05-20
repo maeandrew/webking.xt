@@ -2404,7 +2404,7 @@ section .stat_year {
 	div#cart.opened,
 	div#auth.opened,
 	div.modalEditOrder*/
-	[data-type="modal"] {
+	/*[data-type="modal"] {
 		position: fixed;
 		top: 0 !important;
 		bottom: 0 !important;
@@ -2414,7 +2414,7 @@ section .stat_year {
 		max-width: 100%;
 		padding: 25px 0 !important;
 		border-radius: 0;
-	}
+	}*/
 	[data-type="modal"] .modal_container {
 		padding: 0 25px;
 		width: 100%;
@@ -3004,6 +3004,17 @@ section .stat_year {
 	}
 }
 @media (max-width: 480px) {
+	[data-type="modal"] {
+		position: fixed;
+		top: 0 !important;
+		bottom: 0 !important;
+		right: 0 !important;
+		left: 0 !important;
+		max-height: 100%;
+		max-width: 100%;
+		padding: 25px 0 !important;
+		border-radius: 0;
+	}
 	body {
 		padding-top: 45px;
 	}
