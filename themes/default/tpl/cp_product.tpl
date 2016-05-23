@@ -223,7 +223,7 @@
 			<p class="product_article">арт: <?=$item['art']?></p>
 			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
 				<!-- Ссылка на редактирование товара для администратором -->
-				<a href="<?=Link::Custom('adm', 'productedit');?><?=$item['id_product']?>" target="_blank">Редактировать товар</a>
+				<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 			<?}?>
 		</div>
 		<div class="content_header mdl-cell--hide-phone">

@@ -18,9 +18,7 @@ class Link {
 	 * @param array $params массив дополнительных настроек (страница, фильтр, сортировка)
 	 */
 	public static function Category($rewrite, $params = array()){
-		//print_r($rewrite); die();
 		$data = array();
-
 		$clear = false;
 		if(!isset($params['clear']) || $params['clear'] === false){
 			$data['filter'] = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
@@ -42,22 +40,10 @@ class Link {
 		if(!empty($params)){
 			self::ParseParams($params, $data);
 		}
-		if(isset($res['filter']) && is_array($res['filter']) && !empty($res['filter'])){
-			foreach($data['filter'] as $key => $filters){
-				$data['str_filter'] .= ($data['str_filter'] !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
-			}
-		}
-		// print_r($data);die();
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }
-		return _base_url.'/'.$rewrite.
-			(isset($data['str_filter'])?'/'.$data['str_filter']:'').
-			(isset($data['price_range'])?'/'.$data['price_range']:'').
-			(isset($data['str_sort'])?'/'.$data['str_sort']:'').
-			(isset($data['str_segment'])?'/'.$data['str_segment']:'').
-			(isset($data['str_page'])?'/'.$data['str_page']:'').
-			$GLOBALS['GetString'];
+		return _base_url.'/'.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).((isset($GLOBALS['Rewrite']) && $rewrite == $GLOBALS['Rewrite'])?$GLOBALS['GetString']:null);
 	}
 
 	/**
@@ -71,16 +57,9 @@ class Link {
 			self::ParseParams($params, $data);
 		}
 		$controller = $controller=='main'?'':$controller;
-		$url = _base_url.'/'.$controller.
-			(isset($rewrite)?'/'.$rewrite:null).
-			(isset($data['str_filter'])?'/'.$data['str_filter']:'').
-			(isset($data['price_range'])?'/'.$data['price_range']:'').
-			(isset($data['str_sort'])?'/'.$data['str_sort']:'').
-			(isset($data['str_segment'])?'/'.$data['str_segment']:'').
-			(isset($data['str_page'])?'/'.$data['str_page']:'').'/'.
-			$GLOBALS['GetString'];
-		return $url;
+		return _base_url.'/'.$controller.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).(($controller == $GLOBALS['CurrentController'])?$GLOBALS['GetString']:null);
 	}
+
 	/**
 	 * [ParseParams description]
 	 * @param [type] $params [description]
@@ -129,5 +108,23 @@ class Link {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * @param $data
+	 * @return string
+	 */
+	private static function AdressUrl($data){
+		if(isset($data['filter']) && is_array($data['filter']) && !empty($data['filter'])){
+			foreach($data['filter'] as $key => $filters){
+				$data['str_filter'] .= ($data['str_filter'] !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
+			}
+		}
+		$url = '';
+		unset($data['filter']);
+		foreach ($data as $key=>&$v){
+			$url .= '/'.$v;
+		}
+		return $url;
 	}
 }
