@@ -345,6 +345,7 @@
 				<?}else{?>
 					<p>Вы не можете использовать корзину</p>
 				<?}?>
+				<button class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden" value="Продолжить">Продолжить</button>
 				<!-- <div id="button-cart2">
 					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
 				</div>
@@ -357,32 +358,32 @@
 				componentHandler.upgradeDom();
 
 				var checked = false;
-				var old_text = $('.action_block #button-cart1 [type="submit"]').text();
 
 				$('#cart .joint_cart_js').on('click', function () {
 					if (checked == false) {
-						$('.action_block #button-cart1 [type="submit"]').text('Продолжить');
+						$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+						$('.cart_continue_js').addClass('joint_cart_continue_js').removeClass('joint_purchase_continue_js').removeClass('hidden');
 						// $("#button-cart1").hide();
 						// $("#button-cart1").show();
 						//$("#button-cart3").hide();
 					}
 				});
-
 				$('#cart .joint_purchase_js').on('click', function () {
 					if (checked == false) {
-						$('.action_block #button-cart1 [type="submit"]').text('Организовать');
+						$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+						$('.cart_continue_js').addClass('joint_purchase_continue_js').removeClass('joint_cart_continue_js').removeClass('hidden');
 						// $("#button-cart1").hide();
 						// // $("#button-cart2").hide();
 						// $("#button-cart1").show();
 					}
 				});
 				$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-					checked = $(this).find('input').prop('checked');
+					checked = $(this).hasClass('is-checked');
 				}).on('click', function () {
-					console.log(old_text);
 					if (checked == true) {
 						$(this).removeClass('is-checked').find('input').attr('checked', false);
-						$('.action_block #button-cart1 [type="submit"]').text(old_text);
+						$('.action_block #button-cart1 [type="submit"]').removeClass('hidden');
+						$('.cart_continue_js').addClass('hidden');
 					}
 				});
 				//   radio button magic (end)
@@ -414,21 +415,24 @@
 				$('#clearCart').removeClass('hidden');
 			});
 
+			$('.joint_cart_continue_js').click(function(event) {
+				ajax('cart', 'CreateJointCart', {jointCart: 'jc'}).done(function(data){
+					console.log(data);
+				}).fail(function(data){
+					console.log('fail ajax');
+				});
+			});
+			$('.joint_purchase_continue_js').click(function(event) {
+				// ajax('cart', 'CreateJointCart', {jointCart: jointCart}).done(function(data){
+				// 	console.log(data);
+				// }).fail(function(data){
+				// 	console.log('fail ajax');
+				// });
+			});
+
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				addLoadAnimation('#cart');
-				var jointCart = $('.joint_cart_js label').hasClass('is-checked')?'jc':'';
-				console.log(jointCart);
-
-				if ($('.action_block #button-cart1 [type="submit"]').text() == "Продолжить") {
-					ajax('cart', 'CreateJointCart', {jointCart: jointCart}).done(function(data){
-						console.log(data);
-					}).fail(function(data){
-						console.log('fail ajax');
-					});
-				}
-
-
 				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
 				if(phone.length == 12){
 					ajax('cart', 'makeOrder', {phone: phone}).done(
