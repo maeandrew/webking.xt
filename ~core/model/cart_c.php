@@ -524,13 +524,12 @@ class Cart {
 		$sql = "UPDATE "._DB_PREFIX_."cart
 		SET promo = '". $promo ."', status = '". $stat ."'
 		WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
+		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
 			return false;
 		}
-		//$res = $db->GetArray($sql); print_r($res);
-//		if(!$res){
-//			return false;
-//		}
+		$this->db->CompleteTrans();
 		return $promo;
 	}
 }
