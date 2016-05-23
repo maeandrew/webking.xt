@@ -1068,11 +1068,6 @@ section.center {
 		padding: 10px;
 		width: calc(100% - 300px);
 	}
-	#cart .action_block {
-		width: 300px;
-		padding: 10px;
-		float: right;
-	}
 	#cart .err_msg {
 		margin-bottom: 10px;
 		color: #f00;
@@ -1080,14 +1075,21 @@ section.center {
 	#cart .cart_login_btn {
 		margin-bottom: 10px;
 	}
+	#cart .action_block {
+		width: 300px;
+		padding: 10px;
+		float: right;
+	}
 	#cart .action_block .mdl-textfield {
 		width: 100%;
 		padding-top: 0;
 	}
-	#cart .action_block .wrapp button {
+	#cart .action_block .wrapp button,
+	#cart .action_block .wrapp .cart_continue {
 		float: right;
 		margin: 0;
 		margin-right: 10px;
+		width: 160px;
 	}
 	#cart .action_block form .mdl-checkbox {
 		float: left;
@@ -1099,6 +1101,15 @@ section.center {
 		top: -10px;
 		left: 0;
 		font-size: 20px;
+	}
+	#cart .action_block .promo_input {
+		display: inline-block;
+		width: 130px;
+		margin-right: 20px;
+		/*padding-top: 20px;*/
+	}
+	#cart .action_block .apply_promoCode {
+		width: 120px;
 	}
 	#cart .no_items h2 {
 		text-align: center;
@@ -1141,15 +1152,15 @@ section.center {
 	#discountTable {
 		display: flex;
 		justify-content: flex-start;
-    	width: 250px;
-    	font-size: 12px;
+		width: 250px;
+		font-size: 12px;
 	}
 
 	#discountTable .discountTableElem {
-	    display: flex;
-	    flex-direction: column;
-	    text-align: left;
-	    margin-left: 20px;
+		display: flex;
+		flex-direction: column;
+		text-align: left;
+		margin-left: 20px;
 	}
 
 	#discountTable .addMoreProducts,
@@ -1173,14 +1184,14 @@ section.center {
 
 	#currentDiscount {
 		font-size: 35px;
-    	line-height: 35px;
-    	display: block;
+		line-height: 35px;
+		display: block;
 	}
 
 	.orderNote {
 		float: left;
-    	width: calc(100% - 300px);
-    	padding-top: 10px;
+		width: calc(100% - 300px);
+		padding-top: 10px;
 	}
 
 	.orderNote textarea {
@@ -2033,7 +2044,7 @@ section .stat_year {
 /****************************************/
 
 .products .card {
-    overflow: hidden;
+	overflow: hidden;
 }
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
@@ -2650,7 +2661,7 @@ section .stat_year {
 	@media (max-width: 739px) {
 		.cart_footer {
 			display: flex;
-		    flex-direction: column-reverse;
+			flex-direction: column-reverse;
 		}
 		.order_balance_cart {
 			width: 98%;
@@ -2667,7 +2678,7 @@ section .stat_year {
 		}
 		.currentDiscountBlock {
 			margin: 0 auto;
-   			margin-bottom: 10px;
+			margin-bottom: 10px;
 		}
 
 		#discountTable {
@@ -2692,7 +2703,7 @@ section .stat_year {
 
 		#cart .action_block .wrapp form {
 			display: flex;
-   			justify-content: space-between;
+			justify-content: space-between;
 		}
 		#cart .action_block .wrapp button {
 			margin: 0;

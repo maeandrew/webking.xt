@@ -305,49 +305,37 @@
 					<label class="mdl-textfield__label" for="user_number"></label>
 					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 				</div>
-				<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden promo_input_js" id="promo_input">
-					<label class="mdl-textfield__label" for="promo_input">Промокод</label>
-					<input class="mdl-textfield__input" type="text" id="promo_input">
-				</div> -->
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden promo_input_js" id="promo_input">
-					<input class="mdl-textfield__input" type="text" id="promo_input">
-					<label class="mdl-textfield__label" for="promo_input">Промокод</label>
-				</div>
 				<p class="err_msg"></p>
-				<a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a>
-				<div class="tooltip_wrapp joint_cart_js">
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-						<input type="radio" class="mdl-radio__button" name="options" value="1">
-						<span class="mdl-radio__label">Совместная корзина</span>
-							<label class="info_key" style="position: initial;">?</label>
-							<div class="info_description">
-								<p>Совместная корзина Совместная корзина Совместная корзина.</p>
-							</div>
-					</label>
-					<div class="info_description">
-						Создать совместную корзину и стать ее администратором.
-					</div>
-				</div>
+				<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 
-				<div class="tooltip_wrapp joint_purchase_js">
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-						<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
-						<span class="mdl-radio__label">Совместная покупка</span>
-							<label class="info_key" style="position: initial;">?</label>
-							<div class="info_description">
-								<p>Перейти к оформлению совместной корзины</p>
-							</div>
-					</label>
-					<div class="info_description">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
-					</div>
-				</div>
 				<?if(!G::isLogged() || !_acl::isAdmin()){?>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
+						<label for="promo_input">Промокод</label>
+						<input class="mdl-textfield__input" type="text" id="promo_input">
+						<label class="mdl-textfield__label" for="promo_input"></label>
+					</div>
+					<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode" value="Применить"/>
+					<div class="tooltip_wrapp joint_cart_js">
+						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+							<input type="radio" class="mdl-radio__button" name="options" value="1">
+							<span class="mdl-radio__label">Совместная корзина</span>
+								<label class="info_key" style="position: initial;">?</label>
+								<div class="info_description">Создать совместную корзину и стать ее администратором.</div>
+						</label>
+					</div>
+					<div class="tooltip_wrapp joint_purchase_js">
+						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+							<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
+							<span class="mdl-radio__label">Совместная покупка</span>
+								<label class="info_key" style="position: initial;">?</label>
+								<div class="info_description">Перейти к оформлению совместной корзины</div>
+						</label>
+					</div>
+					<input class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
+					
 					<div id="button-cart1">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 					</div>
-					<input class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js" value="Продолжить"/>
-					<input class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_purchase_continue_js" value="Продолжить"/>
 				<?}else{?>
 					<p>Вы не можете использовать корзину</p>
 				<?}?>
@@ -366,20 +354,14 @@
 
 				$('#cart .joint_cart_js').on('click', function () {
 					if (checked == false) {
-						$('.action_block #button-cart1 [type="submit"], .joint_purchase_continue_js').addClass('hidden');
-						$('.joint_cart_continue_js').removeClass('hidden');
-						// $("#button-cart1").hide();
-						// $("#button-cart1").show();
-						//$("#button-cart3").hide();
+						$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+						$('.cart_continue_js').addClass('joint_cart_continue_js').removeClass('hidden').removeClass('joint_purchase_continue_js');
 					}
 				});
 				$('#cart .joint_purchase_js').on('click', function () {
 					if (checked == false) {
-						$('.action_block #button-cart1 [type="submit"], .joint_cart_continue_js').addClass('hidden');
-						$('.joint_purchase_continue_js').removeClass('hidden');
-						// $("#button-cart1").hide();
-						// // $("#button-cart2").hide();
-						// $("#button-cart1").show();
+						$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+						$('.cart_continue_js').addClass('joint_purchase_continue_js').removeClass('hidden').removeClass('joint_cart_continue_js');
 					}
 				});
 				$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
@@ -393,9 +375,9 @@
 				});
 
 				$('.joint_cart_continue_js').click(function(event) {
-					ajax('cart', 'CreateJointCart', {jointCart: $('.joint_cart_js label').hasClass('is-checked')?'jc':''}).done(function(resp){
+					ajax('cart', 'CreateJointCart', {jointCart: $('.joint_cart_js label').hasClass('is-checked')?'JC':''}).done(function(resp) {
 						$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
-					}).fail(function(resp){
+					}).fail(function(resp) {
 						console.log('fail ajax');
 					});
 				});
