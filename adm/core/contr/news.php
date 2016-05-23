@@ -21,4 +21,3 @@ $parsed_res = array(
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
-?>
