@@ -221,6 +221,7 @@ class mysqlPDO {
 				$sql .= ', ';
 			}
 		}
+		$sql .=")"; //print_r($sql); die();
 		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
 	}
 

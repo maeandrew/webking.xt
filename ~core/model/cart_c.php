@@ -510,6 +510,7 @@ class Cart {
 	}
 
 	//Добавить статус для заказа (корзины)
+	public function SetStatusCart(){ //print_r(100500); die();
 		$cart_id = $this->InsertMyCart();
 
 		// Символы, которые будут использоваться в пароле.
