@@ -518,16 +518,19 @@ class Cart {
 		//$size = StrLen($chars)-1;	// Определяем количество символов в $chars
 		//$promo = null;	// Определяем пустую переменную, в которую и будем записывать символы.
 		//while($max--)	$promo.=$chars[rand(0,$size)]; // Создаём пароль.
+		//global $db;
 		$promo = 'JC'.G::GenerateVerificationCode();
 		$stat = 10;
-		global $db;
 		$sql = "UPDATE "._DB_PREFIX_."cart
 		SET promo = '". $promo ."', status = '". $stat ."'
 		WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
-		$res = $db->GetArray($sql);
-		if(!$res){
+		if(!$this->db->Query($sql)){
 			return false;
 		}
+		//$res = $db->GetArray($sql); print_r($res);
+//		if(!$res){
+//			return false;
+//		}
 		return $promo;
 	}
 }
