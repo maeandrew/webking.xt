@@ -11,7 +11,7 @@
 <?foreach($list as $p){ ?>
 	<div class="card clearfix">
 		<div class="product_photo card_item">
-			<a href="#">
+			<a href="<?=Link::Product($p['translit']);?>">
 				<?if(!empty($p['images'])){?>
 					<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/120/90/"/>
 					<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/> -->

@@ -1,7 +1,8 @@
 <?if(!empty($list)){?>
+	<link href="http://xt/css/../themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
 	<div class="sorting">
 		<!--Сортировка по названию !-->
-		<?if(!isset($_GET['search_in_cat'])){?>
+		<!--<?if(!isset($_GET['search_in_cat'])){?>
 			<form action="" method="POST">
 				<?if(in_array('sorting', $list_controls)){?>
 					<label for="sort_prod">Сортировка</label>
@@ -16,7 +17,39 @@
 					</select>
 				<?}?>
 			</form>
-		<?}?>
+		<?}?> -->
+	</div>
+	<div class="content_header clearfix">
+		<div class="sort imit_select">
+			<button id="sort-lower-left" class="mdl-button mdl-js-button">
+				<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
+			</button>
+			<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
+				<?foreach($available_sorting_values as $key => $alias){ ?>
+					<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
+						<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
+							<?=$alias?>
+						</li>
+					</a>
+				<?}?>
+			</ul>
+
+			<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
+			<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+				<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+			<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+				<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+			<?}?>
+		</div>
+		<div class="productsListView">
+			<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+			<span class="mdl-tooltip" for="changeToList">Вид списком</span>
+			<i id="changeToBlock" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+			<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
+			<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
+			<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
+		</div>
+		<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 	</div>
 <?}?>
 <div id="catalog_supplier" class="products">
@@ -132,7 +165,7 @@
 				<?foreach($list as $p){?>
 					<div class="card clearfix">
 						<div class="product_photo">
-							<a href="#">
+							<a href="<?=Link::Product($p['translit']);?>">
 								<?if(!empty($item['images'])){?>
 									<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 									<noscript>

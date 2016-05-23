@@ -514,7 +514,7 @@ label.info_key {
 
 .block_view .buy_block {
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: center !important;
 }
 .block_view .buy_block .product_price {
 	white-space: nowrap;
