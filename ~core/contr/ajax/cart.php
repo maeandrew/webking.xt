@@ -402,7 +402,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['status'] = 501;
 				}
 				echo json_encode($res);
-				//print_r($res);
 				break;
 			case 'update_info':
 				$customers = new Customers();

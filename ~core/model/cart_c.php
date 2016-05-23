@@ -528,6 +528,6 @@ class Cart {
 		if(!$res){
 			return false;
 		}
-		return $res;
+		return $promo;
 	}
 }
