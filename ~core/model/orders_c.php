@@ -423,6 +423,8 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
+
+
 		// Если список товаров в корзине пуст
 		if(empty($_SESSION['cart']['products'])){
 			print_r('products error');
@@ -466,16 +468,19 @@ class Orders {
 		if(isset($_SESSION['cart']['base_order'])){
 			$f['base_order'] = $_SESSION['cart']['base_order'];
 		}
+
+
+
 		$f['target_date'] = $target_date = strtotime('+2 day', time());
 		$f['creation_date'] = time();
 		$f['id_customer'] = $_SESSION['member']['id_user'];
 		$Customers = new Customers();
 		$Customers->SetFieldsById($_SESSION['member']['id_user']);
 		$customer = $Customers->fields;
-		if($_SESSION['member']['gid'] = _ACL_CONTRAGENT_){
-			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];//print_r($_SESSION['member']);die();
+		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
+			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
 		}else{
-			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];//print_r(2);
+			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];
 		}
 		// Если клиент не зарегистрирован и не ввел номер телефона
 		if($f['id_order_status'] == 3){
@@ -492,7 +497,7 @@ class Orders {
 			$this->db->FailTrans();
 			print_r('order insert error');
 			return false;
-		}//print_r(1); die();
+		}
 		// Получаем id нового заказа
 		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
 		unset($f);
