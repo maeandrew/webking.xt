@@ -414,9 +414,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 //				return json_encode($res);
 //				break;
 			case 'CreateJointCart':
-				$res = $cart->SetStatusCart();
+				$res['promo'] = $cart->SetStatusCart();
+				echo json_encode($res['promo']);
 
-				echo json_encode($res);
 				break;
 			default:
 				break;
