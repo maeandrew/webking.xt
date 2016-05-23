@@ -2132,7 +2132,7 @@ section .stat_year {
 	font-size: 1.4em;
 }
 .product_buy .buy_block .product_price {
-	flex-basis: 20%;
+	flex-basis: 10%;
 	white-space: nowrap;
 }
 .product_buy .buy_block .price {
@@ -2368,9 +2368,15 @@ section .stat_year {
 	.list_view .products .card .product_name {
 		width: calc(100% - 130px);
 	}
+	.product_buy {
+		float: left;
+	}
 	.products .product_info,
 	.products .product_buy {
 		width: auto;
+	}
+	.list_view .products .product_buy {
+		left: 9.3em;		
 	}
 	.products .product_info {
 		margin: 0;
