@@ -728,6 +728,18 @@
 			<div class="mdl-snackbar__text"></div>
 			<button class="mdl-snackbar__action" type="button"></button>
 		</div>
+		<!-- Модалка Отзывы и вопросы -->
+		<div id="comment_question" class="modal_hidden" data-type="modal">
+			<h4>Отзывы и вопросы</h4>
+			<hr>
+			<p>У Вашего клиента возник вопрос?<br>Напишите его</p>
+			<form action="" method="post">
+				<input type="hidden" name="id_product">
+				<input type="hidden" name="id_user">
+				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
+				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Отправить</button>
+			</form>
+		</div>	
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>

@@ -291,7 +291,7 @@
 					<input type="text" name="duplicate_comment" placeholder="Артикул основного товара">
 					<button class="btn-m-green" onclick="">Отправить</button>
 				</div> -->
-				<div id="comment_question" class="modal_hidden">
+				<!-- <div id="comment_question" class="modal_hidden">
 					<h4>Отзывы и вопросы</h4>
 					<hr>
 					<p>У Вашего клиента возник вопрос?<br>Напишите его</p>
@@ -300,7 +300,7 @@
 						<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
 						<button type="submit" name="com_qtn" class="btn-m-green">Отправить</button>
 					</form>
-				</div>
+				</div> -->
 			<?}else{?>
 				<!-- Конец строк товаров!-->
 				<h5 class="col-md-12">Товаров нет</h5>
@@ -401,7 +401,7 @@
 		});
 
 		$('.comment_question').on('click', function() {
-			var id = $(this).closest('.product_section').find('.product_buy').attr('data-idproduct');
+			var id = $(this).closest('.product_section').find('.product_buy').data('idproduct');
 			$('#comment_question [name="id_product"]').val(id);
 		});
 	});

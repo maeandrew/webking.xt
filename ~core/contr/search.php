@@ -153,14 +153,13 @@ if(isset($_POST['new'])){
 }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && isset($_SESSION['filters']['hit'])){
 	$where_arr['customs'][] = 'prod_status IN (2, 3)';
 }
-
 // Поиск MySQL =============================================
 $gid = 0;
 if(isset($_SESSION['member'])){
 	$gid = $_SESSION['member']['gid'];
-	if(substr($_SESSION['member']['email'], -11) == "@x-torg.com"){
-		$gid = _ACL_ADMIN_;
-	}
+//	if(substr($_SESSION['member']['email'], -11) == "@x-torg.com"){
+//		$gid = _ACL_ADMIN_;
+//	}
 }
 
 if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search_engine'] == 'sphinx' && isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_)))){
@@ -207,7 +206,6 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		$GLOBALS['Limit_db'] = 0;
 		$limit = '';
 	}
-
 	$GET_limit = "";
 	if(isset($_GET['limit'])){
 		$GET_limit = " LIMIT ".$_GET['limit'].'/';

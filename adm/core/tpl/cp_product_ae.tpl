@@ -631,6 +631,9 @@
 					<label for="indexation"><b>Индексация &nbsp;</b>
 						<input type="checkbox" name="indexation" id="indexation" class="input-m" <?=(isset($_POST['indexation']) && $_POST['indexation'] != 1) || !isset($_POST['indexation'])?null:'checked="checked" value="on"'?>>
 					</label>
+					<label for="access_assort"><b>Добавление в ассортимент &nbsp;</b>
+						<input type="checkbox" name="access_assort" id="access_assort" class="input-m" <?=(isset($_POST['access_assort']) && $_POST['access_assort'] != 1) || !isset($_POST['access_assort'])?null:'checked="checked" value="on"'?>>
+					</label>
 				</div>
 				<div id="nav_delete">
 					<h2>Удаление товара</h2>
