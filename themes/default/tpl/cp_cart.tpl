@@ -311,17 +311,17 @@
 				</div>
 				<p class="err_msg"></p>
 				<a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a>
-				<!-- <div class="tooltip_wrapp">
+				<div class="tooltip_wrapp">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 						<input type="radio" class="mdl-radio__button" name="options" value="1">
-						<span class="mdl-radio__label">Групповая корзина</span>
+						<span class="mdl-radio__label">Совместная корзина</span>
 							<label class="info_key" style="position: initial;">?</label>
 							<div class="info_description">
-								<p>Групповая корзина Групповая корзина Групповая корзина.</p>
+								<p>Совместная корзина Совместная корзина Совместная корзина.</p>
 							</div>
 					</label>
 					<div class="info_description">
-						Добавит Вас к групповой корзине и перенапрвит на нее.
+						Создать совместную корзину и стать ее администратором.
 					</div>
 				</div>
 
@@ -337,7 +337,7 @@
 					<div class="info_description">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa perspiciatis blanditiisima
 					</div>
-				</div> -->
+				</div>
 				<?if(!G::isLogged() || !_acl::isAdmin()){?>
 					<div id="button-cart1">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
@@ -354,36 +354,36 @@
 			</form>
 			<script type='text/javascript'>
 				//   radio button magic
-				// componentHandler.upgradeDom();
+				 componentHandler.upgradeDom();
 
-				// var checked = false;
-				// var old_text = $('.action_block .mdl-button').text();
+				 var checked = false;
+				 var old_text = $('.action_block .mdl-button').text();
 
-				// $('#cart .tooltip_wrapp:eq(0)').on('click', function () {
-				// 	if (checked == false) {
-				// 		$('.action_block .mdl-button').text('Продолжить');
-				// 		$("#button-cart1").hide();
-				// 		$("#button-cart1").show();
-				// 		// $("#button-cart3").hide();
-				// 	}
-				// });
+				 $('#cart .tooltip_wrapp:eq(0)').on('click', function () {
+				 	if (checked == false) {
+				 		$('.action_block .mdl-button').text('Продолжить');
+				 		$("#button-cart1").hide();
+				 		$("#button-cart1").show();
+				 		//$("#button-cart3").hide();
+				 	}
+				 });
 
-				// $('#cart .tooltip_wrapp:eq(1)').on('click', function () {
-				// 	if (checked == false) {
-				// 		$('.action_block .mdl-button').text('Организовать');
-				// 		$("#button-cart1").hide();
-				// 		// $("#button-cart2").hide();
-				// 		$("#button-cart1").show();
-				// 	}
-				// });
-				// $('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-				// 	checked = $(this).find('input').prop('checked');
-				// }).on('click', function () {
-				// 	if (checked == true) {
-				// 		$(this).removeClass('is-checked').find('input').attr('checked', false);
-				// 		$('.action_block .mdl-button').text(old_text);
-				// 	}
-				// });
+				 $('#cart .tooltip_wrapp:eq(1)').on('click', function () {
+				 	if (checked == false) {
+				 		$('.action_block .mdl-button').text('Организовать');
+				 		$("#button-cart1").hide();
+				 		// $("#button-cart2").hide();
+				 		$("#button-cart1").show();
+				 	}
+				 });
+				 $('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+				 	checked = $(this).find('input').prop('checked');
+				 }).on('click', function () {
+				 	if (checked == true) {
+				 		$(this).removeClass('is-checked').find('input').attr('checked', false);
+				 		$('.action_block .mdl-button').text(old_text);
+				 	}
+				 });
 				//   radio button magic (end)
 			</script>
 		</div>

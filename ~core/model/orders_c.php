@@ -473,9 +473,7 @@ class Orders {
 		$Customers->SetFieldsById($_SESSION['member']['id_user']);
 		$customer = $Customers->fields;
 		if($_SESSION['member']['gid'] = _ACL_CONTRAGENT_){
-			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
 		}else{
-			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];
 		}
 		// Если клиент не зарегистрирован и не ввел номер телефона
 		if($f['id_order_status'] == 3){
@@ -492,7 +490,6 @@ class Orders {
 			$this->db->FailTrans();
 			print_r('order insert error');
 			return false;
-		}
 		// Получаем id нового заказа
 		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
 		unset($f);

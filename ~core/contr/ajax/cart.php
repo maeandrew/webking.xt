@@ -347,7 +347,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case 'makeOrder':
+			case 'makeOrder': //print_r($_POST);
 				if(!G::isLogged()){
 					$Customers = new Customers();
 					$Users = new Users();
@@ -402,6 +402,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['status'] = 501;
 				}
 				echo json_encode($res);
+				//print_r($res);
 				break;
 			case 'update_info':
 				$customers = new Customers();
@@ -409,8 +410,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				return json_encode(true);
 				break;
-			case 'add_status_cart':
-				$res = $cart->SetStatusCart();//$_POST['id_order']
+//			case 'add_status_cart':
+//				$res = $cart->SetStatusCart();//$_POST['id_order']
+//				return json_encode($res);
+//				break;
+			case 'CreateJointCart':
+				$res = $cart->SetStatusCart();
 				return json_encode($res);
 				break;
 			default:
