@@ -155,7 +155,7 @@ footer .copyright p.created {
 	footer .ad_sense {
 		float: none;
 		clear: both;
-		margin: 0 auto;
+		margin: 0 auto 2em;
 	}
 	footer .copyright p,
 	footer .copyright p.created {
