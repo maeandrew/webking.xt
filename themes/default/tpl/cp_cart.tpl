@@ -305,7 +305,7 @@
 					<label class="mdl-textfield__label" for="user_number"></label>
 					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 				</div>
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden" id="promo_input">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden promo_input_js" id="promo_input">
 					<input class="mdl-textfield__input" type="text" id="sample7">
 					<label class="mdl-textfield__label" for="sample7">Промокод</label>
 				</div>
@@ -342,11 +342,11 @@
 					<div id="button-cart1">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 					</div>
+					<input class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js" value="Продолжить"/>
+					<input class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_purchase_continue_js" value="Продолжить"/>
 				<?}else{?>
 					<p>Вы не можете использовать корзину</p>
 				<?}?>
-				<input class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js" value="Продолжить"/>
-				<input class="cart_continue_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_purchase_continue_js" value="Продолжить"/>
 				<!-- <div id="button-cart2">
 					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
 				</div>
@@ -391,9 +391,10 @@
 				$('.joint_cart_continue_js').click(function(event) {
 					var jc = $('.joint_cart_js label').hasClass('is-checked')?'jc':'';
 					console.log(jc);
-					ajax('cart', 'CreateJointCart', {jointCart: jc}).done(function(data){
-						console.log(data);
-					}).fail(function(data){
+					ajax('cart', 'CreateJointCart', {jointCart: jc}).done(function(resp){
+						console.log(resp);
+						$('.promo_input_js');
+					}).fail(function(resp){
 						console.log('fail ajax');
 					});
 				});
