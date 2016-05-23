@@ -311,7 +311,7 @@
 				</div>
 				<p class="err_msg"></p>
 				<a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a>
-				<div class="tooltip_wrapp">
+				<div class="tooltip_wrapp joint_cart_js">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 						<input type="radio" class="mdl-radio__button" name="options" value="1">
 						<span class="mdl-radio__label">Совместная корзина</span>
@@ -325,7 +325,7 @@
 					</div>
 				</div>
 
-				<div class="tooltip_wrapp">
+				<div class="tooltip_wrapp joint_purchase_js">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 						<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 						<span class="mdl-radio__label">Совместная покупка</span>
@@ -354,36 +354,37 @@
 			</form>
 			<script type='text/javascript'>
 				//   radio button magic
-				 componentHandler.upgradeDom();
+				componentHandler.upgradeDom();
 
-				 var checked = false;
-				 var old_text = $('.action_block .mdl-button').text();
+				var checked = false;
+				var old_text = $('.action_block #button-cart1 [type="submit"]').text();
 
-				 $('#cart .tooltip_wrapp:eq(0)').on('click', function () {
-				 	if (checked == false) {
-				 		$('.action_block .mdl-button').text('Продолжить');
-				 		$("#button-cart1").hide();
-				 		$("#button-cart1").show();
-				 		//$("#button-cart3").hide();
-				 	}
-				 });
+				$('#cart .joint_cart_js').on('click', function () {
+					if (checked == false) {
+						$('.action_block #button-cart1 [type="submit"]').text('Продолжить');
+						// $("#button-cart1").hide();
+						// $("#button-cart1").show();
+						//$("#button-cart3").hide();
+					}
+				});
 
-				 $('#cart .tooltip_wrapp:eq(1)').on('click', function () {
-				 	if (checked == false) {
-				 		$('.action_block .mdl-button').text('Организовать');
-				 		$("#button-cart1").hide();
-				 		// $("#button-cart2").hide();
-				 		$("#button-cart1").show();
-				 	}
-				 });
-				 $('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-				 	checked = $(this).find('input').prop('checked');
-				 }).on('click', function () {
-				 	if (checked == true) {
-				 		$(this).removeClass('is-checked').find('input').attr('checked', false);
-				 		$('.action_block .mdl-button').text(old_text);
-				 	}
-				 });
+				$('#cart .joint_purchase_js').on('click', function () {
+					if (checked == false) {
+						$('.action_block #button-cart1 [type="submit"]').text('Организовать');
+						// $("#button-cart1").hide();
+						// // $("#button-cart2").hide();
+						// $("#button-cart1").show();
+					}
+				});
+				$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+					checked = $(this).find('input').prop('checked');
+				}).on('click', function () {
+					console.log(old_text);
+					if (checked == true) {
+						$(this).removeClass('is-checked').find('input').attr('checked', false);
+						$('.action_block #button-cart1 [type="submit"]').text(old_text);
+					}
+				});
 				//   radio button magic (end)
 			</script>
 		</div>
@@ -416,6 +417,18 @@
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				addLoadAnimation('#cart');
+				var jointCart = $('.joint_cart_js label').hasClass('is-checked')?'jc':'';
+				console.log(jointCart);
+
+				if ($('.action_block #button-cart1 [type="submit"]').text() == "Продолжить") {
+					ajax('cart', 'CreateJointCart', {jointCart: jointCart}).done(function(data){
+						console.log(data);
+					}).fail(function(data){
+						console.log('fail ajax');
+					});
+				}
+
+
 				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
 				if(phone.length == 12){
 					ajax('cart', 'makeOrder', {phone: phone}).done(
