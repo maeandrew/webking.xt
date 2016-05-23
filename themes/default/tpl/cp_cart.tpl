@@ -305,9 +305,13 @@
 					<label class="mdl-textfield__label" for="user_number"></label>
 					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 				</div>
+				<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden promo_input_js" id="promo_input">
+					<label class="mdl-textfield__label" for="promo_input">Промокод</label>
+					<input class="mdl-textfield__input" type="text" id="promo_input">
+				</div> -->
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden promo_input_js" id="promo_input">
-					<input class="mdl-textfield__input" type="text" id="sample7">
-					<label class="mdl-textfield__label" for="sample7">Промокод</label>
+					<input class="mdl-textfield__input" type="text" id="promo_input">
+					<label class="mdl-textfield__label" for="promo_input">Промокод</label>
 				</div>
 				<p class="err_msg"></p>
 				<a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a>
@@ -389,11 +393,8 @@
 				});
 
 				$('.joint_cart_continue_js').click(function(event) {
-					var jc = $('.joint_cart_js label').hasClass('is-checked')?'jc':'';
-					console.log(jc);
-					ajax('cart', 'CreateJointCart', {jointCart: jc}).done(function(resp){
-						console.log(resp);
-						$('.promo_input_js');
+					ajax('cart', 'CreateJointCart', {jointCart: $('.joint_cart_js label').hasClass('is-checked')?'jc':''}).done(function(resp){
+						$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
 					}).fail(function(resp){
 						console.log('fail ajax');
 					});
