@@ -252,7 +252,7 @@
 					<?}?>
 				</ul>
 			<?}else{?>
-				<p class="no_orders">У Вас нету ни одного заказа</p>
+				<p class="no_orders">У Вас нет ни одного заказа</p>
 			<?}?>
 		</div>
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>

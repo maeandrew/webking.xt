@@ -40,7 +40,7 @@ if(isset($_POST['smb'])){
 	}
 
 	if(!$err){
-		if($id = $News->UpdateNews($_POST)){
+		if($News->UpdateNews($_POST)){
 			$News->UpdatePhoto($id, $_POST['images']);
 			$tpl->Assign('msg', 'Новость обновлена.');
 			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1){

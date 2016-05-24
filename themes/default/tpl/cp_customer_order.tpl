@@ -276,7 +276,7 @@
 
 	/*Создать новый заказ на основе текущего*/
 	$(function(){ 
-		var id_order = $('.current_id_order').data('value');		
+		var id_order = $('.current_id_order').data('value');
 		/*console.log(id_order);*/
 
 		/*Отмена заказа*/
