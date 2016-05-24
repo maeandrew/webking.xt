@@ -413,9 +413,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 //				$res = $cart->SetStatusCart();//$_POST['id_order']
 //				return json_encode($res);
 //				break;
-			case 'CreateJointCart':
-				if(!$res['promo'] = $cart->SetStatusCart($_POST['jointCart'])){
-					$res['promo'] = 'Ошибка формирования совместной корзины.';
+			case 'CreateJointOrder':
+				if(!$res['promo'] = $cart->SetStatusCart($_POST['prefix'])){
+					$res['promo'] = 'Ошибка формирования совместного заказа.';
 				};
 				echo json_encode($res['promo']);
 

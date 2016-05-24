@@ -313,6 +313,8 @@ class Cart {
 		if(!empty($res)){
 			$_SESSION['cart']['id'] = $res['id_cart'];
 			$_SESSION['cart']['promo'] = $res['promo'];
+			$_SESSION['cart']['adm'] = $res['adm'];
+			$_SESSION['cart']['ready'] = $res['ready'];
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
@@ -523,7 +525,8 @@ class Cart {
 		$promo = $prefix.G::GenerateVerificationCode();
 		$stat = 10;
 		$sql = "UPDATE "._DB_PREFIX_."cart
-		SET promo = '". $promo ."', status = '". $stat ."'
+		SET promo = '". $promo ."', status = '". $stat ."',
+		adm = 1, ready = 0
 		WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
