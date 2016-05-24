@@ -196,6 +196,7 @@
 .product .product_buy {
 	float: none;
 	max-width: none;
+	width: 100%;
 }
 .product .product_buy .buy_block {
 	justify-content: flex-start;
