@@ -2134,7 +2134,7 @@ section .stat_year {
 }
 .product_buy {
 	/*width: 40%;*/
-	width: 350px;	
+	width: 310px;
 	float: right;
 	height: 100px;
 	padding: 32px 0;
@@ -2152,7 +2152,7 @@ section .stat_year {
 	font-size: 1.4em;
 }
 .product_buy .buy_block .product_price {
-	flex-basis: 10%;
+	flex-basis: 18%;
 	white-space: nowrap;
 }
 .product_buy .buy_block .price {
@@ -2391,10 +2391,12 @@ section .stat_year {
 	.product_buy {
 		float: left;
 	}
-	.products .product_info,
-	.products .product_buy {
+	.products .product_info{
 		width: auto;
 	}
+	/*.products .product_buy {
+		width: auto;
+	}*/
 	.list_view .products .product_buy {
 		left: 9.3em;		
 	}

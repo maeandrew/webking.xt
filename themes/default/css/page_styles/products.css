@@ -1263,7 +1263,7 @@ label.info_key {
 	}
 	.products .card .product_buy {
 		clear: both;
-		width: 100%;
+		/*width: 100%;*/
 		padding: 10px;
 		height: auto;
 	}
