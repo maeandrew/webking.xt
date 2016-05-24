@@ -23,7 +23,7 @@
 $(window).load(function(){
 	$("html, body").trigger("scroll");
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
-	GetLocation();
+	GetLocation();	
 });
 window.onbeforeunload = function(e){
 	// window.onpopstate = function(e) {
@@ -344,7 +344,7 @@ $(function(){
 	var header = $("header"),
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
 		banner_height = $('.banner').outerHeight(),
-		header_height = header.outerHeight();		
+		header_height = header.outerHeight();				
 	$(window).scroll(function(){
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
@@ -358,13 +358,40 @@ $(function(){
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
-			}
-			$('aside').css('bottom', 'auto');			
-		}else{
-			$('aside').css('bottom', $(this).height()-($('section.center').height()-$(this).scrollTop()+header_height));
-			$('aside').css('position', 'fixed');
+			}			
+		}else{			
+			var viewPort = $(window).height(); // высота окна		
+			var mainWindow = $('.main').height(); // высота главного блока		
+			var scroll = $(this).scrollTop(); // прокрутка 		
+			var pieceoffooter = (scroll + viewPort) - mainWindow - 52;
+			var pieceofheader = mainWindow - (scroll + viewPort) + 52;
+			var nameFilter = $('.activeFilters_js').find('i').text();
+
+			if ((scroll + viewPort) <= mainWindow) {				
+				$('aside').css('bottom', 0);
+				$('aside').css('top', 52);
+			} else {			
+				$('aside').css('bottom', pieceoffooter);				
+				if (viewPort > mainWindow) {
+					console.log(nameFilter);
+					$('aside').css('top', pieceofheader + 300);
+				}else{
+					$('aside').css('top', pieceofheader);
+				}				
+			}			
 		}
 	});
+	$(window).load(function(){
+		var viewPort = $(window).height(); // высота окна		
+		var mainWindow = $('.main').height(); // высота главного блока		
+		var scroll = $(this).scrollTop(); // прокрутка 		
+		var pieceoffooter = (scroll + viewPort) - mainWindow - 52;	
+		
+		if (viewPort > mainWindow) {				
+				$('aside').css('bottom', pieceoffooter);
+			}
+	});
+	
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
@@ -436,6 +463,7 @@ $(function(){
 				$('.second_nav, .news').slideDown();
 				$('.included_filters').show();
 				$(this).removeClass('active');
+				$(this).removeClass('hidden');
 			}
 		}else{
 			$('.catalog .main_nav li').removeClass('active');

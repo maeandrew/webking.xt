@@ -1285,7 +1285,7 @@ section.center {
 		max-height: 100%;
 	}
 	.banner_hide aside {
-		position: absolute;
+		position: fixed;
 		top: 52px;
 		bottom: 0;
 	}
@@ -1448,7 +1448,8 @@ section.center {
 		cursor: pointer;
 	}
 	aside .filters .filter_block p {
-		margin-bottom: 10px;
+		margin-top: 10px;
+		text-align: center;
 	}
 	aside .filters .filter_block ul {
 		border-bottom: 1px solid #e5e5e5;
@@ -1626,7 +1627,7 @@ section.center {
 
 	.page_content {
 		padding: 0 15px;
-		min-height: calc(100vh - 370px);
+		min-height: calc(100vh - 427px);
 	}
 
 /*Statistics*/
