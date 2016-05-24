@@ -1131,11 +1131,25 @@ section.center {
 	#cart .action_block .order_management {
 
 	}
-	#cart .action_block .cart_warning_js {
-		width: 90%;
+	#cart .action_block .cart_warning {
+		width: 95%;
+		margin-bottom: 10px;
+		padding: 10px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px #ff5722;
+	}
+	#cart .action_block .cart_warning p:nth-child(2) {
+		margin-top: 10px;
+		font-weight: 500;
+	}
+	#cart .action_block .info_admin,
+	#cart .action_block .info_client {
+		width: 95%;
+		margin-bottom: 10px;
 	}
 	#cart .action_block .cart_warning_js input {
 		width: 80px;
+		margin: 10px;
 	}
 	#cart .no_items h2 {
 		text-align: center;
