@@ -31,12 +31,15 @@ a {
 	-o-transition: all .2s cubic-bezier(.4,0,.2,1);
 	transition: all .2s cubic-bezier(.4,0,.2,1);
 }
-a:hover {
+a:hover:not([href="#"]) {
 	/*color: #343030;*/
 	color: #ff5722;
 	-webkit-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+a[href="#"] {
+	cursor: default;
 }
 p a {
 	text-decoration: underline;
@@ -1084,7 +1087,7 @@ section.center {
 		width: 100%;
 		padding-top: 0;
 	}
-	#cart .action_block .wrapp button,
+	/*#cart .action_block .wrapp button,*/
 	#cart .action_block .wrapp .cart_continue {
 		float: right;
 		margin: 0;
@@ -1110,6 +1113,11 @@ section.center {
 	}
 	#cart .action_block .apply_promoCode {
 		width: 120px;
+	}
+	#cart .action_block .del_promoCode {
+		width: 65px;
+		background-color: #ff5722;
+		color: #fff;
 	}
 	#cart .no_items h2 {
 		text-align: center;
