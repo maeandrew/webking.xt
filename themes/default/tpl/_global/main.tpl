@@ -153,7 +153,7 @@
 			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
 				<span class="text_block">
 					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
-					<h3>Снабжение<br> предриятий</h3>
+					<h3>Снабжение<br> предприятий</h3>
 				</span>
 			</a>
 			<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
