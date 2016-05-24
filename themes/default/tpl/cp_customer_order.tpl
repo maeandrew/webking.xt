@@ -291,6 +291,7 @@
 			});
 		});
 		
+		
 		$('#replaceCartMod').on('click', function(e){		
 			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
 				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
