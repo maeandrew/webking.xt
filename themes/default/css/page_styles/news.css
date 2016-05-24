@@ -1,3 +1,9 @@
+.c_news strong {
+	font-weight: blod;
+}
+.c_news em {
+	font-style: italic;
+}
 #content {
 	padding: 15px;
 }
