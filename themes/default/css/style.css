@@ -31,6 +31,7 @@ a {
 	-o-transition: all .2s cubic-bezier(.4,0,.2,1);
 	transition: all .2s cubic-bezier(.4,0,.2,1);
 }
+/*a:hover:not([href="#"])*/
 a:hover {
 	/*color: #343030;*/
 	color: #ff5722;
@@ -38,6 +39,9 @@ a:hover {
 	-o-transition: none;
 	transition: none;
 }
+/*a[href="#"] {
+	cursor: default;
+}*/
 p a {
 	text-decoration: underline;
 }
@@ -1068,11 +1072,6 @@ section.center {
 		padding: 10px;
 		width: calc(100% - 300px);
 	}
-	#cart .action_block {
-		width: 300px;
-		padding: 10px;
-		float: right;
-	}
 	#cart .err_msg {
 		margin-bottom: 10px;
 		color: #f00;
@@ -1080,14 +1079,21 @@ section.center {
 	#cart .cart_login_btn {
 		margin-bottom: 10px;
 	}
+	#cart .action_block {
+		width: 300px;
+		padding: 10px;
+		float: right;
+	}
 	#cart .action_block .mdl-textfield {
 		width: 100%;
 		padding-top: 0;
 	}
-	#cart .action_block .wrapp button {
+	/*#cart .action_block .wrapp button,*/
+	#cart .action_block .wrapp .cart_continue {
 		float: right;
 		margin: 0;
 		margin-right: 10px;
+		width: 160px;
 	}
 	#cart .action_block form .mdl-checkbox {
 		float: left;
@@ -1099,6 +1105,51 @@ section.center {
 		top: -10px;
 		left: 0;
 		font-size: 20px;
+	}
+	#cart .action_block .promo_input {
+		display: inline-block;
+		width: 140px;
+		margin-right: 10px;
+		/*padding-top: 20px;*/
+	}
+	#cart .action_block .promo_input input {
+		text-align: center;
+	}
+	#cart .action_block .apply_promoCode {
+		width: 120px;
+	}
+	#cart .action_block .del_promoCode {
+		width: 60px;
+		height: 28px;
+		padding-top: 2px;
+		border-radius: 3px;
+		vertical-align: middle;
+		background-color: #ff5722;
+		color: #fff;
+		cursor: pointer;
+	}
+	#cart .action_block .order_management {
+
+	}
+	#cart .action_block .cart_warning {
+		width: 95%;
+		margin-bottom: 10px;
+		padding: 10px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px #ff5722;
+	}
+	#cart .action_block .cart_warning p:nth-child(2) {
+		margin-top: 10px;
+		font-weight: 500;
+	}
+	#cart .action_block .info_admin,
+	#cart .action_block .info_client {
+		width: 95%;
+		margin-bottom: 10px;
+	}
+	#cart .action_block .cart_warning_js input {
+		width: 80px;
+		margin: 10px;
 	}
 	#cart .no_items h2 {
 		text-align: center;
@@ -1141,15 +1192,15 @@ section.center {
 	#discountTable {
 		display: flex;
 		justify-content: flex-start;
-    	width: 250px;
-    	font-size: 12px;
+		width: 250px;
+		font-size: 12px;
 	}
 
 	#discountTable .discountTableElem {
-	    display: flex;
-	    flex-direction: column;
-	    text-align: left;
-	    margin-left: 20px;
+		display: flex;
+		flex-direction: column;
+		text-align: left;
+		margin-left: 20px;
 	}
 
 	#discountTable .addMoreProducts,
@@ -1173,14 +1224,14 @@ section.center {
 
 	#currentDiscount {
 		font-size: 35px;
-    	line-height: 35px;
-    	display: block;
+		line-height: 35px;
+		display: block;
 	}
 
 	.orderNote {
 		float: left;
-    	width: calc(100% - 300px);
-    	padding-top: 10px;
+		width: calc(100% - 300px);
+		padding-top: 10px;
 	}
 
 	.orderNote textarea {
@@ -2033,7 +2084,7 @@ section .stat_year {
 /****************************************/
 
 .products .card {
-    overflow: hidden;
+	overflow: hidden;
 }
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
@@ -2114,7 +2165,7 @@ section .stat_year {
 }
 .product_buy {
 	/*width: 40%;*/
-	width: 350px;	
+	width: 310px;
 	float: right;
 	height: 100px;
 	padding: 32px 0;
@@ -2132,7 +2183,7 @@ section .stat_year {
 	font-size: 1.4em;
 }
 .product_buy .buy_block .product_price {
-	flex-basis: 20%;
+	flex-basis: 18%;
 	white-space: nowrap;
 }
 .product_buy .buy_block .price {
@@ -2368,9 +2419,17 @@ section .stat_year {
 	.list_view .products .card .product_name {
 		width: calc(100% - 130px);
 	}
-	.products .product_info,
-	.products .product_buy {
+	.product_buy {
+		float: left;
+	}
+	.products .product_info{
 		width: auto;
+	}
+	/*.products .product_buy {
+		width: auto;
+	}*/
+	.list_view .products .product_buy {
+		left: 9.3em;		
 	}
 	.products .product_info {
 		margin: 0;
@@ -2644,7 +2703,7 @@ section .stat_year {
 	@media (max-width: 739px) {
 		.cart_footer {
 			display: flex;
-		    flex-direction: column-reverse;
+			flex-direction: column-reverse;
 		}
 		.order_balance_cart {
 			width: 98%;
@@ -2661,7 +2720,7 @@ section .stat_year {
 		}
 		.currentDiscountBlock {
 			margin: 0 auto;
-   			margin-bottom: 10px;
+			margin-bottom: 10px;
 		}
 
 		#discountTable {
@@ -2686,7 +2745,7 @@ section .stat_year {
 
 		#cart .action_block .wrapp form {
 			display: flex;
-   			justify-content: space-between;
+			justify-content: space-between;
 		}
 		#cart .action_block .wrapp button {
 			margin: 0;

@@ -270,8 +270,11 @@
 	$(function(){ 
 		var id_order = $('.current_id_order').data('value');		
 		console.log(id_order);
+		$('#replaceCartMod, #addtoCartMod').click(function(event) {
+			$('.clear_cart').removeClass('hidden');
+		});
 		
-		$('#replaceCartMod').on('click', function(e){		
+		$('#replaceCartMod').on('click', function(e){
 			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){		
 				console.log('заменили');
 				ajax('cart', 'GetCart').done(function(data){

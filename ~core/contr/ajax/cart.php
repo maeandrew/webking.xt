@@ -326,7 +326,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'updateCartQty':
 				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
 				$res = $cart->UpdateCartQty($_POST);
-				$cart->InsertMyCart();
+				$cart->DBCart();
 				echo json_encode($res);
 				break;
 			case 'GetCart':
@@ -347,7 +347,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case 'makeOrder':
+			case 'makeOrder': //print_r($_POST);
 				if(!G::isLogged()){
 					$Customers = new Customers();
 					$Users = new Users();
@@ -409,9 +409,15 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				return json_encode(true);
 				break;
-			case 'add_status_cart':
-				$res = $cart->SetStatusCart();//$_POST['id_order']
-				return json_encode($res);
+//			case 'add_status_cart':
+//				$res = $cart->SetStatusCart();//$_POST['id_order']
+//				return json_encode($res);
+//				break;
+			case 'CreateJointOrder':
+				if(!$res['promo'] = $cart->SetStatusCart('JO', 10, 1, 0)){
+					$res['promo'] = 'Ошибка формирования совместного заказа.';
+				};
+				echo json_encode($res['promo']);
 				break;
 			default:
 				break;

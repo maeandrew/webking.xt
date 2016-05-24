@@ -8,7 +8,11 @@ $tpl->Assign('list_menu', $Page->list);
 $contragent = new Contragents();
 $id_contragent = $_GET['id_contragent'];
 $contragent->SetFieldsById($id_contragent);
-$id = explode(';', $contragent->fields['details']);
+if(isset($_GET['id_remitter'])){
+	$id = $_GET['id_remitter'];
+}else{
+	$id = explode(';', $contragent->fields['details']);
+}
 $remitters = $contragent->GetRemitterById($id);
 $tpl->Assign('remitters', $remitters);
 $header = 'Формирование докумета';

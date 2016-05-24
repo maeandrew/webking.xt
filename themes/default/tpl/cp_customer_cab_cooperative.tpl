@@ -299,7 +299,7 @@
                 <?}?>
             </ul>
             <?}else{ ?>
-            <p class="no_orders">У Вас нету ни одного заказа</p>
+            <p class="no_orders">У Вас нет ни одного заказа</p>
             <?}?>
         </div>
     </div><!--class="history"-->

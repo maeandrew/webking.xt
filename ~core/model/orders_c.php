@@ -423,6 +423,8 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
+
+
 		// Если список товаров в корзине пуст
 		if(empty($_SESSION['cart']['products'])){
 			print_r('products error');
@@ -466,13 +468,16 @@ class Orders {
 		if(isset($_SESSION['cart']['base_order'])){
 			$f['base_order'] = $_SESSION['cart']['base_order'];
 		}
+
+
+
 		$f['target_date'] = $target_date = strtotime('+2 day', time());
 		$f['creation_date'] = time();
 		$f['id_customer'] = $_SESSION['member']['id_user'];
 		$Customers = new Customers();
 		$Customers->SetFieldsById($_SESSION['member']['id_user']);
 		$customer = $Customers->fields;
-		if($_SESSION['member']['gid'] = _ACL_CONTRAGENT_){
+		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
 		}else{
 			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];

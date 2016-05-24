@@ -1,4 +1,4 @@
-<div class="product mdl-grid">
+<div class="product mdl-grid" itemscope itemtype="http://schema.org/Product">
 	<?// Проверяем доступнось розницы
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
@@ -6,11 +6,11 @@
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
 			<?}else if(!empty($item['img_1'])){?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
 			<?}else{?>
-				<img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -219,7 +219,7 @@
 	</div>
 	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_name">
-			<h1><?=$item['name']?></h1>
+			<h1 itemprop="name"><?=$item['name']?></h1>
 			<p class="product_article">арт: <?=$item['art']?></p>
 			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
 				<!-- Ссылка на редактирование товара для администратором -->
@@ -233,8 +233,10 @@
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
-				<div class="buy_block">
-					<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+					<meta itemprop="priceCurrency" content="UAH">
+					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
+					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
 					<div class="btn_buy">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
@@ -300,7 +302,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="rating_block">
+		<div class="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
+			<?if($item['c_mark'] > 0){?>
+				<meta itemprop="worstRating" content="1">
+				<meta itemprop="bestRating" content="5">
+				<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
+				<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
+			<?}?>
 			<?if($item['c_rating'] > 0){?>
 				<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
 					<?for($i = 1; $i <= 5; $i++){
@@ -329,7 +337,7 @@
 			<div class="tab-content">
 				<div id="description" class="mdl-tabs__panel is-active">
 					<?if(!empty($item['descr_xt_full'])){?>
-						<p><?=$item['descr_xt_full']?></p>
+						<p itemprop="description"><?=$item['descr_xt_full']?></p>
 					<?}else{?>
 						<p>К сожалению описание товара временно отсутствует.</p>
 					<?}?>
@@ -461,36 +469,42 @@
 						<?}else{
 							foreach($comment as $i){
 								if(_acl::isAdmin() || $i['visible'] == 1){?>
-									<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
-									<span class="feedback_author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
-									<span class="feedback_date"><i class="material-icons">query_builder</i>
-										<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
-											Сегодня
-										<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
-											Вчера
-										<?}else{
-											echo date("d.m.Y", strtotime($i['date_comment']));
-										}?>
-									</span>
-									<?if($i['rating'] > 0){?>
-										<div class="feedback_rating">
-											Оценка товара:
-											<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
-												<?for($j = 1; $j <= 5; $j++){
-													$star = 'star';
-													if($j > floor($i['rating'])){
-														if($j == ceil($i['rating'])){
-															$star .= '_half';
-														}else{
-															$star .= '_border';
-														}
-													}?>
-													<li><i class="material-icons"><?=$star?></i></li>
-												<?}?>
-											</ul>
-										</div>
-									<?}?>
-									<p class="feedback_comment"><?=$i['text_coment'];?></p>
+									<div class="feedback_item" itemprop="review" itemscope itemtype="http://schema.org/Review">
+										<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
+										<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
+										<span class="feedback_date"><i class="material-icons">query_builder</i>
+											<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($i['date_comment']))?>">
+											<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
+												Сегодня
+											<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
+												Вчера
+											<?}else{
+												echo date("d.m.Y", strtotime($i['date_comment']));
+											}?>
+										</span>
+										<?if($i['rating'] > 0){?>
+											<div class="feedback_rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+												<meta itemprop="worstRating" content="1">
+												<meta itemprop="bestRating" content="5">
+											    <span class="hidden" itemprop="ratingValue"><?=$i['rating']?></span>
+												Оценка товара:
+												<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
+													<?for($j = 1; $j <= 5; $j++){
+														$star = 'star';
+														if($j > floor($i['rating'])){
+															if($j == ceil($i['rating'])){
+																$star .= '_half';
+															}else{
+																$star .= '_border';
+															}
+														}?>
+														<li><i class="material-icons"><?=$star?></i></li>
+													<?}?>
+												</ul>
+											</div>
+										<?}?>
+										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
+									</div>
 								<?}
 							}
 						}?>
