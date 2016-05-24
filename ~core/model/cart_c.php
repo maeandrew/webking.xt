@@ -249,7 +249,7 @@ class Cart {
 
 
 	// Добавление и проверка корзины в БД
-	public function InsertMyCart(){
+	public function DBCart(){
 		if(isset($_SESSION['cart']['id'])){
 			# обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
@@ -308,7 +308,7 @@ class Cart {
 	//
 	public function LastClientCart(){
 		$id = $_SESSION['member']['id_user'];
-		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status = 0 AND id_user = ".$id." ORDER BY creation_date DESC LIMIT 1";
+		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status LIKE '%0' AND id_user = ".$id." ORDER BY status DESC, creation_date DESC LIMIT 1";
 		$res = $this->db->GetOneRowArray($sql);
 		if(!empty($res)){
 			$_SESSION['cart']['id'] = $res['id_cart'];
@@ -511,7 +511,7 @@ class Cart {
 
 	//Добавить статус для заказа (корзины)
 	public function SetStatusCart($prefix){
-		$cart_id = $this->InsertMyCart();
+		$cart_id = $this->DBCart();
 		// Символы, которые будут использоваться в пароле.
 		//$chars = "qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP";
 		//$max = 4;	// Количество символов в пароле.

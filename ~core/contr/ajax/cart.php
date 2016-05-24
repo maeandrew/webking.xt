@@ -326,7 +326,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'updateCartQty':
 				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
 				$res = $cart->UpdateCartQty($_POST);
-				$cart->InsertMyCart();
+				$cart->DBCart();
 				echo json_encode($res);
 				break;
 			case 'GetCart':
