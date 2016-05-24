@@ -314,10 +314,17 @@
 						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo'])?$_SESSION['cart']['promo']:null;?>">
 						<label class="mdl-textfield__label" for="promo_input"></label>
 					</div>
+					<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
 
+					<div class="cart_warning_js hidden">
+						Удаление промокода приведет к удалению всех совместно организованных заказов.<br>
+						Вы уверенны, что хотите удалить промокод?<br>
+						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
+						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
+					</div>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
-						<i class="material-icons del_promoCode del_promoCode_js">clear</i>
-						<div class="">
+						<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
+						<div class="hidden">
 							<div class="info_admin">Информация для админа совместной покупки</div>
 							<a href="#"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
@@ -341,7 +348,7 @@
 							<div class="tooltip_wrapp joint_purchase_js">
 								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 									<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
-									<span class="mdl-radio__label">Совместная покупка</span>
+									<span class="mdl-radio__label">Организовать совместную покупку</span>
 										<label class="info_key" style="position: initial;">?</label>
 										<div class="info_description">Перейти к оформлению совместной корзины</div>
 								</label>
@@ -364,6 +371,7 @@
 					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
 				</div> -->
 			</form>
+			
 			<script type='text/javascript'>
 				//   radio button magic
 				componentHandler.upgradeDom();
@@ -395,7 +403,9 @@
 				$('.joint_purchase_continue_js').click(function(event) {
 					ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp) {
 						$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
-						$('.cart_choiсe_wrapp_js').addClass('hidden')
+						$('.cart_choiсe_wrapp_js').addClass('hidden');
+						$('.apply_promoCode_js').addClass('hidden');
+						$('.del_promo_wrapp_js').removeClass('hidden');
 					}).fail(function(resp) {
 						console.log('fail ajax');
 					});
@@ -411,11 +421,18 @@
 
 
 				$('.apply_promoCode_js').click(function(event) {
-					/* Act on the event */
+					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(event) {
+						console.log("success promo");
+					}).fail(function(event) {
+						console.log("fail promo");
+					});
 				});
 				$('.del_promoCode_js').click(function(event) {
-					$('.promo_input_js input').attr('value', '');
-					ajax('cart', '', {});
+					$('.cart_warning_js').removeClass('hidden');
+					ajax('cart', '', {}).done(function(event) {
+						$('.promo_input_js input').attr('value', '');
+						
+					});
 				});
 			</script>
 		</div>

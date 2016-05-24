@@ -1108,7 +1108,7 @@ section.center {
 	}
 	#cart .action_block .promo_input {
 		display: inline-block;
-		width: 160px;
+		width: 140px;
 		margin-right: 10px;
 		/*padding-top: 20px;*/
 	}
@@ -1130,6 +1130,12 @@ section.center {
 	}
 	#cart .action_block .order_management {
 
+	}
+	#cart .action_block .cart_warning_js {
+		width: 90%;
+	}
+	#cart .action_block .cart_warning_js input {
+		width: 80px;
 	}
 	#cart .no_items h2 {
 		text-align: center;
