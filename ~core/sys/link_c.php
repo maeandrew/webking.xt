@@ -116,6 +116,7 @@ class Link {
 	 */
 	private static function AdressUrl($data){
 		if(isset($data['filter']) && is_array($data['filter']) && !empty($data['filter'])){
+			$data['str_filter'] = '';
 			foreach($data['filter'] as $key => $filters){
 				$data['str_filter'] .= ($data['str_filter'] !== '' ? ';' : '') . $key . "=" . implode(',', $filters);
 			}
