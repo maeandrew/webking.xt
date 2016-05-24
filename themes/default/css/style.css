@@ -31,16 +31,17 @@ a {
 	-o-transition: all .2s cubic-bezier(.4,0,.2,1);
 	transition: all .2s cubic-bezier(.4,0,.2,1);
 }
-a:hover:not([href="#"]) {
+/*a:hover:not([href="#"])*/
+a:hover {
 	/*color: #343030;*/
 	color: #ff5722;
 	-webkit-transition: none;
 	-o-transition: none;
 	transition: none;
 }
-a[href="#"] {
+/*a[href="#"] {
 	cursor: default;
-}
+}*/
 p a {
 	text-decoration: underline;
 }

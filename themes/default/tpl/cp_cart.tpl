@@ -311,11 +311,11 @@
 				<?if(G::isLogged() || _acl::isAdmin()){?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
 						<label for="promo_input">Промокод</label>
-						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promocode'])?$_SESSION['cart']['promocode']:null;?>">
+						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo'])?$_SESSION['cart']['promo']:null;?>">
 						<label class="mdl-textfield__label" for="promo_input"></label>
 					</div>
 
-					<?if(isset($_SESSION['cart']['promocode'])) {?>
+					<?if(isset($_SESSION['cart']['promo'])) {?>
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect del_promoCode del_promoCode_js" value=""><i class="material-icons">clear</i></button>
 						<div class="hidden">
 							<div class="info_admin">Информация для админа корзины</div>
