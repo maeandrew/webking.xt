@@ -419,6 +419,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				};
 				echo json_encode($res['promo']);
 				break;
+			case 'CheckPromo':
+				if(!$cart->CheckPromo($_POST['promo'])){
+					$res['promo'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
+				} else{
+					$res['promo'] = 'Успех';
+				}
+				echo json_encode($res['promo']);
+				break;
 			default:
 				break;
 		}
