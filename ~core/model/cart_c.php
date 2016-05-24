@@ -312,6 +312,7 @@ class Cart {
 		$res = $this->db->GetOneRowArray($sql);
 		if(!empty($res)){
 			$_SESSION['cart']['id'] = $res['id_cart'];
+			$_SESSION['cart']['promo'] = $res['promo'];
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
