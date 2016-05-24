@@ -316,7 +316,7 @@
 					</div>
 
 					<?if(isset($_SESSION['cart']['promo'])) {?>
-						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect del_promoCode del_promoCode_js" value=""><i class="material-icons">clear</i></button>
+						<i class="material-icons del_promoCode del_promoCode_js">clear</i>
 						<div class="hidden">
 							<div class="info_admin">Информация для админа корзины</div>
 							<input class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление совместной корзиной"/>
