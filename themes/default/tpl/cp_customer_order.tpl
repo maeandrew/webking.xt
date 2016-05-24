@@ -299,6 +299,7 @@
 				});
 			});
 		});
+		
 
 		$('#addtoCartMod').on('click', function(e){	
 			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){			
