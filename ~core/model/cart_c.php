@@ -249,7 +249,7 @@ class Cart {
 
 
 	// Добавление и проверка корзины в БД
-	public function InsertMyCart(){
+	public function DBCart(){
 		if(isset($_SESSION['cart']['id'])){
 			# обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
@@ -308,10 +308,13 @@ class Cart {
 	//
 	public function LastClientCart(){
 		$id = $_SESSION['member']['id_user'];
-		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status = 0 AND id_user = ".$id." ORDER BY creation_date DESC LIMIT 1";
+		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status LIKE '%0' AND id_user = ".$id." ORDER BY status DESC, creation_date DESC LIMIT 1";
 		$res = $this->db->GetOneRowArray($sql);
 		if(!empty($res)){
 			$_SESSION['cart']['id'] = $res['id_cart'];
+			$_SESSION['cart']['promo'] = $res['promo'];
+			$_SESSION['cart']['adm'] = $res['adm'];
+			$_SESSION['cart']['ready'] = $res['ready'];
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
@@ -510,19 +513,12 @@ class Cart {
 	}
 
 	//Добавить статус для заказа (корзины)
-	public function SetStatusCart(){
-		$cart_id = $this->InsertMyCart();
-		// Символы, которые будут использоваться в пароле.
-		//$chars = "qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP";
-		//$max = 4;	// Количество символов в пароле.
-		//$size = StrLen($chars)-1;	// Определяем количество символов в $chars
-		//$promo = null;	// Определяем пустую переменную, в которую и будем записывать символы.
-		//while($max--)	$promo.=$chars[rand(0,$size)]; // Создаём пароль.
-		//global $db;
-		$promo = 'JC'.G::GenerateVerificationCode();
-		$stat = 10;
+	public function SetStatusCart($prefix, $status, $adm = 0, $ready = 0){
+		$cart_id = $this->DBCart();
+		$promo = $prefix.G::GenerateVerificationCode();
 		$sql = "UPDATE "._DB_PREFIX_."cart
-		SET promo = '". $promo ."', status = '". $stat ."'
+		SET promo = '". $promo ."', status = '". $status ."',
+		adm = '". $adm ."', ready = '". $ready ."'
 		WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
@@ -531,5 +527,27 @@ class Cart {
 		}
 		$this->db->CompleteTrans();
 		return $promo;
+	}
+
+	//Проверка промокода
+	public function CheckPromo($promo){
+		switch (substr($promo, 0, 2)){
+			case 'JO':
+				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."cart WHERE promo = '".$promo."' AND adm = 1 AND `status` = '10'")){
+					return false;
+				} else{
+					$cart_id = $this->DBCart();
+					$sql = "UPDATE "._DB_PREFIX_."cart	SET promo = '". $promo ."', status = '10', adm = '0'
+					WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
+					$this->db->StartTrans();
+					if(!$this->db->Query($sql)){
+						$this->db->FailTrans();
+						return false;
+					}
+					$this->db->CompleteTrans();
+					return true;
+				}
+				break;
+		}
 	}
 }

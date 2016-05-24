@@ -238,3 +238,6 @@ robots.txt
 robots.txt
 *.txt
 *.jpg
+
+
+.phpintel/*

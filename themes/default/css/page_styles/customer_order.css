@@ -71,8 +71,11 @@
 	flex-direction: column;
 }
 .customerOrderFooter .buttons_order button {
-	float: right;
+	/*float: right;*/
 	margin-top: 20px;
+}
+.customerOrderFooter .buttons_order .cnslOrderBtn {
+	margin-left: 5px;
 }
 
 .customerOrderFooter .customer,

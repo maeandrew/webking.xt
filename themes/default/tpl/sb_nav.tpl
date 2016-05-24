@@ -29,7 +29,7 @@
 			</div>
 		</li>
 		<?if($GLOBALS['CurrentController'] != 'main' && in_array($GLOBALS['CurrentController'], array('main', 'products'))){?>
-			<li data-nav="filter">
+			<li data-nav="filter" class="activeFilters_js">
 				<i class="material-icons">filter_list</i>
 				<span>
 					<span class="title">Фильтры</span>

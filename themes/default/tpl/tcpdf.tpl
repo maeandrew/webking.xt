@@ -108,7 +108,7 @@ $content = '
 </style>
 ';
 $order_info ='
-<h2>'.$settings['doctype'].' № &nbsp;'.$order_details['id_order'].'&nbsp;&nbsp; от &nbsp;&nbsp;'.date("d.m.Y", $order_details['creation_date']).'г.</h2>
+<h2>'.$settings['doctype'].' № &nbsp;'.$order_details['id_order'].'&nbsp;&nbsp; от &nbsp;&nbsp;'.date("d.m.Y", strtotime($settings['date'])).'г.</h2>
 <table class="header" border="0">
 	<tbody>
 		<tr>

@@ -326,7 +326,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'updateCartQty':
 				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
 				$res = $cart->UpdateCartQty($_POST);
-				$cart->InsertMyCart();
+				$cart->DBCart();
 				echo json_encode($res);
 				break;
 			case 'GetCart':
@@ -413,10 +413,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 //				$res = $cart->SetStatusCart();//$_POST['id_order']
 //				return json_encode($res);
 //				break;
-			case 'CreateJointCart':
-				$res['promo'] = $cart->SetStatusCart();
+			case 'CreateJointOrder':
+				if(!$res['promo'] = $cart->SetStatusCart('JO', 10, 1, 0)){
+					$res['promo'] = 'Ошибка формирования совместного заказа.';
+				};
 				echo json_encode($res['promo']);
-
+				break;
+			case 'CheckPromo':
+				if(!$cart->CheckPromo($_POST['promo'])){
+					$res['promo'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
+				} else{
+					$res['promo'] = 'Успех';
+				}
+				echo json_encode($res['promo']);
 				break;
 			default:
 				break;

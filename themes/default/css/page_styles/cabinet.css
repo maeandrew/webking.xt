@@ -998,13 +998,18 @@ table.supplier_assort_table {
 	width: 19%;
 	float: left;
 	position: relative;
-		height: 100%;
+	height: 100%;
 	background-color: #F5F5F5;
 	border-right-color: #DCDCDC;
 	border-right-width: 1px;
 	border-style: solid;
 	min-height: 412px;
-
+}
+#cab_left_bar a[href="#"]:hover {
+	color: #444;
+}
+#cab_left_bar a[href="#"] {
+	cursor: default;
 }
 #my_order {
 	position: absolute;

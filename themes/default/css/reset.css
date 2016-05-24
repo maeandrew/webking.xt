@@ -34,6 +34,12 @@ body {
 ol, ul {
 	list-style: none;
 }
+strong, b {
+	font-weight: bold;
+}
+i, cite, em, var, address, dfn {
+	font-style: italic;
+}
 blockquote, q {
 	quotes: none;
 }
