@@ -1128,6 +1128,9 @@ section.center {
 		color: #fff;
 		cursor: pointer;
 	}
+	#cart .action_block .order_management {
+
+	}
 	#cart .no_items h2 {
 		text-align: center;
 	}
