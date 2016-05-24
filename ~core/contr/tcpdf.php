@@ -9,6 +9,7 @@ if($_POST['recipient'] == 0){
 }else{
 	$settings['data'] = $remitter['name'].', '.$remitter['address'].', <br> т. (097) 465-49-89, (095) 922-36-30, Р/с '.$remitter['rs'].', МФО '.$remitter['mfo'].', '.$remitter['bank'].', <br> ЕГРПОУ '.$remitter['egrpou'];
 }
+$settings['date'] = $_POST['date'];
 $settings['doctype'] = $_POST['doctype'];
 if($_POST['margin']){
 	$settings['margin'] = str_replace(",",".",$_POST['margin']);
