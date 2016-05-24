@@ -414,11 +414,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 //				return json_encode($res);
 //				break;
 			case 'CreateJointOrder':
-				if(!$res['promo'] = $cart->SetStatusCart($_POST['prefix'])){
+				if(!$res['promo'] = $cart->SetStatusCart('JO', 10, 1, 0)){
 					$res['promo'] = 'Ошибка формирования совместного заказа.';
 				};
 				echo json_encode($res['promo']);
-
 				break;
 			default:
 				break;
