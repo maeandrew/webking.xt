@@ -414,7 +414,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 //				return json_encode($res);
 //				break;
 			case 'CreateJointCart':
-				$res['promo'] = $cart->SetStatusCart();
+				if(!$res['promo'] = $cart->SetStatusCart($_POST['jointCart'])){
+					$res['promo'] = 'Ошибка формирования совместной корзины.';
+				};
 				echo json_encode($res['promo']);
 
 				break;

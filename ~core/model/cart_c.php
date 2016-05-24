@@ -510,7 +510,7 @@ class Cart {
 	}
 
 	//Добавить статус для заказа (корзины)
-	public function SetStatusCart(){
+	public function SetStatusCart($prefix){
 		$cart_id = $this->InsertMyCart();
 		// Символы, которые будут использоваться в пароле.
 		//$chars = "qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP";
@@ -519,7 +519,7 @@ class Cart {
 		//$promo = null;	// Определяем пустую переменную, в которую и будем записывать символы.
 		//while($max--)	$promo.=$chars[rand(0,$size)]; // Создаём пароль.
 		//global $db;
-		$promo = 'JC'.G::GenerateVerificationCode();
+		$promo = $prefix.G::GenerateVerificationCode();
 		$stat = 10;
 		$sql = "UPDATE "._DB_PREFIX_."cart
 		SET promo = '". $promo ."', status = '". $stat ."'
