@@ -512,21 +512,29 @@ class Cart {
 		return $res;
 	}
 
-	//Добавить статус для заказа (корзины)
-	public function SetStatusCart($prefix, $status, $adm = 0, $ready = 0){
-		$cart_id = $this->DBCart();
+	//Формирование промокода
+	public function CreatePromo($prefix){
 		$promo = $prefix.G::GenerateVerificationCode();
+		if(!$this->SetStatusCart($promo, 10, 1, 0)){
+			return false;
+		}
+		return $promo;
+	}
+
+	//Добавить статус и промокод для заказа (корзины)
+	public function SetStatusCart($promo, $status, $adm, $ready){
+		$cart_id = $this->DBCart();
 		$sql = "UPDATE "._DB_PREFIX_."cart
-		SET promo = '". $promo ."', status = '". $status ."',
-		adm = '". $adm ."', ready = '". $ready ."'
-		WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
+				SET promo = '". $promo ."', status = '". $status ."',
+				adm = '". $adm ."', ready = '". $ready ."'
+				WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		return $promo;
+		return true;
 	}
 
 	//Проверка промокода
@@ -536,16 +544,10 @@ class Cart {
 				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."cart WHERE promo = '".$promo."' AND adm = 1 AND `status` = '10'")){
 					return false;
 				} else{
-					$cart_id = $this->DBCart();
-					$sql = "UPDATE "._DB_PREFIX_."cart	SET promo = '". $promo ."', status = '10', adm = '0'
-					WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
-					$this->db->StartTrans();
-					if(!$this->db->Query($sql)){
-						$this->db->FailTrans();
+					if(!$this->SetStatusCart($promo, 10, 0, 0)){
 						return false;
 					}
-					$this->db->CompleteTrans();
-					return true;
+					return $promo;
 				}
 				break;
 		}
