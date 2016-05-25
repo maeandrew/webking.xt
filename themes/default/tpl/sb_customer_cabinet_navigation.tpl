@@ -1,40 +1,40 @@
 <div id="cab_left_bar" class="cab_left_bar_js" data-lvl="1">
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
-		<li>
+		<li class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts'?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i>Личные данные</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
 			</span>
 			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-				<li class="child">
+				<li class="child <?=$_GET['t']=='contacts'?'active':null;?>">
 					<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
 				</li>
-				<li>
+				<li class="<?=$_GET['t']=='delivery'?'active':null;?>">
 					<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=delivery">Адрес доставки</a>
 				</li>
 			</ul>
 		</li>
-		<li>
+		<li class="<?=$_GET['t']=='all' || $_GET['t']=='working' || $_GET['t']=='completed' || $_GET['t']=='canceled' || $_GET['t']=='drafts'?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">shopping_cart</i>Мои заказы</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active':null;?>">
-				<li>
+				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
 				</li>
-				<li>
+				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=working">Выполняются</a>
 				</li>
-				<li>
+				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=completed">Выполненные</a>
 				</li>
-				<li>
+				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=canceled">Отмененные</a>
 				</li>
-				<li>
+				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=drafts">Черновики</a>
 				</li>
 			</ul>
@@ -123,9 +123,6 @@
 </ul> -->
 <script>
 	$(document).ready(function() {
-		if ($('.main').outerHeight() > 468) {
-			// $('.cab_left_bar_js').css('height', $('.main').outerHeight() + "px");
-		}
 		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
 			var parent = $(this).closest('li'),
 				parent_active = parent.hasClass('active');

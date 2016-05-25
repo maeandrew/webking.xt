@@ -969,11 +969,12 @@ table.supplier_assort_table {
 	padding: .7em;
 	cursor: pointer;
 }
-#cab_left_bar > ul > li > .link_wrapp > a {
+#cab_left_bar > ul > li:hover > .link_wrapp > a {
 	cursor: pointer;
+	color: #FF5722;
 }
 #cab_left_bar > ul > li:hover {
-	background-color: #fff;
+	background-color: #F5F5F5;
 }
 #cab_left_bar .link_wrapp {
 	display: block;
@@ -1007,6 +1008,12 @@ table.supplier_assort_table {
 #cab_left_bar li.active > span > .more_cat i {
 		transform: rotate(90deg);
 	}
+#cab_left_bar li.active ul {
+	display: block;
+}
+#cab_left_bar li.active ul a.active {
+	color: #FF5722;
+}
 #cab_left_bar li ul {
 	display: none;
 	margin-left: 15px;
@@ -1051,15 +1058,15 @@ table.supplier_assort_table {
 	float: left;
 	position: relative;
 	height: inherit;
-	background-color: #F5F5F5;
+	/*background-color: #F5F5F5;*/
 	border-right-color: #DCDCDC;
 	border-right-width: 1px;
 	border-style: solid;
 	min-height: 412px;
 }
-#cab_left_bar a[href="#"]:hover {
+/*#cab_left_bar a[href="#"]:hover {
 	color: #444;
-}
+}*/
 #cab_left_bar a[href="#"] {
 	cursor: default;
 }
