@@ -1015,7 +1015,7 @@ table.supplier_assort_table {
 	color: #FF5722;
 }
 #cab_left_bar li ul {
-	display: none;
+	/*display: none;*/
 	margin-left: 15px;
 	border-left: 1px solid #e0e0e0;
 }
