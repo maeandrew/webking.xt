@@ -559,7 +559,7 @@ label.info_key {
 	flex-direction: row-reverse;
 }
 
-.block_view .card .quantity button {
+.block_view .card .quantity .quantityReverseBlock button {
 	position: relative;
 	top: 0;
 	bottom: 0;
