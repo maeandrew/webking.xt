@@ -396,7 +396,11 @@ $(function(){
 		var mainWindow = $('.main').height(); // высота главного блока		
 		var scroll = $(this).scrollTop(); // прокрутка 		
 		var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;						
-		$('aside').css('bottom', pieceOfFooter);			
+		if (pieceOfFooter >= 0) {
+			$('aside').css('bottom', pieceOfFooter);
+		}else{
+			$('aside').css('bottom', 0);
+		}			
 	});
 	
 	$('body').on('click', function() {
@@ -406,7 +410,11 @@ $(function(){
 			var scroll = $(this).scrollTop(); // прокрутка 	
 			mainWindow = newMainWindow;
 			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;						
-			$('aside').css('bottom', pieceOfFooter);
+			if (pieceOfFooter >= 0) {
+				$('aside').css('bottom', pieceOfFooter);
+			}else{
+				$('aside').css('bottom', 0);
+			}			
 		}	
 	});
 
