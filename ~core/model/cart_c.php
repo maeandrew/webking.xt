@@ -130,9 +130,9 @@ class Cart {
 			$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // 10000
 			if($products_sum[3] >= $full_wholesale_margin){
 				$cart_column = 0;
-			}elseif($products_sum[3] >= $wholesale_margin && $products_sum[1] < $full_wholesale_margin){
+			}elseif($products_sum[3] >= $wholesale_margin){
 				$cart_column = 1;
-			}elseif($products_sum[3] >= $retail_margin && $products_sum[2] < $wholesale_margin){
+			}elseif($products_sum[3] >= $retail_margin){
 				$cart_column = 2;
 			}elseif($products_sum[3] < $retail_margin){
 				$cart_column = 3;
