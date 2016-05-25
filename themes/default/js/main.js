@@ -345,6 +345,8 @@ $(function(){
 		over_scroll = $('body').hasClass('banner_hidden')?true:false,
 		banner_height = $('.banner').outerHeight(),
 		header_height = header.outerHeight();
+	var viewPort = $(window).height(); // высота окна
+	var mainWindow = $('.main').height(); // высота главного блока			
 	$(window).scroll(function(){
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
@@ -360,8 +362,8 @@ $(function(){
 				$('html, body').scrollTop(0);
 			}					
 		}else{			
-			var viewPort = $(window).height(); // высота окна		
-			var mainWindow = $('.main').height(); // высота главного блока		
+			/*var viewPort = $(window).height(); // высота окна	*/	
+			/*var mainWindow = $('.main').height(); // высота главного блока	*/	
 			var scroll = $(this).scrollTop(); // прокрутка 		
 			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
 			var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
@@ -382,8 +384,8 @@ $(function(){
 		}
 	});
 	$(window).load(function(){
-		var viewPort = $(window).height(); // высота окна		
-		var mainWindow = $('.main').height(); // высота главного блока		
+		/*var viewPort = $(window).height(); // высота окна		
+		var mainWindow = $('.main').height(); // высота главного блока	*/	
 		var scroll = $(this).scrollTop(); // прокрутка 		
 		var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;	
 		
@@ -391,6 +393,25 @@ $(function(){
 				$('aside').css('bottom', pieceOfFooter);
 			}
 	});
+	$(window).resize(function(){
+	  	/*var viewPort = $(window).height(); // высота окна*/		
+		var mainWindow = $('.main').height(); // высота главного блока		
+		var scroll = $(this).scrollTop(); // прокрутка 		
+		var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;						
+		$('aside').css('bottom', pieceOfFooter);			
+	});
+	
+	$('body').on('click', function() {
+		console.log('боди лог');
+		var newMainWindow = $('.main').height(); // высота главного блока
+		if (newMainWindow != mainWindow) {
+			var scroll = $(this).scrollTop(); // прокрутка 	
+			mainWindow = newMainWindow;
+			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;						
+			$('aside').css('bottom', pieceOfFooter);
+		}	
+	});
+
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
