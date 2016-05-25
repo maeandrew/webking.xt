@@ -64,37 +64,36 @@
 				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
 			</span>
 		</li>
-		<li class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='settings'?'active':null;?>">
+		<li class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">settings</i>Настройки</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
-			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'active':null;?>">
-				<li class="<?=$_GET['t']=='basic'?'active':null;?>">
-					<a name="t" value="basic" <?=(isset($_GET['t']) && $_GET['t']) == 'basic'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
+			<ul class="nav">
+				<li class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>">
+					<a name="t" value="basic" class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>" href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
 				</li>
-				<li class="<?=$_GET['t']=='password'?'active':null;?>">
-					<a name="t" value="password" <?=(isset($_GET['t']) && $_GET['t']) == 'password'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','settings')?>?t=password">Смена пароля</a>
+				<li class="<?=isset($_GET['t']) && $_GET['t'] == 'password'?'active':null;?>">
+					<a name="t" value="password" class="<?=isset($_GET['t']) && $_GET['t'] == 'password'?'active':null;?>" href="<?=Link::Custom('cabinet','settings')?>?t=password">Смена пароля</a>
 				</li>
 			</ul>
 		</li>
-		<li>
+		<li class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">add_shopping_cart</i>Бонусная программа</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
-			<?if(isset($GLOBALS['Rewrite'])){ ?>
+			
 				<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active':null;?>">
-					<li class="child">
-						<a name="t" value="bonus_info" <?=(isset($_GET['t']) && $_GET['t']) == 'bonus_info'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','bonus')?>?t=bonus_info">Мой бонусный счет</a>
+					<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>">
+						<a name="t" value="bonus_info" class="<?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus')?>?t=bonus_info">Мой бонусный счет</a>
 					</li>
-					<li>
-						<a name="t" value="change_bonus" <?=(isset($_GET['t']) && $_GET['t']) == 'change_bonus'?'class="active"':null;?>  href="<?=Link::Custom('cabinet','bonus')?>?t=change_bonus">
+					<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>">
+						<a name="t" value="change_bonus" class="<?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus')?>?t=change_bonus">
 							<?=isset($Customer['bonus_card']) ? 'Смена бонусной карты' : 'Активация бонусной карты';?>
 						</a>
 					</li>
 				</ul>
-			<?}?>
 		</li>
 		<li>
 			<span class="link_wrapp">
@@ -131,10 +130,10 @@
 		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
 			var parent = $(this).closest('li'),
 				parent_active = parent.hasClass('active');
-			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
+			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow');
 
 			if(!parent_active){
-				parent.addClass('active').find('> ul').stop(true, true).slideDown();
+				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
 			}
 		});
 		/*$('.cab_left_bar_js').on('click','.active_order_js', function() {

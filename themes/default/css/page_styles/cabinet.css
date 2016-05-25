@@ -1009,7 +1009,7 @@ table.supplier_assort_table {
 		transform: rotate(90deg);
 	}
 #cab_left_bar li.active ul {
-	display: block;
+	/*display: block;*/
 }
 #cab_left_bar li.active ul a.active {
 	color: #FF5722;
