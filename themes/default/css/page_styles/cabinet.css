@@ -958,14 +958,62 @@ table.supplier_assort_table {
 }
 
 /* Customer cab ============================================================= */
-#cab_left_bar ul {
-	padding: 0 1.5em 0 1.5em;
+#cab_left_bar > ul {
+	/* padding: 0 1.5em 0 1.5em; */
+	/*padding: .7em;*/
 }
 #cab_left_bar li {
-	margin-bottom: 0.5em;
+	/*margin-bottom: 0.5em;*/
+}
+#cab_left_bar > ul > li {
+	padding: .7em;
+}
+#cab_left_bar > ul > li:hover {
+	background-color: #fff;
+}
+#cab_left_bar .link_wrapp {
+	display: block;
+	overflow: hidden;
+	position: relative;
+}
+#cab_left_bar a i.material-icons {
+	margin-right: 5px;
+} 
+#cab_left_bar .more_cat {
+	height: 40px;
+	cursor: pointer;
+	border-left: 1px solid transparent;
+	width: 30px;
+	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+#cab_left_bar .more_cat i {
+	/*font-size: 16px;*/
+	/*box-sizing: border-box;*/
+	width: 100%;
+	text-align: center;
+	/*position: absolute;*/
+	top: calc(50% - 8px);
+	transition: transform 0.3s;
+	transform: rotate(0deg);
+}
+#cab_left_bar li.active > span > .more_cat i {
+		transform: rotate(90deg);
+	}
+#cab_left_bar li ul {
+	display: none;
+	margin-left: 15px;
+	border-left: 1px solid #e0e0e0;
+}
+#cab_left_bar li a {
+	line-height: 2em;
 }
 .nav li {
-	margin-left: 2.5em;
+	/*margin-left: 2.5em;*/
+	margin-left: 1.2em;
 }
 .material-icons {
 	vertical-align: top;
@@ -1783,7 +1831,7 @@ html {
 	margin-top: 35px;
 	margin-bottom: 15px;
 	width: 300px;
-    border-radius: 3px;
+	border-radius: 3px;
 }
 .date_container .mdl-textfield {
 	padding: 0;
