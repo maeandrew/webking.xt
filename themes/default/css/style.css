@@ -1471,10 +1471,20 @@ section.center {
 		font-size: inherit;
 		max-width: calc(100% - 40px);
 	}
-	aside .filters #filterButtons {
+	aside .filters .filterButtons {
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-around;		
+	}	
+
+	aside .filters .buttonsTop {		
+		background: #f5f5f5;
+		position: fixed;
+		height: 50px;
+		width: 283px;
+		z-index: 10;
+		top: 50px;
 	}
+
 	aside .filters .mdl-textfield {
 		width: 30%
 	}

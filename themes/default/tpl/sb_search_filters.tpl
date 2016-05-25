@@ -88,33 +88,10 @@
 		//	$('.disabled').click(function(event) {
 		//		event.preventDefault();
 		//	});
+		
 		/*Смена позиции кнопок блока фильтра*/
-		$('.wrapper').on("scroll", function(){
-			// console.log($('.filters').offset().top-$(window).scrollTop());
-			var height = ($('.filters').offset().top-$(window).scrollTop());
-			if( height <= 50){
-				$('#filterButtons').css({
-					background: '#f5f5f5',
-					position: 'fixed',
-					height: '50px',
-					width: '283px',
-					'z-index': '10',
-					top: '50px'
-				});
-				$('#clear_filter').css('margin-top', '7px');
-				$('#applyFilter').css('margin-top', '7px');
-			}else{
-				$('#filterButtons').css({
-					background: '',
-					position: '',
-					height: '',
-					width: '',
-					'z-index': '',
-					top: ''
-				});
-				$('#clear_filter').css('margin-top', '');
-				$('#applyFilter').css('margin-top', '');
-			}
+		$('.wrapper').on("scroll", function(){				
+			changeFiltersBtnsPosition();
 		});
 
 		/* Проверка ценового диапазона и события применить */
@@ -149,7 +126,7 @@
 	});
 </script>
 <div class="filters">
-	<div id="filterButtons">
+	<div id="filterButtons" class="filterButtons">
 		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Применить</button>
 		<button id="clear_filter" class="mdl-button mdl-js-button mdl-js-ripple-effect">Сбросить</button>
 	</div>
