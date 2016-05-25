@@ -122,16 +122,18 @@
 	<li><a href=""></a></li>
 </ul> -->
 <script>
-	$('.cab_left_bar_js').on('click','.more_cat', function() {
-		var lvl = $(this).closest('ul').data('lvl'),
-			parent = $(this).closest('li'),
-			parent_active = parent.hasClass('active');
-		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
-		 // $(this).closest('ul').find('.material-icons').addClass('rotate');
-
-		if(!parent_active){
-			parent.addClass('active').find('> ul').stop(true, true).slideDown();
-			// $(this).find('.material-icons').addClass('rotate');
+	$(document).ready(function() {
+		if ($('.main').outerHeight() > 468) {
+			// $('.cab_left_bar_js').css('height', $('.main').outerHeight() + "px");
 		}
+		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
+			var parent = $(this).closest('li'),
+				parent_active = parent.hasClass('active');
+			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
+
+			if(!parent_active){
+				parent.addClass('active').find('> ul').stop(true, true).slideDown();
+			}
+		});
 	});
 </script>

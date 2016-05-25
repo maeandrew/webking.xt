@@ -967,6 +967,10 @@ table.supplier_assort_table {
 }
 #cab_left_bar > ul > li {
 	padding: .7em;
+	cursor: pointer;
+}
+#cab_left_bar > ul > li > .link_wrapp > a {
+	cursor: pointer;
 }
 #cab_left_bar > ul > li:hover {
 	background-color: #fff;
@@ -1046,7 +1050,7 @@ table.supplier_assort_table {
 	width: 19%;
 	float: left;
 	position: relative;
-	height: 100%;
+	height: inherit;
 	background-color: #F5F5F5;
 	border-right-color: #DCDCDC;
 	border-right-width: 1px;
@@ -1332,7 +1336,7 @@ table.supplier_assort_table {
 .customer_cab #settings,
 .customer_cab .bonus_reg_block {
 	width: 70%;
-	margin: 20px 0;
+	margin-bottom: 20px;
 }
 
 /* Customer cab Settings =================================================== */
