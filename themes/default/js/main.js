@@ -361,9 +361,7 @@ $(function(){
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
 			}					
-		}else{			
-			/*var viewPort = $(window).height(); // высота окна	*/	
-			/*var mainWindow = $('.main').height(); // высота главного блока	*/	
+		}else{							
 			var scroll = $(this).scrollTop(); // прокрутка 		
 			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
 			var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
@@ -381,20 +379,20 @@ $(function(){
 					$('aside').css('top', pieceOfHeader);
 				}				
 			}			
+			changeFiltersBtnsPosition();	
 		}
 	});
-	$(window).load(function(){
-		/*var viewPort = $(window).height(); // высота окна		
-		var mainWindow = $('.main').height(); // высота главного блока	*/	
+	$(window).load(function(){		
 		var scroll = $(this).scrollTop(); // прокрутка 		
 		var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;	
 		
 		if (viewPort > mainWindow) {				
 				$('aside').css('bottom', pieceOfFooter);
 			}
+		changeFiltersBtnsPosition();
 	});
-	$(window).resize(function(){
-	  	/*var viewPort = $(window).height(); // высота окна*/		
+
+	$(window).resize(function(){	  	
 		var mainWindow = $('.main').height(); // высота главного блока		
 		var scroll = $(this).scrollTop(); // прокрутка 		
 		var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;						
@@ -411,7 +409,6 @@ $(function(){
 			$('aside').css('bottom', pieceOfFooter);
 		}	
 	});
-
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
