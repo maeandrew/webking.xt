@@ -16,6 +16,9 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$tpl->Assign('referer', $referer);
 }
 
+//print_r($_GET['t']); die();
+
+
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
 

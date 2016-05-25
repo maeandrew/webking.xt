@@ -46,14 +46,15 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active':null;?>">
 				<li>
-					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=all">Все</a>
+					<a name="t" value="joall" class="all <?=(!isset($_GET['t']) || $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joall">Все</a>
 				</li>
 				<li class="active_order_js">
-					<input type="hidden" data-idcart="<?=$_SESSION['cart']['id']?>" data-iduser="<?=$_SESSION['member']['id_user']?>" data-promo="<?=$_SESSION['cart']['promo']?>" />
-					<a class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" >Активный</a>
+					<!--<input type="hidden" data-idcart="<?=$_SESSION['cart']['id']?>" data-iduser="<?=$_SESSION['member']['id_user']?>" data-promo="<?=$_SESSION['cart']['promo']?>" />
+					<a class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" >Активный</a>-->
+					<a name="t" value="joactive" class="working <?=(isset($_GET['t']) && $_GET['t']=='joactive')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">Активный</a>
 				</li>
 				<li>
-					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=completed">Выполненные</a>
+					<a name="t" value="jocompleted" class="completed <?=(isset($_GET['t']) && $_GET['t']=='jocompleted')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=jocompleted">Выполненные</a>
 				</li>
 			 </ul>
 		</li>
@@ -136,18 +137,16 @@
 				parent.addClass('active').find('> ul').stop(true, true).slideDown();
 			}
 		});
-		$('.cab_left_bar_js').on('click','.active_order_js', function() {
+		/*$('.cab_left_bar_js').on('click','.active_order_js', function() {
 			var id_cart = $(this).find('input').data('idcart'),
 				id_user = $(this).find('input').data('iduser'),
 				promo = $(this).find('input').data('promo');
-			data = {id_cart:id_cart, id_user:id_user, promo:promo};
-			//console.log(data);
-			ajax('cabinet','GetJoCart', data).done(function(){
+			data = {id_cart:id_cart, id_user:id_user, promo:promo, condition:'active'};
+			ajax('cabinet','GetJOCart', data).done(function(){
 				console.log(1);
 			}).fail(function(){
 				console.log(2);
-
 			});
-		});
+		});*/
 	});
 </script>
