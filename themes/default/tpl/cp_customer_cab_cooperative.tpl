@@ -116,13 +116,14 @@
                                         </div>
                                         <div class="count">
                                                     <span class="icon">
+                                                        <i class="material-icons">people</i>
                                                         <!--<img src="<?=_base_url?>/themes/default/img/ic_local_shipping_black_24px.svg"> -->
-                                                        <svg class="icon">
+                                                        <!--<svg class="icon">
                                                             <use xlink:href="#shipping"></use>
-                                                        </svg>
+                                                        </svg>-->
                                                     </span>
-                                            <span class="label">Товаров</span>
-                                            <span class="value"><?=count($prodsCarts)?> шт.</span>
+                                            <span class="label">Участников</span>
+                                            <span class="value"><?=count($prodsCarts)?> чел. </span>
                                         </div>
                                         <div class="sum">
                                                     <span class="icon">
@@ -208,7 +209,8 @@
                                         <?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric">
-                                                <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/></div>
+                                                <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/> </div>
+                                                <div ><? if($infoCart['adm'] == 1){ ?><i class="material-icons">star_border</i> <?}?> <?=$infoCart['name']?> </div>
                                             </td>
                                             <td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
                                             <td><?=$infoCart['sum_cart']?></td>
@@ -232,7 +234,7 @@
                                     </div>-->
                                     <?//print_r($prodsCarts)?>
                                     <div id="block_promo">
-                                        <div class="label">Промо-кода для совместной корзины: 5577321</div>
+                                        <div class="label">Промо-кода для совместной корзины: <?=$infoCart['promo']?></div>
                                         <div class="label">Вы можете передать его любым удобным для Вас способом:</div>
                                         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                                             <thead>

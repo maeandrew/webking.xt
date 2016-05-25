@@ -39,20 +39,20 @@
 				</li>
 			</ul>
 		</li>
-		<!-- <li>
+		<li>
 			<a href="#"><i class="material-icons">person_add</i>Совместные заказы</a>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active':null;?>">
 				<li>
 					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=all">Все</a>
 				</li>
 				<li>
-					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=working">Выполняются</a>
+					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=working">Активный</a>
 				</li>
 				<li>
 					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=completed">Выполненные</a>
 				</li>
 			 </ul>
-		</li> -->
+		</li>
 		<li>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">people</i>Списки друзей</a>

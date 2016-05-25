@@ -1,5 +1,7 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
+	$Users = new Users();
+	$cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'GetProdList':
@@ -97,6 +99,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				} else {
 					$res['success'] = false;
 					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
+				}
+				echo json_encode($res);
+				break;
+
+			case 'GetJoCart'; print_r($_POST);
+
+				if(!$User->SetVerificationCode($_POST['id_user'], $_POST['method'], $_POST['phone'])){
+					$res['success'] = false;
+					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
+				}else{
+					$res['success'] = true;
 				}
 				echo json_encode($res);
 				break;

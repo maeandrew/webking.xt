@@ -75,6 +75,13 @@ function GetCabCoopProdAjax(id_cart){
 	});
 }
 
+// Получение активной совместной корзины
+function GetJointOrderCartAjax(cart){ console.log(1);
+	ajax('cabinet', 'GetJoCart', {'user_cart': cart}, 'html').done(function(data){
+		//console.log(data);
+		$('#products_cart').html(data);
+	});
+}
 
 function UserRating(obj){
 	var id_user = $('.manager').data('id');
