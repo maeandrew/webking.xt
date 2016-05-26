@@ -48,7 +48,7 @@
                             <div class="title">
                                 <div class="container">
                                     <span class="number">Совместная корзина № <?=$i['id_cart']?></span>
-                                    <span  class="">&nbsp;&nbsp;&nbsp;Актуальность информации в козине на <?=date("Y-m-d H:i:s")?> <span><i class="material-icons">refresh</i></span></span>
+                                    <span  class="">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?> <i class="material-icons">refresh</i></span>
 
                                     <div class="print">
                                         <div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
