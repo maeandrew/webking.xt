@@ -6,7 +6,7 @@
 	<?}else{?>
 		<form action="<?=_base_url?>/remind/" method="post">
 			<label for="email">E-mail:</label>
-			<input type="text" id="email" name="email" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null?>" />
+			<input type="text" id="email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null?>" />
 			<button type="submit" name="smb" id="smb" class="btn-m-green">Получить новый пароль</button>
 		</form>
 	<?}?>

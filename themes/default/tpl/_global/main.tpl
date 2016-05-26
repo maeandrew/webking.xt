@@ -616,7 +616,7 @@
 				<span>Сопроводительный текст к форме входа.</span>
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email">
+						<input class="mdl-textfield__input" type="text" id="email"> <!-- pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" -->
 						<label class="mdl-textfield__label" for="email">Email или телефон</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
@@ -642,7 +642,7 @@
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email" name="email">
+						<input class="mdl-textfield__input" type="text" id="email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
 						<label class="mdl-textfield__label" for="email">Email (логин)</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
 					</div>

@@ -34,7 +34,7 @@
 								<input type="hidden" name="email" id="email" value="<?=$User['email']?>"/>
 							<?}else{?>
 								<div class="clear"></div>
-								<input required type="text" name="email" id="email" value=""/>
+								<input required type="text" name="email" id="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" value=""/>
 								<div id="name_error"></div>
 							<?}?>
 						</div>

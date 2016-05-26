@@ -136,9 +136,7 @@
 				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
 			}
 		});
-		$('.show').slideDown('slow', function() {
-			$(this).css('min-height', '100%');
-		});
+		$('.show').slideDown('slow');
 
 		/*$('.cab_left_bar_js').on('click','.active_order_js', function() {
 			var id_cart = $(this).find('input').data('idcart'),
