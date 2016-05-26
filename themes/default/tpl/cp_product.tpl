@@ -225,8 +225,7 @@
 					<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
 					<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
 				<?}?>
-				<?if($item['c_rating'] > 0){?>
-					<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
+				<?if($item['c_rating'] > 0){?>					
 					<ul class="rating_stars">
 						<?for($i = 1; $i <= 5; $i++){
 							$star = 'star';
@@ -244,7 +243,8 @@
 							<li><i class="material-icons"><?=$star?></i></li>
 						<?}?>
 					</ul>
-					<p class="qty_ratings">Оценок: <span> <?=$item['c_mark']?></span></p>
+					<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
+					<span class="qty_ratings">(Оценок: <?=$item['c_mark']?>)</span>
 				<?}?>
 			</div>
 			<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
