@@ -21,7 +21,7 @@
 				#caruselCont {
 					width: 95%;
 				}
-				 #specCont {
+				#specCont {
 					width: 95%;
 				} 
 				.product_main_img{
@@ -53,7 +53,6 @@
 				.owl-pagination {
 					padding: 5px 0;
 				}
-
 				.mobile_carousel .owl-item img {
 					max-width: 100%;
 					margin: 0px auto;
@@ -115,7 +114,6 @@
 						<?}
 					}
 				}?>
-
 				<?if(!empty($item['videos'])){
 					foreach($item['videos'] as $i => $video){?>
 						<div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
@@ -125,25 +123,20 @@
 			<script>
 				//Инициализация owl carousel
 				$('#owl-product_mobile_img_js').owlCarousel({
-					items: 1,
-					loop: true,
-					nav: true,
-					margin: 20,
-					video: true,
-					videoHeight: 345,
-					videoWidth: 345,
-					lazyLoad: true,
-					center: true,
-					responsive: {
-						380: {items: 1},
-						727: {items: 2},
-						950: {items: 3},
-						1250: {items: 4},
-						1600: {items: 5}
-					},
-					dots: true,
-					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+					center:			true,
+					dots:			true,
+					items:			1,
+					lazyLoad:		true,
+					loop:			true,
+					margin:			20,
+					nav:			true,
+					video:			true,
+					videoHeight:	345,
+					videoWidth:		345,
+					navText: [
+						'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+					]
 				});
 			</script>
 		<?}else{?>
@@ -151,13 +144,11 @@
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
 						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						<!-- <img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
 							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
-							<!-- <img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
 						<?}
 					}
 				}?>
@@ -176,19 +167,21 @@
 			<script>
 				//Инициализация owl carousel
 				$("#owl-product_mini_img_js").owlCarousel({
-					items: 4,
-					margin:10,
-					nav:true,
-					dots: false,
-						responsive:{
-							320: {items: 1},
-							727: {items: 2},
-							950: {items: 3},
-							1250: {items: 3},
-							1600: {items: 4}
-						},
-					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+					dots:	false,
+					items:	4,
+					margin:	10,
+					nav:	true,
+					responsive: {
+						320:	{items: 1},
+						727:	{items: 2},
+						950:	{items: 3},
+						1250:	{items: 3},
+						1600:	{items: 4}
+					},
+					navText: [
+						'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+					]
 				});
 				$(function(){
 					//Слайдер миниатюр картинок.
@@ -344,11 +337,12 @@
 				</div>
 				<div id="specifications" class="mdl-tabs__panel">
 					<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
-						<ul>
-							<?foreach ($item['specifications'] as $s) {?>
-								<li><span class="caption fleft"><?=$s['caption']?></span><span class="value fright"><?=$s['value'].' '.$s['units']?></span></li>
-							<?}?>
-						</ul>
+						<?foreach($item['specifications'] as $s){?>
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--6-col"><?=$s['caption']?>:</div>
+								<div class="mdl-cell mdl-cell--6-col"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
+							</div>
+						<?}?>
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>

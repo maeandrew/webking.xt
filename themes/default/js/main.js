@@ -547,13 +547,12 @@ $(function(){
 		slideSpeed: 300,
 		paginationSpeed: 400,
 		itemsScaleUp: true,
-		items: 5,
 		responsive: {
 			320: {items: 1},
-			727: {items: 2},
-			950: {items: 3},
-			1250: {items: 4},
-			1600: {items: 5}
+			727: {items: 3},
+			950: {items: 5},
+			1250: {items: 6},
+			1600: {items: 8}
 		},
 		nav: true, // Show next and prev buttons
 		navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',

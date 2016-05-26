@@ -30,8 +30,8 @@
 						</td>
 						<td class="left actions">
 							<nobr>
-								<a class="btn-l-green-inv" href="/adm/specificationedit/<?=$i['id']?>">редактировать</a>
-								<a class="btn-l-red-inv" href="/adm/specificationdel/<?=$i['id']?>" onclick="return confirm('Точно удалить? Удалив характеристику, вы также удалите ее из категорий и товаров!');">удалить</a>
+								<a class="btn-m-green-inv" href="/adm/specificationedit/<?=$i['id']?>">редактировать</a>
+								<a class="btn-m-red-inv" href="/adm/specificationdel/<?=$i['id']?>" onclick="return confirm('Точно удалить? Удалив характеристику, вы также удалите ее из категорий и товаров!');">удалить</a>
 							</nobr>
 						</td>
 					</tr>
