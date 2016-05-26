@@ -449,19 +449,31 @@ class Cart {
 	// Выборка всех корзин связанных промо-кодом
 	public function GetInfoForPromo($promo){
 			global $db;
-			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, c.adm, c.ready, u.name, u.phones, u.email, u.last_login_date, c.promo,
-					cus.discount , cus.id_contragent, cp.quantity, cp.price, ROUND(cp.price * cp.quantity, 2) AS sum_cart
+			$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name, u.phones,
+			c.promo, u.email, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
 			FROM "._DB_PREFIX_."cart AS c
-			LEFT JOIN "._DB_PREFIX_."user AS u
-			ON c.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."customer AS cus
-			ON cus.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
-			ON cp.id_cart = c.id_cart
-			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
-			ON c.status = cs.id_status
+			LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+			LEFT JOIN "._DB_PREFIX_."cart_product AS cp ON cp.id_cart = c.id_cart
+			LEFT JOIN "._DB_PREFIX_."cart_status AS cs ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
+			GROUP BY c.id_user
 			ORDER BY c.adm DESC, c.ready DESC";
+
+
+
+//			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, c.adm, c.ready, u.name, u.phones, u.email, u.last_login_date, c.promo,
+//					cus.discount , cus.id_contragent, cp.quantity, cp.price, ROUND(cp.price * cp.quantity, 2) AS sum_cart
+//			FROM "._DB_PREFIX_."cart AS c
+//			LEFT JOIN "._DB_PREFIX_."user AS u
+//			ON c.id_user = u.id_user
+//			LEFT JOIN "._DB_PREFIX_."customer AS cus
+//			ON cus.id_user = u.id_user
+//			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
+//			ON cp.id_cart = c.id_cart
+//			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
+//			ON c.status = cs.id_status
+//			WHERE promo = '".$promo."'
+//			ORDER BY c.adm DESC, c.ready DESC";
 		//print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
@@ -489,6 +501,35 @@ class Cart {
 		return $res;
 	}
 
+	// Выборка совместных заказов для личного кабинета клиента
+	public function GetInfoJO($condition){
+		switch ($condition){
+			case 'joactive':
+				$status = " AND c.`status` = 10";
+				break;
+			case 'jocompleted':
+				$status = " AND c.`status` = 11";
+				break;
+			case 'joall':
+				$status = "";
+				break;
+		}
+		global $db;
+		$sql = "SELECT c.*, u.name, u.phones,
+				u.email, COUNT(cp.id_cart) AS count_carts
+ 				FROM "._DB_PREFIX_."cart AS c
+ 				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+ 				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo
+				WHERE c.id_cart = '".$_SESSION['cart']['id']."'
+				AND c.id_user = '".$_SESSION['member']['id_user']."'
+				".$status." ORDER BY creation_date DESC";// print_r($sql); die();
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){
 		global $db;
@@ -503,7 +544,7 @@ class Cart {
 		ON cp.id_product = p.id_product
 		LEFT JOIN "._DB_PREFIX_."image as i
 		ON cp.id_product = i.id_product AND i.ord = 0
-		WHERE c.id_cart = '".$id_cart."';";
+		WHERE c.id_cart = '".$id_cart."';"; //print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
