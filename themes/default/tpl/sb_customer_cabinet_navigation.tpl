@@ -9,7 +9,7 @@
 			</span>
 			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active show':null;?>">
 				<li class="child <?=$_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
-					<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
+					<a name="t" value="contacts" <?=(isset($_GET['t']) && $_GET['t'] == 'contacts') || !isset($_GET['t'])?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
 				</li>
 				<li class="<?=$_GET['t']=='delivery'?'active':null;?>">
 					<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=delivery">Адрес доставки</a>
@@ -23,7 +23,7 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active show':null;?>">
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
+					<a name="t" value="all" class="all <?=(isset($_GET['t']) && $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
 				</li>
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=working">Выполняются</a>
@@ -46,7 +46,7 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active show':null;?>">
 				<li>
-					<a name="t" value="joall" class="all <?=(!isset($_GET['t']) || $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joall">Все</a>
+					<a name="t" value="joall" class="all <?=(isset($_GET['t']) && $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joall">Все</a>
 				</li>
 				<li class="active_order_js">
 					<!--<input type="hidden" data-idcart="<?=$_SESSION['cart']['id']?>" data-iduser="<?=$_SESSION['member']['id_user']?>" data-promo="<?=$_SESSION['cart']['promo']?>" />
