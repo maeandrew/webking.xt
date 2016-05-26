@@ -404,7 +404,6 @@ $(function(){
 	});
 	
 	$('body').on('click', function() {
-		console.log('боди лог');
 		var newMainWindow = $('.main').height(); // высота главного блока
 		if (newMainWindow != mainWindow) {
 			var scroll = $(this).scrollTop(); // прокрутка 	

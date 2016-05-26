@@ -7,7 +7,7 @@
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
 			</span>
-			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
+			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active show':null;?>">
 				<li class="child <?=$_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
 					<a name="t" value="contacts" <?=isset($_GET['t']) && $_GET['t'] == 'contacts'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
 				</li>
@@ -21,7 +21,7 @@
 				<a href="#"><i class="material-icons">shopping_cart</i>Мои заказы</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
-			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active':null;?>">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active show':null;?>">
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
 					<a name="t" value="all" class="all <?=(!isset($_GET['t']) || $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
 				</li>
@@ -44,7 +44,7 @@
 				<a href="#"><i class="material-icons">person_add</i>Совместные заказы</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
-			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active':null;?>">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active show':null;?>">
 				<li>
 					<a name="t" value="joall" class="all <?=(!isset($_GET['t']) || $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joall">Все</a>
 				</li>
@@ -69,7 +69,7 @@
 				<a href="#"><i class="material-icons">settings</i>Настройки</a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
-			<ul class="nav">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'show':null;?>">
 				<li class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>">
 					<a name="t" value="basic" class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>" href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
 				</li>
@@ -84,7 +84,7 @@
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 			</span>
 			
-				<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active':null;?>">
+				<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active show':null;?>">
 					<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>">
 						<a name="t" value="bonus_info" class="<?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus')?>?t=bonus_info">Мой бонусный счет</a>
 					</li>
@@ -136,6 +136,10 @@
 				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
 			}
 		});
+		$('.show').slideDown('slow', function() {
+			$(this).css('min-height', '100%');
+		});
+
 		/*$('.cab_left_bar_js').on('click','.active_order_js', function() {
 			var id_cart = $(this).find('input').data('idcart'),
 				id_user = $(this).find('input').data('iduser'),
