@@ -248,8 +248,8 @@
 	display: block;
 	margin-right: 5px;
 }
-.rating_block .qty_ratings span {
-	font-size: 1.2em;
+div[for="rating_block"] {
+	font-size: 12px;
 }
 .product .mdl-tabs {
 	clear: both;
