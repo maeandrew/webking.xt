@@ -14,12 +14,12 @@
     </div>
     <div id="orders_history">
 
-        <?!isset($_GET['t'])?$_GET['t']='all':null;?>
+        <?!isset($_GET['t'])?$_GET['t']='joactive':null;?>
         <div class="<?switch ($_GET['t']){
-			case 'working':
+			case 'joactive':
 				$s[] = 10;
 				$s[] = 20;
-				?>working<?
+				?>joactive<?
 			break;
 			case 'completed':
 				$s[] = 11;
@@ -41,13 +41,15 @@
 		}?> editing">
             <?if($orders){ ?>
             <ul class="orders_list">
-                <?foreach ($infoCarts as $i){
-						if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
+                <?foreach ($infoJO as $i){
+						if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'joactive') || !isset($_GET['t'])){ ?>
                     <li>
-                        <section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                        <section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect ">
                             <div class="title">
                                 <div class="container">
                                     <span class="number">Совместная корзина № <?=$i['id_cart']?></span>
+                                    <span  class="">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?> <i class="material-icons">refresh</i></span>
+
                                     <div class="print">
                                         <div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
                                         <ul class="expanded">
@@ -90,7 +92,7 @@
 
                                         </ul>
                                     </div>
-                                    <div class="status">Выполнен</div>
+                                    <div class="status">Активный</div>
                                 </div>
                                 <div class="tabs mdl-tabs__tab-bar">
                                     <a href="#starks-panel-<?=$i['id_cart']?>" class="mdl-tabs__tab is-active">Детали</a>
@@ -111,7 +113,7 @@
                                                         </svg>
 
                                                     </span>
-                                            <span class="label">Дата заказа</span>
+                                            <span class="label">Дата создания корзины</span>
                                             <span class="value"><?=date("d.m.Y", strtotime($i['creation_date']))?></span>
                                         </div>
                                         <div class="count">
@@ -123,7 +125,7 @@
                                                         </svg>-->
                                                     </span>
                                             <span class="label">Участников</span>
-                                            <span class="value"><?=count($prodsCarts)?> чел. </span>
+                                            <span class="value"><?=$i['count_carts']?> чел. </span>
                                         </div>
                                         <div class="sum">
                                                     <span class="icon">
@@ -148,14 +150,15 @@
                                     </div>
                                     <div class="additional">
                                         <div class="manager">
-                                            <div class="label">Ваш менеджер</div>
+                                            <div class="label">Организатор заказа</div>
                                             <div class="avatar">
                                                 <img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/>
                                             </div>
                                             <div class="details">
-                                                <div class="line_1"><? print_r($_SESSION['member']['contragent']['name_c'])?></div>
-                                                <div class="line_2"><? print_r($_SESSION['member']['contragent']['phones'])?></div>
-                                                <div class="line_3">
+                                                <div class="line_1"><? print_r($i['name'])?></div>
+                                                <div class="line_2">телефон: <? print_r($i['phones'])?></div>
+                                                <div class="line_2">email: <? print_r($i['email'])?></div>
+                                                <!--<div class="line_3">
                                                     <a href="#">
                                                         <svg class="icon">
                                                             <use xlink:href="#like"></use>
@@ -167,7 +170,7 @@
                                                         </svg>
                                                     </a>
                                                     <span class="votes_cnt">15686</span>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                         <div class="delivery">
@@ -192,7 +195,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_cart']?>">
                                     <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
                                         <thead>
@@ -211,6 +213,8 @@
                                             <td class="mdl-data-table__cell--non-numeric">
                                                 <div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/> </div>
                                                 <div ><? if($infoCart['adm'] == 1){ ?><i class="material-icons">star_border</i> <?}?> <?=$infoCart['name']?> </div>
+                                                <div ><?=$infoCart['phones']?> </div>
+                                                <div ><?=$infoCart['email']?> </div>
                                             </td>
                                             <td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
                                             <td><?=$infoCart['sum_cart']?></td>
@@ -220,8 +224,7 @@
                                         <?//print_r($i)?>
                                         </tbody>
                                     </table>
-                                    <!--<div class="additional info">
-                                        <div class="manager">
+                                    <!--<div class="additional infprodsCarts
                                             <div class="label">Ваш менеджер</div>
                                             <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
                                             <div class="details">
@@ -234,7 +237,7 @@
                                     </div>-->
                                     <?//print_r($prodsCarts)?>
                                     <div id="block_promo">
-                                        <div class="label">Промо-кода для совместной корзины: <?=$infoCart['promo']?></div>
+                                        <div class="label">Промо-код для совместной корзины: <?=$infoCart['promo']?></div>
                                         <div class="label">Вы можете передать его любым удобным для Вас способом:</div>
                                         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                                             <thead>
@@ -272,6 +275,11 @@
 
                                 <div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_cart']?>">
                                     <?//if($orders): ?>
+
+
+                                    <div id="products"> <?print_r($prodsCarts);?></div>
+                                    <div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
+
                                         <ul class="sorders_list">
                                             <?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
                                             <?foreach ($infoCarts as $i){ ?>
@@ -291,8 +299,7 @@
                                     <?//endif?>
 
 
-                                    <div id="products"></div>
-                                    <div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
+                                    <!--<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>-->
                                 </div>
                             </div>
                         </section>

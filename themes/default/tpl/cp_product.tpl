@@ -218,7 +218,7 @@
 				<!-- Ссылка на редактирование товара для администратором -->
 				<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 			<?}?>
-			<div class="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
+			<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 				<?if($item['c_mark'] > 0){?>
 					<meta itemprop="worstRating" content="1">
 					<meta itemprop="bestRating" content="5">
@@ -226,8 +226,8 @@
 					<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
 				<?}?>
 				<?if($item['c_rating'] > 0){?>
-						<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? substr(number_format($item['c_rating'], 1), 0, 2).'5':number_format($item['c_rating'], 1)[0]?> / 5</span>
-					<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
+					<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
+					<ul class="rating_stars">
 						<?for($i = 1; $i <= 5; $i++){
 							$star = 'star';
 							if($i > floor($item['c_rating'])){
@@ -244,9 +244,10 @@
 							<li><i class="material-icons"><?=$star?></i></li>
 						<?}?>
 					</ul>
-					<p class="qty_ratings"> Количество оценок: <span> <?=$item['c_mark']?></span></p>
+					<p class="qty_ratings">Оценок: <span> <?=$item['c_mark']?></span></p>
 				<?}?>
 			</div>
+			<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
 		</div>
 		<div class="content_header mdl-cell--hide-phone">
 			<?=$cart_info;?>
