@@ -218,6 +218,35 @@
 				<!-- Ссылка на редактирование товара для администратором -->
 				<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 			<?}?>
+			<div class="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
+				<?if($item['c_mark'] > 0){?>
+					<meta itemprop="worstRating" content="1">
+					<meta itemprop="bestRating" content="5">
+					<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
+					<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
+				<?}?>
+				<?if($item['c_rating'] > 0){?>
+						<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? substr(number_format($item['c_rating'], 1), 0, 2).'5':number_format($item['c_rating'], 1)[0]?> / 5</span>
+					<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
+						<?for($i = 1; $i <= 5; $i++){
+							$star = 'star';
+							if($i > floor($item['c_rating'])){
+								if($i == ceil($item['c_rating'])){
+									if (number_format($item['c_rating'], 1)[2] >= 5) {
+										$star .= '_half';
+									}else if (number_format($item['c_rating'], 1)[2] < 5) {
+										$star .= '_border';
+									}
+								}else{
+									$star .= '_border';
+								}
+							}?>
+							<li><i class="material-icons"><?=$star?></i></li>
+						<?}?>
+					</ul>
+					<p class="qty_ratings"> Количество оценок: <span> <?=$item['c_mark']?></span></p>
+				<?}?>
+			</div>
 		</div>
 		<div class="content_header mdl-cell--hide-phone">
 			<?=$cart_info;?>
@@ -294,29 +323,6 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-		<div class="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
-			<?if($item['c_mark'] > 0){?>
-				<meta itemprop="worstRating" content="1">
-				<meta itemprop="bestRating" content="5">
-				<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
-				<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
-			<?}?>
-			<?if($item['c_rating'] > 0){?>
-				<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
-					<?for($i = 1; $i <= 5; $i++){
-						$star = 'star';
-						if($i > floor($item['c_rating'])){
-							if($i == ceil($item['c_rating'])){
-								$star .= '_half';
-							}else{
-								$star .= '_border';
-							}
-						}?>
-						<li><i class="material-icons"><?=$star?></i></li>
-					<?}?>
-				</ul>
-			<?}?>
 		</div>
 		<div class="mdl-tabs mdl-js-tabs">
 			<div class="fortabs">

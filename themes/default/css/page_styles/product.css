@@ -221,6 +221,12 @@
 }
 .rating_block {
 	float: right;
+	line-height: 2.2em;
+	text-align: right;
+}
+.rating_block > * {
+	display: inline-block;
+	vertical-align: middle;
 }
 .rating_block ul {
 	overflow: hidden;
@@ -230,8 +236,20 @@
 }
 .rating_block ul li i {
 	cursor: default;
-	color: #9e9e9e;
+	/*color: #9e9e9e;*/
+	color: #ff5722;
 	vertical-align: middle;
+}
+.stars_qty {
+	font-size: 1.2em;
+	margin-right: 5px;
+}
+.rating_block .qty_ratings {
+	display: block;
+	margin-right: 5px;
+}
+.rating_block .qty_ratings span {
+	font-size: 1.2em;
 }
 .product .mdl-tabs {
 	clear: both;
