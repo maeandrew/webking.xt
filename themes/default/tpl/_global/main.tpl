@@ -116,7 +116,7 @@
 				}
 			}
 		</script>
-		<link href="http://xt/css/../themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
+		<link href="<?=_base_url?>/themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
 	<?}?>
 	<!-- END define search box in google sitelinks -->
 	<noscript>
@@ -263,12 +263,12 @@
 						<?if(isset($available_sorting_values)){?>
 							<div class="sort imit_select">
 								<button id="sort-lower-left" class="mdl-button mdl-js-button">
-									<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?=$available_sorting_values[$sorting['value']]?></span>
+									<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
 								</button>
 
 								<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
 									<?foreach($available_sorting_values as $key => $alias){ ?>
-										<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
+										<a href="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>">
 											<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
 												<?=$alias?>
 											</li>
@@ -276,12 +276,14 @@
 									<?}?>
 								</ul>
 
-								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
+								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
 									<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
 								<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
 									<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 								<?}?>
+								-->
+
 							</div>
 						<?}?>
 						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
