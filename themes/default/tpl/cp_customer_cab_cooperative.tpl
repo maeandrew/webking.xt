@@ -275,6 +275,11 @@
 
                                 <div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_cart']?>">
                                     <?//if($orders): ?>
+
+
+                                    <div id="products"> <?print_r($prodsCarts);?></div>
+                                    <div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
+
                                         <ul class="sorders_list">
                                             <?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
                                             <?foreach ($infoCarts as $i){ ?>
@@ -294,8 +299,7 @@
                                     <?//endif?>
 
 
-                                    <div id="products"></div>
-                                    <div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
+                                    <!--<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>-->
                                 </div>
                             </div>
                         </section>
