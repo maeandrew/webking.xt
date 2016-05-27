@@ -40,7 +40,7 @@ if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation'));
+$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation', 'page_title', 'page_description', 'page_keywords'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
@@ -56,9 +56,9 @@ while($cat = $dbtree->NextRow()){
 		);
 	}
 	$GLOBALS['products_canonical'] = end($GLOBALS['IERA_LINKS'])['url'];
-	//$GLOBALS['products_title'] = $cat['page_title'];
-	//$GLOBALS['products_description'] = $cat['page_description'];
-	//$GLOBALS['products_keywords'] = $cat['page_keywords'];
+	$GLOBALS['products_title'] = $cat['page_title'];
+	$GLOBALS['products_description'] = $cat['page_description'];
+	$GLOBALS['products_keywords'] = $cat['page_keywords'];
 	//$tpl->Assign('indexation', $cat['indexation']);
 	$tpl->Assign('header', $cat['name']);
 }
