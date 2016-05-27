@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Users = new Users();
-	$cart = new Cart();
+	$Cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'GetProdList':
@@ -19,6 +19,21 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
 				$tpl->Assign('list', $list);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				break;
+			case 'GetProdListForJO':
+				$Cart = new Cart();
+				$list = $Cart->GetProductsForCart($_POST['id_cart']);
+				echo json_encode($list);
+				//print_r($list); die();
+				break;
+			case 'DelCartFromJO':// print_r($_POST); die();
+
+//				$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['member_id_cart_js']);
+
+				if(!$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['member_id_cart_js'])){
+					echo json_encode(false);
+				};
+				echo json_encode(true);
 				break;
 			case 'GetRating':
 				$C = new Contragents();
@@ -103,16 +118,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 
-			case 'GetJoCart'; print_r($_POST);
-
-				if(!$User->SetVerificationCode($_POST['id_user'], $_POST['method'], $_POST['phone'])){
-					$res['success'] = false;
-					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
-				}else{
-					$res['success'] = true;
-				}
-				echo json_encode($res);
-				break;
+//			case 'GetJOCart';
+//				$Cart->
+//
+//
+//					switch ($_POST['condition']){
+//						case 'active':
+//
+//					}
+//
+//
+//				print_r($res);
+//				//echo json_encode($res);
+//				break;
 		}
 	}
 }

@@ -113,8 +113,7 @@ $GLOBALS['LeftSideBar']			= array(
 	'search',
 	'login',
 	'customer_order',
-	'pdf_bill_form',
-	'404'
+	'pdf_bill_form'
 );
 // если кабинет поставщика или пользователя - отобразить левый сайдбар
 // if(isset($_SESSION['member']['gid']) && in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_, _ACL_CUSTOMER_, _ACL_ANONYMOUS_))){

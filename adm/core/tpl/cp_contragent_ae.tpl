@@ -13,7 +13,7 @@
 					</div>
 					<div class="col-md-12">
 						<label for="email">E-mail:</label><?=isset($errm['email'])?"<span class=\"errmsg\">".$errm['email']."</span><br>":null?>
-						<input type="text" name="email" id="email" class="input-l" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null?>">
+						<input type="text" name="email" id="email" class="input-l" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null?>">
 					</div>
 					<div class="col-md-12">
 						<label for="passwd">Пароль:</label><?=isset($errm['passwd'])?"<span class=\"errmsg\">".$errm['passwd']."</span><br>":null?>

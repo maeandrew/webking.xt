@@ -361,67 +361,65 @@ $(function(){
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
-			}					
-		}else{							
-			var scroll = $(this).scrollTop(); // прокрутка 		
+			}
+		}else{
+			var scroll = $(this).scrollTop(); // прокрутка 
 			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
 			var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
 			
-			if ((scroll + viewPort) <= mainWindow) {				
+			if ((scroll + viewPort) <= mainWindow) {
 				$('aside').css('bottom', 0);
 				$('aside').css('top', header_height);
 				
-			} else {			
+			} else {
 				$('aside').css('bottom', pieceOfFooter);
 
-				if (viewPort > mainWindow) {					
-					$('aside').css('top', header_height);					
+				if (viewPort > mainWindow) {
+					$('aside').css('top', header_height);
 				}else{
 					$('aside').css('top', pieceOfHeader);
-				}				
-			}			
-			changeFiltersBtnsPosition();	
+				}
+			}
+			changeFiltersBtnsPosition();
 		}
 	});
-	$(window).load(function(){		
+	$(window).load(function(){
 		if(over_scroll === true){
-			var scroll = $(this).scrollTop(); // прокрутка 		
-			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;	
-			
-			if (viewPort > mainWindow) {				
+			var scroll = $(this).scrollTop(); // прокрутка 	
+			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+			console.log(pieceOfFooter);
+			if (viewPort > mainWindow) {
 					$('aside').css('bottom', pieceOfFooter);
 				}
 			changeFiltersBtnsPosition();
-		}	
+		}
 	});
-
-	$(window).resize(function(){		
+	$(window).resize(function(){
 		if(over_scroll === true){
-			var mainWindow = $('.main').height(); // высота главного блока		
-			var scroll = $(this).scrollTop(); // прокрутка 		
-			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;	
+			var mainWindow = $('.main').height(); // высота главного блока
+			var scroll = $(this).scrollTop(); // прокрутка 
+			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
 			if (pieceOfFooter >= 0) {
 				$('aside').css('bottom', pieceOfFooter);
 			}else{
 				$('aside').css('bottom', 0);
-			}	
-		}		
+			}
+		}
 	});
-	
-	$('body').on('click', function() {			
+	$('body').on('click', function() {
 		if(over_scroll === true){
 			var newMainWindow = $('.main').height();
 			if (newMainWindow != mainWindow) {
 				var scroll = $(this).scrollTop(); // прокрутка 	
 				mainWindow = newMainWindow;
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;						
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
 				if (pieceOfFooter >= 0) {
 					$('aside').css('bottom', pieceOfFooter);
 				}else{
 					$('aside').css('bottom', 0);
 				}			
 			}
-		}	
+		}
 	});
 
 	//Возврат баннера если он скрыт
@@ -554,13 +552,12 @@ $(function(){
 		slideSpeed: 300,
 		paginationSpeed: 400,
 		itemsScaleUp: true,
-		items: 5,
 		responsive: {
 			320: {items: 1},
-			727: {items: 2},
-			950: {items: 3},
-			1250: {items: 4},
-			1600: {items: 5}
+			727: {items: 3},
+			950: {items: 5},
+			1250: {items: 6},
+			1600: {items: 8}
 		},
 		nav: true, // Show next and prev buttons
 		navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',

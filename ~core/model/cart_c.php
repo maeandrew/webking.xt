@@ -449,19 +449,31 @@ class Cart {
 	// Выборка всех корзин связанных промо-кодом
 	public function GetInfoForPromo($promo){
 			global $db;
-			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, c.adm, c.ready, u.name, u.phones, u.email, u.last_login_date, c.promo,
-					cus.discount , cus.id_contragent, cp.quantity, cp.price, ROUND(cp.price * cp.quantity, 2) AS sum_cart
+			$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name, u.phones,
+			c.promo, u.email, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
 			FROM "._DB_PREFIX_."cart AS c
-			LEFT JOIN "._DB_PREFIX_."user AS u
-			ON c.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."customer AS cus
-			ON cus.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
-			ON cp.id_cart = c.id_cart
-			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
-			ON c.status = cs.id_status
+			LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+			LEFT JOIN "._DB_PREFIX_."cart_product AS cp ON cp.id_cart = c.id_cart
+			LEFT JOIN "._DB_PREFIX_."cart_status AS cs ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
+			GROUP BY c.id_user
 			ORDER BY c.adm DESC, c.ready DESC";
+
+
+
+//			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, c.adm, c.ready, u.name, u.phones, u.email, u.last_login_date, c.promo,
+//					cus.discount , cus.id_contragent, cp.quantity, cp.price, ROUND(cp.price * cp.quantity, 2) AS sum_cart
+//			FROM "._DB_PREFIX_."cart AS c
+//			LEFT JOIN "._DB_PREFIX_."user AS u
+//			ON c.id_user = u.id_user
+//			LEFT JOIN "._DB_PREFIX_."customer AS cus
+//			ON cus.id_user = u.id_user
+//			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
+//			ON cp.id_cart = c.id_cart
+//			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
+//			ON c.status = cs.id_status
+//			WHERE promo = '".$promo."'
+//			ORDER BY c.adm DESC, c.ready DESC";
 		//print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
@@ -482,6 +494,38 @@ class Cart {
 			ON cp.id_product = p.id_product
 			WHERE c.promo = '".$promo."'
 			group by p.id_product;";
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
+	// Выборка совместных заказов для личного кабинета клиента
+	public function GetInfoJO($condition){
+		switch ($condition){
+			case 'joactive':
+				$status = " AND c.`status` = 10";
+				break;
+			case 'jocompleted':
+				$status = " AND c.`status` = 11";
+				break;
+			case 'joall':
+				$status = "";
+				break;
+		}
+		global $db;
+		$sql = "SELECT c.*, u.name, u.phones, u.email, COUNT(cp2.id_cart) AS count_carts,
+				cp.id_user AS adm_id, us.name AS adm_name, us.phones AS adm_phones, us.email AS adm_email
+				FROM xt_cart AS c
+				LEFT JOIN xt_user AS u ON c.id_user = u.id_user
+				LEFT JOIN xt_cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
+				LEFT JOIN xt_cart AS cp2 ON c.promo = cp2.promo
+				LEFT JOIN xt_user AS us ON cp.id_user = us.id_user
+				WHERE c.id_cart = '".$_SESSION['cart']['id']."'
+				AND c.id_user = '".$_SESSION['member']['id_user']."'
+				".$status."
+				ORDER BY creation_date DESC"; //print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -520,13 +564,15 @@ class Cart {
 		return $promo;
 	}
 
-	//Добавить статус и промокод для заказа (корзины)
-	public function SetStatusCart($promo, $status, $adm, $ready){
+	//Добавить/удалить статус и промокод для заказа (корзины)
+	public function SetStatusCart($promo, $status, $adm, $ready, $id_cart = null){
 		$cart_id = $this->DBCart();
+		$id_cart = (($id_cart !== null)?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$cart_id));
 		$sql = "UPDATE "._DB_PREFIX_."cart
-				SET promo = '". $promo ."', status = '". $status ."',
+				SET promo = '". (($promo === false)?null:$promo) ."',
+				status = '". $status ."',
 				adm = '". $adm ."', ready = '". $ready ."'
-				WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
+				WHERE id_cart = '". $id_cart ."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();

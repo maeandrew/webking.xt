@@ -1008,14 +1008,11 @@ table.supplier_assort_table {
 #cab_left_bar li.active > span > .more_cat i {
 		transform: rotate(90deg);
 	}
-#cab_left_bar li.active ul {
-	display: block;
-}
 #cab_left_bar li.active ul a.active {
 	color: #FF5722;
 }
 #cab_left_bar li ul {
-	/*display: none;*/
+	display: none;
 	margin-left: 15px;
 	border-left: 1px solid #e0e0e0;
 }
@@ -1521,9 +1518,19 @@ html {
 	padding: 1.429em 0;
 	overflow: auto;
 }
+.order .title .container i {
+	cursor: pointer;
+	margin-left: 5px;
+}
+.order .title .container i:hover {
+	color: #ff5722;
+}
 .order .title .container .number {
 	float: left;
 	cursor: pointer;
+}
+.order .title .container .num_mar {
+	margin-right: 20px;
 }
 .order .title .container .status {
 	float: right;

@@ -23,7 +23,7 @@
 				</div>
 				<div class="line email">
 					<label for="email">E-mail</label>
-					<input required type="text" name="email" id="email" value="<?=$User['email']?>"/>
+					<input required type="text" name="email" id="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" value="<?=$User['email']?>"/>
 					<label for="news">Подписаться на новостную рассылку</label>
 					<input type="checkbox" name="news" id="news" <?if($User['news']==1){?>checked<?}?> />
 				</div>

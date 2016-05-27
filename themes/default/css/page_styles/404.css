@@ -1,15 +1,16 @@
 aside {
 	display: none;
 }
-section.center_wrap .error404 {
-	width: 100%;
+.error404 {
+	width: auto;
+	margin: 0 auto;
 }
-section.center_wrap .error404 img.img404 {
+.error404 img.img404 {
 	display: block;
-	margin: 10% auto 50px auto;
+	margin: 100px auto 50px;
 }
-section.center_wrap .error404 a {
+.error404 a {
 	display: block;
-	margin: 0 auto 10% auto;
+	margin: 0 auto;
 	text-align: center;
 }

@@ -8,6 +8,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
+$Cart = new Cart();
 
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
 
@@ -16,12 +17,22 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$tpl->Assign('referer', $referer);
 }
 
+
+if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joall' || $_GET['t'] == 'joactive' || $_GET['t'] == 'joacomplete')){
+	$infoJO = $Cart->GetInfoJO($_GET['t']);
+}
+//print_r($infoJO); die();
+if($infoJO){
+	$tpl->Assign('infoJO', $infoJO);
+}
+
+
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
 
 $promo = $_SESSION['cart']['promo'];
 if($promo) {
-    $Cart = new Cart();
+
     $infoCarts = $Cart->GetInfoForPromo($promo);
 
     if ($infoCarts) {
