@@ -39,7 +39,13 @@
 				$s = array();
 			break;
 		}?> editing">
-            <?if($orders){ ?>
+
+
+
+
+
+
+            <?if($infoJO){ ?>
             <ul class="orders_list">
                 <?foreach ($infoJO as $i){
 						if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'joactive') || !isset($_GET['t'])){ ?>
@@ -155,9 +161,9 @@
                                                 <img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/>
                                             </div>
                                             <div class="details">
-                                                <div class="line_1"><? print_r($i['name'])?></div>
-                                                <div class="line_2">телефон: <? print_r($i['phones'])?></div>
-                                                <div class="line_2">email: <? print_r($i['email'])?></div>
+                                                <div class="line_1"><? print_r($i['adm_name'])?></div>
+                                                <div class="line_2">телефон: <? print_r($i['adm_phones'])?></div>
+                                                <div class="line_2">email: <? print_r($i['adm_email'])?></div>
                                                 <!--<div class="line_3">
                                                     <a href="#">
                                                         <svg class="icon">
@@ -286,7 +292,7 @@
                                             <li>
                                                 <section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                                                     <div class="title">
-                                                        <div class="container">
+                                                        <div class="container"> &nbsp;&nbsp;&nbsp; <?=$i['ready']?>
                                                             <a href="#" class="mdl-tabs__tab"
                                                                onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
                                                         </div>

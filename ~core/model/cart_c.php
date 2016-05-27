@@ -515,14 +515,17 @@ class Cart {
 				break;
 		}
 		global $db;
-		$sql = "SELECT c.*, u.name, u.phones,
-				u.email, COUNT(cp.id_cart) AS count_carts
- 				FROM "._DB_PREFIX_."cart AS c
- 				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
- 				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo
+		$sql = "SELECT c.*, u.name, u.phones, u.email, COUNT(cp2.id_cart) AS count_carts,
+				cp.id_user AS adm_id, us.name AS adm_name, us.phones AS adm_phones, us.email AS adm_email
+				FROM xt_cart AS c
+				LEFT JOIN xt_user AS u ON c.id_user = u.id_user
+				LEFT JOIN xt_cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
+				LEFT JOIN xt_cart AS cp2 ON c.promo = cp2.promo
+				LEFT JOIN xt_user AS us ON cp.id_user = us.id_user
 				WHERE c.id_cart = '".$_SESSION['cart']['id']."'
 				AND c.id_user = '".$_SESSION['member']['id_user']."'
-				".$status." ORDER BY creation_date DESC";// print_r($sql); die();
+				".$status."
+				ORDER BY creation_date DESC"; //print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -544,7 +547,7 @@ class Cart {
 		ON cp.id_product = p.id_product
 		LEFT JOIN "._DB_PREFIX_."image as i
 		ON cp.id_product = i.id_product AND i.ord = 0
-		WHERE c.id_cart = '".$id_cart."';"; //print_r($sql); die();
+		WHERE c.id_cart = '".$id_cart."';";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -561,13 +564,15 @@ class Cart {
 		return $promo;
 	}
 
-	//Добавить статус и промокод для заказа (корзины)
-	public function SetStatusCart($promo, $status, $adm, $ready){
+	//Добавить/удалить статус и промокод для заказа (корзины)
+	public function SetStatusCart($promo, $status, $adm, $ready, $id_cart = null){
 		$cart_id = $this->DBCart();
+		$id_cart = (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id);
 		$sql = "UPDATE "._DB_PREFIX_."cart
-				SET promo = '". $promo ."', status = '". $status ."',
+				SET promo = '". (($promo === false)?null:$promo) ."',
+				status = '". $status ."',
 				adm = '". $adm ."', ready = '". $ready ."'
-				WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
+				WHERE id_cart = '". $id_cart ."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();

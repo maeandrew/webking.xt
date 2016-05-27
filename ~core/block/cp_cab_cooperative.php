@@ -21,11 +21,11 @@ if(isset($_SERVER['HTTP_REFERER'])){
 if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joall' || $_GET['t'] == 'joactive' || $_GET['t'] == 'joacomplete')){
 	$infoJO = $Cart->GetInfoJO($_GET['t']);
 }
-
+//print_r($infoJO); die();
 if($infoJO){
 	$tpl->Assign('infoJO', $infoJO);
 }
-//print_r($infoJO); die();
+
 
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
