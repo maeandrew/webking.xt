@@ -1518,9 +1518,15 @@ html {
 	padding: 1.429em 0;
 	overflow: auto;
 }
+.order .title .container i {
+	cursor: pointer;
+}
 .order .title .container .number {
 	float: left;
 	cursor: pointer;
+}
+.order .title .container .num_mar {
+	margin-right: 20px;
 }
 .order .title .container .status {
 	float: right;
