@@ -347,6 +347,7 @@ $(function(){
 		header_height = header.outerHeight();
 	var viewPort = $(window).height(); // высота окна
 	var mainWindow = $('.main').height(); // высота главного блока
+
 	$(window).scroll(function(){
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
@@ -418,7 +419,7 @@ $(function(){
 					$('aside').css('bottom', 0);
 				}			
 			}
-		}	
+		}
 	});
 
 	//Возврат баннера если он скрыт

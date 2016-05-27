@@ -744,7 +744,7 @@
 		</div>	
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
-			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>
+			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
 			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
 			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>

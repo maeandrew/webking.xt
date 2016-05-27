@@ -50,6 +50,10 @@
 												?>
 												<span class="my_item" style="padding-left:20px"><?=$str?> на <?=number_format($i['sum_discount'],2,',','')?> грн.</span>
 												<div class="status"><?=$order_statuses[$i['id_order_status']]['name']?></div>
+												<!-- <div class="mobileBtns">
+													<i class="material-icons">add_circle_outline</i>
+													<span> заказ</span>
+												</div> -->
 											</span>
 											<div class="print">
 												<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
@@ -74,13 +78,32 @@
 											</div>
 										</div>
 										<div class="tabs mdl-tabs__tab-bar">
-											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active">Детали</a>
-											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
+										<div class="orderBntsMob">
+												<h5>Заказ:</h5>
+												<a class="newOrderLink" href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
+
+												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
+
+												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
+													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn" data-name="confirmDelOrder">Удалить</button>
+												<?}else if ($i['id_order_status'] == 6){?>
+													<button class="hidden"></button>
+												<?}else{?>
+													<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить</button>
+													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn hidden" data-name="confirmDelOrder">Удалить</button>
+													<!-- ВОТ ЭТО ПОТОМ ЗАМЕНИТЬ -->
+
+												<?}?>
+											</div>
+
+											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
+											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
 
 											<div class="orderBnts">
 												<h5>Заказ:</h5>
 												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
-												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Дублировать</button>
+												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
 
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
 
