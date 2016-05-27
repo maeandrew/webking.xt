@@ -1520,6 +1520,10 @@ html {
 }
 .order .title .container i {
 	cursor: pointer;
+	margin-left: 5px;
+}
+.order .title .container i:hover {
+	color: #ff5722;
 }
 .order .title .container .number {
 	float: left;
