@@ -567,7 +567,7 @@ class Cart {
 	//Добавить/удалить статус и промокод для заказа (корзины)
 	public function SetStatusCart($promo, $status, $adm, $ready, $id_cart = null){
 		$cart_id = $this->DBCart();
-		$id_cart = (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id);
+		$id_cart = (($id_cart !== null)?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$cart_id));
 		$sql = "UPDATE "._DB_PREFIX_."cart
 				SET promo = '". (($promo === false)?null:$promo) ."',
 				status = '". $status ."',

@@ -213,7 +213,6 @@
 													<th></th>
 												</tr>
 											</thead>
-											<?print_r($infoCarts)?>
 											<tbody>
 												<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
 													<tr>
@@ -232,17 +231,6 @@
 												<?//print_r($i)?>
 											</tbody>
 										</table>
-										<!--<div class="additional infprodsCarts">
-												<div class="label">Ваш менеджер</div>
-												<div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
-												<div class="details">
-													<div class="line_1"><?=$i['contragent']?> / Гвоздик Алёна</div>
-													<div class="line_2"><?=$i['contragent_info']['phones']?></div>
-													<div class="line_3">like dislike <span class="votes_cnt">15686</span></div>
-												</div>
-											</div>
-										</div>-->
-										<?//print_r($prodsCarts)?>
 										<div id="block_promo">
 											<div class="label">Промо-код для совместной корзины: <?=$infoCart['promo']?></div>
 											<div class="label">Вы можете передать его любым удобным для Вас способом:</div>

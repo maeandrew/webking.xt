@@ -26,14 +26,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($list);
 				//print_r($list); die();
 				break;
-			case 'DelCartFromJO': print_r($_POST); die();
-				if(!$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['id_cart'])){
-					return false;
-				};
-				return true;
+			case 'DelCartFromJO':// print_r($_POST); die();
 
-//				$tpl->Assign('list', $list);
-//				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+//				$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['member_id_cart_js']);
+
+				if(!$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['member_id_cart_js'])){
+					echo json_encode(false);
+				};
+				echo json_encode(true);
 				break;
 			case 'GetRating':
 				$C = new Contragents();
