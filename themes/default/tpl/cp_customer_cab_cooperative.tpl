@@ -231,7 +231,7 @@
 		                                        <?//print_r($i)?>
 	                                        </tbody>
 	                                    </table>
-	                                    <!--<div class="additional infprodsCarts
+	                                    <!--<div class="additional infprodsCarts">
 	                                            <div class="label">Ваш менеджер</div>
 	                                            <div class="avatar"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
 	                                            <div class="details">
