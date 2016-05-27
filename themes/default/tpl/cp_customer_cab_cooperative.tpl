@@ -213,9 +213,11 @@
 													<th></th>
 												</tr>
 											</thead>
+											<?print_r($infoCarts)?>
 											<tbody>
 												<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
 													<tr>
+														<input class="member_id_cart_js" type="hidden" value="<?=$infoCart['id_cart']?>">
 														<td class="mdl-data-table__cell--non-numeric">
 															<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/></div>
 															<div ><?=$infoCart['adm'] == 1?'<i class="material-icons">star_border</i>':null;?> <?=$infoCart['name']?></div>
@@ -330,6 +332,11 @@
 		location.reload();
 	});
 	$('.del_x_js').click(function(event) {
-		
+		console.log($(this).closest('tr').find('.member_id_cart_js').val());
+		ajax('cabinet', 'DelCartFromJO', {member_id_cart_js : $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
+			console.log('Great');
+		}).fail(function(event) {
+			console.log('Fail');
+		});
 	});
 </script>
