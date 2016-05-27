@@ -1,7 +1,9 @@
 <h1><?=$h1?></h1>
-<br>
-<?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div><br>
-<?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><br><?}?>
+<?if(isset($errm) && isset($msg)){?>
+	<div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
+<?}elseif(isset($msg)){?>
+	<div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div>
+<?}?>
 
 <?if(isset($list) && count($list)){?>
 	<form action="<?=$GLOBALS['URL_request']?>" method="post">
@@ -12,12 +14,12 @@
 				<col width="20%">
 			</colgroup>
 			<thead>
-	          <tr>
-	            <td class="left">Описание характеристики</td>
-	            <td class="left">Единицы измерения</td>
-	            <td class="left">Управление</td>
-	          </tr>
-	        </thead>
+				<tr>
+					<td class="left">Описание характеристики</td>
+					<td class="left">Единицы измерения</td>
+					<td class="left">Управление</td>
+				</tr>
+			</thead>
 			<tbody>
 				<?$tigra = false;
 				foreach($list as $i){?>
@@ -36,7 +38,7 @@
 						</td>
 					</tr>
 				<?}?>
-		 	</tbody>
+			</tbody>
 		</table>
 	</form>
 <?}else{?>
