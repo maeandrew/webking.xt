@@ -400,7 +400,7 @@ body:not(.c_main) .banner {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	width: 100px;
+	width: 50px;
 	-webkit-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
@@ -426,16 +426,16 @@ body:not(.c_main) .banner {
 .owl-carousel .owl-controls .owl-nav div svg {
 	display: block;
 	height: 100px;
-	width: 100px;
+	width: 50px;
 	position: absolute;
 	top: 50%;
 	margin-top: -50px;
-	fill:none;
-	stroke:#808080;
-	stroke-width:5;
-	stroke-linecap:round;
-	stroke-linejoin:round;
-	stroke-miterlimit:10;
+	fill: none;
+	stroke: #808080;
+	stroke-width: 5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10;
 }
 
 /* Modal windows ============================================================ */
@@ -1285,7 +1285,7 @@ section.center {
 		max-height: 100%;
 	}
 	.banner_hide aside {
-		position: absolute;
+		position: fixed;
 		top: 52px;
 		bottom: 0;
 	}
@@ -1448,7 +1448,8 @@ section.center {
 		cursor: pointer;
 	}
 	aside .filters .filter_block p {
-		margin-bottom: 10px;
+		margin-top: 10px;
+		text-align: center;
 	}
 	aside .filters .filter_block ul {
 		border-bottom: 1px solid #e5e5e5;
@@ -1470,10 +1471,20 @@ section.center {
 		font-size: inherit;
 		max-width: calc(100% - 40px);
 	}
-	aside .filters #filterButtons {
+	aside .filters .filterButtons {
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-around;		
+	}	
+
+	aside .filters .buttonsTop {		
+		background: #f5f5f5;
+		position: fixed;
+		height: 50px;
+		width: 283px;
+		z-index: 10;
+		top: 50px;
 	}
+
 	aside .filters .mdl-textfield {
 		width: 30%
 	}
@@ -1626,7 +1637,7 @@ section.center {
 
 	.page_content {
 		padding: 0 15px;
-		min-height: calc(100vh - 370px);
+		min-height: calc(100vh - 427px);
 	}
 
 /*Statistics*/
@@ -2956,12 +2967,12 @@ section .stat_year {
 
 }
 .mdl-grid .mdl-tabs__tab {
-	height: 34px;
+/*	height: 34px;
 	width: 36.1%;
 	text-align: center;
 	margin-top: -5px;
 	padding-bottom: 5px
-
+*/
 }
 .mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
 	text-transform: capitalize;
@@ -3046,7 +3057,7 @@ section .stat_year {
 		max-width: 400px;
 	}
 	.page_content {
-		background: #f5f5f5;
+		/*background: #f5f5f5;*/
 	}
 	.product_buy .price {
 		float: left;
@@ -3207,7 +3218,6 @@ section .stat_year {
 	overflow: hidden;
 }
 #seoTextBlock p {
-	line-height: 1.5;
 	width: 100%;
 }
 #expand_btn, #rollUp_btn {

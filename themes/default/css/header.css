@@ -359,14 +359,21 @@ header .catalog_btn {
 /*Отображение header через flex*/
 	header .header_wrapp {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		position: relative;
 		max-width: 1600px;
 		margin: 0 auto;
 	}
 	header .header_wrapp .logo {
-		position: absolute;
-		left: 0;
+		/*position: absolute;*/
+		/*left: 0;*/
+	}
+	header .header_wrapp .header_right {
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
 	}
 	header .header_wrapp .pages_list .mdl-button--icon {
 		height: 32px;

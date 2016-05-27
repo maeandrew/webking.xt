@@ -8,6 +8,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
+$Cart = new Cart();
 
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
 
@@ -16,26 +17,37 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$tpl->Assign('referer', $referer);
 }
 
+
+if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joall' || $_GET['t'] == 'joactive' || $_GET['t'] == 'joacomplete')){
+	$infoJO = $Cart->GetInfoJO($_GET['t']);
+}
+
+if($infoJO){
+	$tpl->Assign('infoJO', $infoJO);
+}
+//print_r($infoJO); die();
+
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
 
-$promo = 'aaa';
+$promo = $_SESSION['cart']['promo'];
 if($promo) {
-    $Cart = new Cart();
-    $infoCarts = $Cart->GetInfoForPromo('aaa');
+
+    $infoCarts = $Cart->GetInfoForPromo($promo);
+
     if ($infoCarts) {
-        foreach ($infoCarts as &$infoCart) {
-            switch ($infoCart['status']) {
-                case 20:
-                    $infoCart['title_status'] = "<div style='color: #FAA523;'>" . $infoCart['title_stat'] . "</div>";
+        foreach ($infoCarts as &$infoCart) { //echo'<pre>'; print_r($infoCart); echo'</pre>';
+            switch ($infoCart['ready']) {
+                case 1:
+                    $infoCart['title_status'] = "<div style='color: #1DC300;'>Yes</div>";
                     break;
-                case 21:
-                    $infoCart['title_status'] = "<div style='color: #1DC300;'>" . $infoCart['title_stat'] . "</div>";
+                case 0:
+                    $infoCart['title_status'] = "<div style='color: #FF0000;'>No</div>";
                     break;
                 default:
-                    $infoCart['title_status'] = "<div>" . $infoCart['title_stat'] . "</div>";
+                    $infoCart['title_status'] = "<div>No</div>";
             }
-        }
+        } //die();
     }
     $tpl->Assign('infoCarts', $infoCarts);
 

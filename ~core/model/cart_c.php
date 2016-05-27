@@ -130,9 +130,9 @@ class Cart {
 			$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // 10000
 			if($products_sum[3] >= $full_wholesale_margin){
 				$cart_column = 0;
-			}elseif($products_sum[3] >= $wholesale_margin && $products_sum[1] < $full_wholesale_margin){
+			}elseif($products_sum[3] >= $wholesale_margin){
 				$cart_column = 1;
-			}elseif($products_sum[3] >= $retail_margin && $products_sum[2] < $wholesale_margin){
+			}elseif($products_sum[3] >= $retail_margin){
 				$cart_column = 2;
 			}elseif($products_sum[3] < $retail_margin){
 				$cart_column = 3;
@@ -449,21 +449,32 @@ class Cart {
 	// Выборка всех корзин связанных промо-кодом
 	public function GetInfoForPromo($promo){
 			global $db;
-			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, u.name, u.email, u.last_login_date, cus.phones,	u.promo_code,
- 							cus.discount , cus.id_contragent, cp.quantity, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
+			$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name, u.phones,
+			c.promo, u.email, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
 			FROM "._DB_PREFIX_."cart AS c
-			LEFT JOIN "._DB_PREFIX_."user AS u
-			ON c.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."customer AS cus
-			ON cus.id_user = u.id_user
-			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
-			ON cp.id_cart = c.id_cart
-			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
-			ON c.status = cs.id_status
+			LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+			LEFT JOIN "._DB_PREFIX_."cart_product AS cp ON cp.id_cart = c.id_cart
+			LEFT JOIN "._DB_PREFIX_."cart_status AS cs ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
-			GROUP BY c.id_cart
-			ORDER BY c.status ASC";
-//		print_r($sql);
+			GROUP BY c.id_user
+			ORDER BY c.adm DESC, c.ready DESC";
+
+
+
+//			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, c.adm, c.ready, u.name, u.phones, u.email, u.last_login_date, c.promo,
+//					cus.discount , cus.id_contragent, cp.quantity, cp.price, ROUND(cp.price * cp.quantity, 2) AS sum_cart
+//			FROM "._DB_PREFIX_."cart AS c
+//			LEFT JOIN "._DB_PREFIX_."user AS u
+//			ON c.id_user = u.id_user
+//			LEFT JOIN "._DB_PREFIX_."customer AS cus
+//			ON cus.id_user = u.id_user
+//			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
+//			ON cp.id_cart = c.id_cart
+//			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
+//			ON c.status = cs.id_status
+//			WHERE promo = '".$promo."'
+//			ORDER BY c.adm DESC, c.ready DESC";
+		//print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -490,6 +501,35 @@ class Cart {
 		return $res;
 	}
 
+	// Выборка совместных заказов для личного кабинета клиента
+	public function GetInfoJO($condition){
+		switch ($condition){
+			case 'joactive':
+				$status = " AND c.`status` = 10";
+				break;
+			case 'jocompleted':
+				$status = " AND c.`status` = 11";
+				break;
+			case 'joall':
+				$status = "";
+				break;
+		}
+		global $db;
+		$sql = "SELECT c.*, u.name, u.phones,
+				u.email, COUNT(cp.id_cart) AS count_carts
+ 				FROM "._DB_PREFIX_."cart AS c
+ 				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+ 				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo
+				WHERE c.id_cart = '".$_SESSION['cart']['id']."'
+				AND c.id_user = '".$_SESSION['member']['id_user']."'
+				".$status." ORDER BY creation_date DESC";// print_r($sql); die();
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){
 		global $db;
@@ -504,7 +544,7 @@ class Cart {
 		ON cp.id_product = p.id_product
 		LEFT JOIN "._DB_PREFIX_."image as i
 		ON cp.id_product = i.id_product AND i.ord = 0
-		WHERE c.id_cart = '".$id_cart."';";
+		WHERE c.id_cart = '".$id_cart."';"; //print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -512,20 +552,44 @@ class Cart {
 		return $res;
 	}
 
-	//Добавить статус для заказа (корзины)
-	public function SetStatusCart($prefix, $status, $adm = 0, $ready = 0){
-		$cart_id = $this->DBCart();
+	//Формирование промокода
+	public function CreatePromo($prefix){
 		$promo = $prefix.G::GenerateVerificationCode();
+		if(!$this->SetStatusCart($promo, 10, 1, 0)){
+			return false;
+		}
+		return $promo;
+	}
+
+	//Добавить статус и промокод для заказа (корзины)
+	public function SetStatusCart($promo, $status, $adm, $ready){
+		$cart_id = $this->DBCart();
 		$sql = "UPDATE "._DB_PREFIX_."cart
-		SET promo = '". $promo ."', status = '". $status ."',
-		adm = '". $adm ."', ready = '". $ready ."'
-		WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
-		$this->db->StartTrans();// print_r($sql); die();
+				SET promo = '". $promo ."', status = '". $status ."',
+				adm = '". $adm ."', ready = '". $ready ."'
+				WHERE id_cart = '". (isset($_SESSION['cart']['id']) ? $_SESSION['cart']['id'] : $cart_id) ."'";
+		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		return $promo;
+		return true;
+	}
+
+	//Проверка промокода
+	public function CheckPromo($promo){
+		switch (substr($promo, 0, 2)){
+			case 'JO':
+				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."cart WHERE promo = '".$promo."' AND adm = 1 AND `status` = '10'")){
+					return false;
+				} else{
+					if(!$this->SetStatusCart($promo, 10, 0, 0)){
+						return false;
+					}
+					return $promo;
+				}
+				break;
+		}
 	}
 }

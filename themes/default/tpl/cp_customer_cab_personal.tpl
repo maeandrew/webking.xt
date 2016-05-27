@@ -9,7 +9,7 @@
 					default:?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="email">E-mail:</label>
-						<input class="mdl-textfield__input" pattern="\w+@[a-zA-Z_]+\.[a-zA-Z]" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+						<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>
 						<span class="mdl-textfield__error">Введите корректный Email</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

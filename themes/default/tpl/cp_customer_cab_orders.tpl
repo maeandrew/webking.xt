@@ -307,7 +307,7 @@ $(function(){
 	});
 
 	$('#addtoCartMod').on('click', function(e){
-		/*console.log(id_order);*/
+		console.log(id_order);
 		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
 			console.log(data);
 			ajax('cart', 'GetCart').done(function(data){
@@ -329,9 +329,9 @@ $(function(){
 			if(data === true){
 				closeObject('confirmCnclOrder');
 				$('.canceledOrder').find('.status').html(statuses[5]);
-				$('.editing').find('li.canceledOrder').find('.cnslOrderBtn').addClass('hidden')
+				$('.editing').find('li.canceledOrder').find('.cnslOrderBtn').addClass('hidden');
 				$('.editing').find('li.canceledOrder').find('.delOrderBtn').removeClass('hidden');
-			};
+			}
 		});
 	});
 

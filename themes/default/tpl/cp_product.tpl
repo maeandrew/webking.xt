@@ -21,7 +21,7 @@
 				#caruselCont {
 					width: 95%;
 				}
-				 #specCont {
+				#specCont {
 					width: 95%;
 				} 
 				.product_main_img{
@@ -53,7 +53,6 @@
 				.owl-pagination {
 					padding: 5px 0;
 				}
-
 				.mobile_carousel .owl-item img {
 					max-width: 100%;
 					margin: 0px auto;
@@ -115,7 +114,6 @@
 						<?}
 					}
 				}?>
-
 				<?if(!empty($item['videos'])){
 					foreach($item['videos'] as $i => $video){?>
 						<div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
@@ -125,25 +123,20 @@
 			<script>
 				//Инициализация owl carousel
 				$('#owl-product_mobile_img_js').owlCarousel({
-					items: 1,
-					loop: true,
-					nav: true,
-					margin: 20,
-					video: true,
-					videoHeight: 345,
-					videoWidth: 345,
-					lazyLoad: true,
-					center: true,
-					responsive: {
-						380: {items: 1},
-						727: {items: 2},
-						950: {items: 3},
-						1250: {items: 4},
-						1600: {items: 5}
-					},
-					dots: true,
-					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+					center:			true,
+					dots:			true,
+					items:			1,
+					lazyLoad:		true,
+					loop:			true,
+					margin:			20,
+					nav:			true,
+					video:			true,
+					videoHeight:	345,
+					videoWidth:		345,
+					navText: [
+						'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+					]
 				});
 			</script>
 		<?}else{?>
@@ -151,13 +144,11 @@
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
 						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
-						<!-- <img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $image['src']))?str_replace('original', 'thumb', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>> -->
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
 							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
-							<!-- <img src="<?=_base_url?><?=$item['img_'.$i]?str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>> -->
 						<?}
 					}
 				}?>
@@ -176,19 +167,21 @@
 			<script>
 				//Инициализация owl carousel
 				$("#owl-product_mini_img_js").owlCarousel({
-					items: 4,
-					margin:10,
-					nav:true,
-					dots: false,
-						responsive:{
-							320: {items: 1},
-							727: {items: 2},
-							950: {items: 3},
-							1250: {items: 3},
-							1600: {items: 4}
-						},
-					navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-									'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+					dots:	false,
+					items:	4,
+					margin:	10,
+					nav:	true,
+					responsive: {
+						320:	{items: 1},
+						727:	{items: 2},
+						950:	{items: 3},
+						1250:	{items: 3},
+						1600:	{items: 4}
+					},
+					navText: [
+						'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+					]
 				});
 				$(function(){
 					//Слайдер миниатюр картинок.
@@ -225,6 +218,36 @@
 				<!-- Ссылка на редактирование товара для администратором -->
 				<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 			<?}?>
+			<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
+				<?if($item['c_mark'] > 0){?>
+					<meta itemprop="worstRating" content="1">
+					<meta itemprop="bestRating" content="5">
+					<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
+					<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
+				<?}?>
+				<?if($item['c_rating'] > 0){?>					
+					<ul class="rating_stars">
+						<?for($i = 1; $i <= 5; $i++){
+							$star = 'star';
+							if($i > floor($item['c_rating'])){
+								if($i == ceil($item['c_rating'])){
+									if (number_format($item['c_rating'], 1)[2] >= 5) {
+										$star .= '_half';
+									}else if (number_format($item['c_rating'], 1)[2] < 5) {
+										$star .= '_border';
+									}
+								}else{
+									$star .= '_border';
+								}
+							}?>
+							<li><i class="material-icons"><?=$star?></i></li>
+						<?}?>
+					</ul>
+					<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
+					<span class="qty_ratings">(Оценок: <?=$item['c_mark']?>)</span>
+				<?}?>
+			</div>
+			<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
 		</div>
 		<div class="content_header mdl-cell--hide-phone">
 			<?=$cart_info;?>
@@ -302,29 +325,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
-			<?if($item['c_mark'] > 0){?>
-				<meta itemprop="worstRating" content="1">
-				<meta itemprop="bestRating" content="5">
-				<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
-				<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
-			<?}?>
-			<?if($item['c_rating'] > 0){?>
-				<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
-					<?for($i = 1; $i <= 5; $i++){
-						$star = 'star';
-						if($i > floor($item['c_rating'])){
-							if($i == ceil($item['c_rating'])){
-								$star .= '_half';
-							}else{
-								$star .= '_border';
-							}
-						}?>
-						<li><i class="material-icons"><?=$star?></i></li>
-					<?}?>
-				</ul>
-			<?}?>
-		</div>
 		<div class="mdl-tabs mdl-js-tabs">
 			<div class="fortabs">
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
@@ -344,11 +344,12 @@
 				</div>
 				<div id="specifications" class="mdl-tabs__panel">
 					<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
-						<ul>
-							<?foreach ($item['specifications'] as $s) {?>
-								<li><span class="caption fleft"><?=$s['caption']?></span><span class="value fright"><?=$s['value'].' '.$s['units']?></span></li>
-							<?}?>
-						</ul>
+						<?foreach($item['specifications'] as $s){?>
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--6-col"><?=$s['caption']?>:</div>
+								<div class="mdl-cell mdl-cell--6-col"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
+							</div>
+						<?}?>
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>

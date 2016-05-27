@@ -14,7 +14,11 @@ $Customer = new Customers();
 $Contragent = new Contragents();
 
 $data = $Invoice->GetSoldProductsListByKey($key);
+if($data){
+	foreach($data as &$p){
+		$p['images'] = $products->GetPhotoById($p['id_product']);
+	}
+}
 $tpl->Assign('products', $data);
 echo $tpl->Parse($GLOBALS['PATH_tpl'].'invoice_check_act.tpl');
 exit(0);
-?>

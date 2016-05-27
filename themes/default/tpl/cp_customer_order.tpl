@@ -237,15 +237,23 @@
 				</div>
 				<div class="buttons_order">
 					<div class="current_id_order" data-value="<?=$order['id_order']?>"></div>
+
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn_js" data-name="cloneOrder">Сформировать заказ на основании данного</button>
+
+					<?if($i['id_order_status'] == 1){?>
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить заказ</button>			
+					<?}?>
+
 					<form action="<?=_base_url?>/cart/<?=$i['id_order']?>" method="post" class="fleft">
 						<!-- <button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button mdl-js-ripple-effect" data-target="order_remake_js">Сформировать заказ на основании данного</button> -->				
 					</form>
-					<?if($i['id_order_status'] == 1){?>
+
+					<!-- <?if($i['id_order_status'] == 1){?>
 						<form action="" method="post">
-							<button type="submit" name="smb_cancel" class="cancel_order btn-m-red mdl-button mdl-js-button mdl-js-ripple-effect">Отменить заказ</button>
+							<button type="submit" name="smb_cancel" class="cancel_order mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Отменить заказ</button>
 						</form>
-					<?}?>
+					<?}?> -->
+
 					<!-- ORDER REMAKE MODAL FORM -->
 					<!-- <div id="order_remake_js" class="modal_hidden">
 					<form action="<?=_base_url?>/cart/" method="post"  class="order_remake">
@@ -268,26 +276,35 @@
 
 	/*Создать новый заказ на основе текущего*/
 	$(function(){ 
-		var id_order = $('.current_id_order').data('value');		
-		console.log(id_order);
-		$('#replaceCartMod, #addtoCartMod').click(function(event) {
-			$('.clear_cart').removeClass('hidden');
+		var id_order = $('.current_id_order').data('value');
+		/*console.log(id_order);*/
+
+		/*Отмена заказа*/
+		$('#cnclOrderBtnMod').on('click', function(e){
+			/*console.log(id_order);*/
+			ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
+				console.log(data);
+				if(data === true){
+					closeObject('confirmCnclOrder');					
+					$('.cnslOrderBtn').addClass('hidden');		
+				}
+			});
 		});
 		
-		$('#replaceCartMod').on('click', function(e){
-			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){		
-				console.log('заменили');
-				ajax('cart', 'GetCart').done(function(data){
+		
+		$('#replaceCartMod').on('click', function(e){		
+			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
+				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
 					console.log(data);
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 				});
 			});
 		});
+		
 
 		$('#addtoCartMod').on('click', function(e){	
-			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
-				console.log("добавили");
-				ajax('cart', 'GetCart').done(function(data){
+			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){			
+				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
 					console.log(data);
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 				});	

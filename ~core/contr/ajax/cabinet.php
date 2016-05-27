@@ -1,5 +1,7 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
+	$Users = new Users();
+	$Cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'GetProdList':
@@ -100,6 +102,20 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
+
+//			case 'GetJOCart';
+//				$Cart->
+//
+//
+//					switch ($_POST['condition']){
+//						case 'active':
+//
+//					}
+//
+//
+//				print_r($res);
+//				//echo json_encode($res);
+//				break;
 		}
 	}
 }

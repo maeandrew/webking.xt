@@ -4,7 +4,7 @@
 		<form action="<?=_base_url?>/login/" method="post">
 			<div class="line">
 				<label for="login_email">Email</label>
-				<input required type="text" id="login_email" name="email" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null;?>" />
+				<input required type="text" id="login_email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null;?>" />
 				<div id="email_error"></div>
 			</div>
 			<div class="line">

@@ -75,7 +75,6 @@ function GetCabCoopProdAjax(id_cart){
 	});
 }
 
-
 function UserRating(obj){
 	var id_user = $('.manager').data('id');
 	var bool = 0;
@@ -1797,6 +1796,20 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 	});
 	return false;
 }
+
+function changeFiltersBtnsPosition(){
+	var height = ($('.filters').offset().top-$(window).scrollTop());
+	if( height <= 50){
+		$('#filterButtons').addClass('buttonsTop');
+		$('#clear_filter').css('margin-top', '7px');
+		$('#applyFilter').css('margin-top', '7px');
+	}else{				
+		$('#filterButtons').removeClass('buttonsTop');
+		$('#clear_filter').css('margin-top', '');
+		$('#applyFilter').css('margin-top', '');
+	}
+}
+
 
 function segmentOpen(id){
 	console.log('123');

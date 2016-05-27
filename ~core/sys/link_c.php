@@ -43,7 +43,7 @@ class Link {
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }
-		return _base_url.'/'.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).((isset($GLOBALS['Rewrite']) && $rewrite == $GLOBALS['Rewrite'])?$GLOBALS['GetString']:null);
+		return _base_url.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).((isset($GLOBALS['Rewrite']) && $rewrite == $GLOBALS['Rewrite'])?$GLOBALS['GetString']:null);
 	}
 
 	/**

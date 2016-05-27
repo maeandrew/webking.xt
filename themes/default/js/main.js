@@ -23,7 +23,7 @@
 $(window).load(function(){
 	$("html, body").trigger("scroll");
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
-	GetLocation();
+	GetLocation();	
 });
 window.onbeforeunload = function(e){
 	// window.onpopstate = function(e) {
@@ -167,7 +167,7 @@ $(function(){
 		}
 	}
 	$('.main_nav > li').click(function() {
-		$('ul.second_nav li').removeClass('active');
+		/*$('ul.second_nav li').removeClass('active');*/
 		if ($('.main_nav > li').hasClass('active') && !$('ul.second_nav li').hasClass('active')) {
 			$('.main_nav li[data-nav="filter"]').addClass('hidden');
 		}
@@ -342,9 +342,11 @@ $(function(){
 
 	//Scroll Magic
 	var header = $("header"),
-		over_scroll = $('body').hasClass('banner_hidden')?true:false,
+		over_scroll = $('body').hasClass('banner_hide')?true:false,
 		banner_height = $('.banner').outerHeight(),
-		header_height = header.outerHeight();		
+		header_height = header.outerHeight();
+	var viewPort = $(window).height(); // высота окна
+	var mainWindow = $('.main').height(); // высота главного блока
 	$(window).scroll(function(){
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
@@ -359,11 +361,64 @@ $(function(){
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
 			}
-			$('aside').css('bottom', 'auto');			
 		}else{
-			$('aside').css('bottom', $(this).height()-($('section.center').height()-$(this).scrollTop()+header_height));
-			$('aside').css('position', 'fixed');
+			var scroll = $(this).scrollTop(); // прокрутка 
+			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+			var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
+			
+			if ((scroll + viewPort) <= mainWindow) {
+				$('aside').css('bottom', 0);
+				$('aside').css('top', header_height);
+				
+			} else {
+				$('aside').css('bottom', pieceOfFooter);
+
+				if (viewPort > mainWindow) {
+					$('aside').css('top', header_height);
+				}else{
+					$('aside').css('top', pieceOfHeader);
+				}
+			}
+			changeFiltersBtnsPosition();
 		}
+	});
+	$(window).load(function(){
+		if(over_scroll === true){
+			var scroll = $(this).scrollTop(); // прокрутка 	
+			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+			console.log(pieceOfFooter);
+			if (viewPort > mainWindow) {
+					$('aside').css('bottom', pieceOfFooter);
+				}
+			changeFiltersBtnsPosition();
+		}
+	});
+	$(window).resize(function(){
+		if(over_scroll === true){
+			var mainWindow = $('.main').height(); // высота главного блока
+			var scroll = $(this).scrollTop(); // прокрутка 
+			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+			if (pieceOfFooter >= 0) {
+				$('aside').css('bottom', pieceOfFooter);
+			}else{
+				$('aside').css('bottom', 0);
+			}
+		}
+	});
+	$('body').on('click', function() {
+		if(over_scroll === true){
+			var newMainWindow = $('.main').height();
+			if (newMainWindow != mainWindow) {
+				var scroll = $(this).scrollTop(); // прокрутка 	
+				mainWindow = newMainWindow;
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+				}			
+			}
+		}	
 	});
 
 	//Возврат баннера если он скрыт
@@ -378,8 +433,9 @@ $(function(){
 			}, 300);
 			$('body').removeClass('banner_hide');
 			header.removeClass("fixed_panel").addClass("default");
-			setTimeout(function(){over_scroll = false;},305);
+			setTimeout(function(){over_scroll = false;},305);			
 			$('aside').css('bottom', 'auto');
+			$('aside').css('top', banner_height + header_height);
 		}
 	});
 
@@ -419,7 +475,7 @@ $(function(){
 	//Переключение вкладок главного меню
 	$('.catalog').on('click', '.main_nav li', function() {
 		var section = $(this).data('nav');
-
+		$('#filterButtons').removeClass('buttonsTop');
 		if(section == 'filter') {
 			var name = $(this).find('i').text();
 			if (name == 'filter_list') {
@@ -436,6 +492,7 @@ $(function(){
 				$('.second_nav, .news').slideDown();
 				$('.included_filters').show();
 				$(this).removeClass('active');
+				$(this).removeClass('hidden');
 			}
 		}else{
 			$('.catalog .main_nav li').removeClass('active');
@@ -494,13 +551,12 @@ $(function(){
 		slideSpeed: 300,
 		paginationSpeed: 400,
 		itemsScaleUp: true,
-		items: 5,
 		responsive: {
 			320: {items: 1},
-			727: {items: 2},
-			950: {items: 3},
-			1250: {items: 4},
-			1600: {items: 5}
+			727: {items: 3},
+			950: {items: 5},
+			1250: {items: 6},
+			1600: {items: 8}
 		},
 		nav: true, // Show next and prev buttons
 		navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
