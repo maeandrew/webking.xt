@@ -20,6 +20,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('list', $list);
 				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
 				break;
+			case 'GetProdListForJO':
+				$Cart = new Cart();
+				$list = $Cart->GetProductsForCart($_POST['id_cart']); print_r($list); die();
+//				$tpl->Assign('list', $list);
+//				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				break;
+			case 'DelCartFromJO': print_r($_POST); die();
+				$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['id_cart']);
+//				$tpl->Assign('list', $list);
+//				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				break;
 			case 'GetRating':
 				$C = new Contragents();
 				$res = $C->GetRating($_POST);

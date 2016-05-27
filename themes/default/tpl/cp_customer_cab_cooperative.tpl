@@ -39,8 +39,7 @@
 				$s = array();
 			break;
 		}?> editing">
-		<?print_r($infoJO)?>
-        <?if($orders){ ?>
+            <?if($infoJO){ ?>
             <ul class="orders_list">
                 <?foreach ($infoJO as $i){
 					if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'joactive') || !isset($_GET['t'])) {?>
@@ -92,11 +91,9 @@
 	                                                </a>
 	                                                <div class="mdl-tooltip" for="tt4">Распечатать документом</div>
 	                                            </li>
-
 	                                        </ul>
 	                                    </div>
-
-	                                    <!-- Доделать -->
+                                        <!-- Доделать -->
 	                                    <div class="print">
 											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
@@ -169,9 +166,9 @@
 	                                                <img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/>
 	                                            </div>
 	                                            <div class="details">
-	                                                <div class="line_1"><? print_r($i['name'])?></div>
-	                                                <div class="line_2">телефон: <? print_r($i['phones'])?></div>
-	                                                <div class="line_2">email: <? print_r($i['email'])?></div>
+	                                                <div class="line_1"><? print_r($i['adm_name'])?></div>
+	                                                <div class="line_2">телефон: <? print_r($i['adm_phones'])?></div>
+	                                                <div class="line_2">email: <? print_r($i['adm_email'])?></div>
 	                                                <!--<div class="line_3">
 	                                                    <a href="#">
 	                                                        <svg class="icon">
@@ -285,37 +282,32 @@
 
 	                                <div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>">
 	                                    <?//if($orders): ?>
-
-
 	                                    <div id="products"> <?print_r($prodsCarts);?></div>
 	                                    
 	                                    <div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
-
 	                                        <ul class="sorders_list">
 	                                            <?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 	                                            <?foreach ($infoCarts as $i){ ?>
-	                                            <li>
-	                                                <section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-	                                                    <div class="title">
-	                                                        <div class="container">
-	                                                            <a href="#" class="mdl-tabs__tab"
-	                                                               onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div id="products_cart"></div>
-	                                                </section>
-	                                            </li>
+		                                            <li>
+		                                                <section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+		                                                    <div class="title">
+		                                                        <div class="container"> &nbsp;&nbsp;&nbsp; <?=$i['ready']?>
+		                                                            <a href="#" class="mdl-tabs__tab"
+		                                                               onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
+		                                                        </div>
+		                                                    </div>
+		                                                    <div id="products_cart"></div>
+		                                                </section>
+		                                            </li>
 	                                            <?}?>
 	                                        </ul>
 	                                    <?//endif?>
-
-
 	                                    <!--<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>-->
 	                                </div>
 	                            </div>
 	                        </section>
 	                    </li>
-                <?}?>
+	                <?}?>
                 <?}?>
             </ul>
             <?}else{ ?>
