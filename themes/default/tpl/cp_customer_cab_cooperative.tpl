@@ -118,8 +118,8 @@
 									</div>
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#details_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab is-active">Детали</a>
-										<a href="#participants_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab">Участники</a>
-										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab" onClick="GetCabProdAjax(<?=$list?>);">Список товаров</a>
+										<?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1? '<a href="#participants_panel" class="mdl-tabs__tab">Участники</a>': null;?>
+										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>" <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1?'onClick="GetCabProdAjax(<?=$list?>);"':null;?>>Список товаров</a>
 									</div>
 								</div>
 								<div class="content">
@@ -202,7 +202,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="mdl-tabs__panel" id="participants_panel_<?=$i['id_cart']?>">
+									<div class="mdl-tabs__panel" id="participants_panel">
 										<table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
 											<thead>
 												<tr>
@@ -216,7 +216,7 @@
 											<tbody>
 												<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
 													<tr>
-														<input class="member_id_cart_js" type="hidden" value="<?=$infoCart['id_cart']?>">
+														<input class="member_id_cart_js" type="hidden" data-cartid="<?=$_SESSION['cart']['id']?>" value="<?=$infoCart['id_cart']?>">
 														<td class="mdl-data-table__cell--non-numeric">
 															<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/></div>
 															<div ><?=$infoCart['adm'] == 1?'<i class="material-icons">star_border</i>':null;?> <?=$infoCart['name']?></div>
@@ -231,7 +231,9 @@
 												<?//print_r($i)?>
 											</tbody>
 										</table>
-										<div id="block_promo">
+										<div class="label">Промо-код для совместной корзины: <?=$infoCart['promo']?></div>
+
+										<!-- <div id="block_promo">
 											<div class="label">Промо-код для совместной корзины: <?=$infoCart['promo']?></div>
 											<div class="label">Вы можете передать его любым удобным для Вас способом:</div>
 											<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
@@ -265,32 +267,40 @@
 													</tbody>
 												</form>
 											</table>
-										</div>
+										</div> -->
 									</div>
 
-									<div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>">
-										<?//if($orders): ?>
-										<div id="products"> <?print_r($prodsCarts);?></div>
-										
-										<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
-											<ul class="sorders_list">
-												<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
-												<?foreach ($infoCarts as $i){ ?>
-													<li>
-														<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-															<div class="title">
-																<div class="container"> &nbsp;&nbsp;&nbsp; <?=$i['ready']?>
-																	<a href="#" class="mdl-tabs__tab"
-																	   onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
+									<div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>" >
+										<?if (isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?>
+											<div id="products_cart">
+												
+											</div>
+										<?}else{?>
+											<div>
+												<?//if($orders): ?>
+												<div id="products"> <?print_r($prodsCarts);?></div>
+												
+												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
+												<ul class="sorders_list">
+													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
+													<?foreach ($infoCarts as $i){ ?>
+														<li>
+															<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+																<div class="title">
+																	<div class="container"> &nbsp;&nbsp;&nbsp; <?=$i['ready']?>
+																		<a href="#" class="mdl-tabs__tab"
+																		   onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
+																	</div>
 																</div>
-															</div>
-															<div id="products_cart"></div>
-														</section>
-													</li>
-												<?}?>
-											</ul>
-										<?//endif?>
-										<!--<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>-->
+																<div id="products_cart"></div>
+															</section>
+														</li>
+													<?}?>
+												</ul>
+												<?//endif?>
+												<!--<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>-->
+											</div>
+										<?}?>
 									</div>
 								</div>
 							</section>
@@ -299,7 +309,7 @@
 				<?}?>
 			</ul>
 			<?}else{ ?>
-			<p class="no_orders">У Вас нет ни одного заказа</p>
+				<p class="no_orders">У Вас нет ни одного заказа</p>
 			<!-- <?}?> -->
 		</div>
 	</div><!--class="history"-->
@@ -314,16 +324,24 @@
 </div>
 
 <script>
-	$('.refresh_js').click(function(event) {
-		event.preventDefault();
-		location.reload();
-	});
-	$('.del_x_js').click(function(event) {
-		console.log($(this).closest('tr').find('.member_id_cart_js').val());
-		ajax('cabinet', 'DelCartFromJO', {member_id_cart_js : $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
-			console.log('Great');
-		}).fail(function(event) {
-			console.log('Fail');
+	$(document).ready(function() {
+		$('.refresh_js').click(function(event) {
+			event.preventDefault();
+			location.reload();
+		});
+		$('.del_x_js').click(function(event) {
+			console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
+			// ajax('cabinet', 'DelCartFromJO', {member_id_cart_js : $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
+			// 	console.log('Great');
+			// }).fail(function(event) {
+			// 	console.log('Fail');
+			// });
+		});
+		$('[href^="#items_panel_"').click(function(event) {
+			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
+				console.log($(this).data('idcart'));
+				GetCabCoopProdAjax($(this).data('idcart'));
+			}
 		});
 	});
 </script>

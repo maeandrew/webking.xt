@@ -331,6 +331,7 @@
 					<?}else if((isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) || !isset($_SESSION['cart']['promo'])){?>
 						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
+							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 							<div class="info_client">Информация для клиента совместной покупки</div>
 							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готово"/>
 						</div>
@@ -443,6 +444,10 @@
 				});
 				$('.del_promoCode_js').click(function(event) {
 					$('.cart_warning_js').removeClass('hidden');
+				});
+				$('.confirm_order_js').click(function(event) {
+					// console.log($(this).closest('div').find('[type="hidden"]').val());
+					ajax('cart', '', {id_cart: $(this).closest('div').find('[type="hidden"]').val()});
 				});
 			</script>
 		</div>

@@ -23,7 +23,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'GetProdListForJO':
 				$Cart = new Cart();
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
-				echo json_encode($list);
+				$tpl->Assign('list', $list);
+				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				// echo json_encode($list);
 				//print_r($list); die();
 				break;
 			case 'DelCartFromJO':// print_r($_POST); die();
