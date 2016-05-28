@@ -272,7 +272,7 @@
 
 									<div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>" >
 										<?if (isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?>
-											<div id="products_cart">
+											<div class="products_cart_js">
 												
 											</div>
 										<?}else{?>
@@ -284,15 +284,15 @@
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 													<?foreach ($infoCarts as $i){ ?>
-														<li>
+														<li class="id_cart_<?=$i['id_cart']?>">
 															<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 																<div class="title">
 																	<div class="container"> &nbsp;&nbsp;&nbsp; <?=$i['ready']?>
-																		<a href="#" class="mdl-tabs__tab"
+																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>"
 																		   onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
 																	</div>
 																</div>
-																<div id="products_cart"></div>
+																<div class="products_cart_js"></div>
 															</section>
 														</li>
 													<?}?>
@@ -330,17 +330,31 @@
 			location.reload();
 		});
 		$('.del_x_js').click(function(event) {
-			console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
-			// ajax('cabinet', 'DelCartFromJO', {member_id_cart_js : $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
-			// 	console.log('Great');
-			// }).fail(function(event) {
-			// 	console.log('Fail');
-			// });
+			// console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
+			console.log($(this).closest('tr').find('.member_id_cart_js').val());
+			ajax('cabinet', 'DelCartFromJO', {member_id_cart_js : $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
+				console.log('Great');
+			}).fail(function(event) {
+				console.log('Fail');
+			});
 		});
 		$('[href^="#items_panel_"').click(function(event) {
 			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
 				console.log($(this).data('idcart'));
 				GetCabCoopProdAjax($(this).data('idcart'));
+			}
+		});
+		$('.list_in_cart_js').click(function(event) {
+			if ($(this).closest('li').find('.products_cart_js').html() == '') {
+				$(this).addClass('active_link_to_cart_js');
+				console.log($(this).data('cartid'));
+				GetCabCoopProdAjax($(this).data('cartid'));
+			}else{
+				if ($(this).closest('li').find('.products_cart_js').hasClass('hidden')) {
+					$(this).closest('li').find('.products_cart_js').removeClass('hidden');
+				}else{
+					$(this).closest('li').find('.products_cart_js').addClass('hidden');
+				}
 			}
 		});
 	});

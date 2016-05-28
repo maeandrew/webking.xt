@@ -71,7 +71,12 @@ function GetCabProdAjax(id_order){
 function GetCabCoopProdAjax(id_cart){
 	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart}, 'html').done(function(data){
 		//console.log(data);
-		$('#products_cart').html(data);
+		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {
+			$('.products_cart_js').html(data);
+		}else{
+			$('.active_link_to_cart_js').closest('li').find('.products_cart_js').html(data);
+			$('.list_in_cart_js').removeClass('active_link_to_cart_js');
+		}
 	});
 }
 
