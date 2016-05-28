@@ -8,10 +8,10 @@
   //  });
 </script>
 <div class="cabinet_content customer_cab customer_cab_cooperative">
-	<div class="msg-info">
+	<!-- <div class="msg-info">
 		<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или
 			частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
-	</div>
+	</div> -->
 	<div id="orders_history">
 		<!-- <?!isset($_GET['t'])?$_GET['t']='joactive':null;?> -->
 		<div class="<?switch ($_GET['t']){
@@ -51,13 +51,17 @@
 										<i class="material-icons refresh_js">refresh</i>
 										
 										<!-- Удалить -->
-										<div class="print">
+										<!-- <div class="print">
 											<div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
 											<ul class="expanded">
-												<!-- <img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
+
+												Закоментировать
+												<img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
 												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li> -->
+												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li>
+
+
 												<li>
 													<a href="#">
 														<svg class="icon" id="tt1">
@@ -91,7 +95,7 @@
 													<div class="mdl-tooltip" for="tt4">Распечатать документом</div>
 												</li>
 											</ul>
-										</div>
+										</div> -->	
 										<!-- Доделать -->
 										<div class="print">
 											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
@@ -272,14 +276,45 @@
 
 									<div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>" >
 										<?if (isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?>
-											<div class="products_cart_js">
-												
-											</div>
+											<div class="products_cart_js"></div>
 										<?}else{?>
 											<div>
 												<?//if($orders): ?>
-												<div id="products"> <?print_r($prodsCarts);?></div>
-												
+												<div id="products"> 	<!-- 	<?print_r($prodsCarts);?> -->
+													<div class="ordersProdList">
+														<div class="ordersProdListTitle">
+															<div class="prodListPhoto">Фото</div>
+															<div class="orderProdName">Наименование товара</div>
+															<div class="prodListPrice">Цена</div>
+															<div class="prodListPrice">Кол-во</div>
+															<div class="prodListPrice">Cумма</div>
+														</div>	
+														<?foreach ($prodsCarts as $p){?>
+															<div class="ordersProdListContent">
+																<div class="avatar">
+																	<?if(!empty($p['images'])){?>
+																		<img alt="<?=G::CropString($p['id_product'])?>" src="<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $p['images'][0]['src']))?str_replace('original', 'small', $p['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+																	<?}else{?>
+																		<img alt="<?=G::CropString($p['id_product'])?>" src="<?_base_url?><?=$p['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/>
+																	<?}?>
+																</div>
+																<div class="orderProdName"><?=$p['name'];?></div>
+																<div class="cent">
+																	<span class="priceTitle">Цена:</span>
+																	<span class="priceItem"><?=$p['price']?> грн.</span>
+																</div>
+																<div class="cent">
+																	<span class="priceTitle">Кол-во:</span>
+																	<span class="priceItem"><?=$p['quantity'];?> шт.</span>
+																</div>
+																<div class="cent">
+																	<span class="priceTitle">Сумма:</span>
+																	<span class="priceItem"><?=$p['sum_prod'];?> грн.</span>
+																</div>
+															</div>
+														<?}?>
+													</div>
+												</div>
 												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
