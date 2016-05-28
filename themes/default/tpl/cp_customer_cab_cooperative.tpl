@@ -310,7 +310,7 @@
 			</ul>
 			<?}else{ ?>
 				<p class="no_orders">У Вас нет ни одного заказа</p>
-			<!-- <?}?> -->
+			<?}?>
 		</div>
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
