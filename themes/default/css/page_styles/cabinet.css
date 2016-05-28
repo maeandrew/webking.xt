@@ -1742,6 +1742,7 @@ html {
 	border-bottom: 1px solid #e0e0e0;
 	height: 40px;
 	text-align: center;
+	padding-top: 10px;
 }
 
 #products .ordersProdList .ordersProdListContent {
