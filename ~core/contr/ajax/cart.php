@@ -409,10 +409,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				return json_encode(true);
 				break;
-//			case 'add_status_cart':
-//				$res = $cart->SetStatusCart();//$_POST['id_order']
-//				return json_encode($res);
-//				break;
 			case 'CreateJointOrder':
 				if(!$res['promo'] = $cart->CreatePromo('JO')){
 					$res['promo'] = 'Ошибка формирования совместного заказа.';
@@ -427,8 +423,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res['promo']);
 				break;
+			case 'ReadyUserJO':
+				if(!$cart->UpdateCart(false, false, false, 1, $_POST['id_cart'])){
+					echo json_encode('no');
+				};
+				echo json_encode('ok');
+				break;
 			case 'DeletePromo':
-				if(!$cart->SetStatusCart(false, 0, 1, 0, $_POST['id_cart'])){
+				if(!$cart->UpdateCart(false, 0, 1, 0, $_POST['id_cart'])){
 					echo json_encode('no');
 				};
 				echo json_encode('ok');

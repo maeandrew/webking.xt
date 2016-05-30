@@ -38,7 +38,7 @@
 				$s = array();
 			break;
 		}?> editing">
-		<?if($infoJO){ ?>
+		<?if(isset($infoJO)){ ?>
 			<ul class="orders_list">
 				<?foreach ($infoJO as $i){
 					if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'joactive') || !isset($_GET['t'])) {?>
