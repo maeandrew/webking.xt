@@ -71,6 +71,12 @@ class Cart {
 			if(isset($data['id_cart_product'])){
 				$_SESSION['cart']['products'][$product['id_product']]['id_cart_product'] = $data['id_cart_product'];
 			}
+
+//			echo '<pre>';
+//			print_r($_SESSION['cart']);
+//			echo '</pre>';
+//			die();
+
 		}else{
 			if(isset($_SESSION['cart']['products'][$product['id_product']]['id_cart_product'])){
 				$this->db->StartTrans();
@@ -536,8 +542,8 @@ class Cart {
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){
 		global $db;
-		$sql = "SELECT p.id_product, cp.quantity, cp.price as cart_price,
-		(CASE WHEN cp.quantity >= p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as base_price,
+		$sql = "SELECT p.id_product, cp.quantity, cp.price,
+		(CASE WHEN cp.quantity >= p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as opt_price,
 		p.id_product, p.name,
 		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as img
 		FROM "._DB_PREFIX_."cart_product as cp
@@ -547,7 +553,7 @@ class Cart {
 		ON cp.id_product = p.id_product
 		LEFT JOIN "._DB_PREFIX_."image as i
 		ON cp.id_product = i.id_product AND i.ord = 0
-		WHERE c.id_cart = '".$id_cart."';";
+		WHERE c.id_cart = '".$id_cart."';"; //print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
