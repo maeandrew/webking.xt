@@ -48,7 +48,7 @@
 									<div class="container">
 										<span class="number num_mar">Совместная корзина № <?=$i['id_cart']?></span>
 										<span class="number">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?></span>
-										<i class="material-icons refresh_js">refresh</i>
+										<i class="material-icons refresh refresh_js">refresh</i>
 										
 										<!-- Удалить -->
 										<!-- <div class="print">
@@ -207,7 +207,7 @@
 										</div>
 									</div>
 									<div class="mdl-tabs__panel" id="participants_panel">
-										<table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
+										<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="list_coop">
 											<thead>
 												<tr>
 													<th class="mdl-data-table__cell--non-numeric">
@@ -223,13 +223,26 @@
 														<input class="member_id_cart_js" type="hidden" data-cartid="<?=$_SESSION['cart']['id']?>" value="<?=$infoCart['id_cart']?>">
 														<td class="mdl-data-table__cell--non-numeric">
 															<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/></div>
-															<div ><?=$infoCart['adm'] == 1?'<i class="material-icons">star_border</i>':null;?> <?=$infoCart['name']?></div>
-															<div ><?=$infoCart['phones']?></div>
-															<div ><?=$infoCart['email']?></div>
+															<div><?=$infoCart['name']?></div>
+															<div><?=$infoCart['phones']?></div>
+															<div><?=$infoCart['email']?></div>
 														</td>
-														<td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
+														<td class="mdl-data-table__cell--non-numeric stat_user_cab for_tooltip">
+															<?if ($infoCart['adm'] == 1) {?>
+																<i id="adm" class="material-icons cart_adm">star</i>
+																<div class="mdl-tooltip" for="adm">Администратор<br>совместной покупки</div>
+															<?}else{
+																if($infoCart['ready']==0 && $infoCart['adm'] != 1){?>
+																	<i id="user_ntm_<?=$infoCart['id_cart']?>" class="material-icons user_intime">update</i>
+																	<div class="mdl-tooltip" for="user_ntm_<?=$infoCart['id_cart']?>">Не готов</div>
+																<?}else if($infoCart['ready']==1 && $infoCart['adm'] != 1){?>
+																	<i id="user_rd_<?=$infoCart['id_cart']?>" class="material-icons user_ready">check_circle</i>
+																	<div class="mdl-tooltip" for="user_rd_<?=$infoCart['id_cart']?>">Готов</div>
+																<?}
+															}?>
+														</td>
 														<td><?=$infoCart['sum_cart']?></td>
-														<td class="del_x del_x_js"><i class="material-icons">close</i></td>
+														<td class="del_x"><?=$infoCart['adm'] != 1?'<i class="del_x_js material-icons">close</i>':null;?></td>
 													</tr>
 												<?endforeach; endif;?>
 												<?//print_r($i)?>
@@ -279,19 +292,7 @@
 											<div class="products_cart_js"></div>
 										<?}else{?>
 											<div>
-												<?//if($orders): ?>
-												<div id="products"> 	<!-- 	<?print_r($prodsCarts);?> -->
-													<div class="ordersProdList">
-														<div class="ordersProdListTitle">
-															<div class="prodListPhoto">Фото</div>
-															<div class="orderProdName">Наименование товара</div>
-															<div class="prodListPrice">Цена</div>
-															<div class="prodListPrice">Кол-во</div>
-															<div class="prodListPrice">Cумма</div>
-														</div>
-														<?=$test?>
-													</div>
-												</div>
+												<?=$prod_list;?>
 												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
@@ -299,9 +300,21 @@
 														<li class="id_cart_<?=$i['id_cart']?>">
 															<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 																<div class="title">
-																	<div class="container"> &nbsp;&nbsp;&nbsp; <?=$i['ready']?>
-																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>"
-																		   onClick="GetCabCoopProdAjax(<?=$i['id_cart']?>);"><span class="username"><?=$i['name']?></span></a>
+																	<div class="container for_tooltip">
+																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>">
+																			<span class="username"><?=$i['name']?></span></a>
+																		<?if ($i['adm'] == 1) {?>
+																			<i id="cart_adm" class="material-icons cart_adm">star</i>
+																			<div class="mdl-tooltip" for="cart_adm">Администратор<br>совместной покупки</div>
+																		<?}else{
+																			if($i['ready']==0 && $i['adm'] != 1){?>
+																				<i id="user_intime_<?=$i['id_cart']?>" class="material-icons user_intime">update</i>
+																				<div class="mdl-tooltip" for="user_intime_<?=$i['id_cart']?>">Не готов</div>
+																			<?}else if($i['ready']==1 && $i['adm'] != 1){?>
+																				<i id="user_ready_<?=$i['id_cart']?>" class="material-icons user_ready">check_circle</i>
+																				<div class="mdl-tooltip" for="user_ready_<?=$i['id_cart']?>">Готов</div>
+																			<?}
+																		}?>
 																	</div>
 																</div>
 																<div class="products_cart_js"></div>
@@ -359,7 +372,7 @@
 		$('.list_in_cart_js').click(function(event) {
 			if ($(this).closest('li').find('.products_cart_js').html() == '') {
 				$(this).addClass('active_link_to_cart_js');
-				console.log($(this).data('cartid'));
+				// console.log($(this).data('cartid'));
 				GetCabCoopProdAjax($(this).data('cartid'));
 			}else{
 				if ($(this).closest('li').find('.products_cart_js').hasClass('hidden')) {

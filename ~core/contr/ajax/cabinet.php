@@ -12,21 +12,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$p['images'] = $products->GetPhotoById($p['id_product']);
 				}
 				$tpl->Assign('list', $list);
-				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				// echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
 				break;
 			case 'GetProdListForCart':
 				$Cart = new Cart();
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
 				$tpl->Assign('list', $list);
-				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				// echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
+				$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
 				break;
 			case 'GetProdListForJO':
 				$Cart = new Cart();
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
 				$tpl->Assign('list', $list);
-				$tpl->Assign('test', $tpl->Parse($GLOBALS['PATH_tpl_global'].'test.tpl'));
+				$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
 				// $test = $tpl->Parse($GLOBALS['PATH_tpl_global'].'test.tpl');
-				echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_joint_orders_prod_list.tpl');
+				// echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_joint_orders_prod_list.tpl');
 				// echo json_encode($list);
 				//print_r($list); die();
 				break;
