@@ -637,4 +637,3 @@ $tpl->Assign('max_price', $max_price);
 $tpl->Assign('min_price', $min_price);
 
 // =========================================================
-?>

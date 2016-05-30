@@ -18,7 +18,6 @@ if(!$products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
 	exit();
 }
 $product = $products->fields;
-// print_r($product);
 G::metaTags($product);
 $id_product = $product['id_product'];
 $product['specifications'] = $products->GetSpecificationList($id_product);

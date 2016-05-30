@@ -37,6 +37,7 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%]/', ' ', $_GET['query']);
 	$query = trim($query);
 }
+G::metaTags(array('page_title' => $header.' по запросу "'.$query.'"'));
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;

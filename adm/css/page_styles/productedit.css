@@ -52,6 +52,7 @@
 #productae .hint {
 	color: #aaa;
 	font-weight: normal;
+	margin: 10px 0;
 }
 #productae .hint span {
 	font-style: italic;
@@ -369,10 +370,10 @@
 	cursor: -webkit-grab;
 }
 #photobox .image_block .image {
-	width: 70px;
+	width: 110;
 	height: 70px;
 	margin-right: 5px;
-	background: #eee;
+	/*background: #eee;*/
 	float: left;
 	overflow: hidden;
 }
@@ -380,10 +381,11 @@
 	height: 70px;
 	max-height: 100%;
 	border: 1px solid #ccc;
+	margin: 0 auto;
 	/*box-shadow: 0 0 1px 0 #aaa;*/
 }
 #photobox .image_block .name {
-	width: calc(100% - 130px);
+	width: calc(100% - 170px);
 	line-height: 1;
 	float: left;
 }

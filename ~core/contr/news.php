@@ -9,6 +9,7 @@ if(isset($GLOBALS['Rewrite'])){
 		exit();
 	}
 	$news = $News->fields;
+	G::metaTags($news);
 	$header = $news['title'];
 	$tpl->Assign('header', $header);
 	$tpl->Assign('data', $news);
@@ -26,6 +27,7 @@ if(isset($GLOBALS['Rewrite'])){
 }else{
 	$header = 'Новости оптового торгового центра xt.ua';
 	$tpl->Assign('header', $header);
+	G::metaTags(array('page_title' => $header));
 	$GLOBALS['IERA_LINKS'][] = array(
 		'title' => $header,
 		'url' => Link::Custom('news')

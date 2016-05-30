@@ -570,14 +570,24 @@ class G {
 				$GLOBALS['__page_keywords'] = '';
 				break;
 			case 'product':
-				$GLOBALS['__page_title'] = $data['name'].'. '.$data['page_title'];
-				$GLOBALS['__page_description'] = $data['name'].'. '.$data['page_description'];
-				$GLOBALS['__page_keywords'] = $data['page_keywords'];
+				$GLOBALS['__page_title'] = htmlspecialchars($data['name'].'. '.$data['page_title']);
+				$GLOBALS['__page_description'] = htmlspecialchars($data['name'].'. '.$data['page_description']);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
+				break;
+			case 'page':
+				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+				break;
+			case 'news':
+				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			default:
-				$GLOBALS['__page_title'] = $data['page_title'];
-				$GLOBALS['__page_description'] = $data['page_description'];
-				$GLOBALS['__page_keywords'] = $data['page_keywords'];
+				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['name']);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 		}
 	}
