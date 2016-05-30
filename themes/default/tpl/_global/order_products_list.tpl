@@ -1,7 +1,8 @@
 <div id="products">
 	<div class="ordersProdList">
 		<div class="ordersProdListTitle">
-		<?if (isset($GLOBALS['Rewrite']) && !$GLOBALS['Rewrite']=='cooperative') {?>
+		<?if (isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative') {?>
+		<?}else{?>
 			<div class="prodListPhoto">Фото</div>
 		<?}?>
 			<div class="orderProdName">Наименование товара</div>
@@ -12,7 +13,8 @@
 		<?$user_cart_total = 0;?>
 		<?foreach ($list as $item) {?>
 			<div class="ordersProdListContent">
-				<?if (isset($GLOBALS['Rewrite']) && !$GLOBALS['Rewrite']=='cooperative') {?>
+				<?if (isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative') {?>
+				<?}else{?>
 					<div class="avatar">
 						<?if(!empty($item['image'])){?>
 							<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
@@ -21,7 +23,7 @@
 						<?}?>
 					</div>
 				<?}?>
-				<div class="orderProdName"><?=$item['name'];?></div>
+				<div class="orderProdName"><?=$item['name'];?>gerr</div>
 				<div class="cent">
 					<span class="priceTitle">Цена:</span>
 					<span class="priceItem"><?=$item['price']?> грн.</span>

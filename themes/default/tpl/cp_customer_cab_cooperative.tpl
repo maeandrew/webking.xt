@@ -38,6 +38,7 @@
 				$s = array();
 			break;
 		}?> editing">
+
 		<?if(isset($infoJO)){ ?>
 			<ul class="orders_list">
 				<?foreach ($infoJO as $i){
@@ -49,7 +50,6 @@
 										<span class="number num_mar">Совместная корзина № <?=$i['id_cart']?></span>
 										<span class="number">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?></span>
 										<i class="material-icons refresh refresh_js">refresh</i>
-										
 										<!-- Удалить -->
 										<!-- <div class="print">
 											<div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
