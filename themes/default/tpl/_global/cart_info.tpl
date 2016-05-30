@@ -51,7 +51,7 @@
 					}
 					break;
 				case 0:
-					if((10000 - $_SESSION['cart']['products_sum'][3]) < 0){
+					if(isset($_SESSION['cart']) && (10000 - $_SESSION['cart']['products_sum'][3]) < 0){
 						?>Заказано достаточно!<?
 					}else{
 					?>Дозаказать еще на: <span class="summ"><?=number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '')?></span> грн.<?
