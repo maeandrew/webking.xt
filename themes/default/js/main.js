@@ -355,6 +355,7 @@ $(function(){
 			}else if($(this).scrollTop() <= banner_height/2 - header_height && header.hasClass("filled")){
 				header.removeClass("filled").addClass("default");
 			}
+			$('aside').css('top', banner_height + header_height);
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
@@ -423,8 +424,9 @@ $(function(){
 	});
 
 	//Возврат баннера если он скрыт
-	$('.logo').on('click', function(event){
+	$('.logo').on('click', function(event){		
 		if($('body').hasClass('c_main') && over_scroll === true){
+			console.log('нема');
 			event.preventDefault();
 			$('.banner').animate({
 				height: banner_height

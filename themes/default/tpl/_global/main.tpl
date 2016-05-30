@@ -147,7 +147,6 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-
 	<section class="banner">
 		<div class="cont">
 			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
