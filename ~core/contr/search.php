@@ -381,7 +381,6 @@ if(!empty($list)){
 $tpl->Assign('list', isset($list)?$list:array());
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
-
 // Общий код ===============================================
 if($_SESSION['search']['newsearch'] == 1 || isset($_POST['dropfilters'])){
 	if(isset($prices)){
@@ -444,7 +443,7 @@ if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	);
 }
 
-if(TRUE == $parsed_res['issuccess']) {
+if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
 

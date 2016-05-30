@@ -9,10 +9,6 @@
 #productae {
 	background: #fff;
 }
-#productae p {
-	padding-bottom: 3px;
-	font-weight: bold;
-}
 .fixed_head {
     position: fixed;
     top: 29px;
@@ -52,6 +48,13 @@
 #productae .prod_head.fixed_head .article {
 	line-height: 15px;
 	font-size: 13px;
+}
+#productae .hint {
+	color: #aaa;
+	font-weight: normal;
+}
+#productae .hint span {
+	font-style: italic;
 }
 
 /*Second Navigation ==========================================================*/
