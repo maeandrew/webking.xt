@@ -31,7 +31,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//print_r($list); die();
 				break;
 			case 'DelCartFromJO':
-				if(!$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['member_id_cart_js'])){
+				if(!$list = $Cart->SetStatusCart(false, 0, 1, 0, $_POST['id_cart'])){
 					echo json_encode(false);
 				};
 				echo json_encode(true);
