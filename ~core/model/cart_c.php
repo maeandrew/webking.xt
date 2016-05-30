@@ -491,15 +491,16 @@ class Cart {
 	// Выборка всех товаров из корзин связанных промо-кодом
 	public function GetCartForPromo($promo){
 			global $db;
-			$sql = "SELECT  p.id_product, p.art, p.name, p.images, p.price_opt, cp.price,
-							cp.quantity, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_prod
+			$sql = "SELECT p.id_product, p.art, p.name, p.images, cp.price, cp.quantity,
+			ROUND(SUM(cp.price * cp.quantity), 2) AS sum_prod,
+			p.mopt_correction_set, p.opt_correction_set
 			FROM "._DB_PREFIX_."cart_product as cp
 			LEFT JOIN "._DB_PREFIX_."cart as c
 			ON c.id_cart = cp.id_cart
 			LEFT JOIN "._DB_PREFIX_."product as p
 			ON cp.id_product = p.id_product
 			WHERE c.promo = '".$promo."'
-			group by p.id_product;";
+			GROUP BY p.id_product;";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -531,7 +532,8 @@ class Cart {
 				WHERE c.id_cart = '".$_SESSION['cart']['id']."'
 				AND c.id_user = '".$_SESSION['member']['id_user']."'
 				".$status."
-				ORDER BY creation_date DESC"; //print_r($sql);
+				HAVING count_carts > 0
+				ORDER BY creation_date DESC"; //print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -543,9 +545,7 @@ class Cart {
 	public function GetProductsForCart($id_cart){
 		global $db;
 		$sql = "SELECT p.id_product, cp.quantity, cp.price,
-		(CASE WHEN cp.quantity >= p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as opt_price,
-		p.id_product, p.name,
-		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as img
+		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as images
 		FROM "._DB_PREFIX_."cart_product as cp
 		LEFT JOIN  "._DB_PREFIX_."cart as c
 		ON cp.id_cart = c.id_cart
@@ -564,21 +564,23 @@ class Cart {
 	//Формирование промокода
 	public function CreatePromo($prefix){
 		$promo = $prefix.G::GenerateVerificationCode();
-		if(!$this->SetStatusCart($promo, 10, 1, 0)){
+		if(!$this->UpdateCart($promo, 10, 1, 0)){
 			return false;
 		}
 		return $promo;
 	}
 
 	//Добавить/удалить статус и промокод для заказа (корзины)
-	public function SetStatusCart($promo, $status, $adm, $ready, $id_cart = null){
+	public function UpdateCart($promo = false, $status = false, $adm = false, $ready = false, $id_cart = false){
 		$cart_id = $this->DBCart();
-		$id_cart = (($id_cart !== null)?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$cart_id));
-		$sql = "UPDATE "._DB_PREFIX_."cart
-				SET promo = '". (($promo === false)?null:$promo) ."',
-				status = '". $status ."',
-				adm = '". $adm ."', ready = '". $ready ."'
-				WHERE id_cart = '". $id_cart ."'";
+		$id_cart = $id_cart?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$cart_id);
+		$sql = "UPDATE "._DB_PREFIX_."cart	SET "
+			.($promo !== false?"promo = ".($promo === null?'NULL':"'".$promo."'").", ":null)
+			.($status !== false?"status = ".$status.", ":null)
+			.($adm !== false?"adm = ".$adm.", ":null)
+			.($ready !== false?"ready = ".$ready.", ":null)
+			.($id_cart !== false?"id_cart = ".$id_cart.", ":null)."
+			WHERE id_cart = '". $id_cart ."'";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -595,7 +597,7 @@ class Cart {
 				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."cart WHERE promo = '".$promo."' AND adm = 1 AND `status` = '10'")){
 					return false;
 				} else{
-					if(!$this->SetStatusCart($promo, 10, 0, 0)){
+					if(!$this->UpdateCart($promo, 10, 0, 0)){
 						return false;
 					}
 					return $promo;
