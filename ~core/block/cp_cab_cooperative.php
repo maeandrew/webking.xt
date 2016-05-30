@@ -21,11 +21,11 @@ if(isset($_SERVER['HTTP_REFERER'])){
 if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joall' || $_GET['t'] == 'joactive' || $_GET['t'] == 'joacomplete')){
 	$infoJO = $Cart->GetInfoJO($_GET['t']);
 }
-
+//print_r($infoJO); die();
 if($infoJO){
 	$tpl->Assign('infoJO', $infoJO);
 }
-//print_r($infoJO); die();
+
 
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
@@ -52,7 +52,8 @@ if($promo) {
     $tpl->Assign('infoCarts', $infoCarts);
 
     $productsFromCarts = $Cart->GetCartForPromo($promo);
-    $tpl->Assign('prodsCarts', $productsFromCarts);
+    $tpl->Assign('list', $productsFromCarts);
+	$tpl->Assign('test', $tpl->Parse($GLOBALS['PATH_tpl_global'].'test.tpl'));
 
 	$details = array(); $sum_prods = 0;
 	if (isset($productsFromCarts) && is_array($productsFromCarts)){
@@ -196,6 +197,8 @@ $User->SetUser($_SESSION['member']);
 $tpl->Assign('User', $User->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('order_statuses', $order_statuses);
+
+$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
 
 $parsed_res = array(
 	'issuccess' => TRUE,

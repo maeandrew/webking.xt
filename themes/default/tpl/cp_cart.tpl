@@ -321,6 +321,7 @@
 						<div class="cart_warning_js cart_warning hidden">
 							<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 							<p>Вы уверенны, что хотите удалить промокод?</p>
+							<input type="hidden" value="<?=isset($_SESSION['cart']['promo'])?$_SESSION['cart']['promo']:'нет промокода';?>">
 							<input class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
 							<input class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
 						</div>
@@ -331,6 +332,7 @@
 					<?}else if((isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) || !isset($_SESSION['cart']['promo'])){?>
 						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
+							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 							<div class="info_client">Информация для клиента совместной покупки</div>
 							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готово"/>
 						</div>
@@ -430,10 +432,8 @@
 					});
 				});
 				$('.confirm_del_promoCode_js').click(function(event) {
-					ajax('cart', '', {}).done(function(event) {
-						$('.promo_input_js input').attr('value', '');						
-					}).done(function(event) {
-						console.log("success del promo");
+					ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
+						$('.promo_input_js input').attr('value', '');
 					}).fail(function(event) {
 						console.log("fail del promo");
 					});
@@ -443,6 +443,14 @@
 				});
 				$('.del_promoCode_js').click(function(event) {
 					$('.cart_warning_js').removeClass('hidden');
+				});
+				$('.confirm_order_js').click(function(event) {
+					// console.log($(this).closest('div').find('[type="hidden"]').val());
+					ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
+						console.log("success ");
+					}).fail(function(event) {
+						console.log("fail ");
+					});
 				});
 			</script>
 		</div>
