@@ -544,7 +544,7 @@ class Cart {
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){
 		global $db;
-		$sql = "SELECT p.id_product, cp.quantity, cp.price,
+		$sql = "SELECT p.id_product, p.art, p.name, cp.quantity, cp.price,
 		(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.img_1 END) as images
 		FROM "._DB_PREFIX_."cart_product as cp
 		LEFT JOIN  "._DB_PREFIX_."cart as c
