@@ -123,7 +123,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
-
+			case 'deleteFromModeration':
+				$products = new Products();
+				$products->DeleteProductFromModeration($_POST['id']);				
+				echo json_encode(true);
+				break;
 //			case 'GetJOCart';
 //				$Cart->
 //

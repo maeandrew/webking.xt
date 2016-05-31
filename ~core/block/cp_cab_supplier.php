@@ -122,8 +122,6 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		'issuccess'	=> true,
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'supplier_cab_edit_product.tpl')
 	);
-}elseif(isset($cabinet_page) && $cabinet_page == "deletefrommoderation"){
-	$products->DeleteProductFromModeration($_POST['id']);
 }else{
 	$header = "Ассортимент поставщика";
 	$GLOBALS['IERA_LINKS'][] = array(
