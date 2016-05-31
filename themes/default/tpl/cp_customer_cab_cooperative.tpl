@@ -288,31 +288,8 @@
 															<div class="prodListPrice">Цена</div>
 															<div class="prodListPrice">Кол-во</div>
 															<div class="prodListPrice">Cумма</div>
-														</div>	
-														<?foreach ($prodsCarts as $p){?>
-															<div class="ordersProdListContent">
-																<div class="avatar">
-																	<?if(!empty($p['images'])){?>
-																		<img alt="<?=G::CropString($p['id_product'])?>" src="<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $p['images'][0]['src']))?str_replace('original', 'small', $p['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
-																	<?}else{?>
-																		<img alt="<?=G::CropString($p['id_product'])?>" src="<?_base_url?><?=$p['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/>
-																	<?}?>
-																</div>
-																<div class="orderProdName"><?=$p['name'];?></div>
-																<div class="cent">
-																	<span class="priceTitle">Цена:</span>
-																	<span class="priceItem"><?=$p['price']?> грн.</span>
-																</div>
-																<div class="cent">
-																	<span class="priceTitle">Кол-во:</span>
-																	<span class="priceItem"><?=$p['quantity'];?> шт.</span>
-																</div>
-																<div class="cent">
-																	<span class="priceTitle">Сумма:</span>
-																	<span class="priceItem"><?=$p['sum_prod'];?> грн.</span>
-																</div>
-															</div>
-														<?}?>
+														</div>
+														<?=$test?>
 													</div>
 												</div>
 												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
@@ -367,7 +344,7 @@
 		$('.del_x_js').click(function(event) {
 			// console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
 			console.log($(this).closest('tr').find('.member_id_cart_js').val());
-			ajax('cabinet', 'DelCartFromJO', {member_id_cart_js : $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
+			ajax('cabinet', 'DelCartFromJO', {id_cart: $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
 				console.log('Great');
 			}).fail(function(event) {
 				console.log('Fail');

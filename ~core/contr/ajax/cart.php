@@ -427,6 +427,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res['promo']);
 				break;
+			case 'DeletePromo':
+				if(!$cart->SetStatusCart(false, 0, 1, 0, $_POST['id_cart'])){
+					echo json_encode('no');
+				};
+				echo json_encode('ok');
+				break;
 			default:
 				break;
 		}
