@@ -19,7 +19,7 @@ require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('../themes/'.$theme.'/css/reset.css');
-G::AddCSS('../plugins/material/material.css');
+// G::AddCSS('../plugins/material/material.css');
 G::AddCSS('../plugins/material/material.min.css');
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
 G::AddCSS('../themes/'.$theme.'/css/footer.css');
@@ -44,7 +44,7 @@ G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.min.js');
 //G::AddJS('../js/nutrients.csv');
 //G::AddJS('../js/nutrients.json');
-G::AddJS('../plugins/material/material.js');
+G::AddJS('../plugins/material/material.min.js');
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
 G::AddJS('../themes/'.$theme.'/js/func.js');
 G::AddJS('../themes/'.$theme.'/js/main.js');
