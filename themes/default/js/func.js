@@ -974,10 +974,70 @@ function ajax(target, action, data, dataType){
 		dataType: dataType,
 		data: data
 	}).always(function(){
-		ajax_proceed = false;
+		ajax_proceed = false;		
 	});
 	// console.log(ajax_proceed);
 	return ajax;
+}
+// Change sidebar aside height
+function resizeAsideScroll(event) {
+	var mainWindow = +$.cookie('mainWindow');	
+	var header_height = +$.cookie('headerHeight');	
+	var viewPort = $(window).height(); // высота окна	
+	var newMainWindow = $('.main').height();
+	
+	if (newMainWindow != mainWindow) {
+		switch (event) {
+			case 'load':				
+				var scroll = $(this).scrollTop(); 	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+					$('aside').css('top', pieceOfHeader);
+				}else{
+					$('aside').css('bottom', 0);
+				}				
+				changeFiltersBtnsPosition();
+				break;
+			case 'resize':				
+				var scroll = $(this).scrollTop(); 	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+				}
+				break;
+			case 'click':
+				var scroll = $(this).scrollTop();  	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+				}
+				break;
+			case 'show_more':
+				var scroll = $(this).scrollTop(); 	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;		
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+					$('aside').css('top', header_height);			
+				}
+				break;
+		}
+	}	
 }
 
 // Change product view
