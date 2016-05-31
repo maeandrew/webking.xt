@@ -252,14 +252,20 @@
 		<div class="content_header mdl-cell--hide-phone">
 			<?=$cart_info;?>
 		</div>
+		
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "" : "hidden" ?>">					
+				<h1>ТОВАР ПРОДАН</h1>
+			</div>
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "hidden" : "" ?>" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+					<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>						
+					</div>
 					<div class="btn_buy">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
@@ -325,6 +331,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="mdl-tabs mdl-js-tabs">
 			<div class="fortabs">
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
