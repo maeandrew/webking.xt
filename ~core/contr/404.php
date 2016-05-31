@@ -1,5 +1,5 @@
 <?php
-// header("HTTP/1.0 404 Not Found");
+header("HTTP/1.0 404 Not Found");
 $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('header', '');
