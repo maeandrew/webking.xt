@@ -65,7 +65,7 @@
 					<div class="UserInfBlock">
 						<div id="userPic">
 							<div class="avatarWrapp">
-								<img src="/themes/default/images/noavatar.jpg"/>
+								<img src="/images/noavatar.png"/>
 							</div>
 						</div>
 						<div class="mainUserInf">
@@ -143,7 +143,7 @@
 				<div class="userContainer <?=!G::IsLogged()?'hidden':null;?>">
 					<div id="userPic">
 						<div class="avatarWrapp">
-							<img src="/themes/default/images/noavatar.jpg"/>
+							<img src="/images/noavatar.png"/>
 						</div>
 					</div>
 					<div class="mainUserInf">

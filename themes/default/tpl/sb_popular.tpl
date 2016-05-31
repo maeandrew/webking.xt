@@ -1,7 +1,7 @@
 
 <?if($GLOBALS['CurrentController'] != 'product'){?>
 	<a href="<?=_base_url?>/price/" style="display: block; border-bottom: 2px solid #3A9A11;padding-bottom: 10px;" title="Скачать прайс-лист интернет-магазина ХарьковТОРГ">
-		<img style="display: block;margin: 0 auto;" alt="Скачать прайс-лист интернет-магазина ХарьковТОРГ" src="<?=file_exists($GLOBALS['PATH_root'].'/images/price_icon.png')?_base_url.'/images/price_icon.png':'/efiles/_thumb/nofoto.jpg'?>"/>
+		<img style="display: block;margin: 0 auto;" alt="Скачать прайс-лист интернет-магазина ХарьковТОРГ" src="<?=file_exists($GLOBALS['PATH_root'].'/images/price_icon.png')?_base_url.'/images/price_icon.png':'/images/nofoto.png'?>"/>
 	</a>
 	<br>
 	<p class="catalog_map">
@@ -16,7 +16,7 @@
 		foreach ($pops as $i){?>
 			<li>
 				<a href="<?=_base_url."/product/".$i['id_product']."/".$i['translit']."/";?>">
-					<img height="180" alt="<?=str_replace('"', '', $i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
+					<img height="180" alt="<?=str_replace('"', '', $i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/images/nofoto.png'?>"/>
 					<span><?=$i['name']?></span>
 					<div class="ca-more"><?=number_format($i['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
 				</a>

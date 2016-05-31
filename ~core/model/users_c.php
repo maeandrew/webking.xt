@@ -227,8 +227,8 @@ class Users {
 		if(isset($arr['name']) && $arr['name'] != ''){
 			$f['name'] = trim($arr['name']);
 		}
-		if(isset($arr['email']) && $arr['email'] != ''){
-			$f['email'] = trim($arr['email']);
+		if(isset($arr['email']) ){
+			$f['email'] = ($arr['email'] !='')?trim($arr['email']): NULL;
 		}
 		if(isset($arr['phones']) && $arr['phones'] != '') {
 			//Проверяем, существует ли такой телефон в таблице User

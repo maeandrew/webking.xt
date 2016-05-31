@@ -40,9 +40,9 @@
 					<?}?>
 					<li class="main_photo">
 						<img src="<?if(isset($_POST['images'])){
-							echo file_exists($GLOBALS['PATH_root'].'..'.$_POST['images'][0]['src'])?htmlspecialchars($_POST['images'][0]['src']):'/efiles/_thumb/nofoto.jpg';
+							echo file_exists($GLOBALS['PATH_root'].'..'.$_POST['images'][0]['src'])?htmlspecialchars($_POST['images'][0]['src']):'/images/nofoto.png';
 						}else{
-							echo '/efiles/_thumb/nofoto.jpg';
+							echo '/images/nofoto.png';
 						}?>" alt="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 					</li>
 				</ul>
@@ -116,7 +116,7 @@
 					<label>Изображения товара на x-torg.com:</label>
 					<div class="row" id="preview1">
 						<div class="col-md-2">
-							<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1']):"/efiles/_thumb/nofoto.jpg"?>">
+							<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_1']):"/images/nofoto.png"?>">
 						</div>
 						<div class="col-md-10">
 							<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?$_POST['img_1']:null?>">
@@ -124,7 +124,7 @@
 					</div>
 					<div class="row" id="preview2">
 						<div class="col-md-2">
-							<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2']):"/efiles/_thumb/nofoto.jpg"?>">
+							<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_2']):"/images/nofoto.png"?>">
 						</div>
 						<div class="col-md-10">
 							<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?$_POST['img_2']:null?>">
@@ -132,7 +132,7 @@
 					</div>
 					<div class="row" id="preview3">
 						<div class="col-md-2">
-							<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3']):"/efiles/_thumb/nofoto.jpg"?>">
+							<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?str_replace("/efiles/", "/efiles/_thumb/", $_POST['img_3']):"/images/nofoto.png"?>">
 						</div>
 						<div class="col-md-10">
 							<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?$_POST['img_3']:null?>">

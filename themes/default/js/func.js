@@ -58,19 +58,17 @@ function GetCartAjax(){
 }*/
 
 // Получение списка товаров в кабинете
-function GetCabProdAjax(id_order){
+function GetCabProdAjax(id_order, rewrite){
 	$('.content').addClass('loading');
-	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
-		console.log(data);
+	ajax('cabinet', 'GetProdList', {'id_order': id_order, 'rewrite': rewrite}, 'html').done(function(data){
 		$('.mdl-tabs__panel > #products').html(data);
 		$('.content').removeClass('loading');
 	});
 }
 
 // Получение списка товаров по каждомк заказу в кабинете совместныйх покупок
-function GetCabCoopProdAjax(id_cart){
-	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart}, 'html').done(function(data){
-		//console.log(data);
+function GetCabCoopProdAjax(id_cart, rewrite){
+	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart, 'rewrite': rewrite}, 'html').done(function(data){
 		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {
 			$('.products_cart_js').html(data);
 		}else{
@@ -974,10 +972,70 @@ function ajax(target, action, data, dataType){
 		dataType: dataType,
 		data: data
 	}).always(function(){
-		ajax_proceed = false;
+		ajax_proceed = false;		
 	});
 	// console.log(ajax_proceed);
 	return ajax;
+}
+// Change sidebar aside height
+function resizeAsideScroll(event) {
+	var mainWindow = +$.cookie('mainWindow');	
+	var header_height = +$.cookie('headerHeight');	
+	var viewPort = $(window).height(); // высота окна	
+	var newMainWindow = $('.main').height();
+	
+	if (newMainWindow != mainWindow) {
+		switch (event) {
+			case 'load':				
+				var scroll = $(this).scrollTop(); 	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+					$('aside').css('top', pieceOfHeader);
+				}else{
+					$('aside').css('bottom', 0);
+				}				
+				changeFiltersBtnsPosition();
+				break;
+			case 'resize':				
+				var scroll = $(this).scrollTop(); 	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+				}
+				break;
+			case 'click':
+				var scroll = $(this).scrollTop();  	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+				}
+				break;
+			case 'show_more':
+				var scroll = $(this).scrollTop(); 	
+				mainWindow = newMainWindow;
+				$.cookie('mainWindow', mainWindow, { path: '/'});
+				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;		
+				if (pieceOfFooter >= 0) {
+					$('aside').css('bottom', pieceOfFooter);
+				}else{
+					$('aside').css('bottom', 0);
+					$('aside').css('top', header_height);			
+				}
+				break;
+		}
+	}	
 }
 
 // Change product view

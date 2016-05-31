@@ -55,7 +55,7 @@
 			current_controller = "<?=$GLOBALS['CurrentController']?>",
 			ajax_proceed = false,
 			current_id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
-			isLogged = <?=G::isLogged()?'false':'true';?>;
+			isLogged = <?=G::isLogged()?'false':'true';?>;			
 	</script>
 	<!-- END define JS global variables -->
 

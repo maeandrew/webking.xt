@@ -462,7 +462,7 @@ class G {
 					}
 				break;
 				case 'PM_name':
-					if(!(preg_match("/^[a-zA-Zа-яёіїА`-ЯЁІЇ\s\-]+$/i", $var))){
+					if(!(preg_match("/^[a-zA-Zа-яёіїА'`-ЯЁІЇ\s\-]+$/i", $var))){
 						$errm = 'Недопустимый символ.';
 						return array(FALSE, $errm);
 					}

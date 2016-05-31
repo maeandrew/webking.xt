@@ -40,7 +40,7 @@
 									<?}else if(!empty($p['images'])){?>
 										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $p['images'][0]['src'])?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>">
 									<?}else{?>
-										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?>/images/nofoto.jpg" data-original-photo="<?=_base_url?>/images/nofoto.jpg">
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="/images/nofoto.png" data-original-photo="/images/nofoto.png">
 									<?}?>
 									<div class="mdl-tooltip" for="big_photo_<?=$p['id_product']?>">Нажмите<br>для увеличения</div>
 								</div>
