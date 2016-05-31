@@ -10,7 +10,7 @@
 			<div class="prodListPrice">Cумма</div>
 		</div>
 		<?$user_cart_total = 0;?>
-		<?foreach ($list as $item) {?>
+		<?foreach($list as $item){?>
 			<div class="ordersProdListContent">				
 				<?if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'){?>
 					<div class="avatar">
