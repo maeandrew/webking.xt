@@ -98,8 +98,8 @@
 											</div>
 
 											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
-											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink" onClick="GetCabProdAjax(<?=$i['id_order']?>);">Список товаров</a>
-
+											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
+											
 											<div class="orderBnts">
 												<h5>Заказ:</h5>
 												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
@@ -365,6 +365,11 @@ $(function(){
 				$('.orders_list').find('.deletedOrder').remove();
 			};
 		});
+	});
+	$('.prod_load_js').click(function(event) {
+		var cart_id = $(this).data('cartid'),
+			rewrite = $(this).data('rewrite');
+		GetCabProdAjax(cart_id, rewrite);
 	});
 });
 </script>
