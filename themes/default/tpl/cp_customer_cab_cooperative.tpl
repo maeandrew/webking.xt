@@ -123,7 +123,7 @@
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#details_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab is-active">Детали</a>
 										<?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1? '<a href="#participants_panel" class="mdl-tabs__tab">Участники</a>': null;?>
-										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>" <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1?'onClick="GetCabProdAjax(<?=$list?>);"':null;?>>Список товаров</a>
+										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>">Список товаров</a>
 									</div>
 								</div>
 								<div class="content">
@@ -292,7 +292,7 @@
 											<div class="products_cart_js"></div>
 										<?}else{?>
 											<div>
-												<?=$prod_list;?>
+											 	<?=$prod_list;?>
 												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
@@ -301,7 +301,7 @@
 															<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 																<div class="title">
 																	<div class="container for_tooltip">
-																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>">
+																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">
 																			<span class="username"><?=$i['name']?></span></a>
 																		<?if ($i['adm'] == 1) {?>
 																			<i id="cart_adm" class="material-icons cart_adm">star</i>
@@ -363,18 +363,13 @@
 				console.log('Fail');
 			});
 		});
-		$('[href^="#items_panel_"').click(function(event) {
-			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
-				console.log($(this).data('idcart'));
-				GetCabCoopProdAjax($(this).data('idcart'));
-			}
-		});
 		$('.list_in_cart_js').click(function(event) {
 			if ($(this).closest('li').find('.products_cart_js').html() == '') {
 				$(this).addClass('active_link_to_cart_js');
 				// console.log($(this).data('cartid'));
-				GetCabCoopProdAjax($(this).data('cartid'));
+				GetCabCoopProdAjax($(this).data('cartid'), $(this).data('rewrite'));
 			}else{
+				$(this).removeClass('active_link_to_cart_js');
 				if ($(this).closest('li').find('.products_cart_js').hasClass('hidden')) {
 					$(this).closest('li').find('.products_cart_js').removeClass('hidden');
 				}else{

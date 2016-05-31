@@ -58,19 +58,17 @@ function GetCartAjax(){
 }*/
 
 // Получение списка товаров в кабинете
-function GetCabProdAjax(id_order){
+function GetCabProdAjax(id_order, rewrite){
 	$('.content').addClass('loading');
-	ajax('cabinet', 'GetProdList', {'id_order': id_order}, 'html').done(function(data){
-		console.log(data);
+	ajax('cabinet', 'GetProdList', {'id_order': id_order, 'rewrite': rewrite}, 'html').done(function(data){
 		$('.mdl-tabs__panel > #products').html(data);
 		$('.content').removeClass('loading');
 	});
 }
 
 // Получение списка товаров по каждомк заказу в кабинете совместныйх покупок
-function GetCabCoopProdAjax(id_cart){
-	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart}, 'html').done(function(data){
-		//console.log(data);
+function GetCabCoopProdAjax(id_cart, rewrite){
+	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart, 'rewrite': rewrite}, 'html').done(function(data){
 		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {
 			$('.products_cart_js').html(data);
 		}else{
