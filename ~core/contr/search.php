@@ -404,7 +404,7 @@ $tpl->Assign('header', $GLOBALS['IERA_LINKS'][1]['title']);
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl'));
+						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl'));
 }elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
@@ -434,7 +434,7 @@ if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 
 	$parsed_res = array(
 		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products_contragent.tpl')
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
 	);
 }else{
 	$_SESSION['price_mode'] = 3;
