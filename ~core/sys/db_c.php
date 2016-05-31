@@ -269,7 +269,7 @@ class mysqlPDO {
 		$sql = "UPDATE $table SET ";
 		$arr = array();
 		foreach($fields as $k=>$v){
-			$arr[] = "`$k` = ".(gettype($v) == 'string'?$this->Quote($v):"'".$v."'");
+			$arr[] = "$k = ".(gettype($v) == 'string'?$this->Quote($v):(gettype($v) == 'NULL'?'NULL':$v));
 		}
 		$sql .= implode(", ", $arr);
 		$sql .=" WHERE $where";
