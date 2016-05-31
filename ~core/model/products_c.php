@@ -152,7 +152,7 @@ class Products {
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			un.unit_prom, a.product_limit, pv.count_views,
+			p.name_index, un.unit_prom, a.product_limit, pv.count_views,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -445,7 +445,7 @@ class Products {
 		if(!isset($params['sup_cab'])){
 				$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0) ';
 		}
-		if($gid == _ACL_SUPPLIER_ || $gid == _ACL_ADMIN_ || $gid == _ACL_MODERATOR_ || $gid == _ACL_SEO_){
+		if(in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_, _ACL_MODERATOR_, _ACL_SEO_))){
 			$sql = "SELECT DISTINCT a.active, s.available_today, pv.count_views,
 				".implode(", ",$this->usual_fields).",
 				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
@@ -2068,11 +2068,11 @@ class Products {
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
-//		foreach($categories_arr as $k=>$v){
-//			if($v == 1){
-//				unset($categories_arr[$k]);
-//			}
-//		}
+		//		foreach($categories_arr as $k=>$v){
+		//			if($v == 1){
+		//				unset($categories_arr[$k]);
+		//			}
+		//		}
 		// Записываем данные в таблицу соответствий категория-товар
 		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product;
 		$this->db->StartTrans();
@@ -4424,5 +4424,4 @@ class Products {
 
 		return $res;
 	}
-
-}?>
+}

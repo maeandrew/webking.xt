@@ -1,5 +1,6 @@
 <?php
 class dbtree {
+	public $fields;
 	/**
 	* Detailed errors of a class (for the programmer and log-files)
 	* array('error type (1 - fatal (write log), 2 - fatal (write log, send email)',
@@ -64,6 +65,14 @@ class dbtree {
 		unset($prefix, $table);
 		$sql = 'SET AUTOCOMMIT=0';
 		$this->db->Execute($sql);
+	}
+	public function SetFieldsByID($id_category, $fields = false){
+		$sql = 'SELECT '.(is_array($fields)?'c.'.implode(', c.', $fields):'*').'
+		 	FROM '.$this->table.' AS c WHERE c.id_category = '.$id_category;
+		if(!$this->fields = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return true;
 	}
 	/**
 	* Sets initial parameters of a tree and creates root of tree
@@ -605,17 +614,17 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-//		if ($id_category !==false){
-//			$where = ' WHERE c.id_category = '.$id_category;
-//		} else{
-//			$where = ' WHERE c.category_level<3';
-//		}
-//		$sql = 'SELECT '.$fields.', (CASE WHEN c.category_level = 1 THEN c.id_category ELSE c.pid END) AS sort , u.`name` AS username
-//		 	FROM '.$this->table.' c LEFT JOIN '._DB_PREFIX_.'user u ON c.edit_user = u.id_user';
-//		$sql .= $where;
-//		$sql .=  ' ORDER BY sort, c.pid';
+		// if ($id_category !==false){
+		// 	$where = ' WHERE c.id_category = '.$id_category;
+		// } else{
+		// 	$where = ' WHERE c.category_level<3';
+		// }
+		// $sql = 'SELECT '.$fields.', (CASE WHEN c.category_level = 1 THEN c.id_category ELSE c.pid END) AS sort , u.`name` AS username
+		//  	FROM '.$this->table.' c LEFT JOIN '._DB_PREFIX_.'user u ON c.edit_user = u.id_user';
+		// $sql .= $where;
+		// $sql .=  ' ORDER BY sort, c.pid';
 
-		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
+		$sql ='SELECT '.$fields.',
 				(CASE
 					WHEN c.category_level = 1 THEN c.id_category
 					WHEN c.category_level = 2 THEN c.pid
@@ -628,7 +637,6 @@ class dbtree {
 				END) AS sort2
 				FROM '._DB_PREFIX_.'category AS c
 				ORDER BY sort, sort2, category_level';
-
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->GetArray($sql);
 		}else{
@@ -702,6 +710,7 @@ class dbtree {
 			}
 		}
 		$sql .= ' ORDER BY category_level';
+		$res = $this->db->GetArray($sql);
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->Execute($sql);
 		}else{
@@ -823,6 +832,9 @@ class dbtree {
 		$sql .= $prom_id;
 		$sql .=	"`edit_date` = '".date('Y-m-d H:i:s')."',
 			`pid` = '".$arr['pid']."',
+			`page_title` = '".$arr['page_title']."',
+			`page_description` = '".$arr['page_description']."',
+			`page_keywords` = '".$arr['page_keywords']."',
 			`visible` = '".$arr['visible']."',
 			`indexation` = '".$arr['indexation']."'
 			WHERE ".$this->table_id." = ".$id_category;
@@ -855,14 +867,14 @@ class dbtree {
 	}
 
 	public function UpdateTranslit($id_category){
-		$this->db->StartTrans();
-		$cat = $this->Full(array('name'), array('and' => array('id_category = '.$id_category)));
-		$translit = G::StrToTrans($cat[0]['name']);
-		$sql = "UPDATE ".$this->table."
-			SET `edit_user` = \"{$_SESSION['member']['id_user']}\",
-			`edit_date` = \"".date('Y-m-d H:i:s')."\",
-			`translit` = \"".$translit."\"
-			WHERE ".$this->table_id." = $id_category";
+		$this->SetFieldsByID($id_category);
+		$cat = $this->fields;
+		$translit = G::StrToTrans($cat['name']);
+		$sql = 'UPDATE '.$this->table.'
+			SET edit_user = '.$_SESSION['member']['id_user'].',
+			edit_date = "'.date('Y-m-d H:i:s').'",
+			translit = "'.$translit.'"
+			WHERE id_category = '.$id_category;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
 		if(false === $res){

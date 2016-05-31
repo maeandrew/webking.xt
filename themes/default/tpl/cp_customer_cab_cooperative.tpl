@@ -38,58 +38,11 @@
 										<span class="number num_mar">Совместная корзина № <?=$i['id_cart']?></span>
 										<span class="number">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?></span>
 										<i class="material-icons refresh refresh_js">refresh</i>
-										<!-- Удалить -->
-										<!-- <div class="print">
-											<div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
-											<ul class="expanded">
-
-												Закоментировать
-												<img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li>
-
-
-												<li>
-													<a href="#">
-														<svg class="icon" id="tt1">
-															<use xlink:href="#XLS"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt1">Распечатать в XML</div>
-												</li>
-												<li>
-													<a href="#">
-														<svg class="icon" id="tt2">
-															<use xlink:href="#txt"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt2">Распечатать для реализатора</div>
-												</li>
-												<li>
-													<a href="#">
-														<svg class="icon" id="tt3">
-															<use xlink:href="#img"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt3">Распечатать с картинками</div>
-												</li>
-
-												<li><a href="#">
-														<svg class="icon" id="tt4">
-															<use xlink:href="#paper"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt4">Распечатать документом</div>
-												</li>
-											</ul>
-										</div> -->	
-										<!-- Доделать -->
 										<div class="print">
-											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
+											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_cart']?>">
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
 											</div>
-											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="min-width:160px; !important">
+											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_cart']?>" style="min-width:160px; !important">
 												<li class="mdl-menu__item">
 													<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;">
 														<svg class="icon" id="tt1" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
@@ -111,7 +64,9 @@
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#details_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab is-active">Детали</a>
 										<?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1? '<a href="#participants_panel" class="mdl-tabs__tab">Участники</a>': null;?>
-										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>" <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1?'onClick="GetCabProdAjax(<?=$list?>);"':null;?>>Список товаров</a>
+									<!-- 	<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>">Список товаров</a> -->
+
+									<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
 									</div>
 								</div>
 								<div class="content">
@@ -280,8 +235,7 @@
 											<div class="products_cart_js"></div>
 										<?}else{?>
 											<div>
-												<?=$prod_list;?>
-												<div class="over_sum">Итого: <?=$i['sum_prods']?> грн.</div>
+											 	<?=$prod_list;?>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 													<?foreach ($i['infoCarts'] as $i){ ?>
@@ -289,7 +243,7 @@
 															<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 																<div class="title">
 																	<div class="container for_tooltip">
-																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>">
+																		<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">
 																			<span class="username"><?=$i['name']?></span></a>
 																		<?if ($i['adm'] == 1) {?>
 																			<i id="cart_adm" class="material-icons cart_adm">star</i>
@@ -351,23 +305,24 @@
 				console.log('Fail');
 			});
 		});
-		$('[href^="#items_panel_"').click(function(event) {
-			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
-				console.log($(this).data('idcart'));
-				GetCabCoopProdAjax($(this).data('idcart'));
-			}
-		});
 		$('.list_in_cart_js').click(function(event) {
 			if ($(this).closest('li').find('.products_cart_js').html() == '') {
 				$(this).addClass('active_link_to_cart_js');
 				// console.log($(this).data('cartid'));
-				GetCabCoopProdAjax($(this).data('cartid'));
+				GetCabCoopProdAjax($(this).data('cartid'), $(this).data('rewrite'));
 			}else{
+				$(this).removeClass('active_link_to_cart_js');
 				if ($(this).closest('li').find('.products_cart_js').hasClass('hidden')) {
 					$(this).closest('li').find('.products_cart_js').removeClass('hidden');
 				}else{
 					$(this).closest('li').find('.products_cart_js').addClass('hidden');
 				}
+			}
+		});
+		$('[href^="#items_panel_"').click(function(event) {
+			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
+				console.log($(this).data('idcart'));
+				GetCabCoopProdAjax($(this).data('idcart'), $(this).data('rewrite'));
 			}
 		});
 	});

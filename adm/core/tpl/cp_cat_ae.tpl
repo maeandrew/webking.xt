@@ -19,28 +19,39 @@
 		<div class="col-md-12">
 			<label for="name">Название:</label>
 			<?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
-			<input type="text" name="name" id="name" class="input-l" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>"/>
+			<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>"/>
 		</div>
-		<?if(in_array($_SESSION['member']['gid'], array(_ACL_SEO_, _ACL_ADMIN_))){ ?>
+		<?if(in_array($_SESSION['member']['gid'], array(_ACL_SEO_, _ACL_ADMIN_))){?>
 			<?if(isset($_POST['translit'])){ ?>
 				<div class="col-md-12 seo_block">
 					<div id="translit">
-						<a href="#" id="updtrans" class="refresh_btn" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"></a>
+						<a href="#" id="updtrans" class="refresh_btn" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"><i class="icon-font">r</i></a>
 						<p><?=$_POST['translit']?></p>
 					</div>
 				</div>
 			<?}?>
+			<div class="col-md-12">
+				<label for="page_title">Мета-заголовок (title):</label>
+				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
+				<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
+				<label for="page_description">Мета-описание (description):</label>
+				<?=isset($errm['page_description'])?"<span class=\"errmsg\">".$errm['page_description']."</span><br>":null?>
+				<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-m"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
+				<label for="page_keywords">Ключевые слова (keywords):</label>
+				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
+				<textarea class="input-m" name="page_keywords" id="page_keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
+			</div>
 		<?}?>
 		<div class="col-md-12">
 			<label for="prom_id">ID категории на prom.ua:</label>
 			<?=isset($errm['prom_id'])?"<span class=\"errmsg\">".$errm['prom_id']."</span><br>":null?>
-			<input type="text" name="prom_id" id="prom_id" size="20" class="input-l" value="<?=isset($_POST['prom_id'])?htmlspecialchars($_POST['prom_id']):null?>">
+			<input type="text" name="prom_id" id="prom_id" size="20" class="input-m" value="<?=isset($_POST['prom_id'])?htmlspecialchars($_POST['prom_id']):null?>">
 		</div>
 		<div class="col-md-12">
 		<!-- Выбор родительской категории -->
 			<label for="pid">Родительская категория:</label>
 			<?=isset($errm['pid'])?"<span class=\"errmsg\">".$errm['pid']."</span><br>":null?>
-			<select name="pid" id="pid" style="width:285px;" class="input-l">
+			<select name="pid" id="pid" style="width:285px;" class="input-m">
 			 <?foreach ($list as $item){ ?>
 				<option <?=(isset($_POST['pid'])&&$_POST['pid']==$item['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 			 <?}?>
@@ -77,7 +88,7 @@
 									</td>
 									<td class="left actions">
 										<nobr>
-											<a href="/adm/catedit/<?=$i['id_cat']?>/?action=delete_spec&id_spec_cat=<?=$i['id']?>" class="btn-l-red-inv" onclick="return confirm('Точно удалить?');">удалить</a>
+											<a href="/adm/catedit/<?=$i['id_cat']?>/?action=delete_spec&id_spec_cat=<?=$i['id']?>" class="btn-m-red-inv" onclick="return confirm('Точно удалить?');">удалить</a>
 										</nobr>
 									</td>
 								</tr>
@@ -90,7 +101,7 @@
 				<label for="sid">Добавление характеристики:</label>
 				<?=isset($errm['sid'])?"<span class=\"errmsg\">".$errm['sid']."</span><br>":null?>
 
-				<select name="sid" id="sid" class="input-l">
+				<select name="sid" id="sid" class="input-m">
 					<?$i = 0;
 					foreach ($spec_list as $sl){
 						if(!in_array($sl['id'], $ids)){
@@ -106,7 +117,7 @@
 						<option disabled="disabled" selected="selected">Все характеристики добавлены</option>
 					<?}?>
 				</select>
-				<span class="btn-l-default addspec" <?=$i == 0?'disabled="disabled"':null;?> onclick="">Добавить</span>
+				<span class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?>>Добавить</span>
 
 
 			</div>
@@ -120,41 +131,17 @@
 			</label>
 			<input type="hidden" name="id_category" id="id_category" value="<?=isset($_POST['id_category'])?$_POST['id_category']:0?>">
 			<div>
-				<button name="smb" type="submit" id="form_submit1" class="btn-l-default save-btn">Сохранить</button>
-				<!--<button name="delete" type="submit" id="form_submit2" class="btn-l-default ">Удалить категорию</button>-->
+				<button name="smb" type="submit" id="form_submit1" class="btn-m-default save-btn">Сохранить</button>
+				<!--<button name="delete" type="submit" id="form_submit2" class="btn-m-default ">Удалить категорию</button>-->
 			</div>
 		</div>
 	</form>
 </div>
-<script src="../../blueimp/js/vendor/jquery.ui.widget.js"></script>
-<script src="../../blueimp/js/load-image.all.min.js"></script>
-<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-<script src="../../blueimp/js/jquery.iframe-transport.js"></script>
-<script src="../../blueimp/js/jquery.fileupload.js"></script>
-<script src="../../blueimp/js/jquery.fileupload-process.js"></script>
-<script src="../../blueimp/js/jquery.fileupload-image.js"></script>
 <script type="text/javascript">
+	var id_category = $('[name="id_category"]').val();
 	$(function(){
-		var onclick='SetSpecToCat(<?=$_POST['id_category']?>, $(\'#sid\').val())';
-		$('.addspec').attr('onclick', onclick);
-
-		'use strict';
-		var url = '/adm/catedit/?upload=true';
-		$('#ban_img_upload').fileupload({
-			url: url,
-			dataType: 'json',
-			done: function(e, data){
-				$('#category_banner').attr('src','/images/category_banner/'+data.result.img[0]['name']);
-				$('[name="category_banner_url"]').val('/images/category_banner/'+data.result.img[0]['name']);
-			}
-		});
-		$('#cat_img_upload').fileupload({
-			url: url+'&category_img_urls=1',
-			dataType: 'json',
-			done: function(e, data){
-				$('#category_img').attr('src','/efiles/katalog/'+data.result.img[0]['name']);
-				$('[name="category_img_url"]').val('/efiles/katalog/'+data.result.img[0]['name']);
-			}
+		$('.addspec').on('click', function(){
+			SetSpecToCat(id_category, $('#sid').val());
 		});
 	});
 	function SetSpecToCat(id_cat, id_spec){
@@ -171,8 +158,6 @@
 		}).done(function(a){
 			console.log(a);
 		});
-		// alert(a);
-		// alert(b);
 	}
 
 	//Обновление транслита категории
@@ -183,12 +168,12 @@
 			cache: false,
 			dataType: "json",
 			data: {
-				"action":'update_translit',
-				"id_category": <?=$_POST['id_category']?>
+				'action': 'update_translit',
+				'id_category': id_category
 			}
 		}).done(function(data){
 			$('#translit p').text(data);
-			$('#updtrans').animate({  borderSpacing: 360 }, {
+			$('#updtrans').animate({ borderSpacing: 360 }, {
 				step: function(now,fx) {
 					$(this).css('-webkit-transform','rotate('+now+'deg)');
 					$(this).css('-moz-transform','rotate('+now+'deg)');
@@ -198,10 +183,10 @@
 			},'linear');
 		});
 	}
-	CKEDITOR.replace('content', {
-	    customConfig: 'custom/ckeditor_config.js'
-	});
-	CKEDITOR.replace('content_xt', {
-	    customConfig: 'custom/ckeditor_config.js'
-	});
+	// CKEDITOR.replace('content', {
+	//     customConfig: 'custom/ckeditor_config.js'
+	// });
+	// CKEDITOR.replace('content_xt', {
+	//     customConfig: 'custom/ckeditor_config.js'
+	// });
 </script>

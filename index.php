@@ -159,12 +159,24 @@ unset($sort_value, $sort);
 }elseif{($GLOBALS['CurrentController'] == 'products')
 	$tpl->Assign('',);
 }*/
+$Cart = new Cart();
+// Создание базового массива корзины
+if(G::isLogged() && !_acl::isAdmin()){
+	$Cart->LastClientCart();
+	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
+	$_SESSION['member']['favorites'] = $User->fields['favorites'];
+	$_SESSION['member']['waiting_list'] = $User->fields['waiting_list'];
+	$_SESSION['member']['contragent'] = $User->fields['contragent'];
+	$_SESSION['member']['ordered_prod'] = $User->fields['ordered_prod'];
+}
+$Cart->RecalcCart();
+
 require($GLOBALS['PATH_core'].'controller.php');
 $tpl->Assign('css_arr', G::GetCSS());
 $tpl->Assign('js_arr', G::GetJS());
 $tpl->Assign('__page_description', $GLOBALS['__page_description']);
 $tpl->Assign('__page_title', $GLOBALS['__page_title']);
-$tpl->Assign('__page_kw', $GLOBALS['__page_kw']);
+$tpl->Assign('__page_keywords', $GLOBALS['__page_keywords']);
 $tpl->Assign('__page_h1', $GLOBALS['__page_h1']);
 $tpl->Assign('__center', $GLOBALS['__center']);
 $tpl->Assign('__nav', $GLOBALS['__nav']);
@@ -178,23 +190,6 @@ if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }
 
-
-
-$Cart = new Cart();
-// Создание базового массива корзины
-if(G::isLogged() && !_acl::isAdmin()){
-	$Cart->LastClientCart();
-	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
-	$_SESSION['member']['favorites'] = $User->fields['favorites'];
-	$_SESSION['member']['waiting_list'] = $User->fields['waiting_list'];
-	$_SESSION['member']['contragent'] = $User->fields['contragent'];
-	$_SESSION['member']['ordered_prod'] = $User->fields['ordered_prod'];
-}
-$Cart->RecalcCart();
-
-// $Cart->SetTotalQty();
-// $Cart->SetAllSums();
-// $tpl->Assign('cart_string', $Cart->GetString());
 if(in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	if($GLOBALS['MainTemplate'] == 'main.tpl'){
 		$GLOBALS['MainTemplate'] = 'main_empty.tpl';

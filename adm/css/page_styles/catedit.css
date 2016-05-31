@@ -1,12 +1,15 @@
 #catae .refresh_btn {
 	display: block;
 	float: left;
-	margin: 0 5px 0;
+	margin: 0 5px;
 	background: url('../../../images/kharkov/refresh.png') no-repeat;
-	width: 20px;
 	height: 20px;
+	font-size: 1.5em;
+	color: #444;
 }
-
+#catae .refresh_btn:hover {
+	text-decoration: none;
+}
 #sid {
 	width:285px;
 	float: left;

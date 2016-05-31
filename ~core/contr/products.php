@@ -5,13 +5,13 @@ $products = new Products();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 $id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
-// unset($_SESSION['cart']);
-// print_r($_SESSION['cart']);
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
-
+$dbtree->SetFieldsById($id_category);
+$category = $dbtree->fields;
+G::metaTags($category);
 // если отправили комментарий
 if(isset($_POST['com_qtn'])){
 	$put = $_POST['id_product'];
@@ -40,7 +40,7 @@ if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation', 'page_title', 'page_description', 'page_keywords'));
+$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
@@ -49,20 +49,13 @@ if(!$dbtree->NextRow()){
 	exit();
 }
 while($cat = $dbtree->NextRow()){
-	if($cat['category_level'] != 0){
-		$GLOBALS['IERA_LINKS'][] = array(
-			'title' => $cat['name'],
-			'url' => Link::Category($cat['translit'])
-		);
-	}
+	$GLOBALS['IERA_LINKS'][] = array(
+		'title' => $cat['name'],
+		'url' => Link::Category($cat['translit'])
+	);
 	$GLOBALS['products_canonical'] = end($GLOBALS['IERA_LINKS'])['url'];
-	$GLOBALS['products_title'] = $cat['page_title'];
-	$GLOBALS['products_description'] = $cat['page_description'];
-	$GLOBALS['products_keywords'] = $cat['page_keywords'];
-	//$tpl->Assign('indexation', $cat['indexation']);
 	$tpl->Assign('header', $cat['name']);
 }
-
 
 
 // if(empty($subcats)){
@@ -381,13 +374,13 @@ while($cat = $dbtree->NextRow()){
 
 	// =========================================================
 // }
-$template = '';
-if(G::isLogged() && !in_array($_SESSION['member']['gid'], array(_ACL_ADMIN_, _ACL_CUSTOMER_, _ACL_CONTRAGENT_))){
-	$template = $GLOBALS['profiles'][$_SESSION['member']['gid']]['name'].'_';
-}
+// $template = '';
+// if(G::isLogged() && !in_array($_SESSION['member']['gid'], array(_ACL_ADMIN_, _ACL_CUSTOMER_, _ACL_CONTRAGENT_))){
+// 	$template = $GLOBALS['profiles'][$_SESSION['member']['gid']]['name'].'_';
+// }
 // print_r($template.'products_list.tpl');
 // var_dump($template); die();
-$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].$template.'products_list.tpl');
+$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
@@ -644,4 +637,3 @@ $tpl->Assign('max_price', $max_price);
 $tpl->Assign('min_price', $min_price);
 
 // =========================================================
-?>

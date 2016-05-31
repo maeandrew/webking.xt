@@ -255,6 +255,7 @@ $tpl = new Template();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************
 require($GLOBALS['PATH_model'].'users_c.php');
+require($GLOBALS['PATH_model'].'profiles_c.php');
 require($GLOBALS['PATH_model'].'customers_c.php');
 require($GLOBALS['PATH_model'].'suppliers_c.php');
 require($GLOBALS['PATH_model'].'contragents_c.php');
@@ -286,6 +287,7 @@ foreach ($arr as $i){
 	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
 }
 unset($sql, $arr);
+
 // почтовая конфигурация
 $GLOBALS['MAIL_CONFIG']['from_name'] = $GLOBALS['CONFIG']['mail_caption']; // from (от) имя
 $GLOBALS['MAIL_CONFIG']['from_email'] = $GLOBALS['CONFIG']['mail_email']; // from (от) email адрес
@@ -295,4 +297,3 @@ $GLOBALS['MAIL_CONFIG']['smtp_mode'] = 'disabled'; // enabled or disabled (вк�
 $GLOBALS['MAIL_CONFIG']['smtp_host'] = null;
 $GLOBALS['MAIL_CONFIG']['smtp_port'] = null;
 $GLOBALS['MAIL_CONFIG']['smtp_username'] = null;
-?>

@@ -30,9 +30,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 										<noscript>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 										</noscript>
 									<?}?>
 								</a>
@@ -146,14 +146,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 										<div class="<?=$st['class']?>"></div>
 										<?if(!empty($item['images'])){?>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
 											<noscript>
-												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
+												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
 											</noscript>
 										<?}else{?>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
+											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/images/nofoto.png'?>"/>
 											<noscript>
-												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
+												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/images/nofoto.png'?>"/>
 											</noscript>
 										<?}?>
 									</a>

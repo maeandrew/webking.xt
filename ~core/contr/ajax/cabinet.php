@@ -12,6 +12,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$p['images'] = $products->GetPhotoById($p['id_product']);
 				}
 				$tpl->Assign('list', $list);
+				$tpl->Assign('rewrite', $_POST['rewrite']);
 				// echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
 				$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
@@ -19,6 +20,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'GetProdListForCart':
 				$Cart = new Cart();
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
+
 				$tpl->Assign('list', $list);
 				// echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders_prod_list.tpl');
 				$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
@@ -28,6 +30,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Cart = new Cart();
 				$list = $Cart->GetProductsForCart($_POST['id_cart']);
 				$tpl->Assign('list', $list);
+				$tpl->Assign('rewrite', $_POST['rewrite']);
 				$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
 				// $test = $tpl->Parse($GLOBALS['PATH_tpl_global'].'test.tpl');
@@ -123,7 +126,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
-
 //			case 'GetJOCart';
 //				$Cart->
 //

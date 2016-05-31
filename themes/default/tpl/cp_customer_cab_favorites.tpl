@@ -34,7 +34,7 @@
 									<?}else if(!empty($p['images'])){?>
 										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $p['images'][0]['src'])?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>" title="Нажмите для увеличения">
 									<?}else{?>
-										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?>/images/nofoto.jpg" data-original-photo="<?=_base_url?>/images/nofoto.jpg">
+										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="/images/nofoto.png" data-original-photo="/images/nofoto.png">
 									<?}?>
 								</div>
 							</td>
