@@ -25,7 +25,7 @@
 					<div class="orderProdName"><?=$item['name'];?></div>
 					<div class="cent">
 						<span class="priceTitle">Цена:</span>
-						<span class="priceItem"><?=$item['price']?> грн.</span>
+						<span class="priceItem"><?=number_format($item['price'],2,',','');?> грн.</span>
 					</div>
 					<div class="cent">
 						<span class="priceTitle">Кол-во:</span>
@@ -33,7 +33,7 @@
 					</div>
 					<div class="cent">
 						<span class="priceTitle">Сумма:</span>
-						<span class="priceItem"><?=$item['price']*$item['quantity'];?> грн.</span>
+						<span class="priceItem"><?=number_format($item['price']*$item['quantity'],2,',','');?> грн.</span>
 					</div>
 				</div>
 

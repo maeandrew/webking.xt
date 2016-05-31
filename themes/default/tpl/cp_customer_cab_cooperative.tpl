@@ -76,7 +76,7 @@
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#details_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab is-active">Детали</a>
 										<?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1? '<a href="#participants_panel" class="mdl-tabs__tab">Участники</a>': null;?>
-										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>">Список товаров</a>
+										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>">Список товаров</a>
 									</div>
 								</div>
 								<div class="content">
