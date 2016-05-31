@@ -3,6 +3,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'url' => _base_url.'/cabinet/orders/'
 );
+G::metaTags();
 
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting', 'filtering');
