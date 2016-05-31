@@ -36,11 +36,12 @@
 						<span class="priceItem"><?=$item['price']*$item['quantity'];?> грн.</span>
 					</div>
 				</div>
+
 				<?$user_cart_total += $item['price']*$item['quantity'];?>
 			<?}?>
 		<?}else{?>
 			<div>В корзине нет товаров</div>
 		<?}?>
-		<div class="total_wrap">Всего: <?=$user_cart_total?> грн.</div>
+		<div class="over_sum">Итого: <?=number_format($user_cart_total,2,',','')?> грн.</div>
 	</div>
 </div>

@@ -265,7 +265,7 @@
 										</div>
 										<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
 											<div id="products"></div>
-											<div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div>
+											<!-- <div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div> -->
 										</div>
 										<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 									</div>

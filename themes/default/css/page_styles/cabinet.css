@@ -2028,11 +2028,6 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	font-size: 21px;
 	padding: 30px;
 }
-.total_wrap {
-	text-align: right;
-	font-size: 17px;
-	padding: 15px;
-}
 .order .avatar {
 	border-radius: inherit;
 }

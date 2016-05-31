@@ -246,7 +246,6 @@
 										<?}else{?>
 											<div>
 											 	<?=$prod_list;?>
-												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 													<?foreach ($infoCarts as $i){ ?>
