@@ -50,58 +50,11 @@
 										<span class="number num_mar">Совместная корзина № <?=$i['id_cart']?></span>
 										<span class="number">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?></span>
 										<i class="material-icons refresh refresh_js">refresh</i>
-										<!-- Удалить -->
-										<!-- <div class="print">
-											<div class="icon"><img src="<?=_base_url?>/themes/default/img/print1.png"></div>
-											<ul class="expanded">
-
-												Закоментировать
-												<img src="<?=_base_url?>/themes/default/img/ic_paper_XLS_black_24px.svg">
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_txt_black_24px.svg"></a></li>
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_img_black_24px.svg"></a></li>
-												<li><a href="#"><img src="<?=_base_url?>/themes/default/img/ic_paper_black_24px.svg"></a></li>
-
-
-												<li>
-													<a href="#">
-														<svg class="icon" id="tt1">
-															<use xlink:href="#XLS"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt1">Распечатать в XML</div>
-												</li>
-												<li>
-													<a href="#">
-														<svg class="icon" id="tt2">
-															<use xlink:href="#txt"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt2">Распечатать для реализатора</div>
-												</li>
-												<li>
-													<a href="#">
-														<svg class="icon" id="tt3">
-															<use xlink:href="#img"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt3">Распечатать с картинками</div>
-												</li>
-
-												<li><a href="#">
-														<svg class="icon" id="tt4">
-															<use xlink:href="#paper"></use>
-														</svg>
-													</a>
-													<div class="mdl-tooltip" for="tt4">Распечатать документом</div>
-												</li>
-											</ul>
-										</div> -->	
-										<!-- Доделать -->
 										<div class="print">
-											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
+											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_cart']?>">
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
 											</div>
-											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="min-width:160px; !important">
+											<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_cart']?>" style="min-width:160px; !important">
 												<li class="mdl-menu__item">
 													<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;">
 														<svg class="icon" id="tt1" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
