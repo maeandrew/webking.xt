@@ -359,7 +359,7 @@ tr.min td {
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
 								<li>
-									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
+									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="<?=trim($value)?>"/>
 								</li>
 							<?}
 						}?>
@@ -422,7 +422,7 @@ tr.min td {
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
 								<li>
-									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
+									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="<?=trim($value)?>"/>
 								</li>
 							<?}
 						}?>

@@ -37,7 +37,7 @@ $sql = "SELECT COUNT(id_wishes) AS cnt_w
 $res = $db->GetOneRowArray($sql);
 $tpl->Assign("wishesCount", $res['cnt_w']);
 
-require($GLOBALS['PATH_contr'] . $GLOBALS['CurrentController'] . '.php');
+require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 // ------------------------ Сквозные блоки ------------------------
 // ---- center ----
 // ---- sidebar ----

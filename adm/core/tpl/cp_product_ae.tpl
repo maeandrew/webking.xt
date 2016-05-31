@@ -28,7 +28,7 @@
 						<li class="active"><a href="#nav_comment">Вопросы по товару</a></li>
 					<?}?>
 					<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="active"':null?>><a href="#nav_product">Товар, фото, видео</a></li>
-					<!-- <li><a href="#nav_seo">SEO</a></li> -->
+					<li><a href="#nav_seo">SEO</a></li>
 					<li><a href="#nav_content">Контент товара</a></li>
 					<li><a href="#nav_params">Параметры товара</a></li>
 					<li><a href="#nav_delivery">Доставка</a></li>
@@ -183,11 +183,13 @@
 						<div class="col-md-12">
 							
 							<label for="page_title">Мета-заголовок (title):</label>
+							<p class="hint">Перед текстом будет автоматически добавлен ключ - "<span><?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>.</span>"</p>
 							<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
-							<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
+							<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title']) && !empty($_POST['page_title'])?htmlspecialchars($_POST['page_title']):'Купить в Украине с доставкой - оптовый интернет магазин ХТ.'?>">
 							<label for="page_description">Мета-описание (description):</label>
+							<p class="hint">Перед текстом будет автоматически добавлен ключ - "<span><?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>.</span>"</p>
 							<?=isset($errm['page_description'])?"<span class=\"errmsg\">".$errm['page_description']."</span><br>":null?>
-							<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-m"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
+							<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-m"><?=isset($_POST['page_description']) && !empty($_POST['page_description'])?htmlspecialchars($_POST['page_description']):'ХТ - крупнейший интернет-магазине в Украине &#10003;. Продажа крупным оптом, оптом и в розницу. &#9990; (050)3098420, (067)5741013 Адресная доставка Киев, Харьков, Одесса, Днепропетровск, Запорожье, Львов.'?></textarea>
 							<label for="keywords">Ключевые слова (keywords):</label>
 							<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
 							<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
