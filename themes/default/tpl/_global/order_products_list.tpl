@@ -23,7 +23,7 @@
 						<?}?>
 					</div>
 				<?}?>
-				<div class="orderProdName"><?=$item['name'];?>gerr</div>
+				<div class="orderProdName"><?=$item['name'];?></div>
 				<div class="cent">
 					<span class="priceTitle">Цена:</span>
 					<span class="priceItem"><?=$item['price']?> грн.</span>

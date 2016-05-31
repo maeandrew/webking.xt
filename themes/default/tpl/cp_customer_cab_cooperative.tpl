@@ -20,22 +20,10 @@
 				$s[] = 20;
 				?>joactive<?
 			break;
-			case 'completed':
+			case 'jocompleted':
 				$s[] = 11;
 				$s[] = 21;
-				?>completed<?
-			break;
-			case 'canceled':
-				$s[] = 4;
-				$s[] = 5;
-				?>canceled<?
-			break;
-			case 'drafts':
-				$s[] = 3;
-				?>drafts<?
-			break;
-			default:
-				$s = array();
+				?>jocompleted<?
 			break;
 		}?> editing">
 
@@ -150,7 +138,7 @@
 													</svg>
 												</span>
 												<span class="label">Сумма к оплате</span>
-												<span class="value"><?=$details['sum_prods']?> грн.</span>
+												<span class="value"><?=$i['sum_prods']?> грн.</span>
 											</div>
 											<div class="discount">
 												<span class="icon">
@@ -159,7 +147,7 @@
 													</svg>
 												</span>
 												<span class="label">Скидка</span>
-												<span class="value"><?=$details['discount']?>%</span>
+												<span class="value"><?=$i['discount']?>%</span>
 											</div>
 										</div>
 										<div class="additional">
@@ -218,7 +206,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
+												<?if (isset($i['infoCarts']) && is_array($i['infoCarts'])) : foreach($i['infoCarts'] as $infoCart) :?>
 													<tr>
 														<input class="member_id_cart_js" type="hidden" data-cartid="<?=$_SESSION['cart']['id']?>" value="<?=$infoCart['id_cart']?>">
 														<td class="mdl-data-table__cell--non-numeric">
@@ -293,10 +281,10 @@
 										<?}else{?>
 											<div>
 												<?=$prod_list;?>
-												<div class="over_sum">Итого: <?=$details['sum_prods']?> грн.</div>
+												<div class="over_sum">Итого: <?=$i['sum_prods']?> грн.</div>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
-													<?foreach ($infoCarts as $i){ ?>
+													<?foreach ($i['infoCarts'] as $i){ ?>
 														<li class="id_cart_<?=$i['id_cart']?>">
 															<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 																<div class="title">

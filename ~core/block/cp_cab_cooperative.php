@@ -18,67 +18,33 @@ if(isset($_SERVER['HTTP_REFERER'])){
 }
 
 
-if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joall' || $_GET['t'] == 'joactive' || $_GET['t'] == 'joacomplete')){
+if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET['t'] == 'jocompleted')){
 	$infoJO = $Cart->GetInfoJO($_GET['t']);
 }
-//print_r($infoJO); die();
 if($infoJO){
+	if (isset($infoJO) && is_array($infoJO)){
+		foreach($infoJO as &$prod){
+			$prod['sum_prods'] = 0;
+			foreach($prod['productsFromCarts'] as $v){
+				$prod['sum_prods'] += $v['sum_prod'];// общая сумма в корзине по всем заказам
+			}
+			$prod['sum_prods'] = number_format($prod['sum_prods'],2,',','');
+			if ($prod['sum_prods'] > 0 && $prod['sum_prods'] <= 500) {
+				$prod['discount'] = 0;
+			}elseif($prod['sum_prods'] > 500 && $prod['sum_prods'] <= 3000){
+				$prod['discount'] = 10;
+			}elseif($prod['sum_prods'] > 3000 && $prod['sum_prods'] < 10000){
+				$prod['discount'] = 16;
+			}elseif($prod['sum_prods'] >= 10000){
+				$prod['discount'] = 21;
+			}
+		};
+	}
 	$tpl->Assign('infoJO', $infoJO);
 }
 
-
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
-
-$promo = $_SESSION['cart']['promo'];
-if($promo) {
-
-    $infoCarts = $Cart->GetInfoForPromo($promo);
-
-    if ($infoCarts) {
-        foreach ($infoCarts as &$infoCart) { //echo'<pre>'; print_r($infoCart); echo'</pre>';
-            switch ($infoCart['ready']) {
-                case 1:
-                    $infoCart['title_status'] = "<div style='color: #1DC300;'>Yes</div>";
-                    break;
-                case 0:
-                    $infoCart['title_status'] = "<div style='color: #FF0000;'>No</div>";
-                    break;
-                default:
-                    $infoCart['title_status'] = "<div>No</div>";
-            }
-        } //die();
-    }
-    $tpl->Assign('infoCarts', $infoCarts);
-
-    $productsFromCarts = $Cart->GetCartForPromo($promo);
-    $tpl->Assign('list', $productsFromCarts);
-	$tpl->Assign('test', $tpl->Parse($GLOBALS['PATH_tpl_global'].'test.tpl'));
-
-	$details = array(); $sum_prods = 0;
-	if (isset($productsFromCarts) && is_array($productsFromCarts)){
-		foreach($productsFromCarts as $prod){
-			$sum_prods += $prod['sum_prod'];// общая сумма в корзине по всем заказам
-		};
-	}
-	$details['sum_prods'] = number_format($sum_prods,2,',','');
-	if ($details['sum_prods'] > 0 && $details['sum_prods'] <= 500) {
-		$details['discount'] = 0;
-	}elseif($details['sum_prods'] > 500 && $details['sum_prods'] <= 3000){
-		$details['discount'] = 10;
-	}elseif($details['sum_prods'] > 3000 && $details['sum_prods'] < 10000){
-		$details['discount'] = 16;
-	}elseif($details['sum_prods'] >= 10000){
-		$details['discount'] = 21;
-	}
-
-	$tpl->Assign('details', $details);
-//		print_r($infoCarts);
-//		var_dump($productsFromCarts);
-
-}
-
-
 
 $Order = new Orders();
 if(isset($id_order)){

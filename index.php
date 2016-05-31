@@ -178,6 +178,8 @@ if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }
 
+
+
 $Cart = new Cart();
 // Создание базового массива корзины
 if(G::isLogged() && !_acl::isAdmin()){
