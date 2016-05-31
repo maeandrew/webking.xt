@@ -29,33 +29,13 @@ function GetLocation() {
 function GetCartAjax(){
 	$('#cart > .modal_container').html('');
 	openObject('cart');
-	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
-		//console.log(data);
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');
 		Position($('#cart'));
 	});
 }
 
-/*function GetCartAjax(){
-	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
-		//console.log(data);
-		$('#cart > .modal_container').html(data);
-		openObject('cart');
-	});
-
-	// if($('#cart').hasClass('opened')){
-	// 	closeObject('cart');
-	// }else{
-	// 	$.ajax({
-	// 		url: URL_base+'cart'
-	// 	}).done(function(data){
-	// 		var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
-	// 		$('#cart > .modal_container').html(res[1]);
-	// 		openObject('cart');
-	// 	});
-	// }
-}*/
 
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order, rewrite){
@@ -67,6 +47,7 @@ function GetCabProdAjax(id_order, rewrite){
 }
 
 // Получение списка товаров по каждомк заказу в кабинете совместныйх покупок
+
 function GetCabCoopProdAjax(id_cart, rewrite){
 	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart, 'rewrite': rewrite}, 'html').done(function(data){
 		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {

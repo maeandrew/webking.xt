@@ -1,25 +1,3 @@
-// $(function() {
-// 	var params = {
-// 	"modelName": "Address",
-// 	"calledMethod": "getCities",
-// 	"methodProperties": {},
-// 	"apiKey": "45a3b980c25318193c40f7b10f7d0663"
-// 	};
-// 	$.ajax({
-// 		url: "http://testapi.novaposhta.ua/v2.0/address/getCities/{format}/&" + $.param(params),
-// 		beforeSend: function(xhrObj){
-// 			// Request headers
-// 			xhrObj.setRequestHeader("Content-Type","application/json");
-// 		},
-// 		type: "POST",
-// 	})
-// 	.done(function(data) {
-// 		alert("success");
-// 	})
-// 	.fail(function() {
-// 		alert("error");
-// 	});
-// });
 $(window).load(function(){
 	$("html, body").trigger("scroll");
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
@@ -938,31 +916,7 @@ $(function(){
 			}
 		}
 	});
-	// $('submit').on('click', function(e){
-	// 	e.preventDefault();
-
-
-	// 	$.ajax({
-
-	// 		url: URL_base+'ajaxorder',
-	// 		type: "POST",
-	// 		cache: false,
-	// 		dataType : "json",
-	// 		data: {
-	// 			"action": 'add'
-
-	// 		}
-	// 	}).done(function(){
-	// 		if(data != false){
-	// 			openObject('opened');
-	// 		}else{
-	// 			error(function() {
-	// 				console.log('error');
-	// 			});
-	// 		}
-	// 	});
-	// });
-	// dalee
+	
 
 	/*  $('.select_go label').on('change', function() {
 		console.log('trues');
