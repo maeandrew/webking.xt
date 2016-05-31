@@ -10,7 +10,7 @@
 			<?}else if(!empty($item['img_1'])){?>
 				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
 			<?}else{?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="/images/nofoto.png"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -252,14 +252,20 @@
 		<div class="content_header mdl-cell--hide-phone">
 			<?=$cart_info;?>
 		</div>
+		
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "" : "hidden" ?>">					
+				<h1>ТОВАР ПРОДАН</h1>
+			</div>
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "hidden" : "" ?>" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+					<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>						
+					</div>
 					<div class="btn_buy">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
@@ -325,6 +331,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="mdl-tabs mdl-js-tabs">
 			<div class="fortabs">
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
@@ -540,7 +547,7 @@
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
 							<?}else{?>
-								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="/images/nofoto.png">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
@@ -562,7 +569,7 @@
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
 							<?}else{?>
-								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="/images/nofoto.png">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>

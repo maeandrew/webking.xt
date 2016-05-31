@@ -10,12 +10,18 @@ if(isset($GLOBALS['REQAR'][2])){
 	switch($GLOBALS['REQAR'][0]){
 		case 'product':
 			if(is_numeric($GLOBALS['REQAR'][1])){
-				// print_r("http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'.html');
 				header("HTTP/1.1 301 Moved Permanently");
 				header("Location: http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'.html');
 				exit();
 			}
-		break;
+			break;
+		case 'products':
+			if(is_numeric($GLOBALS['REQAR'][1])){
+				header("HTTP/1.1 301 Moved Permanently");
+				header("Location: http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'/');
+				exit();
+			}
+			break;
 	}
 }
 

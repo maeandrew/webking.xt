@@ -14,12 +14,12 @@
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>">
+					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/images/nofoto.png'?>" alt="<?=$product['name']?>">
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<img src="<?=_base_url?><?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/efiles/nofoto.jpg'?>" alt="<?=$product['name']?>">
+						<img src="<?=_base_url?><?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/images/nofoto.png'?>" alt="<?=$product['name']?>">
 					<?}
 				}
 			}?>

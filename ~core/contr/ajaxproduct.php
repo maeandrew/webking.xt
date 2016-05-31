@@ -33,17 +33,6 @@
 				}else{
 					$comments_count .= ' отзывов';
 				}
-
-				// if(!empty($prod['img_1'])){
-				// 	file_exists($GLOBALS['PATH_root'].$prod['img_1'])?$prod['img_1']:$prod['img_1']='/efiles/_thumb/nofoto.jpg';
-				// }
-				// if(!empty($prod['img_2'])){
-				// 	file_exists($GLOBALS['PATH_root'].$prod['img_2'])?$prod['img_2']:$prod['img_2']='/efiles/_thumb/nofoto.jpg';
-				// }
-				// if(!empty($prod['img_3'])){
-				// 	file_exists($GLOBALS['PATH_root'].$prod['img_3'])?$prod['img_3']:$prod['img_3']='/efiles/_thumb/nofoto.jpg';
-				// }
-
 				$sum_range = $_COOKIE['sum_range'];
 				$opt_cor_set = explode(";",$GLOBALS['CONFIG']['correction_set_'.$prod['opt_correction_set']]);
 				$mopt_cor_set = explode(";",$GLOBALS['CONFIG']['correction_set_'.$prod['mopt_correction_set']]);
