@@ -14,6 +14,7 @@
 		<button type="submit" name="change_margin" id="change-margin" class="btn-m-green">Сохранить</button>
 	</form>
 	<div class="history">
+		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<table border="0" cellpadding="0" cellspacing="0" class="returns_table table" width="100%">
 			<thead>
 				<tr>
@@ -116,6 +117,7 @@
 				</tr>
 			<?}?>
 		</table>
+		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	</div>	
 <!--
 	<form action="<?=$GLOBALS['URL_request']?>" method="post" id="work_days_js" class="modal_hidden">
