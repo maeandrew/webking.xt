@@ -561,4 +561,34 @@ class G {
 	public static function GenerateVerificationCode($length=4){
 		return str_pad(rand(0,str_repeat("9", $length)),$length,'0');
 	}
+	public static function metaTags($data = false){
+		// meta tags
+		switch($GLOBALS['CurrentController']){
+			case 'main':
+				$GLOBALS['__page_title'] = 'Оптовый интернет-магазин xt.ua';
+				$GLOBALS['__page_description'] = '';
+				$GLOBALS['__page_keywords'] = '';
+				break;
+			case 'product':
+				$GLOBALS['__page_title'] = htmlspecialchars($data['name'].'. '.$data['page_title']);
+				$GLOBALS['__page_description'] = htmlspecialchars($data['name'].'. '.$data['page_description']);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
+				break;
+			case 'page':
+				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+				break;
+			case 'news':
+				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+				break;
+			default:
+				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['name']);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+				break;
+		}
+	}
 }

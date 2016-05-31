@@ -218,6 +218,11 @@
 					</ul>
 				</li>
 			<?}?>
+			<?if(_acl::isAllow('profiles')){?>
+				<li>
+					<a href="/adm/profiles/" <?=$GLOBALS['CurrentController'] == 'profiles'?'sel':null;?>>Профили пользователей</a>
+				</li>
+			<?}?>
 			<?if(_acl::isAllow('pages')){?>
 				<li>
 					<a href="/adm/users/<?=_ACL_SUPPLIER_?>" <?=$GLOBALS['CurrentController'] == 'users'?'sel':null;?>>Поставщики</a>

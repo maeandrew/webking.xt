@@ -55,14 +55,14 @@
 		<div class="success_order">
 			<?if($_GET['type'] == 'draft'){?>
 				<h2>Черновик сохранен</h2>
-				<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/draft__saved.png')?_base_url.'/images/draft__saved.png':'/efiles/_thumb/nofoto.jpg'?>" alt="draft saved">
+				<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/draft__saved.png')?_base_url.'/images/draft__saved.png':'/images/nofoto.png'?>" alt="draft saved">
 				<p>
 					<a href="/customer_order/<?=$cart['id_order']?>" class="btn-m-green">Посмотреть состав черновика</a>
 					<a href="/cabinet/" class="btn-m-green">Перейти в личный кабинет</a>
 				</p>
 			<?}else{?>
 				<h2>Спасибо за Ваш заказ</h2>
-				<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/operator.png')?_base_url.'/images/operator.png':'/efiles/_thumb/nofoto.jpg'?>" alt="draft saved">
+				<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/operator.png')?_base_url.'/images/operator.png':'/images/nofoto.png'?>" alt="draft saved">
 				<div class="order_info">
 					<p>Заказ <b>№<?=$cart['id_order']?></b> принят.</p>
 					<p>В ближайшее время с Вами свяжется менеджер.</p>
@@ -137,7 +137,7 @@
 							<?if(!empty($item['images'])){?>
 								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
 							<?}else{?>
-								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.jpg"?>"/>
+								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.png"?>"/>
 							<?}?>
 						</a>
 					</div>
@@ -163,7 +163,7 @@
 						<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 						<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
 						<div class="buy_block">
-							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div><span>грн.</span>
+							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div>
 							<div class="prodPrices hidden">
 								<?for ($i = 0; $i < 4; $i++){?>
 									<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
@@ -623,6 +623,6 @@
 
 <div class="no_items <?=isset($_SESSION['cart']['products']) && !empty($_SESSION['cart']['products'])?'hidden':null;?>">
 	<h2 class="cat_no_items">Ваша корзина пуста!</h2>
-	<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/efiles/_thumb/nofoto.jpg'?>" alt="Ваша корзина пуста!">
+	<img src="<?=file_exists($GLOBALS['PATH_root'].'/images/kharkov/empty-cart.jpg')?_base_url.'/images/kharkov/empty-cart.jpg':'/images/nofoto.png'?>" alt="Ваша корзина пуста!">
 	<p>Перейдите в <a href="/">каталог</a> для совершения покупок</p>
 </div>

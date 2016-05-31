@@ -57,9 +57,9 @@
 					<tr class="cat_item_<?=($i%2 === 0)?'odd':'even';?>_<?=($item['price_mopt']>0 && $item['min_mopt_qty']>0)?'active':'disabled';?>" id="mopt_item_<?=$item['id_product']?>">
 						<td class="cat_photo p<?=$item['id_product']?>" rowspan="1">
 							<div class="photo">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars($item['img_1']):'/efiles/_thumb/nofoto.jpg'?>">
+								<a href="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars($item['img_1']):'/images/nofoto.png'?>">
 									<div class="<?=$st['class']?>"></div>
-									<img alt='<?=G::CropString($item['name'])?>' src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"/>
+									<img alt='<?=G::CropString($item['name'])?>' src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):'/images/nofoto.png'?>"/>
 								</a>
 							</div>
 						</td>

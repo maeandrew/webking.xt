@@ -27,7 +27,7 @@ window.onbeforeunload = function(e){
 //     swapPhoto(location.pathname);
 // }, false)
 $(function(){
-	if($(window.location.hash).length == 1){
+	if($(window.location.hash).length == 1 && $(window.location.hash).data('type') == 'modal'){
 		openObject((window.location.hash).replace('#', ''));
 	}
 

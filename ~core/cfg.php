@@ -167,6 +167,13 @@ require($GLOBALS['PATH_model'].'unit_c.php');
 require($GLOBALS['PATH_model'].'post_c.php');
 require($GLOBALS['PATH_model'].'seo_c.php');
 
+// Получение SEO данных для адреса
+$Seo = new SEO();
+if($Seo->SetFieldsByUrl(_base_url.$_SERVER['REQUEST_URI'])){
+	if($Seo->fields['visible'] == 1){
+		$tpl->Assign('seotext', $Seo->fields['text']);
+	}
+}
 // почтовая конфигурация
 $GLOBALS['MAIL_CONFIG']['from_name'] = $GLOBALS['CONFIG']['mail_caption']; // from (от) имя
 $GLOBALS['MAIL_CONFIG']['from_email'] = $GLOBALS['CONFIG']['mail_email']; // from (от) email адрес

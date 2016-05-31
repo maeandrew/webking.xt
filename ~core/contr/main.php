@@ -1,4 +1,5 @@
 <?php
+G::metaTags();
 $Page = new Page();
 $Products = new Products();
 $Page->PagesList("menu");
