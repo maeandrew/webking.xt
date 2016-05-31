@@ -1747,12 +1747,15 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 .order.expanded .title {
 	background: #f0f0f0;
 	border: 0;
-	z-index: 10;
+	/*z-index: 10;*/
 	padding-bottom: 0;
 	margin-top: 1.429em;
 /*  margin-left: -1.429em;
 	margin-right: -1.429em;*/
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.order.expanded .title:hover {
+	z-index: 10;
 }
 .order.expanded .content {
 /*  margin-left: -1.429em;
@@ -1781,7 +1784,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	height: 120px;
 	border-bottom: 1px solid #e0e0e0;
 	padding-top: 10px;
-    padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 #products .ordersProdList .ordersProdListTitle .prodListPhoto {
@@ -1796,7 +1799,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 
 #products .ordersProdList .ordersProdListTitle .prodListPrice {
 	width: 100px;
-    float: left;
+	float: left;
 }
 
 #products .ordersProdList .ordersProdListContent .avatar {
@@ -1806,11 +1809,11 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 
 #products .ordersProdList .ordersProdListContent .avatar img {
-    display: block;
+	display: block;
 	height: 90px;
-    width: 90px;
-    margin: 0 auto;
-    margin-top: 5px;
+	width: 90px;
+	margin: 0 auto;
+	margin-top: 5px;
 }
 #products .ordersProdList .ordersProdListContent .orderProdName {
 	width: calc(100% - 300px - 120px);
@@ -1818,8 +1821,8 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 #products .ordersProdList .ordersProdListContent .cent {
 	width: 100px;
-    float: left;
-    margin-top: 30px;
+	float: left;
+	margin-top: 30px;
 }
 #products .ordersProdList .ordersProdListContent .priceTitle {
 	display: none;
@@ -1890,8 +1893,8 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	#orders_history .orderBntsMob {
 		width: 100%;
 		display: flex;
-    	justify-content: space-between;
-    	margin-bottom: 5px;
+		justify-content: space-between;
+		margin-bottom: 5px;
 	}
 
 	#orders_history .orderBntsMob h5 {
@@ -1912,19 +1915,19 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	}
 	
 	#orders_history .container {
-    	padding-left: 10px;
-    	padding-right: 10px;    	
+		padding-left: 10px;
+		padding-right: 10px;    	
 	}
 	#orders_history .tabs {
 		height: 88px;
 	}
 	#orders_history .tabs .tabLink {
 		width: 50%;
-    	padding-left: 10px;
-    	padding-right: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	.orderProdName {
-	    max-height: 100px;
+		max-height: 100px;
 		overflow: hidden;
 	}
 
@@ -1944,7 +1947,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	#products .ordersProdList .ordersProdListContent {
 		height: auto;
 		display: flex;
-    	flex-wrap: wrap;
+		flex-wrap: wrap;
 	}
 
 	#products .ordersProdList .ordersProdListContent .orderProdName {
@@ -1954,14 +1957,14 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	}
 	#products .ordersProdList .ordersProdListContent .cent {
 		width: 33%;
-    	margin-top: 10px;
+		margin-top: 10px;
 	}
 
 }
 
 @media (max-width: 530px) {
 	.orderProdName {
-	    max-height: 100px;
+		max-height: 100px;
 		overflow: hidden;
 	}
 	#products .ordersProdList .ordersProdListContent .cent {
@@ -1969,8 +1972,8 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 		float: none;
 		clear: both;
 		display: flex;
-    	justify-content: center;
-    	margin: 0;
+		justify-content: center;
+		margin: 0;
 	}
 }
 
@@ -2025,10 +2028,8 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	font-size: 21px;
 	padding: 30px;
 }
-.total_wrap {
-	text-align: right;
-	font-size: 17px;
-	padding: 15px;
+.products_cart_js .over_sum {
+	font-size: 19px;
 }
 .order .avatar {
 	border-radius: inherit;

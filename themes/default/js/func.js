@@ -972,7 +972,7 @@ function ajax(target, action, data, dataType){
 		dataType: dataType,
 		data: data
 	}).always(function(){
-		ajax_proceed = false;		
+		ajax_proceed = false;
 	});
 	// console.log(ajax_proceed);
 	return ajax;
