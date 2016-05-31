@@ -76,7 +76,9 @@
 									<div class="tabs mdl-tabs__tab-bar">
 										<a href="#details_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab is-active">Детали</a>
 										<?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1? '<a href="#participants_panel" class="mdl-tabs__tab">Участники</a>': null;?>
-										<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>">Список товаров</a>
+									<!-- 	<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>">Список товаров</a> -->
+
+									<a href="#items_panel_<?=$i['id_cart']?>" class="mdl-tabs__tab <?=isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0?'getCabCoopProdAjax_js':null;?>" data-idcart="<?=$_SESSION['cart']['id']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
 									</div>
 								</div>
 								<div class="content">
@@ -327,6 +329,12 @@
 				}else{
 					$(this).closest('li').find('.products_cart_js').addClass('hidden');
 				}
+			}
+		});
+		$('[href^="#items_panel_"').click(function(event) {
+			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
+				console.log($(this).data('idcart'));
+				GetCabCoopProdAjax($(this).data('idcart'), $(this).data('rewrite'));
 			}
 		});
 	});
