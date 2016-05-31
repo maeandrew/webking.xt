@@ -391,7 +391,7 @@ class Contragents extends Users{
 		return $arr;
 	}
 
-	public function GetContragentOrders($order_by='o.creation_date desc', $target, $id_contragent){
+	public function GetContragentOrders($order_by='o.creation_date desc', $target, $id_contragent, $limit = false){
 		// *****************************************************************В работе
 		$date = time()-3600*24;
 		$date2 = time()-3600*24*30;//echo time()-3600*24*10;
@@ -423,29 +423,13 @@ class Contragents extends Users{
 			AND (o.id_contragent = '".$id_contragent."' OR o.id_customer = '".$id_contragent."')
 			AND o.creation_date > '".$date2."'
 			GROUP BY id_order
-			ORDER BY ".$order_by;
-
-
-		/*	$sql = "SELECT o.cont_person, o.phones, o.target_date, o.creation_date, o.id_order, o.id_klient, o.id_order_status, o.skey, SUM(osp.opt_sum+osp.mopt_sum) AS sum,
-					o.id_pretense_status, o.id_return_status, o.note, o.note2, o.note_customer, u.name as name_customer, o.sum_discount, o.discount, c.name_c as contragent, o.id_customer,
-					(SELECT name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."order o WHERE o.id_klient = u.id_user AND osp.id_order = o.id_order ) AS name_klient
-					FROM "._DB_PREFIX_."order o, "._DB_PREFIX_."osp osp, "._DB_PREFIX_."user u, "._DB_PREFIX_."contragent c
-					WHERE o.id_order = osp.id_order
-
-					AND c.id_user = o.id_contragent
-					AND o.id_contragent = \"$id_contragent\"
-
-					AND o.target_date>\"$date2\"
-					AND o.id_customer = u.id_user
-					GROUP BY id_order
-					ORDER BY $order_by";
-			*/
-		//print_r($sql);
+			ORDER BY ".$order_by.
+			($limit?$limit:null);
 		$arr = $this->db->GetArray($sql);
 		return $arr;
 	}
 
-	public function GetContragentOrdersByClient($order_by='o.creation_date desc', $target, $id_contragent, $id_client){
+	public function GetContragentOrdersByClient($order_by='o.creation_date desc', $target, $id_contragent, $id_client, $limit = false){
 		$id_client = trim($id_client);
 		if($id_client == $GLOBALS['CONFIG']['default_user']){
 			$and = " AND o.id_customer = \"$id_contragent\" AND o.id_klient = \"$id_client\"";
@@ -507,8 +491,8 @@ class Contragents extends Users{
 				AND o.id_customer = u.id_user
 				$and
 			GROUP BY id_order
-			ORDER BY $order_by
-			LIMIT 50";
+			ORDER BY ".$order_by.
+			($limit?$limit:null);
 
 
 		/*	$sql = "SELECT o.cont_person, o.phones, o.target_date, o.creation_date, o.id_order, o.id_klient, o.id_order_status, o.skey, SUM(osp.opt_sum+osp.mopt_sum) AS sum,

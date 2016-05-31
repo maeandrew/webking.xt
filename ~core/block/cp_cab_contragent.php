@@ -99,12 +99,38 @@ foreach($fields as $f){
 	}
 }
 $tpl->Assign('sort_links', $sort_links);
-// Список заказов
+
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $User->fields['id_user'], $GLOBALS['REQAR'][1]);
-	$tpl->Assign('filtered_client', $GLOBALS['REQAR'][1]);
 }else{
 	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user']);
+}
+
+// Пагинатор ===============================================
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$GLOBALS['Limit_db'] = $_GET['limit'];
+}
+if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !isset($_GET['limit'])){
+	if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
+		$_GET['page_id'] = $GLOBALS['Page_id'];
+	}
+	$tpl->Assign('cnt', count($orders);
+	$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
+	
+	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+	unset($cnt);
+	$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
+}else{
+	$GLOBALS['Limit_db'] = 0;
+	$limit = '';
+}
+// =========================================================
+// Список заказов
+if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
+	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $User->fields['id_user'], $GLOBALS['REQAR'][1], $limit);
+	$tpl->Assign('filtered_client', $GLOBALS['REQAR'][1]);
+}else{
+	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user'], $limit);
 }
 $Contragent->SetFieldsById($User->fields['id_user']);
 $tpl->Assign('contragent', $Contragent->fields);
