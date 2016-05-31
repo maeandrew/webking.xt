@@ -20,9 +20,9 @@
 										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 									</noscript>
 								<?}else{?>
-									<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+									<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 									<noscript>
-										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
+										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 									</noscript>
 								<?}?>
 							</a>
@@ -156,9 +156,9 @@
 							</noscript>
 						<?}else{?>
 							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/120/90/"/>
-							<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/> -->
+							<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/> -->
 							<noscript>
-								<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.jpg"?>"/>
+								<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/>
 							</noscript>
 						<?}?>
 					</a>
@@ -203,11 +203,11 @@
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/>
-							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/efiles/_thumb/nofoto.jpg'?>"/></noscript>
+							<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 						<?}else{?>
-							<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/>
-							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.jpg"?>"/></noscript>
+							<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
 						<?}?>
 					</a>
 				</div>

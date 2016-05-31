@@ -62,7 +62,7 @@
 				<?if($i['mopt_qty']>0 && $i['id_supplier_mopt']==$id_supplier){?>
 					<tr>
 						<td class="bl bt count"><?=$ii++?></td>
-						<td class="bl bt image"><img height="90" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/efiles/_thumb/nofoto.jpg'?>"></td>
+						<td class="bl bt image"><img height="90" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/images/nofoto.png'?>"></td>
 						<td class="bl bt name"><?=$i['name']?><?if($i['note_mopt']!=''){?><span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
 						<td class="bl bt qty"><?=$i['mopt_qty']?></td>
 						<?$qty+=$i['mopt_qty'];?>

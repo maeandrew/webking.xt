@@ -37,7 +37,7 @@
 					<tr class="animate <?if($tigra == true){?>tigra<?$tigra = false;}else{$tigra = true;}?>">
 						<td><?=$i['article']?></td>
 						<td class="name_cell">
-							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/efiles/image/nofoto.jpg"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/efiles/_thumb/image/nofoto.jpg"?>" title="Нажмите для увеличения"></a>
+							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
 							<a href="/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td><?=round($i['site_price_opt'],2)?></td>
@@ -55,7 +55,7 @@
 					<tr class="animate <?if($tigra == true){?>tigra<?$tigra = false;}else{$tigra = true;}?>">
 						<td><?=$i['article_mopt']?></td>
 						<td class="name_cell">
-							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/efiles/image/nofoto.jpg"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/efiles/_thumb/image/nofoto.jpg"?>" title="Нажмите для увеличения"></a>
+							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
 							<a href="/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td><?=round($i['site_price_mopt'],2)?></td>

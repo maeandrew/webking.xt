@@ -22,7 +22,7 @@
 				<a href="<?=$GLOBALS['URL_base'].'adm/manufactureredit/'.$i['manufacturer_id']?>" onmouseover="ShowLogo(<?=$i['manufacturer_id']?>)" onmouseout="HideLogo(<?=$i['manufacturer_id']?>)"><?=$i['name']?></a>
 				<span class="color-sgrey"> (<?=$list_cnt[$i['manufacturer_id']]?>)</span>
 				<div id="logo_<?=$i['manufacturer_id']?>" class="hidden">
-					<img src="<?=$i['m_image']?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['m_image'])):"/efiles/_thumb/image/nofoto.jpg"?>">
+					<img src="<?=$i['m_image']?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['m_image'])):"/images/nofoto.png"?>">
 				</div>
 			</td>
 			<td class="center np">

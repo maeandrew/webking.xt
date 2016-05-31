@@ -10,7 +10,7 @@
 			<?}else if(!empty($item['img_1'])){?>
 				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
 			<?}else{?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="/images/nofoto.png"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -547,7 +547,7 @@
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
 							<?}else{?>
-								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="/images/nofoto.png">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
@@ -569,7 +569,7 @@
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
 							<?}else{?>
-								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="/images/nofoto.png">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
