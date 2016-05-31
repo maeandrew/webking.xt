@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title><?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_title']) && $GLOBALS['products_title'] != '')?$GLOBALS['products_title']:$__page_title;?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title><?=$__page_title?$__page_title:null;?></title>
+	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
+	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
 		if(!isset($indexation) || $indexation == 0){?>
 			<meta name="robots" content="noindex, nofollow"/>
 		<?}
 	}else{?>
 		<meta name="robots" content="noindex, nofollow"/>
-	<?}?>
-	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> -->
-	<?if($GLOBALS['CurrentController'] == 'product'){?>
-		<meta name="description" content='<?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?>
-		<?=(isset($GLOBALS['products_description']) && $GLOBALS['products_description'] != '')?$GLOBALS['products_description']:$__page_description;?>'/>
-		<meta name="keywords" content='<?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_keywords']) && $GLOBALS['products_keywords'] != '')?$GLOBALS['products_keywords']:$__page_kw;?>'/>
-	<?}else{?>
-		<meta name="description" content='<?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_description']) && $GLOBALS['products_description'] != '')?$GLOBALS['products_description']:$__page_description;?>'/>
-		<meta name="keywords" content='<?=isset($GLOBALS['prod_title'])?$GLOBALS['prod_title'].' | ':null;?><?=(isset($GLOBALS['products_keywords']) && $GLOBALS['products_keywords'] != '')?$GLOBALS['products_keywords']:$__page_kw;?>'/>
 	<?}?>
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
@@ -62,7 +55,7 @@
 			current_controller = "<?=$GLOBALS['CurrentController']?>",
 			ajax_proceed = false,
 			current_id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
-			isLogged = <?=G::isLogged()?'false':'true';?>;
+			isLogged = <?=G::isLogged()?'false':'true';?>;			
 	</script>
 	<!-- END define JS global variables -->
 
@@ -147,7 +140,6 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-
 	<section class="banner">
 		<div class="cont">
 			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
@@ -744,7 +736,7 @@
 		</div>	
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
-			<h5>Заменить товар в корзине <br> или добавить в текущую корзину?</h5>
+			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
 			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
 			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>

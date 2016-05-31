@@ -25,7 +25,7 @@
 			<?if(isset($_POST['translit'])){ ?>
 				<div class="col-md-12 seo_block">
 					<div id="translit">
-						<a href="#" id="updtrans" class="refresh_btn" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"></a>
+						<a href="#" id="updtrans" class="refresh_btn" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"><i class="icon-font">r</i></a>
 						<p><?=$_POST['translit']?></p>
 					</div>
 				</div>
@@ -117,7 +117,7 @@
 						<option disabled="disabled" selected="selected">Все характеристики добавлены</option>
 					<?}?>
 				</select>
-				<span class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?> onclick="">Добавить</span>
+				<span class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?>>Добавить</span>
 
 
 			</div>
@@ -137,35 +137,11 @@
 		</div>
 	</form>
 </div>
-<script src="../../blueimp/js/vendor/jquery.ui.widget.js"></script>
-<script src="../../blueimp/js/load-image.all.min.js"></script>
-<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-<script src="../../blueimp/js/jquery.iframe-transport.js"></script>
-<script src="../../blueimp/js/jquery.fileupload.js"></script>
-<script src="../../blueimp/js/jquery.fileupload-process.js"></script>
-<script src="../../blueimp/js/jquery.fileupload-image.js"></script>
 <script type="text/javascript">
+	var id_category = $('[name="id_category"]').val();
 	$(function(){
-		var onclick='SetSpecToCat(<?=$_POST['id_category']?>, $(\'#sid\').val())';
-		$('.addspec').attr('onclick', onclick);
-
-		'use strict';
-		var url = '/adm/catedit/?upload=true';
-		$('#ban_img_upload').fileupload({
-			url: url,
-			dataType: 'json',
-			done: function(e, data){
-				$('#category_banner').attr('src','/images/category_banner/'+data.result.img[0]['name']);
-				$('[name="category_banner_url"]').val('/images/category_banner/'+data.result.img[0]['name']);
-			}
-		});
-		$('#cat_img_upload').fileupload({
-			url: url+'&category_img_urls=1',
-			dataType: 'json',
-			done: function(e, data){
-				$('#category_img').attr('src','/efiles/katalog/'+data.result.img[0]['name']);
-				$('[name="category_img_url"]').val('/efiles/katalog/'+data.result.img[0]['name']);
-			}
+		$('.addspec').on('click', function(){
+			SetSpecToCat(id_category, $('#sid').val());
 		});
 	});
 	function SetSpecToCat(id_cat, id_spec){
@@ -182,8 +158,6 @@
 		}).done(function(a){
 			console.log(a);
 		});
-		// alert(a);
-		// alert(b);
 	}
 
 	//Обновление транслита категории
@@ -194,12 +168,12 @@
 			cache: false,
 			dataType: "json",
 			data: {
-				"action":'update_translit',
-				"id_category": <?=$_POST['id_category']?>
+				'action': 'update_translit',
+				'id_category': id_category
 			}
 		}).done(function(data){
 			$('#translit p').text(data);
-			$('#updtrans').animate({  borderSpacing: 360 }, {
+			$('#updtrans').animate({ borderSpacing: 360 }, {
 				step: function(now,fx) {
 					$(this).css('-webkit-transform','rotate('+now+'deg)');
 					$(this).css('-moz-transform','rotate('+now+'deg)');
@@ -209,10 +183,10 @@
 			},'linear');
 		});
 	}
-	CKEDITOR.replace('content', {
-	    customConfig: 'custom/ckeditor_config.js'
-	});
-	CKEDITOR.replace('content_xt', {
-	    customConfig: 'custom/ckeditor_config.js'
-	});
+	// CKEDITOR.replace('content', {
+	//     customConfig: 'custom/ckeditor_config.js'
+	// });
+	// CKEDITOR.replace('content_xt', {
+	//     customConfig: 'custom/ckeditor_config.js'
+	// });
 </script>

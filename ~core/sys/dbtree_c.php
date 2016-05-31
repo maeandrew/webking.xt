@@ -710,6 +710,7 @@ class dbtree {
 			}
 		}
 		$sql .= ' ORDER BY category_level';
+		$res = $this->db->GetArray($sql);
 		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
 			$res = $this->db->Execute($sql);
 		}else{
@@ -866,14 +867,14 @@ class dbtree {
 	}
 
 	public function UpdateTranslit($id_category){
-		$this->db->StartTrans();
-		$cat = $this->Full(array('name'), array('and' => array('id_category = '.$id_category)));
-		$translit = G::StrToTrans($cat[0]['name']);
-		$sql = "UPDATE ".$this->table."
-			SET `edit_user` = \"{$_SESSION['member']['id_user']}\",
-			`edit_date` = \"".date('Y-m-d H:i:s')."\",
-			`translit` = \"".$translit."\"
-			WHERE ".$this->table_id." = $id_category";
+		$this->SetFieldsByID($id_category);
+		$cat = $this->fields;
+		$translit = G::StrToTrans($cat['name']);
+		$sql = 'UPDATE '.$this->table.'
+			SET edit_user = '.$_SESSION['member']['id_user'].',
+			edit_date = "'.date('Y-m-d H:i:s').'",
+			translit = "'.$translit.'"
+			WHERE id_category = '.$id_category;
 		$this->db->StartTrans();
 		$res = $this->db->Execute($sql);
 		if(false === $res){

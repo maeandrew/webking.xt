@@ -1280,17 +1280,17 @@ class Orders {
 	}
 
 	public function GetOrderForCustomer($and){
-		$sql = "SELECT o.id_order, o.id_order_status, o.sum_discount,
-				osp.id_product, osp.id_supplier_altern, osp.return_qty,
-				osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
-				osp.box_qty, osp.opt_qty, osp.mopt_qty, osp.opt_sum,
-				osp.mopt_sum, s.article, osp.id_supplier, p.name, p.art,
-				o.target_date, osp.contragent_qty, osp.contragent_mqty,
-				osp.contragent_sum, osp.contragent_msum, osp.fact_qty,
-				osp.fact_sum, osp.fact_mqty, osp.fact_msum, p.img_1,
-				osp.return_sum, osp.return_mqty, osp.return_msum, p.units,
-				o.id_pretense_status, o.id_return_status, p.translit,
-				osp.id_supplier_mopt_altern, osp.id_supplier_mopt, i.src AS image,
+		$sql = "SELECT o.id_order, o.id_order_status, o.sum_discount, osp.id_product,
+				osp.id_supplier_altern, osp.return_qty,
+				(CASE WHEN osp.opt_qty >0 THEN osp.site_price_opt ELSE osp.site_price_mopt END) AS price,
+				p.inbox_qty, osp.box_qty,
+				(CASE WHEN osp.opt_qty >0 THEN osp.opt_qty ELSE osp.mopt_qty END) AS quantity,
+				osp.opt_sum, osp.mopt_sum, s.article, osp.id_supplier, p.name, p.art,
+				o.target_date, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum,
+				osp.contragent_msum, osp.fact_qty, osp.fact_sum,
+				osp.fact_mqty, osp.fact_msum, p.img_1, osp.return_sum, osp.return_mqty, osp.return_msum,
+				p.units, o.id_pretense_status, o.id_return_status,
+				p.translit, osp.id_supplier_mopt_altern, osp.id_supplier_mopt, i.src AS images,
 				(SELECT "._DB_PREFIX_."supplier.article
 					FROM "._DB_PREFIX_."supplier
 					WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt
@@ -1303,19 +1303,19 @@ class Orders {
 					FROM "._DB_PREFIX_."supplier
 					WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt_altern
 				) AS article_mopt_altern
-			FROM "._DB_PREFIX_."osp AS osp
-			LEFT JOIN "._DB_PREFIX_."order AS o
-				ON osp.id_order = o.id_order
-			LEFT JOIN "._DB_PREFIX_."supplier AS s
-				ON osp.id_supplier = s.id_user
-			LEFT JOIN "._DB_PREFIX_."product AS p
-				ON osp.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."image AS i
-				ON osp.id_product = i.id_product
-					AND i.ord = 0
-			".$this->db->GetWhere($and)."
-			GROUP BY osp.id_order, osp.id_product
-			ORDER BY p.name";
+				FROM "._DB_PREFIX_."osp AS osp
+				LEFT JOIN "._DB_PREFIX_."order AS o
+					ON osp.id_order = o.id_order
+				LEFT JOIN "._DB_PREFIX_."supplier AS s
+					ON osp.id_supplier = s.id_user
+				LEFT JOIN "._DB_PREFIX_."product AS p
+					ON osp.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."image AS i
+					ON osp.id_product = i.id_product
+						AND i.ord = 0
+				".$this->db->GetWhere($and)."
+				GROUP BY osp.id_order, osp.id_product
+				ORDER BY p.name";//print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;

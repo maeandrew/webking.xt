@@ -9,6 +9,7 @@ if(isset($GLOBALS['Rewrite'])){
 		exit();
 	}
 	$page = $Page->fields;
+	G::metaTags($page);
 	$header = $page['title'];
 	$tpl->Assign('header', $header);
 	$tpl->Assign('data', $page);
@@ -43,4 +44,3 @@ $parsed_res = array(
 if(true == $parsed_res['issuccess']) {
 	$tpl_center .= $parsed_res['html'];
 }
-?>

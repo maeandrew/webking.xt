@@ -49,7 +49,7 @@ window.onbeforeunload = function(e){
 //     swapPhoto(location.pathname);
 // }, false)
 $(function(){
-	if($(window.location.hash).length == 1){
+	if($(window.location.hash).length == 1 && $(window.location.hash).data('type') == 'modal'){
 		openObject((window.location.hash).replace('#', ''));
 	}
 
@@ -89,7 +89,7 @@ $(function(){
 			};
 			addLoadAnimation('.show_more_js');
 			ajax('products', 'getmoreproducts', data, 'html').done(function(data){
-				removeLoadAnimation('.show_more_js');
+				removeLoadAnimation('.show_more_js');				
 		   		var product_view = $.cookie('product_view'),
 		   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
 				page.find('.products').append(data);
@@ -132,6 +132,7 @@ $(function(){
 				});
 
 				$('.load_more').remove();
+				resizeAsideScroll('show_more');
 		   });
 		});
 
@@ -346,14 +347,19 @@ $(function(){
 		banner_height = $('.banner').outerHeight(),
 		header_height = header.outerHeight();
 	var viewPort = $(window).height(); // высота окна
-	var mainWindow = $('.main').height(); // высота главного блока
-	$(window).scroll(function(){
+	var mainWindow = $('.main').height(); // высота главного блока	
+	$.cookie('mainWindow', mainWindow, { path: '/'});
+	$.cookie('header_height', header_height, { path: '/'});
+
+
+	$(window).scroll(function(){		
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - header_height && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
 			}else if($(this).scrollTop() <= banner_height/2 - header_height && header.hasClass("filled")){
 				header.removeClass("filled").addClass("default");
 			}
+			$('aside').css('top', banner_height + header_height);
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
@@ -362,18 +368,18 @@ $(function(){
 				$('html, body').scrollTop(0);
 			}
 		}else{
+			var CurentMainWindow = $.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
-			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-			var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
+			var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - header_height;
+			var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + header_height;
 			
-			if ((scroll + viewPort) <= mainWindow) {
+			if ((scroll + viewPort) <= CurentMainWindow) {
 				$('aside').css('bottom', 0);
-				$('aside').css('top', header_height);
-				
+				$('aside').css('top', header_height);				
 			} else {
 				$('aside').css('bottom', pieceOfFooter);
-
-				if (viewPort > mainWindow) {
+				
+				if (viewPort > CurentMainWindow) {
 					$('aside').css('top', header_height);
 				}else{
 					$('aside').css('top', pieceOfHeader);
@@ -382,48 +388,26 @@ $(function(){
 			changeFiltersBtnsPosition();
 		}
 	});
-	$(window).load(function(){
+	// События для автосмены размера сайбара и его скролла
+	$(window).load(function(){		
 		if(over_scroll === true){
-			var scroll = $(this).scrollTop(); // прокрутка 	
-			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-			console.log(pieceOfFooter);
-			if (viewPort > mainWindow) {
-					$('aside').css('bottom', pieceOfFooter);
-				}
-			changeFiltersBtnsPosition();
+			resizeAsideScroll('load');			
 		}
 	});
-	$(window).resize(function(){
+	$(window).resize(function(){		
 		if(over_scroll === true){
-			var mainWindow = $('.main').height(); // высота главного блока
-			var scroll = $(this).scrollTop(); // прокрутка 
-			var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-			if (pieceOfFooter >= 0) {
-				$('aside').css('bottom', pieceOfFooter);
-			}else{
-				$('aside').css('bottom', 0);
-			}
+			resizeAsideScroll('resize');			
 		}
 	});
-	$('body').on('click', function() {
+	$('body').on('click', function() {		
 		if(over_scroll === true){
-			var newMainWindow = $('.main').height();
-			if (newMainWindow != mainWindow) {
-				var scroll = $(this).scrollTop(); // прокрутка 	
-				mainWindow = newMainWindow;
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-				}			
-			}
-		}	
+			resizeAsideScroll('click');			
+		}
 	});
 
 	//Возврат баннера если он скрыт
-	$('.logo').on('click', function(event){
-		if($('body').hasClass('c_main') && over_scroll === true){
+	$('.logo').on('click', function(event){		
+		if($('body').hasClass('c_main') && over_scroll === true){			
 			event.preventDefault();
 			$('.banner').animate({
 				height: banner_height

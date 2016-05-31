@@ -359,7 +359,7 @@ tr.min td {
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
 								<li>
-									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
+									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="<?=trim($value)?>"/>
 								</li>
 							<?}
 						}?>
@@ -422,7 +422,7 @@ tr.min td {
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
 								<li>
-									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="Закупщик <?=trim($value)?>"/>
+									<img heaight="60" width="auto" src="<?=_base_url.'/efiles/pickers/'.trim($value).'.jpg'?>" alt="<?=trim($value)?>"/>
 								</li>
 							<?}
 						}?>
@@ -488,7 +488,7 @@ tr.min td {
 									<td class="c2"><?=$i['art']?></td>
 									<td class="c3" style="padding: 0;">
 										<?if($i['image'] != ''){?>
-											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
+											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>">
 										<?}else{?>
 											<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
 										<?}?>
@@ -524,7 +524,7 @@ tr.min td {
 									<td class="c2"><?=$i['art']?></td>
 									<td class="c3" style="padding: 0;">
 										<?if($i['image'] != ''){?>
-											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/efiles/_thumb/nofoto.jpg'?>">
+											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>">
 										<?}else{?>
 											<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
 										<?}?>

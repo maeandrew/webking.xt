@@ -5,13 +5,13 @@ $products = new Products();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 $id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
-// unset($_SESSION['cart']);
-// print_r($_SESSION['cart']);
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
-
+$dbtree->SetFieldsById($id_category);
+$category = $dbtree->fields;
+G::metaTags($category);
 // если отправили комментарий
 if(isset($_POST['com_qtn'])){
 	$put = $_POST['id_product'];
@@ -40,7 +40,7 @@ if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation', 'page_title', 'page_description', 'page_keywords'));
+$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation'));
 if(!empty($dbtree->ERRORS_MES)){
 	die("Error parents");
 }
@@ -49,20 +49,13 @@ if(!$dbtree->NextRow()){
 	exit();
 }
 while($cat = $dbtree->NextRow()){
-	if($cat['category_level'] != 0){
-		$GLOBALS['IERA_LINKS'][] = array(
-			'title' => $cat['name'],
-			'url' => Link::Category($cat['translit'])
-		);
-	}
+	$GLOBALS['IERA_LINKS'][] = array(
+		'title' => $cat['name'],
+		'url' => Link::Category($cat['translit'])
+	);
 	$GLOBALS['products_canonical'] = end($GLOBALS['IERA_LINKS'])['url'];
-	$GLOBALS['products_title'] = $cat['page_title'];
-	$GLOBALS['products_description'] = $cat['page_description'];
-	$GLOBALS['products_keywords'] = $cat['page_keywords'];
-	//$tpl->Assign('indexation', $cat['indexation']);
 	$tpl->Assign('header', $cat['name']);
 }
-
 
 
 // if(empty($subcats)){
@@ -644,4 +637,3 @@ $tpl->Assign('max_price', $max_price);
 $tpl->Assign('min_price', $min_price);
 
 // =========================================================
-?>

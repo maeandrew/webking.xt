@@ -182,8 +182,7 @@
 .product .product_buy .buy_block .price {
 	font-size: 2em;
 }
-.product .product_buy .buy_block .price:after {
-	content: 'грн.';
+.product .product_buy .buy_block .price span {
 	margin-left: 10px;
 }
 .product .product_buy .buy_block .btn_buy button {
