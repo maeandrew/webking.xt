@@ -36,7 +36,6 @@ function GetCartAjax(){
 	});
 }
 
-
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order, rewrite){
 	$('.content').addClass('loading');
@@ -945,7 +944,7 @@ function ajax(target, action, data, dataType){
 		beforeSend: function(ajax){
 			// console.log(ajax_proceed);
 			if(ajax_proceed === true){
-				ajax.abort();
+				// ajax.abort();
 			}
 			ajax_proceed = true;
 		},
@@ -1994,3 +1993,13 @@ function deliveryServiceSelect(value){
 // 		$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible');
 // 	}
 // }
+
+function UpdateProductsList(page, arr){
+	ajax('products', 'getmoreproducts', arr, 'html').done(function(data){
+		removeLoadAnimation('.products');
+		page.find('.products').html(data).prepend('trololo');
+		// var product_view = $.cookie('product_view'),
+		// 	show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
+		componentHandler.upgradeDom();
+	});
+}

@@ -43,6 +43,39 @@ $(function(){
 		}
 		ChangeView(view);
 	});
+	
+	//Смена вида списка товара в зависимости от роли пользователя.
+	$('.your_discount').on('click', function(e){
+			e.preventDefault();
+		$(function(){
+				var page = $('.products_page'),
+					id_category = current_id_category,
+					start_page = parseInt(page.find('.paginator li.active').first().text()),
+					current_page = parseInt(page.find('.paginator li.active').last().text()),
+					next_page = current_page,
+					shown_products = 0,
+					skipped_products = 0,
+					count = $(this).data('cnt');
+				console.log(page.find('.paginator li.active'));
+				console.log('start_page '+start_page);
+				console.log('shown_products '+shown_products);
+				$('.show_more').append('<span class="load_more"></span>');
+				var data = {
+					action: 'getmoreproducts_desctop',
+					id_category: id_category,
+					shown_products: shown_products,
+					skipped_products: skipped_products
+				};
+				addLoadAnimation('.products');
+				ajax('products', 'getmoreproducts', data, 'html').done(function(data){
+					removeLoadAnimation('.products');
+			   		var product_view = $.cookie('product_view'),
+			   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
+					page.find('.products').html(data).prepend('trololo');
+					componentHandler.upgradeDom();
+			   });
+		});		
+	});	
 
 	// Показать еще 30 товаров
 	$('.show_more_js').on('click', function(e){
@@ -380,7 +413,7 @@ $(function(){
 	$('body').on('click', function() {		
 		if(over_scroll === true){
 			resizeAsideScroll('click');			
-		}
+		}		
 	});
 
 	//Возврат баннера если он скрыт
@@ -1221,8 +1254,7 @@ $(function(){
 
 	// Открыть Форму авторизации
 	$('.login_btn').on('click', function(e){
-		openObject('auth');
-		/*removeLoadAnimation('#auth');*/
+		openObject('auth');		
 		$('#auth #sign_in').show().removeClass('hidden');
 		$('#auth #sign_up').hide().addClass('hidden');
 		e.preventDefault();
@@ -1249,6 +1281,26 @@ $(function(){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#auth');
 			if(data.err != 1){
+				var page = $('.products_page'),
+					id_category = current_id_category,
+					start_page = parseInt(page.find('.paginator li.active').first().text()),
+					current_page = parseInt(page.find('.paginator li.active').last().text()),
+					next_page = current_page,
+					shown_products = 0,
+					skipped_products = 0;
+					// count = $(this).data('cnt');
+				console.log(page.find('.paginator li.active'));
+				console.log('start_page '+start_page);
+				console.log('shown_products '+shown_products);
+				$('.show_more').append('<span class="load_more"></span>');
+				addLoadAnimation('.products');
+				var arr = {
+					action: 'getmoreproducts_desctop',
+					id_category: id_category,
+					shown_products: shown_products,
+					skipped_products: skipped_products
+				};
+				UpdateProductsList(page, arr);
 				// parent.find('.user_name').text(data.member.name);
 				// parent.find('.user_email').text(data.member.email);
 				// parent.find('.user_contr').text(data.member.contragent.name_c);
@@ -1267,19 +1319,19 @@ $(function(){
 					$('.userContainer').removeClass('hidden');
 					$('button[value="Неавторизован"]').addClass('hidden');
 				});
-				parent.find('.user_name').text(data.member.name);
-				parent.find('.user_email').text(data.member.email);
-				parent.find('.user_contr').text(data.member.contragent.name_c);
-				parent.find('.user_contr_phones').text(data.member.contragent.phones);
-				parent.find('.user_promo').text(data.member.promo_code);
-				parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
-				parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
+				// parent.find('.user_name').text(data.member.name);
+				// parent.find('.user_email').text(data.member.email);
+				// parent.find('.user_contr').text(data.member.contragent.name_c);
+				// parent.find('.user_contr_phones').text(data.member.contragent.phones);
+				// parent.find('.user_promo').text(data.member.promo_code);
+				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
+				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 			}else{
 				form.find('.error').text(data.msg).fadeIn();
 			}
 		});
 	});
-
+	
 	// Проверка надежности пароля
 	$('#sign_up #passwd').keyup(function(){
 		var passwd = $(this).val();
