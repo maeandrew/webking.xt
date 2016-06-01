@@ -41,11 +41,11 @@
 						$mark = '';
 				}?>
 	            <td class="left">Активность</td>
-	            <td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/3/?sort=u.name&order=<?=$_GET['sort']=='u.name'?$order:'asc';?>">Имя <?=$_GET['sort']=='u.name'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
-	            <td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/3/?sort=u.email&order=<?=$_GET['sort']=='u.email'?$order:'asc';?>">E-mail <?=$_GET['sort']=='u.email'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
+	            <td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/<?=$GLOBALS['REQAR'][1]?>/?sort=u.name&order=<?=$_GET['sort']=='u.name'?$order:'asc';?>">Имя <?=$_GET['sort']=='u.name'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
+	            <td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/<?=$GLOBALS['REQAR'][1]?>/?sort=u.email&order=<?=$_GET['sort']=='u.email'?$order:'asc';?>">E-mail <?=$_GET['sort']=='u.email'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
 				<td class="left">Группа</td>
-				<td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/3/?sort=s.currency_rate&order=<?=$_GET['sort']=='s.currency_rate'?$order:'asc';?>">USD <?=$_GET['sort']=='s.currency_rate'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
-				<td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/3/?sort=s.next_update_date&order=<?=$_GET['sort']=='s.next_update_date'?$order:'asc';?>">Последний рабочий день <?=$_GET['sort']=='s.next_update_date'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
+				<td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/<?=$GLOBALS['REQAR'][1]?>/?sort=s.currency_rate&order=<?=$_GET['sort']=='s.currency_rate'?$order:'asc';?>">USD <?=$_GET['sort']=='s.currency_rate'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
+				<td class="left"><a href="<?=$GLOBALS['URL_base']?>adm/users/<?=$GLOBALS['REQAR'][1]?>/?sort=s.next_update_date&order=<?=$_GET['sort']=='s.next_update_date'?$order:'asc';?>">Последний рабочий день <?=$_GET['sort']=='s.next_update_date'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
 				<td class="left">Управление</td>
 	        </tr>
 	        </thead>
