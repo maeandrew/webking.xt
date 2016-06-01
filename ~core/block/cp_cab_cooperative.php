@@ -53,7 +53,6 @@ if($promo) {
 
     $productsFromCarts = $Cart->GetCartForPromo($promo);
     $tpl->Assign('list', $productsFromCarts);
-	$tpl->Assign('test', $tpl->Parse($GLOBALS['PATH_tpl_global'].'test.tpl'));
 
 	$details = array(); $sum_prods = 0;
 	if (isset($productsFromCarts) && is_array($productsFromCarts)){
