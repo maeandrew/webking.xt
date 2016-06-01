@@ -48,14 +48,15 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	}elseif($GLOBALS['CurrentController'] == 'products'){
 		$id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
 	}
-	if(isset($id_category)){
-		$Products = new Products();
-		$data_graph = $Products->GetGraphList($id_category);
-		if(isset($data_graph)){
-			$tpl->Assign('data_graph', $data_graph);
-			$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
-		}
-	}
+	// print_r('expression');die();
+	// if(isset($id_category)){
+	// 	$Products = new Products();
+	// 	$data_graph = $Products->GetGraphList($id_category);
+	// 	if(isset($data_graph)){
+	// 		$tpl->Assign('data_graph', $data_graph);
+	// 		$tpl_graph .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
+	// 	}
+	// }
 
 	// Хлебные крошки
 	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){

@@ -1997,9 +1997,13 @@ function deliveryServiceSelect(value){
 function UpdateProductsList(page, arr){
 	ajax('products', 'getmoreproducts', arr, 'html').done(function(data){
 		removeLoadAnimation('.products');
-		page.find('.products').html(data).prepend('trololo');
+		page.find('.products').html(data);
 		// var product_view = $.cookie('product_view'),
 		// 	show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
 		componentHandler.upgradeDom();
+		$("img.lazy").lazyload({
+			effect : "fadeIn"
+		});
+		ListenPhotoHover();//Инициализания Preview
 	});
 }

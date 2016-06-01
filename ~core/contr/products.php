@@ -314,7 +314,6 @@ while($cat = $dbtree->NextRow()){
 	// 	$where_arr['customs'][] = "s.available_today = 1";
 	// }
 	// =========================================================
-
 	$time_start = microtime(true);
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
