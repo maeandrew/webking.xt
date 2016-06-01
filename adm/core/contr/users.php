@@ -4,6 +4,7 @@ if(!_acl::isAllow('users') && $_SESSION['member']['gid'] != _ACL_MODERATOR_){
 }
 
 $User = new Users();
+$Suppliers = new Suppliers();
 $User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
 
 // ---- center ----
@@ -15,6 +16,7 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
 
 $arr = false;
+$order = false;
 if(isset($_POST['smb'])){
 	if($_POST['filter_name']!==''){
 		$arr['name'] = $_POST['filter_name'];
@@ -34,8 +36,14 @@ if(isset($_POST['smb'])){
 		$_POST['gid'] = 0;
 	}
 }
+
 //Paginator
-$User->UsersList(1, $arr);
+if($arr['gid'] == 3){
+	$Suppliers->SuppliersList(1, $arr);
+} else {
+	$User->UsersList(1, $arr);
+}
+
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$GLOBALS['Limit_db'] = $_GET['limit'];
 }
@@ -43,16 +51,27 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit']))
 	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 		$_GET['page_id'] = $_POST['page_nbr'];
 	}
-	$cnt = count($User->list);
+	$cnt = ($arr['gid'] == 3)?count($Suppliers->list):count($User->list);
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 }else{
 	$GLOBALS['Limit_db'] = 0;
 	$limit = '';
 }
-if($User->UsersList(1, $arr, $limit)){
-	$tpl->Assign('list', $User->list);
+if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET['order'] !=''){
+	$order = $_GET['sort'].' '.$_GET['order'];
 }
+if($arr['gid'] == 3){
+	if($Suppliers->SuppliersList(1, $arr, $limit, $order)){
+		$tpl->Assign('list', $Suppliers->list);
+	}
+} else {
+	if($User->UsersList(1, $arr, $limit)){
+		$tpl->Assign('list', $User->list);
+	}
+}
+
+
 $groups = $User->GetGroups();
 $tpl->Assign('groups', $groups);
 
