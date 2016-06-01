@@ -400,20 +400,27 @@ $(function(){
 		}
 	});
 	// События для автосмены размера сайбара и его скролла
-	$(window).load(function(){		
+	$(window).load(function(){
+		console.log('load');
 		if(over_scroll === true){
-			resizeAsideScroll('load');			
+			resizeAsideScroll('load');
 		}
 	});
-	$(window).resize(function(){		
+	$(window).resize(function(){
+		console.log('resize');
 		if(over_scroll === true){
-			resizeAsideScroll('resize');			
+			resizeAsideScroll('resize');
+		}else{
+			var banner_height = $('.banner').outerHeight();
+			var header_height = header.outerHeight();
+			$('aside').css('top', banner_height + header_height);
 		}
 	});
-	$('body').on('click', function() {		
+	$('body').on('click', function() {
+		console.log('click');
 		if(over_scroll === true){
-			resizeAsideScroll('click');			
-		}		
+			resizeAsideScroll('click');
+		}
 	});
 
 	//Возврат баннера если он скрыт
