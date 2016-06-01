@@ -143,7 +143,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !is
 	if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
 		$_GET['page_id'] = $GLOBALS['Page_id'];
 	}
-	$tpl->Assign('cnt', count($orders);
+	$tpl->Assign('cnt', count($orders));
 	$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
 	
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
