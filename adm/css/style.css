@@ -567,6 +567,7 @@ body {
 	margin: 1em 0;
 	border-radius: .5em 0 0 .5em;
 }
+.content div[id$="ae"] select,
 .content div[id$="ae"] textarea,
 .content div[id$="ae"] input[type="text"],
 .content div[id$="ae"] input[type="password"],
