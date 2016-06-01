@@ -6,10 +6,10 @@
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		    <col width="3%">
 		    <col width="30%">
-		    <col width="16%">
-		    <col width="16%">
+		    <col width="14%">
+		    <col width="14%">
 		    <col width="8%">
-		    <col width="16%">
+		    <col width="20%">
 		    <col width="5%">
 			<thead>
 				<tr class="filter">
