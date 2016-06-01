@@ -2978,11 +2978,167 @@ section .stat_year {
 	text-transform: capitalize;
 }
 #block_promo {
-	 float: right;
+	 /*float: right;*/
 }
 #list_coop {
-	float: left;
+	/*float: left;*/
 }
+.list_coop {
+	/*border: 1px solid #C7C7C7;*/
+}
+.list_coop .tableRow {
+	border-top: 1px solid #C7C7C7;
+	height: 100px;
+}
+.list_coop .tableRow:hover {
+	background-color: #f0f0f0;
+}
+.list_coop .tableTitle {
+	height: 40px;
+}
+.list_coop .tableFlex {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	text-align: center;
+	padding: 10px 0;
+	transition: .5s ease-out;
+	align-items: center;
+}
+.list_coop .tableFlex .tableAvatar {
+	flex: 0 0 10%;
+}
+.list_coop .tableFlex .tableName {
+	flex: 0 0 20%;
+	overflow: hidden;
+}
+.list_coop .tableFlex .tablePhone {
+	flex: 0 0 15%;
+}
+.list_coop .tableFlex .tableEmail {
+	flex: 0 0 25%;
+}
+.list_coop .tableFlex .stat_user_cab {
+	flex: 0 0 5%;
+}
+.list_coop .tableFlex .tableSum {
+	flex: 0 0 10%;
+}
+.list_coop .tableFlex .del_x {
+	flex: 0 0 5%;
+}
+.list_coop .tableFlex .del_x .mdl-tooltip {
+	font-size: 12px;
+}
+.list_coop .tableRow .tablePhone i,
+.list_coop .tableRow .tableEmail i,
+.list_coop .tableFlex .tableSum img {
+	display: none;
+}
+
+@media (max-width: 930px) {
+	.list_coop .tableFlex {
+		flex-wrap: wrap;
+	}
+	.list_coop .tableRow {
+		height: 140px;
+	}
+	.list_coop .tableTitle {
+		justify-content: flex-end;
+		margin-right: 6%;
+	}
+	.list_coop .tableFlex .tableAvatar,
+	.list_coop .tableFlex .tableSum {
+		flex: 0 0 15%;
+	}
+	.list_coop .tableRow .tablePhone,
+	.list_coop .tableRow .tableEmail {
+		order: 1;
+		flex: 0 0 100%;
+		text-align: left;
+		padding-left: 20%;
+	}
+	.list_coop .tableRow .tableName {
+		flex: 0 0 calc(100% - 45%);
+		padding-left: 10px;
+		text-align: left;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.list_coop .tableRow .tablePhone i,
+	.list_coop .tableRow .tableEmail i {
+		display: inline-block;
+		margin-right: 5px;
+		font-size: 20px;
+		color: #BDBDC7;
+	}
+	.list_coop .tableTitle .tableAvatar,
+	.list_coop .tableTitle .tableName,
+	.list_coop .tableTitle .tablePhone, 
+	.list_coop .tableTitle .tableEmail,
+	.list_coop .tableTitle .del_x {
+		display: none;
+	}
+}
+@media (max-width: 570px) {
+	.list_coop .tableFlex .tableAvatar,
+	.list_coop .tableFlex .tableSum {
+		flex: 0 0 25%;
+	}
+	.list_coop .tableRow {
+		height: 160px;
+	}
+	.list_coop .tableRow .tableName {
+		flex: 0 0 calc(100% - 45%);
+		padding-left: 0;
+	}
+	.list_coop .tableRow .tableSum {
+		order: 1;
+		flex: 0 0 100%;
+		text-align: left;
+	}
+	.list_coop .tableFlex .tableSum img {
+		display: inline-block;
+		margin-left: 3px;
+		margin-right: 7px;
+		width: 14px;
+	}
+	.list_coop .tableRow .tablePhone,
+	.list_coop .tableRow .tableEmail,
+	.list_coop .tableFlex .tableSum {
+		padding-left: 25%;
+	}
+	.list_coop .tableTitle .tableSum {
+		display: none;
+	}
+	.order .tabs .mdl-tabs__tab {
+		padding: 0 17px;
+	}
+}
+@media (max-width: 410px) {
+	.list_coop .tableRow .tableAvatar {
+		display: none;
+	}
+	.list_coop .tableRow .tableName {
+	    flex: 0 0 calc(100% - 25%);
+	}
+	.list_coop .tableRow .tablePhone,
+	.list_coop .tableRow .tableEmail,
+	.list_coop .tableFlex .tableSum {
+		padding-left: 0;
+	}
+	.order .tabs .mdl-tabs__tab {
+		padding: 0 8px;
+	}
+	
+}
+@media (max-width: 380px) {
+	#orders_history {
+		margin: 0 !important;
+	}
+}
+
 /*Стили кабинета (ent)*/
 .tab-content tr:hover{
 	background-color: #e0e0e0;

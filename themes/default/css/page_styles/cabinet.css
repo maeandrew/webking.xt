@@ -1031,7 +1031,7 @@ table.supplier_assort_table {
 }
 .del_x i {
 	padding: 5px;
-	background: #FFF;
+	/*background: #FFF;*/
 	border-radius: 50%;
 	font-size: 1.3em;
 	cursor: pointer;
@@ -1791,7 +1791,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 
 #products .ordersProdList .ordersProdListTitle .priceWrap,
 #products .ordersProdList .ordersProdListContent .priceWrap {
-	flex: 1 0 30%;
+	flex: 0 0 30%;
 	display: flex;
 	justify-content: space-around;
 }
@@ -1813,6 +1813,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent .orderProdName {
 	flex-basis: 65%;
 }
+div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle){
+	height: 80px;
+}
 #products .ordersProdList .ordersProdListContent .priceTitle {
 	display: none;
 }
@@ -1820,7 +1823,7 @@ div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent .orderP
 @media (max-width: 1060px) {
 	.nav li {
 		margin-left: 0.5em;
-	}	
+	}
 }
 @media (max-width: 999px) {
 	#cab_left_bar {
