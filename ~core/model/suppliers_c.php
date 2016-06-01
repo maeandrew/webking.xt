@@ -34,6 +34,30 @@ class Suppliers extends Users {
 		return true;
 	}
 
+	// Список поставщиков (0 - только видимые. 1 - все, и видимые и невидимые)
+	public function SuppliersList($param=0, $arr=false, $limit = "", $order = false){
+		$order = ($order === false)?" u.gid, u.name, u.id_user DESC":$order;
+		if($limit != ""){
+			$limit = " limit $limit";
+		}
+		if($param == 0){
+			$arr['active'] = "1";
+		}
+		$sql = "SELECT u.id_user, u.name, u.email, u.gid, u.active, u.news,
+				s.currency_rate, s.next_update_date
+				FROM "._DB_PREFIX_."user u
+				LEFT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
+				".$this->db->GetWhere($arr)."
+				ORDER BY ".$order.
+				$limit;
+		$this->list = $this->db->GetArray($sql);
+		if(!$this->list){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 	public function GetSupplierIdByArt($article){
 		$article = trim($article);
 		$sql = "SELECT id_user
