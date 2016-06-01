@@ -96,18 +96,18 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 				$pos = array('opened'=>array(), 'closed'=>array());
 				foreach($positions as $k=>&$a){
 					foreach($a as &$v){
-						// if($v['contragent_mqty'] > 0 || $v['contragent_qty'] > 0 || strstr($v['note_mopt'], 'Отмена#') == true || strstr($v['note_opt'], 'Отмена#') == true){
-							// $pos['closed'][$k][$i] = $v;
-							// $pos['closed'][$k][$i]['contragent_mqty'] = strstr($v['note_mopt'], 'Отмена#') == false ? $v['contragent_mqty'] : 0 ;
-							// $pos['closed'][$k][$i]['contragent_qty'] = strstr($v['note_opt'], 'Отмена#') == false ? $v['contragent_qty'] : 0 ;
-						// }else{
+						if($v['contragent_mqty'] > 0 || $v['contragent_qty'] > 0 || strstr($v['note_mopt'], 'Отмена#') == true || strstr($v['note_opt'], 'Отмена#') == true){
+							$pos['closed'][$k][$i] = $v;
+							$pos['closed'][$k][$i]['contragent_mqty'] = strstr($v['note_mopt'], 'Отмена#') == false ? $v['contragent_mqty'] : 0 ;
+							$pos['closed'][$k][$i]['contragent_qty'] = strstr($v['note_opt'], 'Отмена#') == false ? $v['contragent_qty'] : 0 ;
+						}else{
 							if(!isset($order2[$ord['id_order']]['note2'])){
 								$order2[$ord['id_order']]['note2'] = $v['note2'];
 							}
 							$pos['opened'][$k][$i] = $order2[$ord['id_order']]['invoice_data'] = $v;
 							$pos['opened'][$k][$i]['contragent_mqty'] = -1;
 							$pos['opened'][$k][$i]['contragent_qty'] = -1;
-						// }
+						}
 						$i++;
 					}
 				}
@@ -232,18 +232,18 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$pos = array('opened'=>array(), 'closed'=>array());
 		foreach($positions as $k=>&$a){
 			foreach($a as $v){
-				// if($v['contragent_mqty'] > 0 || $v['contragent_qty'] > 0 || strstr($v['note_mopt'], 'Отмена#') == true || strstr($v['note_opt'], 'Отмена#') == true){
-					// $pos['closed'][$k][$i] = $v;
-					// $pos['closed'][$k][$i]['contragent_mqty'] = strstr($v['note_mopt'], 'Отмена#') == false ? $v['contragent_mqty'] : 0;
-					// $pos['closed'][$k][$i]['contragent_qty'] = strstr($v['note_opt'], 'Отмена#') == false ? $v['contragent_qty'] : 0;
-				// }else{
+				if($v['contragent_mqty'] > 0 || $v['contragent_qty'] > 0 || strstr($v['note_mopt'], 'Отмена#') == true || strstr($v['note_opt'], 'Отмена#') == true){
+					$pos['closed'][$k][$i] = $v;
+					$pos['closed'][$k][$i]['contragent_mqty'] = strstr($v['note_mopt'], 'Отмена#') == false ? $v['contragent_mqty'] : 0;
+					$pos['closed'][$k][$i]['contragent_qty'] = strstr($v['note_opt'], 'Отмена#') == false ? $v['contragent_qty'] : 0;
+				}else{
 					if(!isset($order2[$ord['id_order']]['note2'])){
 						$order2[$ord['id_order']]['note2'] = $v['note2'];
 					}
 					$pos['opened'][$k][$i] = $order2[$ord['id_order']]['invoice_data'] = $v;
 					$pos['opened'][$k][$i]['contragent_mqty'] = -1;
 					$pos['opened'][$k][$i]['contragent_qty'] = -1;
-				// }
+				}
 				$i++;
 			}
 		}

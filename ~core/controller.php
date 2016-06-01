@@ -21,12 +21,6 @@ if(true == @$parsed_res['issuccess']){
 $tpl->Assign('cart_info', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cart_info.tpl'));
 $tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'aside.tpl');
 // Центральный блок
-$Seo = new SEO();
-if($Seo->SetFieldsByUrl(_base_url.$_SERVER['REQUEST_URI'])){
-	if($Seo->fields['visible'] == 1){
-		$tpl->Assign('seotext', $Seo->fields['text']);
-	}
-}
 require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 
 if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
@@ -129,52 +123,43 @@ $GLOBALS['__breadcrumbs'] = $tpl_breadcrumbs;
 $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 $GLOBALS['__popular'] = $tpl_popular;
-if($GLOBALS['CurrentController'] == 'main'){
-	$GLOBALS['__graph'] = $tpl_graph;
-	$GLOBALS['__page_title'] = 'Оптовый интернет-магазин xt.ua';
-	$GLOBALS['__page_kw'] = '';
-	$GLOBALS['__page_description'] = '';
-	$GLOBALS['__page_h1'] = '';
-}elseif($GLOBALS['CurrentController'] == 'products'){
-	foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
-		// if($k != 0){
-			$GLOBALS['__page_url'] = $i['url'];
-			$GLOBALS['__page_title'][] = $i['title'];
-			$GLOBALS['__page_kw'][] = $i['title'];
-			$GLOBALS['__page_description'][] = $i['title'];
-		// }
-	}
-	$GLOBALS['__graph'] = $tpl_graph;
-	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
-	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(" ", $GLOBALS['__page_description']);
-}elseif($GLOBALS['CurrentController'] == 'news'){
-	foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
-		if($k != 0){
-			$GLOBALS['__page_url'] = $i['url'];
-			$GLOBALS['__page_title'][] = $i['title'];
-			$GLOBALS['__page_kw'][] = $i['title'];
-			if(isset($i['descr'])){
-				$GLOBALS['__page_description'][] = $i['descr'];
-			}
-		}
-	}
-	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title'])." | Новости оптового интернет-магазина ".$GLOBALS['CONFIG']['shop_name'];
-	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']);
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".(isset($GLOBALS['__page_description'])?implode(" ", $GLOBALS['__page_description']):null);
-}else{
-	$GLOBALS['__page_title'] = array();
-	$GLOBALS['__page_kw'] = array();
-	$GLOBALS['__page_description'] = array();
-	foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
-		if($k != 0){
-			$GLOBALS['__page_title'][] = $i['title'];
-			$GLOBALS['__page_kw'][] = $i['title'];
-			$GLOBALS['__page_description'][] = $i['title'];
-		}
-	}
-	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
-	$GLOBALS['__page_kw'] = implode(" ", $GLOBALS['__page_kw']) . "| Киев, Харьков, Днепропетровск, Донецк, Запорожье, Луганск, Крым, Одесса, Львов, Полтава, Сумы, Чернигов, Ивано-Франковск, Закарпатье ";
-	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(". ", $GLOBALS['__page_description'])." | Дешевый интернет магазин недорогих товаров" ;
-}
+$GLOBALS['__graph'] = $tpl_graph;
+// SEO text meta tags
+// if($GLOBALS['CurrentController'] == 'main'){
+// 	$GLOBALS['__graph'] = $tpl_graph;
+// 	$GLOBALS['__page_title'] = 'Оптовый интернет-магазин xt.ua';
+// 	$GLOBALS['__page_keywords'] = '';
+// 	$GLOBALS['__page_description'] = '';
+// 	$GLOBALS['__page_h1'] = '';
+// }elseif($GLOBALS['CurrentController'] == 'products'){
+// 	$GLOBALS['__graph'] = $tpl_graph;
+// }elseif($GLOBALS['CurrentController'] == 'news'){
+// 	foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
+// 		if($k != 0){
+// 			$GLOBALS['__page_url'] = $i['url'];
+// 			$GLOBALS['__page_title'][] = $i['title'];
+// 			$GLOBALS['__page_keywords'][] = $i['title'];
+// 			if(isset($i['descr'])){
+// 				$GLOBALS['__page_description'][] = $i['descr'];
+// 			}
+// 		}
+// 	}
+// 	$GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title'])." | Новости оптового интернет-магазина ".$GLOBALS['CONFIG']['shop_name'];
+// 	$GLOBALS['__page_keywords'] = implode(" ", $GLOBALS['__page_keywords']);
+// 	$GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".(isset($GLOBALS['__page_description'])?implode(" ", $GLOBALS['__page_description']):null);
+// }else{
+// 	// $GLOBALS['__page_title'] = array();
+// 	// $GLOBALS['__page_keywords'] = array();
+// 	// $GLOBALS['__page_description'] = array();
+// 	// foreach($GLOBALS['IERA_LINKS'] as $k=>$i){
+// 	// 	if($k != 0){
+// 	// 		$GLOBALS['__page_title'][] = $i['title'];
+// 	// 		$GLOBALS['__page_keywords'][] = $i['title'];
+// 	// 		$GLOBALS['__page_description'][] = $i['title'];
+// 	// 	}
+// 	// }
+// 	// $GLOBALS['__page_title'] = implode(". ", $GLOBALS['__page_title']);
+// 	// $GLOBALS['__page_keywords'] = implode(" ", $GLOBALS['__page_keywords']) . "| Киев, Харьков, Днепропетровск, Донецк, Запорожье, Луганск, Крым, Одесса, Львов, Полтава, Сумы, Чернигов, Ивано-Франковск, Закарпатье ";
+// 	// $GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(". ", $GLOBALS['__page_description'])." | Дешевый интернет магазин недорогих товаров" ;
+// }
 unset($tpl_header, $tpl_center, $tpl_nav, $tpl_aside, $tpl_breadcrumbs, $tpl_sidebar_l, $tpl_sidebar_r, $tpl_popular, $tpl_graph, $k, $i, $l1, $l2, $l3, $level1, $level2, $level3, $id_category, $data_graph, $sb_count);

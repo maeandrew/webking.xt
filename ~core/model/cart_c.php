@@ -463,24 +463,7 @@ class Cart {
 			LEFT JOIN "._DB_PREFIX_."cart_status AS cs ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
 			GROUP BY c.id_user
-			ORDER BY c.adm DESC, c.ready DESC";
-
-
-
-//			$sql = "SELECT  c.id_cart, c.creation_date, c.id_user, c.status, cs.title_stat, c.adm, c.ready, u.name, u.phones, u.email, u.last_login_date, c.promo,
-//					cus.discount , cus.id_contragent, cp.quantity, cp.price, ROUND(cp.price * cp.quantity, 2) AS sum_cart
-//			FROM "._DB_PREFIX_."cart AS c
-//			LEFT JOIN "._DB_PREFIX_."user AS u
-//			ON c.id_user = u.id_user
-//			LEFT JOIN "._DB_PREFIX_."customer AS cus
-//			ON cus.id_user = u.id_user
-//			LEFT JOIN "._DB_PREFIX_."cart_product AS cp
-//			ON cp.id_cart = c.id_cart
-//			LEFT JOIN "._DB_PREFIX_."cart_status AS cs
-//			ON c.status = cs.id_status
-//			WHERE promo = '".$promo."'
-//			ORDER BY c.adm DESC, c.ready DESC";
-		//print_r($sql); die();
+			ORDER BY c.adm DESC, c.ready DESC"; //print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -500,7 +483,7 @@ class Cart {
 			LEFT JOIN "._DB_PREFIX_."product as p
 			ON cp.id_product = p.id_product
 			WHERE c.promo = '".$promo."'
-			GROUP BY p.id_product;";
+			GROUP BY p.id_product;"; //print_r($sql); die();
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -512,13 +495,10 @@ class Cart {
 	public function GetInfoJO($condition){
 		switch ($condition){
 			case 'joactive':
-				$status = " AND c.`status` = 10";
+				$status = " AND c.`status` = 10 ";
 				break;
 			case 'jocompleted':
-				$status = " AND c.`status` = 11";
-				break;
-			case 'joall':
-				$status = "";
+				$status = " AND c.`status` = 11 ";
 				break;
 		}
 		global $db;
@@ -529,12 +509,16 @@ class Cart {
 				LEFT JOIN xt_cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
 				LEFT JOIN xt_cart AS cp2 ON c.promo = cp2.promo
 				LEFT JOIN xt_user AS us ON cp.id_user = us.id_user
-				WHERE c.id_cart = '".$_SESSION['cart']['id']."'
-				AND c.id_user = '".$_SESSION['member']['id_user']."'
+				WHERE c.id_user = '".$_SESSION['member']['id_user']."'
 				".$status."
+				GROUP BY c.promo
 				HAVING count_carts > 0
-				ORDER BY creation_date DESC"; //print_r($sql); die();
+				ORDER BY creation_date DESC";// print_r($sql); die();
 		$res = $db->GetArray($sql);
+		foreach($res as &$v) {
+			$v['productsFromCarts'] = $this->GetCartForPromo($v['promo']);
+			$v['infoCarts'] = $this->GetInfoForPromo($v['promo']);
+		}
 		if(!$res){
 			return false;
 		}
@@ -578,9 +562,9 @@ class Cart {
 			.($promo !== false?"promo = ".($promo === null?'NULL':"'".$promo."'").", ":null)
 			.($status !== false?"status = ".$status.", ":null)
 			.($adm !== false?"adm = ".$adm.", ":null)
-			.($ready !== false?"ready = ".$ready.", ":null)
-			.($id_cart !== false?"id_cart = ".$id_cart.", ":null)."
-			WHERE id_cart = '". $id_cart ."'";
+			.($ready !== false?"ready = ".$ready.", ":null);
+		$sql = substr($sql, 0, -2);
+		$sql .= " WHERE id_cart = ". $id_cart;
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();

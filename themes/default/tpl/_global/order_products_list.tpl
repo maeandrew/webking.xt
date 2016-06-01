@@ -40,7 +40,6 @@
 						</div>
 					</div>
 				</div>
-
 				<?$user_cart_total += $item['price']*$item['quantity'];?>
 			<?}?>
 		<?}else{?>

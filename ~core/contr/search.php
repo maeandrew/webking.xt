@@ -37,6 +37,7 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%]/', ' ', $_GET['query']);
 	$query = trim($query);
 }
+G::metaTags(array('page_title' => $header.' по запросу "'.$query.'"'));
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;
@@ -381,7 +382,6 @@ if(!empty($list)){
 $tpl->Assign('list', isset($list)?$list:array());
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
-
 // Общий код ===============================================
 if($_SESSION['search']['newsearch'] == 1 || isset($_POST['dropfilters'])){
 	if(isset($prices)){
@@ -404,7 +404,7 @@ $tpl->Assign('header', $GLOBALS['IERA_LINKS'][1]['title']);
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl'));
+						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl'));
 }elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
@@ -434,7 +434,7 @@ if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 
 	$parsed_res = array(
 		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products_contragent.tpl')
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
 	);
 }else{
 	$_SESSION['price_mode'] = 3;
@@ -444,7 +444,7 @@ if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	);
 }
 
-if(TRUE == $parsed_res['issuccess']) {
+if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
 
