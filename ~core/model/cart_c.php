@@ -562,9 +562,9 @@ class Cart {
 			.($promo !== false?"promo = ".($promo === null?'NULL':"'".$promo."'").", ":null)
 			.($status !== false?"status = ".$status.", ":null)
 			.($adm !== false?"adm = ".$adm.", ":null)
-			.($ready !== false?"ready = ".$ready.", ":null)
-			.($id_cart !== false?"id_cart = ".$id_cart.", ":null)."
-			WHERE id_cart = '". $id_cart ."'";
+			.($ready !== false?"ready = ".$ready.", ":null);
+		$sql = substr($sql, 0, -2);
+		$sql .= " WHERE id_cart = ". $id_cart;
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
