@@ -50,14 +50,36 @@
 		</div>
 		<div class="col-md-12">
 			<table class="list">
+				<col width="5%">
+				<col width="8%">
+				<col width="35%">
+				<col width="8%">
+				<col width="8%">
+				<col width="12%">
+				<col width="12%">
+				<col width="8%">
+				<col width="4%">
 				<thead>
 					<tr class="animate">
+						<?switch($_GET['order']){
+					case 'asc':
+						$order = 'desc';
+						$mark = 'd';
+						break;
+					case 'desc':
+						$order = '';
+						$mark = 'u';
+						break;
+					default:
+						$order = 'asc';
+						$mark = '';
+				}?>
 						<td colspan="3">Название</td>
-						<td>Наличие</td>
+						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.active&order=<?=$_GET['sort']=='a.active'?$order:'asc';?>">Наличие <?=$_GET['sort']=='a.active'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
 						<td>Минимальное кол-во</td>
 						<td>Цена розн.</td>
 						<td>Цена опт</td>
-						<td>USD</td>
+						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.inusd&order=<?=$_GET['sort']=='a.inusd'?$order:'asc';?>">USD <?=$_GET['sort']=='a.inusd'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
 						<td>Арт. поставщика</td>
 					</tr>
 				</thead>

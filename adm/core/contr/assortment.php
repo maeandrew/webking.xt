@@ -12,11 +12,14 @@ if(!isset($GLOBALS['REQAR'][1]) || !is_numeric($GLOBALS['REQAR'][1])){
 $id_supplier = $GLOBALS['REQAR'][1];
 $tpl->Assign('id_supplier', $id_supplier);
 
+if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET['order'] !=''){
+	$order = $_GET['sort'].' '.$_GET['order'];
+}
 $Products = new Products();
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
 $tpl->Assign('supplier', $Supplier->fields);
-$Products->SetProductsList1($id_supplier);
+$Products->SetProductsList1($id_supplier, $order);
 $products = $Products->list;
 if($products){
 	foreach($products as &$p){

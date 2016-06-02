@@ -1011,7 +1011,7 @@ class Products {
 	 * [SetProductsList1 description]
 	 * @param [type] $s [description]
 	 */
-	public function SetProductsList1($s){
+	public function SetProductsList1($s, $order=null){
 		// SQL выборки для админки
 		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",  pv.count_views,
 			a.*
@@ -1025,7 +1025,8 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 				ON pv.id_product = p.id_product
 			WHERE a.id_supplier = ".$s."
-			GROUP BY p.id_product";
+			GROUP BY p.id_product".
+			(($order !== null)?"  ORDER BY ".$order:null);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
