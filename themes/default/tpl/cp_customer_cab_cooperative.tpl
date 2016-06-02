@@ -236,8 +236,7 @@
 											<div class="products_cart_js"></div>
 										<?}else{?>
 											<div>
-											 	<?print_r($i['productsFromCarts']);?>
-											 	<?=$prod_list;?>
+											 	<?=$prod_list[$i['id_cart']];?>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 													<?foreach ($i['infoCarts'] as $i){ ?>
