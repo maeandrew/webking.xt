@@ -171,7 +171,9 @@ if(G::isLogged() && !_acl::isAdmin()){
 	$_SESSION['member']['ordered_prod'] = $User->fields['ordered_prod'];
 }
 $Cart->RecalcCart();
-
+if(G::isLogged()){
+	$tpl->Assign('user_profile', $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl'));
+}
 require($GLOBALS['PATH_core'].'controller.php');
 $tpl->Assign('css_arr', G::GetCSS());
 $tpl->Assign('js_arr', G::GetJS());

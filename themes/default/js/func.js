@@ -65,7 +65,6 @@ function UserRating(obj){
 		bool = 1;
 	}
 	ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
-		//typeof(data);
 		if(data === 0){
 			openObject('modal_message');
 		}
@@ -1373,6 +1372,9 @@ function openObject(id){
 		if(id=="cart"){
 			addLoadAnimation('#'+id);
 		}
+		if(id == 'phone_menu'){
+			$('[data-name="phone_menu"] i').text('close');
+		}
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1399,7 +1401,7 @@ function closeObject(id){
 	}else{
 		$('#'+id).removeClass('opened');
 		if(id == 'phone_menu'){
-			$('[data-name="phone_menu"]').html('menu');
+			$('[data-name="phone_menu"] i').text('menu');
 		}
 	}
 	DeactivateBG();
@@ -1637,10 +1639,14 @@ function CompleteValidation(name, email, passwd, passconfirm){
 	return true;
 }
 
-function showModals() {
+function moveObjects() {
 	var modals = $('div:not(.modals) [data-type="modal"]');
 	modals.each(function(key, value){
 		$(".modals").append(value);
+	});
+	var panels = $('div:not(.panels) [data-type="panel"]');
+	panels.each(function(key, value){
+		$(".panels").append(value);
 	});
 }
 // Удаление товара из ассортимента поставщика в кабинете
