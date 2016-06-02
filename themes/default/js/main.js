@@ -42,41 +42,8 @@ $(function(){
 			$('.cart_info .price_nav').addClass('hidden');
 		}
 		ChangeView(view);
-	});
-	
-	//Смена вида списка товара в зависимости от роли пользователя.
-	$('.your_discount').on('click', function(e){
-			e.preventDefault();
-		$(function(){
-				var page = $('.products_page'),
-					id_category = current_id_category,
-					start_page = parseInt(page.find('.paginator li.active').first().text()),
-					current_page = parseInt(page.find('.paginator li.active').last().text()),
-					next_page = current_page,
-					shown_products = 0,
-					skipped_products = 0,
-					count = $(this).data('cnt');
-				console.log(page.find('.paginator li.active'));
-				console.log('start_page '+start_page);
-				console.log('shown_products '+shown_products);
-				$('.show_more').append('<span class="load_more"></span>');
-				var data = {
-					action: 'getmoreproducts_desctop',
-					id_category: id_category,
-					shown_products: shown_products,
-					skipped_products: skipped_products
-				};
-				addLoadAnimation('.products');
-				ajax('products', 'getmoreproducts', data, 'html').done(function(data){
-					removeLoadAnimation('.products');
-			   		var product_view = $.cookie('product_view'),
-			   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
-					page.find('.products').html(data).prepend('trololo');
-					componentHandler.upgradeDom();
-			   });
-		});		
 	});	
-
+	
 	// Показать еще 30 товаров
 	$('.show_more_js').on('click', function(e){
 			e.preventDefault();			
@@ -1287,27 +1254,32 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#auth');
-			if(data.err != 1){
-				var page = $('.products_page'),
-					id_category = current_id_category,
-					start_page = parseInt(page.find('.paginator li.active').first().text()),
-					current_page = parseInt(page.find('.paginator li.active').last().text()),
-					next_page = current_page,
-					shown_products = 0,
+			if(data.err != 1){				
+				if (over_scroll === true) {
+					var page = $('.products_page'),
+						id_category = current_id_category,
+						start_page = parseInt(page.find('.paginator li.active').first().text()),
+						current_page = parseInt(page.find('.paginator li.active').last().text()),
+						next_page = current_page,
+						shown_products = 0,
+						skipped_products = 30*(start_page-1);				
+						// count = $(this).data('cnt');			
+					$('.show_more').append('<span class="load_more"></span>');
+					addLoadAnimation('.products');
+					var arr = {
+						action: 'getmoreproducts_desctop',
+						id_category: id_category,
+						shown_products: shown_products,
+						skipped_products: skipped_products
+					};				
+					UpdateProductsList(page, arr);								
+				}else{
+					/*page = $('.page_content_js');
 					skipped_products = 0;
-					// count = $(this).data('cnt');
-				console.log(page.find('.paginator li.active'));
-				console.log('start_page '+start_page);
-				console.log('shown_products '+shown_products);
-				$('.show_more').append('<span class="load_more"></span>');
-				addLoadAnimation('.products');
-				var arr = {
-					action: 'getmoreproducts_desctop',
-					id_category: id_category,
-					shown_products: shown_products,
-					skipped_products: skipped_products
-				};
-				UpdateProductsList(page, arr);
+					id_category = 478;*/ // временно		
+				}
+
+				
 				// parent.find('.user_name').text(data.member.name);
 				// parent.find('.user_email').text(data.member.email);
 				// parent.find('.user_contr').text(data.member.contragent.name_c);
@@ -1316,6 +1288,12 @@ $(function(){
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 				closeObject('auth');
+				
+				if (data.member.gid == 3) {
+					$('#header_js .cart_item').addClass('hidden');
+					removeFromCart();
+				}
+
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 					$('#user_pro').html(data);
 
