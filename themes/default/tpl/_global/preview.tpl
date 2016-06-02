@@ -99,35 +99,17 @@
 			}
 		}
 	</style>
-	<script>
-		$('#owl-product_mobile_img_js').owlCarousel({
-			center:			true,
-			dots:			true,
-			items:			1,
-			lazyLoad:		true,
-			loop:			true,
-			margin:			20,
-			nav:			true,
-			video:			true,			
-			videoHeight:	300,
-			videoWidth:		300,
-			navText: [
-				'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-				'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
-			]
-		});	
-	</script>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
-		<div id="owl-product_mobile_img_js">
+		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/images/nofoto.png'?>" alt="<?=$product['name']?>">
+					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/images/nofoto.png'?>" alt="<?=$product['name']?>"/>
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<img src="<?=_base_url?><?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/images/nofoto.png'?>" alt="<?=$product['name']?>">
+						<img src="<?=_base_url?><?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/images/nofoto.png'?>"/>
 					<?}
 				}
 			}?>

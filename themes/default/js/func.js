@@ -1039,7 +1039,7 @@ function ChangeView(view){
 function ListenPhotoHover(){
 	preview = $('.list_view .preview');
 	previewOwl = preview.find('#owl-product_slide_js');
-	$('.list_view .product_photo').on('mouseover', function(){
+	$('.list_view .product_photo:not(hovered)').on('mouseover', function(){
 		if($(this).not('.hovered')){
 			showPreview(false);
 			$(this).addClass('hovered');
@@ -1153,12 +1153,18 @@ function changeToTop(pos){
 function showPreview(ajax){
 	if(ajax){
 		preview.removeClass('ajax_loading').find('#owl-product_slide_js').owlCarousel({
-			singleItem: true,
-			lazyLoad: true,
-			lazyFollow: false,
-			nav: true,
-			dots: true,
-			navContainer: true
+			center:			true,
+			dots:			true,
+			items:			1,
+			margin:			20,
+			nav:			true,
+			video:			true,
+			videoHeight:	300,
+			videoWidth:		300,
+			navText: [
+				'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+				'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+			]
 		});
 	}else{
 		preview.show();
