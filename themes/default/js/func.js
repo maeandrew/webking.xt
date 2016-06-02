@@ -2009,7 +2009,8 @@ function UpdateProductsList(page, arr){
 		componentHandler.upgradeDom();
 		$("img.lazy").lazyload({
 			effect : "fadeIn"
-		});
+		});		
 		ListenPhotoHover();//Инициализания Preview
+		resizeAsideScroll('show_more');		
 	});
 }

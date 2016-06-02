@@ -85,9 +85,9 @@
 		#owl-product_mobile_img_js {
 			clear: both;
 		}
-		 #owl-product_mobile_img_js .owl-stage-outer {
-			height: 325px;
-		} 
+		/*  #owl-product_mobile_img_js .owl-stage-outer {
+					height: 325px;
+				}  */
 
 
 		@media (min-width: 700px){

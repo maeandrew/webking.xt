@@ -30,7 +30,7 @@
 				<button type="submit" class="mdl-button mdl-js-button mdl-cell--hide-phone search_btn">Найти</button>
 			</form>
 		</div>
-		<div class="cart_item">
+		<div class="cart_item <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_ ? 'hidden' : null ?>">
 			<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span> Корзина</span></a>
 		</div>
 		<div class="pages_list_item">

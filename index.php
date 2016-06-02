@@ -28,8 +28,10 @@ G::AddCSS('../themes/'.$theme.'/css/header.css');
 // G::AddCSS('../themes/'.$theme.'/css/sidebar.css');
 
 G::AddCSS('../themes/'.$theme.'/css/custom.css');
+G::AddCSS('../themes/'.$theme.'/css/colors.css');
 
 // G::AddCSS('../themes/'.$theme.'/css/d3graph.css');
+
 G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css');
 /* plugins css */
 // G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
