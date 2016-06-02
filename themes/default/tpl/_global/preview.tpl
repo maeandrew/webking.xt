@@ -9,17 +9,107 @@
 	<div class="mdl-cell mdl-cell--12-col product_name">
 		<a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
 	</div>
+	<style>
+		#caruselCont {
+			width: 95%;
+		}
+		#specCont {
+			width: 95%;
+		} 
+		.product_main_img{
+			display: none;
+		}
+		.owl-video-wrapper {
+			margin: 0 auto;
+		}
+		.product .mdl-cell {
+			padding-right: 0;
+		}
+		.product_page h1 {
+			margin: 0;
+			padding: 0;
+		}
+		.breadcrumbs_wrapp {
+			white-space: nowrap;
+			overflow-x: overlay;
+			overflow-y: hidden;
+			padding-bottom: 10px;
+		}
+		.breadcrumbs_wrapp a {
+			font-weight: 300;
+		}
+		.breadcrumbs_wrapp i {
+			font-size: 18px;
+			margin: 0;
+		}
+		.owl-pagination {
+			padding: 5px 0;
+		}		
+		.mobile_carousel .owl-item img {
+			max-width: 100%;
+			margin: 0px auto;
+			display: block;
+		}
+		.owl-dot {
+			width: 20px;
+		}
+		.owl-dot span {
+			display: block;
+			width: 0;
+			height: 0;
+			background: #888;
+			border-radius: 50%;
+			margin: 0 auto;
+			transition: all 0.4s ease-in-out;
+			border: 3px solid #888;
+		}
+		.owl-dot.active span {
+			border: 7px solid #888;
+		}
+
+		.mdl-tabs__tab-bar {
+			min-width: none;
+		}
+		.tabs .mdl-tabs__tab {
+			width: 50%;
+			border-bottom: 1px solid #e0e0e0;
+		}
+		.mdl-grid .mdl-tabs__tab {
+			margin-top: 0;
+		}
+		.fortabs {
+			padding-bottom: 10px;
+			overflow-x: overlay;
+			overflow-y: hidden;
+		}
+		#owl-product_mobile_img_js {
+			clear: both;
+		}
+		 #owl-product_mobile_img_js .owl-stage-outer {
+			height: 325px;
+		} 
+
+
+		@media (min-width: 700px){
+			.product .mdl-tabs__tab-bar {
+				min-width: 680px;
+			}
+			.tabs .mdl-tabs__tab {
+			width: 25%;
+			}
+		}
+	</style>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/images/nofoto.png'?>" alt="<?=$product['name']?>">
+					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $image['src']))?str_replace('original', 'medium', $image['src']):'/images/nofoto.png'?>" alt="<?=$product['name']?>"/>
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<img src="<?=_base_url?><?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/images/nofoto.png'?>" alt="<?=$product['name']?>">
+						<img src="<?=_base_url?><?=$product['img_'.$i]?str_replace("/image/", "/image/500/", $product['img_'.$i]):'/images/nofoto.png'?>"/>
 					<?}
 				}
 			}?>
@@ -95,7 +185,6 @@
 
 					<button id="btn1" class="mdl-button hidden" type="button">Подробнее</button>
 				</div>
-
 				<div id="description" class="mdl-tabs__panel">
 					<?if(!empty($product['descr_xt_full'])){?>
 						<p><?=$product['descr_xt_full']?></p>
@@ -109,6 +198,23 @@
 </div>
 
 <script>
+	//Инициализация owl carousel
+	/*$('#owl-product_mobile_img_js').owlCarousel({
+		center:			true,
+		dots:			true,
+		items:			1,
+		lazyLoad:		true,
+		loop:			true,
+		margin:			20,
+		nav:			true,
+		video:			true,
+		videoHeight:	345,
+		videoWidth:		345,
+		navText: [
+			'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+		]
+	});	*/
 	$(function(){
 		//Слайдер миниатюр картинок
 		$('#owl-product_mini_img_js .item').on('click', function(event) {
