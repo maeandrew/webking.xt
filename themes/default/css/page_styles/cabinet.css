@@ -1083,24 +1083,27 @@ table.supplier_assort_table {
 		display: none;
 	}
 	#cab_left_bar .active_icon > ul {
-		display: block;
+		/*display: block;*/
 		position: absolute;
 		/*top: 30px;*/
 		left: 35px;
-		z-index: 1001;
+		/*z-index: -1;*/
 		background-color: #fff;
 		/*transition: top 3s ease-out 0.5s;*/
 	}
+	#cab_left_bar > ul {
+		background-color: #fff;
+	}
 	#cab_left_bar > ul > li > ul {
 		position: absolute;
-		display: none;
+		display: block;
 		width: 200px;
-		/*right: -400px;*/
+		left: -300px;
 		/*top: 0;*/
-		/*z-index: 10;*/
+		z-index: -1;
 		/*width: 0px;*/
 		transition: all 1s;
-		box-shadow: 0 0 10px #FF5722;
+		border: 1px solid #DCDCDC;
 	}
 	#cab_left_bar .active_icon .active {
 		color: #FF5722;
@@ -1869,6 +1872,11 @@ div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent:not(.or
 @media (max-width: 1060px) {
 	.nav li {
 		margin-left: 0.5em;
+	}
+	.customer_cab {
+		/*width: 100%;*/
+		z-index: -2;
+		background-color: #fff;
 	}
 }
 @media (max-width: 999px) {
