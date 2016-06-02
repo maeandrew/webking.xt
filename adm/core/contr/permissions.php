@@ -18,11 +18,12 @@ $profiles_list = $Profiles->list;
 
 $tpl->Assign('profiles_list', $profiles_list);
 $Profiles->SetFieldsById($current_id_profile);
-var_dump($Profiles->fields);
+$tpl->Assign('current_profile', $Profiles->fields);
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_permissions.tpl')
 );
+G::GetControllers();
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }

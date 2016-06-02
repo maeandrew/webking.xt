@@ -1,3 +1,8 @@
+<ul>
+	<?foreach($profiles_list as $profile){?>
+		<li><a href="<?=_base_url?>/adm/permissions/<?=$profile['id_profile']?>/"><?=!empty($profile['caption'])?$profile['caption']:$profile['name'];?></a></li>
+	<?}?>
+</ul>
 <form action="<?=$GLOBALS['URL_request']?>" method="post">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		<thead>
@@ -10,7 +15,7 @@
 			</tr>
 		</thead>
 		<?if(!empty($list)){
-			foreach($list as $value){?>
+			foreach($current_profile['permissions'] as $value){?>
 				<tr>
 					<td class="center"><?=$value['id_profile'];?></td>
 					<td class="left"><?=$value['name'];?></td>
