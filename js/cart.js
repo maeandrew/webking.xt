@@ -150,7 +150,7 @@ function removeFromCart(id){
 			ChangePriceRange(3, 0, 0);
 		});
 	}else{
-		ajax('cart', 'remove_from_cart', {id: id}).done(function(data){
+		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
 			var sum = 0;
 			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
 			if($.cookie('manual') === 0){
