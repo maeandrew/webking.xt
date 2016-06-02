@@ -1250,7 +1250,7 @@ function ChangePriceRange(id, sum, val){
 					newSum = (3000 - sum).toFixed(2);
 					if(newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if(column === 0){
-							newSum = 10000 - sum;
+							newSum = (10000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
@@ -1279,11 +1279,11 @@ function ChangePriceRange(id, sum, val){
 					newSum = (500 - sum).toFixed(2);
 					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if (column == 1){
-							newSum = 3000 - sum;
+							newSum = (3000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else if (column === 0){
-							newSum = 10000 - sum;
+							newSum = (10000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
