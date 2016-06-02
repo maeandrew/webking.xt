@@ -226,6 +226,12 @@ function removeFromCart(id){
 					console.log('не работает');
 			}
 
+			$('.cart_order_sum').text(data.cart_sum);
+			$.each(data.products, function(key, value){
+				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart_column].toFixed(2));
+				$('.order_mopt_sum_'+key).text(value.summary[data.cart_column].toFixed(2));
+			});
+
 			if(data.products.length === 0){
 				ChangePriceRange(3, 0, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
