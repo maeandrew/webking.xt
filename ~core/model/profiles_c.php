@@ -17,6 +17,9 @@ class Profiles {
 		if(!$this->list = $this->db->GetArray($sql)){
 			return false;
 		}
+		foreach($this->list as &$value){
+			$value['permissions'] = $this->ParsePermissions($value['permissions']);
+		}
 		return $this->list;
 	}
 	/**
@@ -30,10 +33,11 @@ class Profiles {
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
+		$this->fields['permissions'] = $this->ParsePermissions($this->fields['permissions']);
 		return true;
 	}
 	/**
-	 * [SetFieldsByID description]
+	 * [GetUsersByProfileId description]
 	 * @param [type] $id [description]
 	 */
 	public function GetUsersByProfileId($id){
@@ -59,5 +63,29 @@ class Profiles {
 		}
 		$this->db->CompleteTrans();
 		return true;
+	}
+	/**
+	 * [Add description]
+	 * @param [type] $data [description]
+	 */
+	public function Add($data){
+		$f['name'] = trim($data['name']);
+		$f['caption'] = trim($data['caption']);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.$this->table, $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	/**
+	 * [ParsePermissions description]
+	 * @param [type] $arr [description]
+	 */
+	private function ParsePermissions($perms){
+		$arr = explode(',', $perms);
+		// var_dump($arr);die();
+		return $arr;
 	}
 }
