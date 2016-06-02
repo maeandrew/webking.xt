@@ -339,20 +339,20 @@
 					<?}?>
 					<?if(!isset($_SESSION['cart']['promo'])){?>
 						<div class="cart_choiсe_wrapp_js">					
-							<div class="tooltip_wrapp joint_cart_js">
+							<!--<div class="tooltip_wrapp joint_cart_js">
 								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 									<input type="radio" class="mdl-radio__button" name="options" value="1">
 									<span class="mdl-radio__label">Совместная корзина</span>
 										<label class="info_key" style="position: initial;">?</label>
 										<div class="info_description">Создать совместную корзину и стать ее администратором.</div>
 								</label>
-							</div>
+							</div>-->
 							<div class="tooltip_wrapp joint_purchase_js">
 								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 									<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
-									<span class="mdl-radio__label">Организовать совместную покупку</span>
+									<span class="mdl-radio__label">Организовать совместный заказ</span>
 										<label class="info_key" style="position: initial;">?</label>
-										<div class="info_description">Перейти к оформлению совместной корзины</div>
+										<div class="info_description">Перейти к оформлению совместного заказа</div>
 								</label>
 							</div>
 							<input class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>

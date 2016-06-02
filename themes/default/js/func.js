@@ -29,33 +29,12 @@ function GetLocation() {
 function GetCartAjax(){
 	$('#cart > .modal_container').html('');
 	openObject('cart');
-	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
-		//console.log(data);
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');
 		Position($('#cart'));
 	});
 }
-
-/*function GetCartAjax(){
-	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
-		//console.log(data);
-		$('#cart > .modal_container').html(data);
-		openObject('cart');
-	});
-
-	// if($('#cart').hasClass('opened')){
-	// 	closeObject('cart');
-	// }else{
-	// 	$.ajax({
-	// 		url: URL_base+'cart'
-	// 	}).done(function(data){
-	// 		var res = data.match(/<!-- CART -->([\s\S]*)\<!-- END CART -->/);
-	// 		$('#cart > .modal_container').html(res[1]);
-	// 		openObject('cart');
-	// 	});
-	// }
-}*/
 
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order, rewrite){
@@ -67,6 +46,7 @@ function GetCabProdAjax(id_order, rewrite){
 }
 
 // Получение списка товаров по каждомк заказу в кабинете совместныйх покупок
+
 function GetCabCoopProdAjax(id_cart, rewrite){
 	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart, 'rewrite': rewrite}, 'html').done(function(data){
 		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {
@@ -964,7 +944,7 @@ function ajax(target, action, data, dataType){
 		beforeSend: function(ajax){
 			// console.log(ajax_proceed);
 			if(ajax_proceed === true){
-				ajax.abort();
+				// ajax.abort();
 			}
 			ajax_proceed = true;
 		},
@@ -2013,3 +1993,17 @@ function deliveryServiceSelect(value){
 // 		$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible');
 // 	}
 // }
+
+function UpdateProductsList(page, arr){
+	ajax('products', 'getmoreproducts', arr, 'html').done(function(data){
+		removeLoadAnimation('.products');
+		page.find('.products').html(data);
+		// var product_view = $.cookie('product_view'),
+		// 	show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
+		componentHandler.upgradeDom();
+		$("img.lazy").lazyload({
+			effect : "fadeIn"
+		});
+		ListenPhotoHover();//Инициализания Preview
+	});
+}

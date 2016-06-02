@@ -4,6 +4,7 @@ if(!G::IsLogged()){
 	header('Location: '._base_url.'/login/');
 	exit();
 }
+G::metaTags();
 $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);

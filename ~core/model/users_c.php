@@ -129,6 +129,19 @@ class Users {
 		return true;
 	}
 
+	// Дополнительная информация по поставщику
+//	public function GetMoreInfoSupplier($id, $search_field){
+//		global $db;
+//		$sql = "SELECT ".$search_field."
+//			FROM "._DB_PREFIX_."supplier
+//			WHERE id_user = ".$id;
+//		$res = $db->GetOneRowArray($sql);
+//		if(!$res){
+//			return false;
+//		}
+//		return $res[$search_field];
+//	}
+
 	// Список пользователей (0 - только видимые. 1 - все, и видимые и невидимые)
 	public function UsersList($param=0, $and=false, $limit = ""){
 		if($limit != ""){
@@ -140,9 +153,15 @@ class Users {
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."user
 			".$this->db->GetWhere($and)."
-			order by gid,name, id_user desc
+			ORDER BY gid,name, id_user DESC
 			$limit";
 		$this->list = $this->db->GetArray($sql);
+//		foreach($this->list as &$v) {
+//			if($v['gid'] == 3){
+//				$v['usd'] = $this->GetMoreInfoSupplier($v['id_user'], 'currency_rate');
+//				$v['next_update_date'] = $this->GetMoreInfoSupplier($v['id_user'], 'next_update_date');
+//			}
+//		}
 		if(!$this->list){
 			return false;
 		}else{

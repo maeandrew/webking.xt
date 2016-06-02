@@ -150,47 +150,48 @@
 										</div>
 									</div>
 									<div class="mdl-tabs__panel" id="participants_panel">
-										<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="list_coop">
-											<thead>
-												<tr>
-													<th class="mdl-data-table__cell--non-numeric">
-													</th>
-													<th class="mdl-data-table__cell--non-numeric">Статус</th>
-													<th>Сумма</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody>
-												<?if (isset($i['infoCarts']) && is_array($i['infoCarts'])) : foreach($i['infoCarts'] as $infoCart) :?>
-													<tr>
-														<input class="member_id_cart_js" type="hidden" data-cartid="<?=$_SESSION['cart']['id']?>" value="<?=$infoCart['id_cart']?>">
-														<td class="mdl-data-table__cell--non-numeric">
-															<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/></div>
-															<div><?=$infoCart['name']?></div>
-															<div><?=$infoCart['phones']?></div>
-															<div><?=$infoCart['email']?></div>
-														</td>
-														<td class="mdl-data-table__cell--non-numeric stat_user_cab for_tooltip">
-															<?if ($infoCart['adm'] == 1) {?>
-																<i id="adm" class="material-icons cart_adm">star</i>
-																<div class="mdl-tooltip" for="adm">Администратор<br>совместной покупки</div>
-															<?}else{
-																if($infoCart['ready']==0 && $infoCart['adm'] != 1){?>
-																	<i id="user_ntm_<?=$infoCart['id_cart']?>" class="material-icons user_intime">update</i>
-																	<div class="mdl-tooltip" for="user_ntm_<?=$infoCart['id_cart']?>">Не готов</div>
-																<?}else if($infoCart['ready']==1 && $infoCart['adm'] != 1){?>
-																	<i id="user_rd_<?=$infoCart['id_cart']?>" class="material-icons user_ready">check_circle</i>
-																	<div class="mdl-tooltip" for="user_rd_<?=$infoCart['id_cart']?>">Готов</div>
-																<?}
-															}?>
-														</td>
-														<td><?=$infoCart['sum_cart']?></td>
-														<td class="del_x"><?=$infoCart['adm'] != 1?'<i class="del_x_js material-icons">close</i>':null;?></td>
-													</tr>
-												<?endforeach; endif;?>
-												<?//print_r($i)?>
-											</tbody>
-										</table>
+										<div class="list_coop" id="list_coop">
+											<div class="tableFlex tableTitle">
+												<div class="tableAvatar">Фото</div>
+												<div class="tableName">Имя</div>
+												<div class="tablePhone">Номер телефона</div>
+												<div class="tableEmail">Email</div>
+												<div class="stat_user_cab for_tooltip">Статус</div>
+												<div class="tableSum">Сумма</div>
+												<div class="del_x"></div>
+											</div>
+											<?if (isset($i['infoCarts']) && is_array($i['infoCarts'])) : foreach($i['infoCarts'] as $infoCart) :?>
+												<div class="tableFlex tableRow">
+													<input class="member_id_cart_js" type="hidden" data-cartid="<?=$_SESSION['cart']['id']?>" value="<?=$infoCart['id_cart']?>">
+													
+													<div class="tableAvatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/></div>
+													<div class="tableName"><?=$infoCart['name']?></div>
+													<div class="tablePhone"><i class="material-icons">phone</i><?=$infoCart['phones']?></div>
+													<div class="tableEmail"><i class="material-icons">email</i><?=$infoCart['email']?></div>
+													<div class="stat_user_cab for_tooltip">
+														<?if ($infoCart['adm'] == 1) {?>
+															<i id="adm" class="material-icons cart_adm">star</i>
+															<div class="mdl-tooltip" for="adm">Администратор<br>совместной покупки</div>
+														<?}else{
+															if($infoCart['ready']==0 && $infoCart['adm'] != 1){?>
+																<i id="user_ntm_<?=$infoCart['id_cart']?>" class="material-icons user_intime">update</i>
+																<div class="mdl-tooltip" for="user_ntm_<?=$infoCart['id_cart']?>">Не готов</div>
+															<?}else if($infoCart['ready']==1 && $infoCart['adm'] != 1){?>
+																<i id="user_rd_<?=$infoCart['id_cart']?>" class="material-icons user_ready">check_circle</i>
+																<div class="mdl-tooltip" for="user_rd_<?=$infoCart['id_cart']?>">Готов</div>
+															<?}
+														}?>
+													</div>
+													<div class="tableSum"><img src="<?=_base_url.'/themes/default/img/hryvnia_sign.png'?>"><?=$infoCart['sum_cart']?></div>
+													<div class="del_x">
+														<?if ($infoCart['adm'] != 1) {?>
+															<i id="del_<?=$infoCart['id_cart']?>" class="del_x_js material-icons">close</i><div class="mdl-tooltip" for="del_<?=$infoCart['id_cart']?>">Удалить участинка корзины</div>
+														<?}?></div>
+												</div>
+											<?endforeach; endif;?>
+											<?//print_r($i)?>
+										</div>
+
 										<div class="label">Промо-код для совместной корзины: <?=$infoCart['promo']?></div>
 
 										<!-- <div id="block_promo">
@@ -205,7 +206,7 @@
 												</tr>
 												</thead>
 												<form action="#">
-													<tbody>
+													<div>
 													<tr>
 														<td>
 															<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -235,7 +236,7 @@
 											<div class="products_cart_js"></div>
 										<?}else{?>
 											<div>
-											 	<?=$prod_list;?>
+											 	<?=$prod_list[$i['id_cart']];?>
 												<ul class="sorders_list">
 													<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 													<?foreach ($i['infoCarts'] as $i){ ?>

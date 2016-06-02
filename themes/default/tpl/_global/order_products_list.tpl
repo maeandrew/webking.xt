@@ -1,13 +1,15 @@
 <div id="products">
 	<div class="ordersProdList">
-		<div class="ordersProdListTitle">
-		<?if(isset($rewrite) && $rewrite == 'orders'){?>
-			<div class="prodListPhoto">Фото</div>
-		<?}?>
+		<div class="ordersProdListContent ordersProdListTitle">
+			<?if(isset($rewrite) && $rewrite == 'orders'){?>
+				<div class="avatar">Фото</div>
+			<?}?>
 			<div class="orderProdName">Наименование товара</div>
-			<div class="prodListPrice">Цена</div>
-			<div class="prodListPrice">Кол-во</div>
-			<div class="prodListPrice">Cумма</div>
+			<div class="priceWrap">
+				<div class="cent">Цена</div>
+				<div class="cent">Кол-во</div>
+				<div class="cent">Cумма</div>
+			</div>
 		</div>
 		<?$user_cart_total = 0;?>
 		<?if(isset($list)){?>
@@ -23,17 +25,19 @@
 						</div>
 					<?}?>
 					<div class="orderProdName"><?=$item['name'];?></div>
-					<div class="cent">
-						<span class="priceTitle">Цена:</span>
-						<span class="priceItem"><?=number_format($item['price'],2,',','');?> грн.</span>
-					</div>
-					<div class="cent">
-						<span class="priceTitle">Кол-во:</span>
-						<span class="priceItem"><?=$item['quantity'];?> шт.</span>
-					</div>
-					<div class="cent">
-						<span class="priceTitle">Сумма:</span>
-						<span class="priceItem"><?=number_format($item['price']*$item['quantity'],2,',','');?> грн.</span>
+					<div class="priceWrap">
+						<div class="cent">
+							<span class="priceTitle">Цена:&nbsp;</span>
+							<span class="priceItem"> <?=number_format($item['price'],2,',','');?> грн.</span>
+						</div>
+						<div class="cent">
+							<span class="priceTitle">Кол-во:&nbsp;</span>
+							<span class="priceItem"> <?=$item['quantity'];?> шт.</span>
+						</div>
+						<div class="cent">
+							<span class="priceTitle">Сумма:&nbsp;</span>
+							<span class="priceItem"> <?=number_format($item['price']*$item['quantity'],2,',','');?> грн.</span>
+						</div>
 					</div>
 				</div>
 				<?$user_cart_total += $item['price']*$item['quantity'];?>
@@ -41,6 +45,6 @@
 		<?}else{?>
 			<div>В корзине нет товаров</div>
 		<?}?>
-		<div class="over_sum">Итого: <?=number_format($user_cart_total,2,',','')?> грн.</div>
 	</div>
+	<div class="over_sum">Итого: <?=number_format($user_cart_total,2,',','')?> грн.</div>
 </div>

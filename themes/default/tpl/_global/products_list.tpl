@@ -30,6 +30,8 @@
 						<div class="product_name p<?=$item['id_product']?>">
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
 							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
+							<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+							<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
 						</div>				
 					<!-- </div> -->
 					<?$in_cart = false;
