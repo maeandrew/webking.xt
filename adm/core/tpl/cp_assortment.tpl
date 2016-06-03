@@ -50,8 +50,6 @@
 		</div>
 	</div>
 
-<!--================================================================================================Инфа о поставщике-->
-
 	<div class="sb_block">
 		<h4>Информация</h4>
 		<div class="sb_container supplier_info animate">
@@ -91,57 +89,26 @@
 			</div>
 		</div>
 	</div>
-<!--=================================================================================================================-->
 
-<!--===========================================================================================================Доллар-->
 
 	<div class="cabinet_block fleft">
 		<div class="dollar">
 			<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
 				<label for="currency_rate">Личный курс доллара</label>
 				<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onclick="RecalcSupplierCurrency();">Пересчитать</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Пересчитать</button>
 				<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
 			</form>
-<!--===================================Что за хрень (контрольная сумма)?=============================================-->
 			<p class="checksum">Контрольная сумма - <b><?=$check_sum['checksum']?> грн</b></p>
 		</div>
-		<div class="calendar clearfix">
-			<label>Дата последней отметки о рабочем дне:
-						<span id="next_update_date">
-							<?if($supplier['next_update_date']){
-								$tarr = explode("-",$supplier['next_update_date']);
-								echo $tarr[2].".".$tarr[1].".".$tarr[0];
-							}else{
-								echo "Нет";
-							}?>
-						</span>
-			</label>
-			<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
-			<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js" data-name="kalendar_content">Календарь</button>
-		</div>
-		<form class="work_days_add" action="<?=$GLOBALS['URL_request']?>" method="post">
-			<label for="start_date" class="fleft">С даты:
-				<input type="date" name="start_date" id="start_date" value="<?=date("Y-m-d", time());?>"/>
-			</label>
-			<label for="num_days" class="fleft">Количество дней (от 10 до 90):
-				<input type="number" name="num_days" id="num_days" min="10" max="90" value="90" pattern="[0-9]{2}"/>
-			</label>
-			<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
-		</form>
-	</div>
-
-	<!--=============================================================================================================-->
-
-
-
 
 	<!--===================================Экспорт в excel===========================================================-->
 	<div class="add_functions fleft">
 		<div class="add_items1">
 			<p>Цены в гривнах, &#8372;</p>
 			<hr>
-			<form action="<?=$GLOBALS['URL_request']?>export" method="post">
+
+			<form action="<?=$GLOBALS['URL_request']?>/?export" method="post">
 				<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 			</form>
 			<hr>
@@ -155,7 +122,7 @@
 		<div class="add_items1">
 			<p>Цены в долларах, $</p>
 			<hr>
-			<form action="<?=$GLOBALS['URL_request']?>export_usd" method="post">
+			<form action="<?=$GLOBALS['URL_request']?>/?export_usd" method="post">
 				<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 			</form>
 			<hr>

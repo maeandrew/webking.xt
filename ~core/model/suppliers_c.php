@@ -415,9 +415,9 @@ class Suppliers extends Users {
 	}
 
 	// Пересчет цен поставщика
-	public function RecalcSupplierCurrency($cur, $cur_old){
+	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier=false){
 		global $User;
-		$id_supplier = $User->fields['id_user'];
+		$id_supplier = (($id_supplier===false)?$User->fields['id_user']:$id_supplier);
 		$k = round($cur/$cur_old, 2);
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET
 			price_opt_otpusk = ROUND(price_opt_otpusk*".$k." ,2),
@@ -431,7 +431,7 @@ class Suppliers extends Users {
 			$this->db->FailTrans();
 			return false;
 		}
-		$f['currency_rate'] = mysql_real_escape_string($cur);
+		$f['currency_rate'] = $cur;
 		if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = ".$id_supplier)){
 			$this->db->FailTrans();
 			return false;

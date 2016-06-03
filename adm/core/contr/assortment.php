@@ -18,13 +18,15 @@ if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET[
 $Products = new Products();
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
-
+// ---------Информация о поставщике
 $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
 	array('a.id_supplier' => $Supplier->fields['id_user'], 'a.active' => 1, 'p.visible' => 1),
 	' AND a.product_limit > 0 AND (a.price_mopt_otpusk > 0 OR a.price_opt_otpusk > 0)'
 );
 $Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible' => 1));
 $Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($Supplier->fields['id_user']));
+$check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
+$tpl->Assign("check_sum", $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);
 $Products->SetProductsList1($id_supplier, $order);
@@ -43,4 +45,15 @@ $parsed_res = array(
 if($parsed_res['issuccess'] === true){
 	$tpl_center .= $parsed_res['html'];
 }
+//экспорт в exel
+if(isset($_GET['export'])) {
+	$r = $Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']);
+	$Products->GenExcelAssortFile($r);
+	exit(0);
+} elseif(isset($_GET['export_usd'])){
+	$r = $Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']);
+	$Products->GenExcelAssortFile($r);
+	exit(0);
+}
+
 ?>
