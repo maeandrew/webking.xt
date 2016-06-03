@@ -23,10 +23,10 @@ class Profiles {
 		return $this->list;
 	}
 	/**
-	 * [SetFieldsByID description]
+	 * [SetFieldsById description]
 	 * @param [type] $id [description]
 	 */
-	public function SetFieldsByID($id){
+	public function SetFieldsById($id){
 		$sql = 'SELECT *
 			FROM '._DB_PREFIX_.$this->table.'
 			WHERE id_profile = '.$id;
@@ -84,8 +84,22 @@ class Profiles {
 	 * @param [type] $arr [description]
 	 */
 	private function ParsePermissions($perms){
-		$arr = explode(',', $perms);
-		// var_dump($arr);die();
-		return $arr;
+		switch ($perms) {
+			case '0':
+				$result = 0;
+				break;
+			case '1':
+				$result = 1;
+				break;
+			default:
+				$arr = explode(';', $perms);
+				foreach($arr as &$value){
+					preg_match('/(^.*)=(1|0),(1|0),(1|0),(1|0)$/', $value, $matches);
+					list($a, $res['name'], $res['view'], $res['add'], $res['edit'], $res['del']) = $matches;
+					$result[$res['name']] = $res;
+				}
+				break;
+		}
+		return $result;
 	}
 }

@@ -303,8 +303,8 @@ class G {
 		$arr = scandir($dir);
 		$cont_arr = array();
 		foreach($arr as $item){
-			if($item!='.' && $item!='..'){
-				$cont_arr[] = str_replace(".php","",$item);
+			if($item != '.' && $item != '..'){
+				$cont_arr[] = str_replace('.php', '', $item);
 			}
 		}
 		return $cont_arr;
