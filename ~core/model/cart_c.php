@@ -576,7 +576,7 @@ class Cart {
 			.($adm !== false?"adm = ".$adm.", ":null)
 			.($ready !== false?"ready = ".$ready.", ":null);
 		$sql = substr($sql, 0, -2);
-		$sql .= " WHERE id_cart = ". $id_cart; 
+		$sql .= " WHERE id_cart = ". $id_cart;
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();

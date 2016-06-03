@@ -1943,7 +1943,7 @@ class Products {
 	 * [UpdateSitePricesMassive description]
 	 * @param [type] $arr [description]
 	 */
-	public function UpdateSitePricesMassive($arr){
+	public function UpdateSitePricesMassive($arr){// print_r($arr); die();
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";

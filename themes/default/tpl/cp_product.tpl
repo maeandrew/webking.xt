@@ -16,92 +16,7 @@
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
-		<?if(G::isMobile()){?>
-			<style>
-				#caruselCont {
-					width: 95%;
-				}
-				#specCont {
-					width: 95%;
-				} 
-				.product_main_img{
-					display: none;
-				}
-				.owl-video-wrapper {
-					margin: 0 auto;
-				}
-				.product .mdl-cell {
-					padding-right: 0;
-				}
-				.product_page h1 {
-					margin: 0;
-					padding: 0;
-				}
-				.breadcrumbs_wrapp {
-					white-space: nowrap;
-					overflow-x: overlay;
-					overflow-y: hidden;
-					padding-bottom: 10px;
-				}
-				.breadcrumbs_wrapp a {
-					font-weight: 300;
-				}
-				.breadcrumbs_wrapp i {
-					font-size: 18px;
-					margin: 0;
-				}
-				.owl-pagination {
-					padding: 5px 0;
-				}
-				.mobile_carousel .owl-item img {
-					max-width: 100%;
-					margin: 0px auto;
-					display: block;
-				}
-				.owl-dot {
-					width: 20px;
-				}
-				.owl-dot span {
-					display: block;
-					width: 0;
-					height: 0;
-					background: #888;
-					border-radius: 50%;
-					margin: 0 auto;
-					transition: all 0.4s ease-in-out;
-					border: 3px solid #888;
-				}
-				.owl-dot.active span {
-					border: 7px solid #888;
-				}
-
-				.mdl-tabs__tab-bar {
-					min-width: none;
-				}
-				.tabs .mdl-tabs__tab {
-					width: 50%;
-					border-bottom: 1px solid #e0e0e0;
-				}
-				.mdl-grid .mdl-tabs__tab {
-					margin-top: 0;
-				}
-				.fortabs {
-					padding-bottom: 10px;
-					overflow-x: overlay;
-					overflow-y: hidden;
-				}
-				#owl-product_mobile_img_js {
-					clear: both;
-				}
-				@media (min-width: 700px){
-					.product .mdl-tabs__tab-bar {
-						min-width: 680px;
-					}
-					.tabs .mdl-tabs__tab {
-					width: 25%;
-					}
-				}
-			</style>
+		<?if(G::isMobile()){?>			
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
@@ -127,7 +42,7 @@
 					dots:			true,
 					items:			1,
 					lazyLoad:		true,
-					loop:			true,
+					/*loop:			true,*/
 					margin:			20,
 					nav:			true,
 					video:			true,

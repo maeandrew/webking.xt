@@ -51,84 +51,43 @@
 			</table>
 		</div>
 		<div class="col-lg-2 col-md-3 col-sm-8 col-xs-12 infoBlock sb_block">
-				
-				<!-- <table class="list">
-					<thead>
-						<tr>
-							<td colspan="2">Информация</td>
-						</tr>
-					</thead>
-					<tr class="animate">
-						<td colspan="2"><?=$supplier['name'];?> Name</td>
-					</tr>
-					<tr class="animate">
-						<td>Артикул:</td>
-						<td><?=$supplier['article'];?></td>
-					</tr>
-					<tr class="animate">
-						<td>Рабочие дни до:</td>
-						<td><?=date("d.m.Y", strtotime($supplier['next_update_date']));?></td>
-					</tr>
-					<?if(is_numeric($supplier['balance'])){?>
-						<tr class="animate">
-							<td>Текущий баланс:</td>
-							<td><?=number_format($supplier['balance'], 2, ",", "")?> грн.</td>
-						</tr>
-					<?}?>
-					<tr class="animate">
-						<td>Курс доллара:</td>
-						<td><?=number_format($supplier['currency_rate'], 2, ",", "");?> грн.</td>
-					</tr>
-					<tr class="animate">
-						<td>Всего товаров:</td>
-						<td><?=$supplier['all_products_cnt'];?> шт.</td>
-					</tr>
-					<tr class="animate">
-						<td>В наличии:</td>
-						<td><?=$supplier['active_products_cnt'];?> шт.</td>
-					</tr>
-					<tr class="animate">
-						<td>На модерации:</td>
-						<td><?=$supplier['moderation_products_cnt'];?> шт.</td>
-					</tr>
-				</table> -->
-				<div class="sb_container supplier_info animate">
-					<div class="infoTitle tac textBold">Информация</div>
-					<div class="line clearfix supplier_name">
-						<!-- <div class="parameter fleft">Поставщик:</div> -->
-						<div class="value tac textBold"><?=$supplier['name'];?>Name</div>
-					</div>
-					<div class="line clearfix animate">
-						<div class="fleft">Артикул:</div>
-						<div class="value fright textBold"><?=$supplier['article'];?></div>
-					</div>
-					<div class="line clearfix animate <?=strtotime($supplier['next_update_date'])-time() <= 60*60*24*7*8?'color-red':null;?>">
-						<div class="fleft">Рабочие дни до:</div>
-						<div class="value fright textBold"><?=date("d.m.Y", strtotime($supplier['next_update_date']));?></div>
-					</div>
-					<?if(is_numeric($supplier['balance'])){?>
-						<div class="line clearfix animate">
-						<div class="fleft">Текущий баланс:</div>
-						<div class="value fright textBold"><?=number_format($supplier['balance'], 2, ",", "")?> грн.</div>
-						</div>
-					<?}?>
-					<div class="line clearfix animate">
-						<div class="fleft">Курс доллара:</div>
-						<div class="value fright textBold"><?=number_format($supplier['currency_rate'], 2, ",", "");?> грн.</div>
-					</div>
-					<div class="line clearfix animate">
-						<div class="fleft">Всего товаров:</div>
-						<div class="value fright textBold"><?=$supplier['all_products_cnt'];?> шт.</div>
-					</div>
-					<div class="line clearfix animate">
-						<div class="fleft">В наличии:</div>
-						<div class="value fright textBold"><?=$supplier['active_products_cnt'];?> шт.</div>
-					</div>
-					<div class="line clearfix animate">
-						<div class="fleft">На модерации:</div>
-						<div class="value fright textBold"><?=$supplier['moderation_products_cnt'];?> шт.</div>
-					</div>
+			<div class="sb_container supplier_info animate">
+				<div class="infoTitle tac textBold">Информация</div>
+				<div class="line clearfix supplier_name">
+					<!-- <div class="parameter fleft">Поставщик:</div> -->
+					<div class="value tac textBold"><?=$supplier['name'];?>Name</div>
 				</div>
+				<div class="line clearfix animate">
+					<div class="fleft">Артикул:</div>
+					<div class="value fright textBold"><?=$supplier['article'];?></div>
+				</div>
+				<div class="line clearfix animate <?=strtotime($supplier['next_update_date'])-time() <= 60*60*24*7*8?'color-red':null;?>">
+					<div class="fleft">Рабочие дни до:</div>
+					<div class="value fright textBold"><?=date("d.m.Y", strtotime($supplier['next_update_date']));?></div>
+				</div>
+				<?if(is_numeric($supplier['balance'])){?>
+					<div class="line clearfix animate">
+					<div class="fleft">Текущий баланс:</div>
+					<div class="value fright textBold"><?=number_format($supplier['balance'], 2, ",", "")?> грн.</div>
+					</div>
+				<?}?>
+				<div class="line clearfix animate">
+					<div class="fleft">Курс доллара:</div>
+					<div class="value fright textBold"><?=number_format($supplier['currency_rate'], 2, ",", "");?> грн.</div>
+				</div>
+				<div class="line clearfix animate">
+					<div class="fleft">Всего товаров:</div>
+					<div class="value fright textBold"><?=$supplier['all_products_cnt'];?> шт.</div>
+				</div>
+				<div class="line clearfix animate">
+					<div class="fleft">В наличии:</div>
+					<div class="value fright textBold"><?=$supplier['active_products_cnt'];?> шт.</div>
+				</div>
+				<div class="line clearfix animate">
+					<div class="fleft">На модерации:</div>
+					<div class="value fright textBold"><?=$supplier['moderation_products_cnt'];?> шт.</div>
+				</div>
+			</div>
 		</div>
 		<div class="col-lg-6 col-md-9 col-sm-8 col-xs-12 sb_block">
 			<div class="cabinet_block">
@@ -142,7 +101,7 @@
 							</div>
 							<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
 						</form>
-						<p class="checksum">Контрольная сумма - <b><?=$check_sum['checksum']?> грн</b></p>
+						<p class="checksum">Контрольная сумма: <b><?=$check_sum['checksum']?> грн</b></p>
 					</div>
 				<!--<div class="calendar clearfix">
 						<label>Дата последней отметки о рабочем дне:
@@ -175,7 +134,7 @@
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
 							
-							<form action="<?=$GLOBALS['URL_request']?>export" method="post">
+							<form action="<?=$GLOBALS['URL_request']?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
 							
@@ -189,7 +148,7 @@
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
 							
-							<form action="<?=$GLOBALS['URL_request']?>export_usd" method="post">
+							<form action="<?=$GLOBALS['URL_request']?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
 							
@@ -203,12 +162,6 @@
 			</div>
 		</div>
 	</div>
-
-	
-	<!--=============================================================================================================-->
-
-
-
 
 	<div class="product_list row">
 		<div class="col-md-12">
