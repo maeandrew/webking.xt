@@ -1943,7 +1943,7 @@ class Products {
 	 * [UpdateSitePricesMassive description]
 	 * @param [type] $arr [description]
 	 */
-	public function UpdateSitePricesMassive($arr){ print_r($arr); die();
+	public function UpdateSitePricesMassive($arr){// print_r($arr); die();
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
@@ -2404,7 +2404,7 @@ class Products {
 	 * Генерация массива строк для экспорта
 	 * @param [type] $list [description]
 	 */
-	public function GetExportRows($list){ //print_r($list); die();
+	public function GetExportRows($list){
 		$r = array();
 		$ii = 0;
 		$jj = 0;
