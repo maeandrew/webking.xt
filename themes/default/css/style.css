@@ -3122,7 +3122,7 @@ section .stat_year {
 		display: none;
 	}
 	.list_coop .tableRow .tableName {
-	    flex: 0 0 calc(100% - 25%);
+		flex: 0 0 calc(100% - 25%);
 	}
 	.list_coop .tableRow .tablePhone,
 	.list_coop .tableRow .tableEmail,
@@ -3483,9 +3483,82 @@ div.modalEditOrder .applyBtn {
 		border: 1px solid #e0e0e0;
 		text-align: center;
 	}
+	.subCategories {
+		justify-content: center;
+	}
 }
 @media (max-width: 350px) {
 	aside {
 		width: 270px;
 	}
+}
+
+.subCategories {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;	
+	border-bottom:  1px solid #e0e0e0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+
+.subCategories .subCategory {
+	display: flex;
+	flex-wrap: wrap;
+	width: 108px;
+	padding: 5px;
+	overflow: hidden;
+}
+
+.subCategories .subCategory:hover {
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.subCategories .subCategory img {
+	width: 100px;
+	height: 100px;
+}
+.subCategories .subCategory .subCategoryTitle {
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+
+/* Стили карусели подкатегорий */
+
+.owl-pagination {
+	padding: 5px 0;
+}
+.mobile_carousel .owl-item img {
+	max-width: 100%;
+	margin: 0px auto;
+	display: block;
+}
+.owl-dot {
+	width: 20px;
+}
+.owl-dot span {
+	display: block;
+	width: 0;
+	height: 0;
+	background: #888;
+	border-radius: 50%;
+	margin: 0 auto;
+	transition: all 0.4s ease-in-out;
+	border: 3px solid #888;
+}
+.owl-dot.active span {
+	border: 7px solid #888;
+}	
+.subCategory span {
+	width: 100%;
+	display: block;
+	text-align: center;
+	padding-bottom: 10px;
+}	
+#owl-subcategories_slide_js .subCategory img {
+	height: 150px;
+	width: 150px;
 }

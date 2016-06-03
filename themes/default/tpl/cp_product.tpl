@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<?if(G::isMobile()){?>
-			<style>
+			<!-- <style>
 				#caruselCont {
 					width: 95%;
 				}
@@ -74,7 +74,7 @@
 				.owl-dot.active span {
 					border: 7px solid #888;
 				}
-
+			
 				.mdl-tabs__tab-bar {
 					min-width: none;
 				}
@@ -101,7 +101,7 @@
 					width: 25%;
 					}
 				}
-			</style>
+			</style> -->
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
@@ -127,7 +127,7 @@
 					dots:			true,
 					items:			1,
 					lazyLoad:		true,
-					loop:			true,
+					/*loop:			true,*/
 					margin:			20,
 					nav:			true,
 					video:			true,
