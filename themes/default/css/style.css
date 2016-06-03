@@ -1283,9 +1283,7 @@ section.center {
 	aside {
 		width: 300px;
 		position: absolute;
-		/*position: fixed;*/
 		float: left;
-		top: auto;
 		bottom: auto;
 	}
 	aside .wrapper {
@@ -1295,7 +1293,6 @@ section.center {
 	}
 	.banner_hide aside {
 		position: fixed;
-		top: 52px;
 		bottom: 0;
 	}
 	aside .sidebar_wrapp {
@@ -2380,6 +2377,9 @@ section .stat_year {
 
 	aside {
 		width: 260px;
+	}
+	aside .filters .buttonsTop {
+		width: 245px;
 	}
 	section.center {
 		width:calc(100% - 260px);
