@@ -311,12 +311,11 @@
 				<?if(G::isLogged() || _acl::isAdmin()){?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
 						<label for="promo_input">Промокод</label>
-						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo'])?$_SESSION['cart']['promo']:null;?>">
+						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
 						<label class="mdl-textfield__label" for="promo_input"></label>
 					</div>
 					<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
-
-					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
+					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
 						<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
 						<div class="cart_warning_js cart_warning hidden">
 							<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
@@ -325,20 +324,24 @@
 							<input class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
 							<input class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
 						</div>
+					<?}else{?>
+						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
+					<?}?>
+					<?if($_SESSION['cart']['adm'] == 1) {?>
 						<div class="">
 							<div class="info_admin">Информация для организатора совместной покупки</div>
 							<a href="#"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
-					<?}else if((isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) || !isset($_SESSION['cart']['promo'])){?>
-						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
+					<?}else if($_SESSION['cart']['adm'] == 0) {?>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 							<div class="info_client">Информация для клиента совместной покупки</div>
 							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готово"/>
 						</div>
 					<?}?>
+				
 					<?if(!isset($_SESSION['cart']['promo'])){?>
-						<div class="cart_choiсe_wrapp_js">					
+						<div class="cart_choiсe_wrapp_js">
 							<!--<div class="tooltip_wrapp joint_cart_js">
 								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 									<input type="radio" class="mdl-radio__button" name="options" value="1">
@@ -434,6 +437,7 @@
 				$('.confirm_del_promoCode_js').click(function(event) {
 					ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
 						$('.promo_input_js input').attr('value', '');
+						$('cart_warning_js').addClass('hidden');
 					}).fail(function(event) {
 						console.log("fail del promo");
 					});
