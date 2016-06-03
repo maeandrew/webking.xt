@@ -73,6 +73,10 @@ header .header_wrapp .header_right .phone_menu {
 .user_profile {
 	padding: 0 !important;
 }
+.user_profile .loginButton {
+	padding: 10px;
+	text-align: center;
+}
 .userContainer {
 	width: 100%;
 	/*height: 244px;*/

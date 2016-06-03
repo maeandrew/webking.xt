@@ -44,7 +44,7 @@
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
 				<i class="material-icons">menu</i>
 			</button>
-			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
+			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-cell--hide-phone" for="menu-lower-right">
 				<?foreach($list_menu as $key => &$menu){?>				
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
 				<?}?>
@@ -72,7 +72,10 @@
 				<?php if(G::isLogged()){
 					echo $user_profile;
 				}else{?>
-					<a href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent login_btn">Войти</a>
+					<div class="loginButton">
+						<p>Войдите в свой личный кабинет на xt.ua или создайте новый</p>
+						<a href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent login_btn">Войти</a>
+					</div>
 				<?}?>
 			</div>
 			<ul class="phone_nav">

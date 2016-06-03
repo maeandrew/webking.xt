@@ -1225,7 +1225,7 @@ $(function(){
 	// Проверка формы входа
 	$('#auth').on('click', '.sign_in', function(e){
 		e.preventDefault();
-		addLoadAnimation('#auth');
+		addLoadAnimation('#sign_in');
 		var form = $(this).closest('form'),
 			email = form.find('input#email').val(),
 			passwd = form.find('input#passwd').val();
@@ -1233,7 +1233,7 @@ $(function(){
 		e.preventDefault();
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
-			removeLoadAnimation('#auth');
+			removeLoadAnimation('#sign_in');
 			if(data.err != 1){				
 				if (over_scroll === true) {
 					var page = $('.products_page'),

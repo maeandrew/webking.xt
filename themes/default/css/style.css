@@ -108,9 +108,9 @@ input[type="number"]:focus {
 	border: none;
 	border-bottom: 1px solid #bdbdbd;
 }
-i.material-icons {
+/*i.material-icons {
 	overflow: hidden;
-}
+}*/
 /*::-webkit-scrollbar {
 	width: 8px;
 }
@@ -3271,7 +3271,7 @@ section .stat_year {
 	background-color: rgba(255,255,255,.5);
 	z-index: 10;
 }
-.loadAnimation {
+.loadBlock .loadAnimation {
 	top: calc(50% - 14px);
 	left: calc(50% - 14px);
 	position: absolute;
