@@ -567,7 +567,7 @@ class Cart {
 	}
 
 	//Добавить/удалить статус и промокод для заказа (корзины)
-	public function UpdateCart($promo = null, $status = false, $adm = false, $ready = false, $id_cart = false){
+	public function UpdateCart($promo = false, $status = false, $adm = false, $ready = false, $id_cart = false){
 		$cart_id = $this->DBCart();
 		$id_cart = $id_cart?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$cart_id);
 		$sql = "UPDATE "._DB_PREFIX_."cart	SET "
@@ -576,7 +576,7 @@ class Cart {
 			.($adm !== false?"adm = ".$adm.", ":null)
 			.($ready !== false?"ready = ".$ready.", ":null);
 		$sql = substr($sql, 0, -2);
-		$sql .= " WHERE id_cart = ". $id_cart;
+		$sql .= " WHERE id_cart = ". $id_cart; 
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
