@@ -9,7 +9,7 @@ class Users {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_user", "name", "email", "descr", "gid", "active", "news", "promo_code", "phones");
+		$this->usual_fields = array("id_user", "name", "email", "descr", "gid", "active", "news", "promo_code", "phone");
 	}
 
 	// public function CheckUser($arr){
@@ -36,9 +36,9 @@ class Users {
 			$f['email'] = trim($arr['email']);
 			$where = "(email = '".$f['email']."'
 			OR email = '".$f['email']."@x-torg.com'
-			OR phones = '".$f['email']."')";
+			OR phone = '".$f['email']."')";
 		}
-		$sql = "SELECT id_user, email, gid, promo_code, name, phones
+		$sql = "SELECT id_user, email, gid, promo_code, name, phone
 			FROM "._DB_PREFIX_."user
 			WHERE ".$where."
 			AND passwd = '".md5($f['passwd'])."'
@@ -54,7 +54,7 @@ class Users {
 		$data = trim($data);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
 			FROM "._DB_PREFIX_."user AS u
-			WHERE (u.email = '".$data."' OR u.phones = '".$data."')
+			WHERE (u.email = '".$data."' OR u.phone = '".$data."')
 			AND u.active = 1";
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
@@ -81,7 +81,7 @@ class Users {
 			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
 		// получаем данные о личном менеджере
-		$sql4 = "SELECT ct.name_c, ct.phones
+		$sql4 = "SELECT ct.name_c, ct.phone
 			FROM "._DB_PREFIX_."customer cr
 			LEFT JOIN "._DB_PREFIX_."contragent ct
 			ON cr.id_contragent = ct.id_user
@@ -114,15 +114,14 @@ class Users {
 
 	// Пользователь по id
 	public function SetFieldsById($id, $all=0){
-		$active = "AND active = 1";
+		$active = " AND active = 1";
 		if($all == 1){
 			$active = '';
 		}
-		$id = $id;
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."user
-			WHERE id_user = \"$id\"
-			$active";
+			WHERE id_user = ".$id.
+			$active;
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
@@ -196,7 +195,7 @@ class Users {
 			$f['descr'] = trim($arr['descr']);
 		}
 		if(isset($arr['phone'])){
-			$f['phones'] = trim($arr['phone']);
+			$f['phone'] = trim($arr['phone']);
 		}
 		if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
 			$arr['promo_code'] = trim($arr['promo_code']);
@@ -249,10 +248,10 @@ class Users {
 		if(isset($arr['email']) ){
 			$f['email'] = ($arr['email'] !='')?trim($arr['email']): NULL;
 		}
-		if(isset($arr['phones']) && $arr['phones'] != '') {
+		if(isset($arr['phone']) && $arr['phone'] != '') {
 			//Проверяем, существует ли такой телефон в таблице User
-			if($this->CheckPhoneUniqueness($arr['phones'], $arr['id_user']) === true) {
-				$f['phones'] = trim($arr['phones']);
+			if($this->CheckPhoneUniqueness($arr['phone'], $arr['id_user']) === true) {
+				$f['phone'] = trim($arr['phone']);
 			}
 		}
 		if(isset($arr['passwd']) && $arr['passwd'] != ''){
@@ -281,7 +280,7 @@ class Users {
 				$f['promo_code'] = $arr['promo_code'];
 			}
 		}
-		if(!$this->db->Update(_DB_PREFIX_."user", $f, "id_user = {$f['id_user']}")){
+		if(!$this->db->Update(_DB_PREFIX_."user", $f, "id_user = ".$f['id_user'])){
 			$this->db->errno = mysql_errno();
 			$this->db->FailTrans();
 			return false;
@@ -434,7 +433,7 @@ class Users {
 			WHERE pc.id_supplier = ".$id_supplier;
 		$res = $this->db->GetArray($sql);
 		foreach($res as &$r){
-			$sql = "SELECT u.id_user, u.name, u.email, u.promo_code, c.cont_person, c.phones
+			$sql = "SELECT u.id_user, u.name, u.email, u.promo_code, c.cont_person, c.phone
 				FROM "._DB_PREFIX_."user AS u
 				LEFT JOIN "._DB_PREFIX_."customer AS c
 					ON c.id_user = u.id_user
@@ -505,7 +504,7 @@ class Users {
 	public function CheckPhoneUniqueness($phone, $id_user = false){
 		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
-			WHERE phones = '".$phone."'";
+			WHERE phone = '".$phone."'";
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){

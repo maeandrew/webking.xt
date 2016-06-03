@@ -236,7 +236,7 @@ G::ToGlobals(array(
 					'supplier_manager_cab'
 				)
 			),
-			12 => array(
+			13 => array(
 				'name' => 'photographer',
 				'caption' => 'Фотограф',
 				'permissions' => array(

@@ -17,17 +17,20 @@
 				</div>
 				<div class="col-md-12">
 					<label for="phone">Телефон:</label><?=isset($errm['phone'])?"<span class=\"errmsg\">".$errm['phone']."</span><br>":null?>
-					<input type="text" name="phone" id="phone" class="input-m" required placeholder="+3801234567878" value="<?=isset($_POST['phones'])?htmlspecialchars($_POST['phones']):null?>">
+					<input type="text" name="phone" id="phone" class="input-m" required placeholder="+380123456787" value="<?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?>">
 				</div>
 				<div class="col-md-12">
 					<label for="passwd">Пароль:</label><?=isset($errm['passwd'])?"<span class=\"errmsg\">".$errm['passwd']."</span><br>":null?>
-					<input type="text" name="passwd" id="passwd" required class="input-m" value="<?=isset($_POST['passwd'])?htmlspecialchars($_POST['passwd']):null?>">
+					<input type="text" name="passwd" id="passwd" <?=$GLOBALS['REQAR'][0] == 'useradd'?'required':null;?> class="input-m" value="<?=isset($_POST['passwd'])?htmlspecialchars($_POST['passwd']):null?>">
 				</div>
 				<div class="col-md-12">
+					<?if(isset($_POST['id_user'])){?>
+						<input type="hidden" name="id_user" value="<?=$_POST['id_user']?>">
+					<?}?>
 					<label for="gid">Профиль:</label><?=isset($errm['gid'])?"<span class=\"errmsg\">".$errm['gid']."</span><br>":null?>
 					<select name="gid" id="gid" class="input-m">
 						<?foreach($GLOBALS['profiles'] as $key => $value){?>
-							<option value="<?=$value['id_profile'];?>"><?=$value['caption'] == ''?$value['name']:$value['caption'];?></option>
+							<option value="<?=$value['id_profile'];?>" <?=isset($_POST['gid']) && $_POST['gid'] == $value['id_profile']?'selected':null;?>><?=$value['caption'] == ''?$value['name']:$value['caption'];?></option>
 						<?}?>
 					</select>
 				</div>
