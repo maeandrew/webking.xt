@@ -186,26 +186,26 @@ function setOrderNoteSuccess(id_order){
 	}
 }
 
-function RecalcSupplierCurrency(){
-	$("#popup_msg").fadeIn();
-	cur = parseFloat($("#currency_rate").val());
-	cur_old = parseFloat($("#currency_rate_old").val());
-	$.ajax({
-		url: URL_base+'ajaxsupdate',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"cur": cur,
-			"cur_old": cur_old
-		}
-	}).done(function(){
-		setTimeout(function(){
-			$("#popup_msg").fadeOut();
-			location.reload();
-		},1000);
-	});
-}
+//function RecalcSupplierCurrency(){
+//	$("#popup_msg").fadeIn();
+//	cur = parseFloat($("#currency_rate").val());
+//	cur_old = parseFloat($("#currency_rate_old").val());
+//	$.ajax({
+//		url: URL_base+'ajaxsupdate',
+//		type: "POST",
+//		cache: false,
+//		dataType: "json",
+//		data: {
+//			"cur": cur,
+//			"cur_old": cur_old
+//		}
+//	}).done(function(){
+//		setTimeout(function(){
+//			$("#popup_msg").fadeOut();
+//			location.reload();
+//		},1000);
+//	});
+//}
 
 
 function SwitchSupplierDate(date){
