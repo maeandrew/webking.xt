@@ -1573,20 +1573,6 @@ section.center {
 
 	/*When LeftSidebar Hidden*/
 
-		.no-sidebar aside {
-			z-index: 100;
-			left: -360px;
-			height: calc(100vh - 52px);
-			-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-			-o-transition: all .4s cubic-bezier(.4,0,.2,1);
-			transition: all .4s cubic-bezier(.4,0,.2,1);
-		}
-		.no-sidebar aside.opened {
-			top: 52px;
-			left: 0;
-			-webkit-filter: inherit;
-			position: fixed;
-		}
 		aside .catalog_close {
 			width: 50px;
 			height: 50px;
@@ -1614,17 +1600,6 @@ section.center {
 	@media (max-width: 727px) {
 		.sidebar .catalog_close {
 			display: block;
-		}
-		aside {
-			z-index: 100;
-			left: -360px;
-			height: calc(100vh - 52px);
-		}
-		aside.opened {
-			top: 52px;
-			left: 0;
-			-webkit-filter: inherit;
-			position: fixed;
 		}
 		aside .catalog_close {
 			width: 50px;
@@ -3208,9 +3183,6 @@ section .stat_year {
 	/*	body {
 		padding-top: 45px;
 	}*/
-	aside.opened {
-		top: 45px;
-	}
 	#cart .product_buy .summ {
 		text-align: left;
 	}

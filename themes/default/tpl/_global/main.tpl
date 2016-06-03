@@ -165,7 +165,7 @@
 	
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside class="mdl-color--white" id="catalog" <?=((isset($navigation) && in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])) || !G::isMobile())?null:'data-type="panel" data-position="left"'?>>
+		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="wrapper">
 				<?=$__sidebar_l?>
 				<?if($news != false){?>
