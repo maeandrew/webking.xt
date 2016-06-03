@@ -26,9 +26,11 @@ function GetLocation() {
 }
 
 // Получение корзины
-function GetCartAjax(){
+function GetCartAjax(reload){
 	$('#cart > .modal_container').html('');
-	openObject('cart');
+	if (!reload) {
+		openObject('cart');
+	}
 	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');
@@ -65,7 +67,6 @@ function UserRating(obj){
 		bool = 1;
 	}
 	ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
-		//typeof(data);
 		if(data === 0){
 			openObject('modal_message');
 		}
@@ -959,70 +960,31 @@ function ajax(target, action, data, dataType){
 }
 // Change sidebar aside height
 function resizeAsideScroll(event) {
-	var mainWindow = +$.cookie('mainWindow');	
-	var header_height = +$.cookie('headerHeight');	
+	console.log(event);
+	// var mainWindow = +$.cookie('mainWindow');
+	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
 	var newMainWindow = $('.main').height();
 	
-	if (newMainWindow != mainWindow) {
-		switch (event) {
-			case 'load':				
-				var scroll = $(this).scrollTop(); 	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-					$('aside').css('top', pieceOfHeader);
-				}else{
-					$('aside').css('bottom', 0);
-				}				
-				changeFiltersBtnsPosition();
-				break;
-			case 'resize':				
-				var scroll = $(this).scrollTop(); 	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-				}
-				break;
-			case 'click':
-				var scroll = $(this).scrollTop();  	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-				}
-				break;
-			case 'show_more':
-				var scroll = $(this).scrollTop(); 	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;		
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-					$('aside').css('top', header_height);			
-				}
-				break;
+	// if(newMainWindow != mainWindow){
+		// $.cookie('mainWindow', newMainWindow, { path: '/'});
+		var scroll = $(this).scrollTop(),
+			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
+			console.log(pieceOfFooter > 0?pieceOfFooter:0);
+		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0)).css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+		
+		if(event == 'load'){
+			changeFiltersBtnsPosition();
 		}
-	}	
+	// }
+	return true;
 }
 
 // Change product view
 function ChangeView(view){
 	switch (view) {
 		case 'list':
-			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');			
+			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');
 			break;
 		case 'block':
 			$('#view_block_js').removeClass().addClass('block_view col-md-12 ajax_loading');
@@ -1039,7 +1001,7 @@ function ChangeView(view){
 function ListenPhotoHover(){
 	preview = $('.list_view .preview');
 	previewOwl = preview.find('#owl-product_slide_js');
-	$('.list_view .product_photo').on('mouseover', function(){
+	$('.list_view .product_photo:not(hovered)').on('mouseover', function(){
 		if($(this).not('.hovered')){
 			showPreview(false);
 			$(this).addClass('hovered');
@@ -1153,12 +1115,18 @@ function changeToTop(pos){
 function showPreview(ajax){
 	if(ajax){
 		preview.removeClass('ajax_loading').find('#owl-product_slide_js').owlCarousel({
-			singleItem: true,
-			lazyLoad: true,
-			lazyFollow: false,
-			nav: true,
-			dots: true,
-			navContainer: true
+			center:			true,
+			dots:			true,
+			items:			1,
+			margin:			20,
+			nav:			true,
+			video:			true,
+			videoHeight:	300,
+			videoWidth:		300,
+			navText: [
+				'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+				'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+			]
 		});
 	}else{
 		preview.show();
@@ -1244,7 +1212,7 @@ function ChangePriceRange(id, sum, val){
 					newSum = (3000 - sum).toFixed(2);
 					if(newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if(column === 0){
-							newSum = 10000 - sum;
+							newSum = (10000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
@@ -1273,11 +1241,11 @@ function ChangePriceRange(id, sum, val){
 					newSum = (500 - sum).toFixed(2);
 					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if (column == 1){
-							newSum = 3000 - sum;
+							newSum = (3000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else if (column === 0){
-							newSum = 10000 - sum;
+							newSum = (10000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
@@ -1367,6 +1335,9 @@ function openObject(id){
 		if(id=="cart"){
 			addLoadAnimation('#'+id);
 		}
+		if(id == 'phone_menu'){
+			$('[data-name="phone_menu"] i').text('close');
+		}
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1393,7 +1364,7 @@ function closeObject(id){
 	}else{
 		$('#'+id).removeClass('opened');
 		if(id == 'phone_menu'){
-			$('[data-name="phone_menu"]').html('menu');
+			$('[data-name="phone_menu"] i').text('menu');
 		}
 	}
 	DeactivateBG();
@@ -1631,10 +1602,14 @@ function CompleteValidation(name, email, passwd, passconfirm){
 	return true;
 }
 
-function showModals() {
+function moveObjects() {
 	var modals = $('div:not(.modals) [data-type="modal"]');
 	modals.each(function(key, value){
 		$(".modals").append(value);
+	});
+	var panels = $('div:not(.panels) [data-type="panel"]');
+	panels.each(function(key, value){
+		$(".panels").append(value);
 	});
 }
 // Удаление товара из ассортимента поставщика в кабинете
@@ -1841,15 +1816,17 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function changeFiltersBtnsPosition(){
-	var height = ($('.filters').offset().top-$(window).scrollTop());
-	if( height <= 50){
-		$('#filterButtons').addClass('buttonsTop');
-		$('#clear_filter').css('margin-top', '7px');
-		$('#applyFilter').css('margin-top', '7px');
-	}else{				
-		$('#filterButtons').removeClass('buttonsTop');
-		$('#clear_filter').css('margin-top', '');
-		$('#applyFilter').css('margin-top', '');
+	console.log($('.filters').length);
+	if($('.filters').length > 0){
+		if($('.filters').offset().top-$(window).scrollTop() <= 50){
+			$('#filterButtons').addClass('buttonsTop');
+			$('.filters').css('padding-top', $('#filterButtons').height());
+			$('#clear_filter, #applyFilter').css('margin-top', '7px');
+		}else{
+			$('.filters').css('padding-top', 0);
+			$('#filterButtons').removeClass('buttonsTop');
+			$('#clear_filter, #applyFilter').css('margin-top', '');
+		}
 	}
 }
 
@@ -2003,7 +1980,8 @@ function UpdateProductsList(page, arr){
 		componentHandler.upgradeDom();
 		$("img.lazy").lazyload({
 			effect : "fadeIn"
-		});
+		});		
 		ListenPhotoHover();//Инициализания Preview
+		resizeAsideScroll('show_more');		
 	});
 }

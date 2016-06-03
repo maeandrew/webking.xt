@@ -1,4 +1,27 @@
-<div class="products_page">
+<div class="products_page">	
+	<!-- Отображение подкатегорий в топе списка продуктов -->
+	<?if (!empty($category['subcats'])) {?>
+		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
+			<?php foreach ($category['subcats'] as $value) {?>
+				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
+					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">	
+					<span class="subCategoryTitle"><?=$value['name']?></span>
+				</a>
+			<?}?>
+		</div>
+	<?}?>
+
+	<?if (!empty($category['subcats'])) {?>
+		<div class="subCategories mobile_carousel mdl-cell--hide-phone">
+			<?php foreach ($category['subcats'] as $value) {?>
+				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
+					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">	
+					<span class="subCategoryTitle"><?=$value['name']?></span>
+				</a>
+			<?}?>
+		</div>
+	<?}?>
+
 	<div class="row">
 		<?if(!empty($list)){ ?>
 		<link href="http://xt/css/../themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
@@ -81,6 +104,22 @@
 	</div>
 </div><!--class="products"-->
 <script>
+	$('#owl-subcategories_slide_js').owlCarousel({
+			center:			true,
+			dots:			true,
+			items:			1,
+			lazyLoad:		true,
+			/*loop:			true,*/
+			margin:			20,
+			nav:			true,
+			/*video:			true,
+			videoHeight:	345,
+			videoWidth:		345,*/
+			navText: [
+				'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+				'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+			]
+	});
 	$(function(){
 		<?if(isset($_COOKIE['product_view'])){?>
 			// ChangeView('<?=$_COOKIE['product_view']?>');

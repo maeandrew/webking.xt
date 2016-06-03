@@ -363,3 +363,26 @@ function SendCatOrder(order){
 		$('.wrapp').removeClass('ajax_loading');
 	});
 }
+
+function RecalcSupplierCurrency(){
+	$("#popup_msg").fadeIn();
+	cur = parseFloat($("#currency_rate").val());
+	cur_old = parseFloat($("#currency_rate_old").val());
+	$.ajax({
+		url: '/ajaxsupdate',
+		type: "POST",
+		cache: false,
+		dataType: "json",
+		data: {
+			"action": "RecalcCurrency",
+			"cur": cur,
+			"cur_old": cur_old,
+			"id_supplier": id_supplier
+		}
+	}).done(function(){
+		setTimeout(function(){
+			$("#popup_msg").fadeOut();
+			location.reload();
+		},1000);
+	});
+}

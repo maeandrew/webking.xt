@@ -25,6 +25,8 @@ if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET
 if($infoJO){
 	if (isset($infoJO) && is_array($infoJO)){
 		foreach($infoJO as &$prod){
+			$tpl->Assign('list', $prod['productsFromCarts']);
+			$prod_list[$prod['id_cart']] = $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
 			$prod['sum_prods'] = 0;
 			foreach($prod['productsFromCarts'] as $v){
 				$prod['sum_prods'] += $v['sum_prod'];// общая сумма в корзине по всем заказам
@@ -43,6 +45,7 @@ if($infoJO){
 	}
 	$tpl->Assign('infoJO', $infoJO);
 }
+$tpl->Assign('prod_list', $prod_list);
 
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
@@ -165,7 +168,6 @@ $tpl->Assign('User', $User->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('order_statuses', $order_statuses);
 
-$tpl->Assign('prod_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl'));
 
 $parsed_res = array(
 	'issuccess' => TRUE,

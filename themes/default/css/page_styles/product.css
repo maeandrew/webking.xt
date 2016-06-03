@@ -601,6 +601,9 @@ div[for="rating_block"] {
 	.product .product_buy {
 		width: 100%;
 	}
+	.product .product_buy .quantity {
+		display: none;
+	}
 	.product .product_buy .buy_block .btn_remove,
 	.product .product_buy .buy_block .btn_add {
 		display: none !important;

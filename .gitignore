@@ -233,7 +233,8 @@ product_images/original/*
 .idea/*
 *.php-tmp
 images/1915900953.png
-*.png
+# *.png
+adm/**/*.png
 robots.txt
 robots.txt
 *.txt
