@@ -26,9 +26,11 @@ function GetLocation() {
 }
 
 // Получение корзины
-function GetCartAjax(){
+function GetCartAjax(reload){
 	$('#cart > .modal_container').html('');
-	openObject('cart');
+	if (!reload) {
+		openObject('cart');
+	}
 	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');
@@ -65,7 +67,6 @@ function UserRating(obj){
 		bool = 1;
 	}
 	ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
-		//typeof(data);
 		if(data === 0){
 			openObject('modal_message');
 		}
@@ -1250,7 +1251,7 @@ function ChangePriceRange(id, sum, val){
 					newSum = (3000 - sum).toFixed(2);
 					if(newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if(column === 0){
-							newSum = 10000 - sum;
+							newSum = (10000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
@@ -1279,11 +1280,11 @@ function ChangePriceRange(id, sum, val){
 					newSum = (500 - sum).toFixed(2);
 					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
 						if (column == 1){
-							newSum = 3000 - sum;
+							newSum = (3000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else if (column === 0){
-							newSum = 10000 - sum;
+							newSum = (10000 - sum).toFixed(2);
 							newSum = 'Дозаказать еще на '+newSum+' грн.';
 							$('.order_balance').text(newSum);
 						}else{
@@ -1373,6 +1374,9 @@ function openObject(id){
 		if(id=="cart"){
 			addLoadAnimation('#'+id);
 		}
+		if(id == 'phone_menu'){
+			$('[data-name="phone_menu"] i').text('close');
+		}
 		if(type == 'modal'){
 			object.find('.modal_container').css({
 				'max-height': $(window)*0.8
@@ -1399,7 +1403,7 @@ function closeObject(id){
 	}else{
 		$('#'+id).removeClass('opened');
 		if(id == 'phone_menu'){
-			$('[data-name="phone_menu"]').html('menu');
+			$('[data-name="phone_menu"] i').text('menu');
 		}
 	}
 	DeactivateBG();
@@ -1637,10 +1641,14 @@ function CompleteValidation(name, email, passwd, passconfirm){
 	return true;
 }
 
-function showModals() {
+function moveObjects() {
 	var modals = $('div:not(.modals) [data-type="modal"]');
 	modals.each(function(key, value){
 		$(".modals").append(value);
+	});
+	var panels = $('div:not(.panels) [data-type="panel"]');
+	panels.each(function(key, value){
+		$(".panels").append(value);
 	});
 }
 // Удаление товара из ассортимента поставщика в кабинете
@@ -2009,7 +2017,8 @@ function UpdateProductsList(page, arr){
 		componentHandler.upgradeDom();
 		$("img.lazy").lazyload({
 			effect : "fadeIn"
-		});
+		});		
 		ListenPhotoHover();//Инициализания Preview
+		resizeAsideScroll('show_more');		
 	});
 }

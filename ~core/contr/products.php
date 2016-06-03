@@ -12,6 +12,8 @@ $tpl->Assign('list_controls', $list_controls);
 $dbtree->SetFieldsById($id_category);
 $category = $dbtree->fields;
 G::metaTags($category);
+$category['subcats'] = $dbtree->GetSubCats($id_category, '*');
+$tpl->Assign('category', $category);
 // если отправили комментарий
 if(isset($_POST['com_qtn'])){
 	$put = $_POST['id_product'];

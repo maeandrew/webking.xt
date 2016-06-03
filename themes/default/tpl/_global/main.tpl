@@ -607,7 +607,7 @@
 		<div id="auth" data-type="modal">
 			<div id="sign_in" class="modal_container">
 				<h4>Вход</h4>
-				<span>Сопроводительный текст к форме входа.</span>
+				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="email"> <!-- pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" -->
@@ -621,13 +621,13 @@
 					</div>
 					<div class="error"></div>
 					<a href="#" class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Вход</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Войти</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_up">Регистрация</button>
 				</form>
 			</div>
 			<div id="sign_up" class="hidden modal_container">
 				<h4>Регистрация</h4>
-				<span>Сопроводительный текст к форме регистрации.</span>
+				<span></span>
 				<form action="#" class="forPassStrengthContainer_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="name" name="name">
@@ -636,8 +636,14 @@
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="phone" name="phone">
+						<label class="mdl-textfield__label" for="phone">Телефон</label>
+						<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
+					</div>
+
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
-						<label class="mdl-textfield__label" for="email">Email (логин)</label>
+						<label class="mdl-textfield__label" for="email">Email</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
 					</div>
 
@@ -663,7 +669,7 @@
 						<div id="password_error"></div>
 						<div class="error_description"></div>
 					</div>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_up">Регистрация</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_in">Вход</button>
 				</form>
 			</div>
@@ -793,6 +799,7 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_code_js hidden">Подтвердить</button>
 		</div>
 	</div>
+	<div class="panels"></div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
 			<style type="text/css">

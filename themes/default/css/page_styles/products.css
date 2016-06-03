@@ -862,7 +862,7 @@ label.info_key {
 }
 .preview #owl-product_slide_js .owl-item img {
 	max-height: 305px;
-	max-width: 100%;
+	max-width: 90%;
 	display: block;
 	margin: 0 auto;
 }

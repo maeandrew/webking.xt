@@ -99,22 +99,22 @@ class Cart {
 	 * @param integer $id_product [description]
 	 * @param boolean $id_cart    [description]
 	 */
-	public function RemoveFromCart($id_product, $id_cart = false){
-		unset($_SESSION['cart']['products'][$id_product]);
-		if($id_cart){
-			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
-				WHERE id_cart = ". $id_cart ."
-				AND id_product = ".$id_product;
-			$this->db->StartTrans();
-			if(!$this->db->Query($sql)){
-				$this->db->FailTrans();
-				return false;
-			}
-			$this->db->CompleteTrans();
-		}
-		$this->RecalcCart();
-		return $_SESSION['cart'];
-	}
+//	public function RemoveFromCart($id_product, $id_cart = false){
+//		unset($_SESSION['cart']['products'][$id_product]);
+//		if($id_cart){
+//			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
+//				WHERE id_cart = ". $id_cart ."
+//				AND id_product = ".$id_product;
+//			$this->db->StartTrans();
+//			if(!$this->db->Query($sql)){
+//				$this->db->FailTrans();
+//				return false;
+//			}
+//			$this->db->CompleteTrans();
+//		}
+//		$this->RecalcCart();
+//		return $_SESSION['cart'];
+//	}
 
 	// пересчет корзины
 	public function RecalcCart(){
@@ -249,15 +249,27 @@ class Cart {
 		return true;
 	}
 
-
-
-
-
-
 	// Добавление и проверка корзины в БД
 	public function DBCart(){
 		if(isset($_SESSION['cart']['id'])){
-			# обновить корзину в БД по id
+			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
+			if(isset($_SESSION['cart']['promo'])&&$_SESSION['cart']['promo'] !=''&&$_SESSION['cart']['adm'] == 0){
+				$f['ready'] = 0;
+				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
+			}
+			//Удаляет товар из корзины
+			if(isset($_POST['id_prod_for_remove'])){
+				unset($_SESSION['cart']['products'][$_POST['id_prod_for_remove']]);
+				$this->db->StartTrans();
+				if(!$this->db->DeleteRowsFrom(_DB_PREFIX_."cart_product",  array("id_cart = ".$_SESSION['cart']['id'], "id_product = ".$_POST['id_prod_for_remove']))){
+					$this->db->FailTrans();
+					return false;
+				}
+				$this->db->CompleteTrans();
+				$this->RecalcCart();
+				return $_SESSION['cart'];
+			}
+			// Обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
 				$f['quantity'] = $product['quantity'];
 				$f['price'] = $product['base_price'];
@@ -548,7 +560,7 @@ class Cart {
 	//Формирование промокода
 	public function CreatePromo($prefix){
 		$promo = $prefix.G::GenerateVerificationCode();
-		if(!$this->UpdateCart($promo, 10, 1, 0)){
+		if(!$this->UpdateCart($promo, 10, 1, 1)){
 			return false;
 		}
 		return $promo;
@@ -564,7 +576,7 @@ class Cart {
 			.($adm !== false?"adm = ".$adm.", ":null)
 			.($ready !== false?"ready = ".$ready.", ":null);
 		$sql = substr($sql, 0, -2);
-		$sql .= " WHERE id_cart = ". $id_cart;
+		$sql .= " WHERE id_cart = ". $id_cart; 
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();

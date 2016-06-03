@@ -150,7 +150,7 @@ function removeFromCart(id){
 			ChangePriceRange(3, 0, 0);
 		});
 	}else{
-		ajax('cart', 'remove_from_cart', {id: id}).done(function(data){
+		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
 			var sum = 0;
 			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
 			if($.cookie('manual') === 0){
@@ -225,6 +225,12 @@ function removeFromCart(id){
 				default:
 					console.log('не работает');
 			}
+
+			$('.cart_order_sum').text(data.cart_sum);
+			$.each(data.products, function(key, value){
+				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart_column].toFixed(2));
+				$('.order_mopt_sum_'+key).text(value.summary[data.cart_column].toFixed(2));
+			});
 
 			if(data.products.length === 0){
 				ChangePriceRange(3, 0, 0);
