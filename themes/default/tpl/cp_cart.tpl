@@ -327,12 +327,12 @@
 					<?}else{?>
 						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
 					<?}?>
-					<?if($_SESSION['cart']['adm'] == 1) {?>
+					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
 						<div class="">
 							<div class="info_admin">Информация для организатора совместной покупки</div>
 							<a href="#"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
-					<?}else if($_SESSION['cart']['adm'] == 0) {?>
+					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 							<div class="info_client">Информация для клиента совместной покупки</div>
@@ -353,7 +353,7 @@
 							<div class="tooltip_wrapp joint_purchase_js">
 								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 									<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
-									<span class="mdl-radio__label">Организовать совместный заказ</span>
+									<span class="mdl-radio__label">Cовместный заказ</span>
 										<label class="info_key" style="position: initial;">?</label>
 										<div class="info_description">Перейти к оформлению совместного заказа</div>
 								</label>
@@ -408,9 +408,7 @@
 				$('.joint_purchase_continue_js').click(function(event) {
 					ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp) {
 						$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
-						$('.cart_choiсe_wrapp_js').addClass('hidden');
-						$('.apply_promoCode_js').addClass('hidden');
-						$('.del_promo_wrapp_js').removeClass('hidden');
+						GetCartAjax(true);
 					}).fail(function(resp) {
 						console.log('fail ajax');
 					});
@@ -437,7 +435,8 @@
 				$('.confirm_del_promoCode_js').click(function(event) {
 					ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
 						$('.promo_input_js input').attr('value', '');
-						$('cart_warning_js').addClass('hidden');
+						// $('.cart_warning_js').addClass('hidden');
+						GetCartAjax(true);
 					}).fail(function(event) {
 						console.log("fail del promo");
 					});
