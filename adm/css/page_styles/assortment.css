@@ -1,3 +1,24 @@
+.row:first-child {
+	margin-bottom: 10px;
+}
+.textBold {
+	font-weight: 600;
+}
+.line:last-child {
+	border-bottom: none;
+}
+.tac {
+	text-align: center;
+}
+.fleft {
+	float: left;
+}
+.fright {
+	float: right;
+}
+.clearfix {
+	clear: both;
+}
 .product_list input.price {
 	max-width: 90px;
 }
@@ -7,4 +28,64 @@
 }
 .icon-remove:hover {
 	color: red;
+}
+.infoBlock {
+	border: 1px solid #444444;
+	border-radius: 5px;
+	padding: 0;
+	background-color: #f2f2f2;
+	margin-bottom: 80px;
+}
+.infoTitle {
+	min-height: 30px;
+	background-color: #444444;
+	color: #fff;
+	font-size: 1.1em;
+	line-height: 2em;
+}
+.line {
+	min-height: 30px;
+	border-bottom: 1px solid #A5A5A5;
+	margin: 0 10px;
+    padding: 5px 0;
+}
+.redBlock {
+	border: 1px solid red;
+	background-color: #FDF0F0;
+	border-radius: 5px;
+	padding: 10px;
+}
+.flexWrap {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.flexWrap input {
+	flex: 1 1 20%;
+	margin-right: 10px;
+}
+.flexWrap button {
+	flex: 0 0 105px;
+}
+.dollar input {
+	padding: 5px;
+}
+.excelBlock {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.add_functions p {
+	margin: 10px;
+}
+.import_excel,
+.export_excel,
+.excelBlock input {
+	width: 100%;
+	margin-bottom: 5px;
+}
+.excelBlock input {
+	padding: 5px;
+}
+.add_functions {
+	/*padding: 5px;*/
 }

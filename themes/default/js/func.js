@@ -971,10 +971,14 @@ function resizeAsideScroll(event) {
 		var scroll = $(this).scrollTop(),
 			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
 			console.log(pieceOfFooter > 0?pieceOfFooter:0);
-		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0)).css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
-		
+		if (pieceOfFooter >= 0) {
+			$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
+		}
+		$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');		
 		if(event == 'load'){
 			changeFiltersBtnsPosition();
+		}else if(event == 'show_more'){
+			$('aside').css('bottom', 'auto');
 		}
 	// }
 	return true;

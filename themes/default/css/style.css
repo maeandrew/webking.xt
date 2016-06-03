@@ -2378,6 +2378,9 @@ section .stat_year {
 	aside {
 		width: 260px;
 	}
+	aside .filters .buttonsTop {
+		width: 245px;
+	}
 	section.center {
 		width:calc(100% - 260px);
 	}
