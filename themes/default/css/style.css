@@ -460,22 +460,35 @@ body:not(.c_main) .banner {
 	overflow: hidden;
 }
 [data-type="panel"] {
-	/*display: none;*/
 	margin: 0;
 	background: #fff;
 	box-shadow: 0px 1px 3px rgba(0,0,0,.3);
 	position: fixed;
 	top: 52px;
 	bottom: 0;
-	width: 80vw;
-	right: -80vw;
 	overflow: hidden;
 	overflow-y: scroll;
+}
+@media screen and (orientation: portrait) {
+	[data-type="panel"] {
+		width: 80vw;
+	}
 }
 [data-type="panel"].opened {
 	display: block;
 	z-index: 100;
+}
+[data-type="panel"][data-position="right"] {
+	right: -80vw;
+}
+[data-type="panel"][data-position="right"].opened {
 	right: 0;
+}
+[data-type="panel"][data-position="left"] {
+	left: -80vw;
+}
+[data-type="panel"][data-position="left"].opened {
+	left: 0;
 }
 .phone_menu .phone_nav {
 	padding: 1em;

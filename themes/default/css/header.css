@@ -75,13 +75,13 @@ header .header_wrapp .header_right .phone_menu {
 }
 .userContainer {
 	width: 100%;
-	/*height: 244px;*/
+	overflow: auto;
 }
 header .userContainer {
 	width: 350px;
 }
 .userContainer > div {
-	padding: 10px 0;
+	padding: 10px;
 }
 header .userContainer > div {
 	padding: 10px;
