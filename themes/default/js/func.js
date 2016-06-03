@@ -26,9 +26,11 @@ function GetLocation() {
 }
 
 // Получение корзины
-function GetCartAjax(){
+function GetCartAjax(reload){
 	$('#cart > .modal_container').html('');
-	openObject('cart');
+	if (!reload) {
+		openObject('cart');
+	}
 	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');

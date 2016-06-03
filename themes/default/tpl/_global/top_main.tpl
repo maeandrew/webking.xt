@@ -8,10 +8,10 @@
 				<div class="mdl-textfield mdl-js-textfield search">
 					<i class="material-icons mob_s_btn">search</i>
 					<input class="mdl-textfield__input btn_js" name="query" type="search" id="search" data-name="header_js" value="<?if (isset($_GET['query'])) print_r($_GET['query']);?>">
-					<input class="category2search" name="category2search" type="hidden" value="">
-					<label class="mdl-textfield__label" for="search"><? if(!isset($_GET['query'])){ ?>Найти...<?} else { ?> <?}?></label>
-					<i class="material-icons search_close" title="Закрыть поиск">close</i>				
-					<div class="select_category fright mdl-cell--hide-phone mdl-cell--hide-tablet imit_select">
+					<!-- <input class="category2search" name="category2search" type="hidden" value=""> -->
+					<!-- <label class="mdl-textfield__label" for="search"><? if(!isset($_GET['query'])){ ?>Найти...<?} else { ?> <?}?></label> -->
+					<!-- <i class="material-icons search_close" title="Закрыть поиск">close</i>				 -->
+					<!-- <div class="select_category fright mdl-cell--hide-phone mdl-cell--hide-tablet imit_select">
 						<button id="category-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
 							<?if(!G::isMobile()){?>
 								<span class="selected_cat select_field">По всем категориям</span>
@@ -25,7 +25,7 @@
 								<?if(isset($_GET['category2search']) && $_GET['category2search'] == $v['id_category']){ ?> <script> $('span.selected_cat').html("<?=$v['name']?>"); </script><?}?>
 							<?}?>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 				<button type="submit" class="mdl-button mdl-js-button mdl-cell--hide-phone search_btn">Найти</button>
 			</form>

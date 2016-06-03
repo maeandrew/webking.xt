@@ -28,7 +28,7 @@
 }
 .cont > a {
 	border-radius: .4em;
-	padding: 3%;
+	padding: 2em;
 	flex-basis: 25%;
 	flex-grow: 0;
 	-webkit-transition: all .5s cubic-bezier(.4,0,.2,1);
