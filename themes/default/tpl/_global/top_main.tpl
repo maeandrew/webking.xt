@@ -67,39 +67,39 @@
 				}?>
 			</div>
 		</div>
-		<div id="phone_menu" data-type="panel" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">
-			<div class="user_profile user_profile_js">
-				<?php if(G::isLogged()){
-					echo $user_profile;
-				}else{?>
-					<div class="loginButton">
-						<p>Войдите в свой личный кабинет на xt.ua или создайте новый</p>
-						<a href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent login_btn">Войти</a>
-					</div>
-				<?}?>
-			</div>
-			<ul class="phone_nav">
-				<?foreach($list_menu as &$menu){?>
-					<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
-				<?}?>
-			</ul>
-			<ul class="phone_nav_contacts">
-				<li class="parent_nav">
-					<i class="material-icons">phone</i>
-					<a href="tel:(063) 225-91-83">(063) 225-91-83</a>
-					<a href="tel:(099) 228-69-38">(099) 228-69-38</a>
-					<a href="tel:(093) 322-91-83">(093) 322-91-83</a>
-				</li>
-				<li class="parent_nav">
-					<i class="material-icons">mail</i>
-					<a href="mailto:administration@x-torg.com">administration@x-torg.com</a>
-				</li>
-				<li class="parent_nav">
-					<i class="material-icons">location_on</i>
-					<a href="https://www.google.com/maps/place/вул. Тюрінська, 130, Харків, Харківська+область, Україна" target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
-				</li>
-			</ul>
+	</div>
+	<div id="phone_menu" data-type="panel" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">
+		<div class="user_profile user_profile_js">
+			<?php if(G::isLogged()){
+				echo $user_profile;
+			}else{?>
+				<div class="loginButton">
+					<p>Войдите в свой личный кабинет на xt.ua или создайте новый</p>
+					<a href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent login_btn">Войти</a>
+				</div>
+			<?}?>
 		</div>
+		<ul class="phone_nav">
+			<?foreach($list_menu as &$menu){?>
+				<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+			<?}?>
+		</ul>
+		<ul class="phone_nav_contacts">
+			<li class="parent_nav">
+				<i class="material-icons">phone</i>
+				<a href="tel:(063) 225-91-83">(063) 225-91-83</a>
+				<a href="tel:(099) 228-69-38">(099) 228-69-38</a>
+				<a href="tel:(093) 322-91-83">(093) 322-91-83</a>
+			</li>
+			<li class="parent_nav">
+				<i class="material-icons">mail</i>
+				<a href="mailto:administration@x-torg.com">administration@x-torg.com</a>
+			</li>
+			<li class="parent_nav">
+				<i class="material-icons">location_on</i>
+				<a href="https://www.google.com/maps/place/вул. Тюрінська, 130, Харків, Харківська+область, Україна" target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
+			</li>
+		</ul>
 	</div>
 </div>
 

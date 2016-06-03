@@ -960,70 +960,31 @@ function ajax(target, action, data, dataType){
 }
 // Change sidebar aside height
 function resizeAsideScroll(event) {
-	var mainWindow = +$.cookie('mainWindow');	
-	var header_height = +$.cookie('headerHeight');	
+	console.log(event);
+	// var mainWindow = +$.cookie('mainWindow');
+	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
 	var newMainWindow = $('.main').height();
 	
-	if (newMainWindow != mainWindow) {
-		switch (event) {
-			case 'load':				
-				var scroll = $(this).scrollTop(); 	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				var pieceOfHeader = mainWindow - (scroll + viewPort) + header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-					$('aside').css('top', pieceOfHeader);
-				}else{
-					$('aside').css('bottom', 0);
-				}				
-				changeFiltersBtnsPosition();
-				break;
-			case 'resize':				
-				var scroll = $(this).scrollTop(); 	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-				}
-				break;
-			case 'click':
-				var scroll = $(this).scrollTop();  	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-				}
-				break;
-			case 'show_more':
-				var scroll = $(this).scrollTop(); 	
-				mainWindow = newMainWindow;
-				$.cookie('mainWindow', mainWindow, { path: '/'});
-				var pieceOfFooter = (scroll + viewPort) - mainWindow - header_height;		
-				if (pieceOfFooter >= 0) {
-					$('aside').css('bottom', pieceOfFooter);
-				}else{
-					$('aside').css('bottom', 0);
-					$('aside').css('top', header_height);			
-				}
-				break;
+	// if(newMainWindow != mainWindow){
+		// $.cookie('mainWindow', newMainWindow, { path: '/'});
+		var scroll = $(this).scrollTop(),
+			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
+			console.log(pieceOfFooter > 0?pieceOfFooter:0);
+		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0)).css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+		
+		if(event == 'load'){
+			changeFiltersBtnsPosition();
 		}
-	}	
+	// }
+	return true;
 }
 
 // Change product view
 function ChangeView(view){
 	switch (view) {
 		case 'list':
-			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');			
+			$('#view_block_js').removeClass().addClass('list_view col-md-12 ajax_loading');
 			break;
 		case 'block':
 			$('#view_block_js').removeClass().addClass('block_view col-md-12 ajax_loading');
@@ -1855,15 +1816,17 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function changeFiltersBtnsPosition(){
-	var height = ($('.filters').offset().top-$(window).scrollTop());
-	if( height <= 50){
-		$('#filterButtons').addClass('buttonsTop');
-		$('#clear_filter').css('margin-top', '7px');
-		$('#applyFilter').css('margin-top', '7px');
-	}else{				
-		$('#filterButtons').removeClass('buttonsTop');
-		$('#clear_filter').css('margin-top', '');
-		$('#applyFilter').css('margin-top', '');
+	console.log($('.filters').length);
+	if($('.filters').length > 0){
+		if($('.filters').offset().top-$(window).scrollTop() <= 50){
+			$('#filterButtons').addClass('buttonsTop');
+			$('.filters').css('padding-top', $('#filterButtons').height());
+			$('#clear_filter, #applyFilter').css('margin-top', '7px');
+		}else{
+			$('.filters').css('padding-top', 0);
+			$('#filterButtons').removeClass('buttonsTop');
+			$('#clear_filter, #applyFilter').css('margin-top', '');
+		}
 	}
 }
 
