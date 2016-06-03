@@ -59,10 +59,6 @@ header .header_wrapp .header_right .profile img {
 	max-width: 100%;
 	vertical-align: top;
 }
-header .header_wrapp .header_right .user_profile {
-	max-height: 80vh;
-	overflow: auto;
-}
 header .header_wrapp .header_right .phone_menu {
 	margin: 0;
 }

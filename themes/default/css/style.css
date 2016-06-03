@@ -488,7 +488,6 @@ body:not(.c_main) .banner {
 }
 .phone_menu .user_profile {
 	padding: 10px;
-	overflow: auto;
 }
 .phone_menu .phone_nav_contacts {
 	padding: 1em;
@@ -3220,9 +3219,6 @@ section .stat_year {
 	}
 }
 @media (max-width: 360px) {
-	body {
-		padding-top: 45px;
-	}
 	footer .copyright {
 		text-align: center;
 	}
