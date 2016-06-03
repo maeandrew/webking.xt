@@ -50,7 +50,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12 infoBlock sb_block">
+		<div class="col-lg-2 col-md-3 col-sm-8 col-xs-12 infoBlock sb_block">
 				
 				<!-- <table class="list">
 					<thead>
@@ -130,7 +130,7 @@
 					</div>
 				</div>
 		</div>
-		<div class="col-lg-5 col-md-6 col-sm-8 col-xs-12 sb_block">
+		<div class="col-lg-6 col-md-9 col-sm-8 col-xs-12 sb_block">
 			<div class="cabinet_block">
 				<div class="redBlock">
 					<div class="dollar">
