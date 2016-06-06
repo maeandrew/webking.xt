@@ -89,7 +89,7 @@
 				<?break;
 				case 'delivery':?>
 					<div class="line region">
-						<label for="id_region">Область</label>
+						<label for="id_region">Область</label><br>
 						<select required="required" name="id_region" id="id_region" onChange="regionSelect(id_region.value);">
 							<option selected="selected" disabled="disabled">Выберите область</option>
 							<?foreach($allregions as $region){ ?>
@@ -98,7 +98,7 @@
 						</select>
 					</div>
 					<div class="line city">
-						<label for="id_city">Город</label>
+						<label for="id_city">Город</label><br>
 						<select required="required" name="id_city" id="id_city" onChange="citySelect(id_city.value);">
 							<?foreach($availablecities as $city){?>
 								<option <?=$city['name'] == $savedcity['name']?'selected="selected"':null;?> value="<?=$city['names_regions']?>"><?=$city['name']?></option>
@@ -106,7 +106,7 @@
 						</select>
 					</div>
 					<div class="line id_delivery">
-						<label for="id_delivery">Способ доставки</label>
+						<label for="id_delivery">Способ доставки</label><br>
 						<select required="required" name="id_delivery" id="id_delivery" onChange="deliverySelect();">
 							<?foreach($alldeliverymethods as $dm){?>
 								<option <?=$dm['id_delivery'] == $Customer['id_delivery']?'selected="selected"':null;?> value="<?=$dm['id_delivery']?>"><?=$dm['name']?></option>

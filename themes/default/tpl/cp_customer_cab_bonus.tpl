@@ -35,18 +35,27 @@
 						</div>
 						<div class="bonus_reg_block">
 							<div id="bonus_card_line" class="line">
-								<label for="bonus_card">№ бонусной карты: <span class="required">*</span></label>
-								<input type="text" name="bonus_card" id="bonus_card" autocomplete="off" value="<?=$Customer['bonus_card']?>" required />
+								<label for="bonus_card">№ бонусной карты: <span class="required">*</span></label><br>
+								<input type="text" name="bonus_card" id="bonus_card" class="shortFild" autocomplete="off" value="<?=$Customer['bonus_card']?>" required />
 								<div id="passwdconfirm_error"></div>
 							</div>
 							<div id="sex_line" class="line">
 								<label>Пол: <span class="required">*</span></label>
 								<p>
-									<label class="sex" for="sex_male">
+									<!-- <label class="sex" for="sex_male">
 										<input type="radio" name="sex" id="sex_male" value="male" required /> Мужчина
 									</label>
 									<label class="sex" for="sex_female">
 										<input type="radio" name="sex" id="sex_female" value="female" required /> Женщина
+									</label> -->
+									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect sex" for="sex_male">
+										<input type="radio" id="sex_male" class="mdl-radio__button" name="sex" value="male" required>
+										<span class="mdl-radio__label">Мужчина</span>
+									</label>
+
+									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sex_female">
+										<input type="radio" class="mdl-radio__button" name="sex" id="sex_female" value="female" required>
+										<span class="mdl-radio__label">Женщина</span>
 									</label>
 								</p>
 							</div>
@@ -88,8 +97,8 @@
 								<!--<input type="date" name="birthday" id="birthday" required />-->
 							</div>
 							<div id="learned_from_line" class="line">
-								<label for="learned_from">Как впервые узнали о нашем интернет-магазине? <span class="required">*</span></label>
-								<select name="learned_from" id="learned_from" required>
+								<label for="learned_from">Как впервые узнали<br>о нашем интернет-магазине? <span class="required">*</span></label><br>
+								<select name="learned_from" id="learned_from" required class="shortFild">
 									<option value="" disabled selected></option>
 									<option value="Поисковые системы">Поисковвые системы</option>
 									<option value="Рекомендации друзей, коллег, знакомых">Рекомендации друзей, коллег, знакомых</option>
@@ -101,8 +110,8 @@
 								</select>
 							</div>
 							<div id="buy_volume_line" class="line">
-								<label for="buy_volume">Цели покупок: <span class="required">*</span></label>
-								<select name="buy_volume" id="buy_volume" required>
+								<label for="buy_volume">Цели покупок: <span class="required">*</span></label><br>
+								<select name="buy_volume" id="buy_volume" required class="shortFild">
 									<option value="" disabled selected></option>
 									<option value="Личные нужды">Личные нужды</option>
 									<option value="Для реализации">Для реализации</option>
