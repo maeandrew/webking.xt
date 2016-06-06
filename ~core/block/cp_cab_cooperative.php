@@ -45,7 +45,9 @@ if($infoJO){
 	}
 	$tpl->Assign('infoJO', $infoJO);
 }
-$tpl->Assign('prod_list', $prod_list);
+if(isset($prod_list)) {
+	$tpl->Assign('prod_list', $prod_list);
+}
 
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);

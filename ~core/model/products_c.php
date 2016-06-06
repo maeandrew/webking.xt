@@ -178,6 +178,14 @@ class Products {
 		foreach ($arr as $p){
 			$catarr[] = $p['id_category'];
 		}
+		foreach ($arr as &$v) {
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+			}
+		}
 		$arr[0]['categories_ids'] = $catarr;
 		$this->fields = $arr[0];
 		return true;
@@ -2807,7 +2815,7 @@ class Products {
 				//заносим значения ячеек одной строки в отдельный массив
 				array_push($item, $cell->getCalculatedValue());
 			}
-			//заносим массив со значениями ячеек отдельной строки в "общий массв строк"
+			//заносим массив со значениями ячеек отдельной строки в "общий массив строк"
 			array_push($array, $item);
 		}
 		$ca = $this->GetExcelAssortColumnsArray();
