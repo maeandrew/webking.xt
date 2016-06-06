@@ -68,7 +68,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="phone_menu" data-type="panel" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">
+	<div id="phone_menu" data-type="panel" data-position="right" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">
 		<div class="user_profile user_profile_js">
 			<?php if(G::isLogged()){
 				echo $user_profile;

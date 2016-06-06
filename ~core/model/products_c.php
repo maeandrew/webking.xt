@@ -1943,7 +1943,7 @@ class Products {
 	 * [UpdateSitePricesMassive description]
 	 * @param [type] $arr [description]
 	 */
-	public function UpdateSitePricesMassive($arr){// print_r($arr); die();
+	public function UpdateSitePricesMassive($arr){
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
@@ -2880,7 +2880,6 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function AddProductToAssort($id_product, $id_supplier, $arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$this->db->StartTrans();
 		$f['id_product'] = $id_product;
 		$f['id_supplier'] = $id_supplier;
 		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
@@ -2899,12 +2898,13 @@ class Products {
 			$f['inusd'] = 1;
 		}
 		$f['sup_comment'] = trim($arr['sup_comment']);
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 	}
 	/**
 	 * Обновление
@@ -2931,15 +2931,15 @@ class Products {
 			$f['inusd'] = 1;
 		}
 		$f['sup_comment'] = trim($arr['sup_comment']);
-		$this->db->StartTrans();
 		global $Supplier;
 		$id_supplier = $Supplier->fields['id_user'];
+		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = {$id_product} AND id_supplier = {$id_supplier}")){
 			$this->db->FailTrans();
 			return false;
 		}
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
 	/**

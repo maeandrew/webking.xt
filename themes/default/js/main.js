@@ -55,9 +55,9 @@ $(function(){
 			shown_products = (page.find('.card').get()).length,
 			skipped_products = 30*(start_page-1),
 			count = $(this).data('cnt');
-		console.log(page.find('.paginator li.active'));
+		/*console.log(page.find('.paginator li.active'));
 		console.log('start_page '+start_page);
-		console.log('shown_products '+shown_products);
+		console.log('shown_products '+shown_products);*/
 		$('.show_more').append('<span class="load_more"></span>');
 		var data = {
 			action: 'getmoreproducts_desctop',
@@ -66,7 +66,7 @@ $(function(){
 			skipped_products: skipped_products
 		};
 		addLoadAnimation('.show_more_js');
-		ajax('products', 'getmoreproducts', data, 'html').done(function(data){
+		ajax('product s', 'getmoreproducts', data, 'html').done(function(data){
 			removeLoadAnimation('.show_more_js');				
 	   		var product_view = $.cookie('product_view'),
 	   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
