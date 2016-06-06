@@ -118,7 +118,7 @@ $(function(){
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
 	var seoText = $('#seoTextBlock').text();
 	if (seoText.length > 1000){
-		$('#seoTextBlock').css('height', '175px').parent('.mdl-grid')
+		$('#seoTextBlock').css('height', '186px').parent('.mdl-grid')
 		.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect hidden">Свернуть</button>');
 	}
 	$('#expand_btn').click(function() {
@@ -127,7 +127,7 @@ $(function(){
 		$('#rollUp_btn').removeClass('hidden');
 	});
 	$('#rollUp_btn').click(function() {
-		$('#seoTextBlock').css({'height': '175px'});
+		$('#seoTextBlock').css({'height': '186px'});
 		$(this).addClass('hidden');
 		$('#expand_btn').removeClass('hidden');
 	});
