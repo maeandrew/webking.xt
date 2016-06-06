@@ -134,32 +134,36 @@
 </ul> -->
 <script>
 	$(document).ready(function() {
-		if ($(document).outerWidth() > 1150) {
-			$('.cab_left_bar_js').on('click','.link_wrapp', function() {
-				var parent = $(this).closest('li'),
-					parent_active = parent.hasClass('active');
-				$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow');
+		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
+			var parent = $(this).closest('li'),
+				parent_active = parent.hasClass('active');
+			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow');
+			if ($(document).outerWidth() < 1060) {
+				parent.closest('.page_content_js').removeClass('negativeZIndex');
+			}
 
-				if(!parent_active){
-					parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
+			if(!parent_active){
+				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
+				if ($(document).outerWidth() < 1060) {
+					parent.closest('.page_content_js').addClass('negativeZIndex');
 				}
-			});
-			$('.show').slideDown('slow');
-		}
-
-		$('.cab_left_bar_js > ul > li').click(function(event) {
-			if($(this).hasClass('active_icon')){
-				$(this).removeClass('active_icon');
-			}else if(($(this).closest('ul').find('li.active_icon')).length == 1) {
-				$('.cab_left_bar_js li.active_icon').removeClass('active_icon');
-				$(this).find('.link_wrapp i').removeClass('active');
-				$(this).addClass('active_icon_js active_icon');
-				$(this).find('.link_wrapp i').addClass('active');
-			}else{
-				$(this).addClass('active_icon_js active_icon');
-				$(this).find('.link_wrapp i').addClass('active');
-			}			
+			}
 		});
+		$('.show').slideDown('slow');
+
+		// $('.cab_left_bar_js > ul > li').click(function(event) {
+		// 	if($(this).hasClass('active_icon')){
+		// 		$(this).removeClass('active_icon');
+		// 	}else if(($(this).closest('ul').find('li.active_icon')).length == 1) {
+		// 		$('.cab_left_bar_js li.active_icon').removeClass('active_icon');
+		// 		$(this).find('.link_wrapp i').removeClass('active');
+		// 		$(this).addClass('active_icon_js active_icon');
+		// 		$(this).find('.link_wrapp i').addClass('active');
+		// 	}else{
+		// 		$(this).addClass('active_icon_js active_icon');
+		// 		$(this).find('.link_wrapp i').addClass('active');
+		// 	}
+		// });
 
 		/*$('.cab_left_bar_js').on('click','.active_order_js', function() {
 			var id_cart = $(this).find('input').data('idcart'),
