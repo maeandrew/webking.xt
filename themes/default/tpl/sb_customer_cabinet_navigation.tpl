@@ -1,7 +1,7 @@
 <div id="cab_left_bar" class="cab_left_bar_js" data-lvl="1">
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
-		<li id="icon_face" class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
+		<li id="icon_face" <?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']==''?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
@@ -17,7 +17,7 @@
 				</li>
 			</ul>
 		</li>
-		<li id="icon_shopping_cart" class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='orders'?'active':null;?>">
+		<li id="icon_shopping_cart" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='orders'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">shopping_cart</i><span class="textInALink">Мои заказы</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
@@ -41,13 +41,13 @@
 				</li>
 			</ul>
 		</li>
-		<li id="icon_person_add" class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative'?'active':null;?>">
+		<li id="icon_person_add" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">person_add</i><span class="textInALink">Совместные заказы</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
 				<div class="mdl-tooltip" for="icon_person_add">Совместные заказы</div>
 			</span>
-			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cabinet/cooperative'?'active show':null;?>">
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'?'active show':null;?>">
 				<!--<li>
 					<a name="t" value="joall" class="all <?=(isset($_GET['t']) && $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joall">Все</a>
 				</li>-->
@@ -68,7 +68,7 @@
 				<div class="mdl-tooltip" for="icon_people">Списки друзей</div>
 			</span>
 		</li>
-		<li id="icon_settings" class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'active':null;?>">
+		<li id="icon_settings" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">settings</i><span class="textInALink">Настройки</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
@@ -83,7 +83,7 @@
 				</li>
 			</ul>
 		</li>
-		<li id="icon_add_shopping_cart" class="<?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active':null;?>">
+		<li id="icon_add_shopping_cart" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">add_shopping_cart</i><span class="textInALink">Бонусная программа</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
