@@ -31,7 +31,7 @@
 			</form>
 		</div>
 		<div class="cart_item">
-			<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
+			<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart" onClick="_gaq.push(['_trackEvent', 'Button', 'Click', 'korzina', 'Ценность']);"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
 		</div>
 		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone">
 			<?$rand = rand(0, count($list_menu)-1);?> 
