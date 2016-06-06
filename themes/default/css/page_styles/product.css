@@ -179,9 +179,11 @@
 .product .product_buy .buy_block > div {
 	margin-right: 20px;
 }
-.product .product_buy .buy_block .price {
+.product .product_buy .buy_block .price,
+.product .product_buy .buy_block span {
 	font-size: 2em;
 }
+
 .product .product_buy .buy_block .price span {
 	margin-left: 10px;
 }
@@ -615,8 +617,9 @@ div[for="rating_block"] {
 }
 
 @media (max-width: 400px) {
-	.product .product_buy .buy_block .price {
+	.product .product_buy .buy_block .price,
+	.product .product_buy .buy_block span {
 		font-size: 1.7em;
-	}
+	}	
 }
 
