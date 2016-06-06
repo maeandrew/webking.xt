@@ -1,7 +1,7 @@
 <div id="cab_left_bar" class="cab_left_bar_js" data-lvl="1">
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
-		<li id="icon_face" <?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']==''?'class="active"':null;?>>
+		<li id="icon_face" class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
