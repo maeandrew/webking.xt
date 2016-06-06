@@ -264,6 +264,17 @@ label:hover + .info_description {
 	-o-filter: blur(2px);
 	filter: blur(2px);
 }
+
+/* Internet Explorer 10+, Microsoft Edge Browser */
+_:-ms-lang(x), [class^="active_"] .banner,
+[class*=" active_"] .banner,
+[class^="active_"] .center ,
+[class*=" active_"] .center,
+[class^="active_"] footer,
+[class*=" active_"] footer { 
+	filter: none; 
+}
+
 [class^="active_"],
 [class*=" active_"] {
 	overflow: hidden;
