@@ -329,14 +329,14 @@
 					<?}?>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
 						<div class="">
-							<div class="info_admin">Для управления совместной покупки, перейдите  личный кабинет.</div>
-							<a href="#"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
+							<div class="info_admin">Для управления совместной покупкой, перейдите  личный кабинет.</div>
+							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
 					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждение администратора.</div>
-							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готово"/>
+							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
+							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
 						</div>
 					<?}?>
 				
