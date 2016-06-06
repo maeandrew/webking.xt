@@ -66,7 +66,7 @@ $(function(){
 			skipped_products: skipped_products
 		};
 		addLoadAnimation('.show_more_js');
-		ajax('product s', 'getmoreproducts', data, 'html').done(function(data){
+		ajax('products', 'getmoreproducts', data, 'html').done(function(data){
 			removeLoadAnimation('.show_more_js');				
 	   		var product_view = $.cookie('product_view'),
 	   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
