@@ -261,8 +261,8 @@
 					<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
 						<?foreach($item['specifications'] as $s){?>
 							<div class="mdl-grid">
-								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone"><?=$s['caption']?>:</div>
-								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['caption']?>:</div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
 							</div>
 						<?}?>
 					<?}else{?>

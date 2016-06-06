@@ -614,5 +614,9 @@ div[for="rating_block"] {
 	}
 }
 
-
+@media (max-width: 400px) {
+	.product .product_buy .buy_block .price {
+		font-size: 1.7em;
+	}
+}
 
