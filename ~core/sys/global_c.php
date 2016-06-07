@@ -626,15 +626,15 @@ class G {
 		if(!$res){
 			return false;
 		}
-		if (!file_exists('sitemap')) {
-			mkdir('sitemap', 0777, true);
+		if (!file_exists($GLOBALS['PATH_global_root'].'sitemap')) {
+			mkdir($GLOBALS['PATH_global_root'].'sitemap', 0777, true);
 		}
 		$result = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
 		foreach($res as &$val){
 			$result .= implode($val)."\n";
 		}
 		$result .='</urlset>';
-		$filename = 'sitemap/'.$navigation.'.xml'; // путь к файлу в который нужно писать
+		$filename = $GLOBALS['PATH_global_root'].'sitemap/'.$navigation.'.xml'; // путь к файлу в который нужно писать
 		file_put_contents($filename, $result); // записываем результат в файл
 		return true;
 	}

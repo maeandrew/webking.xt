@@ -68,13 +68,13 @@ $(function(){
 		addLoadAnimation('.show_more_js');
 		ajax('products', 'getmoreproducts', data, 'html').done(function(data){
 			removeLoadAnimation('.show_more_js');				
-	   		var product_view = $.cookie('product_view'),
-	   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
+			var product_view = $.cookie('product_view'),
+				show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
 			page.find('.products').append(data);
 			$("img.lazy").lazyload({
 				effect : "fadeIn"
 			});
-	   		if(page.find('.paginator li.page'+next_page).length < 1){
+			if(page.find('.paginator li.page'+next_page).length < 1){
 				if(parseInt(count-parseInt(skipped_products+shown_products)+30) > 30){
 					page.find('.paginator li.next_pages').addClass('active').find('a').attr('href','#');
 				}else{
@@ -118,7 +118,7 @@ $(function(){
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
 	var seoText = $('#seoTextBlock').text();
 	if (seoText.length > 1000){
-		$('#seoTextBlock').css('height', '186px').parent('.mdl-grid')
+		$('#seoTextBlock').css('height', '175px').parent('.mdl-grid')
 		.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect hidden">Свернуть</button>');
 	}
 	$('#expand_btn').click(function() {
@@ -127,7 +127,7 @@ $(function(){
 		$('#rollUp_btn').removeClass('hidden');
 	});
 	$('#rollUp_btn').click(function() {
-		$('#seoTextBlock').css({'height': '186px'});
+		$('#seoTextBlock').css({'height': '175px'});
 		$(this).addClass('hidden');
 		$('#expand_btn').removeClass('hidden');
 	});
@@ -1392,6 +1392,55 @@ $(function(){
 		product_limit.val(limit);
 		toAssort($(this).data('id-product'), 0, $(this).data('koef'), $(this).data('supp'));
 	});
+
+	// Оповещение о прогнозируемой цене при наведение на кнопки смены количества товара
+	$('body').on('mouseenter', 'button', function(){
+		var currentQty = parseInt($(this).closest('.quantity').find('.qty_js').val());
+		var minQty = $(this).closest('.quantity').find('.minQty').val();
+		var currentDiscount = parseInt($.cookie('sum_range'));
+		var constantPriceOpt = parseInt($(this).closest('.buy_block').find('.priceOpt3').val());
+		var currentCartSum = parseInt($('.currentCartSum').html());
+		var	itemProdQty =  parseInt($(this).closest('.buy_block').find('.itemProdQty').html());
+
+		if ($(this).hasClass('btn_remove') === true) {
+			if (currentQty == minQty) {
+				var prevPrice = $(this).closest('.buy_block').find('.priceMopt' + currentDiscount).val();
+				$('.tooltipForBtnRemove_js').removeClass('hidden').html("до " + currentQty + " шт. цена " + prevPrice + " грн.");
+			}else{
+				if ((currentDiscount === 0) && (currentCartSum - constantPriceOpt <= 10000)){
+					$('.tooltipForBtnRemove_js').removeClass('hidden').html("до " + currentQty + " шт. изменит % скидки");
+				}
+				if ((currentDiscount === 1) && (currentCartSum - constantPriceOpt <= 3000)){
+					$('.tooltipForBtnRemove_js').removeClass('hidden').html("до " + currentQty + " шт. изменит % скидки");
+				}
+			}
+		}else{
+			if ((currentQty + itemProdQty) == minQty) {
+				console.log('ща станет опт цена');
+				var nextPrice = $(this).closest('.buy_block').find('.priceOpt' + currentDiscount).val();
+				console.log(nextPrice);
+				$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + minQty + " шт. цена " + nextPrice + " грн.");
+			}else{
+				if ((currentDiscount === 1) && (currentCartSum + constantPriceOpt >= 10000)){
+					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");	
+					console.log('ща станет цена на 21%');
+				}
+				if ((currentDiscount === 2) && (currentCartSum + constantPriceOpt >= 3000)){
+					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
+					console.log('ща станет цена на 16%');
+				}
+				if ((currentDiscount === 3) && (currentCartSum + constantPriceOpt >= 500)){
+					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
+					console.log('ща станет цена на 10%');
+				}
+			}
+		}
+	}).on('mouseleave', 'button', function(){
+		console.log('out');
+		$('.tooltipForBtnAdd_js').addClass('hidden');
+		$('.tooltipForBtnRemove_js').addClass('hidden');
+		console.log('Вышли');
+	});	
 });
 
 

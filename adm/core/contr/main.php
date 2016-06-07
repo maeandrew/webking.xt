@@ -81,6 +81,13 @@ if(isset($_POST['update_prodazi'])){
 		echo "<script>alert('Возникли проблемы при обновлении статусов.');</script>";
 	}
 }
+if(isset($_POST['sitemap'])){
+	if($res = G::SiteMap($_POST['sitemap']=='all'?null:$_POST['sitemap'])){
+		echo "<script>alert('Генерация карты сайта прошла успешно');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
+	}else{
+		echo "<script>alert('Возникли проблемы при генерации карты сайта.');</script>";
+	}
+}
 // генерация уменьшенных изображений товаров
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'gen_resize_product_images'){
 	$images_limit = 100000;
