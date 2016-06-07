@@ -1153,7 +1153,7 @@ function ChangePriceRange(id, sum, val){
 		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
-	}
+	}	
 	/**
 	 * [Формирование цен и скидки в зависимоти от ручного или автоматического выбора управления скидкой]
 	 * @param  {[int]} $.cookie('manual') [Значение берется из куков. 0 - скидка формируется автоматически, 1 - установлена вручную]
@@ -1272,6 +1272,7 @@ function ChangePriceRange(id, sum, val){
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
 		column = id;
+		console.log(sum);
 		switch(id) {
 			case 0:
 				$('.order_balance').text('Заказано достаточно!');

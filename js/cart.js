@@ -61,16 +61,19 @@ function SendToAjax(id, qty, button, direction, note){
 
 		var sum = 0;
 		// Автоматический пересчет скидки
-		if ($.cookie('manual') === 0){
+		$('.currentCartSum').html(data.cart.products_sum[3]);
+		if ($.cookie('manual') == 0){
 			// выполняется если скидка формируется автоматически (без ручного установления текущей скидки). значение берется из куков
 			/**
 			 * [Определение сумы скидки]
 			 * @param  {[int]} data.cart.cart_column [колонка скидки корзины взята из массива корзины]
 			 * @return {[func]}                      [вызывает вункцию смены цены (ChangePriceRange) и отображениии скидки. передает в нее id - текущая колонка корзины, sum - общую сумму корзины, val - значение всегда "0" - это "метка"/"флажок" которая обозначает что фукнция вызвана из данного аякса]
 			 */
+			console.log(data.cart.products_sum[3]);
 			switch(data.cart.cart_column) {
 				case 0:
-					ChangePriceRange(0, 0, 0);
+					sum = (data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(0, sum, 0);
 					break;
 				case 1:
 					sum = (10000 - data.cart.products_sum[3]).toFixed(2);
@@ -90,7 +93,8 @@ function SendToAjax(id, qty, button, direction, note){
 		}else{ // Выполняется при ручном выборе текущей скидки. Так же как и первое условие передает те же значения, за исключением суммы. Она постоянна.
 			switch(data.cart.cart_column) {
 				case 0:
-					ChangePriceRange(0, 0, 0);
+					sum = (data.cart.products_sum[3]).toFixed(2);
+					ChangePriceRange(0, sum, 0);
 					break;
 				case 1:
 					sum = (data.cart.products_sum[3]).toFixed(2);
@@ -153,10 +157,11 @@ function removeFromCart(id){
 		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
 			var sum = 0;
 			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
-			if($.cookie('manual') === 0){
+			if($.cookie('manual') == 0){
 				switch(data.cart_column){
 					case 0:
-						ChangePriceRange(0, 0, 0);
+						sum = (data.products_sum[3]).toFixed(2);
+						ChangePriceRange(0, sum, 0);
 						break;
 					case 1:
 						sum = (10000 - data.products_sum[3]).toFixed(2);
@@ -176,7 +181,8 @@ function removeFromCart(id){
 			}else{
 				switch(data.cart_column){
 					case 0:
-						ChangePriceRange(0, 0, 0);
+						sum = (data.products_sum[3]).toFixed(2);
+						ChangePriceRange(0, sum, 0);
 						break;
 					case 1:
 						sum = (data.products_sum[3]).toFixed(2);
