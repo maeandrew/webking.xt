@@ -475,7 +475,7 @@ class Cart {
 			LEFT JOIN "._DB_PREFIX_."cart_status AS cs ON c.status = cs.id_status
 			WHERE promo = '".$promo."'
 			GROUP BY c.id_user
-			ORDER BY c.adm DESC, c.ready DESC"; //print_r($sql); die();
+			ORDER BY c.adm DESC, c.ready DESC";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -495,7 +495,7 @@ class Cart {
 			LEFT JOIN "._DB_PREFIX_."product as p
 			ON cp.id_product = p.id_product
 			WHERE c.promo = '".$promo."'
-			GROUP BY p.id_product;"; //print_r($sql); die();
+			GROUP BY p.id_product;";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
