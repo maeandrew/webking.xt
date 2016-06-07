@@ -273,14 +273,22 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<label for="sitemap" class="fl">Сгенерировать карту сайта.</label>
-								<select name="sitemap" id="sitemap" class="input-m size_s fr">
-								</select>
-							</td>
-							<td>
-								<button type="submit" class="size_s fr btn-m-red" name="smb" onclick="return confirm('Вы точно хотите очистить базу!?');">Сгенерировать</button>
-							</td>
+							<form action="<?=$GLOBALS['URL_base'];?>adm/" method="POST">
+								<td>
+									<label for="sitemap" class="fl">Сгенерировать карту сайта.</label>
+									<select name="sitemap" id="sitemap" class="input-m size_s fr">
+										<option value="all">Все</option>
+										<option value="products">Товары</option>
+										<option value="pages">Страницы</option>
+										<option value="categories">Категории</option>
+										<option value="news">Новости</option>
+										<option value="posts">Публикации</option>
+									</select>
+								</td>
+								<td>
+									<button type="submit" class="size_s fr btn-m-red generate_site_map_js" name="smb">Генерация</button>
+								</td>
+							</form>
 						</tr>
 					<?}?>
 				</tbody>
@@ -346,5 +354,9 @@
 		var ctx2 = document.getElementById("last_orders_count").getContext("2d");
 		var myLineChart2 = new Chart(ctx2).Line(data, options);
 		var chart1;
+
+		$('.generate_site_map_js').click(function(event) {
+			console.log($('#sitemap option:selected').val());
+		});
 	});
 </script>
