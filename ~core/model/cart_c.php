@@ -71,12 +71,6 @@ class Cart {
 			if(isset($data['id_cart_product'])){
 				$_SESSION['cart']['products'][$product['id_product']]['id_cart_product'] = $data['id_cart_product'];
 			}
-
-//			echo '<pre>';
-//			print_r($_SESSION['cart']);
-//			echo '</pre>';
-//			die();
-
 		}else{
 			if(isset($_SESSION['cart']['products'][$product['id_product']]['id_cart_product'])){
 				$this->db->StartTrans();
@@ -257,6 +251,7 @@ class Cart {
 				$f['ready'] = 0;
 				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
 			}
+			unset($f['ready']);
 			//Удаляет товар из корзины
 			if(isset($_POST['id_prod_for_remove'])){
 				unset($_SESSION['cart']['products'][$_POST['id_prod_for_remove']]);
