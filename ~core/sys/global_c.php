@@ -591,4 +591,51 @@ class G {
 				break;
 		}
 	}
+
+	public static function SiteMap($navigation = false){
+		global $db;
+		// sitemap.xml
+		switch($navigation){
+			case 'products':
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM xt_product WHERE indexation = 1 AND visible = 1";
+				break;
+			case 'pages':
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
+				break;
+			case 'categories':
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_category WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				break;
+			case 'news':
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_news WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				break;
+			case 'posts':
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_post WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				break;
+			case 'promotions':
+				$sql = "";
+				break;
+			default:
+				$arr = array('products', 'pages', 'categories', 'news', 'posts');
+				foreach ($arr as &$v){
+					self::SiteMap($v);
+				}
+				return true;
+				break;
+		}
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		if (!file_exists('sitemap')) {
+			mkdir('sitemap', 0777, true);
+		}
+		$result = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
+		foreach($res as &$val){
+			$result .= implode($val)."\n";
+		}
+		$result .='</urlset>';
+		$filename = 'sitemap/'.$navigation.'.xml'; // путь к файлу в который нужно писать
+		file_put_contents($filename, $result); // записываем результат в файл
+		return true;
+	}
 }
