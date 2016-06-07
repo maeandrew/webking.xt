@@ -272,6 +272,16 @@
 								<button type="submit" class="size_s fr btn-m-red" name="smb" onclick="return confirm('Вы точно хотите очистить базу!?');">Очистить</button>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<label for="sitemap" class="fl">Сгенерировать карту сайта.</label>
+								<select name="sitemap" id="sitemap" class="input-m size_s fr">
+								</select>
+							</td>
+							<td>
+								<button type="submit" class="size_s fr btn-m-red" name="smb" onclick="return confirm('Вы точно хотите очистить базу!?');">Сгенерировать</button>
+							</td>
+						</tr>
 					<?}?>
 				</tbody>
 			</table>
