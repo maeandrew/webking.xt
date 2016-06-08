@@ -17,6 +17,13 @@ if(isset($_GET['upload']) == true){
 }
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])) {
+
+//		echo'<pre>';
+//	print_r($_POST);
+//	echo'</pre>';
+//	die();
+
+
 	$_POST['art'] = $products->CheckArticle((int)$_POST['art']);
 	require_once($GLOBALS['PATH_block'] . 't_fnc.php'); // для ф-ции проверки формы
 	if (isset($_POST['price']) && $_POST['price'] == "") {
@@ -70,7 +77,7 @@ if(isset($_POST['smb'])) {
 			}
 
 			$Images->resize(false, $to_resize);
-			$products->UpdatePhoto($id, $images_arr);
+			$products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
 
 			if (isset($_POST['id_supplier'])) {
 				//Формирем массив поставщиков товара

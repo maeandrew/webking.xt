@@ -140,7 +140,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 				$products->UpdateVideo($id_product, $_POST['video']);
 			}
 			//обновление Фото товара
-			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
+			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null, isset($_POST['images_visible'])?$_POST['images_visible']:null);
 
 			if(isset($_POST['id_supplier'])){
 				//Формирем массив поставщиков товара
