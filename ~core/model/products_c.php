@@ -4100,39 +4100,17 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-//		$srcarr = array();
-//		$visiblesrcarr = array();
 		foreach($arr as $value){
 			$res[] = $value['src'];
 		}
-
-
-		//echo'<pre>';print_r($arr);echo'</pre>'; die();
 		return $arr;
-
-//		$catarr = array();
-//		$maincatarr = array();
-//		foreach ($arr as $p){
-//			$catarr[] = $p['id_category'];
-//		}
-//		foreach ($arr as $p){
-//			$maincatarr[] = $p['main_category'];
-//		}
-//		$arr[0]['categories_ids'] = array_unique($catarr);
-//		$arr[0]['main_category'] = $maincatarr;
-//		$this->fields = $arr[0];
-//		return true;
-
-
-
-
 	}
 	/**
 	 * Добавление и удаление фото
 	 * @param [type] $id_product [description]
 	 * @param [type] $arr        [description]
 	 */
-	public function UpdatePhoto($id_product, $arr){
+	public function UpdatePhoto($id_product, $arr, $visible = null){
 		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
