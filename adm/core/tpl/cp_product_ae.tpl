@@ -366,7 +366,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
-							<input type="radio" name="main_category" id="mainCategory" class="input-m" value="<?=$k?>" required /> Сделать основной
+							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /> Сделать основной
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -673,7 +673,7 @@
 			<?}?>
 		</select>
 		<span class="icon-font delcat" title="Удалить">t</span>
-		<input type="radio" name="main_category" id="mainCategory" class="input-m" value="" required /> Сделать основной
+		<input type="radio" name="main_category" id="" class="input-m" value="" required /> Сделать основной
 	</div>
 </div>
 <script type="text/javascript">
@@ -681,6 +681,7 @@
 	// 	returnTo: 'function'
 	// });
 	var url = URL_base+'productadd/';
+
 	$(function(){
 		if($('.catblock:not(.hidden)').length > 1){
 			$('.delcat').show();
@@ -695,6 +696,7 @@
 			}else{
 				$('.delcat').hide();
 			}
+			AddValueMainCategory();
 		});
 		//Подтягиваем значения типов характеристик из БД
 		$('.itemvalue').focus(function(){
@@ -989,6 +991,14 @@
 		});
 	});
 
+	//Присваиваем value для input[name="main_category"]
+	function AddValueMainCategory(){
+		var i = 0;
+		$('input[name="main_category"]').each(function (index) {
+			$(this).val(i++);
+		});
+	}
+
 	//Скрываем информационное окно через 3сек
 	if($("div").is(".notification")){
 		setTimeout(function(){
@@ -1173,6 +1183,7 @@
 		}else{
 			$('.delcat').hide();
 		}
+		AddValueMainCategory();
 	}
 
 	$(window).scroll(function(){
