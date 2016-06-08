@@ -160,7 +160,7 @@
 												<p><span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span></p>
 											</div>
 											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
-											<input type="hidden" name="images_visible[]" value="0">
+											<input type="hidden" name="images_visible[]" value="<?=$photo['visible']==0?'0':'1'?>">
 										</div>
 									<?}
 								}
