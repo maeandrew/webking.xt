@@ -370,7 +370,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
-							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /><span>Сделать основной</span>
+							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /> Сделать основной
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -826,10 +826,12 @@
 				RemovedFile(path, removed_file);
 			}
 		});
-
+		
+		$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
 		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
 			var path = $(this).closest('.image_block');
 			console.log($(this));
+			$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
 
 			if (path.hasClass('implicit')) {
 				
