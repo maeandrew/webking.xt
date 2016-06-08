@@ -15,14 +15,14 @@
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 								<div class="<?=$st['class']?>"></div>
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=G::CropString($item['name'])?>" class="lazy" src="/images/nofoto.png" data-original="http://lorempixel.com/g/500/500"/>
+									<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
 									<noscript>
-										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
 									</noscript>
 								<?}else{?>
-									<img alt="<?=G::CropString($item['name'])?>" class="lazy" src="/images/nofoto.png" data-original="http://lorempixel.com/g/500/500"/>
+									<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 									<noscript>
-										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 									</noscript>
 								<?}?>
 							</a>
@@ -30,8 +30,10 @@
 						<div class="product_name p<?=$item['id_product']?>">
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
 							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
-							<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
-							<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+							<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
+								<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+								<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+							<?}?>
 						</div>				
 					<!-- </div> -->
 					<?$in_cart = false;
@@ -151,14 +153,12 @@
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($p['translit']);?>">
 						<?if(!empty($p['images'])){?>
-							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/120/90/"/>
-							<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/> -->
+							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/>
 							<noscript>
 								<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="http://lorempixel.com/120/90/"/>
-							<!-- <img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/> -->
+							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/>
 							<noscript>
 								<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/>
 							</noscript>

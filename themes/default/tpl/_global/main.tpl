@@ -8,10 +8,10 @@
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
 		if(!isset($indexation) || $indexation == 0){?>
-			<meta name="robots" content="noindex, nofollow"/>
+			<meta name="robots" content="noindex, follow"/>
 		<?}
 	}else{?>
-		<meta name="robots" content="noindex, nofollow"/>
+		<meta name="robots" content="noindex, follow"/>
 	<?}?>
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
@@ -176,7 +176,7 @@
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="wrapper">
+			<div class="panel_container">
 				<?=$__sidebar_l?>
 				<?if($news != false){?>
 					<div class="xt_news">

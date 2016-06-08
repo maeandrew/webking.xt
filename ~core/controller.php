@@ -59,7 +59,7 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	// }
 
 	// Хлебные крошки
-	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) && !in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
+	if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoBreadcrumbs'])){
 		unset($parsed_res);
 		require($GLOBALS['PATH_block'].'breadcrumbs.php');
 		if(true == @$parsed_res['issuccess']){
