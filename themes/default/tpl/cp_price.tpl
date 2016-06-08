@@ -1,3 +1,4 @@
+<h1><?=$header?></h1>
 <?if(isset($_GET['savedprices']) == true){?>
 	<a href="/price/" class="subheader">Сформировать свой прайс-лист</a>
 <?}else{?>
@@ -75,24 +76,16 @@
 							<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
 						</div>
 					</legend>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="without">
-						<input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фотографий
-					</label>
-
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="with">
-						<input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">с фотографиями
-					</label>
-
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="withbig">
-						<input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">с большими фотографиями
-					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фотографий</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">с фотографиями</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">с большими фотографиями</label>
 				</fieldset>
 
 				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">
 				  Снять все выделения
 				</button>
 
-				<p class="ps">Хотите открыть прайс в Excell?<br>Сохраните страницу прайса в браузере, затем откройте сохраненный файл в Excell.</p>
+				<p class="info">Хотите открыть прайс в Excell?<br>Сохраните страницу прайса в браузере, затем откройте сохраненный файл в Excell.</p>
 				<div class="price-counter">
 					<?if(isset($_GET['savedprices']) == true){?>
 						<input type="hidden" name="savedprices">
@@ -117,9 +110,8 @@
 					<section id="pricelist_item">
 						<!-- <input type="radio"  name="pricelist_select" class="pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>">
 						<label for="order-<?=$price['order']?>"><?=$price['name']?></label> -->
-
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order-<?=$price['order']?>">
-						<input type="radio" name="pricelist_select" class="mdl-radio__button" id="order-<?=$price['order']?>" value="<?=$price['id']?>" value="<?=$price['id']?>"><?=$price['name']?>
+							<input type="radio" name="pricelist_select" class="mdl-radio__button" id="order-<?=$price['order']?>" value="<?=$price['id']?>" value="<?=$price['id']?>"><?=$price['name']?>
 						</label>
 					</section>
 				<?}
@@ -138,11 +130,9 @@
 												<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l2['id_category']?>">
 													<input type="checkbox" name="category_select" class="category-parent-select mdl-checkbox__input" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 													<span class="mdl-checkbox__label"><?=$l2['name']?> [<?=$l2['products']?>]</span>
-
 												</label>
 
-												<label class="expand " for="expand_<?=$l2['id_category']?>">Развернуть
-												</label>
+												<label class="expand " for="expand_<?=$l2['id_category']?>">Развернуть</label>
 												<input type="checkbox" id="expand_<?=$l2['id_category']?>" class="expand_input hidden mdl-checkbox__input">
 
 												<ul class="list_level2">
@@ -161,17 +151,14 @@
 											<?}else{?>
 												<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l2['id_category']?>">
 													<input type="checkbox" name="category_select" class="category-parent-select mdl-checkbox__input" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
-													<span class="mdl-checkbox__label"><?=$l2['name']?>[<?=$l2['products']?>]</span>
+													<span class="mdl-checkbox__label"><?=$l2['name']?> [<?=$l2['products']?>]</span>
 												</label>
 											<?}?>
-
-
 
 										<!-- <input type="checkbox" name="category_select" class="category-parent-select" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 											<?if(isset($l2['subcats'])){?>
 												<label for="cat-<?=$l2['id_category']?>"><?=$l2['name']?> [<?=$l2['products']?>]</label>
-												<label class="expand " for="expand_<?=$l2['id_category']?>">Развернуть
-												</label>
+												<label class="expand " for="expand_<?=$l2['id_category']?>">Развернуть</label>
 												<input type="checkbox" id="expand_<?=$l2['id_category']?>" class="expand_input hidden mdl-checkbox__input">
 												<ul class="list_level2">
 													<?foreach($l2['subcats'] as $l3){?>
@@ -180,17 +167,13 @@
 																  <input type="checkbox" name="category_select" id="cat-<?=$l3['id_category']?>" class="mdl-checkbox__input category-select pid-<?=$l3['pid']?>" value="<?=$l3['products']?>">
 																  <span class="mdl-checkbox__label"><?=$l3['name']?> [<?=$l3['products']?>]</span>
 															</label>
-
-
 															<input type="checkbox" name="category_select" class="category-select pid-<?=$l3['pid']?>" id="cat-<?=$l3['id_category']?>" value="<?=$l3['products']?>">
 															<label for="cat-<?=$l3['id_category']?>"><?=$l3['name']?> [<?=$l3['products']?>]</label>
-													</li>
+														</li>
 													<?}?>
 												</ul>
 											<?}else{?>
-												<label for="cat-<?=$l2['id_category']?>"><?=$l2['name']?>[<?=$l2['products']?>]
-
-												</label>
+												<label for="cat-<?=$l2['id_category']?>"><?=$l2['name']?> [<?=$l2['products']?>]</label>
 											<?}?> -->
 
 
@@ -231,15 +214,14 @@
 	});
 
 	$(window).load(function() {
-		var window_width = $(document).width();
-		var start = 300;
-		var second_start = 600;
-		if (window_width > 1600) {
-			var diff = window_width - second_start;
-		}else {
-			var diff = window_width - start;
+		var window_width = $(document).width(),
+			start = 300,
+			second_start = 600,
+			diff = 0;
+		if(window_width > 1600){
+			diff = (window_width - 1600)/2;
 		}
-		$('.price_form').css('left', diff);
+		$('.price_form').css('right', diff);
 
 		if (contHeight < formHeight){
 			$('#dynamic-params').css('top', 50);

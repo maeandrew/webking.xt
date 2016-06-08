@@ -499,8 +499,8 @@
 						function(data){
 						switch(data.status){
 							case 200:
-								// closeObject('cart');
-								window.location.hash = "quiz";
+								closeObject('cart');
+								// window.location.hash = "quiz";
 								ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 									$('#user_pro').html(data);
 
@@ -510,7 +510,7 @@
 									$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
 									$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 								});
-								openObject('quiz');
+								// openObject('quiz');
 								break;
 							case 500:
 								console.log('error');

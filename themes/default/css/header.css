@@ -63,6 +63,9 @@ header .header_wrapp .header_right .cart_item {
 header .header_wrapp .header_right .cart_item i {
 	vertical-align: middle;
 }
+header .header_wrapp .header_right .cart_item span {
+	margin-left: .5em
+}
 header .header_wrapp .header_right .random_page {
 	/*display: none;*/
 }
