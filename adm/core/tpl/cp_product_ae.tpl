@@ -153,14 +153,17 @@
 												<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
 												<span class="dz-size" data-dz-size></span>
 											</div>
+											<div class="visibility">
+												<p><span id="visible" class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span></p>
+											</div>
 											<div class="controls">
-												<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
+												<p><span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span></p>
 											</div>
 											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 										</div>
 									<?}
 								}
-							}?>							
+							}?>
 						</div>
 						<div class="image_block_new drop_zone animate">
 							<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
@@ -645,7 +648,7 @@
 					</label>
 					<a class="btn-m-red delete_prod" onclick="if(confirm('Точно удалить товар?')){DelProds(<?=$_POST['id_product']?>);} return false;">Удалить товар</a>
 				</div>
-</div>
+			</div>
 		</div>
 	</form>
 </div>
@@ -658,6 +661,9 @@
 		<div class="name">
 			<span class="dz-filename" data-dz-name></span>
 			<span class="dz-size" data-dz-size></span>
+		</div>
+		<div class="visibility">
+			<p><span class="icon-font hide_photo_js">v</span></p>
 		</div>
 		<div class="controls">
 			<p><span class="icon-font del_u_photo_js">t</span></p>
@@ -775,6 +781,10 @@
 				removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
 			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		});
+		dropzone.on('dragend', function(event) {
+			event.preventDefault();
+			/* Act on the event */
+		});
 
 		//Сортировка фото
 		$('.previews').sortable({
@@ -787,6 +797,9 @@
 			scroll: false,
 			tolerance: "pointer",
 			out: function(){
+				if ($('.previews .image_block:first-of-type').hasClass('implicit')) {
+					$('.previews .image_block:first-of-type').removeClass('implicit');
+				}
 				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
 				$('.main_photo img').attr('src', main_photo);
 			}
@@ -809,6 +822,26 @@
 				var path = $(this).closest('.image_block'),
 				removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
 				RemovedFile(path, removed_file);
+			}
+		});
+
+		$('.hide_photo_js').click(function(event) {
+			var path = $(this).closest('.image_block'),
+				hidden_images;
+			if (path.hasClass('implicit')) {
+				path.removeClass('implicit');
+				hidden_images = path.find('.image img').attr('src');
+
+				var arr = path.closest('.previews').find('[name="hidden_images[]"]');
+				arr.each(function(index, el) {
+					if (hidden_images == el.value) {
+						$(el).remove();
+					};
+				});
+			}else{
+				path.addClass('implicit');
+				hidden_images = path.find('.image img').attr('src');
+				path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="'+hidden_images+'">');
 			}
 		});
 
