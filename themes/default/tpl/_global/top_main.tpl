@@ -3,7 +3,7 @@
 		<a href="<?=Link::Custom('main');?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
 	<div class="header_right">
-		<div class="search_wrap">
+		<div class="search_wrap mdl-cell--hide-phone">
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
 				<i class="material-icons mob_s_btn">search</i>
 				<div class="mdl-textfield mdl-js-textfield search">

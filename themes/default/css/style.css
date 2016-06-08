@@ -3480,6 +3480,8 @@ div.modalEditOrder .applyBtn {
 	width: 100%;
 	display: block;
 	text-align: center;
+	margin-top: auto;
+    margin-bottom: auto;
 }
 
 /* Стили карусели подкатегорий */
