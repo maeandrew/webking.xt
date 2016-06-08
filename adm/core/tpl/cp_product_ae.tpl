@@ -144,7 +144,7 @@
 							<?if(isset($_POST['images']) && !empty($_POST['images'])){
 								foreach($_POST['images'] as $photo){
 									if(isset($photo['src'])){?>
-										<div class="image_block dz-preview dz-image-preview <?=($photo['visible']==0)?'implicit':null?>">
+										<div class="image_block dz-preview dz-image-preview <?=$photo['visible']==0?'implicit':null?>">
 											<div class="sort_handle"><span class="icon-font">s</span></div>
 											<div class="image">
 												<img data-dz-thumbnail src="<?=$photo['src']?>"/>
@@ -154,13 +154,13 @@
 												<span class="dz-size" data-dz-size></span>
 											</div>
 											<div class="visibility">
-												<p><span class="icon-font hide_photo_js" data-visible="1" title="Скрыть/отобразить">v</span></p>
+												<p><span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span></p>
 											</div>
 											<div class="controls">
 												<p><span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span></p>
 											</div>
 											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
-											<input type="hidden" name="images_visible[]" value="1">
+											<input type="hidden" name="images_visible[]" value="0">
 										</div>
 									<?}
 								}
@@ -664,7 +664,7 @@
 			<span class="dz-size" data-dz-size></span>
 		</div>
 		<div class="visibility">
-			<p><span class="icon-font hide_u_photo_js" data-visible="1" title="Скрыть/отобразить">v</span></p>
+			<p><span class="icon-font hide_u_photo_js" title="Скрыть/отобразить">v</span></p>
 		</div>
 		<div class="controls">
 			<p><span class="icon-font del_u_photo_js" title="Удалить">t</span></p>
@@ -827,12 +827,14 @@
 		});
 
 		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
-			event.preventDefault();
-			var path = $(this).closest('.image_block'),
-				hidden_images;
+			var path = $(this).closest('.image_block');
+			console.log($(this));
+
 			if (path.hasClass('implicit')) {
-				$(this).data('visible', '1');
+				
+				path.find('[name="images_visible[]"]').val("1");
 				path.removeClass('implicit');
+
 				// hidden_images = path.find('.image img').attr('src');
 
 				// var arr = path.closest('.previews').find('[name="hidden_images[]"]');
@@ -841,15 +843,14 @@
 				// 		$(el).remove();
 				// 	};
 				// });
-				path.find('[name="images_visible[]"]').val("1");
 			}else{
-				$(this).data('visible', '0');
+				
+				path.find('[name="images_visible[]"]').val("0");
 				path.addClass('implicit');
 
 				// hidden_images = path.find('.image img').attr('src');
 				// path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
 
-				path.find('[name="images_visible[]"]').val("0");
 			}
 		});
 
