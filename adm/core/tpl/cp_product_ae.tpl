@@ -154,7 +154,7 @@
 												<span class="dz-size" data-dz-size></span>
 											</div>
 											<div class="visibility">
-												<p><span id="visible" class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span></p>
+												<p><span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span></p>
 											</div>
 											<div class="controls">
 												<p><span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span></p>
@@ -663,10 +663,10 @@
 			<span class="dz-size" data-dz-size></span>
 		</div>
 		<div class="visibility">
-			<p><span class="icon-font hide_photo_js">v</span></p>
+			<p><span class="icon-font hide_u_photo_js" title="Скрыть/отобразить">v</span></p>
 		</div>
 		<div class="controls">
-			<p><span class="icon-font del_u_photo_js">t</span></p>
+			<p><span class="icon-font del_u_photo_js" title="Удалить">t</span></p>
 		</div>
 	</div>
 </div>
@@ -825,7 +825,8 @@
 			}
 		});
 
-		$('.hide_photo_js').click(function(event) {
+		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
+			event.preventDefault();
 			var path = $(this).closest('.image_block'),
 				hidden_images;
 			if (path.hasClass('implicit')) {

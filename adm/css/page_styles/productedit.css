@@ -281,6 +281,9 @@
 #nav_delivery .weight span {
 	font-weight: normal;
 }
+/*Section Category ========================================================*/
+
+
 
 /*Section Information ========================================================*/
 
@@ -455,7 +458,6 @@
 #photobox .image_block .visibility .icon-font {
 	font-size: 1.2em;
 }
-
 #photobox .image_block_new {
 	color: #ccc;
 	border-style: dashed;
