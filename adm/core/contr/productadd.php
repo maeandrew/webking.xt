@@ -18,10 +18,10 @@ if(isset($_GET['upload']) == true){
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])) {
 
-//		echo'<pre>';
-//	print_r($_POST);
-//	echo'</pre>';
-//	die();
+		echo'<pre>';
+	print_r($_POST);
+	echo'</pre>';
+	die();
 
 
 	$_POST['art'] = $products->CheckArticle((int)$_POST['art']);
