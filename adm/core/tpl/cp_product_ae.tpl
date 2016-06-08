@@ -802,6 +802,7 @@
 				if ($('.previews .image_block:first-of-type').hasClass('implicit')) {
 					$('.previews .image_block:first-of-type').removeClass('implicit');
 				}
+				$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
 				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
 				$('.main_photo img').attr('src', main_photo);
 			}
