@@ -669,6 +669,7 @@
 		<div class="controls">
 			<p><span class="icon-font del_u_photo_js" title="Удалить">t</span></p>
 		</div>
+		<input type="hidden" name="images_visible[]" value="0">
 	</div>
 </div>
 <div id="templates" class="hidden">
