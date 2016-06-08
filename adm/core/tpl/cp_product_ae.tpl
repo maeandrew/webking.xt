@@ -164,6 +164,7 @@
 									<?}
 								}
 							}?>
+							<input type="hidden" name="images_visible[]" value="0">
 						</div>
 						<div class="image_block_new drop_zone animate">
 							<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
@@ -369,7 +370,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
-							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /> Сделать основной
+							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /><span>Сделать основной</span>
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -842,7 +843,7 @@
 			}else{
 				path.addClass('implicit');
 				hidden_images = path.find('.image img').attr('src');
-				path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="'+hidden_images+'">');
+				path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
 			}
 		});
 

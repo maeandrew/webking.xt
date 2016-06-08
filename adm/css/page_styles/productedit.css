@@ -183,7 +183,7 @@
 	color: #f00;
 	position: absolute;
 	padding-top: 2px;
-    left: 50px;
+	left: 50px;
 }
 #nav_connection .supplier select,
 #nav_connection .supplier input[type="text"],
@@ -264,6 +264,16 @@
 	color: red;
 }
 
+#nav_connection .catblock {
+	margin-bottom: 5px;
+}
+#nav_connection .catblock select {
+	text-align: left;
+}
+#nav_connection .catblock > *:not(input){
+	margin-right: 5px;
+}
+
 /*Section Product content ====================================================*/
 
 #productae .units_input {
@@ -281,9 +291,6 @@
 #nav_delivery .weight span {
 	font-weight: normal;
 }
-/*Section Category ========================================================*/
-
-
 
 /*Section Information ========================================================*/
 
