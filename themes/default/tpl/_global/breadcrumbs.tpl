@@ -1,9 +1,9 @@
-<div class="breadcrumbs_wrapp clearfix">
+<div class="breadcrumbs_wrap">
 	<?if(isset($navigation) && !in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){?>
 		<div class="catalog_btn btn_js" data-name="catalog">Каталог<i class="material-icons">keyboard_arrow_right</i></div>
 	<?}?>
-	<ul id="breadcrumbs" class="clearfix">
-		<?if(count($GLOBALS['IERA_LINKS'])>1){
+	<ul id="breadcrumbs" class="breadcrumbs clearfix">
+		<?if(count($GLOBALS['IERA_LINKS']) > 1){
 			for($ii = 0; isset($GLOBALS['IERA_LINKS'][$ii]); $ii++){
 				$l = $GLOBALS['IERA_LINKS'][$ii]?>
 				<?if(isset($GLOBALS['IERA_LINKS'][$ii+1])){?>

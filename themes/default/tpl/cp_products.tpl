@@ -1,3 +1,4 @@
+<h1><?=$header?></h1>
 <div class="products_page">	
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if (!empty($category['subcats'])) {?>
@@ -14,8 +15,9 @@
 	<?if (!empty($category['subcats'])) {?>
 		<div class="subCategories mobile_carousel mdl-cell--hide-phone">
 			<?php foreach ($category['subcats'] as $value) {?>
+				<!--<a href="<?=Link::Category($value['translit'])?>"><?=$value['name']?></a><span class="separator">•</span>-->
 				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
-					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">	
+					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
 			<?}?>

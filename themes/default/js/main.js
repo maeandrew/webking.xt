@@ -248,21 +248,15 @@ $(function(){
 		$('#search').focus();
 	});
 
-	// Фокусировка Search
-	$('#search').on('focus', function() {
-		$('html').css('overflow-y', 'scroll');
-		// $('body').addClass('active_bg');
-	});
 	// Активация кнопки поиска при вводе
 	$('#search').on('keyup', function() {
-		var val = $(this).val();
-		if(val !== ''){
-			if(!$('.search_btn').hasClass('color-grey-search')){
-				$('.search_btn').addClass('color-grey-search');
+		if($(this).val() !== ''){
+			if(!$('.search_btn').hasClass('is-disabled')){
+				$('.search_btn').addClass('is-disabled');
 			}
 		}else{
-			if($('.search_btn').hasClass('color-grey-search')){
-				$('.search_btn').removeClass('color-grey-search');
+			if($('.search_btn').hasClass('is-disabled')){
+				$('.search_btn').removeClass('is-disabled');
 			}
 		}
 	});

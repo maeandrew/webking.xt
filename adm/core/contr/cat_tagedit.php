@@ -20,10 +20,10 @@ $category = $dbtree->Full(array('id_category', 'category_level', 'name', 'transl
 
 $tpl->Assign('h1', 'Редактирование тегов категории');
 
-$dbtree->Parents($id_category, array('id_category', 'name', 'category_level'));
-if (!empty($dbtree->ERRORS_MES)) {
-    print_r($dbtree->ERRORS_MES);die();
-}
+// $dbtree->Parents($id_category, array('id_category', 'name', 'category_level'));
+// if (!empty($dbtree->ERRORS_MES)) {
+//     print_r($dbtree->ERRORS_MES);die();
+// }
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
