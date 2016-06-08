@@ -44,6 +44,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				};
 				echo json_encode(true);
 				break;
+
+
+//			case 'MakeOrderJO';
+//				$res = $Cart->
+//
+//
+//				print_r($res);
+//				//echo json_encode($res);
+//				break;
+
+
 			case 'GetRating':
 				$C = new Contragents();
 				$res = $C->GetRating($_POST);
@@ -131,19 +142,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$products->DeleteProductFromModeration($_POST['id']);				
 				echo json_encode(true);
 				break;
-//			case 'GetJOCart';
-//				$Cart->
-//
-//
-//					switch ($_POST['condition']){
-//						case 'active':
-//
-//					}
-//
-//
-//				print_r($res);
-//				//echo json_encode($res);
-//				break;
 		}
 	}
 }

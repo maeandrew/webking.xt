@@ -170,23 +170,41 @@
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "" : "hidden" ?>">
+				<h1>ТОВАР ПРОДАН</h1>
+			</div>
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "hidden" : "" ?>" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?><span>грн.</span></div>
+					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+					<span>грн.</span>
+					<div class="prodPrices hidden">						
+						<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
+						<?for($i = 0; $i < 4; $i++){?>
+							<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+							<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+						<?}?>
+					</div>						
 					<div class="btn_buy">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
 						<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 					</div>
 					<div class="quantity">
-						<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+						<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
+
+						<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
-						<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+
+						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
+
 						<div class="units"><?=$item['units'];?></div>
 					</div>
 				</div>
+				<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 			</div>
 			<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
 				<div class="mdl-snackbar__text"></div>
@@ -261,8 +279,8 @@
 					<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
 						<?foreach($item['specifications'] as $s){?>
 							<div class="mdl-grid">
-								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone"><?=$s['caption']?>:</div>
-								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['caption']?>:</div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
 							</div>
 						<?}?>
 					<?}else{?>

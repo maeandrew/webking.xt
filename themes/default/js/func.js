@@ -960,7 +960,7 @@ function ajax(target, action, data, dataType){
 }
 // Change sidebar aside height
 function resizeAsideScroll(event) {
-	console.log(event);
+	/*console.log(event);*/
 	// var mainWindow = +$.cookie('mainWindow');
 	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
@@ -970,7 +970,7 @@ function resizeAsideScroll(event) {
 		// $.cookie('mainWindow', newMainWindow, { path: '/'});
 		var scroll = $(this).scrollTop(),
 			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
-			console.log(pieceOfFooter > 0?pieceOfFooter:0);
+			/*console.log(pieceOfFooter > 0?pieceOfFooter:0);*/
 		if (pieceOfFooter >= 0) {
 			$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
 		}
@@ -1149,10 +1149,11 @@ function ChangePriceRange(id, sum, val){
 	//Куки со значением "manual", которое обозначает, что скидка установлена в ручную, обнуляется после очистки корзины или удаоения последнего элемента корзины.
 	if (val == 1){ // Выполняется если скидка была выбрана вручную. Активирует текущую колонку скидки. Игнорируется при автоматическом формировании скидки
 		document.cookie="sum_range="+id+"; path=/";
-		document.cookie="manual=1; path=/";
+		/*document.cookie="manual=1; path=/";*/
+		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
-	}
+	}	
 	/**
 	 * [Формирование цен и скидки в зависимоти от ручного или автоматического выбора управления скидкой]
 	 * @param  {[int]} $.cookie('manual') [Значение берется из куков. 0 - скидка формируется автоматически, 1 - установлена вручную]
@@ -1271,6 +1272,7 @@ function ChangePriceRange(id, sum, val){
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+id).addClass('active');
 		column = id;
+		console.log(sum);
 		switch(id) {
 			case 0:
 				$('.order_balance').text('Заказано достаточно!');
@@ -1301,7 +1303,6 @@ function ChangePriceRange(id, sum, val){
 	$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
 		var minQty = parseInt($(this).find('.minQty').val());
 		var curentQty =	parseInt($(this).find('.qty_js').val());
-
 		if(curentQty >= minQty){
 			var price = $(this).find('.priceOpt'+column).val();
 			$(this).find('.priceMoptInf').addClass('hidden');
@@ -1309,7 +1310,7 @@ function ChangePriceRange(id, sum, val){
 			var price = $(this).find('.priceMopt'+column).val();
 			$(this).find('.priceMoptInf').removeClass('hidden');
 		}
-		$(this).find('.price').html(price);
+		$(this).find('.price').html(price);	
 	});
 
 	setTimeout(function(){
@@ -1820,7 +1821,7 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function changeFiltersBtnsPosition(){
-	console.log($('.filters').length);
+	/*console.log($('.filters').length);*/
 	if($('.filters').length > 0){
 		if($('.filters').offset().top-$(window).scrollTop() <= 50){
 			$('#filterButtons').addClass('buttonsTop');

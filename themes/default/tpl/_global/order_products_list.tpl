@@ -12,8 +12,8 @@
 			</div>
 		</div>
 		<?$user_cart_total = 0;?>
-		<?if(isset($list)){?>
-			<?foreach ($list as $item) {?>
+		<?if(isset($list) && $list !=''){?>
+			<?foreach($list as $item) {?>
 				<div class="ordersProdListContent">
 					<?if(isset($rewrite) && $rewrite == 'orders'){?>
 						<div class="avatar">

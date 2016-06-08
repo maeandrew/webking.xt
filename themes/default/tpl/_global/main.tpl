@@ -8,10 +8,10 @@
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
 		if(!isset($indexation) || $indexation == 0){?>
-			<meta name="robots" content="noindex, nofollow"/>
+			<meta name="robots" content="noindex, follow"/>
 		<?}
 	}else{?>
-		<meta name="robots" content="noindex, nofollow"/>
+		<meta name="robots" content="noindex, follow"/>
 	<?}?>
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
@@ -124,6 +124,16 @@
 	</script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
+	
+	<!-- Google Tag Manager -->
+	<!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-K9CXG3');</script> -->
+	<!-- End Google Tag Manager -->
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
 	<!-- END Yandex.Metrika counter -->
@@ -165,8 +175,8 @@
 	
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside class="mdl-color--white" id="catalog" <?=((isset($navigation) && in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])) || !G::isMobile())?null:'data-type="panel"'?>>
-			<div class="wrapper">
+		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
+			<div class="panel_container">
 				<?=$__sidebar_l?>
 				<?if($news != false){?>
 					<div class="xt_news">
@@ -337,7 +347,7 @@
 						<?foreach($list_menu as $menu){?>
 							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
 						<?}?>
-						<li><a href="#">Форум</a></li>
+						<li><a href="<?=Link::Custom('price');?>">Прайс-лист</a></li>
 					</ul>
 				</div>
 				<div class="contacts">
@@ -871,5 +881,24 @@
 			<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
 		</symbol>
 	</svg>
+	
+	<!-- Код тега ремаркетинга Google -->
+	<!--------------------------------------------------
+	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
+	------------------------------------------------- -->
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		var google_conversion_id = 880553131;
+		var google_custom_params = window.google_tag_params;
+		var google_remarketing_only = true;
+		/* ]]> */
+	</script>
+	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+	</script>
+	<noscript>
+		<div style="display:inline;">
+		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
+		</div>
+	</noscript>
 </body>
 </html>

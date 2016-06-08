@@ -31,20 +31,40 @@ header .header_wrapp .header_right {
 }
 
 header .header_wrapp .header_right > div {
-	margin-left: 10px;
+	margin-left: 1em;
 	position: relative;
 	display: inline-block;
 }
-header .header_wrapp .header_right .search_wrapp {
+header .header_wrapp .header_right .search_wrap {
 	float: left;
+}
+header .header_wrapp .header_right .search_wrap i {
+	vertical-align: middle;
+}
+header .header_wrapp .header_right .search_wrap {
+	line-height: 34px;
+}
+header .header_wrapp .header_right .search_wrap .search {
+	padding: 0;
+	width: 200px;
+}
+header .header_wrapp .header_right .search_wrap button {
 	display: none;
-	
+}
+header.opened .header_wrapp .header_right .search_wrap button {
+	display: inline-block;
+}	
+header.opened .header_wrapp .header_right .search_wrap .search {
+	width: 400px;
 }
 header .header_wrapp .header_right .cart_item {
 	/*display: none;*/
 }
 header .header_wrapp .header_right .cart_item i {
 	vertical-align: middle;
+}
+header .header_wrapp .header_right .cart_item span {
+	margin-left: .5em
 }
 header .header_wrapp .header_right .random_page {
 	/*display: none;*/
@@ -75,13 +95,13 @@ header .header_wrapp .header_right .phone_menu {
 }
 .userContainer {
 	width: 100%;
-	/*height: 244px;*/
+	overflow: auto;
 }
 header .userContainer {
 	width: 350px;
 }
 .userContainer > div {
-	padding: 10px 0;
+	padding: 10px;
 }
 header .userContainer > div {
 	padding: 10px;
@@ -130,17 +150,6 @@ header .userContainer > div {
 	font-size: 1.5em;
 	line-height: 30px;
 }
-/*	.userChoice {
-		display: flex;
-		border-top: 1px solid #E5E5E5;
-		padding: 5px;
-		flex-grow: 1;
-	}
-	.userChoice > * {
-		flex: 1;
-		align-self: center;
-		padding: 5px;
-	}*/
 .userChoice {
 	display: flex;
 }
@@ -170,10 +179,6 @@ header .userContainer > div {
 .userWaitingList i {
 	color: orange;
 }
-
-
-
-
 
 .menuUserInfBtn {
 	width: 50%;

@@ -97,7 +97,7 @@
 							<label for="currency_rate">Личный курс доллара</label><br>
 							<div class="flexWrap">
 								<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
-								<button class="btn-m-lblue" onclick="RecalcSupplierCurrency();">Пересчитать</button>
+								<button class="btn-m-lblue">Пересчитать</button>
 							</div>
 							<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
 						</form>
@@ -162,6 +162,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<div class="product_list row">
 		<div class="col-md-12">

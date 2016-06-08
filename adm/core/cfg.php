@@ -36,15 +36,18 @@ $GLOBALS['DefaultController'] = 'main';
 //$GLOBALS['__graph'] = $tpl_graph;
 $GLOBALS['MainTemplate'] = 'main.tpl';
 $GLOBALS['NoSidebarTemplControllers'] = array('404', 'msg', 'srv');
-// Массив ссылок иерархии
+// Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
-$GLOBALS['IERA_LINKS'][0]['title'] = 'Главная';
-$GLOBALS['IERA_LINKS'][0]['url'] = $baseUrl.'adm/';
+$GLOBALS['IERA_LINKS'][] = array(
+	'title' => 'Главная',
+	'url' => _base_url.'adm/'
+);
 // Лимит ссылок в навигации
 $GLOBALS['Limit_nav'] = 10; // ???
 // сколько брать записей из таблицы (при использовании пагинатора)
 $GLOBALS['Limit_db'] = 30;
 $GLOBALS['Start'] = 0;
+$GLOBALS['Limits_db'] = array(30, 60, 100);
 
 // ********************************** Подключение и инициализация классов  **********************************
 require($GLOBALS['PATH_sys'].'tpl_c.php');
@@ -262,18 +265,6 @@ G::ToGlobals(array(
 		)
 	)
 ));
-// Массив ссылок иерархии (используются также в хлебных крошках)
-$GLOBALS['IERA_LINKS'] = array();
-$GLOBALS['IERA_LINKS'][] = array(
-	'title' => 'Главная',
-	'url' => _base_url
-);
-// сколько брать записей из таблицы (при использовании пагинатора)
-$GLOBALS['Limit_db'] = 30;
-$GLOBALS['Start'] = 0;
-$GLOBALS['Limits_db'] = array(30, 60, 100);
-
-
 $tpl = new Template();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************

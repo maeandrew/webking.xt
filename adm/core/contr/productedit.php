@@ -47,6 +47,14 @@ if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
 if(isset($_POST['smb']) || isset($_POST['smb_new'])){
+
+
+//	echo'<pre>';
+//	print_r($_POST);
+//	echo'</pre>';
+//	die();
+
+
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
 		$_POST['price'] = 0;
@@ -240,13 +248,9 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 if(isset($category['id_category'])){
-	$dbtree->Parents($category['id_category'], array('id_category', 'name', 'category_level'));
-	if(!empty($dbtree->ERRORS_MES)){
-	    print_r($dbtree->ERRORS_MES);
-	    die();
-	}
-	while($cat = $dbtree->NextRow()){
-		if(0 <> $cat['category_level']){
+	$res = $dbtree->Parents($category['id_category'], array('id_category', 'name', 'category_level'));
+	foreach($res as $cat){
+		if($cat['category_level'] > 0){
 			$GLOBALS['IERA_LINKS'][$ii]['title'] = $cat['name'];
 			$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/products/'.$cat['id_category'];
 		}

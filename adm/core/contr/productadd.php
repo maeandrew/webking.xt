@@ -142,12 +142,9 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-	$dbtree->Parents($GLOBALS['REQAR'][1], array('id_category', 'name', 'category_level'));
-	if(!empty($dbtree->ERRORS_MES)){
-	    print_r($dbtree->ERRORS_MES);die();
-	}
-	while($cat = $dbtree->NextRow()){
-		if(0 <> $cat['category_level']){
+	$res = $dbtree->Parents($GLOBALS['REQAR'][1], array('id_category', 'name', 'category_level'));
+	foreach($res as $cat){
+		if($cat['category_level'] > 0){
 			$GLOBALS['IERA_LINKS'][$ii]['title'] = $cat['name'];
 			$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/products/'.$cat['id_category'];
 		}

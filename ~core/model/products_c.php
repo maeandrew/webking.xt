@@ -20,7 +20,7 @@ class Products {
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
 			"p.volume", "p.coefficient_volume", "p.qty_control", "p.price_coefficient_opt", "p.price_coefficient_mopt",
 			"p.visible", "p.ord", "p.note_control", "un.unit_xt AS units", "p.prod_status", "p.old_price_mopt",
-			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category",
+			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category", "cp.main AS main_category",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
 			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
@@ -133,10 +133,15 @@ class Products {
 			return false;
 		}
 		$catarr = array();
+		$maincatarr = array();
 		foreach ($arr as $p){
 			$catarr[] = $p['id_category'];
 		}
+		foreach ($arr as $p){
+			$maincatarr[] = $p['main_category'];
+		}
 		$arr[0]['categories_ids'] = array_unique($catarr);
+		$arr[0]['main_category'] = $maincatarr;
 		$this->fields = $arr[0];
 		return true;
 	}
@@ -177,6 +182,14 @@ class Products {
 		$catarr = array();
 		foreach ($arr as $p){
 			$catarr[] = $p['id_category'];
+		}
+		foreach ($arr as &$v) {
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+			}
 		}
 		$arr[0]['categories_ids'] = $catarr;
 		$this->fields = $arr[0];
@@ -1943,7 +1956,7 @@ class Products {
 	 * [UpdateSitePricesMassive description]
 	 * @param [type] $arr [description]
 	 */
-	public function UpdateSitePricesMassive($arr){// print_r($arr); die();
+	public function UpdateSitePricesMassive($arr){
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
@@ -2026,7 +2039,7 @@ class Products {
 		}
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		$this->UpdateProductCategories($id_product, $arr['categories_ids']);
+		$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
 		//$this->RecalcSitePrices(array($id_product));
@@ -2065,7 +2078,7 @@ class Products {
 	 * @param [type] $id_product     [description]
 	 * @param [type] $categories_arr [description]
 	 */
-	public function UpdateProductCategories($id_product, $categories_arr){
+	public function UpdateProductCategories($id_product, $categories_arr, $main = null){
 		// уникализируем массив на случай выбора одинаковых категорий в админке
 		$categories_arr = array_unique($categories_arr);
 		// вырезаем нулевую категорию, т.к. товар не может лежать в корне магазина и не принадлежать категории
@@ -2085,6 +2098,7 @@ class Products {
 		foreach($categories_arr as $key => $id){
 			$f[$key]['id_product'] = $id_product;
 			$f[$key]['id_category'] = $id;
+			$f[$key]['main'] = (isset($main) && $key == $main)?1:0;
 		}
 		$this->db->StartTrans();
 		if(!$this->db->InsertArr(_DB_PREFIX_.'cat_prod', $f)){
@@ -2169,7 +2183,7 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 		if(isset($arr['name'])){
-			$this->UpdateProductCategories($id_product, $arr['categories_ids']);
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
 			$this->RecalcSitePrices(array($id_product));
 		}
 		return true;
@@ -2807,7 +2821,7 @@ class Products {
 				//заносим значения ячеек одной строки в отдельный массив
 				array_push($item, $cell->getCalculatedValue());
 			}
-			//заносим массив со значениями ячеек отдельной строки в "общий массв строк"
+			//заносим массив со значениями ячеек отдельной строки в "общий массив строк"
 			array_push($array, $item);
 		}
 		$ca = $this->GetExcelAssortColumnsArray();
@@ -2880,7 +2894,6 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function AddProductToAssort($id_product, $id_supplier, $arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$this->db->StartTrans();
 		$f['id_product'] = $id_product;
 		$f['id_supplier'] = $id_supplier;
 		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
@@ -2899,12 +2912,13 @@ class Products {
 			$f['inusd'] = 1;
 		}
 		$f['sup_comment'] = trim($arr['sup_comment']);
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 	}
 	/**
 	 * Обновление
@@ -2931,15 +2945,15 @@ class Products {
 			$f['inusd'] = 1;
 		}
 		$f['sup_comment'] = trim($arr['sup_comment']);
-		$this->db->StartTrans();
 		global $Supplier;
 		$id_supplier = $Supplier->fields['id_user'];
+		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = {$id_product} AND id_supplier = {$id_supplier}")){
 			$this->db->FailTrans();
 			return false;
 		}
-		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
+		$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
 	/**
@@ -4078,7 +4092,7 @@ class Products {
 	 * @param [type] $id [description]
 	 */
 	public function GetPhotoById($id){
-		$sql = "SELECT src
+		$sql = "SELECT src, `visible`
 			FROM "._DB_PREFIX_."image
 			WHERE id_product = ".$id."
 			ORDER BY ord";
@@ -4096,7 +4110,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 * @param [type] $arr        [description]
 	 */
-	public function UpdatePhoto($id_product, $arr){
+	public function UpdatePhoto($id_product, $arr, $visible = null){
 		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");

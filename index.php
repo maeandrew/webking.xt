@@ -31,7 +31,6 @@ G::AddCSS('../themes/'.$theme.'/css/custom.css');
 G::AddCSS('../themes/'.$theme.'/css/colors.css');
 
 // G::AddCSS('../themes/'.$theme.'/css/d3graph.css');
-
 G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css');
 /* plugins css */
 // G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
@@ -40,7 +39,7 @@ G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
 G::AddJS('jquery-ui.min.js');
-G::AddJS('../adm/js/Chart.min.js');
+// G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');
 //G::AddJS('d3.min.js');
 //G::AddJS('../js/nutrients.csv');

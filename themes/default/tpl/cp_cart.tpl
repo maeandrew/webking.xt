@@ -165,16 +165,23 @@
 						<div class="buy_block">
 							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div>
 							<div class="prodPrices hidden">
+								<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
 								<?for ($i = 0; $i < 4; $i++){?>
 									<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
 									<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
 								<?}?>
 							</div>
 							<div class="quantity">
-								<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<button id="cart_btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="cart_btn_add<?=$item['id_product']?>">Больше</div>
+
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
-								<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+								
+
+								<button id="cart_btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>								
+								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="cart_btn_remove<?=$item['id_product']?>">Меньше</div>
+
 								<div class="units"><?=$item['units'];?></div>
 							</div>
 						</div>
@@ -329,14 +336,14 @@
 					<?}?>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
 						<div class="">
-							<div class="info_admin">Для управления совместной покупки, перейдите  личный кабинет.</div>
-							<a href="#"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
+							<div class="info_admin">Для управления совместной покупкой, перейдите  личный кабинет.</div>
+							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
 					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждение администратора.</div>
-							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готово"/>
+							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
+							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
 						</div>
 					<?}?>
 				
@@ -492,8 +499,8 @@
 						function(data){
 						switch(data.status){
 							case 200:
-								// closeObject('cart');
-								window.location.hash = "quiz";
+								closeObject('cart');
+								// window.location.hash = "quiz";
 								ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 									$('#user_pro').html(data);
 
@@ -503,7 +510,7 @@
 									$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
 									$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 								});
-								openObject('quiz');
+								// openObject('quiz');
 								break;
 							case 500:
 								console.log('error');

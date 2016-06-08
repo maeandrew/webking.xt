@@ -9,11 +9,15 @@
 						<input required="required" type="hidden" name="save_settings" value="1"/>
 						<input required="required" type="hidden" name="gid" value="<?=$User['gid']?>"/>
 						<input required="required" type="hidden" name="email" value="<?=$User['email']?>"/>
-						<div class="line email">
-							<label for="news">Хочу получать рассылку новостей сайта</label>
-							<input type="checkbox" name="news" id="news" <?if($User['news']==1){?>checked<?}?> value="1"/>
+						<div class="line email lineMail">
+							<!-- <label for="news">Хочу получать рассылку новостей сайта</label>
+							<input type="checkbox" name="news" id="news" <?if($User['news']==1){?>checked<?}?> value="1"/> -->
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="news">
+								<input type="checkbox" name="news" id="news" class="mdl-checkbox__input" <?if($User['news']==1){?>checked<?}?> value="1">
+								<span class="mdl-checkbox__label">Хочу получать рассылку новостей сайта</span>
+							</label>
 						</div>
-						<div id="contragent" class="line">
+						<div id="contragent" class="line contragent">
 							<label for="id_manager">Менеджер</label>
 							<select required name="id_manager" id="id_manager">
 								<?if(!$savedmanager || !$availablemanagers){?>

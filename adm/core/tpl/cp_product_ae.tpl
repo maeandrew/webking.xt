@@ -144,7 +144,7 @@
 							<?if(isset($_POST['images']) && !empty($_POST['images'])){
 								foreach($_POST['images'] as $photo){
 									if(isset($photo['src'])){?>
-										<div class="image_block dz-preview dz-image-preview">
+										<div class="image_block dz-preview dz-image-preview <?=($photo['visible']==0)?'implicit':null?>">
 											<div class="sort_handle"><span class="icon-font">s</span></div>
 											<div class="image">
 												<img data-dz-thumbnail src="<?=$photo['src']?>"/>
@@ -153,14 +153,18 @@
 												<span class="dz-filename" data-dz-name><?=$photo['src']?></span>
 												<span class="dz-size" data-dz-size></span>
 											</div>
+											<div class="visibility">
+												<p><span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span></p>
+											</div>
 											<div class="controls">
-												<p><span class="icon-font del_photo_js" data-dz-remove>t</span></p>
+												<p><span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span></p>
 											</div>
 											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
 										</div>
 									<?}
 								}
-							}?>							
+							}?>
+							<input type="hidden" name="images_visible[]" value="0">
 						</div>
 						<div class="image_block_new drop_zone animate">
 							<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
@@ -357,7 +361,7 @@
 				<div id="nav_connection">
 					<h2>Категория и связь</h2>
 					<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
-					<?foreach($_POST['categories_ids'] as $cid){ ?>
+					<?foreach($_POST['categories_ids'] as $k=>$cid){ ?>
 						<div class="catblock">
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
@@ -366,6 +370,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
+							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /><span>Сделать основной</span>
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -644,7 +649,7 @@
 					</label>
 					<a class="btn-m-red delete_prod" onclick="if(confirm('Точно удалить товар?')){DelProds(<?=$_POST['id_product']?>);} return false;">Удалить товар</a>
 				</div>
-</div>
+			</div>
 		</div>
 	</form>
 </div>
@@ -658,8 +663,11 @@
 			<span class="dz-filename" data-dz-name></span>
 			<span class="dz-size" data-dz-size></span>
 		</div>
+		<div class="visibility">
+			<p><span class="icon-font hide_u_photo_js" title="Скрыть/отобразить">v</span></p>
+		</div>
 		<div class="controls">
-			<p><span class="icon-font del_u_photo_js">t</span></p>
+			<p><span class="icon-font del_u_photo_js" title="Удалить">t</span></p>
 		</div>
 	</div>
 </div>
@@ -672,6 +680,7 @@
 			<?}?>
 		</select>
 		<span class="icon-font delcat" title="Удалить">t</span>
+		<input type="radio" name="main_category" id="" class="input-m" value="" required /> Сделать основной
 	</div>
 </div>
 <script type="text/javascript">
@@ -679,6 +688,7 @@
 	// 	returnTo: 'function'
 	// });
 	var url = URL_base+'productadd/';
+
 	$(function(){
 		if($('.catblock:not(.hidden)').length > 1){
 			$('.delcat').show();
@@ -693,6 +703,7 @@
 			}else{
 				$('.delcat').hide();
 			}
+			AddValueMainCategory();
 		});
 		//Подтягиваем значения типов характеристик из БД
 		$('.itemvalue').focus(function(){
@@ -771,6 +782,10 @@
 				removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
 			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		});
+		dropzone.on('dragend', function(event) {
+			event.preventDefault();
+			/* Act on the event */
+		});
 
 		//Сортировка фото
 		$('.previews').sortable({
@@ -783,6 +798,9 @@
 			scroll: false,
 			tolerance: "pointer",
 			out: function(){
+				if ($('.previews .image_block:first-of-type').hasClass('implicit')) {
+					$('.previews .image_block:first-of-type').removeClass('implicit');
+				}
 				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
 				$('.main_photo img').attr('src', main_photo);
 			}
@@ -805,6 +823,27 @@
 				var path = $(this).closest('.image_block'),
 				removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
 				RemovedFile(path, removed_file);
+			}
+		});
+
+		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
+			event.preventDefault();
+			var path = $(this).closest('.image_block'),
+				hidden_images;
+			if (path.hasClass('implicit')) {
+				path.removeClass('implicit');
+				hidden_images = path.find('.image img').attr('src');
+
+				var arr = path.closest('.previews').find('[name="hidden_images[]"]');
+				arr.each(function(index, el) {
+					if (hidden_images == el.value) {
+						$(el).remove();
+					};
+				});
+			}else{
+				path.addClass('implicit');
+				hidden_images = path.find('.image img').attr('src');
+				path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
 			}
 		});
 
@@ -986,6 +1025,14 @@
 			};
 		});
 	});
+
+	//Присваиваем value для input[name="main_category"]
+	function AddValueMainCategory(){
+		var i = 0;
+		$('input[name="main_category"]').each(function (index) {
+			$(this).val(i++);
+		});
+	}
 
 	//Скрываем информационное окно через 3сек
 	if($("div").is(".notification")){
@@ -1171,6 +1218,7 @@
 		}else{
 			$('.delcat').hide();
 		}
+		AddValueMainCategory();
 	}
 
 	$(window).scroll(function(){

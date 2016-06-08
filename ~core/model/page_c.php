@@ -11,7 +11,7 @@ class Page {
 		$this->usual_fields = array('id_page', 'title', 'title_ua', 'translit',
 			'content', 'content_ua', 'new_content', 'ord', 'visible', 'ptype',
 			'page_title', 'page_title_ua', 'page_description', 'page_description_ua',
-			'page_keywords', 'page_keywords_ua', 'indexation', 'xt');
+			'page_keywords', 'page_keywords_ua', 'indexation', 'sid');
 	}
 
 	// Страница по транслиту
@@ -53,9 +53,9 @@ class Page {
 	public function PagesList($param=0){
 		$where = "WHERE visible = 1 ";
 		if($param == 1){
-			$where = 'WHERE xt = 1';
+			$where = 'WHERE sid = 1';
 		}elseif($param == "menu"){
-			$where .= "AND ptype = 'menu' AND xt = 1";
+			$where .= "AND ptype = 'menu' AND sid = 1";
 		}
 		$sql = "SELECT ".implode(', ', $this->usual_fields)."
 			FROM "._DB_PREFIX_."page
@@ -74,7 +74,7 @@ class Page {
 			FROM "._DB_PREFIX_."page
 			WHERE ptype = '".$type."'
 			AND visible = 1
-			AND xt = 1
+			AND sid = 1
 			ORDER BY ord";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
@@ -151,7 +151,7 @@ class Page {
 				page_keywords_ua = '".$page_keywords_ua."',
 				visible = ".$visible.",
 				indexation = ". $indexation.",
-				xt = 1
+				sid = 1
 			WHERE id_page = ".$id_page;
 		//return true;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
