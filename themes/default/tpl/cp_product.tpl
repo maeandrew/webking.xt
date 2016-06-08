@@ -170,7 +170,10 @@
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "" : "hidden" ?>">
+				<h1>ТОВАР ПРОДАН</h1>
+			</div>
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "hidden" : "" ?>" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
