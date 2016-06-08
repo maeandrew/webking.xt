@@ -357,7 +357,7 @@
 				<div id="nav_connection">
 					<h2>Категория и связь</h2>
 					<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
-					<?foreach($_POST['categories_ids'] as $cid){ ?>
+					<?foreach($_POST['categories_ids'] as $k=>$cid){ ?>
 						<div class="catblock">
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
@@ -366,6 +366,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
+							<input type="radio" name="main_category" id="mainCategory" class="input-m" value="<?=$k?>" required /> Сделать основной
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -672,6 +673,7 @@
 			<?}?>
 		</select>
 		<span class="icon-font delcat" title="Удалить">t</span>
+		<input type="radio" name="main_category" id="mainCategory" class="input-m" value="" required /> Сделать основной
 	</div>
 </div>
 <script type="text/javascript">
