@@ -8,10 +8,10 @@
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
 		if(!isset($indexation) || $indexation == 0){?>
-			<meta name="robots" content="noindex, nofollow"/>
+			<meta name="robots" content="noindex, follow"/>
 		<?}
 	}else{?>
-		<meta name="robots" content="noindex, nofollow"/>
+		<meta name="robots" content="noindex, follow"/>
 	<?}?>
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>

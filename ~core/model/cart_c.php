@@ -247,10 +247,10 @@ class Cart {
 	public function DBCart(){
 		if(isset($_SESSION['cart']['id'])){
 			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
-			if(isset($_SESSION['cart']['promo'])&&$_SESSION['cart']['promo'] !=''&&$_SESSION['cart']['adm'] == 0){
+			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
 				$f['ready'] = 0;
 				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
-				unset($f['ready']);
+				unset($f);
 			}
 			//Удаляет товар из корзины
 			if(isset($_POST['id_prod_for_remove'])){
