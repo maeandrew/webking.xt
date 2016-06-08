@@ -144,7 +144,7 @@
 							<?if(isset($_POST['images']) && !empty($_POST['images'])){
 								foreach($_POST['images'] as $photo){
 									if(isset($photo['src'])){?>
-										<div class="image_block dz-preview dz-image-preview">
+										<div class="image_block dz-preview dz-image-preview <?=($photo['visible']==0)?'implicit':null?>">
 											<div class="sort_handle"><span class="icon-font">s</span></div>
 											<div class="image">
 												<img data-dz-thumbnail src="<?=$photo['src']?>"/>
