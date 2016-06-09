@@ -9,10 +9,6 @@ $header = 'Позиции фотографа';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/photo_products/';
+$tpl->Assign('header', $header);
 
-$parsed_res = array(
-	'issuccess' => true,
-	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl'));
-if($parsed_res['issuccess'] === true){
-	$tpl_center .= $parsed_res['html'];
-}
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_photo_products.tpl');
