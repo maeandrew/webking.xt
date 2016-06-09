@@ -1,7 +1,7 @@
 <h1><?=$header;?></h1>
 <a href="#">Начать наполнение поставщика</a>
-<div class="create_product row">
-	<div class="supplier col-md-12">
+<div class="create_product">
+	<div class="supplier">
 		<label for="supplier">Поставщик</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
 		<datalist id="suppliers">
@@ -13,19 +13,19 @@
 			<option value="Z05">5</option>
 		</datalist>
 	</div>
-	<div class="prodName col-md-4">
+	<div class="prodName">
 		<label for="prodName">Название товара</label>
 		<input type="text" id="prodName">
 	</div>
 
-	<div class="images col-md-4 hidden">
+	<div class="images hidden">
 		<label for="images">Изображения</label>
 		<div class="fallback">
 			<input type="file" name="images" id="images" multiple />
 		</div>
 	</div>
 
-	<div class="submit col-md-4">
+	<div class="submit">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
 	
@@ -101,16 +101,7 @@
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
+			<img src="http://lorempixel.com/100/100">			
 		</div>		
 	</div>
 	<div class="prodListItem">
@@ -146,7 +137,6 @@
 		$('#supplier').val($.cookie('suppler'));
 	});
 
-
 	$(function(){
 		$('#supplier').on('change', function(){
 			currentSupplier = $('#supplier').val();			
@@ -170,69 +160,42 @@
 				Images.push(curData);
 			});
 
-			/*ajax('ajaxproducts', 'AddPhotoProduct', {art: ArtSupplier, name: Name, images: Images}).done(function(data){
-				console.log('сработало');
-			});*/
+			/*Проверка ввода необходимых данных и отправка аякса*/			
+			if ($('#supplier').val() != '') {
+				console.log('поставщик есть');
+				$('#supplier').removeClass('errName');
+				if (Name != '') {
+					console.log('название есть');
+					$('#prodName').removeClass('errName');
 
-			$.ajax({
-				url: URL_base+'ajaxproducts',
-				type: "POST",
-				cache: false,
-				dataType: "json",
-				data: {
-					action: 'AddPhotoProduct',
-					art: ArtSupplier,
-					name: Name,
-					images: Images
+					if($(".images_block").html() != ''){
+						$('.image_block_new').removeClass('errName');
+						console.log('картинки есть');
+						/*$.ajax({
+							url: URL_base+'ajaxproducts',
+							type: "POST",
+							cache: false,
+							dataType: "json",
+							data: {
+								action: 'AddPhotoProduct',
+								art: ArtSupplier,
+								name: Name,
+								images: Images
+							}
+						}).done(function(data){
+							console.log('сработало');
+						});*/
+					}else{
+						console.log('картинок нет');
+						$('.image_block_new').addClass('errName');
+					}				
+				}else{
+					$('#prodName').addClass('errName');
 				}
-			}).done(function(data){
-				console.log('сработало');
-			});
-			
-
-			console.log(ArtSupplier);
-			console.log(Name);
-			console.log(Images);
+			}else{
+				console.log('поставщика нет');
+				$('#supplier').addClass('errName');
+			}		
 		});		
 	});
-
 </script>
-
-
-
-<!-- <table border="0" cellspacing="0" cellpadding="0" class="list">
-	<thead>
-		<tr>
-			<th>Название</th>
-			<th>Фото</th>
-			<th>Дата создания</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Товар 1</td>
-			<td><img src="" alt=""></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 2</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 3</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 4</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 5</td>
-			<td></td>
-			<td></td>
-		</tr>
-	</tbody>
-</table> -->

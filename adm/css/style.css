@@ -1021,15 +1021,32 @@ img.pic_block {
 }
 /* Photograph page styles */
 
+.create_product {
+	margin-top: 20px;
+}
+
+.supplier, .prodName, .submit {	
+	float: left;
+}
+
 .supplier { 
 	margin-bottom: 20px;
+	width: 270px;
+}
+.submit {	
+	padding: 0;
 }
 .submit button {
-	height: 40px;
+	height: 25px;
+    padding-top: 3px !important;
+    margin-left: 30px;
+}
+.prodName {
+	width: 360px;
 }
 
 .prodName input {
-	width: 100%;
+	width: 70%;
 	height: 25px;
 }
 
@@ -1123,19 +1140,38 @@ img.pic_block {
 
 /* Стили для списка оформленных товаров */
 
+.prodListItem {
+	border-top: 1px solid #bbbbbb;	
+	padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nameProd, .createData {
+	margin-bottom: 5px;
+}
+
+.nameProd span:first-child,
+.createData span:first-child {
+	font-weight: bold;
+}
+
+
 .prodImages {
 	display: flex;
     overflow-x: auto;
-	height: 125px;
-	border-bottom: 1px solid black;
+	height: 125px;	
 }
 
 .prodImages img {
 	height: 100px;
 	width: 100px;
 	margin-right: 10px;
+	flex-shrink: 0;
 }
 
+.errName {
+	border: 1px solid red;
+}
 
 
 

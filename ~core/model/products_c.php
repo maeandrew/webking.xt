@@ -4508,7 +4508,7 @@ class Products {
 			$patch = $GLOBALS['PATH_root'] . '../';
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		foreach ($images_arr as $filename) {
+		/*foreach ($images_arr as $filename) {
 			$patch = $GLOBALS['PATH_root'].'../';
 			$size = getimagesize($patch.$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
@@ -4529,8 +4529,8 @@ class Products {
 			imagejpeg($res, $patch.$filename);
 		}
 
-		$Images->resize(false, $to_resize);
-		$products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
+		$Images->resize(false, $to_resize);*/
+		// $products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
 		// try to add new product to supplier's assort
 		if(!$this->AddToAssort($id_product, $data['id_supplier'])){
 			return false;
