@@ -274,6 +274,8 @@
 				<div id="description" class="mdl-tabs__panel is-active">
 					<?if(!empty($item['descr_xt_full'])){?>
 						<p itemprop="description"><?=$item['descr_xt_full']?></p>
+					<?}else if(!empty($item['descr'])){?>
+						<p itemprop="description"><?=$item['descr']?></p>
 					<?}else{?>
 						<p>К сожалению описание товара временно отсутствует.</p>
 					<?}?>
