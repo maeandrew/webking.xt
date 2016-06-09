@@ -11,13 +11,35 @@ if(!isset($GLOBALS['REQAR'][1]) || !is_numeric($GLOBALS['REQAR'][1])){
 }
 $id_supplier = $GLOBALS['REQAR'][1];
 $tpl->Assign('id_supplier', $id_supplier);
-
+$order = 'p.id_product ASC';
 if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET['order'] !=''){
 	$order = $_GET['sort'].' '.$_GET['order'];
 }
 $Products = new Products();
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
+
+
+
+
+/*Pagination*/
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$GLOBALS['Limit_db'] = $_GET['limit'];
+}
+if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+		$_GET['page_id'] = $_POST['page_nbr'];
+	}
+	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible'=>1));
+	$tpl->Assign('cnt', $cnt);
+	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+}else{
+	$GLOBALS['Limit_db'] = 0;
+	$limit = '';
+}
+
+
 // ---------Информация о поставщике
 $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
 	array('a.id_supplier' => $Supplier->fields['id_user'], 'a.active' => 1, 'p.visible' => 1),
@@ -29,7 +51,7 @@ $check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
 $tpl->Assign("check_sum", $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);
-$Products->SetProductsList1($id_supplier, $order);
+$Products->SetProductsList1($id_supplier, $order, $limit);
 $products = $Products->list;
 if($products){
 	foreach($products as &$p){

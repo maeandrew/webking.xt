@@ -543,7 +543,7 @@ class Cart {
 		LEFT JOIN "._DB_PREFIX_."product as p
 		ON cp.id_product = p.id_product
 		LEFT JOIN "._DB_PREFIX_."image as i
-		ON cp.id_product = i.id_product AND i.ord = 0
+		ON cp.id_product = i.id_product AND i.ord = 0 AND i.visible = 1
 		WHERE c.id_cart = '".$id_cart."';"; //print_r($sql);
 		$res = $db->GetArray($sql);
 		if(!$res){
@@ -595,5 +595,16 @@ class Cart {
 				}
 				break;
 		}
+	}
+
+	//Проверка готовности корзины
+	public function CheckCartReady($promo){
+		$sql = "SELECT COUNT(ready) AS count FROM "._DB_PREFIX_."cart
+		 		WHERE ready = 0 AND promo = '".$promo."'";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['count'];
+
 	}
 }

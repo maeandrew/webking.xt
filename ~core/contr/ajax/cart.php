@@ -352,7 +352,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(!G::isLogged()){
 					$Customers = new Customers();
 					$Users = new Users();
-					// Если покупатель не арторизован, получаем получаем введенный номер телефона
+					// Если покупатель не авторизован, получаем введенный номер телефона
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					// проверяем уникальность введенного номера телефона
 					$unique_phone = $Users->CheckPhoneUniqueness($phone);

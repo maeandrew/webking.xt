@@ -44,15 +44,20 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				};
 				echo json_encode(true);
 				break;
+			case 'MakeOrderJO';
+				$res = $Cart->CheckCartReady($_POST['promo']);
+				if ($res === false){
+					$res = 'Ой! Что-то пошло не так. Повторите попытку позже';
+				}
+				if($res>0){
+					$res = 'Есть пользователи с неподтвержденным заказ';
+				} else {
 
+				}
 
-//			case 'MakeOrderJO';
-//				$res = $Cart->
-//
-//
-//				print_r($res);
-//				//echo json_encode($res);
-//				break;
+				print_r($res);
+				//echo json_encode($res);
+				break;
 
 
 			case 'GetRating':

@@ -383,7 +383,7 @@ class Orders {
 		}
 		$sql = "SELECT o.id_order, o.id_order_status, osp.id_product, p.name,
 			p.img_1,
-			(SELECT src FROM "._DB_PREFIX_."image AS i WHERE p.id_product = i.id_product AND ord = 0) AS image,
+			(SELECT src FROM "._DB_PREFIX_."image AS i WHERE p.id_product = i.id_product AND ord = 0 AND i.visible = 1) AS image,
 			osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
 			osp.box_qty, osp.supplier_quantity_opt AS opt_qty,
 			osp.supplier_quantity_mopt AS mopt_qty, osp.opt_sum,
@@ -1312,7 +1312,7 @@ class Orders {
 					ON osp.id_product = p.id_product
 				LEFT JOIN "._DB_PREFIX_."image AS i
 					ON osp.id_product = i.id_product
-						AND i.ord = 0
+						AND i.ord = 0 AND i.visible = 1
 				".$this->db->GetWhere($and)."
 				GROUP BY osp.id_order, osp.id_product
 				ORDER BY p.name";//print_r($sql);
@@ -1335,7 +1335,7 @@ class Orders {
 				ON osp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."image AS i
 				ON osp.id_product = i.id_product
-					AND i.ord = 0
+					AND i.ord = 0 AND i.visible = 1
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product
 			ORDER BY p.name";
@@ -1384,7 +1384,7 @@ class Orders {
 				ON osp.id_product = cp.id_product
 			LEFT JOIN "._DB_PREFIX_."image AS i
 				ON osp.id_product = i.id_product
-					AND i.ord = 0
+					AND i.ord = 0 AND i.visible = 1
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product
 			ORDER BY p.name";

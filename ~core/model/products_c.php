@@ -396,7 +396,7 @@ class Products {
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."image AS i
 				ON i.id_product = p.id_product
-				AND i.ord = 0
+				AND i.ord = 0 AND i.visible = 1
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
@@ -1024,7 +1024,7 @@ class Products {
 	 * [SetProductsList1 description]
 	 * @param [type] $s [description]
 	 */
-	public function SetProductsList1($s, $order=null){
+	public function SetProductsList1($s, $order=null, $limit){
 		// SQL выборки для админки
 		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",  pv.count_views,
 			a.*
@@ -1039,7 +1039,7 @@ class Products {
 				ON pv.id_product = p.id_product
 			WHERE a.id_supplier = ".$s."
 			GROUP BY p.id_product".
-			(($order !== null)?"  ORDER BY ".$order:null);
+			(($order !== null)?"  ORDER BY ".$order:null).$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1341,7 +1341,7 @@ class Products {
 			FROM '._DB_PREFIX_.'product AS p
 			LEFT JOIN '._DB_PREFIX_.'image AS i
 				ON i.id_product = p.id_product
-				AND i.ord = 0
+				AND i.ord = 0 AND i.visible = 1
 			LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 				ON cp.id_product = p.id_product
 			LEFT JOIN '._DB_PREFIX_.'units AS un
@@ -1351,7 +1351,7 @@ class Products {
 			WHERE '.$where.'
 			'.$group_by.'
 			ORDER BY '.$orderby.'
-			'.$limit;
+			'.$limit;  //print_r($sql); die();
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -4091,10 +4091,11 @@ class Products {
 	 * Получить список изображений по id товара
 	 * @param [type] $id [description]
 	 */
-	public function GetPhotoById($id){
+	public function GetPhotoById($id, $visible = false){
+		$visble = ($visible === false)?' AND visible = 1':null;
 		$sql = "SELECT src, `visible`
 			FROM "._DB_PREFIX_."image
-			WHERE id_product = ".$id."
+			WHERE id_product = ".$id.$visble."
 			ORDER BY ord";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
