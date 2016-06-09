@@ -3484,15 +3484,19 @@ div.modalEditOrder .applyBtn {
 	width: 108px;
 	padding: 5px;
 	overflow: hidden;
+	border: 1px solid #d9d9d9;
+	margin-right: .5em;
+	margin-bottom: .5em;
+	border-radius: .2em;
 }
 .subCategories .separator {
 	color: #999;
 	margin: 0 .5em;
 }
-
 .subCategories .subCategory:hover {
-	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+	/*box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);*/
 	cursor: pointer;
+	border-color: #aaa;
 }
 
 .subCategories .subCategory img {

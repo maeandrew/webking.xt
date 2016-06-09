@@ -1711,12 +1711,16 @@ class Products {
 	 * [AddToAssort description]
 	 * @param [type] $id_product [description]
 	 */
-	public function AddToAssort($id_product){
-		$this->InitProduct($id_product);
+	public function AddToAssort($id_product, $id_supplier = false){
+		if(!$id_supplier){
+			$this->InitProduct($id_product);
+			$f['id_supplier'] = trim($_SESSION['member']['id_user']);
+		}else{
+			$f['id_supplier'] = $id_suppleir;
+		}
 		$suppliers = new suppliers();
 		$this->db->StartTrans();
 		$f['id_product'] = trim($id_product);
-		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
 		$f['price_opt_recommend'] = 0;
 		$f['price_mopt_recommend'] = 0;
 		$f['price_opt_otpusk'] = 0;
@@ -1730,6 +1734,7 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
+		return true;
 	}
 	/**
 	 * [SwitchActiveEDInAssort description]
@@ -1994,42 +1999,88 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function AddProduct($arr){
-		if (isset($arr['dupl_idproduct'])) {
-			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		if(isset($arr['art'])){
+			$f['art'] = trim($arr['art']);
+		}else{
+			$f['art'] = $products->CheckArticle($this->GetLastArticle()+1);
 		}
-		$f['art'] = trim($arr['art']);
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
-		$f['descr'] = trim($arr['descr']);
-		$f['descr_xt_short'] = trim($arr['descr_xt_short']);
-		$f['descr_xt_full'] = trim($arr['descr_xt_full']);
-		$f['img_1'] = trim($arr['img_1']);
-		$f['img_2'] = trim($arr['img_2']);
-		$f['img_3'] = trim($arr['img_3']);
-		$f['price_opt'] = trim($arr['price_opt']);
-		$f['price_mopt'] = trim($arr['price_mopt']);
-		$f['inbox_qty'] = trim($arr['inbox_qty']);
-		$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
-		$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
-		$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
-		$f['height'] = trim($arr['height']);
-		$f['width'] = trim($arr['width']);
-		$f['length'] = trim($arr['length']);
+		if(isset($arr['dupl_idproduct'])){
+			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		}
+		if(isset($arr['descr'])){
+			$f['descr'] = trim($arr['descr']);
+		}
+		if(isset($arr['descr_xt_short'])){
+			$f['descr_xt_short'] = trim($arr['descr_xt_short']);
+		}
+		if(isset($arr['descr_xt_full'])){
+			$f['descr_xt_full'] = trim($arr['descr_xt_full']);
+		}
+		if(isset($arr['img_1'])){
+			$f['img_1'] = trim($arr['img_1']);
+		}
+		if(isset($arr['img_2'])){
+			$f['img_2'] = trim($arr['img_2']);
+		}
+		if(isset($arr['img_3'])){
+			$f['img_3'] = trim($arr['img_3']);
+		}
+		if(isset($arr['price_opt'])){
+			$f['price_opt'] = trim($arr['price_opt']);
+		}
+		if(isset($arr['price_mopt'])){
+			$f['price_mopt'] = trim($arr['price_mopt']);
+		}
+		if(isset($arr['inbox_qty'])){
+			$f['inbox_qty'] = trim($arr['inbox_qty']);
+		}
+		if(isset($arr['min_mopt_qty'])){
+			$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
+		}
+		if(isset($arr['price_coefficient_opt'])){
+			$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
+		}
+		if(isset($arr['price_coefficient_mopt'])){
+			$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
+		}
+		if(isset($arr['height'])){
+			$f['height'] = trim($arr['height']);
+		}
+		if(isset($arr['width'])){
+			$f['width'] = trim($arr['width']);
+		}
+		if(isset($arr['length'])){
+			$f['length'] = trim($arr['length']);
+		}
+		if(isset($arr['volume'])){
+			$f['volume'] = trim($arr['volume']);
+		}
+		if(isset($arr['coefficient_volume'])){
+			$f['coefficient_volume'] = $arr['coefficient_volume'];
+		}
+		if(isset($arr['id_unit'])){
+			$f['id_unit'] = trim($arr['id_unit']);
+		}
+		if(isset($arr['notation_price'])){
+			$f['notation_price'] = trim($arr['notation_price']);
+		}
+		if(isset($arr['instruction'])){
+			$f['instruction'] = trim($arr['instruction']);
+		}
 		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
-			$f['weight'] = trim($arr['weight']);
+			if(isset($arr['weight'])){
+				$f['weight'] = trim($arr['weight']);
+			}
 		}
-		$f['volume'] = trim($arr['volume']);
-		$f['coefficient_volume'] = $arr['coefficient_volume'];
+		$f['prod_status'] = 3;
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
-		$f['prod_status'] = 3;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
-		$f['id_unit'] = trim($arr['id_unit']);
 		$f['create_user'] = trim($_SESSION['member']['id_user']);
-		$f['notation_price'] = trim($arr['notation_price']);
-		$f['instruction'] = trim($arr['instruction']);
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		// Добавляем товар в бд
 		$this->db->StartTrans();
@@ -4439,5 +4490,51 @@ class Products {
 		$res = $this->db->GetArray($sql);
 
 		return $res;
+	}
+
+	public function AddPhotoProduct($data){
+		// try to create new product
+		if(!$id_product = $this->AddProduct($data)){
+			return false;
+		}
+		// try to add photos to the new product
+		foreach($_POST['images'] as $k => $image){
+			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']) . '/';
+			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_product_img']) . trim($file['dirname']);
+			rename($path . $file['basename'], $path . $newname);
+			$images_arr[] = $bd_path . '/' . $newname;
+			$patch = $GLOBALS['PATH_root'] . '../';
+		}
+		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+		foreach ($images_arr as $filename) {
+			$patch = $GLOBALS['PATH_root'].'../';
+			$size = getimagesize($patch.$filename); //Получаем ширину, высоту, тип картинки
+			if($size[0] > 1000 || $size[1] > 1000){
+				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
+				//Определяем размеры нового изображения
+				if(max($size[0], $size[1]) == $size[0]){
+					$width = 1000;
+					$height = 1000/$ratio;
+				}elseif(max($size[0], $size[1]) == $size[1]){
+					$width = 1000*$ratio;
+					$height = 1000;
+				}
+			}
+			$res = imagecreatetruecolor($width, $height);
+			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($patch.$filename):imagecreatefrompng($patch.$filename);
+			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+			imagejpeg($res, $patch.$filename);
+		}
+
+		$Images->resize(false, $to_resize);
+		$products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
+		// try to add new product to supplier's assort
+		if(!$this->AddToAssort($id_product, $data['id_supplier'])){
+			return false;
+		}
+		return true;
 	}
 }

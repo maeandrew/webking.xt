@@ -16,7 +16,7 @@
 		<div class="subCategories mobile_carousel mdl-cell--hide-phone">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<!--<a href="<?=Link::Category($value['translit'])?>"><?=$value['name']?></a><span class="separator">•</span>-->
-				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
+				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
 					<img class="hidden" src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
