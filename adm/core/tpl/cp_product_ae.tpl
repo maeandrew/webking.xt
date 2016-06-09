@@ -144,7 +144,7 @@
 							<?if(isset($_POST['images']) && !empty($_POST['images'])){
 								foreach($_POST['images'] as $photo){
 									if(isset($photo['src'])){?>
-										<div class="image_block dz-preview dz-image-preview <?=($photo['visible']==0)?'implicit':null?>">
+										<div class="image_block dz-preview dz-image-preview <?=$photo['visible']==0?'implicit':null?>">
 											<div class="sort_handle"><span class="icon-font">s</span></div>
 											<div class="image">
 												<img data-dz-thumbnail src="<?=$photo['src']?>"/>
@@ -160,11 +160,11 @@
 												<p><span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span></p>
 											</div>
 											<input type="hidden" name="images[]" value="<?=$photo['src']?>">
+											<input type="hidden" name="images_visible[]" value="<?=$photo['visible']==0?'0':'1'?>">
 										</div>
 									<?}
 								}
 							}?>
-							<input type="hidden" name="images_visible[]" value="0">
 						</div>
 						<div class="image_block_new drop_zone animate">
 							<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
@@ -370,7 +370,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
-							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /><span>Сделать основной</span>
+							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /> Сделать основной
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
@@ -654,7 +654,7 @@
 	</form>
 </div>
 <div id="preview-template" style="display: none;">
-	<div class="image_block dz-preview dz-file-preview">
+	<div class="image_block dz-preview dz-file-preview implicit">
 		<div class="sort_handle"><span class="icon-font">s</span></div>
 		<div class="image">
 			<img data-dz-thumbnail />
@@ -669,6 +669,7 @@
 		<div class="controls">
 			<p><span class="icon-font del_u_photo_js" title="Удалить">t</span></p>
 		</div>
+		<input type="hidden" name="images_visible[]" value="0">
 	</div>
 </div>
 <div id="templates" class="hidden">
@@ -801,6 +802,7 @@
 				if ($('.previews .image_block:first-of-type').hasClass('implicit')) {
 					$('.previews .image_block:first-of-type').removeClass('implicit');
 				}
+				$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
 				var main_photo = $('.previews .image_block:first-of-type').find('input[name="images[]"]').val();
 				$('.main_photo img').attr('src', main_photo);
 			}
@@ -825,25 +827,34 @@
 				RemovedFile(path, removed_file);
 			}
 		});
-
+		
+		$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
 		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
-			event.preventDefault();
-			var path = $(this).closest('.image_block'),
-				hidden_images;
-			if (path.hasClass('implicit')) {
-				path.removeClass('implicit');
-				hidden_images = path.find('.image img').attr('src');
+			var path = $(this).closest('.image_block');
+			console.log($(this));
+			$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
 
-				var arr = path.closest('.previews').find('[name="hidden_images[]"]');
-				arr.each(function(index, el) {
-					if (hidden_images == el.value) {
-						$(el).remove();
-					};
-				});
+			if (path.hasClass('implicit')) {
+				
+				path.find('[name="images_visible[]"]').val("1");
+				path.removeClass('implicit');
+
+				// hidden_images = path.find('.image img').attr('src');
+
+				// var arr = path.closest('.previews').find('[name="hidden_images[]"]');
+				// arr.each(function(index, el) {
+				// 	if (hidden_images == el.value) {
+				// 		$(el).remove();
+				// 	};
+				// });
 			}else{
+				
+				path.find('[name="images_visible[]"]').val("0");
 				path.addClass('implicit');
-				hidden_images = path.find('.image img').attr('src');
-				path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
+
+				// hidden_images = path.find('.image img').attr('src');
+				// path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
+
 			}
 		});
 

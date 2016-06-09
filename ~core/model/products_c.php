@@ -4123,6 +4123,7 @@ class Products {
 				}
 				$f['src'] = trim($src);
 				$f['ord'] = trim($k);
+				$f['visible'] = trim($visible[$k]);
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
 					$this->db->FailTrans();

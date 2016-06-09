@@ -145,15 +145,13 @@
 						<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>">
 							<?=G::CropString($item['name'], 180)?>
 						</a>
-						<span class="product_article">Артикул: <?=$item['art']?></span>
+						<span class="product_article">Артикул: <?=$item['art']?></span>						
+						<span class="prod_qty_control" data-qtycontr="<?=$item['qty_control']?>"></span>
 						<div class="product_info">
 							<div class="note in_cart">
-								<textarea cols="30" rows="3" id="mopt_note_<?=$item['id_product']?>" form="edit"
-										  name="note" <?=$item['note_control'] != 0 ? 'required':null?>>
-								<?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?>
-								</textarea>
+								<textarea cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
-								<div class="info_description">
+								<div class="info_description hidden">
 									<p>Поле для ввода примечания к товару.</p>
 								</div>
 							</div>
@@ -492,45 +490,59 @@
 
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
-				addLoadAnimation('#cart');
 				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
-				if(phone.length == 12){
-					ajax('cart', 'makeOrder', {phone: phone}).done(
-						function(data){
-						switch(data.status){
-							case 200:
-								closeObject('cart');
-								// window.location.hash = "quiz";
-								ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-									$('#user_pro').html(data);
+				//Проверка на ввод примечания к товару					
+				var qtyControl = 0;
+				$('#cart .product_name').each(function(){
+					var currentQtyControl = $(this).find('.prod_qty_control').data('qtycontr');
+					var noteText = $(this).find('textarea').val();
+					$(this).find('.note').removeClass('activeNoteArea');
+					if (currentQtyControl === 1 && noteText == '') {
+						qtyControl = 1;
+						$(this).find('.note').addClass('activeNoteArea');
+						$(this).find('textarea').attr('placeholder', 'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!');
+					}
+				});
+				if(phone.length == 12){					
+					if (qtyControl === 0){
+						addLoadAnimation('#cart');
+						ajax('cart', 'makeOrder', {phone: phone}).done(
+							function(data){
+							switch(data.status){
+								case 200:
+									// closeObject('cart');
+									window.location.hash = "quiz";
+									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+										$('#user_pro').html(data);
 
-									$('.cabinet_btn').removeClass('hidden');
-									$('.login_btn').addClass('hidden');
-									$('header .cart_item a.cart i').removeClass('mdl-badge');
-									$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
-									$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
-								});
-								// openObject('quiz');
-								break;
-							case 500:
-								console.log('error');
-								removeLoadAnimation('#cart');
-								break;
-							case 501:
-								removeLoadAnimation('#cart');
-								$('.err_msg').html(data.message);
-								setTimeout(function() {
-									$('.err_msg + .cart_login_btn').removeClass('hidden');
-								}, 1000);
-								$('.err_msg + .cart_login_btn').click(function(event) {
-									event.preventDefault;
-									openObject('auth');
-								});
-								break;
-							default:
-								console.log('default statemant');
-						}
-					});
+										$('.cabinet_btn').removeClass('hidden');
+										$('.login_btn').addClass('hidden');
+										$('header .cart_item a.cart i').removeClass('mdl-badge');
+										$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+										$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
+									});
+									openObject('quiz');
+									break;
+								case 500:
+									console.log('error');
+									removeLoadAnimation('#cart');
+									break;
+								case 501:
+									removeLoadAnimation('#cart');
+									$('.err_msg').html(data.message);
+									setTimeout(function() {
+										$('.err_msg + .cart_login_btn').removeClass('hidden');
+									}, 1000);
+									$('.err_msg + .cart_login_btn').click(function(event) {
+										event.preventDefault;
+										openObject('auth');
+									});
+									break;
+								default:
+									console.log('default statemant');
+							}
+						});
+					}
 				}else{
 					removeLoadAnimation('#cart');
 					$('.err_tel').css('visibility', 'visible');
@@ -616,7 +628,7 @@
 				$("#contrlink").fadeOut();
 			}
 			//---------Проверка на ввод телефона
-			$('#button-cart1').click(function(){
+			/*$('#button-cart1').click(function(){
 				if(!$('.phone').val()){
 					$(this).click(function(){
 						$(this).attr('disabled', 'disabled');
@@ -626,7 +638,7 @@
 					$(this).removeAttr("disabled");
 					$('.err_tel').css('visibility', '')
 				}
-			});
+			});*/			
 		});
 	</script>
 <?}?>

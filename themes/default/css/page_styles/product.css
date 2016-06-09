@@ -506,6 +506,18 @@ div[for="rating_block"] {
 	background-color: #757575;
 }
 
+/* СТИЛИ ДЛЯ УВЕДОМЛЕНИИ О ПРИМЕЧАНИИ */
+
+.notificationProdNote {
+	background: #ffffad;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+
+
+
+
 /*
 #socialShare {
 	width: 240px;

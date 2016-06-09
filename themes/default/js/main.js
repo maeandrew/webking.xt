@@ -1410,30 +1410,23 @@ $(function(){
 			}
 		}else{
 			if ((currentQty + itemProdQty) == minQty) {
-				console.log('ща станет опт цена');
 				var nextPrice = $(this).closest('.buy_block').find('.priceOpt' + currentDiscount).val();
-				console.log(nextPrice);
 				$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + minQty + " шт. цена " + nextPrice + " грн.");
 			}else{
 				if ((currentDiscount === 1) && (currentCartSum + constantPriceOpt >= 10000)){
-					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");	
-					console.log('ща станет цена на 21%');
+					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
 				}
 				if ((currentDiscount === 2) && (currentCartSum + constantPriceOpt >= 3000)){
 					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
-					console.log('ща станет цена на 16%');
 				}
 				if ((currentDiscount === 3) && (currentCartSum + constantPriceOpt >= 500)){
 					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
-					console.log('ща станет цена на 10%');
 				}
 			}
 		}
-	}).on('mouseleave', 'button', function(){
-		console.log('out');
+	}).on('mouseleave', 'button', function(){		
 		$('.tooltipForBtnAdd_js').addClass('hidden');
-		$('.tooltipForBtnRemove_js').addClass('hidden');
-		console.log('Вышли');
+		$('.tooltipForBtnRemove_js').addClass('hidden');		
 	});	
 });
 
