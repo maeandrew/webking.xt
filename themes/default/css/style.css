@@ -1052,7 +1052,7 @@ section.center {
 		line-height: 100px;
 	}
 	.card .product_info {
-		margin-top: 10px;
+		/* margin-top: 10px; */
 	}
 	.cartInfBlock {
 		height: 28px;
@@ -2181,12 +2181,22 @@ section .stat_year {
 .products .card .product_name a:hover {
 	text-decoration: underline;
 }
-.products .card .product_article {
+.products .card .product_article,
+#cart .card .product_article {
 	font-size: 0.929em;
 	color: #818181;
 	white-space: nowrap;
 	vertical-align: top;
 }
+#cart .card .product_name > a {
+    display: block;
+   	height: 40px;
+    overflow: hidden;
+}
+#cart .card {
+	min-height: 101px;
+}
+
 .product_buy {
 	width: 310px;
 	float: right;
@@ -2338,7 +2348,7 @@ section .stat_year {
 }
 #cart .note,
 .products .note {
-	display: none;
+	/* display: none; */
 	position: relative;
 	float: left;
 	width: 100%;
@@ -2348,6 +2358,9 @@ section .stat_year {
 #cart .note.in_cart,
 .products .note.in_cart {
 	visibility: visible;
+}
+#cart .activeNoteArea {
+	border: 1px solid #ff5722;
 }
 #cart .note textarea,
 .products .note textarea {
@@ -2359,7 +2372,17 @@ section .stat_year {
 	padding-right: 22px;
 	box-sizing: border-box;
 	float: left;
+	border: 1px solid #ddd;
 }
+
+#cart .note textarea:focus {
+	min-height: 30px !important;
+}
+
+#cart .activeNoteArea textarea::-webkit-input-placeholder {color:#ff5722;}
+#cart .activeNoteArea textarea::-moz-placeholder {color:#ff5722;}
+#cart .activeNoteArea textarea:-ms-input-placeholder {color:#ff5722;}
+
 #cart .note textarea.required::-webkit-input-placeholder,
 .products .note textarea.required::-webkit-input-placeholder {color:#EF5350;}
 #cart .note textarea.required::-moz-placeholder,
