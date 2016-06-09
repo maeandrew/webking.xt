@@ -4092,7 +4092,7 @@ class Products {
 	 * @param [type] $id [description]
 	 */
 	public function GetPhotoById($id){
-		$sql = "SELECT src
+		$sql = "SELECT src, `visible`
 			FROM "._DB_PREFIX_."image
 			WHERE id_product = ".$id."
 			ORDER BY ord";
@@ -4110,7 +4110,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 * @param [type] $arr        [description]
 	 */
-	public function UpdatePhoto($id_product, $arr){
+	public function UpdatePhoto($id_product, $arr, $visible = null){
 		$sql = "DELETE FROM "._DB_PREFIX_."image WHERE id_product=".$id_product;
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
@@ -4123,6 +4123,7 @@ class Products {
 				}
 				$f['src'] = trim($src);
 				$f['ord'] = trim($k);
+				$f['visible'] = trim($visible[$k]);
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
 					$this->db->FailTrans();

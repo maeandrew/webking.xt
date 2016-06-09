@@ -347,7 +347,7 @@
 						<?foreach($list_menu as $menu){?>
 							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
 						<?}?>
-						<li><a href="#">Форум</a></li>
+						<li><a href="<?=Link::Custom('price');?>">Прайс-лист</a></li>
 					</ul>
 				</div>
 				<div class="contacts">
