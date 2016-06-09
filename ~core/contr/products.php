@@ -47,7 +47,7 @@ foreach($res as $cat){
 	if($cat['id_category'] != $id_category){
 		$GLOBALS['IERA_LINKS'][] = array(
 			'title' => $cat['name'],
-			'url' => Link::Category($cat['translit'])
+			'url' => Link::Category($cat['translit'], array('clear'=>true))
 		);
 	}
 	$end = end($GLOBALS['IERA_LINKS']);
