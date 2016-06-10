@@ -11,7 +11,7 @@
 			<meta name="robots" content="noindex, follow"/>
 		<?}
 	}else{?>
-		<meta name="robots" content="noindex, follow"/>
+		<!-- <meta name="robots" content="noindex, follow"/> -->
 	<?}?>
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
