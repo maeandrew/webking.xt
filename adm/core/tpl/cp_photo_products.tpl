@@ -115,7 +115,7 @@
 			<span>09.06.2016</span>
 		</div>
 		<div class="prodImages">
-			<img src="http://lorempixel.com/100/100">
+			<img class="imgopacity" src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">			
@@ -182,7 +182,7 @@
 							url: URL_base+'ajaxproducts',
 							type: "POST",
 							cache: false,
-							dataType: "json",
+							dataType: "html",
 							data: {
 								action: 'AddPhotoProduct',
 								art_supplier: ArtSupplier,

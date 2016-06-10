@@ -43,7 +43,8 @@
 .images_block .image:hover {
 	box-shadow:  0px 2px 6px rgba(0, 0, 0, 0.5);
 }
-.images_block .imgopacity {
+.images_block .imgopacity,
+.prodList .imgopacity {
 	opacity: 0.2;
 }
 .image_block_new {
@@ -51,6 +52,7 @@
 }
 .images_block .image_block .name {
 	width: 120px;
+	overflow: hidden;
 }
 .images_block .image {
 	width: 120px;
