@@ -4540,7 +4540,10 @@ class Products {
 	}
 
 	public function GetProductsByIdUser($id_user){
-		$sql= "SELECT * FROM "._DB_PREFIX_."product WHERE sid = 1 AND create_user = ".$id_user;
+		$sql= "SELECT * FROM "._DB_PREFIX_."product
+			WHERE sid = 1
+				AND create_user = ".$id_user."
+			ORDER BY create_date DESC";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

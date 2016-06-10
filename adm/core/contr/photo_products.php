@@ -12,7 +12,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/photo_products/
 $tpl->Assign('header', $header);
 
 $products = new Products();
-$list = $products->GetProductsByIdUser($id_user);
+$list = $products->GetProductsByIdUser($_SESSION['member']['id_user']);
 $tpl->Assign('list', $list);
 
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_photo_products.tpl');

@@ -114,6 +114,11 @@
 .createData span:first-child {
 	font-weight: bold;
 }
+.nameProd a,
+.createData a {
+	font-weight: bold;
+	color: #444;
+}
 .prodImages {
 	display: flex;
     overflow-x: auto;

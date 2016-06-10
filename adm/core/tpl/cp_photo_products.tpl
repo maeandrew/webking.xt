@@ -34,7 +34,6 @@
 </div>
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
-		<!-- <div class="sort_handle"><span class="icon-font">s</span></div> -->
 		<div class="image">
 			<img data-dz-thumbnail />
 			<span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span>
@@ -43,81 +42,29 @@
 		<div class="name">
 			<span class="dz-filename" data-dz-name></span>
 			<span class="dz-size" data-dz-size></span>
-		</div>
-		<!-- <div class="visibility">
-			<p><span class="icon-font hide_u_photo_js" title="Скрыть/отобразить">v</span></p>
-		</div>
-		<div class="controls">
-			<p><span class="icon-font del_u_photo_js" title="Удалить">t</span></p>
-		</div> -->
+		</div>		
 	</div>
 </div>
 <div class="prodList">
-	<div class="prodListItem">
+	<?foreach ($list as $item) {?>
+		<div class="prodListItem">
 		<div class="nameProd">
-			<span>Товар:</span>
-			<span>Ручка для двери</span>
-			<span class="icon-font del_photo_js" title="Удалить" data-dz-remove="">t</span>
+			<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
+			<span><?=$item['name']?></span>			
 		</div>
 		<div class="createData">
 			<span>Дата:</span>
-			<span>09.06.2016</span>
+			<span><?=$item['create_date']?></span>
 		</div>
 		<div class="prodImages">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
+			<?foreach ($item['images'] as $image) {?>
+				<img src="<?=$image['src']?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+			<?}?>				
 		</div>
 	</div>
-	<div class="prodListItem">
-		<div class="nameProd">
-			<span>Товар:</span>
-			<span>Ручка для двери</span>			
-		</div>
-		<div class="createData">
-			<span>Дата:</span>
-			<span>09.06.2016</span>
-		</div>
-		<div class="prodImages">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">			
-		</div>		
-	</div>
-	<div class="prodListItem">
-		<div class="nameProd">
-			<span>Товар:</span>
-			<span>Ручка для двери</span>			
-		</div>
-		<div class="createData">
-			<span>Дата:</span>
-			<span>09.06.2016</span>
-		</div>
-		<div class="prodImages">
-			<img class="imgopacity" src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">			
-		</div>		
-	</div>
+	<?}?>	
 </div>
+<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 
 <script>
 	var url = URL_base+'productadd/';
@@ -125,14 +72,11 @@
 		method: 'POST',
 		url: url+"?upload=true",
 		clickable: true,
-		/*previewsContainer: '.previews',*/
 		previewsContainer: '.images_block',	
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	}).on('success', function(file, path){
-			console.log(file);
-			console.log(path);
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
-		});
+	});
 
 	$(window).load(function(){
 		$('#supplier').val($.cookie('suppler'));
@@ -140,11 +84,11 @@
 
 	$(function(){
 		$('#supplier').on('change', function(){
-			currentSupplier = $('#supplier').val();			
+			currentSupplier = $('#supplier').val();
 			$.cookie('suppler', currentSupplier);
 		});
 
-		$('body').on('click', '.hide_photo_js', function(){			
+		$('body').on('click', '.hide_photo_js', function(){
 			$(this).closest('.image').find('img').toggleClass('imgopacity');
 		});
 
@@ -160,10 +104,10 @@
 					action: 'DeleteUploadedImage',
 					src: curSrc,
 				}
-			}).done(function(data){				
+			}).done(function(data){
 				target.closest('.image_block_js').remove();
 			});
-		});		
+		});
 
 		$('.submit_js').on('click', function(){
 			var ArtSupplier = $.cookie('suppler');
@@ -177,15 +121,13 @@
 				Images.push(curData);
 			});
 
-			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/			
+			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
 			if ($('#supplier').val() != '') {
 				$('#supplier').removeClass('errName');
 				if (Name != '') {
 					$('#prodName').removeClass('errName');
 					if($(".images_block").html() != ''){
 						$('.image_block_new').removeClass('errName');
-						console.log('картинки есть');
-						console.log(Images);
 						$.ajax({
 							url: URL_base+'ajaxproducts',
 							type: "POST",
@@ -203,16 +145,14 @@
 							$('#prodName').val('');
 						});
 					}else{
-						console.log('картинок нет');
 						$('.image_block_new').addClass('errName');
-					}				
+					}
 				}else{
 					$('#prodName').addClass('errName');
 				}
 			}else{
-				console.log('поставщика нет');
 				$('#supplier').addClass('errName');
-			}		
-		});		
+			}
+		});
 	});
 </script>
