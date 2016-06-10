@@ -340,7 +340,7 @@
 					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
+							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждения администратора. Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
 							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
 						</div>
 					<?}?>
@@ -431,7 +431,10 @@
 				$('.apply_promoCode_js').click(function(event) {
 					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(event) {
 						$('cart_choiсe_wrapp_js').addClass('hidden');
+						
 						$('.confirm_order_js').closest('div').removeClass('hidden');
+						$('#button-cart1').addClass('hidden');
+						// GetCartAjax(true);
 						console.log("success promo");
 					}).fail(function(event) {
 						console.log("fail promo");
