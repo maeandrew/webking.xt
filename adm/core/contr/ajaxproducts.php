@@ -68,7 +68,8 @@
 				break;
 			case 'DeleteUploadedImage':
 				$Images = new Images();
-				if($Images->remove($_POST['src'])){
+				// var_dump($GLOBALS['PATH_root'].$_POST['src']);
+				if($Images->remove($GLOBALS['PATH_root'].$_POST['src'])){
 					$echo = true;
 				}else{
 					$echo = false;
