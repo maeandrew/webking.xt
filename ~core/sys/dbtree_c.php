@@ -698,7 +698,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.', pid FROM '.$this->table.' WHERE id_category = '.(int)$ID;
+		$sql = 'SELECT '.$fields.', pid FROM '.$this->table.' WHERE sid = 1 AND id_category = '.(int)$ID;
 		$res1 = $this->db->GetOneRowArray($sql);
 		if($res1['pid'] > 1){
 			$sql .= ' UNION ';
@@ -975,7 +975,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 AND sid =1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}

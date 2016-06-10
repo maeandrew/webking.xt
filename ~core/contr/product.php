@@ -40,7 +40,8 @@ $tpl->Assign('item', $product);
 $tpl->Assign('header', $product['name']);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 // если в ссылке не была указана категория, то выбирается первая из соответствий категория-продукт
-if(!isset($id_category)) $id_category = $product['id_category'];
+//if(!isset($id_category)) $id_category = $product['id_category'];
+$id_category = $products->GetCatBreadCrumbs($id_product);
 $res = $dbtree->Parents($id_category, array('id_category', 'name', 'category_level', 'translit'));
 foreach($res as $cat){
 	if($cat['category_level'] > 0){
