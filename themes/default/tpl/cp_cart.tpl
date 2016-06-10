@@ -326,22 +326,27 @@
 							<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 							<p>Вы уверенны, что хотите удалить промокод?</p>
 							<input type="hidden" value="<?=isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:'';?>">
-							<input class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
-							<input class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
+							<input type="button" class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
+							<input type="button" class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
 						</div>
 					<?}else{?>
-						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
+						<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
 					<?}?>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
 						<div class="">
 							<div class="info_admin">Для управления совместной покупкой, перейдите  личный кабинет.</div>
-							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
+							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
 					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
 						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-							<div class="info_client">Подтвердите свой заказ и ожидайте подтверждения администратора. Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
-							<input class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
+							<?if(isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) {?>
+								<div class="info_client ic_waiting">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
+							<?}else{?>
+								<div class="info_client ic_ready">Заказ подтвержден. </div>
+							<?}?>
+							<div class="info_client">Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
+							<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
 						</div>
 					<?}?>
 				
@@ -363,7 +368,7 @@
 										<div class="info_description">Перейти к оформлению совместного заказа</div>
 								</label>
 							</div>
-							<input class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
+							<input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
 						</div>
 					<?}?>
 				<?}?>
@@ -432,9 +437,9 @@
 					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(event) {
 						$('cart_choiсe_wrapp_js').addClass('hidden');
 						
-						$('.confirm_order_js').closest('div').removeClass('hidden');
-						$('#button-cart1').addClass('hidden');
-						// GetCartAjax(true);
+						// $('.confirm_order_js').closest('div').removeClass('hidden');
+						// $('#button-cart1').addClass('hidden');
+						GetCartAjax(true);
 						console.log("success promo");
 					}).fail(function(event) {
 						console.log("fail promo");
@@ -459,6 +464,7 @@
 					// console.log($(this).closest('div').find('[type="hidden"]').val());
 					ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
 						console.log("success ");
+						GetCartAjax(true);
 					}).fail(function(event) {
 						console.log("fail ");
 					});
