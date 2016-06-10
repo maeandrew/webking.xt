@@ -348,7 +348,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case 'makeOrder': //print_r($_POST);
+			case 'makeOrder':
 				if(!G::isLogged()){
 					$Customers = new Customers();
 					$Users = new Users();

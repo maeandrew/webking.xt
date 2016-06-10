@@ -423,10 +423,10 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
-
+		$OrderCart = ($arr === null)?$_SESSION['cart']['products']:$arr;
 
 		// Если список товаров в корзине пуст
-		if(empty($_SESSION['cart']['products'])){
+		if(empty($OrderCart)){
 			print_r('products error');
 			return false;
 		}
@@ -504,7 +504,7 @@ class Orders {
 		// Заполнение связки заказ-товары
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
-		foreach($_SESSION['cart']['products'] as $id_product=>$item){
+		foreach($OrderCart as $id_product=>$item){
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
 			// Обычный заказ
@@ -567,7 +567,7 @@ class Orders {
 		}
 		// Если ни у одного товара нет поставщика
 		if($sup_nb == 0){
-			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
+			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного или нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
 			print_r('sup_nb error');
 			return false;
 		}
@@ -633,7 +633,7 @@ class Orders {
 // 			}
 // 		}
 // 		//*************************************************************
-// 		if(count($_SESSION['Cart']['products']) == 0){
+// 		if(count($OrderCart) == 0){
 // 			return false;
 // 		}
 // 		global $cart;
@@ -723,12 +723,12 @@ class Orders {
 // 		$ii = 0;
 // 		$f = array();
 // 		//** Нужно получить ошибки по всем товарам
-// 		foreach($_SESSION['Cart']['products'] as $id_product=>$i){
+// 		foreach($OrderCart as $id_product=>$i){
 // 			if($i['order_opt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_opt_qty'], true);
 // 			if($i['order_mopt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_mopt_qty'], false);
 // 		}
 // 		//**
-// 		foreach($_SESSION['Cart']['products'] as $id_product=>$i){
+// 		foreach($OrderCart as $id_product=>$i){
 // 			$f[$ii]['id_order'] = $id_order;
 // 			if(isset($arr['p_order'])){ // Прогнозный заказ
 // 				$f[$ii]['id_supplier'] = 0;

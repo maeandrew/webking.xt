@@ -2,6 +2,7 @@
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Users = new Users();
 	$Cart = new Cart();
+	$Orders = new Orders();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'GetProdList':
@@ -39,10 +40,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//print_r($list); die();
 				break;
 			case 'DelCartFromJO':
-				if(!$list = $Cart->UpdateCart(false, 0, 1, 0, $_POST['id_cart'])){
+				if(isset($_POST['id_cart'])) {
+					if (!$list = $Cart->UpdateCart(null, 0, 1, 0, $_POST['id_cart'])) {
+						echo json_encode(false);
+					};
+					echo json_encode(true);
+				} else {
 					echo json_encode(false);
-				};
-				echo json_encode(true);
+				}
 				break;
 			case 'MakeOrderJO';
 				$res = $Cart->CheckCartReady($_POST['promo']);
@@ -52,6 +57,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if($res>0){
 					$res = 'Есть пользователи с неподтвержденным заказ';
 				} else {
+					if($id_order = $Orders->Add($_POST['promo'])){
+						//$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+						$res = 'Заказ сформирован!';
+					}else{
+						$res = 'Ошибка формирования заказа!';
+					}
 
 				}
 
