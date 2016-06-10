@@ -126,7 +126,9 @@ class Products {
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 				ON pv.id_product = p.id_product
-			WHERE p.id_product = ".$id_product."
+			LEFT JOIN "._DB_PREFIX_."category AS c
+				ON c.id_category = cp.id_category
+			WHERE p.id_product = ".$id_product." AND c.sid = 1
 			".$visible;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
