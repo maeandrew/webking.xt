@@ -17,19 +17,15 @@
 		<label for="prodName">Название товара</label>
 		<input type="text" id="prodName" class="input-m">
 	</div>
-
 	<div class="images hidden">
 		<label for="images">Изображения</label>
 		<div class="fallback">
 			<input type="file" name="images" id="images" multiple />
 		</div>
 	</div>
-
 	<div class="submit">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
-	
-
 	<div class="image_block_new drop_zone animate col-md-12">
 		<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
 		<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
@@ -152,11 +148,22 @@
 			$(this).closest('.image').find('img').toggleClass('imgopacity');
 		});
 
-		$('body').on('click', '.del_photo_js', function(){			
-			$(this).closest('.image_block_js').remove();
-		});
-
-		
+		$('body').on('click', '.del_photo_js', function(){
+			var target = $(this),
+				curSrc = target.closest('.image_block_js').find('input').val();
+			$.ajax({
+				url: URL_base+'ajaxproducts',
+				type: "POST",
+				cache: false,
+				dataType: "json",
+				data: {
+					action: 'DeleteUploadedImage',
+					src: curSrc,
+				}
+			}).done(function(data){				
+				target.closest('.image_block_js').remove();
+			});
+		});		
 
 		$('.submit_js').on('click', function(){
 			var ArtSupplier = $.cookie('suppler');
@@ -191,7 +198,9 @@
 								images: Images
 							}
 						}).done(function(data){
-							console.log('сработало');
+							$('.prodList').prepend(data);
+							$('.images_block').find('.image_block_js').remove();
+							$('#prodName').val('');
 						});
 					}else{
 						console.log('картинок нет');
