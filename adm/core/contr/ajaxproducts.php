@@ -44,17 +44,31 @@
 				break;
 			case 'AddPhotoProduct':
 				$echo = 'error';
-				if($Products->AddPhotoProduct($_POST)){
-					$echo = 'ok';
+				if($id_product = $Products->AddPhotoProduct($_POST)){
+					$Products->SetFieldsByID($id_product);
+					$product = $Products->fields;
+					$images = $Products->GetPhotoById($id_product);
+					$echo = '<div class="prodListItem">
+						<div class="nameProd">
+							<a href="'.Link::Product($product['translit']).'"><span>Товар:</span></a>
+							<span>'.$product['name'].'</span>
+						</div>
+						<div class="createData">
+							<span>Дата:</span>
+							<span>'.$product['create_date'].'</span>
+						</div>
+						<div class="prodImages">';
+					foreach($images as $image){
+						$echo .= '<img src="'.$image['src'].'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
+					}
+					$echo .= '</div>
+						</div>';
 				}
-				echo json_encode($echo);
+				echo $echo;
 				break;
-			// case 'removeProductAll':
-				// $Products->DelProduct($_POST['id_prod']);
-				// break;
+
 			default:
 				break;
 		}
 	exit();
 }
-?>

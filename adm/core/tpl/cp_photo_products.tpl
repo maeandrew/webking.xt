@@ -1,7 +1,7 @@
 <h1><?=$header;?></h1>
 <a href="#">Начать наполнение поставщика</a>
-<div class="create_product row">
-	<div class="supplier col-md-12">
+<div class="create_product">
+	<div class="supplier">
 		<label for="supplier">Поставщик</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
 		<datalist id="suppliers">
@@ -13,19 +13,19 @@
 			<option value="Z05">5</option>
 		</datalist>
 	</div>
-	<div class="prodName col-md-4">
+	<div class="prodName">
 		<label for="prodName">Название товара</label>
-		<input type="text" id="prodName">
+		<input type="text" id="prodName" class="input-m">
 	</div>
 
-	<div class="images col-md-4 hidden">
+	<div class="images hidden">
 		<label for="images">Изображения</label>
 		<div class="fallback">
 			<input type="file" name="images" id="images" multiple />
 		</div>
 	</div>
 
-	<div class="submit col-md-4">
+	<div class="submit">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
 	
@@ -60,7 +60,7 @@
 	<div class="prodListItem">
 		<div class="nameProd">
 			<span>Товар:</span>
-			<span>Ручка для двери</span>			
+			<span>Ручка для двери</span>
 		</div>
 		<div class="createData">
 			<span>Дата:</span>
@@ -83,7 +83,7 @@
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
-		</div>		
+		</div>
 	</div>
 	<div class="prodListItem">
 		<div class="nameProd">
@@ -101,16 +101,7 @@
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
 			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
-			<img src="http://lorempixel.com/100/100">
+			<img src="http://lorempixel.com/100/100">			
 		</div>		
 	</div>
 	<div class="prodListItem">
@@ -140,12 +131,15 @@
 		/*previewsContainer: '.previews',*/
 		previewsContainer: '.images_block',	
 		previewTemplate: document.querySelector('#preview-template').innerHTML
-	});
+	}).on('success', function(file, path){
+			console.log(file);
+			console.log(path);
+			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+		});
 
 	$(window).load(function(){
 		$('#supplier').val($.cookie('suppler'));
 	});
-
 
 	$(function(){
 		$('#supplier').on('change', function(){
@@ -164,75 +158,50 @@
 			var Images = [];
 
 			$('.images_block .image_block_js').each(function(){
-				var name = $(this).find('.dz-filename').html();
+				/*var name = $(this).find('.dz-filename').html();*/
 				var visibility = $(this).find('img').hasClass('imgopacity');
-				var curData = {src: name, visible: visibility};
+				var path = $(this).find('input').val();
+				var curData = {src: path, visible: visibility};
 				Images.push(curData);
 			});
 
-			/*ajax('ajaxproducts', 'AddPhotoProduct', {art: ArtSupplier, name: Name, images: Images}).done(function(data){
-				console.log('сработало');
-			});*/
+			/*Проверка ввода необходимых данных и отправка аякса*/			
+			if ($('#supplier').val() != '') {
+				console.log('поставщик есть');
+				$('#supplier').removeClass('errName');
+				if (Name != '') {
+					console.log('название есть');
+					$('#prodName').removeClass('errName');
 
-			$.ajax({
-				url: URL_base+'ajaxproducts',
-				type: "POST",
-				cache: false,
-				dataType: "json",
-				data: {
-					action: 'AddPhotoProduct',
-					art: ArtSupplier,
-					name: Name,
-					images: Images
+					if($(".images_block").html() != ''){
+						$('.image_block_new').removeClass('errName');
+						console.log('картинки есть');
+						console.log(Images);
+						$.ajax({
+							url: URL_base+'ajaxproducts',
+							type: "POST",
+							cache: false,
+							dataType: "json",
+							data: {
+								action: 'AddPhotoProduct',
+								art_supplier: ArtSupplier,
+								name: Name,
+								images: Images
+							}
+						}).done(function(data){
+							console.log('сработало');
+						});
+					}else{
+						console.log('картинок нет');
+						$('.image_block_new').addClass('errName');
+					}				
+				}else{
+					$('#prodName').addClass('errName');
 				}
-			}).done(function(data){
-				console.log('сработало');
-			});
-			
-
-			console.log(ArtSupplier);
-			console.log(Name);
-			console.log(Images);
+			}else{
+				console.log('поставщика нет');
+				$('#supplier').addClass('errName');
+			}		
 		});		
 	});
-
 </script>
-
-
-
-<!-- <table border="0" cellspacing="0" cellpadding="0" class="list">
-	<thead>
-		<tr>
-			<th>Название</th>
-			<th>Фото</th>
-			<th>Дата создания</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Товар 1</td>
-			<td><img src="" alt=""></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 2</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 3</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 4</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Товар 5</td>
-			<td></td>
-			<td></td>
-		</tr>
-	</tbody>
-</table> -->

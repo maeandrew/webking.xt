@@ -4144,16 +4144,13 @@ class Products {
 	 * @param [type] $id [description]
 	 */
 	public function GetPhotoById($id){
-		$sql = "SELECT src, `visible`
+		$sql = "SELECT src, visible
 			FROM "._DB_PREFIX_."image
 			WHERE id_product = ".$id."
 			ORDER BY ord";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}
-		foreach($arr as $value){
-			$res[] = $value['src'];
 		}
 		return $arr;
 	}
@@ -4499,21 +4496,22 @@ class Products {
 			print_r('expression1');
 			return false;
 		}
-/*		// try to add photos to the new product
+		$article = $this->GetArtByID($id_product);
+		// try to add photos to the new product
 		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
-			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']) . '/';
-			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_product_img']) . trim($file['dirname']);
-			rename($path . $file['basename'], $path . $newname);
-			$images_arr[] = $bd_path . '/' . $newname;
-			$patch = $GLOBALS['PATH_root'] . '../';
-			$visibility[] = $image['visible'];
+			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
+			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']).'/';
+			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			rename($path.$file['basename'], $path.$newname);
+			$images_arr[] = $bd_path.'/'.$newname;
+			$path = $GLOBALS['PATH_root'].'../';
+			$visibility[] = (integer) $image['visible'];
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
 		foreach($images_arr as $filename) {
-			$patch = $GLOBALS['PATH_root'].'../';
-			$size = getimagesize($patch.$filename); //Получаем ширину, высоту, тип картинки
+			$path = $GLOBALS['PATH_root'].'..';
+			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
 				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
 				//Определяем размеры нового изображения
@@ -4527,19 +4525,19 @@ class Products {
 			}
 			$res = imagecreatetruecolor($width, $height);
 			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($patch.$filename):imagecreatefrompng($patch.$filename);
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-			imagejpeg($res, $patch.$filename);
+			imagejpeg($res, $path.$filename);
 		}
 		$Images = new Images();
 		$Images->resize(false, $to_resize);
-		$this->UpdatePhoto($id, $images_arr, $visibility);*/
+		$this->UpdatePhoto($id_product, $images_arr, $visibility);
 		// try to add new product to supplier's assort
 		$Suppliers = new Suppliers();
 		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
 			print_r('expression2');
 			return false;
 		}
-		return true;
+		return $id_product;
 	}
 }
