@@ -1879,6 +1879,10 @@ div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent .orderP
 div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle){
 	height: auto;
 }
+div[id^="items_panel_"] .btnWrapFlex {
+	display: flex;
+	justify-content: flex-end;
+}
 #products .ordersProdList .ordersProdListContent .priceTitle {
 	display: none;
 }

@@ -36,8 +36,10 @@
 								<div class="title">
 									<div class="container">
 										<span class="number num_mar">Совместная корзина № <?=$i['id_cart']?></span>
-										<span class="number">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?></span>
-										<i class="material-icons refresh refresh_js">refresh</i>
+										<?if (isset($_GET['t']) && $_GET['t'] == 'joactive') {?>
+											<span class="number">Актуальность информации в корзине на <?=date("Y-m-d H:i:s")?></span>
+											<i class="material-icons refresh refresh_js">refresh</i>
+										<?}?>
 										<div class="print">
 											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_cart']?>">
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
@@ -232,6 +234,12 @@
 									</div>
 
 									<div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>" >
+										<div class="btnWrapFlex"><?if(isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1) {?>
+												<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Оформить заказ" data-upgraded=",MaterialButton,MaterialRipple"/>
+											<?}else if((isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) && (isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0)){?>
+												<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готов" data-upgraded=",MaterialButton,MaterialRipple"/>
+											<?}?>
+										</div>
 										<?if (isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?>
 											<div class="products_cart_js"></div>
 										<?}else{?>
