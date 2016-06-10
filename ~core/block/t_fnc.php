@@ -130,6 +130,18 @@ function Register_form_validate($nocheck = array()){
 				$errm[$varname] = $errmsg;
 				$err = 1;
 			}
+		}
+	}
+	$varname = 'phone';
+	if(!in_array($varname, $nocheck)){
+		if(isset($_POST[$varname]) && $_POST[$varname]){
+			$_POST[$varname] = trim($_POST[$varname]);
+			$carr = array('Lmin'=>10, 'Lmax'=>12, 'PM_tel'=>1);
+			list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+			if(!$errf){
+				$errm[$varname] = $errmsg;
+				$err = 1;
+			}
 		}else{
 			$errm[$varname] = "Поле обязательно для заполнения";
 			$err = 1;
