@@ -66,7 +66,15 @@
 				}
 				echo $echo;
 				break;
-
+			case 'DeleteUploadedImage':
+				$Images = new Images();
+				if($Images->remove($_POST['src'])){
+					$echo = true;
+				}else{
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
 			default:
 				break;
 		}
