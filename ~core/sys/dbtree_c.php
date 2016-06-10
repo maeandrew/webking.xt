@@ -943,7 +943,11 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).' AND visible = 1';
+		$sql = 'SELECT '.$fields.'
+			FROM '.$this->table.'
+			WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).'
+				AND visible = 1
+				AND sid = 1';
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
@@ -975,7 +979,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 AND sid =1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -987,7 +991,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -998,7 +1002,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -1009,7 +1013,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -1021,7 +1025,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '._DB_PREFIX_.'category.pid = '.$ID.' ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '._DB_PREFIX_.'category.pid = '.$ID.' AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}

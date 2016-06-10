@@ -4429,13 +4429,8 @@ class Products {
 					ELSE 0
 				END) AS sort2
 				FROM '._DB_PREFIX_.'category AS c
-				WHERE c.category_level <>0
-
-				AND c.id_category <> 493
-				AND c.pid NOT IN (493)
-				AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
-				AND c.category_level <>4
-
+				WHERE c.category_level <> 0
+				AND sid = 1
 				ORDER BY sort, sort2, category_level';
 		$res = $this->db->GetArray($sql);
 
