@@ -338,17 +338,23 @@
 
 		$('body').on('click', '.checkout_js', function(event) {
 			event.preventDefault();
-			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')}).done(function(event) {
+			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')}).done(function(data) {
+				if (data.success == true) {
+					console.log(data.msg);
+				}else{
+					console.log(data.msg);
+				}
+
 				console.log('success');
-			}).fail(function(event) {
+			}).fail(function(data) {
 				console.log('Fail');
 			});
 		});
 
 		$('[id^=items_panel_]').on('click', '.readyToOrder_js', function(event) {
-			ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
+			ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(data){
 				// console.log("success readyToOrder_js");
-			}).fail(function(event) {
+			}).fail(function(data) {
 				console.log("fail ");
 			});
 		});

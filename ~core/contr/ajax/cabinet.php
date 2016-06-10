@@ -52,22 +52,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'MakeOrderJO';
 				$res = $Cart->CheckCartReady($_POST['promo']);
 				if ($res === false){
-					$res = 'Ой! Что-то пошло не так. Повторите попытку позже';
-				}
-				if($res>0){
-					$res = 'Есть пользователи с неподтвержденным заказ';
-				} else {
-					if($id_order = $Orders->Add($_POST['promo'])){
-						//$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
-						$res = 'Заказ сформирован!';
+					$res['success'] = false;
+					$res['msg'] = 'Ой! Что-то пошло не так. Повторите попытку позже';
+				}else{
+					if($res > 0){
+						$res['success'] = false;
+						$res['msg'] = 'Есть пользователи с неподтвержденным заказ';
 					}else{
-						$res = 'Ошибка формирования заказа!';
+						if($id_order = $Orders->Add($_POST['promo'])){
+							//$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+							$res['success'] = true;
+							$res['msg'] = 'Заказ сформирован!';
+						}else{
+							$res['success'] = false;
+							$res['msg'] = 'Ошибка формирования заказа!';
+						}
 					}
-
 				}
 
-				print_r($res);
-				//echo json_encode($res);
+				// print_r($res);
+				echo json_encode($res);
 				break;
 
 
