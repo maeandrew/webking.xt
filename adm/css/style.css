@@ -1036,18 +1036,15 @@ img.pic_block {
 .submit {	
 	padding: 0;
 }
-.submit button {
-	height: 25px;
-    padding-top: 3px !important;
+.submit button {	
     margin-left: 30px;
 }
 .prodName {
 	width: 360px;
 }
 
-.prodName input {
-	width: 70%;
-	height: 25px;
+.prodName input {	width: 70%;
+	
 }
 
 .previews { 

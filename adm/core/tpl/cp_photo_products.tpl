@@ -15,7 +15,7 @@
 	</div>
 	<div class="prodName">
 		<label for="prodName">Название товара</label>
-		<input type="text" id="prodName">
+		<input type="text" id="prodName" class="input-m">
 	</div>
 
 	<div class="images hidden">
@@ -131,7 +131,11 @@
 		/*previewsContainer: '.previews',*/
 		previewsContainer: '.images_block',	
 		previewTemplate: document.querySelector('#preview-template').innerHTML
-	});
+	}).on('success', function(file, path){
+			console.log(file);
+			console.log(path);
+			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+		});
 
 	$(window).load(function(){
 		$('#supplier').val($.cookie('suppler'));
@@ -154,9 +158,10 @@
 			var Images = [];
 
 			$('.images_block .image_block_js').each(function(){
-				var name = $(this).find('.dz-filename').html();
+				/*var name = $(this).find('.dz-filename').html();*/
 				var visibility = $(this).find('img').hasClass('imgopacity');
-				var curData = {src: name, visible: visibility};
+				var path = $(this).find('input').val();
+				var curData = {src: path, visible: visibility};
 				Images.push(curData);
 			});
 
@@ -171,7 +176,8 @@
 					if($(".images_block").html() != ''){
 						$('.image_block_new').removeClass('errName');
 						console.log('картинки есть');
-						/*$.ajax({
+						console.log(Images);
+						$.ajax({
 							url: URL_base+'ajaxproducts',
 							type: "POST",
 							cache: false,
@@ -184,7 +190,7 @@
 							}
 						}).done(function(data){
 							console.log('сработало');
-						});*/
+						});
 					}else{
 						console.log('картинок нет');
 						$('.image_block_new').addClass('errName');
