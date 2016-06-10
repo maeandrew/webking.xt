@@ -4522,6 +4522,9 @@ class Products {
 					$width = 1000*$ratio;
 					$height = 1000;
 				}
+			}else{
+				$width = $size[0];
+				$height = $size[1];
 			}
 			$res = imagecreatetruecolor($width, $height);
 			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));

@@ -177,7 +177,8 @@
 					$('#prodName').removeClass('errName');
 					if($(".images_block").html() != ''){
 						$('.image_block_new').removeClass('errName');
-						console.log('картинки есть');						
+						console.log('картинки есть');
+						console.log(Images);
 						$.ajax({
 							url: URL_base+'ajaxproducts',
 							type: "POST",
