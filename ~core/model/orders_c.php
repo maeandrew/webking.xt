@@ -492,6 +492,7 @@ class Orders {
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
+		$f['sid'] = 1;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
