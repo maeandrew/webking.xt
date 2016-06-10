@@ -61,6 +61,7 @@
 		<div class="nameProd">
 			<span>Товар:</span>
 			<span>Ручка для двери</span>
+			<span class="icon-font del_photo_js" title="Удалить" data-dz-remove="">t</span>
 		</div>
 		<div class="createData">
 			<span>Дата:</span>
@@ -151,32 +152,32 @@
 			$(this).closest('.image').find('img').toggleClass('imgopacity');
 		});
 
+		$('body').on('click', '.del_photo_js', function(){			
+			$(this).closest('.image_block_js').remove();
+		});
+
+		
 
 		$('.submit_js').on('click', function(){
 			var ArtSupplier = $.cookie('suppler');
 			var Name = $('#prodName').val();
 			var Images = [];
 
-			$('.images_block .image_block_js').each(function(){
-				/*var name = $(this).find('.dz-filename').html();*/
-				var visibility = $(this).find('img').hasClass('imgopacity');
+			$('.images_block .image_block_js').each(function(){	
+				var visibility = $(this).find('img').hasClass('imgopacity') === false;
 				var path = $(this).find('input').val();
 				var curData = {src: path, visible: visibility};
 				Images.push(curData);
 			});
 
-			/*Проверка ввода необходимых данных и отправка аякса*/			
+			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/			
 			if ($('#supplier').val() != '') {
-				console.log('поставщик есть');
 				$('#supplier').removeClass('errName');
 				if (Name != '') {
-					console.log('название есть');
 					$('#prodName').removeClass('errName');
-
 					if($(".images_block").html() != ''){
 						$('.image_block_new').removeClass('errName');
-						console.log('картинки есть');
-						console.log(Images);
+						console.log('картинки есть');						
 						$.ajax({
 							url: URL_base+'ajaxproducts',
 							type: "POST",
