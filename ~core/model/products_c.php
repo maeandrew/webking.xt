@@ -4493,7 +4493,6 @@ class Products {
 	public function AddPhotoProduct($data){
 		// try to create new product
 		if(!$id_product = $this->AddProduct($data)){
-			print_r('expression1');
 			return false;
 		}
 		$article = $this->GetArtByID($id_product);
@@ -4506,7 +4505,7 @@ class Products {
 			rename($path.$file['basename'], $path.$newname);
 			$images_arr[] = $bd_path.'/'.$newname;
 			$path = $GLOBALS['PATH_root'].'../';
-			$visibility[] = (integer) $image['visible'];
+			$visibility[] = $image['visible'] == 'true'?1:0;
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
 		foreach($images_arr as $filename) {
@@ -4538,7 +4537,6 @@ class Products {
 		// try to add new product to supplier's assort
 		$Suppliers = new Suppliers();
 		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
-			print_r('expression2');
 			return false;
 		}
 		return $id_product;
