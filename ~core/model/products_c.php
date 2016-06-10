@@ -1716,10 +1716,8 @@ class Products {
 			$this->InitProduct($id_product);
 			$f['id_supplier'] = trim($_SESSION['member']['id_user']);
 		}else{
-			$f['id_supplier'] = $id_suppleir;
+			$f['id_supplier'] = $id_supplier;
 		}
-		$suppliers = new suppliers();
-		$this->db->StartTrans();
 		$f['id_product'] = trim($id_product);
 		$f['price_opt_recommend'] = 0;
 		$f['price_mopt_recommend'] = 0;
@@ -1729,6 +1727,7 @@ class Products {
 		$f['price_mopt_otpusk_usd'] = 0;
 		$f['product_limit'] = 0;
 		$f['active'] = 1;
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
@@ -2002,7 +2001,7 @@ class Products {
 		if(isset($arr['art'])){
 			$f['art'] = trim($arr['art']);
 		}else{
-			$f['art'] = $products->CheckArticle($this->GetLastArticle()+1);
+			$f['art'] = $this->CheckArticle($this->GetLastArticle()+1);
 		}
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
@@ -2090,7 +2089,9 @@ class Products {
 		}
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+		if(isset($arr['categories_ids'])){
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+		}
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
 		//$this->RecalcSitePrices(array($id_product));
@@ -4495,20 +4496,22 @@ class Products {
 	public function AddPhotoProduct($data){
 		// try to create new product
 		if(!$id_product = $this->AddProduct($data)){
+			print_r('expression1');
 			return false;
 		}
-		// try to add photos to the new product
-		foreach($_POST['images'] as $k => $image){
+/*		// try to add photos to the new product
+		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+			$file = pathinfo(str_replace('/' . str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
 			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']) . '/';
 			$bd_path = str_replace($GLOBALS['PATH_root'] . '..', '', $GLOBALS['PATH_product_img']) . trim($file['dirname']);
 			rename($path . $file['basename'], $path . $newname);
 			$images_arr[] = $bd_path . '/' . $newname;
 			$patch = $GLOBALS['PATH_root'] . '../';
+			$visibility[] = $image['visible'];
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		foreach ($images_arr as $filename) {
+		foreach($images_arr as $filename) {
 			$patch = $GLOBALS['PATH_root'].'../';
 			$size = getimagesize($patch.$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
@@ -4528,11 +4531,13 @@ class Products {
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
 			imagejpeg($res, $patch.$filename);
 		}
-
+		$Images = new Images();
 		$Images->resize(false, $to_resize);
-		$products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
+		$this->UpdatePhoto($id, $images_arr, $visibility);*/
 		// try to add new product to supplier's assort
-		if(!$this->AddToAssort($id_product, $data['id_supplier'])){
+		$Suppliers = new Suppliers();
+		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
+			print_r('expression2');
 			return false;
 		}
 		return true;
