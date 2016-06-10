@@ -4541,4 +4541,15 @@ class Products {
 		}
 		return $id_product;
 	}
+
+	public function GetProductsByIdUser($id_user){
+		$sql= "SELECT * FROM "._DB_PREFIX_."product WHERE create_user = ".$id_user;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach ($res as &$v){
+			$v['images'] = $this->GetPhotoById($v['id_product']);
+		}
+		return $res;
+	}
 }
