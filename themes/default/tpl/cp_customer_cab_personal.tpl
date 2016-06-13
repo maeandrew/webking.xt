@@ -114,7 +114,7 @@
 						</select>
 					</div>
 					<div class="line delivery_service" id="delivery_service" <?=$saveddeliverymethod['id_delivery'] != 3?'style="display: none;"':null;?>>
-						<label for="id_delivery_service">Служба доставки</label>
+						<label for="id_delivery_service">Служба доставки</label><br>
 						<select name="id_delivery_service" onChange="deliveryServiceSelect(id_delivery_service.value);" id="id_delivery_service">
 							<?foreach($availabledeliveryservices as $ds){?>
 								<option <?=$ds['shipping_comp'] == $savedcity['shipping_comp']?'selected="selected"':null;?> value="<?=$ds['shipping_comp']?>"><?=$ds['shipping_comp']?></option>
@@ -122,7 +122,7 @@
 						</select>
 					</div>
 					<div class="line delivery_department" id="delivery_department" <?=$saveddeliverymethod['id_delivery'] != 3?'style="display: none;"':null;?>>
-						<label for="id_delivery_department">Отделение в Вашем городе</label>
+						<label for="id_delivery_department">Отделение в Вашем городе</label><br>
 						<select name="id_delivery_department" id="id_delivery_department">
 							<?foreach($availabledeliverydepartment as $dd){?>
 								<option <?=$dd['id_city'] == $savedcity['id_city']?'selected="selected"':null;?> value="<?=$dd['id_city']?>"><?=$dd['address']?></option>
