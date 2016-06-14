@@ -254,50 +254,27 @@ function completeCartProductAdd(data){
 
 	// ОБНОВЛЕНИЕ СКИДОК. НОВЫЙ БЛОК
 	if(data.products_sum[3] < 500){
-		$('.discountTableElem').removeClass('hidden');
-		$('#sumPer0').removeClass('hidden');
-		$('#sumPer10').removeClass('hidden');
-		$('#sumPer16').removeClass('hidden');
-		$('#dicsPer0').removeClass('hidden');
-		$('#dicsPer10').removeClass('hidden');
-		$('#dicsPer16').removeClass('hidden');
+		$('.discountTableElem, #sumPer0, #sumPer10, #sumPer16, #dicsPer0, #dicsPer10, #dicsPer16').removeClass('hidden');
 		$('#sumPer0').text((500-data.products_sum[3]).toFixed(2)+' грн');
 		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2)+' грн');
 		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2)+' грн');
 		$('#currentDiscount').text('0%');
-	}else if(data.products_sum[3] >= 500 && data.products_sum[3] <= 2999){
-		$('.discountTableElem').removeClass('hidden');
-		$('#sumPer0').addClass('hidden');
-		$('#sumPer10').removeClass('hidden');
-		$('#sumPer16').removeClass('hidden');
-		$('#dicsPer0').addClass('hidden');
-		$('#dicsPer10').removeClass('hidden');
-		$('#dicsPer16').removeClass('hidden');
+	}else if(data.products_sum[3] < 3000){
+		$('.discountTableElem, #sumPer10, #sumPer16, #dicsPer10, #dicsPer16').removeClass('hidden');
+		$('#sumPer0, #dicsPer0').addClass('hidden');
 		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2)+' грн');
 		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2)+' грн');
 		$('#currentDiscount').text('10%');
-	}else if(data.products_sum[3] >= 3000 && data.products_sum[3] <= 9999){
-		$('.discountTableElem').removeClass('hidden');
-		$('#sumPer0').addClass('hidden');
-		$('#sumPer10').addClass('hidden');
-		$('#sumPer16').removeClass('hidden');
-		$('#dicsPer0').addClass('hidden');
-		$('#dicsPer10').addClass('hidden');
-		$('#dicsPer16').removeClass('hidden');
+	}else if(data.products_sum[3] < 10000){
+		$('.discountTableElem, #sumPer16, #dicsPer16').removeClass('hidden');
+		$('#sumPer0, #sumPer10, #dicsPer0, #dicsPer10').addClass('hidden');
 		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2)+' грн');
 		$('#currentDiscount').text('16%');
 	}else if(data.products_sum[3] >= 10000){
-		$('.discountTableElem').addClass('hidden');
-		$('#sumPer0').addClass('hidden');
-		$('#sumPer10').addClass('hidden');
-		$('#sumPer16').addClass('hidden');
-		$('#dicsPer0').addClass('hidden');
-		$('#dicsPer10').addClass('hidden');
-		$('#dicsPer16').addClass('hidden');
+		$('.discountTableElem, #sumPer0, #sumPer10, #sumPer16, #dicsPer0, #dicsPer10, #dicsPer16').addClass('hidden');
 		$('#currentDiscount').text('21%');
 	}
 }
-
 
 $(function(){
 	$('body').on('change', '.qty_js', function(){
