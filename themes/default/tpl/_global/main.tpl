@@ -52,7 +52,7 @@
 	<!-- define JS global variables -->
 	<?php
 	echo '<script type="text/javascript">
-		var URL_base = "<?=_base_url?>/",
+		var URL_base = "'._base_url.'/",
 			current_controller = "'.$GLOBALS['CurrentController'].'",
 			ajax_proceed = false,			
 			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
