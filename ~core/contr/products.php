@@ -14,6 +14,7 @@ $category = $dbtree->fields;
 G::metaTags($category);
 $category['subcats'] = $dbtree->GetSubCats($id_category, '*');
 $tpl->Assign('category', $category);
+$tpl->Assign('indexation', $category['indexation']);
 $tpl->Assign('header', $category['name']);
 // если отправили комментарий
 if(isset($_POST['com_qtn'])){

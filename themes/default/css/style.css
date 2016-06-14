@@ -1188,6 +1188,12 @@ section.center {
 		width: 95%;
 		margin-bottom: 10px;
 	}
+	#cart .action_block .info_client.ic_ready {
+		color: #4CAF50;
+	}
+	#cart .action_block .info_client a {
+		text-decoration: underline;
+	}
 	#cart .action_block .cart_warning_js input {
 		width: 80px;
 		margin: 10px;
