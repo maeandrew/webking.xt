@@ -50,13 +50,15 @@
 	<!-- END defining author for special pages -->
 
 	<!-- define JS global variables -->
-	<script type="text/javascript">
+	<?php
+	echo '<script type="text/javascript">
 		var URL_base = "<?=_base_url?>/",
-			current_controller = "<?=$GLOBALS['CurrentController']?>",
+			current_controller = "'.$GLOBALS['CurrentController'].'",
 			ajax_proceed = false,
-			current_id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
-			isLogged = <?=G::isLogged()?'false':'true';?>;			
-	</script>
+			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
+			isLogged = '.(G::isLogged()?'false':'true').';
+	</script>';
+	?>
 	<!-- END define JS global variables -->
 
 	<!-- CSS load -->
