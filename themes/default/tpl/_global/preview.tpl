@@ -35,7 +35,7 @@
 			<div class="product_buy" data-idproduct="<?=$product['id_product']?>">
 				<div class="buy_block">
 					<div class="price">
-						<?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>
+						<?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
 					</div>
 					<div class="btn_buy">
 						<div id="in_cart_<?=$product['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$product['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>

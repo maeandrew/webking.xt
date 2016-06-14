@@ -187,7 +187,7 @@
 					</div>
 					<div class="summ">
 						<span class="order_mopt_sum_<?=$item['id_product']?>">
-							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,".",""):"0.00"?>
+							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,",",""):"0,00"?>
 						</span>
 					</div>
 					<div class="remove_prod">
