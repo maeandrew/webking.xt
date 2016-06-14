@@ -30,8 +30,8 @@
 			<input type="text" name="cont_person" id="cont_person" class="input-l" value="<?=isset($_POST['cont_person'])?htmlspecialchars($_POST['cont_person']):null?>">
 		</div>
 		<div class="col-md-12">
-			<label for="phones">Телефоны:</label><?=isset($errm['phones'])?"<span class=\"errmsg\">".$errm['phones']."</span><br>":null?>
-			<textarea name="phones" id="phones" rows="3" cols="80" class="input-l"><?=isset($_POST['phones'])?htmlspecialchars($_POST['phones']):null?></textarea>
+			<label for="phone">Телефоны:</label><?=isset($errm['phone'])?"<span class=\"errmsg\">".$errm['phone']."</span><br>":null?>
+			<textarea name="phone" id="phone" rows="3" cols="80" class="input-l"><?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?></textarea>
 		</div>
 		<div class="col-md-12">
 			<label for="descr">Контактная информация:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>

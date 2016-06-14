@@ -2,19 +2,24 @@
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		<thead>
 			<tr>
-				<td class="left">ID</td>
-				<td class="left">name</td>
-				<td class="center">caption</td>
-				<td class="left"></td>
+				<td class="center">ID</td>
+				<td class="left">Имя</td>
+				<td class="center">Псевдоним</td>
+				<td class="center">Пользователей</td>
+				<td class="right"></td>
 			</tr>
 		</thead>
 		<?if(!empty($list)){
 			foreach($list as $value){?>
 				<tr>
-					<td><?=$value['id_profile'];?></td>
-					<td><?=$value['name'];?></td>
-					<td><?=$value['caption'];?></td>
-					<td><a href="/adm/<?=$controller?>edit/<?=$value['id_profile'];?>" class="btn-m-green-inv">Редактировать</button></td>
+					<td class="center"><?=$value['id_profile'];?></td>
+					<td class="left"><?=$value['name'];?></td>
+					<td class="center"><?=$value['caption'];?></td>
+					<td class="center"><?=$value['users_count'];?></td>
+					<td class="right">
+						<a href="/adm/profilesedit/<?=$value['id_profile'];?>" class="btn-m-green-inv">Изменить</button>
+						<a href="/adm/permissions/<?=$value['id_profile'];?>" class="btn-m-orange-inv">Права доступа</button>
+					</td>
 				</tr>
 			<?}
 		}?>

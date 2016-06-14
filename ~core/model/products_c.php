@@ -1701,12 +1701,14 @@ class Products {
 	 * [AddToAssort description]
 	 * @param [type] $id_product [description]
 	 */
-	public function AddToAssort($id_product){
-		$this->InitProduct($id_product);
-		$suppliers = new suppliers();
-		$this->db->StartTrans();
+	public function AddToAssort($id_product, $id_supplier = false){
+		if(!$id_supplier){
+			$this->InitProduct($id_product);
+			$f['id_supplier'] = trim($_SESSION['member']['id_user']);
+		}else{
+			$f['id_supplier'] = $id_supplier;
+		}
 		$f['id_product'] = trim($id_product);
-		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
 		$f['price_opt_recommend'] = 0;
 		$f['price_mopt_recommend'] = 0;
 		$f['price_opt_otpusk'] = 0;
@@ -1715,11 +1717,13 @@ class Products {
 		$f['price_mopt_otpusk_usd'] = 0;
 		$f['product_limit'] = 0;
 		$f['active'] = 1;
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
+		return true;
 	}
 	/**
 	 * [SwitchActiveEDInAssort description]
@@ -1984,42 +1988,88 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function AddProduct($arr){
-		if (isset($arr['dupl_idproduct'])) {
-			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		if(isset($arr['art'])){
+			$f['art'] = trim($arr['art']);
+		}else{
+			$f['art'] = $this->CheckArticle($this->GetLastArticle()+1);
 		}
-		$f['art'] = trim($arr['art']);
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
-		$f['descr'] = trim($arr['descr']);
-		$f['descr_xt_short'] = trim($arr['descr_xt_short']);
-		$f['descr_xt_full'] = trim($arr['descr_xt_full']);
-		$f['img_1'] = trim($arr['img_1']);
-		$f['img_2'] = trim($arr['img_2']);
-		$f['img_3'] = trim($arr['img_3']);
-		$f['price_opt'] = trim($arr['price_opt']);
-		$f['price_mopt'] = trim($arr['price_mopt']);
-		$f['inbox_qty'] = trim($arr['inbox_qty']);
-		$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
-		$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
-		$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
-		$f['height'] = trim($arr['height']);
-		$f['width'] = trim($arr['width']);
-		$f['length'] = trim($arr['length']);
+		if(isset($arr['dupl_idproduct'])){
+			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		}
+		if(isset($arr['descr'])){
+			$f['descr'] = trim($arr['descr']);
+		}
+		if(isset($arr['descr_xt_short'])){
+			$f['descr_xt_short'] = trim($arr['descr_xt_short']);
+		}
+		if(isset($arr['descr_xt_full'])){
+			$f['descr_xt_full'] = trim($arr['descr_xt_full']);
+		}
+		if(isset($arr['img_1'])){
+			$f['img_1'] = trim($arr['img_1']);
+		}
+		if(isset($arr['img_2'])){
+			$f['img_2'] = trim($arr['img_2']);
+		}
+		if(isset($arr['img_3'])){
+			$f['img_3'] = trim($arr['img_3']);
+		}
+		if(isset($arr['price_opt'])){
+			$f['price_opt'] = trim($arr['price_opt']);
+		}
+		if(isset($arr['price_mopt'])){
+			$f['price_mopt'] = trim($arr['price_mopt']);
+		}
+		if(isset($arr['inbox_qty'])){
+			$f['inbox_qty'] = trim($arr['inbox_qty']);
+		}
+		if(isset($arr['min_mopt_qty'])){
+			$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
+		}
+		if(isset($arr['price_coefficient_opt'])){
+			$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
+		}
+		if(isset($arr['price_coefficient_mopt'])){
+			$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
+		}
+		if(isset($arr['height'])){
+			$f['height'] = trim($arr['height']);
+		}
+		if(isset($arr['width'])){
+			$f['width'] = trim($arr['width']);
+		}
+		if(isset($arr['length'])){
+			$f['length'] = trim($arr['length']);
+		}
+		if(isset($arr['volume'])){
+			$f['volume'] = trim($arr['volume']);
+		}
+		if(isset($arr['coefficient_volume'])){
+			$f['coefficient_volume'] = $arr['coefficient_volume'];
+		}
+		if(isset($arr['id_unit'])){
+			$f['id_unit'] = trim($arr['id_unit']);
+		}
+		if(isset($arr['notation_price'])){
+			$f['notation_price'] = trim($arr['notation_price']);
+		}
+		if(isset($arr['instruction'])){
+			$f['instruction'] = trim($arr['instruction']);
+		}
 		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
-			$f['weight'] = trim($arr['weight']);
+			if(isset($arr['weight'])){
+				$f['weight'] = trim($arr['weight']);
+			}
 		}
-		$f['volume'] = trim($arr['volume']);
-		$f['coefficient_volume'] = $arr['coefficient_volume'];
+		$f['prod_status'] = 3;
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
-		$f['prod_status'] = 3;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
-		$f['id_unit'] = trim($arr['id_unit']);
 		$f['create_user'] = trim($_SESSION['member']['id_user']);
-		$f['notation_price'] = trim($arr['notation_price']);
-		$f['instruction'] = trim($arr['instruction']);
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		// Добавляем товар в бд
 		$this->db->StartTrans();
@@ -2029,7 +2079,9 @@ class Products {
 		}
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+		if(isset($arr['categories_ids'])){
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+		}
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
 		//$this->RecalcSitePrices(array($id_product));
@@ -4082,17 +4134,14 @@ class Products {
 	 * @param [type] $id [description]
 	 */
 	public function GetPhotoById($id, $visible = false){
-		$visble = ($visible === false)?' AND visible = 1':null;
-		$sql = "SELECT src, `visible`
+		$sql = "SELECT src, visible
 			FROM "._DB_PREFIX_."image
-			WHERE id_product = ".$id.$visble."
+			WHERE id_product = ".$id.
+			($visible === false?' AND visible = 1':null)."
 			ORDER BY ord";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}
-		foreach($arr as $value){
-			$res[] = $value['src'];
 		}
 		return $arr;
 	}
@@ -4420,26 +4469,79 @@ class Products {
 				END) AS sort2
 				FROM '._DB_PREFIX_.'category AS c
 				WHERE c.category_level <> 0
-				AND sid = 1
 				ORDER BY sort, sort2, category_level';
-		return $this->db->GetArray($sql);
+				// AND c.id_category <> 493
+				// AND c.pid NOT IN (493)
+				// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
+				// AND c.category_level <> 4
+		$res = $this->db->GetArray($sql);
+		return $res;
 	}
 
-	public function GetCatBreadCrumbs($id_product){
-		$sql = "SELECT c.id_category
-				FROM "._DB_PREFIX_."category c
-				LEFT JOIN xt_cat_prod cp ON c.id_category = cp.id_category
-				WHERE c.sid=1 AND cp.id_product = ".$id_product." AND cp.main = 1";
-		if(!$res = $this->db->GetOneRowArray($sql)){
-			$sql = "SELECT MIN(c.id_category) AS id_category
-				FROM "._DB_PREFIX_."category c
-				LEFT JOIN xt_cat_prod cp ON c.id_category = cp.id_category
-				WHERE c.sid=1 AND cp.id_product = ".$id_product;
-			if(!$res = $this->db->GetOneRowArray($sql)){
-				return false;
-			}
+	public function AddPhotoProduct($data){
+		// try to create new product
+		if(!$id_product = $this->AddProduct($data)){
+			return false;
 		}
-		return $res['id_category'];
+		$article = $this->GetArtByID($id_product);
+		// try to add photos to the new product
+		foreach($data['images'] as $k => $image){
+			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
+			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']).'/';
+			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			rename($path.$file['basename'], $path.$newname);
+			$images_arr[] = $bd_path.'/'.$newname;
+			$path = $GLOBALS['PATH_root'].'../';
+			$visibility[] = $image['visible'] == 'true'?1:0;
+		}
+		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+		foreach($images_arr as $filename) {
+			$path = $GLOBALS['PATH_root'].'..';
+			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+			if($size[0] > 1000 || $size[1] > 1000){
+				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
+				//Определяем размеры нового изображения
+				if(max($size[0], $size[1]) == $size[0]){
+					$width = 1000;
+					$height = 1000/$ratio;
+				}elseif(max($size[0], $size[1]) == $size[1]){
+					$width = 1000*$ratio;
+					$height = 1000;
+				}
+			}else{
+				$width = $size[0];
+				$height = $size[1];
+			}
+			$res = imagecreatetruecolor($width, $height);
+			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+			imagejpeg($res, $path.$filename);
+		}
+		$Images = new Images();
+		$Images->resize(false, $to_resize);
+		$this->UpdatePhoto($id_product, $images_arr, $visibility);
+		// try to add new product to supplier's assort
+		$Suppliers = new Suppliers();
+		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
+			return false;
+		}
+		return $id_product;
+	}
+
+	public function GetProductsByIdUser($id_user){
+		$sql= "SELECT * FROM "._DB_PREFIX_."product
+			WHERE sid = 1
+				AND create_user = ".$id_user."
+			ORDER BY create_date DESC";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach ($res as &$v){
+			$v['images'] = $this->GetPhotoById($v['id_product']);
+		}
+		return $res;
 	}
 
 }
