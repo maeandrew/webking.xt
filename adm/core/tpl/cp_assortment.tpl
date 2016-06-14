@@ -21,31 +21,31 @@
 				<tr class="animate">
 					<td>Акт сверки цен поставщика</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Новая с ценами</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=new&price=true" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=new&price=true" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Новая без цен</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=new&price=false" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=new&price=false" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Сверх-новая с ценами</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=wide" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=wide" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Многоразовая без цен</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=multiple" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=multiple" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 			</table>

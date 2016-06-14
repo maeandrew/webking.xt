@@ -4454,6 +4454,22 @@ class Products {
 		}
 		return $navigation;
 	}
+	public function GetCatBreadCrumbs($id_product){
+		$sql = "SELECT c.id_category
+				FROM "._DB_PREFIX_."category c
+				LEFT JOIN xt_cat_prod cp ON c.id_category = cp.id_category
+				WHERE c.sid=1 AND cp.id_product = ".$id_product." AND cp.main = 1";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			$sql = "SELECT MIN(c.id_category) AS id_category
+				FROM "._DB_PREFIX_."category c
+				LEFT JOIN xt_cat_prod cp ON c.id_category = cp.id_category
+				WHERE c.sid=1 AND cp.id_product = ".$id_product;
+			if(!$res = $this->db->GetOneRowArray($sql)){
+				return false;
+			}
+		}
+		return $res['id_category'];
+	}
 
 	public function generateCategory(){
 		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
