@@ -17,10 +17,10 @@
 				<div class="order_cart"><?=$str?></div>
 				<span class="material-icons">shopping_cart</span></a>
 			</li> -->
-			<li onclick="ChangePriceRange(3, 0, 1)" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'active':null;?>">0%</li>
-			<li onclick="ChangePriceRange(2, <?=500 - $_SESSION['cart']['products_sum'][3];?>, 1);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
-			<li onclick="ChangePriceRange(1, <?=3000 - $_SESSION['cart']['products_sum'][3];?>, 1);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
-			<li onclick="ChangePriceRange(0, <?=10000 - $_SESSION['cart']['products_sum'][3];?>, 1);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'active':null;?>">21%</li>
+			<li onclick="ChangePriceRange(3, 1)" class="sum_range sum_range_3 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3)?'active':null;?>">0%</li>
+			<li onclick="ChangePriceRange(2, 1);" class="sum_range sum_range_2 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2)?'active':null;?>">10%</li>
+			<li onclick="ChangePriceRange(1, 1);" class="sum_range sum_range_1 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 1)?'active':null;?>">16%</li>
+			<li onclick="ChangePriceRange(0, 1);" class="sum_range sum_range_0 <?=(isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 0)?'active':null;?>">21%</li>
 		</ul>
 	</div>
 	<div class="order_balance">
