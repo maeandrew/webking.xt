@@ -126,25 +126,19 @@ class Products {
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 				ON pv.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."category AS c
-				ON c.id_category = cp.id_category
-			WHERE p.id_product = ".$id_product." AND c.sid = 1
+			WHERE p.id_product = ".$id_product."
 			".$visible;
-		$arr = $this->db->GetArray($sql);
+			// if(isset($_GET['debug'])){
+			// 	print_r($sql);
+			// }
+			// 
+		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
 		}
-		$catarr = array();
-		$maincatarr = array();
-		foreach ($arr as $p){
-			$catarr[] = $p['id_category'];
-		}
-		foreach ($arr as $p){
-			$maincatarr[] = $p['main_category'];
-		}
-		$arr[0]['categories_ids'] = array_unique($catarr);
-		$arr[0]['main_category'] = $maincatarr;
-		$this->fields = $arr[0];
+		$arr['categories_ids'] = $this->GetCatsOfProduct($id_product);
+		// $arr[0]['main_category'] = $maincatarr;
+		$this->fields = $arr;
 		return true;
 	}
 
@@ -177,24 +171,18 @@ class Products {
 			WHERE p.translit = ".$this->db->Quote($rewrite)."
 			".$visible."
 			LIMIT 1";
-		$arr = $this->db->GetArray($sql);
+		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
 		}
-		$catarr = array();
-		foreach ($arr as $p){
-			$catarr[] = $p['id_category'];
+		$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
+		$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		for($i=0; $i<=3; $i++){
+			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
+			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
 		}
-		foreach ($arr as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
-			for($i=0; $i<=3; $i++){
-				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
-				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
-			}
-		}
-		$arr[0]['categories_ids'] = $catarr;
-		$this->fields = $arr[0];
+		$arr['categories_ids'] = $this->GetCatsOfProduct($arr['id_product']);
+		$this->fields = $arr;
 		return true;
 	}
 
@@ -2467,9 +2455,9 @@ class Products {
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
-			WHERE cp.id_product = ".$id_product;
-		$arr = $this->db->GetArray($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		return $arr;
+			WHERE c.sid = 1
+			AND cp.id_product = ".$id_product;
+		return $this->db->GetArray($sql);
 	}
 	/**
 	 * Проверка загруженного файла
@@ -4125,8 +4113,8 @@ class Products {
 					return false; //Если URL пустой
 				}
 				$f['src'] = trim($src);
-				$f['ord'] = trim($k);
-				$f['visible'] = trim($visible[$k]);
+				$f['ord'] = $k;
+				$f['visible'] = isset($visible[$k])?$visible[$k]:0;
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
 					$this->db->FailTrans();
@@ -4434,9 +4422,7 @@ class Products {
 				WHERE c.category_level <> 0
 				AND sid = 1
 				ORDER BY sort, sort2, category_level';
-		$res = $this->db->GetArray($sql);
-
-		return $res;
+		return $this->db->GetArray($sql);
 	}
 
 	public function GetCatBreadCrumbs($id_product){

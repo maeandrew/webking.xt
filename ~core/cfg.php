@@ -76,7 +76,7 @@ if(!in_array($_SESSION['client']['ip'], $unwatch)){
 	$db->Query($sql2);
 	$ips = $db->GetOneRowArray($sql1);
 	if($ips['block'] == 1){
-		header('Location: http://google.com');
+		header('Location: http://xt.ua/');
 		exit();
 		// $block = array('77.108.80.2', '193.106.92.242', '89.223.35.117'); x-torg.com
 		// $block = array(/*'69.162.124.231',*/ '193.106.92.242');
