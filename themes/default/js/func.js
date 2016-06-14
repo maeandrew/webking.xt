@@ -1310,7 +1310,8 @@ function ChangePriceRange(id, sum, val){
 			var price = $(this).find('.priceMopt'+column).val();
 			$(this).find('.priceMoptInf').removeClass('hidden');
 		}
-		$(this).find('.price').html(price);	
+		// $(this).find('.price').html(price);	
+		$(this).find('.price').html(price.toFixed(2).toString().replace('.',','));	
 	});
 
 	setTimeout(function(){

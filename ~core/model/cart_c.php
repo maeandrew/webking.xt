@@ -119,8 +119,10 @@ class Cart {
 				if(!isset($p['note'])){
 					$p['note'] = '';
 				}
-				foreach($p['summary'] AS $k=>$s){
-					$products_sum[$k] += $s;
+				if(!empty($p['summary'])){
+					foreach($p['summary'] AS $k=>$s){
+						$products_sum[$k] += $s;
+					}
 				}
 			}
 
