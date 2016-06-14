@@ -176,7 +176,7 @@
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="panel_container">
+			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
 				<?if($news != false){?>
 					<div class="xt_news">

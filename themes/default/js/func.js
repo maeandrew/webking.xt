@@ -1821,11 +1821,10 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function changeFiltersBtnsPosition(){
-	/*console.log($('.filters').length);*/
 	if($('.filters').length > 0){
 		if($('.filters').offset().top-$(window).scrollTop() <= 50){
 			$('#filterButtons').addClass('buttonsTop');
-			$('.filters').css('padding-top', $('#filterButtons').height());
+			/*$('.filters').css('padding-top', $('#filterButtons').height());*/
 			$('#clear_filter, #applyFilter').css('margin-top', '7px');
 		}else{
 			$('.filters').css('padding-top', 0);
