@@ -3313,15 +3313,29 @@ section .stat_year {
 		padding-top: 15px;
 	}
 	.xt_news h6 {
+		line-height: 1.3em;
+		font-weight: 500;
 		color: #000;
 		margin: 0;
+		margin-bottom: 10px;
+	}
+	.xt_news a h6:hover {
+		color: #FF5722;
 	}
 	.xt_news .news_description {
 		font-size: 13px;
 	}
+	.xt_news .news_description > p {
+		text-align: justify;
+		line-height: 1.4em;
+	}
 	.xt_news .news_date,
 	.news_more {
-		font-style: italic;
+		/*font-style: italic;*/
+	}
+	.xt_news .news_more {
+		width: 100%;
+		margin: 10px 0;
 	}
 	/*hr {
 		width: 90%;
