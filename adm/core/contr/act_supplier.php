@@ -23,4 +23,3 @@ $e_time = G::getmicrotime();
 
 echo "<!--".date("d.m.Y H:i:s", time())."  ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time - $s_time)." -->";
 exit(0);
-?>

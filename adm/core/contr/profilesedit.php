@@ -9,7 +9,7 @@ if(!isset($GLOBALS['REQAR'][1]) || !is_numeric($GLOBALS['REQAR'][1])){
 $header = 'Редактирование профиля';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Профили пользователей';
-$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/news/';
+$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/profiles/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 
 $id = (integer) $GLOBALS['REQAR'][1];

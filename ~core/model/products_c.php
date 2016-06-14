@@ -126,25 +126,19 @@ class Products {
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 				ON pv.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."category AS c
-				ON c.id_category = cp.id_category
-			WHERE p.id_product = ".$id_product." AND c.sid = 1
+			WHERE p.id_product = ".$id_product."
 			".$visible;
-		$arr = $this->db->GetArray($sql);
+			// if(isset($_GET['debug'])){
+			// 	print_r($sql);
+			// }
+			// 
+		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
 		}
-		$catarr = array();
-		$maincatarr = array();
-		foreach ($arr as $p){
-			$catarr[] = $p['id_category'];
-		}
-		foreach ($arr as $p){
-			$maincatarr[] = $p['main_category'];
-		}
-		$arr[0]['categories_ids'] = array_unique($catarr);
-		$arr[0]['main_category'] = $maincatarr;
-		$this->fields = $arr[0];
+		$arr['categories_ids'] = $this->GetCatsOfProduct($id_product);
+		// $arr[0]['main_category'] = $maincatarr;
+		$this->fields = $arr;
 		return true;
 	}
 
@@ -177,24 +171,18 @@ class Products {
 			WHERE p.translit = ".$this->db->Quote($rewrite)."
 			".$visible."
 			LIMIT 1";
-		$arr = $this->db->GetArray($sql);
+		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
 		}
-		$catarr = array();
-		foreach ($arr as $p){
-			$catarr[] = $p['id_category'];
+		$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
+		$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		for($i=0; $i<=3; $i++){
+			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
+			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
 		}
-		foreach ($arr as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
-			for($i=0; $i<=3; $i++){
-				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
-				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
-			}
-		}
-		$arr[0]['categories_ids'] = $catarr;
-		$this->fields = $arr[0];
+		$arr['categories_ids'] = $this->GetCatsOfProduct($arr['id_product']);
+		$this->fields = $arr;
 		return true;
 	}
 
@@ -1713,12 +1701,14 @@ class Products {
 	 * [AddToAssort description]
 	 * @param [type] $id_product [description]
 	 */
-	public function AddToAssort($id_product){
-		$this->InitProduct($id_product);
-		$suppliers = new suppliers();
-		$this->db->StartTrans();
+	public function AddToAssort($id_product, $id_supplier = false){
+		if(!$id_supplier){
+			$this->InitProduct($id_product);
+			$f['id_supplier'] = trim($_SESSION['member']['id_user']);
+		}else{
+			$f['id_supplier'] = $id_supplier;
+		}
 		$f['id_product'] = trim($id_product);
-		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
 		$f['price_opt_recommend'] = 0;
 		$f['price_mopt_recommend'] = 0;
 		$f['price_opt_otpusk'] = 0;
@@ -1727,11 +1717,13 @@ class Products {
 		$f['price_mopt_otpusk_usd'] = 0;
 		$f['product_limit'] = 0;
 		$f['active'] = 1;
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
+		return true;
 	}
 	/**
 	 * [SwitchActiveEDInAssort description]
@@ -1996,42 +1988,88 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function AddProduct($arr){
-		if (isset($arr['dupl_idproduct'])) {
-			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		if(isset($arr['art'])){
+			$f['art'] = trim($arr['art']);
+		}else{
+			$f['art'] = $this->CheckArticle($this->GetLastArticle()+1);
 		}
-		$f['art'] = trim($arr['art']);
 		$f['name'] = trim($arr['name']);
 		$f['translit'] = G::StrToTrans($arr['name']);
-		$f['descr'] = trim($arr['descr']);
-		$f['descr_xt_short'] = trim($arr['descr_xt_short']);
-		$f['descr_xt_full'] = trim($arr['descr_xt_full']);
-		$f['img_1'] = trim($arr['img_1']);
-		$f['img_2'] = trim($arr['img_2']);
-		$f['img_3'] = trim($arr['img_3']);
-		$f['price_opt'] = trim($arr['price_opt']);
-		$f['price_mopt'] = trim($arr['price_mopt']);
-		$f['inbox_qty'] = trim($arr['inbox_qty']);
-		$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
-		$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
-		$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
-		$f['height'] = trim($arr['height']);
-		$f['width'] = trim($arr['width']);
-		$f['length'] = trim($arr['length']);
+		if(isset($arr['dupl_idproduct'])){
+			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
+		}
+		if(isset($arr['descr'])){
+			$f['descr'] = trim($arr['descr']);
+		}
+		if(isset($arr['descr_xt_short'])){
+			$f['descr_xt_short'] = trim($arr['descr_xt_short']);
+		}
+		if(isset($arr['descr_xt_full'])){
+			$f['descr_xt_full'] = trim($arr['descr_xt_full']);
+		}
+		if(isset($arr['img_1'])){
+			$f['img_1'] = trim($arr['img_1']);
+		}
+		if(isset($arr['img_2'])){
+			$f['img_2'] = trim($arr['img_2']);
+		}
+		if(isset($arr['img_3'])){
+			$f['img_3'] = trim($arr['img_3']);
+		}
+		if(isset($arr['price_opt'])){
+			$f['price_opt'] = trim($arr['price_opt']);
+		}
+		if(isset($arr['price_mopt'])){
+			$f['price_mopt'] = trim($arr['price_mopt']);
+		}
+		if(isset($arr['inbox_qty'])){
+			$f['inbox_qty'] = trim($arr['inbox_qty']);
+		}
+		if(isset($arr['min_mopt_qty'])){
+			$f['min_mopt_qty'] = trim($arr['min_mopt_qty']);
+		}
+		if(isset($arr['price_coefficient_opt'])){
+			$f['price_coefficient_opt'] = trim($arr['price_coefficient_opt']);
+		}
+		if(isset($arr['price_coefficient_mopt'])){
+			$f['price_coefficient_mopt'] = trim($arr['price_coefficient_mopt']);
+		}
+		if(isset($arr['height'])){
+			$f['height'] = trim($arr['height']);
+		}
+		if(isset($arr['width'])){
+			$f['width'] = trim($arr['width']);
+		}
+		if(isset($arr['length'])){
+			$f['length'] = trim($arr['length']);
+		}
+		if(isset($arr['volume'])){
+			$f['volume'] = trim($arr['volume']);
+		}
+		if(isset($arr['coefficient_volume'])){
+			$f['coefficient_volume'] = $arr['coefficient_volume'];
+		}
+		if(isset($arr['id_unit'])){
+			$f['id_unit'] = trim($arr['id_unit']);
+		}
+		if(isset($arr['notation_price'])){
+			$f['notation_price'] = trim($arr['notation_price']);
+		}
+		if(isset($arr['instruction'])){
+			$f['instruction'] = trim($arr['instruction']);
+		}
 		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
-			$f['weight'] = trim($arr['weight']);
+			if(isset($arr['weight'])){
+				$f['weight'] = trim($arr['weight']);
+			}
 		}
-		$f['volume'] = trim($arr['volume']);
-		$f['coefficient_volume'] = $arr['coefficient_volume'];
+		$f['prod_status'] = 3;
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
-		$f['prod_status'] = 3;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
-		$f['id_unit'] = trim($arr['id_unit']);
 		$f['create_user'] = trim($_SESSION['member']['id_user']);
-		$f['notation_price'] = trim($arr['notation_price']);
-		$f['instruction'] = trim($arr['instruction']);
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 		// Добавляем товар в бд
 		$this->db->StartTrans();
@@ -2041,7 +2079,9 @@ class Products {
 		}
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+		if(isset($arr['categories_ids'])){
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+		}
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
 		//$this->RecalcSitePrices(array($id_product));
@@ -2467,9 +2507,9 @@ class Products {
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
-			WHERE cp.id_product = ".$id_product;
-		$arr = $this->db->GetArray($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		return $arr;
+			WHERE c.sid = 1
+			AND cp.id_product = ".$id_product;
+		return $this->db->GetArray($sql);
 	}
 	/**
 	 * Проверка загруженного файла
@@ -4094,17 +4134,14 @@ class Products {
 	 * @param [type] $id [description]
 	 */
 	public function GetPhotoById($id, $visible = false){
-		$visble = ($visible === false)?' AND visible = 1':null;
-		$sql = "SELECT src, `visible`
+		$sql = "SELECT src, visible
 			FROM "._DB_PREFIX_."image
-			WHERE id_product = ".$id.$visble."
+			WHERE id_product = ".$id.
+			($visible === false?' AND visible = 1':null)."
 			ORDER BY ord";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}
-		foreach($arr as $value){
-			$res[] = $value['src'];
 		}
 		return $arr;
 	}
@@ -4125,8 +4162,8 @@ class Products {
 					return false; //Если URL пустой
 				}
 				$f['src'] = trim($src);
-				$f['ord'] = trim($k);
-				$f['visible'] = trim($visible[$k]);
+				$f['ord'] = $k;
+				$f['visible'] = isset($visible[$k])?$visible[$k]:0;
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'image', $f)){
 					$this->db->FailTrans();
@@ -4417,28 +4454,6 @@ class Products {
 		}
 		return $navigation;
 	}
-
-	public function generateCategory(){
-		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
-				(CASE
-					WHEN c.category_level = 1 THEN c.id_category
-					WHEN c.category_level = 2 THEN c.pid
-					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
-				END) AS sort,
-				(CASE
-					WHEN c.category_level = 2 THEN c.id_category
-					WHEN c.category_level = 3 THEN c.pid
-					ELSE 0
-				END) AS sort2
-				FROM '._DB_PREFIX_.'category AS c
-				WHERE c.category_level <> 0
-				AND sid = 1
-				ORDER BY sort, sort2, category_level';
-		$res = $this->db->GetArray($sql);
-
-		return $res;
-	}
-
 	public function GetCatBreadCrumbs($id_product){
 		$sql = "SELECT c.id_category
 				FROM "._DB_PREFIX_."category c
@@ -4454,6 +4469,95 @@ class Products {
 			}
 		}
 		return $res['id_category'];
+	}
+
+	public function generateCategory(){
+		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
+				(CASE
+					WHEN c.category_level = 1 THEN c.id_category
+					WHEN c.category_level = 2 THEN c.pid
+					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
+				END) AS sort,
+				(CASE
+					WHEN c.category_level = 2 THEN c.id_category
+					WHEN c.category_level = 3 THEN c.pid
+					ELSE 0
+				END) AS sort2
+				FROM '._DB_PREFIX_.'category AS c
+				WHERE c.category_level <> 0
+				ORDER BY sort, sort2, category_level';
+				// AND c.id_category <> 493
+				// AND c.pid NOT IN (493)
+				// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
+				// AND c.category_level <> 4
+		$res = $this->db->GetArray($sql);
+		return $res;
+	}
+
+	public function AddPhotoProduct($data){
+		// try to create new product
+		if(!$id_product = $this->AddProduct($data)){
+			return false;
+		}
+		$article = $this->GetArtByID($id_product);
+		// try to add photos to the new product
+		foreach($data['images'] as $k => $image){
+			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
+			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
+			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']).'/';
+			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			rename($path.$file['basename'], $path.$newname);
+			$images_arr[] = $bd_path.'/'.$newname;
+			$path = $GLOBALS['PATH_root'].'../';
+			$visibility[] = $image['visible'] == 'true'?1:0;
+		}
+		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+		foreach($images_arr as $filename) {
+			$path = $GLOBALS['PATH_root'].'..';
+			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+			if($size[0] > 1000 || $size[1] > 1000){
+				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
+				//Определяем размеры нового изображения
+				if(max($size[0], $size[1]) == $size[0]){
+					$width = 1000;
+					$height = 1000/$ratio;
+				}elseif(max($size[0], $size[1]) == $size[1]){
+					$width = 1000*$ratio;
+					$height = 1000;
+				}
+			}else{
+				$width = $size[0];
+				$height = $size[1];
+			}
+			$res = imagecreatetruecolor($width, $height);
+			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+			imagejpeg($res, $path.$filename);
+		}
+		$Images = new Images();
+		$Images->resize(false, $to_resize);
+		$this->UpdatePhoto($id_product, $images_arr, $visibility);
+		// try to add new product to supplier's assort
+		$Suppliers = new Suppliers();
+		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
+			return false;
+		}
+		return $id_product;
+	}
+
+	public function GetProductsByIdUser($id_user){
+		$sql= "SELECT * FROM "._DB_PREFIX_."product
+			WHERE sid = 1
+				AND create_user = ".$id_user."
+			ORDER BY create_date DESC";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach ($res as &$v){
+			$v['images'] = $this->GetPhotoById($v['id_product']);
+		}
+		return $res;
 	}
 
 }

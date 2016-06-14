@@ -50,14 +50,16 @@
 	<!-- END defining author for special pages -->
 
 	<!-- define JS global variables -->
-	<script type="text/javascript">
+	<?php
+	echo '<script type="text/javascript">
 		var URL_base = "<?=_base_url?>/",
-			current_controller = "<?=$GLOBALS['CurrentController']?>",
-			ajax_proceed = false,
-			current_id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
-			isLogged = <?=G::isLogged()?'false':'true';?>,
-			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0};
-	</script>
+			current_controller = "'.$GLOBALS['CurrentController'].'",
+			ajax_proceed = false,			
+			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
+			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
+			isLogged = '.(G::isLogged()?'false':'true').';
+	</script>';
+	?>
 	<!-- END define JS global variables -->
 
 	<!-- CSS load -->
@@ -183,6 +185,7 @@
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
+						</a>
 							<?if(isset($news['thumbnail'])){?>
 								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
 							<?}?>
@@ -197,16 +200,16 @@
 								<?  echo date("d.m.Y", $news['date']);
 								}?>
 							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('news');?>">Все новости >>></a>
-						</div>
+						<a href="<?=Link::Custom('news');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+							Все новости
+						</div></a>
 					</div>
 				<?}?>
 				<?if($post != false){?>
 					<div class="xt_news" style="margin-bottom:50px;">
 						<a href="<?=Link::Custom('post', $post['translit']);?>">
 							<h6 class="min news_title"><?=$post['title']?></h6>
+						</a>
 							<?if(isset($post['thumbnail'])){?>
 								<img src="<?=$post['thumbnail'];?>" alt="<?=$post['title']?>">
 							<?}?>
@@ -221,10 +224,9 @@
 								<?echo $post['date'];
 								}?>
 							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('post');?>">Все статьи >>></a>
-						</div>
+						<a href="<?=Link::Custom('post');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+							Все статьи
+						</div></a>
 					</div>
 				<?}?>
 			</div>

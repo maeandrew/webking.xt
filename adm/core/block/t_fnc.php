@@ -66,8 +66,8 @@ function Page_form_validate(){
 function User_form_validate($nocheck=array()){
 	$errm = array();
 	$err=0;
-
 	$varname = 'id_user';
+	if (!in_array($varname, $nocheck))
 	if (isset($_POST[$varname])){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>1, 'IsInt'=>1);
@@ -79,9 +79,22 @@ function User_form_validate($nocheck=array()){
 	}
 
 	$varname = 'email';
+	if (!in_array($varname, $nocheck))
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_email'=>1);
+		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
+	}else{
+		$errm[$varname] = "Поле обязательно для заполнения.";
+		$err=1;
+	}
+
+	$varname = 'phone';
+	if (!in_array($varname, $nocheck))
+	if (isset($_POST[$varname]) && $_POST[$varname]){
+		$_POST[$varname] = trim($_POST[$varname]);
+		$carr = array('Lmin'=>10, 'Lmax'=>12, 'PM_glob'=>1);
 		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{

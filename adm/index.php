@@ -22,6 +22,7 @@ G::AddCSS('highslide.css');
 G::AddJS('jquery-2.1.1.min.js');
 G::AddJS('jquery.lazyload.min.js');
 G::AddJS('jquery-ui.js');
+G::AddJS('../plugins/js/jquery.cookie.js');
 G::AddJS('bootstrap.min.js');
 G::AddJS('../plugins/ckeditor/ckeditor.js');
 G::AddJS('main.js');

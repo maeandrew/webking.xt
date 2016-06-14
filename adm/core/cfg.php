@@ -238,6 +238,29 @@ G::ToGlobals(array(
 				'permissions' => array(
 					'supplier_manager_cab'
 				)
+			),
+			13 => array(
+				'name' => 'photographer',
+				'caption' => 'Фотограф',
+				'permissions' => array(
+					'admin_panel',
+					'catalog',
+					'product',
+					'news',
+					'product_report',
+					'product_moderation',
+					'moderation_edit_product',
+					'pages',
+					'pageedit',
+					'slides',
+					'duplicates',
+					'specifications',
+					'units',
+					'wishes',
+					'segmentations',
+					'pricelist',
+					'supplier_prov'
+				)
 			)
 		)
 	)

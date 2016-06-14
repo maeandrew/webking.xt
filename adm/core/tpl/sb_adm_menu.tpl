@@ -25,6 +25,9 @@
 					<a href="/adm/graphics/" <?=$moderationCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$moderationCount;?>)</a>
 				</li>
 			<?}?>
+			<li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
+				<a href="/adm/photo_products/">Товары фотографа</a>
+			</li>
 			<?if(_acl::isAllow('catalog')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'cat'?'class="sel"':null;?>>
 					<a href="/adm/cat/">Каталог</a>

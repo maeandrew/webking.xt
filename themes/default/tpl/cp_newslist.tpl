@@ -3,7 +3,7 @@
 		foreach($list as $i){?>
 			<li>
 				<div class="item animate mdl-grid">
-					<h3 class="item_title mdl-cell mdl-cell--12-col mdl-cell--12-col-phone"><?=$i['title']?></h3>
+					<a href="<?=Link::Custom('news', $i['translit']);?>"><h3 class="item_title mdl-cell mdl-cell--12-col mdl-cell--12-col-phone"><?=$i['title']?></h3></a>
 					<div class="item_date mdl-cell mdl-cell--12-col mdl-cell--12-col-phone">
 						<?if(date('d-m-Y') == date("d-m-Y", $i['date'])){?>
 							Сегодня
