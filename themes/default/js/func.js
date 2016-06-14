@@ -1174,14 +1174,14 @@ function ChangePriceRange(column, manual){
 	ajax('cart', 'GetCart').done(function(data){
 		removeLoadAnimation('.order_balance');
 		currentSum = data.products_sum[3];
-		newSum = (columnLimits[column] - currentSum).toFixed(2);
+		newSum = columnLimits[column] - currentSum;
 		if (newSum < 0){
 			text = 'Заказано достаточно!';
 		}else{
 			if ($.cookie('manual') == 1 ){
-				text = 'Дозаказать еще на '+newSum+' грн.';				
+				text = 'Дозаказать еще на '+newSum.toFixed(2).toString().replace('.',',')+' грн.';				
 			}else{
-				text = 'До следующей скидки '+newSum+' грн.';	
+				text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';	
 			}
 		}
 		$('.order_balance').text(text);
@@ -1196,7 +1196,7 @@ function ChangePriceRange(column, manual){
 				var price = $(this).find('.priceMopt'+$.cookie('sum_range')).val();
 				$(this).find('.priceMoptInf').removeClass('hidden');
 			}
-			$(this).find('.price').html(price);
+			$(this).find('.price').html(price.toFixed(2).toString().replace('.',','));
 		});
 
 		if (a === true) {
