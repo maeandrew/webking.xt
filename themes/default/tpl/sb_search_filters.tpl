@@ -90,7 +90,7 @@
 		//	});
 		
 		/*Смена позиции кнопок блока фильтра*/
-		$('.wrapper').on("scroll", function(){				
+		$('.panel_container_js').on("scroll", function(){				
 			changeFiltersBtnsPosition();
 		});
 

@@ -54,7 +54,8 @@
 	echo '<script type="text/javascript">
 		var URL_base = "<?=_base_url?>/",
 			current_controller = "'.$GLOBALS['CurrentController'].'",
-			ajax_proceed = false,
+			ajax_proceed = false,			
+			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
 			isLogged = '.(G::isLogged()?'false':'true').';
 	</script>';
@@ -178,7 +179,7 @@
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="panel_container">
+			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
 				<?if($news != false){?>
 					<div class="xt_news">
