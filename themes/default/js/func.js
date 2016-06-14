@@ -1145,184 +1145,73 @@ function mousePos(e){
 }
 
 /* Смена отображаемой цены */
-function ChangePriceRange(id, sum, val){
-	//Куки со значением "manual", которое обозначает, что скидка установлена в ручную, обнуляется после очистки корзины или удаоения последнего элемента корзины.
-	if (val == 1){ // Выполняется если скидка была выбрана вручную. Активирует текущую колонку скидки. Игнорируется при автоматическом формировании скидки
-		document.cookie="sum_range="+id+"; path=/";
-		/*document.cookie="manual=1; path=/";*/
+function ChangePriceRange(column, manual){
+	var a = false;
+	if (column != $.cookie('sum_range')){
+		a = true;
+	}
+
+	if (manual == 1){
+		$.cookie('sum_range', column, { path: '/'});
 		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
-		$('li.sum_range_'+id).addClass('active');
-	}	
-	/**
-	 * [Формирование цен и скидки в зависимоти от ручного или автоматического выбора управления скидкой]
-	 * @param  {[int]} $.cookie('manual') [Значение берется из куков. 0 - скидка формируется автоматически, 1 - установлена вручную]
-	 */
-	var column = $.cookie('sum_range');
-	if ($.cookie('manual') == 1){ // выполняется если выбрали скидку в ручную
-		var newSum = 0;
-		/**
-		 * [Формирование цен и скидки в соответствии с суммой корзины]
-		 * @param  {[int]} id [колонка скидки корзины. передается в функцию из места ее вызова]
-		 * @return {[func]}   [формирует цены товара и отображение текущей скидки]
-		 */
-		switch(id) {
-			case 0:
-				if (val === 0) { // выполняется если функция была вызвана из аякса (автом. формирование)
-					if (sum === 0){
-						$('.order_balance').text('Заказано достаточно!');
-					}else{
-						sum = 'Дозаказать еще на '+ sum + ' грн.';
-						$('.order_balance').text(sum);
-					}
-				}else{ // выполняется если скидка была установлена вручную
-					addLoadAnimation('.order_balance');
-					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
-						removeLoadAnimation('.order_balance');
-						newSum = (10000 - data.products_sum[3]).toFixed(2);
-						if (newSum < 0){
-						$('.order_balance').text('Заказано достаточно!');
-						}else{
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-							$('.order_balance').text(newSum);
-						}
-					});
-				}
-				break;
-			case 1:
-				if (val === 0) {
-					newSum = (10000 - sum).toFixed(2);
-					if (newSum > 3000 && column !== 0){
-						$('.order_balance').text('Заказано достаточно!');
-					}else{
-						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-						$('.order_balance').text(newSum);
-					}
-				}else{
-					addLoadAnimation('.order_balance');
-					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
-						removeLoadAnimation('.order_balance');
-						newSum = (3000 - data.products_sum[3]).toFixed(2);
-						if (newSum < 0){
-						$('.order_balance').text('Заказано достаточно!');
-						}else{
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-							$('.order_balance').text(newSum);
-						}
-					});
-				}
-				break;
-			case 2:
-				if(val === 0){
-					newSum = (3000 - sum).toFixed(2);
-					if(newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
-						if(column === 0){
-							newSum = (10000 - sum).toFixed(2);
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}else{
-							$('.order_balance').text('Заказано достаточно!');
-						}
-					}else{
-						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-						$('.order_balance').text(newSum);
-					}
-				}else{
-					addLoadAnimation('.order_balance');
-					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
-						removeLoadAnimation('.order_balance');
-						newSum = (500 - data.products_sum[3]).toFixed(2);
-						if (newSum < 0){
-						$('.order_balance').text('Заказано достаточно!');
-						}else{
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}
-					});
-				}
-				break;
-			case 3:
-				if(val === 0){
-					newSum = (500 - sum).toFixed(2);
-					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
-						if (column == 1){
-							newSum = (3000 - sum).toFixed(2);
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}else if (column === 0){
-							newSum = (10000 - sum).toFixed(2);
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}else{
-							$('.order_balance').text('Заказано достаточно!');
-						}
-					}else{
-						newSum = 'Дозаказать еще на '+newSum+' грн.';
-						$('.order_balance').text(newSum);
-					}
-				}else{
-					$('.order_balance').text('Без скидки!');
-				}
-				break;
-			default:
-				console.log("Что-то не работает");
-		}
-	}else{ // выполняется если скидка формируется автоматом. Получает уже сформированную разницу суммы корзины и в соответсвии с ней переключает колонки скидок на странице
-		document.cookie="sum_range="+id+"; path=/";
+		$('li.sum_range_'+column).addClass('active');
+	}else if ($.cookie('manual') != 1){
+		$.cookie('sum_range', column, { path: '/'});
 		$('li.sum_range').removeClass('active');
-		$('li.sum_range_'+id).addClass('active');
-		column = id;
-		console.log(sum);
-		switch(id) {
-			case 0:
-				$('.order_balance').text('Заказано достаточно!');
-				break;
-			case 1:
-				if(sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
-				}else{
-					sum = 'До следующей скидки '+ sum + ' грн.';
-					$('.order_balance').text(sum);
-				}
-				break;
-			case 2:
-				if (sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
-				}else{
-					sum = 'До следующей скидки '+ sum + ' грн.';
-					$('.order_balance').text(sum);
-				}
-				break;
-			case 3:
-				$('.order_balance').text('Без скидки!');
-				break;
-			default:
-				console.log("Что-то не работает");
-		}
-	}
-	$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
-		var minQty = parseInt($(this).find('.minQty').val());
-		var curentQty =	parseInt($(this).find('.qty_js').val());
-		if(curentQty >= minQty){
-			var price = $(this).find('.priceOpt'+column).val();
-			$(this).find('.priceMoptInf').addClass('hidden');
+		$('li.sum_range_'+column).addClass('active');
+		if(column > 0){
+			column = column - 1;
 		}else{
-			var price = $(this).find('.priceMopt'+column).val();
-			$(this).find('.priceMoptInf').removeClass('hidden');
+			column = 0;
 		}
-		$(this).find('.price').html(price);	
+	}else{
+		column = $.cookie('sum_range');
+	}	
+
+	var text = '';
+	addLoadAnimation('.order_balance');
+	ajax('cart', 'GetCart').done(function(data){
+		removeLoadAnimation('.order_balance');
+		currentSum = data.products_sum[3];
+		newSum = (columnLimits[column] - currentSum).toFixed(2);
+		if (newSum < 0){
+			text = 'Заказано достаточно!';
+		}else{
+			if ($.cookie('manual') == 1 ){
+				text = 'Дозаказать еще на '+newSum+' грн.';				
+			}else{
+				text = 'До следующей скидки '+newSum+' грн.';	
+			}
+		}
+		$('.order_balance').text(text);
+
+		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
+			var minQty = parseInt($(this).find('.minQty').val());
+			var curentQty =	parseInt($(this).find('.qty_js').val());
+			if(curentQty >= minQty){
+				var price = $(this).find('.priceOpt'+$.cookie('sum_range')).val();
+				$(this).find('.priceMoptInf').addClass('hidden');
+			}else{
+				var price = $(this).find('.priceMopt'+$.cookie('sum_range')).val();
+				$(this).find('.priceMoptInf').removeClass('hidden');
+			}
+			$(this).find('.price').html(price);
+		});
+
+		if (a === true) {
+			setTimeout(function(){
+				$('.product_buy .price').stop(true,true).css({
+					"background-color": "#b0eeb2"
+					//"color": "black"
+				}).delay(1000).animate({
+					"background-color": "transparent"
+					//"color": "red"
+				}, 3000);
+
+			},300);			
+		}
 	});
-
-	setTimeout(function(){
-		$('.product_buy .price').stop(true,true).css({
-			"background-color": "#b0eeb2"
-			//"color": "black"
-		}).delay(1000).animate({
-			"background-color": "transparent"
-			//"color": "red"
-		}, 3000);
-
-	},300);
 }
 
 function openObject(id){

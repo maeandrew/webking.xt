@@ -62,58 +62,8 @@ function SendToAjax(id, qty, button, direction, note){
 		var sum = 0;
 		// Автоматический пересчет скидки
 		$('.currentCartSum').html(data.cart.products_sum[3]);
-		if ($.cookie('manual') == 0){
-			// выполняется если скидка формируется автоматически (без ручного установления текущей скидки). значение берется из куков
-			/**
-			 * [Определение сумы скидки]
-			 * @param  {[int]} data.cart.cart_column [колонка скидки корзины взята из массива корзины]
-			 * @return {[func]}                      [вызывает вункцию смены цены (ChangePriceRange) и отображениии скидки. передает в нее id - текущая колонка корзины, sum - общую сумму корзины, val - значение всегда "0" - это "метка"/"флажок" которая обозначает что фукнция вызвана из данного аякса]
-			 */
-			console.log(data.cart.products_sum[3]);
-			switch(data.cart.cart_column) {
-				case 0:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(0, sum, 0);
-					break;
-				case 1:
-					sum = (10000 - data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(1, sum, 0);
-					break;
-				case 2:
-					sum = (3000 - data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(2, sum, 0);
-					break;
-				case 3:
-					sum = (500 - data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(3, sum, 0);
-					break;
-				default:
-					console.log('не работает все');
-				}
-		}else{ // Выполняется при ручном выборе текущей скидки. Так же как и первое условие передает те же значения, за исключением суммы. Она постоянна.
-			switch(data.cart.cart_column) {
-				case 0:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(0, sum, 0);
-					break;
-				case 1:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(1, sum, 0);
-					break;
-				case 2:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(2, sum, 0);
-					break;
-				case 3:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(3, sum, 0);
-					break;
-				default:
-					console.log('не работает все');
-			}
-		}
+		ChangePriceRange(data.cart.cart_column, 0);		
 		$('#cart .product_buy[data-idproduct="'+id+'"]').find('.price').html(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2)); // устанавливает актуальную цену товара в корзине.
-
 	});
 }
 /**

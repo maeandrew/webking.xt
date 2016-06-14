@@ -55,7 +55,8 @@
 			current_controller = "<?=$GLOBALS['CurrentController']?>",
 			ajax_proceed = false,
 			current_id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
-			isLogged = <?=G::isLogged()?'false':'true';?>;			
+			isLogged = <?=G::isLogged()?'false':'true';?>,
+			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0};
 	</script>
 	<!-- END define JS global variables -->
 
