@@ -361,12 +361,12 @@
 				<div id="nav_connection">
 					<h2>Категория и связь</h2>
 					<label>Категория:</label><?=isset($errm['categories_ids'])?"<span class=\"errmsg\">".$errm['categories_ids']."</span><br>":null?>
-					<?foreach($_POST['categories_ids'] as $k=>$cid){ ?>
+					<?foreach($_POST['categories_ids'] as $k=>$cid){?>
 						<div class="catblock">
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 								<?foreach($list as $item){?>
-									<option <?=($item['id_category'] == $cid)?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+									<option <?=($item['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
