@@ -1660,7 +1660,7 @@ section.center {
 
 	.page_content {
 		padding: 0 15px;
-		min-height: calc(100vh - 427px);
+		min-height: calc(100vh - 52px);
 	}
 	.page_content h1 {
 		display: block;
