@@ -1801,12 +1801,13 @@ class Orders {
 		return $arr;
 	}
 
-	public function GetContragentByIdOrder($id_order){
+	public function GetContragentByLastOrder(){
 		$sql = "SELECT c.name_c
 				FROM "._DB_PREFIX_."order o
 				LEFT JOIN "._DB_PREFIX_."contragent c
 				ON o.id_contragent = c.id_user
-				WHERE id_order = ".$id_order;
+				WHERE o.id_customer = ".$_SESSION['member']['id_user']."
+				ORDER BY o.id_order DESC LIMIT 1";
 		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
