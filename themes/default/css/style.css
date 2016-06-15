@@ -540,6 +540,8 @@ body:not(.c_main) .banner {
 }
 .breadcrumbs {
 	float: left;
+	padding-left: 10px;
+    padding-right: 10px;
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;
@@ -3295,7 +3297,7 @@ section .stat_year {
 	#cart .info_key {
 		top: 24px;
 		right: 15px;
-	}
+	}	
 }
 
 /* Анимация загрузки */

@@ -4,7 +4,7 @@
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;?>
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
-		<div class="product_main_img btn_js mdl-cell--hide-phone" data-name="big_photo">
+		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photo">
 			<?if(!empty($item['images'])){?>
 				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
 			<?}else if(!empty($item['img_1'])){?>
@@ -266,7 +266,7 @@
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
 					<a href="#description" class="mdl-tabs__tab is-active">Описание</a>
 					<a href="#specifications" class="mdl-tabs__tab">Характеристики</a>
-					<a href="#seasonality" class="mdl-tabs__tab">Сезонность</a>
+					<a href="#seasonality" class="mdl-tabs__tab hidden">Сезонность</a>
 					<a href="#comments" class="mdl-tabs__tab">Отзывы и вопросы</a>
 				</div>
 			</div>
