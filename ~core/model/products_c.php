@@ -1485,7 +1485,7 @@ class Products {
 		if(!$active){
 			$f['exclusive_supplier'] = 0;
 		}
-		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
+		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = ".$id_product)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -1734,7 +1734,7 @@ class Products {
 		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
 		$f['active'] = $active;
 		$this->db->StartTrans();
-		$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = {$id_product}");
+		$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product);
 		$this->RecalcSitePrices(array($id_product));
 		$this->db->CompleteTrans();
 	}
@@ -1957,7 +1957,7 @@ class Products {
 				$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
 				$f['filial'] = $a['filial'];
 				$this->db->StartTrans();
-				if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = {$k}")){
+				if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = ".$k)){
 					$this->db->FailTrans();
 					return false;
 				}
@@ -1976,7 +1976,7 @@ class Products {
 		$f['price_opt'] = "ROUND(".$opt_sr."*price_coefficient_opt, 2)";
 		$f['price_mopt'] = "ROUND(".$mopt_sr."*price_coefficient_mopt, 2)";
 		$this->db->StartTrans();
-		if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
+		if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = ".$id_product)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -2108,7 +2108,7 @@ class Products {
 	 */
 	public function UpdateViewsProducts($count_views, $id_product){
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."prod_views", array('count_views' => $count_views = $count_views + 1), "id_product = {$id_product}")){
+		if(!$this->db->Update(_DB_PREFIX_."prod_views", array('count_views' => $count_views = $count_views + 1), "id_product = ".$id_product)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -2219,7 +2219,7 @@ class Products {
 			$f['access_assort'] = (isset($arr['access_assort']) && $arr['access_assort'] == "on")?1:0;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
+		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = ".$id_product)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -2240,7 +2240,7 @@ class Products {
 		$this->SetFieldsById($id_product, 1);
 		$f['translit'] = G::StrToTrans($this->fields['name']);
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = {$id_product}")){
+		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = ".$id_product)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -2990,7 +2990,7 @@ class Products {
 		global $Supplier;
 		$id_supplier = $Supplier->fields['id_user'];
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = {$id_product} AND id_supplier = {$id_supplier}")){
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product." AND id_supplier = ".$id_supplier)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -3539,7 +3539,7 @@ class Products {
 		$f['name'] = $pricelist['name'];
 		$f['set'] = $pricelist['set'];
 		$f['visibility'] = $pricelist['visibility'];
-		if(!$this->db->Update(_DB_PREFIX_."pricelists", $f, "id = {$pricelist['id']}")){
+		if(!$this->db->Update(_DB_PREFIX_."pricelists", $f, "id = ".$pricelist['id'])){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -4473,23 +4473,24 @@ class Products {
 
 	public function generateCategory(){
 		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
-				(CASE
-					WHEN c.category_level = 1 THEN c.id_category
-					WHEN c.category_level = 2 THEN c.pid
-					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
-				END) AS sort,
-				(CASE
-					WHEN c.category_level = 2 THEN c.id_category
-					WHEN c.category_level = 3 THEN c.pid
-					ELSE 0
-				END) AS sort2
-				FROM '._DB_PREFIX_.'category AS c
-				WHERE c.category_level <> 0
-				ORDER BY sort, sort2, category_level';
-				// AND c.id_category <> 493
-				// AND c.pid NOT IN (493)
-				// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
-				// AND c.category_level <> 4
+			(CASE
+				WHEN c.category_level = 1 THEN c.id_category
+				WHEN c.category_level = 2 THEN c.pid
+				ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
+			END) AS sort,
+			(CASE
+				WHEN c.category_level = 2 THEN c.id_category
+				WHEN c.category_level = 3 THEN c.pid
+				ELSE 0
+			END) AS sort2
+			FROM '._DB_PREFIX_.'category AS c
+			WHERE c.category_level <> 0
+			AND c.sid = 1
+			ORDER BY sort, sort2, category_level';
+			// AND c.id_category <> 493
+			// AND c.pid NOT IN (493)
+			// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
+			// AND c.category_level <> 4
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -4558,6 +4559,34 @@ class Products {
 			$v['images'] = $this->GetPhotoById($v['id_product']);
 		}
 		return $res;
+	}
+
+	public function FillCategoryByOrder($data){
+		$sql = "DELETE
+			FROM "._DB_PREFIX_."cat_prod
+			WHERE id_product IN (
+				SELECT o.id_product
+				FROM "._DB_PREFIX_."osp AS o
+				WHERE o.id_order = ".$data['id_order'].")
+			AND id_category IN (SELECT c.id_category FROM "._DB_PREFIX_."category AS c WHERE c.sid = 1)";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
+			(id_category, id_product)
+			(SELECT ".$data['category']." AS id_category, o.id_product FROM "._DB_PREFIX_."osp AS o WHERE o.id_order = ".$data['id_order']." GROUP BY o.id_product)";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		$f['category'] = $data['category'];
+		$this->db->Update(_DB_PREFIX_.'order', $f, 'id_order = '.$data['id_order']);
+		return true;
 	}
 
 }

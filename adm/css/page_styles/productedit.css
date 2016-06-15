@@ -269,6 +269,7 @@
 }
 #nav_connection .catblock select {
 	text-align: left;
+	width: 300px;
 }
 #nav_connection .catblock > *:not(input){
 	margin-right: 5px;

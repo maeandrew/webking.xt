@@ -9,7 +9,6 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	exit();
 }
 $Order = new Orders();
-// ---- center ----
 unset($parsed_res);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Заказы';
@@ -56,5 +55,3 @@ $parsed_res = array(
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
-// ---- right ----
-?>
