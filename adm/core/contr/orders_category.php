@@ -1,5 +1,5 @@
 <?php
-if(!_acl::isAllow('orders')){
+if(!_acl::isAllow('orders_category')){
 	die("Access denied");
 }
 $Order = new Orders();
