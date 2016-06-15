@@ -117,6 +117,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							if (isset($_SESSION['member'])) {
 								$_SESSION['member']['waiting_list'][] = $_POST['id_product'];
 							}
+							$data['fav_count'] = count($_SESSION['member']['waiting_list']);
 							$data['answer'] = 'ok';
 						}else{
 							$data['answer'] = 'insert_error';
@@ -150,6 +151,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								foreach($_SESSION['member']['waiting_list'] as $key => $value){
 									if($value == $_POST['id_product']){
 										unset($_SESSION['member']['waiting_list'][$key]);
+										$data['fav_count'] = count($_SESSION['member']['waiting_list']);
 										$data['answer'] = 'ok';
 									}
 								}								

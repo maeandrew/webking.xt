@@ -46,7 +46,7 @@ $(function(){
 	
 	// Показать еще 30 товаров
 	$('.show_more_js').on('click', function(e){
-		e.preventDefault();			
+		e.preventDefault();		
 		var page = $(this).closest('.products_page'),
 			id_category = current_id_category,
 			start_page = parseInt(page.find('.paginator li.active').first().text()),
@@ -114,6 +114,59 @@ $(function(){
 	// 	id_product = $(this).attr('data-idfavorite');
 	// 	AddFavorite(event,id_product);
 	// });
+
+	//Удаление Избранного товара из списка
+	$('body').on('click', '.remove_favor_js', function(e){
+		e.preventDefault();
+		var id_product = $(this).closest('.favorite_js').attr('data-idproduct'),
+			clicked = $(this);
+		$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
+			addLoadAnimation(clicked.closest('tr'));
+			closeObject('confirmDelItem');
+			ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
+				if (data.fav_count > 0) {
+					clicked.closest('.favorite_js').remove();
+					$('.userChoiceFav').text('('+data.fav_count+')');
+					var data = {message: 'Товар удален из списка избранных товаров'};
+					var snackbarContainer = document.querySelector('#snackbar');
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				}else{
+					$('#favorites').html('<h5>У Вас нет избранных товаров</h5>');
+					$('.userChoiceFav').text('(0)');
+				}
+			});
+		});
+	});
+
+	//Удаление товара из листа ожидания
+	$('body').on('click', '.remove_waitinglist_js', function(e){
+		e.preventDefault();
+		var id_product = $(this).closest('.waiting_list_js').attr('data-idproduct'),
+			clicked = $(this);
+		$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
+			addLoadAnimation(clicked.closest('tr'));
+			closeObject('confirmDelItem');
+			ajax('product', 'del_from_waitinglist', {id_product: id_product}).done(function(data){
+				console.log(data);
+				if (data.fav_count > 0) {
+					clicked.closest('.waiting_list_js').remove();
+					$('.userChoiceWait').text('('+data.fav_count+')');
+					var data = {message: 'Товар удален из листа ожидания'};
+					var snackbarContainer = document.querySelector('#snackbar');
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				}else{
+					$('#waiting_list').html('<h5>Лист ожидания пуст</h5>');
+					$('.userChoiceWait').text('(0)');
+				}
+			}).fail(function(data){
+				console.log('Error!');
+			});
+		});
+	});
+
+	$('#confirmDelItem').on('click', '.cancelBtn_js', function(){
+		closeObject('confirmDelItem');
+	});
 
 
 	// SEO-text (Скрывать, если его длина превышает 1к символов)

@@ -15,13 +15,16 @@
 
 	//Список избранных товаров
 	$favorites = $Customer->GetListFavorites($User->fields['id_user']);
-	foreach ($favorites as $key => $value) {
-		if($value['price_opt'] == 0 && $value['price_mopt'] == 0){
-			$favorites[$key]['availability'] = 'нет';
-		}else{
-			$favorites[$key]['availability'] = 'есть';
+	if ($favorites) {
+		foreach ($favorites as $key => $value) {
+			if($value['price_opt'] == 0 && $value['price_mopt'] == 0){
+				$favorites[$key]['availability'] = 'нет';
+			}else{
+				$favorites[$key]['availability'] = 'есть';
+			}
 		}
 	}
+	
 	$User->SetUser($_SESSION['member']);
 
 	$tpl->Assign('favorites', $favorites);
