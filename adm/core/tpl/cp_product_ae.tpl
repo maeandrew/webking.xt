@@ -370,7 +370,7 @@
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
-							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($_POST['main_category'][$k] == '1')?'checked':null?> required /> Сделать основной
+							<input type="radio" name="main_category" id="" class="input-m" value="<?=$k?>" <?=($cid['main'] == '1')?'checked':null?> required /> Сделать основной
 						</div>
 					<?}?>
 					<?if($GLOBALS['CurrentController'] == 'productadd'){?>
