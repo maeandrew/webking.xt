@@ -49,11 +49,11 @@ function SendToAjax(id, qty, button, direction, note){
 			// $('div[data-idproduct="'+id+'"]').find('.price').text(data.product.actual_prices[data.cart.cart_column].toFixed(2));
 			$('.cart_order_sum').text(data.cart.cart_sum);
 			$.each(data.cart.products, function(key, value){
-				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart.cart_column].toFixed(2));
+				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart.cart_column].toFixed(2).toString().replace('.',','));
 				$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2));
 			});
 		}else{
-			$('#cart div[data-idproduct="'+id+'"]').find('.price').text(data.product.actual_prices[$.cookie('sum_range')].toFixed(2));
+			$('#cart div[data-idproduct="'+id+'"]').find('.price').text(data.product.actual_prices[$.cookie('sum_range')].toFixed(2).toString().replace('.',','));
 			$('div[data-idproduct="'+id+'"]').find('.other_price .price_js').text(data.product.other_prices[$.cookie('sum_range')].toFixed(2));
 			$('div[data-idproduct="'+id+'"]').find('.other_price .mode_js').text(mode_text);
 		}
@@ -63,7 +63,7 @@ function SendToAjax(id, qty, button, direction, note){
 		// Автоматический пересчет скидки
 		$('.currentCartSum').html(data.cart.products_sum[3]);
 		ChangePriceRange(data.cart.cart_column, 0);		
-		$('#cart .product_buy[data-idproduct="'+id+'"]').find('.price').html(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2)); // устанавливает актуальную цену товара в корзине.
+		$('#cart .product_buy[data-idproduct="'+id+'"]').find('.price').html(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2).toString().replace('.',',')); // устанавливает актуальную цену товара в корзине.
 	});
 }
 /**
@@ -107,52 +107,6 @@ function removeFromCart(id){
 	}else{
 		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
 			ChangePriceRange(data.cart_column, 0);
-			/*var sum = 0;*/
-			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
-			/*if($.cookie('manual') === 0){
-				switch(data.cart_column){
-					case 0:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(0, sum, 0);
-						break;
-					case 1:
-						sum = (10000 - data.products_sum[3]).toFixed(2);
-						ChangePriceRange(1, sum, 0);
-						break;
-					case 2:
-						sum = (3000 - data.products_sum[3]).toFixed(2);
-						ChangePriceRange(2, sum, 0);
-						break;
-					case 3:
-						sum = (500 - data.products_sum[3]).toFixed(2);
-						ChangePriceRange(3, sum, 0);
-						break;
-					default:
-						console.log('не работает все');
-					}
-			}else{
-				switch(data.cart_column){
-					case 0:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(0, sum, 0);
-						break;
-					case 1:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(1, sum, 0);
-						break;
-					case 2:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(2, sum, 0);
-						break;
-					case 3:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(3, sum, 0);
-						break;
-					default:
-						console.log('не работает все');
-				}
-			}*/
-
 			$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('#in_cart_' + id).closest('.buy_block').find('.minQty').val();
@@ -162,31 +116,9 @@ function removeFromCart(id){
 			$('#in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
 			$('#in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
 			$('#in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
-			/*var priceOpt = 0;*/
-			/*switch(parseInt($.cookie('sum_range'))) {
-				case 0:
-					priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt0').val();
-					$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				case 1:
-					priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt1').val();
-					$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				case 2:
-					priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt2').val();
-					$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				case 3:
-					priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt3').val();
-					$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				default:
-					console.log('не работает');
-			}*/
 
 			var priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt' + $.cookie('sum_range')).val();
 			$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$.each(data.products, function(key, value){

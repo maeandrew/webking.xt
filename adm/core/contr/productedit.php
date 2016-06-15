@@ -47,6 +47,9 @@ if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
 if(isset($_POST['smb']) || isset($_POST['smb_new'])){
+	if(isset($_POST['images_visible'])){
+		$_POST['images_visible'][0] = 1;
+	}
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	if(isset($_POST['price']) && $_POST['price'] == ""){
 		$_POST['price'] = 0;
