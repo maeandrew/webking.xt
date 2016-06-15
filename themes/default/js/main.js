@@ -88,31 +88,32 @@ $(function(){
 				$('#show_more_products').hide();
 			}
 
-			//Инициализация добавления товара в избранное
-			$('.preview_favorites').click(function(event) {
-				id_product = $(this).attr('data-idfavorite');
-				AddFavorite(event,id_product);
-			});
 			ListenPhotoHover();//Инициализания Preview
-
-			//Добавление товара в корзину
-			$('.qty_js').on('change', function(){
-				var id =  $(this).closest('.product_buy').attr('data-idproduct'),
-					qty  = $(this).val(),
-					note = $(this).closest('.product_section').find('.note textarea').val();
-				SendToAjax (id,qty,false,false,note);
-			});
-			$('.buy_btn_js').on('click', function (){
-				var id =  $(this).closest('.product_buy').attr('data-idproduct'),
-					qty = $(this).closest('.product_buy').find('.qty_js').val(),
-					note = $(this).closest('.product_section').find('.note textarea').val();
-				SendToAjax (id,qty,false,false,note);
-			});
 
 			$('.load_more').remove();
 			resizeAsideScroll('show_more');
 		});
 	});
+
+	//Добавление товара в корзину
+	$('body').on('change', '.qty_js', function(){
+		var id = $(this).closest('.product_buy').attr('data-idproduct'),
+			qty = $(this).val(),
+			note = $(this).closest('.product_section').find('.note textarea').val();
+		SendToAjax (id,qty,false,false,note);
+	});
+	$('body').on('click', '.buy_btn_js', function (){
+		var id = $(this).closest('.product_buy').attr('data-idproduct'),
+			qty = $(this).closest('.product_buy').find('.qty_js').val(),
+			note = $(this).closest('.product_section').find('.note textarea').val();
+		SendToAjax (id,qty,false,false,note);
+	});
+
+	// // Инициализация добавления товара в избранное
+	// $('body').on('click', '.preview_favorites', function () {
+	// 	id_product = $(this).attr('data-idfavorite');
+	// 	AddFavorite(event,id_product);
+	// });
 
 
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
