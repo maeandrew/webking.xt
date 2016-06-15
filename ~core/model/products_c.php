@@ -1341,7 +1341,7 @@ class Products {
 			WHERE '.$where.'
 			'.$group_by.'
 			ORDER BY '.$orderby.'
-			'.$limit;  //print_r($sql); die();
+			'.$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
