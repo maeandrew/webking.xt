@@ -509,6 +509,9 @@
 .catblock {
 	margin-bottom: 10px;
 }
+.catblock select {
+	width: 300px;
+}
 .catblock .delcat {
 	margin-left: 10px;
 	cursor: pointer;

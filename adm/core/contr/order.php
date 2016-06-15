@@ -1,5 +1,5 @@
 <?php
-if(!_acl::isAllow('orders')){
+if(!_acl::isAllow('order')){
 	die("Access denied");
 }
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){

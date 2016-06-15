@@ -4576,8 +4576,8 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 		$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
-			(id_category, id_product)
-			(SELECT ".$data['category']." AS id_category, o.id_product FROM "._DB_PREFIX_."osp AS o WHERE o.id_order = ".$data['id_order']." GROUP BY o.id_product)";
+			(id_category, id_product, main)
+			(SELECT ".$data['category']." AS id_category, o.id_product, 1 AS main FROM "._DB_PREFIX_."osp AS o WHERE o.id_order = ".$data['id_order']." GROUP BY o.id_product)";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();

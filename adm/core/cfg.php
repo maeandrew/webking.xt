@@ -117,7 +117,8 @@ G::ToGlobals(array(
 			'supplier_prov',
 			'monitoring',
 			'seotext',
-			'orders_category'
+			'orders_category',
+			'order'
 		),
 		// groups
 		'groups' => array(
@@ -217,7 +218,8 @@ G::ToGlobals(array(
 					'product_report',
 					'monitoring',
 					'seotext',
-					'orders_category'
+					'orders_category',
+					'order'
 				)
 			),
 			10 => array(
