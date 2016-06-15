@@ -18,7 +18,7 @@
 			</div>
 			<div class="listItems">
 				<i class="material-icons">phone</i>
-				<?=isset($_SESSION['member']['phones']) && $_SESSION['member']['phones'] != ''?$_SESSION['member']['phones']:"Регистрация без телефона"?>
+				<?=isset($_SESSION['member']['phone']) && $_SESSION['member']['phone'] != ''?$_SESSION['member']['phone']:"Регистрация без телефона"?>
 			</div>
 			<!-- <script>GetLocation();</script>
 			<div class="listItems">

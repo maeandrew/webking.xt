@@ -99,6 +99,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(!$err){
 					$Customers = new Customers();
 					$_POST['cont_person'] = (isset($_POST['first_name'])?trim($_POST['first_name']):null) . ' ' . (isset($_POST['middle_name'])?trim($_POST['middle_name']):null) . ' ' . (isset($_POST['last_name'])?trim($_POST['last_name']):null);
+					//Перезаписываем данные в сессии
+					$_SESSION['member']['name'] = $_POST['cont_person'];
+					$_SESSION['member']['email'] = $_POST['email'];
+					$_SESSION['member']['phone'] = $_POST['phone'];
 					if($Customers->updateCustomer($_POST)) echo json_encode('true');
 				}else{
 					echo json_encode($errm);
