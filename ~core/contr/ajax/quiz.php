@@ -10,11 +10,13 @@
             case "step":
                 $conragent = $Orders->GetContragentByLastOrder();
                 $cont_person = explode(' ', $_SESSION['member']['name']);
-                $Customer['first_name'] = isset($cont_person[0])?$cont_person[0]:'';
-                $Customer['middle_name'] = isset($cont_person[1])?$cont_person[1]:'';
-                $Customer['last_name'] = isset($cont_person[2])?$cont_person[2]:'';
+                $customer['first_name'] = isset($cont_person[0])?$cont_person[0]:'';
+                $customer['middle_name'] = isset($cont_person[1])?$cont_person[1]:'';
+                $customer['last_name'] = isset($cont_person[2])?$cont_person[2]:'';
 
                 $tpl->Assign('step', $_POST['$step)']);
+                $tpl->Assign('conragent', $conragent);
+                $tpl->Assign('customer', $customer);
                 echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'quiz.tpl');
                 break;
         }
