@@ -38,7 +38,7 @@ class Customers extends Users {
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON f.id_product = p.id_product
 			WHERE f.id_user = '".$id_user."'
-			ORDER BY id_favorite";
+			ORDER BY f.id_product";
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -85,7 +85,7 @@ class Customers extends Users {
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON wl.id_product = p.id_product
 			WHERE wl.id_user = '".$id_user."'
-			ORDER BY id_followprice";
+			ORDER BY wl.id_product";
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
