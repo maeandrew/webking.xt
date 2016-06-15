@@ -1187,16 +1187,23 @@ function ChangePriceRange(column, manual){
 		$('.order_balance').text(text);
 
 		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
+			console.log('123');
 			var minQty = parseInt($(this).find('.minQty').val());
 			var curentQty =	parseInt($(this).find('.qty_js').val());
+			var price;
 			if(curentQty >= minQty){
-				var price = $(this).find('.priceOpt'+$.cookie('sum_range')).val();
+				price = parseInt($(this).find('.priceOpt'+$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',',');
 				$(this).find('.priceMoptInf').addClass('hidden');
 			}else{
-				var price = $(this).find('.priceMopt'+$.cookie('sum_range')).val();
+				price = parseInt($(this).find('.priceMopt'+$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',',');
 				$(this).find('.priceMoptInf').removeClass('hidden');
 			}
-			$(this).find('.price').html(price.toFixed(2).toString().replace('.',','));
+
+			/*price = parseInt($(this).find('.price'+ (curentQty >= minQty?'Opt':'Mopt') +$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',',');
+				$(this).find('.priceMoptInf').addClass('hidden');*/
+			
+			console.log(price);
+			$(this).find('.price').html(price);
 		});
 
 		if (a === true) {
