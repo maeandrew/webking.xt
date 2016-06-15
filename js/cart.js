@@ -95,20 +95,21 @@ function removeFromCart(id){
 			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block').addClass('hidden');
 			$('.in_cart_js').addClass('hidden');
 			$('.buy_btn_js').removeClass('hidden');
-			$.cookie('manual', 0);
+			$.cookie('manual', 0, { path: '/'});
 
 			$('.quantity').each(function(){
 				var minQty = $(this).find('.minQty').val();
 				$(this).find('.qty_js').val(minQty);
 				$('#specCont').find('.qty_js').val(minQty);
 			});
-			ChangePriceRange(3, 0, 0);
+			ChangePriceRange(3, 0);
 		});
 	}else{
 		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
-			var sum = 0;
+			ChangePriceRange(data.cart_column, 0);
+			/*var sum = 0;*/
 			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
-			if($.cookie('manual') === 0){
+			/*if($.cookie('manual') === 0){
 				switch(data.cart_column){
 					case 0:
 						sum = (data.products_sum[3]).toFixed(2);
@@ -150,7 +151,7 @@ function removeFromCart(id){
 					default:
 						console.log('не работает все');
 				}
-			}
+			}*/
 
 			$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
@@ -161,8 +162,8 @@ function removeFromCart(id){
 			$('#in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
 			$('#in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
 			$('#in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
-			var priceOpt = 0;
-			switch(parseInt($.cookie('sum_range'))) {
+			/*var priceOpt = 0;*/
+			/*switch(parseInt($.cookie('sum_range'))) {
 				case 0:
 					priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt0').val();
 					$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
@@ -181,7 +182,11 @@ function removeFromCart(id){
 					break;
 				default:
 					console.log('не работает');
-			}
+			}*/
+
+			var priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt' + $.cookie('sum_range')).val();
+			$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$.each(data.products, function(key, value){
@@ -190,11 +195,11 @@ function removeFromCart(id){
 			});
 
 			if(data.products.length === 0){
-				ChangePriceRange(3, 0, 0);
+				ChangePriceRange(3, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
 				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart').addClass('hidden');
-				$.cookie('manual', 0);
+				$.cookie('manual', 0, { path: '/'});
 			}
 		});
 	}
