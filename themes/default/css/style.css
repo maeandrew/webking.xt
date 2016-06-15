@@ -974,10 +974,10 @@ section.center {
 		width: 130px;
 	}
 	#cart ul.order_head li.name {
-		width: calc(65% - 160px);
+		width: calc(60% - 160px);
 	}
 	#cart ul.order_head li.price {
-		width: 25%;
+		width: 30%;
 	}
 	#cart ul.order_head li.sum_li {
 		width: calc(10% + 30px);
@@ -993,13 +993,14 @@ section.center {
 	#cart .card .product_name {
 		float: left;
 		display: table-row;
-		min-width: 300px;
-		width: calc(65% - 170px);
+		min-width: 200px;
+		width: calc(60% - 170px);
 		text-align: left;
 		padding: 5px;
 	}
 	#cart .card .product_buy {
-		width: 25%;
+		/* width: 25%; */
+		width: 30%;
 		float: left;
 		position: relative;
 		min-width: auto;
@@ -1290,6 +1291,13 @@ section.center {
 	@media (max-width: 979px) {
 		#cart #total {
 			width: auto;
+		}
+		#cart .card .product_buy .buy_block .price {
+			font-size: 0.8em;
+		}
+		#cart .product_buy .buy_block .quantity .units {
+			width: 20px;
+		    margin: 0;
 		}
 	}
 
@@ -2204,7 +2212,7 @@ section .stat_year {
 }
 
 .product_buy {
-	width: 310px;
+	width: 330px;
 	float: right;
 	height: 100px;
 	padding: 32px 0;
@@ -2477,7 +2485,7 @@ section .stat_year {
 		height: 70px;
 	}
 	#cart .card .product_name {
-		min-width: 190px;
+		min-width: 180px;
 	}
 	#cart {
 		padding: 15px;
