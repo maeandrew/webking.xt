@@ -57,11 +57,21 @@
 							<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>		
 						</div>
 						<div class="quantity">
-							<div class="quantityReverseBlock">
+							<!-- <div class="quantityReverseBlock">
 								<button class="material-icons btn_add"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" min="0" step="<?=$item['min_mopt_qty'];?>">
 								<button class="material-icons btn_remove" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+							</div> -->
+							<div class="quantityReverseBlock">
+								<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+								<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
+
+								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
+								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" min="0" step="<?=$item['min_mopt_qty'];?>">
+								
+								<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
 							</div>
 							<div class="units"><?=$item['units'];?></div>
 						</div>
