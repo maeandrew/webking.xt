@@ -120,22 +120,25 @@ $(function(){
 		e.preventDefault();
 		var id_product = $(this).closest('.favorite_js').attr('data-idproduct'),
 			clicked = $(this);
-		$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
+		clicked.addClass('clicked_js');
+		setTimeout(function() {
 			addLoadAnimation(clicked.closest('tr'));
-			closeObject('confirmDelItem');
-			ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
-				if (data.fav_count > 0) {
-					clicked.closest('.favorite_js').remove();
-					$('.userChoiceFav').text('('+data.fav_count+')');
-					var data = {message: 'Товар удален из списка избранных товаров'};
-					var snackbarContainer = document.querySelector('#snackbar');
-					snackbarContainer.MaterialSnackbar.showSnackbar(data);
-				}else{
-					$('#favorites').html('<h5>У Вас нет избранных товаров</h5>');
-					$('.userChoiceFav').text('(0)');
-				}
-			});
-		});
+			if (clicked.hasClass('confirmDel_js')) {
+				ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
+					if (data.fav_count > 0) {
+						clicked.closest('.favorite_js').remove();
+						$('.userChoiceFav').text('('+data.fav_count+')');
+						var data = {message: 'Товар удален из списка избранных товаров'};
+						var snackbarContainer = document.querySelector('#snackbar');
+						snackbarContainer.MaterialSnackbar.showSnackbar(data);
+					}else{
+						$('#favorites').html('<h5>У Вас нет избранных товаров</h5>');
+						$('.userChoiceFav').text('(0)');
+					}
+					clicked.removeClass('clicked_js');
+				});
+			}
+		}, 2000);
 	});
 
 	//Удаление товара из листа ожидания
@@ -143,27 +146,34 @@ $(function(){
 		e.preventDefault();
 		var id_product = $(this).closest('.waiting_list_js').attr('data-idproduct'),
 			clicked = $(this);
-		$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
+		clicked.addClass('clicked_js');
+		setTimeout(function() {
 			addLoadAnimation(clicked.closest('tr'));
-			closeObject('confirmDelItem');
-			ajax('product', 'del_from_waitinglist', {id_product: id_product}).done(function(data){
-				console.log(data);
-				if (data.fav_count > 0) {
-					clicked.closest('.waiting_list_js').remove();
-					$('.userChoiceWait').text('('+data.fav_count+')');
-					var data = {message: 'Товар удален из листа ожидания'};
-					var snackbarContainer = document.querySelector('#snackbar');
-					snackbarContainer.MaterialSnackbar.showSnackbar(data);
-				}else{
-					$('#waiting_list').html('<h5>Лист ожидания пуст</h5>');
-					$('.userChoiceWait').text('(0)');
-				}
-			}).fail(function(data){
-				console.log('Error!');
-			});
-		});
+			if (clicked.hasClass('confirmDel_js')) {
+				ajax('product', 'del_from_waitinglist', {id_product: id_product}).done(function(data){
+					console.log(data);
+					if (data.fav_count > 0) {
+						clicked.closest('.waiting_list_js').remove();
+						$('.userChoiceWait').text('('+data.fav_count+')');
+						var data = {message: 'Товар удален из листа ожидания'};
+						var snackbarContainer = document.querySelector('#snackbar');
+						snackbarContainer.MaterialSnackbar.showSnackbar(data);
+					}else{
+						$('#waiting_list').html('<h5>Лист ожидания пуст</h5>');
+						$('.userChoiceWait').text('(0)');
+					}
+				}).fail(function(data){
+					console.log('Error!');
+				});
+			}
+		}, 2000);
 	});
 
+	$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
+		$('.remove_favor_js.clicked_js').addClass('confirmDel_js');
+		$('.remove_waitinglist_js.clicked_js').addClass('confirmDel_js');
+		closeObject('confirmDelItem');
+	});
 	$('#confirmDelItem').on('click', '.cancelBtn_js', function(){
 		closeObject('confirmDelItem');
 	});
