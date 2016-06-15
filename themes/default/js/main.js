@@ -126,6 +126,7 @@ $(function(){
 		$("#seoTextBlock").css({'height': '100%'});
 		$(this).addClass('hidden');
 		$('#rollUp_btn').removeClass('hidden');
+		resizeAsideScroll('show_more');
 	});
 	$('#rollUp_btn').click(function() {
 		$('#seoTextBlock').css({'height': '175px'});
