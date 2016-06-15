@@ -1656,12 +1656,12 @@ function AddFavorite(id_product, targetEl){
 			openObject('auth');
 			removeLoadAnimation('#auth');
 		}else if(data.answer == 'already'){
-			var data = {message: 'Товар уже находится в избранных'};
+			var data = {message: 'Товар уже находится в избранном'};
 		}else{
 			if(data.answer == 'ok'){
-				var data = {message: 'Товар добавлен к избранным'};
-				targetEl.empty().html('favorite').removeClass('notfavorite').addClass('isfavorite');
-				targetEl.next().empty().html('Товар уже в избранных');
+				var data = {message: 'Товар добавлен в избранное'};
+				targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
+				targetEl.next().empty().text('Товар уже в избранном');
 			}else{
 				if(data.answer == 'wrong user group'){
 					var data = {message: 'Данный функционал доступен только для клиентов'};
@@ -1674,6 +1674,47 @@ function AddFavorite(id_product, targetEl){
 		alert("Error");
 	});
 	return false;
+}
+//Удаление товара из избранных
+function RemoveFavorite(id_product, targetEl){
+	ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
+		if(data.answer == 'login'){
+			openObject('auth');
+			removeLoadAnimation('#auth');
+		}else{
+			if(data.answer == 'ok'){
+				var data = {message: 'Товар удален из избранного'};
+				targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
+				targetEl.next().empty().text('Добавить товар в избранное');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
+		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	}).fail(function(data){
+		alert("Error");
+	});
+	return false;
+
+	//Удаление товара из избранных (старая версия)
+		// var id_product = targetEl.closest('.favorite_js').attr('data-idproduct');
+		// if (confirm('Вы точно хотите удалить товар из списка избранных?')) {
+		// 	$.ajax({
+		// 		url: URL_base+'ajax_customer',
+		// 		type: "POST",
+		// 		cache: false,
+		// 		dataType: "json",
+		// 		data: {
+		// 			"action":'del_favorite',
+		// 			"id_product": id_product
+		// 		}
+		// 	}).done(function(){
+		// 		location.reload();
+		// 	});
+		// };
 }
 
 //Добавление товара в список ожидания
@@ -1693,6 +1734,38 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 			if(data.answer == 'ok'){
 				var data = {message: 'Товар добавлен в список ожидания'};
 				targetClass.addClass('arrow');
+				targetClass.closest('li').next().empty().text('Товар в списке ожидания');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
+		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	}).fail(function(data){
+		var data = {message: 'Данный функционал доступен только для клиентов'};
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	});
+	return false;
+}
+//Удаление товара из списка ожидания
+function RemoveFromWaitingList(id_product, id_user, email, targetClass){
+	var data = {
+		id_product: id_product,
+		id_user: id_user,
+		email: email
+	};
+	ajax('product', 'del_from_waitinglist', data).done(function(data){
+		if(data.answer == 'login'){
+			openObject('auth');
+			removeLoadAnimation('#auth');
+		}else{
+			if(data.answer == 'ok'){
+				var data = {message: 'Товар удален из списка ожидания'};
+				targetClass.removeClass('arrow');
+				targetClass.closest('li').next().empty().text('Следить за ценой');
 			}else{
 				if(data.answer == 'wrong user group'){
 					var data = {message: 'Данный функционал доступен только для клиентов'};

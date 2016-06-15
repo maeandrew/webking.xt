@@ -55,27 +55,57 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($data);
 				break;
+			case "del_favorite":
+				// Удаление Избранного товара (Старая версия)
+					// if(isset($_POST['id_product'])){
+					// 	$Customer->DelFavorite($User->fields['id_user'], $_POST['id_product']);
+					// 	foreach($_SESSION['member']['favorites'] as $key => $value){
+					// 		if($value == $_POST['id_product']){
+					// 			unset($_SESSION['member']['favorites'][$key]);
+					// 		}
+					// 	}
+					// 	$txt = json_encode('ok');
+					// 	echo $txt;
+					// }
+				if(!G::isLogged()){
+					$data['answer'] = 'login';
+				}else{
+					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+						$Customer->DelFavorite($User->fields['id_user'], $_POST['id_product']);
+						foreach($_SESSION['member']['favorites'] as $key => $value){
+							if($value == $_POST['id_product']){
+								unset($_SESSION['member']['favorites'][$key]);
+							}
+						}
+						$data['fav_count'] = count($_SESSION['member']['favorites']);
+						$data['answer'] = 'ok';
+					}else{
+						$data['answer'] = 'wrong user group';
+					}
+				}
+				echo json_encode($data);
+				break;
 			case "add_in_waitinglist":
 				// Добавление в список ожидания
+					// if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+					// 	$data['answer'] = 'ok';
+					// }elseif($_POST['email'] != '' && $_POST['id_user'] == ''){;
+					// 	$arr['name'] = $_POST['email'];
+					// 	$arr['email'] = $_POST['email'];
+					// 	$arr['passwd'] = substr(md5(time()), 0, 6);
+					// 	$arr['promo_code'] = '';
+					// 	$arr['descr'] = '';
+					// 	$data['answer'] = 'register_ok';
+					// 	if(!$Customer->RegisterCustomer($arr)){
+					// 		$data['answer'] = 'registered';
+					// 	}
+					// 	$User->CheckUserNoPass($arr);
+					// 	$_POST['id_user'] = $User->fields['id_user'];
+					// }else{
+					// 	$data['answer'] = _ACL_CUSTOMER_;
+					// 	//$data['answer'] = 'error';
+					// }
 
-//				if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
-//					$data['answer'] = 'ok';
-//				}elseif($_POST['email'] != '' && $_POST['id_user'] == ''){;
-//					$arr['name'] = $_POST['email'];
-//					$arr['email'] = $_POST['email'];
-//					$arr['passwd'] = substr(md5(time()), 0, 6);
-//					$arr['promo_code'] = '';
-//					$arr['descr'] = '';
-//					$data['answer'] = 'register_ok';
-//					if(!$Customer->RegisterCustomer($arr)){
-//						$data['answer'] = 'registered';
-//					}
-//					$User->CheckUserNoPass($arr);
-//					$_POST['id_user'] = $User->fields['id_user'];
-//				}else{
-//					$data['answer'] = _ACL_CUSTOMER_;
-//					//$data['answer'] = 'error';
-//				}
 				if(!G::isLogged()){
 					$data['answer'] = 'login';
 				}elseif(isset($_SESSION['member']['waiting_list']) && in_array($_POST['id_product'], $_SESSION['member']['waiting_list'])){
@@ -93,7 +123,42 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						}
 					}
 				}
+				echo json_encode($data);
+				break;
+			case "del_from_waitinglist":
+				// Удаление Из списка ожидания (старая версия)
+					// if(isset($_POST['id_product'])){
+					// 	$Customer->DelFromWaitingList($User->fields['id_user'], $_POST['id_product']);
+					// 	if (isset($_SESSION['member'])) {
+					// 		foreach($_SESSION['member']['waiting_list'] as $key => $value){
+					// 			if($value == $_POST['id_product']){
+					// 				unset($_SESSION['member']['waiting_list'][$key]);
+					// 			}
+					// 		}
+					// 	}
+					// 	$txt = json_encode('ok');
+					// 	echo $txt;
+					// }
 
+				if(!G::isLogged()){
+					$data['answer'] = 'login';
+				}else {
+					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_CUSTOMER_){
+						if($Customer->DelFromWaitingList($User->fields['id_user'], $_POST['id_product']))
+						{
+							if (isset($_SESSION['member'])) {
+								foreach($_SESSION['member']['waiting_list'] as $key => $value){
+									if($value == $_POST['id_product']){
+										unset($_SESSION['member']['waiting_list'][$key]);
+										$data['answer'] = 'ok';
+									}
+								}								
+							}							
+						}else{
+							$data['answer'] = 'error';
+						}
+					}
+				}
 				echo json_encode($data);
 				break;
 			case "SaveGraph":

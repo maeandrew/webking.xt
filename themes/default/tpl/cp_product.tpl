@@ -212,10 +212,10 @@
 			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
-					<li class="favorite" data-id-product="<?=$item['id_product'];?>">
+					<li class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?>" data-id-product="<?=$item['id_product'];?>">
 						<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
 							<i id="forfavorite" class="isfavorite material-icons">favorite</i>
-							<span class="mdl-tooltip" for="forfavorite">Товар уже в избранных</span></li>
+							<span class="mdl-tooltip" for="forfavorite">Товар уже в избранном</span></li>
 						<?}else{?>
 							<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
 							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
@@ -550,12 +550,24 @@
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();
-			AddFavorite($(this).closest('li').data('id-product'), $(this));			
+			if ($(this).closest('.favorite').hasClass('added')) {
+				$(this).closest('.favorite').removeClass('added');
+				RemoveFavorite($(this).closest('li').data('id-product'), $(this));
+			}else{
+				$(this).closest('.favorite').addClass('added');
+				AddFavorite($(this).closest('li').data('id-product'), $(this));
+			}
 		});
 		//Инициализация добавления товара в список ожидания
 		$('.waiting_list').click(function(e) {
 			e.preventDefault();
-			AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
+			if ($(this).hasClass('arrow')) {
+				$(this).removeClass('arrow');
+				RemoveFromWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
+			}else{
+				$(this).addClass('arrow');
+				AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
+			}
 		});
 		
 		$('.product_main_img').click(function(event) {			
