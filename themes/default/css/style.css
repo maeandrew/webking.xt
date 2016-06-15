@@ -1290,7 +1290,7 @@ section.center {
 		padding: 5px;
 	}
 
-	@media (max-width: 979px) {
+	@media (min-width: 728px) and (max-width: 979px) {
 		#cart #total {
 			width: auto;
 		}
@@ -2577,7 +2577,8 @@ section .stat_year {
 	#cart .card .product_name {
 		padding: 0;
 		min-width: 250px;
-		width: calc(100% - 110px);
+		/* width: calc(100% - 110px); */
+		width: 100%;
 		float: left;
 	}
 	#cart .card .product_buy {
@@ -3222,9 +3223,16 @@ section .stat_year {
 	#cart .product_buy .buy_block {
 		min-width: 100px;
 	}
-	#cart .card .product_buy {
+	#cart .card .product_buy,
+	#cart .card .summ,
+	#cart .card .remove_prod {
 		margin-top: 10px;
 	}
+	#cart .card .remove_prod,
+	#cart .card .product_buy .units {
+		width: 20px;
+	}
+
 }
 @media (max-width: 480px) {
 	[data-type="modal"] {
@@ -3295,8 +3303,8 @@ section .stat_year {
 		display: block;
 	}
 	#cart .info_key {
-		top: 24px;
-		right: 15px;
+		/* top: 24px; */
+		/* right: 15px; */
 	}	
 }
 
