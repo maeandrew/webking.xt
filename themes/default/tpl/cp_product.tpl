@@ -570,7 +570,7 @@
 			}
 		});
 		
-		$('.product_main_img').click(function(event) {			
+		$('.product_main_img').click(function(event) {
 			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 		});
 	});

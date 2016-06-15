@@ -1465,6 +1465,10 @@ table.supplier_assort_table {
 .customer_cab #waiting_list .table_thead {
 	margin-bottom: 0;
 }
+.customer_cab #waiting_list .table_thead thead th {
+	line-height: 1.2em;
+	padding: 10px;
+}
 .customer_cab #favorites .table_tbody .image_cell a,
 .customer_cab #waiting_list .table_tbody .image_cell a {
 	display: block;
@@ -1495,6 +1499,7 @@ table.supplier_assort_table {
 	cursor: pointer;
 	color: #A2A2A2;
 	font-size: 20px;
+	line-height: 1.8em;
 }
 .customer_cab #favorites .material-icons.in_page:hover,
 .customer_cab #waiting_list .material-icons.in_page:hover {

@@ -50,7 +50,7 @@
 								<div class="mdl-tooltip" for="toSee_<?=$p['id_product']?>">Перейти на<br>страницу товара</div>
 							</td>
 							<td>
-								<span id="remove_<?=$p['id_product']?>" class="icon material-icons remove_favor_js">delete</span>
+								<span id="remove_<?=$p['id_product']?>" class="icon material-icons remove_favor_js btn_js" data-name="confirmDelItem">delete</span>
 								<div class="mdl-tooltip" for="remove_<?=$p['id_product']?>">Удалить товар<br>из списка</div>
 							</td>
 						</tr>
