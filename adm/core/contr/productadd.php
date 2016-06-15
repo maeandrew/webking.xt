@@ -17,6 +17,9 @@ if(isset($_GET['upload']) == true){
 }
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])) {
+	if(isset($_POST['images_visible'])){
+		$_POST['images_visible'][0] = 1;
+	}
 	$_POST['art'] = $products->CheckArticle((int)$_POST['art']);
 	require_once($GLOBALS['PATH_block'] . 't_fnc.php'); // для ф-ции проверки формы
 	if (isset($_POST['price']) && $_POST['price'] == "") {
