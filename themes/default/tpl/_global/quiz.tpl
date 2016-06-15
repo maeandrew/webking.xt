@@ -38,19 +38,19 @@
 	case 1:?>
 		<div class="modal_container step_1 active" data-step="1">
 			<div class="head_top">
-				<h5>Здравствуйте! Меня зовут Алёна и я сопровождаю Ваш заказ.</h5>
-				<span>Сейчас я вижу Вас как "Клиент 2345623", скажите, как Вас зовут?</span>
+				<h5>Здравствуйте! Меня зовут <?=$conragent?> и я сопровождаю Ваш заказ.</h5>
+				<span>Сейчас я вижу Вас как <?=$_SESSION['member']['name']?>, <?=(substr($_SESSION['member']['name'], 0, 4)=='user')?' скажите, как Вас зовут?':' подтвердите данные.'?></span>
 			</div>
 			<div class="row">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="lastname">
-					<input class="mdl-textfield__input" type="text" name="lastname" value="">
+					<input class="mdl-textfield__input" type="text" name="lastname" value="<?=$customer['first_name']?>">
 					<label class="mdl-textfield__label" for="lastname">Фамилия</label>
 					<span class="mdl-textfield__error">Введите фамилию</span>
 				</div>
 			</div>
 			<div class="row">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="firstname">
-					<input class="mdl-textfield__input" type="text" name="firstname" value="">
+					<input class="mdl-textfield__input" type="text" name="firstname" value="<?=$Customer['middle_name']?>">
 					<!-- value="Александр"> -->
 					<label class="mdl-textfield__label" for="firstname">Имя</label>
 					<span class="mdl-textfield__error">Введите имя</span>
@@ -58,7 +58,7 @@
 			</div>
 			<div class="row">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middlename">
-					<input class="mdl-textfield__input" type="text" name="middlename" value="">
+					<input class="mdl-textfield__input" type="text" name="middlename" value="<?=$customer['last_name']?>">
 					<label class="mdl-textfield__label" for="middlename">Отчество</label>
 					<span class="mdl-textfield__error">Введите отчество</span>
 				</div>
