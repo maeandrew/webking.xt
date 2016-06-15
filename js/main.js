@@ -1330,14 +1330,6 @@
 // 	$('#big_photo img').on('click', function(){
 // 		closeObject();
 // 	});
-// 	//Открытие обьектов с подложкой
-// 	$('body').on('click', '.btn_js', function(){
-// 		var name = $(this).data('name');
-// 		if(name != undefined){
-// 			GetCartAjax();
-// 			openObject(name);
-// 		}
-// 	});
 // 	//Обработка примечания
 // 	$('.note textarea').on('blur', function(){
 // 		$(this).css({

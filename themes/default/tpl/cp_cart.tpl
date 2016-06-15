@@ -418,7 +418,7 @@
 				$('.joint_purchase_continue_js').click(function(event) {
 					ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp) {
 						$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
-						GetCartAjax(true);
+						openObject('cart', true);
 					}).fail(function(resp) {
 						console.log('fail ajax');
 					});
@@ -439,7 +439,7 @@
 						
 						// $('.confirm_order_js').closest('div').removeClass('hidden');
 						// $('#button-cart1').addClass('hidden');
-						GetCartAjax(true);
+						openObject('cart', true);
 						console.log("success promo");
 					}).fail(function(event) {
 						console.log("fail promo");
@@ -449,7 +449,7 @@
 					ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
 						$('.promo_input_js input').attr('value', '');
 						// $('.cart_warning_js').addClass('hidden');
-						GetCartAjax(true);
+						openObject('cart', true);
 					}).fail(function(event) {
 						console.log("fail del promo");
 					});
@@ -464,7 +464,7 @@
 					// console.log($(this).closest('div').find('[type="hidden"]').val());
 					ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
 						console.log("success ");
-						GetCartAjax(true);
+						openObject('cart', true);
 					}).fail(function(event) {
 						console.log("fail ");
 					});

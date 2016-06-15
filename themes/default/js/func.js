@@ -26,16 +26,25 @@ function GetLocation() {
 }
 
 // Получение корзины
-function GetCartAjax(reload){
+function GetCartAjax(){
 	$('#cart > .modal_container').html('');
-	if (!reload) {
-		openObject('cart');
-	}
-	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');
 		Position($('#cart'));
 	});
+}
+
+// Получение опроса
+function GetQuizAjax(step){
+	step = step === undefined?1:step;
+	console.log(step);
+	$('#quiz > .modal_container').html('');
+	// ajax('quiz', 'GetCartPage', false, 'html').done(function(data){		
+	// 	$('#cart > .modal_container').html(data);
+	// 	removeLoadAnimation('#cart');
+	// 	Position($('#cart'));
+	// });
 }
 
 // Получение списка товаров в кабинете
@@ -1213,40 +1222,44 @@ function ChangePriceRange(column, manual){
 	});
 }
 
-function openObject(id){
+function openObject(id, reload){
+	switch(id){
+		case 'cart':
+			GetCartAjax();
+			break;
+		case 'quiz':
+			GetQuizAjax();
+			break;
+	}
 	var object = $('#'+id),
 		type = object.data('type');
-	if($('html').hasClass('active_bg')){
-		$('.opened:not([id="'+object.attr('id')+'"])').each(function(index, el) {
-			closeObject($(this).attr('id'));
-		});
-	}
-	if(object.hasClass('opened') && type != "search"){
-		closeObject(object.attr('id'));
-		DeactivateBG();
-	}else{
-		if(id=="cart"){
-			addLoadAnimation('#'+id);
-		}
-		if(id == 'phone_menu'){
-			$('[data-name="phone_menu"] i').text('close');
-		}
-		if(type == 'modal'){
-			object.find('.modal_container').css({
-				'max-height': $(window)*0.8
+	if(reload !== true){
+		if($('html').hasClass('active_bg')){
+			$('.opened:not([id="'+object.attr('id')+'"])').each(function(index, el) {
+				closeObject($(this).attr('id'));
 			});
-			Position(object.addClass('opened'));
-		}else{
-			object.addClass('opened');
 		}
-		ActivateBG();
-	}
-
-	$(document).keyup(function(e){
-		if(e.keyCode == 27){
+		if(object.hasClass('opened') && type != "search"){
 			closeObject(object.attr('id'));
+			DeactivateBG();
+		}else{
+			if(id=="cart"){
+				addLoadAnimation('#'+id);
+			}
+			if(id == 'phone_menu'){
+				$('[data-name="phone_menu"] i').text('close');
+			}
+			if(type == 'modal'){
+				object.find('.modal_container').css({
+					'max-height': $(window)*0.8
+				});
+				Position(object.addClass('opened'));
+			}else{
+				object.addClass('opened');
+			}
+			ActivateBG();
 		}
-	});
+	}
 }
 
 function closeObject(id){

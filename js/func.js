@@ -1,13 +1,5 @@
 /** оформление заказа, заполнение формы */
 
-function GetCartAjax(){
-	$.ajax({
-		url: URL_base+'cart'
-	}).done(function(data){
-		console.log(data);
-	});
-}
-
 function regionSelect(value){
 	if(value != '' && value != 'Выберите область')
 	$.ajax({
