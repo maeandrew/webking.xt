@@ -170,11 +170,11 @@ $(function(){
 	});
 
 	$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
-		$('.remove_favor_js.clicked_js').addClass('confirmDel_js');
-		$('.remove_waitinglist_js.clicked_js').addClass('confirmDel_js');
+		$('.clicked_js').addClass('confirmDel_js');
 		closeObject('confirmDelItem');
 	});
 	$('#confirmDelItem').on('click', '.cancelBtn_js', function(){
+		$('.clicked_js').removeClass('confirmDel_js');
 		closeObject('confirmDelItem');
 	});
 
