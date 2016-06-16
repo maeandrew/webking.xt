@@ -511,7 +511,7 @@
 						$(this).find('textarea').attr('placeholder', 'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!');
 					}
 				});
-				if(phone.length == 12){					
+				if(phone.length == 12){
 					if (qtyControl === 0){
 						addLoadAnimation('#cart');
 						ajax('cart', 'makeOrder', {phone: phone}).done(
@@ -521,6 +521,7 @@
 									// closeObject('cart');
 									window.location.hash = "quiz";
 									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+										console.log(data);
 										$('#user_profile').append('<img src="/images/noavatar.png"/>');
 										$('.user_profile_js').html(data);
 
@@ -530,6 +531,9 @@
 										$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
 										$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 									});
+									if (data.new_user === true) {
+										window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
+									}
 									openObject('quiz');
 									break;
 								case 500:
@@ -550,12 +554,14 @@
 								default:
 									console.log('default statemant');
 							}
+
+							/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
 						});
 					}
 				}else{
 					removeLoadAnimation('#cart');
 					$('.err_tel').css('visibility', 'visible');
-				}
+				}				
 			});
 			if(!isLogged){
 				$('input.send_order, input.save_order').click(function(e){

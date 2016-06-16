@@ -377,6 +377,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						if($Users->CheckUser($data)){
 							G::Login($Users->fields);
 							_acl::load($Users->fields['gid']);
+							$res['new_user'] = true;
 						}
 					} else {
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
