@@ -36,15 +36,15 @@ function GetCartAjax(){
 }
 
 // Получение опроса
-function GetQuizAjax(step){
-	step = step === undefined?1:step;
-	console.log(step);
-	$('#quiz > .modal_container').html('');
-	// ajax('quiz', 'GetCartPage', false, 'html').done(function(data){		
-	// 	$('#cart > .modal_container').html(data);
-	// 	removeLoadAnimation('#cart');
-	// 	Position($('#cart'));
-	// });
+function GetQuizAjax(params){
+	var step = params.step === undefined?1:params.step;
+	data = {step: step};
+	// $('#quiz > .modal_container').html('');
+	ajax('quiz', 'step', data, 'html').done(function(data){		
+		$('#quiz').html(data);
+		removeLoadAnimation('#quiz');
+		Position($('#quiz'));
+	});
 }
 
 // Получение списка товаров в кабинете
@@ -1222,18 +1222,18 @@ function ChangePriceRange(column, manual){
 	});
 }
 
-function openObject(id, reload){
+function openObject(id, params){
 	switch(id){
 		case 'cart':
-			GetCartAjax();
+			GetCartAjax(params);
 			break;
 		case 'quiz':
-			GetQuizAjax();
+			GetQuizAjax({reload: false, step: 1});
 			break;
 	}
-	var object = $('#'+id),
-		type = object.data('type');
-	if(reload !== true){
+	if(params === undefined || params.reload !== true){
+		var object = $('#'+id),
+			type = object.data('type');
 		if($('html').hasClass('active_bg')){
 			$('.opened:not([id="'+object.attr('id')+'"])').each(function(index, el) {
 				closeObject($(this).attr('id'));
