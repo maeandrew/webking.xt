@@ -15,7 +15,7 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
 						<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
-						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
+						<span class="mdl-textfield__error">Введите номер телефона</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="name" class="mdl-textfield__label">Фамилия:</label>
@@ -188,7 +188,7 @@
 				// console.log($('input.phone').val().replace(/[^\d]+/g, "").length);
 			} else {
 				// console.log("error");
-				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите все цифры Вашего номера телефона');
+				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите номер телефона');
 			}
 		});
 
