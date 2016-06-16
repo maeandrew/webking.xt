@@ -37,7 +37,7 @@ class Citys {
         if(!$this->fields){
             return false;
         }
-        return true;
+        return $this->fields;
     }
 
     // по строке
