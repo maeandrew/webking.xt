@@ -602,7 +602,7 @@ section.center {
 	width: 660px;
 }
 #quiz .modal_container {
-	display: none;
+	/*display: none;*/
 	padding: 2em;
 }
 #quiz .modal_container.summary_info {

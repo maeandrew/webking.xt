@@ -1,37 +1,39 @@
 <div class="modal_container summary_info">
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Фамилия:</span>
-		<span class="lastname"></span>
+		<span class="lastname"><?=$customer['first_name']?></span>
 	</div>
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Имя:</span>
-		<span class="firstname"></span></div>
-	<div class="row hidden">
+		<span class="firstname"><?=$customer['middle_name']?></span>
+	</div>
+	<div class="row ">
 		<span class="span_title">Отчество:</span>
-		<span class="middlename"></span></div>
-	<div class="row hidden">
+		<span class="middlename"><?=$customer['last_name']?></span>
+	</div>
+	<div class="row ">
 		<span class="span_title">Область:</span>
-		<span class="region"></span>
+		<span class="region"><?=$savedcity['region']?></span>
 	</div>
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Город:</span>
-		<span class="city"></span>
+		<span class="city"><?=$savedcity['name']?></span>
 	</div>
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Служба доставки:</span>
-		<span class="delivery_service"></span>
+		<span class="delivery_service"><?=$savedcity['shipping_comp']?></span>
 	</div>
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Способ доставки:</span>
-		<span class="delivery_method"></span>
+		<span class="delivery_method">адресня/забрать со склада (в зависимости от выбора)</span>
 	</div>
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Адрес клиента:</span>
-		<span class="client_address"></span>
+		<span class="client_address">инфа, которую введет пользователь</span>
 	</div>
-	<div class="row hidden">
+	<div class="row ">
 		<span class="span_title">Адрес склада:</span>
-		<span class="post_office_address"></span>
+		<span class="post_office_address"><?=$savedcity['address']?></span>
 	</div>
 </div>
 <?switch($step){
@@ -125,7 +127,7 @@
 				<div class="imit_select delivery_type">
 
 					<input type="radio" name="shipping_method" value="address"/>Адресная доставка
-					<input type="radio" name="shipping_method" value="warehouse"/>Забрать со склада
+					<input type="radio" name="shipping_method" value="warehouse" <?=isset($savedcity['address'])?'checked':null?>/>Забрать со склада
 
 					<!--<button id="select_delivery_type" class="mdl-button mdl-js-button">
 						<span class="select_field">Выбрать</span>
@@ -149,7 +151,7 @@
 
 				<span>Введите адрес доставки (ЕСЛИ ВЫБРАНО "АДРЕСНАЯ ДОСТАВКА")</span>
 				<div class="imit_select">
-					<input id="delivery_address" type="text" name="clientaddress" value="">
+					<input id="delivery_address" type="text" name="clientaddress" value="<?=$customer['address_ur']?>">
 				</div>
 
 
