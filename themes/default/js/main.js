@@ -1314,6 +1314,8 @@ $(function(){
 				}
 
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+					console.log(data);					
+					$('#user_profile').append('<img src="/images/noavatar.png"/>');
 					$('.user_profile_js').html(data);
 
 					$('.cabinet_btn').removeClass('hidden');

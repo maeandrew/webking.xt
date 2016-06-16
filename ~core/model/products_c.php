@@ -142,7 +142,7 @@ class Products {
 		for($i=0; $i<=3; $i++){
 			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
 			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
-		}
+		}		
 		// $arr[0]['main_category'] = $maincatarr;
 		$this->fields = $arr;
 		return true;
@@ -503,6 +503,14 @@ class Products {
 				".$limit;
 		}
 		$res = $this->db->GetArray($sql);
+		foreach ($res as &$v) {
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+			}
+		}
 		if(!$res){
 			return false;
 		}
