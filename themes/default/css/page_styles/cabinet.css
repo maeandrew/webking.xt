@@ -1908,8 +1908,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 		/*z-index: 1;*/
 		background-color: #fff;
 	}
-	.negativeZIndex .customer_cab{
-		z-index: -1;
+	.posZIndex .cab_left_bar_js {
+		z-index: 1;
 	}
 }
 @media (max-width: 999px) {
