@@ -1,7 +1,7 @@
 <div id="cab_left_bar" class="cab_left_bar_js" data-lvl="1">
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
-		<li id="icon_face" class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
+		<li id="icon_face" class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']=='' || (isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='')?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
@@ -100,14 +100,14 @@
 				</li>
 			</ul>
 		</li>
-		<li id="icon_flag">
+		<li id="icon_flag" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'favorites'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="<?=Link::Custom('cabinet','favorites')?>"><i class="material-icons">flag</i><span class="textInALink">Избраное</span></a>
 				<div class="mdl-tooltip" for="icon_flag">Избраное</div>
 				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
 			</span>
 		</li>
-		<li id="icon_timeline">
+		<li id="icon_timeline" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="<?=Link::Custom('cabinet','waitinglist')?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
 				<div class="mdl-tooltip" for="icon_timeline">Лист ожидания</div>
@@ -134,30 +134,36 @@
 </ul> -->
 <script>
 	$(document).ready(function() {
-		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
-			var parent = $(this).closest('li'),
-				parent_active = parent.hasClass('active');
-			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow');
-			if ($(document).outerWidth() < 1060) {
-				parent.closest('.page_content_js').removeClass('negativeZIndex');
-			}
-
-			if(!parent_active){
-				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
-				if ($(document).outerWidth() < 1060) {
-					parent.closest('.page_content_js').addClass('negativeZIndex');
-				}
-			}
-		});
 		if ($(document).outerWidth() > 1040) {
 			$('.show').slideDown('slow');
 		}else{
-			$('.nav.active.show').closest('li').addClass('active').find('i.material-icons').css('color', '#FF5722');
+			// $('.nav.active.show').closest('li').addClass('active').find('i.material-icons').css('color', '#FF5722');
 		}
 
-		// $('body').on('click', '.negativeZIndex', function() {
-		// 	$(this).removeClass('negativeZIndex');
-		// });
+		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
+			var parent = $(this).closest('li'),
+				parent_active = parent.hasClass('active');
+				
+			// if($(document).outerWidth() < 1060 && $('.page_content_js').hasClass('negativeZIndex')) {
+			// 	$('.page_content_js').removeClass('negativeZIndex');
+			// }else if($(document).outerWidth() < 1060 && !$('.page_content_js').hasClass('negativeZIndex')){
+			// 	$('.page_content_js').addClass('negativeZIndex');
+			// }
+			
+			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow');
+
+			if(!parent_active){
+				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
+				$('.page_content_js').addClass('negativeZIndex');
+			}
+		});
+
+		$('body').on('click', 'breadcrumbs_wrap', function() {
+			if ($('.page_content_js').hasClass('negativeZIndex')) {
+				$('.page_content_js').removeClass('negativeZIndex');
+			}
+			// $('.cab_left_bar_js > ul > li').hasClass('active')
+		});
 		// $('.cab_left_bar_js, .cab_left_bar_js>*').click(function() {
 		// 	$('.page_content_js').addClass('negativeZIndex');
 		// });

@@ -1102,6 +1102,9 @@ table.supplier_assort_table {
 	#cab_left_bar .active_icon .active {
 		color: #FF5722;
 	}
+	#cab_left_bar li[id^=icon_].active .link_wrapp i.material-icons {
+		color: #FF5722;
+	}
 }
 
 
@@ -1385,7 +1388,7 @@ table.supplier_assort_table {
 .customer_cab .bonus_reg_block {
 	width: 70%;
 	margin-bottom: 20px;
-
+	width: calc(100vw - 45px);
 	/*width: 100%;
 	padding: 10px;
 	margin-bottom: 20px;*/
@@ -1915,7 +1918,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		/*display: none;*/
 	}	
 	.customer_cab {
-		width: calc(100vw - 45px);
+		/*width: calc(100vw - 45px);*/
 		/*
 		min-height: 412px;
 		z-index: 100000;
