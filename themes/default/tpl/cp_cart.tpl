@@ -521,7 +521,8 @@
 									// closeObject('cart');
 									window.location.hash = "quiz";
 									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-										$('#user_pro').html(data);
+										$('#user_profile').append('<img src="/images/noavatar.png"/>');
+										$('.user_profile_js').html(data);
 
 										$('.cabinet_btn').removeClass('hidden');
 										$('.login_btn').addClass('hidden');

@@ -1152,7 +1152,9 @@ $(function(){
 		}
 
 		data = {method: method.data('value'), value: value};
+		addLoadAnimation('#access_recovery');
 		ajax('auth', 'accessRecovery', data).done(function(response){
+			removeLoadAnimation('#access_recovery');
 			if (response.success) {
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
@@ -1185,7 +1187,9 @@ $(function(){
 			id_user = parent.find('[type="hidden"]').val(),
 			code = parent.find('[name="code"]').val();			
 		data = {id_user: id_user, code: code};
+		addLoadAnimation('#access_recovery');
 		ajax('auth', 'checkСode', data).done(function(response){
+			removeLoadAnimation('#access_recovery');
 			if (response.success) {
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
@@ -1207,14 +1211,16 @@ $(function(){
 		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd.val(), confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd};
 			if(!parent.find('.mdl-textfield').hasClass('is-invalid')) {
+				addLoadAnimation('#access_recovery');
 				ajax('auth', 'accessConfirm', data).done(function(response){
+					removeLoadAnimation('#access_recovery');
 					console.log(response);
 					if (response.success) {
 						$('.cabinet_btn').removeClass('hidden');
 						$('.login_btn').addClass('hidden');
-						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-							$('#user_pro').html(data);
-
+						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){							
+							$('#user_profile').append('<img src="/images/noavatar.png"/>');
+							$('.user_profile_js').html(data);
 							$('.cabinet_btn').removeClass('hidden');
 							$('.login_btn').addClass('hidden');
 							// $('header .cart_item a.cart i').removeClass('mdl-badge');
@@ -1369,7 +1375,8 @@ $(function(){
 		ajax('auth', 'register', fields).done(function(data){
 			if(data.err === 0){
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-					$('#user_pro').html(data);
+					$('#user_profile').append('<img src="/images/noavatar.png"/>');
+					$('.user_profile_js').html(data);
 					$('.cabinet_btn').removeClass('hidden');
 					$('.login_btn').addClass('hidden');	
 				});
