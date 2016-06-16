@@ -1,6 +1,6 @@
 <?php
 define('EXECUTE', 1);
-define(DIRSEP, DIRECTORY_SEPARATOR);
+define('DIRSEP', DIRECTORY_SEPARATOR);
 date_default_timezone_set('Europe/Kiev');
 // phpinfo();
 require(dirname(__FILE__).'/../~core/sys/global_c.php');

@@ -5,7 +5,7 @@ G::DefineRootDirectory();
 // ******************************** Начальное конфигурирование *************************************
 G::ToGlobals(array(
 	'URL_base'			=> _base_url,
-	'URL_request'		=> preg_replace('/\/$/', '', $_GET['request']?:preg_replace('/^/.*/', '', $_SERVER['REQUEST_URI'])),
+	'URL_request'		=> preg_replace('/\/$/', '', (isset($_GET['request'])?$_GET['request']:null)?:preg_replace('/^\/.*/', '', $_SERVER['REQUEST_URI'])),
 	'URL_img'			=> _base_url.'/img/',
 	'URL_css'			=> _base_url.'/css/',
 	'URL_js'			=> _base_url.'/js/',
