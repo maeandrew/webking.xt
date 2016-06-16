@@ -17,21 +17,19 @@
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
-		// if($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 482 && empty($GLOBALS['subcats'])){
-			if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
-				<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
-			<?}else{?>
+		if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
+			<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
+		<?}else{
+			if(isset($GLOBALS['meta_canonical'])){?>
 				<link rel="canonical" href="<?=$GLOBALS['meta_canonical'];?>"/>
 			<?}
-			if(isset($GLOBALS['meta_next'])){?>
-				<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
-			<?}
-			if(isset($GLOBALS['meta_prev'])){?>
-				<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
-			<?}
-		// }else{?>
-			<!-- <link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/> -->
-		<?//}
+		}
+		if(isset($GLOBALS['meta_next'])){?>
+			<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
+		<?}
+		if(isset($GLOBALS['meta_prev'])){?>
+			<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
+		<?}
 	}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>
@@ -112,7 +110,7 @@
 				}
 			}
 		</script>
-		<link href="<?=_base_url?>/themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
+		<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 	<?}?>
 	<!-- END define search box in google sitelinks -->
 	<noscript>

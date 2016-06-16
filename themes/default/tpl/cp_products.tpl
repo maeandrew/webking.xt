@@ -25,8 +25,7 @@
 	<?}?>
 
 	<div class="row">
-		<?if(!empty($list)){ ?>
-		<link href="http://xt/css/../themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
+		<?if(!empty($list)){?>
 			<div class="content_header clearfix">
 				<div class="sort imit_select">
 					<button id="sort-lower-left" class="mdl-button mdl-js-button">

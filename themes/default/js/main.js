@@ -241,8 +241,7 @@ $(function(){
 
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
-		effect : "fadeIn",
-		load : resizeAsideScroll('load')
+		effect : "fadeIn"
 	});
 
 	// if(viewport_width < 711) {

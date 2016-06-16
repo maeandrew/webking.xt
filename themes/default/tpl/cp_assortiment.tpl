@@ -1,5 +1,5 @@
 <?if(!empty($list)){?>
-	<link href="http://xt/css/../themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
+	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 	<div class="sorting">
 		<!--Сортировка по названию !-->
 		<!--<?if(!isset($_GET['search_in_cat'])){?>
