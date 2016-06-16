@@ -590,6 +590,11 @@
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
+		<div id="confirmDelItem" class="modalEditOrder" data-type="modal">
+			<h5>Вы действительно хотите удалить товар из списка?</h5>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
+		</div>
 		<!-- Authentication -->
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">

@@ -1671,6 +1671,7 @@ function AddFavorite(id_product, targetEl){
 			var data = {message: 'Товар уже находится в избранном'};
 		}else{
 			if(data.answer == 'ok'){
+				$('.userChoiceFav').text('('+data.fav_count+')');
 				var data = {message: 'Товар добавлен в избранное'};
 				targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
 				targetEl.next().empty().text('Товар уже в избранном');
@@ -1695,6 +1696,7 @@ function RemoveFavorite(id_product, targetEl){
 			removeLoadAnimation('#auth');
 		}else{
 			if(data.answer == 'ok'){
+				$('.userChoiceFav').text('('+data.fav_count+')');
 				var data = {message: 'Товар удален из избранного'};
 				targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
 				targetEl.next().empty().text('Добавить товар в избранное');
@@ -1744,6 +1746,7 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 			var data = {message: 'Товар уже в списке ожидания'};
 		}else{
 			if(data.answer == 'ok'){
+				$('.userChoiceWait').text('('+data.fav_count+')');
 				var data = {message: 'Товар добавлен в список ожидания'};
 				targetClass.addClass('arrow');
 				targetClass.closest('li').next().empty().text('Товар в списке ожидания');
@@ -1775,6 +1778,7 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 			removeLoadAnimation('#auth');
 		}else{
 			if(data.answer == 'ok'){
+				$('.userChoiceWait').text('('+data.fav_count+')');
 				var data = {message: 'Товар удален из списка ожидания'};
 				targetClass.removeClass('arrow');
 				targetClass.closest('li').next().empty().text('Следить за ценой');

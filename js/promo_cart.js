@@ -217,13 +217,13 @@ function hookAfterCart(obj){
 
 	//Наценка
 	var retail_multiplyer = parseFloat($("#cart_retail_multiplyer").val());
-	$("#cart_order_mopt_sum").text(parseFloat(obj.order_mopt_sum).toFixed(2));
-	$("#cart_order_opt_sum").text(parseFloat(obj.order_opt_sum).toFixed(2));
-	$("#corrected_sum_0").text(parseFloat(obj.order_sum[0]).toFixed(2));
-	$("#corrected_sum_1").text(parseFloat(obj.order_sum[1]).toFixed(2));
-	$("#corrected_sum_2").text(parseFloat(obj.order_sum[2]).toFixed(2));
-	$("#corrected_sum_3").text(parseFloat(obj.order_sum[3]).toFixed(2));
-	$("#cart_order_sum").text(parseFloat(obj.sum_discount).toFixed(2));
+	$("#cart_order_mopt_sum").text(parseFloat(obj.order_mopt_sum).toFixed(2).toString().replace('.',','));
+	$("#cart_order_opt_sum").text(parseFloat(obj.order_opt_sum).toFixed(2).toString().replace('.',','));
+	$("#corrected_sum_0").text(parseFloat(obj.order_sum[0]).toFixed(2).toString().replace('.',','));
+	$("#corrected_sum_1").text(parseFloat(obj.order_sum[1]).toFixed(2).toString().replace('.',','));
+	$("#corrected_sum_2").text(parseFloat(obj.order_sum[2]).toFixed(2).toString().replace('.',','));
+	$("#corrected_sum_3").text(parseFloat(obj.order_sum[3]).toFixed(2).toString().replace('.',','));
+	$("#cart_order_sum").text(parseFloat(obj.sum_discount).toFixed(2).toString().replace('.',','));
 	//*Получение количества товаров из полей
 	var item_opt_qty = parseFloat($("#order_box_qty_surrogate_"+obj.id_product).val());
 	var item_mopt_qty = parseFloat($("#order_mopt_qty_"+obj.id_product).val());
@@ -245,9 +245,9 @@ function hookAfterCart(obj){
 	var item_total_qty = item_opt_qty + item_mopt_qty;
 	//Обновляем столбцы Сумм
 	//Для опта
-	$("#order_opt_sum_"+obj.id_product).text(item_opt_sum.toFixed(2));
+	$("#order_opt_sum_"+obj.id_product).text(item_opt_sum.toFixed(2).toString().replace('.',','));
 	//Для мопта
-	$("#order_mopt_sum_"+obj.id_product).text(item_mopt_sum.toFixed(2));
+	$("#order_mopt_sum_"+obj.id_product).text(item_mopt_sum.toFixed(2).toString().replace('.',','));
 	//Для общего количества
 	$("#cart_item_total_qty_"+obj.id_product).text(item_total_qty + " шт.");
 	//Обновляем примечания

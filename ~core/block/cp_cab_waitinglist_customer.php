@@ -13,13 +13,16 @@
 
 	//Список ожидания
 	$waiting_list = $Customer->GetWaitingList($User->fields['id_user']);
-	foreach ($waiting_list as $key => $value) {
-		if($value['price_opt'] == 0 && $value['price_mopt'] == 0){
-			$waiting_list[$key]['availability'] = 'нет';
-		}else{
-			$waiting_list[$key]['availability'] = 'есть';
+	if ($waiting_list) {
+		foreach ($waiting_list as $key => $value) {
+			if($value['price_opt'] == 0 && $value['price_mopt'] == 0){
+				$waiting_list[$key]['availability'] = 'нет';
+			}else{
+				$waiting_list[$key]['availability'] = 'есть';
+			}
 		}
 	}
+	
 	$User->SetUser($_SESSION['member']);
 
 	$tpl->Assign('waiting_list', $waiting_list);
