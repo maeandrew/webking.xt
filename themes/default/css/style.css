@@ -3136,11 +3136,11 @@ section .stat_year {
 	}
 	
 }
-@media (max-width: 380px) {
+/*@media (max-width: 380px) {
 	#orders_history {
 		margin: 0 !important;
 	}
-}
+}*/
 
 /*Стили кабинета (ent)*/
 .tab-content tr:hover{

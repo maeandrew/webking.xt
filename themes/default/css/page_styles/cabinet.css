@@ -1107,7 +1107,6 @@ table.supplier_assort_table {
 	}
 }
 
-
 #cab_left_bar a[href="#"] {
 	cursor: default;
 }
@@ -1428,7 +1427,7 @@ table.supplier_assort_table {
 	margin: 10px 0;
 }
 .customer_cab #bonus .info_text {
-	margin: 20px 0;
+	margin: 1em;
 }
 .customer_cab #bonus .info_text p {
 	font-weight: bold;
@@ -2250,4 +2249,29 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 #settings .buttons_cab {
 	margin-top: 10px;
+}
+
+@media (max-width: 400px) {
+	.customer_cab {
+		width: calc(100vw - 47px);
+	}
+	#settings form,
+	.customer_cab #settings .email label {
+		width: 270px;
+	}
+	.customer_cab #edit_personal {
+		padding: 1em;
+	}
+	.customer_cab #edit_personal select[id^="id_"] {
+		width: 245px;
+	}
+	.customer_cab input[name="day"] {
+		/*width: 74px;*/
+	}
+	.date_container .mdl-textfield {
+		width: auto;
+	}
+	/*.date_container .mdl-textfield {
+		width: 30px !important;
+	}*/
 }
