@@ -1059,6 +1059,7 @@ table.supplier_assort_table {
 	height: inherit;
 	/*background-color: #F5F5F5;*/
 	border-right-color: #DCDCDC;
+	border-top: 1px #DCDCDC;
 	border-right-width: 1px;
 	border-style: solid;
 	min-height: 412px;
@@ -1384,6 +1385,10 @@ table.supplier_assort_table {
 .customer_cab .bonus_reg_block {
 	width: 70%;
 	margin-bottom: 20px;
+
+	/*width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;*/
 }
 .customer_cab #edit_personal label[for^="id_"]{
 	color: #4CAF50;
@@ -1910,7 +1915,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		/*display: none;*/
 	}	
 	.customer_cab {
-		/*width: 100%;*/
+		width: calc(100vw - 45px);
 		/*
 		min-height: 412px;
 		z-index: 100000;

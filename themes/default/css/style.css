@@ -1317,6 +1317,7 @@ section.center {
 		min-width: 105px;
 		box-sizing: border-box;
 		margin-right: 20px;
+		margin-bottom: 10px;
 		cursor: pointer;
 	}
 	.breadcrumbs_wrap .catalog_btn:hover {

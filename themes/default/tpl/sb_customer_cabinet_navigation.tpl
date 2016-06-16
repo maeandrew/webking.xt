@@ -149,32 +149,17 @@
 				}
 			}
 		});
-		$('.show').slideDown('slow');
+		if ($(document).outerWidth() > 1040) {
+			$('.show').slideDown('slow');
+		}else{
+			$('.nav.active.show').closest('li').addClass('active').find('i.material-icons').css('color', '#FF5722');
+		}
 
-		// $('.cab_left_bar_js > ul > li').click(function(event) {
-		// 	if($(this).hasClass('active_icon')){
-		// 		$(this).removeClass('active_icon');
-		// 	}else if(($(this).closest('ul').find('li.active_icon')).length == 1) {
-		// 		$('.cab_left_bar_js li.active_icon').removeClass('active_icon');
-		// 		$(this).find('.link_wrapp i').removeClass('active');
-		// 		$(this).addClass('active_icon_js active_icon');
-		// 		$(this).find('.link_wrapp i').addClass('active');
-		// 	}else{
-		// 		$(this).addClass('active_icon_js active_icon');
-		// 		$(this).find('.link_wrapp i').addClass('active');
-		// 	}
+		// $('body').on('click', '.negativeZIndex', function() {
+		// 	$(this).removeClass('negativeZIndex');
 		// });
-
-		/*$('.cab_left_bar_js').on('click','.active_order_js', function() {
-			var id_cart = $(this).find('input').data('idcart'),
-				id_user = $(this).find('input').data('iduser'),
-				promo = $(this).find('input').data('promo');
-			data = {id_cart:id_cart, id_user:id_user, promo:promo, condition:'active'};
-			ajax('cabinet','GetJOCart', data).done(function(){
-				console.log(1);
-			}).fail(function(){
-				console.log(2);
-			});
-		});*/
+		// $('.cab_left_bar_js, .cab_left_bar_js>*').click(function() {
+		// 	$('.page_content_js').addClass('negativeZIndex');
+		// });
 	});
 </script>
