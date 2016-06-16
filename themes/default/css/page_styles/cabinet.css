@@ -1078,6 +1078,7 @@ table.supplier_assort_table {
 @media (max-width: 1150px) {
 	#cab_left_bar {
 		width: 45px;
+		z-index: 1;
 	}
 	#cab_left_bar .textInALink {
 		display: none;
@@ -1104,6 +1105,10 @@ table.supplier_assort_table {
 	}
 	#cab_left_bar li[id^=icon_].active .link_wrapp i.material-icons {
 		color: #FF5722;
+	}
+
+	.customer_cab {
+		width: calc(100vw - 62px);
 	}
 }
 
@@ -1391,6 +1396,9 @@ table.supplier_assort_table {
 	/*width: 100%;
 	padding: 10px;
 	margin-bottom: 20px;*/
+}
+.customer_cab #edit_personal {
+    padding: 1em;
 }
 .customer_cab #edit_personal label[for^="id_"]{
 	color: #4CAF50;
@@ -2251,6 +2259,18 @@ div[id^="items_panel_"] .btnWrapFlex {
 	margin-top: 10px;
 }
 
+@media (max-width: 727px) {
+	.customer_cab #favorites .table_tbody .name_cell,
+	.customer_cab #waiting_list .table_tbody .name_cell {
+		padding-left: 10px;
+		line-height: 1.4em;
+	}
+	.customer_cab #favorites .table_thead,
+	.customer_cab #waiting_list .table_thead {
+	    display: none;
+	}
+}
+
 @media (max-width: 400px) {
 	.customer_cab {
 		width: calc(100vw - 47px);
@@ -2258,9 +2278,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#settings form,
 	.customer_cab #settings .email label {
 		width: 270px;
-	}
-	.customer_cab #edit_personal {
-		padding: 1em;
 	}
 	.customer_cab #edit_personal select[id^="id_"] {
 		width: 245px;
@@ -2271,7 +2288,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.date_container .mdl-textfield {
 		width: auto;
 	}
-	/*.date_container .mdl-textfield {
-		width: 30px !important;
-	}*/
+
+
 }

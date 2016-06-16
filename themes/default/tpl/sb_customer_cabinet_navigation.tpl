@@ -1,7 +1,7 @@
 <div id="cab_left_bar" class="cab_left_bar_js" data-lvl="1">
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
-		<li id="icon_face" class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']=='' || (isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='')?'active':null;?>">
+		<li id="icon_face" class="<?=(isset($_GET['t']) && ($_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']=='')) || (isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='')?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
 				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
@@ -138,60 +138,21 @@
 			var parent = $(this).closest('li'),
 				parent_active = parent.hasClass('active');
 			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow').css('opacity', '0');
-			if ($(document).outerWidth() < 1060) {
+			if ($(document).outerWidth() < 1150) {
 				parent.closest('.page_content_js').removeClass('posZIndex');
 			}
 			if(!parent_active){
 				parent.addClass('active').find('> ul').stop(true, true).slideDown('slow').css('opacity', '1');
-				if ($(document).outerWidth() < 1060) {
+				if ($(document).outerWidth() < 1150) {
 					parent.closest('.page_content_js').addClass('posZIndex');
 				}
 			}
 		});
-		// $('.show').slideDown('slow');
-		if ($(document).outerWidth() > 1040) {
+		if ($(document).outerWidth() > 1150) {
 			$('.show').slideDown('slow');
 		}
-
 		$('body').on('click', '.posZIndex div:not(.cab_left_bar_js)', function() {
 			$('.cab_left_bar_js > ul > li.active').removeClass('active').find('ul').stop(true, true).slideUp('slow').css('opacity', '0');
 		});
 	});
-</script>
-<script>
-	// $(document).ready(function() {
-	// 	if ($(document).outerWidth() > 1040) {
-	// 		$('.show').slideDown('slow');
-	// 	}else{
-	// 		// $('.nav.active.show').closest('li').addClass('active').find('i.material-icons').css('color', '#FF5722');
-	// 	}
-
-	// 	$('.cab_left_bar_js').on('click','.link_wrapp', function() {
-	// 		var parent = $(this).closest('li'),
-	// 			parent_active = parent.hasClass('active');
-				
-	// 		// if($(document).outerWidth() < 1060 && $('.page_content_js').hasClass('negativeZIndex')) {
-	// 		// 	$('.page_content_js').removeClass('negativeZIndex');
-	// 		// }else if($(document).outerWidth() < 1060 && !$('.page_content_js').hasClass('negativeZIndex')){
-	// 		// 	$('.page_content_js').addClass('negativeZIndex');
-	// 		// }
-			
-	// 		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow');
-
-	// 		if(!parent_active){
-	// 			parent.addClass('active').find('> ul').stop(true, true).slideDown('slow');
-	// 			$('.page_content_js').addClass('negativeZIndex');
-	// 		}
-	// 	});
-
-	// 	$('body').on('click', 'negativeZIndex > *:not(cab_left_bar_js)', function() {
-	// 		if ($('.page_content_js').hasClass('negativeZIndex')) {
-	// 			$('.page_content_js').removeClass('negativeZIndex');
-	// 		}
-	// 		// $('.cab_left_bar_js > ul > li').hasClass('active')
-	// 	});
-	// 	// $('.cab_left_bar_js, .cab_left_bar_js>*').click(function() {
-	// 	// 	$('.page_content_js').addClass('negativeZIndex');
-	// 	// });
-	// });
 </script>
