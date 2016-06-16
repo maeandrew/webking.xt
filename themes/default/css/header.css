@@ -46,16 +46,17 @@ header .header_wrapp .header_right .search_wrap {
 }
 header .header_wrapp .header_right .search_wrap .search {
 	padding: 0;
-	width: 200px;
 }
 header .header_wrapp .header_right .search_wrap button {
 	display: none;
+	vertical-align: middle;
 }
 header.opened .header_wrapp .header_right .search_wrap button {
 	display: inline-block;
 }	
 header.opened .header_wrapp .header_right .search_wrap .search {
 	width: 400px;
+	vertical-align: middle;
 }
 header .header_wrapp .header_right .cart_item {
 	/*display: none;*/

@@ -280,6 +280,7 @@ h5 {
 	display: -o-flex;
 	display: flex;
 	justify-content: space-between;
+	max-height: 36px;
 }
 #view_block_js .sold-out {
 	line-height: 31px;
