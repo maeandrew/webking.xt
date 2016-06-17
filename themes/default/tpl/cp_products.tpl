@@ -51,7 +51,7 @@
 
 				</div>
 				<div class="productsListView">
-					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+					<i id="changeToList" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
 					<span class="mdl-tooltip" for="changeToList">Вид списком</span>
 					<i id="changeToBlock" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
 					<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
