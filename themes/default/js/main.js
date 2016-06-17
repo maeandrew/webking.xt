@@ -122,7 +122,7 @@ $(function(){
 			clicked = $(this);
 		clicked.addClass('clicked_js');
 		setTimeout(function() {
-			addLoadAnimation(clicked.closest('tr'));
+			addLoadAnimation(clicked.closest('.favorite_js'));
 			if (clicked.hasClass('confirmDel_js')) {
 				ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
 					if (data.fav_count > 0) {
@@ -148,7 +148,7 @@ $(function(){
 			clicked = $(this);
 		clicked.addClass('clicked_js');
 		setTimeout(function() {
-			addLoadAnimation(clicked.closest('tr'));
+			addLoadAnimation(clicked.closest('.waiting_list_js'));
 			if (clicked.hasClass('confirmDel_js')) {
 				ajax('product', 'del_from_waitinglist', {id_product: id_product}).done(function(data){
 					console.log(data);
