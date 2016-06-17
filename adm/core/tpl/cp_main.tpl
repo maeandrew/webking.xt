@@ -1,4 +1,4 @@
-<h1>Администрирование</h1><?//print_r($files);?>
+<h1>Администрирование</h1>
 <div class="homepage grid">
 	<div class="row">
 		<div class="col-md-4 col-sm-12">

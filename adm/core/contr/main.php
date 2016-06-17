@@ -85,7 +85,7 @@ if(isset($_POST['sitemap'])){
 	if($res === false){
 		echo "<script>alert('Возникли проблемы при генерации карты сайта.');</script>";
 	} else if($res = G::SiteMap($_POST['sitemap']=='all'?null:$_POST['sitemap'])){
-		$tpl->Assign('files', $res);
+		$tpl->Assign('sitemap_files', $res);
 	}
 }
 // генерация уменьшенных изображений товаров
