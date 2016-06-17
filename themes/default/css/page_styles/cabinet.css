@@ -1486,6 +1486,7 @@ table.supplier_assort_table {
 	line-height: 1.3em;
 	padding: 1em;
 	border-bottom: 1px solid #d7d7d7;
+	position: relative;
 }
 .customer_cab #favorites .table_tbody .tableRow > *,
 .customer_cab #waiting_list .table_tbody .tableRow > * {
@@ -1529,10 +1530,9 @@ table.supplier_assort_table {
 }
 .customer_cab #favorites .table_tbody .image_cell img,
 .customer_cab #waiting_list .table_tbody .image_cell img {
-	vertical-align: middle;
-	
+	vertical-align: middle;	
 	height: 90px;
-	width: 100%;
+	width: auto;
 }
 .customer_cab #favorites .table_tbody .image_cell img:hover,
 .customer_cab #waiting_list .table_tbody .image_cell img:hover {
