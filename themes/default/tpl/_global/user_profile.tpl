@@ -9,7 +9,7 @@
 					<?$userNameFromMail = isset($_SESSION['member']['email']) && !empty($_SESSION['member']['email'])?substr($_SESSION['member']['email'], 0, strpos($_SESSION['member']['email'], "@")):'';?>
 					<?=isset($_SESSION['member']['name']) && !empty($_SESSION['member']['name'])?$_SESSION['member']['name']:$userNameFromMail;?>
 				</div>
-				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet')?>?t=contacts">create</a>
 				<div class="mdl-tooltip" for="eup">Изменить<br>профиль</div>
 			</div>
 			<div class="listItems">
