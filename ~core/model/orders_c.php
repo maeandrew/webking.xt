@@ -163,7 +163,7 @@ class Orders {
 				ON ca.id_user = o.id_contragent".
 			$this->db->GetWhere($and).
 			$like.
-			"ORDER BY ".$orderby.", id_order desc".
+			" ORDER BY ".$orderby.", id_order desc".
 			$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -385,8 +385,8 @@ class Orders {
 			p.img_1,
 			(SELECT src FROM "._DB_PREFIX_."image AS i WHERE p.id_product = i.id_product AND ord = 0 AND i.visible = 1) AS image,
 			osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
-			osp.box_qty, osp.supplier_quantity_opt AS opt_qty,
-			osp.supplier_quantity_mopt AS mopt_qty, osp.opt_sum,
+			osp.box_qty, osp.opt_qty,
+			osp.mopt_qty, osp.opt_sum,
 			osp.mopt_sum, s.article,  p.art,
 			(SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
 			osp.id_supplier, osp.id_supplier_mopt, o.target_date, o.return_date, o.pretense_date, o.creation_date,
