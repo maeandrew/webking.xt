@@ -523,23 +523,23 @@ class Users {
 		}
 		$this->db->CompleteTrans();
 
-		if($method == 'email'){
-			// Функция отправки сообщения на email
-			$Mailer = new Mailer();
-			$Mailer->SendCustomEmail($address, 'Код подтверждения. '.$_SERVER['SERVER_NAME'], 'Код подтверждения - '.$f['verification_code'].'. Код действителен в течении 24 часов.');
-		}elseif($method == 'sms'){
-			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-			if($address != ''){
-				$data = array(
-					'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
-					'text' => 'Код подтверждения - '.$f['verification_code'],
-					'phone' => $address, //'38'.
-					'datetime' => null,
-					'sms_lifetime' => 0
-				);
-				$res = $Gateway->execCommad('sendSMS', $data);
-			}
-		}
+		// if($method == 'email'){
+		// 	// Функция отправки сообщения на email
+		// 	$Mailer = new Mailer();
+		// 	$Mailer->SendCustomEmail($address, 'Код подтверждения. '.$_SERVER['SERVER_NAME'], 'Код подтверждения - '.$f['verification_code'].'. Код действителен в течении 24 часов.');
+		// }elseif($method == 'sms'){
+		// 	$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+		// 	if($address != ''){
+		// 		$data = array(
+		// 			'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+		// 			'text' => 'Код подтверждения - '.$f['verification_code'],
+		// 			'phone' => $address, //'38'.
+		// 			'datetime' => null,
+		// 			'sms_lifetime' => 0
+		// 		);
+		// 		$res = $Gateway->execCommad('sendSMS', $data);
+		// 	}
+		// }
 		return true;
 	}
 

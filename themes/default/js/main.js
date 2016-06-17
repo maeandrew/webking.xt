@@ -1285,6 +1285,18 @@ $(function(){
 			passwd = form.find('input#passwd').val();
 		form.find('.error').fadeOut();
 		e.preventDefault();
+		
+		// Проверка введенного телефона-логина
+		var str = email.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				email = 38 + str;
+			}else{
+				email = str;
+			}
+		}
+
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
