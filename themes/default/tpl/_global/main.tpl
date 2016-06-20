@@ -726,6 +726,9 @@
 			<div id="removingProd" class="cartInfBlock hidden">
 				Подождите идет удаление...
 			</div>
+			<div id="fillNote" class="cartInfBlock hidden">
+				Заполните обязательные примечания товаров
+			</div>
 			<div id="clearCart" class="cartInfBlock hidden">
 				Подождите идет очистка корзины...
 			</div>

@@ -509,6 +509,7 @@
 						qtyControl = 1;
 						$(this).find('.note').addClass('activeNoteArea');
 						$(this).find('textarea').attr('placeholder', 'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!');
+						$('#fillNote').removeClass('hidden');
 					}
 				});
 				if(phone.length == 12){
