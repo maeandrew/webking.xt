@@ -424,7 +424,8 @@ class Suppliers extends Users {
 			price_opt_recommend = ROUND(price_opt_recommend*".$k." ,2),
 			price_mopt_otpusk = ROUND(price_mopt_otpusk*".$k." ,2),
 			price_mopt_recommend = ROUND(price_mopt_recommend*".$k." ,2)
-			WHERE id_supplier = ".$id_supplier;
+			WHERE id_supplier = ".$id_supplier."
+			AND inusd = 1";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
