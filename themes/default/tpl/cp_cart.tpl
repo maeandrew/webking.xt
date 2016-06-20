@@ -149,7 +149,7 @@
 						<span class="prod_qty_control" data-qtycontr="<?=$item['qty_control']?>"></span>
 						<div class="product_info">
 							<div class="note in_cart">
-								<textarea cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+								<textarea class="note_field" cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
 								<div class="info_description hidden">
 									<p>Поле для ввода примечания к товару.</p>
@@ -479,6 +479,7 @@
     		Position($('#cart'));
 		});
 
+
 		$(function(){
 			if(isLogged){
 				// console.log('loggedin');
@@ -495,6 +496,14 @@
 			$('.clear_cart').on('click', function(e){
 				$('#clearCart').removeClass('hidden');
 			});
+
+			$(".note_field").blur(function() {
+				console.log('ушли');
+				console.log($(this).data('id'));
+				console.log($(this).val());
+
+			});
+
 
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
