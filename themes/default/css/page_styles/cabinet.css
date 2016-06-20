@@ -1407,43 +1407,165 @@ table.supplier_assort_table {
 	width: 300px;
 }
 
-.customer_cab #edit_personal .user_avatar {
-	width: 150px;
-	height: auto;
-	margin-bottom: 1em;
-	position: relative;
-}
-.customer_cab #edit_personal .user_avatar:hover {
-	cursor: pointer;
-}
-.customer_cab #edit_personal .user_avatar .avatar_menu {
-	display: none;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	background-color: rgba(52, 52, 52, 0.5);
-	color: #fff;
-	transition:3s ease-in-out;
-	-moz-transition:3s ease-in-out;
-	-webkit-transition:3s ease-in-out;	
-}
-.customer_cab #edit_personal .user_avatar:hover .avatar_menu {
-	display: block;
-}
-.customer_cab #edit_personal .user_avatar .avatar_menu p {
-	text-align: center;
-	line-height: 2.2em;
-}
-.customer_cab #edit_personal .user_avatar .avatar_menu .del_avatar {
-	position: absolute;
-	top: -115px;
-	right: 5px;
-	line-height: 1em;
-}
-
-.customer_cab #edit_personal .user_avatar img {
-	width: 100%;
-}
+/* Dropzone part */
+	#photobox {
+		position: relative;
+	}
+	#photobox .image_block .sort_handle {
+		line-height: 70px;
+		width: 20px;
+		text-align: center;
+		margin-right: 5px;
+		float: left;
+		cursor: move;
+		cursor: -webkit-grab;
+	}
+	#photobox .image_block .name .dz-filename,
+	#photobox .image_block .name .dz-size {
+		line-height: 70px;
+		width: 75%;
+		display: inline-block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	#photobox .image_block .name .dz-size {
+		width: 15%;
+		float: right;
+	}
+	#photobox .image_block .visibility {
+		line-height: 70px;
+		float: left;
+	}
+	#photobox .image_block .visibility p {
+		color: #4CAF50;
+		cursor: pointer;
+	}
+	#photobox .image_block.implicit .visibility p {
+		color: #444;
+	}
+	#photobox .image_block .visibility p:hover {
+		color: #f00;
+	}
+	#photobox .image_block:first-of-type.implicit img {
+		opacity: 1.0;
+	}
+	#photobox .image_block:first-of-type p {
+		display: none;
+	}
+	#photobox .image_block .image img {
+		opacity: 1.0;
+	}
+	#photobox .implicit .image img {
+		opacity: .3;
+	}
+	#photobox .image_block .controls p {
+		display: block;
+		float: right;
+		width: 100%;
+		color: #444;
+		cursor: pointer;
+		margin: 0;
+	}
+	#photobox .image_block .controls p,
+	#photobox .image_block .controls p:hover {
+		text-decoration: none;
+		text-align: center;
+		/*margin-right: 1em;*/
+	}
+	#photobox .image_block .controls .icon-font,
+	#photobox .image_block .visibility .icon-font {
+		font-size: 1.2em;
+	}
+	#photobox .image_block_new {
+		/*color: #ccc;*/
+		border-style: dashed;
+		height: auto;
+		/*padding: 1em;*/
+		/*cursor: pointer;*/
+	}
+	#photobox .image_block_new .dz-message {
+		line-height: 2.4em;
+		text-align: center;
+		/*font-weight: bold;*/
+		/*font-size: 1.5em;*/
+	}
+	#photobox .image_block_new.dz-drag-hover {
+		/*background: #f36711;*/
+		border-color: #f36711;
+		color: #f36711;
+		border-style: solid;
+	}
+	#photobox .image_block_new .dz-message .icon-font {
+		font-size: 2em;
+		text-align: center;
+		font-weight: bold;
+		clear: both;
+	}
+	.customer_cab #edit_personal .user_avatar {
+		width: 150px;
+		height: auto;
+		margin-bottom: 1em;
+		/*position: relative;*/
+	}
+	.customer_cab #edit_personal .user_avatar .avatar_menu {
+		/*display: none;*/
+		position: absolute;
+		width: 100%;
+		background-color: rgba(52, 52, 52, 0.5);
+		color: #fff;
+		transition: 0.5s ease;
+		-moz-transition: 0.5s ease;
+		-webkit-transition: 0.5s ease;
+		opacity: 0;
+		/*bottom: -34px;*/
+		bottom: 0;
+	}
+	.customer_cab #edit_personal .user_avatar:hover .avatar_menu,
+	.customer_cab #edit_personal .user_avatar:hover .del_avatar {
+		/*bottom: 0;*/
+		opacity: 1;
+	}
+	.customer_cab #edit_personal .user_avatar .avatar_menu p {
+		text-align: center;
+		line-height: 2.2em;
+	}
+	.customer_cab #edit_personal .user_avatar .avatar_menu .load_avatar span:hover {
+		border-bottom: 1px dashed;
+		cursor: pointer;
+	}
+	.customer_cab #edit_personal .user_avatar .del_avatar {
+		/*display: none;*/
+		position: absolute;
+		cursor: pointer;
+		top: 5px;
+		right: 5px;
+		text-align: right !important;
+		line-height: 1em;
+		width: auto;
+		height: 25px;
+		padding: .3em;
+		border-radius: 50%;
+		background-color: rgba(52, 52, 52, 0.5);
+		color: #fff;
+		transition: 0.5s ease;
+		-moz-transition: 0.5s ease;
+		-webkit-transition: 0.5s ease;
+		opacity: 0;
+	}
+	.customer_cab #edit_personal .user_avatar:hover .del_avatar {
+		opacity: 1;
+	}
+	.customer_cab #edit_personal .user_avatar .del_avatar i {
+		font-size: 16px;
+	}
+	.customer_cab #edit_personal .image_block .controls [for="forDel"],
+	.customer_cab #edit_personal .image_block .controls [for="forDelU"] {
+		font-size: .8em;
+	}
+	.customer_cab #edit_personal .user_avatar img {
+		width: 100%;
+	}
 
 /* Customer cab Settings =================================================== */
 

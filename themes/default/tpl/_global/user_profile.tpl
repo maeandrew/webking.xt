@@ -1,7 +1,9 @@
 <div class="userContainer">
 	<div class="UserInfBlock">
 		<div class="avatar">
-			<img src="/images/noavatar.png"/>
+			<a href="<?=Link::Custom('cabinet')?>?t=contacts">
+				<img src="/images/noavatar.png"/>
+			</a>
 		</div>
 		<div class="mainUserInf">
 			<div class="userNameBlock">
