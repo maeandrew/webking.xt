@@ -1398,13 +1398,51 @@ table.supplier_assort_table {
 	margin-bottom: 20px;*/
 }
 .customer_cab #edit_personal {
-    padding: 1em;
+	padding: 1em;
 }
 .customer_cab #edit_personal label[for^="id_"]{
 	color: #4CAF50;
 }
 .customer_cab #edit_personal select[id^="id_"] {
 	width: 300px;
+}
+
+.customer_cab #edit_personal .user_avatar {
+	width: 150px;
+	height: auto;
+	margin-bottom: 1em;
+	position: relative;
+}
+.customer_cab #edit_personal .user_avatar:hover {
+	cursor: pointer;
+}
+.customer_cab #edit_personal .user_avatar .avatar_menu {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: rgba(52, 52, 52, 0.5);
+	color: #fff;
+	transition:3s ease-in-out;
+	-moz-transition:3s ease-in-out;
+	-webkit-transition:3s ease-in-out;	
+}
+.customer_cab #edit_personal .user_avatar:hover .avatar_menu {
+	display: block;
+}
+.customer_cab #edit_personal .user_avatar .avatar_menu p {
+	text-align: center;
+	line-height: 2.2em;
+}
+.customer_cab #edit_personal .user_avatar .avatar_menu .del_avatar {
+	position: absolute;
+	top: -115px;
+	right: 5px;
+	line-height: 1em;
+}
+
+.customer_cab #edit_personal .user_avatar img {
+	width: 100%;
 }
 
 /* Customer cab Settings =================================================== */
@@ -2011,7 +2049,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		margin-right: 10px;
 	}
 	.customer_cab #waiting_list .old_price .titleForTablet {
-	    text-decoration: initial;
+		text-decoration: initial;
 	}
 	.customer_cab #waiting_list .table_tbody .tableRow .titleForTablet > * {
 		flex-basis: 100px;
@@ -2416,7 +2454,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.customer_cab #favorites .table_thead,
 	.customer_cab #waiting_list .table_thead {
-	    display: none;
+		display: none;
 	}
 }
 

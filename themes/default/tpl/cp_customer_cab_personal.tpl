@@ -7,6 +7,13 @@
 				<?!isset($_GET['t'])?$var = '': $var = $_GET['t'];?>
 				<?switch($var){
 					default:?>
+					<div class="user_avatar">
+						<img src="/images/noavatar.png"/>
+						<div class="avatar_menu">
+							<p class="load_avatar_js">Загрузить фото</p>
+							<p class="del_avatar_js del_avatar"><i class="material-icons">delete</i></p>
+						</div>
+					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="email">E-mail:</label>
 						<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>
