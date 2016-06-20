@@ -2,7 +2,6 @@
 $tpl_header = '';
 $tpl_center = '';
 $tpl_nav = '';
-$tpl_aside = '';
 $tpl_breadcrumbs = '';
 $tpl_sidebar_l  = '';
 $tpl_sidebar_r  = '';
@@ -19,7 +18,6 @@ if(true == @$parsed_res['issuccess']){
 }
 
 $tpl->Assign('cart_info', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cart_info.tpl'));
-$tpl_aside = $tpl->Parse($GLOBALS['PATH_tpl_global'].'aside.tpl');
 // Центральный блок
 require($GLOBALS['PATH_contr'].$GLOBALS['CurrentController'].'.php');
 
@@ -119,7 +117,6 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 $GLOBALS['__center'] = $tpl_center;
 $GLOBALS['__header'] = $tpl_header;
 $GLOBALS['__nav'] = $tpl_nav;
-$GLOBALS['__aside'] = $tpl_aside;
 $GLOBALS['__breadcrumbs'] = $tpl_breadcrumbs;
 $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
@@ -163,4 +160,4 @@ $GLOBALS['__graph'] = $tpl_graph;
 // 	// $GLOBALS['__page_keywords'] = implode(" ", $GLOBALS['__page_keywords']) . "| Киев, Харьков, Днепропетровск, Донецк, Запорожье, Луганск, Крым, Одесса, Львов, Полтава, Сумы, Чернигов, Ивано-Франковск, Закарпатье ";
 // 	// $GLOBALS['__page_description'] = "Оптовый интернет-магазин xt.ua | ".implode(". ", $GLOBALS['__page_description'])." | Дешевый интернет магазин недорогих товаров" ;
 // }
-unset($tpl_header, $tpl_center, $tpl_nav, $tpl_aside, $tpl_breadcrumbs, $tpl_sidebar_l, $tpl_sidebar_r, $tpl_popular, $tpl_graph, $k, $i, $l1, $l2, $l3, $level1, $level2, $level3, $id_category, $data_graph, $sb_count);
+unset($tpl_header, $tpl_center, $tpl_nav, $tpl_breadcrumbs, $tpl_sidebar_l, $tpl_sidebar_r, $tpl_popular, $tpl_graph, $k, $i, $l1, $l2, $l3, $level1, $level2, $level3, $id_category, $data_graph, $sb_count);

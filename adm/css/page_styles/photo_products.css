@@ -2,7 +2,7 @@
 .create_product {
 	margin-top: 20px;
 }
-.supplier, .prodName, .submit {	
+.supplier, .prodName, .submit, .video_upload {	
 	float: left;
 	margin-bottom: 20px;
 }
@@ -12,7 +12,7 @@
 .submit {	
 	padding: 0;
 }
-.prodName {
+.prodName, .video_upload {
 	width: 360px;
 }
 .previews { 
@@ -129,4 +129,23 @@
 }
 .errName {
 	border: 1px solid red;
+} 
+.video_upload {
+	clear: both;
+	margin-left: 15px;
+}
+.video_list li {
+	list-style-type: decimal;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.video_list li input {
+	width: 240px;
+}
+.add_video {
+	color: #2E62CF;
+}
+
+.add_video:hover {	
+	cursor: pointer;
 }

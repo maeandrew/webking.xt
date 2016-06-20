@@ -13,9 +13,20 @@
 			<option value="Z05">5</option>
 		</datalist>
 	</div>
-	<div class="prodName">
+	<div class="prodName hidden">
 		<label for="prodName">Название товара</label>
 		<input type="text" id="prodName" class="input-m">
+	</div>
+	<div class="submit">
+		<button class="btn-m-default submit_js">Применить</button>
+	</div>
+	<div class="video_upload">		
+		<p class="add_video add_video_js">Добавить видео <span class="icon-font">a</span></p>
+		<ol class="video_list video_list_js">
+			<!-- <li><input type="text" id="video_upload" class="input-m"></li>
+			<li><input type="text" id="video_upload" class="input-m"></li>
+			<li><input type="text" id="video_upload" class="input-m"></li> -->
+		</ol>
 	</div>
 	<div class="images hidden">
 		<label for="images">Изображения</label>
@@ -23,9 +34,7 @@
 			<input type="file" name="images" id="images" multiple />
 		</div>
 	</div>
-	<div class="submit">
-		<button class="btn-m-default submit_js">Применить</button>
-	</div>
+	
 	<div class="image_block_new drop_zone animate col-md-12">
 		<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
 		<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
@@ -88,6 +97,11 @@
 			$.cookie('suppler', currentSupplier);
 		});
 
+		//Добавление видео
+		$(".add_video_js").on('click', function() {
+			$(".video_list_js").append('<li><input type="text" name="video[]" class="input-m"></li>');
+		});
+
 		$('body').on('click', '.hide_photo_js', function(){
 			$(this).closest('.image').find('img').toggleClass('imgopacity');
 		});
@@ -124,8 +138,8 @@
 			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
 			if ($('#supplier').val() != '') {
 				$('#supplier').removeClass('errName');
-				if (Name != '') {
-					$('#prodName').removeClass('errName');
+				/*if (Name != '') {*/
+					/*$('#prodName').removeClass('errName');*/
 					if($(".images_block").html() != ''){
 						$('.image_block_new').removeClass('errName');
 						$.ajax({
@@ -147,9 +161,9 @@
 					}else{
 						$('.image_block_new').addClass('errName');
 					}
-				}else{
+				/*}else{
 					$('#prodName').addClass('errName');
-				}
+				}*/
 			}else{
 				$('#supplier').addClass('errName');
 			}

@@ -4,7 +4,7 @@
 		<li id="icon_face" class="<?=$_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
-				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_face">Личные данные</div>
 			</span>
 			</span>
@@ -20,7 +20,7 @@
 		<li id="icon_shopping_cart" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='orders'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">shopping_cart</i><span class="textInALink">Мои заказы</span></a>
-				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_shopping_cart">Мои заказы</div>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active show':null;?>">
@@ -44,7 +44,7 @@
 		<li id="icon_person_add" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">person_add</i><span class="textInALink">Совместные заказы</span></a>
-				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_person_add">Совместные заказы</div>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'?'active show':null;?>">
@@ -64,14 +64,14 @@
 		<li id="icon_people">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">people</i><span class="textInALink">Списки друзей</span></a>
-				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
+				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->
 				<div class="mdl-tooltip" for="icon_people">Списки друзей</div>
 			</span>
 		</li>
 		<li id="icon_settings" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">settings</i><span class="textInALink">Настройки</span></a>
-				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_settings">Настройки</div>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'show':null;?>">
@@ -86,7 +86,7 @@
 		<li id="icon_add_shopping_cart" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">add_shopping_cart</i><span class="textInALink">Бонусная программа</span></a>
-				<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_add_shopping_cart">Бонусная программа</div>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active show':null;?>">
@@ -104,14 +104,14 @@
 			<span class="link_wrapp">
 				<a href="<?=Link::Custom('cabinet','favorites')?>"><i class="material-icons">flag</i><span class="textInALink">Избраное</span></a>
 				<div class="mdl-tooltip" for="icon_flag">Избраное</div>
-				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
+				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->
 			</span>
 		</li>
 		<li id="icon_timeline">
 			<span class="link_wrapp">
 				<a href="<?=Link::Custom('cabinet','waitinglist')?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
 				<div class="mdl-tooltip" for="icon_timeline">Лист ожидания</div>
-				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
+				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->
 			</span>
 		</li>
 	</ul>

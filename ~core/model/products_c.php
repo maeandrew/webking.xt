@@ -4432,11 +4432,11 @@ class Products {
 			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
 			if(!empty($l['subcats'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
-                    $ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
+                    $ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
                 }else{
-                    $ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
+                    $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
                 }*/
-				$ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl);
 				$ul .= '</li>';
 			}else{
