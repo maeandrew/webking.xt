@@ -20,13 +20,9 @@
 	<div class="submit">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
-	<div class="video_upload">		
+	<div class="video_upload">
 		<p class="add_video add_video_js">Добавить видео <span class="icon-font">a</span></p>
-		<ol class="video_list video_list_js">
-			<!-- <li><input type="text" id="video_upload" class="input-m"></li>
-			<li><input type="text" id="video_upload" class="input-m"></li>
-			<li><input type="text" id="video_upload" class="input-m"></li> -->
-		</ol>
+		<ol class="video_list video_list_js"></ol>
 	</div>
 	<div class="images hidden">
 		<label for="images">Изображения</label>
@@ -55,11 +51,24 @@
 	</div>
 </div>
 <div class="prodList">
+	<div class="prodListItem">
+			<div class="nameProd">
+				<a href="#">Товар:</a>
+				<span>Видео</span>
+			</div>
+			<div class="createData">
+				<span>Дата:</span>
+				<span>Тест</span>
+			</div>
+			<div class="prodImages">
+				<img src="/images/video_play.png" class="">
+			</div>
+		</div>
 	<?foreach ($list as $item) {?>
 		<div class="prodListItem">
 		<div class="nameProd">
 			<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
-			<span><?=$item['name']?></span>			
+			<span><?=$item['name']?></span>
 		</div>
 		<div class="createData">
 			<span>Дата:</span>
@@ -68,7 +77,7 @@
 		<div class="prodImages">
 			<?foreach ($item['images'] as $image) {?>
 				<img src="<?=$image['src']?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
-			<?}?>				
+			<?}?>
 		</div>
 	</div>
 	<?}?>	
@@ -76,6 +85,20 @@
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 
 <script>
+	window.onbeforeunload = function(event) {
+		var check_video = false;
+		$('.video_list_js li').each(function(){
+			var intut_val = $(this).find('input').val();
+			if (intut_val !== ''){
+				check_video = true;
+			}			
+		});
+		if ($('.images_block').html() !== '' || check_video === true) {
+			event.returnValue = "Write something clever here..";
+		}
+		console.log($('.images_block').html());
+	};
+
 	var url = URL_base+'productadd/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
@@ -122,11 +145,16 @@
 				target.closest('.image_block_js').remove();
 			});
 		});
+		
+		$(".image_block_new").on('click', function(){
+			$('.image_block_new').removeClass('errName');
+		});
 
 		$('.submit_js').on('click', function(){
 			var ArtSupplier = $.cookie('suppler');
 			var Name = $('#prodName').val();
 			var Images = [];
+			var Videos = [];
 
 			$('.images_block .image_block_js').each(function(){	
 				var visibility = $(this).find('img').hasClass('imgopacity') === false;
@@ -134,36 +162,36 @@
 				var curData = {src: path, visible: visibility};
 				Images.push(curData);
 			});
+			$('.video_list_js li').each(function(){
+				var path = $(this).find('input').val();
+				Videos.push(path);
+			});
+			
 
 			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
 			if ($('#supplier').val() != '') {
 				$('#supplier').removeClass('errName');
-				/*if (Name != '') {*/
-					/*$('#prodName').removeClass('errName');*/
-					if($(".images_block").html() != ''){
-						$('.image_block_new').removeClass('errName');
-						$.ajax({
-							url: URL_base+'ajaxproducts',
-							type: "POST",
-							cache: false,
-							dataType: "html",
-							data: {
-								action: 'AddPhotoProduct',
-								art_supplier: ArtSupplier,
-								name: Name,
-								images: Images
-							}
-						}).done(function(data){
-							$('.prodList').prepend(data);
-							$('.images_block').find('.image_block_js').remove();
-							$('#prodName').val('');
-						});
-					}else{
-						$('.image_block_new').addClass('errName');
-					}
-				/*}else{
-					$('#prodName').addClass('errName');
-				}*/
+				if($(".images_block").html() != ''){
+					$.ajax({
+						url: URL_base+'ajaxproducts',
+						type: "POST",
+						cache: false,
+						dataType: "html",
+						data: {
+							action: 'AddPhotoProduct',
+							art_supplier: ArtSupplier,
+							name: Name,
+							images: Images,
+							videos: Videos
+						}
+					}).done(function(data){
+						$('.prodList').prepend(data);
+						$('.images_block').find('.image_block_js').remove();
+						$('.video_list_js').html('');
+					});
+				}else{
+					$('.image_block_new').addClass('errName');
+				}
 			}else{
 				$('#supplier').addClass('errName');
 			}
