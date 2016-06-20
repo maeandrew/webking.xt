@@ -10,10 +10,10 @@
 			</span>
 			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active show':null;?>">
 				<li class="child <?=$_GET['t']=='contacts' || $_GET['t']==''?'active':null;?>">
-					<a name="t" value="contacts" <?=(isset($_GET['t']) && $_GET['t'] == 'contacts') || !isset($_GET['t'])?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=contacts">Основная информация</a>
+					<a name="t" value="contacts" <?=(isset($_GET['t']) && $_GET['t'] == 'contacts') || !isset($_GET['t'])?'class="active"':null;?>  href="<?=Link::Custom('cabinet', null, array('clear'=> true))?>?t=contacts">Основная информация</a>
 				</li>
 				<li class="<?=$_GET['t']=='delivery'?'active':null;?>">
-					<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet')?>?t=delivery">Адрес доставки</a>
+					<a name="t" value="delivery" <?=isset($_GET['t']) && $_GET['t'] == 'delivery'?'class="active"':null;?>  href="<?=Link::Custom('cabinet', null, array('clear'=> true))?>?t=delivery">Адрес доставки</a>
 				</li>
 			</ul>
 		</li>
@@ -25,19 +25,19 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active show':null;?>">
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-					<a name="t" value="all" class="all <?=(isset($_GET['t']) && $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=all">Все</a>
+					<a name="t" value="all" class="all <?=(isset($_GET['t']) && $_GET['t']=='all')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders', array('clear'=> true))?>?t=all">Все</a>
 				</li>
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=working">Выполняются</a>
+					<a name="t" value="working" class="working <?=(isset($_GET['t']) && $_GET['t']=='working')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders', array('clear'=> true))?>?t=working">Выполняются</a>
 				</li>
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=completed">Выполненные</a>
+					<a name="t" value="completed" class="completed <?=(isset($_GET['t']) && $_GET['t']=='completed')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders', array('clear'=> true))?>?t=completed">Выполненные</a>
 				</li>
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-					<a name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=canceled">Отмененные</a>
+					<a name="t" value="canceled" class="canceled <?=(isset($_GET['t']) && $_GET['t']=='canceled')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders', array('clear'=> true))?>?t=canceled">Отмененные</a>
 				</li>
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
-					<a name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders')?>?t=drafts">Черновики</a>
+					<a name="t" value="drafts" class="drafts <?=(isset($_GET['t']) && $_GET['t']=='drafts')?'active':null;?>" href="<?=Link::Custom('cabinet', 'orders', array('clear'=> true))?>?t=drafts">Черновики</a>
 				</li>
 			</ul>
 		</li>
@@ -49,15 +49,15 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'?'active show':null;?>">
 				<!--<li>
-					<a name="t" value="joall" class="all <?=(isset($_GET['t']) && $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joall">Все</a>
+					<a name="t" value="joall" class="all <?=(isset($_GET['t']) && $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear'=> true))?>?t=joall">Все</a>
 				</li>-->
 				<li class="active_order_js">
 					<!--<input type="hidden" data-idcart="<?=$_SESSION['cart']['id']?>" data-iduser="<?=$_SESSION['member']['id_user']?>" data-promo="<?=$_SESSION['cart']['promo']?>" />
 					<a class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" >Активный</a>-->
-					<a name="t" value="joactive" class="working <?=(isset($_GET['t']) && $_GET['t']=='joactive')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">Активный</a>
+					<a name="t" value="joactive" class="working <?=(isset($_GET['t']) && $_GET['t']=='joactive')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear'=> true))?>?t=joactive">Активный</a>
 				</li>
 				<li>
-					<a name="t" value="jocompleted" class="completed <?=(isset($_GET['t']) && $_GET['t']=='jocompleted')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative')?>?t=jocompleted">Выполненные</a>
+					<a name="t" value="jocompleted" class="completed <?=(isset($_GET['t']) && $_GET['t']=='jocompleted')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear'=> true))?>?t=jocompleted">Выполненные</a>
 				</li>
 			 </ul>
 		</li>
@@ -76,10 +76,10 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'show':null;?>">
 				<li class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>">
-					<a name="t" value="basic" class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>" href="<?=Link::Custom('cabinet','settings')?>?t=basic">Настройки</a>
+					<a name="t" value="basic" class="<?=isset($_GET['t']) && $_GET['t'] == 'basic'?'active':null;?>" href="<?=Link::Custom('cabinet','settings', array('clear'=> true))?>?t=basic">Настройки</a>
 				</li>
 				<li class="<?=isset($_GET['t']) && $_GET['t'] == 'password'?'active':null;?>">
-					<a name="t" value="password" class="<?=isset($_GET['t']) && $_GET['t'] == 'password'?'active':null;?>" href="<?=Link::Custom('cabinet','settings')?>?t=password">Смена пароля</a>
+					<a name="t" value="password" class="<?=isset($_GET['t']) && $_GET['t'] == 'password'?'active':null;?>" href="<?=Link::Custom('cabinet','settings', array('clear'=> true))?>?t=password">Смена пароля</a>
 				</li>
 			</ul>
 		</li>
@@ -91,10 +91,10 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'active show':null;?>">
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>">
-					<a name="t" value="bonus_info" class="<?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus')?>?t=bonus_info">Мой бонусный счет</a>
+					<a name="t" value="bonus_info" class="<?=isset($_GET['t']) && $_GET['t'] == 'bonus_info'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus', array('clear'=> true))?>?t=bonus_info">Мой бонусный счет</a>
 				</li>
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>">
-					<a name="t" value="change_bonus" class="<?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus')?>?t=change_bonus">
+					<a name="t" value="change_bonus" class="<?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>" href="<?=Link::Custom('cabinet','bonus', array('clear'=> true))?>?t=change_bonus">
 						<?=isset($Customer['bonus_card']) ? 'Смена бонусной карты' : 'Активация бонусной карты';?>
 					</a>
 				</li>
@@ -102,14 +102,14 @@
 		</li>
 		<li id="icon_flag">
 			<span class="link_wrapp">
-				<a href="<?=Link::Custom('cabinet','favorites')?>"><i class="material-icons">flag</i><span class="textInALink">Избраное</span></a>
+				<a href="<?=Link::Custom('cabinet','favorites', array('clear'=> true))?>"><i class="material-icons">flag</i><span class="textInALink">Избраное</span></a>
 				<div class="mdl-tooltip" for="icon_flag">Избраное</div>
 				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
 			</span>
 		</li>
 		<li id="icon_timeline">
 			<span class="link_wrapp">
-				<a href="<?=Link::Custom('cabinet','waitinglist')?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
+				<a href="<?=Link::Custom('cabinet','waitinglist', array('clear'=> true))?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
 				<div class="mdl-tooltip" for="icon_timeline">Лист ожидания</div>
 				<!-- <span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span> -->
 			</span>
