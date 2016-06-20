@@ -541,7 +541,7 @@ body:not(.c_main) .banner {
 .breadcrumbs {
 	float: left;
 	padding-left: 10px;
-    padding-right: 10px;
+	padding-right: 10px;
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;
@@ -1299,7 +1299,7 @@ section.center {
 		}
 		#cart .product_buy .buy_block .quantity .units {
 			width: 20px;
-		    margin: 0;
+			margin: 0;
 		}
 	}
 
@@ -2206,9 +2206,9 @@ section .stat_year {
 	vertical-align: top;
 }
 #cart .card .product_name > a {
-    display: block;
-   	height: 40px;
-    overflow: hidden;
+	display: block;
+	height: 40px;
+	overflow: hidden;
 }
 #cart .card {
 	min-height: 101px;
@@ -3385,7 +3385,7 @@ section .stat_year {
 	color: #9E9E9E;
 	text-align: justify;
 	border-top: 1px solid #e0e0e0;
-	padding: 1em 0;
+	padding: 1.8em 0;
 	overflow: hidden;
 }
 #seoTextBlock p {
@@ -3395,6 +3395,11 @@ section .stat_year {
 	margin: 5px;
 	box-shadow: none;
 	background-color: transparent;
+}
+#seoTextBlock h2 {
+	font-size: 1.8em;
+	line-height: 2em;
+	margin: .5em 0 !important;
 }
 
 /* Стили функции редактирования характеристик товара в админке */
@@ -3547,8 +3552,8 @@ div.modalEditOrder .applyBtn {
 	display: block;
 	text-align: center;
 	margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
+	margin-bottom: auto;
+	overflow: hidden;
 }
 
 /* Стили карусели подкатегорий */
