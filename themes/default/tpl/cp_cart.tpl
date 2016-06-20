@@ -510,6 +510,10 @@
 						$(this).find('.note').addClass('activeNoteArea');
 						$(this).find('textarea').attr('placeholder', 'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!');
 						$('#fillNote').removeClass('hidden');
+
+						setTimeout (function(){
+							$("#fillNote").addClass('hidden');
+						}, 3000);						
 					}
 				});
 				if(phone.length == 12){
