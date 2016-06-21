@@ -190,6 +190,9 @@
 	</div>
 </div>
 <script>
+	// window.onbeforeunload = function(){ 
+	// 	return 'Текст сообщения'; 
+	// }
 	$(document).ready(function() {
 		$('div[class^="msg-"]').delay(3000).fadeOut(2000);
 		
@@ -346,23 +349,22 @@
 		$("body").on('click', '.del_photo_js', function(e) {
 			//e.stopPropagation();
 			alert('!!!');
-
-			// if(confirm('Изобрежение будет удалено.')){
-			// 	var path = $(this).closest('.image_block'),
-			// 		removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-			// 	RemovedFile(path, removed_file);
-			// }
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+					removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
+				RemovedFile(path, removed_file);
+			}
 		});
 
 		//Удаление только что загруженных фото
 		$("body").on('click', '.del_u_photo_js', function(e) {
 			// e.stopPropagation();
 			alert('asds');
-			// if(confirm('Изобрежение будет удалено.')){
-			// 	var path = $(this).closest('.image_block'),
-			// 		removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
-			// 	RemovedFile(path, removed_file);
-			// }
+			if(confirm('Изобрежение будет удалено.')){
+				var path = $(this).closest('.image_block'),
+					removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
+				RemovedFile(path, removed_file);
+			}
 		});
 	});
 </script>

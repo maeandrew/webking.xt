@@ -909,5 +909,27 @@
 		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript>
+
+	<!-- message about cookie -->
+	<div class="cookie_wrap">
+		<div class="cookie_msg cookie_msg_js">
+			<h4>Мы используем файлы cookie</h4>
+			<p>Этот веб-сайт использует файлы cookie для обеспечения корректной работы сайта. Файлы cookie хранят полезную информацию на вашем компьютере для того, чтобы мы могли улучшить оперативность и точность нашего сайта для вашей работы. <span>Заходя на данный сайт, вы соглашаетесь на использование файлов cookie.</span></p>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-js-ripple-effect">ОК</div>
+		</div>
+	</div>
+	<script>
+		setTimeout(function() {
+			if ($.cookie('useCookie') != 'agree'){
+				$('.cookie_msg_js').css('bottom', '0');
+				
+				$('body').on('click', '.cookie_msg_js .close', function(event) {
+					event.preventDefault();
+					$('.cookie_msg_js').css('bottom', '-150px');
+					$.cookie('useCookie', 'agree', {expires: 365});
+				});
+			}
+		}, 2000);
+	</script>
 </body>
 </html>

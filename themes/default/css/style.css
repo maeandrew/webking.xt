@@ -3592,3 +3592,40 @@ div.modalEditOrder .applyBtn {
 	height: 150px;
 	width: 150px;
 }
+
+/* Cookie message */
+.cookie_wrap {
+	position: relative;
+	color: #fff;
+}
+.cookie_msg {
+	position: fixed;
+	padding: 2em;
+	bottom: -150px;
+	width: 100%;
+	height: auto;
+	background-color: rgba(52, 52, 52, 0.85);
+	transition: 3s ease;
+	z-index: 10000000;
+}
+.cookie_msg h4 {
+	margin: 0;
+}
+.cookie_msg p {
+	margin-top: 1em;
+	text-align: justify;
+}
+.cookie_msg_close {
+	position: absolute !important;
+	top: 1em;
+	right: 2em;
+	cursor: pointer;
+	color: #fff !important;
+}
+.cookie_msg p {
+	font-size: 1em;
+	line-height: 1.4em;
+}
+.cookie_msg p span {
+	font-size: 1.2em;
+}
