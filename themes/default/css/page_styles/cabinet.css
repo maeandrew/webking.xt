@@ -1410,6 +1410,7 @@ table.supplier_assort_table {
 /* Dropzone part */
 	#photobox {
 		position: relative;
+		overflow: hidden;
 	}
 	#photobox .image_block .sort_handle {
 		line-height: 70px;
@@ -1506,10 +1507,8 @@ table.supplier_assort_table {
 		width: 150px;
 		height: auto;
 		margin-bottom: 1em;
-		/*position: relative;*/
 	}
 	.customer_cab #edit_personal .user_avatar .avatar_menu {
-		/*display: none;*/
 		position: absolute;
 		width: 100%;
 		background-color: rgba(52, 52, 52, 0.5);
@@ -1517,14 +1516,11 @@ table.supplier_assort_table {
 		transition: 0.5s ease;
 		-moz-transition: 0.5s ease;
 		-webkit-transition: 0.5s ease;
-		opacity: 0;
-		/*bottom: -34px;*/
-		bottom: 0;
+		bottom: -34px;
 	}
 	.customer_cab #edit_personal .user_avatar:hover .avatar_menu,
 	.customer_cab #edit_personal .user_avatar:hover .del_avatar {
-		/*bottom: 0;*/
-		opacity: 1;
+		bottom: 0;
 	}
 	.customer_cab #edit_personal .user_avatar .avatar_menu p {
 		text-align: center;
@@ -1535,7 +1531,6 @@ table.supplier_assort_table {
 		cursor: pointer;
 	}
 	.customer_cab #edit_personal .user_avatar .del_avatar {
-		/*display: none;*/
 		position: absolute;
 		cursor: pointer;
 		top: 5px;

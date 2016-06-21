@@ -190,10 +190,14 @@
 	</div>
 </div>
 <script>
-	// window.onbeforeunload = function(){ 
-	// 	return 'Текст сообщения'; 
-	// }
 	$(document).ready(function() {
+		var confirmUpdate = false;
+		// if (!confirmUpdate) {
+		// 	window.onbeforeunload = function(){ 
+		// 		return 'У Вас есть несохраненные данные.';
+		// 	}
+		// }
+
 		$('div[class^="msg-"]').delay(3000).fadeOut(2000);
 		
 		$('.day_js').change(function(event) {
@@ -237,7 +241,7 @@
 			}
 		});
 
-		$('input[name="save_contacts"]').click(function(event) {			
+		$('input[name="save_contacts"]').click(function(event) {
 			var parent = $(this).closest('form'),
 				id_user = parent.find('[name="id_user"]').val(),
 				email = parent.find('[name="email"]').val(),
@@ -280,6 +284,7 @@
 			}else{
 				ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
 					if (response == 'true') {
+						confirmUpdate = true;
 						snackbarMsg = {message: 'Ваши данные успешно сохранены'},
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
@@ -330,6 +335,7 @@
 		});
 		dropzone.on('addedfile', function(file){
 			$('#photobox .old_image_js img').remove();
+			// $('.previews .dz-file-preview').addClass('forUpload');
 			componentHandler.upgradeDom();
 		}).on('maxfilesexceeded', function(file) {
 			this.removeAllFiles();
@@ -345,25 +351,13 @@
 			componentHandler.upgradeDom();
 		});
 
-		//Удаление ранее загруженных фото
+		//Удаление ранее загруженного фото
 		$("body").on('click', '.del_photo_js', function(e) {
-			//e.stopPropagation();
-			alert('!!!');
+			alert('Изобрежение будет удалено.');
 			if(confirm('Изобрежение будет удалено.')){
-				var path = $(this).closest('.image_block'),
-					removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-				RemovedFile(path, removed_file);
-			}
-		});
-
-		//Удаление только что загруженных фото
-		$("body").on('click', '.del_u_photo_js', function(e) {
-			// e.stopPropagation();
-			alert('asds');
-			if(confirm('Изобрежение будет удалено.')){
-				var path = $(this).closest('.image_block'),
-					removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
-				RemovedFile(path, removed_file);
+				// var path = $(this).closest('.image_block'),
+				// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
+				// RemovedFile(path, removed_file);
 			}
 		});
 	});
