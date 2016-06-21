@@ -46,7 +46,7 @@ class Suppliers extends Users {
 		$sql = "SELECT u.id_user, u.name, u.email, u.gid, u.active, u.news,
 				s.currency_rate, s.next_update_date
 				FROM "._DB_PREFIX_."user u
-				LEFT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
+				RIGHT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
 				".$this->db->GetWhere($arr)."
 				ORDER BY ".$order.
 				$limit;

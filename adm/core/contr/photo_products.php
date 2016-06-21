@@ -4,14 +4,16 @@ error_reporting(E_ALL);
 // if(!_acl::isAllow('product')){
 // 	die("Access denied");
 // }
+$products = new Products();
+$suppliers = new Suppliers();
 unset($parsed_res);
 $header = 'Позиции фотографа';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/photo_products/';
 $tpl->Assign('header', $header);
-
-$products = new Products();
+$suppliers->SuppliersList();
+$tpl->Assign('suppliers_list', $suppliers->list);
 $list = $products->GetProductsByIdUser($_SESSION['member']['id_user']);
 $tpl->Assign('list', $list);
 
