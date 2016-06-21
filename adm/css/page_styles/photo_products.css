@@ -46,10 +46,19 @@
 .image_block_new {
 	max-height: 205px;
 }
-.images_block .image_block .name {
+.images_block .image_block .name,
+.prodList .prodListItem .name {
 	width: 120px;
 	overflow: hidden;
 }
+.prodList .prodListItem .name {
+	clear: both;
+    float: left;
+}
+.prodList .prodListItem a img {
+	float: left;
+}
+
 .images_block .image {
 	width: 120px;
 	height: 120px;  

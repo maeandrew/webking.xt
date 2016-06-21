@@ -61,8 +61,19 @@
 				<span>Тест</span>
 			</div>
 			<div class="prodImages">
-				<img src="/images/video_play.png" class="">
-			</div>
+				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
+					<img src="/images/video_play.png">
+					<span class="name">/images/video_play.png</span>
+				</a>
+				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
+					<img src="/images/video_play.png">
+					<span class="name">/images/video_play.png</span>
+				</a>
+				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
+					<img src="/images/video_play.png">
+					<span class="name">/images/video_play.png</span>
+				</a>
+			</div>			
 		</div>
 	<?foreach ($list as $item) {?>
 		<div class="prodListItem">
@@ -96,7 +107,6 @@
 		if ($('.images_block').html() !== '' || check_video === true) {
 			event.returnValue = "Write something clever here..";
 		}
-		console.log($('.images_block').html());
 	};
 
 	var url = URL_base+'productadd/';
@@ -165,9 +175,7 @@
 			$('.video_list_js li').each(function(){
 				var path = $(this).find('input').val();
 				Videos.push(path);
-			});
-			
-
+			});			
 			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
 			if ($('#supplier').val() != '') {
 				$('#supplier').removeClass('errName');
