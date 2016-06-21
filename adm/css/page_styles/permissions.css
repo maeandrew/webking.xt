@@ -1,0 +1,14 @@
+.permissions li a {
+	display: block;
+	/*line-height: 1.5em;*/
+	padding: 10px 15px;
+	color: #444;
+}
+.permissions li a:hover {
+	text-decoration: none;
+	background: #BBDEFB;
+}
+.permissions li.active a {
+	color: #fff;
+	background: #2196F3;
+}

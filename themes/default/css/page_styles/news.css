@@ -24,13 +24,20 @@
 	line-height: 1.4em;
 	text-align: justify;
 }
+.content_page p > img {
+	margin: 10px 0; 
+}
 .newslist .item {
 	padding: 15px;
 	cursor: default;
 	border-bottom: 1px solid #ddd;
 }
+.newslist .animate > a {
+	max-width: 95%;
+}
 .newslist .item .item_title,
 #content .item_title {
+	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -74,6 +81,26 @@
 	#content .item_title {	
 		font-size: 26px;
 	}	
+}
+@media (max-width: 801px) {
+	.content_page p > img {
+		width: 100% !important;
+		height: auto !important;
+		margin: 10px auto !important;
+	}
+	.newslist .item .item_title,
+	#content .item_title {
+		white-space: normal;
+		width: 100%;
+		margin: 0;
+		font-size: 1.6em;
+		line-height: 1.2em;
+	}
+}
+@media (max-width: 801px) and (orientation: landscape) {
+	.content_page p > img {
+		height: calc(100vh - 60px) !important;
+	}
 }
 @media (max-width: 479px) {	
 	.newslist .item .item_description {

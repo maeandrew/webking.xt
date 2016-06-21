@@ -28,7 +28,7 @@ function SendToAjax(id, qty, button, direction, note){
 				//var id_prod_name = $('.btn_remove div').attr('id');
 
 				$('.btn_remove button').on('click', function() {
-					$('div[data-idproduct="'+id+'"]').find('.price').text(data.cart.products[id].actual_prices[data.cart.cart_column]);
+					$('div[data-idproduct="'+id+'"]').find('.price').text(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2).toString().replace('.',','));
 				});
 			}else{
 				if ($('.btn_remove').find('.info_description').not('hidden')) {
@@ -49,67 +49,21 @@ function SendToAjax(id, qty, button, direction, note){
 			// $('div[data-idproduct="'+id+'"]').find('.price').text(data.product.actual_prices[data.cart.cart_column].toFixed(2));
 			$('.cart_order_sum').text(data.cart.cart_sum);
 			$.each(data.cart.products, function(key, value){
-				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart.cart_column].toFixed(2));
-				$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2));
+				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart.cart_column].toFixed(2).toString().replace('.',','));
+				$('.order_mopt_sum_'+key).text(value.summary[data.cart.cart_column].toFixed(2).toString().replace('.',','));
 			});
 		}else{
-			$('#cart div[data-idproduct="'+id+'"]').find('.price').text(data.product.actual_prices[$.cookie('sum_range')].toFixed(2));
-			$('div[data-idproduct="'+id+'"]').find('.other_price .price_js').text(data.product.other_prices[$.cookie('sum_range')].toFixed(2));
+			$('#cart div[data-idproduct="'+id+'"]').find('.price').text(data.product.actual_prices[$.cookie('sum_range')].toFixed(2).toString().replace('.',','));
+			$('div[data-idproduct="'+id+'"]').find('.other_price .price_js').text(data.product.other_prices[$.cookie('sum_range')].toFixed(2).toString().replace('.',','));
 			$('div[data-idproduct="'+id+'"]').find('.other_price .mode_js').text(mode_text);
 		}
 		removeLoadAnimation('div[data-idproduct="'+id+'"]');
 
 		var sum = 0;
 		// Автоматический пересчет скидки
-		if ($.cookie('manual') === 0){
-			// выполняется если скидка формируется автоматически (без ручного установления текущей скидки). значение берется из куков
-			/**
-			 * [Определение сумы скидки]
-			 * @param  {[int]} data.cart.cart_column [колонка скидки корзины взята из массива корзины]
-			 * @return {[func]}                      [вызывает вункцию смены цены (ChangePriceRange) и отображениии скидки. передает в нее id - текущая колонка корзины, sum - общую сумму корзины, val - значение всегда "0" - это "метка"/"флажок" которая обозначает что фукнция вызвана из данного аякса]
-			 */
-			switch(data.cart.cart_column) {
-				case 0:
-					ChangePriceRange(0, 0, 0);
-					break;
-				case 1:
-					sum = (10000 - data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(1, sum, 0);
-					break;
-				case 2:
-					sum = (3000 - data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(2, sum, 0);
-					break;
-				case 3:
-					sum = (500 - data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(3, sum, 0);
-					break;
-				default:
-					console.log('не работает все');
-				}
-		}else{ // Выполняется при ручном выборе текущей скидки. Так же как и первое условие передает те же значения, за исключением суммы. Она постоянна.
-			switch(data.cart.cart_column) {
-				case 0:
-					ChangePriceRange(0, 0, 0);
-					break;
-				case 1:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(1, sum, 0);
-					break;
-				case 2:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(2, sum, 0);
-					break;
-				case 3:
-					sum = (data.cart.products_sum[3]).toFixed(2);
-					ChangePriceRange(3, sum, 0);
-					break;
-				default:
-					console.log('не работает все');
-			}
-		}
-		$('#cart .product_buy[data-idproduct="'+id+'"]').find('.price').html(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2)); // устанавливает актуальную цену товара в корзине.
-
+		$('.currentCartSum').html(data.cart.products_sum[3]);
+		ChangePriceRange(data.cart.cart_column, 0);		
+		$('#cart .product_buy[data-idproduct="'+id+'"]').find('.price').html(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2).toString().replace('.',',')); // устанавливает актуальную цену товара в корзине.
 	});
 }
 /**
@@ -139,92 +93,32 @@ function removeFromCart(id){
 			$('header .cart_item a.cart i').attr('data-badge', 0);
 			$('#cart .no_items').removeClass('hidden');
 			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block').addClass('hidden');
-			$('.products .in_cart_js').addClass('hidden');
-			$('.products .buy_btn_js').removeClass('hidden');
-			$.cookie('manual', 0);
+			$('.in_cart_js').addClass('hidden');
+			$('.buy_btn_js').removeClass('hidden');
+			$.cookie('manual', 0, { path: '/'});
 
 			$('.quantity').each(function(){
 				var minQty = $(this).find('.minQty').val();
 				$(this).find('.qty_js').val(minQty);
+				$('#specCont').find('.qty_js').val(minQty);
 			});
-			ChangePriceRange(3, 0, 0);
+			ChangePriceRange(3, 0);
 		});
 	}else{
 		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
-			var sum = 0;
-			// Автом. изменение отображения скидки на странице каталога товаров при удалении товара из корзины
-			if($.cookie('manual') === 0){
-				switch(data.cart_column){
-					case 0:
-						ChangePriceRange(0, 0, 0);
-						break;
-					case 1:
-						sum = (10000 - data.products_sum[3]).toFixed(2);
-						ChangePriceRange(1, sum, 0);
-						break;
-					case 2:
-						sum = (3000 - data.products_sum[3]).toFixed(2);
-						ChangePriceRange(2, sum, 0);
-						break;
-					case 3:
-						sum = (500 - data.products_sum[3]).toFixed(2);
-						ChangePriceRange(3, sum, 0);
-						break;
-					default:
-						console.log('не работает все');
-					}
-			}else{
-				switch(data.cart_column){
-					case 0:
-						ChangePriceRange(0, 0, 0);
-						break;
-					case 1:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(1, sum, 0);
-						break;
-					case 2:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(2, sum, 0);
-						break;
-					case 3:
-						sum = (data.products_sum[3]).toFixed(2);
-						ChangePriceRange(3, sum, 0);
-						break;
-					default:
-						console.log('не работает все');
-				}
-			}
-
+			ChangePriceRange(data.cart_column, 0);
 			$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
-			var minQty = $('.products #in_cart_' + id).closest('.buy_block').find('.minQty').val();
+			var minQty = $('#in_cart_' + id).closest('.buy_block').find('.minQty').val();
 			completeCartProductAdd(data);
 			$('#cart_item_' + id).hide(200).remove();
-			$('.products #in_cart_' + id).addClass('hidden');
-			$('.products #in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
-			$('.products #in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
-			$('.products #in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
-			var priceOpt = 0;
-			switch(parseInt($.cookie('sum_range'))) {
-				case 0:
-					priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt0').val();
-					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				case 1:
-					priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt1').val();
-					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				case 2:
-					priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt2').val();
-					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				case 3:
-					priceOpt = $('.products #in_cart_' + id).closest('.product_buy').find('.priceOpt3').val();
-					$('.products #in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
-					break;
-				default:
-					console.log('не работает');
-			}
+			$('#in_cart_' + id).addClass('hidden');
+			$('#in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
+			$('#in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
+			$('#in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
+
+			var priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt' + $.cookie('sum_range')).val();
+			$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$.each(data.products, function(key, value){
@@ -233,11 +127,11 @@ function removeFromCart(id){
 			});
 
 			if(data.products.length === 0){
-				ChangePriceRange(3, 0, 0);
+				ChangePriceRange(3, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
 				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart').addClass('hidden');
-				$.cookie('manual', 0);
+				$.cookie('manual', 0, { path: '/'});
 			}
 		});
 	}
@@ -253,9 +147,12 @@ function ChangeCartQty(id, direction){
 	var qty = 0;
 	if($('#cart').hasClass('opened')){
 		qty = parseInt($('#cart .product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+	}else if($('.product_buy[data-idproduct="'+id+'"]').closest('.card').find('.product_photo').hasClass('hovered')){
+		qty = parseInt($('.preview .product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 	}else{
 		qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 	}
+
 	addLoadAnimation('.product_buy[data-idproduct="'+id+'"]');
 	var note = $('#product_'+id).find('.note textarea').val();
 	if(direction === 1){
@@ -283,7 +180,7 @@ function completeCartProductAdd(data){
 		str += 'ов';
 	}
 	$('.order_cart').text(str);
-	$('.summ_many').text(data.products_sum[3]);
+	$('.summ_many').text(data.products_sum[3].toFixed(2).toString().replace('.',','));
 	$('#summ_prod').text(products_count);
 	if(products_count > 0){
 		$('.checkout').removeClass('hidden');
@@ -291,56 +188,33 @@ function completeCartProductAdd(data){
 		$('.checkout').addClass('hidden');
 	}
 	var sum_sale = (data.products_sum[3] - data.products_sum[data.cart_column]).toFixed(2);
-	$('.summ_many:eq(1)').text(sum_sale);
-	$('.summ_many:eq(2)').text((data.products_sum[3] - sum_sale).toFixed(2));
+	$('.summ_many:eq(1)').text(sum_sale.toString().replace('.',','));
+	$('.summ_many:eq(2)').text((data.products_sum[3] - sum_sale).toFixed(2).toString().replace('.',','));
 
 
 	// ОБНОВЛЕНИЕ СКИДОК. НОВЫЙ БЛОК
 	if(data.products_sum[3] < 500){
-		$('.discountTableElem').removeClass('hidden');
-		$('#sumPer0').removeClass('hidden');
-		$('#sumPer10').removeClass('hidden');
-		$('#sumPer16').removeClass('hidden');
-		$('#dicsPer0').removeClass('hidden');
-		$('#dicsPer10').removeClass('hidden');
-		$('#dicsPer16').removeClass('hidden');
-		$('#sumPer0').text((500-data.products_sum[3]).toFixed(2)+' грн');
-		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2)+' грн');
-		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2)+' грн');
+		$('.discountTableElem, #sumPer0, #sumPer10, #sumPer16, #dicsPer0, #dicsPer10, #dicsPer16').removeClass('hidden');
+		$('#sumPer0').text((500-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
 		$('#currentDiscount').text('0%');
-	}else if(data.products_sum[3] >= 500 && data.products_sum[3] <= 2999){
-		$('.discountTableElem').removeClass('hidden');
-		$('#sumPer0').addClass('hidden');
-		$('#sumPer10').removeClass('hidden');
-		$('#sumPer16').removeClass('hidden');
-		$('#dicsPer0').addClass('hidden');
-		$('#dicsPer10').removeClass('hidden');
-		$('#dicsPer16').removeClass('hidden');
-		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2)+' грн');
-		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2)+' грн');
+	}else if(data.products_sum[3] < 3000){
+		$('.discountTableElem, #sumPer10, #sumPer16, #dicsPer10, #dicsPer16').removeClass('hidden');
+		$('#sumPer0, #dicsPer0').addClass('hidden');
+		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
 		$('#currentDiscount').text('10%');
-	}else if(data.products_sum[3] >= 3000 && data.products_sum[3] <= 9999){
-		$('.discountTableElem').removeClass('hidden');
-		$('#sumPer0').addClass('hidden');
-		$('#sumPer10').addClass('hidden');
-		$('#sumPer16').removeClass('hidden');
-		$('#dicsPer0').addClass('hidden');
-		$('#dicsPer10').addClass('hidden');
-		$('#dicsPer16').removeClass('hidden');
-		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2)+' грн');
+	}else if(data.products_sum[3] < 10000){
+		$('.discountTableElem, #sumPer16, #dicsPer16').removeClass('hidden');
+		$('#sumPer0, #sumPer10, #dicsPer0, #dicsPer10').addClass('hidden');
+		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
 		$('#currentDiscount').text('16%');
 	}else if(data.products_sum[3] >= 10000){
-		$('.discountTableElem').addClass('hidden');
-		$('#sumPer0').addClass('hidden');
-		$('#sumPer10').addClass('hidden');
-		$('#sumPer16').addClass('hidden');
-		$('#dicsPer0').addClass('hidden');
-		$('#dicsPer10').addClass('hidden');
-		$('#dicsPer16').addClass('hidden');
+		$('.discountTableElem, #sumPer0, #sumPer10, #sumPer16, #dicsPer0, #dicsPer10, #dicsPer16').addClass('hidden');
 		$('#currentDiscount').text('21%');
 	}
 }
-
 
 $(function(){
 	$('body').on('change', '.qty_js', function(){

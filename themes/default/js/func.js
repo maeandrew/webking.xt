@@ -960,7 +960,7 @@ function ajax(target, action, data, dataType){
 }
 // Change sidebar aside height
 function resizeAsideScroll(event) {
-	console.log(event);
+	/*console.log(event);*/
 	// var mainWindow = +$.cookie('mainWindow');
 	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
@@ -970,7 +970,7 @@ function resizeAsideScroll(event) {
 		// $.cookie('mainWindow', newMainWindow, { path: '/'});
 		var scroll = $(this).scrollTop(),
 			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
-			console.log(pieceOfFooter > 0?pieceOfFooter:0);
+			/*console.log(pieceOfFooter > 0?pieceOfFooter:0);*/
 		if (pieceOfFooter >= 0) {
 			$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
 		}
@@ -1145,183 +1145,72 @@ function mousePos(e){
 }
 
 /* Смена отображаемой цены */
-function ChangePriceRange(id, sum, val){
-	//Куки со значением "manual", которое обозначает, что скидка установлена в ручную, обнуляется после очистки корзины или удаоения последнего элемента корзины.
-	if (val == 1){ // Выполняется если скидка была выбрана вручную. Активирует текущую колонку скидки. Игнорируется при автоматическом формировании скидки
-		document.cookie="sum_range="+id+"; path=/";
-		document.cookie="manual=1; path=/";
-		$('li.sum_range').removeClass('active');
-		$('li.sum_range_'+id).addClass('active');
+function ChangePriceRange(column, manual){
+	var a = false;
+	if (column != $.cookie('sum_range')){
+		a = true;
 	}
-	/**
-	 * [Формирование цен и скидки в зависимоти от ручного или автоматического выбора управления скидкой]
-	 * @param  {[int]} $.cookie('manual') [Значение берется из куков. 0 - скидка формируется автоматически, 1 - установлена вручную]
-	 */
-	var column = $.cookie('sum_range');
-	if ($.cookie('manual') == 1){ // выполняется если выбрали скидку в ручную
-		var newSum = 0;
-		/**
-		 * [Формирование цен и скидки в соответствии с суммой корзины]
-		 * @param  {[int]} id [колонка скидки корзины. передается в функцию из места ее вызова]
-		 * @return {[func]}   [формирует цены товара и отображение текущей скидки]
-		 */
-		switch(id) {
-			case 0:
-				if (val === 0) { // выполняется если функция была вызвана из аякса (автом. формирование)
-					if (sum === 0){
-						$('.order_balance').text('Заказано достаточно!');
-					}else{
-						sum = 'Дозаказать еще на '+ sum + ' грн.';
-						$('.order_balance').text(sum);
-					}
-				}else{ // выполняется если скидка была установлена вручную
-					addLoadAnimation('.order_balance');
-					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
-						removeLoadAnimation('.order_balance');
-						newSum = (10000 - data.products_sum[3]).toFixed(2);
-						if (newSum < 0){
-						$('.order_balance').text('Заказано достаточно!');
-						}else{
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-							$('.order_balance').text(newSum);
-						}
-					});
-				}
-				break;
-			case 1:
-				if (val === 0) {
-					newSum = (10000 - sum).toFixed(2);
-					if (newSum > 3000 && column !== 0){
-						$('.order_balance').text('Заказано достаточно!');
-					}else{
-						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-						$('.order_balance').text(newSum);
-					}
-				}else{
-					addLoadAnimation('.order_balance');
-					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
-						removeLoadAnimation('.order_balance');
-						newSum = (3000 - data.products_sum[3]).toFixed(2);
-						if (newSum < 0){
-						$('.order_balance').text('Заказано достаточно!');
-						}else{
-							newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-							$('.order_balance').text(newSum);
-						}
-					});
-				}
-				break;
-			case 2:
-				if(val === 0){
-					newSum = (3000 - sum).toFixed(2);
-					if(newSum > 0 && column != 1){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
-						if(column === 0){
-							newSum = (10000 - sum).toFixed(2);
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}else{
-							$('.order_balance').text('Заказано достаточно!');
-						}
-					}else{
-						newSum = 'Дозаказать еще на '+ newSum + ' грн.';
-						$('.order_balance').text(newSum);
-					}
-				}else{
-					addLoadAnimation('.order_balance');
-					ajax('cart', 'GetCart').done(function(data){ // получение текущей суммы корзины, формирование актуальной скидки и ее отображение на страницы
-						removeLoadAnimation('.order_balance');
-						newSum = (500 - data.products_sum[3]).toFixed(2);
-						if (newSum < 0){
-						$('.order_balance').text('Заказано достаточно!');
-						}else{
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}
-					});
-				}
-				break;
-			case 3:
-				if(val === 0){
-					newSum = (500 - sum).toFixed(2);
-					if (newSum > 0 && column != 2){ // выполняется когда скидка включена в ручную, но меняется количество товара в меньшую сторону. и меняет сумму необходимую для получения той или иной скидки.
-						if (column == 1){
-							newSum = (3000 - sum).toFixed(2);
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}else if (column === 0){
-							newSum = (10000 - sum).toFixed(2);
-							newSum = 'Дозаказать еще на '+newSum+' грн.';
-							$('.order_balance').text(newSum);
-						}else{
-							$('.order_balance').text('Заказано достаточно!');
-						}
-					}else{
-						newSum = 'Дозаказать еще на '+newSum+' грн.';
-						$('.order_balance').text(newSum);
-					}
-				}else{
-					$('.order_balance').text('Без скидки!');
-				}
-				break;
-			default:
-				console.log("Что-то не работает");
-		}
-	}else{ // выполняется если скидка формируется автоматом. Получает уже сформированную разницу суммы корзины и в соответсвии с ней переключает колонки скидок на странице
-		document.cookie="sum_range="+id+"; path=/";
-		$('li.sum_range').removeClass('active');
-		$('li.sum_range_'+id).addClass('active');
-		column = id;
-		switch(id) {
-			case 0:
-				$('.order_balance').text('Заказано достаточно!');
-				break;
-			case 1:
-				if(sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
-				}else{
-					sum = 'До следующей скидки '+ sum + ' грн.';
-					$('.order_balance').text(sum);
-				}
-				break;
-			case 2:
-				if (sum < 0){
-					$('.order_balance').text('Заказано достаточно!');
-				}else{
-					sum = 'До следующей скидки '+ sum + ' грн.';
-					$('.order_balance').text(sum);
-				}
-				break;
-			case 3:
-				$('.order_balance').text('Без скидки!');
-				break;
-			default:
-				console.log("Что-то не работает");
-		}
-	}
-	$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
-		var minQty = parseInt($(this).find('.minQty').val());
-		var curentQty =	parseInt($(this).find('.qty_js').val());
 
-		if(curentQty >= minQty){
-			var price = $(this).find('.priceOpt'+column).val();
-			$(this).find('.priceMoptInf').addClass('hidden');
+	if (manual == 1){
+		$.cookie('sum_range', column, { path: '/'});
+		$.cookie('manual', 1, { path: '/'});
+		$('li.sum_range').removeClass('active');
+		$('li.sum_range_'+column).addClass('active');
+	}else if ($.cookie('manual') != 1){
+		$.cookie('sum_range', column, { path: '/'});
+		$('li.sum_range').removeClass('active');
+		$('li.sum_range_'+column).addClass('active');
+		if(column > 0){
+			column = column - 1;
 		}else{
-			var price = $(this).find('.priceMopt'+column).val();
-			$(this).find('.priceMoptInf').removeClass('hidden');
+			column = 0;
 		}
-		$(this).find('.price').html(price);
+	}else{
+		column = $.cookie('sum_range');
+	}	
+
+	var text = '';	
+	addLoadAnimation('.order_balance');
+	ajax('cart', 'GetCart').done(function(data){
+		removeLoadAnimation('.order_balance');
+		currentSum = data.products_sum[3];
+		newSum = columnLimits[column] - currentSum;
+		if (newSum < 0){
+			text = 'Заказано достаточно!';
+		}else{
+			if ($.cookie('manual') == 1 ){
+				text = 'Дозаказать еще на '+newSum.toFixed(2).toString().replace('.',',')+' грн.';				
+			}else{
+				text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';	
+			}
+		}
+		$('.order_balance').text(text);
+
+		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
+			var minQty = parseInt($(this).find('.minQty').val());
+			var curentQty =	parseInt($(this).find('.qty_js').val());			
+			var price = parseFloat($(this).find('.price'+ (curentQty >= minQty?'Opt':'Mopt') +$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',',');
+			if(curentQty >= minQty){				
+				$(this).find('.priceMoptInf').addClass('hidden');
+			}else{				
+				$(this).find('.priceMoptInf').removeClass('hidden');
+			}
+			$(this).find('.price').html(price);
+		});
+
+		if (a === true) {
+			setTimeout(function(){
+				$('.product_buy .price').stop(true,true).css({
+					"background-color": "#b0eeb2"
+					//"color": "black"
+				}).delay(1000).animate({
+					"background-color": "transparent"
+					//"color": "red"
+				}, 3000);
+
+			},300);			
+		}
 	});
-
-	setTimeout(function(){
-		$('.product_buy .price').stop(true,true).css({
-			"background-color": "#b0eeb2"
-			//"color": "black"
-		}).delay(1000).animate({
-			"background-color": "transparent"
-			//"color": "red"
-		}, 3000);
-
-	},300);
 }
 
 function openObject(id){
@@ -1766,12 +1655,13 @@ function AddFavorite(id_product, targetEl){
 			openObject('auth');
 			removeLoadAnimation('#auth');
 		}else if(data.answer == 'already'){
-			var data = {message: 'Товар уже находится в избранных'};
+			var data = {message: 'Товар уже находится в избранном'};
 		}else{
 			if(data.answer == 'ok'){
-				var data = {message: 'Товар добавлен к избранным'};
-				targetEl.empty().html('favorite').removeClass('notfavorite').addClass('isfavorite');
-				targetEl.next().empty().html('Товар уже в избранных');
+				$('.userChoiceFav').text('('+data.fav_count+')');
+				var data = {message: 'Товар добавлен в избранное'};
+				targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
+				targetEl.next().empty().text('Товар уже в избранном');
 			}else{
 				if(data.answer == 'wrong user group'){
 					var data = {message: 'Данный функционал доступен только для клиентов'};
@@ -1784,6 +1674,48 @@ function AddFavorite(id_product, targetEl){
 		alert("Error");
 	});
 	return false;
+}
+//Удаление товара из избранных
+function RemoveFavorite(id_product, targetEl){
+	ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
+		if(data.answer == 'login'){
+			openObject('auth');
+			removeLoadAnimation('#auth');
+		}else{
+			if(data.answer == 'ok'){
+				$('.userChoiceFav').text('('+data.fav_count+')');
+				var data = {message: 'Товар удален из избранного'};
+				targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
+				targetEl.next().empty().text('Добавить товар в избранное');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
+		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	}).fail(function(data){
+		alert("Error");
+	});
+	return false;
+
+	//Удаление товара из избранных (старая версия)
+		// var id_product = targetEl.closest('.favorite_js').attr('data-idproduct');
+		// if (confirm('Вы точно хотите удалить товар из списка избранных?')) {
+		// 	$.ajax({
+		// 		url: URL_base+'ajax_customer',
+		// 		type: "POST",
+		// 		cache: false,
+		// 		dataType: "json",
+		// 		data: {
+		// 			"action":'del_favorite',
+		// 			"id_product": id_product
+		// 		}
+		// 	}).done(function(){
+		// 		location.reload();
+		// 	});
+		// };
 }
 
 //Добавление товара в список ожидания
@@ -1801,8 +1733,42 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 			var data = {message: 'Товар уже в списке ожидания'};
 		}else{
 			if(data.answer == 'ok'){
+				$('.userChoiceWait').text('('+data.fav_count+')');
 				var data = {message: 'Товар добавлен в список ожидания'};
 				targetClass.addClass('arrow');
+				targetClass.closest('li').next().empty().text('Товар в списке ожидания');
+			}else{
+				if(data.answer == 'wrong user group'){
+					var data = {message: 'Данный функционал доступен только для клиентов'};
+				}
+			}
+		}
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	}).fail(function(data){
+		var data = {message: 'Данный функционал доступен только для клиентов'};
+		var snackbarContainer = document.querySelector('#demo-toast-example');
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	});
+	return false;
+}
+//Удаление товара из списка ожидания
+function RemoveFromWaitingList(id_product, id_user, email, targetClass){
+	var data = {
+		id_product: id_product,
+		id_user: id_user,
+		email: email
+	};
+	ajax('product', 'del_from_waitinglist', data).done(function(data){
+		if(data.answer == 'login'){
+			openObject('auth');
+			removeLoadAnimation('#auth');
+		}else{
+			if(data.answer == 'ok'){
+				$('.userChoiceWait').text('('+data.fav_count+')');
+				var data = {message: 'Товар удален из списка ожидания'};
+				targetClass.removeClass('arrow');
+				targetClass.closest('li').next().empty().text('Следить за ценой');
 			}else{
 				if(data.answer == 'wrong user group'){
 					var data = {message: 'Данный функционал доступен только для клиентов'};
@@ -1820,11 +1786,10 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 }
 
 function changeFiltersBtnsPosition(){
-	console.log($('.filters').length);
 	if($('.filters').length > 0){
 		if($('.filters').offset().top-$(window).scrollTop() <= 50){
 			$('#filterButtons').addClass('buttonsTop');
-			$('.filters').css('padding-top', $('#filterButtons').height());
+			/*$('.filters').css('padding-top', $('#filterButtons').height());*/
 			$('#clear_filter, #applyFilter').css('margin-top', '7px');
 		}else{
 			$('.filters').css('padding-top', 0);

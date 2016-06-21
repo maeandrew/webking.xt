@@ -22,8 +22,8 @@ $products = new Products();
 	}elseif(isset($_FILES["import_file"])){
 		// Импорт
 		if($_FILES["import_file"]["size"] > 1024*3*1024){
-		     echo "Размер файла превышает три мегабайта";
-		     exit();
+			 echo "Размер файла превышает три мегабайта";
+			 exit();
 		}
 		// Проверяем загружен ли файл
 		if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
@@ -51,8 +51,8 @@ $products = new Products();
 		}
 	}
 	if(isset($_POST['smb']) && isset($_POST['supl'])){
-	    $products->SetProductsList1($_POST['supl']);
-	    list($r,$cats_cols) = $products->GetExportRows($products->list);
+		$products->SetProductsList1($_POST['supl']);
+		list($r,$cats_cols) = $products->GetExportRows($products->list);
 	// Формирование заголовка
 	$h = array('Артикул');
 	for($ii=0;$ii<$cats_cols;$ii++){
@@ -72,21 +72,8 @@ $products->SetProductsList(array('cp.id_category'=>$id_category), '',$_SESSION['
 $arr = $dbtree->GetNodeFields($id_category, array('name', 'category_level'));
 // --- --- --- subcats
 $l = $arr['category_level']+1;
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'art', 'category_level'), array('and' => array('visible = 1', "category_level = $l")));
-if(!empty($dbtree->ERRORS_MES)) {
-	die('Error dbtree');
-}
-$subcats = array();
-$ii=0;
-while($cats = $dbtree->NextRow()) {
-    if(0 <> $cats['category_level']) {
-        $subcats[$ii]['id_category'] = $cats['id_category'];
-        $subcats[$ii]['name'] = $cats['name'];
-        $subcats[$ii++]['translit'] = $cats['translit'];
-    }
-}
-unset($cats);
-$tpl->Assign('subcats', $subcats);
+$tpl->Assign('subcats', $dbtree->GetSubCats($id_category, array('id_category', 'name', 'translit', 'art', 'category_level')));
+
 // === === === subcats
 $pops = $products->GetPopularsOfCategory($id_category);
 $tpl->Assign('pops', $pops);
@@ -95,18 +82,17 @@ $tpl->Assign('popsMain', $popsMain);
 $tpl->Assign('list', $products->list);
 $tpl->Assign('catname', $arr['name']);
 $tpl->Assign('id_category', $id_category);
-$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl'));
-$dbtree->Parents($id_category, array('id_category', 'name', 'category_level'));
-if(!empty($dbtree->ERRORS_MES)) {
-    print_r($dbtree->ERRORS_MES);die();
-}
+$parsed_res = array(
+	'issuccess' => true,
+	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
+);
+$res = $dbtree->Parents($id_category, array('id_category', 'name', 'category_level'));
 $ii = count($GLOBALS['IERA_LINKS']);
-while($cat = $dbtree->NextRow()) {
-    if(0 <> $cat['category_level']) {
-        $GLOBALS['IERA_LINKS'][$ii]['title'] = $cat['name'];
-        $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/products/'.$cat['id_category'];
-    }
+foreach($res as $cat){
+	if($cat['category_level'] > 0){
+		$GLOBALS['IERA_LINKS'][$ii]['title'] = $cat['name'];
+		$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/products/'.$cat['id_category'];
+	}
 }
 if(in_array("export", $GLOBALS['REQAR'])){
 	list($r,$cats_cols) = $products->GetExportRows($products->list);

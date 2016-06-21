@@ -14,7 +14,7 @@
 					<label for="email">E-mail:</label>
 				</div>
 				<div class="col-md-8">
-					<input tabindex="1" type="text" id="email" name="email" title="Введите ваш email" class="input-m" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" autofocus/>
+					<input tabindex="1" type="text" id="email" name="email" title="Введите ваш email" class="input-m" pattern="(^([\w\.\-]+)@([\w\.\-]+)\.([\w]+)$)|(^$)" autofocus/>
 				</div>
 			</div>
 			<div class="row">

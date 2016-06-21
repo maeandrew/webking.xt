@@ -36,8 +36,10 @@
 								<div class="title">
 									<div class="container">
 										<span class="number num_mar">Совместная корзина № <?=$i['id_cart']?></span>
-										<span class="number">Актуальность информации в козине на <?=date("Y-m-d H:i:s")?></span>
-										<i class="material-icons refresh refresh_js">refresh</i>
+										<?if (isset($_GET['t']) && $_GET['t'] == 'joactive') {?>
+											<span class="number">Актуальность информации в корзине на <?=date("Y-m-d H:i:s")?></span>
+											<i class="material-icons refresh refresh_js">refresh</i>
+										<?}?>
 										<div class="print">
 											<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_cart']?>">
 												<img src="<?=_base_url?>/themes/default/img/print1.png">
@@ -232,6 +234,13 @@
 									</div>
 
 									<div class="mdl-tabs__panel" id="items_panel_<?=$i['id_cart']?>" >
+										<div class="btnWrapFlex"><?if((isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1) && (isset($_GET['t']) && $_GET['t'] == 'joactive')) {?>
+												<input type="button" data-promo="<?=$infoCart['promo']?>" class="checkout_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Оформить заказ" data-upgraded=",MaterialButton,MaterialRipple"/>
+											<?}else if((isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) && (isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) && (isset($_GET['t']) && $_GET['t'] == 'joactive')){?>
+												<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
+												<input type="button" class="readyToOrder_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готов" data-upgraded=",MaterialButton,MaterialRipple"/>
+											<?}?>
+										</div>
 										<?if (isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?>
 											<div class="products_cart_js"></div>
 										<?}else{?>
@@ -298,10 +307,11 @@
 			location.reload();
 		});
 		$('.del_x_js').click(function(event) {
+			var obj = $(this);
 			// console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
-			console.log($(this).closest('tr').find('.member_id_cart_js').val());
-			ajax('cabinet', 'DelCartFromJO', {id_cart: $(this).closest('tr').find('.member_id_cart_js').val()}).done(function(event) {
-				console.log('Great');
+			// console.log($(this).closest('.tableRow').find('.member_id_cart_js').val());
+			ajax('cabinet', 'DelCartFromJO', {id_cart: $(this).closest('.tableRow').find('.member_id_cart_js').val()}).done(function(event) {
+				obj.closest('.tableRow').remove();
 			}).fail(function(event) {
 				console.log('Fail');
 			});
@@ -321,10 +331,33 @@
 			}
 		});
 		$('[href^="#items_panel_"').click(function(event) {
-			if ($(this).hasClass('getCabCoopProdAjax_js')) {				
+			if ($(this).hasClass('getCabCoopProdAjax_js')) {
 				console.log($(this).data('idcart'));
 				GetCabCoopProdAjax($(this).data('idcart'), $(this).data('rewrite'));
 			}
+		});
+
+		$('body').on('click', '.checkout_js', function(event) {
+			event.preventDefault();
+			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')}).done(function(data) {
+				if (data.success == true) {
+					console.log(data.msg);
+				}else{
+					console.log(data.msg);
+				}
+
+				console.log('success');
+			}).fail(function(data) {
+				console.log('Fail');
+			});
+		});
+
+		$('[id^=items_panel_]').on('click', '.readyToOrder_js', function(event) {
+			ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(data){
+				// console.log("success readyToOrder_js");
+			}).fail(function(data) {
+				console.log("fail ");
+			});
 		});
 	});
 </script>

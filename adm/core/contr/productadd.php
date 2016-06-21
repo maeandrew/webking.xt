@@ -17,6 +17,9 @@ if(isset($_GET['upload']) == true){
 }
 $tpl->Assign('h1', 'Добавление товара');
 if(isset($_POST['smb'])) {
+	if(isset($_POST['images_visible'])){
+		$_POST['images_visible'][0] = 1;
+	}
 	$_POST['art'] = $products->CheckArticle((int)$_POST['art']);
 	require_once($GLOBALS['PATH_block'] . 't_fnc.php'); // для ф-ции проверки формы
 	if (isset($_POST['price']) && $_POST['price'] == "") {
@@ -70,7 +73,7 @@ if(isset($_POST['smb'])) {
 			}
 
 			$Images->resize(false, $to_resize);
-			$products->UpdatePhoto($id, $images_arr);
+			$products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
 
 			if (isset($_POST['id_supplier'])) {
 				//Формирем массив поставщиков товара
@@ -142,12 +145,9 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-	$dbtree->Parents($GLOBALS['REQAR'][1], array('id_category', 'name', 'category_level'));
-	if(!empty($dbtree->ERRORS_MES)){
-	    print_r($dbtree->ERRORS_MES);die();
-	}
-	while($cat = $dbtree->NextRow()){
-		if(0 <> $cat['category_level']){
+	$res = $dbtree->Parents($GLOBALS['REQAR'][1], array('id_category', 'name', 'category_level'));
+	foreach($res as $cat){
+		if($cat['category_level'] > 0){
 			$GLOBALS['IERA_LINKS'][$ii]['title'] = $cat['name'];
 			$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/products/'.$cat['id_category'];
 		}

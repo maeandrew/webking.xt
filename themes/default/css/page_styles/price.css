@@ -1,16 +1,14 @@
 .price_list_page {
 	clear: both;
 }
-h1 {
-	float: left;
-}
 .subheader { /*сформировать свой прайс лист*/
 	line-height: 50px;
-	float: right;
+	float: left;
 }
 
 .price_form {
-	top: 50px;
+    /*top: 50px;*/
+	top: 100px;
 	width: 275px;
 	/*width: 235px;*/
 	/*position: relative;*/
@@ -106,7 +104,7 @@ h1 {
 	margin-left: 0;
 	border: 0;
 }
-.price_form .ps,
+.price_form .info,
 .price_form .price-counter {
 	padding: .5em;
     padding-left: 0;

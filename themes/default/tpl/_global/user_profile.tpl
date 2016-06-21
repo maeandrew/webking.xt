@@ -1,7 +1,9 @@
 <div class="userContainer">
 	<div class="UserInfBlock">
 		<div class="avatar">
-			<img src="/images/noavatar.png"/>
+			<a href="<?=Link::Custom('cabinet')?>?t=contacts">
+				<img src="/images/noavatar.png"/>
+			</a>
 		</div>
 		<div class="mainUserInf">
 			<div class="userNameBlock">
@@ -9,7 +11,7 @@
 					<?$userNameFromMail = isset($_SESSION['member']['email']) && !empty($_SESSION['member']['email'])?substr($_SESSION['member']['email'], 0, strpos($_SESSION['member']['email'], "@")):'';?>
 					<?=isset($_SESSION['member']['name']) && !empty($_SESSION['member']['name'])?$_SESSION['member']['name']:$userNameFromMail;?>
 				</div>
-				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet', 'personal')?>">create</a>
+				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet')?>?t=contacts">create</a>
 				<div class="mdl-tooltip" for="eup">Изменить<br>профиль</div>
 			</div>
 			<div class="listItems">
@@ -18,7 +20,7 @@
 			</div>
 			<div class="listItems">
 				<i class="material-icons">phone</i>
-				<?=isset($_SESSION['member']['phones']) && $_SESSION['member']['phones'] != ''?$_SESSION['member']['phones']:"Регистрация без телефона"?>
+				<?=isset($_SESSION['member']['phone']) && $_SESSION['member']['phone'] != ''?$_SESSION['member']['phone']:"Регистрация без телефона"?>
 			</div>
 			<!-- <script>GetLocation();</script>
 			<div class="listItems">

@@ -32,13 +32,14 @@
 				</tr>
 			</thead>
 			<tbody>
-			<?if(isset($products[$s['id_supplier']])){$tigra=false;foreach($products[$s['id_supplier']] as $i){?>
-				<?if($i['opt_qty']!=0){// строка по опту?>
-					<tr class="animate <?if($tigra == true){?>tigra<?$tigra = false;}else{$tigra = true;}?>">
+			<?if(isset($products[$s['id_supplier']])){
+				foreach($products[$s['id_supplier']] as $i){?>
+				<?if($i['opt_qty'] != 0){// строка по опту?>
+					<tr class="animate">
 						<td><?=$i['article']?></td>
 						<td class="name_cell">
 							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
-							<a href="/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
+							<a href="/adm/productedit/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td><?=round($i['site_price_opt'],2)?></td>
 						<td><?=$i['inbox_qty']?> шт.</td>
@@ -51,12 +52,12 @@
 						<td><?=$i['fact_qty']>=0?$i['fact_qty']:0?></td>
 						<td><?=$i['fact_sum']?></td>
 					</tr>
-				<?}if($i['mopt_qty']!=0){// строка по мелкому опту?>
-					<tr class="animate <?if($tigra == true){?>tigra<?$tigra = false;}else{$tigra = true;}?>">
+				<?}if($i['mopt_qty'] != 0){// строка по мелкому опту?>
+					<tr class="animate">
 						<td><?=$i['article_mopt']?></td>
 						<td class="name_cell">
 							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
-							<a href="/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
+							<a href="/adm/productedit/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td><?=round($i['site_price_mopt'],2)?></td>
 						<td><?=$i['inbox_qty']?> шт.</td>

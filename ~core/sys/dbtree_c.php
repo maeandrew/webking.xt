@@ -698,31 +698,22 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '. $fields. ', pid FROM '.$this->table.' WHERE id_category = '.(int)$ID;
+		$sql = 'SELECT '.$fields.', pid FROM '.$this->table.' WHERE sid = 1 AND id_category = '.(int)$ID;
 		$res1 = $this->db->GetOneRowArray($sql);
-		if($res1['pid']>0){
-			$sql .= ' UNION SELECT '. $fields. ', pid FROM '.$this->table.' WHERE id_category = '.$res1['pid'];
+		if($res1['pid'] > 1){
+			$sql .= ' UNION ';
+			$temp = 'SELECT '.$fields.', pid FROM '.$this->table.' WHERE id_category = '.$res1['pid'];
+			$res2 = $this->db->GetOneRowArray($temp);
+			$sql .= $temp;
 			unset($res1);
-			$res2 = $this->db->GetArray($sql);
-			if($res2[1]['pid']>0){
-				$sql .= ' UNION SELECT '. $fields. ', pid FROM '.$this->table.' WHERE id_category = '.$res2[1]['pid'];
+			if($res2['pid'] > 1){
+				$sql .= ' UNION SELECT '.$fields.', pid FROM '.$this->table.' WHERE id_category = '.$res2['pid'];
 				unset($res2);
 			}
 		}
 		$sql .= ' ORDER BY category_level';
 		$res = $this->db->GetArray($sql);
-		if(DB_CACHE === false || $cache === false || (int)$cache == 0){
-			$res = $this->db->Execute($sql);
-		}else{
-			$res = $this->db->CacheExecute((int)$cache, $sql);
-		}
-		if(false === $res){
-			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());
-			$this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
-			return false;
-		}
-		$this->res = $res;
-		return true;
+		return $res;
 	}
 	/**
 	* Returns a slightly opened tree from an element with number $ID.
@@ -952,7 +943,11 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).' AND visible = 1';
+		$sql = 'SELECT '.$fields.'
+			FROM '.$this->table.'
+			WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).'
+				AND visible = 1
+				AND sid = 1';
 		$res = $this->db->GetOneRowArray($sql);
 		return $res;
 	}
@@ -984,7 +979,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE id_category = '.$ID.' AND category_level = '. $level .' AND visible > 0 AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -996,7 +991,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -1007,7 +1002,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE pid = '.$ID.' AND visible = 1 AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -1018,7 +1013,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
@@ -1030,7 +1025,7 @@ class dbtree {
 		}else{
 			$fields = '*';
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '._DB_PREFIX_.'category.pid = '.$ID.' ORDER BY position';
+		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '._DB_PREFIX_.'category.pid = '.$ID.' AND sid = 1 ORDER BY position';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}

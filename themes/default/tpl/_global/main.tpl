@@ -8,30 +8,28 @@
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
 		if(!isset($indexation) || $indexation == 0){?>
-			<meta name="robots" content="noindex, nofollow"/>
+			<meta name="robots" content="noindex, follow"/>
 		<?}
 	}else{?>
-		<meta name="robots" content="noindex, nofollow"/>
+		<!-- <meta name="robots" content="noindex, follow"/> -->
 	<?}?>
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
-		// if($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 482 && empty($GLOBALS['subcats'])){
-			if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
-				<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
-			<?}else{?>
+		if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
+			<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
+		<?}else{
+			if(isset($GLOBALS['meta_canonical'])){?>
 				<link rel="canonical" href="<?=$GLOBALS['meta_canonical'];?>"/>
 			<?}
-			if(isset($GLOBALS['meta_next'])){?>
-				<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
-			<?}
-			if(isset($GLOBALS['meta_prev'])){?>
-				<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
-			<?}
-		// }else{?>
-			<!-- <link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/> -->
-		<?//}
+		}
+		if(isset($GLOBALS['meta_next'])){?>
+			<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
+		<?}
+		if(isset($GLOBALS['meta_prev'])){?>
+			<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
+		<?}
 	}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>
@@ -50,13 +48,16 @@
 	<!-- END defining author for special pages -->
 
 	<!-- define JS global variables -->
-	<script type="text/javascript">
-		var URL_base = "<?=_base_url?>/",
-			current_controller = "<?=$GLOBALS['CurrentController']?>",
-			ajax_proceed = false,
-			current_id_category = <?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null';?>,
-			isLogged = <?=G::isLogged()?'false':'true';?>;			
-	</script>
+	<?php
+	echo '<script type="text/javascript">
+		var URL_base = "'._base_url.'/",
+			current_controller = "'.$GLOBALS['CurrentController'].'",
+			ajax_proceed = false,			
+			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
+			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
+			isLogged = '.(G::isLogged()?'false':'true').';
+	</script>';
+	?>
 	<!-- END define JS global variables -->
 
 	<!-- CSS load -->
@@ -109,7 +110,7 @@
 				}
 			}
 		</script>
-		<link href="<?=_base_url?>/themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
+		<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 	<?}?>
 	<!-- END define search box in google sitelinks -->
 	<noscript>
@@ -124,6 +125,16 @@
 	</script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
+	
+	<!-- Google Tag Manager -->
+	<!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-K9CXG3');</script> -->
+	<!-- End Google Tag Manager -->
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
 	<!-- END Yandex.Metrika counter -->
@@ -166,12 +177,13 @@
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="wrapper">
+			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
 				<?if($news != false){?>
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
+						</a>
 							<?if(isset($news['thumbnail'])){?>
 								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
 							<?}?>
@@ -186,16 +198,16 @@
 								<?  echo date("d.m.Y", $news['date']);
 								}?>
 							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('news');?>">Все новости >>></a>
-						</div>
+						<a href="<?=Link::Custom('news');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+							Все новости
+						</div></a>
 					</div>
 				<?}?>
 				<?if($post != false){?>
 					<div class="xt_news" style="margin-bottom:50px;">
 						<a href="<?=Link::Custom('post', $post['translit']);?>">
 							<h6 class="min news_title"><?=$post['title']?></h6>
+						</a>
 							<?if(isset($post['thumbnail'])){?>
 								<img src="<?=$post['thumbnail'];?>" alt="<?=$post['title']?>">
 							<?}?>
@@ -210,10 +222,9 @@
 								<?echo $post['date'];
 								}?>
 							</div>
-						</a>
-						<div class="min news_more">
-							<a href="<?=Link::Custom('post');?>">Все статьи >>></a>
-						</div>
+						<a href="<?=Link::Custom('post');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+							Все статьи
+						</div></a>
 					</div>
 				<?}?>
 			</div>
@@ -286,13 +297,13 @@
 						<div class="productsListView">
 							<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
 							<span class="mdl-tooltip" for="changeToList">Вид списком</span>
-							<i id="changeToBlock" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+							<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
 							<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
 							<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 							<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 						</div>
 					</div>
-					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">
+					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
 						<div class="row">
 							<div class="products">
 								<?=$products_list;?>
@@ -337,7 +348,7 @@
 						<?foreach($list_menu as $menu){?>
 							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
 						<?}?>
-						<li><a href="#">Форум</a></li>
+						<li><a href="<?=Link::Custom('price');?>">Прайс-лист</a></li>
 					</ul>
 				</div>
 				<div class="contacts">
@@ -715,6 +726,9 @@
 			<div id="removingProd" class="cartInfBlock hidden">
 				Подождите идет удаление...
 			</div>
+			<div id="fillNote" class="cartInfBlock hidden">
+				Заполните обязательные примечания товаров!
+			</div>
 			<div id="clearCart" class="cartInfBlock hidden">
 				Подождите идет очистка корзины...
 			</div>
@@ -756,6 +770,11 @@
 			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, отменить!</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
+		<div id="confirmDelItem" class="modalEditOrder" data-type="modal">
+			<h5>Вы действительно хотите удалить товар из списка?</h5>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
+		</div>
 		<!-- Authentication -->
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">
@@ -780,7 +799,7 @@
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
-					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=$User['phones']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
+					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
 					<label class="mdl-textfield__label" for="recovery_phone"></label>
 					<span class="mdl-textfield__error"></span>
 				</div>
@@ -871,5 +890,46 @@
 			<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
 		</symbol>
 	</svg>
+	
+	<!-- Код тега ремаркетинга Google -->
+	<!--------------------------------------------------
+	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
+	------------------------------------------------- -->
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		var google_conversion_id = 880553131;
+		var google_custom_params = window.google_tag_params;
+		var google_remarketing_only = true;
+		/* ]]> */
+	</script>
+	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+	</script>
+	<noscript>
+		<div style="display:inline;">
+		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
+		</div>
+	</noscript>
+
+	<!-- message about cookie -->
+	<div class="cookie_wrap">
+		<div class="cookie_msg cookie_msg_js">
+			<h4>Мы используем файлы cookie</h4>
+			<p>Этот веб-сайт использует файлы cookie для обеспечения корректной работы сайта. Файлы cookie хранят полезную информацию на вашем компьютере для того, чтобы мы могли улучшить оперативность и точность нашего сайта для вашей работы. <span>Заходя на данный сайт, вы соглашаетесь на использование файлов cookie.</span></p>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-js-ripple-effect">ОК</div>
+		</div>
+	</div>
+	<script>
+		setTimeout(function() {
+			if ($.cookie('useCookie') != 'agree'){
+				$('.cookie_msg_js').css('bottom', '0');
+				
+				$('body').on('click', '.cookie_msg_js .close', function(event) {
+					event.preventDefault();
+					$('.cookie_msg_js').css('bottom', '-150px');
+					$.cookie('useCookie', 'agree', {expires: 365});
+				});
+			}
+		}, 2000);
+	</script>
 </body>
 </html>

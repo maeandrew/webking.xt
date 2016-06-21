@@ -14,6 +14,8 @@ $category = $dbtree->fields;
 G::metaTags($category);
 $category['subcats'] = $dbtree->GetSubCats($id_category, '*');
 $tpl->Assign('category', $category);
+$tpl->Assign('indexation', $category['indexation']);
+$tpl->Assign('header', $category['name']);
 // если отправили комментарий
 if(isset($_POST['com_qtn'])){
 	$put = $_POST['id_product'];
@@ -41,24 +43,17 @@ if(!isset($referer[2]) || $referer[2] != $id_category){
 if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
-$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation'));
-if(!empty($dbtree->ERRORS_MES)){
-	die("Error parents");
+$res = $dbtree->Parents($id_category, array('id_category', 'name', 'translit', 'category_level', 'indexation'));
+foreach($res as $cat){
+	if($cat['id_category'] != $id_category){
+		$GLOBALS['IERA_LINKS'][] = array(
+			'title' => $cat['name'],
+			'url' => Link::Category($cat['translit'], array('clear'=>true))
+		);
+	}
+	$end = end($GLOBALS['IERA_LINKS']);
+	$GLOBALS['products_canonical'] = $end['url'];
 }
-if(!$dbtree->NextRow()){
-	header('Location: '._base_url.'/404/');
-	exit();
-}
-while($cat = $dbtree->NextRow()){
-	$GLOBALS['IERA_LINKS'][] = array(
-		'title' => $cat['name'],
-		'url' => Link::Category($cat['translit'])
-	);
-	$GLOBALS['products_canonical'] = end($GLOBALS['IERA_LINKS'])['url'];
-	$tpl->Assign('header', $cat['name']);
-}
-
 
 // if(empty($subcats)){
 	// end($GLOBALS['IERA_LINKS']);

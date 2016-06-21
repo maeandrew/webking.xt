@@ -15,7 +15,7 @@ if(isset($GLOBALS['Rewrite'])){
 	$tpl->Assign('data', $news);
 	$tpl->Assign('indexation', $news['indexation']);
 	$GLOBALS['IERA_LINKS'][] = array(
-		'title' => 'Новости оптового торгового центра xt.ua',
+		'title' => 'Новости',
 		'descr' => strip_tags($news['descr_short']),
 		'url' => Link::Custom('news')
 	);
@@ -25,7 +25,7 @@ if(isset($GLOBALS['Rewrite'])){
 	);
 	$template = 'cp_news.tpl';
 }else{
-	$header = 'Новости оптового торгового центра xt.ua';
+	$header = 'Новости';
 	$tpl->Assign('header', $header);
 	G::metaTags(array('page_title' => $header));
 	$GLOBALS['IERA_LINKS'][] = array(

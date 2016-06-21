@@ -179,9 +179,11 @@
 .product .product_buy .buy_block > div {
 	margin-right: 20px;
 }
-.product .product_buy .buy_block .price {
+.product .product_buy .buy_block .price,
+.product .product_buy .buy_block span {
 	font-size: 2em;
 }
+
 .product .product_buy .buy_block .price span {
 	margin-left: 10px;
 }
@@ -250,7 +252,7 @@ div[for="rating_block"] {
 	clear: both;
 	overflow: hidden;
 }
-.product .mdl-tabs__tab-bar {
+.product .tabs {
 	display: block;
 	/*border-bottom: none;*/
 	/*height: auto;*/
@@ -504,6 +506,18 @@ div[for="rating_block"] {
 	background-color: #757575;
 }
 
+/* СТИЛИ ДЛЯ УВЕДОМЛЕНИИ О ПРИМЕЧАНИИ */
+
+.notificationProdNote {
+	background: #ffffad;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+
+
+
+
 /*
 #socialShare {
 	width: 240px;
@@ -562,7 +576,7 @@ div[for="rating_block"] {
 	}
 }
 @media (max-width: 1024px) {
-	.product .mdl-tabs__tab {
+	.product .tabs {
 		width: auto;
 	}
 }
@@ -612,7 +626,29 @@ div[for="rating_block"] {
 		height: 36px;
 		top: 0;
 	}
+
+	.product_page h1 {
+		font-size: 1.5em;
+	}
+	.product .product_buy .buy_block span,
+	.product .product_buy .buy_block .price {
+		font-size: 1.5em;
+	}
 }
 
+@media (max-width: 457px) {
+	.product .fortabs .tabs a {
+		width: 50%;
+	}
+	.product .fortabs .tabs a:last-child {
+		width: 100%;
+	}
+}
 
+@media (max-width: 400px) {
+	.product .product_buy .buy_block .price,
+	.product .product_buy .buy_block span {
+		font-size: 1.7em;
+	}
+}
 

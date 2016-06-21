@@ -351,10 +351,8 @@ label.info_key {
 	float: right;
 	margin: 0;
 	width: 100%;
-	/*margin: auto 0;*/
-	/*margin-left: 40px;*/
-	min-width: 220px;
-	/*padding-top: 5px;*/
+	height: 40px;	
+	min-width: 220px;	
 }
 .list_view .product_section .product_info span.icon-font {
 	margin-left: 10px;
@@ -651,10 +649,7 @@ label.info_key {
 	}
 	.block_view .products .card .product_buy .buy_block .quantity .units {
 		width: 40px;		
-	}
-	/*.block_view .products .card .product_buy .buy_block span {	
-		right: 70px;
-	}*/
+	}	
 }
 @media (max-width: 950px) {
 	.block_view .products .card {
@@ -1006,7 +1001,32 @@ label.info_key {
 }
 .preview a[href="#specifications"],
 .preview a[href="#description"] {
-	width: 49%;
+	width: 50%;
+}
+.preview #specifications {
+	border: 1px solid #e0e0e0;
+}
+
+.preview #specifications .mdl-grid:nth-of-type(odd) {
+    background: #f7f7f7;
+}
+.preview #specifications .mdl-grid {
+    line-height: 1.3em;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+}
+.preview .mdl-grid .mdl-tabs__tab-bar {
+	margin-bottom: 0px;
+}
+.preview #specifications .mdl-grid .mdl-cell:first-of-type {
+    text-align: right;
+}
+.preview #specifications .mdl-grid .mdl-cell {
+    margin: 5px;
+}
+.preview #description p {
+	text-align: justify;
+	margin-top: 15px;
 }
 
 /*Contragent==================================================================*/
@@ -1317,6 +1337,25 @@ label.info_key {
 		top: 0;
 	}
 }
+@media (max-width: 391px) {
+	.service_block {
+		justify-content: center;
+	}
+	.service_block .comment_question_btn {
+		padding-left: 5px;
+	    padding-right: 5px;
+	    font-size: 12px;
+	}
+	.list_view .product_section .product_info .service_block .timerIcon {
+		margin-left: 0;
+	}
+	.list_view .product_section .product_info .service_block .available_today {
+		height: 40px;
+   		margin-top: 0;
+	}
+}
+
+
 @media (max-width: 360px) {
 	.products .card .product_name a {
 		max-height: 3.4em;
@@ -1343,5 +1382,13 @@ label.info_key {
 	.products .card .product_buy .btn_buy:hover button {
 		height: 36px;
 		top: 0;
+	}
+	.list_view .product_section .product_info .service_block .available_today {
+		font-size: 12px;
+    	width: 116px;
+	}
+	.service_block .comment_question_btn {
+		padding: 0;
+    	width: 134px;
 	}
 }

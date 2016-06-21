@@ -8,9 +8,8 @@ $tpl->Assign('list_menu', $Page->list);
 $header = 'Результаты поиска';
 $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
-	'url' => _base_url.'/search/'
+	'url' => Link::Custom('search')
 );
-$tpl->Assign('header', $header);
 
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting');
@@ -38,6 +37,7 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = trim($query);
 }
 G::metaTags(array('page_title' => $header.' по запросу "'.$query.'"'));
+$tpl->Assign('header', $header.' по запросу "'.$query.'"');
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;

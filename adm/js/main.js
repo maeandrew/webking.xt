@@ -289,4 +289,8 @@ $(function(){
 			console.log(data);
 		});
 	});
+	$('.permissions .controller').on('click', 'input.all', function(){
+		console.log($(this).is(':checked'));
+		$(this).closest('.controller').find('input').prop('checked', $(this).is(':checked'));
+	});
 });

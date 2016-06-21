@@ -14,15 +14,15 @@ class Orders {
 			"o.pretense_date", "o.sum_opt", "o.sum_mopt", "o.sum", "o.discount",
 			"o.sum_discount", "o.id_pretense_status", "o.id_return_status", "o.skey",
 			"o.otpusk_prices_sum", "o.sum_nac", "o.note", "o.note2", "o.strachovka",
-			"o.order_discount", "o.freight", "o.bonus_card", "o.id_remitter"
-			);
+			"o.order_discount", "o.freight", "o.bonus_card", "o.id_remitter", "o.category"
+		);
 		$this->usual_fields2 = array("o.id_order", "o.id_order_status", "o.id_contragent",
 			"o.id_customer", "o.cont_person", "o.need_sertificate", "o.descr",
 			"o.creation_date", "o.target_date", "o.return_date", "o.pretense_date",
 			"o.sum_opt", "o.sum_mopt", "o.sum", "o.discount", "o.sum_discount",
 			"o.id_pretense_status", "o.id_return_status", "o.skey", "o.otpusk_prices_sum",
 			"o.sum_nac", "o.order_discount", "o.freight", "o.id_remitter"
-			);
+		);
 	}
 
 	public function SetNote($id_order, $note){
@@ -160,11 +160,11 @@ class Orders {
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = o.id_customer
 			LEFT JOIN "._DB_PREFIX_."contragent AS ca
-				ON ca.id_user = o.id_contragent
-			".$this->db->GetWhere($and)."
-			$like
-			ORDER BY $orderby, id_order desc
-			$limit";
+				ON ca.id_user = o.id_contragent".
+			$this->db->GetWhere($and).
+			$like.
+			" ORDER BY ".$orderby.", id_order desc".
+			$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -383,10 +383,10 @@ class Orders {
 		}
 		$sql = "SELECT o.id_order, o.id_order_status, osp.id_product, p.name,
 			p.img_1,
-			(SELECT src FROM "._DB_PREFIX_."image AS i WHERE p.id_product = i.id_product AND ord = 0) AS image,
+			(SELECT src FROM "._DB_PREFIX_."image AS i WHERE p.id_product = i.id_product AND ord = 0 AND i.visible = 1) AS image,
 			osp.site_price_opt, osp.site_price_mopt, p.inbox_qty,
-			osp.box_qty, osp.supplier_quantity_opt AS opt_qty,
-			osp.supplier_quantity_mopt AS mopt_qty, osp.opt_sum,
+			osp.box_qty, osp.opt_qty,
+			osp.mopt_qty, osp.opt_sum,
 			osp.mopt_sum, s.article,  p.art,
 			(SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
 			osp.id_supplier, osp.id_supplier_mopt, o.target_date, o.return_date, o.pretense_date, o.creation_date,
@@ -423,10 +423,10 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
-
+		$OrderCart = ($arr === null)?$_SESSION['cart']['products']:$arr;
 
 		// Если список товаров в корзине пуст
-		if(empty($_SESSION['cart']['products'])){
+		if(empty($OrderCart)){
 			print_r('products error');
 			return false;
 		}
@@ -492,6 +492,7 @@ class Orders {
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
+		$f['sid'] = 1;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
@@ -504,7 +505,7 @@ class Orders {
 		// Заполнение связки заказ-товары
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
-		foreach($_SESSION['cart']['products'] as $id_product=>$item){
+		foreach($OrderCart as $id_product=>$item){
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
 			// Обычный заказ
@@ -567,7 +568,7 @@ class Orders {
 		}
 		// Если ни у одного товара нет поставщика
 		if($sup_nb == 0){
-			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
+			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного или нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
 			print_r('sup_nb error');
 			return false;
 		}
@@ -633,7 +634,7 @@ class Orders {
 // 			}
 // 		}
 // 		//*************************************************************
-// 		if(count($_SESSION['Cart']['products']) == 0){
+// 		if(count($OrderCart) == 0){
 // 			return false;
 // 		}
 // 		global $cart;
@@ -723,12 +724,12 @@ class Orders {
 // 		$ii = 0;
 // 		$f = array();
 // 		//** Нужно получить ошибки по всем товарам
-// 		foreach($_SESSION['Cart']['products'] as $id_product=>$i){
+// 		foreach($OrderCart as $id_product=>$i){
 // 			if($i['order_opt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_opt_qty'], true);
 // 			if($i['order_mopt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_mopt_qty'], false);
 // 		}
 // 		//**
-// 		foreach($_SESSION['Cart']['products'] as $id_product=>$i){
+// 		foreach($OrderCart as $id_product=>$i){
 // 			$f[$ii]['id_order'] = $id_order;
 // 			if(isset($arr['p_order'])){ // Прогнозный заказ
 // 				$f[$ii]['id_supplier'] = 0;
@@ -1312,7 +1313,7 @@ class Orders {
 					ON osp.id_product = p.id_product
 				LEFT JOIN "._DB_PREFIX_."image AS i
 					ON osp.id_product = i.id_product
-						AND i.ord = 0
+						AND i.ord = 0 AND i.visible = 1
 				".$this->db->GetWhere($and)."
 				GROUP BY osp.id_order, osp.id_product
 				ORDER BY p.name";//print_r($sql);
@@ -1335,7 +1336,7 @@ class Orders {
 				ON osp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."image AS i
 				ON osp.id_product = i.id_product
-					AND i.ord = 0
+					AND i.ord = 0 AND i.visible = 1
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product
 			ORDER BY p.name";
@@ -1384,7 +1385,7 @@ class Orders {
 				ON osp.id_product = cp.id_product
 			LEFT JOIN "._DB_PREFIX_."image AS i
 				ON osp.id_product = i.id_product
-					AND i.ord = 0
+					AND i.ord = 0 AND i.visible = 1
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product
 			ORDER BY p.name";
@@ -1438,9 +1439,8 @@ class Orders {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 
 	// Создание претензии

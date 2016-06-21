@@ -381,7 +381,7 @@
 	/*box-shadow: 0 0 1px 0 #aaa;*/
 }
 #photobox .image_block .name {
-	width: calc(100% - 130px);
+	width: calc(100% - 150px);
 	line-height: 1;
 	float: left;
 }
@@ -397,6 +397,32 @@
 #photobox .image_block .name .dz-size {
 	width: 15%;
 	float: right;
+}
+#photobox .image_block .visibility {
+	line-height: 70px;
+	float: left;
+}
+#photobox .image_block .visibility p {
+	color: #4CAF50;
+	cursor: pointer;
+}
+#photobox .image_block.implicit .visibility p {
+	color: #444;
+}
+#photobox .image_block .visibility p:hover {
+	color: #f00;
+}
+#photobox .image_block:first-of-type.implicit img {
+	opacity: 1.0;
+}
+#photobox .image_block:first-of-type p {
+	display: none;
+}
+#photobox .image_block .image img {
+	opacity: 1.0;
+}
+#photobox .implicit .image img {
+	opacity: .3;
 }
 #photobox .image_block .controls {
 	line-height: 70px;
@@ -482,6 +508,9 @@
 }
 .catblock {
 	margin-bottom: 10px;
+}
+.catblock select {
+	width: 300px;
 }
 .catblock .delcat {
 	margin-left: 10px;

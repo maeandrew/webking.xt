@@ -9,7 +9,12 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 
 $Profiles = new Profiles();
 $Profiles->SetList();
-$tpl->Assign('list', $Profiles->list);
+$list = $Profiles->list;
+foreach($list as &$profile){
+	$res = $Profiles->GetUsersByProfileId($profile['id_profile']);
+	$profile['users_count'] = is_array($res)?count($res):0;
+}
+$tpl->Assign('list', $list);
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_profiles.tpl')

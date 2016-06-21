@@ -30,7 +30,7 @@ class Suppliers extends Users {
 		if(!$this->fields){
 			return false;
 		}
-		$this->fields = array_merge($this->fields,$User->GetFields());
+		$this->fields = array_merge($this->fields, $User->GetFields());
 		return true;
 	}
 
@@ -495,9 +495,9 @@ class Suppliers extends Users {
 			WHERE a.id_supplier = ".$this->fields['id_user']."
 			AND p.visible = 1
 			ORDER BY a.inusd, p.name";
-		$products = new Products();
 		$arr = $this->db->GetArray($sql);
 		foreach($arr as &$product){
+			$products = new Products();
 			$product['images'] = $products->GetPhotoById($product['id_product']);
 		}
 		return $arr;

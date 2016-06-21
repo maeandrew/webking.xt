@@ -20,8 +20,8 @@
 						<input type="password" name="passwd" id="passwd" class="input-l" value="<?=isset($_POST['passwd'])?htmlspecialchars($_POST['passwd']):null?>">
 					</div>
 					<div class="col-md-12">
-						<label for="phones">Телефоны:</label><?=isset($errm['phones'])?"<span class=\"errmsg\">".$errm['phones']."</span><br>":null?>
-						<textarea name="phones" id="phones" class="input-l" rows="2" cols="80"><?=isset($_POST['phones'])?htmlspecialchars($_POST['phones']):null?></textarea>
+						<label for="phone">Телефоны:</label><?=isset($errm['phone'])?"<span class=\"errmsg\">".$errm['phone']."</span><br>":null?>
+						<textarea name="phone" id="phone" class="input-l" rows="2" cols="80"><?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?></textarea>
 					</div>
 				</div>
 			</div>

@@ -20,7 +20,7 @@ class Invoice{
 				LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
 				LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
 				LEFT JOIN "._DB_PREFIX_."image AS i ON osp.id_product=i.id_product
-					AND i.ord = 0
+					AND i.ord = 0 AND i.visible = 1
 				".$this->db->GetWhere($and);
 		if(isset($filial) == true && $filial != 0){
 			$sql.= " AND (osp.filial_mopt = ".$filial." OR osp.filial_opt = ".$filial.") ";
@@ -49,7 +49,7 @@ class Invoice{
 			LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
 			LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
 			LEFT JOIN "._DB_PREFIX_."image AS i ON osp.id_product=i.id_product
-				AND i.ord = 0
+				AND i.ord = 0 AND i.visible = 1
 			".$this->db->GetWhere($and);
 		if(isset($filial) == true && $filial != 0){
 			$sql.= " AND (osp.filial_mopt = ".$filial." OR osp.filial_opt = ".$filial.") ";

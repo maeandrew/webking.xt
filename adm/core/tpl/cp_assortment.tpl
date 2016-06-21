@@ -21,31 +21,31 @@
 				<tr class="animate">
 					<td>Акт сверки цен поставщика</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Новая с ценами</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=new&price=true" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=new&price=true" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Новая без цен</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=new&price=false" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=new&price=false" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Сверх-новая с ценами</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=wide" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=wide" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 				<tr class="animate">
 					<td>Многоразовая без цен</td>
 					<td>
-						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>?type=multiple" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
+						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=multiple" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
 			</table>
@@ -165,6 +165,7 @@
 
 
 	<div class="product_list row">
+		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
 			<h2>Ассортимент</h2>
 		</div>
@@ -224,8 +225,8 @@
 								<?}?>
 							</td>
 							<td>
-								<p><?=$item['name'];?></p>
-								<p>Арт. <?=$item['art'];?></p>
+								<a href ="<?=$GLOBALS['URL_base']?>adm/productedit/<?=$item['id_product']?>"><p><?=$item['name'];?></p>
+								<p>Арт. <?=$item['art'];?></p></a>
 							</td>
 							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
@@ -241,6 +242,12 @@
 					<?}?>
 				</tbody>
 			</table>
+			<?if(isset($cnt) && $cnt >= 30){?>
+			<div class="sort_page">
+			<a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?limit=all"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
+			</div>
+			<?}?>
+			<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		</div>
 	</div>
 </div>

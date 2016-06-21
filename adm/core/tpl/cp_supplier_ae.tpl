@@ -24,8 +24,8 @@
 					<input type="text" name="article" id="article" class="input-l" value="<?=isset($_POST['article'])?htmlspecialchars($_POST['article']):null?>">
 				</div>
 				<div class="col-md-12">
-					<label for="phones">Адрес:<!-- Телефоны --></label><?=isset($errm['phones'])?"<span class=\"errmsg\">".$errm['phones']."</span><br>":null?>
-					<textarea name="phones" id="phones" class="input-l" rows="3" cols="80"><?=isset($_POST['phones'])?htmlspecialchars($_POST['phones']):null?></textarea>
+					<label for="phone">Адрес:<!-- Телефоны --></label><?=isset($errm['phone'])?"<span class=\"errmsg\">".$errm['phone']."</span><br>":null?>
+					<textarea name="phone" id="phone" class="input-l" rows="3" cols="80"><?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?></textarea>
 				</div>
 				<div class="col-md-12">
 					<label for="place">Телефоны:<!-- Место --></label><?=isset($errm['place'])?"<span class=\"errmsg\">".$errm['place']."</span><br>":null?>

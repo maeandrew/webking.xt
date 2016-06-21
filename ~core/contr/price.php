@@ -12,11 +12,11 @@ if(isset($_GET['savedprices']) && $_GET['savedprices']){
 	$url = _base_url.'/price/?savedprices=true';
 }
 $header .= ' оптового торгового центра XT.UA';
-$GLOBALS['IERA_LINKS'] = array();
-$GLOBALS['IERA_LINKS'][0]['title'] = "Главная";
-$GLOBALS['IERA_LINKS'][0]['url'] = _base_url;
-$GLOBALS['IERA_LINKS'][1]['title'] = $header;
-$GLOBALS['IERA_LINKS'][1]['url'] = $url;
+$GLOBALS['IERA_LINKS'][] = array(
+	'title' => $header,
+	'url' => $url
+);
+G::metaTags(array('page_title' => $header));
 $tpl->Assign('header', $header);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 unset($parsed_res);

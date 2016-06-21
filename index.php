@@ -4,7 +4,7 @@ session_start();
 header("Content-type: text/html; charset=utf-8");
 date_default_timezone_set('Europe/Kiev');
 define('EXECUTE', 1);
-define(DIRSEP, DIRECTORY_SEPARATOR);
+define('DIRSEP', DIRECTORY_SEPARATOR);
 ini_set('session.gc_maxlifetime', 43200);
 ini_set('session.cookie_lifetime', 43200);
 // ini_set('max_execution_time', 30);
@@ -26,12 +26,9 @@ G::AddCSS('../themes/'.$theme.'/css/footer.css');
 G::AddCSS('../themes/'.$theme.'/css/style.css');
 G::AddCSS('../themes/'.$theme.'/css/header.css');
 // G::AddCSS('../themes/'.$theme.'/css/sidebar.css');
-
 G::AddCSS('../themes/'.$theme.'/css/custom.css');
 G::AddCSS('../themes/'.$theme.'/css/colors.css');
-
 // G::AddCSS('../themes/'.$theme.'/css/d3graph.css');
-
 G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css');
 /* plugins css */
 // G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
@@ -40,7 +37,13 @@ G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
 G::AddJS('jquery-ui.min.js');
-G::AddJS('../adm/js/Chart.min.js');
+
+//echo'<pre>';
+//print_r($_SESSION['member']);
+//echo'</pre>';
+//die();
+
+// G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');
 //G::AddJS('d3.min.js');
 //G::AddJS('../js/nutrients.csv');
