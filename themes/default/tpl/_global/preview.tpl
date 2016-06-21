@@ -95,11 +95,17 @@
 			<div class="tab-content">
 				<div id="specifications" class="mdl-tabs__panel is-active">
 					<?if(isset($product['specifications']) && !empty($product['specifications'])){?>
-						<ul>
+						<!-- <ul>
 							<?foreach($product['specifications'] as $s){?>
 								<li><span class="caption fleft"><?=$s['caption']?></span><span class="value fright"><?=$s['value'].' '.$s['units']?></span></li>
 							<?}?>
-						</ul>
+						</ul> -->
+						<?foreach($product['specifications'] as $s){?>
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['caption']?>:</div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
+							</div>
+						<?}?>
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>
@@ -162,7 +168,7 @@
 	$(".mdl-tabs__panel").each(function(index, el){
 		if ($(el).height() > 150 ) {
 			$(el).css({
-				'height': '150',
+				'height': '175',
 				'overflow': 'hidden'
 			});
 			$(el).find('.mdl-button').removeClass('hidden');
