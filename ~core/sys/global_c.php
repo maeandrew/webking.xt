@@ -34,7 +34,7 @@ class G {
 
 		// Строчный просмотр списка товаров
 		if(!isset($_COOKIE['product_view'])){
-			setcookie('product_view', 'list', 0, '/');
+			setcookie('product_view', 'block', 0, '/');
 		}
 	}
 
