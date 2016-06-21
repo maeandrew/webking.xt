@@ -317,11 +317,12 @@
 						<label for="promo_input">Промокод</label>
 						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
 						<label class="mdl-textfield__label" for="promo_input"></label>
+						<span class="mdl-textfield__error err_promo orange"></span>
 					</div>
 					<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
 						<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
-						<div class="cart_warning_js cart_warning hidden">
+						<div class="cart_warning_js cart_warning clearBoth hidden">
 							<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 							<p>Вы уверенны, что хотите удалить промокод?</p>
 							<input type="hidden" value="<?=isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:'';?>">
@@ -332,12 +333,12 @@
 						<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
 					<?}?>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
-						<div class="">
-							<div class="info_admin">Для управления совместной покупкой, перейдите  личный кабинет.</div>
+						<div class="clearBoth">
+							<div class="info_admin">Для управления совместной покупкой, перейдите личный кабинет.</div>
 							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
 					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
-						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
+						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?> clearBoth">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 							<?if(isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) {?>
 								<div class="info_client ic_waiting">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
@@ -433,14 +434,23 @@
 
 
 				$('.apply_promoCode_js').click(function(event) {
-					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(event) {
-						$('cart_choiсe_wrapp_js').addClass('hidden');
+					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data) {
+						console.log(data);
+						if (data.promo) {
+							$('cart_choiсe_wrapp_js').addClass('hidden');
+							GetCartAjax(true);
+							console.log("success promo");
+							$('.action_block form').removeClass('for_err_promo');
+							$('.err_promo').removeClass('visibleForUser');
+						}else{
+							$('.action_block form').addClass('for_err_promo');
+							$('.err_promo').addClass('visibleForUser').text(data.msg);
+							componentHandler.upgradeDom();
+						}
 						
 						// $('.confirm_order_js').closest('div').removeClass('hidden');
 						// $('#button-cart1').addClass('hidden');
-						GetCartAjax(true);
-						console.log("success promo");
-					}).fail(function(event) {
+					}).fail(function(data) {
 						console.log("fail promo");
 					});
 				});

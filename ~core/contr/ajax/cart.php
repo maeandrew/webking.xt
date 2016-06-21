@@ -419,11 +419,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'CheckPromo':
 				if(!$cart->CheckPromo($_POST['promo'])){
-					$res['promo'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
+					$res['promo'] = false;
+					$res['msg'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
 				} else{
-					$res['promo'] = 'Успех';
+					$res['promo'] = true;
 				}
-				echo json_encode($res['promo']);
+				echo json_encode($res);
 				break;
 			case 'ReadyUserJO':
 				if(!$cart->UpdateCart(false, false, false, 1, $_POST['id_cart'])){
