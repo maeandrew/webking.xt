@@ -4561,6 +4561,10 @@ class Products {
 		$Images = new Images();
 		$Images->resize(false, $to_resize);
 		$this->UpdatePhoto($id_product, $images_arr, $visibility);
+		// try to add videos
+		if(!empty($_POST['video'])){
+			$this->UpdateVideo($id_product, $_POST['video']);
+		}
 		// try to add new product to supplier's assort
 		$Suppliers = new Suppliers();
 		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
