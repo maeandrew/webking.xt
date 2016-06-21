@@ -2015,8 +2015,8 @@ class Products {
 		}else{
 			$f['art'] = $this->CheckArticle($this->GetLastArticle()+1);
 		}
-		$f['name'] = trim($arr['name']);
-		$f['translit'] = G::StrToTrans($arr['name']);
+		$f['name'] = isset($arr['name']) && trim($arr['name']) !== ''?trim($arr['name']):'Товар - '.$f['art'];
+		$f['translit'] = G::StrToTrans($f['name']);
 		if(isset($arr['dupl_idproduct'])){
 			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
 		}
