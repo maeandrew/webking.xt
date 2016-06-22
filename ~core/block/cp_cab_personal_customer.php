@@ -12,7 +12,8 @@
 	$deliveryservice = new DeliveryService();
 	$regions = new Regions();
 	// Все классы подключены
-
+	$address = new Address();
+	// var_dump($address->GetRegionsList());
 
 	/* selecting clear data */
 
@@ -21,9 +22,6 @@
 	$Customer = $Customers->fields;
 	$cont_person = explode(' ', $Customer['cont_person']);
 	$birthday = explode('-', $Customer['birthday']);
-	//	$Customer['year'] = $birthday[0];
-	//	$Customer['month'] = $birthday[1];
-	//	$Customer['day'] = $birthday[2];
 	$Customer['first_name'] = isset($cont_person[0])?$cont_person[0]:'';
 	$Customer['middle_name'] = isset($cont_person[1])?$cont_person[1]:'';
 	$Customer['last_name'] = isset($cont_person[2])?$cont_person[2]:'';
@@ -99,60 +97,20 @@
 
 
 	$success = false;
-	// $cities->GetSavedFields($Customers->fields['id_city']);
-	// $contragents->GetSavedFields($Customers->fields['id_contragent']);
-	// $delivery->SetDeliveryList();
-	// $delivery->GetSavedFields($Customers->fields['id_delivery']);
-	// if($regions->SetList()){
-	// 	$tpl->Assign('regions', $regions->list);
-	// }
-	// if($cities->SetList()){
-	// 	$tpl->Assign('citys', $cities->list);
-	// }
-	// $tpl->Assign('manager', $contragents->GetContragentList());
-	// if(isset($cities->fields)){
-	// 	if($deliveryservice->SetListByregions($cities->fields['names_regions']))
-	// 		$tpl->Assign('delivery_services', $deliveryservice->list);
-	// 	if($delivery->SetFieldsByInput($cities->fields['shipping_comp'], $cities->fields['names_regions']))
-	// 		$tpl->Assign('delivery', $delivery->list);
-	// }else{
-	// 	if($deliveryservice->SetList())
-	// 		$tpl->Assign('delivery_services', $deliveryservice->list);
-	// 	if($delivery->SetList())
-	// 		$tpl->Assign('delivery', $delivery->list);
-	// }
 	$User->SetUser($_SESSION['member']);
 	$tpl->Assign('User', $User->fields);
-	// $tpl->Assign('customers', $Customers->fields);
-	// $tpl->Assign('SavedCity', $cities->fields);
-	// $tpl->Assign('SavedContragent', $contragents->fields);
-	// $tpl->Assign('DeliveryMethod', $delivery->list);
-	// $tpl->Assign('SavedDeliveryMethod', $delivery->fields);
-//	if(isset($_POST['save_contacts'])) {
-//		$yaer = (isset($_POST['year']))?$_POST['year']:2001;
-//		if(isset($_POST['month']) && isset($_POST['day'])){
-//			if (checkdate($_POST['month'], $_POST['day'], $yaer) === false) {
-//				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&novalidatebirthday");
-//			}
-//		}
-//		else{
-//			if (!$_POST['cont_person']) {
-//				$_POST['cont_person'] = trim($_POST['last_name']) . ' ' . trim($_POST['first_name']) . ' ' . trim($_POST['middle_name']);
-//			}
-//			if ($Customers->updateCustomer($_POST))
-//			{
-//				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&success");
-//			} else {
-//				header("Location: " . Link::Custom('cabinet', 'personal') . "?t=" . $_GET['t'] . "&unsuccess");
-//			}
-//		}
-//	}else
+
 	if(isset($_POST['save_delivery'])){
 		if($Customers->updateCity($_POST['id_delivery_department']) && $Customers->updateDelivery($_POST['id_delivery'])){
 			header("Location: /cabinet/personal/?t=delivery&success");
 		}else{
 			header("Location: /cabinet/personal/?t=delivery&unsuccess");
 		}
+	}
+	if(isset($_GET['t'])){
+		$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.$_GET['t'].'.tpl'));
+	}else{
+		$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_contacts.tpl'));
 	}
 	$parsed_res = array(
 		'issuccess'	=> true,

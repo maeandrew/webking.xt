@@ -82,10 +82,10 @@ if(isset($_POST['update_prodazi'])){
 	}
 }
 if(isset($_POST['sitemap'])){
-	if($res = G::SiteMap($_POST['sitemap']=='all'?null:$_POST['sitemap'])){
-		echo "<script>alert('Генерация карты сайта прошла успешно');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
-	}else{
+	if($res === false){
 		echo "<script>alert('Возникли проблемы при генерации карты сайта.');</script>";
+	} else if($res = G::SiteMap($_POST['sitemap']=='all'?null:$_POST['sitemap'])){
+		$tpl->Assign('sitemap_files', $res);
 	}
 }
 // генерация уменьшенных изображений товаров

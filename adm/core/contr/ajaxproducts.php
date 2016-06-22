@@ -48,6 +48,7 @@
 					$Products->SetFieldsByID($id_product);
 					$product = $Products->fields;
 					$images = $Products->GetPhotoById($id_product);
+					$videos = $Products->GetVideoById($id_product);
 					$echo = '<div class="prodListItem">
 						<div class="nameProd">
 							<a href="'.Link::Product($product['translit']).'"><span>Товар:</span></a>
@@ -60,6 +61,16 @@
 						<div class="prodImages">';
 					foreach($images as $image){
 						$echo .= '<img src="'.$image['src'].'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
+					}
+					$echo .= '</div>
+						<div class="prodVideos">';
+					if(is_array($videos)){
+						foreach($videos as $video){
+							$echo .= '<a href="'.$video.'" target="blank">
+									<img src="/images/video_play.png">
+									<span class="name">'.$video.'</span>
+								</a>';
+						}
 					}
 					$echo .= '</div>
 						</div>';
