@@ -5,7 +5,7 @@ class Customers extends Users {
 		parent::__construct();
 		$this->usual_fields = array("id_user", "cont_person", "phones", "discount", "id_contragent", "id_city",
 									"id_delivery", "bonus_card", "bonus_balance", "bonus_discount", "balance",
-									"sex", "birthday", "address_ur", "b_year", "b_month", "b_day");
+									"sex", "birthday", "address_ur", "b_year", "b_month", "b_day", "first_name", "middle_name", "last_name");
 	}
 	// Покупатель по id
 	public function SetFieldsById($id, $all = 0){
@@ -393,6 +393,15 @@ class Customers extends Users {
 		if(isset($arr['cont_person'])) {
 			$f['cont_person'] = trim($arr['cont_person']);
 		}
+		if(isset($arr['first_name'])) {
+			$f['first_name'] = trim($arr['first_name']);
+		}
+		if(isset($arr['middle_name'])) {
+			$f['middle_name'] = trim($arr['middle_name']);
+		}
+		if(isset($arr['last_name'])) {
+			$f['last_name'] = trim($arr['last_name']);
+		}
 		if(isset($arr['gender'])) {
 			$f['sex'] = trim($arr['gender']);
 		}
@@ -416,7 +425,7 @@ class Customers extends Users {
 			$f['discount'] = (1-$discount)*100;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = {$f['id_user']}")){
+		if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$f['id_user'])){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();
 			return false;
