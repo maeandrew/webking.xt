@@ -17,6 +17,12 @@ $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
+
+//echo'<pre>';
+//print_r($_SESSION['cart']);
+//echo'</pre>';
+//die();
+
 /* Объявление CSS файлов */
 G::AddCSS('../themes/'.$theme.'/css/reset.css');
 // G::AddCSS('../plugins/material/material.css');
@@ -37,12 +43,6 @@ G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
 G::AddJS('jquery-ui.min.js');
-
-//echo'<pre>';
-//print_r($_SESSION['member']);
-//echo'</pre>';
-//die();
-
 // G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');
 //G::AddJS('d3.min.js');

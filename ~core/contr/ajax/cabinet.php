@@ -50,12 +50,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case 'MakeOrderJO';
-				$res = $Cart->CheckCartReady($_POST['promo']);
-				if ($res === false){
+				$result = $Cart->CheckCartReady($_POST['promo']);
+				if ($result === false){
 					$res['success'] = false;
 					$res['msg'] = 'Ой! Что-то пошло не так. Повторите попытку позже';
 				}else{
-					if($res > 0){
+					if($result > 0){
 						$res['success'] = false;
 						$res['msg'] = 'Есть пользователи с неподтвержденным заказ';
 					}else{
@@ -70,7 +70,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 				}
 
-				// print_r($res);
 				echo json_encode($res);
 				break;
 
