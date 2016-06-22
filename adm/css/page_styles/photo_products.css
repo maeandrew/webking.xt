@@ -2,7 +2,7 @@
 .create_product {
 	margin-top: 20px;
 }
-.supplier, .prodName, .submit {	
+.supplier, .prodName, .submit, .video_upload {	
 	float: left;
 	margin-bottom: 20px;
 }
@@ -12,7 +12,7 @@
 .submit {	
 	padding: 0;
 }
-.prodName {
+.prodName, .video_upload {
 	width: 360px;
 }
 .previews { 
@@ -46,10 +46,19 @@
 .image_block_new {
 	max-height: 205px;
 }
-.images_block .image_block .name {
+.images_block .image_block .name,
+.prodList .prodListItem .name {
 	width: 120px;
 	overflow: hidden;
 }
+.prodList .prodListItem .name {
+	clear: both;
+    float: left;
+}
+.prodList .prodListItem a img {
+	float: left;
+}
+
 .images_block .image {
 	width: 120px;
 	height: 120px;  
@@ -122,11 +131,29 @@
 	height: 125px;
 }
 .prodImages img {
-	height: 100px;
-	width: 100px;
+	max-height: 90px;
+	width: 120px;
 	margin-right: 10px;
 	flex-shrink: 0;
 }
 .errName {
 	border: 1px solid red;
+} 
+.video_upload {
+	clear: both;
+	margin-left: 15px;
+}
+.video_list li {
+	list-style-type: decimal;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.video_list li input {
+	width: 240px;
+}
+.add_video {
+	color: #2E62CF;
+}
+.add_video:hover {	
+	cursor: pointer;
 }

@@ -43,19 +43,17 @@ class Suppliers extends Users {
 		if($param == 0){
 			$arr['active'] = "1";
 		}
-		$sql = "SELECT u.id_user, u.name, u.email, u.gid, u.active, u.news,
-				s.currency_rate, s.next_update_date
+		$sql = "SELECT *
 				FROM "._DB_PREFIX_."user u
-				LEFT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
+				RIGHT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
 				".$this->db->GetWhere($arr)."
 				ORDER BY ".$order.
 				$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	public function GetSupplierIdByArt($article){
@@ -415,9 +413,9 @@ class Suppliers extends Users {
 	}
 
 	// Пересчет цен поставщика
-	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier=false){
+	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier = false){
 		global $User;
-		$id_supplier = (($id_supplier===false)?$User->fields['id_user']:$id_supplier);
+		$id_supplier = (($id_supplier === false)?$User->fields['id_user']:$id_supplier);
 		$k = round($cur/$cur_old, 2);
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET
 			price_opt_otpusk = ROUND(price_opt_otpusk*".$k." ,2),

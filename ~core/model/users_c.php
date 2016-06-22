@@ -152,7 +152,7 @@ class Users {
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."user
 			".$this->db->GetWhere($and)."
-			ORDER BY gid,name, id_user DESC
+			ORDER BY gid, name, id_user DESC
 			$limit";
 		$this->list = $this->db->GetArray($sql);
 //		foreach($this->list as &$v) {
@@ -163,9 +163,8 @@ class Users {
 //		}
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	public function GetGroups(){

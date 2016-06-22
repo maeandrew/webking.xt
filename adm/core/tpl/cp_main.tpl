@@ -68,6 +68,16 @@
 			</div>
 		</div>
 	</div>
+	<!-- Оповещении о формировании карты сайта -->
+	<div class="sitemap_files <?=isset($sitemap_files)?'':'hidden'?>">
+		<span>Файлы сгенерировались успешно! Список файлов предоставлен ниже. Перейдите в инструменты разработчика для продолжения работы с файлами!</span>
+		<ul>
+		<?foreach ($sitemap_files as $file) {?>
+			<li>- <?=$file?></li>
+		<?}?>
+		</ul>
+
+	</div>
 	<!-- Функции ручного запуска -->
 	<div class="control_functions_wrapp">
 		<div class="row">

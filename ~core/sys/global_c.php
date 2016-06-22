@@ -593,6 +593,9 @@ class G {
 	}
 
 	public static function SiteMap($navigation = false){
+		if (!file_exists($GLOBALS['PATH_global_root'].'sitemap')) {
+			mkdir($GLOBALS['PATH_global_root'].'sitemap', 0777, true);
+		}
 		global $db;
 		// sitemap.xml
 		switch($navigation){
@@ -616,26 +619,39 @@ class G {
 				break;
 			default:
 				$arr = array('products', 'pages', 'categories', 'news', 'posts');
+				$r = array();
 				foreach ($arr as &$v){
-					self::SiteMap($v);
+					$a = self::SiteMap($v);
+					if(is_array($a) && !empty($a)){
+						$r = array_merge($r, $a);
+					}
 				}
-				return true;
+				return $r;
 				break;
 		}
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
 		}
-		if (!file_exists($GLOBALS['PATH_global_root'].'sitemap')) {
-			mkdir($GLOBALS['PATH_global_root'].'sitemap', 0777, true);
+		$count_files = 1;
+		$limit = 50000;
+		if(count($res)>$limit){
+			$count_files =  ceil(count($res)/$limit);
 		}
-		$result = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
-		foreach($res as &$val){
-			$result .= implode($val)."\n";
+		array_map('unlink', glob($GLOBALS['PATH_global_root'].'sitemap/'.$navigation.'*.xml'));
+		$new_files = array();
+		for($i=0; $i<$count_files; $i++){
+			$result = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
+			foreach($res as $k => &$val){
+				if($k >= $limit*$i && $k < $limit*($i+1)) {
+					$result .= implode($val) . "\n";
+				}
+			}
+			$result .='</urlset>';
+			$filename = $GLOBALS['PATH_global_root'].'sitemap/'.$navigation.($i>0?'-'.$i:null).'.xml'; // путь к файлу в который нужно писать
+			file_put_contents($filename, $result); // записываем результат в файл
+			$new_files[] = $navigation.($i>0?'-'.$i:null).'.xml';
 		}
-		$result .='</urlset>';
-		$filename = $GLOBALS['PATH_global_root'].'sitemap/'.$navigation.'.xml'; // путь к файлу в который нужно писать
-		file_put_contents($filename, $result); // записываем результат в файл
-		return true;
+		return $new_files;
 	}
 }

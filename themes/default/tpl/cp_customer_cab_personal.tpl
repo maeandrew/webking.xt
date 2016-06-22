@@ -1,6 +1,7 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="edit_personal">
+			<?//$content;?>
 			<form id="edit_contacts" class="editing" action="" method="post">
 				<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 				<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
@@ -166,16 +167,7 @@
 				}?>
 			</form>
 		</div>
-		<!--<?if(isset($_GET['success'])){?>
-			<div class="msg-success">
-				<p><b>Успех!</b> Изменения успешно сохранены.</p>
-			</div>
-		<?}elseif(isset($_GET['unsuccess'])){?>
-			<div class="msg-error">
-				<p><b>Упс!</b> Что-то пошло не так.</p>
-			</div>
-		<?}?>
-	</div> --> <!-- END class="edit_personal" -->
+	</div>
 </div>
 <div id="preview-template" style="display: none;">
 	<div class="image_block dz-preview dz-file-preview">
@@ -200,19 +192,19 @@
 
 		$('div[class^="msg-"]').delay(3000).fadeOut(2000);
 		
-		$('.day_js').change(function(event) {
-			if ($('.day_js').val()!='' && $('.month_js').val() == 'месяц') {
+		$('.day_js').change(function(event){
+			if($('.day_js').val() !== '' && $('.month_js').val() == 'месяц'){
 				$('.month_js').closest('.mdl-textfield').addClass('is-invalid');
-			}else if($('.day_js').val()=='' && $('.month_js').val() != 'месяц'){
+			}else if($('.day_js').val() === '' && $('.month_js').val() != 'месяц'){
 				$('.day_js').closest('.mdl-textfield').addClass('is-invalid');
-			}else if($('.day_js').val()!='' && $('.month_js').val() != 'месяц'){
+			}else if($('.day_js').val() !== '' && $('.month_js').val() != 'месяц'){
 				$('.month_js').closest('.mdl-textfield').removeClass('is-invalid');
-			};
+			}
 		});
-		$('.month_js').change(function(event) {
-			if ($('.day_js').val() == '') {
+		$('.month_js').change(function(event){
+			if($('.day_js').val() === ''){
 				$('.day_js').closest('.mdl-textfield').addClass('is-invalid');
-			}else if($('.day_js').val()!='' && $('.month_js').val() != 'месяц'){
+			}else if($('.day_js').val() !== '' && $('.month_js').val() != 'месяц'){
 				$('.month_js').closest('.mdl-textfield').removeClass('is-invalid');
 			}
 			$(this).find('option[value="месяц"]').remove();
@@ -220,22 +212,24 @@
 
 		$('[name="email"]').keyup(function(event) {
 			$(this).closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите корректный Email');
-			if($(this).val()!='') $('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
+			if($(this).val() !== ''){
+				$('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
+			}
 		});
 
 		// checkPhoneNumber($('input.phone').val());
-		$('input.phone').focusout(function(event) {
+		$('input.phone').focusout(function(event){
 			// checkPhoneNumber($('input.phone').val());
 			if($('input.phone').val().replace(/[^\d]+/g, "").length == 12){
 				$('input.phone').data('value', $('input.phone').val().replace(/[^\d]+/g, ""));
 				// console.log($('input.phone').data('value'));
 				$('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
 				$('[name="email"]').closest('.mdl-textfield').removeClass('is-invalid');
-			}else if($('input.phone').val().replace(/[^\d]+/g, "").length == 0 || $('input.phone').val().replace(/[^\d]+/g, "").length == 3){
+			}else if($('input.phone').val().replace(/[^\d]+/g, "").length === 0 || $('input.phone').val().replace(/[^\d]+/g, "").length == 3){
 				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible');
 				$('input.phone').closest('.mdl-textfield').addClass('is-invalid');
 				// console.log($('input.phone').val().replace(/[^\d]+/g, "").length);
-			} else {
+			}else{
 				// console.log("error");
 				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите номер телефона');
 			}
@@ -258,20 +252,20 @@
 
 			if(phone_num.length == 12){
 				phone = phone_num;
-			}else if(phone_num == ''){
+			}else if(phone_num === ''){
 				phone = phone_num;
 				console.log('empty string');
 			}else{
 				console.log('error');
 			}
 
-			$('.day_js').val()!=''?day=$('.day_js').val():day='';
-			$('.month_js').val()!='месяц'?month=$('.month_js').val():month='';
-			$('.year_js').val()!=''?year=$('.year_js').val():year='';
+			day = $('.day_js').val() !== ''?$('.day_js').val():'';
+			month = $('.month_js').val() !== 'месяц'?$('.month_js').val():'';
+			year = $('.year_js').val() !== ''?$('.year_js').val():'';
 
-			data = {id_user: id_user, email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address }
+			data = {id_user: id_user, email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address };
 
-			if(email == '' && phone_num == ''){
+			if(email === '' && phone_num === ''){
 				snackbarMsg = {message: 'Введите Email или Ваш номер телефона'},
 				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 				$('[name="email"], [name="phones"]').closest('.mdl-textfield').addClass('is-invalid');
@@ -291,14 +285,14 @@
 						$('.date_container').css('box-shadow', 'none');
 					}else{
 						console.log(response);
-						for (var i in response) {
-							switch (i) {
+						for(var i in response){
+							switch(i){
 								case 'email':
 									$('[name="email"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
-								break;
+									break;
 								case 'phone':
 									$('[name="phones"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
-								break;
+									break;
 								case 'first_name':
 									$('[name="first_name"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
 									break;
@@ -308,16 +302,15 @@
 								case 'last_name':
 									$('[name="last_name"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text(response[i]);
 									break;
-								break;
 								case 'check_date':
 									$('.errMsg_js').text(response[i]);
 									$('.date_container').css('box-shadow', '0 0 10px rgba(216, 1, 1, 0.8)');
-								break;
+									break;
 								default:
 									alert( 'Заполните Ваши данные корректно' );
 							}
 						}
-					};
+					}
 				});
 			}
 		});

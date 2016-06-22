@@ -26,15 +26,24 @@ function GetLocation() {
 }
 
 // Получение корзины
-function GetCartAjax(reload){
+function GetCartAjax(){
 	$('#cart > .modal_container').html('');
-	if (!reload) {
-		openObject('cart');
-	}
-	ajax('cart', 'GetCartPage', false, 'html').done(function(data){		
+	ajax('cart', 'GetCartPage', false, 'html').done(function(data){
 		$('#cart > .modal_container').html(data);
 		removeLoadAnimation('#cart');
 		Position($('#cart'));
+	});
+}
+
+// Получение опроса
+function GetQuizAjax(params){
+	var step = params.step === undefined?1:params.step;
+	data = {step: step};
+	// $('#quiz > .modal_container').html('');
+	ajax('quiz', 'step', data, 'html').done(function(data){		
+		$('#quiz').html(data);
+		removeLoadAnimation('#quiz');
+		Position($('#quiz'));
 	});
 }
 
@@ -1213,40 +1222,44 @@ function ChangePriceRange(column, manual){
 	});
 }
 
-function openObject(id){
-	var object = $('#'+id),
-		type = object.data('type');
-	if($('html').hasClass('active_bg')){
-		$('.opened:not([id="'+object.attr('id')+'"])').each(function(index, el) {
-			closeObject($(this).attr('id'));
-		});
+function openObject(id, params){
+	switch(id){
+		case 'cart':
+			GetCartAjax(params);
+			break;
+		case 'quiz':
+			GetQuizAjax({reload: false, step: 3});
+			break;
 	}
-	if(object.hasClass('opened') && type != "search"){
-		closeObject(object.attr('id'));
-		DeactivateBG();
-	}else{
-		if(id=="cart"){
-			addLoadAnimation('#'+id);
-		}
-		if(id == 'phone_menu'){
-			$('[data-name="phone_menu"] i').text('close');
-		}
-		if(type == 'modal'){
-			object.find('.modal_container').css({
-				'max-height': $(window)*0.8
+	if(params === undefined || params.reload !== true){
+		var object = $('#'+id),
+			type = object.data('type');
+		if($('html').hasClass('active_bg')){
+			$('.opened:not([id="'+object.attr('id')+'"])').each(function(index, el) {
+				closeObject($(this).attr('id'));
 			});
-			Position(object.addClass('opened'));
-		}else{
-			object.addClass('opened');
 		}
-		ActivateBG();
-	}
-
-	$(document).keyup(function(e){
-		if(e.keyCode == 27){
+		if(object.hasClass('opened') && type != "search"){
 			closeObject(object.attr('id'));
+			DeactivateBG();
+		}else{
+			if(id=="cart"){
+				addLoadAnimation('#'+id);
+			}
+			if(id == 'phone_menu'){
+				$('[data-name="phone_menu"] i').text('close');
+			}
+			if(type == 'modal'){
+				object.find('.modal_container').css({
+					'max-height': $(window)*0.8
+				});
+				Position(object.addClass('opened'));
+			}else{
+				object.addClass('opened');
+			}
+			ActivateBG();
 		}
-	});
+	}
 }
 
 function closeObject(id){

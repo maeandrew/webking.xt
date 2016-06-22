@@ -645,11 +645,13 @@ $(function(){
 	$('body').on('click', '.btn_js', function(){
 		var name = $(this).data('name');
 		if(name !== undefined){
-			if(name == 'cart'){
-				GetCartAjax();
-			}else{
-				openObject(name);
-			}
+			openObject(name);
+		}
+	});
+	// Закрытие модалок по клику на Esc
+	$(document).keyup(function(e){
+		if(e.keyCode == 27){
+			closeObject();
 		}
 	});
 

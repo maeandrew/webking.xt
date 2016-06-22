@@ -28,6 +28,8 @@ if(isset($_SERVER['HTTP_REFERER'])){
 }
 $products = new Products();
 
+
+
 // Получаем строку поискового запроса ======================
 if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%\/]/', ' ', $_POST['query']);
