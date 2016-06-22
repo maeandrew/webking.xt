@@ -9,6 +9,9 @@
 </h1>
 <!-- <a href="#">Начать наполнение поставщика</a> -->
 <div class="create_product">
+	<div class="upload_message hidden">
+		Подождите идет загрузка метриалов...
+	</div>
 	<div class="supplier">
 		<label for="supplier">Поставщик</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
@@ -28,7 +31,7 @@
 	<div class="video_upload">
 		<p class="add_video add_video_js">Добавить видео <span class="icon-font">a</span></p>
 		<ol class="video_list video_list_js"></ol>
-	</div>
+	</div>	
 	<div class="images hidden">
 		<label for="images">Изображения</label>
 		<div class="fallback">
@@ -55,31 +58,7 @@
 		</div>		
 	</div>
 </div>
-<div class="prodList">
-	<div class="prodListItem">
-			<div class="nameProd">
-				<a href="#">Товар:</a>
-				<span>Видео</span>
-			</div>
-			<div class="createData">
-				<span>Дата:</span>
-				<span>Тест</span>
-			</div>
-			<div class="prodImages">
-				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
-					<img src="/images/video_play.png">
-					<span class="name">/images/video_play.png</span>
-				</a>
-				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
-					<img src="/images/video_play.png">
-					<span class="name">/images/video_play.png</span>
-				</a>
-				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
-					<img src="/images/video_play.png">
-					<span class="name">/images/video_play.png</span>
-				</a>
-			</div>
-		</div>
+<div class="prodList">	
 	<?foreach ($list as $item) {?>
 		<div class="prodListItem">
 		<div class="nameProd">
@@ -92,9 +71,19 @@
 		</div>
 		<div class="prodImages">
 			<?foreach ($item['images'] as $image) {?>
-				<img src="<?=$image['src']?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+				<img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
 			<?}?>
 		</div>
+		<?if (!empty($item['videos'])) {?>
+			<div class="prodVideos">
+				<?foreach ($item['videos'] as $video) {?>				
+					<a href="<?=$video?>" target="blank">
+						<img src="/images/video_play.png">
+						<span class="name"><?=$video?></span>
+					</a>
+				<?}?>
+			</div>			
+		<?}?>		
 	</div>
 	<?}?>	
 </div>
@@ -149,7 +138,7 @@
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
-				curSrc = target.closest('.image_block_js').find('input').val();
+				curSrc = target.closest('.image_block_js').find('input').val();			
 			$.ajax({
 				url: URL_base+'ajaxproducts',
 				type: "POST",
@@ -191,6 +180,7 @@
 					console.log(Name);
 					console.log(Images);
 					console.log(Videos);
+					$('.upload_message').removeClass('hidden');
 					$.ajax({
 						url: URL_base+'ajaxproducts',
 						type: "POST",
@@ -204,9 +194,11 @@
 							video: Videos
 						}
 					}).done(function(data){
+						$('.upload_message').addClass('hidden');
 						$('.prodList').prepend(data);
 						$('.images_block').find('.image_block_js').remove();
 						$('.video_list_js').html('');
+						$('#prodName').val('');
 					});
 				}else{
 					$('.image_block_new').addClass('errName');
