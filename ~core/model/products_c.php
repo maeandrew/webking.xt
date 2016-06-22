@@ -4583,6 +4583,7 @@ class Products {
 		}
 		foreach ($res as &$v){
 			$v['images'] = $this->GetPhotoById($v['id_product']);
+			$v['videos'] = $this->GetVideoById($v['id_product']);
 		}
 		return $res;
 	}
