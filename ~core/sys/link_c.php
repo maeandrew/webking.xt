@@ -57,7 +57,7 @@ class Link {
 			self::ParseParams($params, $data);
 		}
 		$controller = $controller=='main'?'':$controller;
-		return _base_url.'/'.$controller.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).(($controller == $GLOBALS['CurrentController'])?$GLOBALS['GetString']:null);
+		return _base_url.'/'.$controller.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).(isset($params['clear'])?null:$GLOBALS['GetString']);
 	}
 
 	/**
