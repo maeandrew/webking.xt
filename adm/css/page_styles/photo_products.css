@@ -1,20 +1,11 @@
 /* Photograph page styles */
 .create_product {
-	margin-top: 20px;
+	margin-top: 10px;
 	position: relative;
 }
 .supplier, .prodName, .submit, .video_upload {	
-	float: left;
+	/*float: left;*/
 	margin-bottom: 10px;
-}
-.supplier {
-	width: 270px;
-}
-.submit {	
-	padding: 0;
-}
-.prodName, .video_upload {
-	width: 360px;
 }
 .previews { 
 	height: 135px;
@@ -164,11 +155,6 @@
 }
 .errName {
 	border: 1px solid red;
-} 
-.video_upload {
-	clear: both;
-	margin-left: 15px;
-	position: relative;
 }
 .video_list li {
 	list-style-type: decimal;

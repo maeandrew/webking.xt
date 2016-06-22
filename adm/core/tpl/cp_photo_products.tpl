@@ -8,12 +8,10 @@
 	</select>
 </h1>
 <!-- <a href="#">Начать наполнение поставщика</a> -->
-<div class="create_product">
-	<div class="upload_message hidden">
-		Подождите идет загрузка метриалов...
-	</div>
-	<div class="supplier">
-		<label for="supplier">Поставщик</label>
+<div class="create_product row">
+	<div class="upload_message hidden">Подождите идет загрузка метриалов...</div>
+	<div class="supplier col-md-4">
+		<label for="supplier">Поставщик:</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
 		<datalist id="suppliers">			
 			<?foreach($suppliers_list as $supplier){?>				
@@ -21,19 +19,20 @@
 			<?}?>			
 		</datalist>
 	</div>
-	<div class="prodName">
-		<label for="prodName">Название товара</label>
+	<div class="prodName col-md-4">
+		<label for="prodName">Название:</label>
 		<input type="text" id="prodName" class="input-m">
 	</div>
-	<div class="submit">
+	<div class="submit col-md-4">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
-	<div class="video_upload">
-		<p class="add_video add_video_js">Добавить видео <span class="icon-font">a</span></p>
+	<div class="video_upload col-md-12">
+		<label for="">Видео:</label>
+		<a class="add_video add_video_js btn-m-blue-inv">Добавить <span class="icon-font">a</span></a>
 		<ol class="video_list video_list_js"></ol>
 	</div>	
 	<div class="images hidden">
-		<label for="images">Изображения</label>
+		<label for="images">Фото:</label>
 		<div class="fallback">
 			<input type="file" name="images" id="images" multiple />
 		</div>
@@ -58,33 +57,7 @@
 		</div>		
 	</div>
 </div>
-<div class="prodList">	
-	<?foreach ($list as $item) {?>
-		<div class="prodListItem">
-		<div class="nameProd">
-			<a href="#">Товар:</a>
-			<span>Видео</span>
-		</div>
-		<div class="createData">
-			<span>Дата:</span>
-			<span>Тест</span>
-		</div>
-		<div class="prodImages">
-			<?foreach ($item['images'] as $image) {?>
-				<img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
-			<?}?>
-		</div>
-		<?if(!empty($item['videos'])){?>
-			<div class="prodVideos">
-				<?foreach ($item['videos'] as $video) {?>				
-					<a href="<?=$video?>" target="blank">
-						<img src="/images/video_play.png">
-						<span class="name"><?=$video?></span>
-					</a>
-				<?}?>
-			</div>			
-		<?}?>		
-	</div>
+<div class="prodList">
 	<?foreach($list as $item){?>
 		<div class="prodListItem">
 			<div class="nameProd">
@@ -95,18 +68,27 @@
 				<span>Дата:</span>
 				<span><?=$item['create_date']?></span>
 			</div>
-			<div class="prodImages">
-				<?if(is_array($item['images'])){
-					foreach($item['images'] as $image){?>
-						<img src="<?=$image['src']?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>"/>
-					<?}
-				}?>
-			</div>
+			<?if(is_array($item['images'])){?>
+				<div class="prodImages">
+					<?foreach($item['images'] as $image){?>
+						<img srsc="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+					<?}?>
+				</div>
+			<?}
+			if(is_array($item['videos'])){?>
+				<div class="prodVideos">
+					<?foreach($item['videos'] as $video){?>
+						<a href="<?=$video?>" target="blank">
+							<img src="/images/video_play.png">
+							<span class="name"><?=$video?></span>
+						</a>
+					<?}?>
+				</div>
+			<?}?>
 		</div>
 	<?}?>
 </div>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-
 <script>
 	window.onbeforeunload = function(event) {
 		var check_video = false;

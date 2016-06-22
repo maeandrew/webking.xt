@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 $users = new Users();
 $products = new Products();
 $suppliers = new Suppliers();
-$header = 'Позиции фотографа';
+$header = 'Товары фотографа';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/photo_products/';
