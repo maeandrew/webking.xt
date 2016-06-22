@@ -7,7 +7,6 @@ error_reporting(E_ALL);
 $users = new Users();
 $products = new Products();
 $suppliers = new Suppliers();
-unset($parsed_res);
 $header = 'Позиции фотографа';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
@@ -17,6 +16,23 @@ $users->UsersList(1, array('gid' => 13));
 $tpl->Assign('users_list', $users->list);
 $suppliers->SuppliersList();
 $tpl->Assign('suppliers_list', $suppliers->list);
-$list = $products->GetProductsByIdUser($_SESSION['member']['id_user']);
+// pagination
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$GLOBALS['Limit_db'] = $_GET['limit'];
+}
+if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit'])){
+	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+		$_GET['page_id'] = $_POST['page_nbr'];
+	}
+	$GLOBALS['Limit_db'] = 10;
+	$cnt = count($products->GetProductsByIdUser($_SESSION['member']['id_user']));
+	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt, 10);
+	$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
+}else{
+	$GLOBALS['Limit_db'] = 0;
+	$limit = '';
+}
+// --
+$list = $products->GetProductsByIdUser($_SESSION['member']['id_user'], $limit);
 $tpl->Assign('list', $list);
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_photo_products.tpl');

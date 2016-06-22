@@ -4573,11 +4573,12 @@ class Products {
 		return $id_product;
 	}
 
-	public function GetProductsByIdUser($id_user){
+	public function GetProductsByIdUser($id_user, $limit = false){
 		$sql= "SELECT * FROM "._DB_PREFIX_."product
 			WHERE sid = 1
 				AND create_user = ".$id_user."
-			ORDER BY create_date DESC";
+			ORDER BY create_date DESC"
+			.($limit?' LIMIT'.$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
