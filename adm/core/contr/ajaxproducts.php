@@ -48,6 +48,7 @@
 					$Products->SetFieldsByID($id_product);
 					$product = $Products->fields;
 					$images = $Products->GetPhotoById($id_product);
+					$videos = $Products->GetVideoById($id_product);
 					$echo = '<div class="prodListItem">
 						<div class="nameProd">
 							<a href="'.Link::Product($product['translit']).'"><span>Товар:</span></a>
@@ -62,7 +63,6 @@
 						$echo .= '<img src="'.$image['src'].'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
 					}
 					$echo .= '</div>
-						</div>';
 				}
 				echo $echo;
 				break;
