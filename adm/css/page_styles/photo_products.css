@@ -131,8 +131,8 @@
 	height: 125px;
 }
 .prodImages img {
-	height: 100px;
-	width: 100px;
+	max-height: 90px;
+	width: 120px;
 	margin-right: 10px;
 	flex-shrink: 0;
 }

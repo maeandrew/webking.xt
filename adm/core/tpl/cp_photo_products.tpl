@@ -1,19 +1,16 @@
 <h1><?=$header;?></h1>
-<a href="#">Начать наполнение поставщика</a>
+<!-- <a href="#">Начать наполнение поставщика</a> -->
 <div class="create_product">
 	<div class="supplier">
 		<label for="supplier">Поставщик</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
-		<datalist id="suppliers">
-			<option value="S100">1</option>
-			<option value="A01">1</option>
-			<option value="X11">2</option>
-			<option value="A45">3</option>
-			<option value="T56">4</option>
-			<option value="Z05">5</option>
+		<datalist id="suppliers">			
+			<?foreach($suppliers_list as $supplier){?>				
+				<option value="<?=$supplier['article']?>"><?=$supplier['name']?></option>
+			<?}?>			
 		</datalist>
 	</div>
-	<div class="prodName hidden">
+	<div class="prodName">
 		<label for="prodName">Название товара</label>
 		<input type="text" id="prodName" class="input-m">
 	</div>
@@ -73,7 +70,7 @@
 					<img src="/images/video_play.png">
 					<span class="name">/images/video_play.png</span>
 				</a>
-			</div>			
+			</div>
 		</div>
 	<?foreach ($list as $item) {?>
 		<div class="prodListItem">
@@ -177,9 +174,12 @@
 				Videos.push(path);
 			});			
 			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
-			if ($('#supplier').val() != '') {
+			if ($('#supplier').val() !== '') {
 				$('#supplier').removeClass('errName');
-				if($(".images_block").html() != ''){
+				if($(".images_block").html() !== ''){
+					console.log(Name);
+					console.log(Images);
+					console.log(Videos);
 					$.ajax({
 						url: URL_base+'ajaxproducts',
 						type: "POST",
@@ -190,7 +190,7 @@
 							art_supplier: ArtSupplier,
 							name: Name,
 							images: Images,
-							videos: Videos
+							video: Videos
 						}
 					}).done(function(data){
 						$('.prodList').prepend(data);
