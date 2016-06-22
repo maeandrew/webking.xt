@@ -415,9 +415,9 @@ class Suppliers extends Users {
 	}
 
 	// Пересчет цен поставщика
-	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier=false){
+	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier = false){
 		global $User;
-		$id_supplier = (($id_supplier===false)?$User->fields['id_user']:$id_supplier);
+		$id_supplier = (($id_supplier === false)?$User->fields['id_user']:$id_supplier);
 		$k = round($cur/$cur_old, 2);
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET
 			price_opt_otpusk = ROUND(price_opt_otpusk*".$k." ,2),

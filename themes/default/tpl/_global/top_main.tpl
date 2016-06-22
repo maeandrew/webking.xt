@@ -1,6 +1,6 @@
 <div class="header_wrapp">
 	<div class="logo">
-		<a href="<?=Link::Custom('main');?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
+		<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
 	<div class="header_right">
 		<div class="search_wrap mdl-cell--hide-phone">
