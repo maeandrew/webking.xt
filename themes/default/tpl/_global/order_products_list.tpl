@@ -9,6 +9,7 @@
 				<div class="cent">Цена</div>
 				<div class="cent">Кол-во</div>
 				<div class="cent">Cумма</div>
+				<div class="cent">Примечание</div>
 			</div>
 		</div>
 		<?$user_cart_total = 0;?>
@@ -37,6 +38,10 @@
 						<div class="cent">
 							<span class="priceTitle">Сумма:&nbsp;</span>
 							<span class="priceItem"> <?=number_format($item['price']*$item['quantity'],2,',','');?> грн.</span>
+						</div>
+						<div class="cent">
+							<span class="priceTitle">Примечание:&nbsp;</span>
+							<span class="priceItem"> <?=$item['note'];?></span>
 						</div>
 					</div>
 				</div>

@@ -1,10 +1,11 @@
 /* Photograph page styles */
 .create_product {
 	margin-top: 20px;
+	position: relative;
 }
 .supplier, .prodName, .submit, .video_upload {	
 	float: left;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .supplier {
 	width: 270px;
@@ -55,10 +56,16 @@
 	clear: both;
     float: left;
 }
+.prodList .prodListItem a {
+	margin-right: 10px;
+}
+.prodList .prodListItem a:hover {
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
 .prodList .prodListItem a img {
 	float: left;
+	margin-left: 10px;
 }
-
 .images_block .image {
 	width: 120px;
 	height: 120px;  
@@ -106,8 +113,16 @@
 	box-shadow:  0px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.upload_message {	
+    color: #fff;
+    background: #f44336;
+    width: 280px;    
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
+    line-height: 24px;
+}
 /* Стили для списка оформленных товаров */
-
 .prodListItem {
 	border-top: 1px solid #bbbbbb;
 	padding-top: 5px;
@@ -128,11 +143,22 @@
 .prodImages {
 	display: flex;
     overflow-x: auto;
-	height: 125px;
+	height: 110px;
+}
+.prodVideos {
+	display: flex;
+    overflow-x: auto;
+	height: 150px;
 }
 .prodImages img {
 	max-height: 90px;
 	width: 120px;
+	margin-right: 10px;
+	flex-shrink: 0;
+}
+.prodVideos img {
+	height: 100px;
+	width: 100px;
 	margin-right: 10px;
 	flex-shrink: 0;
 }
@@ -142,6 +168,7 @@
 .video_upload {
 	clear: both;
 	margin-left: 15px;
+	position: relative;
 }
 .video_list li {
 	list-style-type: decimal;

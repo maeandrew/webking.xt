@@ -21,29 +21,16 @@ if(isset($_SERVER['HTTP_REFERER'])){
 
 if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET['t'] == 'jocompleted')){
 	$infoJO = $Cart->GetInfoJO($_GET['t']);
+
+	$infoProductsCartUsers = $Cart->GetProductsForPromo($_SESSION['cart']['promo']);
 }
-if($infoJO){
+if($infoJO && $infoProductsCartUsers){
 	if (isset($infoJO) && is_array($infoJO)){
-		foreach($infoJO as &$prod){
-			$tpl->Assign('list', $prod['productsFromCarts']);
-			$prod_list[$prod['id_cart']] = $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
-			$prod['sum_prods'] = 0;
-			foreach($prod['productsFromCarts'] as $v){
-				$prod['sum_prods'] += $v['sum_prod'];// общая сумма в корзине по всем заказам
-			}
-			$prod['sum_prods'] = number_format($prod['sum_prods'],2,',','');
-			if ($prod['sum_prods'] > 0 && $prod['sum_prods'] <= 500) {
-				$prod['discount'] = 0;
-			}elseif($prod['sum_prods'] > 500 && $prod['sum_prods'] <= 3000){
-				$prod['discount'] = 10;
-			}elseif($prod['sum_prods'] > 3000 && $prod['sum_prods'] < 10000){
-				$prod['discount'] = 16;
-			}elseif($prod['sum_prods'] >= 10000){
-				$prod['discount'] = 21;
-			}
-		};
+		$tpl->Assign('list', $infoJO['products']);
+		$prod_list[$infoJO['id_cart']] = $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
 	}
 	$tpl->Assign('infoJO', $infoJO);
+	$tpl->Assign('users_list', $infoProductsCartUsers);
 }
 if(isset($prod_list)) {
 	$tpl->Assign('prod_list', $prod_list);

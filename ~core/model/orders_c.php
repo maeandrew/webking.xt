@@ -423,13 +423,28 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
-		$OrderCart = ($arr === null)?$_SESSION['cart']['products']:$arr;
-
+		if(isset($arr)) {
+			$Cart = new Cart();
+			$GetCartForPromo = $Cart->GetCartForPromo($arr);
+			$OrderCart = array();
+			foreach ($GetCartForPromo['products'] as $k => $v) {
+				$OrderCart[$v['id_product']] = $v;
+			}
+			//unset($GetCartForPromo);
+			$jo_order = 1;
+		}
+		$OrderCart = ($arr === null)?$_SESSION['cart']['products']:$OrderCart;
 		// Если список товаров в корзине пуст
 		if(empty($OrderCart)){
 			print_r('products error');
 			return false;
 		}
+
+//		echo'<pre>';
+//		print_r($OrderCart);
+//		echo'</pre>';
+//		die();
+
 		// $discount = 0;
 		// if(isset($_SESSION['cart']['discount'])){
 		// 	if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
@@ -440,7 +455,7 @@ class Orders {
 		// }
 		global $cart;
 		// $this->UpdateSuppliersTurn();
-		
+
 		// Пересмотреть проверку актуальности цен
 		// $cart->IsActualPrices($err, $warn, $errm, $warnings);
 		// if($err){
@@ -488,7 +503,7 @@ class Orders {
 			$f['id_city'] = 0;
 			$f['strachovka'] = 0;
 		}
-		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = $_SESSION['cart']['cart_sum'];
+		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!$jo_order)?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
@@ -500,12 +515,20 @@ class Orders {
 			return false;
 		}
 		// Получаем id нового заказа
-		$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
+		if(isset($jo_order)){
+			$GetCartForPromo['id_order'] =  $id_order = $this->db->GetLastId();
+		} else{
+			$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
+		}
 		unset($f);
 		// Заполнение связки заказ-товары
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
 		foreach($OrderCart as $id_product=>$item){
+			if(!isset($item['mode'])){
+				var_dump($item);die();
+			}
+			//print_r($item);
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
 			// Обычный заказ
@@ -525,10 +548,13 @@ class Orders {
 				$Products = new Products();
 				$Products->SetFieldsById($id_product);
 				$product = $Products->fields;
+
+
+
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
 				$p[$ii]['note_'.$item['mode']] = $item['note'];
-				$p[$ii]['default_sum_'.$item['mode']] = $item['summary'][$_SESSION['cart']['cart_column']];
+				$p[$ii]['default_sum_'.$item['mode']] = (!$jo_order)?$item['summary'][$_SESSION['cart']['cart_column']]:$item['sum_prod'];
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_qty'] = 0;
 					$p[$ii]['note_mopt'] = '';
@@ -543,8 +569,8 @@ class Orders {
 					$p[$ii]['price_opt_otpusk'] = 0;
 				}
 				if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-					$p[$ii][$item['mode'].'_sum'] = $item['summary'][$_SESSION['cart']['cart_column']];
-					$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$_SESSION['cart']['cart_column']];
+					$p[$ii][$item['mode'].'_sum'] = (!$jo_order)?$item['summary'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
+					$p[$ii]['site_price_'.$item['mode']] = (!$jo_order)?$item['actual_prices'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
 				}else{
 					if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
 						$price_column = $arr['price_column'];
@@ -553,8 +579,8 @@ class Orders {
 					}else{
 						$price_column = 3;
 					}
-					$p[$ii][$item['mode'].'_sum'] = $item['summary'][$price_column];
-					$p[$ii]['site_price_'.$item['mode']] = $item['actual_prices'][$price_column];
+					$p[$ii][$item['mode'].'_sum'] = (!$jo_order)?$item['summary'][$price_column]:$item['sum_prod'];
+					$p[$ii]['site_price_'.$item['mode']] = (!$jo_order)?$item['actual_prices'][$price_column]:$item['price'];
 				}
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_sum'] = 0;
@@ -1316,7 +1342,7 @@ class Orders {
 						AND i.ord = 0 AND i.visible = 1
 				".$this->db->GetWhere($and)."
 				GROUP BY osp.id_order, osp.id_product
-				ORDER BY p.name";//print_r($sql);
+				ORDER BY p.name";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;

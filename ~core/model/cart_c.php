@@ -270,6 +270,7 @@ class Cart {
 			foreach($_SESSION['cart']['products'] as $key => &$product){
 				$f['quantity'] = $product['quantity'];
 				$f['price'] = $product['base_price'];
+				$f['note'] = $product['note'];
 				$this->db->StartTrans();
 				if(isset($product['id_cart_product'])){
 					if(!$this->db->Update(_DB_PREFIX_."cart_product", $f, "id_cart_product = ".$product['id_cart_product'])){
@@ -330,6 +331,7 @@ class Cart {
 			$_SESSION['cart']['promo'] = $res['promo'];
 			$_SESSION['cart']['adm'] = $res['adm'];
 			$_SESSION['cart']['ready'] = $res['ready'];
+			$_SESSION['cart']['ready'] = $res['note'];
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
@@ -464,8 +466,8 @@ class Cart {
 	// Выборка всех корзин связанных промо-кодом
 	public function GetInfoForPromo($promo){
 			global $db;
-			$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name, u.phones,
-			c.promo, u.email, ROUND(SUM(cp.price * cp.quantity), 2) AS sum_cart
+			$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name,
+			u.phone, c.promo, u.email
 			FROM "._DB_PREFIX_."cart AS c
 			LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
 			LEFT JOIN "._DB_PREFIX_."cart_product AS cp ON cp.id_cart = c.id_cart
@@ -480,20 +482,98 @@ class Cart {
 		return $res;
 	}
 
+
+	// Выборка всех товаров из корзин связанных промо-кодом  по каждой корзине отдельно
+	public function  GetProductsForPromo($promo){
+		global $db;
+		$sql = "SELECT c.id_cart, c.id_user, p.id_product, p.art, p.name, p.images,
+				cp.quantity AS quantity, c.status, c.adm, c.ready, cp.note
+				FROM "._DB_PREFIX_."cart_product as cp
+				LEFT JOIN "._DB_PREFIX_."cart as c ON c.id_cart = cp.id_cart
+				LEFT JOIN "._DB_PREFIX_."product as p ON cp.id_product = p.id_product
+				WHERE c.promo = 'JO1111'
+				ORDER BY c.id_cart";
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		$general_result = $this->GetCartForPromo($promo);
+		foreach ($general_result['products'] as $k => $v) {
+			$general_res[$v['id_product']] = $v;
+		}
+		unset($general_result);
+		foreach($res as $k=>&$v){
+			$v['price'] = $general_res[$v['id_product']]['price'];
+			$v['sum_prod'] = ROUND($v['price'] * $v['quantity'], 2);
+			if(isset($res2[$v['id_user']])){
+				$res2[$v['id_user']]['total_sum'] += $v['sum_prod'];
+			}else{
+				$res2[$v['id_user']]['total_sum'] = $v['sum_prod'];
+			}
+			$res2[$v['id_user']][] = $v;
+		}
+
+//		echo'<pre>';
+//		print_r($sql);
+//		echo'</pre>';
+//		die();
+
+		return $res2;
+	}
+
+
+
 	// Выборка всех товаров из корзин связанных промо-кодом
 	public function GetCartForPromo($promo){
 			global $db;
-			$sql = "SELECT p.id_product, p.art, p.name, p.images, cp.price, cp.quantity,
-			ROUND(SUM(cp.price * cp.quantity), 2) AS sum_prod,
-			p.mopt_correction_set, p.opt_correction_set
-			FROM "._DB_PREFIX_."cart_product as cp
-			LEFT JOIN "._DB_PREFIX_."cart as c
-			ON c.id_cart = cp.id_cart
-			LEFT JOIN "._DB_PREFIX_."product as p
-			ON cp.id_product = p.id_product
-			WHERE c.promo = '".$promo."'
-			GROUP BY p.id_product;";
-		$res = $db->GetArray($sql);
+			$sql = "SELECT p.id_product, p.art, p.name, p.images,
+					(CASE WHEN SUM(cp.quantity)>=p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as price,
+					SUM(cp.quantity) AS quantity, p.mopt_correction_set, p.opt_correction_set,
+					p.inbox_qty,
+					(CASE WHEN SUM(cp.quantity)>=p.inbox_qty THEN 'opt' ELSE 'mopt' END) AS `mode`,
+					(SELECT GROUP_CONCAT(cp2.note SEPARATOR ', ') FROM "._DB_PREFIX_."cart_product cp2 LEFT JOIN "._DB_PREFIX_."cart as c2
+					ON c2.id_cart = cp2.id_cart WHERE cp2.id_product = cp.id_product AND c2.promo = '".$promo."') AS note
+					FROM "._DB_PREFIX_."cart_product as cp
+					LEFT JOIN "._DB_PREFIX_."cart as c ON c.id_cart = cp.id_cart
+					LEFT JOIN "._DB_PREFIX_."product as p ON cp.id_product = p.id_product
+					WHERE c.promo = '".$promo."'
+					GROUP BY p.id_product;";
+		$res['products'] = $db->GetArray($sql);
+		$res['total_sum'] = 0;
+		foreach ($res['products'] as &$v) {
+			$v['sum_prod'] = ROUND($v['price'] * $v['quantity'], 2);
+			$res['total_sum'] += $v['sum_prod'];
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price']* $coef_price_mopt[$i], 2);
+			}
+		}
+		$retail_margin = $GLOBALS['CONFIG']['retail_order_margin']; // 500
+		$wholesale_margin = $GLOBALS['CONFIG']['wholesale_order_margin']; // 3000
+		$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // 10000
+		if($res['total_sum'] >= $full_wholesale_margin){
+			$cart_column = 0;
+			$discount = 21;
+		}elseif($res['total_sum'] >= $wholesale_margin){
+			$cart_column = 1;
+			$discount = 16;
+		}elseif($res['total_sum'] >= $retail_margin){
+			$cart_column = 2;
+			$discount = 10;
+		}elseif($res['total_sum'] < $retail_margin){
+			$cart_column = 3;
+			$discount = 0;
+		}
+		$res['total_sum'] = 0;
+		$res['discount'] = $discount;
+		foreach ($res['products'] as &$v) {
+			$v['price'] = ($v['mode'] == 'mopt')? $v['prices_mopt'][$cart_column]:$v['prices_opt'][$cart_column];
+			$v['sum_prod'] = ROUND($v['price'] * $v['quantity'], 2);
+			$res['total_sum'] += $v['sum_prod'];
+			$res['cart_column'] = $cart_column;
+		}
 		if(!$res){
 			return false;
 		}
@@ -511,26 +591,36 @@ class Cart {
 				break;
 		}
 		global $db;
-		$sql = "SELECT c.*, u.name, u.phones, u.email, COUNT(cp2.id_cart) AS count_carts,
-				cp.id_user AS adm_id, us.name AS adm_name, us.phones AS adm_phones, us.email AS adm_email
+		$sql = "SELECT c.*, u.name, u.phone, u.email, COUNT(cp2.id_cart) AS count_carts,
+				cp.id_user AS adm_id, us.name AS adm_name, us.phone AS adm_phones, us.email AS adm_email
 				FROM xt_cart AS c
-				LEFT JOIN xt_user AS u ON c.id_user = u.id_user
-				LEFT JOIN xt_cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
-				LEFT JOIN xt_cart AS cp2 ON c.promo = cp2.promo
-				LEFT JOIN xt_user AS us ON cp.id_user = us.id_user
+				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
+				LEFT JOIN "._DB_PREFIX_."cart AS cp2 ON c.promo = cp2.promo
+				LEFT JOIN "._DB_PREFIX_."user AS us ON cp.id_user = us.id_user
 				WHERE c.id_user = '".$_SESSION['member']['id_user']."'
 				".$status."
 				GROUP BY c.promo
 				HAVING count_carts > 0
-				ORDER BY creation_date DESC";// print_r($sql); die();
-		$res = $db->GetArray($sql);
-		foreach($res as &$v) {
-			$v['productsFromCarts'] = $this->GetCartForPromo($v['promo']);
-			$v['infoCarts'] = $this->GetInfoForPromo($v['promo']);
-		}
+				ORDER BY creation_date DESC";
+		$res = $db->GetOneRowArray($sql);
+
 		if(!$res){
 			return false;
 		}
+		//Добавляем список всех товаров со всех корзин, связанных промокодом
+		$a = $this->GetCartForPromo($res['promo']);
+		$res['products'] = $a['products'];
+		$res['total_sum'] = $a['total_sum'];
+		$res['discount'] = $a['discount'];
+		//Добавляем информацию об участниках совместного заказа
+		$res['infoCarts'] = $this->GetInfoForPromo($res['promo']);
+
+		$b = $this->GetProductsForPromo($res['promo']);
+		foreach($res['infoCarts'] as &$val){
+			$val['sum_cart'] = $b[$val['id_user']]['total_sum'];
+		}
+		unset($a, $b);
 		return $res;
 	}
 
@@ -546,7 +636,7 @@ class Cart {
 		ON cp.id_product = p.id_product
 		LEFT JOIN "._DB_PREFIX_."image as i
 		ON cp.id_product = i.id_product AND i.ord = 0 AND i.visible = 1
-		WHERE c.id_cart = '".$id_cart."';"; //print_r($sql);
+		WHERE c.id_cart = '".$id_cart."';";
 		$res = $db->GetArray($sql);
 		if(!$res){
 			return false;
