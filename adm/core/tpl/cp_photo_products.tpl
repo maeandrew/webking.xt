@@ -10,6 +10,9 @@
 <!-- <a href="#">Начать наполнение поставщика</a> -->
 <div class="create_product row">
 	<div class="upload_message hidden">Подождите идет загрузка метриалов...</div>
+	<div class="col-md-12">
+		<h3>Добавить новый товар</h3>
+	</div>
 	<div class="supplier col-md-4">
 		<label for="supplier">Поставщик:</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
@@ -26,23 +29,20 @@
 	<div class="submit col-md-4">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
-	<div class="video_upload col-md-12">
-		<label for="">Видео:</label>
-		<a class="add_video add_video_js btn-m-blue-inv">Добавить <span class="icon-font">a</span></a>
-		<ol class="video_list video_list_js"></ol>
-	</div>	
-	<div class="images hidden">
-		<label for="images">Фото:</label>
-		<div class="fallback">
-			<input type="file" name="images" id="images" multiple />
+	<div class="col-md-12">
+		<div class="image_block_new drop_zone animate">
+			<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+			<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 		</div>
 	</div>
-	
-	<div class="image_block_new drop_zone animate col-md-12">
-		<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
-		<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+
+	<div class="col-md-12">
+		<div class="images_block"></div>
 	</div>
-	<div class="images_block"></div>
+	<div class="video_upload col-md-12">
+		<a class="add_video add_video_js btn-m-blue-inv">Добавить видео</a>
+		<ul class="video_list video_list_js"></ul>
+	</div>
 </div>
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
@@ -53,7 +53,6 @@
 		</div>
 		<div class="name">
 			<span class="dz-filename" data-dz-name></span>
-			<span class="dz-size" data-dz-size></span>
 		</div>		
 	</div>
 </div>
