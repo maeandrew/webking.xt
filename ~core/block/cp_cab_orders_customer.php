@@ -48,7 +48,7 @@ if(!isset($sorting)){
 		'direction' => 'desc'
 	);
 	// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
-	setcookie('sorting', serialize(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
 }
 $orderby = 'o.'.$sorting['value'].' '.$sorting['direction'];
 $available_sorting_values = array(
