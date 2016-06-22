@@ -1,4 +1,12 @@
-<h1><?=$header;?></h1>
+<h1><?=$header;?>
+	<select name="user" class="input-m" id="user">
+		<?foreach($users_list as $user){?>
+			<option value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
+			<option value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
+			<option value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
+		<?}?>
+	</select>
+</h1>
 <!-- <a href="#">Начать наполнение поставщика</a> -->
 <div class="create_product">
 	<div class="supplier">
@@ -122,6 +130,9 @@
 	});
 
 	$(function(){
+		$('#user').on('change', function(){
+			window.location.assign($(this).val()+'/');
+		});
 		$('#supplier').on('change', function(){
 			currentSupplier = $('#supplier').val();
 			$.cookie('suppler', currentSupplier);

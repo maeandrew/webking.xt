@@ -13,7 +13,7 @@
 	$regions = new Regions();
 	// Все классы подключены
 	$address = new Address();
-	var_dump($address->GetRegionsList());
+	// var_dump($address->GetRegionsList());
 
 	/* selecting clear data */
 

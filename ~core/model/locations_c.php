@@ -13,7 +13,7 @@ class Address {
 		$sql = "SELECT DISTINCT c.region
 			FROM "._DB_PREFIX_."city AS c
 			WHERE c.region <> ''";
-			print_r($sql);die();
+			// print_r($sql);die();
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

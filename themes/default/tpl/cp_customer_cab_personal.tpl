@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="edit_personal">
-			<?=$content;?>
+			<?//$content;?>
 			<form id="edit_contacts" class="editing" action="" method="post">
 				<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 				<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
