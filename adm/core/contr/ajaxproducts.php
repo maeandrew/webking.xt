@@ -69,11 +69,11 @@
 							$echo .= '<a href="'.$video.'" target="blank">
 									<img src="/images/video_play.png">
 									<span class="name">'.$video.'</span>
-								</a>
-							</div>';
+								</a>';
 						}
 					}
-					$echo .= '</div>';
+					$echo .= '</div>
+						</div>';
 				}
 				echo $echo;
 				break;
