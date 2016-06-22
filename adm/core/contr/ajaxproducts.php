@@ -63,6 +63,17 @@
 						$echo .= '<img src="'.$image['src'].'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
 					}
 					$echo .= '</div>
+						<div class="prodVideos">';
+					if(is_array($videos)){
+						foreach($videos as $video){
+							$echo .= '<a href="'.$video.'" target="blank">
+									<img src="/images/video_play.png">
+									<span class="name">'.$video.'</span>
+								</a>
+							</div>';
+						}
+					}
+					$echo .= '</div>';
 				}
 				echo $echo;
 				break;
