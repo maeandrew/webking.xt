@@ -7,6 +7,36 @@
 				<?!isset($_GET['t'])?$var = '': $var = $_GET['t'];?>
 				<?switch($var){
 					default:?>
+					<div id="photobox" class="user_avatar">
+						<div class="previews">
+							<div class="image_block dz-preview dz-image-preview">
+								<?if(isset($_POST['images']) && !empty($_POST['images'])){
+									if(isset($_POST['images']['src'])){?>
+										<div class="image old_image_js">
+											<img data-dz-thumbnail src="<?=$_POST['images']['src']?>"/>
+										</div>
+										<div class="controls">
+											<p id="forDel" class="del_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
+											<div class="mdl-tooltip" for="forDel">Удалить фото</div>
+										</div>
+									<?}
+								}else{?>
+									<div class="image old_image_js">
+										<img data-dz-thumbnail src="/images/noavatar.png"/>
+									</div>
+								<?}?>								
+								<!-- <input type="hidden" name="images[]" value="<?=$_POST['images']['src']?>"> -->
+							</div>
+						</div>
+						<div class="image_block_new drop_zone animate avatar_menu">
+							<div class="dz-default dz-message load_avatar"><span>Загрузить фото</span></div>
+							<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+						</div>
+					</div>
+
+
+
+
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="email">E-mail:</label>
 						<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>
@@ -15,7 +45,7 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
 						<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
-						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
+						<span class="mdl-textfield__error">Введите номер телефона</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="name" class="mdl-textfield__label">Фамилия:</label>
@@ -147,8 +177,27 @@
 		<?}?>
 	</div> --> <!-- END class="edit_personal" -->
 </div>
+<div id="preview-template" style="display: none;">
+	<div class="image_block dz-preview dz-file-preview">
+		<div class="image">
+			<img data-dz-thumbnail />
+		</div>
+		<div class="controls">
+			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
+			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
+		</div>
+		<input type="hidden" name="images_visible[]" value="0">
+	</div>
+</div>
 <script>
 	$(document).ready(function() {
+		var confirmUpdate = false;
+		// if (!confirmUpdate) {
+		// 	window.onbeforeunload = function(){ 
+		// 		return 'У Вас есть несохраненные данные.';
+		// 	}
+		// }
+
 		$('div[class^="msg-"]').delay(3000).fadeOut(2000);
 		
 		$('.day_js').change(function(event) {
@@ -188,11 +237,11 @@
 				// console.log($('input.phone').val().replace(/[^\d]+/g, "").length);
 			} else {
 				// console.log("error");
-				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите все цифры Вашего номера телефона');
+				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите номер телефона');
 			}
 		});
 
-		$('input[name="save_contacts"]').click(function(event) {			
+		$('input[name="save_contacts"]').click(function(event) {
 			var parent = $(this).closest('form'),
 				id_user = parent.find('[name="id_user"]').val(),
 				email = parent.find('[name="email"]').val(),
@@ -235,6 +284,7 @@
 			}else{
 				ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
 					if (response == 'true') {
+						confirmUpdate = true;
 						snackbarMsg = {message: 'Ваши данные успешно сохранены'},
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
@@ -269,6 +319,45 @@
 						}
 					};
 				});
+			}
+		});
+
+		//Загрузка Фото на сайт
+		var	url = URL_base+'userPic/';
+		var dropzone = new Dropzone(".drop_zone", {
+			method: 'POST',
+			url: url+"?upload=true",
+			clickable: true,
+			maxFiles: 1,
+			// acceptedFiles: 'image/jpeg,image/png',
+			previewsContainer: '.previews',
+			previewTemplate: document.querySelector('#preview-template').innerHTML
+		});
+		dropzone.on('addedfile', function(file){
+			$('#photobox .old_image_js img').remove();
+			// $('.previews .dz-file-preview').addClass('forUpload');
+			componentHandler.upgradeDom();
+		}).on('maxfilesexceeded', function(file) {
+			this.removeAllFiles();
+			this.addFile(file);
+			componentHandler.upgradeDom();
+		}).on('success', function(file, path){
+			// file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+			componentHandler.upgradeDom();
+		}).on('removedfile', function(file){
+			$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
+			// removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+			// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+			componentHandler.upgradeDom();
+		});
+
+		//Удаление ранее загруженного фото
+		$("body").on('click', '.del_photo_js', function(e) {
+			alert('Изобрежение будет удалено.');
+			if(confirm('Изобрежение будет удалено.')){
+				// var path = $(this).closest('.image_block'),
+				// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
+				// RemovedFile(path, removed_file);
 			}
 		});
 	});

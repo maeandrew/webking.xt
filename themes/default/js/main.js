@@ -115,66 +115,70 @@ $(function(){
 	// 	AddFavorite(event,id_product);
 	// });
 
-	//Удаление Избранного товара из списка
+	//Удаление избранного товара из списка
 	$('body').on('click', '.remove_favor_js', function(e){
 		e.preventDefault();
-		var id_product = $(this).closest('.favorite_js').attr('data-idproduct'),
+		var id_product = $(this).closest('.favorite_js').data('idproduct'),
 			clicked = $(this);
-		clicked.addClass('clicked_js');
-		setTimeout(function() {
-			addLoadAnimation(clicked.closest('tr'));
-			if (clicked.hasClass('confirmDel_js')) {
-				ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
-					if (data.fav_count > 0) {
-						clicked.closest('.favorite_js').remove();
-						$('.userChoiceFav').text('('+data.fav_count+')');
-						var data = {message: 'Товар удален из списка избранных товаров'};
-						var snackbarContainer = document.querySelector('#snackbar');
-						snackbarContainer.MaterialSnackbar.showSnackbar(data);
-					}else{
-						$('#favorites').html('<h5>У Вас нет избранных товаров</h5>');
-						$('.userChoiceFav').text('(0)');
-					}
-					clicked.removeClass('clicked_js');
-				});
-			}
-		}, 2000);
+		$('#confirmDelItem').data('delIdItem', id_product).data('list', "favor");
+		clicked.addClass('clicked_js').closest('.tableRow').addClass('flag_js');
 	});
 
 	//Удаление товара из листа ожидания
 	$('body').on('click', '.remove_waitinglist_js', function(e){
 		e.preventDefault();
-		var id_product = $(this).closest('.waiting_list_js').attr('data-idproduct'),
+		var id_product = $(this).closest('.waiting_list_js').data('idproduct'),
 			clicked = $(this);
-		clicked.addClass('clicked_js');
-		setTimeout(function() {
-			addLoadAnimation(clicked.closest('tr'));
-			if (clicked.hasClass('confirmDel_js')) {
-				ajax('product', 'del_from_waitinglist', {id_product: id_product}).done(function(data){
-					console.log(data);
-					if (data.fav_count > 0) {
-						clicked.closest('.waiting_list_js').remove();
-						$('.userChoiceWait').text('('+data.fav_count+')');
-						var data = {message: 'Товар удален из листа ожидания'};
-						var snackbarContainer = document.querySelector('#snackbar');
-						snackbarContainer.MaterialSnackbar.showSnackbar(data);
-					}else{
-						$('#waiting_list').html('<h5>Лист ожидания пуст</h5>');
-						$('.userChoiceWait').text('(0)');
-					}
-				}).fail(function(data){
-					console.log('Error!');
-				});
-			}
-		}, 2000);
+		$('#confirmDelItem').data('delIdItem', id_product).data('list', "waiting");
+		clicked.addClass('clicked_js').closest('.tableRow').addClass('flag_js');
 	});
 
+	//Подтверждение удаления из листа ожидания/списка избранных
 	$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
-		$('.clicked_js').addClass('confirmDel_js');
+		var id_product = $('#confirmDelItem').data('delIdItem'),
+			clicked = $('.clicked_js');
 		closeObject('confirmDelItem');
+		if ($('#confirmDelItem').data('list') == 'favor') {
+			addLoadAnimation('.flag_js');
+			ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
+				if (data.fav_count > 0) {
+					clicked.closest('.favorite_js').remove();
+					$('.userChoiceFav').text('('+data.fav_count+')');
+					var data = {message: 'Товар удален из списка избранных товаров'};
+					var snackbarContainer = document.querySelector('#snackbar');
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				}else{
+					$('#favorites').html('<h5>У Вас нет избранных товаров</h5>');
+					$('.userChoiceFav').text('(0)');
+				}				
+			}).fail(function(data){
+				console.log('Error!');
+			});
+		}else if ($('#confirmDelItem').data('list') == 'waiting') {
+			addLoadAnimation('.flag_js');
+			ajax('product', 'del_from_waitinglist', {id_product: id_product}).done(function(data){
+				if (data.fav_count > 0) {
+					clicked.closest('.waiting_list_js').remove();
+					$('.userChoiceWait').text('('+data.fav_count+')');
+					var data = {message: 'Товар удален из листа ожидания'};
+					var snackbarContainer = document.querySelector('#snackbar');
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				}else{
+					$('#waiting_list').html('<h5>Лист ожидания пуст</h5>');
+					$('.userChoiceWait').text('(0)');
+				}
+			}).fail(function(data){
+				console.log('Error!');
+			});
+		}
+		clicked.removeClass('clicked_js');
+		$('.flag_js').removeClass('flag_js');
 	});
+	
 	$('#confirmDelItem').on('click', '.cancelBtn_js', function(){
-		$('.clicked_js').removeClass('confirmDel_js');
+		$('#confirmDelItem').removeData('delIdItem');
+		$('.clicked_js').removeClass('clicked_js');
+		$('.flag_js').removeClass('flag_js');
 		closeObject('confirmDelItem');
 	});
 
@@ -241,8 +245,7 @@ $(function(){
 
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
-		effect : "fadeIn",
-		load : resizeAsideScroll('load')
+		effect : "fadeIn"
 	});
 
 	// if(viewport_width < 711) {
@@ -1155,7 +1158,9 @@ $(function(){
 		}
 
 		data = {method: method.data('value'), value: value};
+		addLoadAnimation('#access_recovery');
 		ajax('auth', 'accessRecovery', data).done(function(response){
+			removeLoadAnimation('#access_recovery');
 			if (response.success) {
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
@@ -1188,7 +1193,9 @@ $(function(){
 			id_user = parent.find('[type="hidden"]').val(),
 			code = parent.find('[name="code"]').val();			
 		data = {id_user: id_user, code: code};
+		addLoadAnimation('#access_recovery');
 		ajax('auth', 'checkСode', data).done(function(response){
+			removeLoadAnimation('#access_recovery');
 			if (response.success) {
 				parent.find('.password_recovery_container').html(response.content);
 			}else{
@@ -1210,14 +1217,16 @@ $(function(){
 		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd.val(), confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd};
 			if(!parent.find('.mdl-textfield').hasClass('is-invalid')) {
+				addLoadAnimation('#access_recovery');
 				ajax('auth', 'accessConfirm', data).done(function(response){
+					removeLoadAnimation('#access_recovery');
 					console.log(response);
 					if (response.success) {
 						$('.cabinet_btn').removeClass('hidden');
 						$('.login_btn').addClass('hidden');
-						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-							$('#user_pro').html(data);
-
+						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){							
+							$('#user_profile').append('<img src="/images/noavatar.png"/>');
+							$('.user_profile_js').html(data);
 							$('.cabinet_btn').removeClass('hidden');
 							$('.login_btn').addClass('hidden');
 							// $('header .cart_item a.cart i').removeClass('mdl-badge');
@@ -1282,6 +1291,18 @@ $(function(){
 			passwd = form.find('input#passwd').val();
 		form.find('.error').fadeOut();
 		e.preventDefault();
+		
+		// Проверка введенного телефона-логина
+		var str = email.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				email = 38 + str;
+			}else{
+				email = str;
+			}
+		}
+
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
@@ -1317,6 +1338,8 @@ $(function(){
 				}
 
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+					console.log(data);					
+					$('#user_profile').append('<img src="/images/noavatar.png"/>');
 					$('.user_profile_js').html(data);
 
 					$('.cabinet_btn').removeClass('hidden');
@@ -1370,7 +1393,8 @@ $(function(){
 		ajax('auth', 'register', fields).done(function(data){
 			if(data.err === 0){
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-					$('#user_pro').html(data);
+					$('#user_profile').append('<img src="/images/noavatar.png"/>');
+					$('.user_profile_js').html(data);
 					$('.cabinet_btn').removeClass('hidden');
 					$('.login_btn').addClass('hidden');	
 				});

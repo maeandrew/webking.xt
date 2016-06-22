@@ -48,10 +48,4 @@ if($Order->GetSuppliers($id_order)){
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Заказ $id_order";
 	$tpl->Assign('h1', $GLOBALS['IERA_LINKS'][$ii]['title']);
 }
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_order.tpl')
-);
-if($parsed_res['issuccess'] == true){
-	$tpl_center .= $parsed_res['html'];
-}
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_order.tpl');

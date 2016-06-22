@@ -147,9 +147,12 @@ function ChangeCartQty(id, direction){
 	var qty = 0;
 	if($('#cart').hasClass('opened')){
 		qty = parseInt($('#cart .product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
+	}else if($('.product_buy[data-idproduct="'+id+'"]').closest('.card').find('.product_photo').hasClass('hovered')){
+		qty = parseInt($('.preview .product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 	}else{
 		qty = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js').val());
 	}
+
 	addLoadAnimation('.product_buy[data-idproduct="'+id+'"]');
 	var note = $('#product_'+id).find('.note textarea').val();
 	if(direction === 1){

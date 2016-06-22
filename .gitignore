@@ -240,3 +240,4 @@ robots.txt
 *.txt
 *.jpg
 .phpintel/*
+*.csv
