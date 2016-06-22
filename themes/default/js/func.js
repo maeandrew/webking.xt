@@ -1169,7 +1169,7 @@ function ChangePriceRange(column, manual){
 		column = $.cookie('sum_range');
 	}	
 
-	var text = '';	
+	var text = '';
 	addLoadAnimation('.order_balance');
 	ajax('cart', 'GetCart').done(function(data){
 		removeLoadAnimation('.order_balance');
@@ -1188,11 +1188,11 @@ function ChangePriceRange(column, manual){
 
 		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
 			var minQty = parseInt($(this).find('.minQty').val());
-			var curentQty =	parseInt($(this).find('.qty_js').val());			
+			var curentQty =	parseInt($(this).find('.qty_js').val());
 			var price = parseFloat($(this).find('.price'+ (curentQty >= minQty?'Opt':'Mopt') +$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',',');
-			if(curentQty >= minQty){				
+			if(curentQty >= minQty){
 				$(this).find('.priceMoptInf').addClass('hidden');
-			}else{				
+			}else{
 				$(this).find('.priceMoptInf').removeClass('hidden');
 			}
 			$(this).find('.price').html(price);
@@ -1208,7 +1208,7 @@ function ChangePriceRange(column, manual){
 					//"color": "red"
 				}, 3000);
 
-			},300);			
+			},300);
 		}
 	});
 }
