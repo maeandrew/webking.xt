@@ -4,7 +4,7 @@ session_start();
 header("Content-type: text/html; charset=utf-8");
 date_default_timezone_set('Europe/Kiev');
 define('EXECUTE', 1);
-define(DIRSEP, DIRECTORY_SEPARATOR);
+define('DIRSEP', DIRECTORY_SEPARATOR);
 ini_set('session.gc_maxlifetime', 43200);
 ini_set('session.cookie_lifetime', 43200);
 // ini_set('max_execution_time', 30);
@@ -191,7 +191,6 @@ $tpl->Assign('__breadcrumbs', $GLOBALS['__breadcrumbs']);
 $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
 $tpl->Assign('__sidebar_r', $GLOBALS['__sidebar_r']);
 $tpl->Assign('__popular', $GLOBALS['__popular']);
-$tpl->Assign('__aside',  $GLOBALS['__aside']);
 if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }

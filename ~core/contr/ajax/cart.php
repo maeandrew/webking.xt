@@ -377,6 +377,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						if($Users->CheckUser($data)){
 							G::Login($Users->fields);
 							_acl::load($Users->fields['gid']);
+							$res['new_user'] = true;
 						}
 					} else {
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
@@ -418,11 +419,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'CheckPromo':
 				if(!$cart->CheckPromo($_POST['promo'])){
-					$res['promo'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
+					$res['promo'] = false;
+					$res['msg'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
 				} else{
-					$res['promo'] = 'Успех';
+					$res['promo'] = true;
 				}
-				echo json_encode($res['promo']);
+				echo json_encode($res);
 				break;
 			case 'ReadyUserJO':
 				if(!$cart->UpdateCart(false, false, false, 1, $_POST['id_cart'])){

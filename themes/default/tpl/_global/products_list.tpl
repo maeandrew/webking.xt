@@ -1,5 +1,6 @@
-<?switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){		
-	case _ACL_CONTRAGENT_:		    
+<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
+<?switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
+	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
 			$Status = new Status();
 			$st = $Status->GetStstusById($item['id_product']);
@@ -116,7 +117,7 @@
 								</p>
 							<?}?>
 						</div>
-						<form action="" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
+						<form action="" class="note hidden <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
 							<textarea cols="30" rows="3" placeholder="Примечание к заказу" ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 							<label class="info_key">?</label>
 							<div class="info_description">

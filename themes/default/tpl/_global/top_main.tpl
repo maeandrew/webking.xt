@@ -58,7 +58,7 @@
 				</button>
 			<?}else{?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect cabinet_btn hidden">
-					<i class="material-icons">account_circle</i>
+					<!-- <i class="material-icons">account_circle</i> -->
 				</button>
 				<a href="#" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect login_btn">Войти</a>
 			<?}?>

@@ -2015,8 +2015,8 @@ class Products {
 		}else{
 			$f['art'] = $this->CheckArticle($this->GetLastArticle()+1);
 		}
-		$f['name'] = trim($arr['name']);
-		$f['translit'] = G::StrToTrans($arr['name']);
+		$f['name'] = isset($arr['name']) && trim($arr['name']) !== ''?trim($arr['name']):'Товар - '.$f['art'];
+		$f['translit'] = G::StrToTrans($f['name']);
 		if(isset($arr['dupl_idproduct'])){
 			$f['dupl_idproduct'] = trim($arr['dupl_idproduct']);
 		}
@@ -4432,11 +4432,11 @@ class Products {
 			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
 			if(!empty($l['subcats'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
-                    $ul .= '<span class="more_cat"><i class="material-icons rotate">keyboard_arrow_right</i></span></span>';
+                    $ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
                 }else{
-                    $ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
+                    $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
                 }*/
-				$ul .= '<span class="more_cat"><i class="material-icons">keyboard_arrow_right</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl);
 				$ul .= '</li>';
 			}else{
@@ -4561,6 +4561,10 @@ class Products {
 		$Images = new Images();
 		$Images->resize(false, $to_resize);
 		$this->UpdatePhoto($id_product, $images_arr, $visibility);
+		// try to add videos
+		if(!empty($_POST['video'])){
+			$this->UpdateVideo($id_product, $_POST['video']);
+		}
 		// try to add new product to supplier's assort
 		$Suppliers = new Suppliers();
 		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
@@ -4579,6 +4583,7 @@ class Products {
 		}
 		foreach ($res as &$v){
 			$v['images'] = $this->GetPhotoById($v['id_product']);
+			$v['videos'] = $this->GetVideoById($v['id_product']);
 		}
 		return $res;
 	}

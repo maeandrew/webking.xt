@@ -8,7 +8,7 @@ if (isset($_COOKIE['Segmentation']) && ($_COOKIE['Segmentation'] == 1 || $_COOKI
         $segm .= '<li data-id="'.$v['id'].'"'.(isset($GLOBALS['Segment']) && $GLOBALS['Segment'] == $v['id']?' class="active"':null).' onclick="segmentOpen('.$v['id'].')">
             <span class="link_wrapp">
                 <a href="#">'.$v['name'].'</a>
-                <span><i class="material-icons">keyboard_arrow_right</i></span>
+                <span><i class="material-icons">&#xE315;</i></span>
             </span>';
         if(isset($GLOBALS['Segment']) && $GLOBALS['Segment'] == $v['id']){
             $segm .= $nav->generateNavigation($nav->navigation($v['id']));

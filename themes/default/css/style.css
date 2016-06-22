@@ -126,6 +126,9 @@ input[type="number"]:focus {
 .orange {
 	color: #FF5722;
 }
+.clearBoth {
+	clear: both;
+}
 .clearfix:after {
 	content: ".";
 	display: block;
@@ -541,7 +544,7 @@ body:not(.c_main) .banner {
 .breadcrumbs {
 	float: left;
 	padding-left: 10px;
-    padding-right: 10px;
+	padding-right: 10px;
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;
@@ -1139,6 +1142,9 @@ section.center {
 		margin-right: 10px;
 		width: 160px;
 	}
+	#cart .for_err_promo .tooltip_wrapp {
+		padding-top: 55px;
+	}
 	#cart .action_block form .mdl-checkbox {
 		float: left;
 		clear: both;
@@ -1152,12 +1158,17 @@ section.center {
 	}
 	#cart .action_block .promo_input {
 		display: inline-block;
+		float: left;
 		width: 140px;
 		margin-right: 10px;
 		/*padding-top: 20px;*/
 	}
 	#cart .action_block .promo_input input {
 		text-align: center;
+	}
+	#cart .action_block .mdl-textfield__error.visibleForUser {
+		visibility: inherit;
+		width: 200%;
 	}
 	#cart .action_block .apply_promoCode {
 		width: 120px;
@@ -1299,7 +1310,7 @@ section.center {
 		}
 		#cart .product_buy .buy_block .quantity .units {
 			width: 20px;
-		    margin: 0;
+			margin: 0;
 		}
 	}
 
@@ -1317,6 +1328,7 @@ section.center {
 		min-width: 105px;
 		box-sizing: border-box;
 		margin-right: 20px;
+		margin-bottom: 10px;
 		cursor: pointer;
 	}
 	.breadcrumbs_wrap .catalog_btn:hover {
@@ -2205,9 +2217,9 @@ section .stat_year {
 	vertical-align: top;
 }
 #cart .card .product_name > a {
-    display: block;
-   	height: 40px;
-    overflow: hidden;
+	display: block;
+	height: 40px;
+	overflow: hidden;
 }
 #cart .card {
 	min-height: 101px;
@@ -3135,11 +3147,11 @@ section .stat_year {
 	}
 	
 }
-@media (max-width: 380px) {
+/*@media (max-width: 380px) {
 	#orders_history {
 		margin: 0 !important;
 	}
-}
+}*/
 
 /*Стили кабинета (ent)*/
 .tab-content tr:hover{
@@ -3384,7 +3396,7 @@ section .stat_year {
 	color: #9E9E9E;
 	text-align: justify;
 	border-top: 1px solid #e0e0e0;
-	padding: 1em 0;
+	padding: 1.8em 0;
 	overflow: hidden;
 }
 #seoTextBlock p {
@@ -3394,6 +3406,11 @@ section .stat_year {
 	margin: 5px;
 	box-shadow: none;
 	background-color: transparent;
+}
+#seoTextBlock h2 {
+	font-size: 1.8em;
+	line-height: 2em;
+	margin: .5em 0 !important;
 }
 
 /* Стили функции редактирования характеристик товара в админке */
@@ -3546,8 +3563,8 @@ div.modalEditOrder .applyBtn {
 	display: block;
 	text-align: center;
 	margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
+	margin-bottom: auto;
+	overflow: hidden;
 }
 
 /* Стили карусели подкатегорий */
@@ -3585,4 +3602,41 @@ div.modalEditOrder .applyBtn {
  #owl-subcategories_slide_js .subCategory img {
 	height: 150px;
 	width: 150px;
+}
+
+/* Cookie message */
+.cookie_wrap {
+	position: relative;
+	color: #fff;
+}
+.cookie_msg {
+	position: fixed;
+	padding: 2em;
+	bottom: -150px;
+	width: 100%;
+	height: auto;
+	background-color: rgba(52, 52, 52, 0.85);
+	transition: 3s ease;
+	z-index: 10000000;
+}
+.cookie_msg h4 {
+	margin: 0;
+}
+.cookie_msg p {
+	margin-top: 1em;
+	text-align: justify;
+}
+.cookie_msg_close {
+	position: absolute !important;
+	top: 1em;
+	right: 2em;
+	cursor: pointer;
+	color: #fff !important;
+}
+.cookie_msg p {
+	font-size: 1em;
+	line-height: 1.4em;
+}
+.cookie_msg p span {
+	font-size: 1.2em;
 }

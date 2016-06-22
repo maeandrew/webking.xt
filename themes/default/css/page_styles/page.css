@@ -264,6 +264,7 @@
 				margin: 0 auto;
 				border: 1px solid #47525d;
 				border-radius: 50%;
+				display: none;
 			}
 			#content .pages_group .info_circle h5 {
 				font-size: 1.6em;
@@ -566,7 +567,7 @@
 	}
 	#content .page_contacts .blockOfText .mini_text {
 		font-size: 1.1em;
-		width: 40%;
+		width: 70%;
 	}
 	#content .page_contacts .pEmail {
 		font-weight: 500;
@@ -629,6 +630,9 @@
 				min-height: 115px;
 				margin: 2% auto;
 				font-size: 1em;
+			}
+			#content .page_contacts .blockOfText .mini_text {				
+				width: 100%;
 			}
 		}
 /* Страница "Стать дилером" / class="page_dealer" */

@@ -149,7 +149,7 @@
 						<span class="prod_qty_control" data-qtycontr="<?=$item['qty_control']?>"></span>
 						<div class="product_info">
 							<div class="note in_cart">
-								<textarea cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+								<textarea class="note_field" cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
 								<div class="info_description hidden">
 									<p>Поле для ввода примечания к товару.</p>
@@ -317,11 +317,12 @@
 						<label for="promo_input">Промокод</label>
 						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
 						<label class="mdl-textfield__label" for="promo_input"></label>
+						<span class="mdl-textfield__error err_promo orange"></span>
 					</div>
 					<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
 						<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
-						<div class="cart_warning_js cart_warning hidden">
+						<div class="cart_warning_js cart_warning clearBoth hidden">
 							<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 							<p>Вы уверенны, что хотите удалить промокод?</p>
 							<input type="hidden" value="<?=isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:'';?>">
@@ -332,12 +333,12 @@
 						<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
 					<?}?>
 					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
-						<div class="">
-							<div class="info_admin">Для управления совместной покупкой, перейдите  личный кабинет.</div>
+						<div class="clearBoth">
+							<div class="info_admin">Для управления совместной покупкой, перейдите личный кабинет.</div>
 							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
 						</div>
 					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
-						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?>">
+						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?> clearBoth">
 							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 							<?if(isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) {?>
 								<div class="info_client ic_waiting">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
@@ -433,14 +434,23 @@
 
 
 				$('.apply_promoCode_js').click(function(event) {
-					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(event) {
-						$('cart_choiсe_wrapp_js').addClass('hidden');
+					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data) {
+						console.log(data);
+						if (data.promo) {
+							$('cart_choiсe_wrapp_js').addClass('hidden');
+							GetCartAjax(true);
+							console.log("success promo");
+							$('.action_block form').removeClass('for_err_promo');
+							$('.err_promo').removeClass('visibleForUser');
+						}else{
+							$('.action_block form').addClass('for_err_promo');
+							$('.err_promo').addClass('visibleForUser').text(data.msg);
+							componentHandler.upgradeDom();
+						}
 						
 						// $('.confirm_order_js').closest('div').removeClass('hidden');
 						// $('#button-cart1').addClass('hidden');
-						openObject('cart', {reload: true});
-						console.log("success promo");
-					}).fail(function(event) {
+					}).fail(function(data) {
 						console.log("fail promo");
 					});
 				});
@@ -479,6 +489,7 @@
     		Position($('#cart'));
 		});
 
+
 		$(function(){
 			if(isLogged){
 				// console.log('loggedin');
@@ -496,6 +507,14 @@
 				$('#clearCart').removeClass('hidden');
 			});
 
+			$(".note_field").blur(function() {
+				console.log('ушли');
+				console.log($(this).data('id'));
+				console.log($(this).val());
+
+			});
+
+
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
@@ -509,9 +528,14 @@
 						qtyControl = 1;
 						$(this).find('.note').addClass('activeNoteArea');
 						$(this).find('textarea').attr('placeholder', 'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!');
+						$('#fillNote').removeClass('hidden');
+
+						setTimeout (function(){
+							$("#fillNote").addClass('hidden');
+						}, 3000);						
 					}
 				});
-				if(phone.length == 12){					
+				if(phone.length == 12){
 					if (qtyControl === 0){
 						addLoadAnimation('#cart');
 						ajax('cart', 'makeOrder', {phone: phone}).done(
@@ -521,7 +545,9 @@
 									// closeObject('cart');
 									window.location.hash = "quiz";
 									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-										$('#user_pro').html(data);
+										console.log(data);
+										$('#user_profile').append('<img src="/images/noavatar.png"/>');
+										$('.user_profile_js').html(data);
 
 										$('.cabinet_btn').removeClass('hidden');
 										$('.login_btn').addClass('hidden');
@@ -529,6 +555,9 @@
 										$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
 										$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 									});
+									if (data.new_user === true) {
+										window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
+									}
 									openObject('quiz');
 									break;
 								case 500:
@@ -549,12 +578,14 @@
 								default:
 									console.log('default statemant');
 							}
+
+							/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
 						});
 					}
 				}else{
 					removeLoadAnimation('#cart');
 					$('.err_tel').css('visibility', 'visible');
-				}
+				}				
 			});
 			if(!isLogged){
 				$('input.send_order, input.save_order').click(function(e){

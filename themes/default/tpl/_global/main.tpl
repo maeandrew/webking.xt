@@ -17,21 +17,19 @@
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
-		// if($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 482 && empty($GLOBALS['subcats'])){
-			if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
-				<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
-			<?}else{?>
+		if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
+			<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
+		<?}else{
+			if(isset($GLOBALS['meta_canonical'])){?>
 				<link rel="canonical" href="<?=$GLOBALS['meta_canonical'];?>"/>
 			<?}
-			if(isset($GLOBALS['meta_next'])){?>
-				<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
-			<?}
-			if(isset($GLOBALS['meta_prev'])){?>
-				<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
-			<?}
-		// }else{?>
-			<!-- <link rel="canonical" href="<?=$GLOBALS['products_canonical'];?>"/> -->
-		<?//}
+		}
+		if(isset($GLOBALS['meta_next'])){?>
+			<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
+		<?}
+		if(isset($GLOBALS['meta_prev'])){?>
+			<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
+		<?}
 	}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>
@@ -112,7 +110,7 @@
 				}
 			}
 		</script>
-		<link href="<?=_base_url?>/themes/default/css/page_styles/products.css" rel="stylesheet" type="text/css">
+		<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 	<?}?>
 	<!-- END define search box in google sitelinks -->
 	<noscript>
@@ -299,13 +297,13 @@
 						<div class="productsListView">
 							<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
 							<span class="mdl-tooltip" for="changeToList">Вид списком</span>
-							<i id="changeToBlock" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+							<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
 							<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
 							<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 							<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 						</div>
 					</div>
-					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'list_view'?> col-md-12 ajax_loading">
+					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
 						<div class="row">
 							<div class="products">
 								<?=$products_list;?>
@@ -549,6 +547,9 @@
 			<div id="removingProd" class="cartInfBlock hidden">
 				Подождите идет удаление...
 			</div>
+			<div id="fillNote" class="cartInfBlock hidden">
+				Заполните обязательные примечания товаров!
+			</div>
 			<div id="clearCart" class="cartInfBlock hidden">
 				Подождите идет очистка корзины...
 			</div>
@@ -729,5 +730,27 @@
 		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript>
+
+	<!-- message about cookie -->
+	<div class="cookie_wrap">
+		<div class="cookie_msg cookie_msg_js">
+			<h4>Мы используем файлы cookie</h4>
+			<p>Этот веб-сайт использует файлы cookie для обеспечения корректной работы сайта. Файлы cookie хранят полезную информацию на вашем компьютере для того, чтобы мы могли улучшить оперативность и точность нашего сайта для вашей работы. <span>Заходя на данный сайт, вы соглашаетесь на использование файлов cookie.</span></p>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-js-ripple-effect">ОК</div>
+		</div>
+	</div>
+	<script>
+		setTimeout(function() {
+			if ($.cookie('useCookie') != 'agree'){
+				$('.cookie_msg_js').css('bottom', '0');
+				
+				$('body').on('click', '.cookie_msg_js .close', function(event) {
+					event.preventDefault();
+					$('.cookie_msg_js').css('bottom', '-150px');
+					$.cookie('useCookie', 'agree', {expires: 365});
+				});
+			}
+		}, 2000);
+	</script>
 </body>
 </html>

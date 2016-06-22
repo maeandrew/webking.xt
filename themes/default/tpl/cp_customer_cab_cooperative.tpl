@@ -307,10 +307,11 @@
 			location.reload();
 		});
 		$('.del_x_js').click(function(event) {
+			var obj = $(this);
 			// console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
-			console.log($(this).closest('.tableRow').find('.member_id_cart_js').val());
+			// console.log($(this).closest('.tableRow').find('.member_id_cart_js').val());
 			ajax('cabinet', 'DelCartFromJO', {id_cart: $(this).closest('.tableRow').find('.member_id_cart_js').val()}).done(function(event) {
-				// console.log('Great');
+				obj.closest('.tableRow').remove();
 			}).fail(function(event) {
 				console.log('Fail');
 			});
