@@ -481,7 +481,11 @@
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
-							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
+							<?if ($p['price_mopt'] > 100) {?>
+								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+							<?}else{?>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
+							<?}?>
 						</a>
 					</div>
 				<?}?>
@@ -503,7 +507,11 @@
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
-							<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
+							<?if ($p['price_mopt'] > 100) {?>
+								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+							<?}else{?>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
+							<?}?>
 						</a>
 					</div>
 				<?}?>

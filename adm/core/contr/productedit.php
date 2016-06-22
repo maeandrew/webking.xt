@@ -151,7 +151,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 				}
 				foreach($supp_arr as $k => $value){
 					$value['id_product'] = $id_product;
-					if($value['id_assortiment'] == false){
+					if($value['id_assortiment'] === false){
 						//Добавляем поставщика в ассортимент
 						if(!$products->AddToAssortWithAdm($value)){
 							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';

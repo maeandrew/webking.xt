@@ -739,7 +739,7 @@ class Products {
 		}
 		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
 		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
-		//Добавляем эти значения в массв $list
+		//Добавляем эти значения в массив $list
 		foreach ($this->list as &$v) {
 			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
 			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
@@ -1815,29 +1815,28 @@ class Products {
 	 * Обновление данных Ассортимента с админки
 	 * @param [type] $arr [description]
 	 */
-	public function UpdateAssortWithAdm($arr)
-	{
+	public function UpdateAssortWithAdm($arr){
 		//Проверка перед update. Если изменений нет, то update не делать
 		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment WHERE id_assortiment = ".$arr['id_assortiment'];
 		$res = $this->db->GetOneRowArray($sql);
 		$i = 0;
-		foreach ($arr as $k => &$v) {
-			if (isset($res[$k]) && $res[$k] !== $v) {
+		foreach($arr as $k => &$v){
+			if(isset($res[$k]) && $res[$k] !== $v){
 				$i++;
 			}
 		}
-		if ($i > 0) {
+		if($i > 0){
 			$suppliers = new Suppliers();
 			$suppliers->SetFieldsById($arr['id_supplier'], 1);
 			$supp_fields = $suppliers->fields;
 			$f['product_limit'] = trim($arr['product_limit']);
 			$f['inusd'] = $arr['inusd'];
-			if ($arr['inusd'] != 1) {
+			if($arr['inusd'] != 1){
 				$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
 				$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
 				$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
 				$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
-			} else {
+			}else{
 				$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
 				$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
 				$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
@@ -1846,7 +1845,7 @@ class Products {
 			$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
 			$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
 			$this->db->StartTrans();
-			if (!$this->db->Update(_DB_PREFIX_ . "assortiment", $f, "id_assortiment = " . $arr['id_assortiment'])) {
+			if (!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_assortiment = " . $arr['id_assortiment'])) {
 				$this->db->FailTrans();
 				return false;
 			}
@@ -1915,7 +1914,7 @@ class Products {
 			$prices['opt_counter'] = 0;
 			$prices['mopt_counter'] = 0;
 			$opt_sr = $mopt_sr = 0;
-			if(isset($mass[$id_product]) == true){
+			if(isset($mass[$id_product])){
 				$return[$id_product]['filial'] = 1;
 				foreach($mass[$id_product] as $p){
 					if($p['price_opt_recommend'] > 0){
@@ -1937,11 +1936,12 @@ class Products {
 					$mopt_sr = min($prices[$id_product]['mopt']);
 				}
 				if($opt_sr != $mass[$id_product][0]['old_price_opt'] || $mopt_sr != $mass[$id_product][0]['old_price_mopt']){
+				}else{
+					// unset($return[$id_product]);
+				}
 					$return[$id_product]['opt_sr'] = $opt_sr;
 					$return[$id_product]['mopt_sr'] = $mopt_sr;
-				}else{
-					unset($return[$id_product]);
-				}
+
 				unset($prices[$id_product]);
 				unset($mass[$id_product]);
 			}else{
@@ -1975,8 +1975,16 @@ class Products {
 	public function UpdateSitePricesMassive($arr){
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
-				$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
-				$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
+				if ($a['opt_sr'] > 100) {
+					$f['price_opt'] = "CEILING(".$a['opt_sr']."*price_coefficient_opt)";
+				}else{
+					$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
+				}
+				if ($a['mopt_sr'] > 100) {
+					$f['price_mopt'] = "CEILING(".$a['mopt_sr']."*price_coefficient_mopt)";
+				}else{
+					$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
+				}
 				$f['filial'] = $a['filial'];
 				$this->db->StartTrans();
 				if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = ".$k)){
