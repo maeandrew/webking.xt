@@ -8,9 +8,13 @@
 	</select>
 </h1>
 <!-- <a href="#">Начать наполнение поставщика</a> -->
-<div class="create_product">
-	<div class="supplier">
-		<label for="supplier">Поставщик</label>
+<div class="create_product row">
+	<div class="upload_message hidden">Подождите идет загрузка метриалов...</div>
+	<div class="col-md-12">
+		<h3>Добавить новый товар</h3>
+	</div>
+	<div class="supplier col-md-4">
+		<label for="supplier">Поставщик:</label>
 		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
 		<datalist id="suppliers">			
 			<?foreach($suppliers_list as $supplier){?>				
@@ -18,29 +22,27 @@
 			<?}?>			
 		</datalist>
 	</div>
-	<div class="prodName">
-		<label for="prodName">Название товара</label>
+	<div class="prodName col-md-4">
+		<label for="prodName">Название:</label>
 		<input type="text" id="prodName" class="input-m">
 	</div>
-	<div class="submit">
+	<div class="submit col-md-4">
 		<button class="btn-m-default submit_js">Применить</button>
 	</div>
-	<div class="video_upload">
-		<p class="add_video add_video_js">Добавить видео <span class="icon-font">a</span></p>
-		<ol class="video_list video_list_js"></ol>
-	</div>
-	<div class="images hidden">
-		<label for="images">Изображения</label>
-		<div class="fallback">
-			<input type="file" name="images" id="images" multiple />
+	<div class="col-md-12">
+		<div class="image_block_new drop_zone animate">
+			<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+			<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 		</div>
 	</div>
-	
-	<div class="image_block_new drop_zone animate col-md-12">
-		<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
-		<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+
+	<div class="col-md-12">
+		<div class="images_block"></div>
 	</div>
-	<div class="images_block"></div>
+	<div class="video_upload col-md-12">
+		<a class="add_video add_video_js btn-m-blue-inv">Добавить видео</a>
+		<ul class="video_list video_list_js"></ul>
+	</div>
 </div>
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
@@ -51,55 +53,41 @@
 		</div>
 		<div class="name">
 			<span class="dz-filename" data-dz-name></span>
-			<span class="dz-size" data-dz-size></span>
 		</div>		
 	</div>
 </div>
 <div class="prodList">
-	<div class="prodListItem">
+	<?foreach($list as $item){?>
+		<div class="prodListItem">
 			<div class="nameProd">
-				<a href="#">Товар:</a>
-				<span>Видео</span>
+				<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
+				<span><?=$item['name']?></span>
 			</div>
 			<div class="createData">
 				<span>Дата:</span>
-				<span>Тест</span>
+				<span><?=$item['create_date']?></span>
 			</div>
-			<div class="prodImages">
-				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
-					<img src="/images/video_play.png">
-					<span class="name">/images/video_play.png</span>
-				</a>
-				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
-					<img src="/images/video_play.png">
-					<span class="name">/images/video_play.png</span>
-				</a>
-				<a href="https://www.youtube.com/watch?v=uG8V9dRqSsw" target="blank">
-					<img src="/images/video_play.png">
-					<span class="name">/images/video_play.png</span>
-				</a>
-			</div>
-		</div>
-	<?foreach ($list as $item) {?>
-		<div class="prodListItem">
-		<div class="nameProd">
-			<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
-			<span><?=$item['name']?></span>
-		</div>
-		<div class="createData">
-			<span>Дата:</span>
-			<span><?=$item['create_date']?></span>
-		</div>
-		<div class="prodImages">
-			<?foreach ($item['images'] as $image) {?>
-				<img src="<?=$image['src']?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+			<?if(is_array($item['images'])){?>
+				<div class="prodImages">
+					<?foreach($item['images'] as $image){?>
+						<img srsc="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+					<?}?>
+				</div>
+			<?}
+			if(is_array($item['videos'])){?>
+				<div class="prodVideos">
+					<?foreach($item['videos'] as $video){?>
+						<a href="<?=$video?>" target="blank">
+							<img src="/images/video_play.png">
+							<span class="name"><?=$video?></span>
+						</a>
+					<?}?>
+				</div>
 			<?}?>
 		</div>
-	</div>
-	<?}?>	
+	<?}?>
 </div>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-
 <script>
 	window.onbeforeunload = function(event) {
 		var check_video = false;
@@ -130,9 +118,9 @@
 	});
 
 	$(function(){
-		$('#user').on('change', function(){
-			window.location.assign($(this).val()+'/');
-		});
+		// $('#user').on('change', function(){
+		// 	window.location.assign($(this).val()+'/');
+		// });
 		$('#supplier').on('change', function(){
 			currentSupplier = $('#supplier').val();
 			$.cookie('suppler', currentSupplier);
@@ -149,7 +137,7 @@
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
-				curSrc = target.closest('.image_block_js').find('input').val();
+				curSrc = target.closest('.image_block_js').find('input').val();			
 			$.ajax({
 				url: URL_base+'ajaxproducts',
 				type: "POST",
@@ -191,6 +179,7 @@
 					console.log(Name);
 					console.log(Images);
 					console.log(Videos);
+					$('.upload_message').removeClass('hidden');
 					$.ajax({
 						url: URL_base+'ajaxproducts',
 						type: "POST",
@@ -204,9 +193,11 @@
 							video: Videos
 						}
 					}).done(function(data){
+						$('.upload_message').addClass('hidden');
 						$('.prodList').prepend(data);
 						$('.images_block').find('.image_block_js').remove();
 						$('.video_list_js').html('');
+						$('#prodName').val('');
 					});
 				}else{
 					$('.image_block_new').addClass('errName');

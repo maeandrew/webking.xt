@@ -77,7 +77,7 @@ header .header_wrapp .header_right .pages_list nav {
 	overflow: auto;
 }
 header .header_wrapp .header_right .profile img {
-	max-width: 100%;
+	max-height: 100%;
 	vertical-align: top;
 }
 header .header_wrapp .header_right .phone_menu {

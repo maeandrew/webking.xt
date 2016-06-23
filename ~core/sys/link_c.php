@@ -20,11 +20,11 @@ class Link {
 	public static function Category($rewrite, $params = array()){
 		$data = array();
 		$clear = false;
+		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
+			$data['str_sort'] = 'sort='.$GLOBALS['Sort'];
+		}
 		if(!isset($params['clear']) || $params['clear'] === false){
 			$data['filter'] = isset($GLOBALS['Filters'])?$GLOBALS['Filters']:array();
-			if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
-				$data['str_sort'] = 'sort='.$GLOBALS['Sort'];
-			}
 			if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] !== 1){
 				$data['str_page'] = 'p'.$GLOBALS['Page_id'];
 			}
