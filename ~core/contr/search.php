@@ -95,10 +95,11 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 
 // Сортировка ==============================================
 if(!isset($sorting)){
-	$sorting = array('value' => 'popularity desc');
+	$cookie_sotring = json_decode($_COOKIE["sorting"]);
+	$sorting = array('value' => $cookie_sotring->products->value);
 	// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
-	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
-}else{
+	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
+}else{	
 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
 }
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){

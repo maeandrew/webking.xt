@@ -145,8 +145,7 @@ unset($pops, $pop);
 
 // Обработка сортировок ====================================
 if(isset($_COOKIE['sorting'])){
-	$sort = $_COOKIE['sorting'];
-	$sort = (array)json_decode($sort, true);
+	$sort = (array)json_decode($_COOKIE['sorting'], true);
 }
 if(isset($GLOBALS['Sort'])){
 	$sort_value = $GLOBALS['Sort'];
