@@ -148,7 +148,7 @@
 .prodVideos {
 	display: flex;
     overflow-x: auto;
-	height: 150px;
+	height: 160px;
 }
 .prodImages img {
 	max-height: 90px;
