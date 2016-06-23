@@ -487,7 +487,7 @@ class Cart {
 	public function  GetProductsForPromo($promo){
 		global $db;
 		$sql = "SELECT c.id_cart, c.id_user, p.id_product, p.art, p.name, p.images,
-				cp.quantity AS quantity, c.status, c.adm, c.ready, cp.note
+				cp.quantity AS quantity, cp.note
 				FROM "._DB_PREFIX_."cart_product as cp
 				LEFT JOIN "._DB_PREFIX_."cart as c ON c.id_cart = cp.id_cart
 				LEFT JOIN "._DB_PREFIX_."product as p ON cp.id_product = p.id_product
@@ -512,16 +512,8 @@ class Cart {
 			}
 			$res2[$v['id_user']][] = $v;
 		}
-
-//		echo'<pre>';
-//		print_r($sql);
-//		echo'</pre>';
-//		die();
-
 		return $res2;
 	}
-
-
 
 	// Выборка всех товаров из корзин связанных промо-кодом
 	public function GetCartForPromo($promo){
@@ -589,6 +581,9 @@ class Cart {
 			case 'jocompleted':
 				$status = " AND c.`status` = 11 ";
 				break;
+			case 'joinwork':
+				$status = " AND c.`status` = 12 ";
+				break;
 		}
 		global $db;
 		$sql = "SELECT c.*, u.name, u.phone, u.email, COUNT(cp2.id_cart) AS count_carts,
@@ -615,7 +610,6 @@ class Cart {
 		$res['discount'] = $a['discount'];
 		//Добавляем информацию об участниках совместного заказа
 		$res['infoCarts'] = $this->GetInfoForPromo($res['promo']);
-
 		$b = $this->GetProductsForPromo($res['promo']);
 		foreach($res['infoCarts'] as &$val){
 			$val['sum_cart'] = $b[$val['id_user']]['total_sum'];
@@ -697,6 +691,18 @@ class Cart {
 			return false;
 		}
 		return $res['count'];
+	}
 
+	//Обновление статуса корзины по промокоду
+	public  function UpdateStatusCart($promo, $status){
+		$sql = "UPDATE "._DB_PREFIX_."cart	SET status = '".$status."'
+				WHERE promo = '".$promo."'";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
 	}
 }

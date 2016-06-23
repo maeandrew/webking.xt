@@ -57,6 +57,9 @@
 					<a name="t" value="joactive" class="working <?=(isset($_GET['t']) && $_GET['t']=='joactive')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear' => true))?>?t=joactive">Активный</a>
 				</li>
 				<li>
+					<a name="t" value="joinwork" class="inwork <?=(isset($_GET['t']) && $_GET['t']=='joinwork')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear' => true))?>?t=joinwork">В обработке</a>
+				</li>
+				<li>
 					<a name="t" value="jocompleted" class="completed <?=(isset($_GET['t']) && $_GET['t']=='jocompleted')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear' => true))?>?t=jocompleted">Выполненные</a>
 				</li>
 			 </ul>

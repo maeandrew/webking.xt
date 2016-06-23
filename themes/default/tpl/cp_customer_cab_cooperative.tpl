@@ -25,6 +25,11 @@
 				$s[] = 21;
 				?>jocompleted<?
 			break;
+			case 'joinwork':
+				$s[] = 12;
+				$s[] = 22;
+				?>jocompleted<?
+			break;
 		}?> editing">
 
 		<?if(isset($infoJO)){ ?>

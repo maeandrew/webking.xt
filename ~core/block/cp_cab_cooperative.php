@@ -19,7 +19,7 @@ if(isset($_SERVER['HTTP_REFERER'])){
 }
 
 
-if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET['t'] == 'jocompleted')){
+if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET['t'] == 'jocompleted' || $_GET['t'] == 'joinwork')){
 	$infoJO = $Cart->GetInfoJO($_GET['t']);
 
 	$infoProductsCartUsers = $Cart->GetProductsForPromo($_SESSION['cart']['promo']);

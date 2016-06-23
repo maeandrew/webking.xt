@@ -60,7 +60,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$res['msg'] = 'Есть пользователи с неподтвержденным заказ';
 					}else{
 						if($id_order = $Orders->Add($_POST['promo'])){
-							//$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+							$Cart->UpdateStatusCart($_POST['promo'], 12);
 							$res['success'] = true;
 							$res['msg'] = 'Заказ сформирован!';
 						}else{
