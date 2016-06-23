@@ -19,7 +19,38 @@ $Products = new Products();
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
 
+//экспорт в exel
+if(isset($_GET['export'])){
+	$Products->SetProductsList1($id_supplier, $order, '');
+	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']));
+	exit(0);
+}elseif(isset($_GET['export_usd'])){
+	$Products->SetProductsList1($id_supplier, $order, '');
+	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']));
+	exit(0);
+}
 
+if(isset($_FILES["import_file"])){
+	// Импорт
+	if($_FILES["import_file"]["size"] > 1024*3*1024){
+		$tpl->Assign('msg', "Размер файла превышает три мегабайта");
+		$tpl->Assign('errm', 1);
+		exit;
+	}
+	// Проверяем загружен ли файл
+	if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
+		if(isset($_POST['smb_import_usd'])){
+			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES["import_file"]["tmp_name"]);
+		}else{
+			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES["import_file"]["tmp_name"]);
+		}
+		$tpl->Assign('total_added', $total_added);
+		$tpl->Assign('total_updated', $total_updated);
+	}else{
+		$tpl->Assign('msg', 'Файл не был загружен.');
+		$tpl->Assign('errm', 1);
+	}
+}
 
 
 /*Pagination*/
@@ -67,36 +98,3 @@ $parsed_res = array(
 if($parsed_res['issuccess'] === true){
 	$tpl_center .= $parsed_res['html'];
 }
-//экспорт в exel
-if(isset($_GET['export'])) {
-	$r = $Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']);
-	$Products->GenExcelAssortFile($r);
-	exit(0);
-} elseif(isset($_GET['export_usd'])){
-	$r = $Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']);
-	$Products->GenExcelAssortFile($r);
-	exit(0);
-}
-
-if(isset($_FILES["import_file"])){
-	// Импорт
-	if($_FILES["import_file"]["size"] > 1024*3*1024){
-		$tpl->Assign('msg', "Размер файла превышает три мегабайта");
-		$tpl->Assign('errm', 1);
-		exit;
-	}
-	// Проверяем загружен ли файл
-	if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
-		if(isset($_POST['smb_import_usd'])){
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES["import_file"]["tmp_name"]);
-		}else{
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES["import_file"]["tmp_name"]);
-		}
-		$tpl->Assign('total_added', $total_added);
-		$tpl->Assign('total_updated', $total_updated);
-	}else{
-		$tpl->Assign('msg', 'Файл не был загружен.');
-		$tpl->Assign('errm', 1);
-	}
-}
-?>
