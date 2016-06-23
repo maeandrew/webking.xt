@@ -734,19 +734,20 @@
 	<!-- message about cookie -->
 	<div class="cookie_wrap">
 		<div class="cookie_msg cookie_msg_js">
-			<h4>Мы используем файлы cookie</h4>
-			<p>Этот веб-сайт использует файлы cookie для обеспечения корректной работы сайта. Файлы cookie хранят полезную информацию на вашем компьютере для того, чтобы мы могли улучшить оперативность и точность нашего сайта для вашей работы. <span>Заходя на данный сайт, вы соглашаетесь на использование файлов cookie.</span></p>
-			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-js-ripple-effect">ОК</div>
+			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
+			<p>Кликая на кнопку "ОК" или продолжая использовать данный сайт, Вы соглашаетесь на использование этой технологии Нашей компанией.</p>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
 	<script>
 		setTimeout(function() {
 			if ($.cookie('useCookie') != 'agree'){
-				$('.cookie_msg_js').css('bottom', '0');
+				$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
 				
 				$('body').on('click', '.cookie_msg_js .close', function(event) {
 					event.preventDefault();
-					$('.cookie_msg_js').css('bottom', '-150px');
+
+					$('.cookie_msg_js').css('top', '100%');
 					$.cookie('useCookie', 'agree', {expires: 365});
 				});
 			}
