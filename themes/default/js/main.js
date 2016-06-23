@@ -1305,7 +1305,10 @@ $(function(){
 
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
-			removeLoadAnimation('#sign_in');
+			removeLoadAnimation('#sign_in');			
+			if (current_controller === 'main'){
+				location.reload();
+			}
 			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
@@ -1325,7 +1328,7 @@ $(function(){
 						skipped_products: skipped_products
 					};					
 					if (current_controller === 'search'){
-						location.reload();						
+						location.reload();
 					}else{
 						UpdateProductsList(page, arr);
 					}
@@ -1360,7 +1363,7 @@ $(function(){
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 			}else{
-				form.find('.error').text(data.msg).fadeIn();
+				form.find('.error').text(data.msg).fadeIn();				
 			}
 		});
 	});
