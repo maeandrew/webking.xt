@@ -491,7 +491,6 @@ class Suppliers extends Users {
 			WHERE p.id_unit = u.id) AS unit
 			FROM "._DB_PREFIX_."assortiment AS a LEFT JOIN "._DB_PREFIX_."product AS p ON p.id_product = a.id_product
 			WHERE a.id_supplier = ".$this->fields['id_user']."
-			AND p.visible = 1
 			ORDER BY a.inusd, p.name";
 		$arr = $this->db->GetArray($sql);
 		foreach($arr as &$product){

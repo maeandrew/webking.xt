@@ -346,7 +346,7 @@ class Products {
 	public function GetIdByArt($art){
 		$sql = "SELECT p.id_product
 			FROM "._DB_PREFIX_."product AS p
-			WHERE p.art = ".$art;
+			WHERE p.art = '".$art."'";
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
@@ -2680,7 +2680,7 @@ class Products {
 		$ii = 0;
 		$jj = 0;
 		foreach($list as $i){
-			$sql = "SELECT a.id_product, a.price_opt_otpusk,
+			$sql = "SELECT DISTINCT a.id_product, a.price_opt_otpusk,
 				a.price_mopt_otpusk, a.product_limit, a.sup_comment
 				FROM "._DB_PREFIX_."assortiment AS a
 				WHERE a.id_supplier = ".$id_supplier."
@@ -2799,17 +2799,18 @@ class Products {
 	}
 	/**
 	 * Обработка загруженного файла ассортимента
-	 * @param [type] $filename [description]
+	 * @param [type] $file [description]
 	 */
-	public function ProcessAssortimentFile($filename){
+	public function ProcessAssortimentFile($file){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
-		$objPHPExcel = PHPExcel_IOFactory::load($filename);
+		$objPHPExcel = PHPExcel_IOFactory::load($file);
 		$objPHPExcel->setActiveSheetIndex(0);
 		$aSheet = $objPHPExcel->getActiveSheet();
 		//этот массив будет содержать массивы содержащие в себе значения ячеек каждой строки
 		$array = array();
+		$ca = $this->GetExcelAssortColumnsArray();
 		//получим итератор строки и пройдемся по нему циклом
-		foreach($aSheet->getRowIterator() as $row){
+		foreach($aSheet->getRowIterator() as $k => $row){
 			//получим итератор ячеек текущей строки
 			$cellIterator = $row->getCellIterator();
 			$cellIterator->setIterateOnlyExistingCells(false); // Включить пустые ячейки
@@ -2820,62 +2821,64 @@ class Products {
 				array_push($item, $cell->getCalculatedValue());
 			}
 			//заносим массив со значениями ячеек отдельной строки в "общий массв строк"
-			array_push($array, $item);
-		}
-		$ca = $this->GetExcelAssortColumnsArray();
-		// проход по первой строке
-		$ii=0;
-		foreach($ca as $i){
-			if($i['h'] != $array[0][$ii++]){
-				$_SESSION['errm'][] = "Неверный формат файла";
-				return array(0,0);
+			if($k > 1){
+				array_push($array, $item);
+			}else{
+				$heading = $item;
 			}
+		}
+		// проход по первой строке
+		foreach($ca as $k => $i){
+			if($i['h'] != $heading[$k]){
+				$_SESSION['errm'][] = "Неверный формат файла";
+				return array(0, 0);
+			}
+			$keys[] = $i['n'];
 		}
 		$total_updated = 0;
 		$total_added = 0;
 		// проход по массиву строк
-		for($ii=1; isset($array[$ii]); $ii++){
-			$cnt = 0;
-			$f = array();
-			foreach($ca as $i){
-				$f[$i['n']] = $array[$ii][$cnt++];
-			}
-			if($id_product = $this->GetIdByArt($f['art'])){
+		foreach($array as $row){
+			print_r($row);
+			$res = array_combine($keys, $row);
+			if($id_product = $this->GetIdByArt($res['art'])){
 				global $Supplier;
 				$id_supplier = $Supplier->fields['id_user'];
 				$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
 				$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
-				$f['active'] = 0;
-				if($f['product_limit'] > 0 && (($f['price_opt_otpusk'] != 0) || ($f['price_mopt_otpusk'] != 0))){
-					$f['active'] = 1;
+				$res['active'] = 0;
+				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
+					$res['active'] = 1;
 				}
-				$f['price_mopt_otpusk_usd'] = $f['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
-				$f['price_opt_otpusk_usd'] = $f['price_opt_otpusk']/$Supplier->fields['currency_rate'];
+				$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
+				$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
 				if($this->IsInAssort($id_product, $id_supplier)){
-					$f['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($f, $koef_nazen_opt, $koef_nazen_mopt, false);
+					$res['id_product'] = $id_product;
+					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, false);
 					$total_updated++;
 				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $f, $koef_nazen_opt, $koef_nazen_mopt, false);
+					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, false);
 					$total_added++;
 				}
 			}
 		}
-		return array($total_added,$total_updated);
+		die();
+		return array($total_added, $total_updated);
 	}
 	/**
 	 * Обработка загруженного файла ассортимента
-	 * @param [type] $filename [description]
+	 * @param [type] $file [description]
 	 */
-	public function ProcessAssortimentFileUSD($filename){
+	public function ProcessAssortimentFileUSD($file){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
-		$objPHPExcel = PHPExcel_IOFactory::load($filename);
+		$objPHPExcel = PHPExcel_IOFactory::load($file);
 		$objPHPExcel->setActiveSheetIndex(0);
 		$aSheet = $objPHPExcel->getActiveSheet();
 		//этот массив будет содержать массивы содержащие в себе значения ячеек каждой строки
 		$array = array();
+		$ca = $this->GetExcelAssortColumnsArray();
 		//получим итератор строки и пройдемся по нему циклом
-		foreach($aSheet->getRowIterator() as $row){
+		foreach($aSheet->getRowIterator() as $k => $row){
 			//получим итератор ячеек текущей строки
 			$cellIterator = $row->getCellIterator();
 			$cellIterator->setIterateOnlyExistingCells(false); // Включить пустые ячейки
@@ -2886,50 +2889,49 @@ class Products {
 				array_push($item, $cell->getCalculatedValue());
 			}
 			//заносим массив со значениями ячеек отдельной строки в "общий массив строк"
-			array_push($array, $item);
-		}
-		$ca = $this->GetExcelAssortColumnsArray();
-		// проход по первой строке
-		$ii=0;
-		foreach($ca as $i){
-			if($i['h'] != $array[0][$ii++]){
-				$_SESSION['errm'][] = "Неверный формат файла";
-				return array(0,0);
+			if($k > 1){
+				array_push($array, $item);
+			}else{
+				$heading = $item;
 			}
+		}
+		// проход по первой строке
+		foreach($ca as $k => $i){
+			if($i['h'] != $heading[$k]){
+				$_SESSION['errm'][] = "Неверный формат файла";
+				return array(0, 0);
+			}
+			$keys[] = $i['n'];
 		}
 		$total_updated = 0;
 		$total_added = 0;
 		// проход по массиву строк
-		for($ii=1; isset($array[$ii]); $ii++){
-			$cnt = 0;
-			$f = array();
-			foreach($ca as $i){
-				$f[$i['n']] = $array[$ii][$cnt++];
-			}
-			if($id_product = $this->GetIdByArt($f['art'])){
+		foreach($array as $row){
+			$res = array_combine($keys, $row);
+			if($id_product = $this->GetIdByArt($res['art'])){
 				global $Supplier;
 				$id_supplier = $Supplier->fields['id_user'];
 				$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
 				$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
-				$f['active'] = 0;
-				if($f['product_limit'] > 0 && (($f['price_opt_otpusk'] != 0) || ($f['price_mopt_otpusk'] != 0))){
-					$f['active'] = 1;
+				$res['active'] = 0;
+				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
+					$res['active'] = 1;
 				}
-				$f['price_mopt_otpusk_usd'] = $f['price_mopt_otpusk'];
-				$f['price_mopt_otpusk'] = $f['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
-				$f['price_opt_otpusk_usd'] = $f['price_opt_otpusk'];
-				$f['price_opt_otpusk'] = $f['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+				$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
+				$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
+				$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
+				$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
 				if($this->IsInAssort($id_product, $id_supplier)){
-					$f['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($f, $koef_nazen_opt, $koef_nazen_mopt, true);
+					$res['id_product'] = $id_product;
+					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, false);
 					$total_updated++;
 				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $f, $koef_nazen_opt, $koef_nazen_mopt, true);
+					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, false);
 					$total_added++;
 				}
 			}
 		}
-		return array($total_added,$total_updated);
+		return array($total_added, $total_updated);
 	}
 	/**
 	 * [IsInAssort description]

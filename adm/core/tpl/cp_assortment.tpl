@@ -342,7 +342,7 @@
 						id_product: parent.data('id'),
 						id_supplier: id_supplier,
 						mode: $(this).data('mode'),
-						comment: $(this).val(),
+						comment: $(this).val()
 					};
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
 			});
