@@ -3656,3 +3656,58 @@ div.modalEditOrder .applyBtn {
 		height: auto;
 	}
 }
+
+/* Message about error on the site */
+.err_msg_as_wrap {
+	position: relative;
+	color: #fff;
+}
+.err_msg_as {
+	position: fixed;
+	top: 100%;
+	right: 0;
+	width: 300px;
+	/*background-color: #EACBBB;*/
+	background-color: #fff;
+	border: 1px solid #FF865F;
+	transition: 2s ease;
+	z-index: 10000000;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.err_msg_as_knob {
+	position: absolute;
+	bottom: 100%;
+	padding: 0.7em;
+	right: 2em;
+	background-color: #FF5722;
+	width: 60px;
+	height: 40px;
+	cursor: pointer;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.err_msg_as_title {
+	padding: 1em;
+	background-color: #FF865F;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.err_msg_as_form textarea {
+	resize: none !important;
+	color: #444;
+	padding: 0 1em;
+	text-align: justify;
+	height: 100%;
+}
+.err_msg_as_form .mdl-textfield {
+	height: 300px;
+}
+.err_msg_as_form textarea + label {
+	padding: 0 1em;
+}
+.err_msg_as_send {
+	display: block !important;
+	margin: 0 auto 1em !important;
+	width: 110px;
+}

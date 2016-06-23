@@ -739,19 +739,50 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
-	<script>
-		setTimeout(function() {
-			if ($.cookie('useCookie') != 'agree'){
-				$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
-				
-				$('body').on('click', '.cookie_msg_js .close', function(event) {
-					event.preventDefault();
 
-					$('.cookie_msg_js').css('top', '100%');
-					$.cookie('useCookie', 'agree', {expires: 365});
-				});
-			}
-		}, 2000);
+	<!-- message about error -->
+	<div class="err_msg_as_wrap">
+		<div class="err_msg_as">
+			<div class="err_msg_as_knob err_msg_as_knob_js">Click</div>
+			<div class="err_msg_as_title">
+				Сообщите нам об ошибке
+			</div>
+			<div class="err_msg_as_form">
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield">
+						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" ></textarea>
+						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
+					</div>
+					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<!-- <input type="submit" value="Отправить"> -->
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			setTimeout(function() {
+				if ($.cookie('useCookie') != 'agree'){
+					$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
+					
+					$('body').on('click', '.cookie_msg_js .close', function(event) {
+						event.preventDefault();
+
+						$('.cookie_msg_js').css('top', '100%');
+						$.cookie('useCookie', 'agree', {expires: 365});
+					});
+				}
+			}, 2000);
+
+			$('.err_msg_as_knob_js').click(function(event) {
+				if ($('.err_msg_as').hasClass('shown')) {
+					$('.err_msg_as').removeClass('shown').css('top', '100%');
+				}else{
+					$('.err_msg_as').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				}
+			});
+
+		});
 	</script>
 </body>
 </html>
