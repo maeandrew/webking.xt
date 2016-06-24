@@ -50,6 +50,10 @@ footer .questions ul li a {
 footer .contacts {
 	width: 46%;
 }
+footer .contacts .material-icons {
+	vertical-align: middle;
+	margin-right: .5em;
+}
 footer .social ul {
 	padding: 10px 0 0;
 	cursor: default;

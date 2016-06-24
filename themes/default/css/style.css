@@ -3713,3 +3713,9 @@ div.modalEditOrder .applyBtn {
 	margin: 0 auto 1em !important;
 	width: 110px;
 }
+
+
+/* Google tag manager iframe */
+iframe[name="google_conversion_frame"] {
+	display: none;
+}

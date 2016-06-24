@@ -128,10 +128,6 @@ class Products {
 				ON pv.id_product = p.id_product
 			WHERE p.id_product = ".$id_product."
 			".$visible;
-			// if(isset($_GET['debug'])){
-			// 	print_r($sql);
-			// }
-			// 
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
@@ -2847,7 +2843,6 @@ class Products {
 		$total_added = 0;
 		// проход по массиву строк
 		foreach($array as $row){
-			print_r($row);
 			$res = array_combine($keys, $row);
 			if($id_product = $this->GetIdByArt($res['art'])){
 				global $Supplier;
