@@ -17,12 +17,6 @@ $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
-
-//echo'<pre>';
-//print_r($_SESSION['cart']);
-//echo'</pre>';
-//die();
-
 /* Объявление CSS файлов */
 G::AddCSS('../themes/'.$theme.'/css/reset.css');
 // G::AddCSS('../plugins/material/material.css');
@@ -107,6 +101,11 @@ if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'
 	$tpl->Assign('promo_supplier', $promo_supplier->fields);
 	unset($promo_supplier);
 }
+
+//echo'<pre>';
+//print_r($_SESSION['member']);
+//echo'</pre>';
+//die();
 
 // Выборка просмотренных товаров
 $products = new Products();

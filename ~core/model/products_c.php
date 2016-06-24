@@ -4619,4 +4619,16 @@ class Products {
 		return true;
 	}
 
+	public function UploadEstimate($file, $comment){
+		$f['id_user'] = $_SESSION['member']['id_user'];
+		$f['comment'] = trim($comment);
+		$f['file'] = trim($file);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'estimate', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
 }

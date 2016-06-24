@@ -184,7 +184,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case "AddAstimate":
-				print_r($_POST);
+				$Product = new Products();
+				//Проверка данных пользователя
 				if(!G::IsLogged()){
 					$Users = new Users();
 					$Customers = new Customers();
@@ -219,8 +220,44 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['message'] = true;
 				}
 
-				echo json_encode($res);
-				//print_r($res); die();
+
+				// Импорт файла
+				if(isset($_FILES['file'])){
+					// Проверяем загружен ли файл
+					if(is_uploaded_file($_FILES['file']['tmp_name'])){
+						// Проверяе объем файла
+						if($_FILES['file']['size'] > 1024*3*1024){
+							$res['message'] = 'Размер файла превышает три мегабайта';
+							exit;
+						}
+					}else{
+						$res['message'] = 'Файл не был загружен.';
+					}
+				} else{
+					$path = $GLOBALS['PATH_global_root'].'estimates/'.$_SESSION['member']['id_user'];
+					if (!file_exists($path)) {
+						mkdir($path, 0777, true);
+					}
+
+
+
+
+					// Если все загружено на сервер, выполнить запись в БД
+					$file = $path.'/'.$_FILES['file'];
+					$Product->UploadEstimate($file, $_POST['comment']);
+
+				}
+
+
+
+
+
+
+
+
+
+				//echo json_encode($res);
+				print_r($res);
 
 				break;
 			default:

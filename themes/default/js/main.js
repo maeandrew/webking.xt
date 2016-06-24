@@ -1421,10 +1421,10 @@ $(function(){
 		e.preventDefault();
 		var parent = $(this).closest('form'),
 			fields = {};
-		//parent.find('.mdl-textfield__input').each(function(index, el) {
-		//	fields[$(el).attr('name')] = $(el).val();
-		//});
-		fields = new FormData(parent);
+		parent.find('.mdl-textfield__input').each(function(index, el) {
+			fields[$(el).attr('name')] = $(el).val();
+		});
+		//fields = new FormData(parent);
 		console.log(fields);
 		ajax('product', 'AddAstimate', fields).done(function(data){
 
