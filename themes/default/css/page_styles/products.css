@@ -271,9 +271,6 @@ label.info_key {
  .info_description {
 	top: 28px;
 }
- .info_description:before {
-	right: 5px;
-}
  .product_section .specifications {
 	display: none;
 }
