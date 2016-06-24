@@ -49,6 +49,7 @@
 <script>
 $(function(){
 	$("#organization").click(function() {
+		$('.main_nav li[data-nav="filter"]').addClass('hidden');
 		if ($.cookie('Segmentation') != 1){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#organization").addClass('activeSegment');
@@ -63,6 +64,7 @@ $(function(){
 	})
 
 	$("#store").click(function() {
+		$('.main_nav li[data-nav="filter"]').addClass('hidden');
 		if ($.cookie('Segmentation') != 2){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#store").addClass('activeSegment');
@@ -77,6 +79,7 @@ $(function(){
 	})
 
 	$("#allSection").click(function() {
+		$('.main_nav li[data-nav="filter"]').addClass('hidden');
 		if ($.cookie('Segmentation') != 0){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#allSection").addClass('activeSegment');
