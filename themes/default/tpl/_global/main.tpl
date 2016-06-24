@@ -767,13 +767,17 @@
 					
 					$('body').on('click', '.cookie_msg_js .close', function(event) {
 						event.preventDefault();
-
 						$('.cookie_msg_js').css('top', '100%');
 						$.cookie('useCookie', 'agree', {expires: 365});
+						setTimeout(function() {
+							$('.err_msg_as_knob_js').css('opacity', '1');
+						}, 3000);
 					});
+				}else{
+					$('.err_msg_as_knob_js').css('opacity', '1');
 				}
 			}, 2000);
-
+			
 			$('.err_msg_as_knob_js').click(function(event) {
 				if ($('.err_msg_as').hasClass('shown')) {
 					$('.err_msg_as').removeClass('shown').css('top', '100%');
@@ -781,7 +785,6 @@
 					$('.err_msg_as').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				}
 			});
-
 		});
 	</script>
 </body>
