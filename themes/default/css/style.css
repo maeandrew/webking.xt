@@ -260,7 +260,9 @@ label:hover + .info_description {
 [class^="active_"] .banner,
 [class*=" active_"] .banner,
 [class^="active_"] .center ,
+[class^=" active_"] .center:not(.owl-item),
 [class*=" active_"] .center,
+[class*=" active_"] .center:not(.owl-item),
 [class^="active_"] footer,
 [class*=" active_"] footer {
 	-webkit-filter: blur(2px);
@@ -3575,7 +3577,8 @@ div.modalEditOrder .applyBtn {
 	padding: 5px 0;
 }
 .mobile_carousel .owl-item img {
-	max-width: 100%;
+	/*max-width: 100%;*/
+	width: auto;
 	margin: 0px auto;
 	display: block;
 }

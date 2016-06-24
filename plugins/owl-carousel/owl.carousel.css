@@ -155,9 +155,14 @@
   transition: opacity 400ms ease;
 }
 .owl-carousel .owl-item img {
-  transform-style: preserve-3d;
+  /*transform-style: preserve-3d;*/
 }
 
+[class*=" active_"] .center.owl-item.active {
+	-webkit-filter: blur(0px);
+	-o-filter: blur(0px);
+	filter: blur(0px);
+}
 /* 
  * 	Owl Carousel - Video Plugin
  */
