@@ -750,15 +750,16 @@
 
 	<!-- message about error -->
 	<div class="err_msg_as_wrap">
-		<div class="err_msg_as">
-			<div class="err_msg_as_knob err_msg_as_knob_js">Click</div>
-			<div class="err_msg_as_title">
-				Сообщите нам об ошибке
+		<div class="err_msg_as err_msg_as_js">
+			<!-- <div class="err_msg_as_knob ">Click</div> -->
+			<div class="err_msg_as_title err_msg_as_knob_js">
+				<p>Сообщите нам об ошибке</p>
+				<i class="material-icons">keyboard_arrow_up</i>
 			</div>
 			<div class="err_msg_as_form">
 				<form action="#">
-					<div class="mdl-textfield mdl-js-textfield">
-						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" ></textarea>
+					<div class="mdl-textfield mdl-js-textfield is-focused">
+						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
@@ -779,19 +780,23 @@
 						$.cookie('useCookie', 'agree', {expires: 365});
 						setTimeout(function() {
 							$('.cookie_wrap').remove();
-							$('.err_msg_as_knob_js').css('opacity', '1');
+							$('.err_msg_as_title').css('opacity', '1');
 						}, 3000);
 					});
 				}else{
-					$('.err_msg_as_knob_js').css('opacity', '1');
+					$('.err_msg_as_title').css('opacity', '1');
 				}
 			}, 2000);
 			
 			$('.err_msg_as_knob_js').click(function(event) {
 				if ($('.err_msg_as').hasClass('shown')) {
-					$('.err_msg_as').removeClass('shown').css('top', '100%');
+					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 				}else{
-					$('.err_msg_as').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+					$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
+					$('.err_msg_as_form').find('textarea').focus();
+					$('.err_msg_as_js').css('border-color', '#FF865F');
+					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				}
 			});
 		});

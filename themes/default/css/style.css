@@ -3666,35 +3666,36 @@ div.modalEditOrder .applyBtn {
 }
 .err_msg_as {
 	position: fixed;
-	top: 100%;
+	top: calc(100% - 34px);
 	right: 0;
 	width: 300px;
-	background-color: #fff;
-	border: 1px solid #FF865F;
+	/*background-color: #fff;*/
+	border: 1px solid transparent;
 	transition: 2s ease;
 	z-index: 10000000;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
-.err_msg_as_knob {
-	position: absolute;
-	opacity: 0;
-	bottom: 100%;
-	padding: 0.7em;
-	right: 2em;
-	background-color: #FF5722;
-	width: 60px;
-	height: 40px;
-	cursor: pointer;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	transition: 1s ease;
-}
 .err_msg_as_title {
-	padding: 1em;
+	padding: .5em 1em 0;
 	background-color: #FF865F;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
+	transition: 2s ease;
+	cursor: pointer;
+	opacity: 0;
+	width: 100%;
+}
+.err_msg_as_title p {
+	float: left;
+	width: calc(100% - 2em);
+}
+.err_msg_as_title i {
+	transition: transform 2s;
+	transform: rotate(0deg);
+}
+.err_msg_as_form {
+	background-color: #fff;
 }
 .err_msg_as_form textarea {
 	resize: none !important;
