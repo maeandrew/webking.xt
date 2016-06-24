@@ -415,22 +415,25 @@
 			<div class="modal_container blockForForm">
 				<div class="mdl-card__supporting-text">
 					<p>Вы можете загрузить свою смету</p>
-					<form action="">
+					<form action="" id="astimate">
 						<div class="mdl-textfield mdl-js-textfield">
-							<input <?=(isset($_SESSION['member']['name']))?'disabled':null?> name ="name" class="mdl-textfield__input" type="text" id="sample1" value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
+							<label for="sample1">Имя:</label>
+							<input required <?=(isset($_SESSION['member']['name']))?'disabled':null?> name ="name" class="mdl-textfield__input" type="text" id="sample1" value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 							<label class="mdl-textfield__label" for="sample1">Имя...</label>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
+							<label for="sample2">Телефон:</label>
 							<input required <?=(isset($_SESSION['member']['phone']))?'disabled':null?> name="phone" class="mdl-textfield__input" type="text" id="sample2" value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 							<label class="mdl-textfield__label" for="sample2">Номер телефона...</label>
 						</div><br>
-						<div class="mdl-textfield mdl-js-textfield">
+						<!--<div class="mdl-textfield mdl-js-textfield">
 							<input <?=(isset($_SESSION['member']['email']))?'disabled':null?> name="email" class="mdl-textfield__input" type="text" id="sample3" value="<?=(isset($_SESSION['member']['email']))?$_SESSION['member']['email']:null?>">
 							<label class="mdl-textfield__label" for="sample3">Ваш email...</label>
-						</div><br>
+						</div><br>-->
 						<div class="mdl-textfield mdl-js-textfield">
-							<textarea name="comment" rows="3"  class="mdl-textfield__input"  id="sample3"></textarea>
-							<label class="mdl-textfield__label" for="sample3">Оставить комментарий...</label>
+							<label for="sample4">Комментарий:</label>
+							<textarea name="comment" rows="3"  class="mdl-textfield__input"  id="sample4"></textarea>
+							<label class="mdl-textfield__label" for="sample4">Оставить комментарий...</label>
 						</div>
 						<div class="mdl-textfield mdl-js-textfield">
 							<input name="file" class="mdl-textfield__input" type="file" id="sample5">

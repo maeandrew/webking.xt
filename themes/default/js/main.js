@@ -1421,20 +1421,15 @@ $(function(){
 		e.preventDefault();
 		var parent = $(this).closest('form'),
 			fields = {};
-		console.log(parent);
-		parent.find('.mdl-textfield__input').each(function(index, el) {
-
-			fields[$(el).attr('name')] = $(el).val();
-		});
-		// var res = ValidateEmail(data, 1);
+		//parent.find('.mdl-textfield__input').each(function(index, el) {
+		//	fields[$(el).attr('name')] = $(el).val();
+		//});
+		fields = new FormData(parent);
+		console.log(fields);
 		ajax('product', 'AddAstimate', fields).done(function(data){
 
 		});
 	});
-
-
-
-
 
 	if($('header .cart_item a.cart i').data('badge') === 0) {
 		$('#cart .clear_cart').addClass('hidden');
