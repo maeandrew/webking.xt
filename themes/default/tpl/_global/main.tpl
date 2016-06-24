@@ -417,21 +417,29 @@
 					<p>Вы можете загрузить свою смету</p>
 					<form action="">
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" id="sample1">
+							<input <?=(isset($_SESSION['member']['name']))?'disabled':null?> name ="name" class="mdl-textfield__input" type="text" id="sample1" value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 							<label class="mdl-textfield__label" for="sample1">Имя...</label>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" id="sample2">
+							<input required <?=(isset($_SESSION['member']['phone']))?'disabled':null?> name="phone" class="mdl-textfield__input" type="text" id="sample2" value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 							<label class="mdl-textfield__label" for="sample2">Номер телефона...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<input <?=(isset($_SESSION['member']['email']))?'disabled':null?> name="email" class="mdl-textfield__input" type="text" id="sample3" value="<?=(isset($_SESSION['member']['email']))?$_SESSION['member']['email']:null?>">
+							<label class="mdl-textfield__label" for="sample3">Ваш email...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea name="comment" rows="3"  class="mdl-textfield__input"  id="sample3"></textarea>
+							<label class="mdl-textfield__label" for="sample3">Оставить комментарий...</label>
 						</div>
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="file" id="sample3">
-							<label class="mdl-textfield__label" for="sample3"></label>
+							<input name="file" class="mdl-textfield__input" type="file" id="sample5">
+							<label class="mdl-textfield__label" for="sample5"></label>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect estimate_js">Загрузить смету</button>
 						</div>
 					</form>
-				</div>
-				<div class="mdl-card__actions mdl-card--border">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить смету</button>
 				</div>
 			</div>
 		</div>
