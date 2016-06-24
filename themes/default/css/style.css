@@ -434,6 +434,7 @@ body:not(.c_main) .banner {
 	max-height: calc(90vh - 52px - 60px - 64px);
 	position: relative;
 	text-align: center;
+	overflow-y: auto;
 }
 [data-type="modal"] .modal_container .mdl-card__supporting-text p {
 	font-size: 20px;
