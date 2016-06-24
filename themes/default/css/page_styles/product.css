@@ -651,4 +651,12 @@ div[for="rating_block"] {
 		font-size: 1.7em;
 	}
 }
+#big_photos_carousel .mobile_carousel {
+	width: 75vw;
+	/* height: 75vh; */
+}
 
+/* #big_photos_carousel .mobile_carousel .owl-stage-outer,
+#big_photos_carousel .mobile_carousel .owl-stage-outer img {
+	height: 70vh;
+} */

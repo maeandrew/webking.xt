@@ -40,7 +40,7 @@ $GLOBALS['NoSidebarTemplControllers'] = array('404', 'msg', 'srv');
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(
 	'title' => 'Главная',
-	'url' => _base_url.'adm/'
+	'url' => _base_url.'/adm/'
 );
 // Лимит ссылок в навигации
 $GLOBALS['Limit_nav'] = 10; // ???

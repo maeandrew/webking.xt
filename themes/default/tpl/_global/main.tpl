@@ -417,21 +417,29 @@
 					<p>Вы можете загрузить свою смету</p>
 					<form action="">
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" id="sample1">
+							<input <?=(isset($_SESSION['member']['name']))?'disabled':null?> name ="name" class="mdl-textfield__input" type="text" id="sample1" value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 							<label class="mdl-textfield__label" for="sample1">Имя...</label>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" id="sample2">
+							<input required <?=(isset($_SESSION['member']['phone']))?'disabled':null?> name="phone" class="mdl-textfield__input" type="text" id="sample2" value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 							<label class="mdl-textfield__label" for="sample2">Номер телефона...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<input <?=(isset($_SESSION['member']['email']))?'disabled':null?> name="email" class="mdl-textfield__input" type="text" id="sample3" value="<?=(isset($_SESSION['member']['email']))?$_SESSION['member']['email']:null?>">
+							<label class="mdl-textfield__label" for="sample3">Ваш email...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea name="comment" rows="3"  class="mdl-textfield__input"  id="sample3"></textarea>
+							<label class="mdl-textfield__label" for="sample3">Оставить комментарий...</label>
 						</div>
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="file" id="sample3">
-							<label class="mdl-textfield__label" for="sample3"></label>
+							<input name="file" class="mdl-textfield__input" type="file" id="sample5">
+							<label class="mdl-textfield__label" for="sample5"></label>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect estimate_js">Загрузить смету</button>
 						</div>
 					</form>
-				</div>
-				<div class="mdl-card__actions mdl-card--border">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Загрузить смету</button>
 				</div>
 			</div>
 		</div>
@@ -596,10 +604,11 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
 		</div>
-		<!-- Authentication -->
+		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">
 		</div>
+		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>
 			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_current_pass">
@@ -742,15 +751,16 @@
 
 	<!-- message about error -->
 	<div class="err_msg_as_wrap">
-		<div class="err_msg_as">
-			<div class="err_msg_as_knob err_msg_as_knob_js">Click</div>
-			<div class="err_msg_as_title">
-				Сообщите нам об ошибке
+		<div class="err_msg_as err_msg_as_js">
+			<!-- <div class="err_msg_as_knob ">Click</div> -->
+			<div class="err_msg_as_title err_msg_as_knob_js">
+				<p>Сообщите нам об ошибке</p>
+				<i class="material-icons">keyboard_arrow_up</i>
 			</div>
 			<div class="err_msg_as_form">
 				<form action="#">
-					<div class="mdl-textfield mdl-js-textfield">
-						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" ></textarea>
+					<div class="mdl-textfield mdl-js-textfield is-focused">
+						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
@@ -771,19 +781,23 @@
 						$.cookie('useCookie', 'agree', {expires: 365});
 						setTimeout(function() {
 							$('.cookie_wrap').remove();
-							$('.err_msg_as_knob_js').css('opacity', '1');
+							$('.err_msg_as_title').css('opacity', '1');
 						}, 3000);
 					});
 				}else{
-					$('.err_msg_as_knob_js').css('opacity', '1');
+					$('.err_msg_as_title').css('opacity', '1');
 				}
 			}, 2000);
 			
 			$('.err_msg_as_knob_js').click(function(event) {
 				if ($('.err_msg_as').hasClass('shown')) {
-					$('.err_msg_as').removeClass('shown').css('top', '100%');
+					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 				}else{
-					$('.err_msg_as').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+					$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
+					$('.err_msg_as_form').find('textarea').focus();
+					$('.err_msg_as_js').css('border-color', '#FF865F');
+					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				}
 			});
 		});

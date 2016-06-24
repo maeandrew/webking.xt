@@ -503,7 +503,7 @@ class Orders {
 			$f['id_city'] = 0;
 			$f['strachovka'] = 0;
 		}
-		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!$jo_order)?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
+		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
@@ -554,7 +554,7 @@ class Orders {
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
 				$p[$ii]['note_'.$item['mode']] = $item['note'];
-				$p[$ii]['default_sum_'.$item['mode']] = (!$jo_order)?$item['summary'][$_SESSION['cart']['cart_column']]:$item['sum_prod'];
+				$p[$ii]['default_sum_'.$item['mode']] = (!isset($jo_order))?$item['summary'][$_SESSION['cart']['cart_column']]:$item['sum_prod'];
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_qty'] = 0;
 					$p[$ii]['note_mopt'] = '';
@@ -569,8 +569,8 @@ class Orders {
 					$p[$ii]['price_opt_otpusk'] = 0;
 				}
 				if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-					$p[$ii][$item['mode'].'_sum'] = (!$jo_order)?$item['summary'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
-					$p[$ii]['site_price_'.$item['mode']] = (!$jo_order)?$item['actual_prices'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
+					$p[$ii][$item['mode'].'_sum'] = (!isset($jo_order))?$item['summary'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
+					$p[$ii]['site_price_'.$item['mode']] = (!isset($jo_order))?$item['actual_prices'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
 				}else{
 					if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
 						$price_column = $arr['price_column'];
@@ -579,8 +579,8 @@ class Orders {
 					}else{
 						$price_column = 3;
 					}
-					$p[$ii][$item['mode'].'_sum'] = (!$jo_order)?$item['summary'][$price_column]:$item['sum_prod'];
-					$p[$ii]['site_price_'.$item['mode']] = (!$jo_order)?$item['actual_prices'][$price_column]:$item['price'];
+					$p[$ii][$item['mode'].'_sum'] = (!isset($jo_order))?$item['summary'][$price_column]:$item['sum_prod'];
+					$p[$ii]['site_price_'.$item['mode']] = (!isset($jo_order))?$item['actual_prices'][$price_column]:$item['price'];
 				}
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_sum'] = 0;
