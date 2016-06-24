@@ -482,7 +482,7 @@ tr.min td {
 						$volume=0;
 						$sum_otpusk=0;
 						foreach($order as $i){
-							if($i['opt_qty'] > 0 && $i['id_supplier'] == $id_supplier && (isset($type) || $i['contragent_qty'] <= 0) && substr_count($i['note_opt'], 'Отмена#') == 0){?>
+							if($i['supplier_quantity_opt'] > 0 && $i['id_supplier'] == $id_supplier && (isset($type) || $i['contragent_qty'] <= 0) && substr_count($i['note_opt'], 'Отмена#') == 0){?>
 								<tr class="main">
 									<td class="bl c1"><?=$ii++?></td>
 									<td class="c2"><?=$i['art']?></td>
@@ -504,21 +504,21 @@ tr.min td {
 											echo number_format($i['price_opt_otpusk'], 2, ",", "");
 										}?>
 									</td>
-									<td class="c6"><?=$i['opt_qty']?></td>
-									<?$qty += $i['opt_qty']?>
+									<td class="c6"><?=$i['supplier_quantity_opt']?></td>
+									<?$qty += $i['supplier_quantity_opt']?>
 									<td class="c7"></td>
 									<td class="c8">
 										<?if(!$suppliers[$id_supplier]['is_partner'] && isset($_GET['no_prices']) == false){?>
-											<?=number_format($i['price_opt_otpusk']*$i['opt_qty'], 2, ",", "");?>
-											<?$sum_otpusk = round(($sum_otpusk+round($i['price_opt_otpusk']*$i['opt_qty'], 2)),2);?>
+											<?=number_format($i['price_opt_otpusk']*$i['supplier_quantity_opt'], 2, ",", "");?>
+											<?$sum_otpusk = round(($sum_otpusk+round($i['price_opt_otpusk']*$i['supplier_quantity_opt'], 2)),2);?>
 										<?}?>
 									</td>
 									<td class="c9"><?=$i['article_altern']?></td>
-									<?$volume += $i['volume']*$i['opt_qty'];?>
-									<?$weight += $i['weight']*$i['opt_qty'];?>
+									<?$volume += $i['volume']*$i['supplier_quantity_opt'];?>
+									<?$weight += $i['weight']*$i['supplier_quantity_opt'];?>
 								</tr>
 							<?}?>
-							<?if($i['mopt_qty'] > 0 && $i['id_supplier_mopt'] == $id_supplier && (isset($type) || $i['contragent_mqty'] <= 0) && substr_count($i['note_mopt'], 'Отмена#') == 0){?>
+							<?if($i['supplier_quantity_mopt'] > 0 && $i['id_supplier_mopt'] == $id_supplier && (isset($type) || $i['contragent_mqty'] <= 0) && substr_count($i['note_mopt'], 'Отмена#') == 0){?>
 								<tr class="main">
 									<td class="bl c1"><?=$ii++?></td>
 									<td class="c2"><?=$i['art']?></td>
@@ -540,19 +540,19 @@ tr.min td {
 											echo number_format($i['price_mopt_otpusk'], 2, ",", "");
 										}?>
 									</td>
-									<td class="c6"><?=$i['mopt_qty']?></td>
-									<?$qty += $i['mopt_qty']?>
+									<td class="c6"><?=$i['supplier_quantity_mopt']?></td>
+									<?$qty += $i['supplier_quantity_mopt']?>
 									<td class="c7"></td>
 									<td class="c8">
 										<?if(!$suppliers[$id_supplier]['is_partner'] && isset($_GET['no_prices']) == false){?>
-											<?=number_format($i['price_mopt_otpusk']*$i['mopt_qty'], 2, ",", "");?>
-											<?$sum_otpusk = round(($sum_otpusk+round($i['price_mopt_otpusk']*$i['mopt_qty'], 2)), 2);?>
+											<?=number_format($i['price_mopt_otpusk']*$i['supplier_quantity_mopt'], 2, ",", "");?>
+											<?$sum_otpusk = round(($sum_otpusk+round($i['price_mopt_otpusk']*$i['supplier_quantity_mopt'], 2)), 2);?>
 										<?}?>
 									</td>
 									<?$sum = round($sum+$i['mopt_sum'],2)?>
 									<td class="c9"><?=$i['article_mopt_altern']?></td>
-									<?$volume += $i['volume']*$i['mopt_qty'];?>
-									<?$weight += $i['weight']*$i['mopt_qty'];?>
+									<?$volume += $i['volume']*$i['supplier_quantity_mopt'];?>
+									<?$weight += $i['weight']*$i['supplier_quantity_mopt'];?>
 								</tr>
 							<?}
 						}
