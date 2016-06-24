@@ -604,10 +604,11 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
 		</div>
-		<!-- Authentication -->
+		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">
 		</div>
+		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>
 			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_current_pass">

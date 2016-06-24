@@ -4,13 +4,13 @@
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;?>
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
-		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photo">
+		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
 			<?if(!empty($item['images'])){?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['images'][0]['src']?>"/>
 			<?}else if(!empty($item['img_1'])){?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['img_1']?>"/>
 			<?}else{?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua/efiles/nofoto.jpg"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -20,12 +20,12 @@
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+						<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
+							<img src="http://xt.ua<?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -58,12 +58,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
+							<img src="http://xt.ua<?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
 						<?}
 					}
 				}?>
@@ -79,6 +79,48 @@
 				}?>
 				<!-- Код добавления видео конец-->
 			</div>
+
+			<div id="big_photos_carousel" data-type="modal">
+				<div class="modal_container">
+					<div id="owl-product_mobile_img_js" class="mobile_carousel">
+						<?if(!empty($item['images'])){
+							foreach($item['images'] as $i => $image){?>
+								<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+							<?}
+						}else{
+							for($i=1; $i < 4; $i++){
+								if(!empty($item['img_'.$i])){?>
+									<img src="http://xt.ua<?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
+								<?}
+							}
+						}?>
+						<?if(!empty($item['videos'])){
+							foreach($item['videos'] as $i => $video){?>
+								<div class="item-video"><a class="owl-video" href="<?=$video?>"></a></div>
+							<?}
+						}?>
+					</div>
+				</div>
+			</div>
+			<script>
+				//Инициализация owl carousel
+				$('#owl-product_mobile_img_js').owlCarousel({
+					center:			true,
+					dots:			true,
+					items:			1,
+					lazyLoad:		true,
+					/*loop:			true,*/
+					margin:			20,
+					nav:			true,
+					video:			true,
+					videoHeight:	345,
+					videoWidth:		345,
+					navText: [
+						'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+					]
+				});
+			</script>
 			<script>
 				//Инициализация owl carousel
 				$("#owl-product_mini_img_js").owlCarousel({
@@ -474,9 +516,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<!--<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">-->
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<!-- <img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/> -->
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
@@ -500,9 +542,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<!-- <img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>"> -->
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<!-- <img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/> -->
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
@@ -555,6 +597,12 @@
 </script>
 <script>
 	$(function(){
+		$('.product_main_img').on('click', function(){
+			var carus_cont = $(this).closest('#caruselCont').find('.mobile_carousel').html();
+			console.log(carus_cont);
+			$('#big_photos_carousel .modal_container').html(carus_cont);
+
+		});
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();
