@@ -3476,6 +3476,7 @@ div.modalEditOrder .applyBtn {
 	border-radius: 50%;
 	line-height: 24px;
 	width: 24px;
+	height: 24px;
 	margin: 0;
 }
 #big_photo[data-type="modal"].opened a.close_modal:hover {
