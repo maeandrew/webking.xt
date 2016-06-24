@@ -732,7 +732,7 @@
 	</noscript>
 
 	<!-- message about cookie -->
-	<div class="cookie_wrap">
+	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
 			<p>Кликая на кнопку "ОК" или продолжая использовать данный сайт, Вы соглашаетесь на использование этой технологии Нашей компанией.</p>
@@ -770,6 +770,7 @@
 						$('.cookie_msg_js').css('top', '100%');
 						$.cookie('useCookie', 'agree', {expires: 365});
 						setTimeout(function() {
+							$('.cookie_wrap').remove();
 							$('.err_msg_as_knob_js').css('opacity', '1');
 						}, 3000);
 					});
