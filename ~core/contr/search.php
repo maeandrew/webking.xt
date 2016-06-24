@@ -38,8 +38,8 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%]/', ' ', $_GET['query']);
 	$query = trim($query);
 }
-G::metaTags(array('page_title' => $header.' по запросу "'.$query.'"'));
-$tpl->Assign('header', $header.' по запросу "'.$query.'"');
+G::metaTags(array('page_title' => $header.' по запросу "'.isset($query).'"'));
+$tpl->Assign('header', $header.' по запросу "'.isset($query).'"');
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;
@@ -95,10 +95,11 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 
 // Сортировка ==============================================
 if(!isset($sorting)){
-	$sorting = array('value' => 'popularity desc');
+	$cookie_sotring = json_decode($_COOKIE["sorting"]);
+	$sorting = array('value' => $cookie_sotring->products->value);
 	// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
-	setcookie('sorting', serialize(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
-}else{
+	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
+}else{	
 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
 }
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){

@@ -1305,8 +1305,11 @@ $(function(){
 
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
-			removeLoadAnimation('#sign_in');
-			if(data.err != 1){				
+			removeLoadAnimation('#sign_in');			
+			if (current_controller === 'main'){
+				location.reload();
+			}
+			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
 						id_category = current_id_category,
@@ -1314,8 +1317,8 @@ $(function(){
 						current_page = parseInt(page.find('.paginator li.active').last().text()),
 						next_page = current_page,
 						shown_products = 0,
-						skipped_products = 30*(start_page-1);				
-						// count = $(this).data('cnt');			
+						skipped_products = 30*(start_page-1);
+						// count = $(this).data('cnt');
 					$('.show_more').append('<span class="load_more"></span>');
 					addLoadAnimation('.products');
 					var arr = {
@@ -1323,8 +1326,12 @@ $(function(){
 						id_category: id_category,
 						shown_products: shown_products,
 						skipped_products: skipped_products
-					};				
-					UpdateProductsList(page, arr);								
+					};					
+					if (current_controller === 'search'){
+						location.reload();
+					}else{
+						UpdateProductsList(page, arr);
+					}
 				}else{
 					/*page = $('.page_content_js');
 					skipped_products = 0;
@@ -1338,7 +1345,6 @@ $(function(){
 				}
 
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-					console.log(data);					
 					$('#user_profile').append('<img src="/images/noavatar.png"/>');
 					$('.user_profile_js').html(data);
 
@@ -1357,7 +1363,7 @@ $(function(){
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 			}else{
-				form.find('.error').text(data.msg).fadeIn();
+				form.find('.error').text(data.msg).fadeIn();				
 			}
 		});
 	});

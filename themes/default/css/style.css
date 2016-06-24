@@ -3615,7 +3615,7 @@ div.modalEditOrder .applyBtn {
 	width: 100%;
 	background-color: rgba(52, 52, 52, 0.85);
 	transition: 3s ease;
-	z-index: 10000000;
+	z-index: 100000000;
 }
 .cookie_msg p {
 	text-align: justify;
@@ -3667,7 +3667,6 @@ div.modalEditOrder .applyBtn {
 	top: 100%;
 	right: 0;
 	width: 300px;
-	/*background-color: #EACBBB;*/
 	background-color: #fff;
 	border: 1px solid #FF865F;
 	transition: 2s ease;
@@ -3677,6 +3676,7 @@ div.modalEditOrder .applyBtn {
 }
 .err_msg_as_knob {
 	position: absolute;
+	opacity: 0;
 	bottom: 100%;
 	padding: 0.7em;
 	right: 2em;
@@ -3686,6 +3686,7 @@ div.modalEditOrder .applyBtn {
 	cursor: pointer;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	transition: 1s ease;
 }
 .err_msg_as_title {
 	padding: 1em;

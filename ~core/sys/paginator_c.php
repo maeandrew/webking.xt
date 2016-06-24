@@ -70,12 +70,12 @@ class Paginator{
 		$base_url = preg_replace('/\/$/', '', $res[0]);
 		$get_string = isset($res[1])?$res[1]:null;
 		$template = array();
-		$name = array();
+		$pages = array();
 		foreach($this->pages as $key=>$page){
 			// Если числовые страницы
 			// if(is_numeric($key)){
 				if($this->active_page == $page){
-					$name['main'][] = '<li class="page'.$page.' active"><a href="#">'.$page.'</a></li>';
+					$pages['main'][] = '<li class="page'.$page.' active"><a href="#">'.$page.'</a></li>';
 				}else{
 					if(strstr($base_url, '/adm')){
 						$url = $base_url.'/p'.$page;
@@ -88,7 +88,7 @@ class Paginator{
 					}
 					$url .= isset($get_string)?'?'.$get_string:null;
 					if(is_numeric($key)){
-						$name['main'][] = '<li class="page'.$page.'"><a href="'.$url.'" class="animate">'.$page.'</a></li>';
+						$pages['main'][] = '<li class="page'.$page.'"><a href="'.$url.'" class="animate">'.$page.'</a></li>';
 					}else{
 						if(in_array($key, array('prev', 'next'))){
 							$page = '<i class="material-icons">more_horiz</i>';
@@ -96,37 +96,38 @@ class Paginator{
 								$page = '...';
 							}
 						}
-						$name[$key] = '<li class="'.$key.'"><a href="'.$url.'" class="animate">'.$page.'</a></li>';
+						$pages[$key] = '<li class="'.$key.'"><a href="'.$url.'" class="animate">'.$page.'</a></li>';
 					}
 				}
 		}
-		$tpl->Assign('pages', $name);
+		$tpl->Assign('pages', $pages);
 		$parsed_content = $tpl->Parse($GLOBALS['PATH_tpl_global'].'paginator.tpl');
 		// print_r(Link::Category($GLOBALS['Rewrite']));
-		if($GLOBALS['CurrentController'] == 'products'){
-			$page_base = Link::Category($GLOBALS['Rewrite']);
-		}else{
-			$page_base = Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);
-		}
-		$GLOBALS['meta_canonical'] = Link::Category($GLOBALS['Rewrite']);
-		if($this->pages_count > 1){
-			$prev = Link::Category($GLOBALS['Rewrite'], array('page' => $this->active_page-1));
-			$next = Link::Category($GLOBALS['Rewrite'], array('page' => $this->active_page+1));
-			// $GLOBALS['meta_canonical'] = $page_base;
-			if($this->active_page == 1){
-				$GLOBALS['meta_next'] = $next;
-				// $GLOBALS['meta_canonical'] = $page_base;
-			}elseif($this->active_page == $this->pages_count){
-				$GLOBALS['meta_prev'] = $prev;
+		if(isset($GLOBALS['Rewrite'])){
+			if($GLOBALS['CurrentController'] == 'products'){
+				$page_base = Link::Category($GLOBALS['Rewrite']);
 			}else{
-				if($this->active_page == 2){
-					// $GLOBALS['meta_prev'] = $page_base;
-				}else{
-					$GLOBALS['meta_prev'] = $prev;
-				}
-				$GLOBALS['meta_next'] = $next;
+				$page_base = Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);
 			}
-		}else{
+			$GLOBALS['meta_canonical'] = Link::Category($GLOBALS['Rewrite']);
+			if($this->pages_count > 1){
+				$prev = Link::Category($GLOBALS['Rewrite'], array('page' => $this->active_page-1));
+				$next = Link::Category($GLOBALS['Rewrite'], array('page' => $this->active_page+1));
+				// $GLOBALS['meta_canonical'] = $page_base;
+				if($this->active_page == 1){
+					$GLOBALS['meta_next'] = $next;
+					// $GLOBALS['meta_canonical'] = $page_base;
+				}elseif($this->active_page == $this->pages_count){
+					$GLOBALS['meta_prev'] = $prev;
+				}else{
+					if($this->active_page == 2){
+						// $GLOBALS['meta_prev'] = $page_base;
+					}else{
+						$GLOBALS['meta_prev'] = $prev;
+					}
+					$GLOBALS['meta_next'] = $next;
+				}
+			}
 		}
 		// var_dump($GLOBALS['meta_canonical']);
 		// print_r('<br>');

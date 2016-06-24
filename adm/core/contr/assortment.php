@@ -20,7 +20,38 @@ $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
 
 
-
+//экспорт в exel
+if(isset($_GET['export'])){
+	$Products->SetProductsList1($id_supplier, $order, '');
+	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']));
+	exit(0);
+}elseif(isset($_GET['export_usd'])){
+	$Products->SetProductsList1($id_supplier, $order, '');
+	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']));
+	exit(0);
+}
+// Импорт
+if(isset($_FILES['import_file'])){
+	// Проверяем загружен ли файл
+	if(is_uploaded_file($_FILES['import_file']['tmp_name'])){
+		// Проверяе объем файла
+		if($_FILES['import_file']['size'] > 1024*3*1024){
+			$tpl->Assign('msg', "Размер файла превышает три мегабайта");
+			$tpl->Assign('errm', 1);
+			exit;
+		}
+		if(isset($_POST['smb_import_usd'])){
+			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES['import_file']['tmp_name']);
+		}else{
+			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name']);
+		}
+		$tpl->Assign('total_added', $total_added);
+		$tpl->Assign('total_updated', $total_updated);
+	}else{
+		$tpl->Assign('msg', 'Файл не был загружен.');
+		$tpl->Assign('errm', 1);
+	}
+}
 
 /*Pagination*/
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -30,7 +61,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 		$_GET['page_id'] = $_POST['page_nbr'];
 	}
-	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible'=>1));
+	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user']));
 	$tpl->Assign('cnt', $cnt);
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -67,36 +98,3 @@ $parsed_res = array(
 if($parsed_res['issuccess'] === true){
 	$tpl_center .= $parsed_res['html'];
 }
-//экспорт в exel
-if(isset($_GET['export'])) {
-	$r = $Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']);
-	$Products->GenExcelAssortFile($r);
-	exit(0);
-} elseif(isset($_GET['export_usd'])){
-	$r = $Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']);
-	$Products->GenExcelAssortFile($r);
-	exit(0);
-}
-
-if(isset($_FILES["import_file"])){
-	// Импорт
-	if($_FILES["import_file"]["size"] > 1024*3*1024){
-		$tpl->Assign('msg', "Размер файла превышает три мегабайта");
-		$tpl->Assign('errm', 1);
-		exit;
-	}
-	// Проверяем загружен ли файл
-	if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
-		if(isset($_POST['smb_import_usd'])){
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES["import_file"]["tmp_name"]);
-		}else{
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES["import_file"]["tmp_name"]);
-		}
-		$tpl->Assign('total_added', $total_added);
-		$tpl->Assign('total_updated', $total_updated);
-	}else{
-		$tpl->Assign('msg', 'Файл не был загружен.');
-		$tpl->Assign('errm', 1);
-	}
-}
-?>

@@ -237,7 +237,9 @@
 								<input type="number" step="0.01" min="0" class="input-m price" data-mode="opt" value="<?=$item['inusd'] == 1?$item['price_opt_otpusk_usd']:$item['price_opt_otpusk'];?>">
 							</td>
 							<td class="center"><input type="checkbox" <?=$item['inusd'] == 1?'checked':null;?> class="currency"></td>
-							<td class="center"></td>
+							<td class="center">
+								<input type="text" class="input-m comment" data-mode="opt" value="<?=$item['sup_comment'];?>">
+							</td>
 						</tr>
 					<?}?>
 				</tbody>
@@ -333,6 +335,18 @@
 				});
 			});
 		});
+		// Ручное изменение артикула поставщика
+		$('.comment').on('keyup, change', function(){
+			var parent = $(this).closest('tr'),
+					data = {
+						id_product: parent.data('id'),
+						id_supplier: id_supplier,
+						mode: $(this).data('mode'),
+						comment: $(this).val()
+					};
+			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+			});
+		});
 		// Ручное изменение цены
 		$('.price').on('keyup, change', function(){
 			var parent = $(this).closest('tr'),
@@ -341,7 +355,6 @@
 					id_supplier: id_supplier,
 					mode: $(this).data('mode'),
 					price: $(this).val(),
-					comment: 'comment example'
 				};
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
 			});
