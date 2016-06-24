@@ -184,6 +184,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case "AddAstimate":
+				print_r($_POST);
+				print_r($_FILES);
+				die();
 				$Product = new Products();
 				//Проверка данных пользователя
 				if(!G::IsLogged()){

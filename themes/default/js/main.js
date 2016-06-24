@@ -1419,15 +1419,7 @@ $(function(){
 	//Отправка данных (смета клиента)
 	$('.estimate_js').on('click', function(e){
 		e.preventDefault();
-		var parent = $(this).closest('form'),
-			fields = {};
-		parent.find('.mdl-textfield__input').each(function(index, el) {
-			fields[$(el).attr('name')] = $(el).val();
-		});
-		//fields = new FormData(parent);
-		console.log(fields);
-		ajax('product', 'AddAstimate', fields).done(function(data){
-
+		ajax('product', 'AddAstimate', new FormData($(this).closest('form')[0]), 'json', true).done(function(data){
 		});
 	});
 
