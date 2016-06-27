@@ -1291,7 +1291,7 @@ class Products {
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
+			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0)';
 		}
 		$sql = "SELECT p.id_product,
 				p.visible,
@@ -1303,11 +1303,10 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 				RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 			WHERE cp.id_product IS NOT NULL
-			".$where.$where2.$this->price_range."
-			GROUP BY price_opt
+			".$where.$where2.$this->price_range." AND a.active = 1
+			GROUP BY p.id_product
 			HAVING p.visible = 1
-				".$prices_zero."
-				AND a.active = 1";
+				".$prices_zero;
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
 			return 0;
@@ -2865,7 +2864,6 @@ class Products {
 				}
 			}
 		}
-		die();
 		return array($total_added, $total_updated);
 	}
 	/**
@@ -2926,10 +2924,10 @@ class Products {
 				$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
 				if($this->IsInAssort($id_product, $id_supplier)){
 					$res['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, false);
+					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, true);
 					$total_updated++;
 				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, false);
+					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, true);
 					$total_added++;
 				}
 			}
@@ -4622,4 +4620,16 @@ class Products {
 		return true;
 	}
 
+	public function UploadEstimate($file, $comment){
+		$f['id_user'] = $_SESSION['member']['id_user'];
+		$f['comment'] = trim($comment);
+		$f['file'] = trim($file);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'estimate', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
 }

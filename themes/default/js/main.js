@@ -1438,22 +1438,9 @@ $(function(){
 	//Отправка данных (смета клиента)
 	$('.estimate_js').on('click', function(e){
 		e.preventDefault();
-		var parent = $(this).closest('form'),
-			fields = {};
-		console.log(parent);
-		parent.find('.mdl-textfield__input').each(function(index, el) {
-
-			fields[$(el).attr('name')] = $(el).val();
-		});
-		// var res = ValidateEmail(data, 1);
-		ajax('product', 'AddAstimate', fields).done(function(data){
-
+		ajax('product', 'AddEstimate', new FormData($(this).closest('form')[0]), 'json', true).done(function(data){
 		});
 	});
-
-
-
-
 
 	if($('header .cart_item a.cart i').data('badge') === 0) {
 		$('#cart .clear_cart').addClass('hidden');

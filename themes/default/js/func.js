@@ -941,12 +941,17 @@ function ModalGraph(id_graphics, moderation){
 	});
 }
 
-function ajax(target, action, data, dataType){
-	if(typeof(data) == 'object'){
-		data.target = target;
-		data.action = action;
+function ajax(target, action, data, dataType, form_sent){
+	if(form_sent){
+		data.append('target', target);
+		data.append('action', action);
 	}else{
-		data = {target: target, action: action};
+		if(typeof(data) == 'object'){
+			data.target = target;
+			data.action = action;
+		}else{
+			data = {target: target, action: action};
+		}
 	}
 	dataType = dataType || 'json';
 	var ajax = $.ajax({
@@ -960,7 +965,9 @@ function ajax(target, action, data, dataType){
 		},
 		type: 'POST',
 		dataType: dataType,
-		data: data
+		data: data,
+		processData: form_sent?false:true,
+		contentType: form_sent?false:'application/x-www-form-urlencoded; charset=UTF-8'
 	}).always(function(){
 		ajax_proceed = false;
 	});

@@ -11,7 +11,7 @@ class Invoice{
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT (SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
 				o.sum_discount, s.article, p.name, p.units, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, p.instruction, osp.site_price_opt, osp.site_price_mopt,
-				p.inbox_qty, osp.box_qty, osp.opt_qty, osp.mopt_qty, osp.opt_sum, osp.mopt_sum, o.strachovka, o.note2, osp.id_supplier, osp.id_supplier_mopt,
+				p.inbox_qty, osp.box_qty, osp.opt_qty, osp.mopt_qty, osp.supplier_quantity_opt, osp.supplier_quantity_mopt, osp.opt_sum, osp.mopt_sum, o.strachovka, o.note2, osp.id_supplier, osp.id_supplier_mopt,
 				o.target_date, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
 				osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum, o.id_pretense_status, o.id_return_status, p.weight, p.volume, osp.note_opt, osp.note_mopt,
 				osp.price_opt_otpusk, osp.price_mopt_otpusk, osp.filial_mopt, osp.filial_opt, p.checked, osp.warehouse_quantity, i.src AS image
@@ -40,7 +40,7 @@ class Invoice{
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT (SELECT "._DB_PREFIX_."supplier.article FROM xt_supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
 			s.article, p.name, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, osp.site_price_opt, osp.site_price_mopt, p.inbox_qty, osp.box_qty,
-			osp.opt_qty, osp.mopt_qty, osp.opt_sum, osp.mopt_sum, o.strachovka, osp.id_supplier, osp.id_supplier_mopt, o.target_date,
+			osp.opt_qty, osp.mopt_qty, osp.supplier_quantity_opt, osp.supplier_quantity_mopt, osp.opt_sum, osp.mopt_sum, o.strachovka, osp.id_supplier, osp.id_supplier_mopt, o.target_date,
 			osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
 			osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum, o.id_pretense_status, o.id_return_status, p.weight, p.volume,
 			osp.note_opt, osp.note_mopt, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.filial_mopt, osp.filial_opt, i.src AS image

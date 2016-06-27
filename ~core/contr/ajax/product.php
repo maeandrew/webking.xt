@@ -183,47 +183,70 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdatetGraph($_POST));
 				}
 				break;
-			case "AddAstimate":
+			case "AddEstimate":
+				$Product = new Products();
+				//Проверка данных пользователя
 				if(!G::IsLogged()){
 					$Users = new Users();
+					$Customers = new Customers();
 					require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 					list($err, $errm) = Change_Info_validate();
 					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
-					if($unique_phone !== true) {
-						$err = 1;
-						$errm['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
-					}
-					$unique_email = $Users->CheckEmailUniqueness($_POST['email']);
-					if((isset($_POST['email']) && $_POST['email'] !='')) {
-						if($unique_email !== true) {
-							$err = 1;
-							$errm['email'] = 'Пользователь с таким email уже зарегистрирован!';
+					if($unique_phone === true){
+						$data = array(
+							'name' => $_POST['name'],
+							'passwd' => $pass = G::GenerateVerificationCode(6),
+							'descr' => 'Пользователь создан автоматически при загрузке сметы',
+							'phone' => $_POST['phone']
+						);
+						// регистрируем нового пользователя
+						if($Customers->RegisterCustomer($data)){
+							$Users->SendPassword($data['passwd'], $data['phone']);
 						}
+						$data = array(
+							'email' => $_POST['phone'],
+							'passwd' => $pass
+						);
+						// авторизуем клиента в его новый аккаунт
+						if($Users->CheckUser($data)){
+							G::Login($Users->fields);
+							_acl::load($Users->fields['gid']);
+							$res['message'] = 'Пользователь авторизован';
+						}
+					} else {
+						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
 					}
-					if(!$err){
-						$Customers = new Customers();
-						//Перезаписываем данные в сессии
-						$_SESSION['member']['name'] = (isset( $_POST['name']))?$_POST['name']:null;
-						$_SESSION['member']['email'] = (isset( $_POST['email']))?$_POST['email']:null;
-						$_SESSION['member']['phone'] = (isset( $_POST['phone']))?$_POST['phone']:null;
-
-						if($Customers->AddCustomer($_POST)) echo json_encode('true');
-					}else{
-						print_r($errm);
-						//echo json_encode($errm);
-					}
-
-
-
-
-
-					print_r($unique_phone); die();
-				} else{
-					print_r('зарегистрирован'); die();
+				} else {
+					$res['message'] = true;
 				}
-
-
-				print_r($_POST); die();
+				// Импорт файла
+				if(isset($_FILES['file'])){
+					// Проверяем загружен ли файл
+					if(is_uploaded_file($_FILES['file']['tmp_name'])){
+						// Проверяем объем файла
+						if($_FILES['file']['size'] > 1024*3*1024){
+							$res['message'] = 'Размер файла превышает три мегабайта';
+						} else {
+							$folder_name = 'estimates/'.$_SESSION['member']['id_user'].'/';
+							$pathname = $GLOBALS['PATH_root'].$folder_name;
+							if (!file_exists($pathname)) {
+								mkdir($pathname, 0777, true);
+							}
+							if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
+								// Если все загружено на сервер, выполнить запись в БД
+								$file = '/' . $folder_name . $_FILES['file']['name'];
+								$Product->UploadEstimate($file, $_POST['comment']);
+								$res['message'] = 'Загрузка прошла успешно';
+							} else{
+								$res['message'] = 'Произошла ошибка. Повторите попытку позже!';
+							}
+						}
+					} else{
+						$res['message'] = 'Файл не был загружен!';
+					}
+				}
+				//echo json_encode($res);
+				print_r($res);
 
 				break;
 			default:

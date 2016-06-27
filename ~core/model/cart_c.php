@@ -331,7 +331,7 @@ class Cart {
 			$_SESSION['cart']['promo'] = $res['promo'];
 			$_SESSION['cart']['adm'] = $res['adm'];
 			$_SESSION['cart']['ready'] = $res['ready'];
-			$_SESSION['cart']['ready'] = $res['note'];
+			$_SESSION['cart']['ready'] = isset($res['note'])?$res['note']:'';
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
