@@ -546,8 +546,6 @@ body:not(.c_main) .banner {
 }
 .breadcrumbs {
 	float: left;
-	padding-left: 10px;
-	padding-right: 10px;
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;

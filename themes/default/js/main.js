@@ -1439,6 +1439,7 @@ $(function(){
 	$('.estimate_js').on('click', function(e){
 		e.preventDefault();
 		ajax('product', 'AddEstimate', new FormData($(this).closest('form')[0]), 'json', true).done(function(data){
+			console.log(data);
 		});
 	});
 

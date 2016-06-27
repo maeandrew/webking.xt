@@ -163,7 +163,7 @@ unset($sort_value, $sort);
 }*/
 $Cart = new Cart();
 // Создание базового массива корзины
-if(G::isLogged() && !_acl::isAdmin()){
+if(G::IsLogged() && !_acl::isAdmin()){
 	$Cart->LastClientCart();
 	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
 	$_SESSION['member']['favorites'] = $User->fields['favorites'];
@@ -172,7 +172,7 @@ if(G::isLogged() && !_acl::isAdmin()){
 	$_SESSION['member']['ordered_prod'] = $User->fields['ordered_prod'];
 }
 $Cart->RecalcCart();
-if(G::isLogged()){
+if(G::IsLogged()){
 	$tpl->Assign('user_profile', $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl'));
 }
 require($GLOBALS['PATH_core'].'controller.php');

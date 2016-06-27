@@ -39,7 +39,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case "add_favorite":
 				// Добавление Избранного товара
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}elseif(isset($_SESSION['member']['favorites']) && in_array($_POST['id_product'], $_SESSION['member']['favorites'])){
 					$data['answer'] = 'already';
@@ -67,7 +67,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	$txt = json_encode('ok');
 					// 	echo $txt;
 					// }
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}else{
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
@@ -106,7 +106,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	//$data['answer'] = 'error';
 					// }
 
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}elseif(isset($_SESSION['member']['waiting_list']) && in_array($_POST['id_product'], $_SESSION['member']['waiting_list'])){
 					$data['answer'] = 'already';
@@ -141,7 +141,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	echo $txt;
 					// }
 
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}else {
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_CUSTOMER_){
