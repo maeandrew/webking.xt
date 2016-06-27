@@ -1291,7 +1291,7 @@ class Products {
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
+			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0)';
 		}
 		$sql = "SELECT p.id_product,
 				p.visible,
@@ -1303,11 +1303,10 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 				RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 			WHERE cp.id_product IS NOT NULL
-			".$where.$where2.$this->price_range."
-			GROUP BY price_opt
+			".$where.$where2.$this->price_range." AND a.active = 1
+			GROUP BY p.id_product
 			HAVING p.visible = 1
-				".$prices_zero."
-				AND a.active = 1";
+				".$prices_zero; print_r($sql); die();
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
 			return 0;

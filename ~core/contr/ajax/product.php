@@ -184,9 +184,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case "AddAstimate":
-				print_r($_POST);
-				print_r($_FILES);
-				die();
+//				print_r($_POST);
+//				print_r($_FILES);
+//				die();
 				$Product = new Products();
 				//Проверка данных пользователя
 				if(!G::IsLogged()){
@@ -236,17 +236,22 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}else{
 						$res['message'] = 'Файл не был загружен.';
 					}
+
+
+
 				}
 				$path = $GLOBALS['PATH_root'].'estimates/'.$_SESSION['member']['id_user'];
 				if (!file_exists($path)) {
 					mkdir($path, 0777, true);
 				}
 
+				move_uploaded_file($_FILES['file']['tmp_name'], $path);
+
 
 
 
 				// Если все загружено на сервер, выполнить запись в БД
-				$file = $path.'/'.$_FILES['file'];
+				$file = $path.'/'.$_FILES['file']['name'];
 				$Product->UploadEstimate($file, $_POST['comment']);
 
 
