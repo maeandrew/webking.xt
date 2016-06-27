@@ -102,11 +102,6 @@ if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'
 	unset($promo_supplier);
 }
 
-//echo'<pre>';
-//print_r($_SESSION['member']);
-//echo'</pre>';
-//die();
-
 // Выборка просмотренных товаров
 $products = new Products();
 if(isset($_COOKIE['view_products'])){
