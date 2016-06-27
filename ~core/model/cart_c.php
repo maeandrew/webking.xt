@@ -618,6 +618,58 @@ class Cart {
 		return $res;
 	}
 
+
+//	public function GetInfoJO($condition){
+//		switch ($condition){
+//			case 'joactive':
+//				$status = " AND c.`status` = 10 ";
+//				break;
+//			case 'jocompleted':
+//				$status = " AND c.`status` = 11 ";
+//				break;
+//			case 'joinwork':
+//				$status = " AND c.`status` = 12 ";
+//				break;
+//		}
+//		global $db;
+//		$sql = "SELECT c.*, u.name, u.phone, u.email, COUNT(cp2.id_cart) AS count_carts,
+//				cp.id_user AS adm_id, us.name AS adm_name, us.phone AS adm_phones, us.email AS adm_email
+//				FROM xt_cart AS c
+//				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+//				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
+//				LEFT JOIN "._DB_PREFIX_."cart AS cp2 ON c.promo = cp2.promo
+//				LEFT JOIN "._DB_PREFIX_."user AS us ON cp.id_user = us.id_user
+//				WHERE c.id_user = '".$_SESSION['member']['id_user']."'
+//				".$status."
+//				GROUP BY c.promo
+//				HAVING count_carts > 0
+//				ORDER BY creation_date DESC";
+//		$res = $db->GetArray($sql);
+//
+//		if(!$res){
+//			return false;
+//		}
+//		foreach ($res as &$v){
+//			//Добавляем список всех товаров со всех корзин, связанных промокодом
+//			$a = $this->GetCartForPromo($v['promo']);
+//			$v['products'] = $a['products'];
+//			$v['total_sum'] = $a['total_sum'];
+//			$v['discount'] = $a['discount'];
+//			//Добавляем информацию об участниках совместного заказа
+//			$v['infoCarts'] = $this->GetInfoForPromo($v['promo']);
+//			$b = $this->GetProductsForPromo($v['promo']);
+//			foreach($v['infoCarts'] as &$val){
+//				$val['sum_cart'] = $b[$val['id_user']]['total_sum'];
+//			}
+//		}
+////		echo'<pre>';
+////		print_r($res);
+////		echo'</pre>';
+////		die();
+//		unset($a, $b);
+//		return $res;
+//	}
+
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){
 		global $db;

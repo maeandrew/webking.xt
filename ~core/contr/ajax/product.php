@@ -234,9 +234,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								if (!file_exists($pathname)) {
 									mkdir($pathname, 0777, true);
 								}
-								if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
+								if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])){
 									// Если все загружено на сервер, выполнить запись в БД
-									$file = '/' . $folder_name . $_FILES['file']['name'];
+									$file = '/'.$folder_name.$_FILES['file']['name'];
 									$Product->UploadEstimate($file, $_POST['comment']);
 									$res['message'] = 'Загрузка прошла успешно';
 									$res['status'] = 1;
