@@ -623,9 +623,9 @@ $(function(){
 		$(this).append('<a href="#" class="close_modal btn_js" data-name="'+$(this).attr('id')+'"><i class="material-icons mdl-cell--hide-phone mdl-cell--hide-tablet">close</i><i class="material-icons mdl-cell--hide-desktop">cancel</i></a>');
 	});
 
-	// Замена картинки для открытия в ориг размере
+	// Перемещение к выбраной картинке (Замена картинки для открытия в ориг размере) 
 	$('.product_main_img').on('click', function(){
-		var img_src = $(this).find('img').attr('src'),
+		/*var img_src = $(this).find('img').attr('src'),
 			img_alt = $(this).find('img').attr('alt');
 		$('#big_photo img').attr({
 			src: img_src,
@@ -634,7 +634,26 @@ $(function(){
 		$('#big_photo').css({
 			// 'height': (viewport_height - header_outerheight)*0.9,
 			'max-width': viewport_width*0.9
+		});*/	
+
+		images = [];
+
+		$('#owl-product_mini_img_js .owl-item').each(function(){
+			$(this).find('img');
+			images.push($(this).find('img').attr('class'));
 		});
+		
+		var current_image = 0;
+		$.each(images, function(index, value){
+			console.log("INDEX: " + index + " VALUE: " + value);
+			if (value === 'act_img'){
+				current_image = index;
+			}
+		});
+
+		var carousel = $("#owl-product_mobile_img_js");
+		carousel.owlCarousel();		
+		carousel.trigger('to.owl.carousel', [current_image, 500]);
 	});
 	// Закрытие окна при клике на картинку
 	$('#big_photo img').on('click', function(){
