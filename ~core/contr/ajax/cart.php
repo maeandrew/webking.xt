@@ -349,7 +349,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'makeOrder':
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$Customers = new Customers();
 					$Users = new Users();
 					// Если покупатель не авторизован, получаем введенный номер телефона
@@ -384,7 +384,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$res['status'] = 501;
 					}
 				}
-				if(G::isLogged()){
+				if(G::IsLogged()){
 					// Если покупатель арторизован, получаем его данные
 					$Orders = new Orders();
 					// оформляем заказ

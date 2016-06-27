@@ -52,7 +52,7 @@
 			</nav>
 		</div>
 		<div class="profile mdl-cell--hide-phone">
-			<?if(G::isLogged()){?>
+			<?if(G::IsLogged()){?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
 					<img src="/images/noavatar.png"/>
 				</button>
@@ -63,7 +63,7 @@
 				<a href="#" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect login_btn">Войти</a>
 			<?}?>
 			<div class="user_profile user_profile_js mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile">
-				<?php if(G::isLogged()){
+				<?php if(G::IsLogged()){
 					echo $user_profile;
 				}?>
 			</div>
@@ -72,7 +72,7 @@
 	<div id="phone_menu" data-type="panel" data-position="right" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">
 		<div class="panel_container">
 			<div class="user_profile user_profile_js">
-				<?php if(G::isLogged()){
+				<?php if(G::IsLogged()){
 					echo $user_profile;
 				}else{?>
 					<div class="loginButton">
