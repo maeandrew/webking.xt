@@ -231,9 +231,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							} else {
 								$folder_name = 'estimates/'.$_SESSION['member']['id_user'].'/';
 								$pathname = $GLOBALS['PATH_root'].$folder_name;
-								if (!file_exists($pathname)) {
-									mkdir($pathname, 0777, true);
-								}
+								$images = new Images();
+								$images->checkStructure($pathname);
 								if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
 									// Если все загружено на сервер, выполнить запись в БД
 									$file = '/' . $folder_name . $_FILES['file']['name'];
