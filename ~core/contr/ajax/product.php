@@ -228,7 +228,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(isset($_FILES['file'])){
 					// Проверяем загружен ли файл
 					if(is_uploaded_file($_FILES['file']['tmp_name'])){
-						// Проверяе объем файла
+						// Проверяем объем файла
 						if($_FILES['file']['size'] > 1024*3*1024){
 							$res['message'] = 'Размер файла превышает три мегабайта';
 							exit;
@@ -236,26 +236,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}else{
 						$res['message'] = 'Файл не был загружен.';
 					}
-				} else{
-					$path = $GLOBALS['PATH_global_root'].'estimates/'.$_SESSION['member']['id_user'];
-					if (!file_exists($path)) {
-						mkdir($path, 0777, true);
-					}
-
-
-
-
-					// Если все загружено на сервер, выполнить запись в БД
-					$file = $path.'/'.$_FILES['file'];
-					$Product->UploadEstimate($file, $_POST['comment']);
-
+				}
+				$path = $GLOBALS['PATH_root'].'estimates/'.$_SESSION['member']['id_user'];
+				if (!file_exists($path)) {
+					mkdir($path, 0777, true);
 				}
 
 
 
 
-
-
+				// Если все загружено на сервер, выполнить запись в БД
+				$file = $path.'/'.$_FILES['file'];
+				$Product->UploadEstimate($file, $_POST['comment']);
 
 
 
