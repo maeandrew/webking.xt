@@ -268,11 +268,11 @@ tr.min td {
 								<?foreach($manager['orders'] as $order){?>
 									<div class="orders_block"><?=$order?></div>
 									<?foreach($orders[$order]['invoice_data'] as $d){
-										if($d['opt_qty'] > 0 && (isset($type) || $d['contragent_qty'] <= 0) && substr_count($d['note_opt'], 'Отмена#') == 0){
-											$sum_order += round((round($d['price_opt_otpusk']*$d['opt_qty'], 2)),2);
+										if($d['supplier_quantity_opt'] > 0 && (isset($type) || $d['contragent_qty'] <= 0) && substr_count($d['note_opt'], 'Отмена#') == 0){
+											$sum_order += round((round($d['price_opt_otpusk']*$d['supplier_quantity_opt'], 2)),2);
 										}
-										if($d['mopt_qty']>0 && (isset($type) || $d['contragent_mqty'] <= 0) && substr_count($d['note_mopt'], 'Отмена#') == 0){
-											$sum_order += round((round($d['price_mopt_otpusk']*$d['mopt_qty'], 2)),2);
+										if($d['supplier_quantity_mopt']>0 && (isset($type) || $d['contragent_mqty'] <= 0) && substr_count($d['note_mopt'], 'Отмена#') == 0){
+											$sum_order += round((round($d['price_mopt_otpusk']*$d['supplier_quantity_mopt'], 2)),2);
 										}
 									}
 									?>
