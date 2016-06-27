@@ -607,10 +607,11 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
 		</div>
-		<!-- Authentication -->
+		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
 			<img src="" alt="">
 		</div>
+		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>
 			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_current_pass">
@@ -743,25 +744,66 @@
 	</noscript>
 
 	<!-- message about cookie -->
-	<div class="cookie_wrap">
+	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
-			<h4>Мы используем файлы cookie</h4>
-			<p>Этот веб-сайт использует файлы cookie для обеспечения корректной работы сайта. Файлы cookie хранят полезную информацию на вашем компьютере для того, чтобы мы могли улучшить оперативность и точность нашего сайта для вашей работы. <span>Заходя на данный сайт, вы соглашаетесь на использование файлов cookie.</span></p>
-			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-js-ripple-effect">ОК</div>
+			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
+			<p>Кликая на кнопку "ОК" или продолжая использовать данный сайт, Вы соглашаетесь на использование этой технологии Нашей компанией.</p>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
+		</div>
+	</div>
+
+	<!-- message about error -->
+	<div class="err_msg_as_wrap">
+		<div class="err_msg_as err_msg_as_js">
+			<!-- <div class="err_msg_as_knob ">Click</div> -->
+			<div class="err_msg_as_title err_msg_as_knob_js">
+				<p>Сообщите нам об ошибке</p>
+				<i class="material-icons">keyboard_arrow_up</i>
+			</div>
+			<div class="err_msg_as_form">
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield is-focused">
+						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
+						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
+					</div>
+					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<!-- <input type="submit" value="Отправить"> -->
+				</form>
+			</div>
 		</div>
 	</div>
 	<script>
-		setTimeout(function() {
-			if ($.cookie('useCookie') != 'agree'){
-				$('.cookie_msg_js').css('bottom', '0');
-				
-				$('body').on('click', '.cookie_msg_js .close', function(event) {
-					event.preventDefault();
-					$('.cookie_msg_js').css('bottom', '-150px');
-					$.cookie('useCookie', 'agree', {expires: 365});
-				});
-			}
-		}, 2000);
+		$(document).ready(function() {
+			setTimeout(function() {
+				if ($.cookie('useCookie') != 'agree'){
+					$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
+					
+					$('body').on('click', '.cookie_msg_js .close', function(event) {
+						event.preventDefault();
+						$('.cookie_msg_js').css('top', '100%');
+						$.cookie('useCookie', 'agree', {expires: 365});
+						setTimeout(function() {
+							$('.cookie_wrap').remove();
+							$('.err_msg_as_title').css('opacity', '1');
+						}, 3000);
+					});
+				}else{
+					$('.err_msg_as_title').css('opacity', '1');
+				}
+			}, 2000);
+			
+			$('.err_msg_as_knob_js').click(function(event) {
+				if ($('.err_msg_as').hasClass('shown')) {
+					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+				}else{
+					$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
+					$('.err_msg_as_form').find('textarea').focus();
+					$('.err_msg_as_js').css('border-color', '#FF865F');
+					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				}
+			});
+		});
 	</script>
 </body>
 </html>

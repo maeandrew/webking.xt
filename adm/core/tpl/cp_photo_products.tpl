@@ -1,49 +1,54 @@
 <h1><?=$header;?>
-	<select name="user" class="input-m" id="user">
-		<?foreach($users_list as $user){?>
-			<option value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
-			<option value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
-			<option value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
-		<?}?>
-	</select>
+	<?if($_SESSION['member']['gid'] != _ACL_PHOTOGRAPHER_){?>
+		<form action="" method="post" class="photographer_select">
+			<select name="user" class="input-m" id="user">
+				<?foreach($users_list as $user){?>
+					<option <?=isset($id_photographer) && $id_photographer == $user['id_user']?'selected':null;?> value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
+				<?}?>
+			</select>
+			<input type="submit" class="btn-m-blue" name="change_user" value="Выбрать">
+		</form>
+	<?}?>
 </h1>
 <!-- <a href="#">Начать наполнение поставщика</a> -->
-<div class="create_product row">
-	<div class="upload_message hidden">Подождите идет загрузка метриалов...</div>
-	<div class="col-md-12">
-		<h3>Добавить новый товар</h3>
-	</div>
-	<div class="supplier col-md-4">
-		<label for="supplier">Поставщик:</label>
-		<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
-		<datalist id="suppliers">			
-			<?foreach($suppliers_list as $supplier){?>				
-				<option value="<?=$supplier['article']?>"><?=$supplier['name']?></option>
-			<?}?>			
-		</datalist>
-	</div>
-	<div class="prodName col-md-4">
-		<label for="prodName">Название:</label>
-		<input type="text" id="prodName" class="input-m">
-	</div>
-	<div class="submit col-md-4">
-		<button class="btn-m-default submit_js">Применить</button>
-	</div>
-	<div class="col-md-12">
-		<div class="image_block_new drop_zone animate">
-			<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
-			<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+<?if($_SESSION['member']['gid'] == _ACL_PHOTOGRAPHER_){?>
+	<div class="create_product row">
+		<div class="upload_message hidden">Подождите идет загрузка метриалов...</div>
+		<div class="col-md-12">
+			<h3>Добавить новый товар</h3>
+		</div>
+		<div class="supplier col-md-4">
+			<label for="supplier">Поставщик:</label>
+			<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
+			<datalist id="suppliers">			
+				<?foreach($suppliers_list as $supplier){?>				
+					<option value="<?=$supplier['article']?>"><?=$supplier['name']?></option>
+				<?}?>			
+			</datalist>
+		</div>
+		<div class="prodName col-md-4">
+			<label for="prodName">Название:</label>
+			<input type="text" id="prodName" class="input-m">
+		</div>
+		<div class="submit col-md-4">
+			<button class="btn-m-default submit_js">Применить</button>
+		</div>
+		<div class="col-md-12">
+			<div class="image_block_new drop_zone animate">
+				<div class="dz-default dz-message">Перетащите сюда фото или нажмите для загрузки.</div>
+				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<div class="images_block"></div>
+		</div>
+		<div class="video_upload col-md-12">
+			<a class="add_video add_video_js btn-m-blue-inv">Добавить видео</a>
+			<ul class="video_list video_list_js"></ul>
 		</div>
 	</div>
-
-	<div class="col-md-12">
-		<div class="images_block"></div>
-	</div>
-	<div class="video_upload col-md-12">
-		<a class="add_video add_video_js btn-m-blue-inv">Добавить видео</a>
-		<ul class="video_list video_list_js"></ul>
-	</div>
-</div>
+<?}?>
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
 		<div class="image">
@@ -57,35 +62,39 @@
 	</div>
 </div>
 <div class="prodList">
-	<?foreach($list as $item){?>
-		<div class="prodListItem">
-			<div class="nameProd">
-				<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
-				<span><?=$item['name']?></span>
-			</div>
-			<div class="createData">
-				<span>Дата:</span>
-				<span><?=$item['create_date']?></span>
-			</div>
-			<?if(is_array($item['images'])){?>
-				<div class="prodImages">
-					<?foreach($item['images'] as $image){?>
-						<img srsc="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
-					<?}?>
+	<?if(isset($list) && is_array($list)){
+		foreach($list as $item){?>
+			<div class="prodListItem">
+				<div class="nameProd">
+					<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
+					<span><?=$item['name']?></span>
 				</div>
-			<?}
-			if(is_array($item['videos'])){?>
-				<div class="prodVideos">
-					<?foreach($item['videos'] as $video){?>
-						<a href="<?=$video?>" target="blank">
-							<img src="/images/video_play.png">
-							<span class="name"><?=$video?></span>
-						</a>
-					<?}?>
+				<div class="createData">
+					<span>Дата:</span>
+					<span><?=$item['create_date']?></span>
 				</div>
-			<?}?>
-		</div>
-	<?}?>
+				<?if(is_array($item['images'])){?>
+					<div class="prodImages">
+						<?foreach($item['images'] as $image){?>
+							<img srsc="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+						<?}?>
+					</div>
+				<?}
+				if(is_array($item['videos'])){?>
+					<div class="prodVideos">
+						<?foreach($item['videos'] as $video){?>
+							<a href="<?=$video?>" target="blank">
+								<img src="/images/video_play.png">
+								<span class="name"><?=$video?></span>
+							</a>
+						<?}?>
+					</div>
+				<?}?>
+			</div>
+		<?}
+	}else{
+		echo isset($id_photographer)?'Выберите фотографа, для просмотра его добавлений':'Нечего показывать, товары не добавлялись!';
+	}?>
 </div>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 <script>

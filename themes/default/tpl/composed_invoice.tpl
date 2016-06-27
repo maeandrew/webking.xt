@@ -351,10 +351,9 @@ tr.min td {
 						</tr>
 					</tbody>
 				</table>
-				<div class="balance <?=$supplier['example_sum'] < 0?'minus':'plus';?>" style="float: right; font-size: 13px; margin-left: 2%; width: 48%;">Сумма возврата: <span><?if(isset($supplier['example_sum']) && is_numeric($supplier['example_sum'])){?><?=number_format($supplier['example_sum'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
-				<div class="balance <?=$supplier['balance'] < 0?'minus':'plus';?>" style="float: right; font-size: 13px; margin-left: 2%; width: 48%;">Текущий баланс: <span><?if(isset($supplier['balance']) && is_numeric($supplier['balance'])){?><?=number_format($supplier['balance'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
+				<div class="balance <?=$supplier['balance'] < 0?'minus':'plus';?>" style="float: right; font-size: 1.5em; margin-left: 2%; width: 48%;">Текущий баланс: <span><?if(isset($supplier['balance']) && is_numeric($supplier['balance'])){?><?=number_format($supplier['balance'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
+				<div class="balance <?=$supplier['example_sum'] < 0?'minus':'plus';?>" style="float: right; font-size: 1.5em; margin-left: 2%; width: 48%;">Сумма возврата: <span><?if(isset($supplier['example_sum']) && is_numeric($supplier['example_sum'])){?><?=number_format($supplier['example_sum'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
 				<?if($supplier['pickers'] != ''){?>
-					<h3 style="float: right; margin: 5px 0; margin-left: 2%; width: 48%;">Доверенность на получение товара.</h3>
 					<ul class="pickers" style="float: right; margin-left: 2%; width: 48%;">
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
@@ -364,6 +363,7 @@ tr.min td {
 							<?}
 						}?>
 					</ul>
+					<h3 style="clear: both; float: right; margin: 5px 0; margin-left: 2%; width: 48%;">Доверенность на получение товара.</h3>
 				<?}?>
 				<div class="clear">
 					<div style="margin-left: 10%; margin-top: 10px; float: left;">Товар принял: _____________________</div>
@@ -414,10 +414,9 @@ tr.min td {
 						</tr>
 					</tbody>
 				</table>
-				<div class="balance <?=$supplier['example_sum'] < 0?'minus':'plus';?>" style="float: right; font-size: 13px; margin-left: 20px; width: 50%;">Сумма возврата: <span><?if(isset($supplier['example_sum']) && is_numeric($supplier['example_sum'])){?><?=number_format($supplier['example_sum'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
-				<div class="balance <?=$supplier['balance'] < 0?'minus':'plus';?>" style="float: right; font-size: 13px; margin-left: 20px; width: 50%;">Текущий баланс: <span><?if(isset($supplier['balance']) && is_numeric($supplier['balance'])){?><?=number_format($supplier['balance'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
+				<div class="balance <?=$supplier['balance'] < 0?'minus':'plus';?>" style="float: right; font-size: 1.5em; margin-left: 20px; width: 50%;">Текущий баланс: <span><?if(isset($supplier['balance']) && is_numeric($supplier['balance'])){?><?=number_format($supplier['balance'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
+				<div class="balance <?=$supplier['example_sum'] < 0?'minus':'plus';?>" style="float: right; font-size: 1.5em; margin-left: 20px; width: 50%;">Сумма возврата: <span><?if(isset($supplier['example_sum']) && is_numeric($supplier['example_sum'])){?><?=number_format($supplier['example_sum'], 2, ",", "");?><?}else{?>0,00<?}?> грн.</span></div>
 				<?if($supplier['pickers'] != ''){?>
-					<h3 style="float: right; margin: 5px 0; margin-left: 20px; width: 50%;">Доверенность на получение товара.</h3>
 					<ul class="pickers" style="float: right; width: 50%;">
 						<?foreach($pickers as $key=>$value){
 							if(trim($value) != ''){?>
@@ -427,6 +426,7 @@ tr.min td {
 							<?}
 						}?>
 					</ul>
+					<h3 style="clear: both; float: right; margin: 5px 0; margin-left: 20px; width: 50%;">Доверенность на получение товара.</h3>
 				<?}?>
 				<h1 style="clear: both;float: left; color: #000000; font-size: 25px; text-align: center; width: 877px; margin-top: 10px; border: 3px solid #<?=$colors[date('j')];?>;"><?=$supplier['personal_message']?></h1>
 			<?}

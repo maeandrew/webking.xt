@@ -1,4 +1,10 @@
 /* Photograph page styles */
+h1 {
+	overflow: auto;
+}
+.photographer_select {
+	float: right;
+}
 .create_product {
 	margin-top: 10px;
 	margin-bottom: 10px;
