@@ -491,7 +491,7 @@ class Cart {
 				FROM "._DB_PREFIX_."cart_product as cp
 				LEFT JOIN "._DB_PREFIX_."cart as c ON c.id_cart = cp.id_cart
 				LEFT JOIN "._DB_PREFIX_."product as p ON cp.id_product = p.id_product
-				WHERE c.promo = 'JO1111'
+				WHERE c.promo = '".$promo."'
 				ORDER BY c.id_cart";
 		$res = $db->GetArray($sql);
 		if(!$res){
