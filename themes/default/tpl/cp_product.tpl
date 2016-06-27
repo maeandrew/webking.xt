@@ -58,12 +58,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
+							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
 						<?}
 					}
 				}?>
