@@ -247,16 +247,10 @@ class Cart {
 
 	// Добавление и проверка корзины в БД
 	public function DBCart(){
-		if(isset($_SESSION['cart']['id'])){
-			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
-			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
-				$f['ready'] = 0;
-				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
-				unset($f);
-			}
-			//Удаляет товар из корзины
-			if(isset($_POST['id_prod_for_remove'])){
-				unset($_SESSION['cart']['products'][$_POST['id_prod_for_remove']]);
+		//Удаляет товар из корзины
+		if(isset($_POST['id_prod_for_remove'])){
+			unset($_SESSION['cart']['products'][$_POST['id_prod_for_remove']]);
+			if(G::IsLogged() && !_acl::isAdmin()){
 				$this->db->StartTrans();
 				if(!$this->db->DeleteRowsFrom(_DB_PREFIX_."cart_product",  array("id_cart = ".$_SESSION['cart']['id'], "id_product = ".$_POST['id_prod_for_remove']))){
 					$this->db->FailTrans();
@@ -264,7 +258,15 @@ class Cart {
 				}
 				$this->db->CompleteTrans();
 				$this->RecalcCart();
-				return $_SESSION['cart'];
+			}
+			return $_SESSION['cart'];
+		}
+		if(isset($_SESSION['cart']['id'])){
+			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
+			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
+				$f['ready'] = 0;
+				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
+				unset($f);
 			}
 			// Обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
