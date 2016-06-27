@@ -212,42 +212,46 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							G::Login($Users->fields);
 							_acl::load($Users->fields['gid']);
 							$res['message'] = 'Пользователь авторизован';
+							$res['status'] = 1;
 						}
 					} else {
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
+						$res['status'] = 2;
 					}
-				} else {
-					$res['message'] = true;
 				}
 				// Импорт файла
-				if(isset($_FILES['file'])){
-					// Проверяем загружен ли файл
-					if(is_uploaded_file($_FILES['file']['tmp_name'])){
-						// Проверяем объем файла
-						if($_FILES['file']['size'] > 1024*3*1024){
-							$res['message'] = 'Размер файла превышает три мегабайта';
-						} else {
-							$folder_name = 'estimates/'.$_SESSION['member']['id_user'].'/';
-							$pathname = $GLOBALS['PATH_root'].$folder_name;
-							if (!file_exists($pathname)) {
-								mkdir($pathname, 0777, true);
+				if(G::IsLogged()){
+					if(isset($_FILES['file'])){
+						// Проверяем загружен ли файл
+						if(is_uploaded_file($_FILES['file']['tmp_name'])){
+							// Проверяем объем файла
+							if($_FILES['file']['size'] > 1024*3*1024){
+								$res['message'] = 'Размер файла превышает три мегабайта';
+								$res['status'] = 3;
+							} else {
+								$folder_name = 'estimates/'.$_SESSION['member']['id_user'].'/';
+								$pathname = $GLOBALS['PATH_root'].$folder_name;
+								if (!file_exists($pathname)) {
+									mkdir($pathname, 0777, true);
+								}
+								if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
+									// Если все загружено на сервер, выполнить запись в БД
+									$file = '/' . $folder_name . $_FILES['file']['name'];
+									$Product->UploadEstimate($file, $_POST['comment']);
+									$res['message'] = 'Загрузка прошла успешно';
+									$res['status'] = 1;
+								} else{
+									$res['message'] = 'Произошла ошибка. Повторите попытку позже!';
+									$res['status'] = 4;
+								}
 							}
-							if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
-								// Если все загружено на сервер, выполнить запись в БД
-								$file = '/' . $folder_name . $_FILES['file']['name'];
-								$Product->UploadEstimate($file, $_POST['comment']);
-								$res['message'] = 'Загрузка прошла успешно';
-							} else{
-								$res['message'] = 'Произошла ошибка. Повторите попытку позже!';
-							}
+						} else{
+							$res['message'] = 'Файл не был загружен!';
+							$res['status'] = 5;
 						}
-					} else{
-						$res['message'] = 'Файл не был загружен!';
 					}
 				}
-				//echo json_encode($res);
-				print_r($res);
-
+				echo json_encode($res);
 				break;
 			default:
 				break;
