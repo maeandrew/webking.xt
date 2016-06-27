@@ -3722,12 +3722,12 @@ iframe[name="google_conversion_frame"] {
 
 
 
-/* astimate modal */
-.astimate_modal {
+/* estimate modal */
+.estimate_modal {
 	text-align: center;
 	width: 500px;
 }
-.astimate_modal .mdl-grid {
+.estimate_modal .mdl-grid {
 	width: 80%;
 	margin: 0 auto;
 }

@@ -409,28 +409,28 @@
 	<div class="modals">
 		<div id="quiz" data-type="modal"></div>
 		<!-- Загрузка сметы -->
-		<div id="estimateLoad" class="astimate_modal" data-type="modal">
+		<div id="estimateLoad" class="estimate_modal" data-type="modal">
 			<div class="modal_container">
 				<h3>Вы можете загрузить свою смету</h3>
-				<form action="" id="astimate">
+				<form action="" id="estimate">
 					<div class="mdl-grid">
 						<?if(!G::isLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input" name ="name" type="text" id="astimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
-								<label class="mdl-textfield__label" for="astimate_name">Имя</label>
+								<input class="mdl-textfield__input" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
+								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
 							</div>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input" name ="phone" type="text" id="astimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
-								<label class="mdl-textfield__label" for="astimate_phone">Телефон</label>
+								<input class="mdl-textfield__input" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
+								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
 							</div>
 						<?}?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<textarea class="mdl-textfield__input" name="comment" type="text" rows= "3" id="astimate_comment" ></textarea>
-							<label class="mdl-textfield__label" for="astimate_comment">Комментарий</label>
+							<textarea class="mdl-textfield__input" name="comment" type="text" rows= "3" id="estimate_comment" ></textarea>
+							<label class="mdl-textfield__label" for="estimate_comment">Комментарий</label>
 						</div>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" name="file" type="file" id="astimate_file">
-							<label class="mdl-textfield__label" for="astimate_file"></label>
+							<input class="mdl-textfield__input" name="file" type="file" id="estimate_file">
+							<label class="mdl-textfield__label" for="estimate_file"></label>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
 							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect estimate_js">Загрузить смету</button>

@@ -183,7 +183,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdatetGraph($_POST));
 				}
 				break;
-			case "AddAstimate":
+			case "AddEstimate":
 				$Product = new Products();
 				//Проверка данных пользователя
 				if(!G::IsLogged()){
