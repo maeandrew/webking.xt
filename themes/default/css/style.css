@@ -259,10 +259,10 @@ label:hover + .info_description {
 }
 [class^="active_"] .banner,
 [class*=" active_"] .banner,
-[class^="active_"] .center ,
-[class^=" active_"] .center:not(.owl-item),
-[class*=" active_"] .center,
-[class*=" active_"] .center:not(.owl-item),
+[class^="active_"] section.center ,
+/* [class^=" active_"] .center:not(.owl-item), */
+[class*=" active_"] section.center,
+/* [class*=" active_"] .center:not(.owl-item), */
 [class^="active_"] footer,
 [class*=" active_"] footer {
 	-webkit-filter: blur(2px);
@@ -546,8 +546,6 @@ body:not(.c_main) .banner {
 }
 .breadcrumbs {
 	float: left;
-	padding-left: 10px;
-	padding-right: 10px;
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;

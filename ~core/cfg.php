@@ -61,7 +61,7 @@ G::ToGlobals(array(
 		'groups' => $profiles
 	)
 ));
-if(G::isLogged()){
+if(G::IsLogged()){
 	_acl::load($_SESSION['member']['gid']);
 }
 $unwatch = array('95.69.190.43', '178.150.144.143');
@@ -69,10 +69,10 @@ if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client'][
 	$sql1 = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 	$ips = $db->GetOneRowArray($sql1);
 	// if(!$ips){
-		// $sql2 = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent".(G::isLogged()?', id_user':null).") VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."'".(G::isLogged()?', '.$_SESSION['member']['id_user']:null).")";
+		// $sql2 = "INSERT INTO "._DB_PREFIX_."ip_connections (ip, connections, last_connection, user_agent".(G::IsLogged()?', id_user':null).") VALUES ('".$_SESSION['client']['ip']."', 1, '".date("Y-m-d H:i:s")."', '".$_SERVER['HTTP_USER_AGENT']."'".(G::IsLogged()?', '.$_SESSION['member']['id_user']:null).")";
 		// $ips = $db->GetOneRowArray($sql1);
 	// }else{
-		// $sql2 = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."'".(G::isLogged()?", id_user = ".$_SESSION['member']['id_user']:null)." WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
+		// $sql2 = "UPDATE "._DB_PREFIX_."ip_connections SET connections = ".($ips['connections']+1).", last_connection = '".date("Y-m-d H:i:s")."', user_agent = '".$_SERVER['HTTP_USER_AGENT']."'".(G::IsLogged()?", id_user = ".$_SESSION['member']['id_user']:null)." WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
 	// }
 	// $db->Query($sql2);
 	if($ips['block'] == 1){

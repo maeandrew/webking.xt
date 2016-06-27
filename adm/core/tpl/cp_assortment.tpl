@@ -55,7 +55,7 @@
 				<div class="infoTitle tac textBold">Информация</div>
 				<div class="line clearfix supplier_name">
 					<!-- <div class="parameter fleft">Поставщик:</div> -->
-					<div class="value tac textBold"><?=$supplier['name'];?>Name</div>
+					<div class="value tac textBold"><?=$supplier['name'];?></div>
 				</div>
 				<div class="line clearfix animate">
 					<div class="fleft">Артикул:</div>
