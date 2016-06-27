@@ -1306,7 +1306,7 @@ class Products {
 			".$where.$where2.$this->price_range." AND a.active = 1
 			GROUP BY p.id_product
 			HAVING p.visible = 1
-				".$prices_zero; print_r($sql); die();
+				".$prices_zero;
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
 			return 0;
