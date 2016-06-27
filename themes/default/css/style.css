@@ -2860,11 +2860,6 @@ section .stat_year {
 .mdl-radio__ripple-container .mdl-ripple {
 	background: rgb(255, 87, 34);
 }
-.mdl-mega-footer {
-	padding: 0;
-	color: inherit;
-	clear: both;
-}
 .mdl-badge[data-badge]:after {
 	background: #FF5722;
 	color: #fff;
@@ -3723,4 +3718,16 @@ div.modalEditOrder .applyBtn {
 /* Google tag manager iframe */
 iframe[name="google_conversion_frame"] {
 	display: none;
+}
+
+
+
+/* astimate modal */
+.astimate_modal {
+	text-align: center;
+	width: 500px;
+}
+.astimate_modal .mdl-grid {
+	width: 60%;
+	margin: 0 auto;
 }
