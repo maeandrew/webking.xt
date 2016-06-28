@@ -38,9 +38,9 @@
 .newslist .item .item_title,
 #content .item_title {
 	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	/* white-space: nowrap; */
+	/* overflow: hidden; */
+	/* text-overflow: ellipsis; */
 	margin: 0;
 }
 .newslist .item .item_date {
@@ -59,16 +59,20 @@
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: nowrap;
-	margin-right: 15px;
 }
 .newslist .item .item_description .item_thumb {
 	flex-basis: 20%;
-	margin-bottom: 8px;
-	margin-right: 20px;
+	max-width: 180px;
 }
 .newslist .item .item_description .item_descr {
 	flex-basis: 77%;
 	flex-grow: 1;
+}
+/* .newslist .item_descr p b {
+	font-weight: normal;
+} */
+.newslist .news_title {
+	display: block;    
 }
 
 @media (max-width: 1050px) {
@@ -112,5 +116,8 @@
 	}
 	.newslist .item .item_description .item_descr {
 		flex-basis: 100%;
+	}
+	.newslist .item .item_description .item_thumb {
+		max-width: 100%;
 	}
 }
