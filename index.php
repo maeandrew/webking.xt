@@ -64,6 +64,7 @@ G::AddJS('../plugins/jquery.cookie.js');
 // G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
 // G::AddJS('../plugins/icomoon/liga.js', true);
+G::AddJS('../js/html2canvas.js', true);
 if($GLOBALS['CurrentController'] == 'page'){
 	G::AddJS('../themes/'.$theme.'/js/page.js', true);
 }

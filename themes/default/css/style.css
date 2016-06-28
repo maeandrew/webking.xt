@@ -3718,7 +3718,86 @@ div.modalEditOrder .applyBtn {
 	margin: 0 auto 1em !important;
 	width: 110px;
 }
+.screen_btn {
+	color: #444;
+    display: block !important;
+    width: 250px !important;
+    margin-left: 1em !important;
+    margin-bottom: 1em !important;
+}
 
+.modal_canvas {
+	padding: 1.5em;
+}
+.modal_canvas canvas {
+	overflow: hidden;
+	width: 100%;
+}
+/*.veil_on_canvas {
+	background-color: #fff;
+	width: 90vw;
+	height: 100vh;
+
+}*/
+.veil_on_canvas .color_btn {
+	width: 200px;
+	height: 50px;
+	background: tomato;
+	position: absolute;
+	z-index: 10000000000000000;
+	top: 35vh;
+	left: 33vw;
+}
+
+.canvas_wpapp_shade_in {
+	position: absolute;
+	top: 0;
+}
+
+.shade_in,
+#errField {
+	clear: both;
+	position: absolute;
+	top: 0px;
+    border: 1px solid #7B899B;
+}
+#errField {
+	z-index: 1000;
+	background-color: rgba(68, 68, 68, 0.1)
+}
+
+.toolbar {
+	position: absolute;
+	top: 35vh;
+	left: 33vw;
+	display: none;
+	font-family: 'Trebuchet MS'; 
+	font-size: 14px;
+	font-variant: small-caps;
+	text-align: center;
+	background: #F2F7FE;
+	padding: 10px 15px 3px 10px;
+	margin-bottom: 1px;
+	margin-right: 1px;
+	/*border: 1px solid #7B899B;*/
+	z-index: 10000;
+	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
+}
+
+.problem_area,
+.confidential {
+  width: 30px;
+  height: 30px;
+  border: 1px dashed black;
+  background-color: yellow;
+  float: left;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.confidential {
+  background-color: black;
+}
 
 /* Google tag manager iframe */
 iframe[name="google_conversion_frame"] {

@@ -121,7 +121,7 @@
 		</style>
 	</noscript>
 	<script type="text/javascript"
-	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
 	</script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
@@ -538,7 +538,10 @@
 			</div>
 		</div>
 		<div id="registerComplete" data-type="modal">
-			<div class="modal_container">Спасибо за регистрацию!</div>
+			<div class="modal_container">
+				<p>Спасибо за регистрацию!</p>
+				<p>Перейдите в личный кабинет</p>
+			</div>
 		</div>
 		<!-- Cart -->
 		<div id="cart" data-type="modal">
@@ -763,15 +766,203 @@
 						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
+					<p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p>
+					<!-- <label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
+						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input">
+						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
+					</label> -->
+					<div class="img_canvas_js"></div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
 					<!-- <input type="submit" value="Отправить"> -->
 				</form>
 			</div>
 		</div>
 	</div>
+	<div id="modal_canvas" data-type="modal" class="modal_canvas_js modal_canvas">
+
+		<div class="veil_on_canvas veil_on_canvas_js">
+			<div class="color_btn color_btn_js close_modal btn_js">
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="toolbar">
+		<div></div>
+		<div class="problem_area problem_area_js"></div>
+		<div class="confidential confidential_js"></div>
+		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
+		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+	</div>
+	<div class="canvas_wpapp_shade_in">
+		<canvas id="shade_in" class="shade_in shade_in_js"></canvas>
+	</div>
+	
+	<script>
+		var canvas, context, tool, canvaso, contexto;
+		function init (color, fill_rect) {
+			canvaso = document.getElementById("shade_in");
+			contexto = canvaso.getContext("2d");
+
+			console.log('canvaso');
+			console.log(canvaso);
+		
+			if(fill_rect){
+				tool = new tools['fillrect']();
+			}else{
+				tool = new tools['rect']();
+			}
+		
+			var container = canvaso.closest('div');
+			console.log('container');
+			console.log(container);
+				canvas = document.createElement('canvas');
+			console.log('canvas');
+			console.log(canvas);
+
+			if (!canvas) {
+					alert('Ошибка! Не могу создать canvas элемент!');
+				return;
+			}
+
+			canvas.id = 'errField';
+			canvas.width = canvaso.width;
+			canvas.height = canvaso.height;
+
+			setTimeout(function() {
+				container.append(canvas);
+			}, 2000);
+			
+			context = canvas.getContext('2d');
+			context.strokeStyle = color;
+
+			// Подключаем требуемые для рисования события
+			// canvas.onmousedown = startDrawing;
+			// canvas.onmouseup = stopDrawing;
+			// canvas.onmouseout = stopDrawing;
+			// canvas.onmousemove = draw;    
+			canvas.addEventListener('mousedown', ev_canvas, false);
+			canvas.addEventListener('mousemove', ev_canvas, false);
+			canvas.addEventListener('mouseup',   ev_canvas, false);
+
+		}
+		
+		function ev_canvas (ev) {
+			if (ev.layerX || ev.layerX == 0) {
+				ev._x = ev.layerX;
+				ev._y = ev.layerY;
+			} else if (ev.offsetX || ev.offsetX == 0) {
+				ev._x = ev.offsetX;
+				ev._y = ev.offsetY;
+			}
+
+			var func = tool[ev.type];
+			if (func) {
+				func(ev);
+			}
+		}
+
+		// Эта функция вызывается каждый раз после того, как пользователь
+		// завершит рисование. Она очищает imageTemp.
+		function img_update () {
+			contexto.drawImage(canvas, 0, 0);
+			context.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		function clearCanvas() {
+			context.clearRect(0, 0, canvas.width, canvas.height);
+		}
+		
+		// Содержит реализацию каждого инструмента рисования
+		var tools = {};
+		
+		// Прямоугольник
+		tools.rect = function () {
+			var tool = this;
+			this.started = false;
+
+			this.mousedown = function (ev) {
+				tool.started = true;
+				tool.x0 = ev._x;
+				tool.y0 = ev._y;
+			};
+
+			this.mousemove = function (ev) {
+				if (!tool.started) {
+					return;
+				}
+
+				var x = Math.min(ev._x,  tool.x0),
+				y = Math.min(ev._y,  tool.y0),
+				w = Math.abs(ev._x - tool.x0),
+				h = Math.abs(ev._y - tool.y0);
+
+				context.clearRect(0, 0, canvas.width, canvas.height);
+
+				if (!w || !h) {
+					return;
+				}
+
+				context.fillStyle = '#fff'; // меняем цвет прямоугольника
+				context.strokeRect(x, y, w, h);
+				// context.fillRect(x, y, w, h);
+			};
+
+			this.mouseup = function (ev) {
+				if (tool.started) {
+					tool.mousemove(ev);
+					tool.started = false;
+					img_update();
+				}
+			};
+		};
+		
+		// Прямоугольник закрашенный
+		tools.fillrect = function () {
+			var tool = this;
+			this.started = false;
+
+			this.mousedown = function (ev) {
+				tool.started = true;
+				tool.x0 = ev._x;
+				tool.y0 = ev._y;
+			};
+
+			this.mousemove = function (ev) {
+				if (!tool.started) {
+					return;
+				}
+
+				var x = Math.min(ev._x,  tool.x0),
+				y = Math.min(ev._y,  tool.y0),
+				w = Math.abs(ev._x - tool.x0),
+				h = Math.abs(ev._y - tool.y0);
+
+				context.clearRect(0, 0, canvas.width, canvas.height);
+
+				if (!w || !h) {
+					return;
+				}
+
+				// context.strokeRect(x, y, w, h);
+				context.fillRect(x, y, w, h);
+			};
+
+			this.mouseup = function (ev) {
+				if (tool.started) {
+					tool.mousemove(ev);
+					tool.started = false;
+					img_update();
+				}
+			};
+		};
+	</script>
+	
 	<script>
 		$(document).ready(function() {
 			setTimeout(function() {
+				$('.shade_in_js').css('height', $('body').height() + 'px');
+
 				if ($.cookie('useCookie') != 'agree'){
 					$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
 					
@@ -788,7 +979,7 @@
 					$('.err_msg_as_title').css('opacity', '1');
 				}
 			}, 2000);
-			
+
 			$('.err_msg_as_knob_js').click(function(event) {
 				if ($('.err_msg_as').hasClass('shown')) {
 					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
@@ -799,6 +990,64 @@
 					$('.err_msg_as_js').css('border-color', '#FF865F');
 					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				}
+			});
+
+			$('.screen_btn_js').click(function(event) {
+
+				addLoadAnimation('body');
+
+				if($(this).hasClass('clicked')){
+					$('.modal_canvas_js canvas').remove();
+				}else{
+					$(this).addClass('clicked');
+				}
+
+				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+
+				setTimeout(function() {
+					html2canvas(document.body, {
+						onrendered: function(canvas){
+							removeLoadAnimation('body');
+							$('.err_msg_as_wrap').css('opacity', '0');
+							$('.modal_canvas_js').append(canvas);
+							openObject('modal_canvas');
+						}
+					});
+				}, 2000);
+			});
+
+			$('.color_btn_js').click(function(event) {
+
+				$('.veil_on_canvas_js').remove();
+				$('.toolbar').css('display', 'block');
+			});
+
+			$('body').on('click', '.problem_area_js', function(){
+				var color = 'yellow',
+					fill_rect = false;
+				init(color, fill_rect);
+			});
+
+			$('body').on('click', '.confidential_js', function(){
+				var color = 'black',
+					fill_rect = true;
+				init(color, fill_rect);
+			});
+
+			$('body').on('click', '.canvasClear_js', function(event) {
+				clearCanvas();
+			});
+
+			$('body').on('click', '.readyClear_js', function(event) {
+				$('.toolbar').css('display', 'none');
+				html2canvas(document.body, {
+					onrendered: function(canvas){
+						$('.modal_canvas_js').append(canvas);
+						openObject('modal_canvas');
+					}
+				});
+				$('.err_msg_as_wrap').css('opacity', '1');
 			});
 		});
 	</script>
