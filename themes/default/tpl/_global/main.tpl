@@ -537,7 +537,13 @@
 			</div>
 		</div>
 		<div id="registerComplete" data-type="modal">
-			<div class="modal_container">Спасибо за регистрацию!</div>
+			<div class="modal_container">
+				<div class="auth_ok">
+					<i class="material-icons">check_circle</i>
+				</div>
+				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>			
+			</div>
 		</div>
 		<!-- Cart -->
 		<div id="cart" data-type="modal">
