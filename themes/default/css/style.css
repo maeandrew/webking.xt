@@ -3706,6 +3706,7 @@ div.modalEditOrder .applyBtn {
 	padding: 0 1em;
 	text-align: justify;
 	height: 100%;
+	line-height: 1.6em;
 }
 .err_msg_as_form .mdl-textfield {
 	height: 300px;
@@ -3726,9 +3727,9 @@ div.modalEditOrder .applyBtn {
 	margin-bottom: 1em !important;
 }
 
-.modal_canvas {
+/*.modal_canvas {
 	padding: 1.5em;
-}
+}*/
 .modal_canvas canvas {
 	overflow: hidden;
 	width: 100%;
@@ -3746,16 +3747,17 @@ div.modalEditOrder .applyBtn {
 	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
 	text-align: center;*/
 
-	position: absolute;
-    bottom: 0;
-    left: 0;
-    margin: 1em;
+	/*position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 1em;*/
+	/*display: none;*/
 }
 /*.veil_on_canvas p{
 	line-height: 1.4em;
 	margin-bottom: 1em;
 }*/
-.veil_on_canvas .go_to_canvas_toolbar {
+/*.veil_on_canvas .go_to_canvas_toolbar {
 	/*width: 75px;
 	height: 75px;
 	cursor: pointer;
@@ -3763,20 +3765,38 @@ div.modalEditOrder .applyBtn {
 	border: 3px dashed #444;
 	z-index: 10000000000000000;
 	top: 35vh;
-	left: 35vw;*/
+	left: 35vw;
 
 	width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    border: 3px dashed #444;
+	height: 30px;
+	border-radius: 8px;
+	cursor: pointer;
+	border: 3px dashed #fff;
 	transition: all .4s cubic-bezier(.4,0,.2,1);
-	display: none;
-}
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	
+}*/
 
 .veil_on_canvas .go_to_canvas_toolbar:hover {
 	width: 40px;
-    height: 40px;
+	height: 40px;
+}
+
+.img_zoom {
+	position: absolute;
+	bottom: 0;
+	left: 2em;
+	cursor: pointer;
+	padding: .5em;
+	font-size: 2em;
+	/*display: none !important;*/
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.img_zoom:hover {
+	font-size: 2.5em;
 }
 
 .canvas_toolbar {
@@ -3790,9 +3810,13 @@ div.modalEditOrder .applyBtn {
 	z-index: 10000;
 	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
 }
-.canvas_toolbar .mdl-tooltip {
+.canvas_toolbar .mdl-tooltip{
 	font-size: 1em;
 	line-height: 1.4em;
+}
+.tools_wrapp .mdl-tooltip {
+	font-size: 1em;
+	line-height: 1.2em;
 }
 
 .problem_area,
@@ -3820,15 +3844,6 @@ div.modalEditOrder .applyBtn {
 	background-color: #fff;
 }
 
-/* Google tag manager iframe */
-iframe[name="google_conversion_frame"] {
-	display: none;
-}
-
-
-
-
-
 #tools {
 	z-index: 100000;
 }
@@ -3845,13 +3860,49 @@ iframe[name="google_conversion_frame"] {
 }
 
 #savedCopyContainer {
+	display: none;
 	position: relative;
+	overflow: hidden;
 	width: 90%;
 	height: auto;
-	border: 1px solid transparent;
+	border: 1px solid #FF865F;
 	margin: 0 1em 1em;
 }
 #savedImageCopy {
 	width: 100%;
 	height: 100%;
+}
+
+
+.tools_wrapp {
+	position: absolute;
+	width: 100%;
+	background-color: rgba(52, 52, 52, 0.5);
+	color: #fff;
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	bottom: -48px;
+	height: 48px;
+	display: flex;
+}
+.tools_wrapp i {
+	padding: .5em !important;
+	cursor: pointer;
+	flex: 1;
+    text-align: center;
+}
+.tools_wrapp i:hover {
+	background-color: rgba(52, 52, 52, 0.8);
+}
+
+#savedCopyContainer:hover .tools_wrapp {
+	bottom: 0;
+}
+
+
+
+/* Google tag manager iframe */
+iframe[name="google_conversion_frame"] {
+	display: none;
 }

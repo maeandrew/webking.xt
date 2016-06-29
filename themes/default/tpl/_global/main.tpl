@@ -773,11 +773,12 @@
 					</label>
 					<div id="savedCopyContainer">
 						<img id="savedImageCopy">
-						<div class="veil_on_canvas veil_on_canvas_js">
-							<div id="go_to_canvas_toolbar" class="go_to_canvas_toolbar_js go_to_canvas_toolbar"></div>
-							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Нажмите, чтобы выделить или затушевать нужную информацию</div>
+						<div class="tools_wrapp_js tools_wrapp">
+							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
+							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
+							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
+							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
 						</div>
-						<i class="material-icons">zoom_in</i>
 					</div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
 					<!-- <input type="submit" value="Отправить"> -->
@@ -803,7 +804,7 @@
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
-
+		<i class="material-icons">clear</i>
 		
 	</div>
 
@@ -1169,9 +1170,6 @@
 							// делая изображение видимым
 							var imageContainer = document.getElementById("savedCopyContainer");
 							imageContainer.style.display = "block";
-							$('#savedCopyContainer').css('border-color', '#FF865F');
-
-							$('.veil_on_canvas_js').css('display', 'block');
 						}
 					});
 				}, 2000);
@@ -1182,6 +1180,8 @@
 			});
 
 			$('.go_to_canvas_toolbar_js').click(function(event){
+				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 				$('.veil_on_canvas_js').css('display', 'none');
 				// closeObject('modal_canvas');
 				$('.canvas_toolbar').css('display', 'block');
@@ -1213,6 +1213,18 @@
 
 			$('body').on('click', '.canvasClear_js', function(event){
 				clear_canvas();
+			});
+
+			$('body').on('click', '.img_zoom_js', function(event){
+				
+				var src = $('#savedImageCopy').attr('src');
+				$('#big_photo').css({
+					'overflow': 'auto',
+					'overflow-x': 'hidden',
+					'padding': '2em'
+				});
+				$('#big_photo img').attr('src', src).css('width', '100%');
+				openObject('big_photo');
 			});
 
 			$('body').on('click', '.canvasReady_js', function(event){
@@ -1254,8 +1266,6 @@
 								'width': '20',
 								'height': '20'
 							});
-
-							$('.veil_on_canvas_js').css('display', 'block');
 						}
 					});
 				}, 2000);
