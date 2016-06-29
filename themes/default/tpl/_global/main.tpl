@@ -771,7 +771,9 @@
 						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input">
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label> -->
-					<div class="img_canvas_js"></div>
+					<div id="savedCopyContainer">
+						<img id="savedImageCopy">
+					</div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
 					<!-- <input type="submit" value="Отправить"> -->
 				</form>
@@ -790,6 +792,7 @@
 		<div class="confidential confidential_js"></div>
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<button onclick="saveCanvas()">Сохранить содержимое Canvas</button>
 	</div>
 
 	<div id = "canvas_mark_wrapper">
@@ -1044,6 +1047,22 @@
 		};
 
 		// init();
+		var url = canvaso.toDataURL("image/jpeg");
+
+		window.location = canvaso.toDataURL();
+
+		function saveCanvas() {
+			// Находим элемент <img>
+			var imageCopy = document.getElementById("savedImageCopy");
+			
+			// Отображаем данные холста в элементе <img>
+			imageCopy.src = canvaso.toDataURL();
+			
+			// Показываем элемент <div>, делая изображение видимым
+			// делая изображение видимым
+			var imageContainer = document.getElementById("savedCopyContainer");
+			imageContainer.style.display = "block";
+		}
 	</script>
 	<script>
 		$(document).ready(function() {
