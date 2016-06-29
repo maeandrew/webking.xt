@@ -752,7 +752,7 @@
 		</div>
 	</div>
 
-	<!-- message about error -->
+<!-- message about error -->
 	<div class="err_msg_as_wrap">
 		<div class="err_msg_as err_msg_as_js">
 			<!-- <div class="err_msg_as_knob ">Click</div> -->
@@ -773,6 +773,11 @@
 					</label>
 					<div id="savedCopyContainer">
 						<img id="savedImageCopy">
+						<div class="veil_on_canvas veil_on_canvas_js">
+							<div id="go_to_canvas_toolbar" class="go_to_canvas_toolbar_js go_to_canvas_toolbar"></div>
+							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Нажмите, чтобы выделить или затушевать нужную информацию</div>
+						</div>
+						<i class="material-icons">zoom_in</i>
 					</div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
 					<!-- <input type="submit" value="Отправить"> -->
@@ -798,6 +803,8 @@
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+
+		
 	</div>
 
 	<div id = "canvas_mark_wrapper">
@@ -1130,7 +1137,7 @@
 				// addLoadAnimation('body');
 
 				if($(this).hasClass('clicked')){
-					$('.modal_canvas_js canvas').remove();
+					// $('.modal_canvas_js canvas').remove();
 					$(this).removeClass('clicked').removeClass('is-checked');
 					$('#savedImageCopy').attr('src', '');
 				}else{
@@ -1145,9 +1152,9 @@
 					html2canvas(document.body, {
 						onrendered: function(canvas){
 							// removeLoadAnimation('body');
-							$('.modal_canvas_js').append(canvas);
+							// $('.modal_canvas_js').append(canvas);
 							canvas.id = 'canvasImg';
-							openObject('modal_canvas');
+							// openObject('modal_canvas');
 
 							var url = canvas.toDataURL("image/jpeg");
 							// window.location = canvas.toDataURL();
@@ -1176,7 +1183,7 @@
 
 			$('.go_to_canvas_toolbar_js').click(function(event){
 				$('.veil_on_canvas_js').css('display', 'none');
-				closeObject('modal_canvas');
+				// closeObject('modal_canvas');
 				$('.canvas_toolbar').css('display', 'block');
 			});
 
@@ -1213,7 +1220,7 @@
 				// addLoadAnimation('body');
 								
 				if($('.screen_btn_js').hasClass('clicked')){
-					$('.modal_canvas_js canvas').remove();
+					// $('.modal_canvas_js canvas').remove();
 				}else{
 					$('.screen_btn_js').addClass('clicked');
 				}
@@ -1222,8 +1229,8 @@
 					html2canvas(document.body, {
 						onrendered: function(canvas){
 							// removeLoadAnimation('body');
-							$('.modal_canvas_js').append(canvas);
-							openObject('modal_canvas');
+							// $('.modal_canvas_js').append(canvas);
+							// openObject('modal_canvas');
 
 
 							var url = canvas.toDataURL("image/jpeg");
@@ -1259,5 +1266,3 @@
 			});
 		});
 	</script>
-</body>
-</html>
