@@ -3825,4 +3825,5 @@ iframe[name="google_conversion_frame"] {
 #tablet,
 #imageTemp{
 	position: absolute;
+	z-index: 1000;
 }

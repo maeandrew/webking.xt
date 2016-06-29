@@ -779,25 +779,12 @@
 		</div>
 	</div>
 	<div id="modal_canvas" data-type="modal" class="modal_canvas_js modal_canvas">
-
 		<div class="veil_on_canvas veil_on_canvas_js">
 			<p>Нажмите, чтобы выделить или<br> затушевать нужную информацию</p>
 			<div class="go_to_canvas_toolbar_js go_to_canvas_toolbar"></div>
 		</div>
 	</div>
-	
-	
-	<!-- <div class="canvas_wpapp_shade_in">
-		<canvas id="shade_in" class="shade_in shade_in_js"></canvas>
-	</div> -->
 
-
-	<label for = "tools">Инструмент рисования:</label>
-	<select id = "tools" name = "tools">
-		<option value = "line">Линия</option>
-		<option value = "rect">Прямоугольник</option>
-		<option value = "pencil">Карандаш</option>
-	</select>
 	<div class="canvas_toolbar">
 		<div class="problem_area problem_area_js"></div>
 		<div class="confidential confidential_js"></div>
@@ -806,266 +793,258 @@
 	</div>
 
 	<div id = "canvas_mark_wrapper">
-		<canvas id = "tablet" width="1400" height="1400"></canvas>
+		<canvas id = "tablet" width="200" height="200"></canvas>
 	</div>
-
-
 	
 	<script>
+		// $('#tablet').attr({
+		// 	'width': $('body').outerWidth(),
+		// 	'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
+		// });
 
-		$('#tablet').attr({
-			'width': $('body').outerWidth(),
-			'height': $('body').outerHeight()
-		});
+			var canvas, context, canvaso, contexto;
+			
+			// По умолчанию линия - инструмент по умолчанию
+			var tool;
+			var tool_default = 'line';
 
+			function init (color, fill_rect) {
+				canvaso = document.getElementById('tablet');
+				if (!canvaso) {
+					alert('Ошибка! Canvas элемент не найден!');
+					return;
+				}
 
-		
-				var canvas, context, canvaso, contexto;
+				if (!canvaso.getContext) {
+					alert('Ошибка! canvas.getContext не найден!');
+					return;
+				}
+
+				contexto = canvaso.getContext('2d');
+				if (!contexto) {
+					alert('Ошибка! Не могу получить getContext!');
+					return;
+				}
+
+				var container = canvaso.parentNode;
+				canvas = document.createElement('canvas');
+				if (!canvas) {
+					alert('Ошибка! Не могу создать canvas элемент!');
+					return;
+				}
+
+				canvas.id = 'imageTemp';
+				canvas.width = canvaso.width;
+				canvas.height = canvaso.height;
+				container.appendChild(canvas);
+
+				context = canvas.getContext('2d');
+				context.strokeStyle = color;
+
+				// Получаем инструмент из option
+					// var tool_select = document.getElementById('tools');
+					// if (!tool_select) {
+					// 	alert('Ошибка! Элемент tools не найден!');
+					// 	return;
+					// }
+					// tool_select.addEventListener('change', ev_tool_change, false);
+
+				// Активируем способ рисования по-умолчанию
+					// if (tools[tool_default]) {
+					// 	tool = new tools[tool_default]();
+					// 	tool_select.value = tool_default;
+					// }
+				if(fill_rect){
+					tool = new tools['fillrect']();
+				}else{
+					tool = new tools['rect']();						
+				}
+
 				
-				// По умолчанию линия - инструмент по умолчанию
-				var tool;
-				var tool_default = 'line';
 
-				function init (color, fill_rect) {
-					canvaso = document.getElementById('tablet');
-					if (!canvaso) {
-						alert('Ошибка! Canvas элемент не найден!');
-						return;
-					}
+				canvas.addEventListener('mousedown', ev_canvas, false);
+				canvas.addEventListener('mousemove', ev_canvas, false);
+				canvas.addEventListener('mouseup',   ev_canvas, false);
+			}
 
-					if (!canvaso.getContext) {
-						alert('Ошибка! canvas.getContext не найден!');
-						return;
-					}
-
-					contexto = canvaso.getContext('2d');
-					if (!contexto) {
-						alert('Ошибка! Не могу получить getContext!');
-						return;
-					}
-
-					var container = canvaso.parentNode;
-					canvas = document.createElement('canvas');
-					if (!canvas) {
-						alert('Ошибка! Не могу создать canvas элемент!');
-						return;
-					}
-
-					canvas.id = 'imageTemp';
-					canvas.width = canvaso.width;
-					canvas.height = canvaso.height;
-					container.appendChild(canvas);
-
-					context = canvas.getContext('2d');
-					context.strokeStyle = color;
-
-					// Получаем инструмент из option
-						// var tool_select = document.getElementById('tools');
-						// if (!tool_select) {
-						// 	alert('Ошибка! Элемент tools не найден!');
-						// 	return;
-						// }
-						// tool_select.addEventListener('change', ev_tool_change, false);
-
-					// Активируем способ рисования по-умолчанию
-						// if (tools[tool_default]) {
-						// 	tool = new tools[tool_default]();
-						// 	tool_select.value = tool_default;
-						// }
-					if(fill_rect){
-						tool = new tools['fillrect']();
-					}else{
-						tool = new tools['rect']();						
-					}
-
-					
-
-					canvas.addEventListener('mousedown', ev_canvas, false);
-					canvas.addEventListener('mousemove', ev_canvas, false);
-					canvas.addEventListener('mouseup',   ev_canvas, false);
+			function ev_canvas (ev) {
+				if (ev.layerX || ev.layerX == 0) {
+					ev._x = ev.layerX;
+					ev._y = ev.layerY;
+				} else if (ev.offsetX || ev.offsetX == 0) {
+					ev._x = ev.offsetX;
+					ev._y = ev.offsetY;
 				}
 
-				function ev_canvas (ev) {
-					if (ev.layerX || ev.layerX == 0) {
-						ev._x = ev.layerX;
-						ev._y = ev.layerY;
-					} else if (ev.offsetX || ev.offsetX == 0) {
-						ev._x = ev.offsetX;
-						ev._y = ev.offsetY;
-					}
-
-					var func = tool[ev.type];
-					if (func) {
-						func(ev);
-					}
+				var func = tool[ev.type];
+				if (func) {
+					func(ev);
 				}
+			}
 
-				// Обработчик событий для изменения селекта
-				function ev_tool_change (ev) {
-					if (tools[this.value]) {
-						tool = new tools[this.value]();
-					}
+			// Обработчик событий для изменения селекта
+			function ev_tool_change (ev) {
+				if (tools[this.value]) {
+					tool = new tools[this.value]();
 				}
+			}
 
-				// Эта функция вызывается каждый раз после того, как пользователь
-				// завершит рисование. Она очищает imageTemp.
-				function img_update () {
-					contexto.drawImage(canvas, 0, 0);
-					context.clearRect(0, 0, canvas.width, canvas.height);
-				}
+			// Эта функция вызывается каждый раз после того, как пользователь
+			// завершит рисование. Она очищает imageTemp.
+			function img_update () {
+				contexto.drawImage(canvas, 0, 0);
+				context.clearRect(0, 0, canvas.width, canvas.height);
+			}
 
-				function clear_canvas () {
-					contexto.clearRect(0, 0, canvaso.width, canvaso.height)
-				}
+			function clear_canvas () {
+				contexto.clearRect(0, 0, canvaso.width, canvaso.height)
+			}
 
-				// Содержит реализацию каждого инструмента рисования
-				var tools = {};
+			// Содержит реализацию каждого инструмента рисования
+			var tools = {};
 
-				// Карандаш
-			tools.pencil = function () {
-				var tool = this;
-				this.started = false;
+			// Карандаш
+		tools.pencil = function () {
+			var tool = this;
+			this.started = false;
 
-				// Рисуем карандашом
-				this.mousedown = function (ev) {
-					context.beginPath();
-					context.moveTo(ev._x, ev._y);
-					tool.started = true;
-				};
-
-				this.mousemove = function (ev) {
-					if (tool.started) {
-						context.lineTo(ev._x, ev._y);
-						context.stroke();
-					}
-				};
-
-				this.mouseup = function (ev) {
-					if (tool.started) {
-						tool.mousemove(ev);
-						tool.started = false;
-						img_update();
-					}
-				};
+			// Рисуем карандашом
+			this.mousedown = function (ev) {
+				context.beginPath();
+				context.moveTo(ev._x, ev._y);
+				tool.started = true;
 			};
 
-			// Прямоугольник
-			tools.rect = function () {
-				var tool = this;
-				this.started = false;
-
-				this.mousedown = function (ev) {
-					tool.started = true;
-					tool.x0 = ev._x;
-					tool.y0 = ev._y;
-				};
-
-				this.mousemove = function (ev) {
-					if (!tool.started) {
-						return;
-					}
-
-					var x = Math.min(ev._x,  tool.x0),
-					y = Math.min(ev._y,  tool.y0),
-					w = Math.abs(ev._x - tool.x0),
-					h = Math.abs(ev._y - tool.y0);
-
-					context.clearRect(0, 0, canvas.width, canvas.height);
-
-					if (!w || !h) {
-						return;
-					}
-
-					context.strokeRect(x, y, w, h);
-				};
-
-				this.mouseup = function (ev) {
-					if (tool.started) {
-						tool.mousemove(ev);
-						tool.started = false;
-						img_update();
-					}
-				};
-			};
-
-			// Прямоугольник закрашенный
-			tools.fillrect = function () {
-				var tool = this;
-				this.started = false;
-
-				this.mousedown = function (ev) {
-					tool.started = true;
-					tool.x0 = ev._x;
-					tool.y0 = ev._y;
-				};
-
-				this.mousemove = function (ev) {
-					if (!tool.started) {
-						return;
-					}
-
-					var x = Math.min(ev._x,  tool.x0),
-					y = Math.min(ev._y,  tool.y0),
-					w = Math.abs(ev._x - tool.x0),
-					h = Math.abs(ev._y - tool.y0);
-
-					context.clearRect(0, 0, canvas.width, canvas.height);
-
-					if (!w || !h) {
-						return;
-					}
-
-					context.fillRect(x, y, w, h);
-				};
-
-				this.mouseup = function (ev) {
-					if (tool.started) {
-						tool.mousemove(ev);
-						tool.started = false;
-						img_update();
-					}
-				};
-			};
-
-			// Линия
-			tools.line = function () {
-				var tool = this;
-				this.started = false;
-
-				this.mousedown = function (ev) {
-					tool.started = true;
-					tool.x0 = ev._x;
-					tool.y0 = ev._y;
-				};
-
-				this.mousemove = function (ev) {
-					if (!tool.started) {
-						return;
-					}
-
-					context.clearRect(0, 0, canvas.width, canvas.height);
-
-					context.beginPath();
-					context.moveTo(tool.x0, tool.y0);
-					context.lineTo(ev._x,   ev._y);
+			this.mousemove = function (ev) {
+				if (tool.started) {
+					context.lineTo(ev._x, ev._y);
 					context.stroke();
-					context.closePath();
-				};
-
-				this.mouseup = function (ev) {
-					if (tool.started) {
-						tool.mousemove(ev);
-						tool.started = false;
-						img_update();
-					}
-				};
+				}
 			};
 
-			// init();
+			this.mouseup = function (ev) {
+				if (tool.started) {
+					tool.mousemove(ev);
+					tool.started = false;
+					img_update();
+				}
+			};
+		};
 
-		
+		// Прямоугольник
+		tools.rect = function () {
+			var tool = this;
+			this.started = false;
+
+			this.mousedown = function (ev) {
+				tool.started = true;
+				tool.x0 = ev._x;
+				tool.y0 = ev._y;
+			};
+
+			this.mousemove = function (ev) {
+				if (!tool.started) {
+					return;
+				}
+
+				var x = Math.min(ev._x,  tool.x0),
+				y = Math.min(ev._y,  tool.y0),
+				w = Math.abs(ev._x - tool.x0),
+				h = Math.abs(ev._y - tool.y0);
+
+				context.clearRect(0, 0, canvas.width, canvas.height);
+
+				if (!w || !h) {
+					return;
+				}
+				context.lineWidth = 3;
+				context.strokeRect(x, y, w, h);
+			};
+
+			this.mouseup = function (ev) {
+				if (tool.started) {
+					tool.mousemove(ev);
+					tool.started = false;
+					img_update();
+				}
+			};
+		};
+
+		// Прямоугольник закрашенный
+		tools.fillrect = function () {
+			var tool = this;
+			this.started = false;
+
+			this.mousedown = function (ev) {
+				tool.started = true;
+				tool.x0 = ev._x;
+				tool.y0 = ev._y;
+			};
+
+			this.mousemove = function (ev) {
+				if (!tool.started) {
+					return;
+				}
+
+				var x = Math.min(ev._x,  tool.x0),
+				y = Math.min(ev._y,  tool.y0),
+				w = Math.abs(ev._x - tool.x0),
+				h = Math.abs(ev._y - tool.y0);
+
+				context.clearRect(0, 0, canvas.width, canvas.height);
+
+				if (!w || !h) {
+					return;
+				}
+
+				context.fillRect(x, y, w, h);
+			};
+
+			this.mouseup = function (ev) {
+				if (tool.started) {
+					tool.mousemove(ev);
+					tool.started = false;
+					img_update();
+				}
+			};
+		};
+
+		// Линия
+		tools.line = function () {
+			var tool = this;
+			this.started = false;
+
+			this.mousedown = function (ev) {
+				tool.started = true;
+				tool.x0 = ev._x;
+				tool.y0 = ev._y;
+			};
+
+			this.mousemove = function (ev) {
+				if (!tool.started) {
+					return;
+				}
+
+				context.clearRect(0, 0, canvas.width, canvas.height);
+
+				context.beginPath();
+				context.moveTo(tool.x0, tool.y0);
+				context.lineTo(ev._x,   ev._y);
+				context.stroke();
+				context.closePath();
+			};
+
+			this.mouseup = function (ev) {
+				if (tool.started) {
+					tool.mousemove(ev);
+					tool.started = false;
+					img_update();
+				}
+			};
+		};
+
+		// init();
 	</script>
-	
 	<script>
 		$(document).ready(function() {
 			setTimeout(function() {
@@ -1099,6 +1078,10 @@
 			});
 
 			$('.screen_btn_js').click(function(event) {
+				$('#tablet').attr({
+					'width': $('body').outerWidth(),
+					'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
+				});
 
 				// addLoadAnimation('body');
 
@@ -1117,6 +1100,7 @@
 						onrendered: function(canvas){
 							// removeLoadAnimation('body');
 							$('.modal_canvas_js').append(canvas);
+							canvas.id = 'canvasImg';
 							openObject('modal_canvas');
 							$('.veil_on_canvas_js').css('display', 'block');
 						}
