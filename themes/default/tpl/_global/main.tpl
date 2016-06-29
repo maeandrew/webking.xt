@@ -412,16 +412,19 @@
 		<div id="estimateLoad" class="estimate_modal" data-type="modal">
 			<div class="modal_container">
 				<h3>Вы можете загрузить свою смету</h3>
+				<div class="estimate_info estimate_info_js"></div>
 				<form action="" id="estimate">
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<input class="mdl-textfield__input" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
+								<span class="mdl-textfield__error">Ошибка ввода Имени!</span>
 							</div>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<input class="mdl-textfield__input" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
+								<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 							</div>
 						<?}?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">

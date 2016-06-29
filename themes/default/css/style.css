@@ -3729,3 +3729,6 @@ iframe[name="google_conversion_frame"] {
 	width: 80%;
 	margin: 0 auto;
 }
+.estimate_info {	
+	height: 20px;
+}
