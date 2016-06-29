@@ -3779,29 +3779,44 @@ div.modalEditOrder .applyBtn {
 }
 
 .canvas_toolbar {
-	position: absolute;
+	position: fixed;
+	border-radius: 5px;
 	top: 35vh;
 	left: 33vw;
 	display: none;
 	background: #F2F7FE;
-	padding: 10px 15px 3px 10px;
+	padding: 1em;
 	z-index: 10000;
 	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
 }
+.canvas_toolbar .mdl-tooltip {
+	font-size: 1em;
+	line-height: 1.4em;
+}
 
 .problem_area,
-.confidential {
-  width: 30px;
-  height: 30px;
-  border: 1px dashed black;
-  background-color: yellow;
-  float: left;
-  margin: 0 10px;
-  cursor: pointer;
+.confidential,
+.pencil_for_canvas,
+.eraser_for_canvas {
+	width: 35px;
+	height: 35px;
+	border: 1px dashed #444;
+	border-radius: 3px;
+	background-color: yellow;
+	float: left;
+	margin: 0 10px;
+	cursor: pointer;
 }
 
 .confidential {
-  background-color: black;
+	background-color: #444;
+}
+.pencil_for_canvas {
+	border-radius: 50%;
+	background-color: #ff0000;
+}
+.eraser_for_canvas {
+	background-color: #fff;
 }
 
 /* Google tag manager iframe */
@@ -3831,7 +3846,7 @@ iframe[name="google_conversion_frame"] {
 #savedCopyContainer {
 	width: 90%;
 	height: auto;
-	border: 1px solid#444;
+	border: 1px solid transparent;
 	margin: 0 1em 1em;
 }
 #savedImageCopy {
