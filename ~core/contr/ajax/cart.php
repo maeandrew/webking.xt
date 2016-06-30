@@ -325,8 +325,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//				};
 				//				break;
 			case 'updateCartQty':
-				$_SESSION['cart']['products'][$_POST['id_product']]['note'] = isset($_POST['note'])?$_POST['note']:'';
-				$res = $cart->UpdateCartQty($_POST);
+				if(isset($_POST['note'])){
+					$_SESSION['cart']['products'][$_POST['id_product']]['note'] = $_POST['note'];
+					$res = 'ok';
+				}
+				if(isset($_POST['quantity'])){
+					$res = $cart->UpdateCartQty($_POST);
+				}
 				$cart->DBCart();
 				echo json_encode($res);
 				break;

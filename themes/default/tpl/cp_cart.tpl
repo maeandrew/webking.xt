@@ -508,10 +508,9 @@
 			});
 
 			$(".note_field").blur(function() {
-				console.log('ушли');
-				console.log($(this).data('id'));
-				console.log($(this).val());
-
+				 var id_product = $(this).data('id'),
+				 	 note = $(this).val();
+				ajax('cart', 'updateCartQty', {id_product: id_product, note: note});
 			});
 
 
