@@ -3706,6 +3706,7 @@ div.modalEditOrder .applyBtn {
 	padding: 0 1em;
 	text-align: justify;
 	height: 100%;
+	line-height: 1.6em;
 }
 .err_msg_as_form .mdl-textfield {
 	height: 300px;
@@ -3725,59 +3726,6 @@ div.modalEditOrder .applyBtn {
 	margin-left: 1em !important;
 	margin-bottom: 1em !important;
 }
-
-.modal_canvas {
-	padding: 1.5em;
-}
-.modal_canvas canvas {
-	overflow: hidden;
-	width: 100%;
-}
-.veil_on_canvas {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	position: absolute;
-	top: 35vh;
-	left: 34%;
-	padding: 1em;
-	border-radius: 5px;
-	background-color: #fff;
-	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
-	text-align: center;
-}
-.veil_on_canvas p{
-	line-height: 1.4em;
-	margin-bottom: 1em;
-}
-.veil_on_canvas .go_to_canvas_toolbar {
-	width: 75px;
-	height: 75px;
-	cursor: pointer;
-	margin: 0 auto;
-	border: 3px dashed #444;
-	z-index: 10000000000000000;
-	top: 35vh;
-	left: 35vw;
-}
-
-.canvas_wpapp_shade_in {
-	position: absolute;
-	top: 0;
-}
-
-.shade_in,
-#errField {
-	clear: both;
-	position: absolute;
-	top: 0px;
-	border: 1px solid #7B899B;
-}
-#errField {
-	z-index: 1000;
-	background-color: rgba(68, 68, 68, 0.1)
-}
-
 .canvas_toolbar {
 	position: fixed;
 	border-radius: 5px;
@@ -3789,9 +3737,13 @@ div.modalEditOrder .applyBtn {
 	z-index: 10000;
 	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
 }
-.canvas_toolbar .mdl-tooltip {
+.canvas_toolbar .mdl-tooltip{
 	font-size: 1em;
 	line-height: 1.4em;
+}
+.tools_wrapp .mdl-tooltip {
+	font-size: 1em;
+	line-height: 1.2em;
 }
 
 .problem_area,
@@ -3819,14 +3771,17 @@ div.modalEditOrder .applyBtn {
 	background-color: #fff;
 }
 
-/* Google tag manager iframe */
-iframe[name="google_conversion_frame"] {
-	display: none;
+.close_canvas_toolbar {
+	position: relative;
+    top: .35em;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
 }
 
-
-
-
+.close_canvas_toolbar:hover {
+	background-color: rgba(158, 158, 158, .2);
+}
 
 #tools {
 	z-index: 100000;
@@ -3844,12 +3799,63 @@ iframe[name="google_conversion_frame"] {
 }
 
 #savedCopyContainer {
+	display: none;
+	position: relative;
+	overflow: hidden;
 	width: 90%;
 	height: auto;
-	border: 1px solid transparent;
+	border: 1px solid #FF865F;
 	margin: 0 1em 1em;
 }
 #savedImageCopy {
 	width: 100%;
 	height: 100%;
+}
+
+
+.tools_wrapp {
+	position: absolute;
+	width: 100%;
+	background-color: rgba(52, 52, 52, 0.5);
+	color: #fff;
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	bottom: -48px;
+	height: 48px;
+	display: flex;
+}
+.tools_wrapp i {
+	padding: .5em !important;
+	cursor: pointer;
+	flex: 1;
+    text-align: center;
+}
+.tools_wrapp i:hover {
+	background-color: rgba(52, 52, 52, 0.8);
+}
+
+#savedCopyContainer:hover .tools_wrapp {
+	bottom: 0;
+}
+
+.waiting_block_for_img_canvas {
+	height: 28px;
+	line-height: 28px;
+	position: fixed;
+	left: calc(50% - 160px);
+	top: 15px;
+	background: rgb(255, 87, 34);
+	color: #fff;
+	width: 350px;
+	border-radius: 10px;
+	text-align: center;
+	z-index: 1000000000000;
+}
+
+
+
+/* Google tag manager iframe */
+iframe[name="google_conversion_frame"] {
+	display: none;
 }

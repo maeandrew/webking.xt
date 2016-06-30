@@ -752,7 +752,7 @@
 		</div>
 	</div>
 
-	<!-- message about error -->
+<!-- message about error -->
 	<div class="err_msg_as_wrap">
 		<div class="err_msg_as err_msg_as_js">
 			<!-- <div class="err_msg_as_knob ">Click</div> -->
@@ -772,7 +772,14 @@
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
 					<div id="savedCopyContainer">
-						<img id="savedImageCopy">
+						<input type="image" id="savedImageCopy">
+						<!-- <img id="savedImageCopy"> -->
+						<div class="tools_wrapp_js tools_wrapp">
+							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
+							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
+							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
+							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
+						</div>
 					</div>
 					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
 					<!-- <input type="submit" value="Отправить"> -->
@@ -780,13 +787,6 @@
 			</div>
 		</div>
 	</div>
-	<div id="modal_canvas" data-type="modal" class="modal_canvas_js modal_canvas">
-		<div class="veil_on_canvas veil_on_canvas_js">
-			<p>Нажмите, чтобы выделить или<br> затушевать нужную информацию</p>
-			<div class="go_to_canvas_toolbar_js go_to_canvas_toolbar"></div>
-		</div>
-	</div>
-
 	<div class="canvas_toolbar">
 		<div id="problem_area" class="problem_area problem_area_js"></div>
 		<div class="mdl-tooltip" for="problem_area">Выделить проблему</div>
@@ -798,10 +798,15 @@
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>		
 	</div>
 
-	<div id = "canvas_mark_wrapper">
-		<canvas id = "tablet" width="10" height="10"></canvas>
+	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
+		Подождите, формируется скриншот страницы...
+	</div>
+
+	<div id="canvas_mark_wrapper">
+		<canvas id="tablet" width="10" height="10"></canvas>
 	</div>
 	
 	<script>
@@ -1119,35 +1124,50 @@
 				}
 			});
 
-			$('.screen_btn_js').click(function(event){
+			$('body').on('click', '.clicked_js', function(e){
+				e.preventDefault();
+				closeObject('big_photo');
+				$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
+				$('#savedCopyContainer').css('display', 'none');
+				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				$('#savedImageCopy').attr('src', '');
+				$('#tablet').attr({
+					'width': '20',
+					'height': '20'
+				});
+			});
 
-
+			$('body').on('click', '.screen_btn_js', function(event){
+				event.preventDefault();
 				$('#tablet').attr({
 					'width': $('body').outerWidth(),
 					'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
 				});
-
 				// addLoadAnimation('body');
 
-				if($(this).hasClass('clicked')){
-					$('.modal_canvas_js canvas').remove();
-					$(this).removeClass('clicked').removeClass('is-checked');
-					$('#savedImageCopy').attr('src', '');
-				}else{
-					$(this).addClass('clicked').addClass('is-checked');
-				}
+				$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
+
+
+				// if($(this).hasClass('clicked')){
+				// 	// $('.modal_canvas_js canvas').remove();
+				// 	$(this).removeClass('clicked').removeClass('is-checked');
+				// 	$('#savedImageCopy').attr('src', '');
+				// }else{
+				// 	$(this).addClass('clicked').addClass('is-checked');
+				// }
 
 				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 
 				var detachEl = $('.err_msg_as_js').detach();
 				setTimeout(function(){
+					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
 					html2canvas(document.body, {
 						onrendered: function(canvas){
 							// removeLoadAnimation('body');
-							$('.modal_canvas_js').append(canvas);
+							// $('.modal_canvas_js').append(canvas);
 							canvas.id = 'canvasImg';
-							openObject('modal_canvas');
+							// openObject('modal_canvas');
 
 							var url = canvas.toDataURL("image/jpeg");
 							// window.location = canvas.toDataURL();
@@ -1162,22 +1182,31 @@
 							// делая изображение видимым
 							var imageContainer = document.getElementById("savedCopyContainer");
 							imageContainer.style.display = "block";
-							$('#savedCopyContainer').css('border-color', '#FF865F');
-
-							$('.veil_on_canvas_js').css('display', 'block');
 						}
 					});
+					setTimeout(function(){
+						$('.err_msg_as_wrap').css('display', 'none');
+						$('.err_msg_as_wrap').append(detachEl);
+						setTimeout(function(){
+							$('.err_msg_as_wrap').css('display', 'block');
+							$('.waiting_block_for_img_canvas_js').addClass('hidden');
+							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+						}, 3000);
+					}, 6000);
 				}, 2000);
 
-				setTimeout(function(){
-					$('.err_msg_as_wrap').append(detachEl);
-				}, 5000);
 			});
 
 			$('.go_to_canvas_toolbar_js').click(function(event){
-				$('.veil_on_canvas_js').css('display', 'none');
-				closeObject('modal_canvas');
+				closeObject('big_photo');
+				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 				$('.canvas_toolbar').css('display', 'block');
+				$('#tablet').attr({
+					'width': $('body').outerWidth(),
+					'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
+				});
 			});
 
 			$('body').on('click', '.problem_area_js', function(){
@@ -1208,22 +1237,51 @@
 				clear_canvas();
 			});
 
+			$('body').on('click', '.close_canvas_toolbar_js', function(event){
+				$('.canvas_toolbar').css('display', 'none');
+				$('#tablet').attr({
+					'width': '20',
+					'height': '20'
+				});
+				clear_canvas();
+			});
+
+
+
+			$('body').on('click', '.img_zoom_js', function(event){
+				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+				$('#tablet').attr({
+					'width': '20',
+					'height': '20'
+				});
+				var src = $('#savedImageCopy').attr('src');
+				$('#big_photo').css({
+					'overflow': 'auto',
+					'overflow-x': 'hidden',
+					'padding': '2em'
+				});
+				$('#big_photo img').attr('src', src).css('width', '100%');
+				openObject('big_photo');
+			});
+
 			$('body').on('click', '.canvasReady_js', function(event){
 				$('.canvas_toolbar').css('display', 'none');
 				// addLoadAnimation('body');
 								
-				if($('.screen_btn_js').hasClass('clicked')){
-					$('.modal_canvas_js canvas').remove();
-				}else{
-					$('.screen_btn_js').addClass('clicked');
-				}
+				// if($('.screen_btn_js').hasClass('clicked')){
+				// 	// $('.modal_canvas_js canvas').remove();
+				// }else{
+				// 	$('.screen_btn_js').addClass('clicked');
+				// }
 				var detachElement = $('.err_msg_as_js').detach();
 				setTimeout(function(){
+					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
 					html2canvas(document.body, {
 						onrendered: function(canvas){
 							// removeLoadAnimation('body');
-							$('.modal_canvas_js').append(canvas);
-							openObject('modal_canvas');
+							// $('.modal_canvas_js').append(canvas);
+							// openObject('modal_canvas');
 
 
 							var url = canvas.toDataURL("image/jpeg");
@@ -1247,17 +1305,19 @@
 								'width': '20',
 								'height': '20'
 							});
-
-							$('.veil_on_canvas_js').css('display', 'block');
 						}
 					});
+					setTimeout(function(){
+						$('.err_msg_as_wrap').css('display', 'none');
+						$('.err_msg_as_wrap').append(detachElement);
+						setTimeout(function(){
+							$('.err_msg_as_wrap').css('display', 'block');
+							$('.waiting_block_for_img_canvas_js').addClass('hidden');
+							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+						}, 3000);
+					}, 6000);
 				}, 2000);
-
-				setTimeout(function(){
-					$('.err_msg_as_wrap').append(detachElement);
-				}, 5000);
 			});
 		});
 	</script>
-</body>
-</html>
