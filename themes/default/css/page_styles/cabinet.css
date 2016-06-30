@@ -2107,66 +2107,59 @@ div[id^="items_panel_"] .btnWrapFlex {
   box-sizing: border-box;
   position: relative;
 }
-.msg_title {
+#bonus .msg_title {
 	font-weight: bold;	
 }
-.msg_title, 
-.msg_text {
+#bonus .msg_title, 
+#bonus .msg_text {
 	margin-left: 30px;
 }
-.msg_icon {
+#bonus .msg_icon {
 	position: absolute;
 	left: 1em;
 	top: calc(50% - 12px);
 }
-
-.msg-success {
+#bonus .msg-success {
   color: #067369;
   background-color: #c0ffc0;	
 }
-.msg-success .msg_title::before {
+#bonus .msg-success .msg_title::before {
   content: 'Успех';
 }
-.msg-success .msg_text::before {
+#bonus .msg-success .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-
-
-.msg-error {
+#bonus .msg-error {
   color: #d82114;
   background-color: #ffa3a6;	
 }
-.msg-error .msg_title::before {
+#bonus .msg-error .msg_title::before {
   content: 'Ошибка';
 }
-.msg-error .msg_text::before {
+#bonus .msg-error .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-
-
-.msg-attention {
+#bonus .msg-attention {
   color: #9a5c01;
   background-color: #fdec9b;	
 }
-.msg-attention .msg_title::before {
+#bonus .msg-attention .msg_title::before {
   content: 'Внимание';
 }
-.msg-attention .msg_text::before {
+#bonus .msg-attention .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-
-
-.msg-info {
+#bonus .msg-info {
   color: #33439c;
   background-color: #b2ddff;	
 }
-.msg-info .msg_title::before {
+#bonus .msg-info .msg_title::before {
   content: 'Внимание';
 }
-.msg-info .msg_text::before {
+#bonus .msg-info .msg_text::before {
   content: 'Для активации бонусной карты, заполните эту форму!';
 }
-.details {
+#bonus .details {
 	color: #FF5722;
 }
 
