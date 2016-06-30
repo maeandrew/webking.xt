@@ -61,18 +61,18 @@
 												</div>
 												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect print_menu" for="menu-lower_<?=$i['id_order']?>">
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true">
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank">
 															<svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
 														</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg>Для реализатора</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg>Для реализатора</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg>С картинками</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>" target="_blank"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg>С картинками</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg>Документом</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg>Документом</a>
 													</li>
 												</ul>
 											</div>
