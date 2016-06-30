@@ -1027,9 +1027,6 @@ table.supplier_assort_table {
 .material-icons {
 	vertical-align: top;
 }
-.msg-info {
-	margin: 1em;
-}
 .del_x i {
 	padding: 5px;
 	/*background: #FFF;*/
@@ -1567,7 +1564,7 @@ table.supplier_assort_table {
 
 	.customer_cab #bonus a.details {
 		display: block;
-		text-align: center;
+		/* text-align: center; */
 		margin: 10px 0;
 	}
 	.customer_cab #bonus .info_text {
@@ -2095,6 +2092,84 @@ div[id^="items_panel_"] .btnWrapFlex {
 #products .ordersProdList .ordersProdListContent .priceTitle {
 	display: none;
 }
+
+#bonus { 
+	margin-right: 10px;
+}
+
+/* Стили для блоков оповещения в разделе дисконта */
+[class^="msg-"] {  
+  background-repeat: no-repeat;
+  background-position: 1em 50%;
+  width: 100%;
+  min-height: 100px;
+  padding: 1em;
+  box-sizing: border-box;
+  position: relative;
+}
+.msg_title {
+	font-weight: bold;	
+}
+.msg_title, 
+.msg_text {
+	margin-left: 30px;
+}
+.msg_icon {
+	position: absolute;
+	left: 1em;
+	top: calc(50% - 12px);
+}
+
+.msg-success {
+  color: #067369;
+  background-color: #c0ffc0;	
+}
+.msg-success .msg_title::before {
+  content: 'Успех';
+}
+.msg-success .msg_text::before {
+  content: 'Сообщение про что то  что должно тут быть и возможно появится';
+}
+
+
+.msg-error {
+  color: #d82114;
+  background-color: #ffa3a6;	
+}
+.msg-error .msg_title::before {
+  content: 'Ошибка';
+}
+.msg-error .msg_text::before {
+  content: 'Сообщение про что то  что должно тут быть и возможно появится';
+}
+
+
+.msg-attention {
+  color: #9a5c01;
+  background-color: #fdec9b;	
+}
+.msg-attention .msg_title::before {
+  content: 'Внимание';
+}
+.msg-attention .msg_text::before {
+  content: 'Сообщение про что то  что должно тут быть и возможно появится';
+}
+
+
+.msg-info {
+  color: #33439c;
+  background-color: #b2ddff;	
+}
+.msg-info .msg_title::before {
+  content: 'Внимание';
+}
+.msg-info .msg_text::before {
+  content: 'Для активации бонусной карты, заполните эту форму!';
+}
+.details {
+	color: #FF5722;
+}
+
 
 @media (max-width: 1060px) {
 	.nav li {

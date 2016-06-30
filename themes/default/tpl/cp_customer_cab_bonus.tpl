@@ -26,12 +26,22 @@
 					<a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Условия бонусной программы.</a>
 				<?}?>
 			<?}elseif($_GET['t'] == 'change_bonus'){?>
+						<!-- <div class="msg-info">
+							<p><b>Внимание!</b> Для активации бонусной карты, заполните эту форму!</p>
+						</div> -->
+						<div class="msg-info">
+							<div class="msg_icon"">
+								<i class="material-icons hidden">check_circle</i>
+								<i class="material-icons">info</i>
+								<i class="material-icons hidden">warning</i>
+								<i class="material-icons hidden">error</i>
+							</div>
+						    <p class="msg_title">!</p>
+						    <p class="msg_text"></p>
+						</div>						
+						<a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Детали бонусной программы</a>
 				<form action="" method="POST">
 					<?if(!$Customer['bonus_card']){?>
-						<div class="msg-info">
-							<p><b>Внимание!</b> Для активации бонусной карты, заполните эту форму!</p>
-							<a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Детали бонусной программы</a>
-						</div>
 						<div class="bonus_reg_block">
 							<div id="bonus_card_line" class="line">
 								<label for="bonus_card">№ бонусной карты: <span class="required">*</span></label><br>
