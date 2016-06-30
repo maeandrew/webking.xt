@@ -1436,6 +1436,20 @@ $(function(){
 		});
 	});
 
+	// Отправка сообщения об ошибке
+	$('.error_js').click(function(e){
+		e.preventDefault();
+		var parent = $(this).closest('form'),
+			fields = {};
+		parent.find('.mdl-textfield__input').each(function(index, el) {
+			fields[$(el).attr('name')] = $(el).val();
+		});
+		console.log(fields);
+		ajax('errors', 'error', fields).done(function(data){
+			console.log(data);
+		});
+	});
+
 	//Отправка данных (смета клиента)
 	$('#estimate').on('click', function(){
 		$('.estimate_info_js').html(''); // удаление предыдущего оповещения аякса

@@ -765,10 +765,10 @@
 			<div class="err_msg_as_form">
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
-						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
+						<textarea name="comment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
-					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent error_js">Отправить</div>
 					<!-- <input type="submit" value="Отправить"> -->
 				</form>
 			</div>

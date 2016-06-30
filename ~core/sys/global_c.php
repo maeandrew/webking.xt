@@ -593,7 +593,7 @@ class G {
 	}
 
 	public static function SiteMap($navigation = false){
-		if (!file_exists($GLOBALS['PATH_global_root'].'sitemap')) {
+		if(!file_exists($GLOBALS['PATH_global_root'].'sitemap')){
 			mkdir($GLOBALS['PATH_global_root'].'sitemap', 0777, true);
 		}
 		global $db;

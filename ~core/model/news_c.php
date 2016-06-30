@@ -305,4 +305,12 @@ class News{
 		unset($id_news, $sql, $new_path, $f);
 		return true;
 	}
+
+	public function RandomNews($translit){
+		$sql = "SELECT * FROM "._DB_PREFIX_."news
+				WHERE visible = 1 AND sid = 1 AND translit <>'".$translit."'
+				ORDER BY RAND() LIMIT 4";
+		$res = $this->db->GetArray($sql);
+		return $res;
+	}
 }

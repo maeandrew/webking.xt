@@ -1785,14 +1785,14 @@ class Products {
 			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
 			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
 		}else{
-			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
-			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
-			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
-			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
+			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk_usd'] * $supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk_usd'] * $supp_fields['currency_rate'], 2);
+			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
+			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
 		}
 		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
-
+		$f['edited'] = date('Y-m-d');
 		$this->db->StartTrans();
 		//Заполнение массива для проверки на совпадения
 		$check['id_product'] = $arr['id_product'];
@@ -4629,6 +4629,22 @@ class Products {
 			$this->db->FailTrans();
 			return false;
 		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Сохранение в БД сообщений об ошибке
+	public function InsertError($arr){
+		$f['comment'] = trim($arr['comment']);
+		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
+		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
+		unset($arr);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'errors', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		unset($f);
 		$this->db->CompleteTrans();
 		return true;
 	}

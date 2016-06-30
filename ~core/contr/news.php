@@ -11,6 +11,8 @@ if(isset($GLOBALS['Rewrite'])){
 	$news = $News->fields;
 	G::metaTags($news);
 	$header = $news['title'];
+	$rand_news = $News->RandomNews($GLOBALS['Rewrite']);
+	$tpl->Assign('randoms_news', $rand_news);
 	$tpl->Assign('header', $header);
 	$tpl->Assign('data', $news);
 	$tpl->Assign('indexation', $news['indexation']);

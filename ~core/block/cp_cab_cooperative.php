@@ -24,6 +24,21 @@ if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET
 
 	$infoProductsCartUsers = $Cart->GetProductsForPromo($infoJO['promo']);
 }
+//if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive')){
+//	$infoJO = $Cart->GetInfoJO($_GET['t']);
+//
+//	$infoProductsCartUsers = $Cart->GetProductsForPromo($infoJO['promo']);
+//}elseif(isset($_GET['t']) && !empty($_GET['t']) && $_GET['t'] == 'jocompleted' || $_GET['t'] == 'joinwork'){
+//	$infoJO = $Cart->GetInfoJO($_GET['t']);
+//
+//	$infoProductsCartUsers = $Cart->GetProductsForPromo($infoJO['promo']);
+//}
+
+
+
+
+
+
 if($infoJO && $infoProductsCartUsers){
 	if (isset($infoJO) && is_array($infoJO)){
 		$tpl->Assign('list', $infoJO['products']);
