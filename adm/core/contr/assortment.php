@@ -19,6 +19,11 @@ $Products = new Products();
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
 
+if(isset($_POST['suppliers_activity'])){
+	$update_supplier['active'] = $_POST['supplier_activ'];
+	$update_supplier['id_user'] = $id_supplier;
+	$Supplier->UpdateSupplier($update_supplier, 'activity');
+}
 
 //экспорт в exel
 if(isset($_GET['export'])){

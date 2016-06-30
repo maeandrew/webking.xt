@@ -233,7 +233,7 @@ class Suppliers extends Users {
 	/* Обновление
 	 *
 	 */
-	public function UpdateSupplier($arr){
+	public function UpdateSupplier($arr, $only_activity = false){
 		global $User;
 		$arr['gid'] = $User->fields['gid'];
 		if(!$User->UpdateUser($arr)){
@@ -242,35 +242,37 @@ class Suppliers extends Users {
 			return false;
 		}
 		unset($f);
-		$f['id_user'] = $arr['id_user'];
-		$f['article'] = trim($arr['article']);
-		$f['phones'] = trim($arr['phones']);
-		$f['place'] = trim($arr['place']);
-		$f['currency_rate'] = trim($arr['currency_rate']);
-		$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
-		$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
-		$f['filial'] = trim($arr['filial']);
-		$f['is_partner'] = 0;
-		if(isset($arr['is_partner']) && $arr['is_partner'] == "on"){
-			$f['is_partner'] = 1;
-		}
-		$f['warehouse'] = 0;
-		if(isset($arr['warehouse']) && $arr['warehouse'] == "on"){
-			$f['warehouse'] = 1;
-		}
-		$f['make_csv'] = 0;
-		if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
-			$f['make_csv'] = 1;
-		}
-		$f['real_email'] = trim($arr['real_email']);
-		$f['real_phone'] = trim($arr['real_phone']);
-		$f['send_mail_order'] = 0;
-		if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on" && $f['real_email'] != ''){
-			$f['send_mail_order'] = 1;
-		}
-		if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = {$f['id_user']}")){
-			$this->db->FailTrans();
-			return false;
+		if($only_activity == false){
+			$f['id_user'] = $arr['id_user'];
+			$f['article'] = trim($arr['article']);
+			$f['phones'] = trim($arr['phones']);
+			$f['place'] = trim($arr['place']);
+			$f['currency_rate'] = trim($arr['currency_rate']);
+			$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
+			$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
+			$f['filial'] = trim($arr['filial']);
+			$f['is_partner'] = 0;
+			if(isset($arr['is_partner']) && $arr['is_partner'] == "on"){
+				$f['is_partner'] = 1;
+			}
+			$f['warehouse'] = 0;
+			if(isset($arr['warehouse']) && $arr['warehouse'] == "on"){
+				$f['warehouse'] = 1;
+			}
+			$f['make_csv'] = 0;
+			if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
+				$f['make_csv'] = 1;
+			}
+			$f['real_email'] = trim($arr['real_email']);
+			$f['real_phone'] = trim($arr['real_phone']);
+			$f['send_mail_order'] = 0;
+			if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on" && $f['real_email'] != ''){
+				$f['send_mail_order'] = 1;
+			}
+			if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = {$f['id_user']}")){
+				$this->db->FailTrans();
+				return false;
+			}
 		}
 		if(isset($arr['active']) && $arr['active'] == "on"){
 			$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);
