@@ -658,7 +658,7 @@ label.info_key {
 	.block_view .products .card:hover {
 		width: calc(50% - 10px);	
 		background: #fff;
-		border: 0;
+		border: 1px solid #d9d9d9;
 	}
 	.block_view .products .card .product_buy .buy_block .quantity button {
 		display: none;
@@ -1286,6 +1286,7 @@ label.info_key {
 	}
 	.list_view .products .card {
 		padding: 10px;
+		border: 1px solid #d9d9d9;
 	}
 	.module_view .product_section .product_buy .buy_block {
 		justify-content: space-around !important;
