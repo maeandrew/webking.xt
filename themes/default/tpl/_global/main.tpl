@@ -1160,7 +1160,7 @@
 				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 
 				var detachEl = $('.err_msg_as_js').detach();
-				setTimeout(function(){
+				// setTimeout(function(){
 					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
 					html2canvas(document.body, {
 						onrendered: function(canvas){
@@ -1172,6 +1172,8 @@
 							var url = canvas.toDataURL("image/jpeg");
 							// window.location = canvas.toDataURL();
 
+							$('.err_msg_as_wrap').css('display', 'none');
+							$('.err_msg_as_wrap').append(detachEl);
 							// Находим элемент <img>
 							var imageCopy = document.getElementById("savedImageCopy");
 						
@@ -1182,19 +1184,17 @@
 							// делая изображение видимым
 							var imageContainer = document.getElementById("savedCopyContainer");
 							imageContainer.style.display = "block";
+							// setTimeout(function(){
+								// setTimeout(function(){
+									$('.err_msg_as_wrap').css('display', 'block');
+									$('.waiting_block_for_img_canvas_js').addClass('hidden');
+									$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+									$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+								// }, 3000);
+							// }, 6000);
 						}
 					});
-					setTimeout(function(){
-						$('.err_msg_as_wrap').css('display', 'none');
-						$('.err_msg_as_wrap').append(detachEl);
-						setTimeout(function(){
-							$('.err_msg_as_wrap').css('display', 'block');
-							$('.waiting_block_for_img_canvas_js').addClass('hidden');
-							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-						}, 3000);
-					}, 6000);
-				}, 2000);
+				// }, 2000);
 
 			});
 
