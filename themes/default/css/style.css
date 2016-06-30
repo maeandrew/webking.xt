@@ -3726,79 +3726,6 @@ div.modalEditOrder .applyBtn {
 	margin-left: 1em !important;
 	margin-bottom: 1em !important;
 }
-
-/*.modal_canvas {
-	padding: 1.5em;
-}*/
-.modal_canvas canvas {
-	overflow: hidden;
-	width: 100%;
-}
-.veil_on_canvas {
-	/*display: flex;
-	align-items: center;
-	flex-direction: column;
-	position: absolute;
-	top: 35vh;
-	left: 34%;
-	padding: 1em;
-	border-radius: 5px;
-	background-color: #fff;
-	box-shadow: rgba(0, 0, 0, 0.137255) 0px 24px 38px 3px, rgba(0, 0, 0, 0.117647) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
-	text-align: center;*/
-
-	/*position: absolute;
-	bottom: 0;
-	left: 0;
-	margin: 1em;*/
-	/*display: none;*/
-}
-/*.veil_on_canvas p{
-	line-height: 1.4em;
-	margin-bottom: 1em;
-}*/
-/*.veil_on_canvas .go_to_canvas_toolbar {
-	/*width: 75px;
-	height: 75px;
-	cursor: pointer;
-	margin: 0 auto;
-	border: 3px dashed #444;
-	z-index: 10000000000000000;
-	top: 35vh;
-	left: 35vw;
-
-	width: 30px;
-	height: 30px;
-	border-radius: 8px;
-	cursor: pointer;
-	border: 3px dashed #fff;
-	transition: all .4s cubic-bezier(.4,0,.2,1);
-	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
-	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-	
-}*/
-
-.veil_on_canvas .go_to_canvas_toolbar:hover {
-	width: 40px;
-	height: 40px;
-}
-
-.img_zoom {
-	position: absolute;
-	bottom: 0;
-	left: 2em;
-	cursor: pointer;
-	padding: .5em;
-	font-size: 2em;
-	/*display: none !important;*/
-	transition: all .4s cubic-bezier(.4,0,.2,1);
-	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
-	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-}
-.img_zoom:hover {
-	font-size: 2.5em;
-}
-
 .canvas_toolbar {
 	position: fixed;
 	border-radius: 5px;
@@ -3842,6 +3769,18 @@ div.modalEditOrder .applyBtn {
 }
 .eraser_for_canvas {
 	background-color: #fff;
+}
+
+.close_canvas_toolbar {
+	position: relative;
+    top: .35em;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.close_canvas_toolbar:hover {
+	background-color: rgba(158, 158, 158, .2);
 }
 
 #tools {
@@ -3898,6 +3837,20 @@ div.modalEditOrder .applyBtn {
 
 #savedCopyContainer:hover .tools_wrapp {
 	bottom: 0;
+}
+
+.waiting_block_for_img_canvas {
+	height: 28px;
+	line-height: 28px;
+	position: fixed;
+	left: calc(50% - 160px);
+	top: 15px;
+	background: rgb(255, 87, 34);
+	color: #fff;
+	width: 350px;
+	border-radius: 10px;
+	text-align: center;
+	z-index: 1000000000000;
 }
 
 
