@@ -4632,20 +4632,4 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
-	// Сохранение в БД сообщений об ошибке
-	public function InsertError($arr){
-		$f['comment'] = trim($arr['comment']);
-		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
-		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
-		unset($arr);
-		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'errors', $f)){
-			$this->db->FailTrans();
-			return false;
-		}
-		unset($f);
-		$this->db->CompleteTrans();
-		return true;
-	}
 }
