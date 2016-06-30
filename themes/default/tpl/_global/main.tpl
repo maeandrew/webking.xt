@@ -412,16 +412,19 @@
 		<div id="estimateLoad" class="estimate_modal" data-type="modal">
 			<div class="modal_container">
 				<h3>Вы можете загрузить свою смету</h3>
+				<div class="estimate_info estimate_info_js"></div>
 				<form action="" id="estimate">
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<input class="mdl-textfield__input" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
+								<span class="mdl-textfield__error">Ошибка ввода Имени!</span>
 							</div>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<input class="mdl-textfield__input" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
+								<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 							</div>
 						<?}?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -534,7 +537,13 @@
 			</div>
 		</div>
 		<div id="registerComplete" data-type="modal">
-			<div class="modal_container">Спасибо за регистрацию!</div>
+			<div class="modal_container">
+				<div class="auth_ok">
+					<i class="material-icons">check_circle</i>
+				</div>
+				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>			
+			</div>
 		</div>
 		<!-- Cart -->
 		<div id="cart" data-type="modal">

@@ -1325,9 +1325,7 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');			
-			if (current_controller === 'main'){
-				location.reload();
-			}
+			
 			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
@@ -1381,6 +1379,9 @@ $(function(){
 				// parent.find('.user_promo').text(data.member.promo_code);
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
+				if (current_controller === 'main'){
+					location.reload();
+				}
 			}else{
 				form.find('.error').text(data.msg).fadeIn();				
 			}
@@ -1450,11 +1451,64 @@ $(function(){
 	});
 
 	//Отправка данных (смета клиента)
-	$('.estimate_js').on('click', function(e){
-		e.preventDefault();
-		ajax('product', 'AddEstimate', new FormData($(this).closest('form')[0]), 'json', true).done(function(data){
-			console.log(data);
+	$('#estimate').on('click', function(){
+		$('.estimate_info_js').html(''); // удаление предыдущего оповещения аякса
+		$('#estimate div').each(function() { // удаление класса is-invalid со всех полей
+			$('#estimate div').removeClass('is-invalid');
 		});
+	});
+
+	$('.estimate_js').on('click', function(e){
+		e.preventDefault();		
+		var check = true;
+		if ($('#estimate_phone').val() !== undefined) {
+			// Проверка введенного телефона и имени
+			var phone = $('#estimate_phone').val();
+			var name = $('#estimate_name').val();
+			var str = phone.replace(/\D/g, "");
+			var check_num = /^(38)?(\d{10})$/;
+			if (check_num.test(str)) {
+				if (str.length === 10){
+					phone = 38 + str;
+				}else{
+					phone = str;
+				}
+			}			
+			if (name === '') {
+				$('#estimate_name').closest('div').addClass('is-invalid');
+				check = false;
+			}else{
+				if (phone.length !== 12 ) {
+					$('#estimate_phone').closest('div').addClass('is-invalid');
+					check = false;
+				}else{
+					$('#estimate_phone').val(phone);
+					check = true;
+				}
+			}
+		}
+		if (check === true) {
+			addLoadAnimation('#estimateLoad');
+			ajax('product', 'AddEstimate', new FormData($(this).closest('form')[0]), 'json', true).done(function(data){
+				$('.estimate_info_js').html(data.message);
+				if (data.status === 1){
+					$('.estimate_info_js').css('color', 'green');
+					if ($('#estimate_phone').val() !== undefined) {
+						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+							$('#user_profile').append('<img src="/images/noavatar.png"/>');
+							$('.user_profile_js').html(data);
+							$('.cabinet_btn').removeClass('hidden');
+							$('.login_btn').addClass('hidden');
+							$('#estimate_name, #estimate_phone').closest('div').remove();
+							$('.estimate_info_js').append('<br>Пользователь создан автоматически при загрузке сметы');
+						});
+					}
+				}else{
+					$('.estimate_info_js').css('color', 'red');
+				}
+				removeLoadAnimation('#estimateLoad');
+			});	
+		}
 	});
 
 	if($('header .cart_item a.cart i').data('badge') === 0) {

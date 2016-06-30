@@ -878,14 +878,22 @@ section.center {
 		color: #fff;
 	}
 	#access_recovery .auth_ok,
-	#verification .auth_ok {
+	#verification .auth_ok,
+	#registerComplete .auth_ok {
 		text-align: center;
 	}
 	#access_recovery .auth_ok i.material-icons,
-	#verification .auth_ok i.material-icons {
+	#verification .auth_ok i.material-icons,
+	#registerComplete .auth_ok i.material-icons {
 		color: #018b06;
 		font-size: 5em;
 		margin-bottom: 0.3em;
+	}
+	#registerComplete .auth_ok i.material-icons {
+		margin: 0px;
+	}
+	#registerComplete a {
+		margin-top: 10px;
 	}
 
 /* passStrength */
@@ -3728,4 +3736,7 @@ iframe[name="google_conversion_frame"] {
 .estimate_modal .mdl-grid {
 	width: 80%;
 	margin: 0 auto;
+}
+.estimate_info {	
+	height: 20px;
 }
