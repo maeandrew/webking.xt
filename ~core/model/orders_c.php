@@ -1312,7 +1312,7 @@ class Orders {
 				(CASE WHEN osp.opt_qty >0 THEN osp.site_price_opt ELSE osp.site_price_mopt END) AS price,
 				p.inbox_qty, osp.box_qty,
 				(CASE WHEN osp.opt_qty >0 THEN osp.opt_qty ELSE osp.mopt_qty END) AS quantity,
-				osp.opt_sum, osp.mopt_sum, s.article, osp.id_supplier, p.name, p.art,
+				osp.opt_sum, osp.mopt_sum, s.article, osp.id_supplier, p.name, osp.note_opt AS note, p.art,
 				o.target_date, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum,
 				osp.contragent_msum, osp.fact_qty, osp.fact_sum,
 				osp.fact_mqty, osp.fact_msum, p.img_1, osp.return_sum, osp.return_mqty, osp.return_msum,
