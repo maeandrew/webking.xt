@@ -1872,7 +1872,6 @@ class Products {
 	public function RecalcSitePrices($ids_products = null){
 		set_time_limit(3600);
 		ini_set('memory_limit', '400M');
-		//$time_start = microtime(true);
 		$sql = "SELECT a.id_product, a.id_supplier, a.active,
 			a.price_opt_recommend, a.price_mopt_recommend,
 			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
@@ -1958,9 +1957,6 @@ class Products {
 			return false;
 		}
 		ini_set('memory_limit', '192M');
-		//$time_end = microtime(true);
-		//$time = $time_end - $time_start;
-		//echo "execution time <b>$time</b> seconds\n";
 		return true;
 	}
 	/**
@@ -1968,6 +1964,7 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function UpdateSitePricesMassive($arr){
+		//$time_start = microtime(true);
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				if ($a['opt_sr'] > 100) {
@@ -1989,7 +1986,10 @@ class Products {
 				$this->db->CompleteTrans();
 			}
 		}
-		return true;
+		//$time_end = microtime(true);
+		//$time = $time_end - $time_start;
+		//echo "execution time <b>$time</b> seconds\n";
+		//return true;
 	}
 	/**
 	 * [UpdateSitePrices description]
