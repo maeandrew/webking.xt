@@ -1813,6 +1813,11 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 .order .number {
 	float: left;
 	cursor: pointer;
+	width: calc(100% - 52px);
+}
+.order .date,
+.order .my_item {
+	padding-left: 20px;
 }
 .order .title .container .num_mar {
 	margin-right: 20px;
@@ -1830,6 +1835,19 @@ div[id^="items_panel_"] > div > #products .total_wrap {
  /*  float: right; */
 	cursor: pointer;
 		top: -5px;
+}
+.order .title .container .print .icon img {
+	margin-top: 6px;
+}
+.order .title .container .print .print_menu {
+	min-width: 160px;
+}
+.order .title .container .print .print_menu li a {
+	color: #9E9E9E;
+}
+.order .title .container .print .print_menu li a svg {
+	margin-right:5px;
+	margin-top:-5px;
 }
 .order .title .container .print .expanded {
 	float: left;
@@ -2401,14 +2419,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 }
 
-
-
-
-
-
-
-
-
 #products .mdl-shadow--2dp {
 	box-shadow: inherit;
 }
@@ -2583,6 +2593,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.date_container .mdl-textfield {
 		width: auto;
 	}
+}
 
-
+#modal_message .modal_container .mesage_text {
+	margin-top: 25px;
 }
