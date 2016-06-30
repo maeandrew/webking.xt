@@ -342,7 +342,7 @@
 				<div class="questions">
 					<h5>Навигация</h5>
 					<ul>
-						<li><a href="<?=Link::Custom('main')?>">Главная</a></li>
+						<li><a href="<?=Link::Custom('main', null)?>">Главная</a></li>
 						<?foreach($list_menu as $menu){?>
 							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
 						<?}?>
