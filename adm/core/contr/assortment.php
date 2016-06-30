@@ -19,6 +19,7 @@ $Products = new Products();
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier);
 
+//Подключение/отключение поставщика
 if(isset($_POST['suppliers_activity'])){
 	$update_supplier['active'] = $_POST['supplier_activ'];
 	$update_supplier['id_user'] = $id_supplier;
