@@ -1,8 +1,3 @@
-$(window).load(function(){
-	$("html, body").trigger("scroll");
-	// Определение местоположения устройства из которого был осуществлен вход на сайт
-	GetLocation();	
-});
 window.onbeforeunload = function(e){
 	// window.onpopstate = function(e) {
 	// if ( $(window).width() < 500 && $('div[data-type="modal"]').hasClass('opened')) {
@@ -27,6 +22,10 @@ window.onbeforeunload = function(e){
 //     swapPhoto(location.pathname);
 // }, false)
 $(function(){
+	$("html, body").trigger("scroll");
+	// Определение местоположения устройства из которого был осуществлен вход на сайт
+	GetLocation();
+
 	if($(window.location.hash).length == 1 && $(window.location.hash).data('type') == 'modal'){
 		openObject((window.location.hash).replace('#', ''));
 	}
@@ -443,12 +442,12 @@ $(function(){
 			changeFiltersBtnsPosition();
 		}
 	});
-	// События для автосмены размера сайбара и его скролла
-	// $(window).load(function(){
-	// 	if(over_scroll === true){
-	// 		resizeAsideScroll('load');
-	// 	}
-	// });
+	// События для автосмены размера сайбара и его скролла 
+	/*$(window).on("load", function(){
+		if(over_scroll === true){
+			resizeAsideScroll('load');
+		}
+	});*/
 	$('body').on('click', function(){
 		if(over_scroll === true){
 			resizeAsideScroll('click');

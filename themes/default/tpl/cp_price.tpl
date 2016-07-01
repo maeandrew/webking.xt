@@ -213,7 +213,7 @@
 		}
 	});
 
-	$(window).load(function() {
+	$(window).on("load", function() {
 		var window_width = $(document).width(),
 			start = 300,
 			second_start = 600,
