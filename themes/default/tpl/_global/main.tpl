@@ -88,11 +88,11 @@
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
 		<!-- Google counter -->
-		<?=isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
+		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
 
 		<!-- Yandex.Metrika counter -->
-		<?=isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
+		<?isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
 		<!-- END Yandex.Metrika counter -->
 		<!--<script>ga('require', 'ecommerce');</script>-->
 	<?}?>
@@ -171,7 +171,6 @@
 			</a>
 		</div>
 	</section>
-	
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
@@ -542,7 +541,7 @@
 					<i class="material-icons">check_circle</i>
 				</div>
 				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
-				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>			
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>
 			</div>
 		</div>
 		<!-- Cart -->
@@ -730,22 +729,15 @@
 	<!--------------------------------------------------
 	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
 	------------------------------------------------- -->
-	<script type="text/javascript">
-		/* <![CDATA[ */
-		var google_conversion_id = 880553131;
-		var google_custom_params = window.google_tag_params;
-		var google_remarketing_only = true;
-		/* ]]> */
-	</script>
-	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-	</script>
+	
+	<!-- <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> -->
 	<noscript>
 		<div style="display:inline;">
 		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript>
 
-	<!-- message about cookie -->
+<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
@@ -754,7 +746,7 @@
 		</div>
 	</div>
 
-	<!-- message about error -->
+<!-- message about error -->
 	<div class="err_msg_as_wrap">
 		<div class="err_msg_as err_msg_as_js">
 			<!-- <div class="err_msg_as_knob ">Click</div> -->
@@ -762,50 +754,50 @@
 				<p>Сообщите нам об ошибке</p>
 				<i class="material-icons">keyboard_arrow_up</i>
 			</div>
-			<div class="err_msg_as_form">
+			<div class="err_msg_as_form err_msg_as_form_js">
 				<form action="#">
+					<input type="hidden" value="" data-islogged="<?=G::isLogged()?'true':'false';?>" data-membergid="<?=G::isLogged()?$_SESSION['member']['gid']:'-1';?>">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
 						<textarea name="comment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
-					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent error_js">Отправить</div>
-					<!-- <input type="submit" value="Отправить"> -->
+					<!-- <p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p> -->
+					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
+						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
+						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
+					</label>
+					<div id="savedCopyContainer">
+						<input type="image" id="savedImageCopy">
+						<!-- <img id="savedImageCopy"> -->
+						<div class="tools_wrapp_js tools_wrapp">
+							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
+							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
+							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
+							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
+						</div>
+					</div>
+					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<!-- <input type="submit" value="Отправить" class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> -->
 				</form>
 			</div>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function() {
-			setTimeout(function() {
-				if ($.cookie('useCookie') != 'agree'){
-					$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
-					
-					$('body').on('click', '.cookie_msg_js .close', function(event) {
-						event.preventDefault();
-						$('.cookie_msg_js').css('top', '100%');
-						$.cookie('useCookie', 'agree', {expires: 365});
-						setTimeout(function() {
-							$('.cookie_wrap').remove();
-							$('.err_msg_as_title').css('opacity', '1');
-						}, 3000);
-					});
-				}else{
-					$('.err_msg_as_title').css('opacity', '1');
-				}
-			}, 2000);
-			
-			$('.err_msg_as_knob_js').click(function(event) {
-				if ($('.err_msg_as').hasClass('shown')) {
-					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-				}else{
-					$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
-					$('.err_msg_as_form').find('textarea').focus();
-					$('.err_msg_as_js').css('border-color', '#FF865F');
-					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-				}
-			});
-		});
-	</script>
-</body>
-</html>
+	<div class="canvas_toolbar">
+		<div id="problem_area" class="problem_area problem_area_js"></div>
+		<div class="mdl-tooltip" for="problem_area">Выделить проблему</div>
+		<div id="confidential" class="confidential confidential_js"></div>
+		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
+		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
+		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
+		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
+		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
+		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
+		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
+	</div>
+	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
+		Подождите, формируется скриншот страницы...
+	</div>
+	<div id="canvas_mark_wrapper">
+		<canvas id="tablet" width="10" height="10"></canvas>
+	</div>
