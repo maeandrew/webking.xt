@@ -39,7 +39,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case "add_favorite":
 				// Добавление Избранного товара
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}elseif(isset($_SESSION['member']['favorites']) && in_array($_POST['id_product'], $_SESSION['member']['favorites'])){
 					$data['answer'] = 'already';
@@ -67,7 +67,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	$txt = json_encode('ok');
 					// 	echo $txt;
 					// }
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}else{
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
@@ -106,7 +106,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	//$data['answer'] = 'error';
 					// }
 
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}elseif(isset($_SESSION['member']['waiting_list']) && in_array($_POST['id_product'], $_SESSION['member']['waiting_list'])){
 					$data['answer'] = 'already';
@@ -141,7 +141,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	echo $txt;
 					// }
 
-				if(!G::isLogged()){
+				if(!G::IsLogged()){
 					$data['answer'] = 'login';
 				}else {
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_CUSTOMER_){
@@ -183,48 +183,74 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdatetGraph($_POST));
 				}
 				break;
-			case "AddAstimate":
+			case "AddEstimate":
+				$Product = new Products();
+				//Проверка данных пользователя
 				if(!G::IsLogged()){
 					$Users = new Users();
+					$Customers = new Customers();
 					require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 					list($err, $errm) = Change_Info_validate();
 					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
-					if($unique_phone !== true) {
-						$err = 1;
-						$errm['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
+					if($unique_phone === true){
+						$data = array(
+							'name' => $_POST['name'],
+							'passwd' => $pass = G::GenerateVerificationCode(6),
+							'descr' => 'Пользователь создан автоматически при загрузке сметы',
+							'phone' => $_POST['phone']
+						);
+						// регистрируем нового пользователя
+						if($Customers->RegisterCustomer($data)){
+							$Users->SendPassword($data['passwd'], $data['phone']);
+						}
+						$data = array(
+							'email' => $_POST['phone'],
+							'passwd' => $pass
+						);
+						// авторизуем клиента в его новый аккаунт
+						if($Users->CheckUser($data)){
+							G::Login($Users->fields);
+							_acl::load($Users->fields['gid']);
+							$res['message'] = 'Пользователь авторизован';
+							$res['status'] = 1;
+						}
+					} else {
+						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
+						$res['status'] = 2;
 					}
-					$unique_email = $Users->CheckEmailUniqueness($_POST['email']);
-					if((isset($_POST['email']) && $_POST['email'] !='')) {
-						if($unique_email !== true) {
-							$err = 1;
-							$errm['email'] = 'Пользователь с таким email уже зарегистрирован!';
+				}
+				// Импорт файла
+				if(G::IsLogged()){
+					if(isset($_FILES['file'])){
+						// Проверяем загружен ли файл
+						if(is_uploaded_file($_FILES['file']['tmp_name'])){
+							// Проверяем объем файла
+							if($_FILES['file']['size'] > 1024*3*1024){
+								$res['message'] = 'Размер файла превышает три мегабайта';
+								$res['status'] = 3;
+							} else {
+								$folder_name = 'estimates/'.$_SESSION['member']['id_user'].'/';
+								$pathname = $GLOBALS['PATH_root'].$folder_name;
+								$images = new Images();
+								$images->checkStructure($pathname);
+								if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
+									// Если все загружено на сервер, выполнить запись в БД
+									$file = '/'.$folder_name.$_FILES['file']['name'];
+									$Product->UploadEstimate($file, $_POST['comment']);
+									$res['message'] = 'Загрузка прошла успешно';
+									$res['status'] = 1;
+								} else{
+									$res['message'] = 'Произошла ошибка. Повторите попытку позже!';
+									$res['status'] = 4;
+								}
+							}
+						} else{
+							$res['message'] = 'Файл не был загружен!';
+							$res['status'] = 5;
 						}
 					}
-					if(!$err){
-						$Customers = new Customers();
-						//Перезаписываем данные в сессии
-						$_SESSION['member']['name'] = (isset( $_POST['name']))?$_POST['name']:null;
-						$_SESSION['member']['email'] = (isset( $_POST['email']))?$_POST['email']:null;
-						$_SESSION['member']['phone'] = (isset( $_POST['phone']))?$_POST['phone']:null;
-
-						if($Customers->AddCustomer($_POST)) echo json_encode('true');
-					}else{
-						print_r($errm);
-						//echo json_encode($errm);
-					}
-
-
-
-
-
-					print_r($unique_phone); die();
-				} else{
-					print_r('зарегистрирован'); die();
 				}
-
-
-				print_r($_POST); die();
-
+				echo json_encode($res);
 				break;
 			default:
 				break;

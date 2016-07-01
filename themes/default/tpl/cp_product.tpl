@@ -6,11 +6,11 @@
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
 			<?if(!empty($item['images'])){?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['images'][0]['src']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
 			<?}else if(!empty($item['img_1'])){?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['img_1']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
 			<?}else{?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua/efiles/nofoto.jpg"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -20,12 +20,12 @@
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+						<img src="<?=_base_url?><?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
+							<img src="<?=_base_url?><?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -58,12 +58,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?' class="act_img"':null;?>>
+						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':null;?>>
+							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
 						<?}
 					}
 				}?>
@@ -85,14 +85,8 @@
 					<div id="owl-product_mobile_img_js" class="mobile_carousel">
 						<?if(!empty($item['images'])){
 							foreach($item['images'] as $i => $image){?>
-								<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+								<img src="<?=_base_url?><?=$image['src']?>" alt="<?=$item['name']?>">
 							<?}
-						}else{
-							for($i=1; $i < 4; $i++){
-								if(!empty($item['img_'.$i])){?>
-									<img src="http://xt.ua<?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
-								<?}
-							}
 						}?>
 						<?if(!empty($item['videos'])){
 							foreach($item['videos'] as $i => $video){?>
@@ -597,12 +591,6 @@
 </script>
 <script>
 	$(function(){
-		$('.product_main_img').on('click', function(){
-			var carus_cont = $(this).closest('#caruselCont').find('.mobile_carousel').html();
-			console.log(carus_cont);
-			$('#big_photos_carousel .modal_container').html(carus_cont);
-
-		});
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();

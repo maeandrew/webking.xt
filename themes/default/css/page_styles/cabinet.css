@@ -1027,9 +1027,6 @@ table.supplier_assort_table {
 .material-icons {
 	vertical-align: top;
 }
-.msg-info {
-	margin: 1em;
-}
 .del_x i {
 	padding: 5px;
 	/*background: #FFF;*/
@@ -1567,7 +1564,7 @@ table.supplier_assort_table {
 
 	.customer_cab #bonus a.details {
 		display: block;
-		text-align: center;
+		/* text-align: center; */
 		margin: 10px 0;
 	}
 	.customer_cab #bonus .info_text {
@@ -1813,6 +1810,11 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 .order .number {
 	float: left;
 	cursor: pointer;
+	width: calc(100% - 52px);
+}
+.order .date,
+.order .my_item {
+	padding-left: 20px;
 }
 .order .title .container .num_mar {
 	margin-right: 20px;
@@ -1830,6 +1832,20 @@ div[id^="items_panel_"] > div > #products .total_wrap {
  /*  float: right; */
 	cursor: pointer;
 		top: -5px;
+}
+.order .title .container .print .icon img {
+	margin-top: 6px;
+}
+.order .title .container .print .print_menu {
+	min-width: 160px;
+}
+.order .title .container .print .print_menu li a {
+	color: #9E9E9E;
+	display: block;
+}
+.order .title .container .print .print_menu li a svg {
+	margin-right:5px;
+	margin-top:-5px;
 }
 .order .title .container .print .expanded {
 	float: left;
@@ -2025,21 +2041,21 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 .order .orderBntsMob {
 	display: none;
 }
-
-#products .ordersProdList .ordersProdListContent.ordersProdListTitle {
-	height: 40px;
-	text-align: center;
+#products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle) {
+	min-height: 120px;
 }
 
-#products .ordersProdList .ordersProdListContent {
-	height: 120px;
+#products .ordersProdList .ordersProdListContent {	
 	border-bottom: 1px solid #e0e0e0;
 	padding-top: 10px;
 	padding-bottom: 10px;
-
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
+}
+#products .ordersProdList .ordersProdListContent.ordersProdListTitle {
+	max-height: 40px;
+	text-align: center;	
 }
 
 #products .ordersProdList .ordersProdListTitle .priceWrap,
@@ -2076,6 +2092,82 @@ div[id^="items_panel_"] .btnWrapFlex {
 #products .ordersProdList .ordersProdListContent .priceTitle {
 	display: none;
 }
+#products .ordersProdList .ordersProdListContent .note .priceTitle {
+	display: inline;
+}
+#products .ordersProdList .ordersProdListContent .note .priceTitle:first-child {
+	font-weight: bold;
+}
+#bonus { 
+	margin-right: 10px;
+}
+
+/* Стили для блоков оповещения в разделе дисконта */
+[class^="msg-"] {  
+  background-repeat: no-repeat;
+  background-position: 1em 50%;
+  width: 100%;
+  min-height: 100px;
+  padding: 1em;
+  box-sizing: border-box;
+  position: relative;
+}
+#bonus .msg_title {
+	font-weight: bold;	
+}
+#bonus .msg_title, 
+#bonus .msg_text {
+	margin-left: 30px;
+}
+#bonus .msg_icon {
+	position: absolute;
+	left: 1em;
+	top: calc(50% - 12px);
+}
+#bonus .msg-success {
+  color: #067369;
+  background-color: #c0ffc0;	
+}
+#bonus .msg-success .msg_title::before {
+  content: 'Успех';
+}
+#bonus .msg-success .msg_text::before {
+  content: 'Сообщение про что то  что должно тут быть и возможно появится';
+}
+#bonus .msg-error {
+  color: #d82114;
+  background-color: #ffa3a6;	
+}
+#bonus .msg-error .msg_title::before {
+  content: 'Ошибка';
+}
+#bonus .msg-error .msg_text::before {
+  content: 'Сообщение про что то  что должно тут быть и возможно появится';
+}
+#bonus .msg-attention {
+  color: #9a5c01;
+  background-color: #fdec9b;	
+}
+#bonus .msg-attention .msg_title::before {
+  content: 'Внимание';
+}
+#bonus .msg-attention .msg_text::before {
+  content: 'Сообщение про что то  что должно тут быть и возможно появится';
+}
+#bonus .msg-info {
+  color: #33439c;
+  background-color: #b2ddff;	
+}
+#bonus .msg-info .msg_title::before {
+  content: 'Внимание';
+}
+#bonus .msg-info .msg_text::before {
+  content: 'Для активации бонусной карты, заполните эту форму!';
+}
+#bonus .details {
+	color: #FF5722;
+}
+
 
 @media (max-width: 1060px) {
 	.nav li {
@@ -2102,11 +2194,14 @@ div[id^="items_panel_"] .btnWrapFlex {
 		background-color: #fff;*/
 	}
 	#orders_history .orderBnts {
-		/*width: 385px;*/
+		width: 334px;
 	}
 	#orders_history .orderBnts button {
-		width: 105px;
-	}	
+		width: 90px;
+	}
+	#orders_history .cnslOrderBtn{
+		padding-left: 10px;
+	}
 	#products .ordersProdList .ordersProdListContent .cent {
 		/*flex-basis: 15%;*/
 	}
@@ -2389,15 +2484,14 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 }
 
-
-
-
-
-
-
-
-
-
+@media (max-width: 325px) {
+	#orders_history .orderBntsMob .replaceOrderBtn {
+		padding-left: 10px;
+	}
+	#orders_history .orderBntsMob .cnslOrderBtn {
+		padding-left: 5px;
+	}
+}
 
 #products .mdl-shadow--2dp {
 	box-shadow: inherit;
@@ -2470,7 +2564,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 80%;
 } */
 .orderBnts {
-	/*float: right;*/
+	float: right;
 }
 .orderBnts button {
 	margin-left: 5px;
@@ -2573,6 +2667,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.date_container .mdl-textfield {
 		width: auto;
 	}
+}
 
-
+#modal_message .modal_container .mesage_text {
+	margin-top: 25px;
 }

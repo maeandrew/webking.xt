@@ -17,8 +17,13 @@ if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET[
 }
 $Products = new Products();
 $Supplier = new Suppliers();
-$Supplier->SetFieldsById($id_supplier);
-
+//Подключение/отключение поставщика
+if(isset($_POST['suppliers_activity'])){
+	$update_supplier['active'] = $_POST['supplier_activ'];
+	$update_supplier['id_user'] = $id_supplier;
+	$Supplier->UpdateSupplier($update_supplier, 'activity');
+}
+$Supplier->SetFieldsById($id_supplier, 1);
 
 //экспорт в exel
 if(isset($_GET['export'])){

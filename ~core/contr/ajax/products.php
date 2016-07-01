@@ -35,7 +35,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case "getFilterLink":
-				echo json_encode(Link::Category($_POST['rewrite'], $_POST['params']));
+				echo json_encode(Link::Category($_POST['rewrite'], isset($_POST['params'])?$_POST['params']:null));
 				break;
 			case "getmoreproducts":
 

@@ -291,7 +291,7 @@ class Cart {
 			return $product['id_cart_product'];
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
-			if(G::isLogged() && !_acl::isAdmin()){
+			if(G::IsLogged() && !_acl::isAdmin()){
 				$f['id_user'] = $_SESSION['member']['id_user'];
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){
@@ -331,7 +331,7 @@ class Cart {
 			$_SESSION['cart']['promo'] = $res['promo'];
 			$_SESSION['cart']['adm'] = $res['adm'];
 			$_SESSION['cart']['ready'] = $res['ready'];
-			$_SESSION['cart']['ready'] = $res['note'];
+			$_SESSION['cart']['ready'] = isset($res['note'])?$res['note']:'';
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
@@ -491,7 +491,7 @@ class Cart {
 				FROM "._DB_PREFIX_."cart_product as cp
 				LEFT JOIN "._DB_PREFIX_."cart as c ON c.id_cart = cp.id_cart
 				LEFT JOIN "._DB_PREFIX_."product as p ON cp.id_product = p.id_product
-				WHERE c.promo = 'JO1111'
+				WHERE c.promo = '".$promo."'
 				ORDER BY c.id_cart";
 		$res = $db->GetArray($sql);
 		if(!$res){
@@ -617,6 +617,58 @@ class Cart {
 		unset($a, $b);
 		return $res;
 	}
+
+
+//	public function GetInfoJO($condition){
+//		switch ($condition){
+//			case 'joactive':
+//				$status = " AND c.`status` = 10 ";
+//				break;
+//			case 'jocompleted':
+//				$status = " AND c.`status` = 11 ";
+//				break;
+//			case 'joinwork':
+//				$status = " AND c.`status` = 12 ";
+//				break;
+//		}
+//		global $db;
+//		$sql = "SELECT c.*, u.name, u.phone, u.email, COUNT(cp2.id_cart) AS count_carts,
+//				cp.id_user AS adm_id, us.name AS adm_name, us.phone AS adm_phones, us.email AS adm_email
+//				FROM xt_cart AS c
+//				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+//				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
+//				LEFT JOIN "._DB_PREFIX_."cart AS cp2 ON c.promo = cp2.promo
+//				LEFT JOIN "._DB_PREFIX_."user AS us ON cp.id_user = us.id_user
+//				WHERE c.id_user = '".$_SESSION['member']['id_user']."'
+//				".$status."
+//				GROUP BY c.promo
+//				HAVING count_carts > 0
+//				ORDER BY creation_date DESC";
+//		$res = $db->GetArray($sql);
+//
+//		if(!$res){
+//			return false;
+//		}
+//		foreach ($res as &$v){
+//			//Добавляем список всех товаров со всех корзин, связанных промокодом
+//			$a = $this->GetCartForPromo($v['promo']);
+//			$v['products'] = $a['products'];
+//			$v['total_sum'] = $a['total_sum'];
+//			$v['discount'] = $a['discount'];
+//			//Добавляем информацию об участниках совместного заказа
+//			$v['infoCarts'] = $this->GetInfoForPromo($v['promo']);
+//			$b = $this->GetProductsForPromo($v['promo']);
+//			foreach($v['infoCarts'] as &$val){
+//				$val['sum_cart'] = $b[$val['id_user']]['total_sum'];
+//			}
+//		}
+////		echo'<pre>';
+////		print_r($res);
+////		echo'</pre>';
+////		die();
+//		unset($a, $b);
+//		return $res;
+//	}
 
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){

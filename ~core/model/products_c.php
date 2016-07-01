@@ -24,7 +24,7 @@ class Products {
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
 			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
-		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr",
+		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "c.note",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
 			"p.price_coefficient_opt", "p.price_coefficient_mopt", "p.visible", "p.ord", "p.note_control",
@@ -1291,7 +1291,7 @@ class Products {
 		}
 		$prices_zero = '';
 		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND p.price_opt > 0 ';//OR p.price_mopt > 0
+			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0)';
 		}
 		$sql = "SELECT p.id_product,
 				p.visible,
@@ -1303,11 +1303,10 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
 				RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 			WHERE cp.id_product IS NOT NULL
-			".$where.$where2.$this->price_range."
-			GROUP BY price_opt
+			".$where.$where2.$this->price_range." AND a.active = 1
+			GROUP BY p.id_product
 			HAVING p.visible = 1
-				".$prices_zero."
-				AND a.active = 1";
+				".$prices_zero;
 		$cnt = count($this->db->GetArray($sql));
 		if(!$cnt){
 			return 0;
@@ -1786,14 +1785,14 @@ class Products {
 			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
 			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
 		}else{
-			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
-			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
-			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
-			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
+			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk_usd'] * $supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk_usd'] * $supp_fields['currency_rate'], 2);
+			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
+			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
 		}
 		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
-
+		$f['edited'] = date('Y-m-d');
 		$this->db->StartTrans();
 		//Заполнение массива для проверки на совпадения
 		$check['id_product'] = $arr['id_product'];
@@ -1873,7 +1872,6 @@ class Products {
 	public function RecalcSitePrices($ids_products = null){
 		set_time_limit(3600);
 		ini_set('memory_limit', '400M');
-		//$time_start = microtime(true);
 		$sql = "SELECT a.id_product, a.id_supplier, a.active,
 			a.price_opt_recommend, a.price_mopt_recommend,
 			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
@@ -1959,9 +1957,6 @@ class Products {
 			return false;
 		}
 		ini_set('memory_limit', '192M');
-		//$time_end = microtime(true);
-		//$time = $time_end - $time_start;
-		//echo "execution time <b>$time</b> seconds\n";
 		return true;
 	}
 	/**
@@ -1969,6 +1964,7 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function UpdateSitePricesMassive($arr){
+		//$time_start = microtime(true);
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				if ($a['opt_sr'] > 100) {
@@ -1990,7 +1986,10 @@ class Products {
 				$this->db->CompleteTrans();
 			}
 		}
-		return true;
+		//$time_end = microtime(true);
+		//$time = $time_end - $time_start;
+		//echo "execution time <b>$time</b> seconds\n";
+		//return true;
 	}
 	/**
 	 * [UpdateSitePrices description]
@@ -2865,7 +2864,6 @@ class Products {
 				}
 			}
 		}
-		die();
 		return array($total_added, $total_updated);
 	}
 	/**
@@ -2926,10 +2924,10 @@ class Products {
 				$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
 				if($this->IsInAssort($id_product, $id_supplier)){
 					$res['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, false);
+					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, true);
 					$total_updated++;
 				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, false);
+					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, true);
 					$total_added++;
 				}
 			}
@@ -4622,4 +4620,32 @@ class Products {
 		return true;
 	}
 
+	public function UploadEstimate($file, $comment){
+		$f['id_user'] = $_SESSION['member']['id_user'];
+		$f['comment'] = trim($comment);
+		$f['file'] = trim($file);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'estimate', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Сохранение в БД сообщений об ошибке
+	public function InsertError($arr){
+		$f['comment'] = trim($arr['comment']);
+		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
+		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
+		unset($arr);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'errors', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		unset($f);
+		$this->db->CompleteTrans();
+		return true;
+	}
 }

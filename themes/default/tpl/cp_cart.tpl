@@ -92,7 +92,7 @@
 			</p>
 		</div>
 	<?}?>
-	<?if(G::isLogged() && $_SESSION['member']['gid'] == _ACL_MANAGER_){?>
+	<?if(G::IsLogged() && $_SESSION['member']['gid'] == _ACL_MANAGER_){?>
 		<?if(!empty($unlist)){?>
 			<a href="#" class="show_btn" onclick="$(this).next().toggleClass('hidden'); return false;">Показать недоступные товары</a>
 			<div class="unavailable_products hidden animate" id="unavailable_products">
@@ -312,7 +312,7 @@
 				<p class="err_msg"></p>
 				<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 
-				<?if(G::isLogged() || _acl::isAdmin()){?>
+				<?if(G::IsLogged() || _acl::isAdmin()){?>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
 						<label for="promo_input">Промокод</label>
 						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
@@ -372,7 +372,7 @@
 						</div>
 					<?}?>
 				<?}?>
-				<?if(!G::isLogged() || !_acl::isAdmin()){?>
+				<?if(!G::IsLogged() || !_acl::isAdmin()){?>
 					<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 					</div>
@@ -491,7 +491,7 @@
 
 
 		$(function(){
-			if(isLogged){
+			if(IsLogged){
 				// console.log('loggedin');
 			}
 			// Инициалзация маски для ввода телефонных номеров
@@ -508,10 +508,9 @@
 			});
 
 			$(".note_field").blur(function() {
-				console.log('ушли');
-				console.log($(this).data('id'));
-				console.log($(this).val());
-
+				 var id_product = $(this).data('id'),
+				 	 note = $(this).val();
+				ajax('cart', 'updateCartQty', {id_product: id_product, note: note});
 			});
 
 
@@ -587,7 +586,7 @@
 					$('.err_tel').css('visibility', 'visible');
 				}				
 			});
-			if(!isLogged){
+			if(!IsLogged){
 				$('input.send_order, input.save_order').click(function(e){
 					var name = $('#edit #name').val().length;
 					var phone = $('#edit #phone').val().length;

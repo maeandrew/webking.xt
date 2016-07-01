@@ -7,7 +7,7 @@ footer {
 footer .footer_wrapp {
 	margin: 0 auto;
 	max-width: 1600px;
-	padding: 2em 10px 0;
+	padding: 2em;
 }
 footer h5 {
 	/*margin: 15px 0 4px 0;*/
@@ -17,15 +17,15 @@ footer h5 {
 }
 footer ul li {
 	line-height: normal;
-	/*color: #444;*/
+	color: #444;
 	line-height: 24px;
 }
 footer ul li a {
 	font-weight: normal;
 	display: block;
 }
-footer .mdl-mega-footer {
-	padding-bottom: 2em;
+footer.mdl-mega-footer {
+	padding: 0;
 }
 footer .mdl-mega-footer__left-section {
 	width: calc(100% - 320px);

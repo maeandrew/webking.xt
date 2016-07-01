@@ -1,14 +1,13 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="bonus">
-
 			<?if(!isset($_GET['t']) || $_GET['t']=='bonus_info'){?>
 				<?if(!$Customer['bonus_card']){?>
 					<div class="info_text">
 						<p>Вы получили бонусную карту? Пришло время ее активировать! <br>
 						Для этого заполните, пожалуйста, в <a href="?t=change_bonus">личных данных</a> информацию, которая поможет нам сделать Ваши покупки проще, а работу с нами - приятнее.</p>
 						<hr>
-						<a href="<?=_base_url?>/page/Skidki/" class="details">Детали бонусной программы</a>
+						<a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Детали бонусной программы</a>
 					</div>
 				<?}else{?>
 					<div class="bonus_balance">
@@ -24,15 +23,25 @@
 						</p>
 					</div>
 					<hr>
-					<a href="<?=_base_url?>/page/Skidki/" class="details">Условия бонусной программы.</a>
+					<a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Условия бонусной программы.</a>
 				<?}?>
 			<?}elseif($_GET['t'] == 'change_bonus'){?>
+						<!-- <div class="msg-info">
+							<p><b>Внимание!</b> Для активации бонусной карты, заполните эту форму!</p>
+						</div> -->
+						<div class="msg-info">
+							<div class="msg_icon"">
+								<i class="material-icons hidden">check_circle</i>
+								<i class="material-icons">info</i>
+								<i class="material-icons hidden">warning</i>
+								<i class="material-icons hidden">error</i>
+							</div>
+						    <p class="msg_title">!</p>
+						    <p class="msg_text"></p>
+						</div>						
+						<a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Детали бонусной программы</a>
 				<form action="" method="POST">
 					<?if(!$Customer['bonus_card']){?>
-						<div class="msg-info">
-							<p><b>Внимание!</b> Для активации бонусной карты, заполните эту форму!</p>
-							<a href="<?=_base_url?>/page/Skidki/" class="details">Детали бонусной программы</a>
-						</div>
 						<div class="bonus_reg_block">
 							<div id="bonus_card_line" class="line">
 								<label for="bonus_card">№ бонусной карты: <span class="required">*</span></label><br>

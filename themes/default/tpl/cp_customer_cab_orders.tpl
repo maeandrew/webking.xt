@@ -35,9 +35,9 @@
 								<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 									<div class="title">
 										<div class="container">
-											<span class="number" style="width:calc(100% - 52px);">
+											<span class="number">
 												<span class="numb">Заказ № <?=$i['id_order']?></span>
-												<span class="date"  style="padding-left:20px">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
+												<span class="date">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
 												<?php
 													$str = count($i['products']). ' товар';
 													$count = count($i['products']);
@@ -48,7 +48,7 @@
 													else
 														$str .= 'ов';
 												?>
-												<span class="my_item" style="padding-left:20px"><?=$str?> на <?=number_format($i['sum_discount'],2,',','')?> грн.</span>
+												<span class="my_item"><?=$str?> на <?=number_format($i['sum_discount'],2,',','')?> грн.</span>
 												<div class="status"><?=$order_statuses[$i['id_order_status']]['name']?></div>
 												<!-- <div class="mobileBtns">
 													<i class="material-icons">add_circle_outline</i>
@@ -59,20 +59,20 @@
 												<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
 													<img src="<?=_base_url?>/themes/default/img/print1.png">
 												</div>
-												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$i['id_order']?>" style="min-width:160px; !important">
+												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect print_menu" for="menu-lower_<?=$i['id_order']?>">
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;">
-															<svg class="icon" id="tt1" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank">
+															<svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
 														</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;"><svg class="icon" id="tt2" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#txt"></use></svg>Для реализатора</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg>Для реализатора</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>" style="color: #9E9E9E;"><svg class="icon" id="tt3" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#img"></use></svg>С картинками</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>" target="_blank"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg>С картинками</a>
 													</li>
 													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" style="color: #9E9E9E;"><svg class="icon" id="tt4" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#paper"></use></svg>Документом</a>
+														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg>Документом</a>
 													</li>
 												</ul>
 											</div>
@@ -101,6 +101,7 @@
 											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
 
 											<div class="orderBnts">
+
 												<h5>Заказ:</h5>
 												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
@@ -179,7 +180,9 @@
 															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
 														</div>
 														<div id="modal_message" data-type="modal">
-															<div class="modal_container"><div style="margin-top: 25px;">Вы уже отдали голос за этого менеджера</div></div>
+															<div class="modal_container">
+																<div class="mesage_text">Вы уже отдали голос за этого менеджера</div>
+															</div>
 														</div>
 													</div>
 												</div>

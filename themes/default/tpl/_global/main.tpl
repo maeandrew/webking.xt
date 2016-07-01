@@ -55,7 +55,7 @@
 			ajax_proceed = false,			
 			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
-			isLogged = '.(G::isLogged()?'false':'true').';
+			IsLogged = '.(G::IsLogged()?'false':'true').';
 	</script>';
 	?>
 	<!-- END define JS global variables -->
@@ -86,7 +86,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 	<!-- END include specific js templates for controllers -->
-	<?if(!G::isLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
+	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
 		<!-- Google counter -->
 		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
@@ -120,9 +120,7 @@
 			}
 		</style>
 	</noscript>
-<!--	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
-	</script> -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
 	
@@ -343,7 +341,7 @@
 				<div class="questions">
 					<h5>Навигация</h5>
 					<ul>
-						<li><a href="<?=Link::Custom('main')?>">Главная</a></li>
+						<li><a href="<?=Link::Custom('main', null)?>">Главная</a></li>
 						<?foreach($list_menu as $menu){?>
 							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
 						<?}?>
@@ -410,36 +408,37 @@
 	<div class="modals">
 		<div id="quiz" data-type="modal"></div>
 		<!-- Загрузка сметы -->
-		<div id="estimateLoad" class="content_modal_win" data-type="modal">
-			<div class="modal_container blockForForm">
-				<div class="mdl-card__supporting-text">
-					<p>Вы можете загрузить свою смету</p>
-					<form action="">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input <?=(isset($_SESSION['member']['name']))?'disabled':null?> name ="name" class="mdl-textfield__input" type="text" id="sample1" value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
-							<label class="mdl-textfield__label" for="sample1">Имя...</label>
-						</div><br>
-						<div class="mdl-textfield mdl-js-textfield">
-							<input required <?=(isset($_SESSION['member']['phone']))?'disabled':null?> name="phone" class="mdl-textfield__input" type="text" id="sample2" value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
-							<label class="mdl-textfield__label" for="sample2">Номер телефона...</label>
-						</div><br>
-						<div class="mdl-textfield mdl-js-textfield">
-							<input <?=(isset($_SESSION['member']['email']))?'disabled':null?> name="email" class="mdl-textfield__input" type="text" id="sample3" value="<?=(isset($_SESSION['member']['email']))?$_SESSION['member']['email']:null?>">
-							<label class="mdl-textfield__label" for="sample3">Ваш email...</label>
-						</div><br>
-						<div class="mdl-textfield mdl-js-textfield">
-							<textarea name="comment" rows="3"  class="mdl-textfield__input"  id="sample3"></textarea>
-							<label class="mdl-textfield__label" for="sample3">Оставить комментарий...</label>
+		<div id="estimateLoad" class="estimate_modal" data-type="modal">
+			<div class="modal_container">
+				<h3>Вы можете загрузить свою смету</h3>
+				<div class="estimate_info estimate_info_js"></div>
+				<form action="" id="estimate">
+					<div class="mdl-grid">
+						<?if(!G::IsLogged()){?>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+								<input class="mdl-textfield__input" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
+								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
+								<span class="mdl-textfield__error">Ошибка ввода Имени!</span>
+							</div>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+								<input class="mdl-textfield__input" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
+								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
+								<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
+							</div>
+						<?}?>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+							<textarea class="mdl-textfield__input" name="comment" type="text" rows= "3" id="estimate_comment" ></textarea>
+							<label class="mdl-textfield__label" for="estimate_comment">Комментарий</label>
 						</div>
-						<div class="mdl-textfield mdl-js-textfield">
-							<input name="file" class="mdl-textfield__input" type="file" id="sample5">
-							<label class="mdl-textfield__label" for="sample5"></label>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+							<input class="mdl-textfield__input" name="file" type="file" id="estimate_file">
+							<label class="mdl-textfield__label" for="estimate_file"></label>
 						</div>
-						<div class="mdl-card__actions mdl-card--border">
+						<div class="mdl-cell mdl-cell--12-col">
 							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect estimate_js">Загрузить смету</button>
 						</div>
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 		</div>
 		<!-- Authentication -->
@@ -538,8 +537,11 @@
 		</div>
 		<div id="registerComplete" data-type="modal">
 			<div class="modal_container">
-				<p>Спасибо за регистрацию!</p>
-				<p>Перейдите в личный кабинет</p>
+				<div class="auth_ok">
+					<i class="material-icons">check_circle</i>
+				</div>
+				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>
 			</div>
 		</div>
 		<!-- Cart -->
@@ -756,7 +758,7 @@
 				<form action="#">
 					<input type="hidden" value="" data-islogged="<?=G::isLogged()?'true':'false';?>" data-membergid="<?=G::isLogged()?$_SESSION['member']['gid']:'-1';?>">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
-						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
+						<textarea name="comment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
 					<!-- <p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p> -->
