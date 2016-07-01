@@ -276,6 +276,12 @@
 				margin: 2% auto;
 				text-align: center;
 			}
+			@media (max-width: 1006px) {
+				.btn_plus {
+					top: 105%;
+				}
+			}
+
 
 /* Страница "Доставка" / class="page_delivery" */
 	#content .page_delivery .delivery2:hover {
