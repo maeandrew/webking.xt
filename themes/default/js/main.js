@@ -1616,10 +1616,18 @@ $(function(){
 				}
 			}
 		}
-	}).on('mouseleave', 'button', function(){		
+	}).on('mouseleave', 'button', function(){
 		$('.tooltipForBtnAdd_js').addClass('hidden');
-		$('.tooltipForBtnRemove_js').addClass('hidden');		
+		$('.tooltipForBtnRemove_js').addClass('hidden');
 	});	
+
+	// Переключение сегментов при переходе по кнопке из страниц "Снабжение предприятий" и тд.
+	$(".to_org_catalog_btn_js").on('click', function(){
+		$.cookie('Segmentation', 1, { path: '/'});
+	});
+	$(".to_magaz_catalog_btn_js").on('click', function(){
+		$.cookie('Segmentation', 2, { path: '/'});
+	});
 });
 
 
