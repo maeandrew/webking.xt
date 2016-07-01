@@ -768,7 +768,7 @@
 					</div>
 					<!-- <p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p> -->
 					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
-						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input">
+						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
 					<div id="savedCopyContainer">
@@ -781,8 +781,8 @@
 							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
 						</div>
 					</div>
-					<div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
-					<!-- <input type="submit" value="Отправить"> -->
+					<!-- <div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div> -->
+					<input type="submit" value="Отправить" class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
 				</form>
 			</div>
 		</div>
@@ -888,13 +888,22 @@
 		}
 
 		function ev_canvas(ev){
-			if (ev.layerX || ev.layerX == 0) {
+			// if (ev.layerX || ev.layerX == 0) {
+			// 	ev._x = ev.layerX;
+			// 	ev._y = ev.layerY;
+			// } else if (ev.offsetX || ev.offsetX == 0) {
+			// 	ev._x = ev.offsetX;
+			// 	ev._y = ev.offsetY;
+			// }
+
+			console.log(ev);
 				ev._x = ev.layerX;
 				ev._y = ev.layerY;
-			} else if (ev.offsetX || ev.offsetX == 0) {
-				ev._x = ev.offsetX;
-				ev._y = ev.offsetY;
-			}
+			// if (ev.layerX || ev.layerX == 0) {
+			// } else if (ev.offsetX || ev.offsetX == 0) {
+			// 	ev._x = ev.offsetX;
+			// 	ev._y = ev.offsetY + $(window).scrollTop();
+			// }
 
 			var func = tool[ev.type];
 			if (func) {
@@ -1112,6 +1121,8 @@
 				}
 			}, 2000);
 
+			var temp = false;
+
 			$('.err_msg_as_knob_js').click(function(event){
 				if ($('.err_msg_as').hasClass('shown')) {
 					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
@@ -1122,10 +1133,66 @@
 					$('.err_msg_as_js').css('border-color', '#FF865F');
 					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				}
+				if(!temp){
+					temp = true;
+					event.preventDefault();
+					$('html').css({
+						'overflow': 'hidden'
+					});
+					$('#tablet').attr({
+						'width': $('body').outerWidth(),
+						'height': $(window).outerHeight()
+						// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
+					});
+
+					$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
+
+					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+
+					var detachEl = $('.err_msg_as_js').detach();
+					
+						$('.waiting_block_for_img_canvas_js').removeClass('hidden');
+						html2canvas(document.body, {
+							onrendered: function(canvas){
+								canvas.id = 'canvasImg';
+
+								var url = canvas.toDataURL("image/jpeg");
+								// window.location = canvas.toDataURL();
+
+								$('.err_msg_as_wrap').css('display', 'none');
+								$('.err_msg_as_wrap').append(detachEl);
+								// Находим элемент <img>
+								var imageCopy = document.getElementById("savedImageCopy");
+							
+								// Отображаем данные холста в элементе <img>
+								imageCopy.src = canvas.toDataURL();
+								
+								// Показываем элемент <div>, делая изображение видимым
+								// делая изображение видимым
+								var imageContainer = document.getElementById("savedCopyContainer");
+								imageContainer.style.display = "block";
+
+
+								$('.err_msg_as_wrap').css('display', 'block');
+								$('.waiting_block_for_img_canvas_js').addClass('hidden');
+								$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+								$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+
+								$('#tablet').attr({
+									'width': '20',
+									'height': '20'
+								});
+							},
+							width: $('body').outerWidth(),
+							height: $(window).outerHeight()
+						});
+				}
 			});
 
 			$('body').on('click', '.clicked_js', function(e){
 				e.preventDefault();
+				temp = true;
 				closeObject('big_photo');
 				$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
 				$('#savedCopyContainer').css('display', 'none');
@@ -1139,28 +1206,20 @@
 
 			$('body').on('click', '.screen_btn_js', function(event){
 				event.preventDefault();
+				temp = true;
 				$('#tablet').attr({
 					'width': $('body').outerWidth(),
-					'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
+					'height': $(window).outerHeight()
+					// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
 				});
-				// addLoadAnimation('body');
 
 				$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
-
-
-				// if($(this).hasClass('clicked')){
-				// 	// $('.modal_canvas_js canvas').remove();
-				// 	$(this).removeClass('clicked').removeClass('is-checked');
-				// 	$('#savedImageCopy').attr('src', '');
-				// }else{
-				// 	$(this).addClass('clicked').addClass('is-checked');
-				// }
 
 				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 
 				var detachEl = $('.err_msg_as_js').detach();
-				setTimeout(function(){
+				
 					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
 					html2canvas(document.body, {
 						onrendered: function(canvas){
@@ -1172,6 +1231,8 @@
 							var url = canvas.toDataURL("image/jpeg");
 							// window.location = canvas.toDataURL();
 
+							$('.err_msg_as_wrap').css('display', 'none');
+							$('.err_msg_as_wrap').append(detachEl);
 							// Находим элемент <img>
 							var imageCopy = document.getElementById("savedImageCopy");
 						
@@ -1182,19 +1243,21 @@
 							// делая изображение видимым
 							var imageContainer = document.getElementById("savedCopyContainer");
 							imageContainer.style.display = "block";
-						}
-					});
-					setTimeout(function(){
-						$('.err_msg_as_wrap').css('display', 'none');
-						$('.err_msg_as_wrap').append(detachEl);
-						setTimeout(function(){
+
 							$('.err_msg_as_wrap').css('display', 'block');
 							$('.waiting_block_for_img_canvas_js').addClass('hidden');
 							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-						}, 3000);
-					}, 6000);
-				}, 2000);
+							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');	
+
+							$('#tablet').attr({
+								'width': '20',
+								'height': '20'
+							});
+						},
+							width: $('body').outerWidth(),
+							height: $(window).outerHeight()
+					});
+				
 
 			});
 
@@ -1205,7 +1268,8 @@
 				$('.canvas_toolbar').css('display', 'block');
 				$('#tablet').attr({
 					'width': $('body').outerWidth(),
-					'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
+					'height': $(window).outerHeight()
+					// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
 				});
 			});
 
@@ -1275,18 +1339,15 @@
 				// 	$('.screen_btn_js').addClass('clicked');
 				// }
 				var detachElement = $('.err_msg_as_js').detach();
-				setTimeout(function(){
+				
 					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
 					html2canvas(document.body, {
 						onrendered: function(canvas){
-							// removeLoadAnimation('body');
-							// $('.modal_canvas_js').append(canvas);
-							// openObject('modal_canvas');
-
-
 							var url = canvas.toDataURL("image/jpeg");
 							// window.location = canvas.toDataURL();
 
+							$('.err_msg_as_wrap').css('display', 'none');
+							$('.err_msg_as_wrap').append(detachElement);
 							// Находим элемент <img>
 							var imageCopy = document.getElementById("savedImageCopy");
 						
@@ -1305,19 +1366,16 @@
 								'width': '20',
 								'height': '20'
 							});
-						}
-					});
-					setTimeout(function(){
-						$('.err_msg_as_wrap').css('display', 'none');
-						$('.err_msg_as_wrap').append(detachElement);
-						setTimeout(function(){
+
+
 							$('.err_msg_as_wrap').css('display', 'block');
 							$('.waiting_block_for_img_canvas_js').addClass('hidden');
 							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
 							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-						}, 3000);
-					}, 6000);
-				}, 2000);
+						},
+							width: $('body').outerWidth(),
+							height: $(window).outerHeight()
+					});
 			});
 		});
 	</script>
