@@ -88,11 +88,11 @@
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::isLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
 		<!-- Google counter -->
-		<?=isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
+		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
 
 		<!-- Yandex.Metrika counter -->
-		<?=isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
+		<?isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
 		<!-- END Yandex.Metrika counter -->
 		<!--<script>ga('require', 'ecommerce');</script>-->
 	<?}?>
@@ -120,9 +120,9 @@
 			}
 		</style>
 	</noscript>
-	<script type="text/javascript"
+<!--	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru">
-	</script>
+	</script> -->
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
 	
@@ -173,7 +173,6 @@
 			</a>
 		</div>
 	</section>
-	
 	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
@@ -728,22 +727,15 @@
 	<!--------------------------------------------------
 	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
 	------------------------------------------------- -->
-	<script type="text/javascript">
-		/* <![CDATA[ */
-		var google_conversion_id = 880553131;
-		var google_custom_params = window.google_tag_params;
-		var google_remarketing_only = true;
-		/* ]]> */
-	</script>
-	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-	</script>
+	
+	<!-- <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> -->
 	<noscript>
 		<div style="display:inline;">
 		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript>
 
-	<!-- message about cookie -->
+<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
@@ -760,8 +752,9 @@
 				<p>Сообщите нам об ошибке</p>
 				<i class="material-icons">keyboard_arrow_up</i>
 			</div>
-			<div class="err_msg_as_form">
+			<div class="err_msg_as_form err_msg_as_form_js">
 				<form action="#">
+					<input type="hidden" value="" data-islogged="<?=G::isLogged()?'true':'false';?>" data-membergid="<?=G::isLogged()?$_SESSION['member']['gid']:'-1';?>">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
 						<textarea class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
@@ -781,8 +774,8 @@
 							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
 						</div>
 					</div>
-					<!-- <div class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div> -->
-					<input type="submit" value="Отправить" class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<!-- <input type="submit" value="Отправить" class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> -->
 				</form>
 			</div>
 		</div>
@@ -800,582 +793,9 @@
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
 		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>		
 	</div>
-
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
 		Подождите, формируется скриншот страницы...
 	</div>
-
 	<div id="canvas_mark_wrapper">
 		<canvas id="tablet" width="10" height="10"></canvas>
 	</div>
-	
-	<script>
-		var canvas, context, canvaso, contexto;
-		
-		// По умолчанию линия - инструмент по умолчанию
-		var tool;
-		var tool_default = 'line';
-
-		function init (color, tool_type) {
-			canvaso = document.getElementById('tablet');
-			if (!canvaso) {
-				alert('Ошибка! Canvas элемент не найден!');
-				return;
-			}
-
-			if (!canvaso.getContext) {
-				alert('Ошибка! canvas.getContext не найден!');
-				return;
-			}
-
-			contexto = canvaso.getContext('2d');
-			if (!contexto) {
-				alert('Ошибка! Не могу получить getContext!');
-				return;
-			}
-
-			var container = canvaso.parentNode;
-			canvas = document.createElement('canvas');
-			if (!canvas) {
-				alert('Ошибка! Не могу создать canvas элемент!');
-				return;
-			}
-
-			canvas.id = 'imageTemp';
-			canvas.width = canvaso.width;
-			canvas.height = canvaso.height;
-			container.appendChild(canvas);
-
-			context = canvas.getContext('2d');
-			context.strokeStyle = color;
-
-			// Получаем инструмент из option
-				// var tool_select = document.getElementById('tools');
-				// if (!tool_select) {
-				// 	alert('Ошибка! Элемент tools не найден!');
-				// 	return;
-				// }
-				// tool_select.addEventListener('change', ev_tool_change, false);
-
-			// Активируем способ рисования по-умолчанию
-				// if (tools[tool_default]) {
-				// 	tool = new tools[tool_default]();
-				// 	tool_select.value = tool_default;
-				// }
-
-			switch (tool_type) {
-				case 'rect':
-					tool = new tools['rect']();
-					break;
-				case 'fillrect':
-					tool = new tools['fillrect']();
-					break;
-				case 'pencil':
-					tool = new tools['pencil']();
-					context.lineWidth = 3;
-					break;
-				case 'eraser':
-					tool = new tools['eraser']();
-					break;
-				// default:
-				// 	tool = new tools['rect']();
-				// 	break;
-			}
-
-			canvas.addEventListener('mousedown', ev_canvas, false);
-			canvas.addEventListener('mousemove', ev_canvas, false);
-			canvas.addEventListener('mouseup', ev_canvas, false);
-		}
-
-		function ev_canvas(ev){
-			// if (ev.layerX || ev.layerX == 0) {
-			// 	ev._x = ev.layerX;
-			// 	ev._y = ev.layerY;
-			// } else if (ev.offsetX || ev.offsetX == 0) {
-			// 	ev._x = ev.offsetX;
-			// 	ev._y = ev.offsetY;
-			// }
-
-			console.log(ev);
-				ev._x = ev.layerX;
-				ev._y = ev.layerY;
-			// if (ev.layerX || ev.layerX == 0) {
-			// } else if (ev.offsetX || ev.offsetX == 0) {
-			// 	ev._x = ev.offsetX;
-			// 	ev._y = ev.offsetY + $(window).scrollTop();
-			// }
-
-			var func = tool[ev.type];
-			if (func) {
-				func(ev);
-			}
-		}
-
-		// Обработчик событий для изменения селекта
-		function ev_tool_change(ev){
-			if (tools[this.value]) {
-				tool = new tools[this.value]();
-			}
-		}
-
-		// Эта функция вызывается каждый раз после того, как пользователь
-		// завершит рисование. Она очищает imageTemp.
-		function img_update(){
-			contexto.drawImage(canvas, 0, 0);
-			context.clearRect(0, 0, canvas.width, canvas.height);
-		}
-
-		function clear_canvas(){
-			contexto.clearRect(0, 0, canvaso.width, canvaso.height);
-			$('#canvas_mark_wrapper').find('canvas:not(#tablet)').remove();
-		}
-
-		// Содержит реализацию каждого инструмента рисования
-		var tools = {};
-
-			// Карандаш
-		tools.pencil = function(){
-			var tool = this;
-			this.started = false;
-
-			// Рисуем карандашом
-			this.mousedown = function(ev){
-				context.beginPath();
-				context.moveTo(ev._x, ev._y);
-				tool.started = true;
-			};
-
-			this.mousemove = function(ev){
-				if (tool.started) {
-					context.lineTo(ev._x, ev._y);
-					context.stroke();
-				}
-			};
-
-			this.mouseup = function(ev){
-				if (tool.started) {
-					tool.mousemove(ev);
-					tool.started = false;
-					img_update();
-				}
-			};
-		};
-
-		// Прямоугольник
-		tools.rect = function(){
-			var tool = this;
-			this.started = false;
-
-			this.mousedown = function(ev){
-				tool.started = true;
-				tool.x0 = ev._x;
-				tool.y0 = ev._y;
-			};
-
-			this.mousemove = function(ev){
-				if (!tool.started) {
-					return;
-				}
-
-				var x = Math.min(ev._x,  tool.x0),
-				y = Math.min(ev._y,  tool.y0),
-				w = Math.abs(ev._x - tool.x0),
-				h = Math.abs(ev._y - tool.y0);
-
-				context.clearRect(0, 0, canvas.width, canvas.height);
-
-				if (!w || !h) {
-					return;
-				}
-				context.lineWidth = 3;
-				context.strokeRect(x, y, w, h);
-			};
-
-			this.mouseup = function(ev){
-				if (tool.started) {
-					tool.mousemove(ev);
-					tool.started = false;
-					img_update();
-				}
-			};
-		};
-
-		// Прямоугольник закрашенный
-		tools.fillrect = function(){
-			var tool = this;
-			this.started = false;
-
-			this.mousedown = function(ev){
-				tool.started = true;
-				tool.x0 = ev._x;
-				tool.y0 = ev._y;
-			};
-
-			this.mousemove = function(ev){
-				if (!tool.started) {
-					return;
-				}
-
-				var x = Math.min(ev._x,  tool.x0),
-				y = Math.min(ev._y,  tool.y0),
-				w = Math.abs(ev._x - tool.x0),
-				h = Math.abs(ev._y - tool.y0);
-
-				context.clearRect(0, 0, canvas.width, canvas.height);
-
-				if (!w || !h) {
-					return;
-				}
-
-				context.fillRect(x, y, w, h);
-			};
-
-			this.mouseup = function(ev){
-				if (tool.started) {
-					tool.mousemove(ev);
-					tool.started = false;
-					img_update();
-				}
-			};
-		};
-
-		// Линия
-		tools.line = function(){
-			var tool = this;
-			this.started = false;
-
-			this.mousedown = function(ev){
-				tool.started = true;
-				tool.x0 = ev._x;
-				tool.y0 = ev._y;
-			};
-
-			this.mousemove = function(ev){
-				if (!tool.started) {
-					return;
-				}
-
-				context.clearRect(0, 0, canvas.width, canvas.height);
-
-				context.beginPath();
-				context.moveTo(tool.x0, tool.y0);
-				context.lineTo(ev._x,   ev._y);
-				context.stroke();
-				context.closePath();
-			};
-
-			this.mouseup = function(ev){
-				if (tool.started) {
-					tool.mousemove(ev);
-					tool.started = false;
-					img_update();
-				}
-			};
-		};
-
-		tools.eraser = function(){
-			var tool = this;
-			this.started = false;
-
-			// Рисуем карандашом
-			this.mousedown = function(ev){
-				context.beginPath();
-				context.moveTo(ev._x, ev._y);
-				tool.started = true;
-			};
-
-			this.mousemove = function(ev){
-				if (tool.started) {
-					context.lineTo(ev._x, ev._y);
-					context.stroke();
-				}
-			};
-
-			this.mouseup = function(ev){
-				if (tool.started) {
-					tool.mousemove(ev);
-					tool.started = false;
-					img_update();
-				}
-			};
-		};
-		// init();		
-	</script>
-	<script>
-		$(document).ready(function(){
-			setTimeout(function(){
-				if ($.cookie('useCookie') != 'agree'){
-					$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
-					
-					$('body').on('click', '.cookie_msg_js .close', function(event) {
-						event.preventDefault();
-						$('.cookie_msg_js').css('top', '100%');
-						$.cookie('useCookie', 'agree', {expires: 365});
-						setTimeout(function() {
-							$('.cookie_wrap').remove();
-							$('.err_msg_as_title').css('opacity', '1');
-						}, 3000);
-					});
-				}else{
-					$('.err_msg_as_title').css('opacity', '1');
-				}
-			}, 2000);
-
-			var temp = false;
-
-			$('.err_msg_as_knob_js').click(function(event){
-				if ($('.err_msg_as').hasClass('shown')) {
-					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-				}else{
-					$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
-					$('.err_msg_as_form').find('textarea').focus();
-					$('.err_msg_as_js').css('border-color', '#FF865F');
-					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-				}
-				if(!temp){
-					temp = true;
-					event.preventDefault();
-					$('html').css({
-						'overflow': 'hidden'
-					});
-					$('#tablet').attr({
-						'width': $('body').outerWidth(),
-						'height': $(window).outerHeight()
-						// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
-					});
-
-					$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
-
-					$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-					$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-
-					var detachEl = $('.err_msg_as_js').detach();
-					
-						$('.waiting_block_for_img_canvas_js').removeClass('hidden');
-						html2canvas(document.body, {
-							onrendered: function(canvas){
-								canvas.id = 'canvasImg';
-
-								var url = canvas.toDataURL("image/jpeg");
-								// window.location = canvas.toDataURL();
-
-								$('.err_msg_as_wrap').css('display', 'none');
-								$('.err_msg_as_wrap').append(detachEl);
-								// Находим элемент <img>
-								var imageCopy = document.getElementById("savedImageCopy");
-							
-								// Отображаем данные холста в элементе <img>
-								imageCopy.src = canvas.toDataURL();
-								
-								// Показываем элемент <div>, делая изображение видимым
-								// делая изображение видимым
-								var imageContainer = document.getElementById("savedCopyContainer");
-								imageContainer.style.display = "block";
-
-
-								$('.err_msg_as_wrap').css('display', 'block');
-								$('.waiting_block_for_img_canvas_js').addClass('hidden');
-								$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-								$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-
-								$('#tablet').attr({
-									'width': '20',
-									'height': '20'
-								});
-							},
-							width: $('body').outerWidth(),
-							height: $(window).outerHeight()
-						});
-				}
-			});
-
-			$('body').on('click', '.clicked_js', function(e){
-				e.preventDefault();
-				temp = true;
-				closeObject('big_photo');
-				$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
-				$('#savedCopyContainer').css('display', 'none');
-				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-				$('#savedImageCopy').attr('src', '');
-				$('#tablet').attr({
-					'width': '20',
-					'height': '20'
-				});
-			});
-
-			$('body').on('click', '.screen_btn_js', function(event){
-				event.preventDefault();
-				temp = true;
-				$('#tablet').attr({
-					'width': $('body').outerWidth(),
-					'height': $(window).outerHeight()
-					// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
-				});
-
-				$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
-
-				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-
-				var detachEl = $('.err_msg_as_js').detach();
-				
-					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
-					html2canvas(document.body, {
-						onrendered: function(canvas){
-							// removeLoadAnimation('body');
-							// $('.modal_canvas_js').append(canvas);
-							canvas.id = 'canvasImg';
-							// openObject('modal_canvas');
-
-							var url = canvas.toDataURL("image/jpeg");
-							// window.location = canvas.toDataURL();
-
-							$('.err_msg_as_wrap').css('display', 'none');
-							$('.err_msg_as_wrap').append(detachEl);
-							// Находим элемент <img>
-							var imageCopy = document.getElementById("savedImageCopy");
-						
-							// Отображаем данные холста в элементе <img>
-							imageCopy.src = canvas.toDataURL();
-							
-							// Показываем элемент <div>, делая изображение видимым
-							// делая изображение видимым
-							var imageContainer = document.getElementById("savedCopyContainer");
-							imageContainer.style.display = "block";
-
-							$('.err_msg_as_wrap').css('display', 'block');
-							$('.waiting_block_for_img_canvas_js').addClass('hidden');
-							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');	
-
-							$('#tablet').attr({
-								'width': '20',
-								'height': '20'
-							});
-						},
-							width: $('body').outerWidth(),
-							height: $(window).outerHeight()
-					});
-				
-
-			});
-
-			$('.go_to_canvas_toolbar_js').click(function(event){
-				closeObject('big_photo');
-				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-				$('.canvas_toolbar').css('display', 'block');
-				$('#tablet').attr({
-					'width': $('body').outerWidth(),
-					'height': $(window).outerHeight()
-					// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
-				});
-			});
-
-			$('body').on('click', '.problem_area_js', function(){
-				var color = 'yellow',
-					tool_type = 'rect';
-				init(color, tool_type);
-			});
-
-			$('body').on('click', '.confidential_js', function(){
-				var color = 'black',
-					tool_type = 'fillrect';
-				init(color, tool_type);
-			});
-
-			$('body').on('click', '.pencil_for_canvas_js', function(){
-				var color = 'red',
-					tool_type = 'pencil';
-				init(color, tool_type);
-			});
-
-			$('body').on('click', '.eraser_for_canvas_js', function(){
-				var color = '#fff',
-					tool_type = 'eraser';
-				init(color, tool_type);
-			});
-
-			$('body').on('click', '.canvasClear_js', function(event){
-				clear_canvas();
-			});
-
-			$('body').on('click', '.close_canvas_toolbar_js', function(event){
-				$('.canvas_toolbar').css('display', 'none');
-				$('#tablet').attr({
-					'width': '20',
-					'height': '20'
-				});
-				clear_canvas();
-			});
-
-
-
-			$('body').on('click', '.img_zoom_js', function(event){
-				$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-				$('#tablet').attr({
-					'width': '20',
-					'height': '20'
-				});
-				var src = $('#savedImageCopy').attr('src');
-				$('#big_photo').css({
-					'overflow': 'auto',
-					'overflow-x': 'hidden',
-					'padding': '2em'
-				});
-				$('#big_photo img').attr('src', src).css('width', '100%');
-				openObject('big_photo');
-			});
-
-			$('body').on('click', '.canvasReady_js', function(event){
-				$('.canvas_toolbar').css('display', 'none');
-				// addLoadAnimation('body');
-								
-				// if($('.screen_btn_js').hasClass('clicked')){
-				// 	// $('.modal_canvas_js canvas').remove();
-				// }else{
-				// 	$('.screen_btn_js').addClass('clicked');
-				// }
-				var detachElement = $('.err_msg_as_js').detach();
-				
-					$('.waiting_block_for_img_canvas_js').removeClass('hidden');
-					html2canvas(document.body, {
-						onrendered: function(canvas){
-							var url = canvas.toDataURL("image/jpeg");
-							// window.location = canvas.toDataURL();
-
-							$('.err_msg_as_wrap').css('display', 'none');
-							$('.err_msg_as_wrap').append(detachElement);
-							// Находим элемент <img>
-							var imageCopy = document.getElementById("savedImageCopy");
-						
-							// Отображаем данные холста в элементе <img>
-							imageCopy.src = canvas.toDataURL();
-							
-							// Показываем элемент <div>, делая изображение видимым
-							// делая изображение видимым
-							var imageContainer = document.getElementById("savedCopyContainer");
-							imageContainer.style.display = "block";
-							$('#savedCopyContainer').css('border-color', '#FF865F');
-
-							clear_canvas();
-
-							$('#tablet').attr({
-								'width': '20',
-								'height': '20'
-							});
-
-
-							$('.err_msg_as_wrap').css('display', 'block');
-							$('.waiting_block_for_img_canvas_js').addClass('hidden');
-							$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-							$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-						},
-							width: $('body').outerWidth(),
-							height: $(window).outerHeight()
-					});
-			});
-		});
-	</script>
