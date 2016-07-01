@@ -3620,7 +3620,9 @@ div.modalEditOrder .applyBtn {
 	top: 100%;
 	width: 100%;
 	background-color: rgba(52, 52, 52, 0.85);
-	transition: 3s ease;
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	z-index: 100000000;
 }
 .cookie_msg p {
@@ -3676,6 +3678,8 @@ div.modalEditOrder .applyBtn {
 	/*background-color: #fff;*/
 	border: 1px solid transparent;
 	transition: all .4s cubic-bezier(.4,0,.2,1);
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	z-index: 10000000;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -3686,6 +3690,8 @@ div.modalEditOrder .applyBtn {
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 	transition: all .4s cubic-bezier(.4,0,.2,1);
+	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	cursor: pointer;
 	opacity: 0;
 	width: 100%;
