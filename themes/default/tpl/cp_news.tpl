@@ -14,7 +14,9 @@
 	<div class="content_news">
 		<? foreach($randoms_news as $news){?>
 			<a href="<?=Link::Custom('news', $news['translit']);?>" class="random_news <?=!isset($news['thumbnail'])?'hidden':null;?>">
-				<img src="<?=$news['thumbnail']?>">
+				<div class="image_container">
+					<img src="<?=$news['thumbnail']?>">
+				</div>
 				<p><?=$news['title']?></p>
 			</a>
 		<?}?>

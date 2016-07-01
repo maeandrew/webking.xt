@@ -41,11 +41,7 @@
 			}
 		});
 		/*$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");*/
-		//Очистить фильтры
-		$("#clear_filter").click(function() {
-			$(this).addClass('active');
-			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
-		});
+		
 		// Добавление/удаление элементов в массиве
 		$('.filters input').on('change', function(){
 			var dataSpec = $(this).data('spec');
@@ -70,20 +66,26 @@
 				delete filterLink[dataSpec];
 			}
 			params['filters'] = filterLink;
-			// console.log(filterLink);
+			console.log(filterLink);
 		});
 
 		// Клик на "Применить"
 		$('#applyFilter').on('click', function(e){
-			addLoadAnimation('.filters');
 			e.preventDefault();
-			ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
+			ajax('products', 'getFilterLink', {params: params, segment: '<?=(isset($GLOBALS['Segment']))?$GLOBALS['Segment']:null;?>', rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
 				// console.log(data);
 				window.location.href = data;
 			}).fail(function(data){
 				removeLoadAnimation('.filters');
 			});
 		});
+
+		//Очистить фильтры
+		$("#clear_filter").click(function() {
+			$(this).addClass('active');
+			window.location.href = '<?=Link::Category($GLOBALS['Rewrite'], array('clear'=>true))?>';
+		});
+
 		//Сделать не активные ссылки у отключенных фильтров
 		//	$('.disabled').click(function(event) {
 		//		event.preventDefault();
@@ -116,10 +118,10 @@
 				e.preventDefault();
 				addLoadAnimation('.filters');
 				ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
-					console.log(data);
+					// console.log(data);
 					window.location.href = data;
 				}).fail(function(data){
-				removeLoadAnimation('.filters');
+					removeLoadAnimation('.filters');
 				});
 			}
 		});

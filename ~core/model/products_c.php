@@ -24,7 +24,7 @@ class Products {
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
 			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
-		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr",
+		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "c.note",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
 			"p.price_coefficient_opt", "p.price_coefficient_mopt", "p.visible", "p.ord", "p.note_control",
@@ -551,8 +551,7 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE p.price_mopt > 0
-			AND p.visible = 1
-			AND p.id_product <= 130400";
+			AND p.visible = 1";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -1872,7 +1871,6 @@ class Products {
 	public function RecalcSitePrices($ids_products = null){
 		set_time_limit(3600);
 		ini_set('memory_limit', '400M');
-		//$time_start = microtime(true);
 		$sql = "SELECT a.id_product, a.id_supplier, a.active,
 			a.price_opt_recommend, a.price_mopt_recommend,
 			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
@@ -1958,9 +1956,6 @@ class Products {
 			return false;
 		}
 		ini_set('memory_limit', '192M');
-		//$time_end = microtime(true);
-		//$time = $time_end - $time_start;
-		//echo "execution time <b>$time</b> seconds\n";
 		return true;
 	}
 	/**
@@ -1968,6 +1963,7 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function UpdateSitePricesMassive($arr){
+		//$time_start = microtime(true);
 		if(!empty($arr)){
 			foreach($arr AS $k=>$a){
 				if ($a['opt_sr'] > 100) {
@@ -1989,7 +1985,10 @@ class Products {
 				$this->db->CompleteTrans();
 			}
 		}
-		return true;
+		//$time_end = microtime(true);
+		//$time = $time_end - $time_start;
+		//echo "execution time <b>$time</b> seconds\n";
+		//return true;
 	}
 	/**
 	 * [UpdateSitePrices description]

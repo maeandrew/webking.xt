@@ -237,13 +237,11 @@ class Suppliers extends Users {
 		global $User;
 		$arr['gid'] = $User->fields['gid'];
 		if(!$User->UpdateUser($arr)){
-			$this->db->errno = $User->db->errno;
-			$this->db->FailTrans();
 			return false;
 		}
 		unset($f);
+		$f['id_user'] = $arr['id_user'];
 		if($only_activity == false){
-			$f['id_user'] = $arr['id_user'];
 			$f['article'] = trim($arr['article']);
 			$f['phones'] = trim($arr['phones']);
 			$f['place'] = trim($arr['place']);
@@ -269,17 +267,18 @@ class Suppliers extends Users {
 			if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on" && $f['real_email'] != ''){
 				$f['send_mail_order'] = 1;
 			}
+			$this->db->StartTrans();
 			if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = {$f['id_user']}")){
 				$this->db->FailTrans();
 				return false;
 			}
+			$this->db->CompleteTrans();
 		}
 		if(isset($arr['active']) && $arr['active'] == "on"){
 			$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);
 		}else{
 			$this->SwitchEnableDisableProductsInAssort($f['id_user'], 1);
 		}
-		$this->db->CompleteTrans();
 		return true;
 	}
 	// Удаление ассортимента поставщика
@@ -314,14 +313,13 @@ class Suppliers extends Users {
 		if(!$this->db->Update(_DB_PREFIX_.'assortiment', $f, $where)){
 			$this->db->FailTrans();
 			return false;
-		}else{
-			$product = new Products();
-			foreach($arr as $p){
-				$rsarr[] = $p['id_product'];
-			}
-			$product->RecalcSitePrices($rsarr);
 		}
 		$this->db->CompleteTrans();
+		$product = new Products();
+		foreach($arr as $p){
+			$rsarr[] = $p['id_product'];
+		}
+		$product->RecalcSitePrices($rsarr);
 		return true;
 	}
 
