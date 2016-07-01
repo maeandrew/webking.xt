@@ -749,7 +749,6 @@
 <!-- message about error -->
 	<div class="err_msg_as_wrap">
 		<div class="err_msg_as err_msg_as_js">
-			<!-- <div class="err_msg_as_knob ">Click</div> -->
 			<div class="err_msg_as_title err_msg_as_knob_js">
 				<p>Сообщите нам об ошибке</p>
 				<i class="material-icons">keyboard_arrow_up</i>
@@ -761,13 +760,11 @@
 						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
-					<!-- <p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p> -->
 					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
 						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
 					<div id="savedCopyContainer">
-						<!-- <input type="image" id="savedImageCopy"> -->
 						<img id="savedImageCopy">
 						<div class="tools_wrapp_js tools_wrapp">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
@@ -777,7 +774,6 @@
 						</div>
 					</div>
 					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
-					<!-- <input type="submit" value="Отправить" class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> -->
 				</form>
 			</div>
 		</div>
@@ -789,8 +785,9 @@
 		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
 		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
 		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
+		<!-- Доработать функционал ластика 
 		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
-		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
+		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
 		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>

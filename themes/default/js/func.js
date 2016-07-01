@@ -1983,27 +1983,25 @@ var canvas, context, canvaso, contexto;
 var tool;
 var tool_default = 'line';
 
-function init (color, tool_type) {
+function init(color, tool_type){
 	canvaso = document.getElementById('tablet');
-	if (!canvaso) {
+	if(!canvaso){
 		alert('Ошибка! Canvas элемент не найден!');
 		return;
 	}
-
-	if (!canvaso.getContext) {
+	if(!canvaso.getContext){
 		alert('Ошибка! canvas.getContext не найден!');
 		return;
 	}
-
 	contexto = canvaso.getContext('2d');
-	if (!contexto) {
+	if(!contexto){
 		alert('Ошибка! Не могу получить getContext!');
 		return;
 	}
 
 	var container = canvaso.parentNode;
 	canvas = document.createElement('canvas');
-	if (!canvas) {
+	if(!canvas){
 		alert('Ошибка! Не могу создать canvas элемент!');
 		return;
 	}
@@ -2016,20 +2014,7 @@ function init (color, tool_type) {
 	context = canvas.getContext('2d');
 	context.strokeStyle = color;
 
-	// Получаем инструмент из option
-		// var tool_select = document.getElementById('tools');
-		// if (!tool_select) {
-		// 	alert('Ошибка! Элемент tools не найден!');
-		// 	return;
-		// }
-		// tool_select.addEventListener('change', ev_tool_change, false);
-
-	// Активируем способ рисования по-умолчанию
-		// if (tools[tool_default]) {
-		// 	tool = new tools[tool_default]();
-		// 	tool_select.value = tool_default;
-		// }
-
+	// Получаем инструмент
 	switch (tool_type) {
 		case 'rect':
 			tool = new tools['rect']();
@@ -2039,14 +2024,14 @@ function init (color, tool_type) {
 			break;
 		case 'pencil':
 			tool = new tools['pencil']();
-			context.lineWidth = 3;
+			context.lineWidth = 4;
 			break;
 		case 'eraser':
 			tool = new tools['eraser']();
+			context.lineWidth = 20;
 			break;
-		// default:
-		// 	tool = new tools['rect']();
-		// 	break;
+		default:
+			break;
 	}
 
 	canvas.addEventListener('mousedown', ev_canvas, false);
@@ -2078,13 +2063,6 @@ function ev_canvas(ev){
 	}
 }
 
-// Обработчик событий для изменения селекта
-function ev_tool_change(ev){
-	if (tools[this.value]) {
-		tool = new tools[this.value]();
-	}
-}
-
 // Эта функция вызывается каждый раз после того, как пользователь
 // завершит рисование. Она очищает imageTemp.
 function img_update(){
@@ -2100,7 +2078,7 @@ function clear_canvas(){
 // Содержит реализацию каждого инструмента рисования
 var tools = {};
 
-	// Карандаш
+// Карандаш
 tools.pencil = function(){
 	var tool = this;
 	this.started = false;
@@ -2111,14 +2089,12 @@ tools.pencil = function(){
 		context.moveTo(ev._x, ev._y);
 		tool.started = true;
 	};
-
 	this.mousemove = function(ev){
 		if (tool.started) {
 			context.lineTo(ev._x, ev._y);
 			context.stroke();
 		}
 	};
-
 	this.mouseup = function(ev){
 		if (tool.started) {
 			tool.mousemove(ev);
@@ -2138,7 +2114,6 @@ tools.rect = function(){
 		tool.x0 = ev._x;
 		tool.y0 = ev._y;
 	};
-
 	this.mousemove = function(ev){
 		if (!tool.started) {
 			return;
@@ -2157,7 +2132,6 @@ tools.rect = function(){
 		context.lineWidth = 3;
 		context.strokeRect(x, y, w, h);
 	};
-
 	this.mouseup = function(ev){
 		if (tool.started) {
 			tool.mousemove(ev);
@@ -2240,24 +2214,22 @@ tools.line = function(){
 	};
 };
 
+// Ластик
 tools.eraser = function(){
 	var tool = this;
 	this.started = false;
 
-	// Рисуем карандашом
 	this.mousedown = function(ev){
 		context.beginPath();
 		context.moveTo(ev._x, ev._y);
 		tool.started = true;
 	};
-
 	this.mousemove = function(ev){
 		if (tool.started) {
 			context.lineTo(ev._x, ev._y);
 			context.stroke();
 		}
 	};
-
 	this.mouseup = function(ev){
 		if (tool.started) {
 			tool.mousemove(ev);
@@ -2266,5 +2238,4 @@ tools.eraser = function(){
 		}
 	};
 };
-// init();
 //-----

@@ -1662,13 +1662,10 @@ $(function(){
 		if(!temp){
 			temp = true;
 			event.preventDefault();
-			$('html').css({
-				'overflow': 'hidden'
-			});
+			$('html').css({ 'overflow': 'hidden' });
 			$('#tablet').attr({
 				'width': $('body').outerWidth(),
 				'height': $(window).outerHeight()
-				// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
 			});
 
 			$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
@@ -1676,86 +1673,12 @@ $(function(){
 			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 			$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 
-			var detachEl = $('.err_msg_as_js').detach();
-			
-				$('.waiting_block_for_img_canvas_js').removeClass('hidden');
-				html2canvas($('section.main'), {
-					onrendered: function(canvas){
-						canvas.id = 'canvasImg';
-
-						var url = canvas.toDataURL("image/jpeg");
-						// window.location = canvas.toDataURL();
-
-						$('.err_msg_as_wrap').css('display', 'none');
-						$('.err_msg_as_wrap').append(detachEl);
-						// Находим элемент <img>
-						var imageCopy = document.getElementById("savedImageCopy");
-					
-						// Отображаем данные холста в элементе <img>
-						imageCopy.src = canvas.toDataURL();
-						
-						// Показываем элемент <div>, делая изображение видимым
-						// делая изображение видимым
-						var imageContainer = document.getElementById("savedCopyContainer");
-						imageContainer.style.display = "block";
-
-
-						$('.err_msg_as_wrap').css('display', 'block');
-						$('.waiting_block_for_img_canvas_js').addClass('hidden');
-						$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-						$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-
-						$('#tablet').attr({
-							'width': '20',
-							'height': '20'
-						});
-						$('html').css({
-							'overflow': 'auto'
-						});
-					},
-					width: $(window).outerWidth(),
-					height: $(window).outerHeight()
-				});
-		}
-	});
-
-	$('body').on('click', '.clicked_js', function(e){
-		e.preventDefault();
-		temp = true;
-		closeObject('big_photo');
-		$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
-		$('#savedCopyContainer').css('display', 'none');
-		$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-		$('#savedImageCopy').attr('src', '');
-		$('#tablet').attr({
-			'width': '20',
-			'height': '20'
-		});
-	});
-
-	$('body').on('click', '.screen_btn_js', function(event){
-		event.preventDefault();
-		temp = true;
-		$('#tablet').attr({
-			'width': $('body').outerWidth(),
-			'height': $(window).outerHeight()
-			// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
-		});
-
-		$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
-
-		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-
-		var detachEl = $('.err_msg_as_js').detach();
-		
+			var detachEl = $('.err_msg_as_js').detach();			
 			$('.waiting_block_for_img_canvas_js').removeClass('hidden');
-			html2canvas($('#tablet'), {
+
+			html2canvas($('section.main'), {
 				onrendered: function(canvas){
-					// removeLoadAnimation('body');
-					// $('.modal_canvas_js').append(canvas);
 					canvas.id = 'canvasImg';
-					// openObject('modal_canvas');
 
 					var url = canvas.toDataURL("image/jpeg");
 					// window.location = canvas.toDataURL();
@@ -1769,42 +1692,92 @@ $(function(){
 					imageCopy.src = canvas.toDataURL();
 					
 					// Показываем элемент <div>, делая изображение видимым
-					// делая изображение видимым
 					var imageContainer = document.getElementById("savedCopyContainer");
 					imageContainer.style.display = "block";
 
 					$('.err_msg_as_wrap').css('display', 'block');
 					$('.waiting_block_for_img_canvas_js').addClass('hidden');
 					$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');	
+					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
-					$('#tablet').attr({
-						'width': '20',
-						'height': '20'
-					});
-					$('html').css({
-						'overflow': 'auto'
-					});
+					$('#tablet').attr({'width':'20','height':'20'});
+					$('html').css({'overflow': 'auto'});
 				},
-					width: $(window).outerWidth(),
-					height: $(window).outerHeight()
+				width: $('body').outerWidth(),
+				height: $(window).outerHeight()
 			});
-		
+		}
+	});
 
+	$('body').on('click', '.clicked_js', function(e){
+		e.preventDefault();
+		temp = true;
+		closeObject('big_photo');
+		$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
+		$('#savedCopyContainer').css('display', 'none');
+		$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+		$('#savedImageCopy').attr('src', '');
+		$('#tablet').attr({'width':'20','height':'20'});
+	});
+
+	$('body').on('click', '.screen_btn_js', function(event){
+		event.preventDefault();
+		temp = true;
+		$('html').css({'overflow': 'hidden'});
+		$('#tablet').attr({
+			'width': $('body').outerWidth(),
+			'height': $(window).outerHeight()
+		});
+
+		$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
+
+		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+
+		var detachEl = $('.err_msg_as_js').detach();
+		$('.waiting_block_for_img_canvas_js').removeClass('hidden');
+		
+		html2canvas(document.body, {
+			onrendered: function(canvas){
+				canvas.id = 'canvasImg';
+
+				var url = canvas.toDataURL("image/jpeg");
+				// window.location = canvas.toDataURL();
+
+				$('.err_msg_as_wrap').css('display', 'none');
+				$('.err_msg_as_wrap').append(detachEl);
+				// Находим элемент <img>
+				var imageCopy = document.getElementById("savedImageCopy");
+			
+				// Отображаем данные холста в элементе <img>
+				imageCopy.src = canvas.toDataURL();
+				
+				// Показываем элемент <div>, делая изображение видимым
+				var imageContainer = document.getElementById("savedCopyContainer");
+				imageContainer.style.display = "block";
+
+				$('.err_msg_as_wrap').css('display', 'block');
+				$('.waiting_block_for_img_canvas_js').addClass('hidden');
+				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');	
+
+				$('#tablet').attr({'width':'20','height':'20'});
+				$('html').css({'overflow': 'auto'});
+			},
+			width: $('body').outerWidth(),
+			height: $(window).outerHeight()
+		});
 	});
 
 	$('.go_to_canvas_toolbar_js').click(function(event){
 		closeObject('big_photo');
-		$('html').css({
-			'overflow': 'hidden'
-		});
+		$('html').css({'overflow':'hidden'});
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 		$('.canvas_toolbar').css('display', 'block');
 		$('#tablet').attr({
 			'width': $('body').outerWidth(),
 			'height': $(window).outerHeight()
-			// 'height': $('header').outerHeight() + $('section.main').outerHeight() + $('footer').outerHeight()
 		});
 	});
 
@@ -1813,47 +1786,35 @@ $(function(){
 			tool_type = 'rect';
 		init(color, tool_type);
 	});
-
 	$('body').on('click', '.confidential_js', function(){
 		var color = 'black',
 			tool_type = 'fillrect';
 		init(color, tool_type);
 	});
-
 	$('body').on('click', '.pencil_for_canvas_js', function(){
 		var color = 'red',
 			tool_type = 'pencil';
 		init(color, tool_type);
 	});
-
 	$('body').on('click', '.eraser_for_canvas_js', function(){
 		var color = '#fff',
 			tool_type = 'eraser';
 		init(color, tool_type);
 	});
-
 	$('body').on('click', '.canvasClear_js', function(event){
 		clear_canvas();
 	});
 
 	$('body').on('click', '.close_canvas_toolbar_js', function(event){
 		$('.canvas_toolbar').css('display', 'none');
-		$('#tablet').attr({
-			'width': '20',
-			'height': '20'
-		});
+		$('#tablet').attr({'width':'20','height':'20'});
 		clear_canvas();
 	});
-
-
 
 	$('body').on('click', '.img_zoom_js', function(event){
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-		$('#tablet').attr({
-			'width': '20',
-			'height': '20'
-		});
+		$('#tablet').attr({'width':'20','height':'20'});
 		var src = $('#savedImageCopy').attr('src');
 		$('#big_photo').css({
 			'overflow': 'auto',
@@ -1865,73 +1826,48 @@ $(function(){
 	});
 
 	$('body').on('click', '.canvasReady_js', function(event){
-		$('.canvas_toolbar').css('display', 'none');
-		// addLoadAnimation('body');
-						
-		// if($('.screen_btn_js').hasClass('clicked')){
-		// 	// $('.modal_canvas_js canvas').remove();
-		// }else{
-		// 	$('.screen_btn_js').addClass('clicked');
-		// }
-		var detachElement = $('.err_msg_as_js').detach();
-		
-			$('.waiting_block_for_img_canvas_js').removeClass('hidden');
-			html2canvas($('section.main'), {
-				onrendered: function(canvas){
-					var url = canvas.toDataURL("image/jpeg");
-					// window.location = canvas.toDataURL();
+		$('.canvas_toolbar').css('display', 'none');		
+		var detachElement = $('.err_msg_as_js').detach();		
+		$('.waiting_block_for_img_canvas_js').removeClass('hidden');
 
-					$('.err_msg_as_wrap').css('display', 'none');
-					$('.err_msg_as_wrap').append(detachElement);
-					// Находим элемент <img>
-					var imageCopy = document.getElementById("savedImageCopy");
+		html2canvas(document.body, {
+			onrendered: function(canvas){
+				var url = canvas.toDataURL("image/jpeg");
+				// window.location = canvas.toDataURL();
+
+				$('.err_msg_as_wrap').css('display', 'none');
+				$('.err_msg_as_wrap').append(detachElement);
+				// Находим элемент <img>
+				var imageCopy = document.getElementById("savedImageCopy");
+			
+				// Отображаем данные холста в элементе <img>
+				imageCopy.src = canvas.toDataURL();
 				
-					// Отображаем данные холста в элементе <img>
-					imageCopy.src = canvas.toDataURL();
-					
-					// Показываем элемент <div>, делая изображение видимым
-					// делая изображение видимым
-					var imageContainer = document.getElementById("savedCopyContainer");
-					imageContainer.style.display = "block";
-					$('#savedCopyContainer').css('border-color', '#FF865F');
+				// Показываем элемент <div>, делая изображение видимым
+				var imageContainer = document.getElementById("savedCopyContainer");
+				imageContainer.style.display = "block";
+				$('#savedCopyContainer').css('border-color', '#FF865F');				
 
-					clear_canvas();
+				$('#tablet').attr({'width':'20','height':'20'});
+				$('html').css({'overflow':'auto'});
 
-					$('#tablet').attr({
-						'width': '20',
-						'height': '20'
-					});
+				$('.err_msg_as_wrap').css('display', 'block');
+				$('.waiting_block_for_img_canvas_js').addClass('hidden');
+				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
-					$('html').css({
-						'overflow': 'auto'
-					});
-
-					$('.err_msg_as_wrap').css('display', 'block');
-					$('.waiting_block_for_img_canvas_js').addClass('hidden');
-					$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-				},
-					width: $('body').outerWidth(),
-					height: $(window).outerHeight()
-			});
+				clear_canvas();
+			},
+			width: $('body').outerWidth(),
+			height: $(window).outerHeight()
+		});
 	});
 
 	$('.err_msg_as_send_js').click(function(event) {
-		var user_agent = window.navigator.userAgent;
-		// console.log(user_agent);
-		var current_url = location.href;
-		// console.log(current_url);
-		var isLogged = $('.err_msg_as_form_js').find('input[type="hidden"]').data('islogged');
-		// console.log(isLogged);
-		var membergid = $('.err_msg_as_form_js').find('input[type="hidden"]').data('membergid');
-		// console.log(membergid);
-		var err_msg = $('textarea[name="errcomment"]').val();
-		// console.log(err_msg);
-		var img_src = $('#savedImageCopy').attr('src');
-		// console.log(img_src);
-		var data = {'user_agent': user_agent, 'current_url': current_url, 'isLogged': isLogged, 'membergid': membergid, 'err_msg': err_msg, 'img_src': img_src };
+		var err_msg = $('textarea[name="errcomment"]').val(),
+			img_src = $('#savedImageCopy').attr('src');
+		var data = {'err_msg': err_msg, 'img_src': img_src };
 
-		console.log(data);
 		ajax('errors', 'error', data).done(function(data){
 			console.log('Сообщение об ошибке отправлено успешно');
 		}).fail(function(data){
