@@ -593,7 +593,7 @@ class G {
 	}
 
 	public static function SiteMap($navigation = false){
-		if(!file_exists($GLOBALS['PATH_global_root'].'sitemap')){
+		if (!file_exists($GLOBALS['PATH_global_root'].'sitemap')) {
 			mkdir($GLOBALS['PATH_global_root'].'sitemap', 0777, true);
 		}
 		global $db;
@@ -653,5 +653,24 @@ class G {
 			$new_files[] = $navigation.($i>0?'-'.$i:null).'.xml';
 		}
 		return $new_files;
+	}
+
+	// Сохранение в БД сообщений об ошибке
+	public static function InsertError($arr){
+		global $db;
+		$f['comment'] = trim($arr['comment']);
+		$f['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+		$f['url'] = $_SERVER['URL'];
+		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
+		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
+		unset($arr);
+		$db->StartTrans();
+		if(!$db->Insert(_DB_PREFIX_.'errors', $f)){
+			$db->FailTrans();
+			return false;
+		}
+		unset($f);
+		$db->CompleteTrans();
+		return true;
 	}
 }
