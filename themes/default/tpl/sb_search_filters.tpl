@@ -73,7 +73,6 @@
 		$('#applyFilter').on('click', function(e){
 			e.preventDefault();
 			ajax('products', 'getFilterLink', {params: params, segment: '<?=(isset($GLOBALS['Segment']))?$GLOBALS['Segment']:null;?>', rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
-				// console.log(data);
 				window.location.href = data;
 			}).fail(function(data){
 				removeLoadAnimation('.filters');
@@ -118,7 +117,6 @@
 				e.preventDefault();
 				addLoadAnimation('.filters');
 				ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
-					// console.log(data);
 					window.location.href = data;
 				}).fail(function(data){
 					removeLoadAnimation('.filters');

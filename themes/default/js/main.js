@@ -59,6 +59,7 @@ $(function(){
 			$('.cart_info .price_nav').addClass('hidden');
 		}
 		ChangeView(view);
+		resizeAsideScroll('click');
 	});	
 	
 	// Показать еще 30 товаров
@@ -443,16 +444,16 @@ $(function(){
 		}
 	});
 	// События для автосмены размера сайбара и его скролла 
-	/*$(window).on("load", function(){
+	$(window).on("load", function(){
 		if(over_scroll === true){
 			resizeAsideScroll('load');
 		}
-	});*/
-	$('body').on('click', function(){
+	});
+	/*$('body').on('click', function(){
 		if(over_scroll === true){
 			resizeAsideScroll('click');
 		}
-	});
+	});*/
 	$(window).resize(function(){
 		if(over_scroll === true){
 			resizeAsideScroll('resize');
