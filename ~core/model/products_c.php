@@ -551,8 +551,7 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE p.price_mopt > 0
-			AND p.visible = 1
-			AND p.id_product <= 130400";
+			AND p.visible = 1";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;

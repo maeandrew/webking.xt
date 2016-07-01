@@ -17,7 +17,10 @@ class Link {
 	 * @param string $rewrite идентификатор раздела
 	 * @param array $params массив дополнительных настроек (страница, фильтр, сортировка)
 	 */
-	public static function Category($rewrite, $params = array()){
+	public static function Category($rewrite, $params = array(), $segment = false){
+		if(isset($segment) && $segment !=''){
+			$GLOBALS['Segment'] = $segment;
+		}
 		$data = array();
 		$clear = false;
 		if(isset($GLOBALS['Sort']) && $GLOBALS['Sort'] !== ''){
@@ -40,6 +43,11 @@ class Link {
 		if(!empty($params)){
 			self::ParseParams($params, $data);
 		}
+
+//		echo '<pre>';
+//		print_r($data);
+//		echo '</pre>';
+//		die();
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }
