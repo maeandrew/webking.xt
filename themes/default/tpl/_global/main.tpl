@@ -758,7 +758,7 @@
 				<form action="#">
 					<input type="hidden" value="" data-islogged="<?=G::isLogged()?'true':'false';?>" data-membergid="<?=G::isLogged()?$_SESSION['member']['gid']:'-1';?>">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
-						<textarea name="comment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
+						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
 					<!-- <p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p> -->
@@ -767,8 +767,8 @@
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
 					<div id="savedCopyContainer">
-						<input type="image" id="savedImageCopy">
-						<!-- <img id="savedImageCopy"> -->
+						<!-- <input type="image" id="savedImageCopy"> -->
+						<img id="savedImageCopy">
 						<div class="tools_wrapp_js tools_wrapp">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
 							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>

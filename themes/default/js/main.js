@@ -1926,15 +1926,19 @@ $(function(){
 		// console.log(isLogged);
 		var membergid = $('.err_msg_as_form_js').find('input[type="hidden"]').data('membergid');
 		// console.log(membergid);
-
-		var data = {'user_agent': user_agent, 'current_url': current_url, 'isLogged': isLogged, 'membergid': membergid };
+		var err_msg = $('textarea[name="errcomment"]').val();
+		// console.log(err_msg);
+		var img_src = $('#savedImageCopy').attr('src');
+		// console.log(img_src);
+		var data = {'user_agent': user_agent, 'current_url': current_url, 'isLogged': isLogged, 'membergid': membergid, 'err_msg': err_msg, 'img_src': img_src };
 
 		console.log(data);
-		// ajax('errors', 'error', data).done(function(data){
-
-		// }).fail(function(data){
-// 
+		ajax('errors', 'error', data).done(function(data){
+			console.log('Сообщение об ошибке отправлено успешно');
+		}).fail(function(data){
+			console.log('Сообщение об ошибке не отправлено');
 		});
+	});
 });
 
 
