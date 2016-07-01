@@ -660,7 +660,7 @@ class G {
 		global $db;
 		$f['comment'] = trim($arr['comment']);
 		$f['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
-		$f['url'] = $_SERVER['URL'];
+		$f['url'] = $GLOBALS['_SERVER']['HTTP_REFERER'];
 		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
 		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
 		unset($arr);
