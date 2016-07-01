@@ -1663,7 +1663,7 @@ $(function(){
 			temp = true;
 			event.preventDefault();
 			$('html').css({ 'overflow': 'hidden' });
-			$('#tablet').attr({
+			$('#err_canvas').attr({
 				'width': $('body').outerWidth(),
 				'height': $(window).outerHeight()
 			});
@@ -1700,7 +1700,7 @@ $(function(){
 					$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
 					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
-					$('#tablet').attr({'width':'20','height':'20'});
+					$('#err_canvas').attr({'width':'20','height':'20'});
 					$('html').css({'overflow': 'auto'});
 				},
 				width: $('body').outerWidth(),
@@ -1717,14 +1717,14 @@ $(function(){
 		$('#savedCopyContainer').css('display', 'none');
 		$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 		$('#savedImageCopy').attr('src', '');
-		$('#tablet').attr({'width':'20','height':'20'});
+		$('#err_canvas').attr({'width':'20','height':'20'});
 	});
 
 	$('body').on('click', '.screen_btn_js', function(event){
 		event.preventDefault();
 		temp = true;
 		$('html').css({'overflow': 'hidden'});
-		$('#tablet').attr({
+		$('#err_canvas').attr({
 			'width': $('body').outerWidth(),
 			'height': $(window).outerHeight()
 		});
@@ -1761,7 +1761,7 @@ $(function(){
 				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
 				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');	
 
-				$('#tablet').attr({'width':'20','height':'20'});
+				$('#err_canvas').attr({'width':'20','height':'20'});
 				$('html').css({'overflow': 'auto'});
 			},
 			width: $('body').outerWidth(),
@@ -1775,7 +1775,7 @@ $(function(){
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 		$('.canvas_toolbar').css('display', 'block');
-		$('#tablet').attr({
+		$('#err_canvas').attr({
 			'width': $('body').outerWidth(),
 			'height': $(window).outerHeight()
 		});
@@ -1807,14 +1807,14 @@ $(function(){
 
 	$('body').on('click', '.close_canvas_toolbar_js', function(event){
 		$('.canvas_toolbar').css('display', 'none');
-		$('#tablet').attr({'width':'20','height':'20'});
+		$('#err_canvas').attr({'width':'20','height':'20'});
 		clear_canvas();
 	});
 
 	$('body').on('click', '.img_zoom_js', function(event){
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-		$('#tablet').attr({'width':'20','height':'20'});
+		$('#err_canvas').attr({'width':'20','height':'20'});
 		var src = $('#savedImageCopy').attr('src');
 		$('#big_photo').css({
 			'overflow': 'auto',
@@ -1848,7 +1848,7 @@ $(function(){
 				imageContainer.style.display = "block";
 				$('#savedCopyContainer').css('border-color', '#FF865F');				
 
-				$('#tablet').attr({'width':'20','height':'20'});
+				$('#err_canvas').attr({'width':'20','height':'20'});
 				$('html').css({'overflow':'auto'});
 
 				$('.err_msg_as_wrap').css('display', 'block');
@@ -1870,6 +1870,12 @@ $(function(){
 
 		ajax('errors', 'error', data).done(function(data){
 			console.log('Сообщение об ошибке отправлено успешно');
+			$('textarea[name="errcomment"]').val('');
+			$('#savedCopyContainer').css('display', 'none');
+			$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+			$('#savedImageCopy').attr('src', '');
+			$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+			$('clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
 		}).fail(function(data){
 			console.log('Сообщение об ошибке не отправлено');
 		});

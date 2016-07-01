@@ -796,5 +796,5 @@
 		Подождите, формируется скриншот страницы...
 	</div>
 	<div id="canvas_mark_wrapper">
-		<canvas id="tablet" width="10" height="10"></canvas>
+		<canvas id="err_canvas" width="10" height="10"></canvas>
 	</div>

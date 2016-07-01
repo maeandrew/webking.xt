@@ -1984,7 +1984,7 @@ var tool;
 var tool_default = 'line';
 
 function init(color, tool_type){
-	canvaso = document.getElementById('tablet');
+	canvaso = document.getElementById('err_canvas');
 	if(!canvaso){
 		alert('Ошибка! Canvas элемент не найден!');
 		return;
@@ -2072,7 +2072,7 @@ function img_update(){
 
 function clear_canvas(){
 	contexto.clearRect(0, 0, canvaso.width, canvaso.height);
-	$('#canvas_mark_wrapper').find('canvas:not(#tablet)').remove();
+	$('#canvas_mark_wrapper').find('canvas:not(#err_canvas)').remove();
 }
 
 // Содержит реализацию каждого инструмента рисования

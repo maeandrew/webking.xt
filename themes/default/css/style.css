@@ -3798,7 +3798,7 @@ div.modalEditOrder .applyBtn {
 	position: absolute;
 	top: 0;
 }
-#tablet,
+#err_canvas,
 #imageTemp{
 	position: fixed;
 	z-index: 1000;
