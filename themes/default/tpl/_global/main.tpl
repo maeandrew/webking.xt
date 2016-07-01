@@ -334,6 +334,9 @@
 				</div>
 			<?}?>
 		</section>
+		<div id="canvas_mark_wrapper">
+			<canvas id="err_canvas" width="10" height="10"></canvas>
+		</div>
 	</section>
 	<footer class="mdl-mega-footer mdl-color--grey-100">
 		<div class="footer_wrapp">
@@ -755,7 +758,6 @@
 			</div>
 			<div class="err_msg_as_form err_msg_as_form_js">
 				<form action="#">
-					<input type="hidden" value="" data-islogged="<?=G::isLogged()?'true':'false';?>" data-membergid="<?=G::isLogged()?$_SESSION['member']['gid']:'-1';?>">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
 						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
@@ -765,7 +767,7 @@
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
 					<div id="savedCopyContainer">
-						<img id="savedImageCopy">
+						<img id="savedImageCopy" src="">
 						<div class="tools_wrapp_js tools_wrapp">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
 							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
@@ -794,7 +796,4 @@
 	</div>
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
 		Подождите, формируется скриншот страницы...
-	</div>
-	<div id="canvas_mark_wrapper">
-		<canvas id="err_canvas" width="10" height="10"></canvas>
 	</div>

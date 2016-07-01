@@ -3800,18 +3800,19 @@ div.modalEditOrder .applyBtn {
 }
 #err_canvas,
 #imageTemp{
-	position: fixed;
+	position: absolute;
 	z-index: 1000;
 }
 
 #savedCopyContainer {
 	display: none;
 	position: relative;
-	overflow: hidden;
+	overflow: auto;
 	width: 90%;
 	height: auto;
 	border: 1px solid #FF865F;
 	margin: 0 1em 1em;
+	max-height: 300px;
 }
 #savedImageCopy {
 	width: 100%;
@@ -3857,6 +3858,13 @@ div.modalEditOrder .applyBtn {
 	border-radius: 10px;
 	text-align: center;
 	z-index: 1000000000000;
+}
+
+@media (max-width: 400px) {
+	#savedCopyContainer.
+	.screen_btn {
+		display: none !important;
+	}
 }
 
 
