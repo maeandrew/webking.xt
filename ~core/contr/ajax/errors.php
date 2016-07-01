@@ -3,7 +3,20 @@
         switch($_POST['action']){
             case "error":
                 if(isset($_POST['comment']) && $_POST['comment'] !=''){
-                    if(G::InsertError($_POST)){
+                    if(isset($_FILES['file'])){
+                        // Проверяем загружен ли файл
+                        if(is_uploaded_file($_FILES['file']['tmp_name'])){
+                            $folder_name = 'error_feedback/';
+                            $pathname = $GLOBALS['PATH_root'].$folder_name;
+                            $images = new Images();
+                            $images->checkStructure($pathname);
+                            if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
+                                $arr['file'] = '/'.$folder_name.$_FILES['file']['name'];
+                            }
+                        }
+                    }
+                    $arr['comment'] = $_POST['comment'];
+                    if(G::InsertError($arr)){
                         $res['message'] = 'Комментарий об ошибке отправлен.';
                         $res['status'] = 1;
                     } else{
