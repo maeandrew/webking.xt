@@ -3787,14 +3787,13 @@ div.modalEditOrder .applyBtn {
 	z-index: 100000;
 }
 
-#canvas_mark_wrapper{
-	border: 3px solid red;
+#canvas_mark_wrapper{	
 	position: absolute;
 	top: 0;
 }
 #tablet,
 #imageTemp{
-	position: absolute;
+	position: fixed;
 	z-index: 1000;
 }
 
@@ -3809,7 +3808,7 @@ div.modalEditOrder .applyBtn {
 }
 #savedImageCopy {
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 }
 
 
