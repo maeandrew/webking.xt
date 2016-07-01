@@ -791,7 +791,7 @@
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
 		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
-		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>		
+		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
 	</div>
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
 		Подождите, формируется скриншот страницы...
