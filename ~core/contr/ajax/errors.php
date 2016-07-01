@@ -2,21 +2,35 @@
     if(isset($_POST['action'])){
         switch($_POST['action']){
             case "error":
-                if(isset($_POST['comment']) && $_POST['comment'] !=''){
-                    if(isset($_FILES['file'])){
-                        // Проверяем загружен ли файл
-                        if(is_uploaded_file($_FILES['file']['tmp_name'])){
-                            $folder_name = 'error_feedback/';
-                            $pathname = $GLOBALS['PATH_root'].$folder_name;
-                            $images = new Images();
-                            $images->checkStructure($pathname);
-                            if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
-                                $arr['file'] = '/'.$folder_name.$_FILES['file']['name'];
-                            }
-                        }
+                if(isset($_POST['err_msg']) && $_POST['err_msg'] !=''){
+                    if(isset($_POST['img_src']) && $_POST['img_src'] !=''){
+                        $data = $_POST['img_src'];
+                        list($type, $data) = explode(';', $data);
+                        list(, $data)      = explode(',', $data);
+                        $data = base64_decode($data);
+                        $folder_name = 'error_feedback/';
+                        $pathname = $GLOBALS['PATH_root'].$folder_name;
+                        $filenameDB = 'error_'.date('Y-m-d').'_'.date('H_m_i').'.png';
+                        $images = new Images();
+                        $images->checkStructure($pathname);
+                        $filename = $pathname.$filenameDB; // путь к файлу в который нужно писать
+                        file_put_contents($filename, $data);
+                        $err['image'] = '/'.$folder_name.$filenameDB; // записываем результат в файл
                     }
-                    $arr['comment'] = $_POST['comment'];
-                    if(G::InsertError($arr)){
+//                    if(isset($_FILES['file'])){
+//                        // Проверяем загружен ли файл
+//                        if(is_uploaded_file($_FILES['file']['tmp_name'])){
+//                            $folder_name = 'error_feedback/';
+//                            $pathname = $GLOBALS['PATH_root'].$folder_name;
+//                            $images = new Images();
+//                            $images->checkStructure($pathname);
+//                            if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
+//                                $arr['file'] = '/'.$folder_name.$_FILES['file']['name'];
+//                            }
+//                        }
+//                    }
+                    $err['comment'] = $_POST['err_msg'];
+                    if(G::InsertError($err)){
                         $res['message'] = 'Комментарий об ошибке отправлен.';
                         $res['status'] = 1;
                     } else{
