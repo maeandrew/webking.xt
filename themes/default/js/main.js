@@ -456,7 +456,7 @@ $(function(){
 	});*/
 	$(window).resize(function(){
 		if(over_scroll === true){
-			resizeAsideScroll('resize');
+			resizeAsideScroll('show_more');
 		}
 	});
 

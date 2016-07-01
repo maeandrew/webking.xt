@@ -714,7 +714,7 @@
 			}			
 
 			#content .pages_group img {
-				max-width: 72%;
+				/* max-width: 72%; */
 			}
 			#content .page_provision button {
 				min-width: 60%;

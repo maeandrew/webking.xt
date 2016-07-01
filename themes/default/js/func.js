@@ -975,30 +975,21 @@ function ajax(target, action, data, dataType, form_sent){
 	return ajax;
 }
 // Change sidebar aside height
-function resizeAsideScroll(event) {
-	/*console.log(event);*/
-	// var mainWindow = +$.cookie('mainWindow');
+function resizeAsideScroll(event) {	
 	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
-	var newMainWindow = $('.main').height();
-	
-	// if(newMainWindow != mainWindow){
-		// $.cookie('mainWindow', newMainWindow, { path: '/'});
-		var scroll = $(this).scrollTop(),
-			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
-			/*console.log(pieceOfFooter > 0?pieceOfFooter:0);*/
-		console.log(pieceOfFooter);
-		if (pieceOfFooter >= 0) {
-			console.log('футер видно');
-			$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
-		}
-		$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');		
-		if(event == 'load' || event == 'click'){
-			changeFiltersBtnsPosition();
-		}else if(event == 'show_more'){
-			$('aside').css('bottom', 'auto');
-		}
-	// }
+	var newMainWindow = $('.main').height();	
+	var scroll = $(this).scrollTop(),
+		pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
+	if (pieceOfFooter >= 0) {
+		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
+	}
+	$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');		
+	if(event == 'load' || event == 'click'){
+		changeFiltersBtnsPosition();
+	}else if(event == 'show_more'){
+		$('aside').css('bottom', 'auto');
+	}
 	return true;
 }
 
