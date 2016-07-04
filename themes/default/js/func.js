@@ -984,7 +984,7 @@ function resizeAsideScroll(event) {
 	if (pieceOfFooter >= 0) {
 		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
 	}
-	$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');		
+	$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
 	if(event == 'load' || event == 'click'){
 		changeFiltersBtnsPosition();
 	}else if(event == 'show_more'){

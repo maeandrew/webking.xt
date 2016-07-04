@@ -486,7 +486,7 @@ body:not(.c_main) .banner {
 	/*overflow: hidden;*/
 	/*overflow-y: scroll;*/
 }
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait) and (max-width: 728px) {
 	[data-type="panel"] {
 		width: 80vw;
 	}
@@ -506,8 +506,10 @@ body:not(.c_main) .banner {
 [data-type="panel"][data-position="right"].opened {
 	right: 0;
 }
-[data-type="panel"][data-position="left"] {
-	left: -80vw;
+@media (max-width: 728px) {
+	[data-type="panel"][data-position="left"] {
+		left: -80vw;
+	}	
 }
 [data-type="panel"][data-position="left"].opened {
 	left: 0;
