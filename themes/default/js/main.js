@@ -406,9 +406,13 @@ $(function(){
 		banner_height = $('.banner').outerHeight();
 	var viewPort = $(window).height(); // высота окна
 	var mainWindow = $('.main').outerHeight(); // высота главного блока	
+	window.addEventListener("orientationchange", function() {
+	   viewPort = $(window).height();
+	}, false);
 	$.cookie('mainWindow', mainWindow, { path: '/'});
 
-	$(window).scroll(function(){	
+	$(window).scroll(function(){
+		console.log(over_scroll);	
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - 52 && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
@@ -424,17 +428,21 @@ $(function(){
 				$('html, body').scrollTop(0);
 			}
 		}else{
-			$('aside').css('height', 'calc(100vh - 52px)');
 			var CurentMainWindow = $('.main').outerHeight();//$.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
 			var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
-			
+			if(IsMobile === false){
+				$('aside').css('height', 'calc(100vh - 52px)');
+			}
 			if((scroll + viewPort) <= CurentMainWindow){
 				// не доскролили до футера
 				$('aside').css('bottom', 0);
 			}else{
 				// Доскролили
 				var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52;
+				if(IsMobile === true){
+					$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+				}
 				$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
 				if(viewPort > CurentMainWindow){
 					// $('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');

@@ -519,7 +519,9 @@ div[for="rating_block"] {
 	margin-bottom: 10px;
 }
 
-
+[data-type="panel"][data-position="left"] {
+	left: -80vw;
+}
 
 
 
