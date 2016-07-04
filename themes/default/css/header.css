@@ -31,7 +31,7 @@ header .header_wrapp .header_right {
 }
 
 header .header_wrapp .header_right > div {
-	/* margin-left: 1em; */
+	margin-left: 1em; 
 	position: relative;
 	display: inline-block;
 }
@@ -46,6 +46,7 @@ header .header_wrapp .header_right .search_wrap {
 }
 header .header_wrapp .header_right .search_wrap .search {
 	padding: 0;
+	width: 260px;
 }
 header .header_wrapp .header_right .search_wrap button {
 	display: none;

@@ -251,11 +251,20 @@ label:hover + .info_description {
 	z-index: 2;
 	visibility: hidden;
 }
-[data-type="panel"],
+
+[data-type="panel"]:not(aside),
 [data-type="modal"]{
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+@media (max-width: 728px){
+	[data-type="panel"],
+	[data-type="modal"]{
+		-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+		transition: all .4s cubic-bezier(.4,0,.2,1);
+	}
 }
 [class^="active_"] .banner,
 [class*=" active_"] .banner,
