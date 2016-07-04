@@ -2723,6 +2723,15 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 }
 
+[data-type="panel"][data-position="left"] {
+	left: -80vw;
+}
+#catalog {
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+
 #modal_message .modal_container .mesage_text {
 	margin-top: 25px;
 }
