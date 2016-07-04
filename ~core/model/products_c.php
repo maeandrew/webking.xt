@@ -4635,6 +4635,8 @@ class Products {
 	public function GetSubCatsTop($ID){
 		if(isset($GLOBALS['Segment'])){
 			$level_cat = "SELECT category_level FROM "._DB_PREFIX_."category WHERE id_category = ".$ID;
+			$res = $this->db->GetOneRowArray($level_cat);
+			if($res['category_level'] == 1){
 				$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE visible = 1 AND sid = 1 AND
 						id_category IN (SELECT pid
 						FROM "._DB_PREFIX_."category AS c4 WHERE id_category IN (SELECT cp.id_category
@@ -4643,6 +4645,8 @@ class Products {
 						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
 						WHERE id_segment = ".$GLOBALS['Segment']."
 						GROUP BY c.id_category))
+						AND pid = ".$ID;
+			}elseif($res['category_level'] == 2){
 				$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE visible = 1 AND sid = 1 AND
 						id_category IN (SELECT cp.id_category FROM "._DB_PREFIX_."segment_prods AS sp
 						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON cp.id_product = sp.id_product
