@@ -1258,8 +1258,11 @@ table.supplier_assort_table {
 
 /* Customer cab ============================================================ */
 	
+	.customer_cab {
+		position: relative;
+	}
 	.customer_cab * {
-		font-size: 13px;
+		/*font-size: 13px;*/
 	}
 	.customer_cab textarea:focus {
 		border-color: #52cf55;
@@ -1370,13 +1373,14 @@ table.supplier_assort_table {
 	.customer_cab .bonus_reg_block {
 		width: 70%;
 		margin-bottom: 20px;
-		width: calc(100vw - 45px);
+		width: 100%;
 		/*width: 100%;
 		padding: 10px;
 		margin-bottom: 20px;*/
 	}
 	.customer_cab #edit_personal {
 		padding: 1em;
+		box-sizing: border-box;
 	}
 	.customer_cab #edit_personal label[for^="id_"]{
 		color: #4CAF50;
@@ -1695,15 +1699,65 @@ table.supplier_assort_table {
 	.customer_cab #waiting_list .mdl-tooltip {
 		font-size: 12px;
 	}
-
-/* Customer cab Waitinglist ================================================= */
-
 	.customer_cab #waiting_list .old_price p {
 		text-decoration: line-through;
 	}
 	.customer_cab #waiting_list .active_price {
 		color: #f00;
 	}
+
+/* Customer cab Delivery =================================================== */
+
+	.customer_cab .saved_addresses {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.customer_cab .saved_addresses .address {
+		flex-basis: calc(50% - 40px);
+		min-width: 380px;
+		background: #F5F5F5;
+		border: 1px solid #e0e0e0;
+		margin-bottom: 20px;
+		padding: 10px;
+	}
+	.customer_cab .saved_addresses .address h4 {
+		margin: 0;
+		font-size: 1.5em;
+		border-bottom: 1px solid #e0e0e0;
+	}
+	.customer_cab .saved_addresses .address h4 .actions {
+		float: right;
+	}
+	.customer_cab .saved_addresses .address h4 .actions i {
+		font-size: 1.2em;
+		line-height: 2em;
+		width: 2em;
+		text-align: center;
+		cursor: pointer;
+	}
+	.customer_cab .saved_addresses .address h4 .actions i:hover {
+		color: #ff5722;
+	}
+	.customer_cab .saved_addresses .address li {
+		text-align: right;
+		clear: both;
+		font-weight: bold;
+	}
+	.customer_cab .saved_addresses .address li span {
+		float: left;
+		font-weight: normal;
+	}
+	.customer_cab .add_new_address {
+		padding: 0;
+	}
+	.customer_cab .add_new_address .explanation {
+		font-size: 13px;
+		font-style: italic;
+		margin-top: -1.5em;
+		color: #bfbfbf;
+		text-align: right;
+	}	
 
 /* Customer cab modal window =============================================== */
 

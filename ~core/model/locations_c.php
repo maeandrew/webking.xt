@@ -6,6 +6,14 @@ class Address {
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 	}
+	public function GetListByUserId($id_user){
+		$sql = "SELECT * FROM "._DB_PREFIX_."address
+		WHERE id_user = ".$id_user;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 	/**
 	 * [GetRegionsList description]
 	 */
@@ -31,6 +39,23 @@ class Address {
 			return false;
 		}
 		return $res;
+	}
+	public function AddAddress($data){
+		$f['title'] = $data['title'];
+		$f['id_user'] = $data['id_user'];
+		$f['region'] = $data['region'];
+		$f['city'] = $data['city'];
+		$f['id_delivery'] = $data['id_delivery'];
+		$f['id_delivery_service'] = $data['id_delivery_service'];
+		$f['department'] = $data['department'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'address', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+
 	}
 
 }
@@ -304,13 +329,12 @@ class Delivery {
 	}
 
 	// по строке
-	public function SetFieldsByInput($string, $city){
-		$string = $this->db->Quote($string);
-		$city = $this->db->Quote($city);
+	public function SetFieldsByInput($shipping_comp, $city, $region){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."city
-			WHERE names_regions LIKE ".$city."
-			AND shipping_comp LIKE ".$string."
+			WHERE name = ".$this->db->Quote($city)."
+			AND region = ".$this->db->Quote($region)."
+			AND shipping_comp = ".$this->db->Quote($shipping_comp)."
 			AND closed = 0
 			ORDER BY id_city";
 		$this->list = $this->db->GetArray($sql);
@@ -411,11 +435,11 @@ class DeliveryService {
 	}
 
 	// по строке
-	public function SetFieldsByInput($string){
-		$string = $this->db->Quote($string);
+	public function SetFieldsByInput($city, $region){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."city
-			WHERE names_regions LIKE ".$string."
+			WHERE name = ".$this->db->Quote($city)."
+			AND region = ".$this->db->Quote($region)."
 			AND shipping_comp <> ''
 			AND closed = 0
 			GROUP BY shipping_comp DESC";
