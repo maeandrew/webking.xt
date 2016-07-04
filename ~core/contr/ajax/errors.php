@@ -10,7 +10,7 @@
                         $data = base64_decode($data);
                         $folder_name = 'error_feedback/';
                         $pathname = $GLOBALS['PATH_root'].$folder_name;
-                        $filenameDB = 'error_'.time().'.jpeg';
+                        $filenameDB = 'error_'.time().'.png';
                         $images = new Images();
                         $images->checkStructure($pathname);
                         $filename = $pathname.$filenameDB; // путь к файлу в который нужно писать
