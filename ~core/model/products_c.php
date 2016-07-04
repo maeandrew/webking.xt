@@ -4652,7 +4652,7 @@ class Products {
 						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON cp.id_product = sp.id_product
 						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
 						WHERE id_segment = ".$GLOBALS['Segment']." AND pid = ".$ID."
-						GROUP BY c.id_category);";
+						GROUP BY c.id_category)";
 			}
 		} else {
 			$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE pid = ".$ID." AND visible = 1 AND sid = 1 ORDER BY position";
