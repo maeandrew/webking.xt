@@ -1150,9 +1150,9 @@ label.info_key {
 		min-width: 0;
 		padding-top: 5px;
 	}*/
-	.list_view .product_section .product_buy .buy_block {
+	/* .list_view .product_section .product_buy .buy_block {
 		display: block !important;
-	}
+	} */
 	.list_view .product_section .product_buy .buy_block .quantity {
 		height: 36px;
 	}
