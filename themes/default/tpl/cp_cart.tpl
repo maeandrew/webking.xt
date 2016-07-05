@@ -541,8 +541,8 @@
 							function(data){
 							switch(data.status){
 								case 200:
-									// closeObject('cart');
-									window.location.hash = "quiz";
+									closeObject('cart');
+									// window.location.hash = "quiz";
 									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 										console.log(data);
 										$('#user_profile').append('<img src="/images/noavatar.png"/>');
@@ -557,7 +557,7 @@
 									if (data.new_user === true) {
 										window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
 									}
-									openObject('quiz');
+									// openObject('quiz');
 									break;
 								case 500:
 									console.log('error');
