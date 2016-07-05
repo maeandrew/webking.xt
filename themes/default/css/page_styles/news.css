@@ -81,9 +81,6 @@
 .newslist .item .item_title,
 #content .item_title {
 	width: 100%;
-	/* white-space: nowrap; */
-	/* overflow: hidden; */
-	/* text-overflow: ellipsis; */
 	margin: 0;
 }
 .newslist .item .item_date {
@@ -111,11 +108,48 @@
 	flex-basis: 77%;
 	flex-grow: 1;
 }
-/* .newslist .item_descr p b {
-	font-weight: normal;
-} */
 .newslist .news_title {
 	display: block;    
+}
+
+.share_social_block {
+	height: 30px;
+	display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.share_social_block span {
+	line-height: 30px;
+}
+.share_social_block a {
+	width: 30px;
+	border-radius: 50%;
+	margin-left: 5px;
+}
+.share_social_block a.vk {
+	background-color: #4c75a3;
+}
+.share_social_block a.ok {
+	background-color: #ff9c43;
+}
+.share_social_block a.g_pl {
+	background-color: #ff6d4a;
+}
+.share_social_block a.f {
+	background-color: #496194;
+}
+.share_social_block a.tw {
+	background-color: #28c3ff;
+}
+.share_social_block a:hover {
+	background-color: #757575;
+}
+
+@media (min-width: 728px) and (max-width: 840px), (min-width: 320px) and (max-width: 540px) {
+	.random_news {
+	    width: 49%;
+   		margin-bottom: 10px;
+	}
 }
 
 @media (max-width: 1050px) {

@@ -432,7 +432,10 @@ $(function(){
 			var scroll = $(this).scrollTop(); // прокрутка 
 			var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
 			if(IsMobile === false){
-				$('aside').css('height', 'calc(100vh - 52px)');
+				$('aside').css('height', 'calc(100vh - 52px)');				
+			}else{
+				$('aside').css('top', '52px');
+				$('aside').css('position', 'fixed');
 			}
 			if((scroll + viewPort) <= CurentMainWindow){
 				// не доскролили до футера
@@ -455,7 +458,13 @@ $(function(){
 	$(window).on("load", function(){
 		if(over_scroll === true){
 			resizeAsideScroll('load');
-		}
+		}else if (IsMobile === true) {
+			$('aside').css({
+				'position' : 'absolute',
+				'bottom' : 'auto',
+				'top' : 'auto'
+			});
+		}		
 	});
 	/*$('body').on('click', function(){
 		if(over_scroll === true){
@@ -482,6 +491,13 @@ $(function(){
 			header.removeClass("fixed_panel").addClass("default");
 			setTimeout(function(){over_scroll = false;},305);			
 			$('aside').css('bottom', 'auto');
+			if (IsMobile === true) {
+				$('aside').css({
+					'position' : 'absolute',
+					'bottom' : 'auto',
+					'top' : 'auto'
+				});
+			}		
 			// $('aside').css('top', banner_height + header_height);
 		}
 	});
