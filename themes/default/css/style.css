@@ -2215,6 +2215,10 @@ section .stat_year {
 	.products .card_wrapper {
 		display: block;
 	}
+	.products .buy_block .btn_buy button {
+		background: #ff5722;
+		color: #fff;
+	}
 }
 
 @media (max-width: 1022px) {
@@ -2384,7 +2388,7 @@ section .stat_year {
 .product_buy .buy_block .quantity .units {
 	float: right;
 	margin-left: .5em;
-	width: 40px;
+	width: 30px;
 	font-size: 0.7em;
 }
 .product_buy .buy_block .quantity .qty_js {
