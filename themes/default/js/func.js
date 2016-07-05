@@ -1207,14 +1207,13 @@ function ChangePriceRange(column, manual){
 			$(this).find('.price').html(price);
 		});
 
-		if (a === true) {
+		// Подсветка цен товаров для привлечения внимания
+		if(a === true){
 			setTimeout(function(){
-				$('.product_buy .price').stop(true,true).css({
-					"background-color": "#b0eeb2"
-					//"color": "black"
+				$('.product_buy .product_price *').stop(true,true).css({
+					color: '#FF5722'
 				}).delay(1000).animate({
-					"background-color": "transparent"
-					//"color": "red"
+					color: '#444444'
 				}, 3000);
 
 			},300);
