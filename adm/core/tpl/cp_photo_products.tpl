@@ -52,7 +52,7 @@
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
 		<div class="image">
-			<img data-dz-thumbnail />
+			<img data-dz-thumbnail class="imgopacity"/>
 			<span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span>
 			<span class="icon-font del_photo_js" title="Удалить" data-dz-remove="">t</span>
 		</div>
