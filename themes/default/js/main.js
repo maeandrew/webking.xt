@@ -497,6 +497,14 @@ $(function(){
 		}
 	});
 
+	$('.catalog_btn').on('click', function(){
+		$('aside').css({
+			'position' : 'fixed',
+			'bottom' : '0',
+			'top' : '52px'
+		});
+	});
+
 	//Меню
 	$('aside').on('click','.more_cat', function() {
 		var lvl = $(this).closest('ul').data('lvl'),

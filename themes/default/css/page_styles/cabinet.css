@@ -1389,6 +1389,10 @@ table.supplier_assort_table {
 		width: 300px;
 	}
 
+	.breadcrumbs {
+		padding-left: 10px; 
+	}
+
 /* Dropzone part */
 	#photobox {
 		position: relative;
@@ -2319,6 +2323,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		flex-grow: 0;
 		flex-basis: 50%;
 		margin-bottom: 1.429em;
+		padding: 0;
 	}
 
 	#orders_history .number {
@@ -2535,6 +2540,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#products .ordersProdList .ordersProdListContent .avatar img {
 		width: 100%;
 		height: auto;
+	}
+	#edit_contacts {
+		width: 99%;
 	}
 }
 

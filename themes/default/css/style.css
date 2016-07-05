@@ -558,7 +558,7 @@ body:not(.c_main) .banner {
 	overflow: auto;
 }
 .breadcrumbs {
-	float: left;
+	float: left;	
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;
@@ -578,6 +578,7 @@ body:not(.c_main) .banner {
 	overflow: hidden;
 	margin: 0 auto;
 	max-width: 1600px;
+	position: relative;
 	/*background: #faa;*/
 }
 aside,
