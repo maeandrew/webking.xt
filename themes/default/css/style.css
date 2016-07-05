@@ -1495,7 +1495,7 @@ section.center {
 		font-weight: bold;
 	}
 	aside .catalog .second_nav li.active > .link_wrapp a:first-child {
-		background: #018b06;
+		background: #52cf55;
 		color: #fff; 
 	}
 	aside .catalog .second_nav li.active > .link_wrapp .more_cat i:first-child {
@@ -1513,7 +1513,7 @@ section.center {
 	aside .catalog .second_nav li ul {
 		display: none;
 		margin-left: 15px;
-		border-left: 1px solid #e0e0e0;
+		border-left: 2px solid #52cf55;
 	}
 	aside .catalog .second_nav li > ul li > ul li a {
 		display: inline-block;
