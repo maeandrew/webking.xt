@@ -58,27 +58,6 @@ h1 {
 	max-height: 205px;
 	background: #fff;
 }
-.images_block .image_block .name,
-.prodList .prodListItem .name {
-	width: 120px;
-	overflow: hidden;
-	text-align: center;
-	padding: 5px 0;
-}
-.prodList .prodListItem .name {
-	clear: both;
-    float: left;
-}
-.prodList .prodListItem a {
-	margin-right: 10px;
-}
-.prodList .prodListItem a:hover {
-	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-}
-.prodList .prodListItem a img {
-	float: left;
-	margin-left: 10px;
-}
 .images_block .del_photo_js,
 .images_block .hide_photo_js {
 	width: 50%;
@@ -134,24 +113,34 @@ h1 {
 	padding-top: 5px;
     padding-bottom: 5px;
 }
-.nameProd, .createData {
-	margin-bottom: 5px;
+.prodListItem .prodInfo {
+	float: left;
 }
+.prodListItem .prodInfo label {
+	font-weight: bold;
+}
+.prodListItem .actions {
+	float: right;
+}
+/*.nameProd, .createData {
+	margin-bottom: 5px;
+}*/
 .nameProd span:first-child,
 .createData span:first-child {
 	font-weight: bold;
 }
-.nameProd a,
+/*.nameProd a,
 .createData a {
 	font-weight: bold;
 	color: #444;
-}
+}*/
 .prodImages {
+	clear: both;
 	display: flex;
     overflow-x: auto;
-	height: 110px;
 }
 .prodVideos {
+	clear: both;
 	display: flex;
     overflow-x: auto;
 	height: 160px;
@@ -161,6 +150,7 @@ h1 {
 	width: 120px;
 	margin-right: 10px;
 	flex-shrink: 0;
+	border: 1px solid #e0e0e0;
 }
 .prodVideos img {
 	height: 100px;
