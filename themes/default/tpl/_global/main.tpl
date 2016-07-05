@@ -728,7 +728,7 @@
 			<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
 		</symbol>
 	</svg>
-	
+
 	<!-- Код тега ремаркетинга Google -->
 	<!--------------------------------------------------
 	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
@@ -741,7 +741,7 @@
 		</div>
 	</noscript>
 
-<!-- message about cookie -->
+	<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
@@ -750,7 +750,7 @@
 		</div>
 	</div>
 
-<!-- message about error -->
+	<!-- message about error -->
 	<div class="err_msg_as_wrap">
 		<div class="err_msg_as err_msg_as_js">
 			<div class="err_msg_as_title err_msg_as_knob_js">
@@ -798,3 +798,4 @@
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
 		Подождите, формируется скриншот страницы...
 	</div>
+</body>
