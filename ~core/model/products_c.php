@@ -4654,10 +4654,12 @@ class Products {
 						WHERE id_segment = ".$GLOBALS['Segment']." AND pid = ".$ID."
 						GROUP BY c.id_category)";
 			}
-		} else {
+		}else{
 			$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE pid = ".$ID." AND visible = 1 AND sid = 1 ORDER BY position";
 		}
-		$res = $this->db->GetArray($sql);
+		if(isset($sql)){
+			$res = $this->db->GetArray($sql);
+		}
 		return $res;
 	}
 }
