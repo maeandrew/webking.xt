@@ -2330,8 +2330,9 @@ section .stat_year {
 	height: 70px;
 }
 .card:hover .product_buy .buy_block .btn_buy button {
-	background: #b0eeb2;
-	border-color: #b0eeb2;
+	background: #52cf55;
+	border-color: #52cf55;
+	color: #fff;
 }
 .product_buy .buy_block .quantity {
 	position: relative;
