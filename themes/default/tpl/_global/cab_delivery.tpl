@@ -43,7 +43,7 @@
 		<!-- <input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/> -->
 		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" name="title" id="title">
+				<input class="mdl-textfield__input" type="text" name="title" id="title" required>
 				<label class="mdl-textfield__label" for="title">Название</label>
 			</div>
 			<p class="explanation">например - Дом, Работа</p>
