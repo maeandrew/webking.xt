@@ -55,9 +55,7 @@ class Address {
 		}
 		$this->db->CompleteTrans();
 		return true;
-
 	}
-
 }
 
 // Города
