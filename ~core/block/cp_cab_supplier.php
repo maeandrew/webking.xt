@@ -225,7 +225,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 			'url' => _base_url.'/cabinet/settings/'
 		);
 	}else{
-		$products->SetProductsListSupCab(array('a.id_supplier' => $Supplier->fields['id_user'], 'p.visible' => 1), $limit, $orderby);
+		$products->SetProductsListSupCab(array('a.id_supplier' => $Supplier->fields['id_user']), $limit, $orderby);
 		$tpl->Assign('list', $products->list);
 	}
 	$products->FillAssort($_SESSION['member']['id_user']);
