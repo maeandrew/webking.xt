@@ -2226,6 +2226,12 @@ div[id^="items_panel_"] .btnWrapFlex {
 	color: #FF5722;
 }
 
+.region .mdl-selectfield__box,
+.city .mdl-selectfield__box,
+.delivery .mdl-selectfield__box {
+	z-index: 0;
+}
+
 
 @media (max-width: 1060px) {
 	.nav li {
