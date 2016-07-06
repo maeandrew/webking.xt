@@ -4662,6 +4662,7 @@ class Products {
 		return true;
 	}
 
+	//Вывод подкатегорий сверху, над списком товаров
 	public function GetSubCatsTop($ID){
 		if(isset($GLOBALS['Segment'])){
 			$level_cat = "SELECT category_level FROM "._DB_PREFIX_."category WHERE id_category = ".$ID;
