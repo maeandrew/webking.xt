@@ -4684,6 +4684,8 @@ class Products {
 						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
 						WHERE id_segment = ".$GLOBALS['Segment']." AND pid = ".$ID."
 						GROUP BY c.id_category)";
+			}elseif($res['category_level'] == 3){
+				return false;
 			}
 		}else{
 			$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE pid = ".$ID." AND visible = 1 AND sid = 1 ORDER BY position";
