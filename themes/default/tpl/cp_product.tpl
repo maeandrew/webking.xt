@@ -294,7 +294,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="notificationProdNote <?=isset($item['qty_control']) && $item['qty_control'] == 0 ? 'hidden' : ''?>">			
+		<div class="notificationProdNote <?=isset($item['note_control']) && $item['note_control'] == 0 ? 'hidden' : ''?>">			
 			<span>Данный товар имеет дополнительные конфигурации (цвет, материал и тд.). Укажите свои пожелания к товару в поле "Примечание" при оформлении заказа в корзине.</span>
 		</div>
 		<div class="mdl-tabs mdl-js-tabs">
