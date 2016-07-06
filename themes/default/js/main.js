@@ -1938,14 +1938,21 @@ $(function(){
 		var data = {'err_msg': err_msg, 'img_src': img_src };
 
 		ajax('errors', 'error', data).done(function(data){
-			console.log('Сообщение об ошибке отправлено успешно');
-			$('textarea[name="errcomment"]').val('');
-			$('#savedCopyContainer').css('display', 'none');
-			$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-			$('#savedImageCopy').attr('src', '');
-			$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-			$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
-			componentHandler.upgradeDom();
+			if (data.status != 3) {
+				$('textarea[name="errcomment"] + label').css('color', 'rgba(0, 0, 0, .26)');
+				$('textarea[name="errcomment"]').val('').closest('div').removeClass('is-dirty');
+				$('#savedCopyContainer').css('display', 'none');
+				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				$('#savedImageCopy').attr('src', '');
+				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+				$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
+				componentHandler.upgradeDom();
+			}else{
+				$('textarea[name="errcomment"] + label').css('color', '#ff0000');
+			}
+			var text = {message: data.message};
+			var snackbarContainer = document.querySelector('#snackbar');
+			snackbarContainer.MaterialSnackbar.showSnackbar(text);
 		}).fail(function(data){
 			console.log('Сообщение об ошибке не отправлено');
 		});
