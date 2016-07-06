@@ -406,9 +406,12 @@ $(function(){
 		banner_height = $('.banner').outerHeight();
 	var viewPort = $(window).height(); // высота окна
 	var mainWindow = $('.main').outerHeight(); // высота главного блока	
+	window.addEventListener("orientationchange", function() {
+	   viewPort = $(window).height();
+	}, false);
 	$.cookie('mainWindow', mainWindow, { path: '/'});
 
-	$(window).scroll(function(){	
+	$(window).scroll(function(){
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - 52 && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
@@ -424,21 +427,25 @@ $(function(){
 				$('html, body').scrollTop(0);
 			}
 		}else{
-			$('aside').css('height', 'calc(100vh - 52px)');
 			var CurentMainWindow = $('.main').outerHeight();//$.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
 			var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
-			
+			if(IsMobile === false){
+				$('aside').css('height', 'calc(100vh - 52px)');				
+			}else{
+				$('aside').css('top', '52px');
+				$('aside').css('position', 'fixed');
+			}
 			if((scroll + viewPort) <= CurentMainWindow){
 				// не доскролили до футера
 				$('aside').css('bottom', 0);
 			}else{
 				// Доскролили
 				var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52;
-				$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
-				if(viewPort > CurentMainWindow){
-					// $('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+				if(IsMobile === true){
+					$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
 				}
+				$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));				
 			}
 			changeFiltersBtnsPosition();
 		}
@@ -447,7 +454,13 @@ $(function(){
 	$(window).on("load", function(){
 		if(over_scroll === true){
 			resizeAsideScroll('load');
-		}
+		}else if (IsMobile === true) {
+			$('aside').css({
+				'position' : 'absolute',
+				'bottom' : 'auto',
+				'top' : 'auto'
+			});
+		}		
 	});
 	/*$('body').on('click', function(){
 		if(over_scroll === true){
@@ -474,8 +487,22 @@ $(function(){
 			header.removeClass("fixed_panel").addClass("default");
 			setTimeout(function(){over_scroll = false;},305);			
 			$('aside').css('bottom', 'auto');
-			// $('aside').css('top', banner_height + header_height);
+			if (IsMobile === true) {
+				$('aside').css({
+					'position' : 'absolute',
+					'bottom' : 'auto',
+					'top' : 'auto'
+				});
+			}		
 		}
+	});
+
+	$('.catalog_btn').on('click', function(){
+		$('aside').css({
+			'position' : 'fixed',
+			'bottom' : '0',
+			'top' : '52px'
+		});
 	});
 
 	//Меню

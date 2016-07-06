@@ -47,33 +47,39 @@
 				if($id_product = $Products->AddPhotoProduct($_POST)){
 					$Products->SetFieldsByID($id_product);
 					$product = $Products->fields;
-					$images = $Products->GetPhotoById($id_product);
+					$images = $Products->GetPhotoById($id_product, true);
 					$videos = $Products->GetVideoById($id_product);
 					$echo = '<div class="prodListItem">
-						<div class="nameProd">
-							<a href="'.Link::Product($product['translit']).'"><span>Товар:</span></a>
-							<span>'.$product['name'].'</span>
+						<div class="prodInfo">
+							<div class="nameProd">
+								<label>Название:</label>
+								<span>'.$product['name'].'</span>
+							</div>
+							<div class="createData">
+								<label>Добавлен:</label>
+								<span>'.$product['create_date'].'</span>
+							</div>
 						</div>
-						<div class="createData">
-							<span>Дата:</span>
-							<span>'.$product['create_date'].'</span>
+						<div class="actions">
+							<a href="/adm/productedit/'.$product['id_product'].'" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
+							<a href="'.Link::Product($product['translit']).'" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
 						</div>
 						<div class="prodImages">';
 					foreach($images as $image){
-						$echo .= '<img src="'.$image['src'].'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
+						$echo .= '<img src="'.str_replace('/original/', '/thumb/', $image['src']).'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
 					}
-					$echo .= '</div>
-						<div class="prodVideos">';
+					$echo .= '</div>';
 					if(is_array($videos)){
+						$echo .= '<div class="prodVideos">';
 						foreach($videos as $video){
 							$echo .= '<a href="'.$video.'" target="blank">
 									<img src="/images/video_play.png">
 									<span class="name">'.$video.'</span>
 								</a>';
 						}
+						$echo .= '</div>';
 					}
-					$echo .= '</div>
-						</div>';
+					$echo .= '</div>';
 				}
 				echo $echo;
 				break;

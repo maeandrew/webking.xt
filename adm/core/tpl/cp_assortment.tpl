@@ -251,7 +251,7 @@
 			</table>
 			<?if(isset($cnt) && $cnt >= 30){?>
 			<div class="sort_page">
-			<a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?limit=all"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
+				<a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?limit=all"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
 			</div>
 			<?}?>
 			<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>

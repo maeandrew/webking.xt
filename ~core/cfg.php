@@ -112,7 +112,7 @@ $GLOBALS['LeftSideBar']			= array(
 	'demo_order',
 	'search',
 	'login',
-	'customer_order',
+	// 'customer_order',
 	'pdf_bill_form'
 );
 // если кабинет поставщика или пользователя - отобразить левый сайдбар

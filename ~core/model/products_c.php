@@ -2279,25 +2279,55 @@ class Products {
 	public function DelProduct($id_product){
 		$this->db->StartTrans();
 		// делаем товар неактивным
-		$this->db->Execute('UPDATE '._DB_PREFIX_.'product SET visible = 0 WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'product WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 1;
+		}
 		//удаляем товар с таблицы, где привязываем его к категориям
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cat_prod WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cat_prod WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 2;
+		}
 		//отвязываем спецификации
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_prods WHERE id_prod = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_prods WHERE id_prod = '.$id_product)){
+			$this->db->FailTrans();
+			return 3;
+		}
 		//удаляем из корзины
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cart_product WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cart_product WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 4;
+		}
 		//удаляем из таблицы сопутствующих товаров
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'related_prods WHERE id_prod = '.$id_product.' OR id_related_prod = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'related_prods WHERE id_prod = '.$id_product.' OR id_related_prod = '.$id_product)){
+			$this->db->FailTrans();
+			return 5;
+		}
 		//отвязываем товар от сегментации
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'segment_prods WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'segment_prods WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 6;
+		}
 		//удаляем товар из ассортимента поставщика
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'assortiment WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'assortiment WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 7;
+		}
 		//удаляем товар из таблицы любимых товаров
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'favorites WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'favorites WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 8;
+		}
 		//удаляем товар с таблицы посещаемых товаров
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'visited_products WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'visited_products WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 9;
+		}
 		//удаляем этот товар с листа ожидания
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'waiting_list WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'waiting_list WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 10;
+		}
 		$this->db->CompleteTrans();
 		//$this->RecalcSitePrices(array($id_product));
 		return true;
@@ -4585,7 +4615,7 @@ class Products {
 			return false;
 		}
 		foreach ($res as &$v){
-			$v['images'] = $this->GetPhotoById($v['id_product']);
+			$v['images'] = $this->GetPhotoById($v['id_product'], true);
 			$v['videos'] = $this->GetVideoById($v['id_product']);
 		}
 		return $res;
@@ -4630,5 +4660,39 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 		return true;
+	}
+
+	//Вывод подкатегорий сверху, над списком товаров
+	public function GetSubCatsTop($ID){
+		if(isset($GLOBALS['Segment'])){
+			$level_cat = "SELECT category_level FROM "._DB_PREFIX_."category WHERE id_category = ".$ID;
+			$res = $this->db->GetOneRowArray($level_cat);
+			if($res['category_level'] == 1){
+				$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE visible = 1 AND sid = 1 AND
+						id_category IN (SELECT pid
+						FROM "._DB_PREFIX_."category AS c4 WHERE id_category IN (SELECT cp.id_category
+						FROM "._DB_PREFIX_."segment_prods AS sp
+						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON cp.id_product = sp.id_product
+						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
+						WHERE id_segment = ".$GLOBALS['Segment']."
+						GROUP BY c.id_category))
+						AND pid = ".$ID;
+			}elseif($res['category_level'] == 2){
+				$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE visible = 1 AND sid = 1 AND
+						id_category IN (SELECT cp.id_category FROM "._DB_PREFIX_."segment_prods AS sp
+						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON cp.id_product = sp.id_product
+						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
+						WHERE id_segment = ".$GLOBALS['Segment']." AND pid = ".$ID."
+						GROUP BY c.id_category)";
+			}elseif($res['category_level'] == 3){
+				return false;
+			}
+		}else{
+			$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE pid = ".$ID." AND visible = 1 AND sid = 1 ORDER BY position";
+		}
+		if(isset($sql)){
+			$res = $this->db->GetArray($sql);
+		}
+		return $res;
 	}
 }

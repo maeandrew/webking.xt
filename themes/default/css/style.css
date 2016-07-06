@@ -252,11 +252,20 @@ label:hover + .info_description {
 	z-index: 2;
 	visibility: hidden;
 }
-[data-type="panel"],
+
+[data-type="panel"]:not(aside),
 [data-type="modal"]{
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+@media (max-width: 728px){
+	[data-type="panel"],
+	[data-type="modal"]{
+		-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+		transition: all .4s cubic-bezier(.4,0,.2,1);
+	}
 }
 [class^="active_"] .banner,
 [class*=" active_"] .banner,
@@ -487,11 +496,13 @@ body:not(.c_main) .banner {
 	/*overflow: hidden;*/
 	/*overflow-y: scroll;*/
 }
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait) and (max-width: 728px) {
 	[data-type="panel"] {
 		width: 80vw;
 	}
 }
+
+
 [data-type="panel"] .panel_container {
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -507,8 +518,10 @@ body:not(.c_main) .banner {
 [data-type="panel"][data-position="right"].opened {
 	right: 0;
 }
-[data-type="panel"][data-position="left"] {
-	left: -80vw;
+@media (max-width: 728px) {
+	[data-type="panel"][data-position="left"] {
+		left: -80vw;
+	}	
 }
 [data-type="panel"][data-position="left"].opened {
 	left: 0;
@@ -546,7 +559,7 @@ body:not(.c_main) .banner {
 	overflow: auto;
 }
 .breadcrumbs {
-	float: left;
+	float: left;	
 }
 .breadcrumbs .material-icons {
 	vertical-align: middle;
@@ -566,6 +579,7 @@ body:not(.c_main) .banner {
 	overflow: hidden;
 	margin: 0 auto;
 	max-width: 1600px;
+	position: relative;
 	/*background: #faa;*/
 }
 aside,
@@ -1379,11 +1393,11 @@ section.center {
 		text-transform: uppercase;
 		color: #bdbdbd;
 		font-size: 16px;
-		font-size: 1.143em;
+		font-size: 1em;
 		cursor: pointer;
 		font-weight: 500;
 		border-bottom: 1px solid #e0e0e0;
-		padding: 10px;
+		padding: 5px 10px;
 		position: relative;
 	}
 	aside .catalog .main_nav li:last-child {
@@ -1419,6 +1433,7 @@ section.center {
 	aside .catalog .second_nav,
 	aside .catalog .second_nav li {
 		font-size: 16px;
+		border-bottom: 1px solid #e0e0e0;
 	}
 	aside .catalog .second_nav .link_wrapp .more_cat {
 		cursor: pointer;
@@ -1431,8 +1446,11 @@ section.center {
 		bottom: 0;
 	}
 	aside .catalog .second_nav .link_wrapp:hover .more_cat {
-		background: #FAFAFA;
-		border-color: #e0e0e0;
+		background: rgba(255, 255, 255, .3);
+		/*border-color: #e0e0e0;*/
+	}
+	aside .catalog .second_nav .link_wrapp:hover .more_cat:hover i {
+		color: #018b06;
 	}
 	aside .catalog .second_nav i {
 		font-size: 16px;
@@ -1480,6 +1498,13 @@ section.center {
 		background: transparent;
 		font-weight: bold;
 	}
+	aside .catalog .second_nav li.active > .link_wrapp a:first-child {
+		background: #018b06;
+		color: #fff; 
+	}
+	aside .catalog .second_nav li.active > .link_wrapp .more_cat i:first-child {
+		color: #fff; 
+	}
 	aside .catalog .second_nav li.active ul {
 		margin-bottom: 15px;
 	}
@@ -1492,7 +1517,7 @@ section.center {
 	aside .catalog .second_nav li ul {
 		display: none;
 		margin-left: 15px;
-		border-left: 1px solid #e0e0e0;
+		border-left: 2px solid #018b06;
 	}
 	aside .catalog .second_nav li > ul li > ul li a {
 		display: inline-block;
@@ -2192,6 +2217,10 @@ section .stat_year {
 	.products .card_wrapper {
 		display: block;
 	}
+	.products .buy_block .btn_buy button {
+		background: #ff5722;
+		color: #fff;
+	}
 }
 
 @media (max-width: 1022px) {
@@ -2307,8 +2336,9 @@ section .stat_year {
 	height: 70px;
 }
 .card:hover .product_buy .buy_block .btn_buy button {
-	background: #b0eeb2;
-	border-color: #b0eeb2;
+	background: #ff5722;
+	border-color: #ff5722;
+	color: #fff;
 }
 .product_buy .buy_block .quantity {
 	position: relative;
@@ -2352,15 +2382,15 @@ section .stat_year {
 	border-radius: 0 0 .2em .2em;
 }
 .product_buy .buy_block .quantity button.btn_add:hover {
-	background: #b0eeb2;
+	/*background: #b0eeb2;*/
 }
 .product_buy .buy_block .quantity button.btn_remove:hover {
-	background: #ffc6b4;
+	/*background: #ffc6b4;*/
 }
 .product_buy .buy_block .quantity .units {
 	float: right;
 	margin-left: .5em;
-	width: 40px;
+	width: 30px;
 	font-size: 0.7em;
 }
 .product_buy .buy_block .quantity .qty_js {
@@ -3670,6 +3700,8 @@ div.modalEditOrder .applyBtn {
 .err_msg_as_wrap {
 	position: relative;
 	color: #fff;
+	display: none;
+	
 }
 .err_msg_as {
 	position: fixed;

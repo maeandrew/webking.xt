@@ -15,8 +15,7 @@
 						<li class="mdl-menu__item" data-value="<?=$region['id_city']?>"><?=$region['region']?></li>
 					<?}
 				}
-			break;
-
+				break;
 			case "GetCitiesList":
 				$res = $City->SetFieldsByInput($_POST['input']);
 				foreach($res as $city){
@@ -24,8 +23,7 @@
 						<li class="mdl-menu__item" data-value="<?=$city['id_city']?>"><?=$city['name']?></li>
 					<?}
 				}
-			break;
-
+				break;
 			case "GetDeliveryServicesList":
 				$DeliveryService->SetListByRegion($_POST['input']);
 				foreach($DeliveryService->list as $key=>$ds){
@@ -38,8 +36,7 @@
 						</label>
 					</div>
 				<?}
-			break;
-
+				break;
 			case "GetAddressListDepartmentByCity":
 				if(isset($_POST['delivery_service']) && isset ($_POST['city'])){
 					$DeliveryService->GetListDepartmentByCity($_POST['delivery_service'], $_POST['city']);
@@ -50,64 +47,53 @@
 				}else{ ?>
 					<li class="mdl-menu__item"> -- Служба доставки не выбрана -- </li>
 				<?}
-			break;
-
+				break;
 			case "GetDeliveryMethodsList":
 				$DeliveryService->SetListByRegion($_POST['input']);
+				$echo = '';
 				foreach($DeliveryService->list as $key=>$ds){
-					if($ds['shipping_comp'] != ''){
-					}?>
-					<div>
+					$echo .= '<div>
 						<label class="mdl-radio mdl-js-radio">
-							<input type="radio" name="service" class="mdl-radio__button" <?=isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null?> value="<?=$ds['shipping_comp']?>">
-							<span class="mdl-radio__label"><?=$ds['shipping_comp']?></span>
+							<input type="radio" name="service" class="mdl-radio__button" '.(isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null).' value="'.$ds['shipping_comp'].'">
+							<span class="mdl-radio__label">'.$ds['shipping_comp'].'</span>
 						</label>
-					</div>
-				<?}
-			break;
-
+					</div>';
+				}
+				break;
 			// old code
 			case "regionSelect":
-				$res = $City->SetFieldsByInput($_POST['region']);?>
-				<option selected="selected" disabled="disabled" class="color-sgrey">Город</option>
-				<?foreach($res as $r){?>
-					<option value="<?=$r['names_regions']?>"><?=$r['name']?></option>
+				$res = $City->SetFieldsByInput($_POST['region']);
+				foreach($res as $r){?>
+					<option value="<?=$r['name']?>"><?=$r['name']?></option>
 				<?}
-			;
-			break;
-
+				break;
 			case "citySelect":
-				$res = $DeliveryService->SetFieldsByInput($_POST['city']);?>
-				<option selected="selected" disabled="disabled" class="color-sgrey">Способ доставки</option>
-				<option value="2">Передать автобусом</option>
-				<option value="1">Самовывоз</option>
-				<?if($res){?>
-					<option value="3">Транспортные компании</option>
-				<?}
-			;
-			break;
-
-			case "deliverySelect":
-				$res = $DeliveryService->SetFieldsByInput($_POST['city']);?>
-				<?if(count($res) == 1){?>
-					<option selected="selected" value="<?=$res[0]['shipping_comp']?>"><?=$res[0]['shipping_comp'];?></option>
-				<?}else{?>
-					<option selected="selected" disabled="disabled" class="color-sgrey">Служба доставки</option>
-					<?foreach($res as $r){?>
-						<option value="<?=$r['shipping_comp']?>"><?=$r['shipping_comp'];?></option>
-					<?}
+				$res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
+				$echo = '<option value="2">Передать автобусом</option><option value="1">Самовывоз</option>';
+				if($res){
+					$echo .= '<option value="3">Транспортные компании</option>';
 				}
-			;
-			break;
-
+				echo $echo;
+				break;
+			case "deliverySelect":
+				$res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
+				$echo = '';
+				if(count($res) == 1){
+					$echo = '<option selected="selected" value="'.$res[0]['shipping_comp'].'">'.$res[0]['shipping_comp'].'</option>';
+				}else{
+					foreach($res as $r){
+						$echo .= '<option value="'.$r['shipping_comp'].'">'.$r['shipping_comp'].'</option>';
+					}
+				}
+				echo $echo;
+				break;
 			case "getCityId":
-				$res = $DeliveryService->GetAnyCityId($_POST['city']);?>
-				<option selected value="<?=$res['id_city']?>"><?=$res['id_city']?></option>
-				<?
-			;
-			break;
+				$res = $DeliveryService->GetAnyCityId($_POST['city']);
+				$echo = '<option selected value="'.$res['id_city'].'">'.$res['id_city'].'</option>';
+				echo $echo;
+				break;
 			case "deliveryServiceSelect":
-				if($Delivery->SetFieldsByInput($_POST['shipping_comp'], $_POST['city'])){
+				if($Delivery->SetFieldsByInput($_POST['shipping_comp'], $_POST['city'], $_POST['region'])){
 					$res = $Delivery->list;?>
 					<?if(count($res) == 1){
 						foreach($res as $r){?>
@@ -122,14 +108,10 @@
 				}else{?>
 					<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>
 				<?}
-			;
-			break;
-
+				break;
 			default:
-			;
-			break;
+				break;
 		}
 	}
 	exit();
 }
-?>

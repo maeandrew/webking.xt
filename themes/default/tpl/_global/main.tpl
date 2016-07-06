@@ -55,7 +55,8 @@
 			ajax_proceed = false,			
 			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
-			IsLogged = '.(G::IsLogged()?'false':'true').';
+			IsLogged = '.(G::IsLogged()?'true':'false').',
+			IsMobile = '.(G::isMobile()?'true':'false').';
 	</script>';
 	?>
 	<!-- END define JS global variables -->
@@ -780,7 +781,7 @@
 			<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
 		</symbol>
 	</svg>
-	
+
 	<!-- Код тега ремаркетинга Google -->
 	<!--------------------------------------------------
 	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
@@ -793,7 +794,7 @@
 		</div>
 	</noscript>
 
-<!-- message about cookie -->
+	<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
@@ -801,4 +802,4 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
-
+</body>

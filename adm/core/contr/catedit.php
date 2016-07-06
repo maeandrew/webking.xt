@@ -61,6 +61,19 @@ if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Cat_form_validate();
 	if(!$err){
+
+		//Добавление фото
+//		if(isset($_POST['images'])){
+//			foreach($_POST['images'] as &$image){
+//				if(preg_match('/[А-Яа-яЁё]/u', $image)){
+//					$file = pathinfo($GLOBALS['PATH_global_root'].$image);
+//					$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
+//					rename($GLOBALS['PATH_global_root'].$image, $new_file);
+//					$image = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+//				}
+//			}
+//		}
+
 		$arr['name'] = trim($_POST['name']);
 		$arr['prom_id'] = trim(is_numeric($_POST['prom_id'])?$_POST['prom_id']:null);
 		//$arr['translit'] = G::StrToTrans($_POST['name']);

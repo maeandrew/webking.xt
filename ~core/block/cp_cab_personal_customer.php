@@ -13,8 +13,8 @@
 	$regions = new Regions();
 	// Все классы подключены
 	$address = new Address();
-	// var_dump($address->GetRegionsList());
-
+	$addresses = $address->GetListByUserId($_SESSION['member']['id_user']);
+	$tpl->Assign('addresses', $addresses);
 	/* selecting clear data */
 
 	// about customer
@@ -74,12 +74,12 @@
 	// Select array of available cities if customer's region was saved.
 	if(isset($savedcity)){
 		$availablecities = $cities->SetFieldsByInput($savedcity['region']);
-		if(!$deliveryservice->SetFieldsByInput($savedcity['names_regions'])){
+		if(!$deliveryservice->SetFieldsByInput($savedcity['name'], $savedcity['region'])){
 			unset($alldeliverymethods[3]);
 		}
 		$deliveryservice->SetListByRegion($savedcity['names_regions']);
 		$availabledeliveryservices = $deliveryservice->list;
-		$delivery->SetFieldsByInput($savedcity['shipping_comp'], $savedcity['names_regions']);
+		$delivery->SetFieldsByInput($savedcity['shipping_comp'], $savedcity['name'], $savedcity['region']);
 		$availabledeliverydepartment = $delivery->list;
 	}
 	/* output data */
@@ -101,6 +101,8 @@
 	$tpl->Assign('User', $User->fields);
 
 	if(isset($_POST['save_delivery'])){
+		$address->AddAddress($_POST);
+
 		if($Customers->updateCity($_POST['id_delivery_department']) && $Customers->updateDelivery($_POST['id_delivery'])){
 			header("Location: /cabinet/personal/?t=delivery&success");
 		}else{

@@ -1,5 +1,5 @@
 <div class="catalog">
-	<ul class="main_nav mdl-color--grey-100">
+	<ul class="main_nav">
 		<li id="estimate" data-name="estimateLoad" class="btn_js" data-nav="estimate">
 			<i class="material-icons">assignment</i>Загрузить свою смету
 			<label class="info_key">?</label>

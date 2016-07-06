@@ -36,11 +36,11 @@
 				?>
 				<?$articles_arr = array();
 				foreach($data as $i){?>
-					<?if(($i['opt_qty']!=0 && $show_pretense===false) || ($i['opt_qty']!=0 && $show_pretense===true && $i['contragent_qty']!=$i['fact_qty'])){// строка по опту?>
+					<?if(($i['opt_qty']!=0 && $show_pretense===false) || ($i['opt_qty']!=0 && $show_pretense===true && $i['contragent_qty']!=$i['fact_qty'])){ // строка по опту?>
 						<?$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
-								<?if($i['image'] != ''){?>
+								<?if($i['images'] != ''){?>
 									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>">
 										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>" title="Нажмите для увеличения">
 									</a>
@@ -76,7 +76,7 @@
 							<?$t['contragent_sum']+=$i['contragent_sum'];?>
 						</tr>
 					<?}
-					if(($i['mopt_qty']!=0 && $show_pretense===false) || ($i['mopt_qty']!=0 && $show_pretense===true && $i['contragent_mqty']!=$i['fact_mqty'])){// строка по мелкому опту?>
+					if(($i['mopt_qty']!=0 && $show_pretense===false) || ($i['mopt_qty']!=0 && $show_pretense===true && $i['contragent_mqty']!=$i['fact_mqty'])){ // строка по мелкому опту?>
 					<?$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
