@@ -1619,6 +1619,25 @@ function toAssort(id, opt, nacen, comment){
 	});
 }
 
+/*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
+function AddDelProductAssortiment(obj, id){
+	if (obj.checked){
+		action = "add_product";
+	}else{
+		action = "del_product";
+	}
+	$.ajax({
+		url: URL_base+'ajaxassort',
+		type: "POST",
+		cache: false,
+		dataType: "json",
+		data: {
+			"action":action,
+			"id_product":id
+		},
+	});
+}
+
 // Установить куки
 function setCookie(name, value) {
 	var valueEscaped = escape(value);

@@ -1389,7 +1389,7 @@ $(function(){
 						shown_products: shown_products,
 						skipped_products: skipped_products
 					};					
-					if (current_controller === 'search'){
+					if (current_controller === 'search' || current_controller === 'product'){
 						location.reload();
 					}else{
 						UpdateProductsList(page, arr);

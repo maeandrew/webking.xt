@@ -189,11 +189,11 @@
 					</div>
 
 					<div class="product_check card_item">
-						<span class="suplierPriceBlockLabel">Добавить:</span>			
+						<span class="suplierPriceBlockLabel">Добавить:</span>
 						<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$p['id_product']?>">				
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
 							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$p['id_product']?>)"/>
-						</label>				
+						</label>
 					</div>
 				</div>
 			</div>

@@ -224,26 +224,25 @@ function onSwitchSupSuccess(obj){
 	$('#next_update_date').text(obj.next_update_date);
 }
 
-/*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
-function AddDelProductAssortiment(obj, id){
-	console.log('123');
-	if (obj.checked){
-		action = "add_product";
-	}else{
-		action = "del_product";
-	}
-	$.ajax({
-		url: URL_base+'ajaxassort',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action":action,
-			"id_product":id
-		},
-		success: onAddDelSuccess
-	});
-}
+// /*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
+// function AddDelProductAssortiment(obj, id){
+// 	if (obj.checked){
+// 		action = "add_product";
+// 	}else{
+// 		action = "del_product";
+// 	}
+// 	$.ajax({
+// 		url: URL_base+'ajaxassort',
+// 		type: "POST",
+// 		cache: false,
+// 		dataType: "json",
+// 		data: {
+// 			"action":action,
+// 			"id_product":id
+// 		},
+// 		success: onAddDelSuccess
+// 	});
+// }
 
 function onAddDelSuccess(obj){
 	if (obj.action == "add"){

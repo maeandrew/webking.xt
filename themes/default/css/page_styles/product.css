@@ -528,6 +528,20 @@ div[for="rating_block"] {
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 
+.product .product_buy .buy_block .supplier_block {
+	width: 68%;
+	margin-top: -32px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.product .product_buy .buy_block .supplier_block span,
+.product .product_buy .buy_block .supplier_block p {
+	font-size: 1em;
+	display: inline;
+}
+.product .product_buy .buy_block .supplier_block .product_check label {
+	width: 30px;
+}  
 
 
 /*
