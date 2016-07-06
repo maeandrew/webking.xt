@@ -3719,7 +3719,7 @@ div.modalEditOrder .applyBtn {
 	border-top-right-radius: 5px;
 }
 .err_msg_as_title {
-	padding: .5em 1em 0;
+	padding: .5em 1em;
 	background-color: #FF865F;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
