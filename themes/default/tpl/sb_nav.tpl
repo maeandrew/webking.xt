@@ -49,14 +49,17 @@
 <script>
 $(function(){
 	$("#organization").click(function() {
-		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		if (!$(this).hasClass('activeSegment')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+			$('.filters').fadeOut();
+		}
 		if ($.cookie('Segmentation') != 1){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#organization").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log(data);
+				// console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavOrg").append(data);
 			});
@@ -64,14 +67,17 @@ $(function(){
 	})
 
 	$("#store").click(function() {
-		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		if (!$(this).hasClass('activeSegment')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+			$('.filters').fadeOut();
+		}
 		if ($.cookie('Segmentation') != 2){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#store").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log(data);
+				// console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavStore").append(data);
 			});
@@ -79,14 +85,18 @@ $(function(){
 	})
 
 	$("#allSection").click(function() {
-		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		if (!$(this).hasClass('activeSegment')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+			$('.filters').fadeOut();
+			$('.filters').fadeOut();
+		}
 		if ($.cookie('Segmentation') != 0){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#allSection").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 0}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log('все секции');
+				// console.log('все секции');
 				$(".second_nav").addClass('hidden');
 				/*$(".allSections").removeClass('hidden');*/
 				$("#allCategotyCont").append(data);
