@@ -338,6 +338,59 @@
 			<canvas id="err_canvas" width="10" height="10"></canvas>
 		</div>
 	</section>
+	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
+		<p>Сообщите нам об ошибке</p>
+	</div>
+	<!-- message about error -->
+	<div class="err_msg_as_wrap">
+		<div class="err_msg_as err_msg_as_js">
+			<div class="err_msg_as_title err_msg_as_knob_js">
+				<p>Сообщите нам об ошибке</p>
+				<i class="material-icons">keyboard_arrow_up</i>
+			</div>
+			<div class="err_msg_as_form err_msg_as_form_js">
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield is-focused">
+						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
+						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
+					</div>
+					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
+						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
+						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
+					</label>
+					<div class="copyContainerWrap">
+						<div id="savedCopyContainer">
+							<img id="savedImageCopy" src="">
+						</div>
+						<div class="tools_wrapp_js tools_wrapp">
+							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
+							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
+							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
+							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
+						</div>
+					</div>
+					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="canvas_toolbar">
+		<div id="problem_area" class="problem_area problem_area_js"></div>
+		<div class="mdl-tooltip" for="problem_area">Выделить проблему</div>
+		<div id="confidential" class="confidential confidential_js"></div>
+		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
+		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
+		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
+		<!-- Доработать функционал ластика 
+		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
+		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
+		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
+		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
+	</div>
+	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas">
+		Подождите, формируется скриншот страницы...
+	</div>
 	<footer class="mdl-mega-footer mdl-color--grey-100">
 		<div class="footer_wrapp">
 			<div class="mdl-mega-footer__left-section">
@@ -749,51 +802,3 @@
 		</div>
 	</div>
 
-<!-- message about error -->
-	<div class="err_msg_as_wrap">
-		<div class="err_msg_as err_msg_as_js">
-			<div class="err_msg_as_title err_msg_as_knob_js">
-				<p>Сообщите нам об ошибке</p>
-				<i class="material-icons">keyboard_arrow_up</i>
-			</div>
-			<div class="err_msg_as_form err_msg_as_form_js">
-				<form action="#">
-					<div class="mdl-textfield mdl-js-textfield is-focused">
-						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
-						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
-					</div>
-					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
-						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
-						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
-					</label>
-					<div id="savedCopyContainer">
-						<img id="savedImageCopy" src="">
-						<div class="tools_wrapp_js tools_wrapp">
-							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
-							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
-							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
-							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
-						</div>
-					</div>
-					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="canvas_toolbar">
-		<div id="problem_area" class="problem_area problem_area_js"></div>
-		<div class="mdl-tooltip" for="problem_area">Выделить проблему</div>
-		<div id="confidential" class="confidential confidential_js"></div>
-		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
-		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
-		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
-		<!-- Доработать функционал ластика 
-		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
-		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
-		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
-		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
-		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
-	</div>
-	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
-		Подождите, формируется скриншот страницы...
-	</div>
