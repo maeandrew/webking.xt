@@ -102,6 +102,6 @@ $(function(){
 				$("#allCategotyCont").append(data);
 			});
 		}
-	})
-;});
+	});
+});
 </script>

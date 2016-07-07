@@ -3937,6 +3937,12 @@ div.modalEditOrder .applyBtn {
 
 }
 
+.go_up {
+	position: absolute;
+	bottom: 2em;
+	right: 2em;
+}
+
 
 
 /* Google tag manager iframe */

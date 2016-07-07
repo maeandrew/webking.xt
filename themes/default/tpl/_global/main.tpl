@@ -802,4 +802,6 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
+
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent hidden">Наверх</div>
 </body>
