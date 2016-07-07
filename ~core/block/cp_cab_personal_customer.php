@@ -36,7 +36,8 @@
 	$alldeliverymethods = $delivery->list;
 
 	/* selecting saved data */
-
+	// $address->GetShippingCompanies();
+	// die();
 	// city
 	if($Customer['id_city'] > 0){
 		$cities->GetSavedFields($Customer['id_city']);

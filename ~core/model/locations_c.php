@@ -59,8 +59,9 @@ class Address {
 	public function GetShippingCompanies($city = false){
 			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = 1";
 			$res = $this->db->GetOneRowArray($sql);
+			print_r($res['api_key']);die();
 			$NP = new NovaPoshtaApi2($res['api_key']);
-			print_r($NP->getWarehouses("Харьков"));
+			print_r($NP->getCity("Харьков"));
 		if(!$city){
 		}else{
 		}

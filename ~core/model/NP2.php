@@ -325,7 +325,7 @@ class NovaPoshtaApi2 {
 	 */
 	function getWarehouses($cityRef, $page = 0) {
 		return $this->request('Address', 'getWarehouses', array(
-			'CityName' => $cityRef,
+			'CityRef' => $cityRef,
 			'Page' => $page,
 		));
 	}
