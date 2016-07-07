@@ -5,6 +5,7 @@
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();
+	$Address = new Address();
 	/*$Orders->Add($_POST['user_number']);*/
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
@@ -69,6 +70,7 @@
 				break;
 			case "citySelect":
 				$echo = '';
+				$echo .= '<option value="2">Адресная доставка</option>';
 				// $res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
 				// $echo = '<option value="2">Передать автобусом</option><option value="1">Самовывоз</option>';
 				// if($res){
@@ -82,8 +84,13 @@
 				// Новая почта
 				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
 				$city = $NP->getCity($_POST['city'], $_POST['region']);
+				$count = 0;
 				if(!empty($city['data'])){
-					$echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';
+					$count++;
+					// $echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';
+				}
+				if($count > 0){
+					$echo .= '<option value="1">Самовывоз</option>';
 				}
 				echo $echo;
 				break;
