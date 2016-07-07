@@ -1389,7 +1389,7 @@ $(function(){
 						shown_products: shown_products,
 						skipped_products: skipped_products
 					};					
-					if (current_controller === 'search'){
+					if (current_controller === 'search' || current_controller === 'product'){
 						location.reload();
 					}else{
 						UpdateProductsList(page, arr);
@@ -1729,6 +1729,7 @@ $(function(){
 
 					$('.err_msg_as_wrap').css('display', 'none');
 					$('.err_msg_as_wrap').append(detachEl);
+					$('.modals').append(detachSnack);
 					// Находим элемент <img>
 					var imageCopy = document.getElementById("savedImageCopy");
 				
@@ -1762,7 +1763,7 @@ $(function(){
 		closeObject('big_photo');
 		$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
 		$('#savedCopyContainer').css('display', 'none');
-		if ($(document).outerWidth() < 450){			
+		if ($(document).outerWidth() < 450){
 			$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 145px)');
 		}
 		$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
@@ -1783,10 +1784,11 @@ $(function(){
 		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 
 		var detachEl = $('.err_msg_as_js').detach();
+		var detachSnack = $('#snackbar').detach();
 		// $('.waiting_block_for_img_canvas_js').removeClass('hidden');
 		if ($(document).outerWidth() < 450){
 			$('.waiting_block_for_img_canvas_js').css('top', '0');
-			$('#header_js').css('top', '52px');			
+			$('#header_js').css('top', '52px');
 		}else{
 			$('.waiting_block_for_img_canvas_js').css('top', '15px');
 		}
@@ -1800,6 +1802,7 @@ $(function(){
 
 				$('.err_msg_as_wrap').css('display', 'none');
 				$('.err_msg_as_wrap').append(detachEl);
+				$('.modals').append(detachSnack);
 				// Находим элемент <img>
 				var imageCopy = document.getElementById("savedImageCopy");
 			
@@ -1820,7 +1823,7 @@ $(function(){
 					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 				}
 				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
-				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');	
+				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
 				$('#err_canvas').attr({'width':'20','height':'20'});
 			}
@@ -1883,9 +1886,15 @@ $(function(){
 	});
 
 	$('body').on('click', '.canvasReady_js', function(event){
-		$('.canvas_toolbar').css('display', 'none');		
-		var detachElement = $('.err_msg_as_js').detach();		
-		$('.waiting_block_for_img_canvas_js').removeClass('hidden');
+		$('.canvas_toolbar').css('display', 'none');
+		var detachElement = $('.err_msg_as_js').detach();
+		var detachSnack = $('#snackbar').detach();
+		if ($(document).outerWidth() < 450){
+			$('.waiting_block_for_img_canvas_js').css('top', '0');
+			$('#header_js').css('top', '52px');
+		}else{
+			$('.waiting_block_for_img_canvas_js').css('top', '15px');
+		}
 
 		html2canvas(document.body, {
 			onrendered: function(canvas){
@@ -1894,6 +1903,7 @@ $(function(){
 
 				$('.err_msg_as_wrap').css('display', 'none');
 				$('.err_msg_as_wrap').append(detachElement);
+				$('.modals').append(detachSnack);
 				// Находим элемент <img>
 				var imageCopy = document.getElementById("savedImageCopy");
 			
@@ -1903,12 +1913,17 @@ $(function(){
 				// Показываем элемент <div>, делая изображение видимым
 				var imageContainer = document.getElementById("savedCopyContainer");
 				imageContainer.style.display = "block";
-				$('#savedCopyContainer').css('border-color', '#FF865F');				
+				$('#savedCopyContainer').css('border-color', '#FF865F');
 
 				$('#err_canvas').attr({'width':'20','height':'20'});
 				
 				$('.err_msg_as_wrap').css('display', 'block');
-				$('.waiting_block_for_img_canvas_js').addClass('hidden');
+				if ($(document).outerWidth() < 450) {
+					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
+					$('#header_js').css('top', '0');
+				}else{
+					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
+				}
 				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
 				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
@@ -1923,18 +1938,23 @@ $(function(){
 		var data = {'err_msg': err_msg, 'img_src': img_src };
 
 		ajax('errors', 'error', data).done(function(data){
-			console.log('Сообщение об ошибке отправлено успешно');
-			$('textarea[name="errcomment"]').val('');
-			$('#savedCopyContainer').css('display', 'none');
-			$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-			$('#savedImageCopy').attr('src', '');
-			$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-			$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
-			componentHandler.upgradeDom();
+			if (data.status != 3) {
+				$('textarea[name="errcomment"] + label').css('color', 'rgba(0, 0, 0, .26)');
+				$('textarea[name="errcomment"]').val('').closest('div').removeClass('is-dirty');
+				$('#savedCopyContainer').css('display', 'none');
+				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				$('#savedImageCopy').attr('src', '');
+				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+				$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
+				componentHandler.upgradeDom();
+			}else{
+				$('textarea[name="errcomment"] + label').css('color', '#ff0000');
+			}
+			var text = {message: data.message};
+			var snackbarContainer = document.querySelector('#snackbar');
+			snackbarContainer.MaterialSnackbar.showSnackbar(text);
 		}).fail(function(data){
 			console.log('Сообщение об ошибке не отправлено');
 		});
 	});
 });
-
-

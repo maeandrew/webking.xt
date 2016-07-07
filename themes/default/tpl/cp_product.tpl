@@ -209,7 +209,7 @@
 			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "" : "hidden" ?>">
 				<h1>ТОВАР ПРОДАН</h1>
 			</div>
-			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "hidden" : "" ?>" data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "hidden" : "" ?> " data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
@@ -222,12 +222,12 @@
 							<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
 						<?}?>
 					</div>						
-					<div class="btn_buy">
+					<div class="btn_buy <?=isset($_SESSION['member']['gid']) == _ACL_SUPPLIER_?'hidden':null?>">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
 						<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 					</div>
-					<div class="quantity">
+					<div class="quantity <?=isset($_SESSION['member']['gid']) == _ACL_SUPPLIER_?'hidden':null?>">
 						<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
 
@@ -235,9 +235,26 @@
 						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
 
 						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
-						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
-
+						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>					
+						
 						<div class="units"><?=$item['units'];?></div>
+					</div>
+					<!-- Блок для поставщика -->
+					<div class="supplier_block <?=isset($_SESSION['member']['gid']) == _ACL_SUPPLIER_?null:'hidden'?>">
+						<div class="count_cell">
+							<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
+							<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>			
+						</div>
+						<div class="count_cell">
+							<span class="suplierPriceBlockLabel">Количество в ящике:</span>
+							<p id="inbox_qty_<?=$item['id_product']?>"><?=$item['inbox_qty'].' '.$item['units']?></p>
+						</div>
+						<div class="product_check<?=isset($_SESSION['member']['gid']) == _ACL_SUPPLIER_?null:'hidden'?>">
+							<span class="suplierPriceBlockLabel">Добавить:</span>
+							<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">
+								<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
@@ -248,7 +265,7 @@
 			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
-					<li class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?>" data-id-product="<?=$item['id_product'];?>">
+					<li class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) == _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 						<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
 							<i id="forfavorite" class="isfavorite material-icons">favorite</i>
 							<span class="mdl-tooltip" for="forfavorite">Товар уже в избранном</span></li>
@@ -256,9 +273,8 @@
 							<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
 							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
 						<?}?>
-					<li id="fortrending" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
+					<li id="fortrending" class="<?=isset($_SESSION['member']['gid']) == _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
 						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
-					</li>
 					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div>
 					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
 						<span class="mdl-tooltip" for="shareButton">Поделиться</span></li>
@@ -294,7 +310,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="notificationProdNote <?=isset($item['qty_control']) && $item['qty_control'] == 0 ? 'hidden' : ''?>">			
+		<div class="notificationProdNote <?=isset($item['note_control']) && $item['note_control'] == 0 ? 'hidden' : ''?>">			
 			<span>Данный товар имеет дополнительные конфигурации (цвет, материал и тд.). Укажите свои пожелания к товару в поле "Примечание" при оформлении заказа в корзине.</span>
 		</div>
 		<div class="mdl-tabs mdl-js-tabs">
