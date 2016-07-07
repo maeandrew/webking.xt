@@ -509,7 +509,7 @@ class NovaPoshtaApi2 {
 		return $this->prepare(
 			array(
 				'success' => empty($error),
-				'data' => $data,
+				'data' => array($data),
 				'errors' => (array) @$error,
 				'warnings' => array(),
 				'info' => array(),

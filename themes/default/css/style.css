@@ -654,7 +654,7 @@ section.center {
 	background-color: #FF5722;
 	color: #fff;
 	padding: 1em 1.5em;
-	margin: 0 -1.5em 0;
+margin:  -1.5em 0;
 	font-size: 1.35em;
 }
 #quiz .head_top > span {

@@ -81,9 +81,7 @@
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">с большими фотографиями</label>
 				</fieldset>
 
-				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">
-				  Снять все выделения
-				</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">Снять все выделения</button>
 
 				<p class="info">Хотите открыть прайс в Excell?<br>Сохраните страницу прайса в браузере, затем откройте сохраненный файл в Excell.</p>
 				<div class="price-counter">
@@ -96,9 +94,7 @@
 					<p class="variables">Осталось<span class="remain-count value">3000</span></p>
 					<input type="hidden" required name="selected-array" class="selected-array">
 					<!-- <input type="submit" class="confirm btn-m-orange" value="Прайс-лист"> -->
-					<button class="mdl-button mdl-js-button mdl-button--raised confirm">
-					  Прайс-лист
-					</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised confirm">Прайс-лист</button>
 				</div>
 			</div>
 		</form>
@@ -111,7 +107,7 @@
 						<!-- <input type="radio"  name="pricelist_select" class="pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>">
 						<label for="order-<?=$price['order']?>"><?=$price['name']?></label> -->
 						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order-<?=$price['order']?>">
-							<input type="radio" name="pricelist_select" class="mdl-radio__button" id="order-<?=$price['order']?>" value="<?=$price['id']?>" value="<?=$price['id']?>"><?=$price['name']?>
+							<input type="radio" name="pricelist_select" class="mdl-radio__button pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>" value="<?=$price['id']?>"><?=$price['name']?>
 						</label>
 					</section>
 				<?}

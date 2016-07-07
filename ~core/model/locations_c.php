@@ -56,16 +56,54 @@ class Address {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
 	public function GetShippingCompanies($city = false){
-			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = 1";
-			$res = $this->db->GetOneRowArray($sql);
-			print_r($res['api_key']);die();
-			$NP = new NovaPoshtaApi2($res['api_key']);
-			print_r($NP->getCity("Харьков"));
 		if(!$city){
+			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies";
+			if(!$res = $this->db->GetArray($sql)){
+				return false;
+			}
 		}else{
 		}
+		return $res;
+	}
+	
+	public function GetShippingCompanyById($id){
+		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 
+	public function UseAPI($shipping_company, $function, $data = false){
+		switch($shipping_company['id']){
+			case '1':
+				$function = $shipping_company['api_prefix'].$function;
+				return $this->$function($data, $shipping_company);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	private function npgetCity($data, $company){
+		$NP = new NovaPoshtaApi2($company['api_key']);
+		$city = $NP->getCity($data['city'], $data['region']);
+		if(!empty($city['data'][0])){
+			return $city['data'][0];
+			// $echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';
+		}
+		return false;
+	}
+	private function npgetWarehouses($data, $company){
+		$NP = new NovaPoshtaApi2($company['api_key']);
+		$warehouses = $NP->getWarehouses($_POST['ref']);
+		if(!empty($warehouses['data'][0])){
+			return $warehouses['data'];
+		}
+		return false;
 	}
 }
 

@@ -70,46 +70,44 @@
 				break;
 			case "citySelect":
 				$echo = '';
-				$echo .= '<option value="2">Адресная доставка</option>';
 				// $res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
 				// $echo = '<option value="2">Передать автобусом</option><option value="1">Самовывоз</option>';
 				// if($res){
 					// $echo .= '<option value="3">Транспортные компании</option>';
 				// }
-				 
-				
+				$count = array(
+					'warehouse' => 0,
+					'courier' => 0
+				);
+
 				//////////////////////////////////////////////////////////////////////
 				// проверяем, есть ли в этом городе отделения транспортных компаний //
 				//////////////////////////////////////////////////////////////////////
-				// Новая почта
-				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
-				$city = $NP->getCity($_POST['city'], $_POST['region']);
-				$count = 0;
-				if(!empty($city['data'])){
-					$count++;
-					// $echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';
+				$shiping_companies = $Address->GetShippingCompanies();
+				foreach($shiping_companies as $company){
+					if($company['has_api'] == 1 && $company['courier'] == 1 && $company['api_key'] != ''){
+						$count['courier']++;
+						$city = $Address->UseAPI($company, 'getCity', $_POST);
+						$count['warehouse'] += !empty($city)?1:0;
+					}
 				}
-				if($count > 0){
+				if($count['warehouse'] > 0){
 					$echo .= '<option value="1">Самовывоз</option>';
+				}
+				if($count['courier'] > 0){
+					$echo .= '<option value="2">Адресная доставка</option>';
 				}
 				echo $echo;
 				break;
 			case "deliverySelect":
 				$echo = '';
-				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
-				$city = $NP->getCity($_POST['city'], $_POST['region']);
-				if(!empty($city['data'])){
-					$echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';					
+				$shiping_companies = $Address->GetShippingCompanies();
+				foreach($shiping_companies as $company){
+					$city = $Address->UseAPI($company, 'getCity', $_POST);
+					if(!empty($city)){
+						$echo .= '<option data-ref="'.$city['Ref'].'" value="1">'.$company['title'].'</option>';					
+					}
 				}
-				// $res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
-				// $echo = '';
-				// if(count($res) == 1){
-				// 	$echo = '<option selected="selected" value="'.$res[0]['shipping_comp'].'">'.$res[0]['shipping_comp'].'</option>';
-				// }else{
-				// 	foreach($res as $r){
-				// 		$echo .= '<option value="'.$r['shipping_comp'].'">'.$r['shipping_comp'].'</option>';
-				// 	}
-				// }
 				echo $echo;
 				break;
 			case "getCityId":
@@ -118,21 +116,30 @@
 				echo $echo;
 				break;
 			case "deliveryServiceSelect":
+				$echo = '';
 				if($Delivery->SetFieldsByInput($_POST['shipping_comp'], $_POST['city'], $_POST['region'])){
-					$res = $Delivery->list;?>
-					<?if(count($res) == 1){
-						foreach($res as $r){?>
-							<option selected="selected" value="<?=$r['id_city']?>"><?=$r['address']?></option>
-						<?}
-					}else{?>
-						<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>
-						<?foreach($res as $r){?>
-							<option value="<?=$r['id_city']?>"><?=$r['address']?></option>
-						<?}
+					$res = $Delivery->list;
+					if(count($res) == 1){
+						foreach($res as $r){
+							$echo .= '<option selected="selected" value="'.$r['id_city'].'">'.$r['address'].'</option>';
+						}
+					}else{
+						$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
+						foreach($res as $r){
+							$echo .= '<option value="'.$r['id_city'].'">'.$r['address'].'</option>';
+						}
 					}
-				}else{?>
-					<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>
-				<?}
+				}else{
+					$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
+				}
+				$echo = '';
+				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
+				if(!empty($warehouses)){
+					foreach($warehouses as $warehouse){
+						$echo .= '<option data-ref="'.$warehouse['Ref'].'" value="'.$warehouse['DescriptionRu'].'">'.$warehouse['DescriptionRu'].'</option>';					
+					}				
+				}
+				echo $echo;
 				break;
 			default:
 				break;
