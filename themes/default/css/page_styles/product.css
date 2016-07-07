@@ -513,10 +513,20 @@ div[for="rating_block"] {
 
 /* СТИЛИ ДЛЯ УВЕДОМЛЕНИИ О ПРИМЕЧАНИИ */
 
-.notificationProdNote {
+.notificationProdNote,
+.sold_produxt_info {
 	background: #ffffad;
 	padding: 10px;
 	margin-bottom: 10px;
+	display: flex;
+	text-align: justify;
+}
+.sold_produxt_info .icon {
+	margin-left: 10px;
+}
+.sold_produxt_info .icon div {
+    border: 1px solid #444;
+    margin-top: calc(50% + 12px);	
 }
 
 [data-type="panel"][data-position="left"] {
