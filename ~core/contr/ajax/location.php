@@ -73,11 +73,19 @@
 				if($res){
 					$echo .= '<option value="3">Транспортные компании</option>';
 				}
+				//////////////////////////////////////////////////////////////////////
+				// проверяем, есть ли в этом городе отделения транспортных компаний //
+				//////////////////////////////////////////////////////////////////////
+				// Новая почта
 				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
 				$city = $NP->getCity($_POST['city'], $_POST['region']);
-				print_r($NP->getWarehouses($city['CityRef']));
+				if(!is_empty($city['errors'])){
+					$data['np'] = $city;
+				}
+				// $shipping_comp[] = 
+				// print_r($NP->getWarehouses($city['CityRef']));
 				// echo ;
-				// echo $echo;
+				echo json_encode($data);
 				break;
 			case "deliverySelect":
 				$res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
