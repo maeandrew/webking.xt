@@ -42,6 +42,7 @@ function GetQuizAjax(params){
 	// $('#quiz > .modal_container').html('');
 	ajax('quiz', 'step', data, 'html').done(function(data){		
 		$('#quiz').html(data);
+		componentHandler.upgradeDom();
 		removeLoadAnimation('#quiz');
 		Position($('#quiz'));
 	});
@@ -60,7 +61,7 @@ function GetCabProdAjax(id_order, rewrite){
 
 function GetCabCoopProdAjax(id_cart, rewrite){
 	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart, 'rewrite': rewrite}, 'html').done(function(data){
-		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {
+		if($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')){
 			$('.products_cart_js').html(data);
 		}else{
 			$('.active_link_to_cart_js').closest('li').find('.products_cart_js').html(data);

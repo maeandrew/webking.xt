@@ -555,7 +555,7 @@
 										$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 									});
 									if (data.new_user === true) {
-										window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
+										// window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
 									}
 									// openObject('quiz');
 									break;

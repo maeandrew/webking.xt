@@ -56,6 +56,16 @@ class Address {
 		$this->db->CompleteTrans();
 		return true;
 	}
+	public function GetShippingCompanies($city = false){
+			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = 1";
+			$res = $this->db->GetOneRowArray($sql);
+			$NP = new NovaPoshtaApi2($res['api_key']);
+			print_r($NP->getWarehouses("Харьков"));
+		if(!$city){
+		}else{
+		}
+
+	}
 }
 
 // Города

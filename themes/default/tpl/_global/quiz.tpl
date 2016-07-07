@@ -1,4 +1,4 @@
-<div class="modal_container summary_info">
+<div class="modal_container summary_info hidden">
 	<div class="row ">
 		<span class="span_title">Фамилия:</span>
 		<span class="lastname"><?=$customer['first_name']?></span>
@@ -36,11 +36,11 @@
 		<span class="post_office_address"><?=$savedcity['address']?></span>
 	</div>
 </div>
-<?switch($step){
-	case 1:?>
-		<div class="modal_container step_1 active" data-step="1">
+<div class="modal_container step_<?=$step?> active" data-step="<?=$step?>">
+	<?switch($step){
+		case 1:?>
 			<div class="head_top">
-				<h5>Здравствуйте! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h5>
+				<h6>Здравствуйте! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h6>
 				<span>Сейчас я вижу Вас как <?=$_SESSION['member']['name']?>, <?=(substr($_SESSION['member']['name'], 0, 4)=='user')?' скажите, как Вас зовут?':' подтвердите данные.'?></span>
 			</div>
 			<div class="row">
@@ -68,10 +68,8 @@
 			<div class="row">
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Далее</button>
 			</div>
-		</div>
-		<?break;
-	case 2:?>
-		<div class="modal_container step_2 active" data-step="2">
+			<?break;
+		case 2:?>
 			<div class="head_top">
 				<h6><span class="client"><?=$customer['middle_name']?> <?=$customer['last_name']?></span>, мы доставляем в 460 городов, а откуда Вы?</h6>
 			</div>
@@ -97,7 +95,6 @@
 					</select>
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="error_div hidden">
 
@@ -105,30 +102,34 @@
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="1">Назад</button>
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Далее</button>
 			</div>
-		</div>
-		<?break;
-	case 3:?>
-		<div class="modal_container step_3 active" data-step="3">
+			<?break;
+		case 3:?>
 			<div class="head_top">
 				<h6><span class="client"><?=$customer['middle_name']?> <?=$customer['last_name']?></span>, доставка в <span class="city"><?=$savedcity['name']?></span> возможна! Выберите службу доставки.</h6>
 			</div>
 			<div class="row delivery_service">
+				<?foreach($availabledeliveryservices as $k => $delivery){?>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_comp-<?=$k?>">
+						<input type="radio" name="shipping_comp" id="shipping_comp-<?=$k?>" class="mdl-radio__button" name="options" value="<?=$delivery['shipping_comp']?>" <?=$delivery['shipping_comp'] == $savedcity['shipping_comp']?'checked':null;?>>
+						<span class="mdl-radio__label"><?=$delivery['shipping_comp']?></span>
+					</label>
+				<?}?>
 			</div>
-			<?foreach($availabledeliveryservices as $delivery){ ?>
-			<input type="radio" name="shipping_comp" <?=$delivery['shipping_comp'] == $savedcity['shipping_comp']?'checked':null;?> value="<?=$delivery['shipping_comp']?>"/><?=$delivery['shipping_comp']?>
-			<?}?>
-
-
 
 			<!--Появляется после выбора службы доставки-->
 
 			<div class="row">
 				<span>Вам удобнее забрать заказ со склада или принять по адресу?</span>
 				<div class="imit_select delivery_type">
-
-					<input type="radio" name="shipping_method" value="address"/>Адресная доставка
-					<input type="radio" name="shipping_method" value="warehouse" <?=isset($savedcity['address'])?'checked':null?>/>Забрать со склада
-
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_method-1">
+						<input type="radio" name="shipping_method" id="shipping_method-1" class="mdl-radio__button" value="address">
+						<span class="mdl-radio__label">Адресная доставка</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_method-2">
+						<input type="radio" name="shipping_method" id="shipping_method-2" class="mdl-radio__button" value="warehouse" <?=isset($savedcity['address'])?'checked':null?>>
+						<span class="mdl-radio__label" >Забрать со склада</span>
+					</label>
+					
 					<!--<button id="select_delivery_type" class="mdl-button mdl-js-button">
 						<span class="select_field">Выбрать</span>
 						<i class="material-icons fright">keyboard_arrow_down</i>
@@ -140,14 +141,22 @@
 				</div>
 
 
-				<span>Отделение в Вашем городе (ЕСЛИ ВЫБРАНО "ЗАБРАТЬ СО СКЛАДА")</span>
+				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
+					<select id="city" name="city" class="mdl-selectfield__select" onChange="regionSelect($(this));">
+						<?foreach($availabledeliverydepartment as $office){?>
+							<option <?=$office['address'] == $savedcity['address']?'selected="selected"':null;?> value="<?=$office['address']?>"><?=$office['address']?></option>
+						<?}?>
+					</select>
+					<label class="mdl-selectfield__label" for="region">Отделение в Вашем городе</label>
+				</div>
+				<!-- <span>Отделение в Вашем городе (ЕСЛИ ВЫБРАНО "ЗАБРАТЬ СО СКЛАДА")</span>
 				<div class="imit_select">
 					<select required="required" name="id_city" id="id_city">
 						<?foreach($availabledeliverydepartment as $office){ ?>
-						<option <?=$office['address'] == $savedcity['address']?'selected="selected"':null;?> value="<?=$office['address']?>"><?=$office['address']?></option>
+							<option <?=$office['address'] == $savedcity['address']?'selected="selected"':null;?> value="<?=$office['address']?>"><?=$office['address']?></option>
 						<?}?>
 					</select>
-				</div>
+				</div>-->
 
 				<span>Введите адрес доставки (ЕСЛИ ВЫБРАНО "АДРЕСНАЯ ДОСТАВКА")</span>
 				<div class="imit_select">
@@ -174,10 +183,8 @@
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="2">Назад</button>
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="4">Далее</button>
 			</div>
-		</div>
-		<?break;
-	case 4:?>
-		<div class="modal_container step_4 active" data-step="4">
+			<?break;
+		case 4:?>
 			<div class="head_top">
 				<h6><?=$customer['middle_name']?> <?=$customer['last_name']?>, у меня есть необходимые данные для отправки заказа.</h6>
 				<span>Вы готовы внести предоплату?</span>
@@ -199,23 +206,21 @@
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="3">Назад</button>
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="5" onclick="javascript:window.location.hash = ''">Отправить</button>
 			</div>
-		</div>
-		<?break;
-	case 5:?>
-		<div class="modal_container step_5 active" data-step="5">
+			<?break;
+		case 5:?>
 			<div class="head_top">
 				<h6>Готово!</h6>
 				<p class="msg_for_client">Я свяжусь с Вами в ближайшее время.</p>
 			</div>
+			<?break;
+		default:
+			# code...
+			break;
+	}?>
+	<div class="progress">
+		<div class="line">
+			<div class="line_active"></div>
 		</div>
-		<?break;
-	default:
-		# code...
-		break;
-}?>
-<div class="progress">
-	<div class="line">
-		<div class="line_active"></div>
+		<span class="go">Заполнено: </span>
 	</div>
-	<span class="go">Заполнено: </span>
 </div>

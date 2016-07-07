@@ -20,7 +20,7 @@ class Products {
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
 			"p.volume", "p.coefficient_volume", "p.qty_control", "p.price_coefficient_opt", "p.price_coefficient_mopt",
 			"p.visible", "p.ord", "p.note_control", "un.unit_xt AS units", "p.prod_status", "p.old_price_mopt",
-			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category", "cp.main AS main_category",
+			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
 			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
@@ -1420,7 +1420,7 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			$sql = "SELECT ".implode(", ",$this->usual_fields_cart)."
+			$sql = "SELECT ".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
