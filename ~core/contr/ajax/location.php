@@ -63,10 +63,12 @@
 				break;
 			// old code
 			case "regionSelect":
+				$echo = '<option disabled selected>Выберите город</option>';
 				$res = $City->SetFieldsByInput($_POST['region']);
-				foreach($res as $r){?>
-					<option value="<?=$r['name']?>"><?=$r['name']?></option>
-				<?}
+				foreach($res as $r){
+					$echo .= '<option value="'.$r['name'].'">'.$r['name'].'</option>';
+				}
+				echo $echo;
 				break;
 			case "citySelect":
 				$echo = '<option disabled>Выберите способ доставки</option>';

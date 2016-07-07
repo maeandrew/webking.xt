@@ -51,6 +51,7 @@
 		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
 				<select id="region" name="region" class="mdl-selectfield__select" onChange="regionSelect($(this));">
+					<option disabled selected>Выберите область</option>
 					<?foreach($allregions as $region){ ?>
 						<option value="<?=$region['region']?>"><?=$region['region']?></option>
 					<?}?>
@@ -61,9 +62,6 @@
 		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
 				<select id="city" name="city" class="mdl-selectfield__select" disabled onChange="citySelect($(this));">
-					<!-- <?if(empty($availablecities)){?>
-						<option value="">Выберите область</option>
-					<?}?> -->
 					<?foreach($availablecities as $city){?>
 						<option value="<?=$city['names_regions']?>"><?=$city['name']?></option>
 					<?}?>
