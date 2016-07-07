@@ -71,7 +71,7 @@
 				echo $echo;
 				break;
 			case "citySelect":
-				$echo = '<option disabled>Выберите способ доставки</option>';
+				$echo = '<option disabled selected>Выберите способ доставки</option>';
 				// $res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
 				// $echo = '<option value="2">Передать автобусом</option><option value="1">Самовывоз</option>';
 				// if($res){
@@ -102,7 +102,7 @@
 				echo $echo;
 				break;
 			case "deliverySelect":
-				$echo = '<option disabled>Выберите службу доставки</option>';
+				$echo = '<option disabled selected>Выберите службу доставки</option>';
 				$shiping_companies = $Address->GetShippingCompanies();
 				foreach($shiping_companies as $company){
 					$city = $Address->UseAPI($company, 'getCity', $_POST);
