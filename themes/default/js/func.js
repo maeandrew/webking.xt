@@ -1861,14 +1861,14 @@ function segmentOpen(id){
 function regionSelect(obj){
 	var parent = obj.closest('form'),
 		region = obj.val();
-	console.log('');
-	console.log('Область - '+region);
+	// console.log('');
+	// console.log('Область - '+region);
 	if(region !== undefined){
 		ajax('location', 'regionSelect', {region: region}, 'html').done(function(data){
 			parent.find('select:not(#region) option').remove();
 			parent.find('#city').html(data).prop('disabled', false);
 			parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
-			citySelect(parent.find('#city'));
+			// citySelect(parent.find('#city'));
 		});
 	}
 }
@@ -1877,15 +1877,16 @@ function citySelect(obj){
 	var parent = obj.closest('form'),
 		city = obj.val(),
 		region = parent.find('#region').val();
-	console.log('');
-	console.log('Область - '+region);
-	console.log('Город - '+city);
+	// console.log('');
+	// console.log('Область - '+region);
+	// console.log('Город - '+city);
 	if(city !== undefined && region !== undefined){
 		ajax('location', 'citySelect', {city: city, region: region}, 'html').done(function(data){
-			parent.find('select:not(#region, #city) option').remove();
-			parent.find('#id_delivery').html(data).prop('disabled', false);
-			parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
-			deliverySelect(parent.find('#id_delivery'));
+			console.log(data);
+			// parent.find('select:not(#region, #city) option').remove();
+			// parent.find('#id_delivery').html(data).prop('disabled', false);
+			// parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
+			// deliverySelect(parent.find('#id_delivery'));
 		});
 	}
 }

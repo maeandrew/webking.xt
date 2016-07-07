@@ -434,7 +434,7 @@ class NovaPoshtaApi2 {
 	 */
 	function getArea($findByString = '', $ref = '') {
 		// Load areas list from file
-		empty($this->areas) AND $this->areas = include dirname(__FILE__).'/NovaPoshtaApi2Areas.php';
+		empty($this->areas) AND $this->areas = include dirname(__FILE__).'/NP2A.php';
 		$data = $this->findArea($this->areas, $findByString, $ref);
 		// Error
 		empty($data) AND $error = 'Area was not found';
@@ -496,20 +496,21 @@ class NovaPoshtaApi2 {
 	function getCity($cityName, $areaName = '') {
 		// Get cities by name
 		$cities = $this->getCities(0, $cityName);
-		if (is_array($cities['data'])) {
+		$data = array();
+		if (is_array($cities['data']) && !empty($cities['data'])) {
 			// If cities more then one, calculate current by area name
 			$data = (count($cities['data']) > 1) 
 				? $this->findCityByRegion($cities, $areaName)
 				: $cities['data'][0];
 		}
 		// Error
-		( ! $data) AND $error = 'City was not found';
+		(!empty($data)) AND $error = 'City was not found';
 		// Return data in same format like NovaPoshta API
 		return $this->prepare(
 			array(
 				'success' => empty($error),
-				'data' => array($data),
-				'errors' => (array) $error,
+				'data' => $data,
+				'errors' => (array) @$error,
 				'warnings' => array(),
 				'info' => array(),
 		));

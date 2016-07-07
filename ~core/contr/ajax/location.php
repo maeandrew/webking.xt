@@ -82,8 +82,8 @@
 				// Новая почта
 				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
 				$city = $NP->getCity($_POST['city'], $_POST['region']);
-				if(!empty($city['errors'])){
-					$echo .= '<option data-ref="'.$city['Ref'].'" value="1">Новая почта</option>';
+				if(!empty($city['data'])){
+					$echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';
 				}
 				echo $echo;
 				break;

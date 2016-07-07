@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service hidden">
+			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service ">
 				<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));">
 					<?foreach($availabledeliveryservices as $ds){?>
 						<option value="<?=$ds['shipping_comp']?>"><?=$ds['shipping_comp']?></option>
@@ -92,7 +92,7 @@
 			</div>
 		</div>
 		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department hidden">
+			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department ">
 				<select id="id_delivery_department" name="id_delivery_department" class="mdl-selectfield__select">
 					<?foreach($availabledeliverydepartment as $dd){?>
 						<option value="<?=$dd['id_city']?>"><?=$dd['address']?></option>
@@ -102,7 +102,7 @@
 			</div>
 		</div>
 		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-textfield mdl-js-textfield address hidden">
+			<div class="mdl-textfield mdl-js-textfield address ">
 				<textarea class="mdl-textfield__input" type="text" rows="3" id="address" ></textarea>
 				<label class="mdl-textfield__label" for="address">Адрес доставки</label>
 			</div>
