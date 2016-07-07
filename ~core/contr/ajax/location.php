@@ -73,9 +73,10 @@
 				if($res){
 					$echo .= '<option value="3">Транспортные компании</option>';
 				}
-
 				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
-				echo $NP->getCity($_POST['city'], $_POST['region']);
+				$city = $NP->getCity($_POST['city'], $_POST['region']);
+				print_r($NP->getWarehouses($city['CityRef']));
+				// echo ;
 				// echo $echo;
 				break;
 			case "deliverySelect":
