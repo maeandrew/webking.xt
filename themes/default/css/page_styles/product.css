@@ -222,7 +222,8 @@
 }
 .apps_panel ul li:hover i,
 .apps_panel ul li:hover .icon,
-.apps_panel ul li .arrow {
+.apps_panel ul li .arrow,
+.sold_produxt_info ul li .arrow {
 	color: #FF5722 ;
 }
 .rating_block {
@@ -511,22 +512,28 @@ div[for="rating_block"] {
 	background-color: #757575;
 }
 
-/* СТИЛИ ДЛЯ УВЕДОМЛЕНИИ О ПРИМЕЧАНИИ */
+/* СТИЛИ ДЛЯ УВЕДОМЛЕНИИ О ПРИМЕЧАНИИ И ОТСУТСТВИИ ТОВАРА В НАЛИЧИИ*/
 
 .notificationProdNote,
 .sold_produxt_info {
-	background: #ffffad;
+	background: #b2dfdb;
 	padding: 10px;
 	margin-bottom: 10px;
-	display: flex;
 	text-align: justify;
 }
+.sold_produxt_info .waiting_list:hover {
+	cursor: pointer;
+	color: #FF5722;
+} 
 .sold_produxt_info .icon {
 	margin-left: 10px;
 }
-.sold_produxt_info .icon div {
-    border: 1px solid #444;
-    margin-top: calc(50% + 12px);	
+.sold_produxt_info .waiting_list {
+    border: 1px solid;
+    margin-top: 5px;	
+}
+#fortrending_info {
+	width: 40px;
 }
 
 [data-type="panel"][data-position="left"] {

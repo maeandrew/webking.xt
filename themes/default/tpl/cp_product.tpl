@@ -274,8 +274,8 @@
 							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
 						<?}?>
 					<li id="fortrending" class="<?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
-						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
-					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div></li>
+						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li>
+					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div>
 					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
 						<span class="mdl-tooltip" for="shareButton">Поделиться</span></li>
 				</ul>
@@ -311,12 +311,12 @@
 			</div>
 		</div>
 		<div class="sold_produxt_info <?=$item['price_opt'] && $item['price_mopt'] == 0.00 ? "" : "hidden" ?>">
-			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в список слежения измения цен товаров, что бы быть в курсе когда товар будет вновь в продаже. Что бы добавить в список нажмите кнопку <strong>"Следить за ценой"</strong> выше в ценовом блоке.</p> 
-			<div class="icon"><div class="material-icons">trending_down</div></div>
-			<!-- <div id="fortrending_info" class="<?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
-				<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
-			<div class="mdl-tooltip" for="fortrending_info">Следить за ценой</div></div> -->
-		</div>
+			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p> 
+			<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
+			<ul><li id="fortrending_info" class="<?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
+				<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li></ul>
+			<div class="mdl-tooltip" for="fortrending_info">Следить за ценой</div>
+					</div>
 		<div class="notificationProdNote <?=isset($item['note_control']) && $item['note_control'] == 0 ? 'hidden' : ''?>">
 			<span>Данный товар имеет дополнительные конфигурации (цвет, материал и тд.). Укажите свои пожелания к товару в поле "Примечание" при оформлении заказа в корзине.</span>
 		</div>
@@ -617,7 +617,7 @@
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();
-			if ($(this).closest('.favorite').hasClass('added')) {
+			if ($(this).closest('.favorite').hasClass('added')) {				
 				$(this).closest('.favorite').removeClass('added');
 				RemoveFavorite($(this).closest('li').data('id-product'), $(this));
 			}else{
@@ -629,10 +629,14 @@
 		$('.waiting_list').click(function(e) {
 			e.preventDefault();
 			if ($(this).hasClass('arrow')) {
-				$(this).removeClass('arrow');
+				console.log('тут');
+				$('#specCont').find('.arrow').removeClass('arrow');
+				// $(this).removeClass('arrow');
 				RemoveFromWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 			}else{
-				$(this).addClass('arrow');
+				console.log('здесь');
+				$('#specCont').find('.waiting_list').addClass('arrow');
+				// $(this).addClass('arrow');
 				AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 			}
 		});
