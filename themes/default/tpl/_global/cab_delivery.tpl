@@ -106,6 +106,7 @@
 				<textarea class="mdl-textfield__input" type="text" rows="3" id="address" ></textarea>
 				<label class="mdl-textfield__label" for="address">Адрес доставки</label>
 			</div>
+				<span class="">Формат адреса: ул./пер., дом, кв.</span>
 		</div>
 		<div class="buttons_cab">
 			<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Сохранить</button>

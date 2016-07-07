@@ -1961,13 +1961,13 @@ $(function(){
 	$(document).scroll(function(event) {
 		if ($(document).scrollTop() >= 1000) {
 			console.log($(document).scrollTop());
-			$('go_up_js').removeClass('hidden');
+			$('.go_up_js').removeClass('hidden');
 		}else{
-			$('go_up_js').addClass('hidden');
+			$('.go_up_js').addClass('hidden');
 		}
 	});
 
-	$('go_up_js').click(function(event) {
+	$('.go_up_js').click(function(event) {
 		$(document).scrollTop(0);
 	});
 });

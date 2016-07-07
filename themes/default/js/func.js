@@ -1883,9 +1883,9 @@ function citySelect(obj){
 	if(city !== undefined && region !== undefined){
 		ajax('location', 'citySelect', {city: city, region: region}, 'html').done(function(data){
 			console.log(data);
-			// parent.find('select:not(#region, #city) option').remove();
-			// parent.find('#id_delivery').html(data).prop('disabled', false);
-			// parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
+			parent.find('select:not(#region, #city) option').remove();
+			parent.find('#id_delivery').html(data).prop('disabled', false);
+			parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
 			// deliverySelect(parent.find('#id_delivery'));
 		});
 	}
@@ -1901,13 +1901,13 @@ function deliverySelect(obj){
 	console.log('Город - '+city);
 	console.log('Способ - '+id_delivery);
 	switch(id_delivery){
-		case '3':
+		case '1':
 			ajax('location', 'deliverySelect', {city: city, region: region}, 'html').done(function(data){
 				parent.find('.delivery_service, .delivery_department').removeClass('hidden');
 				parent.find('#id_delivery_service, #id_delivery_department').prop('required', true);
 				parent.find('#id_delivery_service option').remove();
 				parent.find('#delivery_service, #insurance, #delivery_department').slideDown();
-				parent.find('#id_delivery_service').append(data);
+				parent.find('#id_delivery_service').html(data);
 				parent.find('.content-insurance').slideDown();
 				deliveryServiceSelect(parent.find('#id_delivery_service'));
 			});
@@ -1971,16 +1971,18 @@ function deliverySelect(obj){
 
 function deliveryServiceSelect(obj){
 	var parent = obj.closest('form'),
-		shipping_comp = obj.val(),
+		// shipping_comp = obj.val(),
+		shipping_comp = obj.find('option:selected').val(),
 		id_delivery = parent.find('#id_delivery').val(),
 		city = parent.find('#city').val(),
-		region = parent.find('#region').val();
-	console.log('');
-	console.log('Область - '+region);
-	console.log('Город - '+city);
-	console.log('Способ - '+id_delivery);
-	console.log('Служба - '+shipping_comp);
-	ajax('location', 'deliveryServiceSelect', {city: city, region: region, shipping_comp: shipping_comp}, 'html').done(function(data){
+		region = parent.find('#region').val(),
+		ref = obj.find('option:selected').data('ref');
+	// console.log('');
+	// console.log('Область - '+region);
+	// console.log('Город - '+city);
+	// console.log('Способ - '+id_delivery);
+	// console.log('Служба - '+shipping_comp);
+	ajax('location', 'deliveryServiceSelect', {city: city, region: region, shipping_comp: shipping_comp, ref: ref, id_delivery: id_delivery}, 'html').done(function(data){
 		parent.find('#id_delivery_department option').remove();
 		parent.find('#id_delivery_department').append(data);
 	});
