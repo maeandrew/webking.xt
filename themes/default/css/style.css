@@ -3938,9 +3938,10 @@ div.modalEditOrder .applyBtn {
 }
 
 .go_up {
-	position: absolute !important;
+	position: fixed !important;
 	bottom: 2em;
 	right: 2em;
+	opacity: 0.4;
 }
 
 
