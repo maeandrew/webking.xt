@@ -95,15 +95,21 @@
 				echo $echo;
 				break;
 			case "deliverySelect":
-				$res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
 				$echo = '';
-				if(count($res) == 1){
-					$echo = '<option selected="selected" value="'.$res[0]['shipping_comp'].'">'.$res[0]['shipping_comp'].'</option>';
-				}else{
-					foreach($res as $r){
-						$echo .= '<option value="'.$r['shipping_comp'].'">'.$r['shipping_comp'].'</option>';
-					}
+				$NP = new NovaPoshtaApi2('45a3b980c25318193c40f7b10f7d0663');
+				$city = $NP->getCity($_POST['city'], $_POST['region']);
+				if(!empty($city['data'])){
+					$echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';					
 				}
+				// $res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
+				// $echo = '';
+				// if(count($res) == 1){
+				// 	$echo = '<option selected="selected" value="'.$res[0]['shipping_comp'].'">'.$res[0]['shipping_comp'].'</option>';
+				// }else{
+				// 	foreach($res as $r){
+				// 		$echo .= '<option value="'.$r['shipping_comp'].'">'.$r['shipping_comp'].'</option>';
+				// 	}
+				// }
 				echo $echo;
 				break;
 			case "getCityId":
