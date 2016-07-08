@@ -3937,9 +3937,9 @@ div.modalEditOrder .applyBtn {
 
 }
 
-.go_up {
-	position: fixed !important;
-	top: 100%;
+div.go_up {
+	position: fixed;
+	bottom: -2em;
 	right: 2em;
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
