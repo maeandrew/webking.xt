@@ -4697,9 +4697,10 @@ class Products {
 	}
 
 	public  function GetUncategorisedProducts(){
-		$sql = "SELECT id_product, art, `name`, visible FROM "._DB_PREFIX_."product
-				WHERE id_product NOT IN (SELECT id_product FROM "._DB_PREFIX_."cat_prod
-				WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1)) AND sid = 1";
+		$sql = "SELECT id_product, art, `name`, visible, indexation FROM	"._DB_PREFIX_."product
+				WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
+				WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))
+				ORDER BY indexation";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
