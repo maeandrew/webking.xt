@@ -43,6 +43,13 @@
 		<!-- <input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/> -->
 		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
+				<label class="mdl-textfield__label" for="full_name">Получатель</label>
+			</div>
+			<p class="explanation">укажите ФИО получателя полностью</p>
+		</div>
+		<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" name="title" id="title" required>
 				<label class="mdl-textfield__label" for="title">Название</label>
 			</div>
@@ -80,7 +87,7 @@
 			</div>
 		</div>
 		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service ">
+			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service">
 				<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));">
 					<?foreach($availabledeliveryservices as $ds){?>
 						<option value="<?=$ds['shipping_comp']?>"><?=$ds['shipping_comp']?></option>
@@ -89,8 +96,8 @@
 				<label class="mdl-selectfield__label" for="id_delivery_service">Служба доставки</label>
 			</div>
 		</div>
-		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department ">
+		<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department">
 				<select id="id_delivery_department" name="id_delivery_department" class="mdl-selectfield__select">
 					<?foreach($availabledeliverydepartment as $dd){?>
 						<option value="<?=$dd['id_city']?>"><?=$dd['address']?></option>
@@ -99,12 +106,13 @@
 				<label class="mdl-selectfield__label" for="id_delivery_department">Отделение</label>
 			</div>
 		</div>
-		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-textfield mdl-js-textfield address ">
-				<textarea class="mdl-textfield__input" type="text" rows="3" id="address" ></textarea>
+		<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-textfield mdl-js-textfield address">
+				<textarea class="mdl-textfield__input" type="text" rows="3" id="address"></textarea>
 				<label class="mdl-textfield__label" for="address">Адрес доставки</label>
 			</div>
-				<span class="">Формат адреса: ул./пер., дом, кв.</span>
+			<p class="explanation">Формат адреса: ул./пер., дом, кв.</p>
+			<!-- <span class="">Формат адреса: ул./пер., дом, кв.</span> -->
 		</div>
 		<div class="buttons_cab">
 			<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Сохранить</button>
