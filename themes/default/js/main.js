@@ -1961,15 +1961,6 @@ $(function(){
 	$(document).scroll(function(event) {
 		if ($(document).scrollTop() >= $(window).outerHeight()) {
 			$('.go_up_js').css('bottom', '2em');
-			// var opacity = 0.4;
-			// var num = 1723 % 1000;
-			// console.log(($(document).scrollTop()).toFixed() % 1000);
-			// console.log(($(document).scrollTop()).toFixed() % 1000 == 0);
-			// console.log('');
-			// if (($(document).scrollTop() / 1000).toFixed(1) == 0) {
-			// 	console.log($(document).scrollTop());
-			// 	$('.go_up_js').css('opacity', opacity += 0.2);
-			// }
 		}else{
 			$('.go_up_js').css('bottom', '-3em');
 		}
