@@ -4697,7 +4697,7 @@ class Products {
 	}
 
 	public  function GetUncategorisedProducts(){
-		$sql = "SELECT id_product, art, `name`, visible FROM "._DB_PREFIX_."product
+		$sql = "SELECT id_product, art, `name`, translit, visible FROM "._DB_PREFIX_."product
 				WHERE id_product NOT IN (SELECT id_product FROM "._DB_PREFIX_."cat_prod
 				WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1)) AND sid = 1";
 		if(!$res = $this->db->GetArray($sql)){

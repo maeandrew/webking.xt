@@ -41,13 +41,30 @@
 	<form id="edit_contacts" class="editing" action="" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<!-- <input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/> -->
-		<div class="mdl-cell mdl-cell--12-col">
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
-				<label class="mdl-textfield__label" for="full_name">Получатель</label>
+		
+		<fieldset>
+			<legend>Получатель</legend>
+			<div id="flm_name" class="flm_name">
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
+						<label class="mdl-textfield__label" for="full_name">Фамилия</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
+						<label class="mdl-textfield__label" for="full_name">Имя</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
+						<label class="mdl-textfield__label" for="full_name">Отчество</label>
+					</div>
+				</div>
 			</div>
-			<p class="explanation">укажите ФИО получателя полностью</p>
-		</div>
+		</fieldset>
 		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" name="title" id="title" required>

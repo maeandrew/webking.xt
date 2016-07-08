@@ -1020,6 +1020,35 @@ img.pic_block {
 	margin-top: 1em;
 }
 
+/* Оформление списка товаров без категории */
+/*.nocategory .table_row {
+	display: flex;
+	justify-content: space-between;
+}
+.nocategory .table_row > * {
+	padding: .5em;
+	font-size: 1em;
+	text-align: center;
+}
+.nocategory .table_header {
+	background-color: #DEDEDE;
+}
+.nocategory .item_art {
+	flex-basis: 6%;
+}
+.nocategory .item_title {
+	flex-basis: 80%;
+}
+.nocategory .actions {
+	flex-basis: 10%;
+}
+.nocategory .table_body .table_row .item_title {
+	text-align: left;
+}
+.nocategory .table_body .table_row:nth-child(even) {
+	background-color: #DEDEDE;
+}*/
+
 
 /*a:hover        { color: #CC0000; }*/
 /*.no-margin { margin: 0 !important; }
