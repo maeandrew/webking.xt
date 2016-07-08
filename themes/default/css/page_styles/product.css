@@ -515,11 +515,16 @@ div[for="rating_block"] {
 /* СТИЛИ ДЛЯ УВЕДОМЛЕНИИ О ПРИМЕЧАНИИ И ОТСУТСТВИИ ТОВАРА В НАЛИЧИИ*/
 
 .notificationProdNote,
-.sold_produxt_info {
-	background: #b2dfdb;
+.sold_produxt_info {	
 	padding: 10px;
 	margin-bottom: 10px;
 	text-align: justify;
+}
+.notificationProdNote{
+	background: #ffffad;
+}
+.sold_produxt_info {
+	background: #b2dfdb;
 }
 .sold_produxt_info .waiting_list:hover {
 	cursor: pointer;
