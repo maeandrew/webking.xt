@@ -803,5 +803,5 @@
 		</div>
 	</div>
 
-	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent hidden">Наверх</div>
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Наверх</div>
 </body>
