@@ -1754,6 +1754,7 @@ table.supplier_assort_table {
 	}
 	.customer_cab .add_new_address {
 		padding: 0;
+		margin-top: 1em;
 	}
 	.customer_cab .add_new_address .explanation {
 		font-size: 13px;
@@ -1761,7 +1762,15 @@ table.supplier_assort_table {
 		margin-top: -1.5em;
 		color: #bfbfbf;
 		text-align: right;
-	}	
+	}
+	.customer_cab .add_new_address fieldset {
+		border: 1px solid #D8D8D8;
+		border-radius: .2em;
+	}
+	.customer_cab .add_new_address fieldset legend {
+		margin: 0 1em;
+		padding: 0 1em;
+	}
 
 /* Customer cab modal window =============================================== */
 

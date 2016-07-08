@@ -47,20 +47,26 @@
 			<div id="flm_name" class="flm_name">
 				<div class="mdl-cell mdl-cell--12-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
-						<label class="mdl-textfield__label" for="full_name">Фамилия</label>
+						<input class="mdl-textfield__input" type="text" name="first_name" id="title" required>
+						<label class="mdl-textfield__label" for="first_name">Фамилия</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
-						<label class="mdl-textfield__label" for="full_name">Имя</label>
+						<input class="mdl-textfield__input" type="text" name="middle_name" id="title" required>
+						<label class="mdl-textfield__label" for="middle_name">Имя</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="full_name" id="title" required>
-						<label class="mdl-textfield__label" for="full_name">Отчество</label>
+						<input class="mdl-textfield__input" type="text" name="last_name" id="title" required>
+						<label class="mdl-textfield__label" for="last_name">Отчество</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" name="phone" id="title" required>
+						<label class="mdl-textfield__label" for="phone">Контактный телефон</label>
 					</div>
 				</div>
 			</div>
