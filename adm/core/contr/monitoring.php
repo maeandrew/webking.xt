@@ -101,7 +101,7 @@ if(isset($GLOBALS['REQAR'][1])){
 			break;
 		case 'uncategorised_products':
 			if(isset($_POST['filter_art'])){
-				$where_art = ' AND art LIKE \''.$_POST['filter_art'].'\'';
+				$where_art = ' AND art LIKE \''.trim($_POST['filter_art']).'\'';
 			}
 			$Products = new Products();
 			/*Pagination*/
