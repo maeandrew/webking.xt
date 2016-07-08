@@ -53,7 +53,7 @@
 				<select id="region" name="region" class="mdl-selectfield__select" onChange="regionSelect($(this));">
 					<option disabled selected>Выберите область</option>
 					<?foreach($allregions as $region){ ?>
-						<option value="<?=$region['region']?>"><?=$region['region']?></option>
+						<option value="<?=$region['title']?>"><?=$region['title']?></option>
 					<?}?>
 				</select>
 				<label class="mdl-selectfield__label" for="region">Область</label>

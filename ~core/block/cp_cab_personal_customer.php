@@ -29,8 +29,7 @@
 	$contragents->SetList(false, false);
 	$availablemanagers = $contragents->list;
 	// regions
-	$regions->SetList();
-	$allregions = $regions->list;
+	$allregions = $address->GetRegionsList();
 	// delivery methods
 	$delivery->SetDeliveryList();
 	$alldeliverymethods = $delivery->list;
