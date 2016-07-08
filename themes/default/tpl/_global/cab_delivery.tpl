@@ -64,10 +64,6 @@
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col">
-					<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="phone" id="title" value="<?=$User['phone']?>" required>
-						<label class="mdl-textfield__label" for="phone">Контактный телефон</label>
-					</div> -->
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
 						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
