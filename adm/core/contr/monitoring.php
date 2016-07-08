@@ -100,8 +100,24 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $list);
 			break;
 		case 'uncategorised_products':
-			$Product = new Products();
-			$uncat_prod = $Product->GetUncategorisedProducts();
+			$Products = new Products();
+//			/*Pagination*/
+//			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+//				$GLOBALS['Limit_db'] = $_GET['limit'];
+//			}
+//			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+//				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+//					$_GET['page_id'] = $_POST['page_nbr'];
+//				}
+//				$cnt = $Products->GetUncategorisedProducts();
+//				$tpl->Assign('cnt', $cnt);
+//				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+//				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+//			}else{
+//				$GLOBALS['Limit_db'] = 0;
+//				$limit = '';
+//			}
+			$uncat_prod = $Products->GetUncategorisedProducts();
 			$tpl->Assign('list', $uncat_prod);
 //			echo '<pre>';
 //			print_r($uncat_prod);
