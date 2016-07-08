@@ -812,6 +812,9 @@ footer {
 	background: none repeat scroll 0 0 #E7EFEF;
 	padding: 5px;
 }
+.list .filter [name="filter_art"] {
+	width: 90px;
+}
 .list .np {
 	padding: 0px;
 	vertical-align: middle;
