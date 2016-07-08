@@ -100,6 +100,9 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $list);
 			break;
 		case 'uncategorised_products':
+			if(isset($_POST['filter_art'])){
+				$where_art = ' AND art LIKE \''.$_POST['filter_art'].'\'';
+			}
 			$Products = new Products();
 			/*Pagination*/
 			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -109,8 +112,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 					$_GET['page_id'] = $_POST['page_nbr'];
 				}
-				$cnt = $Products->GetUncategorisedProducts();
-				$cnt = count($cnt);
+				$cnt = count($Products->GetUncategorisedProducts($where_art));
 				$tpl->Assign('cnt', $cnt);
 				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -118,8 +120,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				$GLOBALS['Limit_db'] = 0;
 				$limit = '';
 			}
-
-			$uncat_prod = $Products->GetUncategorisedProducts($limit);
+			$uncat_prod = $Products->GetUncategorisedProducts($where_art, $limit);
 			$tpl->Assign('list', $uncat_prod);
 			break;
 		default:
