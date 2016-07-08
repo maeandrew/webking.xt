@@ -99,6 +99,15 @@ if(isset($GLOBALS['REQAR'][1])){
 			}
 			$tpl->Assign('list', $list);
 			break;
+		case 'uncategorised_products':
+			$Product = new Products();
+			$uncat_prod = $Product->GetUncategorisedProducts();
+			$tpl->Assign('list', $uncat_prod);
+//			echo '<pre>';
+//			print_r($uncat_prod);
+//			echo '</pre>';
+//			die();
+			break;
 		default:
 			break;
 	}
