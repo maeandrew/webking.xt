@@ -47,26 +47,31 @@
 			<div id="flm_name" class="flm_name">
 				<div class="mdl-cell mdl-cell--12-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="first_name" id="title" required>
+						<input class="mdl-textfield__input" type="text" name="first_name" id="title" value="<?=$Customer['first_name']?>" required>
 						<label class="mdl-textfield__label" for="first_name">Фамилия</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="middle_name" id="title" required>
+						<input class="mdl-textfield__input" type="text" name="middle_name" id="title" value="<?=$Customer['middle_name']?>" required>
 						<label class="mdl-textfield__label" for="middle_name">Имя</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="last_name" id="title" required>
+						<input class="mdl-textfield__input" type="text" name="last_name" id="title" value="<?=$Customer['last_name']?>" required>
 						<label class="mdl-textfield__label" for="last_name">Отчество</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="phone" id="title" required>
+					<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" name="phone" id="title" value="<?=$User['phone']?>" required>
 						<label class="mdl-textfield__label" for="phone">Контактный телефон</label>
+					</div> -->
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
+						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
+						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 					</div>
 				</div>
 			</div>
