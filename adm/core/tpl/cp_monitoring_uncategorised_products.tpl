@@ -1,4 +1,5 @@
 <div class="nocategory">
+	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	<form action="" method="post">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>				
@@ -51,4 +52,5 @@
 			</tbody>
 		</table>
 	</form>
+	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 </div>
