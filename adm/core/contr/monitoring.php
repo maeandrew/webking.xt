@@ -102,6 +102,7 @@ if(isset($GLOBALS['REQAR'][1])){
 		case 'uncategorised_products':
 			if(isset($_POST['clear_filters'])){
 				$where_art = null;
+				$_POST['filter_art'] = null;
 			} else{
 				if(isset($_POST['filter_art']) && $_POST['filter_art'] !=''){
 					$where_art = ' AND art LIKE \''.trim($_POST['filter_art']).'\'';

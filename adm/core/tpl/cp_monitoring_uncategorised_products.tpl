@@ -23,11 +23,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?if(isset($list) && count($list)){?>
+				<?if(isset($list) && $list != ''){?>
 					<?foreach($list as $i){?>
 						<tr class="animate">
 							<td class="center"><?=$i['indexation'] == 1?'Да':'Нет';?></td>
-							<td	<?if($i['price_mopt'] <= 0 || $i['price_opt'] <= 0 ){?> class="" <?}?> ><?=$i['art']?></td>
+							<td> <?=$i['art']?></td>
 							<td>
 								<?=!$i['visible']?'<span class="invisible">(скрыт) </span>':null?><a href="<?=$GLOBALS['URL_base'].'adm/productedit/'.$i['id_product']?>"><?=$i['name']?></a>
 							</td>
