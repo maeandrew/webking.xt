@@ -1763,6 +1763,7 @@ table.supplier_assort_table {
 	.customer_cab .add_new_address fieldset {
 		border: 1px solid #D8D8D8;
 		border-radius: .2em;
+		margin-bottom: 1em;
 	}
 	.customer_cab .add_new_address fieldset legend {
 		margin: 0 1em;
