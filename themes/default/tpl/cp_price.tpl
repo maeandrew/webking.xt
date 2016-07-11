@@ -194,16 +194,20 @@
 		var contHeight = $(".page_content_js").height();
 		var formHeight = $("#dynamic-params").height();
 		var endScroll = (contHeight - formHeight);
+		
 		if(contHeight < formHeight){
 			endScroll = 50;
 		}
 
 	$(window).scroll(function(){
+		var over_scroll = $('body').hasClass('banner_hide')?true:false;
 		if($(this).scrollTop() > endScroll){
 			params.css('top', endScroll);
 			params.css('z-index', 0);
 		}else if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop());
+			if(over_scroll === true){
+				params.css("top", $(this).scrollTop());
+			}
 		}else{
 			params.css("top", start);
 		}
