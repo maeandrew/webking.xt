@@ -310,7 +310,7 @@ class mysqlPDO {
 				if(FALSE !== stripos($v,	"*")){
 					$where_a[] = "$k LIKE(\"".str_replace("*", "%", $v)."\")";
 				}else{
-					$where_a[] = "$k=\"$v\"";
+					$where_a[] = "$k=".$this->Quote($v);
 				}
 			}
 			$where .= implode(" AND ", $where_a);
