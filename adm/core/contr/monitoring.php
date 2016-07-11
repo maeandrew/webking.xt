@@ -100,7 +100,7 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $list);
 			break;
 		case 'uncategorised_products':
-			if(isset($_POST['filter_art'])){
+			if(isset($_POST['filter_art']) && $_POST['filter_art'] !=''){
 				$where_art = ' AND art LIKE \''.trim($_POST['filter_art']).'\'';
 			}
 			$Products = new Products();

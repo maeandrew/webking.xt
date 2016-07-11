@@ -113,15 +113,7 @@
 												<?}
 											}?>
 										</select>
-										<select class="category input-l" name="categories_ids[]">
-											<option value="" selected >Категория не выбрана</option>
-											<?foreach($category as $c){
-												if($c['id_category'] != 0){?>
-												<option value="<?=$c['id_category']?>"><?=str_repeat("&nbsp;&nbsp;", $c['category_level'])?> <?=$c['name']?></option>
-												<?}
-											}?>
-										</select>
-										<input type="hidden" class="category" name="categories_ids[]" value="<?=$GLOBALS['CONFIG']['new_catalog_id']?>">
+										<!--<input type="hidden" class="category" name="categories_ids[]" value="<?=$GLOBALS['CONFIG']['new_catalog_id']?>">-->
 										<input class="btn-m-green" type="submit" id="accept" onclick="AcceptProduct(<?=$p['id']?>);" name="moderationsubmit" value="Принять">
 									</div>
 									<div id="comentblock">
@@ -169,7 +161,7 @@ function AcceptProduct(id){
 			categories.push($(this).val());
 		};
 	});
-	if(categories.length <= 1){
+	if(categories.length < 1){
 		alert('Выберите категорию для данного товара!');
 	}else{
 		$.ajax({

@@ -2164,7 +2164,7 @@ class Products {
 		foreach($categories_arr as $key => $id){
 			$f[$key]['id_product'] = $id_product;
 			$f[$key]['id_category'] = $id;
-			$f[$key]['main'] = (isset($main) && $key == $main)?1:0;
+			$f[$key]['main'] = isset($main)?1:0;
 		}
 		$this->db->StartTrans();
 		if(!$this->db->InsertArr(_DB_PREFIX_.'cat_prod', $f)){
@@ -3969,6 +3969,7 @@ class Products {
 		$a['price_opt_recommend'] = str_replace(',','.', $product['price_opt']*$sup['koef_nazen_opt']);
 		$a['product_limit'] = $product['product_limit'];
 		$a['sup_comment'] = '';
+		$a['edited'] = date('Y-m-d');
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $a)){
 			$this->db->FailTrans();
