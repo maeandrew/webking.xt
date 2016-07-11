@@ -146,10 +146,10 @@
 							<?=G::CropString($item['name'], 180)?>
 						</a>
 						<span class="product_article">Артикул: <?=$item['art']?></span>						
-						<span class="prod_qty_control" data-qtycontr="<?=$item['qty_control']?>"></span>
+						<span class="prod_note_control" data-notecontr="<?=$item['note_control']?>"></span>
 						<div class="product_info">
 							<div class="note in_cart">
-								<textarea class="note_field" cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?>><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+								<textarea class="note_field" cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?> ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
 								<div class="info_description hidden">
 									<p>Поле для ввода примечания к товару.</p>
@@ -508,8 +508,8 @@
 			});
 
 			$(".note_field").blur(function() {
-				 var id_product = $(this).data('id'),
-				 	 note = $(this).val();
+				var id_product = $(this).data('id'),
+				 	note = $(this).val();
 				ajax('cart', 'updateCartQty', {id_product: id_product, note: note});
 			});
 
@@ -520,7 +520,7 @@
 				//Проверка на ввод примечания к товару					
 				var qtyControl = 0;
 				$('#cart .product_name').each(function(){
-					var currentQtyControl = $(this).find('.prod_qty_control').data('qtycontr');
+					var currentQtyControl = $(this).find('.prod_note_control').data('notecontr');
 					var noteText = $(this).find('textarea').val();
 					$(this).find('.note').removeClass('activeNoteArea');
 					if (currentQtyControl === 1 && noteText == '') {

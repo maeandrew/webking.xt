@@ -121,10 +121,20 @@ $(function(){
 		SendToAjax (id,qty,false,false,note);
 	});
 	$('body').on('click', '.buy_btn_js', function (){
+		$(this).closest('.card').find('.note').removeClass('hidden');
+		
 		var id = $(this).closest('.product_buy').attr('data-idproduct'),
 			qty = $(this).closest('.product_buy').find('.qty_js').val(),
 			note = $(this).closest('.product_section').find('.note textarea').val();
 		SendToAjax (id,qty,false,false,note);
+	});
+	$(".note_field").blur(function() {
+		if ($(".note_field").val() !== ''){
+			$(this).closest('.card').find('.note').removeClass('activeNoteArea');
+		}
+		var id_product = $(this).data('id'),
+		 	note = $(this).val();
+		ajax('cart', 'updateCartQty', {id_product: id_product, note: note});
 	});
 
 	// // Инициализация добавления товара в избранное
