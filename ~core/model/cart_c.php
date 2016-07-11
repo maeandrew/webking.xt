@@ -156,10 +156,10 @@ class Cart {
 		if(isset($_SESSION['cart']['id_order'])){
 			unset($_SESSION['cart']['id_order']);
 		}
-		unset($_SESSION['cart']['id']);
-		if($id_cart){
-			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
-					WHERE id_cart = ". $id_cart;
+		if(isset($_SESSION['cart']['id'])){
+			//Временное решение. Удалить после определения ошибки
+			$sql = "UPDATE "._DB_PREFIX_."cart
+					SET `status` = 1 WHERE id_cart = ".$_SESSION['cart']['id'];
 			$this->db->StartTrans();
 			if(!$this->db->Query($sql)) {
 				$this->db->FailTrans();
@@ -167,6 +167,18 @@ class Cart {
 			}
 			$this->db->CompleteTrans();
 		}
+		unset($_SESSION['cart']['id']);
+		//Закоментированно временно. Поиск ошибки.
+//		if($id_cart){
+//			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
+//					WHERE id_cart = ". $id_cart;
+//			$this->db->StartTrans();
+//			if(!$this->db->Query($sql)) {
+//				$this->db->FailTrans();
+//				return false;
+//			}
+//			$this->db->CompleteTrans();
+//		}
 		$this->RecalcCart();
 		return true;
 	}
