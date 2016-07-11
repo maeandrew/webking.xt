@@ -1382,12 +1382,9 @@ table.supplier_assort_table {
 		padding: 1em;
 		box-sizing: border-box;
 	}
-	.customer_cab #edit_personal label[for^="id_"]{
-		color: #4CAF50;
-	}
-	.customer_cab #edit_personal select[id^="id_"] {
+/*	.customer_cab #edit_personal select[id^="id_"] {
 		width: 300px;
-	}
+	}*/
 
 	.breadcrumbs {
 		padding-left: 10px; 

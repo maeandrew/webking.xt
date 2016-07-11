@@ -64,9 +64,9 @@
 			// old code
 			case "regionSelect":
 				$echo = '<option disabled selected>Выберите город</option>';
-				$res = $City->SetFieldsByInput($_POST['region']);
+				$res = $Address->GetCitiesList($_POST['region']);
 				foreach($res as $r){
-					$echo .= '<option value="'.$r['name'].'">'.$r['name'].'</option>';
+					$echo .= '<option value="'.$r['title'].'">'.$r['title'].'</option>';
 				}
 				echo $echo;
 				break;
@@ -93,9 +93,11 @@
 						$count['warehouse'] += !empty($city)?1:0;
 					}
 				}
+				// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
 				if($count['warehouse'] > 0){
-					$echo .= '<option value="1">Самовывоз</option>';
+					$echo .= '<option value="1">Пункт выдачи</option>';
 				}
+				// Если в город возможна адресная доставка хоть одной компанией, выводим пункт Адресная доставка
 				if($count['courier'] > 0){
 					$echo .= '<option value="2">Адресная доставка</option>';
 				}
@@ -105,11 +107,14 @@
 				$echo = '<option disabled selected>Выберите службу доставки</option>';
 				$shiping_companies = $Address->GetShippingCompanies();
 				foreach($shiping_companies as $company){
-					$city = $Address->UseAPI($company, 'getCity', $_POST);
-					if(!empty($city)){
-						$echo .= '<option data-ref="'.$city['Ref'].'" value="1">'.$company['title'].'</option>';					
+					if($company['has_api'] == 1 && $company['api_key'] != ''){
+						$city = $Address->UseAPI($company, 'getCity', $_POST);
+						if(!empty($city)){
+							$echo .= '<option data-ref="'.$city['Ref'].'" value="'.$company['id'].'">'.$company['title'].'</option>';					
+						}
 					}
 				}
+				// Для доставки
 				echo $echo;
 				break;
 			case "getCityId":

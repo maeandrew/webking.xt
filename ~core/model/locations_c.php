@@ -18,10 +18,8 @@ class Address {
 	 * [GetRegionsList description]
 	 */
 	public function GetRegionsList(){
-		$sql = "SELECT DISTINCT c.region
-			FROM "._DB_PREFIX_."city AS c
-			WHERE c.region <> ''";
-			// print_r($sql);die();
+		$sql = "SELECT lr.title
+			FROM "._DB_PREFIX_."locations_regions AS lr";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -35,6 +33,21 @@ class Address {
 		$sql = "SELECT c.region
 			FROM "._DB_PREFIX_."city AS c
 			WHERE c.id_city = ".$id;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetCitiesList description]
+	 */
+	public function GetCitiesList($region = false){
+		$sql = "SELECT lc.title
+			FROM "._DB_PREFIX_."locations_cities AS lc";
+		if($region){
+			$sql .= " LEFT JOIN "._DB_PREFIX_.'locations_regions AS lr ON lr.id = lc.id_region
+			WHERE lr.title = '.$this->db->Quote($region);
+		}
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -77,34 +90,47 @@ class Address {
 	}
 
 	public function UseAPI($shipping_company, $function, $data = false){
-		switch($shipping_company['id']){
-			case '1':
-				$function = $shipping_company['api_prefix'].$function;
-				return $this->$function($data, $shipping_company);
-				break;
-			
-			default:
-				# code...
-				break;
-		}
+		$function = $shipping_company['api_prefix'].$function;
+		return $this->$function($data, $shipping_company);
 	}
+
 	private function npgetCity($data, $company){
-		$NP = new NovaPoshtaApi2($company['api_key']);
-		$city = $NP->getCity($data['city'], $data['region']);
+		$api = new NovaPoshtaApi2($company['api_key']);
+		$city = $api->getCity($data['city'], $data['region']);
 		if(!empty($city['data'][0])){
 			return $city['data'][0];
-			// $echo .= '<option data-ref="'.$city['data']['Ref'].'" value="1">Новая почта</option>';
 		}
 		return false;
 	}
 	private function npgetWarehouses($data, $company){
-		$NP = new NovaPoshtaApi2($company['api_key']);
-		$warehouses = $NP->getWarehouses($_POST['ref']);
+		$api = new NovaPoshtaApi2($company['api_key']);
+		$warehouses = $api->getWarehouses($_POST['ref']);
 		if(!empty($warehouses['data'][0])){
 			return $warehouses['data'];
 		}
 		return false;
 	}
+
+	private function itgetCity($data, $company){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$city = $api->getSettlementCode($data['city'], $data['region']);
+		if(!empty($city)){
+			return array('Ref' => $city);
+		}
+		return false;
+	}
+	private function itgetWarehouses($data, $company){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$warehouses = $api->getDepartmentsList();
+		print_r($warehouses);die();
+		if(!empty($warehouses['data'][0])){
+			return $warehouses['data'];
+		}
+		return false;
+	}
+
 }
 
 // Города
