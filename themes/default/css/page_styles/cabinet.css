@@ -2574,6 +2574,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		height: auto;
 		width: 100%;
 	}
+	.sb_container .line {
     	width: 100%;
     	padding-right: 10px;
 	}	
