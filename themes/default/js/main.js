@@ -123,6 +123,10 @@ $(function(){
 	$('body').on('click', '.buy_btn_js', function (){
 		$(this).closest('.card').find('.note').removeClass('hidden');
 		
+		if ($(this).closest('.card').find('.note').hasClass('note_control')) {
+			$(this).closest('.card').find('.note').addClass('activeNoteArea');
+		}
+
 		var id = $(this).closest('.product_buy').attr('data-idproduct'),
 			qty = $(this).closest('.product_buy').find('.qty_js').val(),
 			note = $(this).closest('.product_section').find('.note textarea').val();
