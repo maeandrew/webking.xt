@@ -922,7 +922,7 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL AND (p.price_opt > 0 OR p.price_mopt > 0)
-				AND p.prod_status = 3  ORDER BY RAND() LIMIT 10";
+				AND p.prod_status = 3 AND p.visible = 1 ORDER BY RAND() LIMIT 10";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;

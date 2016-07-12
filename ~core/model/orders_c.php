@@ -439,12 +439,6 @@ class Orders {
 			print_r('products error');
 			return false;
 		}
-
-//		echo'<pre>';
-//		print_r($OrderCart);
-//		echo'</pre>';
-//		die();
-
 		// $discount = 0;
 		// if(isset($_SESSION['cart']['discount'])){
 		// 	if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
@@ -483,8 +477,6 @@ class Orders {
 		if(isset($_SESSION['cart']['base_order'])){
 			$f['base_order'] = $_SESSION['cart']['base_order'];
 		}
-
-
 
 		$f['target_date'] = $target_date = strtotime('+2 day', time());
 		$f['creation_date'] = time();
@@ -548,8 +540,6 @@ class Orders {
 				$Products = new Products();
 				$Products->SetFieldsById($id_product);
 				$product = $Products->fields;
-
-
 
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
