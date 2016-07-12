@@ -89,9 +89,9 @@ class Address {
 		return $res;
 	}
 
-	public function UseAPI($shipping_company, $function, $data = false){
-		$function = $shipping_company['api_prefix'].$function;
-		return $this->$function($data, $shipping_company);
+	public function UseAPI($company, $function, $data = false){
+		$function = $company['api_prefix'].$function;
+		return $this->$function($data, $company);
 	}
 
 	private function npgetCity($data, $company){
@@ -106,6 +106,9 @@ class Address {
 		$api = new NovaPoshtaApi2($company['api_key']);
 		$warehouses = $api->getWarehouses($_POST['ref']);
 		if(!empty($warehouses['data'][0])){
+			foreach($warehouses['data'] as &$warehouse){
+				$warehouse = array('id' => $warehouse['Ref'], 'name' => $warehouse['DescriptionRu']);
+			}
 			return $warehouses['data'];
 		}
 		return false;
@@ -123,10 +126,36 @@ class Address {
 	private function itgetWarehouses($data, $company){
 		$key = explode(';', $company['api_key']);
 		$api = new IntimeApi2($key[0], $key[1]);
-		$warehouses = $api->getDepartmentsList();
-		print_r($warehouses);die();
-		if(!empty($warehouses['data'][0])){
-			return $warehouses['data'];
+		$warehouses = $api->getDepartmentsList($data['city'], $data['region']);
+		if(!empty($warehouses)){
+			foreach($warehouses as &$warehouse){
+				$warehouse = array('id' => $warehouse['Code'], 'name' => '№'.$warehouse['AppendField'][10]['AppendFieldValue'].': '.$warehouse['AppendField'][0]['AppendFieldValue']);
+			}
+			asort($warehouses);
+			return $warehouses;
+		}
+		return false;
+	}
+
+	private function delgetCity($data, $company){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$city = $api->getSettlementCode($data['city'], $data['region']);
+		if(!empty($city)){
+			return array('Ref' => $city);
+		}
+		return false;
+	}
+	private function delgetWarehouses($data, $company){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$warehouses = $api->getDepartmentsList($data['city']);
+		if(!empty($warehouses)){
+			foreach($warehouses as &$warehouse){
+				$warehouse = array('id' => $warehouse['Code'], 'name' => '№'.$warehouse['AppendField'][10]['AppendFieldValue'].': '.$warehouse['AppendField'][0]['AppendFieldValue']);
+			}
+			asort($warehouses);
+			return $warehouses;
 		}
 		return false;
 	}
