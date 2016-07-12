@@ -690,7 +690,7 @@ div[for="rating_block"] {
 	}
 	.product .fortabs .tabs a:last-child {
 		width: 100%;
-	}
+	}	
 }
 
 @media (max-width: 400px) {
