@@ -787,6 +787,9 @@ footer {
 .list tbody td.center a {
 	font-size: 18px;
 }
+.err_feedback .list tbody td.center a {
+	font-size: 1em;
+}
 
 .list .watchSeoText {
 	float: right;
