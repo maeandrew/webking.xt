@@ -131,10 +131,14 @@ if(isset($GLOBALS['REQAR'][1])){
 		case 'err_feedback':
 			if(isset($_POST['clear_filters'])){
 				$where_arr = null;
-				$_POST['filter_id_user'] = null;
+				$_POST['filter_user_name'] = null;
 			} else{
-				if(isset($_POST['filter_id_user']) && $_POST['filter_id_user'] !=''){
-					$where_arr = 'WHERE e.id_user = '.$_POST['filter_id_user'];
+				if(isset($_POST['filter_user_name']) && $_POST['filter_user_name'] !=''){
+					if($_POST['filter_user_name'] == 'аноним'){
+						$where_arr = ' AND u.name IS NULL';
+					} else{
+						$where_arr = ' AND u.name LIKE \'%'.trim($_POST['filter_user_name']).'%\'';
+					}
 				}
 			}
 			/*Pagination*/

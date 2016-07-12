@@ -673,7 +673,7 @@ class Suppliers extends Users {
 	}
 
 	public function UpdateSinglePrice($id_user, $single_price){
-		$f['single_price']= mysql_real_escape_string(trim($single_price));
+		$f['single_price']= trim($single_price);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = ".$id_user)){
 			$this->db->FailTrans();
