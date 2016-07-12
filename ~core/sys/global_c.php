@@ -678,7 +678,7 @@ class G {
 	public static function GetErrors($where_arr = false, $limit = false){
 		global $db;
 		$sql = "SELECT u.name, u.email, e.* FROM "._DB_PREFIX_."errors e
-		 		LEFT JOIN "._DB_PREFIX_."user u ON e.id_user = u.id_user"
+		 		LEFT JOIN "._DB_PREFIX_."user u ON e.id_user = u.id_user WHERE e.visible  = 1"
 				.($where_arr !== false?$where_arr:'').
 			    " ORDER BY e.id_error DESC".($limit !== false?$limit:'');
 		$res = $db->GetArray($sql);
