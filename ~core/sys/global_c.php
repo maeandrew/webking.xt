@@ -687,4 +687,16 @@ class G {
 		}
 		return $res;
 	}
+
+	// Обновление видимости ошибки
+	public static function FixError($id_error){
+		global $db;
+		$f['visible'] = 0;
+		$db->StartTrans();
+		if(!$db->Update(_DB_PREFIX_."errors", $f, "id_error = ".$id_error)){
+			$db->FailTrans();
+			return false;
+		}
+		$db->CompleteTrans();
+	}
 }

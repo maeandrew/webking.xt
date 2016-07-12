@@ -128,7 +128,11 @@ if(isset($GLOBALS['REQAR'][1])){
 			$uncat_prod = $Products->GetUncategorisedProducts($where_art, $limit);
 			$tpl->Assign('list', $uncat_prod);
 			break;
-		case 'err_feedback':
+		case 'err_feedback': print_r($_POST); die();
+			if(isset($_POST['']) && isset($_POST[''])){
+				G::FixError($_POST['']);
+			}
+
 			if(isset($_POST['clear_filters'])){
 				$where_arr = null;
 				$_POST['filter_user_name'] = null;
