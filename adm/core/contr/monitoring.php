@@ -128,6 +128,34 @@ if(isset($GLOBALS['REQAR'][1])){
 			$uncat_prod = $Products->GetUncategorisedProducts($where_art, $limit);
 			$tpl->Assign('list', $uncat_prod);
 			break;
+		case 'err_feedback':
+			if(isset($_POST['clear_filters'])){
+				$where_arr = null;
+				$_POST['filter_id_user'] = null;
+			} else{
+				if(isset($_POST['filter_id_user']) && $_POST['filter_id_user'] !=''){
+					$where_arr = 'WHERE e.id_user = '.$_POST['filter_id_user'];
+				}
+			}
+			/*Pagination*/
+			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+				$GLOBALS['Limit_db'] = $_GET['limit'];
+			}
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = count(G::GetErrors($where_arr));
+				$tpl->Assign('cnt', $cnt);
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = '';
+			}
+			$errors = G::GetErrors($where_arr, $limit);
+			$tpl->Assign('list', $errors);
+			break;
 		default:
 			break;
 	}

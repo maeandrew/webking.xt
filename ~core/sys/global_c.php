@@ -600,19 +600,19 @@ class G {
 		// sitemap.xml
 		switch($navigation){
 			case 'products':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM xt_product WHERE indexation = 1 AND visible = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM "._DB_PREFIX_."product WHERE indexation = 1 AND visible = 1";
 				break;
 			case 'pages':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
 				break;
 			case 'categories':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_category WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'news':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_news WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'posts':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_post WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."post WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'promotions':
 				$sql = "";
@@ -672,5 +672,19 @@ class G {
 		unset($f);
 		$db->CompleteTrans();
 		return true;
+	}
+
+	// Вывод сообщений об ошибке на экран
+	public static function GetErrors($where_arr = false, $limit = false){
+		global $db;
+		$sql = "SELECT u.name, u.email, e.* FROM "._DB_PREFIX_."errors e
+		 		LEFT JOIN "._DB_PREFIX_."user u ON e.id_user = u.id_user"
+				.($where_arr !== false?$where_arr:'').
+			    " ORDER BY e.id_error DESC".($limit !== false?$limit:'');
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
 	}
 }
