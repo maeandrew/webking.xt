@@ -129,13 +129,9 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $uncat_prod);
 			break;
 		case 'err_feedback':
-			// if(isset($_POST['error_fix']) && isset($_POST['id_error'])){
-			// 	G::FixError($_POST['id_error']);
-			// }
 			if(isset($_POST['error_fix'])){
 				G::FixError($_POST['error_fix']);
 			}
-
 			if(isset($_POST['clear_filters'])){
 				$where_arr = null;
 				$_POST['filter_user_name'] = null;
