@@ -61,13 +61,6 @@ class Contragents extends Users{
 
 	public function SetList($inside = false, $all = false){
 		$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
-		//////////////////////////////////
-		// Удалить после редактирования //
-		//////////////////////////////////
-		$date = '2016-03-22';
-		//////////////////////////////////
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!! //
-		//////////////////////////////////
 		$active = "";
 		if(!$all){
 			$active = "AND u.active = 1";

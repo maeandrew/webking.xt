@@ -487,7 +487,20 @@ class Orders {
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
 		}else{
-			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];
+			//Определяем выходной или рабочий день у контрагента
+			$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
+			$sql = "SELECT work_day FROM "._DB_PREFIX_."calendar_contragent
+					WHERE id_contragent = ".$customer['id_contragent']." AND date = '".$date."'";
+			$res = $this->db->GetOneRowArray($sql);
+			if($res['work_day'] != 1){
+				//рандомный выбор контрагента
+				$contragents = new Contragents();
+				$contragents->SetList(false, false);
+				$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
+			}else{
+				$id_contragent = $customer['id_contragent'];
+			}
+			$f['id_contragent'] = $id_contragent;
 		}
 		// Если клиент не зарегистрирован и не ввел номер телефона
 		if($f['id_order_status'] == 3){
