@@ -15,10 +15,9 @@ class Slides {
 		if($all == 1){
 			$visibility = '';
 		}
-		$id = $this->db->Quote($id);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."slides
-			WHERE id = ".$id."
+			WHERE id = ".$this->db->Quote($id)."
 			".$visibility."
 			ORDER BY ord";
 		$this->fields = $this->db->GetOneRowArray($sql);
@@ -34,10 +33,9 @@ class Slides {
 		if($all == 1){
 			$visibility = '';
 		}
-		$slider = $this->db->Quote($slider);
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."slides
-			WHERE slider = '".$slider."'
+			WHERE slider = '".$this->db->Quote($slider)."'
 			".$visibility."
 			ORDER BY ord";
 		$this->fields = $this->db->GetArray($sql);
@@ -73,12 +71,12 @@ class Slides {
 			FROM "._DB_PREFIX_."slides
 			WHERE slider = '".$arr['slider']."'";
 		$arr2 = $this->db->GetOneRowArray($sql);
-		$f['image'] = $this->db->Quote(trim($arr['image']));
-		$f['title'] = $this->db->Quote(trim($arr['title']));
+		$f['image'] = trim($arr['image']);
+		$f['title'] = trim($arr['title']);
 		$f['content'] = $arr['content'];
-		$f['slider'] = $this->db->Quote(trim($arr['slider']));
-		$f['visibility'] = $this->db->Quote(trim($arr['visibility']));
-		$f['ord'] = $this->db->Quote($arr2['ord']+1);
+		$f['slider'] = trim($arr['slider']);
+		$f['visibility'] = trim($arr['visibility']);
+		$f['ord'] = $arr2['ord']+1;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'slides', $f)){
 			$this->db->FailTrans();
@@ -105,11 +103,11 @@ class Slides {
 
 	// Обновление слайда
 	public function UpdateSlide($arr){
-		$f['title'] = $this->db->Quote(trim($arr['title']));
-		$f['image'] = $this->db->Quote(trim($arr['image']));
+		$f['title'] = trim($arr['title']);
+		$f['image'] = trim($arr['image']);
 		$f['content'] = $arr['content'];
-		$f['slider'] = $this->db->Quote(trim($arr['slider']));
-		$f['visibility'] = $this->db->Quote(trim($arr['visibility']));
+		$f['slider'] = trim($arr['slider']);
+		$f['visibility'] = trim($arr['visibility']);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."slides", $f, "id = ".$arr['id'])){
 			$this->db->FailTrans();

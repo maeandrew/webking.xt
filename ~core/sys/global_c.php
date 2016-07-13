@@ -698,5 +698,6 @@ class G {
 			return false;
 		}
 		$db->CompleteTrans();
+		return true;
 	}
 }
