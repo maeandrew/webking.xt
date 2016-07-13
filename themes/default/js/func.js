@@ -1056,7 +1056,7 @@ function hidePreview(){
 function rebuildPreview(obj){
 	var position = obj.offset(),
 		positionProd = $('#view_block_js').offset(),
-		id_product = obj.closest('.card').find('.product_buy').data('idproduct'),
+		id_product = obj.closest('.card').data('idproduct'),
 		// Calculating position of preview window
 		viewportWidth = $(window).width(),
 		viewportHeight = $(window).height(),
@@ -1065,6 +1065,7 @@ function rebuildPreview(obj){
 		correctionTop = 0,
 		marginBottom = 15,
 		marginTop = marginBottom+$('header').outerHeight();
+		console.log(id_product);
 	var ovftop = position.top - preview.height()/2 + obj.outerHeight()/2 - marginTop,
 		ovfbotton = position.top + preview.height()/2 + obj.outerHeight()/2 + marginBottom;
 	if(pos + viewportHeight < ovfbotton){
@@ -1520,7 +1521,7 @@ function moveObjects() {
 }
 // Удаление товара из ассортимента поставщика в кабинете
 function DelFromAssort(id){
-	ajax('product', 'DelFromAssort', {id: id}).done(function(){
+	ajax('product', 'DelFromAssort', {id_product: id}).done(function(){
 		$('#tr_mopt_'+id).slideUp();
 	});
 }
@@ -1623,20 +1624,23 @@ function toAssort(id, opt, nacen, comment){
 /*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
 function AddDelProductAssortiment(obj, id){
 	if (obj.checked){
-		action = "add_product";
+		action = "AddToAssort";
 	}else{
-		action = "del_product";
+		action = "DelFromAssort";
 	}
-	$.ajax({
-		url: URL_base+'ajaxassort',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action":action,
-			"id_product":id
-		},
-	});
+	
+	ajax('product', action, {id_product:id});
+
+	// $.ajax({
+	// 	url: URL_base+'ajaxassort',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType: "json",
+	// 	data: {
+	// 		"action":action,
+	// 		"id_product":id
+	// 	},
+	// });
 }
 
 // Установить куки

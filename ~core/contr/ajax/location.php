@@ -87,8 +87,10 @@
 				//////////////////////////////////////////////////////////////////////
 				$shiping_companies = $Address->GetShippingCompanies();
 				foreach($shiping_companies as $company){
-					if($company['has_api'] == 1 && $company['courier'] == 1 && $company['api_key'] != ''){
+					if($company['courier'] == 1){
 						$count['courier']++;
+					}
+					if($company['has_api'] == 1 && $company['api_key'] != ''){
 						$city = $Address->UseAPI($company, 'getCity', $_POST);
 						$count['warehouse'] += !empty($city)?1:0;
 					}
@@ -140,10 +142,11 @@
 					$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
 				}
 				$echo = '';
+				print_r($_POST['shipping_comp']);
 				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
 				if(!empty($warehouses)){
 					foreach($warehouses as $warehouse){
-						$echo .= '<option data-ref="'.$warehouse['Ref'].'" value="'.$warehouse['DescriptionRu'].'">'.$warehouse['DescriptionRu'].'</option>';					
+						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.$warehouse['name'].'">'.$warehouse['name'].'</option>';					
 					}				
 				}
 				echo $echo;

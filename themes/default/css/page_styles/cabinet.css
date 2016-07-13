@@ -37,7 +37,8 @@ hr {
 .sidebar {
 	width: 300px;
 	float: left;
-	padding-right: 15px;
+	/* padding-right: 15px; */
+	padding-left: 10px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -452,6 +453,8 @@ table.kontrag.table{
 	float: right;
 	text-align: justify;
 	margin-top: 20px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 #supplier_cab #second {
 	margin-left: 25px;
@@ -502,6 +505,7 @@ table.supplier_assort_table {
 	bottom: 100%;
 	width: 200%;
 	box-sizing: border-box;
+	font-size: 14px;
 }
 .supplier_assort_table th .only_price#switcher {
 	border: 1px solid #52cf55;
@@ -575,6 +579,11 @@ table.supplier_assort_table {
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	opacity: 0;
 }
+.supplier_assort_table thead tr th {
+	font-weight: normal;
+	font-size: 14px;
+}
+
 #supplier_cab tr {
 	border: 1px solid #d7d7d7;
 }
@@ -590,10 +599,11 @@ table.supplier_assort_table {
 }
 #supplier_cab .name_cell {
 	text-align: left;
-	padding-left: 20px;
+	padding-left: 10px;
 	padding-right: 10px;
 	line-height: 1.2em;
 	text-align: justify;
+	width: calc(100% - 430px);
 }
 #supplier_cab #second .photo_cell {
 	padding: 5px;
@@ -2239,6 +2249,51 @@ div[id^="items_panel_"] .btnWrapFlex {
 	z-index: 0;
 }
 
+/* СТИЛИ НОВОЙ ТАБЛИЦЫ БЛОКАМИ */
+
+
+.products_list_item {
+	display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #d7d7d7;
+	justify-content: space-between;
+	width: 100%;
+}
+.supplier_assort_table {
+	display: flex;
+	width: 100%;
+}
+
+.removeFromAssort {
+	width: 30px;
+}
+.removeFromAssort a {
+    display: block;
+    text-align: center;
+}
+.photo_cell {
+	width: 110px;
+}
+
+.name_cell a {
+	color: #444;
+}
+
+.min_prod_qty {
+	margin-right: 5px;
+}
+
+.price_1, 
+.price_2 {
+	width: 100px;
+}
+
+.prod_detail_info {
+	display: none;
+}
+
+
 
 @media (max-width: 1060px) {
 	.nav li {
@@ -2317,6 +2372,31 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.customer_cab #waiting_list .table_tbody .tableRow .titleForTablet > * {
 		flex-basis: 100px;
+	}
+
+	#supplier_cab {
+		width: 100%;
+	}
+	.sidebar {
+		width: 100%;
+	}
+	.cabinet_navigation li {
+		display: inline-block;
+		width: 24%;
+		text-align: center;
+		border: 1px solid #e1e1e1;
+	}
+	.sb_container .line {
+		width: 48%;
+	    padding-left: 5px;
+	    padding-right: 5px;
+	}
+	.supplier_info {
+		display: flex;
+    	flex-wrap: wrap;
+	}
+	h4 {
+		margin: 5px 0 10px;
 	}
 }
 
@@ -2454,6 +2534,35 @@ div[id^="items_panel_"] .btnWrapFlex {
 		padding-top: 1em;
 		margin-top: 1em;
 	}
+	.cabinet_navigation li {
+		width: 48%;
+		margin-bottom: 5px;
+	}
+	#supplier_cab .name_cell {
+		width: calc(100% - 140px);
+	}
+	.products_list_item {
+		flex-wrap: wrap;
+	}
+	.product_balance, .min_prod_qty, .price_1, .price_2, .to_dollar {
+		width: 49%;
+		padding-left: 5px;
+	}
+	.prod_detail_info {
+		width: 175px;
+    	display: block;
+    	float: left;
+    	line-height: 24px;
+    	margin-right: 5px;
+	}
+	#supplier_cab .price_1 input, 
+	#supplier_cab .price_2 input {
+		width: 100px;
+	}
+	.product_balance label, 
+	.to_dollar label {
+		width: 30px;
+	}
 }
 
 @media (max-width: 600px) {
@@ -2515,6 +2624,13 @@ div[id^="items_panel_"] .btnWrapFlex {
 		flex: 0 0 49%;
 		text-align: right;
 	}
+	.cabinet_content .help_block,
+	.cabinet_content .editproduct {
+		width: 100%;
+	}
+	.product_balance, .min_prod_qty, .price_1, .price_2, .to_dollar {
+		width: 100%;
+	}
 }
 @media (max-width: 450px) {
 	.customer_cab #waiting_list .table_tbody .tableRow .name_cell {
@@ -2532,6 +2648,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 		height: auto;
 		width: 100%;
 	}
+	.sb_container .line {
+    	width: 100%;
+    	padding-right: 10px;
+	}	
 }
 
 @media (max-width: 420px) {
@@ -2557,6 +2677,13 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#edit_contacts {
 		width: 99%;
 	}
+}
+
+#currency_rate {
+	height: 25px;
+    width: 150px;
+    padding: 5px;
+    margin-left: 5px;
 }
 
 @media (max-width: 325px) {
@@ -2723,6 +2850,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.customer_cab #waiting_list .table_thead {
 		display: none;
 	}
+	#supplier_cab .cabinet_block {
+		margin-left: 0;
+	}
 }
 
 @media (max-width: 400px) {
@@ -2742,6 +2872,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.date_container .mdl-textfield {
 		width: auto;
 	}
+	.cabinet_navigation li {
+		width: 98%;
+	}
 }
 
 [data-type="panel"][data-position="left"] {
@@ -2756,3 +2889,25 @@ div[id^="items_panel_"] .btnWrapFlex {
 #modal_message .modal_container .mesage_text {
 	margin-top: 25px;
 }
+
+.switch_price_container {
+	width: 150px;
+    height: 35px;
+    text-align: center;
+    float: right;
+    padding-right: 10px;
+    padding-top: 5px;
+    border: 1px solid #dddddd;
+}
+
+.switch_price_container span {
+	float: left;
+    display: block;
+    width: calc(100% - 30px);
+}
+
+.switch_price_container label {
+	width: 30px;
+    float: right;
+}
+

@@ -1039,6 +1039,14 @@ label.info_key {
 	margin-top: 15px;
 }
 
+.preview .supplier_block {
+	width: 70%;
+}
+.preview .supplier_block .product_check label {
+	width: 30px;
+    margin-left: 5px;
+}    
+
 /*Contragent==================================================================*/
 
 .price_mode_container {

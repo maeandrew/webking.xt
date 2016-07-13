@@ -70,11 +70,11 @@
 				<!-- Код добавления видео начало-->
 				<?if(!empty($item['videos'])){
 					foreach($item['videos'] as $i => $video){?>
-					<div class="videoBlock">
-						<div class="videoBlockShield"></div>
-						<iframe width="120" height="120" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>">
-                        </iframe>
-					</div>
+						<div class="videoBlock">
+							<div class="videoBlockShield"></div>
+							<iframe width="120" height="90" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>">
+							</iframe>
+						</div>
 					<?}
 				}?>
 				<!-- Код добавления видео конец-->
@@ -87,6 +87,12 @@
 							foreach($item['images'] as $i => $image){?>
 								<img src="<?=_base_url?><?=$image['src']?>" alt="<?=$item['name']?>">
 							<?}
+						}else{
+							for($i=1; $i < 4; $i++){
+								if(!empty($item['img_'.$i])){?>
+									<img src="<?=_base_url?><?=$item['img_'.$i]?>" alt="<?=$item['name']?>">
+								<?}
+							}
 						}?>
 						<?if(!empty($item['videos'])){
 							foreach($item['videos'] as $i => $video){?>
@@ -97,6 +103,7 @@
 				</div>
 			</div>
 			<script>
+			console.log($(window).outerWidth());
 				//Инициализация owl carousel
 				$('#owl-product_mobile_img_js').owlCarousel({
 					center:			true,
@@ -107,8 +114,8 @@
 					margin:			20,
 					nav:			true,
 					video:			true,
-					videoHeight:	345,
-					videoWidth:		345,
+					videoHeight:	500,
+					videoWidth:		$(document).outerWidth() > 1300?700:500,
 					navText: [
 						'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
@@ -484,7 +491,7 @@
 											<div class="feedback_rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
 												<meta itemprop="worstRating" content="1">
 												<meta itemprop="bestRating" content="5">
-											    <span class="hidden" itemprop="ratingValue"><?=$i['rating']?></span>
+												<span class="hidden" itemprop="ratingValue"><?=$i['rating']?></span>
 												Оценка товара:
 												<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
 													<?for($j = 1; $j <= 5; $j++){

@@ -126,13 +126,15 @@
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_main">
 	
 	<!-- Google Tag Manager -->
-	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-K9CXG3');</script>
+	<?if(SETT != 0){?>
+		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-K9CXG3');</script>
+	<?}?>
 	<!-- End Google Tag Manager -->
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
@@ -150,29 +152,30 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<section class="banner">
-		<div class="cont">
-			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
-					<h3>Снабжение<br> предприятий</h3>
-				</span>
-			</a>
-			<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
-					<h3>Поставки<br> магазинам</h3>
-				</span>
-			</a>
-			<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
-					<h3>Обеспечение<br> быта</h3>
-				</span>
-			</a>
-		</div>
-	</section>
-	
+	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
+		<section class="banner">
+			<div class="cont">
+				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+						<h3>Снабжение<br> предприятий</h3>
+					</span>
+				</a>
+				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+						<h3>Поставки<br> магазинам</h3>
+					</span>
+				</a>
+				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+						<h3>Обеспечение<br> быта</h3>
+					</span>
+				</a>
+			</div>
+		</section>
+	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
@@ -802,6 +805,5 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
-
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Наверх</div>
 </body>

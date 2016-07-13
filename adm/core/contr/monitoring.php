@@ -128,6 +128,41 @@ if(isset($GLOBALS['REQAR'][1])){
 			$uncat_prod = $Products->GetUncategorisedProducts($where_art, $limit);
 			$tpl->Assign('list', $uncat_prod);
 			break;
+		case 'err_feedback':
+			if(isset($_POST['error_fix'])){
+				G::FixError($_POST['error_fix']);
+			}
+			if(isset($_POST['clear_filters'])){
+				$where_arr = null;
+				$_POST['filter_user_name'] = null;
+			} else{
+				if(isset($_POST['filter_user_name']) && $_POST['filter_user_name'] !=''){
+					if($_POST['filter_user_name'] == 'анонимно'){
+						$where_arr = ' AND u.name IS NULL';
+					} else{
+						$where_arr = ' AND u.name LIKE \'%'.trim($_POST['filter_user_name']).'%\'';
+					}
+				}
+			}
+			/*Pagination*/
+			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+				$GLOBALS['Limit_db'] = $_GET['limit'];
+			}
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = count(G::GetErrors($where_arr));
+				$tpl->Assign('cnt', $cnt);
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = '';
+			}
+			$errors = G::GetErrors($where_arr, $limit);
+			$tpl->Assign('list', $errors);
+			break;
 		default:
 			break;
 	}

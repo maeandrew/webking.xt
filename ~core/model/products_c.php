@@ -922,7 +922,7 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL AND (p.price_opt > 0 OR p.price_mopt > 0)
-				AND p.prod_status = 3  ORDER BY RAND() LIMIT 10";
+				AND p.prod_status = 3 AND p.visible = 1 ORDER BY RAND() LIMIT 10";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
@@ -4469,7 +4469,7 @@ class Products {
                 }else{
                     $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
                 }*/
-				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">add</i></span></span>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl);
 				$ul .= '</li>';
 			}else{
@@ -4701,7 +4701,7 @@ class Products {
 		$sql = "SELECT id_product, art, `name`, translit, visible, indexation FROM	"._DB_PREFIX_."product
 				WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
 				WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
-				.($where_art !== false?$where_art:'')."ORDER BY indexation".($limit !== false?$limit:'');
+				.($where_art !== false?$where_art:'')." ORDER BY indexation".($limit !== false?$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

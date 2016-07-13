@@ -165,37 +165,37 @@ class IntimeApi2 {
 	 * @param array $requiredFileds Массив обязательных полей
 	 * @return bool
 	 */
-	private function _prepareData($requiredFileds) {
+	private function _prepareData($requiredFileds){
 		// Попытка получить код склада отправителя 
-		if (in_array('senderWarehouseCode', $requiredFileds) AND ! $this->senderWarehouseCode) {
+		if(in_array('senderWarehouseCode', $requiredFileds) AND !$this->senderWarehouseCode){
 			$this->senderWarehouseCode = $this->getDepartmentCode( (string) $this->senderCity, (string) $this->senderAddress);
 			// Если нет склада отправителя, то попытка получить код населенного пункта
-			if ( ! $this->senderWarehouseCode) {
+			if(!$this->senderWarehouseCode){
 				$this->senderSettlementCode = $this->getSettlementCode( (string) $this->senderCity, (string) $this->senderRegion);
-				if ( ! $this->senderSettlementCode) {
+				if(!$this->senderSettlementCode){
 					throw new \Exception("Не удалось определить ни код склада, ни код города отправителя");
 				}
 			}
 		}
 		// Попытка получить код склада получателя 
-		if (in_array('receiverWarehouseCode', $requiredFileds) AND  ! $this->receiverWarehouseCode) {
+		if(in_array('receiverWarehouseCode', $requiredFileds) AND !$this->receiverWarehouseCode){
 			$this->receiverWarehouseCode = $this->getDepartmentCode( (string) $this->receiverCity, (string) $this->receiverAddress);
-			if ( ! $this->receiverWarehouseCode) {
+			if(!$this->receiverWarehouseCode){
 				$this->receiverSettlementCode = $this->getSettlementCode( (string) $this->receiverCity, (string) $this->receiverRegion);
-				if ( ! $this->receiverSettlementCode) {
+				if(!$this->receiverSettlementCode){
 					throw new \Exception("Не удалось определить ни код склада, ни код города получателя");
 				}
 			}
 		}
-		if (in_array('quantity', $requiredFileds) AND  ! $this->quantity) {
+		if(in_array('quantity', $requiredFileds) AND !$this->quantity){
 			throw new \Exception("Не указано кол-во мест для груза");
 		}
 		
-		if (in_array('weight', $requiredFileds) AND  ! $this->weight) {
+		if(in_array('weight', $requiredFileds) AND !$this->weight){
 			throw new \Exception("Не указан вес груза");
 		}
 		
-		if (in_array('volume', $requiredFileds) AND  ! $this->volume) {
+		if(in_array('volume', $requiredFileds) AND !$this->volume){
 			throw new \Exception("Не указан объём груза");
 		}
 		
@@ -209,23 +209,22 @@ class IntimeApi2 {
 	 * @param string $region Область
 	 * @return string Код города
 	 */
-	public function getSettlementCode($settlement, $region) {
-		if ($settlement AND $region) {
+	public function getSettlementCode($settlement, $region){
+		if($settlement AND $region){
 			// Есть необходимость записать результат, т.к. размер передаваемого файла > 3M
-			if ( ! self::$_listOfSettlements) {
+			if(!self::$_listOfSettlements){
 				self::$_listOfSettlements = $this->catalogList('List of settlements');
 			}
 			// Поиск города и адреса
-			foreach (self::$_listOfSettlements['ListCatalog']['Catalog'] as $settlementCurrent) {
-				if (mb_stripos($settlementCurrent['Name'], $settlement) !== FALSE 
-				AND (mb_stripos($settlementCurrent['AppendField'][0]['AppendFieldValue'], $region) !== FALSE 
-				OR mb_stripos($settlementCurrent['AppendField'][1]['AppendFieldValue'], $region) !== FALSE)) {
+			foreach(self::$_listOfSettlements['ListCatalog']['Catalog'] as $settlementCurrent){
+				if(mb_stripos($settlementCurrent['Name'], $settlement) !== FALSE AND (mb_stripos($settlementCurrent['AppendField'][0]['AppendFieldValue'], $region) !== FALSE OR mb_stripos($settlementCurrent['AppendField'][1]['AppendFieldValue'], $region) !== FALSE)){
 					$settlementCode = $settlementCurrent['Code'];
 					break;
 				}
 			}
+			return $settlementCode;
 		}
-		return (string) $settlementCode;
+		return false;
 	}
 	
 	/**
@@ -254,24 +253,20 @@ class IntimeApi2 {
 		return (string) $warehouseCode;
 	}
 
-	public function getDepartmentsList($city = false){
-		return $this->catalogList('Departments');
-		if ($city AND $address) {
-			// Есть необходимость записать результат, т.к. размер передаваемого файла > 500K
-			( ! self::$_departments) AND self::$_departments = $this->catalogList('Departments');
+	public function getDepartmentsList($city = false, $region = false){
+		// Есть необходимость записать результат, т.к. размер передаваемого файла > 500K
+		(!self::$_departments) AND self::$_departments = $this->catalogList('Departments');
+		if($city && $region){
 			// Т.к. в адресах складов в некоторых случаях встречаются адреса без знаков препинания, то учитывается и этот вариант
-			$addressShort = str_ireplace(array(' ', '.', ',', '-'), '', $address);
 			// Поиск города и адреса
-			foreach (self::$_departments['ListCatalog']['Catalog'] as $department) {
-				$departmentAddress = $department['AppendField'][0]['AppendFieldValue'];
-				$departmentAddressShort = str_ireplace(array(' ', '.', ',', '-'), '', $departmentAddress);
-				if (mb_stripos($department['Name'], $city) !== FALSE AND (mb_stripos($departmentAddress, $address) !== FALSE OR mb_stripos($departmentAddressShort, $addressShort) !== FALSE)) {
-					$warehouseCode = $department['Code'];
-					break;
+			foreach(self::$_departments['ListCatalog']['Catalog'] as $department){
+				if($department['AppendField'][4]['AppendFieldValue'] == $city && $department['AppendField'][11]['AppendFieldValue'] == $region){
+					$warehouses[] = $department;
 				}
 			}
+			return $warehouses;
 		}
-		return (string) $warehouseCode;
+		return self::$_departments;
 	}
 
 	/**

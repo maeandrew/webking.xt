@@ -123,6 +123,10 @@ $(function(){
 	$('body').on('click', '.buy_btn_js', function (){
 		$(this).closest('.card').find('.note').removeClass('hidden');
 		
+		if ($(this).closest('.card').find('.note').hasClass('note_control')) {
+			$(this).closest('.card').find('.note').addClass('activeNoteArea');
+		}
+
 		var id = $(this).closest('.product_buy').attr('data-idproduct'),
 			qty = $(this).closest('.product_buy').find('.qty_js').val(),
 			note = $(this).closest('.product_section').find('.note textarea').val();
@@ -521,12 +525,14 @@ $(function(){
 			parent = $(this).closest('li'),
 			parent_active = parent.hasClass('active');
 		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
-		 // $(this).closest('ul').find('.material-icons').addClass('rotate');
+			$(this).find('.material-icons').text('add');
 
 		if(!parent_active){
 			parent.addClass('active').find('> ul').stop(true, true).slideDown();
-			// $(this).find('.material-icons').addClass('rotate');
+			$(this).find('.material-icons').text('remove');
 		}
+
+		$('.second_nav li:not(.active) .more_cat i').text('add');
 	});
 
 	//Кабинет

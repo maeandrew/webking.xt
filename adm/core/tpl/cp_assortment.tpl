@@ -329,7 +329,9 @@
 				id_supplier: id_supplier,
 				inusd: inusd
 			}
+			console.log(data);
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+				console.log(data);				
 				parent.find('.price').each(function(){
 					var mode = $(this).data('mode');
 					if(data.inusd == 1){
@@ -370,7 +372,7 @@
 				e.preventDefault();
 				var parent = $(this).closest('tr'),
 					id = parent.data('id');
-				ajax('product', 'DelFromAssort', {id: id, id_supplier: id_supplier}).done(function(){
+				ajax('product', 'DelFromAssort', {id_product: id, id_supplier: id_supplier}).done(function(){
 					parent.fadeOut().remove();
 				});
 			}
