@@ -1436,6 +1436,10 @@ margin:  -1.5em 0;
 		right: 0;
 		bottom: 0;
 	}
+	aside .catalog .second_nav .link_wrapp .more_cat i {
+		font-size: 1.2em;
+		color: #777777;
+	}
 	aside .catalog .second_nav .link_wrapp:hover .more_cat {
 		background: rgba(255, 255, 255, .3);
 		/*border-color: #e0e0e0;*/
@@ -1453,9 +1457,9 @@ margin:  -1.5em 0;
 		transition: transform 0.3s;
 		transform: rotate(0deg);
 	}
-	aside .catalog .second_nav li.active > span > .more_cat i {
+	/*aside .catalog .second_nav li.active > span > .more_cat i {
 		transform: rotate(90deg);
-	}
+	}*/
 	aside .catalog .second_nav li .link_wrapp {
 		display: block;
 		overflow: hidden;

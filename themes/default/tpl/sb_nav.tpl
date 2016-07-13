@@ -48,6 +48,10 @@
 
 <script>
 $(function(){
+	if ($('.second_nav li').hasClass('active')) {
+		$('.second_nav').find('li.active > .link_wrapp > .more_cat i').html('remove');
+	};
+
 	$("#organization").click(function() {
 		if (!$(this).hasClass('activeSegment')) {
 			$('.main_nav li[data-nav="filter"]').addClass('hidden');
