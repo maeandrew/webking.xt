@@ -1520,7 +1520,7 @@ function moveObjects() {
 }
 // Удаление товара из ассортимента поставщика в кабинете
 function DelFromAssort(id){
-	ajax('product', 'DelFromAssort', {id: id}).done(function(){
+	ajax('product', 'DelFromAssort', {id_product: id}).done(function(){
 		$('#tr_mopt_'+id).slideUp();
 	});
 }

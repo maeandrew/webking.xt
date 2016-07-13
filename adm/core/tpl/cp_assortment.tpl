@@ -370,7 +370,7 @@
 				e.preventDefault();
 				var parent = $(this).closest('tr'),
 					id = parent.data('id');
-				ajax('product', 'DelFromAssort', {id: id, id_supplier: id_supplier}).done(function(){
+				ajax('product', 'DelFromAssort', {id_product: id, id_supplier: id_supplier}).done(function(){
 					parent.fadeOut().remove();
 				});
 			}
