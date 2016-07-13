@@ -1,5 +1,6 @@
 <div class="err_feedback">
 	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
+	<?print_r($list['id_error']);?>
 	<form action="" method="post">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
@@ -39,7 +40,7 @@
 					<?foreach($list as $i){?>
 						<tr class="animate">
 							<input type="hidden" name="id_error" value="<?=$i['id_error']?>">
-							<td><button type="submit" name="error_fix" class="small mr6 icon-font btn-m-green">y</button></td>
+							<td><button type="submit" name="error_fix" class="icon-font btn-m-green" title="Отметить что ошибка исправлена" value="<?=$i['id_error']?>">y</button></td>
 							<td class="left"><?=$i['comment']?></td>
 							<td class="center">
 								<?if (strpos($i['url'], 'cabinet') !== false) {?>
@@ -49,7 +50,9 @@
 								<?}?>
 							</td>
 							<td class="center">
-								<a class="small mr6 icon-font btn-m-lblue" title="Посмотреть скриншот" href="<?=$i['image']?>" target="_blank">v</a>
+								<?if ($i['image'] != '') {?>
+									<a class="small mr6 icon-font btn-m-lblue" title="Посмотреть скриншот" href="<?=$i['image']?>" target="_blank">v</a>
+								<?}?>
 							</td>
 							<td class="center"><?=$i['user_agent']?></td>
 							<td class="center"><?=(isset($i['name']))?$i['name']:'анонимно'?></td>
