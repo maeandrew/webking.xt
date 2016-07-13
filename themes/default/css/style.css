@@ -3701,8 +3701,6 @@ div.modalEditOrder .applyBtn {
 .err_msg_as_wrap {
 	position: relative;
 	color: #fff;
-	display: none;
-	
 }
 .err_msg_as {
 	position: fixed;
