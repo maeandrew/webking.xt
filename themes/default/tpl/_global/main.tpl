@@ -152,29 +152,30 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<section class="banner">
-		<div class="cont">
-			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
-					<h3>Снабжение<br> предприятий</h3>
-				</span>
-			</a>
-			<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
-					<h3>Поставки<br> магазинам</h3>
-				</span>
-			</a>
-			<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
-					<h3>Обеспечение<br> быта</h3>
-				</span>
-			</a>
-		</div>
-	</section>
-	
+	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], 'xt.ua') === false ))){?>
+		<section class="banner">
+			<div class="cont">
+				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+						<h3>Снабжение<br> предприятий</h3>
+					</span>
+				</a>
+				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+						<h3>Поставки<br> магазинам</h3>
+					</span>
+				</a>
+				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+						<h3>Обеспечение<br> быта</h3>
+					</span>
+				</a>
+			</div>
+		</section>
+	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
