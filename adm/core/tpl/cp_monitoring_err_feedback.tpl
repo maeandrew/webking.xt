@@ -38,6 +38,7 @@
 				<?if(isset($list) && $list != ''){?>
 					<?foreach($list as $i){?>
 						<tr class="animate">
+							<input type="hidden" name="id_error" value="<?=$i['id_error']?>">
 							<td><button type="submit" name="error_fix" class="small mr6 icon-font btn-m-green">y</button></td>
 							<td class="left"><?=$i['comment']?></td>
 							<td class="center">
@@ -51,7 +52,7 @@
 								<a class="small mr6 icon-font btn-m-lblue" title="Посмотреть скриншот" href="<?=$i['image']?>" target="_blank">v</a>
 							</td>
 							<td class="center"><?=$i['user_agent']?></td>
-							<td class="center"><?=$i['name']?></td>
+							<td class="center"><?=(isset($i['name']))?$i['name']:'анонимно'?></td>
 							<td class="center"><?=$i['email']?></td>
 							<td class="center"><?=$i['create_date']?></td>
 						</tr>
