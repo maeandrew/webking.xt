@@ -137,7 +137,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				$_POST['filter_user_name'] = null;
 			} else{
 				if(isset($_POST['filter_user_name']) && $_POST['filter_user_name'] !=''){
-					if($_POST['filter_user_name'] == 'аноним'){
+					if($_POST['filter_user_name'] == 'анонимно'){
 						$where_arr = ' AND u.name IS NULL';
 					} else{
 						$where_arr = ' AND u.name LIKE \'%'.trim($_POST['filter_user_name']).'%\'';
