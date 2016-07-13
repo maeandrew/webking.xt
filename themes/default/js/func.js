@@ -1624,20 +1624,23 @@ function toAssort(id, opt, nacen, comment){
 /*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
 function AddDelProductAssortiment(obj, id){
 	if (obj.checked){
-		action = "add_product";
+		action = "AddToAssort";
 	}else{
-		action = "del_product";
+		action = "DelFromAssort";
 	}
-	$.ajax({
-		url: URL_base+'ajaxassort',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action":action,
-			"id_product":id
-		},
-	});
+	
+	ajax('product', action, {id_product:id});
+
+	// $.ajax({
+	// 	url: URL_base+'ajaxassort',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType: "json",
+	// 	data: {
+	// 		"action":action,
+	// 		"id_product":id
+	// 	},
+	// });
 }
 
 // Установить куки
