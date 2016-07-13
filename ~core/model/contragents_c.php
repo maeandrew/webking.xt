@@ -75,7 +75,7 @@ class Contragents extends Users{
 			ON c.id_user = cc.id_contragent
 		LEFT JOIN "._DB_PREFIX_."user AS u
 			ON c.id_user = u.id_user
-		WHERE cc.work_day = '1'
+		WHERE cc.work_day = 1
 		AND cc.date = '".$date."'
 		".$active."
 		".$diler;
