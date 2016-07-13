@@ -152,7 +152,7 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], 'xt.ua') === false ))){?>
+	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
 		<section class="banner">
 			<div class="cont">
 				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
