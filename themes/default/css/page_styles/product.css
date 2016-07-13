@@ -86,7 +86,7 @@
 #owl-product_mini_img_js .owl-prev,
 #owl-product_mini_img_js .owl-next {
 	width: 40px;
-	background: #fff;
+	/*background: #fff;*/
 }
 
 /* #owl-product_mobile_img_js .owl-prev,
@@ -288,6 +288,7 @@ div[for="rating_block"] {
 	padding: 10px;
 	border: 1px solid #e0e0e0;
 	border-top: 0;
+	background: #fff;
 }
 #specifications .mdl-grid {
 	line-height: 2.5em;

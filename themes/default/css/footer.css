@@ -27,7 +27,7 @@ footer ul li a {
 }
 footer.mdl-mega-footer {
 	padding: 0;
-	color: #e0e0e0;
+	color: #444;
 }
 footer .mdl-mega-footer__left-section {
 	width: calc(100% - 320px);
