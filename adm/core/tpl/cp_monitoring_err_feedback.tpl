@@ -39,7 +39,6 @@
 				<?if(isset($list) && $list != ''){?>
 					<?foreach($list as $i){?>
 						<tr class="animate">
-							<input type="hidden" name="id_error" value="<?=$i['id_error']?>">
 							<td><button type="submit" name="error_fix" class="icon-font btn-m-green" title="Отметить что ошибка исправлена" value="<?=$i['id_error']?>">y</button></td>
 							<td class="left"><?=$i['comment']?></td>
 							<td class="center">
