@@ -458,8 +458,9 @@ label.info_key {
 }
 .block_view .products .card {
 	width: calc(20% - 10px);
-	border: 1px solid #d9d9d9;
-	border-radius: .2em;
+	border: 1px solid #f2f2f2;
+	background: #fff;
+	/*border-radius: .2em;*/
 	margin: 5px;
 	position: relative;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -470,7 +471,7 @@ label.info_key {
 	line-height: 20px;
 }
 .block_view .products .card:hover {
-	border: 1px solid #aaa;
+	border: 1px solid #e0e0e0;
 	-webkit-transition: none;
 	-o-transition: none;
 	transition: none;
@@ -531,9 +532,13 @@ label.info_key {
 
 .block_view .buy_block .btn_buy button {
 	position: relative;
-	width: 100%;
-	left: 0;
-	right: 0;
+	width: 50%;
+	left: 25%;
+	right: 25%;
+	margin: 0 auto;
+	color: #fff;
+	background: #ff5722;
+	border-color: #ff5722;
 }
 .block_view .buy_block .btn_buy div {
 	position: relative;
