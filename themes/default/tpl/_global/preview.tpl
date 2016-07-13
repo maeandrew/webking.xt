@@ -43,12 +43,12 @@
 							<input class="priceMopt<?=$i?>" value="<?=$product['prices_mopt'][$i]?>">
 						<?}?>
 					</div>	
-					<div class="btn_buy">
+					<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 						<div id="in_cart_<?=$product['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$product['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$product['id_product'];?>">Товар в корзине</div>
 						<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$product['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 					</div>
-					<div class="quantity">
+					<div class="quantity <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 						<button id="preview_btn_add<?=$product['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="preview_btn_add<?=$product['id_product']?>">Больше</div>						
 						<input type="text" class="minQty hidden" value="<?=$product['inbox_qty']?>">
@@ -57,6 +57,24 @@
 						<button id="preview_btn_remove<?=$product['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="preview_btn_remove<?=$product['id_product']?>">Меньше</div>
 						<div class="units"><?=$product['units'];?></div>
+					</div>
+					<!-- Блок для поставщика -->
+					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+						<!-- <div class="count_cell">
+							<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
+							<p id="min_mopt_qty_<?=$product['id_product']?>"><?=$product['min_mopt_qty'].' '.$product['units']?><?=$product['qty_control']?" *":null?></p>			
+						</div>
+						<div class="count_cell">
+							<span class="suplierPriceBlockLabel">Количество в ящике:</span>
+							<p id="inbox_qty_<?=$product['id_product']?>"><?=$product['inbox_qty'].' '.$product['units']?></p>
+						</div> -->
+						<div class="product_check <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+							<? print_r($_SESSION['Assort']['products'][$product['id_product']]) ?>
+							<span class="suplierPriceBlockLabel">Добавить:</span>
+							<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$product['id_product']?>">
+								<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$product['id_product']?>" <?=isset($_SESSION['Assort']['products'][$product['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$product['id_product']?>)"/>
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$product['id_product']]['quantity'] < $product['inbox_qty'])?'':' hidden'?>">Малый опт</div>

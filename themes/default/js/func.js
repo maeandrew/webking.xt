@@ -1056,7 +1056,7 @@ function hidePreview(){
 function rebuildPreview(obj){
 	var position = obj.offset(),
 		positionProd = $('#view_block_js').offset(),
-		id_product = obj.closest('.card').find('.product_buy').data('idproduct'),
+		id_product = obj.closest('.card').data('idproduct'),
 		// Calculating position of preview window
 		viewportWidth = $(window).width(),
 		viewportHeight = $(window).height(),
@@ -1065,6 +1065,7 @@ function rebuildPreview(obj){
 		correctionTop = 0,
 		marginBottom = 15,
 		marginTop = marginBottom+$('header').outerHeight();
+		console.log(id_product);
 	var ovftop = position.top - preview.height()/2 + obj.outerHeight()/2 - marginTop,
 		ovfbotton = position.top + preview.height()/2 + obj.outerHeight()/2 + marginBottom;
 	if(pos + viewportHeight < ovfbotton){

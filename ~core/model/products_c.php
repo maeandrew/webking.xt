@@ -4469,7 +4469,7 @@ class Products {
                 }else{
                     $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
                 }*/
-				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">add</i></span></span>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl);
 				$ul .= '</li>';
 			}else{

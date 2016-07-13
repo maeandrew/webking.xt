@@ -329,7 +329,9 @@
 				id_supplier: id_supplier,
 				inusd: inusd
 			}
+			console.log(data);
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
+				console.log(data);				
 				parent.find('.price').each(function(){
 					var mode = $(this).data('mode');
 					if(data.inusd == 1){
