@@ -599,10 +599,11 @@ table.supplier_assort_table {
 }
 #supplier_cab .name_cell {
 	text-align: left;
-	padding-left: 20px;
+	padding-left: 10px;
 	padding-right: 10px;
 	line-height: 1.2em;
 	text-align: justify;
+	width: calc(100% - 430px);
 }
 #supplier_cab #second .photo_cell {
 	padding: 5px;
@@ -2248,6 +2249,51 @@ div[id^="items_panel_"] .btnWrapFlex {
 	z-index: 0;
 }
 
+/* СТИЛИ НОВОЙ ТАБЛИЦЫ БЛОКАМИ */
+
+
+.products_list_item {
+	display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #d7d7d7;
+	justify-content: space-between;
+	width: 100%;
+}
+.supplier_assort_table {
+	display: flex;
+	width: 100%;
+}
+
+.removeFromAssort {
+	width: 30px;
+}
+.removeFromAssort a {
+    display: block;
+    text-align: center;
+}
+.photo_cell {
+	width: 110px;
+}
+
+.name_cell a {
+	color: #444;
+}
+
+.min_prod_qty {
+	margin-right: 5px;
+}
+
+.price_1, 
+.price_2 {
+	width: 100px;
+}
+
+.prod_detail_info {
+	display: none;
+}
+
+
 
 @media (max-width: 1060px) {
 	.nav li {
@@ -2492,6 +2538,31 @@ div[id^="items_panel_"] .btnWrapFlex {
 		width: 48%;
 		margin-bottom: 5px;
 	}
+	#supplier_cab .name_cell {
+		width: calc(100% - 140px);
+	}
+	.products_list_item {
+		flex-wrap: wrap;
+	}
+	.product_balance, .min_prod_qty, .price_1, .price_2, .to_dollar {
+		width: 49%;
+		padding-left: 5px;
+	}
+	.prod_detail_info {
+		width: 175px;
+    	display: block;
+    	float: left;
+    	line-height: 24px;
+    	margin-right: 5px;
+	}
+	#supplier_cab .price_1 input, 
+	#supplier_cab .price_2 input {
+		width: 100px;
+	}
+	.product_balance label, 
+	.to_dollar label {
+		width: 30px;
+	}
 }
 
 @media (max-width: 600px) {
@@ -2555,6 +2626,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.cabinet_content .help_block,
 	.cabinet_content .editproduct {
+		width: 100%;
+	}
+	.product_balance, .min_prod_qty, .price_1, .price_2, .to_dollar {
 		width: 100%;
 	}
 }
