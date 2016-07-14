@@ -185,8 +185,7 @@
 				<div id="nav_seo" chass="hidden">
 					<h2>SEO</h2>
 					<div class="row">
-						<div class="col-md-12">
-							
+						<div class="col-md-12">							
 							<label for="page_title">Мета-заголовок (title):</label>
 							<p class="hint">Перед текстом будет автоматически добавлен ключ - "<span><?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>.</span>"</p>
 							<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
