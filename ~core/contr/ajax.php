@@ -3,6 +3,7 @@
 	if(isset($_GET['target'])){
 		$_POST = $_GET;
 	}
+	print_r($_POST);
 	if(isset($_POST['target']) && file_exists($GLOBALS['PATH_contr'].'ajax/'.$_POST['target'].'.php')){
 		require 'ajax/'.$_POST['target'].'.php';
 	}else{

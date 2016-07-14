@@ -157,7 +157,7 @@
 	var url = URL_base_global+'ajax/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
-		url: url+"?target=images&action=upload&path=/images/categories",
+		url: url+"?target=image&action=upload&path=/images/categories",
 		clickable: true,
 		maxFiles: 1,
 		previewsContainer: '.images_block',	
