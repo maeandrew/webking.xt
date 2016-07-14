@@ -2171,6 +2171,7 @@ section .stat_year {
 
 .products .card {
 	overflow: hidden;
+	background-color: #fff;
 }
 .products .card:first-of-type {
 	border-top: 1px solid #e0e0e0;
