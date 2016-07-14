@@ -8,6 +8,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$path = isset($_POST['path'])?$GLOBALS['PATH_root'].$_POST['path']:$GLOBALS['PATH_root'].'/temp/';
 				echo str_replace($GLOBALS['PATH_root'], '/', $Images->upload($_FILES, $path));
 				break;
+
+			case 'delete':
+				echo json_encode(unlink($GLOBALS['PATH_root'].$_POST['path']));
+				break;
 			default:
 				break;
 		}
