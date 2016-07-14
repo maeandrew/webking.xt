@@ -21,7 +21,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'DelFromAssort':
 				if(isset($_POST['id_product'])){
-					$products->DelFromAssort($_POST['id_product'], $_POST['id_supplier']);
+					$products->DelFromAssort($_POST['id_product']);
 					$arr['id_product'] = $_POST['id_product'];
 					echo json_encode($arr);
 				}
