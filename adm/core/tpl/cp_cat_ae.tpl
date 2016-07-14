@@ -157,13 +157,13 @@
 	var url = URL_base_global+'ajax/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
-		url: url+"?target=image&action=upload&path=/images/categories",
+		url: url+"?target=image&action=upload&path=images/categories/",
 		clickable: true,
 		maxFiles: 1,
 		previewsContainer: '.images_block',	
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	}).on('success', function(file, path){
-			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+			file.previewElement.innerHTML += '<input type="hidden" name="image" value="'+path+'">';
 	});
 
 	var id_category = $('[name="id_category"]').val();
@@ -174,19 +174,24 @@
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
-				curSrc = target.closest('.image_block_js').find('input').val();			
-			$.ajax({
-				url: URL_base+'ajaxproducts',
-				type: "POST",
-				cache: false,
-				dataType: "json",
-				data: {
-					action: 'DeleteUploadedImage',
-					src: curSrc,
-				}
-			}).done(function(data){
+				curSrc = target.closest('.image_block_js').find('input').val();
+
+			ajax('image', 'delete', {path: curSrc}).done(function(data){
 				target.closest('.image_block_js').remove();
 			});
+
+			// $.ajax({
+			// 	url: URL_base+'ajaxproducts',
+			// 	type: "POST",
+			// 	cache: false,
+			// 	dataType: "json",
+			// 	data: {
+			// 		action: 'DeleteUploadedImage',
+			// 		src: curSrc,
+			// 	}
+			// }).done(function(data){
+			// 	target.closest('.image_block_js').remove();
+			// });
 		});
 
 	});
