@@ -25,24 +25,24 @@
 					<a href="/adm/graphics/" <?=$moderationCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$moderationCount;?>)</a>
 				</li>
 			<?}?>
-			<li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
+			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
 				<a href="/adm/photo_products/">Товары фотографа</a>
-			</li>
+			</li><?}?>
 			<?if(_acl::isAllow('catalog')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'cat'?'class="sel"':null;?>>
-					<a href="/adm/cat/">Каталог</a>
+					<?=($_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_)?'Каталог':'<a href="/adm/cat/">Каталог</a>'?>
 				</li>
 				<li>
 					<ul class="sb_menusub">
-						<li <?=$GLOBALS['CurrentController'] == 'catadd'?'class="sel"':null;?>>
+						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'catadd'?'class="sel"':null;?>>
 							<a href="/adm/catadd/">Добавить категорию</a>
-						</li>
+						</li><?}?>
 						<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="sel"':null;?>>
 							<a href="/adm/productadd/">Добавить товар</a>
 						</li>
-						<li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
+						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
 							<a href="/adm/unload_products/">Выгрузка товаров</a>
-						</li>
+						</li><?}?>
 					</ul>
 				</li>
 			<?}?>

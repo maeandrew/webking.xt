@@ -1,3 +1,4 @@
+<?if(isset($GLOBALS['REQAR'][1]) && $_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_ && $_SESSION['member']['id_user'] != $_POST['create_user']) die("Access denied");?>
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
@@ -34,8 +35,8 @@
 					<li><a href="#nav_delivery">Доставка</a></li>
 					<li><a href="#nav_connection">Категория и связь</a></li>
 					<li><a href="#nav_information">Информация</a></li>
-					<li><a href="#nav_visible">Видимость и индексация</a></li>
-					<?if($GLOBALS['CurrentController'] == 'productedit'){?>
+					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li><a href="#nav_visible">Видимость и индексация</a></li><?}?>
+					<?if($GLOBALS['CurrentController'] == 'productedit' && $_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
 						<li><a href="#nav_delete">Удаление товара</a></li>
 					<?}?>
 					<li class="main_photo">
@@ -431,7 +432,7 @@
 							</div>
 						</div>
 					<?}?>
-					<label>Данные поставщика:</label>
+					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><label>Данные поставщика:</label>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier">
 						<colgroup>
 							<col width="10%">
@@ -540,7 +541,7 @@
 								</td>
 							</tr>
 						</tbody>
-					</table>
+					</table><?}?>
 					<label>Привязанные сегментации:</label>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 segmentations">
 						<colgroup>
@@ -630,7 +631,7 @@
 					<label for="notation_price">Примечание: </label>
 					<textarea name="notation_price" id="notation_price" cols="30" rows="10"><?=isset($_POST['notation_price'])?htmlspecialchars($_POST['notation_price']):null?></textarea>
 				</div>
-				<div id="nav_visible">
+				<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><div id="nav_visible">
 					<h2>Видимость и индексация</h2>
 					<label for="visible"><b>Скрыть товар &nbsp;</b>
 						<input type="checkbox" name="visible" id="visible" class="input-m" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
@@ -648,7 +649,7 @@
 							ассортимента поставщика, избранных товаров, посещаемых товаров, листа ожидания.
 					</label>
 					<a class="btn-m-red delete_prod" onclick="if(confirm('Точно удалить товар?')){DelProds(<?=$_POST['id_product']?>);} return false;">Удалить товар</a>
-				</div>
+				</div><?}?>
 			</div>
 		</div>
 	</form>

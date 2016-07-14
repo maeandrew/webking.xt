@@ -265,6 +265,15 @@ G::ToGlobals(array(
 					'pricelist',
 					'supplier_prov'
 				)
+			),
+			14 => array(
+				'name' => 'remote_content',
+				'caption' => 'Администратор наполнения',
+				'permissions' => array(
+					'admin_panel',
+					'catalog',
+					'product',
+				)
 			)
 		)
 	)
