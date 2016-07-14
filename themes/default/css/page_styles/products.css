@@ -1040,8 +1040,14 @@ label.info_key {
 }
 
 .preview .supplier_block {
-	width: 70%;
+	width: 100%;
+	display: flex;
+    justify-content: center;
 }
+.preview .supplier_block .price {
+	margin-right: 10px;
+}
+
 .preview .supplier_block .product_check label {
 	width: 30px;
     margin-left: 5px;
