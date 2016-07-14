@@ -39,7 +39,6 @@
 				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 			</div>
 		</div>
-
 		<div class="col-md-12">
 			<div class="images_block"></div>
 		</div>

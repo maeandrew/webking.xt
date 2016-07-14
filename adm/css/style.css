@@ -1025,7 +1025,41 @@ img.pic_block {
 #nav_visible {
 	margin-top: 1em;
 }
+/* Стили дропзон для фото категории */
+.image_block_new {
+	position: relative;
+	height: 120px;
+}
 
+.image_block {
+	position: absolute;
+	top: 0;
+}
+.images_block .del_photo_js {
+	width: 30px;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    margin-top: -3px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    background: #fff;
+}
+.images_block .del_photo_js {
+	color: red;
+}
+.image_block_new .dz-message {
+	line-height: 1.5em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5em;
+	width: 120px;
+}
 /* Оформление списка товаров без категории */
 /*.nocategory .table_row {
 	display: flex;

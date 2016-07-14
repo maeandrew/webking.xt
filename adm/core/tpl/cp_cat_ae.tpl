@@ -21,6 +21,33 @@
 			<?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
 			<input type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>"/>
 		</div>
+
+		
+
+		<div class="col-md-12">
+			<div class="image_block_new images_block drop_zone animate">
+				<div class="dz-default dz-message">Фото категории</div>
+				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+				<input type="hidden" name="image" value="<?=$photo['src']?>">
+			</div>
+		</div>
+		<!-- <div class="col-md-12">
+			<div class="images_block"></div>
+		</div> -->
+		<div id="preview-template" class="hidden">
+			<div class="image_block image_block_js dz-preview dz-file-preview">
+				<div class="image">
+					<img data-dz-thumbnail />
+					<!-- <span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span> -->
+					<span class="icon-font del_photo_js" title="Удалить" data-dz-remove="">t</span>
+				</div>
+				<!-- <div class="name">
+					<span class="dz-filename" data-dz-name></span>
+				</div>	 -->	
+			</div>
+		</div>
+
+
 		<?if(in_array($_SESSION['member']['gid'], array(_ACL_SEO_, _ACL_ADMIN_))){?>
 			<?if(isset($_POST['translit'])){ ?>
 				<div class="col-md-12 seo_block">
@@ -138,11 +165,41 @@
 	</form>
 </div>
 <script type="text/javascript">
+	var url = URL_base_global+'ajax/';
+	var dropzone = new Dropzone(".drop_zone", {
+		method: 'POST',
+		url: url+"?target=images&action=upload&path=/images/categories",
+		clickable: true,
+		maxFiles: 1,
+		previewsContainer: '.images_block',	
+		previewTemplate: document.querySelector('#preview-template').innerHTML
+	}).on('success', function(file, path){
+			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+	});
+
 	var id_category = $('[name="id_category"]').val();
 	$(function(){
 		$('.addspec').on('click', function(){
 			SetSpecToCat(id_category, $('#sid').val());
 		});
+
+		$('body').on('click', '.del_photo_js', function(){
+			var target = $(this),
+				curSrc = target.closest('.image_block_js').find('input').val();			
+			$.ajax({
+				url: URL_base+'ajaxproducts',
+				type: "POST",
+				cache: false,
+				dataType: "json",
+				data: {
+					action: 'DeleteUploadedImage',
+					src: curSrc,
+				}
+			}).done(function(data){
+				target.closest('.image_block_js').remove();
+			});
+		});
+
 	});
 	function SetSpecToCat(id_cat, id_spec){
 		$.ajax({

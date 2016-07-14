@@ -654,7 +654,7 @@
 		</div>
 	</form>
 </div>
-<div id="preview-template" style="display: none;">
+<div id="preview-template" class="hidden">
 	<div class="image_block dz-preview dz-file-preview implicit">
 		<div class="sort_handle"><span class="icon-font">s</span></div>
 		<div class="image">
