@@ -1,7 +1,7 @@
 <?php
-if(!_acl::isAllow('monitoring')){
-	die("Access denied");
-}
+// if(!_acl::isAllow('monitoring')){
+// 	die("Access denied");
+// }
 unset($parsed_res);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Мониторинг";
@@ -100,10 +100,12 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $list);
 			break;
 		case 'uncategorised_products':
+			$ii = count($GLOBALS['IERA_LINKS']);
+			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Товары без категорий";
 			if(isset($_POST['clear_filters'])){
 				$where_art = null;
 				$_POST['filter_art'] = null;
-			} else{
+			}else{
 				if(isset($_POST['filter_art']) && $_POST['filter_art'] !=''){
 					$where_art = ' AND art LIKE \''.trim($_POST['filter_art']).'\'';
 				}
