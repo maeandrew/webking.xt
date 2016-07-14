@@ -3619,10 +3619,16 @@ div.modalEditOrder .applyBtn {
 	padding: 5px 0;
 }
 .mobile_carousel .owl-item img {
-	max-width: 100%;
+	/*max-width: 100%;
 	width: auto;
 	margin: 0px auto;
-	display: block;
+	display: block;*/
+
+	left: 50%;
+	top: 50%;
+	width: auto;
+	position: relative;
+	transform: translate(-50%, -50%);
 }
 .owl-dot {
 	width: 20px;
