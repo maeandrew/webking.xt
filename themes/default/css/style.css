@@ -22,7 +22,7 @@ body {
 	background: #fff;
 	padding-top: 52px;
 	position: relative;
-	background: #f8f8f8;
+	background: #f8f8f8 url("../img/crossword.png");
 }
 a {
 	text-decoration: none;
@@ -1482,6 +1482,9 @@ margin:  -1.5em 0;
 		box-sizing: border-box;
 		color: #343030;
 	}
+	aside .catalog .second_nav li.active {
+		border-left: 2px solid #018b06;
+	}
 	aside .catalog .second_nav li.active a {
 		color: #343030;
 	}
@@ -1513,7 +1516,6 @@ margin:  -1.5em 0;
 	aside .catalog .second_nav li ul {
 		display: none;
 		margin-left: 15px;
-		border-left: 2px solid #018b06;
 	}
 	aside .catalog .second_nav li > ul li > ul li a {
 		display: inline-block;
