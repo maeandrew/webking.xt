@@ -82,7 +82,7 @@
 
 			<div id="big_photos_carousel" data-type="modal">
 				<div class="modal_container">
-					<div id="owl-product_mobile_img_js" class="mobile_carousel">
+					<div id="big_photos_carousel_js" class="carousel">
 						<?if(!empty($item['images'])){
 							foreach($item['images'] as $i => $image){?>
 								<img src="<?=_base_url?><?=$image['src']?>" alt="<?=$item['name']?>">
@@ -105,7 +105,7 @@
 			<script>
 			console.log($(window).outerWidth());
 				//Инициализация owl carousel
-				$('#owl-product_mobile_img_js').owlCarousel({
+				$('#owl-product_mobile_img_js, #big_photos_carousel_js').owlCarousel({
 					center:			true,
 					dots:			true,
 					items:			1,

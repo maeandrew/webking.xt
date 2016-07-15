@@ -703,7 +703,7 @@ div[for="rating_block"] {
 		font-size: 1.7em;
 	}
 }
-#big_photos_carousel .mobile_carousel {
+#big_photos_carousel_js {
 	width: 55vw;
 	height: 70vh;
 }
