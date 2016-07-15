@@ -719,7 +719,7 @@ div[for="rating_block"] {
     margin: 0 auto;
     position: relative;
     top: 50%;
-    transform: translateY(-45%);
+    transform: translateY(-50%);
 }
 
 #big_photos_carousel .owl-item,
