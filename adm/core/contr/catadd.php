@@ -27,12 +27,12 @@ if(isset($_POST['smb'])){
 		$arr['visible'] = isset($_POST['visible']) && $_POST['visible'] == "on"?0:1;
 		$arr['indexation'] = isset($_POST['indexation']) && $_POST['indexation'] == "on"?1:0;
 		$arr['edit_user'] = $_SESSION['member'][id_user];
-		if(isset($_POST['image'])) {
+		if(isset($_POST['add_image'])) {
 			$arr['category_img'] = '/images/categories/' . $arr['translit'] . '.jpg';
 		}
 		if($id = $dbtree->Insert($arr['pid'], $arr)){
-			if(isset($_POST['image'])){
-				$name_image = pathinfo($GLOBALS['PATH_global_root'].$_POST['image']);
+			if(isset($_POST['add_image'])){
+				$name_image = pathinfo($GLOBALS['PATH_global_root'].$_POST['add_image']);
 				$folder = $GLOBALS['PATH_global_root'].'/images/categories/';
 				$file_name = $GLOBALS['PATH_global_root'].$arr['category_img'];
 				$array_folder = scandir($folder);
@@ -52,11 +52,13 @@ if(isset($_POST['smb'])){
 						$height = 1000;
 					}
 				}
-				$res = imagecreatetruecolor($width, $height);
-				imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-				$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($file_name):imagecreatefrompng($file_name);
-				imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
-				imagejpeg($res, $file_name);
+				if(isset($width) && isset($height)){
+					$res = imagecreatetruecolor($width, $height);
+					imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+					$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($file_name):imagecreatefrompng($file_name);
+					imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+					imagejpeg($res, $file_name);
+				}
 			}
 			$tpl->Assign('msg', 'Категория добавлена.');
 			unset($_POST, $name_image, $folder, $file_name, $array_folder);
