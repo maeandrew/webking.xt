@@ -150,8 +150,8 @@ if(isset($GLOBALS['REQAR'][1])){
 				$GLOBALS['Limit_db'] = 0;
 				$limit = '';
 			}
-			$dob_prod = $product->GetDoublesProducts($limit);
-			$tpl->Assign('list', $dob_prod);
+			$double_prod = $product->GetDoublesProducts($limit);
+			$tpl->Assign('list', $double_prod);
 			break;
 		case 'err_feedback':
 			if(isset($_POST['error_fix'])){
