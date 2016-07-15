@@ -200,6 +200,13 @@
 							<a href="/adm/warehouses/">Поставщики склада</a>
 							<a href="/adm/warehouseadd/" class="add <?=$GLOBALS['CurrentController'] == 'warehouseadd'?'sel':null;?>" title="Добавить  поставщика склада">Добавить  поставщика склада</a>
 						</li>
+					</ul>
+				</li>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'usersadd'?'class="sel"':null;?>>
+							<a href="/adm/usersadd/">Добавить нового пользователя</a>
+						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'adminadd'?'class="sel"':null;?>>
 							<a href="/adm/adminadd/">Добавить администратора</a>
 						</li>

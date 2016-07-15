@@ -155,7 +155,7 @@ class Products {
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			p.name_index, un.unit_prom, a.product_limit, pv.count_views,
+			p.name_index, un.unit_prom, a.product_limit, pv.count_views, a.price_opt_otpusk, a.price_mopt_otpusk
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -1714,13 +1714,26 @@ class Products {
 		return true;
 	}
 	/**
+	 * [SwitchActiveEDInAssort description]
+	 * @param [type] $id_product [description]
+	 * @param [type] $active     [description]
+	 */
+	public function SwitchActiveEDInAssort($id_product, $active){
+		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
+		$f['active'] = $active;
+		$this->db->StartTrans();
+		$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product);
+		$this->RecalcSitePrices(array($id_product));
+		$this->db->CompleteTrans();
+	}
+	/**
 	 * [AddToAssort description]
 	 * @param [type] $id_product [description]
 	 */
 	public function AddToAssort($id_product, $id_supplier = false){
 		if(!$id_supplier){
 			$this->InitProduct($id_product);
-			$f['id_supplier'] = trim($_SESSION['member']['id_user']);
+			$f['id_supplier'] = $_SESSION['member']['id_user'];
 		}else{
 			$f['id_supplier'] = $id_supplier;
 		}
@@ -1742,24 +1755,14 @@ class Products {
 		return true;
 	}
 	/**
-	 * [SwitchActiveEDInAssort description]
-	 * @param [type] $id_product [description]
-	 * @param [type] $active     [description]
-	 */
-	public function SwitchActiveEDInAssort($id_product, $active){
-		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
-		$f['active'] = $active;
-		$this->db->StartTrans();
-		$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product);
-		$this->RecalcSitePrices(array($id_product));
-		$this->db->CompleteTrans();
-	}
-	/**
 	 * [DelFromAssort description]
 	 * @param [type] $id_product  [description]
 	 * @param [type] $id_supplier [description]
 	 */
-	public function DelFromAssort($id_product, $id_supplier){
+	public function DelFromAssort($id_product, $id_supplier = false){
+		if(!$id_supplier){
+			$id_supplier = $_SESSION['member']['id_user'];
+		}
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
@@ -4699,9 +4702,9 @@ class Products {
 
 	public  function GetUncategorisedProducts($where_art = false, $limit = false){
 		$sql = "SELECT id_product, art, `name`, translit, visible, indexation FROM	"._DB_PREFIX_."product
-				WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
-				WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
-				.($where_art !== false?$where_art:'')." ORDER BY indexation".($limit !== false?$limit:'');
+			WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
+			WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
+			.($where_art !== false?$where_art:'')." ORDER BY indexation".($limit !== false?$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

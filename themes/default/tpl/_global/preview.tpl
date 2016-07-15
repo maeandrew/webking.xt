@@ -34,8 +34,8 @@
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
 			<div class="product_buy" data-idproduct="<?=$product['id_product']?>">
 				<div class="buy_block">
-					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
-					<span>грн.</span>
+					<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+					<span class="<?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">грн.</span>
 					<div class="prodPrices hidden">
 						<div class="itemProdQty"><?=$product['min_mopt_qty']?></div>
 						<?for($i = 0; $i < 4; $i++){?>
@@ -60,20 +60,14 @@
 					</div>
 					<!-- Блок для поставщика -->
 					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
-						<!-- <div class="count_cell">
-							<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
-							<p id="min_mopt_qty_<?=$product['id_product']?>"><?=$product['min_mopt_qty'].' '.$product['units']?><?=$product['qty_control']?" *":null?></p>			
-						</div>
-						<div class="count_cell">
-							<span class="suplierPriceBlockLabel">Количество в ящике:</span>
-							<p id="inbox_qty_<?=$product['id_product']?>"><?=$product['inbox_qty'].' '.$product['units']?></p>
-						</div> -->
-						<div class="product_check <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
-							<? print_r($_SESSION['Assort']['products'][$product['id_product']]) ?>
-							<span class="suplierPriceBlockLabel">Добавить:</span>
-							<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$product['id_product']?>">
-								<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$product['id_product']?>" <?=isset($_SESSION['Assort']['products'][$product['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$product['id_product']?>)"/>
-							</label>
+						<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$product['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+						<span>грн.</span>
+						<div class="prodPrices hidden">
+							<div class="itemProdQty"><?=$product['min_mopt_qty']?></div>
+							<?for($i = 0; $i < 4; $i++){?>
+								<input class="priceOpt<?=$i?>" value="<?=$product['prices_opt'][$i]?>">
+								<input class="priceMopt<?=$i?>" value="<?=$product['prices_mopt'][$i]?>">
+							<?}?>
 						</div>
 					</div>
 				</div>

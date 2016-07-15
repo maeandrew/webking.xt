@@ -268,7 +268,7 @@ G::ToGlobals(array(
 			),
 			14 => array(
 				'name' => 'remote_content',
-				'caption' => 'Администратор наполнения',
+				'caption' => 'Удаленный контент-менеджер',
 				'permissions' => array(
 					'admin_panel',
 					'catalog',

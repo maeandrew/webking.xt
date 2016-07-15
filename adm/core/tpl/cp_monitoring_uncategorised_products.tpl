@@ -1,3 +1,4 @@
+<h1><?=$h1?></h1>
 <div class="nocategory">
 	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	<form action="" method="post">

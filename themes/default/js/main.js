@@ -851,7 +851,7 @@ $(function(){
 	});
 
 	/* Обработчик данных из корзины */
-	$('#quiz .to_step').on('click', function(e){
+	$('#quiz').on('click', '.to_step', function(e){
 		e.preventDefault();
 		var
 			//target_step = $(this).data('step'),
@@ -861,66 +861,60 @@ $(function(){
 			//target = $('.step_'+target_step),
 			//validate = false,
 			i = 0,
-			data = null,
-			all = {
-				target_step: $(this).data('step'),
+			data = {
+				validate: false,
 				current_step: $(this).closest('[class*="step_"]').data('step'),
+				target_step: $(this).data('step')
+			},
+			all = {
 				summary: $('#quiz .summary_info'),
 				current: $('.step_'+$(this).closest('[class*="step_"]').data('step')),
-				target: $('.step_'+$(this).data('step')),
-				validate: false
+				target: $('.step_'+$(this).data('step'))
 			};
-		if(all.target_step == 1){
-			all.summary.removeClass('active');
-			if(all.current_step == 2){
-				all.summary.find('.lastname').closest('.row').addClass('hidden');
-				all.summary.find('.firstname').closest('.row').addClass('hidden');
-				all.summary.find('.middlename').closest('.row').addClass('hidden');
-				all.summary.removeClass('active');
-				validateq(all);
+		if(data.target_step == 1){
+			// all.summary.removeClass('active');
+			if(data.current_step == 2){
+				console.log(data);
+				// all.summary.find('.last_name').closest('.row').addClass('hidden');
+				// all.summary.find('.first_name').closest('.row').addClass('hidden');
+				// all.summary.find('.middle_name').closest('.row').addClass('hidden');
+				// all.summary.removeClass('active');
+				validateq(data);
 			}
-		}else if(all.target_step == 2){
-			if(all.current_step == 1){
-				var lastname = all.current.find('[name="lastname"]').val(),
-					firstname = all.current.find('[name="firstname"]').val(),
-					middlename = all.current.find('[name="middlename"]').val();
-				all.target.find('span.client').text(firstname+' '+middlename);
-				all.summary.find('.lastname').text(lastname).closest('.row').removeClass('hidden');
-				all.summary.find('.firstname').text(firstname).closest('.row').removeClass('hidden');
-				all.summary.find('.middlename').text(middlename).closest('.row').removeClass('hidden');
-				if(lastname === ''){
+		}else if(data.target_step == 2){
+			if(data.current_step == 1){
+				var last_name = all.current.find('[name="last_name"]').val(),
+					first_name = all.current.find('[name="first_name"]').val(),
+					middle_name = all.current.find('[name="middle_name"]').val();
+				if(last_name === ''){
 					i++;
-					$('#lastname').addClass('is-invalid');
+					$('#last_name').addClass('is-invalid');
 				}
-				if(firstname === ''){
+				if(first_name === ''){
 					i++;
-					$('#firstname').addClass('is-invalid');
+					$('#first_name').addClass('is-invalid');
 				}
-				if(middlename === ''){
+				if(middle_name === ''){
 					i++;
-					$('#middlename').addClass('is-invalid');
+					$('#middle_name').addClass('is-invalid');
 				}
 				if(i === 0){
-					data = {firstname: firstname, lastname: lastname, middlename:middlename};
-
-					ajax('cart', 'update_info', data, 'text').done(function(response){
-						GetRegions();
-						all.summary.addClass('active');
-						all.validate = true;
-						validateq(all);
-					});
-
+					data.first_name = first_name;
+					data.last_name = last_name;
+					data.middle_name = middle_name;
+					data.validate = true;
+					validateq(data);
 				}
-			}else if(all.current_step == 3){
-				all.summary.find('.region').closest('.row').addClass('hidden');
-				all.summary.find('.city').closest('.row').addClass('hidden');
-				validateq(all);
+			}else if(data.current_step == 3){
+				// all.summary.find('.region').closest('.row').addClass('hidden');
+				// all.summary.find('.city').closest('.row').addClass('hidden');
+				validateq(data);
 			}
-		}else if(all.target_step == 3){
-			if(all.current_step == 2){
+		}else if(data.target_step == 3){
+			if(data.current_step == 2){
 				var selected_region = all.current.find('#region_select .select_field').text(),
 					selected_city = all.current.find('#city_select .select_field').text();
-					all.target.find('span.client').text($('.firstname').text()+' '+$('.middlename').text());
+					all.target.find('span.client').text($('.first_name').text()+' '+$('.middle_name').text());
 
 				if(selected_region != 'Выбрать' && selected_city != 'Выбрать'){
 					all.summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
@@ -937,26 +931,27 @@ $(function(){
 				}
 
 				if(i === 0){
-					data = {selected_region: selected_region, selected_city: selected_city};
+					data.selected_region = selected_region
+					data.selected_city = selected_city;
 
-					ajax('cart', 'update_info', data, 'html').done(function(response){
-						GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
-						Position($(this).closest('[data-type="modal"]'));
-						all.summary.find('.delivery_service').text(selected_region);
-						all.summary.find('.delivery_method').text(selected_city);
-						all.validate = true;
-						validateq(all);
-					});
+					// ajax('cart', 'update_info', data, 'html').done(function(response){
+					// 	GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
+					// 	Position($(this).closest('[data-type="modal"]'));
+					// 	all.summary.find('.delivery_service').text(selected_region);
+					// 	all.summary.find('.delivery_method').text(selected_city);
+					// });
+					data.validate = true;
+					validateq(data);
 				}
-			}else if(all.current_step == 4){
+			}else if(data.current_step == 4){
 				all.summary.find('.delivery_service').closest('.row').addClass('hidden');
 				all.summary.find('.delivery_method').closest('.row').addClass('hidden');
 				all.summary.find('.client_address').closest('.row').addClass('hidden');
 				all.summary.find('.post_office_address').closest('.row').addClass('hidden');
-				validateq(all);
+				validateq(data);
 			}
-		}else if(all.target_step == 4){
-			if(all.current_step == 3){
+		}else if(data.target_step == 4){
+			if(data.current_step == 3){
 				var delivery_service = $('input[name="service"]:checked').val(),
 					delivery_method = $('#select_delivery_type .select_field').text(),
 					selected_post_office = all.current.find('#post_office_select .select_field').text(),
@@ -1009,13 +1004,13 @@ $(function(){
 					ajax('cart', 'update_info', data, 'html').done(function(response){
 						all.summary.find('.delivery_service').text(delivery_service);
 						all.summary.find('.delivery_method').text(delivery_method);
-						all.validate = true;
-						validateq(all);
+						data.validate = true;
+						validateq(data);
 					});
 				}
 			}
-		}else if(all.target_step == 5){
-			if(all.current_step == 4){
+		}else if(data.target_step == 5){
+			if(data.current_step == 4){
 
 			}
 
@@ -1023,17 +1018,20 @@ $(function(){
 				data = {delivery_service: delivery_service, delivery_method: delivery_method};
 
 				ajax('cart', 'update_info', data, 'text').done(function(response){
-					all.validate = true;
-					validateq(all);
+					data.validate = true;
+					validateq(data);
 				});
 			}
 		}
-		function validateq(all){
-
-			if(all.validate === true || all.target_step < all.current_step){
-				all.current.removeClass('active');
-				all.target.addClass('active');
-				Position($(this).closest('[data-type="modal"]'));
+		function validateq(data){
+			addLoadAnimation('#quiz');
+			console.log(data);
+			if(data.target_step > data.current_step && data.validate === true){
+				ajax('quiz', 'complete_step', data).done(function(response){
+					GetQuizAjax({reload: false, step: data.target_step});
+				});
+			}else{
+				GetQuizAjax({reload: false, step: data.target_step});
 			}
 		}
 	});

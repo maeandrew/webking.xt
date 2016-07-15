@@ -1229,7 +1229,7 @@ function openObject(id, params){
 			GetCartAjax(params);
 			break;
 		case 'quiz':
-			GetQuizAjax({reload: false, step: 3});
+			GetQuizAjax({reload: false});
 			break;
 	}
 	if(params === undefined || params.reload !== true){
@@ -1839,12 +1839,12 @@ function changeFiltersBtnsPosition(){
 function segmentOpen(id){
 	console.log('123');
 	$('[data-id="'+id+'"]').each(function(){
-			var list = $(this).find('ul');
-			if(list.length > 0){
-				console.log('есть');
-			}else{
-				console.log('нету');
-				addLoadAnimation('.catalog');
+		var list = $(this).find('ul');
+		if(list.length > 0){
+			console.log('есть');
+		}else{
+			console.log('нету');
+			addLoadAnimation('.catalog');
 			ajax('segment', 'segmid', {idsegment: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				$('.second_nav li').removeClass('active');
@@ -1858,15 +1858,13 @@ function segmentOpen(id){
 					parent.addClass('active').find('> ul').stop(true, true).slideDown();
 				}
 			});
-			}
+		}
 	});
 }
 
 function regionSelect(obj){
 	var parent = obj.closest('form'),
 		region = obj.val();
-	// console.log('');
-	// console.log('Область - '+region);
 	if(region !== undefined){
 		ajax('location', 'regionSelect', {region: region}, 'html').done(function(data){
 			parent.find('select:not(#region) option').remove();
@@ -1881,9 +1879,6 @@ function citySelect(obj){
 	var parent = obj.closest('form'),
 		city = obj.val(),
 		region = parent.find('#region').val();
-	// console.log('');
-	// console.log('Область - '+region);
-	// console.log('Город - '+city);
 	if(city !== undefined && region !== undefined){
 		ajax('location', 'citySelect', {city: city, region: region}, 'html').done(function(data){
 			console.log(data);
@@ -1900,10 +1895,6 @@ function deliverySelect(obj){
 		id_delivery = obj.val(),
 		city = parent.find('#city').val(),
 		region = parent.find('#region').val();
-	// console.log('');
-	// console.log('Область - '+region);
-	// console.log('Город - '+city);
-	// console.log('Способ - '+id_delivery);
 	switch(id_delivery){
 		case '1':
 			ajax('location', 'deliverySelect', {city: city, region: region}, 'html').done(function(data){
@@ -1913,7 +1904,6 @@ function deliverySelect(obj){
 				parent.find('#id_delivery_service').html(data);
 				parent.find('.content-insurance').slideDown();
 				parent.find('.delivery_department, .delivery_service').closest('div.mdl-cell').removeClass('hidden');
-				// parent.find('.delivery_department, .delivery_service').closest('div.mdl-cell').removeClass('hidden');
 				parent.find('.address').closest('div.mdl-cell').addClass('hidden');
 				deliveryServiceSelect(parent.find('#id_delivery_service'));
 			});

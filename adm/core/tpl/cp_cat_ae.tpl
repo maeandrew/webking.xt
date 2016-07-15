@@ -41,7 +41,26 @@
 				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
 				<textarea class="input-m" name="page_keywords" id="page_keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
-		<?}?>
+		<?}?>		
+		<div class="col-md-12">
+			<p class="category_image_title">Фото категории</p>
+			<div class="image_block_new images_block drop_zone animate">
+				<div class="dz-default dz-message">Загрузить фото</div>
+				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+				<!-- <input type="hidden" name="image" value="<?=$photo['src']?>"> -->
+			</div>
+		</div>
+		
+		<div id="preview-template" class="hidden">
+			<div class="image_block image_block_js dz-preview dz-file-preview">
+				<div class="image">
+					<img data-dz-thumbnail />
+					<span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span>
+				</div>				
+			</div>
+		</div>
+
+
 		<div class="col-md-12">
 			<label for="prom_id">ID категории на prom.ua:</label>
 			<?=isset($errm['prom_id'])?"<span class=\"errmsg\">".$errm['prom_id']."</span><br>":null?>
@@ -100,7 +119,6 @@
 			<div class="col-md-12">
 				<label for="sid">Добавление характеристики:</label>
 				<?=isset($errm['sid'])?"<span class=\"errmsg\">".$errm['sid']."</span><br>":null?>
-
 				<select name="sid" id="sid" class="input-m">
 					<?$i = 0;
 					foreach ($spec_list as $sl){
@@ -118,8 +136,6 @@
 					<?}?>
 				</select>
 				<span class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?>>Добавить</span>
-
-
 			</div>
 		<?}?>
 		<div class="col-md-12">
@@ -138,11 +154,35 @@
 	</form>
 </div>
 <script type="text/javascript">
+	var url = URL_base_global+'ajax/';
+	var dropzone = new Dropzone(".drop_zone", {
+		method: 'POST',
+		url: url+"?target=image&action=upload&path=images/categories/",
+		clickable: true,
+		uploadMultiple: false,
+		maxFiles: 1,
+		previewsContainer: '.images_block',	
+		previewTemplate: document.querySelector('#preview-template').innerHTML
+	}).on('success', function(file, path){
+			file.previewElement.innerHTML += '<input type="hidden" name="image" value="'+path+'">';
+	});
+
 	var id_category = $('[name="id_category"]').val();
 	$(function(){
 		$('.addspec').on('click', function(){
 			SetSpecToCat(id_category, $('#sid').val());
 		});
+
+		$('body').on('click', '.del_photo_js', function(){
+			var target = $(this),
+				curSrc = target.closest('.image_block_js').find('input').val();
+				dropzone.removeAllFiles();
+			ajax('image', 'delete', {path: curSrc}).done(function(data){
+				dropzone.removeAllFiles();
+				// target.closest('.image_block_js').remove();
+			});			
+		});
+
 	});
 	function SetSpecToCat(id_cat, id_spec){
 		$.ajax({
