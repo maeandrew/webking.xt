@@ -1,4 +1,4 @@
- <div class="cart_info mdl-cell--hide-phone clearfix">
+ <div class="cart_info <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?> mdl-cell--hide-phone clearfix">
 	<div class="your_discount">Ваша скидка</div>
 	<div class="tabs_container">
 		<ul>
