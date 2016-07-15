@@ -538,8 +538,8 @@ div[for="rating_block"] {
 	margin-left: 10px;
 }
 .sold_produxt_info .waiting_list {
-    border: 1px solid;
-    margin-top: 5px;	
+	border: 1px solid;
+	margin-top: 5px;	
 }
 #fortrending_info {
 	width: 40px;
@@ -735,3 +735,17 @@ div[for="rating_block"] {
 #big_photos_carousel .mobile_carousel .owl-stage-outer img {
 	height: 70vh;
 } */
+
+.demand_graph{
+	height: 380px;
+}
+
+.demand_graph .embed-footer-link{
+	display: none;
+}
+
+.demand_graph body{
+	overflow: hidden;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}

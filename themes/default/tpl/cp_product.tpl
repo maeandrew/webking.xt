@@ -6,11 +6,11 @@
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
 			<?if(!empty($item['images'])){?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.'.ua'?><?=$item['images'][0]['src']?>"/>
 			<?}else if(!empty($item['img_1'])){?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.'.ua'?><?=$item['img_1']?>"/>
 			<?}else{?>
-				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
+				<img itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
@@ -20,12 +20,12 @@
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+						<img src="<?=_base_url.'.ua'?><?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
+							<img src="<?=_base_url.'.ua'?><?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -58,12 +58,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
+						<img src="<?=_base_url.'.ua'?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
+							<img src="<?=_base_url.'.ua'?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
 						<?}
 					}
 				}?>
@@ -85,12 +85,12 @@
 					<div id="big_photos_carousel_js" class="carousel">
 						<?if(!empty($item['images'])){
 							foreach($item['images'] as $i => $image){?>
-								<img src="<?=_base_url?><?=$image['src']?>" alt="<?=$item['name']?>">
+								<img src="<?=_base_url.'.ua'?><?=$image['src']?>" alt="<?=$item['name']?>">
 							<?}
 						}else{
 							for($i=1; $i < 4; $i++){
 								if(!empty($item['img_'.$i])){?>
-									<img src="<?=_base_url?><?=$item['img_'.$i]?>" alt="<?=$item['name']?>">
+									<img src="<?=_base_url.'.ua'?><?=$item['img_'.$i]?>" alt="<?=$item['name']?>">
 								<?}
 							}
 						}?>
@@ -341,7 +341,7 @@
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
 					<a href="#description" class="mdl-tabs__tab is-active">Описание</a>
 					<a href="#specifications" class="mdl-tabs__tab">Характеристики</a>
-					<a href="#seasonality" class="mdl-tabs__tab hidden">Сезонность</a>
+					<a href="#seasonality" class="mdl-tabs__tab hidden">График спроса</a>
 					<a href="#comments" class="mdl-tabs__tab">Отзывы и вопросы</a>
 				</div>
 			</div>
@@ -366,75 +366,7 @@
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>
-				</div>
-				<div id="seasonality" class="mdl-tabs__panel">
-					<?if(isset($id_product)){?>
-						<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
-							<div class="modal">
-								<div class="modal_container">
-									<p>График (своя версия)</p>
-									<div class="select_go" style="margin-top: 15px;margin-left: 77px;">
-										<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-											<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница<!--is-checked--></span>
-											<input type="checkbox" id="switch-2" class="mdl-switch__input">
-											<span class="mdl-switch__label">Опт<!--is-checked--></span>
-										</label>
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
-									</div>
-									<div class="mdl-textfield">
-										<label for="name" class="mdl-textfield__textarea">Примечания к графику:</label>
-										<textarea required="required" type="text" name="text" id="text" style="width:80%;">
-										</textarea>
-									</div>
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="top: -10px;">
-										<label for="name" class="mdl-textfield__label">Имя на графике:</label>
-										<input class="mdl-textfield__input" type="text" id="name_user" value=""/>
-									</div>
-									<div id="user_bt" style="float:right;padding-right: 15px;margin-top: 40px;">
-										<a href="#" class="save btn_js mdl-button" onclick="ModalGraph()">Сохранить</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					<?}else{?>
-						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
-					<?}?>
-				</div>
+				</div>				
 				<div id="comments" class="mdl-tabs__panel">
 					<div class="feedback_form">
 						<h4>Оставить отзыв о товаре</h4>
@@ -524,6 +456,80 @@
 						}?>
 					</div>
 				</div>
+				<div id="seasonality" class="mdl-tabs__panel">
+					<?if(isset($id_product)){?>
+						<div id="graph" data-type="modal" data-target="<?=$GLOBALS['CURRENT_ID_CATEGORY']?>">
+							<div class="modal">
+								<div class="modal_container">
+									<p>График (своя версия)</p>
+									<div class="select_go" style="margin-top: 15px;margin-left: 77px;">
+										<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+											<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница<!--is-checked--></span>
+											<input type="checkbox" id="switch-2" class="mdl-switch__input">
+											<span class="mdl-switch__label">Опт<!--is-checked--></span>
+										</label>
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="slider_wrap">
+										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="5" step="1" tabindex="0">
+									</div>
+									<div class="mdl-textfield">
+										<label for="name" class="mdl-textfield__textarea">Примечания к графику:</label>
+										<textarea required="required" type="text" name="text" id="text" style="width:80%;">
+										</textarea>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="top: -10px;">
+										<label for="name" class="mdl-textfield__label">Имя на графике:</label>
+										<input class="mdl-textfield__input" type="text" id="name_user" value=""/>
+									</div>
+									<div id="user_bt" style="float:right;padding-right: 15px;margin-top: 40px;">
+										<a href="#" class="save btn_js mdl-button" onclick="ModalGraph()">Сохранить</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?}else{?>
+						<!-- <a href="<?=_base_url.$_SERVER['REQUEST_URI']?>" target="demand_graph">Обновить</a> -->
+						<div>Обновить</div>
+						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->						
+						<link type="text/css" rel="Stylesheet" href="product.css" />						
+						<script>
+							$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="http://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - (parseInt($('.tab-content').css('padding-right'))*2)+2 )+'&h=450"></iframe>');
+						</script>
+					<?}?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -549,11 +555,11 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<img alt="<?=$p['name']?>" src="<?=_base_url.'.ua'?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url.'.ua'?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
 							<?}else{?>
-								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if ($p['price_mopt'] > 100) {?>
@@ -575,11 +581,11 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<img alt="<?=$p['name']?>" src="<?=_base_url.'.ua'?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url.'.ua'?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
 							<?}else{?>
-								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if ($p['price_mopt'] > 100) {?>
@@ -596,6 +602,12 @@
 </section>
 <script>
 	$(function(){
+		$('body').on('click', '.selector', function(event) {
+			event.preventDefault();
+			/* Act on the event */
+		});
+		document.frames.demand_graph.document.body.style.backgroundColor="green";
+
 		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
 			$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
@@ -629,11 +641,13 @@
 	});
 </script>
 <script>
+	// $('#seasonality iframe').attr('src').replace('350',$('#seasonality').outerWidth());
+
 	$(function(){
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();
-			if ($(this).closest('.favorite').hasClass('added')) {				
+			if ($(this).closest('.favorite').hasClass('added')) {
 				$(this).closest('.favorite').removeClass('added');
 				RemoveFavorite($(this).closest('li').data('id-product'), $(this));
 			}else{
