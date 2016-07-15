@@ -440,6 +440,13 @@ $(function(){
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
 			}
+			if (IsMobile === true) {
+				$('aside').css({
+					'position' : 'absolute',
+					'bottom' : 'auto',
+					'top' : 'auto'
+				});
+			}
 		}else{
 			var CurentMainWindow = $('.main').outerHeight();//$.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
@@ -472,7 +479,7 @@ $(function(){
 			$('aside').css({
 				'position' : 'absolute',
 				'bottom' : 'auto',
-				'top' : 'auto'
+				'top' : 'auto'	
 			});
 		}		
 	});
@@ -507,11 +514,11 @@ $(function(){
 					'bottom' : 'auto',
 					'top' : 'auto'
 				});
-			}		
+			}
 		}
 	});
 
-	$('.catalog_btn').on('click', function(){
+	$('.catalog_btn, #breadcrumbs .btn_js').on('click', function(){
 		$('aside').css({
 			'position' : 'fixed',
 			'bottom' : '0',

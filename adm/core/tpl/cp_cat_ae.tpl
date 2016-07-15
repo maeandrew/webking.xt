@@ -41,13 +41,23 @@
 				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
 				<textarea class="input-m" name="page_keywords" id="page_keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
-		<?}?>		
+		<?}?>
+		<input class="hidden" type="text" name="translit" value="<?=$_POST['translit']?>">
 		<div class="col-md-12">
 			<p class="category_image_title">Фото категории</p>
 			<div class="image_block_new images_block drop_zone animate">
 				<div class="dz-default dz-message">Загрузить фото</div>
 				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
-				<!-- <input type="hidden" name="image" value="<?=$photo['src']?>"> -->
+				<div class="image_block image_block_js exist_photo_js">
+					<div class="image">
+						<img src="<?=$_POST['category_img']?>">
+						<span class="icon-font <?=!empty($_POST['category_img'])?'del_exist_photo_js':'hidden'?>" title="Удалить">t</span>
+						<input class="curent_img hidden" type="text" value="<?=$_POST['category_img']?>">	
+					</div>
+				</div>
+			</div>
+			<div class="image_size_info hidden">
+				<p>Настоятельно рекомендуется убедиться, что новое загруженное изображение "квадратное" (все его стороны равны). В ином случае оно может некорректно отображаться на сайте и портить всю его красоту и великолепие. А так же подпортит настроение руководства и как следствие Ваше тоже.</p>
 			</div>
 		</div>
 		
@@ -56,7 +66,7 @@
 				<div class="image">
 					<img data-dz-thumbnail />
 					<span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span>
-				</div>				
+				</div>
 			</div>
 		</div>
 
@@ -164,7 +174,7 @@
 		previewsContainer: '.images_block',	
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	}).on('success', function(file, path){
-			file.previewElement.innerHTML += '<input type="hidden" name="image" value="'+path+'">';
+			file.previewElement.innerHTML += '<input type="hidden" name="add_image" value="'+path+'">';
 	});
 
 	var id_category = $('[name="id_category"]').val();
@@ -173,6 +183,10 @@
 			SetSpecToCat(id_category, $('#sid').val());
 		});
 
+		$('body').on('click', '.dz-message', function(){
+			$('.image_size_info').removeClass('hidden');
+		});		
+
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
 				curSrc = target.closest('.image_block_js').find('input').val();
@@ -180,9 +194,13 @@
 			ajax('image', 'delete', {path: curSrc}).done(function(data){
 				dropzone.removeAllFiles();
 				// target.closest('.image_block_js').remove();
-			});			
+			});
 		});
 
+		$('body').on('click', '.del_exist_photo_js', function(){
+			$('.exist_photo_js').addClass('hidden');
+			$('.curent_img').attr('name', 'remove_image');
+		});
 	});
 	function SetSpecToCat(id_cat, id_spec){
 		$.ajax({
