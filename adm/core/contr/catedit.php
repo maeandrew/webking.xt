@@ -61,6 +61,11 @@ if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Cat_form_validate();
 	if(!$err){
+		//Физическое удалание файла
+		if(isset($_POST['remove_image'])){
+			unlink($GLOBALS['PATH_global_root'].$_POST['remove_image']);
+			$arr['category_img'] = '';
+		}
 		$arr['name'] = trim($_POST['name']);
 		$arr['prom_id'] = trim(is_numeric($_POST['prom_id'])?$_POST['prom_id']:null);
 		//$arr['translit'] = G::StrToTrans($_POST['name']);
@@ -77,9 +82,41 @@ if(isset($_POST['smb'])){
 		if(isset($_POST['indexation']) && $_POST['indexation'] == "on"){
 			$arr['indexation'] = 1;
 		}
+		if(isset($_POST['add_image'])) {
+			$arr['category_img'] = '/images/categories/'.$_POST['translit'].'.jpg';
+		}
 		if($dbtree->Update($id_category, $arr)){
+			if(isset($_POST['add_image'])){
+				$name_image = pathinfo($GLOBALS['PATH_global_root'].$_POST['add_image']);
+				$folder = $GLOBALS['PATH_global_root'].'/images/categories/';
+				$file_name = $GLOBALS['PATH_global_root'].$arr['category_img'];
+				$array_folder = scandir($folder);
+				if(in_array($name_image['basename'], $array_folder)){
+					rename($folder.$name_image['basename'], $file_name);
+				}
+				//Переопределяем размер загруженной картинки
+				$size = getimagesize($file_name); //Получаем ширину, высоту, тип картинки
+				if($size[0] > 1000 || $size[1] > 1000){
+					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
+					//Определяем размеры нового изображения
+					if(max($size[0], $size[1]) == $size[0]){
+						$width = 1000;
+						$height = 1000/$ratio;
+					}else if(max($size[0], $size[1]) == $size[1]){
+						$width = 1000*$ratio;
+						$height = 1000;
+					}
+				}
+				if(isset($width) && isset($height)){
+					$res = imagecreatetruecolor($width, $height);
+					imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+					$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($file_name):imagecreatefrompng($file_name);
+					imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+					imagejpeg($res, $file_name);
+				}
+			}
 			$tpl->Assign('msg', 'Категория обновлена.');
-			unset($_POST);
+			unset($_POST, $name_image, $folder, $file_name, $array_folder);
 			$dbtree->SetFieldsById($id_category);
 			$category = $dbtree->fields;
 		}else{
