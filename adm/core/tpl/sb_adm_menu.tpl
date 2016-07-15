@@ -267,6 +267,9 @@
 						<li <?=$GLOBALS['CurrentController'] == 'uncategorised_products' && $GLOBALS['REQAR'][1] == 'uncategorised_products'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/uncategorised_products/">Товары без категорий</a>
 						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'doubles_translit_products'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/doubles_translit_products/">Дубли товаров</a>
+						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'ip_connections'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/ip_connections/">IP соединения</a>
 						</li>
