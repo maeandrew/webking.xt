@@ -212,8 +212,9 @@ class dbtree {
 			}
 			$data['category_level'] = ($node_info[0] + 1);
 			$data['edit_date'] = date('Y-m-d H:m:s');
+			$data['category_img'] = (isset($data['category_img']))?$data['category_img']:null;
 			$this->db->StartTrans();
-			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data['category_level'] . ', "' . $data['name'] . '", "' . $data['translit'] . '", ' . $data['pid'] . ', ' . $data['visible'] . ', ' . $data['edit_user'] . ', "' . $data['edit_date'] . '", ' . $data['indexation'] . ')';
+			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation, category_img) VALUES (' . $data['category_level'] . ', "' . $data['name'] . '", "' . $data['translit'] . '", ' . $data['pid'] . ', ' . $data['visible'] . ', ' . $data['edit_user'] . ', "' . $data['edit_date'] . '", ' . $data['indexation'] . ', "' . $data['category_img'] . '")';
 			if(!$this->db->Execute($sql)){
 				$this->db->FailTrans();
 				return false;

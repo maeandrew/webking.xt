@@ -20,19 +20,6 @@ if(isset($_POST['smb'])){
 	require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Cat_form_validate();
 	if(!$err){
-
-//		//Добавление фото
-//		if(isset($_POST['images'])){
-//			foreach($_POST['images'] as &$image){
-//				if(preg_match('/[А-Яа-яЁё]/u', $image)){
-//					$file = pathinfo($GLOBALS['PATH_global_root'].$image);
-//					$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
-//					rename($GLOBALS['PATH_global_root'].$image, $new_file);
-//					$image = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
-//				}
-//			}
-//		}
-
 		$arr = array();
 		$arr['name'] = trim($_POST['name']);
 		$arr['translit'] = G::StrToTrans($_POST['name']);
@@ -40,9 +27,39 @@ if(isset($_POST['smb'])){
 		$arr['visible'] = isset($_POST['visible']) && $_POST['visible'] == "on"?0:1;
 		$arr['indexation'] = isset($_POST['indexation']) && $_POST['indexation'] == "on"?1:0;
 		$arr['edit_user'] = $_SESSION['member'][id_user];
+		if(isset($_POST['image'])) {
+			$arr['category_img'] = '/images/categories/' . $arr['translit'] . '.jpg';
+		}
 		if($id = $dbtree->Insert($arr['pid'], $arr)){
+			if(isset($_POST['image'])){
+				$name_image = pathinfo($GLOBALS['PATH_global_root'].$_POST['image']);
+				$folder = $GLOBALS['PATH_global_root'].'/images/categories/';
+				$file_name = $GLOBALS['PATH_global_root'].$arr['category_img'];
+				$array_folder = scandir($folder);
+				if(in_array($name_image['basename'], $array_folder)){
+					rename($folder.$name_image['basename'], $file_name);
+				}
+				//Переопределяем размер загруженной картинки
+				$size = getimagesize($file_name); //Получаем ширину, высоту, тип картинки
+				if($size[0] > 1000 || $size[1] > 1000){
+					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
+					//Определяем размеры нового изображения
+					if(max($size[0], $size[1]) == $size[0]){
+						$width = 1000;
+						$height = 1000/$ratio;
+					}else if(max($size[0], $size[1]) == $size[1]){
+						$width = 1000*$ratio;
+						$height = 1000;
+					}
+				}
+				$res = imagecreatetruecolor($width, $height);
+				imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+				$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($file_name):imagecreatefrompng($file_name);
+				imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+				imagejpeg($res, $file_name);
+			}
 			$tpl->Assign('msg', 'Категория добавлена.');
-			unset($_POST);
+			unset($_POST, $name_image, $folder, $file_name, $array_folder);
 		}else{
 			$tpl->Assign('msg', 'Ошибочка. Категория не добавлена.');
 			$tpl->Assign('errm', 1);
