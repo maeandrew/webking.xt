@@ -155,7 +155,7 @@ class Products {
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			p.name_index, un.unit_prom, a.product_limit, pv.count_views,
+			p.name_index, un.unit_prom, a.product_limit, pv.count_views, a.price_opt_otpusk, a.price_mopt_otpusk
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
