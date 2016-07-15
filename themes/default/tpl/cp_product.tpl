@@ -220,7 +220,16 @@
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div>
+					<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>						
+					</div>					
+					<!-- Цена поставщика -->
+					<div class="price card_item <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+						<?if($item['price_opt_otpusk'] != 0){
+							echo number_format($item['price_opt_otpusk'], 2, ".", "");
+						}else{
+							echo number_format($item['price_mopt_otpusk'], 2, ".", "");
+						}?>
+					</div>
 					<span>грн.</span>
 					<div class="prodPrices hidden">						
 						<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
@@ -247,7 +256,7 @@
 						<div class="units"><?=$item['units'];?></div>
 					</div>
 					<!-- Блок для поставщика -->
-					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">						
 						<div class="count_cell">
 							<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
 							<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>			

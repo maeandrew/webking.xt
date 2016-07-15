@@ -189,7 +189,7 @@
 					</a>
 				</div>
 				<p class="product_name card_item"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a><span class="product_article">Арт: <?=$item['art'];?></span></p>
-				<div class="suplierPriceBlock">
+				<div class="suplierPriceBlock">					
 					<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
 						<?if($item['price_opt_otpusk'] != 0){
 							echo number_format($item['price_opt_otpusk'], 2, ".", "").' грн.';
