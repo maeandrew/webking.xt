@@ -341,8 +341,8 @@
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
 					<a href="#description" class="mdl-tabs__tab is-active">Описание</a>
 					<a href="#specifications" class="mdl-tabs__tab">Характеристики</a>
-					<a href="#seasonality" class="mdl-tabs__tab hidden">График спроса</a>
 					<a href="#comments" class="mdl-tabs__tab">Отзывы и вопросы</a>
+					<a href="#seasonality" class="mdl-tabs__tab hidden">График спроса</a>
 				</div>
 			</div>
 			<div class="tab-content">
