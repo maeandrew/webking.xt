@@ -130,6 +130,29 @@ if(isset($GLOBALS['REQAR'][1])){
 			$uncat_prod = $Products->GetUncategorisedProducts($where_art, $limit);
 			$tpl->Assign('list', $uncat_prod);
 			break;
+		case 'doubles_translit_products':
+			$ii = count($GLOBALS['IERA_LINKS']);
+			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Дубли товаров";
+			$product = new Products();
+			/*Pagination*/
+			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+				$GLOBALS['Limit_db'] = $_GET['limit'];
+			}
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = count($product->GetDoublesProducts());
+				$tpl->Assign('cnt', $cnt);
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = '';
+			}
+			$dob_prod = $product->GetDoublesProducts($limit);
+			$tpl->Assign('list', $dob_prod);
+			break;
 		case 'err_feedback':
 			if(isset($_POST['error_fix'])){
 				G::FixError($_POST['error_fix']);

@@ -4711,4 +4711,15 @@ class Products {
 		return $res;
 	}
 
+	public  function GetDoublesProducts($where_art = false, $limit = false){
+		$sql = "SELECT p.id_product, p.`name`, p.translit, p.visible
+				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
+				GROUP BY translit HAVING COUNT(translit)>1) t
+				WHERE t.translit = p.translit
+				ORDER BY translit ";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 }
