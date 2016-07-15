@@ -1079,6 +1079,16 @@ img.pic_block {
 	font-weight: bold;
 	font-size: 1.5em;	
 }
+.switch_price_container {
+	width: 130px;
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #dddddd;
+    line-height: 21px;
+    text-align: center;
+}
+
 /* Оформление списка товаров без категории */
 /*.nocategory .table_row {
 	display: flex;
