@@ -43,7 +43,6 @@
 				<textarea class="input-m" name="page_keywords" id="page_keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
 		<?}?>
-		
 		<input class="hidden" type="text" name="translit" value="<?=$_POST['translit']?>">
 		<div class="col-md-12">
 			<p class="category_image_title">Фото категории</p>
