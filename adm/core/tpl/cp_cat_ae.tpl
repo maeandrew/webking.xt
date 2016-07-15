@@ -55,7 +55,7 @@
 			<div class="image_block image_block_js dz-preview dz-file-preview">
 				<div class="image">
 					<img data-dz-thumbnail />
-					<span class="icon-font del_photo_js" title="Удалить" data-dz-remove="">t</span>
+					<span class="icon-font del_photo_js" title="Удалить" data-dz-remove>t</span>
 				</div>				
 			</div>
 		</div>
@@ -159,6 +159,7 @@
 		method: 'POST',
 		url: url+"?target=image&action=upload&path=images/categories/",
 		clickable: true,
+		uploadMultiple: false,
 		maxFiles: 1,
 		previewsContainer: '.images_block',	
 		previewTemplate: document.querySelector('#preview-template').innerHTML
@@ -175,23 +176,11 @@
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
 				curSrc = target.closest('.image_block_js').find('input').val();
-
+				dropzone.removeAllFiles();
 			ajax('image', 'delete', {path: curSrc}).done(function(data){
-				target.closest('.image_block_js').remove();
-			});
-
-			// $.ajax({
-			// 	url: URL_base+'ajaxproducts',
-			// 	type: "POST",
-			// 	cache: false,
-			// 	dataType: "json",
-			// 	data: {
-			// 		action: 'DeleteUploadedImage',
-			// 		src: curSrc,
-			// 	}
-			// }).done(function(data){
-			// 	target.closest('.image_block_js').remove();
-			// });
+				dropzone.removeAllFiles();
+				// target.closest('.image_block_js').remove();
+			});			
 		});
 
 	});

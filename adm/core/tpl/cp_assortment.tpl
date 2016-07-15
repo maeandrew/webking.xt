@@ -168,10 +168,18 @@
 		</div>
 	</div>
 
+	
 
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
+			<div class="switch_price_container">
+				<span>Единая цена</span>
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch_price">
+					<input type="checkbox" id="switch_price" class="mdl-switch__input price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
+					<span class="mdl-switch__label"></span>
+				</label>
+			</div>
 			<h2>Ассортимент</h2>
 		</div>
 		<div class="col-md-12">
@@ -203,8 +211,8 @@
 						<td colspan="3">Название</td>
 						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.active&order=<?=$_GET['sort']=='a.active'?$order:'asc';?>">Наличие <?=$_GET['sort']=='a.active'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
 						<td>Минимальное кол-во</td>
-						<td>Цена розн.</td>
-						<td>Цена опт</td>
+						<td class="price_mopt_title_js">Цена розн.</td>
+						<td class="price_opt_title_js">Цена опт</td>
 						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.inusd&order=<?=$_GET['sort']=='a.inusd'?$order:'asc';?>">USD <?=$_GET['sort']=='a.inusd'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
 						<td>Арт. поставщика</td>
 					</tr>
@@ -235,11 +243,11 @@
 							</td>
 							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
-							<td class="center">
-								<input type="number" step="0.01" min="0" class="input-m price" data-mode="mopt" value="<?=$item['inusd'] == 1?$item['price_mopt_otpusk_usd']:$item['price_mopt_otpusk'];?>">
+							<td class="center price_1">
+								<input type="number" id="price_opt_otpusk_<?=$item['id_product']?>" step="0.01" min="0" class="input-m price" data-mode="mopt" value="<?=$item['inusd'] == 1?$item['price_mopt_otpusk_usd']:$item['price_mopt_otpusk'];?>">
 							</td>
-							<td class="center">
-								<input type="number" step="0.01" min="0" class="input-m price" data-mode="opt" value="<?=$item['inusd'] == 1?$item['price_opt_otpusk_usd']:$item['price_opt_otpusk'];?>">
+							<td class="center price_2">
+								<input type="number" id="price_opt_otpusk_<?=$item['id_product']?>" step="0.01" min="0" class="input-m price" data-mode="opt" value="<?=$item['inusd'] == 1?$item['price_opt_otpusk_usd']:$item['price_opt_otpusk'];?>">
 							</td>
 							<td class="center"><input type="checkbox" <?=$item['inusd'] == 1?'checked':null;?> class="currency"></td>
 							<td class="center">
@@ -262,35 +270,24 @@
 	var id_supplier = <?=$id_supplier;?>;
 	<?=$supplier['single_price']==0?'TogglePriceColumns("Off");':'TogglePriceColumns("On");';?>
 	$(function(){
-		// Клик по переключателю "Единая цена"
-		$('.switch').click(function(){
-			var single_price;
-			if($(this).closest('#switcher').hasClass('Off')){
-				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
-					$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-					if($(this).closest('#switcher').hasClass('On')){
-						// document.cookie = "onlyprice=On;";
-						TogglePriceColumns('On');
-						single_price = 1;
-					}else{
-						// document.cookie = "onlyprice=Off;";
-						TogglePriceColumns('Off');
-						single_price = 0;
-					}
 
+
+		/* Новый переключатель обьедения цены */
+		$('.price_switcher_js').on('change', function(){			
+			var single_price;
+
+			if ($(this).prop("checked")){
+				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
+					TogglePriceColumns('On');
+					single_price = 1;					
+				}else{
+					$( ".price_switcher_js" ).prop( "checked", false);
 				}
 			}else{
-				$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-				if($(this).closest('#switcher').hasClass('On')){
-					// document.cookie = "onlyprice=On;";
-					TogglePriceColumns('On');
-					single_price = 1;
-				}else{
-					// document.cookie = "onlyprice=Off;";
-					TogglePriceColumns('Off');
-					single_price = 0;
-				}
+				TogglePriceColumns('Off');
+				single_price = 0;
 			}
+
 			$.ajax({
 				url: '/ajaxsuppliers',
 				type: "POST",
@@ -302,6 +299,48 @@
 				}),
 			});
 		});
+
+		// Клик по переключателю "Единая цена"
+		// $('.price_switcher_js').click(function(){
+		// 	var single_price;
+		// 	if($(this).closest('#switcher').hasClass('Off')){
+		// 		if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
+		// 			$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
+		// 			if($(this).closest('#switcher').hasClass('On')){
+		// 				// document.cookie = "onlyprice=On;";
+		// 				TogglePriceColumns('On');
+		// 				single_price = 1;
+		// 			}else{
+		// 				// document.cookie = "onlyprice=Off;";
+		// 				TogglePriceColumns('Off');
+		// 				single_price = 0;
+		// 			}
+
+		// 		}
+		// 	}else{
+		// 		$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
+		// 		if($(this).closest('#switcher').hasClass('On')){
+		// 			// document.cookie = "onlyprice=On;";
+		// 			TogglePriceColumns('On');
+		// 			single_price = 1;
+		// 		}else{
+		// 			// document.cookie = "onlyprice=Off;";
+		// 			TogglePriceColumns('Off');
+		// 			single_price = 0;
+		// 		}
+		// 	}
+		// 	$.ajax({
+		// 		url: '/ajaxsuppliers',
+		// 		type: "POST",
+		// 		dataType : "json",
+		// 		data:({
+		// 			"action": 'toggle_single_price',
+		// 			"id_supplier": '<?=$supplier['id_user'];?>',
+		// 			"single_price": single_price
+		// 		}),
+		// 	});
+		// });
+
 		// Переключение активности записи ассортимента
 		$('.active').on('change', function(){
 			var parent = $(this).closest('tr'),
@@ -381,16 +420,18 @@
 	// Функция переключения "Единой цены"
 	function TogglePriceColumns(action){
 		if(action == 'On'){
-			$('.price_1').css({
-				"width": "20%"
-			});
-			$('th.price_1 p').text('Цена отпускная');
-			$('.price_2').css({
+			console.log('vkl on');
+			// $('.price_1').css({
+			// 	"width": "20%"
+			// });
+			// $('th.price_1 p').text('Цена отпускная');
+			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
-			$('.switcher_container').css({
-				"width": "100%"
-			});
+			$('.price_mopt_title_js').html('Цена');
+			// $('.switcher_container').css({
+			// 	"width": "100%"
+			// });
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -402,16 +443,18 @@
 				}
 			});
 		}else{
-			$('.price_1').css({
-				"width": "10%"
-			});
-			$('th.price_1 p').text('Цена отпускная мин. к-ва');
-			$('.price_2').css({
+			console.log('vkl off');
+			// $('.price_1').css({
+			// 	"width": "10%"
+			// });
+			// $('th.price_1 p').text('Цена отпускная мин. к-ва');
+			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
-			$('.switcher_container').css({
-				"width": "200%"
-			});
+			$('.price_mopt_title_js').html('Цена розн.');
+			// $('.switcher_container').css({
+			// 	"width": "200%"
+			// });
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});

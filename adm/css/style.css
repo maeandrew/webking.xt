@@ -1053,12 +1053,19 @@ img.pic_block {
 .images_block .del_photo_js {
 	color: red;
 }
-.image_block_new,
-.category_image_title {
-	width: 120px;	
-}
 .image_block_new {
-	border: 1px dashed #e3e3e3;
+	width: 100%;	
+}
+.category_image_title, 
+.images_block {
+	width: 120px;
+}
+.images_block {
+	border: 1px dashed #e3e3e3;	
+}
+.images_block .dz-message {
+	margin-top: 30px;
+    color: #9e9e9e;
 }
 .category_image_title {
 	text-align: center;
@@ -1070,10 +1077,18 @@ img.pic_block {
 	line-height: 1.5em;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.5em;
-	margin-top: 30px;
-    color: #9e9e9e;
+	font-size: 1.5em;	
 }
+.switch_price_container {
+	width: 130px;
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #dddddd;
+    line-height: 21px;
+    text-align: center;
+}
+
 /* Оформление списка товаров без категории */
 /*.nocategory .table_row {
 	display: flex;
