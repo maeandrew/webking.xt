@@ -744,11 +744,9 @@ div[for="rating_block"] {
 .demand_graph{
 	height: 380px;
 }
-
 .demand_graph .embed-footer-link{
 	display: none;
 }
-
 .demand_graph body{
 	overflow: hidden;
 	overflow-x: hidden !important;
