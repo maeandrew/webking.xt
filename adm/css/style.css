@@ -1063,7 +1063,8 @@ img.pic_block {
 	width: 120px;
 }
 .images_block {
-	border: 1px dashed #e3e3e3;	
+	border: 1px dashed #e3e3e3;
+	float: left;
 }
 .images_block:hover {
 	cursor: pointer;
@@ -1074,6 +1075,15 @@ img.pic_block {
 }
 .image_block .image img {
 	max-width: 100%;
+}
+.image_size_info {
+	padding: 10px;
+    width: calc(100% - 130px);
+    float: right;
+    background: #ffffad;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 24px;
 }
 .category_image_title {
 	text-align: center;

@@ -1,3 +1,4 @@
+<? print_r($_POST) ?>
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
@@ -42,23 +43,23 @@
 				<textarea class="input-m" name="page_keywords" id="page_keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
 		<?}?>
-		<? $_POST['category_img'] = '/images/categories/renegade-wallpaper.jpg';?>
+		
 		<input class="hidden" type="text" name="translit" value="<?=$_POST['translit']?>">
 		<div class="col-md-12">
 			<p class="category_image_title">Фото категории</p>
 			<div class="image_block_new images_block drop_zone animate">
 				<div class="dz-default dz-message">Загрузить фото</div>
 				<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
-				
-
 				<div class="image_block image_block_js exist_photo_js">
 					<div class="image">
 						<img src="<?=$_POST['category_img']?>">
-						<span class="icon-font del_exist_photo_js" title="Удалить">t</span>
+						<span class="icon-font <?=!empty($_POST['category_img'])?'del_exist_photo_js':'hidden'?>" title="Удалить">t</span>
 						<input class="curent_img hidden" type="text" value="<?=$_POST['category_img']?>">	
 					</div>
 				</div>
-
+			</div>
+			<div class="image_size_info hidden">
+				<p>Настоятельно рекомендуется убедиться, что новое загруженное изображение "квадратное" (все его стороны равны). В ином случае оно может некорректно отображаться на сайте и портить всю его красоту и великолепие. А так же подпортит настроение руководства и как следствие Ваше тоже.</p>
 			</div>
 		</div>
 		
@@ -185,10 +186,8 @@
 		});
 
 		$('body').on('click', '.dz-message', function(){
-			// window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.');
-
-		});
-		
+			$('.image_size_info').removeClass('hidden');
+		});		
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
@@ -197,14 +196,13 @@
 			ajax('image', 'delete', {path: curSrc}).done(function(data){
 				dropzone.removeAllFiles();
 				// target.closest('.image_block_js').remove();
-			});			
+			});
 		});
 
 		$('body').on('click', '.del_exist_photo_js', function(){
 			$('.exist_photo_js').addClass('hidden');
-			$('.curent_img').attr('name', 'remove_image');			
-		});		
-
+			$('.curent_img').attr('name', 'remove_image');
+		});
 	});
 	function SetSpecToCat(id_cat, id_spec){
 		$.ajax({
