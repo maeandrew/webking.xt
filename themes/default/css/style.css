@@ -555,24 +555,110 @@ body:not(.c_main) .banner {
 }
 /*Breadcrumbs ================================================================*/
 
-.breadcrumbs_wrap {
-	padding-top: 10px;
-	overflow: auto;
-}
-.breadcrumbs {
-	float: left;	
-}
-.breadcrumbs .material-icons {
-	vertical-align: middle;
-	color: #999;
-	font-size: 1.2em;
-}
-.breadcrumbs li {
-	display: inline-block;
-}
-.breadcrumbs a {
-	color: #999;
-}
+	.breadcrumbs_wrap {
+		padding: 10px 0;
+	}
+	.breadcrumbs {
+		border-right: 1px solid #e0e0e0;
+		border-radius: .3em;
+		overflow: hidden;
+		display: inline-block;
+	}
+	.breadcrumbs li {
+		display: block;
+		float: left;
+	}
+	.breadcrumbs li a {
+		display: block;
+		color: #444;
+		text-decoration: none;
+		padding: 0 1em 0 1.5em;
+		line-height: 2em;
+		position: relative;
+		border: 1px solid #e0e0e0;
+		border-right: 0;
+		background: #fff;
+	}
+	.breadcrumbs li a:hover {
+		background: #e0e0e0;
+	}
+	.breadcrumbs li a:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: calc(-1em + 1px);
+		width: 1em;
+		border: 1em solid transparent;
+		border-right: 0;
+		border-left: 1em solid #fff;
+		z-index: 2;
+		box-sizing: border-box;
+		-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .2s cubic-bezier(.4,0,.2,1);
+		transition: all .2s cubic-bezier(.4,0,.2,1);
+	}
+	.breadcrumbs li a:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: -1em;
+		width: 1em;
+		border: 1em solid transparent;
+		border-right: 0;
+		border-left: 1em solid #e0e0e0;
+		z-index: 1;
+		box-sizing: border-box;
+		-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .2s cubic-bezier(.4,0,.2,1);
+		transition: all .2s cubic-bezier(.4,0,.2,1);
+	}
+	.breadcrumbs li a:hover:after {
+		-webkit-transition: none;
+		-o-transition: none;
+		transition: none;
+		border-left-color: transparent;
+	}
+	.breadcrumbs li:first-of-type a {
+		background: #018b06;
+		color: #fff;
+		padding: 0 1em;
+		border: 1px solid #018b06;
+		border-right: 0;
+	}
+	.breadcrumbs li:first-of-type a:after {
+		border-left-color: #018b06;
+	}
+	.breadcrumbs li:first-of-type a:before {
+		border-left-color: #018b06;
+	}
+	@media (max-width: 727px) and (orientation: portrait){
+		.breadcrumbs {
+			width: 100%;
+		}
+		.breadcrumbs li {
+			display: none;
+		}
+		.breadcrumbs li:first-of-type,
+		.breadcrumbs li:last-of-type {
+			display: inline-block;
+		}
+		.breadcrumbs li:first-of-type {
+			max-width: 80px;
+		}
+		.breadcrumbs li:last-of-type {
+			width: calc(100% - 80px);
+		}
+		.breadcrumbs li:last-of-type a {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
+
 /*LAYOUT*/
 
 .main {
@@ -1332,30 +1418,6 @@ margin:  -1.5em 0;
 
 /*SIDEBAR*/
 
-	.breadcrumbs_wrap .catalog_btn {
-		display: inline-block;
-		font-size: 1.429em;
-		background: #F5F5F5;
-		color: #757575;
-		float: left;
-		border: 1px solid #e0e0e0;
-		padding: 10px;
-		width: 19.07%;
-		min-width: 105px;
-		box-sizing: border-box;
-		margin-right: 20px;
-		margin-bottom: 10px;
-		cursor: pointer;
-	}
-	.breadcrumbs_wrap .catalog_btn:hover {
-		background: #fff;
-		color: inherit;
-	}
-	.breadcrumbs_wrap .catalog_btn i {
-		margin-left: 5px;
-		vertical-align: middle;
-		float: right;
-	}
 	aside {
 		width: 300px;
 		position: absolute;
@@ -2432,10 +2494,10 @@ section .stat_year {
 /* #cart .activeNoteArea {
 	border: 1px solid #ff5722;
 } */
-.activeNoteArea {
+/*.activeNoteArea {
 	border: 1px solid #ff5722;
 }
-
+*/
 
 #cart .note textarea,
 .products .note textarea {
@@ -3537,19 +3599,19 @@ div.modalEditOrder .applyBtn {
 	}
 }
 @media (min-width: 728px) and (orientation: landscape) {
-	.breadcrumbs_wrap .catalog_btn {
+/*	.breadcrumbs_wrap .catalog_btn {
 		font-size: 1em;
 		width: 19%;
 		margin-right: 10px;
-	}
+	}*/
 }
 @media (max-width: 727px)  {
-	.breadcrumbs_wrap .catalog_btn {
+/*	.breadcrumbs_wrap .catalog_btn {
 		font-size: 1em;
 		float: left;
 		border: 1px solid #e0e0e0;
 		padding: 10px;
-	}
+	}*/
 	.catalog_btn {
 		font-size: 1em;
 		float: right;		
@@ -3627,10 +3689,10 @@ div.modalEditOrder .applyBtn {
 	display: block;*/
 
 	left: 50%;
-	top: 50%;
-	width: auto;
+	/*top: 50%;*/
+	/*width: auto;*/
 	position: relative;
-	transform: translate(-50%, -50%);
+	transform: translateX(-50%);
 }
 .owl-dot {
 	width: 20px;

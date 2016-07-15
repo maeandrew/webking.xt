@@ -1,5 +1,8 @@
 /*Product Page*/
 
+.breadcrumbs_wrap {
+	padding: 0 10px;
+}
 .product_page .center {
 	width: 100%;
 }
