@@ -302,7 +302,7 @@ class Cart {
 				}
 				$this->db->CompleteTrans();
 			}
-			return $product['id_cart_product'];
+			if(isset($product))	return $product['id_cart_product'];
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
 			if(G::IsLogged() && !_acl::isAdmin()){
@@ -335,17 +335,27 @@ class Cart {
 		}
 	}
 
-	//
+	// Восстановление в корзину незавершенных покупок из предыдущей сессии
 	public function LastClientCart(){
 		$id = $_SESSION['member']['id_user'];
 		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status LIKE '%0' AND id_user = ".$id." ORDER BY status DESC, creation_date DESC LIMIT 1";
 		$res = $this->db->GetOneRowArray($sql);
 		if(!empty($res)){
+			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
+			$res1 = $this->db->GetArray($sql);
+			foreach($res1 as $value){
+				if(isset($_SESSION['cart']['products'][$value['id_product']])){
+					$this->db->StartTrans();
+					$this->db->DeleteRowFrom(_DB_PREFIX_."cart_product", "id_product", $value['id_product']);
+					$this->db->CompleteTrans();
+				}
+			}
 			$_SESSION['cart']['id'] = $res['id_cart'];
 			$_SESSION['cart']['promo'] = $res['promo'];
 			$_SESSION['cart']['adm'] = $res['adm'];
 			$_SESSION['cart']['ready'] = $res['ready'];
 			$_SESSION['cart']['ready'] = isset($res['note'])?$res['note']:'';
+			$this->DBCart();
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){

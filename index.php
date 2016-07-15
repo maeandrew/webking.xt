@@ -162,7 +162,7 @@ unset($sort_value, $sort);
 $Cart = new Cart();
 // Создание базового массива корзины
 if(G::IsLogged() && !_acl::isAdmin()){
-	$Cart->LastClientCart();
+	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();
 	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
 	$_SESSION['member']['favorites'] = $User->fields['favorites'];
 	$_SESSION['member']['waiting_list'] = $User->fields['waiting_list'];
