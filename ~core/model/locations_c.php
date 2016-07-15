@@ -18,9 +18,21 @@ class Address {
 	 * [GetRegionsList description]
 	 */
 	public function GetRegionsList(){
-		$sql = "SELECT lr.title
+		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_regions AS lr";
 		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetRegionByTitle description]
+	 */
+	public function GetRegionByTitle($title){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_regions AS lr
+			WHERE lr.title = ".$this->db->Quote($title);
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;
@@ -30,10 +42,10 @@ class Address {
 	 * @param [type] $id [description]
 	 */
 	public function GetRegionById($id){
-		$sql = "SELECT c.region
-			FROM "._DB_PREFIX_."city AS c
-			WHERE c.id_city = ".$id;
-		if(!$res = $this->db->GetArray($sql)){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_regions AS lr
+			WHERE lr.id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;
@@ -42,13 +54,44 @@ class Address {
 	 * [GetCitiesList description]
 	 */
 	public function GetCitiesList($region = false){
-		$sql = "SELECT lc.title
+		$sql = "SELECT lc.*
 			FROM "._DB_PREFIX_."locations_cities AS lc";
-		if($region){
-			$sql .= " LEFT JOIN "._DB_PREFIX_.'locations_regions AS lr ON lr.id = lc.id_region
-			WHERE lr.title = '.$this->db->Quote($region);
+		if($region !== false){
+			if(is_integer($region)){
+				$sql .= " WHERE lc.id_region = ".$region;
+			}else{
+				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
+				WHERE lr.title = ".$this->db->Quote($region);
+			}
 		}
 		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetCityByTitle description]
+	 */
+	public function GetCityByTitle($title, $id_region = false){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_cities AS lc
+			WHERE lc.title = ".$this->db->Quote($title);
+			if($id_region){
+				$sql .= " AND lc.id_region = ".$id_region;
+			}
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetCityById description]
+	 */
+	public function GetCityById($id){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_cities AS lc
+			WHERE lc.id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;
@@ -91,10 +134,10 @@ class Address {
 
 	public function UseAPI($company, $function, $data = false){
 		$function = $company['api_prefix'].$function;
-		return $this->$function($data, $company);
+		return $this->$function($company, $data);
 	}
 
-	private function npgetCity($data, $company){
+	private function npgetCity($company, $data){
 		$api = new NovaPoshtaApi2($company['api_key']);
 		$city = $api->getCity($data['city'], $data['region']);
 		if(!empty($city['data'][0])){
@@ -102,7 +145,7 @@ class Address {
 		}
 		return false;
 	}
-	private function npgetWarehouses($data, $company){
+	private function npgetWarehouses($company, $data){
 		$api = new NovaPoshtaApi2($company['api_key']);
 		$warehouses = $api->getWarehouses($_POST['ref']);
 		if(!empty($warehouses['data'][0])){
@@ -114,7 +157,7 @@ class Address {
 		return false;
 	}
 
-	private function itgetCity($data, $company){
+	private function itgetCity($company, $data){
 		$key = explode(';', $company['api_key']);
 		$api = new IntimeApi2($key[0], $key[1]);
 		$city = $api->getSettlementCode($data['city'], $data['region']);
@@ -123,7 +166,7 @@ class Address {
 		}
 		return false;
 	}
-	private function itgetWarehouses($data, $company){
+	private function itgetWarehouses($company, $data){
 		$key = explode(';', $company['api_key']);
 		$api = new IntimeApi2($key[0], $key[1]);
 		$warehouses = $api->getDepartmentsList($data['city'], $data['region']);
@@ -137,7 +180,7 @@ class Address {
 		return false;
 	}
 
-	private function delgetCity($data, $company){
+	private function delgetCity($company, $data){
 		$key = explode(';', $company['api_key']);
 		$api = new IntimeApi2($key[0], $key[1]);
 		$city = $api->getSettlementCode($data['city'], $data['region']);
@@ -146,7 +189,7 @@ class Address {
 		}
 		return false;
 	}
-	private function delgetWarehouses($data, $company){
+	private function delgetWarehouses($company, $data){
 		$key = explode(';', $company['api_key']);
 		$api = new IntimeApi2($key[0], $key[1]);
 		$warehouses = $api->getDepartmentsList($data['city']);

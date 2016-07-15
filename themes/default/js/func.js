@@ -1905,7 +1905,7 @@ function deliverySelect(obj){
 				parent.find('.content-insurance').slideDown();
 				parent.find('.delivery_department, .delivery_service').closest('div.mdl-cell').removeClass('hidden');
 				parent.find('.address').closest('div.mdl-cell').addClass('hidden');
-				deliveryServiceSelect(parent.find('#id_delivery_service'));
+				// deliveryServiceSelect(parent.find('#id_delivery_service'));
 			});
 			break;
 		default:

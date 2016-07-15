@@ -13,15 +13,15 @@
 	</div>
 	<div class="row ">
 		<span class="span_title">Область:</span>
-		<span class="region"><?=$savedcity['region']?></span>
+		<span class="region"><?=$saved_city['region']?></span>
 	</div>
 	<div class="row ">
 		<span class="span_title">Город:</span>
-		<span class="city"><?=$savedcity['name']?></span>
+		<span class="city"><?=$saved_city['name']?></span>
 	</div>
 	<div class="row ">
 		<span class="span_title">Служба доставки:</span>
-		<span class="delivery_service"><?=$savedcity['shipping_comp']?></span>
+		<span class="delivery_service"><?=$saved_city['shipping_comp']?></span>
 	</div>
 	<div class="row ">
 		<span class="span_title">Способ доставки:</span>
@@ -33,7 +33,7 @@
 	</div>
 	<div class="row ">
 		<span class="span_title">Адрес склада:</span>
-		<span class="post_office_address"><?=$savedcity['address']?></span>
+		<span class="post_office_address"><?=$saved_city['address']?></span>
 	</div>
 </div>
 <div class="modal_container step_<?=$step?> active" data-step="<?=$step?>">
@@ -75,16 +75,16 @@
 			<?break;
 		case 2:?>
 			<div class="quiz_header">
-				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, мы доставляем в 460 городов, а откуда Вы?</h6>
+				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, мы доставляем в <?=$cities_count?> городов Украины, а откуда Вы?</h6>
 			</div>
 			<div class="quiz_content">
 				<form action="">
 					<div class="row">
 						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
-							<select id="region" name="region" class="mdl-selectfield__select" onChange="regionSelect($(this));">
+							<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
 								<option disabled selected>Выберите область</option>
-								<?foreach($allregions as $region){ ?>
-									<option value="<?=$region['title']?>"><?=$region['title']?></option>
+								<?foreach($regions_list as $region){?>
+									<option value="<?=$region['title']?>" <?=isset($saved_city) && $region['id'] == $saved_city['id_region']?'selected':null;?>><?=$region['title']?></option>
 								<?}?>
 							</select>
 							<label class="mdl-selectfield__label" for="region">Область</label>
@@ -92,7 +92,13 @@
 					</div>
 					<div class="row">
 						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
-							<select id="city" name="city" class="mdl-selectfield__select" disabled></select>
+							<select id="city" name="city" class="mdl-selectfield__select" required <?=!isset($saved_city)?'disabled':null;?>>
+								<?if(isset($saved_city)){?>
+									<?foreach($cities_list as $city){?>
+										<option value="<?=$city['title']?>" <?=$city['id'] == $saved_city['id']?'selected':null;?>><?=$city['title']?></option>
+									<?}?>
+								<?}?>
+							</select>
 							<label class="mdl-selectfield__label" for="city">Город</label>
 						</div>
 					</div>
@@ -101,74 +107,72 @@
 			<?break;
 		case 3:?>
 			<div class="quiz_header">
-				<h6><span class="client"><?=$customer['middle_name']?> <?=$customer['last_name']?></span>, доставка в <span class="city"><?=$savedcity['name']?></span> возможна! Выберите службу доставки.</h6>
+				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, доставка в <span class="city"><?=$saved_city['title']?></span> возможна! Выберите удобные для Вас способ и службу доставки.</h6>
 			</div>
 			<div class="quiz_content">
-				<div class="row delivery_service">
-					<?foreach($availabledeliveryservices as $k => $delivery){?>
-						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_comp-<?=$k?>">
-							<input type="radio" name="shipping_comp" id="shipping_comp-<?=$k?>" class="mdl-radio__button" name="options" value="<?=$delivery['shipping_comp']?>" <?=$delivery['shipping_comp'] == $savedcity['shipping_comp']?'checked':null;?>>
-							<span class="mdl-radio__label"><?=$delivery['shipping_comp']?></span>
-						</label>
-					<?}?>
-				</div>
-				
-				<!--Появляется после выбора службы доставки-->
-				
-				<div class="row">
-					<span>Вам удобнее забрать заказ со склада или принять по адресу?</span>
-					<div class="imit_select delivery_type">
-						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_method-1">
-							<input type="radio" name="shipping_method" id="shipping_method-1" class="mdl-radio__button" value="address">
-							<span class="mdl-radio__label">Адресная доставка</span>
-						</label>
-						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_method-2">
-							<input type="radio" name="shipping_method" id="shipping_method-2" class="mdl-radio__button" value="warehouse" <?=isset($savedcity['address'])?'checked':null?>>
-							<span class="mdl-radio__label" >Забрать со склада</span>
-						</label>
-						
-						<!--<button id="select_delivery_type" class="mdl-button mdl-js-button">
-							<span class="select_field">Выбрать</span>
-							<i class="material-icons fright">keyboard_arrow_down</i>
-						</button>
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="select_delivery_type">
-							<li class="mdl-menu__item" data-value="1" >Адресная доставка</li>
-							<li class="mdl-menu__item" data-value="2" >Забрать со склада</li>
-						</ul>-->
+				<form action="">
+					<input type="hidden" id="city" name="city" value="<?=$saved_city['title']?>">
+					<input type="hidden" id="region" name="region" value="<?=$saved_region['title']?>">
+					<div class="row">
+						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery">
+							<select id="id_delivery" name="id_delivery" class="mdl-selectfield__select" onChange="deliverySelect($(this));">
+								<option disabled selected value="">Выберите способ доставки</option>
+								<?// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
+								if($count['warehouse'] > 0){?>
+									<option value="1">Пункт выдачи</option>
+								<?}
+								// Если в город возможна адресная доставка хоть одной компанией, выводим пункт Адресная доставка
+								if($count['courier'] > 0){?>
+									<option value="2">Адресная доставка</option>
+								<?}?>
+							</select>
+							<label class="mdl-selectfield__label" for="id_delivery">Способ доставки</label>
+						</div>
 					</div>
-				
-				
-					<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
-						<select id="city" name="city" class="mdl-selectfield__select" onChange="regionSelect($(this));">
-							<?foreach($availabledeliverydepartment as $office){?>
-								<option <?=$office['address'] == $savedcity['address']?'selected="selected"':null;?> value="<?=$office['address']?>"><?=$office['address']?></option>
-							<?}?>
-						</select>
-						<label class="mdl-selectfield__label" for="region">Отделение в Вашем городе</label>
+					<div class="row">
+						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service">
+							<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));"></select>
+							<label class="mdl-selectfield__label" for="id_delivery_service">Служба доставки</label>
+						</div>
 					</div>
-					<!-- <span>Отделение в Вашем городе (ЕСЛИ ВЫБРАНО "ЗАБРАТЬ СО СКЛАДА")</span>
-					<div class="imit_select">
-						<select required="required" name="id_city" id="id_city">
-							<?foreach($availabledeliverydepartment as $office){ ?>
-								<option <?=$office['address'] == $savedcity['address']?'selected="selected"':null;?> value="<?=$office['address']?>"><?=$office['address']?></option>
-							<?}?>
-						</select>
-					</div>-->
-				
-					<span>Введите адрес доставки (ЕСЛИ ВЫБРАНО "АДРЕСНАЯ ДОСТАВКА")</span>
-					<div class="imit_select">
-						<input id="delivery_address" type="text" name="clientaddress" value="<?=$customer['address_ur']?>">
+					<div class="row">
+						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department">
+							<select id="id_delivery_department" name="id_delivery_department" class="mdl-selectfield__select"></select>
+							<label class="mdl-selectfield__label" for="id_delivery_department">Отделение</label>
+						</div>
 					</div>
-				
-				
-					<!--<div class="row post_office imit_select">
-						<button id="post_office_select" class=" mdl-button mdl-js-button">
-							<span class="select_field">Выбрать отделение</span>
-							<i class="material-icons">keyboard_arrow_down</i>
-						</button>
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect list_post_office" for="post_office_select"></ul>
-					</div>-->
-				</div>
+					
+					<!--Появляется после выбора службы доставки-->
+					
+					<!--<div class="row">
+						<span>Вам удобнее забрать заказ со склада или принять по адресу?</span>
+						<div class="imit_select delivery_type">
+							<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_method-1">
+								<input type="radio" name="shipping_method" id="shipping_method-1" class="mdl-radio__button" value="address">
+								<span class="mdl-radio__label">Адресная доставка</span>
+							</label>
+							<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="shipping_method-2">
+								<input type="radio" name="shipping_method" id="shipping_method-2" class="mdl-radio__button" value="warehouse" <?=isset($saved_city['address'])?'checked':null?>>
+								<span class="mdl-radio__label" >Забрать со склада</span>
+							</label>
+						</div>
+					
+					
+						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
+							<select id="city" name="city" class="mdl-selectfield__select" onChange="regionSelect($(this));">
+								<?foreach($availabledeliverydepartment as $office){?>
+									<option <?=$office['address'] == $saved_city['address']?'selected="selected"':null;?> value="<?=$office['address']?>"><?=$office['address']?></option>
+								<?}?>
+							</select>
+							<label class="mdl-selectfield__label" for="region">Отделение в Вашем городе</label>
+						</div>
+					
+						<span>Введите адрес доставки (ЕСЛИ ВЫБРАНО "АДРЕСНАЯ ДОСТАВКА")</span>
+						<div class="imit_select">
+							<input id="delivery_address" type="text" name="clientaddress" value="<?=$customer['address_ur']?>">
+						</div>
+					</div> -->
+				</form>
 			</div>
 			<?break;
 		case 4:?>

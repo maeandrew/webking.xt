@@ -414,6 +414,12 @@ class Customers extends Users {
 		if(isset($arr['day'])) {
 			$f['b_day'] = trim($arr['day']);
 		}
+		if(isset($arr['id_region'])) {
+			$f['id_region'] = trim($arr['id_region']);
+		}
+		if(isset($arr['id_city'])) {
+			$f['id_city'] = trim($arr['id_city']);
+		}
 		if(isset($arr['address'])) {
 			$f['address_ur'] = trim($arr['address']);
 		}

@@ -21,10 +21,6 @@
 	$Customers->SetFieldsById($User->fields['id_user']);
 	$Customer = $Customers->fields;
 	$cont_person = explode(' ', $Customer['cont_person']);
-	$birthday = explode('-', $Customer['birthday']);
-	$Customer['first_name'] = isset($cont_person[0])?$cont_person[0]:'';
-	$Customer['middle_name'] = isset($cont_person[1])?$cont_person[1]:'';
-	$Customer['last_name'] = isset($cont_person[2])?$cont_person[2]:'';
 	// outside managers
 	$contragents->SetList(false, false);
 	$availablemanagers = $contragents->list;

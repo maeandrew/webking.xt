@@ -874,7 +874,6 @@ $(function(){
 		if(data.target_step == 1){
 			// all.summary.removeClass('active');
 			if(data.current_step == 2){
-				console.log(data);
 				// all.summary.find('.last_name').closest('.row').addClass('hidden');
 				// all.summary.find('.first_name').closest('.row').addClass('hidden');
 				// all.summary.find('.middle_name').closest('.row').addClass('hidden');
@@ -912,27 +911,26 @@ $(function(){
 			}
 		}else if(data.target_step == 3){
 			if(data.current_step == 2){
-				var selected_region = all.current.find('#region_select .select_field').text(),
-					selected_city = all.current.find('#city_select .select_field').text();
-					all.target.find('span.client').text($('.first_name').text()+' '+$('.middle_name').text());
+				data.selected_region = all.current.find('#region').val();
+				data.selected_city = all.current.find('#city').val();
+					// all.target.find('span.client').text($('.first_name').text()+' '+$('.middle_name').text());
 
-				if(selected_region != 'Выбрать' && selected_city != 'Выбрать'){
-					all.summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
-					all.summary.find('.city').text(selected_city).closest('.row').removeClass('hidden');
-					$('.error_div').addClass('hidden');
-				}
+				// if(selected_region != 'Выбрать' && selected_city != 'Выбрать'){
+				// 	all.summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
+				// 	all.summary.find('.city').text(selected_city).closest('.row').removeClass('hidden');
+				// 	$('.error_div').addClass('hidden');
+				// }
 
-				if(selected_region == 'Выбрать'){
-					i++;
-					$('.error_div').removeClass('hidden').text("Выберите область");
-				} else if(selected_city == 'Выбрать'){
-					i++;
-					$('.error_div').removeClass('hidden').text("Выберите город");
-				}
+				// if(selected_region == 'Выбрать'){
+				// 	i++;
+				// 	$('.error_div').removeClass('hidden').text("Выберите область");
+				// } else if(selected_city == 'Выбрать'){
+				// 	i++;
+				// 	$('.error_div').removeClass('hidden').text("Выберите город");
+				// }
 
 				if(i === 0){
-					data.selected_region = selected_region
-					data.selected_city = selected_city;
+					
 
 					// ajax('cart', 'update_info', data, 'html').done(function(response){
 					// 	GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
@@ -1025,10 +1023,11 @@ $(function(){
 		}
 		function validateq(data){
 			addLoadAnimation('#quiz');
-			console.log(data);
 			if(data.target_step > data.current_step && data.validate === true){
 				ajax('quiz', 'complete_step', data).done(function(response){
-					GetQuizAjax({reload: false, step: data.target_step});
+					if(response == true){
+						GetQuizAjax({reload: false, step: data.target_step});
+					}
 				});
 			}else{
 				GetQuizAjax({reload: false, step: data.target_step});

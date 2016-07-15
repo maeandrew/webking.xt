@@ -142,7 +142,6 @@
 					$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
 				}
 				$echo = '';
-				print_r($_POST['shipping_comp']);
 				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
 				if(!empty($warehouses)){
 					foreach($warehouses as $warehouse){
