@@ -2156,8 +2156,10 @@ class Products {
 		//				unset($categories_arr[$k]);
 		//			}
 		//		}
+
 		// Записываем данные в таблицу соответствий категория-товар
-		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product;
+		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod  WHERE id_product = ".$id_product."
+				AND id_category NOT IN (SELECT c.id_category FROM "._DB_PREFIX_."category c WHERE c.sid = 0)";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -4711,7 +4713,7 @@ class Products {
 		return $res;
 	}
 
-	public  function GetDoublesProducts($where_art = false, $limit = false){
+	public  function GetDoublesProducts($limit = false){
 		$sql = "SELECT p.id_product, p.`name`, p.translit, p.visible
 				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
 				GROUP BY translit HAVING COUNT(translit)>1) t
