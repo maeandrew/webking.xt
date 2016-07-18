@@ -523,11 +523,12 @@
 					<?}else{?>
 						<!-- <a href="<?=_base_url.$_SERVER['REQUEST_URI']?>" target="demand_graph">Обновить</a> -->
 						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
+						<input type="hidden" name="par_lvl" value="<?=end($GLOBALS['IERA_LINKS'])['title']?>">
 						<script>
 							if($(document).outerWidth() > 500){
-								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
+								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q='+ $('input[name=par_lvl]').val() +'&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
 							}else{
-								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
+								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q='+ $('input[name=par_lvl]').val() +'&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
 							}
 						</script>
 					<?}?>
@@ -603,33 +604,33 @@
 	<?}?>
 </section>
 <script>
-	$.ajax({
-		url: '//www.google.com/trends/fetchComponent',
-		type: 'GET',
-		dataType: 'JSON',
-		data: {
-			hl: 'ru-RU',
-			q: 'мебель столы, мебель стулья',
-			geo: 'UA',
-			date: 'today+24-m',
-			cid: 'TIMESERIES_GRAPH_0',
-			export: '5',
-			w: '400',
-			h: '470'
-		}
-	})
-	.done(function(data) {
-		console.log("success");
-		console.log(data);
-	})
-	.fail(function(data) {
-		console.log("error");
-		console.log(data);
-	})
-	.always(function(data) {
-		console.log("complete");
-		console.log(data);
-	});
+	// $.ajax({
+	// 	url: '//www.google.com/trends/fetchComponent',
+	// 	type: 'GET',
+	// 	dataType: 'JSON',
+	// 	data: {
+	// 		hl: 'ru-RU',
+	// 		q: 'мебель столы, мебель стулья',
+	// 		geo: 'UA',
+	// 		date: 'today+24-m',
+	// 		cid: 'TIMESERIES_GRAPH_0',
+	// 		export: '5',
+	// 		w: '400',
+	// 		h: '470'
+	// 	}
+	// })
+	// .done(function(data) {
+	// 	console.log("success");
+	// 	console.log(data);
+	// })
+	// .fail(function(data) {
+	// 	console.log("error");
+	// 	console.log(data);
+	// })
+	// .always(function(data) {
+	// 	console.log("complete");
+	// 	console.log(data);
+	// });
 	
 	$(function(){
 		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
