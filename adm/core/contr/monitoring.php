@@ -150,7 +150,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				$GLOBALS['Limit_db'] = 0;
 				$limit = '';
 			}
-			$double_prod = $product->GetDoublesProducts($limit);
+			$double_prod = $product->GetDoublesProducts($limit, 'group by translit');
 			$tpl->Assign('list', $double_prod);
 			break;
 		case 'err_feedback':

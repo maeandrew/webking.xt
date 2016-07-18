@@ -4713,13 +4713,20 @@ class Products {
 		return $res;
 	}
 
-	public  function GetDoublesProducts($limit = false){
-		$sql = "SELECT p.id_product, p.`name`, p.translit, p.visible
+	public  function GetDoublesProducts($limit = false, $group = false){
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.visible
 				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
 				GROUP BY translit HAVING COUNT(translit)>1) t
 				WHERE t.translit = p.translit".($limit !== false?$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
+		}
+		if($group !== false){
+			$array_double = array();
+			foreach ($res as &$v){
+				$array_double[$v['translit']][] = $v;
+			}
+			return $array_double;
 		}
 		return $res;
 	}
