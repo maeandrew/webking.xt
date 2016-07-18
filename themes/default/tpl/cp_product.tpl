@@ -525,9 +525,9 @@
 						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
 						<script>
 							if($(document).outerWidth() > 500){
-								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="http://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
+								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
 							}else{
-								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="http://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
+								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
 							}
 						</script>
 					<?}?>
@@ -638,8 +638,8 @@
 </script>
 <script>
 	$('#demand_graph').load(function(){
-		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="http://xt.ua/themes/default/css/page_styles/product.css" />');
 		$(this).contents().find('body').css('overflow', 'hidden');
+		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
 	});
 
 	$(function(){
