@@ -4717,7 +4717,7 @@ class Products {
 		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.visible
 				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
 				GROUP BY translit HAVING COUNT(translit)>1) t
-				WHERE t.translit = p.translit".($limit !== false?$limit:'');
+				WHERE t.translit = p.translit".($group !== false? ' ORDER BY translit':'').($limit !== false?$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
