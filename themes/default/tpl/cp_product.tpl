@@ -603,6 +603,34 @@
 	<?}?>
 </section>
 <script>
+	$.ajax({
+		url: '//www.google.com/trends/fetchComponent',
+		type: 'GET',
+		dataType: 'JSON',
+		data: {
+			hl: 'ru-RU',
+			q: 'мебель столы, мебель стулья',
+			geo: 'UA',
+			date: 'today+24-m',
+			cid: 'TIMESERIES_GRAPH_0',
+			export: '5',
+			w: '400',
+			h: '470'
+		}
+	})
+	.done(function(data) {
+		console.log("success");
+		console.log(data);
+	})
+	.fail(function(data) {
+		console.log("error");
+		console.log(data);
+	})
+	.always(function(data) {
+		console.log("complete");
+		console.log(data);
+	});
+	
 	$(function(){
 		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
