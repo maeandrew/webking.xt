@@ -124,6 +124,9 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':$GLOBALS['CurrentController']?>">
+	<div id="canvas_mark_wrapper">
+		<canvas id="err_canvas" width="10" height="10"></canvas>
+	</div>
 	
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
@@ -338,9 +341,6 @@
 				</div>
 			<?}?>
 		</section>
-		<div id="canvas_mark_wrapper">
-			<canvas id="err_canvas" width="10" height="10"></canvas>
-		</div>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<p>Сообщите нам об ошибке</p>

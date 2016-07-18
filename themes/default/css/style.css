@@ -3691,7 +3691,7 @@ div.modalEditOrder .applyBtn {
 .eraser_for_canvas {
 	width: 35px;
 	height: 35px;
-	border: 1px dashed #444;
+	border: 1px solid #f9e900;
 	border-radius: 3px;
 	background-color: yellow;
 	float: left;
@@ -3701,10 +3701,12 @@ div.modalEditOrder .applyBtn {
 
 .confidential {
 	background-color: #444;
+	border: 1px solid #000;
 }
 .pencil_for_canvas {
 	border-radius: 50%;
 	background-color: #ff0000;
+	border: 2px solid #d50000;
 }
 .eraser_for_canvas {
 	background-color: #fff;
@@ -3730,7 +3732,7 @@ div.modalEditOrder .applyBtn {
 #err_canvas,
 #imageTemp{
 	position: absolute;
-	z-index: 1000;
+	z-index: 10000;
 }
 .copyContainerWrap {
 	overflow: hidden;
