@@ -1065,7 +1065,6 @@ function rebuildPreview(obj){
 		correctionTop = 0,
 		marginBottom = 15,
 		marginTop = marginBottom+$('header').outerHeight();
-		console.log(id_product);
 	var ovftop = position.top - preview.height()/2 + obj.outerHeight()/2 - marginTop,
 		ovfbotton = position.top + preview.height()/2 + obj.outerHeight()/2 + marginBottom;
 	if(pos + viewportHeight < ovfbotton){

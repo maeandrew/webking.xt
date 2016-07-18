@@ -98,7 +98,7 @@ header .header_wrapp .header_right .phone_menu {
 }
 .userContainer {
 	width: 100%;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 header .userContainer {
 	width: 350px;

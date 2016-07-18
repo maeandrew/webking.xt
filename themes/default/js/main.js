@@ -18,11 +18,14 @@ window.onbeforeunload = function(e){
 	// };
 	// return "You work will be lost.";
 };
+$(window).on("load", function(){
+	$("html, body").trigger("scroll");
+});
 // window.addEventListener("popstate", function(e) {
 //     swapPhoto(location.pathname);
 // }, false)
 $(function(){
-	$("html, body").trigger("scroll");
+	// $("html, body").trigger("scroll");
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
 	GetLocation();
 
@@ -483,6 +486,7 @@ $(function(){
 			});
 		}		
 	});
+
 	/*$('body').on('click', function(){
 		if(over_scroll === true){
 			resizeAsideScroll('click');
