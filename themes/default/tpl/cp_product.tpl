@@ -522,10 +522,13 @@
 						</div>
 					<?}else{?>
 						<!-- <a href="<?=_base_url.$_SERVER['REQUEST_URI']?>" target="demand_graph">Обновить</a> -->
-						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->						
-						<link type="text/css" rel="Stylesheet" href="product.css" />						
+						<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
 						<script>
-							$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="http://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - (parseInt($('.tab-content').css('padding-right'))*2)+2 )+'&h=450"></iframe>');
+							if($(document).outerWidth() > 500){
+								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="http://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
+							}else{
+								$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="http://www.google.com/trends/fetchComponent?hl=ru-RU&q=мебель столы, мебель стулья&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
+							}
 						</script>
 					<?}?>
 				</div>
@@ -601,8 +604,6 @@
 </section>
 <script>
 	$(function(){
-		$('#demand_graph').contents().find('.embed-footer').css('backgroundColor', 'red');
-
 		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
 			$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
@@ -636,7 +637,10 @@
 	});
 </script>
 <script>
-	// $('#seasonality iframe').attr('src').replace('350',$('#seasonality').outerWidth());
+	$('#demand_graph').load(function(){
+		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="http://xt.ua/themes/default/css/page_styles/product.css" />');
+		$(this).contents().find('body').css('overflow', 'hidden');
+	});
 
 	$(function(){
 		//Инициализация добавления товара в избранное

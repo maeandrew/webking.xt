@@ -747,13 +747,13 @@ div[for="rating_block"] {
 } */
 
 .demand_graph{
-	height: 380px;
+	height: 350px;	
 }
-.demand_graph .embed-footer-link{
+.demand_graph .embed-footer .embed-footer-link{
 	display: none;
 }
-.demand_graph body{
-	overflow: hidden;
-	overflow-x: hidden !important;
-	overflow-y: hidden !important;
+@media (max-width: 500px) {
+	.demand_graph{
+		height: 400px;
+	}
 }
