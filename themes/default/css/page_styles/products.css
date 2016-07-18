@@ -536,9 +536,9 @@ label.info_key {
 	left: 25%;
 	right: 25%;
 	margin: 0 auto;
-	color: #fff;
+/*	color: #fff;
 	background: #ff5722;
-	border-color: #ff5722;
+	border-color: #ff5722;*/
 }
 .block_view .buy_block .btn_buy div {
 	position: relative;

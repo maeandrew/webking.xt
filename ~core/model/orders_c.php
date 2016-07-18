@@ -508,6 +508,9 @@ class Orders {
 			$f['id_city'] = 0;
 			$f['strachovka'] = 0;
 		}
+		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
+			$f['bonus_card'] = $customer['bonus_card'];
+		}
 		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
 		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
