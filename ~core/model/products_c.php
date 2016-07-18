@@ -2169,7 +2169,7 @@ class Products {
 		foreach($categories_arr as $key => $id){
 			$f[$key]['id_product'] = $id_product;
 			$f[$key]['id_category'] = $id;
-			$f[$key]['main'] = isset($main)?1:0;
+			$f[$key]['main'] = (isset($main) && $key == $main)?1:0;
 		}
 		$this->db->StartTrans();
 		if(!$this->db->InsertArr(_DB_PREFIX_.'cat_prod', $f)){
