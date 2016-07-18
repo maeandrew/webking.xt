@@ -1,7 +1,7 @@
+<h1>Основная информация</h1>
 <form id="edit_contacts" class="editing" action="" method="post">
 	<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 	<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
-	<h1>Основная информация</h1>
 	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 		<label class="mdl-textfield__label" for="email">E-mail:</label>
 		<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>

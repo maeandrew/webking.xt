@@ -11,7 +11,7 @@
 	position: relative;
 }
 .product_page h1 {
-	font-size: 2.5em;
+	font-size: 2em;
 	margin: 0;
 	padding-bottom: 10px;
 	clear: both;
@@ -756,4 +756,9 @@ div[for="rating_block"] {
 	.demand_graph{
 		height: 400px;
 	}
+}
+
+.product .product_buy .buy_block,
+.product .product_buy .buy_block .quantity .units {
+	font-size: 1em;
 }

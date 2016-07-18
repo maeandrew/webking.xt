@@ -2293,7 +2293,14 @@ div[id^="items_panel_"] .btnWrapFlex {
 	display: none;
 }
 
+#edit_contacts {
+	width: 300px;
+	position: relative;
+}
 
+.page_content .customer_cab h1 {
+	font-size: 2em;
+}
 
 @media (max-width: 1060px) {
 	.nav li {

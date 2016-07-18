@@ -72,6 +72,7 @@
 		});
 
 		$('input[name="save_contacts"]').click(function(event) {
+			addLoadAnimation('#edit_contacts');
 			var parent = $(this).closest('form'),
 				id_user = parent.find('[name="id_user"]').val(),
 				email = parent.find('[name="email"]').val(),
@@ -113,6 +114,7 @@
 				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 			}else{
 				ajax('cabinet', 'ChangeInfoUser', data).done(function(response){
+					removeLoadAnimation('#edit_contacts');
 					if (response == 'true') {
 						confirmUpdate = true;
 						snackbarMsg = {message: 'Ваши данные успешно сохранены'},
