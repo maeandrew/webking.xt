@@ -1908,9 +1908,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	cursor: pointer;
 		top: -5px;
 }
-.order .title .container .print .icon img {
+/*.order .title .container .print .icon img {
 	margin-top: 6px;
-}
+}*/
 .order .title .container .print .print_menu {
 	min-width: 160px;
 }
