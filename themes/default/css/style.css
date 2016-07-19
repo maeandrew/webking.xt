@@ -30,21 +30,20 @@ body {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 	font-weight: normal;
 	font-size: 14px;
-	color: #343030;
-	background: #fff;
+	color: #444;
 	padding-top: 52px;
 	position: relative;
 	/*background: #f8f8f8 url("../img/crossword.png");*/
-	background: #f7f7f7;	
+	background: #F3F3F3;	
 }
 a {
 	text-decoration: none;
 	color: #444;
 	font-weight: 500;
 	outline: none;
-	-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
-	-o-transition: all .2s cubic-bezier(.4,0,.2,1);
-	transition: all .2s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+	transition: all .3s cubic-bezier(.4,0,.2,1);
 }
 /*a:hover:not([href="#"])*/
 a:hover {
@@ -1617,7 +1616,7 @@ section.center {
 /*PAGE CONTENT*/
 
 	.page_content {
-		padding: 0 15px;
+		padding: 0 20px;
 		min-height: calc(100vh - 52px);
 	}
 	.page_content h1 {
@@ -1786,12 +1785,6 @@ section .stat_year {
 .content_header .productsListView .activeView {
 	color: #444;
 }
-
-
-.card {
-	overflow: auto;
-}
-
 .content_header .cart_info {
 	float: right;
 	width: 500px;
@@ -2041,16 +2034,7 @@ section .stat_year {
 
 /*Producs*/
 
-.products {
-	/*padding-bottom: 30px;*/
-	/*padding-top: 50px;*/
-}
-.products .card {
-	border-bottom: 1px solid #e0e0e0;
-	/*box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);*/
-	/*border-radius: .2em;*/
-	padding: 10px;
-}
+
 
 /****************************************/
 .products .card_wrapper {
@@ -2102,14 +2086,7 @@ section .stat_year {
 
 /****************************************/
 
-.products .card {
-	overflow: hidden;
-	background-color: #fff;
-	margin-bottom: 10px;
-}
-.products .card:first-of-type {
-	/*border-top: 1px solid #e0e0e0;*/
-}
+
 .products .card .product_photo {
 	position: relative;
 	/* height: 100px; */
@@ -3236,9 +3213,6 @@ section .stat_year {
 		padding: 25px 0 !important;
 		border-radius: 0;
 	}
-	/*	body {
-		padding-top: 45px;
-	}*/
 	#cart .product_buy .summ {
 		text-align: left;
 	}

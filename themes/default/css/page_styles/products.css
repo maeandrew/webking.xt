@@ -76,15 +76,18 @@ h5 {
 
 /*======Content text==========================================================*/
 
-.card {
-	overflow: auto;
+.products .card {
+	background-color: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	padding: 10px;
+	overflow: hidden;
+	margin-bottom: 15px;
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
-.card:hover {
-	border-bottom-color: #fff;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
-	-webkit-transition: none;
-	-o-transition: none;
-	transition: none;
+.products .card:hover {
+	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
 }
 .products .content_wrapp {
 	overflow: hidden;
@@ -460,19 +463,13 @@ label.info_key {
 .block_view .products {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 5px;
+	/*padding: 5px;*/
 	margin: 0 -10px;
 }
 .block_view .products .card {
-	width: calc(20% - 10px);
-	/*border: 1px solid #f2f2f2;*/
-	background: #fff;
-	/*border-radius: .2em;*/
-	margin: 5px;
+	width: calc(20% - 20px);
+	margin: 10px;
 	position: relative;
-	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
-	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 .block_view .products .card a {
 	line-height: 20px;
@@ -651,12 +648,12 @@ label.info_key {
 
 @media (max-width: 1440px) {
 	.block_view .products .card {
-		width: calc(25% - 10px);	
+		width: calc(25% - 20px);	
 	}	
 }
 @media (max-width: 1280px) {
 	.block_view .products .card {
-		width: calc(100%/3 - 10px);	
+		width: calc(100%/3 - 20px);	
 	}
 	.block_view .products .card .product_buy .buy_block .quantity .units {
 		width: 40px;		
@@ -664,15 +661,14 @@ label.info_key {
 }
 @media (max-width: 950px) {
 	.block_view .products .card {
-		width: calc(50% - 10px);	
+		width: calc(50% - 20px);	
 	}	
 }
 @media (max-width: 728px) {
 	.block_view .products .card,
 	.block_view .products .card:hover {
-		width: calc(50% - 10px);	
-		background: #fff;
-		border: 1px solid #d9d9d9;
+		width: calc(50% - 20px);
+		/*border: 1px solid #d9d9d9;*/
 	}
 	.block_view .products .card .product_buy .buy_block .quantity button {
 		display: none;
@@ -1299,8 +1295,6 @@ label.info_key {
 		position: relative;
 		padding: 0;
 		border: 0;
-		background: #fff;
-		margin-bottom: 10px;
 	}
 	.products .card .product_name {
 		padding: 10px;
@@ -1314,7 +1308,6 @@ label.info_key {
 	}
 	.list_view .products .card {
 		padding: 10px;
-		border: 1px solid #d9d9d9;
 	}
 	.module_view .product_section .product_buy .buy_block {
 		justify-content: space-around !important;
