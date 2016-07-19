@@ -695,6 +695,7 @@ aside,
 	/*min-height: 52px;*/
 	background-color: #fff;
     border-bottom: 1px solid #e0e0e0;
+    margin-left: 5px;
 }
 /* .banner img {
 	display: block;
@@ -1260,8 +1261,8 @@ section.center {
 		bottom: auto;
 	}
 	aside .panel_container {
-		overflow-y: auto;
-		overflow-x: hidden;
+		/*overflow-y: auto;
+		overflow-x: hidden;*/
 		max-height: 100%;
 		padding-left: 10px;
 		background: #f8f8f8;
@@ -1269,6 +1270,7 @@ section.center {
 	.banner_hide aside {
 		position: fixed;
 		background: #f7f7f7 !important;
+		top: 52px;
 	}
 	aside .sidebar_wrapp {
 		overflow-x: hidden;
@@ -1276,7 +1278,7 @@ section.center {
 		-webkit-overflow-scrolling: touch;
 	}
 	aside .catalog {
-		border-bottom: 1px solid #e0e0e0;
+		/*border-bottom: 1px solid #e0e0e0;*/
 	}
 	aside .catalog .main_nav {
 		border: 1px solid #e0e0e0;
@@ -1331,8 +1333,10 @@ section.center {
 	}
 	aside .catalog .second_nav {
 	    background: #fff;
-	    /*overflow: auto;
-    	max-height: calc(100vh - 152px);*/
+	    border-bottom: none;
+
+	    overflow: auto;
+	    max-height: calc(100vh - 52px);
 	}
 	aside .catalog .second_nav .link_wrapp .more_cat {
 		cursor: pointer;
@@ -1722,16 +1726,21 @@ section .stat_year {
 .content_header .sort {
 	position: relative;
 	float: left;
+	margin-right: 10px;
+}
+.content_header .sort > span{
+	/*font-size: .9em;*/
 }
 .content_header .sort .mdl-button {
 	font-size: 0.929em;
-	color: #bdbdbd;
+	color: #757575;
 	border: none;
 	border-radius: 0;
 	font-weight: normal;
 	padding: 0;
 	line-height: 24px;
 	height: 24px;
+	text-transform: inherit;
 }
 .content_header .sort .mdl-button:hover,
 .content_header .sort .mdl-button:active {
@@ -1739,8 +1748,7 @@ section .stat_year {
 }
 .content_header .sort .selected_sort {
 	display: inline-block;
-	padding: 0 5px;
-	max-width: 129px;
+	max-width: 170px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1751,6 +1759,22 @@ section .stat_year {
 	height: 30px;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+.content_header .sort .mdl-selectfield{
+	width: 180px;
+	padding: 0;
+}
+.content_header .sort .mdl-selectfield .mdl-selectfield__box{
+	top: 2px;
+	bottom: 2px;
+}
+.content_header .sort .mdl-selectfield .mdl-selectfield__box .mdl-selectfield__box-value {
+	text-align: center;
+	font-size: .875em;
+}
+.content_header .sort .mdl-selectfield .mdl-selectfield__list-option-box ul>li{
+	font-size: 1em;
 }
 
 .content_header .catalog_btn,
@@ -1904,7 +1928,7 @@ section .stat_year {
 	pointer-events: none;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	border-top: 10px solid #fff;
+	border-top: 10px solid #f7f7f7;
 }
 .content_header:hover .cart_info .price_nav:before {
 	border-top-color: rgba(285,87,34,1);
@@ -3290,28 +3314,37 @@ section .stat_year {
 	position: absolute;
 }
 
-.xt_news {
+.xt_news, 
+.last_news_title {
 		padding: 0 15px;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
 	}
 	.min {
-		padding-top: 15px;
+		padding: 10px;
 	}
 	.xt_news h6 {
 		line-height: 1.3em;
 		font-weight: 500;
 		color: #000;
 		margin: 0;
-		margin-bottom: 10px;
+		padding-bottom: 0px;
+		/*margin-bottom: 10px;*/
 	}
 	.xt_news a h6:hover {
 		color: #FF5722;
 	}
 	.xt_news .news_description {
 		font-size: 13px;
+		max-height: 9.8em;
+    	overflow: hidden;
+    	margin-bottom: 10px;
 	}
 	.xt_news .news_description > p {
 		text-align: justify;
-		line-height: 1.4em;
+		/*line-height: 1.4em;*/
+		line-height: 20px;
 	}
 	.xt_news .news_date,
 	.news_more {
@@ -3332,7 +3365,48 @@ section .stat_year {
 	}
 /* class="mdl-button mdl-js-button mdl-button--raised" */
 /* style="float: right;right: 10px;top:-10px;background:#018B06;"*/
-
+.news_item {
+	width: 24%;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+.news_item .news_description * {
+	font: normal normal 14px/1.4em "Roboto";
+}
+.news_item .read_more {
+    padding-top: 10px;
+}
+.news_item .read_more a {
+	display: block;
+	text-align: center;
+}
+.news_item .read_more a:hover {
+	background: #FF5722;
+	color: #fff;
+}
+.news_item .news_date {
+	font-size: 12px;
+	padding-bottom: 0;
+	border-top: 1px solid #e0e0e0;
+}
+.last_news_title a {
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+}
+.last_news_title a:hover {
+	background: #FF5722;
+	color: #fff;
+}
+.last_news_title {
+    border-top: 1px solid #e0e0e0;
+    padding: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-top: 10px;
+}
+.last_news_title h4 {
+	margin: 0px;
+}
 
 /* Стиль активного сегмена и выделение при наведении */
 

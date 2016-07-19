@@ -124,9 +124,6 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':$GLOBALS['CurrentController']?>">
-	<div id="canvas_mark_wrapper">
-		<canvas id="err_canvas" width="10" height="10"></canvas>
-	</div>
 	
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
@@ -183,7 +180,7 @@
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
-				<?if($news != false){?>
+				<!-- <?if($news != false){?>
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
@@ -206,7 +203,7 @@
 							Все новости
 						</div></a>
 					</div>
-				<?}?>
+				<?}?> -->
 				<?if($post != false){?>
 					<div class="xt_news" style="margin-bottom:50px;">
 						<a href="<?=Link::Custom('post', $post['translit']);?>">
@@ -242,7 +239,7 @@
 					width: 100%;
 					height: 300px;
 				}
-			</style>			
+			</style>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] !== 'main'){?>
@@ -250,38 +247,16 @@
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header clearfix">
-						<!-- <div class="sort imit_select">
-							<button id="sort-lower-left" class="mdl-button mdl-js-button">
-								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
-							</button>
-							<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-								<li class="mdl-menu__item active">По рейтингу</li>
-								<li class="mdl-menu__item">Новинки</li>
-								<li class="mdl-menu__item">Популярные</li>
-								<li class="mdl-menu__item">От дешевых к дорогим</li>
-							</ul>
-
-							<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-								<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
-							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
-							<?}?>
-						</div> -->
 						<?if(isset($available_sorting_values)){?>
 							<div class="sort imit_select">
-								<button id="sort-lower-left" class="mdl-button mdl-js-button">
-									<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
-								</button>
-
-								<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-									<?foreach($available_sorting_values as $key => $alias){ ?>
-										<a href="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>">
-											<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
-												<?=$alias?>
-											</li>
-										</a>
-									<?}?>
-								</ul>
+								<span>Сортировать:</span>
+								<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+										<?foreach($available_sorting_values as $key => $alias){ ?>
+											<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
+										<?}?>
+									</select>
+								</div>
 
 								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
@@ -290,7 +265,6 @@
 									<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 								<?}?>
 								-->
-
 							</div>
 						<?}?>
 						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
@@ -333,6 +307,41 @@
 					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
+			<!-- Блок последних новостей -->
+			<?if(isset($news) && $GLOBALS['CurrentController'] !== 'cabinet'){?>
+				<div class="last_news"> 				
+					<div class="last_news_title">
+						<h4>Последние новости</h4>
+						<a href="<?=Link::Custom('news');?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+					</div>
+					<div class="xt_news">
+						<?foreach($news as $item){?>
+							<div class="news_item">
+								<?if(isset($item['thumbnail'])){?>
+									<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+								<?}?>
+								<a href="<?=Link::Custom('news', $item['translit']);?>">
+									<h6 class="min news_title"><?=$item['title']?></h6>
+								</a>
+								<div class="min news_description"><?=$item['descr_short']?></div>
+								<div class="min news_date">
+									<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
+										Опубликовано Сегодня
+									<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
+										Опубликовано Вчера
+									<?}else{?>
+										Опубликовано
+									<?  echo date("d.m.Y", $item['date']);
+									}?>
+								</div>
+								<div class="read_more">
+									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
+								</div>
+							</div>
+						<?}?>	
+					</div>
+				</div>
+			<?}?>
 			<?if(isset($seotext)){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
@@ -341,6 +350,9 @@
 				</div>
 			<?}?>
 		</section>
+		<div id="canvas_mark_wrapper">
+			<canvas id="err_canvas" width="10" height="10"></canvas>
+		</div>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<p>Сообщите нам об ошибке</p>

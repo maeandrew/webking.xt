@@ -79,6 +79,13 @@ h5 {
 .card {
 	overflow: auto;
 }
+.card:hover {
+	border-bottom-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+	-webkit-transition: none;
+	-o-transition: none;
+	transition: none;
+}
 .products .content_wrapp {
 	overflow: hidden;
 }
@@ -458,7 +465,7 @@ label.info_key {
 }
 .block_view .products .card {
 	width: calc(20% - 10px);
-	border: 1px solid #f2f2f2;
+	/*border: 1px solid #f2f2f2;*/
 	background: #fff;
 	/*border-radius: .2em;*/
 	margin: 5px;
@@ -469,12 +476,6 @@ label.info_key {
 }
 .block_view .products .card a {
 	line-height: 20px;
-}
-.block_view .products .card:hover {
-	border: 1px solid #e0e0e0;
-	-webkit-transition: none;
-	-o-transition: none;
-	transition: none;
 }
 .block_view .products .card .product_photo {
 	float: none;

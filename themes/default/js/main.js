@@ -454,22 +454,27 @@ $(function(){
 			var CurentMainWindow = $('.main').outerHeight();//$.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
 			var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
+			var main_nav = $('.main_nav').outerHeight();
 			if(IsMobile === false){
-				$('aside').css('height', 'calc(100vh - 52px)');				
+				$('aside').css('max-height', 'calc(100vh - 52px)');				
 			}else{
 				$('aside').css('top', '52px');
 				$('aside').css('position', 'fixed');
 			}
 			if((scroll + viewPort) <= CurentMainWindow){
 				// не доскролили до футера
-				$('aside').css('bottom', 0);
+				// $('aside').css('bottom', 0);
 			}else{
 				// Доскролили
-				var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52;
-				if(IsMobile === true){
-					$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
-				}
-				$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));				
+				var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;				
+				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');				
+
+				//Проверить моб версию
+
+				// if(IsMobile === true){
+				// 	$('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+				// }
+				
 			}
 			changeFiltersBtnsPosition();
 		}
