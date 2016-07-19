@@ -133,7 +133,7 @@
 					</div>
 					<div class="mdl-cell mdl-cell--12-col">
 						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service">
-							<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));"></select>
+							<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));" disabled></select>
 							<label class="mdl-selectfield__label" for="id_delivery_service">Служба доставки</label>
 						</div>
 					</div>
@@ -145,7 +145,7 @@
 					</div>
 					<div class="mdl-cell mdl-cell--12-col hidden">
 						<div class="mdl-textfield mdl-js-textfield address">
-							<textarea id="address" name="address" class="mdl-textfield__input" type="text" rows= "3"></textarea>
+							<textarea id="address" name="address" class="mdl-textfield__input" type="text" rows= "3" disabled></textarea>
 							<label class="mdl-textfield__label" for="address">Адрес</label>
 						</div>
 					</div>
