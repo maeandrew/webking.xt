@@ -95,12 +95,12 @@
 			</div>
 			<div class="mdl-cell mdl-cell--12-col hidden">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department">
-					<select id="id_delivery_department" name="id_delivery_department" class="mdl-selectfield__select">
+					<select id="delivery_department" name="delivery_department" class="mdl-selectfield__select">
 						<?foreach($availabledeliverydepartment as $dd){?>
 							<option value="<?=$dd['id_city']?>"><?=$dd['address']?></option>
 						<?}?>
 					</select>
-					<label class="mdl-selectfield__label" for="id_delivery_department">Отделение</label>
+					<label class="mdl-selectfield__label" for="delivery_department">Отделение</label>
 				</div>
 			</div>
 			<div class="mdl-cell mdl-cell--12-col hidden">

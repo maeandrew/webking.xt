@@ -1864,11 +1864,13 @@ function segmentOpen(id){
 function regionSelect(obj){
 	var parent = obj.closest('form'),
 		region = obj.val();
+	addLoadAnimation(parent);
 	if(region !== undefined){
 		ajax('location', 'regionSelect', {region: region}, 'html').done(function(data){
+			removeLoadAnimation(parent);
 			parent.find('select:not(#region) option').remove();
 			parent.find('#city').html(data).prop('disabled', false);
-			parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
+			parent.find('#delivery_service, #insurance, #delivery_department').closest('div.mdl-cell').addClass('hidden');
 			// citySelect(parent.find('#city'));
 		});
 	}
@@ -1878,12 +1880,13 @@ function citySelect(obj){
 	var parent = obj.closest('form'),
 		city = obj.val(),
 		region = parent.find('#region').val();
+	addLoadAnimation(parent);
 	if(city !== undefined && region !== undefined){
 		ajax('location', 'citySelect', {city: city, region: region}, 'html').done(function(data){
-			console.log(data);
+			removeLoadAnimation(parent);
 			parent.find('select:not(#region, #city) option').remove();
 			parent.find('#id_delivery').html(data).prop('disabled', false);
-			parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
+			parent.find('#delivery_service, #insurance, #delivery_department').closest('div.mdl-cell').addClass('hidden');
 			// deliverySelect(parent.find('#id_delivery'));
 		});
 	}
@@ -1894,25 +1897,28 @@ function deliverySelect(obj){
 		id_delivery = obj.val(),
 		city = parent.find('#city').val(),
 		region = parent.find('#region').val();
+		// console.log(id_delivery);
+		// console.log(city);
+		// console.log(region);
+	addLoadAnimation(parent);
 	switch(id_delivery){
 		case '1':
 			ajax('location', 'deliverySelect', {city: city, region: region}, 'html').done(function(data){
-				parent.find('#id_delivery_service, #id_delivery_department').prop('required', true);
+				removeLoadAnimation(parent);
 				parent.find('#id_delivery_service option').remove();
-				parent.find('#delivery_service, #insurance, #delivery_department').slideDown();
-				parent.find('#id_delivery_service').html(data);
-				parent.find('.content-insurance').slideDown();
-				parent.find('.delivery_department, .delivery_service').closest('div.mdl-cell').removeClass('hidden');
+				parent.find('#id_delivery_service').html(data).prop('required', true).prop('disabled', false);
+				parent.find('.delivery_service').closest('div.mdl-cell').removeClass('hidden');
 				parent.find('.address').closest('div.mdl-cell').addClass('hidden');
 				// deliveryServiceSelect(parent.find('#id_delivery_service'));
 			});
 			break;
 		default:
 			ajax('location', 'getCityId', {city: city}, 'html').done(function(data){
-				$('#delivery_service, #insurance, #delivery_department').slideUp();
-				$('#id_delivery_department option').remove();
-				$('#id_delivery_department').append(data);
-				$('.content-insurance').slideUp();
+				removeLoadAnimation(parent);
+				parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
+				parent.find('#delivery_department option').remove();
+				parent.find('#delivery_department').append(data);
+				parent.find('.content-insurance').slideUp();
 				parent.find('.address').closest('div.mdl-cell').removeClass('hidden');
 				parent.find('.delivery_service').closest('div.mdl-cell').removeClass('hidden');
 				parent.find('.delivery_department').closest('div.mdl-cell').addClass('hidden');
@@ -1969,20 +1975,23 @@ function deliverySelect(obj){
 
 function deliveryServiceSelect(obj){
 	var parent = obj.closest('form'),
-		// shipping_comp = obj.val(),
-		shipping_comp = obj.find('option:selected').val(),
+		shipping_comp = obj.val(),
+		// shipping_comp = obj.find('option:selected').val(),
 		id_delivery = parent.find('#id_delivery').val(),
 		city = parent.find('#city').val(),
 		region = parent.find('#region').val(),
 		ref = obj.find('option:selected').data('ref');
+	addLoadAnimation(parent);
 	// console.log('');
-	// console.log('Область - '+region);
-	// console.log('Город - '+city);
-	// console.log('Способ - '+id_delivery);
-	// console.log('Служба - '+shipping_comp);
+	console.log('Область - '+region);
+	console.log('Город - '+city);
+	console.log('Способ - '+id_delivery);
+	console.log('Служба - '+shipping_comp);
 	ajax('location', 'deliveryServiceSelect', {city: city, region: region, shipping_comp: shipping_comp, ref: ref, id_delivery: id_delivery}, 'html').done(function(data){
-		parent.find('#id_delivery_department option').remove();
-		parent.find('#id_delivery_department').append(data);
+		removeLoadAnimation(parent);
+		// parent.find('#delivery_department option').remove();
+		// parent.find('#delivery_department').html(data).prop('required', true).removeProp('disabled');
+		// parent.find('.delivery_department').closest('div.mdl-cell').removeClass('hidden');
 	});
 }
 

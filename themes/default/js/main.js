@@ -961,11 +961,11 @@ $(function(){
 			}
 		}else if(data.target_step == 4){
 			if(data.current_step == 3){
-				var delivery_service = $('input[name="service"]:checked').val(),
-					delivery_method = $('#select_delivery_type .select_field').text(),
-					selected_post_office = all.current.find('#post_office_select .select_field').text(),
-					selected_post_office_id = $('[for="post_office_select"] li.active').data('value'),
-					delivery_address = all.current.find('#delivery_address').val();
+				data.id_delivery = all.current.find('#id_delivery').val();
+				data.id_delivery_service = all.current.find('#id_delivery_service').val();
+				data.delivery_department = all.current.find('#delivery_department').val();
+				data.address = all.current.find('#address').val();
+				console.log(data);
 
 				if(typeof delivery_service !== 'undefined') {
 					all.summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
