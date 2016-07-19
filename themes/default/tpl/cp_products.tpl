@@ -23,23 +23,18 @@
 			<?}?>
 		</div>
 	<?}?>
-
 	<div class="row">
 		<?if(!empty($list)){?>
 			<div class="content_header clearfix">
 				<div class="sort imit_select">
-					<button id="sort-lower-left" class="mdl-button mdl-js-button">
-						<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
-					</button>
-					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-						<?foreach($available_sorting_values as $key => $alias){ ?>
-							<a href="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>">
-								<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
-									<?=$alias?>
-								</li>
-							</a>
-						<?}?>
-					</ul>
+					<span>Сортировать:</span>
+					<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+						<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+							<?foreach($available_sorting_values as $key => $alias){ ?>
+								<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
+							<?}?>
+						</select>
+					</div>
 
 					<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 					<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
@@ -48,7 +43,6 @@
 						<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 					<?}?>
 					-->
-
 				</div>
 				<div class="productsListView">
 					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>

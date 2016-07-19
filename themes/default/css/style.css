@@ -1722,16 +1722,21 @@ section .stat_year {
 .content_header .sort {
 	position: relative;
 	float: left;
+	margin-right: 10px;
+}
+.content_header .sort > span{
+	/*font-size: .9em;*/
 }
 .content_header .sort .mdl-button {
 	font-size: 0.929em;
-	color: #bdbdbd;
+	color: #757575;
 	border: none;
 	border-radius: 0;
 	font-weight: normal;
 	padding: 0;
 	line-height: 24px;
 	height: 24px;
+	text-transform: inherit;
 }
 .content_header .sort .mdl-button:hover,
 .content_header .sort .mdl-button:active {
@@ -1739,8 +1744,7 @@ section .stat_year {
 }
 .content_header .sort .selected_sort {
 	display: inline-block;
-	padding: 0 5px;
-	max-width: 129px;
+	max-width: 170px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1751,6 +1755,22 @@ section .stat_year {
 	height: 30px;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+.content_header .sort .mdl-selectfield{
+	width: 180px;
+	padding: 0;
+}
+.content_header .sort .mdl-selectfield .mdl-selectfield__box{
+	top: 2px;
+	bottom: 2px;
+}
+.content_header .sort .mdl-selectfield .mdl-selectfield__box .mdl-selectfield__box-value {
+	text-align: center;
+	font-size: .875em;
+}
+.content_header .sort .mdl-selectfield .mdl-selectfield__list-option-box ul>li{
+	font-size: 1em;
 }
 
 .content_header .catalog_btn,
@@ -1904,7 +1924,7 @@ section .stat_year {
 	pointer-events: none;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	border-top: 10px solid #fff;
+	border-top: 10px solid #f7f7f7;
 }
 .content_header:hover .cart_info .price_nav:before {
 	border-top-color: rgba(285,87,34,1);

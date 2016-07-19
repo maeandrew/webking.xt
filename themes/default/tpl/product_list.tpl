@@ -1,38 +1,15 @@
 <div class="catalog_btn btn_js" data-name="catalog">Каталог</div>
 <?if(!empty($list)){?>
-	<!-- <div class="sorting">
-		
-		<?if(!isset($_GET['search_in_cat'])){?>
-			<form action="" method="POST">
-				<?if(in_array('sorting', $list_controls)){?>
-					<label for="sort_prod">Сортировка</label>
-					<select id="sort_prod" name="value" data-role="none" onchange="$(this).closest('form').submit();">
-						<?foreach($available_sorting_values as $key => $alias){?>
-							<option value="<?=$key?>" <?=isset($sorting['value']) && $sorting['value'] == $key?'selected="selected"':null;?>><?=$alias?></option>
-						<?}?>
-					</select>
-					<select name="direction" data-role="none" class="hidden" onchange="$(this).closest('form').submit();">
-						<option value="asc" <?=isset($sorting['direction']) && $sorting['direction'] == 'asc'?'selected="selected"':null;?>>по возрастанию</option>
-						<option value="desc" <?=isset($sorting['direction']) && $sorting['direction'] == 'desc'?'selected="selected"':null;?>>по убыванию</option>
-					</select>
-				<?}?>
-			</form>
-		<?}?>
-	</div> -->
 	<div class="content_header clearfix">
 		<div class="sort imit_select">
-			<button id="sort-lower-left" class="mdl-button mdl-js-button">
-				<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
-			</button>
-			<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-				<?foreach($available_sorting_values as $key => $alias){ ?>
-					<a href="<?=Link::Category($GLOBALS['Rewrite'], array('sort' => $key))?>">
-						<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
-							<?=$alias?>
-						</li>
-					</a>
-				<?}?>
-			</ul>
+			<span>Сортировать:</span>
+			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+				<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+					<?foreach($available_sorting_values as $key => $alias){ ?>
+						<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
+					<?}?>
+				</select>
+			</div>
 			<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
 			<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
 				<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
