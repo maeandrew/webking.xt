@@ -18,16 +18,5 @@
 		<a href="https://plus.google.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a>
 		<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a>
 		<a href="https://twitter.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>&text=[TITLE]" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a>
-	</div>
-	<div class="content_news">
-		<? foreach($randoms_news as $news){?>
-			<a href="<?=Link::Custom('news', $news['translit']);?>" class="random_news <?=!isset($news['thumbnail'])?'hidden':null;?>">
-				<div class="image_container">
-					<img src="<?=$news['thumbnail']?>">
-				</div>
-				<p><?=$news['title']?></p>
-			</a>
-		<?}?>
-		<a class="other_news" href="<?=Link::Custom('news');?>">Другие новости</a>
-	</div>
+	</div>	
 </div><!--id="content"-->

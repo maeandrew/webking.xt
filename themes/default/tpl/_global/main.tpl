@@ -124,9 +124,6 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':$GLOBALS['CurrentController']?>">
-	<div id="canvas_mark_wrapper">
-		<canvas id="err_canvas" width="10" height="10"></canvas>
-	</div>
 	
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
@@ -183,7 +180,7 @@
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
-				<?if($news != false){?>
+				<!-- <?if($news != false){?>
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
@@ -206,7 +203,7 @@
 							Все новости
 						</div></a>
 					</div>
-				<?}?>
+				<?}?> -->
 				<?if($post != false){?>
 					<div class="xt_news" style="margin-bottom:50px;">
 						<a href="<?=Link::Custom('post', $post['translit']);?>">
@@ -242,7 +239,7 @@
 					width: 100%;
 					height: 300px;
 				}
-			</style>			
+			</style>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] !== 'main'){?>
@@ -310,6 +307,41 @@
 					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
+			<!-- Блок последних новостей -->
+			<?if(isset($news) && $GLOBALS['CurrentController'] !== 'cabinet'){?>
+				<div class="last_news"> 				
+					<div class="last_news_title">
+						<h4>Последние новости</h4>
+						<a href="<?=Link::Custom('news');?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+					</div>
+					<div class="xt_news">
+						<?foreach($news as $item){?>
+							<div class="news_item">
+								<?if(isset($item['thumbnail'])){?>
+									<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+								<?}?>
+								<a href="<?=Link::Custom('news', $item['translit']);?>">
+									<h6 class="min news_title"><?=$item['title']?></h6>
+								</a>
+								<div class="min news_description"><?=$item['descr_short']?></div>
+								<div class="min news_date">
+									<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
+										Опубликовано Сегодня
+									<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
+										Опубликовано Вчера
+									<?}else{?>
+										Опубликовано
+									<?  echo date("d.m.Y", $item['date']);
+									}?>
+								</div>
+								<div class="read_more">
+									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
+								</div>
+							</div>
+						<?}?>	
+					</div>
+				</div>
+			<?}?>
 			<?if(isset($seotext)){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
@@ -318,6 +350,9 @@
 				</div>
 			<?}?>
 		</section>
+		<div id="canvas_mark_wrapper">
+			<canvas id="err_canvas" width="10" height="10"></canvas>
+		</div>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<p>Сообщите нам об ошибке</p>
