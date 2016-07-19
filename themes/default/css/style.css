@@ -11,8 +11,20 @@
 	box-sizing: border-box;
 	outline: none;
 }
+::-webkit-scrollbar {
+	width: 5px;
+}
+/* ::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+	background: #cccccc ;
+} */
+::-webkit-scrollbar-thumb {
+	background: #cccccc;
+	-webkit-border-radius: 5px;
+}
+
 html {
-	overflow-y: scroll;
+	overflow-y: auto;	
 }
 body {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -23,7 +35,7 @@ body {
 	padding-top: 52px;
 	position: relative;
 	/*background: #f8f8f8 url("../img/crossword.png");*/
-	background: #f7f7f7;
+	background: #f7f7f7;	
 }
 a {
 	text-decoration: none;
@@ -1251,9 +1263,12 @@ section.center {
 		overflow-y: auto;
 		overflow-x: hidden;
 		max-height: 100%;
+		padding-left: 10px;
+		background: #f8f8f8;
 	}
 	.banner_hide aside {
 		position: fixed;
+		background: #f7f7f7 !important;
 	}
 	aside .sidebar_wrapp {
 		overflow-x: hidden;
@@ -1265,6 +1280,8 @@ section.center {
 	}
 	aside .catalog .main_nav {
 		border: 1px solid #e0e0e0;
+		margin-bottom: 10px;
+    	background: #fff;
 	}
 	aside .catalog .main_nav li {
 		text-transform: uppercase;
@@ -1305,12 +1322,17 @@ section.center {
 		display: inline-block;
 	}
 	aside .catalog .second_nav {
-		padding: 10px 0;
+		/*padding: 10px 0;*/
 	}
 	aside .catalog .second_nav,
 	aside .catalog .second_nav li {
 		font-size: 16px;
 		border-bottom: 1px solid #e0e0e0;
+	}
+	aside .catalog .second_nav {
+	    background: #fff;
+	    /*overflow: auto;
+    	max-height: calc(100vh - 152px);*/
 	}
 	aside .catalog .second_nav .link_wrapp .more_cat {
 		cursor: pointer;
@@ -2214,9 +2236,9 @@ section .stat_year {
 	width: 80%;
 	z-index: 10;
 	border: 1px solid #f1f1f1;
-/*	background: #ff5722;
+	background: #ff5722;
 	border-color: #ff5722;
-	color: #fff;*/
+	color: #fff;
 }
 .card .product_buy .buy_block .btn_buy:hover button {
 	position: absolute;
