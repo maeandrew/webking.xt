@@ -159,6 +159,16 @@ unset($sort_value, $sort);
 }elseif{($GLOBALS['CurrentController'] == 'products')
 	$tpl->Assign('',);
 }*/
+// Получаем список новостей
+$news = new News();
+if($GLOBALS['CurrentController'] == 'news'){
+	if(isset($GLOBALS['Rewrite'])){
+		$tpl->Assign('news', $news->GetNews(4, true));
+	}
+}else{
+	$tpl->Assign('news', $news->GetNews(4));
+}
+
 $Cart = new Cart();
 // Создание базового массива корзины
 if(G::IsLogged() && !_acl::isAdmin()){
