@@ -2236,9 +2236,9 @@ section .stat_year {
 	width: 80%;
 	z-index: 10;
 	border: 1px solid #f1f1f1;
-	background: #ff5722;
+/*	background: #ff5722;
 	border-color: #ff5722;
-	color: #fff;
+	color: #fff;*/
 }
 .card .product_buy .buy_block .btn_buy:hover button {
 	position: absolute;
