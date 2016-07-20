@@ -107,7 +107,7 @@
   <input class="mdl-textfield__input" type="text" id="name_user" value=""/>
 </div>
 <div id="user_bt" style="float:right;padding-right: 15px;margin-top: 40px;">
-  <a href="#" class="save btn_js mdl-button" onclick="ModalGraph()">Сохранить</a>
+  <a href="#" class="save btn_js mdl-button" >Сохранить</a> <!-- onclick="ModalDemandChart()" -->
 </div>
 <script>
   $('.select_go label').on('change', function() {

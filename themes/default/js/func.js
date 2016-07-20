@@ -851,8 +851,8 @@ function Graf3d(){
 
 }
 
-function ModalGraph(id_graphics, moderation){
-	ajax('product', 'OpenModalGraph').done(function(data){
+function ModalDemandChart(id_graphics, moderation){
+	ajax('product', 'OpenModalDemandChart').done(function(data){
 		$('#demand_chart .modal_container').html(data);
 		componentHandler.upgradeDom();
 

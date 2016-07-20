@@ -14,8 +14,8 @@ function ajax(target, action, data, dataType){
 	});
 	return ajax;
 }
-function ModalGraph(id_graphics){
-	ajax('product', 'OpenModalGraph').done(function(data){
+function ModalDemandChart(id_graphics){
+	ajax('product', 'OpenModalDemandChart').done(function(data){
 		$('#demand_chart').html(data);
 		componentHandler.upgradeDom();
 

@@ -177,7 +177,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl');
 				//echo json_encode($products->SearchGraph($_POST['id_graphics']));
 				break;
-			case 'OpenModalGraph':
+			case 'OpenModalDemandChart':
 				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
 				break;
 			case 'UpdateGraph':

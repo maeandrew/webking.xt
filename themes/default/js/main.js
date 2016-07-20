@@ -845,7 +845,7 @@ $(function(){
 			moderation = 1;
 		}
 		var id_graphics = false;
-		ModalGraph(id_graphics, moderation);
+		ModalDemandChart(id_graphics, moderation);
 	});
 
 	// Обработка примечания
