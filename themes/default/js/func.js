@@ -907,7 +907,7 @@ function ModalDemandChart(id_graphics, moderation){
 					id_category = parent.data('target'),
 					is_opt = 0,
 					name_user = parent.find('#name_user').val(),
-					text = parent.find('textarea').val(),
+					comment = parent.find('textarea').val(),
 					arr = parent.find('.one input[type="range"]'),
 					arr2 = parent.find('.two input[type="range"]'),
 					values = {roz:{},opt:{}};
@@ -926,12 +926,12 @@ function ModalDemandChart(id_graphics, moderation){
 				console.log(values);
 
 				//console.log(values);
-				ajax('product', 'SaveGraph',{
+				ajax('product', 'SaveDemandChart',{
 					'values': values,
 					'id_category': id_category,
 					'name_user': name_user,
 					'moderation': moderation,
-					'text': text,
+					'text': comment,
 					'opt': is_opt
 				}).done(function(data){
 					if(data === true){

@@ -780,7 +780,7 @@ $(function(){
 		arr.each(function(index, val){
 			values[index] = $(val).val();
 		});
-		ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+		ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 			if(data === true){
 				console.log('Your data has been saved successfully!');
 				closeObject('graph');

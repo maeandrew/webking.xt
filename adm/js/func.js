@@ -72,7 +72,7 @@ function ModalDemandChart(id_graphics){
 						opt = 0,
 						moderation = 1,
 						name_user = parent.find('#name_user').val(),
-						text = parent.find('textarea').val(),
+						comment = parent.find('textarea').val(),
 						arr = parent.find('input[type="range"]'),
 						values = {};
 					if ($('.select_go label').is(':checked')) {
@@ -81,14 +81,14 @@ function ModalDemandChart(id_graphics){
 					arr.each(function(index, val){
 						values[index] = $(val).val();
 					});
-					ajax('product', 'SaveGraph', {
-													'values': values,
-													'id_category': id_category,
-													'name_user': name_user,
-													'moderation': moderation,
-													'text': text,
-													'opt': opt
-												}).done(function(data){
+					ajax('product', 'SaveDemandChart', {
+						'values': values,
+						'id_category': id_category,
+						'name_user': name_user,
+						'moderation': moderation,
+						'text': comment,
+						'opt': opt
+					}).done(function(data){
 						if(data === true){
 							console.log('Your data has been saved successfully!');
 							closeObject('graph');
@@ -115,7 +115,7 @@ function ModalDemandChart(id_graphics){
 				arr.each(function(index, val){
 					values[index] = $(val).val();
 				});
-				ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+				ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 					if(data === true){
 						console.log('Your data has been saved successfully!');
 						closeObject('graph');

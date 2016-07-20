@@ -168,7 +168,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($data);
 				break;
-			case 'SaveGraph':
+			case 'SaveDemandChart':
 				echo json_encode($products->AddInsertTwoGraph($_POST));
 				break;
 			case 'SearchGraph':
