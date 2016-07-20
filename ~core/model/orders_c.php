@@ -477,12 +477,11 @@ class Orders {
 		if(isset($_SESSION['cart']['base_order'])){
 			$f['base_order'] = $_SESSION['cart']['base_order'];
 		}
-
 		$f['target_date'] = $target_date = strtotime('+2 day', time());
 		$f['creation_date'] = time();
-		$f['id_customer'] = $_SESSION['member']['id_user'];
+		$f['id_customer'] = isset($_SESSION['cart']['id_customer'])?$_SESSION['cart']['id_customer']:$_SESSION['member']['id_user'];
 		$Customers = new Customers();
-		$Customers->SetFieldsById($_SESSION['member']['id_user']);
+		$Customers->SetFieldsById($f['id_customer']);
 		$customer = $Customers->fields;
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
@@ -502,17 +501,11 @@ class Orders {
 			}
 			$f['id_contragent'] = $id_contragent;
 		}
-		// Если клиент не зарегистрирован и не ввел номер телефона
-		if($f['id_order_status'] == 3){
-			$f['id_delivery'] = 1;
-			$f['id_city'] = 0;
-			$f['strachovka'] = 0;
-		}
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
 			$f['bonus_card'] = $customer['bonus_card'];
 		}
 		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
-		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
+		$f['phones'] = $customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
@@ -651,7 +644,7 @@ class Orders {
 			}
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			unset($_SESSION['member']['bonus_card']);
+			unset($_SESSION['member']['bonus_card'], $_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer']);
 		}
 		return $id_order;
 	}

@@ -230,9 +230,12 @@ class Cart {
 		$products = $Order->GetOrderForCart(array('o.id_order'=>$id_order));
 		if($add == null && isset($_SESSION['cart']['id'])){
 			$this->ClearCart($_SESSION['cart']['id']);
+		}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && $add == null && !isset($_SESSION['cart']['id'])){
+			$_SESSION['cart'] = null;
 		}
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$_SESSION['cart']['base_order'] = $id_order;
+			$_SESSION['cart']['id_customer'] = $order['id_customer'];
 		}
 		foreach($products as $p){
 			$p['quantity'] = $p['opt_qty']+$p['mopt_qty'];
