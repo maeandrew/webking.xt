@@ -66,10 +66,10 @@
 					<div class="fleft">Артикул:</div>
 					<div class="value fright textBold"><?=$supplier['article'];?></div>
 				</div>
-				<div class="line clearfix animate <?=strtotime($supplier['next_update_date'])-time() <= 60*60*24*7*8?'color-red':null;?>">
+				<!-- <div class="line clearfix animate <?=strtotime($supplier['next_update_date'])-time() <= 60*60*24*7*8?'color-red':null;?>">
 					<div class="fleft">Рабочие дни до:</div>
 					<div class="value fright textBold"><?=date("d.m.Y", strtotime($supplier['next_update_date']));?></div>
-				</div>
+				</div> -->
 				<?if(is_numeric($supplier['balance'])){?>
 					<div class="line clearfix animate">
 					<div class="fleft">Текущий баланс:</div>
