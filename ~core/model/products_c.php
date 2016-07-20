@@ -852,7 +852,7 @@ class Products {
 	 * Поиск графика
 	 * @param [type] $id_graphics [description]
 	 */
-	public function SearchGraph($id_graphics){
+	public function SearchDemandChart($id_graphics){
 		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_graphics = ".$id_graphics;
 		$result = $this->db->GetOneRowArray($sql);
 		return $result;

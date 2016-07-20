@@ -171,11 +171,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'SaveDemandChart':
 				echo json_encode($products->AddInsertTwoGraph($_POST));
 				break;
-			case 'SearchGraph':
-				$values = $products->SearchGraph($_POST['id_graphics']);
+			case 'SearchDemandChart':
+				$values = $products->SearchDemandChart($_POST['id_graphics']);
 				$tpl->Assign('values', $values);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl');
-				//echo json_encode($products->SearchGraph($_POST['id_graphics']));
+				//echo json_encode($products->SearchDemandChart($_POST['id_graphics']));
 				break;
 			case 'OpenModalDemandChart':
 				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));

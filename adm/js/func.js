@@ -23,7 +23,7 @@ function ModalDemandChart(id_graphics){
 			//console.log(id_graphics);
 				//$('a').on('click', function(){
 				//var id_graphics = $(this).attr('id');
-				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+				ajax('product', 'SearchDemandChart', {'id_graphics': id_graphics}, 'html').done(function(data){
 					if(data != null){
 						//console.log(data);
 						$('#demand_chart').html(data);

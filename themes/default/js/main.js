@@ -794,7 +794,7 @@ $(function(){
 	// Редактирование модального Графика
 	/*$('a.update_exist').on('click', function(){
 		var id_graphics = $(this).attr('id');
-		ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+		ajax('product', 'SearchDemandChart', {'id_graphics': id_graphics}, 'html').done(function(data){
 			console.log(data);
 
 			if(data != null){
