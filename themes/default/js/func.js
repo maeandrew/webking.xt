@@ -896,6 +896,8 @@ function ModalGraph(id_graphics, moderation){
 					}else{
 						console.log('Something goes wrong!');
 					}
+				}).fail(function(data){
+					console.log('fail');
 				});
 
 		}else{
@@ -920,6 +922,9 @@ function ModalGraph(id_graphics, moderation){
 				arr2.each(function(index, val){
 					values.opt[index] = $(val).val();
 				});
+				console.log('values');
+				console.log(values);
+
 				//console.log(values);
 				ajax('product', 'SaveGraph',{
 					'values': values,
@@ -936,6 +941,9 @@ function ModalGraph(id_graphics, moderation){
 					}else{
 						console.log('Something goes wrong!');
 					}
+				}).fail(function(data){
+					console.log('fail');
+					console.log(data);
 				});
 			});
 		}

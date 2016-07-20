@@ -44,9 +44,6 @@
 					<?}?> -->					
 				</div>
 				<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-					<!--<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i> gid == 0</a>
-					<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i> gid == 1</a>-->
-					<!-- <a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a> -->
 					<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 				<?}?>
 				<div class="productsListView">
