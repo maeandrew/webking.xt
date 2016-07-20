@@ -316,9 +316,11 @@
 					<div class="xt_news">
 						<?foreach($news as $item){?>
 							<div class="news_item">
-								<?if(isset($item['thumbnail'])){?>
-									<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
-								<?}?>
+								<div class="news_image">
+									<?if(isset($item['thumbnail'])){?>
+										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+									<?}?>
+								</div>
 								<a href="<?=Link::Custom('news', $item['translit']);?>">
 									<h6 class="min news_title"><?=$item['title']?></h6>
 								</a>
