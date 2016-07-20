@@ -16,7 +16,7 @@ function ajax(target, action, data, dataType){
 }
 function ModalGraph(id_graphics){
 	ajax('product', 'OpenModalGraph').done(function(data){
-		$('#graph').html(data);
+		$('#demand_chart').html(data);
 		componentHandler.upgradeDom();
 
 		if(id_graphics != "text" && id_graphics != "undefined"){
@@ -26,14 +26,14 @@ function ModalGraph(id_graphics){
 				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
 					if(data != null){
 						//console.log(data);
-						$('#graph').html(data);
+						$('#demand_chart').html(data);
 						//foo(d3.selectAll("div").text('some text'));
 
 						componentHandler.upgradeDom();
-						openObject('graph');
-						$('#graph #user_bt').find('a').addClass('update');
-						$('#graph').on('click', '.update', function(){
-							var parent =  $(this).closest('#graph'),
+						openObject('demand_chart');
+						$('#demand_chart #user_bt').find('a').addClass('update');
+						$('#demand_chart').on('click', '.update', function(){
+							var parent =  $(this).closest('#demand_chart'),
 								id_category = parent.data('target'),
 								opt = 0,
 								name_user = parent.find('#name_user').val(),
@@ -63,11 +63,11 @@ function ModalGraph(id_graphics){
 
 
 		}else if(id_graphics == 'text'){
-			openObject('graph');
+			openObject('demand_chart');
 			console.log(id_graphics);
 			//if ($(this).is('.Add_graph_up')) {
-				$('#graph').on('click', '.btn_js.save', function(){
-					var parent =  $(this).closest('#graph'),
+				$('#demand_chart').on('click', '.btn_js.save', function(){
+					var parent =  $(this).closest('#demand_chart'),
 						id_category = parent.data('target'),
 						opt = 0,
 						moderation = 1,
@@ -100,9 +100,9 @@ function ModalGraph(id_graphics){
 				});
 
 		}else{
-			openObject('graph');
-			$('#graph').on('click', '.btn_js.save', function(){
-				var parent =  $(this).closest('#graph'),
+			openObject('demand_chart');
+			$('#demand_chart').on('click', '.btn_js.save', function(){
+				var parent =  $(this).closest('#demand_chart'),
 					id_category = parent.data('target'),
 					opt = 0,
 					name_user = parent.find('#name_user').val(),

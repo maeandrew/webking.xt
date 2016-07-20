@@ -762,12 +762,12 @@ $(function(){
 			console.log($(el).val());
 		});
 		// console.log(two);
-		openObject('graph');
+		openObject('demand_chart');
 	});
 
 	// Открытие модального Графика
-	/*$('#graph').on('click', '.btn_js.save', function(){
-		var parent =  $(this).closest('#graph'),
+	/*$('#demand_chart').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#demand_chart'),
 			id_category = parent.data('target'),
 			opt = 0,
 			name_user = parent.find('#name_user').val(),
@@ -798,9 +798,9 @@ $(function(){
 			console.log(data);
 
 			if(data != null){
-				$('#graph .modal_container').html(data);
+				$('#demand_chart .modal_container').html(data);
 				componentHandler.upgradeDom();
-				openObject('graph');
+				openObject('demand_chart');
 
 			}else{
 				console.log('Something goes wrong!');
