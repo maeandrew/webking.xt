@@ -1928,7 +1928,7 @@ section .stat_year {
 	pointer-events: none;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	border-top: 10px solid #f7f7f7;
+	border-top: 10px solid #F3F3F3;
 }
 .content_header:hover .cart_info .price_nav:before {
 	border-top-color: rgba(285,87,34,1);
@@ -3987,7 +3987,7 @@ iframe[name="google_conversion_frame"] {
 	.news_item {
 		width: 49%;
 		margin-bottom: 10px;
-	}
+	}	
 }
 @media (max-width: 1400px) {
 	.text_block h3 {
