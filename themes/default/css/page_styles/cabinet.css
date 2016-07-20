@@ -1246,6 +1246,7 @@ table.supplier_assort_table {
 }
 .order.mdl-tabs.is-upgraded .mdl-tabs__tab {
 	background: transparent;
+	padding: 0 15px;
 }
 .order .mdl-tabs__tab-bar{border-bottom: 0;}
 .order.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
@@ -1819,6 +1820,12 @@ html {
 .order {
 	margin: 0 auto;
 	overflow: visible;
+	background: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+}
+.order:hover {
+	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
 }
 .order:first-of-type {
 	border-radius: .2em .2em 0 0;
@@ -1840,7 +1847,7 @@ html {
 	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .order .title .container {
-	padding: 1.429em 0;
+	/*padding: 1.429em 0;*/
 	overflow: auto;
 }
 .order .title .container i {
@@ -1886,6 +1893,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	float: left;
 	cursor: pointer;
 	width: calc(100% - 52px);
+	padding: 1.429em 0;
 }
 .order .date,
 .order .my_item {
@@ -1902,6 +1910,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 .order .title .container .print {
 	float: right;
 	padding-left: 1.429em;
+	margin-top: 1.5em;
 }
 .order .title .container .print .icon {
  /*  float: right; */
@@ -2089,9 +2098,10 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	border-radius: .2em .2em 0 0;
 }
 .order.expanded .title {
-	background: #f0f0f0;
+	/*background: #f0f0f0;*/
+	background: #fff;
 	border: 0;
-	/*z-index: 10;*/
+	z-index: 10;
 	padding-bottom: 0;
 	margin-top: 1.429em;
 /*  margin-left: -1.429em;
@@ -2099,7 +2109,8 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 .order.expanded .title:hover {
-	z-index: 10;
+	/*z-index: 10;*/
+	/*box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);*/
 }
 .order.expanded .content {
 /*  margin-left: -1.429em;
@@ -2309,7 +2320,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.customer_cab {
 		/*width: 100%;*/
 		/*z-index: 1;*/
-		background-color: #fff;
+		/*background-color: #fff;*/
 	}
 	.posZIndex .cab_left_bar_js {
 		z-index: 1;
@@ -2327,7 +2338,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		background-color: #fff;*/
 	}
 	#orders_history .orderBnts {
-		width: 334px;
+		width: 360px;
 	}
 	#orders_history .orderBnts button {
 		width: 90px;
