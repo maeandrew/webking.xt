@@ -91,9 +91,9 @@
 		//	});
 		
 		/*Смена позиции кнопок блока фильтра*/
-		$('.panel_container_js').on("scroll", function(){				
-			changeFiltersBtnsPosition();
-		});
+		// $('.panel_container_js').on("scroll", function(){				
+		// 	changeFiltersBtnsPosition();
+		// });
 
 		/* Проверка ценового диапазона и события применить */
 		$('.priceField').keyup(function(e){
@@ -130,49 +130,51 @@
 		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Применить</button>
 		<button id="clear_filter" class="mdl-button mdl-js-button mdl-js-ripple-effect">Сбросить</button>
 	</div>
-	<div class="filter_block price_range_block">
-		<p>Ценовой диапазон</p>
-		<div id="priceFields">
-			<div class="mdl-textfield mdl-js-textfield">
-				<input id="minPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][0]) ? $GLOBALS['Price_range'][0] : $min_price?>">
-				<label class="mdl-textfield__label" for="minPrice"></label>
-				<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
+	<div class="filters_container">
+		<div class="filter_block price_range_block">
+			<p>Ценовой диапазон</p>
+			<div id="priceFields">
+				<div class="mdl-textfield mdl-js-textfield">
+					<input id="minPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][0]) ? $GLOBALS['Price_range'][0] : $min_price?>">
+					<label class="mdl-textfield__label" for="minPrice"></label>
+					<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
+				</div>
+				<div class="priceValute"><p>грн -</p></div>
+				<div class="mdl-textfield mdl-js-textfield">
+					<input id="maxPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>">
+					<label class="mdl-textfield__label" for="maxPrice"></label>
+					<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
+				</div>
+				<div class="priceValute"><p>грн</p></div>
 			</div>
-			<div class="priceValute"><p>грн -</p></div>
-			<div class="mdl-textfield mdl-js-textfield">
-				<input id="maxPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>">
-				<label class="mdl-textfield__label" for="maxPrice"></label>
-				<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
-			</div>
-			<div class="priceValute"><p>грн</p></div>
+			<ul>
+				<li>
+					<div id="slider_price"></div>
+				</li>
+			</ul>
 		</div>
-		<ul>
-			<li>
-				<div id="slider_price"></div>
-			</li>
-		</ul>
+		<?if(isset($filter_cat) && is_array($filter_cat)){
+			foreach($filter_cat as $spec){?>
+				<div class="filter_block">
+					<p><?=$spec['caption']?></p>
+					<ul>
+						<?foreach($spec['values'] as $value){
+							$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
+							<li>
+								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
+									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
+									<span>
+										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
+									</span>
+								</label>
+							</li>
+						<?}?>
+						<div class="more <?=count($spec['values'])>5?'hid':'hidden';?>"><i class="material-icons">expand_more</i><span>Больше</span></div>
+					</ul>
+				</div>
+			<?}
+		}?>		
 	</div>
-	<?if(isset($filter_cat) && is_array($filter_cat)){
-		foreach($filter_cat as $spec){?>
-			<div class="filter_block">
-				<p><?=$spec['caption']?></p>
-				<ul>
-					<?foreach($spec['values'] as $value){
-						$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
-						<li>
-							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
-								<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
-								<span>
-									<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
-								</span>
-							</label>
-						</li>
-					<?}?>
-					<div class="more <?=count($spec['values'])>5?'hid':'hidden';?>"><i class="material-icons">expand_more</i><span>Больше</span></div>
-				</ul>
-			</div>
-		<?}
-	}?>
 </div>
 <script>
 	$(document).ready(function() {

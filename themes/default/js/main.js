@@ -422,20 +422,25 @@ $(function(){
 		over_scroll = $('body').hasClass('banner_hide')?true:false,
 		banner_height = $('.banner').outerHeight();
 	var viewPort = $(window).height(); // высота окна
-	var mainWindow = $('.main').outerHeight(); // высота главного блока	
+	var mainWindow = $('.main').outerHeight(); // высота главного блока
+	var main_nav = $('.main_nav').outerHeight(true);
+
 	window.addEventListener("orientationchange", function() {
 	   viewPort = $(window).height();
 	}, false);
 	$.cookie('mainWindow', mainWindow, { path: '/'});
 
-	$(window).scroll(function(){
+	$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
+	$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
+
+	$(window).scroll(function(){		
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - 52 && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
 			}else if($(this).scrollTop() <= banner_height/2 - 52 && header.hasClass("filled")){
 				header.removeClass("filled").addClass("default");
 			}
-			$('aside').css('bottom', 'auto');
+			// $('aside').css('bottom', 'auto');
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
@@ -443,31 +448,52 @@ $(function(){
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
 			}
-			if (IsMobile === true) {
+
+			//Проверить моб версию
+
+			/*if (IsMobile === true) {
 				$('aside').css({
 					'position' : 'absolute',
 					'bottom' : 'auto',
 					'top' : 'auto'
 				});
-			}
+			}*/
 		}else{
 			var CurentMainWindow = $('.main').outerHeight();//$.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
-			var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
-			var main_nav = $('.main_nav').outerHeight();
-			if(IsMobile === false){
-				$('aside').css('max-height', 'calc(100vh - 52px)');				
+			var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;
+			// var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
+
+			//Проверить моб версию
+
+			// if(IsMobile === false){
+			// 	$('aside').css('max-height', 'calc(100vh - 52px)');				
+			// }else{
+			// 	$('aside').css('top', '52px');
+			// 	$('aside').css('position', 'fixed');
+			// }
+			if((scroll + viewPort) > (CurentMainWindow + 52)){
+				// console.log(scroll);
+				// console.log(viewPort);
+				// console.log(CurentMainWindow);
+				// console.log((scroll + viewPort) - CurentMainWindow);
+				// console.log(pieceOfFooter);
+				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
+				$('aside .filters_container').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter + 43)+'px');
 			}else{
-				$('aside').css('top', '52px');
-				$('aside').css('position', 'fixed');
+				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
+				$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
 			}
-			if((scroll + viewPort) <= CurentMainWindow){
+
+
+			// if((scroll + viewPort) <= CurentMainWindow){
 				// не доскролили до футера
 				// $('aside').css('bottom', 0);
-			}else{
+			// }else{
 				// Доскролили
-				var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;				
-				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');				
+
+				// var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;				
+				// $('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');				
 
 				//Проверить моб версию
 
@@ -475,21 +501,24 @@ $(function(){
 				// 	$('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
 				// }
 				
-			}
-			changeFiltersBtnsPosition();
+			// }
+			// changeFiltersBtnsPosition();
 		}
 	});
 	// События для автосмены размера сайбара и его скролла 
 	$(window).on("load", function(){
-		if(over_scroll === true){
-			resizeAsideScroll('load');
-		}else if (IsMobile === true) {
+		// console.log(main_nav + 52);
+		// $('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
+
+		/*if(over_scroll === true){
+			resizeAsideScroll();
+		}else if (IsMobile === true) { //Проверить моб версию
 			$('aside').css({
 				'position' : 'absolute',
 				'bottom' : 'auto',
 				'top' : 'auto'	
 			});
-		}		
+		}	*/	
 	});
 
 	/*$('body').on('click', function(){
@@ -499,7 +528,8 @@ $(function(){
 	});*/
 	$(window).resize(function(){
 		if(over_scroll === true){
-			resizeAsideScroll('show_more');
+			// resizeAsideScroll('show_more');
+			resizeAsideScroll();
 		}
 	});
 
@@ -515,25 +545,29 @@ $(function(){
 			}, 300);
 			$('body').removeClass('banner_hide');
 			header.removeClass("fixed_panel").addClass("default");
-			setTimeout(function(){over_scroll = false;},305);			
-			$('aside').css('bottom', 'auto');
-			if (IsMobile === true) {
-				$('aside').css({
-					'position' : 'absolute',
-					'bottom' : 'auto',
-					'top' : 'auto'
-				});
-			}
+			setTimeout(function(){over_scroll = false;},305);	
+
+			// $('aside').css('bottom', 'auto');
+
+			//Проверить моб версию
+
+			// if (IsMobile === true) {
+			// 	$('aside').css({
+			// 		'position' : 'absolute',
+			// 		'bottom' : 'auto',
+			// 		'top' : 'auto'
+			// 	});
+			// }
 		}
 	});
 
-	$('.catalog_btn, #breadcrumbs .btn_js').on('click', function(){
+	/*$('.catalog_btn, #breadcrumbs .btn_js').on('click', function(){
 		$('aside').css({
 			'position' : 'fixed',
 			'bottom' : '0',
 			'top' : '52px'
 		});
-	});
+	});*/
 
 	//Меню
 	$('aside').on('click','.more_cat', function() {
