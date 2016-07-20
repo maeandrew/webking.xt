@@ -20,7 +20,7 @@ class Products {
 			"p.price_mopt", "p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight","p.height","p.width","p.length",
 			"p.volume", "p.coefficient_volume", "p.qty_control", "p.price_coefficient_opt", "p.price_coefficient_mopt",
 			"p.visible", "p.ord", "p.note_control", "un.unit_xt AS units", "p.prod_status", "p.old_price_mopt",
-			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial", "cp.id_category", "cp.main AS main_category",
+			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
 			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
@@ -155,7 +155,7 @@ class Products {
 			$visible = '';
 		}
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			p.name_index, un.unit_prom, a.product_limit, pv.count_views,
+			p.name_index, un.unit_prom, a.product_limit, pv.count_views, a.price_opt_otpusk, a.price_mopt_otpusk,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
@@ -551,8 +551,7 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE p.price_mopt > 0
-			AND p.visible = 1
-			AND p.id_product <= 130400";
+			AND p.visible = 1";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -791,8 +790,7 @@ class Products {
 		if ($data['moderation'] == 1) {
 			$arr['moderation'] = $data['moderation'];
 		}
-		foreach($data['values']['roz'] as $val){
-			$k++;
+		foreach($data['values']['roz'] as $k => $val){
 			$arr['value_'.$k] = $val;
 		}
 		$this->db->StartTrans();
@@ -803,9 +801,7 @@ class Products {
 		$arr['opt'] = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 
-		$k = 0;
-		foreach($data['values']['opt'] as $val){
-			$k++;
+		foreach($data['values']['opt'] as $k => $val){
 			$arr['value_'.$k] = $val;
 		}
 		$this->db->StartTrans();
@@ -923,7 +919,7 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL AND (p.price_opt > 0 OR p.price_mopt > 0)
-				AND p.prod_status = 3  ORDER BY RAND() LIMIT 10";
+				AND p.prod_status = 3 AND p.visible = 1 ORDER BY RAND() LIMIT 10";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
@@ -1421,7 +1417,7 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			$sql = "SELECT ".implode(", ",$this->usual_fields_cart)."
+			$sql = "SELECT ".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
@@ -1715,13 +1711,26 @@ class Products {
 		return true;
 	}
 	/**
+	 * [SwitchActiveEDInAssort description]
+	 * @param [type] $id_product [description]
+	 * @param [type] $active     [description]
+	 */
+	public function SwitchActiveEDInAssort($id_product, $active){
+		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
+		$f['active'] = $active;
+		$this->db->StartTrans();
+		$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product);
+		$this->RecalcSitePrices(array($id_product));
+		$this->db->CompleteTrans();
+	}
+	/**
 	 * [AddToAssort description]
 	 * @param [type] $id_product [description]
 	 */
 	public function AddToAssort($id_product, $id_supplier = false){
 		if(!$id_supplier){
 			$this->InitProduct($id_product);
-			$f['id_supplier'] = trim($_SESSION['member']['id_user']);
+			$f['id_supplier'] = $_SESSION['member']['id_user'];
 		}else{
 			$f['id_supplier'] = $id_supplier;
 		}
@@ -1743,24 +1752,14 @@ class Products {
 		return true;
 	}
 	/**
-	 * [SwitchActiveEDInAssort description]
-	 * @param [type] $id_product [description]
-	 * @param [type] $active     [description]
-	 */
-	public function SwitchActiveEDInAssort($id_product, $active){
-		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
-		$f['active'] = $active;
-		$this->db->StartTrans();
-		$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product);
-		$this->RecalcSitePrices(array($id_product));
-		$this->db->CompleteTrans();
-	}
-	/**
 	 * [DelFromAssort description]
 	 * @param [type] $id_product  [description]
 	 * @param [type] $id_supplier [description]
 	 */
-	public function DelFromAssort($id_product, $id_supplier){
+	public function DelFromAssort($id_product, $id_supplier = false){
+		if(!$id_supplier){
+			$id_supplier = $_SESSION['member']['id_user'];
+		}
 		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
@@ -2154,8 +2153,10 @@ class Products {
 		//				unset($categories_arr[$k]);
 		//			}
 		//		}
+
 		// Записываем данные в таблицу соответствий категория-товар
-		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product;
+		$sql = "DELETE FROM "._DB_PREFIX_."cat_prod  WHERE id_product = ".$id_product."
+				AND id_category NOT IN (SELECT c.id_category FROM "._DB_PREFIX_."category c WHERE c.sid = 0)";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -2280,25 +2281,55 @@ class Products {
 	public function DelProduct($id_product){
 		$this->db->StartTrans();
 		// делаем товар неактивным
-		$this->db->Execute('UPDATE '._DB_PREFIX_.'product SET visible = 0 WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'product WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 1;
+		}
 		//удаляем товар с таблицы, где привязываем его к категориям
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cat_prod WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cat_prod WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 2;
+		}
 		//отвязываем спецификации
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_prods WHERE id_prod = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_prods WHERE id_prod = '.$id_product)){
+			$this->db->FailTrans();
+			return 3;
+		}
 		//удаляем из корзины
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cart_product WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cart_product WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 4;
+		}
 		//удаляем из таблицы сопутствующих товаров
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'related_prods WHERE id_prod = '.$id_product.' OR id_related_prod = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'related_prods WHERE id_prod = '.$id_product.' OR id_related_prod = '.$id_product)){
+			$this->db->FailTrans();
+			return 5;
+		}
 		//отвязываем товар от сегментации
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'segment_prods WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'segment_prods WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 6;
+		}
 		//удаляем товар из ассортимента поставщика
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'assortiment WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'assortiment WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 7;
+		}
 		//удаляем товар из таблицы любимых товаров
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'favorites WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'favorites WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 8;
+		}
 		//удаляем товар с таблицы посещаемых товаров
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'visited_products WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'visited_products WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 9;
+		}
 		//удаляем этот товар с листа ожидания
-		$this->db->Execute('DELETE FROM '._DB_PREFIX_.'waiting_list WHERE id_product = '.$id_product);
+		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'waiting_list WHERE id_product = '.$id_product)){
+			$this->db->FailTrans();
+			return 10;
+		}
 		$this->db->CompleteTrans();
 		//$this->RecalcSitePrices(array($id_product));
 		return true;
@@ -3940,6 +3971,7 @@ class Products {
 		$a['price_opt_recommend'] = str_replace(',','.', $product['price_opt']*$sup['koef_nazen_opt']);
 		$a['product_limit'] = $product['product_limit'];
 		$a['sup_comment'] = '';
+		$a['edited'] = date('Y-m-d');
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $a)){
 			$this->db->FailTrans();
@@ -4439,7 +4471,7 @@ class Products {
                 }else{
                     $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
                 }*/
-				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">add</i></span></span>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl);
 				$ul .= '</li>';
 			}else{
@@ -4586,7 +4618,7 @@ class Products {
 			return false;
 		}
 		foreach ($res as &$v){
-			$v['images'] = $this->GetPhotoById($v['id_product']);
+			$v['images'] = $this->GetPhotoById($v['id_product'], true);
 			$v['videos'] = $this->GetVideoById($v['id_product']);
 		}
 		return $res;
@@ -4633,19 +4665,66 @@ class Products {
 		return true;
 	}
 
-	// Сохранение в БД сообщений об ошибке
-	public function InsertError($arr){
-		$f['comment'] = trim($arr['comment']);
-		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
-		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
-		unset($arr);
-		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'errors', $f)){
-			$this->db->FailTrans();
+	//Вывод подкатегорий сверху, над списком товаров
+	public function GetSubCatsTop($ID){
+		if(isset($GLOBALS['Segment'])){
+			$level_cat = "SELECT category_level FROM "._DB_PREFIX_."category WHERE id_category = ".$ID;
+			$res = $this->db->GetOneRowArray($level_cat);
+			if($res['category_level'] == 1){
+				$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE visible = 1 AND sid = 1 AND
+						id_category IN (SELECT pid
+						FROM "._DB_PREFIX_."category AS c4 WHERE id_category IN (SELECT cp.id_category
+						FROM "._DB_PREFIX_."segment_prods AS sp
+						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON cp.id_product = sp.id_product
+						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
+						WHERE id_segment = ".$GLOBALS['Segment']."
+						GROUP BY c.id_category))
+						AND pid = ".$ID;
+			}elseif($res['category_level'] == 2){
+				$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE visible = 1 AND sid = 1 AND
+						id_category IN (SELECT cp.id_category FROM "._DB_PREFIX_."segment_prods AS sp
+						LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON cp.id_product = sp.id_product
+						LEFT JOIN "._DB_PREFIX_."category AS c ON c.id_category = cp.id_category
+						WHERE id_segment = ".$GLOBALS['Segment']." AND pid = ".$ID."
+						GROUP BY c.id_category)";
+			}elseif($res['category_level'] == 3){
+				return false;
+			}
+		}else{
+			$sql = "SELECT * FROM "._DB_PREFIX_."category WHERE pid = ".$ID." AND visible = 1 AND sid = 1 ORDER BY position";
+		}
+		if(isset($sql)){
+			$res = $this->db->GetArray($sql);
+		}
+		return $res;
+	}
+
+	public  function GetUncategorisedProducts($where_art = false, $limit = false){
+		$sql = "SELECT id_product, art, `name`, translit, visible, indexation FROM	"._DB_PREFIX_."product
+			WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
+			WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
+			.($where_art !== false?$where_art:'')." ORDER BY indexation".($limit !== false?$limit:'');
+		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
-		unset($f);
-		$this->db->CompleteTrans();
-		return true;
+		return $res;
+	}
+
+	public  function GetDoublesProducts($limit = false, $group = false){
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.visible
+				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
+				GROUP BY translit HAVING COUNT(translit)>1) t
+				WHERE t.translit = p.translit".($group !== false? ' ORDER BY translit':'').($limit !== false?$limit:'');
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		if($group !== false){
+			$array_double = array();
+			foreach ($res as &$v){
+				$array_double[$v['translit']][] = $v;
+			}
+			return $array_double;
+		}
+		return $res;
 	}
 }

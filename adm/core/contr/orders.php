@@ -11,24 +11,24 @@ $arr = false;
 if(isset($_GET['smb'])){
 	// unset($_GET);
 	if(isset($_GET['filter_target_date']) && $_GET['filter_target_date'] !== ''){
-		$arr['creation_date'] = mysql_real_escape_string($_GET['filter_target_date']);
+		$arr['creation_date'] = $_GET['filter_target_date'];
 		list($d,$m,$y) = explode(".", trim($arr['creation_date']));
 		$arr['creation_date'] = mktime(0, 0, 0, $m , $d, $y);
 	}
 	if(isset($_GET['filter_id_order']) && $_GET['filter_id_order'] !== ''){
-		$arr['id_order'] = mysql_real_escape_string($_GET['filter_id_order']);
+		$arr['id_order'] = $_GET['filter_id_order'];
 	}
 	if(isset($_GET['id_order_status']) && $_GET['id_order_status'] !== '0'){
-		$arr['id_order_status'] = mysql_real_escape_string($_GET['id_order_status']);
+		$arr['id_order_status'] = $_GET['id_order_status'];
 	}
 	if(isset($_GET['filter_contragent_name']) && $_GET['filter_contragent_name'] !== ''){
-		$arr['ca.name_c'] = mysql_real_escape_string($_GET['filter_contragent_name']);
+		$arr['ca.name_c'] = $_GET['filter_contragent_name'];
 	}
 	if(isset($_GET['filter_email']) && $_GET['filter_email'] !== ''){
-		$arr['u.email'] = mysql_real_escape_string($_GET['filter_email']);
+		$arr['u.email'] =  $_GET['filter_email'];
 	}
 	if(isset($_GET['filter_customer_name']) && $_GET['filter_customer_name'] !== ''){
-		$arr['u.name'] = mysql_real_escape_string($_GET['filter_customer_name']);
+		$arr['u.name'] = $_GET['filter_customer_name'];
 	}
 }elseif(isset($_GET['clear_filters'])){
 	unset($_GET);

@@ -262,13 +262,19 @@ class News{
 	 * Получить последнюю новость
 	 * @param integer	$sid	id магазина
 	 */
-	public function LastNews($sid = null){
+	public function GetNews($count = 1, $rand = false){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."news
-			WHERE visible = 1".
-			(isset($sid)?' AND sid = '.$sid:null)."
-			ORDER BY date DESC";
-		$res = $this->db->GetOneRowArray($sql);
+			WHERE visible = 1
+			AND sid = 1
+			".($rand?' AND translit <> '.$this->db->Quote($GLOBALS['Rewrite']):'')."
+			ORDER BY ".($rand?'RAND()':'date DESC')."
+			LIMIT ".$count;
+		if($count > 1){
+			$res = $this->db->GetArray($sql);
+		}else{
+			$res = $this->db->GetOneRowArray($sql);
+		}
 		return $res;
 	}
 
@@ -308,8 +314,8 @@ class News{
 
 	public function RandomNews($translit){
 		$sql = "SELECT * FROM "._DB_PREFIX_."news
-				WHERE visible = 1 AND sid = 1 AND translit <>'".$translit."'
-				ORDER BY RAND() LIMIT 4";
+			WHERE visible = 1 AND sid = 1 AND translit <>'".$translit."'
+			ORDER BY RAND() LIMIT 4";
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}

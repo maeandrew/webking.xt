@@ -21,15 +21,19 @@ if (!_acl::isAllow('product'))
 	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Удаление товара";
 
-	if (!$products->DelProduct($id_product)) die('Ошибка при удалении товара.');
+	if(!$res = $products->DelProduct($id_product)){
+		die('Ошибка при удалении товара.');
+	}
 
 	$tpl->Assign('msg', 'Товар удален.');
 
-	$parsed_res = array('issuccess' => TRUE,
-	 						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl'));
+	$parsed_res = array(
+		'issuccess' => true,
+	 	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl')
+	 );
 
 
-	if (TRUE == $parsed_res['issuccess']) {
+	if($parsed_res['issuccess'] == true){
 		$tpl_center .= $parsed_res['html'];
 	}
 

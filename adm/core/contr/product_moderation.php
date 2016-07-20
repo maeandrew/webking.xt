@@ -4,7 +4,6 @@ if(!_acl::isAllow('product_moderation')){
 }
 unset($parsed_res);
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$category = $dbtree->Full(array('id_category', 'category_level', 'name'));
 $products = new Products();
 $suppliers = new Suppliers();
 $tpl->Assign('h1', 'Товары на модерации');
@@ -19,6 +18,8 @@ foreach($prods as $prod){
 		$list[$prod['id_supplier']][] = $prod;
 	}
 }
+// Формирование списка категорий для выпадающего списка
+$category = $products->generateCategory();
 $tpl->Assign('category', $category);
 $tpl->Assign('list', $list);
 $tpl->Assign('suppliers', $suppl);

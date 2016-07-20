@@ -1,3 +1,4 @@
+<?if(isset($GLOBALS['REQAR'][1]) && $_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_ && $_SESSION['member']['id_user'] != $_POST['create_user']) die("Access denied");?>
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
@@ -34,8 +35,8 @@
 					<li><a href="#nav_delivery">Доставка</a></li>
 					<li><a href="#nav_connection">Категория и связь</a></li>
 					<li><a href="#nav_information">Информация</a></li>
-					<li><a href="#nav_visible">Видимость и индексация</a></li>
-					<?if($GLOBALS['CurrentController'] == 'productedit'){?>
+					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li><a href="#nav_visible">Видимость и индексация</a></li><?}?>
+					<?if($GLOBALS['CurrentController'] == 'productedit' && $_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
 						<li><a href="#nav_delete">Удаление товара</a></li>
 					<?}?>
 					<li class="main_photo">
@@ -184,8 +185,7 @@
 				<div id="nav_seo" chass="hidden">
 					<h2>SEO</h2>
 					<div class="row">
-						<div class="col-md-12">
-							
+						<div class="col-md-12">							
 							<label for="page_title">Мета-заголовок (title):</label>
 							<p class="hint">Перед текстом будет автоматически добавлен ключ - "<span><?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>.</span>"</p>
 							<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
@@ -431,116 +431,118 @@
 							</div>
 						</div>
 					<?}?>
-					<label>Данные поставщика:</label>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier">
-						<colgroup>
-							<col width="10%">
-							<col width="20%">
-							<col width="15%">
-							<col width="35%">
-							<col width="15%">
-							<col width="5%">
-						</colgroup>
-						<thead>
-							<tr>
-								<td class="center">Артикул</td>
-								<td>Имя</td>
-								<td>№ телефона</td>
-								<td class="center">Цена</td>
-								<td class="center">Наличие</td>
-								<td></td>
-							</tr>
-						</thead>
-						<tbody>
-							<?if(!empty($suppliers_info)){
-								foreach($suppliers_info as $k => $si){?>
-									<tr class="animate supp_js">
-										<td class="center"><?=$si['article']?><input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
-										<td class="supp_name_js"><?=$si['name']?></td>
-										<td>
-											<?if($si['real_phone'] == '380'){
-												echo 'не указан';
-											}else{
-												echo $si['real_phone'];
-											}?>
-										</td>
-										<td>
-											<div class="select_price fl">
-												<label>Цена в:</label>
-												<select name="inusd[]" class="input-m">
-													<option value="0">ГРН</option>
-													<option value="1" <?=$si['inusd']=='1'?'selected':null?>>USD</option>
-												</select>
-											</div>
-											<div class="fl price">
-												<label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
-											</div>
-											<div class="fr price">
-												<label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
-											</div>
-										</td>
-										<td>
-											<input type="number" name="product_limit[]" min="0" value="<?=$si['product_limit']?>" class="input-m">
-										</td>
-										<td>
-											<input type="hidden" name="id_supplier[]" value="<?=$si['id_supplier']?>">
-											<span class="icon-font del_supp_js">t</span>
-										</td>
-									</tr>
-								<?}
-							}else{?>
-								<tr id="empty2" class="animate">
-									<td colspan="4">Нет посавщиков</td>
+					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
+						<label>Данные поставщика:</label>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier">
+							<colgroup>
+								<col width="10%">
+								<col width="20%">
+								<col width="15%">
+								<col width="35%">
+								<col width="15%">
+								<col width="5%">
+							</colgroup>
+							<thead>
+								<tr>
+									<td class="center">Артикул</td>
+									<td>Имя</td>
+									<td>№ телефона</td>
+									<td class="center">Цена</td>
+									<td class="center">Наличие</td>
+									<td></td>
 								</tr>
-							<?}?>
-						</tbody>
-					</table>
-					<label>Добавление поставщика:</label>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 add_supplier">
-						<colgroup>
-							<col width="20%">
-							<col width="60%">
-							<col width="10%">
-							<col width="10%">
-						</colgroup>
-						<thead>
-							<tr>
-								<td class="center">Артикул</td>
-								<td class="center">Цена</td>
-								<td class="center">Наличие</td>
-								<td></td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="animate">
-								<td>
-									<input list="data_sup_art" type="text" id="sup_art" class="input-m" placeholder="S100" autocomplete="off">
-									<datalist id="data_sup_art"></datalist>
-								</td>
-								<td>
-									<div class="select_price fl">
-										<label class="inusd fl">Цена в:</label>
-										<select name="inusd[]" id="sup_inusd" class="input-m">
-											<option value="0">ГРН</option>
-											<option value="1">USD</option>
-										</select>
-									</div>
-									<div class="fr price">
-										<label>Розничная</label><input type="number" min="0" step="0.01" id="sup_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
-									</div>
-									<div class="fr price">
-										<label>Оптовая</label><input type="number" min="0" step="0.01" id="sup_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
-									</div>
-								</td>
-								<td>
-									<input type="number" min="0" value="1000000" id="sup_product_limit" class="input-m">
-								</td>
-								<td>
-									<button id="add_sup_js" class="btn-m-default fr">Привязать</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<?if(!empty($suppliers_info)){
+									foreach($suppliers_info as $k => $si){?>
+										<tr class="animate supp_js">
+											<td class="center"><?=$si['article']?><input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
+											<td class="supp_name_js"><?=$si['name']?></td>
+											<td>
+												<?if($si['real_phone'] == '380'){
+													echo 'не указан';
+												}else{
+													echo $si['real_phone'];
+												}?>
+											</td>
+											<td>
+												<div class="select_price fl">
+													<label>Цена в:</label>
+													<select name="inusd[]" class="input-m">
+														<option value="0">ГРН</option>
+														<option value="1" <?=$si['inusd']=='1'?'selected':null?>>USD</option>
+													</select>
+												</div>
+												<div class="fl price">
+													<label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
+												</div>
+												<div class="fr price">
+													<label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
+												</div>
+											</td>
+											<td>
+												<input type="number" name="product_limit[]" min="0" value="<?=$si['product_limit']?>" class="input-m">
+											</td>
+											<td>
+												<input type="hidden" name="id_supplier[]" value="<?=$si['id_supplier']?>">
+												<span class="icon-font del_supp_js">t</span>
+											</td>
+										</tr>
+									<?}
+								}else{?>
+									<tr id="empty2" class="animate">
+										<td colspan="4">Нет посавщиков</td>
+									</tr>
+								<?}?>
+							</tbody>
+						</table>
+						<label>Добавление поставщика:</label>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 add_supplier">
+							<colgroup>
+								<col width="20%">
+								<col width="60%">
+								<col width="10%">
+								<col width="10%">
+							</colgroup>
+							<thead>
+								<tr>
+									<td class="center">Артикул</td>
+									<td class="center">Цена</td>
+									<td class="center">Наличие</td>
+									<td></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="animate">
+									<td>
+										<input list="data_sup_art" type="text" id="sup_art" class="input-m" placeholder="S100" autocomplete="off">
+										<datalist id="data_sup_art"></datalist>
+									</td>
+									<td>
+										<div class="select_price fl">
+											<label class="inusd fl">Цена в:</label>
+											<select name="inusd[]" id="sup_inusd" class="input-m">
+												<option value="0">ГРН</option>
+												<option value="1">USD</option>
+											</select>
+										</div>
+										<div class="fr price">
+											<label>Розничная</label><input type="number" min="0" step="0.01" id="sup_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
+										</div>
+										<div class="fr price">
+											<label>Оптовая</label><input type="number" min="0" step="0.01" id="sup_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
+										</div>
+									</td>
+									<td>
+										<input type="number" min="0" value="1000000" id="sup_product_limit" class="input-m">
+									</td>
+									<td>
+										<button id="add_sup_js" class="btn-m-default fr">Привязать</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					<?}?>
 					<label>Привязанные сегментации:</label>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 segmentations">
 						<colgroup>
@@ -630,7 +632,7 @@
 					<label for="notation_price">Примечание: </label>
 					<textarea name="notation_price" id="notation_price" cols="30" rows="10"><?=isset($_POST['notation_price'])?htmlspecialchars($_POST['notation_price']):null?></textarea>
 				</div>
-				<div id="nav_visible">
+				<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><div id="nav_visible">
 					<h2>Видимость и индексация</h2>
 					<label for="visible"><b>Скрыть товар &nbsp;</b>
 						<input type="checkbox" name="visible" id="visible" class="input-m" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
@@ -648,12 +650,12 @@
 							ассортимента поставщика, избранных товаров, посещаемых товаров, листа ожидания.
 					</label>
 					<a class="btn-m-red delete_prod" onclick="if(confirm('Точно удалить товар?')){DelProds(<?=$_POST['id_product']?>);} return false;">Удалить товар</a>
-				</div>
+				</div><?}?>
 			</div>
 		</div>
 	</form>
 </div>
-<div id="preview-template" style="display: none;">
+<div id="preview-template" class="hidden">
 	<div class="image_block dz-preview dz-file-preview implicit">
 		<div class="sort_handle"><span class="icon-font">s</span></div>
 		<div class="image">

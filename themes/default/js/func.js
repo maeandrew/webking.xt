@@ -42,6 +42,7 @@ function GetQuizAjax(params){
 	// $('#quiz > .modal_container').html('');
 	ajax('quiz', 'step', data, 'html').done(function(data){		
 		$('#quiz').html(data);
+		componentHandler.upgradeDom();
 		removeLoadAnimation('#quiz');
 		Position($('#quiz'));
 	});
@@ -60,7 +61,7 @@ function GetCabProdAjax(id_order, rewrite){
 
 function GetCabCoopProdAjax(id_cart, rewrite){
 	ajax('cabinet', 'GetProdListForJO', {'id_cart': id_cart, 'rewrite': rewrite}, 'html').done(function(data){
-		if ($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')) {
+		if($('a[href^="#items_panel_"]').hasClass('getCabCoopProdAjax_js')){
 			$('.products_cart_js').html(data);
 		}else{
 			$('.active_link_to_cart_js').closest('li').find('.products_cart_js').html(data);
@@ -895,6 +896,8 @@ function ModalGraph(id_graphics, moderation){
 					}else{
 						console.log('Something goes wrong!');
 					}
+				}).fail(function(data){
+					console.log('fail');
 				});
 
 		}else{
@@ -919,6 +922,9 @@ function ModalGraph(id_graphics, moderation){
 				arr2.each(function(index, val){
 					values.opt[index] = $(val).val();
 				});
+				console.log('values');
+				console.log(values);
+
 				//console.log(values);
 				ajax('product', 'SaveGraph',{
 					'values': values,
@@ -935,6 +941,9 @@ function ModalGraph(id_graphics, moderation){
 					}else{
 						console.log('Something goes wrong!');
 					}
+				}).fail(function(data){
+					console.log('fail');
+					console.log(data);
 				});
 			});
 		}
@@ -975,28 +984,21 @@ function ajax(target, action, data, dataType, form_sent){
 	return ajax;
 }
 // Change sidebar aside height
-function resizeAsideScroll(event) {
-	/*console.log(event);*/
-	// var mainWindow = +$.cookie('mainWindow');
+function resizeAsideScroll(event) {	
 	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
-	var newMainWindow = $('.main').height();
-	
-	// if(newMainWindow != mainWindow){
-		// $.cookie('mainWindow', newMainWindow, { path: '/'});
-		var scroll = $(this).scrollTop(),
-			pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
-			/*console.log(pieceOfFooter > 0?pieceOfFooter:0);*/
-		if (pieceOfFooter >= 0) {
-			$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
-		}
-		$('aside').css('height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');		
-		if(event == 'load'){
-			changeFiltersBtnsPosition();
-		}else if(event == 'show_more'){
-			$('aside').css('bottom', 'auto');
-		}
-	// }
+	var newMainWindow = $('.main').height();	
+	var scroll = $(this).scrollTop(),
+		pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
+	if (pieceOfFooter >= 0) {
+		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
+	}
+	$('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+	if(event == 'load' || event == 'click'){
+		changeFiltersBtnsPosition();
+	}else if(event == 'show_more'){
+		$('aside').css('bottom', 'auto');
+	}
 	return true;
 }
 
@@ -1062,7 +1064,7 @@ function hidePreview(){
 function rebuildPreview(obj){
 	var position = obj.offset(),
 		positionProd = $('#view_block_js').offset(),
-		id_product = obj.closest('.card').find('.product_buy').data('idproduct'),
+		id_product = obj.closest('.card').data('idproduct'),
 		// Calculating position of preview window
 		viewportWidth = $(window).width(),
 		viewportHeight = $(window).height(),
@@ -1214,14 +1216,13 @@ function ChangePriceRange(column, manual){
 			$(this).find('.price').html(price);
 		});
 
-		if (a === true) {
+		// Подсветка цен товаров для привлечения внимания
+		if(a === true){
 			setTimeout(function(){
-				$('.product_buy .price').stop(true,true).css({
-					"background-color": "#b0eeb2"
-					//"color": "black"
+				$('.product_buy .product_price *').stop(true,true).css({
+					color: '#FF5722'
 				}).delay(1000).animate({
-					"background-color": "transparent"
-					//"color": "red"
+					color: '#444444'
 				}, 3000);
 
 			},300);
@@ -1527,7 +1528,7 @@ function moveObjects() {
 }
 // Удаление товара из ассортимента поставщика в кабинете
 function DelFromAssort(id){
-	ajax('product', 'DelFromAssort', {id: id}).done(function(){
+	ajax('product', 'DelFromAssort', {id_product: id}).done(function(){
 		$('#tr_mopt_'+id).slideUp();
 	});
 }
@@ -1627,6 +1628,28 @@ function toAssort(id, opt, nacen, comment){
 	});
 }
 
+/*Добавить/Удалить товар а ассортименте у конкретного поставщика*/
+function AddDelProductAssortiment(obj, id){
+	if (obj.checked){
+		action = "AddToAssort";
+	}else{
+		action = "DelFromAssort";
+	}
+	
+	ajax('product', action, {id_product:id});
+
+	// $.ajax({
+	// 	url: URL_base+'ajaxassort',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType: "json",
+	// 	data: {
+	// 		"action":action,
+	// 		"id_product":id
+	// 	},
+	// });
+}
+
 // Установить куки
 function setCookie(name, value) {
 	var valueEscaped = escape(value);
@@ -1652,9 +1675,7 @@ function getCookie(name) {
 
 function addLoadAnimation(obj) {
 	/*console.log($(obj).find("div.loadBlock").length > 0);*/
-	if ($(obj).find("div.loadBlock").length > 0){
-
-	} else {
+	if($(obj).find("div.loadBlock").length <= 0){
 		$(obj).append('<div class="loadBlock"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active loadAnimation"></div></div>');
 	}
 	componentHandler.upgradeDom();
@@ -1662,10 +1683,10 @@ function addLoadAnimation(obj) {
 
 function removeLoadAnimation(obj) {
 	/*console.log($(obj).find("div.loadBlock").length > 0);*/
-	if ($(obj).find("div.loadBlock").length > 0){
+	if($(obj).find("div.loadBlock").length > 0){
 		$(obj).find("div.loadBlock").remove();
 	}
-	componentHandler.upgradeDom();
+	// componentHandler.upgradeDom();
 }
 
 //Добавление товара в избранное
@@ -1823,12 +1844,12 @@ function changeFiltersBtnsPosition(){
 function segmentOpen(id){
 	console.log('123');
 	$('[data-id="'+id+'"]').each(function(){
-			var list = $(this).find('ul');
-			if(list.length > 0){
-				console.log('есть');
-			}else{
-				console.log('нету');
-				addLoadAnimation('.catalog');
+		var list = $(this).find('ul');
+		if(list.length > 0){
+			console.log('есть');
+		}else{
+			console.log('нету');
+			addLoadAnimation('.catalog');
 			ajax('segment', 'segmid', {idsegment: id}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
 				$('.second_nav li').removeClass('active');
@@ -1842,110 +1863,141 @@ function segmentOpen(id){
 					parent.addClass('active').find('> ul').stop(true, true).slideDown();
 				}
 			});
-			}
+		}
 	});
 }
 
-function regionSelect(value){
-	if(value !== '' && value != 'Выберите область'){
-		$.ajax({
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			data:({
-				"region": value,
-				"action":'regionSelect'
-			}),
-		}).done(function(data){
-			$('#id_city option, #id_delivery option, #id_delivery_service option, #id_delivery_department option').remove();
-			$('#id_city').append(data);
-			$('#delivery_service, #insurance, #delivery_department').slideUp();
-			citySelect();
+function regionSelect(obj){
+	var parent = obj.closest('form'),
+		region = obj.val();
+	addLoadAnimation(parent);
+	if(region !== undefined){
+		ajax('location', 'regionSelect', {region: region}, 'html').done(function(data){
+			removeLoadAnimation(parent);
+			parent.find('select:not(#region) option').remove();
+			parent.find('#city').html(data).prop('disabled', false);
+			parent.find('#delivery_service, #insurance, #delivery_department').closest('div.mdl-cell').addClass('hidden');
+			// citySelect(parent.find('#city'));
 		});
 	}
 }
 
-function citySelect(){
-	var value = $('#id_city').val();
-	if(value !== ''){
-		$.ajax({
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			data:({
-				"city": value,
-				"action":'citySelect'
-			}),
-		}).done(function(data){
-			$('#id_delivery option, #id_delivery_service option, #id_delivery_department option').remove();
-			$('#id_delivery').append(data);
-			$('#delivery_service, #insurance, #delivery_department').slideUp();
-			deliverySelect();
+function citySelect(obj){
+	var parent = obj.closest('form'),
+		city = obj.val(),
+		region = parent.find('#region').val();
+	addLoadAnimation(parent);
+	if(city !== undefined && region !== undefined){
+		ajax('location', 'citySelect', {city: city, region: region}, 'html').done(function(data){
+			removeLoadAnimation(parent);
+			parent.find('select:not(#region, #city) option').remove();
+			parent.find('#id_delivery').html(data).prop('disabled', false);
+			parent.find('#delivery_service, #insurance, #delivery_department').closest('div.mdl-cell').addClass('hidden');
+			// deliverySelect(parent.find('#id_delivery'));
 		});
 	}
 }
 
-function deliverySelect(){
-	var value = $('#id_delivery').val();
-	var city = $('#id_city').val();
-	if(value == "3"){
-		$.ajax({
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			data:({
-				"city": city,
-				"action":'deliverySelect'
-			}),
-		}).done(function(data){
-			$('#id_delivery_service, #id_delivery_department').prop('required',true);
-			$('#id_delivery_service option').remove();
-			$('#delivery_service, #insurance, #delivery_department').slideDown();
-			$('#id_delivery_service').append(data);
-			$('.content-insurance').slideDown();
-			deliveryServiceSelect($('#id_delivery_service').val());
-		});
-	}else if(value == "2"){
-		$.ajax({
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			data:({
-				"city": city,
-				"action":'getCityId'
-			}),
-		}).done(function(data){
-			$('#delivery_service, #insurance, #delivery_department').slideUp();
-			$('#id_delivery_department option').remove();
-			$('#id_delivery_department').append(data);
-			$('.content-insurance').slideUp();
-		});
-	}else if(value == "1"){
-		$.ajax({
-			url: URL_base+'ajaxorder',
-			type: "POST",
-			data:({
-				"city": city,
-				"action":'getCityId'
-			}),
-		}).done(function(data){
-			$('#delivery_service, #insurance, #delivery_department').slideUp();
-			$('#id_delivery_department option').remove();
-			$('#id_delivery_department').append(data);
-			$('.content-insurance').slideUp();
-		});
+function deliverySelect(obj){
+	var parent = obj.closest('form'),
+		id_delivery = obj.val(),
+		city = parent.find('#city').val(),
+		region = parent.find('#region').val();
+		// console.log(id_delivery);
+		// console.log(city);
+		// console.log(region);
+	addLoadAnimation(parent);
+	switch(id_delivery){
+		case '1':
+			ajax('location', 'deliverySelect', {city: city, region: region}, 'html').done(function(data){
+				removeLoadAnimation(parent);
+				parent.find('#id_delivery_service option').remove();
+				parent.find('#id_delivery_service').html(data).prop('required', true).prop('disabled', false);
+				parent.find('.delivery_service').closest('div.mdl-cell').removeClass('hidden');
+				parent.find('.address').closest('div.mdl-cell').addClass('hidden');
+				// deliveryServiceSelect(parent.find('#id_delivery_service'));
+			});
+			break;
+		default:
+			ajax('location', 'getCityId', {city: city}, 'html').done(function(data){
+				removeLoadAnimation(parent);
+				parent.find('#delivery_service, #insurance, #delivery_department').slideUp();
+				parent.find('#delivery_department option').remove();
+				parent.find('#delivery_department').append(data);
+				parent.find('.content-insurance').slideUp();
+				parent.find('.address').closest('div.mdl-cell').removeClass('hidden');
+				parent.find('.delivery_service').closest('div.mdl-cell').removeClass('hidden');
+				parent.find('.delivery_department').closest('div.mdl-cell').addClass('hidden');
+			});
+			break;
 	}
+
+	// if(value == "3"){
+	// 	$.ajax({
+	// 		url: URL_base+'ajaxorder',
+	// 		type: "POST",
+	// 		data:({
+	// 			"city": city,
+	// 			"action": 'deliverySelect'
+	// 		}),
+	// 	}).done(function(data){
+	// 		$('#id_delivery_service, #id_delivery_department').prop('required',true);
+	// 		$('#id_delivery_service option').remove();
+	// 		$('#delivery_service, #insurance, #delivery_department').slideDown();
+	// 		$('#id_delivery_service').append(data);
+	// 		$('.content-insurance').slideDown();
+	// 		deliveryServiceSelect($('#id_delivery_service').val());
+	// 	});
+	// }else if(value == "2"){
+	// 	$.ajax({
+	// 		url: URL_base+'ajaxorder',
+	// 		type: "POST",
+	// 		data:({
+	// 			"city": city,
+	// 			"action":'getCityId'
+	// 		}),
+	// 	}).done(function(data){
+	// 		$('#delivery_service, #insurance, #delivery_department').slideUp();
+	// 		$('#id_delivery_department option').remove();
+	// 		$('#id_delivery_department').append(data);
+	// 		$('.content-insurance').slideUp();
+	// 	});
+	// }else if(value == "1"){
+	// 	$.ajax({
+	// 		url: URL_base+'ajaxorder',
+	// 		type: "POST",
+	// 		data:({
+	// 			"city": city,
+	// 			"action":'getCityId'
+	// 		}),
+	// 	}).done(function(data){
+	// 		$('#delivery_service, #insurance, #delivery_department').slideUp();
+	// 		$('#id_delivery_department option').remove();
+	// 		$('#id_delivery_department').append(data);
+	// 		$('.content-insurance').slideUp();
+	// 	});
+	// }
 }
 
-function deliveryServiceSelect(value){
-	var city = $('#id_city').val();
-	$.ajax({
-		url: URL_base+'ajaxorder',
-		type: "POST",
-		data:({
-			"city": city,
-			"shipping_comp": value,
-			"action":'deliveryServiceSelect'
-		}),
-	}).done(function(data){
-		$('#id_delivery_department option').remove();
-		$('#id_delivery_department').append(data);
+function deliveryServiceSelect(obj){
+	console.log(obj);
+	var parent = obj.closest('form'),
+		region = parent.find('#region').val(),
+		city = parent.find('#city').val(),
+		id_delivery = parent.find('#id_delivery').val(),
+		shipping_comp = obj.val(),
+		ref = obj.find('option:selected').data('ref');
+	addLoadAnimation(parent);
+	// console.log('');
+	// console.log('Область - '+region);
+	// console.log('Город - '+city);
+	// console.log('Способ - '+id_delivery);
+	// console.log('Служба - '+shipping_comp);
+	ajax('location', 'deliveryServiceSelect', {city: city, region: region, shipping_comp: shipping_comp, ref: ref, id_delivery: id_delivery}, 'html').done(function(data){
+		removeLoadAnimation(parent);
+		parent.find('#delivery_department option').remove();
+		parent.find('#delivery_department').html(data).prop({required: true, disabled: false});
+		parent.find('.delivery_department').closest('div.mdl-cell').removeClass('hidden');
 	});
 }
 
@@ -1975,6 +2027,14 @@ function UpdateProductsList(page, arr){
 	});
 }
 
+function SortProductsList() {
+	$('.sorting_js').find('option').each(function(index,el){
+		if ($(el).text() == $('.mdl-selectfield__box span').text()) {
+			location.href=$(el).val();
+		}
+	});
+}
+
 //-----
 // Блок кода для выделения ошибок на канвасе
 var canvas, context, canvaso, contexto;
@@ -1983,27 +2043,25 @@ var canvas, context, canvaso, contexto;
 var tool;
 var tool_default = 'line';
 
-function init (color, tool_type) {
-	canvaso = document.getElementById('tablet');
-	if (!canvaso) {
+function init(color, tool_type){
+	canvaso = document.getElementById('err_canvas');
+	if(!canvaso){
 		alert('Ошибка! Canvas элемент не найден!');
 		return;
 	}
-
-	if (!canvaso.getContext) {
+	if(!canvaso.getContext){
 		alert('Ошибка! canvas.getContext не найден!');
 		return;
 	}
-
 	contexto = canvaso.getContext('2d');
-	if (!contexto) {
+	if(!contexto){
 		alert('Ошибка! Не могу получить getContext!');
 		return;
 	}
 
 	var container = canvaso.parentNode;
 	canvas = document.createElement('canvas');
-	if (!canvas) {
+	if(!canvas){
 		alert('Ошибка! Не могу создать canvas элемент!');
 		return;
 	}
@@ -2016,20 +2074,7 @@ function init (color, tool_type) {
 	context = canvas.getContext('2d');
 	context.strokeStyle = color;
 
-	// Получаем инструмент из option
-		// var tool_select = document.getElementById('tools');
-		// if (!tool_select) {
-		// 	alert('Ошибка! Элемент tools не найден!');
-		// 	return;
-		// }
-		// tool_select.addEventListener('change', ev_tool_change, false);
-
-	// Активируем способ рисования по-умолчанию
-		// if (tools[tool_default]) {
-		// 	tool = new tools[tool_default]();
-		// 	tool_select.value = tool_default;
-		// }
-
+	// Получаем инструмент
 	switch (tool_type) {
 		case 'rect':
 			tool = new tools['rect']();
@@ -2039,14 +2084,14 @@ function init (color, tool_type) {
 			break;
 		case 'pencil':
 			tool = new tools['pencil']();
-			context.lineWidth = 3;
+			context.lineWidth = 4;
 			break;
 		case 'eraser':
 			tool = new tools['eraser']();
+			context.lineWidth = 20;
 			break;
-		// default:
-		// 	tool = new tools['rect']();
-		// 	break;
+		default:
+			break;
 	}
 
 	canvas.addEventListener('mousedown', ev_canvas, false);
@@ -2078,13 +2123,6 @@ function ev_canvas(ev){
 	}
 }
 
-// Обработчик событий для изменения селекта
-function ev_tool_change(ev){
-	if (tools[this.value]) {
-		tool = new tools[this.value]();
-	}
-}
-
 // Эта функция вызывается каждый раз после того, как пользователь
 // завершит рисование. Она очищает imageTemp.
 function img_update(){
@@ -2094,13 +2132,13 @@ function img_update(){
 
 function clear_canvas(){
 	contexto.clearRect(0, 0, canvaso.width, canvaso.height);
-	$('#canvas_mark_wrapper').find('canvas:not(#tablet)').remove();
+	$('#canvas_mark_wrapper').find('canvas:not(#err_canvas)').remove();
 }
 
 // Содержит реализацию каждого инструмента рисования
 var tools = {};
 
-	// Карандаш
+// Карандаш
 tools.pencil = function(){
 	var tool = this;
 	this.started = false;
@@ -2111,14 +2149,12 @@ tools.pencil = function(){
 		context.moveTo(ev._x, ev._y);
 		tool.started = true;
 	};
-
 	this.mousemove = function(ev){
 		if (tool.started) {
 			context.lineTo(ev._x, ev._y);
 			context.stroke();
 		}
 	};
-
 	this.mouseup = function(ev){
 		if (tool.started) {
 			tool.mousemove(ev);
@@ -2138,7 +2174,6 @@ tools.rect = function(){
 		tool.x0 = ev._x;
 		tool.y0 = ev._y;
 	};
-
 	this.mousemove = function(ev){
 		if (!tool.started) {
 			return;
@@ -2157,7 +2192,6 @@ tools.rect = function(){
 		context.lineWidth = 3;
 		context.strokeRect(x, y, w, h);
 	};
-
 	this.mouseup = function(ev){
 		if (tool.started) {
 			tool.mousemove(ev);
@@ -2240,24 +2274,22 @@ tools.line = function(){
 	};
 };
 
+// Ластик
 tools.eraser = function(){
 	var tool = this;
 	this.started = false;
 
-	// Рисуем карандашом
 	this.mousedown = function(ev){
 		context.beginPath();
 		context.moveTo(ev._x, ev._y);
 		tool.started = true;
 	};
-
 	this.mousemove = function(ev){
 		if (tool.started) {
 			context.lineTo(ev._x, ev._y);
 			context.stroke();
 		}
 	};
-
 	this.mouseup = function(ev){
 		if (tool.started) {
 			tool.mousemove(ev);
@@ -2266,5 +2298,4 @@ tools.eraser = function(){
 		}
 	};
 };
-// init();
 //-----

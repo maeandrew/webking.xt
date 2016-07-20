@@ -6,15 +6,33 @@ class Address {
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 	}
+	public function GetListByUserId($id_user){
+		$sql = "SELECT * FROM "._DB_PREFIX_."address
+		WHERE id_user = ".$id_user;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 	/**
 	 * [GetRegionsList description]
 	 */
 	public function GetRegionsList(){
-		$sql = "SELECT DISTINCT c.region
-			FROM "._DB_PREFIX_."city AS c
-			WHERE c.region <> ''";
-			// print_r($sql);die();
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_regions AS lr";
 		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetRegionByTitle description]
+	 */
+	public function GetRegionByTitle($title){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_regions AS lr
+			WHERE lr.title = ".$this->db->Quote($title);
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;
@@ -24,13 +42,165 @@ class Address {
 	 * @param [type] $id [description]
 	 */
 	public function GetRegionById($id){
-		$sql = "SELECT c.region
-			FROM "._DB_PREFIX_."city AS c
-			WHERE c.id_city = ".$id;
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_regions AS lr
+			WHERE lr.id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetCitiesList description]
+	 */
+	public function GetCitiesList($region = false){
+		$sql = "SELECT lc.*
+			FROM "._DB_PREFIX_."locations_cities AS lc";
+		if($region !== false){
+			if(is_integer($region)){
+				$sql .= " WHERE lc.id_region = ".$region;
+			}else{
+				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
+				WHERE lr.title = ".$this->db->Quote($region);
+			}
+		}
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $res;
+	}
+	/**
+	 * [GetCityByTitle description]
+	 */
+	public function GetCityByTitle($title, $id_region = false){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_cities AS lc
+			WHERE lc.title = ".$this->db->Quote($title);
+			if($id_region){
+				$sql .= " AND lc.id_region = ".$id_region;
+			}
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * [GetCityById description]
+	 */
+	public function GetCityById($id){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_cities AS lc
+			WHERE lc.id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function AddAddress($data){
+		$f['title'] = $data['title'];
+		$f['id_user'] = $data['id_user'];
+		$f['region'] = $data['region'];
+		$f['city'] = $data['city'];
+		$f['id_delivery'] = $data['id_delivery'];
+		$f['id_delivery_service'] = $data['id_delivery_service'];
+		$f['department'] = $data['department'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'address', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	public function GetShippingCompanies($city = false){
+		if(!$city){
+			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies";
+			if(!$res = $this->db->GetArray($sql)){
+				return false;
+			}
+		}else{
+		}
+		return $res;
+	}
+	
+	public function GetShippingCompanyById($id){
+		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+
+	public function UseAPI($company, $function, $data = false){
+		$function = $company['api_prefix'].$function;
+		return $this->$function($company, $data);
+	}
+
+	private function npgetCity($company, $data){
+		$api = new NovaPoshtaApi2($company['api_key']);
+		$city = $api->getCity($data['city'], $data['region']);
+		if(!empty($city['data'][0])){
+			return $city['data'][0];
+		}
+		return false;
+	}
+	private function npgetWarehouses($company, $data){
+		$api = new NovaPoshtaApi2($company['api_key']);
+		$warehouses = $api->getWarehouses($_POST['ref']);
+		if(!empty($warehouses['data'][0])){
+			foreach($warehouses['data'] as &$warehouse){
+				$warehouse = array('id' => $warehouse['Ref'], 'name' => $warehouse['DescriptionRu']);
+			}
+			return $warehouses['data'];
+		}
+		return false;
+	}
+
+	private function itgetCity($company, $data){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$city = $api->getSettlementCode($data['city'], $data['region']);
+		if(!empty($city)){
+			return array('Ref' => $city);
+		}
+		return false;
+	}
+	private function itgetWarehouses($company, $data){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$warehouses = $api->getDepartmentsList($data['city'], $data['region']);
+		if(!empty($warehouses)){
+			foreach($warehouses as &$warehouse){
+				$warehouse = array('id' => $warehouse['Code'], 'name' => '№'.$warehouse['AppendField'][10]['AppendFieldValue'].': '.$warehouse['AppendField'][0]['AppendFieldValue']);
+			}
+			asort($warehouses);
+			return $warehouses;
+		}
+		return false;
+	}
+
+	private function delgetCity($company, $data){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$city = $api->getSettlementCode($data['city'], $data['region']);
+		if(!empty($city)){
+			return array('Ref' => $city);
+		}
+		return false;
+	}
+	private function delgetWarehouses($company, $data){
+		$key = explode(';', $company['api_key']);
+		$api = new IntimeApi2($key[0], $key[1]);
+		$warehouses = $api->getDepartmentsList($data['city']);
+		if(!empty($warehouses)){
+			foreach($warehouses as &$warehouse){
+				$warehouse = array('id' => $warehouse['Code'], 'name' => '№'.$warehouse['AppendField'][10]['AppendFieldValue'].': '.$warehouse['AppendField'][0]['AppendFieldValue']);
+			}
+			asort($warehouses);
+			return $warehouses;
+		}
+		return false;
 	}
 
 }
@@ -304,13 +474,12 @@ class Delivery {
 	}
 
 	// по строке
-	public function SetFieldsByInput($string, $city){
-		$string = $this->db->Quote($string);
-		$city = $this->db->Quote($city);
+	public function SetFieldsByInput($shipping_comp, $city, $region){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."city
-			WHERE names_regions LIKE ".$city."
-			AND shipping_comp LIKE ".$string."
+			WHERE name = ".$this->db->Quote($city)."
+			AND region = ".$this->db->Quote($region)."
+			AND shipping_comp = ".$this->db->Quote($shipping_comp)."
 			AND closed = 0
 			ORDER BY id_city";
 		$this->list = $this->db->GetArray($sql);
@@ -411,11 +580,11 @@ class DeliveryService {
 	}
 
 	// по строке
-	public function SetFieldsByInput($string){
-		$string = $this->db->Quote($string);
+	public function SetFieldsByInput($city, $region){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."city
-			WHERE names_regions LIKE ".$string."
+			WHERE name = ".$this->db->Quote($city)."
+			AND region = ".$this->db->Quote($region)."
 			AND shipping_comp <> ''
 			AND closed = 0
 			GROUP BY shipping_comp DESC";

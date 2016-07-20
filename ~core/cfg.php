@@ -112,7 +112,7 @@ $GLOBALS['LeftSideBar']			= array(
 	'demo_order',
 	'search',
 	'login',
-	'customer_order',
+	// 'customer_order',
 	'pdf_bill_form'
 );
 // если кабинет поставщика или пользователя - отобразить левый сайдбар
@@ -166,6 +166,8 @@ require($GLOBALS['PATH_model'].'slides_c.php');
 require($GLOBALS['PATH_model'].'unit_c.php');
 require($GLOBALS['PATH_model'].'post_c.php');
 require($GLOBALS['PATH_model'].'seo_c.php');
+require($GLOBALS['PATH_model'].'NP2.php');
+require($GLOBALS['PATH_model'].'IntimeApi2.php');
 
 // Получение SEO данных для адреса
 $Seo = new SEO();

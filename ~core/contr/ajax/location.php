@@ -5,6 +5,7 @@
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();
+	$Address = new Address();
 	/*$Orders->Add($_POST['user_number']);*/
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
@@ -15,8 +16,7 @@
 						<li class="mdl-menu__item" data-value="<?=$region['id_city']?>"><?=$region['region']?></li>
 					<?}
 				}
-			break;
-
+				break;
 			case "GetCitiesList":
 				$res = $City->SetFieldsByInput($_POST['input']);
 				foreach($res as $city){
@@ -24,8 +24,7 @@
 						<li class="mdl-menu__item" data-value="<?=$city['id_city']?>"><?=$city['name']?></li>
 					<?}
 				}
-			break;
-
+				break;
 			case "GetDeliveryServicesList":
 				$DeliveryService->SetListByRegion($_POST['input']);
 				foreach($DeliveryService->list as $key=>$ds){
@@ -38,8 +37,7 @@
 						</label>
 					</div>
 				<?}
-			break;
-
+				break;
 			case "GetAddressListDepartmentByCity":
 				if(isset($_POST['delivery_service']) && isset ($_POST['city'])){
 					$DeliveryService->GetListDepartmentByCity($_POST['delivery_service'], $_POST['city']);
@@ -50,86 +48,111 @@
 				}else{ ?>
 					<li class="mdl-menu__item"> -- Служба доставки не выбрана -- </li>
 				<?}
-			break;
-
+				break;
 			case "GetDeliveryMethodsList":
 				$DeliveryService->SetListByRegion($_POST['input']);
+				$echo = '';
 				foreach($DeliveryService->list as $key=>$ds){
-					if($ds['shipping_comp'] != ''){
-					}?>
-					<div>
+					$echo .= '<div>
 						<label class="mdl-radio mdl-js-radio">
-							<input type="radio" name="service" class="mdl-radio__button" <?=isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null?> value="<?=$ds['shipping_comp']?>">
-							<span class="mdl-radio__label"><?=$ds['shipping_comp']?></span>
+							<input type="radio" name="service" class="mdl-radio__button" '.(isset($_POST['service']) && $_POST['service'] == $ds['shipping_comp']?'checked':null).' value="'.$ds['shipping_comp'].'">
+							<span class="mdl-radio__label">'.$ds['shipping_comp'].'</span>
 						</label>
-					</div>
-				<?}
-			break;
-
+					</div>';
+				}
+				break;
 			// old code
 			case "regionSelect":
-				$res = $City->SetFieldsByInput($_POST['region']);?>
-				<option selected="selected" disabled="disabled" class="color-sgrey">Город</option>
-				<?foreach($res as $r){?>
-					<option value="<?=$r['names_regions']?>"><?=$r['name']?></option>
-				<?}
-			;
-			break;
-
-			case "citySelect":
-				$res = $DeliveryService->SetFieldsByInput($_POST['city']);?>
-				<option selected="selected" disabled="disabled" class="color-sgrey">Способ доставки</option>
-				<option value="2">Передать автобусом</option>
-				<option value="1">Самовывоз</option>
-				<?if($res){?>
-					<option value="3">Транспортные компании</option>
-				<?}
-			;
-			break;
-
-			case "deliverySelect":
-				$res = $DeliveryService->SetFieldsByInput($_POST['city']);?>
-				<?if(count($res) == 1){?>
-					<option selected="selected" value="<?=$res[0]['shipping_comp']?>"><?=$res[0]['shipping_comp'];?></option>
-				<?}else{?>
-					<option selected="selected" disabled="disabled" class="color-sgrey">Служба доставки</option>
-					<?foreach($res as $r){?>
-						<option value="<?=$r['shipping_comp']?>"><?=$r['shipping_comp'];?></option>
-					<?}
+				$echo = '<option disabled selected>Выберите город</option>';
+				$res = $Address->GetCitiesList($_POST['region']);
+				foreach($res as $r){
+					$echo .= '<option value="'.$r['title'].'">'.$r['title'].'</option>';
 				}
-			;
-			break;
+				echo $echo;
+				break;
+			case "citySelect":
+				$echo = '<option disabled selected>Выберите способ доставки</option>';
+				// $res = $DeliveryService->SetFieldsByInput($_POST['city'], $_POST['region']);
+				// $echo = '<option value="2">Передать автобусом</option><option value="1">Самовывоз</option>';
+				// if($res){
+					// $echo .= '<option value="3">Транспортные компании</option>';
+				// }
+				$count = array(
+					'warehouse' => 0,
+					'courier' => 0
+				);
 
-			case "getCityId":
-				$res = $DeliveryService->GetAnyCityId($_POST['city']);?>
-				<option selected value="<?=$res['id_city']?>"><?=$res['id_city']?></option>
-				<?
-			;
-			break;
-			case "deliveryServiceSelect":
-				if($Delivery->SetFieldsByInput($_POST['shipping_comp'], $_POST['city'])){
-					$res = $Delivery->list;?>
-					<?if(count($res) == 1){
-						foreach($res as $r){?>
-							<option selected="selected" value="<?=$r['id_city']?>"><?=$r['address']?></option>
-						<?}
-					}else{?>
-						<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>
-						<?foreach($res as $r){?>
-							<option value="<?=$r['id_city']?>"><?=$r['address']?></option>
-						<?}
+				//////////////////////////////////////////////////////////////////////
+				// проверяем, есть ли в этом городе отделения транспортных компаний //
+				//////////////////////////////////////////////////////////////////////
+				$shiping_companies = $Address->GetShippingCompanies();
+				foreach($shiping_companies as $company){
+					if($company['courier'] == 1){
+						$count['courier']++;
 					}
-				}else{?>
-					<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>
-				<?}
-			;
-			break;
-
+					if($company['has_api'] == 1 && $company['api_key'] != ''){
+						$city = $Address->UseAPI($company, 'getCity', $_POST);
+						$count['warehouse'] += !empty($city)?1:0;
+					}
+				}
+				// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
+				if($count['warehouse'] > 0){
+					$echo .= '<option value="1">Пункт выдачи</option>';
+				}
+				// Если в город возможна адресная доставка хоть одной компанией, выводим пункт Адресная доставка
+				if($count['courier'] > 0){
+					$echo .= '<option value="2">Адресная доставка</option>';
+				}
+				echo $echo;
+				break;
+			case "deliverySelect":
+				$echo = '<option disabled selected>Выберите службу доставки</option>';
+				$shiping_companies = $Address->GetShippingCompanies();
+				foreach($shiping_companies as $company){
+					if($company['has_api'] == 1 && $company['api_key'] != ''){
+						$city = $Address->UseAPI($company, 'getCity', $_POST);
+						if(!empty($city)){
+							$echo .= '<option data-ref="'.$city['Ref'].'" value="'.$company['id'].'">'.$company['title'].'</option>';					
+						}
+					}
+				}
+				// Для доставки
+				echo $echo;
+				break;
+			case "getCityId":
+				$res = $DeliveryService->GetAnyCityId($_POST['city']);
+				$echo = '<option selected value="'.$res['id_city'].'">'.$res['id_city'].'</option>';
+				echo $echo;
+				break;
+			case "deliveryServiceSelect":
+				// $echo = '<option disabled>Выберите отделение</option>';
+				// if($Delivery->SetFieldsByInput($_POST['shipping_comp'], $_POST['city'], $_POST['region'])){
+				// 	$res = $Delivery->list;
+				// 	if(count($res) == 1){
+				// 		foreach($res as $r){
+				// 			$echo .= '<option selected="selected" value="'.$r['id_city'].'">'.$r['address'].'</option>';
+				// 		}
+				// 	}else{
+				// 		$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
+				// 		foreach($res as $r){
+				// 			$echo .= '<option value="'.$r['id_city'].'">'.$r['address'].'</option>';
+				// 		}
+				// 	}
+				// }else{
+				// 	$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
+				// }
+				$echo = '';
+				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
+				if(!empty($warehouses)){
+					foreach($warehouses as $warehouse){
+						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.$warehouse['name'].'">'.$warehouse['name'].'</option>';					
+					}				
+				}
+				echo $echo;
+				break;
 			default:
-			;
-			break;
+				break;
 		}
 	}
 	exit();
 }
-?>

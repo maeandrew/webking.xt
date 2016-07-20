@@ -21,6 +21,7 @@ G::Start();
 G::AddCSS('../themes/'.$theme.'/css/reset.css');
 // G::AddCSS('../plugins/material/material.css');
 G::AddCSS('../plugins/material/material.min.css');
+G::AddCSS('../plugins/mdl-select.min.css');
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
 G::AddCSS('../themes/'.$theme.'/css/footer.css');
 G::AddCSS('../themes/'.$theme.'/css/style.css');
@@ -43,6 +44,7 @@ G::AddJS('jquery-ui.min.js');
 //G::AddJS('../js/nutrients.csv');
 //G::AddJS('../js/nutrients.json');
 G::AddJS('../plugins/material/material.min.js');
+G::AddJS('../plugins/mdl-select.min.js');
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
 G::AddJS('../themes/'.$theme.'/js/func.js');
 G::AddJS('../themes/'.$theme.'/js/main.js');
@@ -157,10 +159,20 @@ unset($sort_value, $sort);
 }elseif{($GLOBALS['CurrentController'] == 'products')
 	$tpl->Assign('',);
 }*/
+// Получаем список новостей
+$news = new News();
+if($GLOBALS['CurrentController'] == 'news'){
+	if(isset($GLOBALS['Rewrite'])){
+		$tpl->Assign('news', $news->GetNews(4, true));
+	}
+}else{
+	$tpl->Assign('news', $news->GetNews(4));
+}
+
 $Cart = new Cart();
 // Создание базового массива корзины
 if(G::IsLogged() && !_acl::isAdmin()){
-	$Cart->LastClientCart();
+	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();
 	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
 	$_SESSION['member']['favorites'] = $User->fields['favorites'];
 	$_SESSION['member']['waiting_list'] = $User->fields['waiting_list'];

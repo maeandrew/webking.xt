@@ -1,7 +1,7 @@
 <?php
-if(!_acl::isAllow('monitoring')){
-	die("Access denied");
-}
+// if(!_acl::isAllow('monitoring')){
+// 	die("Access denied");
+// }
 unset($parsed_res);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Мониторинг";
@@ -98,6 +98,95 @@ if(isset($GLOBALS['REQAR'][1])){
 				}
 			}
 			$tpl->Assign('list', $list);
+			break;
+		case 'uncategorised_products':
+			$ii = count($GLOBALS['IERA_LINKS']);
+			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Товары без категорий";
+			if(isset($_POST['clear_filters'])){
+				$where_art = null;
+				$_POST['filter_art'] = null;
+			}else{
+				if(isset($_POST['filter_art']) && $_POST['filter_art'] !=''){
+					$where_art = ' AND art LIKE \''.trim($_POST['filter_art']).'\'';
+				}
+			}
+			$Products = new Products();
+			/*Pagination*/
+			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+				$GLOBALS['Limit_db'] = $_GET['limit'];
+			}
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = count($Products->GetUncategorisedProducts($where_art));
+				$tpl->Assign('cnt', $cnt);
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = '';
+			}
+			$uncat_prod = $Products->GetUncategorisedProducts($where_art, $limit);
+			$tpl->Assign('list', $uncat_prod);
+			break;
+		case 'doubles_translit_products':
+			$ii = count($GLOBALS['IERA_LINKS']);
+			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Дубли товаров";
+			$product = new Products();
+			/*Pagination*/
+			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+				$GLOBALS['Limit_db'] = $_GET['limit'];
+			}
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = count($product->GetDoublesProducts());
+				$tpl->Assign('cnt', $cnt);
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = '';
+			}
+			$double_prod = $product->GetDoublesProducts($limit, 'group by translit');
+			$tpl->Assign('list', $double_prod);
+			break;
+		case 'err_feedback':
+			if(isset($_POST['error_fix'])){
+				G::FixError($_POST['error_fix']);
+			}
+			if(isset($_POST['clear_filters'])){
+				$where_arr = null;
+				$_POST['filter_user_name'] = null;
+			} else{
+				if(isset($_POST['filter_user_name']) && $_POST['filter_user_name'] !=''){
+					if($_POST['filter_user_name'] == 'анонимно'){
+						$where_arr = ' AND u.name IS NULL';
+					} else{
+						$where_arr = ' AND u.name LIKE \'%'.trim($_POST['filter_user_name']).'%\'';
+					}
+				}
+			}
+			/*Pagination*/
+			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+				$GLOBALS['Limit_db'] = $_GET['limit'];
+			}
+			if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+					$_GET['page_id'] = $_POST['page_nbr'];
+				}
+				$cnt = count(G::GetErrors($where_arr));
+				$tpl->Assign('cnt', $cnt);
+				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+			}else{
+				$GLOBALS['Limit_db'] = 0;
+				$limit = '';
+			}
+			$errors = G::GetErrors($where_arr, $limit);
+			$tpl->Assign('list', $errors);
 			break;
 		default:
 			break;

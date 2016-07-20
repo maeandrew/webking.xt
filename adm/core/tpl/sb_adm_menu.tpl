@@ -25,24 +25,24 @@
 					<a href="/adm/graphics/" <?=$moderationCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$moderationCount;?>)</a>
 				</li>
 			<?}?>
-			<li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
+			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
 				<a href="/adm/photo_products/">Товары фотографа</a>
-			</li>
+			</li><?}?>
 			<?if(_acl::isAllow('catalog')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'cat'?'class="sel"':null;?>>
-					<a href="/adm/cat/">Каталог</a>
+					<?=($_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_)?'Каталог':'<a href="/adm/cat/">Каталог</a>'?>
 				</li>
 				<li>
 					<ul class="sb_menusub">
-						<li <?=$GLOBALS['CurrentController'] == 'catadd'?'class="sel"':null;?>>
+						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'catadd'?'class="sel"':null;?>>
 							<a href="/adm/catadd/">Добавить категорию</a>
-						</li>
+						</li><?}?>
 						<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="sel"':null;?>>
 							<a href="/adm/productadd/">Добавить товар</a>
 						</li>
-						<li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
+						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
 							<a href="/adm/unload_products/">Выгрузка товаров</a>
-						</li>
+						</li><?}?>
 					</ul>
 				</li>
 			<?}?>
@@ -200,6 +200,13 @@
 							<a href="/adm/warehouses/">Поставщики склада</a>
 							<a href="/adm/warehouseadd/" class="add <?=$GLOBALS['CurrentController'] == 'warehouseadd'?'sel':null;?>" title="Добавить  поставщика склада">Добавить  поставщика склада</a>
 						</li>
+					</ul>
+				</li>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'usersadd'?'class="sel"':null;?>>
+							<a href="/adm/usersadd/">Добавить нового пользователя</a>
+						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'adminadd'?'class="sel"':null;?>>
 							<a href="/adm/adminadd/">Добавить администратора</a>
 						</li>
@@ -257,8 +264,17 @@
 						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/specifications/">Характеристики</a>
 						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'uncategorised_products' && $GLOBALS['REQAR'][1] == 'uncategorised_products'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/uncategorised_products/">Товары без категорий</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'doubles_translit_products'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/doubles_translit_products/">Дубли товаров</a>
+						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'ip_connections'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/ip_connections/">IP соединения</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'err_feedback'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/err_feedback/">Ошибки от пользователей</a>
 						</li>
 					</ul>
 				</li>

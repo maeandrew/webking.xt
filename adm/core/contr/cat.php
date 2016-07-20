@@ -1,5 +1,5 @@
 <?php
-if(!_acl::isAllow('catalog')){
+if(!_acl::isAllow('catalog') || $_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_){
 	die("Access denied");
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);

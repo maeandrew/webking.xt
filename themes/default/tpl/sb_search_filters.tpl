@@ -72,9 +72,8 @@
 		// Клик на "Применить"
 		$('#applyFilter').on('click', function(e){
 			e.preventDefault();
-			addLoadAnimation('.filters');
-			ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
-				window.location.href = data;				
+			ajax('products', 'getFilterLink', {params: params, segment: '<?=(isset($GLOBALS['Segment']))?$GLOBALS['Segment']:null;?>', rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
+				window.location.href = data;
 			}).fail(function(data){
 				removeLoadAnimation('.filters');
 			});
@@ -118,7 +117,6 @@
 				e.preventDefault();
 				addLoadAnimation('.filters');
 				ajax('products', 'getFilterLink', {params: params, rewrite: '<?=$GLOBALS['Rewrite'];?>'}).done(function(data){
-					// console.log(data);
 					window.location.href = data;
 				}).fail(function(data){
 					removeLoadAnimation('.filters');

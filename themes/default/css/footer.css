@@ -1,7 +1,7 @@
 
 /*FOOTER*/
 footer {
-	color: #444;
+	color: #9e9e9e;
 	border-top: 1px solid #e0e0e0;
 }
 footer .footer_wrapp {
@@ -17,15 +17,17 @@ footer h5 {
 }
 footer ul li {
 	line-height: normal;
-	color: #444;
+	color: #9e9e9e;
 	line-height: 24px;
 }
 footer ul li a {
 	font-weight: normal;
 	display: block;
+	color: #9e9e9e;
 }
 footer.mdl-mega-footer {
 	padding: 0;
+	color: #444;
 }
 footer .mdl-mega-footer__left-section {
 	width: calc(100% - 320px);
@@ -104,7 +106,7 @@ footer .social ul li .y_t:hover {
 footer .copyright {
 	clear: both;
 	padding: 15px 10px;
-	border-top: 1px solid #e0e0e0;
+	border-top: 1px solid #9e9e9e;
 	overflow: hidden;
 }
 footer .copyright p {

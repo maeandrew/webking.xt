@@ -212,8 +212,9 @@ class dbtree {
 			}
 			$data['category_level'] = ($node_info[0] + 1);
 			$data['edit_date'] = date('Y-m-d H:m:s');
+			$data['category_img'] = (isset($data['category_img']))?$data['category_img']:null;
 			$this->db->StartTrans();
-			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation) VALUES (' . $data['category_level'] . ', "' . $data['name'] . '", "' . $data['translit'] . '", ' . $data['pid'] . ', ' . $data['visible'] . ', ' . $data['edit_user'] . ', "' . $data['edit_date'] . '", ' . $data['indexation'] . ')';
+			$sql = 'INSERT INTO ' . _DB_PREFIX_ . 'category (category_level, name, translit, pid, visible, edit_user, edit_date, indexation, category_img) VALUES (' . $data['category_level'] . ', "' . $data['name'] . '", "' . $data['translit'] . '", ' . $data['pid'] . ', ' . $data['visible'] . ', ' . $data['edit_user'] . ', "' . $data['edit_date'] . '", ' . $data['indexation'] . ', "' . $data['category_img'] . '")';
 			if(!$this->db->Execute($sql)){
 				$this->db->FailTrans();
 				return false;
@@ -817,18 +818,22 @@ class dbtree {
 		if($arr['prom_id'] !== ''){
 			$prom_id = "`prom_id` = '".$arr['prom_id']."', ";
 		} else $prom_id = "`prom_id` = NULL, ";
+		if(isset($arr['category_img']) &&  $arr['category_img'] !=''){
+			$category_img = ", `category_img` = '".$arr['category_img']."' ";
+		} elseif (isset($arr['category_img']) && $arr['category_img'] == '') {
+			$category_img = ", `category_img` = NULL ";
+		}
 		$sql = "UPDATE ".$this->table."
 			SET `name` = ".$this->db->Quote($arr['name']).",
-			`edit_user` = '".$_SESSION['member']['id_user']."',";
-		$sql .= $prom_id;
-		$sql .=	"`edit_date` = '".date('Y-m-d H:i:s')."',
+			`edit_user` = '".$_SESSION['member']['id_user']."',".$prom_id."
+			`edit_date` = '".date('Y-m-d H:i:s')."',
 			`pid` = '".$arr['pid']."',
 			`page_title` = '".$arr['page_title']."',
 			`page_description` = '".$arr['page_description']."',
 			`page_keywords` = '".$arr['page_keywords']."',
 			`visible` = '".$arr['visible']."',
-			`indexation` = '".$arr['indexation']."'
-			WHERE ".$this->table_id." = ".$id_category;
+			`indexation` = '".$arr['indexation']."'".(isset($category_img)?$category_img:null)."
+			 WHERE ".$this->table_id." = ".$id_category;
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->ERRORS[] = array(2, 'SQL query error.', __FILE__.'::'.__CLASS__.'::'.__FUNCTION__.'::'.__LINE__, 'SQL QUERY: '.$sql, 'SQL ERROR: '.$this->db->ErrorMsg());

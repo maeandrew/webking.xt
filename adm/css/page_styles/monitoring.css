@@ -56,3 +56,7 @@ span.gray {
 	color: #aaa;
 	font-style: italic;
 }
+.list thead .translit_title td {
+	background-color: #dedede;
+	font-weight: 600;
+}

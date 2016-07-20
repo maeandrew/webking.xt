@@ -439,12 +439,6 @@ class Orders {
 			print_r('products error');
 			return false;
 		}
-
-//		echo'<pre>';
-//		print_r($OrderCart);
-//		echo'</pre>';
-//		die();
-
 		// $discount = 0;
 		// if(isset($_SESSION['cart']['discount'])){
 		// 	if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
@@ -483,28 +477,35 @@ class Orders {
 		if(isset($_SESSION['cart']['base_order'])){
 			$f['base_order'] = $_SESSION['cart']['base_order'];
 		}
-
-
-
 		$f['target_date'] = $target_date = strtotime('+2 day', time());
 		$f['creation_date'] = time();
-		$f['id_customer'] = $_SESSION['member']['id_user'];
+		$f['id_customer'] = isset($_SESSION['cart']['id_customer'])?$_SESSION['cart']['id_customer']:$_SESSION['member']['id_user'];
 		$Customers = new Customers();
-		$Customers->SetFieldsById($_SESSION['member']['id_user']);
+		$Customers->SetFieldsById($f['id_customer']);
 		$customer = $Customers->fields;
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
 		}else{
-			$f['id_contragent'] = $id_contragent = $customer['id_contragent'];
+			//Определяем выходной или рабочий день у контрагента
+			$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
+			$sql = "SELECT work_day FROM "._DB_PREFIX_."calendar_contragent
+					WHERE id_contragent = ".$customer['id_contragent']." AND date = '".$date."'";
+			$res = $this->db->GetOneRowArray($sql);
+			if($res['work_day'] != 1){
+				//рандомный выбор контрагента
+				$contragents = new Contragents();
+				$contragents->SetList(false, false);
+				$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
+			}else{
+				$id_contragent = $customer['id_contragent'];
+			}
+			$f['id_contragent'] = $id_contragent;
 		}
-		// Если клиент не зарегистрирован и не ввел номер телефона
-		if($f['id_order_status'] == 3){
-			$f['id_delivery'] = 1;
-			$f['id_city'] = 0;
-			$f['strachovka'] = 0;
+		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
+			$f['bonus_card'] = $customer['bonus_card'];
 		}
 		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
-		$f['phones'] = isset($arr['phone'])?trim($arr['phone']):$customer['phones'];
+		$f['phones'] = $customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
@@ -548,8 +549,6 @@ class Orders {
 				$Products = new Products();
 				$Products->SetFieldsById($id_product);
 				$product = $Products->fields;
-
-
 
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
@@ -645,7 +644,7 @@ class Orders {
 			}
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			unset($_SESSION['member']['bonus_card']);
+			unset($_SESSION['member']['bonus_card'], $_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer']);
 		}
 		return $id_order;
 	}
@@ -1312,7 +1311,8 @@ class Orders {
 				(CASE WHEN osp.opt_qty >0 THEN osp.site_price_opt ELSE osp.site_price_mopt END) AS price,
 				p.inbox_qty, osp.box_qty,
 				(CASE WHEN osp.opt_qty >0 THEN osp.opt_qty ELSE osp.mopt_qty END) AS quantity,
-				osp.opt_sum, osp.mopt_sum, s.article, osp.id_supplier, p.name, p.art,
+				osp.opt_qty, osp.mopt_qty, osp.opt_sum, osp.mopt_sum, s.article, osp.id_supplier, p.name, p.art,
+				osp.site_price_mopt, site_price_opt,
 				(CASE WHEN osp.note_opt <>'' THEN osp.note_opt ELSE osp.note_mopt END) AS note,
 				o.target_date, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum,
 				osp.contragent_msum, osp.fact_qty, osp.fact_sum,

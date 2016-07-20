@@ -36,11 +36,11 @@
 				?>
 				<?$articles_arr = array();
 				foreach($data as $i){?>
-					<?if(($i['opt_qty']!=0 && $show_pretense===false) || ($i['opt_qty']!=0 && $show_pretense===true && $i['contragent_qty']!=$i['fact_qty'])){// строка по опту?>
+					<?if(($i['opt_qty']!=0 && $show_pretense===false) || ($i['opt_qty']!=0 && $show_pretense===true && $i['contragent_qty']!=$i['fact_qty'])){ // строка по опту?>
 						<?$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
-								<?if($i['image'] != ''){?>
+								<!-- <?if($i['images'] != ''){?>
 									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>">
 										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>" title="Нажмите для увеличения">
 									</a>
@@ -48,10 +48,18 @@
 									<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide">
 										<img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" />
 									</a>
+								<?}?> -->
+								<?if(!empty($item['images'])){?>
+									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
+									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
+								<?}else{?>
+									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
+									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/></noscript>
 								<?}?>
+
 							</td>
 							<td class="name_cell">
-								<a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
+								<a href="<?=Link::Product($i['translit']);?>"><?=$i['name']?></a>
 								<div>Арт.<?=$i['art']?></div>
 							</td>
 							<td class="price_cell">
@@ -76,11 +84,11 @@
 							<?$t['contragent_sum']+=$i['contragent_sum'];?>
 						</tr>
 					<?}
-					if(($i['mopt_qty']!=0 && $show_pretense===false) || ($i['mopt_qty']!=0 && $show_pretense===true && $i['contragent_mqty']!=$i['fact_mqty'])){// строка по мелкому опту?>
+					if(($i['mopt_qty']!=0 && $show_pretense===false) || ($i['mopt_qty']!=0 && $show_pretense===true && $i['contragent_mqty']!=$i['fact_mqty'])){ // строка по мелкому опту?>
 					<?$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
-								<?if($i['image'] != ''){?>
+								<!-- <?if($i['image'] != ''){?>
 									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>">
 										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>" title="Нажмите для увеличения">
 									</a>
@@ -88,10 +96,17 @@
 									<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide">
 										<img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" />
 									</a>
+								<?}?> -->
+								<?if(!empty($item['images'])){?>
+									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
+									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
+								<?}else{?>
+									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
+									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/></noscript>
 								<?}?>
 							</td>
 							<td class="name_cell">
-								<a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
+								<a href="<?=Link::Product($i['translit']);?>"><?=$i['name']?></a>
 								<div>Арт.<?=$i['art']?></div>
 							</td>
 							<td class="price_cell">

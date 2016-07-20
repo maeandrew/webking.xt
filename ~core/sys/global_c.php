@@ -593,26 +593,26 @@ class G {
 	}
 
 	public static function SiteMap($navigation = false){
-		if(!file_exists($GLOBALS['PATH_global_root'].'sitemap')){
+		if (!file_exists($GLOBALS['PATH_global_root'].'sitemap')) {
 			mkdir($GLOBALS['PATH_global_root'].'sitemap', 0777, true);
 		}
 		global $db;
 		// sitemap.xml
 		switch($navigation){
 			case 'products':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM xt_product WHERE indexation = 1 AND visible = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM "._DB_PREFIX_."product WHERE indexation = 1 AND visible = 1";
 				break;
 			case 'pages':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
 				break;
 			case 'categories':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_category WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'news':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_news WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'posts':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM xt_post WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."post WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'promotions':
 				$sql = "";
@@ -653,5 +653,51 @@ class G {
 			$new_files[] = $navigation.($i>0?'-'.$i:null).'.xml';
 		}
 		return $new_files;
+	}
+
+	// Сохранение в БД сообщений об ошибке
+	public static function InsertError($arr){
+		global $db;
+		$f['comment'] = trim($arr['comment']);
+		$f['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+		$f['url'] = $GLOBALS['_SERVER']['HTTP_REFERER'];
+		if(isset($arr['image']) && $arr['image'] !='') $f['image'] = trim($arr['image']);
+		if(isset($_SESSION['member']['id_user'])) $f['id_user'] = $_SESSION['member']['id_user'];
+		unset($arr);
+		$db->StartTrans();
+		if(!$db->Insert(_DB_PREFIX_.'errors', $f)){
+			$db->FailTrans();
+			return false;
+		}
+		unset($f);
+		$db->CompleteTrans();
+		return true;
+	}
+
+	// Вывод сообщений об ошибке на экран
+	public static function GetErrors($where_arr = false, $limit = false){
+		global $db;
+		$sql = "SELECT u.name, u.email, e.* FROM "._DB_PREFIX_."errors e
+		 		LEFT JOIN "._DB_PREFIX_."user u ON e.id_user = u.id_user WHERE e.visible  = 1"
+				.($where_arr !== false?$where_arr:'').
+			    " ORDER BY e.id_error DESC".($limit !== false?$limit:'');
+		$res = $db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
+	// Обновление видимости ошибки
+	public static function FixError($id_error){
+		global $db;
+		$f['visible'] = 0;
+		$db->StartTrans();
+		if(!$db->Update(_DB_PREFIX_."errors", $f, "id_error = ".$id_error)){
+			$db->FailTrans();
+			return false;
+		}
+		$db->CompleteTrans();
+		return true;
 	}
 }

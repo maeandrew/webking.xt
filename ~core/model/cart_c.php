@@ -156,10 +156,10 @@ class Cart {
 		if(isset($_SESSION['cart']['id_order'])){
 			unset($_SESSION['cart']['id_order']);
 		}
-		unset($_SESSION['cart']['id']);
-		if($id_cart){
-			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
-					WHERE id_cart = ". $id_cart;
+		if(isset($_SESSION['cart']['id'])){
+			//Временное решение. Удалить после определения ошибки
+			$sql = "UPDATE "._DB_PREFIX_."cart
+					SET `status` = 1 WHERE id_cart = ".$_SESSION['cart']['id'];
 			$this->db->StartTrans();
 			if(!$this->db->Query($sql)) {
 				$this->db->FailTrans();
@@ -167,6 +167,18 @@ class Cart {
 			}
 			$this->db->CompleteTrans();
 		}
+		unset($_SESSION['cart']['id']);
+		//Закоментированно временно. Поиск ошибки.
+//		if($id_cart){
+//			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
+//					WHERE id_cart = ". $id_cart;
+//			$this->db->StartTrans();
+//			if(!$this->db->Query($sql)) {
+//				$this->db->FailTrans();
+//				return false;
+//			}
+//			$this->db->CompleteTrans();
+//		}
 		$this->RecalcCart();
 		return true;
 	}
@@ -218,9 +230,12 @@ class Cart {
 		$products = $Order->GetOrderForCart(array('o.id_order'=>$id_order));
 		if($add == null && isset($_SESSION['cart']['id'])){
 			$this->ClearCart($_SESSION['cart']['id']);
+		}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && $add == null && !isset($_SESSION['cart']['id'])){
+			$_SESSION['cart'] = null;
 		}
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$_SESSION['cart']['base_order'] = $id_order;
+			$_SESSION['cart']['id_customer'] = $order['id_customer'];
 		}
 		foreach($products as $p){
 			$p['quantity'] = $p['opt_qty']+$p['mopt_qty'];
@@ -247,16 +262,10 @@ class Cart {
 
 	// Добавление и проверка корзины в БД
 	public function DBCart(){
-		if(isset($_SESSION['cart']['id'])){
-			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
-			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
-				$f['ready'] = 0;
-				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
-				unset($f);
-			}
-			//Удаляет товар из корзины
-			if(isset($_POST['id_prod_for_remove'])){
-				unset($_SESSION['cart']['products'][$_POST['id_prod_for_remove']]);
+		//Удаляет товар из корзины
+		if(isset($_POST['id_prod_for_remove'])){
+			unset($_SESSION['cart']['products'][$_POST['id_prod_for_remove']]);
+			if(G::IsLogged() && !_acl::isAdmin()){
 				$this->db->StartTrans();
 				if(!$this->db->DeleteRowsFrom(_DB_PREFIX_."cart_product",  array("id_cart = ".$_SESSION['cart']['id'], "id_product = ".$_POST['id_prod_for_remove']))){
 					$this->db->FailTrans();
@@ -264,7 +273,15 @@ class Cart {
 				}
 				$this->db->CompleteTrans();
 				$this->RecalcCart();
-				return $_SESSION['cart'];
+			}
+			return $_SESSION['cart'];
+		}
+		if(isset($_SESSION['cart']['id'])){
+			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
+			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
+				$f['ready'] = 0;
+				$this->db->Update(_DB_PREFIX_."cart", $f, "id_cart = ".$_SESSION['cart']['id']);
+				unset($f);
 			}
 			// Обновить корзину в БД по id
 			foreach($_SESSION['cart']['products'] as $key => &$product){
@@ -288,7 +305,7 @@ class Cart {
 				}
 				$this->db->CompleteTrans();
 			}
-			return $product['id_cart_product'];
+			if(isset($product))	return $product['id_cart_product'];
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
 			if(G::IsLogged() && !_acl::isAdmin()){
@@ -321,17 +338,27 @@ class Cart {
 		}
 	}
 
-	//
+	// Восстановление в корзину незавершенных покупок из предыдущей сессии
 	public function LastClientCart(){
 		$id = $_SESSION['member']['id_user'];
 		$sql = "SELECT * FROM "._DB_PREFIX_."cart WHERE status LIKE '%0' AND id_user = ".$id." ORDER BY status DESC, creation_date DESC LIMIT 1";
 		$res = $this->db->GetOneRowArray($sql);
 		if(!empty($res)){
+			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
+			$res1 = $this->db->GetArray($sql);
+			foreach($res1 as $value){
+				if(isset($_SESSION['cart']['products'][$value['id_product']])){
+					$this->db->StartTrans();
+					$this->db->DeleteRowFrom(_DB_PREFIX_."cart_product", "id_product", $value['id_product']);
+					$this->db->CompleteTrans();
+				}
+			}
 			$_SESSION['cart']['id'] = $res['id_cart'];
 			$_SESSION['cart']['promo'] = $res['promo'];
 			$_SESSION['cart']['adm'] = $res['adm'];
 			$_SESSION['cart']['ready'] = $res['ready'];
 			$_SESSION['cart']['ready'] = isset($res['note'])?$res['note']:'';
+			$this->DBCart();
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){

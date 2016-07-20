@@ -7,21 +7,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
-			case "UpdateAssort":
+			case 'AddToAssort':
+				if(isset($_POST['id_product'])){
+					$res = $products->AddToAssort($_POST['id_product']);
+					echo json_encode($res);
+				}
+				break;
+			case 'UpdateAssort':
 				if(isset($_POST['id_product'])){
 					$res = $products->UpdateAssort2($_POST);
 					echo json_encode($res);
 				}
-				exit();
 				break;
-			case "DelFromAssort":
-				if(isset($_POST['id'])){
-					$products->DelFromAssort($_POST['id'], $_POST['id_supplier']);
-					$arr['id_product'] = $_POST['id'];
+			case 'DelFromAssort':
+				if(isset($_POST['id_product'])){
+					$products->DelFromAssort($_POST['id_product']);
+					$arr['id_product'] = $_POST['id_product'];
 					echo json_encode($arr);
 				}
 				break;
-			case "GetPreview":
+			case 'GetPreview':
 				$id_product = $_POST['id_product'];
 				$products->SetFieldsById($id_product);
 				unset($parsed_res);
@@ -37,7 +42,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('product', $product);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'preview.tpl');
 				break;
-			case "add_favorite":
+			case 'add_favorite':
 				// Добавление Избранного товара
 				if(!G::IsLogged()){
 					$data['answer'] = 'login';
@@ -55,7 +60,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($data);
 				break;
-			case "del_favorite":
+			case 'del_favorite':
 				// Удаление Избранного товара (Старая версия)
 					// if(isset($_POST['id_product'])){
 					// 	$Customer->DelFavorite($User->fields['id_user'], $_POST['id_product']);
@@ -85,7 +90,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($data);
 				break;
-			case "add_in_waitinglist":
+			case 'add_in_waitinglist':
 				// Добавление в список ожидания
 					// if($_POST['id_user'] != '' && $_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
 					// 	$data['answer'] = 'ok';
@@ -126,7 +131,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($data);
 				break;
-			case "del_from_waitinglist":
+			case 'del_from_waitinglist':
 				// Удаление Из списка ожидания (старая версия)
 					// if(isset($_POST['id_product'])){
 					// 	$Customer->DelFromWaitingList($User->fields['id_user'], $_POST['id_product']);
@@ -163,19 +168,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($data);
 				break;
-			case "SaveGraph":
+			case 'SaveGraph':
 				echo json_encode($products->AddInsertTwoGraph($_POST));
 				break;
-			case "SearchGraph":
+			case 'SearchGraph':
 				$values = $products->SearchGraph($_POST['id_graphics']);
 				$tpl->Assign('values', $values);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl');
 				//echo json_encode($products->SearchGraph($_POST['id_graphics']));
 				break;
-			case "OpenModalGraph":
+			case 'OpenModalGraph':
 				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
 				break;
-			case "UpdateGraph":
+			case 'UpdateGraph':
 				if(isset($_POST['moderation'])){
 					$mode = true;
 					echo json_encode($products->UpdatetGraph($_POST, $mode));
@@ -183,7 +188,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdatetGraph($_POST));
 				}
 				break;
-			case "AddEstimate":
+			case 'AddEstimate':
 				$Product = new Products();
 				//Проверка данных пользователя
 				if(!G::IsLogged()){

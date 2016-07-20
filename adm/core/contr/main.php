@@ -2,6 +2,10 @@
 if(!_acl::isAllow('admin_panel')){
 	die("Access denied");
 }
+if($_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_){
+	header('Location: /adm/productadd/');
+	exit;
+}
 $Page = new Page();
 $products = new Products();
 if(isset($_POST['name_index_status'])){

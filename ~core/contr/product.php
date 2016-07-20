@@ -98,8 +98,10 @@ if(!$products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
 	// header('Location: '._base_url.'/404/');
 	exit();
 }
-$id_category = $product['id_category'];
-$similar_products = $products->GetRelatedProducts($id_product, $id_category);
+if (isset($cat)) {
+	$id_category = $cat['id_category'];
+	$similar_products = $products->GetRelatedProducts($id_product, $id_category);
+}
 if(empty($similar_products)){
 	$tpl->Assign('title', 'Популярные товары');
 	$similar_products = $products->GetPopularsOfCategory($id_category, true);

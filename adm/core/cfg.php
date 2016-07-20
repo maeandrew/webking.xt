@@ -7,7 +7,7 @@ $g_root = str_replace('adm'.DIRECTORY_SEPARATOR, '', $root);
 // $root .= '/../';
 require($root.'../config.php');
 // ******************************** Начальное конфигурирование *************************************
-$baseUrl = 'http://'.$_SERVER['SERVER_NAME'].'/';
+$baseUrl = '//'.$_SERVER['SERVER_NAME'].'/';
 /*define('_base_url', $baseUrl);*/
 $config = array (
 	'URL_base'			=> $baseUrl,
@@ -264,6 +264,15 @@ G::ToGlobals(array(
 					'segmentations',
 					'pricelist',
 					'supplier_prov'
+				)
+			),
+			14 => array(
+				'name' => 'remote_content',
+				'caption' => 'Удаленный контент-менеджер',
+				'permissions' => array(
+					'admin_panel',
+					'catalog',
+					'product',
 				)
 			)
 		)

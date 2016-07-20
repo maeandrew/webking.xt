@@ -379,17 +379,17 @@ class Customers extends Users {
 	 *
 	 */
 	public function UpdateCustomer($arr){
-		global $User;
-		$arr['gid'] = $User->fields['gid'];
-		$arr['name'] = $arr['cont_person'];
-		$arr['phones'] = $arr['phone'];
-		if(!$User->UpdateUser($arr)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$id_user = $this->db->GetLastId();
-		unset($f);
-		$f['id_user'] = trim($arr['id_user']);
+		// global $User;
+		// $arr['gid'] = $User->fields['gid'];
+		// $arr['name'] = $arr['cont_person'];
+		// $arr['phones'] = $arr['phone'];
+		// if(!$User->UpdateUser($arr)){
+		// 	$this->db->FailTrans();
+		// 	return false;
+		// }
+		// $id_user = $this->db->GetLastId();
+		// unset($f);
+		$f['id_user'] = isset($arr['id_user'])?$arr['id_user']:$_SESSION['member']['id_user'];
 		if(isset($arr['cont_person'])) {
 			$f['cont_person'] = trim($arr['cont_person']);
 		}
@@ -413,6 +413,12 @@ class Customers extends Users {
 		}
 		if(isset($arr['day'])) {
 			$f['b_day'] = trim($arr['day']);
+		}
+		if(isset($arr['id_region'])) {
+			$f['id_region'] = trim($arr['id_region']);
+		}
+		if(isset($arr['id_city'])) {
+			$f['id_city'] = trim($arr['id_city']);
 		}
 		if(isset($arr['address'])) {
 			$f['address_ur'] = trim($arr['address']);

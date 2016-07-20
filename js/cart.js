@@ -101,6 +101,8 @@ function removeFromCart(id){
 				var minQty = $(this).find('.minQty').val();
 				$(this).find('.qty_js').val(minQty);
 				$('#specCont').find('.qty_js').val(minQty);
+				$(this).closest('.card').find('.note_field').val('');
+				$(this).closest('.card').find('.note').addClass('hidden');
 			});
 			ChangePriceRange(3, 0);
 		});
@@ -116,6 +118,8 @@ function removeFromCart(id){
 			$('#in_cart_' + id).closest('.btn_buy').find('.buy_btn_js').removeClass('hidden');
 			$('#in_cart_' + id).closest('.buy_block').find('.qty_js').val(minQty);
 			$('#in_cart_' + id).closest('.product_buy').find('.priceMoptInf').addClass('hidden');
+			$('#in_cart_' + id).closest('.card').find('.note_field').val('');
+			$('#in_cart_' + id).closest('.card').find('.note').addClass('hidden');
 
 			var priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt' + $.cookie('sum_range')).val();
 			$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);

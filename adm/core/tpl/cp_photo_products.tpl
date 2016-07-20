@@ -39,7 +39,6 @@
 				<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 			</div>
 		</div>
-
 		<div class="col-md-12">
 			<div class="images_block"></div>
 		</div>
@@ -52,7 +51,7 @@
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
 		<div class="image">
-			<img data-dz-thumbnail />
+			<img data-dz-thumbnail class="imgopacity"/>
 			<span class="icon-font hide_photo_js" title="Скрыть/отобразить">v</span>
 			<span class="icon-font del_photo_js" title="Удалить" data-dz-remove="">t</span>
 		</div>
@@ -65,18 +64,24 @@
 	<?if(isset($list) && is_array($list)){
 		foreach($list as $item){?>
 			<div class="prodListItem">
-				<div class="nameProd">
-					<a href="<?=Link::Product($item['translit'])?>">Товар:</a>
-					<span><?=$item['name']?></span>
+				<div class="prodInfo">
+					<div class="nameProd">
+						<label>Название:</label>
+						<span><?=$item['name']?></span>
+					</div>
+					<div class="createData">
+						<label>Добавлен:</label>
+						<span><?=$item['create_date']?></span>
+					</div>
 				</div>
-				<div class="createData">
-					<span>Дата:</span>
-					<span><?=$item['create_date']?></span>
+				<div class="actions">
+					<a href="/adm/productedit/<?=$item['id_product']?>" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
+					<a href="<?=_base_url.'/'.$item['translit']?>.html" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
 				</div>
 				<?if(is_array($item['images'])){?>
 					<div class="prodImages">
 						<?foreach($item['images'] as $image){?>
-							<img srsc="<?=str_replace('/original/', '/thumb/', $image['src'])?>" class="<?=$image['visible'] === 0 ? 'imgopacity' : ''?>">
+							<img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>"<?=$image['visible'] == 0?' class="imgopacity"':null?>>
 						<?}?>
 					</div>
 				<?}

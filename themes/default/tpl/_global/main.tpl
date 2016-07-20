@@ -55,7 +55,8 @@
 			ajax_proceed = false,			
 			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
-			IsLogged = '.(G::IsLogged()?'false':'true').';
+			IsLogged = '.(G::IsLogged()?'true':'false').',
+			IsMobile = '.(G::isMobile()?'true':'false').';
 	</script>';
 	?>
 	<!-- END define JS global variables -->
@@ -110,7 +111,6 @@
 				}
 			}
 		</script>
-		<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 	<?}?>
 	<!-- END define search box in google sitelinks -->
 	<noscript>
@@ -122,16 +122,18 @@
 	</noscript>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
-<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=$GLOBALS['CurrentController']?> <?=$GLOBALS['CurrentController'] == "main"?'':'banner_hide'?>">
+<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':$GLOBALS['CurrentController']?>">
 	
 	<!-- Google Tag Manager -->
-	<!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-K9CXG3');</script> -->
+	<?if(SETT != 0){?>
+		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-K9CXG3');</script>
+	<?}?>
 	<!-- End Google Tag Manager -->
 	<!-- Yandex.Metrika counter -->
 	<?isset($GLOBALS['CONFIG']['yandex_counter_noscript'])?$GLOBALS['CONFIG']['yandex_counter_noscript']:null?>
@@ -149,34 +151,35 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<section class="banner">
-		<div class="cont">
-			<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
-					<h3>Снабжение<br> предприятий</h3>
-				</span>
-			</a>
-			<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
-					<h3>Поставки<br> магазинам</h3>
-				</span>
-			</a>
-			<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
-				<span class="text_block">
-					<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
-					<h3>Обеспечение<br> быта</h3>
-				</span>
-			</a>
-		</div>
-	</section>
-	
+	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
+		<section class="banner">
+			<div class="cont">
+				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+						<h3>Снабжение<br> предприятий</h3>
+					</span>
+				</a>
+				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+						<h3>Поставки<br> магазинам</h3>
+					</span>
+				</a>
+				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
+					<span class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+						<h3>Обеспечение<br> быта</h3>
+					</span>
+				</a>
+			</div>
+		</section>
+	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
-				<?if($news != false){?>
+				<!-- <?if($news != false){?>
 					<div class="xt_news">
 						<a href="<?=Link::Custom('news', $news['translit']);?>">
 							<h6 class="min news_title"><?=$news['title']?></h6>
@@ -199,7 +202,7 @@
 							Все новости
 						</div></a>
 					</div>
-				<?}?>
+				<?}?> -->
 				<?if($post != false){?>
 					<div class="xt_news" style="margin-bottom:50px;">
 						<a href="<?=Link::Custom('post', $post['translit']);?>">
@@ -235,7 +238,7 @@
 					width: 100%;
 					height: 300px;
 				}
-			</style>			
+			</style>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] !== 'main'){?>
@@ -243,38 +246,16 @@
 					<?=$__center?>
 				<?}else{?>
 					<div class="content_header clearfix">
-						<!-- <div class="sort imit_select">
-							<button id="sort-lower-left" class="mdl-button mdl-js-button">
-								<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild">По рейтингу</span>
-							</button>
-							<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-								<li class="mdl-menu__item active">По рейтингу</li>
-								<li class="mdl-menu__item">Новинки</li>
-								<li class="mdl-menu__item">Популярные</li>
-								<li class="mdl-menu__item">От дешевых к дорогим</li>
-							</ul>
-
-							<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-								<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
-							<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-								<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
-							<?}?>
-						</div> -->
 						<?if(isset($available_sorting_values)){?>
 							<div class="sort imit_select">
-								<button id="sort-lower-left" class="mdl-button mdl-js-button">
-									<i class="material-icons fleft">keyboard_arrow_down</i><span class="selected_sort select_fild"><?= $available_sorting_values[$sorting['value']]?></span>
-								</button>
-
-								<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="sort-lower-left">
-									<?foreach($available_sorting_values as $key => $alias){ ?>
-										<a href="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>">
-											<li class="mdl-menu__item sort <?=isset($sorting['value']) && $sorting['value'] == $key ? 'active' : NULL ?>" data-value="<?=$key?>" >
-												<?=$alias?>
-											</li>
-										</a>
-									<?}?>
-								</ul>
+								<span>Сортировать:</span>
+								<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+										<?foreach($available_sorting_values as $key => $alias){ ?>
+											<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
+										<?}?>
+									</select>
+								</div>
 
 								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
@@ -283,7 +264,6 @@
 									<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
 								<?}?>
 								-->
-
 							</div>
 						<?}?>
 						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
@@ -326,6 +306,45 @@
 					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
+			<!-- Блок последних новостей -->
+			<?if(isset($news) && $GLOBALS['CurrentController'] !== 'cabinet'){?>
+				<div class="last_news"> 				
+					<div class="last_news_title">
+						<h4>Последние новости</h4>
+						<a href="<?=Link::Custom('news');?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+					</div>
+					<div class="xt_news">
+						<?foreach($news as $item){?>
+							<div class="news_item">
+								<div class="news_image">
+									<?if(isset($item['thumbnail'])){?>
+										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+									<?}?>
+								</div>
+								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
+									<h6 class="min news_title"><?=$item['title']?></h6>
+								</a>
+								<div class="min news_description"><?=$item['descr_short']?></div>
+								<div class="read_more">
+									<div class="min news_date">
+										<p>
+										<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
+											Опубликовано Сегодня
+										<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
+											Опубликовано Вчера
+										<?}else{?>
+											Опубликовано
+										<?  echo date("d.m.Y", $item['date']);
+										}?>
+										</p>
+									</div>
+									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
+								</div>
+							</div>
+						<?}?>	
+					</div>
+				</div>
+			<?}?>
 			<?if(isset($seotext)){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
@@ -334,7 +353,63 @@
 				</div>
 			<?}?>
 		</section>
+		<div id="canvas_mark_wrapper">
+			<canvas id="err_canvas" width="10" height="10"></canvas>
+		</div>
 	</section>
+	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
+		<p>Сообщите нам об ошибке</p>
+	</div>
+	<!-- message about error -->
+	<div class="err_msg_as_wrap">
+		<div class="err_msg_as err_msg_as_js">
+			<div class="err_msg_as_title err_msg_as_knob_js">
+				<p>Сообщите нам об ошибке</p>
+				<i class="material-icons">keyboard_arrow_up</i>
+			</div>
+			<div class="err_msg_as_form err_msg_as_form_js">
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield is-focused">
+						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
+						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
+					</div>
+					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
+						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
+						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
+					</label>
+					<div class="copyContainerWrap">
+						<div id="savedCopyContainer">
+							<img id="savedImageCopy" src="">
+						</div>
+						<div class="tools_wrapp_js tools_wrapp">
+							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
+							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
+							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
+							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
+						</div>
+					</div>
+					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="canvas_toolbar">
+		<div id="problem_area" class="problem_area problem_area_js"></div>
+		<div class="mdl-tooltip" for="problem_area">Выделить проблему</div>
+		<div id="confidential" class="confidential confidential_js"></div>
+		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
+		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
+		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
+		<!-- Доработать функционал ластика 
+		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
+		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
+		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
+		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
+	</div>
+	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas">
+		Подождите, формируется скриншот страницы...
+	</div>
 	<footer class="mdl-mega-footer mdl-color--grey-100">
 		<div class="footer_wrapp">
 			<div class="mdl-mega-footer__left-section">
@@ -380,20 +455,20 @@
 			<div class="ad_sense mdl-color--grey-200">
 				<?if($GLOBALS['CurrentController'] == 'products'){?>
 					<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
-						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 						<!-- Категории -->
-						<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins> -->
-						<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins>
+						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 					<?}elseif($GLOBALS['CURRENT_ID_CATEGORY'] == 479){?>
-						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 						<!-- test -->
-						<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins> -->
-						<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins>
+						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 					<?}elseif($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 480){?>
-						<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 						<!-- Категории2 -->
-						<!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins> -->
-						<!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins>
+						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 					<?}?>
 				<?}else{?>
 					<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
@@ -724,20 +799,20 @@
 			<path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
 		</symbol>
 	</svg>
-	
+
 	<!-- Код тега ремаркетинга Google -->
 	<!--------------------------------------------------
 	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
 	------------------------------------------------- -->
 	
 	<!-- <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> -->
-	<noscript>
+	<!-- <noscript>
 		<div style="display:inline;">
 		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
-	</noscript>
+	</noscript> -->
 
-<!-- message about cookie -->
+	<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
@@ -745,59 +820,5 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
-
-<!-- message about error -->
-	<div class="err_msg_as_wrap">
-		<div class="err_msg_as err_msg_as_js">
-			<!-- <div class="err_msg_as_knob ">Click</div> -->
-			<div class="err_msg_as_title err_msg_as_knob_js">
-				<p>Сообщите нам об ошибке</p>
-				<i class="material-icons">keyboard_arrow_up</i>
-			</div>
-			<div class="err_msg_as_form err_msg_as_form_js">
-				<form action="#">
-					<input type="hidden" value="" data-islogged="<?=G::isLogged()?'true':'false';?>" data-membergid="<?=G::isLogged()?$_SESSION['member']['gid']:'-1';?>">
-					<div class="mdl-textfield mdl-js-textfield is-focused">
-						<textarea name="comment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
-						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
-					</div>
-					<!-- <p style="color: #444;" class="screen_btn_js mdl-button"> Добавить снимок экрана</p> -->
-					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
-						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
-						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
-					</label>
-					<div id="savedCopyContainer">
-						<input type="image" id="savedImageCopy">
-						<!-- <img id="savedImageCopy"> -->
-						<div class="tools_wrapp_js tools_wrapp">
-							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
-							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
-							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
-							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
-						</div>
-					</div>
-					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
-					<!-- <input type="submit" value="Отправить" class="err_msg_as_send mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> -->
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="canvas_toolbar">
-		<div id="problem_area" class="problem_area problem_area_js"></div>
-		<div class="mdl-tooltip" for="problem_area">Выделить проблему</div>
-		<div id="confidential" class="confidential confidential_js"></div>
-		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
-		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
-		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
-		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
-		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div>
-		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
-		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
-		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
-	</div>
-	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas hidden">
-		Подождите, формируется скриншот страницы...
-	</div>
-	<div id="canvas_mark_wrapper">
-		<canvas id="tablet" width="10" height="10"></canvas>
-	</div>
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Наверх</div>
+</body>

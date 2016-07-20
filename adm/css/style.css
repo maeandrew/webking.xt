@@ -61,7 +61,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 ::-webkit-scrollbar {
-	width: 13px;
+	width: 10px;
 }
 ::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
@@ -787,6 +787,9 @@ footer {
 .list tbody td.center a {
 	font-size: 18px;
 }
+.err_feedback .list tbody td.center a {
+	font-size: 1em;
+}
 
 .list .watchSeoText {
 	float: right;
@@ -811,6 +814,9 @@ footer {
 .list .filter td {
 	background: none repeat scroll 0 0 #E7EFEF;
 	padding: 5px;
+}
+.list .filter [name="filter_art"] {
+	width: 90px;
 }
 .list .np {
 	padding: 0px;
@@ -1019,6 +1025,116 @@ img.pic_block {
 #nav_visible {
 	margin-top: 1em;
 }
+/* Стили дропзон для фото категории */
+.image_block_new {
+	position: relative;
+	height: 120px;
+}
+
+.image_block {
+	position: absolute;
+	top: 0;
+}
+.images_block .del_photo_js,
+.images_block .del_exist_photo_js {
+	width: 30px;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    margin-top: -3px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    background: #fff;
+}
+.images_block .del_photo_js,
+.images_block .del_exist_photo_js {
+	color: red;
+}
+.image_block_new {
+	width: 100%;	
+}
+.category_image_title, 
+.images_block {
+	width: 120px;
+}
+.images_block {
+	border: 1px dashed #e3e3e3;
+	float: left;
+}
+.images_block:hover {
+	cursor: pointer;
+}
+.images_block .dz-message {
+	margin-top: 30px;
+    color: #9e9e9e;
+}
+.image_block .image img {
+	max-width: 100%;
+}
+.image_size_info {
+	padding: 10px;
+    width: calc(100% - 130px);
+    float: right;
+    background: #ffffad;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 24px;
+}
+.category_image_title {
+	text-align: center;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.image_block_new .dz-message {
+	line-height: 1.5em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5em;	
+}
+.switch_price_container {
+	width: 130px;
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #dddddd;
+    line-height: 21px;
+    text-align: center;
+}
+
+/* Оформление списка товаров без категории */
+/*.nocategory .table_row {
+	display: flex;
+	justify-content: space-between;
+}
+.nocategory .table_row > * {
+	padding: .5em;
+	font-size: 1em;
+	text-align: center;
+}
+.nocategory .table_header {
+	background-color: #DEDEDE;
+}
+.nocategory .item_art {
+	flex-basis: 6%;
+}
+.nocategory .item_title {
+	flex-basis: 80%;
+}
+.nocategory .actions {
+	flex-basis: 10%;
+}
+.nocategory .table_body .table_row .item_title {
+	text-align: left;
+}
+.nocategory .table_body .table_row:nth-child(even) {
+	background-color: #DEDEDE;
+}*/
 
 
 /*a:hover        { color: #CC0000; }*/

@@ -9,7 +9,7 @@
 			($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?$mopt_available = true:$mopt_available = false;
 			// Проверяем доступнось опта
 			($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
-			<div class="card">
+			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 					<!-- <div class="product_block"> -->
 						<div class="product_photo">
@@ -35,6 +35,24 @@
 								<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
 								<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
 							<?}?>
+							<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
+								<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+								<label class="info_key">?</label>
+								<div class="info_description">
+									<p>Поле для ввода примечания к товару.</p>
+								</div>
+							</div>
+							<!-- <form action="" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
+								<textarea cols="30" rows="3" placeholder="Примечание к заказу" ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
+								<label class="info_key">?</label>
+								<div class="info_description">
+									<p>Поле для ввода примечания к товару.<br>
+										<?if($item['note_control'] != 0){?>
+											<b>Обязательное</b> для заполнения!
+										<?}?>
+									</p>
+								</div>
+							</form> -->
 						</div>				
 					<!-- </div> -->
 					<?$in_cart = false;
@@ -117,7 +135,7 @@
 								</p>
 							<?}?>
 						</div>
-						<form action="" class="note hidden <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
+						<!-- <form action="" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
 							<textarea cols="30" rows="3" placeholder="Примечание к заказу" ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 							<label class="info_key">?</label>
 							<div class="info_description">
@@ -127,7 +145,7 @@
 									<?}?>
 								</p>
 							</div>
-						</form>
+						</form> -->
 					</div>
 					<div class="specifications">
 						<ul>
@@ -153,47 +171,47 @@
 				<div class="product_check card_item">Добавить в<br>ассортимент</div>
 			</div>
 		</div><?
-		foreach($list as $p){ ?>
-			<div class="card clearfix">
+		foreach($list as $item){ ?>
+			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<div class="product_photo card_item">
-					<a href="<?=Link::Product($p['translit']);?>">
-						<?if(!empty($p['images'])){?>
-							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/>
+					<a href="<?=Link::Product($item['translit']);?>">
+						<?if(!empty($item['images'])){?>
+							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 							<noscript>
-								<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $p['images'][0]['src']);?>"/>
+								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=G::CropString($p['name'])?>" class="lazy" data-original="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/>
+							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							<noscript>
-								<img alt="<?=G::CropString($p['name'])?>" src="<?=_base_url.($p['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $p['img_1'])):"/images/nofoto.png"?>"/>
+								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							</noscript>
 						<?}?>
 					</a>
 				</div>
-				<p class="product_name card_item"><a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a><span class="product_article">Арт: <?=$p['art'];?></span></p>
-				<div class="suplierPriceBlock">
-					<div class="price card_item"><p id="price_mopt_<?=$p['id_product']?>">
-						<?if($p['price_opt_otpusk'] != 0){
-							echo number_format($p['price_opt_otpusk'], 2, ".", "").' грн.';
+				<p class="product_name card_item"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a><span class="product_article">Арт: <?=$item['art'];?></span></p>
+				<div class="suplierPriceBlock">					
+					<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
+						<?if($item['price_opt_otpusk'] != 0){
+							echo number_format($item['price_opt_otpusk'], 2, ".", "").' грн.';
 						}else{
-							echo number_format($p['price_mopt_otpusk'], 2, ".", "").' грн.';
+							echo number_format($item['price_mopt_otpusk'], 2, ".", "").' грн.';
 						}?>
 					</p></div>
 					<div class="count_cell card_item">
 						<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
-						<p id="min_mopt_qty_<?=$p['id_product']?>"><?=$p['min_mopt_qty'].' '.$p['units']?><?=$p['qty_control']?" *":null?></p>			
+						<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>			
 					</div>
 					<div class="count_cell card_item">
 						<span class="suplierPriceBlockLabel">Количество в ящике:</span>
-						<p id="inbox_qty_<?=$p['id_product']?>"><?=$p['inbox_qty'].' '.$p['units']?></p>
+						<p id="inbox_qty_<?=$item['id_product']?>"><?=$item['inbox_qty'].' '.$item['units']?></p>
 					</div>
 
 					<div class="product_check card_item">
-						<span class="suplierPriceBlockLabel">Добавить:</span>			
-						<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$p['id_product']?>">				
+						<span class="suplierPriceBlockLabel">Добавить:</span>
+						<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">				
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
-							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$p['id_product']?>" <?=isset($_SESSION['Assort']['products'][$p['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$p['id_product']?>)"/>
-						</label>				
+							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -206,7 +224,7 @@
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="card">
+			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -225,6 +243,15 @@
 						<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
 						<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
 					<?}?>
+					<div class="product_info">
+						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
+							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+							<label class="info_key">?</label>
+							<div class="info_description">
+								<p>Поле для ввода примечания к товару.</p>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<div class="buy_block">
@@ -259,7 +286,7 @@
 					</div>
 					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 				</div>
-				<div class="product_info clearfix hidden">
+				<!-- <div class="product_info clearfix">
 					<div class="note clearfix">
 						<textarea placeholder="Примечание: "></textarea>
 						<label class="info_key">?</label>
@@ -267,7 +294,7 @@
 							<p>Поле для ввода примечания к товару.</p>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		<?}
 }?>

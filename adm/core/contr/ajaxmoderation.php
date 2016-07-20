@@ -13,7 +13,7 @@
 					$config = new Config();
 					$config->UpdateByName('last_manual_product_article', $GLOBALS['CONFIG']['last_manual_product_article']);
 				};
-				$products->UpdateProductCategories($id, $_POST['category']);
+				$products->UpdateProductCategories($id, $_POST['category'], 1);
 				$products->RecalcSitePrices(array($id));
 				$products->SetModerationStatus($_POST['id'], $_POST['status']);
 				break;

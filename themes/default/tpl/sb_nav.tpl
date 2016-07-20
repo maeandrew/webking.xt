@@ -1,5 +1,5 @@
 <div class="catalog">
-	<ul class="main_nav mdl-color--grey-100">
+	<ul class="main_nav">
 		<li id="estimate" data-name="estimateLoad" class="btn_js" data-nav="estimate">
 			<i class="material-icons">assignment</i>Загрузить свою смету
 			<label class="info_key">?</label>
@@ -7,7 +7,7 @@
 				<p>Наши специалисты, проведут полный расчет расходов и подберут необходимый товар. Смета рассчитывается в файле формата Excel.</p>
 			</div>
 		</li>
-		<li id="organization" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 1)?'activeSegment':null;?>" data-nav="organization">
+		<!-- <li id="organization" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 1)?'activeSegment':null;?>" data-nav="organization">
 			<i class="material-icons">work</i>Для организаций
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -20,7 +20,7 @@
 			<div class="info_description">
 				<p>Оптовые поставки хозяйственных товаров, для всех магазинов.</p>
 			</div>
-		</li>
+		</li> -->
 		<li id="allSection" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 0 || $_COOKIE['Segmentation'] == null)?'activeSegment':'active';?>" data-nav="all_section">
 			<i class="material-icons">list</i>Все разделы
 			<label class="info_key">?</label>
@@ -48,15 +48,22 @@
 
 <script>
 $(function(){
+	if ($('.second_nav li').hasClass('active')) {
+		$('.second_nav').find('li.active > .link_wrapp > .more_cat i').html('remove');
+	};
+
 	$("#organization").click(function() {
-		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		if (!$(this).hasClass('activeSegment')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+			$('.filters').fadeOut();
+		}
 		if ($.cookie('Segmentation') != 1){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#organization").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log(data);
+				// console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavOrg").append(data);
 			});
@@ -64,14 +71,17 @@ $(function(){
 	})
 
 	$("#store").click(function() {
-		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		if (!$(this).hasClass('activeSegment')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+			$('.filters').fadeOut();
+		}
 		if ($.cookie('Segmentation') != 2){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#store").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log(data);
+				// console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavStore").append(data);
 			});
@@ -79,19 +89,23 @@ $(function(){
 	})
 
 	$("#allSection").click(function() {
-		$('.main_nav li[data-nav="filter"]').addClass('hidden');
+		if (!$(this).hasClass('activeSegment')) {
+			$('.main_nav li[data-nav="filter"]').addClass('hidden');
+			$('.filters').fadeOut();
+			$('.filters').fadeOut();
+		}
 		if ($.cookie('Segmentation') != 0){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#allSection").addClass('activeSegment');
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 0}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				console.log('все секции');
+				// console.log('все секции');
 				$(".second_nav").addClass('hidden');
 				/*$(".allSections").removeClass('hidden');*/
 				$("#allCategotyCont").append(data);
 			});
 		}
-	})
-;});
+	});
+});
 </script>
