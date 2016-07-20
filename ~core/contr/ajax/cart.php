@@ -353,6 +353,68 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
+			case 'getNameCustomer':
+				if(isset($_POST['phone'])){
+					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
+					$Users = new Users();
+					$customer = $Users->CheckPhoneUniqueness($phone, false, 'select name');
+					if($customer === true){
+						$res['status'] = true;
+						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
+										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
+										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$phone.'" value="add_and_set">
+										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Создать и прикрепить</button>
+										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+					}else{
+						$res['status'] = true;
+						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
+										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>
+										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$customer['id_user'].'" value="set">
+										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Прикрепить</button>
+										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+					}
+				}else {
+					$res['content'] = 'Номер телефона не введен.';
+					$res['status'] = false;
+				}
+				echo json_encode($res);
+				break;
+			case 'settCustomerForOrder':
+				if(isset($_POST['step']) && isset($_POST['date'])){
+					switch($_POST['step']){
+						case 'add_and_set':
+							// создаем нового пользователя
+							$Customers = new Customers();
+							$data = array(
+								'name' => 'user_'.rand(),
+								'passwd' => $pass = G::GenerateVerificationCode(6),
+								'descr' => 'Пользователь создан автоматически при оформлении корзины',
+								'phone' => $_POST['date']
+							);
+							// регистрируем нового пользователя
+							$id_customer = $Customers->RegisterCustomer($data);
+							if(isset($id_customer)){
+								$Users->SendPassword($data['passwd'], $data['phone']);
+								$_SESSION['cart']['id_customer'] = $id_customer;
+								$res['message'] = 'успех';
+								$res['status'] = 1;
+							} else {
+								$res['message'] = 'Произошла ошибка, повторите попытку.';
+								$res['status'] = 2;
+							}
+							break;
+						case 'set':
+							$_SESSION['cart']['id_customer'] = $_POST['date'];
+							$res['message'] = 'успех';
+							$res['status'] = 1;
+							break;
+					}
+				}else{
+					$res['message'] = 'Что-то не так. Данные отсутствуют.';
+					$res['status'] = 3;
+				}
+				echo json_encode($res);
+				break;
 			case 'makeOrder':
 				if(!G::IsLogged()){
 					$Customers = new Customers();
@@ -409,7 +471,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['status'] = 501;
 				}
 				echo json_encode($res);
-				break;
+
 			case 'update_info':
 				$customers = new Customers();
 				$customers->updateInfoPerson($_POST);
