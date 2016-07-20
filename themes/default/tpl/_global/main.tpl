@@ -321,21 +321,23 @@
 										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
 									<?}?>
 								</div>
-								<a href="<?=Link::Custom('news', $item['translit']);?>">
+								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
 									<h6 class="min news_title"><?=$item['title']?></h6>
 								</a>
 								<div class="min news_description"><?=$item['descr_short']?></div>
-								<div class="min news_date">
-									<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
-										Опубликовано Сегодня
-									<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
-										Опубликовано Вчера
-									<?}else{?>
-										Опубликовано
-									<?  echo date("d.m.Y", $item['date']);
-									}?>
-								</div>
 								<div class="read_more">
+									<div class="min news_date">
+										<p>
+										<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
+											Опубликовано Сегодня
+										<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
+											Опубликовано Вчера
+										<?}else{?>
+											Опубликовано
+										<?  echo date("d.m.Y", $item['date']);
+										}?>
+										</p>
+									</div>
 									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
 								</div>
 							</div>
