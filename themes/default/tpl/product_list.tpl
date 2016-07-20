@@ -11,11 +11,11 @@
 				</select>
 			</div>
 			<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
-			<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-				<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
-			<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-				<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
-			<?}?>
+			<!-- 	<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+					<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
+				<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+					<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
+				<?}?>	 -->
 		</div>
 		product_list
 		<div class="productsListView">
