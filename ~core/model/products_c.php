@@ -790,8 +790,7 @@ class Products {
 		if ($data['moderation'] == 1) {
 			$arr['moderation'] = $data['moderation'];
 		}
-		foreach($data['values']['roz'] as $val){
-			$k++;
+		foreach($data['values']['roz'] as $k => $val){
 			$arr['value_'.$k] = $val;
 		}
 		$this->db->StartTrans();
@@ -802,9 +801,7 @@ class Products {
 		$arr['opt'] = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 
-		$k = 0;
-		foreach($data['values']['opt'] as $val){
-			$k++;
+		foreach($data['values']['opt'] as $k => $val){
 			$arr['value_'.$k] = $val;
 		}
 		$this->db->StartTrans();
