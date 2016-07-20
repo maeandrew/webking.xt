@@ -839,7 +839,7 @@ $(function(){
 		}, 600);
 	});
 
-	$('.xgraph_up').on('click', function() {
+	$('.show_demand_chart_js').on('click', function() {
 		var moderation = 0;
 		if($(this).hasClass('two')){
 			moderation = 1;

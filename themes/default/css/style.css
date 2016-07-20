@@ -2475,7 +2475,7 @@ section .stat_year {
 /*PHONE*/
 
 @media (max-width: 727px) {
-	/*div#graph.opened,
+	/*div#demand_chart.opened,
 	div#quiz.opened,
 	div#cart.opened,
 	div#auth.opened,
@@ -3124,18 +3124,18 @@ section .stat_year {
 	top: 100px;
 	left: -75%;
 }
-#graph[data-type="modal"] {
+#demand_chart[data-type="modal"] {
 	min-width: 700px;
 }
 .mdl-slider.is-upgraded {
 	border: 0 !important;
 	height: 2px;
 }
-#graph p {
+#demand_chart p {
 	padding-top: 10px;
 	color: #4E4949;
 }
-#graph hr {
+#demand_chart hr {
 	width: 98%;
 }
 .slider_wrap {
@@ -3453,7 +3453,7 @@ section .stat_year {
 
 @media (max-width: 480px) {
 
-	#graph[data-type="modal"] {
+	#demand_chart[data-type="modal"] {
 		min-width: 100px;
 		left: 0 !important;
 	}
