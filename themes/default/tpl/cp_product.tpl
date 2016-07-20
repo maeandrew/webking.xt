@@ -289,7 +289,7 @@
 							<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
 							<span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span></li>
 						<?}?>
-					<li id="fortrending" class="<?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
+					<li id="fortrending" class="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li>
 					<div class="mdl-tooltip" for="fortrending">Следить за ценой</div>
 					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
@@ -329,7 +329,7 @@
 		<div class="sold_produxt_info <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0  ? "" : "hidden" ?>">
 			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p> 
 			<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
-			<ul><li id="fortrending_info" class="<?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" data-id-user="<?=$_SESSION['member']['id_user']?>"	data-email="<?=$_SESSION['member']['email']?>">
+			<ul><li id="fortrending_info" class="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 				<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li></ul>
 			<div class="mdl-tooltip" for="fortrending_info">Следить за ценой</div>
 					</div>
