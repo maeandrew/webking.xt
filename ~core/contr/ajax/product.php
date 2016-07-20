@@ -180,7 +180,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'OpenModalDemandChart':
 				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
 				break;
-			case 'UpdateGraph':
+			case 'UpdateDemandChart':
 				if(isset($_POST['moderation'])){
 					$mode = true;
 					echo json_encode($products->UpdatetGraph($_POST, $mode));

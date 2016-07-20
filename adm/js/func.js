@@ -46,7 +46,7 @@ function ModalDemandChart(id_graphics){
 							arr.each(function(index, val){
 								values[index] = $(val).val();
 							});
-							ajax('product', 'UpdateGraph', {'values': values, 'id_category': id_category, 'id_graphics': id_graphics, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_graphics': id_graphics, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 								if(data === true){
 									console.log('Your data has been saved successfully!');
 									closeObject('graph');
