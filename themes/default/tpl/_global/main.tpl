@@ -658,7 +658,7 @@
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
-					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
+					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
 					<label class="mdl-textfield__label" for="recovery_phone"></label>
 					<span class="mdl-textfield__error"></span>
 				</div>
