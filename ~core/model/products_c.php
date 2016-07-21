@@ -1762,8 +1762,8 @@ class Products {
 	public function DelFromAssort($id_product, $id_supplier = false){
 		if(!$id_supplier){
 			$id_supplier = $_SESSION['member']['id_user'];
-		}
 			unset($_SESSION['Assort']['products'][$id_product]);
+		}
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
 		$this->db->CompleteTrans();
