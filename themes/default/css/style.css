@@ -691,8 +691,8 @@ aside,
 	height: auto;
 	/*min-height: 52px;*/
 	background-color: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    margin-left: 5px;
+	border-bottom: 1px solid #e0e0e0;
+	margin-left: 5px;
 }
 /* .banner img {
 	display: block;
@@ -1282,7 +1282,7 @@ section.center {
 		/*border-bottom: 1px solid #e0e0e0;*/
 		/*margin-bottom: 10px;*/
 		padding-bottom: 10px;
-    	/*background: #fff;*/
+		/*background: #fff;*/
 	}
 	aside .catalog .main_nav li {
 		text-transform: uppercase;
@@ -1332,11 +1332,11 @@ section.center {
 		border-bottom: 1px solid #e0e0e0;
 	}
 	aside .catalog .second_nav {
-	    background: #fff;
-	    border-bottom: none;
+		background: #fff;
+		border-bottom: none;
 
-	    overflow: auto;
-	    max-height: calc(100vh - 168px);
+		overflow: auto;
+		max-height: calc(100vh - 168px);
 	}
 	aside .catalog .second_nav .link_wrapp .more_cat {
 		cursor: pointer;
@@ -1445,7 +1445,7 @@ section.center {
 	aside .filters {
 		display: none;
 		/*margin-top: 10px;		*/
-    	/*max-height: calc(100vh - 168px);*/
+		/*max-height: calc(100vh - 168px);*/
 	}
 	aside .filters .filters_container {
 		overflow: auto;
@@ -3158,7 +3158,16 @@ section .stat_year {
 	background-color: #018b06;
 	color: #fff;
 }
-
+#demand_chart .range_num{
+	position: absolute;
+	bottom: 2%;
+	right: 40%;
+}
+@media (max-width: 950px){
+	#demand_chart .range_num{
+		right: 30%);
+	}
+}
 
 .slider_wrap {
 	width: 8%;
@@ -3337,8 +3346,8 @@ section .stat_year {
 	.xt_news .news_description {
 		/*font-size: 13px;*/
 		max-height: 12em;
-    	overflow: hidden;
-    	margin-bottom: 10px;
+		overflow: hidden;
+		margin-bottom: 10px;
 	}
 	.xt_news .news_description > p {
 		text-align: justify;
@@ -3385,11 +3394,11 @@ section .stat_year {
 	font: normal normal 14px/1.4em "Roboto";
 }
 .news_item .read_more {
-    /*padding-top: 10px;*/
-    position: absolute;
-    bottom: 0px;
-    background: #fff;
-    width: 100%;
+	/*padding-top: 10px;*/
+	position: absolute;
+	bottom: 0px;
+	background: #fff;
+	width: 100%;
 }
 .news_item .read_more a {
 	display: block;
@@ -3406,7 +3415,7 @@ section .stat_year {
 }
 .news_item .news_date p {	
 	font-size: 12px;    
-    border-top: 1px solid #e0e0e0;
+	border-top: 1px solid #e0e0e0;
 }
 .last_news_title a {
 	background: #fff;
@@ -3417,11 +3426,11 @@ section .stat_year {
 	color: #fff;
 }
 .last_news_title {
-    border-top: 1px solid #e0e0e0;
-    padding: 0;
-    margin-left: 15px;
-    margin-right: 15px;
-    padding-top: 10px;
+	border-top: 1px solid #e0e0e0;
+	padding: 0;
+	margin-left: 15px;
+	margin-right: 15px;
+	padding-top: 10px;
 }
 .last_news_title h4 {
 	margin: 0px;
