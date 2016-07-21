@@ -3127,7 +3127,8 @@ section .stat_year {
 	left: -75%;
 }
 #demand_chart[data-type="modal"] {
-	min-width: 700px;
+	min-width: 768px;
+	max-width: 930px;
 }
 /*#demand_chart[data-type="modal"] .modal_container {
 	text-align: left;
@@ -3145,6 +3146,10 @@ section .stat_year {
 }
 #demand_chart .mdl-tabs .mdl-tabs__tab-bar{
 	justify-content: flex-start;
+}
+#demand_chart .range_wrap{
+	border-bottom: 1px solid #e0e0e0;
+	padding-left: 3%;
 }
 #demand_chart .bottom_panel .mdl-cell:last-child{
 	padding-top: 15px;

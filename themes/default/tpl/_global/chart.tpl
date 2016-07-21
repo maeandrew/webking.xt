@@ -15,105 +15,129 @@
         <a href="#opt" class="mdl-tabs__tab">Опт</a>
     </div>
     <div class="mdl-tabs__panel is-active" id="retail">
-      <div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle one">
+      <div class="mdl-cell--hide-phone clearfix toggle one range_wrap">
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_1']:5?>" step="1" tabindex="0">
+          <input id="inr_1" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_1']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_1"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>январь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_2']:5?>" step="1" tabindex="0">
+          <input id="inr_2" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_2']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_2"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>февраль</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_3']:5?>" step="1" tabindex="0">
+          <input id="inr_3" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_3']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_3"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>март</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_4']:5?>" step="1" tabindex="0">
+          <input id="inr_4" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_4']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_4"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>апрель</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_5']:5?>" step="1" tabindex="0">
+          <input id="inr_5" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_5']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_5"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>май</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_6']:5?>" step="1" tabindex="0">
+          <input id="inr_6" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_6']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_6"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>июнь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_7']:5?>" step="1" tabindex="0">
+          <input id="inr_7" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_7']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_7"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>июль</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_8']:5?>" step="1" tabindex="0">
+          <input id="inr_8" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_8']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_8"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>август</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_9']:5?>" step="1" tabindex="0">
+          <input id="inr_9" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_9']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_9"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>сентябрь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_10']:5?>" step="1" tabindex="0">
+          <input id="inr_10" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_10']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_10"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>октябрь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_11']:5?>" step="1" tabindex="0">
+          <input id="inr_11" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_11']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_11"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>ноябрь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_12']:5?>" step="1" tabindex="0">
+          <input id="inr_12" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_12']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="inr_12"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>декабрь</span>
         </div>
       </div>
     </div>
     <div class="mdl-tabs__panel" id="opt">
-      <div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle two">
+      <div class="mdl-cell--hide-phone clearfix toggle two range_wrap">
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_1']:5?>" step="1" tabindex="0">
+          <input id="ino_1" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_1']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_1"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>январь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_2']:5?>" step="1" tabindex="0">
+          <input id="ino_2" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_2']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_2"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>февраль</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_3']:5?>" step="1" tabindex="0">
+          <input id="ino_3" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_3']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_3"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>март</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_4']:5?>" step="1" tabindex="0">
+          <input id="ino_4" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_4']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_4"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>апрель</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_5']:5?>" step="1" tabindex="0">
+          <input id="ino_5" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_5']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_5"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>май</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_6']:5?>" step="1" tabindex="0">
+          <input id="ino_6" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_6']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_6"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>июнь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_7']:5?>" step="1" tabindex="0">
+          <input id="ino_7" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_7']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_7"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>июль</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_8']:5?>" step="1" tabindex="0">
+          <input id="ino_8" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_8']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_8"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>август</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_9']:5?>" step="1" tabindex="0">
+          <input id="ino_9" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_9']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_9"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>сентябрь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_10']:5?>" step="1" tabindex="0">
+          <input id="ino_10" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_10']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_10"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>октябрь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_11']:5?>" step="1" tabindex="0">
+          <input id="ino_11" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_11']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_11"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>ноябрь</span>
         </div>
         <div class="slider_wrap">
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_12']:5?>" step="1" tabindex="0">
+          <input id="ino_12" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_12']:5?>" step="1" tabindex="0">
+          <div class="mdl-tooltip" for="ino_12"><?=isset($val)?$val['roz']['value_12']:5?></div>
           <span>декабрь</span>
         </div>
       </div>
@@ -248,5 +272,10 @@
     }else{
       $('.mdl-color--grey-100').eq(1).not(':has(div.hidden)').addClass('hidden');
       $('.mdl-color--grey-100').eq(0).hasClass('hidden').removeClass('hidden');}*/
+  });
+
+  $('body').on('change', 'input[type="range"]', function(event) {
+    event.preventDefault();
+    $(this).closest('.slider_wrap').find('.mdl-tooltip').text($(this).val());
   });
 </script>
