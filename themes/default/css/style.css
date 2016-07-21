@@ -4120,8 +4120,7 @@ iframe[name="google_conversion_frame"] {
 [class^="msg-"] {  
   background-repeat: no-repeat;
   background-position: 1em 50%;
-  width: 110%;
-  margin-left: -15px;
+  width: 100%;
   min-height: 100px;
   padding: 1em;
   box-sizing: border-box;
