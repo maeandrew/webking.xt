@@ -3127,6 +3127,9 @@ section .stat_year {
 #demand_chart[data-type="modal"] {
 	min-width: 700px;
 }
+/*#demand_chart[data-type="modal"] .modal_container {
+	text-align: left;
+}*/
 .mdl-slider.is-upgraded {
 	border: 0 !important;
 	height: 2px;
@@ -3138,6 +3141,18 @@ section .stat_year {
 #demand_chart hr {
 	width: 98%;
 }
+#demand_chart .mdl-tabs .mdl-tabs__tab-bar{
+	justify-content: flex-start;
+}
+#demand_chart .bottom_panel .mdl-cell:last-child{
+	padding-top: 15px;
+}
+#demand_chart a.save{
+	background-color: #018b06;
+	color: #fff;
+}
+
+
 .slider_wrap {
 	width: 8%;
 	position: relative;

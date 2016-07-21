@@ -183,9 +183,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'UpdateDemandChart':
 				if(isset($_POST['moderation'])){
 					$mode = true;
-					echo json_encode($products->UpdatetGraph($_POST, $mode));
+					echo json_encode($products->UpdateGraph($_POST, $mode));
 				}else{
-					echo json_encode($products->UpdatetGraph($_POST));
+					echo json_encode($products->UpdateGraph($_POST));
 				}
 				break;
 			case 'AddEstimate':
