@@ -179,54 +179,6 @@
 		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
-				<!-- <?if($news != false){?>
-					<div class="xt_news">
-						<a href="<?=Link::Custom('news', $news['translit']);?>">
-							<h6 class="min news_title"><?=$news['title']?></h6>
-						</a>
-							<?if(isset($news['thumbnail'])){?>
-								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
-							<?}?>
-							<div class="min news_description"><?=$news['descr_short']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
-									Опубликовано Сегодня
-								<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?  echo date("d.m.Y", $news['date']);
-								}?>
-							</div>
-						<a href="<?=Link::Custom('news');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-							Все новости
-						</div></a>
-					</div>
-				<?}?> -->
-				<?if($post != false){?>
-					<div class="xt_news" style="margin-bottom:50px;">
-						<a href="<?=Link::Custom('post', $post['translit']);?>">
-							<h6 class="min news_title"><?=$post['title']?></h6>
-						</a>
-							<?if(isset($post['thumbnail'])){?>
-								<img src="<?=$post['thumbnail'];?>" alt="<?=$post['title']?>">
-							<?}?>
-							<div class="min news_description"><?=$post['content_preview']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == $post['date']){?>
-									Опубликовано Сегодня
-								<?}elseif($post['date']){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?echo $post['date'];
-								}?>
-							</div>
-						<a href="<?=Link::Custom('post');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-							Все статьи
-						</div></a>
-					</div>
-				<?}?>
 			</div>
 			<div class="catalog_close btn_js" data-name="catalog">
 				<i class="material-icons" title="Закрыть каталог">close</i>
