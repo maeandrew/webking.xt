@@ -144,14 +144,12 @@ class IntimeApi2 {
 	 * @return object Объект результата SOAP запроса 
 	 */
 	public function request($method, $params) {
-		$client = new \SoapClient('https://ws.intime.ua/API/ws/API20/?wsdl');
-		if(!$client){
-			print_r('беда');
-			die();
+		try{
+			$client = new SoapClient('https://ws.intime.ua/API/ws/API20/?wsdl');
+			$response = $client->__soapCall($method, $params)->return;
+		}catch(SoapFault $fault){
+			trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
 		}
-		// $response = $client->$method($params)->return;
-		$response = $client->__soapCall($method, $params)->return;
-		// $client->$function($data)->return;
 		// Это не магия, здесь ok (eng) и ок (рус)
 		if ( ! in_array($response->InterfaceState, array('OK', 'ОК', iconv('utf-8', 'cp1251', 'ОК'))))
 			throw new \Exception($response->InterfaceState);

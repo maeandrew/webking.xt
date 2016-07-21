@@ -1759,8 +1759,8 @@ class Products {
 	public function DelFromAssort($id_product, $id_supplier = false){
 		if(!$id_supplier){
 			$id_supplier = $_SESSION['member']['id_user'];
+			unset($_SESSION['Assort']['products'][$id_product]);
 		}
-		unset($_SESSION['Assort']['products'][$id_product]);
 		$this->db->StartTrans();
 		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
 		$this->db->CompleteTrans();
@@ -4456,7 +4456,10 @@ class Products {
 	 * @param  integer $lvl  [description]
 	 * @return [type]        [description]
 	 */
-	public function generateNavigation($list, $lvl = 0){
+	public function generateNavigation($list, $lvl = 0, $no_rel = false){
+		if(isset($GLOBALS['CURRENT_ID_CATEGORY'])){
+			$id_cat = $GLOBALS['CURRENT_ID_CATEGORY'];
+		}
 		$lvl++;
 		$arr['clear']='true';
 		if(isset($_POST['idsegment'])){
@@ -4464,7 +4467,9 @@ class Products {
 		}
 		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
-			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp"><a href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
+			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp">
+			<a '.(($no_rel || (!isset($GLOBALS['current_categories'])&& $GLOBALS['CurrentController'] !='product') )?'':'rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
+
 			if(!empty($l['subcats'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
                     $ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
@@ -4472,7 +4477,7 @@ class Products {
                     $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
                 }*/
 				$ul .= '<span class="more_cat"><i class="material-icons">add</i></span></span>';
-				$ul .= $this->generateNavigation($l['subcats'], $lvl);
+				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null);
 				$ul .= '</li>';
 			}else{
 				$ul .= '</span></li>';
