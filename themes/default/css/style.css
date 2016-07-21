@@ -514,8 +514,6 @@ body:not(.c_main) .banner {
 		width: 80vw;
 	}
 }
-
-
 [data-type="panel"] .panel_container {
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -4111,6 +4109,64 @@ iframe[name="google_conversion_frame"] {
 		padding: 1%;
 	}
 }
+
+/* Стили для блоков оповещения */
+[class^="msg-"] {  
+  background-repeat: no-repeat;
+  background-position: 1em 50%;
+  width: 110%;
+  margin-left: -15px;
+  min-height: 100px;
+  padding: 1em;
+  box-sizing: border-box;
+  position: relative;
+}
+#bonus .msg_title {
+	font-weight: bold;	
+}
+#bonus .msg_title, 
+#bonus .msg_text {
+	margin-left: 30px;
+}
+#bonus .msg_icon {
+	position: absolute;
+	left: 1em;
+	top: calc(50% - 12px);
+}
+#bonus .msg-success {
+  color: #067369;
+  background-color: #c0ffc0;	
+}
+#bonus .msg-success .msg_title::before {
+  content: 'Успех';
+}
+#bonus .msg-error {
+  color: #d82114;
+  background-color: #ffa3a6;	
+}
+#bonus .msg-error .msg_title::before {
+  content: 'Ошибка';
+}
+#bonus .msg-attention {
+  color: #9a5c01;
+  background-color: #fdec9b;	
+}
+#bonus .msg-attention .msg_title::before {
+  content: 'Внимание';
+}
+#bonus .msg-info {
+  color: #33439c;
+  background-color: #b2ddff;	
+}
+#bonus .msg-info .msg_title::before {
+  content: 'Внимание';
+}
+#bonus .details {
+	color: #FF5722;
+}
+
+
+
 
 /* @media (max-width: 1000px) {
 	.item_svg {
