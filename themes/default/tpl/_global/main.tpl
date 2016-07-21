@@ -151,26 +151,26 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
+	<?if($GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false))){?>
 		<section class="banner">
-			<div class="cont">
-				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
-						<h3>Снабжение<br> предприятий</h3>
-					</span>
+			<div class="banner_container">
+				<a class="banner_button" href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+					<span class="static">Снабжение<br>предприятий</span>
+					<span class="floating">Снабжение предприятий</span>
+					<p>Описание пункта снабжение предприятия</p>
 				</a>
-				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
-						<h3>Поставки<br> магазинам</h3>
-					</span>
+				<a class="banner_button" href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+					<span class="static">Поставки<br>магазинам</span>
+					<span class="floating">Поставки магазинам</span>
+					<p>Описание пункта поставки магазинам</p>
 				</a>
-				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
-						<h3>Обеспечение<br> быта</h3>
-					</span>
+				<a class="banner_button" href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+					<span class="static">Обеспечение<br>быта</span>
+					<span class="floating">Обеспечение быта</span>
+					<p>Описание пункта обеспечение быта</p>
 				</a>
 			</div>
 		</section>
