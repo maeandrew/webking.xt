@@ -112,7 +112,7 @@
 					if($company['has_api'] == 1 && $company['api_key'] != ''){
 						$city = $Address->UseAPI($company, 'getCity', $_POST);
 						if(!empty($city)){
-							$echo .= '<option data-ref="'.$city['Ref'].'" value="'.$company['id'].'">'.$company['title'].'</option>';					
+							$echo .= '<option data-ref="'.htmlspecialchars($city['Ref']).'" value="'.$company['id'].'">'.$company['title'].'</option>';					
 						}
 					}
 				}
@@ -145,7 +145,7 @@
 				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
 				if(!empty($warehouses)){
 					foreach($warehouses as $warehouse){
-						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.$warehouse['name'].'">'.$warehouse['name'].'</option>';					
+						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.htmlspecialchars($warehouse['name']).'">'.$warehouse['name'].'</option>';					
 					}				
 				}
 				echo $echo;

@@ -6,7 +6,7 @@
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();
-	$address = new Address();
+	$Address = new Address();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case "step":
@@ -21,17 +21,17 @@
 				// step 2+
 				if($_POST['step'] > 1){
 					// Получаем список всех областей
-					$regions_list = $address->GetRegionsList();
+					$regions_list = $Address->GetRegionsList();
 					$tpl->Assign('regions_list', $regions_list);
-					$cities_count = count($address->GetCitiesList());
+					$cities_count = count($Address->GetCitiesList());
 					$tpl->Assign('cities_count', $cities_count);
 					// Если у клиента уже сохранен его город
 					if($customer['id_city'] > 0){
 						// Получаем данные о городе
-						$saved_city = $address->GetCityById($customer['id_city']);
+						$saved_city = $Address->GetCityById($customer['id_city']);
 						$tpl->Assign('saved_city', $saved_city);
 						// Получаем список городов по сохраненной области клиента
-						$cities_list = $address->GetCitiesList((int) $saved_city['id_region']);
+						$cities_list = $Address->GetCitiesList((int) $saved_city['id_region']);
 						$tpl->Assign('cities_list', $cities_list);
 					}
 				}
@@ -42,19 +42,19 @@
 							'courier' => 0
 						);
 						$data['city'] = $saved_city['title'];
-						$saved_region = $address->GetRegionById($saved_city['id_region']);
+						$saved_region = $Address->GetRegionById($saved_city['id_region']);
 						$tpl->Assign('saved_region', $saved_region);
 						$data['region'] = $saved_region['title'];
 						//////////////////////////////////////////////////////////////////////
 						// проверяем, есть ли в этом городе отделения транспортных компаний //
 						//////////////////////////////////////////////////////////////////////
-						$shiping_companies = $address->GetShippingCompanies();
+						$shiping_companies = $Address->GetShippingCompanies();
 						foreach($shiping_companies as $company){
 							if($company['courier'] == 1){
 								$count['courier']++;
 							}
 							if($company['has_api'] == 1 && $company['api_key'] != ''){
-								$city = $address->UseAPI($company, 'getCity', $data);
+								$city = $Address->UseAPI($company, 'getCity', $data);
 								$count['warehouse'] += !empty($city)?1:0;
 							}
 						}
@@ -83,13 +83,18 @@
 						}
 						break;
 					case 2:
-						$region = $address->GetRegionByTitle($_POST['selected_region']);
-						$city = $address->GetCityByTitle($_POST['selected_city'], $region['id']);
+						$region = $Address->GetRegionByTitle($_POST['region']);
+						$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
 						$data['id_region'] = $city['id_region'];
 						$data['id_city'] = $city['id'];
 						if($Customers->UpdateCustomer($data)){
 							$echo = true;
 						}
+						break;
+					case 3:
+						// Создаем клиенту адрес доставки
+						print_r($_POST);
+						// $Address->AddAddress($_POST);
 						break;
 					default:
 						$echo = 'No one step was sent';

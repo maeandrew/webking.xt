@@ -72,9 +72,11 @@
 	<div class="sitemap_files <?=isset($sitemap_files)?'':'hidden'?>">
 		<span>Файлы сгенерировались успешно! Список файлов предоставлен ниже. Перейдите в инструменты разработчика для продолжения работы с файлами!</span>
 		<ul>
-		<?foreach ($sitemap_files as $file) {?>
-			<li>- <?=$file?></li>
-		<?}?>
+		<?if(!empty($sitemap_files)){
+			foreach($sitemap_files as $file){?>
+				<li>- <?=$file?></li>
+			<?}
+		}?>
 		</ul>
 
 	</div>

@@ -88,6 +88,12 @@ header .header_wrapp .header_right .phone_menu {
 	margin: 0;
 }
 
+@media (max-width: 1000px) {
+	header {
+		margin-left: 0px;
+	}
+}
+
 
 /* User Profile =============================================================*/
 

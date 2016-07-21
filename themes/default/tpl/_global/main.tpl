@@ -122,7 +122,7 @@
 	</noscript>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
-<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':$GLOBALS['CurrentController']?>">
+<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?>">
 	
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
@@ -176,57 +176,9 @@
 		</section>
 	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
+		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
-				<!-- <?if($news != false){?>
-					<div class="xt_news">
-						<a href="<?=Link::Custom('news', $news['translit']);?>">
-							<h6 class="min news_title"><?=$news['title']?></h6>
-						</a>
-							<?if(isset($news['thumbnail'])){?>
-								<img src="<?=$news['thumbnail'];?>" alt="<?=$news['title']?>">
-							<?}?>
-							<div class="min news_description"><?=$news['descr_short']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == date("d-m-Y", $news['date'])){?>
-									Опубликовано Сегодня
-								<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $news['date'])){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?  echo date("d.m.Y", $news['date']);
-								}?>
-							</div>
-						<a href="<?=Link::Custom('news');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-							Все новости
-						</div></a>
-					</div>
-				<?}?> -->
-				<?if($post != false){?>
-					<div class="xt_news" style="margin-bottom:50px;">
-						<a href="<?=Link::Custom('post', $post['translit']);?>">
-							<h6 class="min news_title"><?=$post['title']?></h6>
-						</a>
-							<?if(isset($post['thumbnail'])){?>
-								<img src="<?=$post['thumbnail'];?>" alt="<?=$post['title']?>">
-							<?}?>
-							<div class="min news_description"><?=$post['content_preview']?></div>
-							<div class="min news_date">
-								<?if(date('d-m-Y') == $post['date']){?>
-									Опубликовано Сегодня
-								<?}elseif($post['date']){?>
-									Опубликовано Вчера
-								<?}else{?>
-									Опубликовано
-								<?echo $post['date'];
-								}?>
-							</div>
-						<a href="<?=Link::Custom('post');?>"><div class="min news_more mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-							Все статьи
-						</div></a>
-					</div>
-				<?}?>
 			</div>
 			<div class="catalog_close btn_js" data-name="catalog">
 				<i class="material-icons" title="Закрыть каталог">close</i>
@@ -708,7 +660,7 @@
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
-					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
+					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
 					<label class="mdl-textfield__label" for="recovery_phone"></label>
 					<span class="mdl-textfield__error"></span>
 				</div>
