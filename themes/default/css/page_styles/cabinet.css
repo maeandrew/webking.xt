@@ -2243,9 +2243,14 @@ div[id^="items_panel_"] .btnWrapFlex {
     width: 110px;
 }
 
-
+.bonus_info {
+	width: 330px;
+}
+#bonus {
+	margin-top: 0px;
+}
 /* Стили для блоков оповещения в разделе дисконта */
-[class^="msg-"] {  
+/*[class^="msg-"] {  
   background-repeat: no-repeat;
   background-position: 1em 50%;
   width: 100%;
@@ -2255,67 +2260,67 @@ div[id^="items_panel_"] .btnWrapFlex {
   position: relative;
 }
 
-#bonus .msg_title {
+.msg_title {
 	font-weight: bold;	
 }
-#bonus .msg_title, 
-#bonus .msg_text {
+.msg_title, 
+.msg_text {
 	margin-left: 30px;
 }
-#bonus .msg_icon {
+.msg_icon {
 	position: absolute;
 	left: 1em;
 	top: calc(50% - 12px);
 }
-#bonus .msg-success {
+.msg-success {
   color: #067369;
   background-color: #c0ffc0;
   width: 110%;
   margin-left: -15px;
-}
-#bonus .msg-success .msg_title::before {
+}*/
+.msg-success .msg_title::before {
   content: 'Успех';
 }
-#bonus .msg-success .msg_text::before {
+.msg-success .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-#bonus .msg-error {
+/*.msg-error {
   color: #d82114;
   background-color: #ffa3a6;	
   width: 110%;
   margin-left: -15px;
-}
-#bonus .msg-error .msg_title::before {
+}*/
+.msg-error .msg_title::before {
   content: 'Ошибка';
 }
-#bonus .msg-error .msg_text::before {
+.msg-error .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-#bonus .msg-attention {
+/*.msg-attention {
   color: #9a5c01;
   background-color: #fdec9b;
   width: 110%;
   margin-left: -15px;
-}
-#bonus .msg-attention .msg_title::before {
+}*/
+.msg-attention .msg_title::before {
   content: 'Внимание';
 }
-#bonus .msg-attention .msg_text::before {
+.msg-attention .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-#bonus .msg-info {
+/*.msg-info {
   color: #33439c;
   background-color: #b2ddff;
   width: 110%;
   margin-left: -15px;
-}
-#bonus .msg-info .msg_title::before {
+}*/
+.msg-info .msg_title::before {
   content: 'Внимание';
 }
-#bonus .msg-info .msg_text::before {
+.msg-info .msg_text::before {
   content: 'Для активации бонусной карты, заполните эту форму!';
 }
-#bonus .details {
+.details {
 	color: #FF5722;
 }
 
@@ -2899,6 +2904,7 @@ div[id^="items_panel_"] .btnWrapFlex {
     padding-bottom: 13px;
     line-height: 24px;
     margin-top: 5px;
+    margin-bottom: 15px;
 }
 .bonus_detalies:hover {
     box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
@@ -2970,6 +2976,25 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.cabinet_navigation li {
 		width: 98%;
+	}
+	.customer_cab #edit_personal {
+		padding: 0px;
+	}
+	/*#bonus, .bonus_detalies {
+		width: 98%;
+	}*/
+	/*.bonus_info {
+		width: 98%;
+	}*/
+	.customer_cab .edit_contacts_block, 
+	.customer_cab .add_new_address,
+	.bonus_detalies, 
+	.bonus_info,
+	#bonus {
+		width: 98%;
+	}
+	.addres_field {
+		width: calc(100vw - 100px);
 	}
 }
 

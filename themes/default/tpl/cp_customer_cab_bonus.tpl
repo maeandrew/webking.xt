@@ -2,6 +2,16 @@
 	<div class="customer_cab col-md-6">
 		<h1>Активация бонусной карты</h1>
 		<a class="bonus_detalies" href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details"><i class="material-icons">help_outline</i> Детали бонусной программы</a>
+		<div class="msg-info bonus_info">
+			<div class="msg_icon">
+				<i class="material-icons hidden">check_circle</i>
+				<i class="material-icons">info</i>
+				<i class="material-icons hidden">warning</i>
+				<i class="material-icons hidden">error</i>
+			</div>
+		    <p class="msg_title">!</p>
+		    <p class="msg_text"></p>
+		</div>		
 		<div id="bonus">
 			<?if(!isset($_GET['t']) || $_GET['t']=='bonus_info'){?>
 				<?if(!$Customer['bonus_card']){?>
@@ -32,16 +42,7 @@
 						<!-- <div class="msg-info">
 							<p><b>Внимание!</b> Для активации бонусной карты, заполните эту форму!</p>
 						</div> -->
-						<div class="msg-info">
-							<div class="msg_icon">
-								<i class="material-icons hidden">check_circle</i>
-								<i class="material-icons">info</i>
-								<i class="material-icons hidden">warning</i>
-								<i class="material-icons hidden">error</i>
-							</div>
-						    <p class="msg_title">!</p>
-						    <p class="msg_text"></p>
-						</div>						
+										
 						<!-- <a href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details">Детали бонусной программы</a> -->
 				<form action="" method="POST">
 					<?if(!$Customer['bonus_card']){?>
