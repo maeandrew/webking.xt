@@ -1,6 +1,6 @@
 <div class="topline">
 	<div class="sitename">
-		<a class="logo" href="/adm/"><span class="icon-transf">F </span>Администрирование</a>
+		<a class="logo" href="/adm/" rel="nofollow"><span class="icon-transf">F </span>Администрирование</a>
 	</div>
 	Перейти на <a href="<?=$GLOBALS['URL_base']?>">сайт</a><?if(isset($_SESSION['member'])){?> | Вы вошли как <a href="<?=$GLOBALS['URL_base']?>adm/login/"><?=$_SESSION['member']['email']?></a> | <a href="/adm/logout/">Выход</a><?}?>
 </div>
