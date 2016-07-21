@@ -1061,11 +1061,11 @@ section.center {
 	#cart .cart_login_btn {
 		margin-bottom: 10px;
 	}
-	#cart .action_block {
+	/*#cart .action_block {
 		width: 300px;
 		padding: 10px;
 		float: right;
-	}
+	}*/
 	#cart .action_block .mdl-textfield {
 		width: 100%;
 		padding-top: 0;
@@ -1224,7 +1224,7 @@ section.center {
 		display: block;
 	}
 
-	#cart .orderNote {
+	/*#cart .orderNote {
 		float: left;
 		width: calc(100% - 600px);
 		padding-top: 10px;
@@ -1240,7 +1240,7 @@ section.center {
 		width: 300px;
 		margin-top: 10px;
 		box-sizing: border-box;
-	}
+	}*/
 
 	@media (min-width: 728px) and (max-width: 979px) {
 		#cart #total {
@@ -4179,3 +4179,66 @@ iframe[name="google_conversion_frame"] {
 		width: 100%;		
 	}
 } */
+
+/* После синхронизации с веткой "Artemida" (графики спроса в разделах) переместить ниже написанный код на строку 1064!
+	и удалить закомментированный код, начиная со строки 1227, 1064! */
+#cart .cart_bottom_wrap,
+#cart .sub_cart_bottom_wrap{
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+}
+#cart .sub_cart_bottom_wrap{
+	flex-wrap: wrap-reverse;
+}
+#cart .cart_bottom_wrap > *,
+#cart .sub_cart_bottom_wrap > *{
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+#cart .orderNote{
+	border: 1px solid #e0e0e0;
+	border-top: none;
+}
+#cart .orderNote textarea {
+	max-height: 189px;
+}
+#cart .msg-info{
+	width: 300px;
+	box-sizing: border-box;
+	border: 1px solid #e0e0e0;
+	border-top: none;
+}
+#cart .orderNote,
+#cart .msg-info{
+	min-height: 120px;
+}
+#cart .action_block{
+	width: 301px;
+	padding: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border: 1px solid #e0e0e0;
+	border-top: none;
+}
+#cart [class^="msg-"]{
+	margin-left: 0;
+}
+@media (max-width: 1200px){
+	#cart .orderNote,
+	#cart .msg-info{
+		min-height: 80px;
+		border: none;
+	}
+	#cart .cart_bottom_wrap{
+		border: 1px solid #e0e0e0;
+		border-top: none;
+	}
+	#cart .action_block{
+		border: none;
+		border-left: 1px solid #e0e0e0;
+	}
+	#cart .orderNote textarea{
+		max-height: 85px;
+	}
+}

@@ -296,201 +296,211 @@
 			<div class="price_nav"></div>
 		</div>
 	</div>
-	<div class="orderNote">
-		<textarea name="orderNote" placeholder="Примечания к заказу..."></textarea>
-	</div>
-	<div class="msg-info">
-		<div class="msg_icon">
-			<i class="material-icons hidden">check_circle</i>
-			<i class="material-icons">info</i>
-			<i class="material-icons hidden">warning</i>
-			<i class="material-icons hidden">error</i>
-		</div>
-		<p class="msg_title">!</p>
-		<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
-	</div>
-	<div class="action_block">
-		<div class="wrapp">
-			<form action="">
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label for="user_number">*Телефон</label>
-					<input class="mdl-textfield__input phone" type="text" id="user_number"
-					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
-					<label class="mdl-textfield__label" for="user_number"></label>
-					<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
-				</div>
-				<p class="err_msg"></p>
-				<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 
-				<?if(G::IsLogged() || _acl::isAdmin()){?>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
-						<label for="promo_input">Промокод</label>
-						<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
-						<label class="mdl-textfield__label" for="promo_input"></label>
-						<span class="mdl-textfield__error err_promo orange"></span>
+	<div class="cart_bottom_wrap">
+		<div class="sub_cart_bottom_wrap">
+			<div class="orderNote">
+				<!-- <textarea name="orderNote" placeholder="Примечания к заказу..."></textarea> -->
+				<div class="mdl-textfield mdl-js-textfield">
+					<textarea class="mdl-textfield__input" type="text" rows="1" id="orderNote" name="orderNote"></textarea>
+					<label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label>
+				</div>
+			</div>
+			<div class="msg-info">
+				<div class="msg_icon">
+					<i class="material-icons hidden">check_circle</i>
+					<i class="material-icons">info</i>
+					<i class="material-icons hidden">warning</i>
+					<i class="material-icons hidden">error</i>
+				</div>
+				<p class="msg_title">!</p>
+				<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
+			</div>
+		</div>
+		<div class="action_block">
+			<div class="wrapp">
+				<form action="">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="user_number">*Телефон</label>
+						<input class="mdl-textfield__input phone" type="text" id="user_number"
+						pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
+						<label class="mdl-textfield__label" for="user_number"></label>
+						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 					</div>
-					<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
-					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
-						<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
-						<div class="cart_warning_js cart_warning clearBoth hidden">
-							<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
-							<p>Вы уверенны, что хотите удалить промокод?</p>
-							<input type="hidden" value="<?=isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:'';?>">
-							<input type="button" class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
-							<input type="button" class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
+					<p class="err_msg"></p>
+					<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
+
+					<?if(G::IsLogged() || _acl::isAdmin()){?>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
+							<label for="promo_input">Промокод</label>
+							<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
+							<label class="mdl-textfield__label" for="promo_input"></label>
+							<span class="mdl-textfield__error err_promo orange"></span>
+						</div>
+						<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
+						<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
+							<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
+							<div class="cart_warning_js cart_warning clearBoth hidden">
+								<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
+								<p>Вы уверенны, что хотите удалить промокод?</p>
+								<input type="hidden" value="<?=isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:'';?>">
+								<input type="button" class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
+								<input type="button" class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
+							</div>
+						<?}else{?>
+							<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
+						<?}?>
+						<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
+							<div class="clearBoth">
+								<div class="info_admin">Для управления совместной покупкой, перейдите личный кабинет.</div>
+								<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
+							</div>
+						<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
+							<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?> clearBoth">
+								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
+								<?if(isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) {?>
+									<div class="info_client ic_waiting">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
+								<?}else{?>
+									<div class="info_client ic_ready">Заказ подтвержден. </div>
+								<?}?>
+								<div class="info_client">Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
+								<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
+							</div>
+						<?}?>
+					
+						<?if(!isset($_SESSION['cart']['promo'])){?>
+							<div class="cart_choiсe_wrapp_js">
+								<!--<div class="tooltip_wrapp joint_cart_js">
+									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+										<input type="radio" class="mdl-radio__button" name="options" value="1">
+										<span class="mdl-radio__label">Совместная корзина</span>
+											<label class="info_key" style="position: initial;">?</label>
+											<div class="info_description">Создать совместную корзину и стать ее администратором.</div>
+									</label>
+								</div>-->
+								<div class="tooltip_wrapp joint_purchase_js">
+									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+										<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
+										<span class="mdl-radio__label">Cовместный заказ</span>
+											<label class="info_key" style="position: initial;">?</label>
+											<div class="info_description">Перейти к оформлению совместного заказа</div>
+									</label>
+								</div>
+								<input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
+							</div>
+						<?}?>
+					<?}?>
+					<?if(!G::IsLogged() || !_acl::isAdmin()){?>
+						<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
 						</div>
 					<?}else{?>
-						<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
+						<p>Вы не можете использовать корзину</p>
 					<?}?>
-					<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
-						<div class="clearBoth">
-							<div class="info_admin">Для управления совместной покупкой, перейдите личный кабинет.</div>
-							<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
-						</div>
-					<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
-						<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?> clearBoth">
-							<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-							<?if(isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) {?>
-								<div class="info_client ic_waiting">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
-							<?}else{?>
-								<div class="info_client ic_ready">Заказ подтвержден. </div>
-							<?}?>
-							<div class="info_client">Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
-							<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
-						</div>
-					<?}?>
-				
-					<?if(!isset($_SESSION['cart']['promo'])){?>
-						<div class="cart_choiсe_wrapp_js">
-							<!--<div class="tooltip_wrapp joint_cart_js">
-								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-									<input type="radio" class="mdl-radio__button" name="options" value="1">
-									<span class="mdl-radio__label">Совместная корзина</span>
-										<label class="info_key" style="position: initial;">?</label>
-										<div class="info_description">Создать совместную корзину и стать ее администратором.</div>
-								</label>
-							</div>-->
-							<div class="tooltip_wrapp joint_purchase_js">
-								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
-									<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
-									<span class="mdl-radio__label">Cовместный заказ</span>
-										<label class="info_key" style="position: initial;">?</label>
-										<div class="info_description">Перейти к оформлению совместного заказа</div>
-								</label>
-							</div>
-							<input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
-						</div>
-					<?}?>
-				<?}?>
-				<?if(!G::IsLogged() || !_acl::isAdmin()){?>
-					<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
-						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
+					<!-- <div id="button-cart2">
+						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
 					</div>
-				<?}else{?>
-					<p>Вы не можете использовать корзину</p>
-				<?}?>
-				<!-- <div id="button-cart2">
-					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
-				</div>
-				<div id="button-cart3">
-					<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
-				</div> -->
-			</form>
-			
-			<script type='text/javascript'>
-				//   radio button magic
-				componentHandler.upgradeDom();
+					<div id="button-cart3">
+						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
+					</div> -->
+				</form>
+				
+				<script type='text/javascript'>
+					//   radio button magic
+					componentHandler.upgradeDom();
 
-				var checked = false;
+					var checked = false;
 
-				$('#cart .joint_cart_js').on('click', function () {
-					if (checked == false) {
-						$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
-						$('.cart_continue_js').addClass('joint_cart_continue_js').removeClass('hidden').removeClass('joint_purchase_continue_js');
-					}
-				});
-				$('#cart .joint_purchase_js').on('click', function () {
-					if (checked == false) {
-						$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
-						$('.cart_continue_js').addClass('joint_purchase_continue_js').removeClass('hidden').removeClass('joint_cart_continue_js');
-					}
-				});
-				$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
-					checked = $(this).hasClass('is-checked');
-				}).on('click', function () {
-					if (checked == true) {
-						$(this).removeClass('is-checked').find('input').attr('checked', false);
-						$('.action_block #button-cart1 [type="submit"]').removeClass('hidden');
-						$('.cart_continue_js').addClass('hidden');
-					}
-				});
-
-				$('.joint_purchase_continue_js').click(function(event) {
-					ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp) {
-						$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
-						openObject('cart', {reload: true});
-					}).fail(function(resp) {
-						console.log('fail ajax');
-					});
-				});
-				$('.joint_cart_continue_js').click(function(event) {
-					// ajax('cart', 'CreateJointCart', {jointCart: jointCart}).done(function(data){
-					// 	console.log(data);
-					// }).fail(function(data){
-					// 	console.log('fail ajax');
-					// });
-				});
-				//   radio button magic (end)
-
-
-				$('.apply_promoCode_js').click(function(event) {
-					ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data) {
-						console.log(data);
-						if (data.promo) {
-							$('cart_choiсe_wrapp_js').addClass('hidden');
-							GetCartAjax(true);
-							console.log("success promo");
-							$('.action_block form').removeClass('for_err_promo');
-							$('.err_promo').removeClass('visibleForUser');
-						}else{
-							$('.action_block form').addClass('for_err_promo');
-							$('.err_promo').addClass('visibleForUser').text(data.msg);
-							componentHandler.upgradeDom();
+					$('#cart .joint_cart_js').on('click', function () {
+						if (checked == false) {
+							$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+							$('.cart_continue_js').addClass('joint_cart_continue_js').removeClass('hidden').removeClass('joint_purchase_continue_js');
 						}
-						
-						// $('.confirm_order_js').closest('div').removeClass('hidden');
-						// $('#button-cart1').addClass('hidden');
-					}).fail(function(data) {
-						console.log("fail promo");
 					});
-				});
-				$('.confirm_del_promoCode_js').click(function(event) {
-					ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
-						$('.promo_input_js input').attr('value', '');
-						// $('.cart_warning_js').addClass('hidden');
-						openObject('cart', {reload: true});
-					}).fail(function(event) {
-						console.log("fail del promo");
+					$('#cart .joint_purchase_js').on('click', function () {
+						if (checked == false) {
+							$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+							$('.cart_continue_js').addClass('joint_purchase_continue_js').removeClass('hidden').removeClass('joint_cart_continue_js');
+						}
 					});
-				});
-				$('.cancel_del_promoCode_js').click(function(event) {
-					$('.cart_warning_js').addClass('hidden');
-				});
-				$('.del_promoCode_js').click(function(event) {
-					$('.cart_warning_js').removeClass('hidden');
-				});
-				$('.confirm_order_js').click(function(event) {
-					// console.log($(this).closest('div').find('[type="hidden"]').val());
-					ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
-						console.log("success ");
-						openObject('cart', {reload: true});
-					}).fail(function(event) {
-						console.log("fail ");
+					$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+						checked = $(this).hasClass('is-checked');
+					}).on('click', function () {
+						if (checked == true) {
+							$(this).removeClass('is-checked').find('input').attr('checked', false);
+							$('.action_block #button-cart1 [type="submit"]').removeClass('hidden');
+							$('.cart_continue_js').addClass('hidden');
+						}
 					});
-				});
-			</script>
+
+					$('.joint_purchase_continue_js').click(function(event) {
+						ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp) {
+							$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
+							openObject('cart', {reload: true});
+						}).fail(function(resp) {
+							console.log('fail ajax');
+						});
+					});
+					$('.joint_cart_continue_js').click(function(event) {
+						// ajax('cart', 'CreateJointCart', {jointCart: jointCart}).done(function(data){
+						// 	console.log(data);
+						// }).fail(function(data){
+						// 	console.log('fail ajax');
+						// });
+					});
+					//   radio button magic (end)
+
+
+					$('.apply_promoCode_js').click(function(event) {
+						ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data) {
+							console.log(data);
+							if (data.promo) {
+								$('cart_choiсe_wrapp_js').addClass('hidden');
+								GetCartAjax(true);
+								console.log("success promo");
+								$('.action_block form').removeClass('for_err_promo');
+								$('.err_promo').removeClass('visibleForUser');
+							}else{
+								$('.action_block form').addClass('for_err_promo');
+								$('.err_promo').addClass('visibleForUser').text(data.msg);
+								componentHandler.upgradeDom();
+							}
+							
+							// $('.confirm_order_js').closest('div').removeClass('hidden');
+							// $('#button-cart1').addClass('hidden');
+						}).fail(function(data) {
+							console.log("fail promo");
+						});
+					});
+					$('.confirm_del_promoCode_js').click(function(event) {
+						ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
+							$('.promo_input_js input').attr('value', '');
+							// $('.cart_warning_js').addClass('hidden');
+							openObject('cart', {reload: true});
+						}).fail(function(event) {
+							console.log("fail del promo");
+						});
+					});
+					$('.cancel_del_promoCode_js').click(function(event) {
+						$('.cart_warning_js').addClass('hidden');
+					});
+					$('.del_promoCode_js').click(function(event) {
+						$('.cart_warning_js').removeClass('hidden');
+					});
+					$('.confirm_order_js').click(function(event) {
+						// console.log($(this).closest('div').find('[type="hidden"]').val());
+						ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
+							console.log("success ");
+							openObject('cart', {reload: true});
+						}).fail(function(event) {
+							console.log("fail ");
+						});
+					});
+				</script>
+			</div>
 		</div>
 	</div>
+	
 
 
 	<!-- END NEW Товары в корзине -->
