@@ -265,7 +265,7 @@ $(function(){
 	});
 
 	$('.moderations input').on('click',function() {
-		var id = $(this).closest('.moderations').data('id'),
+		var id = $(this).val(),
 			mode = 'mopt',
 			moderation = 0;
 		if($(this).hasClass('opt')){

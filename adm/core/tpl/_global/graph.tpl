@@ -4,9 +4,9 @@
 	foreach($data_graph as $key => $val) {
 		for($i=1; $i <= 12; $i++) {
 			if($val['opt'] == 0){
-				$values[$val['id_chart']]['mopt'][] = $val['value_'.$i];
+				$values[$val['id_category'].$val['id_author']]['mopt'][] = $val['value_'.$i];
 			}else{
-				$values[$val['opt']]['opt'][] = $val['value_'.$i];
+				$values[$val['id_category'].$val['id_author']]['opt'][] = $val['value_'.$i];
 			}
 		}
 	}
@@ -20,7 +20,7 @@
 		</script>
 		<?foreach($data_graph as $key => $val){
 			unset($chart_ords);
-			if($val['opt'] == 0){?>
+			if($val['opt'] == 0){ ?>
 				<div class="stat_years mdl-color--grey-100 mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:100%; width:100%;">
 
 					<?for ($i=1; $i <= 12; $i++){
@@ -28,8 +28,8 @@
 						<input class="hidden" type="range" min="0" max="10" value="<?=$val['value_'.$i]?>" step="1" tabindex="0">
 					<?}?>
 					<div style="width:25%;position: relative;float:left;">
-						<?if(isset($val['name_user'])){ ?>
-							<p>Добавил: <?=$val['name_user']?></p>
+						<?if(isset($val['user_name'])){ ?>
+							<p>Добавил: <?=$val['user_name']?></p>
 						<?}elseif(isset($val['name'])){?>
 							<p>Добавил: <?=$val['name']?></p>
 						<?}else{?>
@@ -79,7 +79,7 @@
 									pointStrokeColor: "rgba(1,139,6,.7)",
 									pointHighlightFill: "rgba(1,139,6,1)",
 									pointHighlightStroke: "transparent",
-									data: <?=json_encode($values[$val['id_chart']]['mopt']);?>
+									data: <?=json_encode($values[$val['id_category'].$val['id_author']]['mopt']);?>
 								},
 								{
 									label: "Опт",
@@ -88,7 +88,7 @@
 									pointStrokeColor: "transparent",
 									pointHighlightFill: "transparent",
 									pointHighlightStroke: "rgba(101,224,253,1)",
-									data: <?=json_encode($values[$val['id_chart']]['opt']);?>
+									data: <?=json_encode($values[$val['id_category'].$val['id_author']]['opt']);?>
 								}
 							]
 						};
@@ -100,12 +100,12 @@
 
 					<div class="moderations" data-id="<?=$val['id_chart']?>">
 						<p style="padding-left: 100px;"><b>Модерация</b></p>
-						<span class="legenda" style="width:100px"><i></i> - Оптовый</span>
+						<span class="legenda" style="width:100px"><i></i> - Розничный</span>
 						<p><input type="checkbox" name="option1" value="<?=$val['id_chart']?>" <?=isset($val['moderation']) && $val['moderation'] != 0?'checked':''?>>Пройдена</p>
 						<br>
 				<?php $a++; ?>
 			<?}else{?>
-						<span class="legenda" style="width:100px"><i style="background: rgb(255,139,6);"></i> - Розничный</span>
+						<span class="legenda" style="width:100px"><i style="background: rgb(255,139,6);"></i> - Оптовый</span>
 						<p><input type="checkbox" name="option2" value="<?=$val['id_chart']?>" class="opt" <?=isset($val['moderation']) && $val['moderation'] != 0?'checked':''?>>Пройдена</p>
 					</div>
 				</div>

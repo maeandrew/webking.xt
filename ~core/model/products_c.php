@@ -781,31 +781,29 @@ class Products {
 	public function AddDemandCharts($data){
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $data['id_category'];
-		$arr['name_user'] = $data['name_user'];
-		$arr['text'] = $data['text'];
+		//$arr['name_user'] = $data['name_user'];
+		$arr['comment'] = $data['text'];
 		$arr['moderation'] = 0;
-		if ($data['opt'] == 0) {
-			$arr['opt'] = 0;
+		if(_acl::isAllow('admin_panel')){
+			$arr['moderation'] = 1;
 		}
-		if ($data['moderation'] == 1) {
-			$arr['moderation'] = $data['moderation'];
-		}
+		$arr['opt'] = 0;
 		foreach($data['values']['roz'] as $k => $val){
-			$arr['value_'.$k] = $val;
+			$arr['value_'.($k+1)] = $val;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+		if(!$this->db->Insert(_DB_PREFIX_.'chart', $arr)){
 			$this->db->FailTrans();
 			return false;
 		}
-		$arr['opt'] = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 
+		$arr['opt'] = 1;
 		foreach($data['values']['opt'] as $k => $val){
-			$arr['value_'.$k] = $val;
+			$arr['value_'.($k+1)] = $val;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+		if(!$this->db->Insert(_DB_PREFIX_.'chart', $arr)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -817,31 +815,31 @@ class Products {
 	 * @param [type]  $graph [description]
 	 * @param boolean $mode  [description]
 	 */
-	public function UpdateDemandChart($graph, $mode=false){
-		$id_chart = $graph['id_chart'];
+	public function UpdateDemandChart($chart, $mode=false){
+		$id_chart = $chart['id_chart'];
 		$where = "id_chart = ".$id_chart;
 		if($mode == true){
-			$arr['moderation'] = $graph['moderation'];
-			if ($graph['mode'] == 'opt') {
-				$where = "opt = ".$id_chart;
-			}
+			$arr['moderation'] = $chart['moderation'];
+//			if ($chart['mode'] == 'opt') {
+//				$where = "opt = ".$id_chart;
+//			}
 		}else{
 			$arr['id_author'] = $_SESSION['member']['id_user'];
-			$arr['id_category'] = $graph['id_category'];
-			$arr['name_user'] = $graph['name_user'];
-			$arr['text'] = $graph['text'];
+			$arr['id_category'] = $chart['id_category'];
+			//$arr['name_user'] = $chart['name_user'];
+			$arr['comment'] = $chart['text'];
 			$arr['moderation'] = 1;
 			$arr['opt'] = 0;
-			if ($graph['opt'] == 1) {
-				$arr['opt'] = $graph['opt'];
+			if ($chart['opt'] == 1) {
+				$arr['opt'] = $chart['opt'];
 			}
-			foreach($graph['values'] as $k=>$val){
+			foreach($chart['values'] as $k=>$val){
 				$k++;
 				$arr['value_'.$k] = $val;
 			}
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."graph", $arr, $where)){
+		if(!$this->db->Update(_DB_PREFIX_."chart", $arr, $where)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -853,7 +851,7 @@ class Products {
 	 * @param [type] $id_chart [description]
 	 */
 	public function SearchDemandChart($id_chart){
-		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_chart = ".$id_chart;
+		$sql = "SELECT * FROM "._DB_PREFIX_."chart WHERE id_chart = ".$id_chart;
 		$result = $this->db->GetOneRowArray($sql);
 		return $result;
 	}
@@ -871,16 +869,17 @@ class Products {
 	public function GetGraphList($id_category = false){
 		//$id_category = $id_category?$id_category:0;
 		if(!$id_category){
-			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
+			$sql = "SELECT ch.*, u.`name` AS user_name FROM "._DB_PREFIX_."chart ch
+					LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author";
 		}elseif(is_numeric($id_category)){
-			$sql = "SELECT g.*, u.name
-				FROM "._DB_PREFIX_."graph g
+			$sql = "SELECT ch.*, u.name
+				FROM "._DB_PREFIX_."chart ch
 				JOIN "._DB_PREFIX_."user u
-				WHERE g.id_author = u.id_user
-				AND g.id_category = ".$id_category;
+				WHERE ch.id_author = u.id_user
+				AND ch.id_category = ".$id_category;
 		}else{
-			$sql = "SELECT g.*, c.id_category
-				FROM "._DB_PREFIX_."graph g
+			$sql = "SELECT ch.*, c.id_category
+				FROM "._DB_PREFIX_."chart ch
 				JOIN "._DB_PREFIX_."category c
 				WHERE c.id_category IN (
 					SELECT id_category
@@ -893,6 +892,24 @@ class Products {
 		return array('graph' => $result, 'users' => $result2);*/
 		return $result;
 	}
+
+	/**
+	 * Выборка среднеарифметических данных графика по категории
+	 * @param bool|false $id_category
+	 * @return bool
+	 */
+	public function AvgDemandChartCategory($id_category = false){
+		$sql = "SELECT opt, ROUND(AVG(value_1), 1) AS value_1, ROUND(AVG(value_2), 1) AS value_2, ROUND(AVG(value_3), 1) AS value_3, ROUND(AVG(value_4), 1) AS value_4,
+				ROUND(AVG(value_5), 1) AS value_5, ROUND(AVG(value_6), 1) AS value_6, ROUND(AVG(value_7), 1) AS value_7, ROUND(AVG(value_8), 1) AS value_8,
+				ROUND(AVG(value_9), 1) AS value_9, ROUND(AVG(value_10), 1) AS value_10, ROUND(AVG(value_11), 1) AS value_11, ROUND(AVG(value_12), 1) AS value_12
+				FROM "._DB_PREFIX_."chart WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
+		$result = $this->db->GetArray($sql);
+		if(!$result){
+			return false;
+		}
+		return $result;
+	}
+
 	/**
 	 * Выборка товаров для главной
 	 */
