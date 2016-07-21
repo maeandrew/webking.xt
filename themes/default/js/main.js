@@ -927,20 +927,20 @@ $(function(){
 			}
 		}else if(data.target_step == 3){
 			if(data.current_step == 2){
-				data.selected_region = all.current.find('#region').val();
-				data.selected_city = all.current.find('#city').val();
+				data.region = all.current.find('#region').val();
+				data.city = all.current.find('#city').val();
 					// all.target.find('span.client').text($('.first_name').text()+' '+$('.middle_name').text());
 
-				// if(selected_region != 'Выбрать' && selected_city != 'Выбрать'){
-				// 	all.summary.find('.region').text(selected_region).closest('.row').removeClass('hidden');
-				// 	all.summary.find('.city').text(selected_city).closest('.row').removeClass('hidden');
+				// if(region != 'Выбрать' && city != 'Выбрать'){
+				// 	all.summary.find('.region').text(region).closest('.row').removeClass('hidden');
+				// 	all.summary.find('.city').text(city).closest('.row').removeClass('hidden');
 				// 	$('.error_div').addClass('hidden');
 				// }
 
-				// if(selected_region == 'Выбрать'){
+				// if(region == 'Выбрать'){
 				// 	i++;
 				// 	$('.error_div').removeClass('hidden').text("Выберите область");
-				// } else if(selected_city == 'Выбрать'){
+				// } else if(city == 'Выбрать'){
 				// 	i++;
 				// 	$('.error_div').removeClass('hidden').text("Выберите город");
 				// }
@@ -949,78 +949,68 @@ $(function(){
 					
 
 					// ajax('cart', 'update_info', data, 'html').done(function(response){
-					// 	GetDeliveryService(selected_city+' ('+selected_region+')', $('input[name="service"]:checked').val());
+					// 	GetDeliveryService(city+' ('+region+')', $('input[name="service"]:checked').val());
 					// 	Position($(this).closest('[data-type="modal"]'));
-					// 	all.summary.find('.delivery_service').text(selected_region);
-					// 	all.summary.find('.delivery_method').text(selected_city);
+					// 	all.summary.find('.delivery_service').text(region);
+					// 	all.summary.find('.delivery_method').text(city);
 					// });
 					data.validate = true;
 					validateq(data);
 				}
 			}else if(data.current_step == 4){
-				all.summary.find('.delivery_service').closest('.row').addClass('hidden');
-				all.summary.find('.delivery_method').closest('.row').addClass('hidden');
-				all.summary.find('.client_address').closest('.row').addClass('hidden');
-				all.summary.find('.post_office_address').closest('.row').addClass('hidden');
+				// all.summary.find('.delivery_service').closest('.row').addClass('hidden');
+				// all.summary.find('.delivery_method').closest('.row').addClass('hidden');
+				// all.summary.find('.client_address').closest('.row').addClass('hidden');
+				// all.summary.find('.post_office_address').closest('.row').addClass('hidden');
 				validateq(data);
 			}
 		}else if(data.target_step == 4){
 			if(data.current_step == 3){
-				data.id_delivery = all.current.find('#id_delivery').val();
-				data.id_delivery_service = all.current.find('#id_delivery_service').val();
+				data.region = all.current.find('#region').val();
+				data.city = all.current.find('#city').val();
+				data.id_delivery = parseInt(all.current.find('#id_delivery').val());
+				data.id_delivery_service = parseInt(all.current.find('#id_delivery_service').val());
 				data.delivery_department = all.current.find('#delivery_department').val();
 				data.address = all.current.find('#address').val();
-				console.log(data);
 
-				if(typeof delivery_service !== 'undefined') {
-					all.summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
-				}
-				if(delivery_method != 'Выбрать'){
-					all.summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');
-				}
+				// if(typeof delivery_service !== 'undefined') {
+				// 	all.summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
+				// }
+				// if(data.id_delivery != 'Выбрать'){
+				// 	all.summary.find('.delivery_method').text(delivery_method).closest('.row').removeClass('hidden');
+				// }
 
 
-				if(delivery_method == 'Адресная доставка' && delivery_address !== '') {
-					all.summary.find('.client_address').text(delivery_address).closest('.row').removeClass('hidden');
-				}
-				if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение'){
-					all.summary.find('.client_address').text(delivery_address).closest('.row').addClass('hidden');
-					all.summary.find('.post_office_address').text(selected_post_office).closest('.row').removeClass('hidden');
-				}
-				if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение' && delivery_address !== ''){
-					$('#delivery_address').val('');
-				}
+				// if(delivery_method == 'Адресная доставка' && delivery_address !== '') {
+				// 	all.summary.find('.client_address').text(delivery_address).closest('.row').removeClass('hidden');
+				// }
+				// if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение'){
+				// 	all.summary.find('.client_address').text(delivery_address).closest('.row').addClass('hidden');
+				// 	all.summary.find('.post_office_address').text(selected_post_office).closest('.row').removeClass('hidden');
+				// }
+				// if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение' && delivery_address !== ''){
+				// 	$('#delivery_address').val('');
+				// }
 
-				if(typeof delivery_service === 'undefined'){
-					i++;
-					$('.error_div').removeClass('hidden').text('Выберите службу доставки');
-				}else if(delivery_method == 'Выбрать'){
-					i++;
-					$('.error_div').removeClass('hidden').text('Выберите способ доставки');
-				}else if(delivery_method == 'Адресная доставка' && delivery_address === ''){
-					i++;
-					$('.error_div').addClass('hidden');
-					$('#client_address').addClass('is-invalid');
-				}else if(delivery_method == 'Забрать со склада' && selected_post_office == 'Выбрать отделение'){
-					i++;
-					$('.error_div').removeClass('hidden').text('Выберите отделение');
-				}else {
-					$('.error_div').addClass('hidden');
-				}
+				// if(typeof delivery_service === 'undefined'){
+				// 	i++;
+				// 	$('.error_div').removeClass('hidden').text('Выберите службу доставки');
+				// }else if(delivery_method == 'Выбрать'){
+				// 	i++;
+				// 	$('.error_div').removeClass('hidden').text('Выберите способ доставки');
+				// }else if(delivery_method == 'Адресная доставка' && delivery_address === ''){
+				// 	i++;
+				// 	$('.error_div').addClass('hidden');
+				// 	$('#client_address').addClass('is-invalid');
+				// }else if(delivery_method == 'Забрать со склада' && selected_post_office == 'Выбрать отделение'){
+				// 	i++;
+				// 	$('.error_div').removeClass('hidden').text('Выберите отделение');
+				// }else {
+				// 	$('.error_div').addClass('hidden');
+				// }
 				if(i === 0){
-					data = {
-						delivery_service: delivery_service,
-						delivery_method: delivery_method,
-						delivery_address: delivery_address,
-						selected_post_office_id: selected_post_office_id
-					};
-
-					ajax('cart', 'update_info', data, 'html').done(function(response){
-						all.summary.find('.delivery_service').text(delivery_service);
-						all.summary.find('.delivery_method').text(delivery_method);
-						data.validate = true;
-						validateq(data);
-					});
+					data.validate = true;
+					validateq(data);
 				}
 			}
 		}else if(data.target_step == 5){
