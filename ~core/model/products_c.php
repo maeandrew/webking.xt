@@ -899,10 +899,13 @@ class Products {
 	 * @return bool
 	 */
 	public function AvgDemandChartCategory($id_category = false){
-		$sql = "SELECT opt, ROUND(AVG(value_1), 1) AS value_1, ROUND(AVG(value_2), 1) AS value_2, ROUND(AVG(value_3), 1) AS value_3, ROUND(AVG(value_4), 1) AS value_4,
-				ROUND(AVG(value_5), 1) AS value_5, ROUND(AVG(value_6), 1) AS value_6, ROUND(AVG(value_7), 1) AS value_7, ROUND(AVG(value_8), 1) AS value_8,
-				ROUND(AVG(value_9), 1) AS value_9, ROUND(AVG(value_10), 1) AS value_10, ROUND(AVG(value_11), 1) AS value_11, ROUND(AVG(value_12), 1) AS value_12
-				FROM "._DB_PREFIX_."chart WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
+		$values = '';
+		for($i = 1; $i<=12; $i++) {
+			$values .= "ROUND(AVG(value_$i), 1) AS value_$i, ";
+		}
+		$values = substr($values, 0, -2);
+		$sql = "SELECT opt, ".$values." FROM "._DB_PREFIX_."chart
+				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
