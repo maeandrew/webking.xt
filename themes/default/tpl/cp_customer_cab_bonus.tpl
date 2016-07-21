@@ -156,6 +156,8 @@
 			});
 			if ((bonus_card && day && month && year && learned_from && buy_volume !== null) &&  check_gender !== 0) {
 				$('.save_btn_js').attr('disabled', false);
+			}else{
+				$('.save_btn_js').attr('disabled', true);
 			}
 		});
 	});
