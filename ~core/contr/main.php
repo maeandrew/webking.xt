@@ -9,9 +9,9 @@ if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code']
 }
 unset($parsed_res);
 $page = $Page->PagesListByType('main');
-if(!empty($page)){
-	$tpl->Assign('data', $page[0]);
-}
+// if(!empty($page)){
+	$tpl->Assign('data', !empty($page)?$page[0]:false);
+// }
 unset($Page, $page);
 $products = $Products->GetRandomList();
 if(isset($products) && !empty($products)){

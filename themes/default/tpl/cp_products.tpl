@@ -36,14 +36,16 @@
 						</select>
 					</div>
 
-					<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
-					<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+					<!--<a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a>
+				 	<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
 						<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
 					<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
 						<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
-					<?}?>
-					-->
+					<?}?> -->					
 				</div>
+				<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+					<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+				<?}?>
 				<div class="productsListView">
 					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
 					<span class="mdl-tooltip" for="changeToList">Вид списком</span>

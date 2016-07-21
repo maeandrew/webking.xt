@@ -122,7 +122,7 @@
 	</noscript>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
-<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':$GLOBALS['CurrentController']?>">
+<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?>">
 	
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
@@ -176,7 +176,7 @@
 		</section>
 	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside class="mdl-color--white" id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
+		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
 			<div class="panel_container panel_container_js">
 				<?=$__sidebar_l?>
 			</div>
@@ -273,21 +273,23 @@
 										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
 									<?}?>
 								</div>
-								<a href="<?=Link::Custom('news', $item['translit']);?>">
+								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
 									<h6 class="min news_title"><?=$item['title']?></h6>
 								</a>
 								<div class="min news_description"><?=$item['descr_short']?></div>
-								<div class="min news_date">
-									<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
-										Опубликовано Сегодня
-									<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
-										Опубликовано Вчера
-									<?}else{?>
-										Опубликовано
-									<?  echo date("d.m.Y", $item['date']);
-									}?>
-								</div>
 								<div class="read_more">
+									<div class="min news_date">
+										<p>
+										<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
+											Опубликовано Сегодня
+										<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
+											Опубликовано Вчера
+										<?}else{?>
+											Опубликовано
+										<?  echo date("d.m.Y", $item['date']);
+										}?>
+										</p>
+									</div>
 									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
 								</div>
 							</div>

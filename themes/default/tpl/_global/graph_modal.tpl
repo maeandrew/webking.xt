@@ -19,83 +19,83 @@
       <?}
     }
   }else{?>
-  <div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle one">
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_1']?>" step="1" tabindex="0">
+    <div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle one">
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_1']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_2']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_3']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_4']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_5']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_6']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_7']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_8']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_9']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_10']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_11']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_12']:5?>" step="1" tabindex="0">
+      </div>
     </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_2']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_3']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_4']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_5']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_6']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_7']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_8']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_9']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_10']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_11']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['roz']['value_12']?>" step="1" tabindex="0">
-    </div>
-  </div>
 
-  <div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle two hidden">
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_1']?>" step="1" tabindex="0">
+    <div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle two hidden">
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_1']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_2']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_3']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_4']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_5']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_6']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_7']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_8']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_9']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_10']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_11']:5?>" step="1" tabindex="0">
+      </div>
+      <div class="slider_wrap">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_12']:5?>" step="1" tabindex="0">
+      </div>
     </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_2']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_3']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_4']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_5']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_6']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_7']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_8']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_9']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_10']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_11']?>" step="1" tabindex="0">
-    </div>
-    <div class="slider_wrap">
-      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$val['opt']['value_12']?>" step="1" tabindex="0">
-    </div>
-  </div>
   <?}?>
 <div class="mdl-textfield">
   <label for="name" class="mdl-textfield__textarea">Примечания к графику:</label>

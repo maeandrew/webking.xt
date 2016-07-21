@@ -896,6 +896,8 @@ function ModalGraph(id_graphics, moderation){
 					}else{
 						console.log('Something goes wrong!');
 					}
+				}).fail(function(data){
+					console.log('fail');
 				});
 
 		}else{
@@ -920,6 +922,9 @@ function ModalGraph(id_graphics, moderation){
 				arr2.each(function(index, val){
 					values.opt[index] = $(val).val();
 				});
+				console.log('values');
+				console.log(values);
+
 				//console.log(values);
 				ajax('product', 'SaveGraph',{
 					'values': values,
@@ -936,6 +941,9 @@ function ModalGraph(id_graphics, moderation){
 					}else{
 						console.log('Something goes wrong!');
 					}
+				}).fail(function(data){
+					console.log('fail');
+					console.log(data);
 				});
 			});
 		}
@@ -977,20 +985,33 @@ function ajax(target, action, data, dataType, form_sent){
 }
 // Change sidebar aside height
 function resizeAsideScroll(event) {	
-	var header_height = 52;
 	var viewPort = $(window).height(); // высота окна	
-	var newMainWindow = $('.main').height();	
-	var scroll = $(this).scrollTop(),
-		pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height;
-	if (pieceOfFooter >= 0) {
-		$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
+	var newMainWindow = $('.main').height();
+	var main_nav = $('.main_nav').outerHeight();	
+	var scroll = $(this).scrollTop();
+	var pieceOfFooter = (scroll + viewPort) - newMainWindow - 52 + main_nav;
+	// 	pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height + main_nav;
+
+	// $('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
+	
+	if((scroll + viewPort) > (CurentMainWindow + 52)){
+		// var pieceOfFooter = (scroll + viewPort) - newMainWindow - 52 + main_nav;
+		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
+		$('aside .filters_container').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter + 43)+'px');
+	}else{
+		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
+		$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
 	}
-	$('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
-	if(event == 'load' || event == 'click'){
+
+	// if (pieceOfFooter >= 0) {
+	// 	$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
+	// }
+	// $('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
+	/*if(event == 'load' || event == 'click'){
 		changeFiltersBtnsPosition();
 	}else if(event == 'show_more'){
 		$('aside').css('bottom', 'auto');
-	}
+	}*/
 	return true;
 }
 
@@ -1815,19 +1836,18 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 	return false;
 }
 
-function changeFiltersBtnsPosition(){
-	if($('.filters').length > 0){
-		if($('.filters').offset().top-$(window).scrollTop() <= 50){
-			$('#filterButtons').addClass('buttonsTop');
-			/*$('.filters').css('padding-top', $('#filterButtons').height());*/
-			$('#clear_filter, #applyFilter').css('margin-top', '7px');
-		}else{
-			$('.filters').css('padding-top', 0);
-			$('#filterButtons').removeClass('buttonsTop');
-			$('#clear_filter, #applyFilter').css('margin-top', '');
-		}
-	}
-}
+// function changeFiltersBtnsPosition(){
+// 	if($('.filters').length > 0){
+// 		if($('.filters').offset().top-$(window).scrollTop() <= 50){
+// 			$('#filterButtons').addClass('buttonsTop');			
+// 			$('#clear_filter, #applyFilter').css('margin-top', '7px');
+// 		}else{
+// 			$('.filters').css('padding-top', 0);
+// 			$('#filterButtons').removeClass('buttonsTop');
+// 			$('#clear_filter, #applyFilter').css('margin-top', '');
+// 		}
+// 	}
+// }
 
 
 function segmentOpen(id){
