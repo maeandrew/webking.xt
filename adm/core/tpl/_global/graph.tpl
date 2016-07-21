@@ -4,7 +4,7 @@
 	foreach($data_graph as $key => $val) {
 		for($i=1; $i <= 12; $i++) {
 			if($val['opt'] == 0){
-				$values[$val['id_graphics']]['mopt'][] = $val['value_'.$i];
+				$values[$val['id_chart']]['mopt'][] = $val['value_'.$i];
 			}else{
 				$values[$val['opt']]['opt'][] = $val['value_'.$i];
 			}
@@ -79,7 +79,7 @@
 									pointStrokeColor: "rgba(1,139,6,.7)",
 									pointHighlightFill: "rgba(1,139,6,1)",
 									pointHighlightStroke: "transparent",
-									data: <?=json_encode($values[$val['id_graphics']]['mopt']);?>
+									data: <?=json_encode($values[$val['id_chart']]['mopt']);?>
 								},
 								{
 									label: "Опт",
@@ -88,7 +88,7 @@
 									pointStrokeColor: "transparent",
 									pointHighlightFill: "transparent",
 									pointHighlightStroke: "rgba(101,224,253,1)",
-									data: <?=json_encode($values[$val['id_graphics']]['opt']);?>
+									data: <?=json_encode($values[$val['id_chart']]['opt']);?>
 								}
 							]
 						};
@@ -98,15 +98,15 @@
 						});
 					</script>
 
-					<div class="moderations" data-id="<?=$val['id_graphics']?>">
+					<div class="moderations" data-id="<?=$val['id_chart']?>">
 						<p style="padding-left: 100px;"><b>Модерация</b></p>
 						<span class="legenda" style="width:100px"><i></i> - Оптовый</span>
-						<p><input type="checkbox" name="option1" value="<?=$val['id_graphics']?>" <?=isset($val['moderation']) && $val['moderation'] != 0?'checked':''?>>Пройдена</p>
+						<p><input type="checkbox" name="option1" value="<?=$val['id_chart']?>" <?=isset($val['moderation']) && $val['moderation'] != 0?'checked':''?>>Пройдена</p>
 						<br>
 				<?php $a++; ?>
 			<?}else{?>
 						<span class="legenda" style="width:100px"><i style="background: rgb(255,139,6);"></i> - Розничный</span>
-						<p><input type="checkbox" name="option2" value="<?=$val['id_graphics']?>" class="opt" <?=isset($val['moderation']) && $val['moderation'] != 0?'checked':''?>>Пройдена</p>
+						<p><input type="checkbox" name="option2" value="<?=$val['id_chart']?>" class="opt" <?=isset($val['moderation']) && $val['moderation'] != 0?'checked':''?>>Пройдена</p>
 					</div>
 				</div>
 			<?}?>

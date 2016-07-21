@@ -282,8 +282,8 @@ $(function(){
 			cache: false,
 			dataType : "json",
 			data: {
-				'action': 'UpdateGraph',
-				'moderation': moderation, 'id_graphics': id, 'mode': mode
+				'action': 'UpdateDemandChart',
+				'moderation': moderation, 'id_chart': id, 'mode': mode
 			}
 		}).done(function(data){
 			console.log(data);

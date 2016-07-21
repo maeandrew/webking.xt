@@ -793,8 +793,8 @@ $(function(){
 
 	// Редактирование модального Графика
 	/*$('a.update_exist').on('click', function(){
-		var id_graphics = $(this).attr('id');
-		ajax('product', 'SearchDemandChart', {'id_graphics': id_graphics}, 'html').done(function(data){
+		var id_chart = $(this).attr('id');
+		ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
 			console.log(data);
 
 			if(data != null){
@@ -844,8 +844,8 @@ $(function(){
 		if($(this).hasClass('two')){
 			moderation = 1;
 		}
-		var id_graphics = false;
-		ModalDemandChart(id_graphics, moderation);
+		var id_chart = false;
+		ModalDemandChart(id_chart, moderation);
 	});
 
 	// Обработка примечания

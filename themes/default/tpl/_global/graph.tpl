@@ -143,9 +143,9 @@
 						<p>Добавил: Test</p>
 					<?}?>
 					<?if(isset($val['name']) && $val['name'] == $_SESSION['member']['name']){?>
-						<br><a style="float:left;" onclick="ModalDemandChart(<?=$val['id_graphics']?>)">Редактирование</a>
+						<br><a style="float:left;" onclick="ModalDemandChart(<?=$val['id_chart']?>)">Редактирование</a>
 					<?}else{?>
-						<br><a style="float:left;" onclick="ModalDemandChart(<?=$val['id_graphics']?>)">Создать на основе</a>
+						<br><a style="float:left;" onclick="ModalDemandChart(<?=$val['id_chart']?>)">Создать на основе</a>
 					<?}?>
 				</div>
 				<?php $a++; ?>

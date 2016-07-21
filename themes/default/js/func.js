@@ -851,16 +851,16 @@ function Graf3d(){
 
 }
 
-function ModalDemandChart(id_graphics, moderation){
+function ModalDemandChart(id_chart, moderation){
 	ajax('product', 'OpenModalDemandChart').done(function(data){
 		$('#demand_chart .modal_container').html(data);
 		componentHandler.upgradeDom();
 
-		if(id_graphics){
-			//console.log(id_graphics);
+		if(id_chart){
+			//console.log(id_chart);
 				//$('a').on('click', function(){
-				//var id_graphics = $(this).attr('id');
-				ajax('product', 'SearchDemandChart', {'id_graphics': id_graphics}, 'html').done(function(data){
+				//var id_chart = $(this).attr('id');
+				ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
 					if(data !== null){
 						//console.log(data);
 						$('#demand_chart .modal_container').html(data);
@@ -883,7 +883,7 @@ function ModalDemandChart(id_graphics, moderation){
 							arr.each(function(index, val){
 								values[index] = $(val).val();
 							});
-							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_graphics': id_graphics, 'name_user': name_user, 'text': comment, 'opt': opt}).done(function(data){
+							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_chart': id_chart, 'name_user': name_user, 'text': comment, 'opt': opt}).done(function(data){
 								if(data === true){
 									console.log('Your data has been saved successfully!');
 									closeObject('graph');

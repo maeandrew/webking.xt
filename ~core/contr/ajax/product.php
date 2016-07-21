@@ -169,23 +169,23 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($data);
 				break;
 			case 'SaveDemandChart':
-				echo json_encode($products->AddInsertTwoGraph($_POST));
+				echo json_encode($products->AddDemandCharts($_POST));
 				break;
 			case 'SearchDemandChart':
-				$values = $products->SearchDemandChart($_POST['id_graphics']);
+				$values = $products->SearchDemandChart($_POST['id_chart']);
 				$tpl->Assign('values', $values);
-				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl');
-				//echo json_encode($products->SearchDemandChart($_POST['id_graphics']));
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl');
+				//echo json_encode($products->SearchDemandChart($_POST['id_chart']));
 				break;
 			case 'OpenModalDemandChart':
-				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'graph_modal.tpl'));
+				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl'));
 				break;
 			case 'UpdateDemandChart':
 				if(isset($_POST['moderation'])){
 					$mode = true;
-					echo json_encode($products->UpdateGraph($_POST, $mode));
+					echo json_encode($products->UpdateDemandChart($_POST, $mode));
 				}else{
-					echo json_encode($products->UpdateGraph($_POST));
+					echo json_encode($products->UpdateDemandChart($_POST));
 				}
 				break;
 			case 'AddEstimate':

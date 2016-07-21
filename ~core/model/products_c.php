@@ -778,7 +778,7 @@ class Products {
 	 * Добавление двух графиков (по категории)
 	 * @param [type] $data [description]
 	 */
-	public function AddInsertTwoGraph($data){
+	public function AddDemandCharts($data){
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $data['id_category'];
 		$arr['name_user'] = $data['name_user'];
@@ -813,17 +813,17 @@ class Products {
 		return true;
 	}
 	/**
-	 * [UpdateGraph description]
+	 * [UpdateDemandChart description]
 	 * @param [type]  $graph [description]
 	 * @param boolean $mode  [description]
 	 */
-	public function UpdateGraph($graph, $mode=false){
-		$id_graphics = $graph['id_graphics'];
-		$where = "id_graphics = ".$id_graphics;
+	public function UpdateDemandChart($graph, $mode=false){
+		$id_chart = $graph['id_chart'];
+		$where = "id_chart = ".$id_chart;
 		if($mode == true){
 			$arr['moderation'] = $graph['moderation'];
 			if ($graph['mode'] == 'opt') {
-				$where = "opt = ".$id_graphics;
+				$where = "opt = ".$id_chart;
 			}
 		}else{
 			$arr['id_author'] = $_SESSION['member']['id_user'];
@@ -850,17 +850,17 @@ class Products {
 	}
 	/**
 	 * Поиск графика
-	 * @param [type] $id_graphics [description]
+	 * @param [type] $id_chart [description]
 	 */
-	public function SearchDemandChart($id_graphics){
-		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_graphics = ".$id_graphics;
+	public function SearchDemandChart($id_chart){
+		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_chart = ".$id_chart;
 		$result = $this->db->GetOneRowArray($sql);
 		return $result;
 	}
 
 	// Поиск двух графиков
-	public function SearchTwoGraph($id_graphics){
-		$sql = "SELECT * FROM "._DB_PREFIX_."graph r JOIN "._DB_PREFIX_."graph o WHERE r.id_graphics = ".$id_graphics."AND o.opt = r.id_graphics";
+	public function SearchTwoGraph($id_chart){
+		$sql = "SELECT * FROM "._DB_PREFIX_."graph r JOIN "._DB_PREFIX_."graph o WHERE r.id_chart = ".$id_chart."AND o.opt = r.id_chart";
 		$result = $this->db->GetArray($sql);
 		return $result;
 	}
