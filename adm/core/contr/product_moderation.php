@@ -23,10 +23,4 @@ $category = $products->generateCategory();
 $tpl->Assign('category', $category);
 $tpl->Assign('list', $list);
 $tpl->Assign('suppliers', $suppl);
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_moderation.tpl')
-);
-if(true == $parsed_res['issuccess']){
-	$tpl_center .= $parsed_res['html'];
-}?>
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_moderation.tpl');

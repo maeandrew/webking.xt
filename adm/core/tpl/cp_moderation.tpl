@@ -37,9 +37,9 @@
 							<?}?>
 						</section>
 						<div class="clear"></div>
-						<div id="details" class="details_<?=$p['id'];?>" style="display: none;">
+						<div class="details details_<?=$p['id'];?>" style="display: none;">
 							<input type="hidden" name="id" value="<?=$p['id'];?>">
-							<div id="photobox">
+							<div class="photobox">
 								<?if(isset($p['images']) && $p['images'] != ''){
 									$images = explode(';', $p['images']);
 									foreach($images as $image){?>
@@ -79,19 +79,19 @@
 							</div>
 							<div class="half clear">
 								<label for="price_mopt"><p>Розничная цена:</p></label>
-								<input type="text" id="price_mopt" name="price_mopt" class="input-l bg-white color-sgrey" value="<?=isset($p['price_mopt'])? $p['price_mopt']:null;?>" disabled><span>грн</span>
+								<input type="text" id="price_mopt" name="price_mopt" class="input-m bg-white color-sgrey" value="<?=isset($p['price_mopt'])? $p['price_mopt']:null;?>" disabled><span>грн</span>
 							</div>
 							<div class="half clear">
 								<label for="weight" class="weight"><p>Вес:</p></label>
-								<input type="text" name="weight" id="weight" class="input-l bg-white color-sgrey" value="<?=isset($p['weight'])? $p['weight']:null;?>" disabled><span>кг</span>
+								<input type="text" name="weight" id="weight" class="input-m bg-white color-sgrey" value="<?=isset($p['weight'])? $p['weight']:null;?>" disabled><span>кг</span>
 							</div>
 							<div class="half clear">
 								<label for="price_opt"><p>Оптовая цена:</p></label>
-								<input type="text" id="price_opt" name="price_opt" class="input-l bg-white color-sgrey" value="<?=isset($p['price_opt'])? $p['price_opt']:null;?>" disabled><span>грн</span>
+								<input type="text" id="price_opt" name="price_opt" class="input-m bg-white color-sgrey" value="<?=isset($p['price_opt'])? $p['price_opt']:null;?>" disabled><span>грн</span>
 							</div>
 							<div class="half clear">
 								<label for="volume" class="volume"><p>Объем:</p></label>
-								<input type="text" name="volume" id="volume" class="input-l bg-white color-sgrey" value="<?=isset($p['volume'])? $p['volume']:null;?>" disabled><span>м&#179;</span>
+								<input type="text" name="volume" id="volume" class="input-m bg-white color-sgrey" value="<?=isset($p['volume'])? $p['volume']:null;?>" disabled><span>м&#179;</span>
 							</div>
 							<?if(isset($p['comment']) && $p['comment'] != ''){?>
 								<div class="clear">
@@ -103,23 +103,20 @@
 						</div>
 						<?if($p['moderation_status'] == 0){?>
 							<div class="results">
-								<div class="flex">
-									<div id="catblock">
-										<select class="category input-l" name="categories_ids[]">
-											<option value="" selected >Категория не выбрана</option>
-											<?foreach($category as $c){
-												if($c['id_category'] != 0){?>
-													<option value="<?=$c['id_category']?>"><?=str_repeat("&nbsp;&nbsp;", $c['category_level'])?> <?=$c['name']?></option>
-												<?}
-											}?>
-										</select>
-										<!--<input type="hidden" class="category" name="categories_ids[]" value="<?=$GLOBALS['CONFIG']['new_catalog_id']?>">-->
-										<input class="btn-m-green" type="submit" id="accept" onclick="AcceptProduct(<?=$p['id']?>);" name="moderationsubmit" value="Принять">
-									</div>
-									<div id="comentblock">
-										<textarea name="moderator_coment" id="moderator_coment" class="input-l" rows="3" placeholder="Причина отклонения..."></textarea>
-										<input class="btn-m-red" type="submit" id="decline" onclick="DeclineProduct(<?=$p['id']?>);" name="moderationdecline" value="Отклонить">
-									</div>
+								<div class="catblock">
+									<select class="category input-m" name="categories_ids[]">
+										<option value="" selected >Категория не выбрана</option>
+										<?foreach($category as $c){
+											if($c['id_category'] != 0){?>
+												<option value="<?=$c['id_category']?>"><?=str_repeat("&nbsp;&nbsp;", $c['category_level'])?> <?=$c['name']?></option>
+											<?}
+										}?>
+									</select>
+									<input class="btn-m-green" type="submit" id="accept" onclick="AcceptProduct(<?=$p['id']?>);" name="moderationsubmit" value="Принять">
+								</div>
+								<div class="comentblock">
+									<textarea name="moderator_coment" id="moderator_coment" class="input-m" rows="1" placeholder="Причина отклонения..."></textarea>
+									<input class="btn-m-red" type="submit" id="decline" onclick="DeclineProduct(<?=$p['id']?>);" name="moderationdecline" value="Отклонить">
 								</div>
 							</div>
 						<?}?>
