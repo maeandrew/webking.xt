@@ -1408,7 +1408,8 @@ section.center {
 	aside .catalog .second_nav li:hover > .link_wrapp a,
 	aside .catalog .second_nav li.active > .link_wrapp a {
 		background: #fff;
-		color: #FF5722;
+		/*color: #018b06;*/
+		color: #4CAF50;
 	}
 	aside .catalog .second_nav li.active > .link_wrapp a {
 		background: transparent;
