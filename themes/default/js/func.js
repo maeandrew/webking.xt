@@ -851,30 +851,30 @@ function Graf3d(){
 
 }
 
-function ModalGraph(id_graphics, moderation){
-	ajax('product', 'OpenModalGraph').done(function(data){
-		$('#graph .modal_container').html(data);
+function ModalDemandChart(id_chart, moderation){
+	ajax('product', 'OpenModalDemandChart').done(function(data){
+		$('#demand_chart .modal_container').html(data);
 		componentHandler.upgradeDom();
 
-		if(id_graphics){
-			//console.log(id_graphics);
+		if(id_chart){
+			//console.log(id_chart);
 				//$('a').on('click', function(){
-				//var id_graphics = $(this).attr('id');
-				ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+				//var id_chart = $(this).attr('id');
+				ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
 					if(data !== null){
 						//console.log(data);
-						$('#graph .modal_container').html(data);
+						$('#demand_chart .modal_container').html(data);
 						//foo(d3.selectAll("div").text('some text'));
 
 						componentHandler.upgradeDom();
-						openObject('graph');
-						$('#graph #user_bt').find('a').addClass('update');
-						$('#graph').on('click', '.update', function(){
-							var parent =  $(this).closest('#graph'),
+						openObject('demand_chart');
+						$('#demand_chart #user_bt').find('a').addClass('update');
+						$('#demand_chart').on('click', '.update', function(){
+							var parent =  $(this).closest('#demand_chart'),
 								id_category = parent.data('target'),
 								opt = 0,
 								name_user = parent.find('#name_user').val(),
-								text = parent.find('textarea').val(),
+								comment = parent.find('textarea').val(),
 								arr = parent.find('input[type="range"]'),
 								values = {};
 							if($('.select_go label').is(':checked')){
@@ -883,7 +883,7 @@ function ModalGraph(id_graphics, moderation){
 							arr.each(function(index, val){
 								values[index] = $(val).val();
 							});
-							ajax('product', 'UpdateGraph', {'values': values, 'id_category': id_category, 'id_graphics': id_graphics, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_chart': id_chart, 'name_user': name_user, 'text': comment, 'opt': opt}).done(function(data){
 								if(data === true){
 									console.log('Your data has been saved successfully!');
 									closeObject('graph');
@@ -901,13 +901,13 @@ function ModalGraph(id_graphics, moderation){
 				});
 
 		}else{
-			openObject('graph');
-			$('#graph').on('click', '.btn_js.save', function(){
-				var parent =  $(this).closest('#graph'),
+			openObject('demand_chart');
+			$('#demand_chart').on('click', '.btn_js.save', function(){
+				var parent =  $(this).closest('#demand_chart'),
 					id_category = parent.data('target'),
 					is_opt = 0,
 					name_user = parent.find('#name_user').val(),
-					text = parent.find('textarea').val(),
+					comment = parent.find('textarea').val(),
 					arr = parent.find('.one input[type="range"]'),
 					arr2 = parent.find('.two input[type="range"]'),
 					values = {roz:{},opt:{}};
@@ -926,12 +926,12 @@ function ModalGraph(id_graphics, moderation){
 				console.log(values);
 
 				//console.log(values);
-				ajax('product', 'SaveGraph',{
+				ajax('product', 'SaveDemandChart',{
 					'values': values,
 					'id_category': id_category,
 					'name_user': name_user,
 					'moderation': moderation,
-					'text': text,
+					'text': comment,
 					'opt': is_opt
 				}).done(function(data){
 					if(data === true){

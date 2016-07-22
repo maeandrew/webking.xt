@@ -15,7 +15,7 @@
 					</div>
 					<div id="user_bt" style="float:right;right: 5px;display:block;position:relative;">
 						<div id="tt3" class="icon material-icons">
-							<a href="#" onclick="ModalGraph()"><i class="material-icons">add</i></a>
+							<a href="#" onclick="ModalDemandChart()"><i class="material-icons">add</i></a>
 						</div>
 						<div class="mdl-tooltip" for="tt3">Добавить мнение</div>
 					</div>
@@ -143,9 +143,9 @@
 						<p>Добавил: Test</p>
 					<?}?>
 					<?if(isset($val['name']) && $val['name'] == $_SESSION['member']['name']){?>
-						<br><a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Редактирование</a>
+						<br><a style="float:left;" onclick="ModalDemandChart(<?=$val['id_chart']?>)">Редактирование</a>
 					<?}else{?>
-						<br><a style="float:left;" onclick="ModalGraph(<?=$val['id_graphics']?>)">Создать на основе</a>
+						<br><a style="float:left;" onclick="ModalDemandChart(<?=$val['id_chart']?>)">Создать на основе</a>
 					<?}?>
 				</div>
 				<?php $a++; ?>

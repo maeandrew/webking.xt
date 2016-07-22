@@ -39,8 +39,8 @@
 				$Segmentation = new Segmentation();
 				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
 				break;
-			case 'UpdateGraph':
-				echo json_encode($Products->UpdateGraph($_POST, true));
+			case 'UpdateDemandChart':
+				echo json_encode($Products->UpdateDemandChart($_POST, true));
 				break;
 			case 'AddPhotoProduct':
 				$echo = 'error';

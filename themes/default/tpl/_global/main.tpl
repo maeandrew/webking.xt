@@ -211,9 +211,9 @@
 
 								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-									<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
 								<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-									<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
 								<?}?>
 								-->
 							</div>
@@ -594,7 +594,7 @@
 			</div>
 			<div class="modal_container"></div>
 		</div>
-		<div id="graph" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
+		<div id="demand_chart" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
 		<!-- Аналог alert -->

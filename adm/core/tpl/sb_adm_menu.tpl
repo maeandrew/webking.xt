@@ -22,7 +22,7 @@
 			<?}?>
 			<?if(_acl::isAllow('product_moderation')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'product_moderation'?'class="sel"':null;?>>
-					<a href="/adm/graphics/" <?=$moderationCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$moderationCount;?>)</a>
+					<a href="/adm/graphics/" <?=$GraphCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$GraphCount;?>)</a>
 				</li>
 			<?}?>
 			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
@@ -275,6 +275,9 @@
 						</li>
 						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'err_feedback'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/err_feedback/">Ошибки от пользователей</a>
+						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'noprice_products'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/noprice_products/">Товары с нулевой ценой</a>
 						</li>
 					</ul>
 				</li>

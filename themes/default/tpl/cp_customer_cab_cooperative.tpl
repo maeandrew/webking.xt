@@ -295,14 +295,6 @@
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 
-<div id="graph" data-type="modal">
-	<div class="modal">
-		<div class="modal_container">
-			<h1 >Start</h1>
-		</div>
-	</div>
-</div>
-
 <script>
 	$(document).ready(function() {
 		$('.refresh_js').click(function(event) {

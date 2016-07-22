@@ -3,8 +3,7 @@
 	if (!_acl::isAllow('specifications'))
 	die("Access denied");
 
-	$ObjName = "Products";
-	$$ObjName = new Products();
+	$Products = new Products();
 	$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 	// ---- center ----
 	unset($parsed_res);
@@ -14,11 +13,11 @@
 	$tpl->Assign('h1', $GLOBALS['IERA_LINKS'][$ii]['title']);
 
 /*
-	if ($$ObjName->GetGraphList()){
-		$tpl->Assign('data_graph', $$ObjName->GetGraphList());
+	if ($Products->GetGraphList()){
+		$tpl->Assign('data_graph', $Products->GetGraphList());
 	}*/
 
-	$data_graph = $$ObjName->GetGraphList();
+	$data_graph = $Products->GetGraphList();
 	foreach ($data_graph as $key => &$value) {
 		$value['translit'] = $dbtree->GetTranslitById($value['id_category']);
 		$value['name'] = $dbtree->GetNameById($value['id_category']);

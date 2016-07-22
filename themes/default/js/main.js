@@ -796,12 +796,12 @@ $(function(){
 			console.log($(el).val());
 		});
 		// console.log(two);
-		openObject('graph');
+		openObject('demand_chart');
 	});
 
 	// Открытие модального Графика
-	/*$('#graph').on('click', '.btn_js.save', function(){
-		var parent =  $(this).closest('#graph'),
+	/*$('#demand_chart').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#demand_chart'),
 			id_category = parent.data('target'),
 			opt = 0,
 			name_user = parent.find('#name_user').val(),
@@ -814,7 +814,7 @@ $(function(){
 		arr.each(function(index, val){
 			values[index] = $(val).val();
 		});
-		ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+		ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 			if(data === true){
 				console.log('Your data has been saved successfully!');
 				closeObject('graph');
@@ -827,14 +827,14 @@ $(function(){
 
 	// Редактирование модального Графика
 	/*$('a.update_exist').on('click', function(){
-		var id_graphics = $(this).attr('id');
-		ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+		var id_chart = $(this).attr('id');
+		ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
 			console.log(data);
 
 			if(data != null){
-				$('#graph .modal_container').html(data);
+				$('#demand_chart .modal_container').html(data);
 				componentHandler.upgradeDom();
-				openObject('graph');
+				openObject('demand_chart');
 
 			}else{
 				console.log('Something goes wrong!');
@@ -873,13 +873,13 @@ $(function(){
 		}, 600);
 	});
 
-	$('.xgraph_up').on('click', function() {
+	$('.show_demand_chart_js').on('click', function() {
 		var moderation = 0;
 		if($(this).hasClass('two')){
 			moderation = 1;
 		}
-		var id_graphics = false;
-		ModalGraph(id_graphics, moderation);
+		var id_chart = false;
+		ModalDemandChart(id_chart, moderation);
 	});
 
 	// Обработка примечания
