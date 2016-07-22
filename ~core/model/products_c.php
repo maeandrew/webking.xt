@@ -2186,7 +2186,7 @@ class Products {
 		foreach($categories_arr as $key => $id){
 			$f[$key]['id_product'] = $id_product;
 			$f[$key]['id_category'] = $id;
-			$f[$key]['main'] = (isset($main) && $key == $main)?1:0;
+			$f[$key]['main'] = (isset($main) && $key == $main) || count($categories_arr) == 1?1:0;
 		}
 		$this->db->StartTrans();
 		if(!$this->db->InsertArr(_DB_PREFIX_.'cat_prod', $f)){
@@ -3903,51 +3903,6 @@ class Products {
 		$f['name'] = $product['name'];
 		$f['translit'] = G::StrToTrans($product['name']);
 		$f['descr'] = $product['descr'];
-		$stamp = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/stamp.png');
-		$sx = imagesx($stamp);
-		$sy = imagesy($stamp);
-		$marge_right = 0;
-		$marge_bottom = 0;
-		$f['img_1'] = '';
-		$f['img_2'] = '';
-		$f['img_3'] = '';
-		for($i = 1; $i <= 3; $i++){
-			if($product['img_'.$i] != ''){
-				if($i > 1){
-					$newname = $data['art']."-".$i.".jpg";
-				}else{
-					$newname = $data['art'].".jpg";
-				}
-				$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]));
-				$ix = imagesx($im);
-				$iy = imagesy($im);
-				if($ix >= $iy){
-					$nwidth = round($iy*0.9);
-					$marge_right = ($ix - $nwidth)/2;
-					$marge_bottom = ($iy - $nwidth)/2;
-				}else{
-					$nwidth = round($ix*0.9);
-					$marge_right = ($ix - $nwidth)/2;
-					$marge_bottom = ($iy - $nwidth)/2;
-				}
-				copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname);
-				$f['img_'.$i] = str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname);
-			}
-		}
-		$images = new Images();
-		if(isset($product['images']) && $product['images'] != ''){
-			foreach(explode(';', $product['images']) as $k=>$image){
-				$newname = $data['art'].($k == 0?'':'-'.$k).'.jpg';
-				$structure = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-				$structure_bd = '/product_images/original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-				$images->checkStructure($structure);
-				copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $image), $structure.$newname);
-				$images_arr[] = $structure_bd.$newname;
-				$images->resize();
-			}
-		}else{
-			$images_arr =  array();
-		}
 		$f['inbox_qty'] = $product['inbox_qty'];
 		$f['min_mopt_qty'] = $product['min_mopt_qty'];
 		if(isset($product['qty_control'])){
@@ -3968,6 +3923,53 @@ class Products {
 		$f['create_user'] = $product['id_supplier'];
 		$f['id_unit'] = $product['id_unit'];
 		$f['prod_status'] = 3;
+		$f['indexation'] = 1;
+		// $stamp = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/stamp.png');
+		// $sx = imagesx($stamp);
+		// $sy = imagesy($stamp);
+		// $marge_right = 0;
+		// $marge_bottom = 0;
+		// $f['img_1'] = '';
+		// $f['img_2'] = '';
+		// $f['img_3'] = '';
+		// for($i = 1; $i <= 3; $i++){
+		// 	if($product['img_'.$i] != ''){
+		// 		if($i > 1){
+		// 			$newname = $data['art']."-".$i.".jpg";
+		// 		}else{
+		// 			$newname = $data['art'].".jpg";
+		// 		}
+		// 		$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]));
+		// 		$ix = imagesx($im);
+		// 		$iy = imagesy($im);
+		// 		if($ix >= $iy){
+		// 			$nwidth = round($iy*0.9);
+		// 			$marge_right = ($ix - $nwidth)/2;
+		// 			$marge_bottom = ($iy - $nwidth)/2;
+		// 		}else{
+		// 			$nwidth = round($ix*0.9);
+		// 			$marge_right = ($ix - $nwidth)/2;
+		// 			$marge_bottom = ($iy - $nwidth)/2;
+		// 		}
+		// 		copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname);
+		// 		$f['img_'.$i] = str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname);
+		// 	}
+		// }
+		$Images = new Images();
+		if(isset($product['images']) && $product['images'] != ''){
+			foreach(explode(';', $product['images']) as $k=>$image){
+				$to_resize[] = $newname = $data['art'].($k == 0?'':'-'.$k).'.jpg';
+				$structure = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$structure_bd = '/product_images/original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($structure);
+				copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $image), $structure.$newname);
+				$images_arr[] = $structure_bd.$newname;
+				$visible[] = 1;
+			}
+		}else{
+			$images_arr =  array();
+		}
+		$Images->resize(false, $to_resize);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
 			$this->db->FailTrans();
@@ -3983,7 +3985,7 @@ class Products {
 		$sup = $this->db->GetOneRowArray($sql);
 		$id = $res['id_product'];
 		$a['id_product'] = $id ;
-		$this->UpdatePhoto($id, $images_arr);
+		$this->UpdatePhoto($id, $images_arr, $visible);
 		$a['id_supplier'] = $product['id_supplier'];
 		$a['price_mopt_otpusk'] = str_replace(',','.', $product['price_mopt']);
 		$a['price_opt_otpusk'] = str_replace(',','.', $product['price_opt']);

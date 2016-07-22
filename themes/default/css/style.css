@@ -691,8 +691,8 @@ aside,
 	height: auto;
 	/*min-height: 52px;*/
 	background-color: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    margin-left: 5px;
+	border-bottom: 1px solid #e0e0e0;
+	margin-left: 5px;
 }
 /* .banner img {
 	display: block;
@@ -1061,11 +1061,11 @@ section.center {
 	#cart .cart_login_btn {
 		margin-bottom: 10px;
 	}
-	#cart .action_block {
+	/*#cart .action_block {
 		width: 300px;
 		padding: 10px;
 		float: right;
-	}
+	}*/
 	#cart .action_block .mdl-textfield {
 		width: 100%;
 		padding-top: 0;
@@ -1224,17 +1224,23 @@ section.center {
 		display: block;
 	}
 
-	.orderNote {
+	/*#cart .orderNote {
 		float: left;
-		width: calc(100% - 300px);
+		width: calc(100% - 600px);
 		padding-top: 10px;
 	}
 
-	.orderNote textarea {
+	#cart .orderNote textarea {
 		width: 100%;
 		height: 67px;
 		padding: 5px;
 	}
+	#cart .msg-info {
+		float: left;
+		width: 300px;
+		margin-top: 10px;
+		box-sizing: border-box;
+	}*/
 
 	@media (min-width: 728px) and (max-width: 979px) {
 		#cart #total {
@@ -1282,7 +1288,7 @@ section.center {
 		/*border-bottom: 1px solid #e0e0e0;*/
 		/*margin-bottom: 10px;*/
 		padding-bottom: 10px;
-    	/*background: #fff;*/
+		/*background: #fff;*/
 	}
 	aside .catalog .main_nav li {
 		text-transform: uppercase;
@@ -1332,11 +1338,11 @@ section.center {
 		border-bottom: 1px solid #e0e0e0;
 	}
 	aside .catalog .second_nav {
-	    background: #fff;
-	    border-bottom: none;
+		background: #fff;
+		border-bottom: none;
 
-	    overflow: auto;
-	    max-height: calc(100vh - 168px);
+		overflow: auto;
+		max-height: calc(100vh - 168px);
 	}
 	aside .catalog .second_nav .link_wrapp .more_cat {
 		cursor: pointer;
@@ -1402,7 +1408,8 @@ section.center {
 	aside .catalog .second_nav li:hover > .link_wrapp a,
 	aside .catalog .second_nav li.active > .link_wrapp a {
 		background: #fff;
-		color: #FF5722;
+		/*color: #018b06;*/
+		color: #4CAF50;
 	}
 	aside .catalog .second_nav li.active > .link_wrapp a {
 		background: transparent;
@@ -1445,7 +1452,7 @@ section.center {
 	aside .filters {
 		display: none;
 		/*margin-top: 10px;		*/
-    	/*max-height: calc(100vh - 168px);*/
+		/*max-height: calc(100vh - 168px);*/
 	}
 	aside .filters .filters_container {
 		overflow: auto;
@@ -3127,7 +3134,8 @@ section .stat_year {
 	left: -75%;
 }
 #demand_chart[data-type="modal"] {
-	min-width: 700px;
+	min-width: 768px;
+	max-width: 930px;
 }
 /*#demand_chart[data-type="modal"] .modal_container {
 	text-align: left;
@@ -3146,6 +3154,10 @@ section .stat_year {
 #demand_chart .mdl-tabs .mdl-tabs__tab-bar{
 	justify-content: flex-start;
 }
+#demand_chart .range_wrap{
+	border-bottom: 1px solid #e0e0e0;
+	padding-left: 3%;
+}
 #demand_chart .bottom_panel .mdl-cell:last-child{
 	padding-top: 15px;
 }
@@ -3153,7 +3165,16 @@ section .stat_year {
 	background-color: #018b06;
 	color: #fff;
 }
-
+#demand_chart .range_num{
+	position: absolute;
+	bottom: 2%;
+	right: 40%;
+}
+@media (max-width: 950px){
+	#demand_chart .range_num{
+		right: 30%);
+	}
+}
 
 .slider_wrap {
 	width: 8%;
@@ -3332,8 +3353,8 @@ section .stat_year {
 	.xt_news .news_description {
 		/*font-size: 13px;*/
 		max-height: 12em;
-    	overflow: hidden;
-    	margin-bottom: 10px;
+		overflow: hidden;
+		margin-bottom: 10px;
 	}
 	.xt_news .news_description > p {
 		text-align: justify;
@@ -3380,11 +3401,11 @@ section .stat_year {
 	font: normal normal 14px/1.4em "Roboto";
 }
 .news_item .read_more {
-    /*padding-top: 10px;*/
-    position: absolute;
-    bottom: 0px;
-    background: #fff;
-    width: 100%;
+	/*padding-top: 10px;*/
+	position: absolute;
+	bottom: 0px;
+	background: #fff;
+	width: 100%;
 }
 .news_item .read_more a {
 	display: block;
@@ -3401,7 +3422,7 @@ section .stat_year {
 }
 .news_item .news_date p {	
 	font-size: 12px;    
-    border-top: 1px solid #e0e0e0;
+	border-top: 1px solid #e0e0e0;
 }
 .last_news_title a {
 	background: #fff;
@@ -3412,11 +3433,11 @@ section .stat_year {
 	color: #fff;
 }
 .last_news_title {
-    border-top: 1px solid #e0e0e0;
-    padding: 0;
-    margin-left: 15px;
-    margin-right: 15px;
-    padding-top: 10px;
+	border-top: 1px solid #e0e0e0;
+	padding: 0;
+	margin-left: 15px;
+	margin-right: 15px;
+	padding-top: 10px;
 }
 .last_news_title h4 {
 	margin: 0px;
@@ -4129,54 +4150,53 @@ iframe[name="google_conversion_frame"] {
 [class^="msg-"] {  
   background-repeat: no-repeat;
   background-position: 1em 50%;
-  width: 110%;
-  margin-left: -15px;
+  width: 100%;
   min-height: 100px;
   padding: 1em;
   box-sizing: border-box;
   position: relative;
 }
-#bonus .msg_title {
+.msg_title {
 	font-weight: bold;	
 }
-#bonus .msg_title, 
-#bonus .msg_text {
+.msg_title, 
+.msg_text {
 	margin-left: 30px;
 }
-#bonus .msg_icon {
+.msg_icon {
 	position: absolute;
 	left: 1em;
 	top: calc(50% - 12px);
 }
-#bonus .msg-success {
+.msg-success {
   color: #067369;
   background-color: #c0ffc0;	
 }
-#bonus .msg-success .msg_title::before {
+.msg-success .msg_title::before {
   content: 'Успех';
 }
-#bonus .msg-error {
+.msg-error {
   color: #d82114;
   background-color: #ffa3a6;	
 }
-#bonus .msg-error .msg_title::before {
+.msg-error .msg_title::before {
   content: 'Ошибка';
 }
-#bonus .msg-attention {
+.msg-attention {
   color: #9a5c01;
   background-color: #fdec9b;	
 }
-#bonus .msg-attention .msg_title::before {
+.msg-attention .msg_title::before {
   content: 'Внимание';
 }
-#bonus .msg-info {
+.msg-info {
   color: #33439c;
   background-color: #b2ddff;	
 }
-#bonus .msg-info .msg_title::before {
+.msg-info .msg_title::before {
   content: 'Внимание';
 }
-#bonus .details {
+.details {
 	color: #FF5722;
 }
 
@@ -4188,3 +4208,66 @@ iframe[name="google_conversion_frame"] {
 		width: 100%;		
 	}
 } */
+
+/* После синхронизации с веткой "Artemida" (графики спроса в разделах) переместить ниже написанный код на строку 1064!
+	и удалить закомментированный код, начиная со строки 1227, 1064! */
+#cart .cart_bottom_wrap,
+#cart .sub_cart_bottom_wrap{
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+}
+#cart .sub_cart_bottom_wrap{
+	flex-wrap: wrap-reverse;
+}
+#cart .cart_bottom_wrap > *,
+#cart .sub_cart_bottom_wrap > *{
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+#cart .orderNote{
+	border: 1px solid #e0e0e0;
+	border-top: none;
+}
+#cart .orderNote textarea {
+	max-height: 189px;
+}
+#cart .msg-info{
+	width: 300px;
+	box-sizing: border-box;
+	border: 1px solid #e0e0e0;
+	border-top: none;
+}
+#cart .orderNote,
+#cart .msg-info{
+	min-height: 120px;
+}
+#cart .action_block{
+	width: 301px;
+	padding: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border: 1px solid #e0e0e0;
+	border-top: none;
+}
+#cart [class^="msg-"]{
+	margin-left: 0;
+}
+@media (max-width: 1200px){
+	#cart .orderNote,
+	#cart .msg-info{
+		min-height: 80px;
+		border: none;
+	}
+	#cart .cart_bottom_wrap{
+		border: 1px solid #e0e0e0;
+		border-top: none;
+	}
+	#cart .action_block{
+		border: none;
+		border-left: 1px solid #e0e0e0;
+	}
+	#cart .orderNote textarea{
+		max-height: 85px;
+	}
+}

@@ -51,7 +51,7 @@
 		
 		<fieldset>
 			<legend>Адрес</legend>
-			<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-cell mdl-cell--12-col addres_field">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
 					<select id="region" name="region" class="mdl-selectfield__select" onChange="regionSelect($(this));">
 						<option disabled selected>Выберите область</option>
@@ -62,7 +62,7 @@
 					<label class="mdl-selectfield__label" for="region">Область</label>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-cell mdl-cell--12-col addres_field">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
 					<select id="city" name="city" class="mdl-selectfield__select" disabled onChange="citySelect($(this));">
 						<!-- <option disabled selected>Выберите город</option>
@@ -73,7 +73,7 @@
 					<label class="mdl-selectfield__label" for="city">Город</label>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-cell mdl-cell--12-col addres_field">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery">
 					<select id="id_delivery" name="id_delivery" class="mdl-selectfield__select" disabled onChange="deliverySelect($(this));">
 						<!-- <?foreach($alldeliverymethods as $dm){?>
@@ -83,7 +83,7 @@
 					<label class="mdl-selectfield__label" for="id_delivery">Способ доставки</label>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-cell mdl-cell--12-col addres_field hidden">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service">
 					<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));">
 						<!-- <?foreach($availabledeliveryservices as $ds){?>
@@ -93,7 +93,7 @@
 					<label class="mdl-selectfield__label" for="id_delivery_service">Служба доставки</label>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-cell mdl-cell--12-col addres_field hidden">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department">
 					<select id="delivery_department" name="delivery_department" class="mdl-selectfield__select">
 						<?foreach($availabledeliverydepartment as $dd){?>
@@ -103,7 +103,7 @@
 					<label class="mdl-selectfield__label" for="delivery_department">Отделение</label>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-cell mdl-cell--12-col addres_field hidden">
 				<div class="mdl-textfield mdl-js-textfield address">
 					<textarea class="mdl-textfield__input" type="text" rows="3" id="address"></textarea>
 					<label class="mdl-textfield__label" for="address">Адрес доставки</label>
@@ -116,25 +116,25 @@
 		<fieldset>
 			<legend>Получатель</legend>
 			<div id="flm_name" class="flm_name">
-				<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" name="first_name" id="title" value="<?=$Customer['first_name']?>" required>
 						<label class="mdl-textfield__label" for="first_name">Фамилия</label>
 					</div>
 				</div>
-				<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" name="middle_name" id="title" value="<?=$Customer['middle_name']?>" required>
 						<label class="mdl-textfield__label" for="middle_name">Имя</label>
 					</div>
 				</div>
-				<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" name="last_name" id="title" value="<?=$Customer['last_name']?>" required>
 						<label class="mdl-textfield__label" for="last_name">Отчество</label>
 					</div>
 				</div>
-				<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
 						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
