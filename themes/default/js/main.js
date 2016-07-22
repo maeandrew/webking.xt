@@ -878,7 +878,7 @@ $(function(){
 	$('.show_demand_chart_js').on('click', function() {	
 		ModalDemandChart($(this).data('idcategory'));
 	});
-	$('#demand_chart').on('click', '.btn_js.save', function(){
+	$('#demand_chart').on('click', '.btn_js.save, .btn_js.update', function(){
 		var parent =  $(this).closest('#demand_chart'),
 			id_category = parent.data('target'),
 			is_opt = 0,
@@ -897,39 +897,47 @@ $(function(){
 		arr2.each(function(index, val){
 			values.opt[index] = $(val).val();
 		});
-		console.log('values');
-		console.log(values);
-
-		//console.log(values);
-		ajax('product', 'SaveDemandChart',{
-			'values': values,
-			'id_category': id_category,
-			'name_user': name_user,
-			'text': comment,
-			'opt': is_opt
-		}).done(function(data){
-			if(data === true){
-				console.log('Your data has been saved successfully!');
-				closeObject('graph');
-				location.reload();
-			}else{
-				console.log('Something goes wrong!');
-			}
-		}).fail(function(data){
-			console.log('fail');
-			console.log(data);
-		});
-	});
-
-	$('#demand_chart').on('click', '.btn_js.update', function(){
-		ajax('product', 'UpdateDemandChart', {id_category: $('#demand_chart').data('target')
-		}).done(function(data){
-			console.log('successfully update');
-			console.log(data);
-		}).fail(function(data){
-			console.log('fail update');
-			console.log(data);
-		});
+		if($(this)[0].className.indexOf('save') + 1) {
+			console.log('save');
+			ajax('product', 'SaveDemandChart',{
+				'values': values,
+				'id_category': id_category,
+				'name_user': name_user,
+				'text': comment,
+				'opt': is_opt
+			}).done(function(data){
+				if(data === true){
+					console.log('Your data has been saved successfully!');
+					closeObject('graph');
+					location.reload();
+				}else{
+					console.log('Something goes wrong!');
+				}
+			}).fail(function(data){
+				console.log('fail');
+				console.log(data);
+			});
+		}else{
+			console.log('update');
+			ajax('product', 'UpdateDemandChart',{
+				'values': values,
+				'id_category': id_category,
+				'name_user': name_user,
+				'text': comment,
+				'opt': is_opt
+			}).done(function(data){
+				if(data === true){
+					console.log('Your data has been updated successfully!');
+					closeObject('graph');
+					location.reload();
+				}else{
+					console.log('Something goes wrong with update!');
+				}
+			}).fail(function(data){
+				console.log('fail update');
+				console.log(data);
+			});
+		}
 	});
 
 	// Обработка примечания
