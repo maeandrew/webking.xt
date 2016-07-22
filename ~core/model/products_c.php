@@ -4574,6 +4574,63 @@ class Products {
 			// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
 			// AND c.category_level <> 4
 		$res = $this->db->GetArray($sql);
+
+//		$data = array();
+//		foreach ($res as &$v){
+//			$data[$v['id_category']] = $v['category_level'];
+//		}
+
+
+//		foreach ($res as &$v){
+//			for($i=0; $i<count($data); $i++){
+//				if((next($data) == 3 && prev($data) != 3) ){
+//					$v['disabled'] = 1;
+//				} else {
+//					$v['disabled'] = 0;
+//				}
+//			}
+//		}
+
+
+
+//		echo '<pre>';
+//		print_r($data);
+//		echo '<pre>';
+//		die();
+//		$dis = array();
+//
+//		$count_data = count($data);
+//
+//		for($i=1; $i<=778; $i++){
+//			print_r(key($data));
+//			if((next($data) == 3 && prev($data) != 3)){
+//				$dis[key($data)] = 1;
+//			} else {
+//				$dis[key($data)] = 0;
+//			}
+//		}
+
+//		for(reset($data); $k=key($data); next($data) )
+//		{
+//			if ((next($data) == 3 && prev($data) != 3)  || current($data) == '1'){
+//				$dis[key($data)] = 1;
+//			}
+//			else {
+//				$dis[key($data)] = 0;
+//			}
+////			echo 'current level: ' . $data[$k] . ' ';
+////			echo 'next level: ' . next($data) . '<br/>';
+//			prev($data);
+//		}
+
+
+
+//		echo '<pre>';
+//		print_r($dis);
+//		echo '<pre>';
+//
+//		die();
+
 		return $res;
 	}
 
@@ -4749,6 +4806,15 @@ class Products {
 				$array_double[$v['translit']][] = $v;
 			}
 			return $array_double;
+		}
+		return $res;
+	}
+
+	public  function GetNopriceProducts($limit = false){
+		$sql = "SELECT id_product, `name`, translit, price_mopt, price_opt FROM "._DB_PREFIX_."product
+				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1".($limit !== false?$limit:'');
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
 		return $res;
 	}

@@ -276,6 +276,9 @@
 						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'err_feedback'?'class="sel"':null;?>>
 							<a href="/adm/monitoring/err_feedback/">Ошибки от пользователей</a>
 						</li>
+						<li <?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'noprice_products'?'class="sel"':null;?>>
+							<a href="/adm/monitoring/noprice_products/">Товары с нулевой ценой</a>
+						</li>
 					</ul>
 				</li>
 			<?}?>
