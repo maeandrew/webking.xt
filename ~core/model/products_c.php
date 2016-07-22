@@ -866,7 +866,7 @@ class Products {
 	 * Выборка графика
 	 * @param boolean $id_category [description]
 	 */
-	public function GetGraphList($id_category = false){
+	public function GetGraphList($id_category = false, $id_author = false){
 		//$id_category = $id_category?$id_category:0;
 		if(!$id_category){
 			$sql = "SELECT ch.*, u.`name` AS user_name FROM "._DB_PREFIX_."chart ch
@@ -877,6 +877,9 @@ class Products {
 				JOIN "._DB_PREFIX_."user u
 				WHERE ch.id_author = u.id_user
 				AND ch.id_category = ".$id_category;
+		}elseif($id_author){
+			$sql = "SELECT * FROM "._DB_PREFIX_."chart
+					WHERE id_author = ".$id_author." AND id_category = ".$id_category;
 		}else{
 			$sql = "SELECT ch.*, c.id_category
 				FROM "._DB_PREFIX_."chart ch
@@ -4576,63 +4579,6 @@ class Products {
 			// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
 			// AND c.category_level <> 4
 		$res = $this->db->GetArray($sql);
-
-//		$data = array();
-//		foreach ($res as &$v){
-//			$data[$v['id_category']] = $v['category_level'];
-//		}
-
-
-//		foreach ($res as &$v){
-//			for($i=0; $i<count($data); $i++){
-//				if((next($data) == 3 && prev($data) != 3) ){
-//					$v['disabled'] = 1;
-//				} else {
-//					$v['disabled'] = 0;
-//				}
-//			}
-//		}
-
-
-
-//		echo '<pre>';
-//		print_r($data);
-//		echo '<pre>';
-//		die();
-//		$dis = array();
-//
-//		$count_data = count($data);
-//
-//		for($i=1; $i<=778; $i++){
-//			print_r(key($data));
-//			if((next($data) == 3 && prev($data) != 3)){
-//				$dis[key($data)] = 1;
-//			} else {
-//				$dis[key($data)] = 0;
-//			}
-//		}
-
-//		for(reset($data); $k=key($data); next($data) )
-//		{
-//			if ((next($data) == 3 && prev($data) != 3)  || current($data) == '1'){
-//				$dis[key($data)] = 1;
-//			}
-//			else {
-//				$dis[key($data)] = 0;
-//			}
-////			echo 'current level: ' . $data[$k] . ' ';
-////			echo 'next level: ' . next($data) . '<br/>';
-//			prev($data);
-//		}
-
-
-
-//		echo '<pre>';
-//		print_r($dis);
-//		echo '<pre>';
-//
-//		die();
-
 		return $res;
 	}
 

@@ -178,12 +178,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//echo json_encode($products->SearchDemandChart($_POST['id_chart']));
 				break;
 			case 'OpenModalDemandChart':
-				//учесть id user
-//				print_r($GLOBALS['CURRENT_ID_CATEGORY']); die();
-//				$values = $products->AvgDemandChartCategory(662);
-//				$tpl->Assign('values', $values);
-//				 $values = $products->AvgDemandChartCategory($_POST['id_category']);
-				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl'));
+				if(isset($_POST['id_category'])){
+					if($values = $products->GetGraphList($_POST['id_category'], $_SESSION['member']['id_user'])) $tpl->Assign('values', $values);
+				}
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl');
 				break;
 			case 'UpdateDemandChart':
 				if(isset($_POST['moderation'])){

@@ -366,7 +366,7 @@
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 								<?foreach($list as $item){?>
-									<option <?=($item['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+									<option <?=(next($list)['pid'] == $item['id_category'])?'disabled':null?> <?=($item['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
