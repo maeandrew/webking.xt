@@ -202,7 +202,7 @@
 							<div class="sort imit_select">
 								<span>Сортировать:</span>
 								<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
 										<?foreach($available_sorting_values as $key => $alias){ ?>
 											<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
 										<?}?>

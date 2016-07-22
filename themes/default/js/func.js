@@ -1971,12 +1971,13 @@ function UpdateProductsList(page, arr){
 	});
 }
 
-function SortProductsList() {
-	$('.sorting_js').find('option').each(function(index,el){
-		if ($(el).text() == $('.mdl-selectfield__box span').text()) {
-			location.href=$(el).val();
-		}
-	});
+function SortProductsList(obj){
+	location.href = obj.val();
+	// $('.sorting_js').find('option').each(function(index,el){
+	// 	if ($(el).text() == $('.mdl-selectfield__box span').text()) {
+	// 		location.href=$(el).val();
+	// 	}
+	// });
 }
 
 //-----
