@@ -828,7 +828,10 @@ class Products {
 			$arr['id_category'] = $chart['id_category'];
 			//$arr['name_user'] = $chart['name_user'];
 			$arr['comment'] = $chart['text'];
-			$arr['moderation'] = 1;
+			$arr['moderation'] = 0;
+			if(_acl::isAllow('admin_panel')){
+				$arr['moderation'] = 1;
+			}
 			$arr['opt'] = 0;
 			if ($chart['opt'] == 1) {
 				$arr['opt'] = $chart['opt'];
