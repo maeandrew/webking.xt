@@ -49,14 +49,21 @@ hr {
 .cabinet_content .editproduct {
 	float: left;
 	width: 40%;
-	padding: 0 0 40px 2%;
+	/*padding: 0 0 40px 2%;*/
+	padding: 0px 15px 15px 2%;
 	box-sizing: border-box;
+	background: #fff;
+	margin-top: 10px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .cabinet_content .help_block {
 	float: right;
-	width: 55%;
+	width: 59%;
 	padding: 0 2%;
 	box-sizing: border-box;
+	background: #fff;
+	margin-top: 10px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .cabinet_content .editproduct .num_item {
 	margin-right: 5px;
