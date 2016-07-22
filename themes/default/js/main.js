@@ -921,6 +921,17 @@ $(function(){
 		});
 	});
 
+	$('#demand_chart').on('click', '.btn_js.update', function(){
+		ajax('product', 'UpdateDemandChart', {id_category: $('#demand_chart').data('target')
+		}).done(function(data){
+			console.log('successfully update');
+			console.log(data);
+		}).fail(function(data){
+			console.log('fail update');
+			console.log(data);
+		});
+	});
+
 	// Обработка примечания
 	$('.note textarea').on('blur', function(){
 		$(this).css({

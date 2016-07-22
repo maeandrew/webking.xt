@@ -3161,7 +3161,8 @@ section .stat_year {
 #demand_chart .bottom_panel .mdl-cell:last-child{
 	padding-top: 15px;
 }
-#demand_chart a.save{
+#demand_chart a.save,
+#demand_chart a.update{
 	background-color: #018b06;
 	color: #fff;
 }
