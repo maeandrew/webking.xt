@@ -64,7 +64,7 @@
 				</li>
 			 </ul>
 		</li>
-		<li id="icon_people">
+		<li id="icon_people" class="hidden">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">people</i><span class="textInALink">Списки друзей</span></a>
 				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->

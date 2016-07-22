@@ -30,6 +30,13 @@
 #quiz .modal_container.summary_info.active ~ .modal_container {
 	padding-top: 0;
 }
+#quiz .mdl-grid {
+	padding: 0;
+}
+#quiz .mdl-cell {
+	margin: 0;
+}
+
 #quiz .modal_container.active {
 	display: block;
 }
@@ -109,19 +116,22 @@
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 }
-#quiz .step_2.active ~ .progress .line:before {
+#quiz .step_2 .progress .line:before {
 	right: 10%;
 }
-#quiz .step_3.active ~ .progress .line:before {
-	right: 5%;
+#quiz .step_3 .progress .line:before {
+	right: 7%;
 }
-#quiz .step_4.active ~ .progress .line:before {
+#quiz .step_4 .progress .line:before {
+	right: 3%;
+}
+#quiz .step_5 .progress .line:before {
 	right: 0%;
 }
-#quiz .step_5.active ~ .progress .line,
-#quiz .step_5.active ~ .progress .go {
+/*#quiz .step_5 .progress .line,
+#quiz .step_5 .progress .go {
 	display: none;
-}
+}*/
 #quiz span.go {
 	float: right;
 	position: relative;
@@ -130,26 +140,26 @@
 	line-height: 10px;
 }
 #quiz span.go:after {
+	content: '96%';
+}
+#quiz .step_2 .progress .go:after {
 	content: '97%';
 }
-#quiz .step_2.active ~ .progress .go:after {
+#quiz .step_3 .progress .go:after {
 	content: '98%';
 }
-#quiz .step_3.active ~ .progress .go:after {
+#quiz .step_4 .progress .go:after {
 	content: '99%';
 }
-#quiz .step_4.active ~ .progress .go:after {
+#quiz .step_4 .progress .go:after {
 	content: '100%';
 }
-#quiz .step_3 .delivery_service > div {
-	padding: .5em 0;
-	text-align: left;
-}
+/*
 #quiz .delivery_address,
 #quiz .company_details,
 #quiz .post_office {
 	display: none;
-}
+}*/
 #quiz .error_div {
 	width: 250px;
 	height: 40px;

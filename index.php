@@ -37,6 +37,7 @@ G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css');
 G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].'.css');
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js');
+// G::AddJS('jquery-3.1.0.min.js');
 G::AddJS('jquery-ui.min.js');
 // G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');

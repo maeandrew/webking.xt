@@ -1383,7 +1383,7 @@ table.supplier_assort_table {
 	.customer_cab #settings,
 	.customer_cab .bonus_reg_block {
 		width: 70%;
-		margin-bottom: 20px;
+		/*margin-bottom: 20px;*/
 		width: 100%;
 		/*width: 100%;
 		padding: 10px;
@@ -1391,6 +1391,7 @@ table.supplier_assort_table {
 	}
 	.customer_cab #edit_personal {
 		padding: 1em;
+		padding-top: 0px;
 		box-sizing: border-box;
 	}
 /*	.customer_cab #edit_personal select[id^="id_"] {
@@ -1588,7 +1589,14 @@ table.supplier_assort_table {
 	}
 	.customer_cab #bonus .info_text p {
 		font-weight: bold;
-		text-indent: 20px;
+		/*text-indent: 20px;*/
+		text-align: center;
+	}
+	.customer_cab #bonus .info_text span {
+		width: 100%;
+    	display: block;
+    	text-align: justify;
+    	margin-top: 10px;
 	}
 	.customer_cab #bonus .bonus_balance {
 		margin: 20px 0;
@@ -1620,6 +1628,7 @@ table.supplier_assort_table {
 	.customer_cab #favorites,
 	.customer_cab #waiting_list {
 		clear: both;
+		margin-top: 10px;
 	}
 	.customer_cab #favorites .table_tbody .tableRowHeader,
 	.customer_cab #waiting_list .table_tbody .tableRowHeader {
@@ -1634,8 +1643,11 @@ table.supplier_assort_table {
 		align-items: center;
 		line-height: 1.3em;
 		padding: 1em;
-		border-bottom: 1px solid #d7d7d7;
+		border: none;
 		position: relative;
+		background: #fff;
+	    margin-bottom: 10px;
+	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	}
 	.customer_cab #favorites .table_tbody .tableRow > *,
 	.customer_cab #waiting_list .table_tbody .tableRow > * {
@@ -1760,9 +1772,42 @@ table.supplier_assort_table {
 		float: left;
 		font-weight: normal;
 	}
-	.customer_cab .add_new_address {
-		padding: 0;
+	.customer_cab .add_new_address, 
+	.customer_cab .edit_contacts_block, #bonus {
+		padding: 0px 15px 15px 15px;
 		margin-top: 1em;
+		background: #fff;
+	    width: 350px;
+	    float: left;
+	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	}
+	.customer_cab .edit_contacts_block, #bonus {
+		width: 330px;
+	}
+	#bonus .fright {
+	    width: 100%;
+	    margin-top: 10px;
+	}
+	.customer_cab .discount_select {
+		padding-top: 0px;
+	}
+	.customer_cab .discount_select .mdl-selectfield__box {
+		top: 0px;
+	}
+	.customer_cab .discount_select_block {
+		width: 100%;
+		margin: 0px;
+	}
+
+	#second .table_tbody {
+		padding-right: 10px;
+	}
+	.customer_cab #settings {
+		background: #fff;
+	    width: 310px;
+	    float: left;
+	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	    margin-top: 10px;
 	}
 	.customer_cab .add_new_address .explanation {
 		font-size: 13px;
@@ -1816,6 +1861,7 @@ html {
 } */
 #orders_history {
 	margin: 1em;
+	margin-left: 0px;
 }
 .order {
 	margin: 0 auto;
@@ -2185,11 +2231,26 @@ div[id^="items_panel_"] .btnWrapFlex {
 	font-weight: bold;
 }
 #bonus { 
-	margin-right: 10px;
+	/*margin-right: 10px;*/
+	/*padding: 0px 15px 15px 15px;
+    margin-top: 1em;
+    background: #fff;
+    width: 330px;
+    float: left;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);*/
+}
+.buttons_cab {
+    width: 110px;
 }
 
+.bonus_info {
+	width: 330px;
+}
+#bonus {
+	margin-top: 0px;
+}
 /* Стили для блоков оповещения в разделе дисконта */
-[class^="msg-"] {  
+/*[class^="msg-"] {  
   background-repeat: no-repeat;
   background-position: 1em 50%;
   width: 100%;
@@ -2198,59 +2259,68 @@ div[id^="items_panel_"] .btnWrapFlex {
   box-sizing: border-box;
   position: relative;
 }
-#bonus .msg_title {
+
+.msg_title {
 	font-weight: bold;	
 }
-#bonus .msg_title, 
-#bonus .msg_text {
+.msg_title, 
+.msg_text {
 	margin-left: 30px;
 }
-#bonus .msg_icon {
+.msg_icon {
 	position: absolute;
 	left: 1em;
 	top: calc(50% - 12px);
 }
-#bonus .msg-success {
+.msg-success {
   color: #067369;
-  background-color: #c0ffc0;	
-}
-#bonus .msg-success .msg_title::before {
+  background-color: #c0ffc0;
+  width: 110%;
+  margin-left: -15px;
+}*/
+.msg-success .msg_title::before {
   content: 'Успех';
 }
-#bonus .msg-success .msg_text::before {
+.msg-success .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-#bonus .msg-error {
+/*.msg-error {
   color: #d82114;
   background-color: #ffa3a6;	
-}
-#bonus .msg-error .msg_title::before {
+  width: 110%;
+  margin-left: -15px;
+}*/
+.msg-error .msg_title::before {
   content: 'Ошибка';
 }
-#bonus .msg-error .msg_text::before {
+.msg-error .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-#bonus .msg-attention {
+/*.msg-attention {
   color: #9a5c01;
-  background-color: #fdec9b;	
-}
-#bonus .msg-attention .msg_title::before {
+  background-color: #fdec9b;
+  width: 110%;
+  margin-left: -15px;
+}*/
+.msg-attention .msg_title::before {
   content: 'Внимание';
 }
-#bonus .msg-attention .msg_text::before {
+.msg-attention .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
 }
-#bonus .msg-info {
+/*.msg-info {
   color: #33439c;
-  background-color: #b2ddff;	
-}
-#bonus .msg-info .msg_title::before {
+  background-color: #b2ddff;
+  width: 110%;
+  margin-left: -15px;
+}*/
+.msg-info .msg_title::before {
   content: 'Внимание';
 }
-#bonus .msg-info .msg_text::before {
+.msg-info .msg_text::before {
   content: 'Для активации бонусной карты, заполните эту форму!';
 }
-#bonus .details {
+.details {
 	color: #FF5722;
 }
 
@@ -2261,8 +2331,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 
 /* СТИЛИ НОВОЙ ТАБЛИЦЫ БЛОКАМИ */
-
-
 .products_list_item {
 	display: flex;
     padding-top: 10px;
@@ -2275,7 +2343,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	display: flex;
 	width: 100%;
 }
-
 .removeFromAssort {
 	width: 30px;
 }
@@ -2286,32 +2353,30 @@ div[id^="items_panel_"] .btnWrapFlex {
 .photo_cell {
 	width: 110px;
 }
-
 .name_cell a {
 	color: #444;
 }
-
 .min_prod_qty {
 	margin-right: 5px;
 }
-
 .price_1, 
 .price_2 {
 	width: 100px;
 }
-
 .prod_detail_info {
 	display: none;
 }
-
 #edit_contacts {
 	width: 300px;
 	position: relative;
 }
-
 .page_content .customer_cab h1 {
 	font-size: 2em;
 }
+#orders_history .editing {
+	margin-top: 10px; 
+}
+
 
 @media (max-width: 1060px) {
 	.nav li {
@@ -2494,7 +2559,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		width: 50%;
 		padding-left: 10px;
 		padding-right: 10px;
-	}
+	}	
 	.orderProdName {
 		max-height: 100px;
 		overflow: hidden;
@@ -2817,29 +2882,48 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 70px;
 	height: 70px;
 }
-.label_for_gender{
+.label_for_input_blocks{
 	font-size: 12px;
 	/*color: #867598;*/
 	color: #4CAF50;
+	display: block;
 }
 #gend_block{
 	margin: -25px 0 7px;
 	border-bottom: solid 1px #E0E0E0;
 }
+.bonus_detalies {
+	display: block;
+	width: 330px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	color: #FF5722;
+    /*line-height: 50px;*/
+    text-align: center;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    line-height: 24px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.bonus_detalies:hover {
+    box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
+}
 
 .date_container {
-	margin-top: 35px;
+	margin-top: 10px;
 	margin-bottom: 15px;
 	width: 300px;
 	border-radius: 3px;
 }
-.date_container .mdl-textfield {
-	padding: 0;
+.date_container .bdate_select_block {
+	/*padding: 0;*/
 	display: inline-block !important;
 	width: 97px;
 }
 .date_container .mdl-textfield input {
 	text-align: center;
+	height: 30px;
 }
 .date_container select {
 	font-size: 1em;
@@ -2892,6 +2976,25 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.cabinet_navigation li {
 		width: 98%;
+	}
+	.customer_cab #edit_personal {
+		padding: 0px;
+	}
+	/*#bonus, .bonus_detalies {
+		width: 98%;
+	}*/
+	/*.bonus_info {
+		width: 98%;
+	}*/
+	.customer_cab .edit_contacts_block, 
+	.customer_cab .add_new_address,
+	.bonus_detalies, 
+	.bonus_info,
+	#bonus {
+		width: 98%;
+	}
+	.addres_field {
+		width: calc(100vw - 100px);
 	}
 }
 

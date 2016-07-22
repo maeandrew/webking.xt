@@ -1,4 +1,5 @@
 <div class="customer_cab">
+	<h1>Избранное</h1>
 	<div id="favorites">
 		<?if(isset($favorites) &&  !empty($favorites)){?>
 			<div id="second">

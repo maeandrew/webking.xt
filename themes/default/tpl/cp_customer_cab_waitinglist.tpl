@@ -1,4 +1,5 @@
 <div class="customer_cab">
+	<h1>Лист ожидания</h1>
 	<div id="waiting_list">
 		<?if(isset($waiting_list) &&  !empty($waiting_list)){?>
 			<div id="second">
