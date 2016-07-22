@@ -188,7 +188,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$mode = true;
 					echo json_encode($products->UpdateDemandChart($_POST, $mode));
 				}else{
-					echo json_encode($products->UpdateDemandChart($_POST));
+					echo json_encode($products->UpdateDemandChartNoModeration($_POST));
 				}
 				break;
 			case 'AddEstimate':

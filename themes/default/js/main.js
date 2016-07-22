@@ -927,8 +927,7 @@ $(function(){
 				'name_user': name_user,
 				'text': comment,
 				'opt': is_opt,
-				'roz_id_chart': roz_id_chart,
-				'opt_id_chart': opt_id_chart
+				'id_charts': roz_id_chart + ', ' + opt_id_chart
 			}).done(function(data){
 				if(data === true){
 					console.log('Your data has been updated successfully!');

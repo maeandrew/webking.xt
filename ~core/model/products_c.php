@@ -774,6 +774,28 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	/**
+	 * Обновляем данные графика спроса в таблице
+	 * @param $data
+	 * @return bool
+	 */
+	public function UpdateDemandChartNoModeration($data){
+		$sql = "DELETE FROM "._DB_PREFIX_."chart
+				WHERE id_chart IN(".$data['id_charts'].")";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		unset($data['id_charts']);
+		if(!$this->AddDemandCharts($data)){
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * Добавление двух графиков (по категории)
 	 * @param [type] $data [description]
@@ -869,11 +891,12 @@ class Products {
 	 * Выборка графика
 	 * @param boolean $id_category [description]
 	 */
-	public function GetGraphList($id_category = false, $id_author = false){
+	public function GetGraphList($id_category = false, $id_author = false, $limit = false){
 		//$id_category = $id_category?$id_category:0;
 		if(!$id_category){
 			$sql = "SELECT ch.*, u.`name` AS user_name FROM "._DB_PREFIX_."chart ch
-					LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author";
+					LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author
+					ORDER BY creation_date DESC".($limit !== false?$limit:'');
 		}elseif(is_numeric($id_category)){
 			$sql = "SELECT ch.*, u.name
 				FROM "._DB_PREFIX_."chart ch

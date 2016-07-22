@@ -1,4 +1,5 @@
 <h1>Графики спроса</h1>
+<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 <?if(isset($data_graph) && !empty($data_graph)){
 	$values = array();
 	foreach($data_graph as $key => $val) {
@@ -112,6 +113,7 @@
 			<?}?>
 		<?}?>
 	</div>
+<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	<style>
 		.moderations{float:right;position:relative;width:25%;padding-left: 20px;}
 		#top_block_graph .material-icons {
