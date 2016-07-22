@@ -51,16 +51,30 @@ header .header_wrapp .header_right .search_wrap .search {
 	width: 260px;
 	vertical-align: middle;
 }
-header .header_wrapp .header_right .search_wrap button {
+header .header_wrapp .header_right .search_wrap button,
+header .header_wrapp .header_right .search_wrap .search_category {
 	display: none;
 	vertical-align: middle;
 }
-header.opened .header_wrapp .header_right .search_wrap button {
+header.opened .header_wrapp .header_right .search_wrap button,
+header.opened .header_wrapp .header_right .search_wrap .search_category {
 	display: inline-block;
-}	
+}
+header .header_wrapp .header_right .search_wrap .search_category{
+	padding: 0;
+	width: auto;
+}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box{
+	top: 0;
+	bottom: 0;
+}
 header.opened .header_wrapp .header_right .search_wrap .search {
-	width: 400px;
+	/*width: 400px;*/
+	width: auto;
 	vertical-align: middle;
+}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{
+	text-align: left;
 }
 header .header_wrapp .header_right .cart_item {
 	/*display: none;*/
