@@ -2,6 +2,7 @@
 	<div class="logo">
 		<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
+	<!-- <?print_r($navigation);?> -->
 	<div class="header_right">
 		<div class="search_wrap mdl-cell--hide-phone">
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
@@ -9,7 +10,13 @@
 				<div class="mdl-textfield mdl-js-textfield search">
 					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
 				</div>
-				
+				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label search_category">
+					<select id="search_category" name="search_category" class="mdl-selectfield__select" onChange="">
+						<?foreach($navigation as &$v){ ?>
+							<option value=""></option>
+						<?}?>
+					</select>
+				</div>
 				<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone search_btn">Найти</button>
 			</form>
 		</div>
