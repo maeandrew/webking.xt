@@ -28,8 +28,6 @@ $(function(){
 		openObject((window.location.hash).replace('#', ''));
 	}
 
-	$.cookie('manual', 1, { path: '/'});
-
 	setTimeout(function(){
 		if ($.cookie('useCookie') != 'agree'){
 			$('.cookie_msg_js').css('top', 'calc(100% - '+$('.cookie_msg_js').outerHeight()+'px)');
