@@ -935,7 +935,6 @@ function ajax(target, action, data, dataType, form_sent){
 	}).always(function(){
 		ajax_proceed = false;
 	});
-	// console.log(ajax_proceed);
 	return ajax;
 }
 // Change sidebar aside height
@@ -944,29 +943,15 @@ function resizeAsideScroll(event) {
 	var newMainWindow = $('.main').height();
 	var main_nav = $('.main_nav').outerHeight();	
 	var scroll = $(this).scrollTop();
-	var pieceOfFooter = (scroll + viewPort) - newMainWindow - 52 + main_nav;
-	// 	pieceOfFooter = (scroll + viewPort) - newMainWindow - header_height + main_nav;
-
-	// $('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
+	var pieceOfFooter = (scroll + viewPort) - newMainWindow - 52 + main_nav;	
 	
 	if((scroll + viewPort) > (CurentMainWindow + 52)){
-		// var pieceOfFooter = (scroll + viewPort) - newMainWindow - 52 + main_nav;
 		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
 		$('aside .filters_container').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter + 43)+'px');
 	}else{
 		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
 		$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
-	}
-
-	// if (pieceOfFooter >= 0) {
-	// 	$('aside').css('bottom', (pieceOfFooter > 0?pieceOfFooter:0));
-	// }
-	// $('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
-	/*if(event == 'load' || event == 'click'){
-		changeFiltersBtnsPosition();
-	}else if(event == 'show_more'){
-		$('aside').css('bottom', 'auto');
-	}*/
+	}	
 	return true;
 }
 
@@ -1002,7 +987,6 @@ function ListenPhotoHover(){
 			var mp = mousePos(e),
 				obj = $(this);
 			if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
-				// console.log('hide');
 				hidePreview();
 				obj.removeClass('hovered');
 			}
@@ -1014,7 +998,6 @@ function ListenPhotoHover(){
 			mp = mousePos(e);
 			obj = $('.product_photo.hovered');
 			if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
-				// console.log('hide2');
 				hidePreview();
 				obj.removeClass('hovered');
 			}
@@ -1044,10 +1027,8 @@ function rebuildPreview(obj){
 	var ovftop = position.top - preview.height()/2 + obj.outerHeight()/2 - marginTop,
 		ovfbotton = position.top + preview.height()/2 + obj.outerHeight()/2 + marginBottom;
 	if(pos + viewportHeight < ovfbotton){
-		// console.log('overflow Bottom');
 		correctionBottom = ovfbotton - (pos + viewportHeight);
 	}else if(pos > ovftop){
-		// console.log('overflow Top');
 		correctionTop = ovftop - pos;
 	}
 	preview.css({
