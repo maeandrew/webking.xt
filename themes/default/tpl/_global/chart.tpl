@@ -258,7 +258,7 @@
 <div class="mdl-grid bottom_panel">
 	<div class=" mdl-cell mdl-cell--5-col">
 		<div class="mdl-textfield mdl-js-textfield">
-			<textarea class="mdl-textfield__input" type="text" rows="1" id="text" name="text" required="required"></textarea>
+			<textarea class="mdl-textfield__input" type="text" rows="1" id="text" name="text" required="required"><?=!empty($values)?$values[0]['comment']:null;?></textarea>
 			<label class="mdl-textfield__label" for="text">Примечания к графику:</label>
 		</div>
 	</div>  
