@@ -243,9 +243,6 @@
 		</div>
 	<?}?> 
 -->
-<div class="mdl-grid">
-	<div class="mdl-cell mdl-cell--2-col mdl-button mdl-js-button mdl-js-ripple-effect">Детали <i class="material-icons">keyboard_arrow_right</i></div>	
-</div>
 <div class="mdl-grid bottom_panel">
 	<div class=" mdl-cell mdl-cell--5-col">
 		<div class="mdl-textfield mdl-js-textfield">
