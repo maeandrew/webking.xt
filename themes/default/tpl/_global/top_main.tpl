@@ -7,8 +7,9 @@
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
 				<i class="material-icons mob_s_btn">search</i>
 				<div class="mdl-textfield mdl-js-textfield search">
-					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?str_replace('"', '', $_GET['query']):null;?>">
+					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
 				</div>
+				
 				<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone search_btn">Найти</button>
 			</form>
 		</div>
