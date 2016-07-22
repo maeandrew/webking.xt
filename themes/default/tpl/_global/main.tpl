@@ -270,7 +270,10 @@
 							<div class="news_item">
 								<div class="news_image">
 									<?if(isset($item['thumbnail'])){?>
-										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+										<img alt="<?=G::CropString($item['title'])?>" class="lazy" data-original="<?=$item['thumbnail'];?>"/>
+										<noscript>
+											<img alt="<?=G::CropString($item['title'])?>" src="<?=$item['thumbnail'];?>"/>
+										</noscript>
 									<?}?>
 								</div>
 								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
