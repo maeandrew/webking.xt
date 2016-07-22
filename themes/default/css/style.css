@@ -605,9 +605,9 @@ body:not(.c_main) .banner {
 		border-left: 1em solid #fff;
 		z-index: 2;
 		box-sizing: border-box;
-		-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
-		-o-transition: all .2s cubic-bezier(.4,0,.2,1);
-		transition: all .2s cubic-bezier(.4,0,.2,1);
+		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
 	.breadcrumbs li a:before {
 		content: '';
@@ -622,9 +622,9 @@ body:not(.c_main) .banner {
 		border-left: 1em solid #e0e0e0;
 		z-index: 1;
 		box-sizing: border-box;
-		-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
-		-o-transition: all .2s cubic-bezier(.4,0,.2,1);
-		transition: all .2s cubic-bezier(.4,0,.2,1);
+		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
 	.breadcrumbs li a:hover:after {
 		-webkit-transition: none;
