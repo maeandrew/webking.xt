@@ -2585,7 +2585,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetCatsOfProduct($id_product){
-		$sql = "SELECT cp.id_category, cp.main
+		$sql = "SELECT cp.id_category, cp.main, c.art
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
