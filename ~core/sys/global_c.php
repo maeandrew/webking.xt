@@ -17,8 +17,12 @@ class G {
  	public static function SetBasicCookies(){
 		if(!isset($_COOKIE['manual'])){
 			$_COOKIE['manual'] = 1;
+			setcookie('manual', $_COOKIE['manual'], 0, '/');
 		}
-
+		if(!isset($_COOKIE['sum_range'])){
+			$_COOKIE['sum_range'] = 0;
+			setcookie('sum_range', $_COOKIE['sum_range'], 0, '/');
+		}
 		//Установка базовой колоники цен
 		if(!isset($_COOKIE['manual'])){
 			if(!isset($_SESSION['cart']['cart_sum']) || $_SESSION['cart']['cart_sum'] == 0 || (isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] >= $GLOBALS['CONFIG']['full_wholesale_order_margin'])){
