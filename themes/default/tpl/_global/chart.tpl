@@ -241,7 +241,11 @@
 				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_12']:5?>" step="1" tabindex="0">
 			</div>
 		</div>
-	<?}?> -->
+	<?}?> 
+-->
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--2-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Детали</div>	
+</div>
 <div class="mdl-grid bottom_panel">
 	<div class=" mdl-cell mdl-cell--5-col">
 		<div class="mdl-textfield mdl-js-textfield">
