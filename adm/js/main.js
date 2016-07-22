@@ -265,7 +265,7 @@ $(function(){
 	});
 
 	$('.moderations input').on('click',function() {
-		var id = $(this).closest('.moderations').data('id'),
+		var id = $(this).val(),
 			mode = 'mopt',
 			moderation = 0;
 		if($(this).hasClass('opt')){
@@ -282,8 +282,8 @@ $(function(){
 			cache: false,
 			dataType : "json",
 			data: {
-				'action': 'UpdateGraph',
-				'moderation': moderation, 'id_graphics': id, 'mode': mode
+				'action': 'UpdateDemandChart',
+				'moderation': moderation, 'id_chart': id, 'mode': mode
 			}
 		}).done(function(data){
 			console.log(data);

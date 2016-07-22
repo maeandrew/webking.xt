@@ -15,6 +15,13 @@ $sql = "SELECT COUNT(id) AS cnt
 $res = $db->GetOneRowArray($sql);
 $tpl->Assign("moderationCount", $res['cnt']);
 
+// graphics on moderation count
+$sql = "SELECT COUNT(*) AS count
+		FROM "._DB_PREFIX_."chart
+		WHERE moderation = 0 ";
+$res = $db->GetOneRowArray($sql);
+$tpl->Assign("GraphCount", $res['count']);
+
 // comment count
 $sql = "SELECT COUNT(id_coment) AS cnt_c
 		FROM "._DB_PREFIX_."coment

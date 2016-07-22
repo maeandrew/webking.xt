@@ -29,7 +29,7 @@
 				<div class="sort imit_select">
 					<span>Сортировать:</span>
 					<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+						<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
 							<?foreach($available_sorting_values as $key => $alias){ ?>
 								<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
 							<?}?>
@@ -38,13 +38,13 @@
 
 					<!--<a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a>
 				 	<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-						<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+						<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
 					<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-						<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+						<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
 					<?}?> -->					
 				</div>
 				<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-					<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
 				<?}?>
 				<div class="productsListView">
 					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>

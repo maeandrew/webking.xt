@@ -176,14 +176,6 @@
 		</section>
 	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="panel_container panel_container_js">
-				<?=$__sidebar_l?>
-			</div>
-			<div class="catalog_close btn_js" data-name="catalog">
-				<i class="material-icons" title="Закрыть каталог">close</i>
-			</div>
-		</aside>
 		<section class="center">
 			<style>
 				#last_orders_count {
@@ -202,7 +194,7 @@
 							<div class="sort imit_select">
 								<span>Сортировать:</span>
 								<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
 										<?foreach($available_sorting_values as $key => $alias){ ?>
 											<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
 										<?}?>
@@ -211,9 +203,9 @@
 
 								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-									<a href="#" class="xgraph_up one"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
 								<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-									<a href="#" class="xgraph_up two"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
 								<?}?>
 								-->
 							</div>
@@ -270,7 +262,10 @@
 							<div class="news_item">
 								<div class="news_image">
 									<?if(isset($item['thumbnail'])){?>
-										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+										<img alt="<?=G::CropString($item['title'])?>" class="lazy" data-original="<?=$item['thumbnail'];?>"/>
+										<noscript>
+											<img alt="<?=G::CropString($item['title'])?>" src="<?=$item['thumbnail'];?>"/>
+										</noscript>
 									<?}?>
 								</div>
 								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
@@ -308,6 +303,14 @@
 		<div id="canvas_mark_wrapper">
 			<canvas id="err_canvas" width="10" height="10"></canvas>
 		</div>
+		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
+			<div class="panel_container panel_container_js">
+				<?=$__sidebar_l?>
+			</div>
+			<div class="catalog_close btn_js" data-name="catalog">
+				<i class="material-icons" title="Закрыть каталог">close</i>
+			</div>
+		</aside>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<p>Сообщите нам об ошибке</p>
@@ -423,7 +426,7 @@
 						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 					<?}?>
 				<?}else{?>
-					<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+					<!-- <img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300"> -->
 				<?}?>
 			</div>
 			<div class="copyright">
@@ -594,7 +597,7 @@
 			</div>
 			<div class="modal_container"></div>
 		</div>
-		<div id="graph" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
+		<div id="demand_chart" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
 		<!-- Аналог alert -->

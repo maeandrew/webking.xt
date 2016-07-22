@@ -3,8 +3,7 @@
 	if (!_acl::isAllow('specifications'))
 	die("Access denied");
 
-	$ObjName = "Products";
-	$$ObjName = new Products();
+	$Products = new Products();
 	$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 	// ---- center ----
 	unset($parsed_res);
@@ -13,12 +12,29 @@
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Графики";
 	$tpl->Assign('h1', $GLOBALS['IERA_LINKS'][$ii]['title']);
 
-/*
-	if ($$ObjName->GetGraphList()){
-		$tpl->Assign('data_graph', $$ObjName->GetGraphList());
+	/*
+	if ($Products->GetGraphList()){
+		$tpl->Assign('data_graph', $Products->GetGraphList());
 	}*/
 
-	$data_graph = $$ObjName->GetGraphList();
+	/*Pagination*/
+	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+		$GLOBALS['Limit_db'] = $_GET['limit'];
+	}
+	if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+		if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+			$_GET['page_id'] = $_POST['page_nbr'];
+		}
+		$cnt = count($Products->GetGraphList());
+		$tpl->Assign('cnt', $cnt);
+		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+		$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+	}else{
+		$GLOBALS['Limit_db'] = 0;
+		$limit = '';
+	}
+
+	$data_graph = $Products->GetGraphList(false, false, $limit);
 	foreach ($data_graph as $key => &$value) {
 		$value['translit'] = $dbtree->GetTranslitById($value['id_category']);
 		$value['name'] = $dbtree->GetNameById($value['id_category']);

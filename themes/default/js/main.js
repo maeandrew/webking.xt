@@ -1,17 +1,13 @@
 window.onbeforeunload = function(e){
 	// window.onpopstate = function(e) {
 	// if ( $(window).width() < 500 && $('div[data-type="modal"]').hasClass('opened')) {
-
-
 	// 	console.log($(window).width());
 	// 	console.log($('div[data-type="modal"].opened'));
 	// 	console.log($('div[data-type="modal"]').hasClass('opened'));
 	// 	var curUrl = window.location.href;
 	// 	console.log(curUrl);
-
 	// 	$('div[data-type="modal"]').removeClass('opened').addClass('hidden');
 	// 	$('.background_panel').addClass('hidden');
-
 	// 	location.replace(curUrl);
 		// history.back(0);
 		// $('div[data-type="modal"]').close();
@@ -24,8 +20,7 @@ $(window).on("load", function(){
 // window.addEventListener("popstate", function(e) {
 //     swapPhoto(location.pathname);
 // }, false)
-$(function(){
-	// $("html, body").trigger("scroll");
+$(function(){	
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
 	GetLocation();
 
@@ -75,10 +70,7 @@ $(function(){
 			next_page = current_page+1,
 			shown_products = (page.find('.card').get()).length,
 			skipped_products = 30*(start_page-1),
-			count = $(this).data('cnt');
-		/*console.log(page.find('.paginator li.active'));
-		console.log('start_page '+start_page);
-		console.log('shown_products '+shown_products);*/
+			count = $(this).data('cnt');		
 		$('.show_more').append('<span class="load_more"></span>');
 		var data = {
 			action: 'getmoreproducts_desctop',
@@ -217,7 +209,6 @@ $(function(){
 		closeObject('confirmDelItem');
 	});
 
-
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
 	var seoText = $('#seoTextBlock').text();
 	if (seoText.length > 1000){
@@ -235,6 +226,7 @@ $(function(){
 		$(this).addClass('hidden');
 		$('#expand_btn').removeClass('hidden');
 	});
+	
 	//Скрытие фильтров в зависимости от выбранного уровня товара ---
 	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length === 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
 		$('.main_nav li[data-nav="filter"]').removeClass('hidden');
@@ -309,7 +301,7 @@ $(function(){
 	// }
 
 	// Высота сайдбара
-	$('.sidebar_wrapp').css('max-height', (viewport_height - header_outerheight - 15));
+	// $('.sidebar_wrapp').css('max-height', (viewport_height - header_outerheight - 15));
 
 	//Инициализаци слайдера
 	// $("#owl-main_slider").owlCarousel({
@@ -439,96 +431,30 @@ $(function(){
 				header.removeClass("default").addClass("filled");
 			}else if($(this).scrollTop() <= banner_height/2 - 52 && header.hasClass("filled")){
 				header.removeClass("filled").addClass("default");
-			}
-			// $('aside').css('bottom', 'auto');
+			}			
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
-			}
-
-			//Проверить моб версию
-
-			/*if (IsMobile === true) {
-				$('aside').css({
-					'position' : 'absolute',
-					'bottom' : 'auto',
-					'top' : 'auto'
-				});
-			}*/
+			}			
 		}else{
 			var CurentMainWindow = $('.main').outerHeight();//$.cookie('mainWindow');
 			var scroll = $(this).scrollTop(); // прокрутка 
-			var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;
-			// var pieceOfHeader = CurentMainWindow - (scroll + viewPort) + 52;
-
-			//Проверить моб версию
-
-			// if(IsMobile === false){
-			// 	$('aside').css('max-height', 'calc(100vh - 52px)');				
-			// }else{
-			// 	$('aside').css('top', '52px');
-			// 	$('aside').css('position', 'fixed');
-			// }
-			if((scroll + viewPort) > (CurentMainWindow + 52)){
-				// console.log(scroll);
-				// console.log(viewPort);
-				// console.log(CurentMainWindow);
-				// console.log((scroll + viewPort) - CurentMainWindow);
-				// console.log(pieceOfFooter);
+			var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;			
+			if((scroll + viewPort) > (CurentMainWindow + 52)){				
 				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
 				$('aside .filters_container').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter + 43)+'px');
 			}else{
 				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
 				$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
-			}
-
-
-			// if((scroll + viewPort) <= CurentMainWindow){
-				// не доскролили до футера
-				// $('aside').css('bottom', 0);
-			// }else{
-				// Доскролили
-
-				// var pieceOfFooter = (scroll + viewPort) - CurentMainWindow - 52 + main_nav;				
-				// $('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');				
-
-				//Проверить моб версию
-
-				// if(IsMobile === true){
-				// 	$('aside').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter > 0?pieceOfFooter:0)+'px)');
-				// }
-				
-			// }
-			// changeFiltersBtnsPosition();
+			}			
 		}
 	});
-	// События для автосмены размера сайбара и его скролла 
-	$(window).on("load", function(){
-		// console.log(main_nav + 52);
-		// $('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
-
-		/*if(over_scroll === true){
-			resizeAsideScroll();
-		}else if (IsMobile === true) { //Проверить моб версию
-			$('aside').css({
-				'position' : 'absolute',
-				'bottom' : 'auto',
-				'top' : 'auto'	
-			});
-		}	*/	
-	});
-
-	/*$('body').on('click', function(){
-		if(over_scroll === true){
-			resizeAsideScroll('click');
-		}
-	});*/
+	// Автосмена размера сайбара и его скролла 	
 	$(window).resize(function(){
-		if(over_scroll === true){
-			// resizeAsideScroll('show_more');
+		if(over_scroll === true){			
 			resizeAsideScroll();
 		}
 	});
@@ -545,30 +471,9 @@ $(function(){
 			}, 300);
 			$('body').removeClass('banner_hide');
 			header.removeClass("fixed_panel").addClass("default");
-			setTimeout(function(){over_scroll = false;},305);	
-
-			// $('aside').css('bottom', 'auto');
-
-			//Проверить моб версию
-
-			// if (IsMobile === true) {
-			// 	$('aside').css({
-			// 		'position' : 'absolute',
-			// 		'bottom' : 'auto',
-			// 		'top' : 'auto'
-			// 	});
-			// }
+			setTimeout(function(){over_scroll = false;},305);			
 		}
 	});
-
-	/*$('.catalog_btn, #breadcrumbs .btn_js').on('click', function(){
-		$('aside').css({
-			'position' : 'fixed',
-			'bottom' : '0',
-			'top' : '52px'
-		});
-	});*/
-
 	//Меню
 	$('aside').on('click','.more_cat', function() {
 		var lvl = $(this).closest('ul').data('lvl'),
@@ -796,12 +701,12 @@ $(function(){
 			console.log($(el).val());
 		});
 		// console.log(two);
-		openObject('graph');
+		openObject('demand_chart');
 	});
 
 	// Открытие модального Графика
-	/*$('#graph').on('click', '.btn_js.save', function(){
-		var parent =  $(this).closest('#graph'),
+	/*$('#demand_chart').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#demand_chart'),
 			id_category = parent.data('target'),
 			opt = 0,
 			name_user = parent.find('#name_user').val(),
@@ -814,7 +719,7 @@ $(function(){
 		arr.each(function(index, val){
 			values[index] = $(val).val();
 		});
-		ajax('product', 'SaveGraph', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
+		ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 			if(data === true){
 				console.log('Your data has been saved successfully!');
 				closeObject('graph');
@@ -827,14 +732,14 @@ $(function(){
 
 	// Редактирование модального Графика
 	/*$('a.update_exist').on('click', function(){
-		var id_graphics = $(this).attr('id');
-		ajax('product', 'SearchGraph', {'id_graphics': id_graphics}, 'html').done(function(data){
+		var id_chart = $(this).attr('id');
+		ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
 			console.log(data);
 
 			if(data != null){
-				$('#graph .modal_container').html(data);
+				$('#demand_chart .modal_container').html(data);
 				componentHandler.upgradeDom();
-				openObject('graph');
+				openObject('demand_chart');
 
 			}else{
 				console.log('Something goes wrong!');
@@ -873,13 +778,72 @@ $(function(){
 		}, 600);
 	});
 
-	$('.xgraph_up').on('click', function() {
-		var moderation = 0;
-		if($(this).hasClass('two')){
-			moderation = 1;
+	$('.show_demand_chart_js').on('click', function() {	
+		ModalDemandChart($(this).data('idcategory'));
+	});
+	$('#demand_chart').on('click', '.btn_js.save, .btn_js.update', function(){
+		var parent =  $(this).closest('#demand_chart'),
+			id_category = parent.data('target'),
+			is_opt = 0,
+			name_user = parent.find('#name_user').val(),
+			comment = parent.find('textarea').val(),
+			arr = parent.find('.one input[type="range"]'),
+			arr2 = parent.find('.two input[type="range"]'),
+			values = {roz:{},opt:{}},
+			roz_id_chart = parent.find('input[type="hidden"][name="roz_id_chart"]').val(),
+			opt_id_chart = parent.find('input[type="hidden"][name="opt_id_chart"]').val();
+
+		if ($('.select_go label').is(':checked')) {
+			is_opt = 1;
 		}
-		var id_graphics = false;
-		ModalGraph(id_graphics, moderation);
+		arr.each(function(index, val){
+			values.roz[index] = $(val).val();
+		});
+		arr2.each(function(index, val){
+			values.opt[index] = $(val).val();
+		});
+		if($(this)[0].className.indexOf('save') + 1) {
+			console.log('save');
+			ajax('product', 'SaveDemandChart',{
+				'values': values,
+				'id_category': id_category,
+				'name_user': name_user,
+				'text': comment,
+				'opt': is_opt
+			}).done(function(data){
+				if(data === true){
+					console.log('Your data has been saved successfully!');
+					closeObject('graph');
+					location.reload();
+				}else{
+					console.log('Something goes wrong!');
+				}
+			}).fail(function(data){
+				console.log('fail');
+				console.log(data);
+			});
+		}else{
+			console.log('update');
+			ajax('product', 'UpdateDemandChart',{
+				'values': values,
+				'id_category': id_category,
+				'name_user': name_user,
+				'text': comment,
+				'opt': is_opt,
+				'id_charts': roz_id_chart + ', ' + opt_id_chart
+			}).done(function(data){
+				if(data === true){
+					console.log('Your data has been updated successfully!');
+					closeObject('graph');
+					location.reload();
+				}else{
+					console.log('Something goes wrong with update!');
+				}
+			}).fail(function(data){
+				console.log('fail update');
+				console.log(data);
+			});
+		}
 	});
 
 	// Обработка примечания

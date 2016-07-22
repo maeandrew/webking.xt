@@ -307,7 +307,7 @@ div[for="rating_block"] {
 	padding: 0 10px;
 }
 #specifications .mdl-grid .mdl-cell:first-of-type {
-	text-align: right;
+	/*text-align: right;*/
 }
 #specifications .mdl-grid .mdl-cell:last-of-type {
 	border-left: 1px solid #e0e0e0;

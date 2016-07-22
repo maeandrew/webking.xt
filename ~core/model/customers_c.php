@@ -367,6 +367,7 @@ class Customers extends Users {
 		if(isset($arr['discount'])){
 			$f['discount'] = trim($arr['discount']);
 		}
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'customer', $f)){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();

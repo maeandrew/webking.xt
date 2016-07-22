@@ -774,38 +774,58 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	/**
+	 * Обновляем данные графика спроса в таблице
+	 * @param $data
+	 * @return bool
+	 */
+	public function UpdateDemandChartNoModeration($data){
+		$sql = "DELETE FROM "._DB_PREFIX_."chart
+				WHERE id_chart IN(".$data['id_charts'].")";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		unset($data['id_charts']);
+		if(!$this->AddDemandCharts($data)){
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * Добавление двух графиков (по категории)
 	 * @param [type] $data [description]
 	 */
-	public function AddInsertTwoGraph($data){
+	public function AddDemandCharts($data){
 		$arr['id_author'] = $_SESSION['member']['id_user'];
 		$arr['id_category'] = $data['id_category'];
-		$arr['name_user'] = $data['name_user'];
-		$arr['text'] = $data['text'];
+		//$arr['name_user'] = $data['name_user'];
+		$arr['comment'] = $data['text'];
 		$arr['moderation'] = 0;
-		if ($data['opt'] == 0) {
-			$arr['opt'] = 0;
+		if(_acl::isAllow('admin_panel')){
+			$arr['moderation'] = 1;
 		}
-		if ($data['moderation'] == 1) {
-			$arr['moderation'] = $data['moderation'];
-		}
+		$arr['opt'] = 0;
 		foreach($data['values']['roz'] as $k => $val){
-			$arr['value_'.$k] = $val;
+			$arr['value_'.($k+1)] = $val;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+		if(!$this->db->Insert(_DB_PREFIX_.'chart', $arr)){
 			$this->db->FailTrans();
 			return false;
 		}
-		$arr['opt'] = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 
+		$arr['opt'] = 1;
 		foreach($data['values']['opt'] as $k => $val){
-			$arr['value_'.$k] = $val;
+			$arr['value_'.($k+1)] = $val;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'graph', $arr)){
+		if(!$this->db->Insert(_DB_PREFIX_.'chart', $arr)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -813,35 +833,38 @@ class Products {
 		return true;
 	}
 	/**
-	 * [UpdateGraph description]
+	 * [UpdateDemandChart description]
 	 * @param [type]  $graph [description]
 	 * @param boolean $mode  [description]
 	 */
-	public function UpdateGraph($graph, $mode=false){
-		$id_graphics = $graph['id_graphics'];
-		$where = "id_graphics = ".$id_graphics;
+	public function UpdateDemandChart($chart, $mode=false){
+		$id_chart = $chart['id_chart'];
+		$where = "id_chart = ".$id_chart;
 		if($mode == true){
-			$arr['moderation'] = $graph['moderation'];
-			if ($graph['mode'] == 'opt') {
-				$where = "opt = ".$id_graphics;
-			}
+			$arr['moderation'] = $chart['moderation'];
+//			if ($chart['mode'] == 'opt') {
+//				$where = "opt = ".$id_chart;
+//			}
 		}else{
 			$arr['id_author'] = $_SESSION['member']['id_user'];
-			$arr['id_category'] = $graph['id_category'];
-			$arr['name_user'] = $graph['name_user'];
-			$arr['text'] = $graph['text'];
-			$arr['moderation'] = 1;
-			$arr['opt'] = 0;
-			if ($graph['opt'] == 1) {
-				$arr['opt'] = $graph['opt'];
+			$arr['id_category'] = $chart['id_category'];
+			//$arr['name_user'] = $chart['name_user'];
+			$arr['comment'] = $chart['text'];
+			$arr['moderation'] = 0;
+			if(_acl::isAllow('admin_panel')){
+				$arr['moderation'] = 1;
 			}
-			foreach($graph['values'] as $k=>$val){
+			$arr['opt'] = 0;
+			if ($chart['opt'] == 1) {
+				$arr['opt'] = $chart['opt'];
+			}
+			foreach($chart['values'] as $k=>$val){
 				$k++;
 				$arr['value_'.$k] = $val;
 			}
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."graph", $arr, $where)){
+		if(!$this->db->Update(_DB_PREFIX_."chart", $arr, $where)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -850,17 +873,17 @@ class Products {
 	}
 	/**
 	 * Поиск графика
-	 * @param [type] $id_graphics [description]
+	 * @param [type] $id_chart [description]
 	 */
-	public function SearchGraph($id_graphics){
-		$sql = "SELECT * FROM "._DB_PREFIX_."graph WHERE id_graphics = ".$id_graphics;
+	public function SearchDemandChart($id_chart){
+		$sql = "SELECT * FROM "._DB_PREFIX_."chart WHERE id_chart = ".$id_chart;
 		$result = $this->db->GetOneRowArray($sql);
 		return $result;
 	}
 
 	// Поиск двух графиков
-	public function SearchTwoGraph($id_graphics){
-		$sql = "SELECT * FROM "._DB_PREFIX_."graph r JOIN "._DB_PREFIX_."graph o WHERE r.id_graphics = ".$id_graphics."AND o.opt = r.id_graphics";
+	public function SearchTwoGraph($id_chart){
+		$sql = "SELECT * FROM "._DB_PREFIX_."graph r JOIN "._DB_PREFIX_."graph o WHERE r.id_chart = ".$id_chart."AND o.opt = r.id_chart";
 		$result = $this->db->GetArray($sql);
 		return $result;
 	}
@@ -868,19 +891,24 @@ class Products {
 	 * Выборка графика
 	 * @param boolean $id_category [description]
 	 */
-	public function GetGraphList($id_category = false){
+	public function GetGraphList($id_category = false, $id_author = false, $limit = false){
 		//$id_category = $id_category?$id_category:0;
 		if(!$id_category){
-			$sql = "SELECT * FROM "._DB_PREFIX_."graph";
+			$sql = "SELECT ch.*, u.`name` AS user_name FROM "._DB_PREFIX_."chart ch
+					LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author
+					ORDER BY creation_date DESC".($limit !== false?$limit:'');
 		}elseif(is_numeric($id_category)){
-			$sql = "SELECT g.*, u.name
-				FROM "._DB_PREFIX_."graph g
+			$sql = "SELECT ch.*, u.name
+				FROM "._DB_PREFIX_."chart ch
 				JOIN "._DB_PREFIX_."user u
-				WHERE g.id_author = u.id_user
-				AND g.id_category = ".$id_category;
+				WHERE ch.id_author = u.id_user
+				AND ch.id_category = ".$id_category;
+		}elseif($id_author){
+			$sql = "SELECT * FROM "._DB_PREFIX_."chart
+					WHERE id_author = ".$id_author." AND id_category = ".$id_category;
 		}else{
-			$sql = "SELECT g.*, c.id_category
-				FROM "._DB_PREFIX_."graph g
+			$sql = "SELECT ch.*, c.id_category
+				FROM "._DB_PREFIX_."chart ch
 				JOIN "._DB_PREFIX_."category c
 				WHERE c.id_category IN (
 					SELECT id_category
@@ -893,6 +921,27 @@ class Products {
 		return array('graph' => $result, 'users' => $result2);*/
 		return $result;
 	}
+
+	/**
+	 * Выборка среднеарифметических данных графика по категории
+	 * @param bool|false $id_category
+	 * @return bool
+	 */
+	public function AvgDemandChartCategory($id_category = false){
+		$values = '';
+		for($i = 1; $i<=12; $i++) {
+			$values .= "ROUND(AVG(value_$i), 1) AS value_$i, ";
+		}
+		$values = substr($values, 0, -2);
+		$sql = "SELECT opt, ".$values." FROM "._DB_PREFIX_."chart
+				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
+		$result = $this->db->GetArray($sql);
+		if(!$result){
+			return false;
+		}
+		return $result;
+	}
+
 	/**
 	 * Выборка товаров для главной
 	 */
@@ -2559,7 +2608,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetCatsOfProduct($id_product){
-		$sql = "SELECT cp.id_category, cp.main
+		$sql = "SELECT cp.id_category, cp.main, c.art
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
@@ -4472,7 +4521,7 @@ class Products {
 			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp">
 			<a '.(($no_rel || (!isset($GLOBALS['current_categories'])&& $GLOBALS['CurrentController'] !='product') )?'':'rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
 
-			if(!empty($l['subcats'])){
+			if(!empty($l['subcats']) && !isset($_GET['debug'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
                     $ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
                 }else{
@@ -4731,6 +4780,15 @@ class Products {
 				$array_double[$v['translit']][] = $v;
 			}
 			return $array_double;
+		}
+		return $res;
+	}
+
+	public  function GetNopriceProducts($limit = false){
+		$sql = "SELECT id_product, `name`, translit, price_mopt, price_opt FROM "._DB_PREFIX_."product
+				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1".($limit !== false?$limit:'');
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
 		return $res;
 	}
