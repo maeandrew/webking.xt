@@ -42,6 +42,9 @@ hr {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	background: #fff;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+    padding: 10px;
 }
 .cabinet_content .editproduct {
 	float: left;
@@ -123,7 +126,7 @@ footer.mdl-mega-footer {
 }
 
 table.table {
-	border-bottom: 1px solid #d7d7d7;
+	/*border-bottom: 1px solid #d7d7d7;*/
 	margin-bottom: 15px;
 	text-align: center;
 	font-size: 16px;
@@ -452,12 +455,12 @@ table.kontrag.table{
 	width: calc(100% - 300px);
 	float: right;
 	text-align: justify;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	padding-right: 10px;
 	padding-left: 10px;
 }
 #supplier_cab #second {
-	margin-left: 25px;
+	margin-top: 5px;
 }
 #supplier_cab .sort_page_top {
 	float: left;
@@ -585,7 +588,8 @@ table.supplier_assort_table {
 }
 
 #supplier_cab tr {
-	border: 1px solid #d7d7d7;
+	/*border: 1px solid #d7d7d7;*/
+	background: #fff;
 }
 #supplier_cab .available {
 	background-color: #F1FFF1;
@@ -2370,12 +2374,77 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 300px;
 	position: relative;
 }
-.page_content .customer_cab h1 {
+/*.page_content .customer_cab h1 {
+	font-size: 2em;
+}*/
+.page_content h1 {
 	font-size: 2em;
 }
 #orders_history .editing {
 	margin-top: 10px; 
 }
+
+/* СТИЛИ СПИСКА ТОВАРОВ НА МОДЕРАЦИИ */
+
+.moder_list_item,
+.moder_list_title {	
+    background: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+}
+.moder_list_item {
+	height: 100px;	
+}
+.moder_list_title div {
+	text-align: center;
+}
+.moder_list_title {
+	height: 50px;
+	padding-top: 15px;
+}
+.photo {
+	width: 130px;
+} 
+.name {
+	width: calc(100% - 120px - 120px - 130px);
+} 
+.status {
+	width: 120px;
+}
+.controls {
+	width: 120px;
+}
+.photo, 
+.name, 
+.status {
+	float: left;
+}
+.controls {
+	float: right;
+}
+
+.moder_list_item .photo {
+	position: relative;
+    padding: 5px 10px 5px 0;
+}
+.moder_list_item .photo img {
+	display: block;
+    max-height: 90px;
+    max-width: 100%;
+    margin: 0 auto;	
+}
+.moder_list_item .name {
+	padding-top: 35px;
+	width: calc(100% - 120px - 120px - 130px);
+}
+.moder_list_item .status {
+    text-align: center;
+    padding-top: 35px;
+}
+.moder_list_item .controls {
+    padding: 30px 10px 10px 10px;
+}
+
 
 
 @media (max-width: 1060px) {
@@ -2470,7 +2539,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		border: 1px solid #e1e1e1;
 	}
 	.sb_container .line {
-		width: 48%;
+		width: 49%;
 	    padding-left: 5px;
 	    padding-right: 5px;
 	}
@@ -2734,7 +2803,45 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.sb_container .line {
     	width: 100%;
     	padding-right: 10px;
-	}	
+	}
+	.moder_list_item .name {
+		width: calc(100% - 130px);
+		padding-bottom: 40px;
+	}
+	.moder_list_title {
+		display: none;
+	}
+	.moder_list_item {
+	    height: 140px;
+	    display: flex;
+    	flex-wrap: wrap;
+    	justify-content: space-between;
+	}
+	.moder_list_item .status {
+		padding-top: 5px;
+		padding-left: 10px;
+    	width: 135px;
+	}
+	.moder_list_item .controls {
+		padding-top: 0px;
+	}
+	.status_title {
+		float: left;
+		margin-right: 5px;
+	}
+	.controls {
+		width: 130px;
+	}
+	#supplier_cab #second .controls a {
+		margin: 0px;	
+	    position: relative;
+	    top: 5px;
+	    width: 50px;
+	    display: block;
+	    float: left;
+	    text-align: center;
+	}
+
 }
 
 @media (max-width: 420px) {
