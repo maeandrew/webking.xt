@@ -851,102 +851,57 @@ function Graf3d(){
 
 }
 
-function ModalDemandChart(id_chart, moderation){
-	ajax('product', 'OpenModalDemandChart').done(function(data){
+function ModalDemandChart(id_category){
+	ajax('product', 'OpenModalDemandChart', {id_category: id_category}, 'html').done(function(data){
 		$('#demand_chart .modal_container').html(data);
 		componentHandler.upgradeDom();
 
-		if(id_chart){
-			//console.log(id_chart);
-				//$('a').on('click', function(){
-				//var id_chart = $(this).attr('id');
-				ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
-					if(data !== null){
-						//console.log(data);
-						$('#demand_chart .modal_container').html(data);
-						//foo(d3.selectAll("div").text('some text'));
+		// if(id_chart){
+		// 	//console.log(id_chart);
+		// 		//$('a').on('click', function(){
+		// 		//var id_chart = $(this).attr('id');
+		// 		ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
+		// 			if(data !== null){
+		// 				//console.log(data);
+		// 				$('#demand_chart .modal_container').html(data);
+		// 				//foo(d3.selectAll("div").text('some text'));
 
-						componentHandler.upgradeDom();
-						openObject('demand_chart');
-						$('#demand_chart #user_bt').find('a').addClass('update');
-						$('#demand_chart').on('click', '.update', function(){
-							var parent =  $(this).closest('#demand_chart'),
-								id_category = parent.data('target'),
-								opt = 0,
-								name_user = parent.find('#name_user').val(),
-								comment = parent.find('textarea').val(),
-								arr = parent.find('input[type="range"]'),
-								values = {};
-							if($('.select_go label').is(':checked')){
-								opt = 1;
-							}
-							arr.each(function(index, val){
-								values[index] = $(val).val();
-							});
-							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_chart': id_chart, 'name_user': name_user, 'text': comment, 'opt': opt}).done(function(data){
-								if(data === true){
-									console.log('Your data has been saved successfully!');
-									closeObject('graph');
-									location.reload();
-								}else{
-									console.log('Something goes wrong!');
-								}
-							});
-						});
-					}else{
-						console.log('Something goes wrong!');
-					}
-				}).fail(function(data){
-					console.log('fail');
-				});
+		// 				componentHandler.upgradeDom();
+		// 				openObject('demand_chart');
+		// 				$('#demand_chart #user_bt').find('a').addClass('update');
+		// 				$('#demand_chart').on('click', '.update', function(){
+		// 					var parent =  $(this).closest('#demand_chart'),
+		// 						id_category = parent.data('target'),
+		// 						opt = 0,
+		// 						name_user = parent.find('#name_user').val(),
+		// 						comment = parent.find('textarea').val(),
+		// 						arr = parent.find('input[type="range"]'),
+		// 						values = {};
+		// 					if($('.select_go label').is(':checked')){
+		// 						opt = 1;
+		// 					}
+		// 					arr.each(function(index, val){
+		// 						values[index] = $(val).val();
+		// 					});
+		// 					ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_chart': id_chart, 'name_user': name_user, 'text': comment, 'opt': opt}).done(function(data){
+		// 						if(data === true){
+		// 							console.log('Your data has been saved successfully!');
+		// 							closeObject('graph');
+		// 							location.reload();
+		// 						}else{
+		// 							console.log('Something goes wrong!');
+		// 						}
+		// 					});
+		// 				});
+		// 			}else{
+		// 				console.log('Something goes wrong!');
+		// 			}
+		// 		}).fail(function(data){
+		// 			console.log('fail');
+		// 		});
 
-		}else{
+		// }else{
 			openObject('demand_chart');
-			$('#demand_chart').on('click', '.btn_js.save', function(){
-				var parent =  $(this).closest('#demand_chart'),
-					id_category = parent.data('target'),
-					is_opt = 0,
-					name_user = parent.find('#name_user').val(),
-					comment = parent.find('textarea').val(),
-					arr = parent.find('.one input[type="range"]'),
-					arr2 = parent.find('.two input[type="range"]'),
-					values = {roz:{},opt:{}};
-
-				if ($('.select_go label').is(':checked')) {
-					is_opt = 1;
-				}
-				//if (true) {};
-				arr.each(function(index, val){
-					values.roz[index] = $(val).val();
-				});
-				arr2.each(function(index, val){
-					values.opt[index] = $(val).val();
-				});
-				console.log('values');
-				console.log(values);
-
-				//console.log(values);
-				ajax('product', 'SaveDemandChart',{
-					'values': values,
-					'id_category': id_category,
-					'name_user': name_user,
-					'moderation': moderation,
-					'text': comment,
-					'opt': is_opt
-				}).done(function(data){
-					if(data === true){
-						console.log('Your data has been saved successfully!');
-						closeObject('graph');
-						location.reload();
-					}else{
-						console.log('Something goes wrong!');
-					}
-				}).fail(function(data){
-					console.log('fail');
-					console.log(data);
-				});
-			});
-		}
 	});
 }
 

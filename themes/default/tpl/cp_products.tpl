@@ -44,7 +44,7 @@
 					<?}?> -->					
 				</div>
 				<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone"><i class="material-icons">timeline</i></a>
+					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
 				<?}?>
 				<div class="productsListView">
 					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>

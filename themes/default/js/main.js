@@ -873,13 +873,50 @@ $(function(){
 		}, 600);
 	});
 
-	$('.show_demand_chart_js').on('click', function() {
-		var moderation = 0;
-		if($(this).hasClass('two')){
-			moderation = 1;
+	$('.show_demand_chart_js').on('click', function() {	
+		ModalDemandChart($(this).data('idcategory'));
+	});
+	$('#demand_chart').on('click', '.btn_js.save', function(){
+		var parent =  $(this).closest('#demand_chart'),
+			id_category = parent.data('target'),
+			is_opt = 0,
+			name_user = parent.find('#name_user').val(),
+			comment = parent.find('textarea').val(),
+			arr = parent.find('.one input[type="range"]'),
+			arr2 = parent.find('.two input[type="range"]'),
+			values = {roz:{},opt:{}};
+
+		if ($('.select_go label').is(':checked')) {
+			is_opt = 1;
 		}
-		var id_chart = false;
-		ModalDemandChart(id_chart, moderation);
+		arr.each(function(index, val){
+			values.roz[index] = $(val).val();
+		});
+		arr2.each(function(index, val){
+			values.opt[index] = $(val).val();
+		});
+		console.log('values');
+		console.log(values);
+
+		//console.log(values);
+		ajax('product', 'SaveDemandChart',{
+			'values': values,
+			'id_category': id_category,
+			'name_user': name_user,
+			'text': comment,
+			'opt': is_opt
+		}).done(function(data){
+			if(data === true){
+				console.log('Your data has been saved successfully!');
+				closeObject('graph');
+				location.reload();
+			}else{
+				console.log('Something goes wrong!');
+			}
+		}).fail(function(data){
+			console.log('fail');
+			console.log(data);
+		});
 	});
 
 	// Обработка примечания
