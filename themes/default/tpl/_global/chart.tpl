@@ -1,4 +1,6 @@
 <h3>График спроса (своя версия)</h3>
+<?print_r($values[0]);?>
+<?print_r($values[1]);?>
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<div class="mdl-tabs__tab-bar">
 				<a href="#retail" class="mdl-tabs__tab is-active">Розница</a>
@@ -6,8 +8,9 @@
 		</div>
 		<div class="mdl-tabs__panel is-active" id="retail">
 			<div class="mdl-cell--hide-phone clearfix toggle one range_wrap">
-				<?if(!empty($values)){
-					foreach($values[0] as $key => $value){
+				<?if(!empty($values)){?>
+					<input type="hidden" name="roz_id_chart" value="<?=$values[0]['id_chart']?>">
+					<?foreach($values[0] as $key => $value){
 						// var_dump(strpos($key, 'value_'));
 						if(strpos($key, 'value_') !== false){?>
 							<div class="slider_wrap">
@@ -81,9 +84,9 @@
 		</div>
 		<div class="mdl-tabs__panel" id="opt">
 			<div class="mdl-cell--hide-phone clearfix toggle two range_wrap">
-				<?if(!empty($values)){
-					foreach($values[1] as $key => $value){
-						// var_dump(strpos($key, 'value_'));
+				<?if(!empty($values)){?>
+					<input type="hidden" name="opt_id_chart" value="<?=$values[1]['id_chart']?>">
+					<?foreach($values[1] as $key => $value){
 						if(strpos($key, 'value_') !== false){?>
 							<div class="slider_wrap">
 								<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0">

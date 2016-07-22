@@ -886,7 +886,9 @@ $(function(){
 			comment = parent.find('textarea').val(),
 			arr = parent.find('.one input[type="range"]'),
 			arr2 = parent.find('.two input[type="range"]'),
-			values = {roz:{},opt:{}};
+			values = {roz:{},opt:{}},
+			roz_id_chart = parent.find('input[type="hidden"][name="roz_id_chart"]').val(),
+			opt_id_chart = parent.find('input[type="hidden"][name="opt_id_chart"]').val();
 
 		if ($('.select_go label').is(':checked')) {
 			is_opt = 1;
@@ -924,7 +926,9 @@ $(function(){
 				'id_category': id_category,
 				'name_user': name_user,
 				'text': comment,
-				'opt': is_opt
+				'opt': is_opt,
+				'roz_id_chart': roz_id_chart,
+				'opt_id_chart': opt_id_chart
 			}).done(function(data){
 				if(data === true){
 					console.log('Your data has been updated successfully!');
