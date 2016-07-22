@@ -3389,8 +3389,6 @@ section .stat_year {
 		-ms-transform: translate(-50%, -50%);
 		-webkit-transform: translate(-50%, -50%);
 	}
-/* class="mdl-button mdl-js-button mdl-button--raised" */
-/* style="float: right;right: 10px;top:-10px;background:#018B06;"*/
 .news_item {
 	width: 24%;
 	background: #fff;
@@ -3401,7 +3399,6 @@ section .stat_year {
 	font: normal normal 14px/1.4em "Roboto";
 }
 .news_item .read_more {
-	/*padding-top: 10px;*/
 	position: absolute;
 	bottom: 0px;
 	background: #fff;
@@ -3416,9 +3413,7 @@ section .stat_year {
 	color: #fff;
 }
 .news_item .news_date {
-	padding: 10px 10px 0px 10px;
-	/* padding-bottom: 0;
-	border-top: 1px solid #e0e0e0; */
+	padding: 10px 10px 0px 10px;	
 }
 .news_item .news_date p {	
 	font-size: 12px;    
@@ -3442,17 +3437,12 @@ section .stat_year {
 .last_news_title h4 {
 	margin: 0px;
 }
-.news_content {
-	/*position: absolute;
-	bottom: 0;*/
-}
 
 /* Стиль активного сегмена и выделение при наведении */
 
 .catalog .main_nav .activeSegment {
 	color: black;
 }
-
 .catalog .main_nav li:hover {
 	background: #fff;
 }
@@ -3504,7 +3494,6 @@ section .stat_year {
 		width: 100vw;
 		height: 100vh;
 	}
-
 	#quiz.opened {
 		left: 0;
 	}
