@@ -38,15 +38,15 @@ G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
-G::AddJS('jquery-ui.min.js', false, 1);
+G::AddJS('jquery-ui.min.js', true, 1);
 // G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');
 //G::AddJS('d3.min.js');
 //G::AddJS('../js/nutrients.csv');
 //G::AddJS('../js/nutrients.json');
-G::AddJS('../plugins/material/material.min.js');
-G::AddJS('../plugins/mdl-select.min.js');
-G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
+G::AddJS('../plugins/material/material.min.js', true, 1);
+G::AddJS('../plugins/mdl-select.min.js', true, 1);
+G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', true, 1);
 G::AddJS('../themes/'.$theme.'/js/func.js');
 G::AddJS('../themes/'.$theme.'/js/main.js');
 if($GLOBALS['CurrentController'] == 'cart'){
@@ -55,9 +55,9 @@ if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js', true);
 }
 /* plugins js */
-G::AddJS('../plugins/dropzone.js');
-G::AddJS('../plugins/jquery.lazyload.min.js');
-G::AddJS('../plugins/jquery.cookie.js');
+G::AddJS('../plugins/dropzone.js', true, 1);
+G::AddJS('../plugins/jquery.lazyload.min.js', true, 1);
+G::AddJS('../plugins/jquery.cookie.js', true, 1);
 // G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
 // G::AddJS('../plugins/icomoon/liga.js', true);
@@ -67,14 +67,6 @@ if($GLOBALS['CurrentController'] == 'page'){
 }
 // G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
 
-// слайдер на главной странице
-if($GLOBALS['CurrentController'] == 'main'){
-	$Slides = new Slides();
-	$Slides->SetFieldsBySlider('main');
-	$slides = $Slides->fields;
-	$tpl->Assign('main_slides', $slides);
-}
-unset($slides);
 if(in_array($GLOBALS['CurrentController'], array('promo_cart', 'promo'))){
 	G::AddJS('promo_cart.js');
 }

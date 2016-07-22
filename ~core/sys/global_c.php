@@ -15,6 +15,10 @@ class G {
 	 * Install default Cookies
  	 */
  	public static function SetBasicCookies(){
+		if(!isset($_COOKIE['manual'])){
+			$_COOKIE['manual'] = 1;
+		}
+
 		//Установка базовой колоники цен
 		if(!isset($_COOKIE['manual'])){
 			if(!isset($_SESSION['cart']['cart_sum']) || $_SESSION['cart']['cart_sum'] == 0 || (isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] >= $GLOBALS['CONFIG']['full_wholesale_order_margin'])){
@@ -343,7 +347,6 @@ class G {
 	 */
 	public static function Loger($txt, $fname = "main.log", $mode = "a"){
 		$fp = fopen($fname, $mode);
-		print_r($txt);
 		$d = date("h:i:s d.m.Y", time());
 		fputs($fp, $d."  ".$txt."\n");
 		fclose($fp);

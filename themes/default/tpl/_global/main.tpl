@@ -426,7 +426,7 @@
 						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 					<?}?>
 				<?}else{?>
-					<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+					<!-- <img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300"> -->
 				<?}?>
 			</div>
 			<div class="copyright">
