@@ -244,7 +244,7 @@
 	<?}?> 
 -->
 <div class="mdl-grid">
-	<div class="mdl-cell mdl-cell--2-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Детали</div>	
+	<div class="mdl-cell mdl-cell--2-col mdl-button mdl-js-button mdl-js-ripple-effect">Детали <i class="material-icons">keyboard_arrow_right</i></div>	
 </div>
 <div class="mdl-grid bottom_panel">
 	<div class=" mdl-cell mdl-cell--5-col">
@@ -261,7 +261,7 @@
 	</div>
 	<div class="mdl-cell mdl-cell--2-col">
 		<div id="user_bt">
-			<a href="#" class="save btn_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
+			<a href="#" class="save btn_js mdl-button mdl-js-button mdl-js-ripple-effect">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
 		</div>
 	</div>
 </div>
