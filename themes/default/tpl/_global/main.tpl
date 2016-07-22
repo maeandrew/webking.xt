@@ -176,14 +176,6 @@
 		</section>
 	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="panel_container panel_container_js">
-				<?=$__sidebar_l?>
-			</div>
-			<div class="catalog_close btn_js" data-name="catalog">
-				<i class="material-icons" title="Закрыть каталог">close</i>
-			</div>
-		</aside>
 		<section class="center">
 			<style>
 				#last_orders_count {
@@ -311,6 +303,14 @@
 		<div id="canvas_mark_wrapper">
 			<canvas id="err_canvas" width="10" height="10"></canvas>
 		</div>
+		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
+			<div class="panel_container panel_container_js">
+				<?=$__sidebar_l?>
+			</div>
+			<div class="catalog_close btn_js" data-name="catalog">
+				<i class="material-icons" title="Закрыть каталог">close</i>
+			</div>
+		</aside>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<p>Сообщите нам об ошибке</p>
