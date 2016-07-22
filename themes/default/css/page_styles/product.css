@@ -163,13 +163,6 @@
 	border: 1px solid #e0e0e0;
 	text-align: center;
 }
-.product .content_header {
-	padding: 0;
-}
-.product .content_header .cart_info {
-	float: none;
-	width: 100%;
-}
 .product .pb_wrapper {
 	position: relative;
 	padding: 20px 0;
@@ -633,18 +626,9 @@ div[for="rating_block"] {
 	}
 }
 
-
-
-
 /*Tablet*/
 @media (min-width: 728px) and (max-width: 1169px) {
 
-	/*.product_page .catalog_btn {
-		width: 260px;
-	}*/
-	.product .content_header .cart_info {
-		width: 100%;
-	}
 }
 
 /*Phone*/

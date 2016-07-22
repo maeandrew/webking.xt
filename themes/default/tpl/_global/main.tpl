@@ -189,7 +189,7 @@
 					<?=$__breadcrumbs?>
 					<?=$__center?>
 				<?}else{?>
-					<div class="content_header clearfix">
+					<div class="content_header">
 						<?if(isset($available_sorting_values)){?>
 							<div class="sort imit_select">
 								<span>Сортировать:</span>
@@ -211,7 +211,7 @@
 							</div>
 						<?}?>
 						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
-						<div class="cart_info mdl-cell--hide-phone clearfix <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
+						<div class="cart_info mdl-cell--hide-phone <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
 							<div class="your_discount">Ваша скидка</div>
 							<div class="price_nav"></div>
 						</div>
