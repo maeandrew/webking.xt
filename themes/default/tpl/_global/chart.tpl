@@ -1,6 +1,4 @@
 <h3>График спроса (своя версия)</h3>
-<?print_r($values[0]);?>
-<?print_r($values[1]);?>
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<div class="mdl-tabs__tab-bar">
 				<a href="#retail" class="mdl-tabs__tab is-active">Розница</a>
