@@ -736,7 +736,7 @@ table.kontrag.table{
 	display: none;
 }
 #supplier_cab .cabinet_block {
-	margin-left: calc(50% - 345px);
+	/*margin-left: calc(50% - 345px);*/
 }
 #supplier_cab .cabinet_block button {
 	margin: 5px;
@@ -755,6 +755,9 @@ table.kontrag.table{
 #supplier_cab .calendar,
 #supplier_cab .work_days_add {
 	margin-bottom: 5px;
+    background: #fff;
+    padding: 5px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 #supplier_cab .calendar,
 #supplier_cab .work_days_add {
