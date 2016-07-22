@@ -1269,8 +1269,7 @@ section.center {
 	}
 	.banner_hide aside {
 		position: fixed;
-		/*background: #f7f7f7 !important;*/
-		top: 52px;
+		/*top: 52px;*/
 		box-shadow: none;
 		max-height: calc(100vh - 52px);
 		bottom: auto;
