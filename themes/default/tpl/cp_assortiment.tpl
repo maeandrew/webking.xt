@@ -1,32 +1,28 @@
 <?if(!empty($list)){?>
 	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
-	<div class="content_header clearfix">
-		<div class="sort imit_select">
-			<span>Сортировать:</span>
-			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-				<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
-					<?foreach($available_sorting_values as $key => $alias){ ?>
-						<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
-					<?}?>
-				</select>
+	<div class="content_header">
+		<div class="list_settings">
+			<div class="sort">
+				<label class="mdl-cell--hide-tablet mdl-cell--hide-desktop"><i class="material-icons">sort</i></label>
+				<label class="mdl-cell--hide-phone">Сортировать:</label>
+				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+					<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
+						<?foreach($available_sorting_values as $key => $alias){ ?>
+							<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
+						<?}?>
+					</select>
+				</div>
 			</div>
-
-			<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> -->
-			<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-				<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
-			<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-				<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
-			<?}?>
+			<div class="productsListView">
+				<label class="mdl-cell--hide-phone">Вид:</label>
+				<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+				<span class="mdl-tooltip" for="changeToList">Списком</span>
+				<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+				<span class="mdl-tooltip" for="changeToBlock">Блоками</span>
+				<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
+				<span class="mdl-tooltip" for="changeToColumn">Колонками</span>
+			</div>
 		</div>
-		<div class="productsListView">
-			<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
-			<span class="mdl-tooltip" for="changeToList">Вид списком</span>
-			<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
-			<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
-			<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
-			<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
-		</div>
-		<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 	</div>
 <?}?>
 <div id="catalog_supplier" class="products">

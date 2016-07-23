@@ -975,34 +975,36 @@ function ChangeView(view){
 // Previw Sliders
 function ListenPhotoHover(){
 	preview = $('.list_view .preview');
-	previewOwl = preview.find('#owl-product_slide_js');
-	$('.list_view .product_photo:not(hovered)').on('mouseover', function(){
-		if($(this).not('.hovered')){
-			showPreview(false);
-			$(this).addClass('hovered');
-			rebuildPreview($(this));
-		}
-	}).on('mouseleave', function(e){
-		if($('#view_block_js').hasClass('list_view')){
-			var mp = mousePos(e),
-				obj = $(this);
-			if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
-				hidePreview();
-				obj.removeClass('hovered');
+	if(preview.length > 0){
+		previewOwl = preview.find('#owl-product_slide_js');
+		$('.list_view .product_photo:not(hovered)').on('mouseover', function(){
+			if($(this).not('.hovered')){
+				showPreview(false);
+				$(this).addClass('hovered');
+				rebuildPreview($(this));
 			}
-		}
-		return;
-	});
-	preview.on('mouseleave', function(e){
-		if($('#view_block_js').hasClass('list_view')){
-			mp = mousePos(e);
-			obj = $('.product_photo.hovered');
-			if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
-				hidePreview();
-				obj.removeClass('hovered');
+		}).on('mouseleave', function(e){
+			if($('#view_block_js').hasClass('list_view')){
+				var mp = mousePos(e),
+					obj = $(this);
+				if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
+					hidePreview();
+					obj.removeClass('hovered');
+				}
 			}
-		}
-	});
+			return;
+		});
+		preview.on('mouseleave', function(e){
+			if($('#view_block_js').hasClass('list_view')){
+				mp = mousePos(e);
+				obj = $('.product_photo.hovered');
+				if(obj.hasClass('hovered') && (mp.x <= obj.offset().left || mp.x >= obj.offset().left+obj.width() || mp.y <= obj.offset().top || mp.y >= obj.offset().top+obj.height())){
+					hidePreview();
+					obj.removeClass('hovered');
+				}
+			}
+		});
+	}
 }
 
 function hidePreview(){

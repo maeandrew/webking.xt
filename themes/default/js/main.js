@@ -573,32 +573,34 @@ $(function(){
 	$('.product_main_img').css('height', $('.product_main_img').outerWidth());
 
 	//Инициализация owl carousel
-	$("#owl-product_mini_img_js").owlCarousel({
-		items: 6,
-		itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
-		navigation: true, // Show next and prev buttons
-		dots: false,
-		navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
-	});
-	$("#owl-popular, #owl-last-viewed, #owl-accompanying").owlCarousel({
-		autoPlay: false,
-		dots: false,
-		stopOnHover: true,
-		slideSpeed: 300,
-		paginationSpeed: 400,
-		itemsScaleUp: true,
-		responsive: {
-			320: {items: 1},
-			727: {items: 3},
-			950: {items: 5},
-			1250: {items: 6},
-			1600: {items: 8}
-		},
-		nav: true, // Show next and prev buttons
-		navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
-	});
+	if(current_controller == 'product'){
+		$("#owl-product_mini_img_js").owlCarousel({
+			items: 6,
+			itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
+			navigation: true, // Show next and prev buttons
+			dots: false,
+			navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+							'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+		});
+		$("#owl-popular, #owl-last-viewed, #owl-accompanying").owlCarousel({
+			autoPlay: false,
+			dots: false,
+			stopOnHover: true,
+			slideSpeed: 300,
+			paginationSpeed: 400,
+			itemsScaleUp: true,
+			responsive: {
+				320: {items: 1},
+				727: {items: 3},
+				950: {items: 5},
+				1250: {items: 6},
+				1600: {items: 8}
+			},
+			nav: true, // Show next and prev buttons
+			navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+							'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+		});
+	}
 
 	//Rating stars
 	$('.set_rating').on('change', function(){
