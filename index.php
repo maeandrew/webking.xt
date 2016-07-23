@@ -44,7 +44,7 @@ G::AddJS('jquery-ui.min.js', true, 1);
 //G::AddJS('d3.min.js');
 //G::AddJS('../js/nutrients.csv');
 //G::AddJS('../js/nutrients.json');
-G::AddJS('../plugins/material/material.min.js', true, 1);
+G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', true, 1);
 G::AddJS('../themes/'.$theme.'/js/func.js');
@@ -56,8 +56,8 @@ if($GLOBALS['CurrentController'] == 'cart'){
 }
 /* plugins js */
 G::AddJS('../plugins/dropzone.js', true, 1);
-G::AddJS('../plugins/jquery.lazyload.min.js', true, 1);
-G::AddJS('../plugins/jquery.cookie.js', true, 1);
+G::AddJS('../plugins/jquery.lazyload.min.js', false, 1);
+G::AddJS('../plugins/jquery.cookie.js', false, 1);
 // G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
 // G::AddJS('../plugins/icomoon/liga.js', true);
