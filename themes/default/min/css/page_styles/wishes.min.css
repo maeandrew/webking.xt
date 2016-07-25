@@ -1,0 +1,18 @@
+.feedback_container{padding:10px 0;border-bottom:2px solid #52cf55;overflow:hidden}
+.feedback_container.level2{padding-left:50px;border-width:1px;border-color:#d9d9d9;position:relative}
+.feedback_container.level2:before{content:"\e082";font-family:icomoon;font-size:25px;color:#F36711;position:absolute;top:2px;left:18px}
+.feedback_container .feedback_author{margin-right:15px;display:inline-block;font-size:15px;font-weight:700}
+.feedback_container .feedback_date{display:inline-block;color:#b4b4b4}
+.feedback_container .feedback_comment{text-align:justify}
+.feedback_form{float:left;padding:20px;border:1px solid #eee;background-color:#fff;position:relative;-webkit-box-shadow:0 0 10px 0 rgba(0,0,0,.75);-moz-box-shadow:0 0 10px 0 rgba(0,0,0,.75);box-shadow:0 0 10px 0 rgba(0,0,0,.75)}
+.feedback_form h4{text-align:center;margin-bottom:10px}
+.feedback_form form{float:left}
+.feedback_form>form{width:100%}
+.feedback_form label{font-size:15px}
+.feedback_form input[type=text],.feedback_form input[type=email],.feedback_form textarea{outline:0;width:100%;margin-bottom:10px}
+.feedback_form textarea{border-radius:3px;margin-top:5px;resize:vertical}
+.feedback_form textarea:focus{border-color:#52cf55}
+.reply_section{margin-bottom:20px}
+.feedback_form .cancel_reply{position:absolute;top:19px;right:20px;font-size:16px;display:none}
+.more_reply{display:none}
+.hide_more,.read_more{padding-top:10px;text-align:center}
