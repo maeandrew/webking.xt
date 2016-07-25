@@ -965,7 +965,7 @@ class Products {
 		}
 		$values = substr($values, 0, -2);
 		$sql = "SELECT COUNT(id_chart) AS count, opt, ".$values." FROM "._DB_PREFIX_."chart
-				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt"; print_r($sql); die();
+				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt"; 
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
