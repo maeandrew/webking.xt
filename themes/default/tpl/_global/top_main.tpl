@@ -2,7 +2,6 @@
 	<div class="logo">
 		<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
-	<!-- <?print_r($navigation);?> -->
 	<div class="header_right">
 		<div class="search_wrap mdl-cell--hide-phone">
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">

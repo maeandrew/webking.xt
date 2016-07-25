@@ -345,8 +345,8 @@
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas">
 		Подождите, формируется скриншот страницы...
 	</div>
-	<footer class="mdl-mega-footer mdl-color--grey-100">
-		<div class="footer_wrapp">
+	<footer class="mdl-mega-footer">
+		<div class="footer_wrap">
 			<div class="mdl-mega-footer__left-section">
 				<div class="questions">
 					<h5>Навигация</h5>
@@ -409,7 +409,9 @@
 					<!-- <img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300"> -->
 				<?}?>
 			</div>
-			<div class="copyright">
+		</div>
+		<div class="copyright">
+			<div class="copyright_wrap">
 				<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
 				<!-- <p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p> -->
 			</div>
@@ -755,5 +757,5 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
 		</div>
 	</div>
-	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Наверх</div>
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--hide-phone">Наверх</div>
 </body>

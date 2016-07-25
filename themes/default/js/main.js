@@ -804,7 +804,7 @@ $(function(){
 		arr2.each(function(index, val){
 			values.opt[index] = $(val).val();
 		});
-		if($(this)[0].className.indexOf('save') + 1) {
+		if($(this).hasClass('save')) {
 			console.log('save');
 			ajax('product', 'SaveDemandChart',{
 				'values': values,

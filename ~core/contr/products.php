@@ -378,14 +378,14 @@ foreach($res as $cat){
 // var_dump($template); die();
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
+
+// Вывод графика по категории
+$avg_chart = $products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
+$tpl->Assign('avg_chart', $avg_chart);
+
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$products->FillAssort($_SESSION['member']['id_user']);
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
-		// 'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl')
-	);
 }elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_MANAGER_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
@@ -412,17 +412,15 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 		}
 	}
 	$tpl->Assign('warehouse', $prods);
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
-	);
 }else{
 	$_SESSION['price_mode'] = 3;
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
-	);
 }
+
+$parsed_res = array(
+	'issuccess'	=> true,
+	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
+);
+
 // =========================================================
 
 // Установка границ цен ====================================
