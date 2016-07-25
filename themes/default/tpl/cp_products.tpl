@@ -1,163 +1,104 @@
+<script type="text/javascript" src="/adm/js/Chart.min.js"></script>
 <h1><?=$header?></h1>
 <div class="products_page">
-	<?if ($avg_chart) {?>
-		<div class="demand_chart_wrap">
-			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-				<div class="mdl-tabs__tab-bar">
-						<a href="#retail" class="mdl-tabs__tab is-active">Розница</a>
-						<a href="#opt" class="mdl-tabs__tab">Опт</a>
+	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
+		<div class="avg_chart_wrap">
+			<?$values = array();
+			foreach($avg_chart as $key => $val) {
+				$l = 0;
+				for($i=1; $i <= 12; $i++) {
+					if($val['opt'] == 0){
+						$values[$l]['mopt'][] = $val['value_'.$i];
+					}else{
+						$values[$l]['opt'][] = $val['value_'.$i];
+					}
+				}
+			}
+			$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
+			$labels_min = array(1);
+			$chart_regi = array(10);?>
+			<div id="flex" style="display:flex;  justify-content:space-around;flex-wrap: wrap;width:100%;">
+				<?$a = 1;?>
+				<script>
+					var curve = {};
+				</script>
+				<?foreach($avg_chart as $key => $val){
+					unset($chart_ords);
+					if($val['opt'] == 0){ ?>
+						<div class="stat_years mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:100%; width:100%;">
+							<?for ($i=1; $i <= 12; $i++){
+								$chart_ords[] = round($val['value_'.$i]*10);?>
+								<input class="hidden" type="range" min="0" max="10" value="<?=$val['value_'.$i]?>" step="1" tabindex="0">
+							<?}?>
+							<div>
+								<canvas id="charts_<?=$a?>" class="chart" height="150" style="position: relative;height:150px;width:99% !important;"></canvas>
+							</div>
+							<script>
+								var options = {
+									bezierCurve: true,
+									scaleShowGridLines: true,
+									scaleShowLabels: false,
+									scaleShowHorizontalLines: false,
+									pointDot: false,
+									pointHitDetectionRadius: 30,
+									datasetFill: false,
+								};
+								curve[<?=$a?>] = {
+									labels: <?=json_encode($labels);?>,
+									datasets: [
+										{
+											label: "Регистраций",
+											fillColor: "rgba(101,224,252,0)",
+											strokeColor: "rgba(1,139,6,1)",
+											pointStrokeColor: "transparent",
+											pointHighlightFill: "transparent",
+											pointHighlightStroke: "rgba(101,224,253,1)",
+											data: <?=json_encode($chart_regi);?>
+										},
+										{
+											label: "Регистраций",
+											fillColor: "rgba(101,224,252,0)",
+											strokeColor: "rgba(1,139,6,1)",
+											pointStrokeColor: "transparent",
+											pointHighlightFill: "transparent",
+											pointHighlightStroke: "rgba(101,224,253,1)",
+											data: <?=json_encode($labels_min);?>
+										},
+										{
+											label: "Розница",
+											strokeColor: "#018b06",
+											pointStrokeColor: "rgba(1,139,6,.7)",
+											pointHighlightFill: "#018b06",
+											pointHighlightStroke: "transparent",
+											data: <?=json_encode($values[$l]['mopt']);?>
+										},
+										{
+											label: "Опт",
+											fillColor: "rgba(101,224,252,0)",
+											strokeColor: "#FF5722",
+											pointStrokeColor: "transparent",
+											pointHighlightFill: "#FF5722",
+											pointHighlightStroke: "rgba(101,224,253,1)",
+											data: <?=json_encode($values[$l]['opt']);?>
+										}
+									]
+								};
+								$(function(){
+									var ctx = document.getElementById("charts_<?=$a?>").getContext("2d");
+									var myLineChart = new Chart(ctx).Line(curve[<?=$a?>], options);
+								});
+							</script>
+						</div>
+						<? $a++; ?>
+					<?}?>
+				<?}?>
+			</div>
+			<div class="avg_chart_det_wrap">
+				<div class="line_det">
+					<span class="legenda roz"><i></i> - Розничный</span>
+					<span class="legenda opt"><i></i> - Оптовый</span>
 				</div>
-				<div class="mdl-tabs__panel is-active" id="retail">
-					<div class="mdl-cell--hide-phone clearfix toggle one range_wrap">
-						<?if(!empty($values)){?>
-							<input type="hidden" name="roz_id_chart" value="<?=$values[0]['id_chart']?>">
-							<?foreach($values[0] as $key => $value){
-								// var_dump(strpos($key, 'value_'));
-								if(strpos($key, 'value_') !== false){?>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0">
-									</div>
-								<?}
-							}
-						}else{?>
-							<div class="slider_wrap">
-								<input id="inr_1" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_1']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>январь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_2" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_2']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>февраль</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_3" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_3']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>март</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_4" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_4']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>апрель</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_5" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_5']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>май</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_6" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_6']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>июнь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_7" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_7']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>июль</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_8" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_8']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>август</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_9" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_9']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>сентябрь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_10" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_10']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>октябрь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_11" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_11']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>ноябрь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="inr_12" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_12']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>декабрь</span>
-							</div>
-						<?}?>
-					</div>
-				</div>
-				<div class="mdl-tabs__panel" id="opt">
-					<div class="mdl-cell--hide-phone clearfix toggle two range_wrap">
-						<?if(!empty($values)){?>
-							<input type="hidden" name="opt_id_chart" value="<?=$values[1]['id_chart']?>">
-							<?foreach($values[1] as $key => $value){
-								if(strpos($key, 'value_') !== false){?>
-									<div class="slider_wrap">
-										<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0">
-									</div>
-								<?}
-							}
-						}else{?>
-							<div class="slider_wrap">
-								<input id="ino_1" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_1']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>январь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_2" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_2']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>февраль</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_3" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_3']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>март</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_4" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_4']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>апрель</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_5" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_5']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>май</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_6" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_6']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>июнь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_7" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_7']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>июль</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_8" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_8']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>август</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_9" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_9']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>сентябрь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_10" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_10']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>октябрь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_11" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_11']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>ноябрь</span>
-							</div>
-							<div class="slider_wrap">
-								<input id="ino_12" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_12']:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
-								<div class="range_num">5</div>
-								<span>декабрь</span>
-							</div>
-						<?}?>
-					</div>
-				</div>
+				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect hidden">Детали<i class="material-icons">keyboard_arrow_right</i></span>
 			</div>
 		</div>
 	<?}?>
