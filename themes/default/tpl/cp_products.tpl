@@ -1,5 +1,5 @@
 <h1><?=$header?></h1>
-<div class="products_page">	
+<div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if (!empty($category['subcats'])) {?>
 		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
