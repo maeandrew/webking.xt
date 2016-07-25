@@ -12,12 +12,25 @@ module.exports = function(grunt) {
 		// 		dest: 'build/<%= pkg.name %>.min.js'
 		// 	}
 		// },
+		watch: {
+			css: {
+				files: ['themes/default/css/*.css'],
+				tasks: ['cssmin:target_css'],
+			},
+			css_ps: {
+				files: ['themes/default/css/page_styles/*.css'],
+				tasks: ['cssmin:target_css_ps'],
+			},
+			options: {
+				spawn: true
+			}
+		},
 		cssmin: {
 			options: {
 				keepBreaks: true,
 				advanced: false
 			},
-			target: {
+			target_css: {
 				files: [
 					{
 						expand: true,
@@ -25,7 +38,11 @@ module.exports = function(grunt) {
 						src: ['*.css', '!*.min.css'],
 						dest: 'themes/default/min/css',
 						ext: '.min.css'
-					}, 					
+					}
+				]
+			},
+			target_css_ps: {
+				files: [					
 					{
 						expand: true,
 						cwd: 'themes/default/css/page_styles',
@@ -41,7 +58,8 @@ module.exports = function(grunt) {
 	// Load the plugin that provides the task.
 	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', ['uglify', 'cssmin']);
+	grunt.registerTask('default', [/*'uglify', */'cssmin', 'watch']);
 };
