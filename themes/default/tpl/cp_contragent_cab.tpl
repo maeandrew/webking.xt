@@ -14,6 +14,13 @@
 		<button type="submit" name="change_margin" id="change-margin" class="btn-m-green">Сохранить</button>
 	</form>
 	<div class="history">
+		<div class="order_number_filter">			
+			<form action="" method="post">
+				<input type="text" name="order_number" placeholder="Введите номер заказа">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="show_order">Показать</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="cancel_order_filter">Сбросить</button>							
+			</form>
+		</div>
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<table border="0" cellpadding="0" cellspacing="0" class="returns_table table" width="100%">
 			<thead>

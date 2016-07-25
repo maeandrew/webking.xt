@@ -360,8 +360,8 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 #order_remake_js form{padding:10px;width:400px}
 #order_remake_js form p{margin-bottom:10px}
 #orders_history{margin:1em;margin-left:0}
-.order{margin:0 auto;overflow:visible;background:#fff;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
-.order:hover{box-shadow:0 2px 10px -1px rgba(0,0,0,.2)}
+.customer_cab .order{margin:0 auto;overflow:visible;background:#fff;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
+.customer_cab .order:hover{box-shadow:0 2px 10px -1px rgba(0,0,0,.2)}
 .order:first-of-type{border-radius:.2em .2em 0 0}
 .order:last-of-type{border-radius:0 0 .2em .2em}
 .order .title{border-bottom:1px solid #f0f0f0;padding:0 1.429em;color:#888;position:relative;box-sizing:content-box;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
@@ -459,17 +459,18 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .moder_list_item{height:100px}
 .moder_list_title div{text-align:center}
 .moder_list_title{height:50px;padding-top:15px}
-.photo{width:130px}
-.name{width:calc(100% - 120px - 120px - 130px)}
-.status{width:120px}
-.controls{width:120px}
-.name,.photo,.status{float:left}
-.controls{float:right}
+.supplier_cab .photo{width:130px}
+.supplier_cab .name{width:calc(100% - 120px - 120px - 130px)}
+.supplier_cab .status{width:120px}
+.supplier_cab .controls{width:120px}
+.supplier_cab .name,.supplier_cab .photo,.supplier_cab .status{float:left}
+.supplier_cab .controls{float:right}
 .moder_list_item .photo{position:relative;padding:5px 10px 5px 0}
 .moder_list_item .photo img{display:block;max-height:90px;max-width:100%;margin:0 auto}
 .moder_list_item .name{padding-top:35px;width:calc(100% - 120px - 120px - 130px)}
 .moder_list_item .status{text-align:center;padding-top:35px}
 .moder_list_item .controls{padding:30px 10px 10px 10px}
+.status_title{display:none}
 @media (max-width:1060px){.nav li{margin-left:.5em}
 .posZIndex .cab_left_bar_js{z-index:1}
 }
@@ -558,7 +559,7 @@ h4{margin:5px 0 10px}
 .moder_list_item{height:140px;display:flex;flex-wrap:wrap;justify-content:space-between}
 .moder_list_item .status{padding-top:5px;padding-left:10px;width:135px}
 .moder_list_item .controls{padding-top:0}
-.status_title{float:left;margin-right:5px}
+.status_title{float:left;margin-right:5px;display:block}
 .controls{width:130px}
 #supplier_cab #second .controls a{margin:0;position:relative;top:5px;width:50px;display:block;float:left;text-align:center}
 }
@@ -626,3 +627,6 @@ h4{margin:5px 0 10px}
 .switch_price_container{width:150px;height:35px;text-align:center;float:right;padding-right:10px;padding-top:5px;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);margin-bottom:5px;margin-top:10px}
 .switch_price_container span{float:left;display:block;width:calc(100% - 30px);line-height:24px}
 .switch_price_container label{width:30px;float:right}
+.order_number_filter{margin-left:10px;width:400px}
+.order_number_filter form{display:flex;justify-content:space-between}
+.order_number_filter input{height:35px;padding-left:5px}

@@ -21,6 +21,7 @@ if(isset($_POST['target'])){
 }else{
 	$target = 100;
 }
+
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
 $tpl->Assign('current_customer', $Customer->fields);
@@ -100,11 +101,16 @@ foreach($fields as $f){
 }
 $tpl->Assign('sort_links', $sort_links);
 
+if(isset($_POST['show_order'])){
+	$order_number = ' AND o.id_order = '.$_POST['order_number'];
+} else {
+	$order_number = '';
+}
 
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $User->fields['id_user'], $GLOBALS['REQAR'][1]);	
 }else{
-	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user']);
+	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user'], false, $order_number);
 }
 
 // Пагинатор ===============================================
@@ -127,12 +133,13 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !is
 	$limit = '';
 }
 // =========================================================
+
 // Список заказов
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $User->fields['id_user'], $GLOBALS['REQAR'][1], $limit);
 	$tpl->Assign('filtered_client', $GLOBALS['REQAR'][1]);
 }else{
-	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user'], $limit);
+	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user'], $limit, $order_number);
 }
 $Contragent->SetFieldsById($User->fields['id_user']);
 $tpl->Assign('contragent', $Contragent->fields);
