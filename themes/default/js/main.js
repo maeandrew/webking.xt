@@ -701,7 +701,7 @@ $(function(){
 			console.log($(el).val());
 		});
 		// console.log(two);
-		openObject('demand_chart');
+		// openObject('demand_chart');
 	});
 
 	// Открытие модального Графика

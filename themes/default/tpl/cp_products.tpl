@@ -1,6 +1,4 @@
-<script type="text/javascript" src="/adm/js/Chart.min.js"></script>
 <h1><?=$header?></h1>
-<?var_dump($avg_chart);?>
 <div class="products_page">
 	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
 		<div class="avg_chart_wrap">
@@ -18,22 +16,18 @@
 			$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
 			$labels_min = array(1);
 			$chart_regi = array(10);?>
-			<div id="flex" style="display:flex;  justify-content:space-around;flex-wrap: wrap;width:100%;">
+			<div class="flex_container">
 				<?$a = 1;?>
-				<script>
-					var curve = {};
-				</script>
+				<script>var curve = {};</script>
 				<?foreach($avg_chart as $key => $val){
 					unset($chart_ords);
 					if($val['opt'] == 0){ ?>
-						<div class="stat_years mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:100%; width:100%;">
+						<div class="stat_years mdl-cell--hide-phone clearfix">
 							<?for ($i=1; $i <= 12; $i++){
 								$chart_ords[] = round($val['value_'.$i]*10);?>
 								<input class="hidden" type="range" min="0" max="10" value="<?=$val['value_'.$i]?>" step="1" tabindex="0">
 							<?}?>
-							<div>
-								<canvas id="charts_<?=$a?>" class="chart" height="150" style="position: relative;height:150px;width:99% !important;"></canvas>
-							</div>
+							<canvas id="charts_<?=$a?>" class="chart" height="150"></canvas>
 							<script>
 								var options = {
 									bezierCurve: true,
