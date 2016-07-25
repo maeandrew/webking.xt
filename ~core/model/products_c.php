@@ -512,6 +512,37 @@ class Products {
 		}
 		return $res;
 	}
+	/*
+	 * Выбор категрий в которых находится искомый товар
+	 */
+	public function SetCategories4Search($and = false){
+		$where = "";
+		if($and !== FALSE && count($and)){
+			$where = " AND ";
+			foreach($and as $k=>$v){
+				if($k=='customs'){
+					foreach($v as $a){
+						$where_a[] = $a;
+					}
+				}else{
+					$where_a[] = "$k=\"$v\"";
+				}
+			}
+			$where .= implode(" AND ", $where_a);
+		}
+		$sql = "SELECT c.id_category, c.`name`, c.translit, COUNT(p.id_product) AS count
+				FROM "._DB_PREFIX_."cat_prod cp
+				LEFT JOIN "._DB_PREFIX_."category c ON c.id_category = cp.id_category
+				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = cp.id_product
+				WHERE c.sid = 1 AND c.visible = 1 AND (p.price_opt > 0 OR p.price_mopt > 0)
+				".$where."  AND p.visible = 1 GROUP BY c.`translit`";
+		$res = $this->db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	/**
 	 * [SetProductsList4csv description]
 	 */
@@ -933,8 +964,8 @@ class Products {
 			$values .= "ROUND(AVG(value_$i), 1) AS value_$i, ";
 		}
 		$values = substr($values, 0, -2);
-		$sql = "SELECT opt, ".$values." FROM "._DB_PREFIX_."chart
-				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
+		$sql = "SELECT COUNT(id_chart) AS count, opt, ".$values." FROM "._DB_PREFIX_."chart
+				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt"; print_r($sql); die();
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
