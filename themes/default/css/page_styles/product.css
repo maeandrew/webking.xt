@@ -266,11 +266,11 @@ div[for="rating_block"] {
 	margin-bottom: 0px;
 }
 
-@media (min-width: 700px){
+/*@media (min-width: 700px){
 	.product .mdl-tabs__tab-bar {
 		min-width: 680px;
 	}
-}
+}*/
 .product .mdl-tabs__panel {
 	display: none;
 }
@@ -676,7 +676,7 @@ div[for="rating_block"] {
 	}
 }
 
-@media (max-width: 457px) {
+@media (max-width: 530px) {
 	.product .fortabs .tabs a {
 		width: 50%;
 	}
