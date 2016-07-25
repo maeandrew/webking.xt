@@ -153,3 +153,4 @@ div[for=rating_block]{font-size:12px}
 @media (max-width:500px){.demand_graph{height:400px}
 }
 .product .product_buy .buy_block,.product .product_buy .buy_block .quantity .units{font-size:1em}
+.fortabs .fortabs_tab{width:25%;padding:0}

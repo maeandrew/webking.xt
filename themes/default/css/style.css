@@ -2947,12 +2947,11 @@ section .stat_year {
 
 }
 .mdl-grid .mdl-tabs__tab {
-/*	height: 34px;
+	/*height: 34px;
 	width: 36.1%;
 	text-align: center;
 	margin-top: -5px;
-	padding-bottom: 5px
-*/
+	padding-bottom: 5px*/
 }
 .mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
 	text-transform: capitalize;
