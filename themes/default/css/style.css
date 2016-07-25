@@ -1,7 +1,7 @@
 /*GLOBALS*/
 
 /*Include google fonts*/
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);*/
 
 * {
 	padding: 0;
@@ -606,6 +606,7 @@ body:not(.c_main) .banner {
 		z-index: 2;
 		box-sizing: border-box;
 		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-moz-transition: all .3s cubic-bezier(.4,0,.2,1);
 		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
 		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
@@ -2946,12 +2947,11 @@ section .stat_year {
 
 }
 .mdl-grid .mdl-tabs__tab {
-/*	height: 34px;
+	/*height: 34px;
 	width: 36.1%;
 	text-align: center;
 	margin-top: -5px;
-	padding-bottom: 5px
-*/
+	padding-bottom: 5px*/
 }
 .mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
 	text-transform: capitalize;
@@ -4232,15 +4232,6 @@ iframe[name="google_conversion_frame"] {
 .details {
 	color: #FF5722;
 }
-
-
-
-
-/* @media (max-width: 1000px) {
-	.item_svg {
-		width: 100%;		
-	}
-} */
 
 /* После синхронизации с веткой "Artemida" (графики спроса в разделах) переместить ниже написанный код на строку 1064!
 	и удалить закомментированный код, начиная со строки 1227, 1064! */

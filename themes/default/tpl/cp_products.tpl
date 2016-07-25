@@ -98,7 +98,7 @@
 					<span class="legenda roz"><i></i> - Розничный</span>
 					<span class="legenda opt"><i></i> - Оптовый</span>
 				</div>
-				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect hidden">Детали<i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart['count'] < 2?'hidden':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
 			</div>
 		</div>
 	<?}?>
