@@ -923,33 +923,18 @@ class Products {
 	 * @param boolean $id_category [description]
 	 */
 	public function GetGraphList($id_category = false, $id_author = false, $limit = false){
-		//$id_category = $id_category?$id_category:0;
-		if(!$id_category){
-			$sql = "SELECT ch.*, u.`name` AS user_name FROM "._DB_PREFIX_."chart ch
-					LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author
-					ORDER BY creation_date DESC".($limit !== false?$limit:'');
-		}elseif(is_numeric($id_category)){
-			$sql = "SELECT ch.*, u.name
-				FROM "._DB_PREFIX_."chart ch
-				JOIN "._DB_PREFIX_."user u
-				WHERE ch.id_author = u.id_user
-				AND ch.id_category = ".$id_category;
-		}elseif($id_author){
-			$sql = "SELECT * FROM "._DB_PREFIX_."chart
-					WHERE id_author = ".$id_author." AND id_category = ".$id_category;
-		}else{
-			$sql = "SELECT ch.*, c.id_category
-				FROM "._DB_PREFIX_."chart ch
-				JOIN "._DB_PREFIX_."category c
-				WHERE c.id_category IN (
-					SELECT id_category
-					FROM "._DB_PREFIX_."category
-					WHERE id_category = 0
-				)";
+		$where = '';
+		if($id_category || $id_author){
+			$where = 'WHERE ch.moderation = 1';
 		}
+		$where .= $id_category?' AND ch.id_category = '.$id_category:null;
+		$where .= $id_author?' AND ch.id_author = '.$id_author:null;
+		$sql = "SELECT ch.*, u.name AS user_name
+				FROM "._DB_PREFIX_."chart ch
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author
+				".$where."
+				ORDER BY creation_date DESC".($limit !== false?$limit:'');
 		$result = $this->db->GetArray($sql);
-		/*$result2 = $this->db->GetArray($sql2);
-		return array('graph' => $result, 'users' => $result2);*/
 		return $result;
 	}
 
@@ -965,7 +950,7 @@ class Products {
 		}
 		$values = substr($values, 0, -2);
 		$sql = "SELECT COUNT(id_chart) AS count, opt, ".$values." FROM "._DB_PREFIX_."chart
-				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt"; 
+				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
