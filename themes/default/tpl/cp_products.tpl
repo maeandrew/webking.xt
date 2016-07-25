@@ -3,13 +3,12 @@
 	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
 		<div class="avg_chart_wrap">
 			<?$values = array();
-			foreach($avg_chart as $key => $val) {
-				$l = 0;
+			foreach($avg_chart as $key => $val){
 				for($i=1; $i <= 12; $i++) {
-					if($val['opt'] == 0){
-						$values[$l]['mopt'][] = $val['value_'.$i];
-					}else{
-						$values[$l]['opt'][] = $val['value_'.$i];
+					if($val['opt'] == 0 && $val['count'] > 0){
+						$values['mopt'][] = $val['value_'.$i];
+					}elseif($val['opt'] == 1 && $val['count'] > 0){
+						$values['opt'][] = $val['value_'.$i];
 					}
 				}
 			}
@@ -17,76 +16,67 @@
 			$labels_min = array(1);
 			$chart_regi = array(10);?>
 			<div class="flex_container">
-				<?$a = 1;?>
 				<script>var curve = {};</script>
-				<?foreach($avg_chart as $key => $val){
-					unset($chart_ords);
-					if($val['opt'] == 0){ ?>
-						<div class="stat_years mdl-cell--hide-phone clearfix">
-							<?for ($i=1; $i <= 12; $i++){
-								$chart_ords[] = round($val['value_'.$i]*10);?>
-								<input class="hidden" type="range" min="0" max="10" value="<?=$val['value_'.$i]?>" step="1" tabindex="0">
+				<canvas id="chart" class="chart" height="150"></canvas>
+				<script>
+					var options = {
+						bezierCurve: true,
+						scaleShowGridLines: true,
+						scaleShowLabels: false,
+						scaleShowHorizontalLines: false,
+						pointDot: false,
+						pointHitDetectionRadius: 30,
+						datasetFill: false,
+					};
+					curve = {
+						labels: <?=json_encode($labels);?>,
+						datasets: [
+							{
+								label: "",
+								fillColor: "rgba(101,224,252,0)",
+								strokeColor: "rgba(1,139,6,1)",
+								pointStrokeColor: "transparent",
+								pointHighlightFill: "transparent",
+								pointHighlightStroke: "rgba(101,224,253,1)",
+								data: <?=json_encode($chart_regi);?>
+							},
+							{
+								label: "",
+								fillColor: "rgba(101,224,252,0)",
+								strokeColor: "rgba(1,139,6,1)",
+								pointStrokeColor: "transparent",
+								pointHighlightFill: "transparent",
+								pointHighlightStroke: "rgba(101,224,253,1)",
+								data: <?=json_encode($labels_min);?>
+							},
+							<?if (isset($values['mopt'])){?>
+								{
+									label: "Розница",
+									strokeColor: "#018b06",
+									pointStrokeColor: "rgba(1,139,6,.7)",
+									pointHighlightFill: "#018b06",
+									pointHighlightStroke: "transparent",
+									data: <?=json_encode($values['mopt']);?>
+								},											
+							<?}
+							if (isset($values['opt'])){?>
+								{
+									label: "Опт",
+									fillColor: "rgba(101,224,252,0)",
+									strokeColor: "#FF5722",
+									pointStrokeColor: "transparent",
+									pointHighlightFill: "#FF5722",
+									pointHighlightStroke: "rgba(101,224,253,1)",
+									data: <?=json_encode($values['opt']);?>
+								}
 							<?}?>
-							<canvas id="charts_<?=$a?>" class="chart" height="150"></canvas>
-							<script>
-								var options = {
-									bezierCurve: true,
-									scaleShowGridLines: true,
-									scaleShowLabels: false,
-									scaleShowHorizontalLines: false,
-									pointDot: false,
-									pointHitDetectionRadius: 30,
-									datasetFill: false,
-								};
-								curve[<?=$a?>] = {
-									labels: <?=json_encode($labels);?>,
-									datasets: [
-										{
-											label: "Регистраций",
-											fillColor: "rgba(101,224,252,0)",
-											strokeColor: "rgba(1,139,6,1)",
-											pointStrokeColor: "transparent",
-											pointHighlightFill: "transparent",
-											pointHighlightStroke: "rgba(101,224,253,1)",
-											data: <?=json_encode($chart_regi);?>
-										},
-										{
-											label: "Регистраций",
-											fillColor: "rgba(101,224,252,0)",
-											strokeColor: "rgba(1,139,6,1)",
-											pointStrokeColor: "transparent",
-											pointHighlightFill: "transparent",
-											pointHighlightStroke: "rgba(101,224,253,1)",
-											data: <?=json_encode($labels_min);?>
-										},
-										{
-											label: "Розница",
-											strokeColor: "#018b06",
-											pointStrokeColor: "rgba(1,139,6,.7)",
-											pointHighlightFill: "#018b06",
-											pointHighlightStroke: "transparent",
-											data: <?=json_encode($values[$l]['mopt']);?>
-										},
-										{
-											label: "Опт",
-											fillColor: "rgba(101,224,252,0)",
-											strokeColor: "#FF5722",
-											pointStrokeColor: "transparent",
-											pointHighlightFill: "#FF5722",
-											pointHighlightStroke: "rgba(101,224,253,1)",
-											data: <?=json_encode($values[$l]['opt']);?>
-										}
-									]
-								};
-								$(function(){
-									var ctx = document.getElementById("charts_<?=$a?>").getContext("2d");
-									var myLineChart = new Chart(ctx).Line(curve[<?=$a?>], options);
-								});
-							</script>
-						</div>
-						<? $a++; ?>
-					<?}?>
-				<?}?>
+						]
+					};
+					$(function(){
+						var ctx = document.getElementById("chart").getContext("2d");
+						var myLineChart = new Chart(ctx).Line(curve, options);
+					});
+				</script>
 			</div>
 			<div class="avg_chart_det_wrap">
 				<div class="line_det">

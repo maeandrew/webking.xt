@@ -813,7 +813,7 @@ $(function(){
 			}).done(function(data){
 				if(data === true){
 					console.log('Your data has been saved successfully!');
-					closeObject('graph');
+					closeObject('demand_chart');
 					location.reload();
 				}else{
 					console.log('Something goes wrong!');
@@ -834,7 +834,7 @@ $(function(){
 			}).done(function(data){
 				if(data === true){
 					console.log('Your data has been updated successfully!');
-					closeObject('graph');
+					closeObject('demand_chart');
 					location.reload();
 				}else{
 					console.log('Something goes wrong with update!');
