@@ -689,11 +689,9 @@ div[for="rating_block"] {
 }
 
 @media (max-width: 457px) {
-	.product .fortabs .tabs a {
-		width: 50%;
-	}
+	.product .fortabs .tabs a,
 	.product .fortabs .tabs a:last-child {
-		width: 100%;
+		width: 50%;
 	}	
 }
 
