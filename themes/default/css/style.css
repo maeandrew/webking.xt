@@ -1,7 +1,7 @@
 /*GLOBALS*/
 
 /*Include google fonts*/
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);*/
 
 * {
 	padding: 0;
@@ -606,6 +606,7 @@ body:not(.c_main) .banner {
 		z-index: 2;
 		box-sizing: border-box;
 		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-moz-transition: all .3s cubic-bezier(.4,0,.2,1);
 		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
 		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
