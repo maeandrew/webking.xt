@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 	});
 
 	// Load the plugin that provides the task.
-	grunt.loadNpmTasks('grunt-contrib-uglify');
+	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 	// Default task(s).
