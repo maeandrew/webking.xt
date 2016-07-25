@@ -51,8 +51,6 @@
 div[for=rating_block]{font-size:12px}
 .product .mdl-tabs{clear:both;overflow:hidden}
 .product .tabs{display:block;margin-top:0;margin-bottom:0}
-@media (min-width:700px){.product .mdl-tabs__tab-bar{min-width:680px}
-}
 .product .mdl-tabs__panel{display:none}
 .product .mdl-tabs__tab:last-child{border-right:none}
 .product .tab-content{padding:10px;border:1px solid #e0e0e0;border-top:0;background:#fff}
@@ -136,7 +134,7 @@ div[for=rating_block]{font-size:12px}
 .product_page h1{font-size:1.5em}
 .product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:1.5em}
 }
-@media (max-width:457px){.product .fortabs .tabs a{width:50%}
+@media (max-width:530px){.product .fortabs .tabs a{width:50%}
 }
 @media (max-width:400px){.product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:1.7em}
 }

@@ -3395,8 +3395,7 @@ section .stat_year {
 		color: #FF5722;
 	}
 	.xt_news .news_description {
-		/*font-size: 13px;*/
-		max-height: 12em;
+		max-height: 11em;
 		overflow: hidden;
 		margin-bottom: 10px;
 	}
