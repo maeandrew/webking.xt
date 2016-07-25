@@ -3194,3 +3194,15 @@ div[id^="items_panel_"] .btnWrapFlex {
     float: right;
 }
 
+.order_number_filter {
+	margin-left: 10px;
+    width: 400px;   
+}
+.order_number_filter form {
+	display: flex;
+    justify-content: space-between;
+}
+.order_number_filter input {
+	height: 35px;
+	padding-left: 5px;
+}
