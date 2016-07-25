@@ -137,7 +137,6 @@ div[for=rating_block]{font-size:12px}
 .product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:1.5em}
 }
 @media (max-width:457px){.product .fortabs .tabs a{width:50%}
-.product .fortabs .tabs a:last-child{width:100%}
 }
 @media (max-width:400px){.product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:1.7em}
 }
