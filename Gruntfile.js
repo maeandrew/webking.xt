@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: 'themes/default/css',
 					src: ['*.css', '!*.min.css'],
+					dest: 'themes/default/min/css',
 					ext: '.min.css'
 				}]
 			}
