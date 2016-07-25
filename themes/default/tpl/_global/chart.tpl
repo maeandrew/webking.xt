@@ -155,7 +155,7 @@
 				<?}?>
 			</div>
 		</div>
-</div>
+	</div>
 <!-- <div class="select_go" style="margin-top: 15px;margin-left: 77px;">
 
 	<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
