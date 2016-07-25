@@ -1274,11 +1274,11 @@ section.center {
 		max-height: calc(100vh - 52px);
 		bottom: auto;
 	}
-	aside .sidebar_wrapp {
+	/*aside .sidebar_wrapp {
 		overflow-x: hidden;
 		overflow-y: scroll;
 		-webkit-overflow-scrolling: touch;
-	}
+	}*/
 	aside .catalog {
 		/*border-bottom: 1px solid #e0e0e0;*/
 	}
