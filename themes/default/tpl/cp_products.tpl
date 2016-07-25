@@ -1,5 +1,108 @@
+<script type="text/javascript" src="/adm/js/Chart.min.js"></script>
 <h1><?=$header?></h1>
-<div class="products_page">	
+<div class="products_page">
+	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
+		<div class="avg_chart_wrap">
+			<?$values = array();
+			foreach($avg_chart as $key => $val) {
+				$l = 0;
+				for($i=1; $i <= 12; $i++) {
+					if($val['opt'] == 0){
+						$values[$l]['mopt'][] = $val['value_'.$i];
+					}else{
+						$values[$l]['opt'][] = $val['value_'.$i];
+					}
+				}
+			}
+			$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
+			$labels_min = array(1);
+			$chart_regi = array(10);?>
+			<div id="flex" style="display:flex;  justify-content:space-around;flex-wrap: wrap;width:100%;">
+				<?$a = 1;?>
+				<script>
+					var curve = {};
+				</script>
+				<?foreach($avg_chart as $key => $val){
+					unset($chart_ords);
+					if($val['opt'] == 0){ ?>
+						<div class="stat_years mdl-cell--hide-phone clearfix" style="flex-grow:0;flex-shrink:0;flex-basis:100%; width:100%;">
+							<?for ($i=1; $i <= 12; $i++){
+								$chart_ords[] = round($val['value_'.$i]*10);?>
+								<input class="hidden" type="range" min="0" max="10" value="<?=$val['value_'.$i]?>" step="1" tabindex="0">
+							<?}?>
+							<div>
+								<canvas id="charts_<?=$a?>" class="chart" height="150" style="position: relative;height:150px;width:99% !important;"></canvas>
+							</div>
+							<script>
+								var options = {
+									bezierCurve: true,
+									scaleShowGridLines: true,
+									scaleShowLabels: false,
+									scaleShowHorizontalLines: false,
+									pointDot: false,
+									pointHitDetectionRadius: 30,
+									datasetFill: false,
+								};
+								curve[<?=$a?>] = {
+									labels: <?=json_encode($labels);?>,
+									datasets: [
+										{
+											label: "Регистраций",
+											fillColor: "rgba(101,224,252,0)",
+											strokeColor: "rgba(1,139,6,1)",
+											pointStrokeColor: "transparent",
+											pointHighlightFill: "transparent",
+											pointHighlightStroke: "rgba(101,224,253,1)",
+											data: <?=json_encode($chart_regi);?>
+										},
+										{
+											label: "Регистраций",
+											fillColor: "rgba(101,224,252,0)",
+											strokeColor: "rgba(1,139,6,1)",
+											pointStrokeColor: "transparent",
+											pointHighlightFill: "transparent",
+											pointHighlightStroke: "rgba(101,224,253,1)",
+											data: <?=json_encode($labels_min);?>
+										},
+										{
+											label: "Розница",
+											strokeColor: "#018b06",
+											pointStrokeColor: "rgba(1,139,6,.7)",
+											pointHighlightFill: "#018b06",
+											pointHighlightStroke: "transparent",
+											data: <?=json_encode($values[$l]['mopt']);?>
+										},
+										{
+											label: "Опт",
+											fillColor: "rgba(101,224,252,0)",
+											strokeColor: "#FF5722",
+											pointStrokeColor: "transparent",
+											pointHighlightFill: "#FF5722",
+											pointHighlightStroke: "rgba(101,224,253,1)",
+											data: <?=json_encode($values[$l]['opt']);?>
+										}
+									]
+								};
+								$(function(){
+									var ctx = document.getElementById("charts_<?=$a?>").getContext("2d");
+									var myLineChart = new Chart(ctx).Line(curve[<?=$a?>], options);
+								});
+							</script>
+						</div>
+						<? $a++; ?>
+					<?}?>
+				<?}?>
+			</div>
+			<div class="avg_chart_det_wrap">
+				<div class="line_det">
+					<span class="legenda roz"><i></i> - Розничный</span>
+					<span class="legenda opt"><i></i> - Оптовый</span>
+				</div>
+				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect hidden">Детали<i class="material-icons">keyboard_arrow_right</i></span>
+			</div>
+		</div>
+	<?}?>
+
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if (!empty($category['subcats'])) {?>
 		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
