@@ -1,5 +1,6 @@
 <script type="text/javascript" src="/adm/js/Chart.min.js"></script>
 <h1><?=$header?></h1>
+<?var_dump($avg_chart);?>
 <div class="products_page">
 	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
 		<div class="avg_chart_wrap">
@@ -98,7 +99,7 @@
 					<span class="legenda roz"><i></i> - Розничный</span>
 					<span class="legenda opt"><i></i> - Оптовый</span>
 				</div>
-				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart['count'] < 2?'hidden':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
+				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'hidden':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
 			</div>
 		</div>
 	<?}?>
