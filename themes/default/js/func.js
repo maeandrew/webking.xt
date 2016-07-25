@@ -1138,3 +1138,9 @@ tools.eraser = function(){
 		}
 	};
 };
+
+
+// Отслеживание изменений рангов на графике спроса в разделах товаров.
+function СhangeValue(id){
+	$('#'+id).closest('.slider_wrap').find('.range_num').text($('#'+id).val());
+}

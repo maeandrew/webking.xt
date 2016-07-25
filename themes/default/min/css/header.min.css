@@ -1,0 +1,48 @@
+header{position:fixed;top:0;left:0;right:0;height:52px;z-index:1000;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);margin-left:5px;border-right:1px solid #e0e0e0}
+header .header_wrapp{max-width:1600px;margin:0 auto;padding:10px;height:52px}
+header .header_wrapp .logo{float:left}
+header .header_wrapp .logo a{display:block}
+header .header_wrapp .logo img{max-height:32px}
+header .header_wrapp .header_right{float:right;text-align:right;width:calc(100% - 100px)}
+header .header_wrapp .header_right>div{margin-left:1em;position:relative;display:inline-block}
+header .header_wrapp .header_right .search_wrap{float:left}
+header .header_wrapp .header_right .search_wrap i{vertical-align:middle}
+header .header_wrapp .header_right .search_wrap{line-height:34px}
+header .header_wrapp .header_right .search_wrap .search{padding:0;width:260px;vertical-align:middle}
+header .header_wrapp .header_right .search_wrap .search_category,header .header_wrapp .header_right .search_wrap button{display:none;vertical-align:middle}
+header.opened .header_wrapp .header_right .search_wrap .search_category,header.opened .header_wrapp .header_right .search_wrap button{display:inline-block}
+header .header_wrapp .header_right .search_wrap .search_category{padding:0;width:auto}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box{top:0;bottom:0}
+header.opened .header_wrapp .header_right .search_wrap .search{width:auto;vertical-align:middle}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul>li{text-align:left}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{padding-left:5px}
+header .header_wrapp .header_right .cart_item i{vertical-align:middle}
+header .header_wrapp .header_right .cart_item span{margin-left:.5em}
+header .header_wrapp .header_right .pages_list nav{max-height:80vh;overflow:auto}
+header .header_wrapp .header_right .profile img{max-height:100%;vertical-align:top}
+header .header_wrapp .header_right .phone_menu{margin:0}
+@media (max-width:1000px){header{margin-left:0}
+}
+.user_profile{padding:0!important}
+.user_profile .loginButton{padding:10px;text-align:center}
+.userContainer{width:100%}
+header .userContainer{width:350px}
+.userContainer>div{padding:10px}
+header .userContainer>div{padding:10px}
+.userContainer i{font-size:1.2em}
+.userContainer .listItems{height:30px;line-height:30px;text-align:center;color:#9e9e9e}
+.userContainer .listItems i{line-height:30px;vertical-align:top}
+.userContainer .UserInfBlock{display:flex;flex-wrap:wrap;justify-content:space-around;border-bottom:1px solid #e0e0e0}
+.userContainer .UserInfBlock .avatar img{width:80px;height:80px;border-radius:50%;margin:0 auto;background-color:#000;overflow:hidden}
+.userContainer .userNameBlock{display:flex;justify-content:center}
+.userContainer .userNameInf{font-size:1.2em;font-weight:700;white-space:nowrap;text-overflow:ellipsis;max-width:calc(100% - 20px);overflow:hidden;color:#444}
+.userContainer .editUserProf{font-size:1.5em;line-height:30px}
+.userChoice{display:flex}
+.userChoice p{margin:0;text-align:left;line-height:1.5em}
+.userFavoritesList,.userWaitingList{flex-basis:50%;display:flex;justify-content:space-around}
+.userFavoritesList>*,.userWaitingList>*{align-self:center}
+.userFavoritesList i,.userWaitingList i{cursor:pointer;font-size:2em}
+.userFavoritesList i{color:red}
+.userWaitingList i{color:orange}
+.menuUserInfBtn{width:50%;height:60px;background-color:#fafafa;color:#444;margin:0;border:none;float:left;border-top:1px solid #e0e0e0;outline:0;line-height:60px;text-align:center}
+.menuUserInfBtn:hover{background-color:#eee;cursor:pointer}

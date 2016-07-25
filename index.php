@@ -20,7 +20,7 @@ G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('../themes/'.$theme.'/css/reset.css', 0);
 // G::AddCSS('../plugins/material/material.css');
-G::AddCSS('../plugins/material/material.min.css', 1);
+// G::AddCSS('../plugins/material/material.min.css', 1);
 G::AddCSS('../plugins/mdl-select.min.css', 1);
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
 G::AddCSS('../themes/'.$theme.'/css/footer.css', 1);
@@ -39,6 +39,7 @@ G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].
 G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
 G::AddJS('jquery-ui.min.js', true, 1);
+G::AddJS('../plugins/Chart.min.js');
 // G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');
 //G::AddJS('d3.min.js');

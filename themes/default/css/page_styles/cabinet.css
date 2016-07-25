@@ -1912,14 +1912,14 @@ html {
 	margin: 1em;
 	margin-left: 0px;
 }
-.order {
+.customer_cab .order {
 	margin: 0 auto;
 	overflow: visible;
 	background: #fff;
     margin-bottom: 10px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
-.order:hover {
+.customer_cab .order:hover {
 	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
 }
 .order:first-of-type {
@@ -2450,24 +2450,24 @@ div[id^="items_panel_"] .btnWrapFlex {
 	height: 50px;
 	padding-top: 15px;
 }
-.photo {
+.supplier_cab .photo {
 	width: 130px;
 } 
-.name {
+.supplier_cab .name {
 	width: calc(100% - 120px - 120px - 130px);
 } 
-.status {
+.supplier_cab .status {
 	width: 120px;
 }
-.controls {
+.supplier_cab .controls {
 	width: 120px;
 }
-.photo, 
-.name, 
-.status {
+.supplier_cab .photo, 
+.supplier_cab .name, 
+.supplier_cab .status {
 	float: left;
 }
-.controls {
+.supplier_cab .controls {
 	float: right;
 }
 
@@ -2492,7 +2492,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 .moder_list_item .controls {
     padding: 30px 10px 10px 10px;
 }
-
+.status_title {
+	display: none;
+}
 
 
 @media (max-width: 1060px) {
@@ -2876,6 +2878,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.status_title {
 		float: left;
 		margin-right: 5px;
+		display: block;
 	}
 	.controls {
 		width: 130px;
@@ -3194,3 +3197,15 @@ div[id^="items_panel_"] .btnWrapFlex {
     float: right;
 }
 
+.order_number_filter {
+	margin-left: 10px;
+    width: 400px;   
+}
+.order_number_filter form {
+	display: flex;
+    justify-content: space-between;
+}
+.order_number_filter input {
+	height: 35px;
+	padding-left: 5px;
+}

@@ -339,10 +339,10 @@
 		<div class="mdl-tabs mdl-js-tabs">
 			<div class="fortabs">
 				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
-					<a href="#description" class="mdl-tabs__tab is-active">Описание</a>
-					<a href="#specifications" class="mdl-tabs__tab">Характеристики</a>
-					<a href="#comments" class="mdl-tabs__tab">Отзывы и вопросы</a>
-					<a href="#seasonality" class="mdl-tabs__tab">График спроса</a>
+					<a href="#description" class="mdl-tabs__tab fortabs_tab is-active">Описание</a>
+					<a href="#specifications" class="mdl-tabs__tab fortabs_tab">Характеристики</a>
+					<a href="#comments" class="mdl-tabs__tab fortabs_tab">Отзывы и вопросы</a>
+					<a href="#seasonality" class="mdl-tabs__tab fortabs_tab">График спроса</a>
 				</div>
 			</div>
 			<div class="tab-content">

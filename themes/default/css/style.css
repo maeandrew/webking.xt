@@ -1,7 +1,7 @@
 /*GLOBALS*/
 
 /*Include google fonts*/
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);*/
 
 * {
 	padding: 0;
@@ -606,6 +606,7 @@ body:not(.c_main) .banner {
 		z-index: 2;
 		box-sizing: border-box;
 		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-moz-transition: all .3s cubic-bezier(.4,0,.2,1);
 		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
 		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
@@ -2897,12 +2898,11 @@ section .stat_year {
 
 }
 .mdl-grid .mdl-tabs__tab {
-/*	height: 34px;
+	/*height: 34px;
 	width: 36.1%;
 	text-align: center;
 	margin-top: -5px;
-	padding-bottom: 5px
-*/
+	padding-bottom: 5px*/
 }
 .mdl-grid .mdl-tabs.is-upgraded .mdl-tabs__tab {
 	text-transform: capitalize;
@@ -3126,6 +3126,65 @@ section .stat_year {
 		right: 30%);
 	}
 }
+.avg_chart_wrap {
+	background-color: #fff;
+	padding: 1em;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.avg_chart_wrap:hover {
+	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
+}
+.avg_chart_wrap canvas.chart{
+	margin-bottom: 1em;
+}
+.avg_chart_det_wrap{
+	width: 100%;
+	height: 3em;
+	padding: .5em 1em;
+}
+.flex_container{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	width: 100%;
+}
+.stat_years{
+	flex: 0 0 100%;
+	width: 100%;
+}
+canvas#chart{
+	position: relative;
+	height: 150px;
+	width: 99% !important;
+}
+.line_det{
+	float: right;
+}
+.line_det .legenda{
+	width: 100px;
+	margin-left: 2em;
+}
+.line_det .legenda.roz i{
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	background: #018b06;
+}
+.line_det .legenda.opt i{
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	background: #FF5722;
+}
+
+.avg_chart_det_btn {
+	float: left;
+}
 
 .slider_wrap {
 	width: 8%;
@@ -3302,8 +3361,7 @@ section .stat_year {
 		color: #FF5722;
 	}
 	.xt_news .news_description {
-		/*font-size: 13px;*/
-		max-height: 12em;
+		max-height: 11em;
 		overflow: hidden;
 		margin-bottom: 10px;
 	}
@@ -4098,15 +4156,6 @@ iframe[name="google_conversion_frame"] {
 .details {
 	color: #FF5722;
 }
-
-
-
-
-/* @media (max-width: 1000px) {
-	.item_svg {
-		width: 100%;		
-	}
-} */
 
 /* После синхронизации с веткой "Artemida" (графики спроса в разделах) переместить ниже написанный код на строку 1064!
 	и удалить закомментированный код, начиная со строки 1227, 1064! */

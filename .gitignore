@@ -242,3 +242,5 @@ robots.txt
 .phpintel/*
 *.csv
 *.xls
+node_modules/*
+.sublime-grunt.cache
