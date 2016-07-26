@@ -2111,7 +2111,7 @@ section .stat_year {
 }
 .products .card .product_photo a img {
 	display: block;
-	max-height: 90px;
+	max-height: 120px;
 	max-width: 100%;
 	margin: 0 auto;
 }
@@ -2188,7 +2188,7 @@ section .stat_year {
 	width: 330px;
 	float: right;
 	height: 100px;
-	padding: 32px 0;
+	padding: 45px 0;
 	line-height: 36px;
 	position: relative;
 }
