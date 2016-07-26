@@ -11,11 +11,11 @@
 			</div>
 			<?=$chart_html;?>
 			<div class="avg_chart_det_wrap">
-				<div data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></div>
+				<div id="details_btn" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button mdl-js-ripple-effect <?=$chart_details?'hidden':null?>">Детали<i class="material-icons">keyboard_arrow_right</i></div>
 			</div>
 			<div class="charts_container">
 				<div class="charts_title hidden">Графики, на основании которых построен график средних значений</div>
-				<div class="charts_wrap"></div>				
+				<div class="charts_wrap mdl-grid"></div>				
 			</div>
 		</div>
 	<?}?>

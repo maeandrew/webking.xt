@@ -397,7 +397,7 @@ $tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_
 $chart = $products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
 $tpl->Assign('chart', $chart);
 $tpl->Assign('chart_html', $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl'));
-
+$tpl->Assign('chart_details', ($chart[0]['count'] < 2 || $chart[1]['count'] < 2));
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$products->FillAssort($_SESSION['member']['id_user']);

@@ -779,7 +779,7 @@ $(function(){
 		}, 600);
 	});
 
-	$('.show_demand_chart_js').on('click', function() {	
+	$('body').on('click', '.show_demand_chart_js, .chart_edit_js', function(){
 		ModalDemandChart($(this).data('idcategory'));
 	});
 	$('#demand_chart').on('click', '.btn_js.save, .btn_js.update', function(){
@@ -848,15 +848,27 @@ $(function(){
 	});
 
 	$('body').on('click', '.avg_chart_det_btn_js', function(){
-		ajax('product', 'ChartsByCategory', {id_category: $(this).data('idcategory')}, 'html').done(function(data){
-			$('.charts_container .charts_title').removeClass('hidden');
-			$('.charts_wrap').html(data);
-			console.log('success');
-			// console.log(data);
-		}).fail(function(data){
-			console.log('fail');
-			// console.log(data);
-		});
+		if($('#details_btn').hasClass('clicked')){
+			$('#details_btn').removeClass('clicked');
+			$('.avg_chart_det_btn i').css('transform', 'rotate(0deg)');
+			$('.charts_container .charts_title').addClass('hidden');
+			$('.charts_wrap').empty();
+		}else{
+			addLoadAnimation('#details_btn');
+			ajax('product', 'ChartsByCategory', {id_category: $(this).data('idcategory')}, 'html').done(function(data){
+				$('.avg_chart_det_btn i').css('transform', 'rotate(90deg)');
+				$('.charts_container .charts_title').removeClass('hidden');
+				$('#details_btn').addClass('clicked');
+				removeLoadAnimation('#details_btn');
+				$('.charts_wrap').html(data);
+				componentHandler.upgradeDom();
+				console.log('success');
+				// console.log(data);
+			}).fail(function(data){
+				console.log('fail');
+				// console.log(data);
+			});			
+		}
 	});
 
 	// Обработка примечания

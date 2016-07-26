@@ -196,14 +196,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$html = '';
 					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
 					foreach($charts as $key => $chart){
-						$html .= '<div class="chart_item">';
+						$html .= '<div class="chart_item mdl-cell mdl-cell--6-col">';
 						$tpl->Assign('chart', $chart);
 						$html .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl');
 						$html .= '<div class="charts_details">';
 						$html .= '<p><span>Добавил(а):</span> '.$chart[0]['name_user'].'</p>';
 						$html .= '<p><span>Создан:</span> '.$chart[0]['creation_date'].'</p>';
-						if ($chart[0]['comment'] != '') {
+						if($chart[0]['comment'] != '') {
 							$html .= '<p><span>Комментарий:</span> '.$chart[0]['comment'].'</p>';
+						}
+						if(isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']){
+							$html .= '<div class="chart_edit chart_edit_js" data-idcategory="'.$chart[0]['id_category'].'"><i id="edit_chart" class="material-icons">edit</i><div class="mdl-tooltip" for="edit_chart">Редактировать<br>график</div></div>';
 						}
 						$html .= '</div>';
 						$html .= '</div>';
