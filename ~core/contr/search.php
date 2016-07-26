@@ -28,8 +28,6 @@ if(isset($_SERVER['HTTP_REFERER'])){
 }
 $products = new Products();
 
-
-
 // Получаем строку поискового запроса ======================
 if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%\/]/', ' ', $_POST['query']);
@@ -60,20 +58,20 @@ if(isset($_POST['dropfilters'])){
 }
 
 // Категория для поиска ====================================
-if((isset($_POST['category2search']) && $_POST['category2search'] != 0) || (isset($_GET['category2search']) && $_GET['category2search'] != 0)){
-	$_SESSION['search']['category2search'] = isset($_POST['category2search'])?$_POST['category2search']:$_GET['category2search'];
+if((isset($_POST['search_category']) && $_POST['search_category'] != 0) || (isset($_GET['search_category']) && $_GET['search_category'] != 0)){
+	$_SESSION['search']['search_category'] = isset($_POST['search_category'])?$_POST['search_category']:$_GET['search_category'];
 	$where_arr['customs'][] = 'cp.id_category IN (
 		SELECT id_category
 		FROM '._DB_PREFIX_.'category c
-		WHERE c.pid = '.$_SESSION['search']['category2search'].'
+		WHERE c.pid = '.$_SESSION['search']['search_category'].'
 		OR c.pid IN (
 			SELECT id_category
 			FROM '._DB_PREFIX_.'category c
-			WHERE c.pid = '.$_SESSION['search']['category2search'].'
+			WHERE c.pid = '.$_SESSION['search']['search_category'].'
 		)
 	)';
 }else{
-	$_SESSION['search']['category2search'] = 0;
+	$_SESSION['search']['search_category'] = 0;
 }
 
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
@@ -338,7 +336,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		}
 	}
 	if(!empty($mass) && count($mass > 0)){
-		$where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
+		$_SESSION['search']['arr_prod'] = $where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
 	}else{
 		$where_arr['customs'][] = 'p.id_product = 1';
 	}
@@ -383,6 +381,12 @@ if(!empty($list)){
 	}
 }
 $tpl->Assign('list', isset($list)?$list:array());
+
+if($cnt > 30){
+	$list_categories = $products->SetCategories4Search($where_arr);
+	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());
+}
+
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Общий код ===============================================

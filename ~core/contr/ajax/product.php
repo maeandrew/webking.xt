@@ -193,9 +193,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'ChartsByCategory':
 				if(isset($_POST['id_category'])){
-					$values = $products->GetAllChartsByCategory($_POST['id_category']);
-					$tpl->Assign('all_charts', $values);
-					echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'cp_products.tpl');
+					$html = '';
+					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
+					foreach($charts as $key => $chart){
+						$html .= '<div>';
+						$html .= '<p>'.$chart['opt'].'</p>';
+						$html .= '<p>date</p>';
+						$tpl->Assign('chart', $chart);
+						$html .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl');
+						$html .= '</div>';
+					}
+					echo $html;
 				}
 				break;
 			case 'AddEstimate':
