@@ -44,10 +44,6 @@ class Link {
 			self::ParseParams($params, $data);
 		}
 
-//		echo '<pre>';
-//		print_r($data);
-//		echo '</pre>';
-//		die();
 		// if($clear){
 		// 	return _base_url.'/'.$rewrite;
 		// }

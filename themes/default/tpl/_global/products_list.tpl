@@ -1,4 +1,11 @@
 <link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
+
+<?if(isset($list_categories)):?>
+<?foreach($list_categories as &$v):?>
+<a href="<?=_base_url?>/<?=$v['translit']?>/?query=<?=$_SESSION['search']['query']?>&search_subcategory=<?=$v['id_category']?>"><input type="button" value="<?=$v['name']. ' ('. $v['count'].')'?>"></a>&nbsp;&nbsp;
+<?php endforeach;?>
+<?php endif;?>
+
 <?switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){

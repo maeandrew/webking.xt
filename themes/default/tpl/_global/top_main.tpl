@@ -9,7 +9,7 @@
 				<div class="mdl-textfield mdl-js-textfield search">
 					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
 				</div>
-				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label search_category hidden">
+				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label search_category">
 					<select id="search_category" name="search_category" class="mdl-selectfield__select">
 						<option value="" data-id-category="0">По всем категориям</option>
 						<?foreach($navigation as &$v){ ?>
