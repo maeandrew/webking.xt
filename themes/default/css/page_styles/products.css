@@ -1026,7 +1026,7 @@ label.info_key {
 	margin-bottom: 0px;
 }
 .preview #specifications .mdl-grid .mdl-cell:first-of-type {
-    text-align: right;
+    /*text-align: right;*/
 }
 .preview #specifications .mdl-grid .mdl-cell {
     margin: 5px;

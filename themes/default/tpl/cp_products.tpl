@@ -83,7 +83,7 @@
 					<span class="legenda roz"><i></i> - Розничный</span>
 					<span class="legenda opt"><i></i> - Оптовый</span>
 				</div>
-				<span data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'hidden':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
+				<span data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
 			</div>
 		</div>
 	<?}?>
