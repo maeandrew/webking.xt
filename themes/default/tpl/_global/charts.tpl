@@ -1,5 +1,5 @@
 <?$values = array();
-print_r($chart);
+// print_r($chart);
 foreach($chart as $key => $val){
 	for($i=1; $i <= 12; $i++) {
 		if($val['opt'] == 0 && $val['count'] > 0){
