@@ -100,6 +100,7 @@ class Paginator{
 					}
 				}
 		}
+		$tpl->Assign('last_page', $this->pages_count);
 		$tpl->Assign('pages', $pages);
 		$parsed_content = $tpl->Parse($GLOBALS['PATH_tpl_global'].'paginator.tpl');
 		// print_r(Link::Category($GLOBALS['Rewrite']));
