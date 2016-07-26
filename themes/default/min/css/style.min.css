@@ -377,6 +377,7 @@ section .stat_year{padding:0 0 10px 50px}
 #cart .card .product_name>a{display:block;height:40px;overflow:hidden}
 #cart .card{min-height:101px}
 .product_buy{width:330px;float:right;height:100px;padding:45px 0;line-height:36px;position:relative}
+#cart .product_buy{padding:30px 0}
 .product_buy .price_full{text-decoration:line-through;color:#9e9e9e}
 .product_buy .buy_block{display:flex;justify-content:space-between;width:100%;font-size:1.4em}
 .product_buy .buy_block .product_price{flex-basis:18%;white-space:nowrap}
@@ -802,7 +803,7 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .orderNote{border:1px solid #e0e0e0;border-top:none}
 #cart .orderNote textarea{max-height:189px}
 #cart .msg-info{width:300px;box-sizing:border-box;border:1px solid #e0e0e0;border-top:none}
-#cart .msg-info,#cart .orderNote{min-height:120px}
+#cart .msg-info,#cart .orderNote{min-height:117.5px}
 #cart .action_block{width:301px;padding:10px;flex-grow:0;flex-shrink:0;border:1px solid #e0e0e0;border-top:none}
 #cart [class^=msg-]{margin-left:0}
 @media (max-width:1200px){#cart .msg-info,#cart .orderNote{min-height:80px;border:none}
@@ -810,3 +811,6 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .action_block{border:none;border-left:1px solid #e0e0e0}
 #cart .orderNote textarea{max-height:85px}
 }
+.paginator_specific_page_block{margin-top:10px}
+.paginator_specific_page_block .paginator_specific_page{padding:9px 0 9px 5px;width:166px}
+.paginator_specific_page_block button{padding-left:5px;padding-right:5px}
