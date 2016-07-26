@@ -972,7 +972,11 @@ class Products {
 		if(!$result){
 			return false;
 		}
-		return $result;
+		$res = array();
+		foreach($result as &$v){
+			$res[$v['id_author']][] = $v;
+		}
+		return $res;
 	}
 
 	/**
