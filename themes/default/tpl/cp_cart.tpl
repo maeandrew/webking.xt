@@ -536,6 +536,7 @@
 
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
+				console.log('нажали оформить');
 				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
 				//Проверка на ввод примечания к товару					
 				var qtyControl = 0;
@@ -557,10 +558,13 @@
 				if(phone.length == 12){
 					if (qtyControl === 0){
 						addLoadAnimation('#cart');
-						ajax('cart', 'makeOrder', {phone: phone}).done(
-							function(data){
+						console.log('запустили аякс');
+						console.log(phone);
+						ajax('cart', 'makeOrder', {phone: phone}).done(function(data){
+							console.log('аякс вернулся');
 							switch(data.status){
 								case 200:
+									console.log('200');
 									closeObject('cart');
 									// window.location.hash = "quiz";
 									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
@@ -581,9 +585,11 @@
 									break;
 								case 500:
 									console.log('error');
+									console.log('500');
 									removeLoadAnimation('#cart');
 									break;
 								case 501:
+									console.log('501');
 									removeLoadAnimation('#cart');
 									$('.err_msg').html(data.message);
 									setTimeout(function() {

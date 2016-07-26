@@ -717,7 +717,7 @@ function AddFavorite(id_product, targetEl){
 				$('.userChoiceFav').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в избранное'};
 				targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
-				targetEl.next().empty().text('Товар уже в избранном');
+				targetEl.next().empty().html('Товар уже <br> в избранном');
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -743,7 +743,7 @@ function RemoveFavorite(id_product, targetEl){
 				$('.userChoiceFav').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из избранного'};
 				targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
-				targetEl.next().empty().text('Добавить товар в избранное');
+				targetEl.next().empty().html('Добавить товар <br> в избранное');
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -772,7 +772,8 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в список ожидания'};
 				targetClass.addClass('arrow');
-				targetClass.closest('li').next().empty().text('Товар в списке ожидания');
+				targetClass.closest('.fortrending').next().empty().html('Товар в <br> списке ожидания');
+				$('#specCont').find('.fortrending_info_tooltip').html('Товар в <br> списке ожидания');
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -801,7 +802,8 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из списка ожидания'};
 				targetClass.removeClass('arrow');
-				targetClass.closest('li').next().empty().text('Следить за ценой');
+				targetClass.closest('.fortrending').next().empty().html('Следить за ценой');
+				$('#specCont').find('.fortrending_info_tooltip').html('Следить за ценой');
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
