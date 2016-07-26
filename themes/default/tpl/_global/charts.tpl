@@ -3,9 +3,9 @@
 	// print_r($chart);
 	foreach($chart as $key => $val){
 		for($i=1; $i <= 12; $i++) {
-			if($val['opt'] == 0 && $val['count'] > 0){
+			if($val['opt'] == 0 || ($val['opt'] == 0 && $val['count'] > 0)){
 				$values['mopt'][] = $val['value_'.$i];
-			}elseif($val['opt'] == 1 && $val['count'] > 0){
+			}elseif($val['opt'] == 1 || ($val['opt'] == 1 && $val['count'] > 0)){
 				$values['opt'][] = $val['value_'.$i];
 			}
 		}
@@ -15,7 +15,7 @@
 	$chart_regi = array(10);?>
 	<div class="flex_container">
 		<script>var curve = {};</script>
-		<canvas id="chart_<?=isset($chart['id_chart'])?$chart['id_chart']:'avg';?>" class="chart" height="150"></canvas>
+		<canvas id="chart_<?=isset($chart[0]['id_chart'])?$chart[0]['id_chart']:'avg';?>" class="chart" height="150"></canvas>
 		<script>
 			var options = {
 				bezierCurve: true,
@@ -71,7 +71,7 @@
 				]
 			};
 			$(function(){
-				var ctx = document.getElementById("chart_<?=isset($chart['id_chart'])?$chart['id_chart']:'avg';?>").getContext("2d");
+				var ctx = document.getElementById("chart_<?=isset($chart[0]['id_chart'])?$chart[0]['id_chart']:'avg';?>").getContext("2d");
 				var myLineChart = new Chart(ctx).Line(curve, options);
 			});
 		</script>

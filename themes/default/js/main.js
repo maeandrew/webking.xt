@@ -848,13 +848,14 @@ $(function(){
 	});
 
 	$('body').on('click', '.avg_chart_det_btn_js', function(){
-		ajax('product', 'ChartsByCategory', {id_category: $(this).data('idcategory')
-		}).done(function(data){
+		ajax('product', 'ChartsByCategory', {id_category: $(this).data('idcategory')}, 'html').done(function(data){
+			$('.charts_container .charts_title').removeClass('hidden');
+			$('.charts_wrap').html(data);
 			console.log('success');
-			console.log(data);
+			// console.log(data);
 		}).fail(function(data){
 			console.log('fail');
-			console.log(data);
+			// console.log(data);
 		});
 	});
 

@@ -3233,9 +3233,22 @@ canvas[id^=chart_]{
 	height: 10px;
 	background: #FF5722;
 }
-
 .avg_chart_det_btn {
 	float: left;
+}
+.charts_container{
+	clear: both;
+}
+.charts_container .chart_item{
+	padding: 1em
+}
+.charts_container .charts_title{
+	font-size: 2em;
+	padding: 1em;
+	text-align: center;
+}
+.charts_container .charts_details p span{
+	font-weight: 600;
 }
 
 .slider_wrap {

@@ -196,12 +196,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$html = '';
 					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
 					foreach($charts as $key => $chart){
-						$html .= '<div>';
-						$html .= '<p>'.$chart['opt'].'</p>';
-						$html .= '<p>date</p>';
+						$html .= '<div class="chart_item">';
 						$tpl->Assign('chart', $chart);
 						$html .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl');
+						$html .= '<div class="charts_details">';
+						$html .= '<p><span>Добавил(а):</span> '.$chart[0]['name_user'].'</p>';
+						$html .= '<p><span>Создан:</span> '.$chart[0]['creation_date'].'</p>';
+						if ($chart[0]['comment'] != '') {
+							$html .= '<p><span>Комментарий:</span> '.$chart[0]['comment'].'</p>';
+						}
 						$html .= '</div>';
+						$html .= '</div>';
+
+						// автора, его комментарий и дату создания.
 					}
 					echo $html;
 				}
