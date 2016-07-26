@@ -446,7 +446,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							_acl::load($Users->fields['gid']);
 							$res['new_user'] = true;
 						}
-					} else {
+					}else{
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 						$res['status'] = 501;
 					}
@@ -471,7 +471,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['status'] = 501;
 				}
 				echo json_encode($res);
-
+				break;
 			case 'update_info':
 				$customers = new Customers();
 				$customers->updateInfoPerson($_POST);

@@ -10,26 +10,29 @@
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case "step":
-				// Необходимо определить, какой тим диалога нужно вывести
-				// Если клиент уже делал заказы
-				
-				// Если клиент делает первый заказ
 				$contragent = $Orders->GetContragentByLastOrder();
+				$tpl->Assign('contragent', $contragent);
 				$Customers->SetFieldsById($User->fields['id_user']);
 				$customer = $Customers->fields;
-				$tpl->Assign('contragent', $contragent);
+				// Необходимо определить, какой тим диалога нужно вывести
+				// Проверяем, есть ли у клиента сохраненный адрес доставки
+				// Если клиент уже делал заказы
+				if($saved_address = $Address->GetAddressByIdUser($User->fields['id_user'])){
+					print_r($saved_address);
+				}else{
+
+				}
+				// Если клиент делает первый заказ
+				
 				// step 2+
-				if($_POST['step'] > 1){
+			if($_POST['step'] > 1){
 					// Получаем список всех областей
 					$regions_list = $Address->GetRegionsList();
 					$tpl->Assign('regions_list', $regions_list);
 					$cities_count = count($Address->GetCitiesList());
 					$tpl->Assign('cities_count', $cities_count);
-					// Проверяем, есть ли у клиента сохраненный адрес доставки
-					$saved_address = $Address->GetAddressByIdUser($User->fields['id_user']);
 					// Если есть сохраненный адрес
-					if($saved_address){
-						print_r($saved_address);
+						
 					}else{
 						// Если у клиента уже сохранен его город
 						if($customer['id_city'] > 0){
