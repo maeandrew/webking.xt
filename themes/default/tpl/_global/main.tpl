@@ -154,19 +154,19 @@
 	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
 		<section class="banner">
 			<div class="cont">
-				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
+				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 						<h3>Снабжение<br> предприятий</h3>
 					</span>
 				</a>
-				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
+				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 						<h3>Поставки<br> магазинам</h3>
 					</span>
 				</a>
-				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
+				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 						<h3>Обеспечение<br> быта</h3>
@@ -201,11 +201,11 @@
 									</select>
 								</div>
 
-								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
+								<!-- <a href="#" class="graph_up hidden" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-									<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js one" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
 								<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-									<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js two" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
 								<?}?>
 								-->
 							</div>
@@ -255,7 +255,7 @@
 				<div class="last_news"> 				
 					<div class="last_news_title">
 						<h4>Последние новости</h4>
-						<a href="<?=Link::Custom('news');?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+						<a href="<?=Link::Custom('news');?> <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
 					</div>
 					<div class="xt_news">
 						<?foreach($news as $item){?>
@@ -268,7 +268,7 @@
 										</noscript>
 									<?}?>
 								</div>
-								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
+								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 									<h6 class="min news_title"><?=$item['title']?></h6>
 								</a>
 								<div class="min news_description"><?=$item['descr_short']?></div>
@@ -285,7 +285,7 @@
 										}?>
 										</p>
 									</div>
-									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
+									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
 								</div>
 							</div>
 						<?}?>	
@@ -371,11 +371,11 @@
 				<div class="questions">
 					<h5>Навигация</h5>
 					<ul>
-						<li><a href="<?=Link::Custom('main', null)?>">Главная</a></li>
+						<li><a href="<?=Link::Custom('main', null)?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Главная</a></li>
 						<?foreach($list_menu as $menu){?>
-							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+							<li><a href="<?=Link::Custom('page', $menu['translit']);?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><?=$menu['title']?></a></li>
 						<?}?>
-						<li><a href="<?=Link::Custom('price');?>">Прайс-лист</a></li>
+						<li><a href="<?=Link::Custom('price');?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Прайс-лист</a></li>
 					</ul>
 				</div>
 				<div class="contacts">
@@ -397,12 +397,12 @@
 					</div>
 					<div class="social hidden">
 						<ul>
-							<li><a href="https://vk.com/xt_ua" target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
-							<li><a href="http://ok.ru/group/54897683202077" target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
-							<li><a href="https://plus.google.com/+X-torg/" target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
-							<li><a href="https://www.facebook.com/KharkovTorg" target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
-							<li><a href="https://twitter.com/we_xt_ua" target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
-							<li><a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank" class="y_t" title="Yuotube"><img src="<?=$GLOBALS['URL_img_theme']?>youtube.svg" alt="Yuotube"></a></li>
+							<li><a href="https://vk.com/xt_ua" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
+							<li><a href="http://ok.ru/group/54897683202077" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
+							<li><a href="https://plus.google.com/+X-torg/" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
+							<li><a href="https://www.facebook.com/KharkovTorg" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
+							<li><a href="https://twitter.com/we_xt_ua" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
+							<li><a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank" class="y_t" title="Yuotube"><img src="<?=$GLOBALS['URL_img_theme']?>youtube.svg" alt="Yuotube"></a></li>
 						</ul>
 					</div>
 				</div>
@@ -433,7 +433,7 @@
 		<div class="copyright">
 			<div class="copyright_wrap">
 				<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
-				<!-- <p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p> -->
+				<!-- <p class="created">Разработано в <a href="http://webking.link/" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>WebKingStudio</a></p> -->
 			</div>
 		</div>
 	</footer>
@@ -490,7 +490,7 @@
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="error"></div>
-					<a href="#" class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
+					<a href="#" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Войти</button>
 					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_up">Регистрация</button>
 				</form>
@@ -573,14 +573,14 @@
 					<i class="material-icons">check_circle</i>
 				</div>
 				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
-				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Мой кабинет</a>
 			</div>
 		</div>
 		<!-- Cart -->
 		<div id="cart" data-type="modal">
 			<h4 class="title_cart">Корзина</h4>
 			<div class="clear_cart ">
-				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
+				<a onClick="removeFromCart();return false;" href="#" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><span class="icon-font color-red"></span>Очистить корзину</a>
 			</div>
 			<ul class="order_head mdl-cell--hide-phone">
 				<li class="photo">Фото</li>

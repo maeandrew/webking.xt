@@ -1,7 +1,7 @@
 <div class="userContainer">
 	<div class="UserInfBlock">
 		<div class="avatar">
-			<a href="<?=Link::Custom('cabinet')?>?t=contacts">
+			<a href="<?=Link::Custom('cabinet')?>?t=contacts" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 				<img src="/images/noavatar.png"/>
 			</a>
 		</div>
@@ -11,7 +11,7 @@
 					<?$userNameFromMail = isset($_SESSION['member']['email']) && !empty($_SESSION['member']['email'])?substr($_SESSION['member']['email'], 0, strpos($_SESSION['member']['email'], "@")):'';?>
 					<?=isset($_SESSION['member']['name']) && !empty($_SESSION['member']['name'])?$_SESSION['member']['name']:$userNameFromMail;?>
 				</div>
-				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet')?>?t=contacts">create</a>
+				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet')?>?t=contacts" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>create</a>
 				<div class="mdl-tooltip" for="eup">Изменить<br>профиль</div>
 			</div>
 			<div class="listItems">
@@ -33,29 +33,29 @@
 		<div id="manager">Ваш менеджер: <span class="user_contr"><?=$_SESSION['member']['contragent']['name_c']?></span>
 		</div>
 		<div class="manager_contacts">
-			<a href="tel:+380667205488">
+			<a href="tel:+380667205488" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 				<i class="material-icons .noLink">phone</i>
 				<span class="user_contr_phones"><?=$_SESSION['member']['contragent']['phones']?></span>
 			</a>
 		</div>
 		<div class="manager_contacts">
-			<a href="mailto:manager@xt.ua" target="blank">
+			<a href="mailto:manager@xt.ua" target="blank" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 				<i class="material-icons">mail_outline</i>
 				<span>manager@xt.ua</span>
 			</a>
 		</div>
 	</div>
 	<div class="userChoice<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>">
-		<a class="userFavoritesList" href="<?=Link::Custom('cabinet','favorites')?>">
+		<a class="userFavoritesList" href="<?=Link::Custom('cabinet','favorites')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<div class="favleft"><i class="material-icons">favorite</i></div>
 			<div class="favright"><p>Избранные</p><p class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</p></div>
 		</a>
-		<a class="userWaitingList" href="<?=Link::Custom('cabinet','waitinglist')?>">
+		<a class="userWaitingList" href="<?=Link::Custom('cabinet','waitinglist')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<div class="favleft"><i class="material-icons">trending_down</i></div>
 			<div class="favright"><p>Лист<br> ожидания</p><p class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</p></div>
 		</a>
 	</div>
 	<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
-	<a class="menuUserInfBtn" href="<?=_base_url.'/cabinet'?>">Мой кабинет</a>
-	<a class="menuUserInfBtn" href="<?=Link::Custom('logout')?>">Выйти</a>
+	<a class="menuUserInfBtn" href="<?=_base_url.'/cabinet'?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Мой кабинет</a>
+	<a class="menuUserInfBtn" href="<?=Link::Custom('logout')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Выйти</a>
 </div>

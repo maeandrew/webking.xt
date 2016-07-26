@@ -1,6 +1,6 @@
 <div class="header_wrapp">
 	<div class="logo">
-		<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
+		<a href="<?=Link::Custom('main', null, array('clear' => true));?>" rel="nofollow"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
 	<div class="header_right">
 		<div class="search_wrap mdl-cell--hide-phone">
@@ -40,11 +40,11 @@
 		</div> -->
 		<div class="cart_item ga-cart <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 			<div class="currentCartSum hidden"><?=isset($_SESSION['cart']['products_sum'][3])?$_SESSION['cart']['products_sum'][3]:null?></div>
-			<a href="#" class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
+			<a href="#" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
 		</div>
 		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone">
 			<?$rand = rand(0, count($list_menu)-1);?> 
-			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>"><?=$list_menu[$rand]['title']?></a>
+			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><?=$list_menu[$rand]['title']?></a>
 		</div>
 		<div class="pages_list">
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-cell--hide-phone navigation">
@@ -55,7 +55,7 @@
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-cell--hide-phone" for="menu-lower-right">
 				<?foreach($list_menu as $key => &$menu){?>				
-					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a>
+					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>><?=$menu['title']?></a>
 				<?}?>
 			</nav>
 		</div>
@@ -68,7 +68,7 @@
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect cabinet_btn hidden">
 					<!-- <i class="material-icons">account_circle</i> -->
 				</button>
-				<a href="#" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect login_btn">Войти</a>
+				<a href="#" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect login_btn">Войти</a>
 			<?}?>
 			<div class="user_profile user_profile_js mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile">
 				<?php if(G::IsLogged()){
@@ -85,7 +85,7 @@
 				}else{?>
 					<div class="loginButton">
 						<p>Войдите в свой личный кабинет на xt.ua или создайте новый</p>
-						<a href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent login_btn">Войти</a>
+						<a href="#" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent login_btn">Войти</a>
 					</div>
 				<?}?>
 			</div>
@@ -97,17 +97,17 @@
 			<ul class="phone_nav_contacts">
 				<li class="parent_nav">
 					<i class="material-icons">phone</i>
-					<a href="tel:(063) 225-91-83">(063) 225-91-83</a>
-					<a href="tel:(099) 228-69-38">(099) 228-69-38</a>
-					<a href="tel:(093) 322-91-83">(093) 322-91-83</a>
+					<a href="tel:(063) 225-91-83" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>(063) 225-91-83</a>
+					<a href="tel:(099) 228-69-38" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>(099) 228-69-38</a>
+					<a href="tel:(093) 322-91-83" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>(093) 322-91-83</a>
 				</li>
 				<li class="parent_nav">
 					<i class="material-icons">mail</i>
-					<a href="mailto:administration@x-torg.com">administration@x-torg.com</a>
+					<a href="mailto:administration@x-torg.com" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>administration@x-torg.com</a>
 				</li>
 				<li class="parent_nav">
 					<i class="material-icons">location_on</i>
-					<a href="https://www.google.com/maps/place/вул. Тюрінська, 130, Харків, Харківська+область, Україна" target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
+					<a href="https://www.google.com/maps/place/вул. Тюрінська, 130, Харків, Харківська+область, Україна" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
 				</li>
 			</ul>
 		</div>
