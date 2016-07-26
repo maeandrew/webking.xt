@@ -376,12 +376,12 @@ foreach($res as $cat){
 // }
 // print_r($template.'products_list.tpl');
 // var_dump($template); die();
-$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
-$tpl->Assign('products_list', $products_list);
+$tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl'));
 
 // Вывод графика по категории
-$avg_chart = $products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
-$tpl->Assign('avg_chart', $avg_chart);
+$chart = $products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
+$tpl->Assign('chart', $chart);
+$tpl->Assign('chart_html', $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl'));
 
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
