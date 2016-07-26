@@ -14,16 +14,15 @@ window.onbeforeunload = function(e){
 	// };
 	// return "You work will be lost.";
 };
-$(window).on("load", function(){
+$(window).on('load', function(){
 	$("html, body").trigger("scroll");
 });
 // window.addEventListener("popstate", function(e) {
 //     swapPhoto(location.pathname);
 // }, false)
-$(function(){	
+$(function(){
 	// Определение местоположения устройства из которого был осуществлен вход на сайт
 	GetLocation();
-
 	if($(window.location.hash).length == 1 && $(window.location.hash).data('type') == 'modal'){
 		openObject((window.location.hash).replace('#', ''));
 	}
@@ -452,11 +451,13 @@ $(function(){
 			}			
 		}
 	});
-	// Автосмена размера сайбара и его скролла 	
 	$(window).resize(function(){
-		if(over_scroll === true){			
+		// Автосмена размера сайбара и его скролла 	
+		if(over_scroll === true){
 			resizeAsideScroll();
 		}
+		// Корректировка позиции модалок при ресайзе окна браузера
+    	Position($('[data-type="modal"].opened'));
 	});
 
 	//Возврат баннера если он скрыт
