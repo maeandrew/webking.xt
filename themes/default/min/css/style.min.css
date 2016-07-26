@@ -388,7 +388,7 @@ section .stat_year{padding:0 0 10px 50px}
 .product_buy .buy_block .btn_buy button{text-transform:capitalize;position:absolute;top:0;left:10%;right:10%;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1);width:80%;z-index:10;border:1px solid #f1f1f1}
 .card .product_buy .buy_block .btn_buy:hover button{position:absolute;top:calc(-35px / 2);height:70px}
 .card:hover .product_buy .buy_block .btn_buy button{background:#ff5722;border-color:#ff5722;color:#fff}
-.block_view .card:hover .product_photo .add_to_fav_trend_block{display:block}
+.card:hover .product_photo .add_to_fav_trend_block{display:block}
 .product_buy .buy_block .quantity{position:relative}
 .product_buy .buy_block .quantity button{position:absolute;margin:0;padding:0;width:100%;width:70px;max-height:25px;background:0 0;border:1px solid transparent;cursor:pointer;opacity:0;left:0;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1);outline:0}
 .card .product_buy:hover .buy_block .quantity button,.pb_wrapper .product_buy:hover .buy_block .quantity button{display:block;border-radius:.2em;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;z-index:0;opacity:1;left:0}

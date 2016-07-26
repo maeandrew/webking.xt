@@ -634,7 +634,7 @@ label.info_key {
 	margin-top: 5px;
 }
 
-.add_to_fav_trend_block {
+.block_view .add_to_fav_trend_block {
 	background: #F3F3F3;
 	position: absolute;
     top: 0;
@@ -647,13 +647,54 @@ label.info_key {
 .block_view .add_to_fav_trend_block .favorite, 
 .block_view .add_to_fav_trend_block .fortrending {
 	width: 50%;
-	text-align: center;
 	float: left;
+	padding-top: 15px;
+}
+.block_view .add_to_fav_trend_block .favorite {
+	text-align: right;
+    padding-right: 15px;    
+}
+.block_view .add_to_fav_trend_block .fortrending {
+	padding-left: 15px;
 }
 .block_view .add_to_fav_trend_block .waiting_list,
 .block_view .add_to_fav_trend_block .favorite_icon {
-	margin-top: calc(100% - 12px);
+	margin-top: calc(100% - 17px);
+	font-size: 35px;
 }
+.block_view .preview_icon_block {
+	display: none;
+}
+
+.list_view .add_to_fav_trend_block {
+	background: #F3F3F3;
+	position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 10px;
+    opacity: 0.7;    
+    display: none;
+}
+.list_view .add_to_fav_trend_block .favorite, 
+.list_view .add_to_fav_trend_block .fortrending {
+	display: none;
+}
+.list_view .preview_icon_block {
+	display: block;
+	text-align: center;	
+}
+.list_view .add_to_fav_trend_block:hover,
+.list_view .preview_icon:hover { 
+	cursor: pointer;
+}
+
+.list_view .preview_icon {
+	font-size: 35px;
+	margin-top: calc(50% - 12px);
+}
+
+
 
 .list_view .product_article {
 	display: block;

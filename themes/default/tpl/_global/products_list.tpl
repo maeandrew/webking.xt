@@ -254,6 +254,7 @@
 						<div id="fortrending_<?=$item['id_product']?>" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 							<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></div>
 						<div class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
+						<div class="preview_icon_block"><div class="material-icons preview_icon">zoom_in</div></div>
 					</div>
 				</div>
 				<div class="product_name">

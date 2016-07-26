@@ -2262,7 +2262,7 @@ section .stat_year {
 	border-color: #ff5722;
 	color: #fff;
 }
-.block_view .card:hover .product_photo .add_to_fav_trend_block {
+.card:hover .product_photo .add_to_fav_trend_block {
 	display: block;
 }
 
