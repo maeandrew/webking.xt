@@ -358,7 +358,7 @@ section .stat_year{padding:0 0 10px 50px}
 .suplierPriceBlock .card_item,.suplierPriceBlock .count_cell,.suplierPriceBlock .price,.suplierPriceBlock .product_check{text-align:center;margin-left:5px;float:left;width:80px}
 .products .card .product_photo{position:relative;width:130px;float:left;padding:5px 10px 5px 0}
 .products .card .product_photo a{display:block}
-.products .card .product_photo a img{display:block;max-height:90px;max-width:100%;margin:0 auto}
+.products .card .product_photo a img{display:block;max-height:120px;max-width:100%;margin:0 auto}
 .products .card .product_name{padding-top:10px;position:relative}
 .products .card .ordered{position:absolute;color:#018b06;right:0;top:10px;cursor:help}
 .products .card [for^=ordered-]{font-size:12px}
@@ -376,7 +376,7 @@ section .stat_year{padding:0 0 10px 50px}
 #cart .card .product_article,.products .card .product_article{font-size:.929em;color:#818181;white-space:nowrap;vertical-align:top}
 #cart .card .product_name>a{display:block;height:40px;overflow:hidden}
 #cart .card{min-height:101px}
-.product_buy{width:330px;float:right;height:100px;padding:32px 0;line-height:36px;position:relative}
+.product_buy{width:330px;float:right;height:100px;padding:45px 0;line-height:36px;position:relative}
 .product_buy .price_full{text-decoration:line-through;color:#9e9e9e}
 .product_buy .buy_block{display:flex;justify-content:space-between;width:100%;font-size:1.4em}
 .product_buy .buy_block .product_price{flex-basis:18%;white-space:nowrap}
