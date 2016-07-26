@@ -191,7 +191,6 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview #specifications .mdl-grid:nth-of-type(odd){background:#f7f7f7}
 .preview #specifications .mdl-grid{line-height:1.3em;border-bottom:1px solid #e0e0e0;padding:0}
 .preview .mdl-grid .mdl-tabs__tab-bar{margin-bottom:0}
-.preview #specifications .mdl-grid .mdl-cell:first-of-type{text-align:right}
 .preview #specifications .mdl-grid .mdl-cell{margin:5px}
 .preview #description p{text-align:justify;margin-top:15px}
 .preview .supplier_block{width:100%;display:flex;justify-content:center}
