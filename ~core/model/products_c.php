@@ -959,6 +959,23 @@ class Products {
 	}
 
 	/**
+	 * Выборка всех графиков по Id категории
+	 * @param $id_category
+	 * @return bool
+	 */
+	public function GetAllChartsByCategory($id_category){
+		$sql = "SELECT c.*, u.name AS name_user FROM "._DB_PREFIX_."chart c
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = c.id_author
+				WHERE c.id_category = ".$id_category." AND c.moderation = 1
+				ORDER BY c.id_chart DESC";
+		$result = $this->db->GetArray($sql);
+		if(!$result){
+			return false;
+		}
+		return $result;
+	}
+
+	/**
 	 * Выборка товаров для главной
 	 */
 	public function GetRandomList(){

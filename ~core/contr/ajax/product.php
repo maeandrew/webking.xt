@@ -191,6 +191,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdateDemandChartNoModeration($_POST));
 				}
 				break;
+			case 'ChartsByCategoty':
+				if(isset($_POST['id_category'])){
+					echo json_encode($products->GetAllChartsByCategory($_POST['id_category']));
+				}
+				break;
 			case 'AddEstimate':
 				$Product = new Products();
 				//Проверка данных пользователя
