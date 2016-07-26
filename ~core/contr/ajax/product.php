@@ -191,9 +191,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdateDemandChartNoModeration($_POST));
 				}
 				break;
-			case 'ChartsByCategoty':
+			case 'ChartsByCategory':
 				if(isset($_POST['id_category'])){
-					echo json_encode($products->GetAllChartsByCategory($_POST['id_category']));
+					$values = $products->GetAllChartsByCategory($_POST['id_category']);
+					$tpl->Assign('all_charts', $values);
+					echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'cp_products.tpl');
 				}
 				break;
 			case 'AddEstimate':
