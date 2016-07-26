@@ -1,89 +1,20 @@
 <h1><?=$header?></h1>
 <div class="products_page">
-	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
+	<?if((isset($chart_html) && !empty($chart_html)) && $GLOBALS['CurrentController'] != 'search'){?>
 		<div class="avg_chart_wrap">
-			<?$values = array();
-			foreach($avg_chart as $key => $val){
-				for($i=1; $i <= 12; $i++) {
-					if($val['opt'] == 0 && $val['count'] > 0){
-						$values['mopt'][] = $val['value_'.$i];
-					}elseif($val['opt'] == 1 && $val['count'] > 0){
-						$values['opt'][] = $val['value_'.$i];
-					}
-				}
-			}
-			$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
-			$labels_min = array(1);
-			$chart_regi = array(10);?>
-			<div class="flex_container">
-				<script>var curve = {};</script>
-				<canvas id="chart" class="chart" height="150"></canvas>
-				<script>
-					var options = {
-						bezierCurve: true,
-						scaleShowGridLines: true,
-						scaleShowLabels: false,
-						scaleShowHorizontalLines: false,
-						pointDot: false,
-						pointHitDetectionRadius: 30,
-						datasetFill: false,
-					};
-					curve = {
-						labels: <?=json_encode($labels);?>,
-						datasets: [
-							{
-								label: "",
-								fillColor: "rgba(101,224,252,0)",
-								strokeColor: "rgba(1,139,6,1)",
-								pointStrokeColor: "transparent",
-								pointHighlightFill: "transparent",
-								pointHighlightStroke: "rgba(101,224,253,1)",
-								data: <?=json_encode($chart_regi);?>
-							},
-							{
-								label: "",
-								fillColor: "rgba(101,224,252,0)",
-								strokeColor: "rgba(1,139,6,1)",
-								pointStrokeColor: "transparent",
-								pointHighlightFill: "transparent",
-								pointHighlightStroke: "rgba(101,224,253,1)",
-								data: <?=json_encode($labels_min);?>
-							},
-							<?if (isset($values['mopt'])){?>
-								{
-									label: "Розница",
-									strokeColor: "#018b06",
-									pointStrokeColor: "rgba(1,139,6,.7)",
-									pointHighlightFill: "#018b06",
-									pointHighlightStroke: "transparent",
-									data: <?=json_encode($values['mopt']);?>
-								},											
-							<?}
-							if (isset($values['opt'])){?>
-								{
-									label: "Опт",
-									fillColor: "rgba(101,224,252,0)",
-									strokeColor: "#FF5722",
-									pointStrokeColor: "transparent",
-									pointHighlightFill: "#FF5722",
-									pointHighlightStroke: "rgba(101,224,253,1)",
-									data: <?=json_encode($values['opt']);?>
-								}
-							<?}?>
-						]
-					};
-					$(function(){
-						var ctx = document.getElementById("chart").getContext("2d");
-						var myLineChart = new Chart(ctx).Line(curve, options);
-					});
-				</script>
-			</div>
 			<div class="avg_chart_det_wrap">
+				<div class="chart_title">График спроса категории</div>
 				<div class="line_det">
 					<span class="legenda roz"><i></i> - Розничный</span>
 					<span class="legenda opt"><i></i> - Оптовый</span>
 				</div>
-				<span data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
+			</div>
+			<?=$chart_html;?>
+			<div class="avg_chart_det_wrap">
+				<div data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></div>
+			</div>
+			<div class="charts_wrap">
+				
 			</div>
 		</div>
 	<?}?>

@@ -1,4 +1,11 @@
-<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
+<?if ($GLOBALS['CurrentController'] === 'main') {?>
+	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
+<?}?>
+<?if(isset($list_categories)):?>
+<?foreach($list_categories as &$v):?>
+<a href="<?=_base_url?>/<?=$v['translit']?>/?query=<?=$_SESSION['search']['query']?>&search_subcategory=<?=$v['id_category']?>"><input type="button" value="<?=$v['name']. ' ('. $v['count'].')'?>"></a>&nbsp;&nbsp;
+<?php endforeach;?>
+<?php endif;?>
 <?switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
@@ -235,6 +242,19 @@
 							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
 						<?}?>
 					</a>
+					<div class="add_to_fav_trend_block">
+						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
+							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
+								<i id="forfavorite_<?=$item['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span></div>
+							<?}else{?>
+								<i id="forfavorite_<?=$item['id_product']?>" class="notfavorite favorite_icon material-icons">favorite_border</i>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span></div>
+							<?}?>
+						<div id="fortrending_<?=$item['id_product']?>" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
+							<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></div>
+						<div class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?> </div>
+					</div>
 				</div>
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
@@ -285,16 +305,44 @@
 						</div>
 					</div>
 					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
-				</div>
-				<!-- <div class="product_info clearfix">
-					<div class="note clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div> -->
+				</div>				
 			</div>
 		<?}
 }?>
+
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+	<div class="mdl-snackbar__text"></div>
+	<button class="mdl-snackbar__action" type="button"></button>
+</div>
+
+<script>
+	$(function(){	
+		//Инициализация добавления товара в избранное
+		$('.favorite i').click(function(e) {
+			e.preventDefault();
+			if ($(this).closest('.favorite').hasClass('added')) {
+				$(this).closest('.favorite').removeClass('added');
+				RemoveFavorite($(this).closest('.favorite').data('id-product'), $(this));
+			}else{				
+				$(this).closest('.favorite').addClass('added');
+				AddFavorite($(this).closest('.favorite').data('id-product'), $(this));
+			}
+		});
+
+		//Инициализация добавления товара в список ожидания
+		$('.waiting_list').click(function(e) {
+			e.preventDefault();
+			if ($(this).hasClass('arrow')) {
+				$(this).removeClass('arrow');
+				RemoveFromWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
+			}else{
+				$(this).addClass('arrow');
+				AddInWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
+			}
+		});
+		
+		$('.product_main_img').click(function(event) {
+			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+		});
+	});
+</script>

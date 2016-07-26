@@ -538,35 +538,7 @@
 		</div>
 	<?}?>
 </section>
-<script>
-	// $.ajax({
-	// 	url: '//www.google.com/trends/fetchComponent',
-	// 	type: 'GET',
-	// 	dataType: 'JSON',
-	// 	data: {
-	// 		hl: 'ru-RU',
-	// 		q: 'мебель столы, мебель стулья',
-	// 		geo: 'UA',
-	// 		date: 'today+24-m',
-	// 		cid: 'TIMESERIES_GRAPH_0',
-	// 		export: '5',
-	// 		w: '400',
-	// 		h: '470'
-	// 	}
-	// })
-	// .done(function(data) {
-	// 	console.log("success");
-	// 	console.log(data);
-	// })
-	// .fail(function(data) {
-	// 	console.log("error");
-	// 	console.log(data);
-	// })
-	// .always(function(data) {
-	// 	console.log("complete");
-	// 	console.log(data);
-	// });
-	
+<script>	
 	$(function(){
 		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
@@ -574,7 +546,6 @@
 			$('.product_main_img').find('iframe').attr('src', '');
 			var src = $(this).find('img').attr('src'),
 				viewport_width = $(window).width();
-			/*console.log(src);*/
 			if(viewport_width > 711){
 				$('#owl-product_mini_img_js').find('img').removeClass('act_img');
 				$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
@@ -594,19 +565,15 @@
 			$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
 			$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
 			var src = $(this).find('iframe').attr('src');
-			/*console.log(src);*/
 			$('.product_main_img').find('iframe').attr('src', src);
 			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
 			});
-	});
-</script>
-<script>
-	$('#demand_graph').load(function(){
-		$(this).contents().find('body').css('overflow', 'hidden');
-		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
-	});
-
-	$(function(){
+		
+		$('#demand_graph').load(function(){
+			$(this).contents().find('body').css('overflow', 'hidden');
+			$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
+		});
+	
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();

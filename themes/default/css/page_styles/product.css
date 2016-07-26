@@ -211,7 +211,7 @@
 }
 .apps_panel .isfavorite,
 .apps_panel .isfavorite:hover {
-	color: red;
+	color: red;	
 }
 .apps_panel ul li i,
 .apps_panel ul li .waiting_list {
