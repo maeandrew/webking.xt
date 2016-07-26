@@ -131,13 +131,11 @@ class Address {
 		return true;
 	}
 
-	public function GetShippingCompanies($city = false){
-		if(!$city){
-			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies";
-			if(!$res = $this->db->GetArray($sql)){
-				return false;
-			}
-		}else{
+	public function GetShippingCompanies($courier = false){
+		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies
+			".($courier?'WHERE courier = 1':null);
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
 		return $res;
 	}
@@ -149,7 +147,6 @@ class Address {
 		}
 		return $res;
 	}
-
 	public function UseAPI($company, $function, $data = false){
 		$function = $company['api_prefix'].$function;
 		return $this->$function($company, $data);

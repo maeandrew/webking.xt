@@ -9,31 +9,25 @@
 	$Address = new Address();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
-			case "step":
+			case 'step':
 				$contragent = $Orders->GetContragentByLastOrder();
 				$tpl->Assign('contragent', $contragent);
 				$Customers->SetFieldsById($User->fields['id_user']);
 				$customer = $Customers->fields;
 				// Необходимо определить, какой тим диалога нужно вывести
 				// Проверяем, есть ли у клиента сохраненный адрес доставки
-				// Если клиент уже делал заказы
-				if($saved_address = $Address->GetAddressByIdUser($User->fields['id_user'])){
-					print_r($saved_address);
+				if($saved_addresses = $Address->GetAddressByIdUser($User->fields['id_user'])){
+					// Если клиент уже делал заказы
+					$tpl->Assign('saved_addresses', $saved_addresses);
 				}else{
-
-				}
-				// Если клиент делает первый заказ
-				
-				// step 2+
-			if($_POST['step'] > 1){
-					// Получаем список всех областей
-					$regions_list = $Address->GetRegionsList();
-					$tpl->Assign('regions_list', $regions_list);
-					$cities_count = count($Address->GetCitiesList());
-					$tpl->Assign('cities_count', $cities_count);
-					// Если есть сохраненный адрес
-						
-					}else{
+					// Если клиент делает первый заказ
+					// step 2+
+					if($_POST['step'] > 1){
+						// Получаем список всех областей
+						$regions_list = $Address->GetRegionsList();
+						$tpl->Assign('regions_list', $regions_list);
+						$cities_count = count($Address->GetCitiesList());
+						$tpl->Assign('cities_count', $cities_count);
 						// Если у клиента уже сохранен его город
 						if($customer['id_city'] > 0){
 							// Получаем данные о городе
@@ -44,42 +38,43 @@
 							$tpl->Assign('cities_list', $cities_list);
 						}
 					}
-				}
-				if($_POST['step'] > 2){
-					if(isset($saved_city)){
-						$count = array(
-							'warehouse' => 0,
-							'courier' => 0
-						);
-						$data['city'] = $saved_city['title'];
-						$saved_region = $Address->GetRegionById($saved_city['id_region']);
-						$tpl->Assign('saved_region', $saved_region);
-						$data['region'] = $saved_region['title'];
-						//////////////////////////////////////////////////////////////////////
-						// проверяем, есть ли в этом городе отделения транспортных компаний //
-						//////////////////////////////////////////////////////////////////////
-						$shiping_companies = $Address->GetShippingCompanies();
-						foreach($shiping_companies as $company){
-							if($company['courier'] == 1){
-								$count['courier']++;
+					if($_POST['step'] > 2){
+						if(isset($saved_city)){
+							$count = array(
+								'warehouse' => 0,
+								'courier' => 0
+							);
+							$data['city'] = $saved_city['title'];
+							$saved_region = $Address->GetRegionById($saved_city['id_region']);
+							$tpl->Assign('saved_region', $saved_region);
+							$data['region'] = $saved_region['title'];
+							//////////////////////////////////////////////////////////////////////
+							// проверяем, есть ли в этом городе отделения транспортных компаний //
+							//////////////////////////////////////////////////////////////////////
+							$shiping_companies = $Address->GetShippingCompanies();
+							foreach($shiping_companies as $company){
+								if($company['courier'] == 1){
+									$count['courier']++;
+								}
+								if($company['has_api'] == 1 && $company['api_key'] != ''){
+									$city = $Address->UseAPI($company, 'getCity', $data);
+									$count['warehouse'] += !empty($city)?1:0;
+								}
 							}
-							if($company['has_api'] == 1 && $company['api_key'] != ''){
-								$city = $Address->UseAPI($company, 'getCity', $data);
-								$count['warehouse'] += !empty($city)?1:0;
-							}
+							$tpl->Assign('count', $count);
+							// if(!$DeliveryService->SetFieldsByInput($saved_city['title'], $saved_city['id_region'])){
+							// 	unset($alldeliverymethods[3]);
+							// }
+							// $DeliveryService->SetListByRegion($saved_city['names_regions']);
+							// $availabledeliveryservices = $DeliveryService->list;
+							// $Delivery->SetFieldsByInput($saved_city['shipping_comp'], $saved_city['name'], $saved_city['region']);
+							// $availabledeliverydepartment = $Delivery->list;
+							// $tpl->Assign('availabledeliveryservices', $availabledeliveryservices);
+							// $tpl->Assign('availabledeliverydepartment', $availabledeliverydepartment);
 						}
-						$tpl->Assign('count', $count);
-						// if(!$DeliveryService->SetFieldsByInput($saved_city['title'], $saved_city['id_region'])){
-						// 	unset($alldeliverymethods[3]);
-						// }
-						// $DeliveryService->SetListByRegion($saved_city['names_regions']);
-						// $availabledeliveryservices = $DeliveryService->list;
-						// $Delivery->SetFieldsByInput($saved_city['shipping_comp'], $saved_city['name'], $saved_city['region']);
-						// $availabledeliverydepartment = $Delivery->list;
-						// $tpl->Assign('availabledeliveryservices', $availabledeliveryservices);
-						// $tpl->Assign('availabledeliverydepartment', $availabledeliverydepartment);
 					}
 				}
+				
 				$tpl->Assign('step', $_POST['step']);
 				$tpl->Assign('customer', $customer);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'quiz.tpl');
@@ -102,8 +97,13 @@
 						}
 						break;
 					case 3:
+						$data = $_POST;
 						// Создаем клиенту адрес доставки
-						print_r($_POST);
+						$region = $Address->GetRegionByTitle($_POST['region']);
+						$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
+						$data['id_region'] = $city['id_region'];
+						$data['id_city'] = $city['id'];
+						print_r($data);
 						// $Address->AddAddress($_POST);
 						break;
 					default:

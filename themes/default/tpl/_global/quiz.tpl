@@ -39,42 +39,64 @@
 <div class="modal_container step_<?=$step?> active" data-step="<?=$step?>">
 	<?switch($step){
 		case 1:
-			if($customer['first_name'].$customer['middle_name'].$customer['last_name'] != ''){
-				$client_name = $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name'];
-			}else{
-				$client_name = $_SESSION['member']['name'];
-			}?>
-			<div class="quiz_header">
-				<h6>Здравствуйте! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h6>
-				<span>Сейчас я вижу Вас как <?=$client_name?>, скажите, как Вас зовут?</span>
-			</div>
-			<div class="quiz_content">
-				<form action="" class="mdl-grid">
-					<div class="mdl-cell mdl-cell--12-col">
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="last_name">
-							<input class="mdl-textfield__input" type="text" name="last_name" value="<?=$customer['last_name']?>">
-							<label class="mdl-textfield__label" for="last_name">Фамилия</label>
-							<span class="mdl-textfield__error">Введите фамилию</span>
+			if(isset($saved_addresses)){?>
+				<div class="quiz_header">
+					<h6>Здравствуйте, <?=$customer['first_name']?> <?=$customer['middle_name']?>! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h6>
+					<span>Выберите адрес доставки.</span>
+				</div>
+				<div class="quiz_content">
+					<form action="" class="mdl-grid">
+						<div class="mdl-cell mdl-cell--12-col">
+							<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label address">
+								<select id="region" name="region" class="mdl-selectfield__select" required onChange="addressSelect($(this));">
+									<option disabled selected>Выберите адрес</option>
+									<?foreach($saved_addresses as $address){?>
+										<option value="<?=$address['id']?>"><?=$address['title'] == ''?$address['region_title'].', '.$address['city_title']:$address['title']?></option>
+									<?}?>
+								</select>
+								<label class="mdl-selectfield__label" for="region">Адрес доставки</label>
+							</div>
 						</div>
-					</div>
-					<div class="mdl-cell mdl-cell--12-col">
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="first_name">
-							<input class="mdl-textfield__input" type="text" name="first_name" value="<?=$customer['first_name']?>">
-							<!-- value="Александр"> -->
-							<label class="mdl-textfield__label" for="first_name">Имя</label>
-							<span class="mdl-textfield__error">Введите имя</span>
+					</form>
+				</div>
+			<?}else{
+				if($customer['first_name'].$customer['middle_name'].$customer['last_name'] != ''){
+					$client_name = $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name'];
+				}else{
+					$client_name = $_SESSION['member']['name'];
+				}?>
+				<div class="quiz_header">
+					<h6>Здравствуйте! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h6>
+					<span>Сейчас я вижу Вас как <?=$client_name?>, скажите, как Вас зовут?</span>
+				</div>
+				<div class="quiz_content">
+					<form action="" class="mdl-grid">
+						<div class="mdl-cell mdl-cell--12-col">
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="last_name">
+								<input class="mdl-textfield__input" type="text" name="last_name" value="<?=$customer['last_name']?>">
+								<label class="mdl-textfield__label" for="last_name">Фамилия</label>
+								<span class="mdl-textfield__error">Введите фамилию</span>
+							</div>
 						</div>
-					</div>
-					<div class="mdl-cell mdl-cell--12-col">
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middle_name">
-							<input class="mdl-textfield__input" type="text" name="middle_name" value="<?=$customer['middle_name']?>">
-							<label class="mdl-textfield__label" for="middle_name">Отчество</label>
-							<span class="mdl-textfield__error">Введите отчество</span>
+						<div class="mdl-cell mdl-cell--12-col">
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="first_name">
+								<input class="mdl-textfield__input" type="text" name="first_name" value="<?=$customer['first_name']?>">
+								<!-- value="Александр"> -->
+								<label class="mdl-textfield__label" for="first_name">Имя</label>
+								<span class="mdl-textfield__error">Введите имя</span>
+							</div>
 						</div>
-					</div>
-				</form>
-			</div>
-			<?break;
+						<div class="mdl-cell mdl-cell--12-col">
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="middle_name">
+								<input class="mdl-textfield__input" type="text" name="middle_name" value="<?=$customer['middle_name']?>">
+								<label class="mdl-textfield__label" for="middle_name">Отчество</label>
+								<span class="mdl-textfield__error">Введите отчество</span>
+							</div>
+						</div>
+					</form>
+				</div>
+			<?}
+			break;
 		case 2:?>
 			<div class="quiz_header">
 				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, мы доставляем в <?=$cities_count?> городов Украины, а откуда Вы?</h6>
@@ -146,7 +168,7 @@
 					<div class="mdl-cell mdl-cell--12-col hidden">
 						<div class="mdl-textfield mdl-js-textfield address">
 							<textarea id="address" name="address" class="mdl-textfield__input" type="text" rows= "3" disabled></textarea>
-							<label class="mdl-textfield__label" for="address">Адрес</label>
+							<label class="mdl-textfield__label" for="address">Адрес доставки</label>
 						</div>
 					</div>
 					<!--Появляется после выбора службы доставки-->

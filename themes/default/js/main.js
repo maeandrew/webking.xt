@@ -1051,7 +1051,7 @@ $(function(){
 			}
 		}
 		function validateq(data){
-			addLoadAnimation('#quiz');
+			// addLoadAnimation('#quiz');
 			if(data.target_step > data.current_step && data.validate === true){
 				ajax('quiz', 'complete_step', data).done(function(response){
 					if(response == true){

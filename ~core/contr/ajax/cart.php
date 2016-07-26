@@ -460,6 +460,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 						$res['message'] = 'Заказ сформирован!';
 						$res['status'] = 200;
+						$_SESSION['member']['last_order'] = $id_order;
 						// $Customers->updatePhones($phone);
 					}else{
 						$res['message'] = 'Ошибка формирования заказа!';

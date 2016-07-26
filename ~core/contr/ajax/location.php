@@ -85,8 +85,8 @@
 				//////////////////////////////////////////////////////////////////////
 				// проверяем, есть ли в этом городе отделения транспортных компаний //
 				//////////////////////////////////////////////////////////////////////
-				$shiping_companies = $Address->GetShippingCompanies();
-				foreach($shiping_companies as $company){
+				$shipping_companies = $Address->GetShippingCompanies();
+				foreach($shipping_companies as $company){
 					if($company['courier'] == 1){
 						$count['courier']++;
 					}
@@ -107,12 +107,19 @@
 				break;
 			case "deliverySelect":
 				$echo = '<option disabled selected>Выберите службу доставки</option>';
-				$shiping_companies = $Address->GetShippingCompanies();
-				foreach($shiping_companies as $company){
-					if($company['has_api'] == 1 && $company['api_key'] != ''){
-						$city = $Address->UseAPI($company, 'getCity', $_POST);
-						if(!empty($city)){
-							$echo .= '<option data-ref="'.htmlspecialchars($city['Ref']).'" value="'.$company['id'].'">'.$company['title'].'</option>';					
+				if($_POST['id_delivery'] == 2){
+					$shipping_companies = $Address->GetShippingCompanies(true);
+					foreach($shipping_companies as $company){
+						$echo .= '<option value="'.$company['id'].'">'.$company['title'].'</option>';
+					}
+				}else{
+					$shipping_companies = $Address->GetShippingCompanies();
+					foreach($shipping_companies as $company){
+						if($company['has_api'] == 1 && $company['api_key'] != ''){
+							$city = $Address->UseAPI($company, 'getCity', $_POST);
+							if(!empty($city)){
+								$echo .= '<option data-ref="'.htmlspecialchars($city['Ref']).'" value="'.$company['id'].'">'.$company['title'].'</option>';					
+							}
 						}
 					}
 				}
