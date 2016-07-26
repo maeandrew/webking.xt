@@ -7,6 +7,7 @@ hr {
 .table tr {
 	line-height: 2em !important;
 	border-bottom: 1px solid #d7d7d7;
+	background: #fff;
 }
 .color-red {
 	color:#f00;
@@ -145,7 +146,8 @@ table {
 }
 
 .returns_table.table thead tr {
-	background-color: #EFEFEF;
+	/*background-color: #EFEFEF;*/
+	background: #fff;
 }
 
 .returns_table tr:hover {

@@ -1,5 +1,5 @@
 hr{margin:10px 0}
-.table tr{line-height:2em!important;border-bottom:1px solid #d7d7d7}
+.table tr{line-height:2em!important;border-bottom:1px solid #d7d7d7;background:#fff}
 .color-red{color:red}
 .fixed_thead{position:fixed;top:52px;z-index:100}
 .sb_block .main_menu{display:none}
@@ -29,7 +29,7 @@ footer.mdl-mega-footer{width:100%}
 .contragent_cab button[data-target=work_days_js] span{padding-right:5px}
 table.table{margin-bottom:15px;text-align:center;font-size:16px}
 table{border-collapse:collapse;border-spacing:0}
-.returns_table.table thead tr{background-color:#EFEFEF}
+.returns_table.table thead tr{background:#fff}
 .returns_table tr:hover{background-color:#fff}
 .returns_table .table tbody tr:hover{background-color:#ffeadd}
 .returns_table .table thead th a{font-weight:500}
