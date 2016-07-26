@@ -846,6 +846,16 @@ $(function(){
 		}
 	});
 
+	$('body').on('click', '.avg_chart_det_btn_js', function(){
+		ajax('products', 'ChartsByCategory', {id_category: $(this).data('idcategory')
+		}).done(function(data){
+			console.log('success');
+			console.log(data);
+		}).fail(function(data){
+			console.log('fail');
+		});
+	});
+
 	// Обработка примечания
 	$('.note textarea').on('blur', function(){
 		$(this).css({
