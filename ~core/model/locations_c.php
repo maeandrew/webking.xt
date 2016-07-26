@@ -14,6 +14,24 @@ class Address {
 		}
 		return $res;
 	}
+	public function GetAddressByIdUser($id_user){
+		$sql ="SELECT a.*, lr.title AS region_title, lc.title AS city_title,
+			dt.title AS delivery_type_title, sc.title AS shipping_company_title
+			FROM "._DB_PREFIX_."address AS a
+			LEFT JOIN "._DB_PREFIX_."locations_cities AS lc
+				ON lc.id = a.id_city
+			LEFT JOIN "._DB_PREFIX_."locations_regions AS lr
+				ON lr.id = a.id_region
+			LEFT JOIN "._DB_PREFIX_."shipping_companies AS sc
+				ON sc.id = a.id_delivery_service
+			LEFT JOIN "._DB_PREFIX_."locations_delivery_type AS dt
+				ON dt.id = a.id_delivery
+			WHERE a.id_user = ".$id_user;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 	/**
 	 * [GetRegionsList description]
 	 */

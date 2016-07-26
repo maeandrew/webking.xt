@@ -25,14 +25,21 @@
 					$tpl->Assign('regions_list', $regions_list);
 					$cities_count = count($Address->GetCitiesList());
 					$tpl->Assign('cities_count', $cities_count);
-					// Если у клиента уже сохранен его город
-					if($customer['id_city'] > 0){
-						// Получаем данные о городе
-						$saved_city = $Address->GetCityById($customer['id_city']);
-						$tpl->Assign('saved_city', $saved_city);
-						// Получаем список городов по сохраненной области клиента
-						$cities_list = $Address->GetCitiesList((int) $saved_city['id_region']);
-						$tpl->Assign('cities_list', $cities_list);
+					// Проверяем, есть ли у клиента сохраненный адрес доставки
+					$saved_address = $Address->GetAddressByIdUser($User->fields['id_user']);
+					// Если есть сохраненный адрес
+					if($saved_address){
+						print_r($saved_address);
+					}else{
+						// Если у клиента уже сохранен его город
+						if($customer['id_city'] > 0){
+							// Получаем данные о городе
+							$saved_city = $Address->GetCityById($customer['id_city']);
+							$tpl->Assign('saved_city', $saved_city);
+							// Получаем список городов по сохраненной области клиента
+							$cities_list = $Address->GetCitiesList((int) $saved_city['id_region']);
+							$tpl->Assign('cities_list', $cities_list);
+						}
 					}
 				}
 				if($_POST['step'] > 2){
