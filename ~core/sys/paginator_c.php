@@ -86,7 +86,7 @@ class Paginator{
 							$url = $base_url.'/p'.$page;
 						}
 					}
-					$url .= (isset($get_string) && !isset($_GET['query']))?'?'.$get_string:null;
+					$url .= (isset($get_string) && !isset($_GET['search_subcategory']))?'?'.$get_string:null;
 					if(is_numeric($key)){
 						$pages['main'][] = '<li class="page'.$page.'"><a href="'.$url.'" class="animate">'.$page.'</a></li>';
 					}else{
