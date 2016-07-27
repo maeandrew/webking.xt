@@ -85,10 +85,14 @@ if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client'][
 	}
 }
 // получение всех настроек с БД
-$sql = "SELECT name, value FROM "._DB_PREFIX_."config WHERE sid = 1";
+$sql = "SELECT name, caption, value FROM "._DB_PREFIX_."config WHERE sid = 1";
 $arr = $db->GetArray($sql);
 // формирование глобального массива настроек
+$GLOBALS['CONFIG']['promo_correction_set'] = false;
 foreach($arr as $i){
+	if(substr($i['caption'], 0, 5) == 'promo'){
+		$GLOBALS['CONFIG']['promo_correction_set'][] = str_replace('correction_set_', '', $i['name']);
+	}
 	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
 }
 // default controller, if no one else has come
