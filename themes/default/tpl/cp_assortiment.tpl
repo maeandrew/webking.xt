@@ -205,7 +205,7 @@
 	</div><!--class="cabinet"-->
 <script>
 //Фиксация Заголовка таблицы
-	$(window).scroll(function(){
+	/*$(window).scroll(function(){
 		if($(this).scrollTop() >= 160){
 			if(!$('.table_thead').hasClass('fixed_thead')){
 				var width = $('.table_tbody').width();
@@ -218,5 +218,5 @@
 				$('#second').css("margin-top", "0");
 			}
 		}
-	});
+	});*/
 </script>

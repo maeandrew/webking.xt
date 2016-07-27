@@ -3,7 +3,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="productae">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid" id="product_form">
+	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid" id="product_form" >
 		<div class="prod_head">
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 				<div class="fl head_block">
@@ -12,7 +12,7 @@
 				</div>
 				<div class="fr">
 					<span><b>Наличие:</b> <?=($_POST['price_opt'] > 0 || $_POST['price_mopt'] > 0)  && $_POST['visible'] != 0?'Есть':'Нет'?></span>
-					<button name="smb_duplicate" type="submit" class="btn-m-lblue">Дублировать</button>
+					<button name="smb_duplicate" type="submit" class="btn-m-lblue duplicate_btn_js">Дублировать</button>
 					<span class="product_view"><a href="<?=$GLOBALS['URL_base'].$_POST['translit']?>.html" target="_blank">Просмотр товара</a></span>
 					<input type="hidden" name="id_product" id="id_product" value="<?=isset($_POST['id_product'])?$_POST['id_product']:0?>">
 					<button name="smb_new" type="submit" class="btn-m-default">Сохранить и создать новый</button>
@@ -698,6 +698,13 @@
 		}else{
 			$('.delcat').hide();
 		}
+
+		$('.duplicate_btn_js').on('click', function(e){
+			if(!window.confirm('Подтвердите дублирование')){
+				e.preventDefault();				
+			}
+		});
+
 		//Удаляем div выбора дополнительной категории
 		$("body").on('click', '.delcat', function(){
 			$(this).closest(".catblock").remove();
