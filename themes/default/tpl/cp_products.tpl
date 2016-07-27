@@ -153,8 +153,19 @@
 
 		ListenPhotoHover();//Инициализания Preview
 
+		/* Открытие фильтров моб.вид */		
 		$('.filters_mob_btn_js').on('click', function(){
-			console.log('123');
+			if($('.activeFilters_js').hasClass('active') === false) {				
+				var name = $('.activeFilters_js').find('i').text();
+				if (name == 'filter_list') {
+					$('.activeFilters_js').find('i').text('highlight_off');
+					$('.activeFilters_js').find('span.title').text('Скрыть');
+					$('.second_nav, .news ').slideUp();
+					$('.included_filters').hide();
+					$('.filters').fadeIn();
+					$('.activeFilters_js').addClass('active');
+				}
+			}
 		});
 	});
 

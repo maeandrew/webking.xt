@@ -693,18 +693,14 @@ label.info_key {
 	font-size: 35px;
 	margin-top: calc(50% - 12px);
 }
-
-
-
 .list_view .product_article {
 	display: block;
 }
-
+/* Стили "Добавить в избранное" */
 .isfavorite,
 .favorite_icon:hover {
 	color: red;
 }
-
 .arrow,
 .waiting_list:hover {
 	color: #FF5722;
@@ -712,6 +708,20 @@ label.info_key {
 .favorite_icon:hover,
 .waiting_list:hover {
 	cursor: pointer;
+}
+/* Стили акции */
+.market_action {
+	background: #FF5722;
+    color: #fff;
+    padding: 5px;
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    top: 0;
+}
+.market_action p {
+	font-size: 12px;
+	line-height: 40px;
 }
 
 @media (max-width: 1440px) {
