@@ -126,6 +126,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 .favorite_icon:hover,.isfavorite{color:red}
 .arrow,.waiting_list:hover{color:#FF5722}
 .favorite_icon:hover,.waiting_list:hover{cursor:pointer}
+.market_action{background:#FF5722;color:#fff;padding:5px;width:52px;height:52px;position:absolute;top:0}
+.market_action p{font-size:12px;line-height:40px}
 @media (max-width:1440px){.block_view .products .card{width:calc(25% - 20px)}
 }
 @media (max-width:1280px){.block_view .products .card{width:calc(100%/3 - 20px)}

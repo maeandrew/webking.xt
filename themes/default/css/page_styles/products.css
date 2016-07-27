@@ -634,15 +634,18 @@ label.info_key {
 	margin-top: 5px;
 }
 
-.block_view .add_to_fav_trend_block {
-	background: #F3F3F3;
+.add_to_fav_trend_block {
+    background: rgba(255, 255, 255, .7);
 	position: absolute;
+	display: block;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    opacity: 0.7;    
-    display: none;
+    opacity: 0;
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 .block_view .add_to_fav_trend_block .favorite, 
 .block_view .add_to_fav_trend_block .fortrending {
@@ -665,17 +668,6 @@ label.info_key {
 .block_view .preview_icon_block {
 	display: none;
 }
-
-.list_view .add_to_fav_trend_block {
-	background: #F3F3F3;
-	position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 10px;
-    opacity: 0.7;    
-    display: none;
-}
 .list_view .add_to_fav_trend_block .favorite, 
 .list_view .add_to_fav_trend_block .fortrending {
 	display: none;
@@ -693,18 +685,14 @@ label.info_key {
 	font-size: 35px;
 	margin-top: calc(50% - 12px);
 }
-
-
-
 .list_view .product_article {
 	display: block;
 }
-
+/* Стили "Добавить в избранное" */
 .isfavorite,
 .favorite_icon:hover {
 	color: red;
 }
-
 .arrow,
 .waiting_list:hover {
 	color: #FF5722;
@@ -712,6 +700,20 @@ label.info_key {
 .favorite_icon:hover,
 .waiting_list:hover {
 	cursor: pointer;
+}
+/* Стили акции */
+.market_action {
+	background: #FF5722;
+    color: #fff;
+    padding: 5px;
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    top: 0;
+}
+.market_action p {
+	font-size: 12px;
+	line-height: 40px;
 }
 
 @media (max-width: 1440px) {
