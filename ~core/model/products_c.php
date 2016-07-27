@@ -568,7 +568,7 @@ class Products {
 	 * [SetProductsList4csvProm description]
 	 */
 	public function SetProductsList4csvProm(){
-		$sql = "SELECT p.art, p.name, p.descr, p.img_1,
+		$sql = "SELECT p.art, p.name, p.translit, p.descr, p.img_1,
 			un.unit_prom AS units, p.price_opt, p.name_index,
 			p.price_mopt, p.opt_correction_set,
 			p.mopt_correction_set, p.min_mopt_qty,

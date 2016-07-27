@@ -54,7 +54,7 @@ foreach($plist AS $p){
 		$p['art'],
 		$p['name'],
 		str_replace(' ', ',', $p['name_index']),
-		$p['descr'],
+		$p['descr'].' <a href="'.$GLOBALS['URL_base'].'/'.$p['translit'].'.html"><img src="'.$GLOBALS['URL_base'].'/images/buy.png" /></a>',
 		$p['min_mopt_qty'] == 1?'u':'w',
 		round($p['price_mopt']*$mopt_coeff, 2),
 		'UAH',
