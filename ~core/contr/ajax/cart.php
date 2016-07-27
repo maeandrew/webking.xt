@@ -501,10 +501,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode('ok');
 				break;
 			case 'DeletePromo':
+				$echo = true;
 				if(!$cart->UpdateCart(null, 0, 1, 0, $_POST['id_cart'])){
-					echo json_encode('no');
-				};
-				echo json_encode('ok');
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
+			case 'SaveOrderNote':
+				$echo = true;
+				if(!$cart->UpdateCartNote($_POST['note'])){
+					$echo = false;
+				}
+				echo json_encode($echo);
 				break;
 			default:
 				break;

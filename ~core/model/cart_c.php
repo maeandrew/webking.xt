@@ -95,22 +95,22 @@ class Cart {
 	 * @param integer $id_product [description]
 	 * @param boolean $id_cart    [description]
 	 */
-//	public function RemoveFromCart($id_product, $id_cart = false){
-//		unset($_SESSION['cart']['products'][$id_product]);
-//		if($id_cart){
-//			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
-//				WHERE id_cart = ". $id_cart ."
-//				AND id_product = ".$id_product;
-//			$this->db->StartTrans();
-//			if(!$this->db->Query($sql)){
-//				$this->db->FailTrans();
-//				return false;
-//			}
-//			$this->db->CompleteTrans();
-//		}
-//		$this->RecalcCart();
-//		return $_SESSION['cart'];
-//	}
+	//	public function RemoveFromCart($id_product, $id_cart = false){
+		// unset($_SESSION['cart']['products'][$id_product]);
+		// if($id_cart){
+		// 	$sql = "DELETE FROM "._DB_PREFIX_."cart_product
+		// 		WHERE id_cart = ". $id_cart ."
+		// 		AND id_product = ".$id_product;
+		// 	$this->db->StartTrans();
+		// 	if(!$this->db->Query($sql)){
+		// 		$this->db->FailTrans();
+		// 		return false;
+		// 	}
+		// 	$this->db->CompleteTrans();
+		// }
+		// $this->RecalcCart();
+		// return $_SESSION['cart'];
+	//	}
 
 	// пересчет корзины
 	public function RecalcCart(){
@@ -171,16 +171,16 @@ class Cart {
 		}
 		unset($_SESSION['cart']['id']);
 		//Закоментированно временно. Поиск ошибки.
-//		if($id_cart){
-//			$sql = "DELETE FROM "._DB_PREFIX_."cart_product
-//					WHERE id_cart = ". $id_cart;
-//			$this->db->StartTrans();
-//			if(!$this->db->Query($sql)) {
-//				$this->db->FailTrans();
-//				return false;
-//			}
-//			$this->db->CompleteTrans();
-//		}
+		// if($id_cart){
+		// 	$sql = "DELETE FROM "._DB_PREFIX_."cart_product
+		// 			WHERE id_cart = ". $id_cart;
+		// 	$this->db->StartTrans();
+		// 	if(!$this->db->Query($sql)) {
+		// 		$this->db->FailTrans();
+		// 		return false;
+		// 	}
+		// 	$this->db->CompleteTrans();
+		// }
 		$this->RecalcCart();
 		return true;
 	}
@@ -200,15 +200,6 @@ class Cart {
 		}
 		return true;
 	}
-
-	//(
-//[id_product] => 77081
-//[quantity] => 3
-//[button] => false
-//[direction] => false
-
-//)
-
 
 	// Заполняет корзину товарами, такими как в заказе $id_order
 	public function FillByOrderId($id_order, $add = null){
@@ -254,11 +245,7 @@ class Cart {
 
 	// Проверка актуальности цен
 	public function IsActualPrice($product){
-
-
 		//print_r($product);die();
-
-
 		return true;
 	}
 
@@ -494,8 +481,8 @@ class Cart {
 
 	// Выборка всех корзин связанных промо-кодом
 	public function GetInfoForPromo($promo){
-			global $db;
-			$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name,
+		global $db;
+		$sql = "SELECT c.id_cart, c.id_user, c.status, c.adm, c.ready, u.name,
 			u.phone, c.promo, u.email
 			FROM "._DB_PREFIX_."cart AS c
 			LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
@@ -546,8 +533,8 @@ class Cart {
 
 	// Выборка всех товаров из корзин связанных промо-кодом
 	public function GetCartForPromo($promo){
-			global $db;
-			$sql = "SELECT p.id_product, p.art, p.name, p.images,
+		global $db;
+		$sql = "SELECT p.id_product, p.art, p.name, p.images,
 					(CASE WHEN SUM(cp.quantity)>=p.inbox_qty THEN p.price_opt ELSE p.price_mopt END) as price,
 					SUM(cp.quantity) AS quantity, p.mopt_correction_set, p.opt_correction_set,
 					p.inbox_qty,
@@ -648,56 +635,52 @@ class Cart {
 	}
 
 
-//	public function GetInfoJO($condition){
-//		switch ($condition){
-//			case 'joactive':
-//				$status = " AND c.`status` = 10 ";
-//				break;
-//			case 'jocompleted':
-//				$status = " AND c.`status` = 11 ";
-//				break;
-//			case 'joinwork':
-//				$status = " AND c.`status` = 12 ";
-//				break;
-//		}
-//		global $db;
-//		$sql = "SELECT c.*, u.name, u.phone, u.email, COUNT(cp2.id_cart) AS count_carts,
-//				cp.id_user AS adm_id, us.name AS adm_name, us.phone AS adm_phones, us.email AS adm_email
-//				FROM xt_cart AS c
-//				LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
-//				LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
-//				LEFT JOIN "._DB_PREFIX_."cart AS cp2 ON c.promo = cp2.promo
-//				LEFT JOIN "._DB_PREFIX_."user AS us ON cp.id_user = us.id_user
-//				WHERE c.id_user = '".$_SESSION['member']['id_user']."'
-//				".$status."
-//				GROUP BY c.promo
-//				HAVING count_carts > 0
-//				ORDER BY creation_date DESC";
-//		$res = $db->GetArray($sql);
-//
-//		if(!$res){
-//			return false;
-//		}
-//		foreach ($res as &$v){
-//			//Добавляем список всех товаров со всех корзин, связанных промокодом
-//			$a = $this->GetCartForPromo($v['promo']);
-//			$v['products'] = $a['products'];
-//			$v['total_sum'] = $a['total_sum'];
-//			$v['discount'] = $a['discount'];
-//			//Добавляем информацию об участниках совместного заказа
-//			$v['infoCarts'] = $this->GetInfoForPromo($v['promo']);
-//			$b = $this->GetProductsForPromo($v['promo']);
-//			foreach($v['infoCarts'] as &$val){
-//				$val['sum_cart'] = $b[$val['id_user']]['total_sum'];
-//			}
-//		}
-////		echo'<pre>';
-////		print_r($res);
-////		echo'</pre>';
-////		die();
-//		unset($a, $b);
-//		return $res;
-//	}
+	//	public function GetInfoJO($condition){
+		// switch ($condition){
+		// 	case 'joactive':
+		// 		$status = " AND c.`status` = 10 ";
+		// 		break;
+		// 	case 'jocompleted':
+		// 		$status = " AND c.`status` = 11 ";
+		// 		break;
+		// 	case 'joinwork':
+		// 		$status = " AND c.`status` = 12 ";
+		// 		break;
+		// }
+		// global $db;
+		// $sql = "SELECT c.*, u.name, u.phone, u.email, COUNT(cp2.id_cart) AS count_carts,
+		// 		cp.id_user AS adm_id, us.name AS adm_name, us.phone AS adm_phones, us.email AS adm_email
+		// 		FROM xt_cart AS c
+		// 		LEFT JOIN "._DB_PREFIX_."user AS u ON c.id_user = u.id_user
+		// 		LEFT JOIN "._DB_PREFIX_."cart AS cp ON c.promo = cp.promo  AND cp.adm = 1
+		// 		LEFT JOIN "._DB_PREFIX_."cart AS cp2 ON c.promo = cp2.promo
+		// 		LEFT JOIN "._DB_PREFIX_."user AS us ON cp.id_user = us.id_user
+		// 		WHERE c.id_user = '".$_SESSION['member']['id_user']."'
+		// 		".$status."
+		// 		GROUP BY c.promo
+		// 		HAVING count_carts > 0
+		// 		ORDER BY creation_date DESC";
+		// $res = $db->GetArray($sql);
+
+		// if(!$res){
+		// 	return false;
+		// }
+		// foreach ($res as &$v){
+		// 	//Добавляем список всех товаров со всех корзин, связанных промокодом
+		// 	$a = $this->GetCartForPromo($v['promo']);
+		// 	$v['products'] = $a['products'];
+		// 	$v['total_sum'] = $a['total_sum'];
+		// 	$v['discount'] = $a['discount'];
+		// 	//Добавляем информацию об участниках совместного заказа
+		// 	$v['infoCarts'] = $this->GetInfoForPromo($v['promo']);
+		// 	$b = $this->GetProductsForPromo($v['promo']);
+		// 	foreach($v['infoCarts'] as &$val){
+		// 		$val['sum_cart'] = $b[$val['id_user']]['total_sum'];
+		// 	}
+		// }
+		// unset($a, $b);
+		// return $res;
+	//	}
 
 	// Выборка всех товаров по id_cart
 	public function GetProductsForCart($id_cart){
@@ -739,6 +722,21 @@ class Cart {
 			.($ready !== false?"ready = ".$ready.", ":null);
 		$sql = substr($sql, 0, -2);
 		$sql .= " WHERE id_cart = ". $id_cart;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	//Добавить/удалить статус и промокод для заказа (корзины)
+	public function UpdateCartNote($note){
+		$_SESSION['cart']['note'] = $note;
+		$sql = "UPDATE "._DB_PREFIX_."cart
+			SET note = ".$this->db->Quote($note)."
+			WHERE id_cart = ".$_SESSION['cart']['id'];
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
