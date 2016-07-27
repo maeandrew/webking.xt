@@ -386,7 +386,7 @@ function openObject(id, params){
 			GetCartAjax(params);
 			break;
 		case 'quiz':
-			GetQuizAjax({reload: false, step: 3});
+			GetQuizAjax({reload: false});
 			break;
 	}
 	if(params === undefined || params.reload !== true){

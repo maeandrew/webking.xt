@@ -14,6 +14,15 @@ class Address {
 		}
 		return $res;
 	}
+	public function GetPrimaryAddress($id_user){
+		$sql = "SELECT * FROM "._DB_PREFIX_."address
+		WHERE primary = 1
+		AND id_user = ".$id_user;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 	public function GetAddressByIdUser($id_user){
 		$sql ="SELECT a.*, lr.title AS region_title, lc.title AS city_title,
 			dt.title AS delivery_type_title, sc.title AS shipping_company_title
@@ -115,20 +124,26 @@ class Address {
 		return $res;
 	}
 	public function AddAddress($data){
-		$f['title'] = $data['title'];
-		$f['id_user'] = $data['id_user'];
-		$f['region'] = $data['region'];
-		$f['city'] = $data['city'];
+		$f['title'] = isset($data['title'])?$data['title']:'Адрес';
+		$f['id_user'] = isset($data['id_user'])?$data['id_user']:$_SESSION['member']['id_user'];
+		$f['id_region'] = $data['id_region'];
+		$f['id_city'] = $data['id_city'];
 		$f['id_delivery'] = $data['id_delivery'];
 		$f['id_delivery_service'] = $data['id_delivery_service'];
-		$f['department'] = $data['department'];
+		if(!empty($data['delivery_department'])){
+			$f['delivery_department'] = $data['delivery_department'];
+		}
+		if(!empty($data['address'])){
+			$f['address'] = $data['address'];
+		}
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'address', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
+		$id_address = $this->db->GetLastId();
 		$this->db->CompleteTrans();
-		return true;
+		return $id_address;
 	}
 
 	public function GetShippingCompanies($courier = false){

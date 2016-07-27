@@ -705,7 +705,7 @@ class Mailer extends PHPMailer {
 			$sql = "SELECT DISTINCT email, name, md5(id_user) as skey FROM "._DB_PREFIX_."user WHERE news = 1 ".$limit;
 			$clients = $db->GetArray($sql);
 		}
-		$this->Subject =$params['title'];
+		$this->Subject = $params['title'];
 		foreach($clients as &$client){
 			//замедлитель рассылки
 			// Задаем тело письма

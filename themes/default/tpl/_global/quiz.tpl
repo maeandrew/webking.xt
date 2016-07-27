@@ -151,31 +151,35 @@
 								<?}?>
 							</select>
 							<label class="mdl-selectfield__label" for="id_delivery">Способ доставки</label>
+							<span class="mdl-textfield__error">Выберите способ доставки!</span>
 						</div>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col">
 						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service">
 							<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));" disabled></select>
 							<label class="mdl-selectfield__label" for="id_delivery_service">Служба доставки</label>
+							<span class="mdl-textfield__error">Выберите службу доставки!</span>
 						</div>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col hidden">
 						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department">
 							<select id="delivery_department" name="delivery_department" class="mdl-selectfield__select" disabled></select>
 							<label class="mdl-selectfield__label" for="delivery_department">Отделение</label>
+							<span class="mdl-textfield__error">Выберите отделение транспортной компании!</span>
 						</div>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col hidden">
 						<div class="mdl-textfield mdl-js-textfield address">
 							<textarea id="address" name="address" class="mdl-textfield__input" type="text" rows= "3" disabled></textarea>
 							<label class="mdl-textfield__label" for="address">Адрес доставки</label>
+							<span class="mdl-textfield__error">Укажите свой адрес!</span>
 						</div>
 					</div>
 					<!--Появляется после выбора службы доставки-->
 				</form>
 			</div>
 			<?break;
-		case 4:?>
+		/*case 4:?>
 			<div class="quiz_header">
 				<h6><?=$customer['middle_name']?> <?=$customer['last_name']?>, у меня есть необходимые данные для отправки заказа.</h6>
 				<span>Вы готовы внести предоплату?</span>
@@ -195,11 +199,11 @@
 					<h4>Реквизиты компании</h4>
 				</div>
 			</div>
-			<?break;
-		case 5:?>
+			<?break;*/
+		case 4:?>
 			<div class="quiz_header">
-				<h6>Готово!</h6>
-				<p class="msg_for_client">Я свяжусь с Вами в ближайшее время.</p>
+				<h6>Спасибо за Ваш заказ!</h6>
+				<span>Я свяжусь с Вами в ближайшее время.</span>
 			</div>
 			<div class="quiz_content"></div>
 			<?break;
@@ -208,11 +212,11 @@
 			break;
 	}?>
 	<div class="row quiz_footer">
-		<?if($step > 1){?>
+		<?if($step > 1 && $step < 4){?>
 			<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="<?=$step-1?>">Назад</button>
 		<?}
 		if($step < 5){?>
-			<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="<?=$step+1?>">Далее</button>
+			<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="<?=$step+1?>"><?=$step==4?'Закрыть':'Далее';?></button>
 		<?}?>
 		<div class="progress">
 			<div class="line">

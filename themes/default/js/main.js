@@ -920,25 +920,25 @@ $(function(){
 			}
 		}else if(data.target_step == 2){
 			if(data.current_step == 1){
-				var last_name = all.current.find('[name="last_name"]').val(),
-					first_name = all.current.find('[name="first_name"]').val(),
-					middle_name = all.current.find('[name="middle_name"]').val();
-				if(last_name === ''){
+				data.last_name = all.current.find('[name="last_name"]').val();
+				data.first_name = all.current.find('[name="first_name"]').val();
+				data.middle_name = all.current.find('[name="middle_name"]').val();
+				if(data.last_name.length == 0){
 					i++;
-					$('#last_name').addClass('is-invalid');
+					all.current.find('[name="last_name"]').addClass('is-invalid');
+					console.log('Не указана фамилия');
 				}
-				if(first_name === ''){
+				if(data.first_name.length == 0){
 					i++;
-					$('#first_name').addClass('is-invalid');
+					all.current.find('[name="first_name"]').addClass('is-invalid');
+					console.log('Не указано имя');
 				}
-				if(middle_name === ''){
+				if(data.middle_name.length == 0){
 					i++;
-					$('#middle_name').addClass('is-invalid');
+					all.current.find('[name="middle_name"]').addClass('is-invalid');
+					console.log('Не указано отчество');
 				}
 				if(i === 0){
-					data.first_name = first_name;
-					data.last_name = last_name;
-					data.middle_name = middle_name;
 					data.validate = true;
 					validateq(data);
 				}
@@ -958,7 +958,18 @@ $(function(){
 				// 	all.summary.find('.city').text(city).closest('.row').removeClass('hidden');
 				// 	$('.error_div').addClass('hidden');
 				// }
-
+				if(data.region == null || data.region.length == 0){
+					// Не выбрано отделение
+					all.current.find('#region').addClass('is-invalid');
+					console.log('Не выбрана область');
+					i++;
+				}
+				if(data.city == null || data.city.length == 0){
+					// Не выбрано отделение
+					all.current.find('#city').addClass('is-invalid');
+					console.log('Не выбрана область');
+					i++;
+				}
 				// if(region == 'Выбрать'){
 				// 	i++;
 				// 	$('.error_div').removeClass('hidden').text("Выберите область");
@@ -968,8 +979,6 @@ $(function(){
 				// }
 
 				if(i === 0){
-					
-
 					// ajax('cart', 'update_info', data, 'html').done(function(response){
 					// 	GetDeliveryService(city+' ('+region+')', $('input[name="service"]:checked').val());
 					// 	Position($(this).closest('[data-type="modal"]'));
@@ -994,7 +1003,6 @@ $(function(){
 				data.id_delivery_service = parseInt(all.current.find('#id_delivery_service').val());
 				data.delivery_department = all.current.find('#delivery_department').val();
 				data.address = all.current.find('#address').val();
-
 				// if(typeof delivery_service !== 'undefined') {
 				// 	all.summary.find('.delivery_service').text(delivery_service).closest('.row').removeClass('hidden');
 				// }
@@ -1013,23 +1021,32 @@ $(function(){
 				// if(delivery_method == 'Забрать со склада' && selected_post_office != 'Выбрать отделение' && delivery_address !== ''){
 				// 	$('#delivery_address').val('');
 				// }
-
-				// if(typeof delivery_service === 'undefined'){
-				// 	i++;
-				// 	$('.error_div').removeClass('hidden').text('Выберите службу доставки');
-				// }else if(delivery_method == 'Выбрать'){
-				// 	i++;
-				// 	$('.error_div').removeClass('hidden').text('Выберите способ доставки');
-				// }else if(delivery_method == 'Адресная доставка' && delivery_address === ''){
-				// 	i++;
-				// 	$('.error_div').addClass('hidden');
-				// 	$('#client_address').addClass('is-invalid');
-				// }else if(delivery_method == 'Забрать со склада' && selected_post_office == 'Выбрать отделение'){
-				// 	i++;
-				// 	$('.error_div').removeClass('hidden').text('Выберите отделение');
-				// }else {
-				// 	$('.error_div').addClass('hidden');
-				// }
+				if(isNaN(data.id_delivery)){
+					// Не выбран способ доставки
+					all.current.find('#id_delivery').addClass('is-invalid');
+					console.log('Не выбран способ доставки');
+					i++;
+				}else if(data.id_delivery == 1){
+					if(data.delivery_department == null || data.delivery_department.length == 0){
+						// Не выбрано отделение
+						all.current.find('#delivery_department').addClass('is-invalid');
+						console.log('Не выбрано отделение');
+						i++;
+					}
+				}else if(data.id_delivery == 2){
+					if(data.address == ''){
+						// Не указан адрес
+						all.current.find('#address').addClass('is-invalid');
+						console.log('Не указан адрес');
+						i++;
+					}
+				}
+				if(isNaN(data.id_delivery_service)){
+					// Не выбрана служба доставки
+					all.current.find('#id_delivery_service').addClass('is-invalid');
+					console.log('Не выбрана служба доставки');
+					i++;
+				}
 				if(i === 0){
 					data.validate = true;
 					validateq(data);
@@ -1037,20 +1054,21 @@ $(function(){
 			}
 		}else if(data.target_step == 5){
 			if(data.current_step == 4){
-
+				closeObject('quiz');
+				window.location.hash = '';
 			}
 
-			if(i === 0){
-				data = {delivery_service: delivery_service, delivery_method: delivery_method};
+			// if(i === 0){
+			// 	data = {delivery_service: delivery_service, delivery_method: delivery_method};
 
-				ajax('cart', 'update_info', data, 'text').done(function(response){
-					data.validate = true;
-					validateq(data);
-				});
-			}
+			// 	ajax('cart', 'update_info', data, 'text').done(function(response){
+			// 		data.validate = true;
+			// 		validateq(data);
+			// 	});
+			// }
 		}
 		function validateq(data){
-			// addLoadAnimation('#quiz');
+			addLoadAnimation('#quiz');
 			if(data.target_step > data.current_step && data.validate === true){
 				ajax('quiz', 'complete_step', data).done(function(response){
 					if(response == true){

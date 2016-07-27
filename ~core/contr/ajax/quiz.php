@@ -16,10 +16,10 @@
 				$customer = $Customers->fields;
 				// Необходимо определить, какой тим диалога нужно вывести
 				// Проверяем, есть ли у клиента сохраненный адрес доставки
-				if($saved_addresses = $Address->GetAddressByIdUser($User->fields['id_user'])){
-					// Если клиент уже делал заказы
-					$tpl->Assign('saved_addresses', $saved_addresses);
-				}else{
+				// if($saved_addresses = $Address->GetAddressByIdUser($User->fields['id_user'])){
+				// 	// Если клиент уже делал заказы
+				// 	$tpl->Assign('saved_addresses', $saved_addresses);
+				// }else{
 					// Если клиент делает первый заказ
 					// step 2+
 					if($_POST['step'] > 1){
@@ -38,7 +38,7 @@
 							$tpl->Assign('cities_list', $cities_list);
 						}
 					}
-					if($_POST['step'] > 2){
+					if($_POST['step'] > 2 && $_POST['step'] < 4){
 						if(isset($saved_city)){
 							$count = array(
 								'warehouse' => 0,
@@ -73,7 +73,7 @@
 							// $tpl->Assign('availabledeliverydepartment', $availabledeliverydepartment);
 						}
 					}
-				}
+				// }
 				
 				$tpl->Assign('step', $_POST['step']);
 				$tpl->Assign('customer', $customer);
@@ -103,8 +103,13 @@
 						$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
 						$data['id_region'] = $city['id_region'];
 						$data['id_city'] = $city['id'];
-						print_r($data);
-						// $Address->AddAddress($_POST);
+						$data['primary'] = 1;
+						// print_r($data);
+						if(!$id_address = $Address->AddAddress($data)){
+							$echo = false;
+						}
+						$echo = true;
+						$Orders->SetOrderAddress($_SESSION['member']['last_order'], $id_address);
 						break;
 					default:
 						$echo = 'No one step was sent';
