@@ -17,6 +17,7 @@ class Cart {
 		$products->SetFieldsById($data['id_product'], 1);
 		$product = $products->fields;
 		$quantity = $data['quantity'];
+		$note = isset($data['note_opt']) && !empty($data['note_opt'])?$data['note_opt']:(isset($data['note_mopt']) && !empty($data['note_mopt'])?$data['note_mopt']:'');
 		if(isset($data['button']) && $data['button']){
 			if($data['direction'] == 1){
 				if($product['qty_control'] == 1 && fmod($quantity, $product['min_mopt_qty']) != 0){
@@ -68,6 +69,7 @@ class Cart {
 			$_SESSION['cart']['products'][$product['id_product']]['actual_prices'] = $product['actual_prices'] = $actual_prices;
 			$_SESSION['cart']['products'][$product['id_product']]['other_prices'] = $product['other_prices'] = $other_prices;
 			$_SESSION['cart']['products'][$product['id_product']]['correction_set'] = $correction_set;
+			$_SESSION['cart']['products'][$product['id_product']]['note'] = $note;
 			if(isset($data['id_cart_product'])){
 				$_SESSION['cart']['products'][$product['id_product']]['id_cart_product'] = $data['id_cart_product'];
 			}
