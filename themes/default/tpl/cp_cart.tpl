@@ -302,7 +302,7 @@
 			<div class="orderNote">
 				<!-- <textarea name="orderNote" placeholder="Примечания к заказу..."></textarea> -->
 				<div class="mdl-textfield mdl-js-textfield">
-					<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"></textarea>
+					<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
 					<label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label>
 				</div>
 			</div>
@@ -535,7 +535,8 @@
 
 			$(".order_note_text").blur(function() {
 				note = $(this).val();
-				ajax('cart', 'saveOrderNote', {note: note});			
+				console.log(note);
+				ajax('cart', 'SaveOrderNote', {note: note});			
 			});
 
 
