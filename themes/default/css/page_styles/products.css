@@ -80,7 +80,7 @@ h5 {
 	background-color: #fff;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	padding: 10px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	margin-bottom: 15px;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -633,6 +633,9 @@ label.info_key {
 .list_view .note {
 	margin-top: 5px;
 }
+.list_view .products .card {
+	overflow: hidden;
+}
 .add_to_fav_trend_block {
 	position: absolute;
 	display: block;
@@ -698,18 +701,25 @@ label.info_key {
 }
 /* Стили акции */
 .market_action {
-	background: #FF5722;
-    color: #fff;
-    padding: 5px;
-    width: 52px;
-    height: 52px;
+	/*background: #FF5722;*/
+    /*color: #fff;*/
+    /*padding: 5px;*/
+    width: 100%;
+    /*height: 52px;*/
     position: absolute;
-    top: 0;
+    top: -10px;
+    left: -10px;
+    z-index: 1;
 }
-.market_action p {
+
+.market_action img {
+	width: 100px;
+	height: 100px;
+}
+/*.market_action p {
 	font-size: 12px;
 	line-height: 40px;
-}
+}*/
 
 @media (max-width: 1440px) {
 	.block_view .products .card {

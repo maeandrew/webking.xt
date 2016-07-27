@@ -222,11 +222,20 @@
 	default:		 
     	foreach($list as $item){
 			$in_cart = false;
+			$action = false;
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
+				<?foreach($GLOBALS['CONFIG']['promo_correction_set'] as $action_numb){
+					if ($action_numb == $item['opt_correction_set'] || $action_numb == $item['mopt_correction_set']) {
+						$action = true;
+					}
+				}?>
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">					
+					<img src="<?=_base_url?>/images/action2.png">
+				</div>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -237,9 +246,6 @@
 							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
 						<?}?>
 					</a>
-					<div class="market_action hidden">
-						<p>Акция!!!</p>
-					</div>
 					<div class="add_to_fav_trend_block mdl-cell--hide-phone">
 						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>

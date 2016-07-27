@@ -5,7 +5,7 @@ h5{margin:15px 0}
 .left_menu:hover .main_menu{display:block}
 .sb_block .nav_btn>span{transform:rotate(0);transition:all .3s}
 .left_menu:hover .nav_btn>span{transform:rotate(-180deg);transition:all .3s}
-.products .card{background-color:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);padding:10px;overflow:hidden;margin-bottom:15px;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
+.products .card{background-color:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);padding:10px;margin-bottom:15px;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .products .card:hover{box-shadow:0 2px 10px -1px rgba(0,0,0,.2)}
 .products .content_wrapp{overflow:hidden}
 .products .content_text{color:#999;margin:30px 0 20px 0;max-height:200px;overflow:hidden;position:relative}
@@ -111,6 +111,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .product_section .product_info .service_block .comment_question_btn{width:100%;margin-bottom:5px}
 .block_view .products .card .product_section .product_buy .priceMoptInf{position:absolute;margin:0}
 .block_view .note,.list_view .note{margin-top:5px}
+.list_view .products .card{overflow:hidden}
 .add_to_fav_trend_block{position:absolute;display:block;bottom:0;right:0;opacity:0;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .block_view .add_to_fav_trend_block .favorite{margin-bottom:15px;background:rgba(0,0,0,.15);height:30px;border-radius:50%}
 .block_view .add_to_fav_trend_block .fortrending{background:rgba(0,0,0,.15);border-radius:50%;height:30px}
@@ -124,8 +125,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 .favorite_icon:hover,.isfavorite{color:red}
 .arrow,.waiting_list:hover{color:#FF5722}
 .favorite_icon:hover,.waiting_list:hover{cursor:pointer}
-.market_action{background:#FF5722;color:#fff;padding:5px;width:52px;height:52px;position:absolute;top:0}
-.market_action p{font-size:12px;line-height:40px}
+.market_action{width:100%;position:absolute;top:-10px;left:-10px;z-index:1}
+.market_action img{width:100px;height:100px}
 @media (max-width:1440px){.block_view .products .card{width:calc(25% - 20px)}
 }
 @media (max-width:1280px){.block_view .products .card{width:calc(100%/3 - 20px)}
