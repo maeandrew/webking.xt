@@ -302,7 +302,7 @@
 			<div class="orderNote">
 				<!-- <textarea name="orderNote" placeholder="Примечания к заказу..."></textarea> -->
 				<div class="mdl-textfield mdl-js-textfield">
-					<textarea class="mdl-textfield__input" type="text" rows="1" id="orderNote" name="orderNote"></textarea>
+					<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"></textarea>
 					<label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label>
 				</div>
 			</div>
@@ -531,6 +531,11 @@
 				var id_product = $(this).data('id'),
 				 	note = $(this).val();
 				ajax('cart', 'updateCartQty', {id_product: id_product, note: note});
+			});
+
+			$(".order_note_text").blur(function() {
+				note = $(this).val();
+				ajax('cart', 'saveOrderNote', {note: note});			
 			});
 
 
