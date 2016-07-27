@@ -2266,7 +2266,7 @@ section .stat_year {
 	color: #fff;
 }
 .card:hover .product_photo .add_to_fav_trend_block {
-	display: block;
+	opacity: 1;
 }
 
 .product_buy .buy_block .quantity {

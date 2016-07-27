@@ -77,11 +77,11 @@
 				<div class="catalog_btn btn_js filters_mob_btn_js mdl-cell--hide-desktop" data-name="catalog">Фильтры</div>
 				<?=$cart_info;?>
 			</div>
-			<?if(isset($list_categories)):?>
-				<?foreach($list_categories as &$v):?>
+			<?/*if(isset($list_categories)){?>
+				<?foreach($list_categories as &$v){?>
 					<a href="<?=_base_url?>/<?=$v['translit']?>/?query=<?=$_SESSION['search']['query']?>&search_subcategory=<?=$v['id_category']?>"><input type="button" value="<?=$v['name']. ' ('. $v['count'].')'?>"></a>&nbsp;&nbsp;
-				<?php endforeach;?>
-			<?php endif;?>
+				<?}?>
+			<?}*/?>
 			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
 				<div class="row">
 					<div class="products">

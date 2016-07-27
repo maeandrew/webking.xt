@@ -70,11 +70,11 @@ header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfiel
 }
 header.opened .header_wrapp .header_right .search_wrap .search {
 	/*width: 400px;*/
-	width: auto;
+	/*width: auto;*/
 	vertical-align: middle;
 }
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,
-header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul>li{
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul > li{
 	text-align: left;
 }
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{
