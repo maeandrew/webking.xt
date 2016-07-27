@@ -74,7 +74,7 @@
 					<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 					<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 				</div>
-				<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
+				<div class="catalog_btn btn_js filters_mob_btn_js mdl-cell--hide-desktop" data-name="catalog">Фильтры</div>
 				<?=$cart_info;?>
 			</div>
 			<?if(isset($list_categories)):?>
@@ -153,73 +153,9 @@
 
 		ListenPhotoHover();//Инициализания Preview
 
-		//Показать еще 30 товаров
-		/*$('.show_more_js').on('click', function(e){
-			e.preventDefault();
-			var page = $(this).closest('.products_page'),
-				id_category = current_id_category,
-				start_page = parseInt(page.find('.paginator li.active').first().text()),
-				current_page = parseInt(page.find('.paginator li.active').last().text()),
-				next_page = current_page+1,
-				shown_products = (page.find('.card').get()).length,
-				skipped_products = 30*(start_page-1),
-				count = $(this).data('cnt');
-			console.log(page.find('.paginator li.active'));
-			console.log('start_page '+start_page);
-			console.log('shown_products '+shown_products);
-			$('.show_more').append('<span class="load_more"></span>');
-			var data = {
-				action: 'getmoreproducts_desctop',
-				id_category: id_category,
-				shown_products: shown_products,
-				skipped_products: skipped_products
-			};
-			ajax('products', 'getmoreproducts', data, 'html').done(function(data){
-		   		var product_view = $.cookie('product_view'),
-		   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
-				page.find('.products').append(data);
-				$("img.lazy").lazyload({
-					effect : "fadeIn"
-				});
-		   		if(page.find('.paginator li.page'+next_page).length < 1){
-					if(parseInt(count-parseInt(skipped_products+shown_products)+30) > 30){
-						page.find('.paginator li.next_pages').addClass('active').find('a').attr('href','#');
-					}else{
-						page.find('.paginator li.last_page').addClass('active').find('a').attr('href','#');
-					}
-				}else{
-					page.find('.paginator li.page'+next_page).addClass('active').find('a').attr('href','#');
-				}
-
-				if(show_count < 0){
-					$('#show_more_products').hide();
-				}
-
-				//Инициализация добавления товара в избранное
-				$('.preview_favorites').click(function(event) {
-					id_product = $(this).attr('data-idfavorite');
-					AddFavorite(event,id_product);
-				});
-				ListenPhotoHover();//Инициализания Preview
-
-				//Добавление товара в корзину
-				$('.qty_js').on('change', function(){
-					var id =  $(this).closest('.product_buy').attr('data-idproduct'),
-						qty  = $(this).val(),
-						note = $(this).closest('.product_section').find('.note textarea').val();
-					SendToAjax (id,qty,false,false,note);
-				});
-				$('.buy_btn_js').on('click', function (){
-					var id =  $(this).closest('.product_buy').attr('data-idproduct'),
-						qty = $(this).closest('.product_buy').find('.qty_js').val(),
-						note = $(this).closest('.product_section').find('.note textarea').val();
-					SendToAjax (id,qty,false,false,note);
-				});
-
-				$('.load_more').remove();
-		   });
-		});*/
-
+		$('.filters_mob_btn_js').on('click', function(){
+			console.log('123');
+		});
 	});
 
 </script>

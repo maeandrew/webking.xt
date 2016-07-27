@@ -513,7 +513,6 @@ $(function(){
 	//Переключение вкладок главного меню
 	$('.catalog').on('click', '.main_nav li', function() {
 		var section = $(this).data('nav');
-		$('#filterButtons').removeClass('buttonsTop');
 		if(section == 'filter') {
 			var name = $(this).find('i').text();
 			if (name == 'filter_list') {
