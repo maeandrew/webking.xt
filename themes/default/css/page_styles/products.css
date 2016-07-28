@@ -646,6 +646,10 @@ label.info_key {
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
+.list_view .add_to_fav_trend_block {
+	left: 0;
+    top: 0;
+}
 .block_view .add_to_fav_trend_block .favorite {
 	margin-bottom: 15px;
 	background: rgba(0, 0, 0, 0.15);
@@ -700,12 +704,8 @@ label.info_key {
 	cursor: pointer;
 }
 /* Стили акции */
-.market_action {
-	/*background: #FF5722;*/
-    /*color: #fff;*/
-    /*padding: 5px;*/
+.market_action {	
     width: 100%;
-    /*height: 52px;*/
     position: absolute;
     top: -10px;
     left: -10px;
@@ -716,10 +716,7 @@ label.info_key {
 	width: 100px;
 	height: 100px;
 }
-/*.market_action p {
-	font-size: 12px;
-	line-height: 40px;
-}*/
+
 
 @media (max-width: 1440px) {
 	.block_view .products .card {
