@@ -2147,9 +2147,9 @@ section .stat_year {
 	.products .card_wrapper {
 		display: none;
 	}
-	.suplierPriceBlock .count_cell {
+	/*.suplierPriceBlock .count_cell {
 		display: none;
-	}
+	}*/
 	.suplierPriceBlock {
 		margin-top: 20px;
 		margin-right: 0;
@@ -2872,7 +2872,7 @@ section .stat_year {
 	} */
 	.content_header .cart_info {
 		width: 75%;
-	}
+	}	
 }
 @media (min-width: 728px) and (max-width: 1010px) {
 	.content_header .cart_info .your_discount,

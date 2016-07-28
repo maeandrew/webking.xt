@@ -111,7 +111,6 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .product_section .product_info .service_block .comment_question_btn{width:100%;margin-bottom:5px}
 .block_view .products .card .product_section .product_buy .priceMoptInf{position:absolute;margin:0}
 .block_view .note,.list_view .note{margin-top:5px}
-.list_view .products .card{overflow:hidden}
 .add_to_fav_trend_block{position:absolute;display:block;bottom:0;right:0;opacity:0;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .list_view .add_to_fav_trend_block{left:0;top:0}
 .block_view .add_to_fav_trend_block .favorite{margin-bottom:15px;background:rgba(0,0,0,.15);height:30px;border-radius:50%}
@@ -126,7 +125,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .favorite_icon:hover,.isfavorite{color:red}
 .arrow,.waiting_list:hover{color:#FF5722}
 .favorite_icon:hover,.waiting_list:hover{cursor:pointer}
-.market_action{width:100%;position:absolute;top:-10px;left:-10px;z-index:1}
+.market_action{width:100px;position:absolute;top:-10px;left:-10px;z-index:1}
 .market_action img{width:100px;height:100px}
 @media (max-width:1440px){.block_view .products .card{width:calc(25% - 20px)}
 }
@@ -137,7 +136,9 @@ label.info_key{position:absolute;top:10px;right:4px}
 }
 @media (max-width:728px){.block_view .products .card,.block_view .products .card:hover{width:calc(50% - 20px)}
 .block_view .products .card .product_buy .buy_block .quantity button{display:none}
+.card_tittle{display:none}
 }
+.card_tittle{height:85px}
 .module_view+div.row{margin:0}
 .module_view div[class^=col-]{border-top:1px solid #d9d9d9;height:430px}
 .module_view div[class^=col-]:nth-of-type(1),.module_view div[class^=col-]:nth-of-type(2),.module_view div[class^=col-]:nth-of-type(3),.module_view div[class^=col-]:nth-of-type(4){border-top:none}
@@ -229,6 +230,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 #catalog_supplier .table_tbody .image_cell img{vertical-align:middle;padding:5px 0;height:90px}
 #catalog_supplier .table_tbody .name_cell{text-align:left;padding-left:20px}
 #catalog_supplier .table_tbody .product_article{color:#818181}
+.clear_card{clear:both}
 @media (max-width:991px){.tabs_container{padding-bottom:0}
 .tabs_container .tabs_block:first-child{padding-left:3px}
 .tabs_container .tabs_block:last-child{padding-right:3px}

@@ -634,9 +634,9 @@ label.info_key {
 .list_view .note {
 	margin-top: 5px;
 }
-.list_view .products .card {
+/*.list_view .products .card {
 	overflow: hidden;
-}
+}*/
 .add_to_fav_trend_block {
 	position: absolute;
 	display: block;
@@ -706,7 +706,7 @@ label.info_key {
 }
 /* Стили акции */
 .market_action {	
-    width: 100%;
+    width: 100px;
     position: absolute;
     top: -10px;
     left: -10px;
@@ -746,8 +746,13 @@ label.info_key {
 	.block_view .products .card .product_buy .buy_block .quantity button {
 		display: none;
 	}
+	.card_tittle {
+		display: none;
+	}
 }
-
+.card_tittle {
+	height: 85px;
+}
 
 
 
@@ -1204,6 +1209,10 @@ label.info_key {
 }
 #catalog_supplier .table_tbody .product_article {
 	color: #818181;
+}
+
+.clear_card {
+	clear: both;
 }
 
 /*Media Query ================================================================*/

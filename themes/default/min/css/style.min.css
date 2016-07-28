@@ -367,7 +367,6 @@ section .stat_year{padding:0 0 10px 50px}
 .products .buy_block .btn_buy button{background:#ff5722;color:#fff}
 }
 @media (max-width:1022px){.products .card_wrapper{display:none}
-.suplierPriceBlock .count_cell{display:none}
 .suplierPriceBlock{margin-top:20px;margin-right:0}
 }
 .list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock{float:left}
