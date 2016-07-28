@@ -196,7 +196,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$html = '';
 					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
 					foreach($charts as $key => $chart){
-						$html .= '<div class="chart_item mdl-cell mdl-cell--6-col">';
+						$isActive = isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']?'active':null;
+						$html .= '<div class="chart_item mdl-cell mdl-cell--6-col '.$isActive.'">';
 						$tpl->Assign('chart', $chart);
 						$html .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl');
 						$html .= '<div class="charts_details">';

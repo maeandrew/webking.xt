@@ -860,6 +860,7 @@ $(function(){
 		if($('#details_btn').hasClass('clicked')){
 			$('#details_btn').removeClass('clicked');
 			$('.avg_chart_det_btn i').css('transform', 'rotate(0deg)');
+			$('.charts_container').css('border-color', 'transparent');
 			$('.charts_container .charts_title').addClass('hidden');
 			$('.charts_wrap').empty();
 		}else{
@@ -867,6 +868,7 @@ $(function(){
 			ajax('product', 'ChartsByCategory', {id_category: $(this).data('idcategory')}, 'html').done(function(data){
 				$('.avg_chart_det_btn i').css('transform', 'rotate(90deg)');
 				$('.charts_container .charts_title').removeClass('hidden');
+				$('.charts_container').css('border-color', '#e0e0e0');
 				$('#details_btn').addClass('clicked');
 				removeLoadAnimation('#details_btn');
 				$('.charts_wrap').html(data);

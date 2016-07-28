@@ -13,6 +13,11 @@
 	$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
 	$labels_min = array(1);
 	$chart_regi = array(10);?>
+	<div class="chart_lvls">
+		<p>Пик сезона</p>
+		<p>Сезон</p>
+		<p>Межсезонье</p>
+	</div>
 	<div class="flex_container">
 		<script>var curve = {};</script>
 		<canvas id="chart_<?=isset($chart[0]['id_chart'])?$chart[0]['id_chart']:'avg';?>" class="chart" height="150"></canvas>

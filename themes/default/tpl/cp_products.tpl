@@ -1,7 +1,7 @@
 <h1><?=$header?></h1>
 <div class="products_page">
 	<?if((isset($chart_html) && !empty($chart_html)) && $GLOBALS['CurrentController'] != 'search'){?>
-		<div class="avg_chart_wrap">
+		<div class="avg_chart_wrap mdl-cell--hide-tablet mdl-cell--hide-phone">			
 			<div class="avg_chart_det_wrap">
 				<div class="chart_title">График спроса категории</div>
 				<div class="line_det">
@@ -64,7 +64,7 @@
 					<?}?> -->					
 				</div>
 				<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
+					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone mdl-cell--hide-tablet" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
 				<?}?>
 				<div class="productsListView">
 					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
