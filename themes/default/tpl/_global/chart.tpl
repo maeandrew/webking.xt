@@ -14,7 +14,7 @@
 					<?foreach($values[0] as $key => $value){
 						if(strpos($key, 'value_') !== false){?>
 							<div class="slider_wrap">
-								<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+								<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 								<div class="range_num"><?=$value?></div>
 								<span><?=$labels[$index++]?></span>
 							</div>
@@ -23,7 +23,7 @@
 				}else{?>
 					<?for ($i=1; $i <= 12; $i++){?>
 						<div class="slider_wrap">
-							<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_'+$i]:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+							<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_'+$i]:5?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 							<div class="range_num"><?=isset($val)?$val['roz']['value_'+$i]:5?></div>
 							<span><?=$labels[$index++]?></span>
 						</div>
@@ -40,7 +40,7 @@
 					<?foreach($values[1] as $key => $value){
 						if(strpos($key, 'value_') !== false){?>
 							<div class="slider_wrap">
-								<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+								<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 								<div class="range_num"><?=$value?></div>
 								<span><?=$labels[$index++]?></span>
 							</div>
@@ -49,7 +49,7 @@
 				}else{?>
 					<?for ($k=1; $k <= 12; $k++){?>
 						<div class="slider_wrap">
-							<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_'+$k]:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+							<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_'+$k]:5?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 							<div class="range_num"><?=isset($val)?$val['opt']['value_'+$k]:5?></div>
 							<span><?=$labels[$index++]?></span>
 						</div>

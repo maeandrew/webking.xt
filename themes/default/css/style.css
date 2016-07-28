@@ -3135,7 +3135,7 @@ section .stat_year {
 	height: 2px;
 	width: 178px;
 	position: absolute;
-	top: 100px;
+	top: 80px;
 	left: -75%;
 }
 #demand_chart[data-type="modal"] {
@@ -3171,10 +3171,20 @@ section .stat_year {
 	background-color: #018b06;
 	color: #fff;
 }
-#demand_chart .range_num{
+#demand_chart .slider_wrap span{
 	position: absolute;
-	bottom: 2%;
-	right: 40%;
+	bottom: 8%;
+	left: 0%;
+	width: 100%;
+}
+#demand_chart .range_num_wrap{
+    height: 140px;
+}
+#demand_chart .range_num{
+	/*position: absolute;*/
+	position: relative;
+	bottom: -60%;
+	right: -20%;
 }
 @media (max-width: 950px){
 	#demand_chart .range_num{
@@ -3253,9 +3263,9 @@ canvas[id^=chart_]{
 }
 .charts_container .chart_item{
 	padding: 1em;
-    position: relative;
+	position: relative;
 	border: 1px solid #eee;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .charts_container .chart_item .chart_edit{
 	position: absolute;
@@ -4367,7 +4377,7 @@ iframe[name="google_conversion_frame"] {
 }
 .paginator_specific_page_block button {
 	padding-left: 5px;
-    padding-right: 5px;
+	padding-right: 5px;
 }
 
-    
+	

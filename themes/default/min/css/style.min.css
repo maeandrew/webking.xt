@@ -572,7 +572,7 @@ section.center{width:calc(100% - 260px)}
 .order .tabs .mdl-tabs__tab{padding:0 8px}
 }
 .tab-content tr:hover{background-color:#e0e0e0}
-.mdl-slider__container{transform:rotate(-90deg);height:2px;width:178px;position:absolute;top:100px;left:-75%}
+.mdl-slider__container{transform:rotate(-90deg);height:2px;width:178px;position:absolute;top:80px;left:-75%}
 #demand_chart[data-type=modal]{min-width:768px;max-width:930px}
 .mdl-slider.is-upgraded{border:0!important;height:2px}
 #demand_chart p{padding-top:10px;color:#4E4949}
@@ -581,7 +581,9 @@ section.center{width:calc(100% - 260px)}
 #demand_chart .range_wrap{border-bottom:1px solid #e0e0e0;padding-left:3%}
 #demand_chart .bottom_panel .mdl-cell:last-child{padding-top:15px}
 #demand_chart a.save,#demand_chart a.update{background-color:#018b06;color:#fff}
-#demand_chart .range_num{position:absolute;bottom:2%;right:40%}
+#demand_chart .slider_wrap span{position:absolute;bottom:8%;left:0;width:100%}
+#demand_chart .range_num_wrap{height:140px}
+#demand_chart .range_num{position:relative;bottom:-60%;right:-20%}
 @media (max-width:950px){#demand_chart .range_num{right:30%)}
 }
 .avg_chart_wrap{background-color:#fff;padding:1em;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}

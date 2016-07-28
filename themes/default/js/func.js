@@ -1094,5 +1094,19 @@ tools.eraser = function(){
 
 // Отслеживание изменений рангов на графике спроса в разделах товаров.
 function СhangeValue(id){
-	$('#'+id).closest('.slider_wrap').find('.range_num').text($('#'+id).val());
+	// $('#'+id).data('prevnum', $('input').val().closest('.slider_wrap').find('.range_num').text($('#'+id).val());
+
+	  if($('#'+id).data('prevnum') < $('#'+id).val() ){
+	    // $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', $('#'+id).val()*10 +'%');
+	    $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', '+=10%');
+	  }else if($('#'+id).data('prevnum') > $('#'+id).val()){
+	    // $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', $('#'+id).val()*10 +'%');
+	    $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', '-=10%');
+	  }
+	    
+
+	$('#'+id).data('prevnum', $('#'+id).val()).closest('.slider_wrap').find('.range_num').text($('#'+id).val());
+
+// 	  $('input').data('prevnum', $('input').val());
+// 	  $('.range_num_wrap p').text($('input').val());
 }
