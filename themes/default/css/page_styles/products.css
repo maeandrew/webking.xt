@@ -402,7 +402,7 @@ label.info_key {
 	margin-left: 5px;
 }
 .list_view .card .product_name {
-	min-height: 100px;
+	/*min-height: 100px;*/
 	float: left;
 	width: calc(100% - 130px - 350px);
 	display: table-row;
@@ -751,9 +751,11 @@ label.info_key {
 	}
 }
 .card_tittle {
-	height: 85px;
+	height: 60px;
 }
-
+.list_view .card.card_tittle .product_name {
+	padding-top: 3px;
+}
 
 
 /* Module View ===============================================================*/

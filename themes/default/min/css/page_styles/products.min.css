@@ -66,7 +66,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .list_view .products .card .product_buy .buy_block .quantity button.btn_remove{border-radius:0 0 .2em .2em}
 .list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock{float:left}
 .list_view .card .buy_block span{display:none;margin-left:5px}
-.list_view .card .product_name{min-height:100px;float:left;width:calc(100% - 130px - 350px);display:table-row}
+.list_view .card .product_name{float:left;width:calc(100% - 130px - 350px);display:table-row}
 .list_view .card .product_name>a{display:table-cell}
 .list_view .card .ordered{top:calc(50% - 12px)}
 .list_view .card .product_buy .buy_block .quantity .quantityReverseBlock .qty_js{float:left}
@@ -138,7 +138,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .products .card .product_buy .buy_block .quantity button{display:none}
 .card_tittle{display:none}
 }
-.card_tittle{height:85px}
+.card_tittle{height:60px}
+.list_view .card.card_tittle .product_name{padding-top:3px}
 .module_view+div.row{margin:0}
 .module_view div[class^=col-]{border-top:1px solid #d9d9d9;height:430px}
 .module_view div[class^=col-]:nth-of-type(1),.module_view div[class^=col-]:nth-of-type(2),.module_view div[class^=col-]:nth-of-type(3),.module_view div[class^=col-]:nth-of-type(4){border-top:none}
