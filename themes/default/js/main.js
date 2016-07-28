@@ -811,17 +811,19 @@ $(function(){
 				'text': comment,
 				'opt': is_opt
 			}).done(function(data){
-				if(!$(this).data('isadmin')){
-					$('#demand_chart_msg .modal_container').html('<div class="msg_wrap"><h3>Благодарим Вас!</h3><p>Данные успешно сохранены.</p><p>После успешной проверки модератором, внесенные Вами зменения будут учтены в итоговом графике спроса данной категории.</p></div>');
+				if($('.save.btn_js').data('isadmin') == false){
+					$('#demand_chart_msg .modal_container').html('<div class="msg_wrap"><h3>Благодарим Вас!</h3><p>Данные успешно сохранены.</p><p>После проверки модератором, внесенные Вами изменения будут учтены в итоговом графике спроса данной категории.</p></div>');
 					componentHandler.upgradeDom();
-					openObject('demand_chart_msg');
-				}
-				if(data === true){
-					console.log('Your data has been saved successfully!');
 					closeObject('demand_chart');
-					location.reload();
+					openObject('demand_chart_msg');
 				}else{
-					console.log('Something goes wrong!');
+					if(data === true){
+						console.log('Your data has been saved successfully!');
+						closeObject('demand_chart');
+						location.reload();
+					}else{
+						console.log('Something goes wrong!');
+					}
 				}
 			}).fail(function(data){
 				console.log('fail');
@@ -837,23 +839,28 @@ $(function(){
 				'opt': is_opt,
 				'id_charts': roz_id_chart + ', ' + opt_id_chart
 			}).done(function(data){
-				if(!$(this).data('isadmin')){
-					$('#demand_chart_msg .modal_container').html('<div class="msg_wrap"><h3>Благодарим Вас!</h3><p>Данные успешно сохранены.</p><p>После успешной проверки модератором, внесенные Вами зменения будут учтены в итоговом графике спроса данной категории.</p></div>');
+				if($('.update.btn_js').data('isadmin') == false){
+					$('#demand_chart_msg .modal_container').html('<div class="msg_wrap"><h3>Благодарим Вас!</h3><p>Данные успешно сохранены.</p><p>После проверки модератором, внесенные Вами изменения будут учтены в итоговом графике спроса данной категории.</p></div>');
 					componentHandler.upgradeDom();
-					openObject('demand_chart_msg');
-				}
-				if(data === true){
-					console.log('Your data has been updated successfully!');
 					closeObject('demand_chart');
-					location.reload();
+					openObject('demand_chart_msg');
 				}else{
-					console.log('Something goes wrong with update!');
+					if(data === true){
+						console.log('Your data has been saved successfully!');
+						closeObject('demand_chart');
+						location.reload();
+					}else{
+						console.log('Something goes wrong!');
+					}					
 				}
 			}).fail(function(data){
 				console.log('fail update');
 				console.log(data);
 			});
 		}
+	});
+	$('body').on('click', '#demand_chart_msg .close_modal', function(){
+		location.reload();
 	});
 
 	$('body').on('click', '.avg_chart_det_btn_js', function(){
