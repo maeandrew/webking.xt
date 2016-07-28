@@ -1732,12 +1732,7 @@ section .stat_year {
 /*Content header*/
 
 .content_header {
-	/*padding: 10px 0;*/
-	background: #fff;
-    /*padding: 0;*/
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	padding: 10px 0;
 }
 .content_header .sort {
 	position: relative;
@@ -3186,18 +3181,6 @@ section .stat_year {
 		right: 30%);
 	}
 }
-/*#demand_chart_msg*/
-
-#demand_chart_msg .msg_wrap{
-	min-width: 300px;
-	min-height: 300px;
-	padding: 2em;
-}
-#demand_chart_msg .msg_wrap p{
-	max-width: 400px;
-	font-size: 1.2em;
-}
-
 .avg_chart_wrap {
 	background-color: #fff;
 	padding: 1em;
