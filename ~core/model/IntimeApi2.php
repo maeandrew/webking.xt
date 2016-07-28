@@ -220,7 +220,7 @@ class IntimeApi2 {
 					break;
 				}
 			}
-			return $settlementCode;
+			return isset($settlementCode)?$settlementCode:false;
 		}
 		return false;
 	}
