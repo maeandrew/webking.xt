@@ -74,7 +74,8 @@
 					<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 					<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 				</div>
-				<div class="catalog_btn btn_js filters_mob_btn_js mdl-cell--hide-desktop" data-name="catalog">Фильтры</div>
+				<!-- <div class="catalog_btn btn_js filters_mob_btn_js mdl-cell--hide-desktop" data-name="catalog"><i class="material-icons">filter_list</i>Фильтры</div> -->
+				<div class="filters_mob_btn filters_mob_btn_js btn_js mdl-cell--hide-desktop" data-name="catalog"><i class="material-icons">filter_list</i></div>
 				<?=$cart_info;?>
 			</div>
 			<?/*if(isset($list_categories)){?>

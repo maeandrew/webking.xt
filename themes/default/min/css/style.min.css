@@ -297,7 +297,7 @@ section .stat_year{padding:0 0 10px 50px}
 .stat_month ul li.active,.stat_month ul li:hover{color:inherit}
 .stat_month ul li.active:after,.stat_month ul li:hover:after{content:'';height:1px;width:100%;background:#343030;position:absolute;bottom:0;left:0}
 .stat_month ul li:last-child{border-right:none}
-.content_header{padding:10px 0}
+.content_header{background:#fff;padding:10px;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 .content_header .sort{position:relative;float:left;margin-right:10px}
 .content_header .sort .mdl-button{font-size:.929em;color:#757575;border:none;border-radius:0;font-weight:400;padding:0;line-height:24px;height:24px;text-transform:inherit}
 .content_header .sort .mdl-button:active,.content_header .sort .mdl-button:hover{background-color:transparent}
@@ -753,6 +753,7 @@ iframe[name=google_conversion_frame]{display:none}
 .cont>a:hover{box-shadow:0 2px 6px rgba(0,0,0,.2)}
 .text_block{display:block;text-align:-webkit-center}
 .text_block h3{display:block;margin:0 auto;line-height:1.3em;text-align:center}
+.filters_mob_btn{color:#bdbdbd;width:25px;float:right}
 @media (max-width:1000px){.text_block h3{max-width:65%;font-size:130%;line-height:1}
 .text_block{padding:5%}
 .text_block p{display:none}

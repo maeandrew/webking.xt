@@ -1732,7 +1732,12 @@ section .stat_year {
 /*Content header*/
 
 .content_header {
-	padding: 10px 0;
+	/*padding: 10px 0;*/
+	background: #fff;
+    /*padding: 0;*/
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .content_header .sort {
 	position: relative;
@@ -4095,6 +4100,13 @@ iframe[name="google_conversion_frame"] {
 	line-height: 1.3em;
 	text-align: center;
 }
+
+.filters_mob_btn {
+	color: #bdbdbd;
+	width: 25px;
+	float: right;
+}
+
 
 @media (max-width: 1000px) {
 	.text_block h3 {
