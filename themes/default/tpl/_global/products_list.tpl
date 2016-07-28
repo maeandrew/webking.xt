@@ -5,6 +5,7 @@
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
 			$Status = new Status();
+			$action = false;
 			$st = $Status->GetStstusById($item['id_product']);
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
 			// Проверяем доступнось розницы
@@ -12,6 +13,12 @@
 			// Проверяем доступнось опта
 			($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
+				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$action = true;
+				}?>
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/action2.png">
+				</div>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 					<!-- <div class="product_block"> -->
 						<div class="product_photo">
@@ -159,11 +166,12 @@
 						</ul>
 					</div>
 				</div>
+				<div class="clear_card"></div>
 			</div>
 		<?}	      
 	    break;
 	case _ACL_SUPPLIER_:	    	
-    	?><div class="card card_wrapper clearfix">
+    	?><div class="card card_tittle clearfix">
 			<div class="product_photo card_item">Фото товара</div>
 			<p class="product_name card_item">Наименование товара</p>
 			<div class="suplierPriceBlock headerPriceBlock">
@@ -173,8 +181,14 @@
 				<div class="product_check card_item">Добавить в<br>ассортимент</div>
 			</div>
 		</div><?
-		foreach($list as $item){ ?>
+		foreach($list as $item){ $action = false; ?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
+				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$action = true;
+				}?>
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/action2.png">
+				</div>
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -216,6 +230,7 @@
 						</label>
 					</div>
 				</div>
+				<div class="clear_card"></div>
 			</div>
 		<?}
     	break;		
@@ -228,12 +243,10 @@
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
-				<?foreach($GLOBALS['CONFIG']['promo_correction_set'] as $action_numb){
-					if ($action_numb == $item['opt_correction_set'] || $action_numb == $item['mopt_correction_set']) {
-						$action = true;
-					}
+				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$action = true;
 				}?>
-				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">					
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
 					<img src="<?=_base_url?>/images/action2.png">
 				</div>
 				<div class="product_photo">
@@ -310,7 +323,8 @@
 						</div>
 					</div>
 					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
-				</div>				
+				</div>
+				<div class="clear_card"></div>
 			</div>
 		<?}
 }?>

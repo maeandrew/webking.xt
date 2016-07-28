@@ -2147,9 +2147,9 @@ section .stat_year {
 	.products .card_wrapper {
 		display: none;
 	}
-	.suplierPriceBlock .count_cell {
+	/*.suplierPriceBlock .count_cell {
 		display: none;
-	}
+	}*/
 	.suplierPriceBlock {
 		margin-top: 20px;
 		margin-right: 0;
@@ -2872,7 +2872,7 @@ section .stat_year {
 	} */
 	.content_header .cart_info {
 		width: 75%;
-	}
+	}	
 }
 @media (min-width: 728px) and (max-width: 1010px) {
 	.content_header .cart_info .your_discount,
@@ -3178,7 +3178,7 @@ section .stat_year {
 	width: 100%;
 }
 #demand_chart .range_num_wrap{
-    height: 140px;
+	height: 140px;
 }
 #demand_chart .range_num{
 	/*position: absolute;*/
@@ -3191,6 +3191,13 @@ section .stat_year {
 		right: 30%);
 	}
 }
+#demand_chart_msg .modal_container{
+	padding: 2em;
+}
+#demand_chart_msg .msg_wrap p {
+	max-width: 400px;
+}
+
 .avg_chart_wrap {
 	background-color: #fff;
 	padding: 1em;
@@ -3208,7 +3215,7 @@ section .stat_year {
 canvas[id^=chart_]{
 	position: relative;
 	height: 150px;
-	width: 99% !important;
+	width: 88% !important;
 }
 .avg_chart_det_wrap{
 	width: 100%;
@@ -3216,11 +3223,44 @@ canvas[id^=chart_]{
 	padding: .5em 1em;
 	position: relative;
 }
-.flex_container{
+.flex_container,
+.chart_lvls{
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
 	width: 100%;
+}
+.flex_container{
+	margin-left: 3em;
+}
+.charts_wrap.mdl-grid{
+	padding: 0;
+	margin: -8px;
+}
+.charts_wrap .flex_container{
+	margin-left: 0;
+}
+.charts_wrap canvas[id^=chart_]{
+	width: 99% !important;
+}
+.chart_lvls{
+	height: 118px;
+	margin-top: 12px;
+	position: absolute;
+	width: 93%;
+	flex-direction: column;
+	justify-content: flex-start;    
+}
+.chart_lvls p{
+	padding: 8px;
+	height: calc(100% / 3);
+	font-size: 12px;
+}
+.charts_container .chart_lvls{
+	display: none;
+}
+.chart_lvls p:nth-child(2){
+	background-color: rgba(245,245,245,0.6);
 }
 .stat_years{
 	flex: 0 0 100%;
@@ -3260,12 +3300,15 @@ canvas[id^=chart_]{
 }
 .charts_container{
 	clear: both;
+	border-top: 1px solid transparent;
 }
 .charts_container .chart_item{
 	padding: 1em;
 	position: relative;
-	border: 1px solid #eee;
-	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	border: 1px solid #e0e0e0;
+}
+.charts_container .chart_item.active{
+	background-color: #fff6e4;
 }
 .charts_container .chart_item .chart_edit{
 	position: absolute;

@@ -82,6 +82,7 @@ h5 {
 	padding: 10px;
 	/*overflow: hidden;*/
 	margin-bottom: 15px;
+	position: relative;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -401,7 +402,7 @@ label.info_key {
 	margin-left: 5px;
 }
 .list_view .card .product_name {
-	min-height: 100px;
+	/*min-height: 100px;*/
 	float: left;
 	width: calc(100% - 130px - 350px);
 	display: table-row;
@@ -633,9 +634,9 @@ label.info_key {
 .list_view .note {
 	margin-top: 5px;
 }
-.list_view .products .card {
+/*.list_view .products .card {
 	overflow: hidden;
-}
+}*/
 .add_to_fav_trend_block {
 	position: absolute;
 	display: block;
@@ -705,7 +706,7 @@ label.info_key {
 }
 /* Стили акции */
 .market_action {	
-    width: 100%;
+    width: 100px;
     position: absolute;
     top: -10px;
     left: -10px;
@@ -745,9 +746,16 @@ label.info_key {
 	.block_view .products .card .product_buy .buy_block .quantity button {
 		display: none;
 	}
+	.card_tittle {
+		display: none;
+	}
 }
-
-
+.card_tittle {
+	height: 60px;
+}
+.list_view .card.card_tittle .product_name {
+	padding-top: 3px;
+}
 
 
 /* Module View ===============================================================*/
@@ -1205,6 +1213,10 @@ label.info_key {
 	color: #818181;
 }
 
+.clear_card {
+	clear: both;
+}
+
 /*Media Query ================================================================*/
 
 @media (max-width: 991px) {
@@ -1364,7 +1376,7 @@ label.info_key {
 }
 @media (max-width: 768px){
 	.products .card {
-		/*position: relative;*/
+		position: relative;
 		padding: 0;
 		border: 0;
 	}
