@@ -14,18 +14,18 @@
 			<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="name" class="mdl-textfield__label">Фамилия:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+			<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="middle_name" class="mdl-textfield__label">Имя:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+			<label for="first_name" class="mdl-textfield__label">Имя:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="last_name" class="mdl-textfield__label">Отчество:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+			<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
