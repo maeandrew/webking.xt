@@ -106,7 +106,7 @@ class Paginator{
 		// print_r(Link::Category($GLOBALS['Rewrite']));
 		if(isset($GLOBALS['Rewrite'])){
 			if($GLOBALS['CurrentController'] == 'products'){
-				$page_base = Link::Category($GLOBALS['Rewrite']);
+				$page_base = Link::Category($GLOBALS['Rewrite'], array('page' => 1));
 			}else{
 				$page_base = Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);
 			}
@@ -121,11 +121,7 @@ class Paginator{
 				}elseif($this->active_page == $this->pages_count){
 					$GLOBALS['meta_prev'] = $prev;
 				}else{
-					if($this->active_page == 2){
-						// $GLOBALS['meta_prev'] = $page_base;
-					}else{
-						$GLOBALS['meta_prev'] = $prev;
-					}
+					$GLOBALS['meta_prev'] = $prev;
 					$GLOBALS['meta_next'] = $next;
 				}
 			}
