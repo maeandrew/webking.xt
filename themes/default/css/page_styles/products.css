@@ -82,6 +82,7 @@ h5 {
 	padding: 10px;
 	/*overflow: hidden;*/
 	margin-bottom: 15px;
+	position: relative;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -1364,7 +1365,7 @@ label.info_key {
 }
 @media (max-width: 768px){
 	.products .card {
-		/*position: relative;*/
+		position: relative;
 		padding: 0;
 		border: 0;
 	}
