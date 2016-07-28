@@ -602,6 +602,9 @@
 		<div id="demand_chart" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
+		<div id="demand_chart_msg" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
+			<div class="modal_container"></div>
+		</div>
 		<!-- Аналог alert -->
 		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
 			<div class="mdl-snackbar__text"></div>

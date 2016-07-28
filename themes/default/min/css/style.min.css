@@ -584,6 +584,8 @@ section.center{width:calc(100% - 260px)}
 #demand_chart .range_num{position:absolute;bottom:2%;right:40%}
 @media (max-width:950px){#demand_chart .range_num{right:30%)}
 }
+#demand_chart_msg .msg_wrap{min-width:300px;min-height:300px;padding:2em}
+#demand_chart_msg .msg_wrap p{max-width:400px;font-size:1.2em}
 .avg_chart_wrap{background-color:#fff;padding:1em;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .avg_chart_wrap:hover{box-shadow:0 2px 10px -1px rgba(0,0,0,.2)}
 .avg_chart_wrap canvas.chart{margin-bottom:1em}

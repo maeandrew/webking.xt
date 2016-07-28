@@ -811,6 +811,11 @@ $(function(){
 				'text': comment,
 				'opt': is_opt
 			}).done(function(data){
+				if(!$(this).data('isadmin')){
+					$('#demand_chart_msg .modal_container').html('<div class="msg_wrap"><h3>Благодарим Вас!</h3><p>Данные успешно сохранены.</p><p>После успешной проверки модератором, внесенные Вами зменения будут учтены в итоговом графике спроса данной категории.</p></div>');
+					componentHandler.upgradeDom();
+					openObject('demand_chart_msg');
+				}
 				if(data === true){
 					console.log('Your data has been saved successfully!');
 					closeObject('demand_chart');
@@ -832,6 +837,11 @@ $(function(){
 				'opt': is_opt,
 				'id_charts': roz_id_chart + ', ' + opt_id_chart
 			}).done(function(data){
+				if(!$(this).data('isadmin')){
+					$('#demand_chart_msg .modal_container').html('<div class="msg_wrap"><h3>Благодарим Вас!</h3><p>Данные успешно сохранены.</p><p>После успешной проверки модератором, внесенные Вами зменения будут учтены в итоговом графике спроса данной категории.</p></div>');
+					componentHandler.upgradeDom();
+					openObject('demand_chart_msg');
+				}
 				if(data === true){
 					console.log('Your data has been updated successfully!');
 					closeObject('demand_chart');

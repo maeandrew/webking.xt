@@ -173,9 +173,9 @@
 	<div class="mdl-cell mdl-cell--2-col">
 		<div id="user_bt">
 			<?if(!empty($values)){?>
-				<a href="#" class="update btn_js mdl-button mdl-js-button mdl-js-ripple-effect">Обновить</a> <!-- onclick="ModalDemandChart()" -->
+				<a href="#" class="update btn_js mdl-button mdl-js-button mdl-js-ripple-effect" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Обновить</a> <!-- onclick="ModalDemandChart()" -->
 			<?}else{?>
-				<a href="#" class="save btn_js mdl-button mdl-js-button mdl-js-ripple-effect">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
+				<a href="#" class="save btn_js mdl-button mdl-js-button mdl-js-ripple-effect" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
 			<?}?>
 		</div>
 	</div>
