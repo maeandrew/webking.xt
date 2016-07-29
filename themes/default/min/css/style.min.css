@@ -195,10 +195,11 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .action_block .info_admin,#cart .action_block .info_client{width:95%;margin-bottom:10px}
 #cart .action_block .info_client.ic_ready{color:#4CAF50}
 #cart .action_block .info_client a{text-decoration:underline}
-#cart .action_block .cart_warning_js input{width:80px;margin:10px}
+#cart .action_block .cart_warning input{width:80px;margin:10px}
 #cart .no_items h2{text-align:center}
 #cart .no_items p{text-align:center}
 #cart .no_items img{display:block;margin:0 auto}
+#cart .action_block .info_description{font-size:.8em;line-height:.9em;width:290px;left:-2%}
 #button-cart2,#button-cart3{display:none}
 #removingProd{height:28px;line-height:28px;position:absolute;left:calc(50% - 160px);top:15px;background:#ff5722;color:#fff;width:320px;text-align:center;border-radius:5px;float:left}
 #discountBlock{display:flex;justify-content:space-between;margin-top:10px}
@@ -348,10 +349,7 @@ section .stat_year{padding:0 0 10px 50px}
 .content .sorting .prod_structure{float:right;margin-left:10px}
 .content .sorting .prod_structure span{font-size:24px;line-height:29px;cursor:pointer}
 .content .sorting .prod_structure span.disabled{background:#fff!important}
-.products .card_wrapper{min-height:70px;height:70px;font-weight:500}
-.products .card .count_cell,.products .card .price,.products .card .product_check,.products .card_wrapper .card_item{text-align:center}
-.products .card_wrapper .product_photo{margin-top:10px}
-.products .card_wrapper .product_name{margin-top:8px;font-weight:500;width:150px}
+.products .card .count_cell,.products .card .price,.products .card .product_check,.products .card_tittle .card_item{text-align:center}
 .products .card .product_check .mdl-checkbox{display:inline}
 .suplierPriceBlock{float:right;margin-top:40px}
 .headerPriceBlock{margin-top:0}
@@ -363,10 +361,10 @@ section .stat_year{padding:0 0 10px 50px}
 .products .card .ordered{position:absolute;color:#018b06;right:0;top:10px;cursor:help}
 .products .card [for^=ordered-]{font-size:12px}
 .separateBlocks{clear:both}
-@media (max-width:1024px){.products .card_wrapper{display:block}
+@media (max-width:1024px){.products .card_tittle{display:block}
 .products .buy_block .btn_buy button{background:#ff5722;color:#fff}
 }
-@media (max-width:1022px){.products .card_wrapper{display:none}
+@media (max-width:1022px){.products .card_tittle{display:none}
 .suplierPriceBlock{margin-top:20px;margin-right:0}
 }
 .list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock{float:left}
@@ -425,6 +423,7 @@ section.center{width:calc(100% - 260px)}
 .content_header .cart_info{width:50%}
 .content{padding:0 5px}
 .list_view .products .card .product_name{width:calc(100% - 130px)}
+.list_view .products .card_tittle .product_name{width:calc(100% - 130px - 350px)}
 .product_buy{float:left}
 .products .product_info{width:auto}
 .list_view .products .product_buy{left:9.3em}

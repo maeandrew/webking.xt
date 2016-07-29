@@ -113,16 +113,6 @@ if(isset($_COOKIE['view_products'])){
 	$tpl->Assign('view_products_list', array_reverse($result));
 	unset($result, $product, $value);
 }
-
-// Выборка популярных товаров
-$pops = $products->GetPopularsOfCategory(0, true);
-foreach($pops AS &$pop){
-	$pop['images'] = $products->GetPhotoById($pop['id_product']);
-}
-$tpl->Assign('pops', $pops);
-unset($pops, $pop);
-// =========================================================
-
 // Обработка фильтров ======================================
 // if(isset($_POST['filters'])){
 // 	$filters[] = $_POST['filters'];

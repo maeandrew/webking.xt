@@ -1144,7 +1144,7 @@ section.center {
 	#cart .action_block .info_client a {
 		text-decoration: underline;
 	}
-	#cart .action_block .cart_warning_js input {
+	#cart .action_block .cart_warning input {
 		width: 80px;
 		margin: 10px;
 	}
@@ -1158,6 +1158,13 @@ section.center {
 		display: block;
 		margin: 0 auto;
 	}
+	#cart .action_block .info_description{
+		font-size: .8em;
+		line-height: .9em;
+		width: 290px;
+		left: -2%;
+	}
+
 	#button-cart2,
 	#button-cart3 {
 		display: none;
@@ -2049,28 +2056,28 @@ section .stat_year {
 
 
 /****************************************/
-.products .card_wrapper {
+/*.products .card_wrapper {
 	min-height: 70px;
 	height: 70px;
 	font-weight: 500;
-}
+}*/
 
-.products .card_wrapper .card_item,
+.products .card_tittle .card_item,
 .products .card .price,
 .products .card .count_cell,
 .products .card .product_check {
 	text-align: center;
 }
 
-.products .card_wrapper .product_photo {
+/*.products .card_tittle .product_photo {
 	margin-top: 10px;
-}
+}*/
 
-.products .card_wrapper .product_name {
+/*.products .card_tittle .product_name {
 	margin-top: 8px;
 	font-weight: 500;
 	width: 150px;
-}
+}*/
 
 .products .card .product_check .mdl-checkbox {
 	display: inline;
@@ -2134,7 +2141,7 @@ section .stat_year {
 }
 
 @media (max-width: 1024px) {
-	.products .card_wrapper {
+	.products .card_tittle {
 		display: block;
 	}
 	.products .buy_block .btn_buy button {
@@ -2144,7 +2151,7 @@ section .stat_year {
 }
 
 @media (max-width: 1022px) {
-	.products .card_wrapper {
+	.products .card_tittle {
 		display: none;
 	}
 	/*.suplierPriceBlock .count_cell {
@@ -2459,6 +2466,9 @@ section .stat_year {
 	}
 	.list_view .products .card .product_name {
 		width: calc(100% - 130px);
+	}
+	.list_view .products .card_tittle .product_name {
+		width: calc(100% - 130px - 350px);
 	}
 	.product_buy {
 		float: left;

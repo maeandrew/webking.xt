@@ -581,7 +581,7 @@ $(function(){
 		navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 	});
-	$("#owl-popular, #owl-last-viewed, #owl-accompanying").owlCarousel({
+	$("#owl-popular, #owl-other, #owl-last-viewed, #owl-accompanying").owlCarousel({
 		autoPlay: false,
 		dots: false,
 		stopOnHover: true,
@@ -600,6 +600,18 @@ $(function(){
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 	});
 
+	$("#owl-top").owlCarousel({
+		autoPlay: false,
+		dots: false,
+		stopOnHover: true,
+		slideSpeed: 300,
+		items:	4,
+		paginationSpeed: 400,
+		itemsScaleUp: true,		
+		nav: true, // Show next and prev buttons
+		navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
+	});
 	//Rating stars
 	$('.set_rating').on('change', function(){
 		var rating = $(this).val();
