@@ -195,10 +195,11 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .action_block .info_admin,#cart .action_block .info_client{width:95%;margin-bottom:10px}
 #cart .action_block .info_client.ic_ready{color:#4CAF50}
 #cart .action_block .info_client a{text-decoration:underline}
-#cart .action_block .cart_warning_js input{width:80px;margin:10px}
+#cart .action_block .cart_warning input{width:80px;margin:10px}
 #cart .no_items h2{text-align:center}
 #cart .no_items p{text-align:center}
 #cart .no_items img{display:block;margin:0 auto}
+#cart .action_block .info_description{font-size:.8em;line-height:.9em;width:290px;left:-2%}
 #button-cart2,#button-cart3{display:none}
 #removingProd{height:28px;line-height:28px;position:absolute;left:calc(50% - 160px);top:15px;background:#ff5722;color:#fff;width:320px;text-align:center;border-radius:5px;float:left}
 #discountBlock{display:flex;justify-content:space-between;margin-top:10px}

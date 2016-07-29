@@ -1144,7 +1144,7 @@ section.center {
 	#cart .action_block .info_client a {
 		text-decoration: underline;
 	}
-	#cart .action_block .cart_warning_js input {
+	#cart .action_block .cart_warning input {
 		width: 80px;
 		margin: 10px;
 	}
@@ -1158,6 +1158,13 @@ section.center {
 		display: block;
 		margin: 0 auto;
 	}
+	#cart .action_block .info_description{
+		font-size: .8em;
+		line-height: .9em;
+		width: 290px;
+		left: -2%;
+	}
+
 	#button-cart2,
 	#button-cart3 {
 		display: none;

@@ -150,10 +150,6 @@
 						<div class="product_info">
 							<div class="note in_cart">
 								<textarea class="note_field" cols="30" rows="3" placeholder="Примечание к товару" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>" form="edit" name="note" <?=$item['note_control'] != 0 ? 'required':null?> ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
-								<label class="info_key">?</label>
-								<div class="info_description hidden">
-									<p>Поле для ввода примечания к товару.</p>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -369,7 +365,7 @@
 						<?}?>
 					
 						<?if(!isset($_SESSION['cart']['promo'])){?>
-							<div class="cart_choiсe_wrapp_js">
+							<div class="cart_choiсe_wrapp_js cart_choiсe_wrapp">
 								<!--<div class="tooltip_wrapp joint_cart_js">
 									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
 										<input type="radio" class="mdl-radio__button" name="options" value="1">
