@@ -75,10 +75,6 @@ $l = $arr['category_level']+1;
 $tpl->Assign('subcats', $dbtree->GetSubCats($id_category, array('id_category', 'name', 'translit', 'art', 'category_level')));
 
 // === === === subcats
-$pops = $products->GetPopularsOfCategory($id_category);
-$tpl->Assign('pops', $pops);
-$popsMain = $products->GetPopularsOfCategory(0);
-$tpl->Assign('popsMain', $popsMain);
 $tpl->Assign('list', $products->list);
 $tpl->Assign('catname', $arr['name']);
 $tpl->Assign('id_category', $id_category);

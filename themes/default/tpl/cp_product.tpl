@@ -16,7 +16,7 @@
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
-		<?if(G::isMobile()){?>			
+		<?if(G::isMobile()){?>
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>

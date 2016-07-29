@@ -3213,26 +3213,26 @@ class Products {
 			return false;
 		}
 	}
+
 	/**
-	 * [GetPopularsOfCategory description]
-	 * @param [type]  $id_category [description]
-	 * @param boolean $forDisplay  [description]
+	 * @param $id_category
+	 * @param $id_product
+	 * @param bool|false $rand
+	 * @param bool|false $limit
+	 * @return mixed
 	 */
-	public function GetPopularsOfCategory($id_category, $forDisplay = false){
-		if(!$forDisplay){
-			$sql = "SELECT id_product
-				FROM "._DB_PREFIX_."popular_products
-				WHERE id_category = $id_category";
-		}else{
-			$sql = "SELECT p.id_product, pp.id_category,
-				p.name as name,
-				p.translit, p.img_1, p.price_mopt
-				FROM "._DB_PREFIX_."popular_products AS pp
-				LEFT JOIN "._DB_PREFIX_."product AS p
-				ON p.id_product = pp.id_product
-				WHERE p.price_mopt > 0
-				LIMIT ".$GLOBALS['CONFIG']['populars_on_page'];
-		}
+	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
+		$limit = $limit?' LIMIT '.$limit:null;
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
+				p.descr, i.src ".(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."osp o
+				LEFT JOIN "._DB_PREFIX_."product p ON o.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
+				LEFT JOIN "._DB_PREFIX_."image i ON i.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON p.id_product = a.id_product
+				WHERE p.visible = 1 AND a.product_limit > 0 AND (p.price_opt>0 OR p.price_mopt>0)
+				AND p.id_product <> ".$id_product." AND cp.id_category = ".$id_category."
+				GROUP BY o.id_product
+				ORDER BY ".($rand?'RAND()':'count DESC').$limit;
 		$arr = $this->db->GetArray($sql,"id_product");
 		return $arr;
 	}
