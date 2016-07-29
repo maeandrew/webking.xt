@@ -39,11 +39,7 @@
 						</div>
 						<div class="product_name p<?=$item['id_product']?>">
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
-							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
-							<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
-								<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
-								<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
-							<?}?>
+							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>							
 							<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 								<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
@@ -166,12 +162,16 @@
 						</ul>
 					</div>
 				</div>
+				<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
+					<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+					<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+				<?}?>
 				<div class="clear_card"></div>
 			</div>
 		<?}	      
 	    break;
 	case _ACL_SUPPLIER_:	    	
-    	?><div class="card card_tittle clearfix">
+    	?><div class="card card_tittle">
 			<div class="product_photo card_item">Фото товара</div>
 			<p class="product_name card_item">Наименование товара</p>
 			<div class="suplierPriceBlock headerPriceBlock">
@@ -180,6 +180,7 @@
 				<div class="count_cell card_item">Кол-во<br>в ящике</div>
 				<div class="product_check card_item">Добавить в<br>ассортимент</div>
 			</div>
+			<div class="clear_card"></div>
 		</div><?
 		foreach($list as $item){ $action = false; ?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
@@ -277,10 +278,7 @@
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
-					<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
-						<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
-						<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
-					<?}?>
+					
 					<div class="product_info">
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
@@ -324,6 +322,10 @@
 					</div>
 					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 				</div>
+				<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
+					<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+					<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+				<?}?>
 				<div class="clear_card"></div>
 			</div>
 		<?}

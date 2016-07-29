@@ -31,7 +31,7 @@
 .product .content_header{padding:0}
 .product .content_header .cart_info{float:none;width:100%}
 .product .pb_wrapper{position:relative;padding:20px 0}
-.product .product_buy{float:none;width:auto;max-width:none;width:100%}
+.product .product_buy{float:none;width:auto;max-width:none;width:100%;padding:15px;height:auto}
 .product .product_buy .buy_block{justify-content:flex-start}
 .product .product_buy .buy_block>div{margin-right:20px}
 .product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:2em}
@@ -117,7 +117,7 @@ div[for=rating_block]{font-size:12px}
 .product .product_buy .buy_block .supplier_block{width:68%;margin-top:-32px;padding-left:10px;padding-right:10px}
 .product .product_buy .buy_block .supplier_block p,.product .product_buy .buy_block .supplier_block span{font-size:1em;display:inline}
 .product .product_buy .buy_block .supplier_block .product_check label{width:30px}
-@media (max-width:1600px){.slider_products{background:#f5f5f5;border-top:1px solid #e0e0e0}
+@media (max-width:1600px){.slider_products{background:#f3f3f3;border-top:1px solid #e0e0e0}
 }
 @media (max-width:1024px){.product .tabs{width:auto}
 }
