@@ -7,7 +7,7 @@
 				<p>Наши специалисты, проведут полный расчет расходов и подберут необходимый товар. Смета рассчитывается в файле формата Excel.</p>
 			</div>
 		</li>
-		<!-- <li id="organization" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 1)?'activeSegment':null;?>" data-nav="organization">
+		<li id="organization" class="<?=(isset($_COOKIE['Segmentation']) && $_COOKIE['Segmentation'] == 1)?'activeSegment':null;?>" data-nav="organization">
 			<i class="material-icons">work</i>Для организаций
 			<label class="info_key">?</label>
 			<div class="info_description">
@@ -20,7 +20,7 @@
 			<div class="info_description">
 				<p>Оптовые поставки хозяйственных товаров, для всех магазинов.</p>
 			</div>
-		</li> -->
+		</li>
 		<li id="allSection" class="<?=(isset($_COOKIE['Segmentation']) && ($_COOKIE['Segmentation'] == 0 || $_COOKIE['Segmentation'] == null))?'activeSegment':'active';?>" data-nav="all_section">
 			<i class="material-icons">list</i>Все разделы
 			<label class="info_key">?</label>
