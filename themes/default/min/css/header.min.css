@@ -15,8 +15,8 @@ header .header_wrapp .header_right .search_wrap .search_category{padding:0;width
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box{top:0;bottom:0}
 header.opened .header_wrapp .header_right .search_wrap .search{vertical-align:middle}
 header .header_wrapp .header_right .search_wrap .header_search_close{display:none}
-header.opened .header_wrapp .header_right .search_wrap .header_search_close{display:inline-block;position:absolute;right:.5em;top:.5em;background-color:#fff;cursor:pointer}
-@media all and (handheld),all and (max-width:1170px){header.opened{margin-left:0}
+@media all and (handheld),all and (max-width:1170px){header.opened .header_wrapp .header_right .search_wrap .header_search_close{display:inline-block;position:absolute;right:.5em;top:.5em;background-color:#fff;cursor:pointer}
+header.opened{margin-left:0}
 header.opened .header_wrapp{position:relative}
 header.opened .header_wrapp .header_right .search_wrap{position:absolute;top:0;left:0;margin:0;padding:.5em;height:100%;width:100vw;background-color:#fff;text-align:center;z-index:1}
 }

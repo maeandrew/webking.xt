@@ -301,14 +301,14 @@ label.info_key {
 	float: right;
 	padding: 20px 15px 20px 0;
 }
- .load_more {
+/* .load_more {
 	background: rgba(255, 255, 255, 1) url(../../images/AjaxLoader.gif) no-repeat 50% 50%;
 	height: 32px;
 	width: 32px;
 	display: inline-block;
 	margin-left: 10px;
 	position: absolute;
-}
+}*/
  #show_more_products {
 	line-height: 32px;
 	display: inline-block;
@@ -655,12 +655,12 @@ label.info_key {
 }
 .block_view .add_to_fav_trend_block .favorite {
 	margin-bottom: 15px;
-	background: rgba(0, 0, 0, 0.15);
+	background: #fff;
 	height: 30px;
 	border-radius: 50%;
 }
 .block_view .add_to_fav_trend_block .fortrending {
-	background: rgba(0, 0, 0, 0.15);
+	background: #fff;
 	border-radius: 50%;
 	height: 30px;
 }
@@ -689,6 +689,8 @@ label.info_key {
 .list_view .preview_icon {
 	font-size: 35px;
 	margin-top: calc(50% - 12px);
+	background: #fff;
+    border-radius: 50%;
 }
 .list_view .product_article {
 	display: block;

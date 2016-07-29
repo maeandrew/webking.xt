@@ -45,7 +45,6 @@ label.info_key{position:absolute;top:10px;right:4px}
 .buy_block{display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:-o-flex;display:flex;justify-content:space-between}
 .sold-out{line-height:31px}
 .sort_page{float:right;padding:20px 15px 20px 0}
-.load_more{background:rgba(255,255,255,1) url(../../images/AjaxLoader.gif) no-repeat 50% 50%;height:32px;width:32px;display:inline-block;margin-left:10px;position:absolute}
 #show_more_products{line-height:32px;display:inline-block;vertical-align:top}
 .list_view .product_section{background:#fff}
 .list_view div[class^=col-]:nth-child(even)>.product_section{background:#f7f7f7}
@@ -112,14 +111,14 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .note,.list_view .note{margin-top:5px}
 .add_to_fav_trend_block{position:absolute;display:block;bottom:0;right:0;opacity:0;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .list_view .add_to_fav_trend_block{left:0;top:0}
-.block_view .add_to_fav_trend_block .favorite{margin-bottom:15px;background:rgba(0,0,0,.15);height:30px;border-radius:50%}
-.block_view .add_to_fav_trend_block .fortrending{background:rgba(0,0,0,.15);border-radius:50%;height:30px}
+.block_view .add_to_fav_trend_block .favorite{margin-bottom:15px;background:#fff;height:30px;border-radius:50%}
+.block_view .add_to_fav_trend_block .fortrending{background:#fff;border-radius:50%;height:30px}
 .block_view .add_to_fav_trend_block .favorite_icon,.block_view .add_to_fav_trend_block .waiting_list{width:30px;line-height:30px;text-align:center}
 .block_view .preview_icon_block{display:none}
 .list_view .add_to_fav_trend_block .favorite,.list_view .add_to_fav_trend_block .fortrending{display:none}
 .list_view .preview_icon_block{display:block;text-align:center}
 .list_view .add_to_fav_trend_block:hover,.list_view .preview_icon:hover{cursor:pointer}
-.list_view .preview_icon{font-size:35px;margin-top:calc(50% - 12px)}
+.list_view .preview_icon{font-size:35px;margin-top:calc(50% - 12px);background:#fff;border-radius:50%}
 .list_view .product_article{display:block}
 .favorite_icon:hover,.isfavorite{color:red}
 .arrow,.waiting_list:hover{color:#FF5722}
