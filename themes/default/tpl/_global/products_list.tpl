@@ -68,8 +68,21 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					}?>
 					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<div class="buy_block">
+						<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
+								<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}else{?>
+								<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}?>
+						</div>
 						<div class="product_price">
 							<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+						</div>
+						<div class="prodBasePrices hidden">
+							<?for($i = 0; $i < 4; $i++){?>
+								<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
+								<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
+							<?}?>
 						</div>
 						<div class="prodPrices hidden">
 							<?for($i = 0; $i < 4; $i++){?>
