@@ -122,7 +122,9 @@ function removeFromCart(id){
 			$('#in_cart_' + id).closest('.card').find('.note').addClass('hidden');
 
 			var priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt' + $.cookie('sum_range')).val();
+			var basePriceOpt = $('#in_cart_' + id).closest('.product_buy').find('.basePriceOpt' + $.cookie('sum_range')).val();
 			$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+			$('#in_cart_' + id).closest('.product_buy').find('.base_price').html(basePriceOpt);
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$.each(data.products, function(key, value){

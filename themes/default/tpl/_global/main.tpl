@@ -299,6 +299,13 @@
 					</div>
 				</div>
 			<?}?>
+
+				<div class="mdl-grid">
+					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
+						<?=isset($descr_for_seo)?$descr_for_seo:null?>
+					</div>
+				</div>
+			
 		</section>
 		<div id="canvas_mark_wrapper">
 			<canvas id="err_canvas" width="10" height="10"></canvas>

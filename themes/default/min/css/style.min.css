@@ -424,14 +424,18 @@ section.center{width:calc(100% - 260px)}
 .content{padding:0 5px}
 .list_view .products .card .product_name{width:calc(100% - 130px)}
 .list_view .products .card_tittle .product_name{width:calc(100% - 130px - 350px)}
+.list_view .products .card .base_price{top:-10px}
 .product_buy{float:left}
 .products .product_info{width:auto}
-.list_view .products .product_buy{left:9.3em}
+.list_view .products .product_buy{left:calc(100% - 450px);margin-top:10px}
 .products .product_info{margin:0}
 .products .card .product_buy{padding:17px 0;height:70px}
 #cart .card .product_name{min-width:180px}
 #cart{padding:15px}
 #cart #percent td{padding:0 .2em}
+}
+@media (max-width:780px){.list_view .products .product_buy{left:0}
+.list_view .products .card .base_price{width:80px;top:-23px;text-align:center}
 }
 @media (max-width:727px){[data-type=modal] .modal_container{padding:0 25px;width:100%;max-height:calc(100vh - 30px - 32px)}
 #cart .title_cart{padding:0 25px}

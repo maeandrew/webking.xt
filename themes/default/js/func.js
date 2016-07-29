@@ -313,13 +313,15 @@ function ChangePriceRange(column, manual){
 		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
 			var minQty = parseInt($(this).find('.minQty').val()),
 				curentQty =	parseInt($(this).find('.qty_js').val()),
-				price = parseFloat($(this).find('.price'+(curentQty >= minQty?'Opt':'Mopt')+$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',',');
+				price = parseFloat($(this).find('.price'+(curentQty >= minQty?'Opt':'Mopt')+$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',','),
+				base_price = $(this).find('.basePrice'+(curentQty >= minQty?'Opt':'Mopt')+$.cookie('sum_range')).val();
 			if(curentQty >= minQty){
 				$(this).find('.priceMoptInf').addClass('hidden');
 			}else{
 				$(this).find('.priceMoptInf').removeClass('hidden');
 			}
 			$(this).find('.price').html(price);
+			$(this).find('.base_price').html(base_price);
 		});
 		// Подсветка цен товаров для привлечения внимания
 		if(a === true){
