@@ -165,6 +165,7 @@ if(G::IsLogged() && !_acl::isAdmin()){
 }
 $Cart->RecalcCart();
 if(G::IsLogged()){
+	$tpl->Assign('customer', $Customer->fields);
 	$tpl->Assign('user_profile', $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl'));
 }
 require($GLOBALS['PATH_core'].'controller.php');
