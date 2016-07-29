@@ -73,10 +73,6 @@
 			</div>
 		</div>
 		<div class="errMsg_js"></div>
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="address" class="mdl-textfield__label">Адрес:</label>
-			<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
-		</div>
 		<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 	</form>
 </div>
