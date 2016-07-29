@@ -7,8 +7,14 @@ class Address {
 		$this->db =& $GLOBALS['db'];
 	}
 	public function GetListByUserId($id_user){
-		$sql = "SELECT * FROM "._DB_PREFIX_."address
-		WHERE id_user = ".$id_user;
+		$sql = "SELECT a.*, lr.title AS region, lc.title AS city,
+			sc.title AS shipping_company, ld.title AS delivery
+			FROM "._DB_PREFIX_."address a
+			LEFT JOIN "._DB_PREFIX_."locations_delivery_type ld ON ld.id = a.id_delivery_service
+			LEFT JOIN "._DB_PREFIX_."locations_cities lc ON lc.id = a.id_city
+			LEFT JOIN "._DB_PREFIX_."locations_regions lr ON lr.id = a.id_region
+			LEFT JOIN "._DB_PREFIX_."shipping_companies sc ON sc.id = a.id_delivery_service
+			WHERE a.id_user = ".$id_user;
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -23,7 +29,7 @@ class Address {
 		}
 		return $res;
 	}
-	public function GetAddressByIdUser($id_user){
+	public function GetAddressById($id_address){
 		$sql ="SELECT a.*, lr.title AS region_title, lc.title AS city_title,
 			dt.title AS delivery_type_title, sc.title AS shipping_company_title
 			FROM "._DB_PREFIX_."address AS a
@@ -35,8 +41,8 @@ class Address {
 				ON sc.id = a.id_delivery_service
 			LEFT JOIN "._DB_PREFIX_."locations_delivery_type AS dt
 				ON dt.id = a.id_delivery
-			WHERE a.id_user = ".$id_user;
-		if(!$res = $this->db->GetArray($sql)){
+			WHERE a.id = ".$id_address;
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;

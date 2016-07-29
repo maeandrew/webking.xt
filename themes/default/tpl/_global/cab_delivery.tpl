@@ -7,9 +7,9 @@
 				<ul>
 					<li><span>Область:</span><?=$address['region']?></li>
 					<li><span>Город:</span><?=$address['city']?></li>
-					<li><span>Способ доставки:</span><?=$address['id_delivery']?></li>
-					<li><span>Транспортная компания:</span><?=$address['id_delivery_service']?></li>
-					<li><span>Отделение:</span><?=$address['department']?></li>
+					<li><span>Способ доставки:</span><?=$address['delivery']?></li>
+					<li><span>Транспортная компания:</span><?=$address['shipping_company']?></li>
+					<li><span>Отделение:</span><?=$address['delivery_department']?></li>
 				</ul>
 			</div>
 		<?}?>
