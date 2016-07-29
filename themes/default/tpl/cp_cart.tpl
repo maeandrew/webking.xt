@@ -371,7 +371,7 @@
 										<input type="radio" class="mdl-radio__button" name="options" value="1">
 										<span class="mdl-radio__label">Совместная корзина</span>
 											<label class="info_key" style="position: initial;">?</label>
-											<div class="info_description">Создать совместную корзину и стать ее администратором.</div>
+											<div class="info_description">Стать организатором совместной корзины</div>
 									</label>
 								</div>-->
 								<div class="tooltip_wrapp joint_purchase_js">
