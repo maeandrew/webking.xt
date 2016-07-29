@@ -2061,4 +2061,15 @@ $(function(){
 			scrollTop: 0
 		}, 1000, "easeInOutCubic");
 	});
+
+	$('body').on('click', '.mob_search_btn_js', function(event) {
+		event.preventDefault();
+		$('html').addClass('active_bg').find('header').addClass('opened').find('div.search').addClass('is-focused');
+		componentHandler.upgradeDom();
+	});
+	$('body').on('click', '.header_search_close_js', function(event) {
+		event.preventDefault();
+		$('html').removeClass('active_bg').find('header').removeClass('opened').find('div.search').removeClass('is-focused');
+		componentHandler.upgradeDom();
+	});
 });

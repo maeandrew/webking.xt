@@ -336,7 +336,7 @@
 						<div id="savedCopyContainer">
 							<img id="savedImageCopy" src="">
 						</div>
-						<div class="tools_wrapp_js tools_wrapp">
+						<div class="tools_wrapp_js tools_wrapp mdl-cell--hide-tablet mdl-cell--hide-phone">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
 							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
 							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
