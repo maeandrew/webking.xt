@@ -76,15 +76,15 @@ header.opened .header_wrapp .header_right .search_wrap .search {
 header .header_wrapp .header_right .search_wrap .header_search_close{
 	display: none;
 }
-header.opened .header_wrapp .header_right .search_wrap .header_search_close{
-	display: inline-block;
-	position: absolute;
-	right: .5em;
-	top: .5em;
-	background-color: #fff;
-	cursor: pointer;
-}
 @media all and (handheld), all and (max-width: 1170px){
+	header.opened .header_wrapp .header_right .search_wrap .header_search_close{
+		display: inline-block;
+		position: absolute;
+		right: .5em;
+		top: .5em;
+		background-color: #fff;
+		cursor: pointer;
+	}
 	header.opened{
 		margin-left: 0;
 	}
