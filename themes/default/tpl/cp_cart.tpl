@@ -316,16 +316,18 @@
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label for="user_number">*Телефон</label>
-						<input class="mdl-textfield__input phone" type="text" id="user_number"
-						pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
-						<label class="mdl-textfield__label" for="user_number"></label>
-						<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
-					</div>
-					<p class="err_msg"></p>
-					<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 
+					<?if(!G::IsLogged() || $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){?>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label for="user_number">*Телефон</label>
+							<input class="mdl-textfield__input phone" type="text" id="user_number"
+							pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
+							<label class="mdl-textfield__label" for="user_number"></label>
+							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
+						</div>
+						<p class="err_msg"></p>
+						<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
+					<?}?>
 					<?if(G::IsLogged() || _acl::isAdmin()){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
 							<label for="promo_input">Промокод</label>
@@ -400,40 +402,36 @@
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','?t=working')?>" value="Отправить"></button>
 					</div> -->
 				</form>
-				
 				<script type='text/javascript'>
 					//   radio button magic
 					componentHandler.upgradeDom();
-
 					var checked = false;
-
-					$('#cart .joint_cart_js').on('click', function () {
-						if (checked == false) {
+					$('#cart .joint_cart_js').on('click', function(){
+						if(checked == false){
 							$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
 							$('.cart_continue_js').addClass('joint_cart_continue_js').removeClass('hidden').removeClass('joint_purchase_continue_js');
 						}
 					});
-					$('#cart .joint_purchase_js').on('click', function () {
-						if (checked == false) {
+					$('#cart .joint_purchase_js').on('click', function(){
+						if(checked == false){
 							$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
 							$('.cart_continue_js').addClass('joint_purchase_continue_js').removeClass('hidden').removeClass('joint_cart_continue_js');
 						}
 					});
-					$('#cart .action_block .mdl-radio').on('mousedown', function (e) {
+					$('#cart .action_block .mdl-radio').on('mousedown', function (e){
 						checked = $(this).hasClass('is-checked');
-					}).on('click', function () {
-						if (checked == true) {
+					}).on('click', function(){
+						if(checked == true){
 							$(this).removeClass('is-checked').find('input').attr('checked', false);
 							$('.action_block #button-cart1 [type="submit"]').removeClass('hidden');
 							$('.cart_continue_js').addClass('hidden');
 						}
 					});
-
-					$('.joint_purchase_continue_js').click(function(event) {
-						ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp) {
+					$('.joint_purchase_continue_js').click(function(event){
+						ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp){
 							$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
 							openObject('cart', {reload: true});
-						}).fail(function(resp) {
+						}).fail(function(resp){
 							console.log('fail ajax');
 						});
 					});
@@ -445,12 +443,10 @@
 						// });
 					});
 					//   radio button magic (end)
-
-
-					$('.apply_promoCode_js').click(function(event) {
-						ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data) {
+					$('.apply_promoCode_js').click(function(event){
+						ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data){
 							console.log(data);
-							if (data.promo) {
+							if(data.promo){
 								$('cart_choiсe_wrapp_js').addClass('hidden');
 								GetCartAjax(true);
 								console.log("success promo");
@@ -461,15 +457,14 @@
 								$('.err_promo').addClass('visibleForUser').text(data.msg);
 								componentHandler.upgradeDom();
 							}
-							
 							// $('.confirm_order_js').closest('div').removeClass('hidden');
 							// $('#button-cart1').addClass('hidden');
-						}).fail(function(data) {
+						}).fail(function(data){
 							console.log("fail promo");
 						});
 					});
-					$('.confirm_del_promoCode_js').click(function(event) {
-						ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event) {
+					$('.confirm_del_promoCode_js').click(function(event){
+						ajax('cart', 'DeletePromo', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(event){
 							$('.promo_input_js input').attr('value', '');
 							// $('.cart_warning_js').addClass('hidden');
 							openObject('cart', {reload: true});
@@ -477,18 +472,18 @@
 							console.log("fail del promo");
 						});
 					});
-					$('.cancel_del_promoCode_js').click(function(event) {
+					$('.cancel_del_promoCode_js').click(function(event){
 						$('.cart_warning_js').addClass('hidden');
 					});
-					$('.del_promoCode_js').click(function(event) {
+					$('.del_promoCode_js').click(function(event){
 						$('.cart_warning_js').removeClass('hidden');
 					});
-					$('.confirm_order_js').click(function(event) {
+					$('.confirm_order_js').click(function(event){
 						// console.log($(this).closest('div').find('[type="hidden"]').val());
 						ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
 							console.log("success ");
 							openObject('cart', {reload: true});
-						}).fail(function(event) {
+						}).fail(function(event){
 							console.log("fail ");
 						});
 					});
@@ -496,9 +491,6 @@
 			</div>
 		</div>
 	</div>
-	
-
-
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
 		$(window).resize(function() {
@@ -513,105 +505,102 @@
 			// Инициалзация маски для ввода телефонных номеров
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
-
 			$('.remove_prod i, .remove_prod_mob').on('click', function(e){
 				$(this).closest('.card').addClass('hidden');
 				$('#removingProd').removeClass('hidden');
 			});
-
 			$('.clear_cart').on('click', function(e){
 				$('#clearCart').removeClass('hidden');
 			});
-
-			$(".note_field").blur(function() {
+			$(".note_field").blur(function(){
 				var id_product = $(this).data('id'),
 				 	note = $(this).val();
 				ajax('cart', 'updateCartQty', {id_product: id_product, note: note});
 			});
-
-			$(".order_note_text").blur(function() {
+			$(".order_note_text").blur(function(){
 				note = $(this).val();
 				console.log(note);
 				ajax('cart', 'SaveOrderNote', {note: note});			
 			});
-
-
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				console.log('нажали оформить');
-				var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
-				//Проверка на ввод примечания к товару					
-				var qtyControl = 0;
+				//Проверка на ввод примечания к товару
+				var data = {},
+					validate = true;
 				$('#cart .product_name').each(function(){
 					var currentQtyControl = $(this).find('.prod_note_control').data('notecontr');
 					var noteText = $(this).find('textarea').val();
 					$(this).find('.note').removeClass('activeNoteArea');
-					if (currentQtyControl === 1 && noteText == '') {
-						qtyControl = 1;
+					if(currentQtyControl === 1 && noteText == ''){
+						validate = false;
 						$(this).find('.note').addClass('activeNoteArea');
 						$(this).find('textarea').attr('placeholder', 'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!');
 						$('#fillNote').removeClass('hidden');
-
-						setTimeout (function(){
+						setTimeout(function(){
 							$("#fillNote").addClass('hidden');
 						}, 3000);						
 					}
 				});
-				if(phone.length == 12){
-					if (qtyControl === 0){
-						addLoadAnimation('#cart');
-						console.log('запустили аякс');
-						console.log(phone);
-						ajax('cart', 'makeOrder', {phone: phone}).done(function(data){
-							console.log('аякс вернулся');
-							switch(data.status){
-								case 200:
-									console.log('200');
-									closeObject('cart');
-									// window.location.hash = "quiz";
-									ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-										console.log(data);
-										$('#user_profile').append('<img src="/images/noavatar.png"/>');
-										$('.user_profile_js').html(data);
-
-										$('.cabinet_btn').removeClass('hidden');
-										$('.login_btn').addClass('hidden');
-										$('header .cart_item a.cart i').removeClass('mdl-badge');
-										$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
-										$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
-									});
-									if(data.new_user === true){
-										window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
-									}
-									break;
-								case 500:
-									console.log('error');
-									console.log('500');
-									removeLoadAnimation('#cart');
-									break;
-								case 501:
-									console.log('501');
-									removeLoadAnimation('#cart');
-									$('.err_msg').html(data.message);
-									setTimeout(function() {
-										$('.err_msg + .cart_login_btn').removeClass('hidden');
-									}, 1000);
-									$('.err_msg + .cart_login_btn').click(function(event) {
-										event.preventDefault;
-										openObject('auth');
-									});
-									break;
-								default:
-									console.log('default statemant');
-							}
-
-							/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
-						});
+				if(!IsLogged){
+					var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
+					if(phone.length != 12){
+						validate = false;
+						removeLoadAnimation('#cart');
+						$('.err_tel').css('visibility', 'visible');
+					}else{
+						data.phone = phone;
 					}
-				}else{
-					removeLoadAnimation('#cart');
-					$('.err_tel').css('visibility', 'visible');
-				}				
+				}
+				if(validate === true){
+					addLoadAnimation('#cart');
+					console.log('запустили аякс');
+					console.log(data);
+					ajax('cart', 'makeOrder', data).done(function(response){
+						console.log('аякс вернулся');
+						switch(response.status){
+							case 200:
+								console.log('200');
+								closeObject('cart');
+								// window.location.hash = "quiz";
+								ajax('auth', 'GetUserProfile', false, 'html').done(function(response){
+									console.log(response);
+									$('#user_profile').append('<img src="/images/noavatar.png"/>');
+									$('.user_profile_js').html(response);
+
+									$('.cabinet_btn').removeClass('hidden');
+									$('.login_btn').addClass('hidden');
+									$('header .cart_item a.cart i').removeClass('mdl-badge');
+									$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
+									$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
+								});
+								if(response.new_user === true){
+									window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
+								}
+								break;
+							case 500:
+								console.log('error');
+								console.log('500');
+								removeLoadAnimation('#cart');
+								break;
+							case 501:
+								console.log('501');
+								removeLoadAnimation('#cart');
+								$('.err_msg').html(data.message);
+								setTimeout(function() {
+									$('.err_msg + .cart_login_btn').removeClass('hidden');
+								}, 1000);
+								$('.err_msg + .cart_login_btn').click(function(event) {
+									event.preventDefault;
+									openObject('auth');
+								});
+								break;
+							default:
+								console.log('default statemant');
+						}
+						/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
+					});
+				}
 			});
 			if(!IsLogged){
 				$('input.send_order, input.save_order').click(function(e){
