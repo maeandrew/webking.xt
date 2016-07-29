@@ -569,6 +569,29 @@ class G {
 		return str_pad(rand(0,str_repeat("9", $length)),$length,'0');
 	}
 	public static function metaTags($data = false){
+		$str_uniq = '';
+		if(isset($GLOBALS['Sort'])){
+			switch($GLOBALS['Sort']){
+				case 'name desc':
+					$str_uniq .= ' Сортировка по названию от Я до А.';
+					break;
+				case 'name asc':
+					$str_uniq .= ' Сортировка по названию от А до Я.';
+					break;
+				case 'price_opt desc':
+					$str_uniq .= ' Сортировка от дорогих к дешевым.';
+					break;
+				case 'price_opt asc':
+					$str_uniq .= ' Сортировка от дешевых к дорогим.';
+					break;
+				case 'popularity desc':
+					$str_uniq .= ' Сортировка по популярности.';
+					break;
+			}
+		}
+		if(isset($GLOBALS['Page_id'])){
+			$str_uniq .= ' Страница '.$GLOBALS['Page_id'].'.';
+		}
 		// meta tags
 		switch($GLOBALS['CurrentController']){
 			case 'main':
@@ -582,18 +605,18 @@ class G {
 				$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
 				break;
 			case 'page':
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_uniq);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_uniq:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			case 'news':
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_uniq);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_uniq:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			default:
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['name']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_uniq);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_uniq:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 		}
