@@ -499,12 +499,16 @@ class Products {
 				".$limit;
 		}
 		$res = $this->db->GetArray($sql);
-		foreach ($res as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($res as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		if(!$res){
@@ -766,12 +770,16 @@ class Products {
 		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
 		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
 		//Добавляем эти значения в массив $list
-		foreach ($this->list as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($this->list as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		return true;
@@ -1010,12 +1018,16 @@ class Products {
 		if(!$result){
 			return false;
 		}
-		foreach ($result as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($result as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		return $result;
@@ -1519,12 +1531,16 @@ class Products {
 		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
 		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
 		//Добавляем эти значения в массв $list
-		foreach ($this->list as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($this->list as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		return true;
