@@ -301,14 +301,14 @@ label.info_key {
 	float: right;
 	padding: 20px 15px 20px 0;
 }
- .load_more {
+/* .load_more {
 	background: rgba(255, 255, 255, 1) url(../../images/AjaxLoader.gif) no-repeat 50% 50%;
 	height: 32px;
 	width: 32px;
 	display: inline-block;
 	margin-left: 10px;
 	position: absolute;
-}
+}*/
  #show_more_products {
 	line-height: 32px;
 	display: inline-block;

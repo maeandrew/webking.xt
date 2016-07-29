@@ -655,7 +655,7 @@ footer .copyright p{line-height:1.7em}
 #cart .card .product_photo{position:relative;height:auto;width:100%;float:left;padding-right:0}
 #cart .card .product_photo a img{margin:0 auto;display:block}
 }
-.loadBlock{position:absolute;top:0;bottom:0;left:0;right:0;background-color:rgba(255,255,255,.5);z-index:10}
+.loadBlock{position:absolute;top:0;bottom:0;left:0;right:0;z-index:10}
 .loadBlock .loadAnimation{top:calc(50% - 14px);left:calc(50% - 14px);position:absolute}
 .last_news_title,.xt_news{padding:0 15px;display:flex;justify-content:space-between;margin-bottom:10px}
 .min{padding:10px}
