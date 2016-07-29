@@ -177,11 +177,15 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-		$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
-		$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
+		$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+		$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 		for($i=0; $i<=3; $i++){
 			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
 			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
+			$arr['base_prices_opt'][$i] = round($arr['price_opt']* $base_coef_price_opt[$i], 2);
+			$arr['base_prices_mopt'][$i] = round($arr['price_mopt']* $base_coef_price_mopt[$i], 2);
 		}
 		$arr['categories_ids'] = $this->GetCatsOfProduct($arr['id_product']);
 		$this->fields = $arr;
