@@ -796,6 +796,9 @@ table.kontrag.table{
 .editproduct span.info_units {
 	margin-left: 5px;
 }
+.editproduct #editbox.disabled{
+	position: relative;
+}
 .editproduct #editbox.disabled:after {
 	content: '';
 	display: block;
