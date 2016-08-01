@@ -288,9 +288,9 @@ label:hover + .info_description {
 /* [class*=" active_"] .center:not(.owl-item), */
 [class^="active_"] footer,
 [class*=" active_"] footer {
-	-webkit-filter: blur(2px);
+	/*-webkit-filter: blur(2px);
 	-o-filter: blur(2px);
-	filter: blur(2px);
+	filter: blur(2px);*/
 }
 
 /* Internet Explorer 10+, Microsoft Edge Browser */
