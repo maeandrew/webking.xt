@@ -816,8 +816,8 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .cart_bottom_wrap,#cart .sub_cart_bottom_wrap{display:flex;flex-wrap:nowrap;align-items:flex-start}
 #cart .sub_cart_bottom_wrap{flex-wrap:wrap-reverse}
 #cart .cart_bottom_wrap>*,#cart .sub_cart_bottom_wrap>*{flex-grow:1;flex-shrink:1}
-#cart .orderNote{border:1px solid #e0e0e0;border-top:none}
-#cart .orderNote textarea{max-height:189px}
+#cart .orderNote{border:1px solid #e0e0e0;border-top:none;border-right:none}
+#cart .orderNote textarea{max-height:125px}
 #cart .msg-info{width:300px;box-sizing:border-box;border:1px solid #e0e0e0;border-top:none}
 #cart .msg-info,#cart .orderNote{min-height:117.5px}
 #cart .action_block{width:301px;padding:10px;flex-grow:0;flex-shrink:0;border:1px solid #e0e0e0;border-top:none}
