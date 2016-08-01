@@ -3210,10 +3210,8 @@ section .stat_year {
 	height: 140px;
 }
 #demand_chart .range_num{
-	/*position: absolute;*/
 	position: relative;
-	bottom: -60%;
-	right: -20%;
+	top: -8%;
 }
 @media (max-width: 950px){
 	#demand_chart .range_num{
