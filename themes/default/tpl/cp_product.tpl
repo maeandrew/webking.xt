@@ -319,12 +319,12 @@
 				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">
 					<ul class="social">
 						<li>
-							<a href="http://vk.com/share.php?url=<?=Link::Product($GLOBALS['Rewrite']);?>&title=<?=$item['name']?>&description=<?=strip_tags($item['descr'])?>&image=<?=_base_url?><?=$item['img_1']?>&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<a href="http://vk.com/share.php?url=<?=Link::Product($GLOBALS['Rewrite']);?>&title=<?=htmlspecialchars($item['name'])?>&description=<?=strip_tags($item['descr'])?>&image=<?=_base_url?><?=$item['img_1']?>&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте">
 							</a>
 						</li>
 						<li>
-							<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($GLOBALS['Rewrite']);?>&st.comments=<?=$item['name']?>" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($GLOBALS['Rewrite']);?>&st.comments=<?=htmlspecialchars($item['name'])?>" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники">
 							</a>
 						</li>
@@ -334,12 +334,12 @@
 							</a>
 						</li>						
 						<li>
-							<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>&title='<?=$item['name']?>'&description=<?=strip_tags($item['descr'])?>&picture=<?=_base_url?><?=$item['img_1']?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>&title='<?=htmlspecialchars($item['name'])?>'&description=<?=strip_tags($item['descr'])?>&picture=<?=_base_url?><?=$item['img_1']?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
 							</a>
 						</li>
 						<li>
-							<a href="https://twitter.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>&text=<?=$item['name']?>" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<a href="https://twitter.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>&text=<?=htmlspecialchars($item['name'])?>" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
 							</a>
 						</li>
