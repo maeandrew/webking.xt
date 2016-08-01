@@ -3,7 +3,6 @@
 	 //   var order_cookie = $.cookie('id_order');
 	 //   var order =  '{id_order: order_cookie }';
 	  //  ajax('cart', 'add_status_cart').done(function (arr) {
-	  //      console.log(arr);
 	   // });
   //  });
 </script>
@@ -115,7 +114,7 @@
 										<div class="manager">
 											<div class="label">Организатор заказа</div>
 											<div class="avatar">
-												<img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/>
+												<img src="/images/noavatar.png" alt="avatar"/>
 											</div>
 											<div class="details">
 												<div class="line_1"><? print_r($infoJO['adm_name'])?></div>
@@ -303,18 +302,13 @@
 		});
 		$('.del_x_js').click(function(event) {
 			var obj = $(this);
-			// console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
-			// console.log($(this).closest('.tableRow').find('.member_id_cart_js').val());
 			ajax('cabinet', 'DelCartFromJO', {id_cart: $(this).closest('.tableRow').find('.member_id_cart_js').val()}).done(function(event) {
 				obj.closest('.tableRow').remove();
-			}).fail(function(event) {
-				console.log('Fail');
 			});
 		});
 		$('.list_in_cart_js').click(function(event) {
 			if ($(this).closest('li').find('.products_cart_js').html() == '') {
 				$(this).addClass('active_link_to_cart_js');
-				// console.log($(this).data('cartid'));
 				GetCabCoopProdAjax($(this).data('cartid'), $(this).data('rewrite'));
 			}else{
 				$(this).removeClass('active_link_to_cart_js');
@@ -327,31 +321,17 @@
 		});
 		$('[href^="#items_panel_"').click(function(event) {
 			if ($(this).hasClass('getCabCoopProdAjax_js')) {
-				console.log($(this).data('idcart'));
 				GetCabCoopProdAjax($(this).data('idcart'), $(this).data('rewrite'));
 			}
 		});
 
 		$('body').on('click', '.checkout_js', function(event) {
 			event.preventDefault();
-			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')}).done(function(data) {
-				if (data.success == true) {
-					console.log(data.msg);
-				}else{
-					console.log(data.msg);
-				}
-
-				console.log('success');
-			}).fail(function(data) {
-				console.log('Fail');
-			});
+			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')});
 		});
 
 		$('[id^=items_panel_]').on('click', '.readyToOrder_js', function(event) {
 			ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(data){
-				// console.log("success readyToOrder_js");
-			}).fail(function(data) {
-				console.log("fail ");
 			});
 		});
 	});

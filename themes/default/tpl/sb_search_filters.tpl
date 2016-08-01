@@ -1,7 +1,6 @@
 <script>
 	var filterLink = new Object();
 	var params = new Object();
-		// console.log(filterLink);
 	<?if(isset($GLOBALS['Filters'])){?>
 		filterLink = <?=json_encode($GLOBALS['Filters'])?>;
 	<?}?>
@@ -37,7 +36,6 @@
 				var price_range = ui.values[0] + ',' + ui.values[1];
 				$.cookie('price_range', price_range, {expires: 2, path: '/'});
 				params['price_range'] = price_range;
-				// console.log(params);
 			}
 		});
 		/*$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");*/
@@ -66,7 +64,6 @@
 				delete filterLink[dataSpec];
 			}
 			params['filters'] = filterLink;
-			console.log(filterLink);
 		});
 
 		// Клик на "Применить"

@@ -507,7 +507,6 @@
 			});
 		});
 
-
 		$('td.price_1 input').keyup(function(){
 			var id = $(this).attr('id').replace(/\D+/g,"");
 			if($('#switcher').hasClass('On')){
@@ -527,10 +526,7 @@
 			$('.price_1 .prod_detail_info, .price_1 .mdl-tooltip').text('Цена отпускная');
 			$('.price_2').css({
 				"display": "none"
-			});
-			// $('.switcher_container').css({
-			// 	"width": "100%"
-			// });
+			});			
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -545,30 +541,10 @@
 			$('.price_1 .prod_detail_info, .price_1 .mdl-tooltip').text('Цена отпускная мин. к-ва');
 			$('.price_2').css({
 				"display": "block"
-			});
-			// $('.switcher_container').css({
-			// 	"width": "200%"
-			// });
+			});			
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});
 		}
-	}
-
-	//Фиксация Заголовка таблицы
-	// $(window).scroll(function(){
-	// 		// console.log($('.supplier_assort_table').offset().top - $('header').outerHeight());
-	// 	if($(this).scrollTop() >= 86){
-	// 		if(!$('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			var width = $('.table_tbody').width();
-	// 			$('.supplier_assort_table.thead').css("width", width).addClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "65px");
-	// 		}
-	// 	}else{
-	// 		if($('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			$('.supplier_assort_table.thead').removeClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "0");
-	// 		}
-	// 	}
-	// });
+	}	
 </script>

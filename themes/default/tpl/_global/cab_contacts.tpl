@@ -53,7 +53,6 @@
 						var month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],
 							customer_month = $('#customer_month').val(),
 							temp;
-							console.log(customer_month);
 
 						for (var i = 0; i < month.length; i++) {
 							temp = ((i<9)?'0'+(i+1):(i+1));										

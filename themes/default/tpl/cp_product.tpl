@@ -110,7 +110,6 @@
 				</div>
 			</div>
 			<script>
-			console.log($(window).outerWidth());
 				//Инициализация owl carousel
 				$('#owl-product_mobile_img_js, #big_photos_carousel_js').owlCarousel({
 					center:			true,
@@ -153,7 +152,6 @@
 					$('#owl-product_mini_img_js .item').on('click', function(event) {
 						var src = $(this).find('img').attr('src');
 						var viewport_width = $(window).width();
-						console.log(src);
 						if(viewport_width > 711){
 							$('#owl-product_slide_js').find('img').removeClass('act_img');
 							$(this).find('img').addClass('act_img');
@@ -662,14 +660,10 @@
 		$('.waiting_list').click(function(e) {
 			e.preventDefault();
 			if ($(this).hasClass('arrow')) {
-				console.log('тут');
 				$('#specCont').find('.arrow').removeClass('arrow');
-				// $(this).removeClass('arrow');
 				RemoveFromWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 			}else{
-				console.log('здесь');
 				$('#specCont').find('.waiting_list').addClass('arrow');
-				// $(this).addClass('arrow');
 				AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 			}
 		});

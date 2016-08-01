@@ -65,18 +65,15 @@
 		var input = $('[name="sort"]'),
 			sorts = input.val().split('; ');
 		for (var i of sorts){
-			console.log(i);
 			$('[data-value="'+i+'"]').find('sup').html(parseInt(sorts.indexOf(i)+1));
 		}
 		$('[class*="sort_"]').click(function(e){
-			// console.log($(this));
 			// var cls = $(this).prop('class');
 			var form = $(this).closest('form'),
 				nvalue = $(this).data("value"),
 				ivalue;
 			ovalue = input.val();
 			if(e.ctrlKey){
-				console.log('ctrl+click');
 				input.val('');
 				if(ovalue.length > 0){
 					if(ovalue.indexOf(nvalue) > -1){
@@ -94,13 +91,8 @@
 					$('[data-value="'+i+'"]').find('sup').html(parseInt(sorts.indexOf(i)+1));
 				}
 				$(document).keyup(function(e){
-					console.log('ctrl up');
 					form.submit();
 				});
-			}else if(e.shiftKey){
-				console.log('shift+click');
-			}else if(e.altKey){
-				console.log('alt+click');
 			}else{
 				if(ovalue.indexOf(nvalue) > -1 && ovalue.length-nvalue.length <= 2){
 					input.val('');
@@ -112,8 +104,6 @@
 		});
 	});
 	function sm_login(email){
-		ajax('auth', 'login', {email: email, passwd: 0}, 'json').done(function(data){
-			console.log(data);
-		});
+		ajax('auth', 'login', {email: email, passwd: 0}, 'json');
 	}
 </script>

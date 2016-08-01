@@ -368,9 +368,7 @@
 				id_supplier: id_supplier,
 				inusd: inusd
 			}
-			console.log(data);
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
-				console.log(data);				
 				parent.find('.price').each(function(){
 					var mode = $(this).data('mode');
 					if(data.inusd == 1){
@@ -420,18 +418,10 @@
 	// Функция переключения "Единой цены"
 	function TogglePriceColumns(action){
 		if(action == 'On'){
-			console.log('vkl on');
-			// $('.price_1').css({
-			// 	"width": "20%"
-			// });
-			// $('th.price_1 p').text('Цена отпускная');
 			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
-			$('.price_mopt_title_js').html('Цена');
-			// $('.switcher_container').css({
-			// 	"width": "100%"
-			// });
+			$('.price_mopt_title_js').html('Цена');			
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -442,39 +432,14 @@
 					}
 				}
 			});
-		}else{
-			console.log('vkl off');
-			// $('.price_1').css({
-			// 	"width": "10%"
-			// });
-			// $('th.price_1 p').text('Цена отпускная мин. к-ва');
+		}else{			
 			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
-			$('.price_mopt_title_js').html('Цена розн.');
-			// $('.switcher_container').css({
-			// 	"width": "200%"
-			// });
+			$('.price_mopt_title_js').html('Цена розн.');			
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});
 		}
-	}
-
-	// Фиксация Заголовка таблицы
-	// $(window).scroll(function(){
-	// 		console.log($('.supplier_assort_table').offset().top - $('header').outerHeight());
-	// 	if($(this).scrollTop() >= 86){
-	// 		if(!$('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			var width = $('.table_tbody').width();
-	// 			$('.supplier_assort_table.thead').css("width", width).addClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "65px");
-	// 		}
-	// 	}else{
-	// 		if($('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			$('.supplier_assort_table.thead').removeClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "0");
-	// 		}
-	// 	}
-	// });
+	}	
 </script>

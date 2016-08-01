@@ -407,6 +407,7 @@ div[id^=items_panel_]>div>#products .total_wrap{display:none}
 .order .content .additional>div{flex-basis:50%}
 .order .content .additional>div .label{color:#888;padding-bottom:1.429em}
 .order .content .additional>div .avatar{border:1px solid #444;float:left}
+.order .content .additional>div .avatar img{width:100%}
 .order .content .additional>div .details{float:left;padding:.6213em;padding-left:1.429em;overflow:hidden}
 .order .content .additional>div .details>div{float:left;clear:both;line-height:1.3em;white-space:nowrap}
 .order .content .additional>div.manager .line_2,.order .content .additional>div.manager .line_3{color:#888}

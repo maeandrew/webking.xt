@@ -44,9 +44,7 @@
 		$('.icon-option').click(function(event){
 			event.preventDefault();
 			var modalName = $(this).parent().attr('id');
-			console.log(modalName);
 			var href = $(this).parent().attr('href');
-			console.log(href);
 			$('[class^="modal_"] .btn_block  > a').attr('href', href);
 			$('input[name="modalName"]').val(modalName);
 			$('[class^="modal_"] > h3').html('');

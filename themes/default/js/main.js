@@ -1,11 +1,7 @@
 window.onbeforeunload = function(e){
 	// window.onpopstate = function(e) {
-	// if ( $(window).width() < 500 && $('div[data-type="modal"]').hasClass('opened')) {
-	// 	console.log($(window).width());
-	// 	console.log($('div[data-type="modal"].opened'));
-	// 	console.log($('div[data-type="modal"]').hasClass('opened'));
+	// if ( $(window).width() < 500 && $('div[data-type="modal"]').hasClass('opened')) {	
 	// 	var curUrl = window.location.href;
-	// 	console.log(curUrl);
 	// 	$('div[data-type="modal"]').removeClass('opened').addClass('hidden');
 	// 	$('.background_panel').addClass('hidden');
 	// 	location.replace(curUrl);
@@ -177,8 +173,6 @@ $(function(){
 					$('#favorites').html('<h5>У Вас нет избранных товаров</h5>');
 					$('.userChoiceFav').text('(0)');
 				}				
-			}).fail(function(data){
-				console.log('Error!');
 			});
 		}else if ($('#confirmDelItem').data('list') == 'waiting') {
 			addLoadAnimation('.flag_js');
@@ -193,8 +187,6 @@ $(function(){
 					$('#waiting_list').html('<h5>Лист ожидания пуст</h5>');
 					$('.userChoiceWait').text('(0)');
 				}
-			}).fail(function(data){
-				console.log('Error!');
 			});
 		}
 		clicked.removeClass('clicked_js');
@@ -363,8 +355,6 @@ $(function(){
 	$('.imit_select').on('click', '.mdl-menu__item', function(){
 		var value = $(this).text(),
 			id = $(this).data('value');
-		console.log(value);
-		console.log($(this).closest('.imit_select').find('.select_field').text());
 		$(this).closest('.imit_select').find('.mdl-menu__item').removeClass('active');
 		$(this).closest('.imit_select').find('.select_field').text(value);
 		$(this).closest('.mdl-menu__container').removeClass('is-visible');
@@ -673,7 +663,6 @@ $(function(){
 		
 		var current_image = 0;
 		$.each(images, function(index, value){
-			console.log("INDEX: " + index + " VALUE: " + value);
 			if (value === 'act_img'){
 				current_image = index;
 			}
@@ -701,63 +690,6 @@ $(function(){
 			closeObject();
 		}
 	});
-
-	/*$('.stat_year').hover(function(){
-		$('#top_block_graph').css('opacity','block') },
-	   function(){ $('#top_block_graph').css('display','none').css('z-index','11')
-   });*/
-	$('.stat_years canvas').on('click', function(){
-		var one = $(this).closest('.stat_years').find('input[type="range"]').eq(0).val();
-		var two = $(this).closest('.stat_years').find('input[type="range"]').eq(1).val();
-		$(this).closest('.stat_years').find('input[type="range"]').each(function(index, el) {
-			console.log($(el).val());
-		});
-		// console.log(two);
-		// openObject('demand_chart');
-	});
-
-	// Открытие модального Графика
-	/*$('#demand_chart').on('click', '.btn_js.save', function(){
-		var parent =  $(this).closest('#demand_chart'),
-			id_category = parent.data('target'),
-			opt = 0,
-			name_user = parent.find('#name_user').val(),
-			text = parent.find('textarea').val(),
-			arr = parent.find('input[type="range"]'),
-			values = {};
-		if ($('.select_go label').is(':checked')) {
-			var opt = 1;
-		};
-		arr.each(function(index, val){
-			values[index] = $(val).val();
-		});
-		ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
-			if(data === true){
-				console.log('Your data has been saved successfully!');
-				closeObject('graph');
-				location.reload();
-			}else{
-				console.log('Something goes wrong!');
-			}
-		});
-	});*/
-
-	// Редактирование модального Графика
-	/*$('a.update_exist').on('click', function(){
-		var id_chart = $(this).attr('id');
-		ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
-			console.log(data);
-
-			if(data != null){
-				$('#demand_chart .modal_container').html(data);
-				componentHandler.upgradeDom();
-				openObject('demand_chart');
-
-			}else{
-				console.log('Something goes wrong!');
-			}
-		});
-	});*/
 
 	$('#icon_graph').on('click', function(){
 		//$(document.body).click(function () {
@@ -815,7 +747,6 @@ $(function(){
 			values.opt[index] = $(val).val();
 		});
 		if($(this).hasClass('save')) {
-			console.log('save');
 			ajax('product', 'SaveDemandChart',{
 				'values': values,
 				'id_category': id_category,
@@ -830,19 +761,12 @@ $(function(){
 					openObject('demand_chart_msg');
 				}else{
 					if(data === true){
-						console.log('Your data has been saved successfully!');
 						closeObject('demand_chart');
 						location.reload();
-					}else{
-						console.log('Something goes wrong!');
 					}
 				}
-			}).fail(function(data){
-				console.log('fail');
-				console.log(data);
 			});
 		}else{
-			console.log('update');
 			ajax('product', 'UpdateDemandChart',{
 				'values': values,
 				'id_category': id_category,
@@ -858,16 +782,10 @@ $(function(){
 					openObject('demand_chart_msg');
 				}else{
 					if(data === true){
-						console.log('Your data has been saved successfully!');
 						closeObject('demand_chart');
 						location.reload();
-					}else{
-						console.log('Something goes wrong!');
 					}					
 				}
-			}).fail(function(data){
-				console.log('fail update');
-				console.log(data);
 			});
 		}
 	});
@@ -892,11 +810,6 @@ $(function(){
 				removeLoadAnimation('#details_btn');
 				$('.charts_wrap').html(data);
 				componentHandler.upgradeDom();
-				console.log('success');
-				// console.log(data);
-			}).fail(function(data){
-				console.log('fail');
-				// console.log(data);
 			});			
 		}
 	});
@@ -957,17 +870,14 @@ $(function(){
 				if(data.last_name.length == 0){
 					i++;
 					all.current.find('[name="last_name"]').addClass('is-invalid');
-					console.log('Не указана фамилия');
 				}
 				if(data.first_name.length == 0){
 					i++;
 					all.current.find('[name="first_name"]').addClass('is-invalid');
-					console.log('Не указано имя');
 				}
 				if(data.middle_name.length == 0){
 					i++;
 					all.current.find('[name="middle_name"]').addClass('is-invalid');
-					console.log('Не указано отчество');
 				}
 				if(i === 0){
 					data.validate = true;
@@ -992,13 +902,11 @@ $(function(){
 				if(data.region == null || data.region.length == 0){
 					// Не выбрано отделение
 					all.current.find('#region').addClass('is-invalid');
-					console.log('Не выбрана область');
 					i++;
 				}
 				if(data.city == null || data.city.length == 0){
 					// Не выбрано отделение
 					all.current.find('#city').addClass('is-invalid');
-					console.log('Не выбрана область');
 					i++;
 				}
 				// if(region == 'Выбрать'){
@@ -1055,27 +963,23 @@ $(function(){
 				if(isNaN(data.id_delivery)){
 					// Не выбран способ доставки
 					all.current.find('#id_delivery').addClass('is-invalid');
-					console.log('Не выбран способ доставки');
 					i++;
 				}else if(data.id_delivery == 1){
 					if(data.delivery_department == null || data.delivery_department.length == 0){
 						// Не выбрано отделение
 						all.current.find('#delivery_department').addClass('is-invalid');
-						console.log('Не выбрано отделение');
 						i++;
 					}
 				}else if(data.id_delivery == 2){
 					if(data.address == ''){
 						// Не указан адрес
 						all.current.find('#address').addClass('is-invalid');
-						console.log('Не указан адрес');
 						i++;
 					}
 				}
 				if(isNaN(data.id_delivery_service)){
 					// Не выбрана служба доставки
 					all.current.find('#id_delivery_service').addClass('is-invalid');
-					console.log('Не выбрана служба доставки');
 					i++;
 				}
 				if(i === 0){
@@ -1114,15 +1018,10 @@ $(function(){
 	
 
 	/*  $('.select_go label').on('change', function() {
-		console.log('trues');
 		if($(this).is(':checked')){
-		  console.log('trues');
-		  console.log($(this));
 		  var block_one = $('.mdl-color--grey-100').eq(0).not(':has(div.hidden)');
-		  console.log(block_one);
 		  block_one.addClass('hidden');
 		  var block_two = $('.mdl-color--grey-100').eq(1).hasClass('hidden');
-		  console.log(block_two);
 		  block_two.removeClass('hidden');
 		}else{
 		  var block_one = $('.mdl-color--grey-100').eq(1).not(':has(div.hidden)');
@@ -1134,7 +1033,6 @@ $(function(){
 	  });*/
 		
 	// $('#verification').on('click', 'label[for="choise_sms"]', function(){
-	// 	console.log('chosen_sms');
 	// 	$('#verification #recovery_email').closest('div').addClass('hidden');
 	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 	// 	$(".phone").mask("+38 (099) ?999-99-99");
@@ -1182,11 +1080,8 @@ $(function(){
 
 			if(phone_num.length == 12){
 				phone = phone_num;
-			}else{
-				console.log("Неверный формат номера телефона");
 			}
 		data = {id_user: id_user, phone: phone, method: 'sms'};
-		console.log(data);
 		// $('.confirm_btn_js').removeAttr('disabled');
 		ajax('cabinet', 'AccessCode', data).done(function(response){
 			$('.confirm_btn_js').removeAttr('disabled');			
@@ -1200,9 +1095,7 @@ $(function(){
 
 		data = {id_user: id_user, new_passwd: new_passwd, curr_pass: curr_pass, method: method};
 		if (!$('.cur_passwd').hasClass('is-invalid')) {
-			console.log(data);
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
-				console.log(resp.success);
 				if(!resp.success){
 					$('.error_msg_js').text(resp.msg);
 				}else{
@@ -1220,7 +1113,6 @@ $(function(){
 		data = {id_user: id_user, code: code, new_passwd: new_passwd, method: method};
 		if (!$('.for_verification_code_js').hasClass('is-invalid')) {
 			ajax('cabinet', 'ChangePassword', data).done(function(resp){
-				console.log(resp);
 				if(!resp.success){
 					$('.error_msg_js').text(resp.msg);
 				}else{
@@ -1230,9 +1122,7 @@ $(function(){
 				alert('Ошибка!');
 			});
 		}
-	});
-
-	
+	});	
 
 	$(".phone").mask("+38 (099) ?999-99-99");
 
@@ -1303,8 +1193,6 @@ $(function(){
 			var phone = $('#access_recovery .phone').val().replace(/[^\d]+/g, "");
 			if(phone.length == 12){
 				value = phone;
-			}else{
-				console.log("error");
 			}
 		}
 		if(method.data('value') == "email"){
@@ -1374,7 +1262,6 @@ $(function(){
 				addLoadAnimation('#access_recovery');
 				ajax('auth', 'accessConfirm', data).done(function(response){
 					removeLoadAnimation('#access_recovery');
-					console.log(response);
 					if (response.success) {
 						$('.cabinet_btn').removeClass('hidden');
 						$('.login_btn').addClass('hidden');
@@ -1562,7 +1449,6 @@ $(function(){
 				openObject('registerComplete');
 			}else{
 				$.each(data.errm, function(key, value) {
-					// console.log(key);
 					// $('[name="'+key+'"] + .mdl-textfield__error').append(value);
 					$('[name="'+key+'"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').html(value);
 				});
@@ -1579,10 +1465,7 @@ $(function(){
 		parent.find('.mdl-textfield__input').each(function(index, el) {
 			fields[$(el).attr('name')] = $(el).val();
 		});
-		console.log(fields);
-		ajax('errors', 'error', fields).done(function(data){
-			console.log(data);
-		});
+		ajax('errors', 'error', fields);
 	});
 
 	//Отправка данных (смета клиента)
@@ -2043,8 +1926,6 @@ $(function(){
 			var text = {message: data.message};
 			var snackbarContainer = document.querySelector('#snackbar');
 			snackbarContainer.MaterialSnackbar.showSnackbar(text);
-		}).fail(function(data){
-			console.log('Сообщение об ошибке не отправлено');
 		});
 	});
 

@@ -899,9 +899,7 @@ function ListenPhotoHover(){
 			if($(this).hasClass('hovered')){
 			}else{
 				showPreview(1);
-				// console.log('enter');
 				$(this).addClass('hovered');
-				// console.log('hover');
 				rebuildPreview($(this));
 			}
 		}
@@ -910,14 +908,9 @@ function ListenPhotoHover(){
 			var mp = mousePos(e),
 				obj = $(this),
 				obj2 = $('.product_photo.hovered');
-			// console.log(mp.x+'x'+mp.y);
-			// console.log(preview.offset().left+'x'+preview.offset().top);
-			// console.log(parseFloat(preview.offset().left+preview.width())+'x'+parseFloat(preview.offset().top+preview.height()));
 			if((mp.x >= preview.offset().left && mp.x <= preview.offset().left+preview.width() && mp.y >= preview.offset().top && mp.y <= preview.offset().top+preview.height())
 				|| (obj.hasClass('hovered') && mp.x >= obj.offset().left && mp.x <= obj.offset().left+obj.width() && mp.y >= obj.offset().top && mp.y <= obj.offset().top+obj.height())){
-				// console.log('hover2');
 			}else{
-				// console.log('hide');
 				hidePreview();
 				obj.removeClass('hovered');
 			}
@@ -929,9 +922,7 @@ function ListenPhotoHover(){
 			mp = mousePos(e);
 			obj = $('.product_photo.hovered');
 			if(obj.hasClass('hovered') && mp.x >= obj.offset().left && mp.x <= obj.offset().left+obj.width() && mp.y >= obj.offset().top && mp.y <= obj.offset().top+obj.height()){
-				// console.log('hovered_back');
 			}else{
-				// console.log('hide2');
 				hidePreview();
 				obj.removeClass('hovered');
 			}
@@ -988,10 +979,8 @@ function rebuildPreview(obj){
 		marginTop += $('header').height();
 	}
 	if(pos + viewportHeight < position.top + preview.height()/2 + obj.height()/2 + marginBottom){
-		// console.log('overflow Bottom');
 		correctionBottom = position.top + preview.height()/2 + obj.height()/2 - (pos+viewportHeight) + marginBottom;
 	}else if(pos > position.top - preview.height()/2 + obj.height()/2 - marginTop){
-		// console.log('overflow Top');
 		correctionTop =  position.top - preview.height()/2 + obj.height()/2 - pos - marginTop;
 	}
 	preview.css({
@@ -1119,7 +1108,6 @@ function rebuildPreview(obj){
 			preview.find('.qty_descr').text(data.qty_descr);
 			preview.find('.info_delivery').attr('href', '/product/'+data.id_product+'/'+data.translit+'/#tabs-4');
 			$('.enter_mail').hide();
-			// console.log(data);
 		});
 	}else{
 		preview.hide();
@@ -1200,7 +1188,6 @@ function AddFavorite(event,id_product){
 			"id_product": id_product
 		}
 	}).done(function(data){
-		//console.log(data);
 		if(data.answer == 'login'){
 			// alert('Войдите или зарегистрируйтесь.');
 			event.preventDefault();
@@ -1241,7 +1228,6 @@ function AddInWaitingList(id_product,id_user,email){
 		if(data.answer_data == 'insert_ok'){
 			location.reload();
 		}
-		//console.log(data.answer);
 	});
 	return false;
 }

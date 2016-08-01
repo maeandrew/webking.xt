@@ -58,15 +58,12 @@
 			// checkPhoneNumber($('input.phone').val());
 			if($('input.phone').val().replace(/[^\d]+/g, "").length == 12){
 				$('input.phone').data('value', $('input.phone').val().replace(/[^\d]+/g, ""));
-				// console.log($('input.phone').data('value'));
 				$('input.phone').closest('.mdl-textfield').removeClass('is-invalid').find('.mdl-textfield__error').css('visibility', 'hidden');
 				$('[name="email"]').closest('.mdl-textfield').removeClass('is-invalid');
 			}else if($('input.phone').val().replace(/[^\d]+/g, "").length === 0 || $('input.phone').val().replace(/[^\d]+/g, "").length == 3){
 				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible');
 				$('input.phone').closest('.mdl-textfield').addClass('is-invalid');
-				// console.log($('input.phone').val().replace(/[^\d]+/g, "").length);
 			}else{
-				// console.log("error");
 				$('input.phone').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Введите номер телефона');
 			}
 		});
@@ -91,9 +88,6 @@
 				phone = phone_num;
 			}else if(phone_num === ''){
 				phone = phone_num;
-				console.log('empty string');
-			}else{
-				console.log('error');
 			}
 
 			day = $('.day_js').val() !== ''?$('.day_js').val():'';
@@ -122,7 +116,6 @@
 						$('.errMsg_js').text('');
 						$('.date_container').css('box-shadow', 'none');
 					}else{
-						console.log(response);
 						for(var i in response){
 							switch(i){
 								case 'email':

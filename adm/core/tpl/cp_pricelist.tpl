@@ -174,7 +174,6 @@ $(function(){
 		var parent = $(this).closest('.pricelist').attr('id');
 		var order = $('#'+parent+' input[name="order"]').val();
 		var set = $('#'+parent+' select[name="correction_set"]').val();
-		console.log(set);
 		$.ajax({
 			type: 'POST',
 			url: URL_base+'ajaxpricelists',

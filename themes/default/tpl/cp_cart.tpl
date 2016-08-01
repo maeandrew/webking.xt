@@ -431,25 +431,19 @@
 						ajax('cart', 'CreateJointOrder', {prefix: $('.joint_purchase_js label').hasClass('is-checked')?'JO':''}).done(function(resp){
 							$('.promo_input_js').removeClass('hidden').find('input').attr('value', resp);
 							openObject('cart', {reload: true});
-						}).fail(function(resp){
-							console.log('fail ajax');
 						});
 					});
 					$('.joint_cart_continue_js').click(function(event) {
 						// ajax('cart', 'CreateJointCart', {jointCart: jointCart}).done(function(data){
-						// 	console.log(data);
 						// }).fail(function(data){
-						// 	console.log('fail ajax');
 						// });
 					});
 					//   radio button magic (end)
 					$('.apply_promoCode_js').click(function(event){
 						ajax('cart', 'CheckPromo', {promo: $('.promo_input_js input').val()}).done(function(data){
-							console.log(data);
 							if(data.promo){
 								$('cart_choiсe_wrapp_js').addClass('hidden');
 								GetCartAjax(true);
-								console.log("success promo");
 								$('.action_block form').removeClass('for_err_promo');
 								$('.err_promo').removeClass('visibleForUser');
 							}else{
@@ -459,8 +453,6 @@
 							}
 							// $('.confirm_order_js').closest('div').removeClass('hidden');
 							// $('#button-cart1').addClass('hidden');
-						}).fail(function(data){
-							console.log("fail promo");
 						});
 					});
 					$('.confirm_del_promoCode_js').click(function(event){
@@ -468,8 +460,6 @@
 							$('.promo_input_js input').attr('value', '');
 							// $('.cart_warning_js').addClass('hidden');
 							openObject('cart', {reload: true});
-						}).fail(function(event) {
-							console.log("fail del promo");
 						});
 					});
 					$('.cancel_del_promoCode_js').click(function(event){
@@ -479,12 +469,8 @@
 						$('.cart_warning_js').removeClass('hidden');
 					});
 					$('.confirm_order_js').click(function(event){
-						// console.log($(this).closest('div').find('[type="hidden"]').val());
 						ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(){
-							console.log("success ");
 							openObject('cart', {reload: true});
-						}).fail(function(event){
-							console.log("fail ");
 						});
 					});
 				</script>
@@ -498,10 +484,7 @@
 		});
 
 
-		$(function(){
-			if(IsLogged){
-				// console.log('loggedin');
-			}
+		$(function(){			
 			// Инициалзация маски для ввода телефонных номеров
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
@@ -519,12 +502,10 @@
 			});
 			$(".order_note_text").blur(function(){
 				note = $(this).val();
-				console.log(note);
 				ajax('cart', 'SaveOrderNote', {note: note});			
 			});
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
-				console.log('нажали оформить');
 				//Проверка на ввод примечания к товару
 				var data = {},
 					validate = true;
@@ -554,20 +535,14 @@
 				}
 				if(validate === true){
 					addLoadAnimation('#cart');
-					console.log('запустили аякс');
-					console.log(data);
 					ajax('cart', 'makeOrder', data).done(function(response){
-						console.log('аякс вернулся');
 						switch(response.status){
 							case 200:
-								console.log('200');
 								closeObject('cart');
 								// window.location.hash = "quiz";
 								ajax('auth', 'GetUserProfile', false, 'html').done(function(response){
-									console.log(response);
 									$('#user_profile').append('<img src="/images/noavatar.png"/>');
 									$('.user_profile_js').html(response);
-
 									$('.cabinet_btn').removeClass('hidden');
 									$('.login_btn').addClass('hidden');
 									$('header .cart_item a.cart i').removeClass('mdl-badge');
@@ -579,12 +554,9 @@
 								}
 								break;
 							case 500:
-								console.log('error');
-								console.log('500');
 								removeLoadAnimation('#cart');
 								break;
 							case 501:
-								console.log('501');
 								removeLoadAnimation('#cart');
 								$('.err_msg').html(data.message);
 								setTimeout(function() {
@@ -594,9 +566,7 @@
 									event.preventDefault;
 									openObject('auth');
 								});
-								break;
-							default:
-								console.log('default statemant');
+								break;							
 						}
 						/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
 					});
