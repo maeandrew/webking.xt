@@ -3244,7 +3244,6 @@ canvas[id^=chart_]{
 }
 .avg_chart_det_wrap{
 	width: 100%;
-	height: 3em;
 	padding: .5em 1em;
 	position: relative;
 }
@@ -3315,9 +3314,6 @@ canvas[id^=chart_]{
 	width: 10px;
 	height: 10px;
 	background: #FF5722;
-}
-.avg_chart_det_btn {
-	float: left;
 }
 .avg_chart_det_btn i{
 	transition: all .4s cubic-bezier(.4,0,.2,1);
