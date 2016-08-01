@@ -37,13 +37,14 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 .clear_cart{position:absolute;top:20px;line-height:32px;right:50px}
 .clear_cart a{color:#ff5722}
 .fright{float:right}
-.background_panel{background-color:transparent;position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;visibility:hidden}
+.background_panel{background-color:transparent;position:fixed;top:0;right:0;bottom:0;left:0;z-index:2;visibility:hidden}
 [data-type=panel]:not(aside),[data-type=modal]{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 @media (max-width:728px){[data-type=panel],[data-type=modal]{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 }
+[class*=" active_"] .banner,[class*=" active_"] footer,[class*=" active_"] section.center,[class^=active_] .banner,[class^=active_] footer,[class^=active_] section.center{-webkit-filter:blur(2px);-o-filter:blur(2px);filter:blur(2px)}
 [class*=" active_"] .banner,[class*=" active_"] .center,[class*=" active_"] footer,[class^=active_] .banner,[class^=active_] .center,[class^=active_] footer,_:-ms-lang(x){filter:none}
 [class*=" active_"],[class^=active_]{overflow:hidden}
-[class*=' active_'] .background_panel,[class^=active_] .background_panel{background-color:rgba(0,0,0,.4);visibility:visible}
+[class*=' active_'] .background_panel,[class^=active_] .background_panel{background-color:rgba(0,0,0,.2);visibility:visible}
 [data-type=modal] .modal_container div.mdl-card__supporting-text{margin:0 auto}
 .paginator{text-align:center;padding-top:30px;padding-bottom:30px;clear:both}
 .paginator ul{display:inline-block;padding:0;margin:0}
@@ -815,8 +816,8 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .cart_bottom_wrap,#cart .sub_cart_bottom_wrap{display:flex;flex-wrap:nowrap;align-items:flex-start}
 #cart .sub_cart_bottom_wrap{flex-wrap:wrap-reverse}
 #cart .cart_bottom_wrap>*,#cart .sub_cart_bottom_wrap>*{flex-grow:1;flex-shrink:1}
-#cart .orderNote{border:1px solid #e0e0e0;border-top:none}
-#cart .orderNote textarea{max-height:189px}
+#cart .orderNote{border:1px solid #e0e0e0;border-top:none;border-right:none}
+#cart .orderNote textarea{max-height:125px}
 #cart .msg-info{width:300px;box-sizing:border-box;border:1px solid #e0e0e0;border-top:none}
 #cart .msg-info,#cart .orderNote{min-height:117.5px}
 #cart .action_block{width:301px;padding:10px;flex-grow:0;flex-shrink:0;border:1px solid #e0e0e0;border-top:none}

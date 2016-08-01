@@ -31,7 +31,7 @@
 					<i class="material-icons">keyboard_arrow_down</i>
 				<?}?>
 			</button>
-			<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu  category_search" for="category-lower-right">
+			<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect category_search" for="category-lower-right">
 				<li data-id-category="0" class="mdl-menu__item cat_li">По всем категориям</li>
 				<?foreach ($navigation as &$v){ ?>
 					<li data-id-category="<?=$v['id_category']?>" class="mdl-menu__item cat_li <?=(isset($_GET['category2search']) && $_GET['category2search'] == $v['id_category'])?'active':null?> "><?=$v['name']?></li>
@@ -48,13 +48,13 @@
 			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$list_menu[$rand]['title']?></a>
 		</div>
 		<div class="pages_list">
-			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-phone navigation">
+			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-cell--hide-phone navigation">
 				<i class="material-icons">menu</i>
 			</button>
-			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
+			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
 				<i class="material-icons">menu</i>
 			</button>
-			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu  mdl-cell--hide-phone" for="menu-lower-right">
+			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-cell--hide-phone" for="menu-lower-right">
 				<?foreach($list_menu as $key => &$menu){?>				
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$menu['title']?></a>
 				<?}?>
@@ -62,14 +62,14 @@
 		</div>
 		<div class="profile mdl-cell--hide-phone">
 			<?if(G::IsLogged()){?>
-				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon ">
+				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
 					<img src="/images/noavatar.png"/>
 				</button>
 			<?}else{?>
-				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon  cabinet_btn hidden">
+				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect cabinet_btn hidden">
 					<!-- <i class="material-icons">account_circle</i> -->
 				</button>
-				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored login_btn">Войти</a>
+				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect login_btn">Войти</a>
 			<?}?>
 			<div class="user_profile user_profile_js mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile">
 				<?php if(G::IsLogged()){

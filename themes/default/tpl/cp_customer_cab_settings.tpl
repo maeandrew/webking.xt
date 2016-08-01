@@ -13,7 +13,7 @@
 						<div class="line email lineMail">
 							<!-- <label for="news">Хочу получать рассылку новостей сайта</label>
 							<input type="checkbox" name="news" id="news" <?if($User['news']==1){?>checked<?}?> value="1"/> -->
-							<label class="mdl-checkbox mdl-js-checkbox" for="news">
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="news">
 								<input type="checkbox" name="news" id="news" class="mdl-checkbox__input" <?if($User['news']==1){?>checked<?}?> value="1">
 								<span class="mdl-checkbox__label">Хочу получать рассылку новостей сайта</span>
 							</label>

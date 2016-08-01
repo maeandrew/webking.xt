@@ -25,6 +25,8 @@ $tpl->Assign('users_list', $users->list);
 $suppliers->SuppliersList();
 $tpl->Assign('suppliers_list', $suppliers->list);
 if(isset($id_photographer)){
+	$categories = $products->generateCategory();
+	$tpl->Assign('categories', $categories);
 	$tpl->Assign('id_photographer', $id_photographer);
 	// pagination
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){

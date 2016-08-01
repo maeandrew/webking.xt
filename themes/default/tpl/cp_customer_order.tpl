@@ -246,26 +246,26 @@
 					<p>Cформировать прайс-лист:</p>
 						<form action="/pricelist-order/<?=$order['id_order']?>/" method="get" target="_blank">
 							<input type="text" name="margin" placeholder="Наценка"/>
-							<button class="price-order-photo mdl-button mdl-js-button mdl-button--raised" name="photo" value="0">без фото</button>
-							<button class="price-order-photo mdl-button mdl-js-button mdl-button--raised" name="photo" value="1">с фото</button>
+							<button class="price-order-photo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="photo" value="0">без фото</button>
+							<button class="price-order-photo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="photo" value="1">с фото</button>
 						</form>
 				</div>
 				<div class="buttons_order">
 					<div class="current_id_order" data-value="<?=$order['id_order']?>"></div>
 
-					<button class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="cloneOrder">Сформировать заказ на основании данного</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn_js" data-name="cloneOrder">Сформировать заказ на основании данного</button>
 
 					<?if($i['id_order_status'] == 1){?>
-						<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить заказ</button>			
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить заказ</button>			
 					<?}?>
 
 					<form action="<?=_base_url?>/cart/<?=$i['id_order']?>" method="post" class="fleft">
-						<!-- <button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button" data-target="order_remake_js">Сформировать заказ на основании данного</button> -->				
+						<!-- <button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button mdl-js-ripple-effect" data-target="order_remake_js">Сформировать заказ на основании данного</button> -->				
 					</form>
 
 					<!-- <?if($i['id_order_status'] == 1){?>
 						<form action="" method="post">
-							<button type="submit" name="smb_cancel" class="cancel_order mdl-button mdl-js-button mdl-button--raised">Отменить заказ</button>
+							<button type="submit" name="smb_cancel" class="cancel_order mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Отменить заказ</button>
 						</form>
 					<?}?> -->
 
@@ -278,8 +278,8 @@
 						<input type="hidden" name="cont_person" value="<?=$order['cont_person']?>"/>
 						<input type="hidden" name="phones" value="<?=$order['phones']?>"/>
 						<input type="hidden" name="bonus_card" value="<?=$order['bonus_card']?>"/>
-						<button type="submit" name="add_order" class="btn-m-green fleft mdl-button mdl-js-button">Добавить к корзине</button>
-						<button type="submit" name="remake_order" class="btn-m-green fright mdl-button mdl-js-button">Заменить корзину</button>
+						<button type="submit" name="add_order" class="btn-m-green fleft mdl-button mdl-js-button mdl-js-ripple-effect">Добавить к корзине</button>
+						<button type="submit" name="remake_order" class="btn-m-green fright mdl-button mdl-js-button mdl-js-ripple-effect">Заменить корзину</button>
 					</form>
 					</div> -->
 				</div>

@@ -127,8 +127,8 @@
 </script>
 <div class="filters">
 	<div id="filterButtons" class="filterButtons">
-		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Применить</button>
-		<button id="clear_filter" class="mdl-button mdl-js-button">Сбросить</button>
+		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Применить</button>
+		<button id="clear_filter" class="mdl-button mdl-js-button mdl-js-ripple-effect">Сбросить</button>
 	</div>
 	<div class="filters_container">
 		<div class="filter_block price_range_block">
@@ -161,7 +161,7 @@
 						<?foreach($spec['values'] as $value){
 							$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
 							<li>
-								<label class="mdl-checkbox mdl-js-checkbox <?=$value['checked']?>">
+								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
 									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
 									<span>
 										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>

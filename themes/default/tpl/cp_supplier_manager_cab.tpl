@@ -1,7 +1,7 @@
 <div class="supplier_search fright">
 	<form method="post" target="_blank" action="/supplier_search">
 		<input type="text" name="art_product" class="input-m" placeholder="Проверка наличия товара">
-		<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" id="form_submit" value="Искать">
+		<input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="form_submit" value="Искать">
 	</form>
 </div>
 <div id="supplier_manager_cabinet">
@@ -47,11 +47,11 @@
 					<div class="currency td"><?=$s['inusd'] > 0?number_format($s['currency_rate'], 2, ",", ""):'-';?></div>
 					<div class="login td">
 						<?if($s['active'] == 1){?>
-							<a href="#" onclick="sm_login('<?=$s['email']?>');" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Войти</a>
+							<a href="#" onclick="sm_login('<?=$s['email']?>');" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Войти</a>
 						<?}?>
 					</div>
 					<div class="toggle td">
-						<a href="?id=<?=$s['id_user']?>&toggle_supplier=<?=$s['active'] == 0?'1':'0';?>" class="mdl-button mdl-js-button mdl-button--raised <?=$s['active'] == 0?'color-green':'color-red';?>"><?=$s['active'] == 0?'Вкл.':'Выкл.';?></a>
+						<a href="?id=<?=$s['id_user']?>&toggle_supplier=<?=$s['active'] == 0?'1':'0';?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect <?=$s['active'] == 0?'color-green':'color-red';?>"><?=$s['active'] == 0?'Вкл.':'Выкл.';?></a>
 					</div>
 				</div>
 			<?}?>			

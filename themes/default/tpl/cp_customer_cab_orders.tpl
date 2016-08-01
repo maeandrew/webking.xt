@@ -55,7 +55,7 @@
 					<?foreach($orders as $i){
 						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){?>
 							<li>
-								<section class="order mdl-tabs mdl-js-tabs">
+								<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 									<div class="title">
 										<div class="container">
 											<span class="number">
@@ -82,7 +82,7 @@
 												<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
 													<img src="<?=_base_url?>/themes/default/img/print1.png">
 												</div>
-												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu print_menu" for="menu-lower_<?=$i['id_order']?>">
+												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect print_menu" for="menu-lower_<?=$i['id_order']?>">
 													<li class="mdl-menu__item">
 														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank">
 															<svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>

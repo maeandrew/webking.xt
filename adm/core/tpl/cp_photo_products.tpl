@@ -17,7 +17,7 @@
 		<div class="col-md-12">
 			<h3>Добавить новый товар</h3>
 		</div>
-		<div class="supplier col-md-4">
+		<div class="supplier col-md-3">
 			<label for="supplier">Поставщик:</label>
 			<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
 			<datalist id="suppliers">			
@@ -26,11 +26,20 @@
 				<?}?>			
 			</datalist>
 		</div>
-		<div class="prodName col-md-4">
+		<div class="prodName col-md-3">
 			<label for="prodName">Название:</label>
 			<input type="text" id="prodName" class="input-m">
 		</div>
-		<div class="submit col-md-4">
+		<div class="categories col-md-3">
+			<label for="categories">Категории:</label>
+			<select id="categories" required name="categories" class="input-m">
+				<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
+				<?foreach($categories as $item){?>
+					<option <?=(next($categories)['pid'] == $item['id_category'])?'disabled':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+				<?}?>
+			</select>
+		</div>
+		<div class="submit col-md-3">
 			<button class="btn-m-default submit_js">Применить</button>
 		</div>
 		<div class="col-md-12">
@@ -171,10 +180,11 @@
 		});
 
 		$('.submit_js').on('click', function(){
-			var ArtSupplier = $.cookie('suppler');
-			var Name = $('#prodName').val();
-			var Images = [];
-			var Videos = [];
+			var ArtSupplier = $.cookie('suppler'),
+				Name = $('#prodName').val(),
+				Images = [],
+				Videos = [],
+				id_category = $('[name="categories"]').val();
 
 			$('.images_block .image_block_js').each(function(){	
 				var visibility = $(this).find('img').hasClass('imgopacity') === false;
@@ -204,7 +214,8 @@
 							art_supplier: ArtSupplier,
 							name: Name,
 							images: Images,
-							video: Videos
+							video: Videos,
+							id_category: id_category 
 						}
 					}).done(function(data){
 						$('.upload_message').addClass('hidden');

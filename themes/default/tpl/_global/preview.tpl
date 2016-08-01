@@ -99,7 +99,7 @@
 			<?}?>
 		</div> -->
 
-		<div class="mdl-tabs mdl-js-tabs">
+		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
 				<a href="#specifications" class="mdl-tabs__tab is-active">Характеристики</a>
 				<a href="#description" class="mdl-tabs__tab">Описание</a>

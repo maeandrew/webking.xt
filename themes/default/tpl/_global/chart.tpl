@@ -1,5 +1,5 @@
 <h3>График спроса (своя версия)</h3>
-	<div class="mdl-tabs mdl-js-tabs">
+	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<div class="mdl-tabs__tab-bar">
 				<a href="#retail" class="mdl-tabs__tab is-active">Розница</a>
 				<a href="#opt" class="mdl-tabs__tab">Опт</a>
@@ -60,7 +60,7 @@
 	</div>
 <!-- <div class="select_go" style="margin-top: 15px;margin-left: 77px;">
 
-	<label class="mdl-switch mdl-js-switch" for="switch-2">
+	<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
 
 	<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница</span>
 
@@ -173,9 +173,9 @@
 	<div class="mdl-cell mdl-cell--2-col">
 		<div id="user_bt">
 			<?if(!empty($values)){?>
-				<a href="#" class="update btn_js mdl-button mdl-js-button" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Обновить</a> <!-- onclick="ModalDemandChart()" -->
+				<a href="#" class="update btn_js mdl-button mdl-js-button mdl-js-ripple-effect" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Обновить</a> <!-- onclick="ModalDemandChart()" -->
 			<?}else{?>
-				<a href="#" class="save btn_js mdl-button mdl-js-button" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
+				<a href="#" class="save btn_js mdl-button mdl-js-button mdl-js-ripple-effect" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
 			<?}?>
 		</div>
 	</div>

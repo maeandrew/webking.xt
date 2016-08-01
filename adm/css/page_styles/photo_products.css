@@ -15,9 +15,10 @@ h1 {
 .create_product h3 {
 	font-size: 1.5em;
 }
-.supplier, .prodName, .submit, .video_upload {	
+.supplier, .prodName, .categories, .submit, .video_upload {
 	/*float: left;*/
 	margin-top: 10px;
+	width: 25%;
 }
 .previews { 
 	height: 135px;
@@ -181,4 +182,11 @@ h1 {
 }
 .add_video:hover {	
 	cursor: pointer;
+}
+
+.create_product .categories select{
+	width: 200px;
+}
+.create_product .submit{
+	margin-top: 2em;
 }
