@@ -64,6 +64,7 @@ G::ToGlobals(array(
 if(G::IsLogged()){
 	_acl::load($_SESSION['member']['gid']);
 }
+/*
 $unwatch = array('95.69.190.43', '178.150.144.143');
 if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client']['ip'], '192.168.0') !== 0){
 	$sql1 = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
@@ -84,6 +85,7 @@ if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client'][
 		// }
 	}
 }
+*/
 // получение всех настроек с БД
 $sql = "SELECT name, caption, value FROM "._DB_PREFIX_."config WHERE sid = 1";
 $arr = $db->GetArray($sql);
