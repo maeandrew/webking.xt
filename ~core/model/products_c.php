@@ -4841,7 +4841,8 @@ class Products {
 
 	public  function GetNopriceProducts($limit = false){
 		$sql = "SELECT id_product, `name`, translit, price_mopt, price_opt FROM "._DB_PREFIX_."product
-				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1".($limit !== false?$limit:'');
+				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1".($limit !== false?$limit:'')."
+				ORDER BY price_opt";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
