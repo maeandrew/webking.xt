@@ -255,7 +255,7 @@
 				<div class="last_news"> 				
 					<div class="last_news_title">
 						<h4>Последние новости</h4>
-						<a href="<?=Link::Custom('news');?> <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
 					</div>
 					<div class="xt_news">
 						<?foreach($news as $item){?>
