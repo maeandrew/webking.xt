@@ -46,19 +46,19 @@
 						</div> -->
 					</legend>
 
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-more">
+					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-more">
 						<input type="checkbox" id="checkbox-more" class="mdl-checkbox__input" name="column[]" value="0">при заказе более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.
 					</label>
 
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-on">
+					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-on">
 						<input type="checkbox" id="checkbox-on" class="mdl-checkbox__input" name="column[]" value="1">при заказе на <?=$GLOBALS['CONFIG']['wholesale_order_margin']?>-<?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.
 					</label>
 
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-from-to">
+					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-from-to">
 						<input type="checkbox" id="checkbox-from-to" class="mdl-checkbox__input" name="column[]" value="2">при заказе на <?=$GLOBALS['CONFIG']['retail_order_margin']?>-<?=$GLOBALS['CONFIG']['wholesale_order_margin']?>грн.
 					</label>
 
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-to">
+					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-to">
 						<input type="checkbox" id="checkbox-to" class="mdl-checkbox__input" checked name="column[]" value="3">при заказе до <?=$GLOBALS['CONFIG']['retail_order_margin']?>грн.
 					</label>
 
@@ -76,9 +76,9 @@
 							<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
 						</div>
 					</legend>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фотографий</label>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">с фотографиями</label>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">с большими фотографиями</label>
+					<label class="mdl-radio mdl-js-radio" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фотографий</label>
+					<label class="mdl-radio mdl-js-radio" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">с фотографиями</label>
+					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">с большими фотографиями</label>
 				</fieldset>
 
 				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">Снять все выделения</button>
@@ -106,7 +106,7 @@
 					<section id="pricelist_item">
 						<!-- <input type="radio"  name="pricelist_select" class="pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>">
 						<label for="order-<?=$price['order']?>"><?=$price['name']?></label> -->
-						<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order-<?=$price['order']?>">
+						<label class="mdl-radio mdl-js-radio" for="order-<?=$price['order']?>">
 							<input type="radio" name="pricelist_select" class="mdl-radio__button pricelist_select" id="order-<?=$price['order']?>" value="<?=$price['id']?>" value="<?=$price['id']?>"><?=$price['name']?>
 						</label>
 					</section>
@@ -123,7 +123,7 @@
 									<?foreach($l1['subcats'] as $l2){?>
 										<li>
 											<?if(isset($l2['subcats'])){?>
-												<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l2['id_category']?>">
+												<label class="mdl-checkbox mdl-js-checkbox" for="cat-<?=$l2['id_category']?>">
 													<input type="checkbox" name="category_select" class="category-parent-select mdl-checkbox__input" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 													<span class="mdl-checkbox__label"><?=$l2['name']?> [<?=$l2['products']?>]</span>
 												</label>
@@ -134,7 +134,7 @@
 												<ul class="list_level2">
 													<?foreach($l2['subcats'] as $l3){?>
 														<li>
-															<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l3['id_category']?>">
+															<label class="mdl-checkbox mdl-js-checkbox" for="cat-<?=$l3['id_category']?>">
 																  <input type="checkbox" name="category_select" id="cat-<?=$l3['id_category']?>" class="mdl-checkbox__input category-select pid-<?=$l3['pid']?>" value="<?=$l3['products']?>">
 																  <span class="mdl-checkbox__label"><?=$l3['name']?> [<?=$l3['products']?>]</span>
 															</label>
@@ -145,7 +145,7 @@
 													<?}?>
 												</ul>
 											<?}else{?>
-												<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l2['id_category']?>">
+												<label class="mdl-checkbox mdl-js-checkbox" for="cat-<?=$l2['id_category']?>">
 													<input type="checkbox" name="category_select" class="category-parent-select mdl-checkbox__input" id="cat-<?=$l2['id_category']?>" value="<?=$l2['products']?>">
 													<span class="mdl-checkbox__label"><?=$l2['name']?> [<?=$l2['products']?>]</span>
 												</label>
@@ -159,7 +159,7 @@
 												<ul class="list_level2">
 													<?foreach($l2['subcats'] as $l3){?>
 														<li>
-															<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cat-<?=$l3['id_category']?>">
+															<label class="mdl-checkbox mdl-js-checkbox" for="cat-<?=$l3['id_category']?>">
 																  <input type="checkbox" name="category_select" id="cat-<?=$l3['id_category']?>" class="mdl-checkbox__input category-select pid-<?=$l3['pid']?>" value="<?=$l3['products']?>">
 																  <span class="mdl-checkbox__label"><?=$l3['name']?> [<?=$l3['products']?>]</span>
 															</label>

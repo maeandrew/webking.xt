@@ -1,9 +1,7 @@
 <?php
 // echo memory_get_peak_usage()/pow(1000, 2);
 session_start();
-header('Content-type: text/html; charset=utf-8');
-header('Server: nginx');
-header('X-Powered-By: PHP');
+header("Content-type: text/html; charset=utf-8");
 date_default_timezone_set('Europe/Kiev');
 define('EXECUTE', 1);
 define('DIRSEP', DIRECTORY_SEPARATOR);

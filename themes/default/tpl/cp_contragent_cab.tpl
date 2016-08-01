@@ -17,8 +17,8 @@
 		<div class="order_number_filter">			
 			<form action="" method="post">
 				<input type="text" name="order_number" placeholder="Введите номер заказа">
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="show_order">Показать</button>
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="cancel_order_filter">Сбросить</button>							
+				<button class="mdl-button mdl-js-button mdl-button--raised" name="show_order">Показать</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised" name="cancel_order_filter">Сбросить</button>							
 			</form>
 		</div>
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
@@ -111,8 +111,8 @@
 							<textarea onChange="setOrderNote_zamena(<?=$i['id_order']?>)" class="note2" id="order_note2_<?=$i['id_order']?>"><?=isset($i['note2'])?$i['note2']:null?></textarea>
 						</td>
 						<td class="bill">
-							<button id="invoice" class="invoice-create mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ord-<?=$i['id_order']?> btn-m-green btn_js" data-name="bill_form_js" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
-							<button id="bill" class="bill-create mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ord-<?=$i['id_order']?> btn-m-orange btn_js" data-name="bill_form_js"  data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Накл.</button><br>
+							<button id="invoice" class="invoice-create mdl-button mdl-js-button mdl-button--raised ord-<?=$i['id_order']?> btn-m-green btn_js" data-name="bill_form_js" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
+							<button id="bill" class="bill-create mdl-button mdl-js-button mdl-button--raised ord-<?=$i['id_order']?> btn-m-orange btn_js" data-name="bill_form_js"  data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Накл.</button><br>
 							<a target="_blank" href="<?=_base_url?>/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. сайт<br></a>
 							<a target="_blank" href="<?=_base_url?>/invoice_customer_fakt/<?=$i['id_order']?>/<?=$i['skey']?>">Накл. факт</a>
 						</td>

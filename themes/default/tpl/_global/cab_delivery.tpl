@@ -144,7 +144,7 @@
 			</div>
 		</fieldset>
 		<div class="buttons_cab">
-			<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Сохранить</button>
+			<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
 		</div>
 	</form>
 </div>

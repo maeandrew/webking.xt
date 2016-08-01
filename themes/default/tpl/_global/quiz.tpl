@@ -186,11 +186,11 @@
 			</div>
 			<div class="quiz_content">
 				<div class="label_wrap">
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-6">
+					<label class="mdl-radio mdl-js-radio" for="option-6">
 						<input type="radio" id="option-6" class="mdl-radio__button" name="options" value="6" checked>
 						<span class="mdl-radio__label">Нет, мне необходима телефонная консультация.</span>
 					</label>
-					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-7">
+					<label class="mdl-radio mdl-js-radio" for="option-7">
 						<input type="radio" id="option-7" class="mdl-radio__button" name="options" value="7">
 						<span class="mdl-radio__label">Да, предоставьте реквизиты!</span>
 					</label>
@@ -213,10 +213,10 @@
 	}?>
 	<div class="row quiz_footer">
 		<?if($step > 1 && $step < 4){?>
-			<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="<?=$step-1?>">Назад</button>
+			<button class="mdl-button mdl-js-button to_step" data-step="<?=$step-1?>">Назад</button>
 		<?}
 		if($step < 5){?>
-			<button class="mdl-button mdl-js-button mdl-js-ripple-effect to_step" data-step="<?=$step+1?>"><?=$step==4?'Закрыть':'Далее';?></button>
+			<button class="mdl-button mdl-js-button to_step" data-step="<?=$step+1?>"><?=$step==4?'Закрыть':'Далее';?></button>
 		<?}?>
 		<div class="progress">
 			<div class="line">

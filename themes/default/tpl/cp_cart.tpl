@@ -302,7 +302,7 @@
 					<label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label>
 				</div>
 			</div>
-			<div class="msg-info<?=G::IsLogged()?' hidden':null;?>">
+			<div class="msg-info">
 				<div class="msg_icon">
 					<i class="material-icons hidden">check_circle</i>
 					<i class="material-icons">info</i>
@@ -342,16 +342,16 @@
 								<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 								<p>Вы уверенны, что хотите удалить промокод?</p>
 								<input type="hidden" value="<?=isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:'';?>">
-								<input type="button" class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Да"/>
-								<input type="button" class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Нет"/>
+								<input type="button" class="confirm_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Да"/>
+								<input type="button" class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Нет"/>
 							</div>
 						<?}else{?>
-							<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect apply_promoCode apply_promoCode_js" value="Применить"/>
+							<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored apply_promoCode apply_promoCode_js" value="Применить"/>
 						<?}?>
 						<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
 							<div class="clearBoth">
 								<div class="info_admin">Для управления совместной покупкой, перейдите личный кабинет.</div>
-								<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Управление заказом"/></a>
+								<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Управление заказом"/></a>
 							</div>
 						<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
 							<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?> clearBoth">
@@ -362,14 +362,14 @@
 									<div class="info_client ic_ready">Заказ подтвержден. </div>
 								<?}?>
 								<div class="info_client">Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
-								<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?> mdl-js-ripple-effect" value="Готово"/>
+								<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?>" value="Готово"/>
 							</div>
 						<?}?>
 					
 						<?if(!isset($_SESSION['cart']['promo'])){?>
 							<div class="cart_choiсe_wrapp_js cart_choiсe_wrapp">
 								<!--<div class="tooltip_wrapp joint_cart_js">
-									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+									<label class="mdl-radio mdl-js-radio add_cart_state">
 										<input type="radio" class="mdl-radio__button" name="options" value="1">
 										<span class="mdl-radio__label">Совместная корзина</span>
 											<label class="info_key" style="position: initial;">?</label>
@@ -377,20 +377,20 @@
 									</label>
 								</div>-->
 								<div class="tooltip_wrapp joint_purchase_js">
-									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect add_cart_state">
+									<label class="mdl-radio mdl-js-radio add_cart_state">
 										<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 										<span class="mdl-radio__label">Cовместный заказ</span>
 											<label class="info_key" style="position: initial;">?</label>
 											<div class="info_description">Перейти к оформлению совместного заказа</div>
 									</label>
 								</div>
-								<input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
+								<input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
 							</div>
 						<?}?>
 					<?}?>
 					<?if(!G::IsLogged() || !_acl::isAdmin()){?>
 						<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
 						</div>
 					<?}else{?>
 						<p>Вы не можете использовать корзину</p>

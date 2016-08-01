@@ -146,7 +146,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						</div>
 						<div class="fright service_block">
 							<!-- <p class="comment_question open_modal" data-target="comment_question">Отзывы и вопросы</p> -->
-							<button class="mdl-button mdl-js-button mdl-js-ripple-effect comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
+							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
 
 							<?if($item['available_today'] == 1){?>
 								<span class="material-icons icon-font timerIcon">timer</span>
@@ -240,7 +240,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 
 					<div class="product_check card_item">
 						<span class="suplierPriceBlockLabel">Добавить:</span>
-						<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">				
+						<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">				
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
 							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
 						</label>
