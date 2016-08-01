@@ -2312,8 +2312,12 @@ section .stat_year {
 	border-bottom: 0 !important;
 	border-radius: .2em .2em 0 0;
 }
+.product_buy .buy_block .quantity button.btn_add:hover,
+.product_buy .buy_block .quantity button.btn_remove:hover{
+	background-color: #f1f1f1;
+}
 .product_buy .buy_block .quantity button.btn_remove {
-	top: 95%;
+	top: 90%;
 	border-top: 0 !important;
 	border-radius: 0 0 .2em .2em;
 }

@@ -389,10 +389,12 @@ label.info_key {
 }
 .list_view .products .card .product_buy .buy_block .quantity button.btn_add {
 	border-radius: .2em .2em 0 0;
+	border: 1px solid #ddd;
 }
 
 .list_view .products .card .product_buy .buy_block .quantity button.btn_remove {
 	border-radius: 0 0 .2em .2em;
+	border: 1px solid #ddd;
 }
 .list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock {
 	float: left;
