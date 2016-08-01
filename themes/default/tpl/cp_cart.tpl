@@ -390,7 +390,7 @@
 					<?}?>
 					<?if(!G::IsLogged() || !_acl::isAdmin()){?>
 						<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type='submit' value="Отправить">Оформить заказ</button>
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
 						</div>
 					<?}else{?>
 						<p>Вы не можете использовать корзину</p>
