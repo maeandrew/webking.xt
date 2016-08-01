@@ -5,7 +5,7 @@
 	<div class="header_right">
 		<div class="search_wrap">
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
-				<i class="material-icons mob_s_btn mob_search_btn_js">search</i>
+				<i class="material-icons mob_s_btn mob_search_btn_js">&#xE8B6;</i>
 				<div class="mdl-textfield mdl-js-textfield search">
 					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
 				</div>
@@ -41,7 +41,7 @@
 		</div> -->
 		<div class="cart_item ga-cart <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 			<div class="currentCartSum hidden"><?=isset($_SESSION['cart']['products_sum'][3])?$_SESSION['cart']['products_sum'][3]:null?></div>
-			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">shopping_cart</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
+			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
 		</div>
 		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone">
 			<?$rand = rand(0, count($list_menu)-1);?> 
@@ -49,10 +49,10 @@
 		</div>
 		<div class="pages_list">
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-phone navigation">
-				<i class="material-icons">menu</i>
+				<i class="material-icons">&#xE5D2;</i>
 			</button>
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
-				<i class="material-icons">menu</i>
+				<i class="material-icons">&#xE5D2;</i>
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu  mdl-cell--hide-phone" for="menu-lower-right">
 				<?foreach($list_menu as $key => &$menu){?>				
