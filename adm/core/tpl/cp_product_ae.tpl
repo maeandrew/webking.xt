@@ -838,16 +838,13 @@
 		});
 		
 		$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
+		
 		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
 			var path = $(this).closest('.image_block');
-			console.log($(this));
 			$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
-
-			if (path.hasClass('implicit')) {
-				
+			if (path.hasClass('implicit')) {				
 				path.find('[name="images_visible[]"]').val("1");
 				path.removeClass('implicit');
-
 				// hidden_images = path.find('.image img').attr('src');
 
 				// var arr = path.closest('.previews').find('[name="hidden_images[]"]');
@@ -856,14 +853,11 @@
 				// 		$(el).remove();
 				// 	};
 				// });
-			}else{
-				
+			}else{				
 				path.find('[name="images_visible[]"]').val("0");
 				path.addClass('implicit');
-
 				// hidden_images = path.find('.image img').attr('src');
 				// path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
-
 			}
 		});
 

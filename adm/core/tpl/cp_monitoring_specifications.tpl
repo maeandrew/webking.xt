@@ -118,7 +118,6 @@
 			});
 		});
 		$('#unload_option #list').on('click', 'a', function(){
-			console.log('trololo');
 			$(this).addClass('clicked');
 		});
 

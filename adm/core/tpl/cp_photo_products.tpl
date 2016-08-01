@@ -190,9 +190,6 @@
 			if ($('#supplier').val() !== '') {
 				$('#supplier').removeClass('errName');
 				if($(".images_block").html() !== ''){
-					console.log(Name);
-					console.log(Images);
-					console.log(Videos);
 					$('.upload_message').removeClass('hidden');
 					$.ajax({
 						url: URL_base+'ajaxproducts',

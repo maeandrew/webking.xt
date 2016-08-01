@@ -63,7 +63,6 @@ $(function(){
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 1}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				// console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavOrg").append(data);
 			});
@@ -81,7 +80,6 @@ $(function(){
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 2}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				// console.log(data);
 				$(".second_nav").addClass('hidden');
 				$("#segmentNavStore").append(data);
 			});
@@ -100,7 +98,6 @@ $(function(){
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segments', {type: 0}, 'html').done(function(data){
 				removeLoadAnimation('.catalog');
-				// console.log('все секции');
 				$(".second_nav").addClass('hidden');
 				/*$(".allSections").removeClass('hidden');*/
 				$("#allCategotyCont").append(data);

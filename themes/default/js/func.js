@@ -95,7 +95,6 @@ function ajax(target, action, data, dataType, form_sent){
 	var ajax = $.ajax({
 		url: URL_base+'ajax',
 		beforeSend: function(ajax){
-			// console.log(ajax_proceed);
 			if(ajax_proceed === true){
 				// ajax.abort();
 			}
@@ -148,7 +147,6 @@ function ListenPhotoHover(){
 	preview = $('.list_view .preview');
 	previewOwl = preview.find('#owl-product_slide_js');
 	$('body').on('mouseover', '.list_view .product_photo:not(hovered)', function(){
-		console.log('test');
 		if($(this).not('.hovered')){
 			showPreview(false);
 			$(this).addClass('hovered');
@@ -509,13 +507,11 @@ function CompleteValidation(name, email, passwd, passconfirm){
 	}
 	res = ValidatePass(passwd);
 	if(res){
-		/*console.log(passwd);*/
 		$('#regs .mdl-textfield__error').closest('#passwd .mdl-textfield').text(res);
 		fin++;
 	}
 	res = ValidatePassConfirm(passwd, passconfirm);
 	if(res){
-		/*console.log(passconfirm);*/
 		$('#regs .mdl-textfield__error').closest('#passwdconfirm .mdl-textfield').text(res);
 		fin++;
 	}
@@ -776,10 +772,7 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 }
 function segmentOpen(id){
 	$('[data-id="'+id+'"]').each(function(){
-		if($(this).find('ul').length > 0){
-			console.log('есть');
-		}else{
-			console.log('нету');
+		if($(this).find('ul').length === 0){
 			addLoadAnimation('.catalog');
 			ajax('segment', 'segmid', {idsegment: id}, 'html').done(function(data){
 				$('.second_nav li').removeClass('active');

@@ -12,7 +12,7 @@
 		<?=$data['descr_full']?>
 	</div>	
 	<div class="share_social_block">
-		<span>Поделистья:</span>
+		<span>Поделитьcя:</span>
 		<a href="http://vk.com/share.php?url=<?=Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);?>&title=<?=$data['title']?>&description=<?=strip_tags($data['descr_short'])?>&image=<?=_base_url?><?=$data['thumbnail']?>&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a>
 
 		<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);?>&st.comments=<?=$data['title']?>" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a>

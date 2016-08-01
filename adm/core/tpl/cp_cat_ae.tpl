@@ -213,8 +213,6 @@
 				"id_category": id_cat,
 				"id_specification": id_spec
 			}
-		}).done(function(a){
-			console.log(a);
 		});
 	}
 

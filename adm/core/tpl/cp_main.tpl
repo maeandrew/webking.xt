@@ -366,9 +366,5 @@
 		var ctx2 = document.getElementById("last_orders_count").getContext("2d");
 		var myLineChart2 = new Chart(ctx2).Line(data, options);
 		var chart1;
-
-		$('.generate_site_map_js').click(function(event) {
-			console.log($('#sitemap option:selected').val());
-		});
 	});
 </script>

@@ -347,7 +347,6 @@
 
 	/* Выбор категорий второго уровня */
 	$('.category-select, .category-parent-select').change(function(){
-		console.log("hello");
 		var id = Number($(this).attr('id').replace(/\D+/g,""));
 		var pid = Number($(this).attr('class').replace(/\D+/g,""));
 		var products = Number($(this).val().replace(/\D+/g,""));

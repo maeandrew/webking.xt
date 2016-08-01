@@ -292,13 +292,10 @@
 	/*Создать новый заказ на основе текущего*/
 	$(function(){ 
 		var id_order = $('.current_id_order').data('value');
-		/*console.log(id_order);*/
 
 		/*Отмена заказа*/
 		$('#cnclOrderBtnMod').on('click', function(e){
-			/*console.log(id_order);*/
 			ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
-				console.log(data);
 				if(data === true){
 					closeObject('confirmCnclOrder');					
 					$('.cnslOrderBtn').addClass('hidden');		
@@ -310,7 +307,6 @@
 		$('#replaceCartMod').on('click', function(e){		
 			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
 				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
-					console.log(data);
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 				});
 			});
@@ -320,7 +316,6 @@
 		$('#addtoCartMod').on('click', function(e){	
 			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){			
 				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
-					console.log(data);
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 				});	
 			});

@@ -68,8 +68,6 @@
 					id: $(this).closest('tr').data('id'),
 					block: $(this).is(':checked')
 				}
-			}).done(function(data){
-				// console.log('data');
 			});
 		});
 	});
