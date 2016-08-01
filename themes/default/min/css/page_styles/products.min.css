@@ -61,8 +61,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 .list_view .product_section .product_info .product_article{display:block;line-height:20px}
 .list_view .product_section .product_info form{margin-top:10px;max-width:220px}
 .list_view .product_section .product_info textarea{width:100%}
-.list_view .products .card .product_buy .buy_block .quantity button.btn_add{border-radius:.2em .2em 0 0}
-.list_view .products .card .product_buy .buy_block .quantity button.btn_remove{border-radius:0 0 .2em .2em}
+.list_view .products .card .product_buy .buy_block .quantity button.btn_add{border-radius:.2em .2em 0 0;border:1px solid #ddd}
+.list_view .products .card .product_buy .buy_block .quantity button.btn_remove{border-radius:0 0 .2em .2em;border:1px solid #ddd}
 .list_view .products .card .product_buy .buy_block .quantity .quantityReverseBlock{float:left}
 .list_view .card .buy_block span{display:none;margin-left:5px}
 .list_view .card .product_name{float:left;width:calc(100% - 130px - 350px);display:table-row}

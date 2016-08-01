@@ -148,6 +148,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .editproduct label{float:left;clear:both}
 .editproduct label[for=height],.editproduct label[for=width],.editproduct label[for=length]{width:auto;line-height:25px;margin:5px 5px 5px 25px}
 .editproduct span.info_units{margin-left:5px}
+.editproduct #editbox.disabled{position:relative}
 .editproduct #editbox.disabled:after{content:'';display:block;position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(255,255,255,.4)}
 #editbox .error{display:block;margin:0 16px;width:60%;font-weight:400;color:red;clear:both}
 #editbox select{background:#fff;outline:0}
