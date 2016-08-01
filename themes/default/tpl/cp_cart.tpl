@@ -302,7 +302,7 @@
 					<label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label>
 				</div>
 			</div>
-			<div class="msg-info">
+			<div class="msg-info<?=G::IsLogged()?' hidden':null;?>">
 				<div class="msg_icon">
 					<i class="material-icons hidden">check_circle</i>
 					<i class="material-icons">info</i>
