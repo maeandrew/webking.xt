@@ -127,22 +127,18 @@
 	</div>
 </div><!--class="products"-->
 <script>
-	$('#owl-subcategories_slide_js').owlCarousel({
-			center:			true,
-			dots:			true,
-			items:			1,
-			lazyLoad:		true,
-			/*loop:			true,*/
-			margin:			20,
-			nav:			true,
-			/*video:			true,
-			videoHeight:	345,
-			videoWidth:		345,*/
-			navText: [
-				'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-				'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
-			]
-	});
+	// $('#owl-subcategories_slide_js').owlCarousel({
+	// 		center:			true,
+	// 		dots:			true,
+	// 		items:			1,
+	// 		lazyLoad:		true,
+	// 		margin:			20,
+	// 		nav:			true,			
+	// 		navText: [
+	// 			'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+	// 			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+	// 		]
+	// });
 	$(function(){
 		<?if(isset($_COOKIE['product_view'])){?>
 			// ChangeView('<?=$_COOKIE['product_view']?>');
