@@ -493,7 +493,7 @@
 		</div>
 		<?if(isset($pops) && !empty($pops)){?>
 			<div class="slider_products">
-				<h4>Топ товаров</h4>
+				<h4>С этой категории (рандом)</h4>
 				<div id="owl-top" class="owl-carousel">
 					<?foreach($pops as $p){?>
 						<div class="item">
@@ -532,11 +532,11 @@
 			</div>
 		</div>
 	</div>
-	<?if(isset($pops) && !empty($pops)){?>
+	<?if(isset($random_products) && !empty($random_products)){?>
 		<div class="slider_products">
-			<h4>Популярные товары</h4>
-			<div id="owl-popular" class="owl-carousel">
-				<?foreach($pops as $p){?>
+			<h4>Другие товары с этой категории</h4>
+			<div id="owl-other" class="owl-carousel">
+				<?foreach($random_products as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
@@ -557,12 +557,12 @@
 				<?}?>
 			</div>
 		</div>
-	<?}?>	
-	<?if(isset($pops) && !empty($pops)){?>
+	<?}?>
+	<?if(isset($popular_products) && !empty($popular_products)){?>
 		<div class="slider_products">
-			<h4>Другие товары с этой категории</h4>
-			<div id="owl-other" class="owl-carousel">
-				<?foreach($pops as $p){?>
+			<h4>Популярные товары в этой категории</h4>
+			<div id="owl-popular" class="owl-carousel">
+				<?foreach($popular_products as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
@@ -586,7 +586,7 @@
 	<?}?>
 	<?if(isset($view_products_list) && !empty($view_products_list)){?>
 		<div class="slider_products">
-			<h4>Просмотренные товары</h4>
+			<h4>Просмотренные ранее</h4>
 			<div id="owl-last-viewed" class="owl-carousel">
 				<?foreach($view_products_list as $p){?>
 					<div class="item">
@@ -611,7 +611,7 @@
 		</div>
 	<?}?>
 </section>
-<script>	
+<script>
 	$(function(){
 		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
