@@ -114,7 +114,7 @@
 										<div class="manager">
 											<div class="label">Организатор заказа</div>
 											<div class="avatar">
-												<img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/>
+												<img src="/images/noavatar.png" alt="avatar"/>
 											</div>
 											<div class="details">
 												<div class="line_1"><? print_r($infoJO['adm_name'])?></div>

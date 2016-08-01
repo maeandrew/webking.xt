@@ -188,7 +188,7 @@
 												<div class="manager" data-id="<?=$i['contragent_info']['id_user']?>">
 													<div class="label">Ваш менеджер</div>
 													<div class="avatar">
-														<img src="http://lorempixel.com/fashion/70/70/" alt="avatar" />
+														<img src="/images/noavatar.png" alt="avatar" />
 													</div>
 													<div class="details">
 														<div class="line_1"><?=$i['contragent']?></div>

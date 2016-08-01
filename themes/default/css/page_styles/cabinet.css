@@ -2146,6 +2146,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	border: 1px solid #444;
 	float: left;
 }
+.order .content .additional > div .avatar img{
+	width: 100%;
+}
 .order .content .additional > div .details {
 	float: left;
 	/* width: calc(100% - 5em); */
