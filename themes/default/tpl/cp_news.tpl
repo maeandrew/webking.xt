@@ -10,8 +10,7 @@
 		}?></p>
 	<div class="content_page">
 		<?=$data['descr_full']?>
-	</div>
-	<? print_r($data) ?>
+	</div>	
 	<div class="share_social_block">
 		<span>Поделистья:</span>
 		<a href="http://vk.com/share.php?url=<?=Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);?>&title=<?=$data['title']?>&description=<?=strip_tags($data['descr_short'])?>&image=<?=_base_url?><?=$data['thumbnail']?>&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a>
