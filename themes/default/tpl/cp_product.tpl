@@ -288,7 +288,7 @@
 						</div>
 						<div class="product_check <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
 							<span class="suplierPriceBlockLabel">Добавить:</span>
-							<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">
+							<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">
 								<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
 							</label>
 						</div>
@@ -317,7 +317,7 @@
 						<span class="mdl-tooltip" for="shareButton">Поделиться</span></li>
 				</ul>
 				
-				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect social" for="shareButton">
+				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">
 					<ul class="social">
 						<li>
 							<a href="http://vk.com/share.php?url=<?=Link::Product($GLOBALS['Rewrite']);?>&title=<?=$item['name']?>&description=<?=strip_tags($item['descr'])?>&image=[IMAGE]&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">

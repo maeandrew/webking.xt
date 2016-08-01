@@ -60,7 +60,7 @@
 					<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
 						<label for="currency_rate">Личный курс доллара</label>
 						<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
-						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onclick="RecalcSupplierCurrency();">Пересчитать</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="RecalcSupplierCurrency();">Пересчитать</button>
 						<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
 					</form>
 					<p class="checksum">Контрольная сумма - <b><?=$check_sum['checksum']?> грн</b></p>
@@ -76,8 +76,8 @@
 							}?>
 						</span>
 					</label>
-					<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
-					<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect btn_js" data-name="kalendar_content">Календарь</button>
+					<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
+					<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js" data-name="kalendar_content">Календарь</button>
 				</div>
 				<form class="work_days_add" action="<?=$GLOBALS['URL_request']?>" method="post">
 					<label for="start_date" class="fleft">С даты:
@@ -86,18 +86,18 @@
 					<label for="num_days" class="fleft">Количество дней (от 10 до 90):
 						<input type="number" name="num_days" id="num_days" min="10" max="90" value="90" pattern="[0-9]{2}"/>
 					</label>
-					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 				</form>
 			</div>
 			<div class="form_block fright hidden">
 				<form action="<?=Link::Custom('cabinet', 'price');?>" method="post">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Форма сверки цен</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Форма сверки цен</button>
 				</form>
 				<form action="<?=Link::Custom('cabinet', 'price1');?>" method="post">
-					<button name="price" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Новая с ценами</button>
-					<button name="no-price" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Новая без цен</button>
-					<button name="wide" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Сверх-новая с ценами</button>
-					<button name="multiple" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Многоразовая без цен</button>
+					<button name="price" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Новая с ценами</button>
+					<button name="no-price" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Новая без цен</button>
+					<button name="wide" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сверх-новая с ценами</button>
+					<button name="multiple" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Многоразовая без цен</button>
 				</form>
 			</div>
 		</div>
@@ -110,7 +110,7 @@
 		<?}?>
 		<div class="switch_price_container">
 			<span>Единая цена</span>
-			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch_price">
+			<label class="mdl-switch mdl-js-switch" for="switch_price">
 				<input type="checkbox" id="switch_price" class="mdl-switch__input price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
 				<span class="mdl-switch__label"></span>
 			</label>
@@ -162,7 +162,7 @@
 							</div>
 							<div class="product_balance">
 								<span class="prod_detail_info">Остаток товара:</span>
-								<label id="balance_info-<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-<?=$i['id_product']?>">
+								<label id="balance_info-<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox" for="checkbox-<?=$i['id_product']?>">
 									<input type="checkbox" name="product_limit_checkbox" id="checkbox-<?=$i['id_product']?>" class="mdl-checkbox__input" data-id-product="<?=$i['id_product']?>" data-koef="<?=$supplier['koef_nazen_mopt']?>" data-supp="<?=$i['sup_comment']?>" <?=isset($_SESSION['Assort']['products'][$i['id_product']]['product_limit']) && $_SESSION['Assort']['products'][$i['id_product']]['product_limit'] > 0?'checked':null;?>>
 								</label>
 								<div class="mdl-tooltip" for="balance_info-<?=$i['id_product']?>">Остаток товара</div>
@@ -196,7 +196,7 @@
 							<div class="to_dollar">
 								<span class="prod_detail_info">Перевести в $:</span>
 								<!-- <form> -->
-									<label id="dollar_info_<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="inusd-<?=$i['id_product']?>">
+									<label id="dollar_info_<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox" for="inusd-<?=$i['id_product']?>">
 										<input type="checkbox" name="product_limit" id="inusd-<?=$i['id_product']?>" class="mdl-checkbox__input currency inusd<?=$i['id_product']?>" <?=$i['inusd'] == 1?'checked':null;?> value="1">
 									</label>
 									<!-- <input type="checkbox" <?=$i['inusd'] == 1?'checked="checked"':'';?> class="inusd<?=$i['id_product']?>" style="float: none !important; margin: 0 auto;"  onclick="SetInUSD(<?=$i['id_product']?>, <?=$supplier['koef_nazen_mopt']?>, <?=$supplier['koef_nazen_opt']?>, '<?=$i['sup_comment']?>'); return false;" value="1"> -->
@@ -230,7 +230,7 @@
 									<div class="switch animate"></div>
 								</div>
 								<span>Единая цена</span>
-								<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch_price">
+								<label class="mdl-switch mdl-js-switch" for="switch_price">
 									<input type="checkbox" id="switch_price" class="mdl-switch__input price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
 									<span class="mdl-switch__label"></span>
 								</label>
@@ -295,7 +295,7 @@
 									<?}?>
 								</td>
 								<td>
-									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-<?=$i['id_product']?>">
+									<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-<?=$i['id_product']?>">
 										<input type="checkbox" name="product_limit_checkbox" id="checkbox-<?=$i['id_product']?>" class="mdl-checkbox__input" data-id-product="<?=$i['id_product']?>" data-koef="<?=$supplier['koef_nazen_mopt']?>" data-supp="<?=$i['sup_comment']?>" <?=isset($_SESSION['Assort']['products'][$i['id_product']]['product_limit']) && $_SESSION['Assort']['products'][$i['id_product']]['product_limit'] > 0?'checked':null;?>>
 									</label>
 									<a href="#" onclick="$('#product_limit_mopt_<?=$i['id_product']?>').val(parseInt($('#product_limit_mopt_<?=$i['id_product']?>').val())+1000000000); toAssort(<?=$i['id_product']?>, 0, <?=$supplier['koef_nazen_mopt']?>, '<?=$i['sup_comment']?>'); return false;">Вкл</a><br>
@@ -321,7 +321,7 @@
 								</td>
 								<td>
 									<form>
-										<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="inusd-<?=$i['id_product']?>">
+										<label class="mdl-checkbox mdl-js-checkbox" for="inusd-<?=$i['id_product']?>">
 											<input type="checkbox" name="product_limit" id="inusd-<?=$i['id_product']?>" class="mdl-checkbox__input inusd<?=$i['id_product']?>" <?=$i['inusd'] == 1?'checked':null;?> value="1">
 										</label>
 										<input type="checkbox" <?=$i['inusd'] == 1?'checked="checked"':'';?> class="inusd<?=$i['id_product']?>" style="float: none !important; margin: 0 auto;"  onclick="SetInUSD(<?=$i['id_product']?>, <?=$supplier['koef_nazen_mopt']?>, <?=$supplier['koef_nazen_opt']?>, '<?=$i['sup_comment']?>'); return false;" value="1">
@@ -352,7 +352,7 @@
 					<form action="" method="post">
 						<input type="hidden" name="id_product">
 						<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
-						<button type="submit" name="sub_com" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+						<button type="submit" name="sub_com" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 					</form>
 				</div>
 			</div>

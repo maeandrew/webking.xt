@@ -55,10 +55,10 @@
 							<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 								<label class="label_for_input_blocks" for="gender">Пол:</label>
 								<div id="gender">
-									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sex_male">
+									<label class="mdl-radio mdl-js-radio" for="sex_male">
 										<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="sex" class="mdl-radio__button" id="sex_male" value="male">Мужской
 									</label> &nbsp;&nbsp;
-									<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sex_female">
+									<label class="mdl-radio mdl-js-radio" for="sex_female">
 										<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="sex" class="mdl-radio__button" id="sex_female" value="female">Женский
 									</label>
 								</div>

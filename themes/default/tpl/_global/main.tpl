@@ -255,7 +255,7 @@
 				<div class="last_news"> 				
 					<div class="last_news_title">
 						<h4>Последние новости</h4>
-						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="min news_more mdl-button mdl-js-button">Все новости</a>
 					</div>
 					<div class="xt_news">
 						<?foreach($news as $item){?>
@@ -285,7 +285,7 @@
 										}?>
 										</p>
 									</div>
-									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
+									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button">Читать далее</a>
 								</div>
 							</div>
 						<?}?>	
@@ -335,7 +335,7 @@
 						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
-					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
+					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox" for="screenShotBox">
 						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
@@ -350,7 +350,7 @@
 							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
 						</div>
 					</div>
-					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отправить</div>
 				</form>
 			</div>
 		</div>
@@ -365,8 +365,8 @@
 		<!-- Доработать функционал ластика 
 		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
-		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
-		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<button class="canvasReady canvasReady_js mdl-button mdl-js-button">Готово</button>
+		<button class="canvasClear canvasClear_js mdl-button mdl-js-button">Очистить</button>
 		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
 	</div>
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas">
@@ -474,7 +474,7 @@
 							<label class="mdl-textfield__label" for="estimate_file"></label>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect estimate_js">Загрузить смету</button>
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored estimate_js">Загрузить смету</button>
 						</div>
 					</div>
 				</form>
@@ -498,8 +498,8 @@
 					</div>
 					<div class="error"></div>
 					<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Войти</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_up">Регистрация</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_in">Войти</button>
+					<button class="mdl-button mdl-js-button switch" data-name="sign_up">Регистрация</button>
 				</form>
 			</div>
 			<div id="sign_up" class="hidden modal_container">
@@ -546,8 +546,8 @@
 						<div id="password_error"></div>
 						<div class="error_description"></div>
 					</div>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_in">Вход</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
+					<button class="mdl-button mdl-js-button switch" data-name="sign_in">Вход</button>
 				</form>
 			</div>
 		</div>
@@ -555,11 +555,11 @@
 			<div class="password_recovery_container">
 				<h4>Восстановление доступа</h4>
 				<form action="#">
-					<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_mail">
+					<div><label class="mdl-radio mdl-js-radio" for="chosen_mail">
 						<input type="radio" id="chosen_mail" class="mdl-radio__button" name="recovery_method" data-value="email" checked>
 						<span class="mdl-radio__label">через Email</span>
 					</label></div>
-					<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_sms">
+					<div><label class="mdl-radio mdl-js-radio" for="chosen_sms">
 						<input type="radio" id="chosen_sms" class="mdl-radio__button" name="recovery_method" data-value="sms">
 						<span class="mdl-radio__label">по номеру телефона</span>
 					</label></div>
@@ -570,7 +570,7 @@
 							<span class="mdl-textfield__error"></span>
 						</div>
 					</div>
-					<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
+					<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Продолжить</button>
 				</form>
 			</div>
 		</div>
@@ -580,7 +580,7 @@
 					<i class="material-icons">check_circle</i>
 				</div>
 				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
-				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Мой кабинет</a>
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="<?=Link::Custom('cabinet')?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Мой кабинет</a>
 			</div>
 		</div>
 		<!-- Cart -->
@@ -626,29 +626,29 @@
 				<input type="hidden" name="id_product">
 				<input type="hidden" name="id_user">
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
-				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Отправить</button>
+				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
 		</div>	
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
-			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
-			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
+			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
+			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
-			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, удалить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
+			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent applyBtn">Да, удалить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите отменить заказ?</h5>
-			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, отменить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
+			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent applyBtn">Да, отменить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmDelItem" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить товар из списка?</h5>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn_js">Отмена</button>
 		</div>
 		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
@@ -657,11 +657,11 @@
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>
-			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_current_pass">
+			<div><label class="mdl-radio mdl-js-radio" for="choise_current_pass">
 				<input type="radio" id="choise_current_pass" class="mdl-radio__button" name="verification" data-value="current_pass" checked>
 				<span class="mdl-radio__label">текущий пароль</span>
 			</label></div>
-			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_verification_code">
+			<div><label class="mdl-radio mdl-js-radio" for="choise_verification_code">
 				<input type="radio" id="choise_verification_code" class="mdl-radio__button" name="verification" data-value="verification_code">
 				<span class="mdl-radio__label">SMS на Ваш номер телефона</span>
 			</label></div>			
@@ -689,9 +689,9 @@
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
 			<p class="error_msg_js error_msg"></p>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect send_code_js hidden">Выслать код подтверждения</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_pass_js">Подтвердить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_code_js hidden">Подтвердить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised send_code_js hidden">Выслать код подтверждения</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised confirm_pass_js">Подтвердить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised confirm_code_js hidden">Подтвердить</button>
 		</div>
 	</div>
 	<div class="panels"></div>
@@ -784,8 +784,8 @@
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
 			<p>Кликая на кнопку "ОК" или продолжая использовать данный сайт, Вы соглашаетесь на использование этой технологии Нашей компанией.</p>
-			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-button--accent">ОК</div>
 		</div>
 	</div>
-	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--hide-phone">Наверх</div>
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
 </body>

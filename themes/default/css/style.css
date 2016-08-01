@@ -262,7 +262,7 @@ label:hover + .info_description {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 2;
+	z-index: 50;
 	visibility: hidden;
 }
 
@@ -311,7 +311,7 @@ _:-ms-lang(x), [class^="active_"] .banner,
 }
 [class^='active_'] .background_panel,
 [class*=' active_'] .background_panel {
-	background-color: rgba(0,0,0,.2);
+	background-color: rgba(0,0,0,.4);
 	/*display: block;*/
 	visibility: visible;
 }
