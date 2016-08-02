@@ -88,6 +88,18 @@
 		max-width: 50%;
 	}
 	/*Карточка для формы*/
+		.modals .issue_result .modal_container{
+			padding: 2em;
+		}
+		.modals .issue_result .issue_ok i.material-icons,
+		.modals .issue_result .issue_err i.material-icons{
+			color: #018b06;
+			font-size: 5em;
+			margin-bottom: 0.3em;
+		}
+		.modals .issue_result .issue_err i.material-icons{
+			color: #ffa35f;
+		}
 		.modals .content_modal_win form {
 			padding: .5em;
 			margin: 0 auto;
@@ -232,7 +244,7 @@
 			}
 			#content .page_information .btn_plus.active,
 			#content .page_payment .btn_plus.active {
-			    top: 130% !important;
+				top: 130% !important;
 			}
 			.btn_plus.active .btn_plus_sign,
 			.btn_plus--beta.active .btn_plus_sign {

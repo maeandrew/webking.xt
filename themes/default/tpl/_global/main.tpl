@@ -721,7 +721,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="issue" class="content_modal_win" data-type="modal">
 			<div class="modal_container blockForForm">
 				<div class="mdl-card__supporting-text">
@@ -748,6 +747,9 @@
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored issue_js">Отправить</button>
 				</div>
 			</div>
+		</div>
+		<div id="issue_result" class="issue_result_js issue_result" data-type="modal">
+			<div class="modal_container"></div>
 		</div>
 	</div>
 

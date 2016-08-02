@@ -1961,7 +1961,7 @@ $(function(){
 		if(parent.find('textarea').val() == ''){
 			parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
 		}else{
-			parent.find('textarea').closest('.mdl-textfield').removeClass('is-invalid');			
+			parent.find('textarea').closest('.mdl-textfield').removeClass('is-invalid');
 		}
 		if(parent.find('input[name="user_email"]').val() == ''){
 			parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid');
@@ -1975,12 +1975,30 @@ $(function(){
 					email: parent.find('input[name="user_email"]').val(),
 					comment: parent.find('textarea').val()
 				}
-				console.log(data);
 				ajax('global', 'SaveGuestComment', data).done(function(data){
-					console.log('save guest comment');
 					console.log(data);
+					switch (data.err) {
+						case 1:
+							parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+							break
+						case 2:
+							parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+							break
+						case 3:
+							closeObject('offers');
+							$('.issue_result_js .modal_container').html('<div class="issue_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
+							openObject('issue_result');
+							break
+						case 4:
+							closeObject('offers');
+							$('.issue_result_js .modal_container').html('<div class="issue_err tac"><i class="material-icons">error</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
+							openObject('issue_result');
+							break
+						default:
+							console.log(data);
+							break
+					}
 				}).fail(function(data){
-					console.log('fail save guest comment');
 					console.log(data);
 				});
 			}else{
@@ -1990,12 +2008,29 @@ $(function(){
 					email: parent.find('input[name="user_email"]').val(),
 					comment: parent.find('textarea').val()
 				}
-				console.log(data);
 				ajax('global', 'SaveGuestComment', data).done(function(data){
-					console.log('save guest comment');
-					console.log(data);
+					switch (data.err) {
+						case 1:
+							parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+							break
+						case 2:
+							parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+							break
+						case 3:
+							closeObject('issue');
+							$('.issue_result_js .modal_container').html('<div class="issue_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
+							openObject('issue_result');
+							break
+						case 4:
+							closeObject('issue');
+							$('.issue_result_js .modal_container').html('<div class="issue_err tac"><i class="material-icons">error</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Что-то пошло не так. Повторите попытку.</p>');
+							openObject('issue_result');
+							break
+						default:
+							console.log(data);
+							break
+					}
 				}).fail(function(data){
-					console.log('fail save guest comment');
 					console.log(data);
 				});
 			}
@@ -2005,8 +2040,6 @@ $(function(){
 			}else{
 				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Поле обязательно для заполнения!');
 			}
-
-			
 		}
 	});
 });
