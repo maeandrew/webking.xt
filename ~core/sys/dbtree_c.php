@@ -970,7 +970,7 @@ class dbtree {
 			(SELECT id_category FROM '._DB_PREFIX_.'cat_prod WHERE id_product IN
 			(SELECT sp.id_product FROM '._DB_PREFIX_.'segment_prods sp
 			LEFT JOIN '._DB_PREFIX_.'assortiment a ON a.id_product = sp.id_product WHERE sp.id_segment IN
-			(SELECT id FROM '._DB_PREFIX_.'segmentation WHERE id = '.$id_segm.') AND a.product_limit>0)) AND visible > 0';
+			(SELECT id FROM '._DB_PREFIX_.'segmentation WHERE id = '.$id_segm.') AND a.product_limit > 0 AND a.active = 1)) AND visible > 0';
 		$res = $this->db->GetArray($sql);
 		foreach($res as &$value){
 			$value = $value['id_category'];
