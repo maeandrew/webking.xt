@@ -86,7 +86,6 @@
 				}?>
 				<!-- Код добавления видео конец-->
 			</div>
-
 			<div id="big_photos_carousel" data-type="modal">
 				<div class="modal_container">
 					<div id="big_photos_carousel_js" class="carousel big_photos_carousel">
