@@ -3626,6 +3626,10 @@ canvas[id^=chart_]{
 	padding: 1.8em 0;
 	overflow: hidden;
 }
+#seoTextBlock * {
+	font-weight: normal !important;
+	color: #9E9E9E !important;
+}
 #seoTextBlock p {
 	width: 100%;
 }

@@ -298,13 +298,14 @@
 						<?=$seotext?>
 					</div>
 				</div>
-			<?}?>
-
+			<?}elseif (isset($GLOBALS['descr_for_seo'])) {?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-						<?=isset($descr_for_seo)?$descr_for_seo:null?>
+						<?=$GLOBALS['descr_for_seo']?>
 					</div>
 				</div>
+			<?}?>
+
 			
 		</section>
 		<div id="canvas_mark_wrapper">
