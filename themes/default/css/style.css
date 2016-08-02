@@ -506,6 +506,7 @@ body:not(.c_main) .banner {
 	position: fixed;
 	top: 52px;
 	bottom: 0;
+	z-index: 100;
 	/*overflow: hidden;*/
 	/*overflow-y: scroll;*/
 }
@@ -517,25 +518,19 @@ body:not(.c_main) .banner {
 [data-type="panel"] .panel_container {
 	overflow-y: auto;
 	overflow-x: hidden;
-	max-height: 100%;
-}
-[data-type="panel"].opened {
-	display: block;
-	z-index: 100;
+	height: calc(100vh - 52px);
 }
 [data-type="panel"][data-position="right"] {
-	right: -80vw;
+	left: 100vw;
 }
 [data-type="panel"][data-position="right"].opened {
-	right: 0;
+	left: 20vw;
 }
-@media (max-width: 728px) {
-	[data-type="panel"][data-position="left"] {
-		left: -80vw;
-	}	
+[data-type="panel"][data-position="left"] {
+	right: 100vw;
 }
 [data-type="panel"][data-position="left"].opened {
-	left: 0;
+	right: 20vw;
 }
 .phone_menu .phone_nav {
 	padding: 1em;
