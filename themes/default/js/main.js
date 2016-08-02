@@ -643,16 +643,15 @@ $(function(){
 
 	// Перемещение к выбраной картинке (Замена картинки для открытия в ориг размере) 
 	$('.product_main_img').on('click', function(){
-		/*var img_src = $(this).find('img').attr('src'),
+		var img_src = $(this).find('img').attr('src'),
 			img_alt = $(this).find('img').attr('alt');
 		$('#big_photo img').attr({
 			src: img_src,
 			alt: img_alt
 		});
 		$('#big_photo').css({
-			// 'height': (viewport_height - header_outerheight)*0.9,
 			'max-width': viewport_width*0.9
-		});*/	
+		});	
 
 		images = [];
 
@@ -668,10 +667,12 @@ $(function(){
 			}
 		});
 
-		var carousel = $("#owl-product_mobile_img_js");
-		carousel.owlCarousel();		
+		var carousel = $("#big_photos_carousel_js");
+		carousel.owlCarousel();
 		carousel.trigger('to.owl.carousel', [current_image, 500]);
 	});
+
+
 	// Закрытие окна при клике на картинку
 	$('#big_photo img').on('click', function(){
 		closeObject();
