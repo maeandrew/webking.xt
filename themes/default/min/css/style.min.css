@@ -71,16 +71,14 @@ body:not(.c_main) .banner{height:0}
 [data-type=modal] a.close_modal i{color:#FF5722}
 [data-type=modal] a.close_modal i.mdl-cell--hide-phone{color:#bcbcbc}
 .panels{max-width:100vw;max-height:100vh;overflow:hidden}
-[data-type=panel]{margin:0;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);position:fixed;top:52px;bottom:0}
+[data-type=panel]{margin:0;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);position:fixed;top:52px;bottom:0;z-index:100}
 @media screen and (orientation:portrait) and (max-width:728px){[data-type=panel]{width:80vw}
 }
-[data-type=panel] .panel_container{overflow-y:auto;overflow-x:hidden;max-height:100%}
-[data-type=panel].opened{display:block;z-index:100}
-[data-type=panel][data-position=right]{right:-80vw}
-[data-type=panel][data-position=right].opened{right:0}
-@media (max-width:728px){[data-type=panel][data-position=left]{left:-80vw}
-}
-[data-type=panel][data-position=left].opened{left:0}
+[data-type=panel] .panel_container{overflow-y:auto;overflow-x:hidden;height:calc(100vh - 52px)}
+[data-type=panel][data-position=right]{left:100vw}
+[data-type=panel][data-position=right].opened{left:20vw}
+[data-type=panel][data-position=left]{right:100vw}
+[data-type=panel][data-position=left].opened{right:20vw}
 .phone_menu .phone_nav{padding:1em;border-top:1px solid #e0e0e0}
 .phone_menu li a{display:block;line-height:24px;padding:10px 0}
 .phone_menu .user_profile{padding:10px}

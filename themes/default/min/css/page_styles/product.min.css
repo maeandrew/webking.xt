@@ -112,7 +112,6 @@ div[for=rating_block]{font-size:12px}
 .sold_produxt_info .icon{margin-left:10px}
 .sold_produxt_info .waiting_list{border:1px solid;margin-top:5px}
 #fortrending_info{width:40px}
-[data-type=panel][data-position=left]{left:-80vw}
 #catalog{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .product .product_buy .buy_block .supplier_block{width:68%;margin-top:-32px;padding-left:10px;padding-right:10px}
 .product .product_buy .buy_block .supplier_block p,.product .product_buy .buy_block .supplier_block span{font-size:1em;display:inline}
