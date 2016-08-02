@@ -693,7 +693,54 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised confirm_pass_js">Подтвердить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised confirm_code_js hidden">Подтвердить</button>
 		</div>
+		
+		<!-- Предложения / Жалобы -->
+		<div id="offers" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<p>Здесь Вы можете оставить свои предложения и пожелания</p>
+					<form action="" class="offers_form">
+						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" required>
+							<label class="mdl-textfield__label" for="offers_user_email">Email...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_offers"></textarea>
+							<label class="mdl-textfield__label" for="user_offers">Ваши предложения и пожелания...</label>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored offers_js">Задать вопрос</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="issue" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<p>Здесь Вы можете написать, что Вам не понравилось.</p>
+					<p>Мы постараемся решить проблему в ближайшие сроки.</p>
+					<form action="" class="issue_form">
+						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" required>
+							<label class="mdl-textfield__label" for="issue_user_email">Email...</label>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_issue"></textarea>
+							<label class="mdl-textfield__label" for="user_issue">Введите текст...</label>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored issue_js">Отправить жалобу</button>
+				</div>
+			</div>
+		</div>
 	</div>
+
 	<div class="panels"></div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">

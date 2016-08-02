@@ -1954,4 +1954,33 @@ $(function(){
 		$('html').removeClass('active_bg').find('header').removeClass('opened').find('div.search').removeClass('is-focused');
 		componentHandler.upgradeDom();
 	});
+
+	$('body').on('click', '.offers_js, .issue_js', function(){
+		var parent = $(this).closest('.modal_container').find('form');
+		if($(this).hasClass('offers_js')){
+			var data = {
+				issue: 0,
+				id_user: parent.find('input[type="hidden"]').val(),
+				email: parent.find('input[name="user_email"]').val(),
+				comment: parent.find('textarea').val()
+			}
+			console.log(data);
+			ajax('global', 'SaveGuestComment', data).done(function(data){
+				console.log('save guest comment');
+				console.log(data);
+			});
+		}else{
+			var data = {
+				issue: 1,
+				id_user: parent.find('input[type="hidden"]').val(),
+				email: parent.find('input[name="user_email"]').val(),
+				comment: parent.find('textarea').val()
+			}
+			console.log(data);
+			ajax('global', 'SaveGuestComment', data).done(function(data){
+				console.log('save guest comment');
+				console.log(data);
+			});
+		}
+	});
 });
