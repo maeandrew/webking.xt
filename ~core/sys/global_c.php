@@ -730,4 +730,25 @@ class G {
 		$db->CompleteTrans();
 		return true;
 	}
+
+	// Запись в БД отзыва от посетителей
+	public static function InsertGuestComment($arr){
+		global $db;
+		if(isset($_POST['id_user']) && $_POST['id_user'] != ''){
+			$f['id_user'] = $arr['id_user'];
+		}
+		if(isset($_POST['email']) && $_POST['email'] != ''){
+			$f['email'] = $arr['email'];
+		}
+		$f['comment'] = $arr['comment'];
+		$f['issue'] = $arr['issue'];
+		$db->StartTrans();
+		if(!$db->Insert(_DB_PREFIX_.'guest_book', $f)){
+			$db->FailTrans();
+			return false;
+		}
+		unset($f);
+		$db->CompleteTrans();
+		return true;
+	}
 }
