@@ -13,7 +13,7 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<td class="center">№</td>
+						<td class="center"></td>
 						<td class="center">Пожелания/Замечания</td>
 						<td class="center">Сообщение</td>
 						<td class="center">Имя</td>
