@@ -8,14 +8,19 @@ class Customers extends Users {
 									"sex", "birthday", "address_ur", "b_year", "b_month", "b_day", "first_name", "middle_name", "last_name");
 	}
 	// Покупатель по id
-	public function SetFieldsById($id, $all = 0){
-		global $User;
-		$User->SetFieldsById($id, $all);
+	public function SetFieldsById($id, $all = 0, $all_data = false){
+		parent::SetFieldsById($id, $all);
+		$user_fields = $this->fields;
 		$sql = "SELECT *
 			FROM  "._DB_PREFIX_."customer
 			WHERE id_user = ".$id;
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
+		}
+		//Для вывода email и активности покупателя в корзине у менеджера
+		if($all_data){
+			$this->fields['active'] = $user_fields['active'];
+			$this->fields['email'] = $user_fields['email'];
 		}
 		return $this->fields;
 	}

@@ -357,8 +357,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(isset($_POST['phone'])){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					$Users = new Users();
-					$customer = $Users->CheckPhoneUniqueness($phone, false, 'select name');
-					if($customer === true){
+					$result = $Users->CheckPhoneUniqueness($phone, false);
+					if($result === true){
 						$res['status'] = true;
 						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
 										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
@@ -366,6 +366,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Создать и прикрепить</button>
 										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
 					}else{
+						$customer = new Customers();
+						$customer_data = $customer->SetFieldsById($result['id_user'], 1, true);
 						$res['status'] = true;
 						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
 										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>

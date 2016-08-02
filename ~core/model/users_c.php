@@ -500,8 +500,8 @@ class Users {
 	 * Если введенного номера телефона нет в базе данных, возвращает true, иначе false
 	 * @param string $phone номер телефона
 	 */
-	public function CheckPhoneUniqueness($phone, $id_user = false, $name = false){
-		$sql = "SELECT id_user, name, COUNT(*) AS count
+	public function CheckPhoneUniqueness($phone, $id_user = false){
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE phone = '".$phone."'";
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
