@@ -204,7 +204,7 @@ $(function(){
 	var seoText = $('#seoTextBlock').text();
 	if (seoText.length > 1000){
 		$('#seoTextBlock').css('height', '175px').parent('.mdl-grid')
-		.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect hidden">Свернуть</button>');
+		.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised hidden">Свернуть</button>');
 	}
 	$('#expand_btn').click(function() {
 		$("#seoTextBlock").css({'height': '100%'});
@@ -482,7 +482,7 @@ $(function(){
 	});
 
 	//Кабинет
-	//$('a.cabinet_btn').find('ul.mdl-js-ripple-effect').css('dispaly','block');
+	//$('a.cabinet_btn').find('ul').css('dispaly','block');
 	$('mdl-menu__container').hover(
 		function(){
 			$(this).addClass('is-visible');
@@ -1953,5 +1953,93 @@ $(function(){
 		event.preventDefault();
 		$('html').removeClass('active_bg').find('header').removeClass('opened').find('div.search').removeClass('is-focused');
 		componentHandler.upgradeDom();
+	});
+
+	$('body').on('click', '.offers_js, .issue_js', function(){
+		var parent = $(this).closest('.modal_container').find('form');
+
+		if(parent.find('textarea').val() == ''){
+			parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+		}else{
+			parent.find('textarea').closest('.mdl-textfield').removeClass('is-invalid');
+		}
+		if(parent.find('input[name="user_email"]').val() == ''){
+			parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid');
+		}
+
+		if(!parent.find('.mdl-textfield').hasClass('is-invalid')){
+			if($(this).hasClass('offers_js')){
+				var data = {
+					issue: 0,
+					id_user: parent.find('input[type="hidden"]').val(),
+					email: parent.find('input[name="user_email"]').val(),
+					comment: parent.find('textarea').val()
+				}
+				ajax('global', 'SaveGuestComment', data).done(function(data){
+					console.log(data);
+					switch (data.err) {
+						case 1:
+							parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+							break
+						case 2:
+							parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+							break
+						case 3:
+							closeObject('offers');
+							$('.issue_result_js .modal_container').html('<div class="issue_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
+							openObject('issue_result');
+							break
+						case 4:
+							closeObject('offers');
+							$('.issue_result_js .modal_container').html('<div class="issue_err tac"><i class="material-icons">error</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
+							openObject('issue_result');
+							break
+						default:
+							console.log(data);
+							break
+					}
+				}).fail(function(data){
+					console.log(data);
+				});
+			}else{
+				var data = {
+					issue: 1,
+					id_user: parent.find('input[type="hidden"]').val(),
+					email: parent.find('input[name="user_email"]').val(),
+					comment: parent.find('textarea').val()
+				}
+				ajax('global', 'SaveGuestComment', data).done(function(data){
+					switch (data.err) {
+						case 1:
+							parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+							break
+						case 2:
+							parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+							break
+						case 3:
+							closeObject('issue');
+							$('.issue_result_js .modal_container').html('<div class="issue_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
+							openObject('issue_result');
+							break
+						case 4:
+							closeObject('issue');
+							$('.issue_result_js .modal_container').html('<div class="issue_err tac"><i class="material-icons">error</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Что-то пошло не так. Повторите попытку.</p>');
+							openObject('issue_result');
+							break
+						default:
+							console.log(data);
+							break
+					}
+				}).fail(function(data){
+					console.log(data);
+				});
+			}
+		}else{
+			if(parent.find('input[name="user_email"]').val() != ''){
+				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите Email правильно');
+			}else{
+				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Поле обязательно для заполнения!');
+			}
+		}
 	});
 });

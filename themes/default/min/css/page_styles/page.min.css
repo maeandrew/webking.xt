@@ -18,8 +18,11 @@
 #content .page_about_us,#content .page_contacts{text-align:center}
 #content .page_information .payment_information_img{max-width:70%}
 #content .page_payment .payment_information_img{max-width:50%}
+.modals .issue_result .modal_container{padding:2em}
+.modals .issue_result .issue_err i.material-icons,.modals .issue_result .issue_ok i.material-icons{color:#018b06;font-size:5em;margin-bottom:.3em}
+.modals .issue_result .issue_err i.material-icons{color:#ffa35f}
 .modals .content_modal_win form{padding:.5em;margin:0 auto;height:auto;text-align:center}
-.modals .modal_container .mdl-card__supporting-text p{font-size:1.4em;font-weight:500;line-height:1.3em;text-align:center;margin:0 auto;color:#3F4A58}
+.modals .modal_container .mdl-card__supporting-text p{font-size:1.4em;font-weight:500;line-height:1.3em;text-align:center;margin:0 auto;color:#3F4A58;text-transform:inherit;max-width:400px}
 .modals .content_modal_win form{padding:.5em}
 .modals .modal_container button{min-width:35%;display:block;margin:0 auto}
 .modals .content_modal_win form{padding:.5em}

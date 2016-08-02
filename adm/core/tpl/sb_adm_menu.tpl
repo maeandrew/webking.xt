@@ -6,6 +6,9 @@
 				<li <?=$GLOBALS['CurrentController'] == 'coment'?'class="sel"':null;?>>
 					<a href="/adm/coment/" <?=$commentCount>0?'class="color-red"':null;?>>Вопросы по товару (<?=$commentCount;?>)</a>
 				</li>
+				<li <?=$GLOBALS['CurrentController'] == 'guestbook'?'class="sel"':null;?>>
+					<a href="/adm/guestbook/" <?=$commGuestBookCount>0?'class="color-red"':null;?>>Комментарии из гостевой книги(<?=$commGuestBookCount;?>)</a>
+				</li>
 				<li <?=$GLOBALS['CurrentController'] == 'wishes'?'class="sel"':null;?>>
 					<a href="/adm/wishes/" <?=$wishesCount>0?'class="color-red"':null;?>>Пожелания и предложения (<?=$wishesCount;?>)</a>
 				</li>

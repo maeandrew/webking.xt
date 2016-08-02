@@ -311,7 +311,7 @@
 				</div>
 				<p class="msg_title">!</p>
 				<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
-			</div>
+			</div>			
 		</div>
 		<div class="action_block">
 			<div class="wrapp">
@@ -475,8 +475,9 @@
 					});
 				</script>
 			</div>
-		</div>
+		</div>		
 	</div>
+	<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
 	<!-- END NEW Товары в корзине -->
 	<script type="text/javascript">
 		$(window).resize(function() {

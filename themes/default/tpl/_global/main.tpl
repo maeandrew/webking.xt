@@ -298,13 +298,14 @@
 						<?=$seotext?>
 					</div>
 				</div>
-			<?}?>
-
+			<?}elseif (isset($GLOBALS['descr_for_seo'])) {?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-						<?=isset($descr_for_seo)?$descr_for_seo:null?>
+						<?=$GLOBALS['descr_for_seo']?>
 					</div>
 				</div>
+			<?}?>
+
 			
 		</section>
 		<div id="canvas_mark_wrapper">
@@ -693,7 +694,65 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised confirm_pass_js">Подтвердить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised confirm_code_js hidden">Подтвердить</button>
 		</div>
+		
+		<!-- Предложения / Жалобы -->
+		<div id="offers" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<h3>Предложения и пожелания</h3>
+					<!-- <p>Здесь Вы можете оставить свои<br>предложения и пожелания</p> -->
+					<p>Напишите Нам, как мы можем улучшить нашу с Вами работу</p>
+					<form action="" class="offers_form">
+						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+							<label class="mdl-textfield__label" for="offers_user_email">Email...</label>
+							<span class="mdl-textfield__error"></span>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_offers"></textarea>
+							<label class="mdl-textfield__label" for="user_offers">Ваши предложения и пожелания...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored offers_js">Отправить</button>
+				</div>
+			</div>
+		</div>
+		<div id="issue" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<h3>Замечания</h3>
+					<!-- <p>Здесь Вы можете написать,<br> что Вам не понравилось.</p> -->
+					<!-- <p>Мы постараемся решить проблему<br> в ближайшие сроки.</p> -->
+					<p>Сообщите нам, если у Вас есть замечания по поводу работы нашей службы снабжения.</p>
+					<p>Мы постараемся сделать нашу совместную работу максимально удобной для Вас!</p>
+					<form action="" class="issue_form">
+						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+							<label class="mdl-textfield__label" for="issue_user_email">Email...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_issue"></textarea>
+							<label class="mdl-textfield__label" for="user_issue">Введите текст...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored issue_js">Отправить</button>
+				</div>
+			</div>
+		</div>
+		<div id="issue_result" class="issue_result_js issue_result" data-type="modal">
+			<div class="modal_container"></div>
+		</div>
 	</div>
+
 	<div class="panels"></div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">

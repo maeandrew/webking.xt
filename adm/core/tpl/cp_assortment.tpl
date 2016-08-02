@@ -119,7 +119,7 @@
 										}?>
 									</span>
 						</label>
-						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button> 
 					</div>-->
 				</div>
@@ -130,7 +130,7 @@
 					<label for="num_days" class="fleft">Количество дней (от 10 до 90):
 						<input type="number" name="num_days" id="num_days" min="10" max="90" value="90" pattern="[0-9]{2}"/>
 					</label>
-					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 				</form> -->
 			</div>
 			<div class="excelBlock">
@@ -175,9 +175,8 @@
 		<div class="col-md-12">
 			<div class="switch_price_container">
 				<span>Единая цена</span>
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch_price">
-					<input type="checkbox" id="switch_price" class="mdl-switch__input price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
-					<span class="mdl-switch__label"></span>
+				<label for="switch_price">
+					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >					
 				</label>
 			</div>
 			<h2>Ассортимент</h2>

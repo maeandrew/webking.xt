@@ -10,29 +10,29 @@
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
 			<?if(!empty($item['images'])){?>
-				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['images'][0]['src']?>"/>
+				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['images'][0]['src']?>"/>
 			<?}else if(!empty($item['img_1'])){?>
-				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?=$item['img_1']?>"/>
+				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?>"/>
 			<?}else{?>
-				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua/efiles/nofoto.jpg"/>
+				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?>/efiles/nofoto.jpg"/>
 			<?}?>
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-				<img src="http://xt.ua/images/action2.png">
+				<img src="<?=_base_url?>/images/action2.png">
 			</div>
 		</div>
 		<?if(G::isMobile()){?>
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+						<img src="<?=_base_url?><?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
+							<img src="<?=_base_url?><?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -65,12 +65,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="http://xt.ua<?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
+						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="http://xt.ua<?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
+							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
 						<?}
 					}
 				}?>
@@ -86,18 +86,17 @@
 				}?>
 				<!-- Код добавления видео конец-->
 			</div>
-
 			<div id="big_photos_carousel" data-type="modal">
 				<div class="modal_container">
 					<div id="big_photos_carousel_js" class="carousel big_photos_carousel">
 						<?if(!empty($item['images'])){
 							foreach($item['images'] as $i => $image){?>
-								<img src="http://xt.ua<?=$image['src']?>" alt="<?=$item['name']?>">
+								<img src="<?=_base_url?><?=$image['src']?>" alt="<?=$item['name']?>">
 							<?}
 						}else{
 							for($i=1; $i < 4; $i++){
 								if(!empty($item['img_'.$i])){?>
-									<img src="http://xt.ua<?=$item['img_'.$i]?>" alt="<?=$item['name']?>">
+									<img src="<?=_base_url?><?=$item['img_'.$i]?>" alt="<?=$item['name']?>">
 								<?}
 							}
 						}?>

@@ -3642,6 +3642,10 @@ canvas[id^=chart_]{
 	padding: 1.8em 0;
 	overflow: hidden;
 }
+#seoTextBlock * {
+	font-weight: normal !important;
+	color: #9E9E9E !important;
+}
 #seoTextBlock p {
 	width: 100%;
 }
@@ -4422,6 +4426,9 @@ iframe[name="google_conversion_frame"] {
 	flex-shrink: 0;
 	border: 1px solid #e0e0e0;
 	border-top: none;
+}
+#cart .buy_more {
+	float: left;
 }
 #cart [class^="msg-"]{
 	margin-left: 0;

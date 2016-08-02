@@ -2,7 +2,7 @@
 	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 <?}?>
 <?
-$descr_for_seo = null;
+$GLOBALS['descr_for_seo'] = null;
 switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
@@ -254,7 +254,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
     	foreach($list as $item){
 			$in_cart = false;
 			$action = false;		
-			$descr_for_seo .= $item['descr'];
+			$GLOBALS['descr_for_seo'] .= $item['descr'];
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
 			}
@@ -359,6 +359,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			</div>
 		<?}
 }?>
+
+
 
 <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
 	<div class="mdl-snackbar__text"></div>
