@@ -751,4 +751,17 @@ class G {
 		$db->CompleteTrans();
 		return true;
 	}
+
+	// Достаем данные в админку из таблицы guest_book
+	public static function GetInfoGuestBook($limit = false){
+		global $db;
+		$sql = "SELECT gb.*, u.`name`, u.phone
+				FROM "._DB_PREFIX_."guest_book gb
+				LEFT JOIN "._DB_PREFIX_."user u ON gb.id_user = u.id_user".
+				($limit?$limit:null);
+		if(!$res = $db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 }
