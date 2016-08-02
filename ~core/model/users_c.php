@@ -478,7 +478,6 @@ class Users {
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			if($name) return $res;
 			return $res['id_user'];
 		}
 		return true;

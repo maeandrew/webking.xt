@@ -56,8 +56,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// Если все ок с валидацией
 				if(!$err){
 					$User = new Users();
-					// проверяем уникальность введенного e-mail
-					if($User->ValidateEmail($_POST['email'])){
+					// проверяем уникальность введенного e-mail и телефона
+					$unique_email = $User->CheckEmailUniqueness($_POST['email']);
+					if($unique_email !== true) {
+						$err = 1;
+						$echo['errm']['email'] = 'Пользователь с таким email уже зарегистрирован!';
+					}
+					$unique_phone = $User->CheckPhoneUniqueness($_POST['phone']);
+					if($unique_phone !== true) {
+						$err = 1;
+						$echo['errm']['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
+					}
+					if($unique_email === true && $unique_phone  === true){
 						$_POST['address_ur'] = "";
 						$_POST['descr'] = "";
 						$Customers = new Customers();
@@ -75,9 +85,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$echo['err'] = 1;
 							$echo['msg'] = 'Ой, что-то пошло не так';
 						}
-					}else{
-						$echo['err'] = 1;
-						$echo['errm']['email'] = 'Введен некорректный email';
 					}
 				}else{
 					$echo['err'] = 1;
