@@ -4411,6 +4411,9 @@ iframe[name="google_conversion_frame"] {
 	border: 1px solid #e0e0e0;
 	border-top: none;
 }
+#cart .buy_more {
+	float: left;
+}
 #cart [class^="msg-"]{
 	margin-left: 0;
 }
