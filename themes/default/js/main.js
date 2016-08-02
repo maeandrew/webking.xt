@@ -1955,8 +1955,10 @@ $(function(){
 		componentHandler.upgradeDom();
 	});
 
+	// Пожелания / Замечания
 	$('body').on('click', '.offers_js, .issue_js', function(){
-		var parent = $(this).closest('.modal_container').find('form');
+		var obj = $(this),
+			parent = $(this).closest('.modal_container').find('form');
 
 		if(parent.find('textarea').val() == ''){
 			parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
@@ -1968,72 +1970,37 @@ $(function(){
 		}
 
 		if(!parent.find('.mdl-textfield').hasClass('is-invalid')){
-			if($(this).hasClass('offers_js')){
-				var data = {
-					issue: 0,
-					id_user: parent.find('input[type="hidden"]').val(),
-					email: parent.find('input[name="user_email"]').val(),
-					comment: parent.find('textarea').val()
-				}
-				ajax('global', 'SaveGuestComment', data).done(function(data){
-					console.log(data);
-					switch (data.err) {
-						case 1:
-							parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
-							break
-						case 2:
-							parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
-							break
-						case 3:
-							closeObject('offers');
-							$('.issue_result_js .modal_container').html('<div class="issue_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
-							openObject('issue_result');
-							break
-						case 4:
-							closeObject('offers');
-							$('.issue_result_js .modal_container').html('<div class="issue_err tac"><i class="material-icons">error</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
-							openObject('issue_result');
-							break
-						default:
-							console.log(data);
-							break
-					}
-				}).fail(function(data){
-					console.log(data);
-				});
-			}else{
-				var data = {
-					issue: 1,
-					id_user: parent.find('input[type="hidden"]').val(),
-					email: parent.find('input[name="user_email"]').val(),
-					comment: parent.find('textarea').val()
-				}
-				ajax('global', 'SaveGuestComment', data).done(function(data){
-					switch (data.err) {
-						case 1:
-							parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
-							break
-						case 2:
-							parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
-							break
-						case 3:
-							closeObject('issue');
-							$('.issue_result_js .modal_container').html('<div class="issue_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Ваше сообщение было отправлено</p>');
-							openObject('issue_result');
-							break
-						case 4:
-							closeObject('issue');
-							$('.issue_result_js .modal_container').html('<div class="issue_err tac"><i class="material-icons">error</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Что-то пошло не так. Повторите попытку.</p>');
-							openObject('issue_result');
-							break
-						default:
-							console.log(data);
-							break
-					}
-				}).fail(function(data){
-					console.log(data);
-				});
+			var data = {
+				issue: $(this).hasClass('offers_js') ? 0 : 1,
+				id_user: parent.find('input[type="hidden"]').val(),
+				email: parent.find('input[name="user_email"]').val(),
+				comment: parent.find('textarea').val()
 			}
+			ajax('global', 'SaveGuestComment', data, 'html').done(function(data){
+				switch (data.err) {
+					case 1:
+						parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+						break
+					case 2:
+						parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+						break
+					case 3:
+						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
+						$('.issue_result_js .modal_container').html('<div class="issue_ok"><i class="material-icons">check_circle</i></div><p class="info_text">Ваше сообщение было отправлено</p>');
+						openObject('issue_result');
+						break
+					case 4:
+						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
+						$('.issue_result_js .modal_container').html('<div class="issue_err"><i class="material-icons">error</i></div><p class="info_text">Что-то пошло не так. Повторите попытку.</p>');
+						openObject('issue_result');
+						break
+					default:
+						console.log(data);
+						break
+				}
+			}).fail(function(data){
+				console.log('error');
+			});
 		}else{
 			if(parent.find('input[name="user_email"]').val() != ''){
 				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите Email правильно');
