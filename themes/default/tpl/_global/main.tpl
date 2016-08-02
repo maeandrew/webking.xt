@@ -699,21 +699,25 @@
 		<div id="offers" class="content_modal_win" data-type="modal">
 			<div class="modal_container blockForForm">
 				<div class="mdl-card__supporting-text">
-					<p>Здесь Вы можете оставить свои предложения и пожелания</p>
+					<h3>Предложения и пожелания</h3>
+					<!-- <p>Здесь Вы можете оставить свои<br>предложения и пожелания</p> -->
+					<p>Напишите Нам, как мы можем улучшить нашу с Вами работу</p>
 					<form action="" class="offers_form">
 						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
-						<div class="mdl-textfield mdl-js-textfield <?=G::IsLogged()?'hidden':null;?>">
-							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" required>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
 							<label class="mdl-textfield__label" for="offers_user_email">Email...</label>
+							<span class="mdl-textfield__error"></span>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
 							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_offers"></textarea>
 							<label class="mdl-textfield__label" for="user_offers">Ваши предложения и пожелания...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>
 					</form>
 				</div>
 				<div class="mdl-card__actions mdl-card--border">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored offers_js">Задать вопрос</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored offers_js">Отправить</button>
 				</div>
 			</div>
 		</div>
@@ -721,22 +725,27 @@
 		<div id="issue" class="content_modal_win" data-type="modal">
 			<div class="modal_container blockForForm">
 				<div class="mdl-card__supporting-text">
-					<p>Здесь Вы можете написать, что Вам не понравилось.</p>
-					<p>Мы постараемся решить проблему в ближайшие сроки.</p>
+					<h3>Замечания</h3>
+					<!-- <p>Здесь Вы можете написать,<br> что Вам не понравилось.</p> -->
+					<!-- <p>Мы постараемся решить проблему<br> в ближайшие сроки.</p> -->
+					<p>Сообщите нам, если у Вас есть замечания по поводу работы нашей службы снабжения.</p>
+					<p>Мы постараемся сделать нашу совместную работу максимально удобной для Вас!</p>
 					<form action="" class="issue_form">
 						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
-						<div class="mdl-textfield mdl-js-textfield <?=G::IsLogged()?'hidden':null;?>">
-							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" required>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
 							<label class="mdl-textfield__label" for="issue_user_email">Email...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
 							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_issue"></textarea>
 							<label class="mdl-textfield__label" for="user_issue">Введите текст...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>
 					</form>
 				</div>
 				<div class="mdl-card__actions mdl-card--border">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored issue_js">Отправить жалобу</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored issue_js">Отправить</button>
 				</div>
 			</div>
 		</div>

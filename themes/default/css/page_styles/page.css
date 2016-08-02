@@ -101,6 +101,8 @@
 			text-align: center;
 			margin: 0 auto;
 			color: #3F4A58;
+			text-transform: inherit;
+			max-width: 400px;
 		}
 		.modals .content_modal_win form {
 			padding: .5em;

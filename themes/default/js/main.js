@@ -1957,30 +1957,56 @@ $(function(){
 
 	$('body').on('click', '.offers_js, .issue_js', function(){
 		var parent = $(this).closest('.modal_container').find('form');
-		if($(this).hasClass('offers_js')){
-			var data = {
-				issue: 0,
-				id_user: parent.find('input[type="hidden"]').val(),
-				email: parent.find('input[name="user_email"]').val(),
-				comment: parent.find('textarea').val()
-			}
-			console.log(data);
-			ajax('global', 'SaveGuestComment', data).done(function(data){
-				console.log('save guest comment');
-				console.log(data);
-			});
+
+		if(parent.find('textarea').val() == ''){
+			parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
 		}else{
-			var data = {
-				issue: 1,
-				id_user: parent.find('input[type="hidden"]').val(),
-				email: parent.find('input[name="user_email"]').val(),
-				comment: parent.find('textarea').val()
-			}
-			console.log(data);
-			ajax('global', 'SaveGuestComment', data).done(function(data){
-				console.log('save guest comment');
+			parent.find('textarea').closest('.mdl-textfield').removeClass('is-invalid');			
+		}
+		if(parent.find('input[name="user_email"]').val() == ''){
+			parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid');
+		}
+
+		if(!parent.find('.mdl-textfield').hasClass('is-invalid')){
+			if($(this).hasClass('offers_js')){
+				var data = {
+					issue: 0,
+					id_user: parent.find('input[type="hidden"]').val(),
+					email: parent.find('input[name="user_email"]').val(),
+					comment: parent.find('textarea').val()
+				}
 				console.log(data);
-			});
+				ajax('global', 'SaveGuestComment', data).done(function(data){
+					console.log('save guest comment');
+					console.log(data);
+				}).fail(function(data){
+					console.log('fail save guest comment');
+					console.log(data);
+				});
+			}else{
+				var data = {
+					issue: 1,
+					id_user: parent.find('input[type="hidden"]').val(),
+					email: parent.find('input[name="user_email"]').val(),
+					comment: parent.find('textarea').val()
+				}
+				console.log(data);
+				ajax('global', 'SaveGuestComment', data).done(function(data){
+					console.log('save guest comment');
+					console.log(data);
+				}).fail(function(data){
+					console.log('fail save guest comment');
+					console.log(data);
+				});
+			}
+		}else{
+			if(parent.find('input[name="user_email"]').val() != ''){
+				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите Email правильно');
+			}else{
+				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Поле обязательно для заполнения!');
+			}
+
+			
 		}
 	});
 });
