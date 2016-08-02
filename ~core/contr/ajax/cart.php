@@ -363,8 +363,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
 										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
 										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$phone.'" value="add_and_set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Создать и прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Создать и прикрепить</button>
+										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
 					}else{
 						$customer = new Customers();
 						$customer_data = $customer->SetFieldsById($result['id_user'], 1, true);
@@ -372,8 +372,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
 										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>
 										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$customer['id_user'].'" value="set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Прикрепить</button>
+										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
 					}
 				}else {
 					$res['content'] = 'Номер телефона не введен.';
