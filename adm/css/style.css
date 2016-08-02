@@ -787,6 +787,12 @@ footer {
 .list tbody td.center a {
 	font-size: 18px;
 }
+.list tbody td.center.issue_false{
+	color: #22B473;
+}
+.list tbody td.center.issue_true{
+	color: #f44336;
+}
 .err_feedback .list tbody td.center a {
 	font-size: 1em;
 }
@@ -794,7 +800,6 @@ footer {
 .list .watchSeoText {
 	float: right;
 }
-
 
 .list .date {
 	color: #888;
