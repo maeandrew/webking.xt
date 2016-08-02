@@ -959,8 +959,14 @@ class dbtree {
 
 	//Достаем сегменты и  категории для сегментации=====================================================================
 	public function Getsegments($segmtype){
-		$sql = 'SELECT * FROM '._DB_PREFIX_.'segmentation
-			WHERE type = '. $segmtype .' AND id IN (SELECT id_segment FROM '._DB_PREFIX_.'segment_prods)';
+		$sql = 'SELECT s.*, COUNT(sp.id_product) AS count
+			FROM '._DB_PREFIX_.'segmentation s
+			LEFT JOIN '._DB_PREFIX_.'segment_prods sp ON sp.id_segment = s.id
+			LEFT JOIN '._DB_PREFIX_.'product p ON p.id_product = sp.id_product
+			LEFT JOIN '._DB_PREFIX_.'assortiment a ON a.id_product = sp.id_product
+			WHERE s.type = '.$segmtype.' AND s.id IN (SELECT id_segment FROM '._DB_PREFIX_.'segment_prods)
+			AND p.visible = 1 AND a.product_limit>0 AND a.active = 1
+			GROUP BY s.id';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
