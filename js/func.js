@@ -582,21 +582,14 @@ function ValidateName(name){
 
 /** Валидация email **/
 function ValidateEmail(email, type){
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var name = $('#regname').val();
-	var pass = $('#regpasswd').val();
-	var passconfirm = $('#passwdconfirm').val();
-	var code = $('#promo_code').val();
-	var confirmps = $('#confirmps').prop('checked');
-	var result;
-	$.ajax({
-		url: URL_base+'ajaxemailvalidate',
-		type: "POST",
-		data:({
-			"email": email,
-			"action": "validate"
-		}),
-	}).done(function(data){
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+		name = $('#regname').val(),
+		pass = $('#regpasswd').val(),
+		passconfirm = $('#passwdconfirm').val(),
+		code = $('#promo_code').val(),
+		confirmps = $('#confirmps').prop('checked'),
+		result;
+	ajax('users', 'check_email_uniqueness', {email: email}).done(function(response){
 		if(email.length == 0){
 			$('#email_error + .error_description').empty();
 			$('#regemail').removeClass().addClass("unsuccess");
@@ -609,7 +602,7 @@ function ValidateEmail(email, type){
 			error = 'Введен некорректный email';
 			$('#email_error + .error_description').append(error);
 			result = false;
-		}else if(data == "true"){
+		}else if(response == "true"){
 			$('#email_error + .error_description').empty();
 			$('#regemail').removeClass().addClass("unsuccess");
 			error = 'Пользователь с таким email уже зарегистрирован';
@@ -651,8 +644,8 @@ function ValidateEmail(email, type){
 
 /** Валидация промо-кода **/
 function ValidatePromoCode(code){
-	var fin = 0;
-	var result;
+	var fin = 0,
+		result;
 	$.ajax({
 		url: URL_base+'ajaxpromocodevalidate',
 		type: "POST",

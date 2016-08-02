@@ -359,35 +359,6 @@ class Users {
 		return $id_user1;
 	}
 
-	public function ValidateEmail($email){
-		$sql = "SELECT *
-			FROM "._DB_PREFIX_."user
-			WHERE email = '".$email."'";
-		if(count($this->db->GetArray($sql)) == 0){
-			return true;
-		}
-		return false;
-	}
-
-	// Update password for user
-	/*public function UpdateAllUserPass(){
-		$newpwd = 0123;
-
-		$sql = "UPDATE "._DB_PREFIX_."user
-				SET passwd = \"".md5($newpwd)."\"";
-		$this->db->StartTrans();
-
-		if(!$this->db->Query($sql)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-
-		var_dump($sql);
-		return $newpwd;
-
-	}*/
-
 	public function LastLoginRemember($id_user){
 		$sql = "UPDATE "._DB_PREFIX_."user
 			SET last_login_date = CURRENT_DATE()
