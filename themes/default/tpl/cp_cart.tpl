@@ -316,19 +316,19 @@
 				</div>
 			<?}else{?>
 				<div class="bonus_block">
-					<?if (isset($_SESSION['cart']['bonus'])){?>
+					<?if (isset($_SESSION['member']['bonus'])){?>
 						<div class="active_bonus_info_block">
 							<div class="bonus_card">
 								<p>Бонусная карта:</p>
-								<p>№123452</p>
+								<p>№<?=$_SESSION['member']['bonus']['bonus_card']?></p>
 							</div>
 							<div class="bonus_balance">
 								<p>Бонусный баланс:</p>
-								<p>1234.52 грн.</p>
+								<p><?=$_SESSION['member']['bonus']['bonus_balance']?> грн.</p>
 							</div>
 							<div class="bonus_percent">
 								<p>Бонусный процент:</p>
-								<p>2%</p>
+								<p><?=$_SESSION['member']['bonus']['bonus_discount']?>%</p>
 							</div>
 						</div>
 					<?}else{?>
