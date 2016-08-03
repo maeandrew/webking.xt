@@ -1654,11 +1654,7 @@ $(function(){
 	$('.err_msg_as_knob_js').click(function(event){
 		if ($('.err_msg_as').hasClass('shown')) {
 			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-			if ($(document).outerWidth() < 450) {
-				$('.err_msg_as').removeClass('shown').css('top', '100%');
-			}else{
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-			}
+			$('.err_msg_as').removeClass('shown').css('top', '100%');
 		}else{
 			$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
 			$('.err_msg_as_form').find('textarea').focus();
@@ -1677,11 +1673,9 @@ $(function(){
 
 			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 			
+			$('.err_msg_as').removeClass('shown').css('top', '100%');
 			if ($(document).outerWidth() < 450) {
-				$('.err_msg_as').removeClass('shown').css('top', '100%');
 				$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 345px)');
-			}else{
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 			}
 				
 
@@ -1715,11 +1709,9 @@ $(function(){
 					imageContainer.style.display = "block";
 
 					$('.err_msg_as_wrap').css('display', 'block');
+					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 					if ($(document).outerWidth() < 450) {
-						$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 						$('#header_js').css('top', '0');
-					}else{
-						$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 					}
 
 					$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
@@ -1755,7 +1747,7 @@ $(function(){
 
 		$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 		
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+		$('.err_msg_as').removeClass('shown').css('top', '100%');
 
 		var detachEl = $('.err_msg_as_js').detach();
 		var detachSnack = $('#snackbar').detach();
@@ -1807,7 +1799,7 @@ $(function(){
 	$('.go_to_canvas_toolbar_js').click(function(event){
 		closeObject('big_photo');
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');		
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+		$('.err_msg_as').removeClass('shown').css('top', '100%');
 		$('.canvas_toolbar').css('display', 'block');
 		$('#err_canvas').attr({
 			'width': $(window).outerWidth(),
@@ -1847,7 +1839,7 @@ $(function(){
 
 	$('body').on('click', '.img_zoom_js', function(event){
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+		$('.err_msg_as').removeClass('shown').css('top', '100%');
 		$('#err_canvas').attr({'width':'20','height':'20'});
 		var src = $('#savedImageCopy').attr('src');
 		$('#big_photo').css({
@@ -1918,7 +1910,7 @@ $(function(){
 				$('#savedCopyContainer').css('display', 'none');
 				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				$('#savedImageCopy').attr('src', '');
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+				$('.err_msg_as').removeClass('shown').css('top', '100%');
 				$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
 				componentHandler.upgradeDom();
 			}else{
