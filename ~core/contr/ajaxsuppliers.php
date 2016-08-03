@@ -7,6 +7,7 @@
 				// Переключение единой цены у поставщика
 				if(isset($_POST['single_price']) && isset($_POST['id_supplier'])){
 					$suppliers->UpdateSinglePrice($_POST['id_supplier'], $_POST['single_price']);
+
 					$txt = json_encode('ok');
 					exit();
 				}
