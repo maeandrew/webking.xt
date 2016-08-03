@@ -1995,6 +1995,17 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	width: calc(100% - 52px);
 	padding: 1.429em 0;
 }
+.cooperative_order .number{
+	width: auto;
+}
+.cooperative_order .title .container i{
+	padding: .8em 0;
+}
+.cooperative_order .title .container .status{
+	padding: 0;
+	padding-right: 1.429em;
+	margin: 1.429em 0;
+}
 .order .date,
 .order .my_item {
 	padding-left: 20px;
@@ -2233,6 +2244,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 #products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle) {
 	min-height: 120px;
 }
+.cooperative_order #products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle){
+    min-height: 70px;
+}
 
 #products .ordersProdList .ordersProdListContent {	
 	border-bottom: 1px solid #e0e0e0;
@@ -2270,6 +2284,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent .orderProdName {
 	flex-basis: 65%;
+}
+.cooperative_order div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent .orderProdName {
+	padding-left: 1em;
 }
 div[id^="items_panel_"] #products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle){
 	height: auto;
