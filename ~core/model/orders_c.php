@@ -527,6 +527,13 @@ class Orders {
 		}else{
 			$_SESSION['cart']['id_order'] = $id_order;
 		}
+		$sql = "UPDATE "._DB_PREFIX_."cart
+			SET id_order = ".$id_order."
+			WHERE id_cart = ".$_SESSION['cart']['id'];
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
 		unset($f);
 		// Заполнение связки заказ-товары
 		$Supplier = new Suppliers();
@@ -603,7 +610,7 @@ class Orders {
 			print_r('sup_nb error');
 			return false;
 		}
-		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
+		if(empty($p) || !$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
 			$this->db->FailTrans();
 			print_r('osp insert error');
 			return false;
