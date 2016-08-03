@@ -3955,8 +3955,8 @@ div.modalEditOrder .applyBtn {
 	top: 100%;
 	right: 0;
 	width: 300px;
-	/*background-color: #fff;*/
-	border: 1px solid transparent;
+	background-color: #fff;
+	border: 1px solid #FF865F;
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -3982,7 +3982,7 @@ div.modalEditOrder .applyBtn {
 }
 .err_msg_as_title i {
 	transition: transform .4s;
-	transform: rotate(0deg);
+	transform: rotate(180deg);
 }
 .err_msg_as_form {
 	background-color: #fff;

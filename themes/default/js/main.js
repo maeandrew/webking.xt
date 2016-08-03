@@ -1652,13 +1652,10 @@ $(function(){
 	// Блок кода для выделения ошибок на канвасе
 	var temp = false;
 	$('.err_msg_as_knob_js').click(function(event){
-		if ($('.err_msg_as').hasClass('shown')) {
-			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+		if ($('.err_msg_as').hasClass('shown')){
 			$('.err_msg_as').removeClass('shown').css('top', '100%');
 		}else{
-			$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
 			$('.err_msg_as_form').find('textarea').focus();
-			$('.err_msg_as_js').css('border-color', '#FF865F');
 			$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 		}
 		if(!temp){
@@ -1671,13 +1668,10 @@ $(function(){
 
 			$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 
-			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-			
 			$('.err_msg_as').removeClass('shown').css('top', '100%');
 			if ($(document).outerWidth() < 450) {
 				$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 345px)');
 			}
-				
 
 			var detachEl = $('.err_msg_as_js').detach();
 			var detachSnack = $('#snackbar').detach();
@@ -1714,7 +1708,7 @@ $(function(){
 						$('#header_js').css('top', '0');
 					}
 
-					$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+					
 					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
 					$('#err_canvas').attr({'width':'20','height':'20'});
@@ -1788,7 +1782,7 @@ $(function(){
 				}else{
 					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 				}
-				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+				
 				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
 				$('#err_canvas').attr({'width':'20','height':'20'});
@@ -1798,7 +1792,7 @@ $(function(){
 
 	$('.go_to_canvas_toolbar_js').click(function(event){
 		closeObject('big_photo');
-		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');		
+		
 		$('.err_msg_as').removeClass('shown').css('top', '100%');
 		$('.canvas_toolbar').css('display', 'block');
 		$('#err_canvas').attr({
@@ -1838,7 +1832,7 @@ $(function(){
 	});
 
 	$('body').on('click', '.img_zoom_js', function(event){
-		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
+		
 		$('.err_msg_as').removeClass('shown').css('top', '100%');
 		$('#err_canvas').attr({'width':'20','height':'20'});
 		var src = $('#savedImageCopy').attr('src');
@@ -1890,7 +1884,7 @@ $(function(){
 				}else{
 					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 				}
-				$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
+				
 				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 
 				clear_canvas();
