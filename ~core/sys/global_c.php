@@ -203,7 +203,10 @@ class G {
  	 * @param string $pName
  	 */
  	public static function AddCSS($pName){
- 		if(!in_array($pName, $GLOBALS['__CSS__'])){
+ 		if(SETT === 2 && !strpos($_SERVER['REQUEST_URI'], 'adm') && !strpos($pName, '.min.css') && !strpos($pName, '/plugins/')){
+			$pName = str_replace('.css', '.min.css', str_replace('/css/', '/min/css/', $pName));
+		}
+		if(!in_array($pName, $GLOBALS['__CSS__'])){
 			$GLOBALS['__CSS__'][] = $pName;
 		}
 	}

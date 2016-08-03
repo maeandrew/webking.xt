@@ -65,7 +65,7 @@
 	<?if(isset($css_arr)){
 		$tmpstr = '<link href="'.$GLOBALS['URL_css'].'%s" rel="stylesheet" type="text/css"/>'."\n";
 		foreach($css_arr as $css){
-			if(substr($css, -9) == "style.css"){
+			if(substr($css, -9) == "style.css" || substr($css, -13) == "style.min.css"){
 				$css .= "?".date("v=dHi");
 			}
 			echo sprintf($tmpstr, $css);
