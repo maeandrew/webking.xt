@@ -321,7 +321,10 @@
 		</aside>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
-		<p>Сообщите нам об ошибке</p>
+		<div class="err_msg_descr_wrap">
+			<div class="err_msg_descr">Если у Вас возникли проблемы при работе с нашим сайтом</div>
+			<div class="err_msg_btn">cообщите нам об ошибке</div>			
+		</div>
 	</div>
 	<!-- message about error -->
 	<div class="err_msg_as_wrap">
@@ -844,4 +847,12 @@
 		</div>
 	</div>
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
+	
+	<?if(SETT == 2){?>
+		<!-- BEGIN JIVOSITE CODE {literal} -->
+		<script type='text/javascript'>
+		(function(){ var widget_id = '0HM6lKXbYS';var d=document;var w=window;function l(){
+		var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+		<!-- {/literal} END JIVOSITE CODE -->
+	<?}?>
 </body>
