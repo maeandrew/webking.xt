@@ -928,8 +928,8 @@ function init(color, tool_type){
 	canvas.addEventListener('mouseup', ev_canvas, false);
 }
 function ev_canvas(ev){
-	ev._x = ev.layerX;
-	ev._y = ev.layerY;
+	ev._x = ev.offsetX;
+	ev._y = ev.offsetY;
 	var func = tool[ev.type];
 	if(tool[ev.type]){
 		func(ev);

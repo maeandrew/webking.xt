@@ -103,7 +103,7 @@ body:not(.c_main) .banner{height:0}
 .breadcrumbs li:last-of-type{width:calc(100% - 80px)}
 .breadcrumbs li:last-of-type a{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
 }
-.main{width:100%;overflow:hidden;margin:0 auto;max-width:1600px;position:relative;margin-top:1em}
+.main{width:100%;overflow:hidden;margin:0 auto;max-width:1600px;margin-top:1em}
 .center,aside{margin:0 auto;position:relative}
 .banner{overflow:hidden;position:relative;height:auto;background-color:#fff;border-bottom:1px solid #e0e0e0;margin-left:5px}
 section.center{width:calc(100% - 300px);float:right;overflow:hidden}
@@ -753,6 +753,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 #tools{z-index:100000}
 #canvas_mark_wrapper{position:absolute;top:0}
 #err_canvas,#imageTemp{position:absolute;z-index:10000}
+#err_canvas:hover,#imageTemp:hover{cursor:crosshair}
 .copyContainerWrap{overflow:hidden;position:relative;margin:0 1em 1em}
 #savedCopyContainer{display:none;position:relative;overflow:auto;width:100%;height:auto;border:1px solid #FF865F;max-height:300px}
 #savedImageCopy{width:100%}

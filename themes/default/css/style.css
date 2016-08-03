@@ -672,7 +672,7 @@ body:not(.c_main) .banner {
 	overflow: hidden;
 	margin: 0 auto;
 	max-width: 1600px;
-	position: relative;
+	/*position: relative;*/
 	margin-top: 1em;
 }
 aside,
@@ -4069,7 +4069,7 @@ div.modalEditOrder .applyBtn {
 #tools {
 	z-index: 100000;
 }
-#canvas_mark_wrapper{	
+#canvas_mark_wrapper{
 	position: absolute;
 	top: 0;
 }
@@ -4077,6 +4077,9 @@ div.modalEditOrder .applyBtn {
 #imageTemp{
 	position: absolute;
 	z-index: 10000;
+}
+#err_canvas:hover, #imageTemp:hover{
+	cursor: crosshair;
 }
 .copyContainerWrap {
 	overflow: hidden;
