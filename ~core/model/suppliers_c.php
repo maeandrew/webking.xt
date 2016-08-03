@@ -679,7 +679,27 @@ class Suppliers extends Users {
 			$this->db->FailTrans();
 			return false;
 		}
+		unset($f);
+		if($single_price == 1){
+			$f['price_opt_otpusk'] = '`price_mopt_otpusk`';
+			$f['price_opt_otpusk_usd'] = '`price_mopt_otpusk_usd`';
+			if(!$succesUpdate = $this->db->UpdatePro(_DB_PREFIX_.'assortiment', $f, "id_supplier = ".$id_user)){
+				$this->db->FailTrans();
+				return false;
+			}
+		}
 		$this->db->CompleteTrans();
+		if(isset($succesUpdate)){
+			$res = $this->GetAssortimentProductIds($id_user);
+			$arr = array();
+			foreach($res as $v) {
+				$arr[] = $v['id_product'];
+			}
+			$Products = new Products();
+			if(!$Products->RecalcSitePrices($arr)){
+				return false;
+			}
+		}
 		return true;
 	}
 }?>
