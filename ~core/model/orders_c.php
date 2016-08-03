@@ -657,7 +657,7 @@ class Orders {
 			}
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			unset($_SESSION['member']['bonus_card'], $_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer']);
+			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
 		}
 		return $id_order;
 	}
