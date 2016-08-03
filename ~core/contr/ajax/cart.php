@@ -230,7 +230,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}else{
 					$tpl->Assign('unlist', false);
 				}
-
+				$tpl->Assign('promo_info', 'Информация о введенном промокоде');
 				if(isset($success)){
 					// $tpl->Assign('msg', "Заказ успешно сформирован.");
 					$_SESSION['cart']['draft'] = $draft;

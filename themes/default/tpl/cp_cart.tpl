@@ -295,28 +295,57 @@
 
 	<div class="cart_bottom_wrap">
 		<div class="sub_cart_bottom_wrap">
-			<div class="orderNote">
+			<!-- <div class="orderNote"> -->
 				<!-- <textarea name="orderNote" placeholder="Примечания к заказу..."></textarea> -->
-				<div class="mdl-textfield mdl-js-textfield">
-					<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
-					<label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label>
+			<div class="mdl-textfield mdl-js-textfield orderNote">
+				<label for="orderNote">Примечания к заказу</label>
+				<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
+				<!-- <label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label> -->
+			</div>
+			<!-- </div> -->
+			<?if(!G::IsLogged()){?>
+				<div class="msg-info">
+					<div class="msg_icon">
+						<i class="material-icons hidden">check_circle</i>
+						<i class="material-icons">info</i>
+						<i class="material-icons hidden">warning</i>
+						<i class="material-icons hidden">error</i>
+					</div>
+					<p class="msg_title">!</p>
+					<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
+				</div>
+			<?}?>
+			
+			<div class="bonus_block">
+				<div class="no_bonus_info_block">
+					<p>Бонусная карта</p>
+					<p>Если у Вас есть бонусная карта, ее нужно активировать. Для этого перейдите на страницу <a href="<?=Link::Custom('cabinet')?>">личного кабинета.</a></p>
+					<p><a href="<?=Link::Custom('page', 'Skidki_i_bonusy')?>">Детали бонусной программы</a></p>
+				</div>
+				<div class="active_bonus_info_block hidden">
+					<div class="bonus_card">
+						<p>Бонусная карта:</p>
+						<p>№123452</p>
+					</div>
+					<div class="bonus_balance">
+						<p>Бонусный баланс:</p>
+						<p>1234.52 грн.</p>
+					</div>
+					<div class="bonus_percent">
+						<p>Бонусный процент:</p>
+						<p>2%</p>
+					</div>
 				</div>
 			</div>
-			<div class="msg-info">
-				<div class="msg_icon">
-					<i class="material-icons hidden">check_circle</i>
-					<i class="material-icons">info</i>
-					<i class="material-icons hidden">warning</i>
-					<i class="material-icons hidden">error</i>
-				</div>
-				<p class="msg_title">!</p>
-				<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
-			</div>			
 		</div>
+		<?
+		$_SESSION['cart']['promo'] = null;
+		$_SESSION['cart']['adm'] = 0;
+		$_SESSION['cart']['ready'] = 1;		
+		?>
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="">
-
 					<?if(!G::IsLogged() || $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
@@ -328,16 +357,21 @@
 						<p class="err_msg"></p>
 						<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 					<?}?>
+
 					<?if(G::IsLogged() || _acl::isAdmin()){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label promo_input_js promo_input" id="promo_input">
-							<label for="promo_input">Промокод</label>
+							<label for="promo_input">Промо-код</label>
 							<input class="mdl-textfield__input" type="text" id="promo_input" value="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''?$_SESSION['cart']['promo']:null;?>">
 							<label class="mdl-textfield__label" for="promo_input"></label>
 							<span class="mdl-textfield__error err_promo orange"></span>
 						</div>
-						<span class="del_promo_wrapp_js hidden"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></span>
+						<!-- <button class="mdl-button mdl-js-button mdl-button--raised del_promo_wrapp del_promo_wrapp_js"><i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i></button> -->
+
 						<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
-							<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
+							<div class="mdl-button mdl-js-button mdl-button--raised del_promo_wrapp del_promo_wrapp_js">
+								<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
+							</div>
+
 							<div class="cart_warning_js cart_warning clearBoth hidden">
 								<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 								<p>Вы уверенны, что хотите удалить промокод?</p>
@@ -346,23 +380,18 @@
 								<input type="button" class="cancel_del_promoCode_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Нет"/>
 							</div>
 						<?}else{?>
-							<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored apply_promoCode apply_promoCode_js" value="Применить"/>
+							<!-- <input type="button" class="mdl-button mdl-js-button mdl-button--raised apply_promoCode apply_promoCode_js" value="Применить"/> -->
+							<div class="mdl-button mdl-js-button mdl-button--raised apply_promoCode apply_promoCode_js">Применить</div>
 						<?}?>
-						<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?>
+						
+						
+
+						<?if(isset($_SESSION['cart']['promo'])) {?>							
 							<div class="clearBoth">
-								<div class="info_admin">Для управления совместной покупкой, перейдите личный кабинет.</div>
-								<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Управление заказом"/></a>
-							</div>
-						<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?>
-							<div class="<?=isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0?null:'hidden';?> clearBoth">
-								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-								<?if(isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) {?>
-									<div class="info_client ic_waiting">Подтвердите свой заказ и ожидайте подтверждения администратора.</div>
-								<?}else{?>
-									<div class="info_client ic_ready">Заказ подтвержден. </div>
-								<?}?>
-								<div class="info_client">Детали заказа можно посмотреть в <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive">личном кабинете</a></div>
-								<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?>" value="Готово"/>
+								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">								
+								<div class="promo_info">
+									<p><?=$promo_info?></p>
+								</div>								
 							</div>
 						<?}?>
 					
@@ -383,18 +412,13 @@
 											<label class="info_key" style="position: initial;">?</label>
 											<div class="info_description">Перейти к оформлению совместного заказа</div>
 									</label>
-								</div>
-								<input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/>
+								</div>								
+								<!-- <input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/> -->
+
 							</div>
 						<?}?>
 					<?}?>
-					<?if(!G::IsLogged() || !_acl::isAdmin()){?>
-						<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
-						</div>
-					<?}else{?>
-						<p>Вы не можете использовать корзину</p>
-					<?}?>
+					
 					<!-- <div id="button-cart2">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
 					</div>
@@ -477,14 +501,34 @@
 			</div>
 		</div>		
 	</div>
-	<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
+	<div class="cart_buttons">
+		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
+
+		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->	
+			<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
+			</div>
+		<?}else{?>
+			<p>Вы не можете использовать корзину</p>
+		<?}?>
+
+		<?if(!isset($_SESSION['cart']['promo'])){?>	 <!-- когда клиент выберает чекбокс -->	
+			<button class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js">Продолжить</button>
+		<?}?>
+
+		<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?> <!-- когда клиент оформляет совместный заказ -->
+			<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Управление заказом"/></a>
+		<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?> <!-- когда клиент присоеденяется к совместному заказу -->
+			<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?>" value="Готово"/>
+		<?}?>
+	</div>
 	<!-- END NEW Товары в корзине -->
+
+
 	<script type="text/javascript">
 		$(window).resize(function() {
     		Position($('#cart'));
 		});
-
-
 		$(function(){			
 			// Инициалзация маски для ввода телефонных номеров
 			$(".phone").mask("+38 (099) ?999-99-99");
@@ -505,6 +549,7 @@
 				note = $(this).val();
 				ajax('cart', 'SaveOrderNote', {note: note});			
 			});
+
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				//Проверка на ввод примечания к товару
@@ -535,7 +580,7 @@
 					}
 				}
 				if(validate === true){
-					addLoadAnimation('#cart');
+					addLoadAnimation('#cart');					
 					ajax('cart', 'makeOrder', data).done(function(response){
 						switch(response.status){
 							case 200:

@@ -177,16 +177,16 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .order_balance{clear:left;padding:10px;width:calc(100% - 300px)}
 #cart .err_msg{margin-bottom:10px;color:red}
 #cart .cart_login_btn{margin-bottom:10px}
-#cart .action_block .mdl-textfield{width:100%;padding-top:0}
+#cart .action_block .mdl-textfield{width:100%;padding-top:0;text-align:left}
 #cart .action_block .wrapp .cart_continue{float:right;margin:0;margin-right:10px;width:160px}
 #cart .for_err_promo .tooltip_wrapp{padding-top:55px}
 #cart .action_block form .mdl-checkbox{float:left;clear:both;text-align:left}
 #cart .action_block form .number_label{position:absolute;top:-10px;left:0;font-size:20px}
 #cart .action_block .promo_input{display:inline-block;float:left;width:140px;margin-right:10px}
-#cart .action_block .promo_input input{text-align:center}
+#cart .action_block .promo_input input{text-align:left}
 #cart .action_block .mdl-textfield__error.visibleForUser{visibility:inherit;width:200%}
-#cart .action_block .apply_promoCode{width:120px}
-#cart .action_block .del_promoCode{width:60px;height:28px;padding-top:2px;border-radius:3px;vertical-align:middle;background-color:#ff5722;color:#fff;cursor:pointer}
+#cart .action_block .apply_promoCode{width:120px;box-shadow:none}
+#cart .action_block .del_promoCode{height:28px;border-radius:3px;vertical-align:middle;cursor:pointer;line-height:32px}
 #cart .action_block .cart_warning{width:95%;margin-bottom:10px;padding:10px;border-radius:5px;box-shadow:0 0 10px #ff5722}
 #cart .action_block .cart_warning p:nth-child(2){margin-top:10px;font-weight:500}
 #cart .action_block .info_admin,#cart .action_block .info_client{width:95%;margin-bottom:10px}
@@ -811,19 +811,31 @@ iframe[name=google_conversion_frame]{display:none}
 .msg-info{color:#33439c;background-color:#b2ddff}
 .msg-info .msg_title::before{content:'Внимание'}
 .details{color:#FF5722}
-#cart .cart_bottom_wrap,#cart .sub_cart_bottom_wrap{display:flex;flex-wrap:nowrap;align-items:flex-start}
-#cart .sub_cart_bottom_wrap{flex-wrap:wrap-reverse}
+#cart .cart_bottom_wrap,#cart .sub_cart_bottom_wrap{display:flex;flex-wrap:nowrap;align-items:flex-start;margin-top:5px}
 #cart .cart_bottom_wrap>*,#cart .sub_cart_bottom_wrap>*{flex-grow:1;flex-shrink:1}
-#cart .orderNote{border:1px solid #e0e0e0;border-top:none}
+#cart .orderNote{border-top:none;text-align:left;padding:15px;padding-top:0}
 #cart .orderNote textarea{max-height:189px}
 #cart .msg-info{width:300px;box-sizing:border-box;border:1px solid #e0e0e0;border-top:none}
-#cart .msg-info,#cart .orderNote{min-height:117.5px}
-#cart .action_block{width:301px;padding:10px;flex-grow:0;flex-shrink:0;border:1px solid #e0e0e0;border-top:none}
-#cart .buy_more{float:left}
+#cart .bonus_block,#cart .bonus_block p,#cart .msg-info,#cart .orderNote{width:50%}
+#cart .bonus_block{padding-right:10px}
+#cart .bonus_block p:first-child{text-align:left}
+#cart .bonus_block p:last-child{text-align:right;font-weight:700}
+#cart .bonus_block .no_bonus_info_block p{width:100%;text-align:justify;margin-top:5px}
+#cart .bonus_block .no_bonus_info_block p:first-child{margin:0;font-size:16px}
+#cart .bonus_balance,#cart .bonus_card,#cart .bonus_percent{width:100%;display:flex;justify-content:space-between;padding-top:10px}
+#cart .bonus_card{padding:0}
+#cart .cart_bottom_wrap a{text-decoration:underline;color:#018b06!important}
+#cart .action_block{width:301px;padding:10px;flex-grow:0;flex-shrink:0;border-top:none}
+#cart .cart_buttons{display:flex;justify-content:space-between;border-top:1px solid #e0e0e0;margin-top:20px;padding-top:20px;padding-bottom:5px}
+#cart .buy_more{float:left;box-shadow:none}
+#cart .del_promo_wrapp{box-shadow:none;padding:0;height:40px;min-width:40px}
+#cart .promo_info{width:100%;text-align:justify;padding:10px 0 10px 0;float:left}
+#cart .tooltip_wrapp .mdl-radio.is-checked .mdl-radio__outer-circle{border:2px solid #018b06}
+#cart .tooltip_wrapp .mdl-radio__inner-circle{background:#018b06}
 #cart [class^=msg-]{margin-left:0}
 @media (max-width:1200px){#cart .msg-info,#cart .orderNote{min-height:80px;border:none}
-#cart .cart_bottom_wrap{border:1px solid #e0e0e0;border-top:none}
-#cart .action_block{border:none;border-left:1px solid #e0e0e0}
+#cart .cart_bottom_wrap{border-top:none}
+#cart .action_block{border:none}
 #cart .orderNote textarea{max-height:85px}
 }
 .paginator_specific_page_block{margin-top:10px}
