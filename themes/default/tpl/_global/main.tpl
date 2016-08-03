@@ -321,7 +321,10 @@
 		</aside>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
-		<p>Сообщите нам об ошибке</p>
+		<div class="err_msg_descr_wrap">
+			<div class="err_msg_descr">Если у Вас возникли проблемы при работе с нашим сайтом</div>
+			<div class="err_msg_btn">cообщите нам об ошибке</div>			
+		</div>
 	</div>
 	<!-- message about error -->
 	<div class="err_msg_as_wrap">
