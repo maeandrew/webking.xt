@@ -1968,7 +1968,7 @@ $(function(){
 				email: parent.find('input[name="user_email"]').val(),
 				comment: parent.find('textarea').val()
 			}
-			ajax('global', 'SaveGuestComment', data, 'html').done(function(data){
+			ajax('global', 'SaveGuestComment', data).done(function(data){
 				switch (data.err) {
 					case 1:
 						parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
