@@ -225,7 +225,7 @@ class Customers extends Users {
 		}
 	}
 
-	public function registerBonus($card, $sex, $learned_from, $birthday, $buy_volume){
+	public function registerBonus($data){
 		if(!empty($card) && !empty($sex) && !empty($learned_from)){
 			$f['bonus_card'] = trim($card);
 			$f['bonus_balance'] = 20;
@@ -245,9 +245,8 @@ class Customers extends Users {
 			}
 			$this->db->CompleteTrans();
 			return true;//Если все ок
-		}else{
-			return false; //Если имя пустое
 		}
+		return false; //Если имя пустое
 	}
 
 	public function updateBonus($card){
@@ -850,9 +849,11 @@ class Customers extends Users {
 
 	public function SetSessionCustomerBonusCart($id_customer){
 		$arr = $this->SetFieldsById($id_customer);
-		$_SESSION['member']['bonus']['bonus_card'] = $arr['bonus_card'];
-		$_SESSION['member']['bonus']['bonus_discount'] = $arr['bonus_discount'];
-		$_SESSION['member']['bonus']['bonus_balance'] = $arr['bonus_balance'];
+		if(!empty($arr['bonus_card'])){
+			$_SESSION['member']['bonus']['bonus_card'] = $arr['bonus_card'];
+			$_SESSION['member']['bonus']['bonus_discount'] = $arr['bonus_discount'];
+			$_SESSION['member']['bonus']['bonus_balance'] = $arr['bonus_balance'];
+		}
 	}
 
 }?>
