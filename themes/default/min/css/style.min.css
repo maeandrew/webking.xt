@@ -846,6 +846,14 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .action_block{border:none}
 #cart .orderNote textarea{max-height:85px}
 }
+@media (max-width:979px){#cart .sub_cart_bottom_wrap{flex-wrap:wrap}
+#cart .bonus_block,#cart .msg-info,#cart .orderNote{width:100%}
+}
+@media (max-width:739px){#cart .cart_bottom_wrap,#cart .cart_buttons{flex-wrap:wrap}
+#cart .action_block,#cart .action_block .wrapp{width:100%}
+#cart .cart_buttons{justify-content:center}
+#cart .cart_buttons button{margin-bottom:10px}
+}
 .paginator_specific_page_block{margin-top:10px}
 .paginator_specific_page_block .paginator_specific_page{padding:9px 0 9px 5px;width:166px}
 .paginator_specific_page_block button{padding-left:5px;padding-right:5px}

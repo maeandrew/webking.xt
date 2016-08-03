@@ -4551,6 +4551,31 @@ iframe[name="google_conversion_frame"] {
 		max-height: 85px;
 	}
 }
+@media (max-width: 979px){
+	#cart .sub_cart_bottom_wrap {
+		flex-wrap: wrap;
+	}
+	#cart .bonus_block, #cart .orderNote, #cart .msg-info {
+		width: 100%;
+	}
+
+}
+@media (max-width: 739px){
+	#cart .cart_bottom_wrap, 
+	#cart .cart_buttons {
+		flex-wrap: wrap;
+	}
+	#cart .action_block,
+	#cart .action_block .wrapp {
+		width: 100%;
+	}
+	#cart .cart_buttons {
+		justify-content: center;
+	}
+	#cart .cart_buttons button {
+		margin-bottom: 10px;
+	}
+}
 
 .paginator_specific_page_block {
 	margin-top: 10px;

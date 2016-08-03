@@ -314,35 +314,33 @@
 					<p class="msg_title">!</p>
 					<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
 				</div>
-			<?}?>
-			
-			<div class="bonus_block">
-				<div class="no_bonus_info_block">
-					<p>Бонусная карта</p>
-					<p>Если у Вас есть бонусная карта, ее нужно активировать. Для этого перейдите на страницу <a href="<?=Link::Custom('cabinet')?>">личного кабинета.</a></p>
-					<p><a href="<?=Link::Custom('page', 'Skidki_i_bonusy')?>">Детали бонусной программы</a></p>
+			<?}else{?>
+				<div class="bonus_block">
+					<?if (isset($_SESSION['cart']['bonus'])){?>
+						<div class="active_bonus_info_block">
+							<div class="bonus_card">
+								<p>Бонусная карта:</p>
+								<p>№123452</p>
+							</div>
+							<div class="bonus_balance">
+								<p>Бонусный баланс:</p>
+								<p>1234.52 грн.</p>
+							</div>
+							<div class="bonus_percent">
+								<p>Бонусный процент:</p>
+								<p>2%</p>
+							</div>
+						</div>
+					<?}else{?>
+						<div class="no_bonus_info_block">
+							<p>Бонусная карта</p>
+							<p>Если у Вас есть бонусная карта, ее нужно активировать. Для этого перейдите на страницу <a href="<?=Link::Custom('cabinet')?>">личного кабинета.</a></p>
+							<p><a href="<?=Link::Custom('page', 'Skidki_i_bonusy')?>">Детали бонусной программы</a></p>
+						</div>
+					<?}?>
 				</div>
-				<div class="active_bonus_info_block hidden">
-					<div class="bonus_card">
-						<p>Бонусная карта:</p>
-						<p>№123452</p>
-					</div>
-					<div class="bonus_balance">
-						<p>Бонусный баланс:</p>
-						<p>1234.52 грн.</p>
-					</div>
-					<div class="bonus_percent">
-						<p>Бонусный процент:</p>
-						<p>2%</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?
-		$_SESSION['cart']['promo'] = null;
-		$_SESSION['cart']['adm'] = 0;
-		$_SESSION['cart']['ready'] = 1;		
-		?>
+			<?}?>			
+		</div>		
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="">
@@ -386,12 +384,12 @@
 						
 						
 
-						<?if(isset($_SESSION['cart']['promo'])) {?>							
+						<?if(isset($_SESSION['cart']['promo'])) {?>
 							<div class="clearBoth">
-								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">								
+								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
 								<div class="promo_info">
 									<p><?=$promo_info?></p>
-								</div>								
+								</div>
 							</div>
 						<?}?>
 					
@@ -405,7 +403,7 @@
 											<div class="info_description">Стать организатором совместной корзины</div>
 									</label>
 								</div>-->
-								<div class="tooltip_wrapp joint_purchase_js">
+								<div class="tooltip_wrapp joint_purchase_js hidden">
 									<label class="mdl-radio mdl-js-radio add_cart_state">
 										<input type="radio" class="mdl-radio__button"  id="joint_cart" name="options" value="2">
 										<span class="mdl-radio__label">Cовместный заказ</span>
@@ -432,23 +430,30 @@
 					var checked = false;
 					$('#cart .joint_cart_js').on('click', function(){
 						if(checked == false){
-							$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+							$('#button-cart1').addClass('hidden');
 							$('.cart_continue_js').addClass('joint_cart_continue_js').removeClass('hidden').removeClass('joint_purchase_continue_js');
 						}
 					});
 					$('#cart .joint_purchase_js').on('click', function(){
 						if(checked == false){
-							$('.action_block #button-cart1 [type="submit"]').addClass('hidden');
+							$('#button-cart1').addClass('hidden');
 							$('.cart_continue_js').addClass('joint_purchase_continue_js').removeClass('hidden').removeClass('joint_cart_continue_js');
 						}
 					});
+
 					$('#cart .action_block .mdl-radio').on('mousedown', function (e){
 						checked = $(this).hasClass('is-checked');
 					}).on('click', function(){
 						if(checked == true){
 							$(this).removeClass('is-checked').find('input').attr('checked', false);
-							$('.action_block #button-cart1 [type="submit"]').removeClass('hidden');
+							$('#button-cart1').removeClass('hidden');
 							$('.cart_continue_js').addClass('hidden');
+							// $('#promo_input, .apply_promoCode_js').attr('disabled', false);
+							$('#promo_input, .apply_promoCode_js').removeClass('hidden');
+						}else{
+							console.log('123');							
+							// $('#promo_input, .apply_promoCode_js').attr('disabled', true);
+							$('#promo_input, .apply_promoCode_js').addClass('hidden');
 						}
 					});
 					$('.joint_purchase_continue_js').click(function(event){
@@ -519,7 +524,7 @@
 		<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 1) {?> <!-- когда клиент оформляет совместный заказ -->
 			<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Управление заказом"/></a>
 		<?}else if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['adm'] == 0) {?> <!-- когда клиент присоеденяется к совместному заказу -->
-			<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?'mdl-button--colored':null;?>" value="Готово"/>
+			<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?null:'mdl-button--colored';?>" value="Готово"/>
 		<?}?>
 	</div>
 	<!-- END NEW Товары в корзине -->
