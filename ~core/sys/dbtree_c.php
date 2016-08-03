@@ -972,7 +972,7 @@ class dbtree {
 	}
 
 	public function GetCatSegmentation($id_segm){
-		$sql = 'SELECT id_category, name, category_level, pid FROM '._DB_PREFIX_.'category
+		$sql = 'SELECT id_category FROM '._DB_PREFIX_.'category
 			WHERE id_category IN (SELECT id_category FROM '._DB_PREFIX_.'cat_prod WHERE id_product IN (
 			SELECT sp.id_product FROM '._DB_PREFIX_.'segment_prods sp
 			LEFT JOIN '._DB_PREFIX_.'assortiment a ON a.id_product = sp.id_product
