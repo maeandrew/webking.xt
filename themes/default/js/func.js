@@ -930,6 +930,7 @@ function init(color, tool_type){
 function ev_canvas(ev){
 	ev._x = ev.layerX;
 	ev._y = ev.layerY;
+	var func = tool[ev.type];
 	if(tool[ev.type]){
 		func(ev);
 	}

@@ -1924,7 +1924,7 @@ $(function(){
 
 	$(document).scroll(function(event) {
 		if ($(document).scrollTop() >= $(window).outerHeight()) {
-			$('.go_up_js').css('bottom', '2em');
+			$('.go_up_js').css('bottom', '4em');
 		}else{
 			$('.go_up_js').css('bottom', '-3em');
 		}
