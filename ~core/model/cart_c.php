@@ -229,6 +229,7 @@ class Cart {
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$_SESSION['cart']['base_order'] = $id_order;
 			$_SESSION['cart']['id_customer'] = $order['id_customer'];
+			$Customer->SetSessionCustomerBonusCart($order['id_customer'], 'cart');
 		}
 		foreach($products as $p){
 			$p['quantity'] = $p['opt_qty']+$p['mopt_qty'];
