@@ -35,7 +35,7 @@
 			<ul class="orders_list">
 				<?if(in_array($infoJO['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'joactive') || !isset($_GET['t'])) {?>
 					<li>
-						<section class="order mdl-tabs mdl-js-tabs ">
+						<section class="order cooperative_order mdl-tabs mdl-js-tabs">
 							<div class="title">
 								<div class="container">
 									<span class="number num_mar">Совместная корзина № <?=$infoJO['id_cart']?></span>

@@ -29,6 +29,12 @@ $sql = "SELECT COUNT(id_coment) AS cnt_c
 $res = $db->GetOneRowArray($sql);
 $tpl->Assign("commentCount", $res['cnt_c']);
 
+// guestbook count
+$sql = "SELECT COUNT(id) AS cnt_c
+		FROM "._DB_PREFIX_."guest_book";
+$res = $db->GetOneRowArray($sql);
+$tpl->Assign("commGuestBookCount", $res['cnt_c']);
+
 // duplicates count
 $sql = "SELECT COUNT(id_product) AS cnt_d
 		FROM "._DB_PREFIX_."product

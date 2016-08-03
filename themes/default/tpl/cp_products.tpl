@@ -63,7 +63,7 @@
 						<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
 					<?}?> -->					
 				</div>
-				<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
 					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone mdl-cell--hide-tablet" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
 				<?}?>
 				<div class="productsListView">

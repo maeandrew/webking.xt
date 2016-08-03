@@ -47,7 +47,7 @@ G::AddJS('../plugins/Chart.min.js');
 //G::AddJS('../js/nutrients.json');
 G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
-G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', true, 1);
+G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
 G::AddJS('../themes/'.$theme.'/js/func.js');
 G::AddJS('../themes/'.$theme.'/js/main.js');
 if($GLOBALS['CurrentController'] == 'cart'){

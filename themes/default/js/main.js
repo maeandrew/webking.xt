@@ -1654,11 +1654,7 @@ $(function(){
 	$('.err_msg_as_knob_js').click(function(event){
 		if ($('.err_msg_as').hasClass('shown')) {
 			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-			if ($(document).outerWidth() < 450) {
-				$('.err_msg_as').removeClass('shown').css('top', '100%');
-			}else{
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
-			}
+			$('.err_msg_as').removeClass('shown').css('top', '100%');
 		}else{
 			$('.err_msg_as_title i').css('transform', 'rotate(-180deg)');
 			$('.err_msg_as_form').find('textarea').focus();
@@ -1677,11 +1673,9 @@ $(function(){
 
 			$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
 			
+			$('.err_msg_as').removeClass('shown').css('top', '100%');
 			if ($(document).outerWidth() < 450) {
-				$('.err_msg_as').removeClass('shown').css('top', '100%');
 				$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 345px)');
-			}else{
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
 			}
 				
 
@@ -1715,11 +1709,9 @@ $(function(){
 					imageContainer.style.display = "block";
 
 					$('.err_msg_as_wrap').css('display', 'block');
+					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 					if ($(document).outerWidth() < 450) {
-						$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 						$('#header_js').css('top', '0');
-					}else{
-						$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 					}
 
 					$('.err_msg_as_title i').css('transform', 'rotate(180deg)');
@@ -1755,7 +1747,7 @@ $(function(){
 
 		$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 		
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+		$('.err_msg_as').removeClass('shown').css('top', '100%');
 
 		var detachEl = $('.err_msg_as_js').detach();
 		var detachSnack = $('#snackbar').detach();
@@ -1807,7 +1799,7 @@ $(function(){
 	$('.go_to_canvas_toolbar_js').click(function(event){
 		closeObject('big_photo');
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');		
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+		$('.err_msg_as').removeClass('shown').css('top', '100%');
 		$('.canvas_toolbar').css('display', 'block');
 		$('#err_canvas').attr({
 			'width': $(window).outerWidth(),
@@ -1847,7 +1839,7 @@ $(function(){
 
 	$('body').on('click', '.img_zoom_js', function(event){
 		$('.err_msg_as_title i').css('transform', 'rotate(0deg)');
-		$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+		$('.err_msg_as').removeClass('shown').css('top', '100%');
 		$('#err_canvas').attr({'width':'20','height':'20'});
 		var src = $('#savedImageCopy').attr('src');
 		$('#big_photo').css({
@@ -1918,7 +1910,7 @@ $(function(){
 				$('#savedCopyContainer').css('display', 'none');
 				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
 				$('#savedImageCopy').attr('src', '');
-				$('.err_msg_as').removeClass('shown').css('top', 'calc(100% - 34px)');
+				$('.err_msg_as').removeClass('shown').css('top', '100%');
 				$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
 				componentHandler.upgradeDom();
 			}else{
@@ -1955,32 +1947,58 @@ $(function(){
 		componentHandler.upgradeDom();
 	});
 
+	// Пожелания / Замечания
 	$('body').on('click', '.offers_js, .issue_js', function(){
-		var parent = $(this).closest('.modal_container').find('form');
-		if($(this).hasClass('offers_js')){
+		var obj = $(this),
+			parent = $(this).closest('.modal_container').find('form');
+
+		if(parent.find('textarea').val() == ''){
+			parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+		}else{
+			parent.find('textarea').closest('.mdl-textfield').removeClass('is-invalid');
+		}
+		if(parent.find('input[name="user_email"]').val() == ''){
+			parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid');
+		}
+
+		if(!parent.find('.mdl-textfield').hasClass('is-invalid')){
 			var data = {
-				issue: 0,
+				issue: $(this).hasClass('offers_js') ? 0 : 1,
 				id_user: parent.find('input[type="hidden"]').val(),
 				email: parent.find('input[name="user_email"]').val(),
 				comment: parent.find('textarea').val()
 			}
-			console.log(data);
 			ajax('global', 'SaveGuestComment', data).done(function(data){
-				console.log('save guest comment');
-				console.log(data);
+				switch (data.err) {
+					case 1:
+						parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
+						break
+					case 2:
+						parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
+						break
+					case 3:
+						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
+						$('.issue_result_js .modal_container').html('<div class="issue_ok"><i class="material-icons">check_circle</i></div><p class="info_text">Ваше сообщение было отправлено</p>');
+						openObject('issue_result');
+						break
+					case 4:
+						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
+						$('.issue_result_js .modal_container').html('<div class="issue_err"><i class="material-icons">error</i></div><p class="info_text">Что-то пошло не так. Повторите попытку.</p>');
+						openObject('issue_result');
+						break
+					default:
+						console.log(data);
+						break
+				}
+			}).fail(function(data){
+				console.log('error');
 			});
 		}else{
-			var data = {
-				issue: 1,
-				id_user: parent.find('input[type="hidden"]').val(),
-				email: parent.find('input[name="user_email"]').val(),
-				comment: parent.find('textarea').val()
+			if(parent.find('input[name="user_email"]').val() != ''){
+				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Введите Email правильно');
+			}else{
+				parent.find('input[name="user_email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Поле обязательно для заполнения!');
 			}
-			console.log(data);
-			ajax('global', 'SaveGuestComment', data).done(function(data){
-				console.log('save guest comment');
-				console.log(data);
-			});
 		}
 	});
 });
