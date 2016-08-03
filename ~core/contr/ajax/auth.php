@@ -35,7 +35,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 									if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
 										$customer = new Customers();
-										$customer->SetSessionCustomerBonusCart($User->fields['id_user'], 'member');
+										$customer->SetSessionCustomerBonusCart($User->fields['id_user']);
 									}
 								}else{
 									$echo['msg'] = 'Неверный email или пароль.';

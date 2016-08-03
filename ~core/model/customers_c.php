@@ -848,11 +848,11 @@ class Customers extends Users {
 		}
 	}
 
-	public function SetSessionCustomerBonusCart($id_customer, $session_name){
+	public function SetSessionCustomerBonusCart($id_customer){
 		$arr = $this->SetFieldsById($id_customer);
-		$_SESSION[$session_name]['bonus']['bonus_card'] = $arr['bonus_card'];
-		$_SESSION[$session_name]['bonus']['bonus_discount'] = $arr['bonus_discount'];
-		$_SESSION[$session_name]['bonus']['bonus_balance'] = $arr['bonus_balance'];
+		$_SESSION['member']['bonus']['bonus_card'] = $arr['bonus_card'];
+		$_SESSION['member']['bonus']['bonus_discount'] = $arr['bonus_discount'];
+		$_SESSION['member']['bonus']['bonus_balance'] = $arr['bonus_balance'];
 	}
 
 }?>
