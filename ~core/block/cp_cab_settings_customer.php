@@ -37,39 +37,6 @@
 			header("Location: /cabinet/settings/?t=password&unsuccess");
 		}
 	}
-
-	// if(isset($_POST['apply'])){
-	// 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	// 	$nocheck[] = 'keystring';
-	// 	// if(isset($_POST['passwd']) && $_POST['passwd'] == ''){
-	// 	// 	$nocheck[] = 'passwdconfirm';
-	// 	// 	$nocheck[] = 'passwd';
-	// 	// }
-	// 	list($err, $errm) = Register_form_validate($nocheck);
-	// 	if(!$err){
-	// 		$tpl->Assign('msg', 'Информация обновлена.');
-	// 		$User->updateUser($_POST);
-	// 		$customers->updateCustomer($_POST);
-	// 		$customers->updateContPerson($_POST['cont_person']);
-	// 		$customers->updatePhones($_POST['phones']);
-	// 		$customers->updateContragent($_POST['id_manager']);
-	// 		$customers->updateCity($_POST['id_delivery_department']);
-	// 		$customers->updateDelivery($_POST['id_delivery']);
-	// 		if(!$customer['bonus_card']){
-	// 			$customers->registerBonus($_POST['bonus_card'], $_POST['sex'], $_POST['learned_from'], date("Y-m-d",strtotime($_POST['bday'].'.'.$_POST['bmonth'].'.'.$_POST['byear'])), $_POST['buy_volume']);
-	// 		}else{
-	// 			$customers->updateBonus($_POST['bonus_card']);
-	// 		}
-	// 		header("Location: /cabinet");
-	// 	}else{
-	// 		// показываем все заново но с сообщениями об ошибках
-	// 		$tpl->Assign('msg', 'Информация не обновлена.');
-	// 		$tpl->Assign('errm', $errm);
-	// 	}
-	// }
-	// if(isset($_POST['cancel'])){
-	// 	header("Location: /cabinet/");
-	// }
 	$parsed_res = array(
 		'issuccess'	=> true,
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_settings.tpl')
