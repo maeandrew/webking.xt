@@ -700,7 +700,6 @@
 			<div class="modal_container blockForForm">
 				<div class="mdl-card__supporting-text">
 					<h3>Предложения и пожелания</h3>
-					<!-- <p>Здесь Вы можете оставить свои<br>предложения и пожелания</p> -->
 					<p>Напишите Нам, как мы можем улучшить нашу с Вами работу</p>
 					<form action="" class="offers_form">
 						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
@@ -725,8 +724,6 @@
 			<div class="modal_container blockForForm">
 				<div class="mdl-card__supporting-text">
 					<h3>Замечания</h3>
-					<!-- <p>Здесь Вы можете написать,<br> что Вам не понравилось.</p> -->
-					<!-- <p>Мы постараемся решить проблему<br> в ближайшие сроки.</p> -->
 					<p>Сообщите нам, если у Вас есть замечания по поводу работы нашей службы снабжения.</p>
 					<p>Мы постараемся сделать нашу совместную работу максимально удобной для Вас!</p>
 					<form action="" class="issue_form">
