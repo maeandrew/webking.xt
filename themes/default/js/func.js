@@ -875,6 +875,42 @@ function SortProductsList(obj){
 	location.href = obj.val();
 }
 // Блок кода для выделения ошибок на канвасе
+function GetScreenShot(){
+	var detachEl = $('.err_msg_as_js').detach(),
+		detachSnack = $('#snackbar').detach();
+	if($(document).outerWidth() < 450){
+		$('.waiting_block_for_img_canvas_js').css('top', '0');
+		$('#header_js').css('top', '52px');
+	}else{
+		$('.waiting_block_for_img_canvas_js').css('top', '15px');
+	}
+	html2canvas(document.body, {
+		onrendered: function(canvas){
+			canvas.id = 'canvasImg';
+			var url = canvas.toDataURL("image/jpeg");
+			// window.location = canvas.toDataURL();
+			$('.err_msg_as_wrap_js').css('display', 'none').append(detachEl);
+			$('.modals').append(detachSnack);
+			// Находим элемент <img>
+			var imageCopy = document.getElementById("savedImageCopy");
+			// Отображаем данные холста в элементе <img>
+			imageCopy.src = canvas.toDataURL();
+			// Показываем элемент <div>, делая изображение видимым
+			var imageContainer = document.getElementById("savedCopyContainer");
+			imageContainer.style.display = "block";
+			$('.err_msg_as_wrap_js').css('display', 'block');
+			$('.waiting_block_for_img_canvas_js').css('top', '-52px');
+			if($(document).outerWidth() < 450){
+				$('#header_js').css('top', '0');
+				$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
+			}
+			$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
+			$('.err_msg_as_form_js').find('textarea').focus();
+			$('#err_canvas').attr({'width':'20','height':'20'});
+			clear_canvas();
+		}
+	});
+}
 var canvas, context, canvaso, contexto, tool,
 	tool_default = 'line'; // По умолчанию линия - инструмент по умолчанию
 function init(color, tool_type){

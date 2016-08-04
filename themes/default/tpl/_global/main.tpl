@@ -327,7 +327,7 @@
 		</div>
 	</div>
 	<!-- message about error -->
-	<div class="err_msg_as_wrap">
+	<div class="err_msg_as_wrap err_msg_as_wrap_js">
 		<div class="err_msg_as err_msg_as_js">
 			<div class="err_msg_as_title err_msg_as_knob_js">
 				<p>Сообщите нам об ошибке</p>
