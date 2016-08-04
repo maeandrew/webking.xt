@@ -347,8 +347,8 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab .saved_addresses .address h4 .actions i:hover{color:#ff5722}
 .customer_cab .saved_addresses .address li{text-align:right;clear:both;font-weight:700}
 .customer_cab .saved_addresses .address li span{float:left;font-weight:400}
-#bonus,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{padding:0 15px 15px 15px;margin-top:1em;background:#fff;width:350px;float:left;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
-#bonus,.customer_cab .edit_contacts_block{width:330px}
+#bonus .bonus_content,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{padding:0 15px 15px 15px;margin-top:1em;background:#fff;width:350px;float:left;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
+#bonus .bonus_content,.customer_cab .edit_contacts_block{width:330px}
 #bonus .fright{width:100%;margin-top:10px}
 .customer_cab .discount_select{padding-top:0}
 .customer_cab .discount_select .mdl-selectfield__box{top:0}
@@ -439,15 +439,6 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 #products .ordersProdList .ordersProdListContent .note .priceTitle:first-child{font-weight:700}
 .buttons_cab{width:110px}
 .bonus_info{width:330px}
-#bonus{margin-top:0}
-.msg-success .msg_title::before{content:'Успех'}
-.msg-success .msg_text::before{content:'Сообщение про что то  что должно тут быть и возможно появится'}
-.msg-error .msg_title::before{content:'Ошибка'}
-.msg-error .msg_text::before{content:'Сообщение про что то  что должно тут быть и возможно появится'}
-.msg-attention .msg_title::before{content:'Внимание'}
-.msg-attention .msg_text::before{content:'Сообщение про что то  что должно тут быть и возможно появится'}
-.msg-info .msg_title::before{content:'Внимание'}
-.msg-info .msg_text::before{content:'Для активации бонусной карты, заполните эту форму!'}
 .details{color:#FF5722}
 .city .mdl-selectfield__box,.delivery .mdl-selectfield__box,.region .mdl-selectfield__box{z-index:0}
 .products_list_item{display:flex;padding-top:10px;padding-bottom:10px;justify-content:space-between;width:100%;background:#fff;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}

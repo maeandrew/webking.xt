@@ -1827,7 +1827,7 @@ table.kontrag.table{
 		font-weight: normal;
 	}
 	.customer_cab .add_new_address, 
-	.customer_cab .edit_contacts_block, #bonus {
+	.customer_cab .edit_contacts_block, #bonus .bonus_content {
 		padding: 0px 15px 15px 15px;
 		margin-top: 1em;
 		background: #fff;
@@ -1835,7 +1835,7 @@ table.kontrag.table{
 	    float: left;
 	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	}
-	.customer_cab .edit_contacts_block, #bonus {
+	.customer_cab .edit_contacts_block, #bonus .bonus_content {
 		width: 330px;
 	}
 	#bonus .fright {
@@ -2304,15 +2304,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 #products .ordersProdList .ordersProdListContent .note .priceTitle:first-child {
 	font-weight: bold;
 }
-#bonus { 
-	/*margin-right: 10px;*/
-	/*padding: 0px 15px 15px 15px;
-    margin-top: 1em;
-    background: #fff;
-    width: 330px;
-    float: left;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);*/
-}
 .buttons_cab {
     width: 110px;
 }
@@ -2320,9 +2311,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 .bonus_info {
 	width: 330px;
 }
-#bonus {
+/*#bonus {
 	margin-top: 0px;
-}
+}*/
 /* Стили для блоков оповещения в разделе дисконта */
 /*[class^="msg-"] {  
   background-repeat: no-repeat;
@@ -2352,48 +2343,43 @@ div[id^="items_panel_"] .btnWrapFlex {
   width: 110%;
   margin-left: -15px;
 }*/
-.msg-success .msg_title::before {
-  content: 'Успех';
-}
-.msg-success .msg_text::before {
-  content: 'Сообщение про что то  что должно тут быть и возможно появится';
-}
+
 /*.msg-error {
   color: #d82114;
   background-color: #ffa3a6;	
   width: 110%;
   margin-left: -15px;
 }*/
-.msg-error .msg_title::before {
+/* .msg-error .msg_title::before {
   content: 'Ошибка';
 }
 .msg-error .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
-}
+} */
 /*.msg-attention {
   color: #9a5c01;
   background-color: #fdec9b;
   width: 110%;
   margin-left: -15px;
 }*/
-.msg-attention .msg_title::before {
+/* .msg-attention .msg_title::before {
   content: 'Внимание';
 }
 .msg-attention .msg_text::before {
   content: 'Сообщение про что то  что должно тут быть и возможно появится';
-}
+} */
 /*.msg-info {
   color: #33439c;
   background-color: #b2ddff;
   width: 110%;
   margin-left: -15px;
 }*/
-.msg-info .msg_title::before {
+/* .msg-info .msg_title::before {
   content: 'Внимание';
 }
 .msg-info .msg_text::before {
   content: 'Для активации бонусной карты, заполните эту форму!';
-}
+} */
 .details {
 	color: #FF5722;
 }

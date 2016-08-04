@@ -98,7 +98,8 @@
 				</li>
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>">
 					<a name="t" value="change_bonus" class="<?=isset($_GET['t']) && $_GET['t'] == 'change_bonus'?'active':null;?>" href="<?=Link::Custom('cabinet', 'bonus', array('clear' => true))?>?t=change_bonus">
-						<?=isset($Customer['bonus_card']) ? 'Смена бонусной карты' : 'Активация бонусной карты';?>
+						<?=!empty($_SESSION['member']['bonus']['bonus_card']) ? 'Смена бонусной карты' : 'Активация бонусной карты';?>
+
 					</a>
 				</li>
 			</ul>
