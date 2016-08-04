@@ -217,6 +217,7 @@ class Customers extends Users {
 			return false; //Если не удалось записать в базу
 		}
 		$this->db->CompleteTrans();
+		$this->SetSessionCustomerBonusCart($_SESSION['member']['id_user']);
 		return true;//Если все ок
 	}
 	public function updateBonus($card){
@@ -231,6 +232,7 @@ class Customers extends Users {
 			return false; //Если не удалось записать в базу
 		}
 		$this->db->CompleteTrans();
+		$this->SetSessionCustomerBonusCart($_SESSION['member']['id_user']);
 		return true;//Если все ок
 	}
 
