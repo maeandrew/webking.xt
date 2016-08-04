@@ -3648,6 +3648,8 @@ canvas[id^=chart_]{
 #seoTextBlock * {
 	font-weight: normal !important;
 	color: #9E9E9E !important;
+	background: #f3f3f3 !important;
+	text-align: left !important;
 }
 #seoTextBlock p {
 	width: 100%;
