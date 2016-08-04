@@ -14,27 +14,27 @@
 			<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="name" class="mdl-textfield__label">Фамилия:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+			<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="middle_name" class="mdl-textfield__label">Имя:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+			<label for="first_name" class="mdl-textfield__label">Имя:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="last_name" class="mdl-textfield__label">Отчество:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+			<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="label_for_gender" for="gender">Пол:</label>
 			<div id="gender">
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="male">
+				<label class="mdl-radio mdl-js-radio" for="male">
 					<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="male" value="male">Мужской
 				</label> &nbsp;&nbsp;
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="female">
+				<label class="mdl-radio mdl-js-radio" for="female">
 					<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="female" value="female">Женский
 				</label>
 			</div>
@@ -53,7 +53,6 @@
 						var month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],
 							customer_month = $('#customer_month').val(),
 							temp;
-							console.log(customer_month);
 
 						for (var i = 0; i < month.length; i++) {
 							temp = ((i<9)?'0'+(i+1):(i+1));										
@@ -73,10 +72,6 @@
 			</div>
 		</div>
 		<div class="errMsg_js"></div>
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="address" class="mdl-textfield__label">Адрес:</label>
-			<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
-		</div>
 		<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 	</form>
 </div>

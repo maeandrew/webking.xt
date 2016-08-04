@@ -1,0 +1,5 @@
+.login_page .line{margin-bottom:10px;clear:both;overflow:hidden;position:relative}
+.login_page .line input{float:right;width:100%}
+.login_page .line .login_block{float:left}
+.login_page .line .login_block a{display:block}
+.login_page .lgn_form div.line{text-align:center}

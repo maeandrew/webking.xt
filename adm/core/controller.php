@@ -29,6 +29,12 @@ $sql = "SELECT COUNT(id_coment) AS cnt_c
 $res = $db->GetOneRowArray($sql);
 $tpl->Assign("commentCount", $res['cnt_c']);
 
+// guestbook count
+$sql = "SELECT COUNT(id) AS cnt_c
+		FROM "._DB_PREFIX_."guest_book";
+$res = $db->GetOneRowArray($sql);
+$tpl->Assign("commGuestBookCount", $res['cnt_c']);
+
 // duplicates count
 $sql = "SELECT COUNT(id_product) AS cnt_d
 		FROM "._DB_PREFIX_."product
@@ -64,13 +70,6 @@ $GLOBALS['__center'] = $tpl_center;
 $GLOBALS['__sidebar_l'] = $tpl_sidebar_l;
 $GLOBALS['__sidebar_r'] = $tpl_sidebar_r;
 // ------------------------ Для дебага
-//
-
-$products = new Products();
-$data_graph = $products->GetGraphList();
-$tpl->Assign('data_graph', $data_graph);
-$tpl_graph = $tpl->Parse($GLOBALS['PATH_tpl_global'].'graph.tpl');
-$GLOBALS['__graph'] = $tpl_graph;
 /*
   echo "title - ".strlen($GLOBALS['__page_title']);
   echo "<br>descr - ".strlen($GLOBALS['__page_description']);

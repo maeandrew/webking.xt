@@ -177,11 +177,15 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-		$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
-		$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
+		$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+		$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 		for($i=0; $i<=3; $i++){
 			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
 			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
+			$arr['base_prices_opt'][$i] = round($arr['price_opt']* $base_coef_price_opt[$i], 2);
+			$arr['base_prices_mopt'][$i] = round($arr['price_mopt']* $base_coef_price_mopt[$i], 2);
 		}
 		$arr['categories_ids'] = $this->GetCatsOfProduct($arr['id_product']);
 		$this->fields = $arr;
@@ -499,12 +503,16 @@ class Products {
 				".$limit;
 		}
 		$res = $this->db->GetArray($sql);
-		foreach ($res as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($res as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		if(!$res){
@@ -512,6 +520,37 @@ class Products {
 		}
 		return $res;
 	}
+	/*
+	 * Выбор категрий в которых находится искомый товар
+	 */
+	public function SetCategories4Search($and = false){
+		$where = "";
+		if($and !== FALSE && count($and)){
+			$where = " AND ";
+			foreach($and as $k=>$v){
+				if($k=='customs'){
+					foreach($v as $a){
+						$where_a[] = $a;
+					}
+				}else{
+					$where_a[] = "$k=\"$v\"";
+				}
+			}
+			$where .= implode(" AND ", $where_a);
+		}
+		$sql = "SELECT c.id_category, c.`name`, c.translit, COUNT(p.id_product) AS count
+				FROM "._DB_PREFIX_."cat_prod cp
+				LEFT JOIN "._DB_PREFIX_."category c ON c.id_category = cp.id_category
+				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = cp.id_product
+				WHERE c.sid = 1 AND c.visible = 1 AND (p.price_opt > 0 OR p.price_mopt > 0)
+				".$where."  AND p.visible = 1 GROUP BY c.`translit`";
+		$res = $this->db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
+
 	/**
 	 * [SetProductsList4csv description]
 	 */
@@ -537,7 +576,7 @@ class Products {
 	 * [SetProductsList4csvProm description]
 	 */
 	public function SetProductsList4csvProm(){
-		$sql = "SELECT p.art, p.name, p.descr, p.img_1,
+		$sql = "SELECT p.art, p.name, p.translit, p.descr, p.img_1,
 			un.unit_prom AS units, p.price_opt, p.name_index,
 			p.price_mopt, p.opt_correction_set,
 			p.mopt_correction_set, p.min_mopt_qty,
@@ -735,12 +774,16 @@ class Products {
 		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
 		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
 		//Добавляем эти значения в массив $list
-		foreach ($this->list as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($this->list as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		return true;
@@ -774,6 +817,28 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	/**
+	 * Обновляем данные графика спроса в таблице
+	 * @param $data
+	 * @return bool
+	 */
+	public function UpdateDemandChartNoModeration($data){
+		$sql = "DELETE FROM "._DB_PREFIX_."chart
+				WHERE id_chart IN(".$data['id_charts'].")";
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		unset($data['id_charts']);
+		if(!$this->AddDemandCharts($data)){
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * Добавление двух графиков (по категории)
 	 * @param [type] $data [description]
@@ -828,7 +893,10 @@ class Products {
 			$arr['id_category'] = $chart['id_category'];
 			//$arr['name_user'] = $chart['name_user'];
 			$arr['comment'] = $chart['text'];
-			$arr['moderation'] = 1;
+			$arr['moderation'] = 0;
+			if(_acl::isAllow('admin_panel')){
+				$arr['moderation'] = 1;
+			}
 			$arr['opt'] = 0;
 			if ($chart['opt'] == 1) {
 				$arr['opt'] = $chart['opt'];
@@ -866,30 +934,19 @@ class Products {
 	 * Выборка графика
 	 * @param boolean $id_category [description]
 	 */
-	public function GetGraphList($id_category = false){
-		//$id_category = $id_category?$id_category:0;
-		if(!$id_category){
-			$sql = "SELECT ch.*, u.`name` AS user_name FROM "._DB_PREFIX_."chart ch
-					LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author";
-		}elseif(is_numeric($id_category)){
-			$sql = "SELECT ch.*, u.name
-				FROM "._DB_PREFIX_."chart ch
-				JOIN "._DB_PREFIX_."user u
-				WHERE ch.id_author = u.id_user
-				AND ch.id_category = ".$id_category;
-		}else{
-			$sql = "SELECT ch.*, c.id_category
-				FROM "._DB_PREFIX_."chart ch
-				JOIN "._DB_PREFIX_."category c
-				WHERE c.id_category IN (
-					SELECT id_category
-					FROM "._DB_PREFIX_."category
-					WHERE id_category = 0
-				)";
+	public function GetGraphList($id_category = false, $id_author = false, $limit = false){
+		$where = '';
+		if($id_category || $id_author){
+			$where = 'WHERE ch.moderation = 1';
 		}
+		$where .= $id_category?' AND ch.id_category = '.$id_category:null;
+		$where .= $id_author?' AND ch.id_author = '.$id_author:null;
+		$sql = "SELECT ch.*, u.name AS user_name
+				FROM "._DB_PREFIX_."chart ch
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = ch.id_author
+				".$where."
+				ORDER BY creation_date DESC".($limit !== false?$limit:'');
 		$result = $this->db->GetArray($sql);
-		/*$result2 = $this->db->GetArray($sql2);
-		return array('graph' => $result, 'users' => $result2);*/
 		return $result;
 	}
 
@@ -904,13 +961,34 @@ class Products {
 			$values .= "ROUND(AVG(value_$i), 1) AS value_$i, ";
 		}
 		$values = substr($values, 0, -2);
-		$sql = "SELECT opt, ".$values." FROM "._DB_PREFIX_."chart
+		$sql = "SELECT COUNT(id_chart) AS count, opt, ".$values." FROM "._DB_PREFIX_."chart
 				WHERE id_category = ".$id_category." AND moderation = 1 GROUP BY opt";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
 		}
 		return $result;
+	}
+
+	/**
+	 * Выборка всех графиков по Id категории
+	 * @param $id_category
+	 * @return bool
+	 */
+	public function GetAllChartsByCategory($id_category){
+		$sql = "SELECT c.*, u.name AS name_user FROM "._DB_PREFIX_."chart c
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = c.id_author
+				WHERE c.id_category = ".$id_category." AND c.moderation = 1
+				ORDER BY c.id_chart DESC";
+		$result = $this->db->GetArray($sql);
+		if(!$result){
+			return false;
+		}
+		$res = array();
+		foreach($result as &$v){
+			$res[$v['id_author']][] = $v;
+		}
+		return $res;
 	}
 
 	/**
@@ -944,12 +1022,16 @@ class Products {
 		if(!$result){
 			return false;
 		}
-		foreach ($result as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($result as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		return $result;
@@ -1453,12 +1535,16 @@ class Products {
 		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
 		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
 		//Добавляем эти значения в массв $list
-		foreach ($this->list as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($this->list as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		return true;
@@ -2579,7 +2665,7 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetCatsOfProduct($id_product){
-		$sql = "SELECT cp.id_category, cp.main
+		$sql = "SELECT cp.id_category, cp.main, c.art
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
@@ -3147,26 +3233,24 @@ class Products {
 			return false;
 		}
 	}
+
 	/**
-	 * [GetPopularsOfCategory description]
-	 * @param [type]  $id_category [description]
-	 * @param boolean $forDisplay  [description]
+	 * @param $id_category
+	 * @param $id_product
+	 * @param bool|false $rand
+	 * @param bool|false $limit
+	 * @return mixed
 	 */
-	public function GetPopularsOfCategory($id_category, $forDisplay = false){
-		if(!$forDisplay){
-			$sql = "SELECT id_product
-				FROM "._DB_PREFIX_."popular_products
-				WHERE id_category = $id_category";
-		}else{
-			$sql = "SELECT p.id_product, pp.id_category,
-				p.name as name,
-				p.translit, p.img_1, p.price_mopt
-				FROM "._DB_PREFIX_."popular_products AS pp
-				LEFT JOIN "._DB_PREFIX_."product AS p
-				ON p.id_product = pp.id_product
-				WHERE p.price_mopt > 0
-				LIMIT ".$GLOBALS['CONFIG']['populars_on_page'];
-		}
+	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
+		$limit = $limit?' LIMIT '.$limit:null;
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
+				p.descr, (SELECT i.src FROM xt_image i WHERE i.id_product = p.id_product AND i.ord = 0) AS src, p.img_1 "
+				.(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."product p"
+				.(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
+				LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
+				WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
+				AND (p.price_opt>0 OR p.price_mopt>0) AND p.id_product <> ".$id_product." AND cp.id_category = ".$id_category.
+				(!$rand?' GROUP BY o.id_product':null)."	ORDER BY ".($rand?'RAND()':'count DESC').$limit;
 		$arr = $this->db->GetArray($sql,"id_product");
 		return $arr;
 	}
@@ -4492,7 +4576,7 @@ class Products {
 			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp">
 			<a '.(($no_rel || (!isset($GLOBALS['current_categories'])&& $GLOBALS['CurrentController'] !='product') )?'':'rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
 
-			if(!empty($l['subcats'])){
+			if(!empty($l['subcats']) && !isset($_GET['debug'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
                     $ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
                 }else{
@@ -4576,63 +4660,6 @@ class Products {
 			// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
 			// AND c.category_level <> 4
 		$res = $this->db->GetArray($sql);
-
-//		$data = array();
-//		foreach ($res as &$v){
-//			$data[$v['id_category']] = $v['category_level'];
-//		}
-
-
-//		foreach ($res as &$v){
-//			for($i=0; $i<count($data); $i++){
-//				if((next($data) == 3 && prev($data) != 3) ){
-//					$v['disabled'] = 1;
-//				} else {
-//					$v['disabled'] = 0;
-//				}
-//			}
-//		}
-
-
-
-//		echo '<pre>';
-//		print_r($data);
-//		echo '<pre>';
-//		die();
-//		$dis = array();
-//
-//		$count_data = count($data);
-//
-//		for($i=1; $i<=778; $i++){
-//			print_r(key($data));
-//			if((next($data) == 3 && prev($data) != 3)){
-//				$dis[key($data)] = 1;
-//			} else {
-//				$dis[key($data)] = 0;
-//			}
-//		}
-
-//		for(reset($data); $k=key($data); next($data) )
-//		{
-//			if ((next($data) == 3 && prev($data) != 3)  || current($data) == '1'){
-//				$dis[key($data)] = 1;
-//			}
-//			else {
-//				$dis[key($data)] = 0;
-//			}
-////			echo 'current level: ' . $data[$k] . ' ';
-////			echo 'next level: ' . next($data) . '<br/>';
-//			prev($data);
-//		}
-
-
-
-//		echo '<pre>';
-//		print_r($dis);
-//		echo '<pre>';
-//
-//		die();
-
 		return $res;
 	}
 
@@ -4814,7 +4841,9 @@ class Products {
 
 	public  function GetNopriceProducts($limit = false){
 		$sql = "SELECT id_product, `name`, translit, price_mopt, price_opt FROM "._DB_PREFIX_."product
-				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1".($limit !== false?$limit:'');
+				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1
+				ORDER BY price_opt
+				".($limit !== false?$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

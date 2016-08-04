@@ -65,7 +65,7 @@
 	<?if(isset($css_arr)){
 		$tmpstr = '<link href="'.$GLOBALS['URL_css'].'%s" rel="stylesheet" type="text/css"/>'."\n";
 		foreach($css_arr as $css){
-			if(substr($css, -9) == "style.css"){
+			if(substr($css, -9) == "style.css" || substr($css, -13) == "style.min.css"){
 				$css .= "?".date("v=dHi");
 			}
 			echo sprintf($tmpstr, $css);
@@ -154,19 +154,19 @@
 	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
 		<section class="banner">
 			<div class="cont">
-				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>">
+				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 						<h3>Снабжение<br> предприятий</h3>
 					</span>
 				</a>
-				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>">
+				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 						<h3>Поставки<br> магазинам</h3>
 					</span>
 				</a>
-				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>">
+				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
 					<span class="text_block">
 						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 						<h3>Обеспечение<br> быта</h3>
@@ -176,14 +176,6 @@
 		</section>
 	<?}?>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
-		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
-			<div class="panel_container panel_container_js">
-				<?=$__sidebar_l?>
-			</div>
-			<div class="catalog_close btn_js" data-name="catalog">
-				<i class="material-icons" title="Закрыть каталог">close</i>
-			</div>
-		</aside>
 		<section class="center">
 			<style>
 				#last_orders_count {
@@ -202,18 +194,18 @@
 							<div class="sort imit_select">
 								<span>Сортировать:</span>
 								<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList();">
+									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
 										<?foreach($available_sorting_values as $key => $alias){ ?>
 											<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
 										<?}?>
 									</select>
 								</div>
 
-								<!-- <a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a> 
+								<!-- <a href="#" class="graph_up hidden" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
 								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-									<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js one" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
 								<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-									<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
+									<a href="#" class="show_demand_chart_js two" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
 								<?}?>
 								-->
 							</div>
@@ -263,17 +255,20 @@
 				<div class="last_news"> 				
 					<div class="last_news_title">
 						<h4>Последние новости</h4>
-						<a href="<?=Link::Custom('news');?>" class="min news_more mdl-button mdl-js-button mdl-js-ripple-effect">Все новости</a>
+						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="min news_more mdl-button mdl-js-button">Все новости</a>
 					</div>
 					<div class="xt_news">
 						<?foreach($news as $item){?>
 							<div class="news_item">
 								<div class="news_image">
 									<?if(isset($item['thumbnail'])){?>
-										<img src="<?=$item['thumbnail'];?>" alt="<?=$item['title']?>">
+										<img alt="<?=G::CropString($item['title'])?>" class="lazy" data-original="<?=$item['thumbnail'];?>"/>
+										<noscript>
+											<img alt="<?=G::CropString($item['title'])?>" src="<?=$item['thumbnail'];?>"/>
+										</noscript>
 									<?}?>
 								</div>
-								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>">
+								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
 									<h6 class="min news_title"><?=$item['title']?></h6>
 								</a>
 								<div class="min news_description"><?=$item['descr_short']?></div>
@@ -290,7 +285,7 @@
 										}?>
 										</p>
 									</div>
-									<a href="<?=Link::Custom('news', $item['translit']);?>" class="mdl-button mdl-js-button mdl-js-ripple-effect">Читать далее</a>
+									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button">Читать далее</a>
 								</div>
 							</div>
 						<?}?>	
@@ -303,14 +298,33 @@
 						<?=$seotext?>
 					</div>
 				</div>
+			<?}elseif (isset($GLOBALS['descr_for_seo'])) {?>
+				<div class="mdl-grid">
+					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
+						<?=$GLOBALS['descr_for_seo']?>
+					</div>
+				</div>
 			<?}?>
+
+			
 		</section>
 		<div id="canvas_mark_wrapper">
 			<canvas id="err_canvas" width="10" height="10"></canvas>
 		</div>
+		<aside id="catalog" <?=(!in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar']) || G::isMobile())?'data-type="panel" data-position="left"':null?>>
+			<div class="panel_container panel_container_js">
+				<?=$__sidebar_l?>
+			</div>
+			<div class="catalog_close btn_js" data-name="catalog">
+				<i class="material-icons" title="Закрыть каталог">close</i>
+			</div>
+		</aside>
 	</section>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
-		<p>Сообщите нам об ошибке</p>
+		<div class="err_msg_descr_wrap">
+			<div class="err_msg_descr">Если у Вас возникли проблемы при работе с нашим сайтом</div>
+			<div class="err_msg_btn">cообщите нам об ошибке</div>			
+		</div>
 	</div>
 	<!-- message about error -->
 	<div class="err_msg_as_wrap">
@@ -325,7 +339,7 @@
 						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
 						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
 					</div>
-					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="screenShotBox">
+					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox" for="screenShotBox">
 						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
 						<span class="mdl-checkbox__label">Добавить снимок экрана</span>
 					</label>
@@ -333,14 +347,14 @@
 						<div id="savedCopyContainer">
 							<img id="savedImageCopy" src="">
 						</div>
-						<div class="tools_wrapp_js tools_wrapp">
+						<div class="tools_wrapp_js tools_wrapp mdl-cell--hide-tablet mdl-cell--hide-phone">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
 							<div class="mdl-tooltip" for="go_to_canvas_toolbar">Выделить или затушевать нужную информацию</div>
 							<i id="img_zoom" class="material-icons img_zoom_js">zoom_in</i>
 							<div class="mdl-tooltip" for="img_zoom">Увеличить изображение</div>
 						</div>
 					</div>
-					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отправить</div>
+					<div class="err_msg_as_send err_msg_as_send_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отправить</div>
 				</form>
 			</div>
 		</div>
@@ -355,24 +369,24 @@
 		<!-- Доработать функционал ластика 
 		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
-		<button class="canvasReady canvasReady_js mdl-button mdl-js-button mdl-js-ripple-effect">Готово</button>
-		<button class="canvasClear canvasClear_js mdl-button mdl-js-button mdl-js-ripple-effect">Очистить</button>
+		<button class="canvasReady canvasReady_js mdl-button mdl-js-button">Готово</button>
+		<button class="canvasClear canvasClear_js mdl-button mdl-js-button">Очистить</button>
 		<i class="close_canvas_toolbar_js close_canvas_toolbar material-icons">clear</i>
 	</div>
 	<div class="waiting_block_for_img_canvas_js waiting_block_for_img_canvas">
 		Подождите, формируется скриншот страницы...
 	</div>
-	<footer class="mdl-mega-footer mdl-color--grey-100">
-		<div class="footer_wrapp">
+	<footer class="mdl-mega-footer">
+		<div class="footer_wrap">
 			<div class="mdl-mega-footer__left-section">
 				<div class="questions">
 					<h5>Навигация</h5>
 					<ul>
-						<li><a href="<?=Link::Custom('main', null)?>">Главная</a></li>
+						<li><a href="<?=Link::Custom('main', null)?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Главная</a></li>
 						<?foreach($list_menu as $menu){?>
-							<li><a href="<?=Link::Custom('page', $menu['translit']);?>"><?=$menu['title']?></a></li>
+							<li><a href="<?=Link::Custom('page', $menu['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$menu['title']?></a></li>
 						<?}?>
-						<li><a href="<?=Link::Custom('price');?>">Прайс-лист</a></li>
+						<li><a href="<?=Link::Custom('price');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Прайс-лист</a></li>
 					</ul>
 				</div>
 				<div class="contacts">
@@ -394,12 +408,12 @@
 					</div>
 					<div class="social hidden">
 						<ul>
-							<li><a href="https://vk.com/xt_ua" target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
-							<li><a href="http://ok.ru/group/54897683202077" target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
-							<li><a href="https://plus.google.com/+X-torg/" target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
-							<li><a href="https://www.facebook.com/KharkovTorg" target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
-							<li><a href="https://twitter.com/we_xt_ua" target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
-							<li><a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank" class="y_t" title="Yuotube"><img src="<?=$GLOBALS['URL_img_theme']?>youtube.svg" alt="Yuotube"></a></li>
+							<li><a href="https://vk.com/xt_ua" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
+							<li><a href="http://ok.ru/group/54897683202077" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
+							<li><a href="https://plus.google.com/+X-torg/" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
+							<li><a href="https://www.facebook.com/KharkovTorg" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
+							<li><a href="https://twitter.com/we_xt_ua" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
+							<li><a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="y_t" title="Yuotube"><img src="<?=$GLOBALS['URL_img_theme']?>youtube.svg" alt="Yuotube"></a></li>
 						</ul>
 					</div>
 				</div>
@@ -423,12 +437,14 @@
 						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 					<?}?>
 				<?}else{?>
-					<img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300">
+					<!-- <img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300"> -->
 				<?}?>
 			</div>
-			<div class="copyright">
+		</div>
+		<div class="copyright">
+			<div class="copyright_wrap">
 				<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
-				<!-- <p class="created">Разработано в <a href="http://webking.link/">WebKingStudio</a></p> -->
+				<!-- <p class="created">Разработано в <a href="http://webking.link/" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>WebKingStudio</a></p> -->
 			</div>
 		</div>
 	</footer>
@@ -462,7 +478,7 @@
 							<label class="mdl-textfield__label" for="estimate_file"></label>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect estimate_js">Загрузить смету</button>
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored estimate_js">Загрузить смету</button>
 						</div>
 					</div>
 				</form>
@@ -485,9 +501,9 @@
 						<span class="mdl-textfield__error"></span>
 					</div>
 					<div class="error"></div>
-					<a href="#" class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_in">Войти</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_up">Регистрация</button>
+					<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_in">Войти</button>
+					<button class="mdl-button mdl-js-button switch" data-name="sign_up">Регистрация</button>
 				</form>
 			</div>
 			<div id="sign_up" class="hidden modal_container">
@@ -534,8 +550,8 @@
 						<div id="password_error"></div>
 						<div class="error_description"></div>
 					</div>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect switch" data-name="sign_in">Вход</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
+					<button class="mdl-button mdl-js-button switch" data-name="sign_in">Вход</button>
 				</form>
 			</div>
 		</div>
@@ -543,11 +559,11 @@
 			<div class="password_recovery_container">
 				<h4>Восстановление доступа</h4>
 				<form action="#">
-					<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_mail">
+					<div><label class="mdl-radio mdl-js-radio" for="chosen_mail">
 						<input type="radio" id="chosen_mail" class="mdl-radio__button" name="recovery_method" data-value="email" checked>
 						<span class="mdl-radio__label">через Email</span>
 					</label></div>
-					<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="chosen_sms">
+					<div><label class="mdl-radio mdl-js-radio" for="chosen_sms">
 						<input type="radio" id="chosen_sms" class="mdl-radio__button" name="recovery_method" data-value="sms">
 						<span class="mdl-radio__label">по номеру телефона</span>
 					</label></div>
@@ -558,7 +574,7 @@
 							<span class="mdl-textfield__error"></span>
 						</div>
 					</div>
-					<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Продолжить</button>
+					<button id="continue" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Продолжить</button>
 				</form>
 			</div>
 		</div>
@@ -568,14 +584,14 @@
 					<i class="material-icons">check_circle</i>
 				</div>
 				<p class="info_text">Спасибо за регистрацию!<br>Для настройки своего профиля перейдите в личный кабинет.</p>
-				<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="<?=Link::Custom('cabinet')?>">Мой кабинет</a>
+				<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="<?=Link::Custom('cabinet')?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Мой кабинет</a>
 			</div>
 		</div>
 		<!-- Cart -->
 		<div id="cart" data-type="modal">
 			<h4 class="title_cart">Корзина</h4>
 			<div class="clear_cart ">
-				<a onClick="removeFromCart();return false;" href="#"><span class="icon-font color-red"></span>Очистить корзину</a>
+				<a onClick="removeFromCart();return false;" href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><span class="icon-font color-red"></span>Очистить корзину</a>
 			</div>
 			<ul class="order_head mdl-cell--hide-phone">
 				<li class="photo">Фото</li>
@@ -597,6 +613,9 @@
 		<div id="demand_chart" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
+		<div id="demand_chart_msg" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
+			<div class="modal_container"></div>
+		</div>
 		<!-- Аналог alert -->
 		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
 			<div class="mdl-snackbar__text"></div>
@@ -611,29 +630,29 @@
 				<input type="hidden" name="id_product">
 				<input type="hidden" name="id_user">
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
-				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Отправить</button>
+				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
 		</div>	
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
-			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
-			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
+			<button id="replaceCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent applyBtn btn_js" data-name="cloneOrder">Заменить!</button>
+			<button id="addtoCartMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn btn_js" data-name="cloneOrder">Добавить!</button>
 		</div>
 		<div id="confirmDelOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить заказ?</h5>
-			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, удалить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
+			<button id="delOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent applyBtn">Да, удалить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn btn_js" data-name="confirmDelOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmCnclOrder" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите отменить заказ?</h5>
-			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent applyBtn">Да, отменить!</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
+			<button id="cnclOrderBtnMod" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent applyBtn">Да, отменить!</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn btn_js" data-name="confirmCnclOrder">Нет, оставить!</button>
 		</div>
 		<div id="confirmDelItem" class="modalEditOrder" data-type="modal">
 			<h5>Вы действительно хотите удалить товар из списка?</h5>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored cancelBtn_js">Отмена</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent deleteBtn_js applyBtn">Удалить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancelBtn_js">Отмена</button>
 		</div>
 		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
@@ -642,11 +661,11 @@
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>
-			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_current_pass">
+			<div><label class="mdl-radio mdl-js-radio" for="choise_current_pass">
 				<input type="radio" id="choise_current_pass" class="mdl-radio__button" name="verification" data-value="current_pass" checked>
 				<span class="mdl-radio__label">текущий пароль</span>
 			</label></div>
-			<div><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="choise_verification_code">
+			<div><label class="mdl-radio mdl-js-radio" for="choise_verification_code">
 				<input type="radio" id="choise_verification_code" class="mdl-radio__button" name="verification" data-value="verification_code">
 				<span class="mdl-radio__label">SMS на Ваш номер телефона</span>
 			</label></div>			
@@ -674,11 +693,66 @@
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
 			<p class="error_msg_js error_msg"></p>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect send_code_js hidden">Выслать код подтверждения</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_pass_js">Подтвердить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect confirm_code_js hidden">Подтвердить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised send_code_js hidden">Выслать код подтверждения</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised confirm_pass_js">Подтвердить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised confirm_code_js hidden">Подтвердить</button>
+		</div>
+		
+		<!-- Предложения / Жалобы -->
+		<div id="offers" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<h3>Предложения и пожелания</h3>
+					<p>Напишите Нам, как мы можем улучшить нашу с Вами работу</p>
+					<form action="" class="offers_form">
+						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+							<label class="mdl-textfield__label" for="offers_user_email">Email...</label>
+							<span class="mdl-textfield__error"></span>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_offers"></textarea>
+							<label class="mdl-textfield__label" for="user_offers">Ваши предложения и пожелания...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored offers_js">Отправить</button>
+				</div>
+			</div>
+		</div>
+		<div id="issue" class="content_modal_win" data-type="modal">
+			<div class="modal_container blockForForm">
+				<div class="mdl-card__supporting-text">
+					<h3>Замечания</h3>
+					<p>Сообщите нам, если у Вас есть замечания по поводу работы нашей службы снабжения.</p>
+					<p>Мы постараемся сделать нашу совместную работу максимально удобной для Вас!</p>
+					<form action="" class="issue_form">
+						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
+							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+							<label class="mdl-textfield__label" for="issue_user_email">Email...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
+						</div><br>
+						<div class="mdl-textfield mdl-js-textfield">
+							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_issue"></textarea>
+							<label class="mdl-textfield__label" for="user_issue">Введите текст...</label>
+							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
+						</div><br>
+					</form>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored issue_js">Отправить</button>
+				</div>
+			</div>
+		</div>
+		<div id="issue_result" class="issue_result_js issue_result" data-type="modal">
+			<div class="modal_container"></div>
 		</div>
 	</div>
+
 	<div class="panels"></div>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="XLS" viewBox="-467 269 24 24" style="enable-background:new -467 269 24 24;" xml:space="preserve">
@@ -769,8 +843,16 @@
 		<div class="cookie_msg cookie_msg_js">
 			<p>Для повышения удобства использования, а также хранения личных настроек на локальном компьютере и обеспечения корректной работы сайта, мы используем технологию cookie.</p>
 			<p>Кликая на кнопку "ОК" или продолжая использовать данный сайт, Вы соглашаетесь на использование этой технологии Нашей компанией.</p>
-			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">ОК</div>
+			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-button--accent">ОК</div>
 		</div>
 	</div>
-	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Наверх</div>
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
+	
+	<?if(SETT == 2){?>
+		<!-- BEGIN JIVOSITE CODE {literal} -->
+		<script type='text/javascript'>
+		(function(){ var widget_id = '0HM6lKXbYS';var d=document;var w=window;function l(){
+		var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+		<!-- {/literal} END JIVOSITE CODE -->
+	<?}?>
 </body>

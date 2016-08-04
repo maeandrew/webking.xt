@@ -119,7 +119,7 @@
 										}?>
 									</span>
 						</label>
-						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button> 
 					</div>-->
 				</div>
@@ -130,7 +130,7 @@
 					<label for="num_days" class="fleft">Количество дней (от 10 до 90):
 						<input type="number" name="num_days" id="num_days" min="10" max="90" value="90" pattern="[0-9]{2}"/>
 					</label>
-					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 				</form> -->
 			</div>
 			<div class="excelBlock">
@@ -175,9 +175,8 @@
 		<div class="col-md-12">
 			<div class="switch_price_container">
 				<span>Единая цена</span>
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch_price">
-					<input type="checkbox" id="switch_price" class="mdl-switch__input price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
-					<span class="mdl-switch__label"></span>
+				<label for="switch_price">
+					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >					
 				</label>
 			</div>
 			<h2>Ассортимент</h2>
@@ -368,9 +367,7 @@
 				id_supplier: id_supplier,
 				inusd: inusd
 			}
-			console.log(data);
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
-				console.log(data);				
 				parent.find('.price').each(function(){
 					var mode = $(this).data('mode');
 					if(data.inusd == 1){
@@ -420,18 +417,10 @@
 	// Функция переключения "Единой цены"
 	function TogglePriceColumns(action){
 		if(action == 'On'){
-			console.log('vkl on');
-			// $('.price_1').css({
-			// 	"width": "20%"
-			// });
-			// $('th.price_1 p').text('Цена отпускная');
 			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
-			$('.price_mopt_title_js').html('Цена');
-			// $('.switcher_container').css({
-			// 	"width": "100%"
-			// });
+			$('.price_mopt_title_js').html('Цена');			
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -442,39 +431,14 @@
 					}
 				}
 			});
-		}else{
-			console.log('vkl off');
-			// $('.price_1').css({
-			// 	"width": "10%"
-			// });
-			// $('th.price_1 p').text('Цена отпускная мин. к-ва');
+		}else{			
 			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
-			$('.price_mopt_title_js').html('Цена розн.');
-			// $('.switcher_container').css({
-			// 	"width": "200%"
-			// });
+			$('.price_mopt_title_js').html('Цена розн.');			
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});
 		}
-	}
-
-	// Фиксация Заголовка таблицы
-	// $(window).scroll(function(){
-	// 		console.log($('.supplier_assort_table').offset().top - $('header').outerHeight());
-	// 	if($(this).scrollTop() >= 86){
-	// 		if(!$('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			var width = $('.table_tbody').width();
-	// 			$('.supplier_assort_table.thead').css("width", width).addClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "65px");
-	// 		}
-	// 	}else{
-	// 		if($('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			$('.supplier_assort_table.thead').removeClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "0");
-	// 		}
-	// 	}
-	// });
+	}	
 </script>

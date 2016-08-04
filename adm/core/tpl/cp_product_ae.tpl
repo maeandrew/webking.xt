@@ -3,7 +3,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="productae">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid" id="product_form">
+	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="grid" id="product_form" >
 		<div class="prod_head">
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
 				<div class="fl head_block">
@@ -12,7 +12,7 @@
 				</div>
 				<div class="fr">
 					<span><b>Наличие:</b> <?=($_POST['price_opt'] > 0 || $_POST['price_mopt'] > 0)  && $_POST['visible'] != 0?'Есть':'Нет'?></span>
-					<button name="smb_duplicate" type="submit" class="btn-m-lblue">Дублировать</button>
+					<button name="smb_duplicate" type="submit" class="btn-m-lblue duplicate_btn_js">Дублировать</button>
 					<span class="product_view"><a href="<?=$GLOBALS['URL_base'].$_POST['translit']?>.html" target="_blank">Просмотр товара</a></span>
 					<input type="hidden" name="id_product" id="id_product" value="<?=isset($_POST['id_product'])?$_POST['id_product']:0?>">
 					<button name="smb_new" type="submit" class="btn-m-default">Сохранить и создать новый</button>
@@ -366,7 +366,7 @@
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
 								<?foreach($list as $item){?>
-									<option <?=($item['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+									<option <?=(next($list)['pid'] == $item['id_category'])?'disabled':null?> <?=($item['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
@@ -698,6 +698,13 @@
 		}else{
 			$('.delcat').hide();
 		}
+
+		$('.duplicate_btn_js').on('click', function(e){
+			if(!window.confirm('Подтвердите дублирование')){
+				e.preventDefault();				
+			}
+		});
+
 		//Удаляем div выбора дополнительной категории
 		$("body").on('click', '.delcat', function(){
 			$(this).closest(".catblock").remove();
@@ -831,16 +838,13 @@
 		});
 		
 		$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
+		
 		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
 			var path = $(this).closest('.image_block');
-			console.log($(this));
 			$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
-
-			if (path.hasClass('implicit')) {
-				
+			if (path.hasClass('implicit')) {				
 				path.find('[name="images_visible[]"]').val("1");
 				path.removeClass('implicit');
-
 				// hidden_images = path.find('.image img').attr('src');
 
 				// var arr = path.closest('.previews').find('[name="hidden_images[]"]');
@@ -849,14 +853,11 @@
 				// 		$(el).remove();
 				// 	};
 				// });
-			}else{
-				
+			}else{				
 				path.find('[name="images_visible[]"]').val("0");
 				path.addClass('implicit');
-
 				// hidden_images = path.find('.image img').attr('src');
 				// path.closest('.previews').append('<input type="hidden" name="hidden_images[]" value="0">');
-
 			}
 		});
 

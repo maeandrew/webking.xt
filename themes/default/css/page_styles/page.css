@@ -5,6 +5,10 @@
 		font-weight: 100;
 		font-style: normal;
 		color: #47525d;
+		background: #fff;
+		box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+		position: relative;
+		margin-bottom: 20px;
 	}
 	#content h1 {
 		font-size: 2em;
@@ -84,6 +88,22 @@
 		max-width: 50%;
 	}
 	/*Карточка для формы*/
+		.modals .issue_result .modal_container{
+			padding: 2em;
+		}
+		.modals .issue_result .issue_ok i.material-icons,
+		.modals .issue_result .issue_err i.material-icons{
+			color: #018b06;
+			font-size: 5em;
+			margin-bottom: 0.3em;
+		}
+		.modals .issue_result .issue_err i.material-icons{
+			color: #ffa35f;
+		}
+		.modals .issue_result .info_text{
+			min-width: 300px;
+			text-align: center;
+		}
 		.modals .content_modal_win form {
 			padding: .5em;
 			margin: 0 auto;
@@ -97,6 +117,8 @@
 			text-align: center;
 			margin: 0 auto;
 			color: #3F4A58;
+			text-transform: inherit;
+			max-width: 400px;
 		}
 		.modals .content_modal_win form {
 			padding: .5em;
@@ -226,7 +248,7 @@
 			}
 			#content .page_information .btn_plus.active,
 			#content .page_payment .btn_plus.active {
-			    top: 130% !important;
+				top: 130% !important;
 			}
 			.btn_plus.active .btn_plus_sign,
 			.btn_plus--beta.active .btn_plus_sign {

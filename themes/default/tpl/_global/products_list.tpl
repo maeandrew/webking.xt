@@ -1,8 +1,13 @@
-<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
-<?switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
+<?if($GLOBALS['CurrentController'] !== 'products'){?>
+	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
+<?}?>
+<?
+$GLOBALS['descr_for_seo'] = null;
+switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
 			$Status = new Status();
+			$action = false;
 			$st = $Status->GetStstusById($item['id_product']);
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
 			// Проверяем доступнось розницы
@@ -10,6 +15,12 @@
 			// Проверяем доступнось опта
 			($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
+				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$action = true;
+				}?>
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/action2.png">
+				</div>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 					<!-- <div class="product_block"> -->
 						<div class="product_photo">
@@ -30,11 +41,7 @@
 						</div>
 						<div class="product_name p<?=$item['id_product']?>">
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
-							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
-							<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
-								<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
-								<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
-							<?}?>
+							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>							
 							<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 								<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
@@ -61,8 +68,21 @@
 					}?>
 					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<div class="buy_block">
+						<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
+								<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}else{?>
+								<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}?>
+						</div>
 						<div class="product_price">
 							<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+						</div>
+						<div class="prodBasePrices hidden">
+							<?for($i = 0; $i < 4; $i++){?>
+								<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
+								<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
+							<?}?>
 						</div>
 						<div class="prodPrices hidden">
 							<?for($i = 0; $i < 4; $i++){?>
@@ -126,7 +146,7 @@
 						</div>
 						<div class="fright service_block">
 							<!-- <p class="comment_question open_modal" data-target="comment_question">Отзывы и вопросы</p> -->
-							<button class="mdl-button mdl-js-button mdl-js-ripple-effect comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
+							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
 
 							<?if($item['available_today'] == 1){?>
 								<span class="material-icons icon-font timerIcon">timer</span>
@@ -157,11 +177,16 @@
 						</ul>
 					</div>
 				</div>
+				<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
+					<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+					<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+				<?}?>
+				<div class="clear_card"></div>
 			</div>
 		<?}	      
 	    break;
 	case _ACL_SUPPLIER_:	    	
-    	?><div class="card card_wrapper clearfix">
+    	?><div class="card card_tittle">
 			<div class="product_photo card_item">Фото товара</div>
 			<p class="product_name card_item">Наименование товара</p>
 			<div class="suplierPriceBlock headerPriceBlock">
@@ -170,9 +195,16 @@
 				<div class="count_cell card_item">Кол-во<br>в ящике</div>
 				<div class="product_check card_item">Добавить в<br>ассортимент</div>
 			</div>
+			<div class="clear_card"></div>
 		</div><?
-		foreach($list as $item){ ?>
+		foreach($list as $item){ $action = false; ?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
+				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$action = true;
+				}?>
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/action2.png">
+				</div>
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -208,23 +240,32 @@
 
 					<div class="product_check card_item">
 						<span class="suplierPriceBlockLabel">Добавить:</span>
-						<label  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox_mopt_<?=$item['id_product']?>">				
+						<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">				
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
 							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
 						</label>
 					</div>
 				</div>
+				<div class="clear_card"></div>
 			</div>
 		<?}
     	break;		
 	default:		 
     	foreach($list as $item){
 			$in_cart = false;
+			$action = false;		
+			$GLOBALS['descr_for_seo'] .= $item['descr'];
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="card" data-idproduct="<?=$item['id_product']?>">
+			<div class="card" data-idproduct="<?=$item['id_product']?>">				
+				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$action = true;
+				}?>
+				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/action2.png">
+				</div>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -235,14 +276,25 @@
 							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
 						<?}?>
 					</a>
+					<div class="add_to_fav_trend_block mdl-cell--hide-phone">
+						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
+							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
+								<i id="forfavorite_<?=$item['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span></div>
+							<?}else{?>
+								<i id="forfavorite_<?=$item['id_product']?>" class="notfavorite favorite_icon material-icons">favorite_border</i>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span></div>
+							<?}?>
+						<div id="fortrending_<?=$item['id_product']?>" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
+							<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></div>
+						<div class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
+						<div class="preview_icon_block"><div class="material-icons preview_icon">zoom_in</div></div>
+					</div>					
 				</div>
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
-					<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
-						<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
-						<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
-					<?}?>
+					
 					<div class="product_info">
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
@@ -255,8 +307,21 @@
 				</div>
 				<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 					<div class="buy_block">
+						<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
+								<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}else{?>
+								<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}?>
+						</div>
 						<div class="product_price">
 							<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+						</div>
+						<div class="prodBasePrices hidden">
+							<?for($i = 0; $i < 4; $i++){?>
+								<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
+								<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
+							<?}?>
 						</div>
 						<div class="prodPrices hidden">
 							<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
@@ -286,15 +351,50 @@
 					</div>
 					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 				</div>
-				<!-- <div class="product_info clearfix">
-					<div class="note clearfix">
-						<textarea placeholder="Примечание: "></textarea>
-						<label class="info_key">?</label>
-						<div class="info_description">
-							<p>Поле для ввода примечания к товару.</p>
-						</div>
-					</div>
-				</div> -->
+				<?if(isset($_SESSION['member']['ordered_prod']) && in_array($item['id_product'], $_SESSION['member']['ordered_prod'])){?>
+					<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
+					<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
+				<?}?>
+				<div class="clear_card"></div>
 			</div>
 		<?}
 }?>
+
+
+
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+	<div class="mdl-snackbar__text"></div>
+	<button class="mdl-snackbar__action" type="button"></button>
+</div>
+
+<script>
+	$(function(){	
+		//Инициализация добавления товара в избранное
+		$('.favorite i').click(function(e) {
+			e.preventDefault();
+			if ($(this).closest('.favorite').hasClass('added')) {
+				$(this).closest('.favorite').removeClass('added');
+				RemoveFavorite($(this).closest('.favorite').data('id-product'), $(this));
+			}else{				
+				$(this).closest('.favorite').addClass('added');
+				AddFavorite($(this).closest('.favorite').data('id-product'), $(this));
+			}
+		});
+
+		//Инициализация добавления товара в список ожидания
+		$('.waiting_list').click(function(e) {
+			e.preventDefault();
+			if ($(this).hasClass('arrow')) {
+				$(this).removeClass('arrow');
+				RemoveFromWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
+			}else{
+				$(this).addClass('arrow');
+				AddInWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
+			}
+		});
+		
+		$('.product_main_img').click(function(event) {
+			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+		});
+	});
+</script>

@@ -18,35 +18,36 @@ $s_time = G::getmicrotime();
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 /* Объявление CSS файлов */
-G::AddCSS('../themes/'.$theme.'/css/reset.css');
+G::AddCSS('../themes/'.$theme.'/css/reset.css', 0);
 // G::AddCSS('../plugins/material/material.css');
-G::AddCSS('../plugins/material/material.min.css');
-G::AddCSS('../plugins/mdl-select.min.css');
-G::AddCSS('../plugins/owl-carousel/owl.carousel.css');
-G::AddCSS('../themes/'.$theme.'/css/footer.css');
-G::AddCSS('../themes/'.$theme.'/css/style.css');
-G::AddCSS('../themes/'.$theme.'/css/header.css');
+// G::AddCSS('../plugins/material/material.min.css', 1);
+G::AddCSS('../plugins/mdl-select.min.css', 1);
+G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
+G::AddCSS('../themes/'.$theme.'/css/footer.css', 1);
+G::AddCSS('../themes/'.$theme.'/css/style.css', 0);
+G::AddCSS('../themes/'.$theme.'/css/header.css', 0);
 // G::AddCSS('../themes/'.$theme.'/css/sidebar.css');
-G::AddCSS('../themes/'.$theme.'/css/custom.css');
-G::AddCSS('../themes/'.$theme.'/css/colors.css');
+G::AddCSS('../themes/'.$theme.'/css/custom.css', 1);
+G::AddCSS('../themes/'.$theme.'/css/colors.css', 0);
 // G::AddCSS('../themes/'.$theme.'/css/d3graph.css');
-G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css');
+G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css', 1);
 /* plugins css */
 // G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
 // G::AddCSS('../plugins/icomoon/style.css');
-G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].'.css');
+G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].'.css', 0);
 /* Объявление JS файлов */
-G::AddJS('jquery-2.1.4.min.js');
+G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
-G::AddJS('jquery-ui.min.js');
+G::AddJS('jquery-ui.min.js', true, 1);
+G::AddJS('../plugins/Chart.min.js');
 // G::AddJS('../adm/js/Chart.min.js');
 //G::AddJS('d3.js');
 //G::AddJS('d3.min.js');
 //G::AddJS('../js/nutrients.csv');
 //G::AddJS('../js/nutrients.json');
-G::AddJS('../plugins/material/material.min.js');
-G::AddJS('../plugins/mdl-select.min.js');
-G::AddJS('../plugins/owl-carousel/owl.carousel.min.js');
+G::AddJS('../plugins/material/material.min.js', false, 1);
+G::AddJS('../plugins/mdl-select.min.js', true, 1);
+G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
 G::AddJS('../themes/'.$theme.'/js/func.js');
 G::AddJS('../themes/'.$theme.'/js/main.js');
 if($GLOBALS['CurrentController'] == 'cart'){
@@ -55,9 +56,9 @@ if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js', true);
 }
 /* plugins js */
-G::AddJS('../plugins/dropzone.js');
-G::AddJS('../plugins/jquery.lazyload.min.js');
-G::AddJS('../plugins/jquery.cookie.js');
+G::AddJS('../plugins/dropzone.js', true, 1);
+G::AddJS('../plugins/jquery.lazyload.min.js', false, 1);
+G::AddJS('../plugins/jquery.cookie.js', false, 1);
 // G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
 // G::AddJS('../plugins/icomoon/liga.js', true);
@@ -67,14 +68,6 @@ if($GLOBALS['CurrentController'] == 'page'){
 }
 // G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
 
-// слайдер на главной странице
-if($GLOBALS['CurrentController'] == 'main'){
-	$Slides = new Slides();
-	$Slides->SetFieldsBySlider('main');
-	$slides = $Slides->fields;
-	$tpl->Assign('main_slides', $slides);
-}
-unset($slides);
 if(in_array($GLOBALS['CurrentController'], array('promo_cart', 'promo'))){
 	G::AddJS('promo_cart.js');
 }
@@ -120,16 +113,6 @@ if(isset($_COOKIE['view_products'])){
 	$tpl->Assign('view_products_list', array_reverse($result));
 	unset($result, $product, $value);
 }
-
-// Выборка популярных товаров
-$pops = $products->GetPopularsOfCategory(0, true);
-foreach($pops AS &$pop){
-	$pop['images'] = $products->GetPhotoById($pop['id_product']);
-}
-$tpl->Assign('pops', $pops);
-unset($pops, $pop);
-// =========================================================
-
 // Обработка фильтров ======================================
 // if(isset($_POST['filters'])){
 // 	$filters[] = $_POST['filters'];
@@ -182,6 +165,7 @@ if(G::IsLogged() && !_acl::isAdmin()){
 }
 $Cart->RecalcCart();
 if(G::IsLogged()){
+	$tpl->Assign('customer', $Customer->fields);
 	$tpl->Assign('user_profile', $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl'));
 }
 require($GLOBALS['PATH_core'].'controller.php');

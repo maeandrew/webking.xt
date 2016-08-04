@@ -582,21 +582,14 @@ function ValidateName(name){
 
 /** Валидация email **/
 function ValidateEmail(email, type){
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var name = $('#regname').val();
-	var pass = $('#regpasswd').val();
-	var passconfirm = $('#passwdconfirm').val();
-	var code = $('#promo_code').val();
-	var confirmps = $('#confirmps').prop('checked');
-	var result;
-	$.ajax({
-		url: URL_base+'ajaxemailvalidate',
-		type: "POST",
-		data:({
-			"email": email,
-			"action": "validate"
-		}),
-	}).done(function(data){
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+		name = $('#regname').val(),
+		pass = $('#regpasswd').val(),
+		passconfirm = $('#passwdconfirm').val(),
+		code = $('#promo_code').val(),
+		confirmps = $('#confirmps').prop('checked'),
+		result;
+	ajax('users', 'check_email_uniqueness', {email: email}).done(function(response){
 		if(email.length == 0){
 			$('#email_error + .error_description').empty();
 			$('#regemail').removeClass().addClass("unsuccess");
@@ -609,7 +602,7 @@ function ValidateEmail(email, type){
 			error = 'Введен некорректный email';
 			$('#email_error + .error_description').append(error);
 			result = false;
-		}else if(data == "true"){
+		}else if(response == "true"){
 			$('#email_error + .error_description').empty();
 			$('#regemail').removeClass().addClass("unsuccess");
 			error = 'Пользователь с таким email уже зарегистрирован';
@@ -651,8 +644,8 @@ function ValidateEmail(email, type){
 
 /** Валидация промо-кода **/
 function ValidatePromoCode(code){
-	var fin = 0;
-	var result;
+	var fin = 0,
+		result;
 	$.ajax({
 		url: URL_base+'ajaxpromocodevalidate',
 		type: "POST",
@@ -899,9 +892,7 @@ function ListenPhotoHover(){
 			if($(this).hasClass('hovered')){
 			}else{
 				showPreview(1);
-				// console.log('enter');
 				$(this).addClass('hovered');
-				// console.log('hover');
 				rebuildPreview($(this));
 			}
 		}
@@ -910,14 +901,9 @@ function ListenPhotoHover(){
 			var mp = mousePos(e),
 				obj = $(this),
 				obj2 = $('.product_photo.hovered');
-			// console.log(mp.x+'x'+mp.y);
-			// console.log(preview.offset().left+'x'+preview.offset().top);
-			// console.log(parseFloat(preview.offset().left+preview.width())+'x'+parseFloat(preview.offset().top+preview.height()));
 			if((mp.x >= preview.offset().left && mp.x <= preview.offset().left+preview.width() && mp.y >= preview.offset().top && mp.y <= preview.offset().top+preview.height())
 				|| (obj.hasClass('hovered') && mp.x >= obj.offset().left && mp.x <= obj.offset().left+obj.width() && mp.y >= obj.offset().top && mp.y <= obj.offset().top+obj.height())){
-				// console.log('hover2');
 			}else{
-				// console.log('hide');
 				hidePreview();
 				obj.removeClass('hovered');
 			}
@@ -929,9 +915,7 @@ function ListenPhotoHover(){
 			mp = mousePos(e);
 			obj = $('.product_photo.hovered');
 			if(obj.hasClass('hovered') && mp.x >= obj.offset().left && mp.x <= obj.offset().left+obj.width() && mp.y >= obj.offset().top && mp.y <= obj.offset().top+obj.height()){
-				// console.log('hovered_back');
 			}else{
-				// console.log('hide2');
 				hidePreview();
 				obj.removeClass('hovered');
 			}
@@ -988,10 +972,8 @@ function rebuildPreview(obj){
 		marginTop += $('header').height();
 	}
 	if(pos + viewportHeight < position.top + preview.height()/2 + obj.height()/2 + marginBottom){
-		// console.log('overflow Bottom');
 		correctionBottom = position.top + preview.height()/2 + obj.height()/2 - (pos+viewportHeight) + marginBottom;
 	}else if(pos > position.top - preview.height()/2 + obj.height()/2 - marginTop){
-		// console.log('overflow Top');
 		correctionTop =  position.top - preview.height()/2 + obj.height()/2 - pos - marginTop;
 	}
 	preview.css({
@@ -1119,7 +1101,6 @@ function rebuildPreview(obj){
 			preview.find('.qty_descr').text(data.qty_descr);
 			preview.find('.info_delivery').attr('href', '/product/'+data.id_product+'/'+data.translit+'/#tabs-4');
 			$('.enter_mail').hide();
-			// console.log(data);
 		});
 	}else{
 		preview.hide();
@@ -1200,7 +1181,6 @@ function AddFavorite(event,id_product){
 			"id_product": id_product
 		}
 	}).done(function(data){
-		//console.log(data);
 		if(data.answer == 'login'){
 			// alert('Войдите или зарегистрируйтесь.');
 			event.preventDefault();
@@ -1241,7 +1221,6 @@ function AddInWaitingList(id_product,id_user,email){
 		if(data.answer_data == 'insert_ok'){
 			location.reload();
 		}
-		//console.log(data.answer);
 	});
 	return false;
 }

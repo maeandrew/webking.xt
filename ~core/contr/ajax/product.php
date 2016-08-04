@@ -178,19 +178,43 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				//echo json_encode($products->SearchDemandChart($_POST['id_chart']));
 				break;
 			case 'OpenModalDemandChart':
-				//учесть id user
-//				print_r($GLOBALS['CURRENT_ID_CATEGORY']); die();
-//				$values = $products->AvgDemandChartCategory(662);
-//				$tpl->Assign('values', $values);
-//				 $values = $products->AvgDemandChartCategory($_POST['id_category']);
-				echo json_encode($tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl'));
+				if(isset($_POST['id_category'])){
+					if($values = $products->GetGraphList($_POST['id_category'], $_SESSION['member']['id_user'])) $tpl->Assign('values', $values);
+				}
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl');
 				break;
 			case 'UpdateDemandChart':
 				if(isset($_POST['moderation'])){
 					$mode = true;
 					echo json_encode($products->UpdateDemandChart($_POST, $mode));
 				}else{
-					echo json_encode($products->UpdateDemandChart($_POST));
+					echo json_encode($products->UpdateDemandChartNoModeration($_POST));
+				}
+				break;
+			case 'ChartsByCategory':
+				if(isset($_POST['id_category'])){
+					$html = '';
+					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
+					foreach($charts as $key => $chart){
+						$isActive = isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']?'active':null;
+						$html .= '<div class="chart_item mdl-cell mdl-cell--6-col '.$isActive.'">';
+						$tpl->Assign('chart', $chart);
+						$html .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl');
+						$html .= '<div class="charts_details">';
+						$html .= '<p><span>Добавил(а):</span> '.$chart[0]['name_user'].'</p>';
+						$html .= '<p><span>Создан:</span> '.$chart[0]['creation_date'].'</p>';
+						if($chart[0]['comment'] != '') {
+							$html .= '<p><span>Комментарий:</span> '.$chart[0]['comment'].'</p>';
+						}
+						if(isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']){
+							$html .= '<div class="chart_edit chart_edit_js" data-idcategory="'.$chart[0]['id_category'].'"><i id="edit_chart" class="material-icons">edit</i><div class="mdl-tooltip" for="edit_chart">Редактировать<br>график</div></div>';
+						}
+						$html .= '</div>';
+						$html .= '</div>';
+
+						// автора, его комментарий и дату создания.
+					}
+					echo $html;
 				}
 				break;
 			case 'AddEstimate':

@@ -65,36 +65,36 @@ class Users {
 
 	public function SetUserAdditionalInfo($id_user){
 		// получаем список избранных товаров
-		$sql2 = "SELECT f.id_product
+		$sql = "SELECT f.id_product
 			FROM "._DB_PREFIX_."favorites AS f
 			WHERE f.id_user = ".$id_user;
-		$this->fields['favorites'] = $this->db->GetArray($sql2);
+		$this->fields['favorites'] = $this->db->GetArray($sql);
 		foreach($this->fields['favorites'] as $key => $value){
 			$this->fields['favorites'][$key] = $value['id_product'];
 		}
 		// получаем лист ожидания
-		$sql3 = "SELECT wl.id_product
+		$sql = "SELECT wl.id_product
 			FROM "._DB_PREFIX_."waiting_list AS wl
 			WHERE wl.id_user = ".$id_user;
-		$this->fields['waiting_list'] = $this->db->GetArray($sql3);
+		$this->fields['waiting_list'] = $this->db->GetArray($sql);
 		foreach($this->fields['waiting_list'] as $key => $value){
 			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
 		// получаем данные о личном менеджере
-		$sql4 = "SELECT ct.name_c, ct.phone
-			FROM "._DB_PREFIX_."customer cr
-			LEFT JOIN "._DB_PREFIX_."contragent ct
-			ON cr.id_contragent = ct.id_user
-			WHERE cr.id_user = ".$id_user;
-		$this->fields['contragent'] = $this->db->GetOneRowArray($sql4);
+		$sql = "SELECT ct.*
+			FROM "._DB_PREFIX_."contragent AS ct
+			LEFT JOIN "._DB_PREFIX_."customer AS c
+				ON c.id_contragent = ct.id_user
+			WHERE c.id_user = ".$id_user;
+		$this->fields['contragent'] = $this->db->GetOneRowArray($sql);
 		// получаем список товаров, которые уже были в заказе
-		$sql5 = "SELECT DISTINCT osp.id_product
-			FROM "._DB_PREFIX_."osp osp
-			LEFT JOIN "._DB_PREFIX_."order ord
-			ON osp.id_order = ord.id_order
-			WHERE (opt_qty<>0 OR mopt_qty<>0) AND
-			ord.id_customer = ".$id_user;
-		$this->fields['ordered_prod'] = $this->db->GetArray($sql5);
+		$sql = "SELECT DISTINCT osp.id_product, osp.opt_qty+osp.mopt_qty AS count
+			FROM "._DB_PREFIX_."order AS o
+			LEFT JOIN "._DB_PREFIX_."osp AS osp
+				ON osp.id_order = o.id_order
+			WHERE o.id_customer = ".$id_user."
+			HAVING (count > 0)";
+		$this->fields['ordered_prod'] = $this->db->GetArray($sql);
 		foreach($this->fields['ordered_prod'] as $key => $value){
 			$this->fields['ordered_prod'][$key] = $value['id_product'];
 		}
@@ -359,35 +359,6 @@ class Users {
 		return $id_user1;
 	}
 
-	public function ValidateEmail($email){
-		$sql = "SELECT *
-			FROM "._DB_PREFIX_."user
-			WHERE email = '".$email."'";
-		if(count($this->db->GetArray($sql)) == 0){
-			return true;
-		}
-		return false;
-	}
-
-	// Update password for user
-	/*public function UpdateAllUserPass(){
-		$newpwd = 0123;
-
-		$sql = "UPDATE "._DB_PREFIX_."user
-				SET passwd = \"".md5($newpwd)."\"";
-		$this->db->StartTrans();
-
-		if(!$this->db->Query($sql)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-
-		var_dump($sql);
-		return $newpwd;
-
-	}*/
-
 	public function LastLoginRemember($id_user){
 		$sql = "UPDATE "._DB_PREFIX_."user
 			SET last_login_date = CURRENT_DATE()
@@ -500,14 +471,13 @@ class Users {
 	 * Если введенного номера телефона нет в базе данных, возвращает true, иначе false
 	 * @param string $phone номер телефона
 	 */
-	public function CheckPhoneUniqueness($phone, $id_user = false, $name = false){
-		$sql = "SELECT id_user, name COUNT(*) AS count
+	public function CheckPhoneUniqueness($phone, $id_user = false){
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE phone = '".$phone."'";
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			if($name) return $res;
 			return $res['id_user'];
 		}
 		return true;

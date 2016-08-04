@@ -20,12 +20,10 @@ function ModalDemandChart(id_chart){
 		componentHandler.upgradeDom();
 
 		if(id_chart != "text" && id_chart != "undefined"){
-			//console.log(id_chart);
 				//$('a').on('click', function(){
 				//var id_chart = $(this).attr('id');
 				ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
 					if(data != null){
-						//console.log(data);
 						$('#demand_chart').html(data);
 						//foo(d3.selectAll("div").text('some text'));
 
@@ -48,23 +46,17 @@ function ModalDemandChart(id_chart){
 							});
 							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_chart': id_chart, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 								if(data === true){
-									console.log('Your data has been saved successfully!');
 									closeObject('graph');
 									location.reload();
-								}else{
-									console.log('Something goes wrong!');
 								}
 							});
 						});
-					}else{
-						console.log('Something goes wrong!');
 					}
 				});
 
 
 		}else if(id_chart == 'text'){
 			openObject('demand_chart');
-			console.log(id_chart);
 			//if ($(this).is('.Add_graph_up')) {
 				$('#demand_chart').on('click', '.btn_js.save', function(){
 					var parent =  $(this).closest('#demand_chart'),
@@ -90,11 +82,8 @@ function ModalDemandChart(id_chart){
 						'opt': opt
 					}).done(function(data){
 						if(data === true){
-							console.log('Your data has been saved successfully!');
 							closeObject('graph');
 							location.reload();
-						}else{
-							console.log('Something goes wrong!');
 						}
 					});
 				});
@@ -117,11 +106,8 @@ function ModalDemandChart(id_chart){
 				});
 				ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 					if(data === true){
-						console.log('Your data has been saved successfully!');
 						closeObject('graph');
 						location.reload();
-					}else{
-						console.log('Something goes wrong!');
 					}
 				});
 			});

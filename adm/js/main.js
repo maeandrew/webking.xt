@@ -66,7 +66,6 @@ $(function(){
 		if(tag_level !== ''){
 			var cat = $('input#id_category').val();
 			var tag_level_name = $('.levelrow.row'+tag_level+' .tag_level_name input').val();
-			console.log(tag_level_name);
 			$.ajax({
 				url: URL_base+'ajaxcattags',
 				type: "POST",
@@ -79,8 +78,6 @@ $(function(){
 			}).done(function(){
 				location.reload();
 			});
-		}else{
-			console.log('error!!!');
 		}
 	});
 
@@ -158,8 +155,6 @@ $(function(){
 			}).done(function(){
 				location.reload();
 			});
-		}else{
-			console.log('error!!!');
 		}
 	});
 
@@ -167,7 +162,6 @@ $(function(){
 	$('.tagrow a.addapply').click(function(event){
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
-		console.log(rowid);
 		if(Validate(rowid)){
 			var cat = $('input#id_category').val();
 			var tag_name = $('.tagrow.row'+rowid+' input#tag_name').val();
@@ -188,8 +182,6 @@ $(function(){
 			}).done(function(){
 				location.reload();
 			});
-		}else{
-			console.log('error!!!');
 		}
 	});
 
@@ -273,9 +265,7 @@ $(function(){
 		}
 		if ($(this).is(':checked')) {
 			moderation = 1;
-			//console.log($(this).is(':checked'));
 		}
-		//console.log(id);
 		$.ajax({
 			url: URL_base+'ajaxproducts',
 			type: "POST",
@@ -285,12 +275,9 @@ $(function(){
 				'action': 'UpdateDemandChart',
 				'moderation': moderation, 'id_chart': id, 'mode': mode
 			}
-		}).done(function(data){
-			console.log(data);
 		});
 	});
 	$('.permissions .controller').on('click', 'input.all', function(){
-		console.log($(this).is(':checked'));
 		$(this).closest('.controller').find('input').prop('checked', $(this).is(':checked'));
 	});
 });

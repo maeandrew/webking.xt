@@ -26,8 +26,8 @@ class Contragents extends Users{
 		$sql = "SELECT ".implode(", ",$this->usual_fields).",
 			(SELECT COUNT(*) FROM "._DB_PREFIX_."rating AS r WHERE r.id_contragent = c.id_user) AS like_cnt
 			FROM "._DB_PREFIX_."contragent AS c
-			WHERE c.id_user = \"$id\"
-			$active";
+			WHERE c.id_user = ".$id."
+			".$active;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
@@ -145,12 +145,9 @@ class Contragents extends Users{
 		// user
 		$arr['gid'] = _ACL_CONTRAGENT_;
 
-		$this->db->StartTrans();
-		if (!$User->AddUser($arr)){
-			$this->db->FailTrans();
+		if(!$id_user = $User->AddUser($arr)){
 			return false;
 		}
-		$id_user = $this->db->GetLastId();
 		unset($f);
 		// user
 
@@ -162,7 +159,8 @@ class Contragents extends Users{
 		$f['phones'] = trim($arr['phones']);
 		$f['remote'] = trim($arr['remote']);
 
-		if (!$this->db->Insert(_DB_PREFIX_.'contragent', $f)){
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'contragent', $f)){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();
 			return false;
@@ -384,7 +382,7 @@ class Contragents extends Users{
 		return $arr;
 	}
 
-    public function GetContragentOrders($order_by='o.creation_date desc', $target, $id_contragent, $limit = false){
+    public function GetContragentOrders($order_by='o.creation_date desc', $target, $id_contragent, $limit = false, $order_number = false){
         // *****************************************************************В работе
         $date = time()-3600*24;
         $date2 = time()-3600*24*30;//echo time()-3600*24*10;
@@ -414,7 +412,7 @@ class Contragents extends Users{
 				ON c.id_user = o.id_contragent
 			WHERE o.id_order_status <> 7
 			AND (o.id_contragent = '".$id_contragent."' OR o.id_customer = '".$id_contragent."')
-			AND o.creation_date > '".$date2."'
+			AND o.creation_date > '".$date2."'".($order_number?$order_number:null)."
 			GROUP BY id_order
 			ORDER BY ".$order_by.
 			($limit?$limit:null);

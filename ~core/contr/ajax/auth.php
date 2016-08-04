@@ -33,6 +33,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									$echo['member'] = $_SESSION['member'];
 									$echo['err'] = 0;
 
+									if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+										$customer = new Customers();
+										$customer->SetSessionCustomerBonusCart($User->fields['id_user']);
+									}
 								}else{
 									$echo['msg'] = 'Неверный email или пароль.';
 									$echo['err'] = 1;
@@ -56,8 +60,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// Если все ок с валидацией
 				if(!$err){
 					$User = new Users();
-					// проверяем уникальность введенного e-mail
-					if($User->ValidateEmail($_POST['email'])){
+					// проверяем уникальность введенного e-mail и телефона
+					$unique_email = $User->CheckEmailUniqueness($_POST['email']);
+					if($unique_email !== true) {
+						$err = 1;
+						$echo['errm']['email'] = 'Пользователь с таким email уже зарегистрирован!';
+					}
+					$unique_phone = $User->CheckPhoneUniqueness($_POST['phone']);
+					if($unique_phone !== true) {
+						$err = 1;
+						$echo['errm']['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
+					}
+					if($unique_email === true && $unique_phone  === true){
 						$_POST['address_ur'] = "";
 						$_POST['descr'] = "";
 						$Customers = new Customers();
@@ -75,9 +89,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$echo['err'] = 1;
 							$echo['msg'] = 'Ой, что-то пошло не так';
 						}
-					}else{
-						$echo['err'] = 1;
-						$echo['errm']['email'] = 'Введен некорректный email';
 					}
 				}else{
 					$echo['err'] = 1;
@@ -106,7 +117,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
 									<span class="mdl-textfield__error"></span>
 								</div>
-								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Восстановить</button>';
 						}
 						break;
 					case 'sms':
@@ -123,7 +134,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									<label class="mdl-textfield__label" for="recovery_code">Введите код</label>
 									<span class="mdl-textfield__error"></span>
 								</div>
-								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Восстановить</button>';
+								<button id="restore" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Восстановить</button>';
 						}
 						break;
 				}
@@ -141,7 +152,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['msg'] = 'Введен неверный код.';
 				}else{
 					$res['success'] = true;
-					$res['content'] = '<div id="sub_password_recovery" class="forPassStrengthContainer_js"><div><input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$_POST['id_user'].'"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_passwd" id="passwd" required><label class="mdl-textfield__label" for="new_pass">Новый пароль:</label><span class="mdl-textfield__error"></span></div></div><div class="passStrengthContainer_js"><p class="ps_title">надежность пароля</p><div class="ps"><div class="ps_lvl ps_lvl_js"></div></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="passwdconfirm" id="passwdconfirm"><label class="mdl-textfield__label" for="new_pass_one_more">Подтверждение нового пароля:</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Подтвердить</button></div>';
+					$res['content'] = '<div id="sub_password_recovery" class="forPassStrengthContainer_js"><div><input class="mdl-textfield__input" type="hidden" id="id_user" value="'.$_POST['id_user'].'"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="new_passwd" id="passwd" required><label class="mdl-textfield__label" for="new_pass">Новый пароль:</label><span class="mdl-textfield__error"></span></div></div><div class="passStrengthContainer_js"><p class="ps_title">надежность пароля</p><div class="ps"><div class="ps_lvl ps_lvl_js"></div></div></div><div><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><input class="mdl-textfield__input" type="password" name="passwdconfirm" id="passwdconfirm"><label class="mdl-textfield__label" for="new_pass_one_more">Подтверждение нового пароля:</label><span class="mdl-textfield__error"></span></div></div><button id="confirm_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Подтвердить</button></div>';
 				}
 				echo json_encode($res);
 				break;

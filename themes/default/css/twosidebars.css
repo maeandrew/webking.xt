@@ -1,8 +1,0 @@
-.center_wrap {
-	width: calc(100% - 630px);
-}
-@media (max-width:1400px) {
-	.center_wrap {
-		width: calc(100% - 315px);
-	}
-}

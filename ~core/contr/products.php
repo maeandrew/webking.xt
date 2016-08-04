@@ -36,9 +36,9 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$referer = explode('/',str_replace('http://', '', $_SERVER['HTTP_REFERER']));
 	$tpl->Assign('referer', $referer);
 }
-if(!isset($referer[2]) || $referer[2] != $id_category){
+if((!isset($referer[2]) || $referer[2] != $id_category) && !isset($_GET['query'])){
 	unset($_SESSION['filters']);
-	unset($_SESSION['search']);
+	//unset($_SESSION['search']);
 }
 if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
@@ -312,6 +312,13 @@ foreach($res as $cat){
 	// }
 	// =========================================================
 	$time_start = microtime(true);
+
+	// Еслли переходим в категорию из поискового запроса
+	if(isset($_GET['query'])&&isset($_GET['search_subcategory'])&& is_numeric($_GET['search_subcategory'])){
+		$where_search['customs'][] =  $_SESSION['search']['arr_prod'];
+		$where_search['customs'][] =  'cp.id_category = '.$_GET['search_subcategory'];
+	}
+
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -320,7 +327,9 @@ foreach($res as $cat){
 		if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
 			$_GET['page_id'] = $GLOBALS['Page_id'];
 		}
-		if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
+		if(isset($where_search)){
+			$cnt = $products->GetProductsCnt($where_search);
+		}elseif(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
 		}else{
 			$cnt = $products->GetProductsCnt($where_arr);
@@ -342,7 +351,13 @@ foreach($res as $cat){
 	// echo "execution time <b>$time</b> seconds\n<br>";
 
 	$time_start = microtime(true);
-	// Получение массива товаров ===============================
+
+	// Еслли переходим в категорию из поискового запроса
+	if(isset($where_search)){
+		$list_prod_search = $products->SetProductsList4Search($where_search, $limit, 0, array(isset($orderby)?$orderby:null));
+	}
+
+// Получение массива товаров ===============================
 	$GET_limit = "";
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
@@ -366,7 +381,7 @@ foreach($res as $cat){
 			$p['images'] = $products->GetPhotoById($p['id_product']);
 		}
 	}
-	$tpl->Assign('list', $products->list);
+	$tpl->Assign('list', isset($list_prod_search)?$list_prod_search:$products->list);
 
 	// =========================================================
 // }
@@ -376,16 +391,16 @@ foreach($res as $cat){
 // }
 // print_r($template.'products_list.tpl');
 // var_dump($template); die();
-$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
-$tpl->Assign('products_list', $products_list);
+$tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl'));
+
+// Вывод графика по категории
+$chart = $products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
+$tpl->Assign('chart', $chart);
+$tpl->Assign('chart_html', $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl'));
+$tpl->Assign('chart_details', ($chart[0]['count'] < 2 || $chart[1]['count'] < 2));
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$products->FillAssort($_SESSION['member']['id_user']);
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
-		// 'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_assortiment.tpl')
-	);
 }elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_MANAGER_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
@@ -412,17 +427,15 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 		}
 	}
 	$tpl->Assign('warehouse', $prods);
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
-	);
 }else{
 	$_SESSION['price_mode'] = 3;
-	$parsed_res = array(
-		'issuccess'	=> true,
-		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
-	);
 }
+
+$parsed_res = array(
+	'issuccess'	=> true,
+	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
+);
+
 // =========================================================
 
 // Установка границ цен ====================================

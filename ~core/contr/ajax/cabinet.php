@@ -102,7 +102,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$_SESSION['member']['name'] = $_POST['cont_person'];
 					$_SESSION['member']['email'] = $_POST['email'];
 					$_SESSION['member']['phone'] = $_POST['phone'];
-					if($Customers->updateCustomer($_POST)){
+					if($Customers->updateCustomer($_POST) && $Users->UpdateUser($_POST)){
 						echo json_encode('true');
 					}
 				}else{

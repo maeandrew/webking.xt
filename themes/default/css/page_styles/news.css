@@ -6,6 +6,10 @@
 }
 #content {
 	padding: 15px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	position: relative;
+	margin-bottom: 20px;
 }
 .newslist .mdl-grid {
 	padding: 0;
@@ -27,7 +31,10 @@
 .newslist .item {
 	padding: 15px;
 	cursor: default;
-	border-bottom: 1px solid #ddd;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	position: relative;
+	margin-bottom: 20px;
 }
 .newslist .animate > a {
 	max-width: 95%;

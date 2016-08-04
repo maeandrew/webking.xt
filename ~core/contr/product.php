@@ -100,12 +100,15 @@ if(!$products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
 }
 if (isset($cat)) {
 	$id_category = $cat['id_category'];
-	$similar_products = $products->GetRelatedProducts($id_product, $id_category);
-}
-if(empty($similar_products)){
+	$limit = 15;
+	//$similar_products = $products->GetRelatedProducts($id_product, $id_category);
+	$popular_products = $products->GetPopularsOfCategory($id_category, $id_product, false, $limit);
+	$random_products = $products->GetPopularsOfCategory($id_category, $id_product, true, $limit);
 	$tpl->Assign('title', 'Популярные товары');
-	$similar_products = $products->GetPopularsOfCategory($id_category, true);
+	$tpl->Assign('popular_products', $popular_products);
+	$tpl->Assign('random_products', $random_products);
 }
+
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_product.tpl')

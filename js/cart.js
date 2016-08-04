@@ -92,9 +92,10 @@ function removeFromCart(id){
 			$('#removingProd, #clearCart, #cart .clear_cart').addClass('hidden');
 			$('header .cart_item a.cart i').attr('data-badge', 0);
 			$('#cart .no_items').removeClass('hidden');
-			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block').addClass('hidden');
+			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block, #cart .msg-info, #cart .buy_more').addClass('hidden');
 			$('.in_cart_js').addClass('hidden');
 			$('.buy_btn_js').removeClass('hidden');
+
 			$.cookie('manual', 0, { path: '/'});
 
 			$('.quantity').each(function(){
@@ -122,7 +123,9 @@ function removeFromCart(id){
 			$('#in_cart_' + id).closest('.card').find('.note').addClass('hidden');
 
 			var priceOpt = $('#in_cart_' + id).closest('.product_buy').find('.priceOpt' + $.cookie('sum_range')).val();
+			var basePriceOpt = $('#in_cart_' + id).closest('.product_buy').find('.basePriceOpt' + $.cookie('sum_range')).val();
 			$('#in_cart_' + id).closest('.product_buy').find('.price').html(priceOpt);
+			$('#in_cart_' + id).closest('.product_buy').find('.base_price').html(basePriceOpt);
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$.each(data.products, function(key, value){
@@ -134,7 +137,7 @@ function removeFromCart(id){
 				ChangePriceRange(3, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
-				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart').addClass('hidden');
+				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .buy_more').addClass('hidden');
 				$.cookie('manual', 0, { path: '/'});
 			}
 		});

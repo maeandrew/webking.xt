@@ -16,6 +16,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'duplicate':
 				$cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
+				$cart->DBCart();
 				echo json_encode(true);
 				break;
 			case 'GetCartPage':
@@ -230,7 +231,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}else{
 					$tpl->Assign('unlist', false);
 				}
-
+				$tpl->Assign('promo_info', 'Информация о введенном промокоде');
 				if(isset($success)){
 					// $tpl->Assign('msg', "Заказ успешно сформирован.");
 					$_SESSION['cart']['draft'] = $draft;
@@ -357,21 +358,23 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(isset($_POST['phone'])){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					$Users = new Users();
-					$customer = $Users->CheckPhoneUniqueness($phone, false, 'select name');
-					if($customer === true){
+					$result = $Users->CheckPhoneUniqueness($phone, false);
+					if($result === true){
 						$res['status'] = true;
 						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
 										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
 										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$phone.'" value="add_and_set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Создать и прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Создать и прикрепить</button>
+										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
 					}else{
+						$customer = new Customers();
+						$customer_data = $customer->SetFieldsById($result['id_user'], 1, true);
 						$res['status'] = true;
 						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
 										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>
 										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$customer['id_user'].'" value="set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Прикрепить</button>
+										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
 					}
 				}else {
 					$res['content'] = 'Номер телефона не введен.';
@@ -446,7 +449,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							_acl::load($Users->fields['gid']);
 							$res['new_user'] = true;
 						}
-					} else {
+					}else{
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 						$res['status'] = 501;
 					}
@@ -460,6 +463,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 						$res['message'] = 'Заказ сформирован!';
 						$res['status'] = 200;
+						$_SESSION['member']['last_order'] = $id_order;
 						// $Customers->updatePhones($phone);
 					}else{
 						$res['message'] = 'Ошибка формирования заказа!';
@@ -471,7 +475,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['status'] = 501;
 				}
 				echo json_encode($res);
-
+				break;
 			case 'update_info':
 				$customers = new Customers();
 				$customers->updateInfoPerson($_POST);
@@ -500,10 +504,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode('ok');
 				break;
 			case 'DeletePromo':
+				$echo = true;
 				if(!$cart->UpdateCart(null, 0, 1, 0, $_POST['id_cart'])){
-					echo json_encode('no');
-				};
-				echo json_encode('ok');
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
+			case 'SaveOrderNote':
+				$echo = true;
+				if(!$cart->UpdateCartNote($_POST['note'])){
+					$echo = false;
+				}
+				echo json_encode($echo);
 				break;
 			default:
 				break;

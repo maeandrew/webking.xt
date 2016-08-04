@@ -1,0 +1,34 @@
+.price_list_page{clear:both}
+.subheader{line-height:50px;float:left}
+.price_list_page>div>section>label{max-width:55%}
+.price_form{top:100px;width:275px;position:absolute;background:#F5F5F5;border:1px solid #ddd;border-radius:10px;box-sizing:border-box;-moz-box-sizing:border-box;z-index:10}
+.price-params{padding:10px}
+#dynamic-params .price-form fieldset{margin-bottom:10px;padding:5px}
+.price_form .info_key+.info_description{top:25px}
+.price_form .info_key{top:35%}
+.price_form .info_description{min-width:250px}
+.price_form fieldset{margin:7px 0;padding:.5em;border:1px solid #cdcdcd;background:#fefefe;border-radius:5px}
+.price_form legend{position:relative;padding-right:25px;float:left;font-weight:700;height:20px}
+.price_form textarea{background:#fff;border:1px solid #cdcdcd;border-radius:5px;display:block;font-weight:400;font-style:normal;position:relative;z-index:99;min-height:25px;width:100%;line-height:21px;padding:5px 10px;box-sizing:border-box}
+.price_form label{float:left;clear:both}
+.price_form #margin{float:left;border:1px solid #ccc;width:40px;line-height:21px;padding:3px;border-radius:5px}
+.price_form .uncheck_all{width:250px}
+.price_form .confirm{text-decoration:none;width:250px;background:#ff5722;color:#fff}
+.price_form .confirm{margin-top:5px}
+.categories_js input,.price_form input{margin:5px;margin-left:0;border:0}
+.price_form .info,.price_form .price-counter{padding:.5em;padding-left:0}
+.price_form .variables{font-weight:700}
+.price_form .variables .value{float:right}
+label.expand{color:#009e00;cursor:pointer}
+label.expand:hover{border-bottom:1px dashed #009e00}
+.list_level1{margin-bottom:1em;margin-left:15px}
+.list_level2{margin-left:15px;height:0;overflow:hidden}
+.expand_input:checked+.list_level2{height:auto}
+.categories_js.ajax_loading:before{background-position:50% 50px}
+.categories_js .header2{font-size:15px;font-weight:700}
+.price-counter{border-top:1px solid #ddd;color:#444;box-sizing:border-box;-moz-box-sizing:border-box;z-index:1000}
+.deselect_all{width:100%;display:block;margin:0 auto;background:#fefefe;color:#ff631b}
+.btn-m{font-size:1em;line-height:1em;padding:.7em 1em}
+#dynamic-params .price-form input{float:right}
+.price-counter input.confirm{background-color:#ff631b;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.4),0 1px 0 #b56b2a,inset 0 1px 0 #ffb06b;padding:0 10px;width:100%;line-height:21px;font-weight:400;height:25px;border:none;border-radius:5px;right:50%;margin-right:-55px;text-shadow:none;-webkit-transition:none;transition:none}
+.categories_js label{width:auto}

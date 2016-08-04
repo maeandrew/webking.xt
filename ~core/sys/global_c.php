@@ -15,6 +15,14 @@ class G {
 	 * Install default Cookies
  	 */
  	public static function SetBasicCookies(){
+		if(!isset($_COOKIE['manual'])){
+			$_COOKIE['manual'] = 1;
+			setcookie('manual', $_COOKIE['manual'], 0, '/');
+		}
+		if(!isset($_COOKIE['sum_range'])){
+			$_COOKIE['sum_range'] = 0;
+			setcookie('sum_range', $_COOKIE['sum_range'], 0, '/');
+		}
 		//Установка базовой колоники цен
 		if(!isset($_COOKIE['manual'])){
 			if(!isset($_SESSION['cart']['cart_sum']) || $_SESSION['cart']['cart_sum'] == 0 || (isset($_SESSION['cart']['cart_sum']) && $_SESSION['cart']['cart_sum'] >= $GLOBALS['CONFIG']['full_wholesale_order_margin'])){
@@ -195,7 +203,10 @@ class G {
  	 * @param string $pName
  	 */
  	public static function AddCSS($pName){
- 		if(!in_array($pName, $GLOBALS['__CSS__'])){
+ 		if(SETT === 2 && !strpos($_SERVER['REQUEST_URI'], 'adm') && !strpos($pName, '.min.css') && !strpos($pName, '/plugins/')){
+			$pName = str_replace('.css', '.min.css', str_replace('/css/', '/min/css/', $pName));
+		}
+		if(!in_array($pName, $GLOBALS['__CSS__'])){
 			$GLOBALS['__CSS__'][] = $pName;
 		}
 	}
@@ -343,7 +354,6 @@ class G {
 	 */
 	public static function Loger($txt, $fname = "main.log", $mode = "a"){
 		$fp = fopen($fname, $mode);
-		print_r($txt);
 		$d = date("h:i:s d.m.Y", time());
 		fputs($fp, $d."  ".$txt."\n");
 		fclose($fp);
@@ -562,6 +572,29 @@ class G {
 		return str_pad(rand(0,str_repeat("9", $length)),$length,'0');
 	}
 	public static function metaTags($data = false){
+		$str_uniq = '';
+		if(isset($GLOBALS['Sort'])){
+			switch($GLOBALS['Sort']){
+				case 'name desc':
+					$str_uniq .= ' Сортировка по названию от Я до А.';
+					break;
+				case 'name asc':
+					$str_uniq .= ' Сортировка по названию от А до Я.';
+					break;
+				case 'price_opt desc':
+					$str_uniq .= ' Сортировка от дорогих к дешевым.';
+					break;
+				case 'price_opt asc':
+					$str_uniq .= ' Сортировка от дешевых к дорогим.';
+					break;
+				case 'popularity desc':
+					$str_uniq .= ' Сортировка по популярности.';
+					break;
+			}
+		}
+		if(isset($GLOBALS['Page_id'])){
+			$str_uniq .= ' Страница '.$GLOBALS['Page_id'].'.';
+		}
 		// meta tags
 		switch($GLOBALS['CurrentController']){
 			case 'main':
@@ -575,18 +608,18 @@ class G {
 				$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
 				break;
 			case 'page':
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_uniq);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_uniq:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			case 'news':
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_uniq);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_uniq:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			default:
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['name']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_uniq);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_uniq:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 		}
@@ -699,5 +732,61 @@ class G {
 		}
 		$db->CompleteTrans();
 		return true;
+	}
+
+	// Запись в БД отзыва от посетителей
+	public static function InsertGuestComment($arr){
+		global $db;
+		if(isset($_POST['id_user']) && $_POST['id_user'] != ''){
+			$f['id_user'] = $arr['id_user'];
+		}
+		if(isset($_POST['email']) && $_POST['email'] != ''){
+			$f['email'] = $arr['email'];
+		}
+		$f['comment'] = $arr['comment'];
+		$f['issue'] = $arr['issue'];
+		$db->StartTrans();
+		if(!$db->Insert(_DB_PREFIX_.'guest_book', $f)){
+			$db->FailTrans();
+			return false;
+		}
+		unset($f);
+		$db->CompleteTrans();
+		return true;
+	}
+
+	// Достаем данные в админку из таблицы guest_book
+	public static function GetInfoGuestBook($limit = false){
+		global $db;
+		$sql = "SELECT gb.*, u.`name`, u.phone
+				FROM "._DB_PREFIX_."guest_book gb
+				LEFT JOIN "._DB_PREFIX_."user u ON gb.id_user = u.id_user".
+				($limit?$limit:null);
+		if(!$res = $db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+
+	public static function GetImageUrl($url, $img_size = false){
+		if($img_size !== false){
+			if(strpos($url, '/original/') != false){
+				$url = str_replace('/original/', '/'.$img_size.'/', $url);
+			}else{
+				switch($img_size){
+					case 'thumb':
+						$size = '/_thumb/image/';
+						break;
+					case 'small':
+						$size = '/image/250/';
+						break;
+					case 'medium':
+						$size = '/image/500/';
+						break;
+				}
+				$url = str_replace('/image/', $size, $url);
+			}
+		}
+		return $url;
 	}
 }
