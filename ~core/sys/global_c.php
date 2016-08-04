@@ -768,26 +768,25 @@ class G {
 		return $res;
 	}
 
-	public static function GetImageUrl($url, $img_size){
-		if(strpos($url, '/original/') != false){
-			$result = str_replace('/original/', '/'.$img_size.'/', $url);
-		}else{
-			switch($img_size){
-				case 'thumb':
-					$size = 120;
-					break;
-				case 'small':
-					$size = 250;
-					break;
-				case 'medium':
-					$size = 500;
-					break;
-				default:
-				
-					break;
+	public static function GetImageUrl($url, $img_size = false){
+		if($img_size !== false){
+			if(strpos($url, '/original/') != false){
+				$url = str_replace('/original/', '/'.$img_size.'/', $url);
+			}else{
+				switch($img_size){
+					case 'thumb':
+						$size = '/_thumb/image/';
+						break;
+					case 'small':
+						$size = '/image/250/';
+						break;
+					case 'medium':
+						$size = '/image/500/';
+						break;
+				}
+				$url = str_replace('/image/', $size, $url);
 			}
-			$result = str_replace('efiles/image/', '/efiles/image/'.$size.'/', $url);
 		}
-		return $result;
+		return $url;
 	}
 }

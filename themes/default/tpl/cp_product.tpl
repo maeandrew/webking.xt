@@ -27,12 +27,12 @@
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'medium', $image['src'])?>" alt="<?=$item['name']?>">
+						<img src="<?=_base_url?><?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$item['name']?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('/image/', '/image/500/', $item['img_'.$i])?>" alt="<?=$item['name']?>">
+							<img src="<?=_base_url?><?=G::GetImageUrl($item['img_'.$i], 'medium')?>" alt="<?=$item['name']?>">
 						<?}
 					}
 				}?>
@@ -65,12 +65,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url?><?=str_replace('original', 'thumb', $image['src'])?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
+						<img src="<?=_base_url?><?=G::GetImageUrl($image['src'], 'thumb')?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url?><?=str_replace('efiles/', 'efiles/_thumb/', $item['img_'.$i])?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
+							<img src="<?=_base_url?><?=G::GetImageUrl($item['img_'.$i], 'thumb')?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
 						<?}
 					}
 				}?>
@@ -496,9 +496,9 @@
 						<div class="item">
 							<a href="<?=Link::Product($p['translit']);?>">
 								<?if(!empty($p['images'])){?>
-									<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+									<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium')?>">
 								<?}else	if(!empty($p['img_1'])){?>
-									<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+									<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>"/>
 								<?}else{?>
 									<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 								<?}?>
