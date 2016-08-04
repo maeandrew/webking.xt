@@ -537,9 +537,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
@@ -563,9 +563,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
@@ -589,9 +589,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'medium', $p['images'][0]['src'])?>">
+								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=str_replace('original', 'small', $p['images'][0]['src'])?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])?>"/>
+								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1'])?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
