@@ -28,6 +28,11 @@ if(isset($_GET['t'])){
 }else{
 	$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_bonus_info.tpl'));
 }
+if(isset($_GET['success'])){
+	$tpl->Assign('msg', array('type' => 'success', 'text' => 'Бонусная карта сохранена'));
+}elseif(isset($_GET['error'])){
+	$tpl->Assign('msg', array('type' => 'error', 'text' => 'Что-то пошло не так'));
+}
 $parsed_res = array(
 	'issuccess' => true,
 	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_bonus.tpl')
