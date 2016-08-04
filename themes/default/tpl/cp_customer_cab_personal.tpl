@@ -104,6 +104,7 @@
 				$('[name="phones"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Укажите контактный номер телефона');
 			}
 			else if(parent.find('.mdl-textfield').hasClass('is-invalid')){
+				removeLoadAnimation('#edit_contacts');
 				snackbarMsg = {message: 'Заполните поля корректно'},
 				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 			}else{
@@ -115,7 +116,7 @@
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
 						$('.date_container').css('box-shadow', 'none');
-					}else{
+					}else{						
 						for(var i in response){
 							switch(i){
 								case 'email':
