@@ -1648,70 +1648,44 @@ $(function(){
 		$.cookie('Segmentation', 2, { path: '/'});
 	});
 
-
 	// Блок кода для выделения ошибок на канвасе
-	var temp = false;	
-	$('.err_msg_as_knob_js').click(function(event){
-		if ($('.err_msg_as_js').hasClass('shown')){
-			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
-		}else{
-			$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
-		}
-		$('.err_msg_as_form_js').find('textarea').focus();
-		if(!temp){
-			temp = true;
+	var temp = false;
+	$('body').on('click', '.err_msg_as_knob_js, .screen_btn_js, .canvasReady_js', function(event){
+		if($(this).hasClass('err_msg_as_knob_js')){
+			if ($('.err_msg_as_js').hasClass('shown')){
+				$('.err_msg_as_js').removeClass('shown').css('top', '100%');
+			}else{
+				$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
+			}
+			if(!temp){
+				temp = true;
+				event.preventDefault();
+				$('#err_canvas').attr({
+					'width': $(window).outerWidth(),
+					'height': $('header').outerHeight() + $('section.main').outerHeight() + $('.phone_err_msg_js').outerHeight() + $('footer').outerHeight()
+				});
+				$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
+				$('.err_msg_as_js').removeClass('shown').css('top', '100%');
+				if ($(document).outerWidth() < 450) {
+					$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
+				}
+				GetScreenShot();
+			}
+		}else if($(this).hasClass('screen_btn_js')){
 			event.preventDefault();
+			temp = true;
 			$('#err_canvas').attr({
 				'width': $(window).outerWidth(),
 				'height': $('header').outerHeight() + $('section.main').outerHeight() + $('.phone_err_msg_js').outerHeight() + $('footer').outerHeight()
 			});
-
-			$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
-
+			$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
-			if ($(document).outerWidth() < 450) {
-				$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
-			}
-
-			var detachEl = $('.err_msg_as_js').detach(),
-				detachSnack = $('#snackbar').detach();
-			if ($(document).outerWidth() < 450){
-				$('.waiting_block_for_img_canvas_js').css('top', '0');
-				$('#header_js').css('top', '52px');
-			}else{
-				$('.waiting_block_for_img_canvas_js').css('top', '15px');
-			}
-
-			html2canvas(document.body, {
-				onrendered: function(canvas){
-					canvas.id = 'canvasImg';
-
-					var url = canvas.toDataURL("image/jpeg");
-					// window.location = canvas.toDataURL();
-
-					$('.err_msg_as_wrap').css('display', 'none');
-					$('.err_msg_as_wrap').append(detachEl);
-					$('.modals').append(detachSnack);
-					// Находим элемент <img>
-					var imageCopy = document.getElementById("savedImageCopy");
-				
-					// Отображаем данные холста в элементе <img>
-					imageCopy.src = canvas.toDataURL();
-					
-					// Показываем элемент <div>, делая изображение видимым
-					var imageContainer = document.getElementById("savedCopyContainer");
-					imageContainer.style.display = "block";
-
-					$('.err_msg_as_wrap').css('display', 'block');
-					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
-					if ($(document).outerWidth() < 450) {
-						$('#header_js').css('top', '0');
-					}
-					$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
-					$('#err_canvas').attr({'width':'20','height':'20'});
-				}
-			});
+			GetScreenShot();
+		}else if($(this).hasClass('canvasReady_js')){
+			$('.canvas_toolbar').css('display', 'none');
+			GetScreenShot();
 		}
+		$('.err_msg_as_form_js').find('textarea').focus();
 	});
 
 	$('body').on('click', '.clicked_js', function(e){
@@ -1725,71 +1699,12 @@ $(function(){
 		}
 		$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 		$('#savedImageCopy').attr('src', '');
+		$('.err_msg_as_form_js').find('textarea').focus();
 		$('#err_canvas').attr({'width':'20','height':'20'});
-	});
-
-	$('body').on('click', '.screen_btn_js', function(event){
-		event.preventDefault();
-		temp = true;
-		$('#err_canvas').attr({
-			'width': $(window).outerWidth(),
-			'height': $('header').outerHeight() + $('section.main').outerHeight() + $('.phone_err_msg_js').outerHeight() + $('footer').outerHeight()
-		});
-
-		$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
-		
-		$('.err_msg_as_js').removeClass('shown').css('top', '100%');
-
-		var detachEl = $('.err_msg_as_js').detach();
-		var detachSnack = $('#snackbar').detach();
-		// $('.waiting_block_for_img_canvas_js').removeClass('hidden');
-		if ($(document).outerWidth() < 450){
-			$('.waiting_block_for_img_canvas_js').css('top', '0');
-			$('#header_js').css('top', '52px');
-		}else{
-			$('.waiting_block_for_img_canvas_js').css('top', '15px');
-		}
-		
-		html2canvas(document.body, {
-			onrendered: function(canvas){
-				canvas.id = 'canvasImg';
-
-				var url = canvas.toDataURL("image/jpeg");
-				// window.location = canvas.toDataURL();
-
-				$('.err_msg_as_wrap').css('display', 'none');
-				$('.err_msg_as_wrap').append(detachEl);
-				$('.modals').append(detachSnack);
-				// Находим элемент <img>
-				var imageCopy = document.getElementById("savedImageCopy");
-			
-				// Отображаем данные холста в элементе <img>
-				imageCopy.src = canvas.toDataURL();
-				
-				// Показываем элемент <div>, делая изображение видимым
-				var imageContainer = document.getElementById("savedCopyContainer");
-				imageContainer.style.display = "block";
-
-				$('.err_msg_as_wrap').css('display', 'block');
-				// $('.waiting_block_for_img_canvas_js').addClass('hidden');
-				if ($(document).outerWidth() < 450){
-					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
-					$('#header_js').css('top', '0');
-					$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
-				}else{
-					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
-				}
-				
-				$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
-
-				$('#err_canvas').attr({'width':'20','height':'20'});
-			}
-		});
 	});
 
 	$('.go_to_canvas_toolbar_js').click(function(event){
 		closeObject('big_photo');
-		
 		$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 		$('.canvas_toolbar').css('display', 'block');
 		$('#err_canvas').attr({
@@ -1811,58 +1726,10 @@ $(function(){
 		openObject('big_photo');
 	});
 
-	$('body').on('click', '.canvasReady_js', function(event){
-		$('.canvas_toolbar').css('display', 'none');
-		var detachElement = $('.err_msg_as_js').detach();
-		var detachSnack = $('#snackbar').detach();
-		if ($(document).outerWidth() < 450){
-			$('.waiting_block_for_img_canvas_js').css('top', '0');
-			$('#header_js').css('top', '52px');
-		}else{
-			$('.waiting_block_for_img_canvas_js').css('top', '15px');
-		}
-
-		html2canvas(document.body, {
-			onrendered: function(canvas){
-				var url = canvas.toDataURL("image/jpeg");
-				// window.location = canvas.toDataURL();
-
-				$('.err_msg_as_wrap').css('display', 'none');
-				$('.err_msg_as_wrap').append(detachElement);
-				$('.modals').append(detachSnack);
-				// Находим элемент <img>
-				var imageCopy = document.getElementById("savedImageCopy");
-			
-				// Отображаем данные холста в элементе <img>
-				imageCopy.src = canvas.toDataURL();
-				
-				// Показываем элемент <div>, делая изображение видимым
-				var imageContainer = document.getElementById("savedCopyContainer");
-				imageContainer.style.display = "block";
-				$('#savedCopyContainer').css('border-color', '#FF865F');
-
-				$('#err_canvas').attr({'width':'20','height':'20'});
-				
-				$('.err_msg_as_wrap').css('display', 'block');
-				if ($(document).outerWidth() < 450) {
-					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
-					$('#header_js').css('top', '0');
-				}else{
-					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
-				}
-				
-				$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
-
-				clear_canvas();
-			}
-		});
-	});
-
 	$('.err_msg_as_send_js').click(function(event) {
 		var err_msg = $('textarea[name="errcomment"]').val(),
-			img_src = $('#savedImageCopy').attr('src');
-		var data = {'err_msg': err_msg, 'img_src': img_src };
-
+			img_src = $('#savedImageCopy').attr('src'),
+			data = {'err_msg': err_msg, 'img_src': img_src };
 		ajax('errors', 'error', data).done(function(data){
 			if (data.status != 3) {
 				$('textarea[name="errcomment"] + label').css('color', 'rgba(0, 0, 0, .26)');
