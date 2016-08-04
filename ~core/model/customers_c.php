@@ -220,7 +220,7 @@ class Customers extends Users {
 		$this->SetSessionCustomerBonusCart($_SESSION['member']['id_user']);
 		return true;//Если все ок
 	}
-	public function updateBonus($card){
+	public function updateBonus($data){
 		if(!$data['bonus_card'] || empty($data['bonus_card'])){
 			return false; //Если номер карты пуст
 		}
