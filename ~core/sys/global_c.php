@@ -767,4 +767,27 @@ class G {
 		}
 		return $res;
 	}
+
+	public static function GetImageUrl($url, $img_size){
+		if(strpos($url, '/original/') != false){
+			$result = str_replace('/original/', '/'.$img_size.'/', $url);
+		}else{
+			switch($img_size){
+				case 'thumb':
+					$size = 120;
+					break;
+				case 'small':
+					$size = 250;
+					break;
+				case 'medium':
+					$size = 500;
+					break;
+				default:
+				
+					break;
+			}
+			$result = str_replace('efiles/image/', '/efiles/image/'.$size.'/', $url);
+		}
+		return $result;
+	}
 }
