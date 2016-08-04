@@ -1650,14 +1650,14 @@ $(function(){
 
 
 	// Блок кода для выделения ошибок на канвасе
-	var temp = false;
+	var temp = false;	
 	$('.err_msg_as_knob_js').click(function(event){
-		if ($('.err_msg_as').hasClass('shown')){
-			$('.err_msg_as').removeClass('shown').css('top', '100%');
+		if ($('.err_msg_as_js').hasClass('shown')){
+			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 		}else{
-			$('.err_msg_as_form').find('textarea').focus();
-			$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+			$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 		}
+		$('.err_msg_as_form_js').find('textarea').focus();
 		if(!temp){
 			temp = true;
 			event.preventDefault();
@@ -1668,13 +1668,13 @@ $(function(){
 
 			$('.screen_btn_js').removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 
-			$('.err_msg_as').removeClass('shown').css('top', '100%');
+			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 			if ($(document).outerWidth() < 450) {
-				$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 345px)');
+				$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
 			}
 
-			var detachEl = $('.err_msg_as_js').detach();
-			var detachSnack = $('#snackbar').detach();
+			var detachEl = $('.err_msg_as_js').detach(),
+				detachSnack = $('#snackbar').detach();
 			if ($(document).outerWidth() < 450){
 				$('.waiting_block_for_img_canvas_js').css('top', '0');
 				$('#header_js').css('top', '52px');
@@ -1707,10 +1707,7 @@ $(function(){
 					if ($(document).outerWidth() < 450) {
 						$('#header_js').css('top', '0');
 					}
-
-					
-					$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
-
+					$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 					$('#err_canvas').attr({'width':'20','height':'20'});
 				}
 			});
@@ -1724,9 +1721,9 @@ $(function(){
 		$(this).addClass('screen_btn_js').removeClass('is-checked').removeClass('clicked_js');
 		$('#savedCopyContainer').css('display', 'none');
 		if ($(document).outerWidth() < 450){
-			$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 145px)');
+			$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 145px)');
 		}
-		$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+		$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 		$('#savedImageCopy').attr('src', '');
 		$('#err_canvas').attr({'width':'20','height':'20'});
 	});
@@ -1734,14 +1731,14 @@ $(function(){
 	$('body').on('click', '.screen_btn_js', function(event){
 		event.preventDefault();
 		temp = true;
-				$('#err_canvas').attr({
+		$('#err_canvas').attr({
 			'width': $(window).outerWidth(),
 			'height': $('header').outerHeight() + $('section.main').outerHeight() + $('.phone_err_msg_js').outerHeight() + $('footer').outerHeight()
 		});
 
 		$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 		
-		$('.err_msg_as').removeClass('shown').css('top', '100%');
+		$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 
 		var detachEl = $('.err_msg_as_js').detach();
 		var detachSnack = $('#snackbar').detach();
@@ -1778,12 +1775,12 @@ $(function(){
 				if ($(document).outerWidth() < 450){
 					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 					$('#header_js').css('top', '0');
-					$('.err_msg_as_form .mdl-textfield').css('height', 'calc(100vh - 345px)');
+					$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
 				}else{
 					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 				}
 				
-				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 
 				$('#err_canvas').attr({'width':'20','height':'20'});
 			}
@@ -1793,7 +1790,7 @@ $(function(){
 	$('.go_to_canvas_toolbar_js').click(function(event){
 		closeObject('big_photo');
 		
-		$('.err_msg_as').removeClass('shown').css('top', '100%');
+		$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 		$('.canvas_toolbar').css('display', 'block');
 		$('#err_canvas').attr({
 			'width': $(window).outerWidth(),
@@ -1801,39 +1798,8 @@ $(function(){
 		});
 	});
 
-	$('body').on('click', '.problem_area_js', function(){
-		var color = 'yellow',
-			tool_type = 'rect';
-		init(color, tool_type);
-	});
-	$('body').on('click', '.confidential_js', function(){
-		var color = 'black',
-			tool_type = 'fillrect';
-		init(color, tool_type);
-	});
-	$('body').on('click', '.pencil_for_canvas_js', function(){
-		var color = 'red',
-			tool_type = 'pencil';
-		init(color, tool_type);
-	});
-	$('body').on('click', '.eraser_for_canvas_js', function(){
-		var color = '#fff',
-			tool_type = 'eraser';
-		init(color, tool_type);
-	});
-	$('body').on('click', '.canvasClear_js', function(event){
-		clear_canvas();
-	});
-
-	$('body').on('click', '.close_canvas_toolbar_js', function(event){
-		$('.canvas_toolbar').css('display', 'none');
-		$('#err_canvas').attr({'width':'20','height':'20'});
-		clear_canvas();
-	});
-
 	$('body').on('click', '.img_zoom_js', function(event){
-		
-		$('.err_msg_as').removeClass('shown').css('top', '100%');
+		$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 		$('#err_canvas').attr({'width':'20','height':'20'});
 		var src = $('#savedImageCopy').attr('src');
 		$('#big_photo').css({
@@ -1885,7 +1851,7 @@ $(function(){
 					$('.waiting_block_for_img_canvas_js').css('top', '-52px');
 				}
 				
-				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 
 				clear_canvas();
 			}
@@ -1902,9 +1868,9 @@ $(function(){
 				$('textarea[name="errcomment"] + label').css('color', 'rgba(0, 0, 0, .26)');
 				$('textarea[name="errcomment"]').val('').closest('div').removeClass('is-dirty');
 				$('#savedCopyContainer').css('display', 'none');
-				$('.err_msg_as').css('background-color', '#fff').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as').outerHeight()+'px)');
+				$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
 				$('#savedImageCopy').attr('src', '');
-				$('.err_msg_as').removeClass('shown').css('top', '100%');
+				$('.err_msg_as_js').removeClass('shown').css('top', '100%');
 				$('.clicked_js').addClass('screen_btn_js').removeClass('clicked_js').removeClass('is-checked');
 				componentHandler.upgradeDom();
 			}else{
@@ -1914,6 +1880,36 @@ $(function(){
 			var snackbarContainer = document.querySelector('#snackbar');
 			snackbarContainer.MaterialSnackbar.showSnackbar(text);
 		});
+	});
+
+	// Набор инструметов для выделения ошибки
+	$('body').on('click', '.problem_area_js', function(){
+		var color = 'yellow',
+			tool_type = 'rect';
+		init(color, tool_type);
+	});
+	$('body').on('click', '.confidential_js', function(){
+		var color = 'black',
+			tool_type = 'fillrect';
+		init(color, tool_type);
+	});
+	$('body').on('click', '.pencil_for_canvas_js', function(){
+		var color = 'red',
+			tool_type = 'pencil';
+		init(color, tool_type);
+	});
+	$('body').on('click', '.eraser_for_canvas_js', function(){
+		var color = '#fff',
+			tool_type = 'eraser';
+		init(color, tool_type);
+	});
+	$('body').on('click', '.canvasClear_js', function(event){
+		clear_canvas();
+	});
+	$('body').on('click', '.close_canvas_toolbar_js', function(event){
+		$('.canvas_toolbar').css('display', 'none');
+		$('#err_canvas').attr({'width':'20','height':'20'});
+		clear_canvas();
 	});
 
 	$(document).scroll(function(event) {
