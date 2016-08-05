@@ -875,9 +875,10 @@ function SortProductsList(obj){
 	location.href = obj.val();
 }
 // Блок кода для выделения ошибок на канвасе
-function GetScreenShot(){
+function GetScreenshot(){
 	var detachEl = $('.err_msg_as_js').detach(),
-		detachSnack = $('#snackbar').detach();
+		detachSnack = $('#snackbar').detach(),
+		detachDemoSnack = $('#demo-toast-example').detach();
 	if($(document).outerWidth() < 450){
 		$('.waiting_block_for_img_canvas_js').css('top', '0');
 		$('#header_js').css('top', '52px');
@@ -891,6 +892,7 @@ function GetScreenShot(){
 			// window.location = canvas.toDataURL();
 			$('.err_msg_as_wrap_js').css('display', 'none').append(detachEl);
 			$('.modals').append(detachSnack);
+			$('#view_block_js .products').append(detachDemoSnack);
 			// Находим элемент <img>
 			var imageCopy = document.getElementById("savedImageCopy");
 			// Отображаем данные холста в элементе <img>

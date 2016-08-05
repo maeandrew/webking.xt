@@ -1669,7 +1669,7 @@ $(function(){
 				if ($(document).outerWidth() < 450) {
 					$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
 				}
-				GetScreenShot();
+				GetScreenshot();
 			}
 		}else if($(this).hasClass('screen_btn_js')){
 			event.preventDefault();
@@ -1680,10 +1680,10 @@ $(function(){
 			});
 			$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
-			GetScreenShot();
+			GetScreenshot();
 		}else if($(this).hasClass('canvasReady_js')){
 			$('.canvas_toolbar').css('display', 'none');
-			GetScreenShot();
+			GetScreenshot();
 		}
 		$('.err_msg_as_form_js').find('textarea').focus();
 	});
