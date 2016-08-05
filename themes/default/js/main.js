@@ -1535,6 +1535,15 @@ $(function(){
 	}
 
 	//Обработчики модалки контрагента поиска клиента в корзине
+	$('#cart .add_search_customer').on('click', function(){
+
+	});
+
+	$('#cart_customer_search .phone').on('change', function(){
+
+	});
+	
+
 	$('#cart_customer_search .search_btn_js').on('click', function(){
 		var phone = $(this).closest('.search_block').find('.phone').val();
 		//Приводит тел в нужный вид
@@ -1548,10 +1557,35 @@ $(function(){
 			}
 		}
 		console.log(phone);
-		ajax('cart', 'getCustomerInfo', phone).done(function(data){
+		if (phone.length === 12 ) {
+			console.log('телефон проверили все ок');
+		}else{
+			console.log('телефон проверили все НЕ ок');
+			$(this).closest('.search_block').find('.phone').addClass('error');
+		}
+		/*ajax('cart', 'getCustomerInfo', phone).done(function(data){
 			console.log(data);
-		});
+		});*/
 	});
+
+	$('#cart_customer_search .add_customer').on('click', function(){
+		console.log('добавили в корзину его');
+		closeObject('cart_customer_search');
+		openObject('cart');
+		// ajax('cart', 'getCustomerInfo', phone).done(function(data){
+			// тут закроем эту модалку и откроем корзину
+		// });
+	});
+
+	$('#cart_customer_search .ceate_new_customer').on('click', function(){
+		console.log('создали нового и добавили в корзину его');
+		closeObject('cart_customer_search');
+		openObject('cart');
+		// ajax('cart', 'getCustomerInfo', phone).done(function(data){
+			// тут закроем эту модалку и откроем корзину
+		// });
+	});
+
 
 
 
