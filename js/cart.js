@@ -92,7 +92,7 @@ function removeFromCart(id){
 			$('#removingProd, #clearCart, #cart .clear_cart').addClass('hidden');
 			$('header .cart_item a.cart i').attr('data-badge', 0);
 			$('#cart .no_items').removeClass('hidden');
-			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block, #cart .msg-info, #cart .buy_more').addClass('hidden');
+			$('#cart .order_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block' ).addClass('hidden');
 			$('.in_cart_js').addClass('hidden');
 			$('.buy_btn_js').removeClass('hidden');
 
@@ -137,7 +137,7 @@ function removeFromCart(id){
 				ChangePriceRange(3, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
 				$('#cart .no_items').removeClass('hidden');
-				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .buy_more').addClass('hidden');
+				$('#cart .order_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block').addClass('hidden');
 				$.cookie('manual', 0, { path: '/'});
 			}
 		});
