@@ -1653,6 +1653,9 @@ class Products {
 		if(isset($data['active'])){
 			$f['active'] = $data['active'];
 		}
+		if(isset($data['product_limit'])){
+			$f['product_limit'] = $data['product_limit'];
+		}
 		// $f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
 		// $f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
 		// $f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
@@ -1738,7 +1741,6 @@ class Products {
 		$f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
 		$f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
 		$f['sup_comment'] = trim($_SESSION['Assort']['products'][$id_product]['sup_comment']);
-
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = $id_product AND id_supplier = ".$_SESSION['member']['id_user'])){
 			$this->db->FailTrans();
 			return false;
