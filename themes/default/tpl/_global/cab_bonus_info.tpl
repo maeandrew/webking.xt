@@ -21,8 +21,6 @@
 	    <p class="msg_text"><?=$msg['text']?></p>
 	</div>
 <?}?>
-
-
 <div class="bonus_content">
 	<?if(!$Customer['bonus_card']){?>
 		<div class="info_text">

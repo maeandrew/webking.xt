@@ -2,12 +2,13 @@
 	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
 <?}?>
 <?
-$GLOBALS['descr_for_seo'] = null;
+$GLOBALS['descr_for_seo'] = [];
 switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
 			$Status = new Status();
 			$action = false;
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
 			$st = $Status->GetStstusById($item['id_product']);
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
 			// Проверяем доступнось розницы
@@ -197,7 +198,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			</div>
 			<div class="clear_card"></div>
 		</div><?
-		foreach($list as $item){ $action = false; ?>
+		foreach($list as $item){ 
+			$action = false; 
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$action = true;
@@ -253,8 +256,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	default:		 
     	foreach($list as $item){
 			$in_cart = false;
-			$action = false;		
-			$GLOBALS['descr_for_seo'] .= $item['descr'];
+			$action = false;			
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));			
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
 			}
