@@ -301,7 +301,12 @@
 			<?}elseif (isset($GLOBALS['descr_for_seo'])) {?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-						<?=$GLOBALS['descr_for_seo']?>
+						<?foreach($GLOBALS['descr_for_seo'] as $item){
+							if(!empty($item['descr'])){?>
+								<h2>Описание товара: <?=$item['name']?></h2>
+								<p><?=$item['descr']?></p>
+							<?}
+						}?>
 					</div>
 				</div>
 			<?}?>
