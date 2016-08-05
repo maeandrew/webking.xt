@@ -343,14 +343,17 @@
 		// Переключение активности записи ассортимента
 		$('.active').on('change', function(){
 			var parent = $(this).closest('tr'),
-				active = 0;
+				active = 0,
+				product_limit = 0;
 			if(this.checked){
-				active = 1;
+				active = 1,
+				product_limit = 10000000;
 			}
 			var data = {
 				id_product: parent.data('id'),
 				id_supplier: id_supplier,
-				active: active
+				active: active,
+				product_limit: product_limit
 			}
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
 			});

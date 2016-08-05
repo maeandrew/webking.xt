@@ -169,7 +169,7 @@
 					</tr>
 				<?}?>
 				<tr class="art">
-					<td colspan="3">Арт. <?=$i['art'];?><?if($i['product_limit'] > 0){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
+					<td colspan="3">Арт. <?=$i['art'];?><?if($i['active'] == 1){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
 				</tr>
 				<tr class="header">
 					<td class="info"></td>

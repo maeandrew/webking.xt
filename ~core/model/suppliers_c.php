@@ -465,7 +465,7 @@ class Suppliers extends Users {
 	}
 
 	public function GetDataForAct(){
-		$sql = "SELECT p.id_product, p.name, p.art, p.img_1, p.img_2, p.img_3, p.descr,
+		$sql = "SELECT p.id_product, p.name, p.art, a.active, p.img_1, p.img_2, p.img_3, p.descr,
 			p.inbox_qty, p.min_mopt_qty, p.qty_control, p.weight, p.height, p.width,
 			p.length, p.coefficient_volume, p.volume, a.product_limit, a.price_opt_otpusk,
 			a.price_opt_recommend, a.price_mopt_otpusk, a.price_mopt_recommend,

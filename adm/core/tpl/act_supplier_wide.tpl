@@ -167,7 +167,7 @@
 		<div class="block">
 			<div class="title">
 				<h4 <?=strlen($i['name']) > 70?' class="small"':null;?>><?=$i['name']?></h4>
-				<div style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
+				<div style="color: <?=$i['active']==1?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
 			</div>
 			<div class="photo">
 				<?if(!empty($i['images'])){
