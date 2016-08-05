@@ -362,20 +362,28 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$result = $Users->CheckPhoneUniqueness($phone, false);
 					if($result === true){
 						$res['status'] = true;
-						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
-										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
-										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$phone.'" value="add_and_set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Создать и прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
+						$res['content'] = '<div class="customer_main_info">
+										  		<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
+  										   </div>';
 					}else{
 						$customer = new Customers();
+						$order = new Orders();
 						$customer_data = $customer->SetFieldsById($result['id_user'], 1, true);
+						$customer_data['last_order'] = $order->GetLastOrder($result['id_user']);
 						$res['status'] = true;
-						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
-										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>
-										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$customer['id_user'].'" value="set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
+						$res['content'] = '<div class="customer_main_info">
+												<input hidden value="'.$result['id_user'].'">
+												<p>ФИО: '.$customer['name']?$customer['name']:null.'</p>
+												<p>email: '.$customer['email']?$customer['email']:null.'</p>
+												<p>Баланс: '.$customer['balance']?$customer['balance']:null.'</p>
+												<p>Последний заказ: '.$customer_data['last_order']?$customer_data['last_order']:null.'</p>
+												<p>Активность: '.$customer['active'] ==1?'Да':'Нет'.'</p>
+											</div>
+											<div class="bonus_block">
+												<p>Бонусная карта: №'.$customer['bonus_card']?$customer['bonus_card']:null.'</p>
+												<p>Бонусный баланс: '.$customer['bonus_balance']?$customer['bonus_balance']:null.' грн.</p>
+												<p>Бонусный процент: '.$customer['bonus_discount']?$customer['bonus_discount']:null.'%</p>
+											</div>';
 					}
 				}else {
 					$res['content'] = 'Номер телефона не введен.';

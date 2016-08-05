@@ -1863,4 +1863,14 @@ class Orders {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	public function GetLastOrder($id_user){
+		$sql = "SELECT FROM_UNIXTIME(creation_date, \"%Y-%m-%d\") AS last_order
+				FROM "._DB_PREFIX_."order WHERE id_customer = ".$id_user."
+				AND id_order_status = 2 ORDER BY id_order DESC LIMIT 1";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 }

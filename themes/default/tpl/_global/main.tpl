@@ -635,7 +635,7 @@
 			</div>
 			<p>Результаты поиска</p>
 			<div class="search_results_block">
-				<div class="customer_main_info">
+				<!--<div class="customer_main_info">
 					<p>ФИО: переменная</p>
 					<p>email: переменная</p>
 					<p>Баланс: переменная</p>
@@ -645,7 +645,7 @@
 					<p>Бонусная карта: №123456</p>
 					<p>Бонусный баланс: 100500 грн.</p>
 					<p>Бонусный процент: 5%</p>
-				</div>
+				</div>-->
 			</div>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Добавить</button>
 		</div>
