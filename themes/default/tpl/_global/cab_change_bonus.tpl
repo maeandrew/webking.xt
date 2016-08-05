@@ -12,16 +12,13 @@
 	    <p class="msg_text"></p>
 	</div>
 <?}?>
-
-
-
 <form action="" method="POST" class="bonus_content">
 	<?if(!$Customer['bonus_card']){?>
 		<div class="bonus_reg_block">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label" for="email">№ бонусной карты:</label>
-				<input class="mdl-textfield__input check_val_js" type="text" name="bonus_card" id="bonus_card" class="shortFild" autocomplete="off" value="<?=$Customer['bonus_card']?>"  />
-				<span class="mdl-textfield__error">Ошибка</span>
+				<input class="mdl-textfield__input check_val_js" pattern="^\d+$" type="text" name="bonus_card" id="bonus_card" class="shortFild" autocomplete="off" value="<?=$Customer['bonus_card']?>"  />
+				<span class="mdl-textfield__error">Ошибка. Введите числа</span>
 			</div>
 			<?if(!$Customer['sex']){?>
 				<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -102,7 +99,8 @@
 	<?}else{?>
 		<div id="bonus_card_line" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="bonus_card">№ бонусной карты:</label>
-			<input class="mdl-textfield__input" type="text" name="bonus_card" id="bonus_card" value="<?=$Customer['bonus_card']?>" required />
+			<input class="mdl-textfield__input" pattern="^\d+$" type="text" name="bonus_card" id="bonus_card" value="<?=$Customer['bonus_card']?>" required />
+			<span class="mdl-textfield__error">Ошибка. Введите числа</span>
 		</div>
 		<div class="buttons_cab save_btn_js">
 			<button type="submit" name="update_bonus" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored save_btn_js">Изменить</button>
