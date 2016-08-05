@@ -384,9 +384,44 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'createCustomer':
-				
-
-				bdeak;
+				// создаем нового пользователя
+				$Customers = new Customers();
+				$Users = new Users();
+				$data = array(
+					'last_name' => isset($_POST['last_name'])?$_POST['last_name']:null,
+					'first_name' => isset($_POST['first_name'])?$_POST['first_name']:null,
+					'middle_name' => isset($_POST['middle_name'])?$_POST['middle_name']:null,
+					'name' => (!empty($_POST['last_name']))?$_POST['last_name'].' '.$_POST['first_name'].' '.$_POST['middle_name']:'user_'.rand(),
+					'passwd' => $pass = G::GenerateVerificationCode(6),
+					'descr' => 'Пользователь создан менеджером при оформлении корзины',
+					'phone' => $_POST['phone'],
+					'id_contragent' => $_SESSION['member']['id_user']
+				);
+				// регистрируем нового пользователя
+				if($id_customer = $Customers->RegisterCustomer($data)){
+					$Users = new Users();
+					$Users->SendPassword($data['passwd'], $data['phone']);
+					$_SESSION['cart']['id_customer'] = $id_customer;
+					$res['message'] = 'успех';
+					$res['status'] = 1;
+				}else {
+					$res['message'] = 'Произошла ошибка, повторите попытку.';
+					$res['status'] = 2;
+				}
+				echo json_encode($res);
+				break;
+			case 'bindingCustomerOrder':
+				$Customers = new Customers();
+				$_SESSION['cart']['id_customer'] = $_POST['$id_customer'];
+				if($Customers->SetSessionCustomerBonusCart($_POST['$id_customer'])){
+					$res['message'] = 'успех';
+					$res['status'] = 1;
+				}else{
+					$res['message'] = 'Произошла ошибка, повторите попытку.';
+					$res['status'] = 2;
+				}
+				echo json_encode($res);
+				break;
 			case 'settCustomerForOrder':
 				if(isset($_POST['step']) && isset($_POST['date'])){
 					switch($_POST['step']){
@@ -402,11 +437,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							// регистрируем нового пользователя
 							$id_customer = $Customers->RegisterCustomer($data);
 							if(isset($id_customer)){
+								$Users = new Users();
 								$Users->SendPassword($data['passwd'], $data['phone']);
 								$_SESSION['cart']['id_customer'] = $id_customer;
 								$res['message'] = 'успех';
 								$res['status'] = 1;
-							} else {
+							}else {
 								$res['message'] = 'Произошла ошибка, повторите попытку.';
 								$res['status'] = 2;
 							}

@@ -298,6 +298,9 @@ class Customers extends Users {
 			return false;
 		}
 		$f['id_user'] = $id_user;
+		$f['last_name'] = isset($arr['last_name'])?$arr['last_name']:null;
+		$f['first_name'] = isset($arr['first_name'])?$arr['first_name']:null;
+		$f['middle_name'] = isset($arr['middle_name'])?$arr['middle_name']:null;
 		if(isset($arr['discount'])){
 			$f['cont_person'] = trim($arr['cont_person']);
 			$f['phones'] = trim($arr['phones']);
