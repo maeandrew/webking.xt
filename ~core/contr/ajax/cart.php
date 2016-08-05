@@ -361,33 +361,33 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$Users = new Users();
 					$id_user = $Users->CheckPhoneUniqueness($phone, false);
 					if($id_user === true){
-						$res['status'] = true;
-						$res['content'] = '<div class="customer_main_info">
-										  		<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
-  										   </div>';
+						//$res['status'] = true;
+						$res = '<div class="customer_main_info">
+									<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
+							   </div>';
 					}else{
 						$customer = new Customers();
 						$order = new Orders();
 						$customer_data = $customer->SetFieldsById($id_user, 1, true);
 						$customer_data['last_order'] = $order->GetLastOrder($id_user);
-						$res['status'] = true;
-						$res['content'] = '<div class="customer_main_info">
-												<input hidden value="'.$id_user.'">
-												<p>ФИО: '.$customer_data['name']?$customer_data['name']:null.'</p>
-												<p>email: '.$customer_data['email']?$customer_data['email']:null.'</p>
-												<p>Баланс: '.$customer_data['balance']?$customer_data['balance']:null.'</p>
-												<p>Последний заказ: '.$customer_data['last_order']?$customer_data['last_order']:null.'</p>
-												<p>Активность: '.$customer_data['active'] ==1?'Да':'Нет'.'</p>
-											</div>
-											<div class="bonus_block">
-												<p>Бонусная карта: №'.$customer_data['bonus_card']?$customer_data['bonus_card']:null.'</p>
-												<p>Бонусный баланс: '.$customer_data['bonus_balance']?$customer_data['bonus_balance']:null.' грн.</p>
-												<p>Бонусный процент: '.$customer_data['bonus_discount']?$customer_data['bonus_discount']:null.'%</p>
-											</div>';
+						//$res['status'] = true;
+						$res = '<div class="customer_main_info">
+									<input hidden value="'.$id_user.'">
+									<p>ФИО: '.$customer_data['name']?$customer_data['name']:null.'</p>
+									<p>email: '.$customer_data['email']?$customer_data['email']:null.'</p>
+									<p>Баланс: '.$customer_data['balance']?$customer_data['balance']:null.'</p>
+									<p>Последний заказ: '.$customer_data['last_order']?$customer_data['last_order']:null.'</p>
+									<p>Активность: '.$customer_data['active'] ==1?'Да':'Нет'.'</p>
+								</div>
+								<div class="bonus_block">
+									<p>Бонусная карта: №'.$customer_data['bonus_card']?$customer_data['bonus_card']:null.'</p>
+									<p>Бонусный баланс: '.$customer_data['bonus_balance']?$customer_data['bonus_balance']:null.' грн.</p>
+									<p>Бонусный процент: '.$customer_data['bonus_discount']?$customer_data['bonus_discount']:null.'%</p>
+								</div>';
 					}
 				}else {
-					$res['content'] = 'Номер телефона не введен.';
-					$res['status'] = false;
+					$res = 'Номер телефона не введен.';
+					//$res['status'] = false;
 				}
 				echo $res;
 				break;
