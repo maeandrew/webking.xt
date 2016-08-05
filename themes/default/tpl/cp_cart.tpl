@@ -304,7 +304,7 @@
 			</div>
 			<!-- </div> -->
 			<?if(!G::IsLogged()){?>
-				<div class="msg-info">
+				<!-- <div class="msg-info">
 					<div class="msg_icon">
 						<i class="material-icons hidden">check_circle</i>
 						<i class="material-icons">info</i>
@@ -313,6 +313,14 @@
 					</div>
 					<p class="msg_title">!</p>
 					<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
+				</div> -->
+
+				<div class="msg-<?=$msg['type']?>">
+					<div class="msg_icon">
+						<i class="material-icons"></i>
+					</div>
+				    <p class="msg_title">!</p>
+				    <p class="msg_text"><?=$msg['text']?></p>
 				</div>
 			<?}else{?>
 				<div class="bonus_block">

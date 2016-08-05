@@ -231,7 +231,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}else{
 					$tpl->Assign('unlist', false);
 				}
-				$tpl->Assign('promo_info', 'Информация о введенном промокоде');
+				$tpl->Assign('promo_info', 'Информация о введенном промокоде'); //Временный текст
+				$tpl->Assign('msg', array('type' => 'info', 'text' => 'Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a>'));
 				if(isset($success)){
 					// $tpl->Assign('msg', "Заказ успешно сформирован.");
 					$_SESSION['cart']['draft'] = $draft;
