@@ -1563,9 +1563,9 @@ $(function(){
 			console.log('телефон проверили все НЕ ок');
 			$(this).closest('.search_block').find('.phone').addClass('error');
 		}
-		/*ajax('cart', 'getCustomerInfo', phone).done(function(data){
+		ajax('cart', 'getCustomerInfo', {'phone': phone} ).done(function(data){
 			console.log(data);
-		});*/
+		});
 	});
 
 	$('#cart_customer_search .add_customer').on('click', function(){
