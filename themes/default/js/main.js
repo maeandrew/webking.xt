@@ -1534,14 +1534,7 @@ $(function(){
 		$('#cart .clear_cart').addClass('hidden');
 	}
 
-	//Обработчики модалки контрагента поиска клиента в корзине
-	$('#cart .add_search_customer').on('click', function(){
-
-	});
-
-	$('#cart_customer_search .phone').on('change', function(){
-
-	});
+	//Обработчики модалки контрагента поиска клиента в корзине	
 	
 
 	$('#cart_customer_search .search_btn_js').on('click', function(){
@@ -1559,13 +1552,14 @@ $(function(){
 		console.log(phone);
 		if (phone.length === 12 ) {
 			console.log('телефон проверили все ок');
+			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){
+				console.log(data);
+			});
 		}else{
 			console.log('телефон проверили все НЕ ок');
-			$(this).closest('.search_block').find('.phone').addClass('error');
+			$(this).closest('.search_block').find('.phone').css('border', '1px solid red');
 		}
-		ajax('cart', 'getCustomerInfo', {'phone': phone} ).done(function(data){
-			console.log(data);
-		});
+		
 	});
 
 	$('#cart_customer_search .add_customer').on('click', function(){
