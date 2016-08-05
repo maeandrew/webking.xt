@@ -293,6 +293,13 @@
 		</div>
 	</div>
 
+	<div class="contragent_cart_block">
+		<p class="contragent_cart_block_title">Наименование клиента</p>
+		<p>Какойто-там текст. Какойто-там текст. Какойто-там текст. Какойто-там текст.</p>
+		<p>Какойто-там текст. Какойто-там текст. Какойто-там текст. Какойто-там текст.</p>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js"  data-name="cart_customer_search">Добавить</button>
+	</div>
+
 	<div class="cart_bottom_wrap">
 		<div class="sub_cart_bottom_wrap">
 			<!-- <div class="orderNote"> -->
@@ -304,17 +311,6 @@
 			</div>
 			<!-- </div> -->
 			<?if(!G::IsLogged()){?>
-				<!-- <div class="msg-info">
-					<div class="msg_icon">
-						<i class="material-icons hidden">check_circle</i>
-						<i class="material-icons">info</i>
-						<i class="material-icons hidden">warning</i>
-						<i class="material-icons hidden">error</i>
-					</div>
-					<p class="msg_title">!</p>
-					<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
-				</div> -->
-
 				<div class="msg-<?=$msg['type']?>">
 					<div class="msg_icon">
 						<i class="material-icons"></i>
@@ -389,9 +385,6 @@
 							<!-- <input type="button" class="mdl-button mdl-js-button mdl-button--raised apply_promoCode apply_promoCode_js" value="Применить"/> -->
 							<div class="mdl-button mdl-js-button mdl-button--raised apply_promoCode apply_promoCode_js">Применить</div>
 						<?}?>
-						
-						
-
 						<?if(isset($_SESSION['cart']['promo'])) {?>
 							<div class="clearBoth">
 								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
@@ -399,8 +392,7 @@
 									<p><?=$promo_info?></p>
 								</div>
 							</div>
-						<?}?>
-					
+						<?}?>					
 						<?if(!isset($_SESSION['cart']['promo'])){?>
 							<div class="cart_choiсe_wrapp_js cart_choiсe_wrapp">
 								<!--<div class="tooltip_wrapp joint_cart_js">
@@ -536,7 +528,6 @@
 		<?}?>
 	</div>
 	<!-- END NEW Товары в корзине -->
-
 
 	<script type="text/javascript">
 		$(window).resize(function() {

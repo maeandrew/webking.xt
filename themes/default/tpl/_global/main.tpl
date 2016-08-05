@@ -621,6 +621,35 @@
 		<div id="demand_chart_msg" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
+		<!-- Модалка контрагент корзина поиск данных о клиенета -->
+		<div id="cart_customer_search" data-type="modal">
+			<p>Найти клиента</p>
+			<div class="search_block">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="user_number">Телефон</label>
+					<input class="mdl-textfield__input phone" type="text" id="user_number"
+					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
+					<label class="mdl-textfield__label" for="user_number"></label>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Найти</button>
+			</div>
+			<p>Результаты поиска</p>
+			<div class="search_results_block">
+				<div class="customer_main_info">
+					<p>ФИО: переменная</p>
+					<p>email: переменная</p>
+					<p>Баланс: переменная</p>
+					<p>Последний заказ: переменная</p>
+				</div>
+				<div class="bonus_block">
+					<p>Бонусная карта: №123456</p>
+					<p>Бонусный баланс: 100500 грн.</p>
+					<p>Бонусный процент: 5%</p>
+				</div>
+			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Добавить</button>
+		</div>
+
 		<!-- Аналог alert -->
 		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
 			<div class="mdl-snackbar__text"></div>
