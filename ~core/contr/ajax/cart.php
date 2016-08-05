@@ -354,7 +354,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case 'getNameCustomer':
+			case 'getCustomerInfo':
 				if(isset($_POST['phone'])){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					$Users = new Users();
@@ -382,6 +382,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
+			case 'createCustomer':
+				
+
+				bdeak;
 			case 'settCustomerForOrder':
 				if(isset($_POST['step']) && isset($_POST['date'])){
 					switch($_POST['step']){
