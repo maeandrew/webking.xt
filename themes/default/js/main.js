@@ -1554,6 +1554,7 @@ $(function(){
 			console.log('телефон проверили все ок');
 			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){
 				console.log(data);
+				$('#cart_customer_search .search_results_block').html(data);
 			});
 		}else{
 			console.log('телефон проверили все НЕ ок');
