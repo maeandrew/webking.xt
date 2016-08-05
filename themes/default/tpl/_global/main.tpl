@@ -631,7 +631,7 @@
 					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
 					<label class="mdl-textfield__label" for="user_number"></label>
 				</div>
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Найти</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored search_btn_js">Найти</button>
 			</div>
 			<p>Результаты поиска</p>
 			<div class="search_results_block">

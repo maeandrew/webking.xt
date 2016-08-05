@@ -1534,6 +1534,27 @@ $(function(){
 		$('#cart .clear_cart').addClass('hidden');
 	}
 
+	//Обработчики модалки контрагента поиска клиента в корзине
+	$('#cart_customer_search .search_btn_js').on('click', function(){
+		var phone = $(this).closest('.search_block').find('.phone').val();
+		//Приводит тел в нужный вид
+		var str = phone.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				phone = 38 + str;
+			}else{
+				phone = str;
+			}
+		}
+		console.log(phone);
+		ajax('cart', 'getCustomerInfo', phone).done(function(data){
+			console.log(data);
+		});
+	});
+
+
+
 	/*$("#login_email").blur(function(){
 		var name = this.value;
 		var count = name.length;
