@@ -294,16 +294,25 @@
 	</div>
 	<?if (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){?>
 		<div class="contragent_cart_block">
+			<? if(isset($customer_order)){?>
 			<p class="contragent_cart_block_title">Наименование клиента</p>
 			<div class="customer_main_info">
-					<p>ФИО: </p>
-					<p>email: </p>
-					<p>Баланс: </p>
-					<p>Последний заказ: </p>
-					<p>Активность: </p>
-				</div>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search">Добавить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search">Изменить</button>
+				<p class="customer_main_info_item">ФИО: 
+				<? if ($customer_order['first_name'] || $customer_order['last_name'] || $customer_order['last_name'] !== '') {?>
+					<?=$customer_order['first_name']?> <?=$customer_order['middle_name']?> <?=$customer_order['last_name']?> 
+				<?}else{?>
+					<?=isset($customer_order['name'])?$customer_order['name']:null?>
+				<?}
+				?></p>
+				<p class="customer_main_info_item">email: <?=$customer_order['email'] !== ''?$customer_order['email']:'Нет'?></p>
+				<p class="customer_main_info_item">Баланс: <?=$customer_order['balance']?></p>
+				<p class="customer_main_info_item">Последний заказ: </p>
+				<p class="customer_main_info_item">Активность: <?=$customer_order['active'] == 1?'Да':'Нет'?></p>
+			</div>
+			<?}else{?>
+				<p>Клиент не найден.</p>
+			<?}?>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search"><?=isset($customer_order)?'Изменить':'Добавить'?></button>			
 		</div>
 	<?}?>
 

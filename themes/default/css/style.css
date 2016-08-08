@@ -4579,7 +4579,19 @@ iframe[name="google_conversion_frame"] {
 #cart_customer_search .bonus_block {
 	width: 50%;
 }
-
+#cart_customer_search .customer_main_info span, 
+#cart_customer_search .bonus_block span {
+	font-weight: bold;
+}
+#cart .customer_main_info {
+	/*display: flex;*/
+}
+#cart .customer_main_info .customer_main_info_item {
+	/*width: 50%;*/
+}
+#cart .add_search_customer {
+	margin-top: 10px;
+}
 
 
 @media (max-width: 1200px){
