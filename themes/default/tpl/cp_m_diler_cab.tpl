@@ -152,7 +152,7 @@
 
                           </form>
 
-                          <form action="">
+                          <form action="#">
 
                           <textarea
 

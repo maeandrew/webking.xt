@@ -7,7 +7,7 @@
 		<?=isset($pages['last'])?$pages['last']:null;?>
 	</ul>
 	<?if($last_page >= 8){?>
-		<form action="" class="paginator_specific_page_block">
+		<form action="#" class="paginator_specific_page_block">
 			<input type="number" name="paginator_specific_page" min="1" max="<?=$last_page?>" class="paginator_specific_page" placeholder="Введите номер страницы">
 			<button type="submit" class="paginator_specific_page_btn mdl-button mdl-js-button">Перейти</button>		
 		</form>

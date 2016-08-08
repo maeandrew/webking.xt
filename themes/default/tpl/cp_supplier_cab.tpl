@@ -57,7 +57,7 @@
 			</div>
 			<div class="cabinet_block fleft">
 				<div class="dollar">
-					<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+					<form action="#" method="post" onsubmit="RecalcSupplierCurrency();return false;">
 						<label for="currency_rate">Личный курс доллара</label>
 						<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="RecalcSupplierCurrency();">Пересчитать</button>
@@ -349,7 +349,7 @@
 					<h4>Отметка об ошибке</h4>
 					<hr>
 					<p>Увидели ошибку или дубль товара,<br>напишите, пожалуйста.</p>
-					<form action="" method="post">
+					<form action="#" method="post">
 						<input type="hidden" name="id_product">
 						<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
 						<button type="submit" name="sub_com" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>

@@ -38,7 +38,7 @@
 	</div>
 </div> -->
 <div class="add_new_address mdl-grid">
-	<form id="edit_contacts" class="editing" action="" method="post">
+	<form id="edit_contacts" class="editing" action="#" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<!-- <input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/> -->
 		<div class="mdl-cell mdl-cell--12-col">

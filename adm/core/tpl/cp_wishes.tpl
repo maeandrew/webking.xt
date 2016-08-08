@@ -51,7 +51,7 @@
 	<div id="reply_js" class="modal_hidden">
 		<div  class="feedback_form">
 			<h2>Ответить</h2>
-			<form action="" method="post" id="message_js">
+			<form action="#" method="post" id="message_js">
 				<label for="feedback_text">Сообщение:</label>
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="5" required></textarea>
 				<div <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'class="hidden"';?>>

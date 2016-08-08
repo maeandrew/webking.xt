@@ -15,7 +15,7 @@
 	</form>
 	<div class="history">
 		<div class="order_number_filter">			
-			<form action="" method="post">
+			<form action="#" method="post">
 				<input type="text" name="order_number" placeholder="Введите номер заказа">
 				<button class="mdl-button mdl-js-button mdl-button--raised" name="show_order">Показать</button>
 				<button class="mdl-button mdl-js-button mdl-button--raised" name="cancel_order_filter">Сбросить</button>							

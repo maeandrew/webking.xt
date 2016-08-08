@@ -50,10 +50,10 @@
 									</a>
 								<?}?> -->
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
 									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 								<?}else{?>
-									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
 									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/></noscript>
 								<?}?>
 
@@ -98,10 +98,10 @@
 									</a>
 								<?}?> -->
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
 									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 								<?}else{?>
-									<img alt="<?=G::CropString($i['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
 									<noscript><img alt="<?=G::CropString($i['id_product'])?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/></noscript>
 								<?}?>
 							</td>
@@ -264,7 +264,7 @@
 					</form>
 
 					<!-- <?if($i['id_order_status'] == 1){?>
-						<form action="" method="post">
+						<form action="#" method="post">
 							<button type="submit" name="smb_cancel" class="cancel_order mdl-button mdl-js-button mdl-button--raised">Отменить заказ</button>
 						</form>
 					<?}?> -->

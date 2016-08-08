@@ -155,34 +155,28 @@
 		<section class="banner">
 			<div class="cont">
 				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+					<div class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif" alt="Снабжение предприятий">
 						<h3>Снабжение<br> предприятий</h3>
-					</span>
+					</div>
 				</a>
 				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+					<div class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif" alt="Поставки магазинам">
 						<h3>Поставки<br> магазинам</h3>
-					</span>
+					</div>
 				</a>
 				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<span class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+					<div class="text_block">
+						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif" alt="Обеспечение быта">
 						<h3>Обеспечение<br> быта</h3>
-					</span>
+					</div>
 				</a>
 			</div>
 		</section>
-	<?}?>	
+	<?}?>
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
-			<style>
-				#last_orders_count {
-					width: 100%;
-					height: 300px;
-				}
-			</style>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] !== 'main'){?>
@@ -262,7 +256,7 @@
 							<div class="news_item">
 								<div class="news_image">
 									<?if(isset($item['thumbnail'])){?>
-										<img alt="<?=G::CropString($item['title'])?>" class="lazy" data-original="<?=$item['thumbnail'];?>"/>
+										<img alt="<?=G::CropString($item['title'])?>" class="lazy" src="" data-original="<?=$item['thumbnail'];?>"/>
 										<noscript>
 											<img alt="<?=G::CropString($item['title'])?>" src="<?=$item['thumbnail'];?>"/>
 										</noscript>
@@ -341,8 +335,8 @@
 			<div class="err_msg_as_form err_msg_as_form_js">
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
-						<textarea name="errcomment" class="mdl-textfield__input" type="text" rows="3" id="sample5" autofocus></textarea>
-						<label class="mdl-textfield__label" for="sample5">Опишите ошибку...</label>
+						<textarea name="errcomment" class="mdl-textfield__input" rows="3" id="error_field" autofocus></textarea>
+						<label class="mdl-textfield__label" for="error_field">Опишите ошибку...</label>
 					</div>
 					<label class="screen_btn_js screen_btn mdl-checkbox mdl-js-checkbox" for="screenShotBox">
 						<input type="checkbox" id="screenShotBox" class="mdl-checkbox__input" checked>
@@ -350,7 +344,7 @@
 					</label>
 					<div class="copyContainerWrap">
 						<div id="savedCopyContainer">
-							<img id="savedImageCopy" src="">
+							<img id="savedImageCopy" src="" alt="Сохраненная копия картинки">
 						</div>
 						<div class="tools_wrapp_js tools_wrapp mdl-cell--hide-tablet mdl-cell--hide-phone">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
@@ -399,15 +393,15 @@
 						<h5>Контакты</h5>
 						<ul class="phone_nav_contacts">
 							<?if(isset($GLOBALS['CONFIG']['footer_phone']) && $GLOBALS['CONFIG']['footer_phone'] != ''){?>
-								<li><span><div class="material-icons">phone</div><?=$GLOBALS['CONFIG']['footer_phone'];?></span></li>
+								<li><span class="material-icons">phone</span><?=$GLOBALS['CONFIG']['footer_phone'];?></li>
 							<?}?>
 							<!-- <li><span>(099) 228-69-38</span></li>
 							<li><span>(093) 322-91-83</span></li> -->
 							<?if(isset($GLOBALS['CONFIG']['footer_email']) && $GLOBALS['CONFIG']['footer_email'] != ''){?>
-								<li><span><div class="material-icons">mail</div><?=$GLOBALS['CONFIG']['footer_email'];?></span></li>
+								<li><span class="material-icons">mail</span><?=$GLOBALS['CONFIG']['footer_email'];?></li>
 							<?}?>
 							<?if(isset($GLOBALS['CONFIG']['footer_address']) && $GLOBALS['CONFIG']['footer_address'] != ''){?>
-								<li><span><div class="material-icons">location_on</div><?=$GLOBALS['CONFIG']['footer_address'];?></span></li>
+								<li><span class="material-icons">location_on</span><?=$GLOBALS['CONFIG']['footer_address'];?></li>
 							<?}?>
 						</ul>
 					</div>
@@ -460,7 +454,7 @@
 			<div class="modal_container">
 				<h3>Вы можете загрузить свою смету</h3>
 				<div class="estimate_info estimate_info_js"></div>
-				<form action="" id="estimate">
+				<form action="#" id="estimate_form">
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -475,7 +469,7 @@
 							</div>
 						<?}?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<textarea class="mdl-textfield__input" name="comment" type="text" rows= "3" id="estimate_comment" ></textarea>
+							<textarea class="mdl-textfield__input" name="comment" rows= "3" id="estimate_comment" ></textarea>
 							<label class="mdl-textfield__label" for="estimate_comment">Комментарий</label>
 						</div>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -631,7 +625,7 @@
 			<h4>Отзывы и вопросы</h4>
 			<hr>
 			<p>У Вашего клиента возник вопрос?<br>Напишите его</p>
-			<form action="" method="post">
+			<form action="#" method="post">
 				<input type="hidden" name="id_product">
 				<input type="hidden" name="id_user">
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
@@ -684,7 +678,7 @@
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
-					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" disabled>
+					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}" disabled>
 					<label class="mdl-textfield__label" for="recovery_phone"></label>
 					<span class="mdl-textfield__error"></span>
 				</div>
@@ -693,7 +687,7 @@
 				<p class="info_text">На Ваш номер телефона отправлено<br>SMS-сообщение c кодом для подтверждения доступа, который будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
 			</div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js hidden">
-				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" pattern="^\d{4}$">
+				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" maxlength="9999">
 				<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
@@ -709,7 +703,7 @@
 				<div class="mdl-card__supporting-text">
 					<h3>Предложения и пожелания</h3>
 					<p>Напишите Нам, как мы можем улучшить нашу с Вами работу</p>
-					<form action="" class="offers_form">
+					<form action="#" class="offers_form">
 						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
 							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
@@ -717,7 +711,7 @@
 							<span class="mdl-textfield__error"></span>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
-							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_offers"></textarea>
+							<textarea class="mdl-textfield__input" rows= "3" id="user_offers"></textarea>
 							<label class="mdl-textfield__label" for="user_offers">Ваши предложения и пожелания...</label>
 							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>
@@ -734,7 +728,7 @@
 					<h3>Замечания</h3>
 					<p>Сообщите нам, если у Вас есть замечания по поводу работы нашей службы снабжения.</p>
 					<p>Мы постараемся сделать нашу совместную работу максимально удобной для Вас!</p>
-					<form action="" class="issue_form">
+					<form action="#" class="issue_form">
 						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
 							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
@@ -742,7 +736,7 @@
 							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>
 						<div class="mdl-textfield mdl-js-textfield">
-							<textarea class="mdl-textfield__input" type="text" rows= "3" id="user_issue"></textarea>
+							<textarea class="mdl-textfield__input" rows= "3" id="user_issue"></textarea>
 							<label class="mdl-textfield__label" for="user_issue">Введите текст...</label>
 							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>

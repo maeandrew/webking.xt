@@ -8,7 +8,7 @@
 			<p>Контактный телефон: <?=$supplier['real_phone']?></p>
 			<p>Контактный email: <?=$supplier['real_mail']?></p>
 			<p>Адрес: <?=$supplier['place']?></p>
-			<form class="suppliers_activity_form" method="post" action="">
+			<form class="suppliers_activity_form" method="post" action="#">
 				<input name="supplier_activ" hidden value="<?=$supplier['active'] == 1?'on':'off'?>">
 				<span class="current_supplier <?=$supplier['active'] == 1?'active_supplier':'inactive_supplier'?>">Поставщик <?=$supplier['active'] == 0?'не ':null?>активен</span>
 				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
@@ -98,7 +98,7 @@
 			<div class="cabinet_block">
 				<div class="redBlock">
 					<div class="dollar">
-						<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+						<form action="#" method="post" onsubmit="RecalcSupplierCurrency();return false;">
 							<label for="currency_rate">Личный курс доллара</label><br>
 							<div class="flexWrap">
 								<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
@@ -225,12 +225,12 @@
 							</td>
 							<td>
 								<?if(!empty($item['images'])){?>
-									<img <?=$wh?> class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
+									<img <?=$wh?> class="lazy" src="" alt="" data-original="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
 									<noscript>
 										<img <?=$wh?> src="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
 									</noscript>
 								<?}else{?>
-									<img <?=$wh?> class="lazy" data-original="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+									<img <?=$wh?> class="lazy" src="" alt="" data-original="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
 									<noscript>
 										<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
 									</noscript>

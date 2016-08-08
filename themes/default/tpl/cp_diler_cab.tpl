@@ -60,7 +60,7 @@
 									<form action="<?=$GLOBALS['URL_request']?>">
 										<textarea onChange = "setOrderNote (<?=$i['id_order']?>)" rows="3" id="order_note_<?=$i['id_order']?>" class="contragent_order_note"><?php if(isset($i['note'])) echo $i['note']?></textarea>
 									</form>
-									<form action="">
+									<form action="#">
 										<textarea onChange = "setOrderNote_zamena (<?=$i['id_order']?>)" id="order_note2_<?=$i['id_order']?>" class="contragent_order_note_2"><?php if(isset($i['note2'])) echo $i['note2']?></textarea>
 									</form>
 								</td>

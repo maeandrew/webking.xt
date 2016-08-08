@@ -1,6 +1,6 @@
 <h1>Основная информация</h1>
 <div class="edit_contacts_block">
-	<form id="edit_contacts" class="editing" action="" method="post">
+	<form id="edit_contacts" class="editing" action="#" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

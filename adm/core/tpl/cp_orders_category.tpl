@@ -52,7 +52,7 @@
 		<?if(isset($list)){
 			foreach($list as $i){?>
 				<tr class="animate">
-					<form action="" method="post">
+					<form action="#" method="post">
 						<td><?=date("d.m.Y", $i['creation_date'])?></td>
 						<td>
 							<a href="/adm/order/<?=$i['id_order']?>"><?=$i['id_order']?></a>

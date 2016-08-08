@@ -1470,10 +1470,10 @@ $(function(){
 	});
 
 	//Отправка данных (смета клиента)
-	$('#estimate').on('click', function(){
+	$('#estimate_form').on('click', function(){
 		$('.estimate_info_js').html(''); // удаление предыдущего оповещения аякса
-		$('#estimate div').each(function() { // удаление класса is-invalid со всех полей
-			$('#estimate div').removeClass('is-invalid');
+		$('#estimate_form div').each(function() { // удаление класса is-invalid со всех полей
+			$('#estimate_form div').removeClass('is-invalid');
 		});
 	});
 

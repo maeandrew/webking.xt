@@ -106,7 +106,7 @@
 							<td class="cat_note">
 								<a href="#" title="Примечание по товарной позиции. Здесь можете указать желаемый цвет товара, размер и другие переменные характеристики не влияющие на цену товара" id="ico_mopt_<?=$item['id_product']?>" class="error"></a>
 								<!--Скрытая форма примечания ОСТОРОЖНО, если между тегами textarea будут проблеы - примечания перестанут нормально работвть-->
-								<form action="">
+								<form action="#">
 									<textarea id="mopt_note_<?=$item['id_product']?>" onchange="toCart(<?=$item['id_product']?>, 0)"><?=isset($_SESSION['Cart']['products'][$item['id_product']]['note_mopt'])?$_SESSION['Cart']['products'][$item['id_product']]['note_mopt']:null?></textarea>
 								</form>
 							</td>
