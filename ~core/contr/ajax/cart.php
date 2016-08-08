@@ -231,6 +231,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}else{
 					$tpl->Assign('unlist', false);
 				}
+				if(isset($_SESSION['cart']['id_customer'])){
+					$customer_order = $Customers->SetFieldsById($_SESSION['cart']['id_customer'], 1, true);
+					$tpl->Assign('customer_order', $customer_order);
+				}
 				$tpl->Assign('promo_info', 'Информация о введенном промокоде'); //Временный текст
 				$tpl->Assign('msg', array('type' => 'info', 'text' => 'Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a>'));
 				if(isset($success)){
@@ -426,9 +430,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['message'] = 'Произошла ошибка, повторите попытку.';
 					$res['status'] = 2;
 				}
-				$order = new Orders();
-				$customer_data = $Customers->SetFieldsById( $_POST['id_customer'], 1, true);
-				$customer_data['last_order'] = $order->GetLastOrder($_POST['id_customer']);
 				$res['customer'] = $customer_data;
 				echo json_encode($res);
 				break;
