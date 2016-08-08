@@ -232,7 +232,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$tpl->Assign('unlist', false);
 				}
 				if(isset($_SESSION['cart']['id_customer'])){
-					$customer_order = $Customers->SetFieldsById($_SESSION['cart']['id_customer'], 1, true);
+					$customer_order = $customers->SetFieldsById($_SESSION['cart']['id_customer'], 1, true);
+					$customer_order['last_order'] = $order->GetLastOrder($_SESSION['cart']['id_customer']);
 					$tpl->Assign('customer_order', $customer_order);
 				}
 				$tpl->Assign('promo_info', 'Информация о введенном промокоде'); //Временный текст
@@ -376,16 +377,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$customer_data['last_order'] = $order->GetLastOrder($id_user);
 						$res = '<div class="customer_main_info">
 									<input type="hidden" value="'.$id_user.'">
-									<p><span>ФИО</span>: '.($customer_data['name']?$customer_data['name']:null).'</p>
-									<p><span>email:</span> '.($customer_data['email']?$customer_data['email']:null).'</p>
-									<p><span>Баланс:</span> '.($customer_data['balance']?$customer_data['balance']:null).'</p>
-									<p><span>Последний заказ:</span> '.($customer_data['last_order']?$customer_data['last_order']:null).'</p>
-									<p><span>Активность:</span> '.($customer_data['active'] ==1?'Да':'Нет').'</p>
+									<p>ФИО: '.($customer_data['name']?$customer_data['name']:null).'</p>
+									<p>email: '.($customer_data['email']?$customer_data['email']:null).'</p>
+									<p>Баланс: '.($customer_data['balance']?$customer_data['balance']:null).'</p>
+									<p>Последний заказ: '.($customer_data['last_order']?$customer_data['last_order']:null).'</p>
+									<p>Активность: '.($customer_data['active'] ==1?'Да':'Нет').'</p>
 								</div>
 								<div class="bonus_block">
-									<p><span>Бонусная карта:</span> №'.($customer_data['bonus_card']?$customer_data['bonus_card']:null).'</p>
-									<p><span>Бонусный баланс:</span> '.($customer_data['bonus_balance']?$customer_data['bonus_balance']:null).' грн.</p>
-									<p><span>Бонусный процент:</span> '.($customer_data['bonus_discount']?$customer_data['bonus_discount']:null).'%</p>
+									<p>Бонусная карта: №'.($customer_data['bonus_card']?$customer_data['bonus_card']:null).'</p>
+									<p>Бонусный баланс: '.($customer_data['bonus_balance']?$customer_data['bonus_balance']:null).' грн.</p>
+									<p>Бонусный процент: '.($customer_data['bonus_discount']?$customer_data['bonus_discount']:null).'%</p>
 								</div>';
 					}
 				}else {
@@ -430,7 +431,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['message'] = 'Произошла ошибка, повторите попытку.';
 					$res['status'] = 2;
 				}
-				$res['customer'] = $customer_data;
 				echo json_encode($res);
 				break;
 			case 'settCustomerForOrder':
