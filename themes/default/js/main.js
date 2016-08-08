@@ -1549,11 +1549,9 @@ $(function(){
 				phone = str;
 			}
 		}
-		console.log(phone);
 		if (phone.length === 12 ) {
 			console.log('телефон проверили все ок');
-			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){
-				console.log(data);
+			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){				
 				$('#cart_customer_search .search_results_block').html(data);
 			});
 		}else{
@@ -1564,12 +1562,13 @@ $(function(){
 	});
 
 	$('#cart_customer_search .add_customer').on('click', function(){
-		console.log('добавили в корзину его');
-		closeObject('cart_customer_search');
-		openObject('cart');
-		// ajax('cart', 'getCustomerInfo', phone).done(function(data){
-			// тут закроем эту модалку и откроем корзину
-		// });
+		console.log('добавили в корзину его');	
+		var id_customer = $('#cart_customer_search .customer_main_info input').val();
+		
+		ajax('cart', 'bindingCustomerOrder', {'id_customer': id_customer}).done(function(data){
+			closeObject('cart_customer_search');
+			openObject('cart');
+		});
 	});
 
 	$('#cart_customer_search .ceate_new_customer').on('click', function(){
