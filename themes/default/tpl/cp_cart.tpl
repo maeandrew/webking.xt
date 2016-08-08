@@ -292,13 +292,17 @@
 			<div class="price_nav"></div>
 		</div>
 	</div>
-
+	<? 
+	 if (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){?>
 	<div class="contragent_cart_block">
 		<p class="contragent_cart_block_title">Наименование клиента</p>
 		<p>Какойто-там текст. Какойто-там текст. Какойто-там текст. Какойто-там текст.</p>
 		<p>Какойто-там текст. Какойто-там текст. Какойто-там текст. Какойто-там текст.</p>
 		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search">Добавить</button>
 	</div>
+
+	 <?}	 
+	?>
 
 	<div class="cart_bottom_wrap">
 		<div class="sub_cart_bottom_wrap">
