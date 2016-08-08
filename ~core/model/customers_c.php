@@ -826,8 +826,7 @@ class Customers extends Users {
 			$_SESSION['member']['bonus']['bonus_discount'] = $this->fields['bonus_discount'];
 			$_SESSION['member']['bonus']['bonus_balance'] = $this->fields['bonus_balance'];
 			return true;
-		}
-		else{
+		}else{
 			return false;
 		}
 	}

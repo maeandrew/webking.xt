@@ -426,6 +426,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['message'] = 'Произошла ошибка, повторите попытку.';
 					$res['status'] = 2;
 				}
+				$order = new Orders();
+				$customer_data = $Customers->SetFieldsById( $_POST['id_customer'], 1, true);
+				$customer_data['last_order'] = $order->GetLastOrder($_POST['id_customer']);
+				$res['customer'] = $customer_data;
 				echo json_encode($res);
 				break;
 			case 'settCustomerForOrder':
