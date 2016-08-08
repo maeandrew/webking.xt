@@ -622,7 +622,6 @@
 			<div class="modal_container"></div>
 		</div>
 		<!-- Модалка контрагент корзина поиск данных о клиенета -->
-		
 		<div id="cart_customer_search" data-type="modal">
 			<p>Найти клиента</p>
 			<div class="search_block">
@@ -648,27 +647,22 @@
 					<p>Бонусный процент: 5%</p>
 				</div>-->
 			</div>
-			<!-- <div class="new_name_block">
+			<div class="new_name_block hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label for="user_number">Телефон</label>
-					<input class="mdl-textfield__input " type="text" id="user_number">
-					<label class="mdl-textfield__label" for="user_number"></label>
+					<label for="new_user_surname">Фамилия</label>
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_surname">					
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label for="user_number">Телефон</label>
-					<input class="mdl-textfield__input phone" type="text" id="user_number"
-					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
-					<label class="mdl-textfield__label" for="user_number"></label>
+					<label for="new_user_name">Имя</label>
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_name">					
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label for="user_number">Телефон</label>
-					<input class="mdl-textfield__input phone" type="text" id="user_number"
-					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
-					<label class="mdl-textfield__label" for="user_number"></label>
+					<label for="new_user_middle_name">Отчество</label>
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_middle_name">				
 				</div>
-			</div> -->
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_customer">Добавить</button>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored ceate_new_customer">Создать</button>
+			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_customer hidden ">Добавить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored ceate_new_customer hidden">Создать</button>
 		</div>
 
 		<!-- Аналог alert -->

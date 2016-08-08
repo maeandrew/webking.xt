@@ -1538,7 +1538,7 @@ $(function(){
 	
 
 	$('#cart_customer_search .search_btn_js').on('click', function(){
-		var phone = $(this).closest('.search_block').find('.phone').val();
+		var phone = $('#cart_customer_search .phone').val();
 		//Приводит тел в нужный вид
 		var str = phone.replace(/\D/g, "");
 		var check_num = /^(38)?(\d{10})$/;
@@ -1551,12 +1551,25 @@ $(function(){
 		}
 		if (phone.length === 12 ) {
 			console.log('телефон проверили все ок');
-			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){				
-				$('#cart_customer_search .search_results_block').html(data);
+			addLoadAnimation('#cart_customer_search');
+			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){
+				removeLoadAnimation('#cart_customer_search');
+				$('#cart_customer_search .search_results_block').html(data);				
+				if ($('#cart_customer_search .customer_main_info input').val() === undefined){
+					console.log('не нашли');
+					$('#cart_customer_search .new_name_block').removeClass('hidden');
+					$('#cart_customer_search .add_customer').addClass('hidden');
+					$('#cart_customer_search .ceate_new_customer').removeClass('hidden');
+				}else{
+					console.log('нашли');
+					$('#cart_customer_search .new_name_block').addClass('hidden');
+					$('#cart_customer_search .add_customer').removeClass('hidden');
+					$('#cart_customer_search .ceate_new_customer').addClass('hidden');
+				}
 			});
 		}else{
 			console.log('телефон проверили все НЕ ок');
-			$(this).closest('.search_block').find('.phone').css('border', '1px solid red');
+			$(this).closest('.search_block').find('.phone').addClass('input_phone_error');
 		}
 		
 	});
@@ -1564,22 +1577,46 @@ $(function(){
 	$('#cart_customer_search .add_customer').on('click', function(){
 		console.log('добавили в корзину его');	
 		var id_customer = $('#cart_customer_search .customer_main_info input').val();
-		
+		addLoadAnimation('#cart_customer_search');
 		ajax('cart', 'bindingCustomerOrder', {'id_customer': id_customer}).done(function(data){
+			removeLoadAnimation('#cart_customer_search');
 			closeObject('cart_customer_search');
 			openObject('cart');
 		});
 	});
 
 	$('#cart_customer_search .ceate_new_customer').on('click', function(){
-		console.log('создали нового и добавили в корзину его');
-		closeObject('cart_customer_search');
-		openObject('cart');
-		// ajax('cart', 'getCustomerInfo', phone).done(function(data){
-			// тут закроем эту модалку и откроем корзину
-		// });
+		console.log('создали нового и добавили в корзину его');		
+		var new_user_surname = $('#new_user_surname').val();
+		var new_user_name = $('#new_user_name').val();
+		var new_user_middle_name = $('#new_user_middle_name').val();
+		var phone = $('#cart_customer_search .phone').val();
+		//Приводит тел в нужный вид
+		var str = phone.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				phone = 38 + str;
+			}else{
+				phone = str;
+			}
+		}
+		console.log(phone);
+		console.log(new_user_name);
+		console.log(new_user_surname);
+		console.log(new_user_middle_name);
+
+		ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
+			closeObject('cart_customer_search');
+			openObject('cart');
+		});
 	});
 
+	//Убираем красную границу при вводе телефона
+	$('#cart_customer_search .phone').keyup(function(){
+		console.log('нажали');
+		$(this).removeClass('input_phone_error');
+	});
 
 
 

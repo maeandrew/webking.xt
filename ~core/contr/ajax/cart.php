@@ -363,6 +363,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					if($id_user === true){
 						$res = '<div class="customer_main_info">
 									<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
+									<p>Вы можете создать нового пользователя с таким номером.</p>
 							   </div>';
 					}else{
 						$customer = new Customers();

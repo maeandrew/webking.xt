@@ -4569,7 +4569,7 @@ iframe[name="google_conversion_frame"] {
 #cart_customer_search .search_results_block {
 	display: flex;
 }
-#cart_customer_search .search_block .phone .error {
+#cart_customer_search .search_block .input_phone_error {
 	border: 1px solid red;
 }
 
