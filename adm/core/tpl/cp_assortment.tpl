@@ -11,7 +11,7 @@
 			<form class="suppliers_activity_form" method="post" action="">
 				<input name="supplier_activ" hidden value="<?=$supplier['active'] == 1?'on':'off'?>">
 				<span class="current_supplier <?=$supplier['active'] == 1?'active_supplier':'inactive_supplier'?>">Поставщик <?=$supplier['active'] == 0?'не ':null?>активен</span>
-				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
+				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv disable_supplier_js':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
 			</form>
 		</div>
 	</div>
@@ -339,6 +339,12 @@
 		// 		}),
 		// 	});
 		// });
+
+		$('.disable_supplier_js').on('click', function(){
+			if (!confirm('Убедитесь что вы сохранили ассортимент в файл Excel')){
+				return false;
+			}
+		});
 
 		// Переключение активности записи ассортимента
 		$('.active').on('change', function(){
