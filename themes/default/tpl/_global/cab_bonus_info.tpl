@@ -14,8 +14,8 @@
 <?}?>
 <?if(isset($msg)){?>
 	<div class="msg-<?=$msg['type']?> bonus_info">
-		<div class="msg_icon">			
-			<i class="material-icons"></i>			
+		<div class="msg_icon">
+			<i class="material-icons"></i>
 		</div>
 	    <p class="msg_title">!</p>
 	    <p class="msg_text"><?=$msg['text']?></p>
