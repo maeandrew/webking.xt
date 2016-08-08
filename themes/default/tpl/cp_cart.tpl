@@ -293,20 +293,21 @@
 		</div>
 	</div>
 	<?if (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){?>
-		<div class="contragent_cart_block">
+		<div class="contragent_cart_block">			
 			<? if(isset($customer_order)){?>
 			<p class="contragent_cart_block_title">Наименование клиента</p>
-			<div class="customer_main_info">
+			<div class="customer_main_info">				
 				<p class="customer_main_info_item">ФИО: 
-				<? if ($customer_order['first_name'] || $customer_order['last_name'] || $customer_order['last_name'] !== '') {?>
-					<?=$customer_order['first_name']?> <?=$customer_order['middle_name']?> <?=$customer_order['last_name']?> 
+				<? if (!empty($customer_order['first_name']) || !empty($customer_order['last_name']) || !empty($customer_order['middle_name'])) {?>
+					<?=$customer_order['last_name']?> <?=$customer_order['first_name']?> <?=$customer_order['middle_name']?>  
 				<?}else{?>
-					<?=isset($customer_order['name'])?$customer_order['name']:null?>
+					<?=!empty($customer_order['name'])?$customer_order['name']:null?>
 				<?}
 				?></p>
-				<p class="customer_main_info_item">email: <?=$customer_order['email'] !== ''?$customer_order['email']:'Нет'?></p>
-				<p class="customer_main_info_item">Баланс: <?=$customer_order['balance']?></p>
-				<p class="customer_main_info_item">Последний заказ: </p>
+				<p class="customer_main_info_item">Телефон: <?=!empty($customer_order['phones'])?$customer_order['phones']:'--'?></p>
+				<p class="customer_main_info_item">email: <?=!empty($customer_order['email'])?$customer_order['email']:'--'?></p>
+				<p class="customer_main_info_item">Баланс: <?=!empty($customer_order['balance'])?$customer_order['balance']:'--'?></p>
+				<p class="customer_main_info_item">Последний заказ: <?=!empty($customer_order['last_order'])?$customer_order['last_order']:'--'?></p>
 				<p class="customer_main_info_item">Активность: <?=$customer_order['active'] == 1?'Да':'Нет'?></p>
 			</div>
 			<?}else{?>
@@ -364,7 +365,7 @@
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="">
-					<?if(!G::IsLogged() || $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){?>
+					<?if(!G::IsLogged()){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
 							<input class="mdl-textfield__input phone" type="text" id="user_number"
