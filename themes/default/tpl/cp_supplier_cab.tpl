@@ -123,7 +123,7 @@
 					foreach($list as $i){?>
 						<div class="products_list_item <?=isset($_SESSION['Assort']['products'][$i['id_product']]['active']) && $_SESSION['Assort']['products'][$i['id_product']]['active']?'available':'notavailable'?>" data-id-product="<?=$i['id_product']?>">
 							<div class="removeFromAssort">
-								<a href="#" onclick="DelFromAssort($(this), <?=$i['id_product']?>);return false;" class="icon-font" id="remove<?=$i['id_product']?>" title="Удалить"><i class="material-icons">close</i></a>
+								<a href="#" onclick="AddDelProductAssortiment($(this), <?=$i['id_product']?>);return false;" class="icon-font removeFromAssort_js" id="remove<?=$i['id_product']?>" title="Удалить"><i class="material-icons">close</i></a>
 								<div class="mdl-tooltip" for="remove<?=$i['id_product']?>">Удалить</div>
 							</div>
 							<div class="photo_cell">
@@ -451,6 +451,10 @@
 				}),
 			});
 		});*/
+		
+		$('.removeFromAssort_js').on('click', function(){
+			$(this).closest('.products_list_item').remove();
+		});
 
 		/* Новый переключатель обьедения цены */
 		$('.price_switcher_js').on('change', function(){			
