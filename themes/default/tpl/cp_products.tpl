@@ -40,6 +40,7 @@
 					<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>">
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
+				<div class="hidden"><?=count($category['subcats'])?></div>
 			<?}?>
 		</div>
 	<?}?>
