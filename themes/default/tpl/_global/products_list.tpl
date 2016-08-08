@@ -243,9 +243,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 
 					<div class="product_check card_item">
 						<span class="suplierPriceBlockLabel">Добавить:</span>
-						<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">				
+						<label  class="mdl-checkbox mdl-js-checkbox">				
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
-							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+							<input type="checkbox" class="check mdl-checkbox__input" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this, <?=$item['id_product']?>)"/>
 						</label>
 					</div>
 				</div>

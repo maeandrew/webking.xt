@@ -531,9 +531,10 @@ function moveObjects(){
 	});
 }
 // Удаление товара из ассортимента поставщика в кабинете
-function DelFromAssort(id){
+function DelFromAssort(obj){
+	var id = obj.closest('.products_list_item').data('id-product');
 	ajax('product', 'DelFromAssort', {id_product: id}).done(function(){
-		$('#tr_mopt_'+id).slideUp();
+		obj.closest('.products_list_item').slideUp();
 	});
 }
 // Добавление или обновление товара в ассортименте

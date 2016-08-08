@@ -536,13 +536,12 @@
 				<?foreach($random_products as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p[0]['images'])){?>
-								images
+							<?if(!empty($p['images'][0])){?>
 								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
 							<?}else{?>
-								<img alt="" src=")<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if ($p['price_mopt'] > 100) {?>
@@ -563,8 +562,7 @@
 				<?foreach($popular_products as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p[0]['images'])){?>
-								images
+							<?if(!empty($p['images'][0])){?>
 								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
@@ -590,8 +588,7 @@
 				<?foreach($view_products_list as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p[0]['images'])){?>
-								images
+							<?if(!empty($p['images'][0])){?>
 								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
