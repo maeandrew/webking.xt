@@ -295,9 +295,15 @@
 	<?if (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){?>
 		<div class="contragent_cart_block">
 			<p class="contragent_cart_block_title">Наименование клиента</p>
-			<p>Какойто-там текст. Какойто-там текст. Какойто-там текст. Какойто-там текст.</p>
-			<p>Какойто-там текст. Какойто-там текст. Какойто-там текст. Какойто-там текст.</p>
+			<div class="customer_main_info">
+					<p>ФИО: </p>
+					<p>email: </p>
+					<p>Баланс: </p>
+					<p>Последний заказ: </p>
+					<p>Активность: </p>
+				</div>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search">Добавить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search">Изменить</button>
 		</div>
 	<?}?>
 

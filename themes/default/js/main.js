@@ -1534,9 +1534,7 @@ $(function(){
 		$('#cart .clear_cart').addClass('hidden');
 	}
 
-	//Обработчики модалки контрагента поиска клиента в корзине	
-	
-
+	//ОБРАБОТЧИКИ МОДАЛКИ КОНТРАГЕНТА ПОИСКА КЛИЕНТА В КОРЗИНЕ	
 	$('#cart_customer_search .search_btn_js').on('click', function(){
 		var phone = $('#cart_customer_search .phone').val();
 		//Приводит тел в нужный вид
@@ -1556,26 +1554,24 @@ $(function(){
 				removeLoadAnimation('#cart_customer_search');
 				$('#cart_customer_search .search_results_block').html(data);				
 				if ($('#cart_customer_search .customer_main_info input').val() === undefined){
-					console.log('не нашли');
 					$('#cart_customer_search .new_name_block').removeClass('hidden');
 					$('#cart_customer_search .add_customer').addClass('hidden');
 					$('#cart_customer_search .ceate_new_customer').removeClass('hidden');
+					$('#cart_customer_search .new_name_block input').each(function(){
+						$(this).val('');
+					});
 				}else{
-					console.log('нашли');
 					$('#cart_customer_search .new_name_block').addClass('hidden');
 					$('#cart_customer_search .add_customer').removeClass('hidden');
 					$('#cart_customer_search .ceate_new_customer').addClass('hidden');
 				}
 			});
 		}else{
-			console.log('телефон проверили все НЕ ок');
 			$(this).closest('.search_block').find('.phone').addClass('input_phone_error');
-		}
-		
+		}		
 	});
 
 	$('#cart_customer_search .add_customer').on('click', function(){
-		console.log('добавили в корзину его');	
 		var id_customer = $('#cart_customer_search .customer_main_info input').val();
 		addLoadAnimation('#cart_customer_search');
 		ajax('cart', 'bindingCustomerOrder', {'id_customer': id_customer}).done(function(data){
@@ -1586,7 +1582,6 @@ $(function(){
 	});
 
 	$('#cart_customer_search .ceate_new_customer').on('click', function(){
-		console.log('создали нового и добавили в корзину его');		
 		var new_user_surname = $('#new_user_surname').val();
 		var new_user_name = $('#new_user_name').val();
 		var new_user_middle_name = $('#new_user_middle_name').val();
@@ -1600,13 +1595,10 @@ $(function(){
 			}else{
 				phone = str;
 			}
-		}
-		console.log(phone);
-		console.log(new_user_name);
-		console.log(new_user_surname);
-		console.log(new_user_middle_name);
-
+		}		
+		addLoadAnimation('#cart_customer_search');
 		ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
+			removeLoadAnimation('#cart_customer_search');
 			closeObject('cart_customer_search');
 			openObject('cart');
 		});

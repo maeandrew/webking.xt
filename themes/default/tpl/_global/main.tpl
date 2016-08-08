@@ -633,7 +633,7 @@
 				</div>
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored search_btn_js" >Найти</button>
 			</div>
-			<p>Результаты поиска</p>
+			<p class="search_results_block_title">Результаты поиска:</p>
 			<div class="search_results_block">
 				<!--<div class="customer_main_info">
 					<p>ФИО: переменная</p>

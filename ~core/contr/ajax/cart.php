@@ -372,16 +372,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$customer_data['last_order'] = $order->GetLastOrder($id_user);
 						$res = '<div class="customer_main_info">
 									<input type="hidden" value="'.$id_user.'">
-									<p>ФИО: '.($customer_data['name']?$customer_data['name']:null).'</p>
-									<p>email: '.($customer_data['email']?$customer_data['email']:null).'</p>
-									<p>Баланс: '.($customer_data['balance']?$customer_data['balance']:null).'</p>
-									<p>Последний заказ: '.($customer_data['last_order']?$customer_data['last_order']:null).'</p>
-									<p>Активность: '.($customer_data['active'] ==1?'Да':'Нет').'</p>
+									<p><span>ФИО</span>: '.($customer_data['name']?$customer_data['name']:null).'</p>
+									<p><span>email:</span> '.($customer_data['email']?$customer_data['email']:null).'</p>
+									<p><span>Баланс:</span> '.($customer_data['balance']?$customer_data['balance']:null).'</p>
+									<p><span>Последний заказ:</span> '.($customer_data['last_order']?$customer_data['last_order']:null).'</p>
+									<p><span>Активность:</span> '.($customer_data['active'] ==1?'Да':'Нет').'</p>
 								</div>
 								<div class="bonus_block">
-									<p>Бонусная карта: №'.($customer_data['bonus_card']?$customer_data['bonus_card']:null).'</p>
-									<p>Бонусный баланс: '.($customer_data['bonus_balance']?$customer_data['bonus_balance']:null).' грн.</p>
-									<p>Бонусный процент: '.($customer_data['bonus_discount']?$customer_data['bonus_discount']:null).'%</p>
+									<p><span>Бонусная карта:</span> №'.($customer_data['bonus_card']?$customer_data['bonus_card']:null).'</p>
+									<p><span>Бонусный баланс:</span> '.($customer_data['bonus_balance']?$customer_data['bonus_balance']:null).' грн.</p>
+									<p><span>Бонусный процент:</span> '.($customer_data['bonus_discount']?$customer_data['bonus_discount']:null).'%</p>
 								</div>';
 					}
 				}else {
