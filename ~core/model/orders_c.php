@@ -1871,6 +1871,6 @@ class Orders {
 		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
-		return $res;
+		return $res['last_order'];
 	}
 }

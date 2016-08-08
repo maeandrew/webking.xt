@@ -380,7 +380,7 @@
 							<div class="mdl-button mdl-js-button mdl-button--raised del_promo_wrapp del_promo_wrapp_js">
 								<i class="material-icons del_promoCode del_promoCode_js btn_js">clear</i>
 							</div>
-							
+
 							<div class="cart_warning_js cart_warning clearBoth hidden">
 								<p>Удаление промокода приведет к удалению всех совместно организованных заказов.</p>
 								<p>Вы уверенны, что хотите удалить промокод?</p>
