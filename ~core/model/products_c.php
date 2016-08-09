@@ -1753,6 +1753,51 @@ class Products {
 		// }
 		$this->RecalcSitePrices(array($id_product));
 	}
+
+	/**
+	 * Обновление данных Ассортимента с админки
+	 * @param [type] $arr [description]
+	 */
+	public function UpdateAssortWithAdm($arr){
+		//Проверка перед update. Если изменений нет, то update не делать
+		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment WHERE id_assortiment = ".$arr['id_assortiment'];
+		$res = $this->db->GetOneRowArray($sql);
+		$i = 0;
+		foreach($arr as $k => &$v){
+			if(isset($res[$k]) && $res[$k] !== $v){
+				$i++;
+			}
+		}
+		if($i > 0){
+			$suppliers = new Suppliers();
+			$suppliers->SetFieldsById($arr['id_supplier'], 1);
+			$supp_fields = $suppliers->fields;
+			$f['product_limit'] = trim($arr['product_limit']);
+			$f['inusd'] = $arr['inusd'];
+			if($arr['inusd'] != 1){
+				$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
+				$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
+				$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
+				$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
+			}else{
+				$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
+				$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
+				$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
+				$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
+			}
+			$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
+			$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
+			$this->db->StartTrans();
+			if (!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_assortiment = " . $arr['id_assortiment'])) {
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+			$this->RecalcSitePrices(array($arr['id_product']));
+			return true;
+		}
+	}
+
 	/**
 	 * [InitProduct description]
 	 * @param [type] $id_product [description]
@@ -1913,49 +1958,7 @@ class Products {
 		return false;
 	}
 
-	/**
-	 * Обновление данных Ассортимента с админки
-	 * @param [type] $arr [description]
-	 */
-	public function UpdateAssortWithAdm($arr){
-		//Проверка перед update. Если изменений нет, то update не делать
-		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment WHERE id_assortiment = ".$arr['id_assortiment'];
-		$res = $this->db->GetOneRowArray($sql);
-		$i = 0;
-		foreach($arr as $k => &$v){
-			if(isset($res[$k]) && $res[$k] !== $v){
-				$i++;
-			}
-		}
-		if($i > 0){
-			$suppliers = new Suppliers();
-			$suppliers->SetFieldsById($arr['id_supplier'], 1);
-			$supp_fields = $suppliers->fields;
-			$f['product_limit'] = trim($arr['product_limit']);
-			$f['inusd'] = $arr['inusd'];
-			if($arr['inusd'] != 1){
-				$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
-				$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-				$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
-				$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
-			}else{
-				$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
-				$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
-				$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
-				$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
-			}
-			$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
-			$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
-			$this->db->StartTrans();
-			if (!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_assortiment = " . $arr['id_assortiment'])) {
-				$this->db->FailTrans();
-				return false;
-			}
-			$this->db->CompleteTrans();
-			$this->RecalcSitePrices(array($arr['id_product']));
-			return true;
-		}
-	}
+
 	/**
 	 * Отвязываем поставщика от товара
 	 * @param [type] $id_assort  [description]
@@ -1972,6 +1975,7 @@ class Products {
 		// $this->RecalcSitePrices(array($id_product));
 		// $this->db->CompleteTrans();
 	}
+
 	/**
 	 * Пересчет цен на сайте
 	 * @param [type] $ids_products [description]
@@ -4850,5 +4854,17 @@ class Products {
 			return false;
 		}
 		return $res;
+	}
+
+	public  function UpdateActivityProducttSupplier($id_supplier){
+		$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit = 0
+				WHERE id_supplier = ".$id_supplier;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
 	}
 }
