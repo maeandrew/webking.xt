@@ -170,6 +170,9 @@ class Cart {
 			$this->db->CompleteTrans();
 		}
 		unset($_SESSION['cart']['id']);
+		if(isset($_SESSION['cart']['note'])){
+			unset($_SESSION['cart']['note']);
+		}
 		//Закоментированно временно. Поиск ошибки.
 		// if($id_cart){
 		// 	$sql = "DELETE FROM "._DB_PREFIX_."cart_product
@@ -226,6 +229,7 @@ class Cart {
 		}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && $add == null && !isset($_SESSION['cart']['id'])){
 			$_SESSION['cart'] = null;
 		}
+		$_SESSION['cart']['note'] = $order['note'];
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			$_SESSION['cart']['base_order'] = $id_order;
 			$_SESSION['cart']['id_customer'] = $order['id_customer'];

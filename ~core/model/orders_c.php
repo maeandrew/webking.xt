@@ -514,6 +514,7 @@ class Orders {
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
+		$f['note'] = isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
@@ -658,6 +659,9 @@ class Orders {
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
+		}
+		if(isset($_SESSION['cart']['note'])){
+			unset($_SESSION['cart']['note']);
 		}
 		return $id_order;
 	}
