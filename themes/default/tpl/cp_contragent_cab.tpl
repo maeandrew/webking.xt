@@ -4,7 +4,7 @@
 		<p class="contragent_balance">Баланс: <b><?=$current_customer['balance']?number_format($current_customer['balance'], 2, ",", "").'грн.':'Н/Д';?></b></p>
 	<?}?> 
 	<button class="open_modal mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-m-blue btn_js" data-target="work_days_js" data-name="work_days_js"><i class="material-icons">access_time</i>Рабочие дни</button>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="margin-form hidden">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="margin-form hidden">
 		<input type="text" name="discount" id="discount" value="<?=isset($current_customer['discount'])?htmlspecialchars(1-$current_customer['discount']/100):null?>" disabled="disabled">
 		<input type="hidden" name="min_koef_manager" id="min_koef_manager" value="<?=$GLOBALS['CONFIG']['min_koef_manager']?>">
 		<input type="hidden" name="max_koef_manager" id="max_koef_manager" value="<?=$GLOBALS['CONFIG']['max_koef_manager']?>">
@@ -127,7 +127,7 @@
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	</div>	
 <!--
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" id="work_days_js" class="modal_hidden">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="work_days_js" class="modal_hidden">
 		<table border="0" cellpadding="0" cellspacing="0" class="kontrag table">
 			<thead>
 				<tr>
@@ -161,7 +161,7 @@
 <!-- CHANGE STATUS MODAL FORM -->
 	<div id="select_status_js" data-type="modal" >
 		<div class="modal_container">
-		<form action="<?=$GLOBALS['URL_request']?>" method="POST" class="select-status">
+		<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" class="select-status">
 			<div class="line">
 				<label for="order">№ заказа:</label>
 				<span class="order_num"></span>
@@ -192,7 +192,7 @@
 	<!-- CHANGE CLIENT MODAL FORM -->
 	<div id="select_client_js" data-type="modal" >
 		<div class="modal_container">
-			<form action="<?=$GLOBALS['URL_request']?>" method="POST" class="select-client">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" class="select-client">
 				<div class="line">
 					<label for="order">№ заказа:&nbsp;&nbsp;</label>
 					<span class="order_num"></span>
@@ -263,7 +263,7 @@
 	<!-- CHANGE WORK DAYS MODAL FORM -->	
 	<div id="work_days_js" data-type="modal" >
 		<div class="modal_container">
-			<form action="<?=$GLOBALS['URL_request']?>" method="post">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 				<table border="0" cellpadding="0" cellspacing="0" class="kontrag table">
 					<thead>
 						<tr>

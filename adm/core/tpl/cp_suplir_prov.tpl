@@ -1,7 +1,7 @@
 	<h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		<thead>
 			<tr>

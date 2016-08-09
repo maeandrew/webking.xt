@@ -4,7 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 
 <div id="warehouseae">
-    <form action="<?=$GLOBALS['URL_request']?>" method="post">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<select name="id_supplier" class="input-l">
 			<option disabled selected>-- Выберите поставщика --</option>
 			<?foreach($nonWarehouses as $w){?>

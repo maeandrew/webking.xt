@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="seotextae">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
 		<label>Автор: <?=isset($_POST['username'])?htmlspecialchars($_POST['username']):null?> &nbsp; &nbsp; &nbsp;  Дата создания: <?=isset($_POST['creation_date'])?htmlspecialchars($_POST['creation_date']):null?></label>
 

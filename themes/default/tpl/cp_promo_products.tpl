@@ -14,7 +14,7 @@
 		var notecontrol = new Array();
 		var max_sum_order = <?=$GLOBALS['CONFIG']['max_sum_order']?>;
 	</script>
-	<form action="<?=$GLOBALS['URL_request']?>" method="POST">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
 		<button name="sort_name" id="sort_name" style="display: none;"></button>
 		<button name="sort_price" id="sort_price_asc" value="asc" style="display: none;"></button>
 		<button name="sort_price" id="sort_price_desc" value="desc" style="display: none;"></button>

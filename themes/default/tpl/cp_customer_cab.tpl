@@ -247,7 +247,7 @@
 						<p>&mdash;</p>
 					<?}else{?>
 						<p>
-							<form action="<?=$GLOBALS['URL_request']?>" method="post">
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 								<input type="submit" name="smb_off" class="run_order_off cancel" value="X">
 								<input type="hidden" name="id_order" value="<?=$i['id_order']?>">
 							</form>

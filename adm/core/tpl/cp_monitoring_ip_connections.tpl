@@ -1,5 +1,5 @@
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
-<form action="<?=$GLOBALS['URL_request']?>" method="get">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
 	<table class="list">
 		<colgroup>
 			<col width="10%">

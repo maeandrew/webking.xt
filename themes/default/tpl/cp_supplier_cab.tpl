@@ -79,7 +79,7 @@
 					<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 					<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js" data-name="kalendar_content">Календарь</button>
 				</div>
-				<form class="work_days_add" action="<?=$GLOBALS['URL_request']?>" method="post">
+				<form class="work_days_add" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<label for="start_date" class="fleft">С даты:
 						<input type="date" name="start_date" id="start_date" value="<?=date("Y-m-d", time());?>"/>
 					</label>
@@ -370,7 +370,7 @@
 						<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 					</form>
 					<hr>
-					<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 						<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button>
 						<input type="file" name="import_file" required="required" class="file_select">
 					</form>
@@ -384,7 +384,7 @@
 						<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 					</form>
 					<hr>
-					<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 						<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button>
 						<input type="file" name="import_file" required="required" class="file_select">
 					</form>

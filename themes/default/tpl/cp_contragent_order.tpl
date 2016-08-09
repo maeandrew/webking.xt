@@ -104,7 +104,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <?php if($order['id_order_status']==1): ?>
 
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
     <input type="submit" name="smb_run" class="run_order" value="На выполнение">
 
@@ -122,7 +122,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <b><?php echo $order['note'] ?> </b>
 
-                <form action="<?=$GLOBALS['URL_request']?>" method="post">
+                <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
 <script>p_ids = new Array();ii=0;</script>
 
@@ -511,7 +511,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <!--<?php if($i['id_order_status']==1): ?>
 
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
     <input type="submit" name="smb_run" class="run_order" value="На выполнение">
 
@@ -523,7 +523,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <?php if($i['id_order_status']==1 || $i['id_order_status']==6): ?>
 
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
     <input type="submit" name="smb_cancel" class="cancel_order" value="">
 

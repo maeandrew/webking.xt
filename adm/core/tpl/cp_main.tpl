@@ -161,7 +161,7 @@
 				</colgroup>
 				<tbody>
 					<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_SEO_)){?>
-						<form action="<?=$GLOBALS['URL_request']?>" method="post">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 							<tr>
 								<td>
 									<label>Статусы товаров</label>
@@ -222,7 +222,7 @@
 						</tr>
 					<?}?>
 					<tr>
-						<form action="<?=$GLOBALS['URL_request']?>" method="post">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 							<td>
 								<label>Заполнить таблицу поиска</label>
 								<input type="text" name="name_index_status" class="hidden" value="1">

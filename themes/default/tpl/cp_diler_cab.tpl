@@ -47,7 +47,7 @@
 
 
 								<td class="klient">
-									<form action="<?=$GLOBALS['URL_request']?>" method="post">
+									<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 										<div class="content">
 											<input name="id_order" type="text" value="<?=$i['id_order']?>" style="display: none;"/>
 											<input id="order_klient_<?=$i['id_order']?>" class="diler_order_note" name="id_klient" value="<?php if(isset($i['id_klient'])) echo $i['id_klient']?>"/>
@@ -57,7 +57,7 @@
 									</form>
 								</td>
 								<td class="notes">
-									<form action="<?=$GLOBALS['URL_request']?>">
+									<form action="<?=$_SERVER['REQUEST_URI']?>">
 										<textarea onChange = "setOrderNote (<?=$i['id_order']?>)" rows="3" id="order_note_<?=$i['id_order']?>" class="contragent_order_note"><?php if(isset($i['note'])) echo $i['note']?></textarea>
 									</form>
 									<form action="<?=$_SERVER['REQUEST_URI']?>">
