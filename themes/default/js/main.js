@@ -1534,6 +1534,84 @@ $(function(){
 		$('#cart .clear_cart').addClass('hidden');
 	}
 
+	//ОБРАБОТЧИКИ МОДАЛКИ КОНТРАГЕНТА ПОИСКА КЛИЕНТА В КОРЗИНЕ	
+	$('#cart_customer_search .search_btn_js').on('click', function(){
+		var phone = $('#cart_customer_search .phone').val();
+		//Приводит тел в нужный вид
+		var str = phone.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				phone = 38 + str;
+			}else{
+				phone = str;
+			}
+		}
+		if (phone.length === 12 ) {
+			console.log('телефон проверили все ок');
+			addLoadAnimation('#cart_customer_search');
+			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){
+				removeLoadAnimation('#cart_customer_search');
+				$('#cart_customer_search .search_results_block').html(data);				
+				if ($('#cart_customer_search .customer_main_info input').val() === undefined){
+					$('#cart_customer_search .new_name_block').removeClass('hidden');
+					$('#cart_customer_search .add_customer').addClass('hidden');
+					$('#cart_customer_search .ceate_new_customer').removeClass('hidden');
+					$('#cart_customer_search .new_name_block input').each(function(){
+						$(this).val('');
+					});
+				}else{
+					$('#cart_customer_search .new_name_block').addClass('hidden');
+					$('#cart_customer_search .add_customer').removeClass('hidden');
+					$('#cart_customer_search .ceate_new_customer').addClass('hidden');
+				}
+			});
+		}else{
+			$(this).closest('.search_block').find('.phone').addClass('input_phone_error');
+		}		
+	});
+
+	$('#cart_customer_search .add_customer').on('click', function(){
+		var id_customer = $('#cart_customer_search .customer_main_info input').val();
+		addLoadAnimation('#cart_customer_search');
+		ajax('cart', 'bindingCustomerOrder', {'id_customer': id_customer}).done(function(data){
+			removeLoadAnimation('#cart_customer_search');
+			closeObject('cart_customer_search');
+			openObject('cart');
+		});
+	});
+
+	$('#cart_customer_search .ceate_new_customer').on('click', function(){
+		var new_user_surname = $('#new_user_surname').val();
+		var new_user_name = $('#new_user_name').val();
+		var new_user_middle_name = $('#new_user_middle_name').val();
+		var phone = $('#cart_customer_search .phone').val();
+		//Приводит тел в нужный вид
+		var str = phone.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				phone = 38 + str;
+			}else{
+				phone = str;
+			}
+		}		
+		addLoadAnimation('#cart_customer_search');
+		ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
+			removeLoadAnimation('#cart_customer_search');
+			closeObject('cart_customer_search');
+			openObject('cart');
+		});
+	});
+
+	//Убираем красную границу при вводе телефона
+	$('#cart_customer_search .phone').keyup(function(){
+		console.log('нажали');
+		$(this).removeClass('input_phone_error');
+	});
+
+
+
 	/*$("#login_email").blur(function(){
 		var name = this.value;
 		var count = name.length;

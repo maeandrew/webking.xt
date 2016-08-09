@@ -847,6 +847,10 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .tooltip_wrapp .mdl-radio.is-checked .mdl-radio__outer-circle{border:2px solid #018b06}
 #cart .tooltip_wrapp .mdl-radio__inner-circle{background:#018b06}
 #cart [class^=msg-]{margin-left:0}
+#cart .contragent_cart_block{background:#ffffad;text-align:left;padding:15px;margin-top:10px}
+#cart .contragent_cart_block .contragent_cart_block_title{font-size:16px;font-weight:700}
+#cart_customer_search .search_results_block{display:flex}
+#cart_customer_search .search_block .phone .error{border:1px solid red}
 @media (max-width:1200px){#cart .msg-info,#cart .orderNote{min-height:80px;border:none}
 #cart .cart_bottom_wrap{border-top:none}
 #cart .action_block{border:none}
