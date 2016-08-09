@@ -620,13 +620,15 @@
 		<div id="cart_customer_search" data-type="modal">
 			<p>Найти клиента</p>
 			<div class="search_block">
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label for="user_number">Телефон</label>
-					<input class="mdl-textfield__input phone" type="text" id="user_number"
-					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
-					<label class="mdl-textfield__label" for="user_number"></label>
-				</div>
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored search_btn_js" >Найти</button>
+				<form action="" class="search_form_js">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label for="user_number">Телефон</label>
+						<input class="mdl-textfield__input phone" type="text" id="user_number"
+						pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
+						<label class="mdl-textfield__label" for="user_number"></label>
+					</div>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Найти</button>
+				</form>
 			</div>
 			<p class="search_results_block_title">Результаты поиска:</p>
 			<div class="search_results_block">

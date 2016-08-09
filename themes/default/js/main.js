@@ -1535,7 +1535,8 @@ $(function(){
 	}
 
 	//ОБРАБОТЧИКИ МОДАЛКИ КОНТРАГЕНТА ПОИСКА КЛИЕНТА В КОРЗИНЕ	
-	$('#cart_customer_search .search_btn_js').on('click', function(){
+	$('#cart_customer_search .search_form_js').on('submit', function(e){
+		e.preventDefault();
 		var phone = $('#cart_customer_search .phone').val();
 		//Приводит тел в нужный вид
 		var str = phone.replace(/\D/g, "");
