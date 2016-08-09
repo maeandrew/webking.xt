@@ -1690,66 +1690,6 @@ class Products {
 		$this->RecalcSitePrices(array($data['id_product']));
 		return $this->GetAssort($data['id_product'], $data['id_supplier']);
 	}
-	/**
-	 * Обновление позиции ассортимента (ajax)
-	 * @param [type]  $id_product      [description]
-	 * @param [type]  $opt             [description]
-	 * @param [type]  $price_otpusk    [description]
-	 * @param [type]  $price_recommend [description]
-	 * @param [type]  $markup          [description]
-	 * @param [type]  $product_limit   [description]
-	 * @param integer $active          [description]
-	 * @param [type]  $sup_comment     [description]
-	 * @param string  $inusd           [description]
-	 * @param [type]  $currency_rate   [description]
-	 */
-	public function UpdateAssort2($arr){
-		if($arr['opt'] == 1){
-			$_SESSION['Assort']['products'][$arr['id_product']]['sup_comment'] = $arr['sup_comment'];
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk'] = $arr['price_otpusk'];
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_opt_recommend'] = $arr['price_otpusk']*$arr['nacen'];
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk_usd'] = $arr['price_otpusk']/$arr['currency_rate'];
-		}else{
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_recommend'] = $arr['price_otpusk']*$arr['nacen'];
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk_usd'] = $arr['price_otpusk']/$arr['currency_rate'];
-			$_SESSION['Assort']['products'][$arr['id_product']]['sup_comment'] = $arr['sup_comment'];
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk'] = $arr['price_otpusk'];
-		}
-		if($arr['product_limit'] == null){
-			$_SESSION['Assort']['products'][$arr['id_product']]['product_limit'] = 0;
-		}else{
-			$_SESSION['Assort']['products'][$arr['id_product']]['product_limit'] = $arr['product_limit'];
-		}
-		$_SESSION['Assort']['products'][$arr['id_product']]['active'] = $arr['active'];
-		if($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk'] == 0 &&
-			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk'] == 0 &&
-			$_SESSION['Assort']['products'][$arr['id_product']]['active'] == 0){
-			unset($_SESSION['Assort']['products'][$arr['id_product']]);
-		}
-		$this->db->StartTrans();
-		$f['id_product'] = trim($arr['id_product']);
-		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
-		$f['price_opt_recommend'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_recommend']);
-		$f['price_mopt_recommend'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_recommend']);
-		$f['price_opt_otpusk'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk']);
-		$f['price_mopt_otpusk'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk']);
-		$f['price_opt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk_usd']);
-		$f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk_usd']);
-		$f['product_limit'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['product_limit']);
-		$f['active'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['active']);
-		$f['sup_comment'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['sup_comment']);
-		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$arr['id_product']." AND id_supplier = ".$_SESSION['member']['id_user'])){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-		//$f[''] = trim($arr['']);
-		// if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
-		// 	$this->db->FailTrans();
-		// 	return false;
-		// }
-		$this->RecalcSitePrices(array($arr['id_product']));
-	}
 
 	/**
 	 * Обновление данных Ассортимента с админки
