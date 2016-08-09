@@ -48,7 +48,7 @@
 						<div class="new_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label class="mdl-textfield__label" for="regpasswd">Новый пароль:</label>
 							<input class="mdl-textfield__input" type="password" name="new_passwd" id="regpasswd"/>
-							<div id="password_error"></div>
+							<div class="password_error"></div>
 							<div class="error_description"></div>
 							<span class="mdl-textfield__error"></span>
 						</div>

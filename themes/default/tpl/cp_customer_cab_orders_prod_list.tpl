@@ -5,7 +5,7 @@
 		<div class="prodListPrice">Цена</div>
 		<div class="prodListPrice">Кол-во</div>
 		<div class="prodListPrice">Cумма</div>
-	</div>	
+	</div>
 	<?foreach ($list as $item) {
 	if($item['opt_qty'] > 0){
 		$mode = 'opt';
@@ -15,9 +15,9 @@
 		<div class="ordersProdListContent">
 			<div class="avatar">
 				<?if(!empty($item['image'])){?>
-					<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+					<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
 				<?}else{?>
-					<img alt="<?=G::CropString($item['id_product'])?>" src="http://xt.ua<?_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+					<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 				<?}?>
 			</div>
 			<div class="orderProdName"><?=$item['name'];?></div>

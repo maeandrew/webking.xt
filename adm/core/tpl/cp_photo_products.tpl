@@ -81,7 +81,7 @@
 				<?if(is_array($item['images'])){?>
 					<div class="prodImages">
 						<?foreach($item['images'] as $image){?>
-							<img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>"<?=$image['visible'] == 0?' class="imgopacity"':null?>>
+							<img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt="">
 						<?}?>
 					</div>
 				<?}
@@ -89,7 +89,7 @@
 					<div class="prodVideos">
 						<?foreach($item['videos'] as $video){?>
 							<a href="<?=$video?>" target="blank">
-								<img src="/images/video_play.png">
+								<img src="/images/video_play.png" alt="play">
 								<span class="name"><?=$video?></span>
 							</a>
 						<?}?>

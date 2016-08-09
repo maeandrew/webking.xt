@@ -1412,9 +1412,9 @@ $(function(){
 	});
 	
 	// Проверка надежности пароля
-	$('#sign_up #passwd').keyup(function(){
+	$('#sign_up [name="passwd"]').keyup(function(){
 		var passwd = $(this).val();
-		var passconfirm = $('#sign_up #passwdconfirm').val();
+		var passconfirm = $('#sign_up [name="passwdconfirm"]').val();
 		ValidatePass(passwd, $(this));
 		/*$('.mdl-textfield #passwd').closest('#regs form .mdl-textfield').addClass('is-invalid');*/
 		if(passconfirm !== ''){
@@ -1423,8 +1423,8 @@ $(function(){
 	});
 	
 	/** Проверка подтверждения пароля на странице регистрации */
-	$('#sign_up #passwdconfirm').keyup(function(){
-		var passwd = $('#sign_up #passwd').val();
+	$('#sign_up [name="passwdconfirm"]').keyup(function(){
+		var passwd = $('#sign_up [name="passwd"]').val();
 		var passconfirm = $(this).val();
 		ValidatePassConfirm(passwd, passconfirm);
 	});
@@ -1455,6 +1455,9 @@ $(function(){
 				});
 			}
 			removeLoadAnimation('#sign_up');
+		}).fail(function(data){
+			console.log('fail');
+			console.log(data);
 		});
 	});
 

@@ -10,7 +10,7 @@
 			<div class="line">
 				<label for="login_passwd">Пароль</label>
 				<input required type="password" name="passwd" id="login_passwd"/>
-				<div id="password_error"></div>
+				<div class="password_error"></div>
 			</div>
 			<div class="line clearfix">
 				<p class="login_block">

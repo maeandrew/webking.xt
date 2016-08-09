@@ -256,9 +256,9 @@
 							<div class="news_item">
 								<div class="news_image">
 									<?if(isset($item['thumbnail'])){?>
-										<img alt="<?=G::CropString($item['title'])?>" class="lazy" src="" data-original="<?=$item['thumbnail'];?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['title']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=$item['thumbnail'];?>"/>
 										<noscript>
-											<img alt="<?=G::CropString($item['title'])?>" src="<?=$item['thumbnail'];?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['title']))?>" src="<?=$item['thumbnail'];?>"/>
 										</noscript>
 									<?}?>
 								</div>
@@ -345,7 +345,7 @@
 					</label>
 					<div class="copyContainerWrap">
 						<div id="savedCopyContainer">
-							<img id="savedImageCopy" src="" alt="Сохраненная копия картинки">
+							<img id="savedImageCopy" src="/images/nofoto.png" alt="Сохраненная копия картинки">
 						</div>
 						<div class="tools_wrapp_js tools_wrapp mdl-cell--hide-tablet mdl-cell--hide-phone">
 							<i id="go_to_canvas_toolbar" class="material-icons go_to_canvas_toolbar_js">format_shapes</i>
@@ -409,7 +409,7 @@
 					<div class="social hidden">
 						<ul>
 							<li><a href="https://vk.com/xt_ua" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="vk" title="Вконтакте"><img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте"></a></li>
-							<li><a href="http://ok.ru/group/54897683202077" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники"></a></li>
+							<li><a href="http://ok.ru/group/54897683202077" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="ok" title="Однокласники"><img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Одноклаcсники"></a></li>
 							<li><a href="https://plus.google.com/+X-torg/" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="g_pl" title="google+"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a></li>
 							<li><a href="https://www.facebook.com/KharkovTorg" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="f" title="Facebook"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a></li>
 							<li><a href="https://twitter.com/we_xt_ua" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank" class="tw" title="Twitter"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a></li>
@@ -491,7 +491,7 @@
 				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>
 				<form action="<?=$_SERVER['REQUEST_URI']?>">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email"> <!-- pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" -->
+						<input class="mdl-textfield__input" type="text" id="email" name="email"> <!-- pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" -->
 						<label class="mdl-textfield__label" for="email">Email или телефон</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
@@ -523,16 +523,16 @@
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
-						<label class="mdl-textfield__label" for="email">Email</label>
+						<input class="mdl-textfield__input" type="text" id="email_login" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+						<label class="mdl-textfield__label" for="email_login">Email</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input type="password" class="mdl-textfield__input" id="passwd"	name="passwd">
-						<label class="mdl-textfield__label" for="passwd">Пароль</label>
+						<input type="password" class="mdl-textfield__input" id="sign_up_passwd"	name="passwd">
+						<label class="mdl-textfield__label" for="sign_up_passwd">Пароль</label>
 						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-						<div id="password_error"></div>
+						<div class="password_error"></div>
 						<div class="error_description"></div>
 					</div>
 
@@ -544,10 +544,10 @@
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input type="password" class="mdl-textfield__input" id="passwdconfirm" name="passwdconfirm">
-						<label class="mdl-textfield__label" for="passwdconfirm">Подтверждение пароля</label>
+						<input type="password" class="mdl-textfield__input" id="sign_up_passwdconfirm" name="passwdconfirm">
+						<label class="mdl-textfield__label" for="sign_up_passwdconfirm">Подтверждение пароля</label>
 						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-						<div id="password_error"></div>
+						<div class="password_error"></div>
 						<div class="error_description"></div>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
@@ -624,7 +624,7 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="user_number">Телефон</label>
 						<input class="mdl-textfield__input phone" type="text" id="user_number"
-						pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
+						pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i">
 						<label class="mdl-textfield__label" for="user_number"></label>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Найти</button>
@@ -678,7 +678,7 @@
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
 				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
-		</div>	
+		</div>
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
@@ -702,7 +702,7 @@
 		</div>
 		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
-			<img src="" alt="">
+			<img src="/images/nofoto.png" alt="Оригинал">
 		</div>
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
@@ -734,7 +734,7 @@
 				<p class="info_text">На Ваш номер телефона отправлено<br>SMS-сообщение c кодом для подтверждения доступа, который будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
 			</div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js hidden">
-				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" maxlength="9999">
+				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" max="9999">
 				<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
@@ -880,7 +880,7 @@
 	<!-- <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> -->
 	<!-- <noscript>
 		<div style="display:inline;">
-		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
+		<img height="1" width="1" style="border-style:none;" alt="googleads" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript> -->
 
