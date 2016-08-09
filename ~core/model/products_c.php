@@ -1652,9 +1652,7 @@ class Products {
 		}
 		if(isset($data['active'])){
 			$f['active'] = $data['active'];
-		}
-		if(isset($data['product_limit'])){
-			$f['product_limit'] = $data['product_limit'];
+			$f['product_limit'] = ($data['active'] == 0)?0:10000000;
 		}
 		// $f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
 		// $f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
@@ -1674,7 +1672,6 @@ class Products {
 		// 	unset($_SESSION['Assort']['products'][$id_product]);
 		// }
 		// // $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
-
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$data['id_product']." AND id_supplier = ".$data['id_supplier'])){
 			$this->db->FailTrans();
@@ -1686,6 +1683,10 @@ class Products {
 		// // 	$this->db->FailTrans();
 		// // 	return false;
 		// // }
+		if($supplier['single_price'] == 1 && $data['mode'] == 'mopt'){
+			$data['mode'] = 'opt';
+			$this->UpdateAssort($data);
+		}
 		$this->RecalcSitePrices(array($data['id_product']));
 		return $this->GetAssort($data['id_product'], $data['id_supplier']);
 	}

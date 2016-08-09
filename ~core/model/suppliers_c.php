@@ -672,7 +672,7 @@ class Suppliers extends Users {
 		return $arr;
 	}
 
-	public function UpdateSinglePrice($id_user, $single_price){
+	public function UpdateSinglePrice($id_user, $single_price, $price = false){
 		$f['single_price']= $single_price;
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = ".$id_user)){
@@ -681,8 +681,12 @@ class Suppliers extends Users {
 		}
 		unset($f);
 		if($single_price == 1){
-			$f['price_opt_otpusk'] = '`price_mopt_otpusk`';
-			$f['price_opt_otpusk_usd'] = '`price_mopt_otpusk_usd`';
+			$Suppliers = new Suppliers();
+			$Suppliers->SetFieldsById($id_user, 1);
+			$supplier = $Suppliers->fields;
+			$f['price_opt_otpusk'] = 'price_mopt_otpusk';
+			$f['price_opt_otpusk_usd'] = 'price_mopt_otpusk_usd';
+			$f['price_opt_recommend'] = 'price_mopt_otpusk*'.$supplier['koef_nazen_opt'];
 			if(!$succesUpdate = $this->db->UpdatePro(_DB_PREFIX_.'assortiment', $f, "id_supplier = ".$id_user)){
 				$this->db->FailTrans();
 				return false;
