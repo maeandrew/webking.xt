@@ -1,7 +1,7 @@
 <h1><?=$h1?></h1>
 <div class="nocategory">
 	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-	<form action="" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
 				<col width="5%">

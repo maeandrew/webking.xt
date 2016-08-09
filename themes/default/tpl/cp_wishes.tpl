@@ -56,7 +56,7 @@
 			<h4>Оставить сообщение</h4>
 			<span class="cancel_reply"><a href="#">Отмена</a></span>
 			<hr>
-			<form action="" method="post" id="message_js" onsubmit="onWishesSubmit()">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="message_js" onsubmit="onWishesSubmit()">
 				<label for="feedback_text">Сообщение:</label>
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="5" required></textarea>
 				<div <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'class="hidden"';?>>

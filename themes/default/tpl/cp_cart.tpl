@@ -145,7 +145,7 @@
 						<a href="<?=Link::Product($item['translit']);?>" class="description_<?=$item['id_product'];?>">
 							<?=G::CropString($item['name'], 180)?>
 						</a>
-						<span class="product_article">Артикул: <?=$item['art']?></span>						
+						<span class="product_article">Артикул: <?=$item['art']?></span>
 						<span class="prod_note_control" data-notecontr="<?=$item['note_control']?>"></span>
 						<div class="product_info">
 							<div class="note in_cart">
@@ -170,10 +170,10 @@
 								<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="cart_btn_add<?=$item['id_product']?>">Больше</div>
 
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
+								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 								
 
-								<button id="cart_btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>								
+								<button id="cart_btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="cart_btn_remove<?=$item['id_product']?>">Меньше</div>
 
 								<div class="units"><?=$item['units'];?></div>
@@ -364,12 +364,12 @@
 		</div>		
 		<div class="action_block">
 			<div class="wrapp">
-				<form action="">
+				<form action="<?=$_SERVER['REQUEST_URI']?>">
 					<?if(!G::IsLogged()){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
 							<input class="mdl-textfield__input phone" type="text" id="user_number"
-							pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\" value="<?=isset($phone) ? $phone : null ?>">
+							pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i" value="<?=isset($phone) ? $phone : null ?>">
 							<label class="mdl-textfield__label" for="user_number"></label>
 							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						</div>

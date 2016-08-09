@@ -26,7 +26,7 @@
 						<div class="promo_code"><?=$p['code']?></div>
 						<div class="percent"><?=$p['percent']?>%</div>
 						<div class="action_edit">
-							<form class="row new_promo" action="" method="POST">
+							<form class="row new_promo" action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
 								<input type="hidden" name="id" value="<?=$p['id']?>">
 								<input type="text" name="name" style="width:90px;" placeholder="Название">
 								<input type="text" name="percent" placeholder="%">
@@ -34,7 +34,7 @@
 							</form>
 						</div>
 						<div class="action_delete">
-							<form class="row new_promo" action="" method="POST">
+							<form class="row new_promo" action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
 								<input type="hidden" name="id" value="<?=$p['id']?>">
 								<input type="submit" name="delete" class="btn-m btn-red" value="Удалить">
 							</form>
@@ -49,7 +49,7 @@
 			<?}
 			if($i < 5){?>
 				<div class="row">
-					<form class="row new_promo" action="" method="POST">
+					<form class="row new_promo" action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
 						<div class="promo_code" style="max-width: 100%;">Добавить код<input type="text" name="name" style="width:150px;" placeholder="Название" required="required"> с наценкой:<input type="text" name="percent">% <input type="submit" name="submit" class="btn-m btn-green" value="Добавить"></div>
 					</form>
 				</div>
