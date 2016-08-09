@@ -54,15 +54,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('phone', isset($customer['phones'])?$customer['phones']:'');
 
 				// список всех менеджеров
-				if(substr($User->fields['email'], -11) == "@x-torg.com"){
-					// внутренний
-					// пользователи в служебных аккаунтах видят удаленных менеджеров
-					$contragents->SetList(true, false);
-				}else{
-					// внешний
-					// обычные пользователи не видят удаленных менеджеров
-					$contragents->SetList(false, false);
-				}
+				$contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
 				$managers_list = $contragents->list;
 
 				// список всех областей
