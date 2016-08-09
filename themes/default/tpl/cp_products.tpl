@@ -41,20 +41,6 @@
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
 			<?}?>
-			<?	switch (count($category['subcats']) % 5) {
-					case '0':?>
-						<div class="invisible_subCategory hidden"></div>
-						<?break;
-					case '1':
-					case '2':
-					case '3':
-					case '4':
-						for($i=0; $i <= 5 - (count($category['subcats']) % 5); $i++){?>
-							<div class="invisible_subCategory"></div>
-						<?}?>
-						<?break;
-				}
-			?>
 		</div>
 	<?}?>
 	<div class="row">

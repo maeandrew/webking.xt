@@ -3771,25 +3771,21 @@ div.modalEditOrder .applyBtn {
 }
 
 .subCategories {
-	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	margin: 0 -10px;
 	border-bottom:  1px solid #e0e0e0;
-	padding: 10px 0;
 }
 
 .subCategories .subCategory {
-	min-width: 220px;
-	max-width: 220px;
+	width: calc(20% - 20px);
+	margin: 10px;
 	height: 270px;
-	width: 108px;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 5px;
 	overflow: hidden;
 	border: 1px solid #d9d9d9;
-	margin: .5em 0;
 	border-radius: .2em;
 }
 .subCategories .separator {
@@ -3797,11 +3793,9 @@ div.modalEditOrder .applyBtn {
 	margin: 0 .5em;
 }
 .subCategories .subCategory:hover {
-	/*box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);*/
 	cursor: pointer;
 	border-color: #aaa;
 }
-
 .subCategories .subCategory img {
 	width: 100%;
 	height: 220px;
@@ -3822,6 +3816,26 @@ div.modalEditOrder .applyBtn {
 	width: 17.5%;
 }
 
+@media (max-width: 1440px){
+	.subCategories .subCategory {
+		width: calc(25% - 20px);
+	}
+}
+@media (max-width: 1280px){
+	.subCategories .subCategory {
+		width: calc(100%/3 - 20px);
+	}
+}
+@media (max-width: 950px){
+	.subCategories .subCategory {
+		width: calc(50% - 20px);
+	}
+}
+@media (max-width: 728px){
+	.subCategories .subCategory {
+		width: calc(50% - 20px);
+	}
+}
 /* Стили карусели подкатегорий */
 
 .owl-pagination {
@@ -3854,12 +3868,12 @@ div.modalEditOrder .applyBtn {
 }
 .owl-dot.active span {
 	border: 7px solid #888;
-}	
+}
 .subCategory span {
 	width: 100%;
+	max-width: 150px;
 	display: block;
 	text-align: center;
-	/* padding-bottom: 10px; */
 }	
  #owl-subcategories_slide_js .subCategory img {
 	height: 150px;
