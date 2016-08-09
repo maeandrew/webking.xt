@@ -306,7 +306,7 @@
 				?></p>
 				<p class="customer_main_info_item">Телефон: <?=!empty($customer_order['phones'])?$customer_order['phones']:'--'?></p>
 				<p class="customer_main_info_item">email: <?=!empty($customer_order['email'])?$customer_order['email']:'--'?></p>
-				<p class="customer_main_info_item">Баланс: <?=!empty($customer_order['balance'])?$customer_order['balance']:'--'?></p>
+				<p class="customer_main_info_item">Баланс: <?=!empty($customer_order['balance'])?$customer_order['balance']:'0'?> .грн</p>
 				<p class="customer_main_info_item">Последний заказ: <?=!empty($customer_order['last_order'])?$customer_order['last_order']:'--'?></p>
 				<p class="customer_main_info_item">Активность: <?=$customer_order['active'] == 1?'Да':'Нет'?></p>
 			</div>
