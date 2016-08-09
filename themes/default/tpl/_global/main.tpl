@@ -528,14 +528,14 @@
 								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
 							<?}?>
 						</select>
-						<label class="mdl-selectfield__label" for="sign_up_contragent">Контрагент</label>
+						<label class="mdl-selectfield__label" for="sign_up_contragent">Менеджер</label>
 					</div>
-						<p>Оставьте поле пустым, если не уверены</p>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="sign_up_email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+						<!-- <p>Оставьте поле пустым, если не уверены</p> -->
+<!-- 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="sign_up_email" name="email">
 						<label class="mdl-textfield__label" for="sign_up_email">Email</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
-					</div>
+					</div> -->
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input type="password" class="mdl-textfield__input" id="sign_up_passwd"	name="passwd">
