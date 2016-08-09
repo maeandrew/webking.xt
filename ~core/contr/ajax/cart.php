@@ -264,6 +264,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'remove_from_cart':
 				if(isset($_POST['id_prod_for_remove'])){
 					$res = $cart->DBCart();
+					if(count($_SESSION['cart']['products']) == 0){
+						$cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+					}
 					//$res = $cart->RemoveFromCart($_POST['id'], isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:false);
 				}else{
 					$res = null;
