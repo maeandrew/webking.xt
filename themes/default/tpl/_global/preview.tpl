@@ -52,7 +52,7 @@
 						<button id="preview_btn_add<?=$product['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="preview_btn_add<?=$product['id_product']?>">Больше</div>						
 						<input type="text" class="minQty hidden" value="<?=$product['inbox_qty']?>">
-						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$product['id_product']]['quantity'])?$_SESSION['cart']['products'][$product['id_product']]['quantity']:$product['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" data-step="<?=$product['min_mopt_qty'];?>">
+						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$product['id_product']]['quantity'])?$_SESSION['cart']['products'][$product['id_product']]['quantity']:$product['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 
 						<button id="preview_btn_remove<?=$product['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="preview_btn_remove<?=$product['id_product']?>">Меньше</div>

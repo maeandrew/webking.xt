@@ -263,7 +263,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 										</span>
 									</a>
 								</div>
-								<form action="#" class="note">
+								<form action="<?=$_SERVER['REQUEST_URI']?>" class="note">
 									<textarea cols="30" rows="3" placeholder="Примечание к заказу"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 									<label class="info_key">?</label>
 									<div class="info_description">

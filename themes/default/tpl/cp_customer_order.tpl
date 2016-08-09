@@ -264,7 +264,7 @@
 					</form>
 
 					<!-- <?if($i['id_order_status'] == 1){?>
-						<form action="#" method="post">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 							<button type="submit" name="smb_cancel" class="cancel_order mdl-button mdl-js-button mdl-button--raised">Отменить заказ</button>
 						</form>
 					<?}?> -->

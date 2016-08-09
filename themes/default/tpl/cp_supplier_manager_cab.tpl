@@ -5,7 +5,7 @@
 	</form>
 </div>
 <div id="supplier_manager_cabinet">
-	<form action="#" method="post" class="clearfix ">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="clearfix ">
 		<input type="hidden" name="sort" value="<?=isset($_POST['sort'])?$_POST['sort']:null;?>">
 		<div class="table_thead clearfix mdl-grid">
 			<div class="article mdl-cell mdl-cell--1-col">

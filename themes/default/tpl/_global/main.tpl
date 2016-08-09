@@ -322,9 +322,10 @@
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<div class="err_msg_descr_wrap">
 			<div class="err_msg_descr">Если у Вас возникли проблемы при работе с нашим сайтом</div>
-			<div class="err_msg_btn">cообщите нам об ошибке</div>			
+			<div class="err_msg_btn">cообщите нам об ошибке</div>
 		</div>
 	</div>
+	
 	<!-- message about error -->
 	<div class="err_msg_as_wrap err_msg_as_wrap_js">
 		<div class="err_msg_as err_msg_as_js">
@@ -333,7 +334,7 @@
 				<i class="material-icons">keyboard_arrow_up</i>
 			</div>
 			<div class="err_msg_as_form err_msg_as_form_js">
-				<form action="#">
+				<form action="<?=$_SERVER['REQUEST_URI']?>">
 					<div class="mdl-textfield mdl-js-textfield is-focused">
 						<textarea name="errcomment" class="mdl-textfield__input" rows="3" id="error_field" autofocus></textarea>
 						<label class="mdl-textfield__label" for="error_field">Опишите ошибку...</label>
@@ -454,7 +455,7 @@
 			<div class="modal_container">
 				<h3>Вы можете загрузить свою смету</h3>
 				<div class="estimate_info estimate_info_js"></div>
-				<form action="#" id="estimate_form">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" id="estimate_form">
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -488,7 +489,7 @@
 			<div id="sign_in" class="modal_container">
 				<h4>Вход</h4>
 				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>
-				<form action="#">
+				<form action="<?=$_SERVER['REQUEST_URI']?>">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="email"> <!-- pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" -->
 						<label class="mdl-textfield__label" for="email">Email или телефон</label>
@@ -508,7 +509,7 @@
 			<div id="sign_up" class="hidden modal_container">
 				<h4>Регистрация</h4>
 				<span></span>
-				<form action="#" class="forPassStrengthContainer_js">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" class="forPassStrengthContainer_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="name" name="name">
 						<label class="mdl-textfield__label" for="name">Имя</label>
@@ -557,7 +558,7 @@
 		<div id="access_recovery" data-type="modal">
 			<div class="password_recovery_container">
 				<h4>Восстановление доступа</h4>
-				<form action="#">
+				<form action="<?=$_SERVER['REQUEST_URI']?>">
 					<div><label class="mdl-radio mdl-js-radio" for="chosen_mail">
 						<input type="radio" id="chosen_mail" class="mdl-radio__button" name="recovery_method" data-value="email" checked>
 						<span class="mdl-radio__label">через Email</span>
@@ -625,7 +626,7 @@
 			<h4>Отзывы и вопросы</h4>
 			<hr>
 			<p>У Вашего клиента возник вопрос?<br>Напишите его</p>
-			<form action="#" method="post">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 				<input type="hidden" name="id_product">
 				<input type="hidden" name="id_user">
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
@@ -678,7 +679,7 @@
 			<div class="verification_meth hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
-					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}" disabled>
+					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i" disabled>
 					<label class="mdl-textfield__label" for="recovery_phone"></label>
 					<span class="mdl-textfield__error"></span>
 				</div>
@@ -703,7 +704,7 @@
 				<div class="mdl-card__supporting-text">
 					<h3>Предложения и пожелания</h3>
 					<p>Напишите Нам, как мы можем улучшить нашу с Вами работу</p>
-					<form action="#" class="offers_form">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" class="offers_form">
 						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
 							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
@@ -728,7 +729,7 @@
 					<h3>Замечания</h3>
 					<p>Сообщите нам, если у Вас есть замечания по поводу работы нашей службы снабжения.</p>
 					<p>Мы постараемся сделать нашу совместную работу максимально удобной для Вас!</p>
-					<form action="#" class="issue_form">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" class="issue_form">
 						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
 							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">

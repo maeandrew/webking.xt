@@ -1035,7 +1035,7 @@ $(function(){
 		
 	// $('#verification').on('click', 'label[for="choise_sms"]', function(){
 	// 	$('#verification #recovery_email').closest('div').addClass('hidden');
-	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 	// 	$(".phone").mask("+38 (099) ?999-99-99");
 	// 	componentHandler.upgradeDom();
 	// });
@@ -1164,7 +1164,7 @@ $(function(){
 	});
 	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});

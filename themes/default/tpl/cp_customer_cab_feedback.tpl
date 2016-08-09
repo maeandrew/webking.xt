@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<div id="feedback">
-			<form action="#" method="GET">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="GET">
 				<ul id="nav">
 					<li>
 						<button name="t" value="administration" <?=(!isset($_GET['t']) || $_GET['t']=='administration')?'class="active"':null;?>>

@@ -12,7 +12,7 @@
 	    <p class="msg_text"></p>
 	</div>
 <?}?>
-<form action="#" method="POST" class="bonus_content">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" class="bonus_content">
 	<?if(!$Customer['bonus_card']){?>
 		<div class="bonus_reg_block">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

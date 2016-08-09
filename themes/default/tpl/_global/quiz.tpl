@@ -45,7 +45,7 @@
 					<span>Выберите адрес доставки.</span>
 				</div>
 				<div class="quiz_content">
-					<form action="#" class="mdl-grid">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">
 						<div class="mdl-cell mdl-cell--12-col">
 							<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label address">
 								<select id="region" name="region" class="mdl-selectfield__select" required onChange="addressSelect($(this));">
@@ -70,7 +70,7 @@
 					<span>Сейчас я вижу Вас как <?=$client_name?>, скажите, как Вас зовут?</span>
 				</div>
 				<div class="quiz_content">
-					<form action="#" class="mdl-grid">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">
 						<div class="mdl-cell mdl-cell--12-col">
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="last_name">
 								<input class="mdl-textfield__input" type="text" name="last_name" value="<?=$customer['last_name']?>">
@@ -102,7 +102,7 @@
 				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, мы доставляем в <?=$cities_count?> городов Украины, а откуда Вы?</h6>
 			</div>
 			<div class="quiz_content">
-				<form action="#" class="mdl-grid">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">
 					<div class="mdl-cell mdl-cell--12-col">
 						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
 							<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
@@ -134,7 +134,7 @@
 				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, доставка в <span class="city"><?=$saved_city['title']?></span> возможна! Выберите удобные для Вас способ и службу доставки.</h6>
 			</div>
 			<div class="quiz_content">
-				<form action="#" class="mdl-grid">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">
 					<input type="hidden" id="city" name="city" value="<?=$saved_city['title']?>">
 					<input type="hidden" id="region" name="region" value="<?=$saved_region['title']?>">
 					<div class="mdl-cell mdl-cell--12-col">

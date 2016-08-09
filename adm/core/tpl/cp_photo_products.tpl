@@ -1,6 +1,6 @@
 <h1><?=$header;?>
 	<?if($_SESSION['member']['gid'] != _ACL_PHOTOGRAPHER_){?>
-		<form action="#" method="post" class="photographer_select">
+		<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="photographer_select">
 			<select name="user" class="input-m" id="user">
 				<?foreach($users_list as $user){?>
 					<option <?=isset($id_photographer) && $id_photographer == $user['id_user']?'selected':null;?> value="<?=$user['id_user']?>"><?=$user['name'].' - '.$user['email']?></option>
