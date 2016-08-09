@@ -1435,9 +1435,10 @@ $(function(){
 		addLoadAnimation('#sign_up');
 		var parent = $(this).closest('form'),
 			fields = {};
-		parent.find('.mdl-textfield__input').each(function(index, el) {
+		parent.find('.mdl-textfield__input, .mdl-selectfield__select').each(function(index, el) {
 			fields[$(el).attr('name')] = $(el).val();
 		});
+		console.log(fields);
 		// var res = ValidateEmail(data, 1);
 		ajax('auth', 'register', fields).done(function(data){
 			if(data.err === 0){

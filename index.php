@@ -91,7 +91,7 @@ $Customer->SetFieldsById($User->fields['id_user']);
 $contragents = new Contragents();
 // список всех менеджеров
 $contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
-$managers_list = $contragents->list;
+$tpl->Assign('managers_list', $contragents->list);
 
 if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
 	$contragents->GetSavedFields($Customer->fields['id_contragent']);

@@ -458,14 +458,17 @@ body:not(.c_main) .banner {
 [data-type="modal"] .modal_container {
 	max-height: calc(90vh - 52px - 60px - 64px);
 	position: relative;
-	text-align: center;
+	/*text-align: center;*/
 	overflow-y: auto;
+}
+[data-type="modal"] .modal_container h4 {
+	text-align: center;
 }
 [data-type="modal"] .modal_container .mdl-card__supporting-text p {
 	font-size: 20px;
 	text-transform: uppercase;
 }
-[data-type="modal"] a.close_modal{
+[data-type="modal"] a.close_modal {
 	color: #bcbcbc;
 	border-radius: .4em;
 	position: absolute;
@@ -481,7 +484,7 @@ body:not(.c_main) .banner {
 	-o-transition: all .4s cubic-bezier(.4, 0, .2, 1);
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 }
-[data-type="modal"] a.close_modal:hover{
+[data-type="modal"] a.close_modal:hover {
 	color: #f00;
 }
 
@@ -740,9 +743,6 @@ section.center {
 	#sign_up > span {
 		display: block;
 		padding: 1em 0;
-	}
-	#sign_in.modal_container h4 {
-		text-align: center;
 	}
 	#sign_in.modal_container .access_recovery {
 		display: block;
