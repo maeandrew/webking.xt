@@ -485,7 +485,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							'passwd' => $pass = G::GenerateVerificationCode(6),
 							'descr' => 'Пользователь создан автоматически при оформлении корзины',
 							'phone' => $phone,
-							'id_contragent' => isset($_POST['id_contragent'])?$_POST['id_contragent']:null
+							'id_contragent' => isset($_POST['id_contragent']) && !empty($_POST['id_contragent'])?$_POST['id_contragent']:null
 						);
 
 						// регистрируем нового пользователя
