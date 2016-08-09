@@ -628,7 +628,7 @@
 		<div id="cart_customer_search" data-type="modal">
 			<p>Найти клиента</p>
 			<div class="search_block">
-				<form action="" class="search_form_js">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" class="search_form_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="user_number">Телефон</label>
 						<input class="mdl-textfield__input phone" type="text" id="user_number"
