@@ -3770,14 +3770,13 @@ div.modalEditOrder .applyBtn {
 	}
 }
 
-.subCategories {
+.subCategories{
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 -10px;
 	border-bottom:  1px solid #e0e0e0;
 }
-
-.subCategories .subCategory {
+.subCategories .subCategory{
 	width: calc(20% - 20px);
 	margin: 10px;
 	height: 270px;
@@ -3788,19 +3787,19 @@ div.modalEditOrder .applyBtn {
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
 }
-.subCategories .separator {
+.subCategories .separator{
 	color: #999;
 	margin: 0 .5em;
 }
-.subCategories .subCategory:hover {
+.subCategories .subCategory:hover{
 	cursor: pointer;
 	border-color: #aaa;
 }
-.subCategories .subCategory img {
+.subCategories .subCategory img{
 	width: 100%;
 	height: 220px;
 }
-.subCategories .subCategory .subCategoryTitle {
+.subCategories .subCategory .subCategoryTitle{
 	width: 100%;
 	display: block;
 	text-align: center;
@@ -3815,24 +3814,23 @@ div.modalEditOrder .applyBtn {
 	visibility: hidden;
 	width: 17.5%;
 }
-
 @media (max-width: 1440px){
-	.subCategories .subCategory {
+	.subCategories .subCategory{
 		width: calc(25% - 20px);
 	}
 }
 @media (max-width: 1280px){
-	.subCategories .subCategory {
+	.subCategories .subCategory{
 		width: calc(100%/3 - 20px);
 	}
 }
 @media (max-width: 950px){
-	.subCategories .subCategory {
+	.subCategories .subCategory{
 		width: calc(50% - 20px);
 	}
 }
 @media (max-width: 728px){
-	.subCategories .subCategory {
+	.subCategories .subCategory{
 		width: calc(50% - 20px);
 	}
 }
