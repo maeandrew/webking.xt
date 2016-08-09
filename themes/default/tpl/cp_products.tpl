@@ -40,8 +40,22 @@
 					<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>">
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
-				<div class="hidden"><?=count($category['subcats'])?></div>
 			<?}?>
+			<!-- <?print_r(count($category['subcats']))?> -->
+			<?	switch (count($category['subcats']) % 5) {
+					case '0':?>
+						<div class="invisible_subCategory hidden"></div>
+						<?break;
+					case '1':
+					case '2':
+					case '3':
+					case '4':
+						for($i=0; $i <= 5 - (count($category['subcats']) % 5); $i++){?>
+							<div class="invisible_subCategory"></div>
+						<?}?>
+						<?break;
+				}
+			?>
 		</div>
 	<?}?>
 	<div class="row">

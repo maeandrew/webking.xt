@@ -3817,6 +3817,10 @@ div.modalEditOrder .applyBtn {
 	line-height: 1em;
 	padding: .5em;
 }
+.subCategories .invisible_subCategory{
+	visibility: hidden;
+	width: 17.5%;
+}
 
 /* Стили карусели подкатегорий */
 
