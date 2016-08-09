@@ -3770,49 +3770,68 @@ div.modalEditOrder .applyBtn {
 	}
 }
 
-.subCategories{
+.subCategories,
+.mobile_carousel{
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 -10px;
 	border-bottom:  1px solid #e0e0e0;
 }
-.subCategories .subCategory{
+.subCategories .subCategory,
+.mobile_carousel .subCategory{
+	position: relative;
 	width: calc(20% - 20px);
 	margin: 10px;
 	height: 270px;
-	display: flex;
-	flex-wrap: wrap;
-	padding: 5px;
+	padding: 9px;
+	padding-bottom: 4em;
 	overflow: hidden;
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
+	background-color: #fff;
 }
-.subCategories .separator{
+.subCategories .separator,
+.mobile_carousel .separator{
 	color: #999;
 	margin: 0 .5em;
 }
-.subCategories .subCategory:hover{
+.subCategories .subCategory:hover,
+.mobile_carousel .subCategory:hover{
 	cursor: pointer;
 	border-color: #aaa;
 }
-.subCategories .subCategory img{
-	width: 100%;
-	height: 220px;
+.subCategories .subCategory img,
+.mobile_carousel .subCategory img{
+	max-height: 100%;
+	max-width: 100%;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
 }
-.subCategories .subCategory .subCategoryTitle{
+.subCategory .subCategoryTitle{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 1em;
 	width: 100%;
-	display: block;
+	height: 4em;
 	text-align: center;
-	margin-top: auto;
-	margin-bottom: auto;
 	overflow: hidden;
-
 	line-height: 1em;
-	padding: .5em;
+	margin: 0 auto;
+	background-color: #fff;
 }
-.subCategories .invisible_subCategory{
-	visibility: hidden;
-	width: 17.5%;
+.mobile_carousel .subCategory{
+	width: calc(50% - 20px);
+	height: 180px;
+	padding-bottom: 4em;
+}
+.mobile_carousel .subCategory .subCategoryTitle{
+	height: 4.5em;
+	font-size: .9em;
 }
 @media (max-width: 1440px){
 	.subCategories .subCategory{
@@ -3827,6 +3846,9 @@ div.modalEditOrder .applyBtn {
 @media (max-width: 950px){
 	.subCategories .subCategory{
 		width: calc(50% - 20px);
+	}
+	.subCategory .subCategoryTitle{
+		max-width: 150px;
 	}
 }
 @media (max-width: 728px){
@@ -3867,13 +3889,7 @@ div.modalEditOrder .applyBtn {
 .owl-dot.active span {
 	border: 7px solid #888;
 }
-.subCategory span {
-	width: 100%;
-	max-width: 150px;
-	display: block;
-	text-align: center;
-}	
- #owl-subcategories_slide_js .subCategory img {
+#owl-subcategories_slide_js .subCategory img {
 	height: 150px;
 	width: 150px;
 }
