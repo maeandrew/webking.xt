@@ -9,7 +9,7 @@
 		}
 	}
 	unset($_SESSION['errm'])?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" id="orderForm">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
 		<script>p_ids = new Array();ii=0;</script>
 		<table border="0" cellpadding="0" cellspacing="0" class="returns_table table" width="100%">
 			<thead>

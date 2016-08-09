@@ -40,7 +40,7 @@
 					<?=$i['name_klient']?></p><?=$i['email_klient']?>
 				</td>
 				<td>
-					<form action="<?=$GLOBALS['URL_request']?>">
+					<form action="<?=$_SERVER['REQUEST_URI']?>">
 						<textarea onChange = "setOrderNote (<?=$i['id_order']?>)" cols="20" rows="3" id="order_note_<?=$i['id_order']?>" class="contragent_order_note"><?php if(isset($i['note'])) echo $i['note']?></textarea>
 					</form>
 					<form action="<?=$_SERVER['REQUEST_URI']?>">

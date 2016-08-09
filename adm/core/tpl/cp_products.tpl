@@ -26,7 +26,7 @@
 	</div>
 <?}?>
 <?if(count($list)){?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
 				<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
@@ -120,14 +120,14 @@
 <?}?>
 <br>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 		<input type="file" name="import_file" class="input-m" style="width: auto;">
 		<input type="submit" name="smb_check" class="btn-m-red" value="Импорт">
 		<!-- <input type="submit" name="smb_import" class="btn-m-default" value="Импорт"> -->
 	</form>
 <?}?>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
-    <form action="<?=$GLOBALS['URL_request']?>" method="post">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<p style="margin-top:25px">Введите ID поставщика для выгрузки позиций:</p>
 		<input type="text" name="supl" id="supl" class="input-m" style="width: auto;">
  		<input style="margin: 0 0 20px 0;" name="smb" type="submit" id="form_submi1t" class="btn-m-default" value="Выгрузить позиции" />

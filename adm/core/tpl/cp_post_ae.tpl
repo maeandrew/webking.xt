@@ -3,7 +3,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="postae">
-    <form action="<?=$GLOBALS['URL_request']?>" method="post">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<?if(isset($_POST['id']) && $_POST['id']){?>
 			<span class="fr"><a href="<?=$GLOBALS['URL_base']?>post/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></span>
 		<?}?>

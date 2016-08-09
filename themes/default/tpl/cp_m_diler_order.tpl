@@ -12,7 +12,7 @@
 		<span class="errmsg"><?=$msg?></span><br>
         <?}}}unset($_SESSION['errm'])?>
 	<rh3>Заказ №<?=$order['id_order']?>   <span><?=date("d.m.Y",$order['target_date'])?></span> <span><?=$Customer['name']?></span> <span>Тел. <?=str_replace("\r\n", ", ", $Customer['phones'])?></span></rh3>
-			<form action="<?=$GLOBALS['URL_request']?>" method="post" id="orderForm">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
                 <script>p_ids = new Array();ii=0;</script>
                 <table border="0" cellpadding="0" cellspacing="0" class="returns_table" width="100%">
 				<col width="64" />

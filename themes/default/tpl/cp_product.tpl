@@ -388,7 +388,7 @@
 				<div id="comments" class="mdl-tabs__panel">
 					<div class="feedback_form">
 						<h4>Оставить отзыв о товаре</h4>
-						<form action="<?=$GLOBALS['URL_request']?>" method="post" onsubmit="onCommentSubmit()">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
 							<div class="feedback_stars">
 								<label class="label_for_stars">Оценка:</label>
 								<label>

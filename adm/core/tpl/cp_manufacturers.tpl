@@ -4,7 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><br><?}?>
 
 <p class="notification info">Раздел временно закрыт</p>
-<form action="<?=$GLOBALS['URL_request']?>" method="post" class="hidden">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="hidden">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
 	    <col width="80%">
 	    <col width='1%'>

@@ -7,7 +7,7 @@
 <div class="cabinet customer_order">
 	<a href="<?=$_SERVER['HTTP_REFERER'];?>" style="line-height: 20px;">Назад</a>
 	<div class="clear"></div>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" id="orderForm">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
 		<script>p_ids = new Array();ii=0;</script>
 		<table border="0" cellpadding="0" cellspacing="0" class="returns_table" width="100%">
 			<thead>
@@ -118,7 +118,7 @@
 			</div>
 			<div class="buttons_order">
 			<?if($i['id_order_status']==1){?>
-				<form action="<?=$GLOBALS['URL_request']?>" method="post">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<input type="submit" name="smb_cancel" class="cancel_order cancel" value="Отменить заказ">
 				</form>
 			<?}?>
