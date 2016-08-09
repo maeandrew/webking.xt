@@ -1629,7 +1629,7 @@ class Products {
 	 * Обновление позиции ассортимента (ajax)
 	 * @param [type] $data [description]
 	 */
-	public function UpdateAssort2($data){
+	public function UpdateAssort($data){
 		$assort = $this->GetAssort($data['id_product'], $data['id_supplier']);
 		$Suppliers = new Suppliers();
 		$Suppliers->SetFieldsById($data['id_supplier'], 1);
@@ -1702,46 +1702,42 @@ class Products {
 	 * @param string  $inusd           [description]
 	 * @param [type]  $currency_rate   [description]
 	 */
-	public function UpdateAssort($id_product, $opt, $price_otpusk, $price_recommend, $markup, $product_limit = null, $active = 0, $sup_comment, $inusd = 'false', $currency_rate){
-		if(!isset($_SESSION['Assort']['products'][$id_product])){
-			$this->InitProduct($id_product);
-		}
-		if($opt == 1){
-			$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] = $price_otpusk;
-			$_SESSION['Assort']['products'][$id_product]['price_opt_recommend'] = $price_otpusk*$markup;
-			$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd'] = $price_otpusk/$currency_rate;
-			$_SESSION['Assort']['products'][$id_product]['sup_comment'] = $sup_comment;
+	public function UpdateAssort2($arr){
+		if($arr['opt'] == 1){
+			$_SESSION['Assort']['products'][$arr['id_product']]['sup_comment'] = $arr['sup_comment'];
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk'] = $arr['price_otpusk'];
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_opt_recommend'] = $arr['price_otpusk']*$arr['nacen'];
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk_usd'] = $arr['price_otpusk']/$arr['currency_rate'];
 		}else{
-			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] = $price_otpusk;
-			$_SESSION['Assort']['products'][$id_product]['price_mopt_recommend'] = $price_otpusk*$markup;
-			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd'] = $price_otpusk/$currency_rate;
-			$_SESSION['Assort']['products'][$id_product]['sup_comment'] = $sup_comment;
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_recommend'] = $arr['price_otpusk']*$arr['nacen'];
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk_usd'] = $arr['price_otpusk']/$arr['currency_rate'];
+			$_SESSION['Assort']['products'][$arr['id_product']]['sup_comment'] = $arr['sup_comment'];
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk'] = $arr['price_otpusk'];
 		}
-		if($product_limit == null){
-			$_SESSION['Assort']['products'][$id_product]['product_limit'] = 0;
+		if($arr['product_limit'] == null){
+			$_SESSION['Assort']['products'][$arr['id_product']]['product_limit'] = 0;
 		}else{
-			$_SESSION['Assort']['products'][$id_product]['product_limit'] = $product_limit;
+			$_SESSION['Assort']['products'][$arr['id_product']]['product_limit'] = $arr['product_limit'];
 		}
-		$_SESSION['Assort']['products'][$id_product]['active'] = $active;
-		if($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] == 0 &&
-			$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] == 0 &&
-			$_SESSION['Assort']['products'][$id_product]['active'] == 0){
-			unset($_SESSION['Assort']['products'][$id_product]);
+		$_SESSION['Assort']['products'][$arr['id_product']]['active'] = $arr['active'];
+		if($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk'] == 0 &&
+			$_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk'] == 0 &&
+			$_SESSION['Assort']['products'][$arr['id_product']]['active'] == 0){
+			unset($_SESSION['Assort']['products'][$arr['id_product']]);
 		}
 		$this->db->StartTrans();
-		// $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
-		$f['id_product'] = trim($id_product);
+		$f['id_product'] = trim($arr['id_product']);
 		$f['id_supplier'] = trim($_SESSION['member']['id_user']);
-		$f['price_opt_recommend'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_recommend']);
-		$f['price_mopt_recommend'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_recommend']);
-		$f['price_opt_otpusk'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk']);
-		$f['price_mopt_otpusk'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk']);
-		$f['price_opt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd']);
-		$f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
-		$f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
-		$f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
-		$f['sup_comment'] = trim($_SESSION['Assort']['products'][$id_product]['sup_comment']);
-		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = $id_product AND id_supplier = ".$_SESSION['member']['id_user'])){
+		$f['price_opt_recommend'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_recommend']);
+		$f['price_mopt_recommend'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_recommend']);
+		$f['price_opt_otpusk'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk']);
+		$f['price_mopt_otpusk'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk']);
+		$f['price_opt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_opt_otpusk_usd']);
+		$f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['price_mopt_otpusk_usd']);
+		$f['product_limit'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['product_limit']);
+		$f['active'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['active']);
+		$f['sup_comment'] = trim($_SESSION['Assort']['products'][$arr['id_product']]['sup_comment']);
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$arr['id_product']." AND id_supplier = ".$_SESSION['member']['id_user'])){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -1751,7 +1747,7 @@ class Products {
 		// 	$this->db->FailTrans();
 		// 	return false;
 		// }
-		$this->RecalcSitePrices(array($id_product));
+		$this->RecalcSitePrices(array($arr['id_product']));
 	}
 
 	/**

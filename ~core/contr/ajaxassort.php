@@ -9,9 +9,8 @@
 		switch($_POST['action']){
 			case"update_assort":
 				if(isset($_POST['opt']) && isset($_POST['id_product'])){
-					$active = isset($_POST['active'])?$_POST['active']:1;
 					if(checkNumeric($_POST, array('id_product', 'opt', 'price_otpusk', 'price_recommend', 'nacen', 'product_limit'))){
-						$Product->UpdateAssort($_POST['id_product'], $_POST['opt'], $_POST['price_otpusk'], $_POST['price_recommend'], $_POST['nacen'], $_POST['product_limit'], $active, $_POST['sup_comment'], $_POST['inusd'], $_POST['currency_rate']);
+						$Product->UpdateAssort2($_POST);
 					}else{
 						exit();
 					}
