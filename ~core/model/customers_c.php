@@ -21,6 +21,7 @@ class Customers extends Users {
 		if($all_data){
 			$this->fields['active'] = $user_fields['active'];
 			$this->fields['email'] = $user_fields['email'];
+			$this->fields['phone'] = $user_fields['phone'];
 			$this->fields['name'] = $user_fields['name'];
 		}
 		return $this->fields;
