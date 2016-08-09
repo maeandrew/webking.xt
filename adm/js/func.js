@@ -242,16 +242,12 @@ function toAssort(id, opt, nacen, comment){
 		dataType: "json",
 		data:{
 			"action": "update_assort",
-			"opt": opt,
+			"mode": mode,
 			"id_product": id,
-			"price_otpusk": a,
-			"price_recommend": b,
-			"nacen": nacen,
-			"product_limit": c,
+			"price": a,
 			"active": active,
-			"sup_comment": comment,
-			"inusd": inusd,
-			"currency_rate": currency_rate
+			"comment": comment,
+			"inusd": inusd == false?0:1
 		}
 	});
 }

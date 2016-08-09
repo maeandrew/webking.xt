@@ -321,8 +321,8 @@ function SetInUSD(id, nacenmopt, nacenopt, comment){
 			$('#price_opt_otpusk_'+id).val(price_opt_otpusk.toFixed(2)).removeClass('usd_price').addClass('uah_price');
 			$('.inusd'+obj.id_product).prop('checked', false);
 		}
-		toAssort(id, 0, nacenmopt, comment);
-		toAssort(id, 1, nacenopt, comment);
+		toAssort(id, 0, comment);
+		toAssort(id, 1, comment);
 		$('.inusd'+obj.id_product).prop('disabled', false);
 	});
 }
@@ -338,17 +338,17 @@ function onSaleSuccess(obj){
 	$('input.salestatus'+obj.id_product).prop('disabled', false);
 }
 
-function toAssort(id, opt, nacen, comment){
+function toAssort(id, opt, comment){
 	var inusd = $('.inusd'+id).prop('checked');
 	var currency_rate = $('#currency_rate').val();
 	if(opt == 1){
-		optw = "opt";
+		mode = "opt";
 	}else{
-		optw = "mopt";
+		mode = "mopt";
 	}
 	var a,b,c;
-	a = parseFloat($("#price_"+optw+"_otpusk_"+id).val().replace(",","."));
-	b = parseFloat($("#price_"+optw+"_otpusk_"+id).val().replace(",","."));
+	a = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
+	b = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
 	if(inusd == true){
 		a = a*currency_rate;
 		b = b*currency_rate;
@@ -419,16 +419,12 @@ function toAssort(id, opt, nacen, comment){
 		dataType: "json",
 		data:{
 			"action": "update_assort",
-			"opt": opt,
+			"mode": mode,
 			"id_product": id,
-			"price_otpusk": a,
-			"price_recommend": b,
-			"nacen": nacen,
-			"product_limit": c,
+			"price": a,
 			"active": active,
-			"sup_comment": comment,
-			"inusd": inusd,
-			"currency_rate": currency_rate
+			"comment": comment,
+			"inusd": inusd == false?0:1
 		},
 		success: onAssortSuccess
 	});

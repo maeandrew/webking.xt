@@ -15,7 +15,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'UpdateAssort':
 				if(isset($_POST['id_product'])){
-					$res = $products->UpdateAssort2($_POST);
+					$res = $products->UpdateAssort($_POST);
 					echo json_encode($res);
 				}
 				break;
