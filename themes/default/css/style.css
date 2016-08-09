@@ -1108,14 +1108,14 @@ section.center {
 	}
 	#cart .action_block .del_promoCode {
 		/*width: 60px; */
-	    height: 28px;
-	    /* padding-top: 2px; */
-	    border-radius: 3px;
-	    vertical-align: middle;
-	    /* background-color: #ff5722; */
-	    /* color: #fff; */
-	    cursor: pointer;
-	    line-height: 32px;
+		height: 28px;
+		/* padding-top: 2px; */
+		border-radius: 3px;
+		vertical-align: middle;
+		/* background-color: #ff5722; */
+		/* color: #fff; */
+		cursor: pointer;
+		line-height: 32px;
 	}
 	#cart .action_block .order_management {
 
@@ -4365,18 +4365,18 @@ iframe[name="google_conversion_frame"] {
 }
 [class^="msg-"] .msg_icon::before {
 	font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
 } 
 .msg_title {
 	font-weight: bold;	
@@ -4455,8 +4455,8 @@ iframe[name="google_conversion_frame"] {
 	/*border: 1px solid #e0e0e0;*/
 	border-top: none;
 	text-align: left;
-    padding: 15px;
-    padding-top: 0px;
+	padding: 15px;
+	padding-top: 0px;
 }
 #cart .orderNote textarea {
 	max-height: 189px;	
@@ -4525,8 +4525,8 @@ iframe[name="google_conversion_frame"] {
 	justify-content: space-between;
 	border-top: 1px solid #e0e0e0;
 	margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 5px;
+	padding-top: 20px;
+	padding-bottom: 5px;
 }
 #cart .buy_more {
 	float: left;
@@ -4534,15 +4534,15 @@ iframe[name="google_conversion_frame"] {
 }
 #cart .del_promo_wrapp {
 	box-shadow: none;
-    padding: 0;
-    height: 40px;
-    min-width: 40px;
+	padding: 0;
+	height: 40px;
+	min-width: 40px;
 }
 #cart .promo_info {
 	width: 100%;
-    text-align: justify;
-    padding: 10px 0px 10px 0px;
-    float: left;
+	text-align: justify;
+	padding: 10px 0px 10px 0px;
+	float: left;
 }
 
 #cart .tooltip_wrapp .mdl-radio.is-checked .mdl-radio__outer-circle {
@@ -4558,9 +4558,8 @@ iframe[name="google_conversion_frame"] {
 
 #cart .contragent_cart_block {
 	background: #ffffad;
-    text-align: left;
-    padding: 15px;
-    margin-top: 10px;
+	text-align: left;
+	padding: 15px;
 }
 #cart .contragent_cart_block .contragent_cart_block_title {
 	font-size: 16px;
