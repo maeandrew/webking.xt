@@ -121,9 +121,9 @@
 			<div class="assortiment_table">
 				<?if(count($list)){
 					foreach($list as $i){?>
-						<div id="tr_mopt_<?=$i['id_product']?>" class="products_list_item <?=isset($_SESSION['Assort']['products'][$i['id_product']]['active']) && $_SESSION['Assort']['products'][$i['id_product']]['active']?'available':'notavailable'?>">
+						<div class="products_list_item <?=isset($_SESSION['Assort']['products'][$i['id_product']]['active']) && $_SESSION['Assort']['products'][$i['id_product']]['active']?'available':'notavailable'?>" data-id-product="<?=$i['id_product']?>">
 							<div class="removeFromAssort">
-								<a href="#" onclick="DelFromAssort(<?=$i['id_product']?>);return false;" class="icon-font" id="remove<?=$i['id_product']?>" title="Удалить"><i class="material-icons">close</i></a>
+								<a href="#" onclick="AddDelProductAssortiment($(this), <?=$i['id_product']?>);return false;" class="icon-font removeFromAssort_js" id="remove<?=$i['id_product']?>" title="Удалить"><i class="material-icons">close</i></a>
 								<div class="mdl-tooltip" for="remove<?=$i['id_product']?>">Удалить</div>
 							</div>
 							<div class="photo_cell">
@@ -162,8 +162,8 @@
 							</div>
 							<div class="product_balance">
 								<span class="prod_detail_info">Остаток товара:</span>
-								<label id="balance_info-<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox" for="checkbox-<?=$i['id_product']?>">
-									<input type="checkbox" name="product_limit_checkbox" id="checkbox-<?=$i['id_product']?>" class="mdl-checkbox__input" data-id-product="<?=$i['id_product']?>" data-koef="<?=$supplier['koef_nazen_mopt']?>" data-supp="<?=$i['sup_comment']?>" <?=isset($_SESSION['Assort']['products'][$i['id_product']]['product_limit']) && $_SESSION['Assort']['products'][$i['id_product']]['product_limit'] > 0?'checked':null;?>>
+								<label id="balance_info-<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox">
+									<input type="checkbox" name="product_limit_checkbox" class="mdl-checkbox__input" data-id-product="<?=$i['id_product']?>" data-koef="<?=$supplier['koef_nazen_mopt']?>" data-supp="<?=$i['sup_comment']?>" <?=isset($_SESSION['Assort']['products'][$i['id_product']]['product_limit']) && $_SESSION['Assort']['products'][$i['id_product']]['product_limit'] > 0?'checked':null;?>>
 								</label>
 								<div class="mdl-tooltip" for="balance_info-<?=$i['id_product']?>">Остаток товара</div>
 								<!-- <a href="#" onclick="$('#product_limit_mopt_<?=$i['id_product']?>').val(parseInt($('#product_limit_mopt_<?=$i['id_product']?>').val())+1000000000); toAssort(<?=$i['id_product']?>, 0, <?=$supplier['koef_nazen_mopt']?>, '<?=$i['sup_comment']?>'); return false;">Вкл</a><br> -->
@@ -451,6 +451,10 @@
 				}),
 			});
 		});*/
+		
+		$('.removeFromAssort_js').on('click', function(){
+			$(this).closest('.products_list_item').remove();
+		});
 
 		/* Новый переключатель обьедения цены */
 		$('.price_switcher_js').on('change', function(){			

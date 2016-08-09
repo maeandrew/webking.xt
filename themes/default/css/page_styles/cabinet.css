@@ -2981,7 +2981,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	fill: #000;
 	opacity: .4;
 }
-
 .order .print svg:hover {
 	opacity: 1;
 }
@@ -3014,9 +3013,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 .content.loading .mdl-tabs__panel {
 	display: none !important;
 }
-/* .number {
-	width: 80%;
-} */
 .orderBnts {
 	float: right;
 }
@@ -3028,34 +3024,21 @@ div[id^="items_panel_"] .btnWrapFlex {
 	float: left;
 	margin-top: 8px;
 }
-/*.modalEditOrder button {
-	color: #fff;
-	margin-left: 11.5%;
-}*/
 .modalEditOrder h5 {
 	color: rgb(136, 136, 136);
 	text-align: center;
 }
-/*.modalEditOrder .applyBtn {
-	background: #FF5722;
-}*/
-/*.modalEditOrder .cancelBtn {
-	background: #018b06;
-}*/
-
 .paginator {
 	padding-top: 30px;
 	background: #fff;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
-
 #products img {
 	width: 70px;
 	height: 70px;
 }
 .label_for_input_blocks{
 	font-size: 12px;
-	/*color: #867598;*/
 	color: #4CAF50;
 	display: block;
 }
@@ -3069,7 +3052,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	background: #fff;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	color: #FF5722;
-    /*line-height: 50px;*/
     text-align: center;
     padding-top: 13px;
     padding-bottom: 13px;
@@ -3086,11 +3068,14 @@ div[id^="items_panel_"] .btnWrapFlex {
 	margin-bottom: 15px;
 	width: 300px;
 	border-radius: 3px;
+	display: flex;
+	justify-content: space-between;
 }
 .date_container .bdate_select_block {
-	/*padding: 0;*/
-	display: inline-block !important;
 	width: 97px;
+}
+.date_container .bdate_select_block .mdl-selectfield__box {
+	bottom: 20px;
 }
 .date_container .mdl-textfield input {
 	text-align: center;
@@ -3138,25 +3123,19 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.customer_cab #edit_personal select[id^="id_"] {
 		width: 245px;
-	}
-	.customer_cab input[name="day"] {
-		/*width: 74px;*/
-	}
-	.date_container .mdl-textfield {
+	}	
+	.date_container {
 		width: auto;
-	}
+	}	
 	.cabinet_navigation li {
 		width: 98%;
 	}
 	.customer_cab #edit_personal {
 		padding: 0px;
 	}
-	/*#bonus, .bonus_detalies {
-		width: 98%;
-	}*/
-	/*.bonus_info {
-		width: 98%;
-	}*/
+	.date_container .bdate_select_block {
+		width: 32%;
+	}	
 	.customer_cab .edit_contacts_block, 
 	.customer_cab .add_new_address,
 	.bonus_detalies, 
@@ -3181,7 +3160,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 #modal_message .modal_container .mesage_text {
 	margin-top: 25px;
 }
-
 .switch_price_container {
 	width: 150px;
     height: 35px;
@@ -3193,7 +3171,6 @@ div[id^="items_panel_"] .btnWrapFlex {
     box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
     margin-bottom: 5px;
     margin-top: 10px;
-    /*border: 1px solid #dddddd;*/
 }
 
 .switch_price_container span {

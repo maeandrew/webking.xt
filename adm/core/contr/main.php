@@ -33,7 +33,6 @@ if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'recalc_supplier_prices'){
 	if($products->UpdatePriceRecommendAssortiment()){
 		echo "<script>alert('Цены пересчитаны');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
-
 	}else{
 		echo "<script>alert('Что-то пошло не так');</script>";
 	}

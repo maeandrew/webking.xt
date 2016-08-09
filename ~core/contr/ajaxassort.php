@@ -26,7 +26,7 @@
 			case"add_product":
 				if(isset($_POST['id_product'])){
 					if(checkNumeric($_POST, array('id_product'))){
-						$Product->AddToAssort($_POST['id_product']);
+						$Product->AddToAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
 						$arr['id_product'] = $_POST['id_product'];
 						$arr['action'] = "add";
 						echo json_encode($arr);
