@@ -292,6 +292,30 @@
 			<div class="price_nav"></div>
 		</div>
 	</div>
+	<?if (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){?>
+		<div class="contragent_cart_block">			
+			<? if(isset($customer_order)){?>
+			<p class="contragent_cart_block_title">Наименование клиента</p>
+			<div class="customer_main_info">				
+				<p class="customer_main_info_item">ФИО: 
+				<? if (!empty($customer_order['first_name']) || !empty($customer_order['last_name']) || !empty($customer_order['middle_name'])) {?>
+					<?=$customer_order['last_name']?> <?=$customer_order['first_name']?> <?=$customer_order['middle_name']?>  
+				<?}else{?>
+					<?=!empty($customer_order['name'])?$customer_order['name']:null?>
+				<?}
+				?></p>
+				<p class="customer_main_info_item">Телефон: <?=!empty($customer_order['phones'])?$customer_order['phones']:'--'?></p>
+				<p class="customer_main_info_item">email: <?=!empty($customer_order['email'])?$customer_order['email']:'--'?></p>
+				<p class="customer_main_info_item">Баланс: <?=!empty($customer_order['balance'])?$customer_order['balance']:'--'?></p>
+				<p class="customer_main_info_item">Последний заказ: <?=!empty($customer_order['last_order'])?$customer_order['last_order']:'--'?></p>
+				<p class="customer_main_info_item">Активность: <?=$customer_order['active'] == 1?'Да':'Нет'?></p>
+			</div>
+			<?}else{?>
+				<p>Клиент не найден.</p>
+			<?}?>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search"><?=isset($customer_order)?'Изменить':'Добавить'?></button>			
+		</div>
+	<?}?>
 
 	<div class="cart_bottom_wrap">
 		<div class="sub_cart_bottom_wrap">
@@ -304,17 +328,6 @@
 			</div>
 			<!-- </div> -->
 			<?if(!G::IsLogged()){?>
-				<!-- <div class="msg-info">
-					<div class="msg_icon">
-						<i class="material-icons hidden">check_circle</i>
-						<i class="material-icons">info</i>
-						<i class="material-icons hidden">warning</i>
-						<i class="material-icons hidden">error</i>
-					</div>
-					<p class="msg_title">!</p>
-					<p class="msg_text">Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a></p>
-				</div> -->
-
 				<div class="msg-<?=$msg['type']?>">
 					<div class="msg_icon">
 						<i class="material-icons"></i>
@@ -352,7 +365,7 @@
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="">
-					<?if(!G::IsLogged() || $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){?>
+					<?if(!G::IsLogged()){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
 							<input class="mdl-textfield__input phone" type="text" id="user_number"
@@ -389,9 +402,6 @@
 							<!-- <input type="button" class="mdl-button mdl-js-button mdl-button--raised apply_promoCode apply_promoCode_js" value="Применить"/> -->
 							<div class="mdl-button mdl-js-button mdl-button--raised apply_promoCode apply_promoCode_js">Применить</div>
 						<?}?>
-						
-						
-
 						<?if(isset($_SESSION['cart']['promo'])) {?>
 							<div class="clearBoth">
 								<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
@@ -399,8 +409,7 @@
 									<p><?=$promo_info?></p>
 								</div>
 							</div>
-						<?}?>
-					
+						<?}?>					
 						<?if(!isset($_SESSION['cart']['promo'])){?>
 							<div class="cart_choiсe_wrapp_js cart_choiсe_wrapp">
 								<!--<div class="tooltip_wrapp joint_cart_js">
@@ -536,7 +545,6 @@
 		<?}?>
 	</div>
 	<!-- END NEW Товары в корзине -->
-
 
 	<script type="text/javascript">
 		$(window).resize(function() {

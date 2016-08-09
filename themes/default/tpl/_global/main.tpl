@@ -621,6 +621,50 @@
 		<div id="demand_chart_msg" data-type="modal" data-target="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>">
 			<div class="modal_container"></div>
 		</div>
+		<!-- Модалка контрагент корзина поиск данных о клиенета -->
+		<div id="cart_customer_search" data-type="modal">
+			<p>Найти клиента</p>
+			<div class="search_block">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="user_number">Телефон</label>
+					<input class="mdl-textfield__input phone" type="text" id="user_number"
+					pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
+					<label class="mdl-textfield__label" for="user_number"></label>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored search_btn_js" >Найти</button>
+			</div>
+			<p class="search_results_block_title">Результаты поиска:</p>
+			<div class="search_results_block">
+				<!--<div class="customer_main_info">
+					<p>ФИО: переменная</p>
+					<p>email: переменная</p>
+					<p>Баланс: переменная</p>
+					<p>Последний заказ: переменная</p>
+				</div>
+				<div class="bonus_block">
+					<p>Бонусная карта: №123456</p>
+					<p>Бонусный баланс: 100500 грн.</p>
+					<p>Бонусный процент: 5%</p>
+				</div>-->
+			</div>
+			<div class="new_name_block hidden">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="new_user_surname">Фамилия</label>
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_surname">					
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="new_user_name">Имя</label>
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_name">					
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="new_user_middle_name">Отчество</label>
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_middle_name">				
+				</div>
+			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_customer hidden ">Добавить</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored ceate_new_customer hidden">Создать</button>
+		</div>
+
 		<!-- Аналог alert -->
 		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
 			<div class="mdl-snackbar__text"></div>

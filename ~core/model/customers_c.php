@@ -21,6 +21,7 @@ class Customers extends Users {
 		if($all_data){
 			$this->fields['active'] = $user_fields['active'];
 			$this->fields['email'] = $user_fields['email'];
+			$this->fields['name'] = $user_fields['name'];
 		}
 		return $this->fields;
 	}
@@ -298,6 +299,9 @@ class Customers extends Users {
 			return false;
 		}
 		$f['id_user'] = $id_user;
+		$f['last_name'] = isset($arr['last_name'])?$arr['last_name']:null;
+		$f['first_name'] = isset($arr['first_name'])?$arr['first_name']:null;
+		$f['middle_name'] = isset($arr['middle_name'])?$arr['middle_name']:null;
 		if(isset($arr['discount'])){
 			$f['cont_person'] = trim($arr['cont_person']);
 			$f['phones'] = trim($arr['phones']);
@@ -821,6 +825,9 @@ class Customers extends Users {
 			$_SESSION['member']['bonus']['bonus_card'] = $this->fields['bonus_card'];
 			$_SESSION['member']['bonus']['bonus_discount'] = $this->fields['bonus_discount'];
 			$_SESSION['member']['bonus']['bonus_balance'] = $this->fields['bonus_balance'];
+			return true;
+		}else{
+			return false;
 		}
 	}
 }
