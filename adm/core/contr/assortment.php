@@ -21,7 +21,11 @@ $Supplier = new Suppliers();
 if(isset($_POST['suppliers_activity'])){
 	$update_supplier['active'] = $_POST['supplier_activ'];
 	$update_supplier['id_user'] = $id_supplier;
-	$Supplier->UpdateSupplier($update_supplier, 'activity');
+	$Supplier->UpdateSupplier($update_supplier, true);
+	if($_POST['supplier_activ'] == 'on'){
+		$Products->UpdateActivityProducttSupplier($update_supplier['id_user']);
+	}
+
 }
 $Supplier->SetFieldsById($id_supplier, 1);
 

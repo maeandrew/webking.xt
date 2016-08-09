@@ -600,17 +600,13 @@ function toAssort(id, opt, nacen, comment){
 		cache: false,
 		dataType: 'json',
 		data: {
-			action: 'update_assort',
-			opt: opt,
-			id_product: id,
-			price_otpusk: a,
-			price_recommend: b,
-			nacen: nacen,
-			product_limit: c,
-			active: active,
-			sup_comment: comment,
-			inusd: inusd,
-			currency_rate: currency_rate
+			"action": "update_assort",
+			"mode": mode,
+			"id_product": id,
+			"price": a,
+			"active": active,
+			"comment": comment,
+			"inusd": inusd == false?0:1
 		}
 	});
 }
