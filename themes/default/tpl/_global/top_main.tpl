@@ -51,11 +51,11 @@
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-phone navigation">
 				<i class="material-icons">&#xE5D2;</i>
 			</button>
-			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
+			<button class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
 				<i class="material-icons">&#xE5D2;</i>
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu  mdl-cell--hide-phone" for="menu-lower-right">
-				<?foreach($list_menu as $key => &$menu){?>				
+				<?foreach($list_menu as $key => &$menu){?>
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$menu['title']?></a>
 				<?}?>
 			</nav>

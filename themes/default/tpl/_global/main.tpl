@@ -624,7 +624,7 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="user_number">Телефон</label>
 						<input class="mdl-textfield__input phone" type="text" id="user_number"
-						pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\">
+						pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i">
 						<label class="mdl-textfield__label" for="user_number"></label>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Найти</button>
@@ -678,7 +678,7 @@
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
 				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
-		</div>	
+		</div>
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
@@ -702,7 +702,7 @@
 		</div>
 		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
-			<img src="" alt="">
+			<img src="/images/nofoto.png" alt="Оригинал">
 		</div>
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
@@ -734,7 +734,7 @@
 				<p class="info_text">На Ваш номер телефона отправлено<br>SMS-сообщение c кодом для подтверждения доступа, который будет действителен в течение следующих <span class="bold_text">24 часов!</span></p>
 			</div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js hidden">
-				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" maxlength="9999">
+				<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" max="9999">
 				<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
 				<span class="mdl-textfield__error">Чтобы продолжить введите код подтверждения</span>
 			</div>
