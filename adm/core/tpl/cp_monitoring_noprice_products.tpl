@@ -1,7 +1,6 @@
 <div class="noprice_block"></div>
 	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-	<!-- <?print_r($list);?> -->
-		<form action="" method="post">
+		<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 			<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 				<colgroup>
 					<col width="10%">

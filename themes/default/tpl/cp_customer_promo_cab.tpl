@@ -36,7 +36,7 @@
 								<?if($o['id_order_status'] == 6){?>
 									&mdash;
 								<?}else{?>
-									<form action="" method="post">
+									<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 										<input type="submit" name="smb_off" class="run_order_off cancel" value="X">
 										<input type="hidden" name="id_order" value="<?=$o['id_order'];?>">
 									</form>

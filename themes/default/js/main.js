@@ -1035,7 +1035,7 @@ $(function(){
 		
 	// $('#verification').on('click', 'label[for="choise_sms"]', function(){
 	// 	$('#verification #recovery_email').closest('div').addClass('hidden');
-	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 	// 	$(".phone").mask("+38 (099) ?999-99-99");
 	// 	componentHandler.upgradeDom();
 	// });
@@ -1164,7 +1164,7 @@ $(function(){
 	});
 	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
@@ -1470,10 +1470,10 @@ $(function(){
 	});
 
 	//Отправка данных (смета клиента)
-	$('#estimate').on('click', function(){
+	$('#estimate_form').on('click', function(){
 		$('.estimate_info_js').html(''); // удаление предыдущего оповещения аякса
-		$('#estimate div').each(function() { // удаление класса is-invalid со всех полей
-			$('#estimate div').removeClass('is-invalid');
+		$('#estimate_form div').each(function() { // удаление класса is-invalid со всех полей
+			$('#estimate_form div').removeClass('is-invalid');
 		});
 	});
 
@@ -1747,7 +1747,7 @@ $(function(){
 				if ($(document).outerWidth() < 450) {
 					$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
 				}
-				GetScreenShot();
+				GetScreenshot();
 			}
 		}else if($(this).hasClass('screen_btn_js')){
 			event.preventDefault();
@@ -1758,10 +1758,10 @@ $(function(){
 			});
 			$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
-			GetScreenShot();
+			GetScreenshot();
 		}else if($(this).hasClass('canvasReady_js')){
 			$('.canvas_toolbar').css('display', 'none');
-			GetScreenShot();
+			GetScreenshot();
 		}
 		$('.err_msg_as_form_js').find('textarea').focus();
 	});
