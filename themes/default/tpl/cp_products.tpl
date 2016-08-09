@@ -33,7 +33,7 @@
 	<?}?>
 
 	<?if (!empty($category['subcats'])) {?>
-		<div class="subCategories mobile_carousel mdl-cell--hide-phone">
+		<div class="subCategories mdl-cell--hide-phone">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<!--<a href="<?=Link::Category($value['translit'])?>"><?=$value['name']?></a><span class="separator">•</span>-->
 				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
