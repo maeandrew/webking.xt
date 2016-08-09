@@ -694,7 +694,7 @@ function ValidatePass(pass){
 	}
 
 	if(protect == 1) {
-		$('#password_error + .error_description').empty();
+		$('.password_error + .error_description').empty();
 		$('#passstrengthlevel').attr('class', 'bad');
 		$('#regpasswd').removeClass().addClass("success");
 		result = false;
@@ -715,17 +715,17 @@ function ValidatePass(pass){
 		result = false;
 	}
 	if(pass.length == 0){
-		$('#password_error + .error_description').empty();
+		$('.password_error + .error_description').empty();
 		$('#passstrengthlevel').attr('class', 'small');
 		$('#regpasswd').removeClass().addClass("unsuccess");
 		result = 'Введите пароль';
-		$('#password_error + .error_description').append(result);
+		$('.password_error + .error_description').append(result);
 	}else if(pass.length < 4) {
-		$('#password_error + .error_description').empty();
+		$('.password_error + .error_description').empty();
 		$('#passstrengthlevel').attr('class', 'small');
 		$('#regpasswd').removeClass().addClass("unsuccess");
 		result = 'Пароль слишком короткий';
-		$('#password_error + .error_description').append(result);
+		$('.password_error + .error_description').append(result);
 	}
 	return result;
 }

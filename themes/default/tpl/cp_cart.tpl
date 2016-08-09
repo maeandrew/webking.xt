@@ -135,9 +135,9 @@
 					<div class="product_photo">
 						<a href="<?=Link::Product($item['translit']);?>">
 							<?if(!empty($item['images'])){?>
-								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
 							<?}else{?>
-								<img alt="<?=G::CropString($item['name'])?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.png"?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.png"?>"/>
 							<?}?>
 						</a>
 					</div>

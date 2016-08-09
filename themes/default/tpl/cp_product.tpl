@@ -27,12 +27,12 @@
 			<div id="owl-product_mobile_img_js" class="mobile_carousel">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$item['name']?>">
+						<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($item['img_'.$i], 'medium')?>" alt="<?=$item['name']?>">
+							<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($item['img_'.$i], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
 						<?}
 					}
 				}?>
@@ -65,12 +65,12 @@
 			<div id="owl-product_mini_img_js">
 				<?if(!empty($item['images'])){
 					foreach($item['images'] as $i => $image){?>
-						<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($image['src'], 'thumb')?>" alt="<?=$item['name']?>"<?=$i==0?'class="act_img"':'class=""';?>>
+						<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($image['src'], 'thumb')?>" alt="<?=htmlspecialchars($item['name'])?>"<?=$i==0?'class="act_img"':'class=""';?>>
 					<?}
 				}else{
 					for($i=1; $i < 4; $i++){
 						if(!empty($item['img_'.$i])){?>
-							<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($item['img_'.$i], 'thumb')?>" alt="<?=$item['name']?>"<?=$i==1?' class="act_img"':'class=""';?>>
+							<img src="<?=_base_url.'.ua'?><?=G::GetImageUrl($item['img_'.$i], 'thumb')?>" alt="<?=htmlspecialchars($item['name'])?>"<?=$i==1?' class="act_img"':'class=""';?>>
 						<?}
 					}
 				}?>
@@ -79,7 +79,7 @@
 					foreach($item['videos'] as $i => $video){?>
 						<div class="videoBlock">
 							<div class="videoBlockShield"></div>
-							<iframe width="120" height="90" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=$item['name']?>">
+							<iframe width="120" height="90" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=htmlspecialchars($item['name'])?>">
 							</iframe>
 						</div>
 					<?}
@@ -91,12 +91,12 @@
 					<div id="big_photos_carousel_js" class="carousel big_photos_carousel">
 						<?if(!empty($item['images'])){
 							foreach($item['images'] as $i => $image){?>
-								<img src="<?=_base_url.'.ua'?><?=$image['src']?>" alt="<?=$item['name']?>">
+								<img src="<?=_base_url.'.ua'?><?=$image['src']?>" alt="<?=htmlspecialchars($item['name'])?>">
 							<?}
 						}else{
 							for($i=1; $i < 4; $i++){
 								if(!empty($item['img_'.$i])){?>
-									<img src="<?=_base_url.'.ua'?><?=$item['img_'.$i]?>" alt="<?=$item['name']?>">
+									<img src="<?=_base_url.'.ua'?><?=$item['img_'.$i]?>" alt="<?=htmlspecialchars($item['name'])?>">
 								<?}
 							}
 						}?>
@@ -322,7 +322,7 @@
 						</li>
 						<li>
 							<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($GLOBALS['Rewrite']);?>&st.comments=<?=htmlspecialchars($item['name'])?>" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-								<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Однокласники">
+								<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Одноклаcсники">
 							</a>
 						</li>
 						<li>
@@ -496,9 +496,9 @@
 						<div class="item">
 							<a href="<?=Link::Product($p['translit']);?>">
 								<?if(!empty($p['images'])){?>
-									<img alt="<?=$p['name']?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'medium')?>">
+									<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'medium')?>">
 								<?}else	if(!empty($p['img_1'])){?>
-									<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'medium')?>"/>
+									<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'medium')?>"/>
 								<?}else{?>
 									<img alt="" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg">
 								<?}?>
@@ -537,9 +537,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'][0])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
+								<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg">
 							<?}?>
@@ -563,9 +563,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'][0])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
+								<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg">
 							<?}?>
@@ -589,9 +589,9 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'][0])){?>
-								<img alt="<?=$p['name']?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
+								<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url.'.ua'?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url.'.ua'?>/efiles/nofoto.jpg">
 							<?}?>

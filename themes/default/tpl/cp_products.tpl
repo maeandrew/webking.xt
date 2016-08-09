@@ -25,7 +25,7 @@
 		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
-					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">	
+					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
 			<?}?>
@@ -37,11 +37,10 @@
 			<?php foreach ($category['subcats'] as $value) {?>
 				<!--<a href="<?=Link::Category($value['translit'])?>"><?=$value['name']?></a><span class="separator">•</span>-->
 				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
-					<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>">
+					<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
 					<span class="subCategoryTitle"><?=$value['name']?></span>
 				</a>
 			<?}?>
-			<!-- <?print_r(count($category['subcats']))?> -->
 			<?	switch (count($category['subcats']) % 5) {
 					case '0':?>
 						<div class="invisible_subCategory hidden"></div>
