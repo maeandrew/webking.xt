@@ -950,9 +950,9 @@ class Orders {
 		$sql = "SELECT a.id_product, a.id_supplier,
 			a.price_opt_otpusk, a.price_mopt_otpusk
 			FROM "._DB_PREFIX_."assortiment AS a
-			WHERE a.active = 1
-			AND (a.price_".$mode."_otpusk <> 0 AND a.price_".$mode."_recommend <> 0)
-			AND a.id_product = ".$id_product."
+			WHERE a.id_product = ".$id_product."
+			AND a.active = 1
+			AND (a.price_".$mode."_otpusk > 0 AND a.price_".$mode."_recommend > 0)
 			ORDER BY a.price_".$mode."_otpusk DESC";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
@@ -1862,5 +1862,15 @@ class Orders {
 		}
 		$this->db->CompleteTrans();
 		return true;
+	}
+
+	public function GetLastOrder($id_user){
+		$sql = "SELECT FROM_UNIXTIME(creation_date, \"%Y-%m-%d\") AS last_order
+				FROM "._DB_PREFIX_."order WHERE id_customer = ".$id_user."
+				AND id_order_status = 2 ORDER BY id_order DESC LIMIT 1";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['last_order'];
 	}
 }

@@ -9,7 +9,7 @@
 	<col width="5%"/>
 	<thead>
 		<!-- <tr class="filter">
-			<form action="<?=$GLOBALS['URL_request']?>" method="get" class="orders">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="get" class="orders">
 				<td>Фильтры:</td>
 				<td>
 					<input type="text" class="input-m" name="filter_id_order" value="<?=isset($_GET['filter_id_order'])?htmlspecialchars($_GET['filter_id_order']):null?>" placeholder="№ заказа">
@@ -52,7 +52,7 @@
 		<?if(isset($list)){
 			foreach($list as $i){?>
 				<tr class="animate">
-					<form action="" method="post">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 						<td><?=date("d.m.Y", $i['creation_date'])?></td>
 						<td>
 							<a href="/adm/order/<?=$i['id_order']?>"><?=$i['id_order']?></a>

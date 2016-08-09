@@ -3,7 +3,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="newsae">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<?if(isset($_POST['id_news']) && $_POST['id_news']){ ?>
 			<span class="fr"><a href="<?=$_POST['sid']==0?'http://x-torg.com/news/'.$_POST['id_news'].'/'.$_POST['translit']:$GLOBALS['URL_base'].'news/'.$_POST['translit'];?>">Посмотреть страницу</a></span>
 		<?}?>

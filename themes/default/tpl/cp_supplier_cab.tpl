@@ -57,7 +57,7 @@
 			</div>
 			<div class="cabinet_block fleft">
 				<div class="dollar">
-					<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="RecalcSupplierCurrency();return false;">
 						<label for="currency_rate">Личный курс доллара</label>
 						<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="RecalcSupplierCurrency();">Пересчитать</button>
@@ -79,7 +79,7 @@
 					<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 					<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js" data-name="kalendar_content">Календарь</button>
 				</div>
-				<form class="work_days_add" action="<?=$GLOBALS['URL_request']?>" method="post">
+				<form class="work_days_add" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<label for="start_date" class="fleft">С даты:
 						<input type="date" name="start_date" id="start_date" value="<?=date("Y-m-d", time());?>"/>
 					</label>
@@ -121,9 +121,9 @@
 			<div class="assortiment_table">
 				<?if(count($list)){
 					foreach($list as $i){?>
-						<div id="tr_mopt_<?=$i['id_product']?>" class="products_list_item <?=isset($_SESSION['Assort']['products'][$i['id_product']]['active']) && $_SESSION['Assort']['products'][$i['id_product']]['active']?'available':'notavailable'?>">
+						<div class="products_list_item <?=isset($_SESSION['Assort']['products'][$i['id_product']]['active']) && $_SESSION['Assort']['products'][$i['id_product']]['active']?'available':'notavailable'?>" data-id-product="<?=$i['id_product']?>">
 							<div class="removeFromAssort">
-								<a href="#" onclick="DelFromAssort(<?=$i['id_product']?>);return false;" class="icon-font" id="remove<?=$i['id_product']?>" title="Удалить"><i class="material-icons">close</i></a>
+								<a href="#" onclick="AddDelProductAssortiment($(this), <?=$i['id_product']?>);return false;" class="icon-font removeFromAssort_js" id="remove<?=$i['id_product']?>" title="Удалить"><i class="material-icons">close</i></a>
 								<div class="mdl-tooltip" for="remove<?=$i['id_product']?>">Удалить</div>
 							</div>
 							<div class="photo_cell">
@@ -162,8 +162,8 @@
 							</div>
 							<div class="product_balance">
 								<span class="prod_detail_info">Остаток товара:</span>
-								<label id="balance_info-<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox" for="checkbox-<?=$i['id_product']?>">
-									<input type="checkbox" name="product_limit_checkbox" id="checkbox-<?=$i['id_product']?>" class="mdl-checkbox__input" data-id-product="<?=$i['id_product']?>" data-koef="<?=$supplier['koef_nazen_mopt']?>" data-supp="<?=$i['sup_comment']?>" <?=isset($_SESSION['Assort']['products'][$i['id_product']]['product_limit']) && $_SESSION['Assort']['products'][$i['id_product']]['product_limit'] > 0?'checked':null;?>>
+								<label id="balance_info-<?=$i['id_product']?>" class="mdl-checkbox mdl-js-checkbox">
+									<input type="checkbox" name="product_limit_checkbox" class="mdl-checkbox__input" data-id-product="<?=$i['id_product']?>" data-koef="<?=$supplier['koef_nazen_mopt']?>" data-supp="<?=$i['sup_comment']?>" <?=isset($_SESSION['Assort']['products'][$i['id_product']]['product_limit']) && $_SESSION['Assort']['products'][$i['id_product']]['product_limit'] > 0?'checked':null;?>>
 								</label>
 								<div class="mdl-tooltip" for="balance_info-<?=$i['id_product']?>">Остаток товара</div>
 								<!-- <a href="#" onclick="$('#product_limit_mopt_<?=$i['id_product']?>').val(parseInt($('#product_limit_mopt_<?=$i['id_product']?>').val())+1000000000); toAssort(<?=$i['id_product']?>, 0, <?=$supplier['koef_nazen_mopt']?>, '<?=$i['sup_comment']?>'); return false;">Вкл</a><br> -->
@@ -349,7 +349,7 @@
 					<h4>Отметка об ошибке</h4>
 					<hr>
 					<p>Увидели ошибку или дубль товара,<br>напишите, пожалуйста.</p>
-					<form action="" method="post">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 						<input type="hidden" name="id_product">
 						<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
 						<button type="submit" name="sub_com" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
@@ -370,7 +370,7 @@
 						<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 					</form>
 					<hr>
-					<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 						<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button>
 						<input type="file" name="import_file" required="required" class="file_select">
 					</form>
@@ -384,7 +384,7 @@
 						<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 					</form>
 					<hr>
-					<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 						<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button>
 						<input type="file" name="import_file" required="required" class="file_select">
 					</form>
@@ -451,6 +451,10 @@
 				}),
 			});
 		});*/
+		
+		$('.removeFromAssort_js').on('click', function(){
+			$(this).closest('.products_list_item').remove();
+		});
 
 		/* Новый переключатель обьедения цены */
 		$('.price_switcher_js').on('change', function(){			

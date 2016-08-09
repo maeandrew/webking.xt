@@ -1573,9 +1573,8 @@ class Products {
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 	/**
 	 * [SetExclusivList description]
@@ -1588,9 +1587,8 @@ class Products {
 		$this->list = $this->db->GetArray($sql, 'id_product');
 		if(!$this->list){
 			return false;
-		}else{
-			return true;
 		}
+		return true;
 	}
 	/**
 	 * [SetExclusiveSupplier description]
@@ -1654,35 +1652,12 @@ class Products {
 			$f['active'] = $data['active'];
 			$f['product_limit'] = ($data['active'] == 0)?0:10000000;
 		}
-		// $f['price_mopt_otpusk_usd'] = trim($_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd']);
-		// $f['product_limit'] = trim($_SESSION['Assort']['products'][$id_product]['product_limit']);
-		// $f['active'] = trim($_SESSION['Assort']['products'][$id_product]['active']);
-		// if(!isset($_SESSION['Assort']['products'][$id_product])){
-		// 	$this->InitProduct($id_product);
-		// }
-		// if($product_limit == null){
-		// 	$_SESSION['Assort']['products'][$id_product]['product_limit'] = 0;
-		// }else{
-		// 	$_SESSION['Assort']['products'][$id_product]['product_limit'] = $product_limit;
-		// }
-		// $_SESSION['Assort']['products'][$id_product]['active'] = $active;
-		// if($_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] == 0 &&
-		// 	$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] == 0 &&
-		// 	$_SESSION['Assort']['products'][$id_product]['active'] == 0){
-		// 	unset($_SESSION['Assort']['products'][$id_product]);
-		// }
-		// // $this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array ("id_product = $id_product", "id_supplier = ".$_SESSION['member']['id_user']));
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$data['id_product']." AND id_supplier = ".$data['id_supplier'])){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		// //$f[''] = trim($arr['']);
-		// // if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
-		// // 	$this->db->FailTrans();
-		// // 	return false;
-		// // }
 		if($supplier['single_price'] == 1 && $data['mode'] == 'mopt'){
 			$data['mode'] = 'opt';
 			$this->UpdateAssort($data);
@@ -1740,15 +1715,17 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function InitProduct($id_product){
-		$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['price_opt_otpusk_usd'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['price_opt_recommend'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['price_mopt_otpusk_usd'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['price_mopt_recommend'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['product_limit'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['active'] = 0;
-		$_SESSION['Assort']['products'][$id_product]['sup_comment'] = 0;
+		$_SESSION['Assort']['products'][$id_product] = array(
+			'price_opt_otpusk' => 0,
+			'price_opt_otpusk_usd' => 0,
+			'price_opt_recommend' => 0,
+			'price_mopt_otpusk' => 0,
+			'price_mopt_otpusk_usd' => 0,
+			'price_mopt_recommend' => 0,
+			'product_limit' => 0,
+			'active' => 0,
+			'sup_comment' => 0
+		);
 	}
 	/**
 	 * [FillAssort description]
@@ -1817,22 +1794,20 @@ class Products {
 	 * [AddToAssort description]
 	 * @param [type] $id_product [description]
 	 */
-	public function AddToAssort($id_product, $id_supplier = false){
-		if(!$id_supplier){
+	public function AddToAssort($id_product, $id_supplier){
+		if($id_supplier == $_SESSION['member']['id_user']){
 			$this->InitProduct($id_product);
-			$f['id_supplier'] = $_SESSION['member']['id_user'];
-		}else{
-			$f['id_supplier'] = $id_supplier;
 		}
+		$f['id_supplier'] = $id_supplier;
 		$f['id_product'] = trim($id_product);
-		$f['price_opt_recommend'] = 0;
-		$f['price_mopt_recommend'] = 0;
-		$f['price_opt_otpusk'] = 0;
-		$f['price_mopt_otpusk'] = 0;
-		$f['price_opt_otpusk_usd'] = 0;
-		$f['price_mopt_otpusk_usd'] = 0;
-		$f['product_limit'] = 0;
-		$f['active'] = 1;
+		$f['price_opt_recommend'] =
+		$f['price_mopt_recommend'] =
+		$f['price_opt_otpusk'] =
+		$f['price_mopt_otpusk'] =
+		$f['price_opt_otpusk_usd'] =
+		$f['price_mopt_otpusk_usd'] =
+		$f['product_limit'] =
+		$f['active'] = 0;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
@@ -1846,13 +1821,9 @@ class Products {
 	 * @param [type] $id_product  [description]
 	 * @param [type] $id_supplier [description]
 	 */
-	public function DelFromAssort($id_product, $id_supplier = false){
-		if(!$id_supplier){
-			$id_supplier = $_SESSION['member']['id_user'];
-			unset($_SESSION['Assort']['products'][$id_product]);
-		}
+	public function DelFromAssort($id_product, $id_supplier){
 		$this->db->StartTrans();
-		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array("id_product = $id_product", "id_supplier = ".$id_supplier));
+		$this->db->DeleteRowsFrom(_DB_PREFIX_."assortiment", array('id_product = '.$id_product, 'id_supplier = '.$id_supplier));
 		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($id_product));
 	}
@@ -1917,93 +1888,38 @@ class Products {
 	 * Пересчет цен на сайте
 	 * @param [type] $ids_products [description]
 	 */
-	public function RecalcSitePrices($ids_products = null){
+	public function RecalcSitePrices($ids_products = array()){
 		set_time_limit(3600);
 		ini_set('memory_limit', '400M');
-		$sql = "SELECT a.id_product, a.id_supplier, a.active,
-			a.price_opt_recommend, a.price_mopt_recommend,
-			a.price_opt_otpusk, a.price_mopt_otpusk, s.filial,
-			p.price_mopt AS old_price_mopt, p.price_opt AS old_price_opt
-			FROM "._DB_PREFIX_."assortiment AS a
-			LEFT JOIN "._DB_PREFIX_."supplier AS s
-				ON a.id_supplier = s.id_user
-			LEFT JOIN "._DB_PREFIX_."product AS p
-				ON p.id_product = a.id_product
-			WHERE a.active = 1
-			AND a.id_supplier != 0
-			AND ((a.price_opt_otpusk != 0 AND a.price_opt_recommend != 0)
-			OR (a.price_mopt_otpusk != 0 AND a.price_mopt_recommend != 0))";
-		if(is_array($ids_products)){
-			$sql .= " AND a.id_product IN (".implode(", ", $ids_products).")
-				GROUP BY a.id_supplier, a.id_product";
-			$arr = $this->db->GetArray($sql);
-			foreach($arr as $p){
-				$mass[$p['id_product']][] = $p;
-			}
-		}else{ // пересчет всех товаров ассортимента
-			$sql .= "
-				GROUP BY a.id_supplier, a.id_product";
-			$arr = $this->db->GetArray($sql);
-			$ids_products = array();
-			foreach($arr as $p){
-				$ids_products[] = $p['id_product'];
-				$mass[$p['id_product']][] = $p;
-			}
-			$ids_products = array_unique($ids_products);
+		$sql = "SELECT p.id_product,
+				a.price_opt_recommend,
+				a.price_mopt_recommend
+			FROM "._DB_PREFIX_."product AS p
+				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON p.id_product = a.id_product
+			WHERE p.visible = 1
+				AND a.active = 1
+				AND (a.price_opt_recommend > 0 OR a.price_mopt_recommend > 0)
+				".(!empty($ids_products)?" HAVING p.id_product IN (".implode(", ", $ids_products).")":null);
+		unset($ids_products);
+		$arr = $this->db->GetArray($sql);
+		foreach($arr as &$p){
+			$products_array[$p['id_product']][] = $p;
 		}
 		$return = array();
-		foreach($ids_products as $k=>$id_product){
-			$prices['opt_counter'] = 0;
-			$prices['mopt_counter'] = 0;
-			$opt_sr = $mopt_sr = 0;
-			if(isset($mass[$id_product])){
-				$return[$id_product]['filial'] = 1;
-				foreach($mass[$id_product] as $p){
-					if($p['price_opt_recommend'] > 0){
-						$prices[$id_product]['opt'][] = $p['price_opt_recommend'];
-						$prices['opt_counter']++;
-					}
-					if($p['price_mopt_recommend'] > 0){
-						$prices[$id_product]['mopt'][] = $p['price_mopt_recommend'];
-						$prices['mopt_counter']++;
-					}
-					if($p['filial'] > 1){
-						$return[$id_product]['filial'] = $p['filial'];
-					}
-				}
-				if($prices['opt_counter'] > 0){
-					$opt_sr = min($prices[$id_product]['opt']);
-				}
-				if($prices['mopt_counter'] > 0){
-					$mopt_sr = min($prices[$id_product]['mopt']);
-				}
-				if($opt_sr != $mass[$id_product][0]['old_price_opt'] || $mopt_sr != $mass[$id_product][0]['old_price_mopt']){
-				}else{
-					// unset($return[$id_product]);
-				}
-					$return[$id_product]['opt_sr'] = $opt_sr;
-					$return[$id_product]['mopt_sr'] = $mopt_sr;
-
-				unset($prices[$id_product]);
-				unset($mass[$id_product]);
-			}else{
-				$sql = "SELECT p.id_product, p.price_mopt AS old_price_mopt,
-					p.price_opt AS old_price_opt
-					FROM "._DB_PREFIX_."product AS p
-					WHERE p.id_product = ".$id_product;
-				$arr = $this->db->GetOneRowArray($sql);
-				$m = $arr;
-				if($m['old_price_opt'] != 0 || $m['old_price_mopt'] != 0){
-					$return[$id_product]['filial'] = 1;
-					$return[$id_product]['opt_sr'] = 0;
-					$return[$id_product]['mopt_sr'] = 0;
-				}
+		foreach($products_array as $k=>&$product){
+			foreach($product as &$p){
+				$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
+					? $p['price_opt_recommend']
+					: $result_prices[$k]['opt'];
+				$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
+					? $p['price_mopt_recommend']
+					: $result_prices[$k]['mopt'];
 			}
-			unset($ids_products[$k]);
 		}
-		if(!$this->UpdateSitePricesMassive($return)){
+		if(!$this->UpdateSitePricesMassive($result_prices)){
 			return false;
 		}
+		set_time_limit(300);
 		ini_set('memory_limit', '192M');
 		return true;
 	}
@@ -2014,18 +1930,17 @@ class Products {
 	public function UpdateSitePricesMassive($arr){
 		//$time_start = microtime(true);
 		if(!empty($arr)){
-			foreach($arr AS $k=>$a){
-				if ($a['opt_sr'] > 100) {
-					$f['price_opt'] = "CEILING(".$a['opt_sr']."*price_coefficient_opt)";
-				}else{
-					$f['price_opt'] = "ROUND(".$a['opt_sr']."*price_coefficient_opt, 2)";
-				}
-				if ($a['mopt_sr'] > 100) {
-					$f['price_mopt'] = "CEILING(".$a['mopt_sr']."*price_coefficient_mopt)";
-				}else{
-					$f['price_mopt'] = "ROUND(".$a['mopt_sr']."*price_coefficient_mopt, 2)";
-				}
-				$f['filial'] = $a['filial'];
+			foreach($arr AS $k=>&$a){
+				// if($a['opt'] > 100){
+				// 	$f['price_opt'] = "CEILING(".$a['opt']."*price_coefficient_opt)";
+				// }else{
+				// }
+				$f['price_opt'] = "ROUND(".$a['opt']."*price_coefficient_opt, 2)";
+				// if ($a['mopt'] > 100) {
+				// 	$f['price_mopt'] = "CEILING(".$a['mopt']."*price_coefficient_mopt)";
+				// }else{
+				// }
+				$f['price_mopt'] = "ROUND(".$a['mopt']."*price_coefficient_mopt, 2)";
 				$this->db->StartTrans();
 				if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = ".$k)){
 					$this->db->FailTrans();
@@ -2037,23 +1952,6 @@ class Products {
 		//$time_end = microtime(true);
 		//$time = $time_end - $time_start;
 		//echo "execution time <b>$time</b> seconds\n";
-		//return true;
-	}
-	/**
-	 * [UpdateSitePrices description]
-	 * @param [type] $id_product [description]
-	 * @param [type] $opt_sr     [description]
-	 * @param [type] $mopt_sr    [description]
-	 */
-	public function UpdateSitePrices($id_product, $opt_sr, $mopt_sr){
-		$f['price_opt'] = "ROUND(".$opt_sr."*price_coefficient_opt, 2)";
-		$f['price_mopt'] = "ROUND(".$mopt_sr."*price_coefficient_mopt, 2)";
-		$this->db->StartTrans();
-		if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = ".$id_product)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
 		return true;
 	}
 	/**
@@ -3132,24 +3030,23 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON a.id_supplier = s.id_user
 			SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
-				a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)
-			WHERE a.edited > '".date('Y.m.j', strtotime("-1 day".date('d.m.Y')))." 21:15:00'";
+				a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
+		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
+			$this->db->FailTrans();
 			return false;
 		}
-		$sql2 = "SELECT DISTINCT a.id_product
-			FROM "._DB_PREFIX_."assortiment AS a
-			LEFT JOIN "._DB_PREFIX_."product AS p
-				ON p.id_product = a.id_product
-			WHERE p.visible = 1
-			AND a.edited > '".date('Y.m.j', strtotime("-1 day".date('d.m.Y')))." 21:15:00'";
-		$res = $this->db->GetArray($sql2);
-		if(!empty($res)){
-			foreach($res as &$i){
-				$id_product[] = $i['id_product'];
-			}
-			$this->RecalcSitePrices($id_product);
-		}
+		$this->db->CompleteTrans();
+		// $sql = "SELECT p.id_product
+		// 	FROM "._DB_PREFIX_."product AS p
+		// 	WHERE p.visible = 1";
+		// $res = $this->db->GetArray($sql);
+		// if(!empty($res)){
+			// foreach($res as &$i){
+			// 	$i = $i['id_product'];
+			// }
+			$this->RecalcSitePrices();
+		// }
 		return true;
 	}
 	/**
@@ -3187,14 +3084,19 @@ class Products {
 	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
 		$limit = $limit?' LIMIT '.$limit:null;
 		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
-				p.descr, (SELECT i.src FROM xt_image i WHERE i.id_product = p.id_product AND i.ord = 0) AS src, p.img_1 "
-				.(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."product p"
-				.(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
-				LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
-				WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
-				AND (p.price_opt>0 OR p.price_mopt>0) AND p.id_product <> ".$id_product." AND cp.id_category = ".$id_category.
-				(!$rand?' GROUP BY o.id_product':null)."	ORDER BY ".($rand?'RAND()':'count DESC').$limit;
-		$arr = $this->db->GetArray($sql,"id_product");
+			p.descr, p.img_1
+			".(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."product p
+			".(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
+			LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
+			WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
+			AND (p.price_opt>0 OR p.price_mopt>0) AND p.id_product <> ".$id_product." AND cp.id_category = ".$id_category.
+			(!$rand?' GROUP BY o.id_product':null)."	ORDER BY ".($rand?'RAND()':'count DESC').$limit;
+		if(!$arr = $this->db->GetArray($sql,"id_product")){
+			return false;
+		}
+		foreach($arr as &$p){
+			$p['images'] = $this->GetPhotoById($p['id_product']);
+		}
 		return $arr;
 	}
 	/**
@@ -4521,10 +4423,10 @@ class Products {
 
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
-                    $ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
-                }else{
-                    $ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
-                }*/
+					$ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
+				}else{
+					$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
+				}*/
 				$ul .= '<span class="more_cat"><i class="material-icons">add</i></span></span>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null);
 				$ul .= '</li>';

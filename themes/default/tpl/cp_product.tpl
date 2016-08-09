@@ -20,7 +20,7 @@
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-				<img src="<?=_base_url?>/images/action2.png">
+				<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
 			</div>
 		</div>
 		<?if(G::isMobile()){?>
@@ -266,7 +266,7 @@
 						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
 
 						<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;" min="0" step="<?=$item['min_mopt_qty'];?>">
+						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 
 						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>					
@@ -384,11 +384,11 @@
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>
-				</div>				
+				</div>
 				<div id="comments" class="mdl-tabs__panel">
 					<div class="feedback_form">
 						<h4>Оставить отзыв о товаре</h4>
-						<form action="" method="post" onsubmit="onCommentSubmit()">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
 							<div class="feedback_stars">
 								<label class="label_for_stars">Оценка:</label>
 								<label>
@@ -536,13 +536,12 @@
 				<?foreach($random_products as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p[0]['images'])){?>
-								images
+							<?if(!empty($p['images'][0])){?>
 								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
 							<?}else{?>
-								<img alt="" src=")<?=_base_url?>/efiles/nofoto.jpg">
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if ($p['price_mopt'] > 100) {?>
@@ -563,8 +562,7 @@
 				<?foreach($popular_products as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p[0]['images'])){?>
-								images
+							<?if(!empty($p['images'][0])){?>
 								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
@@ -590,8 +588,7 @@
 				<?foreach($view_products_list as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p[0]['images'])){?>
-								images
+							<?if(!empty($p['images'][0])){?>
 								<img alt="<?=$p['name']?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=str_replace('"', '', $p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>

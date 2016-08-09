@@ -231,6 +231,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}else{
 					$tpl->Assign('unlist', false);
 				}
+				if(isset($_SESSION['cart']['id_customer'])){
+					$customer_order = $customers->SetFieldsById($_SESSION['cart']['id_customer'], 1, true);
+					$customer_order['last_order'] = $order->GetLastOrder($_SESSION['cart']['id_customer']);
+					$tpl->Assign('customer_order', $customer_order);
+				}
 				$tpl->Assign('promo_info', 'Информация о введенном промокоде'); //Временный текст
 				$tpl->Assign('msg', array('type' => 'info', 'text' => 'Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a>'));
 				if(isset($success)){
@@ -355,31 +360,80 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case 'getNameCustomer':
+			case 'getCustomerInfo':
 				if(isset($_POST['phone'])){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					$Users = new Users();
-					$result = $Users->CheckPhoneUniqueness($phone, false);
-					if($result === true){
-						$res['status'] = true;
-						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
-										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
-										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$phone.'" value="add_and_set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Создать и прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
+					$id_user = $Users->CheckPhoneUniqueness($phone, false);
+					if($id_user === true){
+						$res = '<div class="no_results_info">
+									<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
+									<p>Вы можете создать нового пользователя с таким номером.</p>
+							   </div>';
 					}else{
 						$customer = new Customers();
-						$customer_data = $customer->SetFieldsById($result['id_user'], 1, true);
-						$res['status'] = true;
-						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
-										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>
-										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$customer['id_user'].'" value="set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js">Прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Отмена</button>';
+						$order = new Orders();
+						$customer_data = $customer->SetFieldsById($id_user, 1, true);
+						$customer_data['last_order'] = $order->GetLastOrder($id_user);						
+						$res = '<div class="customer_main_info">
+									<input type="hidden" value="'.$id_user.'">
+									<p><span>ФИО:</span> '.(!empty($customer_data['first_name']) || !empty($customer_data['last_name']) || !empty($customer_data['middle_name']) ?$customer_data['last_name'].' '.$customer_data['first_name'].' '.$customer_data['middle_name']:(!empty($customer_data['name'])?$customer_data['name']:null)).'</p>
+									<p><span>email:</span> '.($customer_data['email']?$customer_data['email']:' --').'</p>
+									<p><span>Баланс:</span> '.($customer_data['balance']?$customer_data['balance']:' 0,00').' грн.</p>
+									<p><span>Последний заказ:</span> '.($customer_data['last_order']?$customer_data['last_order']:' --').'</p>
+									<p><span>Активность:</span> '.($customer_data['active'] ==1?'Да':'Нет').'</p>
+								</div>
+								<div class="bonus_block">';
+						if(!empty($customer_data['bonus_card'])){
+							$res .= '<p><span>Бонусная карта:</span> №'.(!empty($customer_data['bonus_card'])?$customer_data['bonus_card']:' --').'</p>
+									<p><span>Бонусный баланс:</span> '.(!empty($customer_data['bonus_balance'])?$customer_data['bonus_balance'].' грн.':' --').'</p>
+									<p><span>Бонусный процент:</span> '.(!empty($customer_data['bonus_discount'])?$customer_data['bonus_discount'].' %':' --').'</p>';
+						}else{
+							$res .= 'Бонусная карта не активирована.';
+						}
+						$res .=	'</div>';
 					}
 				}else {
-					$res['content'] = 'Номер телефона не введен.';
-					$res['status'] = false;
+					$res = 'Номер телефона не введен.';
+				}
+				echo $res;
+				break;
+			case 'createCustomer':
+				// создаем нового пользователя
+				$Customers = new Customers();
+				$Users = new Users();
+				$data = array(
+					'last_name' => isset($_POST['last_name'])?$_POST['last_name']:null,
+					'first_name' => isset($_POST['first_name'])?$_POST['first_name']:null,
+					'middle_name' => isset($_POST['middle_name'])?$_POST['middle_name']:null,
+					'name' => (!empty($_POST['last_name']))?$_POST['last_name'].' '.$_POST['first_name'].' '.$_POST['middle_name']:'user_'.rand(),
+					'passwd' => $pass = G::GenerateVerificationCode(6),
+					'descr' => 'Пользователь создан менеджером при оформлении корзины',
+					'phone' => $_POST['phone'],
+					'id_contragent' => $_SESSION['member']['id_user']
+				);
+				// регистрируем нового пользователя
+				if($id_customer = $Customers->RegisterCustomer($data)){
+					$Users = new Users();
+					$Users->SendPassword($data['passwd'], $data['phone']);
+					$_SESSION['cart']['id_customer'] = $id_customer;
+					$res['message'] = 'успех';
+					$res['status'] = 1;
+				}else {
+					$res['message'] = 'Произошла ошибка, повторите попытку.';
+					$res['status'] = 2;
+				}
+				echo json_encode($res);
+				break;
+			case 'bindingCustomerOrder':
+				$Customers = new Customers();
+				$_SESSION['cart']['id_customer'] = $_POST['id_customer'];
+				if($Customers->SetSessionCustomerBonusCart($_POST['id_customer'])){
+					$res['message'] = 'успех';
+					$res['status'] = 1;
+				}else{
+					$res['message'] = 'Произошла ошибка, повторите попытку.';
+					$res['status'] = 2;
 				}
 				echo json_encode($res);
 				break;
@@ -398,11 +452,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							// регистрируем нового пользователя
 							$id_customer = $Customers->RegisterCustomer($data);
 							if(isset($id_customer)){
+								$Users = new Users();
 								$Users->SendPassword($data['passwd'], $data['phone']);
 								$_SESSION['cart']['id_customer'] = $id_customer;
 								$res['message'] = 'успех';
 								$res['status'] = 1;
-							} else {
+							}else {
 								$res['message'] = 'Произошла ошибка, повторите попытку.';
 								$res['status'] = 2;
 							}

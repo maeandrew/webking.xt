@@ -38,7 +38,7 @@
 	</div>
 </div> -->
 <div class="add_new_address mdl-grid">
-	<form id="edit_contacts" class="editing" action="" method="post">
+	<form id="edit_contacts" class="editing" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<!-- <input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/> -->
 		<div class="mdl-cell mdl-cell--12-col">
@@ -137,7 +137,7 @@
 				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
+						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"/>
 						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 					</div>
 				</div>

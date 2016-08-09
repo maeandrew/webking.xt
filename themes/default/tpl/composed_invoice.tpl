@@ -227,7 +227,7 @@ tr.min td {
 </head>
 <body>
 	<?$colors = array('FFFFFF', 'E50000', 'FF0000', 'FF3232', 'FF4C4C', 'FF7F7F', 'FF9999', 'E59400', 'FFA500', 'FFB732', 'FFC966', 'FFDB99', 'F3F300', 'FEFE32', 'FFFF66', 'FFFF99', '00CC00', '00E500', '00EF00', '33FF33', '66FF66', '99FF99', '00CCCC', '00E5E5', '32EFFF', '00FFFF', '7FFEFE', '1F1FFF', '3232FF', '6666FF', '9999FF', 'C400AB');?>
-	<form action="" method="POST" id="send_mail" style="float: right; position: fixed; z-index: 1000; right: 10px; top: 10px;">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" id="send_mail" style="float: right; position: fixed; z-index: 1000; right: 10px; top: 10px;">
 		<button name="send_mail">Отправить письма поставщикам</button>
 	</form>
 	<div style="padding-bottom: 15px; margin: 15px 0; border-bottom: 2px dashed #f00;">

@@ -6,7 +6,7 @@
 <?}?>
 
 <?if(isset($list) && count($list)){?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
 				<col width="20%">

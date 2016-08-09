@@ -28,7 +28,7 @@
 
 <h1><?=$h1?></h1>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
-<form action="<?=$GLOBALS['URL_request']?>" method="get" class="orders">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="get" class="orders">
 	<table class="list">
 		<colgroup>
 			<col width="5%">

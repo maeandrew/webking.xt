@@ -11,7 +11,7 @@
 <?}?>
 <br>
 <?if(!empty($list)){?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="duplicates_form">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="duplicates_form">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
 					<col width="10%">

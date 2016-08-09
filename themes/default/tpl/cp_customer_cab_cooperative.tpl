@@ -210,7 +210,7 @@
 												</th>
 											</tr>
 											</thead>
-											<form action="#">
+											<form action="<?=$_SERVER['REQUEST_URI']?>">
 												<div>
 												<tr>
 													<td>

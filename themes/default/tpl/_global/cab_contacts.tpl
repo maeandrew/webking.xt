@@ -1,6 +1,6 @@
 <h1>Основная информация</h1>
 <div class="edit_contacts_block">
-	<form id="edit_contacts" class="editing" action="" method="post">
+	<form id="edit_contacts" class="editing" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -10,7 +10,7 @@
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-			<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
+			<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"/>
 			<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

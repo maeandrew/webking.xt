@@ -98,9 +98,9 @@
 			<ul class="phone_nav_contacts">
 				<li class="parent_nav">
 					<i class="material-icons">phone</i>
-					<a href="tel:(063) 225-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(063) 225-91-83</a>
-					<a href="tel:(099) 228-69-38" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(099) 228-69-38</a>
-					<a href="tel:(093) 322-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(093) 322-91-83</a>
+					<a href="tel:(063)225-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(063) 225-91-83</a>
+					<a href="tel:(099)228-69-38" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(099) 228-69-38</a>
+					<a href="tel:(093)322-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(093) 322-91-83</a>
 				</li>
 				<li class="parent_nav">
 					<i class="material-icons">mail</i>
@@ -108,7 +108,7 @@
 				</li>
 				<li class="parent_nav">
 					<i class="material-icons">location_on</i>
-					<a href="https://www.google.com/maps/place/вул. Тюрінська, 130, Харків, Харківська+область, Україна" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
+					<a href="https://www.google.com/maps/place/вул.%20Тюрінська,%20130,%20Харків,%20Харківська+область,%20Україна" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
 				</li>
 			</ul>
 		</div>

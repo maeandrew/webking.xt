@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="catae" class="grid">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" class="row">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="row">
 		<?if($GLOBALS['CurrentController'] == 'catedit'){ ?>
 			<div class="col-md-9 last_edit">
 				Последнее редактирование: <b><?=isset($_POST['edit_date'])?$_POST['edit_date']:'-';?></b><br>

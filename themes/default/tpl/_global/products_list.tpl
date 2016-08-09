@@ -20,7 +20,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					$action = true;
 				}?>
 				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/action2.png">
+					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
 				</div>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 					<!-- <div class="product_block"> -->
@@ -28,12 +28,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 								<div class="<?=$st['class']?>"></div>
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="" data-original="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
 									<noscript>
 										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
 									</noscript>
 								<?}else{?>
-									<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 									<noscript>
 										<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 									</noscript>
@@ -50,7 +50,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 									<p>Поле для ввода примечания к товару.</p>
 								</div>
 							</div>
-							<!-- <form action="" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
+							<!-- <form action="<?=$_SERVER['REQUEST_URI']?>" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
 								<textarea cols="30" rows="3" placeholder="Примечание к заказу" ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 								<label class="info_key">?</label>
 								<div class="info_description">
@@ -102,7 +102,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
 
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" min="0" step="<?=$item['min_mopt_qty'];?>">
+								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" step="<?=$item['min_mopt_qty'];?>">
 								
 								<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
@@ -156,7 +156,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								</p>
 							<?}?>
 						</div>
-						<!-- <form action="" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
+						<!-- <form action="<?=$_SERVER['REQUEST_URI']?>" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
 							<textarea cols="30" rows="3" placeholder="Примечание к заказу" ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 							<label class="info_key">?</label>
 							<div class="info_description">
@@ -206,17 +206,17 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					$action = true;
 				}?>
 				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/action2.png">
+					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
 				</div>
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 							<noscript>
 								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							<noscript>
 								<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							</noscript>
@@ -243,9 +243,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 
 					<div class="product_check card_item">
 						<span class="suplierPriceBlockLabel">Добавить:</span>
-						<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">				
+						<label  class="mdl-checkbox mdl-js-checkbox">				
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
-							<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+							<input type="checkbox" class="check mdl-checkbox__input" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this, <?=$item['id_product']?>)"/>
 						</label>
 					</div>
 				</div>
@@ -267,15 +267,15 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					$action = true;
 				}?>
 				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/action2.png">
+					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
 				</div>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
 							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 						<?}else{?>
-							<img alt="<?=G::CropString($item['id_product'])?>" class="lazy" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							<noscript><img alt="<?=G::CropString($item['id_product'])?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
 						<?}?>
 					</a>
@@ -344,7 +344,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
 
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" min="0" step="<?=$item['min_mopt_qty'];?>">
+								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>">
 								
 								<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>

@@ -8,10 +8,10 @@
 			<p>Контактный телефон: <?=$supplier['real_phone']?></p>
 			<p>Контактный email: <?=$supplier['real_mail']?></p>
 			<p>Адрес: <?=$supplier['place']?></p>
-			<form class="suppliers_activity_form" method="post" action="">
+			<form class="suppliers_activity_form" method="post" action="<?=$_SERVER['REQUEST_URI']?>">
 				<input name="supplier_activ" hidden value="<?=$supplier['active'] == 1?'on':'off'?>">
 				<span class="current_supplier <?=$supplier['active'] == 1?'active_supplier':'inactive_supplier'?>">Поставщик <?=$supplier['active'] == 0?'не ':null?>активен</span>
-				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
+				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv disable_supplier_js':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
 			</form>
 		</div>
 	</div>
@@ -98,7 +98,7 @@
 			<div class="cabinet_block">
 				<div class="redBlock">
 					<div class="dollar">
-						<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="RecalcSupplierCurrency();return false;">
 							<label for="currency_rate">Личный курс доллара</label><br>
 							<div class="flexWrap">
 								<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
@@ -123,7 +123,7 @@
 						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button> 
 					</div>-->
 				</div>
-				<!-- <form class="work_days_add" action="<?=$GLOBALS['URL_request']?>" method="post">
+				<!-- <form class="work_days_add" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<label for="start_date" class="fleft">С даты:
 						<input type="date" name="start_date" id="start_date" value="<?=date("Y-m-d", time());?>"/>
 					</label>
@@ -143,7 +143,7 @@
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
 							
-							<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
 							</form>
@@ -157,7 +157,7 @@
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
 							
-							<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
 							</form>
@@ -225,12 +225,12 @@
 							</td>
 							<td>
 								<?if(!empty($item['images'])){?>
-									<img <?=$wh?> class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
+									<img <?=$wh?> class="lazy" src="" alt="" data-original="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
 									<noscript>
 										<img <?=$wh?> src="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
 									</noscript>
 								<?}else{?>
-									<img <?=$wh?> class="lazy" data-original="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+									<img <?=$wh?> class="lazy" src="" alt="" data-original="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
 									<noscript>
 										<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
 									</noscript>
@@ -339,6 +339,12 @@
 		// 		}),
 		// 	});
 		// });
+
+		$('.disable_supplier_js').on('click', function(){
+			if (!confirm('Убедитесь что вы сохранили ассортимент в файл Excel')){
+				return false;
+			}
+		});
 
 		// Переключение активности записи ассортимента
 		$('.active').on('change', function(){

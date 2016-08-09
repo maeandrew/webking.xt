@@ -12,7 +12,7 @@
 		<span class="errmsg"><?=$msg?></span><br>
         <?}}}unset($_SESSION['errm'])?>
 			<rh3>Заказ №<?=$data[0]['id_order']?>-возв   <span><?=date("d.m.Y",$data[0]['target_date'])?></span></rh3>
-			<form action="<?=$GLOBALS['URL_request']?>" method="post" id="returnForm">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="returnForm">
                 <script>p_ids = new Array();ii=0;</script>
                 <table border="0" cellpadding="0" cellspacing="0" class="returns_table" width="100%">
                     <tr>

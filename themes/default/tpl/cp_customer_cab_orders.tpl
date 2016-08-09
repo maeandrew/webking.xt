@@ -266,7 +266,7 @@
 															</th>
 														</tr>
 													</thead>
-													<form action="#">
+													<form action="<?=$_SERVER['REQUEST_URI']?>">
 														<tbody>
 															<tr>
 																<td>

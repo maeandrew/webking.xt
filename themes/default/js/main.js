@@ -1035,7 +1035,7 @@ $(function(){
 		
 	// $('#verification').on('click', 'label[for="choise_sms"]', function(){
 	// 	$('#verification #recovery_email').closest('div').addClass('hidden');
-	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+	// 	$('#verification .verification_input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 	// 	$(".phone").mask("+38 (099) ?999-99-99");
 	// 	componentHandler.upgradeDom();
 	// });
@@ -1164,7 +1164,7 @@ $(function(){
 	});
 	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
@@ -1470,10 +1470,10 @@ $(function(){
 	});
 
 	//Отправка данных (смета клиента)
-	$('#estimate').on('click', function(){
+	$('#estimate_form').on('click', function(){
 		$('.estimate_info_js').html(''); // удаление предыдущего оповещения аякса
-		$('#estimate div').each(function() { // удаление класса is-invalid со всех полей
-			$('#estimate div').removeClass('is-invalid');
+		$('#estimate_form div').each(function() { // удаление класса is-invalid со всех полей
+			$('#estimate_form div').removeClass('is-invalid');
 		});
 	});
 
@@ -1533,6 +1533,85 @@ $(function(){
 	if($('header .cart_item a.cart i').data('badge') === 0) {
 		$('#cart .clear_cart').addClass('hidden');
 	}
+
+	//ОБРАБОТЧИКИ МОДАЛКИ КОНТРАГЕНТА ПОИСКА КЛИЕНТА В КОРЗИНЕ	
+	$('#cart_customer_search .search_form_js').on('submit', function(e){
+		e.preventDefault();
+		var phone = $('#cart_customer_search .phone').val();
+		//Приводит тел в нужный вид
+		var str = phone.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				phone = 38 + str;
+			}else{
+				phone = str;
+			}
+		}
+		if (phone.length === 12 ) {
+			console.log('телефон проверили все ок');
+			addLoadAnimation('#cart_customer_search');
+			ajax('cart', 'getCustomerInfo', {'phone': phone}, 'html').done(function(data){
+				removeLoadAnimation('#cart_customer_search');
+				$('#cart_customer_search .search_results_block').html(data);				
+				if ($('#cart_customer_search .customer_main_info input').val() === undefined){
+					$('#cart_customer_search .new_name_block').removeClass('hidden');
+					$('#cart_customer_search .add_customer').addClass('hidden');
+					$('#cart_customer_search .ceate_new_customer').removeClass('hidden');
+					$('#cart_customer_search .new_name_block input').each(function(){
+						$(this).val('');
+					});
+				}else{
+					$('#cart_customer_search .new_name_block').addClass('hidden');
+					$('#cart_customer_search .add_customer').removeClass('hidden');
+					$('#cart_customer_search .ceate_new_customer').addClass('hidden');
+				}
+			});
+		}else{
+			$(this).closest('.search_block').find('.phone').addClass('input_phone_error');
+		}		
+	});
+
+	$('#cart_customer_search .add_customer').on('click', function(){
+		var id_customer = $('#cart_customer_search .customer_main_info input').val();
+		addLoadAnimation('#cart_customer_search');
+		ajax('cart', 'bindingCustomerOrder', {'id_customer': id_customer}).done(function(data){
+			removeLoadAnimation('#cart_customer_search');
+			closeObject('cart_customer_search');
+			openObject('cart');
+		});
+	});
+
+	$('#cart_customer_search .ceate_new_customer').on('click', function(){
+		var new_user_surname = $('#new_user_surname').val();
+		var new_user_name = $('#new_user_name').val();
+		var new_user_middle_name = $('#new_user_middle_name').val();
+		var phone = $('#cart_customer_search .phone').val();
+		//Приводит тел в нужный вид
+		var str = phone.replace(/\D/g, "");
+		var check_num = /^(38)?(\d{10})$/;
+		if (check_num.test(str)) {
+			if (str.length === 10){
+				phone = 38 + str;
+			}else{
+				phone = str;
+			}
+		}		
+		addLoadAnimation('#cart_customer_search');
+		ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
+			removeLoadAnimation('#cart_customer_search');
+			closeObject('cart_customer_search');
+			openObject('cart');
+		});
+	});
+
+	//Убираем красную границу при вводе телефона
+	$('#cart_customer_search .phone').keyup(function(){
+		console.log('нажали');
+		$(this).removeClass('input_phone_error');
+	});
+
+
 
 	/*$("#login_email").blur(function(){
 		var name = this.value;
@@ -1669,7 +1748,7 @@ $(function(){
 				if ($(document).outerWidth() < 450) {
 					$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
 				}
-				GetScreenShot();
+				GetScreenshot();
 			}
 		}else if($(this).hasClass('screen_btn_js')){
 			event.preventDefault();
@@ -1680,10 +1759,10 @@ $(function(){
 			});
 			$(this).removeClass('screen_btn_js').addClass('clicked_js').addClass('is-checked');
 			$('.err_msg_as_js').removeClass('shown').css('top', '100%');
-			GetScreenShot();
+			GetScreenshot();
 		}else if($(this).hasClass('canvasReady_js')){
 			$('.canvas_toolbar').css('display', 'none');
-			GetScreenShot();
+			GetScreenshot();
 		}
 		$('.err_msg_as_form_js').find('textarea').focus();
 	});

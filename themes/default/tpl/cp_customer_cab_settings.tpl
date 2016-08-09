@@ -2,7 +2,7 @@
 	<div class="customer_cab col-md-6">
 		<h1><?=isset($_GET['t']) && $_GET['t'] === 'password'?'Смена пароля':'Настройки'?> </h1>
 		<div id="settings">
-			<form class="editing forPassStrengthContainer_js" action="" method="post">
+			<form class="editing forPassStrengthContainer_js" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 				<input required="required" type="hidden" name="id_user" value="<?=$User['id_user']?>"/>
 				<?!isset($_GET['t'])?$var = '':$var = $_GET['t'];
 				switch($var){

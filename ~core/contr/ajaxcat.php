@@ -25,12 +25,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							<div class="thumbnail">
 								<a href="/product/<?=$item['id_product']?>/<?=$item['translit']?>/">
 									<?if(!empty($item['images'])){?>
-										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 										<noscript>
 											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 										<noscript>
 											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 										</noscript>
@@ -263,7 +263,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 										</span>
 									</a>
 								</div>
-								<form action="" class="note">
+								<form action="<?=$_SERVER['REQUEST_URI']?>" class="note">
 									<textarea cols="30" rows="3" placeholder="Примечание к заказу"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 									<label class="info_key">?</label>
 									<div class="info_description">
