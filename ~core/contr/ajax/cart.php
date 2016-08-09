@@ -54,15 +54,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('phone', isset($customer['phones'])?$customer['phones']:'');
 
 				// список всех менеджеров
-				if(substr($User->fields['email'], -11) == "@x-torg.com"){
-					// внутренний
-					// пользователи в служебных аккаунтах видят удаленных менеджеров
-					$contragents->SetList(true, false);
-				}else{
-					// внешний
-					// обычные пользователи не видят удаленных менеджеров
-					$contragents->SetList(false, false);
-				}
+				$contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
 				$managers_list = $contragents->list;
 
 				// список всех областей
@@ -492,8 +484,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							//'passwd' => $pass = substr(md5(time()), 0, 8),
 							'passwd' => $pass = G::GenerateVerificationCode(6),
 							'descr' => 'Пользователь создан автоматически при оформлении корзины',
-							'phone' => $phone
+							'phone' => $phone,
+							'id_contragent' => isset($_POST['id_contragent']) && !empty($_POST['id_contragent'])?$_POST['id_contragent']:null
 						);
+
 						// регистрируем нового пользователя
 						if($Customers->RegisterCustomer($data)){
 							$Users->SendPassword($data['passwd'], $data['phone']);

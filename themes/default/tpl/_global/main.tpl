@@ -511,20 +511,29 @@
 				<span></span>
 				<form action="<?=$_SERVER['REQUEST_URI']?>" class="forPassStrengthContainer_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="name" name="name">
-						<label class="mdl-textfield__label" for="name">Имя</label>
+						<input class="mdl-textfield__input" type="text" id="sign_up_name" name="name">
+						<label class="mdl-textfield__label" for="sign_up_name">Имя</label>
 						<span class="mdl-textfield__error">Ошибка ввода имени!</span>
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="phone" name="phone">
-						<label class="mdl-textfield__label" for="phone">Телефон</label>
+						<input class="mdl-textfield__input" type="text" id="sign_up_phone" name="phone">
+						<label class="mdl-textfield__label" for="sign_up_phone">Телефон</label>
 						<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 					</div>
-
+					<div class="mdl-selectfield mdl-js-selectfield">
+						<select id="sign_up_contragent" name="id_contragent" class="mdl-selectfield__select">
+							<option value="" disabled selected></option>
+							<?foreach($managers_list as $manager){?>
+								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
+							<?}?>
+						</select>
+						<label class="mdl-selectfield__label" for="sign_up_contragent">Контрагент</label>
+					</div>
+						<p>Оставьте поле пустым, если не уверены</p>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email_login" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
-						<label class="mdl-textfield__label" for="email_login">Email</label>
+						<input class="mdl-textfield__input" type="text" id="sign_up_email" name="email" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+						<label class="mdl-textfield__label" for="sign_up_email">Email</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
 					</div>
 
@@ -535,7 +544,6 @@
 						<div class="password_error"></div>
 						<div class="error_description"></div>
 					</div>
-
 					<div class="passStrengthContainer_js">
 						<p class="ps_title">надежность пароля</p>
 						<div class="ps">

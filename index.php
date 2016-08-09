@@ -87,11 +87,15 @@ if(isset($_SESSION['member'])){
 }
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
+
+$contragents = new Contragents();
+// список всех менеджеров
+$contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
+$tpl->Assign('managers_list', $contragents->list);
+
 if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
-	$SavedContragent = new Contragents();
-	$SavedContragent->GetSavedFields($Customer->fields['id_contragent']);
-	$tpl->Assign('SavedContragent', $SavedContragent->fields);
-	unset($SavedContragent);
+	$contragents->GetSavedFields($Customer->fields['id_contragent']);
+	$tpl->Assign('SavedContragent', $contragents->fields);
 }else{
 	$promo_supplier = new Suppliers();
 	$promo_supplier->GetSupplierIdByPromoCode($_SESSION['member']['promo_code']);
