@@ -61,6 +61,6 @@
 		</a>
 	</div>
 	<div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
-	<a class="menuUserInfBtn" href="<?=Link::Custom('cabinet')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Мой кабинет</a>
+	<a class="menuUserInfBtn" href="<?=_base_url.'/cabinet'?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Мой кабинет</a>
 	<a class="menuUserInfBtn" href="<?=Link::Custom('logout')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Выйти</a>
 </div>
