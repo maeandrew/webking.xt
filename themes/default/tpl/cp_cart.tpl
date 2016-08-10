@@ -432,16 +432,16 @@
 
 							</div>
 						<?}?>
-						<div class="mdl-selectfield mdl-js-selectfield">
-							<select id="select_contragent" name="id_contragent" class="mdl-selectfield__select">
-								<option value="" disabled selected>Менеджер</option>
-								<?foreach($managers_list as $manager){?>
-									<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
-								<?}?>
-							</select>
-							<label class="mdl-selectfield__label" for="select_contragent">Менеджер</label>
-						</div>
 					<?}?>
+					<div class="mdl-selectfield mdl-js-selectfield">
+						<select id="select_contragent" name="id_contragent" class="mdl-selectfield__select">
+							<option value="" disabled selected>Менеджер</option>
+							<?foreach($managers_list as $manager){?>
+								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
+							<?}?>
+						</select>
+						<label class="mdl-selectfield__label" for="select_contragent">Менеджер</label>
+					</div>
 					
 					<!-- <div id="button-cart2">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
