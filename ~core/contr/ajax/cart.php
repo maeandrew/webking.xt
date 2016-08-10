@@ -470,6 +470,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'makeOrder':
+				$_SESSION['cart']['id_contragent'] = isset($_POST['id_contragent']) && !empty($_POST['id_contragent'])?$_POST['id_contragent']:null;
 				if(!G::IsLogged()){
 					$Customers = new Customers();
 					$Users = new Users();

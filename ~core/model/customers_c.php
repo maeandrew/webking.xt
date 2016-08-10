@@ -282,7 +282,7 @@ class Customers extends Users {
 	 */
 	public function RegisterCustomer($arr){
 		//рандомный выбор контрагента
-		if(!isset($arr['id_contragent'])){
+		if(!isset($arr['id_contragent']) || empty($arr['id_contragent'])){
 			$contragents = new Contragents();
 			$contragents->SetList(false, false);
 			$managers_list = $contragents->list;
@@ -407,6 +407,9 @@ class Customers extends Users {
 		if(isset($arr['discount'])){
 			$discount = str_replace(",",".",trim($arr['discount']));
 			$f['discount'] = (1-$discount)*100;
+		}
+		if(isset($arr['id_contragent'])){
+			$f['id_contragent'] = trim($arr['id_contragent']);
 		}
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$f['id_user'])){
