@@ -1,9 +1,8 @@
 <!-- <h4 class="title_cart">Корзина</h4> -->
 <script>
-	var randomManager,
-	qtycontrol = [],
-	notecontrol = [];
+	var randomManager;
 </script>
+
 <?if(empty($list)){
 	if(isset($cart['id_order'])){
 		if($_GET['type'] == 'order'){?>
@@ -171,7 +170,7 @@
 
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
-								
+
 
 								<button id="cart_btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="cart_btn_remove<?=$item['id_product']?>">Меньше</div>
@@ -293,13 +292,13 @@
 		</div>
 	</div>
 	<?if (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){?>
-		<div class="contragent_cart_block">			
+		<div class="contragent_cart_block">
 			<? if(isset($customer_order)){?>
 			<p class="contragent_cart_block_title">Наименование клиента</p>
-			<div class="customer_main_info">				
-				<p class="customer_main_info_item">ФИО: 
+			<div class="customer_main_info">
+				<p class="customer_main_info_item">ФИО:
 				<? if (!empty($customer_order['first_name']) || !empty($customer_order['last_name']) || !empty($customer_order['middle_name'])) {?>
-					<?=$customer_order['last_name']?> <?=$customer_order['first_name']?> <?=$customer_order['middle_name']?>  
+					<?=$customer_order['last_name']?> <?=$customer_order['first_name']?> <?=$customer_order['middle_name']?>
 				<?}else{?>
 					<?=!empty($customer_order['name'])?$customer_order['name']:null?>
 				<?}
@@ -313,7 +312,7 @@
 			<?}else{?>
 				<p>Клиент не найден.</p>
 			<?}?>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search"><?=isset($customer_order)?'Изменить':'Добавить'?></button>			
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search"><?=isset($customer_order)?'Изменить':'Добавить'?></button>
 		</div>
 	<?}?>
 
@@ -405,7 +404,7 @@
 									<p><?=$promo_info?></p>
 								</div>
 							</div>
-						<?}?>					
+						<?}?>
 						<?if(!isset($_SESSION['cart']['promo'])){?>
 							<div class="cart_choiсe_wrapp_js cart_choiсe_wrapp">
 								<!--<div class="tooltip_wrapp joint_cart_js">
@@ -423,7 +422,7 @@
 											<label class="info_key" style="position: initial;">?</label>
 											<div class="info_description">Перейти к оформлению совместного заказа</div>
 									</label>
-								</div>								
+								</div>
 								<!-- <input type="button" class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js" value="Продолжить"/> -->
 
 							</div>
@@ -438,7 +437,7 @@
 						</select>
 						<label class="mdl-selectfield__label" for="select_contragent">Менеджер</label>
 					</div>
-					
+
 					<!-- <div id="button-cart2">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
 					</div>
@@ -473,7 +472,7 @@
 							// $('#promo_input, .apply_promoCode_js').attr('disabled', false);
 							$('#promo_input, .apply_promoCode_js').removeClass('hidden');
 						}else{
-							console.log('123');							
+							console.log('123');
 							// $('#promo_input, .apply_promoCode_js').attr('disabled', true);
 							$('#promo_input, .apply_promoCode_js').addClass('hidden');
 						}
@@ -526,12 +525,12 @@
 					});
 				</script>
 			</div>
-		</div>		
+		</div>
 	</div>
 	<div class="cart_buttons">
 		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
 
-		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->	
+		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
 			<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
 			</div>
@@ -539,7 +538,7 @@
 			<p>Вы не можете использовать корзину</p>
 		<?}?>
 
-		<?if(!isset($_SESSION['cart']['promo'])){?>	 <!-- когда клиент выберает чекбокс -->	
+		<?if(!isset($_SESSION['cart']['promo'])){?>	 <!-- когда клиент выберает чекбокс -->
 			<button class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js">Продолжить</button>
 		<?}?>
 
@@ -555,7 +554,7 @@
 		$(window).resize(function() {
     		Position($('#cart'));
 		});
-		$(function(){			
+		$(function(){
 			// Инициалзация маски для ввода телефонных номеров
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
@@ -573,7 +572,7 @@
 			});
 			$(".order_note_text").blur(function(){
 				note = $(this).val();
-				ajax('cart', 'SaveOrderNote', {note: note});			
+				ajax('cart', 'SaveOrderNote', {note: note});
 			});
 
 			$('#cart').on('click', '#button-cart1 button', function(e){
@@ -738,7 +737,7 @@
 					$(this).removeAttr("disabled");
 					$('.err_tel').css('visibility', '')
 				}
-			});*/			
+			});*/
 		});
 	</script>
 <?}?>
