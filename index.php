@@ -19,32 +19,21 @@ require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 /* Объявление CSS файлов */
 G::AddCSS('../themes/'.$theme.'/css/reset.css', 0);
-// G::AddCSS('../plugins/material/material.css');
-// G::AddCSS('../plugins/material/material.min.css', 1);
 G::AddCSS('../plugins/mdl-select.min.css', 1);
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
 G::AddCSS('../themes/'.$theme.'/css/footer.css', 1);
 G::AddCSS('../themes/'.$theme.'/css/style.css', 0);
 G::AddCSS('../themes/'.$theme.'/css/header.css', 0);
-// G::AddCSS('../themes/'.$theme.'/css/sidebar.css');
 G::AddCSS('../themes/'.$theme.'/css/custom.css', 1);
 G::AddCSS('../themes/'.$theme.'/css/colors.css', 0);
-// G::AddCSS('../themes/'.$theme.'/css/d3graph.css');
 G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css', 1);
 /* plugins css */
-// G::AddCSS('../plugins/formstyler/jquery.formstyler.css');
-// G::AddCSS('../plugins/icomoon/style.css');
 G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].'.css', 0);
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
 G::AddJS('jquery-ui.min.js', true, 1);
 G::AddJS('../plugins/Chart.min.js');
-// G::AddJS('../adm/js/Chart.min.js');
-//G::AddJS('d3.js');
-//G::AddJS('d3.min.js');
-//G::AddJS('../js/nutrients.csv');
-//G::AddJS('../js/nutrients.json');
 G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
@@ -59,75 +48,55 @@ if($GLOBALS['CurrentController'] == 'cart'){
 G::AddJS('../plugins/dropzone.js', true, 1);
 G::AddJS('../plugins/jquery.lazyload.min.js', false, 1);
 G::AddJS('../plugins/jquery.cookie.js', false, 1);
-// G::AddJS('../plugins/formstyler/jquery.formstyler.js');
 G::AddJS('../plugins/maskedinput.min.js', true);
-// G::AddJS('../plugins/icomoon/liga.js', true);
 G::AddJS('../js/html2canvas.js', true);
 if($GLOBALS['CurrentController'] == 'page'){
 	G::AddJS('../themes/'.$theme.'/js/page.js', true);
 }
-// G::AddJS('../plugins/tagcanvas/jquery.tagcanvas.min.js');
-
 if(in_array($GLOBALS['CurrentController'], array('promo_cart', 'promo'))){
 	G::AddJS('promo_cart.js');
 }
 $_SESSION['ActiveTab'] = isset($_SESSION['ActiveTab']) && $_SESSION['ActiveTab'] == '0'?0:1;
-if(!isset($_SESSION['layout'])){
-	$_SESSION['layout'] = 'block';
-}elseif(isset($_POST['layout']) && $_POST['layout'] != $_SESSION['layout']){
-	$_SESSION['layout'] = $_POST['layout'];
-}
+$_SESSION['layout'] = isset($_POST['layout']) && $_POST['layout'] != $_SESSION['layout']?$_POST['layout']:'block';
 $GLOBALS['__page_h1'] = '&nbsp;';
-$User = new Users();
+$Users = new Users();
 if(isset($_SESSION['member'])){
-	$User->SetUser($_SESSION['member']);
+	$Users->SetUser($_SESSION['member']);
 	if(isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != 'anonymous'){
-		$GLOBALS['user'] = $User->fields;
+		$GLOBALS['user'] = $Users->fields;
 	}
 }
-$Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customers = new Customers();
+$Customers->SetFieldsById($Users->fields['id_user']);
 
-$contragents = new Contragents();
+$Contragents = new Contragents();
 // список всех менеджеров
-$contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
-$tpl->Assign('managers_list', $contragents->list);
+$Contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
+$tpl->Assign('managers_list', $Contragents->list);
 
 if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
-	$contragents->GetSavedFields($Customer->fields['id_contragent']);
-	$tpl->Assign('SavedContragent', $contragents->fields);
+	$Contragents->GetSavedFields($Customers->fields['id_contragent']);
+	$tpl->Assign('SavedContragent', $Contragents->fields);
 }else{
-	$promo_supplier = new Suppliers();
-	$promo_supplier->GetSupplierIdByPromoCode($_SESSION['member']['promo_code']);
-	$tpl->Assign('promo_supplier', $promo_supplier->fields);
-	unset($promo_supplier);
+	$Suppliers = new Suppliers();
+	$Suppliers->GetSupplierIdByPromoCode($_SESSION['member']['promo_code']);
+	$tpl->Assign('promo_supplier', $Suppliers->fields);
+	unset($Suppliers);
 }
-
 // Выборка просмотренных товаров
-$products = new Products();
+$Products = new Products();
 if(isset($_COOKIE['view_products'])){
 	foreach(json_decode($_COOKIE['view_products']) as $value){
-		$products->SetFieldsById($value);
-		$product = $products->fields;
+		$Products->SetFieldsById($value);
+		$product = $Products->fields;
 		if(isset($product['id_product']) && $product['id_product'] != ''){
-			$product['images'] = $products->GetPhotoById($product['id_product']);
+			$product['images'] = $Products->GetPhotoById($product['id_product']);
 		}
 		$result[] = $product;
 	}
 	$tpl->Assign('view_products_list', array_reverse($result));
 	unset($result, $product, $value);
 }
-// Обработка фильтров ======================================
-// if(isset($_POST['filters'])){
-// 	$filters[] = $_POST['filters'];
-// 	$mc->set('filters', array($GLOBALS['CurrentController'] => $filters));
-// }elseif(isset($mc->get('filters')[$GLOBALS['CurrentController']])){
-// 	$filters = $mc->get('filters')[$GLOBALS['CurrentController']];
-// }else{
-// 	$filters = false;
-// }
-// =========================================================
-
 // Обработка сортировок ====================================
 if(isset($_COOKIE['sorting'])){
 	$sort = (array)json_decode($_COOKIE['sorting'], true);
@@ -140,36 +109,28 @@ if(isset($GLOBALS['Sort'])){
 	$sorting = $sort[$GLOBALS['CurrentController']];
 }
 unset($sort_value, $sort);
-// =========================================================
-/*if($GLOBALS['CurrentController'] == 'main'){
-	$data = $products->ListGraph($id_category);
-	$tpl->Assign('data', $data);
-}elseif{($GLOBALS['CurrentController'] == 'products')
-	$tpl->Assign('',);
-}*/
 // Получаем список новостей
-$news = new News();
+$News = new News();
 if($GLOBALS['CurrentController'] == 'news'){
 	if(isset($GLOBALS['Rewrite'])){
-		$tpl->Assign('news', $news->GetNews(4, true));
+		$tpl->Assign('news', $News->GetNews(4, true));
 	}
 }else{
-	$tpl->Assign('news', $news->GetNews(4));
+	$tpl->Assign('news', $News->GetNews(4));
 }
-
 $Cart = new Cart();
 // Создание базового массива корзины
 if(G::IsLogged() && !_acl::isAdmin()){
 	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();
-	$User->SetUserAdditionalInfo($_SESSION['member']['id_user']);
-	$_SESSION['member']['favorites'] = $User->fields['favorites'];
-	$_SESSION['member']['waiting_list'] = $User->fields['waiting_list'];
-	$_SESSION['member']['contragent'] = $User->fields['contragent'];
-	$_SESSION['member']['ordered_prod'] = $User->fields['ordered_prod'];
+	$Users->SetUserAdditionalInfo($_SESSION['member']['id_user']);
+	$_SESSION['member']['favorites'] = $Users->fields['favorites'];
+	$_SESSION['member']['waiting_list'] = $Users->fields['waiting_list'];
+	$_SESSION['member']['contragent'] = $Users->fields['contragent'];
+	$_SESSION['member']['ordered_prod'] = $Users->fields['ordered_prod'];
 }
 $Cart->RecalcCart();
 if(G::IsLogged()){
-	$tpl->Assign('customer', $Customer->fields);
+	$tpl->Assign('customer', $Customers->fields);
 	$tpl->Assign('user_profile', $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl'));
 }
 require($GLOBALS['PATH_core'].'controller.php');
@@ -189,7 +150,6 @@ $tpl->Assign('__popular', $GLOBALS['__popular']);
 if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }
-
 if(in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 	if($GLOBALS['MainTemplate'] == 'main.tpl'){
 		$GLOBALS['MainTemplate'] = 'main_empty.tpl';
@@ -198,7 +158,6 @@ if(in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 echo $tpl->Parse($GLOBALS['PATH_tpl_global'].$GLOBALS['MainTemplate']);
 // include svg icons library
 $e_time = G::getmicrotime();
-//if ($GLOBALS['CurrentController'] != 'feed')
 echo "<!--".date("d.m.Y H:i:s", time())." ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time-$s_time)." -->";
 unset($s_time, $e_time);
 // echo memory_get_peak_usage()/pow(1000, 2);
