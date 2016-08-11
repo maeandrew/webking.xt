@@ -30,6 +30,15 @@
 			<label for="prodName">Название:</label>
 			<input type="text" id="prodName" class="input-m">
 		</div>
+		<div class="categories col-md-3">
+			<label for="categories">Категории:</label>
+			<select id="categories" required name="categories" class="input-m">
+				<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
+				<?foreach($categories as $item){?>
+					<option <?=(next($categories)['pid'] == $item['id_category'])?'disabled':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+				<?}?>
+			</select>
+		</div>
 		<div class="submit col-md-4">
 			<button class="btn-m-default submit_js">Применить</button>
 		</div>
