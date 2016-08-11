@@ -61,10 +61,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(!$err){
 					$User = new Users();
 					// проверяем уникальность введенного e-mail и телефона
-					$unique_email = $User->CheckEmailUniqueness($_POST['email']);
-					if($unique_email !== true) {
-						$err = 1;
-						$echo['errm']['email'] = 'Пользователь с таким email уже зарегистрирован!';
+					$unique_email = true;
+					if(isset($_POST['email'])){
+						$unique_email = $User->CheckEmailUniqueness($_POST['email']);
+						if($unique_email !== true) {
+							$err = 1;
+							$echo['errm']['email'] = 'Пользователь с таким email уже зарегистрирован!';
+						}
 					}
 					$unique_phone = $User->CheckPhoneUniqueness($_POST['phone']);
 					if($unique_phone !== true) {
