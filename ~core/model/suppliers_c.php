@@ -15,8 +15,8 @@ class Suppliers extends Users {
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
-		global $User;
-		if(!$User->SetFieldsById($id, $all)){
+		global $Users;
+		if(!$Users->SetFieldsById($id, $all)){
 			return false;
 		}
 		$active = "AND active = 1";
@@ -30,7 +30,7 @@ class Suppliers extends Users {
 		if(!$this->fields){
 			return false;
 		}
-		$this->fields = array_merge($this->fields, $User->GetFields());
+		$this->fields = array_merge($this->fields, $Users->GetFields());
 		return true;
 	}
 
@@ -93,14 +93,14 @@ class Suppliers extends Users {
 				ON "._DB_PREFIX_."promo_code.id_supplier = "._DB_PREFIX_."supplier.id_user
 			WHERE "._DB_PREFIX_."promo_code.code = '".$code."'";
 		$this->fields = $this->db->GetOneRowArray($sql);
-		global $User;
-		if(!$User->SetFieldsById($this->fields['id_user'], $all = 0)){
+		global $Users;
+		if(!$Users->SetFieldsById($this->fields['id_user'], $all = 0)){
 			return false;
 		}
 		if(!$this->fields){
 			return false;
 		}
-		$this->fields = array_merge($this->fields,$User->GetFields());
+		$this->fields = array_merge($this->fields, $Users->GetFields());
 		return true;
 	}
 
@@ -146,11 +146,11 @@ class Suppliers extends Users {
 	}
 
 	public function AddSupplier($arr){
-		global $User;
+		global $Users;
 		// user
 		$arr['gid'] = _ACL_SUPPLIER_;
 		$this->db->StartTrans();
-		if(!$User->AddUser($arr)){
+		if(!$Users->AddUser($arr)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -234,9 +234,9 @@ class Suppliers extends Users {
 	 *
 	 */
 	public function UpdateSupplier($arr, $only_activity = false){
-		global $User;
-		$arr['gid'] = $User->fields['gid'];
-		if(!$User->UpdateUser($arr)){
+		global $Users;
+		$arr['gid'] = $Users->fields['gid'];
+		if(!$Users->UpdateUser($arr)){
 			return false;
 		}
 		unset($f);
@@ -324,11 +324,11 @@ class Suppliers extends Users {
 	}
 
 	public function CheckSupplierDate($date){
-		global $User;
+		global $Users;
 		$tmp = explode("_", $date);
 		$date = $tmp[0]."-".$tmp[1]."-".$tmp[2];
 		$this->db->StartTrans();
-		$id_supplier = $User->fields['id_user'];
+		$id_supplier = $Users->fields['id_user'];
 		$sql = "SELECT date, id_supplier, work_day
 			FROM "._DB_PREFIX_."calendar_supplier
 			WHERE id_supplier = ".$id_supplier."
@@ -352,11 +352,11 @@ class Suppliers extends Users {
 
 	// Переключает рабочие дни и ночи в календаре поставщика
 	public function SwitchSupplierDate($date){
-		global $User;
+		global $Users;
 		$tmp = explode(".", $date);
 		$date = $tmp[2]."-".$tmp[1]."-".$tmp[0];
 		$this->db->StartTrans();
-		$id_supplier = $User->fields['id_user'];
+		$id_supplier = $Users->fields['id_user'];
 		$sql = "SELECT date, id_supplier, work_day
 			FROM "._DB_PREFIX_."calendar_supplier
 			WHERE id_supplier = ".$id_supplier."
@@ -414,8 +414,8 @@ class Suppliers extends Users {
 
 	// Пересчет цен поставщика
 	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier = false){
-		global $User;
-		$id_supplier = (($id_supplier === false)?$User->fields['id_user']:$id_supplier);
+		global $Users;
+		$id_supplier = (($id_supplier === false)?$Users->fields['id_user']:$id_supplier);
 		$k = round($cur/$cur_old, 2);
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET
 			price_opt_otpusk = ROUND(price_opt_otpusk*".$k." ,2),

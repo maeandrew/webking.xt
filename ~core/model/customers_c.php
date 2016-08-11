@@ -357,7 +357,7 @@ class Customers extends Users {
 	 *
 	 */
 	public function UpdateCustomer($arr){
-		// global $User;
+		// global $Users;
 		// $arr['gid'] = $User->fields['gid'];
 		// $arr['name'] = $arr['cont_person'];
 		// $arr['phones'] = $arr['phone'];
