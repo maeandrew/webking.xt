@@ -60,20 +60,21 @@ $_SESSION['ActiveTab'] = isset($_SESSION['ActiveTab']) && $_SESSION['ActiveTab']
 $_SESSION['layout'] = isset($_POST['layout']) && $_POST['layout'] != $_SESSION['layout']?$_POST['layout']:'block';
 $GLOBALS['__page_h1'] = '&nbsp;';
 $Users = new Users();
+$Customers = new Customers();
+$Contragents = new Contragents();
+$Products = new Products();
+$News = new News();
+$Cart = new Cart();
 if(isset($_SESSION['member'])){
 	$Users->SetUser($_SESSION['member']);
 	if(isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != 'anonymous'){
 		$GLOBALS['user'] = $Users->fields;
 	}
 }
-$Customers = new Customers();
 $Customers->SetFieldsById($Users->fields['id_user']);
-
-$Contragents = new Contragents();
 // список всех менеджеров
 $Contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
 $tpl->Assign('managers_list', $Contragents->list);
-
 if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
 	$Contragents->GetSavedFields($Customers->fields['id_contragent']);
 	$tpl->Assign('SavedContragent', $Contragents->fields);
@@ -84,7 +85,6 @@ if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'
 	unset($Suppliers);
 }
 // Выборка просмотренных товаров
-$Products = new Products();
 if(isset($_COOKIE['view_products'])){
 	foreach(json_decode($_COOKIE['view_products']) as $value){
 		$Products->SetFieldsById($value);
@@ -110,7 +110,6 @@ if(isset($GLOBALS['Sort'])){
 }
 unset($sort_value, $sort);
 // Получаем список новостей
-$News = new News();
 if($GLOBALS['CurrentController'] == 'news'){
 	if(isset($GLOBALS['Rewrite'])){
 		$tpl->Assign('news', $News->GetNews(4, true));
@@ -118,7 +117,6 @@ if($GLOBALS['CurrentController'] == 'news'){
 }else{
 	$tpl->Assign('news', $News->GetNews(4));
 }
-$Cart = new Cart();
 // Создание базового массива корзины
 if(G::IsLogged() && !_acl::isAdmin()){
 	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();

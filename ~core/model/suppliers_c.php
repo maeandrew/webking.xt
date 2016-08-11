@@ -15,7 +15,7 @@ class Suppliers extends Users {
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
-		global $Users;
+		$Users = new Users();
 		if(!$Users->SetFieldsById($id, $all)){
 			return false;
 		}
