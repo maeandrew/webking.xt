@@ -20,6 +20,9 @@ h1 {
 	margin-top: 10px;
 	width: 25%;
 }
+.supplier, .prodName, .categories{
+	margin-top: 2em;
+}
 .previews { 
 	height: 135px;
 	margin-top: 20px;
@@ -188,4 +191,5 @@ h1 {
 }
 .create_product .submit{
 	margin-top: 2em;
+	text-align: center;
 }
