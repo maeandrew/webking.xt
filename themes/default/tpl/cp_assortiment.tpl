@@ -156,9 +156,11 @@
 								<?}?>
 							</a>
 						</div>
-						<p class="product_name"><a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a> <span class="product_article">Арт: <?=$p['art'];?></span></p>
+						<div class="product_name">
+							<a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a> <span class="product_article">Арт: <?=$p['art'];?></span>
+						</div>
 						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-							<p class="price"><?=number_format($p['price_mopt'], 2, ',', '')?></p>
+							<p class="price"><?=number_format($p['price_mopt'], 2, ',', '');?></p>
 							<div class="buy_block">
 								<div class="btn_remove">
 									<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
@@ -171,12 +173,6 @@
 										<?=isset($_SESSION['cart']['products'][$p['id_product']])?'+':'Купить'?>
 									</button>
 								</div>
-
-								<!-- <input type="text" class="qty_js" value="<?=$_SESSION['cart']['products'][$item['id_product']]['quantity']?>">
-								<div class="btn_buy">
-									<button class="mdl-button mdl-js-button" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;"><i class="material-icons">add</i></button>
-								</div> -->
-
 							</div>
 						</div>
 						<div class="product_info clearfix hidden">
@@ -194,7 +190,7 @@
 			<?if(isset($cnt) && $cnt >= 30){?>
 				<div class="sort_page">
 					<a href="<?=_base_url?>/products/<?=$curcat['id_category']?>/<?=$curcat['translit']?>/limitall/"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
-				</div><!--class="sort_page"-->
+				</div>
 			<?}?>
 			<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<?}else{?>
@@ -202,21 +198,4 @@
 			<h5>Товаров нет</h5>
 		<?}?>
 	<?}?>
-	</div><!--class="cabinet"-->
-<script>
-//Фиксация Заголовка таблицы
-	/*$(window).scroll(function(){
-		if($(this).scrollTop() >= 160){
-			if(!$('.table_thead').hasClass('fixed_thead')){
-				var width = $('.table_tbody').width();
-				$('.table_thead').css("width", width).addClass('fixed_thead');
-				$('#second').css("margin-top", "69px");
-			}
-		}else{
-			if($('.table_thead').hasClass('fixed_thead')){
-				$('.table_thead').removeClass('fixed_thead');
-				$('#second').css("margin-top", "0");
-			}
-		}
-	});*/
-</script>
+</div>
