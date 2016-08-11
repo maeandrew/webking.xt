@@ -429,6 +429,15 @@
 							</div>
 						<?}?>
 					<?}?>
+					<div class="mdl-selectfield mdl-js-selectfield">
+						<select id="select_contragent" name="id_contragent" class="mdl-selectfield__select">
+							<option value="" disabled selected>Менеджер</option>
+							<?foreach($managers_list as $manager){?>
+								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
+							<?}?>
+						</select>
+						<label class="mdl-selectfield__label" for="select_contragent">Менеджер</label>
+					</div>
 					
 					<!-- <div id="button-cart2">
 						<button class="mdl-button mdl-js-button btn_js" type='submit' data-href="<?=Link::custom('cabinet','cooperative?t=working')?>" value="Отправить">Отправить форму</button>
@@ -583,7 +592,7 @@
 						$('#fillNote').removeClass('hidden');
 						setTimeout(function(){
 							$("#fillNote").addClass('hidden');
-						}, 3000);						
+						}, 3000);
 					}
 				});
 				if(!IsLogged){
@@ -596,8 +605,9 @@
 						data.phone = phone;
 					}
 				}
+				data.id_contragent = $('.action_block [name="id_contragent"]').val();
 				if(validate === true){
-					addLoadAnimation('#cart');					
+					addLoadAnimation('#cart');
 					ajax('cart', 'makeOrder', data).done(function(response){
 						switch(response.status){
 							case 200:
@@ -629,9 +639,12 @@
 									event.preventDefault;
 									openObject('auth');
 								});
-								break;							
+								break;
 						}
 						/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
+					}).fail(function(data){
+						console.log('fail');
+						console.log(data);
 					});
 				}
 			});

@@ -45,8 +45,8 @@ fputcsv($handle, array(
 foreach($plist AS $p){
 	$opt_coeff_arr = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
 	$mopt_coeff_arr = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
-	$opt_coeff = $opt_coeff_arr[2];
-	$mopt_coeff = $mopt_coeff_arr[2];
+	$opt_coeff = $opt_coeff_arr[0];
+	$mopt_coeff = $mopt_coeff_arr[0];
 	if($p['name_index'] == ''){
 		$p['name_index'] = strtoupper($p['name']);
 	}
