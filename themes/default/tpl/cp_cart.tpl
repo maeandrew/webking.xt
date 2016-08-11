@@ -319,21 +319,13 @@
 
 	<div class="cart_bottom_wrap">
 		<div class="sub_cart_bottom_wrap">
-			<!-- <div class="orderNote"> -->
-				<!-- <textarea name="orderNote" placeholder="Примечания к заказу..."></textarea> -->
-			<div class="mdl-textfield mdl-js-textfield orderNote">
-				<label for="orderNote">Примечания к заказу</label>
-				<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
-				<!-- <label class="mdl-textfield__label" for="orderNote">Примечания к заказу...</label> -->
-			</div>
-			<!-- </div> -->
 			<?if(!G::IsLogged()){?>
 				<div class="msg-<?=$msg['type']?>">
 					<div class="msg_icon">
 						<i class="material-icons"></i>
 					</div>
-				    <p class="msg_title">!</p>
-				    <p class="msg_text"><?=$msg['text']?></p>
+					<p class="msg_title">!</p>
+					<p class="msg_text"><?=$msg['text']?></p>
 				</div>
 			<?}else{?>
 				<div class="bonus_block">
@@ -360,8 +352,12 @@
 						</div>
 					<?}?>
 				</div>
-			<?}?>			
-		</div>		
+			<?}?>
+			<div class="mdl-textfield mdl-js-textfield orderNote">
+				<label for="orderNote">Примечания к заказу</label>
+				<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
+			</div>
+		</div>
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="<?=$_SERVER['REQUEST_URI']?>">
