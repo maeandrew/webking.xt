@@ -46,20 +46,6 @@
 				}
 			;
 			break;
-			case"exclusive_product":
-				if(isset($_POST['id_product']) && isset($_POST['active']) && isset($_POST['id_supplier'])){
-					if(checkNumeric($_POST, array('id_product','active','id_supplier'))){
-						$Product->SetExclusiveSupplier($_POST['id_product'], $_POST['id_supplier'], $_POST['active']);
-						$arr['id_product'] = $_POST['id_product'];
-						$arr['id_supplier'] = $_POST['id_supplier'];
-						$arr['active'] = $_POST['active'];
-						echo json_encode($arr);
-					}else{
-						exit();
-					}
-				}
-			;
-			break;
 			case"sale_status":
 				if($Status->UpdateStatus_Sale($_POST['id_product'], $_POST['status'])){
 					$arr['id_product'] = $_POST['id_product'];
