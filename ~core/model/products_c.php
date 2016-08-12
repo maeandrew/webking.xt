@@ -1795,16 +1795,16 @@ class Products {
 		if($id_supplier == $_SESSION['member']['id_user']){
 			$this->InitProduct($id_product);
 		}
-		$f['id_supplier'] = $id_supplier;
-		$f['id_product'] = trim($id_product);
-		$f['price_opt_recommend'] =
-		$f['price_mopt_recommend'] =
-		$f['price_opt_otpusk'] =
-		$f['price_mopt_otpusk'] =
-		$f['price_opt_otpusk_usd'] =
-		$f['price_mopt_otpusk_usd'] =
-		$f['product_limit'] =
-		$f['active'] = 0;
+		$f['id_supplier']           = $id_supplier;
+		$f['id_product']            = trim($id_product);
+		$f['price_opt_recommend']   = 0;
+		$f['price_mopt_recommend']  = 0;
+		$f['price_opt_otpusk']      = 0;
+		$f['price_mopt_otpusk']     = 0;
+		$f['price_opt_otpusk_usd']  = 0;
+		$f['price_mopt_otpusk_usd'] = 0;
+		$f['product_limit']         = 0;
+		$f['active']                = 0;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
@@ -2782,73 +2782,7 @@ class Products {
 	 * Обработка загруженного файла ассортимента
 	 * @param [type] $file [description]
 	 */
-	public function ProcessAssortimentFile($file){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
-		$objPHPExcel = PHPExcel_IOFactory::load($file);
-		$objPHPExcel->setActiveSheetIndex(0);
-		$aSheet = $objPHPExcel->getActiveSheet();
-		//этот массив будет содержать массивы содержащие в себе значения ячеек каждой строки
-		$array = array();
-		$ca = $this->GetExcelAssortColumnsArray();
-		//получим итератор строки и пройдемся по нему циклом
-		foreach($aSheet->getRowIterator() as $k => $row){
-			//получим итератор ячеек текущей строки
-			$cellIterator = $row->getCellIterator();
-			$cellIterator->setIterateOnlyExistingCells(false); // Включить пустые ячейки
-			//пройдемся циклом по ячейкам строки
-			$item = array();
-			foreach($cellIterator as $cell){
-				//заносим значения ячеек одной строки в отдельный массив
-				array_push($item, $cell->getCalculatedValue());
-			}
-			//заносим массив со значениями ячеек отдельной строки в "общий массв строк"
-			if($k > 1){
-				array_push($array, $item);
-			}else{
-				$heading = $item;
-			}
-		}
-		// проход по первой строке
-		foreach($ca as $k => $i){
-			if($i['h'] != $heading[$k]){
-				$_SESSION['errm'][] = "Неверный формат файла";
-				return array(0, 0);
-			}
-			$keys[] = $i['n'];
-		}
-		$total_updated = 0;
-		$total_added = 0;
-		// проход по массиву строк
-		foreach($array as $row){
-			$res = array_combine($keys, $row);
-			if($id_product = $this->GetIdByArt($res['art'])){
-				global $Supplier;
-				$id_supplier = $Supplier->fields['id_user'];
-				$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
-				$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
-				$res['active'] = 0;
-				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
-					$res['active'] = 1;
-				}
-				$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
-				$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
-				if($this->IsInAssort($id_product, $id_supplier)){
-					$res['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, false);
-					$total_updated++;
-				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, false);
-					$total_added++;
-				}
-			}
-		}
-		return array($total_added, $total_updated);
-	}
-	/**
-	 * Обработка загруженного файла ассортимента
-	 * @param [type] $file [description]
-	 */
-	public function ProcessAssortimentFileUSD($file){
+	public function ProcessAssortimentFile($file, $usd){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($file);
 		$objPHPExcel->setActiveSheetIndex(0);
@@ -2885,27 +2819,34 @@ class Products {
 		$total_updated = 0;
 		$total_added = 0;
 		// проход по массиву строк
+		global $Supplier;
+		$id_supplier = 21407;//$Supplier->fields['id_user'];
+		$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
+		$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
 		foreach($array as $row){
 			$res = array_combine($keys, $row);
 			if($id_product = $this->GetIdByArt($res['art'])){
-				global $Supplier;
-				$id_supplier = $Supplier->fields['id_user'];
-				$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
-				$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
 				$res['active'] = 0;
 				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
 					$res['active'] = 1;
 				}
-				$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
-				$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
-				$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
-				$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+				if($usd){
+					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
+					$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
+					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
+					$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+				}else{
+					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
+					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
+				}
 				if($this->IsInAssort($id_product, $id_supplier)){
 					$res['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, true);
+					$res['id_supplier'] = $id_supplier;
+					// $this->UpdateAssort($res);
+					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, $usd);
 					$total_updated++;
 				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, true);
+					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, $usd);
 					$total_added++;
 				}
 			}
@@ -2922,12 +2863,10 @@ class Products {
 			FROM "._DB_PREFIX_."assortiment
 			WHERE id_product = ".$id_product."
 			AND id_supplier = ".$id_supplier;
-		$arr = $this->db->GetArray($sql);
-		if(count($arr)){
-			return true;
-		}else{
+		if(empty($this->db->GetArray($sql))){
 			return false;
 		}
+		return true;
 	}
 	/**
 	 * [AddProductToAssort description]
@@ -2973,15 +2912,14 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function UpdateSupplierAssortiment($arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$id_product = trim($arr['id_product']);
-		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
-		$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-		$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
-		$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
+		$f['price_opt_otpusk'] = $arr['price_opt_otpusk'];
+		$f['price_mopt_otpusk'] = $arr['price_mopt_otpusk'];
+		$f['price_opt_otpusk_usd'] = $arr['price_opt_otpusk_usd'];
+		$f['price_mopt_otpusk_usd'] = $arr['price_mopt_otpusk_usd'];
 		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = trim($arr['product_limit']);
-		$f['active'] = trim($arr['active']);
+		$f['product_limit'] = $arr['product_limit'];
+		$f['active'] = $arr['active'];
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -2993,12 +2931,12 @@ class Products {
 		global $Supplier;
 		$id_supplier = $Supplier->fields['id_user'];
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product." AND id_supplier = ".$id_supplier)){
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$arr['id_product']." AND id_supplier = ".$id_supplier)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		$this->RecalcSitePrices(array($id_product));
+		$this->RecalcSitePrices(array($arr['id_product']));
 		return true;
 	}
 	/**

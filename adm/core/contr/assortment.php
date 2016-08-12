@@ -49,11 +49,7 @@ if(isset($_FILES['import_file'])){
 			$tpl->Assign('errm', 1);
 			exit;
 		}
-		if(isset($_POST['smb_import_usd'])){
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES['import_file']['tmp_name']);
-		}else{
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name']);
-		}
+		list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name'], isset($_POST['smb_import_usd']));
 		$tpl->Assign('total_added', $total_added);
 		$tpl->Assign('total_updated', $total_updated);
 	}else{
