@@ -4567,17 +4567,67 @@ class Products {
 		}
 		// try to add new product to supplier's assort
 		$Suppliers = new Suppliers();
-		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
+		$id_supplier = $Suppliers->GetSupplierIdByArt($data['art_supplier']);
+		if(!$this->AddToAssort($id_product, $id_supplier)){
 			return false;
+		}
+
+		// Добавление данных в таблицу photo_batch
+		$date = date('Y-m-d');
+		$id_author  = $_SESSION['member']['id_user'];
+		$id_batch = $this->GetIdPhotoBatch($date, $id_supplier, $id_author);
+		if($id_batch){
+			$this->AddPhotoBatchProducts($id_batch, $id_product);
+		}else{
+			$f['date'] = date('Y-m-d');
+			$f['id_supplier'] = $id_supplier;
+			$f['id_author'] = $id_author;
+			$this->db->StartTrans();
+			if(!$this->db->Insert(_DB_PREFIX_.'photo_batch', $f)){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+			$id_batch = $this->GetIdPhotoBatch($date, $id_supplier, $id_author);
+			$this->AddPhotoBatchProducts($id_batch, $id_product);
 		}
 		return $id_product;
 	}
 
+	// Достаем id записи из таблицы photo_batch
+	public function GetIdPhotoBatch($date, $id_supplier, $id_author){
+		$sql = "SELECT id FROM "._DB_PREFIX_."photo_batch
+			WHERE date = '".$date."' AND id_supplier = ".$id_supplier."
+			AND id_author =".$id_author;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['id'];
+	}
+
+	// Добавление данных в таблицу photo_batch_products
+	public function AddPhotoBatchProducts($id_photo_batch, $id_product){
+		$f['id_photo_batch'] = $id_photo_batch;
+		$f['id_product'] = $id_product;
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'photo_batch_products', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
 	public function GetProductsByIdUser($id_user, $limit = false){
-		$sql= "SELECT * FROM "._DB_PREFIX_."product
-			WHERE sid = 1
-				AND create_user = ".$id_user."
-			ORDER BY create_date DESC"
+		$sql= "SELECT p.*, s.id_user AS id_supplier,
+				s.article AS article_supplier, u.name AS name_supplier
+				FROM "._DB_PREFIX_."product p
+				LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = a.id_supplier
+				LEFT JOIN "._DB_PREFIX_."user u ON s.id_user = u.id_user
+				WHERE p.sid = 1 AND p.create_user = ".$id_user."
+				GROUP BY p.create_date, a.id_supplier
+				ORDER BY create_date DESC"
 			.($limit?' LIMIT'.$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
@@ -4585,6 +4635,22 @@ class Products {
 		foreach ($res as &$v){
 			$v['images'] = $this->GetPhotoById($v['id_product'], true);
 			$v['videos'] = $this->GetVideoById($v['id_product']);
+		}
+		return $res;
+	}
+
+	public function GetBetchesFhoto($id_photographer = false){
+		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
+		$sql = "SELECT pb.*,COUNT(p.id_product) AS count_product,
+				COUNT(iv.id_product) AS image_visible, COUNT(iunv.id_product) AS image_unvisible
+				FROM "._DB_PREFIX_."photo_batch pb
+				LEFT JOIN "._DB_PREFIX_."photo_batch_products pbp ON pbp.id_photo_batch = pb.id
+				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = pbp.id_product
+				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 1) iv  ON iv.id_product = pbp.id_product
+				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 0) iunv  ON iunv.id_product = pbp.id_product"
+				.$where." GROUP BY pb.id_supplier ORDER BY pb.id DESC";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
 		return $res;
 	}

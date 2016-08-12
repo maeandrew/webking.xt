@@ -45,6 +45,8 @@ if(isset($id_photographer)){
 		$limit = '';
 	}
 	// --
+	$batch = $products->GetBetchesFhoto($id_photographer);
+	$tpl->Assign('batch', $batch);
 	$list = $products->GetProductsByIdUser($id_photographer, $limit);
 	$tpl->Assign('list', $list);
 }
