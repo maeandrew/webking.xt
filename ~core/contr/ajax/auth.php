@@ -9,33 +9,33 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$echo['err'] = 1;
 					}else{
 						if(isset($_POST['email']) && isset($_POST['passwd'])){
-							$User = new Users();
+							$Users = new Users();
 							if((isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_MANAGER_) || isset($_COOKIE['sm_login'])){
-								if($User->CheckUserNoPass($_POST)){
+								if($Users->CheckUserNoPass($_POST)){
 									if(isset($_COOKIE['sm_login'])){
 										setcookie('sm_login', '', time() - 30, "/");
 									}else{
 										setcookie('sm_login', true, time() + (86400 * 30), "/");
 									}
-									$User->LastLoginRemember($User->fields['id_user']);
-									G::Login($User->fields);
-									_acl::load($User->fields['gid']);
+									$Users->LastLoginRemember($Users->fields['id_user']);
+									G::Login($Users->fields);
+									_acl::load($Users->fields['gid']);
 									$echo['err'] = 0;
 								}else{
 									$echo['msg'] = 'Неверный email или пароль.';
 									$echo['err'] = 1;
 								}
 							}else{
-								if($User->CheckUser($_POST)){
-									$User->LastLoginRemember($User->fields['id_user']);
-									G::Login($User->fields);
-									_acl::load($User->fields['gid']);
+								if($Users->CheckUser($_POST)){
+									$Users->LastLoginRemember($Users->fields['id_user']);
+									G::Login($Users->fields);
+									_acl::load($Users->fields['gid']);
 									$echo['member'] = $_SESSION['member'];
 									$echo['err'] = 0;
 
 									if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
 										$customer = new Customers();
-										$customer->SetSessionCustomerBonusCart($User->fields['id_user']);
+										$customer->SetSessionCustomerBonusCart($Users->fields['id_user']);
 									}
 								}else{
 									$echo['msg'] = 'Неверный email или пароль.';
@@ -59,18 +59,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				list($err, $echo['errm']) = Register_form_validate();
 				// Если все ок с валидацией
 				if(!$err){
-					$User = new Users();
+					$Users = new Users();
 					// проверяем уникальность введенного e-mail и телефона
 					$unique_email = true;
 					if(isset($_POST['email'])){
-						$unique_email = $User->CheckEmailUniqueness($_POST['email']);
+						$unique_email = $Users->CheckEmailUniqueness($_POST['email']);
 						if($unique_email !== true) {
 							$err = 1;
 							$echo['errm']['email'] = 'Пользователь с таким email уже зарегистрирован!';
 						}
 					}
-					$unique_phone = $User->CheckPhoneUniqueness($_POST['phone']);
-					if($unique_phone !== true) {
+					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
+					if($unique_phone !== true){
 						$err = 1;
 						$echo['errm']['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 					}
@@ -79,14 +79,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$_POST['descr'] = "";
 						$Customers = new Customers();
 						// Пытаемся зарегистрировать нового клиента
-						if($id = $Customers->RegisterCustomer($_POST)){
+						if($id_user = $Customers->RegisterCustomer($_POST)){
+							$auth_data = array(
+								'id_user' => $id_user,
+								'passwd' => $_POST['passwd']
+							);
 							// Авторизуем нового пользователя минуя проверку пароля
-							if($User->CheckUserNoPass($_POST['email'])){
+							if($Users->CheckUser($auth_data)){
 								$echo['err'] = 0;
 								$echo['msg'] = 'Спасибо за регистрацию';
-								$User->LastLoginRemember($User->fields['id_user']);
-								G::Login($User->fields);
-								_acl::load($User->fields['gid']);
+								$Users->LastLoginRemember($Users->fields['id_user']);
+								G::Login($Users->fields);
+								_acl::load($Users->fields['gid']);
 							}
 						}else{
 							$echo['err'] = 1;
@@ -104,10 +108,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl');
 				break;
 			case 'accessRecovery':
-				$User = new Users();
+				$Users = new Users();
 				switch($_POST['method']){
 					case 'email':
-						$id_user = $User->CheckEmailUniqueness($_POST['value']);
+						$id_user = $Users->CheckEmailUniqueness($_POST['value']);
 						if($id_user === true ){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким email не найдено.';
@@ -124,7 +128,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						}
 						break;
 					case 'sms':
-						$id_user = $User->CheckPhoneUniqueness($_POST['value']);
+						$id_user = $Users->CheckPhoneUniqueness($_POST['value']);
 						if($id_user === true){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким телефоном не найдено.';
@@ -142,7 +146,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						break;
 				}
 				if($res['success']) {
-					if(!$User->SetVerificationCode($id_user, $_POST['method'], $_POST['value'])){
+					if(!$Users->SetVerificationCode($id_user, $_POST['method'], $_POST['value'])){
 						$res['success'] = false;
 						$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';
 					}
@@ -150,7 +154,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'checkСode':
-				if(!$User->GetVerificationCode($_POST['id_user'],$_POST['code'])){
+				if(!$Users->GetVerificationCode($_POST['id_user'],$_POST['code'])){
 					$res['success'] = false;
 					$res['msg'] = 'Введен неверный код.';
 				}else{
@@ -163,11 +167,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if(isset($_POST['id_user']) && isset($_POST['passwd'])){
 					$arr['id_user'] = $_POST['id_user'];
 					$arr['passwd'] = $_POST['passwd'];
-					if($User->UpdateUser($arr)){
-						if($User->CheckUser($arr)) {
-							$User->LastLoginRemember($User->fields['id_user']);
-							G::Login($User->fields);
-							_acl::load($User->fields['gid']);
+					if($Users->UpdateUser($arr)){
+						if($Users->CheckUser($arr)) {
+							$Users->LastLoginRemember($Users->fields['id_user']);
+							G::Login($Users->fields);
+							_acl::load($Users->fields['gid']);
 							$res['success'] = true;
 							$res['content'] = '<div class="auth_ok tac"><i class="material-icons">check_circle</i></div><p class="info_text" style="min-width: 300px; text-align: center;">Пароль успешно изменен!</p>';
 						}
