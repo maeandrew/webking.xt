@@ -63,7 +63,7 @@ body:not(.c_main) .banner{height:0}
 .owl-carousel .owl-controls .owl-nav div.owl-next{right:0}
 .owl-carousel .owl-controls .owl-nav div svg{display:block;height:100px;width:50px;position:absolute;top:50%;margin-top:-50px;fill:none;stroke:grey;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}
 [data-type=modal]{display:none;padding:1em;background:#fff;border-radius:.4em;box-shadow:0 1px 3px rgba(0,0,0,.3);position:fixed;top:0;left:0;max-height:calc(90vh - 52px);max-width:80vw;overflow:hidden}
-[data-type=modal].opened{display:block;z-index:10000}
+[data-type=modal].opened{display:block;z-index:100}
 [data-type=modal] .modal_container{max-height:calc(90vh - 52px - 60px - 64px);position:relative;text-align:center;overflow-y:auto}
 [data-type=modal] .modal_container .mdl-card__supporting-text p{font-size:20px;text-transform:uppercase}
 [data-type=modal] a.close_modal{color:#bcbcbc;border-radius:.4em;position:absolute;text-decoration:none;right:5px;top:5px;z-index:200;line-height:30px;width:30px;font-size:1.25em;text-align:center;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
@@ -881,3 +881,4 @@ iframe[name=google_conversion_frame]{display:none}
 .paginator_specific_page_block{margin-top:10px}
 .paginator_specific_page_block .paginator_specific_page{padding:9px 0 9px 5px;width:166px}
 .paginator_specific_page_block button{padding-left:5px;padding-right:5px}
+.snackbar{z-index:10!important}

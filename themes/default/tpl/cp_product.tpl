@@ -293,7 +293,7 @@
 				</div>
 				<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 			</div>
-			<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+			<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar snackbar">
 				<div class="mdl-snackbar__text"></div>
 				<button class="mdl-snackbar__action" type="button"></button>
 			</div>
