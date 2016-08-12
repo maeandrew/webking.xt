@@ -4609,15 +4609,17 @@ class Products {
 		return true;
 	}
 
-	public function GetProductsByIdUser($id_user, $limit = false){
-		$sql= "SELECT p.*, s.id_user AS id_supplier,
-				s.article AS article_supplier, u.name AS name_supplier
+	public function GetProductsByIdUser($id_user, $limit = false, $date = false, $id_supplier = false){
+		$sql= "SELECT p.id_product, p.`name`, p.translit, p.indexation,
+				p.create_date, p.create_user, a.id_supplier AS id_supplier
 				FROM "._DB_PREFIX_."product p
 				LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
 				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = a.id_supplier
 				LEFT JOIN "._DB_PREFIX_."user u ON s.id_user = u.id_user
-				WHERE p.sid = 1 AND p.create_user = ".$id_user."
-				GROUP BY p.create_date, a.id_supplier
+				WHERE p.sid = 1 AND p.create_user = ".$id_user.
+				($date?' AND p.create_date LIKE \''.$date.'%\'':'').
+				($id_supplier?' AND a.id_supplier = '.$id_supplier:'').
+				" GROUP BY p.create_date, a.id_supplier
 				ORDER BY create_date DESC"
 			.($limit?' LIMIT'.$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
@@ -4632,16 +4634,20 @@ class Products {
 
 	public function GetBetchesFhoto($id_photographer = false){
 		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
-		$sql = "SELECT pb.*,COUNT(p.id_product) AS count_product,
-				COUNT(iv.id_product) AS image_visible, COUNT(iunv.id_product) AS image_unvisible
+		$sql = "SELECT pb.*, s.article, u.name, COUNT(p.id_product) AS count_product, COUNT(iv.id_product) AS image_visible, COUNT(iunv.id_product) AS image_unvisible
 				FROM "._DB_PREFIX_."photo_batch pb
 				LEFT JOIN "._DB_PREFIX_."photo_batch_products pbp ON pbp.id_photo_batch = pb.id
+				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = pb.id_supplier
 				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = pbp.id_product
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = s.id_user
 				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 1) iv  ON iv.id_product = pbp.id_product
 				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 0) iunv  ON iunv.id_product = pbp.id_product"
 				.$where." GROUP BY pb.id_supplier ORDER BY pb.id DESC";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
+		}
+		foreach($res as $k=>&$v){
+			$v['products'] = $this->GetProductsByIdUser($v['id_author'], false, $v['date'], $v['id_supplier']);
 		}
 		return $res;
 	}
