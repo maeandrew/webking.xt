@@ -420,7 +420,7 @@ $(function(){
 				header.removeClass("default").addClass("filled");
 			}else if($(this).scrollTop() <= banner_height/2 - 52 && header.hasClass("filled")){
 				header.removeClass("filled").addClass("default");
-			}			
+			}		
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
@@ -438,7 +438,11 @@ $(function(){
 			}else{
 				$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
 				$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
-			}			
+			}
+			if(IsMobile === true){				
+				$('aside').css('top', '52px');
+ 				$('aside').css('position', 'fixed');
+ 			}			
 		}
 	});
 	$(window).resize(function(){
@@ -449,10 +453,19 @@ $(function(){
 		// Корректировка позиции модалок при ресайзе окна браузера
     	Position($('[data-type="modal"].opened'));
 	});
+	$(window).on("load", function(){
+ 		if (IsMobile === true && over_scroll === false) {
+  			$('aside').css({
+  				'position' : 'absolute',
+  				'bottom' : 'auto',
+  				'top' : 'auto'
+  			});
+	 	}
+  	});
 
 	//Возврат баннера если он скрыт
-	$('.logo').on('click', function(event){		
-		if($('body').hasClass('c_main') && over_scroll === true){			
+	$('.logo').on('click', function(event){
+		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
 			$('.banner').animate({
 				height: banner_height
@@ -462,7 +475,14 @@ $(function(){
 			}, 300);
 			$('body').removeClass('banner_hide');
 			header.removeClass("fixed_panel").addClass("default");
-			setTimeout(function(){over_scroll = false;},305);			
+			setTimeout(function(){over_scroll = false;},305);
+			if (IsMobile === true) {
+	  			$('aside').css({
+	  				'position' : 'absolute',
+	  				'bottom' : 'auto',
+	  				'top' : 'auto'
+	  			});
+		 	}
 		}
 	});
 	//Меню
