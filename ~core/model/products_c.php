@@ -4609,7 +4609,7 @@ class Products {
 		return true;
 	}
 
-	public function GetProductsByIdUser($id_user, $limit = false, $date = false, $id_supplier = false){
+	public function GetProductsByIdUser($id_user, $date = false, $id_supplier = false){
 		$sql= "SELECT p.id_product, p.`name`, p.translit, p.indexation,
 				p.create_date, p.create_user, a.id_supplier AS id_supplier
 				FROM "._DB_PREFIX_."product p
@@ -4620,8 +4620,7 @@ class Products {
 				($date?' AND p.create_date LIKE \''.$date.'%\'':'').
 				($id_supplier?' AND a.id_supplier = '.$id_supplier:'').
 				" GROUP BY p.create_date, a.id_supplier
-				ORDER BY create_date DESC"
-			.($limit?' LIMIT'.$limit:'');
+				ORDER BY create_date DESC";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -4632,7 +4631,7 @@ class Products {
 		return $res;
 	}
 
-	public function GetBetchesFhoto($id_photographer = false){
+	public function GetBetchesFhoto($id_photographer = false, $limit = false){
 		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
 		$sql = "SELECT pb.*, s.article, u.name, COUNT(p.id_product) AS count_product, COUNT(iv.id_product) AS image_visible, COUNT(iunv.id_product) AS image_unvisible
 				FROM "._DB_PREFIX_."photo_batch pb
@@ -4642,12 +4641,15 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = s.id_user
 				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 1) iv  ON iv.id_product = pbp.id_product
 				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 0) iunv  ON iunv.id_product = pbp.id_product"
-				.$where." GROUP BY pb.id_supplier ORDER BY pb.id DESC";
+				.$where." GROUP BY pb.id_supplier ORDER BY pb.id DESC"
+				.($limit?' LIMIT'.$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
-		foreach($res as $k=>&$v){
-			$v['products'] = $this->GetProductsByIdUser($v['id_author'], false, $v['date'], $v['id_supplier']);
+		if($limit){
+			foreach ($res as $k => &$v) {
+				$v['products'] = $this->GetProductsByIdUser($v['id_author'], $v['date'], $v['id_supplier']);
+			}
 		}
 		return $res;
 	}
