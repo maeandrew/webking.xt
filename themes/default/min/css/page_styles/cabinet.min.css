@@ -187,7 +187,6 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .anonim_cab{clear:both}
 #cab_left_bar>ul>li{padding:.7em;cursor:pointer}
 #cab_left_bar>ul>li:hover>.link_wrapp>a{cursor:pointer;color:#FF5722}
-#cab_left_bar>ul>li:hover{background-color:#F5F5F5}
 #cab_left_bar .link_wrapp{display:block;overflow:hidden;position:relative}
 #cab_left_bar a i.material-icons{margin-right:5px}
 #cab_left_bar .more_cat{height:40px;cursor:pointer;border-left:1px solid transparent;width:30px;float:right;position:absolute;top:0;right:0;bottom:0}
@@ -621,7 +620,6 @@ h4{margin:5px 0 10px}
 #bonus,.bonus_detalies,.bonus_info,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{width:98%}
 .addres_field{width:calc(100vw - 100px)}
 }
-[data-type=panel][data-position=left]{left:-80vw}
 #catalog{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 #modal_message .modal_container .mesage_text{margin-top:25px}
 .switch_price_container{width:150px;height:35px;text-align:center;float:right;padding-right:10px;padding-top:5px;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);margin-bottom:5px;margin-top:10px}
