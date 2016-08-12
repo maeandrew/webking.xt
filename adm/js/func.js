@@ -245,22 +245,7 @@ function toAssort(id, opt, nacen, comment){
 		a = 0;
 		$("#price_opt_otpusk_"+id).val(a);
 	}
-	//if (b<0){ b=0;$("#price_opt_recommend_"+id).val(b);}
-	$.ajax({
-		url: URL_base+'ajaxassort',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data:{
-			"action": "update_assort",
-			"mode": mode,
-			"id_product": id,
-			"price": a,
-			"active": active,
-			"comment": comment,
-			"inusd": inusd === false?0:1
-		}
-	});
+	ajax('supplier', 'updateAssort', {mode: mode, id_product: id, price: a, active: active, comment: comment, inusd: inusd === false?0:1});
 }
 
 /*MODAL WINDOW*/
