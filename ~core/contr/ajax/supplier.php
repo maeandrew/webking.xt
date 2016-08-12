@@ -23,6 +23,19 @@
                     }
                 }
                 break;
+            case"updateAssort":
+                if(isset($_POST['mode']) && isset($_POST['id_product'])){
+                    $_POST['id_supplier'] = $_SESSION['member']['id_user'];
+                    $Products = new Products();
+                    $Products->UpdateAssort($_POST);
+                    $arr['id_product'] = $_POST["id_product"];
+                    $arr['error'] = false;
+                    $arr['opt'] = $_POST['mode'] == 'mopt'?0:1;
+                    $txt = json_encode($arr);
+                    exit();
+                }
+                ;
+                break;
         }
     }
     exit();
