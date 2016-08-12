@@ -80,16 +80,21 @@
 var restore = 0;
 $('[name="restore"]').click(function(){
 	var restore = 1;
-	$.ajax({
-		url: URL_base+'ajaxorders',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {
-			"id_order": this.value,
-			"restore": restore
-		}
-	}).done(function(){
+	// $.ajax({
+	// 	url: URL_base+'ajaxorders',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType : "json",
+	// 	data: {
+	// 		"id_order": this.value,
+	// 		"restore": restore
+	// 	}
+	// }).done(function(){
+	// 	$(this).fadeOut(300);
+	// });
+	var id_order = $(this).val();
+	ajax('order', 'restoreDeleted', {id_order: id_order, restore: restore}).done(function(){
+		console.log('tcnm');
 		$(this).fadeOut(300);
 	});
 });
