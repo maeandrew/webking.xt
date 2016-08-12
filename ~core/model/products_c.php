@@ -3364,9 +3364,8 @@ class Products {
 		$result = $this->db->GetArray($qry);
 		if(!$result){
 			return false;
-		}else{
-			return $result;
 		}
+		return $result;
 	}
 	/**
 	 * [GetName description]
@@ -3379,9 +3378,8 @@ class Products {
 		$name = $this->db->GetArray($qry);
 		if(!$name){
 			return false;
-		}else{
-			return $name[0]['name'];
 		}
+		return $name[0]['name'];
 	}
 	/**
 	 * [Morphy description]
@@ -3412,9 +3410,8 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 	/**
 	 * [PriceListProductsByCat description]
@@ -3434,9 +3431,8 @@ class Products {
 		$count = $this->db->GetArray($sql);
 		if(!$count){
 			return false;
-		}else{
-			return $count;
 		}
+		return $count;
 	}
 	/**
 	 * [AddPriceList description]
@@ -3791,37 +3787,6 @@ class Products {
 		$f['id_unit'] = $product['id_unit'];
 		$f['prod_status'] = 3;
 		$f['indexation'] = 1;
-		// $stamp = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/stamp.png');
-		// $sx = imagesx($stamp);
-		// $sy = imagesy($stamp);
-		// $marge_right = 0;
-		// $marge_bottom = 0;
-		// $f['img_1'] = '';
-		// $f['img_2'] = '';
-		// $f['img_3'] = '';
-		// for($i = 1; $i <= 3; $i++){
-		// 	if($product['img_'.$i] != ''){
-		// 		if($i > 1){
-		// 			$newname = $data['art']."-".$i.".jpg";
-		// 		}else{
-		// 			$newname = $data['art'].".jpg";
-		// 		}
-		// 		$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]));
-		// 		$ix = imagesx($im);
-		// 		$iy = imagesy($im);
-		// 		if($ix >= $iy){
-		// 			$nwidth = round($iy*0.9);
-		// 			$marge_right = ($ix - $nwidth)/2;
-		// 			$marge_bottom = ($iy - $nwidth)/2;
-		// 		}else{
-		// 			$nwidth = round($ix*0.9);
-		// 			$marge_right = ($ix - $nwidth)/2;
-		// 			$marge_bottom = ($iy - $nwidth)/2;
-		// 		}
-		// 		copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname);
-		// 		$f['img_'.$i] = str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname);
-		// 	}
-		// }
 		$Images = new Images();
 		if(isset($product['images']) && $product['images'] != ''){
 			foreach(explode(';', $product['images']) as $k=>$image){
@@ -4103,7 +4068,7 @@ class Products {
 		$this->db->CompleteTrans();
 		$f['id_product'] = trim($id_product);
 		if(isset($arr) && !empty($arr)){
-			foreach ($arr as $k=>$src) {
+			foreach($arr as $k=>$src){
 				if(empty($src)){
 					return false; //Если URL пустой
 				}
@@ -4160,7 +4125,7 @@ class Products {
 	 * @param [type] $id_category id категории
 	 */
 	public function GetFilterFromCategory($id_category){
-			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
+		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
@@ -4187,8 +4152,8 @@ class Products {
 		$spec_str = '';
 		$cnt_active_filter = 0;
 		if($add_filters){
-			foreach($add_filters as $spec => $filter) {
-				if($spec_str != '') {
+			foreach($add_filters as $spec => $filter){
+				if($spec_str != ''){
 					$spec_str .= "OR ";
 				}
 				$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM "._DB_PREFIX_."specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
@@ -4248,7 +4213,6 @@ class Products {
 		if(!$id_product = $this->AddProduct($old_product_info)){
 			return false;
 		}
-
 		// duplicating product assortment
 		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment AS a
 			WHERE a.id_product = ".$data['id_product'];
@@ -4259,7 +4223,6 @@ class Products {
 				$this->AddToAssortWithAdm($value);
 			}
 		}
-
 		// duplicating product specifications
 		$sql = "SELECT * FROM "._DB_PREFIX_."specs_prods as s
 			WHERE s.id_prod = ".$data['id_product'];
@@ -4270,7 +4233,6 @@ class Products {
 				$specifications->AddSpecToProd($value, $id_product);
 			}
 		}
-
 		// duplicating product segmentation
 		$sql = "SElECT * FROM "._DB_PREFIX_."segment_prods AS sp
 		WHERE sp.id_product = ".$data['id_product'];
@@ -4281,13 +4243,11 @@ class Products {
 				$segmentation->AddSegmentInProduct($id_product, $value['id_segment']);
 			}
 		}
-
 		// duplicating product videos
 		$res = $this->GetVideoById($data['id_product']);
 		if(!empty($res)){
 			$this->UpdateVideo($id_product, $res);
 		}
-
 		// duplicating product images
 		$res = $this->GetPhotoById($data['id_product']);
 		foreach($res as &$value){
@@ -4546,7 +4506,6 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
 	public function GetProductsByIdUser($id_user, $date = false, $id_supplier = false){
 		$sql= "SELECT p.id_product, p.`name`, p.translit, p.indexation,
 				p.create_date, p.create_user, a.id_supplier AS id_supplier
@@ -4666,8 +4625,7 @@ class Products {
 		}
 		return $res;
 	}
-
-	public  function GetUncategorisedProducts($where_art = false, $limit = false){
+	public function GetUncategorisedProducts($where_art = false, $limit = false){
 		$sql = "SELECT id_product, art, `name`, translit, visible, indexation FROM	"._DB_PREFIX_."product
 			WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
 			WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
@@ -4677,8 +4635,7 @@ class Products {
 		}
 		return $res;
 	}
-
-	public  function GetDoublesProducts($limit = false, $group = false){
+	public function GetDoublesProducts($limit = false, $group = false){
 		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.visible
 				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
 				GROUP BY translit HAVING COUNT(translit)>1) t
@@ -4696,7 +4653,7 @@ class Products {
 		return $res;
 	}
 
-	public  function GetNopriceProducts($limit = false){
+	public function GetNopriceProducts($limit = false){
 		$sql = "SELECT id_product, `name`, translit, price_mopt, price_opt FROM "._DB_PREFIX_."product
 				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1
 				ORDER BY price_opt
@@ -4707,7 +4664,7 @@ class Products {
 		return $res;
 	}
 
-	public  function UpdateActivityProducttSupplier($id_supplier){
+	public function UpdateActivityProducttSupplier($id_supplier){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit = 0
 				WHERE id_supplier = ".$id_supplier;
 		$this->db->StartTrans();
