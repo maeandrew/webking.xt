@@ -20,10 +20,10 @@
 		<div class="supplier col-md-3">
 			<label for="supplier">Поставщик:</label>
 			<input type="text" class="input-m" placeholder="Выберите поставщика" name="supplier" id="supplier" list="suppliers">
-			<datalist id="suppliers">			
-				<?foreach($suppliers_list as $supplier){?>				
+			<datalist id="suppliers">
+				<?foreach($suppliers_list as $supplier){?>
 					<option value="<?=$supplier['article']?>"><?=$supplier['name']?></option>
-				<?}?>			
+				<?}?>
 			</datalist>
 		</div>
 		<div class="prodName col-md-3">
@@ -66,49 +66,91 @@
 		</div>
 		<div class="name">
 			<span class="dz-filename" data-dz-name></span>
-		</div>		
+		</div>
 	</div>
 </div>
 <div class="prodList">
-	<?if(isset($list) && is_array($list)){
-		foreach($list as $item){?>
-			<div class="prodListItem">
-				<div class="prodInfo">
-					<div class="nameProd">
-						<label>Название:</label>
-						<span><?=$item['name']?></span>
-					</div>
-					<div class="createData">
-						<label>Добавлен:</label>
-						<span><?=$item['create_date']?></span>
-					</div>
-				</div>
-				<div class="actions">
-					<a href="/adm/productedit/<?=$item['id_product']?>" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
-					<a href="<?=_base_url.'/'.$item['translit']?>.html" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
-				</div>
-				<?if(is_array($item['images'])){?>
-					<div class="prodImages">
-						<?foreach($item['images'] as $image){?>
-							<img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt="">
-						<?}?>
-					</div>
-				<?}
-				if(is_array($item['videos'])){?>
-					<div class="prodVideos">
-						<?foreach($item['videos'] as $video){?>
-							<a href="<?=$video?>" target="blank">
-								<img src="/images/video_play.png" alt="play">
-								<span class="name"><?=$video?></span>
-							</a>
-						<?}?>
-					</div>
-				<?}?>
-			</div>
-		<?}
-	}else{
-		echo isset($id_photographer)?'Выберите фотографа, для просмотра его добавлений':'Нечего показывать, товары не добавлялись!';
-	}?>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+		<col width="10%">
+		<col width="15%">
+		<col width="10%">
+		<col width="10%">
+		<col width="10%">
+		<col width="35%">
+		<thead class="main_thead">
+			<tr>
+				<th class="center">Дата</th>
+				<th class="center">Поставщик</th>
+				<th class="center">Кол-во<br>товаров</th>
+				<th class="center">Кол-во<br>видимых фото</th>
+				<th class="center">Кол-во<br>скрытых фото</th>
+				<th class="center">Комментарий</th>
+			</tr>
+		</thead>
+		<?if(isset($batch) && is_array($batch)){
+			foreach($batch as $i){?>
+				<thead>
+					<tr class="batchListItem">
+						<th class="center"><?=$i['date']?></th>
+						<th class="center"><?=$i['name']?></th>
+						<th class="center"><?=$i['count_product']?></th>
+						<th class="center"><?=$i['image_visible']?></th>
+						<th class="center"><?=$i['image_unvisible']?></th>
+						<th class="center"><?=$i['comment']?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?if(isset($i['products']) && is_array($i['products'])){
+						foreach($i['products'] as $item){?>
+							<tr>
+								<td colspan="6">
+									<div class="prodListItem">
+										<div class="prodInfo">
+											<div class="nameProd">
+												<label>Название:</label>
+												<span><?=$item['name']?></span>
+											</div>
+											<div class="createData">
+												<label>Добавлен:</label>
+												<span><?=$item['create_date']?></span>
+											</div>
+										</div>
+										<div class="actions">
+											<?if($item['indexation'] != 0){?>
+												<a href="/adm/productedit/<?=$item['id_product']?>" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
+											<?}?>
+											<a href="<?=_base_url.'/'.$item['translit']?>.html" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
+										</div>
+										<?if(is_array($item['images'])){?>
+											<div class="prodImages">
+												<?foreach($item['images'] as $image){?>
+													<!-- <img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
+													<img src="<?=_base_url.$image['src']?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt="">
+													<!-- 	<img src="/images/noavatar.png"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
+												<?}?>
+											</div>
+										<?}
+										if(is_array($item['videos'])){?>
+											<div class="prodVideos">
+												<?foreach($item['videos'] as $video){?>
+													<a href="<?=$video?>" target="blank">
+														<img src="/images/video_play.png" alt="play">
+														<span class="name"><?=$video?></span>
+													</a>
+												<?}?>
+											</div>
+										<?}?>
+									</div>
+								</td>
+							</tr>
+						<?}
+					}else{
+						echo isset($id_photographer)?'Выберите фотографа, для просмотра его добавлений':'Нечего показывать, товары не добавлялись!';
+					}?>
+				</tbody>
+			<?}?>
+		<?}?>
+	</table>
 </div>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 <script>
