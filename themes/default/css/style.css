@@ -2254,7 +2254,7 @@ section .stat_year {
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	width: 80%;
-	z-index: 10;
+	z-index: 1;
 	border: 1px solid #f1f1f1;
 /*	background: #ff5722;
 	border-color: #ff5722;
@@ -3783,12 +3783,12 @@ div.modalEditOrder .applyBtn {
 	width: calc(20% - 20px);
 	margin: 10px;
 	height: 270px;
-	padding: 9px;
-	padding-bottom: 4em;
 	overflow: hidden;
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
 	background-color: #fff;
+	display: table;
+	padding: .5em;
 }
 .subCategories .separator,
 .mobile_carousel .separator{
@@ -3800,29 +3800,38 @@ div.modalEditOrder .applyBtn {
 	cursor: pointer;
 	border-color: #aaa;
 }
-.subCategories .subCategory img,
-.mobile_carousel .subCategory img{
+.subCategories .subCategory .subCategoryImageWrap,
+.mobile_carousel .subCategory .subCategoryImageWrap {
+	display: table-cell;
+	position: relative;
+	overflow: hidden;
+}
+.subCategories .subCategory .subCategoryImageWrap img,
+.mobile_carousel .subCategory .subCategoryImageWrap img{
 	max-height: 100%;
 	max-width: 100%;
-	position: relative;
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
 }
-.subCategory .subCategoryTitle{
-	position: absolute;
+.subCategory .subCategoryTitleWrap{
 	bottom: 0;
 	left: 0;
-	padding: 1em;
-	width: 100%;
-	height: 4em;
+	right: 0;
+	position: relative;
+	display: table-row;
 	text-align: center;
-	overflow: hidden;
-	line-height: 1em;
-	margin: 0 auto;
 	background-color: #fff;
+	font-size: 1.3em;
+}
+.subCategory .subCategoryTitle{
+	display: table-cell;
+	position: relative;
+	height: 3em;
+	vertical-align: middle;
 }
 .mobile_carousel .subCategory{
 	width: calc(50% - 20px);

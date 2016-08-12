@@ -70,6 +70,9 @@ h1.filial { text-align: center; font-size: 27px; }
 }
 .instruction {
 	color: #0018FF;
+    width: 100%;
+    display: block;
+    clear: left;
 }
 </style>
 </head>
@@ -154,9 +157,10 @@ h1.filial { text-align: center; font-size: 27px; }
 											<?}else{?>
 												<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>"/>
 											<?}?>
-											<!-- <img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/images/nofoto.png'?>"> -->
 										</td>
-										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_opt']!=''){?> <span class="note_red"><?=$i['note_opt']?></span><?}?></td>
+										<td class="name c5">
+											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':'asd asdasf safd asasf as'?>
+										</td>
 										<td class="c6"><?=$i['site_price_opt']?></td>
 										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
 										<td class="c8" style="<?=($i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0)? 'color: #f00; font-weight: bold;':null;?>">
@@ -187,9 +191,10 @@ h1.filial { text-align: center; font-size: 27px; }
 											<?}else{?>
 												<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
 											<?}?>
-											<!-- <img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])):'/images/nofoto.png'?>"> -->
 										</td>
-										<td class="name c5"><?=$i['name']?><br><?=$i['instruction'] != ''?"<span class='instruction'>".$i['instruction']."</span>":null ?><?if($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
+										<td class="name c5">
+											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
+										</td>
 										<td class="c6"><?=$i['site_price_mopt']?></td>
 										<td class="c7"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
 										<td class="c8" style="<?if($i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0){?>color: #f00; font-weight: bold;<?}?>">

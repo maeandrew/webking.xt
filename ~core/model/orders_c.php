@@ -423,8 +423,8 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
+		global $Cart;
 		if(isset($arr)) {
-			$Cart = new Cart();
 			$GetCartForPromo = $Cart->GetCartForPromo($arr);
 			$OrderCart = array();
 			foreach ($GetCartForPromo['products'] as $k => $v) {
@@ -447,11 +447,10 @@ class Orders {
 		// 		$discount = $_SESSION['cart']['discount'];
 		// 	}
 		// }
-		global $cart;
 		// $this->UpdateSuppliersTurn();
 
 		// Пересмотреть проверку актуальности цен
-		// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+		// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
 		// if($err){
 		// 	if(isset($_SESSION['errm'])){
 		// 		$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
@@ -705,9 +704,9 @@ class Orders {
 		// if(count($OrderCart) == 0){
 		// 	return false;
 		// }
-		// global $cart;
+		// global $Cart;
 		// $this->UpdateSuppliersTurn();
-		// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+		// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
 		// if($err){
 		// 	if(isset($_SESSION['errm'])){
 		// 		$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);

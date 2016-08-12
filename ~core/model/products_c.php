@@ -23,7 +23,7 @@ class Products {
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
-			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
+			"p.page_keywords", "p.notation_price", "p.instruction", "p.indexation", "p.access_assort");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "c.note",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
@@ -1113,29 +1113,26 @@ class Products {
 	 */
 	public function SetMinMaxPrice(){
 		$this->price_range = '';
-		if (isset($GLOBALS['Price_range'])) {
-
+		if(isset($GLOBALS['Price_range'])){
 			$this->price_range = " AND p.price_opt BETWEEN " . $GLOBALS['Price_range'][0]. " AND " . $GLOBALS['Price_range'][1];
 		}
 	}
 	/**
 	 * [SetProductsList1 description]
-	 * @param [type] $s [description]
+	 * @param [type] $id_supplier [description]
 	 */
-	public function SetProductsList1($s, $order=null, $limit){
+	public function SetProductsList1($id_supplier, $order = null, $limit){
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",  pv.count_views,
-			a.*
+		$sql = "SELECT DISTINCT ".implode(", ", $this->usual_fields).",
+			pv.count_views, a.*
 			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 				ON pv.id_product = p.id_product
-			WHERE a.id_supplier = ".$s."
+			WHERE a.id_supplier = ".$id_supplier."
 			GROUP BY p.id_product".
 			(($order !== null)?"  ORDER BY ".$order:null).$limit;
 		$this->list = $this->db->GetArray($sql);
@@ -2666,29 +2663,26 @@ class Products {
 	 * @param [type] $id_supplier [description]
 	 */
 	public function GetExportAssortRows($list, $id_supplier){
-		$r = array();
-		$ii = 0;
-		$jj = 0;
+		$sql = "SELECT DISTINCT a.id_product, a.price_opt_otpusk,
+			a.price_mopt_otpusk, a.product_limit, a.sup_comment
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_supplier = ".$id_supplier."
+			AND a.inusd = 0";
+		$arr = $this->db->GetArray($sql, 'id_product');
 		foreach($list as $i){
-			$sql = "SELECT DISTINCT a.id_product, a.price_opt_otpusk,
-				a.price_mopt_otpusk, a.product_limit, a.sup_comment
-				FROM "._DB_PREFIX_."assortiment AS a
-				WHERE a.id_supplier = ".$id_supplier."
-				AND a.inusd = 0";
-			$arr = $this->db->GetArray($sql, 'id_product');
-			$jj = 0;
 			if(isset($arr[$i['id_product']])){
-				$r[$ii]['art_sup'] = $id_supplier;
-				$r[$ii]['art'] = $i['art'];
-				$r[$ii]['name'] = $i['name'];
-				$r[$ii]['price_opt_otpusk'] = round($arr[$i['id_product']]['price_opt_otpusk'], 2);
-				$r[$ii]['price_mopt_otpusk'] = round($arr[$i['id_product']]['price_mopt_otpusk'], 2);
-				$r[$ii]['product_limit'] = $arr[$i['id_product']]['product_limit'];
-				$r[$ii]['sup_comment'] = $arr[$i['id_product']]['sup_comment'];
+				$result[] = array(
+					'art_sup' => $id_supplier,
+					'art' => $i['art'],
+					'name' => $i['name'],
+					'price_opt_otpusk' => round($arr[$i['id_product']]['price_opt_otpusk'], 2),
+					'price_mopt_otpusk' => round($arr[$i['id_product']]['price_mopt_otpusk'], 2),
+					'product_limit' => $arr[$i['id_product']]['product_limit'],
+					'sup_comment' => $arr[$i['id_product']]['sup_comment']
+				);
 			}
-			$ii++;
 		}
-		return $r;
+		return $result;
 	}
 	/**
 	 * [GetExportAssortRowsUSD description]
@@ -2696,29 +2690,26 @@ class Products {
 	 * @param [type] $id_supplier [description]
 	 */
 	public function GetExportAssortRowsUSD($list, $id_supplier){
-		$r = array();
-		$ii = 0;
-		$jj = 0;
+		$sql = "SELECT a.id_product, a.price_opt_otpusk_usd AS price_opt_otpusk,
+			a.price_mopt_otpusk_usd AS price_mopt_otpusk, a.product_limit, a.sup_comment
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_supplier = ".$id_supplier."
+			AND a.inusd = 1";
+		$arr = $this->db->GetArray($sql, 'id_product');
 		foreach($list as $i){
-			$sql = "SELECT a.id_product, a.price_opt_otpusk_usd AS price_opt_otpusk,
-				a.price_mopt_otpusk_usd AS price_mopt_otpusk, a.product_limit, a.sup_comment
-				FROM "._DB_PREFIX_."assortiment AS a
-				WHERE a.id_supplier = ".$id_supplier."
-				AND a.inusd = 1";
-			$arr = $this->db->GetArray($sql, 'id_product');
-			$jj = 0;
 			if(isset($arr[$i['id_product']])){
-				$r[$ii]['art_sup'] = $id_supplier;
-				$r[$ii]['art'] = $i['art'];
-				$r[$ii]['name'] = $i['name'];
-				$r[$ii]['price_opt_otpusk'] = round($arr[$i['id_product']]['price_opt_otpusk'], 3);
-				$r[$ii]['price_mopt_otpusk'] = round($arr[$i['id_product']]['price_mopt_otpusk'], 3);
-				$r[$ii]['product_limit'] = $arr[$i['id_product']]['product_limit'];
-				$r[$ii]['sup_comment'] = $arr[$i['id_product']]['sup_comment'];
+				$result[] = array(
+					'art_sup' => $id_supplier,
+					'art' => $i['art'],
+					'name' => $i['name'],
+					'price_opt_otpusk' => round($arr[$i['id_product']]['price_opt_otpusk'], 2),
+					'price_mopt_otpusk' => round($arr[$i['id_product']]['price_mopt_otpusk'], 2),
+					'product_limit' => $arr[$i['id_product']]['product_limit'],
+					'sup_comment' => $arr[$i['id_product']]['sup_comment']
+				);
 			}
-			$ii++;
 		}
-		return $r;
+		return $result;
 	}
 	/**
 	 * [GetExcelAssortColumnsArray description]

@@ -1,7 +1,36 @@
 <h1><?=$header?></h1>
 <div class="products_page">
+	<!-- Отображение подкатегорий в топе списка продуктов -->
+	<?if (!empty($category['subcats'])) {?>
+		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
+			<?php foreach ($category['subcats'] as $value) {?>
+				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
+					<span class="subCategoryImageWrap">
+						<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+					</span>
+					<span class="subCategoryTitleWrap">
+						<span class="subCategoryTitle"><?=$value['name']?></span>
+					</span>
+				</a>
+			<?}?>
+		</div>
+	<?}?>
+	<?if (!empty($category['subcats'])) {?>
+		<div class="subCategories mdl-cell--hide-phone">
+			<?php foreach ($category['subcats'] as $value) {?>
+				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
+					<span class="subCategoryImageWrap">
+						<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+					</span>
+					<span class="subCategoryTitleWrap">
+						<span class="subCategoryTitle"><?=$value['name']?></span>
+					</span>
+				</a>
+			<?}?>
+		</div>
+	<?}?>
 	<?if((isset($chart_html) && !empty($chart_html)) && $GLOBALS['CurrentController'] != 'search'){?>
-		<div class="avg_chart_wrap mdl-cell--hide-tablet mdl-cell--hide-phone">			
+		<div class="avg_chart_wrap mdl-cell--hide-tablet mdl-cell--hide-phone">
 			<div class="avg_chart_det_wrap">
 				<div class="chart_title">График спроса категории</div>
 				<div class="line_det">
@@ -15,32 +44,8 @@
 			</div>
 			<div class="charts_container">
 				<div class="charts_title hidden">Графики, на основании которых построен график средних значений</div>
-				<div class="charts_wrap mdl-grid"></div>				
+				<div class="charts_wrap mdl-grid"></div>
 			</div>
-		</div>
-	<?}?>
-
-	<!-- Отображение подкатегорий в топе списка продуктов -->
-	<?if (!empty($category['subcats'])) {?>
-		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
-			<?php foreach ($category['subcats'] as $value) {?>
-				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
-					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
-					<span class="subCategoryTitle"><?=$value['name']?></span>
-				</a>
-			<?}?>
-		</div>
-	<?}?>
-
-	<?if (!empty($category['subcats'])) {?>
-		<div class="subCategories mdl-cell--hide-phone">
-			<?php foreach ($category['subcats'] as $value) {?>
-				<!--<a href="<?=Link::Category($value['translit'])?>"><?=$value['name']?></a><span class="separator">•</span>-->
-				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
-					<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
-					<span class="subCategoryTitle"><?=$value['name']?></span>
-				</a>
-			<?}?>
 		</div>
 	<?}?>
 	<div class="row">
