@@ -2878,16 +2878,16 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function AddProductToAssort($id_product, $id_supplier, $arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$f['id_product'] = $id_product;
-		$f['id_supplier'] = $id_supplier;
-		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
-		$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-		$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
-		$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
-		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
-		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = trim($arr['product_limit']);
-		$f['active'] = trim($arr['active']);
+		$f['id_product']			= $id_product;
+		$f['id_supplier']			= $id_supplier;
+		$f['price_opt_otpusk']		= trim($arr['price_opt_otpusk']);
+		$f['price_mopt_otpusk']		= trim($arr['price_mopt_otpusk']);
+		$f['price_opt_otpusk_usd']	= trim($arr['price_opt_otpusk_usd']);
+		$f['price_mopt_otpusk_usd']	= trim($arr['price_mopt_otpusk_usd']);
+		$f['price_opt_recommend']	= $f['price_opt_otpusk']*$koef_nazen_opt;
+		$f['price_mopt_recommend']	= $f['price_mopt_otpusk']*$koef_nazen_mopt;
+		$f['product_limit']			= trim($arr['product_limit']);
+		$f['active']				= trim($arr['active']);
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -2912,14 +2912,14 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function UpdateSupplierAssortiment($arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$f['price_opt_otpusk'] = $arr['price_opt_otpusk'];
-		$f['price_mopt_otpusk'] = $arr['price_mopt_otpusk'];
-		$f['price_opt_otpusk_usd'] = $arr['price_opt_otpusk_usd'];
-		$f['price_mopt_otpusk_usd'] = $arr['price_mopt_otpusk_usd'];
-		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
-		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = $arr['product_limit'];
-		$f['active'] = $arr['active'];
+		$f['price_opt_otpusk']		= $arr['price_opt_otpusk'];
+		$f['price_mopt_otpusk']		= $arr['price_mopt_otpusk'];
+		$f['price_opt_otpusk_usd']	= $arr['price_opt_otpusk_usd'];
+		$f['price_mopt_otpusk_usd']	= $arr['price_mopt_otpusk_usd'];
+		$f['price_opt_recommend']	= $f['price_opt_otpusk']*$koef_nazen_opt;
+		$f['price_mopt_recommend']	= $f['price_mopt_otpusk']*$koef_nazen_mopt;
+		$f['product_limit']			= $arr['product_limit'];
+		$f['active']				= $arr['active'];
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -3115,11 +3115,11 @@ class Products {
 	 */
 	public function GetExcelStatColumnsArray(){
 		$ii=0;
-		$ca[$ii++] = array('h'=>'Артикул', 						'n' => 'art',					'w'=>'14');
-		$ca[$ii++] = array('h'=>'Название', 					'n' => 'name', 					'w'=>'30');
-		$ca[$ii++] = array('h'=>'Кол-во заказов',				'n' => 'orders_cnt',			'w'=>'16');
-		$ca[$ii++] = array('h'=>'Кол-во шт.', 					'n' => 'total_qty', 			'w'=>'16');
-		$ca[$ii++] = array('h'=>'Сумма', 						'n' => 'total_sum', 			'w'=>'20');
+		$ca[$ii++] = array('h'=>'Артикул',			'n' => 'art',		'w'=>'14');
+		$ca[$ii++] = array('h'=>'Название',			'n' => 'name',		'w'=>'30');
+		$ca[$ii++] = array('h'=>'Кол-во заказов',	'n' => 'orders_cnt','w'=>'16');
+		$ca[$ii++] = array('h'=>'Кол-во шт.',		'n' => 'total_qty',	'w'=>'16');
+		$ca[$ii++] = array('h'=>'Сумма',			'n' => 'total_sum',	'w'=>'20');
 		return $ca;
 	}
 	/**
@@ -3260,23 +3260,23 @@ class Products {
 			if(count($suppliers)>$suppliers_qty){
 				$suppliers_qty = count($suppliers);
 			}
-			$rE[$ii]['article'] = $i['art'];
-			$rE[$ii]['name'] = $i['name'];
-			$rE[$ii]['price_opt'] = $i['price_opt'];
-			$rE[$ii]['price_mopt'] = $i['price_mopt'];
+			$result[$ii]['article'] = $i['art'];
+			$result[$ii]['name'] = $i['name'];
+			$result[$ii]['price_opt'] = $i['price_opt'];
+			$result[$ii]['price_mopt'] = $i['price_mopt'];
 			$jj=1;
 			foreach($suppliers as $s){
-				$rE[$ii]['sup_article_'.$jj] = $s['article'];
-				$rE[$ii]['sup_product_limit_'.$jj] = $s['product_limit'];
-				$rE[$ii]['sup_price_opt_otpusk_'.$jj] = $s['price_opt_otpusk'];
-				$rE[$ii]['sup_price_opt_recommend_'.$jj] = $s['price_opt_recommend'];
-				$rE[$ii]['sup_price_mopt_otpusk_'.$jj] = $s['price_mopt_otpusk'];
-				$rE[$ii]['sup_price_mopt_recommend_'.$jj] = $s['price_mopt_recommend'];
+				$result[$ii]['sup_article_'.$jj] = $s['article'];
+				$result[$ii]['sup_product_limit_'.$jj] = $s['product_limit'];
+				$result[$ii]['sup_price_opt_otpusk_'.$jj] = $s['price_opt_otpusk'];
+				$result[$ii]['sup_price_opt_recommend_'.$jj] = $s['price_opt_recommend'];
+				$result[$ii]['sup_price_mopt_otpusk_'.$jj] = $s['price_mopt_otpusk'];
+				$result[$ii]['sup_price_mopt_recommend_'.$jj] = $s['price_mopt_recommend'];
 				$jj++;
 			}
 			$ii++;
 		}
-		return array($rE, $suppliers_qty);
+		return array($result, $suppliers_qty);
 	}
 	/**
 	 * Объявление полей для экспорта товаров с поставщиками и ценами
