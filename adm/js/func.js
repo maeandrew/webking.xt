@@ -1,5 +1,5 @@
-function ajax(target, action, data, dataType){
-		if(form_sent){
+function ajax(target, action, data, dataType, form_sent){
+	if(form_sent){
 		data.append('target', target);
 		data.append('action', action);
 	}else{
@@ -12,12 +12,12 @@ function ajax(target, action, data, dataType){
 	}
 	dataType = dataType || 'json';
 	var ajax = $.ajax({
-		url: URL_base+'ajax',
+		url: URL_base_global+'ajax',
 		beforeSend: function(ajax){
-			if(ajax_proceed === true){
-				// ajax.abort();
-			}
-			ajax_proceed = true;
+			// if(ajax_proceed === true){
+			// 	// ajax.abort();
+			// }
+			// ajax_proceed = true;
 		},
 		type: 'POST',
 		dataType: dataType,

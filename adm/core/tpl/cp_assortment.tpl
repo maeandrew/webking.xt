@@ -120,7 +120,7 @@
 									</span>
 						</label>
 						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
-						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button> 
+						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button>
 					</div>-->
 				</div>
 				<!-- <form class="work_days_add" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
@@ -138,11 +138,11 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
-							
+
 							<form action="<?=$GLOBALS['URL_request']?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
-							
+
 							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
@@ -152,11 +152,11 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
-							
+
 							<form action="<?=$GLOBALS['URL_request']?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
-							
+
 							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
@@ -168,7 +168,7 @@
 		</div>
 	</div>
 
-	
+
 
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
@@ -176,7 +176,7 @@
 			<div class="switch_price_container">
 				<span>Единая цена</span>
 				<label for="switch_price">
-					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >					
+					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
 				</label>
 			</div>
 			<h2>Ассортимент</h2>
@@ -272,13 +272,13 @@
 
 
 		/* Новый переключатель обьедения цены */
-		$('.price_switcher_js').on('change', function(){			
+		$('.price_switcher_js').on('change', function(){
 			var single_price;
 
 			if ($(this).prop("checked")){
 				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
 					TogglePriceColumns('On');
-					single_price = 1;					
+					single_price = 1;
 				}else{
 					$( ".price_switcher_js" ).prop( "checked", false);
 				}
@@ -286,59 +286,9 @@
 				TogglePriceColumns('Off');
 				single_price = 0;
 			}
-
-			$.ajax({
-				url: '/ajaxsuppliers',
-				type: "POST",
-				dataType : "json",
-				data:({
-					"action": 'toggle_single_price',
-					"id_supplier": '<?=$supplier['id_user'];?>',
-					"single_price": single_price
-				}),
-			});
+			var id_supplier = '<?=$supplier['id_user'];?>';
+			ajax('supplier', 'toggleSinglePrice', {id_supplier: id_supplier, single_price: single_price}, 'json');
 		});
-
-		// Клик по переключателю "Единая цена"
-		// $('.price_switcher_js').click(function(){
-		// 	var single_price;
-		// 	if($(this).closest('#switcher').hasClass('Off')){
-		// 		if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
-		// 			$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-		// 			if($(this).closest('#switcher').hasClass('On')){
-		// 				// document.cookie = "onlyprice=On;";
-		// 				TogglePriceColumns('On');
-		// 				single_price = 1;
-		// 			}else{
-		// 				// document.cookie = "onlyprice=Off;";
-		// 				TogglePriceColumns('Off');
-		// 				single_price = 0;
-		// 			}
-
-		// 		}
-		// 	}else{
-		// 		$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-		// 		if($(this).closest('#switcher').hasClass('On')){
-		// 			// document.cookie = "onlyprice=On;";
-		// 			TogglePriceColumns('On');
-		// 			single_price = 1;
-		// 		}else{
-		// 			// document.cookie = "onlyprice=Off;";
-		// 			TogglePriceColumns('Off');
-		// 			single_price = 0;
-		// 		}
-		// 	}
-		// 	$.ajax({
-		// 		url: '/ajaxsuppliers',
-		// 		type: "POST",
-		// 		dataType : "json",
-		// 		data:({
-		// 			"action": 'toggle_single_price',
-		// 			"id_supplier": '<?=$supplier['id_user'];?>',
-		// 			"single_price": single_price
-		// 		}),
-		// 	});
-		// });
 
 		$('.disable_supplier_js').on('click', function(){
 			if (!confirm('Убедитесь что вы сохранили ассортимент в файл Excel')){
@@ -429,7 +379,7 @@
 			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
-			$('.price_mopt_title_js').html('Цена');			
+			$('.price_mopt_title_js').html('Цена');
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -440,14 +390,14 @@
 					}
 				}
 			});
-		}else{			
+		}else{
 			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
-			$('.price_mopt_title_js').html('Цена розн.');			
+			$('.price_mopt_title_js').html('Цена розн.');
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});
 		}
-	}	
+	}
 </script>
