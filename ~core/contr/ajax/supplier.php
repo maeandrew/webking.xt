@@ -18,8 +18,6 @@
                         $arr['id_supplier'] = $_POST['id_supplier'];
                         $arr['active'] = $_POST['active'];
                         echo json_encode($arr);
-                    }else{
-                        exit();
                     }
                 }
                 break;
@@ -32,9 +30,7 @@
                     $arr['error'] = false;
                     $arr['opt'] = $_POST['mode'] == 'mopt'?0:1;
                     $txt = json_encode($arr);
-                    exit();
                 }
-                ;
                 break;
         }
     }

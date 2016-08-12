@@ -7,19 +7,6 @@
 	$Status = new Status();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
-			case"update_assort":
-				if(isset($_POST['mode']) && isset($_POST['id_product'])){
-					$_POST['id_supplier'] = $_SESSION['member']['id_user'];
-					$Product->UpdateAssort($_POST);
-
-					$arr['id_product'] = $_POST["id_product"];
-					$arr['error'] = false;
-					$arr['opt'] = $_POST['mode'] == 'mopt'?0:1;
-					$txt = json_encode($arr);
-					exit();
-				}
-			;
-			break;
 			case"add_product":
 				if(isset($_POST['id_product'])){
 					if(checkNumeric($_POST, array('id_product'))){

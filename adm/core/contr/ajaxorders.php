@@ -5,7 +5,7 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 
 	header('Content-Type: text/javascript; charset=utf-8');
 	
-	$order = new orders();
+	$Orders = new Orders();
 	ob_start();	
 	if (isset($_POST['restore'])){
 		$id_order = $_POST['id_order'];
