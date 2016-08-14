@@ -8,8 +8,8 @@ $Supplier = new Suppliers();
 $Order = new Orders();
 $Users = new Users();
 $Unit = new Unit();
-$Supplier->SetFieldsById($User->fields['id_user']);
-$check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
+$Supplier->SetFieldsById($Users->fields['id_user']);
+$check_sum = $Supplier->GetCheckSumSupplierProducts($Users->fields['id_user']);
 $tpl->Assign("check_sum", $check_sum);
 $tpl->Assign("supplier", $Supplier->fields);
 //*********************************Заполнение рабочих дней
