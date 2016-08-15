@@ -182,23 +182,7 @@
 
 	$(function(){
 		$('.addspec').on('click', function(){
-			// SetSpecToCat(id_category, $('#sid').val());
-
 			ajax('cattags', 'setspectocat', {id_category: id_category, id_specification: id_specification});
-
-			// function SetSpecToCat(id_cat, id_spec){
-			// 	$.ajax({
-			// 		url: URL_base+'ajaxcattags',
-			// 		type: "POST",
-			// 		cache: false,
-			// 		dataType: "json",
-			// 		data: {
-			// 			"action": "setspectocat",
-			// 			"id_category": id_cat,
-			// 			"id_specification": id_spec
-			// 		}
-			// 	});
-			// }
 		});
 
 		$('body').on('click', '.dz-message', function(){
@@ -220,44 +204,6 @@
 			$('.curent_img').attr('name', 'remove_image');
 		});
 	});
-	// function SetSpecToCat(id_cat, id_spec){
-	// 	$.ajax({
-	// 		url: URL_base+'ajaxcattags',
-	// 		type: "POST",
-	// 		cache: false,
-	// 		dataType: "json",
-	// 		data: {
-	// 			"action": "setspectocat",
-	// 			"id_category": id_cat,
-	// 			"id_specification": id_spec
-	// 		}
-	// 	});
-	// }
-
-	//Обновление транслита категории
-	// function updateTranslit(){
-	// 	$.ajax({
-	// 		url: URL_base+'ajaxcattags',
-	// 		type: "POST",
-	// 		cache: false,
-	// 		dataType: "json",
-	// 		data: {
-	// 			'action': 'update_translit',
-	// 			'id_category': id_category
-	// 		}
-	// 	}).done(function(data){
-	// 		$('#translit p').text(data);
-	// 		$('#updtrans').animate({ borderSpacing: 360 }, {
-	// 			step: function(now,fx) {
-	// 				$(this).css('-webkit-transform','rotate('+now+'deg)');
-	// 				$(this).css('-moz-transform','rotate('+now+'deg)');
-	// 				$(this).css('transform','rotate('+now+'deg)');
-	// 			},
-	// 			duration:'slow'
-	// 		},'linear');
-	// 	});
-	// }
-
 	$('.updtrans_js').on('click', function(){
 		ajax('cattags', 'updateTranslit', {id_category: id_category}).done(function(data){
 			$('#translit p').text(data);
@@ -271,8 +217,6 @@
 			},'linear');
 		});
 	});
-
-
 	// CKEDITOR.replace('content', {
 	//     customConfig: 'custom/ckeditor_config.js'
 	// });
