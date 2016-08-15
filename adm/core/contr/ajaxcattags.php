@@ -37,6 +37,15 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 					echo 'ERROR';
 				}
 				break;
+			case "setspectocat":
+				$dbtree->UpdateEditUserDate($_POST['id_category']);
+				if($specification->AddSpecToCat($_POST)){
+					echo json_encode('ok');
+				}
+				break;
+			case "update_translit":
+				echo json_encode($dbtree->UpdateTranslit($_POST['id_category']));
+				break;
 			default:
 				break;
 		}
