@@ -268,7 +268,7 @@
 					// 	$('#prodName').val('');
 					// });
 
-					ajax('products', 'addPhotoProduct', {art_supplier: ArtSupplier, name: Name, images: Images, video: Videos, id_category: id_category}).done(function(data){
+					ajax('products', 'addPhotoProduct', {art_supplier: ArtSupplier, name: Name, images: Images, video: Videos, id_category: id_category}, 'html').done(function(data){
 						$('.upload_message').addClass('hidden');
 						$('.prodList').prepend(data);
 						$('.images_block').find('.image_block_js').remove();
