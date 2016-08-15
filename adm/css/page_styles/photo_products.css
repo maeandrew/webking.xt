@@ -117,11 +117,11 @@ h1 {
 }
 /* Стили для списка оформленных товаров */
 .prodList thead.main_thead{
-	background: #959595;
+	background: #616161;
 	color: #fff;
 }
 .prodList thead{
-	background: #FFEFDD;
+	background: #c7eeff;
 }
 .prodList thead th {
 	padding: 1em;
