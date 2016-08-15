@@ -171,7 +171,7 @@
 		clickable: true,
 		uploadMultiple: false,
 		maxFiles: 1,
-		previewsContainer: '.images_block',	
+		previewsContainer: '.images_block',
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="add_image" value="'+path+'">';
