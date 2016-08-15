@@ -35,18 +35,6 @@ $(function(){
 		var answer = confirm("Удалить группу и все, входящие в нее, фильтры?");
 		if (answer == true){
 			var cat = $('input#id_category').val();
-			// $.ajax({
-			// 	url: URL_base+'ajaxcattags',
-			// 	type: "POST",
-			// 	data: {
-			// 		"id_category": cat,
-			// 		"tag_level": tag_level,
-			// 		"action": 'droplevel'
-			// 	}
-			// }).done(function(){
-			// 	location.reload();
-			// });
-
 			ajax('cattags', 'dropLevel', {id_category: cat, tag_level: tag_level}).done(function(){
 				location.reload();
 			});
@@ -70,18 +58,6 @@ $(function(){
 		if(tag_level !== ''){
 			var cat = $('input#id_category').val();
 			var tag_level_name = $('.levelrow.row'+tag_level+' .tag_level_name input').val();
-			// $.ajax({
-			// 	url: URL_base+'ajaxcattags',
-			// 	type: "POST",
-			// 	data: {
-			// 		"id_category": cat,
-			// 		"tag_level": tag_level,
-			// 		"tag_level_name": tag_level_name,
-			// 		"action": 'updatelevel'
-			// 	}
-			// }).done(function(){
-			// 	location.reload();
-			// });
 			ajax('cattags', 'updateLevel', {id_category: cat, tag_level: tag_level, tag_level_name: tag_level_name}).done(function(){
 				location.reload();
 			});
@@ -114,17 +90,6 @@ $(function(){
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		var answer = confirm("Удалить выбраный фильтр?");
 		if (answer == true){
-			// $.ajax({
-			// 	url: URL_base+'ajaxcattags',
-			// 	type: "POST",
-			// 	data: {
-			// 		"ID": rowid,
-			// 		"action": 'drop'
-			// 	}
-			// }).done(function(){
-			// 	$('.tagrow.row'+rowid).slideUp('slow');
-			// });
-
 			ajax('cattags', 'drop', {ID: rowid}).done(function(){
 				$('.tagrow.row'+rowid).slideUp('slow');
 			});
@@ -151,22 +116,6 @@ $(function(){
 			var tag_keys = $('.tagrow.row'+rowid+' textarea#tag_keys').val();
 			var tag_level = $('.tagrow.row'+rowid+' input#tag_level').val();
 			var tag_level_name = $('.levelinforow'+tag_level+' .tag_level_name p').text();
-			// $.ajax({
-			// 	url: URL_base+'ajaxcattags',
-			// 	type: "POST",
-			// 	data: {
-			// 		"ID": rowid,
-			// 		"id_category": cat,
-			// 		"tag_name": tag_name,
-			// 		"tag_keys": tag_keys,
-			// 		"tag_level": tag_level,
-			// 		"tag_level_name": tag_level_name,
-			// 		"action": 'update'
-			// 	}
-			// }).done(function(){
-			// 	location.reload();
-			// });
-
 			ajax('cattags', 'update', {id_category: cat, tag_name: tag_name, tag_keys: tag_keys, tag_level: tag_level, tag_level_name: tag_level_name, }).done(function(){
 				location.reload();
 			});
@@ -176,7 +125,6 @@ $(function(){
 	// Подтвердить добавление
 	$('.tagrow a.addapply').click(function(event){
 		event.preventDefault();
-
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		if(Validate(rowid)){
 			var cat = $('input#id_category').val();
@@ -184,23 +132,7 @@ $(function(){
 			var tag_keys = $('.tagrow.row'+rowid+' textarea#tag_keys').val();
 			var tag_level = $('.tagrow.row'+rowid+' input#tag_level').val();
 			var tag_level_name = $('.levelinforow'+tag_level+' .tag_level_name p').text();
-
-			// $.ajax({
-			// 	url: URL_base+'ajaxcattags',
-			// 	type: "POST",
-			// 	data: ({
-			// 		"id_category": cat,
-			// 		"tag_name": tag_name,
-			// 		"tag_keys": tag_keys,
-			// 		"tag_level": tag_level,
-			// 		"tag_level_name": tag_level_name,
-			// 		"action": 'add'
-			// 	}),
-			// }).done(function(){
-			// 	location.reload();
-			// });
 			ajax('cattags', 'add', {id_category: cat, tag_name: tag_name, tag_keys: tag_keys, tag_level: tag_level, tag_level_name: tag_level_name, }).done(function(){
-				console.log('1');
 				location.reload();
 			});
 		}
