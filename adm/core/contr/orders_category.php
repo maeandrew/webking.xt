@@ -56,8 +56,8 @@ foreach($fields as $f){
 		}
 	}
 }
-$arr['o.id_customer'] = 22660;
 $tpl->Assign('sort_links', $sort_links);
+$arr['o.id_customer'] = array(22660, 23413, 23426, 23427, 23414, 23431, 23415);
 $Order->SetList(1, $arr, $orderby);
 
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){

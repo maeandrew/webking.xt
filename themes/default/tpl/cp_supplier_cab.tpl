@@ -1,16 +1,16 @@
 <?if(isset($_SESSION['errm'])){
 	foreach($_SESSION['errm'] as $msg){
-		if(!is_array($msg)){?>
-			<div class="msg-error">
-				<p><?=$msg?></p>
-			</div>
-		<?}?>
-		<script type="text/javascript">
-			$('html, body').animate({
-				scrollTop: 0
-			}, 500, "easeInOutCubic");
-		</script>
-	<?}
+if(!is_array($msg)){?>
+<div class="msg-error">
+<p><?=$msg?></p>
+</div>
+<?}?>
+<script type="text/javascript">
+	$('html, body').animate({
+	scrollTop: 0
+	}, 500, "easeInOutCubic");
+</script>
+<?}
 }?>
 <div id="supplier_cab" class="cabinet_content row">
 	<h1><?=$cabinet_page == 'settings'?'Настройки':'Ассортимент'?></h1>
