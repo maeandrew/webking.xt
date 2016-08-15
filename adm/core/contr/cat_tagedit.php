@@ -30,7 +30,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Редактирование тегов категории";
 foreach($dbtree->GetTagsLevelsList($id_category) as $k=>$l){
-	$level[$l['tag_level']] = $l; 
+	$level[$l['tag_level']] = $l;
 	$level[$l['tag_level']]['tags'] = $dbtree->GetTagsList($id_category, $l['tag_level']);
 }
 $tpl->Assign('level', $level);

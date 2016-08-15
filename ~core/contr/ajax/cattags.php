@@ -8,30 +8,30 @@
                 break;
             case "add":
                 if($dbtree->AddTags($_POST['id_category'], $_POST['tag_name'], $_POST['tag_keys'], $_POST['tag_level'], $_POST['tag_level_name'])){
-                    echo 'good';
+                    echo json_encode('good');
                 }else{
-                    echo 'bad';
+                    echo json_encode('bad');
                 }
                 break;
             case "drop":
                 if($dbtree->DropTagById($_POST['ID'])){
-                    echo 'ready';
+                    echo json_encode('ready');
                 }else{
-                    echo 'ERROR';
+                    echo json_encode('ERROR');
                 }
                 break;
             case "updateLevel":
                 if($dbtree->UpdateLevelById($_POST['id_category'], $_POST['tag_level'], $_POST['tag_level_name'])){
-                    echo 'ready';
+                    echo json_encode('ready');
                 }else{
-                    echo 'ERROR';
+                    echo json_encode('ERROR');
                 }
                 break;
             case "dropLevel":
                 if($dbtree->DropLevelById($_POST['id_category'], $_POST['tag_level'])){
-                    echo 'ready';
+                    echo json_encode('ready');
                 }else{
-                    echo 'ERROR';
+                    echo json_encode('ERROR');
                 }
                 break;
             case "setSpecToCat":
