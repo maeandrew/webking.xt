@@ -160,7 +160,7 @@
 			var intut_val = $(this).find('input').val();
 			if (intut_val !== ''){
 				check_video = true;
-			}			
+			}
 		});
 		if ($('.images_block').html() !== '' || check_video === true) {
 			event.returnValue = "Write something clever here..";
@@ -172,7 +172,7 @@
 		method: 'POST',
 		url: url+"?upload=true",
 		clickable: true,
-		previewsContainer: '.images_block',	
+		previewsContainer: '.images_block',
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
@@ -202,21 +202,25 @@
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
-				curSrc = target.closest('.image_block_js').find('input').val();			
-			$.ajax({
-				url: URL_base+'ajaxproducts',
-				type: "POST",
-				cache: false,
-				dataType: "json",
-				data: {
-					action: 'DeleteUploadedImage',
-					src: curSrc,
-				}
-			}).done(function(data){
+				curSrc = target.closest('.image_block_js').find('input').val();
+			// $.ajax({
+			// 	url: URL_base+'ajaxproducts',
+			// 	type: "POST",
+			// 	cache: false,
+			// 	dataType: "json",
+			// 	data: {
+			// 		action: 'DeleteUploadedImage',
+			// 		src: curSrc,
+			// 	}
+			// }).done(function(data){
+			// 	target.closest('.image_block_js').remove();
+			// });
+
+			ajax('products', 'deleteUploadedImage', {src: curSrc}).done(function(data){
 				target.closest('.image_block_js').remove();
 			});
 		});
-		
+
 		$(".image_block_new").on('click', function(){
 			$('.image_block_new').removeClass('errName');
 		});
@@ -228,7 +232,7 @@
 				Videos = [],
 				id_category = $('[name="categories"]').val();
 
-			$('.images_block .image_block_js').each(function(){	
+			$('.images_block .image_block_js').each(function(){
 				var visibility = $(this).find('img').hasClass('imgopacity') === false;
 				var path = $(this).find('input').val();
 				var curData = {src: path, visible: visibility};
@@ -237,26 +241,34 @@
 			$('.video_list_js li').each(function(){
 				var path = $(this).find('input').val();
 				Videos.push(path);
-			});			
+			});
 			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
 			if ($('#supplier').val() !== '') {
 				$('#supplier').removeClass('errName');
 				if($(".images_block").html() !== ''){
 					$('.upload_message').removeClass('hidden');
-					$.ajax({
-						url: URL_base+'ajaxproducts',
-						type: "POST",
-						cache: false,
-						dataType: "html",
-						data: {
-							action: 'AddPhotoProduct',
-							art_supplier: ArtSupplier,
-							name: Name,
-							images: Images,
-							video: Videos,
-							id_category: id_category 
-						}
-					}).done(function(data){
+					// $.ajax({
+					// 	url: URL_base+'ajaxproducts',
+					// 	type: "POST",
+					// 	cache: false,
+					// 	dataType: "html",
+					// 	data: {
+					// 		action: 'AddPhotoProduct',
+					// 		art_supplier: ArtSupplier,
+					// 		name: Name,
+					// 		images: Images,
+					// 		video: Videos,
+					// 		id_category: id_category
+					// 	}
+					// }).done(function(data){
+					// 	$('.upload_message').addClass('hidden');
+					// 	$('.prodList').prepend(data);
+					// 	$('.images_block').find('.image_block_js').remove();
+					// 	$('.video_list_js').html('');
+					// 	$('#prodName').val('');
+					// });
+
+					ajax('products', 'addPhotoProduct', {art_supplier: ArtSupplier, name: Name, images: Images, video: Videos, id_category: id_category}).done(function(data){
 						$('.upload_message').addClass('hidden');
 						$('.prodList').prepend(data);
 						$('.images_block').find('.image_block_js').remove();
