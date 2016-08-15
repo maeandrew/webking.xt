@@ -307,10 +307,12 @@ class mysqlPDO {
 		if($and !== FALSE && count($and)){
 			$where = " WHERE ";
 			foreach ($and as $k=>$v){
-				if(FALSE !== stripos($v,	"*")){
-					$where_a[] = "$k LIKE(\"".str_replace("*", "%", $v)."\")";
+				if(is_array($v)){
+					$where_a[] = $k." IN (".implode(', ', $v).") ";
+				}elseif(FALSE !== stripos($v,	"*")){
+					$where_a[] = $k." LIKE(\"".str_replace("*", "%", $v)."\")";
 				}else{
-					$where_a[] = "$k=".$this->Quote($v);
+					$where_a[] = $k." = ".$this->Quote($v);
 				}
 			}
 			$where .= implode(" AND ", $where_a);
