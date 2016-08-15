@@ -25,7 +25,7 @@
 			<?if(isset($_POST['translit'])){ ?>
 				<div class="col-md-12 seo_block">
 					<div id="translit">
-						<a href="#" id="updtrans" class="refresh_btn" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"><i class="icon-font">r</i></a>
+						<a href="#" id="updtrans" class="refresh_btn updtrans_js" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"><i class="icon-font">r</i></a>
 						<p><?=$_POST['translit']?></p>
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 					<div class="image">
 						<img src="<?=$_POST['category_img']?>">
 						<span class="icon-font <?=!empty($_POST['category_img'])?'del_exist_photo_js':'hidden'?>" title="Удалить">t</span>
-						<input class="curent_img hidden" type="text" value="<?=$_POST['category_img']?>">	
+						<input class="curent_img hidden" type="text" value="<?=$_POST['category_img']?>">
 					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 				<p>Настоятельно рекомендуется убедиться, что новое загруженное изображение "квадратное" (все его стороны равны). В ином случае оно может некорректно отображаться на сайте и портить всю его красоту и великолепие. А так же подпортит настроение руководства и как следствие Ваше тоже.</p>
 			</div>
 		</div>
-		
+
 		<div id="preview-template" class="hidden">
 			<div class="image_block image_block_js dz-preview dz-file-preview">
 				<div class="image">
@@ -178,14 +178,32 @@
 	});
 
 	var id_category = $('[name="id_category"]').val();
+	var id_specification = $('#sid').val();
+
 	$(function(){
 		$('.addspec').on('click', function(){
-			SetSpecToCat(id_category, $('#sid').val());
+			// SetSpecToCat(id_category, $('#sid').val());
+
+			ajax('cattags', 'setSpecToCat', {id_category: id_category, id_specification: id_specification});
+
+			// function SetSpecToCat(id_cat, id_spec){
+			// 	$.ajax({
+			// 		url: URL_base+'ajaxcattags',
+			// 		type: "POST",
+			// 		cache: false,
+			// 		dataType: "json",
+			// 		data: {
+			// 			"action": "setspectocat",
+			// 			"id_category": id_cat,
+			// 			"id_specification": id_spec
+			// 		}
+			// 	});
+			// }
 		});
 
 		$('body').on('click', '.dz-message', function(){
 			$('.image_size_info').removeClass('hidden');
-		});		
+		});
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
@@ -202,32 +220,46 @@
 			$('.curent_img').attr('name', 'remove_image');
 		});
 	});
-	function SetSpecToCat(id_cat, id_spec){
-		$.ajax({
-			url: URL_base+'ajaxcattags',
-			type: "POST",
-			cache: false,
-			dataType: "json",
-			data: {
-				"action": "setspectocat",
-				"id_category": id_cat,
-				"id_specification": id_spec
-			}
-		});
-	}
+	// function SetSpecToCat(id_cat, id_spec){
+	// 	$.ajax({
+	// 		url: URL_base+'ajaxcattags',
+	// 		type: "POST",
+	// 		cache: false,
+	// 		dataType: "json",
+	// 		data: {
+	// 			"action": "setspectocat",
+	// 			"id_category": id_cat,
+	// 			"id_specification": id_spec
+	// 		}
+	// 	});
+	// }
 
 	//Обновление транслита категории
-	function updateTranslit(){
-		$.ajax({
-			url: URL_base+'ajaxcattags',
-			type: "POST",
-			cache: false,
-			dataType: "json",
-			data: {
-				'action': 'update_translit',
-				'id_category': id_category
-			}
-		}).done(function(data){
+	// function updateTranslit(){
+	// 	$.ajax({
+	// 		url: URL_base+'ajaxcattags',
+	// 		type: "POST",
+	// 		cache: false,
+	// 		dataType: "json",
+	// 		data: {
+	// 			'action': 'update_translit',
+	// 			'id_category': id_category
+	// 		}
+	// 	}).done(function(data){
+	// 		$('#translit p').text(data);
+	// 		$('#updtrans').animate({ borderSpacing: 360 }, {
+	// 			step: function(now,fx) {
+	// 				$(this).css('-webkit-transform','rotate('+now+'deg)');
+	// 				$(this).css('-moz-transform','rotate('+now+'deg)');
+	// 				$(this).css('transform','rotate('+now+'deg)');
+	// 			},
+	// 			duration:'slow'
+	// 		},'linear');
+	// 	});
+	// }
+
+	$('.updtrans_js').on('click', function(){
+		ajax('cattags', 'updateTranslit', {id_categor: id_category}).done(function(data){
 			$('#translit p').text(data);
 			$('#updtrans').animate({ borderSpacing: 360 }, {
 				step: function(now,fx) {
@@ -238,7 +270,9 @@
 				duration:'slow'
 			},'linear');
 		});
-	}
+	});
+
+
 	// CKEDITOR.replace('content', {
 	//     customConfig: 'custom/ckeditor_config.js'
 	// });
