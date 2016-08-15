@@ -53,6 +53,58 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$cnt = $Products->GetProductsCnt($where_arr, 0, $params);
 				echo $cnt;
 				break;
+			case 'addPhotoProduct':
+				$echo = 'error';
+				if(isset($_POST['id_category'])){
+					$_POST['categories_ids'][] = $_POST['id_category'];
+					unset($_POST['id_category']);
+				}
+				if($id_product = $Products->AddPhotoProduct($_POST)){
+					$Products->SetFieldsByID($id_product);
+					$product = $Products->fields;
+					$images = $Products->GetPhotoById($id_product, true);
+					$videos = $Products->GetVideoById($id_product);
+					$echo = '<div class="prodListItem">
+						<div class="prodInfo">
+							<div class="nameProd">
+								<span>'.$product['name'].'</span>
+							</div>
+							<div class="createData">
+								<span>'.$product['create_date'].'</span>
+							</div>
+						</div>
+						<div class="actions">
+						</div>
+						<div class="prodImages">';
+					foreach($images as $image){
+						$echo .= '<img src="'.str_replace('/original/', '/thumb/', $image['src']).'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
+					}
+					$echo .= '</div>';
+					if(is_array($videos)){
+						$echo .= '<div class="prodVideos">';
+						foreach($videos as $video){
+							$echo .= '<a href="'.$video.'" target="blank">
+									<img src="/images/video_play.png">
+									<span class="name">'.$video.'</span>
+								</a>';
+						}
+						$echo .= '</div>';
+					}
+					$echo .= '</div>';
+				}
+				echo $echo;
+				break;
+			case 'deleteUploadedImage':
+				$Images = new Images();
+				if($Images->remove($GLOBALS['PATH_root'].$_POST['src'])){
+					$echo = true;
+				}else{
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
+
+
 			default:
 				break;
 		}

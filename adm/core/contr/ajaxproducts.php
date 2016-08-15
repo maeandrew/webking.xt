@@ -42,61 +42,6 @@
 			case 'UpdateDemandChart':
 				echo json_encode($Products->UpdateDemandChart($_POST, true));
 				break;
-			case 'AddPhotoProduct':
-				$echo = 'error';
-				if(isset($_POST['id_category'])){
-					$_POST['categories_ids'][] = $_POST['id_category'];
-					unset($_POST['id_category']);
-				}
-				if($id_product = $Products->AddPhotoProduct($_POST)){
-					$Products->SetFieldsByID($id_product);
-					$product = $Products->fields;
-					$images = $Products->GetPhotoById($id_product, true);
-					$videos = $Products->GetVideoById($id_product);
-					$echo = '<div class="prodListItem">
-						<div class="prodInfo">
-							<div class="nameProd">
-								<label>Название:</label>
-								<span>'.$product['name'].'</span>
-							</div>
-							<div class="createData">
-								<label>Добавлен:</label>
-								<span>'.$product['create_date'].'</span>
-							</div>
-						</div>
-						<div class="actions">
-							<a href="/adm/productedit/'.$product['id_product'].'" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
-							<a href="'.Link::Product($product['translit']).'" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
-						</div>
-						<div class="prodImages">';
-					foreach($images as $image){
-						$echo .= '<img src="'.str_replace('/original/', '/thumb/', $image['src']).'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
-					}
-					$echo .= '</div>';
-					if(is_array($videos)){
-						$echo .= '<div class="prodVideos">';
-						foreach($videos as $video){
-							$echo .= '<a href="'.$video.'" target="blank">
-									<img src="/images/video_play.png">
-									<span class="name">'.$video.'</span>
-								</a>';
-						}
-						$echo .= '</div>';
-					}
-					$echo .= '</div>';
-				}
-				echo $echo;
-				break;
-			case 'DeleteUploadedImage':
-				$Images = new Images();
-				// var_dump($GLOBALS['PATH_root'].$_POST['src']);
-				if($Images->remove($GLOBALS['PATH_root'].$_POST['src'])){
-					$echo = true;
-				}else{
-					$echo = false;
-				}
-				echo json_encode($echo);
-				break;
 			default:
 				break;
 		}
