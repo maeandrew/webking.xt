@@ -2765,12 +2765,16 @@ class Products {
 			$objPHPExcel->getActiveSheet()->getColumnDimension(chr((++$charcnt)+64))->setWidth($i['w']);
 		}
 		$ii = 2;
-		foreach($rows as $r){
-			$charcnt = 0;
-			foreach($ca as $i){
-				$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, $r[$i['n']]);
+		if(!empty($rows)){
+			foreach($rows as $r){
+				$charcnt = 0;
+				foreach($ca as $i){
+					$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, $r[$i['n']]);
+				}
+				$ii++;
 			}
-			$ii++;
+		}else{
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, '');
 		}
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="assortiment.xls"');
