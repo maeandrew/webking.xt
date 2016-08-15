@@ -36,6 +36,7 @@ $User->SetUser($_SESSION['member']);
 $tpl->Assign('User', $User->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('order_statuses', $order_statuses);
-$parsed_res = array('issuccess' => TRUE,
-					'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_promo_cab.tpl'));
-?>
+$parsed_res = array(
+	'issuccess' => true,
+	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_promo_cab.tpl')
+);

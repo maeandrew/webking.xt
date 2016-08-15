@@ -8,3 +8,4 @@
 }else{
 	header('Location: '._base_url.'/404');
 }
+exit(0);

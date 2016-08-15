@@ -15,23 +15,18 @@ class Suppliers extends Users {
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
-		$Users = new Users();
-		if(!$Users->SetFieldsById($id, $all)){
-			return false;
-		}
+		parent::SetFieldsById($id, $all);
 		$active = "AND active = 1";
 		if($all == 1){}
 			$active = '';
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."supplier
-			WHERE id_user = '".$id."'
+			WHERE id_user = ".$id."
 			".$active;
-		$this->fields = $this->db->GetOneRowArray($sql);
-		if(!$this->fields){
-			return false;
+		if(!$this->fields = $this->db->GetOneRowArray($sql)){
+			return true;
 		}
-		$this->fields = array_merge($this->fields, $Users->GetFields());
-		return true;
+		return $this->fields;
 	}
 
 	// Список поставщиков (0 - только видимые. 1 - все, и видимые и невидимые)

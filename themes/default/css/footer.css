@@ -80,12 +80,11 @@ footer .social ul li:last-child a {
 }
 footer .ad_sense {
 	float: right;
-	padding: 10px;
+	/*padding: 10px;*/
 	margin-bottom: 2em;
-	width: 320px;
-	height: 270px;
-	display: none;
-	
+	max-width: 300px;
+	max-height: 250px;
+	position: relative;
 }
 footer .ad_sense img {
 	display: block;
@@ -182,7 +181,7 @@ footer .copyright p.created {
 }
 
 ins {
-	display: none !important;
+	/*display: none !important;*/
 }
 
 footer.light {

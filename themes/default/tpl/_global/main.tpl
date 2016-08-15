@@ -88,6 +88,14 @@
 
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
+
+		<?if(G::IsLogged()){?>
+			<!-- Google Tag Manager User-ID -->
+			<script>
+				dataLayer = [{'uid': '<?=$_SESSION['member']['id_user']?>'}];
+			</script>
+			<!-- END Google Tag Manager User-ID -->
+		<?}?>
 		<!-- Google counter -->
 		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
@@ -120,7 +128,7 @@
 			}
 		</style>
 	</noscript>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
+	<script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?>">
 
@@ -418,27 +426,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="ad_sense mdl-color--grey-200">
-				<?if($GLOBALS['CurrentController'] == 'products'){?>
-					<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Категории -->
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins>
-						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-					<?}elseif($GLOBALS['CURRENT_ID_CATEGORY'] == 479){?>
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- test -->
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins>
-						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-					<?}elseif($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 480){?>
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Категории2 -->
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins>
-						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-					<?}?>
-				<?}else{?>
-					<!-- <img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300"> -->
-				<?}?>
+			<div class="ad_sense">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Обьявление в футере -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:250px"
+				     data-ad-client="ca-pub-2337139989896773"
+				     data-ad-slot="4925398447"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
 			</div>
 		</div>
 		<div class="copyright">
@@ -531,7 +528,7 @@
 						<label class="mdl-selectfield__label" for="sign_up_contragent">Менеджер</label>
 					</div>
 						<!-- <p>Оставьте поле пустым, если не уверены</p> -->
-<!-- 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="sign_up_email" name="email">
 						<label class="mdl-textfield__label" for="sign_up_email">Email</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
@@ -891,7 +888,6 @@
 		<img height="1" width="1" style="border-style:none;" alt="googleads" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript> -->
-
 	<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">

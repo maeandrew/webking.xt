@@ -83,7 +83,7 @@ $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
 );
 $Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible' => 1));
 $Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($Supplier->fields['id_user']));
-$check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
+$check_sum = $Supplier->GetCheckSumSupplierProducts($Users->fields['id_user']);
 $tpl->Assign("check_sum", $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);
