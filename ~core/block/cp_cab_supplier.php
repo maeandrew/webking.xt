@@ -6,10 +6,9 @@ $GLOBALS['IERA_LINKS'][] = array(
 $Products = new Products();
 $Supplier = new Suppliers();
 $Order = new Orders();
-$Users = new Users();
 $Unit = new Unit();
-$Supplier->SetFieldsById($Users->fields['id_user']);
-$check_sum = $Supplier->GetCheckSumSupplierProducts($Users->fields['id_user']);
+$supplier = $Supplier->SetFieldsById($_SESSION['member']['id_user']);
+$check_sum = $Supplier->GetCheckSumSupplierProducts($Supplier->fields['id_user']);
 $tpl->Assign("check_sum", $check_sum);
 $tpl->Assign("supplier", $Supplier->fields);
 //*********************************Заполнение рабочих дней
