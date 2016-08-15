@@ -88,6 +88,14 @@
 
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
+
+		<?if(G::IsLogged()){?>
+			<!-- Google Tag Manager User-ID -->
+			<script>
+				dataLayer = [{'uid': '<?=$_SESSION['member']['id_user']?>'}];
+			</script>
+			<!-- END Google Tag Manager User-ID -->
+		<?}?>
 		<!-- Google counter -->
 		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
@@ -891,7 +899,6 @@
 		<img height="1" width="1" style="border-style:none;" alt="googleads" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript> -->
-
 	<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
