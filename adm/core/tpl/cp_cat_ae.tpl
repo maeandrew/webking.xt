@@ -184,7 +184,7 @@
 		$('.addspec').on('click', function(){
 			// SetSpecToCat(id_category, $('#sid').val());
 
-			ajax('cattags', 'setSpecToCat', {id_category: id_category, id_specification: id_specification});
+			ajax('cattags', 'setspectocat', {id_category: id_category, id_specification: id_specification});
 
 			// function SetSpecToCat(id_cat, id_spec){
 			// 	$.ajax({
@@ -259,7 +259,7 @@
 	// }
 
 	$('.updtrans_js').on('click', function(){
-		ajax('cattags', 'updateTranslit', {id_categor: id_category}).done(function(data){
+		ajax('cattags', 'updateTranslit', {id_category: id_category}).done(function(data){
 			$('#translit p').text(data);
 			$('#updtrans').animate({ borderSpacing: 360 }, {
 				step: function(now,fx) {
