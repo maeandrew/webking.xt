@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 				]
 			},
 			target_css_ps: {
-				files: [					
+				files: [
 					{
 						expand: true,
 						cwd: 'themes/default/css/page_styles',
