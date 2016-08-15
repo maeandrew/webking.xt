@@ -74,7 +74,7 @@ body:not(.c_main) .banner{height:0}
 [data-type=panel]{margin:0;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);position:fixed;top:52px;bottom:0;z-index:100}
 .no-sidebar [data-type=panel] .panel_container{height:calc(100vh - 52px)}
 [data-type=panel] .panel_container{overflow-y:auto;overflow-x:hidden}
-[data-type=panel][data-position=right]{left:100vw}
+[data-type=panel][data-position=right]{left:100vw;overflow:auto}
 [data-type=panel][data-position=right].opened{left:20vw}
 [data-type=panel][data-position=left]{right:100vw}
 [data-type=panel][data-position=left].opened{right:calc(100vw - 300px)}
