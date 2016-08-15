@@ -67,13 +67,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$echo = '<div class="prodListItem">
 						<div class="prodInfo">
 							<div class="nameProd">
+								<label>Название:</label>
 								<span>'.$product['name'].'</span>
 							</div>
 							<div class="createData">
+								<label>Добавлен:</label>
 								<span>'.$product['create_date'].'</span>
 							</div>
 						</div>
 						<div class="actions">
+							<a href="/adm/productedit/'.$product['id_product'].'" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
+							<a href="'.Link::Product($product['translit']).'" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
 						</div>
 						<div class="prodImages">';
 					foreach($images as $image){
