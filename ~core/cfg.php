@@ -77,7 +77,7 @@ if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client'][
 	// }
 	// $db->Query($sql2);
 	if($ips['block'] == 1){
-		header('Location: http://xt.ua/');
+		header('Location: _base_url');
 		exit();
 		// $block = array('77.108.80.2', '193.106.92.242', '89.223.35.117'); x-torg.com
 		// $block = array('193.106.92.242');//, '69.162.124.231');
