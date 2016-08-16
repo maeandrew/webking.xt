@@ -2035,7 +2035,7 @@ class Products {
 		if(isset($arr['instruction'])){
 			$f['instruction'] = trim($arr['instruction']);
 		}
-		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
+		if(isset($arr['height']) && isset($arr['width']) && isset($arr['length']) && $arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
 			if(isset($arr['weight'])){
@@ -2057,7 +2057,7 @@ class Products {
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		if(isset($arr['categories_ids'])){
-			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], isset($arr['main_category'])?$arr['main_category']:null);
 		}
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
