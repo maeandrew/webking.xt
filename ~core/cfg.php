@@ -175,6 +175,7 @@ require($GLOBALS['PATH_model'].'seo_c.php');
 require($GLOBALS['PATH_model'].'NP2.php');
 require($GLOBALS['PATH_model'].'IntimeApi2.php');
 require($GLOBALS['PATH_model'].'specification_c.php');
+require($GLOBALS['PATH_model'].'segmentation_c.php');
 
 // Получение SEO данных для адреса
 $Seo = new SEO();
