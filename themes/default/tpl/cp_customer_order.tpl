@@ -36,25 +36,25 @@
 				?>
 				<?$articles_arr = array();
 				foreach($data as $i){?>
-					<?if(($i['opt_qty']!=0 && $show_pretense===false) || ($i['opt_qty']!=0 && $show_pretense===true && $i['contragent_qty']!=$i['fact_qty'])){ // строка по опту?>
+					<?if(($i['opt_qty'] != 0 && $show_pretense === false) || ($i['opt_qty'] != 0 && $show_pretense === true && $i['contragent_qty'] != $i['fact_qty'])){ // строка по опту?>
 						<?$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
 								<!-- <?if($i['images'] != ''){?>
-									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>">
-										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>" alt="<?=htmlspecialchars($i['name'])?>" title="Нажмите для увеличения">
+									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['image']))?_base_url.htmlspecialchars(str_replace('/original/', '/medium/', $i['image'])):'/images/nofoto.png'?>">
+										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['image']))?_base_url.htmlspecialchars(str_replace('/original/', '/medium/', $i['image'])):'/images/nofoto.png'?>" alt="<?=htmlspecialchars($i['name'])?>" title="Нажмите для увеличения">
 									</a>
 								<?}else{?>
 									<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide">
-										<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" />
+										<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace('/efiles/', '/efiles/_thumb/', $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" />
 									</a>
 								<?}?> -->
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['images'][0]['src']))?str_replace('/original/', '/medium/', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['images'][0]['src']))?str_replace('/original/', '/medium/', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace('/image/', '/image/250/', $i['img_1'])):'/images/nofoto.png'?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace('/image/', '/image/250/', $i['img_1'])):'/images/nofoto.png'?>"/></noscript>
 								<?}?>
 
 							</td>
@@ -84,25 +84,25 @@
 							<?$t['contragent_sum']+=$i['contragent_sum'];?>
 						</tr>
 					<?}
-					if(($i['mopt_qty']!=0 && $show_pretense===false) || ($i['mopt_qty']!=0 && $show_pretense===true && $i['contragent_mqty']!=$i['fact_mqty'])){ // строка по мелкому опту?>
+					if(($i['mopt_qty'] != 0 && $show_pretense === false) || ($i['mopt_qty'] != 0 && $show_pretense === true && $i['contragent_mqty'] != $i['fact_mqty'])){ // строка по мелкому опту?>
 					<?$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
 								<!-- <?if($i['image'] != ''){?>
-									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>">
-										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $i['image'])):'/images/nofoto.png'?>" alt="<?=htmlspecialchars($i['name'])?>" title="Нажмите для увеличения">
+									<a href="<?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['image']))?_base_url.htmlspecialchars(str_replace('/original/', '/medium/', $i['image'])):'/images/nofoto.png'?>">
+										<img src="<?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['image']))?_base_url.htmlspecialchars(str_replace('/original/', '/medium/', $i['image'])):'/images/nofoto.png'?>" alt="<?=htmlspecialchars($i['name'])?>" title="Нажмите для увеличения">
 									</a>
 								<?}else{?>
 									<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide">
-										<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" />
+										<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace('/efiles/', '/efiles/_thumb/', $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" />
 									</a>
 								<?}?> -->
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $i['images'][0]['src']))?str_replace('original', 'small', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['images'][0]['src']))?str_replace('/original/', '/medium/', $i['images'][0]['src']):'/images/nofoto.png'?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $i['images'][0]['src']))?str_replace('/original/', '/medium/', $i['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $i['img_1'])):"/images/nofoto.png"?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace('/image/', '/image/250/', $i['img_1'])):'/images/nofoto.png'?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=$i['img_1']?htmlspecialchars(str_replace('/image/', '/image/250/', $i['img_1'])):'/images/nofoto.png'?>"/></noscript>
 								<?}?>
 							</td>
 							<td class="name_cell">
@@ -110,25 +110,25 @@
 								<div>Арт.<?=$i['art']?></div>
 							</td>
 							<td class="price_cell">
-								<p id="pprice_mopt_<?=$i['id_product']?>"><?=number_format($i['site_price_mopt'], 2, ",", "")?></p>
+								<p id="pprice_mopt_<?=$i['id_product']?>"><?=number_format($i['site_price_mopt'], 2, ',', '')?></p>
 							</td>
 							<td class="price_cell">
 								<p><?=$i['mopt_qty']?> шт.</p>
 							</td>
 							<td class="price_cell">
-								<p><?=number_format($i['mopt_sum'], 2, ",", "")?></p>
+								<p><?=number_format($i['mopt_sum'], 2, ',', '')?></p>
 							</td>
-							<?$t['mopt_sum']+=round($i['mopt_sum'],2);?>
-							<?$i['contragent_mqty'] = ($i['contragent_mqty']>=0)?$i['contragent_mqty']:$i['mopt_qty'];?>
+							<?$t['mopt_sum'] += round($i['mopt_sum'], 2);?>
+							<?$i['contragent_mqty'] = ($i['contragent_mqty'] >= 0)?$i['contragent_mqty']:$i['mopt_qty'];?>
 							<td class="count_cell">
 								<p><?=$i['contragent_mqty']?></p>
 							</td>
-							<?$t['contragent_mqty']+=$i['contragent_mqty'];?>
-							<?$i['contragent_msum'] = ($i['contragent_msum']!=0 || $i['contragent_mqty']>=0)?$i['contragent_msum']:round($i['site_price_mopt']*$i['mopt_qty'],2);?>
+							<?$t['contragent_mqty'] += $i['contragent_mqty'];?>
+							<?$i['contragent_msum'] = ($i['contragent_msum'] != 0 || $i['contragent_mqty'] >= 0)?$i['contragent_msum']:round($i['site_price_mopt']*$i['mopt_qty'], 2);?>
 							<td class="price_cell">
 								<p><?=$i['contragent_msum'] == 0? '-':$i['contragent_msum'];?></p>
 							</td>
-							<?$t['contragent_msum']+=$i['contragent_msum'];?>
+							<?$t['contragent_msum'] += $i['contragent_msum'];?>
 						</tr>
 					<?}?>
 					<script>p_ids[ii++] = <?=$i['id_product']?>;</script>
@@ -138,17 +138,17 @@
 					<td ><p>Итого:</p></td>
 					<td class="count_cell"><p><?=$i['sum_discount']?></p></td>
 					<td class="price_cell"><p><?=$t['contragent_qty']+$t['contragent_mqty']?></p></td>
-					<td class="price_cell"><p><?=$t['contragent_sum']+$t['contragent_msum'] == 0?'-':$t['contragent_sum']+$t['contragent_msum']; ?></p></td>
+					<td class="price_cell"><p><?=$t['contragent_sum']+$t['contragent_msum'] == 0?'-':$t['contragent_sum']+$t['contragent_msum'];?></p></td>
 				</tr>
-				<?if($i['id_pretense_status']==0){
-					$articles_arr=array_unique($articles_arr);?>
-					<?if($data[0]['id_order_status']==2 && $data[0]['id_pretense_status']==0){
+				<?if($i['id_pretense_status'] == 0){
+					$articles_arr = array_unique($articles_arr);?>
+					<?if($data[0]['id_order_status'] == 2 && $data[0]['id_pretense_status'] == 0){
 						if($active_pretense_btn){?>
 							<tr id="pretense_row">
 								<td class="code_cell">
 									<select name="pretense_article[]">
 										<?foreach ($articles_arr as $art){?>
-										<option value="<?=$art?>"><?=$art?></option>
+											<option value="<?=$art?>"><?=$art?></option>
 										<?}?>
 									</select>
 								</td>
@@ -176,7 +176,7 @@
 					}
 				}else{
 					if(!empty($pretarr)){
-						foreach ($pretarr as $p){?>
+						foreach($pretarr as $p){?>
 							<tr>
 								<td class="code_cell">
 									<div class="unit">
@@ -212,7 +212,7 @@
 			<td class="code_cell">
 				<select name="pretense_article[]">
 					<?foreach($articles_arr as $art){?>
-					<option value="<?=$art?>"><?=$art?></option>
+						<option value="<?=$art?>"><?=$art?></option>
 					<?}?>
 				</select>
 			</td>
@@ -239,8 +239,8 @@
 			<div class="customerOrderFooter">
 				<div class="customer">
 					<span>Покупатель</span>
-					<span>Имя: <?=$order['cont_person']?></span> 
-					<span>тел.: <?=$order['phones']?></span>						
+					<span>Имя: <?=$order['cont_person']?></span>
+					<span>тел.: <?=$order['phones']?></span>
 				</div>
 				<div class="price-order">
 					<p>Cформировать прайс-лист:</p>
@@ -256,11 +256,11 @@
 					<button class="mdl-button mdl-js-button mdl-button--raised btn_js" data-name="cloneOrder">Сформировать заказ на основании данного</button>
 
 					<?if($i['id_order_status'] == 1){?>
-						<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить заказ</button>			
+						<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить заказ</button>
 					<?}?>
 
 					<form action="<?=_base_url?>/cart/<?=$i['id_order']?>" method="post" class="fleft">
-						<!-- <button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button" data-target="order_remake_js">Сформировать заказ на основании данного</button> -->				
+						<!-- <button type="submit" class="remake_order btn-m-green open_modal mdl-button mdl-js-button" data-target="order_remake_js">Сформировать заказ на основании данного</button> -->
 					</form>
 
 					<!-- <?if($i['id_order_status'] == 1){?>
@@ -283,71 +283,64 @@
 					</form>
 					</div> -->
 				</div>
-					
+
 			</div>
 		<?}?>
 </div><!--class="cabinet"-->
 <script type="text/javascript">
-
 	/*Создать новый заказ на основе текущего*/
-	$(function(){ 
+	$(function(){
 		var id_order = $('.current_id_order').data('value');
-
 		/*Отмена заказа*/
 		$('#cnclOrderBtnMod').on('click', function(e){
 			ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
 				if(data === true){
-					closeObject('confirmCnclOrder');					
-					$('.cnslOrderBtn').addClass('hidden');		
+					closeObject('confirmCnclOrder');
+					$('.cnslOrderBtn').addClass('hidden');
 				}
 			});
 		});
-		
-		
-		$('#replaceCartMod').on('click', function(e){		
+		$('#replaceCartMod').on('click', function(e){
 			ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
 				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 				});
 			});
 		});
-		
-
-		$('#addtoCartMod').on('click', function(e){	
-			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){			
+		$('#addtoCartMod').on('click', function(e){
+			ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
 				ajax('cart', 'GetCart').done(function(data){ // получить массив корзины и изменить отображение кол-ва товаров на иконке корзины
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
-				});	
+				});
 			});
 		});
 	});
-
 	function AddPretenseRow(obj){
-		$("#row_tpl").clone(false).insertAfter('#pretense_row').css("display", "").attr("id","row");
-	};
+		$('#row_tpl').clone(false).insertAfter('#pretense_row').css('display', '').attr('id', 'row');
+	}
 	function FactRecalcSum(obj, id, opt){
 		if(opt){
-			$("#pfact_sum_"+id).text((obj.value * $("#pprice_opt_"+id).text()).toFixed(2) );
+			$('#pfact_sum_'+id).text((obj.value * $('#pprice_opt_'+id).text()).toFixed(2) );
 		}else{
-			$("#pfact_msum_"+id).text((obj.value * $("#pprice_mopt_"+id).text()).toFixed(2) );
+			$('#pfact_msum_'+id).text((obj.value * $('#pprice_mopt_'+id).text()).toFixed(2) );
 		}
 		fact_qty = 0;
-		for(jj=0;jj<ii;jj++){
-			if($("#fact_qty_"+p_ids[jj]).length)
-				fact_qty += parseFloat($("#fact_qty_"+p_ids[jj]).val());
-			if($("#fact_mqty_"+p_ids[jj]).length)
-				fact_qty += parseFloat($("#fact_mqty_"+p_ids[jj]).val());
+		for(jj = 0; jj < ii; jj++){
+			if($('#fact_qty_'+p_ids[jj]).length)
+				fact_qty += parseFloat($('#fact_qty_'+p_ids[jj]).val());
+			if($('#fact_mqty_'+p_ids[jj]).length)
+				fact_qty += parseFloat($('#fact_mqty_'+p_ids[jj]).val());
 		}
-		$("#pfact_qty").text(fact_qty);
+		$('#pfact_qty').text(fact_qty);
 		fact_sum = 0;
-		for(jj=0;jj<ii;jj++){
-			if($("#fact_qty_"+p_ids[jj]).length){
-				fact_sum += parseFloat($("#pfact_sum_"+p_ids[jj]).text());
+		for(jj = 0; jj < ii; jj++){
+			if($('#fact_qty_'+p_ids[jj]).length){
+				fact_sum += parseFloat($('#pfact_sum_'+p_ids[jj]).text());
 			}
-			if($("#fact_mqty_"+p_ids[jj]).length){
-				fact_sum += parseFloat($("#pfact_msum_"+p_ids[jj]).text());
+			if($('#fact_mqty_'+p_ids[jj]).length){
+				fact_sum += parseFloat($('#pfact_msum_'+p_ids[jj]).text());
 			}
 		}
-		$("#pfact_sum").text(fact_sum.toFixed(2));
+		$('#pfact_sum').text(fact_sum.toFixed(2));
 	}
 </script>

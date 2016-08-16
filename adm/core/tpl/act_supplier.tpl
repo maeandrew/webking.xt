@@ -216,7 +216,7 @@ td.c8 {
 				<tr class="main">
 					<td class="bl c1">
 						<?if(!empty($i['images'])){?>
-							<img <?=$wh?> src="<?=_base_url;?><?=str_replace('/original/', '/small/', $i['images'][0]['src'])?>" alt="<?=$i['name']?>">
+							<img <?=$wh?> src="<?=_base_url;?><?=str_replace('/original/', '/medium/', $i['images'][0]['src'])?>" alt="<?=$i['name']?>">
 						<?}else{?>
 							<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/250/", $i['img_1'])?>"/>
 						<?}?>

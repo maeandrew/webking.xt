@@ -4,7 +4,7 @@
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	$action = false;
-	if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])){
 		$action = true;
 	}?>
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
@@ -148,7 +148,7 @@
 				});
 				$(function(){
 					//Слайдер миниатюр картинок.
-					$('#owl-product_mini_img_js .item').on('click', function(event) {
+					$('#owl-product_mini_img_js .item').on('click', function(event){
 						var src = $(this).find('img').attr('src');
 						var viewport_width = $(window).width();
 						if(viewport_width > 711){
@@ -187,15 +187,15 @@
 					<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
 					<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
 				<?}?>
-				<?if($item['c_rating'] > 0){?>					
+				<?if($item['c_rating'] > 0){?>
 					<ul class="rating_stars">
 						<?for($i = 1; $i <= 5; $i++){
 							$star = 'star';
 							if($i > floor($item['c_rating'])){
 								if($i == ceil($item['c_rating'])){
-									if (number_format($item['c_rating'], 1)[2] >= 5) {
+									if(number_format($item['c_rating'], 1)[2] >= 5){
 										$star .= '_half';
-									}else if (number_format($item['c_rating'], 1)[2] < 5) {
+									}elseif(number_format($item['c_rating'], 1)[2] < 5){
 										$star .= '_border';
 									}
 								}else{
@@ -218,21 +218,21 @@
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0 ? "" : "hidden" ?>">
-				<h1>ТОВАР ПРОДАН</h1>				
+				<h1>ТОВАР ПРОДАН</h1>
 			</div>
 			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0 ? "hidden" : "" ?> " data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
 					<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-						<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
+						<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
 							<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 						<?}else{?>
 							<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 						<?}?>
 					</div>
-					<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">						
-						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>						
+					<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
 					</div>
 					<!-- Цена поставщика -->
 					<div class="price card_item <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
@@ -269,15 +269,15 @@
 						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 
 						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
-						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>					
-						
+						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
+
 						<div class="units"><?=$item['units'];?></div>
 					</div>
 					<!-- Блок для поставщика -->
-					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">						
+					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
 						<div class="count_cell">
 							<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
-							<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>			
+							<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>
 						</div>
 						<div class="count_cell">
 							<span class="suplierPriceBlockLabel">Количество в ящике:</span>
@@ -300,7 +300,7 @@
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
 					<li class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
-						<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
+						<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])){?>
 							<i id="forfavorite" class="isfavorite material-icons">favorite</i>
 							<span class="mdl-tooltip" for="forfavorite">Товар уже в избранном</span></li>
 						<?}else{?>
@@ -312,7 +312,7 @@
 					<div class="mdl-tooltip fortrending_info_tooltip" for="fortrending"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
 					<li><i id="shareButton" class="material-icons" title="Поделиться">share</i>
 						<span class="mdl-tooltip" for="shareButton">Поделиться</span></li>
-				</ul>				
+				</ul>
 				<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">
 					<ul class="social">
 						<li>
@@ -329,7 +329,7 @@
 							<a href="https://plus.google.com/share?url=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+">
 							</a>
-						</li>						
+						</li>
 						<li>
 							<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($GLOBALS['Rewrite']);?>&title='<?=htmlspecialchars($item['name'])?>'&description=<?=strip_tags($item['descr'])?>&picture=<?=_base_url?><?=$item['img_1']?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
 								<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
@@ -345,7 +345,7 @@
 			</div>
 		</div>
 		<div class="sold_produxt_info <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0  ? "" : "hidden" ?>">
-			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p> 
+			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p>
 			<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
 			<ul><li id="fortrending_info" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 				<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li></ul>
@@ -498,15 +498,15 @@
 								<?if(!empty($p['images'])){?>
 									<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium')?>">
 								<?}else	if(!empty($p['img_1'])){?>
-									<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>"/>
+									<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>"/>
 								<?}else{?>
 									<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 								<?}?>
 								<span><?=$p['name']?></span>
-								<?if ($p['price_mopt'] > 100) {?>
+								<?if($p['price_mopt'] > 100){?>
 									<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
 								<?}else{?>
-									<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
+									<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
 								<?}?>
 							</a>
 						</div>
@@ -537,17 +537,17 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'][0])){?>
-								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
-							<?if ($p['price_mopt'] > 100) {?>
+							<?if($p['price_mopt'] > 100){?>
 								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
 							<?}?>
 						</a>
 					</div>
@@ -563,17 +563,17 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'][0])){?>
-								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
-							<?if ($p['price_mopt'] > 100) {?>
+							<?if($p['price_mopt'] > 100){?>
 								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ",", "")?> грн.</div>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
 							<?}?>
 						</a>
 					</div>
@@ -589,17 +589,17 @@
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
 							<?if(!empty($p['images'][0])){?>
-								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'small');?>">
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 							<?}else	if(!empty($p['img_1'])){?>
-								<img alt="<?=htmlspecialchars(str_replace('"', '', $p['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'small');?>"/>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
 							<?}else{?>
 								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
 							<?}?>
 							<span><?=$p['name']?></span>
-							<?if ($p['price_mopt'] > 100) {?>
+							<?if($p['price_mopt'] > 100){?>
 								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
 							<?}?>
 						</a>
 					</div>
@@ -629,7 +629,7 @@
 			}else{
 				event.preventDefault();
 			}
-		}).on('click','.videoBlock', function(e) { //выбор видео и его перемещение в главное окно
+		}).on('click','.videoBlock', function(e){ //выбор видео и его перемещение в главное окно
 			e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
 			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
 			$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
@@ -638,16 +638,16 @@
 			$('.product_main_img').find('iframe').attr('src', src);
 			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
 			});
-		
+
 		$('#demand_graph').load(function(){
 			$(this).contents().find('body').css('overflow', 'hidden');
 			$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
 		});
-	
+
 		//Инициализация добавления товара в избранное
-		$('.favorite i').click(function(e) {
+		$('.favorite i').click(function(e){
 			e.preventDefault();
-			if ($(this).closest('.favorite').hasClass('added')) {
+			if ($(this).closest('.favorite').hasClass('added')){
 				$(this).closest('.favorite').removeClass('added');
 				RemoveFavorite($(this).closest('li').data('id-product'), $(this));
 			}else{
@@ -656,9 +656,9 @@
 			}
 		});
 		//Инициализация добавления товара в список ожидания
-		$('.waiting_list').click(function(e) {
+		$('.waiting_list').click(function(e){
 			e.preventDefault();
-			if ($(this).hasClass('arrow')) {
+			if ($(this).hasClass('arrow')){
 				$('#specCont').find('.arrow').removeClass('arrow');
 				RemoveFromWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 			}else{
@@ -666,8 +666,8 @@
 				AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
 			}
 		});
-		
-		$('.product_main_img').click(function(event) {
+
+		$('.product_main_img').click(function(event){
 			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 		});
 	});

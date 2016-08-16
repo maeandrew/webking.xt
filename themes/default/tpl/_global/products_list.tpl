@@ -28,9 +28,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 								<div class="<?=$st['class']?>"></div>
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.str_replace('/original/', '/medium/', $item['images'][0]['src']);?>"/>
 									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.str_replace('original', 'medium', $item['images'][0]['src']);?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.str_replace('/original/', '/medium/', $item['images'][0]['src']);?>"/>
 									</noscript>
 								<?}else{?>
 									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
@@ -42,7 +42,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						</div>
 						<div class="product_name p<?=$item['id_product']?>">
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
-							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>							
+							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
 							<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 								<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
 								<label class="info_key">?</label>
@@ -61,7 +61,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 									</p>
 								</div>
 							</form> -->
-						</div>				
+						</div>
 					<!-- </div> -->
 					<?$in_cart = false;
 					if(isset($_SESSION['cart']['products'][$item['id_product']])){
@@ -94,16 +94,16 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<div class="btn_buy">
 							<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 							<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-							<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>		
+							<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
 						</div>
-						<div class="quantity">							
+						<div class="quantity">
 							<div class="quantityReverseBlock">
 								<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 								<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
 
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" step="<?=$item['min_mopt_qty'];?>">
-								
+
 								<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
 							</div>
@@ -184,9 +184,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<?}?>
 				<div class="clear_card"></div>
 			</div>
-		<?}	      
+		<?}
 	    break;
-	case _ACL_SUPPLIER_:	    	
+	case _ACL_SUPPLIER_:
     	?><div class="card card_tittle">
 			<div class="product_photo card_item">Фото товара</div>
 			<p class="product_name card_item">Наименование товара</p>
@@ -198,8 +198,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			</div>
 			<div class="clear_card"></div>
 		</div><?
-		foreach($list as $item){ 
-			$action = false; 
+		foreach($list as $item){
+			$action = false;
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
@@ -211,9 +211,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
 							<noscript>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
 							</noscript>
 						<?}else{?>
 							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
@@ -224,7 +224,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					</a>
 				</div>
 				<p class="product_name card_item"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a><span class="product_article">Арт: <?=$item['art'];?></span></p>
-				<div class="suplierPriceBlock">					
+				<div class="suplierPriceBlock">
 					<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
 						<?if($item['price_opt_otpusk'] != 0){
 							echo number_format($item['price_opt_otpusk'], 2, ".", "").' грн.';
@@ -234,7 +234,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					</p></div>
 					<div class="count_cell card_item">
 						<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
-						<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>			
+						<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>
 					</div>
 					<div class="count_cell card_item">
 						<span class="suplierPriceBlockLabel">Количество в ящике:</span>
@@ -243,7 +243,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 
 					<div class="product_check card_item">
 						<span class="suplierPriceBlockLabel">Добавить:</span>
-						<label  class="mdl-checkbox mdl-js-checkbox">				
+						<label  class="mdl-checkbox mdl-js-checkbox">
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
 							<input type="checkbox" class="check mdl-checkbox__input" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this, <?=$item['id_product']?>)"/>
 						</label>
@@ -252,17 +252,17 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clear_card"></div>
 			</div>
 		<?}
-    	break;		
-	default:		 
+    	break;
+	default:
     	foreach($list as $item){
 			$in_cart = false;
-			$action = false;			
-			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));			
+			$action = false;
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="card" data-idproduct="<?=$item['id_product']?>">				
+			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$action = true;
 				}?>
@@ -272,8 +272,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'medium', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'small', $item['images'][0]['src']))?str_replace('original', 'small', $item['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $item['images'][0]['src']))?str_replace('/original/', '/medium/', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $item['images'][0]['src']))?str_replace('/original/', '/medium/', $item['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 						<?}else{?>
 							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
@@ -292,12 +292,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></div>
 						<div class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
 						<div class="preview_icon_block"><div class="material-icons preview_icon">zoom_in</div></div>
-					</div>					
+					</div>
 				</div>
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
-					
+
 					<div class="product_info">
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
@@ -336,7 +336,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<div class="btn_buy">
 							<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 							<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-							<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>		
+							<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
 						</div>
 						<div class="quantity">
 							<div class="quantityReverseBlock">
@@ -345,7 +345,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 
 								<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
 								<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>">
-								
+
 								<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 								<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
 							</div>
@@ -371,14 +371,14 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 </div>
 
 <script>
-	$(function(){	
+	$(function(){
 		//Инициализация добавления товара в избранное
 		$('.favorite i').click(function(e) {
 			e.preventDefault();
 			if ($(this).closest('.favorite').hasClass('added')) {
 				$(this).closest('.favorite').removeClass('added');
 				RemoveFavorite($(this).closest('.favorite').data('id-product'), $(this));
-			}else{				
+			}else{
 				$(this).closest('.favorite').addClass('added');
 				AddFavorite($(this).closest('.favorite').data('id-product'), $(this));
 			}
@@ -395,7 +395,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				AddInWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
 			}
 		});
-		
+
 		$('.product_main_img').click(function(event) {
 			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 		});
