@@ -172,6 +172,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Segmentation = new Segmentation();
 				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
 				break;
+			case 'addSupplier':
+				echo json_encode($Products->GetSupplierInfoByArticle($_POST['art']));
+				break;
 
 
 			default:
