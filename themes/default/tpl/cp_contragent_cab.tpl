@@ -2,7 +2,7 @@
 	<?if(isset($errm) && isset($msg)){?><div class="msg-error"><p><?=$msg?></p></div><?}?>
 	<?if($contragent['remote'] == 1){?>
 		<p class="contragent_balance">Баланс: <b><?=$current_customer['balance']?number_format($current_customer['balance'], 2, ",", "").'грн.':'Н/Д';?></b></p>
-	<?}?> 
+	<?}?>
 	<button class="open_modal mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-m-blue btn_js" data-target="work_days_js" data-name="work_days_js"><i class="material-icons">access_time</i>Рабочие дни</button>
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="margin-form hidden">
 		<input type="text" name="discount" id="discount" value="<?=isset($current_customer['discount'])?htmlspecialchars(1-$current_customer['discount']/100):null?>" disabled="disabled">
@@ -14,11 +14,11 @@
 		<button type="submit" name="change_margin" id="change-margin" class="btn-m-green">Сохранить</button>
 	</form>
 	<div class="history">
-		<div class="order_number_filter">			
+		<div class="order_number_filter">
 			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 				<input type="text" name="order_number" placeholder="Введите номер заказа">
 				<button class="mdl-button mdl-js-button mdl-button--raised" name="show_order">Показать</button>
-				<button class="mdl-button mdl-js-button mdl-button--raised" name="cancel_order_filter">Сбросить</button>							
+				<button class="mdl-button mdl-js-button mdl-button--raised" name="cancel_order_filter">Сбросить</button>
 			</form>
 		</div>
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
@@ -56,7 +56,7 @@
 			</thead>
 			<?if(isset($orders) && !empty($orders)){
 				foreach($orders as $i){?>
-					<tr class="ord-<?=$i['id_order']?>" <? if($i['id_customer'] == $current['id_user']){?>style="background: #F1FFF1;"<?}?>>
+					<tr class="ord-<?=$i['id_order']?>" data-id-order="<?=$i['id_order']?>" <?=$i['id_customer'] == $current['id_user']?'style="background: #F1FFF1;"':null?>>
 						<td class="date">
 							<?=date("d.m.Y",$i['creation_date'])?>
 						</td>
@@ -107,8 +107,8 @@
 							<?}?>
 						</td>
 						<td colspan="2" class="notes">
-							<textarea onChange="setOrderNote(<?=$i['id_order']?>)" class="note1" id="order_note_<?=$i['id_order']?>"><?=isset($i['note'])?$i['note']:null?></textarea>
-							<textarea onChange="setOrderNote_zamena(<?=$i['id_order']?>)" class="note2" id="order_note2_<?=$i['id_order']?>"><?=isset($i['note2'])?$i['note2']:null?></textarea>
+							<textarea readonly onChange="setOrderNote(<?=$i['id_order']?>)" class="note1" id="order_note_<?=$i['id_order']?>"><?=isset($i['note'])?$i['note']:null?></textarea>
+							<textarea readonly onChange="setOrderNote_zamena(<?=$i['id_order']?>)" class="note2" id="order_note2_<?=$i['id_order']?>"><?=isset($i['note2'])?$i['note2']:null?></textarea>
 						</td>
 						<td class="bill">
 							<button id="invoice" class="invoice-create mdl-button mdl-js-button mdl-button--raised ord-<?=$i['id_order']?> btn-m-green btn_js" data-name="bill_form_js" data-target="bill_form_js" <?=$i['id_klient'] == 5462?'data-confirm="Покупатель не выбран. Продолжить?"':null?>>Счет</button>
@@ -125,7 +125,7 @@
 			<?}?>
 		</table>
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-	</div>	
+	</div>
 <!--
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="work_days_js" class="modal_hidden">
 		<table border="0" cellpadding="0" cellspacing="0" class="kontrag table">
@@ -258,9 +258,9 @@
 					<button type="submit" name="create-bill" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сформировать</button>
 				</div>
 			</form>
-		</div>	
+		</div>
 	</div>
-	<!-- CHANGE WORK DAYS MODAL FORM -->	
+	<!-- CHANGE WORK DAYS MODAL FORM -->
 	<div id="work_days_js" data-type="modal" >
 		<div class="modal_container">
 			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
@@ -307,4 +307,13 @@
 			e.preventDefault();
 		}
 	});
+	$('.invoice-create').on('click', function(){
+		var id_order = $(this).closest('tr').data('id-order');
+		$('#bill_form_js').find('.order_num').val(id_order).html(id_order);
+	});
+	$('.bill-create').on('click', function(){
+		var id_order = $(this).closest('tr').data('id-order');
+		$('#bill_form_js').find('.order_num').val(id_order).html(id_order);
+	});
+
 </script>
