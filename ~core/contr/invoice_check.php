@@ -49,7 +49,7 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 			}
 		}
 		$tpl->Assign("addr_deliv", $addr_deliv);
-		$arr = $Invoice->GetOrderData($id_order, isset($filial)?$filial:null);
+		$arr = $Invoice->GetOrderData($id_order);
 		$tpl->Assign("sum_discount", $arr[0]['sum_discount']);
 		$order2[$ord['id_order']] = array(
 			'id_order' => $ord['id_order'],

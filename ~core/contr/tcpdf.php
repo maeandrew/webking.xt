@@ -1,5 +1,5 @@
 <?php
-	require('~core/model/invoice_c.php');
+require('~core/model/invoice_c.php');
 require('tcPDFPlugin/tcpdf.php');
 $Contragents = new Contragents();
 $Contragents->SetFieldsById($_POST['contragent']);
@@ -12,7 +12,7 @@ if($_POST['recipient'] == 0){
 $settings['date'] = isset($_POST['date'])?$_POST['date']:null;
 $settings['doctype'] = $_POST['doctype'];
 if($_POST['margin']){
-	$settings['margin'] = str_replace(",",".",$_POST['margin']);
+	$settings['margin'] = str_replace(',', '.', $_POST['margin']);
 }else{
 	$settings['margin'] = 1;
 }
@@ -38,7 +38,7 @@ if($_POST['personal_client']){
 	$Customers->SetFieldsById($_POST['client']);
 	$cstmr = $Customers->fields;
 	if($cstmr){
-		$tpl->Assign("cstmr", $cstmr);
+		$tpl->Assign('cstmr', $cstmr);
 		$Citys = new Citys();
 		$Citys->SetFieldsById($cstmr['id_city']);
 		$order_details['address'] = $Citys->fields;
@@ -46,8 +46,7 @@ if($_POST['personal_client']){
 }
 $Invoice = new Invoice();
 $ord = $Invoice->GetOrderData($settings['order']);
-$tpl->Assign("order_details", $order_details);
-$tpl->Assign("settings", $settings);
-$tpl->Assign("order", $ord);
+$tpl->Assign('order_details', $order_details);
+$tpl->Assign('settings', $settings);
+$tpl->Assign('order', $ord);
 echo $tpl->Parse($GLOBALS['PATH_tpl'].'tcpdf.tpl');
-?>

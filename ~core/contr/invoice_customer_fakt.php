@@ -52,7 +52,7 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 			}
 		}
 		$tpl->Assign("addr_deliv", $addr_deliv);
-		$arr = $Invoice->GetOrderData_fakt($id_order, isset($filial)?$filial:null);
+		$arr = $Invoice->GetOrderData_fakt($id_order);
 		$positions = array();
 		$Sertificates = array();
 		if($Order->GetSuppliers($id_order)){

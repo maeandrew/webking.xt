@@ -21,6 +21,7 @@ $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 $header = 'Просмотр заказа';
+G::metaTags(array('page_title' => $header));
 $GLOBALS['IERA_LINKS'][] = array(
 	'title' => "Личный кабинет",
 	'url' => _base_url.'/cabinet/'

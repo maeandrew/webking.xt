@@ -4535,16 +4535,20 @@ class Products {
 
 	public function GetBetchesFhoto($id_photographer = false, $limit = false){
 		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
-		$sql = "SELECT pb.*, s.article, u.name, COUNT(p.id_product) AS count_product, COUNT(iv.id_product) AS image_visible, COUNT(iunv.id_product) AS image_unvisible
+		$sql = "SELECT pb.*, s.article, u.name, COUNT(pbp.id_product) AS count_product,
+				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 1 AND i.id_product IN
+				(SELECT pbp2.id_product FROM "._DB_PREFIX_."photo_batch_products pbp2
+				WHERE pbp2.id_photo_batch = pb.id)) AS image_visible,
+				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 0 AND i.id_product IN
+				(SELECT pbp3.id_product FROM "._DB_PREFIX_."photo_batch_products pbp3
+				WHERE pbp3.id_photo_batch = pb.id)) AS image_unvisible
 				FROM "._DB_PREFIX_."photo_batch pb
 				LEFT JOIN "._DB_PREFIX_."photo_batch_products pbp ON pbp.id_photo_batch = pb.id
 				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = pb.id_supplier
 				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = pbp.id_product
-				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = s.id_user
-				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 1) iv  ON iv.id_product = pbp.id_product
-				LEFT JOIN (SELECT * FROM "._DB_PREFIX_."image WHERE visible = 0) iunv  ON iunv.id_product = pbp.id_product"
-				.$where." GROUP BY pb.id_supplier ORDER BY pb.id DESC"
-				.($limit?' LIMIT'.$limit:'');
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = s.id_user"
+				.$where." GROUP BY pbp.id_photo_batch ORDER BY pb.id DESC"
+				.($limit?' LIMIT'.$limit:''); 
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

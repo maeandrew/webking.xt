@@ -287,8 +287,8 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/small/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
                 <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" />
                 <!-- <img height="250" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" /> -->
@@ -370,8 +370,8 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/small/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
                 <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" />
                 <!-- <img height="250" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" /> -->
@@ -459,8 +459,8 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/small/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
                 <img height="250" src="http://xt.ua<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" />
                 <!-- <img height="250" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" /> -->
@@ -575,8 +575,8 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
                 <?if($_GET['photo'] == 1){?>
                 <td style="width: 90px;">
                 <?if($p['image'] != ''){?>
-                <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/small/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
+                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
                 <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" />
                 <!-- <img height="90" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" /> -->
@@ -660,8 +660,8 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
                 <?if($_GET['photo'] == 1){?>
                 <td style="width: 90px;">
                 <?if($p['image'] != ''){?>
-                <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/small/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
+                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
                 <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" />
                 <!-- <img height="90" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $p['img_1']))?>" /> -->
@@ -738,8 +738,8 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$l['mopt_correction_
 <?if($_GET['photo'] == 1){?>
 <td style="width: 90px;">
 <?if($l['image'] != ''){?>
-<img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/small/", $l['image']))?>" alt="<?=$l['name']?>">
-<!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/small/", $l['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/small/", $l['image'])):'/images/nofoto.png'?>" alt="<?=$l['name']?>"> -->
+<img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/original/", "/medium/", $l['image']))?>" alt="<?=$l['name']?>">
+<!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $l['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $l['image'])):'/images/nofoto.png'?>" alt="<?=$l['name']?>"> -->
 <?}else{?>
 <img height="90" src="http://xt.ua<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $l['img_1']))?>" />
 <!-- <img height="90" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $l['img_1']))?>" /> -->
