@@ -12,7 +12,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
                 }
                 break;
             case"specificationUpdate":
-                $products->UpdateProduct(array('id_product'=>$_POST['id_product']));
+                $Products = new Products();
+                $Products->UpdateProduct(array('id_product'=>$_POST['id_product']));
                 if($_POST['id_spec_prod'] == ''){
                     if($Specification->AddSpecToProd($_POST, $_POST['id_product'])){
                         echo json_encode('ok');
