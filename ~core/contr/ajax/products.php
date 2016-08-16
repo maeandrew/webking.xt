@@ -156,8 +156,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($Products->UpdateTranslit($_POST['id_product']));
 				break;
 			case 'datalistSupplier':
-				$Supplier = new Suppliers();
-				echo json_encode($Supplier->GetIdOneRowArrayByArt($_POST['article']));
+				$Suppliers = new Suppliers();
+				echo json_encode($Suppliers->GetIdOneRowArrayByArt($_POST['article']));
+				break;
+			case 'removeRelated':
+				echo json_encode($Products->DelRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
+				break;
+			case 'insertRelated':
+				echo json_encode($Products->AddRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
 				break;
 
 

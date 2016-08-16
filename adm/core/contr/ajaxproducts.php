@@ -7,12 +7,8 @@
 				echo json_encode($Products->GetIdOneRowArrayByArt($_POST['article']));
 				break;
 
-			case 'insert_related':
-				echo json_encode($Products->AddRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
-				break;
-			case 'remove_related':
-				echo json_encode($Products->DelRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
-				break;
+
+
 			case 'add_supplier':
 				echo json_encode($Products->GetSupplierInfoByArticle($_POST['art']));
 				break;
