@@ -3,19 +3,7 @@
 	$Products = new Products();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
-			case 'specification_update':
-				$Specification = new Specification();
-				$Products->UpdateProduct(array('id_product'=>$_POST['id_product']));
-				if($_POST['id_spec_prod'] == ''){
-					if($Specification->AddSpecToProd($_POST, $_POST['id_product'])){
-						echo json_encode('ok');
-					}
-				}else{
-					if($Specification->UpdateSpecsInProducts($_POST)){
-						echo json_encode('ok');
-					}
-				}
-				break;
+
 			case 'update_translit':
 				echo json_encode($Products->UpdateTranslit($_POST['id_product']));
 				break;
