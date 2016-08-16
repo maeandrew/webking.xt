@@ -136,6 +136,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($echo);
 				break;
+			case 'updateDemandChart':
+				echo json_encode($Products->UpdateDemandChart($_POST, true));
+				break;
 
 
 			default:

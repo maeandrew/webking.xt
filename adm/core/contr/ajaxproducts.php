@@ -39,9 +39,7 @@
 				$Segmentation = new Segmentation();
 				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
 				break;
-			case 'UpdateDemandChart':
-				echo json_encode($Products->UpdateDemandChart($_POST, true));
-				break;
+
 			default:
 				break;
 		}
