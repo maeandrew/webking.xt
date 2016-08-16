@@ -209,7 +209,7 @@ $(function(){
 		$('input[name="id_reply"]').val(id);
 	});
 
-	$('.moderations input').on('click',function() {
+	$('.moderations input').on('click', function() {
 		var id = $(this).val(),
 			mode = 'mopt',
 			moderation = 0;
@@ -219,16 +219,7 @@ $(function(){
 		if ($(this).is(':checked')) {
 			moderation = 1;
 		}
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				'action': 'UpdateDemandChart',
-				'moderation': moderation, 'id_chart': id, 'mode': mode
-			}
-		});
+		ajax('products', 'updateDemandChart', {moderation: moderation, id_chart: id, mode: mode});
 	});
 	$('.permissions .controller').on('click', 'input.all', function(){
 		$(this).closest('.controller').find('input').prop('checked', $(this).is(':checked'));
