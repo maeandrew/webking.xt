@@ -4418,19 +4418,20 @@ class Products {
 		}
 		$article = $this->GetArtByID($id_product);
 		// try to add photos to the new product
+		// print_r($image);
 		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
 			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
-			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']).'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
+			$bd_path = str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
 			rename($path.$file['basename'], $path.$newname);
 			$images_arr[] = $bd_path.'/'.$newname;
-			$path = $GLOBALS['PATH_root'].'../';
+			$path = $GLOBALS['PATH_root'];
 			$visibility[] = $image['visible'] == 'true'?1:0;
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
 		foreach($images_arr as $filename) {
-			$path = $GLOBALS['PATH_root'].'..';
+			$path = $GLOBALS['PATH_root'];
 			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
 				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
@@ -4452,6 +4453,7 @@ class Products {
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
 			imagejpeg($res, $path.$filename);
 		}
+		print_r($images_arr);
 		$Images = new Images();
 		$Images->resize(false, $to_resize);
 		$this->UpdatePhoto($id_product, $images_arr, $visibility);

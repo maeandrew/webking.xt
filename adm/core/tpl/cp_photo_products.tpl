@@ -167,10 +167,10 @@
 		}
 	};
 
-	var url = URL_base+'productadd/';
+	var url = URL_base_global+'ajax/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
-		url: url+"?upload=true",
+		url: url+"?target=image&action=upload&path=<?=str_replace('\\', '\\\\', $GLOBALS['PATH_product_img']).'original/'.date('Y').'/'.date('m').'/'.date('d').'/';?>",
 		clickable: true,
 		previewsContainer: '.images_block',
 		previewTemplate: document.querySelector('#preview-template').innerHTML
