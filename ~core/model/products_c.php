@@ -2830,6 +2830,7 @@ class Products {
 		foreach($array as $row){
 			$res = array_combine($keys, $row);
 			if($id_product = $this->GetIdByArt($res['art'])){
+				$recalc_array[] = $id_product;
 				$res['active'] = 0;
 				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
 					$res['active'] = 1;
@@ -2855,6 +2856,7 @@ class Products {
 				}
 			}
 		}
+		$this->RecalcSitePrices($recalc_array);
 		return array($total_added, $total_updated);
 	}
 	/**
@@ -2940,7 +2942,6 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		$this->RecalcSitePrices(array($arr['id_product']));
 		return true;
 	}
 	/**
