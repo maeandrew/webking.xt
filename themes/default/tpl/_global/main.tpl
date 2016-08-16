@@ -52,8 +52,8 @@
 	echo '<script type="text/javascript">
 		var URL_base = "'._base_url.'/",
 			current_controller = "'.$GLOBALS['CurrentController'].'",
-			ajax_proceed = false,			
-			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},	
+			ajax_proceed = false,
+			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
 			IsLogged = '.(G::IsLogged()?'true':'false').',
 			IsMobile = '.(G::isMobile()?'true':'false').';
@@ -88,6 +88,14 @@
 
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
+
+		<?if(G::IsLogged()){?>
+			<!-- Google Tag Manager User-ID -->
+			<script>
+				dataLayer = [{'uid': '<?=$_SESSION['member']['id_user']?>'}];
+			</script>
+			<!-- END Google Tag Manager User-ID -->
+		<?}?>
 		<!-- Google counter -->
 		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
 		<!-- END Google counter -->
@@ -120,10 +128,10 @@
 			}
 		</style>
 	</noscript>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
+	<script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?>">
-	
+
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
 		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
@@ -246,7 +254,7 @@
 			</div>
 			<!-- Блок последних новостей -->
 			<?if(isset($news) && $GLOBALS['CurrentController'] !== 'cabinet'){?>
-				<div class="last_news"> 				
+				<div class="last_news">
 					<div class="last_news_title">
 						<h4>Последние новости</h4>
 						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="min news_more mdl-button mdl-js-button">Все новости</a>
@@ -282,7 +290,7 @@
 									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button">Читать далее</a>
 								</div>
 							</div>
-						<?}?>	
+						<?}?>
 					</div>
 				</div>
 			<?}?>
@@ -305,7 +313,7 @@
 				</div>
 			<?}?>
 
-			
+
 		</section>
 		<div id="canvas_mark_wrapper">
 			<canvas id="err_canvas" width="10" height="10"></canvas>
@@ -325,7 +333,7 @@
 			<div class="err_msg_btn">cообщите нам об ошибке</div>
 		</div>
 	</div>
-	
+
 	<!-- message about error -->
 	<div class="err_msg_as_wrap err_msg_as_wrap_js">
 		<div class="err_msg_as err_msg_as_js">
@@ -366,7 +374,7 @@
 		<div class="mdl-tooltip" for="confidential">Заштриховать конфиденциальную информацию</div>
 		<div id="pencil_for_canvas" class="pencil_for_canvas pencil_for_canvas_js"></div>
 		<div class="mdl-tooltip" for="pencil_for_canvas">Карандаш</div>
-		<!-- Доработать функционал ластика 
+		<!-- Доработать функционал ластика
 		<div id="eraser_for_canvas" class="eraser_for_canvas eraser_for_canvas_js"></div>
 		<div class="mdl-tooltip" for="eraser_for_canvas">Ластик</div> -->
 		<button class="canvasReady canvasReady_js mdl-button mdl-js-button">Готово</button>
@@ -418,27 +426,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="ad_sense mdl-color--grey-200">
-				<?if($GLOBALS['CurrentController'] == 'products'){?>
-					<?if($GLOBALS['CURRENT_ID_CATEGORY'] == 478){?>
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Категории -->
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="8269932848" data-ad-format="auto"></ins>
-						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-					<?}elseif($GLOBALS['CURRENT_ID_CATEGORY'] == 479){?>
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- test -->
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="9873030842" data-ad-format="auto"></ins>
-						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-					<?}elseif($GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] == 480){?>
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Категории2 -->
-						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2337139989896773" data-ad-slot="7119113645" data-ad-format="auto"></ins>
-						<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-					<?}?>
-				<?}else{?>
-					<!-- <img src="//lh3.ggpht.com/H8LE7fE6SRPpyBIs3CpNLn_4LBxZjmHbCos9CCeyDmUEGGI05vBM1QoQLcvDMp8sp70EI5Pk=w250" height="250" width="300"> -->
-				<?}?>
+			<div class="ad_sense">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Обьявление в футере -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:250px"
+				     data-ad-client="ca-pub-2337139989896773"
+				     data-ad-slot="4925398447"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
 			</div>
 		</div>
 		<div class="copyright">
@@ -531,7 +528,7 @@
 						<label class="mdl-selectfield__label" for="sign_up_contragent">Менеджер</label>
 					</div>
 						<!-- <p>Оставьте поле пустым, если не уверены</p> -->
-<!-- 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="text" id="sign_up_email" name="email">
 						<label class="mdl-textfield__label" for="sign_up_email">Email</label>
 						<span class="mdl-textfield__error">Ошибка ввода email!</span>
@@ -632,7 +629,7 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="user_number">Телефон</label>
 						<input class="mdl-textfield__input phone" type="text" id="user_number"
-						pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i">
+						pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}">
 						<label class="mdl-textfield__label" for="user_number"></label>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Найти</button>
@@ -655,15 +652,15 @@
 			<div class="new_name_block hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label for="new_user_surname">Фамилия</label>
-					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_surname">					
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_surname">
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label for="new_user_name">Имя</label>
-					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_name">					
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_name">
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label for="new_user_middle_name">Отчество</label>
-					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_middle_name">				
+					<input class="mdl-textfield__input new_name_input" type="text" id="new_user_middle_name">
 				</div>
 			</div>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_customer hidden ">Добавить</button>
@@ -722,7 +719,7 @@
 			<div><label class="mdl-radio mdl-js-radio" for="choise_verification_code">
 				<input type="radio" id="choise_verification_code" class="mdl-radio__button" name="verification" data-value="verification_code">
 				<span class="mdl-radio__label">SMS на Ваш номер телефона</span>
-			</label></div>			
+			</label></div>
 			<div class="cur_passwd_container">
 				<div class="cur_passwd mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label class="mdl-textfield__label" for="cur_passwd">Введите текущий пароль:</label>
@@ -751,7 +748,7 @@
 			<button class="mdl-button mdl-js-button mdl-button--raised confirm_pass_js">Подтвердить</button>
 			<button class="mdl-button mdl-js-button mdl-button--raised confirm_code_js hidden">Подтвердить</button>
 		</div>
-		
+
 		<!-- Предложения / Жалобы -->
 		<div id="offers" class="content_modal_win" data-type="modal">
 			<div class="modal_container blockForForm">
@@ -884,14 +881,13 @@
 	<!--------------------------------------------------
 	С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
 	------------------------------------------------- -->
-	
+
 	<!-- <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> -->
 	<!-- <noscript>
 		<div style="display:inline;">
 		<img height="1" width="1" style="border-style:none;" alt="googleads" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880553131/?value=0&amp;guid=ON&amp;script=0"/>
 		</div>
 	</noscript> -->
-
 	<!-- message about cookie -->
 	<div class="cookie_wrap<?=!empty($_COOKIE['useCookie'])?' hidden':null;?>">
 		<div class="cookie_msg cookie_msg_js">
@@ -901,7 +897,7 @@
 		</div>
 	</div>
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
-	
+
 	<?if(SETT == 2){
 		echo $GLOBALS['CONFIG']['jivosite'];
 	}?>

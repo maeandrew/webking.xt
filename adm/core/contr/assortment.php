@@ -49,11 +49,7 @@ if(isset($_FILES['import_file'])){
 			$tpl->Assign('errm', 1);
 			exit;
 		}
-		if(isset($_POST['smb_import_usd'])){
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES['import_file']['tmp_name']);
-		}else{
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name']);
-		}
+		list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name'], isset($_POST['smb_import_usd']));
 		$tpl->Assign('total_added', $total_added);
 		$tpl->Assign('total_updated', $total_updated);
 	}else{
@@ -87,7 +83,7 @@ $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
 );
 $Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible' => 1));
 $Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($Supplier->fields['id_user']));
-$check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
+$check_sum = $Supplier->GetCheckSumSupplierProducts($Users->fields['id_user']);
 $tpl->Assign("check_sum", $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);

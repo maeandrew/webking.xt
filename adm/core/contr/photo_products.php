@@ -25,6 +25,8 @@ $tpl->Assign('users_list', $users->list);
 $suppliers->SuppliersList();
 $tpl->Assign('suppliers_list', $suppliers->list);
 if(isset($id_photographer)){
+	$categories = $products->generateCategory();
+	$tpl->Assign('categories', $categories);
 	$tpl->Assign('id_photographer', $id_photographer);
 	// pagination
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -34,16 +36,16 @@ if(isset($id_photographer)){
 		if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
-		$GLOBALS['Limit_db'] = 10;
-		$cnt = count($products->GetProductsByIdUser($id_photographer));
-		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt, 10);
+		$GLOBALS['Limit_db'] = 3;
+		$cnt = count($products->GetBetchesFhoto($id_photographer));
+		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt, 3);
 		$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 	}else{
 		$GLOBALS['Limit_db'] = 0;
 		$limit = '';
 	}
 	// --
-	$list = $products->GetProductsByIdUser($id_photographer, $limit);
-	$tpl->Assign('list', $list);
+	$batch = $products->GetBetchesFhoto($id_photographer, $limit);
+	$tpl->Assign('batch', $batch);
 }
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_photo_products.tpl');

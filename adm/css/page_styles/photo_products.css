@@ -15,9 +15,13 @@ h1 {
 .create_product h3 {
 	font-size: 1.5em;
 }
-.supplier, .prodName, .submit, .video_upload {	
+.supplier, .prodName, .categories, .submit, .video_upload {
 	/*float: left;*/
 	margin-top: 10px;
+	width: 25%;
+}
+.supplier, .prodName, .categories{
+	margin-top: 2em;
 }
 .previews { 
 	height: 135px;
@@ -44,12 +48,12 @@ h1 {
 	position: relative;
 	background: #fff;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-    -o-transition: all .4s cubic-bezier(.4,0,.2,1);
-    transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 .images_block .name {
 	width: 120px;
-    overflow: hidden;
+	overflow: hidden;
 }
 .images_block .image:hover {
 	box-shadow:  0px 2px 6px rgba(0, 0, 0, 0.2);
@@ -102,20 +106,36 @@ h1 {
 .image_block_new:hover {
 	box-shadow:  0px 2px 6px rgba(0, 0, 0, 0.2);
 }
-.upload_message {	
-    color: #fff;
-    background: #f44336;
-    width: 280px;    
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 5px;
-    line-height: 24px;
+.upload_message {
+	color: #fff;
+	background: #f44336;
+	width: 280px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 5px;
+	line-height: 24px;
 }
 /* Стили для списка оформленных товаров */
+.prodList thead.main_thead{
+	background: #616161;
+	color: #fff;
+}
+.prodList thead{
+	background: #c7eeff;
+}
+.prodList thead th {
+	padding: 1em;
+}
 .prodListItem {
-	border-top: 1px solid #bbbbbb;
+	border-bottom: 1px solid #bbbbbb;
 	padding-top: 5px;
-    padding-bottom: 5px;
+	padding-bottom: 5px;
+}
+.prodListItem:last-child{
+	border-bottom: none;
+}
+.batchListItem{
+	height: 5em;
 }
 .prodListItem .prodInfo {
 	float: left;
@@ -141,19 +161,21 @@ h1 {
 .prodImages {
 	clear: both;
 	display: flex;
-    overflow-x: auto;
+	overflow-x: auto;
+	padding: 1em;
 }
 .prodVideos {
 	clear: both;
 	display: flex;
-    overflow-x: auto;
+	overflow-x: auto;
 	height: 160px;
 }
+
 .prodImages img {
 	max-height: 90px;
 	width: 120px;
 	margin-right: 10px;
-	flex-shrink: 0;
+	flex: 0 0;
 	border: 1px solid #e0e0e0;
 }
 .prodVideos img {
@@ -179,6 +201,13 @@ h1 {
 .add_video {
 	color: #2E62CF;
 }
-.add_video:hover {	
+.add_video:hover {
 	cursor: pointer;
+}
+.create_product .categories select{
+	width: 200px;
+}
+.create_product .submit{
+	margin-top: 2em;
+	text-align: center;
 }

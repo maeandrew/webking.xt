@@ -38,5 +38,5 @@ foreach($list as $i){
 </div></li>
 </ul>
 <p class="catalog_map"><a href="/cat/">Карта каталога</a></p>
-<p class="catalog_map"><a href="/demo_order/">У НАС ЗАКАЗЫВАЮТ</a></p>
+<!-- <p class="catalog_map"><a href="/demo_order/">У НАС ЗАКАЗЫВАЮТ</a></p> -->
 

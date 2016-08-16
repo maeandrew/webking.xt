@@ -64,7 +64,7 @@ if(!in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 			$tpl_breadcrumbs .= $parsed_res['html'];
 		}
 	}
-	if($User->fields['gid'] != _ACL_MANAGER_ OR $User->fields['gid'] != _ACL_M_DILER_ OR $User->fields['gid'] != _ACL_CONTRAGENT_){
+	if($Users->fields['gid'] != _ACL_MANAGER_ OR $Users->fields['gid'] != _ACL_M_DILER_ OR $Users->fields['gid'] != _ACL_CONTRAGENT_){
 		$sb_count = 0;
 		// Левый сайдбар
 		// if(in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])){

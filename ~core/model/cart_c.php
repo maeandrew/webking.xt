@@ -173,6 +173,12 @@ class Cart {
 		if(isset($_SESSION['cart']['note'])){
 			unset($_SESSION['cart']['note']);
 		}
+		if(isset($_SESSION['cart']['base_order'])){
+			unset($_SESSION['cart']['base_order']);
+		}
+		if(isset($_SESSION['cart']['id_customer'])){
+			unset($_SESSION['cart']['id_customer']);
+		}
 		//Закоментированно временно. Поиск ошибки.
 		// if($id_cart){
 		// 	$sql = "DELETE FROM "._DB_PREFIX_."cart_product

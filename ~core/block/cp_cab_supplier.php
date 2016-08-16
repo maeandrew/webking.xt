@@ -3,15 +3,14 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'url' => _base_url.'/cabinet/assortment/'
 );
+$Products = new Products();
 $Supplier = new Suppliers();
 $Order = new Orders();
-$Users = new Users();
 $Unit = new Unit();
-$Supplier->SetFieldsById($User->fields['id_user']);
-$check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
+$supplier = $Supplier->SetFieldsById($_SESSION['member']['id_user']);
+$check_sum = $Supplier->GetCheckSumSupplierProducts($Supplier->fields['id_user']);
 $tpl->Assign("check_sum", $check_sum);
 $tpl->Assign("supplier", $Supplier->fields);
-$products = new Products();
 //*********************************Заполнение рабочих дней
 if(isset($GLOBALS['Rewrite'])){
 	$cabinet_page = $GLOBALS['Rewrite'];
@@ -25,7 +24,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		'title' => $header,
 		'url' => _base_url.'/cabinet/productsonmoderation/'
 	);
-	$list = $products->GetProductsOnModeration($_SESSION['member']['id_user']);
+	$list = $Products->GetProductsOnModeration($_SESSION['member']['id_user']);
 	$tpl->Assign('list', $list);
 	$parsed_res = array(
 		'issuccess'	=> true,
@@ -83,13 +82,13 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	//Физическое удаление файлов
 	if(isset($_POST['removed_images'])){
 		foreach($_POST['removed_images'] as $k=>$path){
-			if($products->CheckPhotosOnModeration($path)){
+			if($Products->CheckPhotosOnModeration($path)){
 				$Images->remove($GLOBALS['PATH_root'].str_replace('/files/', 'files/', $path));
 			}
 		}
 	}
 	// elseif(isset($_GET['remove']) == true){
-	// 	if($products->CheckPhotosOnModeration($_POST['image'])){
+	// 	if($Products->CheckPhotosOnModeration($_POST['image'])){
 	// 		$Images->remove($GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
 	// 	}
 	// 	echo str_replace($GLOBALS['PATH_root'], '/', $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/".$_POST['image']);
@@ -107,13 +106,13 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	}elseif(isset($_POST['editionsubmit']) == true){
 		//Расчет обьема продукта
 		$_POST['volume'] = ($_POST['height'] * $_POST['width'] * $_POST['length']) * 0.000001;
-		if($products->AddSupplierProduct($_POST)){
+		if($Products->AddSupplierProduct($_POST)){
 			header('Location: '._base_url.'/cabinet/productsonmoderation/');
 		}
 		exit(0);
 	}
 	if(isset($_GET['id']) == true && is_numeric($_GET['id']) && $_GET['type'] == 'moderation'){
-		$list = $products->GetProductOnModeration($_GET['id']);
+		$list = $Products->GetProductOnModeration($_GET['id']);
 		foreach($list as $k=>$l){
 			$_POST[$k] = $l;
 		}
@@ -183,9 +182,9 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		// Проверяем загружен ли файл
 		if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
 			if(isset($_POST['smb_import_usd'])){
-				list($total_added, $total_updated) = $products->ProcessAssortimentFileUSD($_FILES["import_file"]["tmp_name"]);
+				list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES["import_file"]["tmp_name"]);
 			}else{
-				list($total_added, $total_updated) = $products->ProcessAssortimentFile($_FILES["import_file"]["tmp_name"]);
+				list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES["import_file"]["tmp_name"]);
 			}
 			$tpl->Assign('total_added', $total_added);
 			$tpl->Assign('total_updated', $total_updated);
@@ -202,7 +201,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
-		$cnt = $products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible'=>1));
+		$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible'=>1));
 		$tpl->Assign('cnt', $cnt);
 		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 		$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -225,10 +224,10 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 			'url' => _base_url.'/cabinet/settings/'
 		);
 	}else{
-		$products->SetProductsListSupCab(array('a.id_supplier' => $Supplier->fields['id_user']), $limit, $orderby);
-		$tpl->Assign('list', $products->list);
+		$Products->SetProductsListSupCab(array('a.id_supplier' => $Supplier->fields['id_user']), $limit, $orderby);
+		$tpl->Assign('list', $Products->list);
 	}
-	$products->FillAssort($_SESSION['member']['id_user']);
+	$Products->FillAssort($_SESSION['member']['id_user']);
 	if(!isset($_POST['smb'])){
 		foreach($Supplier->fields as $k=>$v){
 			$_POST[$k] = $v;
@@ -268,11 +267,11 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		$author = $_SESSION['member']['id_user'];
 		$author_name = $_SESSION['member']['name'];
 		$authors_email = $_SESSION['member']['email'];
-		$related33 = $products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
+		$related33 = $Products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
 		header('Location: '._base_url.'/cabinet/assortment/');
 		exit();
 	}
-	$price_products = $products->GetPricelistProducts();
+	$price_products = $Products->GetPricelistProducts();
 	$tpl->Assign('price_products', $price_products);
 	$tpl->Assign('cal', $cal);
 	$tpl->Assign('sidebar', $tpl->Parse($GLOBALS['PATH_tpl'].'cp_supplier_cab.tpl'));
@@ -283,12 +282,12 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 }
 $tpl->Assign('header', $header);
 if($GLOBALS['Rewrite'] == "export"){
-	$r = $products->GetExportAssortRows($products->list, $Supplier->fields['id_user']);
-	$products->GenExcelAssortFile($r);
+	$r = $Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']);
+	$Products->GenExcelAssortFile($r);
 	exit(0);
 }elseif($GLOBALS['Rewrite'] == "export_usd"){
-	$r = $products->GetExportAssortRowsUSD($products->list, $Supplier->fields['id_user']);
-	$products->GenExcelAssortFile($r);
+	$r = $Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']);
+	$Products->GenExcelAssortFile($r);
 	exit(0);
 }else{
 	if(isset($_SESSION['_POST_'])) unset($_SESSION['_POST_']);

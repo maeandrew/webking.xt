@@ -2,7 +2,7 @@
 	float: left;
 }*/
 hr {
-	margin: 10px 0;
+	margin: 10px 0;	
 }
 .table tr {
 	line-height: 2em !important;
@@ -1038,7 +1038,7 @@ table.kontrag.table{
 	color: #FF5722;
 }
 #cab_left_bar > ul > li:hover {
-	background-color: #F5F5F5;
+	/*background-color: #F5F5F5;*/
 }
 #cab_left_bar .link_wrapp {
 	display: block;
@@ -3146,10 +3146,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.addres_field {
 		width: calc(100vw - 100px);
 	}
-}
-
-[data-type="panel"][data-position="left"] {
-	left: -80vw;
 }
 #catalog {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);

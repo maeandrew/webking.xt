@@ -1,4 +1,4 @@
-<div class="customer_cab">	
+<div class="customer_cab">
 	<h1>Мои заказы<?switch ($_GET['t']){
 			case 'working':
 				$s[] = 1;
@@ -21,7 +21,7 @@
 			default:
 				$s = array();
 			break;
-		}?></h1>	
+		}?></h1>
 	<div id="orders_history">
 		<div class="msg-info">
 			<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
@@ -105,9 +105,7 @@
 												<h5>Заказ:</h5>
 												<a class="newOrderLink" href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
-
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
-
 												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
 													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn" data-name="confirmDelOrder">Удалить</button>
 												<?}else if ($i['id_order_status'] == 6){?>
@@ -116,7 +114,6 @@
 													<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить</button>
 													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn hidden" data-name="confirmDelOrder">Удалить</button>
 													<!-- ВОТ ЭТО ПОТОМ ЗАМЕНИТЬ -->
-
 												<?}?>
 											</div>
 
@@ -212,7 +209,7 @@
 												<div class="delivery">
 													<div class="label">Способ доставки</div>
 													<div class="avatar">
-														<img src="http://lorempixel.com/abstract/70/70/" alt="avatar" />
+														<img src="/images/nofoto.png" alt="avatar" />
 													</div>
 													<div class="details">
 														<div class="line_1">
@@ -246,7 +243,7 @@
 													<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
 														<tr>
 															<td class="mdl-data-table__cell--non-numeric">
-																<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+																<div class="avatar img"><img src="/images/nofoto.png" alt="avatar" /></div>
 															</td>
 															<td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
 															<td><?=$infoCart['sum_cart']?></td>

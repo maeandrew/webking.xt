@@ -423,8 +423,8 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
+		global $Cart;
 		if(isset($arr)) {
-			$Cart = new Cart();
 			$GetCartForPromo = $Cart->GetCartForPromo($arr);
 			$OrderCart = array();
 			foreach ($GetCartForPromo['products'] as $k => $v) {
@@ -447,11 +447,10 @@ class Orders {
 		// 		$discount = $_SESSION['cart']['discount'];
 		// 	}
 		// }
-		global $cart;
 		// $this->UpdateSuppliersTurn();
 
 		// Пересмотреть проверку актуальности цен
-		// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+		// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
 		// if($err){
 		// 	if(isset($_SESSION['errm'])){
 		// 		$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
@@ -483,29 +482,52 @@ class Orders {
 		$Customers = new Customers();
 		$Customers->SetFieldsById($f['id_customer']);
 		$customer = $Customers->fields;
-		// Определяем ажрес по-умолчанию
+		// Определяем адрес по-умолчанию
 		$Address = new Address();
 		if($customer_address = $Address->GetPrimaryAddress($f['id_customer'])){
 			$_SESSION['member']['id_address'] = $f['id_addrress'] = $customer_address['id'];
 		}
-		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
-		}else{
-			//Определяем выходной или рабочий день у контрагента
-			$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
-			$sql = "SELECT work_day FROM "._DB_PREFIX_."calendar_contragent
-					WHERE id_contragent = ".$customer['id_contragent']." AND date = '".$date."'";
-			$res = $this->db->GetOneRowArray($sql);
-			if($res['work_day'] != 1){
-				//рандомный выбор контрагента
-				$contragents = new Contragents();
-				$contragents->SetList(false, false);
-				$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
-			}else{
-				$id_contragent = $customer['id_contragent'];
+
+		// Обновляем контрагента у покупателя
+		if(isset($_SESSION['cart']['id_contragent'])){
+			$array['id_contragent'] = $_SESSION['cart']['id_contragent'];
+			if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+				$_SESSION['member']['contragent']['id_user'] = $_SESSION['cart']['id_contragent'];
+				$array['id_user'] = $_SESSION['member']['id_user'];
+			}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && !empty($_SESSION['cart']['id_customer'])){
+				$array['id_user'] = $_SESSION['cart']['id_customer'];
 			}
-			$f['id_contragent'] = $id_contragent;
+		}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && !empty($_SESSION['cart']['id_customer'])){
+			$array['id_contragent'] = $_SESSION['member']['id_user'];
+			$array['id_user'] = $_SESSION['cart']['id_customer'];
 		}
+		if(isset($array['id_user'])){
+			$Customers->updateCustomer($array);
+		}
+
+		// Определяем контрагента
+		if(isset($_SESSION['cart']['id_contragent'])){
+			$id_contragent = $_SESSION['cart']['id_contragent'];
+		}else{
+			if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
+				$id_contragent = $_SESSION['member']['id_user'];
+			}else{
+				//Определяем выходной или рабочий день у контрагента
+				$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
+				$sql = "SELECT work_day FROM "._DB_PREFIX_."calendar_contragent
+					WHERE id_contragent = ".$customer['id_contragent']." AND date = '".$date."'";
+				$res = $this->db->GetOneRowArray($sql);
+				if($res['work_day'] != 1){
+					//рандомный выбор контрагента
+					$contragents = new Contragents();
+					$contragents->SetList(false, false);
+					$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
+				}else{
+					$id_contragent = $customer['id_contragent'];
+				}
+			}
+		}
+		$f['id_contragent'] = $id_contragent;
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
 			$f['bonus_card'] = $customer['bonus_card'];
 		}
@@ -663,6 +685,9 @@ class Orders {
 		if(isset($_SESSION['cart']['note'])){
 			unset($_SESSION['cart']['note']);
 		}
+		if(isset($_SESSION['cart']['id_contragent'])){
+			unset($_SESSION['cart']['id_contragent']);
+		}
 		return $id_order;
 	}
 	// public function Add($arr){
@@ -679,9 +704,9 @@ class Orders {
 		// if(count($OrderCart) == 0){
 		// 	return false;
 		// }
-		// global $cart;
+		// global $Cart;
 		// $this->UpdateSuppliersTurn();
-		// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+		// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
 		// if($err){
 		// 	if(isset($_SESSION['errm'])){
 		// 		$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);

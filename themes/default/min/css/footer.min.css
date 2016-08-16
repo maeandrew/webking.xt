@@ -15,7 +15,7 @@ footer .social ul{padding:10px 0 0;cursor:default}
 footer .social ul li{display:inline-block}
 footer .social ul li a{display:inline-block;height:30px;width:30px;border-radius:50%;background-color:#757575;margin-right:4px}
 footer .social ul li:last-child a{margin-right:0}
-footer .ad_sense{float:right;padding:10px;margin-bottom:2em;width:320px;height:270px;display:none}
+footer .ad_sense{float:right;margin-bottom:2em;max-width:300px;max-height:250px;position:relative}
 footer .ad_sense img{display:block;margin:0 auto}
 footer .social ul li .vk:hover{background-color:#4c75a3}
 footer .social ul li .ok:hover{background-color:#ff9c43}
@@ -39,7 +39,6 @@ footer .contacts{margin-top:2em}
 footer .ad_sense{float:none;clear:both;margin:0 auto 2em}
 footer .copyright p,footer .copyright p.created{float:none}
 }
-ins{display:none!important}
 footer.light{background:#f5f5f5;color:#444;border-top:1px solid #e0e0e0}
 footer.light a:hover{color:#FF5722}
 footer.light .copyright{background:#f5f5f5;border-top:1px solid #e0e0e0;color:#444}

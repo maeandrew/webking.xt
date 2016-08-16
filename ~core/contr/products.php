@@ -320,29 +320,33 @@ foreach($res as $cat){
 	}
 
 	// Пагинатор ===============================================
-	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
-		$GLOBALS['Limit_db'] = $_GET['limit'];
-	}
-	if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !isset($_GET['limit'])){
-		if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
-			$_GET['page_id'] = $GLOBALS['Page_id'];
+	if(isset($category['subcats']) && empty($category['subcats'])){
+		if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+			$GLOBALS['Limit_db'] = $_GET['limit'];
 		}
-		if(isset($where_search)){
-			$cnt = $products->GetProductsCnt($where_search);
-		}elseif(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
+		if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !isset($_GET['limit'])){
+			if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
+				$_GET['page_id'] = $GLOBALS['Page_id'];
+			}
+			if(isset($where_search)){
+				$cnt = $products->GetProductsCnt($where_search);
+			}elseif(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
+				$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
+			}else{
+				$cnt = $products->GetProductsCnt($where_arr);
+			}
+			$tpl->Assign('cnt', $cnt);
+			$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
+
+			$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+			unset($cnt);
+			$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 		}else{
-			$cnt = $products->GetProductsCnt($where_arr);
+			$GLOBALS['Limit_db'] = 0;
+			$limit = '';
 		}
-		$tpl->Assign('cnt', $cnt);
-		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
-		
-		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
-		unset($cnt);
-		$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
-	}else{
-		$GLOBALS['Limit_db'] = 0;
-		$limit = '';
+	} else{
+		$limit = ' LIMIT 30';
 	}
 	// =========================================================
 

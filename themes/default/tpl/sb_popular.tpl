@@ -4,10 +4,10 @@
 		<img style="display: block;margin: 0 auto;" alt="Скачать прайс-лист интернет-магазина ХарьковТОРГ" src="<?=file_exists($GLOBALS['PATH_root'].'/images/price_icon.png')?_base_url.'/images/price_icon.png':'/images/nofoto.png'?>"/>
 	</a>
 	<br>
-	<p class="catalog_map">
+	<!-- <p class="catalog_map">
 		<a href="<?=_base_url?>/demo_order/">У нас заказывают...</a>
 	</p>
-	<br>
+	<br>-->
 <?}?>
 <div class="sb_block sb_popular">
 	<h6><?=$title?></h6>

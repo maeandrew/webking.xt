@@ -23,7 +23,7 @@ class Products {
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
-			"p.page_keywords", "notation_price", "instruction", "p.indexation", "p.access_assort");
+			"p.page_keywords", "p.notation_price", "p.instruction", "p.indexation", "p.access_assort");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "c.note",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",
@@ -1113,29 +1113,26 @@ class Products {
 	 */
 	public function SetMinMaxPrice(){
 		$this->price_range = '';
-		if (isset($GLOBALS['Price_range'])) {
-
+		if(isset($GLOBALS['Price_range'])){
 			$this->price_range = " AND p.price_opt BETWEEN " . $GLOBALS['Price_range'][0]. " AND " . $GLOBALS['Price_range'][1];
 		}
 	}
 	/**
 	 * [SetProductsList1 description]
-	 * @param [type] $s [description]
+	 * @param [type] $id_supplier [description]
 	 */
-	public function SetProductsList1($s, $order=null, $limit){
+	public function SetProductsList1($id_supplier, $order = null, $limit){
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields).",  pv.count_views,
-			a.*
+		$sql = "SELECT DISTINCT ".implode(", ", $this->usual_fields).",
+			pv.count_views, a.*
 			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
 				ON pv.id_product = p.id_product
-			WHERE a.id_supplier = ".$s."
+			WHERE a.id_supplier = ".$id_supplier."
 			GROUP BY p.id_product".
 			(($order !== null)?"  ORDER BY ".$order:null).$limit;
 		$this->list = $this->db->GetArray($sql);
@@ -1658,7 +1655,7 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		if($supplier['single_price'] == 1 && $data['mode'] == 'mopt'){
+		if($supplier['single_price'] == 1 && isset($data['mode']) && $data['mode'] == 'mopt'){
 			$data['mode'] = 'opt';
 			$this->UpdateAssort($data);
 		}
@@ -1798,16 +1795,16 @@ class Products {
 		if($id_supplier == $_SESSION['member']['id_user']){
 			$this->InitProduct($id_product);
 		}
-		$f['id_supplier'] = $id_supplier;
-		$f['id_product'] = trim($id_product);
-		$f['price_opt_recommend'] =
-		$f['price_mopt_recommend'] =
-		$f['price_opt_otpusk'] =
-		$f['price_mopt_otpusk'] =
-		$f['price_opt_otpusk_usd'] =
-		$f['price_mopt_otpusk_usd'] =
-		$f['product_limit'] =
-		$f['active'] = 0;
+		$f['id_supplier']           = $id_supplier;
+		$f['id_product']            = trim($id_product);
+		$f['price_opt_recommend']   = 0;
+		$f['price_mopt_recommend']  = 0;
+		$f['price_opt_otpusk']      = 0;
+		$f['price_mopt_otpusk']     = 0;
+		$f['price_opt_otpusk_usd']  = 0;
+		$f['price_mopt_otpusk_usd'] = 0;
+		$f['product_limit']         = 0;
+		$f['active']                = 0;
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'assortiment', $f)){
 			$this->db->FailTrans();
@@ -1889,6 +1886,9 @@ class Products {
 	 * @param [type] $ids_products [description]
 	 */
 	public function RecalcSitePrices($ids_products = array()){
+		foreach($ids_products as $id_product){
+			$products_array[$id_product] = array();
+		}
 		set_time_limit(3600);
 		ini_set('memory_limit', '400M');
 		$sql = "SELECT p.id_product,
@@ -1902,18 +1902,24 @@ class Products {
 				".(!empty($ids_products)?" HAVING p.id_product IN (".implode(", ", $ids_products).")":null);
 		unset($ids_products);
 		$arr = $this->db->GetArray($sql);
-		foreach($arr as &$p){
-			$products_array[$p['id_product']][] = $p;
+		if(!empty($arr)){
+			foreach($arr as &$p){
+				$products_array[$p['id_product']][] = $p;
+			}
 		}
 		$return = array();
 		foreach($products_array as $k=>&$product){
-			foreach($product as &$p){
-				$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
-					? $p['price_opt_recommend']
-					: $result_prices[$k]['opt'];
-				$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
-					? $p['price_mopt_recommend']
-					: $result_prices[$k]['mopt'];
+			if(!empty($product)){
+				foreach($product as &$p){
+					$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
+						? $p['price_opt_recommend']
+						: $result_prices[$k]['opt'];
+					$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
+						? $p['price_mopt_recommend']
+						: $result_prices[$k]['mopt'];
+				}
+			}else{
+				$result_prices[$k]['opt'] = $result_prices[$k]['mopt'] = 0;
 			}
 		}
 		if(!$this->UpdateSitePricesMassive($result_prices)){
@@ -1921,7 +1927,7 @@ class Products {
 		}
 		set_time_limit(300);
 		ini_set('memory_limit', '192M');
-		return true;
+	return true;
 	}
 	/**
 	 * [UpdateSitePricesMassive description]
@@ -2657,29 +2663,26 @@ class Products {
 	 * @param [type] $id_supplier [description]
 	 */
 	public function GetExportAssortRows($list, $id_supplier){
-		$r = array();
-		$ii = 0;
-		$jj = 0;
+		$sql = "SELECT DISTINCT a.id_product, a.price_opt_otpusk,
+			a.price_mopt_otpusk, a.product_limit, a.sup_comment
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_supplier = ".$id_supplier."
+			AND a.inusd = 0";
+		$arr = $this->db->GetArray($sql, 'id_product');
 		foreach($list as $i){
-			$sql = "SELECT DISTINCT a.id_product, a.price_opt_otpusk,
-				a.price_mopt_otpusk, a.product_limit, a.sup_comment
-				FROM "._DB_PREFIX_."assortiment AS a
-				WHERE a.id_supplier = ".$id_supplier."
-				AND a.inusd = 0";
-			$arr = $this->db->GetArray($sql, 'id_product');
-			$jj = 0;
 			if(isset($arr[$i['id_product']])){
-				$r[$ii]['art_sup'] = $id_supplier;
-				$r[$ii]['art'] = $i['art'];
-				$r[$ii]['name'] = $i['name'];
-				$r[$ii]['price_opt_otpusk'] = round($arr[$i['id_product']]['price_opt_otpusk'], 2);
-				$r[$ii]['price_mopt_otpusk'] = round($arr[$i['id_product']]['price_mopt_otpusk'], 2);
-				$r[$ii]['product_limit'] = $arr[$i['id_product']]['product_limit'];
-				$r[$ii]['sup_comment'] = $arr[$i['id_product']]['sup_comment'];
+				$result[] = array(
+					'art_sup' => $id_supplier,
+					'art' => $i['art'],
+					'name' => $i['name'],
+					'price_opt_otpusk' => round($arr[$i['id_product']]['price_opt_otpusk'], 2),
+					'price_mopt_otpusk' => round($arr[$i['id_product']]['price_mopt_otpusk'], 2),
+					'product_limit' => $arr[$i['id_product']]['product_limit'],
+					'sup_comment' => $arr[$i['id_product']]['sup_comment']
+				);
 			}
-			$ii++;
 		}
-		return $r;
+		return $result;
 	}
 	/**
 	 * [GetExportAssortRowsUSD description]
@@ -2687,29 +2690,26 @@ class Products {
 	 * @param [type] $id_supplier [description]
 	 */
 	public function GetExportAssortRowsUSD($list, $id_supplier){
-		$r = array();
-		$ii = 0;
-		$jj = 0;
+		$sql = "SELECT a.id_product, a.price_opt_otpusk_usd AS price_opt_otpusk,
+			a.price_mopt_otpusk_usd AS price_mopt_otpusk, a.product_limit, a.sup_comment
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.id_supplier = ".$id_supplier."
+			AND a.inusd = 1";
+		$arr = $this->db->GetArray($sql, 'id_product');
 		foreach($list as $i){
-			$sql = "SELECT a.id_product, a.price_opt_otpusk_usd AS price_opt_otpusk,
-				a.price_mopt_otpusk_usd AS price_mopt_otpusk, a.product_limit, a.sup_comment
-				FROM "._DB_PREFIX_."assortiment AS a
-				WHERE a.id_supplier = ".$id_supplier."
-				AND a.inusd = 1";
-			$arr = $this->db->GetArray($sql, 'id_product');
-			$jj = 0;
 			if(isset($arr[$i['id_product']])){
-				$r[$ii]['art_sup'] = $id_supplier;
-				$r[$ii]['art'] = $i['art'];
-				$r[$ii]['name'] = $i['name'];
-				$r[$ii]['price_opt_otpusk'] = round($arr[$i['id_product']]['price_opt_otpusk'], 3);
-				$r[$ii]['price_mopt_otpusk'] = round($arr[$i['id_product']]['price_mopt_otpusk'], 3);
-				$r[$ii]['product_limit'] = $arr[$i['id_product']]['product_limit'];
-				$r[$ii]['sup_comment'] = $arr[$i['id_product']]['sup_comment'];
+				$result[] = array(
+					'art_sup' => $id_supplier,
+					'art' => $i['art'],
+					'name' => $i['name'],
+					'price_opt_otpusk' => round($arr[$i['id_product']]['price_opt_otpusk'], 2),
+					'price_mopt_otpusk' => round($arr[$i['id_product']]['price_mopt_otpusk'], 2),
+					'product_limit' => $arr[$i['id_product']]['product_limit'],
+					'sup_comment' => $arr[$i['id_product']]['sup_comment']
+				);
 			}
-			$ii++;
 		}
-		return $r;
+		return $result;
 	}
 	/**
 	 * [GetExcelAssortColumnsArray description]
@@ -2765,12 +2765,16 @@ class Products {
 			$objPHPExcel->getActiveSheet()->getColumnDimension(chr((++$charcnt)+64))->setWidth($i['w']);
 		}
 		$ii = 2;
-		foreach($rows as $r){
-			$charcnt = 0;
-			foreach($ca as $i){
-				$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, $r[$i['n']]);
+		if(!empty($rows)){
+			foreach($rows as $r){
+				$charcnt = 0;
+				foreach($ca as $i){
+					$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, $r[$i['n']]);
+				}
+				$ii++;
 			}
-			$ii++;
+		}else{
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, '');
 		}
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="assortiment.xls"');
@@ -2782,73 +2786,7 @@ class Products {
 	 * Обработка загруженного файла ассортимента
 	 * @param [type] $file [description]
 	 */
-	public function ProcessAssortimentFile($file){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
-		$objPHPExcel = PHPExcel_IOFactory::load($file);
-		$objPHPExcel->setActiveSheetIndex(0);
-		$aSheet = $objPHPExcel->getActiveSheet();
-		//этот массив будет содержать массивы содержащие в себе значения ячеек каждой строки
-		$array = array();
-		$ca = $this->GetExcelAssortColumnsArray();
-		//получим итератор строки и пройдемся по нему циклом
-		foreach($aSheet->getRowIterator() as $k => $row){
-			//получим итератор ячеек текущей строки
-			$cellIterator = $row->getCellIterator();
-			$cellIterator->setIterateOnlyExistingCells(false); // Включить пустые ячейки
-			//пройдемся циклом по ячейкам строки
-			$item = array();
-			foreach($cellIterator as $cell){
-				//заносим значения ячеек одной строки в отдельный массив
-				array_push($item, $cell->getCalculatedValue());
-			}
-			//заносим массив со значениями ячеек отдельной строки в "общий массв строк"
-			if($k > 1){
-				array_push($array, $item);
-			}else{
-				$heading = $item;
-			}
-		}
-		// проход по первой строке
-		foreach($ca as $k => $i){
-			if($i['h'] != $heading[$k]){
-				$_SESSION['errm'][] = "Неверный формат файла";
-				return array(0, 0);
-			}
-			$keys[] = $i['n'];
-		}
-		$total_updated = 0;
-		$total_added = 0;
-		// проход по массиву строк
-		foreach($array as $row){
-			$res = array_combine($keys, $row);
-			if($id_product = $this->GetIdByArt($res['art'])){
-				global $Supplier;
-				$id_supplier = $Supplier->fields['id_user'];
-				$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
-				$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
-				$res['active'] = 0;
-				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
-					$res['active'] = 1;
-				}
-				$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
-				$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
-				if($this->IsInAssort($id_product, $id_supplier)){
-					$res['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, false);
-					$total_updated++;
-				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, false);
-					$total_added++;
-				}
-			}
-		}
-		return array($total_added, $total_updated);
-	}
-	/**
-	 * Обработка загруженного файла ассортимента
-	 * @param [type] $file [description]
-	 */
-	public function ProcessAssortimentFileUSD($file){
+	public function ProcessAssortimentFile($file, $usd){
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($file);
 		$objPHPExcel->setActiveSheetIndex(0);
@@ -2885,31 +2823,40 @@ class Products {
 		$total_updated = 0;
 		$total_added = 0;
 		// проход по массиву строк
+		global $Supplier;
+		$id_supplier = 21407;//$Supplier->fields['id_user'];
+		$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
+		$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
 		foreach($array as $row){
 			$res = array_combine($keys, $row);
 			if($id_product = $this->GetIdByArt($res['art'])){
-				global $Supplier;
-				$id_supplier = $Supplier->fields['id_user'];
-				$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
-				$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
+				$recalc_array[] = $id_product;
 				$res['active'] = 0;
 				if($res['product_limit'] > 0 && (($res['price_opt_otpusk'] != 0) || ($res['price_mopt_otpusk'] != 0))){
 					$res['active'] = 1;
 				}
-				$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
-				$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
-				$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
-				$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+				if($usd){
+					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
+					$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
+					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
+					$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+				}else{
+					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
+					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
+				}
 				if($this->IsInAssort($id_product, $id_supplier)){
 					$res['id_product'] = $id_product;
-					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, true);
+					$res['id_supplier'] = $id_supplier;
+					// $this->UpdateAssort($res);
+					$this->UpdateSupplierAssortiment($res, $koef_nazen_opt, $koef_nazen_mopt, $usd);
 					$total_updated++;
 				}else{
-					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, true);
+					$this->AddProductToAssort($id_product, $id_supplier, $res, $koef_nazen_opt, $koef_nazen_mopt, $usd);
 					$total_added++;
 				}
 			}
 		}
+		$this->RecalcSitePrices($recalc_array);
 		return array($total_added, $total_updated);
 	}
 	/**
@@ -2922,12 +2869,10 @@ class Products {
 			FROM "._DB_PREFIX_."assortiment
 			WHERE id_product = ".$id_product."
 			AND id_supplier = ".$id_supplier;
-		$arr = $this->db->GetArray($sql);
-		if(count($arr)){
-			return true;
-		}else{
+		if(empty($this->db->GetArray($sql))){
 			return false;
 		}
+		return true;
 	}
 	/**
 	 * [AddProductToAssort description]
@@ -2939,16 +2884,16 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function AddProductToAssort($id_product, $id_supplier, $arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$f['id_product'] = $id_product;
-		$f['id_supplier'] = $id_supplier;
-		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
-		$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-		$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
-		$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
-		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
-		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = trim($arr['product_limit']);
-		$f['active'] = trim($arr['active']);
+		$f['id_product']			= $id_product;
+		$f['id_supplier']			= $id_supplier;
+		$f['price_opt_otpusk']		= trim($arr['price_opt_otpusk']);
+		$f['price_mopt_otpusk']		= trim($arr['price_mopt_otpusk']);
+		$f['price_opt_otpusk_usd']	= trim($arr['price_opt_otpusk_usd']);
+		$f['price_mopt_otpusk_usd']	= trim($arr['price_mopt_otpusk_usd']);
+		$f['price_opt_recommend']	= $f['price_opt_otpusk']*$koef_nazen_opt;
+		$f['price_mopt_recommend']	= $f['price_mopt_otpusk']*$koef_nazen_mopt;
+		$f['product_limit']			= trim($arr['product_limit']);
+		$f['active']				= trim($arr['active']);
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -2973,15 +2918,14 @@ class Products {
 	 * @param boolean $inusd           [description]
 	 */
 	public function UpdateSupplierAssortiment($arr, $koef_nazen_opt, $koef_nazen_mopt, $inusd = false){
-		$id_product = trim($arr['id_product']);
-		$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
-		$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-		$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
-		$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
-		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$koef_nazen_opt;
-		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$koef_nazen_mopt;
-		$f['product_limit'] = trim($arr['product_limit']);
-		$f['active'] = trim($arr['active']);
+		$f['price_opt_otpusk']		= $arr['price_opt_otpusk'];
+		$f['price_mopt_otpusk']		= $arr['price_mopt_otpusk'];
+		$f['price_opt_otpusk_usd']	= $arr['price_opt_otpusk_usd'];
+		$f['price_mopt_otpusk_usd']	= $arr['price_mopt_otpusk_usd'];
+		$f['price_opt_recommend']	= $f['price_opt_otpusk']*$koef_nazen_opt;
+		$f['price_mopt_recommend']	= $f['price_mopt_otpusk']*$koef_nazen_mopt;
+		$f['product_limit']			= $arr['product_limit'];
+		$f['active']				= $arr['active'];
 		if(!isset($arr['sup_comment'])){
 			$arr['sup_comment'] = null;
 		}
@@ -2993,12 +2937,11 @@ class Products {
 		global $Supplier;
 		$id_supplier = $Supplier->fields['id_user'];
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$id_product." AND id_supplier = ".$id_supplier)){
+		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$arr['id_product']." AND id_supplier = ".$id_supplier)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
 	/**
@@ -3177,11 +3120,11 @@ class Products {
 	 */
 	public function GetExcelStatColumnsArray(){
 		$ii=0;
-		$ca[$ii++] = array('h'=>'Артикул', 						'n' => 'art',					'w'=>'14');
-		$ca[$ii++] = array('h'=>'Название', 					'n' => 'name', 					'w'=>'30');
-		$ca[$ii++] = array('h'=>'Кол-во заказов',				'n' => 'orders_cnt',			'w'=>'16');
-		$ca[$ii++] = array('h'=>'Кол-во шт.', 					'n' => 'total_qty', 			'w'=>'16');
-		$ca[$ii++] = array('h'=>'Сумма', 						'n' => 'total_sum', 			'w'=>'20');
+		$ca[$ii++] = array('h'=>'Артикул',			'n' => 'art',		'w'=>'14');
+		$ca[$ii++] = array('h'=>'Название',			'n' => 'name',		'w'=>'30');
+		$ca[$ii++] = array('h'=>'Кол-во заказов',	'n' => 'orders_cnt','w'=>'16');
+		$ca[$ii++] = array('h'=>'Кол-во шт.',		'n' => 'total_qty',	'w'=>'16');
+		$ca[$ii++] = array('h'=>'Сумма',			'n' => 'total_sum',	'w'=>'20');
 		return $ca;
 	}
 	/**
@@ -3322,23 +3265,23 @@ class Products {
 			if(count($suppliers)>$suppliers_qty){
 				$suppliers_qty = count($suppliers);
 			}
-			$rE[$ii]['article'] = $i['art'];
-			$rE[$ii]['name'] = $i['name'];
-			$rE[$ii]['price_opt'] = $i['price_opt'];
-			$rE[$ii]['price_mopt'] = $i['price_mopt'];
+			$result[$ii]['article'] = $i['art'];
+			$result[$ii]['name'] = $i['name'];
+			$result[$ii]['price_opt'] = $i['price_opt'];
+			$result[$ii]['price_mopt'] = $i['price_mopt'];
 			$jj=1;
 			foreach($suppliers as $s){
-				$rE[$ii]['sup_article_'.$jj] = $s['article'];
-				$rE[$ii]['sup_product_limit_'.$jj] = $s['product_limit'];
-				$rE[$ii]['sup_price_opt_otpusk_'.$jj] = $s['price_opt_otpusk'];
-				$rE[$ii]['sup_price_opt_recommend_'.$jj] = $s['price_opt_recommend'];
-				$rE[$ii]['sup_price_mopt_otpusk_'.$jj] = $s['price_mopt_otpusk'];
-				$rE[$ii]['sup_price_mopt_recommend_'.$jj] = $s['price_mopt_recommend'];
+				$result[$ii]['sup_article_'.$jj] = $s['article'];
+				$result[$ii]['sup_product_limit_'.$jj] = $s['product_limit'];
+				$result[$ii]['sup_price_opt_otpusk_'.$jj] = $s['price_opt_otpusk'];
+				$result[$ii]['sup_price_opt_recommend_'.$jj] = $s['price_opt_recommend'];
+				$result[$ii]['sup_price_mopt_otpusk_'.$jj] = $s['price_mopt_otpusk'];
+				$result[$ii]['sup_price_mopt_recommend_'.$jj] = $s['price_mopt_recommend'];
 				$jj++;
 			}
 			$ii++;
 		}
-		return array($rE, $suppliers_qty);
+		return array($result, $suppliers_qty);
 	}
 	/**
 	 * Объявление полей для экспорта товаров с поставщиками и ценами
@@ -3426,9 +3369,8 @@ class Products {
 		$result = $this->db->GetArray($qry);
 		if(!$result){
 			return false;
-		}else{
-			return $result;
 		}
+		return $result;
 	}
 	/**
 	 * [GetName description]
@@ -3441,9 +3383,8 @@ class Products {
 		$name = $this->db->GetArray($qry);
 		if(!$name){
 			return false;
-		}else{
-			return $name[0]['name'];
 		}
+		return $name[0]['name'];
 	}
 	/**
 	 * [Morphy description]
@@ -3474,9 +3415,8 @@ class Products {
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
-		}else{
-			return $arr;
 		}
+		return $arr;
 	}
 	/**
 	 * [PriceListProductsByCat description]
@@ -3496,9 +3436,8 @@ class Products {
 		$count = $this->db->GetArray($sql);
 		if(!$count){
 			return false;
-		}else{
-			return $count;
 		}
+		return $count;
 	}
 	/**
 	 * [AddPriceList description]
@@ -3853,37 +3792,6 @@ class Products {
 		$f['id_unit'] = $product['id_unit'];
 		$f['prod_status'] = 3;
 		$f['indexation'] = 1;
-		// $stamp = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/stamp.png');
-		// $sx = imagesx($stamp);
-		// $sy = imagesy($stamp);
-		// $marge_right = 0;
-		// $marge_bottom = 0;
-		// $f['img_1'] = '';
-		// $f['img_2'] = '';
-		// $f['img_3'] = '';
-		// for($i = 1; $i <= 3; $i++){
-		// 	if($product['img_'.$i] != ''){
-		// 		if($i > 1){
-		// 			$newname = $data['art']."-".$i.".jpg";
-		// 		}else{
-		// 			$newname = $data['art'].".jpg";
-		// 		}
-		// 		$im = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]));
-		// 		$ix = imagesx($im);
-		// 		$iy = imagesy($im);
-		// 		if($ix >= $iy){
-		// 			$nwidth = round($iy*0.9);
-		// 			$marge_right = ($ix - $nwidth)/2;
-		// 			$marge_bottom = ($iy - $nwidth)/2;
-		// 		}else{
-		// 			$nwidth = round($ix*0.9);
-		// 			$marge_right = ($ix - $nwidth)/2;
-		// 			$marge_bottom = ($iy - $nwidth)/2;
-		// 		}
-		// 		copy($_SERVER['DOCUMENT_ROOT'].str_replace(_base_url, '/', $product['img_'.$i]), $_SERVER['DOCUMENT_ROOT']."/efiles/image/".$newname);
-		// 		$f['img_'.$i] = str_replace($_SERVER['DOCUMENT_ROOT'], '/', "/efiles/image/".$newname);
-		// 	}
-		// }
 		$Images = new Images();
 		if(isset($product['images']) && $product['images'] != ''){
 			foreach(explode(';', $product['images']) as $k=>$image){
@@ -4165,7 +4073,7 @@ class Products {
 		$this->db->CompleteTrans();
 		$f['id_product'] = trim($id_product);
 		if(isset($arr) && !empty($arr)){
-			foreach ($arr as $k=>$src) {
+			foreach($arr as $k=>$src){
 				if(empty($src)){
 					return false; //Если URL пустой
 				}
@@ -4222,7 +4130,7 @@ class Products {
 	 * @param [type] $id_category id категории
 	 */
 	public function GetFilterFromCategory($id_category){
-			$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
+		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
@@ -4249,8 +4157,8 @@ class Products {
 		$spec_str = '';
 		$cnt_active_filter = 0;
 		if($add_filters){
-			foreach($add_filters as $spec => $filter) {
-				if($spec_str != '') {
+			foreach($add_filters as $spec => $filter){
+				if($spec_str != ''){
 					$spec_str .= "OR ";
 				}
 				$spec_str .= "(sp.id_spec IN (" . $spec . ") AND sp.value IN (SELECT sp1.value FROM "._DB_PREFIX_."specs_prods AS sp1 WHERE sp1.id IN (" . implode(',', $filter) . "))) ";
@@ -4310,7 +4218,6 @@ class Products {
 		if(!$id_product = $this->AddProduct($old_product_info)){
 			return false;
 		}
-
 		// duplicating product assortment
 		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment AS a
 			WHERE a.id_product = ".$data['id_product'];
@@ -4321,7 +4228,6 @@ class Products {
 				$this->AddToAssortWithAdm($value);
 			}
 		}
-
 		// duplicating product specifications
 		$sql = "SELECT * FROM "._DB_PREFIX_."specs_prods as s
 			WHERE s.id_prod = ".$data['id_product'];
@@ -4332,7 +4238,6 @@ class Products {
 				$specifications->AddSpecToProd($value, $id_product);
 			}
 		}
-
 		// duplicating product segmentation
 		$sql = "SElECT * FROM "._DB_PREFIX_."segment_prods AS sp
 		WHERE sp.id_product = ".$data['id_product'];
@@ -4343,13 +4248,11 @@ class Products {
 				$segmentation->AddSegmentInProduct($id_product, $value['id_segment']);
 			}
 		}
-
 		// duplicating product videos
 		$res = $this->GetVideoById($data['id_product']);
 		if(!empty($res)){
 			$this->UpdateVideo($id_product, $res);
 		}
-
 		// duplicating product images
 		$res = $this->GetPhotoById($data['id_product']);
 		foreach($res as &$value){
@@ -4558,24 +4461,101 @@ class Products {
 		}
 		// try to add new product to supplier's assort
 		$Suppliers = new Suppliers();
-		if(!$this->AddToAssort($id_product, $Suppliers->GetSupplierIdByArt($data['art_supplier']))){
+		$id_supplier = $Suppliers->GetSupplierIdByArt($data['art_supplier']);
+		if(!$this->AddToAssort($id_product, $id_supplier)){
 			return false;
+		}
+
+		// Добавление данных в таблицу photo_batch
+		$date = date('Y-m-d');
+		$id_author  = $_SESSION['member']['id_user'];
+		$id_batch = $this->GetIdPhotoBatch($date, $id_supplier, $id_author);
+		if($id_batch){
+			$this->AddPhotoBatchProducts($id_batch, $id_product);
+		}else{
+			$f['date'] = date('Y-m-d');
+			$f['id_supplier'] = $id_supplier;
+			$f['id_author'] = $id_author;
+			$this->db->StartTrans();
+			if(!$this->db->Insert(_DB_PREFIX_.'photo_batch', $f)){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+			$id_batch = $this->GetIdPhotoBatch($date, $id_supplier, $id_author);
+			$this->AddPhotoBatchProducts($id_batch, $id_product);
 		}
 		return $id_product;
 	}
 
-	public function GetProductsByIdUser($id_user, $limit = false){
-		$sql= "SELECT * FROM "._DB_PREFIX_."product
-			WHERE sid = 1
-				AND create_user = ".$id_user."
-			ORDER BY create_date DESC"
-			.($limit?' LIMIT'.$limit:'');
+	// Достаем id записи из таблицы photo_batch
+	public function GetIdPhotoBatch($date, $id_supplier, $id_author){
+		$sql = "SELECT id FROM "._DB_PREFIX_."photo_batch
+			WHERE date = '".$date."' AND id_supplier = ".$id_supplier."
+			AND id_author =".$id_author;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['id'];
+	}
+
+	// Добавление данных в таблицу photo_batch_products
+	public function AddPhotoBatchProducts($id_photo_batch, $id_product){
+		$f['id_photo_batch'] = $id_photo_batch;
+		$f['id_product'] = $id_product;
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'photo_batch_products', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	public function GetProductsByIdUser($id_user, $date = false, $id_supplier = false){
+		$sql= "SELECT p.id_product, p.`name`, p.translit, p.indexation,
+				p.create_date, p.create_user, a.id_supplier AS id_supplier
+				FROM "._DB_PREFIX_."product p
+				LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = a.id_supplier
+				LEFT JOIN "._DB_PREFIX_."user u ON s.id_user = u.id_user
+				WHERE p.sid = 1 AND p.create_user = ".$id_user.
+				($date?' AND p.create_date LIKE \''.$date.'%\'':'').
+				($id_supplier?' AND a.id_supplier = '.$id_supplier:'').
+				" GROUP BY p.create_date, a.id_supplier
+				ORDER BY create_date DESC";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
 		foreach ($res as &$v){
 			$v['images'] = $this->GetPhotoById($v['id_product'], true);
 			$v['videos'] = $this->GetVideoById($v['id_product']);
+		}
+		return $res;
+	}
+
+	public function GetBetchesFhoto($id_photographer = false, $limit = false){
+		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
+		$sql = "SELECT pb.*, s.article, u.name, COUNT(pbp.id_product) AS count_product,
+				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 1 AND i.id_product IN
+				(SELECT pbp2.id_product FROM "._DB_PREFIX_."photo_batch_products pbp2
+				WHERE pbp2.id_photo_batch = pb.id)) AS image_visible,
+				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 0 AND i.id_product IN
+				(SELECT pbp3.id_product FROM "._DB_PREFIX_."photo_batch_products pbp3
+				WHERE pbp3.id_photo_batch = pb.id)) AS image_unvisible
+				FROM "._DB_PREFIX_."photo_batch pb
+				LEFT JOIN "._DB_PREFIX_."photo_batch_products pbp ON pbp.id_photo_batch = pb.id
+				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = pb.id_supplier
+				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = pbp.id_product
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = s.id_user"
+				.$where." GROUP BY pbp.id_photo_batch ORDER BY pb.id DESC"
+				.($limit?' LIMIT'.$limit:''); 
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		if($limit){
+			foreach ($res as $k => &$v) {
+				$v['products'] = $this->GetProductsByIdUser($v['id_author'], $v['date'], $v['id_supplier']);
+			}
 		}
 		return $res;
 	}
@@ -4654,8 +4634,7 @@ class Products {
 		}
 		return $res;
 	}
-
-	public  function GetUncategorisedProducts($where_art = false, $limit = false){
+	public function GetUncategorisedProducts($where_art = false, $limit = false){
 		$sql = "SELECT id_product, art, `name`, translit, visible, indexation FROM	"._DB_PREFIX_."product
 			WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
 			WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
@@ -4665,8 +4644,7 @@ class Products {
 		}
 		return $res;
 	}
-
-	public  function GetDoublesProducts($limit = false, $group = false){
+	public function GetDoublesProducts($limit = false, $group = false){
 		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.visible
 				FROM "._DB_PREFIX_."product p,(SELECT translit FROM "._DB_PREFIX_."product
 				GROUP BY translit HAVING COUNT(translit)>1) t
@@ -4684,7 +4662,7 @@ class Products {
 		return $res;
 	}
 
-	public  function GetNopriceProducts($limit = false){
+	public function GetNopriceProducts($limit = false){
 		$sql = "SELECT id_product, `name`, translit, price_mopt, price_opt FROM "._DB_PREFIX_."product
 				WHERE (price_mopt = 0 AND price_opt <> 0) OR (price_opt = 0 AND price_mopt <> 0) AND visible = 1
 				ORDER BY price_opt
@@ -4695,7 +4673,7 @@ class Products {
 		return $res;
 	}
 
-	public  function UpdateActivityProducttSupplier($id_supplier){
+	public function UpdateActivityProducttSupplier($id_supplier){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit = 0
 				WHERE id_supplier = ".$id_supplier;
 		$this->db->StartTrans();

@@ -130,9 +130,6 @@
 .code_cell select {
 	width: 60px;
 }
-[data-type="panel"][data-position="left"] {
-	left: -80vw;
-}
 #catalog {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
