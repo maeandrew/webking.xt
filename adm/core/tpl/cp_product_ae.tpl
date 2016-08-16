@@ -103,7 +103,7 @@
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
 							<input required type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 						</div>
-						
+
 						<div class="col-md-12">
 							<?if(isset($_POST['translit'])){?>
 								<div id="translit">
@@ -185,7 +185,7 @@
 				<div id="nav_seo" chass="hidden">
 					<h2>SEO</h2>
 					<div class="row">
-						<div class="col-md-12">							
+						<div class="col-md-12">
 							<label for="page_title">Мета-заголовок (title):</label>
 							<p class="hint">Перед текстом будет автоматически добавлен ключ - "<span><?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>.</span>"</p>
 							<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
@@ -701,7 +701,7 @@
 
 		$('.duplicate_btn_js').on('click', function(e){
 			if(!window.confirm('Подтвердите дублирование')){
-				e.preventDefault();				
+				e.preventDefault();
 			}
 		});
 
@@ -836,13 +836,13 @@
 				RemovedFile(path, removed_file);
 			}
 		});
-		
+
 		$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
-		
+
 		$('.previews').on('click', '.hide_photo_js, .hide_u_photo_js', function(event) {
 			var path = $(this).closest('.image_block');
 			$('#photobox .image_block:first-of-type [name="images_visible[]"]').val("1");
-			if (path.hasClass('implicit')) {				
+			if (path.hasClass('implicit')) {
 				path.find('[name="images_visible[]"]').val("1");
 				path.removeClass('implicit');
 				// hidden_images = path.find('.image img').attr('src');
@@ -853,7 +853,7 @@
 				// 		$(el).remove();
 				// 	};
 				// });
-			}else{				
+			}else{
 				path.find('[name="images_visible[]"]').val("0");
 				path.addClass('implicit');
 				// hidden_images = path.find('.image img').attr('src');
@@ -893,16 +893,7 @@
 			if(art != ''){
 				if(price_opt != ''){
 					if(price_mopt != ''){
-						$.ajax({
-							url: URL_base+'ajaxproducts',
-							type: "POST",
-							cache: false,
-							dataType: "json",
-							data: {
-								"action":'add_supplier',
-								"art": art
-							}
-						}).done(function(data){
+						ajax('products', 'addSupplier', {art: art}).done(function(data){
 							if(!data){
 								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
 							}else{
@@ -972,16 +963,7 @@
 		$('#segment_type').on('change', function(){
 			var type = $(this).val();
 			if(type != ''){
-				$.ajax({
-					url: URL_base+'ajaxproducts',
-					type: "POST",
-					cache: false,
-					dataType: "json",
-					data: {
-						"action":'get_segment_list',
-						"type": type
-					}
-				}).done(function(data){
+				ajax('products', 'getSegmentList', {type: type}).done(function(data){
 					var optionlist ='';
 					segment_info = data;
 					$.each(data, function(k, v){
@@ -1079,34 +1061,15 @@
 		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
 			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
 			value = link.closest('tr').find('[name="value"]').val();
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'specification_update',
-				"id_spec_prod": id_spec_prod,
-				"id_spec": id_spec,
-				"value": value,
-				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
-			}
-		});
+		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
+		ajax('products', 'specificationUpdate', {id_spec_prod: id_spec_prod, id_spec: id_spec, value: value, id_product: id_product});
 		// var href = link.attr('href');
 		// href += link.closest('tr').find('[name="value"]').val();
 		// window.location.replace(href);
 	}
 	function updateTranslit(){
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType: "json",
-			data: {
-				"action":'update_translit',
-				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
-			}
-		}).done(function(data){
+		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
+		ajax('products', 'updateTranslit', {id_product: id_product}).done(function(data){
 			$('#translit p').text(data);
 			$('#updtrans').animate({  borderSpacing: 360 }, {
 				step: function(now,fx) {
@@ -1121,79 +1084,38 @@
 	function insertSpecToProd(link) {
 		var value = link.prev().val(),
 			id_spec = link.prev().prev().val();
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'specification_update',
-				"id_spec_prod": null,
-				"id_spec": id_spec,
-				"value": value,
-				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
-			}
-		});
+		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
+		ajax('products', 'specificationUpdate', {id_spec_prod: null, id_spec: id_spec, value: value, id_product: id_product});
 	}
+
 	function dataList(article) {
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'datalist',
-				"article": article,
-				"id_product": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>
-			}
-		}).done(function(data){
+		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
+
+		ajax('products', 'dataList', {article: article, id_product: id_product}).done(function(data){
 			var optionlist = '';
 			$.each(data, function(k, v){
-				// if(v !=){
-					optionlist += '<option>'+v['response']+' | '+v['id_product']+'</option>';
-				// }
+				optionlist += '<option>'+v['response']+' | '+v['id_product']+'</option>';
 			});
-
-			// $('#character option').remove();
 			$('#character').html(optionlist);
 		});
+
 	}
 	//Формирование Списка Поставщиков
 	function dataListSupplier(article) {
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'datalist_supplier',
-				"article": article
-			}
-		}).done(function(data){
+		ajax('products', 'datalistSupplier', {article: article}).done(function(data){
 			var optionlist = '';
 			$.each(data, function(k, v){
-				// if(v !=){
-					optionlist += '<option>'+v['response']+'</option>';
-				// }
+				optionlist += '<option>'+v['response']+'</option>';
 			});
 			$('#data_sup_art').html(optionlist);
 		});
 	}
+
 	function editRelatedProds(id, action) {
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": action+'_related',
-				"id_prod": <?=isset($_POST['id_product'])?$_POST['id_product']:'null';?>,
-				"id_related_prod": id
-			}
-		}).done(function(){
+		var act_action = action+'_Related';
+		ajax('products', act_action, {article: article}).done(function(){
 			location.reload();
 		});
-
 	}
 	//Удаление товара
 	function DelProds(id, action) {
