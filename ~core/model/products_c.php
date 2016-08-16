@@ -4421,18 +4421,16 @@ class Products {
 		// print_r($image);
 		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
-			$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			$file = pathinfo($image['src']);
+			$path = $GLOBALS['PATH_root'].$file['dirname'].'/';
+			$bd_path = $file['dirname'];
 			rename($path.$file['basename'], $path.$newname);
-			$images_arr[] = $bd_path.'/'.$newname;
-			$path = $GLOBALS['PATH_root'];
+			$images_arr[] = $file['dirname'].'/'.$newname;
 			$visibility[] = $image['visible'] == 'true'?1:0;
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		foreach($images_arr as $filename) {
-			$path = $GLOBALS['PATH_root'];
-			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+		foreach($images_arr as $filename){
+			$size = getimagesize($GLOBALS['PATH_root'].$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
 				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
 				//Определяем размеры нового изображения
@@ -4449,9 +4447,9 @@ class Products {
 			}
 			$res = imagecreatetruecolor($width, $height);
 			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($GLOBALS['PATH_root'].$filename):imagecreatefrompng($GLOBALS['PATH_root'].$filename);
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-			imagejpeg($res, $path.$filename);
+			imagejpeg($res, $GLOBALS['PATH_root'].$filename);
 		}
 		print_r($images_arr);
 		$Images = new Images();

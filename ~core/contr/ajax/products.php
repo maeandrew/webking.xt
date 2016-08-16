@@ -139,6 +139,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'updateDemandChart':
 				echo json_encode($Products->UpdateDemandChart($_POST, true));
 				break;
+			case 'specificationUpdate':
+				$Specification = new Specification();
+				$Products->UpdateProduct(array('id_product'=>$_POST['id_product']));
+				if($_POST['id_spec_prod'] == ''){
+					if($Specification->AddSpecToProd($_POST, $_POST['id_product'])){
+						echo json_encode('ok');
+					}
+				}else{
+					if($Specification->UpdateSpecsInProducts($_POST)){
+						echo json_encode('ok');
+					}
+				}
+				break;
 
 
 			default:
