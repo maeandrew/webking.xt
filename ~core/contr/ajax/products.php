@@ -152,6 +152,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 				}
 				break;
+			case 'updateTranslit':
+				echo json_encode($Products->UpdateTranslit($_POST['id_product']));
+				break;
 
 
 			default:
