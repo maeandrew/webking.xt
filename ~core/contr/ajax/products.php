@@ -168,6 +168,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'dataList':
 				echo json_encode($Products->GetIdOneRowArrayByArt($_POST['article']));
 				break;
+			case 'getSegmentList':
+				$Segmentation = new Segmentation();
+				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
+				break;
 
 
 			default:

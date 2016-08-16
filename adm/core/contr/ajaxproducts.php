@@ -7,10 +7,7 @@
 			case 'add_supplier':
 				echo json_encode($Products->GetSupplierInfoByArticle($_POST['art']));
 				break;
-			case 'get_segment_list':
-				$Segmentation = new Segmentation();
-				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
-				break;
+
 
 		}
 	exit();
