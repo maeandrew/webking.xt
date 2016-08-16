@@ -102,18 +102,7 @@
 			var id_category = $(this).closest('tr').data('cat'),
 				spec = $(this).closest('tr').data('spec'),
 				value = $(this).closest('tr').data('val');
-			$.ajax({
-				url: URL_base+'ajaxspecifications',
-				type: "POST",
-				cache: false,
-				dataType : "html",
-				data: {
-					action: 'get_prodlist_moderation',
-					id_category: id_category,
-					specification: spec,
-					value: value
-				}
-			}).done(function(data){
+			ajax('specification', 'getProdlistModeration', {id_category: id_category, specification: spec, value: value}, 'html').done(function(data){
 				$('#list').html(data);
 			});
 		});

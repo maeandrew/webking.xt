@@ -234,12 +234,10 @@
 														<?=$i['units']?>
 													</td>
 													<td>
-														<input  data-id-type="<?=$i['id_spec']?>" list="features" class="input-m itemvalue" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
+														<input  data-id-type="<?=$i['id_spec']?>" list="features_<?=$i['id_spec']?>" class="input-m itemvalue" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
 														<input type="hidden" name="id_spec_prod" value="<?=$i['id']?>">
 														<input type="hidden" name="id_spec" value="<?=$i['id_spec']?>">
-														<datalist id="features">
-
-
+														<datalist id="features_<?=$i['id_spec']?>" class="features_js">
 															<option value="Firefox">
 															<option value="Chrome">
 															<option value="Opera">
@@ -724,20 +722,10 @@
 			});
 			idcat = idcat.substring(0, idcat.length - 1);
 			$('#features').html('');
-			$.ajax({
-				url: URL_base + 'ajaxspecifications',
-				type: "POST",
-				cache: false,
-				dataType: "html",
-				data: {
-					"action": 'getValuesOfTypes',
-					"id": $(this).data('idType'),
-					"idcat": idcat
-				}
-			}).done(function (data) {
-				$('#features').html(data);
-			}).fail(function () {
-
+			var id = $(this).data('idType');
+			var datalist = $(this).closest('.animate').find('.features_js');
+			ajax('products', 'getValuesOfTypes', {id: id, idcat: idcat}, 'html').done(function (data) {
+				datalist.html(data);
 			});
 		});
 
