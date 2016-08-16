@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Products = new Products();
-		if(isset($_POST['action'])){
+	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case "getFilterLink":
 				echo json_encode(Link::Category($_POST['rewrite'], $_POST['params'], $_POST['segment']));
@@ -179,15 +179,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);
 				foreach ($valitem as &$v){
 					echo '<option value="'.$v['value'].'">';
-				}
-				break;
-			case"getProdlistModeration":
-				$Specification = new Specification();
-				$arr = $Specification->GetProdlistModeration($_POST['id_category'],$_POST['specification'],$_POST['value']);
-				foreach($arr as $k=>$value) {
-					$value['id_prod'];
-					$value['name'];
-					echo "<li><a target='_blank' href='/adm/productedit/".$value['id_prod']."'>".($k+1)." - ".$value['name']."</a></li>";
 				}
 				break;
 			default:
