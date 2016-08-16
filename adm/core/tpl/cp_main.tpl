@@ -167,7 +167,7 @@
 									<label>Статусы товаров</label>
 								</td>
 								<td>
-									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_statuses">Обновить</button>
+									<!-- <button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_statuses">Обновить</button>-->
 								</td>
 							</tr>
 							<tr>
@@ -175,7 +175,7 @@
 									<label>Хиты продаж</label>
 								</td>
 								<td>
-									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_statuses_hit">Обновить</button>
+									<!-- <button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_statuses_hit">Обновить</button>-->
 								</td>
 							</tr>
 							<tr>
@@ -183,7 +183,7 @@
 									<label>Популярные товары</label>
 								</td>
 								<td>
-									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_popular">Обновить</button>
+									<!-- <button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_popular">Обновить</button>-->
 								</td>
 							</tr>
 							<tr>
@@ -191,7 +191,7 @@
 									<label>Сортировка товаров</label>
 								</td>
 								<td>
-									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_prodazi">Обновить</button>
+									<!-- <button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_prodazi">Обновить</button>-->
 								</td>
 							</tr>
 						</form>
@@ -218,7 +218,9 @@
 							<td>
 								<label>Убрать позиции с нулевым лимитом с сайта</label>
 							</td>
-							<td><a class="btn-m-lblue size_s fr" href="/adm/main/recalc_null/">Убрать</a></td>
+							<td>
+								<!-- <a class="btn-m-lblue size_s fr" href="/adm/main/recalc_null/">Убрать</a> -->
+							</td>
 						</tr>
 					<?}?>
 					<tr>
@@ -228,7 +230,7 @@
 								<input type="text" name="name_index_status" class="hidden" value="1">
 							</td>
 							<td>
-								<button type="submit" class="btn-m-lblue size_s fr">Заполнить</button>
+								<!-- <button type="submit" class="btn-m-lblue size_s fr">Заполнить</button> -->
 							</td>
 						</form>
 					</tr>
@@ -239,7 +241,7 @@
 								<input type="text" name="diff" id="show_list" class="input-m size_s fr">
 							</td>
 							<td>
-								<button type="submit" id="diff" class="btn-m-lblue size_s fr" name="check">Показать</button>
+								<!-- <button type="submit" id="diff" class="btn-m-lblue size_s fr" name="check">Показать</button> -->
 							</td>
 						</form>
 					</tr>
@@ -261,9 +263,7 @@
 								</form>
 							</td>
 							<td>
-								<button type="submit" name="image_resize" form="image_resize" class="btn-m-red size_s fr">Создать</button>
-								<!-- <a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="" class="btn-m-red size_s fr">Создать</a> -->
-								<!-- <a title="Создание уменьшенных копий изображений товаров в отдельной папке на сервере." href="/adm/main/gen_resize_product_images/" class="btn-m-red size_s fr">Выполнить</a> -->
+								<!-- <button type="submit" name="image_resize" form="image_resize" class="btn-m-red size_s fr">Создать</button> -->
 							</td>
 						</tr>
 						<tr>
@@ -272,7 +272,7 @@
 								<input type="text" name="kurs_griwni" id="kurs_griwni" class="input-m size_s fr">
 							</td>
 							<td>
-								<button type="submit" id="form_submit" class="btn-m-red size_s fr" name="kurs">Пересчитать</button>
+								<!-- <button type="submit" id="form_submit" class="btn-m-red size_s fr" name="kurs">Пересчитать</button> -->
 							</td>
 						</tr>
 						<tr>
@@ -281,7 +281,7 @@
 								<input type="text" name="date" id="date" class="input-m size_s fr">
 							</td>
 							<td>
-								<button type="submit" class="size_s fr btn-m-red" name="smb" onclick="return confirm('Вы точно хотите очистить базу!?');">Очистить</button>
+								<!-- <button type="submit" class="size_s fr btn-m-red" name="smb" onclick="return confirm('Вы точно хотите очистить базу!?');">Очистить</button> -->
 							</td>
 						</tr>
 						<tr>
