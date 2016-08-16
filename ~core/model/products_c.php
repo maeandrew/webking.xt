@@ -4451,7 +4451,6 @@ class Products {
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
 			imagejpeg($res, $GLOBALS['PATH_root'].$filename);
 		}
-		print_r($images_arr);
 		$Images = new Images();
 		$Images->resize(false, $to_resize);
 		$this->UpdatePhoto($id_product, $images_arr, $visibility);
@@ -4548,7 +4547,7 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = pbp.id_product
 				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = s.id_user"
 				.$where." GROUP BY pbp.id_photo_batch ORDER BY pb.id DESC"
-				.($limit?' LIMIT'.$limit:''); 
+				.($limit?' LIMIT'.$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
