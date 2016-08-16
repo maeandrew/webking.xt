@@ -165,6 +165,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'insertRelated':
 				echo json_encode($Products->AddRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
 				break;
+			case 'dataList':
+				echo json_encode($Products->GetIdOneRowArrayByArt($_POST['article']));
+				break;
 
 
 			default:

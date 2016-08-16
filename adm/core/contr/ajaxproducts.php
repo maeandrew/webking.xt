@@ -3,11 +3,6 @@
 	$Products = new Products();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
-			case 'datalist':
-				echo json_encode($Products->GetIdOneRowArrayByArt($_POST['article']));
-				break;
-
-
 
 			case 'add_supplier':
 				echo json_encode($Products->GetSupplierInfoByArticle($_POST['art']));
@@ -17,8 +12,6 @@
 				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
 				break;
 
-			default:
-				break;
 		}
 	exit();
 }
