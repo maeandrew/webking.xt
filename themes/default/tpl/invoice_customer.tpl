@@ -143,7 +143,7 @@ $c13 = 60;
 					<?if(isset($i['image']) && !empty($i['image'])){?>
 						<img height="48" src="<?=_base_url?><?=str_replace("/original/", "/medium/", $i['image'])?>" alt="<?=$i['name']?>">
 					<?}else if(!empty($i['img_1'])){?>
-						<img height="48" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])?>" />
+						<img height="48" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])?>" />
 					<?}else {?>
 						<img height="48" src="<?=_base_url?>/images/nofoto.png" />
 					<?}?>
@@ -173,7 +173,7 @@ $c13 = 60;
 						<?if(isset($i['image']) && !empty($i['image'])){?>
 							<img height="48" src="<?=_base_url?><?=str_replace("/original/", "/medium/", $i['image'])?>" alt="<?=$i['name']?>">
 						<?}else if(!empty($i['img_1'])){?>
-							<img height="48" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])?>" />
+							<img height="48" src="<?=_base_url?><?=str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1'])?>" />
 						<?}else {?>
 							<img height="48" src="<?=_base_url?>/images/nofoto.png" />
 						<?}?>

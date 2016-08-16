@@ -218,7 +218,7 @@ td.c8 {
 						<?if(!empty($i['images'])){?>
 							<img <?=$wh?> src="<?=_base_url;?><?=str_replace('/original/', '/medium/', $i['images'][0]['src'])?>" alt="<?=$i['name']?>">
 						<?}else{?>
-							<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/250/", $i['img_1'])?>"/>
+							<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/500/", $i['img_1'])?>"/>
 						<?}?>
 					</td>
 					<td class="name c2">

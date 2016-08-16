@@ -30,9 +30,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 										<noscript>
-											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 										</noscript>
 									<?}?>
 								</a>
@@ -151,9 +151,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
 											</noscript>
 										<?}else{?>
-											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/images/nofoto.png'?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):'/images/nofoto.png'?>"/>
 											<noscript>
-												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/images/nofoto.png'?>"/>
+												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):'/images/nofoto.png'?>"/>
 											</noscript>
 										<?}?>
 									</a>

@@ -777,9 +777,6 @@ class G {
 					case 'thumb':
 						$size = '/_thumb/image/';
 						break;
-					case 'small':
-						$size = '/image/250/';
-						break;
 					case 'medium':
 						$size = '/image/500/';
 						break;

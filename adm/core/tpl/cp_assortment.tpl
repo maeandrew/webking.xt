@@ -230,9 +230,9 @@
 										<img <?=$wh?> src="<?=_base_url?><?=str_replace('/original/', '/medium/', $item['images'][0]['src'])?>" alt="<?=htmlspecialchars($item['name'])?>">
 									</noscript>
 								<?}else{?>
-									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="<?=htmlspecialchars($item['name'])?>" data-original="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="<?=htmlspecialchars($item['name'])?>" data-original="<?=_base_url?><?=str_replace("image/", "image/500/", $item['img_1'])?>"/>
 									<noscript>
-										<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>" alt="<?=htmlspecialchars($item['name'])?>"/>
+										<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/500/", $item['img_1'])?>" alt="<?=htmlspecialchars($item['name'])?>"/>
 									</noscript>
 								<?}?>
 							</td>

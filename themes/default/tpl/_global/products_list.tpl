@@ -216,9 +216,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							<noscript>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
 							</noscript>
 						<?}?>
 					</a>
@@ -275,8 +275,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $item['images'][0]['src']))?str_replace('/original/', '/medium/', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
 							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $item['images'][0]['src']))?str_replace('/original/', '/medium/', $item['images'][0]['src']):'/images/nofoto.png'?>"/></noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
+							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/></noscript>
 						<?}?>
 					</a>
 					<div class="add_to_fav_trend_block mdl-cell--hide-phone">

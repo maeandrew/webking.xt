@@ -137,7 +137,7 @@ $c11 = 65;
 								<?if($i['image'] != ''){?>
 									<img height="48" src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>">
 								<?}else{?>
-									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1']))?>" />
+									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
 								<?}?>
 							</td>
 							<td class="name c5">
@@ -170,7 +170,7 @@ $c11 = 65;
 								<?if($i['image'] != ''){?>
 									<img height="48" src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>">
 								<?}else{?>
-									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1']))?>" />
+									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
 								<?}?>
 							</td>
 							<td class="name c5">

@@ -113,11 +113,11 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'gen_resize_product_im
 			//echo "$filename - ok<br>";
 			$aa++;
 		}
-		if(!is_file($GLOBALS['PATH_root'].'../efiles/image/250/'.$filename)){
+		if(!is_file($GLOBALS['PATH_root'].'../efiles/image/500/'.$filename)){
 			$i = new img(250, 250);
 			$i->GenFileInfo($filepath);
 			$i->target='save';
-			$i->change($GLOBALS['PATH_root'].'../efiles/image/250/'.$filename);
+			$i->change($GLOBALS['PATH_root'].'../efiles/image/500/'.$filename);
 			unset($i);
 			//echo "$filename - ok<br>";
 			$ii++;
