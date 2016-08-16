@@ -201,15 +201,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$arr['id_product'] = $_POST["id_product"];
 					$arr['id_category'] = $_POST["id_category"];
 					echo json_encode($arr);
-					exit();
-				}
-				function checkNumeric($arr, $fields){
-					$fl = true;
-					foreach ($fields as $f){
-						if (!is_numeric($arr[$f]))
-							$fl = false;
+
+					function checkNumeric($arr, $fields){
+						$fl = true;
+						foreach ($fields as $f){
+							if (!is_numeric($arr[$f]))
+								$fl = false;
+						}
+						return $fl;
 					}
-					return $fl;
+					exit();
 				}
 				break;
 			default:
