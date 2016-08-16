@@ -181,6 +181,37 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo '<option value="'.$v['value'].'">';
 				}
 				break;
+			case"getValuesOfTypes":
+				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);
+				foreach ($valitem as &$v){
+					echo '<option value="'.$v['value'].'">';
+				}
+				break;
+			case"pops":
+				if(isset($_POST['id_product']) && isset($_POST['id_category'])){
+					if($_POST['act']=="add" && checkNumeric($_POST, array('id_product', 'id_category'))){
+						$Products->SetPopular($_POST['id_product'], $_POST['id_category']);
+					}elseif($_POST['act']=="del" && checkNumeric($_POST, array('id_product', 'id_category'))){
+						$Products->DelPopular($_POST['id_product'], $_POST['id_category']);
+					}else{
+						exit();
+					}
+//					$t = ob_get_clean();
+//					G::LogerE($t, "ajax.html", "w");
+					$arr['id_product'] = $_POST["id_product"];
+					$arr['id_category'] = $_POST["id_category"];
+					echo json_encode($arr);
+					exit();
+				}
+				function checkNumeric($arr, $fields){
+					$fl = true;
+					foreach ($fields as $f){
+						if (!is_numeric($arr[$f]))
+							$fl = false;
+					}
+					return $fl;
+				}
+				break;
 			default:
 				break;
 		}
