@@ -155,6 +155,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'updateTranslit':
 				echo json_encode($Products->UpdateTranslit($_POST['id_product']));
 				break;
+			case 'datalistSupplier':
+				$Supplier = new Suppliers();
+				echo json_encode($Supplier->GetIdOneRowArrayByArt($_POST['article']));
+				break;
 
 
 			default:

@@ -3,17 +3,10 @@
 	$Products = new Products();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
-
-			case 'update_translit':
-				echo json_encode($Products->UpdateTranslit($_POST['id_product']));
-				break;
 			case 'datalist':
 				echo json_encode($Products->GetIdOneRowArrayByArt($_POST['article']));
 				break;
-			case 'datalist_supplier':
-				$Supplier = new Suppliers();
-				echo json_encode($Supplier->GetIdOneRowArrayByArt($_POST['article']));
-				break;
+
 			case 'insert_related':
 				echo json_encode($Products->AddRelatedProduct($_POST['id_prod'], $_POST['id_related_prod']));
 				break;
