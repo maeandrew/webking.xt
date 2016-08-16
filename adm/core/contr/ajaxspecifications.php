@@ -17,17 +17,7 @@
 					}
 				}
 			break;
-			case"get_prodlist_moderation":
-				$arr = $specification->GetProdlistModeration($_POST['id_category'],$_POST['specification'],$_POST['value']);
-				foreach($arr as $k=>$value) {
-					$value['id_prod'];
-					$value['name'];
-					echo "<li><a target='_blank' href='/adm/productedit/".$value['id_prod']."'>".($k+1)." - ".$value['name']."</a></li>";
-				}
-				break;
-
-			default:
-			break;
+			
 		}
 	exit();
 }
