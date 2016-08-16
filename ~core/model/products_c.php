@@ -4536,8 +4536,12 @@ class Products {
 	public function GetBetchesFhoto($id_photographer = false, $limit = false){
 		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
 		$sql = "SELECT pb.*, s.article, u.name, COUNT(pbp.id_product) AS count_product,
-				(SELECT COUNT(*) FROM xt_image i WHERE i.visible = 1 AND i.id_product = pbp.id_product) AS image_visible,
-				(SELECT COUNT(*) FROM xt_image i WHERE i.visible = 0 AND i.id_product = pbp.id_product) AS image_unvisible
+				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 1 AND i.id_product IN
+				(SELECT pbp2.id_product FROM "._DB_PREFIX_."photo_batch_products pbp2
+				WHERE pbp2.id_photo_batch = pb.id)) AS image_visible,
+				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 0 AND i.id_product IN
+				(SELECT pbp3.id_product FROM "._DB_PREFIX_."photo_batch_products pbp3
+				WHERE pbp3.id_photo_batch = pb.id)) AS image_unvisible
 				FROM "._DB_PREFIX_."photo_batch pb
 				LEFT JOIN "._DB_PREFIX_."photo_batch_products pbp ON pbp.id_photo_batch = pb.id
 				LEFT JOIN "._DB_PREFIX_."supplier s ON s.id_user = pb.id_supplier
