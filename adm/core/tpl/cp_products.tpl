@@ -62,8 +62,8 @@
 						</td>
 						<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
 							<td class="left">
-								<input type="checkbox" id="pop_<?=$i['id_product']?>" name="pop_<?=$i['id_product']?>" <?if(isset($pops[$i['id_product']])){?>checked="checked"<?}?> onchange="SwitchPops(this, <?=$i['id_product']?>,0)">
-								<input type="checkbox" id="popmain_<?=$i['id_product']?>" name="popmain_<?=$i['id_product']?>" <?if(isset($popsMain[$i['id_product']])){?>checked="checked"<?}?> onchange="SwitchPops(this, <?=$i['id_product']?>, 1)">
+								<input type="checkbox" id="pop_<?=$i['id_product']?>" name="pop_<?=$i['id_product']?>" <?=isset($pops[$i['id_product']])?'checked="checked"':null?> onchange="SwitchPops(this, <?=$i['id_product']?>,0)">
+								<input type="checkbox" id="popmain_<?=$i['id_product']?>" name="popmain_<?=$i['id_product']?>" <?=isset($popsMain[$i['id_product']])?'checked="checked"':null?> onchange="SwitchPops(this, <?=$i['id_product']?>, 1)">
 							</td>
 						<?}?>
 						<td class="left">
@@ -152,16 +152,18 @@
 		if (main==0){
 			id_category = <?=$id_category?>;
 		}
-		$.ajax({
-			url: URL_base+'ajaxpops',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": action,
-				"id_product": id,
-				"id_category": id_category
-			}
-		});
+		// $.ajax({
+		// 	url: URL_base+'ajaxpops',
+		// 	type: "POST",
+		// 	cache: false,
+		// 	dataType : "json",
+		// 	data: {
+		// 		"action": action,
+		// 		"id_product": id,
+		// 		"id_category": id_category
+		// 	}
+		// });
+
+		ajax('products', 'pops', {act: action, id_product: id, id_category: id_category});
 	}
 </script>
