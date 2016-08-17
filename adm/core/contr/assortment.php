@@ -32,11 +32,11 @@ $Supplier->SetFieldsById($id_supplier, 1);
 //экспорт в exel
 if(isset($_GET['export'])){
 	$Products->SetProductsList1($id_supplier, $order, '');
-	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']));
+	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $id_supplier));
 	exit(0);
 }elseif(isset($_GET['export_usd'])){
 	$Products->SetProductsList1($id_supplier, $order, '');
-	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']));
+	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $id_supplier));
 	exit(0);
 }
 // Импорт
@@ -66,7 +66,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 		$_GET['page_id'] = $_POST['page_nbr'];
 	}
-	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user']));
+	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier));
 	$tpl->Assign('cnt', $cnt);
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -78,12 +78,12 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 
 // ---------Информация о поставщике
 $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
-	array('a.id_supplier' => $Supplier->fields['id_user'], 'a.active' => 1, 'p.visible' => 1),
+	array('a.id_supplier' => $id_supplier, 'a.active' => 1, 'p.visible' => 1),
 	' AND a.product_limit > 0 AND (a.price_mopt_otpusk > 0 OR a.price_opt_otpusk > 0)'
 );
-$Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible' => 1));
-$Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($Supplier->fields['id_user']));
-$check_sum = $Supplier->GetCheckSumSupplierProducts($Users->fields['id_user']);
+$Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier, 'p.visible' => 1));
+$Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($id_supplier));
+$check_sum = $Supplier->GetCheckSumSupplierProducts($id_supplier);
 $tpl->Assign("check_sum", $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);

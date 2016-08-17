@@ -154,6 +154,7 @@ G::ToGlobals(array(
 					'segmentations',
 					'pricelist',
 					'supplier_prov',
+					'orders_category',
 					'guestbook'
 				)
 			),
