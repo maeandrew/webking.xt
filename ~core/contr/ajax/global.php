@@ -25,6 +25,18 @@
 				}
 				echo json_encode($res);
 				break;
+			case 'blockIp':
+				$f['block'] = $_POST['block'] === 'true'?1:0;
+				$GLOBALS['db']->StartTrans();
+				if(!$GLOBALS['db']->Update(_DB_PREFIX_.'ip_connections', $f, ' id = '.$_POST['id'])){
+					$GLOBALS['db']->FailTrans();
+					$res = false;
+				}else{
+					$GLOBALS['db']->CompleteTrans();
+					$res = true;
+				}
+				echo json_encode($res);
+				break;
 		}
 	}
 	exit();

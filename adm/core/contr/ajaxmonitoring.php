@@ -4,18 +4,7 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 
-			case 'blockIP':
-				$f['block'] = $_POST['block'] === 'true'?1:0;
-				$GLOBALS['db']->StartTrans();
-				if(!$GLOBALS['db']->Update(_DB_PREFIX_.'ip_connections', $f, ' id = '.$_POST['id'])){
-					$GLOBALS['db']->FailTrans();
-					$res = false;
-				}else{
-					$GLOBALS['db']->CompleteTrans();
-					$res = true;
-				}
-				echo json_encode($res);
-				break;
+
 			default:
 				break;
 		}
