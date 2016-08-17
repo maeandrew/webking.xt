@@ -53,7 +53,7 @@
 			<?if(isset($list)){
 				foreach($list as $i){?>
 				<tr class="animate">
-					<td><?=!$i['active']?'<span class="invisible">нет</span>':'<span class="">да </span>'?></td>
+					<td><?=!$i['active']?'<span class="invisible">нет</span>':'<span>да</span>'?></td>
 					<td><a href="<?=$GLOBALS['URL_base'].'adm/usersedit/'.$i['id_user']?>"><?=$i['name']?></a></td>
 					<td><?=$i['email']?></td>
 					<td><?=$groups[$i['gid']]['caption']?></td>

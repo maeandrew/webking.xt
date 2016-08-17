@@ -2824,7 +2824,7 @@ class Products {
 		$total_added = 0;
 		// проход по массиву строк
 		global $Supplier;
-		$id_supplier = 21407;//$Supplier->fields['id_user'];
+		$id_supplier = $Supplier->fields['id_user'];
 		$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
 		$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
 		foreach($array as $row){
@@ -2934,8 +2934,7 @@ class Products {
 			$f['inusd'] = 1;
 		}
 		$f['sup_comment'] = trim($arr['sup_comment']);
-		global $Supplier;
-		$id_supplier = $Supplier->fields['id_user'];
+		$id_supplier = $arr['id_supplier'];
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$arr['id_product']." AND id_supplier = ".$id_supplier)){
 			$this->db->FailTrans();
