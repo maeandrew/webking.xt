@@ -594,7 +594,6 @@
 						}, 3000);
 					}
 				});
-				console.log($('.action_block input.phone'));
 				if($('.action_block input.phone').length !== 0){
 					var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
 					if(phone.length != 12){
