@@ -11,6 +11,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
                     echo "<li><a target='_blank' href='/adm/productedit/".$value['id_prod']."'>".($k+1)." - ".$value['name']."</a></li>";
                 }
                 break;
+            case 'changeSpecificationValue':
+                if($Specification->UpdateSpecsValueMonitoring($_POST)){
+                    echo "ok";
+                }else{
+                    echo "error";
+                }
+                break;
             default:
                 break;
         }
