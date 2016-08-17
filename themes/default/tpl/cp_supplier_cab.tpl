@@ -129,9 +129,9 @@ if(!is_array($msg)){?>
 							<div class="photo_cell">
 								<div class="btn_js" data-name="big_photo">
 									<?if($i['image'] != ''){?>
-										<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=str_replace("/original/", "/thumb/", $i['image'])?>" data-original-photo="<?=_base_url?><?=$i['image']?>">
+										<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['image'], 'thumb')?>" data-original-photo="<?=_base_url?><?=$i['image']?>">
 									<?}else{?>
-										<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])?>" data-original-photo="<?=_base_url?><?=$i['img_1']?>">
+										<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'thumb')?>" data-original-photo="<?=_base_url?><?=$i['img_1']?>">
 									<?}?>
 									<div class="mdl-tooltip" for="big_photo_<?=$i['id_product']?>">Нажмите<br>для увеличения</div>
 								</div>							
@@ -263,9 +263,9 @@ if(!is_array($msg)){?>
 								<td class="photo_cell">
 									<div class="btn_js" data-name="big_photo">
 										<?if($i['image'] != ''){?>
-											<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=str_replace("/original/", "/thumb/", $i['image'])?>" data-original-photo="<?=_base_url?><?=$i['image']?>">
+											<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['image'], 'thumb')?>" data-original-photo="<?=_base_url?><?=$i['image']?>">
 										<?}else{?>
-											<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])?>" data-original-photo="<?=_base_url?><?=$i['img_1']?>">
+											<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'thumb')?>" data-original-photo="<?=_base_url?><?=$i['img_1']?>">
 										<?}?>
 										<div class="mdl-tooltip" for="big_photo_<?=$i['id_product']?>">Нажмите<br>для увеличения</div>
 									</div>									

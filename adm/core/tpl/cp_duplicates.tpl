@@ -22,7 +22,7 @@
 				<?$tigra = false;
 				foreach($list as $i){?>
 					<tr class="animate">
-						<td><img src="http://x-torg.com<?=str_replace('image/', 'image/500/', $i['img_1'])?>" alt="фото" width="100px"></td>
+						<td><img src="http://x-torg.com<?=G::GetImageUrl($i['img_1'], 'medium')?>" alt="фото" width="100px"></td>
 						<td>
 							<?=!$i['visible']?'<span class="invisible">(скрыт) </span>':null?>
 							<?=$i['name']?>

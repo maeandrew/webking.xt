@@ -488,9 +488,9 @@ tr.min td {
 									<td class="c2"><?=$i['art']?></td>
 									<td class="c3" style="padding: 0;">
 										<?if($i['image'] != ''){?>
-											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>">
+											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($i['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($i['image'], 'medium')):'/images/nofoto.png'?>">
 										<?}else{?>
-											<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
+											<img height="96" width="96" src="<?=_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium'))?>" />
 										<?}?>
 									</td>
 									<td class="name c4">
@@ -524,9 +524,9 @@ tr.min td {
 									<td class="c2"><?=$i['art']?></td>
 									<td class="c3" style="padding: 0;">
 										<?if($i['image'] != ''){?>
-											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>">
+											<img height="96" width="96" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($i['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($i['image'], 'medium')):'/images/nofoto.png'?>">
 										<?}else{?>
-											<img height="96" width="96" src="<?=_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
+											<img height="96" width="96" src="<?=_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium'))?>" />
 										<?}?>
 									</td>
 									<td class="name c4">

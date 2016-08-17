@@ -15,9 +15,9 @@
 		<div class="ordersProdListContent">
 			<div class="avatar">
 				<?if(!empty($item['image'])){?>
-					<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=file_exists($GLOBALS['PATH_root'].str_replace('/original/', '/medium/', $item['images'][0]['src']))?str_replace('/original/', '/medium/', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+					<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($item['images'][0]['src'], 'medium'))?G::GetImageUrl($item['images'][0]['src'], 'medium'):'/images/nofoto.png'?>"/>
 				<?}else{?>
-					<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=$item['img_1']?htmlspecialchars(str_replace("/image/", "/image/500/", $item['img_1'])):"/images/nofoto.png"?>"/>
+					<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
 				<?}?>
 			</div>
 			<div class="orderProdName"><?=$item['name'];?></div>

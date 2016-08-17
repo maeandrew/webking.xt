@@ -6,7 +6,7 @@
 			<div class="plate">
 				<div class="product<?=($ii==3)?" nm":null;?>">
 					<div class="wrap break">
-						<h4><a class="alt" href="<?=_base_url.'/item/'.$i['item_id'].'/'.$i['translit']?>/"><img src="<?=file_exists($GLOBALS['PATH_root'].$i['i_image'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['i_image'])):'/images/nofoto.png'?>"><?=$i['name']?></a></h4>
+						<h4><a class="alt" href="<?=_base_url.'/item/'.$i['item_id'].'/'.$i['translit']?>/"><img src="<?=file_exists($GLOBALS['PATH_root'].$i['i_image'])?_base_url.htmlspecialchars(G::GetImageUrl($i['i_image'], 'thumb')):'/images/nofoto.png'?>"><?=$i['name']?></a></h4>
 						<span class="descr"><?=$i['descr']?></span>
 						<?if($i['price']){?>
 							<div class="advan_price"><?=$i['price']?> $</div>

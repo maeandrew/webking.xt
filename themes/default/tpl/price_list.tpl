@@ -287,13 +287,13 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="<?=_base_url?><?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="250" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['image'], 'medium'))?>" alt="<?=$p['name']?>">
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($p['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($p['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="250" src="<?=_base_url?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" />
-                <!-- <img height="250" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" /> -->
+                <img height="250" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" />
+                <!-- <img height="250" src="<?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" /> -->
                 <?}?>
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.png'?>"/> -->
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium')):'/images/nofoto.png'?>"/> -->
                 <?if($p['opt_correction_set'] == 3 || $p['mopt_correction_set'] == 3){?>
                 <span class="best_price" title="Лучшая цена"></span>
                 <?}?>
@@ -370,13 +370,13 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="<?=_base_url?><?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="250" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['image'], 'medium'))?>" alt="<?=$p['name']?>">
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($p['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($p['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="250" src="<?=_base_url?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" />
-                <!-- <img height="250" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" /> -->
+                <img height="250" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" />
+                <!-- <img height="250" src="<?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" /> -->
                 <?}?>
-                <!-- <img height="250px" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.png'?>"/> -->
+                <!-- <img height="250px" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium')):'/images/nofoto.png'?>"/> -->
                 <?if($p['opt_correction_set'] == 3 || $p['mopt_correction_set'] == 3){?>
                 <span class="best_price" title="Лучшая цена"></span>
                 <?}?>
@@ -459,13 +459,13 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="<?=_base_url?><?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="250" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['image'], 'medium'))?>" alt="<?=$p['name']?>">
+                <!-- <img height="250" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($p['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($p['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="250" src="<?=_base_url?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" />
-                <!-- <img height="250" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" /> -->
+                <img height="250" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" />
+                <!-- <img height="250" src="<?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" /> -->
                 <?}?>
-                <!-- <img height="250px" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.png'?>"/> -->
+                <!-- <img height="250px" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium')):'/images/nofoto.png'?>"/> -->
                 <?if($p['opt_correction_set'] == 3 || $p['mopt_correction_set'] == 3){?>
                 <span class="best_price" title="Лучшая цена"></span>
                 <?}?>
@@ -575,13 +575,13 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
                 <?if($_GET['photo'] == 1){?>
                 <td style="width: 90px;">
                 <?if($p['image'] != ''){?>
-                <img height="90" src="<?=_base_url?><?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="90" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['image'], 'medium'))?>" alt="<?=$p['name']?>">
+                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($p['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($p['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="90" src="<?=_base_url?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" />
-                <!-- <img height="90" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" /> -->
+                <img height="90" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" />
+                <!-- <img height="90" src="<?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" /> -->
                 <?}?>
-                <!-- <img width="90" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.png'?>" alt=""/> -->
+                <!-- <img width="90" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium')):'/images/nofoto.png'?>" alt=""/> -->
                 </td>
                 <?}?>
                 <td style="text-align: left;"><?=$p['name']?></td>
@@ -660,13 +660,13 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
                 <?if($_GET['photo'] == 1){?>
                 <td style="width: 90px;">
                 <?if($p['image'] != ''){?>
-                <img height="90" src="<?=_base_url?><?=htmlspecialchars(str_replace("/original/", "/medium/", $p['image']))?>" alt="<?=$p['name']?>">
-                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $p['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $p['image'])):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
+                <img height="90" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['image'], 'medium'))?>" alt="<?=$p['name']?>">
+                <!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($p['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($p['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="90" src="<?=_base_url?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" />
-                <!-- <img height="90" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1']))?>" /> -->
+                <img height="90" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" />
+                <!-- <img height="90" src="<?=htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium'))?>" /> -->
                 <?}?>
-                <!-- <img width="90" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $p['img_1'])):'/images/nofoto.png'?>" alt=""/> -->
+                <!-- <img width="90" src="<?=file_exists($GLOBALS['PATH_root'].$p['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($p['img_1'], 'medium')):'/images/nofoto.png'?>" alt=""/> -->
                 </td>
                 <?}?>
                 <td style="text-align: left;"><?=$p['name']?></td>
@@ -738,13 +738,13 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$l['mopt_correction_
 <?if($_GET['photo'] == 1){?>
 <td style="width: 90px;">
 <?if($l['image'] != ''){?>
-<img height="90" src="<?=_base_url?><?=htmlspecialchars(str_replace("/original/", "/medium/", $l['image']))?>" alt="<?=$l['name']?>">
-<!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $l['image']))?_base_url.htmlspecialchars(str_replace("/original/", "/medium/", $l['image'])):'/images/nofoto.png'?>" alt="<?=$l['name']?>"> -->
+<img height="90" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($l['image'], 'medium'))?>" alt="<?=$l['name']?>">
+<!-- <img height="90" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($l['image'], 'medium'))?_base_url.htmlspecialchars(G::GetImageUrl($l['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$l['name']?>"> -->
 <?}else{?>
-<img height="90" src="<?=_base_url?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $l['img_1']))?>" />
-<!-- <img height="90" src="<?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $l['img_1']))?>" /> -->
+<img height="90" src="<?=_base_url?><?=htmlspecialchars(G::GetImageUrl($l['img_1'], 'medium'))?>" />
+<!-- <img height="90" src="<?=htmlspecialchars(G::GetImageUrl($l['img_1'], 'medium'))?>" /> -->
 <?}?>
-<!-- <img width="90" src="<?=file_exists($GLOBALS['PATH_root'].$l['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $l['img_1'])):'/images/nofoto.png'?>" alt=""/> -->
+<!-- <img width="90" src="<?=file_exists($GLOBALS['PATH_root'].$l['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($l['img_1'], 'medium')):'/images/nofoto.png'?>" alt=""/> -->
 </td>
 <?}?>
 <td style="text-align: left;"><?=$l['name']?></td>

@@ -135,9 +135,9 @@ $c11 = 65;
 							<td class="c3"><?=$i['art']?></td>
 							<td class="c4">
 								<?if($i['image'] != ''){?>
-									<img height="48" src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>">
+									<img height="48" src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($i['image'], 'medium'))?htmlspecialchars(G::GetImageUrl($i['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$i['name']?>">
 								<?}else{?>
-									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
+									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium'))?>" />
 								<?}?>
 							</td>
 							<td class="name c5">
@@ -168,9 +168,9 @@ $c11 = 65;
 							<td class="c3"><?=$i['art']?></td>
 							<td class="c4">
 								<?if($i['image'] != ''){?>
-									<img height="48" src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].str_replace("/original/", "/medium/", $i['image']))?htmlspecialchars(str_replace("/original/", "/medium/", $i['image'])):'/images/nofoto.png'?>" alt="<?=$i['name']?>">
+									<img height="48" src="<?=_base_url;?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($i['image'], 'medium'))?htmlspecialchars(G::GetImageUrl($i['image'], 'medium')):'/images/nofoto.png'?>" alt="<?=$i['name']?>">
 								<?}else{?>
-									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/500/", $i['img_1']))?>" />
+									<img height="48" src="<?=_base_url;?><?=htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium'))?>" />
 								<?}?>
 							</td>
 							<td class="name c5">
