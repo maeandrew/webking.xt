@@ -17,8 +17,8 @@
 			<input class="vam" type="checkbox" name="visible" id="seo_visible" <?=isset($_POST['visible'])&&($_POST['visible'])?'checked="checked" value="on"':null?>/>
 		</div>
 
-		<label for="title">Теги:</label><?=isset($errm['url'])?"<span class=\"errmsg\">".$errm['url']."</span><br>":null?>
-		<input type="text" name="keyword"  data-cat="<?=$value['word']?>" id="seo-word" class="input-m " value="<?=isset($_POST['word'])?htmlspecialchars($_POST['word']):null?>"/>
+		<label for="title" class="hidden">Теги:</label><?=isset($errm['url'])?"<span class=\"errmsg\">".$errm['url']."</span><br>":null?>
+		<input type="text" name="keyword"  data-cat="<?=$value['word']?>" id="seo-word" class="input-m hidden" value="<?=isset($_POST['word'])?htmlspecialchars($_POST['word']):null?>"/>
 
 		<input type="hidden" name="id_author" id="author_seotext" value="<?=isset($_SESSION['member']['id_user'])?$_SESSION['member']['id_user']:'noname';?>">
 		<input type="hidden" name="id" id="id_seotext" value="<?=isset($_POST['id'])?$_POST['id']:null;?>">
@@ -37,23 +37,8 @@
 
 		var str = $(this).val();
 		if (str.length >= 3 ) {
-
-			// $.ajax({
-			// 	url: URL_base + 'ajax_seotext',
-			// 	type: "POST",
-			// 	cache: false,
-			// 	dataType: "html",
-			// 	data: {
-			// 		"action": 'get_word',
-			// 		"str": str
-			// 	}
-			// }).done(function (data) {
-			// 	$('#list').html(data);
-			// });
-
 			ajax('seo', 'getWord', {str: str}, 'html').done(function (data) {
 				$('#list').html(data);
-				console.log(data);
 			});
 		}
 	});
