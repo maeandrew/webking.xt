@@ -280,7 +280,6 @@ class Users {
 			}
 		}
 		if(!$this->db->Update(_DB_PREFIX_."user", $f, "id_user = ".$f['id_user'])){
-			$this->db->errno = mysql_errno();
 			$this->db->FailTrans();
 			return false;
 		}

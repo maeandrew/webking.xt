@@ -399,7 +399,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					// проверяем уникальность введенного номера телефона
 					$unique_phone = $Users->CheckPhoneUniqueness($phone);
-					//print_r($unique_phone); die();
 					if($unique_phone === true){
 						$data = array(
 							'name' => 'user_'.rand(),
@@ -430,6 +429,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 				}
 				if(G::IsLogged()){
+					if(isset($_POST['phone'])){
+						$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
+						if($unique_phone === true){
+							$date = array(
+								'id_user' => $_SESSION['member']['id_user'],
+								'phone' => $_POST['phone']
+							);
+							if(!$Users->UpdateUser($date)){
+								$res['message'] = 'Возникла ошибка при сохранении телефона!';
+								$res['status'] = 500;
+								echo json_encode($res);
+								exit();
+							}
+						}else{
+							$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
+							$res['status'] = 501;
+							echo json_encode($res);
+							exit();
+						}
+					}
 					// оформляем заказ
 					if($id_order = $Orders->Add()){
 						$Cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
