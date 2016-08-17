@@ -36,7 +36,7 @@
 						<?$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" /></a>
+								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):'/images/nofoto.png'?>" title="Нажмите для увеличения" /></a>
 							</td>
 							<td class="name_cell"><?=$i['name']?></td>
 							<td class="price_cell">
@@ -52,7 +52,7 @@
 					<?$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" /></a>
+								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):'/images/nofoto.png'?>" title="Нажмите для увеличения" /></a>
 							</td>
 							<td class="name_cell">
 								<?if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){?>

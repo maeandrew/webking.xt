@@ -7,7 +7,7 @@
 				<div class="ca-item ca-item-<?=$n?>">
 					<div class="ca-item-main">
 						<a href="<?=_base_url.'/product/'.$i['id_product'].'/'.$i['translit']?>">
-							<img height="100" alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/image/", "/efiles/image/250/", $i['img_1'])):'/images/nofoto.png'?>">
+							<img height="100" alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium')):'/images/nofoto.png'?>">
 							<h5><?=$i['name']?></h5>
 						</a>
 						<a href="<?=_base_url.'/product/'.$i['id_product'].'/'.$i['translit']?>" class="ca-more"><?=number_format($i['price_mopt'],2,",","")?> грн.</a>

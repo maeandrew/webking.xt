@@ -59,7 +59,7 @@
 							<div class="photo">
 								<a href="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars($item['img_1']):'/images/nofoto.png'?>">
 									<div class="<?=$st['class']?>"></div>
-									<img alt='<?=G::CropString($item['name'])?>' src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):'/images/nofoto.png'?>"/>
+									<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($item['img_1'], 'thumb')):'/images/nofoto.png'?>"/>
 								</a>
 							</div>
 						</td>

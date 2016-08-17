@@ -52,7 +52,7 @@
 					<td>
 						<input type="checkbox" class="chek" id="checkbox_opt_<?=$i['id_product']?>" <?=isset($exclusiv_list[$i['id_product']])?'checked=checked':null?> onchange="SwitchExclusiveProduct(this,<?=$id_supplier?>,<?=$i['id_product']?>)"/>
 						<div class="fix_img">
-							<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения"></a>
+							<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):'/images/nofoto.png'?>" title="Нажмите для увеличения"></a>
 						</div>
 						<a href="<?=_base_url.'/product/'.$i['id_product'].'/'.$i['translit']?>/"><?=$i['name']?></a>
 					</td>
@@ -107,7 +107,7 @@
 						<input type="checkbox" class="chek" id="checkbox_mopt_<?=$i['id_product']?>" <?=isset($exclusiv_list[$i['id_product']])?'checked=checked':null?> onchange="SwitchExclusiveProduct(this,<?=$id_supplier?>,<?=$i['id_product']?>)"/>
 						<div class="fix_img">
 							<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide">
-								<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения">
+								<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):'/images/nofoto.png'?>" title="Нажмите для увеличения">
 							</a>
 						</div>
 						<a href="<?=_base_url.'/product/'.$i['id_product'].'/'.$i['translit']?>/"><?=$i['name']?></a>
