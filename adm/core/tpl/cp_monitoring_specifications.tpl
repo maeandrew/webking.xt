@@ -109,7 +109,6 @@
 		$('#unload_option #list').on('click', 'a', function(){
 			$(this).addClass('clicked');
 		});
-
 		$('.editcat').on('click', function(){
 			var value = $(this).closest('td').find('.specValName').html();
 			$(this).closest('td').find('.inputSpecVal').removeClass('hidden');
@@ -118,7 +117,6 @@
 			$(this).closest('td').find('.addprod').removeClass('hidden');
 			$(this).addClass('hidden');
 		});
-
 		$('.addprod').on('click', function(){
 			var id_category = $(this).closest('tr').data('cat'),
 				spec = $(this).closest('tr').data('spec'),
@@ -129,28 +127,8 @@
 			$(this).closest('td').find('.specValName').html(newVal).css('color', 'green');
 			$(this).closest('td').find('.specValName').removeClass('hidden');
 			$(this).addClass('hidden');
-
-			$.ajax({
-				url: URL_base+'ajaxmonitoring',
-				type: "POST",
-				cache: false,
-				dataType : "json",
-				data: {
-					action: 'ChangeSpecificationValue',
-					id_category: id_category,
-					id_spec: spec,
-					value: newVal,
-					oldValue: value
-				}
-			}).done(function(data){
-				closest('data');
-			});
-			// ajax('ajaxmonitoring', 'ChangeSpecificationValue',  {value: newVal, oldValue: oldVal, id_spec: id_spec, id_category: id_category}).done(function(data){
-			// 	closest('data');
-			// });
-
+			ajax('specification', 'changeSpecificationValue', {value: newVal, oldValue: value, id_spec: spec, id_category: id_category}, 'html');
 		});
-
 	});
 </script>
 <div class="modal_hidden" id="unload_option">
