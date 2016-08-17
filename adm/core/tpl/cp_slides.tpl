@@ -126,15 +126,6 @@
 			axis: 'y',
 			update: function(event, ui){
 				var data = $(this).sortable('toArray');
-				// $.ajax({
-				// 	type: 'POST',
-				// 	url: URL_base+'ajaxslides',
-				// 	data: {
-				// 		data: data,
-				// 		action: 'sort'
-				// 	}
-				// });
-
 				ajax('slides','sort', {data: data});
 			}
 		});
@@ -154,17 +145,9 @@
 			var parent = $(this).closest('.slide').attr('id');
 			var id = parseInt(parent.replace(/\D+/g,""));
 			if(confirm('Удалить слайд "'+$('#'+parent+' .title').text().trim()+'"?') == true){
-				$.ajax({
-					type: 'POST',
-					url: URL_base+'ajaxslides',
-					cache: false,
-					dataType : "json",
-					data: {
-						id: id,
-						action: 'delete'
-					}
+				ajax('slides','delete', {id: id}).done(function(data){
+					$('#slide-'+id).slideUp();
 				});
-				$('#slide-'+id).slideUp();
 			}
 		}).on('click', '.create .icon-save', function(){
 			var parent = $(this).closest('.slide').attr('id');
