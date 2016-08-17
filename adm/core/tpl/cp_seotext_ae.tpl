@@ -35,8 +35,8 @@
 <script>
 	$('#seo-word').on('change',function(){
 
-		var str = $(this).val().length;
-		if (str >= 3 ) {
+		var str = $(this).val();
+		if (str.length >= 3 ) {
 
 			// $.ajax({
 			// 	url: URL_base + 'ajax_seotext',
@@ -51,8 +51,9 @@
 			// 	$('#list').html(data);
 			// });
 
-			ajax('seo', 'getWord', {str: str}).done(function (data) {
+			ajax('seo', 'getWord', {str: str}, 'html').done(function (data) {
 				$('#list').html(data);
+				console.log(data);
 			});
 		}
 	});
