@@ -6,8 +6,9 @@
                 //Вернуть слова начинающиеся с приходящей строки
                 $words = $SEO->GerWord($_POST['str']);
                 if($words){
+                    $txt = '';
                     foreach($words as $word) {
-                        $txt .= "<li>" .$word. "</li>";
+                        $txt .= "<li>" .$word['word']. "</li>";
                     }
                     echo $txt;
                 }else{
