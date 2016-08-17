@@ -4,13 +4,14 @@
         switch($_POST['action']){
             case "getWord":
                 //Вернуть слова начинающиеся с приходящей строки
-                $str = $_POST['str'];
-                $words = $SEO->GerWord($str);
+                $words = $SEO->GerWord($_POST['str']);
                 if($words){
                     foreach($words as $word) {
                         $txt .= "<li>" .$word. "</li>";
                     }
                     echo $txt;
+                }else{
+                    echo 'no matches found';
                 }
                 break;
             default:
