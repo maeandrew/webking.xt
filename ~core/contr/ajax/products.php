@@ -196,9 +196,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}else{
 						exit();
 					}
-					$arr['id_product'] = $_POST["id_product"];
-					$arr['id_category'] = $_POST["id_category"];
-					echo json_encode($arr);
+					$array['id_product'] = $_POST["id_product"];
+					$array['id_category'] = $_POST["id_category"];
+					echo json_encode($array);
 				}
 				break;
 			default:
