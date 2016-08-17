@@ -18,7 +18,7 @@
 		</div>
 
 		<label for="title">Теги:</label><?=isset($errm['url'])?"<span class=\"errmsg\">".$errm['url']."</span><br>":null?>
-		<input type="text" name="keyword"  data-target="get_word" data-cat="<?=$value['word']?>" id="seo-word" class="input-m open_modal" value="<?=isset($_POST['word'])?htmlspecialchars($_POST['word']):null?>"/>
+		<input type="text" name="keyword"  data-cat="<?=$value['word']?>" id="seo-word" class="input-m " value="<?=isset($_POST['word'])?htmlspecialchars($_POST['word']):null?>"/>
 
 		<input type="hidden" name="id_author" id="author_seotext" value="<?=isset($_SESSION['member']['id_user'])?$_SESSION['member']['id_user']:'noname';?>">
 		<input type="hidden" name="id" id="id_seotext" value="<?=isset($_POST['id'])?$_POST['id']:null;?>">
@@ -33,27 +33,31 @@
 	});
 </script>
 <script>
-	$('#seo-word').change(function(){
-		var str = $(this).val();
+	$('#seo-word').on('change',function(){
+
+		var str = $(this).val().length;
 		if (str >= 3 ) {
-			$.ajax({
-				url: URL_base + 'ajax_seotext',
-				type: "POST",
-				cache: false,
-				dataType: "html",
-				data: {
-					"action": 'get_word',
-					"str": str
-				}
-			}).done(function (data) {
+
+			// $.ajax({
+			// 	url: URL_base + 'ajax_seotext',
+			// 	type: "POST",
+			// 	cache: false,
+			// 	dataType: "html",
+			// 	data: {
+			// 		"action": 'get_word',
+			// 		"str": str
+			// 	}
+			// }).done(function (data) {
+			// 	$('#list').html(data);
+			// });
+
+			ajax('seo', 'getWord', {str: str}).done(function (data) {
 				$('#list').html(data);
 			});
 		}
 	});
 </script>
 <div class="modal_hidden" id="get_word">
-	<ul id="list">
-
-	</ul>
+	<ul id="list"></ul>
 	<a href="#" class="close_modal icon-del">n</a>
 </div>
