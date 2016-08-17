@@ -46,9 +46,6 @@
 				<tr>
 					<td class="left">Артикул</td>
 					<td class="left">Название товара</td>
-					<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
-						<td class="left">Поп Гл</td>
-					<?}?>
 					<td class="left">&uarr; &darr;</td>
 					<td class="left">Управление</td>
 				</tr>
@@ -60,12 +57,6 @@
 						<td>
 							<?=!$i['visible']?'<span class="invisible">(скрыт) </span>':null?><a href="<?=$GLOBALS['URL_base'].'adm/productedit/'.$i['id_product']?>"><?=$i['name']?></a>
 						</td>
-						<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
-							<td class="left">
-								<input type="checkbox" id="pop_<?=$i['id_product']?>" name="pop_<?=$i['id_product']?>" <?=isset($pops[$i['id_product']])?'checked="checked"':null?> onchange="SwitchPops(this, <?=$i['id_product']?>,0)">
-								<input type="checkbox" id="popmain_<?=$i['id_product']?>" name="popmain_<?=$i['id_product']?>" <?=isset($popsMain[$i['id_product']])?'checked="checked"':null?> onchange="SwitchPops(this, <?=$i['id_product']?>, 1)">
-							</td>
-						<?}?>
 						<td class="left">
 							<input type="edit" name="ord[<?=$i['id_product']?>]" class="input-s" value="<?=$i['ord']?>">
 						</td>
@@ -142,28 +133,3 @@
 <?if(isset($res_check)){?>
 	<br><b>Найдено дублей арт. ( <?=count(explode(',', $res_check))?> ):</b> <?=$res_check?>
 <?}?>
-<script>
-	function SwitchPops(obj,id, main){
-		action = "add";
-		if (!obj.checked){
-			action = "del";
-		}
-		id_category = 0;
-		if (main==0){
-			id_category = <?=$id_category?>;
-		}
-		// $.ajax({
-		// 	url: URL_base+'ajaxpops',
-		// 	type: "POST",
-		// 	cache: false,
-		// 	dataType : "json",
-		// 	data: {
-		// 		"action": action,
-		// 		"id_product": id,
-		// 		"id_category": id_category
-		// 	}
-		// });
-
-		ajax('products', 'pops', {act: action, id_product: id, id_category: id_category});
-	}
-</script>
