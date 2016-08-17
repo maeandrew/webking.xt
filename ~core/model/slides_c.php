@@ -93,7 +93,7 @@ class Slides {
 		foreach($slides as $k=>$v){
 			$sql = "UPDATE "._DB_PREFIX_."slides
 				SET ord = ".$k."
-				WHERE id = ".eregi_replace("([^0-9])", "", $v);
+				WHERE id = ".trim($v);
 			$this->db->StartTrans();
 			$this->db->Query($sql);
 			$this->db->CompleteTrans();
