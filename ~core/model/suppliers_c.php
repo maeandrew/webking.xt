@@ -23,9 +23,10 @@ class Suppliers extends Users {
 			FROM "._DB_PREFIX_."supplier
 			WHERE id_user = ".$id."
 			".$active;
-		if(!$this->fields = $this->db->GetOneRowArray($sql)){
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return true;
 		}
+		$this->fields = array_merge($res, $this->fields);
 		return $this->fields;
 	}
 
