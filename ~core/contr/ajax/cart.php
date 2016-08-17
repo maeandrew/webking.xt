@@ -49,7 +49,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
 				$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
 				$customer['phone'] = isset($phones)?$phones:'';
-				$tpl->Assign('phone', isset($customer['phones'])?$customer['phones']:'');
 
 				// список всех менеджеров
 				$Contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
