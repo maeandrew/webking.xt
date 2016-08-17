@@ -3,12 +3,12 @@
 		$config = new config();
 		if(isset($_POST['action']))
 			switch($_POST['action']){
-				case "getoption":
+				case "getOption":
 					$config->SetFieldsByName($_POST['nameOption']);
 					echo json_encode($config->fields);
 				;
 				break;
-				case "updateoption":
+				case "updateOption":
 					echo json_encode($config->UpdateByName($_POST['nameOption'],$_POST['valueOption']));
 				;
 				break;
