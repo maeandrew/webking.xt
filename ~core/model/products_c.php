@@ -3043,40 +3043,6 @@ class Products {
 		return $arr;
 	}
 	/**
-	 * Добавление популярного продукта
-	 * @param [type] $id_product  [description]
-	 * @param [type] $id_category [description]
-	 */
-	public function SetPopular($id_product, $id_category){
-		$this->db->StartTrans();
-		$f['id_product'] = $id_product;
-		$f['id_category'] = $id_category;
-		if(!$this->db->Insert(_DB_PREFIX_.'popular_products', $f)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-	}
-	/**
-	 * Удаление популярного продукта
-	 * @param [type] $id_product  [description]
-	 * @param [type] $id_category [description]
-	 */
-	public function DelPopular($id_product, $id_category){
-		$this->db->StartTrans();
-		$this->db->DeleteRowsFrom(_DB_PREFIX_."popular_products", array ("id_product = $id_product", "id_category = ".$id_category));
-		$this->db->CompleteTrans();
-	}
-	/**
-	 * Очистка списка популярных товаров
-	 */
-	public function ClearPopular(){
-		$this->db->StartTrans();
-		$sql = "DELETE FROM "._DB_PREFIX_."popular_products";
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		$this->db->CompleteTrans();
-	}
-	/**
 	 * Статистика продаж товаров в период
 	 * @param boolean $and [description]
 	 */

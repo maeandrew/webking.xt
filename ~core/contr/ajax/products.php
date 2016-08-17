@@ -187,20 +187,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo '<option value="'.$v['value'].'">';
 				}
 				break;
-			case"pops":
-				if(isset($_POST['id_product']) && isset($_POST['id_category'])){
-					if($_POST['act']=="add"){
-						$Products->SetPopular($_POST['id_product'], $_POST['id_category']);
-					}elseif($_POST['act']=="del"){
-						$Products->DelPopular($_POST['id_product'], $_POST['id_category']);
-					}else{
-						exit();
-					}
-					$array['id_product'] = $_POST["id_product"];
-					$array['id_category'] = $_POST["id_category"];
-					echo json_encode($array);
-				}
-				break;
 			default:
 				break;
 		}
