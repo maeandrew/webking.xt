@@ -126,7 +126,7 @@ class Slides {
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
-		return $id;
+		return true;
 	}
 }
 ?>

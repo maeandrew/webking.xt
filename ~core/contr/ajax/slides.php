@@ -14,8 +14,8 @@
                 echo $id;
                 break;
             case "delete":
-                if($Slides->DeleteSlide($_POST['id'])){
-                    echo $id;
+                if($id = $Slides->DeleteSlide($_POST['id'])){
+                    return true;
                 }else{
                     return false;
                 }
