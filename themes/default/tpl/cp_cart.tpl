@@ -360,7 +360,7 @@
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="<?=$_SERVER['REQUEST_URI']?>">
-					<?if(!G::IsLogged()){?>
+					<?if(!G::IsLogged() || ($_SESSION['member']['gid'] !== _ACL_CONTRAGENT_ && !preg_match("/^380\d{9}$/", $phone))){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
 							<input class="mdl-textfield__input phone" type="text" id="user_number"
