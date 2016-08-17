@@ -79,6 +79,9 @@
 	width: 4%;
 	text-align: center;
 }
+#slides_list .id:hover {
+	cursor: move;
+}
 #slides_list .image {
 	width: 15%;
 }

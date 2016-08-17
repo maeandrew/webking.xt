@@ -16,7 +16,7 @@
 				<li class="slide" id="slide-<?=$item['id'];?>">
 					<section class="id icon-dragplace">m</section>
 					<section class="image">
-						<span><img src="/images/slides/<?=$item['image'] == null?'-':$item['image'];?>" alt=""></span>
+						<span><!-- <img src="/images/slides/<?=$item['image'] == null?'-':$item['image'];?>" alt=""> --></span>
 						<!-- <span><img src="/images/slides/<?=$item['image'] == null?'-':$item['image'];?>" alt=""></span> -->
 						<input type="file" id="img_upload_<?=$item['id'];?>" name="img" class="input-s hidden"/>
 						<input type="hidden" name="image" value="<?=$item['image'];?>"/>
@@ -126,14 +126,16 @@
 			axis: 'y',
 			update: function(event, ui){
 				var data = $(this).sortable('toArray');
-				$.ajax({
-					type: 'POST',
-					url: URL_base+'ajaxslides',
-					data: {
-						data: data,
-						action: 'sort'
-					}
-				});
+				// $.ajax({
+				// 	type: 'POST',
+				// 	url: URL_base+'ajaxslides',
+				// 	data: {
+				// 		data: data,
+				// 		action: 'sort'
+				// 	}
+				// });
+
+				ajax('slides','sort', {data: data});
 			}
 		});
 		$('#sortable').disableSelection();
