@@ -164,20 +164,7 @@
 				visibility = 0
 			}
 			if(image != '' && title != ''){
-				$.ajax({
-					type: 'POST',
-					url: URL_base+'ajaxslides',
-					cache: false,
-					dataType : "json",
-					data: {
-						action: 'add',
-						image: image,
-						title: title,
-						content: content,
-						slider: slider,
-						visibility: visibility
-					}
-				}).done(function(id){
+				ajax('slides','add', {image: image, title: title, content: content, slider: slider, visibility: visibility}).done(function(id){
 					$('#sortable').append('<li class="slide" id="slide-'+id+'"><section class="id icon-dragplace">m</section><section class="image"><span><img src="/images/slides/'+image+'" alt=""></span><input type="hidden" name="image" value="'+image+'"/></section><section class="title"><span>'+title+'</span><input type="hidden" name="title" value="'+title+'"/></section><section class="cont"><span>'+content+'</span><input type="hidden" name="content" value="'+content+'"/></section><section class="slider"><span>'+slider+'</span><input type="hidden" name="slider" value="'+slider+'"/></section><section class="visibility">'+visitext+'</section><section class="execute">'+buttons+'</section><section class="edit hidden"><div class="icon-cancel" title="Отменить">n</div><div class="icon-save" title="Сохранить">y</div></section><div class="clear"></div></li>');
 					$('#slide-'+id+' span').removeClass('hidden');
 					$('#slide-'+id+' .execute').removeClass('hidden');
@@ -187,8 +174,8 @@
 					$('#newslide').hide('fast');
 					$('#newslide .image input[type="file"').addClass('hidden');
 					$('.addonemore').slideDown();
+					location.reload();
 				});
-				location.reload();
 			}
 		}).on('click', '.execute .icon-edit', function(){
 			var parent = $(this).closest('.slide').attr('id');
