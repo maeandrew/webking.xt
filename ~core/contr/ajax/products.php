@@ -189,28 +189,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case"pops":
 				if(isset($_POST['id_product']) && isset($_POST['id_category'])){
-					if($_POST['act']=="add" && checkNumeric($_POST, array('id_product', 'id_category'))){
+					if($_POST['act']=="add"){
 						$Products->SetPopular($_POST['id_product'], $_POST['id_category']);
-					}elseif($_POST['act']=="del" && checkNumeric($_POST, array('id_product', 'id_category'))){
+					}elseif($_POST['act']=="del"){
 						$Products->DelPopular($_POST['id_product'], $_POST['id_category']);
 					}else{
 						exit();
 					}
-//					$t = ob_get_clean();
-//					G::LogerE($t, "ajax.html", "w");
 					$arr['id_product'] = $_POST["id_product"];
 					$arr['id_category'] = $_POST["id_category"];
 					echo json_encode($arr);
-
-					function checkNumeric($arr, $fields){
-						$fl = true;
-						foreach ($fields as $f){
-							if (!is_numeric($arr[$f]))
-								$fl = false;
-						}
-						return $fl;
-					}
-					exit();
 				}
 				break;
 			default:
