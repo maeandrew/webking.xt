@@ -57,6 +57,7 @@
 		</div>
 	</div>
 <?}?>
+
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
 		<div class="image">
@@ -69,6 +70,7 @@
 		</div>
 	</div>
 </div>
+<?print_r($batch);?>
 <div class="prodList">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
 		<col width="10%">
@@ -90,7 +92,7 @@
 		<?if(isset($batch) && is_array($batch)){
 			foreach($batch as $i){?>
 				<thead>
-					<tr class="batchListItem">
+					<tr class="batchListItem batchListItem_js" data-createDate="<?=$i['date']?>" data-idSupplier="<?=$i['id_supplier']?>" data-idAuthor="<?=$i['id_author']?>">
 						<th class="center"><?=$i['date']?></th>
 						<th class="center"><?=$i['name']?></th>
 						<th class="center"><?=$i['count_product']?></th>
