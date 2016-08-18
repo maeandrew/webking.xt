@@ -4532,7 +4532,7 @@ class Products {
 		return $res;
 	}
 
-	public function GetBetchesFhoto($id_photographer = false, $limit = false){
+	public function GetBatchesFhoto($id_photographer = false, $limit = false){
 		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
 		$sql = "SELECT pb.*, s.article, u.name, COUNT(pbp.id_product) AS count_product,
 				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 1 AND i.id_product IN
@@ -4551,11 +4551,11 @@ class Products {
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
-		if($limit){
-			foreach ($res as $k => &$v) {
-				$v['products'] = $this->GetProductsByIdUser($v['id_author'], $v['date'], $v['id_supplier']);
-			}
-		}
+//		if($limit){
+//			foreach ($res as $k => &$v) {
+//				$v['products'] = $this->GetProductsByIdUser($v['id_author'], $v['date'], $v['id_supplier']);
+//			}
+//		}
 		return $res;
 	}
 
