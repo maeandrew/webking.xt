@@ -232,11 +232,9 @@ $(function(){
 			id_supplier = parent.attr('data-idSupplier'),
 			id_author = parent.attr('data-idAuthor');		
 		var data = {create_date: create_date, id_supplier: id_supplier, id_author: id_author};
-		ajax('products', 'getProductBatch', data).done(function(data){
-			console.log('success');
+		ajax('products', 'getProductBatch', data, 'html').done(function(data){			
 			console.log(data);
-		}).fail(function(data){
-			console.log('fail');
+		}).fail(function(data){			
 			console.log(data);
 		});
 	});

@@ -70,7 +70,6 @@
 		</div>
 	</div>
 </div>
-<?print_r($batch);?>
 <div class="prodList">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
 		<col width="10%">
