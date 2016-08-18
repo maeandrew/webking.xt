@@ -134,9 +134,9 @@
 					<div class="product_photo">
 						<a href="<?=Link::Product($item['translit']);?>">
 							<?if(!empty($item['images'])){?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="http://xt.ua<?=str_replace('/original/', '/thumb/', $item['images'][0]['src']);?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 							<?}else{?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="http://xt.ua<?=($item['img_1'])?str_replace("image/", "_thumb/image/", $item['img_1']):"/images/nofoto.png"?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 							<?}?>
 						</a>
 					</div>
@@ -360,11 +360,11 @@
 		<div class="action_block">
 			<div class="wrapp">
 				<form action="<?=$_SERVER['REQUEST_URI']?>">
-					<?if(!G::IsLogged()){?>
+					<?if(!G::IsLogged() || ($_SESSION['member']['gid'] !== _ACL_CONTRAGENT_ && !preg_match("/^380\d{9}$/", $User['phone']))){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
 							<input class="mdl-textfield__input phone" type="text" id="user_number"
-							pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i" value="<?=isset($phone) ? $phone : null ?>">
+							pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}" value="<?=isset($User['phone']) && preg_match("/^380\d{9}$/", $User['phone']) ? $User['phone'] : null ?>">
 							<label class="mdl-textfield__label" for="user_number"></label>
 							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						</div>
@@ -594,7 +594,7 @@
 						}, 3000);
 					}
 				});
-				if(!IsLogged){
+				if($('.action_block input.phone').length !== 0){
 					var phone = $('.action_block input.phone').val().replace(/[^\d]+/g, "");
 					if(phone.length != 12){
 						validate = false;

@@ -633,19 +633,19 @@ class G {
 		// sitemap.xml
 		switch($navigation){
 			case 'products':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM "._DB_PREFIX_."product WHERE indexation = 1 AND visible = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM "._DB_PREFIX_."product WHERE indexation = 1 AND visible = 1";
 				break;
 			case 'pages':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
 				break;
 			case 'categories':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'news':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'posts':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."post WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."post WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'promotions':
 				$sql = "";
@@ -767,26 +767,35 @@ class G {
 		}
 		return $res;
 	}
-
-	public static function GetImageUrl($url, $img_size = false){
-		if($img_size !== false){
-			if(strpos($url, '/original/') != false){
-				$url = str_replace('/original/', '/'.$img_size.'/', $url);
-			}else{
-				switch($img_size){
-					case 'thumb':
-						$size = '/_thumb/image/';
-						break;
-					case 'small':
-						$size = '/image/250/';
-						break;
-					case 'medium':
-						$size = '/image/500/';
-						break;
-				}
-				$url = str_replace('/image/', $size, $url);
+	/**
+	 * Метод для получения URL изображения товара
+	 * @param string $url      URL исходного изображения
+	 * @param string $img_size необходимый размер изображения (Опциональный параметр. Но, если не указать данный параметр, то метод вернет тот же URL, который был передан ему.)
+	 */
+	public static function GetImageUrl($url, $img_size = 'original'){
+		// Если $url содержит подстроку '/original/', тогда получаем изображение желаемого размера из нового массива изображений товара, иначе...
+		if(strpos($url, '/original/') != false){
+			$url = str_replace('/original/', '/'.$img_size.'/', $url);
+		}else{
+			// ...из старого массива.
+			switch($img_size){
+				case 'thumb':
+					$size = '/_thumb/image/';
+					break;
+				case 'medium':
+					$size = '/image/500/';
+					break;
+				// default интерпретируется в том случае, если в метод был передан некорректный $img_size.
+				default:
+					$size = '/image/';
+					break;
 			}
+			$url = str_replace('/image/', $size, $url);
 		}
-		return $url;
+		// Если файла по данному $url не существует, получим изображение nofoto.png
+		if(!file_exists($GLOBALS['PATH_root'].$url)){
+			$url = '/images/nofoto.png';
+		}
+		return htmlspecialchars($url);
 	}
 }

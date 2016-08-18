@@ -124,7 +124,7 @@
 										<?if(is_array($item['images'])){?>
 											<div class="prodImages">
 												<?foreach($item['images'] as $image){?>
-													<!-- <img src="<?=str_replace('/original/', '/thumb/', $image['src'])?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
+													<!-- <img src="<?=G::GetImageUrl($image['src'], 'thumb')?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
 													<img src="<?=_base_url.$image['src']?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt="">
 													<!-- 	<img src="/images/noavatar.png"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
 												<?}?>

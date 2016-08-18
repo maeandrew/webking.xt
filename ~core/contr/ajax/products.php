@@ -186,11 +186,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				foreach ($valitem as &$v){
 					echo '<option value="'.$v['value'].'">';
 				}
+			case "getProductBatch":
+				$prod = $Products->GetProductsByIdUser($_POST['id_user'], $_POST['$date'], $_POST['$id_supplier']);
+				echo json_encode($prod);
 				break;
 			default:
 				break;
 		}
-		exit();
 	}
 }
-?>
+exit();
