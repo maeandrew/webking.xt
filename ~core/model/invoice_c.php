@@ -69,7 +69,8 @@ class Invoice{
 				LEFT JOIN "._DB_PREFIX_."image AS i
 					ON osp.id_product = i.id_product AND i.ord = 0 AND i.visible = 1
 			".$this->db->GetWhere($and)."
-			GROUP BY osp.id_order, osp.id_product, osp.id_supplier";
+			GROUP BY osp.id_order, osp.id_product, osp.id_supplier
+			ORDER BY p.name";
 		//print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		if(empty($arr) == true){
