@@ -181,13 +181,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo '<option value="'.$v['value'].'">';
 				}
 				break;
-			case"getValuesOfTypes":
-				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);
-				foreach ($valitem as &$v){
-					echo '<option value="'.$v['value'].'">';
-				}
 			case "getProductBatch":
-				$prod = $Products->GetProductsByIdUser($_POST['id_user'], $_POST['$date'], $_POST['$id_supplier']);
+				$prod = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['$date'], $_POST['$id_supplier']);
 				echo json_encode($prod);
 				break;
 			default:
