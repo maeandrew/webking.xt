@@ -182,8 +182,48 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case "getProductBatch":
-				$prod = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['create_date'], $_POST['id_supplier']);
-				echo json_encode($prod);
+				$list = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['create_date'], $_POST['id_supplier']);
+				$prod_arr ='';
+				foreach($list as $item){
+					$prod_arr .= '<div class="prodListItem">
+									<div class="prodInfo">
+										<div class="nameProd">
+											<label>Название:</label>
+											<span>'.$item['name'].'</span>
+										</div>
+										<div class="createData">
+											<label>Добавлен:</label>
+											<span>'.$item['create_date'].'</span>
+										</div>
+									</div>
+									<div class="actions">';
+									if($item['indexation'] != 0){
+										$prod_arr .='<a href="/adm/productedit/'.$item['id_product'].'" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>';
+									}
+									$prod_arr .='<a href="'._base_url.'/'.$item['translit'].'.html" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
+									</div>';
+									if(is_array($item['images'])){
+									$prod_arr .='<div class="prodImages">';
+											foreach($item['images'] as $image){
+												$prod_arr .='<!-- <img src="'.G::GetImageUrl($image['src'], 'thumb').'"'.$image['visible'] == 0?' class="imgopacity"':'' .' alt=""> -->
+												<img src="'._base_url.$image['src'].'"'.$image['visible'] == 0?' class="imgopacity"':''.' alt="">
+												<!-- 	<img src="/images/noavatar.png"'.$image['visible'] == 0?' class="imgopacity"':''.' alt=""> -->';
+											}
+									$prod_arr .='</div>';
+									}
+									if(is_array($item['videos'])){
+										$prod_arr .='<div class="prodVideos">';
+										foreach($item['videos'] as $video){
+										$prod_arr .='<a href="<?=$video?>" target="blank">
+													<img src="/images/video_play.png" alt="play">
+													<span class="name">'.$video.'</span>
+												</a>';
+											}
+										$prod_arr .='</div>';
+									}
+									$prod_arr .='</div>';
+				}
+				echo $prod_arr;
 				break;
 			default:
 				break;
