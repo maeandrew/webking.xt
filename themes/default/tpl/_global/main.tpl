@@ -628,8 +628,7 @@
 				<form action="<?=$_SERVER['REQUEST_URI']?>" class="search_form_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="user_number">Телефон</label>
-						<input class="mdl-textfield__input phone" type="text" id="user_number"
-						pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}">
+						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}">
 						<label class="mdl-textfield__label" for="user_number"></label>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Найти</button>
