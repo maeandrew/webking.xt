@@ -173,7 +173,30 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
 				break;
 			case 'addSupplier':
-				echo json_encode($Products->GetSupplierInfoByArticle($_POST['art']));
+				$Suppliers = new Suppliers();
+				$id_supplier = $Suppliers->GetSupplierIdByArt($_POST['article']);
+				$Suppliers->SetFieldsByID($id_supplier);
+					$_POST['product_limit'] = 0;
+					$_POST['active'] = 0;
+					if(($_POST['price_opt_otpusk'] != 0) || ($_POST['price_mopt_otpusk'] != 0)){
+						$_POST['product_limit'] = 100000000;
+						$_POST['active'] = 1;
+					}
+					if($_POST['inusd'] == 1){
+						$_POST['price_mopt_otpusk_usd'] = $_POST['price_mopt_otpusk'];
+						$_POST['price_mopt_otpusk'] = $_POST['price_mopt_otpusk']*$Suppliers->fields['currency_rate'];
+						$_POST['price_opt_otpusk_usd'] = $_POST['price_opt_otpusk'];
+						$_POST['price_opt_otpusk'] = $_POST['price_opt_otpusk']*$Suppliers->fields['currency_rate'];
+					}else{
+						$_POST['price_mopt_otpusk_usd'] = $_POST['price_mopt_otpusk']/$Suppliers->fields['currency_rate'];
+						$_POST['price_opt_otpusk_usd'] = $_POST['price_opt_otpusk']/$Suppliers->fields['currency_rate'];
+					}
+					if(!$Products->IsInAssort($_POST['id_product'], $id_supplier)){
+						$Products->AddProductToAssort($_POST['id_product'], $id_supplier, $_POST, $Suppliers->fields['koef_nazen_opt'], $Suppliers->fields['koef_nazen_mopt'], $_POST['inusd']==1?true:false);
+						echo json_encode(true);
+					}else{
+						echo json_encode(false);
+					}
 				break;
 			case"getValuesOfTypes":
 				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);

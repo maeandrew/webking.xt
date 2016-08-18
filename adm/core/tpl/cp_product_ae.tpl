@@ -2,7 +2,7 @@
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
-<div id="productae">
+<div id="productae" class="product_js" data-id-product="<?=isset($_POST['id_product'])?$_POST['id_product']:0?>">
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="grid" id="product_form" >
 		<div class="prod_head">
 			<?if($GLOBALS['CurrentController'] == 'productedit'){?>
@@ -429,7 +429,7 @@
 							</div>
 						</div>
 					<?}?>
-					<div class="hidden">
+					<div class="">
 						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
 							<label>Данные поставщика:</label>
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier">
@@ -514,29 +514,31 @@
 								<tbody>
 									<tr class="animate">
 										<td>
-											<input list="data_sup_art" type="text" id="sup_art" class="input-m" placeholder="S100" autocomplete="off">
+											<input list="data_sup_art" type="text" class="input-m" name="supplier_article" placeholder="S100" autocomplete="off">
 											<datalist id="data_sup_art"></datalist>
 										</td>
 										<td>
 											<div class="select_price fl">
 												<label class="inusd fl">Цена в:</label>
-												<select name="inusd[]" id="sup_inusd" class="input-m">
+												<select name="inusd" class="input-m">
 													<option value="0">ГРН</option>
 													<option value="1">USD</option>
 												</select>
 											</div>
 											<div class="fr price">
-												<label>Розничная</label><input type="number" min="0" step="0.01" id="sup_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
+												<label>Розничная</label>
+												<input type="number" min="0" step="0.01" name="supplier_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
 											</div>
 											<div class="fr price">
-												<label>Оптовая</label><input type="number" min="0" step="0.01" id="sup_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
+												<label>Оптовая</label>
+												<input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
 											</div>
 										</td>
 										<td>
-											<input type="number" min="0" value="1000000" id="sup_product_limit" class="input-m">
+											<input type="checkbox" name="supplier_product_available">
 										</td>
 										<td>
-											<button id="add_sup_js" class="btn-m-default fr">Привязать</button>
+											<button class="add_sup_js btn-m-default fr">Привязать</button>
 										</td>
 									</tr>
 								</tbody>
@@ -693,6 +695,79 @@
 	var url = URL_base+'productadd/';
 
 	$(function(){
+		//Заполнение списка артикулов поставщиков
+		$('[name="supplier_article"]').keyup(function(){
+			var inputvalue = $(this).val();
+			dataListSupplier(inputvalue);
+		});
+		//Привязка поставщика к товару
+		$('.add_sup_js').on('click', function(e){
+			e.preventDefault();
+			var parent = $(this).closest('tr'),
+				data = {};
+			data.id_product = $(this).closest('.product_js').data('id-product');
+			data.article = parent.find('[name="supplier_article"]').val().split(' - ')[0];
+			data.inusd = parent.find('[name="inusd"]').val();
+			data.price_opt_otpusk = parent.find('[name="supplier_price_opt"]').val();
+			data.price_mopt_otpusk = parent.find('[name="supplier_price_mopt"]').val();
+			data.active = parent.find('[name="supplier_product_available"]:checked').length > 0?1:0;
+			if(data.article != ''){
+				if(data.price_opt_otpusk != ''){
+					if(data.price_mopt_otpusk != ''){
+						ajax('products', 'addSupplier', data).done(function(response){
+							if(!response){
+								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
+							}else{
+								//Добавляем поставщика в таблицу 'Данные поставщика'
+								var html_string = inusd_sel = not_inusd_sel = active_checked = '';
+								if(data.active == 1){
+									active_checked = 'checked="checked"';
+								}
+								if(data.inusd == 1){
+									inusd_sel = 'selected="selected"';
+								}else{
+									not_inusd_sel = 'selected="selected"';
+								}
+								if(response.real_phone == '380'){
+									response.real_phone = 'не указан';
+								}
+								//Формируем html для вставки
+								html_string = '<tr class="animate supp_js">';
+								html_string += '<td class="center">'+data.article+'</td>';
+								html_string += '<td class="supp_name_js">'+response.name+'</td>';
+								html_string += '<td>'+response.real_phone+'</td>';
+								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="inusd" class="input-m"><option value="0" '+not_inusd_sel+'>ГРН</option><option value="1" '+inusd_sel+'>USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" min="0" step="0.01" name="supplier_price_opt" class="input-m" value="'+data.price_opt+'" placeholder="По умолчанию в (грн)"></div><div class="fr price"><label>Розница:</label><input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" value="'+data.price_mopt+'" placeholder="По умолчанию в (грн)"></div></td>';
+								html_string += '<td><input type="checkbox" name="supplier_product_available" value="'+active_checked+'"></td>';
+								html_string += '<td class="center"><input type="hidden" name="id_supplier" value="'+response.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
+								html_string += '</tr>';
+
+								if($('.supplier tr').is('#empty2')){
+									$('.supplier #empty2').remove();
+								}
+								$('.supplier tbody').append(html_string);
+
+								//Очистка полей ввода
+								$('.compulsory').removeClass('compulsory');
+								$('.sup_notation').remove();
+								$('[name="supplier_article"], [name="supplier_price_mopt"], [name="supplier_price_opt"]').val('');
+								$('[name="inusd"] [value="0"]').attr('selected', 'selected');
+								$('[name="supplier_product_available"]').attr('checked', false);
+							}
+						});
+					}else{
+						$('[name="supplier_price_mopt"]').addClass('compulsory').parent().find('.sup_notation').remove();
+						$('[name="supplier_price_mopt"]').parent().append('<span class="sup_notation">Заполните поле</span>');
+					}
+				}else{
+					$('[name="supplier_price_opt"]').addClass('compulsory').parent().find('.sup_notation').remove();
+					$('[name="supplier_price_opt"]').parent().append('<span class="sup_notation">Заполните поле</span>');
+				}
+			}else{
+				$('[name="supplier_article"]').addClass('compulsory').parent().find('.sup_notation').remove();
+				$('[name="supplier_article"]').parent().append('<span class="sup_notation">Заполните поле</span>');
+			}
+		});
+
 		if($('.catblock:not(.hidden)').length > 1){
 			$('.delcat').show();
 		}else{
@@ -852,8 +927,8 @@
 		});
 
 		//Прокрустка страницы
-		$('a[href^=#nav_]').on('click', function(event) {
-			event.preventDefault();
+		$('a[href^=#nav_]').on('click', function(e) {
+			e.preventDefault();
 			var href = $(this).attr('href');
 			if($("div").is("#nav_comment")){
 				offsetTop = href === "#nav_comment" ? 0 : $(href).offset().top;
@@ -863,76 +938,6 @@
 			$('html, body').animate({
 				scrollTop: offsetTop
 			}, 300);
-		});
-
-		//Заполнение списка артикулов поставщиков
-		$("#sup_art").keyup(function() {
-			var inputvalue = $(this).val();
-			dataListSupplier(inputvalue);
-		});
-
-		//Привязка поставщика к товару
-		$('#add_sup_js').on('click', function(event) {
-			event.preventDefault();
-			var art = $('#sup_art').val().split('-'),
-				inusd = $('#sup_inusd').val(),
-				price_opt = $('#sup_price_opt').val(),
-				price_mopt = $('#sup_price_mopt').val(),
-				product_limit = $('#sup_product_limit').val();
-			art = art[0];
-			if(art != ''){
-				if(price_opt != ''){
-					if(price_mopt != ''){
-						ajax('products', 'addSupplier', {art: art}).done(function(data){
-							if(!data){
-								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
-							}else{
-								//Добавляем поставщика в таблицу 'Данные поставщика'
-								var html_string = inusd_sel = not_inusd_sel = '';
-								if(inusd == 1){
-									inusd_sel = 'selected="selected"';
-								}else{
-									not_inusd_sel = 'selected="selected"';
-								}
-								if(data.real_phone == '380'){
-									data.real_phone = 'не указан';
-								}
-								//Формируем html для вставки
-								html_string = '<tr class="animate supp_js">';
-								html_string += '<td class="center">'+art+'</td>';
-								html_string += '<td class="supp_name_js">'+data.name+'</td>';
-								html_string += '<td>'+data.real_phone+'</td>';
-								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="inusd[]" class="input-m"><option value="0" '+not_inusd_sel+'>ГРН</option><option value="1" '+inusd_sel+'>USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_opt+'"></div><div class="fr price"><label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="'+price_mopt+'"></div></td>';
-								html_string += '<td><input type="number" name="product_limit[]" min="0" value="'+product_limit+'" class="input-m"></td>';
-								html_string += '<td class="center"><input type="hidden" name="id_supplier[]" value="'+data.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
-								html_string += '</tr>';
-
-								if($('.supplier tr').is('#empty2')){
-									$('.supplier #empty2').remove();
-								}
-								$('.supplier tbody').append(html_string);
-
-								//Очистка полей ввода
-								$('.compulsory').removeClass('compulsory');
-								$('.sup_notation').remove();
-								$('#sup_art, #sup_price_opt, #sup_price_mopt').val('');
-								$('#sup_inusd [value="0"]').attr('selected', 'selected');
-								// $('#sup_inusd [value="'+inusd+'"]').attr('selected', 'selected');
-								$('#sup_product_limit').val('1000000');
-							}
-						});
-					}else{
-						$('#sup_price_mopt').addClass('compulsory').parent().find('.sup_notation').remove();
-						$('#sup_price_mopt').parent().append('<span class="sup_notation">Заполните поле</span>');
-					}
-				}else{
-					$('#sup_price_opt').addClass('compulsory').parent().find('.sup_notation').remove();
-					$('#sup_price_opt').parent().append('<span class="sup_notation">Заполните поле</span>');
-				}
-			}else{
-				$('#sup_art').addClass('compulsory').parent().find('.sup_notation').remove();
-				$('#sup_art').parent().append('<span class="sup_notation">Заполните поле</span>');
-			}
 		});
 
 		//Отвязка постащика от товара
