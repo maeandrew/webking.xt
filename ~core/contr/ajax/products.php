@@ -53,6 +53,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$cnt = $Products->GetProductsCnt($where_arr, 0, $params);
 				echo $cnt;
 				break;
+			case "getProductBatch":
+				$prod = $Products->GetProductsByIdUser($_POST['id_user'], $_POST['$date'], $_POST['$id_supplier']);
+				echo json_encode($prod);
+				break;
 			default:
 				break;
 		}

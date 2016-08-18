@@ -36,16 +36,16 @@ if(isset($id_photographer)){
 		if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
-		$GLOBALS['Limit_db'] = 3;
-		$cnt = count($products->GetBetchesFhoto($id_photographer));
-		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt, 3);
+		$GLOBALS['Limit_db'] = 30;
+		$cnt = count($products->GetBatchesFhoto($id_photographer));
+		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 		$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 	}else{
 		$GLOBALS['Limit_db'] = 0;
 		$limit = '';
 	}
 	// --
-	$batch = $products->GetBetchesFhoto($id_photographer, $limit);
+	$batch = $products->GetBatchesFhoto($id_photographer, $limit);
 	$tpl->Assign('batch', $batch);
 }
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_photo_products.tpl');
