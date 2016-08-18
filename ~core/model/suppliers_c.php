@@ -26,7 +26,7 @@ class Suppliers extends Users {
 		if(!$res = $this->db->GetOneRowArray($sql)){
 			return true;
 		}
-		$this->fields = array_merge($res, $this->fields);
+		$this->fields = is_array($this->fields)?array_merge($res, $this->fields):$res;
 		return $this->fields;
 	}
 
