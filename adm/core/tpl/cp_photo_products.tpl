@@ -101,53 +101,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?if(isset($i['products']) && is_array($i['products'])){
-						foreach($i['products'] as $item){?>
-							<tr>
-								<td colspan="6">
-									<div class="prodListItem">
-										<div class="prodInfo">
-											<div class="nameProd">
-												<label>Название:</label>
-												<span><?=$item['name']?></span>
-											</div>
-											<div class="createData">
-												<label>Добавлен:</label>
-												<span><?=$item['create_date']?></span>
-											</div>
-										</div>
-										<div class="actions">
-											<?if($item['indexation'] != 0){?>
-												<a href="/adm/productedit/<?=$item['id_product']?>" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
-											<?}?>
-											<a href="<?=_base_url.'/'.$item['translit']?>.html" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
-										</div>
-										<?if(is_array($item['images'])){?>
-											<div class="prodImages">
-												<?foreach($item['images'] as $image){?>
-													<!-- <img src="<?=G::GetImageUrl($image['src'], 'thumb')?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
-													<img src="<?=_base_url.$image['src']?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt="">
-													<!-- 	<img src="/images/noavatar.png"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
-												<?}?>
-											</div>
-										<?}
-										if(is_array($item['videos'])){?>
-											<div class="prodVideos">
-												<?foreach($item['videos'] as $video){?>
-													<a href="<?=$video?>" target="blank">
-														<img src="/images/video_play.png" alt="play">
-														<span class="name"><?=$video?></span>
-													</a>
-												<?}?>
-											</div>
-										<?}?>
-									</div>
-								</td>
-							</tr>
-						<?}
-					}else{
-						echo isset($id_photographer)?'Выберите фотографа, для просмотра его добавлений':'Нечего показывать, товары не добавлялись!';
-					}?>
 				</tbody>
 			<?}?>
 		<?}?>
