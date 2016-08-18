@@ -182,7 +182,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case "getProductBatch":
-				$prod = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['$date'], $_POST['$id_supplier']);
+				$prod = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['create_date'], $_POST['id_supplier']);
 				echo json_encode($prod);
 				break;
 			default:
