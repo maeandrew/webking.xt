@@ -3434,7 +3434,7 @@ class Products {
 		foreach($pricelists as $k=>$v){
 			$sql = "UPDATE "._DB_PREFIX_."pricelists
 				SET ord = ".$k."
-				WHERE id = ".eregi_replace("([^0-9])", "", $v);
+				WHERE id = ".substr(strstr($v,'-'),1);
 			$this->db->Query($sql);
 		}
 		return true;
@@ -3487,7 +3487,7 @@ class Products {
 		if(!$this->db->Query($sql)){
 			return false;
 		}
-		return $id;
+		return true;
 	}
 	/**
 	 * [GetPricelistFullList description]
