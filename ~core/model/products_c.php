@@ -2909,6 +2909,7 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($id_product));
+		return true;
 	}
 	/**
 	 * Обновление
@@ -3199,23 +3200,6 @@ class Products {
 			ORDER BY a.id_assortiment";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
-	}
-	/**
-	 * Получить данные поставщика по Артикулу
-	 * @param [type] $art [description]
-	 */
-	public function GetSupplierInfoByArticle($art){
-		$sql = "SELECT s.id_user, s.real_phone, u.name
-			FROM "._DB_PREFIX_."supplier AS s
-			LEFT JOIN "._DB_PREFIX_."user AS u
-				ON u.id_user = s.id_user
-			WHERE s.article = '".$art."'";
-		$arr = $this->db->GetOneRowArray($sql);
-		if(!$arr){
-			return false;
-		}else{
-			return $arr;
-		}
 	}
 	/**
 	 * [GetExportSupPricesRows description]
