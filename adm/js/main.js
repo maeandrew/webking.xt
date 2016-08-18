@@ -224,4 +224,21 @@ $(function(){
 	$('.permissions .controller').on('click', 'input.all', function(){
 		$(this).closest('.controller').find('input').prop('checked', $(this).is(':checked'));
 	});
+
+	$('body').on('click', '.batchListItem_js', function(event) {
+		event.preventDefault();
+		var parent = $(this),
+			create_date = parent.attr('data-createDate'),
+			id_supplier = parent.attr('data-idSupplier'),
+			id_author = parent.attr('data-idAuthor');		
+		var data = {create_date: create_date, id_supplier: id_supplier, id_author: id_author};
+		ajax('products', 'getProductBatch', data, 'html').done(function(data){
+			console.log('success');
+			console.log(data);
+			parent.closest('table').find('tbody').html(data);
+		}).fail(function(data){
+			console.log('fail');
+			console.log(data);
+		});
+	});
 });
