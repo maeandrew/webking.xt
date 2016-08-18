@@ -32,7 +32,7 @@
 					<tr<?if ($tigra==true){?> style="background-color:#f3f3f3;"<?$tigra=false;}else{$tigra=true;}?>>
 						<td><?=$i['article']?></td>
 						<td class="name_cell">
-	                             <a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" class="highslide"><img alt="" src="<?=($i['img_1'])?htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
+	                             <a href="<?=G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="" src="<?=G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 	                             <a href="<?=$GLOBALS['URL_base']?>product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 	                         </td>
 						<td><?=round($i['site_price_opt'],2)?></td>
@@ -51,7 +51,7 @@
 					<tr<?if ($tigra==true){?> style="background-color:#f3f3f3;"<?$tigra=false;}else{$tigra=true;}?>>
 						<td><?=$i['article_mopt']?></td>
 						<td class="name_cell">
-	                             <a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" class="highslide"><img alt="" src="<?=($i['img_1'])?htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
+	                             <a href="<?=G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="" src="<?=G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 	                             <a href="<?=$GLOBALS['URL_base']?>product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 	                         </td>
 						<td><?=round($i['site_price_mopt'],2)?></td>

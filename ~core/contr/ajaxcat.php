@@ -30,9 +30,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):"/images/nofoto.png"?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 										<noscript>
-											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):"/images/nofoto.png"?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 										</noscript>
 									<?}?>
 								</a>
@@ -146,14 +146,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 										<div class="<?=$st['class']?>"></div>
 										<?if(!empty($item['images'])){?>
-											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($item['images'][0]['src'], 'thumb'))?_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb'):'/images/nofoto.png'?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 											<noscript>
-												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($item['images'][0]['src'], 'thumb'))?_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb'):'/images/nofoto.png'?>"/>
+												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 											</noscript>
 										<?}else{?>
-											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 											<noscript>
-												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 											</noscript>
 										<?}?>
 									</a>

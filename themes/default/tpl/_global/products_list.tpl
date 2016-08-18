@@ -33,9 +33,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 									</noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 									</noscript>
 								<?}?>
 							</a>
@@ -216,9 +216,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.($item['img_1'])?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							<noscript>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.($item['img_1'])?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							</noscript>
 						<?}?>
 					</a>
@@ -272,11 +272,11 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($item['images'][0]['src'], 'medium'))?G::GetImageUrl($item['images'][0]['src'], 'medium'):'/images/nofoto.png'?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($item['images'][0]['src'], 'medium'))?G::GetImageUrl($item['images'][0]['src'], 'medium'):'/images/nofoto.png'?>"/></noscript>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/></noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/></noscript>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
 						<?}?>
 					</a>
 					<div class="add_to_fav_trend_block mdl-cell--hide-phone">

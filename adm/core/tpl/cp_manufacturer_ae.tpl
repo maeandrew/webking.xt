@@ -14,7 +14,7 @@
 				</div>
 				<div class="col-md-12">
 					<label>Логотип:</label>
-					<img class="pic_block" src="<?=isset($_POST['m_image'])?htmlspecialchars(G::GetImageUrl($_POST['m_image'], 'thumb')):'/images/nofoto.png'?>">
+					<img class="pic_block" src="<?=G::GetImageUrl($_POST['m_image'], 'thumb')?>">
 					<input type="text" name="m_image" id="m_image" class="input-l wa" value="<?=isset($_POST['m_image'])?htmlspecialchars($_POST['m_image']):null?>"/>
 					<button type="button" id="form_submit" onclick="AjexFileManager.open({returnTo: 'insertValue'});" class="btn-l-default">Выбрать...</button>
 				</div>

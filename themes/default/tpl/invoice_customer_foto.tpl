@@ -114,7 +114,7 @@ $c16 = 30;
             		<tr >
 			<td class="c6">
 				<?=$i['art']?></td>
-			<td class="c3"><img height="48" width="48" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium')):'/images/nofoto.png'?>" /></td>
+			<td class="c3"><img height="48" width="48" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>" /></td>
 			<td class="name c4">
 				<?=$i['name']?><?if ($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
 			<td class="c5">
@@ -140,7 +140,7 @@ $c16 = 30;
               		<tr >
 			<td class="c6">
 				<?=$i['art']?></td>
-			<td class="c3"><img height="48" width="48" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium')):'/images/nofoto.png'?>" /></td>
+			<td class="c3"><img height="48" width="48" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>" /></td>
 			<td class="name c4">
 				<?=$i['name']?><?if ($i['note_mopt']!=''){?> <span class="note_red"><?=$i['note_mopt']?></span><?}?></td>
 			<td class="c5">

@@ -570,7 +570,7 @@ class Mailer extends PHPMailer {
 						<td class=\"bl bb\">".$ii++."</td>
 						<td class=\"bb\">".$i['art']."</td>
 						<td class=\"bb\">
-							<img height=\"96\" width=\"96\" src=\"".$_SERVER['SERVER_NAME'].'/'.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium'))."\" />
+							<img height=\"96\" width=\"96\" src=\"".$_SERVER['SERVER_NAME'].'/'.G::GetImageUrl($i['img_1'], 'medium')."\" />
 						</td>
 						<td class=\"name bb\">";
 						if($i['note_opt']!=''){
@@ -601,7 +601,7 @@ class Mailer extends PHPMailer {
 						<td class=\"bl bb\">".$ii++."</td>
 						<td class=\"bb\">".$i['art']."</td>
 						<td class=\"bb\">
-							<img height=\"96\" width=\"96\" src=\"http:".$_SERVER['SERVER_NAME'].'/'.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium'))."\" />
+							<img height=\"96\" width=\"96\" src=\"http:".$_SERVER['SERVER_NAME'].'/'.G::GetImageUrl($i['img_1'], 'medium')."\" />
 						</td>
 						<td class=\"name bb\">";
 

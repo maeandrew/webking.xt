@@ -16,9 +16,9 @@
 							<div class="image_cell">
 								<div class="btn_js" data-name="big_photo">
 									<?if(!empty($p['img_1'])){?>
-										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'thumb')?>" data-original-photo="<?=_base_url?><?=$p['img_1']?>" title="Нажмите для увеличения">
+										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'thumb')?>" data-original-photo="<?=_base_url?><?=G::GetImageUrl($p['img_1'])?>" title="Нажмите для увеличения">
 									<?}else if(!empty($p['images'])){?>
-										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'thumb')?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>" title="Нажмите для увеличения">
+										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'thumb')?>" data-original-photo="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'])?>" title="Нажмите для увеличения">
 									<?}else{?>
 										<img class="toBigPhoto" alt="<?=G::CropString($p['name'])?>" src="/images/nofoto.png" data-original-photo="/images/nofoto.png">
 									<?}?>

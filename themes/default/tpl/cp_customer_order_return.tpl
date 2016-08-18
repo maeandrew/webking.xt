@@ -45,7 +45,7 @@
 					<tr>
 						<td class="code_cell" style="padding: 2px 1px 6px;"><p><?=$i['article']?></p></td>
 						<td class="name_cell">
-							<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):'/images/nofoto.png'?>" title="Нажмите для увеличения"></a>
+							<a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 							<a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td class="price_cell"><p id="pprice_opt_<?=$i['id_product']?>"><?=round($i['site_price_opt'],2)?></p></td>
@@ -71,7 +71,7 @@
 					<tr>
 						<td class="code_cell" style="padding: 2px 1px 6px;"><p><?=$i['article_mopt']?></p></td>
 						<td class="name_cell">
-							<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'thumb')):'/images/nofoto.png'?>" title="Нажмите для увеличения"></a>
+							<a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 							<a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td class="price_cell"><p id="pprice_mopt_<?=$i['id_product']?>"><?=round($i['site_price_mopt'],2)?></p></td>
