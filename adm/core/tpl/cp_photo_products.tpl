@@ -91,7 +91,7 @@
 		<?if(isset($batch) && is_array($batch)){
 			foreach($batch as $i){?>
 				<thead>
-					<tr class="batchListItem batchListItem_js" data-createDate="<?=$i['date']?>" data-idSupplier="<?=$i['id_supplier']?>" data-idAuthor="<?=$i['id_author']?>">
+					<tr class="batchListItem batchListItem_js" data-createDate="<?=$i['date']?>" data-idSupplier="<?=$i['id_supplier']?>" data-idAuthor="<?=$id_photographer?>">
 						<th class="center"><?=$i['date']?></th>
 						<th class="center"><?=$i['name']?></th>
 						<th class="center"><?=$i['count_product']?></th>
