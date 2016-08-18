@@ -767,22 +767,34 @@ class G {
 		}
 		return $res;
 	}
-
-	public static function GetImageUrl($url, $img_size = false){
-		if($img_size !== false){
-			if(strpos($url, '/original/') != false){
-				$url = str_replace('/original/', '/'.$img_size.'/', $url);
-			}else{
-				switch($img_size){
-					case 'thumb':
-						$size = '/_thumb/image/';
-						break;
-					case 'medium':
-						$size = '/image/500/';
-						break;
-				}
-				$url = str_replace('/image/', $size, $url);
+	/**
+	 * Метод для получения URL изображения товара
+	 * @param string $url      URL исходного изображения
+	 * @param string $img_size необходимый размер изображения (Опциональный параметр. Но, если не указать данный параметр, то метод вернет тот же URL, который был передан ему.)
+	 */
+	public static function GetImageUrl($url, $img_size = 'original'){
+		// Если $url содержит подстроку '/original/', тогда получаем изображение желаемого размера из нового массива изображений товара, иначе...
+		if(strpos($url, '/original/') != false){
+			$url = str_replace('/original/', '/'.$img_size.'/', $url);
+		}else{
+			// ...из старого массива.
+			switch($img_size){
+				case 'thumb':
+					$size = '/_thumb/image/';
+					break;
+				case 'medium':
+					$size = '/image/500/';
+					break;
+				// default интерпретируется в том случае, если в метод был передан некорректный $img_size.
+				default:
+					$size = '/image/';
+					break;
 			}
+			$url = str_replace('/image/', $size, $url);
+		}
+		// Если файла по данному $url не существует, получим изображение nofoto.png
+		if(!file_exists($GLOBALS['PATH_root'].$url)){
+			$url = '/images/nofoto.png';
 		}
 		return $url;
 	}

@@ -269,9 +269,6 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
 					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
 				</div>
-				<?if (_base_url.($item['img_1'])){
-					echo "true";
-				}?>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
