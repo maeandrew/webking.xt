@@ -4,7 +4,7 @@ $(function(){
 	$("img.lazy").lazyload({
 		effect : "fadeIn"
 	});
-	
+
 	/**------------------ Страница редактирования тегов категории --------------------*/
 
 	// Слушатель клавиш
@@ -35,15 +35,7 @@ $(function(){
 		var answer = confirm("Удалить группу и все, входящие в нее, фильтры?");
 		if (answer == true){
 			var cat = $('input#id_category').val();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"id_category": cat,
-					"tag_level": tag_level,
-					"action": 'droplevel'
-				}
-			}).done(function(){
+			ajax('cattags', 'dropLevel', {id_category: cat, tag_level: tag_level}).done(function(){
 				location.reload();
 			});
 		}
@@ -66,16 +58,7 @@ $(function(){
 		if(tag_level !== ''){
 			var cat = $('input#id_category').val();
 			var tag_level_name = $('.levelrow.row'+tag_level+' .tag_level_name input').val();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"id_category": cat,
-					"tag_level": tag_level,
-					"tag_level_name": tag_level_name,
-					"action": 'updatelevel'
-				}
-			}).done(function(){
+			ajax('cattags', 'updateLevel', {id_category: cat, tag_level: tag_level, tag_level_name: tag_level_name}).done(function(){
 				location.reload();
 			});
 		}
@@ -107,14 +90,7 @@ $(function(){
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		var answer = confirm("Удалить выбраный фильтр?");
 		if (answer == true){
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"ID": rowid,
-					"action": 'drop'
-				}
-			}).done(function(){
+			ajax('cattags', 'drop', {ID: rowid}).done(function(){
 				$('.tagrow.row'+rowid).slideUp('slow');
 			});
 		}
@@ -140,19 +116,7 @@ $(function(){
 			var tag_keys = $('.tagrow.row'+rowid+' textarea#tag_keys').val();
 			var tag_level = $('.tagrow.row'+rowid+' input#tag_level').val();
 			var tag_level_name = $('.levelinforow'+tag_level+' .tag_level_name p').text();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"ID": rowid,
-					"id_category": cat,
-					"tag_name": tag_name,
-					"tag_keys": tag_keys,
-					"tag_level": tag_level,
-					"tag_level_name": tag_level_name,
-					"action": 'update'
-				}
-			}).done(function(){
+			ajax('cattags', 'update', {id_category: cat, tag_name: tag_name, tag_keys: tag_keys, tag_level: tag_level, tag_level_name: tag_level_name, }).done(function(){
 				location.reload();
 			});
 		}
@@ -168,18 +132,7 @@ $(function(){
 			var tag_keys = $('.tagrow.row'+rowid+' textarea#tag_keys').val();
 			var tag_level = $('.tagrow.row'+rowid+' input#tag_level').val();
 			var tag_level_name = $('.levelinforow'+tag_level+' .tag_level_name p').text();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: ({
-					"id_category": cat,
-					"tag_name": tag_name,
-					"tag_keys": tag_keys,
-					"tag_level": tag_level,
-					"tag_level_name": tag_level_name,
-					"action": 'add'
-				}),
-			}).done(function(){
+			ajax('cattags', 'add', {id_category: cat, tag_name: tag_name, tag_keys: tag_keys, tag_level: tag_level, tag_level_name: tag_level_name, }).done(function(){
 				location.reload();
 			});
 		}
@@ -256,7 +209,7 @@ $(function(){
 		$('input[name="id_reply"]').val(id);
 	});
 
-	$('.moderations input').on('click',function() {
+	$('.moderations input').on('click', function() {
 		var id = $(this).val(),
 			mode = 'mopt',
 			moderation = 0;
@@ -266,16 +219,7 @@ $(function(){
 		if ($(this).is(':checked')) {
 			moderation = 1;
 		}
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				'action': 'UpdateDemandChart',
-				'moderation': moderation, 'id_chart': id, 'mode': mode
-			}
-		});
+		ajax('products', 'updateDemandChart', {moderation: moderation, id_chart: id, mode: mode});
 	});
 	$('.permissions .controller').on('click', 'input.all', function(){
 		$(this).closest('.controller').find('input').prop('checked', $(this).is(':checked'));

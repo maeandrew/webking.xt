@@ -134,7 +134,7 @@ if(!is_array($msg)){?>
 										<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'thumb')?>" data-original-photo="<?=_base_url?><?=G::GetImageUrl($i['img_1'])?>">
 									<?}?>
 									<div class="mdl-tooltip" for="big_photo_<?=$i['id_product']?>">Нажмите<br>для увеличения</div>
-								</div>							
+								</div>
 							</div>
 							<div class="name_cell" data-idproduct="<?=$i['id_product']?>">
 								<a href="<?=Link::Product($i['translit']);?>">
@@ -268,7 +268,7 @@ if(!is_array($msg)){?>
 											<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'thumb')?>" data-original-photo="<?=_base_url?><?=G::GetImageUrl($i['img_1'])?>">
 										<?}?>
 										<div class="mdl-tooltip" for="big_photo_<?=$i['id_product']?>">Нажмите<br>для увеличения</div>
-									</div>									
+									</div>
 								</td>
 								<td class="name_cell" data-idproduct="<?=$i['id_product']?>">
 									<a href="<?=Link::Product($i['translit']);?>">
@@ -412,58 +412,19 @@ if(!is_array($msg)){?>
 			var onclick='ToggleDuplicate('+id+',<?=$_SESSION["member"]["id_user"]?>, $(\'.dialog_duplicate input[name="duplicate_comment"]\').val());$(\'.dialog_duplicate\').dialog(\'close\');$(\'.duplicate_check_'+id+'\').prop(\'checked\', true);$(\'.duplicate_check_'+id+'\').prop(\'disabled\', true);';
 			$('.dialog_duplicate button').attr('onclick', onclick);
 		});
-		/*$('.switch').click(function(){
-			var single_price;
-			if($(this).closest('#switcher').hasClass('Off')){
-				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
-					$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-					if($(this).closest('#switcher').hasClass('On')){
-						// document.cookie = "onlyprice=On;";
-						TogglePriceColumns('On');
-						single_price = 1;
-					}else{
-						// document.cookie = "onlyprice=Off;";
-						TogglePriceColumns('Off');
-						single_price = 0;
-					}
 
-				}
-			}else{
-				$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-				if($(this).closest('#switcher').hasClass('On')){
-					// document.cookie = "onlyprice=On;";
-					TogglePriceColumns('On');
-					single_price = 1;
-				}else{
-					// document.cookie = "onlyprice=Off;";
-					TogglePriceColumns('Off');
-					single_price = 0;
-				}
-			}
-			$.ajax({
-				url: '/ajaxsuppliers',
-				type: "POST",
-				dataType : "json",
-				data:({
-					"action": 'toggle_single_price',
-					"id_supplier": '<?=$supplier['id_user'];?>',
-					"single_price": single_price
-				}),
-			});
-		});*/
-		
 		$('.removeFromAssort_js').on('click', function(){
 			$(this).closest('.products_list_item').remove();
 		});
 
 		/* Новый переключатель обьедения цены */
-		$('.price_switcher_js').on('change', function(){			
+		$('.price_switcher_js').on('change', function(){
 			var single_price;
 
 			if ($(".price_switcher_js").prop("checked")){
 				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
 					TogglePriceColumns('On');
-					single_price = 1;					
+					single_price = 1;
 				}else{
 					$( ".price_switcher_js" ).prop( "checked", false);
 				}
@@ -471,17 +432,8 @@ if(!is_array($msg)){?>
 				TogglePriceColumns('Off');
 				single_price = 0;
 			}
-
-			$.ajax({
-				url: '/ajaxsuppliers',
-				type: "POST",
-				dataType : "json",
-				data:({
-					action: 'toggle_single_price',
-					id_supplier: '<?=$supplier['id_user'];?>',
-					single_price: single_price
-				}),
-			});
+			var id_supplier = '<?=$supplier['id_user'];?>';
+			ajax('supplier', 'toggleSinglePrice', {id_supplier: id_supplier, single_price: single_price}, 'json');
 		});
 
 		// Переключение валюты
@@ -507,7 +459,7 @@ if(!is_array($msg)){?>
 				}else{
 					this_item.find('.price_mopt_otpusk_js').val(data['price_mopt_otpusk']);
 					this_item.find('.price_opt_otpusk_js').val(data['price_opt_otpusk']);
-				}				
+				}
 			});
 		});
 
@@ -526,11 +478,11 @@ if(!is_array($msg)){?>
 		});
 	});
 	function TogglePriceColumns(action){
-		if(action == 'On'){			
+		if(action == 'On'){
 			$('.price_1 .prod_detail_info, .price_1 .mdl-tooltip').text('Цена отпускная');
 			$('.price_2').css({
 				"display": "none"
-			});			
+			});
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -541,14 +493,14 @@ if(!is_array($msg)){?>
 					}
 				}
 			});
-		}else{			
+		}else{
 			$('.price_1 .prod_detail_info, .price_1 .mdl-tooltip').text('Цена отпускная мин. к-ва');
 			$('.price_2').css({
 				"display": "block"
-			});			
+			});
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});
 		}
-	}	
+	}
 </script>

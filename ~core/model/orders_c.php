@@ -1787,11 +1787,12 @@ class Orders {
 		$sql = "UPDATE "._DB_PREFIX_."order
 			SET id_order_status = 6
 			WHERE id_order = ".$id_order;
-		if(!$this->db->Query($sql)){
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)) {
 			$this->db->FailTrans();
-			G::DieLoger("SQL error - $sql");
 			return false;
 		}
+		$this->db->CompleteTrans();
 		return true;
 	}
 

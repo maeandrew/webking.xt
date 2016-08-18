@@ -49,16 +49,8 @@
 			$('input[name="modalName"]').val(modalName);
 			$('[class^="modal_"] > h3').html('');
 			$(this).parent().find('img').clone().appendTo('[class^="modal_"] > h3');
-			$.ajax({
-				url: URL_base+'ajaxconfigs',
-				type: "POST",
-				cache: false,
-				dataType : "json",
-				data: {
-					"action": 'getoption',
-					"nameOption": modalName+'_catlist'
-				}
-			}).done(function(valueOption){
+			var nameOption = modalName+'_catlist';
+			ajax('configs','getOption', {nameOption: nameOption}).done(function(valueOption){
 				var arrOption = valueOption['value'].split(',');
 				arrOption.forEach(function(i){
 					$('input[type="checkbox"][value="'+i+'"]').attr("checked", "checked");
@@ -75,16 +67,7 @@
 			arr[i] = $(this).val();
 		});
 		var value = arr.join(',');
-		$.ajax({
-			url: URL_base+'ajaxconfigs',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": 'updateoption',
-				"nameOption": modalName+'_catlist',
-				"valueOption": value
-			}
-		})
+		var nameOption = modalName+'_catlist';
+		ajax('configs','updateOption', {nameOption: nameOption, valueOption: value});
 	});
 </script>

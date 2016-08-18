@@ -147,16 +147,6 @@ function SwitchExclusiveProduct(obj, id_supplier, id){
 	if (!obj.checked){
 		active = 0;
 	}
-	$.ajax({
-		url: URL_base+'ajaxassort',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {	"action":"exclusive_product",
-				"active":active,
-				"id_supplier":id_supplier,
-				"id_product":id
-		}
-	});
+	ajax('supplier', 'exclusiveProduct', {active: active, id_supplier:id_supplier, id_product:id});
 }
 </script>

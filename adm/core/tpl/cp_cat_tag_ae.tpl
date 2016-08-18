@@ -12,6 +12,7 @@
     		<div class="tag_level col"><a>Критерий</a></div>
     		<div class="edit col"><a>Действия</a></div>
     	</li>
+    	<? print_r($leveladdapply) ?>
     	<?foreach($level as $l){?>
 			<li class="levelrow row<?=$l['tag_level']?>">
 				<div class="tag_level_name col">

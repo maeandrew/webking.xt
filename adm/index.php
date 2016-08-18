@@ -35,7 +35,6 @@ if(isset($_GET['check_art'])){
 	$products = new Products();
 	echo "<!-- ".$products->CheckArticle($_GET['check_art'])."-->";
 }
-
 if(isset($_GET['img'])){
 	$img = new Images();
 	$img->resize(false, false, strtotime($_GET['img']));

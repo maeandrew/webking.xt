@@ -2035,7 +2035,7 @@ class Products {
 		if(isset($arr['instruction'])){
 			$f['instruction'] = trim($arr['instruction']);
 		}
-		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
+		if(isset($arr['height']) && isset($arr['width']) && isset($arr['length']) && $arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
 			if(isset($arr['weight'])){
@@ -2057,7 +2057,7 @@ class Products {
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		if(isset($arr['categories_ids'])){
-			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], isset($arr['main_category'])?$arr['main_category']:null);
 		}
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
@@ -3042,40 +3042,6 @@ class Products {
 		return $arr;
 	}
 	/**
-	 * Добавление популярного продукта
-	 * @param [type] $id_product  [description]
-	 * @param [type] $id_category [description]
-	 */
-	public function SetPopular($id_product, $id_category){
-		$this->db->StartTrans();
-		$f['id_product'] = $id_product;
-		$f['id_category'] = $id_category;
-		if(!$this->db->Insert(_DB_PREFIX_.'popular_products', $f)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-	}
-	/**
-	 * Удаление популярного продукта
-	 * @param [type] $id_product  [description]
-	 * @param [type] $id_category [description]
-	 */
-	public function DelPopular($id_product, $id_category){
-		$this->db->StartTrans();
-		$this->db->DeleteRowsFrom(_DB_PREFIX_."popular_products", array ("id_product = $id_product", "id_category = ".$id_category));
-		$this->db->CompleteTrans();
-	}
-	/**
-	 * Очистка списка популярных товаров
-	 */
-	public function ClearPopular(){
-		$this->db->StartTrans();
-		$sql = "DELETE FROM "._DB_PREFIX_."popular_products";
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		$this->db->CompleteTrans();
-	}
-	/**
 	 * Статистика продаж товаров в период
 	 * @param boolean $and [description]
 	 */
@@ -3468,7 +3434,7 @@ class Products {
 		foreach($pricelists as $k=>$v){
 			$sql = "UPDATE "._DB_PREFIX_."pricelists
 				SET ord = ".$k."
-				WHERE id = ".eregi_replace("([^0-9])", "", $v);
+				WHERE id = ".substr(strstr($v,'-'),1);
 			$this->db->Query($sql);
 		}
 		return true;
@@ -3521,7 +3487,7 @@ class Products {
 		if(!$this->db->Query($sql)){
 			return false;
 		}
-		return $id;
+		return true;
 	}
 	/**
 	 * [GetPricelistFullList description]
@@ -4417,20 +4383,19 @@ class Products {
 		}
 		$article = $this->GetArtByID($id_product);
 		// try to add photos to the new product
+		// print_r($image);
 		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
-			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']).'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			$file = pathinfo($image['src']);
+			$path = $GLOBALS['PATH_root'].$file['dirname'].'/';
+			$bd_path = $file['dirname'];
 			rename($path.$file['basename'], $path.$newname);
-			$images_arr[] = $bd_path.'/'.$newname;
-			$path = $GLOBALS['PATH_root'].'../';
+			$images_arr[] = $file['dirname'].'/'.$newname;
 			$visibility[] = $image['visible'] == 'true'?1:0;
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		foreach($images_arr as $filename) {
-			$path = $GLOBALS['PATH_root'].'..';
-			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+		foreach($images_arr as $filename){
+			$size = getimagesize($GLOBALS['PATH_root'].$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
 				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
 				//Определяем размеры нового изображения
@@ -4447,9 +4412,9 @@ class Products {
 			}
 			$res = imagecreatetruecolor($width, $height);
 			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($GLOBALS['PATH_root'].$filename):imagecreatefrompng($GLOBALS['PATH_root'].$filename);
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-			imagejpeg($res, $path.$filename);
+			imagejpeg($res, $GLOBALS['PATH_root'].$filename);
 		}
 		$Images = new Images();
 		$Images->resize(false, $to_resize);

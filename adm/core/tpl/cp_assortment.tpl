@@ -286,59 +286,9 @@
 				TogglePriceColumns('Off');
 				single_price = 0;
 			}
-
-			$.ajax({
-				url: '/ajaxsuppliers',
-				type: "POST",
-				dataType : "json",
-				data:({
-					"action": 'toggle_single_price',
-					"id_supplier": '<?=$supplier['id_user'];?>',
-					"single_price": single_price
-				}),
-			});
+			var id_supplier = '<?=$supplier['id_user'];?>';
+			ajax('supplier', 'toggleSinglePrice', {id_supplier: id_supplier, single_price: single_price}, 'json');
 		});
-
-		// Клик по переключателю "Единая цена"
-		// $('.price_switcher_js').click(function(){
-		// 	var single_price;
-		// 	if($(this).closest('#switcher').hasClass('Off')){
-		// 		if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
-		// 			$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-		// 			if($(this).closest('#switcher').hasClass('On')){
-		// 				// document.cookie = "onlyprice=On;";
-		// 				TogglePriceColumns('On');
-		// 				single_price = 1;
-		// 			}else{
-		// 				// document.cookie = "onlyprice=Off;";
-		// 				TogglePriceColumns('Off');
-		// 				single_price = 0;
-		// 			}
-
-		// 		}
-		// 	}else{
-		// 		$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-		// 		if($(this).closest('#switcher').hasClass('On')){
-		// 			// document.cookie = "onlyprice=On;";
-		// 			TogglePriceColumns('On');
-		// 			single_price = 1;
-		// 		}else{
-		// 			// document.cookie = "onlyprice=Off;";
-		// 			TogglePriceColumns('Off');
-		// 			single_price = 0;
-		// 		}
-		// 	}
-		// 	$.ajax({
-		// 		url: '/ajaxsuppliers',
-		// 		type: "POST",
-		// 		dataType : "json",
-		// 		data:({
-		// 			"action": 'toggle_single_price',
-		// 			"id_supplier": '<?=$supplier['id_user'];?>',
-		// 			"single_price": single_price
-		// 		}),
-		// 	});
-		// });
 
 		$('.disable_supplier_js').on('click', function(){
 			if (!confirm('Убедитесь что вы сохранили ассортимент в файл Excel')){
