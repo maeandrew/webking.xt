@@ -14,12 +14,12 @@
 		<div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
-					<img src="<?=_base_url?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($image['src'], 'medium'))?G::GetImageUrl($image['src'], 'medium'):'/images/nofoto.png'?>" alt="<?=$product['name']?>"/>
+					<img src="<?=_base_url?><?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$product['name']?>"/>
 				<?}
 			}else{
 				for($i=1; $i < 4; $i++){
 					if(!empty($product['img_'.$i])){?>
-						<img src="<?=_base_url?><?=$product['img_'.$i]?G::GetImageUrl($product['img_'.$i], 'medium'):'/images/nofoto.png'?>"/>
+						<img src="<?=_base_url?><?=G::GetImageUrl($product['img_'.$i], 'medium')?>"/>
 					<?}
 				}
 			}?>

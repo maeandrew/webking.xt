@@ -117,7 +117,7 @@
 					<label>Изображения товара на x-torg.com:</label>
 					<div class="row" id="preview1">
 						<div class="col-md-2">
-							<img class="pic_block" id="i1" src="<?=(isset($_POST['img_1'])&&$_POST['img_1']!='')?G::GetImageUrl($_POST['img_1'], 'thumb'):'/images/nofoto.png'?>">
+							<img class="pic_block" id="i1" src="<?=G::GetImageUrl($_POST['img_1'], 'thumb')?>">
 						</div>
 						<div class="col-md-10">
 							<input type="text" id="img_1" name="img_1" class="input-m" value="<?=isset($_POST['img_1'])?$_POST['img_1']:null?>">
@@ -125,7 +125,7 @@
 					</div>
 					<div class="row" id="preview2">
 						<div class="col-md-2">
-							<img class="pic_block" id="i2" src="<?=(isset($_POST['img_2'])&&$_POST['img_2']!='')?G::GetImageUrl($_POST['img_2'], 'thumb'):'/images/nofoto.png'?>">
+							<img class="pic_block" id="i2" src="<?=G::GetImageUrl($_POST['img_2'], 'thumb')?>">
 						</div>
 						<div class="col-md-10">
 							<input type="text" id="img_2" name="img_2" class="input-m" value="<?=isset($_POST['img_2'])?$_POST['img_2']:null?>">
@@ -133,7 +133,7 @@
 					</div>
 					<div class="row" id="preview3">
 						<div class="col-md-2">
-							<img class="pic_block" id="i3" src="<?=(isset($_POST['img_3'])&&$_POST['img_3']!='')?G::GetImageUrl($_POST['img_3'], 'thumb'):'/images/nofoto.png'?>">
+							<img class="pic_block" id="i3" src="<?=G::GetImageUrl($_POST['img_3'], 'thumb')?>">
 						</div>
 						<div class="col-md-10">
 							<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?$_POST['img_3']:null?>">

@@ -16,7 +16,7 @@
 		foreach ($pops as $i){?>
 			<li>
 				<a href="<?=_base_url."/product/".$i['id_product']."/".$i['translit']."/";?>">
-					<img height="180" alt="<?=str_replace('"', '', $i['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(G::GetImageUrl($i['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+					<img height="180" alt="<?=str_replace('"', '', $i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>"/>
 					<span><?=$i['name']?></span>
 					<div class="ca-more"><?=number_format($i['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'],2,",","")?> грн.</div>
 				</a>

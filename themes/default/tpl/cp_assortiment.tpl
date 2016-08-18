@@ -107,9 +107,9 @@
 											<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'thumb')):'/images/nofoto.png'?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 										<noscript>
-											<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'thumb')):"/images/nofoto.png"?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 										</noscript>
 									<?}?>
 								</td>
@@ -149,9 +149,9 @@
 										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 									</noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'thumb')):'/images/nofoto.png'?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'thumb')):'/images/nofoto.png'?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 									</noscript>
 								<?}?>
 							</a>

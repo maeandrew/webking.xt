@@ -796,6 +796,6 @@ class G {
 		if(!file_exists($GLOBALS['PATH_root'].$url)){
 			$url = '/images/nofoto.png';
 		}
-		return $url;
+		return htmlspecialchars($url);
 	}
 }

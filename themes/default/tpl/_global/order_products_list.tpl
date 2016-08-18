@@ -18,9 +18,9 @@
 					<?if(isset($rewrite) && $rewrite == 'orders'){?>
 						<div class="avatar">
 							<?if(!empty($item['images'])){?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=file_exists($GLOBALS['PATH_root'].G::GetImageUrl($item['images'][0]['src'], 'medium'))?G::GetImageUrl($item['images'][0]['src'], 'medium'):'/images/nofoto.png'?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							<?}else{?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=$item['img_1']?htmlspecialchars(G::GetImageUrl($item['img_1'], 'medium')):'/images/nofoto.png'?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							<?}?>
 						</div>
 					<?}?>
