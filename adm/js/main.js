@@ -230,15 +230,22 @@ $(function(){
 		var parent = $(this),
 			create_date = parent.attr('data-createDate'),
 			id_supplier = parent.attr('data-idSupplier'),
-			id_author = parent.attr('data-idAuthor');		
+			id_author = parent.attr('data-idAuthor');
 		var data = {create_date: create_date, id_supplier: id_supplier, id_author: id_author};
-		ajax('products', 'getProductBatch', data, 'html').done(function(data){
-			console.log('success');
-			console.log(data);
-			parent.closest('table').find('tbody').html(data);
-		}).fail(function(data){
-			console.log('fail');
-			console.log(data);
-		});
+		if(parent.hasClass('info_loaded')){
+			parent.closest('thead').next().toggle('slow');
+			if(parent.hasClass('opened')){
+				parent.removeClass('opened').text('Показать');
+			}else{
+				parent.addClass('opened').text('Скрыть');
+			}
+		}else{
+			ajax('products', 'getProductBatch', data, 'html').done(function(data){
+				parent.text('Скрыть').addClass('opened info_loaded').closest('thead').next().html(data);
+			}).fail(function(data){
+				console.log('fail');
+				console.log(data);
+			});
+		}
 	});
 });
