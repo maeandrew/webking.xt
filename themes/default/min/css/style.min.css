@@ -4,7 +4,7 @@
 html{overflow-y:auto}
 body{font-family:Roboto,Helvetica,Arial,sans-serif;font-weight:400;font-size:14px;color:#444;padding-top:52px;position:relative;background:#F3F3F3}
 a{text-decoration:none;color:#444;font-weight:500;outline:0;-webkit-transition:all .3s cubic-bezier(.4,0,.2,1);-o-transition:all .3s cubic-bezier(.4,0,.2,1);transition:all .3s cubic-bezier(.4,0,.2,1)}
-a:hover{color:#ff5722;-webkit-transition:none;-o-transition:none;transition:none}
+a:hover:not([href="#"])*/ a:hover{color:#343030;-webkit-transition:none;-o-transition:none;transition:none}
 p a{text-decoration:underline}
 p{margin-bottom:0;line-height:16px}
 h1,h2,h3,h4,h5,h6{font-size:14px;line-height:1em}
@@ -408,15 +408,19 @@ section .stat_year{padding:0 0 10px 50px}
 #cart .note textarea.required:-ms-input-placeholder,.products .note textarea.required:-ms-input-placeholder{color:#EF5350}
 #cart .info_key,.products .info_key{top:14px}
 .show_more{clear:both;text-align:center;font-size:1.429em;padding-top:30px;position:relative}
-@media (min-width:728px){aside{width:260px}
-[data-type=panel][data-position=left]{right:auto}
+@media (min-width:1169px){[data-type=panel][data-position=left]{right:auto}
+.no-sidebar [data-type=panel][data-position=left]{left:-300px;right:auto}
+[data-type=panel][data-position=left].opened{left:0;right:auto}
+[data-type=panel][data-position=right]{right:-300px;left:auto}
+[data-type=panel][data-position=right].opened{right:0;left:auto}
+aside .filters .buttonsTop{width:245px}
+}
+@media (min-width:728px) and (max-width:1169px){aside{width:260px}
 .no-sidebar [data-type=panel][data-position=left]{left:-260px;right:auto}
 [data-type=panel][data-position=left].opened{left:0;right:auto}
 [data-type=panel][data-position=right]{right:-260px;left:auto}
 [data-type=panel][data-position=right].opened{right:0;left:auto}
-aside .filters .buttonsTop{width:245px}
-}
-@media (min-width:728px) and (max-width:1169px){section.center{width:calc(100% - 260px)}
+section.center{width:calc(100% - 260px)}
 #cart .card .product_photo{padding-right:5px}
 #cart .product_buy .buy_block{min-width:185px}
 #cart .product_buy .summ{right:0}

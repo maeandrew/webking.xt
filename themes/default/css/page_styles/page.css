@@ -159,7 +159,7 @@
 		}
 		#content .pages_group .blockline:last-child {
 			border-bottom: 1px solid #E6EAED;
-		}		
+		}
 		#content .pages_group .invisibleblock {
 			border: none;
 			display: none;
@@ -340,7 +340,7 @@
 		width: 76%;
 		margin: 3% auto;
 	}
-	/*Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
+	/* Следующие селекторы нужен пока не будет раскоментирован блок кода с классом members  */
 		#content .page_about_us .blockline:nth-child(4){
 			border: none;
 		}
@@ -383,7 +383,7 @@
 		display: block;
 		z-index: 2;
 	}
-	/*Media*/
+	/* Media */
 		@media (min-width: 1300px) and (max-width: 1420px) {
 			#content .page_about_us .second_line_img p.text2 {
 				right: 9%;
@@ -459,7 +459,7 @@
 				display: none;
 			}
 		}
-		/*НЕ УДАЛЯТЬ - временно скрыто*/
+		/* НЕ УДАЛЯТЬ - временно скрыто */
 			/*.page_about_us .members {
 				display: flex;
 				justify-content: center;
@@ -511,7 +511,7 @@
 		padding-left: 4%;
 		padding-right: 4%;
 	}
-	/*Аккордеон*/
+	/* Аккордеон */
 		#content .ac-container {
 			width: 100%;
 			color: #454F5D;
@@ -581,7 +581,6 @@
 	#content .page_provision_companies img {
 		max-width: 38% !important;
 	}
-
 /* Страница "Контакты" / class="page_contacts" */
 	#content .page_contacts video {
 		width: 40%;
@@ -659,7 +658,7 @@
 				margin: 2% auto;
 				font-size: 1em;
 			}
-			#content .page_contacts .blockOfText .mini_text {				
+			#content .page_contacts .blockOfText .mini_text {
 				width: 100%;
 			}
 		}
@@ -690,7 +689,7 @@
 	@media (max-width: 1100px) {
 		#content .page_dealer li {
 			font-size: 1.2em;
-		}		
+		}
 	}
 	@media (max-width: 964px) {
 		#content .page_dealer ul {
@@ -704,7 +703,6 @@
 			flex-basis: 80%;
 		}
 	}
-
 /* Общие медиа запросы */
 	@media (max-width: 1200px) {
 		#content .main_img {
@@ -712,10 +710,10 @@
 		}
 		#content .pages_group .blockOfText h4{
 			font-size: 1.4em;
-		}		
+		}
 		#content .pages_group .blockOfText p {
 			font-size: 1.1em;
-		}		
+		}
 		#content .pages_group .info_circle h5 {
 			font-size: 1.4em;
 		}
@@ -725,8 +723,8 @@
 		}
 		#content .ac-container label {
 			font-size: 1.2em;
-		}		
-		/*Стили для группы страниц .pages_group*/
+		}
+		/* Стили для группы страниц .pages_group */
 			#content .pages_group .blockline:first-child,
 			#content .pages_group .blockline:last-child {
 				padding-bottom: 4%;
@@ -739,10 +737,6 @@
 			}
 			#content .psevdo_btn .forflex {
 				flex-basis: 90%;
-			}			
-
-			#content .pages_group img {
-				/* max-width: 72%; */
 			}
 			#content .page_provision button {
 				min-width: 60%;
@@ -774,7 +768,7 @@
 		}
 		#content .page_information article p {
 			font-size: 1.1em;
-		}		
+		}
 		#content .page_payment li {
 			margin-left: 24%;
 		}
@@ -819,7 +813,7 @@
 		#content .page_provision_companies img {
 			max-width: 30% !important;
 		}
-		/*Стили для четырех страниц .pages_group*/
+		/* Стили для четырех страниц .pages_group */
 			#content .pages_group img {
 				max-width: 40%;
 			}
@@ -904,4 +898,3 @@
 			min-width: 100%;
 		}
 	}
-/*

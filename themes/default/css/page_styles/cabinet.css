@@ -1,8 +1,5 @@
-/*h1 {
-	float: left;
-}*/
 hr {
-	margin: 10px 0;	
+	margin: 10px 0;
 }
 .table tr {
 	line-height: 2em !important;
@@ -38,19 +35,17 @@ hr {
 .sidebar {
 	width: 300px;
 	float: left;
-	/* padding-right: 15px; */
 	padding-left: 10px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
-    padding: 10px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	padding: 10px;
 }
 .cabinet_content .editproduct {
 	float: left;
 	width: 40%;
-	/*padding: 0 0 40px 2%;*/
 	padding: 0px 15px 15px 2%;
 	box-sizing: border-box;
 	background: #fff;
@@ -64,13 +59,13 @@ hr {
 	box-sizing: border-box;
 	background: #fff;
 	margin-top: 10px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .cabinet_content .editproduct .num_item {
 	margin-right: 5px;
 }
 .cabinet_content .editproduct .col-md-12 {
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
 .cabinet_content .editproduct .input_row {
 	display: flex;
@@ -99,7 +94,7 @@ hr {
 	padding: 0;
 }
 .cabinet_content .editproduct select#units {
-	width: 100px;	
+	width: 100px;
 }
 .cabinet_content .editproduct .col-md-12 .gabarits {
 	margin-left: 23px;
@@ -134,7 +129,6 @@ footer.mdl-mega-footer {
 }
 
 table.table {
-	/*border-bottom: 1px solid #d7d7d7;*/
 	margin-bottom: 15px;
 	text-align: center;
 	font-size: 16px;
@@ -146,7 +140,6 @@ table {
 }
 
 .returns_table.table thead tr {
-	/*background-color: #EFEFEF;*/
 	background: #fff;
 }
 
@@ -464,7 +457,6 @@ table.kontrag.table{
 	width: calc(100% - 300px);
 	float: right;
 	text-align: justify;
-	/*margin-top: 20px;*/
 	padding-right: 10px;
 	padding-left: 10px;
 }
@@ -473,13 +465,13 @@ table.kontrag.table{
 }
 .sort_page_top {
 	float: left;
-    width: 150px;
-    height: 35px;
-    text-align: center;
-    margin-bottom: 5px;
-    background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
-    margin-top: 10px;
+	width: 150px;
+	height: 35px;
+	text-align: center;
+	margin-bottom: 5px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	margin-top: 10px;
 }
 .sort_page_top a {
 	display: block;
@@ -487,7 +479,7 @@ table.kontrag.table{
 }
 
 .sort_page_top:hover {
-	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);	
+	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
 }
 
 #supplier_cab table a.icon-font {
@@ -505,116 +497,10 @@ table.kontrag.table{
 #supplier_cab .photo_cell img:hover {
 	cursor: pointer;
 }
-/* table.supplier_assort_table {
-	margin-bottom: 0;
-}
-.supplier_assort_table,
-.supplier_assort_table tr {
-	border-bottom: none !important;
-}
-.supplier_assort_table th {
-	position: relative;
-	border-top: 1px solid #dddddd;
-}
-.supplier_assort_table th:first-child {
-	border-left: 1px solid #dddddd;
-}
-.supplier_assort_table th:last-child {
-	border-right: 1px solid #dddddd;
-}
-.supplier_assort_table .switcher_container {
-	border: 1px solid #dddddd;
-	border-radius: 10px 10px 0 0;
-	border-bottom: 0;
-	left: 0;
-	line-height: 30px;
-	padding: .2em .5em;
-	position: absolute;
-	bottom: 100%;
-	width: 200%;
-	box-sizing: border-box;
-	font-size: 14px;
-}
-.supplier_assort_table th .only_price#switcher {
-	border: 1px solid #52cf55;
-	border-radius: 13px;
-	height: 26px;
-	overflow: hidden;
-	position: relative;
-	top: 2px;
-	width: 75px;
-	z-index: 10;
-} */
-
-/* .supplier_assort_table th .only_price#switcher.Off {
-	border-color: #ddd;
-}
-.supplier_assort_table th .only_price#switcher .switch {
-	display: block;
-	border-radius: 100%;
-	cursor: pointer;
-	height: 20px;
-	width: 20px;
-	position: absolute;
-	top: 2px;
-}
-.supplier_assort_table th .only_price#switcher.On .switch {
-	left: 50px;
-	background: #ffffff;
-	border: 2px solid #888888;
-}
-.supplier_assort_table th .only_price#switcher.Off .switch {
-	left: 3px;
-	background: #888888;
-	border: 2px solid #52cf55;
-}
-.supplier_assort_table th .only_price#switcher.On .switch:before {
-	opacity: 1;
-}
-.supplier_assort_table th .only_price#switcher.Off .switch:after {
-	opacity: 1;
-}
-.supplier_assort_table th .only_price#switcher .switch:after {
-	content: "Выкл.";
-	left: -4px;
-	text-align: right;
-}
-.supplier_assort_table th .only_price#switcher .switch:before {
-	color: #ffffff;
-	content: "Вкл.";
-	right: -7px;
-	text-align: left;
-}
-.supplier_assort_table th .only_price#switcher.On .switch:before,
-.supplier_assort_table th .only_price#switcher.On .switch:after {
-	background: #52cf55;
-}
-.supplier_assort_table th .only_price#switcher .switch:before,
-.supplier_assort_table th .only_price#switcher .switch:after {
-	display: block;
-	line-height: 26px;
-	position: absolute;
-	top: -5px;
-	right: -7px;
-	width: 75px;
-	z-index: -1;
-	padding: 0 .5em;
-	box-sizing: border-box;
-	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
-	transition: all .4s cubic-bezier(.4,0,.2,1);
-	opacity: 0;
-}
-.supplier_assort_table thead tr th {
-	font-weight: normal;
-	font-size: 14px;
-} */
-
 #supplier_cab .assortiment_table input {
 	text-align: center;
 }
 #supplier_cab tr {
-	/*border: 1px solid #d7d7d7;*/
 	background: #fff;
 }
 #supplier_cab .available {
@@ -653,14 +539,11 @@ table.kontrag.table{
 	color: #f36711;
 	cursor: pointer;
 	margin-top: 15px;
-	/*background-color: #F1EEEE;*/
-	/*padding: 0px 10px;*/
-	/*border-radius: 3px;*/
 }
 #supplier_cab #second .controls a {
 	margin: 10px;
 	position: relative;
-	top: 5px; 
+	top: 5px;
 }
 #supplier_cab .name_cell .err_mark:hover {
 	text-decoration: underline;
@@ -683,13 +566,13 @@ table.kontrag.table{
 
 .sort_page {
 	float: right;
-    margin-top: -5px;
-    width: 150px;
-    height: 35px;
-    text-align: center;
-    margin-bottom: 5px;
-    background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	margin-top: -5px;
+	width: 150px;
+	height: 35px;
+	text-align: center;
+	margin-bottom: 5px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .sort_page a {
 	display: block;
@@ -700,13 +583,11 @@ table.kontrag.table{
 }
 .add_functions {
 	margin-top: 10px;
-    width: 275px;
-    padding: 10px;
-    /* border: 1px solid #d9d9d9; */
-    /* border-radius: 3px; */
-    background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
-    margin-bottom: 10px;
+	width: 275px;
+	padding: 10px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	margin-bottom: 10px;
 }
 .add_functions p {
 	text-align: center;
@@ -737,9 +618,6 @@ table.kontrag.table{
 #popup_msg {
 	display: none;
 }
-#supplier_cab .cabinet_block {
-	/*margin-left: calc(50% - 345px);*/
-}
 #supplier_cab .cabinet_block button {
 	margin: 5px;
 }
@@ -757,9 +635,9 @@ table.kontrag.table{
 #supplier_cab .calendar,
 #supplier_cab .work_days_add {
 	margin-bottom: 5px;
-    background: #fff;
-    padding: 5px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	background: #fff;
+	padding: 5px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 #supplier_cab .calendar,
 #supplier_cab .work_days_add {
@@ -784,7 +662,6 @@ table.kontrag.table{
 .editproduct label {
 	float: left;
 	clear: both;
-	/*width: 100%;*/
 }
 .editproduct label[for="height"],
 .editproduct label[for="width"],
@@ -814,11 +691,8 @@ table.kontrag.table{
 	margin: 0 16px;
 	width: 60%;
 	font-weight: normal;
-	/*float: right;*/
 	color: #f00;
 	clear: both;
-	/*padding: 10px;*/
-	/*text-align: center;*/
 }
 #editbox select {
 	background: #fff;
@@ -902,7 +776,6 @@ table.kontrag.table{
 	height: 70px;
 	max-height: 100%;
 	border: 1px solid #ccc;
-	/*box-shadow: 0 0 1px 0 #aaa;*/
 }
 #editbox #photobox .image_block .name {
 	width: calc(100% - 130px);
@@ -936,7 +809,6 @@ table.kontrag.table{
 #editbox #photobox .image_block .controls a:hover {
 	text-decoration: none;
 	text-align: center;
-	/*margin-right: 1em;*/
 }
 #editbox #photobox .image_block .controls .icon-font {
 	font-size: 1.2em;
@@ -956,7 +828,6 @@ table.kontrag.table{
 	font-size: 1.5em;
 }
 #editbox #photobox .image_block_new.dz-drag-hover {
-	/*background: #f36711;*/
 	border-color: #f36711;
 	color: #f36711;
 	border-style: solid;
@@ -1022,13 +893,6 @@ table.kontrag.table{
 }
 
 /* Customer cab ============================================================= */
-#cab_left_bar > ul {
-	/* padding: 0 1.5em 0 1.5em; */
-	/*padding: .7em;*/
-}
-#cab_left_bar li {
-	/*margin-bottom: 0.5em;*/
-}
 #cab_left_bar > ul > li {
 	padding: .7em;
 	cursor: pointer;
@@ -1037,9 +901,6 @@ table.kontrag.table{
 	cursor: pointer;
 	color: #FF5722;
 }
-#cab_left_bar > ul > li:hover {
-	/*background-color: #F5F5F5;*/
-}
 #cab_left_bar .link_wrapp {
 	display: block;
 	overflow: hidden;
@@ -1047,7 +908,7 @@ table.kontrag.table{
 }
 #cab_left_bar a i.material-icons {
 	margin-right: 5px;
-} 
+}
 #cab_left_bar .more_cat {
 	height: 40px;
 	cursor: pointer;
@@ -1060,18 +921,15 @@ table.kontrag.table{
 	bottom: 0;
 }
 #cab_left_bar .more_cat i {
-	/*font-size: 16px;*/
-	/*box-sizing: border-box;*/
 	width: 100%;
 	text-align: center;
-	/*position: absolute;*/
 	top: calc(50% - 8px);
 	transition: transform 0.3s;
 	transform: rotate(0deg);
 }
 #cab_left_bar li.active > span > .more_cat i {
-		transform: rotate(90deg);
-	}
+	transform: rotate(90deg);
+}
 #cab_left_bar li.active ul a.active {
 	color: #FF5722;
 }
@@ -1085,7 +943,6 @@ table.kontrag.table{
 	line-height: 2em;
 }
 .nav li {
-	/*margin-left: 2.5em;*/
 	margin-left: 1.2em;
 }
 .material-icons {
@@ -1093,7 +950,6 @@ table.kontrag.table{
 }
 .del_x i {
 	padding: 5px;
-	/*background: #FFF;*/
 	border-radius: 50%;
 	font-size: 1.3em;
 	cursor: pointer;
@@ -1118,23 +974,19 @@ table.kontrag.table{
 	float: left;
 	position: relative;
 	height: inherit;
-	/*background-color: #F5F5F5;*/
 	border-right-color: #DCDCDC;
 	border-top: 1px #DCDCDC;
 	border-right-width: 1px;
 	border-style: solid;
 	min-height: 412px;
 }
-/*#cab_left_bar a[href="#"]:hover {
-	color: #444;
-}*/
 #cab_left_bar .link_wrapp div[for^=icon_] {
 	display: none;
 }
 @media (max-width: 1150px) and (not handheld) {
 	#cab_left_bar .link_wrapp div[for^=icon_] {
 		display: block;
-	}	
+	}
 }
 @media (max-width: 1150px) {
 	#cab_left_bar {
@@ -1149,13 +1001,10 @@ table.kontrag.table{
 	}
 	#cab_left_bar > ul {
 		background-color: #fff;
-		/*z-index: 2;*/
 	}
 	#cab_left_bar > ul > li > ul {
 		margin-top: 5px;
 		width: 190px;
-
-		/*transition: all 3s;*/
 		border: 1px solid #DCDCDC;
 	}
 	#cab_left_bar > ul > li > ul > li {
@@ -1278,9 +1127,6 @@ table.kontrag.table{
 #navi2 a.active{
 	color: #9E9E9E;
 }
-/*.btn-m-green {
-	top: 11px;
-}*/
 #navi2 #nav li {
 	padding: 0;
 }
@@ -1322,12 +1168,11 @@ table.kontrag.table{
 }
 
 /* Customer cab ============================================================ */
-	
+
 	.customer_cab {
 		position: relative;
 	}
 	.customer_cab * {
-		/*font-size: 13px;*/
 	}
 	.customer_cab textarea:focus {
 		border-color: #52cf55;
@@ -1437,23 +1282,16 @@ table.kontrag.table{
 	.customer_cab #settings,
 	.customer_cab .bonus_reg_block {
 		width: 70%;
-		/*margin-bottom: 20px;*/
 		width: 100%;
-		/*width: 100%;
-		padding: 10px;
-		margin-bottom: 20px;*/
 	}
 	.customer_cab #edit_personal {
 		padding: 1em;
 		padding-top: 0px;
 		box-sizing: border-box;
 	}
-/*	.customer_cab #edit_personal select[id^="id_"] {
-		width: 300px;
-	}*/
 
 	.breadcrumbs {
-		padding-left: 10px; 
+		padding-left: 10px;
 	}
 
 /* Dropzone part */
@@ -1521,27 +1359,20 @@ table.kontrag.table{
 	#photobox .image_block .controls p:hover {
 		text-decoration: none;
 		text-align: center;
-		/*margin-right: 1em;*/
 	}
 	#photobox .image_block .controls .icon-font,
 	#photobox .image_block .visibility .icon-font {
 		font-size: 1.2em;
 	}
 	#photobox .image_block_new {
-		/*color: #ccc;*/
 		border-style: dashed;
 		height: auto;
-		/*padding: 1em;*/
-		/*cursor: pointer;*/
 	}
 	#photobox .image_block_new .dz-message {
 		line-height: 2.4em;
 		text-align: center;
-		/*font-weight: bold;*/
-		/*font-size: 1.5em;*/
 	}
 	#photobox .image_block_new.dz-drag-hover {
-		/*background: #f36711;*/
 		border-color: #f36711;
 		color: #f36711;
 		border-style: solid;
@@ -1635,7 +1466,6 @@ table.kontrag.table{
 
 	.customer_cab #bonus a.details {
 		display: block;
-		/* text-align: center; */
 		margin: 10px 0;
 	}
 	.customer_cab #bonus .info_text {
@@ -1643,14 +1473,13 @@ table.kontrag.table{
 	}
 	.customer_cab #bonus .info_text p {
 		font-weight: bold;
-		/*text-indent: 20px;*/
 		text-align: center;
 	}
 	.customer_cab #bonus .info_text span {
 		width: 100%;
-    	display: block;
-    	text-align: justify;
-    	margin-top: 10px;
+		display: block;
+		text-align: justify;
+		margin-top: 10px;
 	}
 	.customer_cab #bonus .bonus_balance {
 		margin: 20px 0;
@@ -1663,7 +1492,6 @@ table.kontrag.table{
 		margin-right: 20px;
 	}
 	.customer_cab #bonus #birthday_line select {
-		/*width: 20%;*/
 		width: 97px;
 	}
 	.customer_cab #bonus .required {
@@ -1700,8 +1528,8 @@ table.kontrag.table{
 		border: none;
 		position: relative;
 		background: #fff;
-	    margin-bottom: 10px;
-	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+		margin-bottom: 10px;
+		box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	}
 	.customer_cab #favorites .table_tbody .tableRow > *,
 	.customer_cab #waiting_list .table_tbody .tableRow > * {
@@ -1745,7 +1573,7 @@ table.kontrag.table{
 	}
 	.customer_cab #favorites .table_tbody .image_cell img,
 	.customer_cab #waiting_list .table_tbody .image_cell img {
-		vertical-align: middle;	
+		vertical-align: middle;
 		height: 90px;
 		width: auto;
 	}
@@ -1826,21 +1654,21 @@ table.kontrag.table{
 		float: left;
 		font-weight: normal;
 	}
-	.customer_cab .add_new_address, 
+	.customer_cab .add_new_address,
 	.customer_cab .edit_contacts_block, #bonus .bonus_content {
 		padding: 0px 15px 15px 15px;
 		margin-top: 1em;
 		background: #fff;
-	    width: 350px;
-	    float: left;
-	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+		width: 350px;
+		float: left;
+		box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	}
 	.customer_cab .edit_contacts_block, #bonus .bonus_content {
 		width: 330px;
 	}
 	#bonus .fright {
-	    width: 100%;
-	    margin-top: 10px;
+		width: 100%;
+		margin-top: 10px;
 	}
 	.customer_cab .discount_select {
 		padding-top: 0px;
@@ -1858,10 +1686,10 @@ table.kontrag.table{
 	}
 	.customer_cab #settings {
 		background: #fff;
-	    width: 310px;
-	    float: left;
-	    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
-	    margin-top: 10px;
+		width: 310px;
+		float: left;
+		box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+		margin-top: 10px;
 	}
 	.customer_cab .add_new_address .explanation {
 		font-size: 13px;
@@ -1893,26 +1721,6 @@ table.kontrag.table{
 
 /* Cabinet orders ========================================================= */
 
-/* .one_order {
-	border: 1px solid black;
-} */
-
-/*$gap: 1.429em;
-@mixin animate(){
-	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
-	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
-	transition: all .4s cubic-bezier(.4,0,.2,1);
-}*/
-/* * {
-	box-sizing: border-box;
-}
-
-html {
-	padding: 1.429em 0;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	overflow-y: scroll;
-} */
 #orders_history {
 	margin: 1em;
 	margin-left: 0px;
@@ -1921,8 +1729,8 @@ html {
 	margin: 0 auto;
 	overflow: visible;
 	background: #fff;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	margin-bottom: 10px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .customer_cab .order:hover {
 	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
@@ -1934,20 +1742,16 @@ html {
 	border-radius: 0 0 .2em .2em;
 }
 .order .title {
-	/*background: #f0f0f0;*/
 	border-bottom: 1px solid #f0f0f0;
 	padding: 0 1.429em;
 	color: #888;
-	/* overflow: auto; */
 	position: relative;
- /*  z-index: 500; */
 	box-sizing: content-box;
 	-webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	-o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .order .title .container {
-	/*padding: 1.429em 0;*/
 	overflow: auto;
 }
 .order .title .container i {
@@ -1982,7 +1786,6 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	margin-right: 0;
 }
 .for_tooltip .mdl-tooltip {
-	/*width: 200px;*/
 	font-size: 12px;
 	z-index: 1000000;
 }
@@ -2024,13 +1827,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	margin-top: 1.5em;
 }
 .order .title .container .print .icon {
- /*  float: right; */
 	cursor: pointer;
 		top: -5px;
 }
-/*.order .title .container .print .icon img {
-	margin-top: 6px;
-}*/
 .order .title .container .print .print_menu {
 	min-width: 160px;
 }
@@ -2091,7 +1890,6 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 .order .content {
 	position: relative;
-	/* z-index: 100; */
 	background: #fff;
 	padding: 0 1.429em;
 	top: -2.858em;
@@ -2130,17 +1928,6 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	font-size: 2.143em;
 	white-space: nowrap;
 }
-/*@media (max-width: 728px) {
-	.order .content .info {
-	flex-wrap: wrap;
-	justify-content: space-between;
-	}
-	.order .content .info > div {
-	flex-grow: 0;
-	flex-basis: 60%;
-	margin-bottom: 1.429em;
-	}
-}*/
 .order .content .additional {
 	padding: 1.429em 0;
 	display: flex;
@@ -2162,7 +1949,6 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 .order .content .additional > div .details {
 	float: left;
-	/* width: calc(100% - 5em); */
 	padding: 0.6213em;
 	padding-left: 1.429em;
 	overflow: hidden;
@@ -2199,40 +1985,21 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	padding-right: 0.7145em;
 	color: #888;
 }
-/*@media (max-width: 728px) {
-	.order .content .additional {
-	flex-wrap: wrap;
-	}
-	.order .content .additional > div {
-	flex-basis: 50%;
-	padding-bottom: 1.429em;
-	}
-}*/
 .order.expanded {
 	border-radius: .2em .2em 0 0;
 }
 .order.expanded .title {
-	/*background: #f0f0f0;*/
 	background: #fff;
 	border: 0;
 	z-index: 10;
 	padding-bottom: 0;
 	margin-top: 1.429em;
-/*  margin-left: -1.429em;
-	margin-right: -1.429em;*/
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-.order.expanded .title:hover {
-	/*z-index: 10;*/
-	/*box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);*/
-}
 .order.expanded .content {
-/*  margin-left: -1.429em;
-	margin-right: -1.429em;*/
 	margin-bottom: 1.429em;
 	padding: 1.429em;
 	top: 0;
-	/* z-index: 800; */
 	max-height: 700px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	overflow-y: auto;
@@ -2245,10 +2012,10 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	min-height: 120px;
 }
 .cooperative_order #products .ordersProdList .ordersProdListContent:not(.ordersProdListTitle){
-    min-height: 70px;
+	min-height: 70px;
 }
 
-#products .ordersProdList .ordersProdListContent {	
+#products .ordersProdList .ordersProdListContent {
 	border-bottom: 1px solid #e0e0e0;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -2258,7 +2025,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 #products .ordersProdList .ordersProdListContent.ordersProdListTitle {
 	max-height: 40px;
-	text-align: center;	
+	text-align: center;
 }
 
 #products .ordersProdList .ordersProdListTitle .priceWrap,
@@ -2305,85 +2072,15 @@ div[id^="items_panel_"] .btnWrapFlex {
 	font-weight: bold;
 }
 .buttons_cab {
-    width: 110px;
+	width: 110px;
 }
 
 .bonus_info {
 	width: 330px;
 }
-/*#bonus {
-	margin-top: 0px;
-}*/
-/* Стили для блоков оповещения в разделе дисконта */
-/*[class^="msg-"] {  
-  background-repeat: no-repeat;
-  background-position: 1em 50%;
-  width: 100%;
-  min-height: 100px;
-  padding: 1em;
-  box-sizing: border-box;
-  position: relative;
-}
-
-.msg_title {
-	font-weight: bold;	
-}
-.msg_title, 
-.msg_text {
-	margin-left: 30px;
-}
-.msg_icon {
-	position: absolute;
-	left: 1em;
-	top: calc(50% - 12px);
-}
-.msg-success {
-  color: #067369;
-  background-color: #c0ffc0;
-  width: 110%;
-  margin-left: -15px;
-}*/
-
-/*.msg-error {
-  color: #d82114;
-  background-color: #ffa3a6;	
-  width: 110%;
-  margin-left: -15px;
-}*/
-/* .msg-error .msg_title::before {
-  content: 'Ошибка';
-}
-.msg-error .msg_text::before {
-  content: 'Сообщение про что то  что должно тут быть и возможно появится';
-} */
-/*.msg-attention {
-  color: #9a5c01;
-  background-color: #fdec9b;
-  width: 110%;
-  margin-left: -15px;
-}*/
-/* .msg-attention .msg_title::before {
-  content: 'Внимание';
-}
-.msg-attention .msg_text::before {
-  content: 'Сообщение про что то  что должно тут быть и возможно появится';
-} */
-/*.msg-info {
-  color: #33439c;
-  background-color: #b2ddff;
-  width: 110%;
-  margin-left: -15px;
-}*/
-/* .msg-info .msg_title::before {
-  content: 'Внимание';
-}
-.msg-info .msg_text::before {
-  content: 'Для активации бонусной карты, заполните эту форму!';
-} */
 .details {
 	color: #FF5722;
 }
-
 .region .mdl-selectfield__box,
 .city .mdl-selectfield__box,
 .delivery .mdl-selectfield__box {
@@ -2393,14 +2090,13 @@ div[id^="items_panel_"] .btnWrapFlex {
 /* СТИЛИ НОВОЙ ТАБЛИЦЫ БЛОКАМИ */
 .products_list_item {
 	display: flex;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    /*border: 1px solid #d7d7d7;*/
+	padding-top: 10px;
+	padding-bottom: 10px;
 	justify-content: space-between;
 	width: 100%;
 	background: #fff;
 	margin-bottom: 10px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .supplier_assort_table {
 	display: flex;
@@ -2410,8 +2106,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 30px;
 }
 .removeFromAssort a {
-    display: block;
-    text-align: center;
+	display: block;
+	text-align: center;
 }
 .photo_cell {
 	width: 110px;
@@ -2422,7 +2118,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 .min_prod_qty {
 	margin-right: 5px;
 }
-.price_1, 
+.price_1,
 .price_2 {
 	width: 100px;
 }
@@ -2433,26 +2129,23 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 300px;
 	position: relative;
 }
-/*.page_content .customer_cab h1 {
-	font-size: 2em;
-}*/
 .page_content h1 {
 	font-size: 2em;
 }
 #orders_history .editing {
-	margin-top: 10px; 
+	margin-top: 10px;
 }
 
 /* СТИЛИ СПИСКА ТОВАРОВ НА МОДЕРАЦИИ */
 
 .moder_list_item,
-.moder_list_title {	
-    background: #fff;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+.moder_list_title {
+	background: #fff;
+	margin-bottom: 10px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .moder_list_item {
-	height: 100px;	
+	height: 100px;
 }
 .moder_list_title div {
 	text-align: center;
@@ -2463,18 +2156,18 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .supplier_cab .photo {
 	width: 130px;
-} 
+}
 .supplier_cab .name {
 	width: calc(100% - 120px - 120px - 130px);
-} 
+}
 .supplier_cab .status {
 	width: 120px;
 }
 .supplier_cab .controls {
 	width: 120px;
 }
-.supplier_cab .photo, 
-.supplier_cab .name, 
+.supplier_cab .photo,
+.supplier_cab .name,
 .supplier_cab .status {
 	float: left;
 }
@@ -2484,24 +2177,24 @@ div[id^="items_panel_"] .btnWrapFlex {
 
 .moder_list_item .photo {
 	position: relative;
-    padding: 5px 10px 5px 0;
+	padding: 5px 10px 5px 0;
 }
 .moder_list_item .photo img {
 	display: block;
-    max-height: 90px;
-    max-width: 100%;
-    margin: 0 auto;	
+	max-height: 90px;
+	max-width: 100%;
+	margin: 0 auto;
 }
 .moder_list_item .name {
 	padding-top: 35px;
 	width: calc(100% - 120px - 120px - 130px);
 }
 .moder_list_item .status {
-    text-align: center;
-    padding-top: 35px;
+	text-align: center;
+	padding-top: 35px;
 }
 .moder_list_item .controls {
-    padding: 30px 10px 10px 10px;
+	padding: 30px 10px 10px 10px;
 }
 .status_title {
 	display: none;
@@ -2512,26 +2205,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.nav li {
 		margin-left: 0.5em;
 	}
-	.customer_cab {
-		/*width: 100%;*/
-		/*z-index: 1;*/
-		/*background-color: #fff;*/
-	}
 	.posZIndex .cab_left_bar_js {
 		z-index: 1;
 	}
 }
 @media (max-width: 999px) {
-	#cab_left_bar {
-		/*display: none;*/
-	}	
-	.customer_cab {
-		/*width: calc(100vw - 45px);*/
-		/*
-		min-height: 412px;
-		z-index: 100000;
-		background-color: #fff;*/
-	}
 	#orders_history .orderBnts {
 		width: 360px;
 	}
@@ -2540,9 +2218,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	#orders_history .cnslOrderBtn{
 		padding-left: 10px;
-	}
-	#products .ordersProdList .ordersProdListContent .cent {
-		/*flex-basis: 15%;*/
 	}
 	#products .ordersProdList .ordersProdListTitle .priceWrap,
 	#products .ordersProdList .ordersProdListContent .priceWrap {
@@ -2601,12 +2276,12 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.sb_container .line {
 		width: 49%;
-	    padding-left: 5px;
-	    padding-right: 5px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	.supplier_info {
 		display: flex;
-    	flex-wrap: wrap;
+		flex-wrap: wrap;
 	}
 	h4 {
 		margin: 5px 0 10px;
@@ -2634,22 +2309,22 @@ div[id^="items_panel_"] .btnWrapFlex {
 
 	#orders_history .number {
 		display: flex;
-		flex-wrap: wrap;		
-	}	
+		flex-wrap: wrap;
+	}
 	#orders_history .number .numb,
 	#orders_history .number .my_item,
 	#orders_history .number .date,
 	#orders_history .number .status {
 		padding-left: 0 !important;
 		margin-left: 10px;
-	} 
+	}
 	#orders_history .title {
-		padding: 0;		
+		padding: 0;
 	}
 
 	#orders_history .title .container .status {
 		border: none ;
-	}	
+	}
 	#orders_history .orderBnts {
 		display: none;
 	}
@@ -2668,8 +2343,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 		margin: 0;
 	}
 
-	#orders_history .orderBntsMob .newOrderLink, 
-	#orders_history .orderBntsMob .replaceOrderBtn, 
+	#orders_history .orderBntsMob .newOrderLink,
+	#orders_history .orderBntsMob .replaceOrderBtn,
 	#orders_history .orderBntsMob .delOrderBtn,
 	#orders_history .orderBntsMob .cnslOrderBtn  {
 		width: 32%;
@@ -2677,10 +2352,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#orders_history .orderBntsMob .newOrderLink button {
 		width: 100%;
 	}
-	
+
 	#orders_history .container {
 		padding-left: 10px;
-		padding-right: 10px;    	
+		padding-right: 10px;
 	}
 	#orders_history .tabs {
 		height: 88px;
@@ -2689,7 +2364,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 		width: 50%;
 		padding-left: 10px;
 		padding-right: 10px;
-	}	
+	}
 	.orderProdName {
 		max-height: 100px;
 		overflow: hidden;
@@ -2763,16 +2438,16 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.prod_detail_info {
 		width: 175px;
-    	display: block;
-    	float: left;
-    	line-height: 24px;
-    	margin-right: 5px;
+		display: block;
+		float: left;
+		line-height: 24px;
+		margin-right: 5px;
 	}
-	#supplier_cab .price_1 input, 
+	#supplier_cab .price_1 input,
 	#supplier_cab .price_2 input {
 		width: 100px;
 	}
-	.product_balance label, 
+	.product_balance label,
 	.to_dollar label {
 		width: 30px;
 	}
@@ -2828,7 +2503,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#products .ordersProdList .ordersProdListContent .orderProdName {
 		flex-basis: 65%;
 		align-self: center;
-		padding-top: 0; 
+		padding-top: 0;
 	}
 	#products .ordersProdList .ordersProdListContent .avatar {
 		flex-basis: 26%;
@@ -2862,8 +2537,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 		width: 100%;
 	}
 	.sb_container .line {
-    	width: 100%;
-    	padding-right: 10px;
+		width: 100%;
+		padding-right: 10px;
 	}
 	.moder_list_item .name {
 		width: calc(100% - 130px);
@@ -2873,15 +2548,15 @@ div[id^="items_panel_"] .btnWrapFlex {
 		display: none;
 	}
 	.moder_list_item {
-	    height: 140px;
-	    display: flex;
-    	flex-wrap: wrap;
-    	justify-content: space-between;
+		height: 140px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
 	}
 	.moder_list_item .status {
 		padding-top: 5px;
 		padding-left: 10px;
-    	width: 135px;
+		width: 135px;
 	}
 	.moder_list_item .controls {
 		padding-top: 0px;
@@ -2895,23 +2570,23 @@ div[id^="items_panel_"] .btnWrapFlex {
 		width: 130px;
 	}
 	#supplier_cab #second .controls a {
-		margin: 0px;	
-	    position: relative;
-	    top: 5px;
-	    width: 50px;
-	    display: block;
-	    float: left;
-	    text-align: center;
+		margin: 0px;
+		position: relative;
+		top: 5px;
+		width: 50px;
+		display: block;
+		float: left;
+		text-align: center;
 	}
 
 }
 
 @media (max-width: 420px) {
 	.order .content .additional > div {
-		flex-basis: 100%;		
+		flex-basis: 100%;
 	}
-	.order .content .info > div {		
-		flex-basis: 100%;		
+	.order .content .info > div {
+		flex-basis: 100%;
 	}
 	.priceWrap {
 		border-top: 1px solid #e0e0e0;
@@ -2933,9 +2608,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 
 #currency_rate {
 	height: 25px;
-    width: 150px;
-    padding: 5px;
-    margin-left: 5px;
+	width: 150px;
+	padding: 5px;
+	margin-left: 5px;
 }
 
 @media (max-width: 325px) {
@@ -3031,7 +2706,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 .paginator {
 	padding-top: 30px;
 	background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 #products img {
 	width: 70px;
@@ -3052,15 +2727,15 @@ div[id^="items_panel_"] .btnWrapFlex {
 	background: #fff;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	color: #FF5722;
-    text-align: center;
-    padding-top: 13px;
-    padding-bottom: 13px;
-    line-height: 24px;
-    margin-top: 5px;
-    margin-bottom: 15px;
+	text-align: center;
+	padding-top: 13px;
+	padding-bottom: 13px;
+	line-height: 24px;
+	margin-top: 5px;
+	margin-bottom: 15px;
 }
 .bonus_detalies:hover {
-    box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
+	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
 }
 
 .date_container {
@@ -3123,10 +2798,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.customer_cab #edit_personal select[id^="id_"] {
 		width: 245px;
-	}	
+	}
 	.date_container {
 		width: auto;
-	}	
+	}
 	.cabinet_navigation li {
 		width: 98%;
 	}
@@ -3135,10 +2810,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.date_container .bdate_select_block {
 		width: 32%;
-	}	
-	.customer_cab .edit_contacts_block, 
+	}
+	.customer_cab .edit_contacts_block,
 	.customer_cab .add_new_address,
-	.bonus_detalies, 
+	.bonus_detalies,
 	.bonus_info,
 	#bonus {
 		width: 98%;
@@ -3158,36 +2833,36 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .switch_price_container {
 	width: 150px;
-    height: 35px;
-    text-align: center;
-    float: right;
-    padding-right: 10px;
-    padding-top: 5px;
-    background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
-    margin-bottom: 5px;
-    margin-top: 10px;
+	height: 35px;
+	text-align: center;
+	float: right;
+	padding-right: 10px;
+	padding-top: 5px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	margin-bottom: 5px;
+	margin-top: 10px;
 }
 
 .switch_price_container span {
 	float: left;
-    display: block;
-    width: calc(100% - 30px);
-    line-height: 24px;
+	display: block;
+	width: calc(100% - 30px);
+	line-height: 24px;
 }
 
 .switch_price_container label {
 	width: 30px;
-    float: right;
+	float: right;
 }
 
 .order_number_filter {
 	margin-left: 10px;
-    width: 400px;   
+	width: 400px;
 }
 .order_number_filter form {
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 }
 .order_number_filter input {
 	height: 35px;
