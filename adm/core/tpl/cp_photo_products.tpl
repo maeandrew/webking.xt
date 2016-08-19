@@ -72,6 +72,7 @@
 </div>
 <div class="prodList">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+		<col width="5%">
 		<col width="10%">
 		<col width="15%">
 		<col width="10%">
@@ -80,6 +81,7 @@
 		<col width="35%">
 		<thead class="main_thead">
 			<tr>
+				<th class="center"></th>
 				<th class="center">Дата</th>
 				<th class="center">Поставщик</th>
 				<th class="center">Кол-во<br>товаров</th>
@@ -91,7 +93,10 @@
 		<?if(isset($batch) && is_array($batch)){
 			foreach($batch as $i){?>
 				<thead>
-					<tr class="batchListItem batchListItem_js" data-createDate="<?=$i['date']?>" data-idSupplier="<?=$i['id_supplier']?>" data-idAuthor="<?=$id_photographer?>">
+					<tr class="batchListItem">
+						<th class="center">
+							<div class="btn-m batchListItem_js" data-createDate="<?=$i['date']?>" data-idSupplier="<?=$i['id_supplier']?>" data-idAuthor="<?=$id_photographer?>">Показать</div>
+						</th>
 						<th class="center"><?=$i['date']?></th>
 						<th class="center"><?=$i['name']?></th>
 						<th class="center"><?=$i['count_product']?></th>
@@ -100,8 +105,7 @@
 						<th class="center"><?=$i['comment']?></th>
 					</tr>
 				</thead>
-				<tbody>
-				</tbody>
+				<tbody></tbody>
 			<?}?>
 		<?}?>
 	</table>
