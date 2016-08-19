@@ -479,8 +479,8 @@
 														<label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
 													</div>
 												</td>
-												<td>
-													<input type="number" name="product_limit[]" min="0" value="<?=$si['product_limit']?>" class="input-m">
+												<td class="center">
+													<input type="checkbox" <?=$si['active']==1?'checked':null?> name="supplier_product_available" class="input-m active_js">
 												</td>
 												<td>
 													<input type="hidden" name="id_supplier[]" value="<?=$si['id_supplier']?>">
@@ -534,7 +534,7 @@
 												<input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
 											</div>
 										</td>
-										<td>
+										<td class="center">
 											<input type="checkbox" name="supplier_product_available">
 										</td>
 										<td>
@@ -714,44 +714,23 @@
 			if(data.article != ''){
 				if(data.price_opt_otpusk != ''){
 					if(data.price_mopt_otpusk != ''){
-						ajax('products', 'addSupplier', data).done(function(response){
+						ajax('products', 'addSupplier', data, 'html').done(function(response){
 							if(!response){
 								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
 							}else{
 								//Добавляем поставщика в таблицу 'Данные поставщика'
-								var html_string = inusd_sel = not_inusd_sel = active_checked = '';
-								if(data.active == 1){
-									active_checked = 'checked="checked"';
-								}
-								if(data.inusd == 1){
-									inusd_sel = 'selected="selected"';
-								}else{
-									not_inusd_sel = 'selected="selected"';
-								}
-								if(response.real_phone == '380'){
-									response.real_phone = 'не указан';
-								}
-								//Формируем html для вставки
-								html_string = '<tr class="animate supp_js">';
-								html_string += '<td class="center">'+data.article+'</td>';
-								html_string += '<td class="supp_name_js">'+response.name+'</td>';
-								html_string += '<td>'+response.real_phone+'</td>';
-								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="inusd" class="input-m"><option value="0" '+not_inusd_sel+'>ГРН</option><option value="1" '+inusd_sel+'>USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" min="0" step="0.01" name="supplier_price_opt" class="input-m" value="'+data.price_opt+'" placeholder="По умолчанию в (грн)"></div><div class="fr price"><label>Розница:</label><input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" value="'+data.price_mopt+'" placeholder="По умолчанию в (грн)"></div></td>';
-								html_string += '<td><input type="checkbox" name="supplier_product_available" value="'+active_checked+'"></td>';
-								html_string += '<td class="center"><input type="hidden" name="id_supplier" value="'+response.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
-								html_string += '</tr>';
+								parent.closest('.product_js').find('.supplier').find('tbody').append(response);
 
 								if($('.supplier tr').is('#empty2')){
 									$('.supplier #empty2').remove();
 								}
-								$('.supplier tbody').append(html_string);
 
 								//Очистка полей ввода
 								$('.compulsory').removeClass('compulsory');
 								$('.sup_notation').remove();
-								$('[name="supplier_article"], [name="supplier_price_mopt"], [name="supplier_price_opt"]').val('');
-								$('[name="inusd"] [value="0"]').attr('selected', 'selected');
-								$('[name="supplier_product_available"]').attr('checked', false);
+								parent.find('[name="supplier_article"], [name="supplier_price_mopt"], [name="supplier_price_opt"]').val('');
+								parent.find('[name="inusd"] [value="0"]').attr('selected', 'selected');
+								parent.find('[name="supplier_product_available"]').attr('checked', false);
 							}
 						});
 					}else{
@@ -766,6 +745,13 @@
 				$('[name="supplier_article"]').addClass('compulsory').parent().find('.sup_notation').remove();
 				$('[name="supplier_article"]').parent().append('<span class="sup_notation">Заполните поле</span>');
 			}
+		});
+
+		$('.active_js').on('change', function(e){
+			var parent = $(this).closest('tr'),
+			id_assort = parent.find('.id_assortiment').val(),
+			active = this.checked?1:0;
+			ajax('products', 'updateActiveAssort', {id_assort:id_assort, active:active})
 		});
 
 		if($('.catblock:not(.hidden)').length > 1){
@@ -949,6 +935,7 @@
 					var id_assort = parent_path.find('.id_assortiment').val();
 					$('#nav_connection').append('<input type="hidden" name="del_from_assort[]" value="'+id_assort+'">');
 				};
+				ajax('products', 'removeSupplierAssort', {id_assort:id_assort})
 				parent_path.remove();
 			};
 		});

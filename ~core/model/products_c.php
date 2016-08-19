@@ -3184,7 +3184,7 @@ class Products {
 	 * Получить поставщиков для товара по id
 	 * @param [type] $id_product [description]
 	 */
-	public function GetSuppliersInfoForProduct($id_product){
+	public function GetSuppliersInfoForProduct($id_product, $id_supplier = false){
 		$sql = "SELECT a.id_supplier, s.article, s.real_phone, a.product_limit,
 			a.active, a.inusd, u.name, a.id_assortiment,
 			ROUND(a.price_opt_otpusk,2) as price_opt_otpusk,
@@ -3196,8 +3196,9 @@ class Products {
 				ON s.id_user = a.id_supplier
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = a.id_supplier
-			WHERE a.id_product = $id_product
-			ORDER BY a.id_assortiment";
+			WHERE a.id_product = $id_product".
+			(!empty($id_supplier)?" AND a.id_supplier = $id_supplier":null).
+			" ORDER BY a.id_assortiment";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
 	}
@@ -4632,4 +4633,26 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	// Удаляем из ассортимента поставщика
+	public function deleteSupplierAssort($id_assort){
+		$sql = "DELETE FROM "._DB_PREFIX_."assortiment WHERE id_assortiment =".$id_assort;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Обновляет ассортимент поставщика
+	public function updateActiveAssort($id_assort, $active){
+		$product_limit = $active==1?10000000:0;
+		$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit = ".$product_limit."
+				WHERE id_assortiment = ".$id_assort;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+
 }
