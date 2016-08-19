@@ -161,7 +161,7 @@
 				</colgroup>
 				<tbody>
 					<?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_ || $_SESSION['member']['gid'] == _ACL_SEO_)){?>
-						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+						<form action="" method="post">
 							<tr>
 								<td>
 									<label>Статусы товаров</label>
@@ -183,7 +183,7 @@
 									<label>Популярные товары</label>
 								</td>
 								<td>
-									<!-- <button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_popular">Обновить</button>-->
+									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_popular">Обновить</button>
 								</td>
 							</tr>
 							<tr>

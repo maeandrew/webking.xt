@@ -2428,9 +2428,7 @@ section .stat_year {
 }
 
 /*TABLET*/
-
-@media (min-width: 728px) and (max-width: 1169px) {
-
+@media (min-width: 728px) {
 	aside {
 		width: 260px;
 	}
@@ -2457,6 +2455,9 @@ section .stat_year {
 	aside .filters .buttonsTop {
 		width: 245px;
 	}
+}
+@media (min-width: 728px) and (max-width: 1169px) {
+
 	section.center {
 		width:calc(100% - 260px);
 	}

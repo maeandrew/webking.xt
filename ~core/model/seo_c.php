@@ -92,7 +92,7 @@ class SEO{
 
 	// Поиск слов (тегов) по строке
 	public function GerWord($str){
-		$sql = "SELECT wrord
+		$sql = "SELECT word
 			FROM "._DB_PREFIX_."semantic_core
 			WHERE word like '".$str."%'";
 		$this->list = $this->db->GetArray($sql);

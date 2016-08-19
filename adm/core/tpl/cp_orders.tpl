@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"><span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"><span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
-<form action="<?=$_SERVER['REQUEST_URI']?>" method="get" class="orders">
+<form action="<?=$_SERVER['REQUEST_URI']?>/" method="get" class="orders">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		<col width="5%"/>
 		<col width="8%"/>
@@ -95,17 +95,11 @@
 var restore = 0;
 $('[name="restore"]').click(function(){
 	var restore = 1;
-	$.ajax({
-		url: URL_base+'ajaxorders',
-		type: "POST",
-		cache: false,
-		dataType : "json",
-		data: {
-			"id_order": this.value,
-			"restore": restore
-		}
-	}).done(function(){
-		$(this).fadeOut(300);
+	var button = $(this);
+	var id_order = $(this).val();
+	ajax('order', 'restoreDeleted', {id_order: id_order, restore: restore}).done(function(){
+		console.log('tcnm');
+		button.fadeOut(300);
 	});
 });
 </script>

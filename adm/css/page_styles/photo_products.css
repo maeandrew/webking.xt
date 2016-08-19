@@ -136,6 +136,13 @@ h1 {
 }
 .batchListItem{
 	height: 5em;
+	border-bottom: 1px solid #cccccc;
+}
+.batchListItem th{
+	vertical-align: middle;
+}
+.batchListItem th .btn-m{
+	width: 85px;
 }
 .prodListItem .prodInfo {
 	float: left;

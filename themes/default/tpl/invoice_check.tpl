@@ -159,7 +159,7 @@ h1.filial { text-align: center; font-size: 27px; }
 											<?}?>
 										</td>
 										<td class="name c5">
-											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':'asd asdasf safd asasf as'?>
+											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
 										<td class="c6"><?=$i['site_price_opt']?></td>
 										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>

@@ -57,6 +57,7 @@
 		</div>
 	</div>
 <?}?>
+
 <div id="preview-template" class="hidden">
 	<div class="image_block image_block_js dz-preview dz-file-preview">
 		<div class="image">
@@ -71,6 +72,7 @@
 </div>
 <div class="prodList">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+		<col width="5%">
 		<col width="10%">
 		<col width="15%">
 		<col width="10%">
@@ -79,6 +81,7 @@
 		<col width="35%">
 		<thead class="main_thead">
 			<tr>
+				<th class="center"></th>
 				<th class="center">Дата</th>
 				<th class="center">Поставщик</th>
 				<th class="center">Кол-во<br>товаров</th>
@@ -91,6 +94,9 @@
 			foreach($batch as $i){?>
 				<thead>
 					<tr class="batchListItem">
+						<th class="center">
+							<div class="btn-m batchListItem_js" data-createDate="<?=$i['date']?>" data-idSupplier="<?=$i['id_supplier']?>" data-idAuthor="<?=$id_photographer?>">Показать</div>
+						</th>
 						<th class="center"><?=$i['date']?></th>
 						<th class="center"><?=$i['name']?></th>
 						<th class="center"><?=$i['count_product']?></th>
@@ -99,55 +105,7 @@
 						<th class="center"><?=$i['comment']?></th>
 					</tr>
 				</thead>
-				<tbody>
-					<?if(isset($i['products']) && is_array($i['products'])){
-						foreach($i['products'] as $item){?>
-							<tr>
-								<td colspan="6">
-									<div class="prodListItem">
-										<div class="prodInfo">
-											<div class="nameProd">
-												<label>Название:</label>
-												<span><?=$item['name']?></span>
-											</div>
-											<div class="createData">
-												<label>Добавлен:</label>
-												<span><?=$item['create_date']?></span>
-											</div>
-										</div>
-										<div class="actions">
-											<?if($item['indexation'] != 0){?>
-												<a href="/adm/productedit/<?=$item['id_product']?>" class="icon-font btn-m-blue" target="_blank" title="Редактировать">e</a>
-											<?}?>
-											<a href="<?=_base_url.'/'.$item['translit']?>.html" class="icon-font btn-m-green" target="_blank" title="Посмотреть на сайте">v</a>
-										</div>
-										<?if(is_array($item['images'])){?>
-											<div class="prodImages">
-												<?foreach($item['images'] as $image){?>
-													<!-- <img src="<?=G::GetImageUrl($image['src'], 'thumb')?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
-													<img src="<?=_base_url.$image['src']?>"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt="">
-													<!-- 	<img src="/images/noavatar.png"<?=$image['visible'] == 0?' class="imgopacity"':null;?> alt=""> -->
-												<?}?>
-											</div>
-										<?}
-										if(is_array($item['videos'])){?>
-											<div class="prodVideos">
-												<?foreach($item['videos'] as $video){?>
-													<a href="<?=$video?>" target="blank">
-														<img src="/images/video_play.png" alt="play">
-														<span class="name"><?=$video?></span>
-													</a>
-												<?}?>
-											</div>
-										<?}?>
-									</div>
-								</td>
-							</tr>
-						<?}
-					}else{
-						echo isset($id_photographer)?'Выберите фотографа, для просмотра его добавлений':'Нечего показывать, товары не добавлялись!';
-					}?>
-				</tbody>
+				<tbody></tbody>
 			<?}?>
 		<?}?>
 	</table>
@@ -160,19 +118,19 @@
 			var intut_val = $(this).find('input').val();
 			if (intut_val !== ''){
 				check_video = true;
-			}			
+			}
 		});
 		if ($('.images_block').html() !== '' || check_video === true) {
 			event.returnValue = "Write something clever here..";
 		}
 	};
 
-	var url = URL_base+'productadd/';
+	var url = URL_base_global+'ajax/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
-		url: url+"?upload=true",
+		url: url+"?target=image&action=upload&path=<?=str_replace('\\', '\\\\', $GLOBALS['PATH_product_img']).'original/'.date('Y').'/'.date('m').'/'.date('d').'/';?>",
 		clickable: true,
-		previewsContainer: '.images_block',	
+		previewsContainer: '.images_block',
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	}).on('success', function(file, path){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
@@ -202,21 +160,12 @@
 
 		$('body').on('click', '.del_photo_js', function(){
 			var target = $(this),
-				curSrc = target.closest('.image_block_js').find('input').val();			
-			$.ajax({
-				url: URL_base+'ajaxproducts',
-				type: "POST",
-				cache: false,
-				dataType: "json",
-				data: {
-					action: 'DeleteUploadedImage',
-					src: curSrc,
-				}
-			}).done(function(data){
+				curSrc = target.closest('.image_block_js').find('input').val();
+			ajax('products', 'deleteUploadedImage', {src: curSrc}).done(function(data){
 				target.closest('.image_block_js').remove();
 			});
 		});
-		
+
 		$(".image_block_new").on('click', function(){
 			$('.image_block_new').removeClass('errName');
 		});
@@ -228,7 +177,7 @@
 				Videos = [],
 				id_category = $('[name="categories"]').val();
 
-			$('.images_block .image_block_js').each(function(){	
+			$('.images_block .image_block_js').each(function(){
 				var visibility = $(this).find('img').hasClass('imgopacity') === false;
 				var path = $(this).find('input').val();
 				var curData = {src: path, visible: visibility};
@@ -237,26 +186,13 @@
 			$('.video_list_js li').each(function(){
 				var path = $(this).find('input').val();
 				Videos.push(path);
-			});			
+			});
 			/*Проверка ввода необходимых данных, отправка аякса и добавление нового товара в список*/
 			if ($('#supplier').val() !== '') {
 				$('#supplier').removeClass('errName');
 				if($(".images_block").html() !== ''){
 					$('.upload_message').removeClass('hidden');
-					$.ajax({
-						url: URL_base+'ajaxproducts',
-						type: "POST",
-						cache: false,
-						dataType: "html",
-						data: {
-							action: 'AddPhotoProduct',
-							art_supplier: ArtSupplier,
-							name: Name,
-							images: Images,
-							video: Videos,
-							id_category: id_category 
-						}
-					}).done(function(data){
+					ajax('products', 'addPhotoProduct', {art_supplier: ArtSupplier, name: Name, images: Images, video: Videos, id_category: id_category}, 'html').done(function(data){
 						$('.upload_message').addClass('hidden');
 						$('.prodList').prepend(data);
 						$('.images_block').find('.image_block_js').remove();

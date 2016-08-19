@@ -58,17 +58,12 @@
 <script>
 	$(function(){
 		$('.block_ip_js').on('click', function(){
-			$.ajax({
-				url: URL_base+'ajaxmonitoring',
-				type: "POST",
-				cache: false,
-				dataType : "json",
-				data: {
-					action: 'blockIP',
-					id: $(this).closest('tr').data('id'),
-					block: $(this).is(':checked')
-				}
+			var id = $(this).closest('tr').data('id');
+			var block = $(this).is(':checked');
+			ajax('global', 'blockIp',  {id: id, block: block}).done(function(data){
+				closest('data');
 			});
+
 		});
 	});
 </script>

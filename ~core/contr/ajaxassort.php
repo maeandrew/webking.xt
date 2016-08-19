@@ -7,19 +7,6 @@
 	$Status = new Status();
 	if(isset($_POST['action']))
 		switch($_POST['action']){
-			case"update_assort":
-				if(isset($_POST['mode']) && isset($_POST['id_product'])){
-					$_POST['id_supplier'] = $_SESSION['member']['id_user'];
-					$Product->UpdateAssort($_POST);
-
-					$arr['id_product'] = $_POST["id_product"];
-					$arr['error'] = false;
-					$arr['opt'] = $_POST['mode'] == 'mopt'?0:1;
-					$txt = json_encode($arr);
-					exit();
-				}
-			;
-			break;
 			case"add_product":
 				if(isset($_POST['id_product'])){
 					if(checkNumeric($_POST, array('id_product'))){
@@ -38,20 +25,6 @@
 					if(checkNumeric($_POST, array('id_product','active'))){
 						$Product->SwitchActiveEDInAssort($_POST['id_product'], $_POST['active']);
 						$arr['id_product'] = $_POST['id_product'];
-						$arr['active'] = $_POST['active'];
-						echo json_encode($arr);
-					}else{
-						exit();
-					}
-				}
-			;
-			break;
-			case"exclusive_product":
-				if(isset($_POST['id_product']) && isset($_POST['active']) && isset($_POST['id_supplier'])){
-					if(checkNumeric($_POST, array('id_product','active','id_supplier'))){
-						$Product->SetExclusiveSupplier($_POST['id_product'], $_POST['id_supplier'], $_POST['active']);
-						$arr['id_product'] = $_POST['id_product'];
-						$arr['id_supplier'] = $_POST['id_supplier'];
 						$arr['active'] = $_POST['active'];
 						echo json_encode($arr);
 					}else{

@@ -764,8 +764,8 @@ class Products {
 				GROUP BY p.id_product
 				HAVING p.visible = 1
 					".$prices_zero."
-				ORDER BY ".$order_by
-				.$limit;
+				ORDER BY active DESC, p.visible DESC, ".$order_by."
+				".$limit;
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -2035,7 +2035,7 @@ class Products {
 		if(isset($arr['instruction'])){
 			$f['instruction'] = trim($arr['instruction']);
 		}
-		if($arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
+		if(isset($arr['height']) && isset($arr['width']) && isset($arr['length']) && $arr['height'] != 0 && $arr['width'] != 0 && $arr['length'] != 0){
 			$f['weight'] = ($arr['height'] * $arr['width'] * $arr['length']) * 0.000001; //обьем в м3
 		}else{
 			if(isset($arr['weight'])){
@@ -2057,7 +2057,7 @@ class Products {
 		$id_product = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		if(isset($arr['categories_ids'])){
-			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
+			$this->UpdateProductCategories($id_product, $arr['categories_ids'], isset($arr['main_category'])?$arr['main_category']:null);
 		}
 		// Пересчитывать нечего при добавлении товара, так как нужен хотябы один поставщик на этот товар,
 		// а быть его на данном этапе не может
@@ -2909,6 +2909,7 @@ class Products {
 		}
 		$this->db->CompleteTrans();
 		$this->RecalcSitePrices(array($id_product));
+		return true;
 	}
 	/**
 	 * Обновление
@@ -3040,40 +3041,6 @@ class Products {
 			$p['images'] = $this->GetPhotoById($p['id_product']);
 		}
 		return $arr;
-	}
-	/**
-	 * Добавление популярного продукта
-	 * @param [type] $id_product  [description]
-	 * @param [type] $id_category [description]
-	 */
-	public function SetPopular($id_product, $id_category){
-		$this->db->StartTrans();
-		$f['id_product'] = $id_product;
-		$f['id_category'] = $id_category;
-		if(!$this->db->Insert(_DB_PREFIX_.'popular_products', $f)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-	}
-	/**
-	 * Удаление популярного продукта
-	 * @param [type] $id_product  [description]
-	 * @param [type] $id_category [description]
-	 */
-	public function DelPopular($id_product, $id_category){
-		$this->db->StartTrans();
-		$this->db->DeleteRowsFrom(_DB_PREFIX_."popular_products", array ("id_product = $id_product", "id_category = ".$id_category));
-		$this->db->CompleteTrans();
-	}
-	/**
-	 * Очистка списка популярных товаров
-	 */
-	public function ClearPopular(){
-		$this->db->StartTrans();
-		$sql = "DELETE FROM "._DB_PREFIX_."popular_products";
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
-		$this->db->CompleteTrans();
 	}
 	/**
 	 * Статистика продаж товаров в период
@@ -3233,23 +3200,6 @@ class Products {
 			ORDER BY a.id_assortiment";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
-	}
-	/**
-	 * Получить данные поставщика по Артикулу
-	 * @param [type] $art [description]
-	 */
-	public function GetSupplierInfoByArticle($art){
-		$sql = "SELECT s.id_user, s.real_phone, u.name
-			FROM "._DB_PREFIX_."supplier AS s
-			LEFT JOIN "._DB_PREFIX_."user AS u
-				ON u.id_user = s.id_user
-			WHERE s.article = '".$art."'";
-		$arr = $this->db->GetOneRowArray($sql);
-		if(!$arr){
-			return false;
-		}else{
-			return $arr;
-		}
 	}
 	/**
 	 * [GetExportSupPricesRows description]
@@ -3468,7 +3418,7 @@ class Products {
 		foreach($pricelists as $k=>$v){
 			$sql = "UPDATE "._DB_PREFIX_."pricelists
 				SET ord = ".$k."
-				WHERE id = ".eregi_replace("([^0-9])", "", $v);
+				WHERE id = ".substr(strstr($v,'-'),1);
 			$this->db->Query($sql);
 		}
 		return true;
@@ -3521,7 +3471,7 @@ class Products {
 		if(!$this->db->Query($sql)){
 			return false;
 		}
-		return $id;
+		return true;
 	}
 	/**
 	 * [GetPricelistFullList description]
@@ -4417,20 +4367,19 @@ class Products {
 		}
 		$article = $this->GetArtByID($id_product);
 		// try to add photos to the new product
+		// print_r($image);
 		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
-			$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $image['src']));
-			$path = $GLOBALS['PATH_product_img'] . trim($file['dirname']).'/';
-			$bd_path = str_replace($GLOBALS['PATH_root'].'..', '', $GLOBALS['PATH_product_img']).trim($file['dirname']);
+			$file = pathinfo($image['src']);
+			$path = $GLOBALS['PATH_root'].$file['dirname'].'/';
+			$bd_path = $file['dirname'];
 			rename($path.$file['basename'], $path.$newname);
-			$images_arr[] = $bd_path.'/'.$newname;
-			$path = $GLOBALS['PATH_root'].'../';
+			$images_arr[] = $file['dirname'].'/'.$newname;
 			$visibility[] = $image['visible'] == 'true'?1:0;
 		}
 		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		foreach($images_arr as $filename) {
-			$path = $GLOBALS['PATH_root'].'..';
-			$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+		foreach($images_arr as $filename){
+			$size = getimagesize($GLOBALS['PATH_root'].$filename); //Получаем ширину, высоту, тип картинки
 			if($size[0] > 1000 || $size[1] > 1000){
 				$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
 				//Определяем размеры нового изображения
@@ -4447,9 +4396,9 @@ class Products {
 			}
 			$res = imagecreatetruecolor($width, $height);
 			imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
+			$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($GLOBALS['PATH_root'].$filename):imagecreatefrompng($GLOBALS['PATH_root'].$filename);
 			imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-			imagejpeg($res, $path.$filename);
+			imagejpeg($res, $GLOBALS['PATH_root'].$filename);
 		}
 		$Images = new Images();
 		$Images->resize(false, $to_resize);
@@ -4532,7 +4481,7 @@ class Products {
 		return $res;
 	}
 
-	public function GetBetchesFhoto($id_photographer = false, $limit = false){
+	public function GetBatchesFhoto($id_photographer = false, $limit = false){
 		$where = $id_photographer?' WHERE pb.id_author = '.$id_photographer:null;
 		$sql = "SELECT pb.*, s.article, u.name, COUNT(pbp.id_product) AS count_product,
 				(SELECT COUNT(*) FROM "._DB_PREFIX_."image i WHERE i.visible = 1 AND i.id_product IN
@@ -4551,11 +4500,11 @@ class Products {
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
-		if($limit){
-			foreach ($res as $k => &$v) {
-				$v['products'] = $this->GetProductsByIdUser($v['id_author'], $v['date'], $v['id_supplier']);
-			}
-		}
+//		if($limit){
+//			foreach ($res as $k => &$v) {
+//				$v['products'] = $this->GetProductsByIdUser($v['id_author'], $v['date'], $v['id_supplier']);
+//			}
+//		}
 		return $res;
 	}
 
@@ -4637,7 +4586,7 @@ class Products {
 		$sql = "SELECT id_product, art, `name`, translit, visible, indexation FROM	"._DB_PREFIX_."product
 			WHERE id_product NOT IN (SELECT	id_product FROM	"._DB_PREFIX_."cat_prod
 			WHERE id_category IN (SELECT id_category FROM "._DB_PREFIX_."category WHERE sid = 1))"
-			.($where_art !== false?$where_art:'')." ORDER BY indexation".($limit !== false?$limit:'');
+			.($where_art !== false?$where_art:'')." ORDER BY visible DESC, indexation DESC ".($limit !== false?$limit:'');
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
