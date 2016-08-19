@@ -640,7 +640,6 @@
 								});
 								break;
 						}
-						/*window.location.href = '<?=Link::Custom('cabinet')?>';*/
 					}).fail(function(data){
 						console.log('fail');
 						console.log(data);
