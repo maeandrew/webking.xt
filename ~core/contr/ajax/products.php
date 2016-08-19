@@ -246,7 +246,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$list = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['create_date'], $_POST['id_supplier']);
 				$prod_arr ='';
 				foreach($list as $item){
-					$prod_arr .= '<tr><td colspan="6"><div class="prodListItem">
+					$prod_arr .= '<tr><td colspan="7"><div class="prodListItem">
 									<div class="prodInfo">
 										<div class="nameProd">
 											<label>Название:</label>

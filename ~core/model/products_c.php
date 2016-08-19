@@ -764,8 +764,8 @@ class Products {
 				GROUP BY p.id_product
 				HAVING p.visible = 1
 					".$prices_zero."
-				ORDER BY ".$order_by
-				.$limit;
+				ORDER BY active DESC, p.visible DESC, ".$order_by."
+				".$limit;
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
