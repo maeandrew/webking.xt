@@ -98,13 +98,14 @@
 			<div class="cabinet_block">
 				<div class="redBlock">
 					<div class="dollar">
-						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="RecalcSupplierCurrency($(this));return false;">
 							<label for="currency_rate">Личный курс доллара</label><br>
 							<div class="flexWrap">
 								<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
 								<button class="btn-m-lblue">Пересчитать</button>
 							</div>
-							<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
+							<input type="hidden" name="old_currency_rate" value="<?=$supplier['currency_rate']?>">
+							<input type="hidden" name="id_supplier" value="<?=$supplier['id_user']?>">
 						</form>
 						<p class="checksum">Контрольная сумма: <b><?=$check_sum['checksum']?> грн</b></p>
 					</div>

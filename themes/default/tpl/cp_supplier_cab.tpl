@@ -56,11 +56,12 @@ if(!is_array($msg)){?>
 				</div>
 			</div>
 			<div class="cabinet_block fleft">
-				<div class="dollar">
-					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+				<div class="dollar hidden">
+					<!-- Вызов функции пересчета курса доллара -->
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 						<label for="currency_rate">Личный курс доллара</label>
 						<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
-						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="RecalcSupplierCurrency();">Пересчитать</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Пересчитать</button>
 						<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
 					</form>
 					<p class="checksum">Контрольная сумма - <b><?=$check_sum['checksum']?> грн</b></p>
