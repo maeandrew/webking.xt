@@ -12,14 +12,15 @@
 			case 'step':
 				$contragent = $Orders->GetContragentByLastOrder();
 				$tpl->Assign('contragent', $contragent);
-				$Customers->SetFieldsById($User->fields['id_user']);
+				$Customers->SetFieldsById($Users->fields['id_user']);
 				$customer = $Customers->fields;
 				// Необходимо определить, какой тим диалога нужно вывести
 				// Проверяем, есть ли у клиента сохраненный адрес доставки
-				// if($saved_addresses = $Address->GetAddressByIdUser($User->fields['id_user'])){
-				// 	// Если клиент уже делал заказы
-				// 	$tpl->Assign('saved_addresses', $saved_addresses);
-				// }else{
+				if($saved_addresses = $Address->GetListByUserId($Users->fields['id_user'])){
+					// print_r($saved_addresses);
+					// Если клиент уже делал заказы
+					$tpl->Assign('saved_addresses', $saved_addresses);
+				}else{
 					// Если клиент делает первый заказ
 					// step 2+
 					if($_POST['step'] > 1){
@@ -73,8 +74,8 @@
 							// $tpl->Assign('availabledeliverydepartment', $availabledeliverydepartment);
 						}
 					}
-				// }
-				
+				}
+
 				$tpl->Assign('step', $_POST['step']);
 				$tpl->Assign('customer', $customer);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'quiz.tpl');

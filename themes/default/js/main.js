@@ -870,14 +870,7 @@ $(function(){
 	/* Обработчик данных из корзины */
 	$('#quiz').on('click', '.to_step', function(e){
 		e.preventDefault();
-		var
-			//target_step = $(this).data('step'),
-			//current_step = $(this).closest('[class*="step_"]').data('step'),
-			//summary = $('#quiz .summary_info'),
-			//current = $('.step_'+current_step),
-			//target = $('.step_'+target_step),
-			//validate = false,
-			i = 0,
+		var	i = 0,
 			data = {
 				validate: false,
 				current_step: $(this).closest('[class*="step_"]').data('step'),
@@ -899,20 +892,30 @@ $(function(){
 			}
 		}else if(data.target_step == 2){
 			if(data.current_step == 1){
-				data.last_name = all.current.find('[name="last_name"]').val();
-				data.first_name = all.current.find('[name="first_name"]').val();
-				data.middle_name = all.current.find('[name="middle_name"]').val();
-				if(data.last_name.length == 0){
-					i++;
-					all.current.find('[name="last_name"]').addClass('is-invalid');
-				}
-				if(data.first_name.length == 0){
-					i++;
-					all.current.find('[name="first_name"]').addClass('is-invalid');
-				}
-				if(data.middle_name.length == 0){
-					i++;
-					all.current.find('[name="middle_name"]').addClass('is-invalid');
+				if($(this).hasClass('use_selected')){
+					data.id_address = all.current.find('[name="address"]').val();
+					if(data.id_address === null){
+						i++;
+						all.current.find('.mdl-selectfield.address').addClass('is-invalid');
+					}
+				}else if($(this).hasClass('create_new')){
+					console.log('create clicked');
+				}else{
+					data.last_name = all.current.find('[name="last_name"]').val();
+					data.first_name = all.current.find('[name="first_name"]').val();
+					data.middle_name = all.current.find('[name="middle_name"]').val();
+					if(data.last_name.length == 0){
+						i++;
+						all.current.find('[name="last_name"]').addClass('is-invalid');
+					}
+					if(data.first_name.length == 0){
+						i++;
+						all.current.find('[name="first_name"]').addClass('is-invalid');
+					}
+					if(data.middle_name.length == 0){
+						i++;
+						all.current.find('[name="middle_name"]').addClass('is-invalid');
+					}
 				}
 				if(i === 0){
 					data.validate = true;
