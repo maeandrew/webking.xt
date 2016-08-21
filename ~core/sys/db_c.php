@@ -120,7 +120,6 @@ class mysqlPDO {
 	*/
 	public function GetOneRowArray($sql = ''){
 		$response = $this->Query($sql) or G::DieLoger("SQL Error - $sql");
-		$retarr = array();
 		$res = $this->ResAsArray($response);
 		return $res;
 	}
