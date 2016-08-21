@@ -1412,9 +1412,9 @@ class Products {
 	 * [SetProductsListSupCab description]
 	 * @param boolean $and     [description]
 	 * @param string  $limit   [description]
-	 * @param string  $orderby [description]
+	 * @param string  $order_by [description]
 	 */
-	public function SetProductsListSupCab($and = false, $limit = '', $orderby = 'a.inusd, p.name'){
+	public function SetProductsListSupCab($and = false, $limit = '', $order_by = 'a.inusd, p.name'){
 		$where = "";
 		if($and !== FALSE && count($and)){
 			foreach($and as $k=>$v){
@@ -1452,7 +1452,7 @@ class Products {
 				ON a.id_product = p.id_product
 			WHERE '.$where.'
 			'.$group_by.'
-			ORDER BY '.$orderby.'
+			ORDER BY '.$order_by.'
 			'.$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -2972,24 +2972,15 @@ class Products {
 		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON a.id_supplier = s.id_user
-			SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
-				a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
+		SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
+			a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		// $sql = "SELECT p.id_product
-		// 	FROM "._DB_PREFIX_."product AS p
-		// 	WHERE p.visible = 1";
-		// $res = $this->db->GetArray($sql);
-		// if(!empty($res)){
-			// foreach($res as &$i){
-			// 	$i = $i['id_product'];
-			// }
-			$this->RecalcSitePrices();
-		// }
+		$this->RecalcSitePrices();
 		return true;
 	}
 	/**
