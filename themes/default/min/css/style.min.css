@@ -711,8 +711,6 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 @media (max-width:727px){.catalog_btn{font-size:1em;float:right;padding:10px;width:26%;margin-right:10px;background:#F5F5F5;color:#757575;border:1px solid #e0e0e0;text-align:center}
 .subCategories{justify-content:center}
 }
-@media (max-width:350px){aside{width:270px}
-}
 .mobile_carousel,.subCategories{display:flex;flex-wrap:wrap;margin:0 -10px;border-bottom:1px solid #e0e0e0}
 .mobile_carousel .subCategory,.subCategories .subCategory{position:relative;width:calc(20% - 20px);margin:10px;height:270px;overflow:hidden;border:1px solid #d9d9d9;border-radius:.2em;background-color:#fff;display:table;padding:.5em}
 .mobile_carousel .separator,.subCategories .separator{color:#999;margin:0 .5em}

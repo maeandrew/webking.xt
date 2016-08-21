@@ -3370,11 +3370,6 @@ div.modalEditOrder .applyBtn {
 		justify-content: center;
 	}
 }
-@media (max-width: 350px) {
-	aside {
-		width: 270px;
-	}
-}
 .subCategories,
 .mobile_carousel{
 	display: flex;
