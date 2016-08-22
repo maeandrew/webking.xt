@@ -54,32 +54,25 @@ foreach($res as $cat){
 	$end = end($GLOBALS['IERA_LINKS']);
 	$GLOBALS['products_canonical'] = $end['url'];
 }
-
-// if(empty($subcats)){
-	// end($GLOBALS['IERA_LINKS']);
-	// $GLOBALS['IERA_LINKS'][key($GLOBALS['IERA_LINKS'])]['url'] = str_replace('/limitall', '', end($GLOBALS['IERA_LINKS'])['url']);
-	// $where_arr = array('cp.id_category' => $id_category);
-
-	function selectAll($dbtree, $id_category = null, $str = array()){
-		$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'pid', 'visible'));
-		if($id_category != 0){
-			$str[] = $id_category;
-		}
-		if(!empty($subcats)){
-			foreach($subcats as $val){
-				$str = selectAll($dbtree, $val["id_category"], $str);
-			}
-		}
-		return $str;
+function selectAll($dbtree, $id_category = null, $str = array()){
+	$subcats = $dbtree->GetSubCats($id_category, array('id_category', 'category_level', 'name', 'translit', 'pid', 'visible'));
+	if($id_category != 0){
+		$str[] = $id_category;
 	}
-	$res = selectAll($dbtree, $id_category);
-	if(count($res) > 1){
-		$where_arr['customs'][] = "cp.id_category IN (".implode(', ', $res).")";
-	}else{
-		$where_arr = array('cp.id_category' => $id_category);
+	if(!empty($subcats)){
+		foreach($subcats as $val){
+			$str = selectAll($dbtree, $val["id_category"], $str);
+		}
 	}
-
-	// Инициализация соединения со Sphinx ======================
+	return $str;
+}
+$res = selectAll($dbtree, $id_category);
+if(count($res) > 1){
+	$where_arr['customs'][] = "cp.id_category IN (".implode(', ', $res).")";
+}else{
+	$where_arr = array('cp.id_category' => $id_category);
+}
+// Инициализация соединения со Sphinx ======================
 	$sphinx = new SphinxClient();
 	$sphinx->SetServer("localhost", 9312);
 	$sphinx->SetConnectTimeout(1);
@@ -89,9 +82,8 @@ foreach($res as $cat){
 	$sphinx->SetSortMode(SPH_SORT_RELEVANCE);
 	$sphinx->SetRankingMode(SPH_RANK_PROXIMITY_BM25);
 	$sphinx->SetMatchMode(SPH_MATCH_BOOLEAN);
-	// =========================================================
-
-	// Обработка контентных страниц ============================
+// =========================================================
+// Обработка контентных страниц ============================
 	if(isset($_GET['query']) && isset($_GET['search_in_cat'])){
 		$query = trim($_GET['query']);
 		if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
@@ -169,9 +161,8 @@ foreach($res as $cat){
 			}
 		}
 	}
-	// =========================================================
-
-	// Диапазон цен ============================================
+// =========================================================
+// Диапазон цен ============================================
 	if(isset($_SESSION['filters']['minprice']) && isset($_SESSION['filters']['maxprice'])){
 		if(isset($_POST['pricefrom']) && isset($_POST['priceto'])){
 			$where_arr['customs'][] = 'price_opt >= '.number_format(($_POST['pricefrom']), 2, ".","");
@@ -183,42 +174,8 @@ foreach($res as $cat){
 			$where_arr['customs'][] = 'price_opt <= '.number_format(($_SESSION['filters']['priceto']), 2, ".","");
 		}
 	}
-	// =========================================================
-
-	// Отобрать ХИТЫ или НОВИНКИ ===============================
-	// if(isset($_POST['hit'])){
-	// 	if($_POST['hit'] == 'enabled' && !isset($_SESSION['filters']['new'])){
-	// 		$where_arr['customs'][] = 'prod_status = 2';
-	// 		$_SESSION['filters']['hit'] = 1;
-	// 	}elseif($_POST['hit'] == 'enabled' && isset($_SESSION['filters']['new'])){
-	// 		$where_arr['customs'][] = 'prod_status IN (2, 3)';
-	// 		$_SESSION['filters']['hit'] = 1;
-	// 	}elseif($_POST['hit'] == 'disabled'){
-	// 		unset($_SESSION['filters']['hit']);
-	// 	}
-	// }elseif(!isset($_POST['hit']) && isset($_SESSION['filters']['hit']) && !isset($_SESSION['filters']['new'])){
-	// 	$where_arr['customs'][] = 'prod_status = 2';
-	// }elseif(!isset($_POST['hit']) && isset($_SESSION['filters']['hit']) && isset($_SESSION['filters']['new'])){
-	// 	$where_arr['customs'][] = 'prod_status IN (2, 3)';
-	// }
-	// if(isset($_POST['new'])){
-	// 	if($_POST['new'] == 'enabled' && !isset($_SESSION['filters']['hit'])){
-	// 		$where_arr['customs'][] = 'prod_status = 3';
-	// 		$_SESSION['filters']['new'] = 1;
-	// 	}elseif($_POST['new'] == 'enabled' && isset($_SESSION['filters']['hit'])){
-	// 		$where_arr['customs'][] = 'prod_status IN (2, 3)';
-	// 		$_SESSION['filters']['new'] = 1;
-	// 	}elseif($_POST['new'] == 'disabled'){
-	// 		unset($_SESSION['filters']['new']);
-	// 	}
-	// }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && !isset($_SESSION['filters']['hit'])){
-	// 	$where_arr['customs'][] = 'prod_status = 3';
-	// }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && isset($_SESSION['filters']['hit'])){
-	// 	$where_arr['customs'][] = 'prod_status IN (2, 3)';
-	// }
-	// =========================================================
-
-	// Сортировка ==============================================
+// =========================================================
+// Сортировка ==============================================
 	if(!isset($sorting)){
 		$sorting = array('value' => 'popularity desc');
 		// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
@@ -249,77 +206,74 @@ foreach($res as $cat){
 	if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 		$orderby = $_SESSION['filters']['orderby'];
 	}
-	// =========================================================
-
-	// Фильтры =================================================
-//$products->SetProductsListByFilter();
-	// if((isset($_POST['filter_count']) && $_POST['filter_count'] > 0) || (isset($_SESSION['filters']['string']) && !isset($_POST['filter_count']))){
-	// 	if(isset($_POST['filter_count'])){
-	// 		for($i = 0; $i < $_POST['filter_count']; $i++){
-	// 			if(isset($_POST['filter'.$i])){
-	// 				$res = explode(' @ ', $_POST['filter'.$i]);
-	// 				$group[$res[1]][] = $res[0];
-	// 			}
-	// 		}
-	// 	}
-	// 	if(((isset($group) && count($group) > 0) || isset($_SESSION['filters']['string'])) && !isset($_POST['dropfilters'])){
-	// 		if(isset($_SESSION['filters']['string']) && !isset($_POST['filter_count'])){
-	// 			$_POST['filters'] = $filters = $_SESSION['filters']['string'];
-	// 		}else{
-	// 			$filters = '';
-	// 			if(isset($group)){
-	// 				foreach($group as $gr){
-	// 					$filters .= ' ( ';
-	// 						if(count($gr) > 1){
-	// 							$filters .= '( '.$gr[0].' ) | ';
-	// 							for($i = 1; $i < (count($gr)-1); $i++){
-	// 								$filters .= '( '.$gr[$i].' ) | ';
-	// 							}
-	// 							$filters .=  '( '.$gr[(count($gr)-1)].' )';
-	// 						}else{
-	// 							$filters .= $gr[0];
-	// 						}
-	// 					$filters .= ' )';
-	// 				}
-	// 			}
-	// 			$_SESSION['filters']['string'] = $_POST['filters'] = $filters;
-	// 		}
-	// 		if($filters != ''){
-	// 			$result = $sphinx->Query($filters, 'name'.$GLOBALS['CONFIG']['search_index_prefix']);
-	// 			$k = 0;
-	// 			if(isset($result['matches'])){
-	// 				foreach ($result['matches'] as $val){
-	// 					if($k == 0){
-	// 						$mass[] = $val['id'];
-	// 					}else{
-	// 						$add[$k][] = $val['id'];
-	// 					}
-	// 				}
-	// 			}
-	// 			if(isset($add) && count($add) > 0){
-	// 				$mass = array_unique(array_merge($mass, $add[$k]));
-	// 			}
-	// 			if(!empty($mass) && count($mass > 0)){
-	// 				$where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
-	// 			}else{
-	// 				$where_arr['customs'][] = 'p.id_product = -2';
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
-	// 	$where_arr['customs'][] = "s.available_today = 1";
-	// }
-	// =========================================================
+// =========================================================
+// Фильтры =================================================
+	//$products->SetProductsListByFilter();
+		// if((isset($_POST['filter_count']) && $_POST['filter_count'] > 0) || (isset($_SESSION['filters']['string']) && !isset($_POST['filter_count']))){
+		// 	if(isset($_POST['filter_count'])){
+		// 		for($i = 0; $i < $_POST['filter_count']; $i++){
+		// 			if(isset($_POST['filter'.$i])){
+		// 				$res = explode(' @ ', $_POST['filter'.$i]);
+		// 				$group[$res[1]][] = $res[0];
+		// 			}
+		// 		}
+		// 	}
+		// 	if(((isset($group) && count($group) > 0) || isset($_SESSION['filters']['string'])) && !isset($_POST['dropfilters'])){
+		// 		if(isset($_SESSION['filters']['string']) && !isset($_POST['filter_count'])){
+		// 			$_POST['filters'] = $filters = $_SESSION['filters']['string'];
+		// 		}else{
+		// 			$filters = '';
+		// 			if(isset($group)){
+		// 				foreach($group as $gr){
+		// 					$filters .= ' ( ';
+		// 						if(count($gr) > 1){
+		// 							$filters .= '( '.$gr[0].' ) | ';
+		// 							for($i = 1; $i < (count($gr)-1); $i++){
+		// 								$filters .= '( '.$gr[$i].' ) | ';
+		// 							}
+		// 							$filters .=  '( '.$gr[(count($gr)-1)].' )';
+		// 						}else{
+		// 							$filters .= $gr[0];
+		// 						}
+		// 					$filters .= ' )';
+		// 				}
+		// 			}
+		// 			$_SESSION['filters']['string'] = $_POST['filters'] = $filters;
+		// 		}
+		// 		if($filters != ''){
+		// 			$result = $sphinx->Query($filters, 'name'.$GLOBALS['CONFIG']['search_index_prefix']);
+		// 			$k = 0;
+		// 			if(isset($result['matches'])){
+		// 				foreach ($result['matches'] as $val){
+		// 					if($k == 0){
+		// 						$mass[] = $val['id'];
+		// 					}else{
+		// 						$add[$k][] = $val['id'];
+		// 					}
+		// 				}
+		// 			}
+		// 			if(isset($add) && count($add) > 0){
+		// 				$mass = array_unique(array_merge($mass, $add[$k]));
+		// 			}
+		// 			if(!empty($mass) && count($mass > 0)){
+		// 				$where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
+		// 			}else{
+		// 				$where_arr['customs'][] = 'p.id_product = -2';
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
+		// 	$where_arr['customs'][] = "s.available_today = 1";
+		// }
+// =========================================================
 	$time_start = microtime(true);
-
-	// Еслли переходим в категорию из поискового запроса
+// Еслли переходим в категорию из поискового запроса
 	if(isset($_GET['query'])&&isset($_GET['search_subcategory'])&& is_numeric($_GET['search_subcategory'])){
 		$where_search['customs'][] =  $_SESSION['search']['arr_prod'];
 		$where_search['customs'][] =  'cp.id_category = '.$_GET['search_subcategory'];
 	}
-
-	// Пагинатор ===============================================
+// Пагинатор ===============================================
 	if(isset($category['subcats']) && empty($category['subcats'])){
 		if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 			$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -345,22 +299,18 @@ foreach($res as $cat){
 			$GLOBALS['Limit_db'] = 0;
 			$limit = '';
 		}
-	} else{
+	}else{
 		$limit = ' LIMIT 30';
 	}
-	// =========================================================
-
+// =========================================================
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
-
 	$time_start = microtime(true);
-
-	// Еслли переходим в категорию из поискового запроса
+// Еслли переходим в категорию из поискового запроса
 	if(isset($where_search)){
 		$list_prod_search = $products->SetProductsList4Search($where_search, $limit, 0, array(isset($orderby)?$orderby:null));
 	}
-
 // Получение массива товаров ===============================
 	$GET_limit = "";
 	if(isset($_GET['limit'])){
@@ -375,26 +325,16 @@ foreach($res as $cat){
 			$products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
 		}
 	}
-
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
-
 	if($products->list){
 		foreach($products->list as &$p){
 			$p['images'] = $products->GetPhotoById($p['id_product']);
 		}
 	}
 	$tpl->Assign('list', isset($list_prod_search)?$list_prod_search:$products->list);
-
-	// =========================================================
-// }
-// $template = '';
-// if(G::IsLogged() && !in_array($_SESSION['member']['gid'], array(_ACL_ADMIN_, _ACL_CUSTOMER_, _ACL_CONTRAGENT_))){
-// 	$template = $GLOBALS['profiles'][$_SESSION['member']['gid']]['name'].'_';
-// }
-// print_r($template.'products_list.tpl');
-// var_dump($template); die();
+// =========================================================
 $tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl'));
 
 // Вывод графика по категории
@@ -434,47 +374,11 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPL
 }else{
 	$_SESSION['price_mode'] = 3;
 }
-
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
 );
-
 // =========================================================
-
-// Установка границ цен ====================================
-// if(empty($subcats)){
-// 	unset($where_arr['customs']);
-// 	$products->SetProductsListFilter($where_arr, '', 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
-// 	foreach($products->list as $k=>$p){
-// 		if($p['price_mopt'] != 0){
-// 			$prices[$k] = $p['price_mopt'];
-// 		}
-// 	}
-// 	if((!isset($_POST['minprice']) && !isset($_POST['maxprice'])) || isset($_POST['dropfilters'])){
-// 		if(isset($prices)){
-// 			$min = floor(min($prices?$prices:null));
-// 			$max = ceil(max($prices));
-// 			if($min < 0){
-// 				$min = 0;
-// 				$_SESSION['filters']['minprice'] = $min;
-// 			}else{
-// 				$_SESSION['filters']['minprice'] = $min;
-// 			}
-// 			$_SESSION['filters']['maxprice'] = $max;
-// 		}
-// 	}
-// 	if((!isset($referer[2]) || $referer[2] != $id_category) || isset($_POST['dropfilters'])){
-// 		if(isset($min)){
-// 			$_SESSION['filters']['pricefrom'] = $min;
-// 		}
-// 		if(isset($max)){
-// 			$_SESSION['filters']['priceto'] = $max;
-// 		}
-// 	}
-// }
-// =========================================================
-
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
@@ -552,7 +456,7 @@ function Words2BaseForm($text){
 	$words = preg_replace('#\[.*\]#isU', '', $text);
 	$words = preg_split('#\s|[,.:;!?"\'()]#', $words, -1, PREG_SPLIT_NO_EMPTY);
 	$bulk_words = array();
-	foreach($words as $v ){
+	foreach($words as $v){
 		if(strlen($v) > 2){
 			$bulk_words[] = strtoupper($v);
 		}
@@ -586,20 +490,10 @@ function r_implode($glue, $pieces){
 // Фильтр на странице списка товаров=================================
 $cnt = $i = 0;
 $group_arr = $for_sql = $id_spec = [];
-
 $filter_cat = $products->GetFilterFromCategory($res);
-
-// $actualFilters = $products->GetFilterFromCategoryNow($GLOBALS['Filters'], $id_category);
-// if($actualFilters){
-// 	foreach($actualFilters as $filters){
-// 		$id_spec[] = $filters['value'];
-// 	}
-
-// 	$tpl->Assign('visible_fil', array_unique($id_spec));
-// }
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
 $cntF = $products->GetCntFilterNow($res);//$id_category
-if($GLOBALS['Filters']) {
+if($GLOBALS['Filters']){
 	foreach($GLOBALS['Filters'] as $id_fil => $val){
 		$id_filter[] = $id_fil;
 	}
@@ -632,21 +526,18 @@ if($filter_cat){
 		);
 	}
 }
-
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
 if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
-};
-
-// MIN/MAX цена для вывода в фильтре
-$price = $products->GetMinMaxPrice($where_arr);
-$max_price = ceil($price['max_price']);
-if($price['min_price'] < 1 && $price['min_price'] > 0 && !isset($GLOBALS['Price_range'])) {
-	$min_price = $price['min_price'];
-}else{
-	$min_price = floor($price['min_price']);
 }
-$tpl->Assign('max_price', $max_price);
-$tpl->Assign('min_price', $min_price);
-
+// MIN/MAX цена для вывода в фильтре
+	$price = $products->GetMinMaxPrice($where_arr);
+	$max_price = ceil($price['max_price']);
+	if($price['min_price'] < 1 && $price['min_price'] > 0 && !isset($GLOBALS['Price_range'])) {
+		$min_price = $price['min_price'];
+	}else{
+		$min_price = floor($price['min_price']);
+	}
+	$tpl->Assign('max_price', $max_price);
+	$tpl->Assign('min_price', $min_price);
 // =========================================================
