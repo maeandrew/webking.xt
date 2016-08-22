@@ -3389,6 +3389,9 @@ div.modalEditOrder .applyBtn {
 	margin: 0 -10px;
 	border-bottom: 1px solid #e0e0e0;
 }
+.mobile_carousel {
+	margin: 0px;
+}
 .subCategories .subCategory,
 .mobile_carousel .subCategory{
 	position: relative;

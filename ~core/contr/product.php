@@ -108,6 +108,9 @@ if (isset($cat)) {
 	$tpl->Assign('random_products', $random_products);
 }
 
+// Вывод сопутствующих товаров на страницу
+$tpl->Assign('related_prods', $Products->GetArrayRelatedProducts($id_product));
+
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_product.tpl')

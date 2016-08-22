@@ -1139,3 +1139,13 @@ function СhangeValue(id){
 function onCommentSubmit(){
 	alert("Коментарий о позиции будет отображен на сайте после премодерации.");
 }
+
+function GetOriginalPhoto(photo){
+	var img_src = photo.find('img').attr('data-original-photo'),
+		img_alt = photo.find('img').attr('alt');
+	$('#big_photo img').attr({src: img_src, alt: img_alt});
+	setTimeout(function(){
+		openObject('big_photo');
+		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+	}, 100);
+}
