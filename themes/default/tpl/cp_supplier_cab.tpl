@@ -128,7 +128,7 @@ if(!is_array($msg)){?>
 								<div class="mdl-tooltip" for="remove<?=$i['id_product']?>">Удалить</div>
 							</div>
 							<div class="photo_cell">
-								<div class="btn_js" data-name="big_photo">
+								<div class="btn_js" onclick="GetOriginalPhoto($(this));">
 									<?if($i['image'] != ''){?>
 										<img class="toBigPhoto" id="big_photo_<?=$i['id_product']?>" alt="" height="90" src="<?=_base_url?><?=G::GetImageUrl($i['image'], 'thumb')?>" data-original-photo="<?=_base_url?><?=G::GetImageUrl($i['image'])?>">
 									<?}else{?>
