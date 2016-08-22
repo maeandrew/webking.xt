@@ -13,17 +13,5 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		$txt = json_encode($arr);
 		echo $txt;
 	}
-	if(isset($_POST['action'])){
-		switch ($_POST['action']) {
-			case 'RecalcCurrency':
-				if (isset($_POST['cur']) && isset($_POST['cur_old'])) {
-					$Supplier = new Suppliers();
-					$Supplier->RecalcSupplierCurrency($_POST['cur'], $_POST['cur_old'], $_POST['id_supplier']);
-					$txt = json_encode(array("ok" => true));
-					echo $txt;
-					exit();
-				}
-				break;
-		}
-	}
 }
+exit(0);

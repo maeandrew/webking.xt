@@ -34,5 +34,5 @@
                 break;
         }
     }
-    exit();
+    exit(0);
 }

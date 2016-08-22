@@ -776,9 +776,8 @@ function segmentOpen(id){
 function addressSelect(obj){
 	var parent = obj.closest('form'),
 		address = obj.val();
-	console.log(address);
 	ajax('location', 'addressSelect', {address: address}, 'html').done(function(response){
-		console.log(response);
+		parent.find('.address_preview').html(response);
 	});
 }
 function regionSelect(obj){

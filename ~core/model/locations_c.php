@@ -2,7 +2,7 @@
 // Адреса
 class Address {
 	public $db;
-	
+
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 	}
@@ -160,7 +160,7 @@ class Address {
 		}
 		return $res;
 	}
-	
+
 	public function GetShippingCompanyById($id){
 		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = ".$id;
 		if(!$res = $this->db->GetOneRowArray($sql)){

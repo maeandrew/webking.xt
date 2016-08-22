@@ -42,20 +42,23 @@
 			if(isset($saved_addresses)){?>
 				<div class="quiz_header">
 					<h6>Здравствуйте, <?=$customer['first_name']?> <?=$customer['middle_name']?>! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h6>
-					<span>Выберите адрес доставки.</span>
+					<span>Вы уже указывали свой адрес. Хотите использовать его или добавить добавить новый?</span>
 				</div>
 				<div class="quiz_content">
 					<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">
 						<div class="mdl-cell mdl-cell--12-col">
 							<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label address">
-								<select id="region" name="region" class="mdl-selectfield__select" required onChange="addressSelect($(this));">
+								<select id="address" name="address" class="mdl-selectfield__select" required onChange="addressSelect($(this));">
 									<option disabled selected>Выберите адрес</option>
 									<?foreach($saved_addresses as $address){?>
 										<option value="<?=$address['id']?>"><?=$address['title'] == ''?$address['region_title'].', '.$address['city_title']:$address['title']?></option>
 									<?}?>
 								</select>
-								<label class="mdl-selectfield__label" for="region">Адрес доставки</label>
+								<label class="mdl-selectfield__label" for="address">Адрес доставки</label>
 							</div>
+						</div>
+						<div class="mdl-cell mdl-cell--12-col">
+							<div class="address_preview"></div>
 						</div>
 					</form>
 				</div>
@@ -216,7 +219,12 @@
 			<button class="mdl-button mdl-js-button to_step" data-step="<?=$step-1?>">Назад</button>
 		<?}
 		if($step < 5){?>
-			<button class="mdl-button mdl-js-button to_step" data-step="<?=$step+1?>"><?=$step==4?'Закрыть':'Далее';?></button>
+			<?if($step == 1 && isset($saved_addresses)){?>
+				<button class="mdl-button mdl-js-button to_step create_new" data-step="<?=$step+1?>">Создать новый</button>
+				<button class="mdl-button mdl-js-button to_step use_selected" data-step="<?=$step+1?>">Далее</button>
+			<?}else{?>
+				<button class="mdl-button mdl-js-button to_step" data-step="<?=$step+1?>"><?=$step==4?'Закрыть':'Далее';?></button>
+			<?}?>
 		<?}?>
 		<div class="progress">
 			<div class="line">

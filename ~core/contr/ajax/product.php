@@ -159,8 +159,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 										$data['fav_count'] = count($_SESSION['member']['waiting_list']);
 										$data['answer'] = 'ok';
 									}
-								}								
-							}							
+								}
+							}
 						}else{
 							$data['answer'] = 'error';
 						}
