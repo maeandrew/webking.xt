@@ -32,6 +32,7 @@
 .product .content_header .cart_info{float:none;width:100%}
 .product .pb_wrapper{position:relative;padding:15px 0}
 .product .product_buy{float:none;width:auto;max-width:none;width:100%;padding:15px;height:auto}
+.product .product_buy .out_of_stock{font-size:2em}
 .product .product_buy .buy_block{justify-content:flex-start;flex-wrap:wrap}
 .product .product_buy .buy_block>div{margin-right:20px}
 .product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:2em}
@@ -119,7 +120,7 @@ div[for=rating_block]{font-size:12px}
 .base_price{text-decoration:line-through;color:#9e9e9e;width:100%;text-align:left!important;font-size:1.6em!important}
 .market_action{width:100px;position:absolute;top:-10px;left:-10px;z-index:1}
 .product .product_main_img .market_action img{width:100px;height:100px;-webkit-transform:none;-ms-transform:none;transform:none}
-@media (max-width:1600px){.slider_products{background:#f3f3f3;border-top:1px solid #e0e0e0}
+@media (max-width:1600px){.products_links_block,.slider_products{background:#f3f3f3;border-top:1px solid #e0e0e0}
 }
 @media (max-width:1024px){.product .tabs{width:auto}
 }
@@ -156,3 +157,7 @@ div[for=rating_block]{font-size:12px}
 }
 .product .product_buy .buy_block,.product .product_buy .buy_block .quantity .units{font-size:1em}
 .fortabs .fortabs_tab{width:25%;padding:0}
+.products_links_block{padding:10px;display:flex;flex-wrap:wrap}
+.products_links_block_title{font-size:1.429em;margin:.5em 0;width:100%}
+.product_link{display:block;background:#fff;padding:10px;margin-right:10px;margin-bottom:10px}
+.product_link:hover{color:#fff;background:#018b06}
