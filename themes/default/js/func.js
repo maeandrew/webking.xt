@@ -1134,3 +1134,8 @@ function СhangeValue(id){
 // 	  $('input').data('prevnum', $('input').val());
 // 	  $('.range_num_wrap p').text($('input').val());
 }
+
+/* Функция отправки отзыва о продукте */
+function onCommentSubmit(){
+	alert("Коментарий о позиции будет отображен на сайте после премодерации.");
+}
