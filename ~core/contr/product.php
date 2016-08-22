@@ -109,7 +109,7 @@ if (isset($cat)) {
 }
 
 // Вывод сопутствующих товаров на страницу
-$tpl->Assign('related_prods', $products->GetArrayRelatedProducts($id_product));
+$tpl->Assign('related_prods', $Products->GetArrayRelatedProducts($id_product));
 
 $parsed_res = array(
 	'issuccess'	=> true,
