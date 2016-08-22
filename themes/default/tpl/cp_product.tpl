@@ -531,7 +531,7 @@
 	</div>
 	<?if(isset($random_products) && !empty($random_products)){?>
 		<div class="slider_products">
-			<h4>Другие товары с этой категории</h4>
+			<h4>Похожие товары</h4>
 			<div id="owl-other" class="owl-carousel">
 				<?foreach($random_products as $p){?>
 					<div class="item">
@@ -557,7 +557,7 @@
 	<?}?>
 	<?if(isset($popular_products) && !empty($popular_products)){?>
 		<div class="slider_products">
-			<h4>Популярные товары в этой категории</h4>
+			<h4>Топ продаж категории</h4>
 			<div id="owl-popular" class="owl-carousel">
 				<?foreach($popular_products as $p){?>
 					<div class="item">
