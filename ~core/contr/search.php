@@ -97,7 +97,7 @@ if(!isset($sorting)){
 	$sorting = array('value' => $cookie_sotring->products->value);
 	// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
 	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
-}else{	
+}else{
 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
 }
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
@@ -159,11 +159,7 @@ if(isset($_POST['new'])){
 $gid = 0;
 if(isset($_SESSION['member'])){
 	$gid = $_SESSION['member']['gid'];
-//	if(substr($_SESSION['member']['email'], -11) == "@x-torg.com"){
-//		$gid = _ACL_ADMIN_;
-//	}
 }
-
 if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search_engine'] == 'sphinx' && isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_)))){
 	$widened_query = Words2AllForms($query);
 	if(!empty($widened_query)){
@@ -234,7 +230,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	// Инициализация соединения со Sphinx
 	$sphinx = new SphinxClient();
 	// $sphinx->SetServer("localhost", 9312);
-	$sphinx->SetServer('81.17.140.234', 9312);
+	$sphinx->SetServer('31.131.16.159', 9312);
 	$sphinx->SetConnectTimeout(1);
 	$sphinx->SetArrayResult(true);
 	$sphinx->setMaxQueryTime(100);
@@ -381,12 +377,10 @@ if(!empty($list)){
 	}
 }
 $tpl->Assign('list', isset($list)?$list:array());
-
 if($cnt > 30){
 	$list_categories = $products->SetCategories4Search($where_arr);
 	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());
 }
-
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Общий код ===============================================
@@ -407,11 +401,12 @@ if(((!isset($_POST['pricefrom']) && !isset($_POST['priceto']) && !isset($_SESSIO
 	$_SESSION['filters']['priceto'] = $_SESSION['filters']['maxprice'];
 }
 $tpl->Assign('header', $GLOBALS['IERA_LINKS'][1]['title']);
-
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$_SESSION['price_mode'] = 3;
-	$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl'));
+	$parsed_res = array(
+		'issuccess'	=> true,
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
+	);
 }elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
