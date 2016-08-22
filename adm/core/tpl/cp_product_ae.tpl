@@ -1114,8 +1114,13 @@
 	}
 
 	function editRelatedProds(id, action) {
-		var act_action = action+'_Related';
-		ajax('products', act_action, {article: article}).done(function(){
+		$('form').submit(function(event) {
+			return false;
+		});
+		var act_action = action+'Related';
+		id_related_prod = id;
+		id_prod = $('.product_js').data('id-product');
+		ajax('products', act_action, {id_related_prod: id, id_prod: id_prod}).done(function(){
 			location.reload();
 		});
 	}
