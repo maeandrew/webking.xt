@@ -455,7 +455,9 @@
 									<?if(!empty($suppliers_info)){
 										foreach($suppliers_info as $k => $si){?>
 											<tr class="animate supp_js">
-												<td class="center"><?=$si['article']?><input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
+												<td class="center"><?=$si['article']?>
+													<input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
+													<input type="hidden" class="id_supplier" name="id_supplier" value="<?=$si['id_supplier']?>"></td>
 												<td class="supp_name_js"><?=$si['name']?></td>
 												<td>
 													<?if($si['real_phone'] == '380'){
@@ -467,23 +469,23 @@
 												<td>
 													<div class="select_price fl">
 														<label>Цена в:</label>
-														<select name="inusd[]" class="input-m">
+														<select name="inusd" class="input-m">
 															<option value="0">ГРН</option>
 															<option value="1" <?=$si['inusd']=='1'?'selected':null?>>USD</option>
 														</select>
 													</div>
 													<div class="fl price">
-														<label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
+														<label>Опт:</label><input type="number" name="supplier_price_opt" min="0" step="0.01" data-mode="opt" class="input-m opt_js" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
 													</div>
 													<div class="fr price">
-														<label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
+														<label>Розница:</label><input type="number" name="supplier_price_mopt" min="0" step="0.01" data-mode="mopt" class="input-m mopt_js" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
 													</div>
 												</td>
 												<td class="center">
 													<input type="checkbox" <?=$si['active']==1?'checked':null?> name="supplier_product_available" class="input-m active_js">
 												</td>
 												<td>
-													<input type="hidden" name="id_supplier[]" value="<?=$si['id_supplier']?>">
+													<input type="hidden" name="id_supplier" value="<?=$si['id_supplier']?>">
 													<span class="icon-font del_supp_js">t</span>
 												</td>
 											</tr>
@@ -695,6 +697,29 @@
 	var url = URL_base+'productadd/';
 
 	$(function(){
+		$('.supp_js').on('change', 'input, select', function(){
+			var parent = $(this).closest('tr'),
+			data = {};
+			data.id_product = $(this).closest('.product_js').data('id-product');
+			data.id_supplier = parent.find('[name="id_supplier"]').val();
+			data.active = parent.find('[name="supplier_product_available"]:checked').length > 0?1:0;
+			data.inusd = parent.find('[name="inusd"]').val();
+			if($(this).attr('name')=='inusd'){
+				ajax('product', 'UpdateAssort', data);
+				return;
+			}
+			if($(this).attr('name')=='supplier_price_opt' || $(this).attr('name')=='supplier_price_mopt' ){
+				data.mode = $(this).data('mode');
+				data.price = $(this).val();
+				//ajax('product', 'UpdateAssort', data);
+				//return;
+			}
+			if($(this).attr('name')=='supplier_product_available'){
+				data.mode = 'mopt';
+				data.price = parent.find('[name="supplier_price_mopt"]').val();
+			}
+			ajax('supplier', 'updateAssort', data)
+		});
 		//Заполнение списка артикулов поставщиков
 		$('[name="supplier_article"]').keyup(function(){
 			var inputvalue = $(this).val();
@@ -747,12 +772,7 @@
 			}
 		});
 
-		$('.active_js').on('change', function(e){
-			var parent = $(this).closest('tr'),
-			id_assort = parent.find('.id_assortiment').val(),
-			active = this.checked?1:0;
-			ajax('products', 'updateActiveAssort', {id_assort:id_assort, active:active})
-		});
+
 
 		if($('.catblock:not(.hidden)').length > 1){
 			$('.delcat').show();
