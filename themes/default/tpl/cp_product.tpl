@@ -517,7 +517,7 @@
 	</div>
 </div>
 <section class="sliders">
-	<div class="slider_products hidden">
+	<!-- <div class="slider_products hidden">
 		<h4>Сопутствующие товары</h4>
 		<div id="owl-accompanying" class="owl-carousel">
 			<div class="item">
@@ -528,7 +528,33 @@
 				</a>
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<?if(isset($related_prods) && !empty($related_prods)){?>
+		<div class="slider_products">
+			<h4>Сопутствующие товары</h4>
+			<div id="owl-accompanying" class="owl-carousel">
+				<?foreach($related_prods as $p){?>
+					<div class="item">
+						<a href="<?=Link::Product($p['translit']);?>">
+							<?if(!empty($p['images'])){?>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
+							<?}else	if(!empty($p['img_1'])){?>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
+							<?}else{?>
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+							<?}?>
+							<span><?=$p['name']?></span>
+							<?if($p['price_mopt'] > 100){?>
+								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+							<?}else{?>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+							<?}?>
+						</a>
+					</div>
+				<?}?>
+			</div>
+		</div>
+	<?}?>
 	<?if(isset($random_products) && !empty($random_products)){?>
 		<div class="slider_products">
 			<h4>Похожие товары</h4>
@@ -609,6 +635,14 @@
 	<?}?>
 	<div class="products_links_block">
 		<p class="products_links_block_title">Рекомендуем для просмотра</p>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
@@ -623,6 +657,10 @@
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
@@ -637,21 +675,9 @@
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
