@@ -217,10 +217,10 @@
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0 ? "" : "hidden" ?>">
-				<h1>ТОВАР ПРОДАН</h1>
+			<div class="product_buy <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"":"hidden"?>">
+				<h1>Нет в наличии</h1>
 			</div>
-			<div class="product_buy <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0 ? "hidden" : "" ?> " data-idproduct="<?=$item['id_product']?>">
+			<div class="product_buy <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"hidden":""?>" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
@@ -344,7 +344,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="sold_produxt_info <?=$item['price_opt'] && $item['price_mopt'] == 0.00 || $item['visible'] == 0  ? "" : "hidden" ?>">
+		<div class="sold_produxt_info <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"":"hidden" ?>">
 			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p>
 			<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
 			<ul><li id="fortrending_info" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
