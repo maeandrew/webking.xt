@@ -102,7 +102,7 @@
 			break;
 		case 2:?>
 			<div class="quiz_header">
-				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, мы доставляем в <?=$cities_count?> городов Украины, а откуда Вы?</h6>
+				<h6><span class="client"><?=$customer['first_name']?> <?=$customer['middle_name']?></span>, мы доставляем в <?=$cities_count?> городов Украины, <?=isset($saved_addresses)?'куда необходимо доставить заказ':'а откуда Вы'?>?</h6>
 			</div>
 			<div class="quiz_content">
 				<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">

@@ -939,12 +939,12 @@ $(function(){
 				// }
 				if(data.region == null || data.region.length == 0){
 					// Не выбрано отделение
-					all.current.find('#region').addClass('is-invalid');
+					all.current.find('.region').addClass('is-invalid');
 					i++;
 				}
 				if(data.city == null || data.city.length == 0){
 					// Не выбрано отделение
-					all.current.find('#city').addClass('is-invalid');
+					all.current.find('.city').addClass('is-invalid');
 					i++;
 				}
 				// if(region == 'Выбрать'){
@@ -1000,24 +1000,24 @@ $(function(){
 				// }
 				if(isNaN(data.id_delivery)){
 					// Не выбран способ доставки
-					all.current.find('#id_delivery').addClass('is-invalid');
+					all.current.find('.delivery').addClass('is-invalid');
 					i++;
 				}else if(data.id_delivery == 1){
 					if(data.delivery_department == null || data.delivery_department.length == 0){
 						// Не выбрано отделение
-						all.current.find('#delivery_department').addClass('is-invalid');
+						all.current.find('.delivery_department').addClass('is-invalid');
 						i++;
 					}
 				}else if(data.id_delivery == 2){
 					if(data.address == ''){
 						// Не указан адрес
-						all.current.find('#address').addClass('is-invalid');
+						all.current.find('.address').addClass('is-invalid');
 						i++;
 					}
 				}
 				if(isNaN(data.id_delivery_service)){
 					// Не выбрана служба доставки
-					all.current.find('#id_delivery_service').addClass('is-invalid');
+					all.current.find('.delivery_service').addClass('is-invalid');
 					i++;
 				}
 				if(i === 0){
@@ -1044,8 +1044,8 @@ $(function(){
 			addLoadAnimation('#quiz');
 			if(data.target_step > data.current_step && data.validate === true){
 				ajax('quiz', 'complete_step', data).done(function(response){
-					if(response == true){
-						GetQuizAjax({reload: false, step: data.target_step});
+					if(response.success == true){
+						GetQuizAjax({reload: false, step: response.target_step?response.target_step:data.target_step});
 					}
 				});
 			}else{
