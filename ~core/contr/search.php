@@ -26,8 +26,6 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	unset($_SESSION['search']);
 	unset($_SESSION['filters']);
 }
-$products = new Products();
-
 // Получаем строку поискового запроса ======================
 if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%\/]/', ' ', $_POST['query']);
@@ -192,9 +190,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_,_ACL_ADMIN_))){
-			$cnt = $products->GetProductsCnt($where_arr, $gid);
+			$cnt = $Products->GetProductsCnt($where_arr, $gid);
 		}else{
-			$cnt = $products->GetProductsCnt($where_arr);
+			$cnt = $Products->GetProductsCnt($where_arr);
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -208,7 +206,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	if(isset($_GET['limit'])){
 		$GET_limit = " LIMIT ".$_GET['limit'].'/';
 	}
-	$res = $products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+	$res = $Products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	if(!empty($res)){
 		foreach($res as $k=>$r){
 			if(!empty($r)){
@@ -217,7 +215,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		}
 	}
 	$limit = '';
-	$res = $products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+	$res = $Products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	if(!empty($res)){
 		foreach($res as $k=>$r){
 			if($r['price_mopt'] != 0){
@@ -345,9 +343,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
 		}else{
-			$cnt = $products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -362,7 +360,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
-	$list = $products->SetProductsList4Search($where_arr, $limit, 0, array(isset($orderby)?$orderby:null));
+	$list = $Products->SetProductsList4Search($where_arr, $limit, 0, array(isset($orderby)?$orderby:null));
 	if(isset($list) == true && empty($list) == false){
 		foreach($list AS $res){
 			if($res['price_mopt'] != 0){
@@ -373,12 +371,12 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 }
 if(!empty($list)){
 	foreach($list as &$p){
-		$p['images'] = $products->GetPhotoById($p['id_product']);
+		$p['images'] = $Products->GetPhotoById($p['id_product']);
 	}
 }
 $tpl->Assign('list', isset($list)?$list:array());
 if($cnt > 30){
-	$list_categories = $products->SetCategories4Search($where_arr);
+	$list_categories = $Products->SetCategories4Search($where_arr);
 	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());
 }
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
