@@ -1134,3 +1134,13 @@ function СhangeValue(id){
 // 	  $('input').data('prevnum', $('input').val());
 // 	  $('.range_num_wrap p').text($('input').val());
 }
+
+function GetOriginalPhoto(photo){
+	var img_src = photo.find('img').attr('data-original-photo'),
+		img_alt = photo.find('img').attr('alt');
+	$('#big_photo img').attr({src: img_src, alt: img_alt});
+	setTimeout(function(){
+		openObject('big_photo');
+		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+	}, 100);
+}
