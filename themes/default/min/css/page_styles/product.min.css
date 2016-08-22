@@ -34,7 +34,7 @@
 .product .product_buy{float:none;width:auto;max-width:none;width:100%;padding:15px;height:auto}
 .product .product_buy .out_of_stock{font-size:2em}
 .product .product_buy .buy_block{justify-content:flex-start;flex-wrap:wrap}
-.product .product_buy .buy_block>div{margin-right:20px}
+.product .product_buy .buy_block>div{margin-right:10px}
 .product .product_buy .buy_block .price,.product .product_buy .buy_block span{font-size:2em}
 .product .product_buy .buy_block .price span{margin-left:10px}
 .product .product_buy .buy_block .btn_buy button{background:#ff5722;border:0;color:#fff}
