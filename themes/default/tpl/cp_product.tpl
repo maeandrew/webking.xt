@@ -607,6 +607,59 @@
 			</div>
 		</div>
 	<?}?>
+	<div class="products_links_block">
+		<p class="products_links_block_title">Рекомендуем для просмотра</p>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+	</div>
 </section>
 <script>
 	$(function(){

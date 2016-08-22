@@ -544,7 +544,8 @@ div[for="rating_block"] {
 	transform: none;
 }
 @media (max-width: 1600px) {
-	.slider_products {
+	.slider_products,
+	.products_links_block {
 		background: #f3f3f3;
 		border-top: 1px solid #e0e0e0;
 	}
@@ -663,4 +664,29 @@ div[for="rating_block"] {
 .fortabs .fortabs_tab {
 	width: 25%;
 	padding: 0px;
+}
+
+
+
+.products_links_block {
+	padding: 10px;
+	display: flex;
+    flex-wrap: wrap;
+}
+
+.products_links_block_title {
+    font-size: 1.429em;
+    margin: .5em 0;
+    width: 100%;
+}
+.product_link {
+	display: block;
+	background: #fff;
+	padding: 10px;
+	margin-right: 10px;
+    margin-bottom: 10px;
+}
+.product_link:hover {
+	color: #fff;
+	background: #018b06;
 }
