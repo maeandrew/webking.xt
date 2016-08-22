@@ -2196,13 +2196,25 @@ section .stat_year {
 #cart .card {
 	min-height: 101px;
 }
-.product_buy {
+.product_buy,
+.notAval {
 	width: 330px;
 	float: right;
 	height: 100px;
 	padding: 45px 0;
 	line-height: 36px;
 	position: relative;
+}
+.notAval{
+	font-size: 1.5em;
+	text-align: center;
+	height: auto;
+	color: #9e9e9e;
+}
+@media (max-width: 1170px){
+	.notAval{
+		padding: 1em 0;
+	}
 }
 #cart .product_buy {
 	padding: 30px 0;

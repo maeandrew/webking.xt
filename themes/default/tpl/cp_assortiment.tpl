@@ -137,21 +137,21 @@
 						</tbody>
 					</table>
 				</div>
-			</div> --><!--class="tabs"-->
+			</div><!--class="tabs"-->
 			<div class="products">
 				<?foreach($list as $p){?>
 					<div class="card clearfix">
 						<div class="product_photo">
 							<a href="<?=Link::Product($p['translit']);?>">
-								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
+								<?if(!empty($p['images'])){?>
+									<img alt="<?=htmlspecialchars(G::CropString($p['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'thumb')?>"/>
 									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($p['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'thumb')?>"/>
 									</noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
+									<img alt="<?=htmlspecialchars(G::CropString($p['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'thumb')?>"/>
 									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($p['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'thumb')?>"/>
 									</noscript>
 								<?}?>
 							</a>
@@ -159,22 +159,26 @@
 						<div class="product_name">
 							<a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a> <span class="product_article">Арт: <?=$p['art'];?></span>
 						</div>
-						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-							<p class="price"><?=number_format($p['price_mopt'], 2, ',', '');?></p>
-							<div class="buy_block">
-								<div class="btn_remove">
-									<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
-										remove
-									</button>
-								</div>
-								<input type="text" class="qty_js" value="0" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
-								<div class="btn_buy">
-									<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">
-										<?=isset($_SESSION['cart']['products'][$p['id_product']])?'+':'Купить'?>
-									</button>
+						<?if((isset($p['active']) && ($p['active'] == 0 || $p['active'] == '')) || ($p['price_opt'] == 0 && $p['price_mopt'] == 0)){?>
+							<div class="notAval">Нет в наличии</div>
+						<?}else{?>
+							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+								<p class="price"><?=number_format($p['price_mopt'], 2, ',', '');?></p>
+								<div class="buy_block">
+									<div class="btn_remove">
+										<button class="mdl-button material-icons icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">
+											remove
+										</button>
+									</div>
+									<input type="text" class="qty_js" value="0" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
+									<div class="btn_buy">
+										<button class="mdl-button mdl-js-button buy_btn_js" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">
+											<?=isset($_SESSION['cart']['products'][$p['id_product']])?'+':'Купить'?>
+										</button>
+									</div>
 								</div>
 							</div>
-						</div>
+						<?}?>
 						<div class="product_info clearfix hidden">
 							<div class="note clearfix">
 								<textarea placeholder="Примечание: "></textarea>
