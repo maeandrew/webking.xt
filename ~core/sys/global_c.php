@@ -792,8 +792,8 @@ class G {
 			}
 			$url = str_replace('/image/', $size, $url);
 		}
-		// Если файла по данному $url не существует, получим изображение nofoto.png
-		if(!file_exists($GLOBALS['PATH_root'].$url)){
+		// Если файла по данному $url не существует, получим изображение nofoto.png		
+		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
 			$url = '/images/nofoto.png';
 		}
 		return htmlspecialchars($url);

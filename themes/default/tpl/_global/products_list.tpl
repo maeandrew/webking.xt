@@ -149,15 +149,11 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								</span>
 							</a>
 						</div>
-						<div class="fright service_block">
-							<!-- <p class="comment_question open_modal" data-target="comment_question">Отзывы и вопросы</p> -->
+						<div class="service_block">
 							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
-
 							<?if($item['available_today'] == 1){?>
-								<span class="material-icons icon-font timerIcon">timer</span>
-								<p class="available_today">
-									Отгрузка за 2 часа
-								</p>
+								<span class="material-icons timerIcon">timer</span>
+								<p class="available_today">Отгрузка за 2 часа</p>
 							<?}?>
 						</div>
 						<!-- <form action="<?=$_SERVER['REQUEST_URI']?>" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">

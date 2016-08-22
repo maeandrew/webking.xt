@@ -172,15 +172,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Segmentation = new Segmentation();
 				echo json_encode($Segmentation->GetSegmentation($_POST['type']));
 				break;
+			case 'removeSupplierAssort':
+				if(!$Products->deleteSupplierAssort($_POST['id_assort'])){
+					return false;
+				}
+				return true;
+				break;
+			case 'updateActiveAssort':
+				if(!$Products->updateActiveAssort($_POST['id_assort'], $_POST['active'])){
+					return false;
+				}
+				return true;
+				break;
 			case 'addSupplier':
 				$Suppliers = new Suppliers();
 				$id_supplier = $Suppliers->GetSupplierIdByArt($_POST['article']);
 				$Suppliers->SetFieldsByID($id_supplier);
-					$_POST['product_limit'] = 0;
-					$_POST['active'] = 0;
-					if(($_POST['price_opt_otpusk'] != 0) || ($_POST['price_mopt_otpusk'] != 0)){
-						$_POST['product_limit'] = 100000000;
-						$_POST['active'] = 1;
+					$_POST['product_limit'] = $_POST['active'] == 1?10000000:0;
+					if(($_POST['price_opt_otpusk'] == 0) && ($_POST['price_mopt_otpusk'] == 0)){
+						$_POST['product_limit'] = 0;
+						$_POST['active'] = 0;
 					}
 					if($_POST['inusd'] == 1){
 						$_POST['price_mopt_otpusk_usd'] = $_POST['price_mopt_otpusk'];
@@ -193,7 +204,34 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 					if(!$Products->IsInAssort($_POST['id_product'], $id_supplier)){
 						$Products->AddProductToAssort($_POST['id_product'], $id_supplier, $_POST, $Suppliers->fields['koef_nazen_opt'], $Suppliers->fields['koef_nazen_mopt'], $_POST['inusd']==1?true:false);
-						echo json_encode(true);
+						$list = $Products->GetSuppliersInfoForProduct($_POST['id_product'], $id_supplier);
+						foreach($list as &$list_arr) {
+							$html_string = '<tr class="animate supp_js">
+								 <td class="center">'.$list_arr['article'].'</td>
+								 <td class="supp_name_js">'.$list_arr['name'].'</td>
+								 <td>'.($list_arr['real_phone']=='380'?'не указан':$list_arr['real_phone']).'</td>
+								 <td>
+									<div class="select_price fl">
+										<label>Цена в:</label>
+										<select name="inusd" class="input-m">
+											<option value="0" '.($list_arr['inusd'] == 0?'checked':null).'>ГРН</option>
+											<option value="1"'.($list_arr['inusd'] == 1?'checked':null).'>USD</option>
+										</select>
+									</div>
+									<div class="fl price">
+										<label>Опт:</label>
+										<input type="number" min="0" step="0.01" name="supplier_price_opt" class="input-m" value="'.$list_arr['price_opt_otpusk'].'" placeholder="По умолчанию в (грн)"/>
+									</div>
+									<div class="fr price">
+										<label>Розница:</label>
+										<input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" value="'.$list_arr['price_mopt_otpusk'].'" placeholder="По умолчанию в (грн)"/>
+									</div>
+								 </td>
+								 <td class="center"><input type="checkbox" name="supplier_product_available" '.($list_arr['active'] == 1?'checked':null).'></td>
+								 <td class="center"><input type="hidden" name="id_supplier" value="'.$list_arr['id_supplier'].'"><span class="icon-font del_supp_js">t</span></td>
+							</tr>';
+						}
+						echo $html_string;
 					}else{
 						echo json_encode(false);
 					}

@@ -455,7 +455,9 @@
 									<?if(!empty($suppliers_info)){
 										foreach($suppliers_info as $k => $si){?>
 											<tr class="animate supp_js">
-												<td class="center"><?=$si['article']?><input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
+												<td class="center"><?=$si['article']?>
+													<input type="hidden" class="id_assortiment" name="id_assortiment[]" value="<?=$si['id_assortiment']?>"></td>
+													<input type="hidden" class="id_supplier" name="id_supplier" value="<?=$si['id_supplier']?>"></td>
 												<td class="supp_name_js"><?=$si['name']?></td>
 												<td>
 													<?if($si['real_phone'] == '380'){
@@ -467,23 +469,23 @@
 												<td>
 													<div class="select_price fl">
 														<label>Цена в:</label>
-														<select name="inusd[]" class="input-m">
+														<select name="inusd" class="input-m">
 															<option value="0">ГРН</option>
 															<option value="1" <?=$si['inusd']=='1'?'selected':null?>>USD</option>
 														</select>
 													</div>
 													<div class="fl price">
-														<label>Опт:</label><input type="number" name="price_opt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
+														<label>Опт:</label><input type="number" name="supplier_price_opt" min="0" step="0.01" data-mode="opt" class="input-m opt_js" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
 													</div>
 													<div class="fr price">
-														<label>Розница:</label><input type="number" name="price_mopt_otpusk[]" min="0" step="0.01" class="input-m" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
+														<label>Розница:</label><input type="number" name="supplier_price_mopt" min="0" step="0.01" data-mode="mopt" class="input-m mopt_js" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
 													</div>
 												</td>
-												<td>
-													<input type="number" name="product_limit[]" min="0" value="<?=$si['product_limit']?>" class="input-m">
+												<td class="center">
+													<input type="checkbox" <?=$si['active']==1?'checked':null?> name="supplier_product_available" class="input-m active_js">
 												</td>
 												<td>
-													<input type="hidden" name="id_supplier[]" value="<?=$si['id_supplier']?>">
+													<input type="hidden" name="id_supplier" value="<?=$si['id_supplier']?>">
 													<span class="icon-font del_supp_js">t</span>
 												</td>
 											</tr>
@@ -534,7 +536,7 @@
 												<input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
 											</div>
 										</td>
-										<td>
+										<td class="center">
 											<input type="checkbox" name="supplier_product_available">
 										</td>
 										<td>
@@ -695,6 +697,29 @@
 	var url = URL_base+'productadd/';
 
 	$(function(){
+		$('.supp_js').on('change', 'input, select', function(){
+			var parent = $(this).closest('tr'),
+			data = {};
+			data.id_product = $(this).closest('.product_js').data('id-product');
+			data.id_supplier = parent.find('[name="id_supplier"]').val();
+			data.active = parent.find('[name="supplier_product_available"]:checked').length > 0?1:0;
+			data.inusd = parent.find('[name="inusd"]').val();
+			if($(this).attr('name')=='inusd'){
+				ajax('product', 'UpdateAssort', data);
+				return;
+			}
+			if($(this).attr('name')=='supplier_price_opt' || $(this).attr('name')=='supplier_price_mopt' ){
+				data.mode = $(this).data('mode');
+				data.price = $(this).val();
+				//ajax('product', 'UpdateAssort', data);
+				//return;
+			}
+			if($(this).attr('name')=='supplier_product_available'){
+				data.mode = 'mopt';
+				data.price = parent.find('[name="supplier_price_mopt"]').val();
+			}
+			ajax('supplier', 'updateAssort', data)
+		});
 		//Заполнение списка артикулов поставщиков
 		$('[name="supplier_article"]').keyup(function(){
 			var inputvalue = $(this).val();
@@ -714,44 +739,23 @@
 			if(data.article != ''){
 				if(data.price_opt_otpusk != ''){
 					if(data.price_mopt_otpusk != ''){
-						ajax('products', 'addSupplier', data).done(function(response){
+						ajax('products', 'addSupplier', data, 'html').done(function(response){
 							if(!response){
 								alert('Такого поставщика не существует! Проверьте правильность введенного артикула!');
 							}else{
 								//Добавляем поставщика в таблицу 'Данные поставщика'
-								var html_string = inusd_sel = not_inusd_sel = active_checked = '';
-								if(data.active == 1){
-									active_checked = 'checked="checked"';
-								}
-								if(data.inusd == 1){
-									inusd_sel = 'selected="selected"';
-								}else{
-									not_inusd_sel = 'selected="selected"';
-								}
-								if(response.real_phone == '380'){
-									response.real_phone = 'не указан';
-								}
-								//Формируем html для вставки
-								html_string = '<tr class="animate supp_js">';
-								html_string += '<td class="center">'+data.article+'</td>';
-								html_string += '<td class="supp_name_js">'+response.name+'</td>';
-								html_string += '<td>'+response.real_phone+'</td>';
-								html_string += '<td><div class="select_price fl"><label>Цена в:</label><select name="inusd" class="input-m"><option value="0" '+not_inusd_sel+'>ГРН</option><option value="1" '+inusd_sel+'>USD</option></select></div><div class="fl price"><label>Опт:</label><input type="number" min="0" step="0.01" name="supplier_price_opt" class="input-m" value="'+data.price_opt+'" placeholder="По умолчанию в (грн)"></div><div class="fr price"><label>Розница:</label><input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" value="'+data.price_mopt+'" placeholder="По умолчанию в (грн)"></div></td>';
-								html_string += '<td><input type="checkbox" name="supplier_product_available" value="'+active_checked+'"></td>';
-								html_string += '<td class="center"><input type="hidden" name="id_supplier" value="'+response.id_user+'"><span class="icon-font del_supp_js">t</span></td>';
-								html_string += '</tr>';
+								parent.closest('.product_js').find('.supplier').find('tbody').append(response);
 
 								if($('.supplier tr').is('#empty2')){
 									$('.supplier #empty2').remove();
 								}
-								$('.supplier tbody').append(html_string);
 
 								//Очистка полей ввода
 								$('.compulsory').removeClass('compulsory');
 								$('.sup_notation').remove();
-								$('[name="supplier_article"], [name="supplier_price_mopt"], [name="supplier_price_opt"]').val('');
-								$('[name="inusd"] [value="0"]').attr('selected', 'selected');
-								$('[name="supplier_product_available"]').attr('checked', false);
+								parent.find('[name="supplier_article"], [name="supplier_price_mopt"], [name="supplier_price_opt"]').val('');
+								parent.find('[name="inusd"] [value="0"]').attr('selected', 'selected');
+								parent.find('[name="supplier_product_available"]').attr('checked', false);
 							}
 						});
 					}else{
@@ -767,6 +771,8 @@
 				$('[name="supplier_article"]').parent().append('<span class="sup_notation">Заполните поле</span>');
 			}
 		});
+
+
 
 		if($('.catblock:not(.hidden)').length > 1){
 			$('.delcat').show();
@@ -949,6 +955,7 @@
 					var id_assort = parent_path.find('.id_assortiment').val();
 					$('#nav_connection').append('<input type="hidden" name="del_from_assort[]" value="'+id_assort+'">');
 				};
+				ajax('products', 'removeSupplierAssort', {id_assort:id_assort})
 				parent_path.remove();
 			};
 		});

@@ -1,4 +1,4 @@
-h1,h2 {
+h1, h2 {
 	width: 800px;
 	margin: auto;
 	text-align: center;
@@ -38,9 +38,7 @@ table.table .min_qty {
 table.table .price {
 	width: 70px;
 }
-
-/*Printed Styles==============================================================*/
-
+/* Printed Styles============================================================== */
 @media print {
 	table {
 		page-break-inside: avoid;

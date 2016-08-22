@@ -1,7 +1,8 @@
 .price_list_page {
 	clear: both;
 }
-.subheader { /*сформировать свой прайс лист*/
+/* сформировать свой прайс лист */
+.subheader {
 	line-height: 50px;
 	float: left;
 }
@@ -9,35 +10,26 @@
 	max-width: 55%;
 }
 .price_form {
-	/*top: 50px;*/
 	top: 100px;
 	width: 275px;
-	/*width: 235px;*/
-	/*position: relative;*/
-	/*position: fixed;*/
 	position: absolute;
 	background: #F5F5F5;
-   /*  background: #edf5fc; */
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	z-index: 10;
 }
-
 .price-params {
 	padding: 10px;
 }
-
 #dynamic-params .price-form fieldset {
 	margin-bottom: 10px;
 	padding: 5px;
 }
-
 .price_form .info_key + .info_description {
 	top: 25px;
 }
-
 .price_form .info_key {
 	top: 35%;
 }
@@ -85,11 +77,9 @@
 	padding: 3px;
 	border-radius: 5px;
 }
-
 .price_form .uncheck_all {
 	width: 250px;
 }
-
 .price_form .confirm {
 	text-decoration: none;
 	width: 250px;
@@ -99,7 +89,6 @@
 .price_form .confirm {
 	margin-top: 5px;
 }
-
 .price_form input,
 .categories_js input {
 	margin: 5px;
@@ -143,25 +132,13 @@ label.expand:hover {
 	font-size: 15px;
 	font-weight: bold;
 }
-
 .price-counter {
-	/* position: absolute;
-	bottom: -122px;
-	right: -1px;
-	width: 275px;
-	width: 235px;
-	height: 122px;
-	background-color: #edf5fc; */
 	border-top: 1px solid #ddd;
-	/* border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px; */
 	color: #444;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	z-index: 1000;
 }
-
-
 .deselect_all {
 	width: 100%;
 	display: block;
@@ -169,25 +146,20 @@ label.expand:hover {
 	background: #fefefe;
 	color: #ff631b;
 }
-
 .btn-m {
 	font-size: 1em;
 	line-height: 1em;
 	padding: .7em 1em;
 }
-
-
 #dynamic-params .price-form input {
 	float: right;
 }
-
 .price-counter input.confirm {
 	background-color: #ff631b;
 	color: #ffffff;
 	box-shadow: 0 1px 3px rgba(0,0,0,.4), 0 1px 0 #b56b2a, inset 0 1px 0 #ffb06b;
 	padding: 0 10px;
 	width: 100%;
-	/* font-size: 14px; */
 	line-height: 21px;
 	font-weight: normal;
 	height: 25px;
@@ -199,9 +171,6 @@ label.expand:hover {
 	-webkit-transition: none;
 	transition: none;
 }
-
 .categories_js label {
 	width: auto;
 }
-
-

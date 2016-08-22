@@ -49,7 +49,6 @@ class Users {
 		$this->SetUserAdditionalInfo($this->fields['id_user']);
 		return true;
 	}
-
 	public function CheckUserNoPass($data){
 		$data = trim($data);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
@@ -62,7 +61,6 @@ class Users {
 		$this->SetUserAdditionalInfo($this->fields['id_user']);
 		return $this->fields;
 	}
-
 	public function SetUserAdditionalInfo($id_user){
 		// получаем список избранных товаров
 		$sql = "SELECT f.id_product

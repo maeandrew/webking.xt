@@ -1412,9 +1412,9 @@ class Products {
 	 * [SetProductsListSupCab description]
 	 * @param boolean $and     [description]
 	 * @param string  $limit   [description]
-	 * @param string  $orderby [description]
+	 * @param string  $order_by [description]
 	 */
-	public function SetProductsListSupCab($and = false, $limit = '', $orderby = 'a.inusd, p.name'){
+	public function SetProductsListSupCab($and = false, $limit = '', $order_by = 'a.inusd, p.name'){
 		$where = "";
 		if($and !== FALSE && count($and)){
 			foreach($and as $k=>$v){
@@ -1452,7 +1452,7 @@ class Products {
 				ON a.id_product = p.id_product
 			WHERE '.$where.'
 			'.$group_by.'
-			ORDER BY '.$orderby.'
+			ORDER BY '.$order_by.'
 			'.$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -2972,24 +2972,15 @@ class Products {
 		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON a.id_supplier = s.id_user
-			SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
-				a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
+		SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
+			a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
-		// $sql = "SELECT p.id_product
-		// 	FROM "._DB_PREFIX_."product AS p
-		// 	WHERE p.visible = 1";
-		// $res = $this->db->GetArray($sql);
-		// if(!empty($res)){
-			// foreach($res as &$i){
-			// 	$i = $i['id_product'];
-			// }
-			$this->RecalcSitePrices();
-		// }
+		$this->RecalcSitePrices();
 		return true;
 	}
 	/**
@@ -3184,7 +3175,7 @@ class Products {
 	 * Получить поставщиков для товара по id
 	 * @param [type] $id_product [description]
 	 */
-	public function GetSuppliersInfoForProduct($id_product){
+	public function GetSuppliersInfoForProduct($id_product, $id_supplier = false){
 		$sql = "SELECT a.id_supplier, s.article, s.real_phone, a.product_limit,
 			a.active, a.inusd, u.name, a.id_assortiment,
 			ROUND(a.price_opt_otpusk,2) as price_opt_otpusk,
@@ -3196,8 +3187,9 @@ class Products {
 				ON s.id_user = a.id_supplier
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = a.id_supplier
-			WHERE a.id_product = $id_product
-			ORDER BY a.id_assortiment";
+			WHERE a.id_product = $id_product".
+			(!empty($id_supplier)?" AND a.id_supplier = $id_supplier":null).
+			" ORDER BY a.id_assortiment";
 		$arr = $this->db->GetArray($sql);
 		return $arr;
 	}
@@ -4632,4 +4624,26 @@ class Products {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	// Удаляем из ассортимента поставщика
+	public function deleteSupplierAssort($id_assort){
+		$sql = "DELETE FROM "._DB_PREFIX_."assortiment WHERE id_assortiment =".$id_assort;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Обновляет ассортимент поставщика
+	public function updateActiveAssort($id_assort, $active){
+		$product_limit = $active==1?10000000:0;
+		$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit = ".$product_limit."
+				WHERE id_assortiment = ".$id_assort;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+
 }

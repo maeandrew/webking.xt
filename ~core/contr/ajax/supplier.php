@@ -23,7 +23,7 @@
                 break;
             case"updateAssort":
                 if(isset($_POST['mode']) && isset($_POST['id_product'])){
-                    $_POST['id_supplier'] = $_SESSION['member']['id_user'];
+                    $_POST['id_supplier'] = ($_SESSION['member']['gid']==_ACL_SUPPLIER_)?$_SESSION['member']['id_user']:$_POST['id_supplier'];
                     $Products = new Products();
                     $Products->UpdateAssort($_POST);
                     $arr['id_product'] = $_POST["id_product"];
@@ -34,5 +34,5 @@
                 break;
         }
     }
-    exit();
+    exit(0);
 }

@@ -10,6 +10,7 @@ G::ToGlobals(array(
 	'URL_css'			=> _base_url.'/css/',
 	'URL_js'			=> _base_url.'/js/',
 	'PATH_root'			=> _root,
+	'PATH_global_root'	=> _root,
 	'PATH_core'			=> _root.'~core'.DIRSEP,
 	'PATH_sys'			=> _root.'~core'.DIRSEP.'sys'.DIRSEP,
 	'PATH_product_img'	=> _root.'product_images'.DIRSEP,

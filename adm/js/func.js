@@ -342,25 +342,32 @@ function SendCatOrder(order){
 	});
 }
 
-function RecalcSupplierCurrency(){
+function RecalcSupplierCurrency(obj){
+	var data = {};
 	$("#popup_msg").fadeIn();
-	cur = parseFloat($("#currency_rate").val());
-	cur_old = parseFloat($("#currency_rate_old").val());
-	$.ajax({
-		url: '/ajaxsupdate',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action": "RecalcCurrency",
-			"cur": cur,
-			"cur_old": cur_old,
-			"id_supplier": id_supplier
-		}
-	}).done(function(){
-		setTimeout(function(){
-			$("#popup_msg").fadeOut();
-			location.reload();
-		},1000);
+	data.currency_rate = parseFloat($("#currency_rate").val());
+	data.old_currency_rate = parseFloat($("#currency_rate_old").val());
+	data.id_supplier = id_supplier;
+
+	ajax('supplier', 'recalcCurrencyRate', new FormData($(obj)[0]), 'json', true).done(function(response){
+		$("#popup_msg").fadeOut();
+		location.reload();
 	});
+	// $.ajax({
+	// 	url: '/ajaxsupdate',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType: "json",
+	// 	data: {
+	// 		"action": "RecalcCurrency",
+	// 		"cur": currency,
+	// 		"cur_old": old_currency,
+	// 		"id_supplier": id_supplier
+	// 	}
+	// }).done(function(){
+	// 	setTimeout(function(){
+	// 		$("#popup_msg").fadeOut();
+	// 		location.reload();
+	// 	},1000);
+	// });
 }
