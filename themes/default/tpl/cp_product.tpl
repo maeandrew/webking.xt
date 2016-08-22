@@ -536,7 +536,7 @@
 				<?foreach($related_prods as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p['images'][0])){?>
+							<?if(!empty($p['images'])){?>
 								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
@@ -633,9 +633,16 @@
 			</div>
 		</div>
 	<?}?>
-
 	<div class="products_links_block">
 		<p class="products_links_block_title">Рекомендуем для просмотра</p>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
@@ -650,6 +657,10 @@
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test</a>
+		<a href="#" class="product_link">test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
@@ -664,21 +675,9 @@
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test text test</a>
+		<a href="#" class="product_link">test text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
