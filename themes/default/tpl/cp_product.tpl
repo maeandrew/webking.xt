@@ -218,7 +218,7 @@
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="product_buy <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"":"hidden"?>">
-				<h1>Нет в наличии</h1>
+				<span class="out_of_stock">Нет в наличии</span>
 			</div>
 			<div class="product_buy <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"hidden":""?>" data-idproduct="<?=$item['id_product']?>">
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">

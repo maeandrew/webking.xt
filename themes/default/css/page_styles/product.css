@@ -162,6 +162,9 @@
 	padding: 15px;
     height: auto;
 }
+.product .product_buy .out_of_stock {
+	font-size: 2em;
+}
 .product .product_buy .buy_block {
 	justify-content: flex-start;
 	flex-wrap: wrap;
