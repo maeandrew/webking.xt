@@ -272,8 +272,8 @@ class Products {
 			$this->db->FailTrans();
 			return false;
 		}
-		unset($f);
 		$this->db->CompleteTrans();
+		unset($f);
 		return true;
 	}
 
