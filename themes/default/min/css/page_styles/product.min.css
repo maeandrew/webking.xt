@@ -82,6 +82,7 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container{clear:both;padding:15px 0}
 #comments .feedback_container .feedback_sub_container{margin-bottom:15px;padding-bottom:5px;border-bottom:1px solid #e0e0e0}
 #comments .feedback_container .feedback_hidden{color:red;display:block;font-style:italic}
+#comments .feedback_container .feedback_item{border-top:1px solid #ddd;padding:.5em}
 #comments .feedback_container .feedback_author{font-size:15px;font-weight:700;float:left}
 #comments .feedback_container .feedback_date{float:left}
 #comments .feedback_container .feedback_date,#comments .feedback_container .rating_stars li{color:#9e9e9e;margin-left:5px}
