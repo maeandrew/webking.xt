@@ -3,9 +3,11 @@
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
-	$action = false;
-	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])){
-		$action = true;
+	$product_mark = '';
+	if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+		$product_mark = 'action';
+	}elseif ($item['prod_status'] == 3){
+		$product_mark = 'new';
 	}?>
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
@@ -19,8 +21,8 @@
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-				<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
+			<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
+				<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 			</div>
 		</div>
 		<?if(G::isMobile()){?>
@@ -224,7 +226,7 @@
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+					<div class="base_price <?=isset($product_mark) && $product_mark === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 						<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
 							<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 						<?}else{?>

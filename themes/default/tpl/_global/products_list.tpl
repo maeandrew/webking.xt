@@ -7,7 +7,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 	    foreach($list as $item){
 			$Status = new Status();
-			$action = false;
+			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
 			$st = $Status->GetStstusById($item['id_product']);
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
@@ -17,10 +17,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
-					$action = true;
+					$product_mark = 'action';
+				}elseif ($item['prod_status'] == 3){
+					$product_mark = 'new';
 				}?>
-				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
+				<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 				</div>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 					<!-- <div class="product_block"> -->
@@ -72,7 +74,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					<?}else{?>
 						<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 							<div class="buy_block">
-								<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+								<div class="base_price <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 									<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
 										<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 									<?}else{?>
@@ -199,14 +201,16 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			<div class="clear_card"></div>
 		</div><?
 		foreach($list as $item){
-			$action = false;
+			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
-					$action = true;
+					$product_mark = 'action';
+				}elseif ($item['prod_status'] == 3){
+					$product_mark = 'new';
 				}?>
-				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
+				<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 				</div>
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
@@ -256,7 +260,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	default:
     	foreach($list as $item){
 			$in_cart = false;
-			$action = false;
+			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
@@ -264,10 +268,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
-					$action = true;
+					$product_mark = 'action';
+				}elseif ($item['prod_status'] == 3){
+					$product_mark = 'new';
 				}?>
-				<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
+				<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
+					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 				</div>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
@@ -313,7 +319,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<?}else{?>
 					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 						<div class="buy_block">
-							<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<div class="base_price <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 								<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
 									<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 								<?}else{?>
