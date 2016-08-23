@@ -68,7 +68,8 @@ class Status {
 	public function UpdateStatuses(){
 		$this->ClearStatus('3');
 		$sql = "UPDATE "._DB_PREFIX_."product AS p SET p.prod_status = '3'
-				WHERE p.id_product = (
+				WHERE p.create_date > NOW() - INTERVAL 30 DAY
+				AND p.id_product = (
 				SELECT p.id_product
 				FROM "._DB_PREFIX_."cat_prod AS cp
 				WHERE p.id_product = cp.id_product

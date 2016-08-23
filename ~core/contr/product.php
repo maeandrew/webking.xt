@@ -106,6 +106,8 @@ if (isset($cat)) {
 	$tpl->Assign('title', 'Популярные товары');
 	$tpl->Assign('popular_products', $popular_products);
 	$tpl->Assign('random_products', $random_products);
+	// Вывод новинок категории
+	$tpl->Assign('new_prods', $Products->getNewProducts($cat['id_category'], $id_product));
 }
 
 // Вывод сопутствующих товаров на страницу
