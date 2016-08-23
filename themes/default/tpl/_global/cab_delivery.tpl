@@ -137,7 +137,7 @@
 				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="/\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}/i"/>
+						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}"/>
 						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 					</div>
 				</div>
