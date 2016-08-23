@@ -556,6 +556,32 @@
 			</div>
 		</div>
 	<?}?>
+	<?if(isset($new_prods) && !empty($new_prods)){?>
+		<div class="slider_products">
+			<h4>Новинки в это категории</h4>
+			<div id="owl-new-products" class="owl-carousel">
+				<?foreach($new_prods as $p){?>
+					<div class="item">
+						<a href="<?=Link::Product($p['translit']);?>">
+							<?if(!empty($p['images'])){?>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
+							<?}else	if(!empty($p['img_1'])){?>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
+							<?}else{?>
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+							<?}?>
+							<span><?=$p['name']?></span>
+							<?if($p['price_mopt'] > 100){?>
+								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+							<?}else{?>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+							<?}?>
+						</a>
+					</div>
+				<?}?>
+			</div>
+		</div>
+	<?}?>
 	<?if(isset($random_products) && !empty($random_products)){?>
 		<div class="slider_products">
 			<h4>Похожие товары</h4>

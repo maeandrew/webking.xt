@@ -605,7 +605,7 @@ $(function(){
 		navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 	});
-	$("#owl-popular, #owl-other, #owl-last-viewed, #owl-accompanying").owlCarousel({
+	$("#owl-popular, #owl-other, #owl-last-viewed, #owl-accompanying, #owl-new-products").owlCarousel({
 		autoPlay: false,
 		dots: false,
 		stopOnHover: true,
