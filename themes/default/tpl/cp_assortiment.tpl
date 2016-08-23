@@ -159,7 +159,7 @@
 						<div class="product_name">
 							<a href="<?=Link::Product($p['translit']);?>"><?=G::CropString($p['name'])?></a> <span class="product_article">Арт: <?=$p['art'];?></span>
 						</div>
-						<?if((isset($p['active']) && ($p['active'] == 0 || $p['active'] == '')) || ($p['price_opt'] == 0 && $p['price_mopt'] == 0)){?>
+						<?if($p['price_opt'] == 0 && $p['price_mopt'] == 0){?>
 							<div class="notAval">Нет в наличии</div>
 						<?}else{?>
 							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">

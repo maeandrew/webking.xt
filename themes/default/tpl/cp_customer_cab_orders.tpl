@@ -206,7 +206,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="delivery">
+												<!-- <div class="delivery">
 													<div class="label">Способ доставки</div>
 													<div class="avatar">
 														<img src="/images/nofoto.png" alt="avatar" />
@@ -223,6 +223,39 @@
 														<div class="line_3">
 															<span class="label">Отделение:</span>
 															<span class="value"><?=$i['city_info']['address']?></span>
+														</div>
+													</div>
+												</div> -->
+												<div class="delivery newdelivery">
+													<div class="label">Информация о доставке</div>
+													<div class="details">
+														<div class="line_1">
+															<span class="label">ТТН:</span>
+															<span class="value"> - </span>
+														</div>
+														<div class="line_2">
+															<span class="label">Компания доставки:</span>
+															<span class="value"><?=$i['address_info']['shipping_company']?></span>
+														</div>
+														<div class="line_2">
+															<span class="label">Область:</span>
+															<span class="value"><?=$i['address_info']['region']?></span>
+														</div>
+														<div class="line_2">
+															<span class="label">Город:</span>
+															<span class="value"><?=$i['address_info']['city']?></span>
+														</div>
+														<div class="line_3">
+															<span class="label">Тип доставки:</span>
+															<span class="value"><?=$i['address_info']['delivery']?></span>
+														</div>
+														<div class="line_3">
+															<span class="label">Отделение:</span>
+															<span class="value"><?=$i['address_info']['delivery_department']?></span>
+														</div>
+														<div class="line_3">
+															<span class="label">Адресс:</span>
+															<span class="value"><?=$i['address_info']['address']?></span>
 														</div>
 													</div>
 												</div>

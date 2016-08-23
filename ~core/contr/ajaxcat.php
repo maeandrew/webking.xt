@@ -178,7 +178,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							if(isset($_SESSION['cart']['products'][$item['id_product']])){
 								$in_cart = true;
 							}?>
-							<?if((isset($item['active']) && ($item['active'] == 0 || $item['active'] == '')) || ($item['price_opt'] == 0 && $item['price_mopt'] == 0)){?>
+							<?if($item['price_opt'] == 0 && $item['price_mopt'] == 0){?>
 								<div class="notAval">Нет в наличии</div>
 							<?}else{?>
 								<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
