@@ -664,63 +664,13 @@
 	<?}?>
 	<div class="products_links_block">
 		<!-- Регулярка для вывода не более 3 слов названия товара в ссылке pattern="^[^\s]+\s[^\s]+\s[^\s]+\s" -->
-		<?
-			// старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
-			// новый вариант регулярки которая работает но не до конца "/^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/"
-			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $res);
-			echo $res[0];
-		?>
+		<!--  старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
+			новый вариант регулярки которая работает но не до конца /^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/" -->
 		<p class="products_links_block_title">Рекомендуем для просмотра</p>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text testtest text testtest text testtest text testtest text testtest text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text testtest text testtest text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text testtest text testtest text testtest text testtest text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
+		<?foreach ($link_prods as $item) {
+			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $name);?>
+			<a href="<?=Link::Product($item['translit']);?>" class="product_link"><?=$name[0]?></a>
+		<?}?>
 	</div>
 </section>
 <script>
