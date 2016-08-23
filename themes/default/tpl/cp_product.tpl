@@ -431,7 +431,7 @@
 						<?if(empty($comment)){?>
 							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
 						<?}else{?>
-							<h4>Отзыв клиента</h4>
+							<h4>Отзывы клиентов</h4>
 							<?foreach($comment as $i){
 								if(_acl::isAdmin() || $i['visible'] == 1){?>
 									<div class="feedback_item" itemprop="review" itemscope itemtype="http://schema.org/Review">
