@@ -4282,3 +4282,43 @@ iframe[name="google_conversion_frame"] {
 .snackbar {
 	z-index: 10 !important;
 }
+
+/*Рейтинг в списке товаров*/
+.rating_block{
+	margin-top: .5em;
+}
+.block_view .rating_block {
+	float: right;
+	text-align: right;
+}
+.rating_block > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+.rating_block ul {
+	overflow: hidden;
+}
+.rating_block ul li {
+	float: left;
+}
+.rating_block ul li i {
+	font-size: 1.5em;
+	line-height: 20px;
+	cursor: default;
+	color: #ff5722;
+	vertical-align: text-bottom;
+}
+.stars_qty {
+	margin: 0 6px;
+}
+div[for="rating_block"] {
+	font-size: 12px;
+}
+@media (max-width: 480px){
+	.list_view .rating_block{
+		width: 250px;
+		margin-top: 1em;
+		float: right;
+		text-align: right;
+	}
+}

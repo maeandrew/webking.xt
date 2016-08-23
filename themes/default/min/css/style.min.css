@@ -905,3 +905,13 @@ iframe[name=google_conversion_frame]{display:none}
 .paginator_specific_page_block .paginator_specific_page{padding:9px 0 9px 5px;width:166px}
 .paginator_specific_page_block button{padding-left:5px;padding-right:5px}
 .snackbar{z-index:10!important}
+.rating_block{margin-top:.5em}
+.block_view .rating_block{float:right;text-align:right}
+.rating_block>*{display:inline-block;vertical-align:middle}
+.rating_block ul{overflow:hidden}
+.rating_block ul li{float:left}
+.rating_block ul li i{font-size:1.5em;line-height:20px;cursor:default;color:#ff5722;vertical-align:text-bottom}
+.stars_qty{margin:0 6px}
+div[for=rating_block]{font-size:12px}
+@media (max-width:480px){.list_view .rating_block{width:250px;margin-top:1em;float:right;text-align:right}
+}

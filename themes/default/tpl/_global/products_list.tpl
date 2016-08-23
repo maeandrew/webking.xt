@@ -303,6 +303,36 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
+					
+					<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
+						<?if($item['c_mark'] > 0){?>
+							<meta itemprop="worstRating" content="1">
+							<meta itemprop="bestRating" content="5">
+							<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
+							<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
+						<?}?>
+						<?if($item['c_rating'] > 0){?>
+							<ul class="rating_stars">
+								<?for($i = 1; $i <= 5; $i++){
+									$star = 'star';
+									if($i > floor($item['c_rating'])){
+										if($i == ceil($item['c_rating'])){
+											if(number_format($item['c_rating'], 1)[2] >= 5){
+												$star .= '_half';
+											}elseif(number_format($item['c_rating'], 1)[2] < 5){
+												$star .= '_border';
+											}
+										}else{
+											$star .= '_border';
+										}
+									}?>
+									<li><i class="material-icons"><?=$star?></i></li>
+								<?}?>
+							</ul>
+							<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
+							<span class="qty_ratings">(Оценок: <?=$item['c_mark']?>)</span>
+						<?}?>
+					</div>
 
 					<div class="product_info">
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
