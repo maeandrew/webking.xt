@@ -4665,5 +4665,22 @@ class Products {
 		return $arr;
 	}
 
-
+	// Вывод 50 товаров для ссылок
+	public function getLinkProducts($id_product){
+		$count = 0;
+		$step = $id_product-5;
+		$l_prods = '';
+		while($count < 50){
+			$count++;
+			$step = $id_product<500?$step+5:$step-5;
+			$l_prods .= $step.', ';
+		}
+		$sql = "SELECT name, translit FROM "._DB_PREFIX_."product
+				WHERE id_product IN(".substr($l_prods, 0,-2).")";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr;
+	}
 }

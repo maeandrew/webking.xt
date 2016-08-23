@@ -472,7 +472,6 @@
 							// $('#promo_input, .apply_promoCode_js').attr('disabled', false);
 							$('#promo_input, .apply_promoCode_js').removeClass('hidden');
 						}else{
-							console.log('123');
 							// $('#promo_input, .apply_promoCode_js').attr('disabled', true);
 							$('#promo_input, .apply_promoCode_js').addClass('hidden');
 						}
@@ -630,19 +629,16 @@
 								break;
 							case 501:
 								removeLoadAnimation('#cart');
-								$('.err_msg').html(data.message);
+								$('#cart .err_msg').html(response.message);
 								setTimeout(function() {
-									$('.err_msg + .cart_login_btn').removeClass('hidden');
+									$('#cart .err_msg + .cart_login_btn').removeClass('hidden');
 								}, 1000);
-								$('.err_msg + .cart_login_btn').click(function(event) {
+								$('#cart  .err_msg + .cart_login_btn').click(function(event) {
 									event.preventDefault;
 									openObject('auth');
 								});
 								break;
 						}
-					}).fail(function(data){
-						console.log('fail');
-						console.log(data);
 					});
 				}
 			});

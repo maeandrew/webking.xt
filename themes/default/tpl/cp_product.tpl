@@ -3,9 +3,11 @@
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
-	$action = false;
-	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])){
-		$action = true;
+	$product_mark = '';
+	if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+		$product_mark = 'action';
+	}elseif ($item['prod_status'] == 3){
+		$product_mark = 'new';
 	}?>
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
@@ -19,8 +21,8 @@
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div class="market_action <?=isset($action) && $action === true?null:'hidden'?>">
-				<img src="<?=_base_url?>/images/action2.png" alt="акционный товар">
+			<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
+				<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 			</div>
 		</div>
 		<?if(G::isMobile()){?>
@@ -224,7 +226,7 @@
 				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="UAH">
 					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="base_price <?=isset($action) && $action === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+					<div class="base_price <?=isset($product_mark) && $product_mark === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 						<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
 							<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 						<?}else{?>
@@ -431,7 +433,7 @@
 						<?if(empty($comment)){?>
 							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
 						<?}else{?>
-							<h4>Отзыв клиента</h4>
+							<h4>Отзывы клиентов</h4>
 							<?foreach($comment as $i){
 								if(_acl::isAdmin() || $i['visible'] == 1){?>
 									<div class="feedback_item" itemprop="review" itemscope itemtype="http://schema.org/Review">
@@ -556,6 +558,32 @@
 			</div>
 		</div>
 	<?}?>
+	<?if(isset($new_prods) && !empty($new_prods)){?>
+		<div class="slider_products">
+			<h4>Новинки в это категории</h4>
+			<div id="owl-new-products" class="owl-carousel">
+				<?foreach($new_prods as $p){?>
+					<div class="item">
+						<a href="<?=Link::Product($p['translit']);?>">
+							<?if(!empty($p['images'])){?>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
+							<?}else	if(!empty($p['img_1'])){?>
+								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
+							<?}else{?>
+								<img alt="" src="<?=_base_url?>/efiles/nofoto.jpg">
+							<?}?>
+							<span><?=$p['name']?></span>
+							<?if($p['price_mopt'] > 100){?>
+								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+							<?}else{?>
+								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+							<?}?>
+						</a>
+					</div>
+				<?}?>
+			</div>
+		</div>
+	<?}?>
 	<?if(isset($random_products) && !empty($random_products)){?>
 		<div class="slider_products">
 			<h4>Похожие товары</h4>
@@ -636,64 +664,13 @@
 	<?}?>
 	<div class="products_links_block">
 		<!-- Регулярка для вывода не более 3 слов названия товара в ссылке pattern="^[^\s]+\s[^\s]+\s[^\s]+\s" -->
-		<?
-			$item['name'] = 'Радио';
-			// старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
-			// новый вариант регулярки которая работает но не до конца "/^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/"
-			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $res);
-			echo $res[0];
-		?>
+		<!--  старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
+			новый вариант регулярки которая работает но не до конца /^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/" -->
 		<p class="products_links_block_title">Рекомендуем для просмотра</p>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text testtest text testtest text testtest text testtest text testtest text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text testtest text testtest text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text testtest text testtest text testtest text testtest text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text test</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
+		<?foreach ($link_prods as $item) {
+			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $name);?>
+			<a href="<?=Link::Product($item['translit']);?>" class="product_link"><?=$name[0]?></a>
+		<?}?>
 	</div>
 </section>
 <script>
