@@ -133,14 +133,14 @@ $limit = isset($GLOBALS['Start'])?(' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Li
 $orders = $Customer->GetOrders($orderby, $limit, $status);
 // die();
 $order_statuses = $Order->GetStatuses();
-//print_r($orders);
 
 $Contragent = new Contragents();
+$Address = new Address();
 foreach ($orders as &$order) {
 	$Order->SetFieldsById($order['id_order']);
-
 	$Contragent->SetFieldsById($Order->fields['id_contragent']);
 	$order['contragent_info'] = $Contragent->fields;
+	$order['address_info'] = $Address->getAddressOrder($order['id_order']);
 }
 $Citys = new Citys();
 foreach ($orders as &$order) {

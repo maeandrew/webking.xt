@@ -47,6 +47,20 @@ class Address {
 		}
 		return $res;
 	}
+	// Вывод адреса доставки в заказах
+	public function getAddressOrder($id_order){
+		$sql = "SELECT a.*, lr.title AS region, lc.title AS city, sc.title AS shipping_company, ld.title AS delivery
+				FROM "._DB_PREFIX_."address a
+				LEFT JOIN "._DB_PREFIX_."locations_delivery_type ld ON ld.id = a.id_delivery_service
+				LEFT JOIN "._DB_PREFIX_."locations_cities lc ON lc.id = a.id_city
+				LEFT JOIN "._DB_PREFIX_."locations_regions lr ON lr.id = a.id_region
+				LEFT JOIN "._DB_PREFIX_."shipping_companies sc ON sc.id = a.id_delivery_service
+				WHERE a.id = (SELECT id_address FROM "._DB_PREFIX_."order WHERE id_order = ".$id_order.")";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 	/**
 	 * [GetRegionsList description]
 	 */
