@@ -4656,7 +4656,7 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			WHERE p.id_product<>".$id_product." AND p.prod_status = 3
-			AND p.visible = 1  ";//.$category; print_r($sql); die();
+			AND p.visible = 1  AND cp.category = ".$category;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
