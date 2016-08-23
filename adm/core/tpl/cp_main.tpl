@@ -167,7 +167,7 @@
 									<label>Статусы товаров</label>
 								</td>
 								<td>
-									<!-- <button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_statuses">Обновить</button>-->
+									<button type="submit" id="form_submit" class="btn-m-green size_s fr" name="update_statuses">Обновить</button>
 								</td>
 							</tr>
 							<tr>

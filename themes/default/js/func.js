@@ -1135,6 +1135,11 @@ function СhangeValue(id){
 // 	  $('.range_num_wrap p').text($('input').val());
 }
 
+/* Функция отправки отзыва о продукте */
+function onCommentSubmit(){
+	alert("Коментарий о позиции будет отображен на сайте после премодерации.");
+}
+
 function GetOriginalPhoto(photo){
 	var img_src = photo.find('img').attr('data-original-photo'),
 		img_alt = photo.find('img').attr('alt');
