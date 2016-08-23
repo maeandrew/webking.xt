@@ -299,12 +299,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$customer_data = $Customers->SetFieldsById($id_user, 1, true);
 						$customer_data['last_order'] = $Orders->GetLastOrder($id_user);						
 						$res = '<div class="customer_main_info">
-									<input type="hidden" value="'.$id_user.'">
-									<p><span>ФИО:</span> '.(!empty($customer_data['first_name']) || !empty($customer_data['last_name']) || !empty($customer_data['middle_name']) ?$customer_data['last_name'].' '.$customer_data['first_name'].' '.$customer_data['middle_name']:(!empty($customer_data['name'])?$customer_data['name']:null)).'</p>
-									<p><span>email:</span> '.($customer_data['email']?$customer_data['email']:' --').'</p>
-									<p><span>Баланс:</span> '.($customer_data['balance']?$customer_data['balance']:' 0,00').' грн.</p>
-									<p><span>Последний заказ:</span> '.($customer_data['last_order']?$customer_data['last_order']:' --').'</p>
-									<p><span>Активность:</span> '.($customer_data['active'] ==1?'Да':'Нет').'</p>
+									<input type="hidden" value="' .$id_user. '">
+									<p><span>ФИО:</span> ' .(!empty($customer_data['first_name']) || !empty($customer_data['last_name']) || !empty($customer_data['middle_name']) ?$customer_data['last_name'].' '.$customer_data['first_name'].' '.$customer_data['middle_name']:(!empty($customer_data['name'])?$customer_data['name']:null)). '</p>
+									<p><span>email:</span> ' .($customer_data['email']?$customer_data['email']:' --'). '</p>
+									<p><span>Баланс:</span> ' .($customer_data['balance']?$customer_data['balance']:' 0,00'). ' грн.</p>
+									<p><span>Последний заказ:</span> ' .($customer_data['last_order']?$customer_data['last_order']:' --'). '</p>
+									<p><span>Активность:</span> ' .($customer_data['active'] ==1?'Да':'Нет'). '</p>
 								</div>
 								<div class="bonus_block">';
 						if(!empty($customer_data['bonus_card'])){

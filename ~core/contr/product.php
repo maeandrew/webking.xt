@@ -110,6 +110,9 @@ if (isset($cat)) {
 	$tpl->Assign('new_prods', $Products->getNewProducts($cat['id_category'], $id_product));
 }
 
+// Вывод 50 товаров для ссылок
+$tpl->Assign('link_prods', $Products->getLinkProducts($id_product));
+
 // Вывод сопутствующих товаров на страницу
 $tpl->Assign('related_prods', $Products->GetArrayRelatedProducts($id_product));
 
