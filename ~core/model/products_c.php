@@ -4656,18 +4656,12 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product
 			WHERE p.id_product<>".$id_product." AND p.prod_status = 3
-			AND p.visible = 1  ";//.$category; print_r($sql); die();
+			AND (p.price_opt>0 OR p.price_mopt>0) AND a.active = 1
+			AND p.visible = 1  AND cp.id_category = ".$category;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
 		}
-//		$arr['categories_ids'] = $this->GetCatsOfProduct($id_product);
-//		$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
-//		$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
-//		for($i=0; $i<=3; $i++){
-//			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
-//			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
-//		}
 		return $arr;
 	}
 

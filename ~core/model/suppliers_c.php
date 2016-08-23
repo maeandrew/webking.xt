@@ -242,7 +242,7 @@ class Suppliers extends Users {
 	 *
 	 */
 	public function UpdateSupplier($arr, $only_activity = false){
-		global $Users;
+		$Users = new Users();
 		$arr['gid'] = $Users->fields['gid'];
 		if(!$Users->UpdateUser($arr)){
 			return false;

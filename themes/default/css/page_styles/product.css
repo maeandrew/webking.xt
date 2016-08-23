@@ -306,7 +306,8 @@ div[for="rating_block"] {
 #specifications ul li span.value {
 	padding-left: 5px;
 }
-#comments .feedback_form h4 {
+#comments .feedback_form h4,
+#comments .feedback_container h4 {
 	text-align: center;
 	margin: 0;
 	font-size: 1.429em;
@@ -362,7 +363,11 @@ div[for="rating_block"] {
 }
 #comments .feedback_container {
 	clear: both;
-	padding: 15px 0;
+	/*padding: 15px 0;*/
+}
+#comments .feedback_container h4{
+	border-bottom: 1px solid #ddd;
+	padding: .3em 0;
 }
 #comments .feedback_container .feedback_sub_container {
 	margin-bottom: 15px;
@@ -377,6 +382,9 @@ div[for="rating_block"] {
 #comments .feedback_container .feedback_item{
 	border-top: 1px solid #ddd;
 	padding: .5em;
+}
+#comments .feedback_container .feedback_item:first-child{
+	border: none;
 }
 #comments .feedback_container .feedback_author {
 	font-size: 15px;
@@ -399,8 +407,8 @@ div[for="rating_block"] {
 }
 #comments .feedback_rating {
 	display: inline-block;
-	clear: both;
-	float: left;
+	/*clear: both;*/
+	float: right;
 }
 #comments .feedback_container .rating_stars {
 	overflow: hidden;

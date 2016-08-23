@@ -430,8 +430,9 @@
 					<div class="feedback_container">
 						<?if(empty($comment)){?>
 							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
-						<?}else{
-							foreach($comment as $i){
+						<?}else{?>
+							<h4>Отзыв клиента</h4>
+							<?foreach($comment as $i){
 								if(_acl::isAdmin() || $i['visible'] == 1){?>
 									<div class="feedback_item" itemprop="review" itemscope itemtype="http://schema.org/Review">
 										<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
@@ -634,6 +635,14 @@
 		</div>
 	<?}?>
 	<div class="products_links_block">
+		<!-- Регулярка для вывода не более 3 слов названия товара в ссылке pattern="^[^\s]+\s[^\s]+\s[^\s]+\s" -->
+		<?
+			$item['name'] = 'Радио';
+			// старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
+			// новый вариант регулярки которая работает но не до конца "/^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/"
+			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $res);
+			echo $res[0];
+		?>
 		<p class="products_links_block_title">Рекомендуем для просмотра</p>
 		<a href="#" class="product_link">test text test</a>
 		<a href="#" class="product_link">test</a>
@@ -648,7 +657,7 @@
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text testtest text testtest text testtest text testtest text testtest text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
@@ -666,12 +675,12 @@
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text testtest text testtest text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
-		<a href="#" class="product_link">test text</a>
+		<a href="#" class="product_link">test text testtest text testtest text testtest text testtest text test</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
 		<a href="#" class="product_link">test text</a>
