@@ -82,7 +82,6 @@ $('[name="restore"]').click(function(){
 	var restore = 1;
 	var id_order = $(this).val();
 	ajax('order', 'restoreDeleted', {id_order: id_order, restore: restore}).done(function(){
-		console.log('tcnm');
 		$(this).fadeOut(300);
 	});
 });

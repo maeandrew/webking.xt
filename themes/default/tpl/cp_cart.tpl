@@ -472,7 +472,6 @@
 							// $('#promo_input, .apply_promoCode_js').attr('disabled', false);
 							$('#promo_input, .apply_promoCode_js').removeClass('hidden');
 						}else{
-							console.log('123');
 							// $('#promo_input, .apply_promoCode_js').attr('disabled', true);
 							$('#promo_input, .apply_promoCode_js').addClass('hidden');
 						}
@@ -640,9 +639,6 @@
 								});
 								break;
 						}
-					}).fail(function(data){
-						console.log('fail');
-						console.log(data);
 					});
 				}
 			});
