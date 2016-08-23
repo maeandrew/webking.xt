@@ -685,6 +685,11 @@ div[for="rating_block"] {
 	padding: 10px;
 	margin-right: 10px;
     margin-bottom: 10px;
+	/*max-width: 200px;
+	overflow: hidden;
+    height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;*/
 }
 .product_link:hover {
 	color: #fff;
