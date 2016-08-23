@@ -630,11 +630,11 @@
 								break;
 							case 501:
 								removeLoadAnimation('#cart');
-								$('.err_msg').html(data.message);
+								$('#cart .err_msg').html(response.message);
 								setTimeout(function() {
-									$('.err_msg + .cart_login_btn').removeClass('hidden');
+									$('#cart .err_msg + .cart_login_btn').removeClass('hidden');
 								}, 1000);
-								$('.err_msg + .cart_login_btn').click(function(event) {
+								$('#cart  .err_msg + .cart_login_btn').click(function(event) {
 									event.preventDefault;
 									openObject('auth');
 								});
