@@ -124,7 +124,6 @@
 			event.returnValue = "Write something clever here..";
 		}
 	};
-
 	var url = URL_base_global+'ajax/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
