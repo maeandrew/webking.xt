@@ -117,8 +117,8 @@
 												<?}?>
 											</div>
 
-											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
-											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
+											<a href="#details-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
+											<a href="#products-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
 
 											<div class="orderBnts">
 
@@ -142,7 +142,7 @@
 										</div>
 									</div>
 									<div class="content">
-										<div class="mdl-tabs__panel is-active" id="starks-panel-<?=$i['id_order']?>">
+										<div class="mdl-tabs__panel is-active" id="details-panel-<?=$i['id_order']?>">
 											<div class="info">
 												<div class="date">
 													<span class="icon">
@@ -273,7 +273,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_order']?>">
+										<div class="mdl-tabs__panel" id="members-panel-<?=$i['id_order']?>">
 											<table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
 												<thead>
 													<tr>
@@ -330,7 +330,7 @@
 												</table>
 											</div>
 										</div>
-										<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
+										<div class="mdl-tabs__panel" id="products-panel-<?=$i['id_order']?>">
 											<div id="products"></div>
 											<!-- <div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div> -->
 										</div>
