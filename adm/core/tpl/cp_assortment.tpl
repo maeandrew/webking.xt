@@ -269,13 +269,11 @@
 <script>
 	var id_supplier = <?=$id_supplier;?>;
 	<?=$supplier['single_price']==0?'TogglePriceColumns("Off");':'TogglePriceColumns("On");';?>
+
 	$(function(){
-
-
 		/* Новый переключатель обьедения цены */
 		$('.price_switcher_js').on('change', function(){
 			var single_price;
-
 			if ($(this).prop("checked")){
 				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
 					TogglePriceColumns('On');
@@ -303,7 +301,7 @@
 				active = 0,
 				product_limit = 0;
 			if(this.checked){
-				active = 1,
+				active = 1;
 				product_limit = 10000000;
 			}
 			var data = {
@@ -311,7 +309,7 @@
 				id_supplier: id_supplier,
 				active: active,
 				product_limit: product_limit
-			}
+			};
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
 			});
 		});
@@ -326,7 +324,7 @@
 				id_product: parent.data('id'),
 				id_supplier: id_supplier,
 				inusd: inusd
-			}
+			};
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
 				parent.find('.price').each(function(){
 					var mode = $(this).data('mode');
