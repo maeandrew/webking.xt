@@ -21,9 +21,9 @@ if(isset($_POST['name_index_status'])){
 	}
 	echo "<script>alert('Обработано записей: ".$total.".');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 }
+// Пересчитать цены поставщиков по новому курсу
 if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
-	$kurs_griwni = mysql_real_escape_string($_POST['kurs_griwni']);
-	if($products->UpdatePriceSupplierAssortiment($kurs_griwni)){
+	if($products->UpdatePriceSupplierAssortiment($_POST['kurs_griwni'])){
 		echo "<script>alert('Цены пересчитаны');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Что-то пошло не так');</script>";

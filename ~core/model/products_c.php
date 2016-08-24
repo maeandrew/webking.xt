@@ -2949,18 +2949,27 @@ class Products {
 	 * @param [type] $kurs_griwni [description]
 	 */
 	public function UpdatePriceSupplierAssortiment($kurs_griwni){
-		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
-			LEFT JOIN "._DB_PREFIX_."supplier AS s
-				ON a.id_supplier = s.id_user
-			SET a.price_opt_otpusk = (a.price_opt_otpusk*(".$kurs_griwni."/s.currency_rate)),
-				a.price_mopt_otpusk = (a.price_mopt_otpusk*(".$kurs_griwni."/s.currency_rate))";
+		$sql = "UPDATE "._DB_PREFIX_."supplier AS s
+				SET s.currency_rate = $kurs_griwni";
 		if(!$this->db->Execute($sql)){
 			return false;
 		}
-		$sql = "UPDATE "._DB_PREFIX_."supplier AS s
-			SET s.currency_rate = $kurs_griwni
-			";
+		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
+				LEFT JOIN "._DB_PREFIX_."supplier AS s ON a.id_supplier = s.id_user
+				SET a.price_opt_otpusk = (a.price_opt_otpusk_usd*s.currency_rate),
+				a.price_mopt_otpusk = (a.price_mopt_otpusk_usd*s.currency_rate),
+				a.price_opt_recommend = (a.price_opt_otpusk_usd*s.currency_rate*s.koef_nazen_opt),
+				a.price_mopt_recommend = (a.price_mopt_otpusk_usd*s.currency_rate*s.koef_nazen_mopt)
+				WHERE a.inusd = 1";
 		if(!$this->db->Execute($sql)){
+			return false;
+		}
+		$sql = "SELECT DISTINCT id_product FROM "._DB_PREFIX_."assortiment WHERE inusd = 1";
+		$arr = $this->db->GetArray($sql);
+		foreach($arr as $v){
+			$id_products[] = $v['id_product'];
+		}
+		if(!$this->RecalcSitePrices($id_products)){
 			return false;
 		}
 		return true;
