@@ -1938,7 +1938,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 }
 .order .content .additional > div .label {
 	color: #888;
-	padding-bottom: 1.429em;
+	/*padding-bottom: 1.429em;*/
 }
 .order .content .additional > div .avatar {
 	border: 1px solid #444;
@@ -1948,10 +1948,33 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	width: 100%;
 }
 .order .content .additional > div .details {
-	float: left;
+	/*float: left;*/
 	padding: 0.6213em;
 	padding-left: 1.429em;
 	overflow: hidden;
+}
+.order .content .additional > div.newdelivery .details{
+	padding: 0;
+	color: #FF5722;
+}
+.order .content .additional > div.newdelivery .details .line{
+	margin: 0;
+}
+.order .content .additional > div.newdelivery .details .line span{
+	display: inline-block;
+	width: 135px;
+	line-height: 1.5em;
+}
+.order .content .additional > div.newdelivery .details .line span.label{
+	/*text-align: right;*/
+}
+.order .content .additional > div.newdelivery .details .line span.value{
+	width:100%;
+}
+.order .content .additional > div.newdelivery > .label,
+.order .content .additional > div.manager > .label {
+	padding: 1em 0em;
+	font-size: 1.2em;
 }
 .order .content .additional > div .details > div {
 	float: left;

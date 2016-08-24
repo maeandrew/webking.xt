@@ -407,10 +407,15 @@ div[id^=items_panel_]>div>#products .total_wrap{display:none}
 .order .content .info>div span.value{clear:both;font-size:2.143em;white-space:nowrap}
 .order .content .additional{padding:1.429em 0;display:flex;overflow:auto}
 .order .content .additional>div{flex-basis:50%}
-.order .content .additional>div .label{color:#888;padding-bottom:1.429em}
+.order .content .additional>div .label{color:#888}
 .order .content .additional>div .avatar{border:1px solid #444;float:left}
 .order .content .additional>div .avatar img{width:100%}
-.order .content .additional>div .details{float:left;padding:.6213em;padding-left:1.429em;overflow:hidden}
+.order .content .additional>div .details{padding:.6213em;padding-left:1.429em;overflow:hidden}
+.order .content .additional>div.newdelivery .details{padding:0;color:#FF5722}
+.order .content .additional>div.newdelivery .details .line{margin:0}
+.order .content .additional>div.newdelivery .details .line span{display:inline-block;width:135px;line-height:1.5em}
+.order .content .additional>div.newdelivery .details .line span.value{width:100%}
+.order .content .additional>div.manager>.label,.order .content .additional>div.newdelivery>.label{padding:1em 0;font-size:1.2em}
 .order .content .additional>div .details>div{float:left;clear:both;line-height:1.3em;white-space:nowrap}
 .order .content .additional>div.manager .line_2,.order .content .additional>div.manager .line_3{color:#888}
 .order .content .additional>div.manager .line_2 .votes_cnt,.order .content .additional>div.manager .line_3 .votes_cnt{font-size:.786em}
