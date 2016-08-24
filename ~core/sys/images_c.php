@@ -30,8 +30,7 @@ class Images {
 		}
 		move_uploaded_file($tmp_name, $destination);
 		chmod($destination, 0777);
-		$res = $destination;
-		return $res;
+		return $destination;
 	}
 	/**
 	 * Ресайз изображений товаров

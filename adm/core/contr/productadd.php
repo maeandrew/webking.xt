@@ -12,7 +12,7 @@ $Images = new Images();
 $segmentation = new Segmentation();
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
-	echo str_replace($GLOBALS['PATH_root'], '/', $res);
+	echo str_replace($GLOBALS['PATH_global_root'], '/', $res);
 	exit(0);
 }
 $tpl->Assign('h1', 'Добавление товара');
