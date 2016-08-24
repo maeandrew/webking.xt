@@ -15,6 +15,7 @@ $order = 'p.id_product ASC';
 if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET['order'] !=''){
 	$order = $_GET['sort'].' '.$_GET['order'];
 }
+$Users = new Users();
 $Products = new Products();
 $Supplier = new Suppliers();
 //Подключение/отключение поставщика

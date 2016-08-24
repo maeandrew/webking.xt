@@ -1,7 +1,7 @@
 <h1><?=$header?></h1>
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
-	<?if (!empty($category['subcats'])) {?>
+	<?if(!empty($category['subcats'])){?>
 		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
@@ -15,7 +15,7 @@
 			<?}?>
 		</div>
 	<?}?>
-	<?if (!empty($category['subcats'])) {?>
+	<?if(!empty($category['subcats'])){?>
 		<div class="subCategories mdl-cell--hide-phone">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
@@ -66,9 +66,9 @@
 						<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
 					<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
 						<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
-					<?}?> -->					
+					<?}?> -->
 				</div>
-				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9))){?>
+				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9))){?>
 					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone mdl-cell--hide-tablet" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
 				<?}?>
 				<div class="productsListView">
@@ -90,7 +90,7 @@
 			<?}*/?>
 			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
 				<div class="row">
-					<div class="products">					
+					<div class="products">
 						<?=$products_list;?>
 					</div>
 					<div class="preview ajax_loading mdl-shadow--4dp">
@@ -138,7 +138,7 @@
 	// 		items:			1,
 	// 		lazyLoad:		true,
 	// 		margin:			20,
-	// 		nav:			true,			
+	// 		nav:			true,
 	// 		navText: [
 	// 			'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 	// 			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
@@ -155,9 +155,9 @@
 
 		ListenPhotoHover();//Инициализания Preview
 
-		/* Открытие фильтров моб.вид */		
+		/* Открытие фильтров моб.вид */
 		$('.filters_mob_btn_js').on('click', function(){
-			if($('.activeFilters_js').hasClass('active') === false) {				
+			if($('.activeFilters_js').hasClass('active') === false) {
 				var name = $('.activeFilters_js').find('i').text();
 				if (name == 'filter_list') {
 					$('.activeFilters_js').find('i').text('highlight_off');
