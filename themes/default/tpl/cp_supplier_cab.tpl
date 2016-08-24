@@ -56,7 +56,7 @@ if(!is_array($msg)){?>
 				</div>
 			</div>
 			<div class="cabinet_block fleft">
-				<div class="dollar hidden">
+				<div class="dollar">
 					<!-- Вызов функции пересчета курса доллара -->
 					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 						<label for="currency_rate">Личный курс доллара</label>

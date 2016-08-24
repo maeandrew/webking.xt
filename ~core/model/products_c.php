@@ -4657,10 +4657,14 @@ class Products {
 				ON a.id_product = p.id_product
 			WHERE p.id_product<>".$id_product." AND p.prod_status = 3
 			AND (p.price_opt>0 OR p.price_mopt>0) AND a.active = 1
-			AND p.visible = 1  AND cp.id_category = ".$category;
+			AND p.visible = 1 AND cp.id_category = ".$category;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
+		}
+		foreach ($arr as &$v){
+			$v['images'] = $this->GetPhotoById($v['id_product']);
+			$v['videos'] = $this->GetVideoById($v['id_product']);
 		}
 		return $arr;
 	}
