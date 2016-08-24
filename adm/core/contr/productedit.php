@@ -137,31 +137,31 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			//обновление Фото товара
 			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null, isset($_POST['images_visible'])?$_POST['images_visible']:null);
 
-			if(isset($_POST['id_supplier'])){
-				//Формирем массив поставщиков товара
-				for($i=0; $i < count($_POST['id_supplier']); $i++){
-					$supp_arr[] = array(
-						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
-						"id_supplier" => $_POST['id_supplier'][$i],
-						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
-						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
-						"product_limit" => $_POST['product_limit'][$i],
-						"inusd" => $_POST['inusd'][$i]
-					);
-				}
-				foreach($supp_arr as $k => $value){
-					$value['id_product'] = $id_product;
-					if($value['id_assortiment'] === false){
-						//Добавляем поставщика в ассортимент
-						if(!$products->AddToAssortWithAdm($value)){
-							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
-						}
-					}else{
-						//Обновляем данные в ассортименте
-						$products->UpdateAssortWithAdm($value);
-					}
-				}
-			}
+			// if(isset($_POST['id_supplier'])){
+			// 	//Формирем массив поставщиков товара
+			// 	for($i=0; $i < count($_POST['id_supplier']); $i++){
+			// 		$supp_arr[] = array(
+			// 			"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
+			// 			"id_supplier" => $_POST['id_supplier'][$i],
+			// 			"price_opt_otpusk" => $_POST['supplier_price_opt'][$i],
+			// 			"price_mopt_otpusk" => $_POST['supplier_price_mopt'][$i],
+			// 			"active" => $_POST['supplier_product_available'][$i],
+			// 			"inusd" => $_POST['inusd'][$i]
+			// 		);
+			// 	}
+			// 	foreach($supp_arr as $k => $value){
+			// 		$value['id_product'] = $id_product;
+			// 		if($value['id_assortiment'] === false){
+			// 			//Добавляем поставщика в ассортимент
+			// 			if(!$products->AddToAssortWithAdm($value)){
+			// 				$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
+			// 			}
+			// 		}else{
+			// 			//Обновляем данные в ассортименте
+			// 			$products->UpdateAssortWithAdm($value);
+			// 		}
+			// 	}
+			// }
 			//Отвязываем постащика от товара
 			if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
 				foreach($_POST['del_from_assort'] as &$id_assort){
