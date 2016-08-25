@@ -436,7 +436,7 @@
 							<h4>Отзывы клиентов</h4>
 							<?foreach($comment as $i){
 								if(_acl::isAdmin() || $i['visible'] == 1){?>
-									<div class="feedback_item" itemprop="review" itemscope itemtype="http://schema.org/Review">
+									<div class="feedback_item feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
 										<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
 										<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
 										<span class="feedback_date"><i class="material-icons">query_builder</i>
@@ -471,6 +471,16 @@
 											</div>
 										<?}?>
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
+										<a href="#" class="feedback_comment_reply_js" data-action="<?=$_SERVER['REQUEST_URI']?>"><i class="material-icons">reply</i>Ответить</a>
+										<a href="#" class="comment_reply_cancel_js hidden">Отмена</a>
+
+<!-- 
+										<div class="reply_wrap">
+											<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
+												<textarea name="feedback_comment_reply" id="feedback_comment_reply" cols="30" required></textarea>
+												<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button>
+											</form>
+										</div> -->
 									</div>
 								<?}
 							}
