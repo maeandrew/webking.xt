@@ -79,7 +79,7 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container .rating_stars{overflow:hidden;margin-left:2px;float:right;line-height:17px}
 #comments .feedback_container .rating_stars li{float:left}
 #comments .feedback_container .rating_stars li{vertical-align:middle}
-#comments .feedback_container p.feedback_comment{padding-top:5px;clear:both}
+#comments .feedback_container p.feedback_comment{padding-top:5px;clear:both;text-align:justify}
 .product_main_img #mainVideoBlock{height:100%;width:100%;position:absolute;top:0}
 #owl-product_mini_img_js .videoBlock{width:120px;height:120px}
 #owl-product_mini_img_js .videoBlock .videoBlockShield{width:120px;height:120px;position:absolute;z-index:100;left:0;top:0}
