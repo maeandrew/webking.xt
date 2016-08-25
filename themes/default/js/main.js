@@ -1978,4 +1978,15 @@ $(function(){
 			}
 		}
 	});
+
+	// feedback_comment_reply_js
+	$('body').on('click', '.feedback_comment_reply_js', function(event){
+		event.preventDefault();
+		$(this).closest('.feedback_item_js').find('comment_reply_cancel_js').removeClass('hidden');
+		$(this).closest('.feedback_item_js').append('<div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><textarea name="feedback_comment_reply" id="feedback_comment_reply" cols="30" required></textarea><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>');
+	});
+	$('body').on('click', '.comment_reply_cancel_js', function(event){		
+		$(this).closest('.feedback_item_js').find('reply_wrap').remove();
+		$(this).addClass('hidden');
+	});
 });

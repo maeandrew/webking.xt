@@ -330,7 +330,8 @@ div[for="rating_block"] {
 #comments .feedback_form [for="feedback_text"] {
 	display: block;
 }
-#comments .feedback_form #feedback_text {
+#comments .feedback_form #feedback_text,
+#comments textarea[name="feedback_comment_reply"] {
 	box-sizing: border-box;
 	width: 100%;
 	min-height: 70px;
@@ -427,6 +428,16 @@ div[for="rating_block"] {
 	clear: both;
 	text-align: justify;
 }
+
+#comments .feedback_container .reply_wrap{
+	margin-left: 1em;
+}
+#comments .feedback_container .reply_wrap textarea[name="feedback_comment_reply"]{
+	width: 100%;
+}
+
+
+
 /* Стили для слайдера миниатюр. ВИДЕО */
 .product_main_img #mainVideoBlock {
 	height: 100%;
