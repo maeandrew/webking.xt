@@ -331,7 +331,7 @@ div[for="rating_block"] {
 	display: block;
 }
 #comments .feedback_form #feedback_text,
-#comments textarea[name="feedback_comment_reply"] {
+#comments .reply_wrap textarea[name="feedback_text"] {
 	box-sizing: border-box;
 	width: 100%;
 	min-height: 70px;
@@ -432,7 +432,7 @@ div[for="rating_block"] {
 #comments .feedback_container .reply_wrap{
 	margin-left: 1em;
 }
-#comments .feedback_container .reply_wrap textarea[name="feedback_comment_reply"]{
+#comments .feedback_container .reply_wrap textarea[name="feedback_text"]{
 	width: 100%;
 }
 
