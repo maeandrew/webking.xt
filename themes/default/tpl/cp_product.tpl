@@ -471,16 +471,8 @@
 											</div>
 										<?}?>
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
-										<a href="#" class="feedback_comment_reply_js" data-action="<?=$_SERVER['REQUEST_URI']?>"><i class="material-icons">reply</i>Ответить</a>
+										<a href="#" class="feedback_comment_reply_js" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i>Ответить</a>
 										<a href="#" class="comment_reply_cancel_js hidden">Отмена</a>
-
-<!-- 
-										<div class="reply_wrap">
-											<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
-												<textarea name="feedback_comment_reply" id="feedback_comment_reply" cols="30" required></textarea>
-												<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button>
-											</form>
-										</div> -->
 									</div>
 								<?}
 							}

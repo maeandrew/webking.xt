@@ -61,7 +61,7 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_form .feedback_stars label.label_for_stars{margin-right:10px}
 #comments .feedback_form .feedback_stars label i{color:#ff5722;vertical-align:middle;font-size:20px}
 #comments .feedback_form [for=feedback_text]{display:block}
-#comments .feedback_form #feedback_text,#comments textarea[name=feedback_comment_reply]{box-sizing:border-box;width:100%;min-height:70px}
+#comments .feedback_form #feedback_text,#comments .reply_wrap textarea[name=feedback_text]{box-sizing:border-box;width:100%;min-height:70px}
 #comments .feedback_form .user_data{margin-top:10px;overflow:hidden}
 #comments .feedback_form .user_data .fild_wrapp{box-sizing:border-box;float:left;width:50%;padding-left:10px}
 #comments .feedback_form .user_data .fild_wrapp:first-of-type{padding-left:0}
@@ -81,7 +81,7 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container .rating_stars li{vertical-align:middle}
 #comments .feedback_container p.feedback_comment{padding-top:5px;clear:both;text-align:justify}
 #comments .feedback_container .reply_wrap{margin-left:1em}
-#comments .feedback_container .reply_wrap textarea[name=feedback_comment_reply]{width:100%}
+#comments .feedback_container .reply_wrap textarea[name=feedback_text]{width:100%}
 .product_main_img #mainVideoBlock{height:100%;width:100%;position:absolute;top:0}
 #owl-product_mini_img_js .videoBlock{width:120px;height:120px}
 #owl-product_mini_img_js .videoBlock .videoBlockShield{width:120px;height:120px;position:absolute;z-index:100;left:0;top:0}

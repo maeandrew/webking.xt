@@ -1983,10 +1983,31 @@ $(function(){
 	$('body').on('click', '.feedback_comment_reply_js', function(event){
 		event.preventDefault();
 		$(this).closest('.feedback_item_js').find('comment_reply_cancel_js').removeClass('hidden');
-		$(this).closest('.feedback_item_js').append('<div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><textarea name="feedback_comment_reply" id="feedback_comment_reply" cols="30" required></textarea><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>');
+		$(this).closest('.feedback_item_js').append('<div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><div class="user_data hidden"><div class="fild_wrapp"><label for="feedback_author">Ваше имя:</label><input type="text" name="feedback_author" id="feedback_author" required value="Петя"></div><div class="fild_wrapp"><label for="feedback_authors_email">Эл.почта:</label><input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="petya@gmail.com"></div></div><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>');
 	});
 	$('body').on('click', '.comment_reply_cancel_js', function(event){		
 		$(this).closest('.feedback_item_js').find('reply_wrap').remove();
 		$(this).addClass('hidden');
 	});
 });
+
+
+// <div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><div class="user_data hidden"><div class="fild_wrapp"><label for="feedback_author">Ваше имя:</label><input type="text" name="feedback_author" id="feedback_author" required value="Петя"></div><div class="fild_wrapp"><label for="feedback_authors_email">Эл.почта:</label><input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="petya@gmail.com"></div></div><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>
+
+
+// <div class="reply_wrap">
+// 	<form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()">
+// 		<textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea>
+// 		<div class="user_data <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'hidden';?>">
+// 			<div class="fild_wrapp">
+// 				<label for="feedback_author">Ваше имя:</label>
+// 				<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
+// 			</div>
+// 			<div class="fild_wrapp">
+// 				<label for="feedback_authors_email">Эл.почта:</label>
+// 				<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
+// 			</div>
+// 		</div>
+// 		<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button>
+// 	</form>
+// </div>
