@@ -471,8 +471,8 @@
 											</div>
 										<?}?>
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
-										<a href="#" class="feedback_comment_reply_js" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i>Ответить</a>
-										<a href="#" class="comment_reply_cancel_js hidden">Отмена</a>
+										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
+										<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
 									</div>
 								<?}
 							}
