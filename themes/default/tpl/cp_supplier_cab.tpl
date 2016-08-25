@@ -56,15 +56,15 @@ if(!is_array($msg)){?>
 				</div>
 			</div>
 			<div class="cabinet_block fleft">
-				<div class="dollar hidden">
+				<div class="dollar">
 					<!-- Вызов функции пересчета курса доллара -->
-					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="post"  onsubmit="RecalcSupplierCurrency($(this));return false;">
 						<label for="currency_rate">Личный курс доллара</label>
 						<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Пересчитать</button>
-						<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
+						<input type="hidden" name="currency_rate_old" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
 					</form>
-					<p class="checksum">Контрольная сумма - <b><?=$check_sum['checksum']?> грн</b></p>
+					<p class="checksum">Контрольная сумма: <b><?=$check_sum['checksum']?> грн</b></p>
 				</div>
 				<div class="calendar clearfix">
 					<label>Дата последней отметки о рабочем дне:
@@ -402,6 +402,18 @@ if(!is_array($msg)){?>
 	<?}else{?>
 		TogglePriceColumns("On");
 	<?}?>
+
+	function RecalcSupplierCurrency(obj){
+		var data = {};
+		$("#popup_msg").fadeIn();
+		data.currency_rate = parseFloat($("#currency_rate").val());
+		data.old_currency_rate = parseFloat($("#currency_rate_old").val());
+		data.id_supplier = '<?=$supplier['id_user'];?>';
+		ajax('supplier', 'recalcCurrencyRate', data).done(function(response){
+			$("#popup_msg").fadeOut();
+			location.reload();
+		});
+	}
 	$(function(){
 		$('[class^="duplicate_check_"]').on('click', function(e){
 			e.preventDefault();

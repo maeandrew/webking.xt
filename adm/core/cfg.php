@@ -2,34 +2,30 @@
 G::GetUserInfo();
 G::DefineBaseURL();
 G::DefineRootDirectory();
-$root = str_replace('core', '', dirname(__FILE__));
-$g_root = str_replace('adm'.DIRECTORY_SEPARATOR, '', $root);
-// $root .= '/../';
-require($root.'../config.php');
+$root = _root.'adm'.DIRECTORY_SEPARATOR;
+require(_root.'config.php');
 // ******************************** Начальное конфигурирование *************************************
 $baseUrl = '//'.$_SERVER['SERVER_NAME'].'/';
 /*define('_base_url', $baseUrl);*/
-$config = array (
+G::ToGlobals(array(
 	'URL_base'			=> $baseUrl,
 	'URL_request'		=> 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'],
 	'URL_img'			=> $baseUrl.'adm/img/',
 	'URL_css'			=> $baseUrl.'adm/css/',
 	'URL_js'			=> $baseUrl.'adm/js/',
-
 	'PATH_root'			=> $root,
-	'PATH_global_root'	=> $g_root,
-	'PATH_core'			=> $root.'core/',
-	'PATH_sys'			=> $root.'../~core/sys/',
-	'PATH_model'		=> $root.'../~core/model/',
-	'PATH_product_img'	=> $g_root.'product_images/',
-	'PATH_block'		=> $root.'core/block/',
-	'PATH_contr'		=> $root.'core/contr/',
-	'PATH_tpl'			=> $root.'core/tpl/',
-	'PATH_tpl_global'	=> $root.'core/tpl/_global/',
-	'PATH_news_img'		=> $g_root.'/news_images/',
-	'PATH_post_img'		=> $g_root.'/post_images/',
-);
-G::ToGlobals($config);
+	'PATH_global_root'	=> _root,
+	'PATH_core'			=> $root.'core'.DIRECTORY_SEPARATOR,
+	'PATH_sys'			=> _root.'~core'.DIRECTORY_SEPARATOR.'sys'.DIRECTORY_SEPARATOR,
+	'PATH_model'		=> _root.'~core'.DIRECTORY_SEPARATOR.'model'.DIRECTORY_SEPARATOR,
+	'PATH_product_img'	=> _root.'product_images'.DIRECTORY_SEPARATOR,
+	'PATH_block'		=> $root.'core'.DIRECTORY_SEPARATOR.'block'.DIRECTORY_SEPARATOR,
+	'PATH_contr'		=> $root.'core'.DIRECTORY_SEPARATOR.'contr'.DIRECTORY_SEPARATOR,
+	'PATH_tpl'			=> $root.'core'.DIRECTORY_SEPARATOR.'tpl'.DIRECTORY_SEPARATOR,
+	'PATH_tpl_global'	=> $root.'core'.DIRECTORY_SEPARATOR.'tpl'.DIRECTORY_SEPARATOR.'_global'.DIRECTORY_SEPARATOR,
+	'PATH_news_img'		=> _root.'news_images'.DIRECTORY_SEPARATOR,
+	'PATH_post_img'		=> _root.'post_images'.DIRECTORY_SEPARATOR,
+));
 unset($config);
 
 $GLOBALS['DefaultController'] = 'main';

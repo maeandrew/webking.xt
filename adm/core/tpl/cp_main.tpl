@@ -267,13 +267,15 @@
 							</td>
 						</tr>
 						<tr>
+						<form id="kurs_recalc" action="" method="POST">
 							<td>
 								<label for="kurs_griwni" class="fl">Пересчитать все цены поставщиков по курсу</label>
-								<input type="text" name="kurs_griwni" id="kurs_griwni" class="input-m size_s fr">
+								<input type="text" name="kurs_griwni" id="kurs_griwni" class="input-m size_s fr" required>
 							</td>
 							<td>
-								<!-- <button type="submit" id="form_submit" class="btn-m-red size_s fr" name="kurs">Пересчитать</button> -->
+								<button type="submit" id="form_submit" class="btn-m-red size_s fr" name="kurs">Пересчитать</button>
 							</td>
+						</form>
 						</tr>
 						<tr>
 							<td>

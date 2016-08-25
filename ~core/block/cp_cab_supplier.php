@@ -172,20 +172,17 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		}
 		exit(0);
 	}
+
 	if(isset($_FILES["import_file"])){
-		// Импорт
-		if($_FILES["import_file"]["size"] > 1024*3*1024){
-			$tpl->Assign('msg', "Размер файла превышает три мегабайта");
-			$tpl->Assign('errm', 1);
-			exit;
-		}
 		// Проверяем загружен ли файл
-		if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
-			if(isset($_POST['smb_import_usd'])){
-				list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES["import_file"]["tmp_name"]);
-			}else{
-				list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES["import_file"]["tmp_name"]);
+		if(is_uploaded_file($_FILES['import_file']['tmp_name'])){
+			// Проверяе объем файла
+			if($_FILES['import_file']['size'] > 1024*3*1024){
+				$tpl->Assign('msg', "Размер файла превышает три мегабайта");
+				$tpl->Assign('errm', 1);
+				exit;
 			}
+			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name'], isset($_POST['smb_import_usd']));
 			$tpl->Assign('total_added', $total_added);
 			$tpl->Assign('total_updated', $total_updated);
 		}else{
@@ -193,6 +190,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 			$tpl->Assign('errm', 1);
 		}
 	}
+
 	/*Pagination*/
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -281,16 +279,15 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	);
 }
 $tpl->Assign('header', $header);
-if($GLOBALS['Rewrite'] == "export"){
-	$r = $Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']);
-	$Products->GenExcelAssortFile($r);
+
+$order = 'p.id_product ASC';
+//экспорт в exel
+if(substr(strrchr($_GET['q'], "/"), 1) == "export"){
+	$Products->SetProductsList1($Supplier->fields['id_user'], $order, '');
+	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']));
 	exit(0);
-}elseif($GLOBALS['Rewrite'] == "export_usd"){
-	$r = $Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']);
-	$Products->GenExcelAssortFile($r);
+}elseif(substr(strrchr($_GET['q'], "/"), 1) == "export_usd"){
+	$Products->SetProductsList1($Supplier->fields['id_user'], $order, '');
+	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']));
 	exit(0);
-}else{
-	if(isset($_SESSION['_POST_'])) unset($_SESSION['_POST_']);
-	$_SESSION['_POST_'] = $_POST;
 }
-?>

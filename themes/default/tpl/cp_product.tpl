@@ -560,7 +560,7 @@
 	<?}?>
 	<?if(isset($new_prods) && !empty($new_prods)){?>
 		<div class="slider_products">
-			<h4>Новинки в это категории</h4>
+			<h4>Новинки в этой категории</h4>
 			<div id="owl-new-products" class="owl-carousel">
 				<?foreach($new_prods as $p){?>
 					<div class="item">
