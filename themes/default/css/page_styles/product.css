@@ -425,6 +425,7 @@ div[for="rating_block"] {
 #comments .feedback_container p.feedback_comment {
 	padding-top: 5px;
 	clear: both;
+	text-align: justify;
 }
 /* Стили для слайдера миниатюр. ВИДЕО */
 .product_main_img #mainVideoBlock {
