@@ -230,13 +230,13 @@ class Products {
 	 * @param integer $id_product id товара
 	 */
 	public function GetComentByProductId($id_product){
-		$sql = "SELECT cm.text_coment,
+		$sql = "SELECT cm.Id_coment, cm.text_coment,
 			(CASE
 				WHEN cm.author = 4028 THEN cm.author_name
 				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
 				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
 			END) AS name,
-			cm.date_comment, cm.visible, cm.rating
+			cm.date_comment, cm.visible, cm.rating, cm.pid_comment
 			FROM "._DB_PREFIX_."coment AS cm
 			WHERE cm.url_coment = ".$id_product."
 			ORDER BY cm.date_comment ASC";
@@ -256,7 +256,7 @@ class Products {
 	 * @param integer	$id_product		id товара
 	 * @param integer	$rating			оценка товара
 	 */
-	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null){
+	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null, $pid_comment=null){
 		if(empty($text)){
 			return false;
 		}
@@ -266,6 +266,9 @@ class Products {
 		$f['author_name'] = trim($author_name);
 		$f['rating'] = trim($rating);
 		$f['user_email'] = trim($authors_email);
+		if(!empty($pid_comment)) {
+			$f['pid_comment'] = $pid_comment;
+		}
 		unset($text, $rating, $id_product, $authors_email, $author, $author_name);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'coment', $f)){
