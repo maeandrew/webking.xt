@@ -230,16 +230,43 @@ class Products {
 	 * @param integer $id_product id товара
 	 */
 	public function GetComentByProductId($id_product){
+//		$sql = "SELECT cm.Id_coment, cm.text_coment,
+//			(CASE
+//				WHEN cm.author = 4028 THEN cm.author_name
+//				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
+//				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
+//			END) AS name,
+//			cm.date_comment, cm.visible, cm.rating, cm.pid_comment
+//			FROM "._DB_PREFIX_."coment AS cm
+//			WHERE cm.url_coment = ".$id_product."
+//			ORDER BY cm.date_comment ASC";
+//		$arr = $this->db->GetArray($sql);
+//		if(!$arr){
+//			return false;
+//		}
+//
+//		foreach($arr as $k=>&$v){
+//			if($v['pid_comment'] !== null) {
+//				foreach($arr as &$val){
+//					if($val['Id_coment'] == $v['pid_comment']){
+//						$val['answer'][] = $v;
+//					}
+//				}
+//				//unset($k);
+//			}
+//		}
+//		echo'<pre>';
+//		print_r($arr);
+//		echo'</pre>';
+//		die();
 		$sql = "SELECT cm.Id_coment, cm.text_coment,
-			(CASE
-				WHEN cm.author = 4028 THEN cm.author_name
-				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
-				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
-			END) AS name,
-			cm.date_comment, cm.visible, cm.rating, cm.pid_comment
-			FROM "._DB_PREFIX_."coment AS cm
-			WHERE cm.url_coment = ".$id_product."
-			ORDER BY cm.date_comment ASC";
+				(CASE WHEN cm.author = 4028 THEN cm.author_name WHEN cm.author = 007 THEN (SELECT name_c FROM xt_contragent WHERE id_user = cm.author_name)
+				ELSE (SELECT name FROM xt_user WHERE id_user = cm.author) END) AS name, cm.date_comment, cm.visible, cm.rating, cm.pid_comment, cm.level,
+				(CASE WHEN cm.level = 1 THEN cm.Id_coment WHEN cm.level  = 2 THEN cm.pid_comment
+				ELSE (SELECT cm2.pid_comment FROM "._DB_PREFIX_."coment AS cm2 WHERE cm2.Id_coment = cm.pid_comment) END) AS sort
+				FROM "._DB_PREFIX_."coment AS cm
+				WHERE cm.url_coment = ".$id_product."
+				ORDER BY sort, date_comment";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
