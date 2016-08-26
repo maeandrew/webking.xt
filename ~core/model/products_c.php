@@ -259,18 +259,18 @@ class Products {
 //		print_r($arr);
 //		echo'</pre>';
 //		die();
-		// $sql = "SELECT cm.Id_coment, cm.text_coment,
-		// 		(CASE WHEN cm.author = 4028 THEN cm.author_name WHEN cm.author = 007 THEN (SELECT name_c FROM xt_contragent WHERE id_user = cm.author_name)
-		// 		ELSE (SELECT name FROM xt_user WHERE id_user = cm.author) END) AS name, cm.date_comment, cm.visible, cm.rating, cm.pid_comment, cm.level,
-		// 		(CASE WHEN cm.level = 1 THEN cm.Id_coment WHEN cm.level  = 2 THEN cm.pid_comment
-		// 		ELSE (SELECT cm2.pid_comment FROM "._DB_PREFIX_."coment AS cm2 WHERE cm2.Id_coment = cm.pid_comment) END) AS sort
-		// 		FROM "._DB_PREFIX_."coment AS cm
-		// 		WHERE cm.url_coment = ".$id_product."
-		// 		ORDER BY sort, date_comment";
-		// $arr = $this->db->GetArray($sql);
-		// if(!$arr){
-		// 	return false;
-		// }
+//		$sql = "SELECT cm.Id_coment, cm.text_coment,
+//				(CASE WHEN cm.author = 4028 THEN cm.author_name WHEN cm.author = 007 THEN (SELECT name_c FROM xt_contragent WHERE id_user = cm.author_name)
+//				ELSE (SELECT name FROM xt_user WHERE id_user = cm.author) END) AS name, cm.date_comment, cm.visible, cm.rating, cm.pid_comment, cm.level,
+//				(CASE WHEN cm.level = 1 THEN cm.Id_coment WHEN cm.level  = 2 THEN cm.pid_comment
+//				ELSE (SELECT cm2.pid_comment FROM "._DB_PREFIX_."coment AS cm2 WHERE cm2.Id_coment = cm.pid_comment) END) AS sort
+//				FROM "._DB_PREFIX_."coment AS cm
+//				WHERE cm.url_coment = ".$id_product."
+//				ORDER BY sort, date_comment";
+//		$arr = $this->db->GetArray($sql);
+//		if(!$arr){
+//			return false;
+//		}
 		return $arr;
 	}
 
@@ -1047,7 +1047,7 @@ class Products {
 					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL AND (p.price_opt > 0 OR p.price_mopt > 0)
-				AND p.prod_status = 3 AND p.visible = 1 ORDER BY RAND() LIMIT 10";
+				AND p.prod_status = 3 AND p.visible = 1 GROUP BY p.id_product  ORDER BY RAND() LIMIT 10";
 		$result = $this->db->GetArray($sql);
 		if(!$result){
 			return false;
