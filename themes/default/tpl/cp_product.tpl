@@ -473,6 +473,28 @@
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
 										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
 										<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
+
+										
+										
+										<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
+											<?foreach($i['answer'] as $a){?>
+												<div class="feedback_item feedback_reply feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
+													<?=$a['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
+													<span class="feedback_author" itemprop="author"><?=isset($a['name'])?$a['name']:'Аноним'?></span>
+													<span class="feedback_date"><i class="material-icons">query_builder</i>
+														<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($a['date_comment']))?>">
+														<?if(date("d") == date("d", strtotime($a['date_comment']))){?>
+															Сегодня
+														<?}elseif(date("d")-1 == date("d", strtotime($a['date_comment']))){?>
+															Вчера
+														<?}else{
+															echo date("d.m.Y", strtotime($a['date_comment']));
+														}?>
+													</span>
+													<p class="feedback_comment" itemprop="description"><?=$a['text_coment'];?></p>
+												</div>
+											<?}?>
+										<?}?>
 									</div>
 								<?}
 							}

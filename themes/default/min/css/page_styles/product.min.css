@@ -69,8 +69,10 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_form .user_data input{line-height:23px;padding:0 5px;width:100%;box-sizing:border-box}
 #comments .feedback_form button{float:right;margin-top:10px}
 #comments .feedback_container{clear:both}
-#comments .feedback_container h4{border-bottom:1px solid #ddd;padding:.3em 0}
-#comments .feedback_container .feedback_item{border-top:1px solid #ddd;padding:.5em}
+#comments .feedback_container h4{padding:.3em 0}
+#comments .feedback_container .feedback_item{border-top:2px solid #ddd;padding:.5em}
+#comments .feedback_container .feedback_item.feedback_reply{margin-left:1em;border-top:1px solid #ddd}
+#comments .feedback_container .feedback_item.feedback_reply .feedback_comment{font-style:italic}
 #comments .feedback_container .feedback_item>a{margin:1em;display:inline-block}
 #comments .feedback_container .feedback_item .feedback_comment_reply i{vertical-align:middle;font-size:1.2em}
 #comments .feedback_container .feedback_author{font-size:15px;font-weight:700;float:left}
