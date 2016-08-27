@@ -38,7 +38,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Deliveryservice = new DeliveryService();
 				$Regions = new Regions();
 				// Все классы подключены
-				
+
 				// выборка базовых данных
 
 				// о покупателе
@@ -297,7 +297,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							   </div>';
 					}else{
 						$customer_data = $Customers->SetFieldsById($id_user, 1, true);
-						$customer_data['last_order'] = $Orders->GetLastOrder($id_user);						
+						$customer_data['last_order'] = $Orders->GetLastOrder($id_user);
 						$res = '<div class="customer_main_info">
 									<input type="hidden" value="' .$id_user. '">
 									<p><span>ФИО:</span> ' .(!empty($customer_data['first_name']) || !empty($customer_data['last_name']) || !empty($customer_data['middle_name']) ?$customer_data['last_name'].' '.$customer_data['first_name'].' '.$customer_data['middle_name']:(!empty($customer_data['name'])?$customer_data['name']:null)). '</p>
@@ -421,6 +421,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							G::Login($Users->fields);
 							_acl::load($Users->fields['gid']);
 							$res['new_user'] = true;
+							unset($_POST['phone']);
 						}
 					}else{
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
@@ -460,9 +461,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$res['status'] = 500;
 						// $Customers->updatePhones($phone);
 					}
-				}else{
-					$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
-					$res['status'] = 501;
 				}
 				echo json_encode($res);
 				break;
