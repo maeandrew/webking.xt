@@ -786,14 +786,12 @@ class Products {
 				FROM "._DB_PREFIX_."cat_prod AS cp
 					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
 					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product AND a.active = 1
+					RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
 					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
 				WHERE cp.id_product IS NOT NULL "
 				.(($gid == _ACL_SUPPLIER_)?"AND p.access_assort = 1 ":null).
 				$where . $where2. $this->price_range ."
 				GROUP BY p.id_product
-				HAVING p.visible = 1
-					".$prices_zero."
 				ORDER BY active DESC, p.visible DESC, ".$order_by."
 				".$limit;
 		}
@@ -1661,11 +1659,11 @@ class Products {
 		$supplier = $Suppliers->fields;
 		if(isset($data['price'])){
 			if($assort['inusd'] == 1){
-				$f['price_'.$data['mode'].'_otpusk'] = $data['price']*$supplier['currency_rate'];
+				$f['price_'.$data['mode'].'_otpusk'] = $data['price']*($supplier['currency_rate'] == 0?$GLOBALS['CONFIG']['currency_rate']:$supplier['currency_rate']);
 				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price'];
 			}else{
 				$f['price_'.$data['mode'].'_otpusk'] = $data['price'];
-				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price']/$supplier['currency_rate'];
+				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price']/($supplier['currency_rate'] == 0?$GLOBALS['CONFIG']['currency_rate']:$supplier['currency_rate']);
 			}
 			$f['price_'.$data['mode'].'_recommend'] = $f['price_'.$data['mode'].'_otpusk']*$supplier['koef_nazen_'.$data['mode']];
 		}
