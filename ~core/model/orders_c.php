@@ -462,7 +462,7 @@ class Orders {
 		// }
 		// isset($_SESSION['member']['id_user']) ? $_SESSION['member']['id_user'] : $_SESSION['member']['id_user'] = $_POST['id_user'];
 		// isset($arr['discount']) ? $arr['discount']  : $arr['discount'] = 0;
-		
+
 		// Определяем статус будущего заказа
 		$order_status = 0;
 		// Если у клиента есть промо-код - 11
@@ -550,9 +550,11 @@ class Orders {
 		}else{
 			$_SESSION['cart']['id_order'] = $id_order;
 		}
-		$sql = "UPDATE "._DB_PREFIX_."cart
-			SET id_order = ".$id_order."
-			WHERE id_cart = ".$_SESSION['cart']['id'];
+		if(isset($_SESSION['cart']['id'])){
+			$sql = "UPDATE "._DB_PREFIX_."cart
+				SET id_order = ".$id_order."
+				WHERE id_cart = ".$_SESSION['cart']['id'];
+		}
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
 			return false;
