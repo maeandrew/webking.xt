@@ -406,9 +406,24 @@ $(function(){
 	var window_width= $(window).width(); //ширина окна
 	var mainWindow = $('.main').outerHeight(); // высота главного блока
 	var main_nav = $('.main_nav').outerHeight(true);
-
+	//Смена ориентации экрана
 	window.addEventListener("orientationchange", function() {
 	   viewPort = $(window).height();
+	   window_width_rotate = $(window).width();
+	   if (over_scroll === false) {
+  			if (window_width_rotate >= 728) {
+	  			$('aside').css({
+	  				'position' : 'absolute',
+	  				'bottom' : 'auto',
+	  				'top' : 'auto'
+	  			});
+  			}else{
+  				$('aside').css({
+	  				'position' : 'fixed',
+	  				'top' : '52px'
+	  			});
+  			}
+	 	}
 	}, false);
 	$.cookie('mainWindow', mainWindow, { path: '/'});
 
@@ -475,6 +490,13 @@ $(function(){
   		if (IsMobile === true && window_width >= 728 && $('body').hasClass('no-sidebar') === false) {
   			$(this).removeClass('btn_js');
   		}
+  	});
+  	//Кнопка Каталог моб вид
+  	$('.catalog_btn').on('click', function(){
+  		$('aside').css({
+			'position' : 'fixed',
+			'top' : '52px'
+		});
   	});
 
 	//Возврат баннера если он скрыт

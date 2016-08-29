@@ -2210,6 +2210,10 @@ section .stat_year {
 		left: -260px;
 		right: auto;
 	}
+	[data-type="panel"][data-position="left"]{
+		left: 0;
+		right: auto;
+	}
 	[data-type="panel"][data-position="left"].opened {
 		left: 0;
 		right: auto;
