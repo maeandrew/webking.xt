@@ -394,7 +394,8 @@ div[for="rating_block"] {
     margin: 0 1em;
     cursor: default;
 }
-#comments .feedback_container .feedback_item [for^="is_admin_"]{
+#comments .feedback_container .feedback_item [for^="is_admin_"],
+#comments .feedback_container .feedback_item [for^="isBought_"]{
 	font-size: .9em;
 }
 #comments .feedback_container .feedback_item.feedback_reply .feedback_comment{
@@ -417,8 +418,23 @@ div[for="rating_block"] {
 	float: left;
 }
 #comments .feedback_container .feedback_date,
-#comments .feedback_container .feedback_item .isAdmin{
+#comments .feedback_container .feedback_item .isAdmin,
+#comments .feedback_container .feedback_item .isBought{
 	float: left;
+}
+#comments .feedback_container .feedback_item .isBought{
+	position: relative;
+	cursor: default;
+	margin: 0 1em;
+}
+#comments .feedback_container .feedback_item .isBought .check_circle{
+	position: absolute;
+    font-size: 14px;
+    color: #018b06;
+    border-radius: 50%;
+    background-color: #fff;
+    top: -4px;
+    left: 10px;
 }
 #comments .feedback_container .feedback_date,
 #comments .feedback_container .rating_stars li {
@@ -437,8 +453,8 @@ div[for="rating_block"] {
 	float: right;
 }
 #comments .feedback_hidden{
-	float: right;
 	color: #ff5722;
+	margin-left: .5em;
 }
 #comments .feedback_container .rating_stars {
 	overflow: hidden;

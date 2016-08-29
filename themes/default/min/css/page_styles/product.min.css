@@ -73,16 +73,18 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container .feedback_item{border-top:2px solid #ddd;padding:.5em}
 #comments .feedback_container .feedback_item.feedback_reply{margin-left:1em;border-top:1px solid #ddd}
 #comments .feedback_container .feedback_item .isAdmin i{vertical-align:middle;font-size:1.2em;color:#ff5722;margin:0 1em;cursor:default}
-#comments .feedback_container .feedback_item [for^=is_admin_]{font-size:.9em}
+#comments .feedback_container .feedback_item [for^=is_admin_],#comments .feedback_container .feedback_item [for^=isBought_]{font-size:.9em}
 #comments .feedback_container .feedback_item.feedback_reply .feedback_comment{font-style:italic}
 #comments .feedback_container .feedback_item>a{margin:1em;display:inline-block}
 #comments .feedback_container .feedback_item .feedback_comment_reply i{vertical-align:middle;font-size:1.2em}
 #comments .feedback_container .feedback_author{font-size:15px;font-weight:700;float:left}
-#comments .feedback_container .feedback_date,#comments .feedback_container .feedback_item .isAdmin{float:left}
+#comments .feedback_container .feedback_date,#comments .feedback_container .feedback_item .isAdmin,#comments .feedback_container .feedback_item .isBought{float:left}
+#comments .feedback_container .feedback_item .isBought{position:relative;cursor:default;margin:0 1em}
+#comments .feedback_container .feedback_item .isBought .check_circle{position:absolute;font-size:14px;color:#018b06;border-radius:50%;background-color:#fff;top:-4px;left:10px}
 #comments .feedback_container .feedback_date,#comments .feedback_container .rating_stars li{color:#9e9e9e;margin-left:5px}
 #comments .feedback_container .feedback_date i,#comments .feedback_container .rating_stars i{font-size:17px;vertical-align:sub;cursor:default}
 #comments .feedback_rating{display:inline-block;float:right}
-#comments .feedback_hidden{float:right;color:#ff5722}
+#comments .feedback_hidden{color:#ff5722;margin-left:.5em}
 #comments .feedback_container .rating_stars{overflow:hidden;margin-left:2px;float:right;line-height:17px}
 #comments .feedback_container .rating_stars li{float:left}
 #comments .feedback_container .rating_stars li{vertical-align:middle}
