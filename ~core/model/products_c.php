@@ -241,8 +241,11 @@ class Products {
 				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
 				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
 			END) AS name,
-			cm.date_comment, cm.visible, cm.rating, cm.pid_comment
+			cm.date_comment, cm.visible, cm.rating, cm.pid_comment,
+			(CASE WHEN o.id_order IS NOT NULL THEN 1 ELSE 0 END) AS purchase
 			FROM "._DB_PREFIX_."coment AS cm
+			LEFT JOIN "._DB_PREFIX_."order o ON o.id_customer = cm.author AND o.id_order_status = 2
+			LEFT JOIN "._DB_PREFIX_."osp osp ON osp.id_order = o.id_order
 			WHERE cm.url_coment = ".$id_product."
 			ORDER BY cm.date_comment ASC";
 		$arr = $this->db->GetArray($sql);
