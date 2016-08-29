@@ -439,6 +439,8 @@
 									<div class="feedback_item feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
 										<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
 										<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
+										<span class="isAdmin <?isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9))?'hidden':null;?>"><i id="is_admin_<?=$i['Id_coment']?>" class="material-icons">vpn_key</i></span>
+										<div class="mdl-tooltip" for="is_admin_<?=$i['Id_coment']?>">Администратор</div>
 										<span class="feedback_date"><i class="material-icons">query_builder</i>
 											<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($i['date_comment']))?>">
 											<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
@@ -471,16 +473,17 @@
 											</div>
 										<?}?>
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
-										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
+										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-isauthorized="<?=G::isLogged()?'true':'false';?>" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
 										<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
 
-										
-										
 										<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
 											<?foreach($i['answer'] as $a){?>
-												<div class="feedback_item feedback_reply feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
+												<div class="feedback_item feedback_reply feedback_item_js 
+													<?=$a['visible'] == 0 && !(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9)))?'hidden':'null';?>" itemprop="review" itemscope itemtype="http://schema.org/Review">
 													<?=$a['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
 													<span class="feedback_author" itemprop="author"><?=isset($a['name'])?$a['name']:'Аноним'?></span>
+													<span class="isAdmin <?isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9))?'hidden':null;?>"><i id="is_admin_<?=$a['Id_coment']?>" class="material-icons">vpn_key</i></span>
+													<div class="mdl-tooltip" for="is_admin_<?=$a['Id_coment']?>">Администратор</div>
 													<span class="feedback_date"><i class="material-icons">query_builder</i>
 														<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($a['date_comment']))?>">
 														<?if(date("d") == date("d", strtotime($a['date_comment']))){?>

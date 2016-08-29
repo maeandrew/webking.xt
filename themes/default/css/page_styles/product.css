@@ -387,6 +387,16 @@ div[for="rating_block"] {
 	margin-left: 1em;
 	border-top: 1px solid #ddd;
 }
+#comments .feedback_container .feedback_item .isAdmin i{
+	vertical-align: middle;
+    font-size: 1.2em;
+    color: #ff5722;
+    margin: 0 1em;
+    cursor: default;
+}
+#comments .feedback_container .feedback_item [for^="is_admin_"]{
+	font-size: .9em;
+}
 #comments .feedback_container .feedback_item.feedback_reply .feedback_comment{
 	font-style: italic;
 }
@@ -406,7 +416,8 @@ div[for="rating_block"] {
 	font-weight: bold;
 	float: left;
 }
-#comments .feedback_container .feedback_date {
+#comments .feedback_container .feedback_date,
+#comments .feedback_container .feedback_item .isAdmin{
 	float: left;
 }
 #comments .feedback_container .feedback_date,
@@ -424,6 +435,10 @@ div[for="rating_block"] {
 	display: inline-block;
 	/*clear: both;*/
 	float: right;
+}
+#comments .feedback_hidden{
+	float: right;
+	color: #ff5722;
 }
 #comments .feedback_container .rating_stars {
 	overflow: hidden;
