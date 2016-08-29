@@ -110,38 +110,12 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview .owl-carousel{overflow:visible!important}
 .preview #owl-product_slide_js{max-height:305px;margin-top:10px}
 .preview #owl-product_slide_js .owl-item img{max-height:305px;max-width:90%;display:block;margin:0 auto}
-.preview #owl-product_slideDown_js.owl-carousel{overflow:hidden!important}
-.preview #owl-product_slideDown_js.owl-carousel .owl-controls .owl-buttons div{width:20px}
-.preview #owl-product_slideDown_js.owl-carousel .owl-controls .owl-buttons div span{left:-9px}
-.preview #owl-product_slideDown_js{max-height:80px;padding:2px 0}
-.preview #owl-product_slideDown_js .item img{border:1px solid #d9d9d9;height:60px;max-width:100%;display:block;margin:0 auto}
-.preview h4{margin-top:10px;max-height:40px;overflow:hidden}
-.preview h4 a{color:#444}
-.preview .product_description{max-height:55px;overflow:hidden;margin-bottom:10px}
 .list_view .product_article{margin-left:0}
 .preview .product_name{font-size:1.5em;width:100%}
 .preview .tab-content .mdl-button{position:absolute;bottom:0;left:0;background-color:#fff;width:100%}
 .preview .tab-content .mdl-tabs__panel{position:relative}
-.preview .specifications{border-right:1px solid #f0f0f0}
-.preview .specifications ul{list-style:disc inside;color:#818181}
-.preview .specifications ul span{color:#444}
-.preview .specifications ul span.spec{display:inline-block;width:65%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.preview .specifications ul span.unit{display:inline-block;width:25%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.preview .preview_follprice{margin-top:5px}
-.preview .preview_follprice span.icon-font{font-size:17px;color:#666}
-.preview .rating{margin-top:10px;display:block}
-.preview .rating_stars{margin-right:10px;display:inline-block;vertical-align:middle}
-.preview form.note{margin-top:10px;width:100%}
-.preview .note textarea{width:100%}
 .preview .product_buy{height:100px}
-.preview .product_buy .other_price{text-align:center}
-.preview .info_delivery{display:inline-block;padding-top:10px}
 .preview .product_buy{width:100%}
-.preview #specifications ul li{clear:both;overflow:hidden}
-.preview #specifications ul li span{display:inline-block;width:50%;position:relative;background:#fff;box-sizing:border-box}
-.preview #specifications ul li span.caption{position:relative}
-.preview #specifications ul li span.caption:after{content:'';position:absolute;top:80%;width:100%;height:1px;border-bottom:1px solid #e0e0e0}
-.preview #specifications ul li span.value{padding-left:5px}
 .preview a[href="#specifications"],.preview a[href="#description"]{width:50%}
 .preview #specifications{border:1px solid #e0e0e0}
 .preview #specifications .mdl-grid:nth-of-type(odd){background:#f7f7f7}
