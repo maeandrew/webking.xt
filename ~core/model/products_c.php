@@ -1274,8 +1274,8 @@ class Products {
 			// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
 			$sql = "SELECT DISTINCT a.active, a.price_opt_otpusk, a.price_mopt_otpusk, s.available_today, pv.count_views,
-				".implode(", ",$this->usual_fields)."
-
+				".implode(", ",$this->usual_fields).",
+				(CASE WHEN p.price_opt = 0 THEN 0 ELSE 1 END) AS ordered
 				FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."assortiment AS a
 					ON a.id_product = p.id_product
@@ -1289,7 +1289,7 @@ class Products {
 					ON pv.id_product = p.id_product
 				WHERE ".(($gid == _ACL_SUPPLIER_)?"p.access_assort = 1 AND ":null) .$where."
 				".$group_by."
-				ORDER BY ".$order_by."
+				ORDER BY ordered DESC, ".$order_by."
 				".$limit;
 		}else{
 			if(!isset($params['rel_search'])){

@@ -99,8 +99,8 @@ if(!isset($sorting)){
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 	$available_sorting_values = array(
 		'popularity desc' => 'популярные',
-		'price_opt_otpusk asc' => 'от дешевых к дорогим',
-		'price_opt_otpusk desc' => 'от дорогих к дешевым',
+		'price_opt asc' => 'от дешевых к дорогим',
+		'price_opt desc' => 'от дорогих к дешевым',
 		'name asc' => 'по названию от А до Я',
 		'name desc' => 'по названию от Я до А',
 	);
