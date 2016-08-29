@@ -17,3 +17,14 @@ AND p.id_product not in (
     LEFT JOIN xt_category AS c
 		ON c.id_category = cp.id_category
 	WHERE c.sid = 1);
+
+
+-- active assortment with disabled suppliers
+SELECT *
+FROM xt_assortiment AS a
+LEFT JOIN xt_user AS u ON u.id_user = a.id_supplier
+WHERE a.active = 1
+AND u.active = 0;
+
+-- disable active assortment with disabled suppliers
+UPDATE xt_assortiment SET product_limit = 0, active = 0 WHERE (SELECT active FROM xt_user WHERE id_user = id_supplier) = 0;
