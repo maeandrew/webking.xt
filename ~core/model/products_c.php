@@ -233,7 +233,7 @@ class Products {
 	 * @param integer $id_product id товара
 	 */
 	public function GetComentByProductId($id_product){
-		$sql = "SELECT cm.Id_coment, cm.text_coment,
+		$sql = "SELECT cm.Id_coment, cm.text_coment, cm.author,
 			(CASE
 				WHEN cm.author = 4028 THEN cm.author_name
 				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)

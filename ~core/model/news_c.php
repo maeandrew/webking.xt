@@ -199,7 +199,7 @@ class News{
 
 	// Обновление статьи
 	public function UpdateNews($arr){
-		if(strpos($arr['thumb'], '/temp/')){
+		if(strpos($arr['thumb'], '\temp/')){
 			$images = new Images();
 			$path = $GLOBALS['PATH_news_img'].$arr['id_news'].'/';
 			$images->checkStructure($path);
@@ -209,7 +209,7 @@ class News{
 				rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
 				$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
 			}
-			$new_path = str_replace('temp/', trim($arr['id_news']).'/thumb_', $arr['thumb']);
+			$new_path = '/'.str_replace('\temp/', '/'.trim($arr['id_news']).'/thumb_', $arr['thumb']);
 			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].$new_path);
 			$arr['thumb'] = $new_path;
 		}
@@ -294,8 +294,8 @@ class News{
 			$path = $GLOBALS['PATH_news_img'].$id_news.'/';
 			$images->checkStructure($path);
 			foreach($images_arr as $src){
-				if(strpos($src, '/temp/')){
-					$new_path = str_replace('/temp/', '/'.$id_news.'/', $src);
+				if(strpos($src, '\temp/')){
+					$new_path = '/'.str_replace('\temp/', '/'.$id_news.'/', $src);
 					rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].$new_path);
 					$src = $new_path;
 				}

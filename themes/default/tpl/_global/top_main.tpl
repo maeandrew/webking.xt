@@ -44,7 +44,7 @@
 			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone">Корзина</span></a>
 		</div>
 		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone">
-			<?$rand = rand(0, count($list_menu)-1);?> 
+			<?$rand = rand(0, count($list_menu)-1);?>
 			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$list_menu[$rand]['title']?></a>
 		</div>
 		<div class="pages_list">
@@ -121,7 +121,7 @@
 		// 	$('.login_btn_hum').addClass('mdl-button--icon').empty().append('<i class="material-icons">account_circle</i>');
 		// 	var select_category = $('.search_wrapp .select_category').detach();
 		// }
-		
+
 		// var category = $('.category_search li.active').data('id-category');
 		// $('input[name="category2search"]').val(category);
 		// $('body').on('click', '.category_search li', function () {
@@ -129,7 +129,7 @@
 		// 	$('input[name="category2search"]').val(category);
 		// });
 
-		$('.search_wrapp .mob_s_btn').click(function(){ 
+		$('.search_wrapp .mob_s_btn').click(function(){
 			$('#header_js').addClass('opened').closest('.sidebar, .no-sidebar').addClass('active_bg').find('.search_wrapp input[type="search"]').focus();
 		});
 		$('.search_close').click(function(event) {
