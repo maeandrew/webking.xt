@@ -163,9 +163,7 @@ class Products {
 			MAX(a.active) AS active, a.price_mopt_otpusk, a.price_opt_otpusk, a.product_limit, p.name_index, pv.count_views, un.unit_prom,
 			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.edit_user) AS username,
-			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.create_user) AS createusername
+			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
 				ON cp.id_product = p.id_product
