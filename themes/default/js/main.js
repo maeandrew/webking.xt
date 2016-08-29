@@ -406,9 +406,25 @@ $(function(){
 	var window_width= $(window).width(); //ширина окна
 	var mainWindow = $('.main').outerHeight(); // высота главного блока
 	var main_nav = $('.main_nav').outerHeight(true);
-
+	//Смена ориентации экрана
 	window.addEventListener("orientationchange", function() {
 	   viewPort = $(window).height();
+	   window_width_rotate = $(window).width();
+	   $('.banner').css('height', 'auto');
+	   if (over_scroll === false) {
+  			if (window_width_rotate >= 728) {
+	  			$('aside').css({
+	  				'position' : 'absolute',
+	  				'bottom' : 'auto',
+	  				'top' : 'auto'
+	  			});
+  			}else{
+  				$('aside').css({
+	  				'position' : 'fixed',
+	  				'top' : '52px'
+	  			});
+  			}
+	 	}
 	}, false);
 	$.cookie('mainWindow', mainWindow, { path: '/'});
 
@@ -476,11 +492,19 @@ $(function(){
   			$(this).removeClass('btn_js');
   		}
   	});
+  	//Кнопка Каталог моб вид
+  	$('.catalog_btn').on('click', function(){
+  		$('aside').css({
+			'position' : 'fixed',
+			'top' : '52px'
+		});
+  	});
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
+			banner_height = $('.banner .cont').outerHeight();
 			$('.banner').animate({
 				height: banner_height
 			}, 300);
@@ -1990,7 +2014,7 @@ $(function(){
 		}
 	});
 	$('body').on('click', '.comment_reply_cancel_js', function(event){
-		event.preventDefault();		
+		event.preventDefault();
 		$(this).closest('.feedback_item_js').find('.reply_wrap').remove();
 		$(this).addClass('hidden').closest('.feedback_item_js').find('.feedback_comment_reply_js').removeClass('hidden');
 	});

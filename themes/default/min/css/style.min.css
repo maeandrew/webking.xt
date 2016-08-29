@@ -423,6 +423,7 @@ aside .filters .buttonsTop{width:245px}
 }
 @media (min-width:728px) and (max-width:1169px){aside{width:260px}
 .no-sidebar [data-type=panel][data-position=left]{left:-260px;right:auto}
+[data-type=panel][data-position=left]{left:0;right:auto}
 [data-type=panel][data-position=left].opened{left:0;right:auto}
 [data-type=panel][data-position=right]{right:-260px;left:auto}
 [data-type=panel][data-position=right].opened{right:0;left:auto}

@@ -475,7 +475,7 @@
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
 										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-isauthorized="<?=G::isLogged()?'true':'false';?>" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
 										<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
-
+										
 										<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
 											<?foreach($i['answer'] as $a){?>
 												<div class="feedback_item feedback_reply feedback_item_js 
@@ -693,7 +693,7 @@
 		<!-- Регулярка для вывода не более 3 слов названия товара в ссылке pattern="^[^\s]+\s[^\s]+\s[^\s]+\s" -->
 		<!--  старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
 			новый вариант регулярки которая работает но не до конца /^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/" -->
-		<p class="products_links_block_title">Рекомендуем для просмотра</p>
+		<p class="products_links_block_title">Другие товары</p>
 		<?foreach ($link_prods as $item) {
 			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $name);?>
 			<a href="<?=Link::Product($item['translit']);?>" class="product_link"><?=$name[0]?></a>
