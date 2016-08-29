@@ -233,7 +233,7 @@ class Products {
 	 * @param integer $id_product id товара
 	 */
 	public function GetComentByProductId($id_product){
-		$sql = "SELECT cm.Id_coment, cm.text_coment, cm.author,
+		$sql = "SELECT cm.Id_coment, cm.text_coment, cm.author AS id_author,
 			(CASE
 				WHEN cm.author = 4028 THEN cm.author_name
 				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
@@ -1359,12 +1359,16 @@ class Products {
 			}
 		}
 		$res = $this->db->GetArray($sql);
-		foreach ($res as &$v) {
-			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
-			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+		foreach($res as &$v){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 			for($i=0; $i<=3; $i++){
 				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
 				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+				$v['base_prices_opt'][$i] = round($v['price_opt']* $base_coef_price_opt[$i], 2);
+				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
 		if(!$res){
