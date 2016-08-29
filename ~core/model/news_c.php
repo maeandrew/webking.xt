@@ -199,19 +199,18 @@ class News{
 
 	// Обновление статьи
 	public function UpdateNews($arr){
-		if(strpos($arr['thumb'], '\temp/')){
+		if(strpos($arr['thumb'], '/temp/') !== false){
 			$images = new Images();
 			$path = $GLOBALS['PATH_news_img'].$arr['id_news'].'/';
 			$images->checkStructure($path);
+			$file = pathinfo($GLOBALS['PATH_global_root'].$arr['thumb']);
 			if(preg_match('/[А-Яа-яЁё]/u', $arr['thumb'])){
-				$file = pathinfo($GLOBALS['PATH_global_root'].$arr['thumb']);
-				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
-				rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
-				$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+				$file['filename'] = G::StrToTrans($file['filename']);
+				$file['basename'] = $file['filename'].'.'.$file['extension'];
 			}
-			$new_path = '/'.str_replace('\temp/', '/'.trim($arr['id_news']).'/thumb_', $arr['thumb']);
-			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].$new_path);
-			$arr['thumb'] = $new_path;
+			$new_file = $path.$file['basename'];
+			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
+			$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '/', $new_file);
 		}
 		$f['title']				= trim($arr['title']);
 		$f['descr_short']		= trim($arr['descr_short']);

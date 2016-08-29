@@ -81,7 +81,7 @@
 				<div id="photobox">
 					<div class="previews">
 						<?$id_news = $GLOBALS['REQAR'][1];?> <!-- получить ид новости -->
-						<?if(isset($id_news)) { 
+						<?if(isset($id_news)) {
 							if(isset($_POST['Img']) && !empty($_POST['Img'])){ // определить, есть ли у этой новости массив картинок
 								foreach($_POST['Img'] as $photo){
 									if(isset($photo['src'])){?>
@@ -187,7 +187,7 @@
 	var url = URL_base+"newsadd/";
 	$(function(){
 		//Удаление видео
-		$("body").on('click', '.remove_video', function() {
+		$('body').on('click', '.remove_video', function() {
 			if(confirm('Вы точно хотите удалить видео?')){
 				$(this).parent().remove();
 			}
@@ -196,47 +196,36 @@
 		//Загрузка миниатюры на сайт
 		var singledropzone = new Dropzone(".drop_zone_thumb", {
 			method: 'POST',
-			url: url+"?upload=true",
+			url: URL_base_global+'ajax?target=image&action=upload',
 			uploadMultiple: false,
 			clickable: true,
-			// acceptedFiles: '.jpeg,.png',
 			maxFiles: 1,
 			previewsContainer: '.thumbpreviews',
-			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML,
-			// init: function() {
-			// 	this.on("maxfilesexceeded", function(file) {
-			// 		this.removeAllFiles();
-			// 		this.addFile(file);
-			// 	});
-			// }
-		}).on('removedfile', function(file){			
-			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name;
-			$('.thumb_block').removeClass('hidden');
-			$('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+			previewTemplate: document.querySelector('#preview-thumbtemplate').innerHTML
+		}).on('success', function(file, value){
+			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+value+'">';
 		}).on('addedfile', function(file){
 			$('.thumbpreviews .image_block.preloaded').remove();
 			$('.thumb_block').addClass('hidden');
-		}).on('success', function(file, value){
-			file.previewElement.innerHTML += '<input type="hidden" name="thumb" value="'+value+'">';			
+		}).on('removedfile', function(file){
+			removed_file = file.name;
+			$('.thumb_block').removeClass('hidden');
+			$('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
 		});
 
 		//Загрузка Фото на сайт
 		var dropzone = new Dropzone(".drop_zone", {
 			method: 'POST',
-			url: url+"?upload=true",
+			url: URL_base_global+'ajax?target=image&action=upload',
 			clickable: true,
-			// acceptedFiles: 'image/jpeg,image/png',
 			previewsContainer: '.previews',
 			previewTemplate: document.querySelector('#preview-template').innerHTML
 		});
-		dropzone.on('addedfile', function(file){
-			//askaboutleave();
-		}).on('success', function(file, value){
+		dropzone.on('success', function(file, value){
 			file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+value+'">';
-			
-		}).on('removedfile', function(file){			
-			removed_file2 = '/news_images/'+ <?=$id_news?> +'/'+file.name; // физический путь картинки
-			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		}).on('removedfile', function(file){
+			removed_file = file.name; // физический путь картинки
+			$('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
 		});
 
 		//Сортировка фото
@@ -256,48 +245,47 @@
 		});
 
 		//Удаление ранее загруженных фото
-		$("body").on('click', '.del_photo_js', function(e) {
+		$('body').on('click', '.del_photo_js', function(e) {
 			//e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
-				var path = $(this).closest('.image_block'),
-					removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-				RemovedFile(path, removed_file);
+				var parent = $(this).closest('.image_block'),
+					removed_file = parent.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
+				RemovedFile(parent, removed_file);
 			}
 		});
-		$("body").on('click', '.del_miniphoto_js', function(e) {
+		$('body').on('click', '.del_miniphoto_js', function(e) {
 			//e.stopPropagation();
-			if(confirm('Изобрежение trhrty будет удалено.')){
-				var path = $(this).closest('.image_block'),
-					removed_file = path.find('input[name="thumb"]').val(); //  /news_images/482/cat.jpg
-					path.closest('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
-					path.remove();
-				// RemovedFile(path, removed_file);
+			if(confirm('Изобрежение будет удалено.')){
+				var parent = $(this).closest('.image_block'),
+					removed_file = parent.find('input[name="thumb"]').val(); //  /news_images/482/cat.jpg
+				parent.closest('.thumbpreviews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+				parent.remove();
 			}
 		});
 
 		//Удаление только что загруженных фото
-		$("body").on('click', '.del_u_photo_js', function(e) {
+		$('body').on('click', '.del_u_photo_js', function(e) {
 			e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
-				var path = $(this).closest('.image_block'),
-					removed_file = path.find('input[name="images[]"]').val().replace('/../','/');
-				RemovedFile(path, removed_file);
+				var parent = $(this).closest('.image_block'),
+					removed_file = parent.find('input[name="images[]"]').val().replace('/../','/');
+				RemovedFile(parent, removed_file);
 			}
 		});
-		$("body").on('click', '.del_t_photo_js', function(e) {
+		$('body').on('click', '.del_t_photo_js', function(e) {
 			e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
-				var path = $(this).closest('.image_block'),
-					removed_file = path.find('input[name="thumb"]').val();
+				var parent = $(this).closest('.image_block'),
+					removed_file = parent.find('input[name="thumb"]').val();
 					singledropzone.removeAllFiles();
 			}
 		});
 	});
 
-	function RemovedFile (path, removed_file){
-		path.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
-		path.remove();
-	}	
+	function RemovedFile(parent, removed_file){
+		parent.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
+		parent.remove();
+	}
 </script>
 
 
