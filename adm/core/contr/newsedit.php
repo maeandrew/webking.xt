@@ -34,11 +34,10 @@ if(isset($_POST['smb'])){
 				$file = pathinfo($GLOBALS['PATH_global_root'].$image);
 				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
 				rename($GLOBALS['PATH_global_root'].$image, $new_file);
-				$image = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+				$image = str_replace($GLOBALS['PATH_global_root'], '/', $new_file);
 			}
 		}
 	}
-
 	if(!$err){
 		if($News->UpdateNews($_POST)){
 			$News->UpdatePhoto($id, $_POST['images']);
