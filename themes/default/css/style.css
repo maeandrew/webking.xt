@@ -790,12 +790,12 @@ section.center {
 		margin: 0;
 		line-height: 32px;
 	}
-	#cart #percent td {
+	/*#cart #percent td {
 		padding: 0 1em 0.25em 0;
-	}
-	#cart #percent td:nth-child(2n+1) {
+	}*/
+	/*#cart #percent td:nth-child(2n+1) {
 		color: #9E9E9E;
-	}
+	}*/
 	#cart .order_wrapp {
 		clear: both;
 		border-left: 1px solid #e0e0e0;
@@ -817,9 +817,9 @@ section.center {
 		text-align: center;
 		border-right: 1px solid #e0e0e0;
 	}
-	#cart .cart_info .mdl-button {
+	/*#cart .cart_info .mdl-button {
 		margin-left: 105%;
-	}
+	}*/
 	#cart ul.order_head li:last-child {
 		border-right: none;
 	}
@@ -863,9 +863,9 @@ section.center {
 	#cart .card .product_buy .buy_block .price {
 		font-size: 1em;
 	}
-	#cart .card .remove_prod_mob {
+	/*#cart .card .remove_prod_mob {
 		display: none;
-	}
+	}*/
 	#cart .card .remove_prod {
 		float: right;
 		height: 100px;
@@ -945,7 +945,7 @@ section.center {
 	#cart #total .total div:last-of-type {
 		border-right: none;
 	}
-	#cart #total .total .positions,
+	/*#cart #total .total .positions,*/
 	#cart #total .total .total_summ {
 		text-align: right;
 		width: 50%;
@@ -955,11 +955,11 @@ section.center {
 		float: left;
 		text-align: right;
 	}
-	#cart .order_balance {
+	/*#cart .order_balance {
 		clear: left;
 		padding: 10px;
 		width: calc(100% - 300px);
-	}
+	}*/
 	#cart .err_msg {
 		margin-bottom: 10px;
 		color: #f00;
@@ -2295,9 +2295,9 @@ section .stat_year {
 	#cart {
 		padding: 15px;
 	}
-	#cart #percent td {
+	/*#cart #percent td {
 		padding: 0 0.2em;
-	}
+	}*/
 }
 @media (max-width: 780px) {
 	.list_view .products .product_buy {
@@ -2414,9 +2414,9 @@ section .stat_year {
 	#cart .info_key {
 		top: 15px;
 	}
-	#cart .order_balance {
+	/*#cart .order_balance {
 		display: none;
-	}
+	}*/
 	#cart #total {
 		width: 100%;
 		border: none;
@@ -3076,9 +3076,9 @@ canvas[id^=chart_]{
 	#cart .cart {
 		height: 200px;
 	}
-	#cart .order_balance {
+	/*#cart .order_balance {
 		padding-left: 1em;
-	}
+	}*/
 }
 @media (max-width: 727px) {
 	.card .product_info {
@@ -3135,9 +3135,9 @@ canvas[id^=chart_]{
 	.product_buy .price {
 		float: left;
 	}
-	#cart .order_balance {
+	/*#cart .order_balance {
 		padding-left: .1em;
-	}
+	}*/
 }
 @media (max-width: 360px) {
 	footer .copyright {
