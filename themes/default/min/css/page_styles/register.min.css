@@ -3,5 +3,3 @@
 .register_page p input[type=checkbox]{vertical-align:middle}
 .register_page button{margin-top:10px}
 .register_page .reg_success h4{text-align:center;margin:50px}
-@media (max-width:772px){.center_wrap .register_page .reg_success a{float:none;margin:0 auto;width:100%;margin-bottom:20px}
-}
