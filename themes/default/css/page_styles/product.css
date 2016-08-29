@@ -454,7 +454,13 @@ div[for="rating_block"] {
 }
 #comments .feedback_hidden{
 	color: #ff5722;
-	margin-left: .5em;
+	margin-left: 1em;
+}
+@media (max-width: 480px){
+	#comments .feedback_hidden{
+		margin-left: 0;
+		float: right;
+	}
 }
 #comments .feedback_container .rating_stars {
 	overflow: hidden;

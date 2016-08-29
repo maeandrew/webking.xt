@@ -84,7 +84,9 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container .feedback_date,#comments .feedback_container .rating_stars li{color:#9e9e9e;margin-left:5px}
 #comments .feedback_container .feedback_date i,#comments .feedback_container .rating_stars i{font-size:17px;vertical-align:sub;cursor:default}
 #comments .feedback_rating{display:inline-block;float:right}
-#comments .feedback_hidden{color:#ff5722;margin-left:.5em}
+#comments .feedback_hidden{color:#ff5722;margin-left:1em}
+@media (max-width:480px){#comments .feedback_hidden{margin-left:0;float:right}
+}
 #comments .feedback_container .rating_stars{overflow:hidden;margin-left:2px;float:right;line-height:17px}
 #comments .feedback_container .rating_stars li{float:left}
 #comments .feedback_container .rating_stars li{vertical-align:middle}
