@@ -877,6 +877,9 @@ footer {
 .list.comment_list th div.del_btn_wrap a{
 	color: red;
 }
+.list.comment_list th .resp_to_comment{
+	margin-left: 1em;
+}
 .list.comment_list th .comment_text{
 	text-align: justify;
 }

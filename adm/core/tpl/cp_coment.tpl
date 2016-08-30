@@ -19,7 +19,11 @@
 					<thead>
 						<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
 							<th class="left">
-								<div><a href="/product/<?=$i['translit']?>" class="bold_text">#<?=$i['Id_coment']?></a></div>
+								<div><a href="/product/<?=$i['translit']?>" class="bold_text">#<?=$i['Id_coment']?></a>
+									<?if($i['pid_comment'] != ''){?>
+										<span class="resp_to_comment">Ответ на отзыв #<?=$i['pid_comment']?></span>
+									<?}?>
+								</div>
 								<div><span class="bold_text">Автор:</span> <?=$i['username']?></div>
 								<div class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></div>
 								<div class="comment_text bold_text"><?=$i['text_coment']?></div>
@@ -33,8 +37,10 @@
 								</div>
 							</th>
 							<th class="right np actions" colspan="3">
-								<?=!$i['visible']?'<span class="invisible">скрытый</span>':null?>
-								<div><span class="bold_text">Оценка:</span> <?=$i['rating']?>/5</div>
+								<?=!$i['visible']?'<span class="invisible" style="color: red;">скрытый</span>':null?>
+								<?if($i['pid_comment'] == ''){?>
+									<div><span class="bold_text">Оценка:</span> <?=$i['rating']?>/5</div>
+								<?}?>
 								<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)">
 								<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t Удалить</a></div>
 							</th>

@@ -306,6 +306,11 @@ div[for="rating_block"] {
 #specifications ul li span.value {
 	padding-left: 5px;
 }*/
+#comments .for_anonim{
+	font-size: 1.2em;
+	color: #9e9e9e;
+	padding: 1em;
+}
 #comments .feedback_form h4,
 #comments .feedback_container h4 {
 	text-align: center;
@@ -389,10 +394,10 @@ div[for="rating_block"] {
 }
 #comments .feedback_container .feedback_item .isAdmin i{
 	vertical-align: middle;
-    font-size: 1.2em;
-    color: #ff5722;
-    margin: 0 1em;
-    cursor: default;
+	font-size: 1.2em;
+	color: #ff5722;
+	margin: 0 1em;
+	cursor: default;
 }
 #comments .feedback_container .feedback_item [for^="is_admin_"],
 #comments .feedback_container .feedback_item [for^="isBought_"]{
@@ -429,12 +434,12 @@ div[for="rating_block"] {
 }
 #comments .feedback_container .feedback_item .isBought .check_circle{
 	position: absolute;
-    font-size: 14px;
-    color: #018b06;
-    border-radius: 50%;
-    background-color: #fff;
-    top: -4px;
-    left: 10px;
+	font-size: 14px;
+	color: #018b06;
+	border-radius: 50%;
+	background-color: #fff;
+	top: -4px;
+	left: 10px;
 }
 #comments .feedback_container .feedback_date,
 #comments .feedback_container .rating_stars li {

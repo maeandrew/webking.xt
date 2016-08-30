@@ -388,47 +388,51 @@
 					<?}?>
 				</div>
 				<div id="comments" class="mdl-tabs__panel">
-					<div class="feedback_form">
-						<h4>Оставить отзыв о товаре</h4>
-						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
-							<div class="feedback_stars">
-								<label class="label_for_stars">Оценка:</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="1">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="2">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="3">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="4">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="5">
-									<i class="star material-icons">star_border</i>
-								</label>
-							</div>
-							<label for="feedback_text">Отзыв:</label>
-							<textarea name="feedback_text" id="feedback_text" cols="30" required></textarea>
-							<div class="user_data <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'hidden';?>">
-								<div class="fild_wrapp">
-									<label for="feedback_author">Ваше имя:</label>
-									<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
+					<?if(!G::isLogged()){?>
+						<div class="for_anonim">Хотите оставить отзыв о товаре? <a href="#" class="btn_js" data-name="auth">Ввойдите в свой аккаунт</a>.</div>
+					<?}else{?>
+						<div class="feedback_form">
+							<h4>Оставить отзыв о товаре</h4>
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
+								<div class="feedback_stars">
+									<label class="label_for_stars">Оценка:</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="1">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="2">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="3">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="4">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="5">
+										<i class="star material-icons">star_border</i>
+									</label>
 								</div>
-								<div class="fild_wrapp">
-									<label for="feedback_authors_email">Эл.почта:</label>
-									<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
+								<label for="feedback_text">Отзыв:</label>
+								<textarea name="feedback_text" id="feedback_text" cols="30" required></textarea>
+								<div class="user_data <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'hidden';?>">
+									<div class="fild_wrapp">
+										<label for="feedback_author">Ваше имя:</label>
+										<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
+									</div>
+									<div class="fild_wrapp">
+										<label for="feedback_authors_email">Эл.почта:</label>
+										<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
+									</div>
 								</div>
-							</div>
-							<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Отправить отзыв</button>
-						</form>
-					</div>
+								<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Отправить отзыв</button>
+							</form>
+						</div>
+					<?}?>
 					<div class="feedback_container">
 						<?if(empty($comment)){?>
 							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
