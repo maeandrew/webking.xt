@@ -406,9 +406,25 @@ $(function(){
 	var window_width= $(window).width(); //ширина окна
 	var mainWindow = $('.main').outerHeight(); // высота главного блока
 	var main_nav = $('.main_nav').outerHeight(true);
-
+	//Смена ориентации экрана
 	window.addEventListener("orientationchange", function() {
 	   viewPort = $(window).height();
+	   window_width_rotate = $(window).width();
+	   $('.banner').css('height', 'auto');
+	   if (over_scroll === false) {
+  			if (window_width_rotate >= 728) {
+	  			$('aside').css({
+	  				'position' : 'absolute',
+	  				'bottom' : 'auto',
+	  				'top' : 'auto'
+	  			});
+  			}else{
+  				$('aside').css({
+	  				'position' : 'fixed',
+	  				'top' : '52px'
+	  			});
+  			}
+	 	}
 	}, false);
 	$.cookie('mainWindow', mainWindow, { path: '/'});
 
@@ -476,11 +492,19 @@ $(function(){
   			$(this).removeClass('btn_js');
   		}
   	});
+  	//Кнопка Каталог моб вид
+  	$('.catalog_btn').on('click', function(){
+  		$('aside').css({
+			'position' : 'fixed',
+			'top' : '52px'
+		});
+  	});
 
 	//Возврат баннера если он скрыт
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
+			banner_height = $('.banner .cont').outerHeight();
 			$('.banner').animate({
 				height: banner_height
 			}, 300);
@@ -1982,12 +2006,17 @@ $(function(){
 	// feedback_comment_reply_js
 	$('body').on('click', '.feedback_comment_reply_js', function(event){
 		event.preventDefault();
-		$(this).closest('.feedback_item_js').find('comment_reply_cancel_js').removeClass('hidden');
-		$(this).closest('.feedback_item_js').append('<div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><div class="user_data hidden"><div class="fild_wrapp"><label for="feedback_author">Ваше имя:</label><input type="text" name="feedback_author" id="feedback_author" required value="Петя"></div><div class="fild_wrapp"><label for="feedback_authors_email">Эл.почта:</label><input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="petya@gmail.com"></div></div><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>');
+		if($(this).attr('data-isauthorized') == 'false'){
+			openObject('auth');
+		}else{
+			$(this).addClass('hidden').closest('.feedback_item_js').find('.comment_reply_cancel_js').removeClass('hidden');
+			$(this).closest('.feedback_item_js').append('<div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><div class="user_data hidden"><div class="fild_wrapp"><label for="feedback_author">Ваше имя:</label><input type="text" name="feedback_author" id="feedback_author" required value="Петя"></div><div class="fild_wrapp"><label for="feedback_authors_email">Эл.почта:</label><input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="petya@gmail.com"></div></div><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>');
+		}
 	});
-	$('body').on('click', '.comment_reply_cancel_js', function(event){		
-		$(this).closest('.feedback_item_js').find('reply_wrap').remove();
-		$(this).addClass('hidden');
+	$('body').on('click', '.comment_reply_cancel_js', function(event){
+		event.preventDefault();
+		$(this).closest('.feedback_item_js').find('.reply_wrap').remove();
+		$(this).addClass('hidden').closest('.feedback_item_js').find('.feedback_comment_reply_js').removeClass('hidden');
 	});
 });
 

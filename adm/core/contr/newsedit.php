@@ -30,15 +30,21 @@ if(isset($_POST['smb'])){
 	//Добавление фото
 	if(isset($_POST['images'])){
 		foreach($_POST['images'] as &$image){
-			if(preg_match('/[А-Яа-яЁё]/u', $image)){
+			if(strpos($image, '/temp/') !== false){
+				$Images = new Images();
+				$path = $GLOBALS['PATH_news_img'].$_POST['id_news'].'/';
+				$Images->checkStructure($path);
 				$file = pathinfo($GLOBALS['PATH_global_root'].$image);
-				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
+				if(preg_match('/[А-Яа-яЁё]/u', $image)){
+					$file['filename'] = G::StrToTrans($file['filename']);
+					$file['basename'] = $file['filename'].'.'.$file['extension'];
+				}
+				$new_file = $path.$file['basename'];
 				rename($GLOBALS['PATH_global_root'].$image, $new_file);
-				$image = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+				$image = str_replace($GLOBALS['PATH_global_root'], '/', $new_file);
 			}
 		}
 	}
-
 	if(!$err){
 		if($News->UpdateNews($_POST)){
 			$News->UpdatePhoto($id, $_POST['images']);
@@ -85,4 +91,3 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
-?>

@@ -16,6 +16,9 @@ class Cart {
 		$products = new Products();
 		$products->SetFieldsById($data['id_product'], 1);
 		$product = $products->fields;
+		if($product['price_mopt'] == 0){
+			$product['min_mopt_qty'] = $product['inbox_qty'];
+		}
 		$quantity = $data['quantity'];
 		$note = isset($data['note_opt']) && !empty($data['note_opt'])?$data['note_opt']:(isset($data['note_mopt']) && !empty($data['note_mopt'])?$data['note_mopt']:'');
 		if(isset($data['button']) && $data['button']){
@@ -44,7 +47,8 @@ class Cart {
 				}
 			}
 		}
-		if($quantity < $product['inbox_qty']){
+		$quantity = $quantity>$product['min_mopt_qty']?$quantity:$product['min_mopt_qty'];
+		if($quantity < $product['inbox_qty'] || $product['price_opt'] == 0){
 			$mode = 'mopt';
 			$other_mode = 'opt';
 		}else{

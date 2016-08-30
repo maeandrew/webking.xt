@@ -25,7 +25,6 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 				</div>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
-					<!-- <div class="product_block"> -->
 						<div class="product_photo">
 							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 								<div class="<?=$st['class']?>"></div>
@@ -81,19 +80,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 									<p>Поле для ввода примечания к товару.</p>
 								</div>
 							</div>
-							<!-- <form action="<?=$_SERVER['REQUEST_URI']?>" class="note <?=$item['note_control'] != 0?'note_control':null?>" data-note="<?=$item['id_product']?>">
-								<textarea cols="30" rows="3" placeholder="Примечание к заказу" ><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
-								<label class="info_key">?</label>
-								<div class="info_description">
-									<p>Поле для ввода примечания к товару.<br>
-										<?if($item['note_control'] != 0){?>
-											<b>Обязательное</b> для заполнения!
-										<?}?>
-									</p>
-								</div>
-							</form> -->
 						</div>
-					<!-- </div> -->
 					<?$in_cart = false;
 					if(isset($_SESSION['cart']['products'][$item['id_product']])){
 						$in_cart = true;
@@ -361,7 +348,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
-					
+
 					<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 						<?if(isset($item['c_mark']) && $item['c_mark'] > 0){?>
 							<meta itemprop="worstRating" content="1">

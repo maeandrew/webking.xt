@@ -21,7 +21,6 @@ header .header_wrapp .logo {
 }
 header .header_wrapp .logo a {
 	display: block;
-	
 }
 header .header_wrapp .logo img {
 	max-height: 32px;
@@ -33,7 +32,7 @@ header .header_wrapp .header_right {
 }
 
 header .header_wrapp .header_right > div {
-	margin-left: 1em; 
+	margin-left: 1em;
 	position: relative;
 	display: inline-block;
 }
@@ -154,10 +153,9 @@ header .header_wrapp .header_right .profile img {
 	max-height: 100%;
 	vertical-align: top;
 }
-header .header_wrapp .header_right .phone_menu {
+/*header .header_wrapp .header_right .phone_menu {
 	margin: 0;
-}
-
+}*/
 @media (max-width: 1000px) {
 	header {
 		margin-left: 0px;
@@ -276,5 +274,5 @@ header .userContainer > div {
 }
 .menuUserInfBtn:hover {
 	background-color: #eee;
-	cursor: pointer;	
+	cursor: pointer;
 }

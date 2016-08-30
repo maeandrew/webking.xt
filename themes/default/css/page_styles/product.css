@@ -367,7 +367,6 @@ div[for="rating_block"] {
 	/*padding: 15px 0;*/
 }
 #comments .feedback_container h4{
-	border-bottom: 1px solid #ddd;
 	padding: .3em 0;
 }
 /*#comments .feedback_container .feedback_sub_container {
@@ -381,8 +380,34 @@ div[for="rating_block"] {
 	font-style: italic;
 }*/
 #comments .feedback_container .feedback_item{
-	border-top: 1px solid #ddd;
+	border-top: 2px solid #ddd;
 	padding: .5em;
+}
+#comments .feedback_container .feedback_item.feedback_reply{
+	margin-left: 1em;
+	border-top: 1px solid #ddd;
+}
+#comments .feedback_container .feedback_item .isAdmin i{
+	vertical-align: middle;
+    font-size: 1.2em;
+    color: #ff5722;
+    margin: 0 1em;
+    cursor: default;
+}
+#comments .feedback_container .feedback_item [for^="is_admin_"],
+#comments .feedback_container .feedback_item [for^="isBought_"]{
+	font-size: .9em;
+}
+#comments .feedback_container .feedback_item.feedback_reply .feedback_comment{
+	font-style: italic;
+}
+#comments .feedback_container .feedback_item > a{
+	margin: 1em;
+	display: inline-block;
+}
+#comments .feedback_container .feedback_item .feedback_comment_reply i{
+	vertical-align: middle;
+	font-size: 1.2em;
 }
 /*#comments .feedback_container .feedback_item:first-child{
 	border: none;
@@ -392,8 +417,24 @@ div[for="rating_block"] {
 	font-weight: bold;
 	float: left;
 }
-#comments .feedback_container .feedback_date {
+#comments .feedback_container .feedback_date,
+#comments .feedback_container .feedback_item .isAdmin,
+#comments .feedback_container .feedback_item .isBought{
 	float: left;
+}
+#comments .feedback_container .feedback_item .isBought{
+	position: relative;
+	cursor: default;
+	margin: 0 1em;
+}
+#comments .feedback_container .feedback_item .isBought .check_circle{
+	position: absolute;
+    font-size: 14px;
+    color: #018b06;
+    border-radius: 50%;
+    background-color: #fff;
+    top: -4px;
+    left: 10px;
 }
 #comments .feedback_container .feedback_date,
 #comments .feedback_container .rating_stars li {
@@ -411,6 +452,16 @@ div[for="rating_block"] {
 	/*clear: both;*/
 	float: right;
 }
+#comments .feedback_hidden{
+	color: #ff5722;
+	margin-left: 1em;
+}
+@media (max-width: 480px){
+	#comments .feedback_hidden{
+		margin-left: 0;
+		float: right;
+	}
+}
 #comments .feedback_container .rating_stars {
 	overflow: hidden;
 	margin-left: 2px;
@@ -427,6 +478,7 @@ div[for="rating_block"] {
 	padding-top: 5px;
 	clear: both;
 	text-align: justify;
+	line-height: 1.4em;
 }
 
 #comments .feedback_container .reply_wrap{
@@ -706,7 +758,7 @@ div[for="rating_block"] {
 .product_link {
 	display: block;
 	background: #fff;
-	padding: 10px;
+	padding: 5px 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 }

@@ -435,10 +435,15 @@
 						<?}else{?>
 							<h4>Отзывы клиентов</h4>
 							<?foreach($comment as $i){
-								if(_acl::isAdmin() || $i['visible'] == 1){?>
+								if(_acl::isAdmin() || $i['visible'] == 1 || ($i['visible'] == 0 && isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $i['id_author'])){?>
 									<div class="feedback_item feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
-										<?=$i['visible'] == 0?'<span class="feedback_hidden">Скрытый</span>':null;?>
+										<?=$i['visible'] == 0?'<span class="feedback_hidden">'.(_acl::isAdmin()?'Скрытый':'На модерации').'</span>':null;?>
 										<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
+										<span id="isBought_<?=$i['Id_coment']?>" class="isBought <?=$i['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
+										<div class="mdl-tooltip" for="isBought_<?=$i['Id_coment']?>">Клиент купил<br>данный товар</div>
+									<!-- 	<span class="isAdmin <?=$i['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$i['Id_coment']?>" class="material-icons">vpn_key</i></span>
+										<div class="mdl-tooltip" for="is_admin_<?=$i['Id_coment']?>">Администратор</div> -->
+
 										<span class="feedback_date"><i class="material-icons">query_builder</i>
 											<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($i['date_comment']))?>">
 											<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
@@ -471,8 +476,32 @@
 											</div>
 										<?}?>
 										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
-										<a href="#" class="feedback_comment_reply_js" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i>Ответить</a>
-										<a href="#" class="comment_reply_cancel_js hidden">Отмена</a>
+										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-isauthorized="<?=G::isLogged()?'true':'false';?>" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
+										<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
+
+										<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
+											<?foreach($i['answer'] as $a){?>
+												<div class="feedback_item feedback_reply feedback_item_js<?=(_acl::isAdmin() || $a['visible'] == 1 || ($a['visible'] == 0 && isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $a['id_author']))?null:' hidden';?>" itemprop="review" itemscope itemtype="http://schema.org/Review">
+													<?=$a['visible'] == 0?'<span class="feedback_hidden">'.(_acl::isAdmin()?'Скрытый':'На модерации').'</span>':null;?>
+													<span class="feedback_author" itemprop="author"><?=isset($a['name'])?$a['name']:'Аноним'?></span>
+													<span id="isBought_<?=$a['Id_coment']?>" class="isBought <?=$a['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
+													<div class="mdl-tooltip" for="isBought_<?=$a['Id_coment']?>">Клиент купил<br>данный товар</div>
+													<!-- 	<span class="isAdmin <?=$a['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$a['Id_coment']?>" class="material-icons">vpn_key</i></span>
+													<div class="mdl-tooltip" for="is_admin_<?=$a['Id_coment']?>">Администратор</div> -->
+													<span class="feedback_date"><i class="material-icons">query_builder</i>
+														<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($a['date_comment']))?>">
+														<?if(date("d") == date("d", strtotime($a['date_comment']))){?>
+															Сегодня
+														<?}elseif(date("d")-1 == date("d", strtotime($a['date_comment']))){?>
+															Вчера
+														<?}else{
+															echo date("d.m.Y", strtotime($a['date_comment']));
+														}?>
+													</span>
+													<p class="feedback_comment" itemprop="description"><?=$a['text_coment'];?></p>
+												</div>
+											<?}?>
+										<?}?>
 									</div>
 								<?}
 							}
@@ -668,7 +697,7 @@
 		<!-- Регулярка для вывода не более 3 слов названия товара в ссылке pattern="^[^\s]+\s[^\s]+\s[^\s]+\s" -->
 		<!--  старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
 			новый вариант регулярки которая работает но не до конца /^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/" -->
-		<p class="products_links_block_title">Рекомендуем для просмотра</p>
+		<p class="products_links_block_title">Другие товары</p>
 		<?foreach ($link_prods as $item) {
 			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $name);?>
 			<a href="<?=Link::Product($item['translit']);?>" class="product_link"><?=$name[0]?></a>

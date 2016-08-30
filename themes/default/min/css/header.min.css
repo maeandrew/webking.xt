@@ -32,7 +32,6 @@ header .header_wrapp .header_right .cart_item i{vertical-align:middle}
 header .header_wrapp .header_right .cart_item span{margin-left:.5em}
 header .header_wrapp .header_right .pages_list nav{max-height:80vh;overflow:auto}
 header .header_wrapp .header_right .profile img{max-height:100%;vertical-align:top}
-header .header_wrapp .header_right .phone_menu{margin:0}
 @media (max-width:1000px){header{margin-left:0}
 }
 .user_profile{padding:0!important}

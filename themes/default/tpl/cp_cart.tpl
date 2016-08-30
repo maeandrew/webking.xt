@@ -233,28 +233,6 @@
 			</div>
 		</div>
 		<div class="order_balance_cart">
-			<!-- <table id="percent">
-				<tr <?=$percent == 0 ? '': "style='display:none'"?>>
-					<td>Добавьте:</td>
-					<td><?=round(500-$cart_sum,2)?>грн</td>
-					<td>Получите скидку:</td>
-					<td>50грн (10%)</td>
-				</tr>
-				<tr <?=($percent == 0 || $percent == 10) ? '': "style='display:none'"?>>
-					<td><?=$percent == 10 ? 'Добавьте:' : ''?></td>
-					<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(3000-$cart_sum,2)?>грн</td>
-					<td><?=$percent == 10 ? 'Получите скидку:' : ''?></td>
-					<td <?=($percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>480грн (16%)</td>
-				</tr>
-				<tr <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "style='display:none'"?>>
-					<td><?=$percent == 16 ? 'Добавьте:' : ''?></td>
-					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>><?=round(10000-$cart_sum,2)?>грн</td>
-					<td><?=$percent == 16 ? 'Получите скидку:' : ''?></td>
-					<td <?=($percent == 10 || $percent == 0) ? "style=\"color: #9E9E9E\"" : ''?>>2100грн (21%)</td>
-				</tr>
-				<tr><td><?=$percent == 21 ? 'Ваша скидка 21%' : ''?></td></tr>
-			</table> -->
-
 			<div id="discountBlock">
 				<div id="discountTable">
 					<div class="mediaDiscountBlocks">
@@ -557,7 +535,7 @@
 			// Инициалзация маски для ввода телефонных номеров
 			$(".phone").mask("+38 (099) ?999-99-99");
 			// Создание заказа, нового пользователя только с телефоном (start)
-			$('.remove_prod i, .remove_prod_mob').on('click', function(e){
+			$('.remove_prod i').on('click', function(e){
 				$(this).closest('.card').addClass('hidden');
 				$('#removingProd').removeClass('hidden');
 			});

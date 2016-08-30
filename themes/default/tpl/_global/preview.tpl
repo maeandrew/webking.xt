@@ -8,7 +8,7 @@
 
 	<div class="mdl-cell mdl-cell--12-col product_name">
 		<a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
-	</div>	
+	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
 		<div id="owl-product_slide_js">
@@ -45,7 +45,7 @@
 								<input class="priceOpt<?=$i?>" value="<?=$product['prices_opt'][$i]?>">
 								<input class="priceMopt<?=$i?>" value="<?=$product['prices_mopt'][$i]?>">
 							<?}?>
-						</div>	
+						</div>
 						<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 							<div id="in_cart_<?=$product['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$product['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 							<div class="mdl-tooltip" for="in_cart_<?=$product['id_product'];?>">Товар в корзине</div>

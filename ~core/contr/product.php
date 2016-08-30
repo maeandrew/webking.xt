@@ -1,5 +1,5 @@
 <?php
-if(!isset($GLOBALS['Rewrite'])){
+if(!isset($GLOBALS['Rewrite']) || !$Products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
 	header('Location: '.Link::Custom('404'));
 	exit();
 }
@@ -12,10 +12,6 @@ if(isset($_SESSION['member'])){
 	$User->SetUser($_SESSION['member']);
 }
 $tpl->Assign('User', $User->fields['name']);
-if(!$Products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
-	header('Location: '.Link::Custom('404'));
-	exit();
-}
 $product = $Products->fields;
 G::metaTags($product);
 $id_product = $product['id_product'];
@@ -94,11 +90,7 @@ if(isset($residprod) && !in_array($residprod, $array)){
 }
 
 // Выборка похожих товаров
-if(!$Products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
-	// header('Location: '._base_url.'/404/');
-	exit();
-}
-if (isset($cat)) {
+if(isset($cat)){
 	$id_category = $cat['id_category'];
 	$limit = 15;
 	//$similar_products = $Products->GetRelatedProducts($id_product, $id_category);
