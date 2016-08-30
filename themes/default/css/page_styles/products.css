@@ -355,6 +355,52 @@ label.info_key {
 .list_view .product_section .product_info .service_block .available_today {
 	margin-top: 4px;
 }
+
+@media (max-width: 1023px) {
+	.list_view .products .card .suplierPriceBlock .count_cell .suplierPriceBlockLabel,
+	.list_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel {
+		display: block;
+		margin-right: 10px;
+		line-height: 24px;
+	}
+	.suplierPriceBlock {
+		float: left;
+		width: calc(100% - 130px);
+		flex-wrap: wrap;
+	}
+	.products .card_tittle .card_item,
+	.products .card .price,
+	.products .card .count_cell,
+	.products .card .product_check {
+		width: 48%;
+		display: flex;
+	}
+}
+@media (max-width: 833px) {
+	.products .card_tittle .card_item,
+	.products .card .price,
+	.products .card .count_cell,
+	.products .card .product_check {
+		width: 100%;
+		display: flex;
+	}
+}
+@media (max-width: 440px) {
+	.suplierPriceBlock {
+		width: 100%;
+		margin-top: 10px;
+	}
+	.products .card_tittle .card_item,
+	.products .card .price,
+	.products .card .count_cell,
+	.products .card .product_check {
+		justify-content: center;
+	}
+	.products .card .product_check .mdl-checkbox {
+		width: 30px;
+	}
+}
+
 /* Отображения списка товаров для профиля контрагента */
 /* BLOCK VIEW ================================================================= */
 .block_view .products {
