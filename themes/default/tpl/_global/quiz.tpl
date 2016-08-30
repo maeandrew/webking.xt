@@ -42,7 +42,7 @@
 			if(isset($saved_addresses)){?>
 				<div class="quiz_header">
 					<h6>Здравствуйте, <?=$customer['first_name']?> <?=$customer['middle_name']?>! Меня зовут <?=$contragent?> и я сопровождаю Ваш заказ.</h6>
-					<span>Вы уже указывали свой адрес. Хотите использовать его или добавить добавить новый?</span>
+					<span>Вы уже указывали свой адрес. Хотите использовать его или добавить новый?</span>
 				</div>
 				<div class="quiz_content">
 					<form action="<?=$_SERVER['REQUEST_URI']?>" class="mdl-grid">

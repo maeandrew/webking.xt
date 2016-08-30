@@ -171,6 +171,17 @@
 				}
 				echo $echo;
 				break;
+			case 'getAddress':
+				if(isset($_REQUEST['id'])){
+					$address = $Address->GetAddressById($_REQUEST['id']);
+				}
+				echo json_encode($address);
+			case 'deleteAddress':
+				if(isset($_REQUEST['id'])){
+					$Address->DeleteAddress($_REQUEST['id']);
+				}
+				echo json_encode(true);
+				break;
 			default:
 				break;
 		}

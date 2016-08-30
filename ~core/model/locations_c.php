@@ -9,11 +9,11 @@ class Address {
 	public function GetListByUserId($id_user){
 		$sql = "SELECT a.*, lr.title AS region, lc.title AS city,
 			sc.title AS shipping_company, ld.title AS delivery
-			FROM "._DB_PREFIX_."address a
-			LEFT JOIN "._DB_PREFIX_."locations_delivery_type ld ON ld.id = a.id_delivery_service
-			LEFT JOIN "._DB_PREFIX_."locations_cities lc ON lc.id = a.id_city
-			LEFT JOIN "._DB_PREFIX_."locations_regions lr ON lr.id = a.id_region
-			LEFT JOIN "._DB_PREFIX_."shipping_companies sc ON sc.id = a.id_delivery_service
+			FROM "._DB_PREFIX_."address AS a
+			LEFT JOIN "._DB_PREFIX_."locations_delivery_type AS ld ON ld.id = a.id_delivery
+			LEFT JOIN "._DB_PREFIX_."locations_cities AS lc ON lc.id = a.id_city
+			LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = a.id_region
+			LEFT JOIN "._DB_PREFIX_."shipping_companies AS sc ON sc.id = a.id_delivery_service
 			WHERE a.id_user = ".$id_user;
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
@@ -164,6 +164,13 @@ class Address {
 		$id_address = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return $id_address;
+	}
+	public function DeleteAddress($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."address WHERE id = ".$id;
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		$this->db->CompleteTrans();
+		return true;
 	}
 
 	public function GetShippingCompanies($courier = false){
