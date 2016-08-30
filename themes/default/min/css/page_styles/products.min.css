@@ -127,7 +127,6 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview .supplier_block .price{margin-right:10px}
 .available_today{padding:5px}
 .service_block{text-align:right;display:flex;float:none;margin-top:5px;margin-bottom:5px}
-.clear_card{clear:both}
 #comment_question{width:400px}
 #comment_question p{margin-bottom:10px}
 #comment_question textarea{width:100%;margin-bottom:10px;resize:vertical;border-radius:3px}
