@@ -22,7 +22,7 @@
 					<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
 						<td>
 							<div><a href="/product/<?=$i['translit']?>">#<?=$i['Id_coment']?></a></div>
-							<div>Клиент: <?=$i['name_author']?></div>
+							<div>Автор: <?=$i['username']?></div>
 							<div class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></div>
 							<div><?=$i['text_coment']?></div>
 							<div>Товар: <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
