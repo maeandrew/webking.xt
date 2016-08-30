@@ -855,6 +855,16 @@ footer {
 .listnb .np {
 	padding: 0px;
 }
+.list.comment_list td div{
+	margin: .5em 0;
+}
+.list.comment_list td div.btn_wrap .btn_answer{
+	margin-right: 2em;
+}
+.list.comment_list td div.del_btn_wrap{
+	margin-top: 1em;
+}
+
 
 /* PAGINATOR */
 
