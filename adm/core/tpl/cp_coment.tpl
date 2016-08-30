@@ -25,8 +25,10 @@
 								<div class="comment_text bold_text"><?=$i['text_coment']?></div>
 								<div class="prod_title"><span class="bold_text">Товар:</span> <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
 								<div class="btn_wrap">
-									<a class="btn-m-green btn_answer adm_comment_reply_js" href="#" data-idComment="<?=$i['Id_coment']?>" data-username="<?=$_SESSION['member']['name']?>" data-idproduct="<?=$i['url_coment']?>" data-useremail="<?=$_SESSION['member']['email']?>">Ответить</a>
-									<a class="btn-m btn_answer adm_comment_reply_cancel_js hidden" href="#">Скрыть</a>
+									<?if($i['pid_comment'] == ''){?>
+										<a class="btn-m-green btn_answer adm_comment_reply_js" href="#" data-idComment="<?=$i['Id_coment']?>" data-username="<?=$_SESSION['member']['name']?>" data-idproduct="<?=$i['url_coment']?>" data-useremail="<?=$_SESSION['member']['email']?>">Ответить</a>
+										<a class="btn-m btn_answer adm_comment_reply_cancel_js hidden" href="#">Скрыть</a>
+									<?}?>
 									<a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a>
 								</div>
 							</th>
