@@ -391,8 +391,6 @@
 					<div class="feedback_form">
 						<h4>Оставить отзыв о товаре</h4>
 						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
-							<input type="hidden" name="id_product" value="<?=$item['id_product']?>" >
-							<input type="hidden" name="product_translit" value="<?=$item['translit']?>" >
 							<div class="feedback_stars">
 								<label class="label_for_stars">Оценка:</label>
 								<label>

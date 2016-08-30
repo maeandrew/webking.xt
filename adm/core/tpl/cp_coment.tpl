@@ -26,7 +26,7 @@
 							<div class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></div>
 							<div><?=$i['text_coment']?></div>
 							<div>Товар: <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
-							<div class="btn_wrap"><a class="btn-m-green btn_answer" href="#">Ответить</a><a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['id_product']?>" target="_blank">e Перейти к товару</a></div>
+							<div class="btn_wrap"><a class="btn-m-green btn_answer" href="#">Ответить</a><a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a></div>
 						</td>
 						<td class="right np actions">
 							<?=!$i['visible']?'<span class="invisible">скрытый</span>':null?>
