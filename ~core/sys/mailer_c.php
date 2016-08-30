@@ -9,7 +9,7 @@ class Mailer extends PHPMailer {
 	public $FromName = null;
 	public $Sender = null;
 	public $echo = false;
-  
+
 	public function __construct(){
 		$mcfg = $GLOBALS['MAIL_CONFIG'];
 
@@ -196,15 +196,15 @@ class Mailer extends PHPMailer {
 	// Отсылка письма поставщикам с накладной поставщика
 	public function SendOrderInvoicesToAllSuppliers($id_order){
 		global $db;
-		
+
 		$Order = new Orders();
 		$Order->SetFieldsById($id_order);
-		
+
 		// Устанавливаем тему письма
 		$this->Subject = "Накладная поставщика по заказу № ".$id_order;
-		
-		$sql = "SELECT DISTINCT u.id_user AS id_supplier, u.email, u.name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."osp osp 
-				WHERE (u.id_user=osp.id_supplier 
+
+		$sql = "SELECT DISTINCT u.id_user AS id_supplier, u.email, u.name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."osp osp
+				WHERE (u.id_user=osp.id_supplier
 				OR u.id_user=osp.id_supplier_mopt)
 				AND osp.id_order=".$db->Quote($id_order);
 		$arr = $db->GetArray($sql);
@@ -214,7 +214,7 @@ class Mailer extends PHPMailer {
 			// Добавляем адрес в список получателей
 			$this->isHTML(true);
 			$this->AddAddress($i['email'], $i['name']);
-			
+
 			$this->Body = "Поступил заказ № ".$id_order."<br>".
 				"Накладная поставщика - <a href=\"http://".$_SERVER['SERVER_NAME']."/invoice_supplier/".$id_order."/".$i['id_supplier']."/".$Order->fields['skey']."\">".$_SERVER['SERVER_NAME']."/invoice_supplier/".$id_order."/".$i['id_supplier']."/".$Order->fields['skey']."</a>";
 			if(!$this->Send()){
@@ -230,8 +230,8 @@ class Mailer extends PHPMailer {
 		}
 		return $return;
 	}
-	
-	
+
+
 	// Отсылка письма контрагенту со ссылками на претензии по накладным  покупателя и контрагета
 	public function SendOrderPretInvoicesToContragent($id_order){
 		global $db;
@@ -336,11 +336,11 @@ class Mailer extends PHPMailer {
 		for($mail_ii = 0; $mail_ii < $link_mail; $mail_ii += 1) {
 			$sql = "SELECT DISTINCT  email, name, md5(id_user) FROM "._DB_PREFIX_."user WHERE news = 1 LIMIT ".$mail_ii.", 1";
 			$arr = $db->GetArray($sql);
-			//print_r($arr); exit();  	
-			
+			//print_r($arr); exit();
+
 			// Устанавливаем тему письма
 			$this->Subject = "Новости оптового интернет-магазина ".$_SERVER['SERVER_NAME'];
-			foreach ($arr as $i){		
+			foreach ($arr as $i){
 				//замедлитель рассылки
 
 				// Задаем тело письма
@@ -380,8 +380,8 @@ class Mailer extends PHPMailer {
 		// Добавляем адрес в список получателей
 		$sql = "SELECT DISTINCT email, name, md5(id_user) FROM "._DB_PREFIX_."user WHERE news=1";
 		$arr = $db->GetArray($sql);
-		//print_r($arr); exit();  	
-		
+		//print_r($arr); exit();
+
 		// Устанавливаем тему письма
 		$this->Subject = "Новости оптового интернет-магазина ".$_SERVER['SERVER_NAME'];
 		foreach($arr as $i){
