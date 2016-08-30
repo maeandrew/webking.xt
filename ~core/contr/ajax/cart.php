@@ -192,6 +192,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$Products->SetProductsListFromArr($arr, '');
 					$list = $Products->list;
 					foreach($list as $key => &$value){
+						if($value['visible'] == 0){
+							$_SESSION['cart']['unvisible_products'][] = $value;
+							unset($list[$key], $_SESSION['cart']['products'][$value['id_product']]);
+							break;
+						}
 						if(isset($_SESSION['errm']['products'][$value['id_product']])){
 							$value['err'] = 1;
 							$value['errm'] = $_SESSION['errm']['products'][$value['id_product']];
