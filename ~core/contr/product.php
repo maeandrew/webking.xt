@@ -52,7 +52,6 @@ if(isset($_POST['sub_com'])){
 	$text = stripslashes($text);
 	$rating = isset($_POST['rating'])?$_POST['rating']:0;
 	$pid_comment = isset($_POST['pid_comment'])?$_POST['pid_comment']:false;
-
 	if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){
 		$author = 007;
 		$author_name = $_SESSION['member']['id_user'];

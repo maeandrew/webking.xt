@@ -3,6 +3,21 @@ if(!_acl::isAllow('news')){
 	die("Access denied");
 }
 $News = new News();
+
+// если администратором был написан ответ к комментарию
+if(isset($_POST['sub_com'])){
+	$Products = new Products();
+	$text = nl2br($_POST['feedback_text'], false);
+	$text = stripslashes($text);
+	$rating = isset($_POST['rating'])?$_POST['rating']:0;
+	$pid_comment = isset($_POST['pid_comment'])?$_POST['pid_comment']:false;
+	$author = $_SESSION['member']['id_user'];
+	$author_name = $_SESSION['member']['name'];
+	$authors_email = $_SESSION['member']['email'];
+	$id_product = $_POST['url_coment'];
+	$Products->SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating, $pid_comment, 1);
+}
+
 // ---- center ----
 unset($parsed_res);
 $h1 = 'Вопросы по товару';
