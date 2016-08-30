@@ -856,7 +856,13 @@ footer {
 	padding: 0px;
 }
 .list.comment_list td div{
-	margin: .5em 0;
+	margin: 1em 0;
+}
+.bold_text{
+	font-weight: 500;
+}
+.list.comment_list td.right{
+	padding: 10px 15px;
 }
 .list.comment_list td div.btn_wrap .btn_answer{
 	margin-right: 2em;
@@ -865,16 +871,13 @@ footer {
 	margin-top: 1em;
 }
 .list.comment_list td .comment_text{
-	font-weight: 500;
 	text-align: justify;
 }
 .list.comment_list td .prod_title{
 	color: #959595;
 }
 
-
 /* PAGINATOR */
-
 
 .paginator {
 	display: block;
