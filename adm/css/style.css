@@ -855,26 +855,45 @@ footer {
 .listnb .np {
 	padding: 0px;
 }
-.list.comment_list td div{
+.list.comment_list th div{
 	margin: 1em 0;
 }
-.bold_text{
+.list.comment_list .bold_text{
 	font-weight: 500;
 }
-.list.comment_list td.right{
+.list.comment_list tr{
+	border-bottom: 1px solid #cccccc;
+	/*background-color: #c7eeff;*/
+}
+.list.comment_list th{
 	padding: 10px 15px;
 }
-.list.comment_list td div.btn_wrap .btn_answer{
+.list.comment_list th div.btn_wrap .btn_answer{
 	margin-right: 2em;
 }
-.list.comment_list td div.del_btn_wrap{
+.list.comment_list th div.del_btn_wrap{
 	margin-top: 1em;
 }
-.list.comment_list td .comment_text{
+.list.comment_list th div.del_btn_wrap a{
+	color: red;
+}
+.list.comment_list th .comment_text{
 	text-align: justify;
 }
-.list.comment_list td .prod_title{
+.list.comment_list th .prod_title{
 	color: #959595;
+}
+.list.comment_list tbody textarea{
+	box-sizing: border-box;
+    width: 98%;
+    min-height: 70px;
+}
+.list.comment_list tbody .new_comment td{
+	padding: 1em 0 1em 3em;
+}
+.list.comment_list tbody .new_comment button{
+	display: block;
+    margin-top: .5em;
 }
 
 /* PAGINATOR */

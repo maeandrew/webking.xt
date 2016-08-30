@@ -6,41 +6,46 @@
 <?if(isset($list) && count($list)){?>
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 comment_list">
-			<col width="95%">
-			<col width="5%">
+			<col width="80%">
+			<col width="20%">
 			<thead>
-			  <tr>
-				<td class="left">Информация о комментарии</td>
-				<td class="left" colspan="3"></td>
-			  </tr>
+				<tr>
+					<td class="left">Информация о комментарии</td>
+					<td class="left" colspan="3"></td>
+				</tr>
 			</thead>
-			<tbody>
 			<?foreach ($list as $i){?>
 				<?$interval = date_diff(date_create(date("d.m.Y", strtotime($i['date_comment']))), date_create(date("d.m.Y")));?>
-					<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
-						<td>
-							<div><a href="/product/<?=$i['translit']?>" class="bold_text">#<?=$i['Id_coment']?></a></div>
-							<div><span class="bold_text">Автор:</span> <?=$i['username']?></div>
-							<div class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></div>
-							<div class="comment_text bold_text"><?=$i['text_coment']?></div>
-							<div class="prod_title"><span class="bold_text">Товар:</span> <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
-							<div class="btn_wrap"><a class="btn-m-green btn_answer adm_comment_reply_js" href="#">Ответить</a><a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a></div>
-						</td>
-						<td class="right np actions" colspan="3">
-							<?=!$i['visible']?'<span class="invisible">скрытый</span>':null?>
-							<div><span class="bold_text">Оценка:</span> <?=$i['rating']?>/5</div>
-							<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)">
-							<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t Удалить</a></div>
-						</td>
-					</tr>
+					<thead>
+						<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
+							<th class="left">
+								<div><a href="/product/<?=$i['translit']?>" class="bold_text">#<?=$i['Id_coment']?></a></div>
+								<div><span class="bold_text">Автор:</span> <?=$i['username']?></div>
+								<div class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></div>
+								<div class="comment_text bold_text"><?=$i['text_coment']?></div>
+								<div class="prod_title"><span class="bold_text">Товар:</span> <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
+								<div class="btn_wrap">
+									<a class="btn-m-green btn_answer adm_comment_reply_js" href="#">Ответить</a>
+									<a class="btn-m btn_answer adm_comment_reply_cancel_js hidden" href="#">Скрыть</a>
+									<a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a>
+								</div>
+							</th>
+							<th class="right np actions" colspan="3">
+								<?=!$i['visible']?'<span class="invisible">скрытый</span>':null?>
+								<div><span class="bold_text">Оценка:</span> <?=$i['rating']?>/5</div>
+								<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)">
+								<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t Удалить</a></div>
+							</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
 				<?}?>
-				<tr>
+			<!-- 	<tr>
 					<td>&nbsp;</td>
 					<td class="center"><input class="btn-m-default-inv" type="submit" name="smb" id="form_submit" value="&uarr;&darr;"></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-				</tr>
-			</tbody>
+				</tr> -->
 		</table>
 	</form>
 <?}else{?>
