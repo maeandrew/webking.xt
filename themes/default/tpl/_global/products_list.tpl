@@ -200,7 +200,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
 					<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
 				<?}?>
-				<div class="clear_card"></div>
+				<div class="clearBoth"></div>
 			</div>
 		<?}
 	    break;
@@ -214,7 +214,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="count_cell card_item">Кол-во<br>в ящике</div>
 				<div class="product_check card_item">Добавить в<br>ассортимент</div>
 			</div>
-			<div class="clear_card"></div>
+			<div class="clearBoth"></div>
 		</div><?
 		foreach($list as $item){
 			$product_mark = '';
@@ -298,7 +298,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						</label>
 					</div>
 				</div>
-				<div class="clear_card"></div>
+				<div class="clearBoth"></div>
 			</div>
 		<?}
     	break;
@@ -443,7 +443,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					<div id="ordered-<?=$item['id_product'];?>" class="icon material-icons ordered">check_circle</div>
 					<div class="mdl-tooltip" for="ordered-<?=$item['id_product'];?>">Вы уже заказывали<br>этот товар ранее</div>
 				<?}?>
-				<div class="clear_card"></div>
+				<div class="clearBoth"></div>
 			</div>
 		<?}
 }?>

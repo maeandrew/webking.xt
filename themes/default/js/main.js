@@ -750,36 +750,36 @@ $(function(){
 		}
 	});
 
-	$('#icon_graph').on('click', function(){
-		//$(document.body).click(function () {
-		  if ($("div.stat_years").is(":hidden")) {
-			/*$("div.stat_years").slideDown("slow").removeClass('hidden');*/
-			$("div.stat_years").slideDown("slow");
-		  } else {
-			$("div.stat_years").slideUp("slow");
-		  }
-		//});
-	  });
+	// $('#icon_graph').on('click', function(){
+	// 	//$(document.body).click(function () {
+	// 	  if ($("div.stat_years").is(":hidden")) {
+	// 		$("div.stat_years").slideDown("slow").removeClass('hidden');
+	// 		$("div.stat_years").slideDown("slow");
+	// 	  } else {
+	// 		$("div.stat_years").slideUp("slow");
+	// 	  }
+	// 	//});
+	//   });
 
-	$('.down_graph').on('click', function(){
-		$("div.stat_year").slideUp("slow");
-			$('.ones').css('opacity', '0');
-			$(".graph_up").removeClass('hidden').animate({
-				opacity: 0.6
-			}, 1500 ).css({
-				'transform': 'rotate(30deg)',
+	// $('.down_graph').on('click', function(){
+	// 	$("div.stat_year").slideUp("slow");
+	// 		$('.ones').css('opacity', '0');
+	// 		$(".graph_up").removeClass('hidden').animate({
+	// 			opacity: 0.6
+	// 		}, 1500 ).css({
+	// 			'transform': 'rotate(30deg)',
 
-			});
-	  });
+	// 		});
+	//   });
 
-	$(".graph_up").on('click', function(){
-		$(this).addClass('hidden');
-		$("div.stat_year").eq(0).slideDown("slow");
-		//$('.ones').css('opacity', '1').setTimeout(function(){}, 2000);
-		setTimeout(function(){
-			$('.ones').css('opacity', '1');
-		}, 600);
-	});
+	// $(".graph_up").on('click', function(){
+	// 	$(this).addClass('hidden');
+	// 	$("div.stat_year").eq(0).slideDown("slow");
+	// 	//$('.ones').css('opacity', '1').setTimeout(function(){}, 2000);
+	// 	setTimeout(function(){
+	// 		$('.ones').css('opacity', '1');
+	// 	}, 600);
+	// });
 
 	$('body').on('click', '.show_demand_chart_js, .chart_edit_js', function(){
 		ModalDemandChart($(this).data('idcategory'));

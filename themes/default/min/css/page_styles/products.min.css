@@ -36,6 +36,16 @@ label.info_key{position:absolute;top:10px;right:4px}
 .list_view .products .card_tittle .product_name{margin-top:10px}
 .list_view .products .card .suplierPriceBlock .count_cell .suplierPriceBlockLabel,.list_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel{display:none}
 .list_view .product_section .product_info .service_block .available_today,.list_view .product_section .product_info .service_block .timerIcon{margin-top:4px}
+@media (max-width:1023px){.list_view .products .card .suplierPriceBlock .count_cell .suplierPriceBlockLabel,.list_view .products .card .suplierPriceBlock .product_check .suplierPriceBlockLabel{display:block;margin-right:10px;line-height:24px}
+.suplierPriceBlock{float:left;width:calc(100% - 130px);flex-wrap:wrap}
+.products .card .count_cell,.products .card .price,.products .card .product_check,.products .card_tittle .card_item{width:48%;display:flex}
+}
+@media (max-width:833px){.products .card .count_cell,.products .card .price,.products .card .product_check,.products .card_tittle .card_item{width:100%;display:flex}
+}
+@media (max-width:440px){.suplierPriceBlock{width:100%;margin-top:10px}
+.products .card .count_cell,.products .card .price,.products .card .product_check,.products .card_tittle .card_item{justify-content:center}
+.products .card .product_check .mdl-checkbox{width:30px}
+}
 .block_view .products{display:flex;flex-wrap:wrap;margin:0 -10px}
 .block_view .products .card{width:calc(20% - 20px);margin:10px;position:relative}
 .block_view .products .card a{line-height:20px}
@@ -127,7 +137,6 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview .supplier_block .price{margin-right:10px}
 .available_today{padding:5px}
 .service_block{text-align:right;display:flex;float:none;margin-top:5px;margin-bottom:5px}
-.clear_card{clear:both}
 #comment_question{width:400px}
 #comment_question p{margin-bottom:10px}
 #comment_question textarea{width:100%;margin-bottom:10px;resize:vertical;border-radius:3px}
