@@ -1,4 +1,8 @@
 <?php
+if(!isset($GLOBALS['Rewrite']) || !$Products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
+	header('Location: '.Link::Custom('404'));
+	exit();
+}
 $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
@@ -8,10 +12,6 @@ if(isset($_SESSION['member'])){
 	$User->SetUser($_SESSION['member']);
 }
 $tpl->Assign('User', $User->fields['name']);
-if(!isset($GLOBALS['Rewrite']) || !$Products->SetFieldsByRewrite($GLOBALS['Rewrite'], 1)){
-	header('Location: '.Link::Custom('404'));
-	exit();
-}
 $product = $Products->fields;
 G::metaTags($product);
 $id_product = $product['id_product'];
