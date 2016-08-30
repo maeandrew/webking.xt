@@ -92,7 +92,7 @@ class News{
 				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
 			END) AS username,
 			cm.url_coment,cm.author, cm.date_comment, cm.text_coment,
-			cm.visible, p.name
+			cm.visible, p.name, cm.rating, p.translit
 			FROM "._DB_PREFIX_."coment AS cm
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON cm.url_coment = p.id_product
