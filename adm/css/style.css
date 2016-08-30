@@ -864,6 +864,13 @@ footer {
 .list.comment_list td div.del_btn_wrap{
 	margin-top: 1em;
 }
+.list.comment_list td .comment_text{
+	font-weight: 500;
+	text-align: justify;
+}
+.list.comment_list td .prod_title{
+	color: #959595;
+}
 
 
 /* PAGINATOR */

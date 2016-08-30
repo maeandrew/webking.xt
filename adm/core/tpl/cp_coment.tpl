@@ -24,13 +24,13 @@
 							<div><a href="/product/<?=$i['translit']?>">#<?=$i['Id_coment']?></a></div>
 							<div>Автор: <?=$i['username']?></div>
 							<div class="date"><?=date("d.m.Y", strtotime($i['date_comment']))?></div>
-							<div><?=$i['text_coment']?></div>
-							<div>Товар: <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
+							<div class="comment_text"><?=$i['text_coment']?></div>
+							<div class="prod_title">Товар: <?=$i['name']?></div><!-- <a href="<?='/adm/productedit/'.$i['url_coment']?>">Товар: <?=$i['name']?></a> -->
 							<div class="btn_wrap"><a class="btn-m-green btn_answer" href="#">Ответить</a><a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a></div>
 						</td>
 						<td class="right np actions">
 							<?=!$i['visible']?'<span class="invisible">скрытый</span>':null?>
-							<div>Оценка: 3/5 <?=$i['rating']?></div>
+							<div>Оценка: <?=$i['rating']?>/5</div>
 							Видимость <input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)">
 							<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t Удалить</a></div>
 						</td>
