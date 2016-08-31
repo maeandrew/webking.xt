@@ -85,6 +85,9 @@
 						if(isset($_POST['id_address'])){
 							$echo['success'] = true;
 							$echo['target_step'] = 4;
+							if(isset($_SESSION['member']['last_order'])){
+								$Orders->SetOrderAddress($_SESSION['member']['last_order'], $_POST['id_address']);
+							}
 						}else{
 							if($Customers->UpdateCustomer($_POST)){
 								$echo['success'] = true;
@@ -111,7 +114,9 @@
 						if($id_address = $Address->AddAddress($data)){
 							$echo['success'] = true;
 						}
-						// $Orders->SetOrderAddress($_SESSION['member']['last_order'], $id_address);
+						if(isset($_SESSION['member']['last_order'])){
+							$Orders->SetOrderAddress($_SESSION['member']['last_order'], $id_address);
+						}
 						break;
 					default:
 						$echo['msg'] = 'No one step was sent';

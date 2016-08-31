@@ -37,7 +37,7 @@
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
 					<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
 						<option value=""></option>
-						<?foreach($allregions as $region){ ?>
+						<?foreach($allregions as $region){?>
 							<option value="<?=$region['title']?>"><?=$region['title']?></option>
 						<?}?>
 					</select>
@@ -125,7 +125,7 @@
 			</div>
 		</fieldset>
 		<div class="buttons_cab">
-			<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
+			<button name="save_delivery" type="submit" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored save_delivery_js">Сохранить</button>
 		</div>
 	</form>
 </div>
@@ -150,6 +150,19 @@
 			ajax('location', 'getAddress', {id: id_address}).done(function(response){
 				console.log(response);
 			});
+		});
+		$('.save_delivery_js').on('click', function(e){
+			var check = true;
+			$(this).closest('form').find('select').each(function(a){
+				if ($(this).val() === null || $(this).val() === '') {
+					$(this).closest('div').addClass('is-invalid');
+					e.preventDefault();
+					check = false;
+				}
+			});
+			if (check === true){
+				$('.save_delivery_js').trigger('click');
+			}
 		});
 	});
 </script>

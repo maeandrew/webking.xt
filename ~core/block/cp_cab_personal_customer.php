@@ -104,6 +104,7 @@ if(isset($_POST['save_delivery'])){
 	}else{
 		$tpl->Assign('msg', array('type' => 'success', 'text' => 'Адрес успешно сохранен.'));
 	}
+	header("Location: ".$_SERVER["HTTP_REFERER"]);
 }
 $tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.(isset($_GET['t'])?$_GET['t']:'contacts').'.tpl'));
 $parsed_res = array(

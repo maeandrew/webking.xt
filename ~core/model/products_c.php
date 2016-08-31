@@ -4757,4 +4757,50 @@ class Products {
 		}
 		return $arr;
 	}
+
+	// Выбор товаров для добавления категории
+	public function getArrayProductsById($id_products, $sort = false){
+		$sql = "SELECT id_product, `name`, art, translit
+				FROM "._DB_PREFIX_."product	WHERE id_product IN (".implode(', ', $id_products).")".
+				($sort!==false?$sort:'');
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		foreach ($arr as &$v){
+			$v['images'] = $this->GetPhotoById($v['id_product'], true);
+			$v['videos'] = $this->GetVideoById($v['id_product']);
+		}
+		return $arr;
+	}
+
+	// Добавление/обновление категории у товара
+	public function FillCategoryByIdProduct($id_category, $id_products, $main)
+	{
+		if ($main == 1) {
+			$sql = "DELETE FROM " . _DB_PREFIX_ . "cat_prod
+				WHERE id_product IN (" . implode(', ', $id_products) . ")";
+			$this->db->StartTrans();
+			if (!$this->db->Query($sql)) {
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+		}
+		foreach ($id_products as $v) {
+			$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
+			(id_category, id_product, main) (".$id_category.", ".$v.", ".$main.")";
+			$sql2 = "UPDATE "._DB_PREFIX_."product
+			SET edit_user = ".$_SESSION['member']['id_user']." , edit_date = '".date('Y-m-d H:m:i')."'  WHERE id_product = ".$v;
+			$this->db->StartTrans();
+			if (!$this->db->Query($sql) || !$this->db->Query($sql2)) {
+			$this->db->FailTrans();
+			return false;
+			}
+			$this->db->CompleteTrans();
+		}
+		return true;
+	}
+
+
 }
