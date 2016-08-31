@@ -23,7 +23,9 @@ if(isset($_POST['save_bonus'])){
 }
 $ii = count($GLOBALS['IERA_LINKS'])-1;
 $tpl->Assign('Customer', $Customer->fields);
-$tpl->Assign('msg', array('type' => 'info', 'text' => 'Вы получили бонусную карту? Пришло время ее активировать!<br>Для этого заполните форму ниже, что поможет нам сделать Ваши покупки проще, а работу с нами - приятнее.'));
+if(!$Customer->fields['bonus_card']){
+	$tpl->Assign('msg', array('type' => 'info', 'text' => 'Вы получили бонусную карту? Пришло время ее активировать!<br>Для этого заполните форму ниже, что поможет нам сделать Ваши покупки проще, а работу с нами - приятнее.'));
+}
 if(isset($_GET['success'])){
 	$tpl->Assign('msg', array('type' => 'success', 'text' => 'Бонусная карта сохранена'));
 }elseif(isset($_GET['error'])){
