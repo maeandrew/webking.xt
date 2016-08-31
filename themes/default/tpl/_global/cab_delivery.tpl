@@ -37,7 +37,7 @@
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
 					<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
 						<option value=""></option>
-						<?foreach($allregions as $region){ ?>
+						<?foreach($allregions as $region){?>
 							<option value="<?=$region['title']?>"><?=$region['title']?></option>
 						<?}?>
 					</select>
