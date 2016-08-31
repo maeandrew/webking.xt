@@ -1,17 +1,5 @@
 <h1>Мой бонусный счет</h1>
 <a class="bonus_detalies" href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details"><i class="material-icons">help_outline</i> Детали бонусной программы</a>
-<!-- <?if(!$Customer['bonus_card']){?>
-	<div class="msg-info bonus_info">
-		<div class="msg_icon">
-			<i class="material-icons hidden">check_circle</i>
-			<i class="material-icons">info</i>
-			<i class="material-icons hidden">warning</i>
-			<i class="material-icons hidden">error</i>
-		</div>
-	    <p class="msg_title">!</p>
-	    <p class="msg_text"></p>
-	</div>
-<?}?> -->
 <?if(!$Customer['bonus_card'] && isset($msg)){?>
 	<div class="msg-<?=$msg['type']?> bonus_info">
 		<div class="msg_icon">

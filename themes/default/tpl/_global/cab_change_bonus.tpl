@@ -1,22 +1,12 @@
 <h1><?=$Customer['bonus_card']?'Смена бонусной карты':'Активация бонусной карты'?></h1>
 <a class="bonus_detalies" href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details"><i class="material-icons">help_outline</i> Детали бонусной программы</a>
 <?if(!$Customer['bonus_card'] && isset($msg)){?>
-	<!-- <div class="msg-info bonus_info">
-		<div class="msg_icon">
-			<i class="material-icons hidden">check_circle</i>
-			<i class="material-icons">info</i>
-			<i class="material-icons hidden">warning</i>
-			<i class="material-icons hidden">error</i>
-		</div>
-	    <p class="msg_title">!</p>
-	    <p class="msg_text"></p>
-	</div> -->
-	<div class="msg-<?=$msg['type']?>">
+	<div class="msg-<?=$msg['type']?> bonus_info">
 		<div class="msg_icon">
 			<i class="material-icons"></i>
 		</div>
-		<p class="msg_title">!</p>
-		<p class="msg_text"><?=$msg['text']?></p>
+	    <p class="msg_title">!</p>
+	    <p class="msg_text"><?=$msg['text']?></p>
 	</div>
 <?}?>
 <form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" class="bonus_content">
