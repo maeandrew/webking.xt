@@ -8,10 +8,10 @@
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 comment_list">
 			<col width="80%">
 			<col width="20%">
-			<thead>
+			<thead class="main_thead">
 				<tr>
-					<td class="left">Информация о комментарии</td>
-					<td class="left" colspan="3"></td>
+					<th class="left">Информация об отзывах к товарам</th>
+					<th class="left" colspan="3"></th>
 				</tr>
 			</thead>
 			<?foreach ($list as $i){?>
@@ -36,7 +36,7 @@
 									<a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a>
 								</div>
 							</th>
-							<th class="right np actions" colspan="3">
+							<th class="right actions" colspan="3">
 								<?=!$i['visible']?'<span class="invisible" style="color: red;">скрытый</span>':null?>
 								<?if($i['pid_comment'] == ''){?>
 									<div><span class="bold_text">Оценка:</span> <?=$i['rating']?>/5</div>
@@ -46,7 +46,23 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody class="subcomment">
+						<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
+							<?foreach($i['answer'] as $a){?>
+								<tr class="coment<?=$a['Id_coment']?>">
+									<td class="left">
+										<div><span class="bold_text">Автор:</span> <?=$a['username']?></div>
+										<div class="date"><?=date("d.m.Y", strtotime($a['date_comment']))?></div>
+										<div class="comment_text bold_text"><?=$a['text_coment']?></div>
+									</td>
+									<td class="right actions" colspan="3">
+										<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$a['Id_coment']?>" name="pop_<?=$a['Id_coment']?>" <?if(isset($pops1[$a['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$a['Id_coment']?>)">
+										<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$a['Id_coment']?>);};">t Удалить</a></div>
+									</td>
+								</tr>
+							<?}?>
+						<?}?>
+					</tbody>
 				<?}?>
 			<!-- 	<tr>
 					<td>&nbsp;</td>

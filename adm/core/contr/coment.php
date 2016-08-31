@@ -16,6 +16,7 @@ if(isset($_POST['sub_com'])){
 	$authors_email = $_SESSION['member']['email'];
 	$id_product = $_POST['url_coment'];
 	$Products->SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating, $pid_comment, 1);
+	header("Location: ".$_SERVER["HTTP_REFERER"]);
 }
 
 // ---- center ----

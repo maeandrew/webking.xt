@@ -855,8 +855,22 @@ footer {
 .listnb .np {
 	padding: 0px;
 }
-.list.comment_list th div{
+.list.comment_list .main_thead tr{
+	background-color: #444;
+	color: #fff;
+}
+.list.comment_list th div,
+.list.comment_list .subcomment td div{
 	margin: 1em 0;
+}
+.list.comment_list thead tr[class^="coment"]{
+	background-color: #fffaf0;
+}
+.list.comment_list .subcomment td.left{
+	padding-left: 3em;	
+}
+.list.comment_list .subcomment td.right{
+	padding-right: 3em;
 }
 .list.comment_list .bold_text{
 	font-weight: 500;
@@ -880,7 +894,7 @@ footer {
 .list.comment_list th .resp_to_comment{
 	margin-left: 1em;
 }
-.list.comment_list th .comment_text{
+.list.comment_list .comment_text{
 	text-align: justify;
 }
 .list.comment_list th .prod_title{
