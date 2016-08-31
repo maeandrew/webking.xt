@@ -84,8 +84,7 @@ class News{
 		return true;
 	}
 
-	public function SetListComment(){
-		$date2 = time()-3600*24*30;
+	public function SetListComment($limit = false){
 		$sql = "SELECT cm.Id_coment, (CASE WHEN cm.author = 4028 THEN cm.author_name ELSE
 				(SELECT name FROM xt_user WHERE id_user = cm.author) END) AS username, cm.url_coment,cm.author,
 				cm.date_comment, cm.text_coment, cm.visible, p.name, cm.rating, p.translit, cm.pid_comment,
@@ -96,22 +95,38 @@ class News{
 				END) AS sort
 				FROM xt_coment AS cm
 				LEFT JOIN xt_product AS p ON cm.url_coment = p.id_product
-				WHERE UNIX_TIMESTAMP(cm.date_comment) > ".$date2."
-				ORDER BY sort DESC";
+				WHERE cm.pid_comment IS NULL".
+				($limit !== false?' ORDER BY sort DESC'.$limit:'');
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
 		}
-		foreach($this->list as $k=>&$v){
-			if($v['pid_comment'] !== null) {
-				foreach($this->list as &$val){
-					if($val['Id_coment'] == $v['pid_comment']){
-						$val['answer'][] = $v;
-					}
-				}
-				unset($this->list[$k]);
+		if($limit !== false) {
+			foreach ($this->list as &$v) {
+				$sql = "SELECT cm.Id_coment, (CASE WHEN cm.author = 4028 THEN cm.author_name ELSE (SELECT name FROM xt_user WHERE id_user = cm.author) END) AS username,
+					cm.url_coment,cm.author, cm.date_comment,
+					cm.text_coment, cm.visible, p.name, cm.rating, p.translit, cm.pid_comment
+					FROM xt_coment AS cm
+					LEFT JOIN xt_product AS p ON cm.url_coment = p.id_product
+					WHERE cm.pid_comment = ".$v['Id_coment']."
+					ORDER BY data_coment DESC";
+				$v['answer'] = $this->db->GetArray($sql);
 			}
 		}
+
+
+//		if($limit !== false){
+//			foreach($this->list as $k=>&$v){
+//				if($v['pid_comment'] !== null) {
+//					foreach($this->list as &$val){
+//						if($val['Id_coment'] == $v['pid_comment']){
+//							$val['answer'][] = $v;
+//						}
+//					}
+//					unset($this->list[$k]);
+//				}
+//			}
+//		}
 		return true;
 	}
 

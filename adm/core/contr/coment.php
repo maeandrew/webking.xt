@@ -20,13 +20,30 @@ if(isset($_POST['sub_com'])){
 }
 
 // ---- center ----
+/*Pagination*/
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$GLOBALS['Limit_db'] = $_GET['limit'];
+}
+if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit']))){
+	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+		$_GET['page_id'] = $_POST['page_nbr'];
+	}
+	$News->SetListComment();
+	$cnt = count($News->list);
+	$tpl->Assign('cnt', $cnt);
+	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
+}else{
+	$GLOBALS['Limit_db'] = 0;
+	$limit = '';
+}
 unset($parsed_res);
 $h1 = 'Вопросы по товару';
 $tpl->Assign('h1', $h1);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $h1;
 // die('Ошибка при формировании списка новостей.');
-if($News->SetListComment()){
+if($News->SetListComment($limit)){
 	$tpl->Assign('list', $News->list);
 }
 //$tpl->Assign('id_category', $id_category);
