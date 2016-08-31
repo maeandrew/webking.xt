@@ -11,10 +11,8 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $arr = false;
 
-$_SESSION['fill_category'] = array('123','124','125','126','142997');
-if(isset($_SESSION['fill_category'])) {
-	$tpl->Assign('list', $Products->getArrayProductsById($_SESSION['fill_category']));
-	exit(0);
+if(isset($_SESSION['fill_category'])){
+	$tpl->Assign('product_list', $Products->getArrayProductsById($_SESSION['fill_category']));
 }
 if(isset($_GET['smb'])){
 	if(isset($_GET['filter_target_date']) && $_GET['filter_target_date'] !== ''){
