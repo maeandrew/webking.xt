@@ -880,9 +880,33 @@ footer {
 .list.comment_list th{
 	padding: 10px 15px;
 }
-.list.comment_list th.left,
-.list.comment_list td.left{
-	width: 73vw;
+.list.comment_list .left_block{
+	width: 72vw;
+}
+@media (max-width: 1500px){
+	.list.comment_list .left_block{
+		width: 71vw;
+	}
+}
+@media (max-width: 1325px){
+	.list.comment_list .left_block{
+		width: 70vw;
+	}
+}
+@media (max-width: 1200px){
+	.list.comment_list .left_block{
+		width: 69vw;
+	}
+}
+@media (max-width: 1100px){
+	.list.comment_list .left_block{
+		width: 67vw;
+	}
+}
+@media (max-width: 950px){
+	.list.comment_list .left_block{
+		width: 65vw;
+	}
 }
 .list.comment_list th div.btn_wrap .btn_answer{
 	margin-right: 2em;

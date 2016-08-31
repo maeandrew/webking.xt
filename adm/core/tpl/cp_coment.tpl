@@ -18,7 +18,7 @@
 				<?$interval = date_diff(date_create(date("d.m.Y", strtotime($i['date_comment']))), date_create(date("d.m.Y")));?>
 					<thead>
 						<tr class="coment<?=$i['Id_coment']?> animate <?if(!$i['visible'] && $interval->format('%a') < 3){?>bg-lyellow<?}?>">
-							<th class="left">
+							<th class="left left_block">
 								<div><a href="/product/<?=$i['translit']?>" class="bold_text">#<?=$i['Id_coment']?></a>
 									<?if($i['pid_comment'] != ''){?>
 										<span class="resp_to_comment">Ответ на отзыв #<?=$i['pid_comment']?></span>
@@ -49,7 +49,7 @@
 						<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
 							<?foreach($i['answer'] as $a){?>
 								<tr class="coment<?=$a['Id_coment']?>">
-									<td class="left">
+									<td class="left left_block">
 										<div><span class="bold_text">Автор:</span> <?=$a['username']?></div>
 										<div class="date"><?=date("d.m.Y", strtotime($a['date_comment']))?></div>
 										<div class="comment_text bold_text"><?=$a['text_coment']?></div>
