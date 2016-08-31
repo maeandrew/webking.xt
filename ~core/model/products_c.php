@@ -276,7 +276,7 @@ class Products {
 	 * @param integer	$id_product		id товара
 	 * @param integer	$rating			оценка товара
 	 */
-	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null, $pid_comment=null){
+	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null, $pid_comment=null, $visible=null){
 		if(empty($text)){
 			return false;
 		}
@@ -288,6 +288,9 @@ class Products {
 		$f['user_email'] = trim($authors_email);
 		if(!empty($pid_comment)) {
 			$f['pid_comment'] = $pid_comment;
+		}
+		if(!empty($visible)) {
+			$f['visible'] = $visible;
 		}
 		unset($text, $rating, $id_product, $authors_email, $author, $author_name);
 		$this->db->StartTrans();

@@ -55,6 +55,7 @@ div[for=rating_block]{font-size:12px}
 #specifications .mdl-grid:nth-of-type(odd){background:#f7f7f7}
 #specifications .mdl-grid .mdl-cell{padding:0 10px}
 #specifications .mdl-grid .mdl-cell:last-of-type{border-left:1px solid #e0e0e0}
+#comments .for_anonim{font-size:1.2em;color:#9e9e9e;padding:1em}
 #comments .feedback_container h4,#comments .feedback_form h4{text-align:center;margin:0;font-size:1.429em}
 #comments .feedback_form .feedback_stars{overflow:hidden;margin-bottom:5px}
 #comments .feedback_form .feedback_stars label{float:left}

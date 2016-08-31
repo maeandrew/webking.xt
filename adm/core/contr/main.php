@@ -211,7 +211,7 @@ foreach($weeks as $k => $v){
 $tpl->Assign('week_stats', $week_stats);
 
 // get last comments list
-$news->NewsList1();
+$news->SetListComment();
 $tpl->Assign('comments', $news->list);
 
 // categories count

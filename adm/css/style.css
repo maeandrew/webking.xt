@@ -855,9 +855,91 @@ footer {
 .listnb .np {
 	padding: 0px;
 }
+.list.comment_list .main_thead tr{
+	background-color: #444;
+	color: #fff;
+}
+.list.comment_list th div,
+.list.comment_list .subcomment td div{
+	margin: 1em 0;
+}
+.list.comment_list thead tr[class^="coment"]{
+	background-color: #fffaf0;
+}
+.list.comment_list .subcomment td.left{
+	padding-left: 6em;	
+}
+.list.comment_list .bold_text{
+	font-weight: 500;
+}
+.list.comment_list tr{
+	border-bottom: 1px solid #cccccc;
+	display: block;
+	width: calc(100vw - 20.89vw);
+}
+.list.comment_list th{
+	padding: 10px 15px;
+}
+.list.comment_list .left_block{
+	width: 71vw;
+}
+@media (max-width: 1500px){
+	.list.comment_list .left_block{
+		width: 70vw;
+	}
+}
+@media (max-width: 1325px){
+	.list.comment_list .left_block{
+		width: 69vw;
+	}
+}
+@media (max-width: 1200px){
+	.list.comment_list .left_block{
+		width: 68vw;
+	}
+}
+@media (max-width: 1100px){
+	.list.comment_list .left_block{
+		width: 66vw;
+	}
+}
+@media (max-width: 950px){
+	.list.comment_list .left_block{
+		width: 64vw;
+	}
+}
+.list.comment_list th div.btn_wrap .btn_answer{
+	margin-right: 2em;
+}
+.list.comment_list th div.del_btn_wrap{
+	margin-top: 1em;
+}
+.list.comment_list th div.del_btn_wrap a{
+	color: red;
+}
+.list.comment_list th .resp_to_comment{
+	margin-left: 1em;
+}
+.list.comment_list .comment_text{
+	text-align: justify;
+}
+.list.comment_list th .prod_title{
+	color: #959595;
+}
+.list.comment_list tbody textarea{
+	box-sizing: border-box;
+    width: 70vw;
+    min-height: 70px;
+}
+.list.comment_list tbody .new_comment td{
+	padding: 1em 0 1em 3em;
+}
+.list.comment_list tbody .new_comment button{
+	display: block;
+    margin-top: .5em;
+}
 
 /* PAGINATOR */
-
 
 .paginator {
 	display: block;

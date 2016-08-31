@@ -248,4 +248,16 @@ $(function(){
 			});
 		}
 	});
+
+	// adm_feedback_comment_reply_js
+	$('body').on('click', '.adm_comment_reply_js', function(event){
+		event.preventDefault();
+		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_cancel_js').removeClass('hidden');
+		$(this).closest('thead').next().append('<tr class="new_comment"><td colspan="2"><div class="reply_wrap"><form action="/adm/coment/" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><input type="hidden" name="url_coment" value="'+$(this).attr('data-idproduct')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><button type="submit" name="sub_com" class="btn-m-green">Ответить</button></form></div></td></tr>');
+	});
+	$('body').on('click', '.adm_comment_reply_cancel_js', function(event){
+		event.preventDefault();
+		$(this).closest('thead').next().find('.new_comment').remove();
+		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_js').removeClass('hidden');
+	});
 });
