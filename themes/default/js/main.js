@@ -2023,7 +2023,7 @@ $(function(){
 	$('body').on('change', 'input[class^="move_product_"]', function(event){
 		var data = {};
 		data.id_product = $(this).attr('data-idproduct');
-		this.checked ? data.main = 1 : data.main = 0;
+		this.checked ? data.checked = 1 : data.checked = 0;
 		ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
 			console.log(data);
 		}).fail(function(data){
