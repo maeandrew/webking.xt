@@ -2018,25 +2018,18 @@ $(function(){
 		$(this).closest('.feedback_item_js').find('.reply_wrap').remove();
 		$(this).addClass('hidden').closest('.feedback_item_js').find('.feedback_comment_reply_js').removeClass('hidden');
 	});
+
+	// Метка для переноса товара в категорию
+	$('body').on('change', 'input[class^="move_product_"]', function(event){
+		var data = {};
+		data.id_product = $(this).attr('data-idproduct');
+		this.checked ? data.main = 1 : data.main = 0;
+		ajax('products', 'fillCategory', data).done(function(data){
+			console.log('success');
+			console.log(data);
+		}).fail(function(data){
+			console.log('fail');
+			console.log(data);
+		});
+	});
 });
-
-
-// <div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><div class="user_data hidden"><div class="fild_wrapp"><label for="feedback_author">Ваше имя:</label><input type="text" name="feedback_author" id="feedback_author" required value="Петя"></div><div class="fild_wrapp"><label for="feedback_authors_email">Эл.почта:</label><input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="petya@gmail.com"></div></div><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>
-
-
-// <div class="reply_wrap">
-// 	<form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()">
-// 		<textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea>
-// 		<div class="user_data <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'hidden';?>">
-// 			<div class="fild_wrapp">
-// 				<label for="feedback_author">Ваше имя:</label>
-// 				<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
-// 			</div>
-// 			<div class="fild_wrapp">
-// 				<label for="feedback_authors_email">Эл.почта:</label>
-// 				<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
-// 			</div>
-// 		</div>
-// 		<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button>
-// 	</form>
-// </div>
