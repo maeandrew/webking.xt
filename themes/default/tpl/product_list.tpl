@@ -29,7 +29,7 @@
 		<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
 	</div>
 <?}?>
-<div class="separateBlocks"></div>
+<div class="clearBoth"></div>
 <div class="products">
 	<?=$products_list;?>
 </div>

@@ -234,18 +234,22 @@ class Products {
 	 */
 	public function GetComentByProductId($id_product){
 		$sql = "SELECT cm.Id_coment, cm.text_coment, cm.author AS id_author,
-			(CASE
-				WHEN cm.author = 4028 THEN cm.author_name
-				WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
-				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
-			END) AS name,
-			cm.date_comment, cm.visible, cm.rating, cm.pid_comment,
-			(CASE WHEN o.id_order IS NOT NULL THEN 1 ELSE 0 END) AS purchase
-			FROM "._DB_PREFIX_."coment AS cm
-			LEFT JOIN "._DB_PREFIX_."order o ON o.id_customer = cm.author AND o.id_order_status = 2
-			LEFT JOIN "._DB_PREFIX_."osp osp ON osp.id_order = o.id_order
-			WHERE cm.url_coment = ".$id_product."
-			ORDER BY cm.date_comment ASC";
+				(CASE
+					WHEN cm.author = 4028 THEN cm.author_name
+					WHEN cm.author = 007 THEN (SELECT name_c FROM xt_contragent WHERE id_user = cm.author_name)
+					ELSE (SELECT name FROM xt_user WHERE id_user = cm.author)
+				END) AS name,
+				cm.date_comment, cm.visible, cm.rating, cm.pid_comment,
+				(CASE WHEN (SELECT COUNT(*)
+					FROM xt_osp AS osp
+					LEFT JOIN xt_order AS o
+						ON osp.id_order = o.id_order
+						AND o.id_order_status = 2
+					WHERE osp.id_product = ".$id_product."
+					AND o.id_customer = cm.author) > 0 THEN 1 ELSE 0 END) AS purchase
+				FROM xt_coment AS cm
+				WHERE cm.url_coment = ".$id_product."
+				ORDER BY cm.date_comment DESC";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
@@ -1555,7 +1559,6 @@ class Products {
 					ON p.id_product = c.id_product
 					AND c.id_cart = ".$_SESSION['cart']['id']."
 				WHERE p.id_product IN (".$in.")
-				AND p.visible = 1
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
@@ -1574,7 +1577,6 @@ class Products {
 				LEFT JOIN "._DB_PREFIX_."units AS un
 					ON un.id = p.id_unit
 				WHERE p.id_product IN (".$in.")
-				AND p.visible = 1
 				ORDER BY ".$order_by."
 				".$limit;
 		}
@@ -1585,7 +1587,7 @@ class Products {
 		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
 		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
 		//Добавляем эти значения в массв $list
-		foreach($this->list as &$v){
+		foreach($this->list as $k => &$v){
 			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
 			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
 			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
@@ -1597,6 +1599,12 @@ class Products {
 				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
+//		echo'<pre>';
+//		print_r($this->list);
+//		echo'</pre>';
+//		die();
+
+
 		return true;
 	}
 	/**

@@ -338,11 +338,11 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab #favorites .mdl-tooltip,.customer_cab #waiting_list .mdl-tooltip{font-size:12px}
 .customer_cab #waiting_list .old_price p{text-decoration:line-through}
 .customer_cab #waiting_list .active_price{color:red}
-.customer_cab .saved_addresses{display:flex;justify-content:space-between;flex-wrap:wrap}
-.customer_cab .saved_addresses .address{flex-basis:calc(50% - 40px);min-width:380px;background:#F5F5F5;border:1px solid #e0e0e0;margin-bottom:20px;padding:10px}
+.customer_cab .saved_addresses{display:flex;justify-content:space-between;flex-wrap:wrap;margin-top:20px}
+.customer_cab .saved_addresses .address{flex-basis:calc(50% - 10px);min-width:380px;background:#fff;border:1px solid #e0e0e0;padding:10px;margin-bottom:20px;position:relative}
 .customer_cab .saved_addresses .address h4{margin:0;font-size:1.5em;border-bottom:1px solid #e0e0e0}
 .customer_cab .saved_addresses .address h4 .actions{float:right}
-.customer_cab .saved_addresses .address h4 .actions i{font-size:1.2em;line-height:2em;width:2em;text-align:center;cursor:pointer}
+.customer_cab .saved_addresses .address h4 .actions i{font-size:1em;line-height:1.2em;width:2em;text-align:center;cursor:pointer}
 .customer_cab .saved_addresses .address h4 .actions i:hover{color:#ff5722}
 .customer_cab .saved_addresses .address li{text-align:right;clear:both;font-weight:700}
 .customer_cab .saved_addresses .address li span{float:left;font-weight:400}
