@@ -25,7 +25,7 @@ $tpl->Assign('h1', $h1);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $h1;
 // die('Ошибка при формировании списка новостей.');
-if($News->NewsList1()){
+if($News->SetListComment()){
 	$tpl->Assign('list', $News->list);
 }
 //$tpl->Assign('id_category', $id_category);
