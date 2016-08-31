@@ -2024,8 +2024,7 @@ $(function(){
 		var data = {};
 		data.id_product = $(this).attr('data-idproduct');
 		this.checked ? data.main = 1 : data.main = 0;
-		ajax('products', 'fillCategory', data).done(function(data){
-			console.log('success');
+		ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
 			console.log(data);
 		}).fail(function(data){
 			console.log('fail');
