@@ -283,6 +283,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo $prod_arr;
 				break;
+			case "fillCategory":
+				if(isset($_SESSION['fill_category'])){
+					if($Products->FillCategoryByIdProduct($_POST['id_category'], $_SESSION['fill_category'], $_POST['main'])){
+						unset($_SESSION['fill_category']);
+						echo 'ok';
+					}else{
+						echo 'something wrong';
+					}
+				}
+				break;
 			default:
 				break;
 		}

@@ -3,13 +3,20 @@ if(!_acl::isAllow('orders_category')){
 	die("Access denied");
 }
 $Order = new Orders();
-$products = new Products();
+$Products = new Products();
 unset($parsed_res);
 $header = 'Наполнение категорий по заказам';
 $tpl->Assign('h1', $header);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $arr = false;
+
+$_SESSION['fill_category'] = array('123','124','125','126','142997');
+if(isset($_SESSION['fill_category'])) {
+	if($list = $Products->getArrayProductsById($_SESSION['fill_category'])){
+		unset($_SESSION['fill_category']);
+	}
+}
 if(isset($_GET['smb'])){
 	if(isset($_GET['filter_target_date']) && $_GET['filter_target_date'] !== ''){
 		$arr['creation_date'] = $_GET['filter_target_date'];
@@ -40,7 +47,7 @@ if(isset($_GET['smb'])){
 	$_GET['id_order_status'] = 0;
 }
 if(isset($_POST['submit'])){
-	$products->FillCategoryByOrder($_POST);
+	$Products->FillCategoryByOrder($_POST);
 }
 $fields = array('creation_date', 'id_order');
 $orderby = "creation_date desc";
@@ -78,7 +85,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit']))
 if($Order->SetList(1, $arr, $orderby, $limit)){
 	$tpl->Assign('list', $Order->list);
 }
-$categories = $products->generateCategory();
+$categories = $Products->generateCategory();
 $tpl->Assign('categories', $categories);
 $order_statuses = $Order->GetStatuses();
 $tpl->Assign('order_statuses', $order_statuses);
