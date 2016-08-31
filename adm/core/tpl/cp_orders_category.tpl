@@ -62,7 +62,7 @@
 							<select name="category" class="input-m" required>
 								<option disabled selected value="">Выберите категорию</option>
 								<?foreach($categories as $category){?>
-									<option <?=($category['id_category'] == $i['category'])?'selected':null?> value="<?=$category['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $category['category_level'])?><?=$category['name']?></option>
+									<option <?=(next($categories)['pid'] == $category['id_category'])?'disabled':null?> <?=($category['id_category'] == $i['category'])?'selected':null?> value="<?=$category['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $category['category_level'])?><?=$category['name']?></option>
 								<?}?>
 							</select>
 						</td>

@@ -2764,7 +2764,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 
 .date_container {
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	margin-bottom: 15px;
 	width: 300px;
 	border-radius: 3px;
@@ -2786,6 +2786,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .date_container select + .mdl-textfield__error{
 	width: 100px;
+}
+.date_container .mdl-selectfield.is-focused .mdl-selectfield__list-option-box {
+	max-height: 190px;
 }
 .errMsg_js {
 	color: #D50000;

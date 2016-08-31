@@ -598,9 +598,7 @@
 									$('.card .buy_block .btn_buy').find('.in_cart_js').addClass('hidden');
 									$('.card .buy_block .btn_buy').find('.buy_btn_js').removeClass('hidden');
 								});
-								if(response.new_user === true){
-									window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
-								}
+								window.location.href = '<?=Link::Custom('cabinet')?>#quiz';
 								break;
 							case 500:
 								removeLoadAnimation('#cart');

@@ -190,6 +190,7 @@
 					<?=$__breadcrumbs?>
 					<?=$__center?>
 				<?}else{?>
+					<h4>Пополнение ассортимента</h4>
 					<div class="content_header clearfix">
 						<?if(isset($available_sorting_values)){?>
 							<div class="sort imit_select">

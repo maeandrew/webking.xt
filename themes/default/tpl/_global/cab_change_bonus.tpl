@@ -1,15 +1,12 @@
 <h1><?=$Customer['bonus_card']?'Смена бонусной карты':'Активация бонусной карты'?></h1>
 <a class="bonus_detalies" href="<?=Link::Custom('page', 'Skidki_i_bonusy');?>" class="details"><i class="material-icons">help_outline</i> Детали бонусной программы</a>
-<?if(!$Customer['bonus_card']){?>
-	<div class="msg-info bonus_info">
+<?if(!$Customer['bonus_card'] && isset($msg)){?>
+	<div class="msg-<?=$msg['type']?> bonus_info">
 		<div class="msg_icon">
-			<i class="material-icons hidden">check_circle</i>
-			<i class="material-icons">info</i>
-			<i class="material-icons hidden">warning</i>
-			<i class="material-icons hidden">error</i>
+			<i class="material-icons"></i>
 		</div>
 	    <p class="msg_title">!</p>
-	    <p class="msg_text"></p>
+	    <p class="msg_text"><?=$msg['text']?></p>
 	</div>
 <?}?>
 <form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" class="bonus_content">
@@ -34,8 +31,8 @@
 				</div>
 			<?}?>
 			<?if(!$Customer['b_day'] || !$Customer['b_month'] || !$Customer['b_year']){?>
-				<div class="date_container">
-					<label class="label_for_input_blocks" for="bdate">День рождения:</label>
+				<label class="label_for_input_blocks" for="date_container">День рождения:</label>
+				<div id="date_container" class="date_container">
 					<div id="bdate" class="mdl-textfield mdl-js-textfield bdate_select_block">
 						<label for="day" class="mdl-textfield__label">день </label>
 						<input id="day" name="bday" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input day_js day check_val_js" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">

@@ -87,9 +87,10 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .add_to_fav_trend_block .favorite_icon,.block_view .add_to_fav_trend_block .waiting_list{width:30px;line-height:30px;text-align:center}
 .block_view .preview_icon_block{display:none}
 .list_view .add_to_fav_trend_block .favorite,.list_view .add_to_fav_trend_block .fortrending{display:none}
-.list_view .preview_icon_block{display:block;text-align:center}
+.list_view .preview_icon_block{display:block;text-align:right}
+.c_main .list_view .preview_icon_block{display:none}
 .list_view .add_to_fav_trend_block:hover,.list_view .preview_icon:hover{cursor:pointer}
-.list_view .preview_icon{font-size:35px;margin-top:calc(50% - 12px);background:#fff;border-radius:50%}
+.list_view .preview_icon{font-size:35px;margin-top:calc(100% - 1em);background:#fff;border-radius:50%}
 .list_view .product_article{display:block}
 .favorite_icon:hover,.isfavorite{color:red}
 .arrow,.waiting_list:hover{color:#FF5722}

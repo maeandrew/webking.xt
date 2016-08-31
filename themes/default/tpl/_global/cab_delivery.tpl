@@ -22,12 +22,12 @@
 <h4>Добавить новый адрес</h4>
 <div class="add_new_address mdl-grid">
 	<form id="edit_contacts" class="editing" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
-		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
-		<!-- <input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/> -->
+		<input required type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" name="title" id="title" required>
 				<label class="mdl-textfield__label" for="title">Название</label>
+				<label class="mdl-textfield__error">Заполине это поле!</label>
 			</div>
 			<p class="explanation">например - Дом, Работа</p>
 		</div>
@@ -35,30 +35,30 @@
 			<legend>Адрес</legend>
 			<div class="mdl-cell mdl-cell--12-col addres_field">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
-					<select id="region" name="region" class="mdl-selectfield__select" onChange="regionSelect($(this));">
-						<option disabled selected>Выберите область</option>
+					<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
+						<option value=""></option>
 						<?foreach($allregions as $region){ ?>
 							<option value="<?=$region['title']?>"><?=$region['title']?></option>
 						<?}?>
 					</select>
 					<label class="mdl-selectfield__label" for="region">Область</label>
+					<span class="mdl-selectfield__error">Выберите область!</span>
 				</div>
 			</div>
 			<div class="mdl-cell mdl-cell--12-col addres_field">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
 					<select id="city" name="city" class="mdl-selectfield__select" disabled onChange="citySelect($(this));">
-						<!-- <option disabled selected>Выберите город</option>
-						<?foreach($availablecities as $city){?>
+						<!-- <?foreach($availablecities as $city){?>
 							<option value="<?=$city['names_regions']?>"><?=$city['name']?></option>
 						<?}?> -->
 					</select>
 					<label class="mdl-selectfield__label" for="city">Город</label>
+					<span class="mdl-selectfield__error">Выберите город!</span>
 				</div>
 			</div>
 			<div class="mdl-cell mdl-cell--12-col">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery">
 					<select id="id_delivery" name="id_delivery" class="mdl-selectfield__select" disabled onChange="deliverySelect($(this));">
-						<option disabled selected value="">Выберите способ доставки</option>
 						<?// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
 						if($count['warehouse'] > 0){?>
 							<option value="1">Пункт выдачи</option>
@@ -87,7 +87,7 @@
 				</div>
 			</div>
 			<div class="mdl-cell mdl-cell--12-col hidden">
-				<div class="mdl-textfield mdl-js-textfield address">
+				<div class="mdl-textfield mdl-js-textfield mdl-selectfield--floating-label address">
 					<textarea id="address" name="address" class="mdl-textfield__input" type="text" rows= "3" disabled></textarea>
 					<label class="mdl-textfield__label" for="address">Адрес доставки</label>
 					<span class="mdl-textfield__error">Укажите свой адрес!</span>
@@ -135,13 +135,13 @@
 		$('.address_delete_js').on('click', function(){
 			var parent = $(this).closest('.address'),
 				id_address = parent.data('id-address');
-			addLoadAnimation('.address[data-id-address="'+id_address+'"]');
+			addLoadAnimation(parent);
 			if(confirm('Вы уверены, что хотите удалить адрес?')){
 				ajax('location', 'deleteAddress', {id: id_address}).done(function(response){
 					parent.remove();
 				});
 			}else{
-				removeLoadAnimation('.address[data-id-address="'+id_address+'"]');
+				removeLoadAnimation(parent);
 			}
 		});
 		$('.address_edit_js').on('click', function(){

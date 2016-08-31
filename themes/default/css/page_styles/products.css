@@ -611,7 +611,10 @@ label.info_key {
 }
 .list_view .preview_icon_block {
 	display: block;
-	text-align: center;
+	text-align: right;
+}
+.c_main .list_view .preview_icon_block {
+	display: none;
 }
 .list_view .add_to_fav_trend_block:hover,
 .list_view .preview_icon:hover {
@@ -619,7 +622,7 @@ label.info_key {
 }
 .list_view .preview_icon {
 	font-size: 35px;
-	margin-top: calc(50% - 12px);
+	margin-top: calc(100% - 1em);
 	background: #fff;
 	border-radius: 50%;
 }

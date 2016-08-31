@@ -28,18 +28,8 @@
 			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
-		<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="label_for_gender" for="gender">Пол:</label>
-			<div id="gender">
-				<label class="mdl-radio mdl-js-radio" for="male">
-					<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="male" value="male">Мужской
-				</label> &nbsp;&nbsp;
-				<label class="mdl-radio mdl-js-radio" for="female">
-					<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="female" value="female">Женский
-				</label>
-			</div>
-		</div>
-		<div class="date_container">
+		<label class="label_for_input_blocks" for="date_container">День рождения:</label>
+		<div id="date_container" class="date_container">
 			<div class="mdl-textfield mdl-js-textfield bdate_select_block">
 				<label for="day" class="mdl-textfield__label">день</label>
 				<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input day_js day" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
@@ -55,7 +45,7 @@
 							temp;
 
 						for (var i = 0; i < month.length; i++) {
-							temp = ((i<9)?'0'+(i+1):(i+1));										
+							temp = ((i<9)?'0'+(i+1):(i+1));
 							document.write('<option value="' + temp + '">'+ month[i] +'</option>');
 							if (temp == customer_month) {
 								$('.month_js').find('option[value="'+temp+'"]').attr('selected', 'selected');
@@ -71,6 +61,18 @@
 				<span class="mdl-textfield__error"></span>
 			</div>
 		</div>
+		<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="label_for_input_blocks" for="gender">Пол:</label>
+			<div id="gender">
+				<label class="mdl-radio mdl-js-radio" for="male">
+					<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="male" value="male">Мужской
+				</label> &nbsp;&nbsp;
+				<label class="mdl-radio mdl-js-radio" for="female">
+					<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="female" value="female">Женский
+				</label>
+			</div>
+		</div>
+
 		<div class="errMsg_js"></div>
 		<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 	</form>

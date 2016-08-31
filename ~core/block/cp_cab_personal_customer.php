@@ -95,10 +95,14 @@ $User->SetUser($_SESSION['member']);
 $tpl->Assign('User', $User->fields);
 
 if(isset($_POST['save_delivery'])){
+	$region = $Address->GetRegionByTitle($_POST['region']);
+	$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
+	$_POST['id_region'] = $city['id_region'];
+	$_POST['id_city'] = $city['id'];
 	if(!$Address->AddAddress($_POST)){
-		header("Location: /cabinet/personal/?t=delivery&unsuccess");
+		$tpl->Assign('msg', array('type' => 'error', 'text' => 'Адрес не сохранен. Попробуйте повторить действие позже.'));
 	}else{
-		header("Location: /cabinet/personal/?t=delivery&success");
+		$tpl->Assign('msg', array('type' => 'success', 'text' => 'Адрес успешно сохранен.'));
 	}
 }
 $tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.(isset($_GET['t'])?$_GET['t']:'contacts').'.tpl'));
