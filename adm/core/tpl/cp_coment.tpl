@@ -56,6 +56,7 @@
 										<div class="comment_text bold_text"><?=$a['text_coment']?></div>
 									</td>
 									<td class="right actions" colspan="3">
+										<?=!$a['visible']?'<div class="invisible" style="color: red;">скрытый</div>':null?>
 										<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$a['Id_coment']?>" name="pop_<?=$a['Id_coment']?>" <?if(isset($pops1[$a['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$a['Id_coment']?>)">
 										<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$a['Id_coment']?>);};">t Удалить</a></div>
 									</td>
