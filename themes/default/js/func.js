@@ -784,13 +784,16 @@ function regionSelect(obj){
 	var parent = obj.closest('form'),
 		region = obj.val();
 	addLoadAnimation(parent);
-	if(region !== undefined){
+	if(region !== ''){
 		ajax('location', 'regionSelect', {region: region}, 'html').done(function(data){
 			parent.find('select:not(#region) option').remove();
 			parent.find('#city').html(data).prop('disabled', false);
 			parent.find('#delivery_service, #insurance, #delivery_department').closest('div.mdl-cell').addClass('hidden');
 			removeLoadAnimation(parent);
 		});
+	}else{
+		parent.find('#city').html('').prop('disabled', true);
+		removeLoadAnimation(parent);
 	}
 }
 function citySelect(obj){
@@ -798,13 +801,15 @@ function citySelect(obj){
 		city = obj.val(),
 		region = parent.find('#region').val();
 	addLoadAnimation(parent);
-	if(city !== undefined && region !== undefined){
+	if(city !== '' && region !== ''){
 		ajax('location', 'citySelect', {city: city, region: region}, 'html').done(function(data){
 			parent.find('select:not(#region, #city) option').remove();
 			parent.find('#id_delivery').html(data).prop('disabled', false);
 			parent.find('#delivery_service, #insurance, #delivery_department').closest('div.mdl-cell').addClass('hidden');
 			removeLoadAnimation(parent);
 		});
+	}else{
+		removeLoadAnimation(parent);
 	}
 }
 function deliverySelect(obj){
