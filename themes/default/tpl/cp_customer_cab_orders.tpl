@@ -191,18 +191,24 @@
 														<div class="line_1"><?=$i['contragent']?></div>
 														<div class="line_2"><?=$i['contragent_info']['phones']?></div>
 														<div class="line_3">
-															<a href="#" class="like" onclick="UserRating($(this));return false;">
+															<!-- <a href="#" class="like raiting_js" onclick="UserRating($(this));return false;">
+																<svg class="icon"><use xlink:href="#like"></use></svg>
+															</a> -->
+															<!-- <a href="#" class="dislike" onclick="UserRating($(this));return false;" >
+																<svg class="icon"><use xlink:href="#dislike"></use></svg>
+															</a> -->
+															<a href="#" class="like raiting_js chosen_rait_js">
 																<svg class="icon"><use xlink:href="#like"></use></svg>
 															</a>
-															<a href="#" class="dislike" onclick="UserRating($(this));return false;">
+															<a href="#" class="dislike btn_js chosen_rait_js" data-name="dislike_comment">
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a>
 															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
 														</div>
-														<div id="modal_message" data-type="modal">
-															<div class="modal_container">
-																<div class="mesage_text">Вы уже отдали голос за этого менеджера</div>
-															</div>
+														<div id="dislike_comment" data-type="modal" class="dislike_comment dislike_comment_js">
+															<p class="mesage_text">Шо тебе уже не так, а? Напишика давай!</p>
+															<textarea name="dislike_comment" cols="30" rows="10"></textarea>
+															<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent dislike_btn_js raiting_js">Продолжить</button>
 														</div>
 													</div>
 												</div>
@@ -260,8 +266,8 @@
 														<!-- <div class="line">
 															<span class="label">Получатель:</span>
 															<span class="value">
-																<?=$i['address_info']['last_name']?> 
-																<?=$i['address_info']['first_name']?> 
+																<?=$i['address_info']['last_name']?>
+																<?=$i['address_info']['first_name']?>
 																<?=$i['address_info']['middle_name']?>
 															</span>
 														</div>
@@ -420,10 +426,34 @@ $(function(){
 			};
 		});
 	});
+
 	$('.prod_load_js').click(function(event) {
 		var cart_id = $(this).data('cartid'),
 			rewrite = $(this).data('rewrite');
 		GetCabProdAjax(cart_id, rewrite);
+	});
+
+	$('.raiting_js').on('click', function(){
+		var id_user = $('.manager').data('id');
+		var bool = 1;
+		var comment = '';
+		if($(this).hasClass('dislike_btn_js')){
+			bool = 0;
+			comment = $('.dislike_comment_js textarea').val();
+		}
+		ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool, 'comment': comment}).done(function(data){
+			closeObject('dislike_comment');
+			if (data === 'dislike') {
+				$('.dislike').addClass('active');
+			}
+		});
+	});
+
+	$('.chosen_rait_js').on('click', function(){
+		$(this).closest('.details').find('.chosen_rait_js').removeClass('active');
+		if ($(this).hasClass('like')) {
+			$(this).addClass('active');
+		}
 	});
 });
 </script>

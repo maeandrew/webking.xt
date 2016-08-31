@@ -60,18 +60,6 @@ function GetCabCoopProdAjax(id_cart, rewrite){
 		}
 	});
 }
-function UserRating(obj){
-	var id_user = $('.manager').data('id');
-	var bool = 0;
-	if(obj.is('.like')){
-		bool = 1;
-	}
-	ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool}).done(function(data){
-		if(data === 0){
-			openObject('modal_message');
-		}
-	});
-}
 function ModalDemandChart(id_category){
 	ajax('product', 'OpenModalDemandChart', {id_category: id_category}, 'html').done(function(data){
 		$('#demand_chart .modal_container').html(data);
