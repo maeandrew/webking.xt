@@ -23,16 +23,13 @@ if(isset($_POST['save_bonus'])){
 }
 $ii = count($GLOBALS['IERA_LINKS'])-1;
 $tpl->Assign('Customer', $Customer->fields);
+$tpl->Assign('msg', array('type' => 'info', 'text' => 'Вы получили бонусную карту? Пришло время ее активировать!<br>Для этого заполните форму ниже, что поможет нам сделать Ваши покупки проще, а работу с нами - приятнее.'));
 if(isset($_GET['success'])){
 	$tpl->Assign('msg', array('type' => 'success', 'text' => 'Бонусная карта сохранена'));
 }elseif(isset($_GET['error'])){
 	$tpl->Assign('msg', array('type' => 'error', 'text' => 'Что-то пошло не так'));
 }
-if(isset($_GET['t'])){
-	$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.$_GET['t'].'.tpl'));
-}else{
-	$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_bonus_info.tpl'));
-}
+$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.(isset($_GET['t'])?$_GET['t']:'bonus_info').'.tpl'));
 $parsed_res = array(
 	'issuccess' => true,
 	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_bonus.tpl')
