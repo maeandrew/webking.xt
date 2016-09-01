@@ -36,7 +36,7 @@
 						<div class="product_item">
 							<div><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a></div>
 							<div class="product_article">арт: <?=$item['art'];?></div>
-							<div class="product_descr"><?=$item['descr'];?></div>
+							<div class="product_descr"><?=$item['descr_xt_full'];?></div>
 						</div>
 						<div class="btn_wrap">
 							<div><button class="btn-m-red-inv del_checked_product_js" data-idproduct="<?=$item['id_product']?>">Удалить</button></div>

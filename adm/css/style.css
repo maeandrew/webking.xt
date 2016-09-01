@@ -1279,6 +1279,9 @@ img.pic_block {
 .move_product_wrap .checked_products .checked_product .product_item > div{
 	margin-bottom: .5em;
 }
+.move_product_wrap .checked_products .checked_product .product_item .product_descr{
+	text-align: justify;
+}
 .move_product_wrap .checked_products .checked_product .btn_wrap button{
 	color: red;
 }

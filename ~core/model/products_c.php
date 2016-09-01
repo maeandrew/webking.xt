@@ -4760,7 +4760,7 @@ class Products {
 
 	// Выбор товаров для добавления категории
 	public function getArrayProductsById($id_products, $sort = false){
-		$sql = "SELECT id_product, `name`, art, translit, descr, img_1
+		$sql = "SELECT id_product, `name`, art, translit, descr_xt_full, img_1
 				FROM "._DB_PREFIX_."product	WHERE id_product IN (".implode(', ', $id_products).")".
 				($sort!==false?$sort:'');
 		$arr = $this->db->GetArray($sql);
