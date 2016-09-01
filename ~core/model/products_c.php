@@ -4789,7 +4789,8 @@ class Products {
 		}
 		foreach ($id_products as $v) {
 			$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
-			(id_category, id_product, main) (".$id_category.", ".$v.", ".$main.")";
+			(id_category, id_product, main) VALUES
+			(".$id_category.", ".$v.", ".$main.")";
 			$sql2 = "UPDATE "._DB_PREFIX_."product
 			SET edit_user = ".$_SESSION['member']['id_user']." , edit_date = '".date('Y-m-d H:m:i')."'  WHERE id_product = ".$v;
 			$this->db->StartTrans();
