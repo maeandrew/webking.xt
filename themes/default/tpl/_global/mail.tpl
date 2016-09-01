@@ -15,33 +15,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Тема письма</title>
     <style type="text/css">
-		p{
+		/*p{
 			margin:10px 0;
 			padding:0;
-		}
+		}*/
 		table{
 			border-collapse:collapse;
 		}
-		h1,h2,h3,h4,h5,h6{
-			display:block;
-			margin:0;
-			padding:0;
-		}
+
 		img,a img{
 			border:0;
 			height:auto;
 			outline:none;
 			text-decoration:none;
 		}
-		body,#bodyTable,#bodyCell{
+		/*body,#bodyTable,#bodyCell{
 			height:100%;
 			margin:0;
 			padding:0;
 			width:100%;
-		}
-		#outlook a{
+		}*/
+		/*#outlook a{
 			padding:0;
-		}
+		}*/
 		img{
 			-ms-interpolation-mode:bicubic;
 		}
@@ -78,9 +74,7 @@
 			font-weight:inherit !important;
 			line-height:inherit !important;
 		}
-		.templateContainer{
-			max-width:600px !important;
-		}
+
 		.template_header,
 		.template_body {
 			background: #fff;
@@ -100,13 +94,13 @@
 		.mcnDividerBlock{
 			table-layout:fixed !important;
 		}
-		body,#bodyTable{
+		/*body,#bodyTable{
 			background-color:#f3f3f3;
-		}
-		#bodyCell{
+		}*/
+		/*#bodyCell{
 			border-top:0;
-		}
-		h1{
+		}*/
+		/*h1{
 			color:#202020;
 			font-family:Helvetica;
 			font-size:26px;
@@ -145,31 +139,13 @@
 			line-height:125%;
 			letter-spacing:normal;
 			text-align:left;
-		}
-		#templatePreheader{
-			background-color:#f3f3f3;
-			border-top:0;
-			border-bottom:0;
-			padding-top:9px;
-			/*padding-bottom:9px;*/
-		}
-		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
-			color:#656565;
-			font-family:Helvetica;
-			font-size:12px;
-			line-height:150%;
-			text-align:left;
-		}
-		#templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p a{
-			color:#656565;
-			font-weight:normal;
-			text-decoration:underline;
-		}
+		}*/
+
 		#templateHeader{
 			/*background-color:#ffffff;*/
 			border-top:0;
 			border-bottom:0;
-			padding-top:9px;
+			/*padding-top:18px;*/
 			padding-bottom:0;
 		}
 		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
@@ -203,30 +179,26 @@
 			font-weight:normal;
 			text-decoration:underline;
 		}
-		#templateFooter{
+		/*#templateFooter{
 			background-color:#f3f3f3;
 			border-top:0;
 			border-bottom:0;
 			padding-top:9px;
 			padding-bottom:9px;
-		}
-		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
+		}*/
+		/*#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
 			color:#bbbbbb;
 			font-family:Helvetica;
 			font-size:12px;
 			line-height:150%;
 			text-align:center;
-		}
-		#templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{
+		}*/
+		/*#templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{
 			color:#bbbbbb;
 			font-weight:normal;
 			text-decoration:underline;
-		}
-		@media only screen and (min-width:768px){
-			.templateContainer{
-				width:600px !important;
-			}
-		}
+		}*/
+
 		@media only screen and (max-width: 480px){
 			body,table,td,p,a,li,blockquote{
 				-webkit-text-size-adjust:none !important;
@@ -237,9 +209,7 @@
 			    padding-left: 9px;
 			    padding-right: 9px;
 			}
-			#bodyCell{
-				/*padding-top:10px !important;*/
-			}
+
 			.mcnImage{
 				width:100% !important;
 			}
@@ -303,13 +273,7 @@
 				font-size:14px !important;
 				line-height:150% !important;
 			}
-			#templatePreheader{
-				display:block !important;
-			}
-			#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
-				font-size:14px !important;
-				line-height:150% !important;
-			}
+
 			#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
 				font-size:16px !important;
 				line-height:150% !important;
@@ -325,11 +289,11 @@
 		}
 	</style>
 </head>
-<body>
+<body style="margin: 0;">
     <center>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="height:100%; margin:0; padding:0;	width:100%; background-color:#f3f3f3;">
             <tr>
-                <td align="center" valign="top" id="bodyCell">
+                <td align="center" valign="top" id="bodyCell" style="height:100%; margin:0; padding:0; padding-top: 18px;width:100%; border-top:0;">
                     <!-- BEGIN TEMPLATE // -->
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
 						<tr>
@@ -339,7 +303,7 @@
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer template_header">
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important; width: 95% !important; background-color: #fff;">
 									<tr>
                             			<td valign="top" class="headerContainer">
                             				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
@@ -391,7 +355,7 @@
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer template_body">
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important; width: 95% !important; background-color: #fff;">
 									<tr>
                             			<td valign="top" class="bodyContainer">
                             				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
@@ -408,12 +372,9 @@
 											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
 											                    <tbody>
 												                    <tr>
-												                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%;">
-												                            <!-- <h1 style="text-align: center;">Заголовок письма</h1> -->
-												                            <h1 style="text-align: center;"><?=$title?></h1>
+												                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%; color:#202020;">
+												                            <h1 style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:26px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal; text-align:left;"><?=$title?></h1>
 																			<br>
-																			<!-- Текст письма где напишем много букав про все все шо хотим в письме сказать.&nbsp;Текст письма где напишем много букав про все все шо хотим в письме сказать.&nbsp;Текст письма где напишем много букав про все все шо хотим в письме сказать.&nbsp;<br>
-																			&nbsp; -->
 																			<?=$content?>
 												                        </td>
 												                    </tr>
@@ -460,7 +421,7 @@
 															<!--[if mso]>
 															<td valign="top" width="300" style="width:300px;">
 															<![endif]-->
-											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:300px;" width="100%" class="mcnTextContentContainer">
+											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:50% !important; width:50% !important;" width="100%" class="mcnTextContentContainer">
 											                    <tbody>
 											                    	<tr>
 											                        	<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 12px; line-height: 150%;">
@@ -476,7 +437,7 @@
 															<!--[if mso]>
 															<td valign="top" width="300" style="width:300px;">
 															<![endif]-->
-											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:300px;" width="100%" class="mcnTextContentContainer">
+											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:50% !important; width:50% !important;" width="100%" class="mcnTextContentContainer">
 											                    <tbody>
 											                    	<tr>
 											                        	<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 12px; line-height: 150%;">
@@ -514,7 +475,7 @@
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important; width: 95% !important; background-color:#f3f3f3;">
 									<tr>
                             			<td valign="top" class="footerContainer">
                             				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
@@ -540,7 +501,7 @@
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																                                                	<tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -564,14 +525,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                        	</table>
+																                                        	</table> -->
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -595,14 +556,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																                                            	</tbody>
-																                                            </table>
+																                                            </table> -->
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -626,14 +587,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                            </table>
+																                                            </table> -->
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -657,14 +618,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                            </table>
+																                                            </table> -->
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -688,7 +649,7 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                            </table>
+																                                            </table> -->
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
@@ -726,12 +687,12 @@
 											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
 											                    <tbody>
 											                    	<tr>
-												                        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+												                        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px; color:#bbbbbb;	font-family:Helvetica; font-size:12px; line-height:150%; text-align:center;">
 												                            <em>Отдел снабжения XT.ua © 2016</em>
 												                            <br><br>
 																			Хотите изменить настройки уведомлений?
 																			<br>
-																			Можете это сделать в&nbsp;<a href="http://xt.ua/cabinet">личном кабинете</a>.
+																			Можете это сделать в&nbsp;<a href="http://xt.ua/cabinet" style="color:#bbbbbb; font-weight:normal;	text-decoration:underline;">личном кабинете</a>.
 												                        </td>
 											                    	</tr>
 											                	</tbody>
