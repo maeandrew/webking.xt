@@ -59,7 +59,7 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container h4,#comments .feedback_form h4{text-align:center;margin:0;font-size:1.429em}
 #comments .feedback_form .feedback_stars{overflow:hidden;margin-bottom:5px}
 #comments .feedback_form .feedback_stars label{float:left}
-#comments .feedback_form .feedback_stars label.label_for_stars{margin-right:10px}
+#comments .feedback_form .feedback_stars label.label_for_stars{margin-right:5px}
 #comments .feedback_form .feedback_stars label i{color:#ff5722;vertical-align:middle;font-size:20px}
 #comments .feedback_form [for=feedback_text]{display:block}
 #comments .feedback_form #feedback_text,#comments .reply_wrap textarea[name=feedback_text]{box-sizing:border-box;width:100%;min-height:70px}
@@ -80,9 +80,11 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container .feedback_item .feedback_comment_reply i{vertical-align:middle;font-size:1.2em}
 #comments .feedback_container .feedback_author{font-size:15px;font-weight:700;float:left}
 #comments .feedback_container .feedback_date,#comments .feedback_container .feedback_item .isAdmin,#comments .feedback_container .feedback_item .isBought{float:left}
-#comments .feedback_container .feedback_item .isBought{position:relative;cursor:default;margin:0 1em}
+#comments .feedback_container .feedback_item .isBought{position:relative;cursor:default;margin-left:1em}
 #comments .feedback_container .feedback_item .isBought .check_circle{position:absolute;font-size:14px;color:#018b06;border-radius:50%;background-color:#fff;top:-4px;left:10px}
-#comments .feedback_container .feedback_date,#comments .feedback_container .rating_stars li{color:#9e9e9e;margin-left:5px}
+#comments .feedback_container .feedback_date{color:#9e9e9e}
+#comments .feedback_container .rating_stars li{color:#ff5722}
+#comments .feedback_container .feedback_date{margin-left:1em}
 #comments .feedback_container .feedback_date i,#comments .feedback_container .rating_stars i{font-size:17px;vertical-align:sub;cursor:default}
 #comments .feedback_rating{display:inline-block;float:right}
 #comments .feedback_hidden{color:#ff5722;margin-left:1em}
