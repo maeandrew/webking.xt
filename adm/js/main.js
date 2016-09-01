@@ -298,6 +298,9 @@ $(function(){
 			ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
 				console.log(data);
 				checked_product.closest('.checked_product').remove();
+				if($('.checked_products').children().length == 0){
+					$('.no_checked_products_js').removeClass('hidden');
+				}
 			}).fail(function(data){
 				console.log('fail');
 				console.log(data);
