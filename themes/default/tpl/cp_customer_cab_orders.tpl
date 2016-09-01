@@ -182,7 +182,7 @@
 												</div>
 											</div>
 											<div class="additional">
-												<div class="manager" data-id="<?=$i['contragent_info']['id_user']?>">
+												<div class="manager voted" data-id="<?=$i['contragent_info']['id_user']?>">
 													<div class="label">Ваш менеджер</div>
 													<div class="avatar">
 														<img src="/images/noavatar.png" alt="avatar" />
@@ -197,10 +197,10 @@
 															<!-- <a href="#" class="dislike" onclick="UserRating($(this));return false;" >
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a> -->
-															<a href="#" class="like btn_js chosen_rait_js" data-name="dislike_comment">
+															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#like"></use></svg>
 															</a>
-															<a href="#" class="dislike btn_js chosen_rait_js" data-name="dislike_comment">
+															<a href="#" class="dislike btn_js dislike_manager_<?=$i['contragent_info']['id_user']?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a>
 															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
@@ -350,13 +350,14 @@
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 
-<div id="dislike_comment" data-type="modal" class="dislike_comment dislike_comment_js">
+<div id="rait_comment" data-type="modal" class="rait_comment rait_comment_js">
 	<form action="">
 		<input type="hidden" name="id_manager">
+		<input type="hidden" name="voted">
 		<input type="hidden" name="like">
-		<p class="mesage_text">Шо тебе уже не так, а? Напишика давай!</p>
+		<p class="mesage_text">Вы можете оставить свой комментарий</p>
 		<textarea name="comment" cols="30" rows="10"></textarea>
-		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent dislike_btn_js raiting_js">Продолжить</button>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent raiting_js">Продолжить</button>
 	</form>
 </div>
 <script>
@@ -437,36 +438,27 @@ $(function(){
 		GetCabProdAjax(cart_id, rewrite);
 	});
 
+	$('.chosen_rait_js').on('click', function(){
+		var modal = $('#'+$(this).data('name'));
+		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
+		modal.find('[name="voted"]').val($(this).closest('.manager').is('.voted')?1:0);
+		modal.find('[name="like"]').val($(this).is('.like')?1:0);
+	});
+
 	$('.raiting_js').on('click', function(e){
 		e.preventDefault();
 		var form = $(this).closest('form');
+		var rait = form.find('[name="like"]').val();
+		var manager = form.find('[name="id_manager"]').val();
 		ajax('cabinet', 'GetRating', new FormData($(form)[0]), 'json', true).done(function(response){
-			// code...
+			closeObject('rait_comment');
+			$('.details').find('.like_manager_' + manager, '.dislike_manager_' + manager).removeClass('active');
+			if(rait == 1){
+				$('.details').find('.like_manager_' + manager).addClass('active');
+			}else{
+				$('.details').find('.dislike_manager_' + manager).addClass('active');
+			}
 		});
-		// var id_user = $('.manager').data('id');
-		// var bool = 1;
-		// if($(this).hasClass('dislike_btn_js')){
-		// 	bool = 0;
-		// 	comment = $('.dislike_comment_js textarea').val();
-		// }
-		// ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool, 'comment': comment}).done(function(data){
-		// 	closeObject('dislike_comment');
-		// 	if (bool === 0) {
-		// 		$('.dislike').addClass('active');
-		// 	}
-		// });
-	});
-
-	$('.chosen_rait_js').on('click', function(){
-		var modal = $('#'+$(this).data('name'));
-		modal.find('[name="id_manager"]').val($(this).closest('.manager').is('.voted')?1:0);
-		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
-		modal.find('[name="like"]').val($(this).is('.like')?1:0);
-
-		$(this).closest('.details').find('.chosen_rait_js').removeClass('active');
-		if($(this).hasClass('like')){
-			$(this).addClass('active');
-		}
 	});
 });
 </script>
