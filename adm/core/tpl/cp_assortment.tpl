@@ -226,14 +226,14 @@
 							</td>
 							<td>
 								<?if(!empty($item['images'])){?>
-									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="" data-original="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
+									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
 									<noscript>
-										<img <?=$wh?> src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
+										<img <?=$wh?> src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
 									</noscript>
 								<?}else{?>
-									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="<?=htmlspecialchars($item['name'])?>" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="<?=htmlspecialchars($item['name'])?>" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 									<noscript>
-										<img <?=$wh?> src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>"/>
+										<img <?=$wh?> src="<?=G::GetImageUrl($item['img_1'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>"/>
 									</noscript>
 								<?}?>
 							</td>

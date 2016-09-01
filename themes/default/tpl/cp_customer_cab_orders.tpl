@@ -182,7 +182,7 @@
 												</div>
 											</div>
 											<div class="additional">
-												<div class="manager" data-id="<?=$i['contragent_info']['id_user']?>">
+												<div class="manager <?=$i['mark'] != null?'voted':null?>" data-id="<?=$i['contragent_info']['id_user']?>">
 													<div class="label">Ваш менеджер</div>
 													<div class="avatar">
 														<img src="/images/noavatar.png" alt="avatar" />
@@ -191,18 +191,13 @@
 														<div class="line_1"><?=$i['contragent']?></div>
 														<div class="line_2"><?=$i['contragent_info']['phones']?></div>
 														<div class="line_3">
-															<a href="#" class="like" onclick="UserRating($(this));return false;">
+															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '1'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#like"></use></svg>
 															</a>
-															<a href="#" class="dislike" onclick="UserRating($(this));return false;">
+															<a href="#" class="dislike btn_js dislike_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '0'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a>
-															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
-														</div>
-														<div id="modal_message" data-type="modal">
-															<div class="modal_container">
-																<div class="mesage_text">Вы уже отдали голос за этого менеджера</div>
-															</div>
+															<!-- <span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span> -->
 														</div>
 													</div>
 												</div>
@@ -254,14 +249,14 @@
 															<span class="value"><?=$i['address_info']['delivery_department']?></span>
 														</div>
 														<div class="line">
-															<span class="label">Адресс:</span>
+															<span class="label">Адрес:</span>
 															<span class="value"><?=$i['address_info']['address']?></span>
 														</div>
 														<!-- <div class="line">
 															<span class="label">Получатель:</span>
 															<span class="value">
-																<?=$i['address_info']['last_name']?> 
-																<?=$i['address_info']['first_name']?> 
+																<?=$i['address_info']['last_name']?>
+																<?=$i['address_info']['first_name']?>
 																<?=$i['address_info']['middle_name']?>
 															</span>
 														</div>
@@ -349,6 +344,16 @@
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 
+<div id="rait_comment" data-type="modal" class="rait_comment rait_comment_js">
+	<form action="">
+		<input type="hidden" name="id_manager">
+		<input type="hidden" name="voted">
+		<input type="hidden" name="like">
+		<p class="mesage_text">Вы можете оставить свой комментарий</p>
+		<textarea name="comment" cols="30" rows="10"></textarea>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent raiting_js">Продолжить</button>
+	</form>
+</div>
 <script>
 
 /*ПОТОМ ВСЕ ВЫНЕСТИ В МЭЙН Ж ЭС (НАВЕРНО)*/
@@ -420,10 +425,34 @@ $(function(){
 			};
 		});
 	});
+
 	$('.prod_load_js').click(function(event) {
 		var cart_id = $(this).data('cartid'),
 			rewrite = $(this).data('rewrite');
 		GetCabProdAjax(cart_id, rewrite);
+	});
+
+	$('.chosen_rait_js').on('click', function(e){
+		var modal = $('#'+$(this).data('name'));
+		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
+		modal.find('[name="voted"]').val($(this).closest('.manager').is('.voted')?1:0);
+		modal.find('[name="like"]').val($(this).is('.like')?1:0);
+	});
+
+	$('.raiting_js').on('click', function(e){
+		e.preventDefault();
+		var form = $(this).closest('form');
+		var rait = form.find('[name="like"]').val();
+		var manager = form.find('[name="id_manager"]').val();
+		ajax('cabinet', 'GetRating', new FormData($(form)[0]), 'json', true).done(function(response){
+			closeObject('rait_comment');
+			$('.details').find('.like_manager_' + manager, '.dislike_manager_' + manager).removeClass('active');
+			if(rait == 1){
+				$('.details').find('.like_manager_' + manager).addClass('active');
+			}else{
+				$('.details').find('.dislike_manager_' + manager).addClass('active');
+			}
+		});
 	});
 });
 </script>

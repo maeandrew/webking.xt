@@ -444,7 +444,7 @@ class Customers extends Users {
 			o.id_order_status, o.note_customer, o.skey,
 			SUM(osp.opt_sum+osp.mopt_sum) AS sum, o.id_pretense_status,
 			o.id_return_status, o.note, o.sum_discount, o.discount,
-			c.name_c as contragent, c.site as contragent_site
+			c.name_c as contragent, c.site as contragent_site, r.mark
 			FROM "._DB_PREFIX_."order AS o
 			LEFT JOIN "._DB_PREFIX_."osp AS osp
 			ON o.id_order = osp.id_order
@@ -452,6 +452,9 @@ class Customers extends Users {
 			ON o.id_customer = u.id_user
 			LEFT JOIN "._DB_PREFIX_."contragent AS c
 			ON o.id_contragent = c.id_user
+			LEFT JOIN xt_rating r
+			ON o.id_contragent = r.id_contragent
+			AND r.id_author = '".$id_customer."'
 			WHERE o.id_customer = '".$id_customer."'
 			AND o.visibility = 1".$status."
 			GROUP BY o.id_order

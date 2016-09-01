@@ -50,11 +50,11 @@
 									</a>
 								<?}?> -->
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
 								<?}?>
 
 							</td>
@@ -98,11 +98,11 @@
 									</a>
 								<?}?> -->
 								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
 								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
 								<?}?>
 							</td>
 							<td class="name_cell">

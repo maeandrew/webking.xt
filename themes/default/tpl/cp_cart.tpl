@@ -134,9 +134,9 @@
 					<div class="product_photo">
 						<a href="<?=Link::Product($item['translit']);?>">
 							<?if(!empty($item['images'])){?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 							<?}else{?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 							<?}?>
 						</a>
 					</div>
