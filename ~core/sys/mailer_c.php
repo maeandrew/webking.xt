@@ -37,10 +37,35 @@ class Mailer extends PHPMailer {
 		$this->Priority = $this->priority;
 		$this->CharSet = "UTF-8";
 
-		$sPubKey = $GLOBALS['CONFIG']['smtp_key_public'];
+		$sPublicKey = $GLOBALS['CONFIG']['smtp_key_public'];
 		require($GLOBALS['PATH_model'].'APISMTP.php');
-		$this->oApi = new SmtpApi($sPubKey);
-		$this->oApi->setPublicKey($sPubKey);
+		$this->oApi = new SmtpApi($sPublicKey);
+	}
+
+	// Отсылка письма клиенту со ссылками на накладные покупателя
+	public function testEmail(){
+		$Email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+			'subject' => 'Тестовое письмо',
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => $this->FromName,
+				'email' => 'callback@x-torg.com',
+			),
+			'to' => array(
+				array(
+					'email' => 'alexparhomenko67@gmail.com'
+				),
+				array(
+					'email' => 'webking.dev2@gmail.com'
+				)
+			)
+		);
+		$res = $this->oApi->send_email($Email);
+		if(!$res){
+			return false;
+		}
+		return true;
 	}
 
 	public function SendCustomEmail($address, $subject = '', $content = ''){
