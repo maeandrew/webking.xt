@@ -182,7 +182,7 @@
 												</div>
 											</div>
 											<div class="additional">
-												<div class="manager voted" data-id="<?=$i['contragent_info']['id_user']?>">
+												<div class="manager <?=$i['mark'] != null?'voted':null?>" data-id="<?=$i['contragent_info']['id_user']?>">
 													<div class="label">Ваш менеджер</div>
 													<div class="avatar">
 														<img src="/images/noavatar.png" alt="avatar" />
@@ -191,19 +191,13 @@
 														<div class="line_1"><?=$i['contragent']?></div>
 														<div class="line_2"><?=$i['contragent_info']['phones']?></div>
 														<div class="line_3">
-															<!-- <a href="#" class="like raiting_js" onclick="UserRating($(this));return false;">
-																<svg class="icon"><use xlink:href="#like"></use></svg>
-															</a> -->
-															<!-- <a href="#" class="dislike" onclick="UserRating($(this));return false;" >
-																<svg class="icon"><use xlink:href="#dislike"></use></svg>
-															</a> -->
-															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> chosen_rait_js" data-name="rait_comment">
+															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '1'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#like"></use></svg>
 															</a>
-															<a href="#" class="dislike btn_js dislike_manager_<?=$i['contragent_info']['id_user']?> chosen_rait_js" data-name="rait_comment">
+															<a href="#" class="dislike btn_js dislike_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '0'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a>
-															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
+															<!-- <span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span> -->
 														</div>
 													</div>
 												</div>
@@ -255,7 +249,7 @@
 															<span class="value"><?=$i['address_info']['delivery_department']?></span>
 														</div>
 														<div class="line">
-															<span class="label">Адресс:</span>
+															<span class="label">Адрес:</span>
 															<span class="value"><?=$i['address_info']['address']?></span>
 														</div>
 														<!-- <div class="line">
@@ -438,7 +432,7 @@ $(function(){
 		GetCabProdAjax(cart_id, rewrite);
 	});
 
-	$('.chosen_rait_js').on('click', function(){
+	$('.chosen_rait_js').on('click', function(e){
 		var modal = $('#'+$(this).data('name'));
 		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
 		modal.find('[name="voted"]').val($(this).closest('.manager').is('.voted')?1:0);

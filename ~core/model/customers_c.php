@@ -444,8 +444,7 @@ class Customers extends Users {
 			o.id_order_status, o.note_customer, o.skey,
 			SUM(osp.opt_sum+osp.mopt_sum) AS sum, o.id_pretense_status,
 			o.id_return_status, o.note, o.sum_discount, o.discount,
-			c.name_c as contragent, c.site as contragent_site,
-			(CASE WHEN r.mark IS NULL THEN 2 ELSE r.mark END) AS mark
+			c.name_c as contragent, c.site as contragent_site, r.mark
 			FROM "._DB_PREFIX_."order AS o
 			LEFT JOIN "._DB_PREFIX_."osp AS osp
 			ON o.id_order = osp.id_order
