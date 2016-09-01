@@ -283,14 +283,27 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo $prod_arr;
 				break;
+			case "sessionFillCategory":
+				if($_POST['checked'] == 1) {
+					$_SESSION['fill_category'][] = $_POST['id_product'];
+					echo 'ok';
+				}elseif($_POST['checked'] == 0){
+					unset($_SESSION['fill_category'][array_search($_POST['id_product'],$_SESSION['fill_category'])]);
+						echo 'ok';
+				}else{
+					echo 'something wrong';
+				}
+				break;
 			case "fillCategory":
-				if(isset($_SESSION['fill_category'])){
+				if(isset($_SESSION['fill_category']) && $_POST['id_category']){
 					if($Products->FillCategoryByIdProduct($_POST['id_category'], $_SESSION['fill_category'], $_POST['main'])){
 						unset($_SESSION['fill_category']);
 						echo 'ok';
 					}else{
 						echo 'something wrong';
 					}
+				}else{
+					echo 'something wrong';
 				}
 				break;
 			default:

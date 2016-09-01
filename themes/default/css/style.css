@@ -1897,6 +1897,10 @@ section .stat_year {
 	padding-top: 10px;
 	position: relative;
 }
+.products .card .product_name .title_move_product{
+	font-size: 1em;
+	line-height: 1.6em;
+}
 .products .card .ordered {
 	position: absolute;
 	color: #018b06;
