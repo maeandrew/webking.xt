@@ -928,15 +928,15 @@ footer {
 }
 .list.comment_list tbody textarea{
 	box-sizing: border-box;
-    width: 70vw;
-    min-height: 70px;
+	width: 70vw;
+	min-height: 70px;
 }
 .list.comment_list tbody .new_comment td{
 	padding: 1em 0 1em 3em;
 }
 .list.comment_list tbody .new_comment button{
 	display: block;
-    margin-top: .5em;
+	margin-top: .5em;
 }
 
 /* PAGINATOR */
@@ -1248,6 +1248,9 @@ img.pic_block {
 	margin-bottom: 1em;
 	padding: 1em;
 }
+.move_product_wrap .err_border{
+	border: 1px solid red;
+}
 .move_product_wrap .move_to > *{
 	margin: .5em 0;
 }
@@ -1277,6 +1280,10 @@ img.pic_block {
 	margin-bottom: .5em;
 }
 .move_product_wrap .checked_products .checked_product .btn_wrap button{
+	color: red;
+}
+.move_product_wrap .checked_products .checked_product .btn_wrap button,
+.move_product_wrap .checked_products .checked_product .btn_wrap .psevdo_btn{
 	width: 100px;
 	margin-bottom: 1em;
 }

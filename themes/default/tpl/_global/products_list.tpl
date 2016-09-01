@@ -351,7 +351,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					
 					<?if(_acl::isAdmin()){?>
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="move_product_<?=$item['id_product']?>">
-							<input type="checkbox" name="move_product" data-idproduct="<?=$item['id_product']?>" id="move_product_<?=$item['id_product']?>" class="move_product_<?=$item['id_product']?>_js mdl-checkbox__input">
+							<input type="checkbox" name="move_product" data-idproduct="<?=$item['id_product']?>" id="move_product_<?=$item['id_product']?>" class="move_product_<?=$item['id_product']?>_js mdl-checkbox__input" <?=isset($_SESSION['fill_category']) && in_array($item['id_product'], $_SESSION['fill_category'])?'checked':null;?>>
 							<span class="mdl-checkbox__label title_move_product">Перенести в категорию</span>
 						</label>
 					<?}?>
