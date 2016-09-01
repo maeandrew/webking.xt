@@ -141,9 +141,9 @@ $c13 = 60;
 				<td class="c6"><?=$i['art']?></td>
 				<td class="c3 <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">
 					<?if(isset($i['image']) && !empty($i['image'])){?>
-						<img height="48" src="<?=_base_url?><?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=$i['name']?>">
+						<img height="48" src="<?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=$i['name']?>">
 					<?}else if(!empty($i['img_1'])){?>
-						<img height="48" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'medium')?>" />
+						<img height="48" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 					<?}else {?>
 						<img height="48" src="<?=_base_url?>/images/nofoto.png" />
 					<?}?>
@@ -171,9 +171,9 @@ $c13 = 60;
 					<td class="c6"><?=$i['art']?></td>
 					<td class="c3 <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">
 						<?if(isset($i['image']) && !empty($i['image'])){?>
-							<img height="48" src="<?=_base_url?><?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=$i['name']?>">
+							<img height="48" src="<?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=$i['name']?>">
 						<?}else if(!empty($i['img_1'])){?>
-							<img height="48" src="<?=_base_url?><?=G::GetImageUrl($i['img_1'], 'medium')?>" />
+							<img height="48" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 						<?}else {?>
 							<img height="48" src="<?=_base_url?>/images/nofoto.png" />
 						<?}?>

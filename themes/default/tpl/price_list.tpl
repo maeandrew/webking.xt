@@ -287,10 +287,10 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="<?=_base_url?><?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+                <img height="250" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
                 <!-- <img height="250" src="<?=_base_url.G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="250" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+                <img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
                 <!-- <img height="250" src="<?=_base_url.G::GetImageUrl($p['img_1'], 'medium')?>" /> -->
                 <?}?>
                 <!-- <img height="250" src="<?=_base_url.G::GetImageUrl($p['img_1'], 'medium')?>"/> -->
@@ -370,10 +370,10 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="<?=_base_url?><?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+                <img height="250" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
                 <!-- <img height="250" src="<?=_base_url.G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="250" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+                <img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
                 <!-- <img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" /> -->
                 <?}?>
                 <!-- <img height="250px" src="<?=_base_url.G::GetImageUrl($p['img_1'], 'medium')?>"/> -->
@@ -459,10 +459,10 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
         <td class="photo" rowspan="<?=count($_GET['column'])+4?>">
             <div class="photo_inner">
                 <?if($p['image'] != ''){?>
-                <img height="250" src="<?=_base_url?><?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+                <img height="250" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
                 <!-- <img height="250" src="<?=_base_url.G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="250" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+                <img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
                 <!-- <img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" /> -->
                 <?}?>
                 <!-- <img height="250px" src="<?=_base_url.G::GetImageUrl($p['img_1'], 'medium')?>"/> -->
@@ -575,10 +575,10 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
                 <?if($_GET['photo'] == 1){?>
                 <td style="width: 90px;">
                 <?if($p['image'] != ''){?>
-                <img height="90" src="<?=_base_url?><?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+                <img height="90" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
                 <!-- <img height="90" src="<?=_base_url.G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="90" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+                <img height="90" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
                 <!-- <img height="90" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" /> -->
                 <?}?>
                 <!-- <img width="90" src="<?=_base_url.G::GetImageUrl($p['img_1'], 'medium')?>" alt=""/> -->
@@ -660,10 +660,10 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_
                 <?if($_GET['photo'] == 1){?>
                 <td style="width: 90px;">
                 <?if($p['image'] != ''){?>
-                <img height="90" src="<?=_base_url?><?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+                <img height="90" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
                 <!-- <img height="90" src="<?=_base_url.G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>"> -->
                 <?}else{?>
-                <img height="90" src="<?=_base_url?><?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+                <img height="90" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
                 <!-- <img height="90" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" /> -->
                 <?}?>
                 <!-- <img width="90" src="<?=_base_url.G::GetImageUrl($p['img_1'], 'medium')?>" alt=""/> -->
@@ -738,10 +738,10 @@ $margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$l['mopt_correction_
 <?if($_GET['photo'] == 1){?>
 <td style="width: 90px;">
 <?if($l['image'] != ''){?>
-<img height="90" src="<?=_base_url?><?=G::GetImageUrl($l['image'], 'medium')?>" alt="<?=$l['name']?>">
+<img height="90" src="<?=G::GetImageUrl($l['image'], 'medium')?>" alt="<?=$l['name']?>">
 <!-- <img height="90" src="<?=_base_url.G::GetImageUrl($l['image'], 'medium')?>" alt="<?=$l['name']?>"> -->
 <?}else{?>
-<img height="90" src="<?=_base_url?><?=G::GetImageUrl($l['img_1'], 'medium')?>" />
+<img height="90" src="<?=G::GetImageUrl($l['img_1'], 'medium')?>" />
 <!-- <img height="90" src="<?=G::GetImageUrl($l['img_1'], 'medium')?>" /> -->
 <?}?>
 <!-- <img width="90" src="<?=_base_url.G::GetImageUrl($l['img_1'], 'medium')?>" alt=""/> -->

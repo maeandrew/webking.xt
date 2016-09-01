@@ -796,6 +796,7 @@ class G {
 		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
 			$url = '/images/nofoto.png';
 		}
-		return htmlspecialchars($url);
+		return htmlspecialchars(_base_url.$url);
+		// return htmlspecialchars('https://xt.ua'.$url);
 	}
 }
