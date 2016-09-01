@@ -270,7 +270,7 @@ $(function(){
 			parent.find('[name="move_product"]').prop("checked") ? data.main = 0 : data.main = 1;
 		if(data.id_category != null){
 			$('select[name="category"]').removeClass('err_border');
-			if(is_empty != 'true'){
+			if($('.checked_products').children().length != 0){
 				$('.no_checked_products_js').removeClass('err_border');
 				ajax('products', 'fillCategory', data, 'text').done(function(data){
 					console.log(data);
