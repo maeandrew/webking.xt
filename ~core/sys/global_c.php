@@ -797,6 +797,5 @@ class G {
 			$url = '/images/nofoto.png';
 		}
 		return htmlspecialchars(_base_url.$url);
-		// return htmlspecialchars('https://xt.ua'.$url);
 	}
 }
