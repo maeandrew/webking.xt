@@ -5,7 +5,7 @@
 $GLOBALS['descr_for_seo'] = [];
 switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
-	    foreach($list as $item){
+		foreach($list as $item){
 			$Status = new Status();
 			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
@@ -203,9 +203,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clearBoth"></div>
 			</div>
 		<?}
-	    break;
+		break;
 	case _ACL_SUPPLIER_:
-    	?><div class="card card_tittle">
+		?><div class="card card_tittle">
 			<div class="product_photo card_item">Фото товара</div>
 			<p class="product_name card_item">Наименование товара</p>
 			<div class="suplierPriceBlock headerPriceBlock">
@@ -301,9 +301,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clearBoth"></div>
 			</div>
 		<?}
-    	break;
+		break;
 	default:
-    	foreach($list as $item){
+		foreach($list as $item){
 			$in_cart = false;
 			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));

@@ -260,4 +260,17 @@ $(function(){
 		$(this).closest('thead').next().find('.new_comment').remove();
 		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_js').removeClass('hidden');
 	});
+
+	$('body').on('click', '.del_checked_product_js', function(event){
+		var data = {};
+		data.id_product = $(this).attr('data-idproduct');
+		// this.checked ? data.checked = 1 : data.checked = 0;
+		ajax('products', 'fillCategory', data).done(function(data){
+			console.log(data);
+			$(this).closest('.checked_product').remove();
+		}).fail(function(data){
+			console.log('fail');
+			console.log(data);
+		});
+	});
 });
