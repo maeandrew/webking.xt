@@ -340,6 +340,7 @@ div[for="rating_block"] {
 	box-sizing: border-box;
 	width: 100%;
 	min-height: 70px;
+	padding: 10px;
 }
 #comments .feedback_form .user_data {
 	margin-top: 10px;
@@ -477,10 +478,6 @@ div[for="rating_block"] {
 }
 #comments .feedback_container .reply_wrap{
 	margin-left: 5em;
-}
-#comments .feedback_container .reply_wrap textarea[name="feedback_text"]{
-	width: 100%;
-	padding: 10px;
 }
 
 /* Стили для слайдера миниатюр. ВИДЕО */
