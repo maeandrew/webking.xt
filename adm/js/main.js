@@ -266,4 +266,52 @@ $(function(){
 		$(this).closest('thead').next().find('.new_comment').remove();
 		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_js').removeClass('hidden');
 	});
+
+	// Перенос выбранных товаров в категорию
+	$('body').on('click', '.btn_move_to_js', function(event){
+		var parent = $(this).closest('.move_to'),
+			is_empty = parent.attr('data-isempty'),
+			data = {};
+			data.id_category = parent.find('[name="category"]').val();
+			parent.find('[name="move_product"]').prop("checked") ? data.main = 0 : data.main = 1;
+		if(data.id_category != null){
+			$('select[name="category"]').removeClass('err_border');
+			if($('.checked_products').children().length != 0){
+				$('.no_checked_products_js').removeClass('err_border');
+				ajax('products', 'fillCategory', data, 'text').done(function(data){
+					console.log(data);
+					$('.checked_products').empty();
+					$('.no_checked_products_js').removeClass('hidden');
+					location.reload();
+				}).fail(function(data){
+					console.log('fail');
+					console.log(data);
+				});
+			}else{
+				$('.no_checked_products_js').addClass('err_border');
+			}
+		}else{
+			$('select[name="category"]').addClass('err_border');
+		}
+	});
+
+	// Удаление товара из списка для переноса в категорию
+	$('body').on('click', '.del_checked_product_js', function(event){
+		if(confirm('Товар будет удален из списка. Продолжить?')){
+			var checked_product = $(this),
+				data = {};
+			data.id_product = $(this).attr('data-idproduct');
+			data.checked = 0;
+			ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
+				console.log(data);
+				checked_product.closest('.checked_product').remove();
+				if($('.checked_products').children().length == 0){
+					$('.no_checked_products_js').removeClass('hidden');
+				}
+			}).fail(function(data){
+				console.log('fail');
+				console.log(data);
+			});
+		}
+	});
 });

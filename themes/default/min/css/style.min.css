@@ -294,6 +294,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 .products .card .product_photo a{display:block}
 .products .card .product_photo a img{display:block;max-height:120px;max-width:100%;margin:0 auto}
 .products .card .product_name{padding-top:10px;position:relative}
+.products .card .product_name .title_move_product{font-size:1em;line-height:1.6em}
 .products .card .ordered{position:absolute;color:#018b06;right:0;top:10px;cursor:help}
 .products .card [for^=ordered-]{font-size:12px}
 @media (max-width:1024px){.products .card_tittle{display:block}

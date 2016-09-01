@@ -4570,34 +4570,6 @@ class Products {
 		return $res;
 	}
 
-	public function FillCategoryByOrder($data){
-		$sql = "DELETE
-			FROM "._DB_PREFIX_."cat_prod
-			WHERE id_product IN (
-				SELECT o.id_product
-				FROM "._DB_PREFIX_."osp AS o
-				WHERE o.id_order = ".$data['id_order'].")
-			AND id_category IN (SELECT c.id_category FROM "._DB_PREFIX_."category AS c WHERE c.sid = 1)";
-		$this->db->StartTrans();
-		if(!$this->db->Query($sql)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-		$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
-			(id_category, id_product, main)
-			(SELECT ".$data['category']." AS id_category, o.id_product, 1 AS main FROM "._DB_PREFIX_."osp AS o WHERE o.id_order = ".$data['id_order']." GROUP BY o.id_product)";
-		$this->db->StartTrans();
-		if(!$this->db->Query($sql)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-		$f['category'] = $data['category'];
-		$this->db->Update(_DB_PREFIX_.'order', $f, 'id_order = '.$data['id_order']);
-		return true;
-	}
-
 	public function UploadEstimate($file, $comment){
 		$f['id_user'] = $_SESSION['member']['id_user'];
 		$f['comment'] = trim($comment);
@@ -4760,7 +4732,7 @@ class Products {
 
 	// Выбор товаров для добавления категории
 	public function getArrayProductsById($id_products, $sort = false){
-		$sql = "SELECT id_product, `name`, art, translit
+		$sql = "SELECT id_product, `name`, art, translit, descr_xt_full, img_1
 				FROM "._DB_PREFIX_."product	WHERE id_product IN (".implode(', ', $id_products).")".
 				($sort!==false?$sort:'');
 		$arr = $this->db->GetArray($sql);
@@ -4789,7 +4761,8 @@ class Products {
 		}
 		foreach ($id_products as $v) {
 			$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
-			(id_category, id_product, main) (".$id_category.", ".$v.", ".$main.")";
+			(id_category, id_product, main) VALUES
+			(".$id_category.", ".$v.", ".$main.")";
 			$sql2 = "UPDATE "._DB_PREFIX_."product
 			SET edit_user = ".$_SESSION['member']['id_user']." , edit_date = '".date('Y-m-d H:m:i')."'  WHERE id_product = ".$v;
 			$this->db->StartTrans();

@@ -5,7 +5,7 @@
 $GLOBALS['descr_for_seo'] = [];
 switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
-	    foreach($list as $item){
+		foreach($list as $item){
 			$Status = new Status();
 			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
@@ -203,9 +203,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clearBoth"></div>
 			</div>
 		<?}
-	    break;
+		break;
 	case _ACL_SUPPLIER_:
-    	?><div class="card card_tittle">
+		?><div class="card card_tittle">
 			<div class="product_photo card_item">Фото товара</div>
 			<p class="product_name card_item">Наименование товара</p>
 			<div class="suplierPriceBlock headerPriceBlock">
@@ -301,9 +301,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clearBoth"></div>
 			</div>
 		<?}
-    	break;
+		break;
 	default:
-    	foreach($list as $item){
+		foreach($list as $item){
 			$in_cart = false;
 			$product_mark = '';
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
@@ -348,6 +348,13 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
+					
+					<?if(_acl::isAdmin()){?>
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="move_product_<?=$item['id_product']?>">
+							<input type="checkbox" name="move_product" data-idproduct="<?=$item['id_product']?>" id="move_product_<?=$item['id_product']?>" class="move_product_<?=$item['id_product']?>_js mdl-checkbox__input" <?=isset($_SESSION['fill_category']) && in_array($item['id_product'], $_SESSION['fill_category'])?'checked':null;?>>
+							<span class="mdl-checkbox__label title_move_product">Перенести в категорию</span>
+						</label>
+					<?}?>
 
 					<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 						<?if(isset($item['c_mark']) && $item['c_mark'] > 0){?>
