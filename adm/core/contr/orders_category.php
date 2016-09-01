@@ -82,8 +82,8 @@ if(isset($_SESSION['fill_category'])){
 //if($Order->SetList(1, $arr, $orderby, $limit)){
 //	$tpl->Assign('list', $Order->list);
 //}
-//$categories = $Products->generateCategory();
-//$tpl->Assign('categories', $categories);
+$categories = $Products->generateCategory();
+$tpl->Assign('categories', $categories);
 //$order_statuses = $Order->GetStatuses();
 //$tpl->Assign('order_statuses', $order_statuses);
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_orders_category.tpl');
