@@ -276,6 +276,7 @@ $(function(){
 					console.log(data);
 					$('.checked_products').empty();
 					$('.no_checked_products_js').removeClass('hidden');
+					location.reload();
 				}).fail(function(data){
 					console.log('fail');
 					console.log(data);
