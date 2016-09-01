@@ -358,7 +358,7 @@
 												                    <tr>
 												                        <td valign="top" class="mcnTextContent" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
 												                            <!-- <img align="none" height="52" src="<?=_base_url?>/efiles/mail/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"> -->
-												                            <a href="http://xt.ua" target="_blank"><img align="none" height="52" src="http://xt/efiles/mail/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
+												                            <a href="https://xt.ua" target="_blank"><img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
 												                        </td>
 												                    </tr>
 												                </tbody>
