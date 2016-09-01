@@ -44,6 +44,7 @@ class Mailer extends PHPMailer {
 
 	// Отсылка письма клиенту со ссылками на накладные покупателя
 	public function testEmail(){
+		global $tpl;
 		$Email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
 			'subject' => 'Тестовое письмо',
