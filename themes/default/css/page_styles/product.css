@@ -369,27 +369,16 @@ div[for="rating_block"] {
 }
 #comments .feedback_container {
 	clear: both;
-	/*padding: 15px 0;*/
 }
 #comments .feedback_container h4{
 	padding: .3em 0;
 }
-/*#comments .feedback_container .feedback_sub_container {
-	margin-bottom: 15px;
-	padding-bottom: 5px;
-	border-bottom: 1px solid #e0e0e0;
-}
-#comments .feedback_container .feedback_hidden {
-	color: #f00;
-	display: block;
-	font-style: italic;
-}*/
 #comments .feedback_container .feedback_item{
 	border-top: 2px solid #ddd;
 	padding: .5em;
 }
 #comments .feedback_container .feedback_item.feedback_reply{
-	margin-left: 1em;
+	margin-left: 5em;
 	border-top: 1px solid #ddd;
 }
 #comments .feedback_container .feedback_item .isAdmin i{
@@ -407,16 +396,13 @@ div[for="rating_block"] {
 	font-style: italic;
 }
 #comments .feedback_container .feedback_item > a{
-	margin: 1em;
+	margin: 1em 0;
 	display: inline-block;
 }
 #comments .feedback_container .feedback_item .feedback_comment_reply i{
 	vertical-align: middle;
 	font-size: 1.2em;
 }
-/*#comments .feedback_container .feedback_item:first-child{
-	border: none;
-}*/
 #comments .feedback_container .feedback_author {
 	font-size: 15px;
 	font-weight: bold;
@@ -485,15 +471,13 @@ div[for="rating_block"] {
 	text-align: justify;
 	line-height: 1.4em;
 }
-
 #comments .feedback_container .reply_wrap{
-	margin-left: 1em;
+	margin-left: 5em;
 }
 #comments .feedback_container .reply_wrap textarea[name="feedback_text"]{
 	width: 100%;
+	padding: 10px;
 }
-
-
 
 /* Стили для слайдера миниатюр. ВИДЕО */
 .product_main_img #mainVideoBlock {
