@@ -267,7 +267,7 @@ $(function(){
 			is_empty = parent.attr('data-isempty'),
 			data = {};
 			data.id_category = parent.find('[name="category"]').val();
-			parent.find('[name="move_product"]').prop("checked") ? data.main = 1 : data.main = 0;
+			parent.find('[name="move_product"]').prop("checked") ? data.main = 0 : data.main = 1;
 		if(data.id_category != null){
 			$('select[name="category"]').removeClass('err_border');
 			if(is_empty != 'true'){
