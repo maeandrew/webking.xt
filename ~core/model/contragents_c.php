@@ -46,7 +46,12 @@ class Contragents extends Users{
 		$f['mark'] = $arr['like'];
 		$f['comment'] = $arr['comment'];
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_."rating", $f)){
+		if($arr['voted'] == 1){
+			$res = $this->db->Update(_DB_PREFIX_.'rating', $f, 'id_author = '.$f['id_author'].' AND id_contragent = '.$f['id_contragent']);
+		}else{
+			$res = $this->db->Insert(_DB_PREFIX_."rating", $f);
+		}
+		if(!$res){
 			$this->db->FailTrans();
 			return false;
 		}
