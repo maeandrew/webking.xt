@@ -41,15 +41,10 @@ class Contragents extends Users{
 	// Добавление рейтинга Контраагента
 	//
 	public function GetRating($arr){
-		/*$id = $_SESSION['member']['id_user'];
-		$id_contr = $_POST['id_user'];
-		$sql = "INSERT INTO "._DB_PREFIX_."rating (id_author,id_contragent)
-				VALUES(".$id_contr.",".$id.");";*/
-
 		$f['id_author'] = $_SESSION['member']['id_user'];
-		$f['id_contragent'] =  $arr['id_user'];
-		$f['mark'] = $arr['bool'];
-		// print_r($_POST);
+		$f['id_contragent'] = $arr['id_manager'];
+		$f['mark'] = $arr['like'];
+		$f['comment'] = $arr['comment'];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_."rating", $f)){
 			$this->db->FailTrans();

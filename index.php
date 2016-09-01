@@ -12,9 +12,6 @@ ini_set('session.cookie_lifetime', 43200);
 // ini_set('max_execution_time', 30);
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'sys'.DIRSEP.'global_c.php');
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'cfg.php');
-// Memcached init
-// $mc = new Memcache();
-// @$mc->connect("localhost", 11211);
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 require($GLOBALS['PATH_core'].'routes.php');

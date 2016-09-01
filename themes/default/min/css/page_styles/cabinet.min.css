@@ -585,6 +585,7 @@ h4{margin:5px 0 10px}
 .order svg{width:24px;height:24px;fill:#000;opacity:.4}
 .order .print svg:hover{opacity:1}
 .details svg{width:24px;height:24px;fill:#000;opacity:.4}
+.details .active svg{fill:#FF5722;opacity:1}
 .order .details svg:hover{opacity:1}
 .order.expanded .mdl-tooltip{display:block}
 .order .mdl-tooltip{display:none}
@@ -634,3 +635,6 @@ h4{margin:5px 0 10px}
 .order_number_filter{margin-left:10px;width:400px}
 .order_number_filter form{display:flex;justify-content:space-between}
 .order_number_filter input{height:35px;padding-left:5px}
+.dislike_comment p{text-align:center;font-size:16px;font-weight:700;padding-top:10px;padding-bottom:10px}
+.dislike_comment textarea{width:100%}
+.dislike_comment button{margin-top:10px;float:right}

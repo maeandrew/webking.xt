@@ -75,9 +75,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 
 			case 'GetRating':
-				$C = new Contragents();
-				$res = $C->GetRating($_POST);
-				echo json_encode($res);
+				$Contragents = new Contragents();
+				echo json_encode($Contragents->GetRating($_POST));
 				break;
 			case 'ChangeInfoUser':
 				$Users = new Users();
@@ -164,7 +163,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'deleteFromModeration':
 				$products = new Products();
-				$products->DeleteProductFromModeration($_POST['id']);				
+				$products->DeleteProductFromModeration($_POST['id']);
 				echo json_encode(true);
 				break;
 		}

@@ -197,18 +197,13 @@
 															<!-- <a href="#" class="dislike" onclick="UserRating($(this));return false;" >
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a> -->
-															<a href="#" class="like raiting_js chosen_rait_js">
+															<a href="#" class="like btn_js chosen_rait_js" data-name="dislike_comment">
 																<svg class="icon"><use xlink:href="#like"></use></svg>
 															</a>
 															<a href="#" class="dislike btn_js chosen_rait_js" data-name="dislike_comment">
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a>
 															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
-														</div>
-														<div id="dislike_comment" data-type="modal" class="dislike_comment dislike_comment_js">
-															<p class="mesage_text">Шо тебе уже не так, а? Напишика давай!</p>
-															<textarea name="dislike_comment" cols="30" rows="10"></textarea>
-															<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent dislike_btn_js raiting_js">Продолжить</button>
 														</div>
 													</div>
 												</div>
@@ -355,6 +350,15 @@
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 
+<div id="dislike_comment" data-type="modal" class="dislike_comment dislike_comment_js">
+	<form action="">
+		<input type="hidden" name="id_manager">
+		<input type="hidden" name="like">
+		<p class="mesage_text">Шо тебе уже не так, а? Напишика давай!</p>
+		<textarea name="comment" cols="30" rows="10"></textarea>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent dislike_btn_js raiting_js">Продолжить</button>
+	</form>
+</div>
 <script>
 
 /*ПОТОМ ВСЕ ВЫНЕСТИ В МЭЙН Ж ЭС (НАВЕРНО)*/
@@ -433,25 +437,34 @@ $(function(){
 		GetCabProdAjax(cart_id, rewrite);
 	});
 
-	$('.raiting_js').on('click', function(){
-		var id_user = $('.manager').data('id');
-		var bool = 1;
-		var comment = '';
-		if($(this).hasClass('dislike_btn_js')){
-			bool = 0;
-			comment = $('.dislike_comment_js textarea').val();
-		}
-		ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool, 'comment': comment}).done(function(data){
-			closeObject('dislike_comment');
-			if (data === 'dislike') {
-				$('.dislike').addClass('active');
-			}
+	$('.raiting_js').on('click', function(e){
+		e.preventDefault();
+		var form = $(this).closest('form');
+		ajax('cabinet', 'GetRating', new FormData($(form)[0]), 'json', true).done(function(response){
+			// code...
 		});
+		// var id_user = $('.manager').data('id');
+		// var bool = 1;
+		// if($(this).hasClass('dislike_btn_js')){
+		// 	bool = 0;
+		// 	comment = $('.dislike_comment_js textarea').val();
+		// }
+		// ajax('cabinet', 'GetRating', {'id_user': id_user,'bool': bool, 'comment': comment}).done(function(data){
+		// 	closeObject('dislike_comment');
+		// 	if (bool === 0) {
+		// 		$('.dislike').addClass('active');
+		// 	}
+		// });
 	});
 
 	$('.chosen_rait_js').on('click', function(){
+		var modal = $('#'+$(this).data('name'));
+		modal.find('[name="id_manager"]').val($(this).closest('.manager').is('.voted')?1:0);
+		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
+		modal.find('[name="like"]').val($(this).is('.like')?1:0);
+
 		$(this).closest('.details').find('.chosen_rait_js').removeClass('active');
-		if ($(this).hasClass('like')) {
+		if($(this).hasClass('like')){
 			$(this).addClass('active');
 		}
 	});
