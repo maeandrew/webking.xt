@@ -1,7 +1,6 @@
 <h1><?=$h1?></h1>
 <?if (isset($errm) && isset($msg)){?><div class="notification error"><span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"><span class="strong">Сделано!</span><?=$msg?></div><?}?>
-<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
 <div class="move_product_wrap">
 	<div class="move_to">
 		<p>Перенести в категорию</p>
@@ -15,44 +14,48 @@
 			<input type="checkbox" name="move_product" data-idproduct="<?=$item['id_product']?>" id="move_product_<?=$item['id_product']?>" class="move_product_<?=$item['id_product']?>_js mdl-checkbox__input">
 			<span class="mdl-checkbox__label title_move_product">Дополнительная категория</span>
 		</label></div>
-		<button name="submit" type="submit" title="Перенести товары из заказа в выбранную категорию" class="btn-m-blue" value="Вперед">Вперед</button>
+		<button name="submit" type="submit" title="Перенести товары из заказа в выбранную категорию" class="btn-m-blue btn_move_to_js" value="Вперед">Вперед</button>
 	</div>
-	<div class="checked_products">
-		<?foreach($product_list as $item){?>
-			<div class="checked_product" data-idproduct="<?=$item['id_product']?>">
-				<div class="item_photo">
-					<a href="<?=Link::Product($item['translit']);?>">
-						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/></noscript>
-						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
-						<?}?>
-					</a>
-				</div>
-				<div class="product_item">
-					<div><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a></div>
-					<div class="product_article">арт: <?=$item['art'];?></div>
-					<div class="product_info">
-						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
-							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
-							<label class="info_key">?</label>
-							<div class="info_description">
-								<p>Поле для ввода примечания к товару.</p>
+	<div class="checked_products_wrap">
+		<div class="no_checked_products_js no_checked_products <?=!empty($product_list)?'hidden':null;?>"><a href="<?=$GLOBALS['URL_base']?>">Выберите товары</a> для переноса в нужную категорию.</div>
+		<?if(!empty($product_list)){?>
+			<div class="checked_products">
+				<?foreach($product_list as $item){?>
+					<div class="checked_product" data-idproduct="<?=$item['id_product']?>">
+						<div class="item_photo">
+							<a href="<?=Link::Product($item['translit']);?>">
+								<?if(!empty($item['images'])){?>
+									<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/></noscript>
+								<?}else{?>
+									<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+									<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=_base_url?><?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
+								<?}?>
+							</a>
+						</div>
+						<div class="product_item">
+							<div><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a></div>
+							<div class="product_article">арт: <?=$item['art'];?></div>
+							<div class="product_info">
+								<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
+									<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+									<label class="info_key">?</label>
+									<div class="info_description">
+										<p>Поле для ввода примечания к товару.</p>
+									</div>
+								</div>
 							</div>
 						</div>
+						<div class="btn_wrap">
+							<div><button class="btn-m-red del_checked_product_js" data-idproduct="<?=$item['id_product']?>">Удалить</button></div>
+							<div><button class="btn-m">Ссылка</button></div>
+						</div>
 					</div>
-				</div>
-				<div class="btn_wrap">
-					<div><button class="btn-m-red del_checked_product_js" data-idproduct="<?=$item['id_product']?>">Удалить</button></div>
-					<div><button class="btn-m">Ссылка</button></div>
-				</div>
+				<?}?>
 			</div>
 		<?}?>
 	</div>
 </div>
-<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
 <script>
 var restore = 0;
 $('[name="restore"]').click(function(){

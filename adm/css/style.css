@@ -1242,7 +1242,8 @@ img.pic_block {
 	margin-right: 0;
 }
 
-.move_product_wrap .move_to{
+.move_product_wrap .move_to,
+.move_product_wrap .no_checked_products{
 	border: 1px solid rgba(0,0,0,.1);
 	margin-bottom: 1em;
 	padding: 1em;
