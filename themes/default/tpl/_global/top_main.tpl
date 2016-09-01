@@ -98,17 +98,19 @@
 			<ul class="phone_nav_contacts">
 				<li class="parent_nav">
 					<i class="material-icons">phone</i>
-					<a href="tel:(063)225-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(063) 225-91-83</a>
-					<a href="tel:(099)228-69-38" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(099) 228-69-38</a>
-					<a href="tel:(093)322-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(093) 322-91-83</a>
+					<a href="tel:(050) 309-84-20" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(050) 309-84-20</a>
+					<a href="tel:(067) 574-10-13" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(067) 574-10-13</a>
+					<a href="tel:(057) 780-38-61" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(057) 780-38-61</a>
+					<a href="tel:(099) 563-28-17" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(099) 563-28-17</a>
+					<a href="tel:(063) 425-91-83" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>(063) 425-91-83</a>
 				</li>
 				<li class="parent_nav">
 					<i class="material-icons">mail</i>
-					<a href="mailto:administration@x-torg.com" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>administration@x-torg.com</a>
+					<a href="mailto:administration@xt.ua" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>administration@xt.ua</a>
 				</li>
 				<li class="parent_nav">
 					<i class="material-icons">location_on</i>
-					<a href="https://www.google.com/maps/place/вул.%20Тюрінська,%20130,%20Харків,%20Харківська+область,%20Україна" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank">г. Харьков, ТЦ Барабашово, Площадка Свояк, Торговое Место 130</a>
+					<a href="https://www.google.com/maps/place/проспект+Ювілейний,+54А,+Харків,+Харківська+область,+Україна" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> target="_blank">г. Харьков, просп. Юбилейный, 54А</a>
 				</li>
 			</ul>
 		</div>
