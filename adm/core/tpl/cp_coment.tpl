@@ -6,12 +6,9 @@
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 comment_list">
-			<col width="80%">
-			<col width="20%">
 			<thead class="main_thead">
 				<tr>
 					<th class="left">Информация об отзывах к товарам</th>
-					<th class="left" colspan="3"></th>
 				</tr>
 			</thead>
 			<?foreach ($list as $i){?>
@@ -33,15 +30,15 @@
 										<a class="btn-m-green btn_answer adm_comment_reply_js" href="#" data-idComment="<?=$i['Id_coment']?>" data-username="<?=$_SESSION['member']['name']?>" data-idproduct="<?=$i['url_coment']?>" data-useremail="<?=$_SESSION['member']['email']?>">Ответить</a>
 										<a class="btn-m btn_answer adm_comment_reply_cancel_js hidden" href="#">Скрыть</a>
 									<?}?>
-									<a class="small mr6 icon-font btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank">e Перейти к товару</a>
+									<a class="small mr6 btn-m-blue" title="Посмотреть товар на сайте" href="/adm/productedit/<?=$i['url_coment']?>" target="_blank"><span class="icon-font">e</span> Перейти к товару</a>
 								</div>
 							</th>
-							<th class="right actions" colspan="3">
+							<th class="right actions right_block">
 								<?if($i['pid_comment'] == ''){?>
 									<div><span class="bold_text">Оценка:</span> <?=$i['rating']?>/5</div>
 								<?}?>
 								<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$i['Id_coment']?>" name="pop_<?=$i['Id_coment']?>" <?if(isset($pops1[$i['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$i['Id_coment']?>)">
-								<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};">t Удалить</a></div>
+								<div class="del_btn_wrap"><a class="btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$i['Id_coment']?>);};"><span class="icon-delete">t</span> Удалить</a></div>
 							</th>
 						</tr>
 					</thead>
@@ -54,9 +51,9 @@
 										<div class="date"><?=date("d.m.Y", strtotime($a['date_comment']))?></div>
 										<div class="comment_text bold_text"><?=$a['text_coment']?></div>
 									</td>
-									<td class="right actions" colspan="3">
+									<td class="right actions right_block">
 										<span class="bold_text">Видимость</span> <input type="checkbox" id="pop_<?=$a['Id_coment']?>" name="pop_<?=$a['Id_coment']?>" <?if(isset($pops1[$a['Id_coment']])){?>checked="checked"<?}?> onchange="SwitchPops1(this, <?=$a['Id_coment']?>)">
-										<div class="del_btn_wrap"><a class="icon-delete btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$a['Id_coment']?>);};">t Удалить</a></div>
+										<div class="del_btn_wrap"><a class="btn-m" onClick="if(confirm('Комментарий будет удален.\nПродолжить?') == true){dropComent(<?=$a['Id_coment']?>);};"><span class="icon-delete">t</span> Удалить</a></div>
 									</td>
 								</tr>
 							<?}?>
