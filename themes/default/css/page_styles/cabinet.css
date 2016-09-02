@@ -2914,3 +2914,15 @@ div[id^="items_panel_"] .btnWrapFlex {
     margin-top: 10px;
     float: right;
 }
+
+.notification_settings .notification_switcher {
+	margin-bottom: 20px;
+    margin-top: 10px;
+}
+.notification_settings label {
+	height: auto;
+}
+.notification_settings .notification_description {
+	color: #a7a7a7;
+	font-size: 12px;
+}
