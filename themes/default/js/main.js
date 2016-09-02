@@ -1053,6 +1053,7 @@ $(function(){
 			if(data.current_step == 4){
 				closeObject('quiz');
 				window.location.hash = '';
+				window.location.reload();
 			}
 
 			// if(i === 0){
