@@ -372,7 +372,7 @@
 											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
 											                    <tbody>
 												                    <tr>
-												                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%; color:#202020;">
+												                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%; color:#202020;text-align: justify;">
 												                            <h1 style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:26px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal; text-align:left;"><?=$title?></h1>
 																			<br>
 																			<?=$content?>
@@ -395,7 +395,7 @@
 												<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width:100%;">
 												    <tbody class="mcnButtonBlockOuter">
 												        <tr>
-												            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
+												            <td style="padding-top:18px; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
 												                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;">
 												                    <tbody>
 												                        <tr>
@@ -426,7 +426,7 @@
 											                    	<tr>
 											                        	<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 12px; line-height: 150%;">
 											                            С уважением<br>
-																		Команда сотрудников <a href="http://xt.ua" target="_blank">XT.ua</a><br>
+																		Команда сотрудников <a href="https://xt.ua" target="_blank">XT.ua</a><br>
 											                        	</td>
 											                    	</tr>
 											                	</tbody>
