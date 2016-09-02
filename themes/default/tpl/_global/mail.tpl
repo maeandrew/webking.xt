@@ -441,8 +441,8 @@
 											                    <tbody>
 											                    	<tr>
 											                        	<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 12px; line-height: 150%;">
-											                            	<div style="text-align: right;">Контакты:<br>(050)3098420</div>
-																			<div style="text-align: right;">(067)5741013</div>
+											                            	<div style="text-align: right;">Контакты:<br><a href="tel:+380503098420">(050)3098420</a></div>
+																			<div style="text-align: right;"><a href="tel:+380675741013">(067)5741013</a></div>
 												                        </td>
 												                    </tr>
 											                	</tbody>
@@ -692,7 +692,7 @@
 												                            <br><br>
 																			Хотите изменить настройки уведомлений?
 																			<br>
-																			Можете это сделать в&nbsp;<a href="http://xt.ua/cabinet" style="color:#bbbbbb; font-weight:normal;	text-decoration:underline;">личном кабинете</a>.
+																			Можете это сделать в&nbsp;<a href="https://<?=$GLOBALS['CONFIG']['invoice_logo_sms']?>/cabinet/settings?t=basic" style="color:#bbbbbb; font-weight:normal; text-decoration:underline;" target="_blank">личном кабинете</a>.
 												                        </td>
 											                    	</tr>
 											                	</tbody>
