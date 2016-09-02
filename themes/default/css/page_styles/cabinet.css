@@ -1799,6 +1799,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	cursor: pointer;
 	width: calc(100% - 52px);
 	padding: 1.429em 0;
+	font-size: 16px;
 }
 .cooperative_order .number{
 	width: auto;
