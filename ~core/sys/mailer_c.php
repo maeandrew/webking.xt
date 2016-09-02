@@ -45,6 +45,7 @@ class Mailer extends PHPMailer {
 	// Отсылка письма клиенту со ссылками на накладные покупателя
 	public function testEmail(){
 		global $tpl;
+		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
 		$tpl->Assign('title', 'Заголовок тестового письма');
 		$tpl->Assign('content', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eum excepturi, autem ipsum aspernatur! Hic dicta ipsam recusandae at, laboriosam magnam doloribus modi laborum a? Molestiae ab vero, dignissimos perspiciatis.
 				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
