@@ -135,9 +135,9 @@ $c11 = 65;
 							<td class="c3"><?=$i['art']?></td>
 							<td class="c4">
 								<?if($i['image'] != ''){?>
-									<img height="48" src="<?=_base_url;?><?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=htmlspecialchars($i['name'])?>">
+									<img height="48" src="<?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=htmlspecialchars($i['name'])?>">
 								<?}else{?>
-									<img height="48" src="<?=_base_url;?><?=G::GetImageUrl($i['img_1'], 'medium')?>" />
+									<img height="48" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 								<?}?>
 							</td>
 							<td class="name c5">
@@ -168,9 +168,9 @@ $c11 = 65;
 							<td class="c3"><?=$i['art']?></td>
 							<td class="c4">
 								<?if($i['image'] != ''){?>
-									<img height="48" src="<?=_base_url;?><?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=htmlspecialchars($i['name'])?>">
+									<img height="48" src="<?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=htmlspecialchars($i['name'])?>">
 								<?}else{?>
-									<img height="48" src="<?=_base_url;?><?=G::GetImageUrl($i['img_1'], 'medium')?>" />
+									<img height="48" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 								<?}?>
 							</td>
 							<td class="name c5">
