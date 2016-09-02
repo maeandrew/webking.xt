@@ -1798,6 +1798,20 @@ class Orders {
 		return true;
 	}
 
+	// Добавляем адрес к заказу клиента
+	public  function addAddress($id_order, $id_address){
+		$sql = "UPDATE "._DB_PREFIX_."order
+			SET id_address = ".$id_address."
+			WHERE id_order = ".$id_order;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)) {
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
 	public function GetOrdersByDate($from_i, $to_i){
 		$from_date = time()-3600*24*30*$from_i;
 		$to_date = time()-3600*24*30*$to_i;
