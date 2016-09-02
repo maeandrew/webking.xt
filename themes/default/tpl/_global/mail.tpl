@@ -396,11 +396,11 @@
 												    <tbody class="mcnButtonBlockOuter">
 												        <tr>
 												            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-												                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #018B06;">
+												                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;">
 												                    <tbody>
 												                        <tr>
-												                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 14px; padding: 15px;">
-												                                <a class="mcnButton " title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;"><?=$button['title']?></a>
+												                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 14px; ">
+												                                <a class="mcnButton " title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="font-weight: bold; padding: 15px; letter-spacing: normal;line-height: 100%;text-align: center;border-radius: 3px;box-sizing:border-box;background-color: #018B06;text-decoration: none;color: #FFFFFF;"><?=$button['title']?></a>
 												                            </td>
 												                        </tr>
 												                    </tbody>
