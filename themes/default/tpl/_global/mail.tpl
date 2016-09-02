@@ -501,7 +501,7 @@
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																                                                	<tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -513,7 +513,7 @@
 																		                                                                        <tbody>
 																		                                                                        	<tr>
 																		                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																		                                                                                    <a href="http://www.facebook.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
 																		                                                                                </td>
 																		                                                                        	</tr>
 																		                                                                    	</tbody>
@@ -525,14 +525,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                        	</table> -->
+																                                        	</table>
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -544,7 +544,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																			                                                                            <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																			                                                                                <a href="http://www.twitter.com/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																			                                                                                <a href="https://twitter.com/we_xt_ua" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
 																			                                                                            </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -556,14 +556,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																                                            	</tbody>
-																                                            </table> -->
+																                                            </table>
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -575,7 +575,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																		                                                                                    <a href="https://vk.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-vk-48.png" style="display:block;" height="24" width="24" class=""></a>
+																		                                                                                    <a href="https://vk.com/xt_ua" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-vk-48.png" style="display:block;" height="24" width="24" class=""></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -587,14 +587,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                            </table> -->
+																                                            </table>
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -606,7 +606,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																		                                                                                    <a href="http://www.youtube.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-youtube-48.png" style="display:block;" height="24" width="24" class=""></a>
+																		                                                                                    <a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-youtube-48.png" style="display:block;" height="24" width="24" class=""></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -618,14 +618,14 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                            </table> -->
+																                                            </table>
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <!-- <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -637,7 +637,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																		                                                                                    <a href="http://plus.google.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-googleplus-48.png" style="display:block;" height="24" width="24" class=""></a>
+																		                                                                                    <a href="https://plus.google.com/+X-torg/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/outline-gray-googleplus-48.png" style="display:block;" height="24" width="24" class=""></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -649,7 +649,7 @@
 																	                                                    </td>
 																	                                                </tr>
 																	                                            </tbody>
-																                                            </table> -->
+																                                            </table>
 																	                                        <!--[if mso]>
 																	                                        </td>
 																	                                        <![endif]-->
