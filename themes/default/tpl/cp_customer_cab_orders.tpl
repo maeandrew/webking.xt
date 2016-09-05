@@ -484,7 +484,7 @@ $(function(){
 		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
 		console.log(id_addres);
 		console.log(id_order);
-		ajax('order', 'addAddress', {id_order:id_order, id_addres:id_addres}).done(function(data){
+		ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}).done(function(data){
 			console.log(data);
 		});
 	});

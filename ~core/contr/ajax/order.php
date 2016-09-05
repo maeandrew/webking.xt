@@ -13,7 +13,7 @@
 				echo json_encode($Orders->RestoreDeleted($_POST['id_order']));
 				break;
 			case 'addAddress':
-				echo json_encode($Orders->addAddress($_POST['id_order']), $_POST['id_address']);
+				echo json_encode($Orders->addAddress($_POST['id_order'], $_POST['id_address']));
 				break;
 			default:
 				break;
