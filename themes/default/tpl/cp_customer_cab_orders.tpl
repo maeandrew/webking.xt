@@ -258,17 +258,14 @@
 																<span class="value"><?=$i['address_info']['delivery']?></span>
 															</div>
 															<div class="line">
-																<span class="label">Отделение:</span>
+																<span class="label <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">Отделение:</span>
 																<span class="value"><?=$i['address_info']['delivery_department']?></span>
 															</div>
-															<div class="line">
+															<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
 																<span class="label">Адрес:</span>
 																<span class="value"><?=$i['address_info']['address']?></span>
 															</div>
 														</div>
-
-
-
 														<!-- <div class="line">
 															<span class="label">Получатель:</span>
 															<span class="value">

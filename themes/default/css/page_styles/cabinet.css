@@ -2915,10 +2915,10 @@ div[id^="items_panel_"] .btnWrapFlex {
     float: right;
 }
 
-.notification_settings .notification_switcher {
+/*.notification_settings .notification_switcher {
 	margin-bottom: 20px;
     margin-top: 10px;
-}
+}*/
 .notification_settings label {
 	height: auto;
 }
@@ -2926,6 +2926,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 	color: #a7a7a7;
 	font-size: 12px;
 }
+.notification_settings button {
+	margin-top: 10px;
+}
+
 /* Новая доставка */
 .servise_logo {
 	overflow: hidden;
