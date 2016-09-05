@@ -52,7 +52,7 @@ class Newsletter{
                 return false;
             }
         }else{
-            if($this->db->DeleteRowsFrom(_DB_PREFIX_."user_newsletter", array('id_user = '.$_SESSION['member']['id_user'], 'id_newsletter = '.$id_newsletter))){
+            if(!$this->db->DeleteRowsFrom(_DB_PREFIX_."user_newsletter", array('id_user = '.$_SESSION['member']['id_user'], 'id_newsletter = '.$id_newsletter))){
                 $this->db->FailTrans();
                 return false;
             }

@@ -112,21 +112,23 @@
 				// $('div[class^="msg-"]').delay(3000).fadeOut(2000);
 				//Снять/Выбрать все
 				$('.notifications_block_js button').on('click', function(e){
+					var action = 'delete';
 					e.preventDefault();
 					if ($(this).hasClass('select_all_js')){
 						$(this).removeClass('select_all_js').html('Снять все');
 						$('.notifications_block_js input').prop('checked', true);
 						$('.notifications_block_js label').addClass('is-checked');
+						action = 'add';
 					}else{
 						$(this).addClass('select_all_js').html('Выбрать все');
 						$('.notifications_block_js input').prop('checked', false);
 						$('.notifications_block_js label').removeClass('is-checked');
 					}
+					ajax('cabinet','updateUserNewsletter', {update:action, id_newsletter:''});
 				});
 				$('.notify_checkbox_js').on('click', function(){
 					var action = 'delete';
 					var id = $(this).closest('label').find('.id_notify_js').val();
-
 					if ($(this).prop('checked')){
 						action = 'add';
 					}
