@@ -153,6 +153,9 @@ foreach ($orders as &$order) {
 }
 $tpl->Assign('orders', $orders);
 
+$address_list = $Address->GetListByUserId($User->fields['id_user']);
+$tpl->Assign('address_list', $address_list);
+
 /*$arr = array();
 foreach($orders as &$order_2){
 	$arr = $Order->GetOrderForCustomer(array("o.id_order" => $order_2['id_order']));
