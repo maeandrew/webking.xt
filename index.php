@@ -116,6 +116,7 @@ if($GLOBALS['CurrentController'] == 'news'){
 }else{
 	$tpl->Assign('news', $News->GetNews(4));
 }
+
 // Создание базового массива корзины
 if(G::IsLogged() && !_acl::isAdmin()){
 	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();

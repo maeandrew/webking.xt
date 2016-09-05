@@ -339,6 +339,7 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 		$tpl->Assign('unlist', false);
 	}
 
+
 	if(isset($success)){
 		// $tpl->Assign('msg', "Заказ успешно сформирован.");
 		$_SESSION['cart']['draft'] = $draft;

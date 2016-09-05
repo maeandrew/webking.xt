@@ -20,11 +20,46 @@ class Newsletter{
         return $arr;
     }
 
-    public function addUserNewsletter(){
-        $sql = "";
-
+    // Добавление категорий в рассылку
+    public function addUserNewsletter($id_newsletter = false){
+        $f['id_user'] = $_SESSION['member']['id_user'];
+        $this->db->StartTrans();
+        if(!empty($id_newsletter)){
+            $f['id_newsletter'] = $id_newsletter;
+            if(!$this->db->Insert(_DB_PREFIX_.'user_newsletter', $f)){
+                $this->db->FailTrans();
+                return false;
+            }
+        }else{
+            $sql = "INSERT INTO "._DB_PREFIX_."user_newsletter
+                    (id_user, id_newsletter) SELECT ".$_SESSION['member']['id_user'].", id
+                    FROM "._DB_PREFIX_."newsletter WHERE active = 1";
+            if (!$this->db->Query($sql)) {
+                $this->db->FailTrans();
+                return false;
+            }
+        }
+        $this->db->CompleteTrans();
+        return true;
     }
 
+    // Удаление категорий из рассылки
+    public function delUserNewsletter($id_newsletter = false){
+        $this->db->StartTrans();
+        if($id_newsletter === false){
+            if(!$this->db->DeleteRowFrom(_DB_PREFIX_."user_newsletter", "id_user", $_SESSION['member']['id_user'])){
+                $this->db->FailTrans();
+                return false;
+            }
+        }else{
+            if($this->db->DeleteRowsFrom(_DB_PREFIX_."user_newsletter", array('id_user = '.$_SESSION['member']['id_user'], 'id_newsletter = '.$id_newsletter))){
+                $this->db->FailTrans();
+                return false;
+            }
+        }
+        $this->db->CompleteTrans();
+        return true;
+    }
 
 
 
