@@ -28,3 +28,12 @@ AND u.active = 0;
 
 -- disable active assortment with disabled suppliers
 UPDATE xt_assortiment SET product_limit = 0, active = 0 WHERE (SELECT active FROM xt_user WHERE id_user = id_supplier) = 0;
+
+-- update xt_address where tittle = 'Адрес'
+UPDATE xt_address a
+SET a.title = CONCAT(
+	(SELECT c.title FROM xt_locations_cities c WHERE c.id = a.id_city),', ',
+	(SELECT d.name FROM xt_delivery_service d WHERE d.id_delivery_service = a.id_delivery_service), ', ',
+	(CASE WHEN a.id_delivery = 1 THEN a.delivery_department ELSE a.address END)
+)
+WHERE title = 'Адрес'

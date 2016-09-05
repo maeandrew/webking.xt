@@ -108,9 +108,11 @@
 						// Создаем клиенту адрес доставки
 						$region = $Address->GetRegionByTitle($_POST['region']);
 						$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
+						$delivery_company = $Address->GetShippingCompanyById($_POST['id_delivery_service']);
 						$data['id_region'] = $city['id_region'];
 						$data['id_city'] = $city['id'];
 						$data['primary'] = 1;
+						$data['title'] = $city['title'].', '.$delivery_company['title'].', '.($_POST['id_delivery']==1?$_POST['delivery_department']:$_POST['address']);
 						if($id_address = $Address->AddAddress($data)){
 							$echo['success'] = true;
 						}

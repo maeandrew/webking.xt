@@ -144,7 +144,7 @@ class Address {
 		return $res;
 	}
 	public function AddAddress($data){
-		$f['title'] = isset($data['title'])?$data['title']:'Адрес';
+		$f['title'] = $data['title'];
 		$f['id_user'] = isset($data['id_user'])?$data['id_user']:$_SESSION['member']['id_user'];
 		$f['id_region'] = $data['id_region'];
 		$f['id_city'] = $data['id_city'];

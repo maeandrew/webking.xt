@@ -1,5 +1,11 @@
 $(function(){
 
+	$('.send_test_email_js').on('click', function(){
+		ajax('email', 'testEmail').done(function(response){
+			console.log(response);
+		});
+	});
+
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
 		effect : "fadeIn"

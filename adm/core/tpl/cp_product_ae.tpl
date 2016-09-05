@@ -845,12 +845,11 @@
 		//Загрузка Фото на сайт
 		var dropzone = new Dropzone(".drop_zone", {
 			method: 'POST',
-			url: url+"?upload=true",
+			url: URL_base_global+'ajax?target=image&action=upload',
 			clickable: true,
 			previewsContainer: '.previews',
 			previewTemplate: document.querySelector('#preview-template').innerHTML
 		});
-		var return_arr = new Array();
 		dropzone.on('addedfile', function(file){
 			//askaboutleave();
 		}).on('success', function(file, path){

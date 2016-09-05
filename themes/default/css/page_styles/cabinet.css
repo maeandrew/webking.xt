@@ -1799,6 +1799,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	cursor: pointer;
 	width: calc(100% - 52px);
 	padding: 1.429em 0;
+	font-size: 16px;
 }
 .cooperative_order .number{
 	width: auto;
@@ -2913,4 +2914,16 @@ div[id^="items_panel_"] .btnWrapFlex {
 .rait_comment button {
     margin-top: 10px;
     float: right;
+}
+
+.notification_settings .notification_switcher {
+	margin-bottom: 20px;
+    margin-top: 10px;
+}
+.notification_settings label {
+	height: auto;
+}
+.notification_settings .notification_description {
+	color: #a7a7a7;
+	font-size: 12px;
 }

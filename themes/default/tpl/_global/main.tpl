@@ -111,10 +111,10 @@
 			{
 				"@context": "http://schema.org",
 				"@type": "WebSite",
-				"url": URL_base,
+				"url": "<?=_base_url?>/",
 				"potentialAction": {
 					"@type": "SearchAction",
-					"target": URL_base+"search/?category2search=0&query={q}",
+					"target": "<?=_base_url?>/search/?category2search=0&query={q}",
 					"query-input": "required name=q"
 				}
 			}

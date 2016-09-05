@@ -23,9 +23,18 @@
 			break;
 		}?></h1>
 	<div id="orders_history">
-		<div class="msg-info">
+		<!-- <div class="msg-info">
 			<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
-		</div>
+		</div> -->
+		<?if(isset($msg)){?>
+			<div class="msg-<?=$msg['type']?>">
+				<div class="msg_icon">
+					<i class="material-icons"></i>
+				</div>
+			    <p class="msg_title">!</p>
+			    <p class="msg_text"><?=$msg['text']?></p>
+			</div>
+		<?}?>
 		<?!isset($_GET['t'])?$_GET['t']='all':null;?>
 		<div class="<?switch ($_GET['t']){
 			case 'working':

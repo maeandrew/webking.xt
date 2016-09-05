@@ -40,6 +40,8 @@
 			<?=$__header?>
 		</header>
 		<aside>
+			<br>
+			<a href="#" class="btn-m-red send_test_email_js">Отправить письмо!</a>
 			<?=$__sidebar_l?>
 		</aside><!-- sideLeft -->
 		<article class="container">

@@ -11,14 +11,14 @@ G::ToGlobals(array(
 	'URL_js'			=> _base_url.'/js/',
 	'PATH_root'			=> _root,
 	'PATH_global_root'	=> _root,
-	'PATH_core'			=> _root.'~core'.DIRSEP,
-	'PATH_sys'			=> _root.'~core'.DIRSEP.'sys'.DIRSEP,
-	'PATH_product_img'	=> _root.'product_images'.DIRSEP,
-	'PATH_block'		=> _root.'~core'.DIRSEP.'block'.DIRSEP,
-	'PATH_contr'		=> _root.'~core'.DIRSEP.'contr'.DIRSEP,
-	'PATH_model'		=> _root.'~core'.DIRSEP.'model'.DIRSEP,
-	'PATH_tpl'			=> _root.'~core'.DIRSEP.'tpl'.DIRSEP,
-	'PATH_tpl_global'	=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP
+	'PATH_core'			=> _root.'~core/',
+	'PATH_sys'			=> _root.'~core/sys/',
+	'PATH_product_img'	=> _root.'product_images/',
+	'PATH_block'		=> _root.'~core/block/',
+	'PATH_contr'		=> _root.'~core/contr/',
+	'PATH_model'		=> _root.'~core/model/',
+	'PATH_tpl'			=> _root.'~core/tpl/',
+	'PATH_tpl_global'	=> _root.'~core/tpl/_global/'
 ));
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 $theme = 'default';

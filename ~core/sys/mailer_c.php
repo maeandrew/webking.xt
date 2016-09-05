@@ -37,10 +37,40 @@ class Mailer extends PHPMailer {
 		$this->Priority = $this->priority;
 		$this->CharSet = "UTF-8";
 
-		$sPubKey = $GLOBALS['CONFIG']['smtp_key_public'];
+		$sPublicKey = $GLOBALS['CONFIG']['smtp_key_public'];
 		require($GLOBALS['PATH_model'].'APISMTP.php');
-		$this->oApi = new SmtpApi($sPubKey);
-		$this->oApi->setPublicKey($sPubKey);
+		$this->oApi = new SmtpApi($sPublicKey);
+	}
+
+	// Отсылка письма клиенту со ссылками на накладные покупателя
+	public function testEmail(){
+		global $tpl;
+		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
+		$tpl->Assign('title', 'Заголовок тестового письма');
+		$tpl->Assign('content', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eum excepturi, autem ipsum aspernatur! Hic dicta ipsam recusandae at, laboriosam magnam doloribus modi laborum a? Molestiae ab vero, dignissimos perspiciatis.
+				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
+		$Email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+			'subject' => 'Тестовое письмо',
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => $this->FromName,
+				'email' => 'callback@x-torg.com',
+			),
+			'to' => array(
+				array(
+					'email' => 'alexparhomenko67@gmail.com'
+				),
+				array(
+					'email' => 'webking.dev2@gmail.com'
+				)
+			)
+		);
+		$res = $this->oApi->send_email($Email);
+		if(!$res){
+			return false;
+		}
+		return true;
 	}
 
 	public function SendCustomEmail($address, $subject = '', $content = ''){
