@@ -1,7 +1,7 @@
 <?php
 unset($parsed_res);
+// print_r(G::getmicrotime() - $s_time);die();
 $Page = new Page();
-$products = new Products();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 $id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
@@ -11,8 +11,9 @@ $tpl->Assign('list_controls', $list_controls);
 // =========================================================
 $dbtree->SetFieldsById($id_category);
 $category = $dbtree->fields;
+
 G::metaTags($category);
-$category['subcats'] = $products->GetSubCatsTop($id_category);
+$category['subcats'] = $Products->GetSubCatsTop($id_category);
 $tpl->Assign('category', $category);
 $tpl->Assign('indexation', $category['indexation']);
 $tpl->Assign('header', $category['name']);
@@ -24,7 +25,7 @@ if(isset($_POST['com_qtn'])){
 	$author = 007;
 	$author_name = $_SESSION['member']['id_user'];
 	$authors_email = $_SESSION['member']['email'];
-	$products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
+	$Products->SubmitProductComment($text, $author, $author_name, $authors_email, $put);
 	header('Location: '.$_SERVER['REQUEST_URI']);
 	exit();
 }
@@ -208,7 +209,7 @@ if(count($res) > 1){
 	}
 // =========================================================
 // Фильтры =================================================
-	//$products->SetProductsListByFilter();
+	//$Products->SetProductsListByFilter();
 		// if((isset($_POST['filter_count']) && $_POST['filter_count'] > 0) || (isset($_SESSION['filters']['string']) && !isset($_POST['filter_count']))){
 		// 	if(isset($_POST['filter_count'])){
 		// 		for($i = 0; $i < $_POST['filter_count']; $i++){
@@ -283,11 +284,11 @@ if(count($res) > 1){
 				$_GET['page_id'] = $GLOBALS['Page_id'];
 			}
 			if(isset($where_search)){
-				$cnt = $products->GetProductsCnt($where_search);
+				$cnt = $Products->GetProductsCnt($where_search);
 			}elseif(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-				$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
+				$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid']);
 			}else{
-				$cnt = $products->GetProductsCnt($where_arr);
+				$cnt = $Products->GetProductsCnt($where_arr);
 			}
 			$tpl->Assign('cnt', $cnt);
 			$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -309,7 +310,7 @@ if(count($res) > 1){
 	$time_start = microtime(true);
 // Еслли переходим в категорию из поискового запроса
 	if(isset($where_search)){
-		$list_prod_search = $products->SetProductsList4Search($where_search, $limit, 0, array(isset($orderby)?$orderby:null));
+		$list_prod_search = $Products->SetProductsList4Search($where_search, $limit, 0, array(isset($orderby)?$orderby:null));
 	}
 // Получение массива товаров ===============================
 	$GET_limit = "";
@@ -317,34 +318,34 @@ if(count($res) > 1){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
 	if(!empty($mass)){
-		$products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+		$Products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	}else{
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('order_by' => isset($orderby) ? $orderby : null));
+			$Products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('order_by' => isset($orderby) ? $orderby : null));
 		}else{
-			$products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
+			$Products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
 		}
 	}
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
 	// echo "execution time <b>$time</b> seconds\n<br>";
-	if($products->list){
-		foreach($products->list as &$p){
-			$p['images'] = $products->GetPhotoById($p['id_product']);
+	if($Products->list){
+		foreach($Products->list as &$p){
+			$p['images'] = $Products->GetPhotoById($p['id_product']);
 		}
 	}
-	$tpl->Assign('list', isset($list_prod_search)?$list_prod_search:$products->list);
+	$tpl->Assign('list', isset($list_prod_search)?$list_prod_search:$Products->list);
 // =========================================================
 $tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl'));
 
 // Вывод графика по категории
-$chart = $products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
+$chart = $Products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
 $tpl->Assign('chart', $chart);
 $tpl->Assign('chart_html', $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl'));
 $tpl->Assign('chart_details', ($chart[0]['count'] < 2 || $chart[1]['count'] < 2));
 // Вывод на страницу =======================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
-	$products->FillAssort($_SESSION['member']['id_user']);
+	$Products->FillAssort($_SESSION['member']['id_user']);
 }elseif(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_MANAGER_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);
@@ -490,9 +491,9 @@ function r_implode($glue, $pieces){
 // Фильтр на странице списка товаров=================================
 $cnt = $i = 0;
 $group_arr = $for_sql = $id_spec = [];
-$filter_cat = $products->GetFilterFromCategory($res);
+$filter_cat = $Products->GetFilterFromCategory($res);
 $tpl->Assign('cnt', $cnt); //количество активных фильтров
-$cntF = $products->GetCntFilterNow($res);//$id_category
+$cntF = $Products->GetCntFilterNow($res);//$id_category
 if($GLOBALS['Filters']){
 	foreach($GLOBALS['Filters'] as $id_fil => $val){
 		$id_filter[] = $id_fil;
@@ -531,7 +532,7 @@ if($group_arr){
 	$tpl->Assign('filter_cat', $group_arr);
 }
 // MIN/MAX цена для вывода в фильтре
-	$price = $products->GetMinMaxPrice($where_arr);
+	$price = $Products->GetMinMaxPrice($where_arr);
 	$max_price = ceil($price['max_price']);
 	if($price['min_price'] < 1 && $price['min_price'] > 0 && !isset($GLOBALS['Price_range'])) {
 		$min_price = $price['min_price'];

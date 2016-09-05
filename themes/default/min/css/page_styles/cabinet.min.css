@@ -375,7 +375,7 @@ div[id^=items_panel_]>div>#products .total_wrap{display:none}
 .order .stat_user_cab .cart_adm,.order .stat_user_cab .user_intime,.order .stat_user_cab .user_ready{float:none;margin-right:0}
 .for_tooltip .mdl-tooltip{font-size:12px;z-index:1000000}
 .for_tooltip i{cursor:pointer}
-.order .number{float:left;cursor:pointer;width:calc(100% - 52px);padding:1.429em 0}
+.order .number{float:left;cursor:pointer;width:calc(100% - 52px);padding:1.429em 0;font-size:16px}
 .cooperative_order .number{width:auto}
 .cooperative_order .title .container i{padding:.8em 0}
 .cooperative_order .title .container .status{padding:0;padding-right:1.429em;margin:1.429em 0}
@@ -638,3 +638,6 @@ h4{margin:5px 0 10px}
 .rait_comment p{text-align:center;font-size:16px;font-weight:700;padding-top:10px;padding-bottom:10px}
 .rait_comment textarea{width:100%}
 .rait_comment button{margin-top:10px;float:right}
+.notification_settings .notification_switcher{margin-bottom:20px;margin-top:10px}
+.notification_settings label{height:auto}
+.notification_settings .notification_description{color:#a7a7a7;font-size:12px}

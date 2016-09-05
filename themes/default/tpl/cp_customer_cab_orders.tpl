@@ -112,7 +112,7 @@
 										<div class="tabs mdl-tabs__tab-bar">
 										<div class="orderBntsMob">
 												<h5>Заказ:</h5>
-												<a class="newOrderLink" href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a class="newOrderLink" href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
 												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
@@ -132,7 +132,7 @@
 											<div class="orderBnts">
 
 												<h5>Заказ:</h5>
-												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
 
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>

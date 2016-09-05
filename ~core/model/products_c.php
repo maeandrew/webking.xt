@@ -4355,7 +4355,7 @@ class Products {
 	public function navigation($idsegm){
 		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
 		//Достаем категории 1-го уровня
-		$navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
+		$navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
 		$needed = $dbtree->GetCatSegmentation($idsegm);
 		foreach ($navigation as $key1 => &$l1) {

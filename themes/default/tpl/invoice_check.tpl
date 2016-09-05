@@ -153,9 +153,9 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="c3"><?=$i['art']?></td>
 										<td class="c4">
 											<?if($i['image'] != ''){?>
-												<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>">
+												<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
 											<?}else{?>
-												<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>"/>
+												<img height="96" width="96" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
 											<?}?>
 										</td>
 										<td class="name c5">
@@ -187,9 +187,9 @@ h1.filial { text-align: center; font-size: 27px; }
 										<td class="c3"><?=$i['art']?></td>
 										<td class="c4">
 											<?if($i['image'] != ''){?>
-												<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>">
+												<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
 											<?}else{?>
-												<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>" />
+												<img height="96" width="96" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 											<?}?>
 										</td>
 										<td class="name c5">

@@ -212,9 +212,9 @@
 			</table>
 			<div class="photo">
 				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="<?=_base_url;?><?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>" alt="<?=$i['name']?>">
+					<img <?=$wh?> src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>" alt="<?=$i['name']?>">
 				<?}else{?>
-					<img <?=$wh?> src="<?=_base_url;?><?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+					<img <?=$wh?> src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
 				<?}?>
 			</div>
 		</div>

@@ -943,17 +943,15 @@ class dbtree {
 	}
 
 	public function CheckParent($rewrite, $fields = null){
-	   if(is_array($fields)){
-			$fields = implode(', ', $fields);
-		}else{
-			$fields = '*';
-		}
+		$fields = is_array($fields)?implode(', ', $fields):'*';
 		$sql = 'SELECT '.$fields.'
-			FROM '.$this->table.'
+			FROM '._DB_PREFIX_.'category
 			WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).'
 				AND visible = 1
 				AND sid = 1';
-		$res = $this->db->GetOneRowArray($sql);
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
 		return $res;
 	}
 
@@ -998,14 +996,17 @@ class dbtree {
 	}
 	//------------------------------------------------------------------------------------------------------------------
 
-	public function GetCats($fields, $level){
-		if(is_array($fields)){
-			$fields = implode(', ', $fields);
-		}else{
-			$fields = '*';
+	public function GetCategories($fields, $level){
+		$fields = is_array($fields)?implode(', ', $fields):'*';
+		$sql = 'SELECT '.$fields.'
+			FROM '._DB_PREFIX_.'category
+			WHERE category_level = '.$level.'
+				AND visible = 1
+				AND sid = 1
+			ORDER BY position ASC';
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 AND sid = 1 ORDER BY position';
-		$res = $this->db->GetArray($sql);
 		return $res;
 	}
 

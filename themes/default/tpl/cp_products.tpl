@@ -105,13 +105,6 @@
 						<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 					</div>
 					<?if(isset($cnt) && $cnt >= 30){?>
-						<!-- <div class="sort_page sort_page_bottom">
-							<?if($GLOBALS['CurrentController'] == 'search'){?>
-								<a href="<?=_base_url?>/search/limitall/" <?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
-							<?}else{?>
-								<a href="<?=_base_url?>/products/<?=$curcat['id_category']?>/<?=$curcat['translit']?>/limitall/" <?=(isset($_GET['limit']) && $_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
-							<?}?>
-						</div> -->
 						<?if($GLOBALS['Page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
 							<p class="show_more show_more_js"><a href="#" data-cnt="<?=$cnt;?>">Показать еще 30 товаров</a></p>
 						<?}?>
