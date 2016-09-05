@@ -29,7 +29,12 @@
 						<!-- </div> -->
 						<div class="notification_settings">
 							<div class="notifications_block_js">
-								<?foreach ($newsletters as $item) {?>
+								<?
+								$checked = true;
+								foreach ($newsletters as $item) {
+									if ($item['enable'] == 0){
+										$checked = false;
+									}?>
 									<label class="mdl-checkbox mdl-js-checkbox" for="notify_<?=$item['id']?>">
 										<input type="hidden" class="id_notify_js" value="<?=$item['id']?>">
 										<input type="checkbox" name="notify_<?=$item['id']?>" id="notify_<?=$item['id']?>" class="mdl-checkbox__input notify_checkbox_js" <?=empty($_SESSION['member']['email'])?'disabled':null?> <?=$item['enable'] == 1?'checked':null?>>
@@ -37,7 +42,7 @@
 										<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
 									</label>
 								<?}?>
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored select_all_js" <?=empty($_SESSION['member']['email'])?'disabled':null?>>Выбрать все</button>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored <?=$checked == false?'select_all_js':null?>" <?=empty($_SESSION['member']['email'])?'disabled':null?>><?=$checked == false?'Выбрать все':'Снять все'?></button>
 							</div>
 						</div>
 
