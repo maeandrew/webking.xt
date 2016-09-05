@@ -33,7 +33,7 @@
 		</div>
 		<fieldset>
 			<legend>Адрес</legend>
-			<div class="mdl-cell mdl-cell--12-col addres_field">
+			<div class="mdl-cell mdl-cell--12-col addres_field addres_elem_js">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
 					<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
 						<option value=""></option>
@@ -45,7 +45,7 @@
 					<span class="mdl-selectfield__error">Выберите область!</span>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col addres_field">
+			<div class="mdl-cell mdl-cell--12-col addres_field addres_elem_js">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label city">
 					<select id="city" name="city" class="mdl-selectfield__select" disabled onChange="citySelect($(this));">
 						<!-- <?foreach($availablecities as $city){?>
@@ -56,7 +56,7 @@
 					<span class="mdl-selectfield__error">Выберите город!</span>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-cell mdl-cell--12-col addres_elem_js">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery">
 					<select id="id_delivery" name="id_delivery" class="mdl-selectfield__select" disabled onChange="deliverySelect($(this));">
 						<?// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
@@ -72,21 +72,21 @@
 					<span class="mdl-textfield__error">Выберите способ доставки!</span>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-cell mdl-cell--12-col addres_elem_js">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_service">
 					<select id="id_delivery_service" name="id_delivery_service" class="mdl-selectfield__select" onChange="deliveryServiceSelect($(this));" disabled></select>
 					<label class="mdl-selectfield__label" for="id_delivery_service">Служба доставки</label>
 					<span class="mdl-textfield__error">Выберите службу доставки!</span>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-cell mdl-cell--12-col addres_elem_js hidden">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label delivery_department">
 					<select id="delivery_department" name="delivery_department" class="mdl-selectfield__select" disabled></select>
 					<label class="mdl-selectfield__label" for="delivery_department">Отделение</label>
 					<span class="mdl-textfield__error">Выберите отделение транспортной компании!</span>
 				</div>
 			</div>
-			<div class="mdl-cell mdl-cell--12-col hidden">
+			<div class="mdl-cell mdl-cell--12-col addres_elem_js hidden">
 				<div class="mdl-textfield mdl-js-textfield mdl-selectfield--floating-label address">
 					<textarea id="address" name="address" class="mdl-textfield__input" type="text" rows= "3" disabled></textarea>
 					<label class="mdl-textfield__label" for="address">Адрес доставки</label>
@@ -153,11 +153,13 @@
 		});
 		$('.save_delivery_js').on('click', function(e){
 			var check = true;
-			$(this).closest('form').find('select').each(function(a){
-				if ($(this).val() === null || $(this).val() === '') {
-					$(this).closest('div').addClass('is-invalid');
-					e.preventDefault();
-					check = false;
+			$(this).closest('form').find('select', 'textarea').each(function(a){
+				if ($(this).closest('.addres_elem_js').hasClass('hidden') === false){
+					if ($(this).val() === null || $(this).val() === '') {
+						$(this).closest('div').addClass('is-invalid');
+						e.preventDefault();
+						check = false;
+					}
 				}
 			});
 			if (check === true){

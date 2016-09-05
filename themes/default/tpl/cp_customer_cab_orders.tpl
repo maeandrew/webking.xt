@@ -281,15 +281,14 @@
 													</div>
 													<div class="change_delivery">
 														<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-															<select name="change_delivery" class="mdl-selectfield__select">
-																<option value="Адрес1">Адрес1</option>
-																<option value="Адрес2">Адрес2</option>
-																<option value="Адрес3">Адрес3</option>
-																<option value="Адрес4">Адрес4</option>
+															<select name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																<?foreach ($address_list as $item) {?>
+																	<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+																<?}?>
 															</select>
 														</div>
-														<button class="mdl-button mdl-js-button mdl-button--raised">Выбрать</button>
-														<a href="#">Добавить новый</a>
+														<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+														<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
 													</div>
 												</div>
 											</div>
@@ -478,6 +477,15 @@ $(function(){
 			}else{
 				$('.details').find('.dislike_manager_' + manager).addClass('active');
 			}
+		});
+	});
+	$('.change_delivery_btn_js').on('click', function(){
+		var id_addres = $('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
+		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
+		console.log(id_addres);
+		console.log(id_order);
+		ajax('order', 'addAddress', {id_order:id_order, id_addres:id_addres}).done(function(data){
+			console.log(data);
 		});
 	});
 });
