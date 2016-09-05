@@ -348,7 +348,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="sold_produxt_info <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"":"hidden" ?>">
+		<div class="sold_produxt_info <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '') || ($item['visible'] == 0)?"":"hidden" ?>">
 			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p>
 			<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
 			<ul><li id="fortrending_info" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>

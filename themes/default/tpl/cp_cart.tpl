@@ -2,7 +2,6 @@
 <script>
 	var randomManager;
 </script>
-
 <?if(empty($list)){
 	if(isset($cart['id_order'])){
 		if($_GET['type'] == 'order'){?>
@@ -75,7 +74,7 @@
 	<?}?>
 <?}else{?>
 	<!-- Недоступные товары -->
-	<?if(!empty($_SESSION['cart']['unavailable_products'])){?>
+	<?if(isset($_SESSION['cart']['unavailable_products']) && !empty($_SESSION['cart']['unavailable_products'])){?>
 		<div class="msg-warning">
 			<p>
 				<?=$count = count($unlist);?>
@@ -121,7 +120,52 @@
 		<?}?>
 	<?}?>
 	<!-- END Недоступные товары -->
+
+	<!-- New Недоступные товары -->
+	<h5>Временно недоступные товары</h5>
+	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
+		<div class="unorder_wrapp">
+			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
+				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
+					<div class="card_wrapper">
+						<div class="product_photo">
+							<a href="<?=Link::Product($p['translit']);?>">
+								<?if(!empty($p['images'])){?>
+									<img alt="<?=htmlspecialchars(G::CropString($p['name']))?>" src="<?=G::GetImageUrl($p['images'][0]['src'], 'thumb')?>"/>
+								<?}else{?>
+									<img alt="<?=htmlspecialchars(G::CropString($p['name']))?>" src="<?=G::GetImageUrl($p['img_1'], 'thumb')?>"/>
+								<?}?>
+							</a>
+						</div>
+						<div class="product_name">
+							<a href="<?=Link::Product($p['translit']);?>" class="description_<?=$p['id_product'];?>">
+								<?=G::CropString($p['name'], 180)?>
+							</a>
+							<span class="product_article">Артикул: <?=$p['art']?></span>
+						</div>
+						<div class="unorder_msg">
+							<div class="wlist_msg_wrap wlist_msg_wrap_js" data-id-product="<?=$p['id_product'];?>" <?=G::isLogged()?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?> >
+								<span class="del_wrap_js<?=isset($_SESSION['member']['waiting_list']) && in_array($p['id_product'], $_SESSION['member']['waiting_list'])?null:' hidden';?>">
+									<span id="in_wl_arrow_<?=$p['id_product']?>" class="in_waiting_list fortrending_arrow icon material-icons">trending_down</span>
+									Товар в <a href="<?=Link::Custom('cabinet','waitinglist')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> >"Листе ожидания"</a>
+									<span class="mdl-tooltip" for="in_wl_arrow_<?=$p['id_product']?>">Товар уже<br>в списке ожидания</span>
+								</span>
+								<span class="add_wrap_js<?=isset($_SESSION['member']['waiting_list']) && in_array($p['id_product'], $_SESSION['member']['waiting_list'])?' hidden':null;?>">
+									<span id="out_wl_arrow_<?=$p['id_product']?>" class="fortrending_arrow icon material-icons add_del_waiting_list_js">trending_down</span>
+									Добавить в "Лист ожидания"
+									<span class="mdl-tooltip" for="out_wl_arrow_<?=$p['id_product']?>">Следить за ценой</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?}?>
+		</div>
+	<?}?>
+	<!-- End Недоступные товары -->
+
 	<!-- NEW Товары в корзине -->
+	<h5>Товары в корзине</h5>
 	<div class="order_wrapp">
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
