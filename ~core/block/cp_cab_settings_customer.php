@@ -5,11 +5,14 @@ $GLOBALS['IERA_LINKS'][] = array(
 );
 $customers = new Customers();
 $contragents = new Contragents();
+$Newsletter = new Newsletter();
 $success = false;
 $customers->SetFieldsById($User->fields['id_user']);
 $customer = $customers->fields;
 $contragents->SetList(false, false);
 $availablemanagers = $contragents->list;
+$newsletters = $Newsletter->getNewsletterByIdUser($User->fields['id_user']);
+$tpl->Assign('newsletters', $newsletters);
 if($customer['id_contragent'] > 0){
 	$contragents->GetSavedFields($customer['id_contragent']);
 	$savedmanager = $contragents->fields;
