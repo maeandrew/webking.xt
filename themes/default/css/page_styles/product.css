@@ -262,6 +262,9 @@ div[for="rating_block"] {
 	border-top: 0;
 	background: #fff;
 }
+#description p{
+	text-align: justify;
+}
 #specifications .mdl-grid {
 	line-height: 2.5em;
 	border-bottom: 1px solid #e0e0e0;
@@ -479,6 +482,13 @@ div[for="rating_block"] {
 #comments .feedback_container .reply_wrap{
 	margin-left: 5em;
 }
+
+
+/*Сезонность*/
+.seasonality{
+	position: relative;
+}
+
 
 /* Стили для слайдера миниатюр. ВИДЕО */
 .product_main_img #mainVideoBlock {

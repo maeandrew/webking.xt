@@ -10,14 +10,41 @@
 						<input required="required" type="hidden" name="save_settings" value="1"/>
 						<input required="required" type="hidden" name="gid" value="<?=$User['gid']?>"/>
 						<input required="required" type="hidden" name="email" value="<?=$User['email']?>"/>
-						<div class="line email lineMail">
+						<!-- <div class="line email lineMail"> -->
 							<!-- <label for="news">Хочу получать рассылку новостей сайта</label>
 							<input type="checkbox" name="news" id="news" <?if($User['news']==1){?>checked<?}?> value="1"/> -->
-							<label class="mdl-checkbox mdl-js-checkbox" for="news">
+							<!-- <label class="mdl-checkbox mdl-js-checkbox" for="news">
 								<input type="checkbox" name="news" id="news" class="mdl-checkbox__input" <?if($User['news']==1){?>checked<?}?> value="1">
 								<span class="mdl-checkbox__label">Хочу получать рассылку новостей сайта</span>
-							</label>
+							</label> -->
+						<!-- </div> -->
+
+						<div class="notification_settings">
+							<div class="notification_switcher">
+								<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="notification_switcher">
+									<input type="checkbox" id="notification_switcher" class="mdl-switch__input notification_switcher_js">
+									<span class="mdl-switch__label">Вкл./Выкл. уведомления</span>
+								</label>
+							</div>
+							<div class="notifications_block_js">
+								<label class="mdl-checkbox mdl-js-checkbox" for="actions">
+									<input type="checkbox" name="actions" id="actions" class="mdl-checkbox__input" disabled="disabled" checked="checked">
+									<span class="mdl-checkbox__label">Уведомлять об акциях и специальных предложениях</span>
+									<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
+								</label>
+								<label class="mdl-checkbox mdl-js-checkbox" for="news">
+									<input type="checkbox" name="news" id="news" class="mdl-checkbox__input" disabled="disabled">
+									<span class="mdl-checkbox__label">Новостная рассылка</span>
+									<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
+								</label>
+								<label class="mdl-checkbox mdl-js-checkbox" for="new_products">
+									<input type="checkbox" name="new_products" id="new_products" class="mdl-checkbox__input" disabled="disabled">
+									<span class="mdl-checkbox__label">Новинки каталога</span>
+									<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
+								</label>
+							</div>
 						</div>
+
 						<div id="contragent" class="line contragent">
 							<label for="id_manager">Менеджер</label>
 							<select required name="id_manager" id="id_manager">
@@ -32,6 +59,8 @@
 								}?>
 							</select>
 						</div>
+
+
 						<!--
 						<div class="line email">
 							<label for="promo_code">Промо-код:</label>
@@ -82,7 +111,19 @@
 			</div>
 		<?}?>-->
 		<script type="text/javascript">
-			$('div[class^="msg-"]').delay(3000).fadeOut(2000);
+			$(function(){
+				$('div[class^="msg-"]').delay(3000).fadeOut(2000);
+				//Вкл./Выкл. уведомления
+				$('.notification_switcher_js').on('change', function(){
+					if ($(this).prop("checked")){
+						$('.notifications_block_js input').prop('disabled', false).prop('checked', true);
+						$('.notifications_block_js label').removeClass('is-disabled').addClass('is-checked');
+					}else{
+						$('.notifications_block_js input').prop('disabled', true).prop('checked', false);
+						$('.notifications_block_js label').addClass('is-disabled').removeClass('is-checked');
+					}
+				});
+			});
 		</script>
 	</div>
 </div>
