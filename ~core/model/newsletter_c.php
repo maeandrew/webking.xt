@@ -31,6 +31,7 @@ class Newsletter{
                 return false;
             }
         }else{
+            $this->delUserNewsletter();
             $sql = "INSERT INTO "._DB_PREFIX_."user_newsletter
                     (id_user, id_newsletter) SELECT ".$_SESSION['member']['id_user'].", id
                     FROM "._DB_PREFIX_."newsletter WHERE active = 1";
