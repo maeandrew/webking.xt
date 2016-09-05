@@ -7,8 +7,6 @@ header {
 	z-index: 1000;
 	background: #fff;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
-	margin-left: 5px;
-	border-right: 1px solid #e0e0e0;
 }
 header .header_wrapp {
 	max-width: 1600px;

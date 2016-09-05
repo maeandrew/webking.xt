@@ -442,7 +442,7 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .min_prod_qty{margin-right:5px}
 .price_1,.price_2{width:100px}
 .prod_detail_info{display:none}
-#edit_contacts{width:300px;position:relative}
+#edit_contacts{width:100%;position:relative}
 .page_content h1{font-size:2em}
 #orders_history .editing{margin-top:10px}
 .moder_list_item,.moder_list_title{background:#fff;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}

@@ -2153,7 +2153,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	display: none;
 }
 #edit_contacts {
-	width: 300px;
+	width: 100%;
 	position: relative;
 }
 .page_content h1 {

@@ -61,7 +61,7 @@
 					<select id="id_delivery" name="id_delivery" class="mdl-selectfield__select" disabled onChange="deliverySelect($(this));">
 						<?// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
 						if($count['warehouse'] > 0){?>
-							<option value="1">Пункт выдачи</option>
+							<option value="1">Получить в пункте выдачи</option>
 						<?}
 						// Если в город возможна адресная доставка хоть одной компанией, выводим пункт Адресная доставка
 						if($count['courier'] > 0){?>

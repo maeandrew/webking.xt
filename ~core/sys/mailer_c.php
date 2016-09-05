@@ -678,22 +678,6 @@ class Mailer extends PHPMailer {
 				</tbody>
 			</table>";
 		}
-		/*$aEmail = array(
-			'html' => $this->Body,
-			'subject' => "Заказ ".$GLOBALS['CONFIG']['invoice_logo_text'],
-			'attachments' => array($_SERVER['DOCUMENT_ROOT']."/temp/".$supplier['art'].'.csv'),
-			'encoding' => "UTF-8",
-			'from' => array(
-				'name' => $GLOBALS['CONFIG']['invoice_logo_text'],
-				'email' => 'order@x-torg.com',
-			),
-			'to' => array(
-				array(
-					'email' => $Suppliers->fields['real_email'],//$client['email'],
-				),
-			),
-		);
-		$res = $this->oApi->send_email($aEmail);*/
 		$this->isHTML(true);
 		if($supplier['make_csv'] == 1){
 			$this->AddAttachment($_SERVER['DOCUMENT_ROOT']."/temp/".$supplier['real_phone'].'.csv', $supplier['real_phone'].'.csv');
