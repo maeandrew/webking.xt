@@ -87,7 +87,7 @@ class Customers extends Users {
 	//Получение списка ожидания
 	public function GetWaitingList($id_user){
 		$sql = "SELECT wl.id_product, p.art, p.name, p.translit , p.img_1,
-			p.price_opt, p.price_mopt, p.old_price_opt
+			p.price_opt, p.price_mopt, p.old_price_opt, p.visible
 			FROM "._DB_PREFIX_."waiting_list AS wl
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON wl.id_product = p.id_product

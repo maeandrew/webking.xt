@@ -1809,6 +1809,7 @@ class Orders {
 			return false;
 		}
 		$this->db->CompleteTrans();
+
 		return true;
 	}
 
