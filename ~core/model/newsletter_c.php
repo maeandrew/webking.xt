@@ -23,15 +23,16 @@ class Newsletter{
     // Добавление категорий в рассылку
     public function addUserNewsletter($id_newsletter = false){
         $f['id_user'] = $_SESSION['member']['id_user'];
-        $this->db->StartTrans();
         if(!empty($id_newsletter)){
             $f['id_newsletter'] = $id_newsletter;
+            $this->db->StartTrans();
             if(!$this->db->Insert(_DB_PREFIX_.'user_newsletter', $f)){
                 $this->db->FailTrans();
                 return false;
             }
         }else{
             $this->delUserNewsletter();
+            $this->db->StartTrans();
             $sql = "INSERT INTO "._DB_PREFIX_."user_newsletter
                     (id_user, id_newsletter) SELECT ".$_SESSION['member']['id_user'].", id
                     FROM "._DB_PREFIX_."newsletter WHERE active = 1";

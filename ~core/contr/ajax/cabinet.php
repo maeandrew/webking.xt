@@ -168,14 +168,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Newsletter = new Newsletter();
 				switch($_POST['update']){
 					case 'add':
-						if($newsletter = $Newsletter->addUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:null)){
+						if($newsletter = $Newsletter->addUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:false)){
 							echo 'ok';
 						}else{
 							echo 'something wrong';
 						}
 						break;
 					case 'delete':
-						if($newsletter = $Newsletter->delUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:null)){
+						if($newsletter = $Newsletter->delUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:false)){
 							echo 'ok';
 						}else{
 							echo 'something wrong';
