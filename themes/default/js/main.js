@@ -2035,13 +2035,15 @@ $(function(){
 	
 	// Подгрузка графика спроса по сезонам на странице товара
 	$('body').on('click', '.seasonality_js', function(event){
-		if (!$(this).hasClass('with_demand_graph')) {
+		if(!$(this).hasClass('with_demand_graph')){
+			addLoadAnimation('#seasonality');
 			$(this).addClass('with_demand_graph');
 			if($(document).outerWidth() > 500){
 				$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q='+ $('input[name=par_lvl]').val() +'&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
 			}else{
 				$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q='+ $('input[name=par_lvl]').val() +'&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
 			}
+			setTimeout(function(){removeLoadAnimation('#seasonality');}, 2000);
 		}
 	});
 });
