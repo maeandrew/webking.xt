@@ -233,34 +233,42 @@
 												<div class="newdelivery">
 													<div class="label">Информация о доставке</div>
 													<div class="details">
-														<div class="line">
-															<span class="label">ТТН:</span>
-															<span class="value"> - </span>
+														<div class="servise_logo">
+															<img src="/images/noavatar.png" alt="avatar" />
 														</div>
-														<div class="line">
-															<span class="label">Компания доставки:</span>
-															<span class="value"><?=$i['address_info']['shipping_company']?></span>
+														<div class="delivery_details">
+															<div class="line hidden">
+																<span class="label">ТТН:</span>
+																<span class="value"> - </span>
+															</div>
+															<div class="line">
+																<span class="label">Компания доставки:</span>
+																<span class="value"><?=$i['address_info']['shipping_company']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Область:</span>
+																<span class="value"><?=$i['address_info']['region']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Город:</span>
+																<span class="value"><?=$i['address_info']['city']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Тип доставки:</span>
+																<span class="value"><?=$i['address_info']['delivery']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Отделение:</span>
+																<span class="value"><?=$i['address_info']['delivery_department']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Адрес:</span>
+																<span class="value"><?=$i['address_info']['address']?></span>
+															</div>
 														</div>
-														<div class="line">
-															<span class="label">Область:</span>
-															<span class="value"><?=$i['address_info']['region']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Город:</span>
-															<span class="value"><?=$i['address_info']['city']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Тип доставки:</span>
-															<span class="value"><?=$i['address_info']['delivery']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Отделение:</span>
-															<span class="value"><?=$i['address_info']['delivery_department']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Адрес:</span>
-															<span class="value"><?=$i['address_info']['address']?></span>
-														</div>
+
+
+
 														<!-- <div class="line">
 															<span class="label">Получатель:</span>
 															<span class="value">
@@ -273,6 +281,18 @@
 															<span class="label">Номер телефона:</span>
 															<span class="value"><?=$i['phone']['address']?></span>
 														</div> -->
+													</div>
+													<div class="change_delivery">
+														<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+															<select name="change_delivery" class="mdl-selectfield__select">
+																<option value="Адрес1">Адрес1</option>
+																<option value="Адрес2">Адрес2</option>
+																<option value="Адрес3">Адрес3</option>
+																<option value="Адрес4">Адрес4</option>
+															</select>
+														</div>
+														<button class="mdl-button mdl-js-button mdl-button--raised">Выбрать</button>
+														<a href="#">Добавить новый</a>
 													</div>
 												</div>
 											</div>
