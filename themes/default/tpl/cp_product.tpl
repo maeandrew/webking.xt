@@ -364,7 +364,7 @@
 					<a href="#description" class="mdl-tabs__tab fortabs_tab is-active">Описание</a>
 					<a href="#specifications" class="mdl-tabs__tab fortabs_tab">Характеристики</a>
 					<a href="#comments" class="mdl-tabs__tab fortabs_tab">Отзывы и вопросы</a>
-					<a href="#seasonality" class="mdl-tabs__tab fortabs_tab">График спроса</a>
+					<a href="#seasonality" class="mdl-tabs__tab fortabs_tab seasonality_js">График спроса</a>
 				</div>
 			</div>
 			<div class="tab-content">
@@ -518,13 +518,6 @@
 					<!-- <a href="<?=_base_url.$_SERVER['REQUEST_URI']?>" target="demand_graph">Обновить</a> -->
 					<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
 					<input type="hidden" name="par_lvl" value="<?=end($GLOBALS['IERA_LINKS'])['title']?>">
-					<script>
-						if($(document).outerWidth() > 500){
-							$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q='+ $('input[name=par_lvl]').val() +'&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+8) )+'&h=470"></iframe>');
-						}else{
-							$('#seasonality').append('<iframe seamless id="demand_graph" class="demand_graph" src="https://www.google.com/trends/fetchComponent?hl=ru-RU&q='+ $('input[name=par_lvl]').val() +'&geo=UA&date=today+24-m&cid=TIMESERIES_GRAPH_0&export=5&w='+( $('.tab-content').outerWidth() - ((parseInt($('.tab-content').css('padding-right'))*2)+10) )+'&h=400"></iframe>');
-						}
-					</script>
 				</div>
 			</div>
 		</div>
