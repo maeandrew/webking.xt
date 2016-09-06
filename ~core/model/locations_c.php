@@ -14,7 +14,7 @@ class Address {
 			LEFT JOIN "._DB_PREFIX_."locations_cities AS lc ON lc.id = a.id_city
 			LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = a.id_region
 			LEFT JOIN "._DB_PREFIX_."shipping_companies AS sc ON sc.id = a.id_delivery_service
-			WHERE a.id_user = ".$id_user;
+			WHERE a.visible = 1 AND a.id_user = ".$id_user;
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -166,7 +166,16 @@ class Address {
 		return $id_address;
 	}
 	public function DeleteAddress($id){
-		$sql = "DELETE FROM "._DB_PREFIX_."address WHERE id = ".$id;
+		$sql = "SELECT COUNT(*) AS count FROM "._DB_PREFIX_."order
+				WHERE id_address = ".$id." AND id_customer = ".$_SESSION['member']['id_user'];
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		if($res['count'] == 0){
+			$sql = "DELETE FROM "._DB_PREFIX_."address WHERE id = ".$id;
+		}else{
+			$sql = "UPDATE "._DB_PREFIX_."address SET visible = 0 WHERE id = ".$id;
+		}
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
