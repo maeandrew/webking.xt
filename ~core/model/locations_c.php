@@ -2,14 +2,61 @@
 // Адреса
 class Address {
 	public $db;
-	
+
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
 	}
 	public function GetListByUserId($id_user){
-		$sql = "SELECT * FROM "._DB_PREFIX_."address
-		WHERE id_user = ".$id_user;
+		$sql = "SELECT a.*, lr.title AS region, lc.title AS city,
+			sc.title AS shipping_company, ld.title AS delivery
+			FROM "._DB_PREFIX_."address AS a
+			LEFT JOIN "._DB_PREFIX_."locations_delivery_type AS ld ON ld.id = a.id_delivery
+			LEFT JOIN "._DB_PREFIX_."locations_cities AS lc ON lc.id = a.id_city
+			LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = a.id_region
+			LEFT JOIN "._DB_PREFIX_."shipping_companies AS sc ON sc.id = a.id_delivery_service
+			WHERE a.visible = 1 AND a.id_user = ".$id_user;
 		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function GetPrimaryAddress($id_user){
+		$sql = "SELECT * FROM "._DB_PREFIX_."address
+		WHERE primary = 1
+		AND id_user = ".$id_user;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function GetAddressById($id_address){
+		$sql ="SELECT a.*, lr.title AS region_title, lc.title AS city_title,
+			dt.title AS delivery_type_title, sc.title AS shipping_company_title
+			FROM "._DB_PREFIX_."address AS a
+			LEFT JOIN "._DB_PREFIX_."locations_cities AS lc
+				ON lc.id = a.id_city
+			LEFT JOIN "._DB_PREFIX_."locations_regions AS lr
+				ON lr.id = a.id_region
+			LEFT JOIN "._DB_PREFIX_."shipping_companies AS sc
+				ON sc.id = a.id_delivery_service
+			LEFT JOIN "._DB_PREFIX_."locations_delivery_type AS dt
+				ON dt.id = a.id_delivery
+			WHERE a.id = ".$id_address;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	// Вывод адреса доставки в заказах
+	public function getAddressOrder($id_order){
+		$sql = "SELECT a.*, lr.title AS region, lc.title AS city, sc.title AS shipping_company, ld.title AS delivery
+				FROM "._DB_PREFIX_."address a
+				LEFT JOIN "._DB_PREFIX_."locations_delivery_type ld ON ld.id = a.id_delivery_service
+				LEFT JOIN "._DB_PREFIX_."locations_cities lc ON lc.id = a.id_city
+				LEFT JOIN "._DB_PREFIX_."locations_regions lr ON lr.id = a.id_region
+				LEFT JOIN "._DB_PREFIX_."shipping_companies sc ON sc.id = a.id_delivery_service
+				WHERE a.id = (SELECT id_address FROM "._DB_PREFIX_."order WHERE id_order = ".$id_order.")";
+		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;
@@ -98,32 +145,52 @@ class Address {
 	}
 	public function AddAddress($data){
 		$f['title'] = $data['title'];
-		$f['id_user'] = $data['id_user'];
-		$f['region'] = $data['region'];
-		$f['city'] = $data['city'];
+		$f['id_user'] = isset($data['id_user'])?$data['id_user']:$_SESSION['member']['id_user'];
+		$f['id_region'] = $data['id_region'];
+		$f['id_city'] = $data['id_city'];
 		$f['id_delivery'] = $data['id_delivery'];
 		$f['id_delivery_service'] = $data['id_delivery_service'];
-		$f['department'] = $data['department'];
+		if(!empty($data['delivery_department'])){
+			$f['delivery_department'] = $data['delivery_department'];
+		}
+		if(!empty($data['address'])){
+			$f['address'] = $data['address'];
+		}
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'address', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
+		$id_address = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id_address;
+	}
+	public function DeleteAddress($id){
+		$sql = "SELECT COUNT(*) AS count FROM "._DB_PREFIX_."order
+				WHERE id_address = ".$id." AND id_customer = ".$_SESSION['member']['id_user'];
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		if($res['count'] == 0){
+			$sql = "DELETE FROM "._DB_PREFIX_."address WHERE id = ".$id;
+		}else{
+			$sql = "UPDATE "._DB_PREFIX_."address SET visible = 0 WHERE id = ".$id;
+		}
+		$this->db->StartTrans();
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		return true;
 	}
 
-	public function GetShippingCompanies($city = false){
-		if(!$city){
-			$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies";
-			if(!$res = $this->db->GetArray($sql)){
-				return false;
-			}
-		}else{
+	public function GetShippingCompanies($courier = false){
+		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies
+			".($courier?'WHERE courier = 1':null);
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
 		return $res;
 	}
-	
+
 	public function GetShippingCompanyById($id){
 		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = ".$id;
 		if(!$res = $this->db->GetOneRowArray($sql)){
@@ -131,7 +198,6 @@ class Address {
 		}
 		return $res;
 	}
-
 	public function UseAPI($company, $function, $data = false){
 		$function = $company['api_prefix'].$function;
 		return $this->$function($company, $data);

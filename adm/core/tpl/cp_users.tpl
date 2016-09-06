@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		    <col width="3%">
 		    <col width="30%">
@@ -53,7 +53,7 @@
 			<?if(isset($list)){
 				foreach($list as $i){?>
 				<tr class="animate">
-					<td><?=!$i['active']?'<span class="invisible">нет</span>':'<span class="">да </span>'?></td>
+					<td><?=!$i['active']?'<span class="invisible">нет</span>':'<span>да</span>'?></td>
 					<td><a href="<?=$GLOBALS['URL_base'].'adm/usersedit/'.$i['id_user']?>"><?=$i['name']?></a></td>
 					<td><?=$i['email']?></td>
 					<td><?=$groups[$i['gid']]['caption']?></td>

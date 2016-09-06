@@ -64,17 +64,17 @@
 		list($err, $errm) = Register_form_validate($nocheck);
         if(!$err){
 			$tpl->Assign('msg', 'Информация обновлена.');
-			$User	  -> updateUser($_POST);
-			$Customer -> updateCustomer($_POST);
-			$Customer -> updateContPerson($_POST['cont_person']);
-			$Customer -> updatePhones($_POST['phones']);
-			$Customer -> updateContragent($_POST['id_manager']);
-			$Customer -> updateCity($_POST['id_delivery_department']);
-			$Customer -> updateDelivery($_POST['id_delivery']);
+			$User->updateUser($_POST);
+			$Customer->updateCustomer($_POST);
+			$Customer->updateContPerson($_POST['cont_person']);
+			$Customer->updatePhones($_POST['phones']);
+			$Customer->updateContragent($_POST['id_manager']);
+			$Customer->updateCity($_POST['id_delivery_department']);
+			$Customer->updateDelivery($_POST['id_delivery']);
 			if(!$Customer->fields['bonus_card']){
-				$Customer -> registerBonus($_POST['bonus_card'], $_POST['sex'], $_POST['learned_from'], date("Y-m-d",strtotime($_POST['bday'].'.'.$_POST['bmonth'].'.'.$_POST['byear'])), $_POST['buy_volume']);
+				$Customer->registerBonus($_POST);
 			}else{
-				$Customer -> updateBonus($_POST['bonus_card']);
+				$Customer->updateBonus($_POST['bonus_card']);
 			}
 			header("Location: ". _base_url."/cabinet");
         }else{

@@ -93,7 +93,7 @@ class Slides {
 		foreach($slides as $k=>$v){
 			$sql = "UPDATE "._DB_PREFIX_."slides
 				SET ord = ".$k."
-				WHERE id = ".eregi_replace("([^0-9])", "", $v);
+				WHERE id = ".substr(strstr($v,'-'),1);
 			$this->db->StartTrans();
 			$this->db->Query($sql);
 			$this->db->CompleteTrans();
@@ -126,7 +126,7 @@ class Slides {
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
-		return $id;
+		return true;
 	}
 }
 ?>

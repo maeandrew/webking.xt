@@ -9,15 +9,18 @@
 	$Address = new Address();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
-			case "step":
-				// Необходимо определить, какой тим диалога нужно вывести
-				// Если клиент уже делал заказы
-				
-				// Если клиент делает первый заказ
+			case 'step':
 				$contragent = $Orders->GetContragentByLastOrder();
-				$Customers->SetFieldsById($User->fields['id_user']);
-				$customer = $Customers->fields;
 				$tpl->Assign('contragent', $contragent);
+				$Customers->SetFieldsById($Users->fields['id_user']);
+				$customer = $Customers->fields;
+				// Необходимо определить, какой тим диалога нужно вывести
+				// Проверяем, есть ли у клиента сохраненный адрес доставки
+				if($saved_addresses = $Address->GetListByUserId($Users->fields['id_user'])){
+					// Если клиент уже делал заказы
+					$tpl->Assign('saved_addresses', $saved_addresses);
+				}
+				// Если клиент делает первый заказ
 				// step 2+
 				if($_POST['step'] > 1){
 					// Получаем список всех областей
@@ -35,7 +38,7 @@
 						$tpl->Assign('cities_list', $cities_list);
 					}
 				}
-				if($_POST['step'] > 2){
+				if($_POST['step'] > 2 && $_POST['step'] < 4){
 					if(isset($saved_city)){
 						$count = array(
 							'warehouse' => 0,
@@ -70,16 +73,25 @@
 						// $tpl->Assign('availabledeliverydepartment', $availabledeliverydepartment);
 					}
 				}
+
 				$tpl->Assign('step', $_POST['step']);
 				$tpl->Assign('customer', $customer);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'quiz.tpl');
 				break;
 			case 'complete_step':
-				$echo = false;
+				$echo = array('success' => false);
 				switch($_POST['current_step']){
 					case 1:
-						if($Customers->UpdateCustomer($_POST)){
-							$echo = true;
+						if(isset($_POST['id_address'])){
+							$echo['success'] = true;
+							$echo['target_step'] = 4;
+							if(isset($_SESSION['member']['last_order'])){
+								$Orders->SetOrderAddress($_SESSION['member']['last_order'], $_POST['id_address']);
+							}
+						}else{
+							if($Customers->UpdateCustomer($_POST)){
+								$echo['success'] = true;
+							}
 						}
 						break;
 					case 2:
@@ -88,16 +100,28 @@
 						$data['id_region'] = $city['id_region'];
 						$data['id_city'] = $city['id'];
 						if($Customers->UpdateCustomer($data)){
-							$echo = true;
+							$echo['success'] = true;
 						}
 						break;
 					case 3:
+						$data = $_POST;
 						// Создаем клиенту адрес доставки
-						print_r($_POST);
-						// $Address->AddAddress($_POST);
+						$region = $Address->GetRegionByTitle($_POST['region']);
+						$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
+						$delivery_company = $Address->GetShippingCompanyById($_POST['id_delivery_service']);
+						$data['id_region'] = $city['id_region'];
+						$data['id_city'] = $city['id'];
+						$data['primary'] = 1;
+						$data['title'] = $city['title'].', '.$delivery_company['title'].', '.($_POST['id_delivery']==1?$_POST['delivery_department']:$_POST['address']);
+						if($id_address = $Address->AddAddress($data)){
+							$echo['success'] = true;
+						}
+						if(isset($_SESSION['member']['last_order'])){
+							$Orders->SetOrderAddress($_SESSION['member']['last_order'], $id_address);
+						}
 						break;
 					default:
-						$echo = 'No one step was sent';
+						$echo['msg'] = 'No one step was sent';
 						break;
 				}
 				echo json_encode($echo);

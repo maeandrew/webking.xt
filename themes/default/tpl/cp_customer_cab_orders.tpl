@@ -1,4 +1,4 @@
-<div class="customer_cab">	
+<div class="customer_cab">
 	<h1>Мои заказы<?switch ($_GET['t']){
 			case 'working':
 				$s[] = 1;
@@ -21,11 +21,17 @@
 			default:
 				$s = array();
 			break;
-		}?></h1>	
+		}?></h1>
 	<div id="orders_history">
-		<div class="msg-info">
-			<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
-		</div>
+		<?if(isset($msg)){?>
+			<div class="msg-<?=$msg['type']?>">
+				<div class="msg_icon">
+					<i class="material-icons"></i>
+				</div>
+			    <p class="msg_title">!</p>
+			    <p class="msg_text"><?=$msg['text']?></p>
+			</div>
+		<?}?>
 		<?!isset($_GET['t'])?$_GET['t']='all':null;?>
 		<div class="<?switch ($_GET['t']){
 			case 'working':
@@ -55,7 +61,7 @@
 					<?foreach($orders as $i){
 						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){?>
 							<li>
-								<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+								<section class="order mdl-tabs mdl-js-tabs">
 									<div class="title">
 										<div class="container">
 											<span class="number">
@@ -82,7 +88,7 @@
 												<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
 													<img src="<?=_base_url?>/themes/default/img/print1.png">
 												</div>
-												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect print_menu" for="menu-lower_<?=$i['id_order']?>">
+												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu print_menu" for="menu-lower_<?=$i['id_order']?>">
 													<li class="mdl-menu__item">
 														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank">
 															<svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
@@ -103,11 +109,9 @@
 										<div class="tabs mdl-tabs__tab-bar">
 										<div class="orderBntsMob">
 												<h5>Заказ:</h5>
-												<a class="newOrderLink" href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a class="newOrderLink" href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
-
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
-
 												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
 													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn" data-name="confirmDelOrder">Удалить</button>
 												<?}else if ($i['id_order_status'] == 6){?>
@@ -116,17 +120,16 @@
 													<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить</button>
 													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn hidden" data-name="confirmDelOrder">Удалить</button>
 													<!-- ВОТ ЭТО ПОТОМ ЗАМЕНИТЬ -->
-
 												<?}?>
 											</div>
 
-											<a href="#starks-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
-											<a href="#targaryens-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
+											<a href="#details-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
+											<a href="#products-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
 
 											<div class="orderBnts">
 
 												<h5>Заказ:</h5>
-												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
 
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
@@ -145,8 +148,8 @@
 										</div>
 									</div>
 									<div class="content">
-										<div class="mdl-tabs__panel is-active" id="starks-panel-<?=$i['id_order']?>">
-											<div class="info">
+										<div class="mdl-tabs__panel is-active" id="details-panel-<?=$i['id_order']?>">
+											<!-- <div class="info">
 												<div class="date">
 													<span class="icon">
 														<svg class="icon">
@@ -183,36 +186,31 @@
 													<span class="label">Скидка</span>
 													<span class="value"><?=(1 - $i['discount']) * 100?>%</span>
 												</div>
-											</div>
+											</div> -->
 											<div class="additional">
-												<div class="manager" data-id="<?=$i['contragent_info']['id_user']?>">
+												<div class="manager <?=$i['mark'] != null?'voted':null?>" data-id="<?=$i['contragent_info']['id_user']?>">
 													<div class="label">Ваш менеджер</div>
 													<div class="avatar">
-														<img src="http://lorempixel.com/fashion/70/70/" alt="avatar" />
+														<img src="/images/noavatar.png" alt="avatar" />
 													</div>
 													<div class="details">
 														<div class="line_1"><?=$i['contragent']?></div>
 														<div class="line_2"><?=$i['contragent_info']['phones']?></div>
 														<div class="line_3">
-															<a href="#" class="like" onclick="UserRating($(this));return false;">
+															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '1'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#like"></use></svg>
 															</a>
-															<a href="#" class="dislike" onclick="UserRating($(this));return false;">
+															<a href="#" class="dislike btn_js dislike_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '0'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#dislike"></use></svg>
 															</a>
-															<span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span>
-														</div>
-														<div id="modal_message" data-type="modal">
-															<div class="modal_container">
-																<div class="mesage_text">Вы уже отдали голос за этого менеджера</div>
-															</div>
+															<!-- <span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span> -->
 														</div>
 													</div>
 												</div>
-												<div class="delivery">
+												<!-- <div class="delivery">
 													<div class="label">Способ доставки</div>
 													<div class="avatar">
-														<img src="http://lorempixel.com/abstract/70/70/" alt="avatar" />
+														<img src="/images/nofoto.png" alt="avatar" />
 													</div>
 													<div class="details">
 														<div class="line_1">
@@ -228,10 +226,102 @@
 															<span class="value"><?=$i['city_info']['address']?></span>
 														</div>
 													</div>
+												</div> -->
+												<div class="newdelivery">
+													<div class="label">Информация о доставке</div>
+													<div class="details">
+														<?if ($i['address_info'] !== false){?>
+																<div class="servise_logo">
+																	<img src="/images/noavatar.png" alt="avatar" />
+																</div>
+																<div class="delivery_details">
+																	<div class="line hidden">
+																		<span class="label">ТТН:</span>
+																		<span class="value"> - </span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Название:</span>
+																		<span class="value"><?=$i['address_info']['title']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Компания доставки:</span>
+																		<span class="value"><?=$i['address_info']['shipping_company']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Область:</span>
+																		<span class="value"><?=$i['address_info']['region']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Город:</span>
+																		<span class="value"><?=$i['address_info']['city']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Тип доставки:</span>
+																		<span class="value"><?=$i['address_info']['delivery']?></span>
+																	</div>
+																	<div class="line <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">
+																		<span class="label">Отделение:</span>
+																		<span class="value"><?=$i['address_info']['delivery_department']?></span>
+																	</div>
+																	<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
+																		<span class="label">Адрес:</span>
+																		<span class="value"><?=$i['address_info']['address']?></span>
+																	</div>
+																</div>
+																<!-- <div class="line">
+																	<span class="label">Получатель:</span>
+																	<span class="value">
+																		<?=$i['address_info']['last_name']?>
+																		<?=$i['address_info']['first_name']?>
+																		<?=$i['address_info']['middle_name']?>
+																	</span>
+																</div>
+																<div class="line">
+																	<span class="label">Номер телефона:</span>
+																	<span class="value"><?=$i['phone']['address']?></span>
+																</div> -->
+														<?}else{?>
+															<div class="change_delivery">
+																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																		<option value=""></option>
+																		<?foreach ($address_list as $item) {?>
+																			<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+																		<?}?>
+																	</select>
+																	<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
+																</div>
+																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
+															</div>
+															<?if(isset($msg_address)){?>
+																<div class="msg-<?=$msg['type']?>">
+																	<div class="msg_icon">
+																		<i class="material-icons"></i>
+																	</div>
+																    <p class="msg_title">!</p>
+																    <p class="msg_text"><?=$msg_address['text']?></p>
+																</div>
+															<?}?>
+															<!-- <div class="change_delivery">
+																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																		<option value=""></option>
+																		<?foreach ($address_list as $item) {?>
+																			<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+																		<?}?>
+																	</select>
+																	<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
+																</div>
+																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
+															</div> -->
+														<?}?>
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="mdl-tabs__panel" id="lannisters-panel-<?=$i['id_order']?>">
+										<div class="mdl-tabs__panel" id="members-panel-<?=$i['id_order']?>">
 											<table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
 												<thead>
 													<tr>
@@ -240,13 +330,12 @@
 														<th>Сумма</th>
 														<th></th>
 													</tr>
-
 												</thead>
 												<tbody>
 													<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
 														<tr>
 															<td class="mdl-data-table__cell--non-numeric">
-																<div class="avatar img"><img src="http://lorempixel.com/fashion/70/70/" alt="avatar" /></div>
+																<div class="avatar img"><img src="/images/nofoto.png" alt="avatar" /></div>
 															</td>
 															<td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
 															<td><?=$infoCart['sum_cart']?></td>
@@ -266,7 +355,7 @@
 															</th>
 														</tr>
 													</thead>
-													<form action="#">
+													<form action="<?=$_SERVER['REQUEST_URI']?>">
 														<tbody>
 															<tr>
 																<td>
@@ -289,7 +378,7 @@
 												</table>
 											</div>
 										</div>
-										<div class="mdl-tabs__panel" id="targaryens-panel-<?=$i['id_order']?>">
+										<div class="mdl-tabs__panel" id="products-panel-<?=$i['id_order']?>">
 											<div id="products"></div>
 											<!-- <div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div> -->
 										</div>
@@ -308,6 +397,16 @@
 	</div><!--class="history"-->
 </div><!--class="cabinet"-->
 
+<div id="rait_comment" data-type="modal" class="rait_comment rait_comment_js">
+	<form action="">
+		<input type="hidden" name="id_manager">
+		<input type="hidden" name="voted">
+		<input type="hidden" name="like">
+		<p class="mesage_text">Вы можете оставить свой комментарий</p>
+		<textarea name="comment" cols="30" rows="10"></textarea>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent raiting_js">Продолжить</button>
+	</form>
+</div>
 <script>
 
 /*ПОТОМ ВСЕ ВЫНЕСТИ В МЭЙН Ж ЭС (НАВЕРНО)*/
@@ -316,16 +415,13 @@ var statuses = {
 		echo $status.": '".$order_statuses[$status]['name']."',";
 	}?>
 }
-/*console.log(statuses);*/
 
 //Удаление заказа в кабинете
 $(function(){
 	var id_order = <?=$i['id_order']?>;
-	/*console.log(id_order);*/
 	/*Определение текущего ID заказа и Отмена*/
 	$('.cnslOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		/*console.log(id_order);*/
 		$('.editing').find('li').removeClass('canceledOrder');
 		$(this).closest('li').addClass('canceledOrder');
 	});
@@ -333,34 +429,26 @@ $(function(){
 	/* "Черная метка" - удаление заказа*/
 	$('.delOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		/*console.log(id_order);*/
 		$('.editing').find('li').removeClass('deletedOrder');
 		$(this).closest('li').addClass('deletedOrder');
 	});
 
 	$('.replaceOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		/*console.log(id_order);*/
 	});
 
 	// Новый заказ на основе
 	$('#replaceCartMod').on('click', function(e){
-		/*console.log(id_order);*/
 		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
-			console.log(data);
 			ajax('cart', 'GetCart').done(function(data){
-				console.log(data);
 				$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			});
 		});
 	});
 
 	$('#addtoCartMod').on('click', function(e){
-		console.log(id_order);
 		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
-			console.log(data);
 			ajax('cart', 'GetCart').done(function(data){
-				console.log(data);
 				$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			});
 		});
@@ -372,9 +460,7 @@ $(function(){
 
 	/*Отмена заказа*/
 	$('#cnclOrderBtnMod').on('click', function(e){
-		/*console.log(id_order);*/
 		ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
-			console.log(data);
 			if(data === true){
 				closeObject('confirmCnclOrder');
 				$('.canceledOrder').find('.status').html(statuses[5]);
@@ -392,10 +478,46 @@ $(function(){
 			};
 		});
 	});
+
 	$('.prod_load_js').click(function(event) {
 		var cart_id = $(this).data('cartid'),
 			rewrite = $(this).data('rewrite');
 		GetCabProdAjax(cart_id, rewrite);
+	});
+
+	$('.chosen_rait_js').on('click', function(e){
+		var modal = $('#'+$(this).data('name'));
+		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
+		modal.find('[name="voted"]').val($(this).closest('.manager').is('.voted')?1:0);
+		modal.find('[name="like"]').val($(this).is('.like')?1:0);
+	});
+
+	$('.raiting_js').on('click', function(e){
+		e.preventDefault();
+		var form = $(this).closest('form');
+		var rait = form.find('[name="like"]').val();
+		var manager = form.find('[name="id_manager"]').val();
+		ajax('cabinet', 'GetRating', new FormData($(form)[0]), 'json', true).done(function(response){
+			closeObject('rait_comment');
+			$('.details').find('.like_manager_' + manager, '.dislike_manager_' + manager).removeClass('active');
+			if(rait == 1){
+				$('.details').find('.like_manager_' + manager).addClass('active');
+			}else{
+				$('.details').find('.dislike_manager_' + manager).addClass('active');
+			}
+		});
+	});
+	$('.change_delivery_btn_js').on('click', function(){
+		var id_addres = $('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
+		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
+		// console.log(id_addres);
+		// console.log(id_order);
+		if (id_addres !== undefined){
+			addLoadAnimation('.delivery_details');
+			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
+				$('.newdelivery .details').html(data);
+			});
+		}
 	});
 });
 </script>

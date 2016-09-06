@@ -26,7 +26,7 @@
 	</div>
 <?}?>
 <?if(count($list)){?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
 				<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
@@ -46,9 +46,6 @@
 				<tr>
 					<td class="left">Артикул</td>
 					<td class="left">Название товара</td>
-					<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
-						<td class="left">Поп Гл</td>
-					<?}?>
 					<td class="left">&uarr; &darr;</td>
 					<td class="left">Управление</td>
 				</tr>
@@ -60,12 +57,6 @@
 						<td>
 							<?=!$i['visible']?'<span class="invisible">(скрыт) </span>':null?><a href="<?=$GLOBALS['URL_base'].'adm/productedit/'.$i['id_product']?>"><?=$i['name']?></a>
 						</td>
-						<?if($_SESSION['member']['gid'] == _ACL_SEO_){?>
-							<td class="left">
-								<input type="checkbox" id="pop_<?=$i['id_product']?>" name="pop_<?=$i['id_product']?>" <?if(isset($pops[$i['id_product']])){?>checked="checked"<?}?> onchange="SwitchPops(this, <?=$i['id_product']?>,0)">
-								<input type="checkbox" id="popmain_<?=$i['id_product']?>" name="popmain_<?=$i['id_product']?>" <?if(isset($popsMain[$i['id_product']])){?>checked="checked"<?}?> onchange="SwitchPops(this, <?=$i['id_product']?>, 1)">
-							</td>
-						<?}?>
 						<td class="left">
 							<input type="edit" name="ord[<?=$i['id_product']?>]" class="input-s" value="<?=$i['ord']?>">
 						</td>
@@ -120,14 +111,14 @@
 <?}?>
 <br>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 		<input type="file" name="import_file" class="input-m" style="width: auto;">
 		<input type="submit" name="smb_check" class="btn-m-red" value="Импорт">
 		<!-- <input type="submit" name="smb_import" class="btn-m-default" value="Импорт"> -->
 	</form>
 <?}?>
 <?if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_ADMIN_)){?>
-    <form action="<?=$GLOBALS['URL_request']?>" method="post">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<p style="margin-top:25px">Введите ID поставщика для выгрузки позиций:</p>
 		<input type="text" name="supl" id="supl" class="input-m" style="width: auto;">
  		<input style="margin: 0 0 20px 0;" name="smb" type="submit" id="form_submi1t" class="btn-m-default" value="Выгрузить позиции" />
@@ -142,26 +133,3 @@
 <?if(isset($res_check)){?>
 	<br><b>Найдено дублей арт. ( <?=count(explode(',', $res_check))?> ):</b> <?=$res_check?>
 <?}?>
-<script>
-	function SwitchPops(obj,id, main){
-		action = "add";
-		if (!obj.checked){
-			action = "del";
-		}
-		id_category = 0;
-		if (main==0){
-			id_category = <?=$id_category?>;
-		}
-		$.ajax({
-			url: URL_base+'ajaxpops',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				"action": action,
-				"id_product": id,
-				"id_category": id_category
-			}
-		});
-	}
-</script>

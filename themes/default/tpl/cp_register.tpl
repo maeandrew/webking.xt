@@ -31,7 +31,7 @@
 						<div class="ps_lvl ps_lvl_js"></div>
 					</div>
 				</div>
-				<div id="password_error"></div>
+				<div class="password_error"></div>
 				<div class="error_description"></div>
 			</div>
 			<div class="reg_section">

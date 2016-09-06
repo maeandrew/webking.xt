@@ -49,7 +49,6 @@ class Users {
 		$this->SetUserAdditionalInfo($this->fields['id_user']);
 		return true;
 	}
-
 	public function CheckUserNoPass($data){
 		$data = trim($data);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
@@ -62,7 +61,6 @@ class Users {
 		$this->SetUserAdditionalInfo($this->fields['id_user']);
 		return $this->fields;
 	}
-
 	public function SetUserAdditionalInfo($id_user){
 		// получаем список избранных товаров
 		$sql = "SELECT f.id_product
@@ -280,7 +278,6 @@ class Users {
 			}
 		}
 		if(!$this->db->Update(_DB_PREFIX_."user", $f, "id_user = ".$f['id_user'])){
-			$this->db->errno = mysql_errno();
 			$this->db->FailTrans();
 			return false;
 		}
@@ -358,35 +355,6 @@ class Users {
 		$this->db->CompleteTrans();
 		return $id_user1;
 	}
-
-	public function ValidateEmail($email){
-		$sql = "SELECT *
-			FROM "._DB_PREFIX_."user
-			WHERE email = '".$email."'";
-		if(count($this->db->GetArray($sql)) == 0){
-			return true;
-		}
-		return false;
-	}
-
-	// Update password for user
-	/*public function UpdateAllUserPass(){
-		$newpwd = 0123;
-
-		$sql = "UPDATE "._DB_PREFIX_."user
-				SET passwd = \"".md5($newpwd)."\"";
-		$this->db->StartTrans();
-
-		if(!$this->db->Query($sql)){
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-
-		var_dump($sql);
-		return $newpwd;
-
-	}*/
 
 	public function LastLoginRemember($id_user){
 		$sql = "UPDATE "._DB_PREFIX_."user
@@ -500,14 +468,13 @@ class Users {
 	 * Если введенного номера телефона нет в базе данных, возвращает true, иначе false
 	 * @param string $phone номер телефона
 	 */
-	public function CheckPhoneUniqueness($phone, $id_user = false, $name = false){
-		$sql = "SELECT id_user, name COUNT(*) AS count
+	public function CheckPhoneUniqueness($phone, $id_user = false){
+		$sql = "SELECT id_user, COUNT(*) AS count
 			FROM "._DB_PREFIX_."user
 			WHERE phone = '".$phone."'";
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			if($name) return $res;
 			return $res['id_user'];
 		}
 		return true;

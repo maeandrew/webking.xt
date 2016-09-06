@@ -1,5 +1,5 @@
 <h3>График спроса (своя версия)</h3>
-	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+	<div class="mdl-tabs mdl-js-tabs">
 		<div class="mdl-tabs__tab-bar">
 				<a href="#retail" class="mdl-tabs__tab is-active">Розница</a>
 				<a href="#opt" class="mdl-tabs__tab">Опт</a>
@@ -14,7 +14,7 @@
 					<?foreach($values[0] as $key => $value){
 						if(strpos($key, 'value_') !== false){?>
 							<div class="slider_wrap">
-								<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+								<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 								<div class="range_num"><?=$value?></div>
 								<span><?=$labels[$index++]?></span>
 							</div>
@@ -23,7 +23,7 @@
 				}else{?>
 					<?for ($i=1; $i <= 12; $i++){?>
 						<div class="slider_wrap">
-							<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_'+$i]:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+							<input id="inr_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_'+$i]:5?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 							<div class="range_num"><?=isset($val)?$val['roz']['value_'+$i]:5?></div>
 							<span><?=$labels[$index++]?></span>
 						</div>
@@ -40,7 +40,7 @@
 					<?foreach($values[1] as $key => $value){
 						if(strpos($key, 'value_') !== false){?>
 							<div class="slider_wrap">
-								<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+								<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 								<div class="range_num"><?=$value?></div>
 								<span><?=$labels[$index++]?></span>
 							</div>
@@ -49,7 +49,7 @@
 				}else{?>
 					<?for ($k=1; $k <= 12; $k++){?>
 						<div class="slider_wrap">
-							<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_'+$k]:5?>" step="1" tabindex="0" oninput="СhangeValue($(this).attr('id'));">
+							<input id="ino_<?=++$iter?>" class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_'+$k]:5?>" step="1" tabindex="0" data-prevnum="0" oninput="СhangeValue($(this).attr('id'));">
 							<div class="range_num"><?=isset($val)?$val['opt']['value_'+$k]:5?></div>
 							<span><?=$labels[$index++]?></span>
 						</div>
@@ -58,105 +58,6 @@
 			</div>
 		</div>
 	</div>
-<!-- <div class="select_go" style="margin-top: 15px;margin-left: 77px;">
-
-	<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-
-	<span class="mdl-switch__label" style="float: left;margin-left: -130px;">Розница</span>
-
-	<input type="checkbox" id="switch-2" class="mdl-switch__input">
-	<span class="mdl-switch__label">Опт</span>
-	</label>
-	</div>
-	<?if(!empty($values)){
-		foreach($values as $key => $value){
-			// var_dump(strpos($key, 'value_'));
-			if(strpos($key, 'value_') !== false){?>
-				<div class="slider_wrap">
-					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=$value?>" step="1" tabindex="0">
-				</div>
-			<?}
-		}
-	}else{?>
-		<div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle one">
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_1']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_2']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_3']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_4']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_5']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_6']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_7']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_8']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_9']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_10']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_11']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['roz']['value_12']:5?>" step="1" tabindex="0">
-			</div>
-		</div>
-
-		<div class="mdl-color--grey-100 mdl-cell--hide-phone clearfix toggle two hidden">
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_1']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_2']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_3']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_4']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_5']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_6']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_7']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_8']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_9']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_10']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_11']:5?>" step="1" tabindex="0">
-			</div>
-			<div class="slider_wrap">
-				<input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="<?=isset($val)?$val['opt']['value_12']:5?>" step="1" tabindex="0">
-			</div>
-		</div>
-	<?}?> 
--->
 <div class="mdl-grid bottom_panel">
 	<div class=" mdl-cell mdl-cell--5-col">
 		<div class="mdl-textfield mdl-js-textfield">
@@ -173,28 +74,10 @@
 	<div class="mdl-cell mdl-cell--2-col">
 		<div id="user_bt">
 			<?if(!empty($values)){?>
-				<a href="#" class="update btn_js mdl-button mdl-js-button mdl-js-ripple-effect">Обновить</a> <!-- onclick="ModalDemandChart()" -->
+				<a href="#" class="update btn_js mdl-button mdl-js-button" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Обновить</a> <!-- onclick="ModalDemandChart()" -->
 			<?}else{?>
-				<a href="#" class="save btn_js mdl-button mdl-js-button mdl-js-ripple-effect">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
+				<a href="#" class="save btn_js mdl-button mdl-js-button" data-isadmin="<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1?'true':'false';?>">Сохранить</a> <!-- onclick="ModalDemandChart()" -->
 			<?}?>
 		</div>
 	</div>
 </div>
-<script>
-	$('.select_go label').on('change', function() {
-		$('.mdl-color--grey-100.toggle').toggleClass('hidden');
-		/*console.log('trues');
-		if($(this).is(':checked')){
-			 console.log('trues');
-			$('.mdl-color--grey-100').eq(0).not(':has(div.hidden)').addClass('hidden');
-			$('.mdl-color--grey-100').eq(1).hasClass('hidden').removeClass('hidden');
-		}else{
-			$('.mdl-color--grey-100').eq(1).not(':has(div.hidden)').addClass('hidden');
-			$('.mdl-color--grey-100').eq(0).hasClass('hidden').removeClass('hidden');}*/
-	});
-
-	// $('body').on('change', 'input[type="range"]', function(event) {
-	//   event.preventDefault();
-	//   $(this).closest('.slider_wrap').find('.mdl-tooltip').text($(this).val());
-	// });
-</script>

@@ -15,24 +15,29 @@ $order = 'p.id_product ASC';
 if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET['order'] !=''){
 	$order = $_GET['sort'].' '.$_GET['order'];
 }
+$Users = new Users();
 $Products = new Products();
 $Supplier = new Suppliers();
 //Подключение/отключение поставщика
 if(isset($_POST['suppliers_activity'])){
 	$update_supplier['active'] = $_POST['supplier_activ'];
 	$update_supplier['id_user'] = $id_supplier;
-	$Supplier->UpdateSupplier($update_supplier, 'activity');
+	$Supplier->UpdateSupplier($update_supplier, true);
+	if($_POST['supplier_activ'] == 'on'){
+		$Products->UpdateActivityProducttSupplier($update_supplier['id_user']);
+	}
+
 }
 $Supplier->SetFieldsById($id_supplier, 1);
 
 //экспорт в exel
 if(isset($_GET['export'])){
 	$Products->SetProductsList1($id_supplier, $order, '');
-	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $Supplier->fields['id_user']));
+	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $id_supplier));
 	exit(0);
 }elseif(isset($_GET['export_usd'])){
 	$Products->SetProductsList1($id_supplier, $order, '');
-	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $Supplier->fields['id_user']));
+	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $id_supplier));
 	exit(0);
 }
 // Импорт
@@ -45,11 +50,7 @@ if(isset($_FILES['import_file'])){
 			$tpl->Assign('errm', 1);
 			exit;
 		}
-		if(isset($_POST['smb_import_usd'])){
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFileUSD($_FILES['import_file']['tmp_name']);
-		}else{
-			list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name']);
-		}
+		list($total_added, $total_updated) = $Products->ProcessAssortimentFile($_FILES['import_file']['tmp_name'], isset($_POST['smb_import_usd']));
 		$tpl->Assign('total_added', $total_added);
 		$tpl->Assign('total_updated', $total_updated);
 	}else{
@@ -66,7 +67,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 		$_GET['page_id'] = $_POST['page_nbr'];
 	}
-	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user']));
+	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier));
 	$tpl->Assign('cnt', $cnt);
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -78,12 +79,12 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 
 // ---------Информация о поставщике
 $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
-	array('a.id_supplier' => $Supplier->fields['id_user'], 'a.active' => 1, 'p.visible' => 1),
+	array('a.id_supplier' => $id_supplier, 'a.active' => 1, 'p.visible' => 1),
 	' AND a.product_limit > 0 AND (a.price_mopt_otpusk > 0 OR a.price_opt_otpusk > 0)'
 );
-$Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible' => 1));
-$Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($Supplier->fields['id_user']));
-$check_sum = $Supplier->GetCheckSumSupplierProducts($User->fields['id_user']);
+$Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier, 'p.visible' => 1));
+$Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($id_supplier));
+$check_sum = $Supplier->GetCheckSumSupplierProducts($id_supplier);
 $tpl->Assign("check_sum", $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);

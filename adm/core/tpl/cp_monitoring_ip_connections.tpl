@@ -1,5 +1,5 @@
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
-<form action="<?=$GLOBALS['URL_request']?>" method="get">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
 	<table class="list">
 		<colgroup>
 			<col width="10%">
@@ -58,19 +58,12 @@
 <script>
 	$(function(){
 		$('.block_ip_js').on('click', function(){
-			$.ajax({
-				url: URL_base+'ajaxmonitoring',
-				type: "POST",
-				cache: false,
-				dataType : "json",
-				data: {
-					action: 'blockIP',
-					id: $(this).closest('tr').data('id'),
-					block: $(this).is(':checked')
-				}
-			}).done(function(data){
-				// console.log('data');
+			var id = $(this).closest('tr').data('id');
+			var block = $(this).is(':checked');
+			ajax('global', 'blockIp',  {id: id, block: block}).done(function(data){
+				closest('data');
 			});
+
 		});
 	});
 </script>

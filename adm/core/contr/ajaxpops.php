@@ -6,13 +6,12 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 	header('Content-Type: text/javascript; charset=utf-8');
 	
 	$Product = new Products();
-ob_start();	
 	if (isset($_POST['action'])){
 
 		if($_POST['action']=="clear"){
 			$Product->ClearPopular();
 		}
-		if (isset($_POST['id_product']) && isset($_POST['id_category'])){
+		if(isset($_POST['id_product']) && isset($_POST['id_category'])){
 
 			if($_POST['action']=="add" && checkNumeric($_POST, array('id_product', 'id_category'))){
 				$Product->SetPopular($_POST['id_product'], $_POST['id_category']);

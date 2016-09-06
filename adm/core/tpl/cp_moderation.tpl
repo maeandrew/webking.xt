@@ -46,7 +46,7 @@
 										<div class="photo_upload_area">
 											<?if(isset($image) && $image != ''){?>
 												<a href="<?=$image?>" target="_blank">
-													<img class="lazy" data-original="<?=$image?>" alt="">
+													<img class="lazy" src="/images/nofoto.png" data-original="<?=$image?>" alt="">
 													<noscript><img src="<?=$image?>" alt=""></noscript>
 												</a>
 												<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$image)){
@@ -61,7 +61,7 @@
 										if(!empty($p['img_'.$i])){?>
 											<div class="photo_upload_area <?='photo'.$i?>">
 												<a href="<?=$p['img_'.$i]?>" target="_blank">
-													<img class="lazy" data-original="<?=$p['img_'.$i]?>" alt="">
+													<img class="lazy" src="/images/nofoto.png" data-original="<?=$p['img_'.$i]?>" alt="">
 													<noscript><img src="<?=$p['img_'.$i]?>" alt=""></noscript>
 												</a>
 												<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$p['img_'.$i])){

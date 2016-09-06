@@ -7,8 +7,6 @@ header {
 	z-index: 1000;
 	background: #fff;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
-	margin-left: 5px;
-	border-right: 1px solid #e0e0e0;
 }
 header .header_wrapp {
 	max-width: 1600px;
@@ -21,7 +19,6 @@ header .header_wrapp .logo {
 }
 header .header_wrapp .logo a {
 	display: block;
-	
 }
 header .header_wrapp .logo img {
 	max-height: 32px;
@@ -33,7 +30,7 @@ header .header_wrapp .header_right {
 }
 
 header .header_wrapp .header_right > div {
-	margin-left: 1em; 
+	margin-left: 1em;
 	position: relative;
 	display: inline-block;
 }
@@ -70,15 +67,67 @@ header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfiel
 }
 header.opened .header_wrapp .header_right .search_wrap .search {
 	/*width: 400px;*/
-	width: auto;
+	/*width: auto;*/
 	vertical-align: middle;
 }
+header .header_wrapp .header_right .search_wrap .header_search_close{
+	display: none;
+}
+@media all and (handheld), all and (max-width: 1170px){
+	header.opened .header_wrapp .header_right .search_wrap .header_search_close{
+		display: inline-block;
+		position: absolute;
+		right: .5em;
+		top: .5em;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	header.opened{
+		margin-left: 0;
+	}
+	header.opened .header_wrapp {
+		position: relative;
+	}
+	header.opened .header_wrapp .header_right .search_wrap{
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: .5em;
+		height: 100%;
+		width: 100vw;
+		background-color: #fff;
+		text-align: center;
+		z-index: 1;
+	}
+}
+@media all and (max-width: 480px){
+	header .header_wrapp .header_right .search_wrap div.search{
+		display: none;
+	}
+	header.opened .header_wrapp .header_right .search_wrap div.search{
+		display: inline-block;
+	}
+	header.opened .header_wrapp .header_right .search_wrap div.search input{
+		width: 70vw;
+	}
+	header .header_wrapp .header_right{
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+}
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,
-header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul>li{
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul > li{
 	text-align: left;
+	padding-right: 5px;
+	padding-left: 10px;
 }
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{
 	padding-left: 5px;
+}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box {
+	max-height: 90vh;
 }
 header .header_wrapp .header_right .cart_item {
 	/*display: none;*/
@@ -102,10 +151,9 @@ header .header_wrapp .header_right .profile img {
 	max-height: 100%;
 	vertical-align: top;
 }
-header .header_wrapp .header_right .phone_menu {
+/*header .header_wrapp .header_right .phone_menu {
 	margin: 0;
-}
-
+}*/
 @media (max-width: 1000px) {
 	header {
 		margin-left: 0px;
@@ -220,9 +268,9 @@ header .userContainer > div {
 	border-top: 1px solid #e0e0e0;
 	outline: none;
 	line-height: 60px;
-    text-align: center;
+	text-align: center;
 }
 .menuUserInfBtn:hover {
 	background-color: #eee;
-	cursor: pointer;	
+	cursor: pointer;
 }

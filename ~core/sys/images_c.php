@@ -11,7 +11,7 @@ class Images {
 		$this->valid_extensions = array('image/jpeg');
 		$this->sizes = array(
 			'thumb' => array('w' => 120, 'h' => 90),
-			'small' => array('w' => 250, 'h' => 250),
+			// 'small' => array('w' => 250, 'h' => 250),
 			'medium' => array('w' => 500, 'h' => 500)
 		);
 		$this->default_folder = 'original';
@@ -30,8 +30,7 @@ class Images {
 		}
 		move_uploaded_file($tmp_name, $destination);
 		chmod($destination, 0777);
-		$res = $destination;
-		return $res;
+		return $destination;
 	}
 	/**
 	 * Ресайз изображений товаров

@@ -1,6 +1,6 @@
 <h1>Основная информация</h1>
 <div class="edit_contacts_block">
-	<form id="edit_contacts" class="editing" action="" method="post">
+	<form id="edit_contacts" class="editing" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -10,36 +10,26 @@
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-			<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="\+\d{2}\s\(\d{3}\)\s\d{3}\-\d{2}\-\d{2}\"/>
+			<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}"/>
 			<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="name" class="mdl-textfield__label">Фамилия:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+			<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="middle_name" class="mdl-textfield__label">Имя:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+			<label for="first_name" class="mdl-textfield__label">Имя:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-яЇїІіЁё]+|^[\'A-Za-z]+$" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="last_name" class="mdl-textfield__label">Отчество:</label>
-			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+			<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
+			<input class="mdl-textfield__input" pattern="^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
-		<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="label_for_gender" for="gender">Пол:</label>
-			<div id="gender">
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="male">
-					<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="male" value="male">Мужской
-				</label> &nbsp;&nbsp;
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="female">
-					<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="female" value="female">Женский
-				</label>
-			</div>
-		</div>
-		<div class="date_container">
+		<label class="label_for_input_blocks" for="date_container">День рождения:</label>
+		<div id="date_container" class="date_container">
 			<div class="mdl-textfield mdl-js-textfield bdate_select_block">
 				<label for="day" class="mdl-textfield__label">день</label>
 				<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input day_js day" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
@@ -53,10 +43,9 @@
 						var month = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],
 							customer_month = $('#customer_month').val(),
 							temp;
-							console.log(customer_month);
 
 						for (var i = 0; i < month.length; i++) {
-							temp = ((i<9)?'0'+(i+1):(i+1));										
+							temp = ((i<9)?'0'+(i+1):(i+1));
 							document.write('<option value="' + temp + '">'+ month[i] +'</option>');
 							if (temp == customer_month) {
 								$('.month_js').find('option[value="'+temp+'"]').attr('selected', 'selected');
@@ -72,11 +61,19 @@
 				<span class="mdl-textfield__error"></span>
 			</div>
 		</div>
-		<div class="errMsg_js"></div>
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="address" class="mdl-textfield__label">Адрес:</label>
-			<input class="mdl-textfield__input" type="text" name="address" id="address"  value="<?=$Customer['address_ur']?>"/>
+		<div id="gend_block" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="label_for_input_blocks" for="gender">Пол:</label>
+			<div id="gender">
+				<label class="mdl-radio mdl-js-radio" for="male">
+					<input <?=$Customer['sex'] == 'male'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="male" value="male">Мужской
+				</label> &nbsp;&nbsp;
+				<label class="mdl-radio mdl-js-radio" for="female">
+					<input <?=$Customer['sex'] == 'female'?'checked="checked"':null;?> type="radio" name="gender" class="mdl-radio__button" id="female" value="female">Женский
+				</label>
+			</div>
 		</div>
+
+		<div class="errMsg_js"></div>
 		<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 	</form>
 </div>

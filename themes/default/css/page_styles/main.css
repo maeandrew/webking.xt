@@ -82,7 +82,7 @@
 	text-align: justify;
 }
 #content .content_page:before{
-		content: '';
+	content: '';
 	position: absolute;
 	bottom: 0;
 	left: 0;

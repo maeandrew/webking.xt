@@ -141,7 +141,7 @@
 	<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
 	</p>
 
-	
+
 	<?$ii=1;
 	$price = false;
 	if(isset($_GET['price']) && $_GET['price'] == 'true'){
@@ -169,7 +169,7 @@
 					</tr>
 				<?}?>
 				<tr class="art">
-					<td colspan="3">Арт. <?=$i['art'];?><?if($i['product_limit'] > 0){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
+					<td colspan="3">Арт. <?=$i['art'];?><?if($i['active'] == 1){?><p style="color: #0e0">Есть</p><?}else{?><p style="color: #e00">Нет</p><?}?></td>
 				</tr>
 				<tr class="header">
 					<td class="info"></td>
@@ -209,9 +209,9 @@
 			</table>
 			<div class="photo">
 				<?if(!empty($i['images'])){?>
-					<img <?=$wh?> src="<?=_base_url;?><?=str_replace('/original/', '/small/', $i['images'][0]['src'])?>" alt="<?=$i['name']?>">
+					<img <?=$wh?> src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>" alt="<?=$i['name']?>">
 				<?}else{?>
-					<img <?=$wh?> src="<?=_base_url;?><?=str_replace("image/", "image/250/", $i['img_1'])?>"/>
+					<img <?=$wh?> src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
 				<?}?>
 			</div>
 		</div>

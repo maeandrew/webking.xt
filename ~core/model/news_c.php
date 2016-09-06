@@ -84,24 +84,49 @@ class News{
 		return true;
 	}
 
-	public function NewsList1(){
-		$date2 = time()-3600*24*30;
-		$sql = "SELECT cm.Id_coment,
-			(CASE
-				WHEN cm.author = 4028 THEN cm.author_name
-				ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
-			END) AS username,
-			cm.url_coment,cm.author, cm.date_comment, cm.text_coment,
-			cm.visible, p.name
-			FROM "._DB_PREFIX_."coment AS cm
-			LEFT JOIN "._DB_PREFIX_."product AS p
-				ON cm.url_coment = p.id_product
-			WHERE UNIX_TIMESTAMP(cm.date_comment) > ".$date2."
-			ORDER BY cm.date_comment desc";
+	public function SetListComment($limit = false){
+		$sql = "SELECT cm.Id_coment, (CASE WHEN cm.author = 4028 THEN cm.author_name ELSE
+				(SELECT name FROM xt_user WHERE id_user = cm.author) END) AS username, cm.url_coment,cm.author,
+				cm.date_comment, cm.text_coment, cm.visible, p.name, cm.rating, p.translit, cm.pid_comment,
+				(CASE
+					WHEN (SELECT COUNT(*) FROM xt_coment AS c2 WHERE c2.pid_comment = cm.Id_coment) > 0
+					THEN (SELECT MAX(c2.date_comment) FROM xt_coment AS c2 WHERE c2.pid_comment = cm.Id_coment)
+				   ELSE cm.date_comment
+				END) AS sort
+				FROM xt_coment AS cm
+				LEFT JOIN xt_product AS p ON cm.url_coment = p.id_product
+				WHERE cm.pid_comment IS NULL".
+				($limit !== false?' ORDER BY sort DESC'.$limit:'');
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
 		}
+		if($limit !== false) {
+			foreach ($this->list as &$v) {
+				$sql = "SELECT cm.Id_coment, (CASE WHEN cm.author = 4028 THEN cm.author_name ELSE (SELECT name FROM xt_user WHERE id_user = cm.author) END) AS username,
+					cm.url_coment,cm.author, cm.date_comment,
+					cm.text_coment, cm.visible, p.name, cm.rating, p.translit, cm.pid_comment
+					FROM xt_coment AS cm
+					LEFT JOIN xt_product AS p ON cm.url_coment = p.id_product
+					WHERE cm.pid_comment = ".$v['Id_coment']."
+					ORDER BY data_coment DESC";
+				$v['answer'] = $this->db->GetArray($sql);
+			}
+		}
+
+
+//		if($limit !== false){
+//			foreach($this->list as $k=>&$v){
+//				if($v['pid_comment'] !== null) {
+//					foreach($this->list as &$val){
+//						if($val['Id_coment'] == $v['pid_comment']){
+//							$val['answer'][] = $v;
+//						}
+//					}
+//					unset($this->list[$k]);
+//				}
+//			}
+//		}
 		return true;
 	}
 
@@ -199,19 +224,18 @@ class News{
 
 	// Обновление статьи
 	public function UpdateNews($arr){
-		if(strpos($arr['thumb'], '/temp/')){
+		if(strpos($arr['thumb'], '/temp/') !== false){
 			$images = new Images();
 			$path = $GLOBALS['PATH_news_img'].$arr['id_news'].'/';
 			$images->checkStructure($path);
+			$file = pathinfo($GLOBALS['PATH_global_root'].$arr['thumb']);
 			if(preg_match('/[А-Яа-яЁё]/u', $arr['thumb'])){
-				$file = pathinfo($GLOBALS['PATH_global_root'].$arr['thumb']);
-				$new_file = $file['dirname'].'/'.G::StrToTrans($file['filename']).'.'.$file['extension'];
-				rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
-				$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '', $new_file);
+				$file['filename'] = G::StrToTrans($file['filename']);
+				$file['basename'] = $file['filename'].'.'.$file['extension'];
 			}
-			$new_path = str_replace('temp/', trim($arr['id_news']).'/thumb_', $arr['thumb']);
-			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $GLOBALS['PATH_global_root'].$new_path);
-			$arr['thumb'] = $new_path;
+			$new_file = $path.$file['basename'];
+			rename($GLOBALS['PATH_global_root'].$arr['thumb'], $new_file);
+			$arr['thumb'] = str_replace($GLOBALS['PATH_global_root'], '/', $new_file);
 		}
 		$f['title']				= trim($arr['title']);
 		$f['descr_short']		= trim($arr['descr_short']);
@@ -294,8 +318,8 @@ class News{
 			$path = $GLOBALS['PATH_news_img'].$id_news.'/';
 			$images->checkStructure($path);
 			foreach($images_arr as $src){
-				if(strpos($src, '/temp/')){
-					$new_path = str_replace('/temp/', '/'.$id_news.'/', $src);
+				if(strpos($src, '\temp/')){
+					$new_path = '/'.str_replace('\temp/', '/'.$id_news.'/', $src);
 					rename($GLOBALS['PATH_global_root'].$src, $GLOBALS['PATH_global_root'].$new_path);
 					$src = $new_path;
 				}

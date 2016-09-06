@@ -7,27 +7,71 @@ class Invoice{
 		$this->db =& $GLOBALS['db'];
 	}
 
-	public function GetOrderData($id_order, $filial = false){
+	public function GetOrderData($id_order){
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT (SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt) AS article_mopt,
-				o.sum_discount, s.article, p.name, p.units, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, p.instruction, osp.site_price_opt, osp.site_price_mopt,
-				p.inbox_qty, osp.box_qty, osp.opt_qty, osp.mopt_qty, osp.supplier_quantity_opt, osp.supplier_quantity_mopt, osp.opt_sum, osp.mopt_sum, o.strachovka, o.note2, osp.id_supplier, osp.id_supplier_mopt,
-				o.target_date, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
-				osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum, o.id_pretense_status, o.id_return_status, p.weight, p.volume, osp.note_opt, osp.note_mopt,
-				osp.price_opt_otpusk, osp.price_mopt_otpusk, osp.filial_mopt, osp.filial_opt, p.checked, osp.warehouse_quantity, i.src AS image
-				FROM "._DB_PREFIX_."osp osp
-				LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
-				LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
-				LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
-				LEFT JOIN "._DB_PREFIX_."image AS i ON osp.id_product=i.id_product
-					AND i.ord = 0 AND i.visible = 1
-				".$this->db->GetWhere($and);
-		if(isset($filial) == true && $filial != 0){
-			$sql.= " AND (osp.filial_mopt = ".$filial." OR osp.filial_opt = ".$filial.") ";
-		}
-		$sql .= " GROUP BY osp.id_order, osp.id_product, osp.id_supplier
-				ORDER BY p.name
-				";
+			i.src AS image,
+			o.id_order,
+			o.id_order_status,
+			o.id_pretense_status,
+			o.id_return_status,
+			o.note2,
+			o.strachovka,
+			o.sum_discount,
+			o.target_date,
+			osp.box_qty,
+			osp.contragent_mqty,
+			osp.contragent_msum,
+			osp.contragent_qty,
+			osp.contragent_sum,
+			osp.fact_mqty,
+			osp.fact_msum,
+			osp.fact_qty,
+			osp.fact_sum,
+			osp.filial_mopt,
+			osp.filial_opt,
+			osp.id_product,
+			osp.id_supplier,
+			osp.id_supplier_mopt,
+			osp.mopt_qty,
+			osp.mopt_sum,
+			osp.note_mopt,
+			osp.note_opt,
+			osp.opt_qty,
+			osp.opt_sum,
+			osp.price_mopt_otpusk,
+			osp.price_opt_otpusk,
+			osp.return_mqty,
+			osp.return_msum,
+			osp.return_qty,
+			osp.return_sum,
+			osp.site_price_mopt,
+			osp.site_price_opt,
+			osp.supplier_quantity_mopt,
+			osp.supplier_quantity_opt,
+			osp.warehouse_quantity,
+			p.art,
+			p.checked,
+			p.img_1,
+			p.inbox_qty,
+			p.instruction,
+			p.name,
+			p.units,
+			p.weight, p.volume,
+			s.article
+			FROM "._DB_PREFIX_."osp AS osp
+				LEFT JOIN "._DB_PREFIX_."order o
+					ON osp.id_order = o.id_order
+				LEFT JOIN "._DB_PREFIX_."supplier AS s
+					ON osp.id_supplier = s.id_user
+				LEFT JOIN "._DB_PREFIX_."product AS p
+					ON osp.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."image AS i
+					ON osp.id_product = i.id_product AND i.ord = 0 AND i.visible = 1
+			".$this->db->GetWhere($and)."
+			GROUP BY osp.id_order, osp.id_product, osp.id_supplier
+			ORDER BY p.name";
+		//print_r($sql);
 		$arr = $this->db->GetArray($sql);
 		if(empty($arr) == true){
 			return false;

@@ -10,14 +10,15 @@ G::ToGlobals(array(
 	'URL_css'			=> _base_url.'/css/',
 	'URL_js'			=> _base_url.'/js/',
 	'PATH_root'			=> _root,
-	'PATH_core'			=> _root.'~core'.DIRSEP,
-	'PATH_sys'			=> _root.'~core'.DIRSEP.'sys'.DIRSEP,
-	'PATH_product_img'	=> _root.'product_images'.DIRSEP,
-	'PATH_block'		=> _root.'~core'.DIRSEP.'block'.DIRSEP,
-	'PATH_contr'		=> _root.'~core'.DIRSEP.'contr'.DIRSEP,
-	'PATH_model'		=> _root.'~core'.DIRSEP.'model'.DIRSEP,
-	'PATH_tpl'			=> _root.'~core'.DIRSEP.'tpl'.DIRSEP,
-	'PATH_tpl_global'	=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP
+	'PATH_global_root'	=> _root,
+	'PATH_core'			=> _root.'~core/',
+	'PATH_sys'			=> _root.'~core/sys/',
+	'PATH_product_img'	=> _root.'product_images/',
+	'PATH_block'		=> _root.'~core/block/',
+	'PATH_contr'		=> _root.'~core/contr/',
+	'PATH_model'		=> _root.'~core/model/',
+	'PATH_tpl'			=> _root.'~core/tpl/',
+	'PATH_tpl_global'	=> _root.'~core/tpl/_global/'
 ));
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 $theme = 'default';
@@ -64,6 +65,7 @@ G::ToGlobals(array(
 if(G::IsLogged()){
 	_acl::load($_SESSION['member']['gid']);
 }
+/*
 $unwatch = array('95.69.190.43', '178.150.144.143');
 if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client']['ip'], '192.168.0') !== 0){
 	$sql1 = "SELECT * FROM "._DB_PREFIX_."ip_connections WHERE ip = '".$_SESSION['client']['ip']."' AND sid = 1";
@@ -76,7 +78,7 @@ if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client'][
 	// }
 	// $db->Query($sql2);
 	if($ips['block'] == 1){
-		header('Location: http://xt.ua/');
+		header('Location: _base_url');
 		exit();
 		// $block = array('77.108.80.2', '193.106.92.242', '89.223.35.117'); x-torg.com
 		// $block = array('193.106.92.242');//, '69.162.124.231');
@@ -84,11 +86,16 @@ if(!in_array($_SESSION['client']['ip'], $unwatch) && strpos($_SESSION['client'][
 		// }
 	}
 }
+*/
 // получение всех настроек с БД
-$sql = "SELECT name, value FROM "._DB_PREFIX_."config WHERE sid = 1";
+$sql = "SELECT name, caption, value FROM "._DB_PREFIX_."config WHERE sid = 1";
 $arr = $db->GetArray($sql);
 // формирование глобального массива настроек
+$GLOBALS['CONFIG']['promo_correction_set'] = false;
 foreach($arr as $i){
+	if(substr($i['caption'], 0, 5) == 'promo'){
+		$GLOBALS['CONFIG']['promo_correction_set'][] = str_replace('correction_set_', '', $i['name']);
+	}
 	$GLOBALS['CONFIG'][$i['name']] = $i['value'];
 }
 // default controller, if no one else has come
@@ -168,6 +175,10 @@ require($GLOBALS['PATH_model'].'post_c.php');
 require($GLOBALS['PATH_model'].'seo_c.php');
 require($GLOBALS['PATH_model'].'NP2.php');
 require($GLOBALS['PATH_model'].'IntimeApi2.php');
+require($GLOBALS['PATH_model'].'specification_c.php');
+require($GLOBALS['PATH_model'].'segmentation_c.php');
+require($GLOBALS['PATH_model'].'config_c.php');
+require($GLOBALS['PATH_model'].'newsletter_c.php');
 
 // Получение SEO данных для адреса
 $Seo = new SEO();

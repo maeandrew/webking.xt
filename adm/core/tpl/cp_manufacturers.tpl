@@ -4,7 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><br><?}?>
 
 <p class="notification info">Раздел временно закрыт</p>
-<form action="<?=$GLOBALS['URL_request']?>" method="post" class="hidden">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="hidden">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
 	    <col width="80%">
 	    <col width='1%'>
@@ -22,7 +22,7 @@
 				<a href="<?=$GLOBALS['URL_base'].'adm/manufactureredit/'.$i['manufacturer_id']?>" onmouseover="ShowLogo(<?=$i['manufacturer_id']?>)" onmouseout="HideLogo(<?=$i['manufacturer_id']?>)"><?=$i['name']?></a>
 				<span class="color-sgrey"> (<?=$list_cnt[$i['manufacturer_id']]?>)</span>
 				<div id="logo_<?=$i['manufacturer_id']?>" class="hidden">
-					<img src="<?=$i['m_image']?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['m_image'])):"/images/nofoto.png"?>">
+					<img src="<?=G::GetImageUrl($i['m_image'], 'thumb')?>">
 				</div>
 			</td>
 			<td class="center np">

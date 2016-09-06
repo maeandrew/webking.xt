@@ -14,7 +14,7 @@
 		var notecontrol = new Array();
 		var max_sum_order = <?=$GLOBALS['CONFIG']['max_sum_order']?>;
 	</script>
-	<form action="<?=$GLOBALS['URL_request']?>" method="POST">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
 		<button name="sort_name" id="sort_name" style="display: none;"></button>
 		<button name="sort_price" id="sort_price_asc" value="asc" style="display: none;"></button>
 		<button name="sort_price" id="sort_price_desc" value="desc" style="display: none;"></button>
@@ -59,7 +59,7 @@
 							<div class="photo">
 								<a href="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars($item['img_1']):'/images/nofoto.png'?>">
 									<div class="<?=$st['class']?>"></div>
-									<img alt='<?=G::CropString($item['name'])?>' src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $item['img_1'])):'/images/nofoto.png'?>"/>
+									<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'thumb')?>"/>
 								</a>
 							</div>
 						</td>
@@ -106,7 +106,7 @@
 							<td class="cat_note">
 								<a href="#" title="Примечание по товарной позиции. Здесь можете указать желаемый цвет товара, размер и другие переменные характеристики не влияющие на цену товара" id="ico_mopt_<?=$item['id_product']?>" class="error"></a>
 								<!--Скрытая форма примечания ОСТОРОЖНО, если между тегами textarea будут проблеы - примечания перестанут нормально работвть-->
-								<form action="">
+								<form action="<?=$_SERVER['REQUEST_URI']?>">
 									<textarea id="mopt_note_<?=$item['id_product']?>" onchange="toCart(<?=$item['id_product']?>, 0)"><?=isset($_SESSION['Cart']['products'][$item['id_product']]['note_mopt'])?$_SESSION['Cart']['products'][$item['id_product']]['note_mopt']:null?></textarea>
 								</form>
 							</td>

@@ -5,7 +5,7 @@
 
 <p class="notification info">Раздел временно закрыт</p>
 <div id="formae">
-    <form action="<?=$GLOBALS['URL_request']?>" method="post" class="hidden">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="hidden">
 
 		Дата
 		от: <input type="date" style="width: 200px;" class="input-l" value="<?=isset($_POST['filter_target_date_start'])?htmlspecialchars($_POST['filter_target_date_start']):null?>" name="filter_target_date_start">

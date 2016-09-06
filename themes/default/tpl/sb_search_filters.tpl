@@ -1,7 +1,6 @@
 <script>
 	var filterLink = new Object();
 	var params = new Object();
-		// console.log(filterLink);
 	<?if(isset($GLOBALS['Filters'])){?>
 		filterLink = <?=json_encode($GLOBALS['Filters'])?>;
 	<?}?>
@@ -37,7 +36,6 @@
 				var price_range = ui.values[0] + ',' + ui.values[1];
 				$.cookie('price_range', price_range, {expires: 2, path: '/'});
 				params['price_range'] = price_range;
-				// console.log(params);
 			}
 		});
 		/*$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");*/
@@ -66,7 +64,6 @@
 				delete filterLink[dataSpec];
 			}
 			params['filters'] = filterLink;
-			console.log(filterLink);
 		});
 
 		// Клик на "Применить"
@@ -127,8 +124,8 @@
 </script>
 <div class="filters">
 	<div id="filterButtons" class="filterButtons">
-		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Применить</button>
-		<button id="clear_filter" class="mdl-button mdl-js-button mdl-js-ripple-effect">Сбросить</button>
+		<button id="applyFilter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Применить</button>
+		<button id="clear_filter" class="mdl-button mdl-js-button">Сбросить</button>
 	</div>
 	<div class="filters_container">
 		<div class="filter_block price_range_block">
@@ -161,7 +158,7 @@
 						<?foreach($spec['values'] as $value){
 							$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
 							<li>
-								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect <?=$value['checked']?>">
+								<label class="mdl-checkbox mdl-js-checkbox <?=$value['checked']?>">
 									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
 									<span>
 										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>

@@ -25,14 +25,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							<div class="thumbnail">
 								<a href="/product/<?=$item['id_product']?>/<?=$item['translit']?>/">
 									<?if(!empty($item['images'])){?>
-										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 										<noscript>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $item['images'][0]['src']);?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 										</noscript>
 									<?}else{?>
-										<img alt="<?=G::CropString($item['name'])?>" class="lazy" data-original="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 										<noscript>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=_base_url?><?=($item['img_1'])?htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):"/images/nofoto.png"?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 										</noscript>
 									<?}?>
 								</a>
@@ -146,14 +146,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
 										<div class="<?=$st['class']?>"></div>
 										<?if(!empty($item['images'])){?>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 											<noscript>
-												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].str_replace('original', 'thumb', $item['images'][0]['src']))?_base_url.str_replace('original', 'thumb', $item['images'][0]['src']):'/images/nofoto.png'?>"/>
+												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
 											</noscript>
 										<?}else{?>
-											<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/images/nofoto.png'?>"/>
+											<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 											<noscript>
-												<img alt="<?=G::CropString($item['name'])?>" src="<?=file_exists($GLOBALS['PATH_root'].$item['img_1'])?_base_url.htmlspecialchars(str_replace("/image/", "/image/250/", $item['img_1'])):'/images/nofoto.png'?>"/>
+												<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=_base_url.G::GetImageUrl($item['img_1'], 'medium')?>"/>
 											</noscript>
 										<?}?>
 									</a>
@@ -178,58 +178,62 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							if(isset($_SESSION['cart']['products'][$item['id_product']])){
 								$in_cart = true;
 							}?>
-							<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
-								<div class="buy_block">
-									<div class="active_price">
-										<?if($item['price_opt'] == 0 && $item['price_mopt'] == 0){?>
-											<span><b><!--noindex-->----<!--/noindex--></b></span>
-											<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
-											<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
-										<?}else{?>
-											<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
-											<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
-											<span class="price_js"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']])[$_COOKIE['sum_range']], 2, ".", "");?></span>
-											<!--noindex--> грн.<!--/noindex-->
-										<?}?>
-									</div>
-									<?if(($item['price_opt'] > 0 || $item['price_mopt'] > 0)  && $item['visible'] != 0){?>
-										<div class="buy_buttons">
-											<!--удаление товара оптом из корзины-->
-											<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
-											<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
-											<a href="#"	class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">add</a>
-											<!--количество заказываемых товаров-->
+							<?if($item['price_opt'] == 0 && $item['price_mopt'] == 0){?>
+								<div class="notAval">Нет в наличии</div>
+							<?}else{?>
+								<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+									<div class="buy_block">
+										<div class="active_price">
+											<?if($item['price_opt'] == 0 && $item['price_mopt'] == 0){?>
+												<span><b><!--noindex-->----<!--/noindex--></b></span>
+												<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
+												<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
+											<?}else{?>
+												<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
+												<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
+												<span class="price_js"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']])[$_COOKIE['sum_range']], 2, ".", "");?></span>
+												<!--noindex--> грн.<!--/noindex-->
+											<?}?>
 										</div>
-										<?if(!$in_cart){?>
-											<div class="buy_btn_block">
-												<button class="btn-m-orange buy_btn_js" type="button">Купить</button>
-												<a href="<?=_base_url?>/cart/" class="in_cart_js hidden<?=G::IsLogged()?null:' open_modal" data-target="login_form';?>" title="Перейти в корзину">В корзине</a>
+										<?if(($item['price_opt'] > 0 || $item['price_mopt'] > 0)  && $item['visible'] != 0){?>
+											<div class="buy_buttons">
+												<!--удаление товара оптом из корзины-->
+												<a href="#" class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</a>
+												<input type="text" class="qty_js" value="<?=!$in_cart?$item['inbox_qty']:$_SESSION['cart']['products'][$item['id_product']]['quantity'];?>">
+												<a href="#"	class="icon-font" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1);return false;">add</a>
+												<!--количество заказываемых товаров-->
 											</div>
+											<?if(!$in_cart){?>
+												<div class="buy_btn_block">
+													<button class="btn-m-orange buy_btn_js" type="button">Купить</button>
+													<a href="<?=_base_url?>/cart/" class="in_cart_js hidden<?=G::IsLogged()?null:' open_modal" data-target="login_form';?>" title="Перейти в корзину">В корзине</a>
+												</div>
+											<?}else{?>
+												<div class="buy_btn_block">
+													<button class="btn-m-orange buy_btn_js hidden" type="button">Купить</button>
+													<a href="<?=_base_url?>/cart/" class="in_cart_js <?=G::IsLogged()?null:' open_modal" data-target="login_form';?>" title="Перейти в корзину">В корзине</a>
+												</div>
+											<?}?>
 										<?}else{?>
-											<div class="buy_btn_block">
-												<button class="btn-m-orange buy_btn_js hidden" type="button">Купить</button>
-												<a href="<?=_base_url?>/cart/" class="in_cart_js <?=G::IsLogged()?null:' open_modal" data-target="login_form';?>" title="Перейти в корзину">В корзине</a>
-											</div>
-										<?}?>
-									<?}else{?>
-										<!--Если опт НЕ доступен-->
-										<div class="not_available">Товара нет в наличии</div>
-									<?}?> <!--проверка доступности опта-->
+											<!--Если опт НЕ доступен-->
+											<div class="not_available">Товара нет в наличии</div>
+										<?}?> <!--проверка доступности опта-->
+									</div>
+									<div class="other_price <?=$item['price_opt'] == 0 && $item['price_mopt'] == 0?'hidden':null?>">
+										<input class="mopt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['mopt_correction_set']]?>">
+										<input class="price_mopt_js" type="hidden" value="<?=$item['price_mopt']?>">
+										<p>
+											<span class="price_js"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['other_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_mopt']*explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['mopt_correction_set']])[$_COOKIE['sum_range']], 2, ".", "");?></span>
+											<!--noindex--> грн.<!--/noindex-->
+											<span class="mode_js"><?=$in_cart && $_SESSION['cart']['products'][$item['id_product']]['mode'] == 'mopt'?'от':'до';?></span>
+											<?=$item['inbox_qty'].' '.$item['units']?>
+											<?if(isset($item['qty_control']) && !empty($item['qty_control'])){?>
+												<p class="qty_descr">мин. <?=$item['min_mopt_qty'].' '.$item['units']?> (кратно)</p>
+											<?}?>
+										</p>
+									</div>
 								</div>
-								<div class="other_price <?=$item['price_opt'] == 0 && $item['price_mopt'] == 0?'hidden':null?>">
-									<input class="mopt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['mopt_correction_set']]?>">
-									<input class="price_mopt_js" type="hidden" value="<?=$item['price_mopt']?>">
-									<p>
-										<span class="price_js"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['other_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_mopt']*explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['mopt_correction_set']])[$_COOKIE['sum_range']], 2, ".", "");?></span>
-										<!--noindex--> грн.<!--/noindex-->
-										<span class="mode_js"><?=$in_cart && $_SESSION['cart']['products'][$item['id_product']]['mode'] == 'mopt'?'от':'до';?></span>
-										<?=$item['inbox_qty'].' '.$item['units']?>
-										<?if(isset($item['qty_control']) && !empty($item['qty_control'])){?>
-											<p class="qty_descr">мин. <?=$item['min_mopt_qty'].' '.$item['units']?> (кратно)</p>
-										<?}?>
-									</p>
-								</div>
-							</div>
+							<?}?>
 							<div class="product_info">
 								<div class="rating_block">
 									<div class="preview_favorites" data-idfavorite="<?=$item['id_product']?>" title="<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'Добавить товар в избранное':'Товар находится в избранных'?>">
@@ -263,7 +267,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 										</span>
 									</a>
 								</div>
-								<form action="" class="note">
+								<form action="<?=$_SERVER['REQUEST_URI']?>" class="note">
 									<textarea cols="30" rows="3" placeholder="Примечание к заказу"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note_opt'])?$_SESSION['cart']['products'][$item['id_product']]['note_opt']:null?></textarea>
 									<label class="info_key">?</label>
 									<div class="info_description">

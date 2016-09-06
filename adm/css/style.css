@@ -787,6 +787,12 @@ footer {
 .list tbody td.center a {
 	font-size: 18px;
 }
+.list tbody td.center.issue_false{
+	color: #22B473;
+}
+.list tbody td.center.issue_true{
+	color: #f44336;
+}
 .err_feedback .list tbody td.center a {
 	font-size: 1em;
 }
@@ -794,7 +800,6 @@ footer {
 .list .watchSeoText {
 	float: right;
 }
-
 
 .list .date {
 	color: #888;
@@ -850,9 +855,70 @@ footer {
 .listnb .np {
 	padding: 0px;
 }
+.list.comment_list .main_thead tr{
+	background-color: #444;
+	color: #fff;
+}
+.list.comment_list th div,
+.list.comment_list .subcomment td div{
+	margin: 1em 0;
+}
+.list.comment_list thead tr[class^="coment"]{
+	background-color: #fffaf0;
+}
+.list.comment_list .subcomment td.left{
+	padding-left: 6em;	
+}
+.list.comment_list .bold_text{
+	font-weight: 500;
+}
+.list.comment_list tr{
+	border-bottom: 1px solid #cccccc;
+	display: block;
+	width: 100%;
+}
+.list.comment_list th{
+	padding: 10px 15px;
+}
+.list.comment_list .left_block{
+	width: 100%;
+}
+.list.comment_list .right_block{
+	min-width: 125px;
+}
+.list.comment_list th div.btn_wrap .btn_answer{
+	margin-right: 2em;
+}
+.list.comment_list th div.del_btn_wrap{
+	margin-top: 1em;
+}
+.list.comment_list th div.del_btn_wrap a{
+	color: red;
+}
+.list.comment_list th .resp_to_comment{
+	margin-left: 1em;
+}
+.list.comment_list .comment_text{
+	text-align: justify;
+}
+.list.comment_list th .prod_title{
+	color: #959595;
+}
+.list.comment_list tbody textarea{
+	box-sizing: border-box;
+	width: 70vw;
+	min-height: 70px;
+	padding: 10px;
+}
+.list.comment_list tbody .new_comment td{
+	padding: 1em 0 1em 3em;
+}
+.list.comment_list tbody .new_comment button{
+	display: block;
+	margin-top: .5em;
+}
 
 /* PAGINATOR */
-
 
 .paginator {
 	display: block;
@@ -1031,35 +1097,34 @@ img.pic_block {
 	height: 120px;
 }
 
-.image_block {
+/* .image_block {
 	position: absolute;
 	top: 0;
-}
+} */
 .images_block .del_photo_js,
 .images_block .del_exist_photo_js {
 	width: 30px;
-    display: inline-block;
-    float: left;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    cursor: pointer;
-    margin-top: -3px;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    border-radius: 50%;
-    background: #fff;
+	display: inline-block;
+	float: left;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	margin-top: -3px;
+	/*position: absolute;*/
+	/*top: 5px;*/
+	/*right: 5px;*/
+	/*border-radius: 50%;*/
+	background: #fff;
 }
 .images_block .del_photo_js,
 .images_block .del_exist_photo_js {
 	color: red;
 }
 .image_block_new {
-	width: 100%;	
+	width: 100%;
 }
-.category_image_title, 
-.images_block {
+.category_image_title {
 	width: 120px;
 }
 .images_block {
@@ -1071,19 +1136,19 @@ img.pic_block {
 }
 .images_block .dz-message {
 	margin-top: 30px;
-    color: #9e9e9e;
+	color: #9e9e9e;
 }
 .image_block .image img {
 	max-width: 100%;
 }
 .image_size_info {
 	padding: 10px;
-    width: calc(100% - 130px);
-    float: right;
-    background: #ffffad;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 24px;
+	width: calc(100% - 130px);
+	float: right;
+	background: #ffffad;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 24px;
 }
 .category_image_title {
 	text-align: center;
@@ -1095,17 +1160,116 @@ img.pic_block {
 	line-height: 1.5em;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.5em;	
+	font-size: 1.5em;
 }
 .switch_price_container {
 	width: 130px;
-    float: right;
-    font-size: 14px;
-    font-weight: bold;
-    border: 1px solid #dddddd;
-    line-height: 21px;
-    text-align: center;
+	float: right;
+	font-size: 14px;
+	font-weight: bold;
+	border: 1px solid #dddddd;
+	line-height: 21px;
+	text-align: center;
 }
+
+
+/*Отображение графиков на модерации*/
+.charts_flex_wrap{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	width: 100%;
+}
+.charts_flex_wrap .stat_years{
+	flex: 0 0 100%;
+	width: 100%;
+}
+.charts_flex_wrap .stat_years .stat_years_det{
+	width: 25%;
+	position: relative;
+	float: left;
+}
+.charts_flex_wrap .stat_years .chart_wrap{
+	width: 50%;
+	position: relative;
+	float: left;
+}
+.charts_flex_wrap .stat_years .chart_wrap canvas[id^=charts_]{
+	position: relative;
+	height:100px;
+	width:100% !important;
+}
+.moderations{
+	float:right;
+	position:relative;
+	width:25%;
+	padding-left: 20px;
+}
+.moderations .legenda {
+	float: left;
+	clear: both;
+	width: 100px;
+}
+.moderations .legenda i {
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	background: rgb(1,139,6);
+}
+.moderations .material-icons {
+	margin-right: 0;
+}
+
+.move_product_wrap .move_to,
+.move_product_wrap .no_checked_products{
+	border: 1px solid rgba(0,0,0,.1);
+	margin-bottom: 1em;
+	padding: 1em;
+}
+.move_product_wrap .err_border{
+	border: 1px solid red;
+}
+.move_product_wrap .move_to > *{
+	margin: .5em 0;
+}
+.move_product_wrap .move_to > p{
+	font-size: 1.4em;
+}
+
+.move_product_wrap .checked_products .checked_product {
+	padding: 1em;
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid rgba(0,0,0,.1);
+	margin-bottom: .5em;
+}
+.move_product_wrap .checked_products .checked_product .item_photo{
+	width: 130px;
+	float: left;
+}
+.move_product_wrap .checked_products .checked_product .item_photo img{
+	width: 100%;
+}
+.move_product_wrap .checked_products .checked_product .product_item{
+	width: 80%;
+	margin: 0 1em;
+}
+.move_product_wrap .checked_products .checked_product .product_item > div{
+	margin-bottom: .5em;
+}
+.move_product_wrap .checked_products .checked_product .product_item .product_descr{
+	text-align: justify;
+}
+.move_product_wrap .checked_products .checked_product .btn_wrap button{
+	color: red;
+}
+.move_product_wrap .checked_products .checked_product .btn_wrap button,
+.move_product_wrap .checked_products .checked_product .btn_wrap .psevdo_btn{
+	width: 100px;
+	margin-bottom: 1em;
+}
+
 
 /* Оформление списка товаров без категории */
 /*.nocategory .table_row {
@@ -1201,4 +1365,4 @@ ul.sb_menusub, ul.ex_menu { margin-left: 10px; padding: 0; list-style: none; col
 /*ul.sb_menu li.first a { font-size: 14px; }*/
 /*ul.sb_menu li.notalone { padding-top: 30px; }*/
 /* Footer-----------------------------------------------------------------------------*/
-/*footer { width: 100%; margin: -40px auto 0; height: 40px; text-align: center; }*/
+/*footer { width: 100%; margin: -40px auto 0; height: 40px; text-align: center; }

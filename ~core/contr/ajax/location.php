@@ -62,6 +62,20 @@
 				}
 				break;
 			// old code
+			case 'addressSelect':
+				$address = $Address->GetAddressById($_POST['address']);
+				$res = '
+					<div class="address">
+						<ul>
+							<li><b>Область: </b>'.$address['region_title'].'</li>
+							<li><b>Город: </b>'.$address['city_title'].'</li>
+							<li><b>Способ доставки: </b>'.$address['delivery_type_title'].'</li>
+							<li><b>Транспортная компания: </b>'.$address['shipping_company_title'].'</li>'.
+							($address['id_delivery'] == 1?'<li><b>Отделение: </b>'.$address['delivery_department'].'</li>':'<li><b>Адрес: </b>'.$address['address'].'</li>').'
+						</ul>
+					</div>';
+				echo $res;
+				break;
 			case "regionSelect":
 				$echo = '<option disabled selected>Выберите город</option>';
 				$res = $Address->GetCitiesList($_POST['region']);
@@ -85,8 +99,8 @@
 				//////////////////////////////////////////////////////////////////////
 				// проверяем, есть ли в этом городе отделения транспортных компаний //
 				//////////////////////////////////////////////////////////////////////
-				$shiping_companies = $Address->GetShippingCompanies();
-				foreach($shiping_companies as $company){
+				$shipping_companies = $Address->GetShippingCompanies();
+				foreach($shipping_companies as $company){
 					if($company['courier'] == 1){
 						$count['courier']++;
 					}
@@ -97,7 +111,7 @@
 				}
 				// Если в городе есть хоть одно отделение какой-либо компании, выводим пункт Самовывоз
 				if($count['warehouse'] > 0){
-					$echo .= '<option value="1">Пункт выдачи</option>';
+					$echo .= '<option value="1">Получить в пункте выдачи</option>';
 				}
 				// Если в город возможна адресная доставка хоть одной компанией, выводим пункт Адресная доставка
 				if($count['courier'] > 0){
@@ -107,12 +121,19 @@
 				break;
 			case "deliverySelect":
 				$echo = '<option disabled selected>Выберите службу доставки</option>';
-				$shiping_companies = $Address->GetShippingCompanies();
-				foreach($shiping_companies as $company){
-					if($company['has_api'] == 1 && $company['api_key'] != ''){
-						$city = $Address->UseAPI($company, 'getCity', $_POST);
-						if(!empty($city)){
-							$echo .= '<option data-ref="'.htmlspecialchars($city['Ref']).'" value="'.$company['id'].'">'.$company['title'].'</option>';					
+				if($_POST['id_delivery'] == 2){
+					$shipping_companies = $Address->GetShippingCompanies(true);
+					foreach($shipping_companies as $company){
+						$echo .= '<option value="'.$company['id'].'">'.$company['title'].'</option>';
+					}
+				}else{
+					$shipping_companies = $Address->GetShippingCompanies();
+					foreach($shipping_companies as $company){
+						if($company['has_api'] == 1 && $company['api_key'] != ''){
+							$city = $Address->UseAPI($company, 'getCity', $_POST);
+							if(!empty($city)){
+								$echo .= '<option data-ref="'.htmlspecialchars($city['Ref']).'" value="'.$company['id'].'">'.$company['title'].'</option>';
+							}
 						}
 					}
 				}
@@ -145,10 +166,21 @@
 				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
 				if(!empty($warehouses)){
 					foreach($warehouses as $warehouse){
-						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.htmlspecialchars($warehouse['name']).'">'.$warehouse['name'].'</option>';					
-					}				
+						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.htmlspecialchars($warehouse['name']).'">'.$warehouse['name'].'</option>';
+					}
 				}
 				echo $echo;
+				break;
+			case 'getAddress':
+				if(isset($_REQUEST['id'])){
+					$address = $Address->GetAddressById($_REQUEST['id']);
+				}
+				echo json_encode($address);
+			case 'deleteAddress':
+				if(isset($_REQUEST['id'])){
+					$Address->DeleteAddress($_REQUEST['id']);
+				}
+				echo json_encode(true);
 				break;
 			default:
 				break;

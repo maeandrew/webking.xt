@@ -15,15 +15,15 @@
 #quiz .quiz_footer{width:100%;overflow:auto}
 #quiz .quiz_footer button{text-transform:none;border:none;float:left;background-color:#eee;margin-right:1em}
 #quiz .quiz_footer button:first-of-type{margin-left:0}
-#quiz .quiz_footer .progress{float:right;width:50%;padding:1em;height:36px}
+#quiz .quiz_footer .progress{float:right;width:60%;padding:1em;height:36px}
 #quiz .mdl-textfield--floating-label.is-dirty .mdl-textfield__label{color:#000}
 #quiz .row{clear:both}
 #quiz .row:after{content:'';clear:both}
 #quiz .line{width:60%;height:10px;background:#eee;border-radius:10px;overflow:hidden;float:left;position:relative}
 #quiz .line:before{content:'';border-radius:10px;background:#26C6DA;position:absolute;right:15%;top:0;bottom:0;left:0;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
-#quiz .step_2 .progress .line:before{right:10%}
-#quiz .step_3 .progress .line:before{right:7%}
-#quiz .step_4 .progress .line:before{right:3%}
+#quiz .step_2 .progress .line:before{right:10%;right:7%}
+#quiz .step_3 .progress .line:before{right:7%;right:5%}
+#quiz .step_4 .progress .line:before{right:3%;right:0;background:#52cf55}
 #quiz .step_5 .progress .line:before{right:0}
 #quiz span.go{float:right;position:relative;display:inline-block;max-width:40%;line-height:10px}
 #quiz span.go:after{content:'96%'}

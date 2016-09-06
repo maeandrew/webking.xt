@@ -154,7 +154,7 @@
 						<span class="invoice"><p style="font-size: 1.2em;">Ваш менеджер - <?=$Supplier['phones']?></p><br><p style="color: #f00;"><?=$GLOBALS['CONFIG']['Supplier_manager']?></p>
 						</span>
 					</td>
-		
+
 				</tr>
 			</tbody>
 		</table>
@@ -167,17 +167,17 @@
 		<div class="block">
 			<div class="title">
 				<h4 <?=strlen($i['name']) > 70?' class="small"':null;?>><?=$i['name']?></h4>
-				<div style="color: <?=$i['product_limit']>0?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
+				<div style="color: <?=$i['active']==1?'#0e0':'#e00';?>">Арт. <?=$i['art'];?></div>
 			</div>
 			<div class="photo">
 				<?if(!empty($i['images'])){
 					foreach($i['images'] as $key => $image){?>
-						<img <?=$wh?> src="<?=_base_url?><?=str_replace('/original/', '/medium/', $image['src'])?>" alt="<?=$i['name']?>">
+						<img <?=$wh?> src="<?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$i['name']?>">
 					<?}
 				}else{
 					for($key=1; $key < 4; $key++){
 						if(!empty($i['img_'.$key])){?>
-							<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/500/", $i['img_'.$key])?>" alt="<?=$i['name']?>">
+							<img <?=$wh?> src="<?=G::GetImageUrl($i['img_'.$key], 'medium')?>" alt="<?=$i['name']?>">
 						<?}
 					}
 				}?>

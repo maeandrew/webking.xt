@@ -1,7 +1,6 @@
 <?php
 G::metaTags();
 $Page = new Page();
-$Products = new Products();
 $Page->PagesList("menu");
 $tpl->Assign('list_menu', $Page->list);
 if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
@@ -18,7 +17,7 @@ if(isset($products) && !empty($products)){
 	foreach($products as &$p){
 		$p['images'] = $Products->GetPhotoById($p['id_product']);
 	}
-    $tpl->Assign('list', $products);
+	$tpl->Assign('list', $products);
 }
 unset($products);
 
@@ -36,4 +35,4 @@ $parsed_res = array(
 );
 if(true == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
-}?>
+}

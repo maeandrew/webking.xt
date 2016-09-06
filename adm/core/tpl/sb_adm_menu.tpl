@@ -6,8 +6,8 @@
 				<li <?=$GLOBALS['CurrentController'] == 'coment'?'class="sel"':null;?>>
 					<a href="/adm/coment/" <?=$commentCount>0?'class="color-red"':null;?>>Вопросы по товару (<?=$commentCount;?>)</a>
 				</li>
-				<li <?=$GLOBALS['CurrentController'] == 'wishes'?'class="sel"':null;?>>
-					<a href="/adm/wishes/" <?=$wishesCount>0?'class="color-red"':null;?>>Пожелания и предложения (<?=$wishesCount;?>)</a>
+				<li <?=$GLOBALS['CurrentController'] == 'guestbook'?'class="sel"':null;?>>
+					<a href="/adm/guestbook/" <?=$commGuestBookCount>0?'class="color-red"':null;?>>Комментарии из гостевой книги(<?=$commGuestBookCount;?>)</a>
 				</li>
 			<?}?>
 			<?if(_acl::isAllow('catalog')){?>
@@ -20,12 +20,12 @@
 					<a href="/adm/product_moderation/" <?=$moderationCount>0?'class="color-red"':null;?>>Товары на модерации (<?=$moderationCount;?>)</a>
 				</li>
 			<?}?>
-			<?if(_acl::isAllow('product_moderation')){?>
-				<li <?=$GLOBALS['CurrentController'] == 'product_moderation'?'class="sel"':null;?>>
+			<?if(_acl::isAllow('graphics')){?>
+				<li <?=$GLOBALS['CurrentController'] == 'graphics'?'class="sel"':null;?>>
 					<a href="/adm/graphics/" <?=$GraphCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$GraphCount;?>)</a>
 				</li>
 			<?}?>
-			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'photo_productadd'?'class="sel"':null;?>>
+			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'photo_products'?'class="sel"':null;?>>
 				<a href="/adm/photo_products/">Товары фотографа</a>
 			</li><?}?>
 			<?if(_acl::isAllow('catalog')){?>

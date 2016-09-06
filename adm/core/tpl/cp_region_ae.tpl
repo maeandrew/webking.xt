@@ -4,7 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 
 <div id="regionae">
-    <form action="<?=$GLOBALS['URL_request']?>" method="post">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<label for="region_name"></label><p><b>Название:</b></p><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
 		<input type="text" name="name" id="region_name" class="input-l" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 

@@ -86,7 +86,7 @@ class Paginator{
 							$url = $base_url.'/p'.$page;
 						}
 					}
-					$url .= isset($get_string)?'?'.$get_string:null;
+					$url .= (isset($get_string) && !isset($_GET['search_subcategory']))?'?'.$get_string:null;
 					if(is_numeric($key)){
 						$pages['main'][] = '<li class="page'.$page.'"><a href="'.$url.'" class="animate">'.$page.'</a></li>';
 					}else{
@@ -100,12 +100,13 @@ class Paginator{
 					}
 				}
 		}
+		$tpl->Assign('last_page', $this->pages_count);
 		$tpl->Assign('pages', $pages);
 		$parsed_content = $tpl->Parse($GLOBALS['PATH_tpl_global'].'paginator.tpl');
 		// print_r(Link::Category($GLOBALS['Rewrite']));
 		if(isset($GLOBALS['Rewrite'])){
 			if($GLOBALS['CurrentController'] == 'products'){
-				$page_base = Link::Category($GLOBALS['Rewrite']);
+				$page_base = Link::Category($GLOBALS['Rewrite'], array('page' => 1));
 			}else{
 				$page_base = Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);
 			}
@@ -120,11 +121,7 @@ class Paginator{
 				}elseif($this->active_page == $this->pages_count){
 					$GLOBALS['meta_prev'] = $prev;
 				}else{
-					if($this->active_page == 2){
-						// $GLOBALS['meta_prev'] = $page_base;
-					}else{
-						$GLOBALS['meta_prev'] = $prev;
-					}
+					$GLOBALS['meta_prev'] = $prev;
 					$GLOBALS['meta_next'] = $next;
 				}
 			}

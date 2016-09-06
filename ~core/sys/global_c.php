@@ -203,7 +203,10 @@ class G {
  	 * @param string $pName
  	 */
  	public static function AddCSS($pName){
- 		if(!in_array($pName, $GLOBALS['__CSS__'])){
+ 		if(SETT === 2 && !strpos($_SERVER['REQUEST_URI'], 'adm') && !strpos($pName, '.min.css') && !strpos($pName, '/plugins/')){
+			$pName = str_replace('.css', '.min.css', str_replace('/css/', '/min/css/', $pName));
+		}
+		if(!in_array($pName, $GLOBALS['__CSS__'])){
 			$GLOBALS['__CSS__'][] = $pName;
 		}
 	}
@@ -572,11 +575,34 @@ class G {
 		return str_pad(rand(0,str_repeat("9", $length)),$length,'0');
 	}
 	public static function metaTags($data = false){
+		$str_unique = '';
+		if(isset($GLOBALS['Sort'])){
+			switch($GLOBALS['Sort']){
+				case 'name desc':
+					$str_unique .= ' Сортировка по названию от Я до А.';
+					break;
+				case 'name asc':
+					$str_unique .= ' Сортировка по названию от А до Я.';
+					break;
+				case 'price_opt desc':
+					$str_unique .= ' Сортировка от дорогих к дешевым.';
+					break;
+				case 'price_opt asc':
+					$str_unique .= ' Сортировка от дешевых к дорогим.';
+					break;
+				case 'popularity desc':
+					$str_unique .= ' Сортировка по популярности.';
+					break;
+			}
+		}
+		if(isset($GLOBALS['Page_id'])){
+			$str_unique .= ' Страница '.$GLOBALS['Page_id'].'.';
+		}
 		// meta tags
 		switch($GLOBALS['CurrentController']){
 			case 'main':
 				$GLOBALS['__page_title'] = 'Оптовый интернет-магазин xt.ua';
-				$GLOBALS['__page_description'] = '';
+				$GLOBALS['__page_description'] = 'Оптовый интерент магазин хоз товаров. XT.UA - крупнейший интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
 				$GLOBALS['__page_keywords'] = '';
 				break;
 			case 'product':
@@ -585,18 +611,18 @@ class G {
 				$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
 				break;
 			case 'page':
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			case 'news':
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 			default:
-				$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['name']);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_unique);
+				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
 				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
 				break;
 		}
@@ -610,19 +636,19 @@ class G {
 		// sitemap.xml
 		switch($navigation){
 			case 'products':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM "._DB_PREFIX_."product WHERE indexation = 1 AND visible = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '.html</loc></url>') AS url FROM "._DB_PREFIX_."product WHERE indexation = 1 AND visible = 1";
 				break;
 			case 'pages':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
 				break;
 			case 'categories':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'news':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'posts':
-				$sql = "SELECT CONCAT('<url><loc>http://xt.ua/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."post WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/posts/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."post WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'promotions':
 				$sql = "";
@@ -709,5 +735,70 @@ class G {
 		}
 		$db->CompleteTrans();
 		return true;
+	}
+
+	// Запись в БД отзыва от посетителей
+	public static function InsertGuestComment($arr){
+		global $db;
+		if(isset($_POST['id_user']) && $_POST['id_user'] != ''){
+			$f['id_user'] = $arr['id_user'];
+		}
+		if(isset($_POST['email']) && $_POST['email'] != ''){
+			$f['email'] = $arr['email'];
+		}
+		$f['comment'] = $arr['comment'];
+		$f['issue'] = $arr['issue'];
+		$db->StartTrans();
+		if(!$db->Insert(_DB_PREFIX_.'guest_book', $f)){
+			$db->FailTrans();
+			return false;
+		}
+		unset($f);
+		$db->CompleteTrans();
+		return true;
+	}
+
+	// Достаем данные в админку из таблицы guest_book
+	public static function GetInfoGuestBook($limit = false){
+		global $db;
+		$sql = "SELECT gb.*, u.`name`, u.phone
+				FROM "._DB_PREFIX_."guest_book gb
+				LEFT JOIN "._DB_PREFIX_."user u ON gb.id_user = u.id_user".
+				($limit?$limit:null);
+		if(!$res = $db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	/**
+	 * Метод для получения URL изображения товара
+	 * @param string $url      URL исходного изображения
+	 * @param string $img_size необходимый размер изображения (Опциональный параметр. Но, если не указать данный параметр, то метод вернет тот же URL, который был передан ему.)
+	 */
+	public static function GetImageUrl($url, $img_size = 'original'){
+		// Если $url содержит подстроку '/original/', тогда получаем изображение желаемого размера из нового массива изображений товара, иначе...
+		if(strpos($url, '/original/') != false){
+			$url = str_replace('/original/', '/'.$img_size.'/', $url);
+		}else{
+			// ...из старого массива.
+			switch($img_size){
+				case 'thumb':
+					$size = '/_thumb/image/';
+					break;
+				case 'medium':
+					$size = '/image/500/';
+					break;
+				// default интерпретируется в том случае, если в метод был передан некорректный $img_size.
+				default:
+					$size = '/image/';
+					break;
+			}
+			$url = str_replace('/image/', $size, $url);
+		}
+		// Если файла по данному $url не существует, получим изображение nofoto.png
+		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
+			$url = '/images/nofoto.png';
+		}
+		return htmlspecialchars(_base_url.$url);
 	}
 }

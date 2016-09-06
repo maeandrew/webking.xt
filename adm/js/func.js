@@ -1,16 +1,31 @@
-function ajax(target, action, data, dataType){
-	if(typeof(data) == 'object'){
-		data['target'] = target;
-		data['action'] = action;
+function ajax(target, action, data, dataType, form_sent){
+	if(form_sent){
+		data.append('target', target);
+		data.append('action', action);
 	}else{
-		data = {'target': target, 'action': action};
+		if(typeof(data) == 'object'){
+			data.target = target;
+			data.action = action;
+		}else{
+			data = {target: target, action: action};
+		}
 	}
 	dataType = dataType || 'json';
 	var ajax = $.ajax({
 		url: URL_base_global+'ajax',
-		type: "POST",
-		dataType : dataType,
-		data: data
+		beforeSend: function(ajax){
+			// if(ajax_proceed === true){
+			// 	// ajax.abort();
+			// }
+			// ajax_proceed = true;
+		},
+		type: 'POST',
+		dataType: dataType,
+		data: data,
+		processData: form_sent?false:true,
+		contentType: form_sent?false:'application/x-www-form-urlencoded; charset=UTF-8'
+	}).always(function(){
+		ajax_proceed = false;
 	});
 	return ajax;
 }
@@ -20,15 +35,9 @@ function ModalDemandChart(id_chart){
 		componentHandler.upgradeDom();
 
 		if(id_chart != "text" && id_chart != "undefined"){
-			//console.log(id_chart);
-				//$('a').on('click', function(){
-				//var id_chart = $(this).attr('id');
 				ajax('product', 'SearchDemandChart', {'id_chart': id_chart}, 'html').done(function(data){
-					if(data != null){
-						//console.log(data);
+					if(data !== null){
 						$('#demand_chart').html(data);
-						//foo(d3.selectAll("div").text('some text'));
-
 						componentHandler.upgradeDom();
 						openObject('demand_chart');
 						$('#demand_chart #user_bt').find('a').addClass('update');
@@ -48,23 +57,17 @@ function ModalDemandChart(id_chart){
 							});
 							ajax('product', 'UpdateDemandChart', {'values': values, 'id_category': id_category, 'id_chart': id_chart, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 								if(data === true){
-									console.log('Your data has been saved successfully!');
 									closeObject('graph');
 									location.reload();
-								}else{
-									console.log('Something goes wrong!');
 								}
 							});
 						});
-					}else{
-						console.log('Something goes wrong!');
 					}
 				});
 
 
 		}else if(id_chart == 'text'){
 			openObject('demand_chart');
-			console.log(id_chart);
 			//if ($(this).is('.Add_graph_up')) {
 				$('#demand_chart').on('click', '.btn_js.save', function(){
 					var parent =  $(this).closest('#demand_chart'),
@@ -90,11 +93,8 @@ function ModalDemandChart(id_chart){
 						'opt': opt
 					}).done(function(data){
 						if(data === true){
-							console.log('Your data has been saved successfully!');
 							closeObject('graph');
 							location.reload();
-						}else{
-							console.log('Something goes wrong!');
 						}
 					});
 				});
@@ -117,15 +117,12 @@ function ModalDemandChart(id_chart){
 				});
 				ajax('product', 'SaveDemandChart', {'values': values, 'id_category': id_category, 'name_user': name_user, 'text': text, 'opt': opt}).done(function(data){
 					if(data === true){
-						console.log('Your data has been saved successfully!');
 						closeObject('graph');
 						location.reload();
-					}else{
-						console.log('Something goes wrong!');
 					}
 				});
 			});
-		};
+		}
 	});
 }
 // Установить куки
@@ -159,7 +156,7 @@ function FixHeader(){
 	var color = '';
 	$(window).scroll(function(){
 		if(getScrollWindow() > 30){
-			if(color == ''){
+			if(color === ''){
 				color = colors[Math.floor(Math.random()*colors.length)];
 				$('#toTop').attr('class', 'btn-l-'+color+' animate').addClass('visible');
 			}else{
@@ -186,7 +183,7 @@ function toAssort(id, opt, nacen, comment){
 	var a,b,c;
 	a = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
 	b = parseFloat($("#price_"+mode+"_otpusk_"+id).val().replace(",","."));
-	if(inusd == true){
+	if(inusd === true){
 		a = a*currency_rate;
 		b = b*currency_rate;
 	}
@@ -197,23 +194,23 @@ function toAssort(id, opt, nacen, comment){
 		if(opt){
 			po = parseFloat($("#price_opt_"+id).val());
 			pom = Number(po - po*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
-			if(po != 0 && a > pom){
+			if(po !== 0 && a > pom){
 				alert("Предлагаемая Вами крупнооптовая цена не позволяет продавать данный товар на сайте.");
 			}
 			pop = Number(po + po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
 			pom = Number(po - po*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
-			if(po != 0 && (b > pop || b < pom)){
+			if(po !== 0 && (b > pop || b < pom)){
 				alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
 			}
 		}else{
 			pm = parseFloat($("#price_mopt_"+id).val());
 			pmm = Number(pm - pm*parseFloat($("#price_delta_otpusk").val())*0.01).toFixed(2);
-			if(pm != 0 && a > pmm){
+			if(pm !== 0 && a > pmm){
 				alert("Предлагаемая Вами мелкооптовая цена не позволяет продавать данный товар на сайте.");
 			}
 			pmp = Number(pm + pm*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
 			pmm = Number(pm - pm*parseFloat($("#price_delta_recom").val())*0.01).toFixed(2);
-			if(pm != 0 && (b > pmp || b < pmm)){
+			if(pm !== 0 && (b > pmp || b < pmm)){
 				alert("Предлагаемая Вами среднерыночная цена значительно отличается от цены сайта (более "+parseFloat($("#price_delta_recom").val())+"%).");
 			}
 		}
@@ -222,10 +219,10 @@ function toAssort(id, opt, nacen, comment){
 		am = parseFloat($("#price_mopt_otpusk_"+id).val());
 		bm = parseFloat($("#price_mopt_otpusk_"+id).val());
 		active = 1;
-		if((ao > 0 && bo == 0) || (ao == 0 && bo > 0)){
+		if((ao > 0 && bo === 0) || (ao === 0 && bo > 0)){
 			active = 0;
 			alert("Необходимо заполнить цены.");
-		}else if((am > 0 && bm == 0) || (am == 0 && bm > 0)){
+		}else if((am > 0 && bm === 0) || (am === 0 && bm > 0)){
 			active = 0;
 			alert("Необходимо заполнить цены.");
 		}
@@ -248,26 +245,7 @@ function toAssort(id, opt, nacen, comment){
 		a = 0;
 		$("#price_opt_otpusk_"+id).val(a);
 	}
-	//if (b<0){ b=0;$("#price_opt_recommend_"+id).val(b);}
-	$.ajax({
-		url: URL_base+'ajaxassort',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data:{
-			"action": "update_assort",
-			"opt": opt,
-			"id_product": id,
-			"price_otpusk": a,
-			"price_recommend": b,
-			"nacen": nacen,
-			"product_limit": c,
-			"active": active,
-			"sup_comment": comment,
-			"inusd": inusd,
-			"currency_rate": currency_rate
-		}
-	});
+	ajax('supplier', 'updateAssort', {mode: mode, id_product: id, price: a, active: active, comment: comment, inusd: inusd === false?0:1});
 }
 
 /*MODAL WINDOW*/
@@ -364,25 +342,32 @@ function SendCatOrder(order){
 	});
 }
 
-function RecalcSupplierCurrency(){
+function RecalcSupplierCurrency(obj){
+	var data = {};
 	$("#popup_msg").fadeIn();
-	cur = parseFloat($("#currency_rate").val());
-	cur_old = parseFloat($("#currency_rate_old").val());
-	$.ajax({
-		url: '/ajaxsupdate',
-		type: "POST",
-		cache: false,
-		dataType: "json",
-		data: {
-			"action": "RecalcCurrency",
-			"cur": cur,
-			"cur_old": cur_old,
-			"id_supplier": id_supplier
-		}
-	}).done(function(){
-		setTimeout(function(){
-			$("#popup_msg").fadeOut();
-			location.reload();
-		},1000);
+	data.currency_rate = parseFloat($("#currency_rate").val());
+	data.old_currency_rate = parseFloat($("#currency_rate_old").val());
+	data.id_supplier = id_supplier;
+
+	ajax('supplier', 'recalcCurrencyRate', new FormData($(obj)[0]), 'json', true).done(function(response){
+		$("#popup_msg").fadeOut();
+		location.reload();
 	});
+	// $.ajax({
+	// 	url: '/ajaxsupdate',
+	// 	type: "POST",
+	// 	cache: false,
+	// 	dataType: "json",
+	// 	data: {
+	// 		"action": "RecalcCurrency",
+	// 		"cur": currency,
+	// 		"cur_old": old_currency,
+	// 		"id_supplier": id_supplier
+	// 	}
+	// }).done(function(){
+	// 	setTimeout(function(){
+	// 		$("#popup_msg").fadeOut();
+	// 		location.reload();
+	// 	},1000);
+	// });
 }

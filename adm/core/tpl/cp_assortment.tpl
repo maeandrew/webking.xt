@@ -8,10 +8,10 @@
 			<p>Контактный телефон: <?=$supplier['real_phone']?></p>
 			<p>Контактный email: <?=$supplier['real_mail']?></p>
 			<p>Адрес: <?=$supplier['place']?></p>
-			<form class="suppliers_activity_form" method="post" action="">
+			<form class="suppliers_activity_form" method="post" action="<?=$_SERVER['REQUEST_URI']?>">
 				<input name="supplier_activ" hidden value="<?=$supplier['active'] == 1?'on':'off'?>">
 				<span class="current_supplier <?=$supplier['active'] == 1?'active_supplier':'inactive_supplier'?>">Поставщик <?=$supplier['active'] == 0?'не ':null?>активен</span>
-				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
+				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv disable_supplier_js':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
 			</form>
 		</div>
 	</div>
@@ -98,13 +98,14 @@
 			<div class="cabinet_block">
 				<div class="redBlock">
 					<div class="dollar">
-						<form action="" method="post" onsubmit="RecalcSupplierCurrency();return false;">
+						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="RecalcSupplierCurrency($(this));return false;">
 							<label for="currency_rate">Личный курс доллара</label><br>
 							<div class="flexWrap">
 								<input type="text" name="currency_rate" id="currency_rate" value="<?=$supplier['currency_rate']?>">
 								<button class="btn-m-lblue">Пересчитать</button>
 							</div>
-							<input type="hidden" id="currency_rate_old" value="<?=$supplier['currency_rate']?>">
+							<input type="hidden" name="old_currency_rate" value="<?=$supplier['currency_rate']?>">
+							<input type="hidden" name="id_supplier" value="<?=$supplier['id_user']?>">
 						</form>
 						<p class="checksum">Контрольная сумма: <b><?=$check_sum['checksum']?> грн</b></p>
 					</div>
@@ -119,18 +120,18 @@
 										}?>
 									</span>
 						</label>
-						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
-						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button> 
+						<button type="button" id="kalendar" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
+						<button type="button" class="btn-m-lblue fr btn_js" data-name="kalendar_content">Календарь</button>
 					</div>-->
 				</div>
-				<!-- <form class="work_days_add" action="<?=$GLOBALS['URL_request']?>" method="post">
+				<!-- <form class="work_days_add" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<label for="start_date" class="fleft">С даты:
 						<input type="date" name="start_date" id="start_date" value="<?=date("Y-m-d", time());?>"/>
 					</label>
 					<label for="num_days" class="fleft">Количество дней (от 10 до 90):
 						<input type="number" name="num_days" id="num_days" min="10" max="90" value="90" pattern="[0-9]{2}"/>
 					</label>
-					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Отправить</button>
+					<button type="submit" name="update_calendar1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 				</form> -->
 			</div>
 			<div class="excelBlock">
@@ -138,12 +139,12 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
-							
+
 							<form action="<?=$GLOBALS['URL_request']?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
-							
-							<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
 							</form>
@@ -152,12 +153,12 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
-							
+
 							<form action="<?=$GLOBALS['URL_request']?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
-							
-							<form action="<?=$GLOBALS['URL_request']?>" method="post" enctype="multipart/form-data">
+
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
 							</form>
@@ -168,16 +169,15 @@
 		</div>
 	</div>
 
-	
+
 
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
 			<div class="switch_price_container">
 				<span>Единая цена</span>
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch_price">
-					<input type="checkbox" id="switch_price" class="mdl-switch__input price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
-					<span class="mdl-switch__label"></span>
+				<label for="switch_price">
+					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
 				</label>
 			</div>
 			<h2>Ассортимент</h2>
@@ -226,14 +226,14 @@
 							</td>
 							<td>
 								<?if(!empty($item['images'])){?>
-									<img <?=$wh?> class="lazy" data-original="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
+									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
 									<noscript>
-										<img <?=$wh?> src="<?=_base_url?><?=str_replace('original', 'small', $item['images'][0]['src'])?>" alt="<?=$item['name']?>">
+										<img <?=$wh?> src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>">
 									</noscript>
 								<?}else{?>
-									<img <?=$wh?> class="lazy" data-original="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+									<img <?=$wh?> class="lazy" src="/images/nofoto.png" alt="<?=htmlspecialchars($item['name'])?>" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 									<noscript>
-										<img <?=$wh?> src="<?=_base_url?><?=str_replace("image/", "image/250/", $item['img_1'])?>"/>
+										<img <?=$wh?> src="<?=G::GetImageUrl($item['img_1'], 'medium')?>" alt="<?=htmlspecialchars($item['name'])?>"/>
 									</noscript>
 								<?}?>
 							</td>
@@ -269,17 +269,15 @@
 <script>
 	var id_supplier = <?=$id_supplier;?>;
 	<?=$supplier['single_price']==0?'TogglePriceColumns("Off");':'TogglePriceColumns("On");';?>
+
 	$(function(){
-
-
 		/* Новый переключатель обьедения цены */
-		$('.price_switcher_js').on('change', function(){			
+		$('.price_switcher_js').on('change', function(){
 			var single_price;
-
 			if ($(this).prop("checked")){
 				if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
 					TogglePriceColumns('On');
-					single_price = 1;					
+					single_price = 1;
 				}else{
 					$( ".price_switcher_js" ).prop( "checked", false);
 				}
@@ -287,72 +285,31 @@
 				TogglePriceColumns('Off');
 				single_price = 0;
 			}
-
-			$.ajax({
-				url: '/ajaxsuppliers',
-				type: "POST",
-				dataType : "json",
-				data:({
-					"action": 'toggle_single_price',
-					"id_supplier": '<?=$supplier['id_user'];?>',
-					"single_price": single_price
-				}),
-			});
+			var id_supplier = '<?=$supplier['id_user'];?>';
+			ajax('supplier', 'toggleSinglePrice', {id_supplier: id_supplier, single_price: single_price}, 'json');
 		});
 
-		// Клик по переключателю "Единая цена"
-		// $('.price_switcher_js').click(function(){
-		// 	var single_price;
-		// 	if($(this).closest('#switcher').hasClass('Off')){
-		// 		if(window.confirm('Для каждого товара, вместо двух цен, будет установлена единая цена.\nПроверьте, пожалуйста, цены после выполнения.')){
-		// 			$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-		// 			if($(this).closest('#switcher').hasClass('On')){
-		// 				// document.cookie = "onlyprice=On;";
-		// 				TogglePriceColumns('On');
-		// 				single_price = 1;
-		// 			}else{
-		// 				// document.cookie = "onlyprice=Off;";
-		// 				TogglePriceColumns('Off');
-		// 				single_price = 0;
-		// 			}
-
-		// 		}
-		// 	}else{
-		// 		$(this).closest('#switcher').toggleClass('On').toggleClass('Off');
-		// 		if($(this).closest('#switcher').hasClass('On')){
-		// 			// document.cookie = "onlyprice=On;";
-		// 			TogglePriceColumns('On');
-		// 			single_price = 1;
-		// 		}else{
-		// 			// document.cookie = "onlyprice=Off;";
-		// 			TogglePriceColumns('Off');
-		// 			single_price = 0;
-		// 		}
-		// 	}
-		// 	$.ajax({
-		// 		url: '/ajaxsuppliers',
-		// 		type: "POST",
-		// 		dataType : "json",
-		// 		data:({
-		// 			"action": 'toggle_single_price',
-		// 			"id_supplier": '<?=$supplier['id_user'];?>',
-		// 			"single_price": single_price
-		// 		}),
-		// 	});
-		// });
+		$('.disable_supplier_js').on('click', function(){
+			if (!confirm('Убедитесь что вы сохранили ассортимент в файл Excel')){
+				return false;
+			}
+		});
 
 		// Переключение активности записи ассортимента
 		$('.active').on('change', function(){
 			var parent = $(this).closest('tr'),
-				active = 0;
+				active = 0,
+				product_limit = 0;
 			if(this.checked){
 				active = 1;
+				product_limit = 10000000;
 			}
 			var data = {
 				id_product: parent.data('id'),
 				id_supplier: id_supplier,
-				active: active
-			}
+				active: active,
+				product_limit: product_limit
+			};
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
 			});
 		});
@@ -367,10 +324,8 @@
 				id_product: parent.data('id'),
 				id_supplier: id_supplier,
 				inusd: inusd
-			}
-			console.log(data);
+			};
 			ajax('product', 'UpdateAssort', data, 'json').done(function(data){
-				console.log(data);				
 				parent.find('.price').each(function(){
 					var mode = $(this).data('mode');
 					if(data.inusd == 1){
@@ -420,18 +375,10 @@
 	// Функция переключения "Единой цены"
 	function TogglePriceColumns(action){
 		if(action == 'On'){
-			console.log('vkl on');
-			// $('.price_1').css({
-			// 	"width": "20%"
-			// });
-			// $('th.price_1 p').text('Цена отпускная');
 			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
 			$('.price_mopt_title_js').html('Цена');
-			// $('.switcher_container').css({
-			// 	"width": "100%"
-			// });
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 				if($('#price_opt_otpusk_'+id).val() !== $('#price_mopt_otpusk_'+id).val()){
@@ -443,38 +390,13 @@
 				}
 			});
 		}else{
-			console.log('vkl off');
-			// $('.price_1').css({
-			// 	"width": "10%"
-			// });
-			// $('th.price_1 p').text('Цена отпускная мин. к-ва');
 			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
 			$('.price_mopt_title_js').html('Цена розн.');
-			// $('.switcher_container').css({
-			// 	"width": "200%"
-			// });
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
 			});
 		}
 	}
-
-	// Фиксация Заголовка таблицы
-	// $(window).scroll(function(){
-	// 		console.log($('.supplier_assort_table').offset().top - $('header').outerHeight());
-	// 	if($(this).scrollTop() >= 86){
-	// 		if(!$('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			var width = $('.table_tbody').width();
-	// 			$('.supplier_assort_table.thead').css("width", width).addClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "65px");
-	// 		}
-	// 	}else{
-	// 		if($('.supplier_assort_table.thead').hasClass('fixed_thead')){
-	// 			$('.supplier_assort_table.thead').removeClass('fixed_thead');
-	// 			$('.table_tbody').css("margin-top", "0");
-	// 		}
-	// 	}
-	// });
 </script>

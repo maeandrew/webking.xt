@@ -4,7 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 
 <div id="specificationae">
-    <form action="<?=$GLOBALS['URL_request']?>" method="post">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
     	<div class="row">
     		<div class="col-md-12">
     			<label for="caption">Описание характеристики:</label><?=isset($errm['caption'])?"<span class=\"errmsg\">".$errm['caption']."</span><br>":null?>

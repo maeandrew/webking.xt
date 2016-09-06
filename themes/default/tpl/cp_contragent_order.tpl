@@ -104,7 +104,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <?php if($order['id_order_status']==1): ?>
 
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
     <input type="submit" name="smb_run" class="run_order" value="На выполнение">
 
@@ -122,7 +122,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <b><?php echo $order['note'] ?> </b>
 
-                <form action="<?=$GLOBALS['URL_request']?>" method="post">
+                <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
 <script>p_ids = new Array();ii=0;</script>
 
@@ -226,7 +226,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
                          <td class="name_cell">
 
-                             <a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения"></a>
+                             <a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 
                              <a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 
@@ -315,7 +315,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 						</td>
 
                          <td class="name_cell">
-                             <a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения"></a>
+                             <a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 
                              <a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
 
@@ -511,7 +511,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <!--<?php if($i['id_order_status']==1): ?>
 
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
     <input type="submit" name="smb_run" class="run_order" value="На выполнение">
 
@@ -523,7 +523,7 @@ text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
 
 <?php if($i['id_order_status']==1 || $i['id_order_status']==6): ?>
 
-<form action="<?=$GLOBALS['URL_request']?>" method="post">
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
     <input type="submit" name="smb_cancel" class="cancel_order" value="">
 

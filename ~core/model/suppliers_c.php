@@ -5,57 +5,60 @@ class Suppliers extends Users {
 
 	public function __construct(){
 		parent::__construct();
-		$this->usual_fields = array("id_user", "article", "phones", "place",
-			"currency_rate", "is_partner", "next_update_date", "koef_nazen_mopt",
-			"koef_nazen_opt", "make_csv", "send_mail_order", "real_email", "icq",
-			"real_phone", "filial", "balance", "available_today", "personal_message",
-			"example_sum", "warehouse", "area", "single_price", "self_edit");
+		$this->usual_fields = array('id_user', 'article', 'phones', 'place',
+			'currency_rate', 'is_partner', 'next_update_date', 'koef_nazen_mopt',
+			'koef_nazen_opt', 'make_csv', 'send_mail_order', 'real_email', 'icq',
+			'real_phone', 'filial', 'balance', 'available_today', 'personal_message',
+			'example_sum', 'warehouse', 'area', 'single_price', 'self_edit');
 	}
 	//*******************************Заполнение рабочих дней поставщика
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
-		global $User;
-		if(!$User->SetFieldsById($id, $all)){
-			return false;
-		}
+		parent::SetFieldsById($id, $all);
 		$active = "AND active = 1";
 		if($all == 1){}
 			$active = '';
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."supplier
-			WHERE id_user = '".$id."'
+			WHERE id_user = ".$id."
 			".$active;
-		$this->fields = $this->db->GetOneRowArray($sql);
-		if(!$this->fields){
-			return false;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return true;
 		}
-		$this->fields = array_merge($this->fields, $User->GetFields());
-		return true;
+		$this->fields = is_array($this->fields)?array_merge($res, $this->fields):$res;
+		return $this->fields;
 	}
-
-	// Список поставщиков (0 - только видимые. 1 - все, и видимые и невидимые)
-	public function SuppliersList($param=0, $arr=false, $limit = "", $order = false){
-		$order = ($order === false)?" u.gid, u.name, u.id_user DESC":$order;
-		if($limit != ""){
+	/**
+	 * Список поставщиков (0 - только видимые. 1 - все, и видимые и невидимые)
+	 * @param integer $param    [description]
+	 * @param boolean $arr      [description]
+	 * @param string  $limit    [description]
+	 * @param boolean $order_by [description]
+	 */
+	public function SuppliersList($param = 0, $arr = false, $limit = "", $order_by = false){
+		$order_by = ' ORDER BY'.($order_by === false?' u.gid, u.name, u.id_user DESC':$order_by);
+		if($limit != ''){
 			$limit = " limit $limit";
 		}
 		if($param == 0){
 			$arr['active'] = "1";
 		}
 		$sql = "SELECT *
-				FROM "._DB_PREFIX_."user u
-				RIGHT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
-				".$this->db->GetWhere($arr)."
-				ORDER BY ".$order.
-				$limit;
-		$this->list = $this->db->GetArray($sql);
-		if(!$this->list){
+			FROM "._DB_PREFIX_."user AS u
+			RIGHT JOIN "._DB_PREFIX_."supplier s ON u.id_user = s.id_user
+			".$this->db->GetWhere($arr).
+			$order_by.
+			$limit;
+		if(!$this->list = $this->db->GetArray($sql)){
 			return false;
 		}
 		return true;
 	}
-
+	/**
+	 * [GetSupplierIdByArt description]
+	 * @param [type] $article [description]
+	 */
 	public function GetSupplierIdByArt($article){
 		$article = trim($article);
 		$sql = "SELECT id_user
@@ -67,40 +70,41 @@ class Suppliers extends Users {
 		}
 		return $arr['id_user'];
 	}
-
 	/**
 	 * Получение массива id_supplier по артикулу и по его началу
-	 * @param int $art идентификатор товара
+	 * @param integer $article идентификатор товара
 	 */
-	public function GetIdOneRowArrayByArt($art){
+	public function GetIdOneRowArrayByArt($article){
 		$sql = "SELECT s.article, CONCAT(s.article,' - ',u.name) AS response
 			FROM "._DB_PREFIX_."supplier AS s
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = s.id_user
-			WHERE s.article LIKE '".$art."%'
+			WHERE s.article LIKE '".$article."%'
 			LIMIT 5";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr){
+		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $arr;
 	}
-
+	/**
+	 * [GetSupplierIdByPromoCode description]
+	 * @param [type] $code [description]
+	 */
 	public function GetSupplierIdByPromoCode($code){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."supplier
-			LEFT JOIN "._DB_PREFIX_."promo_code
+			LEFT JOIN "._DB_PREFIX_."promo_code AS pc
 				ON "._DB_PREFIX_."promo_code.id_supplier = "._DB_PREFIX_."supplier.id_user
 			WHERE "._DB_PREFIX_."promo_code.code = '".$code."'";
 		$this->fields = $this->db->GetOneRowArray($sql);
-		global $User;
-		if(!$User->SetFieldsById($this->fields['id_user'], $all = 0)){
+		global $Users;
+		if(!$Users->SetFieldsById($this->fields['id_user'], $all = 0)){
 			return false;
 		}
 		if(!$this->fields){
 			return false;
 		}
-		$this->fields = array_merge($this->fields,$User->GetFields());
+		$this->fields = array_merge($this->fields, $Users->GetFields());
 		return true;
 	}
 
@@ -113,8 +117,10 @@ class Suppliers extends Users {
 		}
 		return $arr;
 	}
-	/* Добавление
-	 *
+	/**
+	 * [GetSuppliersForManager description]
+	 * @param [type] $sort [description]
+	 * @param [type] $and  [description]
 	 */
 	public function GetSuppliersForManager($sort = null, $and = null){
 		$sql = "SELECT s.id_user, s.article, s.phones, s.place, s.currency_rate, s.is_partner,
@@ -131,10 +137,7 @@ class Suppliers extends Users {
 		if(!empty($and)){
 			$users = new Users();
 			$sql .= $users->db->GetWhere($and);
-			// $sql .= " AND u.active = 1";
-		}// else{
-		// 	$sql .= " WHERE u.active = 1";
-		// }
+		}
 		if(isset($sort)){
 			$sql .= " ORDER BY ".$sort;
 		}
@@ -144,13 +147,16 @@ class Suppliers extends Users {
 		}
 		return $arr;
 	}
-
+	/**
+	 * [AddSupplier description]
+	 * @param [type] $arr [description]
+	 */
 	public function AddSupplier($arr){
-		global $User;
+		global $Users;
 		// user
 		$arr['gid'] = _ACL_SUPPLIER_;
 		$this->db->StartTrans();
-		if(!$User->AddUser($arr)){
+		if(!$Users->AddUser($arr)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -181,7 +187,9 @@ class Suppliers extends Users {
 		$this->db->CompleteTrans();
 		return true;
 	}
-
+	/**
+	 * [GetWarehouses description]
+	 */
 	public function GetWarehouses(){
 		$sql = "SELECT ws.id_supplier, u.name
 			FROM "._DB_PREFIX_."supplier AS s,
@@ -190,13 +198,14 @@ class Suppliers extends Users {
 			WHERE u.id_user = s.id_user
 			AND ws.id_supplier = s.id_user
 			AND u.active = 1";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr){
+		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $arr;
 	}
-
+	/**
+	 * [GetNonWarehouses description]
+	 */
 	public function GetNonWarehouses(){
 		$sql = "SELECT u.name, s.id_user, ws.id_supplier
 			FROM "._DB_PREFIX_."supplier AS s
@@ -206,8 +215,7 @@ class Suppliers extends Users {
 			WHERE s.id_user = u.id_user
 			AND u.active = 1
 			HAVING id_supplier IS NULL";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr){
+		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $arr;
@@ -234,9 +242,9 @@ class Suppliers extends Users {
 	 *
 	 */
 	public function UpdateSupplier($arr, $only_activity = false){
-		global $User;
-		$arr['gid'] = $User->fields['gid'];
-		if(!$User->UpdateUser($arr)){
+		$Users = new Users();
+		$arr['gid'] = $Users->fields['gid'];
+		if(!$Users->UpdateUser($arr)){
 			return false;
 		}
 		unset($f);
@@ -281,13 +289,19 @@ class Suppliers extends Users {
 		}
 		return true;
 	}
-	// Удаление ассортимента поставщика
+	/**
+	 * Удаление ассортимента поставщика
+	 * @param [type] $id [description]
+	 */
 	public function DelSupplierAssort($id){
 		$sql = "DELETE FROM "._DB_PREFIX_."assortiment WHERE id_supplier = ".$id;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
-	// Удаление
+	/**
+	 * Удаление
+	 * @param [type] $id [description]
+	 */
 	public function DelSupplier($id){
 		$sql = "DELETE FROM "._DB_PREFIX_."supplier WHERE `id_user` = ".$id;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
@@ -297,7 +311,11 @@ class Suppliers extends Users {
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
-
+	/**
+	 * [SwitchEnableDisableProductsInAssort description]
+	 * @param [type]  $id_supplier [description]
+	 * @param integer $enable      [description]
+	 */
 	public function SwitchEnableDisableProductsInAssort($id_supplier, $enable=0){
 		if($enable == 0){
 			$where = "id_supplier = \"$id_supplier\"";
@@ -324,11 +342,11 @@ class Suppliers extends Users {
 	}
 
 	public function CheckSupplierDate($date){
-		global $User;
+		global $Users;
 		$tmp = explode("_", $date);
 		$date = $tmp[0]."-".$tmp[1]."-".$tmp[2];
 		$this->db->StartTrans();
-		$id_supplier = $User->fields['id_user'];
+		$id_supplier = $Users->fields['id_user'];
 		$sql = "SELECT date, id_supplier, work_day
 			FROM "._DB_PREFIX_."calendar_supplier
 			WHERE id_supplier = ".$id_supplier."
@@ -352,11 +370,11 @@ class Suppliers extends Users {
 
 	// Переключает рабочие дни и ночи в календаре поставщика
 	public function SwitchSupplierDate($date){
-		global $User;
+		global $Users;
 		$tmp = explode(".", $date);
 		$date = $tmp[2]."-".$tmp[1]."-".$tmp[0];
 		$this->db->StartTrans();
-		$id_supplier = $User->fields['id_user'];
+		$id_supplier = $Users->fields['id_user'];
 		$sql = "SELECT date, id_supplier, work_day
 			FROM "._DB_PREFIX_."calendar_supplier
 			WHERE id_supplier = ".$id_supplier."
@@ -412,16 +430,17 @@ class Suppliers extends Users {
 		return $arr;
 	}
 
-	// Пересчет цен поставщика
-	public function RecalcSupplierCurrency($cur, $cur_old, $id_supplier = false){
-		global $User;
-		$id_supplier = (($id_supplier === false)?$User->fields['id_user']:$id_supplier);
-		$k = round($cur/$cur_old, 2);
-		$sql = "UPDATE "._DB_PREFIX_."assortiment SET
-			price_opt_otpusk = ROUND(price_opt_otpusk*".$k." ,2),
-			price_opt_recommend = ROUND(price_opt_recommend*".$k." ,2),
-			price_mopt_otpusk = ROUND(price_mopt_otpusk*".$k." ,2),
-			price_mopt_recommend = ROUND(price_mopt_recommend*".$k." ,2)
+	// Пересчет цен поставщика по курсу доллара
+	public function RecalcSupplierCurrency($data){
+		global $Users;
+		$id_supplier = $data['id_supplier'] === false?$Users->fields['id_user']:$data['id_supplier'];
+		$k = round($data['currency_rate']/$data['old_currency_rate'], 2);
+		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
+				LEFT JOIN "._DB_PREFIX_."supplier AS s ON a.id_supplier = s.id_user
+			SET price_opt_otpusk = ROUND(price_opt_otpusk_usd*".$data['currency_rate'].", 2),
+				price_opt_recommend = ROUND(ROUND(price_opt_otpusk_usd*".$data['currency_rate'].", 2)*s.koef_nazen_opt, 2),
+				price_mopt_otpusk = ROUND(price_mopt_otpusk_usd*".$data['currency_rate'].", 2),
+				price_mopt_recommend = ROUND(ROUND(price_mopt_otpusk_usd*".$data['currency_rate'].", 2)*s.koef_nazen_mopt, 2)
 			WHERE id_supplier = ".$id_supplier."
 			AND inusd = 1";
 		$this->db->StartTrans();
@@ -429,19 +448,18 @@ class Suppliers extends Users {
 			$this->db->FailTrans();
 			return false;
 		}
-		$f['currency_rate'] = $cur;
+		$f['currency_rate'] = $data['currency_rate'];
 		if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = ".$id_supplier)){
 			$this->db->FailTrans();
 			return false;
 		}
 		$this->db->CompleteTrans();
 		$arr = $this->GetAssortimentProductIds($id_supplier);
-		$arrt = array();
-		foreach($arr as $v) {
-			$arrt[] = $v['id_product'];
+		foreach($arr as &$v) {
+			$v = $v['id_product'];
 		}
 		$Products = new Products();
-		if(!$Products->RecalcSitePrices($arrt)){
+		if(!$Products->RecalcSitePrices($arr)){
 			return false;
 		}
 		return true;
@@ -449,7 +467,7 @@ class Suppliers extends Users {
 
 	public function GetAssortimentProductIds($id_supplier){
 		$sql = "SELECT a.id_product
-			FROM "._DB_PREFIX_."assortiment a
+			FROM "._DB_PREFIX_."assortiment AS a
 			WHERE a.id_supplier = ".$id_supplier;
 		$arr = $this->db->GetArray($sql);
 		return $arr;
@@ -465,7 +483,7 @@ class Suppliers extends Users {
 	}
 
 	public function GetDataForAct(){
-		$sql = "SELECT p.id_product, p.name, p.art, p.img_1, p.img_2, p.img_3, p.descr,
+		$sql = "SELECT p.id_product, p.name, p.art, a.active, p.img_1, p.img_2, p.img_3, p.descr,
 			p.inbox_qty, p.min_mopt_qty, p.qty_control, p.weight, p.height, p.width,
 			p.length, p.coefficient_volume, p.volume, a.product_limit, a.price_opt_otpusk,
 			a.price_opt_recommend, a.price_mopt_otpusk, a.price_mopt_recommend,
@@ -672,14 +690,38 @@ class Suppliers extends Users {
 		return $arr;
 	}
 
-	public function UpdateSinglePrice($id_user, $single_price){
+	public function UpdateSinglePrice($id_user, $single_price, $price = false){
 		$f['single_price']= $single_price;
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = ".$id_user)){
 			$this->db->FailTrans();
 			return false;
 		}
+		unset($f);
+		if($single_price == 1){
+			$Suppliers = new Suppliers();
+			$Suppliers->SetFieldsById($id_user, 1);
+			$supplier = $Suppliers->fields;
+			$f['price_opt_otpusk'] = 'price_mopt_otpusk';
+			$f['price_opt_otpusk_usd'] = 'price_mopt_otpusk_usd';
+			$f['price_opt_recommend'] = 'price_mopt_otpusk*'.$supplier['koef_nazen_opt'];
+			if(!$succesUpdate = $this->db->UpdatePro(_DB_PREFIX_.'assortiment', $f, "id_supplier = ".$id_user)){
+				$this->db->FailTrans();
+				return false;
+			}
+		}
 		$this->db->CompleteTrans();
+		if(isset($succesUpdate)){
+			$res = $this->GetAssortimentProductIds($id_user);
+			$arr = array();
+			foreach($res as $v) {
+				$arr[] = $v['id_product'];
+			}
+			$Products = new Products();
+			if(!$Products->RecalcSitePrices($arr)){
+				return false;
+			}
+		}
 		return true;
 	}
 }?>

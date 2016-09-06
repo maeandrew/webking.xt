@@ -3,7 +3,6 @@
 	 //   var order_cookie = $.cookie('id_order');
 	 //   var order =  '{id_order: order_cookie }';
 	  //  ajax('cart', 'add_status_cart').done(function (arr) {
-	  //      console.log(arr);
 	   // });
   //  });
 </script>
@@ -36,7 +35,7 @@
 			<ul class="orders_list">
 				<?if(in_array($infoJO['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'joactive') || !isset($_GET['t'])) {?>
 					<li>
-						<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect ">
+						<section class="order cooperative_order mdl-tabs mdl-js-tabs">
 							<div class="title">
 								<div class="container">
 									<span class="number num_mar">Совместная корзина № <?=$infoJO['id_cart']?></span>
@@ -48,7 +47,7 @@
 										<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$infoJO['id_cart']?>">
 											<img src="<?=_base_url?>/themes/default/img/print1.png">
 										</div>
-										<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower_<?=$infoJO['id_cart']?>" style="min-width:160px; !important">
+										<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu" for="menu-lower_<?=$infoJO['id_cart']?>" style="min-width:160px; !important">
 											<li class="mdl-menu__item">
 												<a href="/invoice_customer/<?=$infoJO['id_order']?>/<?=$infoJO['skey']?>/?nophoto=true" style="color: #9E9E9E;">
 													<svg class="icon" id="tt1" style="margin-right:5px;margin-top:-5px;"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
@@ -115,7 +114,7 @@
 										<div class="manager">
 											<div class="label">Организатор заказа</div>
 											<div class="avatar">
-												<img src="http://lorempixel.com/fashion/70/70/" alt="avatar"/>
+												<img src="/images/noavatar.png" alt="avatar"/>
 											</div>
 											<div class="details">
 												<div class="line_1"><? print_r($infoJO['adm_name'])?></div>
@@ -211,7 +210,7 @@
 												</th>
 											</tr>
 											</thead>
-											<form action="#">
+											<form action="<?=$_SERVER['REQUEST_URI']?>">
 												<div>
 												<tr>
 													<td>
@@ -239,10 +238,10 @@
 
 								<div class="mdl-tabs__panel" id="items_panel_<?=$infoJO['id_cart']?>" >
 									<div class="btnWrapFlex"><?if((isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1) && (isset($_GET['t']) && $_GET['t'] == 'joactive')) {?>
-											<input type="button" data-promo="<?=$infoCart['promo']?>" class="checkout_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Оформить заказ" data-upgraded=",MaterialButton,MaterialRipple"/>
+											<input type="button" data-promo="<?=$infoCart['promo']?>" class="checkout_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Оформить заказ" data-upgraded=",MaterialButton,MaterialRipple"/>
 										<?}else if((isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) && (isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready'] == 0) && (isset($_GET['t']) && $_GET['t'] == 'joactive')){?>
 											<input type="hidden" value="<?=$_SESSION['cart']['id']?>">
-											<input type="button" class="readyToOrder_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Готов" data-upgraded=",MaterialButton,MaterialRipple"/>
+											<input type="button" class="readyToOrder_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Готов" data-upgraded=",MaterialButton,MaterialRipple"/>
 										<?}?>
 									</div>
 									<?if (isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?>
@@ -254,7 +253,7 @@
 												<?//foreach ($infoCarts as $i){ if(in_array($i['status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){ ?>
 												<?foreach ($infoJO['infoCarts'] as $i){ ?>
 													<li class="id_cart_<?=$i['id_cart']?>">
-														<section class="order mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+														<section class="order mdl-tabs mdl-js-tabs">
 															<div class="title">
 																<div class="container for_tooltip">
 																	<a href="#" class="mdl-tabs__tab list_in_cart_js" data-cartid="<?=$i['id_cart']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">
@@ -303,18 +302,13 @@
 		});
 		$('.del_x_js').click(function(event) {
 			var obj = $(this);
-			// console.log($(this).closest('tr').find('.member_id_cart_js').val() +' : '+ $(this).closest('tr').find('.member_id_cart_js').data('cartid'));
-			// console.log($(this).closest('.tableRow').find('.member_id_cart_js').val());
 			ajax('cabinet', 'DelCartFromJO', {id_cart: $(this).closest('.tableRow').find('.member_id_cart_js').val()}).done(function(event) {
 				obj.closest('.tableRow').remove();
-			}).fail(function(event) {
-				console.log('Fail');
 			});
 		});
 		$('.list_in_cart_js').click(function(event) {
 			if ($(this).closest('li').find('.products_cart_js').html() == '') {
 				$(this).addClass('active_link_to_cart_js');
-				// console.log($(this).data('cartid'));
 				GetCabCoopProdAjax($(this).data('cartid'), $(this).data('rewrite'));
 			}else{
 				$(this).removeClass('active_link_to_cart_js');
@@ -327,31 +321,17 @@
 		});
 		$('[href^="#items_panel_"').click(function(event) {
 			if ($(this).hasClass('getCabCoopProdAjax_js')) {
-				console.log($(this).data('idcart'));
 				GetCabCoopProdAjax($(this).data('idcart'), $(this).data('rewrite'));
 			}
 		});
 
 		$('body').on('click', '.checkout_js', function(event) {
 			event.preventDefault();
-			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')}).done(function(data) {
-				if (data.success == true) {
-					console.log(data.msg);
-				}else{
-					console.log(data.msg);
-				}
-
-				console.log('success');
-			}).fail(function(data) {
-				console.log('Fail');
-			});
+			ajax('cabinet', 'MakeOrderJO', {promo: $(this).data('promo')});
 		});
 
 		$('[id^=items_panel_]').on('click', '.readyToOrder_js', function(event) {
 			ajax('cart', 'ReadyUserJO', {id_cart: $(this).closest('div').find('[type="hidden"]').val()}).done(function(data){
-				// console.log("success readyToOrder_js");
-			}).fail(function(data) {
-				console.log("fail ");
 			});
 		});
 	});

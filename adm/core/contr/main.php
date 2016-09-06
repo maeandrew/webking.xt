@@ -21,9 +21,9 @@ if(isset($_POST['name_index_status'])){
 	}
 	echo "<script>alert('Обработано записей: ".$total.".');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 }
+// Пересчитать цены поставщиков по новому курсу
 if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
-	$kurs_griwni = mysql_real_escape_string($_POST['kurs_griwni']);
-	if($products->UpdatePriceSupplierAssortiment($kurs_griwni)){
+	if($products->UpdatePriceSupplierAssortiment($_POST['kurs_griwni'])){
 		echo "<script>alert('Цены пересчитаны');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Что-то пошло не так');</script>";
@@ -33,7 +33,6 @@ if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'recalc_supplier_prices'){
 	if($products->UpdatePriceRecommendAssortiment()){
 		echo "<script>alert('Цены пересчитаны');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
-
 	}else{
 		echo "<script>alert('Что-то пошло не так');</script>";
 	}
@@ -114,11 +113,11 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'gen_resize_product_im
 			//echo "$filename - ok<br>";
 			$aa++;
 		}
-		if(!is_file($GLOBALS['PATH_root'].'../efiles/image/250/'.$filename)){
+		if(!is_file($GLOBALS['PATH_root'].'../efiles/image/500/'.$filename)){
 			$i = new img(250, 250);
 			$i->GenFileInfo($filepath);
 			$i->target='save';
-			$i->change($GLOBALS['PATH_root'].'../efiles/image/250/'.$filename);
+			$i->change($GLOBALS['PATH_root'].'../efiles/image/500/'.$filename);
 			unset($i);
 			//echo "$filename - ok<br>";
 			$ii++;
@@ -212,7 +211,7 @@ foreach($weeks as $k => $v){
 $tpl->Assign('week_stats', $week_stats);
 
 // get last comments list
-$news->NewsList1();
+$news->SetListComment();
 $tpl->Assign('comments', $news->list);
 
 // categories count

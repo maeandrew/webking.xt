@@ -943,34 +943,40 @@ class dbtree {
 	}
 
 	public function CheckParent($rewrite, $fields = null){
-	   if(is_array($fields)){
-			$fields = implode(', ', $fields);
-		}else{
-			$fields = '*';
-		}
+		$fields = is_array($fields)?implode(', ', $fields):'*';
 		$sql = 'SELECT '.$fields.'
-			FROM '.$this->table.'
+			FROM '._DB_PREFIX_.'category
 			WHERE '.(is_numeric($rewrite)?'id_category = '.$this->db->Quote($rewrite):'translit = '.$this->db->Quote($rewrite)).'
 				AND visible = 1
 				AND sid = 1';
-		$res = $this->db->GetOneRowArray($sql);
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
 		return $res;
 	}
 
 	//Достаем сегменты и  категории для сегментации=====================================================================
 	public function Getsegments($segmtype){
-		$sql = 'SELECT * FROM '._DB_PREFIX_.'segmentation
-			WHERE type = '. $segmtype .' AND id IN (SELECT id_segment FROM '._DB_PREFIX_.'segment_prods)';
+		$sql = 'SELECT s.*, COUNT(sp.id_product) AS count
+			FROM '._DB_PREFIX_.'segmentation s
+			LEFT JOIN '._DB_PREFIX_.'segment_prods sp ON sp.id_segment = s.id
+			LEFT JOIN '._DB_PREFIX_.'product p ON p.id_product = sp.id_product
+			LEFT JOIN '._DB_PREFIX_.'assortiment a ON a.id_product = sp.id_product
+			WHERE s.type = '.$segmtype.' AND s.id IN (SELECT id_segment FROM '._DB_PREFIX_.'segment_prods)
+			AND p.visible = 1 AND a.product_limit>0 AND a.active = 1
+			GROUP BY s.id';
 		$res = $this->db->GetArray($sql);
 		return $res;
 	}
 
 	public function GetCatSegmentation($id_segm){
 		$sql = 'SELECT id_category FROM '._DB_PREFIX_.'category
-			WHERE id_category IN (SELECT id_category FROM '._DB_PREFIX_.'cat_prod
-			WHERE id_product IN (SELECT id_product FROM '._DB_PREFIX_.'segment_prods
-			WHERE id_segment IN  (SELECT id FROM '._DB_PREFIX_.'segmentation
-			WHERE id = '. $id_segm .'))) AND visible > 0';
+			WHERE id_category IN (SELECT id_category FROM '._DB_PREFIX_.'cat_prod WHERE id_product IN (
+			SELECT sp.id_product FROM '._DB_PREFIX_.'segment_prods sp
+			LEFT JOIN '._DB_PREFIX_.'assortiment a ON a.id_product = sp.id_product
+			LEFT JOIN '._DB_PREFIX_.'product p ON p.id_product = sp.id_product
+			WHERE (p.price_opt>0 OR p.price_mopt>0)  AND p.visible = 1 AND
+			sp.id_segment = '.$id_segm.' AND a.product_limit > 0 AND a.active = 1))';
 		$res = $this->db->GetArray($sql);
 		foreach($res as &$value){
 			$value = $value['id_category'];
@@ -990,14 +996,17 @@ class dbtree {
 	}
 	//------------------------------------------------------------------------------------------------------------------
 
-	public function GetCats($fields, $level){
-		if(is_array($fields)){
-			$fields = implode(', ', $fields);
-		}else{
-			$fields = '*';
+	public function GetCategories($fields, $level){
+		$fields = is_array($fields)?implode(', ', $fields):'*';
+		$sql = 'SELECT '.$fields.'
+			FROM '._DB_PREFIX_.'category
+			WHERE category_level = '.$level.'
+				AND visible = 1
+				AND sid = 1
+			ORDER BY position ASC';
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
 		}
-		$sql = 'SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->table_level.' = '.$level.' AND visible = 1 AND sid = 1 ORDER BY position';
-		$res = $this->db->GetArray($sql);
 		return $res;
 	}
 

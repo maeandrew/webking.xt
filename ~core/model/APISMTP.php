@@ -1,8 +1,12 @@
 <?php
+/*
+ * Require: curl, ssl
+ * Last modified: 28.02.2014
+ */
 
 class SmtpApi {
-    const BASE_API_URL = 'http://atompark.com/api/smtp/1.0/';
-    const ENC_METHOD = 'aes-128-cbc';
+    const BASE_URL = 'https://login.sendpulse.com/api/smtp/1.0/';
+    const ENC_METHOD = 'AES-128-CBC';
 
     private static $sPublicKey = '';
 
@@ -11,7 +15,7 @@ class SmtpApi {
      * @param string $sPublicKey Public key
      */
     public function __construct($sPublicKey=''){
-        self::$sPublicKey = trim($sPublicKey);
+        self::$sPublicKey = str_replace("\r\n","\n",trim($sPublicKey));
     }
 
     //******************************************************************************************************************
@@ -19,7 +23,7 @@ class SmtpApi {
      * @param string $sPublicKey Public key
      */
     public function setPublicKey($sPublicKey=''){
-        self::$sPublicKey = trim($sPublicKey);
+        self::$sPublicKey = str_replace("\r\n","\n",trim($sPublicKey));
     }
 
     //******************************************************************************************************************
@@ -50,6 +54,7 @@ class SmtpApi {
             'email'     => $sEmail,
         );
         return self::__callApi(json_encode($aRequest));
+
     }
 
     //******************************************************************************************************************
@@ -62,6 +67,7 @@ class SmtpApi {
             'email'     => $sEmail,
         );
         return self::__callApi(json_encode($aRequest));
+
     }
 
     //******************************************************************************************************************
@@ -71,9 +77,10 @@ class SmtpApi {
     public function send_raw($sEmail=''){
         $aRequest = array(
             'action'    => 'send_raw',
-            'data'      => $sEmail,
+            'data'     => $sEmail,
         );
         return self::__callApi(json_encode($aRequest));
+
     }
 
     //******************************************************************************************************************
@@ -90,11 +97,11 @@ class SmtpApi {
         $aRequest=array(
             'action'    => 'search',
         );
-        if(!empty($aData)){
-            $aRequest['date_from'] = (!empty($aData['date_from'])) ? $aData['date_from'] : '';
-            $aRequest['date_to'] = (!empty($aData['date_to'])) ? $aData['date_to'] : '';
-            $aRequest['sender'] = (!empty($aData['sender'])) ? $aData['sender'] : '';
-            $aRequest['recipient'] = (!empty($aData['recipient'])) ? $aData['recipient'] : '';
+        if (! empty($aData)){
+            $aRequest['date_from'] = (! empty($aData['date_from'])) ? $aData['date_from'] : '';
+            $aRequest['date_to'] = (! empty($aData['date_to'])) ? $aData['date_to'] : '';
+            $aRequest['sender'] = (! empty($aData['sender'])) ? $aData['sender'] : '';
+            $aRequest['recipient'] = (! empty($aData['recipient'])) ? $aData['recipient'] : '';
         }
         return self::__callApi(json_encode($aRequest));
     }
@@ -109,6 +116,7 @@ class SmtpApi {
             'id'    => $sId,
         );
         return self::__callApi(json_encode($aRequest));
+
     }
 
     //******************************************************************************************************************
@@ -123,22 +131,23 @@ class SmtpApi {
      */
     public function unsubscribe($aData){
         $aUnsubscribe = array();
-        if(!empty($aData)){
+        if (! empty($aData)){
             foreach ($aData as $data){
-                if(is_array($data)){
+                if (is_array($data)){
                     $atmp = array();
-                    if (!empty($data['email'])){}
+                    if (! empty($data['email'])){}
                     $atmp['email'] = $data['email'];
-                    if (!empty($data['comment'])){
+                    if (! empty($data['comment'])){
                         $atmp['comment'] = $data['comment'];
                     }
-                    if (!empty($atmp)){
+                    if (! empty($atmp)){
                         $aUnsubscribe[] = $atmp;
                     }
                     unset($atmp);
                 }
             }
         }
+
         $aRequest = array(
             'action'    => 'unsubscribe',
             'emails'    => $aUnsubscribe,
@@ -168,31 +177,62 @@ class SmtpApi {
      */
     public function send_email($aData=array()){
         $aMessage = array();
-        $aMessage['html'] = (!empty($aData['html'])) ? $aData['html'] : '';
-        $aMessage['text'] = (!empty($aData['text'])) ? $aData['text'] : '';
-        $aMessage['encoding'] = (!empty($aData['encoding'])) ? $aData['encoding'] : '';
-        $aMessage['subject'] = (!empty($aData['subject'])) ? $aData['subject'] : '';
-        if(!empty($aData['from'])){
+        $aMessage['html'] = (! empty($aData['html'])) ? $aData['html'] : '';
+        $aMessage['text'] = (! empty($aData['text'])) ? $aData['text'] : '';
+        $aMessage['subject'] = (! empty($aData['subject'])) ? $aData['subject'] : '';
+        $aMessage['encoding'] = (! empty($aData['encoding'])) ? $aData['encoding'] : '';
+        if (! empty($aData['from'])){
             $aFrom = array();
-            $aFrom['name'] = (!empty($aData['from']['name'])) ? $aData['from']['name'] : '';
-            $aFrom['email'] = (!empty($aData['from']['email'])) ? $aData['from']['email'] : '';
+            $aFrom['name'] = (! empty($aData['from']['name'])) ? $aData['from']['name'] : '';
+            $aFrom['email'] = (! empty($aData['from']['email'])) ? $aData['from']['email'] : '';
             $aMessage['from'] = $aFrom;
         }
-        if(!empty($aData['to'])){
+        if (! empty($aData['to'])){
             $aTo = array();
             foreach($aData['to'] as $aRecipient){
                 $aToSingle = array();
-                $aToSingle['name'] = (!empty($aRecipient['name'])) ? $aRecipient['name'] : '';
-                $aToSingle['email'] = (!empty($aRecipient['email'])) ? $aRecipient['email'] : '';
+                $aToSingle['name'] = (! empty($aRecipient['name'])) ? $aRecipient['name'] : '';
+                $aToSingle['email'] = (! empty($aRecipient['email'])) ? $aRecipient['email'] : '';
                 $aTo[] = $aToSingle;
                 unset($aToSingle);
             }
             $aMessage['to'] = $aTo;
         }
+        if (! empty($aData['bcc'])){
+            $aTo = array();
+            foreach($aData['bcc'] as $aRecipient){
+                $aToSingle = array();
+                $aToSingle['name'] = (! empty($aRecipient['name'])) ? $aRecipient['name'] : '';
+                $aToSingle['email'] = (! empty($aRecipient['email'])) ? $aRecipient['email'] : '';
+                $aTo[] = $aToSingle;
+                unset($aToSingle);
+            }
+            $aMessage['bcc'] = $aTo;
+        }
+
+
+        if ( (! empty($aMessage['encoding'])) && (! in_array(strtolower($aMessage['encoding']),array('utf8','utf-8'))) ){
+            $aMessage['html'] = mb_convert_encoding($aMessage['html'],'utf8',$aMessage['encoding']);
+            $aMessage['text'] = mb_convert_encoding($aMessage['text'],'utf8',$aMessage['encoding']);
+            $aMessage['subject'] = mb_convert_encoding($aMessage['subject'],'utf8',$aMessage['encoding']);
+            if ( (! empty($aMessage['from'])) && (! empty($aMessage['from']['name'])) ){
+                $aMessage['from']['name'] = mb_convert_encoding($aMessage['from']['name'],'utf8',$aMessage['encoding']);
+            }
+            if (! empty($aMessage['to'])){
+                foreach ($aMessage['to'] as $key=>$aTo){
+                    if (! empty($aTo['name'])){
+                        $aMessage['to'][$key]['name'] = mb_convert_encoding($aTo['name'],'utf8',$aMessage['encoding']);
+                    }
+                }
+            }
+            $aMessage['encoding'] = 'utf8';
+        }
+
         $aRequest = array(
             'action'    => 'send_email',
             'message'   => $aMessage,
         );
+
         return self::__callApi(json_encode($aRequest));
     }
 
@@ -205,7 +245,7 @@ class SmtpApi {
      */
     public function delete_unsubscribe($aData=array()){
         $aDelUnsubscribe = array();
-        if($aData){
+        if ($aData){
             foreach ($aData as $sEmail){
                 if (is_string($sEmail)){
                     $aDelUnsubscribe[] = $sEmail;
@@ -222,15 +262,17 @@ class SmtpApi {
     //******************************************************************************************************************
     //******************************************************************************************************************
     private static function __callApi($sData=''){
-        if(function_exists('curl_version')){
-            if(function_exists('openssl_public_encrypt')){
+        if (function_exists('curl_version')) {
+            if (function_exists('openssl_public_encrypt')){
 
                 $sPass = sha1(microtime(true));
                 openssl_public_encrypt($sPass,$sEncPass,self::$sPublicKey);
 
                 $sIv = substr(md5(microtime(true)),0,16);
                 openssl_public_encrypt($sIv,$sEncIv,self::$sPublicKey);
+
                 $sEncData = openssl_encrypt($sData,self::ENC_METHOD,$sPass,1,$sIv);
+
                 $aPost = array(
                     'key'   => md5(self::$sPublicKey),
                     'pass'  => $sEncPass,
@@ -239,6 +281,7 @@ class SmtpApi {
                 );
 
                 $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
                 curl_setopt($ch, CURLOPT_HEADER, FALSE);
@@ -246,7 +289,7 @@ class SmtpApi {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($aPost));
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 100);
-                curl_setopt($ch, CURLOPT_URL, self::BASE_API_URL);
+                curl_setopt($ch, CURLOPT_URL, self::BASE_URL);
                 $res = curl_exec($ch);
                 curl_close($ch);
 
@@ -255,20 +298,20 @@ class SmtpApi {
 
                 $aAnswer = json_decode($res, TRUE);
 
-                if(base64_decode($aAnswer['pass']) && base64_decode($aAnswer['iv'])){
+                if (base64_decode($aAnswer['pass']) && base64_decode($aAnswer['iv'])){
                     openssl_public_decrypt(base64_decode($aAnswer['pass']),$sPass,self::$sPublicKey);
                     openssl_public_decrypt(base64_decode($aAnswer['iv']),$sIv,self::$sPublicKey);
                     $sDataAnswer = openssl_decrypt(base64_decode($aAnswer['data']),self::ENC_METHOD,$sPass,1,$sIv);
-                }else{
+                } else {
                     $sDataAnswer = base64_decode($aAnswer['data_unencrypted']);
                 }
+
                 return json_decode($sDataAnswer, TRUE);
-            }else{
+            } else {
                 throw new Exception('OpenSSL required, but not found');
             }
-        }else{
+        } else {
             throw new Exception('CURL required, but not found');
         }
     }
 }
-?> 

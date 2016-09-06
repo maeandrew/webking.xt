@@ -1,10 +1,16 @@
 $(function(){
 
+	$('.send_test_email_js').on('click', function(){
+		ajax('email', 'testEmail').done(function(response){
+			console.log(response);
+		});
+	});
+
 	// Инициализация lazy load
 	$("img.lazy").lazyload({
 		effect : "fadeIn"
 	});
-	
+
 	/**------------------ Страница редактирования тегов категории --------------------*/
 
 	// Слушатель клавиш
@@ -35,15 +41,7 @@ $(function(){
 		var answer = confirm("Удалить группу и все, входящие в нее, фильтры?");
 		if (answer == true){
 			var cat = $('input#id_category').val();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"id_category": cat,
-					"tag_level": tag_level,
-					"action": 'droplevel'
-				}
-			}).done(function(){
+			ajax('cattags', 'dropLevel', {id_category: cat, tag_level: tag_level}).done(function(){
 				location.reload();
 			});
 		}
@@ -66,21 +64,9 @@ $(function(){
 		if(tag_level !== ''){
 			var cat = $('input#id_category').val();
 			var tag_level_name = $('.levelrow.row'+tag_level+' .tag_level_name input').val();
-			console.log(tag_level_name);
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"id_category": cat,
-					"tag_level": tag_level,
-					"tag_level_name": tag_level_name,
-					"action": 'updatelevel'
-				}
-			}).done(function(){
+			ajax('cattags', 'updateLevel', {id_category: cat, tag_level: tag_level, tag_level_name: tag_level_name}).done(function(){
 				location.reload();
 			});
-		}else{
-			console.log('error!!!');
 		}
 	});
 
@@ -110,14 +96,7 @@ $(function(){
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		var answer = confirm("Удалить выбраный фильтр?");
 		if (answer == true){
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"ID": rowid,
-					"action": 'drop'
-				}
-			}).done(function(){
+			ajax('cattags', 'drop', {ID: rowid}).done(function(){
 				$('.tagrow.row'+rowid).slideUp('slow');
 			});
 		}
@@ -143,23 +122,9 @@ $(function(){
 			var tag_keys = $('.tagrow.row'+rowid+' textarea#tag_keys').val();
 			var tag_level = $('.tagrow.row'+rowid+' input#tag_level').val();
 			var tag_level_name = $('.levelinforow'+tag_level+' .tag_level_name p').text();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: {
-					"ID": rowid,
-					"id_category": cat,
-					"tag_name": tag_name,
-					"tag_keys": tag_keys,
-					"tag_level": tag_level,
-					"tag_level_name": tag_level_name,
-					"action": 'update'
-				}
-			}).done(function(){
+			ajax('cattags', 'update', {id_category: cat, tag_name: tag_name, tag_keys: tag_keys, tag_level: tag_level, tag_level_name: tag_level_name, }).done(function(){
 				location.reload();
 			});
-		}else{
-			console.log('error!!!');
 		}
 	});
 
@@ -167,29 +132,15 @@ $(function(){
 	$('.tagrow a.addapply').click(function(event){
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
-		console.log(rowid);
 		if(Validate(rowid)){
 			var cat = $('input#id_category').val();
 			var tag_name = $('.tagrow.row'+rowid+' input#tag_name').val();
 			var tag_keys = $('.tagrow.row'+rowid+' textarea#tag_keys').val();
 			var tag_level = $('.tagrow.row'+rowid+' input#tag_level').val();
 			var tag_level_name = $('.levelinforow'+tag_level+' .tag_level_name p').text();
-			$.ajax({
-				url: URL_base+'ajaxcattags',
-				type: "POST",
-				data: ({
-					"id_category": cat,
-					"tag_name": tag_name,
-					"tag_keys": tag_keys,
-					"tag_level": tag_level,
-					"tag_level_name": tag_level_name,
-					"action": 'add'
-				}),
-			}).done(function(){
+			ajax('cattags', 'add', {id_category: cat, tag_name: tag_name, tag_keys: tag_keys, tag_level: tag_level, tag_level_name: tag_level_name, }).done(function(){
 				location.reload();
 			});
-		}else{
-			console.log('error!!!');
 		}
 	});
 
@@ -264,7 +215,7 @@ $(function(){
 		$('input[name="id_reply"]').val(id);
 	});
 
-	$('.moderations input').on('click',function() {
+	$('.moderations input').on('click', function() {
 		var id = $(this).val(),
 			mode = 'mopt',
 			moderation = 0;
@@ -273,24 +224,94 @@ $(function(){
 		}
 		if ($(this).is(':checked')) {
 			moderation = 1;
-			//console.log($(this).is(':checked'));
 		}
-		//console.log(id);
-		$.ajax({
-			url: URL_base+'ajaxproducts',
-			type: "POST",
-			cache: false,
-			dataType : "json",
-			data: {
-				'action': 'UpdateDemandChart',
-				'moderation': moderation, 'id_chart': id, 'mode': mode
-			}
-		}).done(function(data){
-			console.log(data);
-		});
+		ajax('products', 'updateDemandChart', {moderation: moderation, id_chart: id, mode: mode});
 	});
 	$('.permissions .controller').on('click', 'input.all', function(){
-		console.log($(this).is(':checked'));
 		$(this).closest('.controller').find('input').prop('checked', $(this).is(':checked'));
+	});
+
+	$('body').on('click', '.batchListItem_js', function(event) {
+		event.preventDefault();
+		var parent = $(this),
+			create_date = parent.attr('data-createDate'),
+			id_supplier = parent.attr('data-idSupplier'),
+			id_author = parent.attr('data-idAuthor');
+		var data = {create_date: create_date, id_supplier: id_supplier, id_author: id_author};
+		if(parent.hasClass('info_loaded')){
+			parent.closest('thead').next().toggle('slow');
+			if(parent.hasClass('opened')){
+				parent.removeClass('opened').text('Показать');
+			}else{
+				parent.addClass('opened').text('Скрыть');
+			}
+		}else{
+			ajax('products', 'getProductBatch', data, 'html').done(function(data){
+				parent.text('Скрыть').addClass('opened info_loaded').closest('thead').next().html(data);
+			}).fail(function(data){
+				console.log('fail');
+				console.log(data);
+			});
+		}
+	});
+
+	// adm_feedback_comment_reply_js
+	$('body').on('click', '.adm_comment_reply_js', function(event){
+		event.preventDefault();
+		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_cancel_js').removeClass('hidden');
+		$(this).closest('thead').next().append('<tr class="new_comment"><td colspan="2"><div class="reply_wrap"><form action="/adm/coment/" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><input type="hidden" name="url_coment" value="'+$(this).attr('data-idproduct')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><button type="submit" name="sub_com" class="btn-m-green">Ответить</button></form></div></td></tr>');
+	});
+	$('body').on('click', '.adm_comment_reply_cancel_js', function(event){
+		event.preventDefault();
+		$(this).closest('thead').next().find('.new_comment').remove();
+		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_js').removeClass('hidden');
+	});
+
+	// Перенос выбранных товаров в категорию
+	$('body').on('click', '.btn_move_to_js', function(event){
+		var parent = $(this).closest('.move_to'),
+			is_empty = parent.attr('data-isempty'),
+			data = {};
+			data.id_category = parent.find('[name="category"]').val();
+			parent.find('[name="move_product"]').prop("checked") ? data.main = 0 : data.main = 1;
+		if(data.id_category != null){
+			$('select[name="category"]').removeClass('err_border');
+			if($('.checked_products').children().length != 0){
+				$('.no_checked_products_js').removeClass('err_border');
+				ajax('products', 'fillCategory', data, 'text').done(function(data){
+					console.log(data);
+					$('.checked_products').empty();
+					$('.no_checked_products_js').removeClass('hidden');
+					location.reload();
+				}).fail(function(data){
+					console.log('fail');
+					console.log(data);
+				});
+			}else{
+				$('.no_checked_products_js').addClass('err_border');
+			}
+		}else{
+			$('select[name="category"]').addClass('err_border');
+		}
+	});
+
+	// Удаление товара из списка для переноса в категорию
+	$('body').on('click', '.del_checked_product_js', function(event){
+		if(confirm('Товар будет удален из списка. Продолжить?')){
+			var checked_product = $(this),
+				data = {};
+			data.id_product = $(this).attr('data-idproduct');
+			data.checked = 0;
+			ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
+				console.log(data);
+				checked_product.closest('.checked_product').remove();
+				if($('.checked_products').children().length == 0){
+					$('.no_checked_products_js').removeClass('hidden');
+				}
+			}).fail(function(data){
+				console.log('fail');
+				console.log(data);
+			});
+		}
 	});
 });

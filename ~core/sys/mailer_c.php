@@ -9,7 +9,7 @@ class Mailer extends PHPMailer {
 	public $FromName = null;
 	public $Sender = null;
 	public $echo = false;
-  
+
 	public function __construct(){
 		$mcfg = $GLOBALS['MAIL_CONFIG'];
 
@@ -37,10 +37,40 @@ class Mailer extends PHPMailer {
 		$this->Priority = $this->priority;
 		$this->CharSet = "UTF-8";
 
-		$sPubKey = $GLOBALS['CONFIG']['smtp_key_public'];
+		$sPublicKey = $GLOBALS['CONFIG']['smtp_key_public'];
 		require($GLOBALS['PATH_model'].'APISMTP.php');
-		$this->oApi = new SmtpApi($sPubKey);
-		$this->oApi->setPublicKey($sPubKey);
+		$this->oApi = new SmtpApi($sPublicKey);
+	}
+
+	// Отсылка письма клиенту со ссылками на накладные покупателя
+	public function testEmail(){
+		global $tpl;
+		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
+		$tpl->Assign('title', 'Заголовок тестового письма');
+		$tpl->Assign('content', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eum excepturi, autem ipsum aspernatur! Hic dicta ipsam recusandae at, laboriosam magnam doloribus modi laborum a? Molestiae ab vero, dignissimos perspiciatis.
+				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
+		$Email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+			'subject' => 'Тестовое письмо',
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => $this->FromName,
+				'email' => 'callback@x-torg.com',
+			),
+			'to' => array(
+				array(
+					'email' => 'alexparhomenko67@gmail.com'
+				),
+				array(
+					'email' => 'webking.dev2@gmail.com'
+				)
+			)
+		);
+		$res = $this->oApi->send_email($Email);
+		if(!$res){
+			return false;
+		}
+		return true;
 	}
 
 	public function SendCustomEmail($address, $subject = '', $content = ''){
@@ -196,15 +226,15 @@ class Mailer extends PHPMailer {
 	// Отсылка письма поставщикам с накладной поставщика
 	public function SendOrderInvoicesToAllSuppliers($id_order){
 		global $db;
-		
+
 		$Order = new Orders();
 		$Order->SetFieldsById($id_order);
-		
+
 		// Устанавливаем тему письма
 		$this->Subject = "Накладная поставщика по заказу № ".$id_order;
-		
-		$sql = "SELECT DISTINCT u.id_user AS id_supplier, u.email, u.name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."osp osp 
-				WHERE (u.id_user=osp.id_supplier 
+
+		$sql = "SELECT DISTINCT u.id_user AS id_supplier, u.email, u.name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."osp osp
+				WHERE (u.id_user=osp.id_supplier
 				OR u.id_user=osp.id_supplier_mopt)
 				AND osp.id_order=".$db->Quote($id_order);
 		$arr = $db->GetArray($sql);
@@ -214,7 +244,7 @@ class Mailer extends PHPMailer {
 			// Добавляем адрес в список получателей
 			$this->isHTML(true);
 			$this->AddAddress($i['email'], $i['name']);
-			
+
 			$this->Body = "Поступил заказ № ".$id_order."<br>".
 				"Накладная поставщика - <a href=\"http://".$_SERVER['SERVER_NAME']."/invoice_supplier/".$id_order."/".$i['id_supplier']."/".$Order->fields['skey']."\">".$_SERVER['SERVER_NAME']."/invoice_supplier/".$id_order."/".$i['id_supplier']."/".$Order->fields['skey']."</a>";
 			if(!$this->Send()){
@@ -230,8 +260,8 @@ class Mailer extends PHPMailer {
 		}
 		return $return;
 	}
-	
-	
+
+
 	// Отсылка письма контрагенту со ссылками на претензии по накладным  покупателя и контрагета
 	public function SendOrderPretInvoicesToContragent($id_order){
 		global $db;
@@ -336,11 +366,11 @@ class Mailer extends PHPMailer {
 		for($mail_ii = 0; $mail_ii < $link_mail; $mail_ii += 1) {
 			$sql = "SELECT DISTINCT  email, name, md5(id_user) FROM "._DB_PREFIX_."user WHERE news = 1 LIMIT ".$mail_ii.", 1";
 			$arr = $db->GetArray($sql);
-			//print_r($arr); exit();  	
-			
+			//print_r($arr); exit();
+
 			// Устанавливаем тему письма
 			$this->Subject = "Новости оптового интернет-магазина ".$_SERVER['SERVER_NAME'];
-			foreach ($arr as $i){		
+			foreach ($arr as $i){
 				//замедлитель рассылки
 
 				// Задаем тело письма
@@ -380,8 +410,8 @@ class Mailer extends PHPMailer {
 		// Добавляем адрес в список получателей
 		$sql = "SELECT DISTINCT email, name, md5(id_user) FROM "._DB_PREFIX_."user WHERE news=1";
 		$arr = $db->GetArray($sql);
-		//print_r($arr); exit();  	
-		
+		//print_r($arr); exit();
+
 		// Устанавливаем тему письма
 		$this->Subject = "Новости оптового интернет-магазина ".$_SERVER['SERVER_NAME'];
 		foreach($arr as $i){
@@ -570,7 +600,7 @@ class Mailer extends PHPMailer {
 						<td class=\"bl bb\">".$ii++."</td>
 						<td class=\"bb\">".$i['art']."</td>
 						<td class=\"bb\">
-							<img height=\"96\" width=\"96\" src=\"".$_SERVER['SERVER_NAME'].'/'.htmlspecialchars(str_replace("/efiles/image/", "efiles/image/500/", $i['img_1']))."\" />
+							<img height=\"96\" width=\"96\" src=\"".$_SERVER['SERVER_NAME'].'/'.G::GetImageUrl($i['img_1'], 'medium')."\" />
 						</td>
 						<td class=\"name bb\">";
 						if($i['note_opt']!=''){
@@ -601,7 +631,7 @@ class Mailer extends PHPMailer {
 						<td class=\"bl bb\">".$ii++."</td>
 						<td class=\"bb\">".$i['art']."</td>
 						<td class=\"bb\">
-							<img height=\"96\" width=\"96\" src=\"http:".$_SERVER['SERVER_NAME'].'/'.htmlspecialchars(str_replace("/efiles/image/", "efiles/image/500/", $i['img_1']))."\" />
+							<img height=\"96\" width=\"96\" src=\"http:".$_SERVER['SERVER_NAME'].'/'.G::GetImageUrl($i['img_1'], 'medium')."\" />
 						</td>
 						<td class=\"name bb\">";
 
@@ -648,22 +678,6 @@ class Mailer extends PHPMailer {
 				</tbody>
 			</table>";
 		}
-		/*$aEmail = array(
-			'html' => $this->Body,
-			'subject' => "Заказ ".$GLOBALS['CONFIG']['invoice_logo_text'],
-			'attachments' => array($_SERVER['DOCUMENT_ROOT']."/temp/".$supplier['art'].'.csv'),
-			'encoding' => "UTF-8",
-			'from' => array(
-				'name' => $GLOBALS['CONFIG']['invoice_logo_text'],
-				'email' => 'order@x-torg.com',
-			),
-			'to' => array(
-				array(
-					'email' => $Suppliers->fields['real_email'],//$client['email'],
-				),
-			),
-		);
-		$res = $this->oApi->send_email($aEmail);*/
 		$this->isHTML(true);
 		if($supplier['make_csv'] == 1){
 			$this->AddAttachment($_SERVER['DOCUMENT_ROOT']."/temp/".$supplier['real_phone'].'.csv', $supplier['real_phone'].'.csv');
@@ -705,7 +719,7 @@ class Mailer extends PHPMailer {
 			$sql = "SELECT DISTINCT email, name, md5(id_user) as skey FROM "._DB_PREFIX_."user WHERE news = 1 ".$limit;
 			$clients = $db->GetArray($sql);
 		}
-		$this->Subject =$params['title'];
+		$this->Subject = $params['title'];
 		foreach($clients as &$client){
 			//замедлитель рассылки
 			// Задаем тело письма

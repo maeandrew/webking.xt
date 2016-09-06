@@ -9,19 +9,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'AddToAssort':
 				if(isset($_POST['id_product'])){
-					$res = $products->AddToAssort($_POST['id_product']);
+					$res = $products->AddToAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
 					echo json_encode($res);
 				}
 				break;
 			case 'UpdateAssort':
 				if(isset($_POST['id_product'])){
-					$res = $products->UpdateAssort2($_POST);
+					$res = $products->UpdateAssort($_POST);
 					echo json_encode($res);
 				}
 				break;
 			case 'DelFromAssort':
 				if(isset($_POST['id_product'])){
-					$products->DelFromAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:null);
+					$products->DelFromAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
 					$arr['id_product'] = $_POST['id_product'];
 					echo json_encode($arr);
 				}
@@ -159,8 +159,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 										$data['fav_count'] = count($_SESSION['member']['waiting_list']);
 										$data['answer'] = 'ok';
 									}
-								}								
-							}							
+								}
+							}
 						}else{
 							$data['answer'] = 'error';
 						}
@@ -189,6 +189,32 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo json_encode($products->UpdateDemandChart($_POST, $mode));
 				}else{
 					echo json_encode($products->UpdateDemandChartNoModeration($_POST));
+				}
+				break;
+			case 'ChartsByCategory':
+				if(isset($_POST['id_category'])){
+					$html = '';
+					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
+					foreach($charts as $key => $chart){
+						$isActive = isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']?'active':null;
+						$html .= '<div class="chart_item mdl-cell mdl-cell--6-col '.$isActive.'">';
+						$tpl->Assign('chart', $chart);
+						$html .= $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl');
+						$html .= '<div class="charts_details">';
+						$html .= '<p><span>Добавил(а):</span> '.$chart[0]['name_user'].'</p>';
+						$html .= '<p><span>Создан:</span> '.$chart[0]['creation_date'].'</p>';
+						if($chart[0]['comment'] != '') {
+							$html .= '<p><span>Комментарий:</span> '.$chart[0]['comment'].'</p>';
+						}
+						if(isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']){
+							$html .= '<div class="chart_edit chart_edit_js" data-idcategory="'.$chart[0]['id_category'].'"><i id="edit_chart" class="material-icons">edit</i><div class="mdl-tooltip" for="edit_chart">Редактировать<br>график</div></div>';
+						}
+						$html .= '</div>';
+						$html .= '</div>';
+
+						// автора, его комментарий и дату создания.
+					}
+					echo $html;
 				}
 				break;
 			case 'AddEstimate':

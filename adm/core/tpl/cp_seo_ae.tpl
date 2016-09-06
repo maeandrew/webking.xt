@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div><br>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><br><?}?>
 <div id="adminae" class="grid">
-    <form action="<?=$GLOBALS['URL_request']?>" method="post" class="row">
+    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="row">
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-md-12">

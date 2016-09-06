@@ -26,10 +26,6 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	unset($_SESSION['search']);
 	unset($_SESSION['filters']);
 }
-$products = new Products();
-
-
-
 // Получаем строку поискового запроса ======================
 if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = preg_replace('/[()*|,.*"^&@#$%\/]/', ' ', $_POST['query']);
@@ -60,20 +56,20 @@ if(isset($_POST['dropfilters'])){
 }
 
 // Категория для поиска ====================================
-if((isset($_POST['category2search']) && $_POST['category2search'] != 0) || (isset($_GET['category2search']) && $_GET['category2search'] != 0)){
-	$_SESSION['search']['category2search'] = isset($_POST['category2search'])?$_POST['category2search']:$_GET['category2search'];
+if((isset($_POST['search_category']) && $_POST['search_category'] != 0) || (isset($_GET['search_category']) && $_GET['search_category'] != 0)){
+	$_SESSION['search']['search_category'] = isset($_POST['search_category'])?$_POST['search_category']:$_GET['search_category'];
 	$where_arr['customs'][] = 'cp.id_category IN (
 		SELECT id_category
 		FROM '._DB_PREFIX_.'category c
-		WHERE c.pid = '.$_SESSION['search']['category2search'].'
+		WHERE c.pid = '.$_SESSION['search']['search_category'].'
 		OR c.pid IN (
 			SELECT id_category
 			FROM '._DB_PREFIX_.'category c
-			WHERE c.pid = '.$_SESSION['search']['category2search'].'
+			WHERE c.pid = '.$_SESSION['search']['search_category'].'
 		)
 	)';
 }else{
-	$_SESSION['search']['category2search'] = 0;
+	$_SESSION['search']['search_category'] = 0;
 }
 
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
@@ -95,18 +91,16 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 
 // Сортировка ==============================================
 if(!isset($sorting)){
-	$cookie_sotring = json_decode($_COOKIE["sorting"]);
-	$sorting = array('value' => $cookie_sotring->products->value);
-	// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
+	$sorting = array('value' => 'popularity DESC');
 	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
-}else{	
+}else{
 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
 }
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 	$available_sorting_values = array(
 		'popularity desc' => 'популярные',
-		'price_opt_otpusk asc' => 'от дешевых к дорогим',
-		'price_opt_otpusk desc' => 'от дорогих к дешевым',
+		'price_opt asc' => 'от дешевых к дорогим',
+		'price_opt desc' => 'от дорогих к дешевым',
 		'name asc' => 'по названию от А до Я',
 		'name desc' => 'по названию от Я до А',
 	);
@@ -161,11 +155,7 @@ if(isset($_POST['new'])){
 $gid = 0;
 if(isset($_SESSION['member'])){
 	$gid = $_SESSION['member']['gid'];
-//	if(substr($_SESSION['member']['email'], -11) == "@x-torg.com"){
-//		$gid = _ACL_ADMIN_;
-//	}
 }
-
 if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search_engine'] == 'sphinx' && isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_)))){
 	$widened_query = Words2AllForms($query);
 	if(!empty($widened_query)){
@@ -198,9 +188,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_,_ACL_ADMIN_))){
-			$cnt = $products->GetProductsCnt($where_arr, $gid);
+			$cnt = $Products->GetProductsCnt($where_arr, $gid);
 		}else{
-			$cnt = $products->GetProductsCnt($where_arr);
+			$cnt = $Products->GetProductsCnt($where_arr);
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -214,7 +204,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	if(isset($_GET['limit'])){
 		$GET_limit = " LIMIT ".$_GET['limit'].'/';
 	}
-	$res = $products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+	$res = $Products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	if(!empty($res)){
 		foreach($res as $k=>$r){
 			if(!empty($r)){
@@ -223,7 +213,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		}
 	}
 	$limit = '';
-	$res = $products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
+	$res = $Products->SetProductsListOldSearch($where_arr, $limit, $gid, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	if(!empty($res)){
 		foreach($res as $k=>$r){
 			if($r['price_mopt'] != 0){
@@ -236,7 +226,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	// Инициализация соединения со Sphinx
 	$sphinx = new SphinxClient();
 	// $sphinx->SetServer("localhost", 9312);
-	$sphinx->SetServer('81.17.140.234', 9312);
+	$sphinx->SetServer('31.131.16.159', 9312);
 	$sphinx->SetConnectTimeout(1);
 	$sphinx->SetArrayResult(true);
 	$sphinx->setMaxQueryTime(100);
@@ -338,7 +328,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		}
 	}
 	if(!empty($mass) && count($mass > 0)){
-		$where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
+		$_SESSION['search']['arr_prod'] = $where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
 	}else{
 		$where_arr['customs'][] = 'p.id_product = 1';
 	}
@@ -351,9 +341,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$cnt = $products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
 		}else{
-			$cnt = $products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -368,7 +358,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
-	$list = $products->SetProductsList4Search($where_arr, $limit, 0, array(isset($orderby)?$orderby:null));
+	$list = $Products->SetProductsList4Search($where_arr, $limit, 0, array(isset($orderby)?$orderby:null));
 	if(isset($list) == true && empty($list) == false){
 		foreach($list AS $res){
 			if($res['price_mopt'] != 0){
@@ -379,10 +369,14 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 }
 if(!empty($list)){
 	foreach($list as &$p){
-		$p['images'] = $products->GetPhotoById($p['id_product']);
+		$p['images'] = $Products->GetPhotoById($p['id_product']);
 	}
 }
 $tpl->Assign('list', isset($list)?$list:array());
+if($cnt > 30){
+	$list_categories = $Products->SetCategories4Search($where_arr);
+	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());
+}
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Общий код ===============================================
@@ -403,11 +397,12 @@ if(((!isset($_POST['pricefrom']) && !isset($_POST['priceto']) && !isset($_SESSIO
 	$_SESSION['filters']['priceto'] = $_SESSION['filters']['maxprice'];
 }
 $tpl->Assign('header', $GLOBALS['IERA_LINKS'][1]['title']);
-
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$_SESSION['price_mode'] = 3;
-	$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl'));
+	$parsed_res = array(
+		'issuccess'	=> true,
+		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
+	);
 }elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($_SESSION['member']['id_user']);

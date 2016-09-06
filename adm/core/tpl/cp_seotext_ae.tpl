@@ -2,7 +2,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 <div id="seotextae">
-	<form action="<?=$GLOBALS['URL_request']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 
 		<label>Автор: <?=isset($_POST['username'])?htmlspecialchars($_POST['username']):null?> &nbsp; &nbsp; &nbsp;  Дата создания: <?=isset($_POST['creation_date'])?htmlspecialchars($_POST['creation_date']):null?></label>
 
@@ -17,8 +17,8 @@
 			<input class="vam" type="checkbox" name="visible" id="seo_visible" <?=isset($_POST['visible'])&&($_POST['visible'])?'checked="checked" value="on"':null?>/>
 		</div>
 
-		<label for="title">Теги:</label><?=isset($errm['url'])?"<span class=\"errmsg\">".$errm['url']."</span><br>":null?>
-		<input type="text" name="keyword"  data-target="get_word" data-cat="<?=$value['word']?>" id="seo-word" class="input-m open_modal" value="<?=isset($_POST['word'])?htmlspecialchars($_POST['word']):null?>"/>
+		<label for="title" class="hidden">Теги:</label><?=isset($errm['url'])?"<span class=\"errmsg\">".$errm['url']."</span><br>":null?>
+		<input type="text" name="keyword"  data-cat="<?=$value['word']?>" id="seo-word" class="input-m hidden" value="<?=isset($_POST['word'])?htmlspecialchars($_POST['word']):null?>"/>
 
 		<input type="hidden" name="id_author" id="author_seotext" value="<?=isset($_SESSION['member']['id_user'])?$_SESSION['member']['id_user']:'noname';?>">
 		<input type="hidden" name="id" id="id_seotext" value="<?=isset($_POST['id'])?$_POST['id']:null;?>">
@@ -33,27 +33,17 @@
 	});
 </script>
 <script>
-	$('#seo-word').change(function(){
+	$('#seo-word').on('change',function(){
+
 		var str = $(this).val();
-		if (str >= 3 ) {
-			$.ajax({
-				url: URL_base + 'ajax_seotext',
-				type: "POST",
-				cache: false,
-				dataType: "html",
-				data: {
-					"action": 'get_word',
-					"str": str
-				}
-			}).done(function (data) {
+		if (str.length >= 3 ) {
+			ajax('seo', 'getWord', {str: str}, 'html').done(function (data) {
 				$('#list').html(data);
 			});
 		}
 	});
 </script>
 <div class="modal_hidden" id="get_word">
-	<ul id="list">
-
-	</ul>
+	<ul id="list"></ul>
 	<a href="#" class="close_modal icon-del">n</a>
 </div>

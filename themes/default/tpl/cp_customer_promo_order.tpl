@@ -7,7 +7,7 @@
 <div class="cabinet customer_order">
 	<a href="<?=$_SERVER['HTTP_REFERER'];?>" style="line-height: 20px;">Назад</a>
 	<div class="clear"></div>
-	<form action="<?=$GLOBALS['URL_request']?>" method="post" id="orderForm">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
 		<script>p_ids = new Array();ii=0;</script>
 		<table border="0" cellpadding="0" cellspacing="0" class="returns_table" width="100%">
 			<thead>
@@ -36,7 +36,7 @@
 						<?$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" /></a>
+								<a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения" /></a>
 							</td>
 							<td class="name_cell"><?=$i['name']?></td>
 							<td class="price_cell">
@@ -52,7 +52,7 @@
 					<?$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
-								<a href="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars($i['img_1']):'/images/nofoto.png'?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=$i['name']?>" src="<?=file_exists($GLOBALS['PATH_root'].$i['img_1'])?_base_url.htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):'/images/nofoto.png'?>" title="Нажмите для увеличения" /></a>
+								<a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onClick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения" /></a>
 							</td>
 							<td class="name_cell">
 								<?if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){?>
@@ -118,7 +118,7 @@
 			</div>
 			<div class="buttons_order">
 			<?if($i['id_order_status']==1){?>
-				<form action="<?=$GLOBALS['URL_request']?>" method="post">
+				<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<input type="submit" name="smb_cancel" class="cancel_order cancel" value="Отменить заказ">
 				</form>
 			<?}?>

@@ -38,7 +38,7 @@
 					<tr class="animate">
 						<td><?=$i['article']?></td>
 						<td class="name_cell">
-							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
+							<a href="<?=G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 							<a href="/adm/productedit/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td><?=round($i['site_price_opt'],2)?></td>
@@ -56,7 +56,7 @@
 					<tr class="animate">
 						<td><?=$i['article_mopt']?></td>
 						<td class="name_cell">
-							<a href="<?=($i['img_1'])?htmlspecialchars($i['img_1']):"/images/nofoto.png"?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=($i['img_1'])?htmlspecialchars(str_replace("/efiles/", "/efiles/_thumb/", $i['img_1'])):"/images/nofoto.png"?>" title="Нажмите для увеличения"></a>
+							<a href="<?=G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" style="float: left;"><img alt="" width="70px" src="<?=G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
 							<a href="/adm/productedit/<?=$i['id_product']?>/"><?=$i['name']?></a>
 						</td>
 						<td><?=round($i['site_price_mopt'],2)?></td>

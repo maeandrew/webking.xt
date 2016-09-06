@@ -130,5 +130,6 @@ switch($User->fields['gid']){
 	;
 	break;
 }
+
 $tpl->Assign('header', $header);
-?>
+G::metaTags(array('page_title' => $header));

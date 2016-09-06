@@ -2,34 +2,30 @@
 G::GetUserInfo();
 G::DefineBaseURL();
 G::DefineRootDirectory();
-$root = str_replace('core', '', dirname(__FILE__));
-$g_root = str_replace('adm'.DIRECTORY_SEPARATOR, '', $root);
-// $root .= '/../';
-require($root.'../config.php');
+$root = _root.'adm'.DIRECTORY_SEPARATOR;
+require(_root.'config.php');
 // ******************************** Начальное конфигурирование *************************************
 $baseUrl = '//'.$_SERVER['SERVER_NAME'].'/';
 /*define('_base_url', $baseUrl);*/
-$config = array (
+G::ToGlobals(array(
 	'URL_base'			=> $baseUrl,
 	'URL_request'		=> 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'],
 	'URL_img'			=> $baseUrl.'adm/img/',
 	'URL_css'			=> $baseUrl.'adm/css/',
 	'URL_js'			=> $baseUrl.'adm/js/',
-
 	'PATH_root'			=> $root,
-	'PATH_global_root'	=> $g_root,
+	'PATH_global_root'	=> _root,
 	'PATH_core'			=> $root.'core/',
-	'PATH_sys'			=> $root.'../~core/sys/',
-	'PATH_model'		=> $root.'../~core/model/',
-	'PATH_product_img'	=> $root.'../product_images/',
+	'PATH_sys'			=> _root.'~core/sys/',
+	'PATH_model'		=> _root.'~core/model/',
+	'PATH_product_img'	=> _root.'product_images/',
 	'PATH_block'		=> $root.'core/block/',
 	'PATH_contr'		=> $root.'core/contr/',
 	'PATH_tpl'			=> $root.'core/tpl/',
 	'PATH_tpl_global'	=> $root.'core/tpl/_global/',
-	'PATH_news_img'		=> $g_root.'/news_images/',
-	'PATH_post_img'		=> $g_root.'/post_images/',
-);
-G::ToGlobals($config);
+	'PATH_news_img'		=> _root.'news_images/',
+	'PATH_post_img'		=> _root.'post_images/',
+));
 unset($config);
 
 $GLOBALS['DefaultController'] = 'main';
@@ -118,7 +114,8 @@ G::ToGlobals(array(
 			'monitoring',
 			'seotext',
 			'orders_category',
-			'order'
+			'order',
+			'guestbook'
 		),
 		// groups
 		'groups' => array(
@@ -152,7 +149,9 @@ G::ToGlobals(array(
 					'wishes',
 					'segmentations',
 					'pricelist',
-					'supplier_prov'
+					'supplier_prov',
+					'orders_category',
+					'guestbook'
 				)
 			),
 			3 => array(
@@ -219,7 +218,8 @@ G::ToGlobals(array(
 					'monitoring',
 					'seotext',
 					'orders_category',
-					'order'
+					'order',
+					'guestbook'
 				)
 			),
 			10 => array(
@@ -306,6 +306,7 @@ require($GLOBALS['PATH_model'].'segmentation_c.php');
 require($GLOBALS['PATH_model'].'specification_c.php');
 require($GLOBALS['PATH_model'].'config_c.php');
 require($GLOBALS['PATH_model'].'seo_c.php');
+require($GLOBALS['PATH_model'].'newsletter_c.php');
 // получение всех настроек с БД
 $sql = "SELECT name, value FROM "._DB_PREFIX_."config WHERE sid = 1";
 $arr = $db->GetArray($sql);

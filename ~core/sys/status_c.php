@@ -68,7 +68,8 @@ class Status {
 	public function UpdateStatuses(){
 		$this->ClearStatus('3');
 		$sql = "UPDATE "._DB_PREFIX_."product AS p SET p.prod_status = '3'
-				WHERE p.id_product = (
+				WHERE p.create_date > NOW() - INTERVAL 30 DAY
+				AND p.id_product = (
 				SELECT p.id_product
 				FROM "._DB_PREFIX_."cat_prod AS cp
 				WHERE p.id_product = cp.id_product
@@ -144,36 +145,26 @@ class Status {
 		$sql = "SELECT id_category
 				FROM "._DB_PREFIX_."category c
 				WHERE c.visible = 1
-				AND c.category_level = 1";
+				AND c.category_level = 1 AND sid = 1";
 		$main_categories = $this->db->GetArray($sql);
 		$mass = array();
 		$i = 1;
 		foreach($main_categories AS $m){
 			$sql = "SELECT osp.id_product , cp.id_category
-				FROM "._DB_PREFIX_."osp osp,
-				"._DB_PREFIX_."order o,
-				"._DB_PREFIX_."product p,
-				"._DB_PREFIX_."cat_prod cp
-				WHERE osp.id_product = p.id_product
-				AND osp.id_order = o.id_order
-				AND o.id_order_status = 2
-				AND creation_date > (UNIX_TIMESTAMP() - 3600*24*7)
-				AND cp.id_product = p.id_product
-				AND p.price_mopt > 0
-				AND cp.id_category in (
-					SELECT id_category
-					FROM "._DB_PREFIX_."category c
-					WHERE c.pid = ".$m['id_category']."
-					OR c.pid in (
-						SELECT id_category
-						FROM "._DB_PREFIX_."category c
-						WHERE c.pid = ".$m['id_category']."
-					)
-				)
-				GROUP BY osp.id_product
-				HAVING COUNT(osp.id_product) >= 1
-				ORDER BY COUNT(osp.id_product) DESC
-				LIMIT 3";
+					FROM "._DB_PREFIX_."osp osp
+					LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order = o.id_order
+					LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product = p.id_product
+					LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
+					WHERE o.id_order_status = 2
+					AND FROM_UNIXTIME(o.creation_date) > NOW() - INTERVAL 7 DAY
+					AND p.price_mopt > 0
+					AND p.visible = 1
+					AND cp.id_category in ( SELECT id_category FROM "._DB_PREFIX_."category c
+					WHERE c.pid = ".$m['id_category']." OR c.pid in
+					(SELECT c2.id_category FROM "._DB_PREFIX_."category c2 WHERE c2.pid = ".$m['id_category']." ))
+					GROUP BY osp.id_product
+					HAVING COUNT(osp.id_product) >= 1
+					ORDER BY COUNT(osp.id_product) DESC LIMIT 3";
 			$res = $this->db->GetArray($sql);
 			if($res){
 				if($res[0]){

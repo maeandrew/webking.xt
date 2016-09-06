@@ -16,8 +16,8 @@ class Contragents extends Users{
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
-		global $User;
-		if(!$User->SetFieldsById($id, $all)){
+		global $Users;
+		if(!$Users->SetFieldsById($id, $all)){
 			return false;
 		}
 		$active = "AND active = 1";
@@ -33,7 +33,7 @@ class Contragents extends Users{
 			return false;
 		}else{
 			$this->fields = $arr[0];
-			$this->fields = array_merge($this->fields,$User->GetFields());
+			$this->fields = array_merge($this->fields,$Users->GetFields());
 			return true;
 		}
 	}
@@ -41,17 +41,17 @@ class Contragents extends Users{
 	// Добавление рейтинга Контраагента
 	//
 	public function GetRating($arr){
-		/*$id = $_SESSION['member']['id_user'];
-		$id_contr = $_POST['id_user'];
-		$sql = "INSERT INTO "._DB_PREFIX_."rating (id_author,id_contragent)
-				VALUES(".$id_contr.",".$id.");";*/
-
 		$f['id_author'] = $_SESSION['member']['id_user'];
-		$f['id_contragent'] =  $arr['id_user'];
-		$f['mark'] = $arr['bool'];
-		// print_r($_POST);
+		$f['id_contragent'] = $arr['id_manager'];
+		$f['mark'] = $arr['like'];
+		$f['comment'] = $arr['comment'];
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_."rating", $f)){
+		if($arr['voted'] == 1){
+			$res = $this->db->Update(_DB_PREFIX_.'rating', $f, 'id_author = '.$f['id_author'].' AND id_contragent = '.$f['id_contragent']);
+		}else{
+			$res = $this->db->Insert(_DB_PREFIX_."rating", $f);
+		}
+		if(!$res){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -141,11 +141,11 @@ class Contragents extends Users{
 	 *
 	 */
 	public function AddContragent($arr){
-		global $User;
+		global $Users;
 		// user
 		$arr['gid'] = _ACL_CONTRAGENT_;
 
-		if(!$id_user = $User->AddUser($arr)){
+		if(!$id_user = $Users->AddUser($arr)){
 			return false;
 		}
 		unset($f);
@@ -177,12 +177,12 @@ class Contragents extends Users{
 	 *
 	 */
 	public function UpdateContragent($arr){
-		global $User;
+		global $Users;
 		// user
-		$arr['gid'] = $User->fields['gid'];
+		$arr['gid'] = $Users->fields['gid'];
 
-		if (!$User->UpdateUser($arr)){
-			$this->db->errno = $User->db->errno;
+		if (!$Users->UpdateUser($arr)){
+			$this->db->errno = $Users->db->errno;
 			$this->db->FailTrans();
 			return false;
 		}
@@ -518,7 +518,7 @@ class Contragents extends Users{
 
 	// Заполнение или обновление календаря контрагента
 	public function SwitchContragentDate($date, $dn, $limit_sum){
-		global $User;
+		global $Users;
 
 		$limit_sum = $limit_sum;
 
@@ -527,7 +527,7 @@ class Contragents extends Users{
 
 		$this->db->StartTrans();
 
-		$id_contragent = $User->fields['id_user'];
+		$id_contragent = $Users->fields['id_user'];
 		$sql = "SELECT date, id_contragent, work_day,
 				work_night, limit_sum_day, limit_sum_night
 			FROM "._DB_PREFIX_."calendar_contragent
@@ -574,7 +574,7 @@ class Contragents extends Users{
 	//*******************************************************************************************
 
 	public function CheckContragentDate($date, $dn, $limit_sum){
-		global $User;
+		global $Users;
 
 		$limit_sum = $limit_sum;
 
@@ -582,7 +582,7 @@ class Contragents extends Users{
 		$date = $tmp[0]."-".$tmp[1]."-".$tmp[2];
 
 		$this->db->StartTrans();
-		$id_contragent = $User->fields['id_user'];
+		$id_contragent = $Users->fields['id_user'];
 		$sql = "SELECT date, id_contragent, work_day,
 				work_night, limit_sum_day, limit_sum_night
 			FROM "._DB_PREFIX_."calendar_contragent

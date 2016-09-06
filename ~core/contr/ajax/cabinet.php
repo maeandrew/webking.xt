@@ -72,12 +72,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				echo json_encode($res);
 				break;
-
-
 			case 'GetRating':
-				$C = new Contragents();
-				$res = $C->GetRating($_POST);
-				echo json_encode($res);
+				$Contragents = new Contragents();
+				echo json_encode($Contragents->GetRating($_POST));
 				break;
 			case 'ChangeInfoUser':
 				$Users = new Users();
@@ -102,7 +99,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$_SESSION['member']['name'] = $_POST['cont_person'];
 					$_SESSION['member']['email'] = $_POST['email'];
 					$_SESSION['member']['phone'] = $_POST['phone'];
-					if($Customers->updateCustomer($_POST)){
+					if($Customers->updateCustomer($_POST) && $Users->UpdateUser($_POST)){
 						echo json_encode('true');
 					}
 				}else{
@@ -164,8 +161,27 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'deleteFromModeration':
 				$products = new Products();
-				$products->DeleteProductFromModeration($_POST['id']);				
+				$products->DeleteProductFromModeration($_POST['id']);
 				echo json_encode(true);
+				break;
+			case 'updateUserNewsletter':
+				$Newsletter = new Newsletter();
+				switch($_POST['update']){
+					case 'add':
+						if($newsletter = $Newsletter->addUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:false)){
+							echo 'ok';
+						}else{
+							echo 'something wrong';
+						}
+						break;
+					case 'delete':
+						if($newsletter = $Newsletter->delUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:false)){
+							echo 'ok';
+						}else{
+							echo 'something wrong';
+						}
+						break;
+				}
 				break;
 		}
 	}

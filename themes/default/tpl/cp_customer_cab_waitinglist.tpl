@@ -18,9 +18,9 @@
 							<div class="image_cell">
 								<div class="btn_js" data-name="big_photo">
 									<?if(!empty($p['img_1'])){?>
-										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace("/efiles/", "/efiles/_thumb/", $p['img_1'])?>" data-original-photo="<?=_base_url?><?=$p['img_1']?>">
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=G::GetImageUrl($p['img_1'], 'thumb')?>" data-original-photo="<?=G::GetImageUrl($p['img_1'])?>">
 									<?}else if(!empty($p['images'])){?>
-										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=_base_url?><?=str_replace('original', 'thumb', $p['images'][0]['src'])?>" data-original-photo="<?=_base_url?><?=$p['images'][0]['src']?>">
+										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="<?=G::GetImageUrl($p['images'][0]['src'], 'thumb')?>" data-original-photo="<?=G::GetImageUrl($p['images'][0]['src'])?>">
 									<?}else{?>
 										<img class="toBigPhoto" id="big_photo_<?=$p['id_product']?>" alt="<?=G::CropString($p['name'])?>" src="/images/nofoto.png" data-original-photo="/images/nofoto.png">
 									<?}?>
@@ -49,7 +49,7 @@
 							</div>
 							<div class="availability subTableRow">
 								<div class="titleForTablet">Наличие: </div>
-								<p><?=$p['availability']?></p>
+								<p><?=isset($p['visible']) && $p['visible'] == 0?'недоступен':$p['availability'];?></p>
 							</div>
 							<div class="goToPageItem">
 								<a id="toSee_<?=$p['id_product']?>" href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="material-icons in_page">remove_red_eye</a>

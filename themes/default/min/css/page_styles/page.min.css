@@ -18,13 +18,13 @@
 #content .page_about_us,#content .page_contacts{text-align:center}
 #content .page_information .payment_information_img{max-width:70%}
 #content .page_payment .payment_information_img{max-width:50%}
+.modals .issue_result .modal_container{padding:2em}
 .modals .content_modal_win form{padding:.5em;margin:0 auto;height:auto;text-align:center}
-.modals .modal_container .mdl-card__supporting-text p{font-size:1.4em;font-weight:500;line-height:1.3em;text-align:center;margin:0 auto;color:#3F4A58}
+.modals .modal_container .mdl-card__supporting-text p{font-size:1.4em;font-weight:500;line-height:1.3em;text-align:center;margin:0 auto;color:#3F4A58;text-transform:inherit;max-width:400px}
 .modals .content_modal_win form{padding:.5em}
 .modals .modal_container button{min-width:35%;display:block;margin:0 auto}
 .modals .content_modal_win form{padding:.5em}
 .modals .modal_container button:hover{background-color:#018B06}
-.modals div.modal_container.opened{max-width:360px;min-width:340px}
 #content .pages_group .flexWrapReverse .blockOfText{margin-left:0}
 #content .pages_group img{max-width:100%}
 #content .pages_group p{font-size:1.3em;font-weight:100;line-height:1.2em}
@@ -36,7 +36,6 @@
 #content .psevdo_btn{background-color:#69ab3f;min-width:34%;width:50%;display:block;margin:0 auto;font-size:1.3em;text-transform:inherit}
 #content .pages_group .three_inline .forflex{flex-basis:33%}
 #content .three_inline .info_circle img{width:61%}
-#content .modal_container .mdl-card__supporting-text{margin:0 auto}
 .btn_plus,.btn_plus--beta{cursor:pointer;text-align:center;line-height:1em;font-size:1.8em;font-weight:100;color:#535E68;-webkit-transition:all .4s ease-in-out;-o-transition:all .4s ease-in-out;transition:all .4s ease-in-out;display:flex;justify-content:center;width:150px}
 .btn_plus--beta{margin:10px auto}
 .btn_plus{z-index:1;position:absolute;top:120%}
@@ -47,11 +46,10 @@
 .btn_plus--beta .btn_plus_sign{margin-right:10%}
 .btn_plus .btn_plus_sign,.btn_plus--beta .btn_plus_sign{display:inline-block;width:27px;height:27px;border-radius:50%;border:1px solid #535E68;-webkit-transition:all .4s ease-in-out;-o-transition:all .4s ease-in-out;transition:all .4s ease-in-out}
 .btn_plus.active{top:140%!important}
-.btn_plus--beta.active{top:160%!important}
 #content .page_information .btn_plus.active,#content .page_payment .btn_plus.active{top:130%!important}
-.btn_plus--beta.active .btn_plus_sign,.btn_plus.active .btn_plus_sign{-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
+.btn_plus.active .btn_plus_sign{-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
 .btn_plus .btn_plus_title,.btn_plus--beta .btn_plus_title{margin:0;font-size:.5em;font-weight:400;white-space:nowrap;line-height:2em;-webkit-transition:all .4s ease-in-out;-o-transition:all .4s ease-in-out;transition:all .4s ease-in-out}
-.btn_plus--beta.active .btn_plus_title,.btn_plus.active .btn_plus_title{overflow:hidden;width:0;padding:0}
+.btn_plus.active .btn_plus_title{overflow:hidden;width:0;padding:0}
 a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color:#69ab3f!important}
 #content .pages_group .info_circle_img{width:200px;height:200px;margin:0 auto;border:1px solid #47525d;border-radius:50%;display:none}
 #content .pages_group .info_circle h5{font-size:1.6em;font-weight:500;text-align:center}
@@ -100,7 +98,6 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 }
 @media (max-width:500px){#content .page_about_us .second_line_img p.text1,#content .page_about_us .second_line_img p.text2{display:none}
 }
-#content a.a_question{color:#454F5D;text-transform:uppercase}
 #content .page_information .invisibleblock .flexwrapp{flex-direction:column;padding-left:4%;padding-right:4%}
 #content .ac-container{width:100%;color:#454F5D}
 #content .ac-container label{display:block;cursor:pointer;padding:5px;font-size:1.3em;font-weight:400}
@@ -134,7 +131,6 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 }
 @media (max-width:600px){#content .page_contacts .blockOfText p{font-size:1em}
 #content .page_contacts .flexColumn button{min-width:90%;font-size:1em}
-#content .page_contacts .blockOfText p.forflex{width:100%}
 #content .page_contacts .three_inline .info_circle h4{font-size:1.1em}
 #content .page_contacts .three_inline .info_circle p{width:100px;min-height:115px;margin:2% auto;font-size:1em}
 #content .page_contacts .blockOfText .mini_text{width:100%}
@@ -160,8 +156,6 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .pages_group .blockline:first-child,#content .pages_group .blockline:last-child{padding-bottom:4%}
 #content .pages_group.page_information .blockline{padding-bottom:4%}
 #content .psevdo_btn{min-width:60%}
-#content .psevdo_btn .forflex{flex-basis:90%}
-#content .page_provision button{min-width:60%}
 #content .pages_group .info_circle_img{width:100px;height:100px}
 #content .pages_group .info_circle img{max-width:50%}
 #content .page_payment ul{font-size:1.1em}

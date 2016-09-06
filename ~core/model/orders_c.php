@@ -423,8 +423,8 @@ class Orders {
 
 	// Создание заказа
 	public function Add($arr = null){
+		global $Cart;
 		if(isset($arr)) {
-			$Cart = new Cart();
 			$GetCartForPromo = $Cart->GetCartForPromo($arr);
 			$OrderCart = array();
 			foreach ($GetCartForPromo['products'] as $k => $v) {
@@ -447,11 +447,10 @@ class Orders {
 		// 		$discount = $_SESSION['cart']['discount'];
 		// 	}
 		// }
-		global $cart;
 		// $this->UpdateSuppliersTurn();
 
 		// Пересмотреть проверку актуальности цен
-		// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+		// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
 		// if($err){
 		// 	if(isset($_SESSION['errm'])){
 		// 		$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
@@ -463,7 +462,7 @@ class Orders {
 		// }
 		// isset($_SESSION['member']['id_user']) ? $_SESSION['member']['id_user'] : $_SESSION['member']['id_user'] = $_POST['id_user'];
 		// isset($arr['discount']) ? $arr['discount']  : $arr['discount'] = 0;
-		
+
 		// Определяем статус будущего заказа
 		$order_status = 0;
 		// Если у клиента есть промо-код - 11
@@ -483,24 +482,52 @@ class Orders {
 		$Customers = new Customers();
 		$Customers->SetFieldsById($f['id_customer']);
 		$customer = $Customers->fields;
-		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			$f['id_contragent'] = $id_contragent = $_SESSION['member']['id_user'];
-		}else{
-			//Определяем выходной или рабочий день у контрагента
-			$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
-			$sql = "SELECT work_day FROM "._DB_PREFIX_."calendar_contragent
-					WHERE id_contragent = ".$customer['id_contragent']." AND date = '".$date."'";
-			$res = $this->db->GetOneRowArray($sql);
-			if($res['work_day'] != 1){
-				//рандомный выбор контрагента
-				$contragents = new Contragents();
-				$contragents->SetList(false, false);
-				$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
-			}else{
-				$id_contragent = $customer['id_contragent'];
-			}
-			$f['id_contragent'] = $id_contragent;
+		// Определяем адрес по-умолчанию
+		$Address = new Address();
+		if($customer_address = $Address->GetPrimaryAddress($f['id_customer'])){
+			$_SESSION['member']['id_address'] = $f['id_addrress'] = $customer_address['id'];
 		}
+
+		// Обновляем контрагента у покупателя
+		if(isset($_SESSION['cart']['id_contragent'])){
+			$array['id_contragent'] = $_SESSION['cart']['id_contragent'];
+			if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+				$_SESSION['member']['contragent']['id_user'] = $_SESSION['cart']['id_contragent'];
+				$array['id_user'] = $_SESSION['member']['id_user'];
+			}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && !empty($_SESSION['cart']['id_customer'])){
+				$array['id_user'] = $_SESSION['cart']['id_customer'];
+			}
+		}elseif($_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && !empty($_SESSION['cart']['id_customer'])){
+			$array['id_contragent'] = $_SESSION['member']['id_user'];
+			$array['id_user'] = $_SESSION['cart']['id_customer'];
+		}
+		if(isset($array['id_user'])){
+			$Customers->updateCustomer($array);
+		}
+
+		// Определяем контрагента
+		if(isset($_SESSION['cart']['id_contragent'])){
+			$id_contragent = $_SESSION['cart']['id_contragent'];
+		}else{
+			if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
+				$id_contragent = $_SESSION['member']['id_user'];
+			}else{
+				//Определяем выходной или рабочий день у контрагента
+				$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
+				$sql = "SELECT work_day FROM "._DB_PREFIX_."calendar_contragent
+					WHERE id_contragent = ".$customer['id_contragent']." AND date = '".$date."'";
+				$res = $this->db->GetOneRowArray($sql);
+				if($res['work_day'] != 1){
+					//рандомный выбор контрагента
+					$contragents = new Contragents();
+					$contragents->SetList(false, false);
+					$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
+				}else{
+					$id_contragent = $customer['id_contragent'];
+				}
+			}
+		}
+		$f['id_contragent'] = $id_contragent;
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
 			$f['bonus_card'] = $customer['bonus_card'];
 		}
@@ -509,6 +536,10 @@ class Orders {
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
+		$f['note'] = isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null;
+		if(isset($_SESSION['cart']['manual_price_change']) && isset($_SESSION['cart']['manual_price_change_note'])){
+			$f['manual_price_change'] = $_SESSION['cart']['manual_price_change'].' - '.$_SESSION['cart']['manual_price_change_note'];
+		}
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
@@ -516,10 +547,20 @@ class Orders {
 			return false;
 		}
 		// Получаем id нового заказа
+		$id_order = $this->db->GetLastId();
 		if(isset($jo_order)){
-			$GetCartForPromo['id_order'] =  $id_order = $this->db->GetLastId();
-		} else{
-			$_SESSION['cart']['id_order'] = $id_order = $this->db->GetLastId();
+			$GetCartForPromo['id_order'] =  $id_order;
+		}else{
+			$_SESSION['cart']['id_order'] = $id_order;
+		}
+		if(isset($_SESSION['cart']['id'])){
+			$sql = "UPDATE "._DB_PREFIX_."cart
+				SET id_order = ".$id_order."
+				WHERE id_cart = ".$_SESSION['cart']['id'];
+		}
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
 		}
 		unset($f);
 		// Заполнение связки заказ-товары
@@ -537,10 +578,10 @@ class Orders {
 			$p[$ii]['filial_opt'] = 1;
 			// Определяем поставщика для товара
 			if($id_supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
-				if($item['mode'] == 'mopt'){
-					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
-				}else{
+				if($item['mode'] == 'opt'){
 					$p[$ii]['id_supplier'] = $id_supplier;
+				}else{
+					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
 				}
 				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
@@ -597,7 +638,7 @@ class Orders {
 			print_r('sup_nb error');
 			return false;
 		}
-		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
+		if(empty($p) || !$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
 			$this->db->FailTrans();
 			print_r('osp insert error');
 			return false;
@@ -644,272 +685,284 @@ class Orders {
 			}
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			unset($_SESSION['member']['bonus_card'], $_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer']);
+			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
+		}
+		if(isset($_SESSION['cart']['note'])){
+			unset($_SESSION['cart']['note']);
+		}
+		if(isset($_SESSION['cart']['id_contragent'])){
+			unset($_SESSION['cart']['id_contragent']);
+		}
+		if(isset($_SESSION['cart']['manual_price_change'])){
+			unset($_SESSION['cart']['manual_price_change']);
+		}
+		if(isset($_SESSION['cart']['manual_price_change_note'])){
+			unset($_SESSION['cart']['manual_price_change_note']);
 		}
 		return $id_order;
 	}
-// public function Add($arr){
-// 		//************************************************************
-// 		$discount = 0;
-// 		if(isset($_SESSION['Cart']['discount'])){
-// 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-// 				$discount = 1;
-// 			}else{
-// 				$discount = $_SESSION['Cart']['discount'];
-// 			}
-// 		}
-// 		//*************************************************************
-// 		if(count($OrderCart) == 0){
-// 			return false;
-// 		}
-// 		global $cart;
-// 		$this->UpdateSuppliersTurn();
-// 		$cart->IsActualPrices($err, $warn, $errm, $warnings);
-// 		if($err){
-// 			if(isset($_SESSION['errm'])){
-// 				$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
-// 			}else{
-// 				$_SESSION['errm'] = $errm;
-// 				header('Location: /cart/');
-// 				exit();
-// 			}
-// 		}
-// 		$order_status = 0;
-// 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
-// 			$f['id_order_status'] = 11; // Промо-заказ
-// 			$order_status = 11;
-// 		}else{
-// 			if(isset($arr['p_order'])){
-// 				$f['id_order_status'] = 3; // Прогнозный заказ
-// 				$order_status = 3;
-// 			}elseif(isset($arr['order'])){
-// 				$f['id_order_status'] = 1; // Обычный заказ
-// 				$order_status = 1;
-// 				if(($_SESSION['Cart']['order_opt_sum'] != 0 || $_SESSION['Cart']['order_mopt_sum'] != 0)
-// 					&& ($_SESSION['Cart']['order_opt_sum']+$_SESSION['Cart']['order_mopt_sum']) < $GLOBALS['CONFIG']['min_sum_order']){
-// 					$_SESSION['errm'][] = "Минимальная сумма заказа: ".$GLOBALS['CONFIG']['min_sum_order_nac'];
-// 					header('Location: /cart/');
-// 					exit();
-// 				}
-// 			}
-// 		}
-// 		if(isset($_SESSION['Cart']['base_order'])){
-// 			$f['base_order'] = $_SESSION['Cart']['base_order'];
-// 		}
-// 		$f['phones'] = mysql_real_escape_string(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phones']), -10)));
-// 		$f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
-// 		$f['id_city'] = mysql_real_escape_string(trim($arr['id_delivery_department']));
-// 		$f['id_delivery_service'] = mysql_real_escape_string(trim(isset($arr['id_delivery_service'])?$arr['id_delivery_service']:0));
-// 		$f['id_contragent'] = mysql_real_escape_string(trim($arr['id_manager']));
-// 		$f['id_customer'] = $id_customer = $_SESSION['member']['id_user'];
-// 		$f['cont_person'] = mysql_real_escape_string(trim($arr['cont_person']));
-// 		$f['need_sertificate'] = 0;
-// 		if(isset($arr['need_sertificate']) && $arr['need_sertificate'] == "on"){
-// 			$f['need_sertificate'] = 1;
-// 		}
-// 		$f['strachovka'] = mysql_real_escape_string(trim($arr['strachovka']));
-// 		if(isset($arr['bonus_card']) && $arr['bonus_card'] != ''){
-// 			$f['bonus_card'] = mysql_real_escape_string(trim($arr['bonus_card']));
-// 		}
-// 		if(isset($arr['promo-code']) && $arr['promo-code'] != ''){
-// 			$f['promo_code'] = mysql_real_escape_string(trim($arr['promo-code']));
-// 		}
-// 		$f['descr'] = mysql_real_escape_string(trim($arr['description']));
-// 		$f['creation_date'] = time();
-// 		if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['price_column']){
-// 			$f['sum_opt'] = $_SESSION['Cart']['opt_sum_default'][$arr['price_column']];
-// 			$f['sum_mopt'] = $_SESSION['Cart']['mopt_sum_default'][$arr['price_column']];
-// 			$f['sum_discount'] = $f['sum'] = $_SESSION['Cart']['order_sum'][$arr['price_column']];
-// 			$f['manual_price_change'] = $arr['price_column'].' - '.$arr['reason'];
-// 		}else{
-// 			$f['sum_opt'] = $_SESSION['Cart']['order_opt_sum'];
-// 			$f['sum_mopt'] = $_SESSION['Cart']['order_mopt_sum'];
-// 			$f['sum'] = $_SESSION['Cart']['sum'];
-// 			$f['sum_discount'] = $_SESSION['Cart']['sum_discount'];
-// 		}
-// 		$f['discount'] = mysql_real_escape_string(trim($arr['discount']));
-// 		if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 0){
-// 			$f['discount'] = null;
-// 		}
-// 		$sum_total = $f['sum_discount'];
-// 		$f['skey'] = md5(time().'jWfUsd');
-// 		$this->db->StartTrans();
-// 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
-// 			$this->db->FailTrans();
-// 			return false;
-// 		}
-// 		$id_order = $this->db->GetInsId();
-// 		list($d,$m,$y) = explode(".", trim($arr['target_date']));
-// 		$arr['target_date'] = mktime(0, 0, 0, $m , $d, $y);
-// 		// Заполнение связки заказ-товары
-// 		$target_date = $arr['target_date'];
-// 		$id_contragent = $f['id_contragent'];
-// 		$Supplier = new Suppliers();
-// 		$order_otpusk_prices_sum = 0;
-// 		$ii = 0;
-// 		$f = array();
-// 		//** Нужно получить ошибки по всем товарам
-// 		foreach($OrderCart as $id_product=>$i){
-// 			if($i['order_opt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_opt_qty'], true);
-// 			if($i['order_mopt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_mopt_qty'], false);
-// 		}
-// 		//**
-// 		foreach($OrderCart as $id_product=>$i){
-// 			$f[$ii]['id_order'] = $id_order;
-// 			if(isset($arr['p_order'])){ // Прогнозный заказ
-// 				$f[$ii]['id_supplier'] = 0;
-// 				$f[$ii]['id_supplier_mopt'] = 0;
-// 			}elseif(isset($arr['order'])){ // Обычный заказ
-// 				$sup_nb = 0;
-// 				$f[$ii]['id_supplier'] = 0;
-// 				$f[$ii]['id_supplier_mopt'] = 0;
-// 				$f[$ii]['price_opt_otpusk'] = 0;
-// 				$f[$ii]['price_mopt_otpusk'] = 0;
-// 				$f[$ii]['filial_mopt'] = 0;
-// 				$f[$ii]['filial_opt'] = 0;
-// 				if($i['order_opt_qty'] > 0){
-// 					if($ids = $this->GetSupplierForProduct($id_product, $target_date, $i['order_opt_qty'], true)){
-// 						$f[$ii]['id_supplier'] = $ids[0]['id_supplier'];
-// 						$f[$ii]['filial_opt'] = $ids[0]['filial'];
-// 						$f[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($ids[0]['id_supplier'], $id_product, true);
-// 						$order_otpusk_prices_sum += round($f[$ii]['price_opt_otpusk']*$i['order_opt_qty'], 2);
-// 						$GLOBALS['temp_product_limit'] = $i['order_opt_qty'];
-// 						$this->CorrectProductLimit($id_product, $f[$ii]['id_supplier'], $i['order_opt_qty']);
-// 						$f[$ii]['id_supplier_altern'] = $ids[1];
-// 						$sup_nb++;
-// 					}
-// 				}else{
-// 					$f[$ii]['id_supplier'] = 0;
-// 					$f[$ii]['id_supplier_altern'] = 0;
-// 					$f[$ii]['price_opt_otpusk'] = 0;
-// 				}
-// 				if($i['order_mopt_qty'] > 0){
-// 					if($ids = $this->GetSupplierForProduct($id_product, $target_date, $i['order_mopt_qty'], false)){
-// 						$f[$ii]['id_supplier_mopt'] = $ids[0]['id_supplier'];
-// 						$f[$ii]['filial_mopt'] = $ids[0]['filial'];
-// 						$f[$ii]['price_mopt_otpusk'] = $Supplier->GetPriceOtpusk($ids[0]['id_supplier'], $id_product, false);
-// 						$order_otpusk_prices_sum += round($f[$ii]['price_mopt_otpusk']*$i['order_mopt_qty'], 2);
-// 						$this->CorrectProductLimit($id_product, $f[$ii]['id_supplier_mopt'], $i['order_mopt_qty']);
-// 						$f[$ii]['id_supplier_mopt_altern'] = $ids[1];
-// 						$sup_nb++;
-// 					}
-// 				}else{
-// 					$f[$ii]['id_supplier_mopt'] = 0;
-// 					$f[$ii]['id_supplier_mopt_altern'] = 0;
-// 					$f[$ii]['price_mopt_otpusk'] = 0;
-// 				}
-// 				if(isset($GLOBALS['temp_product_limit'])) unset($GLOBALS['temp_product_limit']);
-// 				if($sup_nb < 1){
-// 					$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
-// 					$this->db->FailTrans();
-// 					return false;
-// 				}
-// 				// Сохранить сумму заказа по отпускным ценам
-// 				$order_otpusk_prices_sum = round($order_otpusk_prices_sum,2);
-// 				$sql = "UPDATE "._DB_PREFIX_."order SET otpusk_prices_sum = $order_otpusk_prices_sum
-// 						WHERE id_order = $id_order";
-// 				if(!$this->db->Query($sql)){
-// 					$this->db->FailTrans();
-// 					G::DieLoger("SQL error - $sql");
-// 					return false;
-// 				}
-// 			}
-// 			$f[$ii]['id_product'] = $id_product;
-// 			$f[$ii]['opt_qty'] = $i['order_opt_qty'];
-// 			$f[$ii]['box_qty'] = $i['order_box_qty'];
-// 			$f[$ii]['mopt_qty'] = $i['order_mopt_qty'];
-// 			//************
-// 			if(!isset($i['basic_opt_price'])){
-// 				$i['basic_opt_price'] = $i['site_price_opt'];
-// 			}
-// 			if(!isset($i['basic_mopt_price'])){
-// 				$i['basic_mopt_price'] = $i['site_price_mopt'];
-// 			}
-// 			$f[$ii]['default_sum_opt'] = round($i['order_opt_qty']*$i['site_price_opt'], 2);
-// 			$f[$ii]['default_sum_mopt'] =round($i['order_mopt_qty']*$i['site_price_mopt'], 2);
-// 			if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-// 				$f[$ii]['opt_sum'] = round(round($i['basic_opt_price']*$_SESSION['Cart']['personal_discount'],2)*$i['order_opt_qty'],2);
-// 				$f[$ii]['mopt_sum'] = round(round($i['basic_mopt_price']*$_SESSION['Cart']['personal_discount'],2)*$i['order_mopt_qty'],2);
-// 				$f[$ii]['site_price_opt'] = round($i['basic_opt_price']*$_SESSION['Cart']['personal_discount'],2);
-// 				$f[$ii]['site_price_mopt'] = round($i['basic_mopt_price']*$_SESSION['Cart']['personal_discount'],2);
-// 			}else{
-// 				$f[$ii]['opt_sum'] = 0;
-// 				$f[$ii]['mopt_sum'] = 0;
-// 				$f[$ii]['site_price_opt'] = 0;
-// 				$f[$ii]['site_price_mopt'] = 0;
+	// public function Add($arr){
+		// //************************************************************
+		// $discount = 0;
+		// if(isset($_SESSION['Cart']['discount'])){
+		// 	if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
+		// 		$discount = 1;
+		// 	}else{
+		// 		$discount = $_SESSION['Cart']['discount'];
+		// 	}
+		// }
+		// //*************************************************************
+		// if(count($OrderCart) == 0){
+		// 	return false;
+		// }
+		// global $Cart;
+		// $this->UpdateSuppliersTurn();
+		// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
+		// if($err){
+		// 	if(isset($_SESSION['errm'])){
+		// 		$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
+		// 	}else{
+		// 		$_SESSION['errm'] = $errm;
+		// 		header('Location: /cart/');
+		// 		exit();
+		// 	}
+		// }
+		// $order_status = 0;
+		// if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
+		// 	$f['id_order_status'] = 11; // Промо-заказ
+		// 	$order_status = 11;
+		// }else{
+		// 	if(isset($arr['p_order'])){
+		// 		$f['id_order_status'] = 3; // Прогнозный заказ
+		// 		$order_status = 3;
+		// 	}elseif(isset($arr['order'])){
+		// 		$f['id_order_status'] = 1; // Обычный заказ
+		// 		$order_status = 1;
+		// 		if(($_SESSION['Cart']['order_opt_sum'] != 0 || $_SESSION['Cart']['order_mopt_sum'] != 0)
+		// 			&& ($_SESSION['Cart']['order_opt_sum']+$_SESSION['Cart']['order_mopt_sum']) < $GLOBALS['CONFIG']['min_sum_order']){
+		// 			$_SESSION['errm'][] = "Минимальная сумма заказа: ".$GLOBALS['CONFIG']['min_sum_order_nac'];
+		// 			header('Location: /cart/');
+		// 			exit();
+		// 		}
+		// 	}
+		// }
+		// if(isset($_SESSION['Cart']['base_order'])){
+		// 	$f['base_order'] = $_SESSION['Cart']['base_order'];
+		// }
+		// $f['phones'] = mysql_real_escape_string(trim('38'.substr(preg_replace("/[^0-9,.]/", "", $arr['phones']), -10)));
+		// $f['id_delivery'] = mysql_real_escape_string(trim($arr['id_delivery']));
+		// $f['id_city'] = mysql_real_escape_string(trim($arr['id_delivery_department']));
+		// $f['id_delivery_service'] = mysql_real_escape_string(trim(isset($arr['id_delivery_service'])?$arr['id_delivery_service']:0));
+		// $f['id_contragent'] = mysql_real_escape_string(trim($arr['id_manager']));
+		// $f['id_customer'] = $id_customer = $_SESSION['member']['id_user'];
+		// $f['cont_person'] = mysql_real_escape_string(trim($arr['cont_person']));
+		// $f['need_sertificate'] = 0;
+		// if(isset($arr['need_sertificate']) && $arr['need_sertificate'] == "on"){
+		// 	$f['need_sertificate'] = 1;
+		// }
+		// $f['strachovka'] = mysql_real_escape_string(trim($arr['strachovka']));
+		// if(isset($arr['bonus_card']) && $arr['bonus_card'] != ''){
+		// 	$f['bonus_card'] = mysql_real_escape_string(trim($arr['bonus_card']));
+		// }
+		// if(isset($arr['promo-code']) && $arr['promo-code'] != ''){
+		// 	$f['promo_code'] = mysql_real_escape_string(trim($arr['promo-code']));
+		// }
+		// $f['descr'] = mysql_real_escape_string(trim($arr['description']));
+		// $f['creation_date'] = time();
+		// if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['price_column']){
+		// 	$f['sum_opt'] = $_SESSION['Cart']['opt_sum_default'][$arr['price_column']];
+		// 	$f['sum_mopt'] = $_SESSION['Cart']['mopt_sum_default'][$arr['price_column']];
+		// 	$f['sum_discount'] = $f['sum'] = $_SESSION['Cart']['order_sum'][$arr['price_column']];
+		// 	$f['manual_price_change'] = $arr['price_column'].' - '.$arr['reason'];
+		// }else{
+		// 	$f['sum_opt'] = $_SESSION['Cart']['order_opt_sum'];
+		// 	$f['sum_mopt'] = $_SESSION['Cart']['order_mopt_sum'];
+		// 	$f['sum'] = $_SESSION['Cart']['sum'];
+		// 	$f['sum_discount'] = $_SESSION['Cart']['sum_discount'];
+		// }
+		// $f['discount'] = mysql_real_escape_string(trim($arr['discount']));
+		// if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 0){
+		// 	$f['discount'] = null;
+		// }
+		// $sum_total = $f['sum_discount'];
+		// $f['skey'] = md5(time().'jWfUsd');
+		// $this->db->StartTrans();
+		// if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
+		// 	$this->db->FailTrans();
+		// 	return false;
+		// }
+		// $id_order = $this->db->GetInsId();
+		// list($d,$m,$y) = explode(".", trim($arr['target_date']));
+		// $arr['target_date'] = mktime(0, 0, 0, $m , $d, $y);
+		// // Заполнение связки заказ-товары
+		// $target_date = $arr['target_date'];
+		// $id_contragent = $f['id_contragent'];
+		// $Supplier = new Suppliers();
+		// $order_otpusk_prices_sum = 0;
+		// $ii = 0;
+		// $f = array();
+		// //** Нужно получить ошибки по всем товарам
+		// foreach($OrderCart as $id_product=>$i){
+		// 	if($i['order_opt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_opt_qty'], true);
+		// 	if($i['order_mopt_sum'] > 0) $this->GetSupplierForProduct($id_product, $target_date, $i['order_mopt_qty'], false);
+		// }
+		// //**
+		// foreach($OrderCart as $id_product=>$i){
+		// 	$f[$ii]['id_order'] = $id_order;
+		// 	if(isset($arr['p_order'])){ // Прогнозный заказ
+		// 		$f[$ii]['id_supplier'] = 0;
+		// 		$f[$ii]['id_supplier_mopt'] = 0;
+		// 	}elseif(isset($arr['order'])){ // Обычный заказ
+		// 		$sup_nb = 0;
+		// 		$f[$ii]['id_supplier'] = 0;
+		// 		$f[$ii]['id_supplier_mopt'] = 0;
+		// 		$f[$ii]['price_opt_otpusk'] = 0;
+		// 		$f[$ii]['price_mopt_otpusk'] = 0;
+		// 		$f[$ii]['filial_mopt'] = 0;
+		// 		$f[$ii]['filial_opt'] = 0;
+		// 		if($i['order_opt_qty'] > 0){
+		// 			if($ids = $this->GetSupplierForProduct($id_product, $target_date, $i['order_opt_qty'], true)){
+		// 				$f[$ii]['id_supplier'] = $ids[0]['id_supplier'];
+		// 				$f[$ii]['filial_opt'] = $ids[0]['filial'];
+		// 				$f[$ii]['price_opt_otpusk'] = $Supplier->GetPriceOtpusk($ids[0]['id_supplier'], $id_product, true);
+		// 				$order_otpusk_prices_sum += round($f[$ii]['price_opt_otpusk']*$i['order_opt_qty'], 2);
+		// 				$GLOBALS['temp_product_limit'] = $i['order_opt_qty'];
+		// 				$this->CorrectProductLimit($id_product, $f[$ii]['id_supplier'], $i['order_opt_qty']);
+		// 				$f[$ii]['id_supplier_altern'] = $ids[1];
+		// 				$sup_nb++;
+		// 			}
+		// 		}else{
+		// 			$f[$ii]['id_supplier'] = 0;
+		// 			$f[$ii]['id_supplier_altern'] = 0;
+		// 			$f[$ii]['price_opt_otpusk'] = 0;
+		// 		}
+		// 		if($i['order_mopt_qty'] > 0){
+		// 			if($ids = $this->GetSupplierForProduct($id_product, $target_date, $i['order_mopt_qty'], false)){
+		// 				$f[$ii]['id_supplier_mopt'] = $ids[0]['id_supplier'];
+		// 				$f[$ii]['filial_mopt'] = $ids[0]['filial'];
+		// 				$f[$ii]['price_mopt_otpusk'] = $Supplier->GetPriceOtpusk($ids[0]['id_supplier'], $id_product, false);
+		// 				$order_otpusk_prices_sum += round($f[$ii]['price_mopt_otpusk']*$i['order_mopt_qty'], 2);
+		// 				$this->CorrectProductLimit($id_product, $f[$ii]['id_supplier_mopt'], $i['order_mopt_qty']);
+		// 				$f[$ii]['id_supplier_mopt_altern'] = $ids[1];
+		// 				$sup_nb++;
+		// 			}
+		// 		}else{
+		// 			$f[$ii]['id_supplier_mopt'] = 0;
+		// 			$f[$ii]['id_supplier_mopt_altern'] = 0;
+		// 			$f[$ii]['price_mopt_otpusk'] = 0;
+		// 		}
+		// 		if(isset($GLOBALS['temp_product_limit'])) unset($GLOBALS['temp_product_limit']);
+		// 		if($sup_nb < 1){
+		// 			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного ли нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
+		// 			$this->db->FailTrans();
+		// 			return false;
+		// 		}
+		// 		// Сохранить сумму заказа по отпускным ценам
+		// 		$order_otpusk_prices_sum = round($order_otpusk_prices_sum,2);
+		// 		$sql = "UPDATE "._DB_PREFIX_."order SET otpusk_prices_sum = $order_otpusk_prices_sum
+		// 				WHERE id_order = $id_order";
+		// 		if(!$this->db->Query($sql)){
+		// 			$this->db->FailTrans();
+		// 			G::DieLoger("SQL error - $sql");
+		// 			return false;
+		// 		}
+		// 	}
+		// 	$f[$ii]['id_product'] = $id_product;
+		// 	$f[$ii]['opt_qty'] = $i['order_opt_qty'];
+		// 	$f[$ii]['box_qty'] = $i['order_box_qty'];
+		// 	$f[$ii]['mopt_qty'] = $i['order_mopt_qty'];
+		// 	//************
+		// 	if(!isset($i['basic_opt_price'])){
+		// 		$i['basic_opt_price'] = $i['site_price_opt'];
+		// 	}
+		// 	if(!isset($i['basic_mopt_price'])){
+		// 		$i['basic_mopt_price'] = $i['site_price_mopt'];
+		// 	}
+		// 	$f[$ii]['default_sum_opt'] = round($i['order_opt_qty']*$i['site_price_opt'], 2);
+		// 	$f[$ii]['default_sum_mopt'] =round($i['order_mopt_qty']*$i['site_price_mopt'], 2);
+		// 	if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
+		// 		$f[$ii]['opt_sum'] = round(round($i['basic_opt_price']*$_SESSION['Cart']['personal_discount'],2)*$i['order_opt_qty'],2);
+		// 		$f[$ii]['mopt_sum'] = round(round($i['basic_mopt_price']*$_SESSION['Cart']['personal_discount'],2)*$i['order_mopt_qty'],2);
+		// 		$f[$ii]['site_price_opt'] = round($i['basic_opt_price']*$_SESSION['Cart']['personal_discount'],2);
+		// 		$f[$ii]['site_price_mopt'] = round($i['basic_mopt_price']*$_SESSION['Cart']['personal_discount'],2);
+		// 	}else{
+		// 		$f[$ii]['opt_sum'] = 0;
+		// 		$f[$ii]['mopt_sum'] = 0;
+		// 		$f[$ii]['site_price_opt'] = 0;
+		// 		$f[$ii]['site_price_mopt'] = 0;
 
-// 				if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['price_column']){
-// 					$price_column = $arr['price_column'];
-// 				}elseif(isset($_SESSION['price_column'])){
-// 					$price_column = $_SESSION['price_column'];
-// 				}else{
-// 					$price_column = 3;
-// 				}
-// 				if(!empty($i['opt_correction_set'])){
-// 					$f[$ii]['opt_sum'] = round(round($i['basic_opt_price']*$i['opt_correction_set'][$price_column],2)*$i['order_opt_qty'],2);
-// 					$f[$ii]['site_price_opt'] = round($i['basic_opt_price']*$i['opt_correction_set'][$price_column],2);
-// 				}
-// 				if(!empty($i['mopt_correction_set'])){
-// 					$f[$ii]['mopt_sum'] = round(round($i['basic_mopt_price']*$i['mopt_correction_set'][$price_column],2)*$i['order_mopt_qty'],2);
-// 					$f[$ii]['site_price_mopt'] = round($i['basic_mopt_price']*$i['mopt_correction_set'][$price_column],2);
-// 				}
-// 			}
-// 			//****************
-// 			$f[$ii]['note_opt'] = $i['note_opt'];
-// 			$f[$ii]['note_mopt'] = $i['note_mopt'];
-// 			if(isset($arr['order'])){
-// 				// Вычесть лимит товара
-// 				// Поставить птицу поставщику, что у него уже был заказ
-// 				if($f[$ii]['id_supplier'] != 0){ // оптовые позиции
-// 					$this->SupplierWasOrder($f[$ii]['id_supplier']);
-// 				}
-// 				if($f[$ii]['id_supplier_mopt'] != 0){ // мелкооптовые позиции
-// 					$this->SupplierWasOrder($f[$ii]['id_supplier_mopt']);
-// 				}
-// 				$CorrectContragentLimitSum = true;
-// 			}
-// 			$ii++;
-// 		}
-// 		if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $f)){
-// 			$this->db->FailTrans();
-// 			return false;
-// 		}
-// 		$this->db->CompleteTrans();
-// 		if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
-// 			if($order_status == 1){
-// 				$User = new Users();
-// 				$User->SetFieldsById($id_customer);
-// 				if($User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
-// 					$Mailer = new Mailer();
-// 					//$Mailer->SendOrderInvoicesToContragent($id_order);
-// 					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
-// 					$Mailer->SendOrderInvoicesToCustomers($id_order);
-// 				}
-// 				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONYMOUS_){
-// 					$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-// 					$Contragents = new Contragents();
-// 					$string = $Contragents->GetSavedFields($id_contragent);
-// 					$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-// 					if($arr['phones'] != '' && strlen($arr['phones']) == 10){
-// 						$res = $Gateway->execCommad(
-// 							'sendSMS',
-// 							array(
-// 								'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
-// 								'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-// 								'phone' => '38'.$arr['phones'],
-// 								'datetime' => null,
-// 								'sms_lifetime' => 0
-// 							)
-// 						);
-// 					}
-// 				}
-// 			}
-// 		}
-// 		if($User->fields['gid'] == _ACL_CONTRAGENT_){
-// 			unset($_SESSION['member']['bonus_card']);
-// 		}
-// 		return $id_order;
-// 	}
+		// 		if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['price_column']){
+		// 			$price_column = $arr['price_column'];
+		// 		}elseif(isset($_SESSION['price_column'])){
+		// 			$price_column = $_SESSION['price_column'];
+		// 		}else{
+		// 			$price_column = 3;
+		// 		}
+		// 		if(!empty($i['opt_correction_set'])){
+		// 			$f[$ii]['opt_sum'] = round(round($i['basic_opt_price']*$i['opt_correction_set'][$price_column],2)*$i['order_opt_qty'],2);
+		// 			$f[$ii]['site_price_opt'] = round($i['basic_opt_price']*$i['opt_correction_set'][$price_column],2);
+		// 		}
+		// 		if(!empty($i['mopt_correction_set'])){
+		// 			$f[$ii]['mopt_sum'] = round(round($i['basic_mopt_price']*$i['mopt_correction_set'][$price_column],2)*$i['order_mopt_qty'],2);
+		// 			$f[$ii]['site_price_mopt'] = round($i['basic_mopt_price']*$i['mopt_correction_set'][$price_column],2);
+		// 		}
+		// 	}
+		// 	//****************
+		// 	$f[$ii]['note_opt'] = $i['note_opt'];
+		// 	$f[$ii]['note_mopt'] = $i['note_mopt'];
+		// 	if(isset($arr['order'])){
+		// 		// Вычесть лимит товара
+		// 		// Поставить птицу поставщику, что у него уже был заказ
+		// 		if($f[$ii]['id_supplier'] != 0){ // оптовые позиции
+		// 			$this->SupplierWasOrder($f[$ii]['id_supplier']);
+		// 		}
+		// 		if($f[$ii]['id_supplier_mopt'] != 0){ // мелкооптовые позиции
+		// 			$this->SupplierWasOrder($f[$ii]['id_supplier_mopt']);
+		// 		}
+		// 		$CorrectContragentLimitSum = true;
+		// 	}
+		// 	$ii++;
+		// }
+		// if(!$this->db->InsertArr(_DB_PREFIX_.'osp', $f)){
+		// 	$this->db->FailTrans();
+		// 	return false;
+		// }
+		// $this->db->CompleteTrans();
+		// if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
+		// 	if($order_status == 1){
+		// 		$User = new Users();
+		// 		$User->SetFieldsById($id_customer);
+		// 		if($User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
+		// 			$Mailer = new Mailer();
+		// 			//$Mailer->SendOrderInvoicesToContragent($id_order);
+		// 			//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
+		// 			$Mailer->SendOrderInvoicesToCustomers($id_order);
+		// 		}
+		// 		if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONYMOUS_){
+		// 			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+		// 			$Contragents = new Contragents();
+		// 			$string = $Contragents->GetSavedFields($id_contragent);
+		// 			$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
+		// 			if($arr['phones'] != '' && strlen($arr['phones']) == 10){
+		// 				$res = $Gateway->execCommad(
+		// 					'sendSMS',
+		// 					array(
+		// 						'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+		// 						'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
+		// 						'phone' => '38'.$arr['phones'],
+		// 						'datetime' => null,
+		// 						'sms_lifetime' => 0
+		// 					)
+		// 				);
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// if($User->fields['gid'] == _ACL_CONTRAGENT_){
+		// 	unset($_SESSION['member']['bonus_card']);
+		// }
+		// return $id_order;
+	// }
 
 	// Обновление
 	public function GetStatuses(){
@@ -930,16 +983,16 @@ class Orders {
 	 */
 	public function GetSupplierForProduct($id_product, $mode){
 		// если продукт имеет эксклюзивного поставщика
-		if($id_supplier = $this->HasExclusiveSupplier($id_product, $mode)){
-			return $id_supplier;
+		if($supplier = $this->HasExclusiveSupplier($id_product, $mode)){
+			return $supplier['id_supplier'];
 		}
 		// определение списка доступных поставщиков
 		$sql = "SELECT a.id_product, a.id_supplier,
 			a.price_opt_otpusk, a.price_mopt_otpusk
 			FROM "._DB_PREFIX_."assortiment AS a
-			WHERE a.active = 1
-			AND (a.price_".$mode."_otpusk <> 0 AND a.price_".$mode."_recommend <> 0)
-			AND a.id_product = ".$id_product."
+			WHERE a.id_product = ".$id_product."
+			AND a.active = 1
+			AND (a.price_".$mode."_otpusk > 0 AND a.price_".$mode."_recommend > 0)
 			ORDER BY a.price_".$mode."_otpusk DESC";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
@@ -1745,11 +1798,26 @@ class Orders {
 		$sql = "UPDATE "._DB_PREFIX_."order
 			SET id_order_status = 6
 			WHERE id_order = ".$id_order;
-		if(!$this->db->Query($sql)){
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)) {
 			$this->db->FailTrans();
-			G::DieLoger("SQL error - $sql");
 			return false;
 		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Добавляем адрес к заказу клиента
+	public  function addAddress($id_order, $id_address){
+		$sql = "UPDATE "._DB_PREFIX_."order
+			SET id_address = ".$id_address."
+			WHERE id_order = ".$id_order;
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)) {
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
 		return true;
 	}
 
@@ -1839,5 +1907,25 @@ class Orders {
 			return false;
 		}
 		return $res['name_c'];
+	}
+	public function SetOrderAddress($id_order, $id_address){
+		$f['id_address'] = $id_address;
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'order', $f, 'id_order = '.$id_order)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	public function GetLastOrder($id_user){
+		$sql = "SELECT FROM_UNIXTIME(creation_date, \"%Y-%m-%d\") AS last_order
+				FROM "._DB_PREFIX_."order WHERE id_customer = ".$id_user."
+				AND id_order_status = 2 ORDER BY id_order DESC LIMIT 1";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['last_order'];
 	}
 }

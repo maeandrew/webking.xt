@@ -4,96 +4,86 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		$_SESSION['Cart']['products'] = array();
 		$_SESSION['Cart']['sum'] = (float) 0;
 	}
+	$Users = new Users();
+	$Cart = new Cart();
+	$Customers = new Customers();
+	$Products = new Products();
+	$Orders = new Orders();
 	if(G::IsLogged()){
-		$User = new Users();
-		$User->SetUser(G::GetLoggedData());
-		$Customer = new Customers();
-		$Customer->SetFieldsById($User->fields['id_user']);
-		$personal_discount = $Customer->fields['discount'];
+		$Users->SetUser(G::GetLoggedData());
+		$Customers->SetFieldsById($Users->fields['id_user']);
+		$personal_discount = $Customers->fields['discount'];
 	}
-	$cart = new Cart();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'duplicate':
-				$cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
+				$Cart->FillByOrderId($_POST['id_order'], (isset($_POST['add'])?1:''));
+				$Cart->DBCart();
 				echo json_encode(true);
 				break;
 			case 'GetCartPage':
 				unset($parsed_res);
 				if(G::IsLogged()){
-					$User = new Users();
-					$User->SetUser(G::GetLoggedData());
-					$tpl->Assign('User', $User->fields);
+					$Users->SetUser(G::GetLoggedData());
+					$tpl->Assign('User', $Users->fields);
 				}
 				// Устанавливаем базовый ценовой режим если пользователь не является менеджером
-				if($User->fields['gid'] != _ACL_MANAGER_){
+				if($Users->fields['gid'] != _ACL_MANAGER_){
 					$_SESSION['price_mode'] = 3;
 				}
 				// Подключаем необходимые классы
-				$cart = new Cart();
-				$order = new Orders();
-				$customers = new Customers();
-				$cities = new Citys();
-				$contragents = new Contragents();
-				$delivery = new Delivery();
-				$deliveryservice = new DeliveryService();
-				$regions = new Regions();
+				$Cities = new Citys();
+				$Contragents = new Contragents();
+				$Delivery = new Delivery();
+				$Deliveryservice = new DeliveryService();
+				$Regions = new Regions();
 				// Все классы подключены
-				
+
 				// выборка базовых данных
 
 				// о покупателе
-				$customers->SetFieldsById($User->fields['id_user']);
-				$customer = $customers->fields;
+				$Customers->SetFieldsById($Users->fields['id_user']);
+				$customer = $Customers->fields;
 				$cont_person = explode(' ', $customer['cont_person']);
 				$customer['last_name'] = $cont_person[0];
 				$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
 				$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
 				$customer['phone'] = isset($phones)?$phones:'';
-				$tpl->Assign('phone', isset($customer['phones'])?$customer['phones']:'');
 
 				// список всех менеджеров
-				if(substr($User->fields['email'], -11) == "@x-torg.com"){
-					// внутренний
-					// пользователи в служебных аккаунтах видят удаленных менеджеров
-					$contragents->SetList(true, false);
-				}else{
-					// внешний
-					// обычные пользователи не видят удаленных менеджеров
-					$contragents->SetList(false, false);
-				}
-				$managers_list = $contragents->list;
+				$Contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
+				$managers_list = $Contragents->list;
 
 				// список всех областей
-				$regions->SetList();
-				$regions_list = $regions->list;
+				$Regions->SetList();
+				$regions_list = $Regions->list;
 
 				// список всех способов доставки
-				$delivery->SetDeliveryList();
-				$deliverymethods_list = $delivery->list;
+				$Delivery->SetDeliveryList();
+				$deliverymethods_list = $Delivery->list;
 
 				// выборка сохраненной информации
 
 				// сохраненный город
 				if(isset($customer['id_city']) && $customer['id_city'] > 0){
-					$cities->GetSavedFields($customer['id_city']);
-					$saved['city'] = $cities->fields;
+					$Cities->GetSavedFields($customer['id_city']);
+					$saved['city'] = $Cities->fields;
 				}else{
 					$saved['city'] = false;
 				}
 
 				// способы доставки
 				if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
-					$delivery->GetSavedFields($customer['id_delivery']);
-					$saved['deliverymethod'] = $delivery->fields;
+					$Delivery->GetSavedFields($customer['id_delivery']);
+					$saved['deliverymethod'] = $Delivery->fields;
 				}else{
 					$saved['deliverymethod'] = false;
 				}
 
 				// сохраненный менеджер
 				if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
-					$contragents->GetSavedFields($customer['id_contragent']);
-					$saved['manager'] = $contragents->fields;
+					$Contragents->GetSavedFields($customer['id_contragent']);
+					$saved['manager'] = $Contragents->fields;
 				}else{
 					$saved['manager'] = false;
 				}
@@ -114,14 +104,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				// Выбор доступных городов, если у пользователя была сохранена область
 				if(isset($saved['city'])){
-					$cities_list = $cities->SetFieldsByInput($saved['city']['region']);
-					if(!$deliveryservice->SetFieldsByInput($saved['city']['name'], $saved['city']['region'])){
+					$cities_list = $Cities->SetFieldsByInput($saved['city']['region']);
+					if(!$Deliveryservice->SetFieldsByInput($saved['city']['name'], $saved['city']['region'])){
 						unset($deliverymethods_list[3]);
 					}
-					$deliveryservice->SetListByRegion($saved['city']['names_regions']);
-					$deliveryservices_list = $deliveryservice->list;
-					$delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['name'], $saved['city']['region']);
-					$deliverydepartments_list = $delivery->list;
+					$Deliveryservice->SetListByRegion($saved['city']['names_regions']);
+					$deliveryservices_list = $Deliveryservice->list;
+					$Delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['name'], $saved['city']['region']);
+					$deliverydepartments_list = $Delivery->list;
 				}
 
 				/* output data */
@@ -135,20 +125,20 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('saved', $saved);
 				$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
 
-				/* Дествия */
+				/* Действия */
 				if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
 					if(isset($_POST['add_order'])){
 						// Добавить к корзине товары из заказа
-						$cart->FillByOrderId($GLOBALS['Rewrite'], true);
+						$Cart->FillByOrderId($GLOBALS['Rewrite'], true);
 					}else{
 						// заменить корзину товарами из заказа
-						$cart->FillByOrderId($GLOBALS['Rewrite']);
+						$Cart->FillByOrderId($GLOBALS['Rewrite']);
 					}
-					if($User->fields['gid'] == _ACL_CONTRAGENT_){
-						$customers->updateContPerson($_POST['cont_person']);
-						$customers->updatePhones($_POST['phones']);
-						$customers->updateCity($_POST['id_city']);
-						$customers->updateDelivery($_POST['id_delivery']);
+					if($Users->fields['gid'] == _ACL_CONTRAGENT_){
+						$Customers->updateContPerson($_POST['cont_person']);
+						$Customers->updatePhones($_POST['phones']);
+						$Customers->updateCity($_POST['id_city']);
+						$Customers->updateDelivery($_POST['id_delivery']);
 						if($_POST['bonus_card'] != '') {
 							$_SESSION['member']['bonus_card'] = $_POST['bonus_card'];
 						}else{
@@ -159,18 +149,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					header('Location: '._base_url.'/cart/');
 					exit();
 				}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'success'){
-					$products = new Products();
 					foreach($_SESSION['cart']['products'] as $id=>$p){
-						$products->SetFieldsById($id);
-						$product = $products->fields;
+						$Products->SetFieldsById($id);
+						$product = $Products->fields;
 						$_SESSION['cart']['products'][$id]['name'] = $product['name'];
 						$_SESSION['cart']['products'][$id]['art'] = $product['art'];
 						$_SESSION['cart']['products'][$id]['id_category'] = $product['id_category'];
 					}
 					$tpl->Assign('cart', $_SESSION['cart']);
-					$cart->ClearCart();
+					$Cart->ClearCart();
 				}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'clear'){
-					$cart->ClearCart();
+					$Cart->ClearCart();
 					header('Location: '._base_url.'/cart/');
 					exit();
 				}
@@ -178,7 +167,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				/* проверка на ошибки */
 				$errm = $warnings = array();
 				$err = $warn = 0;
-				// $cart->IsActualPrices($err, $warn, $errm, $warnings);
+				// $Cart->IsActualPrices($err, $warn, $errm, $warnings);
 				if($err){
 					if(isset($_SESSION['errm'])){
 						$_SESSION['errm'] = array_merge($_SESSION['errm'], $errm);
@@ -192,18 +181,21 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 
 				/* collect cart information */
-				$cart->RecalcCart();
+				$Cart->RecalcCart();
 
 				/* fill product list */
 				if(!empty($_SESSION['cart']['products'])){
-					$products = new Products();
 					$arr = array();
 					foreach($_SESSION['cart']['products'] as $id=>$p){
 						$arr[] = $id;
 					}
-					$products->SetProductsListFromArr($arr, '');
-					$list = $products->list;
+					$Products->SetProductsListFromArr($arr, '');
+					$list = $Products->list;
 					foreach($list as $key => &$value){
+						if($value['visible'] == 0){
+							$_SESSION['cart']['unvisible_products'][] = $value;
+							unset($list[$key], $_SESSION['cart']['products'][$value['id_product']]);
+						}
 						if(isset($_SESSION['errm']['products'][$value['id_product']])){
 							$value['err'] = 1;
 							$value['errm'] = $_SESSION['errm']['products'][$value['id_product']];
@@ -211,7 +203,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$value['err'] = 0;
 						}
 						$errflag[$key] = $value['err'];
-						$value['images'] = $products->GetPhotoById($value['id_product']);
+						$value['images'] = $Products->GetPhotoById($value['id_product']);
 					}
 					//array_multisort($list, SORT_DESC, $errflag);
 					$tpl->Assign('list', $list);
@@ -219,18 +211,23 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$tpl->Assign('list', false);
 				}
 				/* fill unavailable_product list */
-				if(!empty($_SESSION['cart']['unavailable_products'])){
-					$products = new Products();
+				if(!empty($_SESSION['cart']['unvisible_products'])){
 					$arr = array();
-					foreach($_SESSION['cart']['unavailable_products'] as $p){
-						$products->SetFieldsById($p['id_product'], 1);
-						$unlist[] = $products->fields;
+					foreach($_SESSION['cart']['unvisible_products'] as $p){
+						$Products->SetFieldsById($p['id_product'], 1);
+						$unlist[] = $Products->fields;
 					}
 					$tpl->Assign('unlist', $unlist);
 				}else{
 					$tpl->Assign('unlist', false);
 				}
-
+				if(isset($_SESSION['cart']['id_customer'])){
+					$customer_order = $Customers->SetFieldsById($_SESSION['cart']['id_customer'], 1, true);
+					$customer_order['last_order'] = $Orders->GetLastOrder($_SESSION['cart']['id_customer']);
+					$tpl->Assign('customer_order', $customer_order);
+				}
+				$tpl->Assign('promo_info', 'Информация о введенном промокоде'); //Временный текст
+				$tpl->Assign('msg', array('type' => 'info', 'text' => 'Если у Вас уже есть аккаунт на нашем сайте, воспользуйтесь <a href="#" class="btn_js" data-name="auth">формой входа</a>'));
 				if(isset($success)){
 					// $tpl->Assign('msg', "Заказ успешно сформирован.");
 					$_SESSION['cart']['draft'] = $draft;
@@ -252,87 +249,27 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cart.tpl');
 					}
 				}
-				exit();
 				break;
 			case 'remove_from_cart':
 				if(isset($_POST['id_prod_for_remove'])){
-					$res = $cart->DBCart();
-					//$res = $cart->RemoveFromCart($_POST['id'], isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:false);
+					$res = $Cart->DBCart();
+					if(count($_SESSION['cart']['products']) == 0){
+						$Cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+					}
 				}else{
 					$res = null;
 				}
 				echo json_encode($res);
 				break;
-			// case 'update_qty':
-				//				if(isset($_POST['opt']) && isset($_POST['id_product'])){
-				//					$note_opt = isset($_POST['opt_note'])?$_POST['opt_note']:"";
-				//					$note_mopt = isset($_POST['mopt_note'])?$_POST['mopt_note']:"";
-				//					if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
-				//						if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
-				//							$cart->UpdatePromoProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, null, isset($_POST['mopt_basic_price'])?$_POST['mopt_basic_price']:null);
-				//						}else{
-				//							exit();
-				//						}
-				//					}else{
-				//						if($_POST['opt'] == 1){
-				//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_box_qty', 'order_opt_qty', 'order_opt_sum'))){
-				//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], $_POST['order_box_qty'], $_POST['order_opt_qty'], $_POST['order_opt_sum'], $note_opt, $note_mopt, null, $_POST['opt_correction'], $_POST['opt_basic_price']);
-				//							}else{
-				//								exit();
-				//							}
-				//						}else{
-				//							if(checkNumeric($_POST, array('id_product', 'opt', 'order_mopt_qty', 'order_mopt_sum'))){
-				//								$cart->UpdateProduct($_POST['id_product'], $_POST['opt'], null, $_POST['order_mopt_qty'], $_POST['order_mopt_sum'], $note_opt, $note_mopt, null, $_POST['mopt_correction'], $_POST['mopt_basic_price']);
-				//							}else{
-				//								exit();
-				//							}
-				//						}
-				//					}
-				//					$cart->SetTotalQty();
-				//					$cart->SetAllSums();
-				//
-				//
-				//					//	ob_start();
-				//					//	print_r($_SESSION['Cart']);
-				//					//	print_r($_POST);
-				//					//	$t = ob_POST_clean();
-				//					//	G::LogerE($t, "ajax.html", "w");
-				//					$arr = array();
-				//					$arr['id_product'] = $_POST["id_product"];
-				//					$arr['error'] = false;
-				//					$arr['opt'] = $_POST['opt'];
-				//					$arr['sum'] = $_SESSION['Cart']['sum'];
-				//					/***********************************************************/
-				//					isset($note_opt)	?	$arr['note_opt'] = $note_opt	:	null;
-				//					isset($note_mopt)	?	$arr['note_mopt'] = $note_mopt	:	null;
-				//					if(isset($_SESSION['Cart']['sum'])){
-				//						$cart->SetPersonalDiscount($personal_discount);
-				//						$cart->SetSumDiscount();
-				//						$cart->SetAllSums();
-				//						$arr['sum_discount'] = $_SESSION['Cart']['sum_discount'];
-				//					}
-				//					/***********************************************************/
-				//					$arr['string'] = $cart->GetString();
-				//					$arr['total_quantity'] = $_SESSION['Cart']['prod_qty'];
-				//					/***********************************************************/
-				//					$arr['order_opt_sum'] = round($_SESSION['Cart']['order_opt_sum_default'], 2);
-				//					$arr['order_mopt_sum'] = round($_SESSION['Cart']['order_mopt_sum_default'], 2);
-				//					$arr['order_sum'] = $_SESSION['Cart']['order_sum'];
-				//					/***********************************************************/
-				//					$txt = json_encode($arr);
-				//					echo $txt;
-				//					exit();
-				//				};
-				//				break;
 			case 'updateCartQty':
 				if(isset($_POST['note'])){
 					$_SESSION['cart']['products'][$_POST['id_product']]['note'] = $_POST['note'];
 					$res = 'ok';
 				}
 				if(isset($_POST['quantity'])){
-					$res = $cart->UpdateCartQty($_POST);
+					$res = $Cart->UpdateCartQty($_POST);
 				}
-				$cart->DBCart();
+				$Cart->DBCart();
 				echo json_encode($res);
 				break;
 			case 'GetCart':
@@ -350,32 +287,76 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'clearCart':
 				// print_r($_SESSION['cart']['id']);
-				$res = $cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+				$res = $Cart->ClearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 				echo json_encode($res);
 				break;
-			case 'getNameCustomer':
+			case 'getCustomerInfo':
 				if(isset($_POST['phone'])){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
-					$Users = new Users();
-					$customer = $Users->CheckPhoneUniqueness($phone, false, 'select name');
-					if($customer === true){
-						$res['status'] = true;
-						$res['content'] = '<p class="info_text">По данному номеру телефона ['.$phone.'] не найдено пользователей.</p>
-										   <p class="info_text">Создать пользователя и прикрепить к нему заказ?</p>
-										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$phone.'" value="add_and_set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Создать и прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+					$id_user = $Users->CheckPhoneUniqueness($phone, false);
+					if($id_user === true){
+						$res = '<div class="no_results_info">
+									<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
+									<p>Вы можете создать нового пользователя с таким номером.</p>
+							   </div>';
 					}else{
-						$res['status'] = true;
-						$res['content'] = '<p class="info_text">По данному номеру телефона '.$phone.' найден пользователь [<span class="bold_text">'.$customer['name'].'</span>].</p>
-										   <p class="info_text">Прикрепить заказ к данному пользователю?</p>
-										   <input class="mdl-textfield__input" type="hidden" id="customer"  data-date="'.$customer['id_user'].'" value="set">
-										   <button id="set_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent btn_js">Прикрепить</button>
-										   <button id="cancel_customer" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Отмена</button>';
+						$customer_data = $Customers->SetFieldsById($id_user, 1, true);
+						$customer_data['last_order'] = $Orders->GetLastOrder($id_user);
+						$res = '<div class="customer_main_info">
+									<input type="hidden" value="' .$id_user. '">
+									<p><span>ФИО:</span> ' .(!empty($customer_data['first_name']) || !empty($customer_data['last_name']) || !empty($customer_data['middle_name']) ?$customer_data['last_name'].' '.$customer_data['first_name'].' '.$customer_data['middle_name']:(!empty($customer_data['name'])?$customer_data['name']:null)). '</p>
+									<p><span>email:</span> ' .($customer_data['email']?$customer_data['email']:' --'). '</p>
+									<p><span>Баланс:</span> ' .($customer_data['balance']?$customer_data['balance']:' 0,00'). ' грн.</p>
+									<p><span>Последний заказ:</span> ' .($customer_data['last_order']?$customer_data['last_order']:' --'). '</p>
+									<p><span>Активность:</span> ' .($customer_data['active'] ==1?'Да':'Нет'). '</p>
+								</div>
+								<div class="bonus_block">';
+						if(!empty($customer_data['bonus_card'])){
+							$res .= '<p><span>Бонусная карта:</span> №'.(!empty($customer_data['bonus_card'])?$customer_data['bonus_card']:' --').'</p>
+									<p><span>Бонусный баланс:</span> '.(!empty($customer_data['bonus_balance'])?$customer_data['bonus_balance'].' грн.':' --').'</p>
+									<p><span>Бонусный процент:</span> '.(!empty($customer_data['bonus_discount'])?$customer_data['bonus_discount'].' %':' --').'</p>';
+						}else{
+							$res .= 'Бонусная карта не активирована.';
+						}
+						$res .=	'</div>';
 					}
 				}else {
-					$res['content'] = 'Номер телефона не введен.';
-					$res['status'] = false;
+					$res = 'Номер телефона не введен.';
+				}
+				echo $res;
+				break;
+			case 'createCustomer':
+				// создаем нового пользователя
+				$data = array(
+					'last_name' => isset($_POST['last_name'])?$_POST['last_name']:null,
+					'first_name' => isset($_POST['first_name'])?$_POST['first_name']:null,
+					'middle_name' => isset($_POST['middle_name'])?$_POST['middle_name']:null,
+					'name' => (!empty($_POST['last_name']))?$_POST['last_name'].' '.$_POST['first_name'].' '.$_POST['middle_name']:'user_'.rand(),
+					'passwd' => $pass = G::GenerateVerificationCode(6),
+					'descr' => 'Пользователь создан менеджером при оформлении корзины',
+					'phone' => $_POST['phone'],
+					'id_contragent' => $_SESSION['member']['id_user']
+				);
+				// регистрируем нового пользователя
+				if($id_customer = $Customers->RegisterCustomer($data)){
+					$Users->SendPassword($data['passwd'], $data['phone']);
+					$_SESSION['cart']['id_customer'] = $id_customer;
+					$res['message'] = 'успех';
+					$res['status'] = 1;
+				}else {
+					$res['message'] = 'Произошла ошибка, повторите попытку.';
+					$res['status'] = 2;
+				}
+				echo json_encode($res);
+				break;
+			case 'bindingCustomerOrder':
+				$_SESSION['cart']['id_customer'] = $_POST['id_customer'];
+				if($Customers->SetSessionCustomerBonusCart($_POST['id_customer'])){
+					$res['message'] = 'успех';
+					$res['status'] = 1;
+				}else{
+					$res['message'] = 'Произошла ошибка, повторите попытку.';
+					$res['status'] = 2;
 				}
 				echo json_encode($res);
 				break;
@@ -384,7 +365,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					switch($_POST['step']){
 						case 'add_and_set':
 							// создаем нового пользователя
-							$Customers = new Customers();
 							$data = array(
 								'name' => 'user_'.rand(),
 								'passwd' => $pass = G::GenerateVerificationCode(6),
@@ -398,7 +378,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								$_SESSION['cart']['id_customer'] = $id_customer;
 								$res['message'] = 'успех';
 								$res['status'] = 1;
-							} else {
+							}else {
 								$res['message'] = 'Произошла ошибка, повторите попытку.';
 								$res['status'] = 2;
 							}
@@ -416,22 +396,22 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'makeOrder':
+				$_SESSION['cart']['id_contragent'] = isset($_POST['id_contragent']) && !empty($_POST['id_contragent'])?$_POST['id_contragent']:null;
 				if(!G::IsLogged()){
-					$Customers = new Customers();
-					$Users = new Users();
 					// Если покупатель не авторизован, получаем введенный номер телефона
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					// проверяем уникальность введенного номера телефона
 					$unique_phone = $Users->CheckPhoneUniqueness($phone);
-					//print_r($unique_phone); die();
 					if($unique_phone === true){
 						$data = array(
 							'name' => 'user_'.rand(),
 							//'passwd' => $pass = substr(md5(time()), 0, 8),
 							'passwd' => $pass = G::GenerateVerificationCode(6),
 							'descr' => 'Пользователь создан автоматически при оформлении корзины',
-							'phone' => $phone
+							'phone' => $phone,
+							'id_contragent' => isset($_POST['id_contragent']) && !empty($_POST['id_contragent'])?$_POST['id_contragent']:null
 						);
+
 						// регистрируем нового пользователя
 						if($Customers->RegisterCustomer($data)){
 							$Users->SendPassword($data['passwd'], $data['phone']);
@@ -445,47 +425,62 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							G::Login($Users->fields);
 							_acl::load($Users->fields['gid']);
 							$res['new_user'] = true;
+							unset($_POST['phone']);
 						}
-					} else {
+					}else{
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 						$res['status'] = 501;
 					}
 				}
 				if(G::IsLogged()){
-					// Если покупатель арторизован, получаем его данные
-					$Orders = new Orders();
+					if(isset($_POST['phone'])){
+						$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
+						if($unique_phone === true){
+							$date = array(
+								'id_user' => $_SESSION['member']['id_user'],
+								'phone' => $_POST['phone']
+							);
+							if(!$Users->UpdateUser($date)){
+								$res['message'] = 'Возникла ошибка при сохранении телефона!';
+								$res['status'] = 500;
+								echo json_encode($res);
+								exit();
+							}
+						}else{
+							$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
+							$res['status'] = 501;
+							echo json_encode($res);
+							exit();
+						}
+					}
 					// оформляем заказ
 					if($id_order = $Orders->Add()){
-						$cart = new Cart();
-						$cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
+						$Cart->clearCart(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:null);
 						$res['message'] = 'Заказ сформирован!';
 						$res['status'] = 200;
+						$_SESSION['member']['last_order'] = $id_order;
 						// $Customers->updatePhones($phone);
 					}else{
 						$res['message'] = 'Ошибка формирования заказа!';
 						$res['status'] = 500;
 						// $Customers->updatePhones($phone);
 					}
-				}else{
-					$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
-					$res['status'] = 501;
 				}
 				echo json_encode($res);
-
+				break;
 			case 'update_info':
-				$customers = new Customers();
-				$customers->updateInfoPerson($_POST);
+				$Customers->updateInfoPerson($_POST);
 
 				return json_encode(true);
 				break;
 			case 'CreateJointOrder':
-				if(!$res['promo'] = $cart->CreatePromo('JO')){
+				if(!$res['promo'] = $Cart->CreatePromo('JO')){
 					$res['promo'] = 'Ошибка формирования совместного заказа.';
 				};
 				echo json_encode($res['promo']);
 				break;
 			case 'CheckPromo':
-				if(!$cart->CheckPromo($_POST['promo'])){
+				if(!$Cart->CheckPromo($_POST['promo'])){
 					$res['promo'] = false;
 					$res['msg'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
 				} else{
@@ -494,16 +489,34 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'ReadyUserJO':
-				if(!$cart->UpdateCart(false, false, false, 1, $_POST['id_cart'])){
+				if(!$Cart->UpdateCart(false, false, false, 1, $_POST['id_cart'])){
 					echo json_encode('no');
 				};
 				echo json_encode('ok');
 				break;
 			case 'DeletePromo':
-				if(!$cart->UpdateCart(null, 0, 1, 0, $_POST['id_cart'])){
-					echo json_encode('no');
-				};
-				echo json_encode('ok');
+				$echo = true;
+				if(!$Cart->UpdateCart(null, 0, 1, 0, $_POST['id_cart'])){
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
+			case 'SaveOrderNote':  print_r(1); die();
+				$echo = true;
+				if(!$Cart->UpdateCartNote($_POST['note'])){
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
+			case 'updateDiscount':
+				if(is_numeric($_POST['manual_price_change']) && $_POST['manual_price_change_note']) {
+					$_SESSION['cart']['manual_price_change'] = $_POST['manual_price_change'];
+					$_SESSION['cart']['manual_price_change_note'] = $_POST['manual_price_change_note'];
+					$echo = true;
+				}else{
+					$echo = false;
+				}
+				echo json_encode($echo);
 				break;
 			default:
 				break;

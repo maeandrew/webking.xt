@@ -133,14 +133,14 @@ $limit = isset($GLOBALS['Start'])?(' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Li
 $orders = $Customer->GetOrders($orderby, $limit, $status);
 // die();
 $order_statuses = $Order->GetStatuses();
-//print_r($orders);
 
 $Contragent = new Contragents();
+$Address = new Address();
 foreach ($orders as &$order) {
 	$Order->SetFieldsById($order['id_order']);
-
 	$Contragent->SetFieldsById($Order->fields['id_contragent']);
 	$order['contragent_info'] = $Contragent->fields;
+	$order['address_info'] = $Address->getAddressOrder($order['id_order']);
 }
 $Citys = new Citys();
 foreach ($orders as &$order) {
@@ -153,12 +153,17 @@ foreach ($orders as &$order) {
 }
 $tpl->Assign('orders', $orders);
 
+$address_list = $Address->GetListByUserId($User->fields['id_user']);
+$tpl->Assign('address_list', $address_list);
+
 /*$arr = array();
 foreach($orders as &$order_2){
 	$arr = $Order->GetOrderForCustomer(array("o.id_order" => $order_2['id_order']));
 }*/
 
 //$tpl->Assign('products', $arr);
+$tpl->Assign('msg', array('type' => 'info', 'text' => 'Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").'));
+$tpl->Assign('msg_address', array('type' => 'info', 'text' => 'В данном заказе отсутствует адрес доставки. Вы можете выбрать его выше.'));
 
 $User->SetUser($_SESSION['member']);
 

@@ -6,21 +6,25 @@ $GLOBALS['GetString'] = !empty($match)?$match[0]:'';
 preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
 $GLOBALS['REQAR'] = $ma[1];
 // Redirecting old pages to new format
-if(isset($GLOBALS['REQAR'][2])){
+if(isset($GLOBALS['REQAR'][0])){
 	switch($GLOBALS['REQAR'][0]){
 		case 'product':
+			header("HTTP/1.1 301 Moved Permanently");
 			if(is_numeric($GLOBALS['REQAR'][1])){
-				header("HTTP/1.1 301 Moved Permanently");
-				header("Location: http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'.html');
-				exit();
+				header("Location: ".Link::Product($GLOBALS['REQAR'][2]));
+			}else{
+				header("Location: ".Link::Product($GLOBALS['REQAR'][1]));
 			}
+			exit(0);
 			break;
 		case 'products':
+			header("HTTP/1.1 301 Moved Permanently");
 			if(is_numeric($GLOBALS['REQAR'][1])){
-				header("HTTP/1.1 301 Moved Permanently");
-				header("Location: http://".$_SERVER['SERVER_NAME'].'/'.$GLOBALS['REQAR'][2].'/');
-				exit();
+				header("Location: ".Link::Category($GLOBALS['REQAR'][2]));
+			}else{
+				header("Location: ".Link::Category($GLOBALS['REQAR'][1]));
 			}
+			exit(0);
 			break;
 	}
 }

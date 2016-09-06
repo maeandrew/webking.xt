@@ -44,6 +44,10 @@
 				break;
 			case 'AddPhotoProduct':
 				$echo = 'error';
+				if(isset($_POST['id_category'])){
+					$_POST['categories_ids'][] = $_POST['id_category'];
+					unset($_POST['id_category']);
+				}
 				if($id_product = $Products->AddPhotoProduct($_POST)){
 					$Products->SetFieldsByID($id_product);
 					$product = $Products->fields;
@@ -66,7 +70,7 @@
 						</div>
 						<div class="prodImages">';
 					foreach($images as $image){
-						$echo .= '<img src="'.str_replace('/original/', '/thumb/', $image['src']).'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
+						$echo .= '<img src="'.G::GetImageUrl($image['src'], 'thumb').'" '.($image['visible'] == 0?'class="imgopacity"':null).'>';
 					}
 					$echo .= '</div>';
 					if(is_array($videos)){

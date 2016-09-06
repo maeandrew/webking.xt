@@ -20,7 +20,7 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
                     echo $segm;
                     exit();
                 } else if ($_POST['type'] == 0){
-                    $navigation = $dbtree->GetCats(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
+                    $navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
                     foreach($navigation as &$l1){
                         $level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
                         foreach($level2 as &$l2){

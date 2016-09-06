@@ -60,74 +60,52 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			$to_resize = array();
 			//Физическое удалание файлов
 			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
-				foreach($_POST['removed_images'] as $k=>$path){
-					if(file_exists($path) && $products->CheckImages($path)){
-						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
+				foreach($_POST['removed_images'] as $path){
+					if(file_exists(str_replace('\\/', '/', $GLOBALS['PATH_global_root'].$path)) && $products->CheckImages($path)){
+						$Images->remove(str_replace('\\/', '/', $GLOBALS['PATH_global_root'].$path));
 					}
 				}
 			}
 			//Добавление фото
-			foreach($_POST['images'] as $k=>$image){
-				if(IsRenameNeeded($image)){
-					$to_rename[$k] = $image;
-				}else{
-					$no_rename[$k] = $image;
-				}
-			}
-			// print_r($to_rename);die();
-			//Высчитываем номер посл. добавленной картинки
-			if(isset($no_rename) && !empty($no_rename)){
-				$i = 0;
-				foreach($no_rename as $k=>$value){
-					$img_info = pathinfo($value);
-					$num_arr = explode('-',$img_info['filename']);
-					$num = array_pop($num_arr);
-					if($num > $i){
-						$i = $num;
+			foreach($_POST['images'] as $k=>&$image){
+				if(strpos($image, '/temp/') !== false){
+					$Images = new Images();
+					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+					$Images->checkStructure($path);
+					$file = pathinfo($GLOBALS['PATH_global_root'].$image);
+					if(strpos($file['filename'], $_POST['art']) === false){
+						$file['filename'] = $_POST['art'];
+						if(!empty(glob($GLOBALS['PATH_product_img'].'original/*/*/*/'.$file['filename'].'.*'))){
+							$file['filename'] .= '-'.GenerateNewImageName($file['filename']);
+						}
+						$file['basename'] = $file['filename'].'.'.$file['extension'];
 					}
-				}
-			}else{
-				$i = 0;
-			}
-			if(isset($to_rename) && !empty($to_rename)){
-				foreach($to_rename as $key => $value){
-					//$newname = $_POST['art'].'-'.(count($_POST['images'])-count($to_rename)+$i+1).'.jpg';
-					$newname = $_POST['art'].'-'.($i+1).'.jpg';
-					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']), '', $value));
-					$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
-					if(is_dir($path) && file_exists($path.$file['basename'])){
-						rename($path.$file['basename'], $path.$newname);
-						$_POST['images'][$key] = str_replace($GLOBALS['PATH_root'].'..', '', $path.$newname);
-						$i++;
+					rename($GLOBALS['PATH_global_root'].$image, $path.$file['basename']);
+					$to_resize[] = $file['basename'];
+					//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+					$size = getimagesize($path.$file['basename']); //Получаем ширину, высоту, тип картинки
+					if($size[0] > 1000 || $size[1] > 1000){
+						$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
+						//Определяем размеры нового изображения
+						if(max($size[0], $size[1]) == $size[0]){
+							$width = 1000;
+							$height = 1000/$ratio;
+						}else if(max($size[0], $size[1]) == $size[1]){
+							$width = 1000*$ratio;
+							$height = 1000;
+						}
+						$res = imagecreatetruecolor($width, $height);
+						imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+						$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($path.$file['basename']):imagecreatefrompng($path.$file['basename']);
+						imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
+						imagejpeg($res, $path.$file['basename']);
 					}
-					$to_resize[] = $newname;
+					$image = str_replace($GLOBALS['PATH_global_root'], '/', $path.$file['basename']);
 				}
 			}
 			$response = $Images->resize(false, $to_resize);
 		}
 
-		//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-		if(!empty($to_resize)){
-			foreach($to_resize as $filename){
-				$size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-				if($size[0] > 1000 || $size[1] > 1000){
-					$ratio=$size[0]/$size[1]; //коэфициент соотношения сторон
-					//Определяем размеры нового изображения
-					if(max($size[0], $size[1]) == $size[0]){
-						$width = 1000;
-						$height = 1000/$ratio;
-					}else if(max($size[0], $size[1]) == $size[1]){
-						$width = 1000*$ratio;
-						$height = 1000;
-					}
-				}
-				$res = imagecreatetruecolor($width, $height);
-				imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-				$src = $size['mime']=='image/jpeg'?imagecreatefromjpeg($path.$filename):imagecreatefrompng($path.$filename);
-				imagecopyresampled($res, $src, 0,0,0,0, $width, $height, $size[0], $size[1]);
-				imagejpeg($res, $path.$filename);
-			}
-		}
 		if($products->UpdateProduct($_POST)){
 			$err_mes = '';
 			//обновление видео товара
@@ -137,31 +115,31 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			//обновление Фото товара
 			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null, isset($_POST['images_visible'])?$_POST['images_visible']:null);
 
-			if(isset($_POST['id_supplier'])){
-				//Формирем массив поставщиков товара
-				for($i=0; $i < count($_POST['id_supplier']); $i++){
-					$supp_arr[] = array(
-						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
-						"id_supplier" => $_POST['id_supplier'][$i],
-						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
-						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
-						"product_limit" => $_POST['product_limit'][$i],
-						"inusd" => $_POST['inusd'][$i]
-					);
-				}
-				foreach($supp_arr as $k => $value){
-					$value['id_product'] = $id_product;
-					if($value['id_assortiment'] === false){
-						//Добавляем поставщика в ассортимент
-						if(!$products->AddToAssortWithAdm($value)){
-							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
-						}
-					}else{
-						//Обновляем данные в ассортименте
-						$products->UpdateAssortWithAdm($value);
-					}
-				}
-			}
+			// if(isset($_POST['id_supplier'])){
+			// 	//Формирем массив поставщиков товара
+			// 	for($i=0; $i < count($_POST['id_supplier']); $i++){
+			// 		$supp_arr[] = array(
+			// 			"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
+			// 			"id_supplier" => $_POST['id_supplier'][$i],
+			// 			"price_opt_otpusk" => $_POST['supplier_price_opt'][$i],
+			// 			"price_mopt_otpusk" => $_POST['supplier_price_mopt'][$i],
+			// 			"active" => $_POST['supplier_product_available'][$i],
+			// 			"inusd" => $_POST['inusd'][$i]
+			// 		);
+			// 	}
+			// 	foreach($supp_arr as $k => $value){
+			// 		$value['id_product'] = $id_product;
+			// 		if($value['id_assortiment'] === false){
+			// 			//Добавляем поставщика в ассортимент
+			// 			if(!$products->AddToAssortWithAdm($value)){
+			// 				$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
+			// 			}
+			// 		}else{
+			// 			//Обновляем данные в ассортименте
+			// 			$products->UpdateAssortWithAdm($value);
+			// 		}
+			// 	}
+			// }
 			//Отвязываем постащика от товара
 			if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
 				foreach($_POST['del_from_assort'] as &$id_assort){
@@ -256,11 +234,17 @@ if(true == $parsed_res['issuccess']){
 	$tpl_center .= $parsed_res['html'];
 }
 function IsRenameNeeded($path){
-	$path_arr = explode('/', $path);
-	$file_name = array_pop($path_arr);
-	$exists = glob($GLOBALS['PATH_product_img'].'original/*/*/*/'.$file_name);
-	if(!strpos($path, str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img'])) && !empty($exists) && file_exists($GLOBALS['PATH_product_img'].'..'.$path)){
-		return false;
+	$file = pathinfo($GLOBALS['PATH_root'].$path);
+	$exists = glob($GLOBALS['PATH_product_img'].'original/*/*/*/'.$file['basename']);
+	if(!empty($exists)){
+		return true;
 	}
-	return true;
+	return false;
+}
+function GenerateNewImageName($filename, $i = 1){
+	if(!empty(glob($GLOBALS['PATH_product_img'].'original/*/*/*/'.$filename.'-'.$i.'.*'))){
+		$i++;
+		$i = GenerateNewImageName($filename, $i);
+	}
+	return $i;
 }

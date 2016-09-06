@@ -79,7 +79,7 @@
 }
 #quiz .quiz_footer .progress {
 	float: right;
-	width: 50%;
+	width: 60%;
 	padding: 1em;
 	height: 36px;
 }
@@ -118,12 +118,16 @@
 }
 #quiz .step_2 .progress .line:before {
 	right: 10%;
+	right: 7%;
 }
 #quiz .step_3 .progress .line:before {
 	right: 7%;
+	right: 5%;
 }
 #quiz .step_4 .progress .line:before {
 	right: 3%;
+	right: 0%;
+	background: #52cf55;
 }
 #quiz .step_5 .progress .line:before {
 	right: 0%;

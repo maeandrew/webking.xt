@@ -1,114 +1,51 @@
 <h1><?=$header?></h1>
 <div class="products_page">
-	<?if((isset($avg_chart) && !empty($avg_chart)) && $GLOBALS['CurrentController'] != 'search'){?>
-		<div class="avg_chart_wrap">
-			<?$values = array();
-			foreach($avg_chart as $key => $val){
-				for($i=1; $i <= 12; $i++) {
-					if($val['opt'] == 0 && $val['count'] > 0){
-						$values['mopt'][] = $val['value_'.$i];
-					}elseif($val['opt'] == 1 && $val['count'] > 0){
-						$values['opt'][] = $val['value_'.$i];
-					}
-				}
-			}
-			$labels = array( 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
-			$labels_min = array(1);
-			$chart_regi = array(10);?>
-			<div class="flex_container">
-				<script>var curve = {};</script>
-				<canvas id="chart" class="chart" height="150"></canvas>
-				<script>
-					var options = {
-						bezierCurve: true,
-						scaleShowGridLines: true,
-						scaleShowLabels: false,
-						scaleShowHorizontalLines: false,
-						pointDot: false,
-						pointHitDetectionRadius: 30,
-						datasetFill: false,
-					};
-					curve = {
-						labels: <?=json_encode($labels);?>,
-						datasets: [
-							{
-								label: "",
-								fillColor: "rgba(101,224,252,0)",
-								strokeColor: "rgba(1,139,6,1)",
-								pointStrokeColor: "transparent",
-								pointHighlightFill: "transparent",
-								pointHighlightStroke: "rgba(101,224,253,1)",
-								data: <?=json_encode($chart_regi);?>
-							},
-							{
-								label: "",
-								fillColor: "rgba(101,224,252,0)",
-								strokeColor: "rgba(1,139,6,1)",
-								pointStrokeColor: "transparent",
-								pointHighlightFill: "transparent",
-								pointHighlightStroke: "rgba(101,224,253,1)",
-								data: <?=json_encode($labels_min);?>
-							},
-							<?if (isset($values['mopt'])){?>
-								{
-									label: "Розница",
-									strokeColor: "#018b06",
-									pointStrokeColor: "rgba(1,139,6,.7)",
-									pointHighlightFill: "#018b06",
-									pointHighlightStroke: "transparent",
-									data: <?=json_encode($values['mopt']);?>
-								},											
-							<?}
-							if (isset($values['opt'])){?>
-								{
-									label: "Опт",
-									fillColor: "rgba(101,224,252,0)",
-									strokeColor: "#FF5722",
-									pointStrokeColor: "transparent",
-									pointHighlightFill: "#FF5722",
-									pointHighlightStroke: "rgba(101,224,253,1)",
-									data: <?=json_encode($values['opt']);?>
-								}
-							<?}?>
-						]
-					};
-					$(function(){
-						var ctx = document.getElementById("chart").getContext("2d");
-						var myLineChart = new Chart(ctx).Line(curve, options);
-					});
-				</script>
-			</div>
+	<!-- Отображение подкатегорий в топе списка продуктов -->
+	<?if(!empty($category['subcats'])){?>
+		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
+			<?php foreach ($category['subcats'] as $value) {?>
+				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
+					<span class="subCategoryImageWrap">
+						<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+					</span>
+					<span class="subCategoryTitleWrap">
+						<span class="subCategoryTitle"><?=$value['name']?></span>
+					</span>
+				</a>
+			<?}?>
+		</div>
+	<?}?>
+	<?if(!empty($category['subcats'])){?>
+		<div class="subCategories mdl-cell--hide-phone">
+			<?php foreach ($category['subcats'] as $value) {?>
+				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
+					<span class="subCategoryImageWrap">
+						<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+					</span>
+					<span class="subCategoryTitleWrap">
+						<span class="subCategoryTitle"><?=$value['name']?></span>
+					</span>
+				</a>
+			<?}?>
+		</div>
+	<?}?>
+	<?if((isset($chart_html) && !empty($chart_html)) && $GLOBALS['CurrentController'] != 'search'){?>
+		<div class="avg_chart_wrap mdl-cell--hide-tablet mdl-cell--hide-phone">
 			<div class="avg_chart_det_wrap">
+				<div class="chart_title">График спроса категории</div>
 				<div class="line_det">
 					<span class="legenda roz"><i></i> - Розничный</span>
 					<span class="legenda opt"><i></i> - Оптовый</span>
 				</div>
-				<span class="avg_chart_det_btn mdl-button mdl-js-button mdl-js-ripple-effect <?=$avg_chart[0]['count'] < 2 || $avg_chart[1]['count'] < 2 ?'hidden':null;?>">Детали<i class="material-icons">keyboard_arrow_right</i></span>
 			</div>
-		</div>
-	<?}?>
-
-	<!-- Отображение подкатегорий в топе списка продуктов -->
-	<?if (!empty($category['subcats'])) {?>
-		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
-			<?php foreach ($category['subcats'] as $value) {?>
-				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
-					<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">	
-					<span class="subCategoryTitle"><?=$value['name']?></span>
-				</a>
-			<?}?>
-		</div>
-	<?}?>
-
-	<?if (!empty($category['subcats'])) {?>
-		<div class="subCategories mobile_carousel mdl-cell--hide-phone hidden">
-			<?php foreach ($category['subcats'] as $value) {?>
-				<!--<a href="<?=Link::Category($value['translit'])?>"><?=$value['name']?></a><span class="separator">•</span>-->
-				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
-					<img class="hidden" src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>">
-					<span class="subCategoryTitle"><?=$value['name']?></span>
-				</a>
-			<?}?>
+			<?=$chart_html;?>
+			<div class="avg_chart_det_wrap">
+				<div id="details_btn" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>" class="avg_chart_det_btn avg_chart_det_btn_js mdl-button mdl-js-button <?=$chart_details?'hidden':null?>">Детали<i class="material-icons">&#xE315;</i></div>
+			</div>
+			<div class="charts_container">
+				<div class="charts_title hidden">Графики, на основании которых построен график средних значений</div>
+				<div class="charts_wrap mdl-grid"></div>
+			</div>
 		</div>
 	<?}?>
 	<div class="row">
@@ -136,8 +73,33 @@
 						<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
 						<span class="mdl-tooltip" for="changeToColumn">Колонками</span>
 					</div>
+					<!--<a href="#" class="graph_up hidden"><i class="material-icons">timeline</i></a>
+				 	<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
+						<a href="#" class="show_demand_chart_js one"><i class="material-icons">timeline</i></a>
+					<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
+						<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
+					<?}?> -->
 				</div>
+				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9))){?>
+					<a href="#" class="show_demand_chart_js two mdl-cell--hide-phone mdl-cell--hide-tablet" data-idcategory="<?=isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:0;?>"><i class="material-icons">timeline</i></a>
+				<?}?>
+				<div class="productsListView">
+					<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+					<span class="mdl-tooltip" for="changeToList">Вид списком</span>
+					<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+					<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
+					<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
+					<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
+				</div>
+				<!-- <div class="catalog_btn btn_js filters_mob_btn_js mdl-cell--hide-desktop" data-name="catalog"><i class="material-icons">filter_list</i>Фильтры</div> -->
+				<div class="filters_mob_btn filters_mob_btn_js btn_js mdl-cell--hide-desktop" data-name="catalog"><i class="material-icons">filter_list</i></div>
+				<?=$cart_info;?>
 			</div>
+			<?/*if(isset($list_categories)){?>
+				<?foreach($list_categories as &$v){?>
+					<a href="<?=_base_url?>/<?=$v['translit']?>/?query=<?=$_SESSION['search']['query']?>&search_subcategory=<?=$v['id_category']?>"><input type="button" value="<?=$v['name']. ' ('. $v['count'].')'?>"></a>&nbsp;&nbsp;
+				<?}?>
+			<?}*/?>
 			<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
 				<div class="row">
 					<div class="products">
@@ -155,13 +117,6 @@
 						<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 					</div>
 					<?if(isset($cnt) && $cnt >= 30){?>
-						<!-- <div class="sort_page sort_page_bottom">
-							<?if($GLOBALS['CurrentController'] == 'search'){?>
-								<a href="<?=_base_url?>/search/limitall/" <?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
-							<?}else{?>
-								<a href="<?=_base_url?>/products/<?=$curcat['id_category']?>/<?=$curcat['translit']?>/limitall/" <?=(isset($_GET['limit']) && $_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
-							<?}?>
-						</div> -->
 						<?if($GLOBALS['Page_id'] != $pages_cnt && $GLOBALS['CurrentController'] !== 'search'){?>
 							<p class="show_more show_more_js"><a href="#" data-cnt="<?=$cnt;?>">Показать еще 30 товаров</a></p>
 						<?}?>
@@ -182,22 +137,18 @@
 	</div>
 </div><!--class="products"-->
 <script>
-	$('#owl-subcategories_slide_js').owlCarousel({
-			center:			true,
-			dots:			true,
-			items:			1,
-			lazyLoad:		true,
-			/*loop:			true,*/
-			margin:			20,
-			nav:			true,
-			/*video:			true,
-			videoHeight:	345,
-			videoWidth:		345,*/
-			navText: [
-				'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
-				'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
-			]
-	});
+	// $('#owl-subcategories_slide_js').owlCarousel({
+	// 		center:			true,
+	// 		dots:			true,
+	// 		items:			1,
+	// 		lazyLoad:		true,
+	// 		margin:			20,
+	// 		nav:			true,
+	// 		navText: [
+	// 			'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+	// 			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+	// 		]
+	// });
 	$(function(){
 		<?if(isset($_COOKIE['product_view'])){?>
 			// ChangeView('<?=$_COOKIE['product_view']?>');
@@ -209,73 +160,20 @@
 
 		ListenPhotoHover();//Инициализания Preview
 
-		//Показать еще 30 товаров
-		/*$('.show_more_js').on('click', function(e){
-			e.preventDefault();
-			var page = $(this).closest('.products_page'),
-				id_category = current_id_category,
-				start_page = parseInt(page.find('.paginator li.active').first().text()),
-				current_page = parseInt(page.find('.paginator li.active').last().text()),
-				next_page = current_page+1,
-				shown_products = (page.find('.card').get()).length,
-				skipped_products = 30*(start_page-1),
-				count = $(this).data('cnt');
-			console.log(page.find('.paginator li.active'));
-			console.log('start_page '+start_page);
-			console.log('shown_products '+shown_products);
-			$('.show_more').append('<span class="load_more"></span>');
-			var data = {
-				action: 'getmoreproducts_desctop',
-				id_category: id_category,
-				shown_products: shown_products,
-				skipped_products: skipped_products
-			};
-			ajax('products', 'getmoreproducts', data, 'html').done(function(data){
-		   		var product_view = $.cookie('product_view'),
-		   			show_count = parseInt((count-30)-parseInt(skipped_products+shown_products));
-				page.find('.products').append(data);
-				$("img.lazy").lazyload({
-					effect : "fadeIn"
-				});
-		   		if(page.find('.paginator li.page'+next_page).length < 1){
-					if(parseInt(count-parseInt(skipped_products+shown_products)+30) > 30){
-						page.find('.paginator li.next_pages').addClass('active').find('a').attr('href','#');
-					}else{
-						page.find('.paginator li.last_page').addClass('active').find('a').attr('href','#');
-					}
-				}else{
-					page.find('.paginator li.page'+next_page).addClass('active').find('a').attr('href','#');
+		/* Открытие фильтров моб.вид */
+		$('.filters_mob_btn_js').on('click', function(){
+			if($('.activeFilters_js').hasClass('active') === false) {
+				var name = $('.activeFilters_js').find('i').text();
+				if (name == 'filter_list') {
+					$('.activeFilters_js').find('i').text('highlight_off');
+					$('.activeFilters_js').find('span.title').text('Скрыть');
+					$('.second_nav, .news ').slideUp();
+					$('.included_filters').hide();
+					$('.filters').fadeIn();
+					$('.activeFilters_js').addClass('active');
 				}
-
-				if(show_count < 0){
-					$('#show_more_products').hide();
-				}
-
-				//Инициализация добавления товара в избранное
-				$('.preview_favorites').click(function(event) {
-					id_product = $(this).attr('data-idfavorite');
-					AddFavorite(event,id_product);
-				});
-				ListenPhotoHover();//Инициализания Preview
-
-				//Добавление товара в корзину
-				$('.qty_js').on('change', function(){
-					var id =  $(this).closest('.product_buy').attr('data-idproduct'),
-						qty  = $(this).val(),
-						note = $(this).closest('.product_section').find('.note textarea').val();
-					SendToAjax (id,qty,false,false,note);
-				});
-				$('.buy_btn_js').on('click', function (){
-					var id =  $(this).closest('.product_buy').attr('data-idproduct'),
-						qty = $(this).closest('.product_buy').find('.qty_js').val(),
-						note = $(this).closest('.product_section').find('.note textarea').val();
-					SendToAjax (id,qty,false,false,note);
-				});
-
-				$('.load_more').remove();
-		   });
-		});*/
-
+			}
+		});
 	});
 
 </script>

@@ -6,8 +6,8 @@ class Managers extends Users{
 		$this->usual_fields = array("id_user");
 	}
 	public function SetFieldsById($id, $all=0){
-		global $User;
-		$User->SetFieldsById($id, $all);
+		global $Users;
+		$Users->SetFieldsById($id, $all);
 		$active = "AND active = 1";
 		if($all == 1){}
 			$active = '';
@@ -20,7 +20,7 @@ class Managers extends Users{
 		if (!$this->fields)
 			return false;
 		else{
-			$this->fields = array_merge($this->fields,$User->GetFields());
+			$this->fields = array_merge($this->fields, $Users->GetFields());
 			return true;
 		}
 	}
