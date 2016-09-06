@@ -149,7 +149,7 @@
 									</div>
 									<div class="content">
 										<div class="mdl-tabs__panel is-active" id="details-panel-<?=$i['id_order']?>">
-											<div class="info">
+											<!-- <div class="info">
 												<div class="date">
 													<span class="icon">
 														<svg class="icon">
@@ -186,7 +186,7 @@
 													<span class="label">Скидка</span>
 													<span class="value"><?=(1 - $i['discount']) * 100?>%</span>
 												</div>
-											</div>
+											</div> -->
 											<div class="additional">
 												<div class="manager <?=$i['mark'] != null?'voted':null?>" data-id="<?=$i['contragent_info']['id_user']?>">
 													<div class="label">Ваш менеджер</div>
@@ -281,15 +281,6 @@
 																	<span class="value"><?=$i['phone']['address']?></span>
 																</div> -->
 														<?}else{?>
-															<?if(isset($msg_address)){?>
-																<div class="msg-<?=$msg['type']?>">
-																	<div class="msg_icon">
-																		<i class="material-icons"></i>
-																	</div>
-																    <p class="msg_title">!</p>
-																    <p class="msg_text"><?=$msg_address['text']?></p>
-																</div>
-															<?}?>
 															<div class="change_delivery">
 																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
 																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
@@ -303,6 +294,28 @@
 																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
 																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
 															</div>
+															<?if(isset($msg_address)){?>
+																<div class="msg-<?=$msg['type']?>">
+																	<div class="msg_icon">
+																		<i class="material-icons"></i>
+																	</div>
+																    <p class="msg_title">!</p>
+																    <p class="msg_text"><?=$msg_address['text']?></p>
+																</div>
+															<?}?>
+															<!-- <div class="change_delivery">
+																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																		<option value=""></option>
+																		<?foreach ($address_list as $item) {?>
+																			<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+																		<?}?>
+																	</select>
+																	<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
+																</div>
+																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
+															</div> -->
 														<?}?>
 													</div>
 												</div>
@@ -503,8 +516,6 @@ $(function(){
 			addLoadAnimation('.delivery_details');
 			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
 				$('.newdelivery .details').html(data);
-				// $('.change_delivery').addClass('hidden');
-				// $('.details .msg-info').addClass('hidden');
 			});
 		}
 	});
