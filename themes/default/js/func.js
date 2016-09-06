@@ -702,11 +702,11 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 				}
 			}
 		}
-		var snackbarContainer = document.querySelector('#demo-toast-example');
+		var snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	}).fail(function(data){
 		var res = {message: 'Данный функционал доступен только для клиентов'},
-			snackbarContainer = document.querySelector('#demo-toast-example');
+			snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	});
 	return false;

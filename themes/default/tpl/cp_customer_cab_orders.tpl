@@ -112,7 +112,7 @@
 										<div class="tabs mdl-tabs__tab-bar">
 										<div class="orderBntsMob">
 												<h5>Заказ:</h5>
-												<a class="newOrderLink" href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a class="newOrderLink" href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
 												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
@@ -132,7 +132,7 @@
 											<div class="orderBnts">
 
 												<h5>Заказ:</h5>
-												<a href="http://xt/"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
+												<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
 												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
 
 												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
@@ -233,33 +233,38 @@
 												<div class="newdelivery">
 													<div class="label">Информация о доставке</div>
 													<div class="details">
-														<div class="line">
-															<span class="label">ТТН:</span>
-															<span class="value"> - </span>
+														<div class="servise_logo">
+															<img src="/images/noavatar.png" alt="avatar" />
 														</div>
-														<div class="line">
-															<span class="label">Компания доставки:</span>
-															<span class="value"><?=$i['address_info']['shipping_company']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Область:</span>
-															<span class="value"><?=$i['address_info']['region']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Город:</span>
-															<span class="value"><?=$i['address_info']['city']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Тип доставки:</span>
-															<span class="value"><?=$i['address_info']['delivery']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Отделение:</span>
-															<span class="value"><?=$i['address_info']['delivery_department']?></span>
-														</div>
-														<div class="line">
-															<span class="label">Адрес:</span>
-															<span class="value"><?=$i['address_info']['address']?></span>
+														<div class="delivery_details">
+															<div class="line hidden">
+																<span class="label">ТТН:</span>
+																<span class="value"> - </span>
+															</div>
+															<div class="line">
+																<span class="label">Компания доставки:</span>
+																<span class="value"><?=$i['address_info']['shipping_company']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Область:</span>
+																<span class="value"><?=$i['address_info']['region']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Город:</span>
+																<span class="value"><?=$i['address_info']['city']?></span>
+															</div>
+															<div class="line">
+																<span class="label">Тип доставки:</span>
+																<span class="value"><?=$i['address_info']['delivery']?></span>
+															</div>
+															<div class="line">
+																<span class="label <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">Отделение:</span>
+																<span class="value"><?=$i['address_info']['delivery_department']?></span>
+															</div>
+															<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
+																<span class="label">Адрес:</span>
+																<span class="value"><?=$i['address_info']['address']?></span>
+															</div>
 														</div>
 														<!-- <div class="line">
 															<span class="label">Получатель:</span>
@@ -273,6 +278,17 @@
 															<span class="label">Номер телефона:</span>
 															<span class="value"><?=$i['phone']['address']?></span>
 														</div> -->
+													</div>
+													<div class="change_delivery">
+														<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+															<select name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																<?foreach ($address_list as $item) {?>
+																	<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+																<?}?>
+															</select>
+														</div>
+														<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+														<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
 													</div>
 												</div>
 											</div>
@@ -461,6 +477,15 @@ $(function(){
 			}else{
 				$('.details').find('.dislike_manager_' + manager).addClass('active');
 			}
+		});
+	});
+	$('.change_delivery_btn_js').on('click', function(){
+		var id_addres = $('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
+		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
+		console.log(id_addres);
+		console.log(id_order);
+		ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}).done(function(data){
+			console.log(data);
 		});
 	});
 });

@@ -13,7 +13,35 @@
 				echo json_encode($Orders->RestoreDeleted($_POST['id_order']));
 				break;
 			case 'addAddress':
-				echo json_encode($Orders->addAddress($_POST['id_order']), $_POST['id_address']);
+				if($Orders->addAddress($_POST['id_order'], $_POST['id_address'])){
+					$Address = new Address();
+					$res = $Address->getAddressOrder($_POST['id_order']);
+					$addr = '<div class="line">
+								<span class="label">Компания доставки:</span>
+								<span class="value">'.$res['shipping_company'].'</span>
+							</div>
+							<div class="line">
+								<span class="label">Область:</span>
+								<span class="value">'.$res['region'].'</span>
+							</div>
+							<div class="line">
+								<span class="label">Город:</span>
+								<span class="value">'.$res['city'].'</span>
+							</div>
+							<div class="line">
+								<span class="label">Тип доставки:</span>
+								<span class="value">'.$res['delivery'].'</span>
+							</div>
+							<div class="line">
+								<span class="label '.(empty($res['delivery_department'])?'hidden':null).'">Отделение:</span>
+							<span class="value">'.$res['delivery_department'].'</span>
+							</div>
+							<div class="line'.(empty($res['address'])?'hidden':null).'">
+							<span class="label">Адрес:</span>
+							<span class="value">'.$res['address'].'</span>
+							</div>';
+					echo $addr;
+				}
 				break;
 			default:
 				break;

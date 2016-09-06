@@ -294,8 +294,6 @@ foreach($suppliers_data as $id_supplier=>$s){
 		}
 		if(isset($_POST['send_mail'])){
 			$Mailer->SendOrdersToSuppliers($suppliers_data[$id_supplier], $id_supplier, $orders_data, $contragent_data, $supplier_order);
-			//require_once($GLOBALS['PATH_model'].'SMSClient_c.php');
-			//$sms = new SMSClient('0505953494','5953494');
 			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
 			if(isset($s['real_phone']) && $s['real_phone'] != ''){
 				$res = $Gateway->execCommad(
@@ -308,7 +306,6 @@ foreach($suppliers_data as $id_supplier=>$s){
 						'sms_lifetime' => 0
 					)
 				);
-			//	$sms->sendSMS($GLOBALS['CONFIG']['invoice_logo_text'], $s['real_phone'], 'На ваш e-mail отправлен заказ от '.$GLOBALS['CONFIG']['invoice_logo_text']);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-header{position:fixed;top:0;left:0;right:0;height:52px;z-index:1000;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);margin-left:5px;border-right:1px solid #e0e0e0}
+header{position:fixed;top:0;left:0;right:0;height:52px;z-index:1000;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 header .header_wrapp{max-width:1600px;margin:0 auto;padding:10px;height:52px}
 header .header_wrapp .logo{float:left}
 header .header_wrapp .logo a{display:block}

@@ -50,6 +50,7 @@ div[for=rating_block]{font-size:12px}
 .product .mdl-tabs__panel{display:none}
 .product .mdl-tabs__tab:last-child{border-right:none}
 .product .tab-content{padding:10px;border:1px solid #e0e0e0;border-top:0;background:#fff}
+#description p{text-align:justify}
 #specifications .mdl-grid{line-height:2.5em;border-bottom:1px solid #e0e0e0}
 #specifications .mdl-grid:last-of-type{border-bottom:0}
 #specifications .mdl-grid:nth-of-type(odd){background:#f7f7f7}
@@ -95,6 +96,7 @@ div[for=rating_block]{font-size:12px}
 #comments .feedback_container .rating_stars li{vertical-align:middle}
 #comments .feedback_container p.feedback_comment{padding-top:5px;clear:both;text-align:justify;line-height:1.4em}
 #comments .feedback_container .reply_wrap{margin-left:5em}
+.seasonality{position:relative}
 .product_main_img #mainVideoBlock{height:100%;width:100%;position:absolute;top:0}
 #owl-product_mini_img_js .videoBlock{width:120px;height:120px}
 #owl-product_mini_img_js .videoBlock .videoBlockShield{width:120px;height:120px;position:absolute;z-index:100;left:0;top:0}

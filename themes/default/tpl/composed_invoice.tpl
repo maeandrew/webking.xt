@@ -488,9 +488,9 @@ tr.min td {
 									<td class="c2"><?=$i['art']?></td>
 									<td class="c3" style="padding: 0;">
 										<?if($i['image'] != ''){?>
-											<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>">
+											<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
 										<?}else{?>
-											<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>" />
+											<img height="96" width="96" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 										<?}?>
 									</td>
 									<td class="name c4">
@@ -524,9 +524,9 @@ tr.min td {
 									<td class="c2"><?=$i['art']?></td>
 									<td class="c3" style="padding: 0;">
 										<?if($i['image'] != ''){?>
-											<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>">
+											<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
 										<?}else{?>
-											<img height="96" width="96" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'medium')?>" />
+											<img height="96" width="96" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 										<?}?>
 									</td>
 									<td class="name c4">

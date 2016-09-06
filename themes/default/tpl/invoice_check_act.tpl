@@ -153,12 +153,12 @@
 			<div class="photo">
 				<?if(!empty($i['images'])){
 					foreach($i['images'] as $key => $image){?>
-						<img <?=$wh?> src="<?=_base_url.G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$i['name']?>"<?=$key==0?' class="active_img"':null;?>>
+						<img <?=$wh?> src="<?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$i['name']?>"<?=$key==0?' class="active_img"':null;?>>
 					<?}
 				}else{
 					for($key=1; $key < 4; $key++){
 						if(!empty($i['img_'.$key])){?>
-							<img <?=$wh?> src="<?=_base_url.G::GetImageUrl($i['img_'.$key], 'medium')?>" alt="<?=$i['name']?>"<?=$key==1?' class="active_img"':null;?>>
+							<img <?=$wh?> src="<?=G::GetImageUrl($i['img_'.$key], 'medium')?>" alt="<?=$i['name']?>"<?=$key==1?' class="active_img"':null;?>>
 						<?}
 					}
 				}?>
