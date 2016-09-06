@@ -339,19 +339,19 @@
 				<p>Ручное изменения скидки заказа.</p>
 				<div class="column_switcher_block column_switcher_block_js">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_3">
-						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="0%" <?=$percent == 0?'checked':null?>>
+						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="3" <?=$percent == 0?'checked':null?>>
 						<span class="mdl-radio__label">0%</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_2">
-						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="10%" <?=$percent == 10?'checked':null?>>
+						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="2" <?=$percent == 10?'checked':null?>>
 						<span class="mdl-radio__label">10%</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_1">
-						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="16%" <?=$percent == 16?'checked':null?>>
+						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="1" <?=$percent == 16?'checked':null?>>
 						<span class="mdl-radio__label">16%</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_0">
-						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="21%" <?=$percent == 21?'checked':null?>>
+						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="0" <?=$percent == 21?'checked':null?>>
 						<span class="mdl-radio__label">21%</span>
 					</label>
 				</div>
