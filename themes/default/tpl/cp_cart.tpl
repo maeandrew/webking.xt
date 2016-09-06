@@ -236,7 +236,7 @@
 				</div>
 			</div>
 		<?}
-		$cart_sum = $_SESSION['cart']['products_sum']['3'];
+		$cart_sum = $_SESSION['cart']['products_sum'][3];
 		$percent_sum = $total = 0;
 		if($cart_sum >= 0 && $cart_sum < $GLOBALS['CONFIG']['retail_order_margin']) {
 			$percent = $percent_sum = 0;
@@ -260,19 +260,19 @@
 			<div class="total">
 				<div class="label totaltext">Итого:</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many"><?=isset($cart_sum)?number_format($cart_sum, 2, ",", ""):"0,00"?></span> грн.
+					<span class="summ_many"><?=isset($_SESSION['cart']['products_sum'][3])?number_format($_SESSION['cart']['products_sum'][3], 2, ",", ""):"0,00"?></span> грн.
 				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">Вы экономите:</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many"><?=number_format($percent_sum, 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][3]-$_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">К оплате:</div>
 				<div class="total_summ">
-					<span class="summ_many"><?=number_format($total, 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 		</div>
