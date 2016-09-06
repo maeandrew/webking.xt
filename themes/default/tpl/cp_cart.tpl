@@ -335,6 +335,35 @@
 				<p>Клиент не найден.</p>
 			<?}?>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search"><?=isset($customer_order)?'Изменить':'Добавить'?></button>
+			<div class="manual_cart_column_block">
+				<p>Ручное изменения скидки заказа.</p>
+				<div class="column_switcher_block column_switcher_block_js">
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_3">
+						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="0%" <?=$percent == 0?'checked':null?>>
+						<span class="mdl-radio__label">0%</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_2">
+						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="10%" <?=$percent == 10?'checked':null?>>
+						<span class="mdl-radio__label">10%</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_1">
+						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="16%" <?=$percent == 16?'checked':null?>>
+						<span class="mdl-radio__label">16%</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_0">
+						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="21%" <?=$percent == 21?'checked':null?>>
+						<span class="mdl-radio__label">21%</span>
+					</label>
+				</div>
+				<div class="switch_comment">
+					<textarea placeholder="Причина ручного изменения скидки заказа" cols="60" rows="3"></textarea>
+					<!-- <div class="mdl-textfield mdl-js-textfield">
+						<textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+						<label class="mdl-textfield__label" for="sample5">Причина ручного изменения скидки заказа</label>
+					</div> -->
+				</div>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored manual_switch_btn_js">Применить</button>
+			</div>
 		</div>
 	<?}?>
 
@@ -741,6 +770,24 @@
 				$("#contrlink").val(0);
 				$("#contrlink").fadeOut();
 			}
+			$('.switch_comment textarea').keyup(function(){
+				$('.switch_comment').removeClass('activeNoteArea');
+			});
+			$('.manual_switch_btn_js').on('click', function(){
+				var column,
+					comment = $('.switch_comment textarea').val();
+				$('.column_switcher_block_js input').each(function(){
+					if($(this).prop('checked')){
+						column = $(this).val();
+					}
+				});
+				if(comment === '' ){
+					$('.switch_comment').addClass('activeNoteArea');
+				}else{
+					console.log(column);
+					console.log(comment);
+				}
+			});
 			//---------Проверка на ввод телефона
 			/*$('#button-cart1').click(function(){
 				if(!$('.phone').val()){

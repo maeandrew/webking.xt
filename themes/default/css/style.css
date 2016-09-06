@@ -2183,6 +2183,7 @@ section .stat_year {
 #cart .note textarea:focus {
 	min-height: 30px !important;
 }
+.activeNoteArea textarea {border-color: #EF5350;}
 .activeNoteArea textarea::-webkit-input-placeholder {color:#ff5722;}
 .activeNoteArea textarea::-moz-placeholder {color:#ff5722;}
 .activeNoteArea textarea:-ms-input-placeholder {color:#ff5722;}
@@ -4225,6 +4226,23 @@ iframe[name="google_conversion_frame"] {
 	font-size: 16px;
 	font-weight: bold;
 }
+
+#cart .manual_cart_column_block {
+	padding-top: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+#cart .manual_cart_column_block .column_switcher_block {
+	margin-top: 5px;
+    margin-bottom: 10px;
+}
+#cart .manual_cart_column_block .switch_comment {
+	margin-bottom: 10px;
+}
+#cart .manual_cart_column_block .switch_comment textarea {
+	padding: 10px;
+}
+
 #cart_customer_search .search_results_block {
 	display: flex;
 }
@@ -4318,6 +4336,7 @@ iframe[name="google_conversion_frame"] {
 .snackbar {
 	z-index: 10 !important;
 }
+
 
 /*Рейтинг в списке товаров*/
 .rating_block{
