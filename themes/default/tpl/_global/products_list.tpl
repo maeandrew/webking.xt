@@ -334,11 +334,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
-								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span></div>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span>
 							<?}else{?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="notfavorite favorite_icon material-icons">favorite_border</i>
-								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span></div>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span>
 							<?}?>
+						</div>
 						<div id="fortrending_<?=$item['id_product']?>" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 							<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></div>
 						<div class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
@@ -452,4 +453,5 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clearBoth"></div>
 			</div>
 		<?}
+		break;
 }?>
