@@ -3477,6 +3477,13 @@ div.modalEditOrder .applyBtn {
 	-ms-transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
 }
+.subCategories .subCategory .subCategoryImageWrap img {
+	transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.subCategories .subCategory:hover img {
+	max-height: 110%;
+	max-width: 110%;
+}
 .subCategory .subCategoryTitleWrap{
 	bottom: 0;
 	left: 0;
