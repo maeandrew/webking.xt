@@ -560,9 +560,6 @@ _:-ms-lang(x), [class^="active_"] .banner,
 		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
 	.breadcrumbs li a:hover:after {
-		-webkit-transition: none;
-		-o-transition: none;
-		transition: none;
 		border-left-color: transparent;
 	}
 	.breadcrumbs li:first-of-type a {
