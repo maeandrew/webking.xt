@@ -23,9 +23,6 @@
 			break;
 		}?></h1>
 	<div id="orders_history">
-		<!-- <div class="msg-info">
-			<p>Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").</p>
-		</div> -->
 		<?if(isset($msg)){?>
 			<div class="msg-<?=$msg['type']?>">
 				<div class="msg_icon">
@@ -233,62 +230,80 @@
 												<div class="newdelivery">
 													<div class="label">Информация о доставке</div>
 													<div class="details">
-														<div class="servise_logo">
-															<img src="/images/noavatar.png" alt="avatar" />
-														</div>
-														<div class="delivery_details">
-															<div class="line hidden">
-																<span class="label">ТТН:</span>
-																<span class="value"> - </span>
+														<?if ($i['address_info'] !== false){?>
+																<div class="servise_logo">
+																	<img src="/images/noavatar.png" alt="avatar" />
+																</div>
+																<div class="delivery_details">
+																	<div class="line hidden">
+																		<span class="label">ТТН:</span>
+																		<span class="value"> - </span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Название:</span>
+																		<span class="value"><?=$i['address_info']['title']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Компания доставки:</span>
+																		<span class="value"><?=$i['address_info']['shipping_company']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Область:</span>
+																		<span class="value"><?=$i['address_info']['region']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Город:</span>
+																		<span class="value"><?=$i['address_info']['city']?></span>
+																	</div>
+																	<div class="line">
+																		<span class="label">Тип доставки:</span>
+																		<span class="value"><?=$i['address_info']['delivery']?></span>
+																	</div>
+																	<div class="line <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">
+																		<span class="label">Отделение:</span>
+																		<span class="value"><?=$i['address_info']['delivery_department']?></span>
+																	</div>
+																	<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
+																		<span class="label">Адрес:</span>
+																		<span class="value"><?=$i['address_info']['address']?></span>
+																	</div>
+																</div>
+																<!-- <div class="line">
+																	<span class="label">Получатель:</span>
+																	<span class="value">
+																		<?=$i['address_info']['last_name']?>
+																		<?=$i['address_info']['first_name']?>
+																		<?=$i['address_info']['middle_name']?>
+																	</span>
+																</div>
+																<div class="line">
+																	<span class="label">Номер телефона:</span>
+																	<span class="value"><?=$i['phone']['address']?></span>
+																</div> -->
+														<?}else{?>
+															<?if(isset($msg_address)){?>
+																<div class="msg-<?=$msg['type']?>">
+																	<div class="msg_icon">
+																		<i class="material-icons"></i>
+																	</div>
+																    <p class="msg_title">!</p>
+																    <p class="msg_text"><?=$msg_address['text']?></p>
+																</div>
+															<?}?>
+															<div class="change_delivery">
+																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																		<option value=""></option>
+																		<?foreach ($address_list as $item) {?>
+																			<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+																		<?}?>
+																	</select>
+																	<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
+																</div>
+																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
 															</div>
-															<div class="line">
-																<span class="label">Компания доставки:</span>
-																<span class="value"><?=$i['address_info']['shipping_company']?></span>
-															</div>
-															<div class="line">
-																<span class="label">Область:</span>
-																<span class="value"><?=$i['address_info']['region']?></span>
-															</div>
-															<div class="line">
-																<span class="label">Город:</span>
-																<span class="value"><?=$i['address_info']['city']?></span>
-															</div>
-															<div class="line">
-																<span class="label">Тип доставки:</span>
-																<span class="value"><?=$i['address_info']['delivery']?></span>
-															</div>
-															<div class="line">
-																<span class="label <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">Отделение:</span>
-																<span class="value"><?=$i['address_info']['delivery_department']?></span>
-															</div>
-															<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
-																<span class="label">Адрес:</span>
-																<span class="value"><?=$i['address_info']['address']?></span>
-															</div>
-														</div>
-														<!-- <div class="line">
-															<span class="label">Получатель:</span>
-															<span class="value">
-																<?=$i['address_info']['last_name']?>
-																<?=$i['address_info']['first_name']?>
-																<?=$i['address_info']['middle_name']?>
-															</span>
-														</div>
-														<div class="line">
-															<span class="label">Номер телефона:</span>
-															<span class="value"><?=$i['phone']['address']?></span>
-														</div> -->
-													</div>
-													<div class="change_delivery">
-														<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-															<select name="change_delivery" class="mdl-selectfield__select change_delivery_js">
-																<?foreach ($address_list as $item) {?>
-																	<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
-																<?}?>
-															</select>
-														</div>
-														<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
-														<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
+														<?}?>
 													</div>
 												</div>
 											</div>
@@ -482,11 +497,16 @@ $(function(){
 	$('.change_delivery_btn_js').on('click', function(){
 		var id_addres = $('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
 		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
-		console.log(id_addres);
-		console.log(id_order);
-		ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}).done(function(data){
-			console.log(data);
-		});
+		// console.log(id_addres);
+		// console.log(id_order);
+		if (id_addres !== undefined){
+			addLoadAnimation('.delivery_details');
+			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
+				$('.newdelivery .details').html(data);
+				// $('.change_delivery').addClass('hidden');
+				// $('.details .msg-info').addClass('hidden');
+			});
+		}
 	});
 });
 </script>

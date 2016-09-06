@@ -122,8 +122,8 @@
 	<!-- END Недоступные товары -->
 
 	<!-- New Недоступные товары -->
-	<h5>Временно недоступные товары</h5>
 	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
+		<h5>Временно недоступные товары</h5>
 		<div class="unorder_wrapp">
 			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
 				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
@@ -147,7 +147,7 @@
 							<div class="wlist_msg_wrap wlist_msg_wrap_js" data-id-product="<?=$p['id_product'];?>" <?=G::isLogged()?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?> >
 								<span class="del_wrap_js<?=isset($_SESSION['member']['waiting_list']) && in_array($p['id_product'], $_SESSION['member']['waiting_list'])?null:' hidden';?>">
 									<span id="in_wl_arrow_<?=$p['id_product']?>" class="in_waiting_list fortrending_arrow icon material-icons">trending_down</span>
-									Товар в <a href="<?=Link::Custom('cabinet','waitinglist')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> >"Листе ожидания"</a>
+									Товар в "<a href="<?=Link::Custom('cabinet','waitinglist')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> >Листе ожидания</a>"
 									<span class="mdl-tooltip" for="in_wl_arrow_<?=$p['id_product']?>">Товар уже<br>в списке ожидания</span>
 								</span>
 								<span class="add_wrap_js<?=isset($_SESSION['member']['waiting_list']) && in_array($p['id_product'], $_SESSION['member']['waiting_list'])?' hidden':null;?>">
@@ -161,11 +161,11 @@
 				</div>
 			<?}?>
 		</div>
+		<h5>Товары в корзине</h5>
 	<?}?>
 	<!-- End Недоступные товары -->
 
 	<!-- NEW Товары в корзине -->
-	<h5>Товары в корзине</h5>
 	<div class="order_wrapp">
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
@@ -236,7 +236,7 @@
 				</div>
 			</div>
 		<?}
-		$cart_sum = $_SESSION['cart']['products_sum']['3'];
+		$cart_sum = $_SESSION['cart']['products_sum'][3];
 		$percent_sum = $total = 0;
 		if($cart_sum >= 0 && $cart_sum < $GLOBALS['CONFIG']['retail_order_margin']) {
 			$percent = $percent_sum = 0;
@@ -260,19 +260,19 @@
 			<div class="total">
 				<div class="label totaltext">Итого:</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many"><?=isset($cart_sum)?number_format($cart_sum, 2, ",", ""):"0,00"?></span> грн.
+					<span class="summ_many"><?=isset($_SESSION['cart']['products_sum'][3])?number_format($_SESSION['cart']['products_sum'][3], 2, ",", ""):"0,00"?></span> грн.
 				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">Вы экономите:</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many"><?=number_format($percent_sum, 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][3]-$_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">К оплате:</div>
 				<div class="total_summ">
-					<span class="summ_many"><?=number_format($total, 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 		</div>

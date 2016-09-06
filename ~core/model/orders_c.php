@@ -575,10 +575,10 @@ class Orders {
 			$p[$ii]['filial_opt'] = 1;
 			// Определяем поставщика для товара
 			if($id_supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
-				if($item['mode'] == 'mopt'){
-					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
-				}else{
+				if($item['mode'] == 'opt'){
 					$p[$ii]['id_supplier'] = $id_supplier;
+				}else{
+					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
 				}
 				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
@@ -974,8 +974,8 @@ class Orders {
 	 */
 	public function GetSupplierForProduct($id_product, $mode){
 		// если продукт имеет эксклюзивного поставщика
-		if($id_supplier = $this->HasExclusiveSupplier($id_product, $mode)){
-			return $id_supplier;
+		if($supplier = $this->HasExclusiveSupplier($id_product, $mode)){
+			return $supplier['id_supplier'];
 		}
 		// определение списка доступных поставщиков
 		$sql = "SELECT a.id_product, a.id_supplier,

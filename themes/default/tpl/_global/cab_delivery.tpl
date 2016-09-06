@@ -35,7 +35,7 @@
 			<legend>Адрес</legend>
 			<div class="mdl-cell mdl-cell--12-col addres_field addres_elem_js">
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label region">
-					<select id="region" name="region" class="mdl-selectfield__select" required onChange="regionSelect($(this));">
+					<select id="region" name="region" class="mdl-selectfield__select" onChange="regionSelect($(this));">
 						<option value=""></option>
 						<?foreach($allregions as $region){?>
 							<option value="<?=$region['title']?>"><?=$region['title']?></option>
@@ -151,20 +151,16 @@
 				console.log(response);
 			});
 		});
-		$('.save_delivery_js').on('click', function(e){
-			var check = true;
-			$(this).closest('form').find('select', 'textarea').each(function(a){
+		//Валидация формы
+		$('#edit_contacts').submit(function(e){
+			$(this).find('select', 'textarea').each(function(){
 				if ($(this).closest('.addres_elem_js').hasClass('hidden') === false){
 					if ($(this).val() === null || $(this).val() === '') {
 						$(this).closest('div').addClass('is-invalid');
 						e.preventDefault();
-						check = false;
 					}
 				}
 			});
-			if (check === true){
-				$('.save_delivery_js').trigger('click');
-			}
 		});
 	});
 </script>
