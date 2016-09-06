@@ -21,12 +21,12 @@ G::ToGlobals(array(
 	'PATH_tpl_global'	=> _root.'~core/tpl/_global/'
 ));
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
-$theme = 'default';
-$GLOBALS['PATH_tpl'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl']);
-$GLOBALS['PATH_tpl_global'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$theme.DIRSEP, $GLOBALS['PATH_tpl_global']);
-$GLOBALS['URL_img_theme'] = _base_url.'/themes/'.$theme.'/img/';
-$GLOBALS['URL_css_theme'] = _base_url.'/themes/'.$theme.'/css/';
-$GLOBALS['URL_js_theme'] = _base_url.'/themes/'.$theme.'/js/';
+$GLOBALS['Theme'] = 'default';
+$GLOBALS['PATH_tpl'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$GLOBALS['Theme'].DIRSEP, $GLOBALS['PATH_tpl']);
+$GLOBALS['PATH_tpl_global'] = str_replace($GLOBALS['PATH_core'], _root.'themes'.DIRSEP.$GLOBALS['Theme'].DIRSEP, $GLOBALS['PATH_tpl_global']);
+$GLOBALS['URL_img_theme'] = _base_url.'/themes/'.$GLOBALS['Theme'].'/img/';
+$GLOBALS['URL_css_theme'] = _base_url.'/themes/'.$GLOBALS['Theme'].'/css/';
+$GLOBALS['URL_js_theme'] = _base_url.'/themes/'.$GLOBALS['Theme'].'/js/';
 // // ***************************** Подключение и инициализация системных классов  *****************************
 require($GLOBALS['PATH_sys'].'link_c.php');
 require($GLOBALS['PATH_sys'].'tpl_c.php');

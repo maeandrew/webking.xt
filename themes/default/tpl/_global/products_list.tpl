@@ -1,8 +1,5 @@
-<?if($GLOBALS['CurrentController'] !== 'products'){?>
-	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
-<?}?>
-<?
-$GLOBALS['descr_for_seo'] = [];
+<?=G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/page_styles/products.css');?>
+<?$GLOBALS['descr_for_seo'] = [];
 switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 		foreach($list as $item){
