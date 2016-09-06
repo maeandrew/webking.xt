@@ -1140,3 +1140,11 @@ function GetOriginalPhoto(photo){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	}, 100);
 }
+
+// Функция добавления примечания в карточку товара
+function AddNoteArea(element){
+	element.closest('.card').find('.note').removeClass('hidden');
+	if(element.closest('.card').find('.note').hasClass('note_control')){
+		element.closest('.card').find('.note').addClass('activeNoteArea');
+	}
+}
