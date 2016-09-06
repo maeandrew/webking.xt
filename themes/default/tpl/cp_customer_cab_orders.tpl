@@ -242,6 +242,10 @@
 																<span class="value"> - </span>
 															</div>
 															<div class="line">
+																<span class="label">Название:</span>
+																<span class="value"><?=$i['address_info']['title']?></span>
+															</div>
+															<div class="line">
 																<span class="label">Компания доставки:</span>
 																<span class="value"><?=$i['address_info']['shipping_company']?></span>
 															</div>
@@ -257,8 +261,8 @@
 																<span class="label">Тип доставки:</span>
 																<span class="value"><?=$i['address_info']['delivery']?></span>
 															</div>
-															<div class="line">
-																<span class="label <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">Отделение:</span>
+															<div class="line <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">
+																<span class="label">Отделение:</span>
 																<span class="value"><?=$i['address_info']['delivery_department']?></span>
 															</div>
 															<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
@@ -281,11 +285,13 @@
 													</div>
 													<div class="change_delivery">
 														<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-															<select name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+															<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+																<option value=""></option>
 																<?foreach ($address_list as $item) {?>
 																	<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
 																<?}?>
 															</select>
+															<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
 														</div>
 														<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
 														<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
@@ -482,11 +488,14 @@ $(function(){
 	$('.change_delivery_btn_js').on('click', function(){
 		var id_addres = $('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
 		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
-		console.log(id_addres);
-		console.log(id_order);
-		ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}).done(function(data){
-			console.log(data);
-		});
+		// console.log(id_addres);
+		// console.log(id_order);
+		if (id_addres !== undefined){
+			addLoadAnimation('.delivery_details');
+			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
+				$('.delivery_details').html(data);
+			});
+		}
 	});
 });
 </script>
