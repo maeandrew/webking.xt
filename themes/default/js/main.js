@@ -2047,12 +2047,21 @@ $(function(){
 		}
 	});
 
-	//Добавление недоступного товара в список ожидания из корзины
+	// Добавление недоступного товара в список ожидания из корзины
 	$('body').on('click', '.add_del_waiting_list_js', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.wlist_msg_wrap_js');
 		AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		parent.find('.add_wrap_js').addClass('hidden');
 		parent.find('.del_wrap_js').removeClass('hidden');
+	});
+
+	// Сохранение нового товара в кабинете поставщика
+	$('#submit').closest('div').on('click', function(){
+		if($(this).find('#submit').prop('disabled') == true){
+			var data = {message: 'Заполните все обязательные поля!'};
+			var snackbarContainer = document.querySelector('#snackbar');
+			snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		}
 	});
 });
