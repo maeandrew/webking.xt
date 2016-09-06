@@ -786,6 +786,7 @@
 				}else{
 					console.log(column);
 					console.log(comment);
+					ajax('cart', ' updateDiscount', {manual_price_change: column,  manual_price_change_note:comment});
 				}
 			});
 			//---------Проверка на ввод телефона
