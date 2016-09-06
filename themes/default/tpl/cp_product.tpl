@@ -215,7 +215,7 @@
 			</div>
 			<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
 		</div>
-		<div class="content_header mdl-cell--hide-phone">
+		<div class="content_header">
 			<?=$cart_info;?>
 		</div>
 		<div class="pb_wrapper">

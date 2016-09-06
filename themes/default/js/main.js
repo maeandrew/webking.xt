@@ -504,7 +504,7 @@ $(function(){
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
-			banner_height = $('.banner .cont').outerHeight();
+			// banner_height = $('.banner').outerHeight();
 			$('.banner').animate({
 				height: banner_height
 			}, 300);
@@ -2032,7 +2032,7 @@ $(function(){
 			console.log(data);
 		});
 	});
-	
+
 	// Подгрузка графика спроса по сезонам на странице товара
 	$('body').on('click', '.seasonality_js', function(event){
 		if(!$(this).hasClass('with_demand_graph')){
