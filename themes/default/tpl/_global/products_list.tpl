@@ -453,30 +453,3 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			</div>
 		<?}
 }?>
-
-<script>
-	$(function(){
-		//Инициализация добавления товара в избранное
-		$('.favorite i').click(function(e){
-			e.preventDefault();
-			if ($(this).closest('.favorite').hasClass('added')) {
-				$(this).closest('.favorite').removeClass('added');
-				RemoveFavorite($(this).closest('.favorite').data('id-product'), $(this));
-			}else{
-				$(this).closest('.favorite').addClass('added');
-				AddFavorite($(this).closest('.favorite').data('id-product'), $(this));
-			}
-		});
-		//Инициализация добавления товара в список ожидания
-		$('.waiting_list').click(function(e){
-			e.preventDefault();
-			if ($(this).hasClass('arrow')) {
-				$(this).removeClass('arrow');
-				RemoveFromWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
-			}else{
-				$(this).addClass('arrow');
-				AddInWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
-			}
-		});
-	});
-</script>

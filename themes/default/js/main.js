@@ -2104,23 +2104,25 @@ $(function(){
 	// Инициализация добавления товара в избранное
 	$('.favorite i').click(function(e){
 		e.preventDefault();
-		if ($(this).closest('.favorite').hasClass('added')){
-			$(this).closest('.favorite').removeClass('added');
-			RemoveFavorite($(this).closest('li').data('id-product'), $(this));
+		var parent = $(this).closest('.favorite');
+		if(parent.hasClass('added')){
+			parent.removeClass('added');
+			RemoveFavorite(parent.data('id-product'), $(this));
 		}else{
-			$(this).closest('.favorite').addClass('added');
-			AddFavorite($(this).closest('li').data('id-product'), $(this));
+			parent.addClass('added');
+			AddFavorite(parent.data('id-product'), $(this));
 		}
 	});
 	// Инициализация добавления товара в список ожидания
 	$('.waiting_list').click(function(e){
 		e.preventDefault();
-		if ($(this).hasClass('arrow')){
-			$('#specCont').find('.arrow').removeClass('arrow');
-			RemoveFromWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
+		var parent = $(this).closest('.fortrending');
+		if($(this).hasClass('arrow')){
+			$(this).removeClass('arrow');
+			RemoveFromWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		}else{
-			$('#specCont').find('.waiting_list').addClass('arrow');
-			AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
+			$(this).addClass('arrow');
+			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		}
 	});
 
