@@ -334,11 +334,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
-								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span></div>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span>
 							<?}else{?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="notfavorite favorite_icon material-icons">favorite_border</i>
-								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span></div>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span>
 							<?}?>
+						</div>
 						<div id="fortrending_<?=$item['id_product']?>" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 							<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></div>
 						<div class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
@@ -452,43 +453,5 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="clearBoth"></div>
 			</div>
 		<?}
+		break;
 }?>
-
-
-
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar snackbar">
-	<div class="mdl-snackbar__text"></div>
-	<button class="mdl-snackbar__action" type="button"></button>
-</div>
-
-<script>
-	$(function(){
-		//Инициализация добавления товара в избранное
-		$('.favorite i').click(function(e) {
-			e.preventDefault();
-			if ($(this).closest('.favorite').hasClass('added')) {
-				$(this).closest('.favorite').removeClass('added');
-				RemoveFavorite($(this).closest('.favorite').data('id-product'), $(this));
-			}else{
-				$(this).closest('.favorite').addClass('added');
-				AddFavorite($(this).closest('.favorite').data('id-product'), $(this));
-			}
-		});
-
-		//Инициализация добавления товара в список ожидания
-		$('.waiting_list').click(function(e) {
-			e.preventDefault();
-			if ($(this).hasClass('arrow')) {
-				$(this).removeClass('arrow');
-				RemoveFromWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
-			}else{
-				$(this).addClass('arrow');
-				AddInWaitingList($(this).closest('.fortrending').data('id-product'), $(this).closest('.fortrending').data('id-user'), $(this).closest('.fortrending').data('email'), $(this));
-			}
-		});
-
-		$('.product_main_img').click(function(event) {
-			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
-		});
-	});
-</script>

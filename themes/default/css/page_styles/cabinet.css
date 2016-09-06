@@ -1973,7 +1973,9 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	/*text-align: right;*/
 }
 .order .content .additional > div.newdelivery .details .line span.value{
-	width:100%;
+	/*width:100%;*/
+	width: calc(100% - 135px);
+	white-space: normal;
 }
 .order .content .additional > div.newdelivery > .label,
 .order .content .additional > div.manager > .label {
@@ -2153,7 +2155,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	display: none;
 }
 #edit_contacts {
-	width: 300px;
+	width: 100%;
 	position: relative;
 }
 .page_content h1 {
@@ -2915,10 +2917,10 @@ div[id^="items_panel_"] .btnWrapFlex {
     float: right;
 }
 
-.notification_settings .notification_switcher {
+/*.notification_settings .notification_switcher {
 	margin-bottom: 20px;
     margin-top: 10px;
-}
+}*/
 .notification_settings label {
 	height: auto;
 }
@@ -2926,6 +2928,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 	color: #a7a7a7;
 	font-size: 12px;
 }
+.notification_settings button {
+	margin-top: 10px;
+}
+
 /* Новая доставка */
 .servise_logo {
 	overflow: hidden;
@@ -2939,6 +2945,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 .delivery_details {
 	clear: none !important;
 	margin-left: 20px;
+	max-width: 400px;
+	position: relative;
+}
+.change_delivery {
+	max-width: 425px;
 }
 .change_delivery a {
 	float: left;
@@ -3242,6 +3253,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.delivery_details span {
 		display: block !important;
 		white-space: normal;
+		width: 100% !important;
 	}
 	.change_delivery {
 		display: flex;

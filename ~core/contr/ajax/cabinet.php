@@ -72,8 +72,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				echo json_encode($res);
 				break;
-
-
 			case 'GetRating':
 				$Contragents = new Contragents();
 				echo json_encode($Contragents->GetRating($_POST));
@@ -165,6 +163,25 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$products = new Products();
 				$products->DeleteProductFromModeration($_POST['id']);
 				echo json_encode(true);
+				break;
+			case 'updateUserNewsletter':
+				$Newsletter = new Newsletter();
+				switch($_POST['update']){
+					case 'add':
+						if($newsletter = $Newsletter->addUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:false)){
+							echo 'ok';
+						}else{
+							echo 'something wrong';
+						}
+						break;
+					case 'delete':
+						if($newsletter = $Newsletter->delUserNewsletter($_POST['id_newsletter']?$_POST['id_newsletter']:false)){
+							echo 'ok';
+						}else{
+							echo 'something wrong';
+						}
+						break;
+				}
 				break;
 		}
 	}

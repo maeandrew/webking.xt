@@ -646,7 +646,7 @@ function AddFavorite(id_product, targetEl){
 				}
 			}
 		}
-		var snackbarContainer = document.querySelector('#demo-toast-example');
+		var snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	}).fail(function(data){
 		alert('Error');
@@ -672,7 +672,7 @@ function RemoveFavorite(id_product, targetEl){
 				}
 			}
 		}
-		var snackbarContainer = document.querySelector('#demo-toast-example');
+		var snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	}).fail(function(data){
 		alert('Error');
@@ -702,11 +702,11 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 				}
 			}
 		}
-		var snackbarContainer = document.querySelector('#demo-toast-example');
+		var snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	}).fail(function(data){
 		var res = {message: 'Данный функционал доступен только для клиентов'},
-			snackbarContainer = document.querySelector('#demo-toast-example');
+			snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	});
 	return false;
@@ -732,11 +732,11 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 				}
 			}
 		}
-		var snackbarContainer = document.querySelector('#demo-toast-example');
+		var snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	}).fail(function(data){
 		var res = {message: 'Данный функционал доступен только для клиентов'},
-			snackbarContainer = document.querySelector('#demo-toast-example');
+			snackbarContainer = document.querySelector('#snackbar');
 		snackbarContainer.MaterialSnackbar.showSnackbar(res);
 	});
 	return false;
@@ -860,8 +860,7 @@ function SortProductsList(obj){
 // Блок кода для выделения ошибок на канвасе
 function GetScreenshot(){
 	var detachEl = $('.err_msg_as_js').detach(),
-		detachSnack = $('#snackbar').detach(),
-		detachDemoSnack = $('#demo-toast-example').detach();
+		detachSnack = $('#snackbar').detach();
 	if($(document).outerWidth() < 450){
 		$('.waiting_block_for_img_canvas_js').css('top', '0');
 		$('#header_js').css('top', '52px');
@@ -875,7 +874,6 @@ function GetScreenshot(){
 			// window.location = canvas.toDataURL();
 			$('.err_msg_as_wrap_js').css('display', 'none').append(detachEl);
 			$('.modals').append(detachSnack);
-			$('#view_block_js .products').append(detachDemoSnack);
 			// Находим элемент <img>
 			var imageCopy = document.getElementById("savedImageCopy");
 			// Отображаем данные холста в элементе <img>

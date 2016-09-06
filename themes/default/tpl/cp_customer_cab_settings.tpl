@@ -2,6 +2,15 @@
 	<div class="customer_cab col-md-6">
 		<h1><?=isset($_GET['t']) && $_GET['t'] === 'password'?'Смена пароля':'Настройки'?> </h1>
 		<div id="settings">
+			<?if(isset($msg) && empty($_SESSION['member']['email'])){?>
+				<div class="msg-<?=$msg['type']?>">
+					<div class="msg_icon">
+						<i class="material-icons"></i>
+					</div>
+				    <p class="msg_title">!</p>
+				    <p class="msg_text"><?=$msg['text']?></p>
+				</div>
+			<?}?>
 			<form class="editing forPassStrengthContainer_js" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 				<input required="required" type="hidden" name="id_user" value="<?=$User['id_user']?>"/>
 				<?!isset($_GET['t'])?$var = '':$var = $_GET['t'];
@@ -18,34 +27,26 @@
 								<span class="mdl-checkbox__label">Хочу получать рассылку новостей сайта</span>
 							</label> -->
 						<!-- </div> -->
-
 						<div class="notification_settings">
-							<div class="notification_switcher">
-								<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="notification_switcher">
-									<input type="checkbox" id="notification_switcher" class="mdl-switch__input notification_switcher_js">
-									<span class="mdl-switch__label">Вкл./Выкл. уведомления</span>
-								</label>
-							</div>
 							<div class="notifications_block_js">
-								<label class="mdl-checkbox mdl-js-checkbox" for="actions">
-									<input type="checkbox" name="actions" id="actions" class="mdl-checkbox__input" disabled="disabled" checked="checked">
-									<span class="mdl-checkbox__label">Уведомлять об акциях и специальных предложениях</span>
-									<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
-								</label>
-								<label class="mdl-checkbox mdl-js-checkbox" for="news">
-									<input type="checkbox" name="news" id="news" class="mdl-checkbox__input" disabled="disabled">
-									<span class="mdl-checkbox__label">Новостная рассылка</span>
-									<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
-								</label>
-								<label class="mdl-checkbox mdl-js-checkbox" for="new_products">
-									<input type="checkbox" name="new_products" id="new_products" class="mdl-checkbox__input" disabled="disabled">
-									<span class="mdl-checkbox__label">Новинки каталога</span>
-									<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
-								</label>
+								<?
+								$checked = true;
+								foreach ($newsletters as $item) {
+									if ($item['enable'] == 0){
+										$checked = false;
+									}?>
+									<label class="mdl-checkbox mdl-js-checkbox" for="notify_<?=$item['id']?>">
+										<input type="hidden" class="id_notify_js" value="<?=$item['id']?>">
+										<input type="checkbox" name="notify_<?=$item['id']?>" id="notify_<?=$item['id']?>" class="mdl-checkbox__input notify_checkbox_js" <?=empty($_SESSION['member']['email'])?'disabled':null?> <?=$item['enable'] == 1?'checked':null?>>
+										<span class="mdl-checkbox__label"><?=$item['title']?></span>
+										<p class="notification_description">(Текст описания данной рассылки. Что быдет в ней и зачем она нужна.)</p>
+									</label>
+								<?}?>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored <?=$checked == false?'select_all_js':null?>" <?=empty($_SESSION['member']['email'])?'disabled':null?>><?=$checked == false?'Выбрать все':'Снять все'?></button>
 							</div>
 						</div>
 
-						<div id="contragent" class="line contragent">
+						<!-- <div id="contragent" class="line contragent">
 							<label for="id_manager">Менеджер</label>
 							<select required name="id_manager" id="id_manager">
 								<?if(!$savedmanager || !$availablemanagers){?>
@@ -58,7 +59,7 @@
 									<?$ii++;
 								}?>
 							</select>
-						</div>
+						</div> -->
 
 
 						<!--
@@ -66,9 +67,10 @@
 							<label for="promo_code">Промо-код:</label>
 							<input type="text" name="promo_code" id="promo_code"  value="<?=$User['promo_code'];?>"/>
 						</div>-->
-						<div class="buttons_cab">
+
+						<!-- <div class="buttons_cab">
 							<button type="submit" data-role="none" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
-						</div>
+						</div> -->
 					<?break;
 					case 'password':?>
 						<input required="required" type="hidden" name="save_password" value="1"/>
@@ -112,17 +114,32 @@
 		<?}?>-->
 		<script type="text/javascript">
 			$(function(){
-				$('div[class^="msg-"]').delay(3000).fadeOut(2000);
-				//Вкл./Выкл. уведомления
-				$('.notification_switcher_js').on('change', function(){
-					if ($(this).prop("checked")){
-						$('.notifications_block_js input').prop('disabled', false).prop('checked', true);
-						$('.notifications_block_js label').removeClass('is-disabled').addClass('is-checked');
+				// $('div[class^="msg-"]').delay(3000).fadeOut(2000);
+				//Снять/Выбрать все
+				$('.notifications_block_js button').on('click', function(e){
+					var action = 'delete';
+					e.preventDefault();
+					if ($(this).hasClass('select_all_js')){
+						$(this).removeClass('select_all_js').html('Снять все');
+						$('.notifications_block_js input').prop('checked', true);
+						$('.notifications_block_js label').addClass('is-checked');
+						action = 'add';
 					}else{
-						$('.notifications_block_js input').prop('disabled', true).prop('checked', false);
-						$('.notifications_block_js label').addClass('is-disabled').removeClass('is-checked');
+						$(this).addClass('select_all_js').html('Выбрать все');
+						$('.notifications_block_js input').prop('checked', false);
+						$('.notifications_block_js label').removeClass('is-checked');
 					}
+					ajax('cabinet','updateUserNewsletter', {update:action, id_newsletter:''});
 				});
+				$('.notify_checkbox_js').on('click', function(){
+					var action = 'delete';
+					var id = $(this).closest('label').find('.id_notify_js').val();
+					if ($(this).prop('checked')){
+						action = 'add';
+					}
+					ajax('cabinet','updateUserNewsletter', {update:action, id_newsletter:id});
+				});
+
 			});
 		</script>
 	</div>

@@ -153,6 +153,9 @@ foreach ($orders as &$order) {
 }
 $tpl->Assign('orders', $orders);
 
+$address_list = $Address->GetListByUserId($User->fields['id_user']);
+$tpl->Assign('address_list', $address_list);
+
 /*$arr = array();
 foreach($orders as &$order_2){
 	$arr = $Order->GetOrderForCustomer(array("o.id_order" => $order_2['id_order']));
@@ -160,6 +163,7 @@ foreach($orders as &$order_2){
 
 //$tpl->Assign('products', $arr);
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").'));
+$tpl->Assign('msg_address', array('type' => 'info', 'text' => 'В данном заказе отсутствует адрес доставки. Вы можете выбрать его ниже.'));
 
 $User->SetUser($_SESSION['member']);
 

@@ -49,7 +49,7 @@
 							</div>
 							<div class="availability subTableRow">
 								<div class="titleForTablet">Наличие: </div>
-								<p><?=$p['availability']?></p>
+								<p><?=isset($p['visible']) && $p['visible'] == 0?'недоступен':$p['availability'];?></p>
 							</div>
 							<div class="goToPageItem">
 								<a id="toSee_<?=$p['id_product']?>" href="<?=_base_url.'/product/'.$p['id_product'].'/'.$p['translit']?>/" class="material-icons in_page">remove_red_eye</a>
