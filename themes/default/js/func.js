@@ -1142,9 +1142,17 @@ function GetOriginalPhoto(photo){
 }
 
 // Функция добавления примечания в карточку товара
+// Параметр element - объект, по которому был осуществлен клик.
+// Класс out_card_js - метка (на странице продукта), что кнопка находится не в блоке с классом card, а не в блоке с классом specCont_js.
 function AddNoteArea(element){
-	element.closest('.card').find('.note').removeClass('hidden');
-	if(element.closest('.card').find('.note').hasClass('note_control')){
-		element.closest('.card').find('.note').addClass('activeNoteArea');
+	var parent;
+	if (element.hasClass('out_card_js')) {
+		parent = element.closest('.specCont_js').find('.note');
+	}else{
+		parent = element.closest('.card').find('.note');
+	}
+	parent.removeClass('hidden');
+	if(parent.hasClass('note_control')){
+		parent.addClass('activeNoteArea');
 	}
 }
