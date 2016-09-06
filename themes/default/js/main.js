@@ -105,6 +105,7 @@ $(function(){
 
 	//Добавление товара в корзину
 	$('body').on('change', '.qty_js', function(){
+		AddNoteArea($(this));
 		var id = $(this).closest('.product_buy').attr('data-idproduct'),
 			qty = $(this).val(),
 			note = $(this).closest('.product_section').find('.note textarea').val();
