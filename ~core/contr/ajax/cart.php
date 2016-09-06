@@ -509,7 +509,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($echo);
 				break;
 			case 'updateDiscount':
-				if($_POST['manual_price_change'] && $_POST['manual_price_change_note']) {
+				if(is_numeric($_POST['manual_price_change']) && $_POST['manual_price_change_note']) {
 					$_SESSION['cart']['manual_price_change'] = $_POST['manual_price_change'];
 					$_SESSION['cart']['manual_price_change_note'] = $_POST['manual_price_change_note'];
 					$echo = true;
