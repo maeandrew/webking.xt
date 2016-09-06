@@ -799,7 +799,8 @@ section.center {
 	}*/
 	#cart .unorder_wrapp .card{
 		opacity: .7;
-		border-top: none;
+	}
+	#cart .unorder_wrapp .card:last-child{
 		border-bottom: 1px solid #e0e0e0;
 	}
 	#cart .unorder_wrapp .unorder_msg{
@@ -820,7 +821,7 @@ section.center {
 	#cart .order_wrapp,
 	#cart .unorder_wrapp {
 		clear: both;
-		border: 1px solid #e0e0e0;
+		/*border: 1px solid #e0e0e0;*/
 		border-bottom: none;
 	}
 	#cart ul.order_head {
@@ -859,11 +860,12 @@ section.center {
 	}
 	#cart .card {
 		clear: both;
-		border-top: 1px solid #e0e0e0;
+		border: 1px solid #e0e0e0;
+		border-bottom: none;
 		overflow: auto;
 	}
 	#cart .card:first-of-type {
-		border-top: 0;
+		/*border-top: 0;*/
 	}
 	#cart .card .product_name {
 		float: left;

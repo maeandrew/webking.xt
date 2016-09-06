@@ -122,8 +122,8 @@
 	<!-- END Недоступные товары -->
 
 	<!-- New Недоступные товары -->
-	<h5>Временно недоступные товары</h5>
 	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
+		<h5>Временно недоступные товары</h5>
 		<div class="unorder_wrapp">
 			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
 				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
@@ -147,7 +147,7 @@
 							<div class="wlist_msg_wrap wlist_msg_wrap_js" data-id-product="<?=$p['id_product'];?>" <?=G::isLogged()?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?> >
 								<span class="del_wrap_js<?=isset($_SESSION['member']['waiting_list']) && in_array($p['id_product'], $_SESSION['member']['waiting_list'])?null:' hidden';?>">
 									<span id="in_wl_arrow_<?=$p['id_product']?>" class="in_waiting_list fortrending_arrow icon material-icons">trending_down</span>
-									Товар в <a href="<?=Link::Custom('cabinet','waitinglist')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> >"Листе ожидания"</a>
+									Товар в "<a href="<?=Link::Custom('cabinet','waitinglist')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?> >Листе ожидания</a>"
 									<span class="mdl-tooltip" for="in_wl_arrow_<?=$p['id_product']?>">Товар уже<br>в списке ожидания</span>
 								</span>
 								<span class="add_wrap_js<?=isset($_SESSION['member']['waiting_list']) && in_array($p['id_product'], $_SESSION['member']['waiting_list'])?' hidden':null;?>">
@@ -161,11 +161,11 @@
 				</div>
 			<?}?>
 		</div>
+		<h5>Товары в корзине</h5>
 	<?}?>
 	<!-- End Недоступные товары -->
 
 	<!-- NEW Товары в корзине -->
-	<h5>Товары в корзине</h5>
 	<div class="order_wrapp">
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
