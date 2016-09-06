@@ -346,6 +346,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 #cart .note.in_cart,.products .note.in_cart{visibility:visible}
 #cart .note textarea,.products .note textarea{width:100%;height:30px;resize:vertical;outline:0;padding:5px;padding-right:22px;box-sizing:border-box;float:left;border:1px solid #ddd}
 #cart .note textarea:focus{min-height:30px!important}
+.activeNoteArea textarea{border-color:#EF5350}
 .activeNoteArea textarea::-webkit-input-placeholder{color:#ff5722}
 .activeNoteArea textarea::-moz-placeholder{color:#ff5722}
 .activeNoteArea textarea:-ms-input-placeholder{color:#ff5722}
@@ -658,6 +659,8 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .mobile_carousel .subCategory:hover,.subCategories .subCategory:hover{cursor:pointer;border-color:#aaa}
 .mobile_carousel .subCategory .subCategoryImageWrap,.subCategories .subCategory .subCategoryImageWrap{display:table-cell;position:relative;overflow:hidden}
 .mobile_carousel .subCategory .subCategoryImageWrap img,.subCategories .subCategory .subCategoryImageWrap img{max-height:100%;max-width:100%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)}
+.subCategories .subCategory .subCategoryImageWrap img{transition:all .4s cubic-bezier(.4,0,.2,1)}
+.subCategories .subCategory:hover img{max-height:110%;max-width:110%}
 .subCategory .subCategoryTitleWrap{bottom:0;left:0;right:0;position:relative;display:table-row;text-align:center;background-color:#fff;font-size:1.3em}
 .subCategory .subCategoryTitle{display:table-cell;position:relative;height:3em;vertical-align:middle}
 .mobile_carousel .subCategory{width:calc(50% - 20px);height:180px;padding-bottom:4em}
@@ -807,6 +810,10 @@ iframe[name=google_conversion_frame]{display:none}
 #cart [class^=msg-]{margin-left:0}
 #cart .contragent_cart_block{background:#ffffad;text-align:left;padding:15px}
 #cart .contragent_cart_block .contragent_cart_block_title{font-size:16px;font-weight:700}
+#cart .manual_cart_column_block{padding-top:10px;margin-top:15px;border-top:1px solid #e0e0e0}
+#cart .manual_cart_column_block .column_switcher_block{margin-top:5px;margin-bottom:10px}
+#cart .manual_cart_column_block .switch_comment{margin-bottom:10px}
+#cart .manual_cart_column_block .switch_comment textarea{padding:10px}
 #cart_customer_search .search_results_block{display:flex}
 #cart_customer_search .search_block .input_phone_error{border:1px solid red}
 #cart_customer_search .search_results_block_title{font-weight:700;margin-bottom:10px}
