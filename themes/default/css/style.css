@@ -799,9 +799,11 @@ section.center {
 	}*/
 	#cart .unorder_wrapp .card{
 		opacity: .7;
+		border: 1px solid #e0e0e0;
+		border-top: 0;
 	}
-	#cart .unorder_wrapp .card:last-child{
-		border-bottom: 1px solid #e0e0e0;
+	#cart .unorder_wrapp .card:first-of-type{
+		border-top: 1px solid #e0e0e0;
 	}
 	#cart .unorder_wrapp .unorder_msg{
 		float: right;
@@ -2169,7 +2171,8 @@ section .stat_year {
 	visibility: visible;
 }
 #cart .note textarea,
-.products .note textarea {
+.products .note textarea,
+.product .note textarea {
 	width: 100%;
 	height: 30px;
 	resize: vertical;
@@ -2179,6 +2182,10 @@ section .stat_year {
 	box-sizing: border-box;
 	float: left;
 	border: 1px solid #ddd;
+}
+.product .note textarea{
+	width: 350px;
+	margin: 0 0 1em 1em;
 }
 #cart .note textarea:focus {
 	min-height: 30px !important;
@@ -2879,6 +2886,11 @@ section .stat_year {
 	}
 	.order .tabs .mdl-tabs__tab {
 		padding: 0 8px;
+	}
+	.product .note textarea{
+		width: 300px;
+		margin: 0;
+		margin-bottom: 1em;
 	}
 }
 /* Стили кабинета (ent) */

@@ -123,8 +123,8 @@
 
 	<!-- New Недоступные товары -->
 	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
-		<h5>Временно недоступные товары</h5>
 		<div class="unorder_wrapp">
+			<h5>Временно недоступные товары</h5>
 			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
 				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
 					<div class="card_wrapper">
@@ -160,8 +160,8 @@
 					</div>
 				</div>
 			<?}?>
+			<h5>Товары в корзине</h5>
 		</div>
-		<h5>Товары в корзине</h5>
 	<?}?>
 	<!-- End Недоступные товары -->
 

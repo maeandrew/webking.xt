@@ -1140,3 +1140,19 @@ function GetOriginalPhoto(photo){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	}, 100);
 }
+
+// Функция добавления примечания в карточку товара
+// Параметр element - объект, по которому был осуществлен клик.
+// Класс out_card_js - метка (на странице продукта), что кнопка находится не в блоке с классом card, а не в блоке с классом specCont_js.
+function AddNoteArea(element){
+	var parent;
+	if (element.hasClass('out_card_js')) {
+		parent = element.closest('.specCont_js').find('.note');
+	}else{
+		parent = element.closest('.card').find('.note');
+	}
+	parent.removeClass('hidden');
+	if(parent.hasClass('note_control')){
+		parent.addClass('activeNoteArea');
+	}
+}
