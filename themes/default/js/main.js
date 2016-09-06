@@ -504,7 +504,7 @@ $(function(){
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
-			banner_height = $('.banner .cont').outerHeight();
+			// banner_height = $('.banner').outerHeight();
 			$('.banner').animate({
 				height: banner_height
 			}, 300);

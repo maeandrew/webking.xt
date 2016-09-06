@@ -165,19 +165,19 @@
 					<img src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
 					<span class="static">Снабжение<br>предприятий</span>
 					<span class="floating">Снабжение предприятий</span>
-					<p>Описание пункта снабжение предприятия</p>
+					<p>Комплексное обеспечение материалами, инструментами, оборудованием и комплектующими на долгосрочной основе<br><span class="read_more">Узнать больше</span></p>
 				</a>
 				<a class="banner_button" href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
 					<img src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
 					<span class="static">Поставки<br>магазинам</span>
 					<span class="floating">Поставки магазинам</span>
-					<p>Описание пункта поставки магазинам</p>
+					<p>С нами у Вас есть возможность создать с нуля свой бизнес, или полностью обеспечить свой магазин товарами<br><span class="read_more">Узнать больше</span></p>
 				</a>
 				<a class="banner_button" href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
 					<img src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
 					<span class="static">Обеспечение<br>быта</span>
 					<span class="floating">Обеспечение быта</span>
-					<p>Описание пункта обеспечение быта</p>
+					<p>С магазином «ХТ» Вы экономите свое время и финансы<br><span class="read_more">Узнать больше</span></p>
 				</a>
 			</div>
 		</section>
