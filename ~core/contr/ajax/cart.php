@@ -125,7 +125,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('saved', $saved);
 				$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
 
-				/* Дествия */
+				/* Действия */
 				if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
 					if(isset($_POST['add_order'])){
 						// Добавить к корзине товары из заказа
@@ -195,7 +195,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						if($value['visible'] == 0){
 							$_SESSION['cart']['unvisible_products'][] = $value;
 							unset($list[$key], $_SESSION['cart']['products'][$value['id_product']]);
-							break;
 						}
 						if(isset($_SESSION['errm']['products'][$value['id_product']])){
 							$value['err'] = 1;
@@ -212,9 +211,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$tpl->Assign('list', false);
 				}
 				/* fill unavailable_product list */
-				if(!empty($_SESSION['cart']['unavailable_products'])){
+				if(!empty($_SESSION['cart']['unvisible_products'])){
 					$arr = array();
-					foreach($_SESSION['cart']['unavailable_products'] as $p){
+					foreach($_SESSION['cart']['unvisible_products'] as $p){
 						$Products->SetFieldsById($p['id_product'], 1);
 						$unlist[] = $Products->fields;
 					}
@@ -502,9 +501,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($echo);
 				break;
-			case 'SaveOrderNote':
+			case 'SaveOrderNote':  print_r(1); die();
 				$echo = true;
 				if(!$Cart->UpdateCartNote($_POST['note'])){
+					$echo = false;
+				}
+				echo json_encode($echo);
+				break;
+			case 'updateDiscount':
+				if($_POST['manual_price_change'] && $_POST['manual_price_change_note']) {
+					$_SESSION['cart']['manual_price_change'] = $_POST['manual_price_change'];
+					$_SESSION['cart']['manual_price_change_note'] = $_POST['manual_price_change_note'];
+					$echo = true;
+				}else{
 					$echo = false;
 				}
 				echo json_encode($echo);

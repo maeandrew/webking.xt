@@ -537,6 +537,9 @@ class Orders {
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
 		$f['note'] = isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null;
+		if(isset($_SESSION['cart']['manual_price_change']) && isset($_SESSION['cart']['manual_price_change_note'])){
+			$f['manual_price_change'] = $_SESSION['cart']['manual_price_change'].' - '.$_SESSION['cart']['manual_price_change_note'];
+		}
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
@@ -689,6 +692,12 @@ class Orders {
 		}
 		if(isset($_SESSION['cart']['id_contragent'])){
 			unset($_SESSION['cart']['id_contragent']);
+		}
+		if(isset($_SESSION['cart']['manual_price_change'])){
+			unset($_SESSION['cart']['manual_price_change']);
+		}
+		if(isset($_SESSION['cart']['manual_price_change_note'])){
+			unset($_SESSION['cart']['manual_price_change_note']);
 		}
 		return $id_order;
 	}
