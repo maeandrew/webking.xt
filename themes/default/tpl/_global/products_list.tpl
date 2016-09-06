@@ -26,7 +26,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				</div>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 						<div class="product_photo">
-							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
+							<a href="<?=Link::Product($item['translit']);?>">
 								<div class="<?=$st['class']?>"></div>
 								<?if(!empty($item['images'])){?>
 									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
@@ -42,7 +42,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							</a>
 						</div>
 						<div class="product_name p<?=$item['id_product']?>">
-							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
+							<a href="<?=Link::Product($item['translit']);?>" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
 							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
 							<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 								<?if(isset($item['c_mark']) && $item['c_mark'] > 0){?>
@@ -139,7 +139,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<div class="preview_favorites" data-idfavorite="<?=$item['id_product']?>" title="<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'Добавить товар в избранное':'Товар находится в избранных'?>">
 								<span class="material-icons icon-font favorite">favorites<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'-o':null?></span>
 							</div>
-							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/#tabs-2" class="rating">
+							<a href="<?=Link::Product($item['translit']);?>" class="rating">
 								<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
 									<?
 									for($i = 1; $i <= 5; $i++){
