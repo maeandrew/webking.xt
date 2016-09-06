@@ -2047,7 +2047,7 @@ $(function(){
 		}
 	});
 
-	//Добавление недоступного товара в список ожидания из корзины
+	// Добавление недоступного товара в список ожидания из корзины
 	$('body').on('click', '.add_del_waiting_list_js', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.wlist_msg_wrap_js');
@@ -2055,4 +2055,80 @@ $(function(){
 		parent.find('.add_wrap_js').addClass('hidden');
 		parent.find('.del_wrap_js').removeClass('hidden');
 	});
+
+	// Сохранение нового товара в кабинете поставщика
+	$('#submit').closest('div').on('click', function(){
+		if($(this).find('#submit').prop('disabled') == true){
+			var data = {message: 'Заполните все обязательные поля!'};
+			var snackbarContainer = document.querySelector('#snackbar');
+			snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		}
+	});
+
+	// Функционал для страницы продукта
+	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
+	$('#owl-product_mini_img_js .owl-item').on('click', function(event){
+		$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
+		$('.product_main_img').find('iframe').attr('src', '');
+		var src = $(this).find('img').attr('src'),
+			viewport_width = $(window).width();
+		if(viewport_width > 711){
+			$('#owl-product_mini_img_js').find('img').removeClass('act_img');
+			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
+			$(this).find('img').addClass('act_img');
+			if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
+				src = src.replace('thumb', 'original');
+			}else{
+				src = src.replace('_thumb/', '');
+			}
+			$('.product_main_img').hide().fadeIn('100').find('.main_img_js').attr('src', src);
+		}else{
+			event.preventDefault();
+		}
+	}).on('click','.videoBlock', function(e){ //выбор видео и его перемещение в главное окно
+		e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
+		$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
+		$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
+		$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
+		var src = $(this).find('iframe').attr('src');
+		$('.product_main_img').find('iframe').attr('src', src);
+		$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
+	});
+
+	// Настройки для вкладки "Сезонность"
+	$('#demand_graph').load(function(){
+		$(this).contents().find('body').css('overflow', 'hidden');
+		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
+	});
+
+	// Инициализация добавления товара в избранное
+	$('.favorite i').click(function(e){
+		e.preventDefault();
+		var parent = $(this).closest('.favorite');
+		if(parent.hasClass('added')){
+			parent.removeClass('added');
+			RemoveFavorite(parent.data('id-product'), $(this));
+		}else{
+			parent.addClass('added');
+			AddFavorite(parent.data('id-product'), $(this));
+		}
+	});
+	// Инициализация добавления товара в список ожидания
+	$('.waiting_list').click(function(e){
+		e.preventDefault();
+		var parent = $(this).closest('.fortrending');
+		if($(this).hasClass('arrow')){
+			$(this).removeClass('arrow');
+			RemoveFromWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+		}else{
+			$(this).addClass('arrow');
+			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+		}
+	});
+
+	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
+	$('.product_main_img').click(function(event){
+		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
+	});
+	// ------------
 });

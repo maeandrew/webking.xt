@@ -297,10 +297,6 @@
 				</div>
 				<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
 			</div>
-			<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar snackbar">
-				<div class="mdl-snackbar__text"></div>
-				<button class="mdl-snackbar__action" type="button"></button>
-			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
 					<li class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
@@ -703,67 +699,3 @@
 		<?}?>
 	</div>
 </section>
-<script>
-	$(function(){
-		//Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
-		$('#owl-product_mini_img_js .owl-item').on('click', function(event){
-			$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
-			$('.product_main_img').find('iframe').attr('src', '');
-			var src = $(this).find('img').attr('src'),
-				viewport_width = $(window).width();
-			if(viewport_width > 711){
-				$('#owl-product_mini_img_js').find('img').removeClass('act_img');
-				$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
-				$(this).find('img').addClass('act_img');
-				if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
-					src = src.replace('thumb', 'original');
-				}else{
-					src = src.replace('_thumb/', '');
-				}
-				$('.product_main_img').hide().fadeIn('100').find('.main_img_js').attr('src', src);
-			}else{
-				event.preventDefault();
-			}
-		}).on('click','.videoBlock', function(e){ //выбор видео и его перемещение в главное окно
-			e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
-			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
-			$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
-			$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
-			var src = $(this).find('iframe').attr('src');
-			$('.product_main_img').find('iframe').attr('src', src);
-			$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
-			});
-
-		$('#demand_graph').load(function(){
-			$(this).contents().find('body').css('overflow', 'hidden');
-			$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
-		});
-
-		//Инициализация добавления товара в избранное
-		$('.favorite i').click(function(e){
-			e.preventDefault();
-			if ($(this).closest('.favorite').hasClass('added')){
-				$(this).closest('.favorite').removeClass('added');
-				RemoveFavorite($(this).closest('li').data('id-product'), $(this));
-			}else{
-				$(this).closest('.favorite').addClass('added');
-				AddFavorite($(this).closest('li').data('id-product'), $(this));
-			}
-		});
-		//Инициализация добавления товара в список ожидания
-		$('.waiting_list').click(function(e){
-			e.preventDefault();
-			if ($(this).hasClass('arrow')){
-				$('#specCont').find('.arrow').removeClass('arrow');
-				RemoveFromWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
-			}else{
-				$('#specCont').find('.waiting_list').addClass('arrow');
-				AddInWaitingList($(this).closest('li').data('id-product'), $(this).closest('li').data('id-user'), $(this).closest('li').data('email'), $(this));
-			}
-		});
-
-		$('.product_main_img').click(function(event){
-			$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
-		});
-	});
-</script>
