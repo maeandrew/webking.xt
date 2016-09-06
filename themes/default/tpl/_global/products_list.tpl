@@ -454,13 +454,6 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 		<?}
 }?>
 
-
-
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar snackbar">
-	<div class="mdl-snackbar__text"></div>
-	<button class="mdl-snackbar__action" type="button"></button>
-</div>
-
 <script>
 	$(function(){
 		//Инициализация добавления товара в избранное
