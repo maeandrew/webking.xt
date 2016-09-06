@@ -799,9 +799,11 @@ section.center {
 	}*/
 	#cart .unorder_wrapp .card{
 		opacity: .7;
+		border: 1px solid #e0e0e0;
+		border-top: 0;
 	}
-	#cart .unorder_wrapp .card:last-child{
-		border-bottom: 1px solid #e0e0e0;
+	#cart .unorder_wrapp .card:first-of-type{
+		border-top: 1px solid #e0e0e0;
 	}
 	#cart .unorder_wrapp .unorder_msg{
 		float: right;
