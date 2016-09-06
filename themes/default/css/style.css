@@ -2935,6 +2935,7 @@ section .stat_year {
 .avg_chart_wrap {
 	background-color: #fff;
 	padding: 1em;
+	margin-bottom: 15px;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -3417,7 +3418,6 @@ div.modalEditOrder .applyBtn {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 -10px;
-	border-bottom: 1px solid #e0e0e0;
 }
 .mobile_carousel {
 	margin: 0px;
