@@ -393,7 +393,7 @@ div[id^=items_panel_]>div>#products .total_wrap{display:none}
 .order .content .info>div span.icon,.order .content .info>div span.label{color:#888;float:left;line-height:2.143em}
 .order .content .info>div span.icon{padding-right:.7145em}
 .order .content .info>div span.value{clear:both;font-size:2.143em;white-space:nowrap}
-.order .content .additional{padding:1.429em 0;display:flex;overflow:auto}
+.order .content .additional{padding:1.429em 0;display:flex;overflow:auto;padding-top:0}
 .order .content .additional>div{flex-basis:50%}
 .order .content .additional>div .label{color:#888}
 .order .content .additional>div .avatar{float:left;border-radius:50%}
@@ -402,7 +402,7 @@ div[id^=items_panel_]>div>#products .total_wrap{display:none}
 .order .content .additional>div.newdelivery .details{padding:0;color:#FF5722}
 .order .content .additional>div.newdelivery .details .line{margin:0}
 .order .content .additional>div.newdelivery .details .line span{display:inline-block;width:135px;line-height:1.5em}
-.order .content .additional>div.newdelivery .details .line span.value{width:100%}
+.order .content .additional>div.newdelivery .details .line span.value{width:calc(100% - 135px);white-space:normal}
 .order .content .additional>div.manager>.label,.order .content .additional>div.newdelivery>.label{padding:1em 0;font-size:1.2em}
 .order .content .additional>div .details>div{float:left;clear:both;line-height:1.3em;white-space:nowrap}
 .order .content .additional>div.manager .line_2,.order .content .additional>div.manager .line_3{color:#888}
@@ -442,7 +442,7 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .min_prod_qty{margin-right:5px}
 .price_1,.price_2{width:100px}
 .prod_detail_info{display:none}
-#edit_contacts{width:300px;position:relative}
+#edit_contacts{width:100%;position:relative}
 .page_content h1{font-size:2em}
 #orders_history .editing{margin-top:10px}
 .moder_list_item,.moder_list_title{background:#fff;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
@@ -510,14 +510,17 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .rait_comment p{text-align:center;font-size:16px;font-weight:700;padding-top:10px;padding-bottom:10px}
 .rait_comment textarea{width:100%}
 .rait_comment button{margin-top:10px;float:right}
-.notification_settings .notification_switcher{margin-bottom:20px;margin-top:10px}
 .notification_settings label{height:auto}
 .notification_settings .notification_description{color:#a7a7a7;font-size:12px}
+.notification_settings button{margin-top:10px}
 .servise_logo{overflow:hidden;width:5em;height:5em;border-radius:50%}
 .servise_logo img{width:100%}
-.delivery_details{clear:none!important;margin-left:20px}
+.delivery_details{clear:none!important;margin-left:20px;max-width:400px;position:relative}
+.change_delivery{max-width:425px;margin-bottom:20px}
 .change_delivery a{float:left;text-decoration:underline}
 .change_delivery button{margin-left:20px}
+.change_delivery .mdl-selectfield__list-option-box{max-height:155px}
+.msg_text{white-space:normal}
 @media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
 }
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
@@ -593,7 +596,7 @@ h4{margin:5px 0 10px}
 #supplier_cab .price_1 input,#supplier_cab .price_2 input{width:100px}
 .product_balance label,.to_dollar label{width:30px}
 .delivery_details{margin-left:0;clear:both!important}
-.delivery_details span{display:block!important;white-space:normal}
+.delivery_details span{display:block!important;white-space:normal;width:100%!important}
 .change_delivery{display:flex;justify-content:center;flex-wrap:wrap}
 .change_delivery a{width:100%;display:block;text-align:center;margin-top:20px}
 .change_delivery button{margin:0}
