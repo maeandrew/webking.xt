@@ -79,7 +79,7 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 @media screen and (orientation:portrait) and (max-width:450px){[data-type=panel]{width:80vw}
 [data-type=panel][data-position=left].opened{right:20vw}
 }
-.phone_menu .phone_nav{padding:1em;border-top:1px solid #e0e0e0}
+.phone_menu .phone_nav{margin-top:4em;padding:1em;border-top:1px solid #e0e0e0}
 .phone_menu li a{display:block;line-height:24px;padding:10px 0}
 .phone_menu .user_profile{padding:10px}
 .phone_menu .phone_nav_contacts{padding:1em;border-top:1px solid #e0e0e0;font-size:15px}
@@ -602,7 +602,7 @@ canvas[id^=chart_]{position:relative;height:150px;width:88%!important}
 }
 @media (max-width:480px){[data-type=modal]{position:fixed;top:0!important;bottom:0!important;right:0!important;left:0!important;max-height:100%;max-width:100%;padding:25px 0!important;border-radius:0}
 #cart .product_buy .summ{text-align:left}
-#cart .note textarea,.products .note textarea{width:100%}
+#cart .note textarea,.products .note textarea{width:95%}
 #cart .card .product_name,#cart .unorder_wrapp .unorder_msg{width:100%}
 #cart .unorder_wrapp .unorder_msg{padding:10px}
 #cart .card .product_photo{margin:0 auto}
