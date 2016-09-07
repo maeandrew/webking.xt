@@ -436,7 +436,7 @@ $(function(){
 			content_header_scroll = $(this).scrollTop() + 52 - $('.content_header').offset().top;
 			// console.log($('#view_block_js').offset().top + $('#view_block_js').outerHeight());
 			// console.log($(this).scrollTop() + 52 + $('.content_header').outerHeight());
-			console.log(($('#view_block_js').offset().top + $('#view_block_js').outerHeight()) - ($(this).scrollTop() + 52 + $('.content_header').outerHeight()));
+			// console.log(($('#view_block_js').offset().top + $('#view_block_js').outerHeight()) - ($(this).scrollTop() + 52 + $('.content_header').outerHeight()));
 			if(content_header_scroll > 0 && $('.content_header').not('.fixed')){
 				$('.content_header').addClass('fixed').css('width', $('#view_block_js').outerWidth());
 				$('#view_block_js').css('padding-top', $('.content_header').outerHeight() + 15);
