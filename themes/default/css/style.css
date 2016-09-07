@@ -3383,6 +3383,7 @@ canvas[id^=chart_]{
 		padding: 30px;
 		width: 100vw;
 		height: 100vh;
+		z-index: 1000;
 	}
 	#quiz.opened {
 		left: 0;
@@ -3442,6 +3443,9 @@ div.modalEditOrder .applyBtn {
 	}
 	.subCategories {
 		justify-content: center;
+	}
+	.switch_comment textarea {
+		width: 100%;
 	}
 }
 .subCategories,

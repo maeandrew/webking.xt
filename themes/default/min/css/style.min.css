@@ -649,7 +649,7 @@ footer .copyright p{line-height:1.7em}
 #seoTextBlock h2{font-size:1.8em;line-height:2em;margin:.5em 0!important}
 #editProdSpecValue{background:#e0e0e0;font-size:16px;color:red}
 @media (max-width:480px){#demand_chart[data-type=modal]{min-width:100px;left:0!important}
-div#auth.opened,div#cart.opened,div#quiz.opened,div.modalEditOrder{padding:30px;width:100vw;height:100vh}
+div#auth.opened,div#cart.opened,div#quiz.opened,div.modalEditOrder{padding:30px;width:100vw;height:100vh;z-index:1000}
 #quiz.opened{left:0}
 }
 div.modalEditOrder{padding:20px;text-align:center}
@@ -664,6 +664,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 }
 @media (max-width:727px){.catalog_btn{font-size:1em;float:right;padding:10px;width:26%;margin-right:10px;background:#F5F5F5;color:#757575;border:1px solid #e0e0e0;text-align:center}
 .subCategories{justify-content:center}
+.switch_comment textarea{width:100%}
 }
 .mobile_carousel,.subCategories{display:flex;flex-wrap:wrap;margin:0 -10px}
 .mobile_carousel{margin:0}
