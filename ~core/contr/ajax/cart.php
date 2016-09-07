@@ -180,20 +180,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$_SESSION['warnings'] = $warnings;
 				}
 
+				if(!empty($_SESSION['cart']['unvisible_products'])){
+					foreach($_SESSION['cart']['unvisible_products'] as $k=>&$v){
+						$Cart->UpdateCartQty(array('id_product' => $k, 'quantity' => $v['quantity']));
+					}
+					unset($_SESSION['cart']['unvisible_products']);
+				}
 				/* collect cart information */
 				$Cart->RecalcCart();
-
 				/* fill product list */
 				if(!empty($_SESSION['cart']['products'])){
-					$arr = array();
+					$arr_id = array();
 					foreach($_SESSION['cart']['products'] as $id=>$p){
-						$arr[] = $id;
+						$arr_id[] = $id;
 					}
-					$Products->SetProductsListFromArr($arr, '');
+					$Products->SetProductsListFromArr($arr_id, '');
 					$list = $Products->list;
 					foreach($list as $key => &$value){
 						if($value['visible'] == 0){
-							$_SESSION['cart']['unvisible_products'][] = $value;
+							$_SESSION['cart']['unvisible_products'][$value['id_product']]['quantity'] = $_SESSION['cart']['products'][$value['id_product']]['quantity'];
+							$unlist[] = $value;
 							unset($list[$key], $_SESSION['cart']['products'][$value['id_product']]);
 						}
 						if(isset($_SESSION['errm']['products'][$value['id_product']])){
@@ -206,21 +212,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$value['images'] = $Products->GetPhotoById($value['id_product']);
 					}
 					//array_multisort($list, SORT_DESC, $errflag);
+
+					$tpl->Assign('unlist', isset($unlist)?$unlist:false);
 					$tpl->Assign('list', $list);
 				}else{
 					$tpl->Assign('list', false);
 				}
-				/* fill unavailable_product list */
-				if(!empty($_SESSION['cart']['unvisible_products'])){
-					$arr = array();
-					foreach($_SESSION['cart']['unvisible_products'] as $p){
-						$Products->SetFieldsById($p['id_product'], 1);
-						$unlist[] = $Products->fields;
-					}
-					$tpl->Assign('unlist', $unlist);
-				}else{
-					$tpl->Assign('unlist', false);
-				}
+				$Cart->RecalcCart();
 				if(isset($_SESSION['cart']['id_customer'])){
 					$customer_order = $Customers->SetFieldsById($_SESSION['cart']['id_customer'], 1, true);
 					$customer_order['last_order'] = $Orders->GetLastOrder($_SESSION['cart']['id_customer']);
