@@ -658,7 +658,7 @@ class Orders {
 			if($order_status == 1){
 				$User = new Users();
 				$User->SetFieldsById($_SESSION['member']['id_user']);
-				if(isset($_SESSION['member']['mail']) && $User->fields['gid'] != _ACL_ANONYMOUS_ && $User->fields['gid'] != _ACL_TERMINAL_){
+				if($User->fields['gid'] != _ACL_ANONYMOUS_){
 					$Mailer = new Mailer();
 					//$Mailer->SendOrderInvoicesToContragent($id_order);
 					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
