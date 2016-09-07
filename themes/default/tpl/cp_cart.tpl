@@ -255,12 +255,7 @@
 			$total = $cart_sum - $percent_sum;
 		};?>
 	</div>
-	<?
-		$manual_column = $_SESSION['cart']['cart_column'];
-		if(isset($_SESSION['cart']['manual_price_change'])){
-			$manual_column = $_SESSION['cart']['manual_price_change'];
-		}
-	?>
+	<?$manual_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];?>
 	<div class="cart_footer">
 		<div id="total">
 			<div class="total">

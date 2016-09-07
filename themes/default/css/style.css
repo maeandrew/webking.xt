@@ -1610,11 +1610,14 @@ section .stat_year {
 	padding: 10px 0;
 	justify-content: space-between;
 }
-@media screen and (max-width: 480px) {
+/*@media screen and (max-width: 480px) {
 	.content_header .list_settings {
 		width: 100%;
 	}
-}
+	.banner .banner_button span.static {
+		font-size: 1em;
+	}
+}*/
 .content_header .productsListView {
 	margin-left: 1em;
 }
@@ -1977,6 +1980,29 @@ section .stat_year {
 		color: #fff;
 	}
 }
+/*@media only screen and (max-device-width : 1024px) {
+	.banner .banner_button {
+		background: red;
+	}
+	.banner .banner_button:hover:after {
+		opacity: 0;
+	}
+	.banner .banner_button:hover img {
+		-webkit-filter: none;
+		filter: none;
+	}
+	.banner .banner_button:hover span.floating {
+		top: 0px;
+	}
+	.banner .banner_button:hover span.static {
+		-webkit-filter: none;
+		filter: none;
+	}
+	.banner .banner_button:hover p {
+		top: 0px;
+	}
+}*/
+
 @media (max-width: 1022px) {
 	.products .card_tittle {
 		display: none;
@@ -3913,6 +3939,8 @@ iframe[name="google_conversion_frame"] {
 }
 .banner .banner_button img {
 	margin: 0 auto;
+	max-width: 100%;
+	padding: 10px;
 	display: block;
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -3948,6 +3976,7 @@ iframe[name="google_conversion_frame"] {
 .banner .banner_button p {
 	top: 100%;
 	font-size: 1em;
+	padding: 5px;
 }
 .banner .banner_button p span.read_more {
 	display: inline-block;
@@ -4380,7 +4409,14 @@ div[for="rating_block"] {
 		text-align: right;
 	}
 }
-
+@media screen and (max-width: 480px) {
+	.content_header .list_settings {
+		width: 100%;
+	}
+	.banner .banner_button span.static {
+		font-size: 1em;
+	}
+}
 
 /* Quiz */
 #quiz {
@@ -4564,5 +4600,25 @@ div[for="rating_block"] {
 @media(max-width: 654px){
 	#quiz .line {
 		width: 100%;
+	}
+}
+
+@media only screen and (max-device-width : 1024px) {
+	.banner .banner_button:hover:after {
+		opacity: 0;
+	}
+	.banner .banner_button:hover img {
+		-webkit-filter: none;
+		filter: none;
+	}
+	.banner .banner_button:hover span.floating {
+		display: none;
+	}
+	.banner .banner_button:hover span.static {
+		-webkit-filter: none;
+		filter: none;
+	}
+	.banner .banner_button:hover p {
+		display: none;
 	}
 }
