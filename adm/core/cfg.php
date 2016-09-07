@@ -153,7 +153,7 @@ G::ToGlobals(array(
 					'supplier_prov',
 					'orders_category',
 					'monitoring',
-					'guestbook'
+					'guestbook',
 					'graphics'
 				)
 			),
