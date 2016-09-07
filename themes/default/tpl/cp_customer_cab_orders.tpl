@@ -516,6 +516,7 @@ $(function(){
 		if (id_addres !== undefined){
 			addLoadAnimation('.delivery_details');
 			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
+				removeLoadAnimation('.delivery_details');
 				// $('.newdelivery .details').html(data);
 				current_order.closest('.newdelivery').find('.details').html(data);
 			});
