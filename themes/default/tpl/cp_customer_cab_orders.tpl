@@ -508,11 +508,12 @@ $(function(){
 		});
 	});
 	$('.change_delivery_btn_js').on('click', function(){
-		var id_addres = $(this).closest('.change_delivery').find('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
+		// var selected = $(this).closest('.change_delivery').find('.change_delivery_js').val();
+		var id_addres =	$(this).closest('.change_delivery').find('.change_delivery_js').find('[value="'+ $(this).closest('.change_delivery').find('.change_delivery_js').val() +'"]').data('id');
 		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
 		var current_order = $(this).closest('.newdelivery');
-		// console.log(id_addres);
-		// console.log(id_order);
+		console.log(id_addres);
+		console.log(id_order);
 		if (id_addres !== undefined){
 			addLoadAnimation(current_order);
 			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
