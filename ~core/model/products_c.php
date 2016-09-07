@@ -2790,6 +2790,7 @@ class Products {
 	 * @param [type] $rows [description]
 	 */
 	public function GenExcelAssortFile($rows){
+		ini_set('memory_limit', '512M');
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()
@@ -2842,6 +2843,7 @@ class Products {
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
+		ini_set('memory_limit', '192M');
 	}
 	/**
 	 * Обработка загруженного файла ассортимента

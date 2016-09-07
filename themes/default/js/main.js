@@ -430,8 +430,18 @@ $(function(){
 
 	$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
 	$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
-
+	var content_header_scroll = 0;
 	$(window).scroll(function(){
+		if($('body').not('.c_product').length > 0){
+			content_header_scroll = $(this).scrollTop() + 67 - $('.content_header').offset().top;
+			if(content_header_scroll > 0 && $('.content_header').not('.fixed')){
+				$('.content_header').addClass('fixed').css('width', $('#view_block_js').outerWidth());
+				$('#view_block_js').css('padding-top', $('.content_header').outerHeight() + 15);
+			}else if($('#view_block_js').offset().top - $('.content_header').offset().top >= 0 && content_header_scroll <= 0 && $('.content_header').is('.fixed')){
+				$('.content_header').removeClass('fixed').css('width', '');
+				$('#view_block_js').css('padding-top', 0);
+			}
+		}
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - 52 && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
@@ -441,6 +451,7 @@ $(function(){
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
+				content_header_base_position = $('.content_header').offset().top;
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);

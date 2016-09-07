@@ -179,7 +179,7 @@
 		<div class="product_name">
 			<h1 itemprop="name"><?=$item['name']?></h1>
 			<p class="product_article">арт: <?=$item['art']?></p>
-			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9, 14)) ){?>
+			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 				<!-- Ссылка на редактирование товара для администратором -->
 				<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 			<?}?>

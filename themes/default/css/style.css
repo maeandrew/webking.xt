@@ -1590,6 +1590,14 @@ section .stat_year {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
+	z-index: 50;
+}
+
+.content_header.fixed {
+	position: fixed;
+	top: 67px;
+	color: #fff;
+	background-color: #ff784e;
 }
 @media (max-width: 1280px) {
 	.content_header {
@@ -1655,17 +1663,16 @@ section .stat_year {
 	display: inline-block;
 	cursor: pointer;
 	vertical-align: middle;
-	color: #999;
 }
 .content_header .productsListView .activeView {
 	color: #444;
 }
+.content_header.fixed .productsListView .activeView {
+	color: rgba(255, 255, 255, .5);
+}
 .content_header .cart_info {
 	padding: 10px 0;
 	position: relative;
-	-webkit-transition: all .3s cubic-bezier(.4, 0, .2, 1);
-	-o-transition: all .3s cubic-bezier(.4, 0, .2, 1);
-	transition: all .3s cubic-bezier(.4, 0, .2, 1);
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: space-between;
@@ -1695,6 +1702,10 @@ section .stat_year {
 	-o-transition: all .3s cubic-bezier(.4, 0, .2, 1);
 	transition: all .3s cubic-bezier(.4, 0, .2, 1);
 }
+.content_header.fixed .cart_info .tabs_container li {
+	border-color: rgba(255, 255, 255, .5);
+	color: rgba(255, 255, 255, .5);
+}
 .content_header .cart_info .tabs_container li:first-of-type {
 	border-radius: 3px 0 0 3px;
 }
@@ -1706,20 +1717,39 @@ section .stat_year {
 	border-color: #FF5722;
 	color: inherit;
 }
+.content_header.fixed .cart_info .tabs_container li:hover {
+	border-color: #fff;
+}
 .content_header .cart_info .tabs_container li.active {
 	border-color: #FF5722;
 	background: #FF5722;
 	color: #fff;
 }
+
+.content_header.fixed .cart_info .tabs_container li.active {
+	border-color: #fff;
+	background: #fff;
+	color: #FF5722;
+}
 .content_header .cart_info .tabs_container li.active ~ li {
 	color: #444;
 	border-color: #444 !important;
 }
+.content_header.fixed .cart_info .tabs_container li.active ~ li {
+	color: #fff;
+	border-color: #fff !important;
+}
 .content_header .cart_info .tabs_container li:hover + li {
 	border-left-color: #FF5722;
 }
+.content_header.fixed .cart_info .tabs_container li:hover + li {
+	border-left-color: #fff;
+}
 .content_header .cart_info .tabs_container li.active + li {
 	border-left-color: #FF5722 !important;
+}
+.content_header.fixed .cart_info .tabs_container li.active + li {
+	border-left-color: #fff !important;
 }
 /*.content_header .cart_info .tabs_container .in_cart_block {
 	border-color: #FF5722;
@@ -1751,6 +1781,7 @@ section .stat_year {
 	height: 12px;
 	position: absolute;
 	top: 100%;
+	display: none;
 }
 .content_header .cart_info .price_nav:before {
 	content: '';
