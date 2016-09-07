@@ -803,6 +803,7 @@ class Products {
 					ON pv.id_product = p.id_product'.
 			$this->db->GetWhere($and)
 			.$where2
+			.$this->price_range
 			.' GROUP BY p.id_product
 			ORDER BY active DESC, p.visible DESC, '.
 			$order_by.' '.$limit;
@@ -1135,34 +1136,14 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array()){
-		$where = "";
-		$where2 = $this->filter;
-
-		if($and !== FALSE && count($and)){
-			$where = " AND ";
-			foreach ($and as $k=>$v){
-				if($k=='customs'){
-					foreach($v as $a){
-						$where_a[] = $a;
-					}
-				}else{
-					$where_a[] = "$k=\"$v\"";
-				}
-			}
-			$where .= implode(" AND ", $where_a);
-		}
-
-		$sql = "SELECT MIN(p.price_opt) as min_price, MAX(p.price_opt) as max_price
-				FROM "._DB_PREFIX_."cat_prod AS cp
-					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
-					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. "
-				AND p.visible = 1
-				AND p.price_opt > 0
-				AND a.active = 1
-				ORDER BY p.price_opt";
+		$sql = 'SELECT MIN(p.price_opt) as min_price, MAX(p.price_opt) as max_price
+				FROM '._DB_PREFIX_.'cat_prod AS cp
+					RIGHT JOIN '._DB_PREFIX_.'product AS p ON cp.id_product = p.id_product
+					LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
+					LEFT JOIN '._DB_PREFIX_.'assortiment AS a ON a.id_product = p.id_product'.
+				$this->db->GetWhere($and).
+				$this->filter."
+				AND p.price_opt > 0";
 		$this->list = $this->db->GetOneRowArray($sql);
 		if(!$this->list){
 			return false;
