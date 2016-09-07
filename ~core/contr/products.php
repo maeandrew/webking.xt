@@ -66,11 +66,7 @@ function selectAll($dbtree, $id_category = null, $str = array()){
 	return $str;
 }
 $res = selectAll($dbtree, $id_category);
-if(count($res) > 1){
-	$where_arr['customs'][] = "cp.id_category IN (".implode(', ', $res).")";
-}else{
-	$where_arr = array('cp.id_category' => $id_category);
-}
+$where_arr['cp.id_category'] = count($res) > 1?$res:$id_category;
 if(!_acl::isAdmin()){
 	$where_arr['p.visible'] = 1;
 }
