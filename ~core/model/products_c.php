@@ -106,33 +106,19 @@ class Products {
 	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
 	 */
 	public function SetFieldsById($id_product, $visibility = 0){
-		$visible = "AND p.visible = 1";
-		if($visibility == 1){
-			$visible = '';
-		}
-		$sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short, p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate, p.duplicate, p.price_mopt,
-			p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length, p.volume, p.coefficient_volume, p.qty_control, p.price_coefficient_opt, p.price_coefficient_mopt,
-			p.visible, p.ord, p.note_control, un.unit_xt AS units, p.prod_status, p.old_price_mopt, p.old_price_opt, p.mopt_correction_set, p.opt_correction_set, p.filial, p.popularity, p.duplicate_user,
-			p.duplicate_comment, p.duplicate_date, p.edit_user, p.edit_date, p.create_user, p.create_date, p.id_unit, p.page_title, p.page_description, p.page_keywords, p.notation_price, p.instruction,
-			p.indexation, p.access_assort, un.unit_prom, a.product_limit, pv.count_views,
-			(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
-			un.unit_prom, a.product_limit, pv.count_views,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.edit_user) AS username,
-			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.create_user) AS createusername
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."units AS un
-				ON un.id = p.id_unit
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
-				ON a.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
-				ON pv.id_product = p.id_product
-			WHERE p.id_product = ".$id_product."
-			".$visible;
+		$sql = 'SELECT p.*,
+				un.unit_xt AS units,
+				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+				pv.count_views,
+				un.unit_prom,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+			FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
+			WHERE p.id_product = '.$id_product.'
+			LIMIT 1';
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
@@ -155,10 +141,6 @@ class Products {
 	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
 	 */
 	public function SetFieldsByRewrite($rewrite, $visibility = 0){
-		$visible = "AND p.visible = 1";
-		if($visibility == 1){
-			$visible = '';
-		}
 		$sql = 'SELECT p.*,
 				un.unit_xt AS units,
 				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
