@@ -74,7 +74,7 @@
 	<?}?>
 <?}else{?>
 	<!-- Недоступные товары -->
-	<?if(isset($_SESSION['cart']['unavailable_products']) && !empty($_SESSION['cart']['unavailable_products'])){?>
+	<!--	<?if(isset($_SESSION['cart']['unavailable_products']) && !empty($_SESSION['cart']['unavailable_products'])){?>
 		<div class="msg-warning">
 			<p>
 				<?=$count = count($unlist);?>
@@ -118,14 +118,14 @@
 				</table>
 			</div>
 		<?}?>
-	<?}?>
+	<?}?>	-->
 	<!-- END Недоступные товары -->
 
 	<!-- New Недоступные товары -->
-	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
+	<?if(isset($unlist) && !empty($unlist)){?>
 		<div class="unorder_wrapp">
 			<h5>Временно недоступные товары</h5>
-			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
+			<?foreach($unlist as $p){?>
 				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
 					<div class="card_wrapper">
 						<div class="product_photo">
