@@ -510,15 +510,15 @@ $(function(){
 	$('.change_delivery_btn_js').on('click', function(){
 		var id_addres = $('.change_delivery_js').find('[value="'+ $('.change_delivery_js').val() +'"]').data('id');
 		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
-		var current_order = $(this);
+		var current_order = $(this).closest('.newdelivery');
 		// console.log(id_addres);
 		// console.log(id_order);
 		if (id_addres !== undefined){
-			addLoadAnimation('.delivery_details');
+			addLoadAnimation(current_order);
 			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
-				removeLoadAnimation('.delivery_details');
+				removeLoadAnimation(current_order);
 				// $('.newdelivery .details').html(data);
-				current_order.closest('.newdelivery').find('.details').html(data);
+				current_order.find('.details').html(data);
 			});
 		}
 	});
