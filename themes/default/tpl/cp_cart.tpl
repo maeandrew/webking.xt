@@ -578,7 +578,7 @@
 		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
 
 		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
-			<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
+			<div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>>
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
 			</div>
 		<?}else{?>
@@ -621,7 +621,6 @@
 				note = $(this).val();
 				ajax('cart', 'SaveOrderNote', {note: note});
 			});
-
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				//Проверка на ввод примечания к товару
