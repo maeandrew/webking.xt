@@ -2,8 +2,8 @@
 class G {
 	/**
 	 * Действия при старте приложения
- 	 */
- 	public static function Start(){
+	 */
+	public static function Start(){
 		$GLOBALS['__JS__'] = array();
 		$GLOBALS['__JS_S__'] = array();
 		$GLOBALS['__CSS__'] = array();
@@ -13,8 +13,8 @@ class G {
 
 	/**
 	 * Install default Cookies
- 	 */
- 	public static function SetBasicCookies(){
+	 */
+	public static function SetBasicCookies(){
 		if(!isset($_COOKIE['manual'])){
 			$_COOKIE['manual'] = 1;
 			setcookie('manual', $_COOKIE['manual'], 0, '/');
@@ -48,8 +48,8 @@ class G {
 
 	/**
 	 * parsing url parameters (filters)
- 	 */
- 	public static function ParseUrlParams($params){
+	 */
+	public static function ParseUrlParams($params){
 		if($params !== null){
 			$param = explode(';', $params);
 			foreach($param as $p){
@@ -65,21 +65,21 @@ class G {
 	}
 	/**
 	 * Defining _base_url global
- 	 */
- 	public static function DefineBaseURL(){
- 		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+	 */
+	public static function DefineBaseURL(){
+		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 		$domainName = $_SERVER['HTTP_HOST'];
 		define('_base_url', $protocol.$domainName);
- 	}
+	}
 
 	/**
 	 * Defining _root global
- 	 */
- 	public static function DefineRootDirectory(){
+	 */
+	public static function DefineRootDirectory(){
 		define('_root', $_SERVER['DOCUMENT_ROOT']?$_SERVER['DOCUMENT_ROOT'].DIRSEP:dirname(__FILE__).DIRSEP.'..'.DIRSEP);
- 	}
+	}
 
- 	public static function isMobile(){
+	public static function isMobile(){
 		$user_agent = strtolower(getenv('HTTP_USER_AGENT'));
 		$accept     = strtolower(getenv('HTTP_ACCEPT'));
 		if((strpos($accept, 'text/vnd.wap.wml') !== false) || (strpos($accept, 'application/vnd.wap.xhtml+xml') !== false)){
@@ -159,8 +159,8 @@ class G {
 	}
 	/**
 	 * Get info about client (ip, user agent etc.)
- 	 */
- 	public static function GetUserInfo(){
+	 */
+	public static function GetUserInfo(){
 		if(isset($_GET['rememberDesktop']) || isset($_COOKIE['user_agent'])){
 			if(!isset($_COOKIE['user_agent'])){
 				$user_agent = 'desktop';
@@ -187,12 +187,12 @@ class G {
 		$_SESSION['client']['ip'] = $ip;
 		$_SESSION['client']['user_agent'] = $user_agent;
 		unset($user_agent, $ip);
- 	}
+	}
 	/**
 	 * Пополнение массива глобальных переменных из массива
- 	 * @param array $arr
- 	 */
- 	public static function ToGlobals($arr){
+	 * @param array $arr
+	 */
+	public static function ToGlobals($arr){
 		foreach($arr as $name=>$value){
 			$GLOBALS[$name] = $value;
 		}
@@ -200,10 +200,10 @@ class G {
 
 	/**
 	 * Добавляет файл CSS
- 	 * @param string $pName
- 	 */
- 	public static function AddCSS($pName){
- 		if(SETT === 2 && !strpos($_SERVER['REQUEST_URI'], 'adm') && !strpos($pName, '.min.css') && !strpos($pName, '/plugins/')){
+	 * @param string $pName
+	 */
+	public static function AddCSS($pName){
+		if(SETT === 2 && !strpos($_SERVER['REQUEST_URI'], 'adm') && !strpos($pName, '.min.css') && !strpos($pName, '/plugins/')){
 			$pName = str_replace('.css', '.min.css', str_replace('/css/', '/min/css/', $pName));
 		}
 		if(!in_array($pName, $GLOBALS['__CSS__'])){
@@ -213,17 +213,17 @@ class G {
 
 	/**
 	 * Возвращает CSS
- 	 * @return array
- 	 */
- 	public static function GetCSS(){
+	 * @return array
+	 */
+	public static function GetCSS(){
 		return $GLOBALS['__CSS__'];
 	}
 
 	/**
 	 * Добавляет файл CSS_S
- 	 * @param string $pName
- 	 */
- 	public static function AddCSS_S($pName){
+	 * @param string $pName
+	 */
+	public static function AddCSS_S($pName){
 		if(!in_array($pName, $GLOBALS['__CSS_S__'])){
 			$GLOBALS['__CSS_S__'][] = $pName;
 		}
@@ -239,13 +239,13 @@ class G {
 
 	/**
 	 * Добавляет элемент в список JavaScripts
- 	 * @param string $pName
- 	 * @param boolean $pAsync
- 	 */
- 	public static function AddJS($pName, $pAsync = false){
- 		if(SETT != 0 && strpos($pName, 'themes') > 0){
- 			$pName = str_replace('.js', '_min.js', $pName);
- 		}
+	 * @param string $pName
+	 * @param boolean $pAsync
+	 */
+	public static function AddJS($pName, $pAsync = false){
+		// if(SETT != 0 && strpos($pName, 'themes') > 0){
+		//	$pName = str_replace('.js', '_min.js', $pName);
+		// }
 		if(!in_array($pName, $GLOBALS['__JS__'])){
 			$GLOBALS['__JS__'][] = array('name'=>$pName,'async'=>$pAsync);
 		}
@@ -271,25 +271,25 @@ class G {
 
 	/**
 	 * Возвращает JS скрипты приложения S
- 	 * @return array
- 	 */
- 	public static function GetJS_S(){
+	 * @return array
+	 */
+	public static function GetJS_S(){
 		return $GLOBALS['__JS_S__'];
 	}
 
 	/**
 	 * Регистрирует данные текущего пользователя.
- 	 * @param $pValue
- 	 */
- 	public static function Login($pValue){
+	 * @param $pValue
+	 */
+	public static function Login($pValue){
 		$_SESSION['member'] = $pValue;
 	}
 
 	/**
 	 * Возвращает текущее состояния сеанса работы с приложением.
- 	 * @return bool
- 	 */
- 	public static function IsLogged(){
+	 * @return bool
+	 */
+	public static function IsLogged(){
 		return isset($_SESSION['member'])?true:false;
 	}
 
@@ -714,7 +714,7 @@ class G {
 	public static function GetErrors($where_arr = false, $limit = false){
 		global $db;
 		$sql = "SELECT u.name, u.email, e.* FROM "._DB_PREFIX_."errors e
-		 		LEFT JOIN "._DB_PREFIX_."user u ON e.id_user = u.id_user WHERE e.visible  = 1"
+				LEFT JOIN "._DB_PREFIX_."user u ON e.id_user = u.id_user WHERE e.visible  = 1"
 				.($where_arr !== false?$where_arr:'').
 			    " ORDER BY e.id_error DESC".($limit !== false?$limit:'');
 		$res = $db->GetArray($sql);
