@@ -775,6 +775,7 @@ section.center {
 /* Cart ======================================================================= */
 	#cart {
 		padding: 30px;
+		width: 80vw;
 	}
 	#cart .modal_container {
 		overflow: hidden;

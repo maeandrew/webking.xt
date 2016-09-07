@@ -137,7 +137,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 .ps_lvl.better{width:50%;background:#fff}
 .ps_lvl.ok{width:25%;background:#fff}
 .ps_lvl.best{width:0;background:#fff}
-#cart{padding:30px}
+#cart{padding:30px;width:80vw}
 #cart .modal_container{overflow:hidden;overflow-y:auto;min-width:60vw}
 #cart .title_cart{width:100%;background-color:#fff;z-index:1;margin:0;line-height:32px}
 #cart .unorder_wrapp .card{opacity:.7;border:1px solid #e0e0e0;border-top:0}
