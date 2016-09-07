@@ -54,7 +54,9 @@ if((isset($_SESSION['search']['query']) && $_SESSION['search']['query'] != '') &
 if(isset($_POST['dropfilters'])){
 	unset($_SESSION['filters']);
 }
-
+if(!_acl::isAdmin()){
+	$where_arr['p.visible'] = 1;
+}
 // Категория для поиска ====================================
 if((isset($_POST['search_category']) && $_POST['search_category'] != 0) || (isset($_GET['search_category']) && $_GET['search_category'] != 0)){
 	$_SESSION['search']['search_category'] = isset($_POST['search_category'])?$_POST['search_category']:$_GET['search_category'];
@@ -156,7 +158,7 @@ $gid = 0;
 if(isset($_SESSION['member'])){
 	$gid = $_SESSION['member']['gid'];
 }
-if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search_engine'] == 'sphinx' && isset($_SESSION['member']) && in_array($gid, array(_ACL_SUPPLIER_, _ACL_ADMIN_)))){
+if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 	$widened_query = Words2AllForms($query);
 	if(!empty($widened_query)){
 		$widened_query_utf = r_implode(' ', $widened_query);
@@ -328,9 +330,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 		}
 	}
 	if(!empty($mass) && count($mass > 0)){
-		$_SESSION['search']['arr_prod'] = $where_arr['customs'][] = 'p.id_product IN ('.implode(', ', $mass).')';
+		$_SESSION['search']['arr_prod'] = $where_arr['p.id_product'] = $mass;
 	}else{
-		$where_arr['customs'][] = 'p.id_product = 1';
+		$where_arr['p.id_product'] = 1;
 	}
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -358,21 +360,21 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql' || ($GLOBALS['CONFIG']['search
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
-	$list = $Products->SetProductsList4Search($where_arr, $limit, 0, array(isset($orderby)?$orderby:null));
-	if(isset($list) == true && empty($list) == false){
-		foreach($list AS $res){
+	$Products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
+	if(!empty($Products->list)){
+		foreach($Products->list AS $res){
 			if($res['price_mopt'] != 0){
 				$prices[] = number_format($res['price_mopt'], 0, ".","");
 			}
 		}
 	}
 }
-if(!empty($list)){
-	foreach($list as &$p){
+if(!empty($Products->list)){
+	foreach($Products->list as &$p){
 		$p['images'] = $Products->GetPhotoById($p['id_product']);
 	}
 }
-$tpl->Assign('list', isset($list)?$list:array());
+$tpl->Assign('list', isset($Products->list)?$Products->list:false);
 if($cnt > 30){
 	$list_categories = $Products->SetCategories4Search($where_arr);
 	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());

@@ -4,7 +4,7 @@
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	$product_mark = '';
-	if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 		$product_mark = 'action';
 	}elseif ($item['prod_status'] == 3){
 		$product_mark = 'new';
@@ -220,81 +220,82 @@
 		<div class="pb_wrapper">
 			<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="product_buy <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"":"hidden"?>">
-				<span class="out_of_stock">Нет в наличии</span>
-			</div>
-			<div class="product_buy <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '')?"hidden":""?>" data-idproduct="<?=$item['id_product']?>">
-				<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					<meta itemprop="priceCurrency" content="UAH">
-					<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
-					<div class="base_price <?=isset($product_mark) && $product_mark === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-						<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
-							<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
-						<?}else{?>
-							<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
-						<?}?>
-					</div>
-					<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
-						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
-					</div>
-					<!-- Цена поставщика -->
-					<div class="price card_item <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
-						<?if($item['price_opt_otpusk'] != 0){
-							echo number_format($item['price_opt_otpusk'], 2, ",", "");
-						}else{
-							echo number_format($item['price_mopt_otpusk'], 2, ",", "");
-						}?>
-					</div>
-					<span>грн.</span>
-					<div class="prodBasePrices hidden">
-						<?for($i = 0; $i < 4; $i++){?>
-							<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
-							<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
-						<?}?>
-					</div>
-					<div class="prodPrices hidden">
-						<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
-						<?for($i = 0; $i < 4; $i++){?>
-							<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
-							<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
-						<?}?>
-					</div>
-					<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
-						<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-					</div>
-					<div class="quantity <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-						<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js out_card_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
-						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
-
-						<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-						<input type="text" class="qty_js out_card_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
-
-						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js out_card_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
-						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
-
-						<div class="units"><?=$item['units'];?></div>
-					</div>
-					<!-- Блок для поставщика -->
-					<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
-						<div class="count_cell">
-							<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
-							<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>
+			<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
+				<?if($item['active'] == 0){?>
+					<span class="out_of_stock">Нет в наличии</span>
+				<?}else{?>
+					<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+						<meta itemprop="priceCurrency" content="UAH">
+						<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
+						<div class="base_price <?=isset($product_mark) && $product_mark === true?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
+								<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}else{?>
+								<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<?}?>
 						</div>
-						<div class="count_cell">
-							<span class="suplierPriceBlockLabel">Количество в ящике:</span>
-							<p id="inbox_qty_<?=$item['id_product']?>"><?=$item['inbox_qty'].' '.$item['units']?></p>
+						<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+							<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
 						</div>
-						<div class="product_check <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
-							<span class="suplierPriceBlockLabel">Добавить:</span>
-							<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">
-								<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
-							</label>
+						<!-- Цена поставщика -->
+						<div class="price card_item <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+							<?if($item['price_opt_otpusk'] != 0){
+								echo number_format($item['price_opt_otpusk'], 2, ",", "");
+							}else{
+								echo number_format($item['price_mopt_otpusk'], 2, ",", "");
+							}?>
+						</div>
+						<span>грн.</span>
+						<div class="prodBasePrices hidden">
+							<?for($i = 0; $i < 4; $i++){?>
+								<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
+								<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
+							<?}?>
+						</div>
+						<div class="prodPrices hidden">
+							<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
+							<?for($i = 0; $i < 4; $i++){?>
+								<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+								<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+							<?}?>
+						</div>
+						<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+							<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
+							<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+						</div>
+						<div class="quantity <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+							<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js out_card_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+							<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
+
+							<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
+							<input type="text" class="qty_js out_card_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
+
+							<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js out_card_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+							<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
+
+							<div class="units"><?=$item['units'];?></div>
+						</div>
+						<!-- Блок для поставщика -->
+						<div class="supplier_block <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+							<div class="count_cell">
+								<span class="suplierPriceBlockLabel">Минимальное кол-во:</span>
+								<p id="min_mopt_qty_<?=$item['id_product']?>"><?=$item['min_mopt_qty'].' '.$item['units']?><?=$item['qty_control']?" *":null?></p>
+							</div>
+							<div class="count_cell">
+								<span class="suplierPriceBlockLabel">Количество в ящике:</span>
+								<p id="inbox_qty_<?=$item['id_product']?>"><?=$item['inbox_qty'].' '.$item['units']?></p>
+							</div>
+							<div class="product_check <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
+								<span class="suplierPriceBlockLabel">Добавить:</span>
+								<label  class="mdl-checkbox mdl-js-checkbox" for="checkbox_mopt_<?=$item['id_product']?>">
+									<input type="checkbox" class="check mdl-checkbox__input" id="checkbox_mopt_<?=$item['id_product']?>" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this,<?=$item['id_product']?>)"/>
+								</label>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
+					<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
+				<?}?>
 			</div>
 			<div class="apps_panel mdl-cell--hide-phone">
 				<ul>
@@ -350,13 +351,20 @@
 				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</div>
-		<div class="sold_produxt_info <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '') || ($item['visible'] == 0)?"":"hidden" ?>">
-			<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p>
-			<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
-			<ul><li id="fortrending_info" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
-				<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li></ul>
-			<div class="mdl-tooltip fortrending_info_tooltip" for="fortrending_info"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div>
-					</div>
+		<?if($item['active'] == 0 || $item['visible'] == 0){?>
+			<div class="sold_produxt_info">
+				<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p>
+				<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
+				<ul>
+					<li id="fortrending_info" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
+						<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
+					</li>
+				</ul>
+				<div class="mdl-tooltip fortrending_info_tooltip" for="fortrending_info">
+					<?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Товар уже <br> в листе ожидания' : 'Следить за ценой';?>
+				</div>
+			</div>
+		<?}?>
 		<div class="notificationProdNote <?=isset($item['note_control']) && $item['note_control'] == 0 ? 'hidden' : ''?>">
 			<span>Данный товар имеет дополнительные конфигурации (цвет, материал и тд.). Укажите свои пожелания к товару в поле "Примечание" при оформлении заказа в корзине.</span>
 		</div>
