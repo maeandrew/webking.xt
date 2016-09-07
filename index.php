@@ -17,27 +17,27 @@ $s_time = G::getmicrotime();
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 /* Объявление CSS файлов */
-G::AddCSS('../themes/'.$theme.'/css/reset.css', 0);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/reset.css', 0);
 G::AddCSS('../plugins/mdl-select.min.css', 1);
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
-G::AddCSS('../themes/'.$theme.'/css/footer.css', 1);
-G::AddCSS('../themes/'.$theme.'/css/style.css', 0);
-G::AddCSS('../themes/'.$theme.'/css/header.css', 0);
-G::AddCSS('../themes/'.$theme.'/css/custom.css', 1);
-G::AddCSS('../themes/'.$theme.'/css/colors.css', 0);
-G::AddCSS('../themes/'.$theme.'/css/jquery-ui.css', 1);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/footer.css', 1);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/style.css', 0);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/header.css', 0);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/custom.css', 1);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/colors.css', 0);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/jquery-ui.css', 1);
 /* plugins css */
-G::AddCSS('../themes/'.$theme.'/css/page_styles/'.$GLOBALS['CurrentController'].'.css', 0);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/page_styles/'.$GLOBALS['CurrentController'].'.css', 0);
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
 G::AddJS('jquery-ui.min.js', true, 1);
-G::AddJS('../plugins/Chart.min.js');
+G::AddJS('../plugins/Chart.min.js', true);
 G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
-G::AddJS('../themes/'.$theme.'/js/func.js');
-G::AddJS('../themes/'.$theme.'/js/main.js');
+G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/func.js');
+G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js');
 if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js');
 }else{
@@ -50,7 +50,7 @@ G::AddJS('../plugins/jquery.cookie.js', false, 1);
 G::AddJS('../plugins/maskedinput.min.js', true);
 G::AddJS('../js/html2canvas.js', true);
 if($GLOBALS['CurrentController'] == 'page'){
-	G::AddJS('../themes/'.$theme.'/js/page.js', true);
+	G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/page.js', true);
 }
 if(in_array($GLOBALS['CurrentController'], array('promo_cart', 'promo'))){
 	G::AddJS('promo_cart.js');

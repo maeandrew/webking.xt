@@ -105,25 +105,25 @@ $(function(){
 
 	//Добавление товара в корзину
 	$('body').on('change', '.qty_js', function(){
+		AddNoteArea($(this));
 		var id = $(this).closest('.product_buy').attr('data-idproduct'),
 			qty = $(this).val(),
 			note = $(this).closest('.product_section').find('.note textarea').val();
 		SendToAjax (id,qty,false,false,note);
 	});
-	$('body').on('click', '.buy_btn_js', function (){
-		$(this).closest('.card').find('.note').removeClass('hidden');
-
-		if ($(this).closest('.card').find('.note').hasClass('note_control')) {
-			$(this).closest('.card').find('.note').addClass('activeNoteArea');
-		}
-
+	$('body').on('click', '.buy_btn_js', function(){
+		AddNoteArea($(this));
 		var id = $(this).closest('.product_buy').attr('data-idproduct'),
 			qty = $(this).closest('.product_buy').find('.qty_js').val(),
 			note = $(this).closest('.product_section').find('.note textarea').val();
 		SendToAjax (id,qty,false,false,note);
 	});
-	$(".note_field").blur(function() {
-		if ($(".note_field").val() !== ''){
+	// Добавление поля "примечания" в карточку товара по клику на кнопках -/+ возле кнопки "Купить"
+	$('body').on('click', '.btn_qty_js', function(){
+		AddNoteArea($(this));
+	});
+	$('.note_field').blur(function(){
+		if($('.note_field').val() !== ''){
 			$(this).closest('.card').find('.note').removeClass('activeNoteArea');
 		}
 		var id_product = $(this).data('id'),
@@ -137,7 +137,7 @@ $(function(){
 	// 	AddFavorite(event,id_product);
 	// });
 
-	//Удаление избранного товара из списка
+	//Удаление избранного товара из списка в кабинете пользователя
 	$('body').on('click', '.remove_favor_js', function(e){
 		e.preventDefault();
 		var id_product = $(this).closest('.favorite_js').data('idproduct'),
@@ -146,7 +146,7 @@ $(function(){
 		clicked.addClass('clicked_js').closest('.tableRow').addClass('flag_js');
 	});
 
-	//Удаление товара из листа ожидания
+	//Удаление товара из листа ожидания в кабинете пользователя
 	$('body').on('click', '.remove_waitinglist_js', function(e){
 		e.preventDefault();
 		var id_product = $(this).closest('.waiting_list_js').data('idproduct'),
@@ -155,7 +155,7 @@ $(function(){
 		clicked.addClass('clicked_js').closest('.tableRow').addClass('flag_js');
 	});
 
-	//Подтверждение удаления из листа ожидания/списка избранных
+	//Подтверждение удаления из листа ожидания/списка избранных в кабинете пользователя
 	$('#confirmDelItem').on('click', '.deleteBtn_js', function(){
 		var id_product = $('#confirmDelItem').data('delIdItem'),
 			clicked = $('.clicked_js');
@@ -430,8 +430,18 @@ $(function(){
 
 	$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
 	$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
-
+	var content_header_scroll = 0;
 	$(window).scroll(function(){
+		if($('body').not('.c_product').length > 0){
+			content_header_scroll = $(this).scrollTop() + 67 - $('.content_header').offset().top;
+			if(content_header_scroll > 0 && $('.content_header').not('.fixed')){
+				$('.content_header').addClass('fixed').css('width', $('#view_block_js').outerWidth());
+				$('#view_block_js').css('padding-top', $('.content_header').outerHeight() + 15);
+			}else if($('#view_block_js').offset().top - $('.content_header').offset().top >= 0 && content_header_scroll <= 0 && $('.content_header').is('.fixed')){
+				$('.content_header').removeClass('fixed').css('width', '');
+				$('#view_block_js').css('padding-top', 0);
+			}
+		}
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - 52 && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
@@ -441,6 +451,7 @@ $(function(){
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
+				content_header_base_position = $('.content_header').offset().top;
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
@@ -504,7 +515,7 @@ $(function(){
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
-			banner_height = $('.banner .cont').outerHeight();
+			// banner_height = $('.banner').outerHeight();
 			$('.banner').animate({
 				height: banner_height
 			}, 300);
@@ -2032,7 +2043,7 @@ $(function(){
 			console.log(data);
 		});
 	});
-	
+
 	// Подгрузка графика спроса по сезонам на странице товара
 	$('body').on('click', '.seasonality_js', function(event){
 		if(!$(this).hasClass('with_demand_graph')){

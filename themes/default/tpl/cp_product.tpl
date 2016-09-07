@@ -152,7 +152,7 @@
 				});
 				$(function(){
 					//Слайдер миниатюр картинок.
-					$('#owl-product_mini_img_js .item').on('click', function(event){
+					$('#owl-product_mini_img_js .owl-item').on('click', function(event){
 						var src = $(this).find('img').attr('src');
 						var viewport_width = $(window).width();
 						if(viewport_width > 711){
@@ -162,12 +162,11 @@
 							//  src = src.replace('thumb', 'original');
 							// }
 							if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
-								src = src.replace('thumb', 'original');
+								src = src.replace('/thumb/', '/original/');
 							}else{
 								src = src.replace('_thumb/', '');
 							}
-							$('.product_main_img').find('img').attr('src', src);
-							$('.product_main_img').hide().fadeIn('100');
+							$('.product_main_img').find('img').attr('src', src).hide().fadeIn('100');
 						}else{
 							event.preventDefault();
 						}
@@ -176,11 +175,11 @@
 			</script>
 		<?}?>
 	</div>
-	<div id="specCont" class="mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
+	<div id="specCont" class="specCont_js mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
 		<div class="product_name">
 			<h1 itemprop="name"><?=$item['name']?></h1>
 			<p class="product_article">арт: <?=$item['art']?></p>
-			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 9, 14)) ){?>
+			<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 				<!-- Ссылка на редактирование товара для администратором -->
 				<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 			<?}?>
@@ -215,7 +214,7 @@
 			</div>
 			<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
 		</div>
-		<div class="content_header mdl-cell--hide-phone">
+		<div class="content_header">
 			<?=$cart_info;?>
 		</div>
 		<div class="pb_wrapper">
@@ -263,16 +262,16 @@
 					<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 						<div id="in_cart_<?=$item['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
 						<div class="mdl-tooltip" for="in_cart_<?=$item['id_product'];?>">Товар в корзине</div>
-						<button class="mdl-button mdl-js-button buy_btn_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+						<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$item['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 					</div>
 					<div class="quantity <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-						<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js"	onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
+						<button id="btn_add<?=$item['id_product']?>" class="material-icons btn_add btn_qty_js out_card_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 1); return false;">add</button>
 						<div class="mdl-tooltip mdl-tooltip--top tooltipForBtnAdd_js hidden" for="btn_add<?=$item['id_product']?>">Больше</div>
 
 						<input type="text" class="minQty hidden" value="<?=$item['inbox_qty']?>">
-						<input type="text" class="qty_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
+						<input type="text" class="qty_js out_card_js" value="<?=isset($_SESSION['cart']['products'][$item['id_product']]['quantity'])?$_SESSION['cart']['products'][$item['id_product']]['quantity']:$item['inbox_qty']?>" onchange="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null);return false;">
 
-						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
+						<button id="btn_remove<?=$item['id_product']?>" class="material-icons btn_remove btn_qty_js out_card_js" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), 0);return false;">remove</button>
 						<div class="mdl-tooltip tooltipForBtnRemove_js hidden" for="btn_remove<?=$item['id_product']?>">Меньше</div>
 
 						<div class="units"><?=$item['units'];?></div>
@@ -342,6 +341,13 @@
 						</li>
 					</ul>
 				</div>
+			</div>
+		</div>
+		<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
+			<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+			<label class="info_key">?</label>
+			<div class="info_description">
+				<p>Поле для ввода примечания к товару.</p>
 			</div>
 		</div>
 		<div class="sold_produxt_info <?=($item['price_opt'] == 0 && $item['price_mopt'] == 0) || ($item['active'] == 0 || $item['active'] == '') || ($item['visible'] == 0)?"":"hidden" ?>">

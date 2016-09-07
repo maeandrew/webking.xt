@@ -123,8 +123,8 @@
 
 	<!-- New Недоступные товары -->
 	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
-		<h5>Временно недоступные товары</h5>
 		<div class="unorder_wrapp">
+			<h5>Временно недоступные товары</h5>
 			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
 				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
 					<div class="card_wrapper">
@@ -160,8 +160,8 @@
 					</div>
 				</div>
 			<?}?>
+			<h5>Товары в корзине</h5>
 		</div>
-		<h5>Товары в корзине</h5>
 	<?}?>
 	<!-- End Недоступные товары -->
 
@@ -255,6 +255,12 @@
 			$total = $cart_sum - $percent_sum;
 		};?>
 	</div>
+	<?
+		$manual_column = $_SESSION['cart']['cart_column'];
+		if(isset($_SESSION['cart']['manual_price_change'])){
+			$manual_column = $_SESSION['cart']['manual_price_change'];
+		}
+	?>
 	<div class="cart_footer">
 		<div id="total">
 			<div class="total">
@@ -266,13 +272,13 @@
 			<div class="total">
 				<div class="label totaltext">Вы экономите:</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][3]-$_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][3]-$_SESSION['cart']['products_sum'][$manual_column], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">К оплате:</div>
 				<div class="total_summ">
-					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][$manual_column], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 		</div>
@@ -280,33 +286,33 @@
 			<div id="discountBlock">
 				<div id="discountTable">
 					<div class="mediaDiscountBlocks">
-						<div class="addMoreProducts discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>">
+						<div class="addMoreProducts discountTableElem <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "hidden"?>">
 							Добавьте:
 						</div>
 						<div class="neededSum discountTableElem">
-							<span id="sumPer0" <?=$percent == 0 ? '': "class='hidden'"?>><?=number_format(round(500-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>><?=number_format(round(3000-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>><?=number_format(round(10000-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round(500-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round(3000-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round(10000-$cart_sum,2), 2, ",", "")?> грн</span>
 						</div>
 					</div>
 					<div class="mediaDiscountBlocks">
-						<div class="getNewDiscount discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>" >
+						<div class="getNewDiscount discountTableElem <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "hidden"?>" >
 							Получите скидку:
 						</div>
 						<div class="nextDiscount discountTableElem">
-							<span id="dicsPer0" <?=$percent == 0 ? '': "class='hidden'"?>>50 грн (10%)</span>
-							<span id="dicsPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>>480грн (16%)</span>
-							<span id="dicsPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>>2100грн (21%)</span>
+							<span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>>50 грн (10%)</span>
+							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>>480грн (16%)</span>
+							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>>2100грн (21%)</span>
 						</div>
 					</div>
 				</div>
 				<div class="currentDiscountBlock">
 					<span>Ваша скидка:</span>
 					<span id="currentDiscount">
-						<?=$percent == 0 ? '0%': ""?>
-						<?=$percent == 10 ? '10%': ""?>
-						<?=$percent == 16 ? '16%': ""?>
-						<?=$percent == 21 ? '21%': ""?>
+						<?=$manual_column == 3 ? '0%': ""?>
+						<?=$manual_column == 2 ? '10%': ""?>
+						<?=$manual_column == 1 ? '16%': ""?>
+						<?=$manual_column == 0 ? '21%': ""?>
 					</span>
 				</div>
 			</div>
@@ -339,28 +345,24 @@
 				<p>Ручное изменения скидки заказа.</p>
 				<div class="column_switcher_block column_switcher_block_js">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_3">
-						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="3" <?=$percent == 0?'checked':null?>>
+						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="3" <?=$manual_column == 3?'checked':null?>>
 						<span class="mdl-radio__label">0%</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_2">
-						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="2" <?=$percent == 10?'checked':null?>>
+						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="2" <?=$manual_column == 2?'checked':null?>>
 						<span class="mdl-radio__label">10%</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_1">
-						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="1" <?=$percent == 16?'checked':null?>>
+						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="1" <?=$manual_column == 1?'checked':null?>>
 						<span class="mdl-radio__label">16%</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_0">
-						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="0" <?=$percent == 21?'checked':null?>>
+						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="0" <?=$manual_column == 0?'checked':null?>>
 						<span class="mdl-radio__label">21%</span>
 					</label>
 				</div>
 				<div class="switch_comment">
-					<textarea placeholder="Причина ручного изменения скидки заказа" cols="60" rows="3"></textarea>
-					<!-- <div class="mdl-textfield mdl-js-textfield">
-						<textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
-						<label class="mdl-textfield__label" for="sample5">Причина ручного изменения скидки заказа</label>
-					</div> -->
+					<textarea placeholder="Причина ручного изменения скидки заказа" cols="60" rows="3"><?=isset($_SESSION['cart']['manual_price_change_note'])?$_SESSION['cart']['manual_price_change_note']:null?></textarea>
 				</div>
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored manual_switch_btn_js">Применить</button>
 			</div>
@@ -786,7 +788,9 @@
 				}else{
 					console.log(column);
 					console.log(comment);
-					ajax('cart', 'updateDiscount', {manual_price_change: column,  manual_price_change_note:comment});
+					ajax('cart', 'updateDiscount', {manual_price_change: column,  manual_price_change_note:comment}, 'html').done(function(){
+						GetCartAjax();
+					});
 				}
 			});
 			//---------Проверка на ввод телефона
