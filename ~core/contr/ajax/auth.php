@@ -179,6 +179,30 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($res);
 				break;
+			case 'recoverPhone':
+				$Users = new Users();
+				if(!$Users->SetVerificationCode($_SESSION['member']['id_user'], 'sms', $_POST['phone'])){
+					$res['success'] = false;
+					$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';
+					exit();
+				}
+				$res['success'] = true;
+				$res['msg'] = 'Ура!!! Код отправлен.';
+				echo json_encode($res);
+				break;
+			case 'checkСodePhone':
+				if(!$Users->GetVerificationCode($_POST['id_user'],$_POST['code'])){
+					$res['success'] = false;
+					$res['msg'] = 'Введен неверный код.';
+				}else{
+					if($Users->delDoublePhone($_POST['phone'])){
+						$Users->UpdateUser($_POST);
+						$res['success'] = true;
+						$res['content'] = 'ok';
+					}
+				}
+				echo json_encode($res);
+				break;
 			default:
 				break;
 		}

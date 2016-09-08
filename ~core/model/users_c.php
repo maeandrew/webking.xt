@@ -558,4 +558,14 @@ class Users {
 		return true;
 	}
 
+	// Удаляем телефоны у юзеров
+	public function delDoublePhone($phone){
+		$sql = "UPDATE "._DB_PREFIX_."user SET phone = NULL
+				WHERE phone = '".$phone."'";
+		if(!$this->db->Query($sql)){
+			return false;
+		}
+		return true;
+	}
+
 }
