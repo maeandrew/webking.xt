@@ -199,7 +199,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		$tpl->Assign('title', 'Спасибо за Ваш заказ!');
 		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
 		$tpl->Assign('content', 'Заказ № '.$id_order.' принят, но для его выполнения необходимо произвести полную или частичную предоплату. Пожалуйста, после выполнения предоплаты, сообщите менеджеру сумму оплаты по номеру заказа.<br>'.
-			'Вы можете просмотреть детали и отследить статус своего заказа в <a href="'.Link::Custom('cabinet', 'order').'?t=working">личном кабинете</a>.');
+			'Вы можете просмотреть детали и отследить статус своего заказа в <a href="'.Link::Custom('cabinet', 'orders').'?t=working">личном кабинете</a>.');
 		$Email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
 			'subject' => 'Заказ № '.$id_order.' принят',
