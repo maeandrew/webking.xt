@@ -21,13 +21,13 @@
 	$(document).ready(function() {
 		var confirmUpdate = false;
 		// if (!confirmUpdate) {
-		// 	window.onbeforeunload = function(){ 
+		// 	window.onbeforeunload = function(){
 		// 		return 'У Вас есть несохраненные данные.';
 		// 	}
 		// }
 
 		$('div[class^="msg-"]').delay(3000).fadeOut(2000);
-		
+
 		$('.day_js').change(function(event){
 			if($('.day_js').val() !== '' && $('.month_js').val() == 'месяц'){
 				$('.month_js').closest('.mdl-textfield').addClass('is-invalid');
@@ -116,7 +116,7 @@
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
 						$('.date_container').css('box-shadow', 'none');
-					}else{						
+					}else{
 						for(var i in response){
 							switch(i){
 								case 'email':
@@ -148,42 +148,42 @@
 		});
 
 		//Загрузка Фото на сайт
-		var	url = URL_base+'userPic/';
-		var dropzone = new Dropzone(".drop_zone", {
-			method: 'POST',
-			url: url+"?upload=true",
-			clickable: true,
-			maxFiles: 1,
-			// acceptedFiles: 'image/jpeg,image/png',
-			previewsContainer: '.previews',
-			previewTemplate: document.querySelector('#preview-template').innerHTML
-		});
-		dropzone.on('addedfile', function(file){
-			$('#photobox .old_image_js img').remove();
-			// $('.previews .dz-file-preview').addClass('forUpload');
-			componentHandler.upgradeDom();
-		}).on('maxfilesexceeded', function(file) {
-			this.removeAllFiles();
-			this.addFile(file);
-			componentHandler.upgradeDom();
-		}).on('success', function(file, path){
-			// file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
-			componentHandler.upgradeDom();
-		}).on('removedfile', function(file){
-			$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
-			// removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
-			// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
-			componentHandler.upgradeDom();
-		});
+		// var	url = URL_base+'userPic/';
+		// var dropzone = new Dropzone(".drop_zone", {
+		// 	method: 'POST',
+		// 	url: url+"?upload=true",
+		// 	clickable: true,
+		// 	maxFiles: 1,
+		// 	// acceptedFiles: 'image/jpeg,image/png',
+		// 	previewsContainer: '.previews',
+		// 	previewTemplate: document.querySelector('#preview-template').innerHTML
+		// });
+		// dropzone.on('addedfile', function(file){
+		// 	$('#photobox .old_image_js img').remove();
+		// 	// $('.previews .dz-file-preview').addClass('forUpload');
+		// 	componentHandler.upgradeDom();
+		// }).on('maxfilesexceeded', function(file) {
+		// 	this.removeAllFiles();
+		// 	this.addFile(file);
+		// 	componentHandler.upgradeDom();
+		// }).on('success', function(file, path){
+		// 	// file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+		// 	componentHandler.upgradeDom();
+		// }).on('removedfile', function(file){
+		// 	$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
+		// 	// removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
+		// 	// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		// 	componentHandler.upgradeDom();
+		// });
 
-		//Удаление ранее загруженного фото
-		$("body").on('click', '.del_photo_js', function(e) {
-			alert('Изобрежение будет удалено.');
-			if(confirm('Изобрежение будет удалено.')){
-				// var path = $(this).closest('.image_block'),
-				// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-				// RemovedFile(path, removed_file);
-			}
-		});
+		// //Удаление ранее загруженного фото
+		// $("body").on('click', '.del_photo_js', function(e) {
+		// 	alert('Изобрежение будет удалено.');
+		// 	if(confirm('Изобрежение будет удалено.')){
+		// 		// var path = $(this).closest('.image_block'),
+		// 		// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
+		// 		// RemovedFile(path, removed_file);
+		// 	}
+		// });
 	});
 </script>

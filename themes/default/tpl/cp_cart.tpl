@@ -74,7 +74,7 @@
 	<?}?>
 <?}else{?>
 	<!-- Недоступные товары -->
-	<?if(isset($_SESSION['cart']['unavailable_products']) && !empty($_SESSION['cart']['unavailable_products'])){?>
+	<!--	<?if(isset($_SESSION['cart']['unavailable_products']) && !empty($_SESSION['cart']['unavailable_products'])){?>
 		<div class="msg-warning">
 			<p>
 				<?=$count = count($unlist);?>
@@ -118,14 +118,14 @@
 				</table>
 			</div>
 		<?}?>
-	<?}?>
+	<?}?>	-->
 	<!-- END Недоступные товары -->
 
 	<!-- New Недоступные товары -->
-	<?if(isset($_SESSION['cart']['unvisible_products']) && !empty($_SESSION['cart']['unvisible_products'])){?>
+	<?if(isset($unlist) && !empty($unlist)){?>
 		<div class="unorder_wrapp">
 			<h5>Временно недоступные товары</h5>
-			<?foreach($_SESSION['cart']['unvisible_products'] as $p){?>
+			<?foreach($unlist as $p){?>
 				<div class="card inaccessible_product" id="cart_item_<?=$p['id_product']?>">
 					<div class="card_wrapper">
 						<div class="product_photo">
@@ -255,6 +255,7 @@
 			$total = $cart_sum - $percent_sum;
 		};?>
 	</div>
+	<?$manual_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];?>
 	<div class="cart_footer">
 		<div id="total">
 			<div class="total">
@@ -266,13 +267,13 @@
 			<div class="total">
 				<div class="label totaltext">Вы экономите:</div>
 				<div class="total_summ totalnumb">
-					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][3]-$_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][3]-$_SESSION['cart']['products_sum'][$manual_column], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 			<div class="total">
 				<div class="label totaltext">К оплате:</div>
 				<div class="total_summ">
-					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][$_SESSION['cart']['cart_column']], 2, ",", "")?></span> грн.
+					<span class="summ_many"><?=number_format($_SESSION['cart']['products_sum'][$manual_column], 2, ",", "")?></span> грн.
 				</div>
 			</div>
 		</div>
@@ -280,33 +281,33 @@
 			<div id="discountBlock">
 				<div id="discountTable">
 					<div class="mediaDiscountBlocks">
-						<div class="addMoreProducts discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>">
+						<div class="addMoreProducts discountTableElem <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "hidden"?>">
 							Добавьте:
 						</div>
 						<div class="neededSum discountTableElem">
-							<span id="sumPer0" <?=$percent == 0 ? '': "class='hidden'"?>><?=number_format(round(500-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>><?=number_format(round(3000-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>><?=number_format(round(10000-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round(500-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round(3000-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round(10000-$cart_sum,2), 2, ",", "")?> грн</span>
 						</div>
 					</div>
 					<div class="mediaDiscountBlocks">
-						<div class="getNewDiscount discountTableElem <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "hidden"?>" >
+						<div class="getNewDiscount discountTableElem <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "hidden"?>" >
 							Получите скидку:
 						</div>
 						<div class="nextDiscount discountTableElem">
-							<span id="dicsPer0" <?=$percent == 0 ? '': "class='hidden'"?>>50 грн (10%)</span>
-							<span id="dicsPer10" <?=($percent == 0 || $percent == 10) ? '': "class='hidden'"?>>480грн (16%)</span>
-							<span id="dicsPer16" <?=($percent == 0 || $percent == 10 || $percent == 16) ? '': "class='hidden'"?>>2100грн (21%)</span>
+							<span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>>50 грн (10%)</span>
+							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>>480грн (16%)</span>
+							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>>2100грн (21%)</span>
 						</div>
 					</div>
 				</div>
 				<div class="currentDiscountBlock">
 					<span>Ваша скидка:</span>
 					<span id="currentDiscount">
-						<?=$percent == 0 ? '0%': ""?>
-						<?=$percent == 10 ? '10%': ""?>
-						<?=$percent == 16 ? '16%': ""?>
-						<?=$percent == 21 ? '21%': ""?>
+						<?=$manual_column == 3 ? '0%': ""?>
+						<?=$manual_column == 2 ? '10%': ""?>
+						<?=$manual_column == 1 ? '16%': ""?>
+						<?=$manual_column == 0 ? '21%': ""?>
 					</span>
 				</div>
 			</div>
@@ -335,6 +336,31 @@
 				<p>Клиент не найден.</p>
 			<?}?>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js add_search_customer"  data-name="cart_customer_search"><?=isset($customer_order)?'Изменить':'Добавить'?></button>
+			<div class="manual_cart_column_block">
+				<p>Ручное изменения скидки заказа.</p>
+				<div class="column_switcher_block column_switcher_block_js">
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_3">
+						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="3" <?=$manual_column == 3?'checked':null?>>
+						<span class="mdl-radio__label">0%</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_2">
+						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="2" <?=$manual_column == 2?'checked':null?>>
+						<span class="mdl-radio__label">10%</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_1">
+						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="1" <?=$manual_column == 1?'checked':null?>>
+						<span class="mdl-radio__label">16%</span>
+					</label>
+					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_0">
+						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="0" <?=$manual_column == 0?'checked':null?>>
+						<span class="mdl-radio__label">21%</span>
+					</label>
+				</div>
+				<div class="switch_comment">
+					<textarea placeholder="Причина ручного изменения скидки заказа" cols="60" rows="3"><?=isset($_SESSION['cart']['manual_price_change_note'])?$_SESSION['cart']['manual_price_change_note']:null?></textarea>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored manual_switch_btn_js">Применить</button>
+			</div>
 		</div>
 	<?}?>
 
@@ -552,7 +578,7 @@
 		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
 
 		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
-			<div id="button-cart1" class="<?=isset($_SESSION['cart']['promo'])?'hidden':null;?>">
+			<div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>>
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
 			</div>
 		<?}else{?>
@@ -595,7 +621,6 @@
 				note = $(this).val();
 				ajax('cart', 'SaveOrderNote', {note: note});
 			});
-
 			$('#cart').on('click', '#button-cart1 button', function(e){
 				e.preventDefault();
 				//Проверка на ввод примечания к товару
@@ -741,6 +766,27 @@
 				$("#contrlink").val(0);
 				$("#contrlink").fadeOut();
 			}
+			$('.switch_comment textarea').keyup(function(){
+				$('.switch_comment').removeClass('activeNoteArea');
+			});
+			$('.manual_switch_btn_js').on('click', function(){
+				var column,
+					comment = $('.switch_comment textarea').val();
+				$('.column_switcher_block_js input').each(function(){
+					if($(this).prop('checked')){
+						column = $(this).val();
+					}
+				});
+				if(comment === '' ){
+					$('.switch_comment').addClass('activeNoteArea');
+				}else{
+					console.log(column);
+					console.log(comment);
+					ajax('cart', 'updateDiscount', {manual_price_change: column,  manual_price_change_note:comment}, 'html').done(function(){
+						GetCartAjax();
+					});
+				}
+			});
 			//---------Проверка на ввод телефона
 			/*$('#button-cart1').click(function(){
 				if(!$('.phone').val()){

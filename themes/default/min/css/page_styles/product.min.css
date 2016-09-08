@@ -24,8 +24,6 @@
 .slider_products .owl-item a{display:block;padding:10px}
 .slider_products .owl-item span{color:#444;display:block;margin-top:10px;height:3em;overflow:hidden}
 .slider_products .owl-item .ca-more{opacity:.9;position:absolute;bottom:30%;right:25px;border-radius:.2em;padding:5px 10px;z-index:99;background:#fff;border:1px solid #e0e0e0;text-align:center}
-.product .content_header{padding:0}
-.product .content_header .cart_info{float:none;width:100%}
 .product .pb_wrapper{position:relative;padding:15px 0}
 .product .product_buy{float:none;width:auto;max-width:none;width:100%;padding:15px;height:auto}
 .product .product_buy .out_of_stock{font-size:2em}

@@ -302,21 +302,20 @@ class mysqlPDO {
 	* @return string
 	*/
 	public function GetWhere($and){
-		$where = "";
-		if($and !== FALSE && count($and)){
-			$where = " WHERE ";
-			foreach ($and as $k=>$v){
+		if(is_array($and) && !empty($and)){
+			$where = ' WHERE ';
+			foreach($and as $k=>$v){
 				if(is_array($v)){
-					$where_a[] = $k." IN (".implode(', ', $v).") ";
-				}elseif(FALSE !== stripos($v,	"*")){
-					$where_a[] = $k." LIKE(\"".str_replace("*", "%", $v)."\")";
+					$where_a[] = $k.' IN ('.implode(', ', $v).') ';
+				}elseif(FALSE !== stripos($v, '*')){
+					$where_a[] = $k.' LIKE (\''.str_replace('*', '%', $v).'\')';
 				}else{
-					$where_a[] = $k." = ".$this->Quote($v);
+					$where_a[] = $k.' = '.(gettype($v) == 'string'?$this->Quote($v):(gettype($v) == 'NULL'?'NULL':$v));
 				}
 			}
-			$where .= implode(" AND ", $where_a);
+			$where .= implode(' AND ', $where_a);
 		}
-		return $where;
+		return isset($where)?$where:null;
 	}
 
 	/**

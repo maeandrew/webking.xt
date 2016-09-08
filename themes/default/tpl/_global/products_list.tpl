@@ -1,91 +1,90 @@
-<?if($GLOBALS['CurrentController'] !== 'products'){?>
-	<link href="<?=$GLOBALS['URL_css_theme'];?>page_styles/products.css" rel="stylesheet" type="text/css">
-<?}?>
-<?
-$GLOBALS['descr_for_seo'] = [];
+<?=G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/page_styles/products.css');?>
+<?$GLOBALS['descr_for_seo'] = [];
 switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 	case _ACL_CONTRAGENT_:
 		foreach($list as $item){
 			$Status = new Status();
 			$product_mark = '';
-			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr_xt_full']));
 			$st = $Status->GetStstusById($item['id_product']);
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
 			// Проверяем доступнось розницы
 			($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?$mopt_available = true:$mopt_available = false;
 			// Проверяем доступнось опта
 			($item['price_opt'] > 0 && $item['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
-			<div class="card" data-idproduct="<?=$item['id_product']?>">
-				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+			<div class="card<?=$item['visible'] == 0?' unvisible':null?>" data-idproduct="<?=$item['id_product']?>">
+				<?if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';
 				}elseif ($item['prod_status'] == 3){
 					$product_mark = 'new';
 				}?>
-				<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
-				</div>
+				<?if(isset($product_mark) && $product_mark !== ''){?>
+					<div class="market_action">
+						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
+					</div>
+				<?}?>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
-						<div class="product_photo">
-							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/">
-								<div class="<?=$st['class']?>"></div>
-								<?if(!empty($item['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-									</noscript>
-								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-									<noscript>
-										<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-									</noscript>
-								<?}?>
-							</a>
-						</div>
-						<div class="product_name p<?=$item['id_product']?>">
-							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
-							<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
-							<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
-								<?if(isset($item['c_mark']) && $item['c_mark'] > 0){?>
-									<meta itemprop="worstRating" content="1">
-									<meta itemprop="bestRating" content="5">
-									<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
-									<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
-								<?}?>
-								<?if(isset($item['c_rating']) && $item['c_rating'] > 0){?>
-									<ul class="rating_stars">
-										<?for($i = 1; $i <= 5; $i++){
-											$star = 'star';
-											if($i > floor($item['c_rating'])){
-												if($i == ceil($item['c_rating'])){
-													if(number_format($item['c_rating'], 1)[2] >= 5){
-														$star .= '_half';
-													}elseif(number_format($item['c_rating'], 1)[2] < 5){
-														$star .= '_border';
-													}
-												}else{
+					<div class="product_photo">
+						<a href="<?=Link::Product($item['translit']);?>">
+							<div class="<?=$st['class']?>"></div>
+							<?if(!empty($item['images'])){?>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+								<noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+								</noscript>
+							<?}else{?>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+								<noscript>
+									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+								</noscript>
+							<?}?>
+						</a>
+					</div>
+					<div class="product_name p<?=$item['id_product']?>">
+						<a href="<?=Link::Product($item['translit']);?>" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
+						<span class="product_article"><!--noindex-->арт. <!--/noindex--><?=$item['art']?></span>
+						<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
+							<?if(isset($item['c_mark']) && $item['c_mark'] > 0){?>
+								<meta itemprop="worstRating" content="1">
+								<meta itemprop="bestRating" content="5">
+								<span class="hidden" itemprop="ratingValue"><?=$item['c_rating']?></span>
+								<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
+							<?}?>
+							<?if(isset($item['c_rating']) && $item['c_rating'] > 0){?>
+								<ul class="rating_stars">
+									<?for($i = 1; $i <= 5; $i++){
+										$star = 'star';
+										if($i > floor($item['c_rating'])){
+											if($i == ceil($item['c_rating'])){
+												if(number_format($item['c_rating'], 1)[2] >= 5){
+													$star .= '_half';
+												}elseif(number_format($item['c_rating'], 1)[2] < 5){
 													$star .= '_border';
 												}
-											}?>
-											<li><i class="material-icons"><?=$star?></i></li>
-										<?}?>
-									</ul>
-									<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
-									<span class="qty_ratings">(Оценок: <?=$item['c_mark']?>)</span>
-								<?}?>
-							</div>
-							<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
-								<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
-								<label class="info_key">?</label>
-								<div class="info_description">
-									<p>Поле для ввода примечания к товару.</p>
-								</div>
+											}else{
+												$star .= '_border';
+											}
+										}?>
+										<li><i class="material-icons"><?=$star?></i></li>
+									<?}?>
+								</ul>
+								<span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span>
+								<span class="qty_ratings">(Оценок: <?=$item['c_mark']?>)</span>
+							<?}?>
+						</div>
+						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
+							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
+							<label class="info_key">?</label>
+							<div class="info_description">
+								<p>Поле для ввода примечания к товару.</p>
 							</div>
 						</div>
+					</div>
 					<?$in_cart = false;
 					if(isset($_SESSION['cart']['products'][$item['id_product']])){
 						$in_cart = true;
 					}?>
-					<?if($item['price_opt'] == 0 && $item['price_mopt'] == 0){?>
+					<?if($item['active'] == 0){?>
 						<div class="notAval">Нет в наличии</div>
 					<?}else{?>
 						<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
@@ -139,7 +138,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<div class="preview_favorites" data-idfavorite="<?=$item['id_product']?>" title="<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'Добавить товар в избранное':'Товар находится в избранных'?>">
 								<span class="material-icons icon-font favorite">favorites<?=(!isset($_SESSION['member']) || !in_array($item['id_product'], $_SESSION['member']['favorites']))?'-o':null?></span>
 							</div>
-							<a href="<?=_base_url?>/product/<?=$item['id_product'].'/'.$item['translit']?>/#tabs-2" class="rating">
+							<a href="<?=Link::Product($item['translit']);?>" class="rating">
 								<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
 									<?
 									for($i = 1; $i <= 5; $i++){
@@ -168,8 +167,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							</a>
 						</div>
 						<div class="service_block">
-							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
-							<?if($item['available_today'] == 1){?>
+							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Задать вопрос</button>
+							<?if(isset($item['available_today']) && $item['available_today'] == 1){?>
 								<span class="material-icons timerIcon">timer</span>
 								<p class="available_today">Отгрузка за 2 часа</p>
 							<?}?>
@@ -218,16 +217,18 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 		</div><?
 		foreach($list as $item){
 			$product_mark = '';
-			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));?>
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr_xt_full']));?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';
 				}elseif ($item['prod_status'] == 3){
 					$product_mark = 'new';
 				}?>
-				<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
-				</div>
+				<?if(isset($product_mark) && $product_mark !== ''){?>
+					<div class="market_action">
+						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
+					</div>
+				<?}?>
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -275,10 +276,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				</div>
 				<div class="suplierPriceBlock">
 					<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
-						<?if($item['price_opt_otpusk'] != 0){
+						<?if(isset($item['price_opt_otpusk']) && $item['price_opt_otpusk'] > 0){
 							echo number_format($item['price_opt_otpusk'], 2, ".", "").' грн.';
-						}else{
+						}elseif(isset($item['price_mopt_otpusk']) && $item['price_mopt_otpusk'] > 0){
 							echo number_format($item['price_mopt_otpusk'], 2, ".", "").' грн.';
+						}else{
+							echo number_format($item['price_opt'], 2, ".", "").' грн.';
 						}?>
 					</p></div>
 					<div class="count_cell card_item">
@@ -306,20 +309,22 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 		foreach($list as $item){
 			$in_cart = false;
 			$product_mark = '';
-			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr']));
+			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr_xt_full']));
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
-			<div class="card" data-idproduct="<?=$item['id_product']?>">
+			<div class="card<?=$item['visible'] == 0?' unvisible':null?>" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';
 				}elseif ($item['prod_status'] == 3){
 					$product_mark = 'new';
 				}?>
-				<div class="market_action <?=(isset($product_mark) && $product_mark !== '')?null:'hidden'?>">
-					<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
-				</div>
+				<?if(isset($product_mark) && $product_mark !== ''){?>
+					<div class="market_action">
+						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
+					</div>
+				<?}?>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
@@ -396,7 +401,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						</div>
 					</div>
 				</div>
-				<?if($item['price_opt'] == 0 && $item['price_mopt'] == 0){?>
+				<?if($item['active'] == 0){?>
 					<div class="notAval">Нет в наличии</div>
 				<?}else{?>
 					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">

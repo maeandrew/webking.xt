@@ -210,6 +210,9 @@ header .userContainer > div {
 	background-color: #000;
 	overflow: hidden;
 }
+.userContainer .mainUserInf{
+	width: 100%;
+}
 .userContainer .userNameBlock {
 	display: flex;
 	justify-content: center;

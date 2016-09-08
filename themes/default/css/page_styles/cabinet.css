@@ -1935,6 +1935,7 @@ div[id^="items_panel_"] > div > #products .total_wrap {
 	padding: 1.429em 0;
 	display: flex;
 	overflow: auto;
+	padding-top: 0px;
 }
 .order .content .additional > div {
 	flex-basis: 50%;
@@ -2950,6 +2951,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .change_delivery {
 	max-width: 425px;
+	margin-bottom: 20px;
 }
 .change_delivery a {
 	float: left;
@@ -2958,6 +2960,13 @@ div[id^="items_panel_"] .btnWrapFlex {
 .change_delivery button {
 	margin-left: 20px;
 }
+.change_delivery .mdl-selectfield__list-option-box {
+	max-height: 155px;
+}
+.msg_text {
+    white-space: normal;
+}
+
 
 @media (max-width: 1150px) and (not handheld) {
 	#cab_left_bar .link_wrapp div[for^=icon_] {

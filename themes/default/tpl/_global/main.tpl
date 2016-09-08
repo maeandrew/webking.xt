@@ -158,26 +158,26 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<?if( $GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false ))){?>
+	<?if($GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false))){?>
 		<section class="banner">
-			<div class="cont">
-				<a href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<div class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif" alt="Снабжение предприятий">
-						<h3>Снабжение<br> предприятий</h3>
-					</div>
+			<div class="banner_container">
+				<a class="banner_button" href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+					<span class="static">Снабжение<br>предприятий</span>
+					<span class="floating">Снабжение предприятий</span>
+					<p>Комплексное обеспечение материалами, инструментами, оборудованием и комплектующими на долгосрочной основе<br><span class="read_more">Узнать больше</span></p>
 				</a>
-				<a href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<div class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif" alt="Поставки магазинам">
-						<h3>Поставки<br> магазинам</h3>
-					</div>
+				<a class="banner_button" href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+					<span class="static">Поставки<br>магазинам</span>
+					<span class="floating">Поставки магазинам</span>
+					<p>С нами у Вас есть возможность создать с нуля свой бизнес, или полностью обеспечить свой магазин товарами<br><span class="read_more">Узнать больше</span></p>
 				</a>
-				<a href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<div class="text_block">
-						<img class="item_svg" src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif" alt="Обеспечение быта">
-						<h3>Обеспечение<br> быта</h3>
-					</div>
+				<a class="banner_button" href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+					<span class="static">Обеспечение<br>быта</span>
+					<span class="floating">Обеспечение быта</span>
+					<p>С магазином «ХТ» Вы экономите свое время и финансы<br><span class="read_more">Узнать больше</span></p>
 				</a>
 			</div>
 		</section>
@@ -191,39 +191,19 @@
 					<?=$__center?>
 				<?}else{?>
 					<h4>Пополнение ассортимента</h4>
-					<div class="content_header clearfix">
-						<?if(isset($available_sorting_values)){?>
-							<div class="sort imit_select">
-								<span>Сортировать:</span>
-								<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-									<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
-										<?foreach($available_sorting_values as $key => $alias){ ?>
-											<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>
-										<?}?>
-									</select>
-								</div>
-
-								<!-- <a href="#" class="graph_up hidden" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
-								<?if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 0){?>
-									<a href="#" class="show_demand_chart_js one" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
-								<?}elseif(isset($_SESSION['member']) && $_SESSION['member']['gid'] == 1){?>
-									<a href="#" class="show_demand_chart_js two" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><i class="material-icons">timeline</i></a>
-								<?}?>
-								-->
+					<div class="content_header">
+						<div class="list_settings">
+							<div class="sort mdl-cell--hide-phone"></div>
+							<div class="catalog_button btn_js mdl-cell--hide-desktop mdl-cell--hide-tablet" data-name="catalog">Каталог</div>
+							<div class="productsListView">
+								<label class="mdl-cell--hide-phone">Вид:</label>
+								<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
+								<span class="mdl-tooltip" for="changeToList">Списком</span>
+								<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
+								<span class="mdl-tooltip" for="changeToBlock">Блоками</span>
+								<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
+								<span class="mdl-tooltip" for="changeToColumn">Колонками</span>
 							</div>
-						<?}?>
-						<div class="catalog_btn btn_js mdl-cell--hide-desktop" data-name="catalog">Каталог</div>
-						<div class="cart_info mdl-cell--hide-phone clearfix <?=$GLOBALS['CurrentController'] == 'main'?'hidden':null;?>">
-							<div class="your_discount">Ваша скидка</div>
-							<div class="price_nav"></div>
-						</div>
-						<div class="productsListView">
-							<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
-							<span class="mdl-tooltip" for="changeToList">Вид списком</span>
-							<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
-							<span class="mdl-tooltip" for="changeToBlock">Вид блоками</span>
-							<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
-							<span class="mdl-tooltip" for="changeToColumn">Вид колонками</span>
 						</div>
 					</div>
 					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
@@ -482,7 +462,7 @@
 			</div>
 		</div>
 		<!-- Authentication -->
-		<div id="auth" data-type="modal">
+		<div id="auth" data-type="modal" <?=isset($_SESSION['from'])?'data-from="'.$_SESSION['from'].'"':null?>>
 			<div id="sign_in" class="modal_container">
 				<h4>Вход</h4>
 				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>
@@ -673,7 +653,7 @@
 		</div>
 		<!-- Модалка Отзывы и вопросы -->
 		<div id="comment_question" class="modal_hidden" data-type="modal">
-			<h4>Отзывы и вопросы</h4>
+			<h4>Вопрос по товару</h4>
 			<hr>
 			<p>У Вашего клиента возник вопрос?<br>Напишите его</p>
 			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">

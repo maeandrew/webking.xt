@@ -393,7 +393,7 @@ div[id^=items_panel_]>div>#products .total_wrap{display:none}
 .order .content .info>div span.icon,.order .content .info>div span.label{color:#888;float:left;line-height:2.143em}
 .order .content .info>div span.icon{padding-right:.7145em}
 .order .content .info>div span.value{clear:both;font-size:2.143em;white-space:nowrap}
-.order .content .additional{padding:1.429em 0;display:flex;overflow:auto}
+.order .content .additional{padding:1.429em 0;display:flex;overflow:auto;padding-top:0}
 .order .content .additional>div{flex-basis:50%}
 .order .content .additional>div .label{color:#888}
 .order .content .additional>div .avatar{float:left;border-radius:50%}
@@ -516,9 +516,11 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .servise_logo{overflow:hidden;width:5em;height:5em;border-radius:50%}
 .servise_logo img{width:100%}
 .delivery_details{clear:none!important;margin-left:20px;max-width:400px;position:relative}
-.change_delivery{max-width:425px}
+.change_delivery{max-width:425px;margin-bottom:20px}
 .change_delivery a{float:left;text-decoration:underline}
 .change_delivery button{margin-left:20px}
+.change_delivery .mdl-selectfield__list-option-box{max-height:155px}
+.msg_text{white-space:normal}
 @media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
 }
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}

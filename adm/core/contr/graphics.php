@@ -1,6 +1,6 @@
 <?php
 
-	if (!_acl::isAllow('specifications'))
+	if (!_acl::isAllow('graphics'))
 	die("Access denied");
 
 	$Products = new Products();

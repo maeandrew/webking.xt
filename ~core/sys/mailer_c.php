@@ -14,7 +14,6 @@ class Mailer extends PHPMailer {
 		$mcfg = $GLOBALS['MAIL_CONFIG'];
 
 		// Берем из файла config.php массив $mcfg
-
 		if($mcfg['smtp_mode'] == 'enabled'){
 			$this->Host = $mcfg['smtp_host'];
 			$this->Port = $mcfg['smtp_port'];
@@ -36,8 +35,14 @@ class Mailer extends PHPMailer {
 		}
 		$this->Priority = $this->priority;
 		$this->CharSet = "UTF-8";
-
-		$sPublicKey = $GLOBALS['CONFIG']['smtp_key_public'];
+		// var_dump($GLOBALS['CONFIG']['smtp_key_public']);
+		// $sPublicKey = $GLOBALS['CONFIG']['smtp_key_public'];
+		$sPublicKey = "-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDFyF4eEEkOEQPwSezLwevElUVR
+fShMmpw92Ql+z7tD3+5M6ewRsHZDIgoKTwbG4oc14NZsQgdKET7J1QgKrrKlT1la
+yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
+6HUAUquV84qT0FzkLwIDAQAB
+-----END PUBLIC KEY-----";
 		require($GLOBALS['PATH_model'].'APISMTP.php');
 		$this->oApi = new SmtpApi($sPublicKey);
 	}
@@ -62,7 +67,7 @@ class Mailer extends PHPMailer {
 					'email' => 'alexparhomenko67@gmail.com'
 				),
 				array(
-					'email' => 'webking.dev2@gmail.com'
+					'email' => 'kmkmedia@gmail.com'
 				)
 			)
 		);
@@ -182,8 +187,43 @@ class Mailer extends PHPMailer {
 	// Отсылка письма клиенту со ссылками на накладные покупателя
 	public function SendOrderInvoicesToCustomers($id_order){
 		global $db;
+		global $tpl;
 		$Order = new Orders();
 		$Order->SetFieldsById($id_order);
+		$sql = 'SELECT u.email, u.name
+			FROM '._DB_PREFIX_.'user AS u
+			LEFT JOIN '._DB_PREFIX_.'order AS o
+			ON u.id_user = o.id_customer
+			WHERE o.id_order = '.$db->Quote($id_order);
+		$arr = $db->GetOneRowArray($sql);
+		$tpl->Assign('title', 'Спасибо за Ваш заказ!');
+		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
+		$tpl->Assign('content', 'Заказ № '.$id_order.' принят, но для его выполнения необходимо произвести полную или частичную предоплату. Пожалуйста, после выполнения предоплаты, сообщите менеджеру сумму оплаты по номеру заказа.<br>'.
+			'Вы можете просмотреть детали и отследить статус своего заказа в <a href="'.Link::Custom('cabinet', 'orders').'?t=working">личном кабинете</a>.');
+		$Email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+			'subject' => 'Заказ № '.$id_order.' принят',
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => $this->FromName,
+				'email' => 'order@x-torg.com',
+			),
+			'to' => array(
+				array(
+					'name' => $arr['name'],
+					'email' => $arr['email']
+				),
+				// array(
+				// 	'email' => 'kmkmedia@gmail.com'
+				// )
+			)
+		);
+		$res = $this->oApi->send_email($Email);
+		if(!$res){
+			return false;
+		}
+		return true;
+
 		// Устанавливаем тему письма
 		$this->Subject = "Заказ № ".$id_order." в интернет-магазине ".$_SERVER['SERVER_NAME'];
 		// Задаем тело письма
@@ -200,8 +240,6 @@ class Mailer extends PHPMailer {
 			"Техподдержка и вопросы по работе сайта:<br>".
 			"098 957-32-53";
 
-		$sql = "SELECT email, name FROM "._DB_PREFIX_."user u, "._DB_PREFIX_."order o WHERE u.id_user=o.id_customer AND o.id_order=".$db->Quote($id_order);
-		$arr = $db->GetOneRowArray($sql);
 		// Добавляем адрес в список получателей
 		$this->isHTML(true);
 		$this->AddAddress($arr['email'], $arr['name']);

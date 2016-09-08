@@ -282,11 +282,20 @@ class Suppliers extends Users {
 			}
 			$this->db->CompleteTrans();
 		}
-		if(isset($arr['active']) && $arr['active'] == "on"){
-			$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);
-		}else{
-			$this->SwitchEnableDisableProductsInAssort($f['id_user'], 1);
+		$Products = new Products();
+		$sql = "SELECT a.id_product
+			FROM "._DB_PREFIX_."assortiment a
+			WHERE id_supplier = \"$id_supplier\"";
+		$arr = $this->db->GetArray($sql);
+		foreach($arr as &$p){
+			$p = $p['id_product'];
 		}
+		$Products->RecalcSitePrices($arr);
+		// if(isset($arr['active']) && $arr['active'] == "on"){
+		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);
+		// }else{
+		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 1);
+		// }
 		return true;
 	}
 	/**
@@ -322,10 +331,6 @@ class Suppliers extends Users {
 		}else{
 			$where = "id_supplier = \"$id_supplier\" AND product_limit > 0 AND (price_opt_otpusk > 0 OR price_mopt_otpusk > 0)";
 		}
-		$sql = "SELECT a.id_product
-			FROM "._DB_PREFIX_."assortiment a
-			WHERE id_supplier = \"$id_supplier\"";
-		$arr = $this->db->GetArray($sql);
 		$f['active'] = $enable;
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'assortiment', $f, $where)){
@@ -333,11 +338,15 @@ class Suppliers extends Users {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		$product = new Products();
+		$Products = new Products();
+		$sql = "SELECT a.id_product
+			FROM "._DB_PREFIX_."assortiment a
+			WHERE id_supplier = \"$id_supplier\"";
+		$arr = $this->db->GetArray($sql);
 		foreach($arr as $p){
 			$rsarr[] = $p['id_product'];
 		}
-		$product->RecalcSitePrices($rsarr);
+		$Products->RecalcSitePrices($rsarr);
 		return true;
 	}
 

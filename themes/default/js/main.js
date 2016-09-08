@@ -430,8 +430,23 @@ $(function(){
 
 	$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
 	$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
-
+	var content_header_scroll = 0;
 	$(window).scroll(function(){
+		if($('body').not('.c_product').length > 0){
+			content_header_scroll = $(this).scrollTop() + 52 - $('.content_header').offset().top;
+			// console.log($('#view_block_js').offset().top + $('#view_block_js').outerHeight());
+			// console.log($(this).scrollTop() + 52 + $('.content_header').outerHeight());
+			// console.log(($('#view_block_js').offset().top + $('#view_block_js').outerHeight()) - ($(this).scrollTop() + 52 + $('.content_header').outerHeight()));
+			if(content_header_scroll > 0 && $('.content_header').not('.fixed')){
+				$('.content_header').addClass('fixed').css('width', $('#view_block_js').outerWidth());
+				$('#view_block_js').css('padding-top', $('.content_header').outerHeight() + 15);
+			}else if($('#view_block_js').offset().top - $('.content_header').offset().top >= 0 && content_header_scroll <= 0 && $('.content_header').is('.fixed')){
+				$('.content_header').removeClass('fixed').css('width', '');
+				$('#view_block_js').css('padding-top', 0);
+			}else if($('#view_block_js').offset().top + $('#view_block_js').outerHeight() < $(this).scrollTop() + 52 + $('.content_header').outerHeight()){
+				// $('.content_header').css('top', 52 - ($('#view_block_js').offset().top + $('#view_block_js').outerHeight()) - ($(this).scrollTop() + 52 + $('.content_header').outerHeight()));
+			}
+		}
 		if(over_scroll === false){
 			if($(this).scrollTop() > banner_height/2 - 52 && header.hasClass("default")){
 				header.removeClass("default").addClass("filled");
@@ -441,6 +456,7 @@ $(function(){
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
+				content_header_base_position = $('.content_header').offset().top;
 				$('.banner').height(0);
 				$('body').addClass('banner_hide');
 				$('html, body').scrollTop(0);
@@ -504,7 +520,7 @@ $(function(){
 	$('.logo').on('click', function(event){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
-			banner_height = $('.banner .cont').outerHeight();
+			// banner_height = $('.banner').outerHeight();
 			$('.banner').animate({
 				height: banner_height
 			}, 300);
@@ -1399,18 +1415,12 @@ $(function(){
 		// Проверка введенного телефона-логина
 		var str = email.replace(/\D/g, "");
 		var check_num = /^(38)?(\d{10})$/;
-		if (check_num.test(str)) {
-			if (str.length === 10){
-				email = 38 + str;
-			}else{
-				email = str;
-			}
+		if(check_num.test(str)){
+			email = str.length === 10?38 + str:str;
 		}
-
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
-
 			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
@@ -1464,7 +1474,9 @@ $(function(){
 				// parent.find('.user_promo').text(data.member.promo_code);
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
-				if (current_controller === 'main'){
+				if($('#auth').data('from') !== undefined){
+					location.replace($('#auth').data('from'));
+				}else if(current_controller === 'main'){
 					location.reload();
 				}
 			}else{
@@ -2032,7 +2044,7 @@ $(function(){
 			console.log(data);
 		});
 	});
-	
+
 	// Подгрузка графика спроса по сезонам на странице товара
 	$('body').on('click', '.seasonality_js', function(event){
 		if(!$(this).hasClass('with_demand_graph')){

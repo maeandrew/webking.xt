@@ -21,11 +21,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 					return $str;
 				}
-				$res = selectAll($dbtree, $id_category);
-				if(count($res) > 1){
-					$where_arr['customs'][] = "cp.id_category IN (".implode(', ', $res).")";
-				}else{
-					$where_arr = array('cp.id_category' => $id_category);
+				$where_arr['cp.id_category'] = $id_category;
+				if(!_acl::isAdmin()){
+					$where_arr['p.visible'] = 1;
 				}
 				$params = array(
 					'group_by' => 'a.id_product',
@@ -141,7 +139,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'specificationUpdate':
 				$Specification = new Specification();
-				$Products->UpdateProduct(array('id_product'=>$_POST['id_product']));
+				$Products->UpdateProduct(array('id_product' => $_POST['id_product']));
 				if($_POST['id_spec_prod'] == ''){
 					if($Specification->AddSpecToProd($_POST, $_POST['id_product'])){
 						echo json_encode('ok');

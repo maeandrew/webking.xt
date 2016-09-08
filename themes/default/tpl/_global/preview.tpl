@@ -32,7 +32,7 @@
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
-			<?if($product['price_opt'] == 0 && product['price_mopt'] == 0){?>
+			<?if($product['active'] == 0){?>
 				<div class="notAval">Нет в наличии</div>
 			<?}else{?>
 				<div class="product_buy" data-idproduct="<?=$product['id_product']?>">

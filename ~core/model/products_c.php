@@ -106,33 +106,19 @@ class Products {
 	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
 	 */
 	public function SetFieldsById($id_product, $visibility = 0){
-		$visible = "AND p.visible = 1";
-		if($visibility == 1){
-			$visible = '';
-		}
-		$sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short, p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate, p.duplicate, p.price_mopt,
-			p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length, p.volume, p.coefficient_volume, p.qty_control, p.price_coefficient_opt, p.price_coefficient_mopt,
-			p.visible, p.ord, p.note_control, un.unit_xt AS units, p.prod_status, p.old_price_mopt, p.old_price_opt, p.mopt_correction_set, p.opt_correction_set, p.filial, p.popularity, p.duplicate_user,
-			p.duplicate_comment, p.duplicate_date, p.edit_user, p.edit_date, p.create_user, p.create_date, p.id_unit, p.page_title, p.page_description, p.page_keywords, p.notation_price, p.instruction,
-			p.indexation, p.access_assort, un.unit_prom, a.product_limit, pv.count_views,
-			(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
-			un.unit_prom, a.product_limit, pv.count_views,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.edit_user) AS username,
-			(SELECT name FROM "._DB_PREFIX_."user WHERE id_user = p.create_user) AS createusername
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."units AS un
-				ON un.id = p.id_unit
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
-				ON a.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
-				ON pv.id_product = p.id_product
-			WHERE p.id_product = ".$id_product."
-			".$visible;
+		$sql = 'SELECT p.*,
+				un.unit_xt AS units,
+				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+				pv.count_views,
+				un.unit_prom,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+			FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
+			WHERE p.id_product = '.$id_product.'
+			LIMIT 1';
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
@@ -155,27 +141,36 @@ class Products {
 	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
 	 */
 	public function SetFieldsByRewrite($rewrite, $visibility = 0){
-		$visible = "AND p.visible = 1";
-		if($visibility == 1){
-			$visible = '';
-		}
-		$sql = "SELECT ".implode(", ",$this->usual_fields).",
-			MAX(a.active) AS active, a.price_mopt_otpusk, a.price_opt_otpusk, a.product_limit, p.name_index, pv.count_views, un.unit_prom,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-			(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."units AS un
-				ON un.id = p.id_unit
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
-				ON a.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
-				ON pv.id_product = p.id_product
-			WHERE p.translit = ".$this->db->Quote($rewrite)."
-			".$visible."
-			LIMIT 1";
+		$sql = 'SELECT p.*,
+				un.unit_xt AS units,
+				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+				pv.count_views,
+				un.unit_prom,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+			FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
+			WHERE p.translit = '.$this->db->Quote($rewrite).'
+			LIMIT 1';
+		// $sql = "SELECT ".implode(", ",$this->usual_fields).",
+		// 	MAX(a.active) AS active, a.price_mopt_otpusk, a.price_opt_otpusk, a.product_limit, p.name_index, pv.count_views, un.unit_prom,
+		// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+		// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+		// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+		// 	FROM "._DB_PREFIX_."product AS p
+		// 	LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+		// 		ON cp.id_product = p.id_product
+		// 	LEFT JOIN "._DB_PREFIX_."units AS un
+		// 		ON un.id = p.id_unit
+		// 	LEFT JOIN "._DB_PREFIX_."assortiment AS a
+		// 		ON a.id_product = p.id_product
+		// 	LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+		// 		ON pv.id_product = p.id_product
+		// 	WHERE p.translit = ".$this->db->Quote($rewrite)."
+		// 	".$visible."
+		// 	LIMIT 1";
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;
@@ -554,26 +549,18 @@ class Products {
 	 * Выбор категрий в которых находится искомый товар
 	 */
 	public function SetCategories4Search($and = false){
-		$where = "";
-		if($and !== FALSE && count($and)){
-			$where = " AND ";
-			foreach($and as $k=>$v){
-				if($k=='customs'){
-					foreach($v as $a){
-						$where_a[] = $a;
-					}
-				}else{
-					$where_a[] = "$k=\"$v\"";
-				}
-			}
-			$where .= implode(" AND ", $where_a);
-		}
-		$sql = "SELECT c.id_category, c.`name`, c.translit, COUNT(p.id_product) AS count
-				FROM "._DB_PREFIX_."cat_prod cp
-				LEFT JOIN "._DB_PREFIX_."category c ON c.id_category = cp.id_category
-				LEFT JOIN "._DB_PREFIX_."product p ON p.id_product = cp.id_product
-				WHERE c.sid = 1 AND c.visible = 1 AND (p.price_opt > 0 OR p.price_mopt > 0)
-				".$where."  AND p.visible = 1 GROUP BY c.`translit`";
+		$sql = 'SELECT c.id_category, c.name, c.translit, COUNT(p.id_product) AS count
+			FROM '._DB_PREFIX_.'cat_prod cp
+				LEFT JOIN '._DB_PREFIX_.'category AS c
+					ON c.id_category = cp.id_category
+				LEFT JOIN '._DB_PREFIX_.'product AS p
+					ON p.id_product = cp.id_product'.
+			$this->db->GetWhere($and).'
+				AND c.sid = 1
+				AND c.visible = 1
+				AND (p.price_opt > 0 OR p.price_mopt > 0)
+				AND p.visible = 1
+			GROUP BY c.translit';
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -700,29 +687,27 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
-		$where = "";
+		// $where = "";
 		if($this->filter === false) return false;
 
 		$where2 = $this->filter;
 
-		if (isset($GLOBALS['Segment'])){
-			$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
-					WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
-		} else $selectsegm= '';
+		$selectsegm = isset($GLOBALS['Segment'])?' AND p.id_product IN (SELECT id_product FROM xt_segment_prods WHERE id_segment IN (SELECT id FROM xt_segmentation WHERE id = '.$GLOBALS['Segment'].'))':null;
 
-		if($and !== FALSE && count($and)){
-			$where = " AND ";
-			foreach ($and as $k=>$v){
-				if($k=='customs'){
-					foreach($v as $a){
-						$where_a[] = $a;
-					}
-				}else{
-					$where_a[] = "$k=\"$v\"";
-				}
-			}
-			$where .= implode(" AND ", $where_a);
-		}
+		// if($and !== FALSE && count($and)){
+		// 	$where = " AND ";
+		// 	foreach ($and as $k=>$v){
+		// 		if($k=='customs'){
+		// 			foreach($v as $a){
+		// 				$where_a[] = $a;
+		// 			}
+		// 		}else{
+		// 			$where_a[] = "$k=\"$v\"";
+		// 		}
+		// 	}
+		// 	$where .= implode(" AND ", $where_a);
+		// }
+
 		$group_by = '';
 		if(isset($params['group_by'])){
 			$group_by = ' GROUP BY '.$params['group_by'];
@@ -778,27 +763,50 @@ class Products {
 				ORDER BY ".$order_by."
 				".$limit;
 		}else{
-			$sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short, p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate,
-				(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt, p.duplicate, p.price_mopt,
-				p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length, p.volume, p.coefficient_volume, p.qty_control, p.price_coefficient_opt, p.price_coefficient_mopt,
-				p.visible, p.ord, p.note_control, un.unit_xt AS units, p.prod_status, p.old_price_mopt, p.old_price_opt, p.mopt_correction_set, p.opt_correction_set, p.filial, p.popularity, p.duplicate_user,
-				p.duplicate_comment, p.duplicate_date, p.edit_user, p.edit_date, p.create_user, p.create_date, p.id_unit, p.page_title, p.page_description, p.page_keywords, p.notation_price, p.instruction,
-				p.indexation, p.access_assort, pv.count_views, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-				(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-				(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-				(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
-				FROM "._DB_PREFIX_."cat_prod AS cp
-					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
-					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-					LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
-				WHERE cp.id_product IS NOT NULL "
-				.(($gid == _ACL_SUPPLIER_)?"AND p.access_assort = 1 ":null).
-				$where . $where2. $this->price_range ."
-				GROUP BY p.id_product
-				ORDER BY active DESC, p.visible DESC, ".$order_by."
-				".$limit;
+			$sql = 'SELECT
+				p.*,
+				(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
+				pv.count_views,
+				un.unit_xt AS units,
+				cp.id_category,
+				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+			FROM '._DB_PREFIX_.'cat_prod AS cp
+				RIGHT JOIN '._DB_PREFIX_.'product AS p
+					ON cp.id_product = p.id_product
+				LEFT JOIN '._DB_PREFIX_.'units AS un
+					ON un.id = p.id_unit
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
+					ON pv.id_product = p.id_product'.
+			$this->db->GetWhere($and)
+			.$where2
+			.$this->price_range
+			.' GROUP BY p.id_product
+			ORDER BY active DESC, p.visible DESC, '.
+			$order_by.' '.$limit;
+			// $sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short, p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate,
+			// 	(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt, p.duplicate, p.price_mopt,
+			// 	p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length, p.volume, p.coefficient_volume, p.qty_control, p.price_coefficient_opt, p.price_coefficient_mopt,
+			// 	p.visible, p.ord, p.note_control, un.unit_xt AS units, p.prod_status, p.old_price_mopt, p.old_price_opt, p.mopt_correction_set, p.opt_correction_set, p.filial, p.popularity, p.duplicate_user,
+			// 	p.duplicate_comment, p.duplicate_date, p.edit_user, p.edit_date, p.create_user, p.create_date, p.id_unit, p.page_title, p.page_description, p.page_keywords, p.notation_price, p.instruction,
+			// 	p.indexation, p.access_assort, pv.count_views, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
+			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+			// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+			// 	(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
+			// 	FROM "._DB_PREFIX_."cat_prod AS cp
+			// 		RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
+			// 		LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
+			// 		RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
+			// 		LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
+			// 	WHERE cp.id_product IS NOT NULL "
+			// 	.(($gid == _ACL_SUPPLIER_)?"AND p.access_assort = 1 ":null).
+			// 	$where . $where2. $this->price_range ."
+			// 	GROUP BY p.id_product
+			// 	ORDER BY active DESC, p.visible DESC, ".$order_by."
+			// 	".$limit;
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -1107,34 +1115,14 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function GetMinMaxPrice($and = false, $limit = '', $gid = 0, $params = array()){
-		$where = "";
-		$where2 = $this->filter;
-
-		if($and !== FALSE && count($and)){
-			$where = " AND ";
-			foreach ($and as $k=>$v){
-				if($k=='customs'){
-					foreach($v as $a){
-						$where_a[] = $a;
-					}
-				}else{
-					$where_a[] = "$k=\"$v\"";
-				}
-			}
-			$where .= implode(" AND ", $where_a);
-		}
-
-		$sql = "SELECT MIN(p.price_opt) as min_price, MAX(p.price_opt) as max_price
-				FROM "._DB_PREFIX_."cat_prod AS cp
-					RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
-					LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-					LEFT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-				WHERE cp.id_product IS NOT NULL
-				".$where . $where2. "
-				AND p.visible = 1
-				AND p.price_opt > 0
-				AND a.active = 1
-				ORDER BY p.price_opt";
+		$sql = 'SELECT MIN(p.price_opt) as min_price, MAX(p.price_opt) as max_price
+				FROM '._DB_PREFIX_.'cat_prod AS cp
+					RIGHT JOIN '._DB_PREFIX_.'product AS p ON cp.id_product = p.id_product
+					LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
+					LEFT JOIN '._DB_PREFIX_.'assortiment AS a ON a.id_product = p.id_product'.
+				$this->db->GetWhere($and).
+				$this->filter."
+				AND p.price_opt > 0";
 		$this->list = $this->db->GetOneRowArray($sql);
 		if(!$this->list){
 			return false;
@@ -1391,59 +1379,24 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function GetProductsCnt($and = false, $gid = 0, $params = array()){
-		$where = "";
 		if($this->filter === false) return false;
-
 		$where2 = $this->filter;
 
-		if (isset($GLOBALS['Segment'])){
-			$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
-					WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
-		} else $selectsegm= '';
-
-		if($and !== FALSE && count($and)){
-			$where = " AND ";
-			foreach ($and as $k=>$v){
-				if($k=='customs'){
-					foreach($v as $a){
-						$where_a[] = $a;
-					}
-				}else{
-					$where_a[] = "$k=\"$v\"";
-				}
-			}
-			$where .= implode(" AND ", $where_a);
-		}
-		//		if($limit == '' || isset($params['ajax'])){
-		//			$qqq = 1;
-		//		}
-		$group_by = '';
-		if(isset($params['group_by'])){
-			$group_by = ' GROUP BY '.$params['group_by'];
-		}
-		$prices_zero = '';
-		if(!isset($params['sup_cab'])){
-			$prices_zero = ' AND (p.price_opt > 0 OR p.price_mopt > 0)';
-		}
-		$sql = "SELECT p.id_product,
-				p.visible,
-				p.price_opt,
-				p.price_mopt,
-				a.active
-			FROM "._DB_PREFIX_."cat_prod AS cp
-				RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product". $selectsegm ."
-				LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-				RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-			WHERE cp.id_product IS NOT NULL
-			".$where.$where2.$this->price_range." AND a.active = 1
-			GROUP BY p.id_product
-			HAVING p.visible = 1
-				".$prices_zero;
-		$cnt = count($this->db->GetArray($sql));
-		if(!$cnt){
+		// if (isset($GLOBALS['Segment'])){
+		// 	$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
+		// 			WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
+		// } else $selectsegm= '';
+		$sql = 'SELECT COUNT(DISTINCT p.id_product) AS cnt
+			FROM '._DB_PREFIX_.'cat_prod AS cp
+				INNER JOIN '._DB_PREFIX_.'product AS p
+					ON cp.id_product = p.id_product'.
+			$this->db->GetWhere($and)
+			.$where2;
+		$res = $this->db->GetOneRowArray($sql);
+		if(!$res){
 			return 0;
 		}
-		return $cnt;
+		return $res['cnt'];
 	}
 	/**
 	 * [SetProductsListSupCab description]
@@ -1563,7 +1516,7 @@ class Products {
 				".$limit;
 		}else{
 			$sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short,
- 				p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate,
+				p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate,
 				(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
 				p.duplicate, p.price_mopt,
 				p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length,
@@ -1599,12 +1552,6 @@ class Products {
 				$v['base_prices_mopt'][$i] = round($v['price_mopt']* $base_coef_price_mopt[$i], 2);
 			}
 		}
-//		echo'<pre>';
-//		print_r($this->list);
-//		echo'</pre>';
-//		die();
-
-
 		return true;
 	}
 	/**
@@ -1947,18 +1894,19 @@ class Products {
 	 * @param [type] $ids_products [description]
 	 */
 	public function RecalcSitePrices($ids_products = array()){
-		foreach($ids_products as $id_product){
-			$products_array[$id_product] = array();
+		if(!empty($ids_products)){
+			foreach($ids_products as $id_product){
+				$products_array[$id_product] = array();
+			}
 		}
 		set_time_limit(3600);
-		ini_set('memory_limit', '400M');
+		ini_set('memory_limit', '512M');
 		$sql = "SELECT p.id_product,
 				a.price_opt_recommend,
 				a.price_mopt_recommend
 			FROM "._DB_PREFIX_."product AS p
 				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON p.id_product = a.id_product
-			WHERE p.visible = 1
-				AND a.active = 1
+			WHERE a.active = 1
 				AND (a.price_opt_recommend > 0 OR a.price_mopt_recommend > 0)
 				".(!empty($ids_products)?" HAVING p.id_product IN (".implode(", ", $ids_products).")":null);
 		unset($ids_products);
@@ -1969,18 +1917,20 @@ class Products {
 			}
 		}
 		$return = array();
-		foreach($products_array as $k=>&$product){
-			if(!empty($product)){
-				foreach($product as &$p){
-					$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
-						? $p['price_opt_recommend']
-						: $result_prices[$k]['opt'];
-					$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
-						? $p['price_mopt_recommend']
-						: $result_prices[$k]['mopt'];
+		if(isset($products_array)){
+			foreach($products_array as $k=>&$product){
+				if(!empty($product)){
+					foreach($product as &$p){
+						$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
+							? $p['price_opt_recommend']
+							: $result_prices[$k]['opt'];
+						$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
+							? $p['price_mopt_recommend']
+							: $result_prices[$k]['mopt'];
+					}
+				}else{
+					$result_prices[$k]['opt'] = $result_prices[$k]['mopt'] = 0;
 				}
-			}else{
-				$result_prices[$k]['opt'] = $result_prices[$k]['mopt'] = 0;
 			}
 		}
 		if(!$this->UpdateSitePricesMassive($result_prices)){
@@ -2790,6 +2740,7 @@ class Products {
 	 * @param [type] $rows [description]
 	 */
 	public function GenExcelAssortFile($rows){
+		ini_set('memory_limit', '512M');
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()
@@ -2842,6 +2793,7 @@ class Products {
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
+		ini_set('memory_limit', '192M');
 	}
 	/**
 	 * Обработка загруженного файла ассортимента
@@ -4429,7 +4381,6 @@ class Products {
 		}
 		$article = $this->GetArtByID($id_product);
 		// try to add photos to the new product
-		// print_r($image);
 		foreach($data['images'] as $k => $image){
 			$to_resize[] = $newname = $article['art'].($k == 0?'':'-'.$k).'.jpg';
 			$file = pathinfo($image['src']);

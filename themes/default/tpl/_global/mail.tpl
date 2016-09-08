@@ -425,8 +425,8 @@
 											                    <tbody>
 											                    	<tr>
 											                        	<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 12px; line-height: 150%;">
-											                            С уважением<br>
-																		Команда сотрудников <a href="https://xt.ua" target="_blank">XT.ua</a><br>
+											                            С уважением,<br>
+																		администрация интернет-магазина <a href="https://xt.ua" target="_blank">xt.ua</a><br>
 											                        	</td>
 											                    	</tr>
 											                	</tbody>
@@ -441,8 +441,11 @@
 											                    <tbody>
 											                    	<tr>
 											                        	<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; font-size: 12px; line-height: 150%;">
-											                            	<div style="text-align: right;">Контакты:<br><a href="tel:+380503098420">(050)3098420</a></div>
-																			<div style="text-align: right;"><a href="tel:+380675741013">(067)5741013</a></div>
+											                            	<div style="text-align: right;">Контакты:<br><a href="tel:+380503098420">(050) 309-84-20</a></div>
+																			<div style="text-align: right;"><a href="tel:+380675741013">(067) 574-10-13</a></div>
+																			<div style="text-align: right;"><a href="tel:+380577803861">(057) 780-38-61</a></div>
+																			<div style="text-align: right;"><a href="tel:+380995632817">(099) 563-28-17</a></div>
+																			<div style="text-align: right;"><a href="tel:+380634259183">(063) 425-91-83</a></div>
 												                        </td>
 												                    </tr>
 											                	</tbody>

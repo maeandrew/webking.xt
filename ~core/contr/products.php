@@ -1,17 +1,15 @@
 <?php
 unset($parsed_res);
-// print_r(G::getmicrotime() - $s_time);die();
 $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
-$id_category = $GLOBALS['CURRENT_ID_CATEGORY'];
+$id_category = (int) $GLOBALS['CURRENT_ID_CATEGORY'];
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
 $dbtree->SetFieldsById($id_category);
 $category = $dbtree->fields;
-
 G::metaTags($category);
 $category['subcats'] = $Products->GetSubCatsTop($id_category);
 $tpl->Assign('category', $category);
@@ -49,7 +47,7 @@ foreach($res as $cat){
 	if($cat['id_category'] != $id_category){
 		$GLOBALS['IERA_LINKS'][] = array(
 			'title' => $cat['name'],
-			'url' => Link::Category($cat['translit'], array('clear'=>true))
+			'url' => Link::Category($cat['translit'], array('clear' => true))
 		);
 	}
 	$end = end($GLOBALS['IERA_LINKS']);
@@ -68,10 +66,9 @@ function selectAll($dbtree, $id_category = null, $str = array()){
 	return $str;
 }
 $res = selectAll($dbtree, $id_category);
-if(count($res) > 1){
-	$where_arr['customs'][] = "cp.id_category IN (".implode(', ', $res).")";
-}else{
-	$where_arr = array('cp.id_category' => $id_category);
+$where_arr['cp.id_category'] = count($res) > 1?$res:$id_category;
+if(!_acl::isAdmin()){
+	$where_arr['p.visible'] = 1;
 }
 // Инициализация соединения со Sphinx ======================
 	$sphinx = new SphinxClient();
@@ -162,6 +159,7 @@ if(count($res) > 1){
 			}
 		}
 	}
+
 // =========================================================
 // Диапазон цен ============================================
 	if(isset($_SESSION['filters']['minprice']) && isset($_SESSION['filters']['maxprice'])){
