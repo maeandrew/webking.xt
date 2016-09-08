@@ -196,7 +196,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$res['msg'] = 'Введен неверный код.';
 				}else{
 					if($Users->delDoublePhone($_POST['phone'])){
-						$Users->UpdateUser($_POST);
+						$Users->UpdateUser(array('id_user'=>$_SESSION['member']['id_user'], 'phone'=>$_POST['phone']));
 						$res['success'] = true;
 						$res['content'] = 'ok';
 					}

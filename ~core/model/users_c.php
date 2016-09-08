@@ -515,7 +515,7 @@ class Users {
 		$f[] = 'verification_code = '.$verification_code;
 		$sql = "SELECT COUNT(*) AS count
  				FROM "._DB_PREFIX_."verification_code
- 				WHERE id_user = ".$id_user."
+ 				WHERE token = ".$id_user."
  				AND verification_code = ".$verification_code."
  				AND end_date >= CURTIME()";
 		$res = $this->db->GetOneRowArray($sql);
