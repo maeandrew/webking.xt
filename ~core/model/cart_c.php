@@ -88,9 +88,9 @@ class Cart {
 			$product['actual_prices'] = $actual_prices;
 			$product['other_prices'] = $other_prices;
 		}
-		if($quantity > $product['product_limit']){
-			$_SESSION['cart']['products'][$product['id_product']]['error_limit'] = true;
-		}
+		// if($quantity > $product['product_limit']){
+		// 	$_SESSION['cart']['products'][$product['id_product']]['error_limit'] = true;
+		// }
 		$this->RecalcCart();
 		return array('cart'=>$_SESSION['cart'], 'product'=>$product);
 	}
@@ -762,7 +762,7 @@ class Cart {
 				$this->db->FailTrans();
 				return false;
 			}
-			$this->db->CompleteTrans();			
+			$this->db->CompleteTrans();
 		}
 		return true;
 	}
