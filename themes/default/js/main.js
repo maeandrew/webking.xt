@@ -208,11 +208,9 @@ $(function(){
 	$('#confirmMyPhone').on('click', '.send_confirm_sms_js', function(){
 		var phone = $('#confirmMyPhone .new_phone').val().replace(/[^\d]+/g, "");
 		$('#confirmMyPhone .new_phone').val(phone);
-		//тут привести тел в нужный вид
-		console.log(phone);
-		addLoadAnimation('confirmMyPhone');
-		ajax('auth', 'recoverPhone', {phone:phone}).done(function(){  //аякс на отправку смс с кодом. тут передаю телефон
-			removeLoadAnimation('confirmMyPhone');
+		addLoadAnimation('#confirmMyPhone');
+		ajax('auth', 'recoverPhone', {phone:phone}).done(function(){  //аякс на отправку смс с кодом
+			removeLoadAnimation('#confirmMyPhone');
 			$('#confirmMyPhone .ask_send_code_js').addClass('hidden');
 			$('#confirmMyPhone .ver_info_js').removeClass('hidden');
 			Position($('[data-type="modal"].opened'));
@@ -223,14 +221,12 @@ $(function(){
 	$('#confirmMyPhone').on('click', '.confirm_js', function(){
 		var code = $("#verification_code").val();
 		var phone = $('#confirmMyPhone .new_phone').val();
-		console.log(code);
-		console.log(phone);
 		if(code === ''){
 			$("#verification_code").closest('div').addClass('is-invalid');
 		}else{
-			addLoadAnimation('confirmMyPhone');
-			ajax('auth', 'checkСodePhone', {phone:phone, code:code}).done(function(){ //аякс проверки кода // передаю введенный код и телефон
-				removeLoadAnimation('confirmMyPhone');
+			addLoadAnimation('#confirmMyPhone');
+			ajax('auth', 'checkСodePhone', {phone:phone, code:code}).done(function(){ //аякс проверки кода
+				removeLoadAnimation('#confirmMyPhone');
 				$('#confirmMyPhone .ver_info_js').addClass('hidden');
 				$('#confirmMyPhone .ver_info_success_js').removeClass('hidden');
 				Position($('[data-type="modal"].opened'));
