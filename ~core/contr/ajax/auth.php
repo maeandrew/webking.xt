@@ -191,7 +191,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'checkСodePhone':
-				if(!$Users->GetVerificationCode($_POST['id_user'],$_POST['code'])){
+				if(!$Users->GetVerificationCode($_SESSION['member']['id_user'],$_POST['code'])){
 					$res['success'] = false;
 					$res['msg'] = 'Введен неверный код.';
 				}else{

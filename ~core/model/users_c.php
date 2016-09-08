@@ -481,7 +481,7 @@ class Users {
 	}
 
 	public function SetVerificationCode($id_user, $method, $address){
-		$f['id_user'] = $id_user;
+		$f['token'] = $id_user;
 		$f['verification_code'] = G::GenerateVerificationCode();
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'verification_code', $f)){
@@ -511,7 +511,7 @@ class Users {
 	}
 
 	public function GetVerificationCode($id_user, $verification_code){
-		$f[] = 'id_user = '.$id_user;
+		$f[] = 'token = '.$id_user;
 		$f[] = 'verification_code = '.$verification_code;
 		$sql = "SELECT COUNT(*) AS count
  				FROM "._DB_PREFIX_."verification_code
