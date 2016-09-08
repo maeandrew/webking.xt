@@ -18,6 +18,10 @@
 	/*-webkit-border-radius: 5px;*/
 	width: 5px;
 }
+/*Перебиваем свойство will-change у класса mdl-tooltip из библиотеки colors.css для четких tooltip-ов*/
+.mdl-tooltip{
+	will-change: inherit !important;
+}
 html {
 	overflow-y: auto;
 }
