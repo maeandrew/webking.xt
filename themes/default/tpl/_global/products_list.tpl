@@ -276,10 +276,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				</div>
 				<div class="suplierPriceBlock">
 					<div class="price card_item"><p id="price_mopt_<?=$item['id_product']?>">
-						<?if($item['price_opt_otpusk'] != 0){
+						<?if(isset($item['price_opt_otpusk']) && $item['price_opt_otpusk'] > 0){
 							echo number_format($item['price_opt_otpusk'], 2, ".", "").' грн.';
-						}else{
+						}elseif(isset($item['price_mopt_otpusk']) && $item['price_mopt_otpusk'] > 0){
 							echo number_format($item['price_mopt_otpusk'], 2, ".", "").' грн.';
+						}else{
+							echo number_format($item['price_opt'], 2, ".", "").' грн.';
 						}?>
 					</p></div>
 					<div class="count_cell card_item">
