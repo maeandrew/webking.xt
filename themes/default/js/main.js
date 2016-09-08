@@ -199,6 +199,21 @@ $(function(){
 		$('.flag_js').removeClass('flag_js');
 		closeObject('confirmDelItem');
 	});
+	// Отправка смс подтверждения спорного телефона
+	$('#confirmMyPhone .send_confirm_sms_js').on('click', function(){
+		$('#confirmMyPhone .ask_send_code_js').addClass('hidden');
+		$('#confirmMyPhone .ver_info_js').removeClass('hidden');
+		Position($('[data-type="modal"].opened'));
+		// closeObject('confirmMyPhone');
+	});
+	$('#confirmMyPhone .confirm_js').on('click', function(){
+		if($("#verification_code").val() === ''){
+			$("#verification_code").closest('div').addClass('is-invalid');
+		}else{
+			$('#confirmMyPhone .ver_info_js').addClass('hidden');
+			$('#confirmMyPhone .ver_info_success_js').removeClass('hidden');
+		}
+	});
 
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
 	var seoText = $('#seoTextBlock').text();

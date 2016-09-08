@@ -174,6 +174,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart #total .total .total_summ{text-align:right;width:50%}
 #cart #total .total .label{width:50%;float:left;text-align:right}
 #cart .err_msg{margin-bottom:10px;color:red}
+#cart .this_my_number{display:block;margin-bottom:15px;font-weight:700}
 #cart .cart_login_btn{margin-bottom:10px}
 #cart .action_block .mdl-textfield{width:100%;padding-top:0;text-align:left}
 #cart .action_block .wrapp .cart_continue{float:right;margin:0;margin-right:10px;width:160px}
@@ -839,6 +840,7 @@ iframe[name=google_conversion_frame]{display:none}
 .paginator_specific_page_block .paginator_specific_page{padding:9px 0 9px 5px;width:166px}
 .paginator_specific_page_block button{padding-left:5px;padding-right:5px}
 .snackbar{z-index:10!important}
+#confirmMyPhone .icon{width:300px;height:300px;font-size:150px;color:#018b06}
 .rating_block{margin-top:.5em}
 .block_view .rating_block{float:right;text-align:right}
 .rating_block>*{display:inline-block;vertical-align:middle}

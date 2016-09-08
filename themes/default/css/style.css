@@ -989,6 +989,11 @@ section.center {
 		margin-bottom: 10px;
 		color: #f00;
 	}
+	#cart .this_my_number {
+		display: block;
+    	margin-bottom: 15px;
+    	font-weight: bold;
+	}
 	#cart .cart_login_btn {
 		margin-bottom: 10px;
 	}
@@ -4369,7 +4374,12 @@ iframe[name="google_conversion_frame"] {
 .snackbar {
 	z-index: 10 !important;
 }
-
+#confirmMyPhone .icon {
+	width: 300px;
+    height: 300px;
+    font-size: 150px;
+    color: #018b06;
+}
 
 /*Рейтинг в списке товаров*/
 .rating_block{
