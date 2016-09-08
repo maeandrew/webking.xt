@@ -417,7 +417,7 @@
 							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						</div>
 						<p class="err_msg"></p>
-						<a class="this_my_number btn_js hidden" href="#" data-name="confirmMyPhone">Это мой номер!</a>
+						<a class="this_my_number this_my_number_js btn_js hidden" href="#" data-name="confirmMyPhone">Это мой номер!</a>
 						<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 					<?}?>
 
