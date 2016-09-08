@@ -59,15 +59,18 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 			'subject' => 'Тестовое письмо',
 			'encoding' => 'UTF-8',
 			'from' => array(
-				'name' => $this->FromName,
-				'email' => 'callback@x-torg.com',
+				'name' => 'Отдел снабжения xt.ua',
+				'email' => 'order@xt.ua',
 			),
 			'to' => array(
 				array(
 					'email' => 'alexparhomenko67@gmail.com'
 				),
+				// array(
+				// 	'email' => 'kmkmedia@gmail.com'
+				// ),
 				array(
-					'email' => 'kmkmedia@gmail.com'
+					'email' => 'webking.dev2@gmail.com'
 				)
 			)
 		);

@@ -5,9 +5,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'testEmail':
-				// $Mailer->testEmail();
-				$Mailer->SendCustomEmail('alexparhomenko67@gmail.com', date("d.m.Y H:i:s", time()), 'Динамическое содержимое '.date("d.m.Y H:i:s", time()));
-				$Mailer->SendCustomEmail('kmkmedia@gmail.com', date("d.m.Y H:i:s", time()), 'Динамическое содержимое '.date("d.m.Y H:i:s", time()));
+				$Mailer->testEmail();
+				// $Mailer->SendCustomEmail('alexparhomenko67@gmail.com', date("d.m.Y H:i:s", time()), 'Динамическое содержимое '.date("d.m.Y H:i:s", time()));
+				// $Mailer->SendCustomEmail('kmkmedia@gmail.com', date("d.m.Y H:i:s", time()), 'Динамическое содержимое '.date("d.m.Y H:i:s", time()));
 				echo json_encode(true);
 				break;
 			default:
