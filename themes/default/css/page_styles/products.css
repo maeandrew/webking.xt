@@ -1096,6 +1096,7 @@ label.info_key {
 	margin-bottom: 10px;
 	resize: vertical;
 	border-radius: 3px;
+	padding: 1em;
 }
 #comment_question textarea:focus {
 	outline: none;

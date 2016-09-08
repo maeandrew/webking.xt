@@ -653,7 +653,7 @@
 		</div>
 		<!-- Модалка Отзывы и вопросы -->
 		<div id="comment_question" class="modal_hidden" data-type="modal">
-			<h4>Отзывы и вопросы</h4>
+			<h4>Вопрос по товару</h4>
 			<hr>
 			<p>У Вашего клиента возник вопрос?<br>Напишите его</p>
 			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">

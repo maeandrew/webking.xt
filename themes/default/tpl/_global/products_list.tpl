@@ -167,8 +167,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							</a>
 						</div>
 						<div class="service_block">
-							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Отзывы и вопросы</button>
-							<?if($item['available_today'] == 1){?>
+							<button class="mdl-button mdl-js-button comment_question_btn btn_js" data-name="comment_question">Задать вопрос</button>
+							<?if(isset($item['available_today']) && $item['available_today'] == 1){?>
 								<span class="material-icons timerIcon">timer</span>
 								<p class="available_today">Отгрузка за 2 часа</p>
 							<?}?>
