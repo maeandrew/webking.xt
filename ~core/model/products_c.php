@@ -692,10 +692,7 @@ class Products {
 
 		$where2 = $this->filter;
 
-		if (isset($GLOBALS['Segment'])){
-			$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
-					WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
-		} else $selectsegm= '';
+		$selectsegm = isset($GLOBALS['Segment'])?' AND p.id_product IN (SELECT id_product FROM xt_segment_prods WHERE id_segment IN (SELECT id FROM xt_segmentation WHERE id = '.$GLOBALS['Segment'].'))':null;
 
 		// if($and !== FALSE && count($and)){
 		// 	$where = " AND ";
