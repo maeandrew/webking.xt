@@ -1415,18 +1415,12 @@ $(function(){
 		// Проверка введенного телефона-логина
 		var str = email.replace(/\D/g, "");
 		var check_num = /^(38)?(\d{10})$/;
-		if (check_num.test(str)) {
-			if (str.length === 10){
-				email = 38 + str;
-			}else{
-				email = str;
-			}
+		if(check_num.test(str)){
+			email = str.length === 10?38 + str:str;
 		}
-
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
-
 			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
@@ -1480,7 +1474,9 @@ $(function(){
 				// parent.find('.user_promo').text(data.member.promo_code);
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
-				if (current_controller === 'main'){
+				if($('#auth').data('from') !== undefined){
+					location.replace($('#auth').data('from'));
+				}else if(current_controller === 'main'){
 					location.reload();
 				}
 			}else{

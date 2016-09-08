@@ -462,7 +462,7 @@
 			</div>
 		</div>
 		<!-- Authentication -->
-		<div id="auth" data-type="modal">
+		<div id="auth" data-type="modal" <?=isset($_SESSION['from'])?'data-from="'.$_SESSION['from'].'"':null?>>
 			<div id="sign_in" class="modal_container">
 				<h4>Вход</h4>
 				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>

@@ -1,7 +1,7 @@
 <?php
 if(!G::IsLogged()){
-	$_SESSION['from'] = 'cabinet';
-	header('Location: '.Link::Custom('main').'#auth');
+	$_SESSION['from'] = $_SERVER['REQUEST_URI'];
+	header('Location: '.Link::Custom('main', null, array('clear' => true)).'#auth');
 	exit();
 }
 G::metaTags();
