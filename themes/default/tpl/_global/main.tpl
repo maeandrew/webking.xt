@@ -663,6 +663,31 @@
 				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
 		</div>
+		<!-- Модалка Подтверждение спорного телефона -->
+		<div id="confirmMyPhone" class="modalEditOrder" data-type="modal">
+			<input type="hidden" name="new_phone" class="new_phone" value="">
+			<div class="ask_send_code_js">
+				<h5>Отправить смс с кодом подтвержедия <br> на данный номер?</h5>
+				<button id="send_confirm_sms_js" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js send_confirm_sms_js">Отправить</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js" data-name="confirmMyPhone">Отмена</button>
+			</div>
+			<div class="ver_info_js hidden">
+				<h5>На указанный номер телефона<br>отправлено SMS-сообщение c кодом для подтверждения.<br>Введите ниже полученый код.</h5>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js">
+					<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" max="9999">
+					<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
+					<span class="mdl-textfield__error">В коде должны быть только 4 числа!</span>
+				</div>
+				<p class="error_msg_js error_msg"></p>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored confirm_js">Подтвердить</button>
+			</div>
+			<div class="ver_info_success_js hidden">
+				<div class="icon material-icons">check_circle</div>
+				<h5>Ваш номер успешно изменен.<br>Вы можете продолжнить оформление заказа.</h5>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored continue_make_order_js" data-name="confirmMyPhone">Продолжить</button>
+			</div>
+		</div>
+
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
