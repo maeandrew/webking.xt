@@ -4172,6 +4172,9 @@ iframe[name="google_conversion_frame"] {
 }
 #cart .orderNote textarea {
 	max-height: 189px;
+	width: 100%;
+	padding: 1em;
+	border-radius: .2em;
 }
 #cart .msg-info{
 	width: 300px;

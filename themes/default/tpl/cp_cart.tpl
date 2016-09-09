@@ -400,9 +400,9 @@
 					<?}?>
 				</div>
 			<?}?>
-			<div class="mdl-textfield mdl-js-textfield orderNote">
-				<label for="orderNote">Примечания к заказу</label>
-				<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
+			<div class="orderNote">
+				<!-- <label for="orderNote">Примечания к заказу</label> -->
+				<textarea class="order_note_text" type="text" rows="6" id="orderNote" name="orderNote" placeholder="Примечания к заказу"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
 			</div>
 		</div>
 		<div class="action_block">
@@ -481,7 +481,7 @@
 						<select id="select_contragent" name="id_contragent" class="mdl-selectfield__select">
 							<option value="" disabled selected>Менеджер</option>
 							<?foreach($managers_list as $manager){?>
-								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
+								<option value="<?=$manager['id_user']?>" <?=G::IsLogged() && $_SESSION['member']['contragent']['id_user'] == $manager['id_user']?'selected':null?>><?=$manager['name_c']?></option>
 							<?}?>
 						</select>
 						<label class="mdl-selectfield__label" for="select_contragent">Менеджер</label>
