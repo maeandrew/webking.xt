@@ -52,18 +52,7 @@ if(isset($_POST['sub_com'])){
 	$text = stripslashes($text);
 	$rating = isset($_POST['rating'])?$_POST['rating']:0;
 	$pid_comment = isset($_POST['pid_comment'])?$_POST['pid_comment']:false;
-	if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ ){
-		$author = 007;
-		$author_name = $_SESSION['member']['id_user'];
-	}elseif(isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028){
-		$author = $_SESSION['member']['id_user'];
-		$author_name = $_SESSION['member']['name'];
-	}else{
-		$author = 4028;
-		$author_name = $_POST['feedback_author'];
-	}
-	$authors_email = $_POST['feedback_authors_email'];
-	$Products->SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating, $pid_comment);
+	$Products->SubmitProductComment($text, $_SESSION['member']['id_user'], $_SESSION['member']['name'], $_POST['feedback_authors_email'], $id_product, $rating, $pid_comment);
 	header('Location: '.Link::Product($GLOBALS['Rewrite']));
 	exit();
 }
