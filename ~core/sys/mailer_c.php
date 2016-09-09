@@ -56,7 +56,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
 		$Email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
-			'subject' => 'Тестовое письмо',
+			'subject' => 'Latest news',
 			'encoding' => 'UTF-8',
 			'from' => array(
 				'name' => 'Отдел снабжения xt.ua',
@@ -66,9 +66,9 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				array(
 					'email' => 'alexparhomenko67@gmail.com'
 				),
-				// array(
-				// 	'email' => 'kmkmedia@gmail.com'
-				// ),
+				array(
+					'email' => 'webking.market@gmail.com'
+				),
 				array(
 					'email' => 'webking.dev2@gmail.com'
 				)

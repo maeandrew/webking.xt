@@ -189,21 +189,132 @@
 											                    <tbody>
 												                    <tr>
 												                        <td valign="top" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%; color:#202020;text-align: justify;">
-																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;" width="100%">
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
 															                    <tbody>
 															                    	<tr>
-															                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:26px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
+															                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:18px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
 																							<?=$title?>
+																							Здравствуйте, Олег Петрович!
+																							<br>
+																							Ваш заказ успешно формлен.
 																                        </td>
 																                    </tr>
 															                	</tbody>
 															                </table>
 																			<br>
-																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;" width="100%">
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
 															                    <tbody>
 															                    	<tr>
 															                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
 																							<?=$content?>
+																							<table name="order" align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:95% !important; width:95% !important;">
+																			                    <tbody>
+																			                    	<tr>
+																			                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																							                    <tbody>
+																							                    	<tr>
+																							                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																															<span style="font-weight: bold;">№ заказа:</span> 123456
+																								                        </td>
+																								                    </tr>
+																								                    <tr>
+																							                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																															<span style="font-weight: bold;">Сумма заказа:</span> 100 000 грн.
+																								                        </td>
+																								                    </tr>
+																							                	</tbody>
+																							                </table>
+																				                        </td>
+																				                    </tr>
+																				                    <tr>
+																			                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																			                        		<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																							                    <caption style="padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; font-weight: bold; line-height:125%;letter-spacing:normal;text-align: center;">Список товаров</caption>
+																							                    <thead>
+																							                    	<tr>
+																							                        	<th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Название товара
+																								                        </th>
+																								                        <th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Цена
+																								                        </th>
+																								                        <th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Кол-во
+																								                        </th>
+																								                        <th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Сумма
+																								                        </th>
+																								                    </tr>
+																							                    </thead>
+																							                    <tbody>
+																								                    <!-- <tr>
+																							                        	<td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																															Название товара
+																															<br>
+																															<p style="font-size: 12px; padding-top: 9px;">Арт.: 1526</p>
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Цена
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Кол-во
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Сумма
+																								                        </td>
+																								                    </tr>
+																								                    <tr>
+																							                        	<td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																															Название товара Название товара
+																															<br>
+																															<p style="font-size: 12px; padding-top: 9px;">Арт.: 1526</p>
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Цена
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Кол-во
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															Сумма
+																								                        </td>
+																								                    </tr> -->
+																								                    <tr>
+																							                        	<td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																															Название товара "Велосипедноватый куркуль" пастеризованного
+																															<br>
+																															<p style="font-size: 12px; padding-top: 9px;">Арт.: 1526</p>
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															250,65 грн.
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															5 шт.
+																								                        </td>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															1253,25 грн.
+																								                        </td>
+																								                    </tr>
+																							                	</tbody>
+																							                </table>
+																				                        </td>
+																				                    </tr>
+																			                    	<tr>
+																			                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																							                    <tbody>
+																							                    	<tr>
+																							                        	<td valign="top" style="margin:0;padding:0; padding-top: 9px; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																															Вы можете просмотреть детали вашего заказа в <a href="#">личном кабинете</a>, а так же оформить <a href="#">новый заказ</a>.
+																								                        </td>
+																								                    </tr>
+																							                	</tbody>
+																							                </table>
+																				                        </td>
+																				                    </tr>
+																			                	</tbody>
+																			                </table>
 																                        </td>
 																                    </tr>
 															                	</tbody>
@@ -232,7 +343,7 @@
 												                    <tbody>
 												                        <tr>
 												                            <td align="center" valign="middle" style="font-family: Arial; font-weight: bold; font-size: 14px; letter-spacing: normal; padding: 15px; border-radius: 3px;line-height: 100%; text-align: center;box-sizing:border-box;background-color: #018B06;">
-												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #FFFFFF;"><?=$button['title']?></a>
+												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #FFFFFF;"> Перейти к оплате<?=$button['title']?></a>
 												                            </td>
 												                        </tr>
 												                    </tbody>
@@ -242,6 +353,15 @@
 												    </tbody>
 												</table>
 											<?}?>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;" width="100%">
+							                    <tbody>
+							                    	<tr>
+							                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:16px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
+															Спасибо, что вы с нами!
+								                        </td>
+								                    </tr>
+							                	</tbody>
+							                </table>
 										</td>
 									</tr>
 								</table>
