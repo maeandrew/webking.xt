@@ -531,7 +531,8 @@ class Orders {
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
 			$f['bonus_card'] = $customer['bonus_card'];
 		}
-		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
+		$cart_sum = (!isset($_SESSION['cart']['manual_price_change']))?$_SESSION['cart']['cart_sum']:$_SESSION['cart']['products_sum'][$_SESSION['cart']['manual_price_change']];
+		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$cart_sum:$GetCartForPromo['total_sum'];
 		$f['phones'] = $customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
