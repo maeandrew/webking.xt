@@ -170,6 +170,7 @@
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
 		$summ_many = $_SESSION['cart']['cart_sum'];
+		$cart_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];
 		foreach($list as $item){
 			$item['price_mopt'] > 0 ? $mopt_available = true : $mopt_available = false;
 			$item['price_opt'] > 0 ? $opt_available = true : $opt_available = false;?>
@@ -200,7 +201,7 @@
 						<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 						<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
 						<div class="buy_block">
-							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div>
+							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$cart_column], 2, ",", "");?></div>
 							<div class="prodPrices hidden">
 								<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
 								<?for ($i = 0; $i < 4; $i++){?>
@@ -226,7 +227,7 @@
 					</div>
 					<div class="summ">
 						<span class="order_mopt_sum_<?=$item['id_product']?>">
-							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,",",""):"0.00"?>
+							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$cart_column])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$cart_column],2,",",""):"0.00"?>
 						</span>
 					</div>
 					<div class="remove_prod">
