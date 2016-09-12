@@ -111,12 +111,29 @@
 			{
 				"@context": "http://schema.org",
 				"@type": "WebSite",
-				"url": "<?=_base_url?>/",
+				"url": "https://xt.ua",
 				"potentialAction": {
 					"@type": "SearchAction",
-					"target": "<?=_base_url?>/search/?category2search=0&query={q}",
+					"target": "https://xt.ua/search/?category2search=0&query={q}",
 					"query-input": "required name=q"
 				}
+			}
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "http://schema.org",
+				"@type": "Organization",
+				"name": "Отдел снабжения xt.ua",
+				"url": "https://xt.ua",
+				"logo": "https://xt.ua/themes/default/img/_xt.svg",
+				"sameAs": [
+					"https://vk.com/xt_ua",
+					"http://ok.ru/group/54897683202077",
+					"https://plus.google.com/+X-torg/",
+					"https://www.facebook.com/KharkovTorg",
+					"https://twitter.com/we_xt_ua",
+					"https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw"
+				]
 			}
 		</script>
 	<?}?>

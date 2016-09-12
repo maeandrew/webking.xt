@@ -19,6 +19,15 @@
 			</div>
 		</div>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
+		<div class="col-md-12 meta_tags">
+			<h2 class="blue-line">Мета теги</h2>
+			<label for="meta_title">Мета-заголовок</label>
+			<input class="input-m" id="meta_title" type="text" name="page_title" value="<?=isset($_POST['page_title']) && !empty($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>"/>
+			<label for="meta_description">Мета-описание</label>
+			<textarea class="input-m" name="page_description" id="meta_description" cols="10" rows="3"><?=isset($_POST['page_description']) && !empty($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
+			<label for="meta_keywords">Ключевые слова</label>
+			<textarea class="input-m" name="page_keywords" id="meta_keywords" cols="10" rows="3"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
+		</div>
         <div class="row seo_block hidden">
 			<div class="col-md-6">
 				<label for="page_title">Мета-заголовок (title):</label>

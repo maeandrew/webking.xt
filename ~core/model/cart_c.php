@@ -224,9 +224,7 @@ class Cart {
 		$Order->SetFieldsById($id_order);
 		$order = $Order->fields;
 		if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
-			$_SESSION['price_mode'] = 0;
 			if($order['discount'] > 0 && $_SESSION['member']['id_user'] == $order['id_customer']){
-				$_SESSION['price_mode'] = 1;
 				$this->SetPersonalDiscount($order['discount']);
 				$Customer->UpdateCustomer(array(
 						'id_user' => $_SESSION['member']['id_user'],
@@ -453,13 +451,8 @@ class Cart {
 							$opt_correction = $correction[$_SESSION['price_column']];
 						}
 					}
-					if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-						$res['price_opt'] = round($res['price_opt']*$_SESSION['cart']['personal_discount'],2);
-						$res['price_mopt'] = round($res['price_mopt']*$_SESSION['cart']['personal_discount'],2);
-					}else{
-						$res['price_opt'] = round($res['price_opt']*$opt_correction, 2);
-						$res['price_mopt'] = round($res['price_mopt']*$mopt_correction, 2);
-					}
+					$res['price_opt'] = round($res['price_opt']*$opt_correction, 2);
+					$res['price_mopt'] = round($res['price_mopt']*$mopt_correction, 2);
 					$new_mopt_price = round($res['price_mopt']*$arr['order_mopt_qty'], 2);
 					$new_opt_price = round($res['price_opt']*$arr['order_opt_qty'], 2);
 					$_SESSION['cart']['products'][$id_product]['site_price_opt'] = $res['price_opt'];

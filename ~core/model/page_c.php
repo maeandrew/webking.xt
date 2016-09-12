@@ -88,73 +88,102 @@ class Page {
 
 	// Добавить статью
 	public function AddPage($arr){
-		$title = trim($arr['title']);
-		$title_ua = trim($arr['title_ua']);
-		$content = trim($arr['editor']);
-		$content_ua = trim($arr['editor_ua']);
-		$page_description = trim($arr['page_description']);
-		$page_description_ua = trim($arr['page_description_ua']);
-		$page_title = trim($arr['page_title']);
-		$page_title_ua = trim($arr['page_title_ua']);
-		$page_keywords = trim($arr['page_keywords']);
-		$page_keywords_ua = trim($arr['page_keywords_ua']);
-		$ptype = trim($arr['ptype']);
-		$translit = G::StrToTrans($title);
-		$indexation = (isset($arr['indexation']) && $arr['indexation'] == "on") ? 1 : 0;
-		$visible = 1;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$visible = 0;
+		if(isset($arr['title'])){
+			$f['title'] = trim($arr['title']);
+			$f['translit'] = G::StrToTrans($arr['title']);
 		}
-		$sql = "INSERT INTO "._DB_PREFIX_."page (title, title_ua, translit, new_content, content_ua,
-				page_description, page_description_ua, page_title, page_title_ua,
-				page_keywords, page_keywords_ua, visible, ptype, indexation, xt)
-			VALUES ('".$title."', '".$title_ua."', '".$translit."', '".$content."', '".$content_ua."',
-					'".$page_description."', '".$page_description_ua."', '".$page_title."', '".$page_title_ua."',
-					'".$page_keywords."', '".$page_keywords_ua."', ".$visible.", '".$ptype."', '".$indexation."', '1')";
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		if(isset($arr['title_ua'])){
+			$f['title_ua'] = trim($arr['title_ua']);
+		}
+		if(isset($arr['editor'])){
+			$f['content'] = trim($arr['editor']);
+		}
+		if(isset($arr['editor_ua'])){
+			$f['content_ua'] = trim($arr['editor_ua']);
+		}
+		if(isset($arr['page_description'])){
+			$f['page_description'] = trim($arr['page_description']);
+		}
+		if(isset($arr['page_description_ua'])){
+			$f['page_description_ua'] = trim($arr['page_description_ua']);
+		}
+		if(isset($arr['page_title'])){
+			$f['page_title'] = trim($arr['page_title']);
+		}
+		if(isset($arr['page_title_ua'])){
+			$f['page_title_ua'] = trim($arr['page_title_ua']);
+		}
+		if(isset($arr['page_keywords'])){
+			$f['page_keywords'] = trim($arr['page_keywords']);
+		}
+		if(isset($arr['page_keywords_ua'])){
+			$f['page_keywords_ua'] = trim($arr['page_keywords_ua']);
+		}
+		if(isset($arr['ptype'])){
+			$f['ptype'] = trim($arr['ptype']);
+		}
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on") ? 1 : 0;
+		$f['visible'] = 1;
+		if(isset($arr['visible']) && $arr['visible'] == "on"){
+			$f['visible'] = 0;
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'page', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
 		$id_page = $this->db->GetLastId();
+		$this->db->CompleteTrans();
 		return $id_page;
 	}
 
 	// Обновление статьи
 	public function UpdatePage($arr){
-		$id_page = trim($arr['id_page']);
-		$title = trim($arr['title']);
-		$title_ua = trim($arr['title_ua']);
-		$page_description = trim($arr['page_description']);
-		$page_description_ua = trim($arr['page_description_ua']);
-		$page_title = trim($arr['page_title']);
-		$page_title_ua = trim($arr['page_title_ua']);
-		$page_keywords = trim($arr['page_keywords']);
-		$page_keywords_ua = trim($arr['page_keywords_ua']);
-		$content = trim($arr['editor']);
-		$content_ua = trim($arr['editor_ua']);
-		$ptype = trim($arr['ptype']);
-		$translit = G::StrToTrans($title);
-		$indexation = (isset($arr['indexation']) && $arr['indexation'] == "on") ? 1 : 0;
-		$visible = 1;
-		if(isset($arr['visible']) && $arr['visible'] == "on"){
-			$visible = 0;
+		if(isset($arr['title'])){
+			$f['title'] = trim($arr['title']);
+			$f['translit'] = G::StrToTrans($arr['title']);
 		}
-		$sql = "UPDATE "._DB_PREFIX_."page
-			SET title = '".$title."',
-				title_ua = '".$title_ua."',
-				translit = '".$translit."',
-				new_content = '".$content."',
-				content_ua = '".$content_ua."',
-				ptype = '".$ptype."',
-				page_description = '".$page_description."',
-				page_description_ua = '".$page_description_ua."',
-				page_title = '".$page_title."',
-				page_title_ua = '".$page_title_ua."',
-				page_keywords = '".$page_keywords."',
-				page_keywords_ua = '".$page_keywords_ua."',
-				visible = ".$visible.",
-				indexation = ". $indexation.",
-				sid = 1
-			WHERE id_page = ".$id_page;
-		//return true;
-		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		if(isset($arr['title_ua'])){
+			$f['title_ua'] = trim($arr['title_ua']);
+		}
+		if(isset($arr['editor'])){
+			$f['content'] = trim($arr['editor']);
+		}
+		if(isset($arr['editor_ua'])){
+			$f['content_ua'] = trim($arr['editor_ua']);
+		}
+		if(isset($arr['page_description'])){
+			$f['page_description'] = trim($arr['page_description']);
+		}
+		if(isset($arr['page_description_ua'])){
+			$f['page_description_ua'] = trim($arr['page_description_ua']);
+		}
+		if(isset($arr['page_title'])){
+			$f['page_title'] = trim($arr['page_title']);
+		}
+		if(isset($arr['page_title_ua'])){
+			$f['page_title_ua'] = trim($arr['page_title_ua']);
+		}
+		if(isset($arr['page_keywords'])){
+			$f['page_keywords'] = trim($arr['page_keywords']);
+		}
+		if(isset($arr['page_keywords_ua'])){
+			$f['page_keywords_ua'] = trim($arr['page_keywords_ua']);
+		}
+		if(isset($arr['ptype'])){
+			$f['ptype'] = trim($arr['ptype']);
+		}
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on") ? 1 : 0;
+		$f['visible'] = 1;
+		if(isset($arr['visible']) && $arr['visible'] == "on"){
+			$f['visible'] = 0;
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_."page", $f, "id_page = {$arr['id_page']}")){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
 		return true;
 	}
 
