@@ -15,126 +15,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Тема письма</title>
     <style type="text/css">
-		p{
+		/*p{
 			margin:10px 0;
 			padding:0;
-		}
-		table{
+		}*/
+		/*table{
 			border-collapse:collapse;
-		}
-		img,a img{
+		}*/
+		/*img,a img{
 			border:0;
 			height:auto;
 			outline:none;
 			text-decoration:none;
-		}
-		body {
+		}*/
+		/*body {
 			height:100%;
 			margin:0;
 			padding:0;
 			width:100%;
-		}
-		img{
+		}*/
+		/*img{
 			-ms-interpolation-mode:bicubic;
-		}
-		table{
+		}*/
+		/*table{
 			mso-table-lspace:0pt;
 			mso-table-rspace:0pt;
-		}
-		p,a,li,td,blockquote{
+		}*/
+		/*p,a,li,td,blockquote{
 			mso-line-height-rule:exactly;
-		}
-		a[href^=tel],a[href^=sms]{
+		}*/
+		/*a[href^=tel],a[href^=sms]{
 			color:inherit;
 			cursor:default;
 			text-decoration:none;
-		}
-		p,a,li,td,body,table,blockquote{
+		}*/
+		/*p,a,li,td,body,table,blockquote{
 			-ms-text-size-adjust:100%;
 			-webkit-text-size-adjust:100%;
-		}
-		a[x-apple-data-detectors]{
+		}*/
+		/*a[x-apple-data-detectors]{
 			color:inherit !important;
 			text-decoration:none !important;
 			font-size:inherit !important;
 			font-family:inherit !important;
 			font-weight:inherit !important;
 			line-height:inherit !important;
-		}
-		body {
+		}*/
+		/*body {
 			background-color:#f3f3f3;
-		}
-		h1{
-			color:#202020;
-			font-family:Helvetica;
-			font-size:26px;
-			font-style:normal;
-			font-weight:bold;
-			line-height:125%;
-			letter-spacing:normal;
-			text-align:left;
-		}
-		h2{
-			color:#202020;
-			font-family:Helvetica;
-			font-size:22px;
-			font-style:normal;
-			font-weight:bold;
-			line-height:125%;
-			letter-spacing:normal;
-			text-align:left;
-		}
-		h3{
-			color:#202020;
-			font-family:Helvetica;
-			font-size:20px;
-			font-style:normal;
-			font-weight:bold;
-			line-height:125%;
-			letter-spacing:normal;
-			text-align:left;
-		}
-		h4{
-			color:#202020;
-			font-family:Helvetica;
-			font-size:18px;
-			font-style:normal;
-			font-weight:bold;
-			line-height:125%;
-			letter-spacing:normal;
-			text-align:left;
-		}
+		}*/
 	</style>
 </head>
-<body style="margin: 0;">
+<body style="margin: 0; padding:0; width:100%; height:100%;">
     <!-- <center> -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="height:100%; margin:0; padding:0;width:100%; background-color:#f3f3f3;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="border-collapse:collapse; height:100%; margin:0; padding:0;width:100%; background-color:#f3f3f3;">
             <tr>
                 <td align="center" valign="top" style="height:100%; margin:0; padding:0; padding-top: 18px;width:100%; border-top:0;">
                     <!-- BEGIN TEMPLATE // -->
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
 						<tr>
 							<td align="center" valign="top">
 								<!--[if gte mso 9]>
-								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px; border-collapse:collapse;">
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important; width: 95% !important; background-color: #fff;">
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color: #fff;">
 									<tr>
                             			<td valign="top">
-                            				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+                            				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
 											    <tbody>
 											        <tr>
 											            <td valign="top" style="padding-top:9px;">
 											              	<!--[if mso]>
-															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
+															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse; width:100%;">
 															<tr>
 															<![endif]-->
 															<!--[if mso]>
 															<td valign="top" width="600" style="width:600px;">
 															<![endif]-->
-											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%">
+											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:100%; min-width:100%;" width="100%">
 											                    <tbody>
 												                    <tr>
 												                        <td valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
@@ -167,60 +127,60 @@
 						<tr>
 							<td align="center" valign="top">
 								<!--[if gte mso 9]>
-								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="border-collapse:collapse; width:600px;">
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important; width: 95% !important; background-color: #fff;">
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color: #fff;">
 									<tr>
                             			<td valign="top">
-                            				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+                            				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
 											    <tbody>
 											        <tr>
 											            <td valign="top" style="padding-top:9px;">
 											              	<!--[if mso]>
-															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
+															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse; width:100%;">
 															<tr>
 															<![endif]-->
 															<!--[if mso]>
 															<td valign="top" width="600" style="width:600px;">
 															<![endif]-->
-											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%">
+											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100%; min-width:100%;" width="100%">
 											                    <tbody>
 												                    <tr>
 												                        <td valign="top" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%; color:#202020;text-align: justify;">
-																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
 															                    <tbody>
 															                    	<tr>
 															                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:18px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
 																							<?=$title?>
-																							Здравствуйте, Олег Петрович!
+																							<!-- Здравствуйте, Олег Петрович!
 																							<br>
-																							Ваш заказ успешно формлен.
+																							Ваш заказ успешно формлен. -->
 																                        </td>
 																                    </tr>
 															                	</tbody>
 															                </table>
 																			<br>
-																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:100% !important; width:100% !important;">
 															                    <tbody>
 															                    	<tr>
 															                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
 																							<?=$content?>
-																							<table name="order" align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:95% !important; width:95% !important;">
+																							<!-- <table name="order" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:95% !important; width:95% !important;">
 																			                    <tbody>
 																			                    	<tr>
 																			                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
 																							                    <tbody>
 																							                    	<tr>
 																							                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																															<span style="font-weight: bold;">№ заказа:</span> 123456
+																															№ заказа: <span style="font-weight: bold;">123456</span>
 																								                        </td>
 																								                    </tr>
 																								                    <tr>
 																							                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																															<span style="font-weight: bold;">Сумма заказа:</span> 100 000 грн.
+																															Сумма заказа: <span style="font-weight: bold;">100 000 грн.</span>
 																								                        </td>
 																								                    </tr>
 																							                	</tbody>
@@ -229,71 +189,32 @@
 																				                    </tr>
 																				                    <tr>
 																			                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																			                        		<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
-																							                    <caption style="padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; font-weight: bold; line-height:125%;letter-spacing:normal;text-align: center;">Список товаров</caption>
-																							                    <thead>
-																							                    	<tr>
-																							                        	<th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Название товара
-																								                        </th>
-																								                        <th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Цена
-																								                        </th>
-																								                        <th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Кол-во
-																								                        </th>
-																								                        <th valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Сумма
-																								                        </th>
-																								                    </tr>
-																							                    </thead>
+																			                        		<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
 																							                    <tbody>
-																								                    <!-- <tr>
-																							                        	<td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
-																															Название товара
+																							                    	<tr>
+																							                    		<td colspan="3" style="margin-bottom: 18px; color:#202020; font-family:Helvetica; font-style:normal; font-weight: bold; line-height:125%;letter-spacing:normal;text-align: center;">
+																							                    			<p>Список товаров</p>
+																							                    		</td>
+																							                    	</tr>
+																								                    <tr>
+																							                        	<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
 																															<br>
-																															<p style="font-size: 12px; padding-top: 9px;">Арт.: 1526</p>
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Цена
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Кол-во
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Сумма
+																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526</p>
 																								                        </td>
 																								                    </tr>
 																								                    <tr>
-																							                        	<td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
-																															Название товара Название товара
-																															<br>
-																															<p style="font-size: 12px; padding-top: 9px;">Арт.: 1526</p>
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Цена
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Кол-во
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; white-space: nowrap; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															Сумма
-																								                        </td>
-																								                    </tr> -->
-																								                    <tr>
-																							                        	<td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
-																															Название товара "Велосипедноватый куркуль" пастеризованного
-																															<br>
-																															<p style="font-size: 12px; padding-top: 9px;">Арт.: 1526</p>
+																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															<span style="white-space: nowrap;">Цена: </span>
+																															<span style="white-space: nowrap; font-weight: bold;">250,65 грн.</span>
 																								                        </td>
 																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															250,65 грн.
+																															<span style="white-space: nowrap;">Кол-во: </span>
+																															<span style="white-space: nowrap; font-weight: bold;">5 шт.</span>
 																								                        </td>
 																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															5 шт.
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															1253,25 грн.
+																															<span style="white-space: nowrap;">Сумма: </span>
+																															<span style="white-space: nowrap; font-weight: bold;">1253,25 грн.</span>
 																								                        </td>
 																								                    </tr>
 																							                	</tbody>
@@ -302,10 +223,10 @@
 																				                    </tr>
 																			                    	<tr>
 																			                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;">
+																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
 																							                    <tbody>
 																							                    	<tr>
-																							                        	<td valign="top" style="margin:0;padding:0; padding-top: 9px; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																							                        	<td valign="top" style="margin:0;padding:0; padding-top: 9px; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:200%;letter-spacing:normal;text-align: justify;">
 																															Вы можете просмотреть детали вашего заказа в <a href="#">личном кабинете</a>, а так же оформить <a href="#">новый заказ</a>.
 																								                        </td>
 																								                    </tr>
@@ -314,7 +235,7 @@
 																				                        </td>
 																				                    </tr>
 																			                	</tbody>
-																			                </table>
+																			                </table> -->
 																                        </td>
 																                    </tr>
 															                	</tbody>
@@ -335,15 +256,15 @@
 											    </tbody>
 											</table>
 											<?if(isset($button)){?>
-												<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+												<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
 												    <tbody>
 												        <tr>
 												            <td style="padding-top:18px; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center">
-												                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;">
+												                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-collapse: separate !important;">
 												                    <tbody>
 												                        <tr>
 												                            <td align="center" valign="middle" style="font-family: Arial; font-weight: bold; font-size: 14px; letter-spacing: normal; padding: 15px; border-radius: 3px;line-height: 100%; text-align: center;box-sizing:border-box;background-color: #018B06;">
-												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #FFFFFF;"> Перейти к оплате<?=$button['title']?></a>
+												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #ffffff;"> Перейти к оплате<?=$button['title']?></a>
 												                            </td>
 												                        </tr>
 												                    </tbody>
@@ -353,11 +274,11 @@
 												    </tbody>
 												</table>
 											<?}?>
-											<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;" width="100%">
+											<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
 							                    <tbody>
 							                    	<tr>
 							                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:16px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
-															Спасибо, что вы с нами!
+															Спасибо, что Вы с нами!
 								                        </td>
 								                    </tr>
 							                	</tbody>
@@ -375,19 +296,19 @@
                         <tr>
 							<td align="center" valign="top">
 								<!--[if gte mso 9]>
-								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="border-collapse:collapse; width:600px;">
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important; width: 95% !important; background-color:#f3f3f3;">
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color:#f3f3f3;">
 									<tr>
                             			<td valign="top">
-                            				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%; background-color: #ffffff">
+                            				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%; background-color: #ffffff">
 											    <tbody>
 											        <tr>
 											            <td align="center" valign="top" style="padding:9px">
 											            	<hr style="border: 1px solid #e7e7e7;">
-											            	<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;" width="100%">
+											            	<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
 											                    <tbody>
 											                    	<tr>
 											                        	<td valign="top" align="center" style=" padding-bottom: 9px; padding-top: 5px; font-size: 14px; line-height: 150%; text-align: center; white-space: nowrap; color:#bbbbbb; font-weight: normal; font-family: Helvetica;">
@@ -396,7 +317,7 @@
 												                    </tr>
 											                	</tbody>
 											                </table>
-											            	<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100% !important; width:100% !important;" width="100%">
+											            	<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
 											                    <tbody>
 											                    	<tr align="center">
 																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
@@ -414,38 +335,38 @@
 												                    </tr>
 											                	</tbody>
 											                </table>
-															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
 											    				<tbody>
 											    					<tr>
 																        <td align="center" >
-																            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+																            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
 																                <tbody>
 																                	<tr>
 																	                    <td align="center" valign="top" >
-																	                        <table align="center" border="0" cellpadding="0" cellspacing="0">
+																	                        <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
 																	                            <tbody>
 																	                            	<tr>
 																		                                <td align="center" valign="top">
 																		                                    <!--[if mso]>
-																		                                    <table align="center" border="0" cellspacing="0" cellpadding="0">
+																		                                    <table align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
 																		                                    <tr>
 																		                                    <![endif]-->
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
 																                                                <tbody>
 																                                                	<tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;">
-																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
 																	                                                            <tbody>
 																		                                                            <tr>
 																		                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
 																		                                                                        <tbody>
 																		                                                                        	<tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="http://xt/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="cid:fb.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																		                                                                        	</tr>
 																		                                                                    	</tbody>
@@ -464,15 +385,15 @@
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;">
-																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
 																	                                                            <tbody>
 																	                                                            	<tr>
 																		                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																			                                                                            <td align="center" valign="middle" width="24">
@@ -495,15 +416,15 @@
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;">
-																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
 																	                                                            <tbody>
 																		                                                            <tr>
 																		                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
@@ -526,15 +447,15 @@
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;">
-																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
 																	                                                            <tbody>
 																		                                                            <tr>
 																		                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
@@ -557,15 +478,15 @@
 																	                                        <!--[if mso]>
 																	                                        <td align="center" valign="top">
 																	                                        <![endif]-->
-																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
 																                                                <tbody>
 																	                                                <tr>
 																	                                                    <td valign="top" style="padding-right:0; padding-bottom:9px;">
-																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+																	                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
 																	                                                            <tbody>
 																		                                                            <tr>
 																		                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																		                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
@@ -605,18 +526,18 @@
 											        </tr>
 											    </tbody>
 											</table>
-											<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+											<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
 											    <tbody>
 											        <tr>
 											            <td valign="top">
 											              	<!--[if mso]>
-															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
+															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse; width:100%;">
 															<tr>
 															<![endif]-->
 															<!--[if mso]>
 															<td valign="top" width="600" style="width:600px;">
 															<![endif]-->
-											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%">
+											                <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100%; min-width:100%;" width="100%">
 											                    <tbody>
 											                    	<tr>
 												                        <td valign="top" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px; color:#bbbbbb;	font-family:Helvetica; font-size:12px; line-height:150%; text-align:center;">
