@@ -643,35 +643,27 @@ class Orders {
 		}
 		$this->db->CompleteTrans();
 		unset($p);
-		if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
-			if($order_status == 1){
-				$User = new Users();
-				$User->SetFieldsById($_SESSION['member']['id_user']);
-				if($User->fields['gid'] != _ACL_ANONYMOUS_){
-					$Mailer = new Mailer();
-					//$Mailer->SendOrderInvoicesToContragent($id_order);
-					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
-					$Mailer->SendOrderInvoicesToCustomers($id_order);
-				}
-				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONYMOUS_){
-					$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-					$Contragents = new Contragents();
-					$string = $Contragents->GetSavedFields($id_contragent);
-					$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-					// if($arr['phone'] != '' ){//&& strlen($arr['phone']) == 10
-					// 	$res = $Gateway->execCommad(
-					// 		'sendSMS',
-					// 		array(
-					// 			'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
-					// 			'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-					// 			'phone' => $arr['phone'], //'38'.
-					// 			'datetime' => null,
-					// 			'sms_lifetime' => 0
-					// 		)
-					// 	);
-					// }
-				}
-			}
+		if($order_status == 1 && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+			$Mailer = new Mailer();
+			$Mailer->SendOrderInvoicesToCustomers($id_order);
+			$User = new Users();
+			$User->SetFieldsById($_SESSION['member']['id_user']);
+			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+			$Contragents = new Contragents();
+			$string = $Contragents->GetSavedFields($id_contragent);
+			$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
+			 if($User->fields['phone'] != '' ){
+				$Gateway->execCommad(
+					'sendSMS',
+					array(
+						'sender' => $GLOBALS['CONFIG']['invoice_logo_sms'],
+						'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
+						'phone' => $User->fields['phone'],
+						'datetime' => null,
+						'sms_lifetime' => 0
+					)
+				);
+			 }
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
