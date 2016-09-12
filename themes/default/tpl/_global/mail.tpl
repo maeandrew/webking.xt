@@ -154,6 +154,7 @@
 															                    	<tr>
 															                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:18px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
 																							<?=$title?>
+																							Здравствуйте, Олег Петрович!
 																							<!-- Здравствуйте, Олег Петрович!
 																							<br>
 																							Ваш заказ успешно формлен. -->
@@ -167,20 +168,15 @@
 															                    	<tr>
 															                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
 																							<?=$content?>
-																							<!-- <table name="order" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:95% !important; width:95% !important;">
+																							<table name="order" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:95% !important; width:95% !important;">
 																			                    <tbody>
 																			                    	<tr>
-																			                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
+																			                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
 																							                    <tbody>
 																							                    	<tr>
-																							                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																															№ заказа: <span style="font-weight: bold;">123456</span>
-																								                        </td>
-																								                    </tr>
-																								                    <tr>
-																							                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																															Сумма заказа: <span style="font-weight: bold;">100 000 грн.</span>
+																							                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																															Вы длительное время не посещали наш сайт. У Вас еще осталась незавершенная наполенная товарами корзина.
 																								                        </td>
 																								                    </tr>
 																							                	</tbody>
@@ -192,31 +188,40 @@
 																			                        		<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
 																							                    <tbody>
 																							                    	<tr>
-																							                    		<td colspan="3" style="margin-bottom: 18px; color:#202020; font-family:Helvetica; font-style:normal; font-weight: bold; line-height:125%;letter-spacing:normal;text-align: center;">
-																							                    			<p>Список товаров</p>
+																							                    		<td align="center" colspan="2" style="margin-bottom: 18px; color:#202020; font-family:Helvetica; font-style:normal; font-weight: bold; line-height:125%;letter-spacing:normal;text-align: center;">
+																							                    			<p>Список товаров в корзине</p>
 																							                    		</td>
 																							                    	</tr>
 																								                    <tr>
-																							                        	<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																														<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															<img src="http://xt/images/radio.jpg" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
+																														</td>
+																														<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
 																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
 																															<br>
-																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526</p>
-																								                        </td>
-																								                    </tr>
-																								                    <tr>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															<span style="white-space: nowrap;">Цена: </span>
-																															<span style="white-space: nowrap; font-weight: bold;">250,65 грн.</span>
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															<span style="white-space: nowrap;">Кол-во: </span>
-																															<span style="white-space: nowrap; font-weight: bold;">5 шт.</span>
-																								                        </td>
-																								                        <td valign="top" style="margin:0; border: 1px solid #e3e3e3; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															<span style="white-space: nowrap;">Сумма: </span>
-																															<span style="white-space: nowrap; font-weight: bold;">1253,25 грн.</span>
-																								                        </td>
-																								                    </tr>
+																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526<?=$item['art']?></p>
+																														</td>
+																													</tr>
+																													<tr>
+																														<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															<img src="http://xt/images/radio.jpg" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
+																														</td>
+																														<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
+																															<br>
+																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526<?=$item['art']?></p>
+																														</td>
+																													</tr>
+																													<tr>
+																														<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+																															<img src="http://xt/images/radio.jpg" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
+																														</td>
+																														<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
+																															<br>
+																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526<?=$item['art']?></p>
+																														</td>
+																													</tr>
 																							                	</tbody>
 																							                </table>
 																				                        </td>
@@ -227,7 +232,7 @@
 																							                    <tbody>
 																							                    	<tr>
 																							                        	<td valign="top" style="margin:0;padding:0; padding-top: 9px; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:200%;letter-spacing:normal;text-align: justify;">
-																															Вы можете просмотреть детали вашего заказа в <a href="#">личном кабинете</a>, а так же оформить <a href="#">новый заказ</a>.
+																															Вы можете вернуться на наш сайт <a href="#">xt.ua</a>, авторизоваться и подолжить покупку.
 																								                        </td>
 																								                    </tr>
 																							                	</tbody>
@@ -235,7 +240,7 @@
 																				                        </td>
 																				                    </tr>
 																			                	</tbody>
-																			                </table> -->
+																			                </table>
 																                        </td>
 																                    </tr>
 															                	</tbody>
@@ -264,7 +269,7 @@
 												                    <tbody>
 												                        <tr>
 												                            <td align="center" valign="middle" style="font-family: Arial; font-weight: bold; font-size: 14px; letter-spacing: normal; padding: 15px; border-radius: 3px;line-height: 100%; text-align: center;box-sizing:border-box;background-color: #018B06;">
-												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #ffffff;"> Перейти к оплате<?=$button['title']?></a>
+												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #ffffff;">Продолжить покупку<?=$button['title']?></a>
 												                            </td>
 												                        </tr>
 												                    </tbody>
@@ -366,7 +371,7 @@
 																		                                                                        <tbody>
 																		                                                                        	<tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="cid:fb.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="http://xt/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																		                                                                        	</tr>
 																		                                                                    	</tbody>
