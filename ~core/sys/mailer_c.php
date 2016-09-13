@@ -232,23 +232,41 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		global $tpl;
 		$Order = new Orders();
 		$Order->SetFieldsById($id_order);
-		$sql = 'SELECT u.email, u.name
+		$order = array('number'=>$id_order, 'sum'=>$Order->fields['sum'] );
+		$sql = 'SELECT u.email, u.name, count(*) AS count,
+			c.first_name, c.middle_name
 			FROM '._DB_PREFIX_.'user AS u
 			LEFT JOIN '._DB_PREFIX_.'order AS o
 			ON u.id_user = o.id_customer
-			WHERE o.id_order = '.$db->Quote($id_order);
+			LEFT JOIN '._DB_PREFIX_.'osp AS osp
+			ON o.id_order = osp.id_order
+			LEFT JOIN '._DB_PREFIX_.'customer AS c
+			ON c.id_user = o.id_customer
+			WHERE o.id_order = '.$id_order;
 		$arr = $db->GetOneRowArray($sql);
-		$tpl->Assign('title', 'Спасибо за Ваш заказ!');
-		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
-		$tpl->Assign('content', 'Заказ № '.$id_order.' принят, но для его выполнения необходимо произвести полную или частичную предоплату. Пожалуйста, после выполнения предоплаты, сообщите менеджеру сумму оплаты по номеру заказа.<br>'.
-			'Вы можете просмотреть детали и отследить статус своего заказа в <a href="'.Link::Custom('cabinet', 'orders').'?t=working">личном кабинете</a>.');
+		$title = (!empty($arr['first_name']) && !empty($arr['middle_name'])?$arr['first_name'].' '.$arr['middle_name'].', ':null).'Ваш заказ принят!';
+		if($arr['count']<=5){
+			$sql ="SELECT p.art, p.`name`,
+				(CASE WHEN osp.opt_qty <>0 THEN osp.opt_qty ELSE osp.mopt_qty END) AS qty,
+				(CASE WHEN osp.site_price_opt <>0 THEN osp.site_price_opt ELSE osp.site_price_mopt END) AS price,
+				(CASE WHEN osp.default_sum_opt <>0 THEN osp.default_sum_opt ELSE osp.default_sum_mopt END) AS sum
+				FROM "._DB_PREFIX_."osp osp
+				LEFT JOIN "._DB_PREFIX_."order o	ON o.id_order = osp.id_order
+				LEFT JOIN "._DB_PREFIX_."product p	ON p.id_product = osp.id_product
+				WHERE o.id_order = ".$id_order;
+			$order['prod_list'] = $db->GetArray($sql);
+		}
+		$tpl->Assign('order', $order);
+		$tpl->Assign('title', $title);
+		$tpl->Assign('button', array('title' => 'Перейти к оплате', 'href' => Link::Custom('page', 'Oplata')));
+		$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_order.tpl'));
 		$Email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
 			'subject' => 'Заказ № '.$id_order.' принят',
 			'encoding' => 'UTF-8',
 			'from' => array(
 				'name' => $this->FromName,
-				'email' => 'order@x-torg.com',
+				'email' => 'order@xt.ua',
 			),
 			'to' => array(
 				array(
@@ -955,5 +973,54 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		}
 		return true;
 	}
+
+	// Забытая корзина
+	public function forgetCart(){
+		global $db;
+		global $tpl;
+		$res = array();
+		$sql = "SELECT c.id_cart, c.id_user, u.email, u.`name`,
+				cr.first_name, cr.middle_name
+				FROM "._DB_PREFIX_."cart c
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = c.id_user
+				LEFT JOIN "._DB_PREFIX_."customer cr ON cr.id_user = c.id_user
+				WHERE `status` = 0 AND u.active = 1 AND u.gid = 5 AND c.id_user = 11111";
+		if(!$res = $db->GetArray($sql)){
+			return false;
+		}
+		foreach($res as $k=>$v){
+			$title = (!empty($v['first_name']) && !empty($v['middle_name'])?$v['first_name'].' '.$v['middle_name'].', ':null).'Вы оставили незавершенную покупку';
+			$sql = "SELECT p.name,
+					(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.images END) AS src
+					FROM xt_cart_product cp
+					LEFT JOIN xt_product p ON cp.id_product = p.id_product
+					LEFT JOIN xt_image i ON i.id_product = cp.id_product AND i.ord = 0
+					WHERE id_cart = ".$v['id_cart'];
+			$res[$k]['prod_list'] = $db->GetArray($sql);
+			$tpl->Assign('title', $title);
+			$tpl->Assign('cart', $res);
+			$tpl->Assign('button', array('title' => 'Ппродолжить покупку', 'href' => Link::Custom('main').'#cart'));
+			$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_cart.tpl'));
+			$Email = array(
+				'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+				'subject' => 'Незавершенная покупка',
+				'encoding' => 'UTF-8',
+				'from' => array(
+					'name' => $this->FromName,
+					'email' => 'administration@xt.ua',
+				),
+				'to' => array(
+					array(
+						'name' => $v['name'],
+						'email' => $v['email']
+					),
+				)
+			);
+			$res = $this->oApi->send_email($Email);
+			if(!$res){
+				return false;
+			}
+		}
+		return true;
+	}
 }
-?>

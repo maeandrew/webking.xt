@@ -652,18 +652,18 @@ class Orders {
 			$Contragents = new Contragents();
 			$string = $Contragents->GetSavedFields($id_contragent);
 			$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-			 if($User->fields['phone'] != '' ){
-				$Gateway->execCommad(
-					'sendSMS',
-					array(
-						'sender' => $GLOBALS['CONFIG']['invoice_logo_sms'],
-						'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-						'phone' => $User->fields['phone'],
-						'datetime' => null,
-						'sms_lifetime' => 0
-					)
-				);
-			 }
+//			 if($User->fields['phone'] != '' ){
+//				$Gateway->execCommad(
+//					'sendSMS',
+//					array(
+//						'sender' => $GLOBALS['CONFIG']['invoice_logo_sms'],
+//						'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
+//						'phone' => $User->fields['phone'],
+//						'datetime' => null,
+//						'sms_lifetime' => 0
+//					)
+//				);
+//			 }
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
