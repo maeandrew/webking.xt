@@ -64,10 +64,6 @@ $Contragents = new Contragents();
 $Products = new Products();
 $News = new News();
 $Cart = new Cart();
-
-$Mailer = new Mailer();
-$Mailer->forgetCart(); die();
-
 if(isset($_SESSION['member'])){
 	$Users->SetUser($_SESSION['member']);
 	if(isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != 'anonymous'){

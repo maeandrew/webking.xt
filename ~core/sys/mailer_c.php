@@ -984,7 +984,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				FROM "._DB_PREFIX_."cart c
 				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = c.id_user
 				LEFT JOIN "._DB_PREFIX_."customer cr ON cr.id_user = c.id_user
-				WHERE `status` = 0 AND u.active = 1 AND u.gid = 5 AND c.id_user = 11111";
+				WHERE `status` = 0 AND u.active = 1 AND u.gid = 5 AND c.id_user = 22972";
 		if(!$res = $db->GetArray($sql)){
 			return false;
 		}
