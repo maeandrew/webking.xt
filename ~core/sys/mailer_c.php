@@ -50,6 +50,40 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 	}
 
 	// Отсылка письма клиенту со ссылками на накладные покупателя
+	public function SuppleirsInvoiceNotification($supplier, $id_supplier, $orders, $contragent, $sorders){
+		global $db;
+		global $tpl;
+		$tpl->Assign('supplier', $supplier);
+		$tpl->Assign('id_supplier', $id_supplier);
+
+		// $tpl->Assign('content', '');
+		// $tpl->Assign('title', 'Заказы '.$GLOBALS['CONFIG']['invoice_logo_text'].' от '.(date('d')+1).'-'.date('m').'-'.date('Y'));
+		$email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_supplier_invoice.tpl'),
+			'text' => 'text',
+			'subject' => 'Заказы '.$GLOBALS['CONFIG']['invoice_logo_text'].' от '.(date('d')+1).'-'.date('m').'-'.date('Y'),
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => 'Отдел снабжения xt.ua',
+				'email' => 'administration@xt.ua',
+			),
+			'to' => array(
+				array(
+					'email' => $supplier['real_email']
+				)
+			)
+		);
+		if($supplier['make_csv'] == 1){
+			$email['attachments'][$supplier['real_phone'].'.csv'] = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temp/'.$supplier['real_phone'].'.csv');
+		}
+		$res = $this->SmtpApi->smtpSendMail($email);
+		if(!$res){
+			return false;
+		}
+		return true;
+	}
+
+	// Отсылка письма клиенту со ссылками на накладные покупателя
 	public function testEmail(){
 		global $tpl;
 		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
@@ -506,82 +540,82 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		$c8 = 95;
 		$otpusk=0;$kotpusk=0;
 		$this->Body = "
-		<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
-		.logo { font-size: 28px; color: #00F; font-weight: bold; }
+			<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.logo { font-size: 28px; color: #00F; font-weight: bold; }
 
-		.undln { text-decoration: underline; }
-		.lb { border-left: 1px dashed #000; padding-left: 5px; }
+			.undln { text-decoration: underline; }
+			.lb { border-left: 1px dashed #000; padding-left: 5px; }
 
-		.table_header { margin-left: 3px; width: 827px; }
-		.table_header .top td { padding: 10px 0 15px 0; font-size: 14px; }
-		.table_header .first_col { width: 150px; }
-		.table_header .second_col { width: 300px; }
-		.table_header .top span.invoice { margin-left: 20px; font-size: 18px; text-decoration: underline; }
+			.table_header { margin-left: 3px; width: 827px; }
+			.table_header .top td { padding: 10px 0 15px 0; font-size: 14px; }
+			.table_header .first_col { width: 150px; }
+			.table_header .second_col { width: 300px; }
+			.table_header .top span.invoice { margin-left: 20px; font-size: 18px; text-decoration: underline; }
 
-		.bl { border-left: 1px solid #000; }
-		.br { border-right: 1px solid #000; }
-		.bt { border-top: 1px solid #000; }
-		.bb { border-bottom: 1px solid #000 !important; }
-		.bn { border: none !important; }
-		.bla { text-align: left; }
+			.bl { border-left: 1px solid #000; }
+			.br { border-right: 1px solid #000; }
+			.bt { border-top: 1px solid #000; }
+			.bb { border-bottom: 1px solid #000 !important; }
+			.bn { border: none !important; }
+			.bla { text-align: left; }
 
-		.bnb { border-bottom: none !important; }
+			.bnb { border-bottom: none !important; }
 
-		.blf { border-left: 1px solid #FFF; }
-		.brf { border-right: 1px solid #FFF; }
-		.bbf { border-bottom: 1px solid #FFF; }
+			.blf { border-left: 1px solid #FFF; }
+			.brf { border-right: 1px solid #FFF; }
+			.bbf { border-bottom: 1px solid #FFF; }
 
-		.table_main { margin: 10px 0 0 1px; clear: both; }
-		.table_main td { padding: 1px 1px 0; font-size: 12px; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; font-size: 14px; font-weight: 900; }
-		.table_main th { text-align: center; vertical-align: middle; font-weight: lighter; font-size: 11px;}
-		.table_main td.name { padding: 1px; font-size: 12px; text-align: left; border-right: 1px #000 solid; border-bottom: 1px solid #000; }
-		.table_main .hdr td { font-weight: bold; padding: 1px; }.
-		.table_main .hdr1 td { text-align: left; }
-		.table_main td.postname {
-			text-align: left;
-		}
-		.table_main .main td { height: 50px; font-size: 14px; font-weight: 900; }
-		.table_main .main td.img { width: 56px; }
+			.table_main { margin: 10px 0 0 1px; clear: both; }
+			.table_main td { padding: 1px 1px 0; font-size: 12px; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; font-size: 14px; font-weight: 900; }
+			.table_main th { text-align: center; vertical-align: middle; font-weight: lighter; font-size: 11px;}
+			.table_main td.name { padding: 1px; font-size: 12px; text-align: left; border-right: 1px #000 solid; border-bottom: 1px solid #000; }
+			.table_main .hdr td { font-weight: bold; padding: 1px; }.
+			.table_main .hdr1 td { text-align: left; }
+			.table_main td.postname {
+				text-align: left;
+			}
+			.table_main .main td { height: 50px; font-size: 14px; font-weight: 900; }
+			.table_main .main td.img { width: 56px; }
 
-		.table_sum { margin: 10px 0 0 1px; }
-		.table_sum td { padding: 1px 1px 0; font-size: 12px; text-align: center; vertical-align: middle; }
-		.table_sum td.name { padding: 1px; font-size: 12px; text-align: left; }
+			.table_sum { margin: 10px 0 0 1px; }
+			.table_sum td { padding: 1px 1px 0; font-size: 12px; text-align: center; vertical-align: middle; }
+			.table_sum td.name { padding: 1px; font-size: 12px; text-align: left; }
 
-		.adate { font-size: 11px; margin-left: 177px; }
-		.note_red { color: #f00; font-size: 14px; font-weight: 900; }
-		.note_grin { color: #f00; font-size: 22px; font-weight: 900; }
+			.adate { font-size: 11px; margin-left: 177px; }
+			.note_red { color: #f00; font-size: 14px; font-weight: 900; }
+			.note_grin { color: #f00; font-size: 22px; font-weight: 900; }
 
-		.break { page-break-before: always; }
-		.break_after { page-break-after: always; }
-		.dash { border-bottom: 1px #f00 dashed; margin-bottom: 10px; }
-	</style>";
+			.break { page-break-before: always; }
+			.break_after { page-break-after: always; }
+			.dash { border-bottom: 1px #f00 dashed; margin-bottom: 10px; }
+		</style>";
 		$this->Body .= "<div style=\"display: block; \">
 			<p style=\"margin: 1px 0 0 10px; font-size: 14px; font-weight: bold;\">
 				<div style=\"float:left\">
 					<span class=\"logo\">".$_SERVER['SERVER_NAME']."</span>
 				</div>
 			</p>
-		</div>
-		<div style=\"clear: both; float:left; margin: 10px; font-size: 14px; font-weight: bold; width: 383px; padding-left: 10px;\">
-			<b>".$supplier['name'].", ".$supplier['phone'].", ".$supplier['place']."</b>
-		</div>
-		<div style=\"float:left; margin: 10px; white-space: normal; width: 383px; padding-left: 10px;\" class=\"bl\">
-			<p>".$contragent['descr']."</p>
-		</div>
-		<div style=\"clear: both;\"> </div>
-		<table cellspacing=\"0\" border=\"1\" style=\"width: 827px; clear: both; float: left; margin-top: 10px\" class=\"table_main\">
-			<thead>
-				<tr class=\"hdr\">
-					<th class=\"br bl bt bb\">№ заказа</th>
-					<th class=\"br bt bb\">Сумма по отп. ценам</th>
-					<th class=\"br bt bb\">Сумма факт</th>
-				</tr>
-			</thead>
-			<tbody>";
+			</div>
+			<div style=\"clear: both; float:left; margin: 10px; font-size: 14px; font-weight: bold; width: 383px; padding-left: 10px;\">
+				<b>".$supplier['name'].", ".$supplier['phone'].", ".$supplier['place']."</b>
+			</div>
+			<div style=\"float:left; margin: 10px; white-space: normal; width: 383px; padding-left: 10px;\" class=\"bl\">
+				<p>".$contragent['descr']."</p>
+			</div>
+			<div style=\"clear: both;\"> </div>
+			<table cellspacing=\"0\" border=\"1\" style=\"width: 827px; clear: both; float: left; margin-top: 10px\" class=\"table_main\">
+				<thead>
+					<tr class=\"hdr\">
+						<th class=\"br bl bt bb\">№ заказа</th>
+						<th class=\"br bt bb\">Сумма по отп. ценам</th>
+						<th class=\"br bt bb\">Сумма факт</th>
+					</tr>
+				</thead>
+				<tbody>";
 			foreach($sorders[$id_supplier] as $k=>$o){
 				$this->Body .= "<tr class=\"hdr\">
 					<td class=\"bl bb\">".$k."</td>
