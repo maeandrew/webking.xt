@@ -98,7 +98,7 @@
 											                    <tbody>
 												                    <tr>
 												                        <td valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
-												                            <a href="https://xt.ua" target="_blank"><img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
+												                            <a href="<?=_base_url?>" target="_blank"><img align="none" height="52" src="<?=_base_url?>/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
 												                        </td>
 												                    </tr>
 												                </tbody>
@@ -154,10 +154,6 @@
 															                    	<tr>
 															                        	<td valign="top" align="center" style="text-align: center !important; display:block; margin:0;	padding:0; color:#202020; font-family:Helvetica; font-size:18px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
 																							<?=$title?>
-																							Здравствуйте, Олег Петрович!
-																							<!-- Здравствуйте, Олег Петрович!
-																							<br>
-																							Ваш заказ успешно формлен. -->
 																                        </td>
 																                    </tr>
 															                	</tbody>
@@ -168,79 +164,6 @@
 															                    	<tr>
 															                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
 																							<?=$content?>
-																							<table name="order" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:95% !important; width:95% !important;">
-																			                    <tbody>
-																			                    	<tr>
-																			                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
-																							                    <tbody>
-																							                    	<tr>
-																							                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																															Вы длительное время не посещали наш сайт. У Вас еще осталась незавершенная наполенная товарами корзина.
-																								                        </td>
-																								                    </tr>
-																							                	</tbody>
-																							                </table>
-																				                        </td>
-																				                    </tr>
-																				                    <tr>
-																			                        	<td valign="top" style="margin:0;padding:0; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																			                        		<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
-																							                    <tbody>
-																							                    	<tr>
-																							                    		<td align="center" colspan="2" style="margin-bottom: 18px; color:#202020; font-family:Helvetica; font-style:normal; font-weight: bold; line-height:125%;letter-spacing:normal;text-align: center;">
-																							                    			<p>Список товаров в корзине</p>
-																							                    		</td>
-																							                    	</tr>
-																								                    <tr>
-																														<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															<img src="http://xt/images/radio.jpg" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
-																														</td>
-																														<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
-																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
-																															<br>
-																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526<?=$item['art']?></p>
-																														</td>
-																													</tr>
-																													<tr>
-																														<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															<img src="http://xt/images/radio.jpg" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
-																														</td>
-																														<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
-																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
-																															<br>
-																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526<?=$item['art']?></p>
-																														</td>
-																													</tr>
-																													<tr>
-																														<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
-																															<img src="http://xt/images/radio.jpg" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
-																														</td>
-																														<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
-																															Велосипедноватыйкуркуль пастеризованного типа со сложным передаточным числом
-																															<br>
-																															<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: 1526<?=$item['art']?></p>
-																														</td>
-																													</tr>
-																							                	</tbody>
-																							                </table>
-																				                        </td>
-																				                    </tr>
-																			                    	<tr>
-																			                        	<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
-																											<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
-																							                    <tbody>
-																							                    	<tr>
-																							                        	<td valign="top" style="margin:0;padding:0; padding-top: 9px; padding-bottom: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:200%;letter-spacing:normal;text-align: justify;">
-																															Вы можете вернуться на наш сайт <a href="#">xt.ua</a>, авторизоваться и подолжить покупку.
-																								                        </td>
-																								                    </tr>
-																							                	</tbody>
-																							                </table>
-																				                        </td>
-																				                    </tr>
-																			                	</tbody>
-																			                </table>
 																                        </td>
 																                    </tr>
 															                	</tbody>
@@ -269,7 +192,7 @@
 												                    <tbody>
 												                        <tr>
 												                            <td align="center" valign="middle" style="font-family: Arial; font-weight: bold; font-size: 14px; letter-spacing: normal; padding: 15px; border-radius: 3px;line-height: 100%; text-align: center;box-sizing:border-box;background-color: #018B06;">
-												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #ffffff;">Продолжить покупку<?=$button['title']?></a>
+												                                <a title="<?=$button['title']?>" href="<?=$button['href']?>" target="_blank" style="display: block; text-decoration: none;color: #ffffff;"><?=$button['title']?></a>
 												                            </td>
 												                        </tr>
 												                    </tbody>
@@ -371,7 +294,7 @@
 																		                                                                        <tbody>
 																		                                                                        	<tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="http://xt/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="<?=_base_url?>/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																		                                                                        	</tr>
 																		                                                                    	</tbody>
@@ -402,7 +325,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																			                                                                            <td align="center" valign="middle" width="24">
-																			                                                                                <a href="https://twitter.com/we_xt_ua" target="_blank"><img src="http://xt/images/mail/tw.png" style="display:block;" height="24" width="24"></a>
+																			                                                                                <a href="https://twitter.com/we_xt_ua" target="_blank"><img src="<?=_base_url?>/images/mail/tw.png" style="display:block;" height="24" width="24"></a>
 																			                                                                            </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -433,7 +356,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://vk.com/xt_ua" target="_blank"><img src="http://xt/images/mail/vk.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://vk.com/xt_ua" target="_blank"><img src="<?=_base_url?>/images/mail/vk.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -464,7 +387,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="http://xt/images/mail/yt.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="<?=_base_url?>/images/mail/yt.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -495,7 +418,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://plus.google.com/+X-torg/" target="_blank"><img src="http://xt/images/mail/gp.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://plus.google.com/+X-torg/" target="_blank"><img src="<?=_base_url?>/images/mail/gp.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
