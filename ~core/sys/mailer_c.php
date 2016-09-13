@@ -69,9 +69,9 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				array(
 					'email' => 'alexparhomenko67@gmail.com'
 				),
-				array(
-					'email' => 'webking.market@gmail.com'
-				),
+				// array(
+				// 	'email' => 'webking.market@gmail.com'
+				// ),
 				array(
 					'email' => 'webking.dev2@gmail.com'
 				)

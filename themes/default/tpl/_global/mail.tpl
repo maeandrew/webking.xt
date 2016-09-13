@@ -98,7 +98,7 @@
 											                    <tbody>
 												                    <tr>
 												                        <td valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
-												                            <a href="<?=_base_url?>" target="_blank"><img align="none" height="52" src="<?=_base_url?>/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
+												                            <a href="https://xt.ua" target="_blank"><img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
 												                        </td>
 												                    </tr>
 												                </tbody>
@@ -294,7 +294,7 @@
 																		                                                                        <tbody>
 																		                                                                        	<tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="<?=_base_url?>/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="https://xt.ua/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																		                                                                        	</tr>
 																		                                                                    	</tbody>
@@ -325,7 +325,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																			                                                                            <td align="center" valign="middle" width="24">
-																			                                                                                <a href="https://twitter.com/we_xt_ua" target="_blank"><img src="<?=_base_url?>/images/mail/tw.png" style="display:block;" height="24" width="24"></a>
+																			                                                                                <a href="https://twitter.com/we_xt_ua" target="_blank"><img src="https://xt.ua/images/mail/tw.png" style="display:block;" height="24" width="24"></a>
 																			                                                                            </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -356,7 +356,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://vk.com/xt_ua" target="_blank"><img src="<?=_base_url?>/images/mail/vk.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://vk.com/xt_ua" target="_blank"><img src="https://xt.ua/images/mail/vk.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -387,7 +387,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="<?=_base_url?>/images/mail/yt.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="https://xt.ua/images/mail/yt.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
@@ -418,7 +418,7 @@
 																		                                                                        <tbody>
 																			                                                                        <tr>
 																		                                                                                <td align="center" valign="middle" width="24">
-																		                                                                                    <a href="https://plus.google.com/+X-torg/" target="_blank"><img src="<?=_base_url?>/images/mail/gp.png" style="display:block;" height="24" width="24"></a>
+																		                                                                                    <a href="https://plus.google.com/+X-torg/" target="_blank"><img src="https://xt.ua/images/mail/gp.png" style="display:block;" height="24" width="24"></a>
 																		                                                                                </td>
 																			                                                                        </tr>
 																			                                                                    </tbody>
