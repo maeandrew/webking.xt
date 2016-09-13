@@ -51,7 +51,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$customer['phone'] = isset($phones)?$phones:'';
 
 				// список всех менеджеров
-				$Contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false, isset($_SESSION['member'])&& $_SESSION['member']['gid'] == _ACL_CONTRAGENT_ && $_SESSION['member']['contragent']['remote'] == 1?true:false);
+				$Contragents->SetList();
 				$managers_list = $Contragents->list;
 
 				// список всех областей

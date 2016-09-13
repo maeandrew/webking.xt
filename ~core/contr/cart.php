@@ -57,15 +57,7 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 	$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
 
 	// список всех менеджеров
-	if(substr($User->fields['email'], -11) == "@x-torg.com"){
-		// внутренний
-		// пользователи в служебных аккаунтах видят удаленных менеджеров
-		$contragents->SetList(true, false);
-	}else{
-		// внешний
-		// обычные пользователи не видят удаленных менеджеров
-		$contragents->SetList(false, false);
-	}
+	$contragents->SetList();
 	$managers_list = $contragents->list;
 
 	// список всех областей
