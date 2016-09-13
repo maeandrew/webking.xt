@@ -782,6 +782,7 @@ class Products {
 					ON pv.id_product = p.id_product'.
 			$this->db->GetWhere($and)
 			.$where2
+			.$selectsegm
 			.$this->price_range
 			.' GROUP BY p.id_product
 			ORDER BY active DESC, p.visible DESC, '.
@@ -1894,51 +1895,43 @@ class Products {
 	 * @param [type] $ids_products [description]
 	 */
 	public function RecalcSitePrices($ids_products = array()){
-		if(!empty($ids_products)){
-			foreach($ids_products as $id_product){
-				$products_array[$id_product] = array();
-			}
-		}
+		// if(!empty($ids_products)){
+		// 	foreach($ids_products as $id_product){
+		// 		$products_array[$id_product] = array();
+		// 	}
+		// }
 		set_time_limit(3600);
 		ini_set('memory_limit', '512M');
-		$sql = "SELECT p.id_product,
+		$sql = 'SELECT a.id_product,
 				a.price_opt_recommend,
 				a.price_mopt_recommend
-			FROM "._DB_PREFIX_."product AS p
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON p.id_product = a.id_product
+			FROM '._DB_PREFIX_.'assortiment AS a
 			WHERE a.active = 1
-				AND (a.price_opt_recommend > 0 OR a.price_mopt_recommend > 0)
-				".(!empty($ids_products)?" HAVING p.id_product IN (".implode(", ", $ids_products).")":null);
+			AND a.id_product IN (23622, 39423)'
+			.(!empty($ids_products)?' HAVING a.id_product IN ('.implode(', ', $ids_products).')':null);
 		unset($ids_products);
 		$arr = $this->db->GetArray($sql);
 		if(!empty($arr)){
 			foreach($arr as &$p){
 				$products_array[$p['id_product']][] = $p;
 			}
-		}
-		$return = array();
-		if(isset($products_array)){
 			foreach($products_array as $k=>&$product){
-				if(!empty($product)){
-					foreach($product as &$p){
-						$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
-							? $p['price_opt_recommend']
-							: $result_prices[$k]['opt'];
-						$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
-							? $p['price_mopt_recommend']
-							: $result_prices[$k]['mopt'];
+				foreach($product as &$p){
+					if(!isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt'])){
+						$result_prices[$k]['mopt'] = $p['price_mopt_recommend'];
 					}
-				}else{
-					$result_prices[$k]['opt'] = $result_prices[$k]['mopt'] = 0;
+					if(!isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt'])){
+						$result_prices[$k]['opt'] = $p['price_opt_recommend'];
+					}
 				}
 			}
+			if(!$this->UpdateSitePricesMassive($result_prices)){
+				return false;
+			}
+			set_time_limit(300);
+			ini_set('memory_limit', '192M');
 		}
-		if(!$this->UpdateSitePricesMassive($result_prices)){
-			return false;
-		}
-		set_time_limit(300);
-		ini_set('memory_limit', '192M');
-	return true;
+		return true;
 	}
 	/**
 	 * [UpdateSitePricesMassive description]
@@ -2988,14 +2981,15 @@ class Products {
 		return true;
 	}
 	/**
-	 * [UpdatePriceRecommendAssortiment description]
+	 * [UpdatePriceRecommendAssortment description]
 	 */
-	public function UpdatePriceRecommendAssortiment(){
+	public function UpdatePriceRecommendAssortment(){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON a.id_supplier = s.id_user
-		SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
-			a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
+		SET a.price_opt_recommend = ROUND(a.price_opt_otpusk*s.koef_nazen_opt, 2),
+			a.price_mopt_recommend = ROUND(a.price_mopt_otpusk*s.koef_nazen_mopt, 2)
+		WHERE a.active = 1";
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->db->FailTrans();
