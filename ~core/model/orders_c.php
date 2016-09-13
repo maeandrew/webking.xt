@@ -520,7 +520,7 @@ class Orders {
 				if($res['work_day'] != 1){
 					//рандомный выбор контрагента
 					$contragents = new Contragents();
-					$contragents->SetList(false, false);
+					$contragents->SetList();
 					$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
 				}else{
 					$id_contragent = $customer['id_contragent'];

@@ -22,7 +22,7 @@ $Customers->SetFieldsById($User->fields['id_user']);
 $Customer = $Customers->fields;
 $cont_person = explode(' ', $Customer['cont_person']);
 // outside managers
-$contragents->SetList(false, false);
+$contragents->SetList();
 $availablemanagers = $contragents->list;
 // regions
 $allregions = $Address->GetRegionsList();

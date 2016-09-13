@@ -284,7 +284,7 @@ class Customers extends Users {
 		//рандомный выбор контрагента
 		if(!isset($arr['id_contragent']) || empty($arr['id_contragent'])){
 			$contragents = new Contragents();
-			$contragents->SetList(false, false);
+			$contragents->SetList();
 			$managers_list = $contragents->list;
 			$arr['id_contragent'] = $contragents->list[array_rand($contragents->list)]['id_user'];
 		}

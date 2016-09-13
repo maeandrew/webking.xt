@@ -9,7 +9,7 @@ $Newsletter = new Newsletter();
 $success = false;
 $customers->SetFieldsById($User->fields['id_user']);
 $customer = $customers->fields;
-$contragents->SetList(false, false);
+$contragents->SetList();
 $availablemanagers = $contragents->list;
 $newsletters = $Newsletter->getNewsletterByIdUser($User->fields['id_user']);
 $tpl->Assign('newsletters', $newsletters);
