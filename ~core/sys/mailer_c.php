@@ -990,7 +990,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		}
 		foreach($res as $k=>$v){
 			$title = (!empty($v['first_name']) && !empty($v['middle_name'])?$v['first_name'].' '.$v['middle_name'].', ':null).'Вы оставили незавершенную покупку';
-			$sql = "SELECT p.name,
+			$sql = "SELECT p.art, p.name,
 					(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.images END) AS src
 					FROM xt_cart_product cp
 					LEFT JOIN xt_product p ON cp.id_product = p.id_product
@@ -998,7 +998,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 					WHERE id_cart = ".$v['id_cart'];
 			$res[$k]['prod_list'] = $db->GetArray($sql);
 			$tpl->Assign('title', $title);
-			$tpl->Assign('cart', $res);
+			$tpl->Assign('cart', $res[$k]);
 			$tpl->Assign('button', array('title' => 'Ппродолжить покупку', 'href' => Link::Custom('main').'#cart'));
 			$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_cart.tpl'));
 			$Email = array(
