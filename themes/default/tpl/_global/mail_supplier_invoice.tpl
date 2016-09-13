@@ -101,7 +101,7 @@
 																					<tr>
 																						<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
 																							<?foreach($supplier['orders'] as $order_key=>$order){?>
-																								<table class="table_main" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																								<table class="table_main" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%">
 																									<thead>
 																										<tr>
 																											<th colspan="9" style="border: 0;">
