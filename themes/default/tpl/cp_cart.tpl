@@ -258,6 +258,8 @@
 	</div>
 	<?$manual_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];?>
 	<div class="cart_footer">
+		<?var_dump($manual_column)?>
+		<?var_dump($_SESSION['cart']['products_sum'])?>
 		<div id="total">
 			<div class="total">
 				<div class="label totaltext">Итого:</div>
