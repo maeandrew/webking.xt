@@ -1,44 +1,498 @@
-<style>
-	* { padding: 0; margin: 0; }
-	.logo { font-size: 28px; color: #00F; font-weight: bold; }
-	.undln { text-decoration: underline; }
-	.lb { border-left: 1px dashed #000; padding-left: 5px; }
-	.table_header { margin-left: 3px; width: 827px; }
-	.table_header .top td { padding: 10px 0 15px 0; font-size: 14px; }
-	.table_header .first_col { width: 150px; }
-	.table_header .second_col { width: 300px; }
-	.table_header .top span.invoice { margin-left: 20px; font-size: 18px; text-decoration: underline; }
-	.bl { border-left: 1px solid #000; }
-	.br { border-right: 1px solid #000; }
-	.bt { border-top: 1px solid #000; }
-	.bb { border-bottom: 1px solid #000 !important; }
-	.bn { border: none !important; }
-	.bla { text-align: left; }
-	.bnb { border-bottom: none !important; }
-	.blf { border-left: 1px solid #FFF; }
-	.brf { border-right: 1px solid #FFF; }
-	.bbf { border-bottom: 1px solid #FFF; }
-	.table_main { margin: 10px 0 0 1px; clear: both; }
-	.table_main td { padding: 1px 1px 0; font-size: 12px; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; font-size: 14px; font-weight: 900; }
-	.table_main th { text-align: center; vertical-align: middle; font-weight: lighter; font-size: 11px;}
-	.table_main td.name { padding: 1px; font-size: 12px; text-align: left; border-right: 1px #000 solid; border-bottom: 1px solid #000; }
-	.table_main .hdr td { font-weight: bold; padding: 1px; }.
-	.table_main .hdr1 td { text-align: left; }
-	.table_main td.postname { text-align: left; }
-	.table_main .main td { height: 50px; font-size: 14px; font-weight: 900; }
-	.table_main .main td.img { width: 56px; }
-	.table_sum { margin: 10px 0 0 1px; }
-	.table_sum td { padding: 1px 1px 0; font-size: 12px; text-align: center; vertical-align: middle; }
-	.table_sum td.name { padding: 1px; font-size: 12px; text-align: left; }
-	.adate { font-size: 11px; margin-left: 177px; }
-	.note_red { color: #f00; font-size: 14px; font-weight: 900; }
-	.note_grin { color: #f00; font-size: 22px; font-weight: 900; }
-	.break { page-break-before: always; }
-	.break_after { page-break-after: always; }
-	.dash { border-bottom: 1px #f00 dashed; margin-bottom: 10px; }
-</style>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin: 0; padding:0; width:100%; height:100%;">
+	<!-- <center> -->
+		<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="border-collapse:collapse; height:100%; margin:0; padding:0;width:100%; background-color:#f3f3f3;">
+			<tr>
+				<td align="center" valign="top" style="height:100%; margin:0; padding:0; padding-top: 18px;width:100%; border-top:0;">
+					<!-- BEGIN TEMPLATE // -->
+					<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+						<tr>
+							<td align="center" valign="top">
+								<!--[if gte mso 9]>
+								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px; border-collapse:collapse;">
+								<tr>
+								<td align="center" valign="top" width="600" style="width:600px;">
+								<![endif]-->
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color: #fff;">
+									<tr>
+										<td valign="top">
+											<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
+												<tbody>
+													<tr>
+														<td valign="top" style="padding-top:9px;">
+															<!--[if mso]>
+															<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse; width:100%;">
+															<tr>
+															<![endif]-->
+															<!--[if mso]>
+															<td valign="top" width="600" style="width:600px;">
+															<![endif]-->
+															<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:100%; min-width:100%;" width="100%">
+																<tbody>
+																	<tr>
+																		<td valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
+																			<a href="https://xt.ua" target="_blank"><img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175"></a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															<!--[if mso]>
+															</td>
+															<![endif]-->
+															<!--[if mso]>
+															</tr>
+															</table>
+															<![endif]-->
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<!--[if gte mso 9]>
+								</td>
+								</tr>
+								</table>
+								<![endif]-->
+							</td>
+						</tr>
+						<tr>
+							<td align="center" valign="top">
+								<!--[if gte mso 9]>
+								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="border-collapse:collapse; width:600px;">
+								<tr>
+								<td align="center" valign="top" width="600" style="width:600px;">
+								<![endif]-->
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color: #fff;">
+									<tr>
+										<td valign="top">
+											<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
+												<tbody>
+													<tr>
+														<td valign="top" style="padding-top:9px;">
+															<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100%; min-width:100%;" width="100%">
+																<tbody>
+																	<tr>
+																		<td valign="top" style="padding: 0px 18px 9px; font-size: 14px; line-height: 150%; color:#202020;text-align: justify;">
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;">
+																				<tbody>
+																					<tr>
+																						<td valign="top" align="center" style="text-align: center !important; display:block; margin:0; margin-bottom: 10px; padding:0; color:#202020; font-family:Helvetica; font-size:18px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
+																							Уважаемый поставщик!
+																						</td>
+																					</tr>
+																					<tr>
+																						<td valign="top"  style="text-align: justify !important; display:block; margin:0; padding:0; color:#202020; font-family:Helvetica; font-size:14px; font-style:normal; letter-spacing:normal;" >
+																							На Ваши товары поступили заказы. Вы можете самостоятельно доставить их по адресу нашего склада: <span style="font-weight: bold;">ул. Якира, 130</span>. Со списком заказов и их содержимым Вы можете ознакомиться ниже.
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																			<br>
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:100% !important; width:100% !important;">
+																				<tbody>
+																					<tr>
+																						<td valign="top" style="margin:0;padding:0; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: justify;">
+																							<?foreach($supplier['orders'] as $order_key=>$order){?>
+																								<table class="table_main" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																									<thead>
+																										<tr>
+																											<th colspan="9" style="border: 0;">
+																												<p style="font-size: 15px; font-weight: bold; width: 100%; text-align: center">№ <?=$order_key?><b style="color: #ff5722"><?=$orders[$order_key]['note2']?></b></p>
+																											</th>
+																										</tr>
+																									</thead>
+																									<tbody>
+																										<?$ii = 1;
+																										$sum = 0;
+																										$qty = 0;
+																										$weight = 0;
+																										$volume = 0;
+																										$sum_otpusk = 0;
+																										foreach($order as &$i){
+																											if($i['opt_qty'] > 0 && $i['id_supplier'] == $id_supplier){?>
+																												<tr>
+																													<td rowspan="3" align="center" style="border: 1px solid #e3e3e3; padding: 5px;"><?=$ii++?></td>
+																												</tr>
+																												<tr>
+																													<td align="center" valign="middle" style="border: 1px solid #e3e3e3; padding: 5px;">
+																														<img style="display:block; width:100%; min-width: 55px; max-width: 90px;" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+																													</td>
+																													<td colspan="3" align="left" style="border: 1px solid #e3e3e3; padding: 5px;">
+																														<?=$i['note_opt'] != ''?'<span style="color:#ff5722;">'.$i['note_opt'].'</span><br>':null;?>
+																														<?=$i['name']?>
+																													</td>
+																												</tr>
+																												<tr>
+																													<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																														<span style="white-space: nowrap;">Арт: </span>
+																														<span style="white-space: nowrap; font-weight: bold;"><?=$i['art']?></span>
+																													</td>
+																													<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																														<span style="white-space: nowrap;">Цена: </span>
+																														<span style="white-space: nowrap; font-weight: bold;"><?=!$supplier['is_partner']?$i['price_opt_otpusk']:null;?></span>
+																													</td>
+																													<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																														<span style="white-space: nowrap;">Кол-во: </span>
+																														<span style="white-space: nowrap; font-weight: bold;"><?=$i['opt_qty']?></span>
+																													</td>
+																													<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																														<span style="white-space: nowrap;">Сумма: </span>
+																														<span style="white-space: nowrap; font-weight: bold;"><?!$supplier['is_partner']?round($i['price_opt_otpusk']*$i['opt_qty'], 2):null;?></span>
+																													</td>
+																												</tr>
+																												<?$sum_otpusk = round(($sum_otpusk+round($i['price_opt_otpusk']*$i['opt_qty'], 2)),2);
+																												$qty += $i['opt_qty'];
+																												$volume += $i['volume']*$i['opt_qty'];
+																												$weight += $i['weight']*$i['opt_qty'];
+																												$sum = round($sum+$i['opt_sum'],2);
+																											}
 
-<div style="display: block;">
+																											if($i['mopt_qty'] > 0 && $i['id_supplier_mopt'] == $id_supplier){?>
+																												<tr>
+																													<tr>
+																														<td rowspan="3" align="center" style="border: 1px solid #e3e3e3; padding: 5px;"><?=$ii++?></td>
+																													</tr>
+																													<tr>
+																														<td align="center" valign="middle" style="border: 1px solid #e3e3e3; padding: 5px;">
+																															<img style="display:block; width:100%; min-width: 55px; max-width: 90px;" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+																														</td>
+																														<td colspan="3" align="left" style="border: 1px solid #e3e3e3; padding: 5px;">
+																															<?=$i['note_mopt'] != ''?'<span style="color:#ff5722;">'.$i['note_mopt'].'</span><br>':null;?>
+																															<?=$i['name']?>
+																														</td>
+																													</tr>
+																													<tr>
+																														<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																															<span style="white-space: nowrap;">Арт: </span>
+																															<span style="white-space: nowrap; font-weight: bold;"><?=$i['art']?></span>
+																														</td>
+																														<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																															<span style="white-space: nowrap;">Цена: </span>
+																															<span style="white-space: nowrap; font-weight: bold;"><?=!$supplier['is_partner']?$i['price_mopt_otpusk']:null?></span>
+																														</td>
+																														<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																															<span style="white-space: nowrap;">Кол-во: </span>
+																															<span style="white-space: nowrap; font-weight: bold;"><?=$i['mopt_qty']?></span>
+																														</td>
+																														<td align="center" style="border: 1px solid #e3e3e3; padding: 3px;">
+																															<span style="white-space: nowrap;">Сумма: </span>
+																															<span style="white-space: nowrap; font-weight: bold;"><?=!$supplier['is_partner']?round($i['price_mopt_otpusk']*$i['mopt_qty'], 2):null;?></span>
+																														</td>
+																													</tr>
+																												</tr>
+																												<?$sum_otpusk = round(($sum_otpusk+round($i['price_mopt_otpusk']*$i['mopt_qty'], 2)),2);
+																												$qty += $i['mopt_qty'];
+																												$volume += $i['volume']*$i['mopt_qty'];
+																												$weight += $i['weight']*$i['mopt_qty'];
+																												$sum = round($sum+$i['mopt_sum'],2);
+																											}
+																										}?>
+																										<tr style="border-collapse:collapse;">
+																											<td colspan="5" align="right" style="padding: 10px; border: 1px solid #e3e3e3;">
+																												Общая сумма заказа: <?=!$supplier['is_partner']?'<span style="font-weight: bold; color:#ff5722;">'.$sum_otpusk.'</span>':null;?>
+																											</td>
+																										</tr>
+																									</tbody>
+																								</table>
+																							<?}?>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
+												<tbody>
+													<tr>
+														<td valign="top" align="center" style="text-align: center !important; display:block; margin:0; margin-top: 10px;	padding:0; color:#202020; font-family:Helvetica; font-size:16px; font-style:normal; font-weight:bold; line-height:125%;	letter-spacing:normal;">
+															Спасибо, что Вы с нами!
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<!--[if gte mso 9]>
+								</td>
+								</tr>
+								</table>
+								<![endif]-->
+							</td>
+						</tr>
+						<tr>
+							<td align="center" valign="top">
+								<!--[if gte mso 9]>
+								<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="border-collapse:collapse; width:600px;">
+								<tr>
+								<td align="center" valign="top" width="600" style="width:600px;">
+								<![endif]-->
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color:#f3f3f3;margin-bottom: 18px;">
+									<tr>
+										<td valign="top">
+											<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%; background-color: #ffffff">
+												<tbody>
+													<tr>
+														<td align="center" valign="top" style="padding:9px">
+															<hr style="border: 1px solid #e7e7e7;">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
+																<tbody>
+																	<tr>
+																		<td valign="top" align="center" style=" padding-bottom: 9px; padding-top: 5px; font-size: 14px; line-height: 150%; text-align: center; white-space: nowrap; color:#bbbbbb; font-weight: normal; font-family: Helvetica;">
+																			Наши контакты:
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
+																<tbody>
+																	<tr align="center">
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380675741013">(067) 574-10-13</a>
+																		</td>
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380577803861">(057) 780-38-61</a>
+																		</td>
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380995632817">(099) 563-28-17</a>
+																		</td>
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380634259183">(063) 425-91-83</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
+																<tbody>
+																	<tr>
+																		<td align="center" >
+																			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
+																				<tbody>
+																					<tr>
+																						<td align="center" valign="top" >
+																							<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																								<tbody>
+																									<tr>
+																										<td align="center" valign="top">
+																											<!--[if mso]>
+																											<table align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+																											<tr>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="https://xt.ua/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://twitter.com/we_xt_ua" target="_blank"><img src="https://xt.ua/images/mail/tw.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://vk.com/xt_ua" target="_blank"><img src="https://xt.ua/images/mail/vk.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="https://xt.ua/images/mail/yt.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:0; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://plus.google.com/+X-torg/" target="_blank"><img src="https://xt.ua/images/mail/gp.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											</tr>
+																											</table>
+																											<![endif]-->
+																										</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<!--[if gte mso 9]>
+								</td>
+								</tr>
+								</table>
+								<![endif]-->
+							</td>
+						</tr>
+					</table>
+					<!-- // END TEMPLATE -->
+				</td>
+			</tr>
+		</table>
+	<!-- </center> -->
+
+
+
+
+
+
+
+
+
+<!-- <div style="display: block;">
 	<p style="margin: 1px 0 0 10px; font-size: 14px; font-weight: bold;">
 		<div style="float:left">
 			<span class="logo"><?=$_SERVER['SERVER_NAME']?></span>
@@ -88,7 +542,7 @@
 			<td class="bb br">&nbsp;</td>
 		</tr>
 	</tbody>
-</table>
+	</table>
 
 <?foreach($supplier['orders'] as $order_key=>$order){?>
 	<table class="table_main" border="0" cellpadding="0" cellspacing="0">
@@ -182,4 +636,7 @@
 			</tr>
 		</tbody>
 	</table>
-<?}?>
+<?}?> -->
+
+</body>
+</html>
