@@ -318,11 +318,7 @@ if(!_acl::isAdmin()){
 	if(!empty($mass)){
 		$Products->SetProductsListFilter($where_arr, $limit, 0, array('order_by'=>isset($orderby)?$orderby:null, 'rel_search'=>isset($rel_order)?$rel_order:null));
 	}else{
-		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$Products->SetProductsList($where_arr, $limit, $_SESSION['member']['gid'], array('order_by' => isset($orderby) ? $orderby : null));
-		}else{
-			$Products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
-		}
+		$Products->SetProductsList($where_arr, $limit, array('order_by' => isset($orderby)?$orderby:null));
 	}
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;

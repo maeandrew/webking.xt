@@ -14,7 +14,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	if(isset($_GET['action'])){
 		switch($_GET['action']){
 			case "getmoreproducts":
-				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', 0, $params);
+				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', $params);
 				$list = $Products->list;
 				$i = $_GET['shown_products']+1;
 				foreach($list AS $item){
@@ -134,7 +134,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			;
 			break;
 			case "getmoreproducts_desktop":
-				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', 0, $params);
+				$Products->SetProductsList($where_arr, ' LIMIT '.($_GET['skipped_products']+$_GET['shown_products']).', 30', $params);
 				$list = $Products->list;
 				$i = $_GET['shown_products']+1;
 				foreach($list AS $item){

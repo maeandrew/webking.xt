@@ -360,7 +360,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
-	$Products->SetProductsList($where_arr, $limit, 0, array('order_by' => isset($orderby) ? $orderby : null));
+	$Products->SetProductsList($where_arr, $limit, array('order_by' => isset($orderby)?$orderby:null));
 	if(!empty($Products->list)){
 		foreach($Products->list AS $res){
 			if($res['price_mopt'] != 0){

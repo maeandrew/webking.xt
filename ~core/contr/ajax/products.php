@@ -35,7 +35,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$sorting = $sort['products'];
 					$params['order_by'] = $sorting['value'];
 				}
-				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', 0, $params);
+				$Products->SetProductsList($where_arr, ' LIMIT '.($_POST['skipped_products']+$_POST['shown_products']).', 30', $params);
 				if($Products->list){
 					foreach($Products->list as &$p){
 						$p['images'] = $Products->GetPhotoById($p['id_product']);
