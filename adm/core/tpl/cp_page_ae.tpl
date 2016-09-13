@@ -19,37 +19,14 @@
 			</div>
 		</div>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
-		<div class="col-md-12 meta_tags">
-			<h2 class="blue-line">Мета теги</h2>
-			<label for="meta_title">Мета-заголовок</label>
-			<input class="input-m" id="meta_title" type="text" name="page_title" value="<?=isset($_POST['page_title']) && !empty($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>"/>
-			<label for="meta_description">Мета-описание</label>
-			<textarea class="input-m" name="page_description" id="meta_description" cols="10" rows="3"><?=isset($_POST['page_description']) && !empty($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
-			<label for="meta_keywords">Ключевые слова</label>
-			<textarea class="input-m" name="page_keywords" id="meta_keywords" cols="10" rows="3"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
-		</div>
-        <div class="row seo_block hidden">
-			<div class="col-md-6">
-				<label for="page_title">Мета-заголовок (title):</label>
-				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
-				<input type="text" name="page_title" id="page_title" class="input-l" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
-				<label for="page_description">Мета-описание (description):</label>
-				<?=isset($errm['page_description'])?"<span class=\"errmsg\">".$errm['page_description']."</span><br>":null?>
-				<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-l"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
-				<label for="keywords">Ключевые слова (keywords):</label>
-				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
-				<textarea class="input-l" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
-			</div>
-			<div class="col-md-6">
-				<label for="page_title_ua">Мета-заголовок (title):</label>
-				<?=isset($errm['page_title_ua'])?"<span class=\"errmsg\">".$errm['page_title_ua']."</span><br>":null?>
-				<input type="text" name="page_title_ua" id="page_title_ua" class="input-l" value="<?=isset($_POST['page_title_ua'])?htmlspecialchars($_POST['page_title_ua']):null?>">
-				<label for="page_description_ua">Мета-опис (description):</label>
-				<?=isset($errm['page_description_ua'])?"<span class=\"errmsg\">".$errm['page_description_ua']."</span><br>":null?>
-				<textarea name="page_description_ua" id="page_description_ua" size="20" cols="223" rows="5" class="input-l"><?=isset($_POST['page_description_ua'])?htmlspecialchars($_POST['page_description_ua']):null?></textarea>
-				<label for="keywords_ua">Ключові слова (keywords):</label>
-				<?=isset($errm['page_keywords_ua'])?"<span class=\"errmsg\">".$errm['page_keywords_ua']."</span><br>":null?>
-				<textarea class="input-l" name="page_keywords_ua" id="keywords_ua" cols="10" rows="5"><?=isset($_POST['page_keywords_ua'])?htmlspecialchars($_POST['page_keywords_ua']):null?></textarea>
+		<div class="row meta_tags">
+			<div class="col-md-12">
+				<label for="meta_title">Мета-заголовок</label>
+				<input class="input-m" id="meta_title" type="text" name="page_title" value="<?=isset($_POST['page_title']) && !empty($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>"/>
+				<label for="meta_description">Мета-описание</label>
+				<textarea class="input-m" name="page_description" id="meta_description" cols="10" rows="3"><?=isset($_POST['page_description']) && !empty($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
+				<label for="meta_keywords">Ключевые слова</label>
+				<textarea class="input-m" name="page_keywords" id="meta_keywords" cols="10" rows="3"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
 		</div>
 		<label for="ptype">Тип страницы:</label><?=isset($errm['ptype'])?'<span class="errmsg">'.$errm['ptype']."</span><br>":null?>

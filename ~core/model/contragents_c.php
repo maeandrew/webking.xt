@@ -59,7 +59,7 @@ class Contragents extends Users{
 		return true;
 	}
 
-	public function SetList($inside = false, $all = false){
+	public function SetList($inside, $all = false){
 		$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
 		$active = "";
 		if(!$all){

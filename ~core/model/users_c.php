@@ -79,11 +79,17 @@ class Users {
 			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
 		// получаем данные о личном менеджере
-		$sql = "SELECT ct.*
-			FROM "._DB_PREFIX_."contragent AS ct
-			LEFT JOIN "._DB_PREFIX_."customer AS c
-				ON c.id_contragent = ct.id_user
-			WHERE c.id_user = ".$id_user;
+		if($this->fields['gid'] == 4){
+			$sql = "SELECT ct.*
+				FROM "._DB_PREFIX_."contragent AS ct
+				WHERE ct.id_user = ".$id_user;
+		}else{
+			$sql = "SELECT ct.*
+				FROM "._DB_PREFIX_."contragent AS ct
+				LEFT JOIN "._DB_PREFIX_."customer AS c
+					ON c.id_contragent = ct.id_user
+				WHERE c.id_user = ".$id_user;
+		}
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql);
 		// получаем список товаров, которые уже были в заказе
 		$sql = "SELECT DISTINCT osp.id_product, osp.opt_qty+osp.mopt_qty AS count

@@ -44,7 +44,9 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 6HUAUquV84qT0FzkLwIDAQAB
 -----END PUBLIC KEY-----";
 		require($GLOBALS['PATH_model'].'APISMTP.php');
+		require($GLOBALS['PATH_model'].'SendpulseApi.php');
 		$this->oApi = new SmtpApi($sPublicKey);
+		$this->SmtpApi = new SendpulseApi('1d6ed37eb33d4f1e0828b09e49e91830', 'c718ee93217b020cc0cca71d8a15ea7c');
 	}
 
 	// Отсылка письма клиенту со ссылками на накладные покупателя
@@ -54,9 +56,10 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		$tpl->Assign('title', 'Заголовок тестового письма');
 		$tpl->Assign('content', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eum excepturi, autem ipsum aspernatur! Hic dicta ipsam recusandae at, laboriosam magnam doloribus modi laborum a? Molestiae ab vero, dignissimos perspiciatis.
 				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
-		$Email = array(
+		$email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
-			'subject' => 'Latest news',
+			'text' => 'text',
+			'subject' => 'Тестовое письмо ',
 			'encoding' => 'UTF-8',
 			'from' => array(
 				'name' => 'Отдел снабжения xt.ua',
@@ -74,7 +77,9 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				)
 			)
 		);
-		$res = $this->oApi->send_email($Email);
+		$res = $this->SmtpApi->smtpSendMail($email);
+		var_dump($res);
+		// $res = $this->oApi->send_email($email);
 		if(!$res){
 			return false;
 		}
