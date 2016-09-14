@@ -919,7 +919,12 @@
 	</div>
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
 
-	<?if(SETT == 2){
+
+	<!-- <?if(SETT == 2){
 		echo $GLOBALS['CONFIG']['jivosite'];
-	}?>
+	}?> -->
+	<?if(SETT == 2 && isset($_SESSION['member']) && $_SESSION['member']['gid'] != _ACL_ADMIN_ && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_ && $_SESSION['member']['gid'] != _ACL_SEO_){
+		echo $GLOBALS['CONFIG']['jivosite'];
+		}?>
+
 </body>
