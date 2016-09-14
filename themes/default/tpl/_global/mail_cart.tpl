@@ -24,10 +24,10 @@
                     	</tr>
                     	<?foreach ($cart['prod_list'] as $item) {?>
 		                    <tr>
-								<td valign="middle" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
+								<td valign="middle" style="width: 20%; margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: center;">
 									<img src="<?=G::GetImageUrl($item['src'], 'medium')?>" style="display:block; width:100%; min-width: 55px; max-width: 100px;" >
 								</td>
-								<td colspan="3" valign="top" style="margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
+								<td valign="top" style="width: 80%; margin:0; border: 1px solid #e3e3e3; border-top: 2px solid #bbbbbb; padding: 9px; color:#202020; font-family:Helvetica; font-style:normal; line-height:125%;letter-spacing:normal;text-align: left;">
 									<?=$item['name']?>
 									<br>
 									<p style="font-size: 12px; padding: 0px; margin-bottom: 0px; margin-top: 5px;">Арт.: <?=$item['art']?></p>

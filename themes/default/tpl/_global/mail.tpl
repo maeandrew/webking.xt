@@ -14,57 +14,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Тема письма</title>
-    <style type="text/css">
-		/*p{
-			margin:10px 0;
-			padding:0;
-		}*/
-		/*table{
-			border-collapse:collapse;
-		}*/
-		/*img,a img{
-			border:0;
-			height:auto;
-			outline:none;
-			text-decoration:none;
-		}*/
-		/*body {
-			height:100%;
-			margin:0;
-			padding:0;
-			width:100%;
-		}*/
-		/*img{
-			-ms-interpolation-mode:bicubic;
-		}*/
-		/*table{
-			mso-table-lspace:0pt;
-			mso-table-rspace:0pt;
-		}*/
-		/*p,a,li,td,blockquote{
-			mso-line-height-rule:exactly;
-		}*/
-		/*a[href^=tel],a[href^=sms]{
-			color:inherit;
-			cursor:default;
-			text-decoration:none;
-		}*/
-		/*p,a,li,td,body,table,blockquote{
-			-ms-text-size-adjust:100%;
-			-webkit-text-size-adjust:100%;
-		}*/
-		/*a[x-apple-data-detectors]{
-			color:inherit !important;
-			text-decoration:none !important;
-			font-size:inherit !important;
-			font-family:inherit !important;
-			font-weight:inherit !important;
-			line-height:inherit !important;
-		}*/
-		/*body {
-			background-color:#f3f3f3;
-		}*/
-	</style>
 </head>
 <body style="margin: 0; padding:0; width:100%; height:100%;">
     <!-- <center> -->
