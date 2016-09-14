@@ -69,13 +69,14 @@ header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfiel
 	top: 0;
 	bottom: 0;
 }
-header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box{
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box + .mdl-selectfield__list-option-box{
 	display: block;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
-header .header_wrapp .header_right .search_wrap .search_category:hover .mdl-selectfield__list-option-box{
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box:hover + .mdl-selectfield__list-option-box,
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box + .mdl-selectfield__list-option-box:hover{
 	opacity: 1;
 	z-index: 1000;
 }
