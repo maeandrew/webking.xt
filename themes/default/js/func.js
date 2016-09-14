@@ -127,7 +127,7 @@ function ChangeView(view){
 			$('#view_block_js').removeClass().addClass('column_view col-md-12 ajax_loading');
 			break;
 	}
-	ListenPhotoHover();
+	// ListenPhotoHover();
 	document.cookie="product_view="+view+"; path=/";
 }
 // Preview Sliders
@@ -613,15 +613,19 @@ function getCookie(name){
 }
 // Включение анимации ожидания отклика от сервера
 function addLoadAnimation(obj){
-	if($(obj).find('div.loadBlock').length <= 0){
+	if(typeof(obj) == 'object' && obj.has('.loadBlock').length === 0){
+		obj.append('<div class="loadBlock"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active loadAnimation"></div></div>');
+	}else if($(obj).has('.loadBlock').length === 0){
 		$(obj).append('<div class="loadBlock"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active loadAnimation"></div></div>');
 	}
 	componentHandler.upgradeDom();
 }
 // Отключение анимации ожидания отклика от сервера
 function removeLoadAnimation(obj) {
-	if($(obj).find('div.loadBlock').length > 0){
-		$(obj).find('div.loadBlock').remove();
+	if(typeof(obj) == 'object' && obj.has('.loadBlock').length > 0){
+		obj.find('.loadBlock').remove();
+	}else if($(obj).has('.loadBlock').length > 0){
+		$(obj).find('.loadBlock').remove();
 	}
 	componentHandler.upgradeDom();
 }

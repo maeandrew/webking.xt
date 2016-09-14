@@ -38,19 +38,19 @@ foreach($orders as $order_id){
 	$orders_data[$order_id]['customer_data'] = $customer_data;
 	$orders_data[$order_id]['contragent_data'] = $contragent_data;
 	//Форматируем дату
-	$orders_data[$order_id]['date'] = date("d.m.Y", $orders_data[$order_id]['target_date']);
+	$orders_data[$order_id]['date'] = date('d.m.Y', $orders_data[$order_id]['target_date']);
 	$Citys = new Citys();
 	$city = $Citys->SetFieldsById($orders_data[$order_id]['id_city']);
 	// Варианты доставки
 	if($orders_data[$order_id]['id_delivery'] == 1){ // самовывоз
-		$orders_data[$order_id]['addr_deliv'] = "Самовывоз";
+		$orders_data[$order_id]['addr_deliv'] = 'Самовывоз';
 		$orders_data[$order_id]['addr_descr'] = $orders_data[$order_id]['descr'];
 	}elseif($orders_data[$order_id]['id_delivery'] == 2){ // Передать автобусом
-		$orders_data[$order_id]['addr_deliv'] = "Передать автобусом - ".$city['names_regions'];
+		$orders_data[$order_id]['addr_deliv'] = 'Передать автобусом - '.$city['names_regions'];
 		$orders_data[$order_id]['addr_descr'] = $orders_data[$order_id]['descr'];
 	}elseif($orders_data[$order_id]['id_delivery'] == 3){ // служба доставки
 		$orders_data[$order_id]['ds'] = $city['shipping_comp'];
-		$orders_data[$order_id]['addr_deliv'] = $city['names_regions']."<br>".$city['address'];
+		$orders_data[$order_id]['addr_deliv'] = $city['names_regions'].'<br>'.$city['address'];
 		$orders_data[$order_id]['addr_descr'] = $orders_data[$order_id]['descr'];
 	}
 	$orders_data[$order_id]['name_c'] = $Contragent->GetContragentServiceById($orders_data[$order_id]['id_contragent']);
@@ -71,7 +71,7 @@ foreach($orders as $order_id){
 		if((isset($id_supplier) && $s['id_supplier'] == $id_supplier) || !isset($id_supplier)){
 			if($s['id_supplier'] == 0){
 				// Если нету поставщика - присваиваем имя "Прогноз"
-				$s['name'] = "Прогноз";
+				$s['name'] = 'Прогноз';
 			}
 			$Order->SetListBySupplier($s['id_supplier'], $order_id, null, isset($type)?$type:null, isset($filial)?$filial:null);
 			$sum						= 0;
@@ -182,7 +182,7 @@ function basort (&$array, $key) {
 	}
 	$array=$ret;
 }
-basort($orders_data,"addr_deliv");
+basort($orders_data, 'addr_deliv');
 foreach($suppliers_data as $sup_key=>$supplier){
 	$num_orders = 0;
 	$order_supplier= array();
@@ -262,12 +262,12 @@ foreach($orders_data as $key=>$value){
 		}
 	}
 }
-$tpl->Assign("os", $order_supplier);
-$tpl->Assign("sorders", $supplier_order);
-$tpl->Assign("orders", $orders_data);
-basort($orders_data, "id_order");
-$tpl->Assign("contragent", $contragent_data);
-$tpl->Assign("contragents", $contragents);
+$tpl->Assign('os', $order_supplier);
+$tpl->Assign('sorders', $supplier_order);
+$tpl->Assign('orders', $orders_data);
+basort($orders_data, 'id_order');
+$tpl->Assign('contragent', $contragent_data);
+$tpl->Assign('contragents', $contragents);
 function aasort(&$array, $key){
 	$sorter = array();
 	$ret = array();
@@ -281,7 +281,7 @@ function aasort(&$array, $key){
 	}
 	$array = $ret;
 }
-aasort($suppliers_data, "art");
+aasort($suppliers_data, 'art');
 $volume = 0;
 $Mailer = new Mailer();
 foreach($suppliers_data as $id_supplier=>$s){
@@ -293,13 +293,14 @@ foreach($suppliers_data as $id_supplier=>$s){
 			$Mailer->GenerateCSVForSupplier($res, $id_supplier, $s['real_phone']);
 		}
 		if(isset($_POST['send_mail'])){
-			$Mailer->SendOrdersToSuppliers($suppliers_data[$id_supplier], $id_supplier, $orders_data, $contragent_data, $supplier_order);
+			// $Mailer->SendOrdersToSuppliers($suppliers_data[$id_supplier], $id_supplier, $orders_data, $contragent_data, $supplier_order);
+			$Mailer->SuppleirsInvoiceNotification($suppliers_data[$id_supplier], $id_supplier, $orders_data, $contragent_data, $supplier_order);
 			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
 			if(isset($s['real_phone']) && $s['real_phone'] != ''){
 				$res = $Gateway->execCommad(
 					'sendSMS',
 					array(
-						'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+						'sender' => $GLOBALS['CONFIG']['invoice_logo_sms'],
 						'text' => 'На ваш e-mail отправлен заказ от '.$GLOBALS['CONFIG']['invoice_logo_text'],
 						'phone' => $s['real_phone'],
 						'datetime' => null,
@@ -313,7 +314,7 @@ foreach($suppliers_data as $id_supplier=>$s){
 $City = new Citys();
 $City->SetList();
 $city = $City->list;
-aasort($suppliers_data, "icq");
+aasort($suppliers_data, 'icq');
 $tpl->Assign('suppliers', $suppliers_data);
 $suppliers_altern = array();
 $Order->GetSuppliersAltern($order_id);

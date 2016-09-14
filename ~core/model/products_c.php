@@ -686,7 +686,7 @@ class Products {
 	 * @param integer $gid    [description]
 	 * @param array   $params [description]
 	 */
-	public function SetProductsList($and = false, $limit = '', $gid = 0, $params = array()){
+	public function SetProductsList($and = false, $limit = null, $params = array()){
 		// $where = "";
 		if($this->filter === false) return false;
 
@@ -728,40 +728,40 @@ class Products {
 		}
 		if(isset($params['administration'])){
 			// SQL выборки для админки
-			$sql = "(SELECT '0' AS sort, a.active, pv.count_views,
-				".implode(", ",$this->usual_fields)."
-				FROM "._DB_PREFIX_."product AS p
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a
+			$sql = '(SELECT 0 AS sort, a.active, pv.count_views,
+				'.implode(', ', $this->usual_fields).'
+				FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 					ON p.id_product = a.id_product
-				LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+				LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 					ON cp.id_product = p.id_product
-				LEFT JOIN "._DB_PREFIX_."units AS un
+				LEFT JOIN '._DB_PREFIX_.'units AS un
 					ON un.id = p.id_unit
-				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
 					ON pv.id_product = p.id_product
-				WHERE (p.price_opt > 0 OR p.price_mopt > 0)
+				'.$this->db->GetWhere($and).'
+				AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND a.active = 1
 				AND p.visible = 1
-				".$where."
-				".$group_by.")
+				'.$group_by.')
 				UNION
-				(SELECT '1' AS sort, a.active, pv.count_views,
-				".implode(", ",$this->usual_fields)."
-				FROM "._DB_PREFIX_."product AS p
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a
+				(SELECT 1 AS sort, a.active, pv.count_views,
+				'.implode(', ', $this->usual_fields).'
+				FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 					ON p.id_product = a.id_product
-				LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+				LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 					ON cp.id_product = p.id_product
-				LEFT JOIN "._DB_PREFIX_."units AS un
+				LEFT JOIN '._DB_PREFIX_.'units AS un
 					ON un.id = p.id_unit
-				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
 					ON pv.id_product = p.id_product
-				WHERE ((p.price_opt <= 0 OR p.price_mopt <= 0)
+				'.$this->db->GetWhere($and).'
+				AND ((p.price_opt <= 0 OR p.price_mopt <= 0)
 				OR p.visible = 0)
-				".$where."
-				".$group_by.")
-				ORDER BY ".$order_by."
-				".$limit;
+				'.$group_by.')
+				ORDER BY '.$order_by.'
+				'.$limit;
 		}else{
 			$sql = 'SELECT
 				p.*,
@@ -782,31 +782,11 @@ class Products {
 					ON pv.id_product = p.id_product'.
 			$this->db->GetWhere($and)
 			.$where2
+			.$selectsegm
 			.$this->price_range
 			.' GROUP BY p.id_product
 			ORDER BY active DESC, p.visible DESC, '.
 			$order_by.' '.$limit;
-			// $sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short, p.descr_xt_full, p.country, p.img_1, p.img_2, p.img_3, p.sertificate,
-			// 	(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt, p.duplicate, p.price_mopt,
-			// 	p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length, p.volume, p.coefficient_volume, p.qty_control, p.price_coefficient_opt, p.price_coefficient_mopt,
-			// 	p.visible, p.ord, p.note_control, un.unit_xt AS units, p.prod_status, p.old_price_mopt, p.old_price_opt, p.mopt_correction_set, p.opt_correction_set, p.filial, p.popularity, p.duplicate_user,
-			// 	p.duplicate_comment, p.duplicate_date, p.edit_user, p.edit_date, p.create_user, p.create_date, p.id_unit, p.page_title, p.page_description, p.page_keywords, p.notation_price, p.instruction,
-			// 	p.indexation, p.access_assort, pv.count_views, un.unit_xt AS units, cp.id_category, a.active, a.price_opt_otpusk, a.price_mopt_otpusk,
-			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
-			// 	(SELECT AVG(c.rating) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-			// 	(SELECT COUNT(c.Id_coment) FROM "._DB_PREFIX_."coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-			// 	(SELECT s.available_today FROM "._DB_PREFIX_."supplier AS s WHERE s.id_user = a.id_supplier) AS available_today
-			// 	FROM "._DB_PREFIX_."cat_prod AS cp
-			// 		RIGHT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product".$selectsegm."
-			// 		LEFT JOIN "._DB_PREFIX_."units AS un ON un.id = p.id_unit
-			// 		RIGHT JOIN "._DB_PREFIX_."assortiment AS a ON a.id_product = p.id_product
-			// 		LEFT JOIN "._DB_PREFIX_."prod_views AS pv ON pv.id_product = p.id_product
-			// 	WHERE cp.id_product IS NOT NULL "
-			// 	.(($gid == _ACL_SUPPLIER_)?"AND p.access_assort = 1 ":null).
-			// 	$where . $where2. $this->price_range ."
-			// 	GROUP BY p.id_product
-			// 	ORDER BY active DESC, p.visible DESC, ".$order_by."
-			// 	".$limit;
 		}
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
@@ -1484,6 +1464,35 @@ class Products {
 	 * @param array  $params [description]
 	 */
 	public function SetProductsListFromArr($arr, $limit='', $params = array()){
+
+
+		$sql = 'SELECT
+				p.*,
+				(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
+				pv.count_views,
+				un.unit_xt AS units,
+				cp.id_category,
+				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+			FROM '._DB_PREFIX_.'cat_prod AS cp
+				RIGHT JOIN '._DB_PREFIX_.'product AS p
+					ON cp.id_product = p.id_product
+				LEFT JOIN '._DB_PREFIX_.'units AS un
+					ON un.id = p.id_unit
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
+					ON pv.id_product = p.id_product
+				LEFT JOIN "._DB_PREFIX_."cart_product AS c
+					ON p.id_product = c.id_product
+					AND c.id_cart = '.$_SESSION['cart']['id'].
+			$this->db->GetWhere($and)
+			.$where2
+			.$selectsegm
+			.$this->price_range
+			.' GROUP BY p.id_product
+			ORDER BY active DESC, p.visible DESC, '.
+			$order_by.' '.$limit;
 		$in = implode(", ", $arr);
 		if(is_numeric($limit)){
 			$limit = "limit $limit";
@@ -1496,7 +1505,7 @@ class Products {
 		if(isset($_SESSION['cart']['id'])){
 			$sql = "SELECT p.id_product, p.art, p.name, p.translit, p.descr, p.descr_xt_short, p.descr_xt_full,
 				p.country, p.img_1, p.img_2, p.img_3, p.sertificate,
-				(CASE WHEN p.price_opt =0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
+				(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
 				p.duplicate, p.price_mopt,
 				p.inbox_qty, p.min_mopt_qty, p.max_supplier_qty, p.weight, p.height, p.width, p.length, p.volume,
 				p.coefficient_volume, p.qty_control, p.price_coefficient_opt, p.price_coefficient_mopt,
@@ -1646,6 +1655,17 @@ class Products {
 				$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price']/($supplier['currency_rate'] == 0?$GLOBALS['CONFIG']['currency_rate']:$supplier['currency_rate']);
 			}
 			$f['price_'.$data['mode'].'_recommend'] = $f['price_'.$data['mode'].'_otpusk']*$supplier['koef_nazen_'.$data['mode']];
+			if($supplier['single_price'] == 1 && isset($data['mode']) && $data['mode'] == 'mopt'){
+				$data['mode'] = 'opt';
+				if($assort['inusd'] == 1){
+					$f['price_'.$data['mode'].'_otpusk'] = $data['price']*($supplier['currency_rate'] == 0?$GLOBALS['CONFIG']['currency_rate']:$supplier['currency_rate']);
+					$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price'];
+				}else{
+					$f['price_'.$data['mode'].'_otpusk'] = $data['price'];
+					$f['price_'.$data['mode'].'_otpusk_usd'] = $data['price']/($supplier['currency_rate'] == 0?$GLOBALS['CONFIG']['currency_rate']:$supplier['currency_rate']);
+				}
+				$f['price_'.$data['mode'].'_recommend'] = $f['price_'.$data['mode'].'_otpusk']*$supplier['koef_nazen_'.$data['mode']];
+			}
 		}
 		if(isset($data['comment'])){
 			$f['sup_comment'] = $data['comment'];
@@ -1654,8 +1674,8 @@ class Products {
 			$f['inusd'] = $data['inusd'];
 		}
 		if(isset($data['active'])){
-			$f['active'] = $data['active'];
 			$f['product_limit'] = ($data['active'] == 0)?0:10000000;
+			$f['active'] = $data['active'];
 		}
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_product = ".$data['id_product']." AND id_supplier = ".$data['id_supplier'])){
@@ -1663,10 +1683,6 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		if($supplier['single_price'] == 1 && isset($data['mode']) && $data['mode'] == 'mopt'){
-			$data['mode'] = 'opt';
-			$this->UpdateAssort($data);
-		}
 		$this->RecalcSitePrices(array($data['id_product']));
 		return $this->GetAssort($data['id_product'], $data['id_supplier']);
 	}
@@ -1894,81 +1910,68 @@ class Products {
 	 * @param [type] $ids_products [description]
 	 */
 	public function RecalcSitePrices($ids_products = array()){
-		if(!empty($ids_products)){
-			foreach($ids_products as $id_product){
-				$products_array[$id_product] = array();
-			}
-		}
+		// if(!empty($ids_products)){
+		// 	foreach($ids_products as $id_product){
+		// 		$products_array[$id_product] = array();
+		// 	}
+		// }
 		set_time_limit(3600);
 		ini_set('memory_limit', '512M');
-		$sql = "SELECT p.id_product,
+		$sql = 'SELECT a.id_product,
 				a.price_opt_recommend,
 				a.price_mopt_recommend
-			FROM "._DB_PREFIX_."product AS p
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a ON p.id_product = a.id_product
-			WHERE a.active = 1
-				AND (a.price_opt_recommend > 0 OR a.price_mopt_recommend > 0)
-				".(!empty($ids_products)?" HAVING p.id_product IN (".implode(", ", $ids_products).")":null);
+			FROM '._DB_PREFIX_.'assortiment AS a
+			WHERE a.active = 1'
+			.(!empty($ids_products)?' HAVING a.id_product IN ('.implode(', ', $ids_products).')':null);
 		unset($ids_products);
 		$arr = $this->db->GetArray($sql);
 		if(!empty($arr)){
 			foreach($arr as &$p){
 				$products_array[$p['id_product']][] = $p;
 			}
-		}
-		$return = array();
-		if(isset($products_array)){
 			foreach($products_array as $k=>&$product){
-				if(!empty($product)){
-					foreach($product as &$p){
-						$result_prices[$k]['opt'] = !isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt']) || $result_prices[$k]['opt'] == 0
-							? $p['price_opt_recommend']
-							: $result_prices[$k]['opt'];
-						$result_prices[$k]['mopt'] = !isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt']) || $result_prices[$k]['mopt'] == 0
-							? $p['price_mopt_recommend']
-							: $result_prices[$k]['mopt'];
+				foreach($product as &$p){
+					if(!isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt'])){
+						$result_prices[$k]['mopt'] = $p['price_mopt_recommend'];
 					}
-				}else{
-					$result_prices[$k]['opt'] = $result_prices[$k]['mopt'] = 0;
+					if(!isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt'])){
+						$result_prices[$k]['opt'] = $p['price_opt_recommend'];
+					}
 				}
 			}
+			if(!$this->UpdateSitePricesMassive($result_prices)){
+				return false;
+			}
+			set_time_limit(300);
+			ini_set('memory_limit', '192M');
 		}
-		if(!$this->UpdateSitePricesMassive($result_prices)){
-			return false;
-		}
-		set_time_limit(300);
-		ini_set('memory_limit', '192M');
-	return true;
+		return true;
 	}
 	/**
 	 * [UpdateSitePricesMassive description]
 	 * @param [type] $arr [description]
 	 */
 	public function UpdateSitePricesMassive($arr){
-		//$time_start = microtime(true);
 		if(!empty($arr)){
 			foreach($arr AS $k=>&$a){
 				// if($a['opt'] > 100){
 				// 	$f['price_opt'] = "CEILING(".$a['opt']."*price_coefficient_opt)";
 				// }else{
 				// }
-				$f['price_opt'] = "ROUND(".$a['opt']."*price_coefficient_opt, 2)";
+				$f['price_opt'] = 'ROUND('.$a['opt'].'*price_coefficient_opt, 2)';
 				// if ($a['mopt'] > 100) {
 				// 	$f['price_mopt'] = "CEILING(".$a['mopt']."*price_coefficient_mopt)";
 				// }else{
 				// }
-				$f['price_mopt'] = "ROUND(".$a['mopt']."*price_coefficient_mopt, 2)";
+				$f['price_mopt'] = 'ROUND('.$a['mopt'].'*price_coefficient_mopt, 2)';
 				$this->db->StartTrans();
-				if(!$this->db->UpdatePro(_DB_PREFIX_."product", $f, "id_product = ".$k)){
+				if(!$this->db->UpdatePro(_DB_PREFIX_.'product', $f, 'id_product = '.$k)){
 					$this->db->FailTrans();
 					return false;
 				}
 				$this->db->CompleteTrans();
 			}
 		}
-		//$time_end = microtime(true);
-		//$time = $time_end - $time_start;
-		//echo "execution time <b>$time</b> seconds\n";
 		return true;
 	}
 	/**
@@ -2840,6 +2843,7 @@ class Products {
 		$id_supplier = $Supplier->fields['id_user'];
 		$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
 		$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
+		$currency_rate = $Supplier->fields['currency_rate'] > 0?$Supplier->fields['currency_rate']:$GLOBALS['CONFIG']['currency_rate'];
 		foreach($array as $row){
 			$res = array_combine($keys, $row);
 			if($id_product = $this->GetIdByArt($res['art'])){
@@ -2850,12 +2854,12 @@ class Products {
 				}
 				if($usd){
 					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
-					$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
+					$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$currency_rate;
 					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
-					$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+					$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$currency_rate;
 				}else{
-					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
-					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
+					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$currency_rate;
+					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$currency_rate;
 				}
 				if($this->IsInAssort($id_product, $id_supplier)){
 					$res['id_product'] = $id_product;
@@ -2988,14 +2992,15 @@ class Products {
 		return true;
 	}
 	/**
-	 * [UpdatePriceRecommendAssortiment description]
+	 * [UpdatePriceRecommendAssortment description]
 	 */
-	public function UpdatePriceRecommendAssortiment(){
+	public function UpdatePriceRecommendAssortment(){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment AS a
 			LEFT JOIN "._DB_PREFIX_."supplier AS s
 				ON a.id_supplier = s.id_user
-		SET a.price_opt_recommend = (a.price_opt_otpusk*s.koef_nazen_opt),
-			a.price_mopt_recommend = (a.price_mopt_otpusk*s.koef_nazen_mopt)";
+		SET a.price_opt_recommend = ROUND(a.price_opt_otpusk*s.koef_nazen_opt, 2),
+			a.price_mopt_recommend = ROUND(a.price_mopt_otpusk*s.koef_nazen_mopt, 2)
+		WHERE a.active = 1";
 		$this->db->StartTrans();
 		if(!$this->db->Execute($sql)){
 			$this->db->FailTrans();

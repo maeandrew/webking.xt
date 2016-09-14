@@ -211,7 +211,7 @@
 								<label>Пересчитать все цены товаров на сайте</label>
 							</td>
 							<td>
-								<a class="btn-m-lblue size_s fr" href="/adm/main/recalc_supplier_prices/">Пересчитать</a>
+								<a class="btn-m-lblue size_s fr" href="/adm/main/recalc_product_prices/">Пересчитать</a>
 							</td>
 						</tr>
 						<tr>

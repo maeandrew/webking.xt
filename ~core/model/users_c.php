@@ -79,11 +79,17 @@ class Users {
 			$this->fields['waiting_list'][$key] = $value['id_product'];
 		}
 		// получаем данные о личном менеджере
-		$sql = "SELECT ct.*
-			FROM "._DB_PREFIX_."contragent AS ct
-			LEFT JOIN "._DB_PREFIX_."customer AS c
-				ON c.id_contragent = ct.id_user
-			WHERE c.id_user = ".$id_user;
+		if($this->fields['gid'] == 4){
+			$sql = "SELECT ct.*
+				FROM "._DB_PREFIX_."contragent AS ct
+				WHERE ct.id_user = ".$id_user;
+		}else{
+			$sql = "SELECT ct.*
+				FROM "._DB_PREFIX_."contragent AS ct
+				LEFT JOIN "._DB_PREFIX_."customer AS c
+					ON c.id_contragent = ct.id_user
+				WHERE c.id_user = ".$id_user;
+		}
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql);
 		// получаем список товаров, которые уже были в заказе
 		$sql = "SELECT DISTINCT osp.id_product, osp.opt_qty+osp.mopt_qty AS count
@@ -481,7 +487,7 @@ class Users {
 	}
 
 	public function SetVerificationCode($id_user, $method, $address){
-		$f['id_user'] = $id_user;
+		$f['token'] = $id_user;
 		$f['verification_code'] = G::GenerateVerificationCode();
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'verification_code', $f)){
@@ -511,11 +517,11 @@ class Users {
 	}
 
 	public function GetVerificationCode($id_user, $verification_code){
-		$f[] = 'id_user = '.$id_user;
+		$f[] = 'token = '.$id_user;
 		$f[] = 'verification_code = '.$verification_code;
 		$sql = "SELECT COUNT(*) AS count
  				FROM "._DB_PREFIX_."verification_code
- 				WHERE id_user = ".$id_user."
+ 				WHERE token = ".$id_user."
  				AND verification_code = ".$verification_code."
  				AND end_date >= CURTIME()";
 		$res = $this->db->GetOneRowArray($sql);
@@ -553,6 +559,16 @@ class Users {
 				AND passwd = '".md5(trim($passwd))."'";
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count']<>1){
+			return false;
+		}
+		return true;
+	}
+
+	// Удаляем телефоны у юзеров
+	public function delDoublePhone($phone){
+		$sql = "UPDATE "._DB_PREFIX_."user SET phone = NULL
+				WHERE phone = '".$phone."'";
+		if(!$this->db->Query($sql)){
 			return false;
 		}
 		return true;

@@ -750,12 +750,6 @@ div[for="rating_block"] {
 }
 .product_link {
 	display: block;
-	background: #fff;
-	padding: 5px 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
-}
-.product_link:hover {
-	color: #fff;
-	background: #018b06;
 }

@@ -51,7 +51,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$customer['phone'] = isset($phones)?$phones:'';
 
 				// список всех менеджеров
-				$Contragents->SetList(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_?true:false);
+				$Contragents->SetList();
 				$managers_list = $Contragents->list;
 
 				// список всех областей
@@ -190,14 +190,18 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Cart->RecalcCart();
 				/* fill product list */
 				if(!empty($_SESSION['cart']['products'])){
-					$arr_id = array();
 					foreach($_SESSION['cart']['products'] as $id=>$p){
-						$arr_id[] = $id;
+						$where_arr['p.id_product'][] = $id;
 					}
-					$Products->SetProductsListFromArr($arr_id, '');
+					$Products->SetProductsList($where_arr);
+					if($Products->list){
+						foreach($Products->list as &$p){
+							$p['images'] = $Products->GetPhotoById($p['id_product']);
+						}
+					}
 					$list = $Products->list;
 					foreach($list as $key => &$value){
-						if($value['visible'] == 0){
+						if($value['visible'] == 0 || $value['active'] == 0 || $value['price_'.$_SESSION['cart']['products'][$value['id_product']]['mode']] == 0){
 							$_SESSION['cart']['unvisible_products'][$value['id_product']]['quantity'] = $_SESSION['cart']['products'][$value['id_product']]['quantity'];
 							$unlist[] = $value;
 							unset($list[$key], $_SESSION['cart']['products'][$value['id_product']]);
@@ -214,6 +218,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					//array_multisort($list, SORT_DESC, $errflag);
 
 					$tpl->Assign('unlist', isset($unlist)?$unlist:false);
+
 					$tpl->Assign('list', $list);
 				}else{
 					$tpl->Assign('list', false);

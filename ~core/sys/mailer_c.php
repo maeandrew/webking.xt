@@ -44,7 +44,43 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 6HUAUquV84qT0FzkLwIDAQAB
 -----END PUBLIC KEY-----";
 		require($GLOBALS['PATH_model'].'APISMTP.php');
+		require($GLOBALS['PATH_model'].'SendpulseApi.php');
 		$this->oApi = new SmtpApi($sPublicKey);
+		$this->SmtpApi = new SendpulseApi('1d6ed37eb33d4f1e0828b09e49e91830', 'c718ee93217b020cc0cca71d8a15ea7c');
+	}
+
+	// Отсылка письма клиенту со ссылками на накладные покупателя
+	public function SuppleirsInvoiceNotification($supplier, $id_supplier, $orders, $contragent, $sorders){
+		global $db;
+		global $tpl;
+		$tpl->Assign('supplier', $supplier);
+		$tpl->Assign('id_supplier', $id_supplier);
+
+		// $tpl->Assign('content', '');
+		// $tpl->Assign('title', 'Заказы '.$GLOBALS['CONFIG']['invoice_logo_text'].' от '.(date('d')+1).'-'.date('m').'-'.date('Y'));
+		$email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_supplier_invoice.tpl'),
+			'text' => 'text',
+			'subject' => 'Заказы '.$GLOBALS['CONFIG']['invoice_logo_text'].' от '.(date('d')+1).'-'.date('m').'-'.date('Y'),
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => 'Отдел снабжения xt.ua',
+				'email' => 'administration@xt.ua',
+			),
+			'to' => array(
+				array(
+					'email' => $supplier['real_email']
+				)
+			)
+		);
+		if($supplier['make_csv'] == 1){
+			$email['attachments'][$supplier['real_phone'].'.csv'] = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temp/'.$supplier['real_phone'].'.csv');
+		}
+		$res = $this->SmtpApi->smtpSendMail($email);
+		if(!$res){
+			return false;
+		}
+		return true;
 	}
 
 	// Отсылка письма клиенту со ссылками на накладные покупателя
@@ -54,24 +90,30 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		$tpl->Assign('title', 'Заголовок тестового письма');
 		$tpl->Assign('content', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eum excepturi, autem ipsum aspernatur! Hic dicta ipsam recusandae at, laboriosam magnam doloribus modi laborum a? Molestiae ab vero, dignissimos perspiciatis.
 				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
-		$Email = array(
+		$email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
-			'subject' => 'Тестовое письмо',
+			'text' => 'text',
+			'subject' => 'Тестовое письмо ',
 			'encoding' => 'UTF-8',
 			'from' => array(
-				'name' => $this->FromName,
-				'email' => 'callback@x-torg.com',
+				'name' => 'Отдел снабжения xt.ua',
+				'email' => 'order@xt.ua',
 			),
 			'to' => array(
 				array(
 					'email' => 'alexparhomenko67@gmail.com'
 				),
+				// array(
+				// 	'email' => 'webking.market@gmail.com'
+				// ),
 				array(
-					'email' => 'kmkmedia@gmail.com'
+					'email' => 'webking.dev2@gmail.com'
 				)
 			)
 		);
-		$res = $this->oApi->send_email($Email);
+		$res = $this->SmtpApi->smtpSendMail($email);
+		var_dump($res);
+		// $res = $this->oApi->send_email($email);
 		if(!$res){
 			return false;
 		}
@@ -190,23 +232,41 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		global $tpl;
 		$Order = new Orders();
 		$Order->SetFieldsById($id_order);
-		$sql = 'SELECT u.email, u.name
+		$order = array('number'=>$id_order, 'sum'=>$Order->fields['sum'] );
+		$sql = 'SELECT u.email, u.name, count(*) AS count,
+			c.first_name, c.middle_name
 			FROM '._DB_PREFIX_.'user AS u
 			LEFT JOIN '._DB_PREFIX_.'order AS o
 			ON u.id_user = o.id_customer
-			WHERE o.id_order = '.$db->Quote($id_order);
+			LEFT JOIN '._DB_PREFIX_.'osp AS osp
+			ON o.id_order = osp.id_order
+			LEFT JOIN '._DB_PREFIX_.'customer AS c
+			ON c.id_user = o.id_customer
+			WHERE o.id_order = '.$id_order;
 		$arr = $db->GetOneRowArray($sql);
-		$tpl->Assign('title', 'Спасибо за Ваш заказ!');
-		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
-		$tpl->Assign('content', 'Заказ № '.$id_order.' принят, но для его выполнения необходимо произвести полную или частичную предоплату. Пожалуйста, после выполнения предоплаты, сообщите менеджеру сумму оплаты по номеру заказа.<br>'.
-			'Вы можете просмотреть детали и отследить статус своего заказа в <a href="'.Link::Custom('cabinet', 'orders').'?t=working">личном кабинете</a>.');
+		$title = (!empty($arr['first_name']) && !empty($arr['middle_name'])?$arr['first_name'].' '.$arr['middle_name'].', ':null).'Ваш заказ принят!';
+		if($arr['count']<=5){
+			$sql ="SELECT p.art, p.`name`,
+				(CASE WHEN osp.opt_qty <>0 THEN osp.opt_qty ELSE osp.mopt_qty END) AS qty,
+				(CASE WHEN osp.site_price_opt <>0 THEN osp.site_price_opt ELSE osp.site_price_mopt END) AS price,
+				(CASE WHEN osp.default_sum_opt <>0 THEN osp.default_sum_opt ELSE osp.default_sum_mopt END) AS sum
+				FROM "._DB_PREFIX_."osp osp
+				LEFT JOIN "._DB_PREFIX_."order o	ON o.id_order = osp.id_order
+				LEFT JOIN "._DB_PREFIX_."product p	ON p.id_product = osp.id_product
+				WHERE o.id_order = ".$id_order;
+			$order['prod_list'] = $db->GetArray($sql);
+		}
+		$tpl->Assign('order', $order);
+		$tpl->Assign('title', $title);
+		$tpl->Assign('button', array('title' => 'Перейти к оплате', 'href' => Link::Custom('page', 'Oplata')));
+		$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_order.tpl'));
 		$Email = array(
 			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
 			'subject' => 'Заказ № '.$id_order.' принят',
 			'encoding' => 'UTF-8',
 			'from' => array(
 				'name' => $this->FromName,
-				'email' => 'order@x-torg.com',
+				'email' => 'order@xt.ua',
 			),
 			'to' => array(
 				array(
@@ -498,82 +558,82 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		$c8 = 95;
 		$otpusk=0;$kotpusk=0;
 		$this->Body = "
-		<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
-		.logo { font-size: 28px; color: #00F; font-weight: bold; }
+			<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.logo { font-size: 28px; color: #00F; font-weight: bold; }
 
-		.undln { text-decoration: underline; }
-		.lb { border-left: 1px dashed #000; padding-left: 5px; }
+			.undln { text-decoration: underline; }
+			.lb { border-left: 1px dashed #000; padding-left: 5px; }
 
-		.table_header { margin-left: 3px; width: 827px; }
-		.table_header .top td { padding: 10px 0 15px 0; font-size: 14px; }
-		.table_header .first_col { width: 150px; }
-		.table_header .second_col { width: 300px; }
-		.table_header .top span.invoice { margin-left: 20px; font-size: 18px; text-decoration: underline; }
+			.table_header { margin-left: 3px; width: 827px; }
+			.table_header .top td { padding: 10px 0 15px 0; font-size: 14px; }
+			.table_header .first_col { width: 150px; }
+			.table_header .second_col { width: 300px; }
+			.table_header .top span.invoice { margin-left: 20px; font-size: 18px; text-decoration: underline; }
 
-		.bl { border-left: 1px solid #000; }
-		.br { border-right: 1px solid #000; }
-		.bt { border-top: 1px solid #000; }
-		.bb { border-bottom: 1px solid #000 !important; }
-		.bn { border: none !important; }
-		.bla { text-align: left; }
+			.bl { border-left: 1px solid #000; }
+			.br { border-right: 1px solid #000; }
+			.bt { border-top: 1px solid #000; }
+			.bb { border-bottom: 1px solid #000 !important; }
+			.bn { border: none !important; }
+			.bla { text-align: left; }
 
-		.bnb { border-bottom: none !important; }
+			.bnb { border-bottom: none !important; }
 
-		.blf { border-left: 1px solid #FFF; }
-		.brf { border-right: 1px solid #FFF; }
-		.bbf { border-bottom: 1px solid #FFF; }
+			.blf { border-left: 1px solid #FFF; }
+			.brf { border-right: 1px solid #FFF; }
+			.bbf { border-bottom: 1px solid #FFF; }
 
-		.table_main { margin: 10px 0 0 1px; clear: both; }
-		.table_main td { padding: 1px 1px 0; font-size: 12px; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; font-size: 14px; font-weight: 900; }
-		.table_main th { text-align: center; vertical-align: middle; font-weight: lighter; font-size: 11px;}
-		.table_main td.name { padding: 1px; font-size: 12px; text-align: left; border-right: 1px #000 solid; border-bottom: 1px solid #000; }
-		.table_main .hdr td { font-weight: bold; padding: 1px; }.
-		.table_main .hdr1 td { text-align: left; }
-		.table_main td.postname {
-			text-align: left;
-		}
-		.table_main .main td { height: 50px; font-size: 14px; font-weight: 900; }
-		.table_main .main td.img { width: 56px; }
+			.table_main { margin: 10px 0 0 1px; clear: both; }
+			.table_main td { padding: 1px 1px 0; font-size: 12px; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; font-size: 14px; font-weight: 900; }
+			.table_main th { text-align: center; vertical-align: middle; font-weight: lighter; font-size: 11px;}
+			.table_main td.name { padding: 1px; font-size: 12px; text-align: left; border-right: 1px #000 solid; border-bottom: 1px solid #000; }
+			.table_main .hdr td { font-weight: bold; padding: 1px; }.
+			.table_main .hdr1 td { text-align: left; }
+			.table_main td.postname {
+				text-align: left;
+			}
+			.table_main .main td { height: 50px; font-size: 14px; font-weight: 900; }
+			.table_main .main td.img { width: 56px; }
 
-		.table_sum { margin: 10px 0 0 1px; }
-		.table_sum td { padding: 1px 1px 0; font-size: 12px; text-align: center; vertical-align: middle; }
-		.table_sum td.name { padding: 1px; font-size: 12px; text-align: left; }
+			.table_sum { margin: 10px 0 0 1px; }
+			.table_sum td { padding: 1px 1px 0; font-size: 12px; text-align: center; vertical-align: middle; }
+			.table_sum td.name { padding: 1px; font-size: 12px; text-align: left; }
 
-		.adate { font-size: 11px; margin-left: 177px; }
-		.note_red { color: #f00; font-size: 14px; font-weight: 900; }
-		.note_grin { color: #f00; font-size: 22px; font-weight: 900; }
+			.adate { font-size: 11px; margin-left: 177px; }
+			.note_red { color: #f00; font-size: 14px; font-weight: 900; }
+			.note_grin { color: #f00; font-size: 22px; font-weight: 900; }
 
-		.break { page-break-before: always; }
-		.break_after { page-break-after: always; }
-		.dash { border-bottom: 1px #f00 dashed; margin-bottom: 10px; }
-	</style>";
+			.break { page-break-before: always; }
+			.break_after { page-break-after: always; }
+			.dash { border-bottom: 1px #f00 dashed; margin-bottom: 10px; }
+		</style>";
 		$this->Body .= "<div style=\"display: block; \">
 			<p style=\"margin: 1px 0 0 10px; font-size: 14px; font-weight: bold;\">
 				<div style=\"float:left\">
 					<span class=\"logo\">".$_SERVER['SERVER_NAME']."</span>
 				</div>
 			</p>
-		</div>
-		<div style=\"clear: both; float:left; margin: 10px; font-size: 14px; font-weight: bold; width: 383px; padding-left: 10px;\">
-			<b>".$supplier['name'].", ".$supplier['phone'].", ".$supplier['place']."</b>
-		</div>
-		<div style=\"float:left; margin: 10px; white-space: normal; width: 383px; padding-left: 10px;\" class=\"bl\">
-			<p>".$contragent['descr']."</p>
-		</div>
-		<div style=\"clear: both;\"> </div>
-		<table cellspacing=\"0\" border=\"1\" style=\"width: 827px; clear: both; float: left; margin-top: 10px\" class=\"table_main\">
-			<thead>
-				<tr class=\"hdr\">
-					<th class=\"br bl bt bb\">№ заказа</th>
-					<th class=\"br bt bb\">Сумма по отп. ценам</th>
-					<th class=\"br bt bb\">Сумма факт</th>
-				</tr>
-			</thead>
-			<tbody>";
+			</div>
+			<div style=\"clear: both; float:left; margin: 10px; font-size: 14px; font-weight: bold; width: 383px; padding-left: 10px;\">
+				<b>".$supplier['name'].", ".$supplier['phone'].", ".$supplier['place']."</b>
+			</div>
+			<div style=\"float:left; margin: 10px; white-space: normal; width: 383px; padding-left: 10px;\" class=\"bl\">
+				<p>".$contragent['descr']."</p>
+			</div>
+			<div style=\"clear: both;\"> </div>
+			<table cellspacing=\"0\" border=\"1\" style=\"width: 827px; clear: both; float: left; margin-top: 10px\" class=\"table_main\">
+				<thead>
+					<tr class=\"hdr\">
+						<th class=\"br bl bt bb\">№ заказа</th>
+						<th class=\"br bt bb\">Сумма по отп. ценам</th>
+						<th class=\"br bt bb\">Сумма факт</th>
+					</tr>
+				</thead>
+				<tbody>";
 			foreach($sorders[$id_supplier] as $k=>$o){
 				$this->Body .= "<tr class=\"hdr\">
 					<td class=\"bl bb\">".$k."</td>
@@ -913,5 +973,54 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		}
 		return true;
 	}
+
+	// Забытая корзина
+	public function forgetCart(){
+		global $db;
+		global $tpl;
+		$res = array();
+		$sql = "SELECT c.id_cart, c.id_user, u.email, u.`name`,
+				cr.first_name, cr.middle_name
+				FROM "._DB_PREFIX_."cart c
+				LEFT JOIN "._DB_PREFIX_."user u ON u.id_user = c.id_user
+				LEFT JOIN "._DB_PREFIX_."customer cr ON cr.id_user = c.id_user
+				WHERE `status` = 0 AND u.active = 1 AND u.gid = 5 AND c.id_user = 22972";
+		if(!$res = $db->GetArray($sql)){
+			return false;
+		}
+		foreach($res as $k=>$v){
+			$title = (!empty($v['first_name']) && !empty($v['middle_name'])?$v['first_name'].' '.$v['middle_name'].', ':null).'Вы оставили незавершенную покупку';
+			$sql = "SELECT p.art, p.name,
+					(CASE WHEN i.src IS NOT NULL THEN i.src ELSE p.images END) AS src
+					FROM xt_cart_product cp
+					LEFT JOIN xt_product p ON cp.id_product = p.id_product
+					LEFT JOIN xt_image i ON i.id_product = cp.id_product AND i.ord = 0
+					WHERE id_cart = ".$v['id_cart'];
+			$res[$k]['prod_list'] = $db->GetArray($sql);
+			$tpl->Assign('title', $title);
+			$tpl->Assign('cart', $res[$k]);
+			$tpl->Assign('button', array('title' => 'Ппродолжить покупку', 'href' => Link::Custom('main').'#cart'));
+			$tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail_cart.tpl'));
+			$Email = array(
+				'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+				'subject' => 'Незавершенная покупка',
+				'encoding' => 'UTF-8',
+				'from' => array(
+					'name' => $this->FromName,
+					'email' => 'administration@xt.ua',
+				),
+				'to' => array(
+					array(
+						'name' => $v['name'],
+						'email' => $v['email']
+					),
+				)
+			);
+			$res = $this->oApi->send_email($Email);
+			if(!$res){
+				return false;
+			}
+		}
+		return true;
+	}
 }
-?>

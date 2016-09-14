@@ -867,7 +867,7 @@ footer {
 	background-color: #fffaf0;
 }
 .list.comment_list .subcomment td.left{
-	padding-left: 6em;	
+	padding-left: 6em;
 }
 .list.comment_list .bold_text{
 	font-weight: 500;
@@ -1269,7 +1269,6 @@ img.pic_block {
 	width: 100px;
 	margin-bottom: 1em;
 }
-
 
 /* Оформление списка товаров без категории */
 /*.nocategory .table_row {

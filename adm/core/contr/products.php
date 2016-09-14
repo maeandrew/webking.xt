@@ -67,7 +67,7 @@ $products = new Products();
 }
 
 $orderby = " sort ASC, ord ASC, name ASC";
-$products->SetProductsList(array('cp.id_category'=>$id_category), '',$_SESSION['member']['gid'], array('order_by'=>$orderby, 'administration'=>'1'));
+$products->SetProductsList(array('cp.id_category'=>$id_category), null, array('order_by' => $orderby, 'administration' => '1'));
 
 $arr = $dbtree->GetNodeFields($id_category, array('name', 'category_level'));
 // --- --- --- subcats

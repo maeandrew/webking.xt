@@ -170,6 +170,7 @@
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
 		$summ_many = $_SESSION['cart']['cart_sum'];
+		$cart_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];
 		foreach($list as $item){
 			$item['price_mopt'] > 0 ? $mopt_available = true : $mopt_available = false;
 			$item['price_opt'] > 0 ? $opt_available = true : $opt_available = false;?>
@@ -200,7 +201,7 @@
 						<input class="opt_cor_set_js" type="hidden" value="<?=$GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]?>">
 						<input class="price_opt_js" type="hidden" value="<?=$item['price_opt']?>">
 						<div class="buy_block">
-							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_SESSION['cart']['cart_column']], 2, ",", "");?></div>
+							<div class="price"><?=number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$cart_column], 2, ",", "");?></div>
 							<div class="prodPrices hidden">
 								<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
 								<?for ($i = 0; $i < 4; $i++){?>
@@ -226,7 +227,7 @@
 					</div>
 					<div class="summ">
 						<span class="order_mopt_sum_<?=$item['id_product']?>">
-							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$_SESSION['cart']['cart_column']],2,",",""):"0.00"?>
+							<?=isset($_SESSION['cart']['products'][$item['id_product']]['summary'][$cart_column])?number_format($_SESSION['cart']['products'][$item['id_product']]['summary'][$cart_column],2,",",""):"0.00"?>
 						</span>
 					</div>
 					<div class="remove_prod">
@@ -257,6 +258,8 @@
 	</div>
 	<?$manual_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];?>
 	<div class="cart_footer">
+		<?var_dump($manual_column)?>
+		<?var_dump($_SESSION['cart']['products_sum'])?>
 		<div id="total">
 			<div class="total">
 				<div class="label totaltext">Итого:</div>
@@ -400,9 +403,9 @@
 					<?}?>
 				</div>
 			<?}?>
-			<div class="mdl-textfield mdl-js-textfield orderNote">
-				<label for="orderNote">Примечания к заказу</label>
-				<textarea class="mdl-textfield__input order_note_text" type="text" rows="1" id="orderNote" name="orderNote"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
+			<div class="orderNote">
+				<!-- <label for="orderNote">Примечания к заказу</label> -->
+				<textarea class="order_note_text" type="text" rows="6" id="orderNote" name="orderNote" placeholder="Примечания к заказу"><?=isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null?></textarea>
 			</div>
 		</div>
 		<div class="action_block">
@@ -417,6 +420,7 @@
 							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						</div>
 						<p class="err_msg"></p>
+						<a class="this_my_number this_my_number_js btn_js hidden" href="#" data-name="confirmMyPhone">Это мой номер!</a>
 						<!-- <a href="#" class="mdl-button mdl-js-button login_btn cart_login_btn hidden">Войти</a> -->
 					<?}?>
 
@@ -480,7 +484,7 @@
 						<select id="select_contragent" name="id_contragent" class="mdl-selectfield__select">
 							<option value="" disabled selected>Менеджер</option>
 							<?foreach($managers_list as $manager){?>
-								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
+								<option value="<?=$manager['id_user']?>" <?=G::IsLogged() && $_SESSION['member']['contragent']['id_user'] == $manager['id_user']?'selected':null?>><?=$manager['name_c']?></option>
 							<?}?>
 						</select>
 						<label class="mdl-selectfield__label" for="select_contragent">Менеджер</label>
@@ -675,6 +679,7 @@
 							case 501:
 								removeLoadAnimation('#cart');
 								$('#cart .err_msg').html(response.message);
+								$('#cart .this_my_number').removeClass('hidden');
 								setTimeout(function() {
 									$('#cart .err_msg + .cart_login_btn').removeClass('hidden');
 								}, 1000);

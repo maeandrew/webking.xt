@@ -96,7 +96,7 @@ $(function(){
 				$('#show_more_products').hide();
 			}
 
-			ListenPhotoHover();//Инициализания Preview
+			// ListenPhotoHover();//Инициализания Preview
 
 			$('.load_more').remove();
 			resizeAsideScroll('show_more');
@@ -198,6 +198,45 @@ $(function(){
 		$('.clicked_js').removeClass('clicked_js');
 		$('.flag_js').removeClass('flag_js');
 		closeObject('confirmDelItem');
+	});
+	// Отправка смс подтверждения спорного телефона
+	$('#cart').on('click', '.this_my_number_js', function(){
+		var new_phone = $('#cart #user_number').val();
+		$('#confirmMyPhone .new_phone').val(new_phone);
+	});
+	//Отправили смс
+	$('#confirmMyPhone').on('click', '.send_confirm_sms_js', function(){
+		var phone = $('#confirmMyPhone .new_phone').val().replace(/[^\d]+/g, "");
+		$('#confirmMyPhone .new_phone').val(phone);
+		addLoadAnimation('#confirmMyPhone');
+		ajax('auth', 'recoverPhone', {phone:phone}).done(function(){  //аякс на отправку смс с кодом
+			removeLoadAnimation('#confirmMyPhone');
+			$('#confirmMyPhone .ask_send_code_js').addClass('hidden');
+			$('#confirmMyPhone .ver_info_js').removeClass('hidden');
+			Position($('[data-type="modal"].opened'));
+			$("#verification_code").focus();
+		});
+	});
+	//Ввели полученый код и отправили аякс
+	$('#confirmMyPhone').on('click', '.confirm_js', function(){
+		var code = $("#verification_code").val();
+		var phone = $('#confirmMyPhone .new_phone').val();
+		if(code === ''){
+			$("#verification_code").closest('div').addClass('is-invalid');
+		}else{
+			addLoadAnimation('#confirmMyPhone');
+			ajax('auth', 'checkСodePhone', {phone:phone, code:code}).done(function(){ //аякс проверки кода
+				removeLoadAnimation('#confirmMyPhone');
+				$('#confirmMyPhone .ver_info_js').addClass('hidden');
+				$('#confirmMyPhone .ver_info_success_js').removeClass('hidden');
+				Position($('[data-type="modal"].opened'));
+			});
+		}
+	});
+	$('#confirmMyPhone .continue_make_order_js').on('click', function(){
+		closeObject('confirmMyPhone');
+		openObject('cart');
+		GetCartAjax();
 	});
 
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
@@ -2139,8 +2178,19 @@ $(function(){
 	});
 
 	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
-	$('.product_main_img').click(function(event){
+	$('.product_main_img').on('click', function(event){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	});
 	// ------------
+	$('.show_preview_js').on('click', function(){
+		var preview = $('#preview'),
+			id_product = $(this).closest('.card').data('idproduct');
+		addLoadAnimation(preview);
+		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
+			preview.find('.modal_container').html(data);
+			Position(preview);
+			componentHandler.upgradeDom();
+			removeLoadAnimation(preview);
+		});
+	});
 });

@@ -59,26 +59,15 @@ class Contragents extends Users{
 		return true;
 	}
 
-	public function SetList($inside = false, $all = false){
+	public function SetList(){
 		$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
-		$active = "";
-		if(!$all){
-			$active = "AND u.active = 1";
-		}
-		$diler = "";
-		if(!$inside){
-			$diler = "AND c.site NOT LIKE '%diler%'";
-		}
-		$sql = "SELECT c.id_user, c.name_c
+		$where = (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_)|| !isset($_SESSION['member']['gid'])?' WHERE cc.work_day = 1 AND cc.date = "'.$date.'" AND c.remote = 0 AND c.site NOT LIKE "%diler%"':'';
+		$sql = "SELECT DISTINCT c.id_user, c.name_c
 		FROM "._DB_PREFIX_."contragent AS c
 		LEFT JOIN "._DB_PREFIX_."calendar_contragent AS cc
 			ON c.id_user = cc.id_contragent
 		LEFT JOIN "._DB_PREFIX_."user AS u
-			ON c.id_user = u.id_user
-		WHERE cc.work_day = 1
-		AND cc.date = '".$date."'
-		".$active."
-		".$diler;
+			ON c.id_user = u.id_user".$where;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -93,7 +82,6 @@ class Contragents extends Users{
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_."contragent AS c
 				WHERE c.id_user = \"$id\"";
-
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;

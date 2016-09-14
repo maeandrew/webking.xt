@@ -11,16 +11,14 @@
 		<input type="text" name="title" id="title" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>"/>
 		<div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
 		<div class="row seo_block">
-			<div class="col-md-12 hidden">
-				<label for="page_title">Мета-заголовок (title):</label>
-				<?=isset($errm['page_title'])?"<span class=\"errmsg\">".$errm['page_title']."</span><br>":null?>
-				<input type="text" name="page_title" id="page_title" class="input-m" value="<?=isset($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>">
-				<label for="page_description">Мета-описание (description):</label>
-				<?=isset($errm['page_description'])?"<span class=\"errmsg\">".$errm['page_description']."</span><br>":null?>
-				<textarea name="page_description" id="page_description" size="20" cols="223" rows="5" class="input-m"><?=isset($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
-				<label for="keywords">Ключевые слова (keywords):</label>
-				<?=isset($errm['page_keywords'])?"<span class=\"errmsg\">".$errm['page_keywords']."</span><br>":null?>
-				<textarea class="input-m" name="page_keywords" id="keywords" cols="10" rows="5"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
+			<div class="col-md-12 meta_tags">
+				<h2 class="blue-line">Мета теги</h2>
+				<label for="news_meta_title">Мета-заголовок</label>
+				<input class="input-m" id="news_meta_title" type="text" name="page_title" value="<?=isset($_POST['page_title']) && !empty($_POST['page_title'])?htmlspecialchars($_POST['page_title']):null?>"/>
+				<label for="news_meta_description">Мета-описание</label>
+				<textarea class="input-m" name="page_description" id="news_meta_description" cols="10" rows="3"><?=isset($_POST['page_description']) && !empty($_POST['page_description'])?htmlspecialchars($_POST['page_description']):null?></textarea>
+				<label for="news_meta_keywords">Ключевые слова</label>
+				<textarea class="input-m" name="page_keywords" id="news_meta_keywords" cols="10" rows="3"><?=isset($_POST['page_keywords'])?htmlspecialchars($_POST['page_keywords']):null?></textarea>
 			</div>
 			<div class="col-md-12">
 				<label for="photobox">Миниатюра:</label>

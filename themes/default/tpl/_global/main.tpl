@@ -111,12 +111,29 @@
 			{
 				"@context": "http://schema.org",
 				"@type": "WebSite",
-				"url": "<?=_base_url?>/",
+				"url": "https://xt.ua",
 				"potentialAction": {
 					"@type": "SearchAction",
-					"target": "<?=_base_url?>/search/?category2search=0&query={q}",
+					"target": "https://xt.ua/search/?category2search=0&query={q}",
 					"query-input": "required name=q"
 				}
+			}
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "http://schema.org",
+				"@type": "Organization",
+				"name": "Отдел снабжения xt.ua",
+				"url": "https://xt.ua",
+				"logo": "https://xt.ua/themes/default/img/_xt.svg",
+				"sameAs": [
+					"https://vk.com/xt_ua",
+					"http://ok.ru/group/54897683202077",
+					"https://plus.google.com/+X-torg/",
+					"https://www.facebook.com/KharkovTorg",
+					"https://twitter.com/we_xt_ua",
+					"https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw"
+				]
 			}
 		</script>
 	<?}?>
@@ -226,9 +243,6 @@
 							<?}?>
 						</div>
 					</div>
-					<script>
-						ListenPhotoHover(); //Инициализания Preview
-					</script>
 					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
@@ -426,6 +440,9 @@
 		</div>
 	</footer>
 	<div class="modals">
+		<div id="preview" data-type="modal">
+			<div class="modal_container"></div>
+		</div>
 		<div id="quiz" data-type="modal"></div>
 		<!-- Загрузка сметы -->
 		<div id="estimateLoad" class="estimate_modal" data-type="modal">
@@ -663,6 +680,31 @@
 				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
 		</div>
+		<!-- Модалка Подтверждение спорного телефона -->
+		<div id="confirmMyPhone" class="modalEditOrder" data-type="modal">
+			<input type="hidden" name="new_phone" class="new_phone" value="">
+			<div class="ask_send_code_js">
+				<h5>Отправить смс с кодом подтвержедия <br> на данный номер?</h5>
+				<button id="send_confirm_sms_js" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn_js send_confirm_sms_js">Отправить</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js" data-name="confirmMyPhone">Отмена</button>
+			</div>
+			<div class="ver_info_js hidden">
+				<h5>На указанный номер телефона<br>отправлено SMS-сообщение c кодом для подтверждения.<br>Введите ниже полученый код.</h5>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label for_verification_code_js">
+					<input class="mdl-textfield__input" type="number" id="verification_code" name="verification_code" max="9999">
+					<label class="mdl-textfield__label" for="verification_code">Введите код подтверждения</label>
+					<span class="mdl-textfield__error">В коде должны быть только 4 числа!</span>
+				</div>
+				<p class="error_msg_js error_msg"></p>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored confirm_js">Подтвердить</button>
+			</div>
+			<div class="ver_info_success_js hidden">
+				<div class="icon material-icons">check_circle</div>
+				<h5>Ваш номер успешно изменен.<br>Вы можете продолжнить оформление заказа.</h5>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored continue_make_order_js" data-name="confirmMyPhone">Продолжить</button>
+			</div>
+		</div>
+
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
@@ -877,7 +919,8 @@
 	</div>
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
 
-	<?if(SETT == 2){
+	<?if((SETT == 2 && !isset($_SESSION['member'])) || (SETT == 2 && isset($_SESSION['member']) && $_SESSION['member']['gid'] != _ACL_ADMIN_ && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_ && $_SESSION['member']['gid'] != _ACL_SEO_)){
 		echo $GLOBALS['CONFIG']['jivosite'];
 	}?>
+
 </body>

@@ -201,17 +201,20 @@ class News{
 
 	// Добавить
 	public function AddNews($arr){
-		$f['title']			= trim($arr['title']);
-		$f['descr_short']	= trim($arr['descr_short']);
-		$f['descr_full']	= trim($arr['descr_full']);
-		list($d,$m,$y)		= explode(".", trim($arr['date']));
-		$f['date']			= mktime(0, 0, 0, $m , $d, $y);
-		$f['translit']		= G::StrToTrans($f['title']);
-		$f['sid']			= $arr['sid'];
-		$f['indexation']	= (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
-		$f['visible']		= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
-		$f['date_update']   = Date('Y-m-d H:i:s');
-		$f['id_user']		= $_SESSION['member'][id_user];
+		$f['title']				= trim($arr['title']);
+		$f['descr_short']		= trim($arr['descr_short']);
+		$f['descr_full']		= trim($arr['descr_full']);
+		list($d,$m,$y)			= explode(".", trim($arr['date']));
+		$f['date']				= mktime(0, 0, 0, $m , $d, $y);
+		$f['translit']			= G::StrToTrans($f['title']);
+		$f['sid']				= $arr['sid'];
+		$f['indexation']		= (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
+		$f['date_update']   	= Date('Y-m-d H:i:s');
+		$f['id_user']			= $_SESSION['member'][id_user];
+		$f['page_title']		= trim($arr['page_title']);
+		$f['page_description']	= trim($arr['page_description']);
+		$f['page_keywords']		= trim($arr['page_keywords']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'news', $f)){
 			$this->db->FailTrans();
@@ -249,6 +252,9 @@ class News{
 		$f['visible']			= isset($arr['visible']) && $arr['visible'] == "on"?0:1;
 		$f['date_update']			= Date('Y-m-d H:i:s');
 		$f['id_user']			= $_SESSION['member'][id_user];
+		$f['page_title']		= trim($arr['page_title']);
+		$f['page_description']	= trim($arr['page_description']);
+		$f['page_keywords']		= trim($arr['page_keywords']);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."news", $f, "id_news = {$arr['id_news']}")){
 			$this->db->FailTrans();

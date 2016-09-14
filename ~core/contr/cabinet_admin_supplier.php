@@ -26,7 +26,7 @@ if(!count($Supplier->fields)){
 	exit(0);
 }
 $products = new Products();
-$products->SetProductsList(array('a.id_supplier'=>$Supplier->fields['id_user'], 'p.visible'=>1), '', 0, array('GROUP_BY'=>'p.id_product'));
+$products->SetProductsList(array('a.id_supplier' => $Supplier->fields['id_user'], 'p.visible' => 1), '', array('GROUP_BY' => 'p.id_product'));
 $products->FillAssort($id_supplier);
 $tpl->Assign('list', $products->list);
 $products->SetExclusivList($id_supplier);

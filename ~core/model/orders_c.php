@@ -520,7 +520,7 @@ class Orders {
 				if($res['work_day'] != 1){
 					//рандомный выбор контрагента
 					$contragents = new Contragents();
-					$contragents->SetList(false, false);
+					$contragents->SetList();
 					$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
 				}else{
 					$id_contragent = $customer['id_contragent'];
@@ -531,7 +531,8 @@ class Orders {
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
 			$f['bonus_card'] = $customer['bonus_card'];
 		}
-		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = (!isset($jo_order))?$_SESSION['cart']['cart_sum']:$GetCartForPromo['total_sum'];
+		$cart_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];
+		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = !isset($jo_order)?$_SESSION['cart']['products_sum'][$cart_column]:$GetCartForPromo['total_sum'];
 		$f['phones'] = $customer['phones'];
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
 		$f['skey'] = md5(time().'jWfUsd');
@@ -594,7 +595,7 @@ class Orders {
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
 				$p[$ii]['note_'.$item['mode']] = $item['note'];
-				$p[$ii]['default_sum_'.$item['mode']] = (!isset($jo_order))?$item['summary'][$_SESSION['cart']['cart_column']]:$item['sum_prod'];
+				$p[$ii]['default_sum_'.$item['mode']] = !isset($jo_order)?$item['summary'][$cart_column]:$item['sum_prod'];
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_qty'] = 0;
 					$p[$ii]['note_mopt'] = '';
@@ -608,20 +609,8 @@ class Orders {
 					$p[$ii]['id_supplier'] = 0;
 					$p[$ii]['price_opt_otpusk'] = 0;
 				}
-				if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
-					$p[$ii][$item['mode'].'_sum'] = (!isset($jo_order))?$item['summary'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
-					$p[$ii]['site_price_'.$item['mode']] = (!isset($jo_order))?$item['actual_prices'][$_SESSION['cart']['cart_column']]:$item['cart_column'];
-				}else{
-					if(isset($arr['price_column']) && $arr['price_column'] != $_SESSION['cart']['cart_column']){
-						$price_column = $arr['price_column'];
-					}elseif(isset($_SESSION['cart']['cart_column'])){
-						$price_column = $_SESSION['cart']['cart_column'];
-					}else{
-						$price_column = 3;
-					}
-					$p[$ii][$item['mode'].'_sum'] = (!isset($jo_order))?$item['summary'][$price_column]:$item['sum_prod'];
-					$p[$ii]['site_price_'.$item['mode']] = (!isset($jo_order))?$item['actual_prices'][$price_column]:$item['price'];
-				}
+				$p[$ii][$item['mode'].'_sum'] = !isset($jo_order)?$item['summary'][$cart_column]:$item['sum_prod'];
+				$p[$ii]['site_price_'.$item['mode']] = !isset($jo_order)?$item['actual_prices'][$cart_column]:$item['price'];
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_sum'] = 0;
 					$p[$ii]['site_price_mopt'] = 0;
@@ -654,35 +643,27 @@ class Orders {
 		}
 		$this->db->CompleteTrans();
 		unset($p);
-		if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'] == ''){
-			if($order_status == 1){
-				$User = new Users();
-				$User->SetFieldsById($_SESSION['member']['id_user']);
-				if($User->fields['gid'] != _ACL_ANONYMOUS_){
-					$Mailer = new Mailer();
-					//$Mailer->SendOrderInvoicesToContragent($id_order);
-					//$Mailer->SendOrderInvoicesToAllSuppliers($id_order);
-					$Mailer->SendOrderInvoicesToCustomers($id_order);
-				}
-				if($User->fields['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_ANONYMOUS_){
-					$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-					$Contragents = new Contragents();
-					$string = $Contragents->GetSavedFields($id_contragent);
-					$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-					// if($arr['phone'] != '' ){//&& strlen($arr['phone']) == 10
-					// 	$res = $Gateway->execCommad(
-					// 		'sendSMS',
-					// 		array(
-					// 			'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
-					// 			'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-					// 			'phone' => $arr['phone'], //'38'.
-					// 			'datetime' => null,
-					// 			'sms_lifetime' => 0
-					// 		)
-					// 	);
-					// }
-				}
-			}
+		if($order_status == 1 && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+			$Mailer = new Mailer();
+			$Mailer->SendOrderInvoicesToCustomers($id_order);
+			$User = new Users();
+			$User->SetFieldsById($_SESSION['member']['id_user']);
+			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+			$Contragents = new Contragents();
+			$string = $Contragents->GetSavedFields($id_contragent);
+			$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
+//			 if($User->fields['phone'] != '' ){
+//				$Gateway->execCommad(
+//					'sendSMS',
+//					array(
+//						'sender' => $GLOBALS['CONFIG']['invoice_logo_sms'],
+//						'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
+//						'phone' => $User->fields['phone'],
+//						'datetime' => null,
+//						'sms_lifetime' => 0
+//					)
+//				);
+//			 }
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
