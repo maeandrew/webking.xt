@@ -161,5 +161,4 @@ div[for=rating_block]{font-size:12px}
 .fortabs .fortabs_tab{width:25%;padding:0}
 .products_links_block{padding:10px;display:flex;flex-wrap:wrap}
 .products_links_block_title{font-size:1.429em;margin:.5em 0;width:100%}
-.product_link{display:block;background:#fff;padding:5px 10px;margin-right:10px;margin-bottom:10px}
-.product_link:hover{color:#fff;background:#018b06}
+.product_link{display:block;margin-right:10px;margin-bottom:10px}

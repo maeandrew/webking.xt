@@ -728,40 +728,40 @@ class Products {
 		}
 		if(isset($params['administration'])){
 			// SQL выборки для админки
-			$sql = "(SELECT '0' AS sort, a.active, pv.count_views,
-				".implode(", ",$this->usual_fields)."
-				FROM "._DB_PREFIX_."product AS p
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a
+			$sql = '(SELECT 0 AS sort, a.active, pv.count_views,
+				'.implode(', ', $this->usual_fields).'
+				FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 					ON p.id_product = a.id_product
-				LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+				LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 					ON cp.id_product = p.id_product
-				LEFT JOIN "._DB_PREFIX_."units AS un
+				LEFT JOIN '._DB_PREFIX_.'units AS un
 					ON un.id = p.id_unit
-				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
 					ON pv.id_product = p.id_product
-				WHERE (p.price_opt > 0 OR p.price_mopt > 0)
+				'.$this->db->GetWhere($and).'
+				AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND a.active = 1
 				AND p.visible = 1
-				".$where."
-				".$group_by.")
+				'.$group_by.')
 				UNION
-				(SELECT '1' AS sort, a.active, pv.count_views,
-				".implode(", ",$this->usual_fields)."
-				FROM "._DB_PREFIX_."product AS p
-				LEFT JOIN "._DB_PREFIX_."assortiment AS a
+				(SELECT 1 AS sort, a.active, pv.count_views,
+				'.implode(', ', $this->usual_fields).'
+				FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 					ON p.id_product = a.id_product
-				LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+				LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 					ON cp.id_product = p.id_product
-				LEFT JOIN "._DB_PREFIX_."units AS un
+				LEFT JOIN '._DB_PREFIX_.'units AS un
 					ON un.id = p.id_unit
-				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
 					ON pv.id_product = p.id_product
-				WHERE ((p.price_opt <= 0 OR p.price_mopt <= 0)
+				'.$this->db->GetWhere($and).'
+				AND ((p.price_opt <= 0 OR p.price_mopt <= 0)
 				OR p.visible = 0)
-				".$where."
-				".$group_by.")
-				ORDER BY ".$order_by."
-				".$limit;
+				'.$group_by.')
+				ORDER BY '.$order_by.'
+				'.$limit;
 		}else{
 			$sql = 'SELECT
 				p.*,
@@ -2843,6 +2843,7 @@ class Products {
 		$id_supplier = $Supplier->fields['id_user'];
 		$koef_nazen_opt = $Supplier->fields['koef_nazen_opt'];
 		$koef_nazen_mopt = $Supplier->fields['koef_nazen_mopt'];
+		$currency_rate = $Supplier->fields['currency_rate'] > 0?$Supplier->fields['currency_rate']:$GLOBALS['CONFIG']['currency_rate'];
 		foreach($array as $row){
 			$res = array_combine($keys, $row);
 			if($id_product = $this->GetIdByArt($res['art'])){
@@ -2853,12 +2854,12 @@ class Products {
 				}
 				if($usd){
 					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk'];
-					$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$Supplier->fields['currency_rate'];
+					$res['price_mopt_otpusk'] = $res['price_mopt_otpusk']*$currency_rate;
 					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk'];
-					$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$Supplier->fields['currency_rate'];
+					$res['price_opt_otpusk'] = $res['price_opt_otpusk']*$currency_rate;
 				}else{
-					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$Supplier->fields['currency_rate'];
-					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$Supplier->fields['currency_rate'];
+					$res['price_mopt_otpusk_usd'] = $res['price_mopt_otpusk']/$currency_rate;
+					$res['price_opt_otpusk_usd'] = $res['price_opt_otpusk']/$currency_rate;
 				}
 				if($this->IsInAssort($id_product, $id_supplier)){
 					$res['id_product'] = $id_product;
