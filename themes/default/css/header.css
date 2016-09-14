@@ -57,6 +57,10 @@ header.opened .header_wrapp .header_right .search_wrap button,
 header.opened .header_wrapp .header_right .search_wrap .search_category {
 	display: inline-block;
 }
+header.opened .header_wrapp .header_right .search_wrap button{
+	position: relative;
+	bottom: 3px;
+}
 header .header_wrapp .header_right .search_wrap .search_category{
 	padding: 0;
 	width: auto;
@@ -120,8 +124,7 @@ header .header_wrapp .header_right .search_wrap .header_search_close{
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul > li{
 	text-align: left;
-	padding-right: 5px;
-	padding-left: 10px;
+	padding: 4px 10px;
 }
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{
 	padding-left: 5px;
