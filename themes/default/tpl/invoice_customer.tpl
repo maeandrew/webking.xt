@@ -101,7 +101,7 @@
 	<tbody>
 		<tr>
 			<td style="padding-right: 10px;">
-				Название:
+				Название адреса:
 			</td>
 			<td>
 				<?=$address['title']?>
