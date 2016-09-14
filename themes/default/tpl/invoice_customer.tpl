@@ -80,7 +80,7 @@
 				<u><strong>получатель</strong></u>
 			</td>
 			<td class="second_col">
-				<?=$order['cont_person']?><?=str_repeat("&nbsp;", 3)?><?=$order['phones']?>
+				<?=$customer['cont_person']?><?=str_repeat("&nbsp;", 3)?><?=$customer['phones']?>
 			</td>
 		</tr>
 		<!-- <tr>
