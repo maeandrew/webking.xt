@@ -2153,6 +2153,9 @@ section .stat_year {
 	border-color: #ff5722;
 	color: #fff;
 }
+.card:hover .product_photo .add_to_fav_trend_block {
+	opacity: 1;
+}
 .card:hover .product_photo .add_to_fav_trend_block > div i {
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
