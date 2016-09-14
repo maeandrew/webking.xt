@@ -243,9 +243,6 @@
 							<?}?>
 						</div>
 					</div>
-					<script>
-						ListenPhotoHover(); //Инициализания Preview
-					</script>
 					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
 				<?}?>
 			</div>
@@ -443,6 +440,9 @@
 		</div>
 	</footer>
 	<div class="modals">
+		<div id="preview" data-type="modal">
+			<div class="modal_container"></div>
+		</div>
 		<div id="quiz" data-type="modal"></div>
 		<!-- Загрузка сметы -->
 		<div id="estimateLoad" class="estimate_modal" data-type="modal">

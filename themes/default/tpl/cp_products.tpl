@@ -141,8 +141,6 @@
 		// var preview = $('.list_view .preview'),
 		// 	previewOwl = preview.find('#owl-product_slide_js');
 
-		ListenPhotoHover();//Инициализания Preview
-
 		/* Открытие фильтров моб.вид */
 		$('.filters_mob_btn_js').on('click', function(){
 			if($('.activeFilters_js').hasClass('active') === false) {

@@ -96,7 +96,7 @@ $(function(){
 				$('#show_more_products').hide();
 			}
 
-			ListenPhotoHover();//Инициализания Preview
+			// ListenPhotoHover();//Инициализания Preview
 
 			$('.load_more').remove();
 			resizeAsideScroll('show_more');
@@ -2178,8 +2178,19 @@ $(function(){
 	});
 
 	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
-	$('.product_main_img').click(function(event){
+	$('.product_main_img').on('click', function(event){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	});
 	// ------------
+	$('.show_preview_js').on('click', function(){
+		var preview = $('#preview'),
+			id_product = $(this).closest('.card').data('idproduct');
+		addLoadAnimation(preview);
+		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
+			preview.find('.modal_container').html(data);
+			Position(preview);
+			componentHandler.upgradeDom();
+			removeLoadAnimation(preview);
+		});
+	});
 });
