@@ -919,7 +919,7 @@
 	</div>
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
 
-	<?if((SETT == 2 && !isset($_SESSION['member'])) || (SETT == 2 && isset($_SESSION['member']) && $_SESSION['member']['gid'] != _ACL_ADMIN_ && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_ && $_SESSION['member']['gid'] != _ACL_SEO_)){
+	<?if(SETT == 2 && (!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_CONTRAGENT_, _ACL_ADMIN_, _ACL_SEO_)))){
 		echo $GLOBALS['CONFIG']['jivosite'];
 	}?>
 

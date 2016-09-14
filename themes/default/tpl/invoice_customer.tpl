@@ -80,14 +80,14 @@
 				<u><strong>получатель</strong></u>
 			</td>
 			<td class="second_col">
-				<?=$order['cont_person']?><?=str_repeat("&nbsp;", 3)?><?=$order['phones']?>
+				<?=$customer['cont_person']?><?=str_repeat("&nbsp;", 3)?><?=$customer['phones']?>
 			</td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td class="undln"></td>
 			<td class="undln lb"></td>
 			<td><?=$addr_deliv?></td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td colspan="2">
 				<span class="undln"></span>
@@ -95,6 +95,70 @@
 			<td colspan="2" class="lb">
 			</td>
 		</tr>
+	</tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" style="padding: 3px; margin-top: 5px;">
+	<tbody>
+		<tr>
+			<td style="padding-right: 10px;">
+				Название адреса:
+			</td>
+			<td>
+				<?=$address['title']?>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding-right: 10px;">
+				Компания доставки:
+			</td>
+			<td>
+				<?=$address['shipping_company_title']?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Область:
+			</td>
+			<td>
+				<?=$address['region_title']?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Город:
+			</td>
+			<td>
+				<?=$address['city_title']?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Тип доставки:
+			</td>
+			<td>
+				<?=$address['delivery_type_title']?>
+			</td>
+		</tr>
+		<?if($address['delivery_department'] !=''){?>
+			<tr>
+				<td>
+					Отделение:
+				</td>
+				<td>
+					<?=$address['delivery_department']?>
+				</td>
+			</tr>
+		<?}?>
+		<?if($address['address'] !=''){?>
+			<tr>
+				<td>
+					Адрес:
+				</td>
+				<td>
+					<?=$address['address']?>
+				</td>
+			</tr>
+		<?}?>
 	</tbody>
 </table>
 <?
