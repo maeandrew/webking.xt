@@ -1,6 +1,9 @@
 aside {
 	display: none;
 }
+.page_content {
+	min-height: 0;
+}
 .error404 {
 	display: flex;
 	flex-wrap: wrap;
