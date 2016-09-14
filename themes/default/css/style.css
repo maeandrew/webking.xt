@@ -3971,6 +3971,7 @@ iframe[name="google_conversion_frame"] {
 	position: absolute;
 	left: 0;
 	right: 0;
+	line-height: 1.2em;
 	text-align: center;
 	font-size: 2em;
 	transition: all .4s cubic-bezier(.4,0,.2,1);

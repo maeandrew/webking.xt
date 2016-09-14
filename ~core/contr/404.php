@@ -7,11 +7,4 @@ $tpl->Assign('header', '');
 $tpl->Assign('list_menu', $Page->list);
 // ---- center ----
 G::metaTags(array('page_title' => 'Странице не найдена'));
-unset($parsed_res);
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_404.tpl')
-);
-if(true == $parsed_res['issuccess']){
-	$tpl_center .= $parsed_res['html'];
-}
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_404.tpl');
