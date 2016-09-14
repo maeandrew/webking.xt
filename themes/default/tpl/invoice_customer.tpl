@@ -83,16 +83,60 @@
 				<?=$order['cont_person']?><?=str_repeat("&nbsp;", 3)?><?=$order['phones']?>
 			</td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td class="undln"></td>
 			<td class="undln lb"></td>
 			<td><?=$addr_deliv?></td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td colspan="2">
 				<span class="undln"></span>
 			</td>
 			<td colspan="2" class="lb">
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" style="padding: 3px; margin-top: 5px;">
+	<tbody>
+		<tr>
+			<td style="padding-right: 10px;">
+				Компания доставки:
+			</td>
+			<td>
+				Новая почта
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Область:
+			</td>
+			<td>
+				Харьковская
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Город:
+			</td>
+			<td>
+				Харьков
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Тип доставки:
+			</td>
+			<td>
+				Пункт выдачи
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Отделение:
+			</td>
+			<td>
+				Отделение №1: ул. Урицкого, 17
 			</td>
 		</tr>
 	</tbody>
