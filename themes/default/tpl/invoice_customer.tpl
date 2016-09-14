@@ -101,10 +101,18 @@
 	<tbody>
 		<tr>
 			<td style="padding-right: 10px;">
+				Название:
+			</td>
+			<td>
+				<?=$address['title']?>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding-right: 10px;">
 				Компания доставки:
 			</td>
 			<td>
-				Новая почта
+				<?=$address['shipping_company_title']?>
 			</td>
 		</tr>
 		<tr>
@@ -112,7 +120,7 @@
 				Область:
 			</td>
 			<td>
-				Харьковская
+				<?=$address['region_title']?>
 			</td>
 		</tr>
 		<tr>
@@ -120,7 +128,7 @@
 				Город:
 			</td>
 			<td>
-				Харьков
+				<?=$address['city_title']?>
 			</td>
 		</tr>
 		<tr>
@@ -128,17 +136,29 @@
 				Тип доставки:
 			</td>
 			<td>
-				Пункт выдачи
+				<?=$address['delivery_type_title']?>
 			</td>
 		</tr>
-		<tr>
-			<td>
-				Отделение:
-			</td>
-			<td>
-				Отделение №1: ул. Урицкого, 17
-			</td>
-		</tr>
+		<?if($address['delivery_department'] !=''){?>
+			<tr>
+				<td>
+					Отделение:
+				</td>
+				<td>
+					<?=$address['delivery_department']?>
+				</td>
+			</tr>
+		<?}?>
+		<?if($address['address'] !=''){?>
+			<tr>
+				<td>
+					Адрес:
+				</td>
+				<td>
+					<?=$address['address']?>
+				</td>
+			</tr>
+		<?}?>
 	</tbody>
 </table>
 <?
