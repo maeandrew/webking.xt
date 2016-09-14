@@ -1256,13 +1256,6 @@ section.center {
 	aside .catalog .second_nav .link_wrapp:hover .more_cat:hover i {
 		color: #018b06;
 	}
-	/*aside .catalog .second_nav[data-lvl="1"] .link_wrapp + ul[data-lvl="2"]{
-		height: 0;
-
-	}
-	aside .catalog .second_nav[data-lvl="1"] .link_wrapp:hover + ul[data-lvl="2"]{
-		display: block;
-	}*/
 	aside .catalog .second_nav i {
 		font-size: 16px;
 		box-sizing: border-box;
@@ -1344,22 +1337,22 @@ section.center {
 		overflow: auto;
 	}
 	aside .filters .filter_block {
-		padding: 10px;
-		padding-bottom: 0;
+		padding: 4px 0;
+		border-bottom: 1px solid #e5e5e5;
 	}
 	aside .filters .filter_block .more {
-		position: relative;
-		width: 85px;
-		left: calc(100% - 76px);
+		text-align: right;
 		cursor: pointer;
+		padding-right: 5px;
+	}
+	aside .filters .filter_block .more i{
+		vertical-align: middle;
 	}
 	aside .filters .filter_block p {
-		margin-top: 10px;
 		text-align: center;
 	}
 	aside .filters .filter_block ul {
-		border-bottom: 1px solid #e5e5e5;
-		padding-bottom: 10px;
+		padding-bottom: 0;
 	}
 	aside .filters .filter_block:last-of-type ul {
 		border: none;
@@ -1368,10 +1361,7 @@ section.center {
 		display: none;
 	}
 	aside .filters .filter_block label {
-		color: #8f8f8f;
-	}
-	aside .filters .filter_block label:hover {
-		color: inherit;
+		color: #444;
 	}
 	aside .filters .filter_block .mdl-checkbox__label {
 		font-size: inherit;
@@ -1389,8 +1379,9 @@ section.center {
 		z-index: 10;
 		top: 50px;
 	}*/
-		aside .filters .mdl-textfield {
-		width: 30%
+	aside .filters .mdl-textfield {
+		width: 30%;
+		padding: 0;
 	}
 	aside .filters #minPrice,
 	aside .filters #maxPrice {
@@ -1409,16 +1400,14 @@ section.center {
 	aside .filters .priceValute {
 		width: 20%;
 		color: #FF5722;
-		padding-left: 5px;
-		padding-right: 5px;
 	}
 	aside .filters .priceValute p {
-		margin-top: 30px;
 		font-weight: bold;
 	}
 	aside .filters #priceFields {
 		display: flex;
 		justify-content: center;
+		padding: 5px 0;
 	}
 	/* News */
 		/*aside .news {

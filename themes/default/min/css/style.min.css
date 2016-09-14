@@ -23,6 +23,7 @@ input.mdl-textfield__input:hover,textarea.mdl-textfield__input:hover{border:none
 input:focus,textarea:focus{border:1px solid #bdbdbd}
 input.mdl-textfield__input:focus,textarea.mdl-textfield__input:focus{border:none;border-bottom:1px solid #bdbdbd}
 input[type=number],input[type=number]:focus{outline:0;border:none;border-bottom:1px solid #bdbdbd}
+.mdl-checkbox .mdl-checkbox__box-outline{border:1px solid rgba(0,0,0,.54)}
 .orange{color:#FF5722}
 .clearBoth{clear:both}
 .clearfix:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
@@ -242,23 +243,23 @@ aside .catalog .second_nav li ul{display:none;margin-left:15px}
 aside .catalog .second_nav li>ul li>ul li a{display:inline-block;padding-right:0}
 aside .filters{display:none}
 aside .filters .filters_container{overflow:auto}
-aside .filters .filter_block{padding:10px;padding-bottom:0}
-aside .filters .filter_block .more{position:relative;width:85px;left:calc(100% - 76px);cursor:pointer}
-aside .filters .filter_block p{margin-top:10px;text-align:center}
-aside .filters .filter_block ul{border-bottom:1px solid #e5e5e5;padding-bottom:10px}
+aside .filters .filter_block{padding:4px 0;border-bottom:1px solid #e5e5e5}
+aside .filters .filter_block .more{text-align:right;cursor:pointer;padding-right:5px}
+aside .filters .filter_block .more i{vertical-align:middle}
+aside .filters .filter_block p{text-align:center}
+aside .filters .filter_block ul{padding-bottom:0}
 aside .filters .filter_block:last-of-type ul{border:none}
 aside .filters .filter_block ul li:nth-child(n+6){display:none}
-aside .filters .filter_block label{color:#8f8f8f}
-aside .filters .filter_block label:hover{color:inherit}
+aside .filters .filter_block label{color:#444}
 aside .filters .filter_block .mdl-checkbox__label{font-size:inherit;max-width:calc(100% - 40px)}
 aside .filters .filterButtons{display:flex;justify-content:space-around}
-aside .filters .mdl-textfield{width:30%}
+aside .filters .mdl-textfield{width:30%;padding:0}
 aside .filters #maxPrice,aside .filters #minPrice{color:#FF5722;font-weight:700;text-align:center}
 aside .filters #priceFields span{font-size:10px}
 aside .filters label{max-height:45px;height:auto;overflow:hidden}
-aside .filters .priceValute{width:20%;color:#FF5722;padding-left:5px;padding-right:5px}
-aside .filters .priceValute p{margin-top:30px;font-weight:700}
-aside .filters #priceFields{display:flex;justify-content:center}
+aside .filters .priceValute{width:20%;color:#FF5722}
+aside .filters .priceValute p{font-weight:700}
+aside .filters #priceFields{display:flex;justify-content:center;padding:5px 0}
 aside .catalog_close{display:none}
 aside.opened .catalog_close{display:block}
 aside .catalog_close{width:50px;height:50px;position:absolute;top:19px;left:100%;background:#F7F7F7;border:1px solid #e0e0e0;border-left:none;cursor:pointer}
