@@ -122,6 +122,9 @@ input[type="number"]:focus {
 	border: none;
 	border-bottom: 1px solid #bdbdbd;
 }
+.mdl-checkbox .mdl-checkbox__box-outline{
+	border: 1px solid rgba(0, 0, 0, .54);
+}
 .orange {
 	color: #FF5722;
 }
@@ -1000,8 +1003,8 @@ section.center {
 	}
 	#cart .this_my_number {
 		display: block;
-    	margin-bottom: 15px;
-    	font-weight: bold;
+		margin-bottom: 15px;
+		font-weight: bold;
 	}
 	#cart .cart_login_btn {
 		margin-bottom: 10px;
@@ -1253,6 +1256,13 @@ section.center {
 	aside .catalog .second_nav .link_wrapp:hover .more_cat:hover i {
 		color: #018b06;
 	}
+	/*aside .catalog .second_nav[data-lvl="1"] .link_wrapp + ul[data-lvl="2"]{
+		height: 0;
+
+	}
+	aside .catalog .second_nav[data-lvl="1"] .link_wrapp:hover + ul[data-lvl="2"]{
+		display: block;
+	}*/
 	aside .catalog .second_nav i {
 		font-size: 16px;
 		box-sizing: border-box;
@@ -4282,12 +4292,12 @@ iframe[name="google_conversion_frame"] {
 
 #cart .manual_cart_column_block {
 	padding-top: 10px;
-    margin-top: 15px;
-    border-top: 1px solid #e0e0e0;
+	margin-top: 15px;
+	border-top: 1px solid #e0e0e0;
 }
 #cart .manual_cart_column_block .column_switcher_block {
 	margin-top: 5px;
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 #cart .manual_cart_column_block .switch_comment {
 	margin-bottom: 10px;
@@ -4391,8 +4401,8 @@ iframe[name="google_conversion_frame"] {
 }
 #confirmMyPhone .icon {
 	width: 300px;
-    font-size: 150px;
-    color: #018b06;
+	font-size: 150px;
+	color: #018b06;
 }
 
 /*Рейтинг в списке товаров*/
