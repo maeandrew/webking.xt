@@ -293,7 +293,7 @@ if(!_acl::isAdmin()){
 
 			$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 			// Редирект, если выбранная страница превышает количество товаров
-			if($cnt<=$GLOBALS['Start']){
+			if($cnt<=$GLOBALS['Start'] && $GLOBALS['Page_id']>1){
 				header('Location: '._base_url.'/'.$GLOBALS['Rewrite'].'/');
 			}
 			unset($cnt);
