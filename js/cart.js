@@ -64,7 +64,7 @@ function SendToAjax(id, qty, button, direction, note){
 		var sum = 0;
 		// Автоматический пересчет скидки
 		$('.currentCartSum').html(data.cart.products_sum[3]);
-		ChangePriceRange(data.cart.cart_column, 0);		
+		ChangePriceRange(data.cart.cart_column, 0);
 		$('#cart .product_buy[data-idproduct="'+id+'"]').find('.price').html(data.cart.products[id].actual_prices[data.cart.cart_column].toFixed(2).toString().replace('.',',')); // устанавливает актуальную цену товара в корзине.
 	});
 }

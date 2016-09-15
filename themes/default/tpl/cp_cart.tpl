@@ -578,14 +578,17 @@
 	</div>
 	<div class="cart_buttons">
 		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
+		<input type="hidden" value="<?=$GLOBALS['CONFIG']['min_sum_order']?>">
+		<?$min_sum_order = $_SESSION['cart']['products_sum'][3] >= $GLOBALS['CONFIG']['min_sum_order'];?>
 
-		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
-			<div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>>
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag" type='submit' value="Отправить">Оформить заказ</button>
-			</div>
-		<?}else{?>
-			<p>Вы не можете использовать корзину</p>
-		<?}?>
+			<?if(!G::IsLogged() || $_SESSION['cart']['products_sum'][3] >= $GLOBALS['CONFIG']['min_sum_order'] && !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
+				<div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag <?=$min_sum_order === false?'hidden':null?>" type='submit' value="Отправить">Оформить заказ</button>
+					<p <?=$min_sum_order === true?'class="hidden"':null?>>Минимальная сумма заказа <?=$GLOBALS['CONFIG']['min_sum_order']?> грн.</p>
+				</div>
+			<?}else{?>
+				<p>Вы не можете использовать корзину</p>
+			<?}?>
 
 		<?if(!isset($_SESSION['cart']['promo'])){?>	 <!-- когда клиент выберает чекбокс -->
 			<button class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js">Продолжить</button>

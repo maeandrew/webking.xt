@@ -282,8 +282,10 @@ function ChangePriceRange(column, manual){
 		column = $.cookie('sum_range');
 	}
 	addLoadAnimation('.order_balance');
+	addLoadAnimation('#button-cart1');
 	ajax('cart', 'GetCart').done(function(data){
 		removeLoadAnimation('.order_balance');
+		removeLoadAnimation('#button-cart1');
 		currentSum = data.products_sum[3];
 		newSum = columnLimits[column] - currentSum;
 		if(newSum < 0){
@@ -319,6 +321,17 @@ function ChangePriceRange(column, manual){
 				}, 3000);
 
 			}, 300);
+		}
+
+		if($('#cart').hasClass('opened')){
+			var min_sum_order = parseInt($('#cart .cart_buttons input').val());
+			if (data.products_sum[3] < min_sum_order) {
+				$('#button-cart1 button').addClass('hidden');
+				$('#button-cart1 p').removeClass('hidden');
+			}else{
+				$('#button-cart1 p').addClass('hidden');
+				$('#button-cart1 button').removeClass('hidden');
+			}
 		}
 	});
 }

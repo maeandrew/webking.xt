@@ -840,6 +840,9 @@ section.center {
 		/*border: 1px solid #e0e0e0;*/
 		border-bottom: none;
 	}
+	#button-cart1 {
+		position: relative;
+	}
 	#cart ul.order_head {
 		text-align: right;
 		overflow: hidden;
@@ -4262,6 +4265,7 @@ iframe[name="google_conversion_frame"] {
 	margin-top: 20px;
 	padding-top: 20px;
 	padding-bottom: 5px;
+	height: 6em;
 }
 #cart .buy_more {
 	float: left;
