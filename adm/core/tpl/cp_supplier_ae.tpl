@@ -89,7 +89,7 @@
 			
 			<input type="hidden" name="gid" id="gid" value="<?=isset($_POST['gid'])?$_POST['gid']:0?>">
 			<input type="hidden" name="id_user" id="id_user" value="<?=isset($_POST['id_user'])?$_POST['id_user']:0?>">
-			<button type="submit" name="clear-assort" class="btn-l-red-inv fr save-btn" onclick="if(confirm('Все товары поставщика будут удалены из ассортимента!\nДействие необратимо!')){window.location.href = '/cart/clear/';}else{return false;}">Очистить поставщика</button>
+			<button type="submit" name="clear-assort" class="btn-l-red-inv fr save-btn" onclick="if(!confirm('Все товары поставщика будут удалены из ассортимента!\nДействие необратимо!')){return false;}">Очистить ассортимент поставщика</button>
 			<button name="smb" type="submit" class="btn-l-default save-btn">Сохранить</button>
 		</div>
 	</form>

@@ -20,9 +20,11 @@ if(!$Supplier->SetFieldsById($id_user, 1)){
 	die('Ошибка при выборе пользователя.');
 }
 if(isset($_POST['clear-assort'])){
-	$Supplier->DelSupplierAssort($id_user);
-	header('Location: '.$_SERVER['REQUEST_URI']);
-	exit();
+	if($Supplier->DelSupplierAssort($id_user)){
+		echo '<script>alert("Все прошло успешно!");</script>';
+	}else{
+		echo '<script>alert("Произошла ошибка. Обратитесь к администратору");</script>';
+	}
 }
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
