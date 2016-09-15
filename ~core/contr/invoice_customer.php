@@ -19,6 +19,9 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$tpl->Assign("order", $ord);
 		$Invoice = new Invoice();
 		$User = new Users();
+		$Address = new Address();
+		// Получаем адреc доставки
+		$addr = $Address->GetAddressById($ord['id_address']);
 		// Получить данные покупателя
 		$id_customer = $ord['id_customer'];
 		$Customer = new Customers();
@@ -31,6 +34,7 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 			$tpl->Assign("remitter", $remitter);
 		}
 		$Contragent->SetFieldsById($id_contragent);
+		$tpl->Assign("address", $addr);
 		$tpl->Assign("Customer", $Customer->fields);
 		$tpl->Assign("Contragent", $Contragent->fields);
 		$tpl->Assign("date", date("d.m.Y",$ord['target_date']));
