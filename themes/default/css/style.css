@@ -1714,6 +1714,7 @@ section .stat_year {
 	box-sizing: border-box;
 	line-height: 20px;
 	color: #c1c1c1;
+	font-weight: 600;
 	cursor: pointer;
 	text-align: center;
 	-webkit-transition: all .3s cubic-bezier(.4, 0, .2, 1);
