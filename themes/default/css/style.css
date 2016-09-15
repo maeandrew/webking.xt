@@ -1725,6 +1725,7 @@ section .stat_year {
 	box-sizing: border-box;
 	line-height: 20px;
 	color: #c1c1c1;
+	font-weight: 600;
 	cursor: pointer;
 	text-align: center;
 	-webkit-transition: all .3s cubic-bezier(.4, 0, .2, 1);
@@ -2164,8 +2165,11 @@ section .stat_year {
 	border-color: #ff5722;
 	color: #fff;
 }
-.card:hover .product_photo .add_to_fav_trend_block {
-	opacity: 1;
+.card:hover .product_photo .add_to_fav_trend_block > div i {
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
 }
 .card:hover .product_photo .add_to_fav_trend_block > div i {
 	-webkit-transform: scale(1);
@@ -4408,7 +4412,6 @@ iframe[name="google_conversion_frame"] {
 	font-size: 150px;
 	color: #018b06;
 }
-
 /*Рейтинг в списке товаров*/
 .rating_block{
 	margin-top: .5em;

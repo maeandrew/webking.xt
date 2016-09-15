@@ -292,6 +292,10 @@ if(!_acl::isAdmin()){
 			$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
 
 			$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+			// Редирект, если выбранная страница превышает количество товаров
+			if($cnt<=$GLOBALS['Start']){
+				header('Location: '._base_url.'/'.$GLOBALS['Rewrite'].'/');
+			}
 			unset($cnt);
 			$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 		}else{

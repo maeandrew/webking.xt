@@ -578,7 +578,8 @@ label.info_key {
 .list_view .note {
 	margin-top: 5px;
 }
-.add_to_fav_trend_block {
+
+.add_to_fav_trend_block{
 	position: absolute;
 	display: block;
 	bottom: 0;
