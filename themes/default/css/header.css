@@ -160,7 +160,7 @@ header .header_wrapp .header_right .cart_item a > span {
 	position: relative;
 	bottom: 6px;
 }
-header .header_wrapp .header_right .cart_item a > span > span{
+header .header_wrapp .header_right .cart_item a span{
 	font-weight: 600;
 }
 header .header_wrapp .header_right .random_page {
