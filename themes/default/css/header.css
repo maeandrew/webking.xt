@@ -81,6 +81,7 @@ header .header_wrapp .header_right .search_wrap .search_category.is-focused .mdl
 	opacity: 1;
 	z-index: 1000;
 }
+
 header.opened .header_wrapp .header_right .search_wrap .search {
 	/*width: 400px;*/
 	/*width: auto;*/
@@ -149,9 +150,18 @@ header .header_wrapp .header_right .cart_item {
 }
 header .header_wrapp .header_right .cart_item i {
 	vertical-align: middle;
+	display: inline-block;
 }
-header .header_wrapp .header_right .cart_item span {
-	margin-left: .5em
+header .header_wrapp .header_right .cart_item a > span {
+	margin-left: .5em;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	position: relative;
+	bottom: 6px;
+}
+header .header_wrapp .header_right .cart_item a > span > span:last-of-type{
+	font-weight: 600;
 }
 header .header_wrapp .header_right .random_page {
 	/*display: none;*/

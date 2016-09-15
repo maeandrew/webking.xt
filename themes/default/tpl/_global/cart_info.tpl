@@ -1,5 +1,5 @@
  <div class="cart_info <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?> mdl-cell--hide-phone">
-	<span class="your_discount">Ваша скидка</span>
+	<span class="your_discount">Выберите скидку</span>
 	<ul class="tabs_container">
 		<li onclick="ChangePriceRange(3, 1)" class="sum_range sum_range_3 <?=isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 3?'active':null;?>">0%</li>
 		<li onclick="ChangePriceRange(2, 1);" class="sum_range sum_range_2 <?=isset($_COOKIE['sum_range']) && $_COOKIE['sum_range'] == 2?'active':null;?>">10%</li>

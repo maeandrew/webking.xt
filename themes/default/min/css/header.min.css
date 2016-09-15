@@ -31,8 +31,9 @@ header .header_wrapp .header_right{display:flex;justify-content:flex-end;align-i
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul>li{text-align:left;padding:4px 10px}
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{padding-left:5px}
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box{max-height:90vh}
-header .header_wrapp .header_right .cart_item i{vertical-align:middle}
-header .header_wrapp .header_right .cart_item span{margin-left:.5em}
+header .header_wrapp .header_right .cart_item i{vertical-align:middle;display:inline-block}
+header .header_wrapp .header_right .cart_item a>span{margin-left:.5em;display:inline-block;vertical-align:middle;text-align:center;position:relative;bottom:6px}
+header .header_wrapp .header_right .cart_item a>span>span:last-of-type{font-weight:600}
 header .header_wrapp .header_right .pages_list nav{max-height:80vh;overflow:auto}
 header .header_wrapp .header_right .profile img{max-height:100%;vertical-align:top}
 @media (max-width:1000px){header{margin-left:0}

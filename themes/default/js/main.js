@@ -2208,5 +2208,5 @@ $(function(){
 		$('.search_category.mdl-selectfield').removeClass('is-focused');
 	});
 	// ------------
-
+	
 });

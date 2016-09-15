@@ -290,7 +290,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 .content_header .cart_info{padding:10px 0;position:relative;display:flex;flex-wrap:nowrap;justify-content:space-between}
 .content_header .cart_info .order_balance,.content_header .cart_info .your_discount{line-height:25px}
 .content_header .cart_info .tabs_container{width:170px;padding:0 10px;display:flex;justify-content:center}
-.content_header .cart_info .tabs_container li{display:inline-block;font-size:14px;border:1px solid #e5e5e5;border-right-width:0;padding:0 5px;box-sizing:border-box;line-height:20px;color:#c1c1c1;cursor:pointer;text-align:center;-webkit-transition:all .3s cubic-bezier(.4,0,.2,1);-o-transition:all .3s cubic-bezier(.4,0,.2,1);transition:all .3s cubic-bezier(.4,0,.2,1)}
+.content_header .cart_info .tabs_container li{display:inline-block;font-size:14px;border:1px solid #e5e5e5;border-right-width:0;padding:0 5px;box-sizing:border-box;line-height:20px;color:#c1c1c1;font-weight:600;cursor:pointer;text-align:center;-webkit-transition:all .3s cubic-bezier(.4,0,.2,1);-o-transition:all .3s cubic-bezier(.4,0,.2,1);transition:all .3s cubic-bezier(.4,0,.2,1)}
 .content_header .cart_info .tabs_container li:first-of-type{border-radius:3px 0 0 3px}
 .content_header .cart_info .tabs_container li:last-of-type{border-radius:0 3px 3px 0;border-right-width:1px}
 .content_header .cart_info .tabs_container li:hover{border-color:#FF5722;color:inherit}
@@ -345,7 +345,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 .product_buy .buy_block .btn_buy button{text-transform:capitalize;position:absolute;top:0;left:10%;right:10%;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1);width:80%;z-index:1;border:1px solid #f1f1f1}
 .card .product_buy .buy_block .btn_buy:hover button{position:absolute;top:calc(-35px / 2);height:70px}
 .card:hover .product_buy .buy_block .btn_buy button{background:#ff5722;border-color:#ff5722;color:#fff}
-.card:hover .product_photo .add_to_fav_trend_block{opacity:1}
+.card:hover .product_photo .add_to_fav_trend_block>div i{-webkit-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}
 .card:hover .product_photo .add_to_fav_trend_block>div i{-webkit-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}
 .product_buy .buy_block .quantity{position:relative}
 .product_buy .buy_block .quantity button{position:absolute;margin:0;padding:0;width:100%;width:70px;max-height:25px;background:0 0;border:1px solid transparent;cursor:pointer;opacity:0;left:0;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1);outline:0}
