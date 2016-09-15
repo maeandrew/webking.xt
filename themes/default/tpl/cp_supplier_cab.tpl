@@ -106,7 +106,7 @@ if(!is_array($msg)){?>
 	if($cabinet_page == 'assortment'){?>
 		<?if(isset($cnt) && $cnt >= 30){?>
 			<div class="sort_page_top col-md-12">
-				<a href="<?=Link::Custom('cabinet', 'assortment');?>limitall/"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
+				<a href="<?=Link::Custom('cabinet', 'assortment');?>/limitall/"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
 			</div>
 		<?}?>
 		<div class="switch_price_container">
