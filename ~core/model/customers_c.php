@@ -3,17 +3,17 @@ class Customers extends Users {
 	private $usual_fields;
 	public function __construct(){
 		parent::__construct();
-		$this->usual_fields = array("id_user", "cont_person", "phones", "discount", "id_contragent", "id_city",
-									"id_delivery", "bonus_card", "bonus_balance", "bonus_discount", "balance",
-									"sex", "birthday", "address_ur", "b_year", "b_month", "b_day", "first_name", "middle_name", "last_name");
+		$this->usual_fields = array('id_user', 'cont_person', 'phones', 'discount', 'id_contragent', 'id_city',
+			'id_delivery', 'bonus_card', 'bonus_balance', 'bonus_discount', 'balance',
+			'sex', 'birthday', 'address_ur', 'b_year', 'b_month', 'b_day', 'first_name', 'middle_name', 'last_name');
 	}
 	// Покупатель по id
 	public function SetFieldsById($id, $all = 0, $all_data = false){
 		parent::SetFieldsById($id, $all);
 		$user_fields = $this->fields;
-		$sql = "SELECT *
-			FROM  "._DB_PREFIX_."customer
-			WHERE id_user = ".$id;
+		$sql = 'SELECT *
+			FROM  '._DB_PREFIX_.'customer
+			WHERE id_user = '.$id;
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
