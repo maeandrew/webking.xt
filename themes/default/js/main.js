@@ -1704,6 +1704,7 @@ $(function(){
 		var new_user_name = $('#new_user_name').val();
 		var new_user_middle_name = $('#new_user_middle_name').val();
 		var phone = $('#cart_customer_search .phone').val();
+		var check = true;
 		//Приводит тел в нужный вид
 		var str = phone.replace(/\D/g, "");
 		var check_num = /^(38)?(\d{10})$/;
@@ -1714,12 +1715,20 @@ $(function(){
 				phone = str;
 			}
 		}
-		addLoadAnimation('#cart_customer_search');
-		ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
-			removeLoadAnimation('#cart_customer_search');
-			closeObject('cart_customer_search');
-			openObject('cart');
+		$('#cart_customer_search .new_name_block input').each(function(){
+			if($(this).val() === ''){
+				$(this).closest('div').addClass('is-invalid');
+				check = false;
+			}
 		});
+		if(check === true){
+			addLoadAnimation('#cart_customer_search');
+			ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
+				removeLoadAnimation('#cart_customer_search');
+				closeObject('cart_customer_search');
+				openObject('cart');
+			});
+		}
 	});
 
 	//Убираем красную границу при вводе телефона
@@ -2208,5 +2217,5 @@ $(function(){
 		$('.search_category.mdl-selectfield').removeClass('is-focused');
 	});
 	// ------------
-	
+
 });
