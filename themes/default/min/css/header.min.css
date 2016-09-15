@@ -11,8 +11,11 @@ header .header_wrapp .header_right .search_wrap{line-height:34px}
 header .header_wrapp .header_right .search_wrap .search{padding:0;width:260px;vertical-align:middle}
 header .header_wrapp .header_right .search_wrap .search_category,header .header_wrapp .header_right .search_wrap button{display:none;vertical-align:middle}
 header.opened .header_wrapp .header_right .search_wrap .search_category,header.opened .header_wrapp .header_right .search_wrap button{display:inline-block}
+header.opened .header_wrapp .header_right .search_wrap button{position:relative;bottom:3px}
 header .header_wrapp .header_right .search_wrap .search_category{padding:0;width:auto}
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box{top:0;bottom:0}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box+.mdl-selectfield__list-option-box{display:block;visibility:hidden;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
+header .header_wrapp .header_right .search_wrap .search_category.is-focused .mdl-selectfield__box+.mdl-selectfield__list-option-box{visibility:visible;opacity:1;z-index:1000}
 header.opened .header_wrapp .header_right .search_wrap .search{vertical-align:middle}
 header .header_wrapp .header_right .search_wrap .header_search_close{display:none}
 @media all and (handheld),all and (max-width:1170px){header.opened .header_wrapp .header_right .search_wrap .header_search_close{display:inline-block;position:absolute;right:.5em;top:.5em;background-color:#fff;cursor:pointer}
@@ -25,7 +28,7 @@ header.opened .header_wrapp .header_right .search_wrap div.search{display:inline
 header.opened .header_wrapp .header_right .search_wrap div.search input{width:70vw}
 header .header_wrapp .header_right{display:flex;justify-content:flex-end;align-items:center}
 }
-header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul>li{text-align:left;padding-right:5px;padding-left:10px}
+header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value,header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box ul>li{text-align:left;padding:4px 10px}
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__box .mdl-selectfield__box-value{padding-left:5px}
 header .header_wrapp .header_right .search_wrap .search_category .mdl-selectfield__list-option-box{max-height:90vh}
 header .header_wrapp .header_right .cart_item i{vertical-align:middle}

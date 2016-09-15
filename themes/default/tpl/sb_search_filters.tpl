@@ -136,7 +136,7 @@
 					<label class="mdl-textfield__label" for="minPrice"></label>
 					<span class="mdl-textfield__error">ВВЕДИТЕ ЧИСЛО!</span>
 				</div>
-				<div class="priceValute"><p>грн -</p></div>
+				<div class="priceValute"><p>грн &nbsp;&nbsp;—</p></div>
 				<div class="mdl-textfield mdl-js-textfield">
 					<input id="maxPrice" class="mdl-textfield__input priceField" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<?=isset($GLOBALS['Price_range'][1]) ? $GLOBALS['Price_range'][1] : $max_price?>">
 					<label class="mdl-textfield__label" for="maxPrice"></label>

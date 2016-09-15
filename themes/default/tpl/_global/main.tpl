@@ -175,7 +175,7 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<?if($GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false))){?>
+	<?if(in_array($GLOBALS['CurrentController'], array('main', '404')) || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false))){?>
 		<section class="banner">
 			<div class="banner_container">
 				<a class="banner_button" href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
@@ -919,7 +919,7 @@
 	</div>
 	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
 
-	<?if((SETT == 2 && !isset($_SESSION['member'])) || (SETT == 2 && isset($_SESSION['member']) && $_SESSION['member']['gid'] != _ACL_ADMIN_ && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_ && $_SESSION['member']['gid'] != _ACL_SEO_)){
+	<?if(SETT == 2 && (!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_CONTRAGENT_, _ACL_ADMIN_, _ACL_SEO_)))){
 		echo $GLOBALS['CONFIG']['jivosite'];
 	}?>
 

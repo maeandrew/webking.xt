@@ -2193,4 +2193,20 @@ $(function(){
 			removeLoadAnimation(preview);
 		});
 	});
+
+	// Код для обработки наведения на выпадающий список с категориями для поиска в header
+	$('body').on('mouseenter', '.search_category .mdl-selectfield__box, .search_category .mdl-selectfield__list-option-box li', function(event){
+		event.preventDefault();
+		$('.search_category.mdl-selectfield').addClass('is-focused');
+	});
+	$('body').on('mouseleave', '.search_category .mdl-selectfield__box, .search_category .mdl-selectfield__list-option-box li', function(event){
+		event.preventDefault();
+		$('.search_category.mdl-selectfield').removeClass('is-focused');
+	});
+	$('body').on('click', '.search_category .mdl-selectfield__list-option-box li', function(event){
+		event.preventDefault();
+		$('.search_category.mdl-selectfield').removeClass('is-focused');
+	});
+	// ------------
+	
 });
