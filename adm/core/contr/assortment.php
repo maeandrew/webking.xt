@@ -32,11 +32,11 @@ $Supplier->SetFieldsById($id_supplier, 1);
 //экспорт в exel
 if(isset($_GET['export'])){
 	$Products->SetProductsList1($id_supplier, $order, '');
-	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $id_supplier));
+	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $id_supplier), $Supplier->fields['article'].' '.date('d.m'));
 	exit(0);
 }elseif(isset($_GET['export_usd'])){
 	$Products->SetProductsList1($id_supplier, $order, '');
-	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $id_supplier));
+	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $id_supplier), $Supplier->fields['article'].' '.date('d.m').' usd');
 	exit(0);
 }
 // Импорт

@@ -2742,7 +2742,7 @@ class Products {
 	 * Генерация и выдача для скачивания файла excel Ассортимент (Экспорт)
 	 * @param [type] $rows [description]
 	 */
-	public function GenExcelAssortFile($rows){
+	public function GenExcelAssortFile($rows, $filename = false){
 		ini_set('memory_limit', '512M');
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -2792,7 +2792,7 @@ class Products {
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, '');
 		}
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="assortiment.xls"');
+		header('Content-Disposition: attachment;filename="'.($filename?$filename:'assortment').'.xls"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
