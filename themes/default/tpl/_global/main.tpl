@@ -175,7 +175,7 @@
 	<header id="header_js" class="default" data-type="search">
 		<?=$__header?>
 	</header>
-	<?if($GLOBALS['CurrentController'] === 'main' || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false))){?>
+	<?if(in_array($GLOBALS['CurrentController'], array('main', '404')) || (isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false))){?>
 		<section class="banner">
 			<div class="banner_container">
 				<a class="banner_button" href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>

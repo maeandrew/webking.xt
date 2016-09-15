@@ -2153,6 +2153,9 @@ section .stat_year {
 	border-color: #ff5722;
 	color: #fff;
 }
+.card:hover .product_photo .add_to_fav_trend_block {
+	opacity: 1;
+}
 .card:hover .product_photo .add_to_fav_trend_block > div i {
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
@@ -3968,6 +3971,7 @@ iframe[name="google_conversion_frame"] {
 	position: absolute;
 	left: 0;
 	right: 0;
+	line-height: 1.2em;
 	text-align: center;
 	font-size: 2em;
 	transition: all .4s cubic-bezier(.4,0,.2,1);

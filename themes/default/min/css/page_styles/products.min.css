@@ -81,7 +81,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .product_section .product_info .service_block .comment_question_btn{width:100%;margin-bottom:5px}
 .block_view .products .card .product_section .product_buy .priceMoptInf{position:absolute;margin:0}
 .block_view .note,.list_view .note{margin-top:5px}
-.add_to_fav_trend_block{position:absolute;display:block;bottom:0;right:0}
+.add_to_fav_trend_block{position:absolute;display:block;bottom:0;right:0;opacity:0}
 .list_view .add_to_fav_trend_block{left:0;top:0}
 .block_view .add_to_fav_trend_block .favorite,.block_view .add_to_fav_trend_block .fortrending{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1);background:#fff;border-radius:50%;height:30px}
 .block_view .add_to_fav_trend_block .favorite i,.block_view .add_to_fav_trend_block .fortrending i{-webkit-transform:scale(0);-ms-transform:scale(0);-o-transform:scale(0);transform:scale(0);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
