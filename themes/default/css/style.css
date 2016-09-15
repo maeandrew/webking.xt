@@ -13,8 +13,11 @@
 	width: 10px;
 	padding: 0 2px;
 }
+::-webkit-scrollbar-track-piece {
+	background: rgba(0, 0, 0, .05);
+}
 ::-webkit-scrollbar-thumb {
-	background: #ccc;
+	background: rgba(0, 0, 0, .2);
 	/*-webkit-border-radius: 5px;*/
 	width: 5px;
 }
@@ -1349,7 +1352,8 @@ section.center {
 		vertical-align: middle;
 	}
 	aside .filters .filter_block p {
-		text-align: center;
+		text-align: left;
+		font-weight: bold;
 	}
 	aside .filters .filter_block ul {
 		padding-bottom: 0;
@@ -1362,6 +1366,13 @@ section.center {
 	}
 	aside .filters .filter_block label {
 		color: #444;
+	}
+	aside .filters .filter_block li:hover label {
+		color: #FF5722;
+		cursor: pointer;
+	}
+	aside .filters .filter_block li:hover .mdl-checkbox__box-outline {
+		border-color: #FF5722;
 	}
 	aside .filters .filter_block .mdl-checkbox__label {
 		font-size: inherit;

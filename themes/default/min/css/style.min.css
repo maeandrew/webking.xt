@@ -1,6 +1,7 @@
 *{padding:0;margin:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;outline:0}
 ::-webkit-scrollbar{width:10px;padding:0 2px}
-::-webkit-scrollbar-thumb{background:#ccc;width:5px}
+::-webkit-scrollbar-track-piece{background:rgba(0,0,0,.05)}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);width:5px}
 .mdl-tooltip{will-change:inherit!important;background:#fff9ce!important;font-size:16px!important;line-height:1.3em!important;color:#444!important;box-shadow:0 1px 3px rgba(0,0,0,.3)!important}
 html{overflow-y:auto}
 body{font-family:Roboto,Helvetica,Arial,sans-serif;font-weight:400;font-size:14px;color:#444;padding-top:52px;position:relative;background:#F3F3F3}
@@ -246,11 +247,13 @@ aside .filters .filters_container{overflow:auto}
 aside .filters .filter_block{padding:4px 0;border-bottom:1px solid #e5e5e5}
 aside .filters .filter_block .more{text-align:right;cursor:pointer;padding-right:5px}
 aside .filters .filter_block .more i{vertical-align:middle}
-aside .filters .filter_block p{text-align:center}
+aside .filters .filter_block p{text-align:left;font-weight:700}
 aside .filters .filter_block ul{padding-bottom:0}
 aside .filters .filter_block:last-of-type ul{border:none}
 aside .filters .filter_block ul li:nth-child(n+6){display:none}
 aside .filters .filter_block label{color:#444}
+aside .filters .filter_block li:hover label{color:#FF5722;cursor:pointer}
+aside .filters .filter_block li:hover .mdl-checkbox__box-outline{border-color:#FF5722}
 aside .filters .filter_block .mdl-checkbox__label{font-size:inherit;max-width:calc(100% - 40px)}
 aside .filters .filterButtons{display:flex;justify-content:space-around}
 aside .filters .mdl-textfield{width:30%;padding:0}
