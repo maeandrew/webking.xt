@@ -11,6 +11,7 @@ function SendToAjax(id, qty, button, direction, note){
 	ajax('cart', 'updateCartQty', data).done(function(data){
 		$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.cart.products));
 		$('header .cart_item a.cart span.total_cart_summ_js').text(data.cart.cart_sum.toFixed(2).toString().replace('.',',') + ' грн.');
+		$('header .cart_item a').removeClass('for_hidden_js');
 		$('.clear_cart').removeClass('hidden');
 
 		completeCartProductAdd(data.cart);
@@ -21,7 +22,7 @@ function SendToAjax(id, qty, button, direction, note){
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(0);
 			$('div[data-idproduct="'+id+'"]').find('.in_cart_js').addClass('hidden');
 			$('div[data-idproduct="'+id+'"]').find('.buy_btn_js').removeClass('hidden');
-			$('header .cart_item a.cart span.total_cart_summ_js').text('пуста');
+			$('header .cart_item a').addClass('for_hidden_js');
 		}else{
 			var qty_old = parseInt($('.product_buy[data-idproduct="'+id+'"]').find('.qty_js_old').val());
 			$('div[data-idproduct="'+id+'"]').find('.qty_js').val(qty);
@@ -93,7 +94,7 @@ function removeFromCart(id){
 			$('header .cart_item a.cart i').removeClass('mdl-badge');
 			$('#removingProd, #clearCart, #cart .clear_cart').addClass('hidden');
 			$('header .cart_item a.cart i').attr('data-badge', 0);
-			$('header .cart_item a.cart span.total_cart_summ_js').text('пуста');
+			$('header .cart_item a').addClass('for_hidden_js');
 			$('#cart .no_items').removeClass('hidden');
 			$('#cart .order_wrapp, #cart .unorder_wrapp, #cart .cart_footer, #cart .orderNote, #cart .action_block, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block, #cart .contragent_cart_block' ).addClass('hidden');
 			$('.in_cart_js').addClass('hidden');
@@ -132,6 +133,7 @@ function removeFromCart(id){
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$('header .cart_item a.cart span.total_cart_summ_js').text(data.cart_sum.toFixed(2).toString().replace('.',',') + ' грн.');
+			$('header .cart_item a').removeClass('for_hidden_js');
 			$.each(data.products, function(key, value){
 				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart_column].toFixed(2));
 				$('.order_mopt_sum_'+key).text(value.summary[data.cart_column].toFixed(2));
@@ -140,7 +142,7 @@ function removeFromCart(id){
 			if(data.products.length === 0){
 				ChangePriceRange(3, 0);
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
-				$('header .cart_item a.cart span.total_cart_summ_js').text('пуста');
+				$('header .cart_item a').addClass('for_hidden_js');
 				$('#cart .no_items').removeClass('hidden');
 				$('#cart .order_wrapp, #cart .unorder_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block, #cart .contragent_cart_block').addClass('hidden');
 				$.cookie('manual', 0, { path: '/'});
