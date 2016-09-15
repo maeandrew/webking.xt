@@ -10,13 +10,14 @@
 	html,body {height:100%}
 	body {font-family: "Trebuchet MS", Helvetica, sans-serif; font-size: 12px; color: #333;}
 	.logo{font-size: 28px; color: #00F; font-weight: bold;}
-	.undln{text-decoration:underline;}
-	.lb{border-left:1px dashed #000;padding-left:5px;}
-	.table_header {margin-left:3px;width:800px;}
+	/*.undln{text-decoration:underline;}*/
+	/*.lb{border-left:1px dashed #000;padding-left:5px;}*/
+	.table_header {width:800px;padding: 10px;padding-bottom: 0px;}
 	.table_header .top td {padding:10px 0 15px 0;font-size:14px;}
 	.table_header .first_col {width: 90px;}
-	.table_header .second_col {width: 325px;}
-	.table_header .top span.invoice {margin-left:20px;font-size:18px;text-decoration:underline;}
+	.table_header .second_col {width: 325px;font-weight: bold;}
+	/*.table_header .top span.invoice {margin-left:20px;font-size:18px;text-decoration:underline;}*/
+	.table_header .top span.invoice {font-size:18px;font-weight: bold;}
 	.bl{border-left:1px solid #000;}
 	.br{border-right:1px solid #000;}
 	.bt{border-top:1px solid #000;}
@@ -24,9 +25,10 @@
 	.blf{border-left:1px solid #FFF !important;}
 	.brf{border-right:1px solid #FFF !important;}
 	.bbf{border-bottom:1px solid #FFF !important;}
-	.table_main{margin:10px 0 0 1px;}
+	/*.table_main{margin:10px 0 0 1px;}*/
+	.table_main{padding: 10px;}
 	.table_main td{padding:1px 1px 0;font-size:12px; text-align:center; border-right:1px #000 solid;border-bottom:1px #000 solid;vertical-align: middle;}
-	.table_main td.name{padding:1px;font-size:12px; text-align:left; border-right:1px #000 solid;border-bottom:1px #000 solid;}
+	.table_main td.name{padding:1px;padding-left: 5px;padding-right: 5px;font-size:12px; text-align:left; border-right:1px #000 solid;border-bottom:1px #000 solid;}
 	.table_main .hdr td{font-weight: bold;padding: 1px;}
 	.table_main .main td{height:50px;}
 	.table_main .main td.img{width:56px;}
@@ -58,29 +60,36 @@
 </style>
 </head>
 <body>
-<table border="0" cellpadding="0" cellspacing="0" class="table_header">
+<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
 	<tbody>
+		<tr>
+            <td colspan="4"  valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
+                <img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
+            </td>
+		</tr>
 		<tr class="top">
-			<td colspan="4">
-				<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span>
-				<span class="invoice">Счет от <?=date("d.m.Y",$order['creation_date'])?><?=str_repeat("&nbsp;", 3)?> № &nbsp; <b><?=$id_order?></b></span>
+			<td align="center" colspan="4">
+				<!-- <span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span> -->
+				<span class="invoice">Счет № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
 			</td>
 		</tr>
 		<tr>
 			<td class="first_col undln">
-				<strong>отправитель</strong>
+				Отправитель:
 			</td>
-			<td class="second_col" rowspan="2">
+			<td class="second_col" >
 				<?if(isset($remitter)){?>
 					<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
 				<?}?>
 				<?$Contragent['name']?><p><?=$Contragent['phones']?></p>
 			</td>
+		</tr>
+		<tr>
 			<td class="first_col undln lb">
-				<u><strong>получатель</strong></u>
+				Получатель:
 			</td>
-			<td class="second_col">
-				<?=$customer['last_name']?><?=str_repeat("&nbsp;", 1)?><?=$customer['first_name']?><?=str_repeat("&nbsp;", 1)?><?=$customer['middle_name']?><?=str_repeat("&nbsp;", 3)?><?=$customer['phones']?>
+			<td class="second_col" >
+				<?=$customer['last_name']?> <?=$customer['first_name']?> <?=$customer['middle_name']?>, тел.: <?=$customer['phones']?>
 			</td>
 		</tr>
 		<!-- <tr>
@@ -97,21 +106,13 @@
 		</tr>
 	</tbody>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" style="padding: 3px; margin-top: 5px;">
+<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" style="padding: 10px; ">
 	<tbody>
 		<tr>
-			<td style="padding-right: 10px;">
-				Название адреса:
-			</td>
-			<td>
-				<?=$address['title']?>
-			</td>
-		</tr>
-		<tr>
-			<td style="padding-right: 10px;">
+			<td style="width: 120px;">
 				Компания доставки:
 			</td>
-			<td>
+			<td style="font-weight: bold;">
 				<?=$address['shipping_company_title']?>
 			</td>
 		</tr>
@@ -119,7 +120,7 @@
 			<td>
 				Область:
 			</td>
-			<td>
+			<td style="font-weight: bold;">
 				<?=$address['region_title']?>
 			</td>
 		</tr>
@@ -127,7 +128,7 @@
 			<td>
 				Город:
 			</td>
-			<td>
+			<td style="font-weight: bold;">
 				<?=$address['city_title']?>
 			</td>
 		</tr>
@@ -135,7 +136,7 @@
 			<td>
 				Тип доставки:
 			</td>
-			<td>
+			<td style="font-weight: bold;">
 				<?=$address['delivery_type_title']?>
 			</td>
 		</tr>
@@ -144,7 +145,7 @@
 				<td>
 					Отделение:
 				</td>
-				<td>
+				<td style="font-weight: bold;">
 					<?=$address['delivery_department']?>
 				</td>
 			</tr>
@@ -154,7 +155,7 @@
 				<td>
 					Адрес:
 				</td>
-				<td>
+				<td style="font-weight: bold;">
 					<?=$address['address']?>
 				</td>
 			</tr>
@@ -172,7 +173,7 @@ $c8 = 60;
 $c10 = 60;
 $c13 = 60;
 ?>
-<table border="0" cellpadding="0" cellspacing="0" class="table_main">
+<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_main">
 	<col width="<?=$c1?>" />
 	<col width="<?=$c2?>" />
 	<col width="<?=$c3?>" class="<?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>" />
@@ -262,16 +263,16 @@ $c13 = 60;
 		<?}
 		}?>
 		<tr>
-			<td class="bbf blf" <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'colspan="6"':'colspan="7"';?> colspan="7" style="text-align:right">Сумма:</td>
-			<td class="br bb"><?=round($order['sum_discount'],2)?></td>
-			<td class="br bb"><?=round($volume,2)?><br><?=round($weight,2)?></td>
+			<td class="bbf blf" <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'colspan="6"':'colspan="7"';?> colspan="7" style="text-align:right;padding: 5px;">Сумма:</td>
+			<td class="br bb" style="font-weight:bold;"><?=round($order['sum_discount'],2)?></td>
+			<td class="br bb" style="font-weight:bold;"><?=round($volume,2)?><br><?=round($weight,2)?></td>
 		</tr>
 	</tbody>
 </table>
-<table width="830">
+<table align="center" width="800" style="padding: 10px;">
 	<tbody>
 		<tr>
-			<td colspan=11 class="nb" style="text-align: left; font-size: 14px;">Действует в течении 3 дней</td>
+			<td colspan=11 class="nb" style="text-align: left;">Действует в течении 3 дней</td>
 		</tr>
 		<tr>
 			<td colspan=11 class="nb">&nbsp;<br>&nbsp;</td>
