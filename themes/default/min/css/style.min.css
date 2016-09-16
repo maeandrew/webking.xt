@@ -394,8 +394,6 @@ section.center{width:calc(100% - 260px)}
 #cart .action_block .wrapp{width:300px}
 #cart .action_block .wrapp:first-of-type{padding-left:0}
 #cart .action_block .wrapp:last-of-type{padding-right:0}
-.content_header .sort{width:50%}
-.content_header .cart_info{width:100%}
 .content{padding:0 5px}
 .list_view .products .card .product_name{width:calc(100% - 130px)}
 .list_view .products .card_tittle .product_name{width:calc(100% - 130px - 350px)}
@@ -437,6 +435,7 @@ section.center{width:calc(100% - 260px)}
 #cart .note.in_cart{display:block}
 #cart .info_key{top:15px}
 #cart #total{width:100%;border:none}
+#cart .card,#cart .cart_footer{overflow:hidden}
 .owl-carousel .owl-controls .owl-nav div{width:50px}
 .owl-carousel .owl-controls .owl-nav div svg{height:100px;width:50px;stroke-width:10}
 .content{padding:0}
@@ -834,6 +833,7 @@ iframe[name=google_conversion_frame]{display:none}
 #cart .cart_bottom_wrap{border-top:none}
 #cart .action_block{border:none}
 #cart .orderNote textarea{max-height:85px}
+.content_header .list_settings{width:100%}
 }
 @media (max-width:979px){#cart .sub_cart_bottom_wrap{flex-wrap:wrap}
 #cart .bonus_block,#cart .msg-info,#cart .orderNote{width:100%}

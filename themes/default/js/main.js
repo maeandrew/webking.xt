@@ -2034,23 +2034,23 @@ $(function(){
 				switch (data.err) {
 					case 1:
 						parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
-						break
+						break;
 					case 2:
 						parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
-						break
+						break;
 					case 3:
 						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
 						$('.issue_result_js .modal_container').html('<div class="issue_ok"><i class="material-icons">check_circle</i></div><p class="info_text">Ваше сообщение было отправлено</p>');
 						openObject('issue_result');
-						break
+						break;
 					case 4:
 						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
 						$('.issue_result_js .modal_container').html('<div class="issue_err"><i class="material-icons">error</i></div><p class="info_text">Что-то пошло не так. Повторите попытку.</p>');
 						openObject('issue_result');
-						break
+						break;
 					default:
 						console.log(data);
-						break
+						break;
 				}
 			}).fail(function(data){
 				console.log('error');

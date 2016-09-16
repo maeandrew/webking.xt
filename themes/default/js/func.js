@@ -273,8 +273,6 @@ function ChangePriceRange(column, manual){
 		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+column).addClass('active');
-		console.log(column);
-		console.log($.cookie('sum_range'));
 		if (column == $.cookie('sum_range')) {
 			switch (column) {
 				case 3:
@@ -363,8 +361,9 @@ function ChangePriceRange(column, manual){
 		}
 
 		if($('#cart').hasClass('opened')){
-			var min_sum_order = parseInt($('#cart .cart_buttons input').val());
-			if (data.products_sum[3] < min_sum_order) {
+			var min_sum_order = parseInt($('#cart .cart_buttons .min_sum_order').val());
+			var current_user = parseInt($('#cart .cart_buttons .current_user').val());
+			if (data.products_sum[3] < min_sum_order && current_user != 4) {
 				$('#button-cart1 button').addClass('hidden');
 				$('#button-cart1 p').removeClass('hidden');
 			}else{
