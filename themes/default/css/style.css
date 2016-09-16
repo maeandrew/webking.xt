@@ -2549,6 +2549,10 @@ section .stat_year {
 		width: 100%;
 		border: none;
 	}
+	#cart .cart_footer,
+	#cart .card {
+		overflow: hidden;
+	}
 	.owl-carousel .owl-controls .owl-nav div {
 		width: 50px;
 	}
