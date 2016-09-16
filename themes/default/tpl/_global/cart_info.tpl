@@ -12,33 +12,36 @@
 				echo 'Без скидки!';
 				break;
 			case 2:
-				if(isset($_COOKIE['manual']) && $_COOKIE['manual'] == 1){
-					if((500 - $_SESSION['cart']['products_sum'][3]) < 0){
-						echo 'Заказано достаточно!';
-					}else{
-						echo 'Дозаказать еще на: <span class="summ">'.number_format(500 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
-					}
-				}else{
-					echo 'До следующей скидки <span class="summ">'.number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
-				}
+				echo 'При заказе от 500 грн.';
+				// if(isset($_COOKIE['manual']) && $_COOKIE['manual'] == 1){
+				// 	if((500 - $_SESSION['cart']['products_sum'][3]) < 0){
+				// 		echo 'Заказано достаточно!';
+				// 	}else{
+				// 		echo 'Дозаказать еще на: <span class="summ">'.number_format(500 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
+				// 	}
+				// }else{
+				// 	echo 'До следующей скидки <span class="summ">'.number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
+				// }
 				break;
 			case 1:
-				if(isset($_COOKIE['manual']) && $_COOKIE['manual'] == 1){
-					if((3000 - $_SESSION['cart']['products_sum'][3]) < 0){
-						echo 'Заказано достаточно!';
-					}else{
-						echo 'Дзаказать еще на: <span class="summ">'.number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
-					}
-				}else{
-					echo 'До следующей скидки <span class="summ">'.number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
-				}
+				echo 'При заказе от 3000 грн.';
+				// if(isset($_COOKIE['manual']) && $_COOKIE['manual'] == 1){
+				// 	if((3000 - $_SESSION['cart']['products_sum'][3]) < 0){
+				// 		echo 'Заказано достаточно!';
+				// 	}else{
+				// 		echo 'Дзаказать еще на: <span class="summ">'.number_format(3000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
+				// 	}
+				// }else{
+				// 	echo 'До следующей скидки <span class="summ">'.number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
+				// }
 				break;
 			case 0:
-				if((10000 - $_SESSION['cart']['products_sum'][3]) < 0){
-					echo 'Заказано достаточно!';
-				}else{
-					echo 'Дозаказать еще на: <span class="summ">'.number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
-				}
+				echo 'При заказе от 10 000 грн.';
+				// if((10000 - $_SESSION['cart']['products_sum'][3]) < 0){
+				// 	echo 'Заказано достаточно!';
+				// }else{
+				// 	echo 'Дозаказать еще на: <span class="summ">'.number_format(10000 - $_SESSION['cart']['products_sum'][3], 2, ',', '').'</span> грн.';
+				// }
 				break;
 		}?>
 	</span>

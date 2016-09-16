@@ -108,11 +108,27 @@ function removeFromCart(id){
 				$(this).closest('.card, .specCont_js').find('.note_field').val('');
 				$(this).closest('.card, .specCont_js').find('.note').addClass('hidden');
 			});
-			ChangePriceRange(3, 0);
+			// ChangePriceRange(3, 0);
+			$('.order_balance').text('Без скидки!');
+			$('li.sum_range').removeClass('active');
+			$('li.sum_range_3').addClass('active');
 		});
 	}else{
 		ajax('cart', 'remove_from_cart', {id_prod_for_remove: id}).done(function(data){
-			ChangePriceRange(data.cart_column, 0);
+			if(data.products.length === 0){
+				// ChangePriceRange(3, 0);
+				$('.order_balance').text('Без скидки!');
+				$('li.sum_range').removeClass('active');
+				$('li.sum_range_3').addClass('active');
+
+				$('header .cart_item a.cart i').removeClass('mdl-badge');
+				$('header .cart_item a.cart span.total_cart_summ_js').text('пуста');
+				$('#cart .no_items').removeClass('hidden');
+				$('#cart .order_wrapp, #cart .unorder_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block, #cart .contragent_cart_block').addClass('hidden');
+				$.cookie('manual', 0, { path: '/'});
+			}else{
+				ChangePriceRange(data.cart_column, 0);
+			}
 			$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 			$('#removingProd, #clearCart').addClass('hidden');
 			var minQty = $('#in_cart_' + id).closest('.buy_block').find('.minQty').val();
@@ -137,14 +153,7 @@ function removeFromCart(id){
 				$('.order_mopt_sum_'+key).text(value.summary[data.cart_column].toFixed(2));
 			});
 
-			if(data.products.length === 0){
-				ChangePriceRange(3, 0);
-				$('header .cart_item a.cart i').removeClass('mdl-badge');
-				$('header .cart_item a.cart span.total_cart_summ_js').text('пуста');
-				$('#cart .no_items').removeClass('hidden');
-				$('#cart .order_wrapp, #cart .unorder_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block, #cart .contragent_cart_block').addClass('hidden');
-				$.cookie('manual', 0, { path: '/'});
-			}
+
 		});
 	}
 }

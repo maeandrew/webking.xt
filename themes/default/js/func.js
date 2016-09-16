@@ -273,6 +273,25 @@ function ChangePriceRange(column, manual){
 		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+column).addClass('active');
+		console.log(column);
+		console.log($.cookie('sum_range'));
+		if (column == $.cookie('sum_range')) {
+			switch (column) {
+				case 3:
+					text = 'Без скидки!';
+					break;
+				case 2:
+					text = 'При заказе от 500 грн.';
+					break;
+				case 1:
+					text = 'При заказе от 3000 грн.';
+					break;
+				case 0:
+					text = 'При заказе от 10 000 грн.';
+					break;
+			}
+			$('.order_balance').text(text);
+		}
 	}else if ($.cookie('manual') != 1){
 		$.cookie('sum_range', column, {path: '/'});
 		$('li.sum_range').removeClass('active');
@@ -288,16 +307,36 @@ function ChangePriceRange(column, manual){
 		removeLoadAnimation('#button-cart1');
 		currentSum = data.products_sum[3];
 		newSum = columnLimits[column] - currentSum;
-		if(newSum < 0){
-			text = 'Заказано достаточно!';
-		}else{
-			if($.cookie('manual') == 1){
-				text = 'Дозаказать еще на '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
-			}else{
-				text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
+		console.log(column);
+		console.log(data.cart_column);
+		// var fafa = parseInt($.cookie('sum_range'));
+		if($.cookie('manual') != 1){
+			switch (data.cart_column) {
+				case 3:
+					text = 'Без скидки!';
+					break;
+				case 2:
+					text = 'При заказе от 500 грн.';
+					break;
+				case 1:
+					text = 'При заказе от 3000 грн.';
+					break;
+				case 0:
+					text = 'При заказе от 10 000 грн.';
+					break;
 			}
+			$('.order_balance').text(text);
 		}
-		$('.order_balance').text(text);
+
+		// if(newSum < 0){
+		// 	text = 'Заказано достаточно!';
+		// }else{
+		// 	if($.cookie('manual') == 1){
+		// 		text = 'Дозаказать еще на '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
+		// 	}else{
+		// 		text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
+		// 	}
+		// }
 		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
 			var minQty = parseInt($(this).find('.minQty').val()),
 				curentQty =	parseInt($(this).find('.qty_js').val()),

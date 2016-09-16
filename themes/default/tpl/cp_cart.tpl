@@ -578,6 +578,7 @@
 	</div>
 	<div class="cart_buttons">
 		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
+		<button class="mdl-button mdl-js-button mdl-button--raised buy_more">Сохранить черновик</button>
 		<input type="hidden" value="<?=$GLOBALS['CONFIG']['min_sum_order']?>">
 		<?$min_sum_order = $_SESSION['cart']['products_sum'][3] >= $GLOBALS['CONFIG']['min_sum_order'];?>
 
