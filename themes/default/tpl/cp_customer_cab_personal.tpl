@@ -5,7 +5,7 @@
 		</div>
 	</div>
 </div>
-<div id="preview-template" style="display: none;">
+<div id="preview-template">
 	<div class="image_block dz-preview dz-file-preview">
 		<div class="image">
 			<img data-dz-thumbnail />
@@ -146,44 +146,5 @@
 				});
 			}
 		});
-
-		//Загрузка Фото на сайт
-		// var	url = URL_base+'userPic/';
-		// var dropzone = new Dropzone(".drop_zone", {
-		// 	method: 'POST',
-		// 	url: url+"?upload=true",
-		// 	clickable: true,
-		// 	maxFiles: 1,
-		// 	// acceptedFiles: 'image/jpeg,image/png',
-		// 	previewsContainer: '.previews',
-		// 	previewTemplate: document.querySelector('#preview-template').innerHTML
-		// });
-		// dropzone.on('addedfile', function(file){
-		// 	$('#photobox .old_image_js img').remove();
-		// 	// $('.previews .dz-file-preview').addClass('forUpload');
-		// 	componentHandler.upgradeDom();
-		// }).on('maxfilesexceeded', function(file) {
-		// 	this.removeAllFiles();
-		// 	this.addFile(file);
-		// 	componentHandler.upgradeDom();
-		// }).on('success', function(file, path){
-		// 	// file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
-		// 	componentHandler.upgradeDom();
-		// }).on('removedfile', function(file){
-		// 	$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
-		// 	// removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
-		// 	// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
-		// 	componentHandler.upgradeDom();
-		// });
-
-		// //Удаление ранее загруженного фото
-		// $("body").on('click', '.del_photo_js', function(e) {
-		// 	alert('Изобрежение будет удалено.');
-		// 	if(confirm('Изобрежение будет удалено.')){
-		// 		// var path = $(this).closest('.image_block'),
-		// 		// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-		// 		// RemovedFile(path, removed_file);
-		// 	}
-		// });
 	});
 </script>

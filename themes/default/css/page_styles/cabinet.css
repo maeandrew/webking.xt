@@ -1398,9 +1398,11 @@ table.kontrag.table{
 		-webkit-transition: 0.5s ease;
 		bottom: -34px;
 	}
+	
 	.customer_cab #edit_personal .user_avatar:hover .avatar_menu,
 	.customer_cab #edit_personal .user_avatar:hover .del_avatar {
 		bottom: 0;
+		cursor: pointer;
 	}
 	.customer_cab #edit_personal .user_avatar .avatar_menu p {
 		text-align: center;
@@ -1658,7 +1660,8 @@ table.kontrag.table{
 	}
 	.customer_cab .add_new_address,
 	.customer_cab .edit_contacts_block, #bonus .bonus_content {
-		padding: 0px 15px 15px 15px;
+		/*padding: 0px 15px 15px 15px;*/
+		padding: 15px;
 		margin-top: 1em;
 		background: #fff;
 		width: 350px;

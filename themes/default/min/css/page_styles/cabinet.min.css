@@ -281,7 +281,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 #photobox .image_block_new .dz-message .icon-font{font-size:2em;text-align:center;font-weight:700;clear:both}
 .customer_cab #edit_personal .user_avatar{width:150px;height:auto;margin-bottom:1em}
 .customer_cab #edit_personal .user_avatar .avatar_menu{position:absolute;width:100%;background-color:rgba(52,52,52,.5);color:#fff;transition:.5s ease;-moz-transition:.5s ease;-webkit-transition:.5s ease;bottom:-34px}
-.customer_cab #edit_personal .user_avatar:hover .avatar_menu,.customer_cab #edit_personal .user_avatar:hover .del_avatar{bottom:0}
+.customer_cab #edit_personal .user_avatar:hover .avatar_menu,.customer_cab #edit_personal .user_avatar:hover .del_avatar{bottom:0;cursor:pointer}
 .customer_cab #edit_personal .user_avatar .avatar_menu p{text-align:center;line-height:2.2em}
 .customer_cab #edit_personal .user_avatar .avatar_menu .load_avatar span:hover{border-bottom:1px dashed;cursor:pointer}
 .customer_cab #edit_personal .user_avatar .del_avatar{position:absolute;cursor:pointer;top:5px;right:5px;text-align:right!important;line-height:1em;width:auto;height:25px;padding:.3em;border-radius:50%;background-color:rgba(52,52,52,.5);color:#fff;transition:.5s ease;-moz-transition:.5s ease;-webkit-transition:.5s ease;opacity:0}
@@ -334,7 +334,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab .saved_addresses .address h4 .actions i:hover{color:#ff5722}
 .customer_cab .saved_addresses .address li{text-align:right;clear:both;font-weight:700}
 .customer_cab .saved_addresses .address li span{float:left;font-weight:400}
-#bonus .bonus_content,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{padding:0 15px 15px 15px;margin-top:1em;background:#fff;width:350px;float:left;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
+#bonus .bonus_content,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{padding:15px;margin-top:1em;background:#fff;width:350px;float:left;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 #bonus .bonus_content,.customer_cab .edit_contacts_block{width:330px}
 #bonus .fright{width:100%;margin-top:10px}
 .customer_cab .discount_select{padding-top:0}
