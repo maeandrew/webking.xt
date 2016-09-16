@@ -100,8 +100,8 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 		$Images->validate($_FILES, $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/");
 		exit(0);
 	}elseif(isset($_GET['upload']) == true){
-		$res = $Images->upload($_FILES, $GLOBALS['PATH_root']."files/".$_SESSION['member']['email']."/");
-		echo str_replace($GLOBALS['PATH_root'], '/', $res);
+		$path = isset($_REQUEST['path'])?(!strpos($_REQUEST['path'], $GLOBALS['PATH_global_root'])?$_REQUEST['path']:$GLOBALS['PATH_global_root'].$_REQUEST['path']):$GLOBALS['PATH_global_root'].'temp/';
+		echo str_replace($GLOBALS['PATH_global_root'], '/', $Images->upload($_FILES, $path));
 		exit(0);
 	}elseif(isset($_POST['editionsubmit']) == true){
 		//Расчет обьема продукта
@@ -176,7 +176,7 @@ if(isset($cabinet_page) && $cabinet_page == "productsonmoderation"){
 	if(isset($_FILES["import_file"])){
 		// Проверяем загружен ли файл
 		if(is_uploaded_file($_FILES['import_file']['tmp_name'])){
-			// Проверяе объем файла
+			// Проверяем объем файла
 			if($_FILES['import_file']['size'] > 1024*3*1024){
 				$tpl->Assign('msg', "Размер файла превышает три мегабайта");
 				$tpl->Assign('errm', 1);
