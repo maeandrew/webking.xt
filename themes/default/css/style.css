@@ -2382,11 +2382,9 @@ section .stat_year {
 	.stat_month {
 		margin: 0;
 	}*/
-	.content_header .sort {
-		width: 50%;
-	}
+
 	.content_header .cart_info {
-		width: 100%;
+		/*width: 100%;*/
 	}
 	.content {
 		padding: 0 5px;
@@ -4375,6 +4373,9 @@ iframe[name="google_conversion_frame"] {
 	}
 	#cart .orderNote textarea{
 		max-height: 85px;
+	}
+	.content_header .list_settings {
+		width: 100%;
 	}
 }
 @media (max-width: 979px){

@@ -273,8 +273,6 @@ function ChangePriceRange(column, manual){
 		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+column).addClass('active');
-		console.log(column);
-		console.log($.cookie('sum_range'));
 		if (column == $.cookie('sum_range')) {
 			switch (column) {
 				case 3:
