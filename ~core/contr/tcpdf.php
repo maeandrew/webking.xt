@@ -32,6 +32,9 @@ $Order = new Orders();
 $Order->SetFieldsById($settings['order']);
 $order_details = $Order->fields;
 $Customers = new Customers();
+$Address = new Address();
+$address = $Address->GetAddressById($order_details['id_address']);
+$tpl->Assign('address', $address);
 if($_POST['personal_client']){
 	$order_details['cont_person'] = $_POST['personal_client'];
 }else{
