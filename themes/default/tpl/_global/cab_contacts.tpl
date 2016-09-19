@@ -16,7 +16,7 @@
 							<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 							<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 						</div>
-						<input type="hidden" name="images_visible[]" value="0">
+						<!-- <input type="hidden" name="avatar" value="0"> -->
 					</div>
 				</div>
 				<div class="image_block_new drop_zone animate avatar_menu">
@@ -109,7 +109,7 @@
 			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 		</div>
-		<input type="hidden" name="images_visible[]" value="0">
+		<!-- <input type="hidden" name="avatar" value="0"> -->
 	</div>
 </div>
 <script>
@@ -136,7 +136,7 @@
 	}).on('success', function(file, path){
 		console.log(file);
 		console.log(path);
-		// file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
+		file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
 		componentHandler.upgradeDom();
 	}).on('removedfile', function(file){
 		$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
