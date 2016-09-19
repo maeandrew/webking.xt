@@ -2150,23 +2150,23 @@ $(function(){
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 	$('#owl-product_mini_img_js .owl-item').on('click', function(event){
-		$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
-		$('.product_main_img').find('iframe').attr('src', '');
-		var src = $(this).find('img').attr('src'),
-			viewport_width = $(window).width();
-		if(viewport_width > 711){
-			$('#owl-product_mini_img_js').find('img').removeClass('act_img');
-			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
-			$(this).find('img').addClass('act_img');
-			if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
-				src = src.replace('thumb', 'original');
-			}else{
-				src = src.replace('_thumb/', '');
-			}
-			$('.product_main_img').hide().fadeIn('100').find('.main_img_js').attr('src', src);
-		}else{
-			event.preventDefault();
-		}
+		// $('.product_main_img').find('#mainVideoBlock').addClass('hidden');
+		// $('.product_main_img').find('iframe').attr('src', '');
+		// var src = $(this).find('img').attr('src'),
+		// 	viewport_width = $(window).width();
+		// if(viewport_width > 711){
+		// 	$('#owl-product_mini_img_js').find('img').removeClass('act_img');
+		// 	$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
+		// 	$(this).find('img').addClass('act_img');
+		// 	if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
+		// 		src = src.replace('thumb', 'original');
+		// 	}else{
+		// 		src = src.replace('_thumb/', '');
+		// 	}
+		// 	$('.product_main_img').hide().fadeIn('100').find('.main_img_js').attr('src', src);
+		// }else{
+		// 	event.preventDefault();
+		// }
 	}).on('click','.videoBlock', function(e){ //выбор видео и его перемещение в главное окно
 		e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
 		$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
