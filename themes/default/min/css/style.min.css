@@ -483,8 +483,6 @@ section.center{width:calc(100% - 260px)}
 .mdl-checkbox__ripple-container .mdl-ripple,.mdl-radio__ripple-container .mdl-ripple{background:#ff5722}
 .mdl-badge[data-badge]:after{background:#FF5722;color:#fff}
 .mdl-badge[data-badge].active:after{background:#FF5722}
-.product_page .mdl-grid{padding:0}
-.product_page .mdl-cell--6-col{margin:0}
 .mdl-tabs__tab .mdl-tabs__ripple-container .mdl-ripple{background:#9E9E9E}
 .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active{background:#fff}
 .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after{background-color:#757575}

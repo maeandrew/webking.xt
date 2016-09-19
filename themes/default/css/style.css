@@ -2734,12 +2734,6 @@ section .stat_year {
 .mdl-badge[data-badge].active:after {
 	background: #FF5722;
 }
-.product_page .mdl-grid {
-	padding: 0;
-}
-.product_page .mdl-cell--6-col {
-	margin: 0;
-}
 .mdl-tabs__tab .mdl-tabs__ripple-container .mdl-ripple {
 	background: #9E9E9E;
 }
