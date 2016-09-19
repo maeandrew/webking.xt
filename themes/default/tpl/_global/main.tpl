@@ -123,7 +123,7 @@
 			{
 				"@context": "http://schema.org",
 				"@type": "Organization",
-				"name": "Отдел снабжения xt.ua",
+				"name": "Служба снабжения xt.ua",
 				"url": "https://xt.ua",
 				"logo": "https://xt.ua/themes/default/img/_xt.svg",
 				"sameAs": [
@@ -434,7 +434,7 @@
 		</div>
 		<div class="copyright">
 			<div class="copyright_wrap">
-				<p>&copy; Отдел снабжения XT.ua <?=date("Y")?></p>
+				<p>&copy; Служба снабжения XT.ua <?=date("Y")?></p>
 				<!-- <p class="created">Разработано в <a href="http://webking.link/" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>WebKingStudio</a></p> -->
 			</div>
 		</div>
