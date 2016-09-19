@@ -121,9 +121,8 @@ function removeFromCart(id){
 				$('.order_balance').text('Без скидки!');
 				$('li.sum_range').removeClass('active');
 				$('li.sum_range_3').addClass('active');
-
 				$('header .cart_item a.cart i').removeClass('mdl-badge');
-				$('header .cart_item a.cart span.total_cart_summ_js').text('пуста');
+				$('header .cart_item > a').addClass('for_hidden_js');
 				$('#cart .no_items').removeClass('hidden');
 				$('#cart .order_wrapp, #cart .unorder_wrapp, #cart .cart_footer, #cart .action_block, #cart .orderNote, #cart .clear_cart, #cart .msg-info, #cart .cart_buttons, #cart .bonus_block, #cart .contragent_cart_block').addClass('hidden');
 				$.cookie('manual', 0, { path: '/'});
@@ -149,7 +148,6 @@ function removeFromCart(id){
 
 			$('.cart_order_sum').text(data.cart_sum);
 			$('header .cart_item a.cart span.total_cart_summ_js').text(data.cart_sum.toFixed(2).toString().replace('.',',') + ' грн.');
-			$('header .cart_item a').removeClass('for_hidden_js');
 			$.each(data.products, function(key, value){
 				$('#cart div[data-idproduct="'+key+'"]').find('.price').text(value.actual_prices[data.cart_column].toFixed(2));
 				$('.order_mopt_sum_'+key).text(value.summary[data.cart_column].toFixed(2));

@@ -305,8 +305,8 @@ function ChangePriceRange(column, manual){
 		removeLoadAnimation('#button-cart1');
 		currentSum = data.products_sum[3];
 		newSum = columnLimits[column] - currentSum;
-		console.log(column);
-		console.log(data.cart_column);
+		// console.log(column);
+		// console.log(data.cart_column);
 		// var fafa = parseInt($.cookie('sum_range'));
 		if($.cookie('manual') != 1){
 			switch (data.cart_column) {
