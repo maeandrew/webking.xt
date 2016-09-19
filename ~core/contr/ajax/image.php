@@ -14,8 +14,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'uploadAvatar':
 				$size = getimagesize($_FILES['file']['tmp_name']);
 				// если размер изображения не более 250 пикселей по ширине и не более 250 по  высоте
-				if($size[0] <= 2500 && $size[1] <= 2500){
-					$_FILES['file']['name'] = $_SESSION['member']['id_user'].'.jpeg';
+				if($size[0] <= 250 && $size[1] <= 250){
 					$path = isset($_REQUEST['path'])?(!strpos($_REQUEST['path'], $GLOBALS['PATH_global_root'])?$_REQUEST['path']:$GLOBALS['PATH_global_root'].$_REQUEST['path']):$GLOBALS['PATH_global_root'].'temp/';
 					echo str_replace($GLOBALS['PATH_global_root'], '/', $Images->upload($_FILES, $path));
 				}else{

@@ -102,6 +102,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					if($Customers->updateCustomer($_POST) && $Users->UpdateUser($_POST)){
 						echo json_encode('true');
 					}
+					if(isset($_POST['avatar'])){
+						$old_path = $GLOBALS['PATH_global_root'].$_POST['avatar'];
+						$new_path = $GLOBALS['PATH_global_root'].'images/avatars/'.$_SESSION['member']['id_user'].'.jpeg';
+						if(copy($old_path, $new_path)){
+							unlink($old_path);
+						}
+					}
 				}else{
 					echo json_encode($errm);
 				}
