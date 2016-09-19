@@ -44,7 +44,7 @@ if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js', true);
 }
 /* plugins js */
-G::AddJS('../plugins/dropzone.js', true, 1);
+G::AddJS('../plugins/dropzone.js', false, 1);
 G::AddJS('../plugins/jquery.lazyload.min.js', false, 1);
 G::AddJS('../plugins/jquery.cookie.js', false, 1);
 G::AddJS('../plugins/maskedinput.min.js', true);

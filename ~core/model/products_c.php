@@ -148,10 +148,12 @@ class Products {
 				un.unit_prom,
 				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+				MIN(a.price_opt_otpusk) AS price_opt_otpusk, MIN(a.price_mopt_otpusk) AS price_mopt_otpusk
 			FROM '._DB_PREFIX_.'product AS p
 				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
+				LEFT JOIN '._DB_PREFIX_.'assortiment AS a ON a.id_product = p.id_product AND a.active = 1
 			WHERE p.translit = '.$this->db->Quote($rewrite).'
 			LIMIT 1';
 		// $sql = "SELECT ".implode(", ",$this->usual_fields).",

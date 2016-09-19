@@ -1436,6 +1436,9 @@ table.kontrag.table{
 	.customer_cab #edit_personal .user_avatar .del_avatar i {
 		font-size: 16px;
 	}
+	.customer_cab #edit_personal .user_avatar .old_image + .controls .del_avatar{
+		display: none;
+	}
 	.customer_cab #edit_personal .image_block .controls [for="forDel"],
 	.customer_cab #edit_personal .image_block .controls [for="forDelU"] {
 		font-size: .8em;

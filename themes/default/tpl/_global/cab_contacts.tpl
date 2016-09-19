@@ -3,20 +3,18 @@
 	<form id="edit_contacts" class="editing" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
-
 		<div class="user_avatar">
 			<label for="photobox">Фото:</label>
 			<div id="photobox">
 				<div class="previews">
 					<div class="image_block dz-preview dz-file-preview">
-						<div class="image old_image_js">
-							<img data-dz-thumbnail src="/images/noavatar.png"/>
+						<div class="image old_image_js old_image">
+							<img data-dz-thumbnail src=" <?= file_exists('/images/'.$User['id_user'].'jpeg')?'/images/'.$User['id_user'].'jpeg':'/images/noavatar.png'?>" />
 						</div>
 						<div class="controls">
 							<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 							<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 						</div>
-						<input type="hidden" name="images_visible[]" value="0">
 					</div>
 				</div>
 				<div class="image_block_new drop_zone animate avatar_menu">
@@ -25,7 +23,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="email">E-mail:</label>
 			<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>
@@ -102,14 +99,13 @@
 </div>
 <div id="preview-template" style="display: none;">
 	<div class="image_block dz-preview dz-file-preview">
-		<div class="image">
+		<div class="image new_image_js">
 			<img data-dz-thumbnail />
 		</div>
 		<div class="controls">
 			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 		</div>
-		<input type="hidden" name="images_visible[]" value="0">
 	</div>
 </div>
 <script>
@@ -117,7 +113,8 @@
 	var	url = URL_base+'cabinet/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
-		url: url+"?upload=true",
+		url: URL_base+'ajax?target=image&action=uploadAvatar',
+		// url: url+"?upload=true",
 		clickable: true,
 		maxFiles: 1,
 		// acceptedFiles: 'image/jpeg,image/png',
@@ -133,7 +130,9 @@
 		this.addFile(file);
 		componentHandler.upgradeDom();
 	}).on('success', function(file, path){
-		// file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+		console.log(file);
+		console.log(path);
+		file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
 		componentHandler.upgradeDom();
 	}).on('removedfile', function(file){
 		$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
@@ -143,9 +142,18 @@
 	});
 
 	//Удаление ранее загруженного фото
-	$("body").on('click', '.del_photo_js', function(e) {
+	$("body").on('click', '.del_photo_js', function(e){
 		alert('Изобрежение будет удалено.');
 		if(confirm('Изобрежение будет удалено.')){
+			// var path = $(this).closest('.image_block'),
+			// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
+			// RemovedFile(path, removed_file);
+		}
+	});
+	$("body").on('click', '.new_image_js + .controls .del_u_photo_js', function(e){
+		if(confirm('Изобрежение будет удалено.')){
+			$('.image_block.dz-image-preview').remove();
+			$('#photobox').find('.old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
 			// var path = $(this).closest('.image_block'),
 			// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
 			// RemovedFile(path, removed_file);
