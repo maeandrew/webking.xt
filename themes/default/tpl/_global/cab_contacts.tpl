@@ -3,7 +3,6 @@
 	<form id="edit_contacts" class="editing" action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<input required="required" type="hidden" name="id_user" id="id_user" value="<?=$User['id_user']?>"/>
 		<input required="required" type="hidden" name="news" id="news" value="<?=$User['news']?>"/>
-
 		<div class="user_avatar">
 			<label for="photobox">Фото:</label>
 			<div id="photobox">
@@ -16,7 +15,6 @@
 							<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 							<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 						</div>
-						<!-- <input type="hidden" name="avatar" value="0"> -->
 					</div>
 				</div>
 				<div class="image_block_new drop_zone animate avatar_menu">
@@ -25,7 +23,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="email">E-mail:</label>
 			<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>
@@ -109,7 +106,6 @@
 			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 		</div>
-		<!-- <input type="hidden" name="avatar" value="0"> -->
 	</div>
 </div>
 <script>

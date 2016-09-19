@@ -72,6 +72,7 @@
 			addLoadAnimation('#edit_contacts');
 			var parent = $(this).closest('form'),
 				id_user = parent.find('[name="id_user"]').val(),
+				avatar = parent.find('[name="avatar"]').val(),
 				email = parent.find('[name="email"]').val(),
 				phone_num = parent.find('[name="phones"]').val().replace(/[^\d]+/g, ""),
 				phone,
@@ -94,7 +95,7 @@
 			month = $('.month_js').val() !== 'месяц'?$('.month_js').val():'';
 			year = $('.year_js').val() !== ''?$('.year_js').val():'';
 
-			data = {id_user: id_user, email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address };
+			data = {id_user: id_user, avatar: avatar, email: email, phone: phone, last_name: last_name, first_name: first_name, middle_name: middle_name, gender: gender, day: day, month: month, year: year, address: address };
 
 			if(email === '' && phone_num === ''){
 				snackbarMsg = {message: 'Введите Email или Ваш номер телефона'},
