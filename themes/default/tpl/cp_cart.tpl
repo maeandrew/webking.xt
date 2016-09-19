@@ -581,8 +581,8 @@
 		$current_user =isset($_SESSION['member']['gid'])?$_SESSION['member']['gid']:0 ?>
 		<button class="mdl-button mdl-js-button mdl-button--raised btn_js buy_more" data-name="cart">Продолжить покупки</button>
 		<button class="mdl-button mdl-js-button mdl-button--raised buy_more">Сохранить черновик</button>
-		<input type="hidden" claass="min_sum_order" value="<?=$GLOBALS['CONFIG']['min_sum_order']?>">
-		<input type="hidden" claass="current_user" value="<?=$current_user?>">
+		<input type="hidden" class="min_sum_order" value="<?=$GLOBALS['CONFIG']['min_sum_order']?>">
+		<input type="hidden" class="current_user" value="<?=$current_user?>">
 
 			<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
 				<div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>>

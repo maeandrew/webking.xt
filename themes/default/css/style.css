@@ -844,6 +844,10 @@ section.center {
 	#button-cart1 {
 		position: relative;
 	}
+	#button-cart1 p {
+		color: #ff5722;
+	}
+
 	#cart ul.order_head {
 		text-align: right;
 		overflow: hidden;

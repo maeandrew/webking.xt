@@ -367,8 +367,8 @@ function ChangePriceRange(column, manual){
 				$('#button-cart1 button').addClass('hidden');
 				$('#button-cart1 p').removeClass('hidden');
 			}else{
-				$('#button-cart1 p').addClass('hidden');
 				$('#button-cart1 button').removeClass('hidden');
+				$('#button-cart1 p').addClass('hidden');
 			}
 		}
 	});

@@ -150,6 +150,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .unorder_wrapp .fortrending_arrow{vertical-align:middle;cursor:pointer;color:#444}
 #cart .order_wrapp,#cart .unorder_wrapp{clear:both;border-bottom:none}
 #button-cart1{position:relative}
+#button-cart1 p{color:#ff5722}
 #cart ul.order_head{text-align:right;overflow:hidden;line-height:32px;height:32px;padding:0;padding-right:17px;background-color:#F5F5F5;border:1px solid #e0e0e0}
 #cart ul.order_head li{float:left;display:block;text-align:center;border-right:1px solid #e0e0e0}
 #cart ul.order_head li:last-child{border-right:none}
