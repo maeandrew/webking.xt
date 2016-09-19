@@ -585,6 +585,9 @@ label.info_key {
 	bottom: 0;
 	right: 0;
 	opacity: 0;
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 .list_view .add_to_fav_trend_block {
 	left: 0;
