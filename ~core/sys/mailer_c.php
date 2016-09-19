@@ -64,7 +64,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 			'subject' => 'Заказы '.$GLOBALS['CONFIG']['invoice_logo_text'].' от '.(date('d')+1).'-'.date('m').'-'.date('Y'),
 			'encoding' => 'UTF-8',
 			'from' => array(
-				'name' => 'Отдел снабжения xt.ua',
+				'name' => 'Служба снабжения xt.ua',
 				'email' => 'administration@xt.ua',
 			),
 			'to' => array(
@@ -96,7 +96,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 			'subject' => 'Тестовое письмо ',
 			'encoding' => 'UTF-8',
 			'from' => array(
-				'name' => 'Отдел снабжения xt.ua',
+				'name' => 'Служба снабжения xt.ua',
 				'email' => 'order@xt.ua',
 			),
 			'to' => array(
