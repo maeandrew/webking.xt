@@ -9,7 +9,7 @@
 				<div class="previews">
 					<div class="image_block dz-preview dz-file-preview">
 						<div class="image old_image_js old_image">
-							<img data-dz-thumbnail src=" <?= file_exists($GLOBALS['PATH_global_root'].'/images/avatars/'.$User['id_user'].'.jpeg')?_base_url.'/images/avatars/'.$User['id_user'].'.jpeg':'/images/noavatar.png'?>" />
+							<img data-dz-thumbnail src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>" />
 						</div>
 						<div class="controls">
 							<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>

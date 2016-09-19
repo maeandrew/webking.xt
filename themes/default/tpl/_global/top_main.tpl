@@ -78,7 +78,7 @@
 		<div class="profile mdl-cell--hide-phone">
 			<?if(G::IsLogged()){?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon ">
-					<img src="/images/noavatar.png"/>
+					<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
 				</button>
 			<?}else{?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon  cabinet_btn hidden">

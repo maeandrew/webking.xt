@@ -144,6 +144,9 @@
 							}
 						}
 					}
+				}).fail(function(response){
+					removeLoadAnimation('#edit_contacts');
+					console.log(response);
 				});
 			}
 		});
