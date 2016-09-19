@@ -18,7 +18,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$path = isset($_REQUEST['path'])?(!strpos($_REQUEST['path'], $GLOBALS['PATH_global_root'])?$_REQUEST['path']:$GLOBALS['PATH_global_root'].$_REQUEST['path']):$GLOBALS['PATH_global_root'].'temp/';
 					echo str_replace($GLOBALS['PATH_global_root'], '/', $Images->upload($_FILES, $path));
 				}else{
-					echo "Загружаемое изображение превышает допустимые нормы (ширина не более - 250; высота не более 250)";
+					// echo "Загружаемое изображение превышает допустимые нормы (ширина не более - 250; высота не более 250)";
+					echo "sizeoff";
 				}
 				break;
 			default:

@@ -1446,6 +1446,14 @@ table.kontrag.table{
 	.customer_cab #edit_personal .user_avatar img {
 		width: 100%;
 	}
+	.customer_cab #edit_personal .user_avatar .big_size_err{
+		width: 300px;
+		color: #d50000;
+		font-size: 12px;
+		line-height: 1.2em;
+		text-align: justify;
+		margin-top: 3px;
+	}
 
 /* Customer cab Settings =================================================== */
 

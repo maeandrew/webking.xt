@@ -11,7 +11,7 @@
 			<img data-dz-thumbnail />
 		</div>
 		<div class="controls">
-			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
+			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><!-- <i class="material-icons">delete</i> --></p>
 			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 		</div>
 	</div>
@@ -71,7 +71,7 @@
 			addLoadAnimation('#edit_contacts');
 			var parent = $(this).closest('form'),
 				id_user = parent.find('[name="id_user"]').val(),
-				avatar = parent.find('[name="avatar"]').val() != undefined ? parent.find('[name="avatar"]').val() : '/images/noavatar.png',
+				avatar = parent.find('[name="avatar"]').val(),
 				email = parent.find('[name="email"]').val(),
 				phone_num = parent.find('[name="phones"]').val().replace(/[^\d]+/g, ""),
 				phone,
@@ -103,7 +103,7 @@
 				$('[name="email"]').closest('.mdl-textfield').find('.mdl-textfield__error').text('Укажите Email');
 				$('[name="phones"]').closest('.mdl-textfield').find('.mdl-textfield__error').css('visibility', 'visible').text('Укажите контактный номер телефона');
 			}
-			else if(parent.find('.mdl-textfield').hasClass('is-invalid')){
+			else if(parent.find('.mdl-textfield').hasClass('is-invalid') || !$('.big_size_err_js').hasClass('hidden')){
 				removeLoadAnimation('#edit_contacts');
 				snackbarMsg = {message: 'Заполните поля корректно'},
 				snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);

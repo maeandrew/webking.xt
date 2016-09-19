@@ -290,6 +290,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab #edit_personal .user_avatar .old_image+.controls .del_avatar{display:none}
 .customer_cab #edit_personal .image_block .controls [for=forDel],.customer_cab #edit_personal .image_block .controls [for=forDelU]{font-size:.8em}
 .customer_cab #edit_personal .user_avatar img{width:100%}
+.customer_cab #edit_personal .user_avatar .big_size_err{width:300px;color:#d50000;font-size:12px;line-height:1.2em;text-align:justify;margin-top:3px}
 .customer_cab #settings .email label{width:auto;margin-right:5px}
 .customer_cab #settings .email.lineMail{margin-bottom:40px;width:300px}
 .customer_cab #settings .email.lineMail .mdl-checkbox__label{font-size:14px}

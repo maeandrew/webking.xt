@@ -160,6 +160,7 @@ header .header_wrapp .header_right .cart_item a > span {
 	position: relative;
 	bottom: 6px;
 }
+
 header .header_wrapp .header_right .cart_item a.for_hidden_js > span{
 	bottom: 0;
 }

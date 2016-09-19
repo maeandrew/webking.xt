@@ -22,6 +22,7 @@
 					<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 				</div>
 			</div>
+			<div class="big_size_err_js hidden big_size_err">Загружаемое изображение превышает допустимые нормы (ширина не более - 250; высота не более 250)</div>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="email">E-mail:</label>
@@ -131,22 +132,41 @@
 		componentHandler.upgradeDom();
 	}).on('success', function(file, path){
 		console.log(path);
-		file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
+		if(path == 'sizeoff') {
+			$('.big_size_err_js').removeClass('hidden');
+		}else{
+			$('.big_size_err_js').addClass('hidden');
+			file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
+		}
 		componentHandler.upgradeDom();
 	}).on('removedfile', function(file){
 		$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
+		$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
 		// removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
 		// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		componentHandler.upgradeDom();
 	});
+
 	$("body").on('click', '.del_u_photo_js', function(e){
+		var str = $(this).closest('.image_block ').find('.old_image_js img').attr('src'),
+			newstr = '';
 		if(confirm('Изобрежение будет удалено.')){
-			$('.image_block.dz-image-preview').remove();
-			$('#photobox').find('.old_image_js').addClass('old_image').find('img').attr('src', '/images/noavatar.png');
-			$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
-			// var path = $(this).closest('.image_block'),
-			// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-			// RemovedFile(path, removed_file);
+			if(str === undefined){
+				$('.image_block.dz-image-preview').remove();
+				$('#photobox').find('.old_image_js').addClass('old_image').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
+				$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
+			}else{
+				newstr = str.substring(str.search('/images/'), str.length);
+				ajax('image', 'delete', {path: newstr}).done(function(resp){
+					console.log(resp);
+					$('#photobox').find('.old_image_js').addClass('old_image').find('img').attr('src', '/images/noavatar.png');
+					$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
+				}).fail(function(resp){
+					console.log('fail');
+					console.log(resp);
+				});
+			}
 		}
 	});
+	
 </script>
