@@ -472,7 +472,7 @@ $(function(){
 	var content_header_scroll = 0;
 	$(window).scroll(function(){
 		if($('body').not('.c_product').length > 0){
-			content_header_scroll = $(this).scrollTop() + 52 - $('.content_header').offset().top;
+			content_header_scroll = $(this).scrollTop() + 52 - ($('.content_header').length == 0 ? 0 : $('.content_header').offset().top);
 			// console.log($('#view_block_js').offset().top + $('#view_block_js').outerHeight());
 			// console.log($(this).scrollTop() + 52 + $('.content_header').outerHeight());
 			// console.log(($('#view_block_js').offset().top + $('#view_block_js').outerHeight()) - ($(this).scrollTop() + 52 + $('.content_header').outerHeight()));
