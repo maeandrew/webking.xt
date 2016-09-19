@@ -4674,13 +4674,13 @@ class Products {
 		$count = 0;
 		$step = $id_product-5;
 		$l_prods = '';
-		while($count < 50){
+		while($count < 150){
 			$count++;
-			$step = $id_product<500?$step+5:$step-5;
+			$step = $id_product<5000?$step+5:$step-5;
 			$l_prods .= $step.', ';
 		}
 		$sql = "SELECT name, translit FROM "._DB_PREFIX_."product
-				WHERE id_product IN(".substr($l_prods, 0,-2).")";
+				WHERE visible = 1 AND id_product IN(".substr($l_prods, 0,-2).") LIMIT 50";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
