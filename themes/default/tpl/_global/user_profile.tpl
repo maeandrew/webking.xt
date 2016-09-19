@@ -2,7 +2,7 @@
 	<div class="UserInfBlock">
 		<div class="avatar">
 			<a href="<?=Link::Custom('cabinet')?>?t=contacts" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-				<img src="/images/noavatar.png"/>
+				<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
 			</a>
 		</div>
 		<div class="mainUserInf">

@@ -14,7 +14,6 @@
 			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 		</div>
-		<input type="hidden" name="images_visible[]" value="0">
 	</div>
 </div>
 <script>
@@ -72,7 +71,7 @@
 			addLoadAnimation('#edit_contacts');
 			var parent = $(this).closest('form'),
 				id_user = parent.find('[name="id_user"]').val(),
-				avatar = parent.find('[name="avatar"]').val(),
+				avatar = parent.find('[name="avatar"]').val() != undefined ? parent.find('[name="avatar"]').val() : '/images/noavatar.png',
 				email = parent.find('[name="email"]').val(),
 				phone_num = parent.find('[name="phones"]').val().replace(/[^\d]+/g, ""),
 				phone,
@@ -117,6 +116,9 @@
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
 						$('.date_container').css('box-shadow', 'none');
+
+						$('.UserInfBlock .avatar img, #user_profile img').attr('src', $('.new_image_js img').attr('src'));
+
 					}else{
 						for(var i in response){
 							switch(i){
@@ -144,6 +146,9 @@
 							}
 						}
 					}
+				}).fail(function(response){
+					removeLoadAnimation('#edit_contacts');
+					console.log(response);
 				});
 			}
 		});

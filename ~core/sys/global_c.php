@@ -801,4 +801,17 @@ class G {
 		}
 		return htmlspecialchars(_base_url.$url);
 	}
+
+	/**
+	 * Метод для получения URL фото профиля пользователя
+	 * @param string $id - id пользователя и имя фото, что делает его уникальным.
+	 */
+	public static function GetUserAvatar($id){
+		$url = '/images/avatars/'.$id.'.jpeg';
+		// Если файла по данному $url не существует, получим изображение nofoto.png
+		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
+			$url = '/images/noavatar.png';
+		}
+		return htmlspecialchars(_base_url.$url);
+	}
 }
