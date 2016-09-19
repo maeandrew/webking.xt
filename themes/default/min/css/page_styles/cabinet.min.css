@@ -287,6 +287,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab #edit_personal .user_avatar .del_avatar{position:absolute;cursor:pointer;top:5px;right:5px;text-align:right!important;line-height:1em;width:auto;height:25px;padding:.3em;border-radius:50%;background-color:rgba(52,52,52,.5);color:#fff;transition:.5s ease;-moz-transition:.5s ease;-webkit-transition:.5s ease;opacity:0}
 .customer_cab #edit_personal .user_avatar:hover .del_avatar{opacity:1}
 .customer_cab #edit_personal .user_avatar .del_avatar i{font-size:16px}
+.customer_cab #edit_personal .user_avatar .old_image+.controls .del_avatar{display:none}
 .customer_cab #edit_personal .image_block .controls [for=forDel],.customer_cab #edit_personal .image_block .controls [for=forDelU]{font-size:.8em}
 .customer_cab #edit_personal .user_avatar img{width:100%}
 .customer_cab #settings .email label{width:auto;margin-right:5px}

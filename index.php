@@ -25,13 +25,13 @@ G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/style.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/header.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/custom.css', 1);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/colors.css', 0);
-// G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/jquery-ui.css', 1);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/jquery-ui.css', 1);
 /* plugins css */
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/page_styles/'.$GLOBALS['CurrentController'].'.css', 0);
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
-// G::AddJS('jquery-ui.min.js', true, 1);
+G::AddJS('jquery-ui.min.js', true, 1);
 G::AddJS('../plugins/Chart.min.js', true);
 G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
