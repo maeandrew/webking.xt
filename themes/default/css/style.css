@@ -41,6 +41,7 @@ body {
 	padding-top: 52px;
 	position: relative;
 	background: #F3F3F3;
+	background: #f4f6f5;
 }
 a {
 	text-decoration: none;
@@ -2168,11 +2169,8 @@ section .stat_year {
 	border-color: #ff5722;
 	color: #fff;
 }
-.card:hover .product_photo .add_to_fav_trend_block > div i {
-	-webkit-transform: scale(1);
-	-ms-transform: scale(1);
-	-o-transform: scale(1);
-	transform: scale(1);
+.card:hover .product_photo .add_to_fav_trend_block {
+	opacity: 1;
 }
 .card:hover .product_photo .add_to_fav_trend_block > div i {
 	-webkit-transform: scale(1);
