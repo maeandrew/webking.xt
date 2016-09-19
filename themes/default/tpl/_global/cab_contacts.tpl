@@ -8,7 +8,7 @@
 			<div id="photobox">
 				<div class="previews">
 					<div class="image_block dz-preview dz-file-preview">
-						<div class="image old_image_js old_image">
+						<div class="image old_image_js<?=strstr(G::GetUserAvatar($_SESSION['member']['id_user']), 'noavatar')?' old_image':null;?>">
 							<img data-dz-thumbnail src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>" />
 						</div>
 						<div class="controls">
@@ -130,7 +130,6 @@
 		this.addFile(file);
 		componentHandler.upgradeDom();
 	}).on('success', function(file, path){
-		console.log(file);
 		console.log(path);
 		file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
 		componentHandler.upgradeDom();
@@ -140,20 +139,11 @@
 		// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
 		componentHandler.upgradeDom();
 	});
-
-	//Удаление ранее загруженного фото
-	$("body").on('click', '.del_photo_js', function(e){
-		alert('Изобрежение будет удалено.');
-		if(confirm('Изобрежение будет удалено.')){
-			// var path = $(this).closest('.image_block'),
-			// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
-			// RemovedFile(path, removed_file);
-		}
-	});
-	$("body").on('click', '.new_image_js + .controls .del_u_photo_js', function(e){
+	$("body").on('click', '.del_u_photo_js', function(e){
 		if(confirm('Изобрежение будет удалено.')){
 			$('.image_block.dz-image-preview').remove();
-			$('#photobox').find('.old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
+			$('#photobox').find('.old_image_js').addClass('old_image').find('img').attr('src', '/images/noavatar.png');
+			$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
 			// var path = $(this).closest('.image_block'),
 			// 	removed_file = path.find('input[name="images[]"]').val(); //  /news_images/482/cat.jpg
 			// RemovedFile(path, removed_file);
