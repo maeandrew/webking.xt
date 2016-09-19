@@ -130,8 +130,6 @@
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
 					]
 				});
-			</script>
-			<script>
 				//Инициализация owl carousel
 				$("#owl-product_mini_img_js").owlCarousel({
 					dots:	false,
@@ -150,32 +148,14 @@
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
 					]
 				});
-				$(function(){
-					//Слайдер миниатюр картинок.
-					$('#owl-product_mini_img_js .owl-item').on('click', function(event){
-						var src = $(this).find('img').attr('src');
-						var viewport_width = $(window).width();
-						if(viewport_width > 711){
-							$('#owl-product_slide_js').find('img').removeClass('act_img');
-							$(this).find('img').addClass('act_img');
-							// if(!(src.indexOf('nofoto') + 1)){
-							//  src = src.replace('thumb', 'original');
-							// }
-							if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
-								src = src.replace('/thumb/', '/original/');
-							}else{
-								src = src.replace('_thumb/', '');
-							}
-							$('.product_main_img').find('.main_img_js').attr('src', src).hide().fadeIn('100');
-						}else{
-							event.preventDefault();
-						}
-					});
-				});
 			</script>
 		<?}?>
 	</div>
 	<div id="specCont" class="specCont_js mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
+		<div>
+			<input type="hidden" class="path_root_js" value="<?=$GLOBALS['PATH_root']?>">
+			<input type="hidden" class="path_product_img_js" value="<?=$GLOBALS['PATH_product_img']?>">
+		</div>
 		<div class="product_name">
 			<h1 itemprop="name"><?=$item['name']?></h1>
 			<p class="product_article">арт: <?=$item['art']?></p>
