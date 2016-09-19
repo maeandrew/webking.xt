@@ -1276,7 +1276,7 @@ $(function(){
 
 	$('#access_recovery').on('click', 'label[for="chosen_mail"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
 	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
@@ -1285,49 +1285,71 @@ $(function(){
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
-	$('#access_recovery').on('blur', 'input[type="email"]', function(){
-		var email = $(this).val();
-		if(email !== ''){
-			// Поле email заполнено (здесь будем писать код валидации)
-			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
-			if(pattern.test(email)){
-				$(this).css({'color' : 'green'});
-			} else {
-				$(this).css({'color' : 'red'});
-				$('.mdl-textfield__error').text('Введите Email правильно');
-			}
-		} else {
-			// Поле email пустое, выводим предупреждающее сообщение
-			$(this).css({'color' : 'red'});
-			$('.mdl-textfield__error').text('Введите Email');
-		}
+	// $('#access_recovery').on('blur', 'input[type="email"]', function(){
+	// 	var email = $(this).val();
+	// 	if(email !== ''){
+	// 		// Поле email заполнено (здесь будем писать код валидации)
+	// 		var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+	// 		if(pattern.test(email)){
+	// 			$(this).closest('div').removeClass('is-invalid');
+	// 		} else {
+	// 			$(this).closest('div').addClass('is-invalid');
+	// 			$('.mdl-textfield__error').text('Введите Email правильно');
+	// 		}
+	// 	} else {
+	// 		// Поле email пустое, выводим предупреждающее сообщение
+	// 		$(this).closest('div').addClass('is-invalid');
+	// 		$('.mdl-textfield__error').text('Введите Email');
+	// 	}
+	// });
+	$('#access_recovery').on('keyup', '.input_container input', function(){
+		$('#access_recovery .input_container input').closest('div').removeClass('is-invalid');
 	});
 	$('#access_recovery').on('click', '#continue', function(e) {
 		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
 			method = parent.find('[name="recovery_method"]:checked'),
-			value;
+			value,
+			checked = false;
 		if(method.data('value') == "sms") {
 			var phone = $('#access_recovery .phone').val().replace(/[^\d]+/g, "");
 			if(phone.length == 12){
 				value = phone;
+				checked = true;
 			}
 		}
 		if(method.data('value') == "email"){
-			value = parent.find('[name="value"]').val();
-		}
-
-		data = {method: method.data('value'), value: value};
-		addLoadAnimation('#access_recovery');
-		ajax('auth', 'accessRecovery', data).done(function(response){
-			removeLoadAnimation('#access_recovery');
-			if (response.success) {
-				parent.find('.password_recovery_container').html(response.content);
-			}else{
-				parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+			var email = parent.find('[name="value"]').val();
+			if(email !== ''){
+				var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+				if(pattern.test(email)){
+					$('#access_recovery .input_container input').closest('div').removeClass('is-invalid');
+					value = email;
+					checked = true;
+				} else {
+					$('#access_recovery .input_container input').closest('div').addClass('is-invalid');
+					$('.mdl-textfield__error').text('Введите Email правильно');
+				}
+			} else {
+				$('#access_recovery .input_container input').closest('div').addClass('is-invalid');
+				$('.mdl-textfield__error').text('Введите Email');
 			}
-			componentHandler.upgradeDom();
-		});
+		}
+		data = {method: method.data('value'), value: value};
+		if(checked === false){
+			$('#access_recovery .input_container input').closest('div').addClass('is-invalid');
+		}else{
+			addLoadAnimation('#access_recovery');
+			ajax('auth', 'accessRecovery', data).done(function(response){
+				removeLoadAnimation('#access_recovery');
+				if (response.success) {
+					parent.find('.password_recovery_container').html(response.content);
+				}else{
+					parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+				}
+				componentHandler.upgradeDom();
+			});
+		}
 	});
 
 	$('#access_recovery').on('keyup', '#passwd', function(event) {

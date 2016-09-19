@@ -571,7 +571,7 @@
 					</label></div>
 					<div class="input_container">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<input class="mdl-textfield__input" type="email" name="value" id="recovery_email">
+							<input class="mdl-textfield__input" name="value" id="recovery_email">
 							<label class="mdl-textfield__label" for="recovery_email">Email</label>
 							<span class="mdl-textfield__error"></span>
 						</div>
