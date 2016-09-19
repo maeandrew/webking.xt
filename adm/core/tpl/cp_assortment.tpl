@@ -174,6 +174,11 @@
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
+			<?if(isset($cnt) && $cnt >= 30){?>
+				<div class="sort_page">
+					<a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?limit=all"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
+				</div>
+			<?}?>
 			<div class="switch_price_container">
 				<span>Единая цена</span>
 				<label for="switch_price">

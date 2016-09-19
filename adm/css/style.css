@@ -1269,6 +1269,9 @@ img.pic_block {
 	width: 100px;
 	margin-bottom: 1em;
 }
+.sort_page {
+	padding-bottom: 10px;
+}
 
 /* Оформление списка товаров без категории */
 /*.nocategory .table_row {
