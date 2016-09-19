@@ -117,7 +117,8 @@
 	var	url = URL_base+'cabinet/';
 	var dropzone = new Dropzone(".drop_zone", {
 		method: 'POST',
-		url: url+"?upload=true",
+		url: URL_base+'ajax?target=image&action=uploadAvatar',
+		// url: url+"?upload=true",
 		clickable: true,
 		maxFiles: 1,
 		// acceptedFiles: 'image/jpeg,image/png',
@@ -133,7 +134,9 @@
 		this.addFile(file);
 		componentHandler.upgradeDom();
 	}).on('success', function(file, path){
-		// file.previewElement.innerHTML += '<input type="hidden" name="images[]" value="'+path+'">';
+		console.log(file);
+		console.log(path);
+		// file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
 		componentHandler.upgradeDom();
 	}).on('removedfile', function(file){
 		$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
