@@ -22,7 +22,7 @@
 					<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 				</div>
 			</div>
-			<div class="big_size_title big_size_title_js">Размеры изображения должны быть не больше 250 х 250</div>
+			<div class="big_size_title big_size_title_js">Размеры изображения должны быть не больше 250&nbsp;х&nbsp;250</div>
 			<div class="big_size_err_js hidden big_size_err">Выберите другое изображение</div>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

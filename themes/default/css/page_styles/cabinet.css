@@ -1449,7 +1449,7 @@ table.kontrag.table{
 	
 	.customer_cab #edit_personal .big_size_err,
 	.customer_cab #edit_personal .big_size_title{
-		width: 136px;
+		width: calc(100% - 170px);
 		top: 20px;
 		right: 0;
 		position: absolute;
@@ -1459,7 +1459,7 @@ table.kontrag.table{
 		text-align: justify;
 	}
 	.customer_cab #edit_personal .big_size_title{
-		color: #444;
+		color: #757575;
 	}
 	.customer_cab #edit_personal .big_size_title.big_size_title_err{
 		color: #d50000;
@@ -1472,6 +1472,23 @@ table.kontrag.table{
 	.customer_cab #edit_personal .user_avatar > label{
 		color: #4CAF50;
 		font-size: 12px;
+	}
+	@media screen and (max-width: 480px){
+		.customer_cab #edit_personal .big_size_err{
+			top: 120px;
+		}
+		.customer_cab #edit_personal .user_avatar .avatar_menu{
+			bottom: 0;
+		}
+		.customer_cab #edit_personal .user_avatar .del_avatar{
+			opacity: 1;
+		}
+	}
+	@media screen and (max-width: 320px){
+		.customer_cab #edit_personal .big_size_err,
+		.customer_cab #edit_personal .big_size_title{
+			width: calc(100% - 160px);
+		}
 	}
 
 	/*Стили для "только что" загруженной аватарки пользователя - некликабельное поле */
@@ -3384,6 +3401,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 }
 @media (max-width: 470px) {
+	.breadcrumbs {
+		padding-left: 0;
+	}
 	.orderProdName {
 		overflow: hidden;
 	}
@@ -3414,6 +3434,16 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.product_balance, .min_prod_qty, .price_1, .price_2, .to_dollar {
 		width: 100%;
+	}
+	/*Аватарка пользователя*/
+	.customer_cab #edit_personal .big_size_err{
+		top: 120px;
+	}
+	.customer_cab #edit_personal .user_avatar .avatar_menu{
+		bottom: 0;
+	}
+	.customer_cab #edit_personal .user_avatar .del_avatar{
+		opacity: 1;
 	}
 }
 @media (max-width: 450px) {
@@ -3539,5 +3569,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	#orders_history .orderBntsMob .cnslOrderBtn {
 		padding-left: 5px;
+	}
+	/*Аватарка пользователя*/
+	.customer_cab #edit_personal .big_size_err,
+	.customer_cab #edit_personal .big_size_title{
+		width: calc(100% - 160px);
 	}
 }
