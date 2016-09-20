@@ -1443,16 +1443,20 @@ table.kontrag.table{
 	.customer_cab #edit_personal .image_block .controls [for="forDelU"] {
 		font-size: .8em;
 	}
-	.customer_cab #edit_personal .user_avatar img {
+	.customer_cab #edit_personal .user_avatar img{
 		width: 100%;
 	}
-	.customer_cab #edit_personal .user_avatar .big_size_err{
+	.customer_cab #edit_personal .big_size_err{
 		width: 300px;
 		color: #d50000;
 		font-size: 12px;
 		line-height: 1.2em;
 		text-align: justify;
 		margin-top: 3px;
+	}
+	.customer_cab #edit_personal .user_avatar > label{
+		color: #4CAF50;
+		font-size: 12px;
 	}
 
 /* Customer cab Settings =================================================== */
@@ -2922,19 +2926,19 @@ div[id^="items_panel_"] .btnWrapFlex {
 	font-size: 16px;
 	font-weight: bold;
 	padding-top: 10px;
-    padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 .rait_comment textarea {
 	width: 100%;
 }
 .rait_comment button {
-    margin-top: 10px;
-    float: right;
+	margin-top: 10px;
+	float: right;
 }
 
 /*.notification_settings .notification_switcher {
 	margin-bottom: 20px;
-    margin-top: 10px;
+	margin-top: 10px;
 }*/
 .notification_settings label {
 	height: auto;
@@ -2950,9 +2954,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 /* Новая доставка */
 .servise_logo {
 	overflow: hidden;
-    width: 5em;
-    height: 5em;
-    border-radius: 50%;
+	width: 5em;
+	height: 5em;
+	border-radius: 50%;
 }
 .servise_logo img {
 	width: 100%
@@ -2978,7 +2982,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	max-height: 155px;
 }
 .msg_text {
-    white-space: normal;
+	white-space: normal;
 }
 
 

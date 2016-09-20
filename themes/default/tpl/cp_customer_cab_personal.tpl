@@ -5,17 +5,6 @@
 		</div>
 	</div>
 </div>
-<div id="preview-template">
-	<div class="image_block dz-preview dz-file-preview">
-		<div class="image">
-			<img data-dz-thumbnail />
-		</div>
-		<div class="controls">
-			<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><!-- <i class="material-icons">delete</i> --></p>
-			<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
-		</div>
-	</div>
-</div>
 <script>
 	$(document).ready(function() {
 		var confirmUpdate = false;
@@ -116,9 +105,7 @@
 						snackbarContainer.MaterialSnackbar.showSnackbar(snackbarMsg);
 						$('.errMsg_js').text('');
 						$('.date_container').css('box-shadow', 'none');
-
 						$('.UserInfBlock .avatar img, #user_profile img').attr('src', $('.new_image_js img').attr('src'));
-
 					}else{
 						for(var i in response){
 							switch(i){
