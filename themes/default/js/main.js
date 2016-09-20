@@ -2149,40 +2149,7 @@ $(function(){
 
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
-	$('#owl-product_mini_img_js .owl-item').on('click', function(event){
-		$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
-		$('.product_main_img').find('iframe').attr('src', '');
-		var src = $(this).find('img').attr('src'),
-			viewport_width = $(window).width();
-		if(viewport_width > 711){
-			$('#owl-product_mini_img_js').find('img').removeClass('act_img');
-			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
-			$(this).find('img').addClass('act_img');
-			var path_root = $('.path_root_js').val();
-			var path_product_img = $('.path_product_img_js').val();
-			if(src.indexOf(path_product_img.replace(path_root, '')) > -1){
-				src = src.replace('/thumb/', '/original/');
-			}else{
-				src = src.replace('_thumb/', '');
-			}
-			$('.product_main_img').hide().fadeIn('100').find('.main_img_js').attr('src', src);
-		}else{
-			event.preventDefault();
-		}
-	}).on('click','.videoBlock', function(e){ //выбор видео и его перемещение в главное окно
-		e.stopPropagation(); // предотвращает распостранение евента который висит на родителях
-		$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); //убирает фокус с видео
-		$('#owl-product_mini_img_js').find('img').removeClass('act_img'); //убирает фокус с изображений
-		$(this).find('iframe').addClass('act_img'); //добавляет выделение текущей активной миниатюре
-		var src = $(this).find('iframe').attr('src');
-		$('.product_main_img').find('iframe').attr('src', src);
-		$('.product_main_img').find('#mainVideoBlock').removeClass('hidden');
-	});
-
-
-
-	$('#preview').on('click', '#owl-product_mini_img_js .owl-item', function(event){
-		console.log('546');
+	$('#preview, #caruselCont').on('click', '#owl-product_mini_img_js .owl-item', function(event){
 		$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
 		$('.product_main_img').find('iframe').attr('src', '');
 		var src = $(this).find('img').attr('src'),
