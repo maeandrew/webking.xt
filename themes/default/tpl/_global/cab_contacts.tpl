@@ -22,7 +22,8 @@
 					<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 				</div>
 			</div>
-			<div class="big_size_err_js hidden big_size_err">Загружаемое изображение превышает допустимые нормы (ширина не более - 250; высота не более 250)</div>
+			<div class="big_size_title big_size_title_js">Размеры изображения должны быть не больше 250 х 250</div>
+			<div class="big_size_err_js hidden big_size_err">Выберите другое изображение</div>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="email">E-mail:</label>
@@ -136,14 +137,17 @@
 	}).on('success', function(file, path){
 		if(path == 'sizeoff') {
 			$('.big_size_err_js').removeClass('hidden');
+			$('.big_size_title').addClass('big_size_title_err');
 		}else{
 			$('.big_size_err_js').addClass('hidden');
+			$('.big_size_title').removeClass('big_size_title_err');
 			file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
 		}
 		componentHandler.upgradeDom();
 	}).on('removedfile', function(file){
 		if(file.width > 250 || file.height > 250){
 			$('.big_size_err_js').addClass('hidden');
+			$('.big_size_title').removeClass('big_size_title_err');
 		}
 		$('#photobox .old_image_js img').removeClass('hidden');
 		componentHandler.upgradeDom();

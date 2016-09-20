@@ -1446,17 +1446,53 @@ table.kontrag.table{
 	.customer_cab #edit_personal .user_avatar img{
 		width: 100%;
 	}
-	.customer_cab #edit_personal .big_size_err{
-		width: 300px;
+	
+	.customer_cab #edit_personal .big_size_err,
+	.customer_cab #edit_personal .big_size_title{
+		width: 136px;
+		top: 20px;
+		right: 0;
+		position: absolute;
 		color: #d50000;
 		font-size: 12px;
-		line-height: 1.2em;
+		line-height: 1.4em;
 		text-align: justify;
-		margin-top: 3px;
+	}
+	.customer_cab #edit_personal .big_size_title{
+		color: #444;
+	}
+	.customer_cab #edit_personal .big_size_title.big_size_title_err{
+		color: #d50000;
+	}
+	.customer_cab #edit_personal .big_size_err{
+		top: 140px;
+		font-size: 13px;
+		text-align: left;
 	}
 	.customer_cab #edit_personal .user_avatar > label{
 		color: #4CAF50;
 		font-size: 12px;
+	}
+
+	/*Стили для "только что" загруженной аватарки пользователя - некликабельное поле */
+	.customer_cab #edit_personal .user_avatar #photobox::before,
+	.customer_cab #edit_personal .user_avatar #photobox::after{
+		content: '';
+		display: block;
+		position: absolute;
+		background-color: transparent;
+		z-index: 10;
+	}
+	.customer_cab #edit_personal .user_avatar #photobox::before{
+		top: 30px;
+		right: 0;
+		width: 30px;
+		height: 87px;
+	}
+	.customer_cab #edit_personal .user_avatar #photobox::after{
+		top: 0;
+		width: 120px;
+		height: 117px;
 	}
 
 /* Customer cab Settings =================================================== */
