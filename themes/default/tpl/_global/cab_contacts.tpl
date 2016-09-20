@@ -12,7 +12,7 @@
 							<img data-dz-thumbnail src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>" />
 						</div>
 						<div class="controls">
-							<p id="forDelU" class="del_u_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
+							<p id="forDelU" class="del_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>
 							<div class="mdl-tooltip" for="forDelU">Удалить фото</div>
 						</div>
 					</div>
@@ -22,7 +22,8 @@
 					<input type="file" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 				</div>
 			</div>
-			<div class="big_size_err_js hidden big_size_err">Загружаемое изображение превышает допустимые нормы (ширина не более - 250; высота не более 250)</div>
+			<div class="big_size_title big_size_title_js">Размеры изображения должны быть не больше 250&nbsp;х&nbsp;250</div>
+			<div class="big_size_err_js hidden big_size_err">Выберите другое изображение</div>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="email">E-mail:</label>
@@ -122,51 +123,47 @@
 		previewsContainer: '.previews',
 		previewTemplate: document.querySelector('#preview-template').innerHTML
 	});
+
 	dropzone.on('addedfile', function(file){
-		$('#photobox .old_image_js img').remove();
-		// $('.previews .dz-file-preview').addClass('forUpload');
+		$('#photobox .old_image_js img').addClass('hidden');
+		file.previewElement.addEventListener("click", function() {
+			dropzone.removeFile(file);
+		});
 		componentHandler.upgradeDom();
-	}).on('maxfilesexceeded', function(file) {
+	}).on('maxfilesexceeded', function(file){
 		this.removeAllFiles();
 		this.addFile(file);
 		componentHandler.upgradeDom();
 	}).on('success', function(file, path){
-		console.log(path);
 		if(path == 'sizeoff') {
 			$('.big_size_err_js').removeClass('hidden');
+			$('.big_size_title').addClass('big_size_title_err');
 		}else{
 			$('.big_size_err_js').addClass('hidden');
+			$('.big_size_title').removeClass('big_size_title_err');
 			file.previewElement.innerHTML += '<input type="hidden" name="avatar" value="'+path+'">';
 		}
 		componentHandler.upgradeDom();
 	}).on('removedfile', function(file){
-		$('#photobox .old_image_js').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
-		$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
-		// removed_file2 = '/product_images/original/'+year+'/'+(month+1)+'/'+day+'/'+file.name;
-		// $('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file2+'">');
+		if(file.width > 250 || file.height > 250){
+			$('.big_size_err_js').addClass('hidden');
+			$('.big_size_title').removeClass('big_size_title_err');
+		}
+		$('#photobox .old_image_js img').removeClass('hidden');
 		componentHandler.upgradeDom();
 	});
 
-	$("body").on('click', '.del_u_photo_js', function(e){
+	$("body").on('click', '.del_photo_js', function(e){
 		var str = $(this).closest('.image_block ').find('.old_image_js img').attr('src'),
 			newstr = '';
 		if(confirm('Изобрежение будет удалено.')){
-			if(str === undefined){
-				$('.image_block.dz-image-preview').remove();
-				$('#photobox').find('.old_image_js').addClass('old_image').append('<img data-dz-thumbnail src="/images/noavatar.png"/>');
+			newstr = str.substring(str.search('/images/'), str.length);
+			ajax('image', 'delete', {path: newstr}).done(function(resp){
+				$('#photobox').find('.old_image_js').addClass('old_image').find('img').attr('src', '/images/noavatar.png');
 				$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
-			}else{
-				newstr = str.substring(str.search('/images/'), str.length);
-				ajax('image', 'delete', {path: newstr}).done(function(resp){
-					console.log(resp);
-					$('#photobox').find('.old_image_js').addClass('old_image').find('img').attr('src', '/images/noavatar.png');
-					$('.UserInfBlock .avatar img, #user_profile img').attr('src', '/images/noavatar.png');
-				}).fail(function(resp){
-					console.log('fail');
-					console.log(resp);
-				});
-			}
+			}).fail(function(resp){
+				console.log('fail');
+			});
 		}
 	});
-	
 </script>

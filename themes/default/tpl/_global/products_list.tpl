@@ -349,7 +349,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<i id="fortrending_<?=$item['id_product']?>" class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'arrow':null;?>">trending_down</i>
 							<span class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Товар уже <br> в списке ожидания':'Следить за ценой';?></span>
 						</div>
-						<div class="preview_icon_block"><div class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</div></div>
+						<div class="preview_icon_block"><i class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</i></div>
 					</div>
 				</div>
 				<div class="product_name">

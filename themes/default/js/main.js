@@ -2149,7 +2149,7 @@ $(function(){
 
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
-	$('#owl-product_mini_img_js .owl-item').on('click', function(event){
+	$('#preview, #caruselCont').on('click', '#owl-product_mini_img_js .owl-item', function(event){
 		$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
 		$('.product_main_img').find('iframe').attr('src', '');
 		var src = $(this).find('img').attr('src'),
