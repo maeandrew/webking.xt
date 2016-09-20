@@ -165,20 +165,6 @@ tr.min td {
 		display: none;
 	}
 }
-.filial_icon {
-	z-index: 1;
-	position: absolute;
-	right: 5px;
-	bottom: 5px;
-	background-repeat: no-repeat;
-	height: 30px;
-	width: 65px;
-}
-.filial2 {
-	background: url("../../images/odessa_filial.png");
-	background-size: 65px 30px;
-	background-repeat: no-repeat;
-}
 .balance { font-size: 17px; }
 .balance span { font-weight: bold; }
 .balance.plus span { color: #080; }

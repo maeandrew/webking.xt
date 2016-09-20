@@ -28,8 +28,6 @@ class Invoice{
 			osp.fact_msum,
 			osp.fact_qty,
 			osp.fact_sum,
-			osp.filial_mopt,
-			osp.filial_opt,
 			osp.id_product,
 			osp.id_supplier,
 			osp.id_supplier_mopt,
@@ -87,18 +85,15 @@ class Invoice{
 			osp.opt_qty, osp.mopt_qty, osp.supplier_quantity_opt, osp.supplier_quantity_mopt, osp.opt_sum, osp.mopt_sum, o.strachovka, osp.id_supplier, osp.id_supplier_mopt, o.target_date,
 			osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
 			osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum, o.id_pretense_status, o.id_return_status, p.weight, p.volume,
-			osp.note_opt, osp.note_mopt, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, osp.filial_mopt, osp.filial_opt, i.src AS image
+			osp.note_opt, osp.note_mopt, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum, osp.contragent_msum, i.src AS image
 			FROM "._DB_PREFIX_."osp osp
 			LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
 			LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user
 			LEFT JOIN "._DB_PREFIX_."product p ON osp.id_product=p.id_product
 			LEFT JOIN "._DB_PREFIX_."image AS i ON osp.id_product=i.id_product
 				AND i.ord = 0 AND i.visible = 1
-			".$this->db->GetWhere($and);
-		if(isset($filial) == true && $filial != 0){
-			$sql.= " AND (osp.filial_mopt = ".$filial." OR osp.filial_opt = ".$filial.") ";
-		}
-		$sql .= " GROUP BY osp.id_order, osp.id_product, osp.id_supplier
+			".$this->db->GetWhere($and).
+			" GROUP BY osp.id_order, osp.id_product, osp.id_supplier
 			ORDER BY p.name";
 		$arr = $this->db->GetArray($sql);
 		if(empty($arr) == true){
@@ -112,7 +107,7 @@ class Invoice{
 		$and['o.id_order'] = $id_order;
 		$sql = "SELECT   (SELECT  "._DB_PREFIX_."supplier.article FROM xt_supplier WHERE "._DB_PREFIX_."supplier.id_user=osp.id_supplier_mopt) AS article_mopt,
 			s.article, p.name, o.id_order, p.art, o.id_order_status, osp.id_product, p.img_1, p.inbox_qty, osp.box_qty, osp.opt_qty, osp.mopt_qty,
-			osp.opt_sum, osp.mopt_sum, p.price_opt, p.price_mopt, o.target_date, p.weight, p.volume, osp.note_opt, osp.note_mopt, osp.filial_mopt, osp.filial_opt
+			osp.opt_sum, osp.mopt_sum, p.price_opt, p.price_mopt, o.target_date, p.weight, p.volume, osp.note_opt, osp.note_mopt
 			FROM "._DB_PREFIX_."osp osp
 			LEFT JOIN "._DB_PREFIX_."order o ON osp.id_order=o.id_order
 			LEFT JOIN "._DB_PREFIX_."supplier s ON osp.id_supplier=s.id_user

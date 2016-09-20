@@ -246,13 +246,32 @@ class mysqlPDO {
 		$sql = "INSERT INTO $table (`";
 		$sql .= implode("`, `", $keys);
 		$sql .="`) VALUES ";
-		$ii=0;
+		$ii = 0;
 		foreach($arr as $key=>$val){
-			if($ii++) $sql .= ", ";
-			$sql .="(\"";
-			$sql .= implode("\", \"", $val);
-			$sql .="\")";
+			$i = 0;
+			if($ii++) $sql .= ', ';
+			$sql .= '(';
+			foreach($val as $k=>$v){
+				$sql .= (gettype($v) == 'string'?$this->Quote($v):(gettype($v) == 'NULL'?'NULL':$v));
+				$i++;
+				if($i !== count($keys)){
+					$sql .= ', ';
+				}
+			}
+			$sql .= ')';
+			// if($_SESSION['member']['id_user'] == 20793){
+
+			// }else{
+			// 	if($ii++) $sql .= ", ";
+			// 	$sql .="(\"";
+			// 	$sql .= implode("\", \"", $val);
+			// 	$sql .="\")";
+			// }
 		}
+
+		// if($_SESSION['member']['id_user'] == 20793){
+		// 	print_r($sql);die();
+		// }
 		return $this->Query($sql);
 	}
 

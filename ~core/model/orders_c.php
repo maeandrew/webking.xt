@@ -378,9 +378,6 @@ class Orders {
 					AND osp.contragent_mqty <= 0
 					AND osp.note_mopt NOT LIKE '%Отмена#%'))";
 		}
-		if(isset($filial) == true && $filial != 0){
-			$where .= " AND (osp.filial_opt =".$filial." OR osp.filial_mopt = ".$filial.") ";
-		}
 		$sql = "SELECT o.id_order, o.id_order_status, osp.id_product, p.name,
 			p.img_1,
 			(SELECT src FROM "._DB_PREFIX_."image AS i WHERE p.id_product = i.id_product AND ord = 0 AND i.visible = 1) AS image,
@@ -394,7 +391,7 @@ class Orders {
 			osp.fact_qty, osp.fact_sum, osp.fact_mqty, osp.fact_msum,
 			osp.return_qty, osp.return_sum, osp.return_mqty, osp.return_msum,
 			o.id_pretense_status, o.id_return_status, osp.price_opt_otpusk, osp.price_mopt_otpusk,
-			osp.id_supplier_altern, osp.id_supplier_mopt_altern, osp.filial_opt, osp.filial_mopt,
+			osp.id_supplier_altern, osp.id_supplier_mopt_altern,
 			(SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user=osp.id_supplier_altern) AS article_altern,
 			(SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user=osp.id_supplier_mopt_altern) AS article_mopt_altern,
 			p.weight, p.volume, osp.note_opt, osp.note_mopt, p.sertificate, p.checked, osp.warehouse_quantity
@@ -574,9 +571,6 @@ class Orders {
 			//print_r($item);
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
-			// Обычный заказ
-			$p[$ii]['filial_mopt'] = 1;
-			$p[$ii]['filial_opt'] = 1;
 			// Определяем поставщика для товара
 			if($id_supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
 				if($item['mode'] == 'opt'){
@@ -594,7 +588,7 @@ class Orders {
 
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
-				$p[$ii]['note_'.$item['mode']] = $item['note'];
+				$p[$ii]['note'] = $item['note'];
 				$p[$ii]['default_sum_'.$item['mode']] = !isset($jo_order)?$item['summary'][$cart_column]:$item['sum_prod'];
 				if($item['mode'] == 'opt'){
 					$p[$ii]['mopt_qty'] = 0;

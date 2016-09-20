@@ -4,7 +4,6 @@ if(isset($_GET['orders']) && isset($_GET['id_contragent'])){
 	$orders = $_GET['orders'];
 	$id_contragent = $_GET['id_contragent']; // Получаем id контрагента
 	isset($_GET['type'])? $type = $_GET['type']:null;
-	isset($_GET['filial'])? $filial = $_GET['filial']:null;
 	isset($_GET['id_supplier'])? $id_supplier = $_GET['id_supplier']:null;
 }else{
 	$orders = $_POST['orders']; //Сюда приходит список всех задействованых заказов
@@ -73,7 +72,7 @@ foreach($orders as $order_id){
 				// Если нету поставщика - присваиваем имя "Прогноз"
 				$s['name'] = 'Прогноз';
 			}
-			$Order->SetListBySupplier($s['id_supplier'], $order_id, null, isset($type)?$type:null, isset($filial)?$filial:null);
+			$Order->SetListBySupplier($s['id_supplier'], $order_id, null, isset($type)?$type:null);
 			$sum						= 0;
 			$sum_mopt					= 0;
 			$sum_otpusk					= 0;
@@ -323,11 +322,7 @@ $tpl->Assign('suppliers_altern', $suppliers_altern);
 if(isset($type)){
 	$tpl->Assign('type', $type);
 }
-if(isset($filial) == true){
-	$tpl->Assign('filial', $Supplier->GetFilialById($filial));
-}
 // print_r(memory_get_peak_usage());
 echo $tpl->Parse($GLOBALS['PATH_tpl'].'composed_invoice.tpl');
 // ini_set('memory_limit', '256M');
 exit(0);
-?>
