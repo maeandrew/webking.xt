@@ -3401,6 +3401,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 }
 @media (max-width: 470px) {
+	.breadcrumbs {
+		padding-left: 0;
+	}
 	.orderProdName {
 		overflow: hidden;
 	}

@@ -628,7 +628,8 @@ h4{margin:5px 0 10px}
 .customer_cab #favorites .table_tbody .image_cell{flex:0 0 100%;padding:0}
 .customer_cab #favorites .table_tbody .image_cell img{vertical-align:middle;height:auto;width:100%}
 }
-@media (max-width:470px){.orderProdName{overflow:hidden}
+@media (max-width:470px){.breadcrumbs{padding-left:0}
+.orderProdName{overflow:hidden}
 #products .ordersProdList .ordersProdListContent .cent{display:flex}
 #products .ordersProdList .ordersProdListContent .priceWrap{display:block;flex:none;justify-content:inherit;width:100%}
 #products .ordersProdList .ordersProdListContent .orderProdName{flex-basis:65%;align-self:center;padding-top:0}

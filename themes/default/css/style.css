@@ -615,6 +615,14 @@ _:-ms-lang(x), [class^="active_"] .banner,
 			overflow: hidden;
 		}
 	}
+	@media (max-width: 480px) and (orientation: portrait){
+		.breadcrumbs li:first-of-type {
+			max-width: 136px;
+		}
+		.breadcrumbs li:last-of-type {
+			width: calc(100% - 136px);
+		}
+	}
 /* LAYOUT */
 .main {
 	width: 100%;
