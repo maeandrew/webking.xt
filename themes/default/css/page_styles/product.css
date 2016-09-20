@@ -261,6 +261,7 @@ div[for="rating_block"] {
 #specifications .mdl-grid {
 	line-height: 2.5em;
 	border-bottom: 1px solid #e0e0e0;
+	padding: 0px;
 }
 #specifications .mdl-grid:last-of-type {
 	border-bottom: 0;
@@ -270,6 +271,7 @@ div[for="rating_block"] {
 }
 #specifications .mdl-grid .mdl-cell {
 	padding: 0 10px;
+	margin: 0;
 }
 #specifications .mdl-grid .mdl-cell:last-of-type {
 	border-left: 1px solid #e0e0e0;
@@ -553,6 +555,7 @@ div[for="rating_block"] {
 }
 .notificationProdNote{
 	background: #ffffad;
+	clear: both;
 }
 .sold_produxt_info {
 	background: #b2dfdb;

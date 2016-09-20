@@ -11,7 +11,7 @@
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
-		<div id="owl-product_slide_js">
+		<!-- <div id="owl-product_slide_js">
 			<?if(!empty($product['images'])){
 				foreach($product['images'] as $i => $image){?>
 					<img src="<?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$product['name']?>"/>
@@ -23,7 +23,52 @@
 					<?}
 				}
 			}?>
+		</div> -->
+		<div class="product_main_img mdl-cell--hide-tablet mdl-cell--hide-phone">
+			<?if(!empty($product['images'])){?>
+				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($product['id_product'])?>" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
+			<?}else if(!empty($product['img_1'])){?>
+				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($product['id_product'])?>" src="<?=G::GetImageUrl($product['img_1'])?>"/>
+			<?}else{?>
+				<img class="main_img_js" itemprop="image" alt="<?=G::CropString($product['id_product'])?>" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+			<?}?>
+			<div id="mainVideoBlock" class="hidden">
+				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<?if(isset($product_mark) && $product_mark !== ''){?>
+				<div class="market_action">
+					<img src="<?=G::GetImageUrl('/images/'.$product_mark.'.png')?>" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
+				</div>
+			<?}?>
 		</div>
+		<div id="owl-product_mini_img_js">
+			<?if(!empty($product['images'])){
+				foreach($product['images'] as $i => $image){?>
+					<img src="<?=G::GetImageUrl($image['src'], 'thumb')?>" alt="<?=htmlspecialchars($product['name'])?>"<?=$i==0?'class="act_img"':'class=""';?>>
+				<?}
+			}else{
+				for($i=1; $i < 4; $i++){
+					if(!empty($product['img_'.$i])){?>
+						<img src="<?=G::GetImageUrl($product['img_'.$i], 'thumb')?>" alt="<?=htmlspecialchars($product['name'])?>"<?=$i==1?' class="act_img"':'class=""';?>>
+					<?}
+				}
+			}?>
+			<!-- Код добавления видео начало-->
+			<?if(!empty($product['videos'])){
+				foreach($product['videos'] as $i => $video){?>
+					<div class="videoBlock">
+						<div class="videoBlockShield"></div>
+						<iframe width="120" height="90" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=htmlspecialchars($product['name'])?>">
+						</iframe>
+					</div>
+				<?}
+			}?>
+			<!-- Код добавления видео конец-->
+		</div>
+	</div>
+	<div>
+		<input type="hidden" class="path_root_js" value="<?=$GLOBALS['PATH_root']?>">
+		<input type="hidden" class="path_product_img_js" value="<?=$GLOBALS['PATH_product_img']?>">
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 		<div class="pb_wrapper">
@@ -158,6 +203,24 @@
 			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
 		]
 	});	*/
+	$("#owl-product_mini_img_js").owlCarousel({
+		dots:	false,
+		items:	4,
+		margin:	10,
+		nav:	true,
+		responsive: {
+			320:	{items: 1},
+			727:	{items: 2},
+			950:	{items: 3},
+			1250:	{items: 3},
+			1600:	{items: 4}
+		},
+		navText: [
+			'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
+		]
+	});
+
 	$(function(){
 		//Слайдер миниатюр картинок
 		$('#owl-product_mini_img_js .item').on('click', function(event) {
