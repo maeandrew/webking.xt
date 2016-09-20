@@ -1,6 +1,8 @@
 .breadcrumbs_wrap{padding:0 10px}
 .product_page .center{width:100%}
-.product_page h1{font-size:2em;margin:0;padding-bottom:10px;clear:both}
+.product_page .mdl-grid{padding:0}
+.product_page h1{font-size:2em;margin:0;clear:both}
+.product .mdl-cell{margin:10px}
 .product .mdl-cell:last-of-type{padding-right:0}
 .product .product_name{overflow:auto}
 .product .product_article{color:#818181;line-height:20px;margin-right:1em;float:left}
