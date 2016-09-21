@@ -4,8 +4,14 @@
 	// Проверяем доступнось розницы
 	($product['price_mopt'] > 0 && $product['min_mopt_qty'] > 0)?$mopt_available = true:$mopt_available = false;
 	// Проверяем доступнось опта
-	($product['price_opt'] > 0 && $product['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;?>
-
+	($product['price_opt'] > 0 && $product['inbox_qty'] > 0)?$opt_available = true:$opt_available = false;
+	$product_mark = '';
+	$interval = date_diff(date_create(date("Y-m-d", strtotime($product['create_date']))), date_create(date("Y-m-d")));
+	if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+		$product_mark = 'action';
+	}elseif ($product['prod_status'] == 3 && $interval->format('%a') < 30){
+		$product_mark = 'new';
+	}?>
 	<div class="mdl-cell mdl-cell--12-col product_name">
 		<a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
 	</div>
@@ -35,7 +41,7 @@
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<?if(isset($product_mark) && $product_mark !== ''){?>
+			<?if(isset($product_mark) && $product_mark !== '' && $product['active'] != 0){?>
 				<div class="market_action">
 					<img src="<?=G::GetImageUrl('/images/'.$product_mark.'.png')?>" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 				</div>

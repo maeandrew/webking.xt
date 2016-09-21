@@ -4,9 +4,10 @@
 	// Проверяем доступнось опта
 	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	$product_mark = '';
+	$interval = date_diff(date_create(date("Y-m-d", strtotime($item['create_date']))), date_create(date("Y-m-d")));
 	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 		$product_mark = 'action';
-	}elseif ($item['prod_status'] == 3){
+	}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 		$product_mark = 'new';
 	}?>
 	<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone">
@@ -21,7 +22,7 @@
 			<div id="mainVideoBlock" class="hidden">
 				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<?if(isset($product_mark) && $product_mark !== ''){?>
+			<?if(isset($product_mark) && $product_mark !== '' && $item['active'] != 0){?>
 				<div class="market_action">
 					<img src="<?=G::GetImageUrl('/images/'.$product_mark.'.png')?>" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 				</div>
