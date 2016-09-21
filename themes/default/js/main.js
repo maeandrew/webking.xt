@@ -2242,4 +2242,15 @@ $(function(){
 	});
 	// ------------
 
+	// START Проверка вводимых данных (ФИО) в кабинете пользователя в разделе "основная инофрмация"
+	$('body').on('focusout', '#edit_contacts input.checkname_js', function(event){
+		var name = $(this).val(),
+			name_reg = /^[\'А-Яа-я-ЇїІіЁё]+|^[\'A-Za-z-]+$/gi;
+		if(name_reg.test(name)){
+			$(this).closest('.mdl-textfield').removeClass('is-invalid');
+		}else{
+			$(this).closest('.mdl-textfield').addClass('is-invalid');
+		}
+	});
+	// END
 });
