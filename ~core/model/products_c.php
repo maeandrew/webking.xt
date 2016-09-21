@@ -3048,9 +3048,11 @@ class Products {
 	 */
 	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
 		$limit = $limit?' LIMIT '.$limit:null;
-		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt, a.active,
 			p.descr, p.img_1
-			".(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."product p
+			".(!$rand?', COUNT(*) AS count':null)."
+			FROM "._DB_PREFIX_."product p
+			LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
 			".(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
 			LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
 			WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
