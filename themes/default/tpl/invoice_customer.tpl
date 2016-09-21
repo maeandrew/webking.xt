@@ -38,12 +38,6 @@
 	tr.min td{height: 1px; font-size: 1px;line-height: 1px;margin: 0px;padding: 0px;}
 	.adate{font-size: 11px;margin-left: 177px;}
 	.note_red{color:Red;font-size: 11px; font-weight:normal;}
-	.filial_icon { z-index: 1; position: absolute; right: 5px; bottom: 5px; background-repeat: no-repeat; height: 30px; width: 65px;}
-	.filial2 {
-	  background: url("../../images/odessa_filial.png");
-	  background-size: 65px 30px;
-	  background-repeat: no-repeat;
-	}
 	.stamp {
 		position: absolute;
 		width: 40%;
@@ -213,9 +207,6 @@
 						<?if ($i['note_opt']!=''){?>
 							<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_opt'])?></span>
 						<?}?>
-						<?if($i['filial_opt'] != 1){?>
-							<div class="filial<?=$i['filial_opt']?> filial_icon"></div>
-						<?}?>
 					</td>
 					<td class="c5"><?=$i['site_price_opt']?></td>
 					<td class="c8"><?=$i['opt_qty']?></td><?$qty+=$i['opt_qty'];?>
@@ -242,9 +233,6 @@
 							<?=$i['name']?>
 							<?if ($i['note_mopt']!=''){?>
 								<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_mopt'])?></span>
-							<?}?>
-							<?if($i['filial_mopt'] != 1){?>
-								<div class="filial<?=$i['filial_mopt']?> filial_icon"></div>
 							<?}?>
 						</td>
 						<td class="c5"><?=$i['site_price_mopt']?></td>
