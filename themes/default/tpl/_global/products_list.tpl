@@ -328,10 +328,6 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 					</div>
 				<?}?>
-
-				<?print_r($item['create_date'])?>
-				<?print_r(date("Y-m-d"))?>
-
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
