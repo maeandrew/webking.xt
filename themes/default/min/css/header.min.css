@@ -50,7 +50,7 @@ header .userContainer>div{padding:10px}
 .userContainer .listItems{height:30px;line-height:30px;text-align:center;color:#9e9e9e}
 .userContainer .listItems i{line-height:30px;vertical-align:top}
 .userContainer .UserInfBlock{display:flex;flex-wrap:wrap;justify-content:space-around;border-bottom:1px solid #e0e0e0}
-.userContainer .UserInfBlock .avatar img{width:80px;height:80px;border-radius:50%;margin:0 auto;background-color:#000;overflow:hidden}
+.userContainer .UserInfBlock .avatar img{width:80px;height:80px;border-radius:50%;margin:0 auto;overflow:hidden}
 .userContainer .mainUserInf{width:100%}
 .userContainer .userNameBlock{display:flex;justify-content:center}
 .userContainer .userNameInf{font-size:1.2em;font-weight:700;white-space:nowrap;text-overflow:ellipsis;max-width:calc(100% - 20px);overflow:hidden;color:#444}
