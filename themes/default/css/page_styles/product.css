@@ -128,15 +128,17 @@
 .slider_products .owl-item span {
 	color: #444;
 	display: block;
-	margin-top: 10px;
+	margin: 10px 0;
 	height: 3em;
 	overflow: hidden;
 }
 .slider_products .owl-item .ca-more {
 	opacity: .9;
-	position: absolute;
-	bottom: 30%;
-	right: 25px;
+	/*position: absolute;*/
+	/*bottom: 30%;*/
+	/*right: 25px;*/
+	margin: 0 auto;
+	width: 70%;
 	border-radius: .2em;
 	padding: 5px 10px;
 	z-index: 99;
@@ -756,4 +758,28 @@ div[for="rating_block"] {
 	display: block;
 	margin-right: 10px;
 	margin-bottom: 10px;
+}
+
+.slider_products .product_buy,
+.slider_products .notAval{
+	width: auto;
+	float: none; 
+	height: 50px;
+	padding: 10px 0; 
+	line-height: 36px; 
+	position: relative; 
+}
+
+.slider_products .product_buy .buy_block .btn_buy {
+	position: relative;
+	margin: 0 auto;
+	width: 89%;
+}
+.slider_products .product_buy .buy_block .btn_buy button{
+	background-color: #FF5722;
+	color: #fff;
+	border-radius: 3px;
+}
+.slider_products .product_buy .out_of_stock {
+	margin-top: 0;
 }
