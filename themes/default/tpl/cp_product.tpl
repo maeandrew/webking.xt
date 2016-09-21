@@ -418,7 +418,7 @@
 									</div>
 									<div class="fild_wrapp">
 										<label for="feedback_authors_email">Эл.почта:</label>
-										<input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
+										<input type="email" name="feedback_authors_email" id="feedback_authors_email" value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
 									</div>
 								</div>
 								<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Отправить отзыв</button>

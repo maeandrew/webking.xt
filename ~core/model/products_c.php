@@ -273,7 +273,7 @@ class Products {
 	 * @param integer	$id_product		id товара
 	 * @param integer	$rating			оценка товара
 	 */
-	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null, $pid_comment=null, $visible=null){
+	public function SubmitProductComment($text, $author, $author_name, $authors_email = false, $id_product, $rating=null, $pid_comment=null, $visible=null){
 		if(empty($text)){
 			return false;
 		}
@@ -282,7 +282,9 @@ class Products {
 		$f['author'] = trim($author);
 		$f['author_name'] = trim($author_name);
 		$f['rating'] = trim($rating);
-		$f['user_email'] = trim($authors_email);
+		if(isset($authors_email)){
+			$f['user_email'] = trim($authors_email);
+		}
 		if(!empty($pid_comment)) {
 			$f['pid_comment'] = $pid_comment;
 		}
