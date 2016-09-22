@@ -586,6 +586,9 @@ class Orders {
 				$Products->SetFieldsById($id_product);
 				$product = $Products->fields;
 
+				// if($_SESSION['member']['id_user'] == 20793){
+				// 	print_r($product);
+				// }
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
 				$p[$ii]['note'] = $item['note'];

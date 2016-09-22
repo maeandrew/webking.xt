@@ -273,7 +273,7 @@ class Products {
 	 * @param integer	$id_product		id товара
 	 * @param integer	$rating			оценка товара
 	 */
-	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null, $pid_comment=null, $visible=null){
+	public function SubmitProductComment($text, $author, $author_name, $authors_email = false, $id_product, $rating=null, $pid_comment=null, $visible=null){
 		if(empty($text)){
 			return false;
 		}
@@ -282,7 +282,9 @@ class Products {
 		$f['author'] = trim($author);
 		$f['author_name'] = trim($author_name);
 		$f['rating'] = trim($rating);
-		$f['user_email'] = trim($authors_email);
+		if(isset($authors_email)){
+			$f['user_email'] = trim($authors_email);
+		}
 		if(!empty($pid_comment)) {
 			$f['pid_comment'] = $pid_comment;
 		}
@@ -3046,9 +3048,11 @@ class Products {
 	 */
 	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
 		$limit = $limit?' LIMIT '.$limit:null;
-		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
-			p.descr, p.img_1
-			".(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."product p
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt, a.active,
+			p.min_mopt_qty, p.descr, p.img_1
+			".(!$rand?', COUNT(*) AS count':null)."
+			FROM "._DB_PREFIX_."product p
+			LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
 			".(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
 			LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
 			WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
