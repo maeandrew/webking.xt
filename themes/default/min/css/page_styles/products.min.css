@@ -96,7 +96,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .list_view .product_article{display:block}
 .favorite_icon:hover,.isfavorite{color:red}
 .arrow,.waiting_list:hover{color:#FF5722}
-.favorite_icon:hover,.waiting_list:hover{cursor:pointer}
+.favorite_icon:hover,.share_button:hover,.waiting_list:hover{cursor:pointer;color:#FF5722}
 .market_action{width:100px;position:absolute;top:-10px;left:-10px;z-index:1}
 .market_action img{width:100px;height:100px}
 .base_price{text-decoration:line-through;color:#9e9e9e;position:absolute}
@@ -124,20 +124,45 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview .owl-carousel{overflow:visible!important}
 .preview #owl-product_slide_js{max-height:305px;margin-top:10px}
 .preview #owl-product_slide_js .owl-item img{max-height:305px;max-width:90%;display:block;margin:0 auto}
-#preview .product_name a{font-weight:700;font-size:16px}
-#preview .product_main_img{margin-bottom:20px;border:1px solid #e0e0e0;background:#fff;width:100%;box-sizing:border-box;position:relative;height:550px}
-#preview .owl-carousel .owl-controls .owl-nav div{background:rgba(255,255,255,.5)}
+#preview .product_name{font-weight:700;font-size:16px}
+#preview .market_action{top:40px}
+#preview .product_main_img{background:#fff;width:100%;height:100%;box-sizing:border-box;position:relative}
 #preview #owl-product_mini_img_js .owl-item .act_img{border:1px solid #018B06}
-#preview .product_main_img img{display:block;max-width:100%;max-height:100%;margin:0 auto;position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
+#preview .big_photos_carousel .owl-item{height:70vh}
+#preview .big_photos_carousel .owl-item img{display:block;max-width:100%;max-height:100%;width:auto;margin:0 auto;position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
 #preview .modal_container{max-height:100%}
 #preview .mdl-tabs{clear:both}
-#preview .product_buy{padding:30px 0;margin:0 auto;float:none}
+#preview .product_buy{padding:30px 0;margin:0 auto;float:none;width:100%;padding:0;height:auto}
+#preview .buy_block{flex-wrap:wrap;justify-content:center;padding-top:10px}
+#preview .product_price{white-space:nowrap;text-align:center;display:flex;min-width:100%;justify-content:center}
+#preview .btn_buy{height:36px}
+#preview .quantityReverseBlock{display:flex;flex-direction:row-reverse;margin-left:35px}
+#preview .quantity{display:flex;width:100%;justify-content:center;padding-top:10px}
+#preview .add_to_fav_trend_block{opacity:1;position:relative;display:flex;padding-top:20px}
+#preview .favorite,#preview .fortrending,#preview .share{width:33%;text-align:center}
+#preview .share i:hover{cursor:pointer}
+#preview .social{width:210px;padding:5px 0;text-align:center}
+#preview .social li{display:inline-block;cursor:pointer;outline:0}
+#preview .social li a{display:inline-block;height:30px;width:30px;border-radius:50%;margin-right:4px}
+#preview .social li:last-child a{margin-right:0}
+#preview .social li a.vk{background-color:#4c75a3}
+#preview .social li a.ok{background-color:#ff9c43}
+#preview .social li a.g_pl{background-color:#ff6d4a}
+#preview .social li a.f{background-color:#496194}
+#preview .social li a.tw{background-color:#28c3ff}
+#preview .social li a:hover{background-color:#757575}
+#preview .mdl-grid .mdl-tabs__tab-bar{margin-bottom:5px}
+#preview .tab-content .mdl-tabs__panel{height:40vh;overflow-y:auto;overflow-x:hidden}
+#preview .quantityReverseBlock button{position:relative;top:0;bottom:0;opacity:1;width:40px;max-height:100%;border-radius:.2em}
+#preview #description{text-align:justify}
 #preview .product_buy .btn_buy button:hover{background:#ff5722;color:#fff}
 #preview .mdl-tabs__tab{width:50%}
+#preview .mdl-tabs__tab{padding:0}
 #preview #specifications .mdl-grid:nth-of-type(odd){background:#f7f7f7}
-#preview #specifications .mdl-grid{line-height:2.5em;border-bottom:1px solid #e0e0e0;padding:0}
-#preview #specifications .mdl-grid .mdl-cell{padding:0 10px;margin:0;width:50%}
+#preview #specifications .mdl-grid{line-height:1.5em;border-bottom:1px solid #e0e0e0;padding:0}
+#preview #specifications .mdl-grid .mdl-cell{padding:0 5px;margin:0;width:50%}
 #preview #specifications .mdl-grid .mdl-cell:last-of-type{border-left:1px solid #e0e0e0}
+#preview .owl-stage-outer{margin:0 auto}
 .list_view .product_article{margin-left:0}
 .preview .product_name{font-size:1.5em;width:100%}
 .preview .tab-content .mdl-button{position:absolute;bottom:0;left:0;background-color:#fff;width:100%}
