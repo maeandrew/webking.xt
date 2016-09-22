@@ -124,6 +124,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview .owl-carousel{overflow:visible!important}
 .preview #owl-product_slide_js{max-height:305px;margin-top:10px}
 .preview #owl-product_slide_js .owl-item img{max-height:305px;max-width:90%;display:block;margin:0 auto}
+#preview .prod_info_block{width:250px;margin-left:20px}
+#preview .images_carousel_block{width:calc(100% - 270px)}
 #preview .product_name{font-weight:700;font-size:16px}
 #preview .market_action{top:40px}
 #preview .product_main_img{background:#fff;width:100%;height:100%;box-sizing:border-box;position:relative}
@@ -163,6 +165,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 #preview #specifications .mdl-grid .mdl-cell{padding:0 5px;margin:0;width:50%}
 #preview #specifications .mdl-grid .mdl-cell:last-of-type{border-left:1px solid #e0e0e0}
 #preview .owl-stage-outer{margin:0 auto}
+@media (max-width:1023px){#preview .images_carousel_block{width:100%}
+}
 .list_view .product_article{margin-left:0}
 .preview .product_name{font-size:1.5em;width:100%}
 .preview .tab-content .mdl-button{position:absolute;bottom:0;left:0;background-color:#fff;width:100%}
