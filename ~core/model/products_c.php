@@ -3986,10 +3986,12 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetArrayRelatedProducts($id_product){
-		$sql = "SELECT p.id_product, p.*
+		$sql = "SELECT a.active, p.*
 			FROM "._DB_PREFIX_."related_prods AS rp
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON p.id_product = rp.id_related_prod
+			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+				ON a.id_product = rp.id_related_prod
 			WHERE rp.id_prod = ".$id_product;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
@@ -4651,7 +4653,7 @@ class Products {
 
 	// Вывод новинок категории
 	public function getNewProducts($category, $id_product){
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
