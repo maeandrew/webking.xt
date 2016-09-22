@@ -966,6 +966,9 @@ label.info_key {
 }
 #preview .mdl-tabs {
 	clear: both;
+	/*height: calc(80vh - 300px);
+	overflow-y: auto;
+    overflow-x: hidden;*/
 }
 #preview .product_buy {
 	padding: 30px 0;
@@ -1062,9 +1065,9 @@ label.info_key {
 	margin-bottom: 5px;
 }
 #preview .tab-content .mdl-tabs__panel {
-	height: 40vh;
-	overflow-y: auto;
-	overflow-x: hidden;
+	height: calc(80vh - 370px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 #preview .quantityReverseBlock button {
     position: relative;
