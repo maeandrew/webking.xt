@@ -156,11 +156,20 @@ header .header_wrapp .header_right .cart_item a > span {
 	margin-left: .5em;
 	display: inline-block;
 	vertical-align: middle;
-	text-align: center;
+	text-align: left;
 	position: relative;
 	bottom: 6px;
 }
-header .header_wrapp .header_right .cart_item a > span > span:last-of-type{
+
+header .header_wrapp .header_right .cart_item a.for_hidden_js > span{
+	bottom: 0;
+}
+header .header_wrapp .header_right .cart_item a.for_hidden_js > span > br,
+header .header_wrapp .header_right .cart_item a.for_hidden_js > span > span:nth-child(2),
+header .header_wrapp .header_right .cart_item a.for_hidden_js > span > span:last-of-type {
+	display: none;
+}
+header .header_wrapp .header_right .cart_item a span{
 	font-weight: 600;
 }
 header .header_wrapp .header_right .random_page {
@@ -232,7 +241,6 @@ header .userContainer > div {
 	height: 80px;
 	border-radius: 50%;
 	margin: 0 auto;
-	background-color: #000;
 	overflow: hidden;
 }
 .userContainer .mainUserInf{

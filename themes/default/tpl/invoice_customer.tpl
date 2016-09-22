@@ -38,12 +38,6 @@
 	tr.min td{height: 1px; font-size: 1px;line-height: 1px;margin: 0px;padding: 0px;}
 	.adate{font-size: 11px;margin-left: 177px;}
 	.note_red{color:Red;font-size: 11px; font-weight:normal;}
-	.filial_icon { z-index: 1; position: absolute; right: 5px; bottom: 5px; background-repeat: no-repeat; height: 30px; width: 65px;}
-	.filial2 {
-	  background: url("../../images/odessa_filial.png");
-	  background-size: 65px 30px;
-	  background-repeat: no-repeat;
-	}
 	.stamp {
 		position: absolute;
 		width: 40%;
@@ -60,179 +54,144 @@
 </style>
 </head>
 <body>
-<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
-	<tbody>
-		<tr>
-            <td colspan="4"  valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
-                <img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
-            </td>
-		</tr>
-		<tr class="top">
-			<td align="center" colspan="4">
-				<!-- <span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span> -->
-				<span class="invoice">Счет № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
-			</td>
-		</tr>
-		<tr>
-			<td class="first_col undln">
-				Отправитель:
-			</td>
-			<td class="second_col" >
-				<?if(isset($remitter)){?>
-					<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
-				<?}?>
-				<?$Contragent['name']?><p><?=$Contragent['phones']?></p>
-			</td>
-		</tr>
-		<tr>
-			<td class="first_col undln lb">
-				Получатель:
-			</td>
-			<td class="second_col" >
-				<?=$customer['last_name']?> <?=$customer['first_name']?> <?=$customer['middle_name']?>, тел.: <?=$customer['phones']?>
-			</td>
-		</tr>
-		<!-- <tr>
-			<td class="undln"></td>
-			<td class="undln lb"></td>
-			<td><?=$addr_deliv?></td>
-		</tr> -->
-		<tr>
-			<td colspan="2">
-				<span class="undln"></span>
-			</td>
-			<td colspan="2" class="lb">
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" style="padding: 10px; ">
-	<tbody>
-		<tr>
-			<td style="width: 120px;">
-				Компания доставки:
-			</td>
-			<td style="font-weight: bold;">
-				<?=$address['shipping_company_title']?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Область:
-			</td>
-			<td style="font-weight: bold;">
-				<?=$address['region_title']?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Город:
-			</td>
-			<td style="font-weight: bold;">
-				<?=$address['city_title']?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Тип доставки:
-			</td>
-			<td style="font-weight: bold;">
-				<?=$address['delivery_type_title']?>
-			</td>
-		</tr>
-		<?if($address['delivery_department'] !=''){?>
+	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
+		<tbody>
 			<tr>
-				<td>
-					Отделение:
-				</td>
-				<td style="font-weight: bold;">
-					<?=$address['delivery_department']?>
+	            <td colspan="4"  valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
+	                <img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
+	            </td>
+			</tr>
+			<tr class="top">
+				<td align="center" colspan="4">
+					<!-- <span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span> -->
+					<span class="invoice">Счет № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
 				</td>
 			</tr>
-		<?}?>
-		<?if($address['address'] !=''){?>
+		</tbody>
+	</table>
+	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" style="padding: 10px; ">
+		<tbody>
 			<tr>
-				<td>
-					Адрес:
-				</td>
+				<td>Отправитель:</td>
 				<td style="font-weight: bold;">
-					<?=$address['address']?>
+					<?if(isset($remitter)){?>
+						<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
+					<?}else{?>
+						Не указан
+					<?}?>
 				</td>
 			</tr>
-		<?}?>
-	</tbody>
-</table>
-<?
-$c1 = 25;
-$c2 = 40;
-$c3 = 60;
-$c4 = 48;
-$c5 = 384;
-$c6 = 60;
-$c8 = 60;
-$c10 = 60;
-$c13 = 60;
-?>
-<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_main">
-	<col width="<?=$c1?>" />
-	<col width="<?=$c2?>" />
-	<col width="<?=$c3?>" class="<?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>" />
-	<col width="<?=$c4?>" />
-	<col width="<?=$c5?>" />
-	<col width="<?=$c6?>" />
-	<col width="<?=$c8?>" />
-	<col width="<?=$c10?>" />
-	<col width="<?=$c13?>" />
-	<tbody>
-		<tr class="hdr">
-			<td class="bl bt">№</td>
-			<td class="bt">Скл.</td>
-			<td class="bt">Артикул</td>
-			<td class="bt <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">Фото</td>
-			<td class="bt">Название</td>
-			<td class="bt">Цена за шт.</td>
-			<td class="bt">заказано, шт</td>
-			<td class="bt">Сумма</td>
-			<td class="bt">Вес,<br>Объем</td>
-		</tr>
-		<?$ii=1;$qty=0;$weight=0;$volume=0;?>
-		<?if(isset($arr)){
-		foreach ($arr as &$a){
-			foreach($a as &$i){?>
-			<?if($i['opt_qty']>0){?>
-			<tr class="main">
-				<td class="bl c1"><?=$ii++?></td>
-				<td class="c2"><?=$i['article']?></td>
-				<td class="c6"><?=$i['art']?></td>
-				<td class="c3 <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">
-					<?if(isset($i['image']) && !empty($i['image'])){?>
-						<img height="48" src="<?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=$i['name']?>">
-					<?}else if(!empty($i['img_1'])){?>
-						<img height="48" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
-					<?}else {?>
-						<img height="48" src="<?=_base_url?>/images/nofoto.png" />
-					<?}?>
+			<tr>
+				<td>Менеджер:</td>
+				<td style="font-weight: bold;">
+					<?=$Contragent['name']?>
 				</td>
-				<td class="name c4">
-					<?=$i['name']?>
-					<?if ($i['note_opt']!=''){?>
-						<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_opt'])?></span>
-					<?}?>
-					<?if($i['filial_opt'] != 1){?>
-						<div class="filial<?=$i['filial_opt']?> filial_icon"></div>
-					<?}?>
-				</td>
-				<td class="c5"><?=$i['site_price_opt']?></td>
-				<td class="c8"><?=$i['opt_qty']?></td><?$qty+=$i['opt_qty'];?>
-				<td class="c10"><?=$i['opt_sum']?></td>
-				<td class="c13"><?=round($i['volume']*$i['opt_qty'],2)?><br><?=round($i['weight']*$i['opt_qty'],2)?></td>
-				<?$weight+=round($i['weight']*$i['opt_qty'],2);?><?$volume+=round($i['volume']*$i['opt_qty'],2);?>
 			</tr>
-			<?}
-			if($i['mopt_qty']>0){?>
+			<tr>
+				<td>Получатель:</td>
+				<td style="font-weight: bold;">
+					<?=trim($Customer['last_name'].$Customer['first_name'].$Customer['middle_name']) == ''?$Customer['cont_person']:trim($Customer['last_name']).' '.trim($Customer['first_name']).' '.trim($Customer['middle_name'])?>, <?=$Customer['phone']?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<span class="undln"></span>
+				</td>
+				<td colspan="2" class="lb">
+				</td>
+			</tr>
+			<?if(!empty($address)){?>
 				<tr>
+					<td>Компания доставки:</td>
+					<td style="font-weight: bold;">
+						<?=$address['shipping_company_title']?>
+					</td>
+				</tr>
+				<tr>
+					<td>Область:</td>
+					<td style="font-weight: bold;">
+						<?=$address['region_title']?>
+					</td>
+				</tr>
+				<tr>
+					<td>Город:</td>
+					<td style="font-weight: bold;">
+						<?=$address['city_title']?>
+					</td>
+				</tr>
+				<tr>
+					<td>Тип доставки:</td>
+					<td style="font-weight: bold;">
+						<?=$address['delivery_type_title']?>
+					</td>
+				</tr>
+				<?if($address['delivery_department'] !=''){?>
+					<tr>
+						<td>Отделение:</td>
+						<td style="font-weight: bold;">
+							<?=$address['delivery_department']?>
+						</td>
+					</tr>
+				<?}?>
+				<?if($address['address'] !=''){?>
+					<tr>
+						<td>Адрес:</td>
+						<td style="font-weight: bold;">
+							<?=$address['address']?>
+						</td>
+					</tr>
+				<?}?>
+			<?}else{?>
+				<tr>
+					<td>Адрес доставки:</td>
+					<td style="font-weight: bold;">
+						Не указан
+					</td>
+				</tr>
+			<?}?>
+		</tbody>
+	</table>
+	<?
+	$c1 = 25;
+	$c2 = 40;
+	$c3 = 60;
+	$c4 = 48;
+	$c5 = 384;
+	$c6 = 60;
+	$c8 = 60;
+	$c10 = 60;
+	$c13 = 60;
+	?>
+	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_main">
+		<col width="<?=$c1?>" />
+		<col width="<?=$c2?>" />
+		<col width="<?=$c3?>" class="<?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>" />
+		<col width="<?=$c4?>" />
+		<col width="<?=$c5?>" />
+		<col width="<?=$c6?>" />
+		<col width="<?=$c8?>" />
+		<col width="<?=$c10?>" />
+		<col width="<?=$c13?>" />
+		<tbody>
+			<tr class="hdr">
+				<td class="bl bt">№</td>
+				<td class="bt">Скл.</td>
+				<td class="bt">Артикул</td>
+				<td class="bt <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">Фото</td>
+				<td class="bt">Название</td>
+				<td class="bt">Цена за шт.</td>
+				<td class="bt">заказано, шт</td>
+				<td class="bt">Сумма</td>
+				<td class="bt">Вес,<br>Объем</td>
+			</tr>
+			<?$ii=1;$qty=0;$weight=0;$volume=0;?>
+			<?if(isset($arr)){
+			foreach ($arr as &$a){
+				foreach($a as &$i){?>
+				<?if($i['opt_qty']>0){?>
+				<tr class="main">
 					<td class="bl c1"><?=$ii++?></td>
-					<td class="c2"><?=$i['article_mopt']?></td>
+					<td class="c2"><?=$i['article']?></td>
 					<td class="c6"><?=$i['art']?></td>
 					<td class="c3 <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">
 						<?if(isset($i['image']) && !empty($i['image'])){?>
@@ -245,53 +204,75 @@ $c13 = 60;
 					</td>
 					<td class="name c4">
 						<?=$i['name']?>
-						<?if ($i['note_mopt']!=''){?>
-							<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_mopt'])?></span>
-						<?}?>
-						<?if($i['filial_mopt'] != 1){?>
-							<div class="filial<?=$i['filial_mopt']?> filial_icon"></div>
+						<?if ($i['note_opt']!=''){?>
+							<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_opt'])?></span>
 						<?}?>
 					</td>
-					<td class="c5"><?=$i['site_price_mopt']?></td>
-					<td class="c8"><?=$i['mopt_qty']?></td><?$qty+=$i['mopt_qty'];?>
-					<td class="c10"><?=$i['mopt_sum']?></td>
-					<td class="c13"><?=round($i['volume']*$i['mopt_qty'],2)?><br><?=round($i['weight']*$i['mopt_qty'],2)?></td>
-					<?$weight+=round($i['weight']*$i['mopt_qty'],2);?><?$volume+=round($i['volume']*$i['mopt_qty'],2);?>
+					<td class="c5"><?=$i['site_price_opt']?></td>
+					<td class="c8"><?=$i['opt_qty']?></td><?$qty+=$i['opt_qty'];?>
+					<td class="c10"><?=$i['opt_sum']?></td>
+					<td class="c13"><?=round($i['volume']*$i['opt_qty'],2)?><br><?=round($i['weight']*$i['opt_qty'],2)?></td>
+					<?$weight+=round($i['weight']*$i['opt_qty'],2);?><?$volume+=round($i['volume']*$i['opt_qty'],2);?>
 				</tr>
-			<?}?>
-			<?}?>
-		<?}
-		}?>
-		<tr>
-			<td class="bbf blf" <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'colspan="6"':'colspan="7"';?> colspan="7" style="text-align:right;padding: 5px;">Сумма:</td>
-			<td class="br bb" style="font-weight:bold;"><?=round($order['sum_discount'],2)?></td>
-			<td class="br bb" style="font-weight:bold;"><?=round($volume,2)?><br><?=round($weight,2)?></td>
-		</tr>
-	</tbody>
-</table>
-<table align="center" width="800" style="padding: 10px;">
-	<tbody>
-		<tr>
-			<td colspan=11 class="nb" style="text-align: left;">Действует в течении 3 дней</td>
-		</tr>
-		<tr>
-			<td colspan=11 class="nb">&nbsp;<br>&nbsp;</td>
-		</tr>
-		<tr>
-			<td colspan=4 class="nb">Выписал___________________<!-- <img class="stamp" src="<?=$GLOBALS['URL_base'];?>/images/2754500962.png" alt=""> --></td>
-			<td colspan=4 class="nb">Принял___________________</td>
-			<td colspan=3 class="nb">&nbsp;</td>
-		</tr>
-	</tbody>
-</table>
-
-<?if(isset($Sertificates)){?>
-<br>
-	<?foreach ($Sertificates as $s){?>
-		<br><br>
-		<img src="<?=file_exists($GLOBALS['PATH_root'].'/phpthumb/phpThumb.php?src='.$s.'&w=800')?_base_url.'/phpthumb/phpThumb.php?src='.$s.'&w=800':'/images/nofoto.png'?>" />
+				<?}
+				if($i['mopt_qty']>0){?>
+					<tr>
+						<td class="bl c1"><?=$ii++?></td>
+						<td class="c2"><?=$i['article_mopt']?></td>
+						<td class="c6"><?=$i['art']?></td>
+						<td class="c3 <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'hidden':null;?>">
+							<?if(isset($i['image']) && !empty($i['image'])){?>
+								<img height="48" src="<?=G::GetImageUrl($i['image'], 'medium')?>" alt="<?=$i['name']?>">
+							<?}else if(!empty($i['img_1'])){?>
+								<img height="48" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
+							<?}else {?>
+								<img height="48" src="<?=_base_url?>/images/nofoto.png" />
+							<?}?>
+						</td>
+						<td class="name c4">
+							<?=$i['name']?>
+							<?if ($i['note_mopt']!=''){?>
+								<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_mopt'])?></span>
+							<?}?>
+						</td>
+						<td class="c5"><?=$i['site_price_mopt']?></td>
+						<td class="c8"><?=$i['mopt_qty']?></td><?$qty+=$i['mopt_qty'];?>
+						<td class="c10"><?=$i['mopt_sum']?></td>
+						<td class="c13"><?=round($i['volume']*$i['mopt_qty'],2)?><br><?=round($i['weight']*$i['mopt_qty'],2)?></td>
+						<?$weight+=round($i['weight']*$i['mopt_qty'],2);?><?$volume+=round($i['volume']*$i['mopt_qty'],2);?>
+					</tr>
+				<?}?>
+				<?}?>
+			<?}
+			}?>
+			<tr>
+				<td class="bbf blf" <?=isset($_GET['nophoto']) && $_GET['nophoto'] == true?'colspan="6"':'colspan="7"';?> colspan="7" style="text-align:right;padding: 5px;">Сумма:</td>
+				<td class="br bb" style="font-weight:bold;"><?=round($order['sum_discount'],2)?></td>
+				<td class="br bb" style="font-weight:bold;"><?=round($volume,2)?><br><?=round($weight,2)?></td>
+			</tr>
+		</tbody>
+	</table>
+	<table align="center" width="800" style="padding: 10px;">
+		<tbody>
+			<tr>
+				<td colspan=11 class="nb" style="text-align: left;">Действует в течении 3 дней</td>
+			</tr>
+			<tr>
+				<td colspan=11 class="nb">&nbsp;<br>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan=4 class="nb">Выписал___________________<!-- <img class="stamp" src="<?=$GLOBALS['URL_base'];?>/images/2754500962.png" alt=""> --></td>
+				<td colspan=4 class="nb">Принял___________________</td>
+				<td colspan=3 class="nb">&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+	<?if(isset($Sertificates)){?>
+		<br>
+		<?foreach ($Sertificates as $s){?>
+			<br><br>
+			<img src="<?=file_exists($GLOBALS['PATH_root'].'/phpthumb/phpThumb.php?src='.$s.'&w=800')?_base_url.'/phpthumb/phpThumb.php?src='.$s.'&w=800':'/images/nofoto.png'?>" />
+		<?}?>
 	<?}?>
-<?}?>
-
-</body>
+	</body>
 </html>

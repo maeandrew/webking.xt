@@ -140,7 +140,7 @@
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
 
-							<form action="<?=$GLOBALS['URL_request']?>/?export" method="post">
+							<form action="<?=$_SERVER['REQUEST_URI']?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
 
@@ -154,7 +154,7 @@
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
 
-							<form action="<?=$GLOBALS['URL_request']?>/?export_usd" method="post">
+							<form action="<?=$_SERVER['REQUEST_URI']?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
 
@@ -174,6 +174,11 @@
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
+			<?if(isset($cnt) && $cnt >= 30){?>
+				<div class="sort_page">
+					<a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?limit=all"<?=(isset($_GET['limit'])&&$_GET['limit']=='all')?'class="active"':null?>>Показать все</a>
+				</div>
+			<?}?>
 			<div class="switch_price_container">
 				<span>Единая цена</span>
 				<label for="switch_price">

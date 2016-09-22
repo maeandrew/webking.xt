@@ -141,7 +141,7 @@ $GLOBALS['WithFilters']			= array('products', 'main', 'product');
 // Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(
-	'title' => 'Отдел снабжения xt.ua',
+	'title' => 'Служба снабжения xt.ua',
 	'url' => _base_url
 );
 // сколько брать записей из таблицы (при использовании пагинатора)

@@ -5,15 +5,16 @@
 .product_page .center {
 	width: 100%;
 }
-/*.product_page .content {
-	padding: 0 10px;
-	position: relative;
-}*/
+.product_page .mdl-grid {
+	padding: 0;
+}
 .product_page h1 {
 	font-size: 2em;
 	margin: 0;
-	padding-bottom: 10px;
 	clear: both;
+}
+.product .mdl-cell {
+	margin: 10px;
 }
 .product .mdl-cell:last-of-type {
 	padding-right: 0;
@@ -127,15 +128,17 @@
 .slider_products .owl-item span {
 	color: #444;
 	display: block;
-	margin-top: 10px;
+	margin: 10px 0;
 	height: 3em;
 	overflow: hidden;
 }
 .slider_products .owl-item .ca-more {
 	opacity: .9;
-	position: absolute;
-	bottom: 30%;
-	right: 25px;
+	/*position: absolute;*/
+	/*bottom: 30%;*/
+	/*right: 25px;*/
+	margin: 0 auto;
+	width: 70%;
 	border-radius: .2em;
 	padding: 5px 10px;
 	z-index: 99;
@@ -261,6 +264,7 @@ div[for="rating_block"] {
 #specifications .mdl-grid {
 	line-height: 2.5em;
 	border-bottom: 1px solid #e0e0e0;
+	padding: 0px;
 }
 #specifications .mdl-grid:last-of-type {
 	border-bottom: 0;
@@ -270,6 +274,7 @@ div[for="rating_block"] {
 }
 #specifications .mdl-grid .mdl-cell {
 	padding: 0 10px;
+	margin: 0;
 }
 #specifications .mdl-grid .mdl-cell:last-of-type {
 	border-left: 1px solid #e0e0e0;
@@ -553,6 +558,7 @@ div[for="rating_block"] {
 }
 .notificationProdNote{
 	background: #ffffad;
+	clear: both;
 }
 .sold_produxt_info {
 	background: #b2dfdb;
@@ -752,4 +758,41 @@ div[for="rating_block"] {
 	display: block;
 	margin-right: 10px;
 	margin-bottom: 10px;
+}
+
+.slider_products .product_buy,
+.slider_products .notAval{
+	width: auto;
+	float: none; 
+	height: 50px;
+	padding: 10px 0; 
+	line-height: 36px; 
+	position: relative; 
+}
+
+.slider_products .product_buy .buy_block .btn_buy{
+	position: relative;
+	margin: 0 auto;
+	width: 89%;
+}
+.slider_products .product_buy .buy_block .btn_buy button{
+	border: 1px solid #e0e0e0;
+	color: #FF5722;
+	border-radius: 3px;
+}
+.slider_products .product_buy .buy_block .btn_buy button:hover{
+	border: 1px solid #FF5722;
+	background-color: #FF5722;
+	color: #fff;
+}
+.slider_products .product_buy .out_of_stock{
+	margin-top: 0;
+}
+
+@media (max-width: 800px), (max-width: 1100px) and (orientation: landscape){
+	.slider_products .product_buy .buy_block .btn_buy button{
+		border: 1px solid #FF5722;
+		background-color: #FF5722;
+		color: #fff;
+	}
 }

@@ -20,7 +20,7 @@ class Cart {
 			$product['min_mopt_qty'] = $product['inbox_qty'];
 		}
 		$quantity = $data['quantity'];
-		$note = isset($data['note_opt']) && !empty($data['note_opt'])?$data['note_opt']:(isset($data['note_mopt']) && !empty($data['note_mopt'])?$data['note_mopt']:'');
+		$note = isset($data['note'])?$data['note']:(isset($data['note_opt']) && !empty($data['note_opt'])?$data['note_opt']:(isset($data['note_mopt']) && !empty($data['note_mopt'])?$data['note_mopt']:''));
 		if(isset($data['button']) && $data['button']){
 			if($data['direction'] == 1){
 				if($product['qty_control'] == 1 && fmod($quantity, $product['min_mopt_qty']) != 0){

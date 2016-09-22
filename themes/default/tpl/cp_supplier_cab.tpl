@@ -148,17 +148,7 @@ if(!is_array($msg)){?>
 									<?}?>
 								</p>
 								<?if((isset($i['min_opt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']) || (isset($i['min_mopt_price']) == true && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price'])){?>
-									<p style="color:#f00;">Ваш товар заблокирован для продажи.<br>Рекомендованная цена:
-									<?if($_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price']){
-										echo "от миним. к-ва <".($i['min_mopt_price']-0.01)." грн.";
-									}
-									if(($_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']) && ($_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_mopt_otpusk'] > $i['min_mopt_price'])){
-										echo ", ";
-									}
-									if($_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > 0 && $_SESSION['Assort']['products'][$i['id_product']]['price_opt_otpusk'] > $i['min_opt_price']){
-										echo "от ящика <".($i['min_opt_price']-0.01)." грн.";
-									}?>
-									</p>
+									<p style="color:#f00;">Мы покупаем этот товар дешевле у другого поставщика.</p>
 								<?}?>
 							</div>
 							<div class="product_balance">

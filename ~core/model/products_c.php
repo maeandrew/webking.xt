@@ -144,11 +144,12 @@ class Products {
 		$sql = 'SELECT p.*,
 				un.unit_xt AS units,
 				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
-				pv.count_views,
-				un.unit_prom,
+				pv.count_views,	un.unit_prom,
 				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
-				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+				(SELECT MIN(a.price_opt_otpusk) FROM '._DB_PREFIX_.'assortiment AS a WHERE a.id_product = p.id_product AND a.active = 1) AS price_opt_otpusk,
+				(SELECT MIN(a.price_mopt_otpusk) FROM '._DB_PREFIX_.'assortiment AS a WHERE a.id_product = p.id_product AND a.active = 1) AS price_mopt_otpusk
 			FROM '._DB_PREFIX_.'product AS p
 				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
@@ -231,18 +232,18 @@ class Products {
 		$sql = "SELECT cm.Id_coment, cm.text_coment, cm.author AS id_author,
 				(CASE
 					WHEN cm.author = 4028 THEN cm.author_name
-					WHEN cm.author = 007 THEN (SELECT name_c FROM xt_contragent WHERE id_user = cm.author_name)
-					ELSE (SELECT name FROM xt_user WHERE id_user = cm.author)
+					WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
+					ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
 				END) AS name,
 				cm.date_comment, cm.visible, cm.rating, cm.pid_comment,
 				(CASE WHEN (SELECT COUNT(*)
-					FROM xt_osp AS osp
-					LEFT JOIN xt_order AS o
+					FROM "._DB_PREFIX_."osp AS osp
+					LEFT JOIN "._DB_PREFIX_."order AS o
 						ON osp.id_order = o.id_order
 						AND o.id_order_status = 2
 					WHERE osp.id_product = ".$id_product."
 					AND o.id_customer = cm.author) > 0 THEN 1 ELSE 0 END) AS purchase
-				FROM xt_coment AS cm
+				FROM "._DB_PREFIX_."coment AS cm
 				WHERE cm.url_coment = ".$id_product."
 				ORDER BY cm.date_comment DESC";
 		$arr = $this->db->GetArray($sql);
@@ -271,7 +272,7 @@ class Products {
 	 * @param integer	$id_product		id товара
 	 * @param integer	$rating			оценка товара
 	 */
-	public function SubmitProductComment($text, $author, $author_name, $authors_email, $id_product, $rating=null, $pid_comment=null, $visible=null){
+	public function SubmitProductComment($text, $author, $author_name, $authors_email = false, $id_product, $rating=null, $pid_comment=null, $visible=null){
 		if(empty($text)){
 			return false;
 		}
@@ -280,7 +281,9 @@ class Products {
 		$f['author'] = trim($author);
 		$f['author_name'] = trim($author_name);
 		$f['rating'] = trim($rating);
-		$f['user_email'] = trim($authors_email);
+		if(isset($authors_email)){
+			$f['user_email'] = trim($authors_email);
+		}
 		if(!empty($pid_comment)) {
 			$f['pid_comment'] = $pid_comment;
 		}
@@ -2742,7 +2745,7 @@ class Products {
 	 * Генерация и выдача для скачивания файла excel Ассортимент (Экспорт)
 	 * @param [type] $rows [description]
 	 */
-	public function GenExcelAssortFile($rows){
+	public function GenExcelAssortFile($rows, $filename = false){
 		ini_set('memory_limit', '512M');
 		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
@@ -2792,7 +2795,7 @@ class Products {
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue(chr((++$charcnt)+64).$ii, '');
 		}
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="assortiment.xls"');
+		header('Content-Disposition: attachment;filename="'.($filename?$filename:'assortment').'.xls"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
@@ -3044,9 +3047,11 @@ class Products {
 	 */
 	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
 		$limit = $limit?' LIMIT '.$limit:null;
-		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
-			p.descr, p.img_1
-			".(!$rand?', COUNT(*) AS count':null)."	FROM "._DB_PREFIX_."product p
+		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt, a.active,
+			p.min_mopt_qty, p.descr, p.img_1
+			".(!$rand?', COUNT(*) AS count':null)."
+			FROM "._DB_PREFIX_."product p
+			LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
 			".(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
 			LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
 			WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
@@ -3980,10 +3985,12 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function GetArrayRelatedProducts($id_product){
-		$sql = "SELECT p.id_product, p.*
+		$sql = "SELECT a.active, p.*
 			FROM "._DB_PREFIX_."related_prods AS rp
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON p.id_product = rp.id_related_prod
+			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+				ON a.id_product = rp.id_related_prod
 			WHERE rp.id_prod = ".$id_product;
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
@@ -4645,7 +4652,7 @@ class Products {
 
 	// Вывод новинок категории
 	public function getNewProducts($category, $id_product){
-		$sql = "SELECT DISTINCT ".implode(", ",$this->usual_fields)."
+		$sql = "SELECT DISTINCT a.active, ".implode(", ",$this->usual_fields)."
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
@@ -4672,13 +4679,13 @@ class Products {
 		$count = 0;
 		$step = $id_product-5;
 		$l_prods = '';
-		while($count < 50){
+		while($count < 150){
 			$count++;
-			$step = $id_product<500?$step+5:$step-5;
+			$step = $id_product<5000?$step+5:$step-5;
 			$l_prods .= $step.', ';
 		}
 		$sql = "SELECT name, translit FROM "._DB_PREFIX_."product
-				WHERE id_product IN(".substr($l_prods, 0,-2).")";
+				WHERE visible = 1 AND id_product IN(".substr($l_prods, 0,-2).") LIMIT 50";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;

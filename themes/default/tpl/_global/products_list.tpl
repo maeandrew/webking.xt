@@ -5,6 +5,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 		foreach($list as $item){
 			$Status = new Status();
 			$product_mark = '';
+			$interval = date_diff(date_create(date("Y-m-d", strtotime($item['create_date']))), date_create(date("Y-m-d")));
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr_xt_full']));
 			$st = $Status->GetStstusById($item['id_product']);
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);
@@ -15,10 +16,10 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			<div class="card<?=$item['visible'] == 0?' unvisible':null?>" data-idproduct="<?=$item['id_product']?>">
 				<?if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';
-				}elseif ($item['prod_status'] == 3){
+				}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 					$product_mark = 'new';
 				}?>
-				<?if(isset($product_mark) && $product_mark !== ''){?>
+				<?if(isset($product_mark) && $product_mark !== ''  && $item['active'] != 0){?>
 					<div class="market_action">
 						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 					</div>
@@ -217,14 +218,15 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 		</div><?
 		foreach($list as $item){
 			$product_mark = '';
+			$interval = date_diff(date_create(date("Y-m-d", strtotime($item['create_date']))), date_create(date("Y-m-d")));
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr_xt_full']));?>
 			<div class="card" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';
-				}elseif ($item['prod_status'] == 3){
+				}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 					$product_mark = 'new';
 				}?>
-				<?if(isset($product_mark) && $product_mark !== ''){?>
+				<?if(isset($product_mark) && $product_mark !== ''  && $item['active'] != 0){?>
 					<div class="market_action">
 						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 					</div>
@@ -232,9 +234,9 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							<noscript>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'thumb')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							</noscript>
 						<?}else{?>
 							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
@@ -309,6 +311,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 		foreach($list as $item){
 			$in_cart = false;
 			$product_mark = '';
+			$interval = date_diff(date_create(date("Y-m-d", strtotime($item['create_date']))), date_create(date("Y-m-d")));
 			array_push($GLOBALS['descr_for_seo'], array('name' => $item['name'], 'descr' => $item['descr_xt_full']));
 			if(isset($_SESSION['cart']['products'][$item['id_product']])){
 				$in_cart = true;
@@ -317,10 +320,10 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			<div class="card<?=$item['visible'] == 0?' unvisible':null?>" data-idproduct="<?=$item['id_product']?>">
 				<?if (in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';
-				}elseif ($item['prod_status'] == 3){
+				}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 					$product_mark = 'new';
 				}?>
-				<?if(isset($product_mark) && $product_mark !== ''){?>
+				<?if(isset($product_mark) && $product_mark !== '' && $item['active'] != 0){?>
 					<div class="market_action">
 						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 					</div>
@@ -349,7 +352,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<i id="fortrending_<?=$item['id_product']?>" class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'arrow':null;?>">trending_down</i>
 							<span class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Товар уже <br> в списке ожидания':'Следить за ценой';?></span>
 						</div>
-						<div class="preview_icon_block"><div class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</div></div>
+						<div class="preview_icon_block"><i class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</i></div>
 					</div>
 				</div>
 				<div class="product_name">

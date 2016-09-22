@@ -273,6 +273,23 @@ function ChangePriceRange(column, manual){
 		$.cookie('manual', 1, { path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+column).addClass('active');
+		if (column == $.cookie('sum_range')) {
+			switch (column) {
+				case 3:
+					text = 'Без скидки!';
+					break;
+				case 2:
+					text = 'При заказе от 500 грн.';
+					break;
+				case 1:
+					text = 'При заказе от 3000 грн.';
+					break;
+				case 0:
+					text = 'При заказе от 10 000 грн.';
+					break;
+			}
+			$('.order_balance').text(text);
+		}
 	}else if ($.cookie('manual') != 1){
 		$.cookie('sum_range', column, {path: '/'});
 		$('li.sum_range').removeClass('active');
@@ -282,20 +299,42 @@ function ChangePriceRange(column, manual){
 		column = $.cookie('sum_range');
 	}
 	addLoadAnimation('.order_balance');
+	addLoadAnimation('#button-cart1');
 	ajax('cart', 'GetCart').done(function(data){
 		removeLoadAnimation('.order_balance');
+		removeLoadAnimation('#button-cart1');
 		currentSum = data.products_sum[3];
 		newSum = columnLimits[column] - currentSum;
-		if(newSum < 0){
-			text = 'Заказано достаточно!';
-		}else{
-			if($.cookie('manual') == 1){
-				text = 'Дозаказать еще на '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
-			}else{
-				text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
+		// console.log(column);
+		// console.log(data.cart_column);
+		// var fafa = parseInt($.cookie('sum_range'));
+		if($.cookie('manual') != 1){
+			switch (data.cart_column) {
+				case 3:
+					text = 'Без скидки!';
+					break;
+				case 2:
+					text = 'При заказе от 500 грн.';
+					break;
+				case 1:
+					text = 'При заказе от 3000 грн.';
+					break;
+				case 0:
+					text = 'При заказе от 10 000 грн.';
+					break;
 			}
+			$('.order_balance').text(text);
 		}
-		$('.order_balance').text(text);
+
+		// if(newSum < 0){
+		// 	text = 'Заказано достаточно!';
+		// }else{
+		// 	if($.cookie('manual') == 1){
+		// 		text = 'Дозаказать еще на '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
+		// 	}else{
+		// 		text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
+		// 	}
+		// }
 		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
 			var minQty = parseInt($(this).find('.minQty').val()),
 				curentQty =	parseInt($(this).find('.qty_js').val()),
@@ -319,6 +358,18 @@ function ChangePriceRange(column, manual){
 				}, 3000);
 
 			}, 300);
+		}
+
+		if($('#cart').hasClass('opened')){
+			var min_sum_order = parseInt($('#cart .cart_buttons .min_sum_order').val());
+			var current_user = parseInt($('#cart .cart_buttons .current_user').val());
+			if (data.products_sum[3] < min_sum_order && current_user != 4) {
+				$('#button-cart1 button').addClass('hidden');
+				$('#button-cart1 p').removeClass('hidden');
+			}else{
+				$('#button-cart1 button').removeClass('hidden');
+				$('#button-cart1 p').addClass('hidden');
+			}
 		}
 	});
 }
@@ -698,7 +749,8 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в список ожидания'};
 				targetClass.addClass('arrow');
-				targetClass.closest('.fortrending').next().empty().html('Товар в <br> списке ожидания');
+				// targetClass.closest('.fortrending').next().empty().html('Товар в <br> списке ожидания');
+				targetClass.closest('.fortrending').find('.mdl-tooltip').html('Товар в <br> списке ожидания');
 				$('#specCont').find('.fortrending_info_tooltip').html('Товар в <br> списке ожидания');
 			}else{
 				if(data.answer == 'wrong user group'){
@@ -728,7 +780,8 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из списка ожидания'};
 				targetClass.removeClass('arrow');
-				targetClass.closest('.fortrending').next().empty().html('Следить за ценой');
+				// targetClass.closest('.fortrending').next().empty().html('Следить за ценой');
+				targetClass.closest('.fortrending').find('.mdl-tooltip').html('Следить за ценой');
 				$('#specCont').find('.fortrending_info_tooltip').html('Следить за ценой');
 			}else{
 				if(data.answer == 'wrong user group'){

@@ -472,7 +472,7 @@ $(function(){
 	var content_header_scroll = 0;
 	$(window).scroll(function(){
 		if($('body').not('.c_product').length > 0){
-			content_header_scroll = $(this).scrollTop() + 52 - $('.content_header').offset().top;
+			content_header_scroll = $(this).scrollTop() + 52 - ($('.content_header').length == 0 ? 0 : $('.content_header').offset().top);
 			// console.log($('#view_block_js').offset().top + $('#view_block_js').outerHeight());
 			// console.log($(this).scrollTop() + 52 + $('.content_header').outerHeight());
 			// console.log(($('#view_block_js').offset().top + $('#view_block_js').outerHeight()) - ($(this).scrollTop() + 52 + $('.content_header').outerHeight()));
@@ -1276,7 +1276,7 @@ $(function(){
 
 	$('#access_recovery').on('click', 'label[for="chosen_mail"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" type="email" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
 	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
@@ -1285,49 +1285,71 @@ $(function(){
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
-	$('#access_recovery').on('blur', 'input[type="email"]', function(){
-		var email = $(this).val();
-		if(email !== ''){
-			// Поле email заполнено (здесь будем писать код валидации)
-			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
-			if(pattern.test(email)){
-				$(this).css({'color' : 'green'});
-			} else {
-				$(this).css({'color' : 'red'});
-				$('.mdl-textfield__error').text('Введите Email правильно');
-			}
-		} else {
-			// Поле email пустое, выводим предупреждающее сообщение
-			$(this).css({'color' : 'red'});
-			$('.mdl-textfield__error').text('Введите Email');
-		}
+	// $('#access_recovery').on('blur', 'input[type="email"]', function(){
+	// 	var email = $(this).val();
+	// 	if(email !== ''){
+	// 		// Поле email заполнено (здесь будем писать код валидации)
+	// 		var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+	// 		if(pattern.test(email)){
+	// 			$(this).closest('div').removeClass('is-invalid');
+	// 		} else {
+	// 			$(this).closest('div').addClass('is-invalid');
+	// 			$('.mdl-textfield__error').text('Введите Email правильно');
+	// 		}
+	// 	} else {
+	// 		// Поле email пустое, выводим предупреждающее сообщение
+	// 		$(this).closest('div').addClass('is-invalid');
+	// 		$('.mdl-textfield__error').text('Введите Email');
+	// 	}
+	// });
+	$('#access_recovery').on('keyup', '.input_container input', function(){
+		$('#access_recovery .input_container input').closest('div').removeClass('is-invalid');
 	});
 	$('#access_recovery').on('click', '#continue', function(e) {
 		e.preventDefault();
 		var parent = $(this).closest('[data-type="modal"]'),
 			method = parent.find('[name="recovery_method"]:checked'),
-			value;
+			value,
+			checked = false;
 		if(method.data('value') == "sms") {
 			var phone = $('#access_recovery .phone').val().replace(/[^\d]+/g, "");
 			if(phone.length == 12){
 				value = phone;
+				checked = true;
 			}
 		}
 		if(method.data('value') == "email"){
-			value = parent.find('[name="value"]').val();
-		}
-
-		data = {method: method.data('value'), value: value};
-		addLoadAnimation('#access_recovery');
-		ajax('auth', 'accessRecovery', data).done(function(response){
-			removeLoadAnimation('#access_recovery');
-			if (response.success) {
-				parent.find('.password_recovery_container').html(response.content);
-			}else{
-				parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+			var email = parent.find('[name="value"]').val();
+			if(email !== ''){
+				var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+				if(pattern.test(email)){
+					$('#access_recovery .input_container input').closest('div').removeClass('is-invalid');
+					value = email;
+					checked = true;
+				} else {
+					$('#access_recovery .input_container input').closest('div').addClass('is-invalid');
+					$('.mdl-textfield__error').text('Введите Email правильно');
+				}
+			} else {
+				$('#access_recovery .input_container input').closest('div').addClass('is-invalid');
+				$('.mdl-textfield__error').text('Введите Email');
 			}
-			componentHandler.upgradeDom();
-		});
+		}
+		data = {method: method.data('value'), value: value};
+		if(checked === false){
+			$('#access_recovery .input_container input').closest('div').addClass('is-invalid');
+		}else{
+			addLoadAnimation('#access_recovery');
+			ajax('auth', 'accessRecovery', data).done(function(response){
+				removeLoadAnimation('#access_recovery');
+				if (response.success) {
+					parent.find('.password_recovery_container').html(response.content);
+				}else{
+					parent.find('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(response.msg);
+				}
+				componentHandler.upgradeDom();
+			});
+		}
 	});
 
 	$('#access_recovery').on('keyup', '#passwd', function(event) {
@@ -1704,6 +1726,7 @@ $(function(){
 		var new_user_name = $('#new_user_name').val();
 		var new_user_middle_name = $('#new_user_middle_name').val();
 		var phone = $('#cart_customer_search .phone').val();
+		var check = true;
 		//Приводит тел в нужный вид
 		var str = phone.replace(/\D/g, "");
 		var check_num = /^(38)?(\d{10})$/;
@@ -1714,12 +1737,20 @@ $(function(){
 				phone = str;
 			}
 		}
-		addLoadAnimation('#cart_customer_search');
-		ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
-			removeLoadAnimation('#cart_customer_search');
-			closeObject('cart_customer_search');
-			openObject('cart');
+		$('#cart_customer_search .new_name_block input').each(function(){
+			if($(this).val() === ''){
+				$(this).closest('div').addClass('is-invalid');
+				check = false;
+			}
 		});
+		if(check === true){
+			addLoadAnimation('#cart_customer_search');
+			ajax('cart', 'createCustomer', {'phone': phone, 'first_name': new_user_name, 'last_name': new_user_surname, 'middle_name': new_user_middle_name}).done(function(data){
+				removeLoadAnimation('#cart_customer_search');
+				closeObject('cart_customer_search');
+				openObject('cart');
+			});
+		}
 	});
 
 	//Убираем красную границу при вводе телефона
@@ -2025,23 +2056,23 @@ $(function(){
 				switch (data.err) {
 					case 1:
 						parent.find('input[name="user_email"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').text(data.msg);
-						break
+						break;
 					case 2:
 						parent.find('textarea').closest('.mdl-textfield').addClass('is-invalid');
-						break
+						break;
 					case 3:
 						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
 						$('.issue_result_js .modal_container').html('<div class="issue_ok"><i class="material-icons">check_circle</i></div><p class="info_text">Ваше сообщение было отправлено</p>');
 						openObject('issue_result');
-						break
+						break;
 					case 4:
 						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
 						$('.issue_result_js .modal_container').html('<div class="issue_err"><i class="material-icons">error</i></div><p class="info_text">Что-то пошло не так. Повторите попытку.</p>');
 						openObject('issue_result');
-						break
+						break;
 					default:
 						console.log(data);
-						break
+						break;
 				}
 			}).fail(function(data){
 				console.log('error');
@@ -2118,7 +2149,7 @@ $(function(){
 
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
-	$('#owl-product_mini_img_js .owl-item').on('click', function(event){
+	$('#preview, #caruselCont').on('click', '#owl-product_mini_img_js .owl-item', function(event){
 		$('.product_main_img').find('#mainVideoBlock').addClass('hidden');
 		$('.product_main_img').find('iframe').attr('src', '');
 		var src = $(this).find('img').attr('src'),
@@ -2127,8 +2158,10 @@ $(function(){
 			$('#owl-product_mini_img_js').find('img').removeClass('act_img');
 			$('#owl-product_mini_img_js').find('iframe').removeClass('act_img'); // нов. добав. убирает фокус со всех миниатюр изображений кроме текущей активной
 			$(this).find('img').addClass('act_img');
-			if(src.indexOf("<?=str_replace(DIRSEP, '/', str_replace($GLOBALS['PATH_root'], '', $GLOBALS['PATH_product_img']));?>") > -1){
-				src = src.replace('thumb', 'original');
+			var path_root = $('.path_root_js').val();
+			var path_product_img = $('.path_product_img_js').val();
+			if(src.indexOf(path_product_img.replace(path_root, '')) > -1){
+				src = src.replace('/thumb/', '/original/');
 			}else{
 				src = src.replace('_thumb/', '');
 			}
@@ -2153,7 +2186,32 @@ $(function(){
 	});
 
 	// Инициализация добавления товара в избранное
-	$('.favorite i').click(function(e){
+	// $('.favorite i').click(function(e){
+	// 	e.preventDefault();
+	// 	var parent = $(this).closest('.favorite');
+	// 	if(parent.hasClass('added')){
+	// 		parent.removeClass('added');
+	// 		RemoveFavorite(parent.data('id-product'), $(this));
+	// 	}else{
+	// 		parent.addClass('added');
+	// 		AddFavorite(parent.data('id-product'), $(this));
+	// 	}
+	// });
+	// Инициализация добавления товара в список ожидания
+	// $('.waiting_list').click(function(e){
+	// 	e.preventDefault();
+	// 	var parent = $(this).closest('.fortrending');
+	// 	if($(this).hasClass('arrow')){
+	// 		$(this).removeClass('arrow');
+	// 		RemoveFromWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+	// 	}else{
+	// 		$(this).addClass('arrow');
+	// 		AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+	// 	}
+	// });
+
+	// Инициализация добавления товара в избранное
+	$('body').on('click', '.favorite i', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.favorite');
 		if(parent.hasClass('added')){
@@ -2164,8 +2222,9 @@ $(function(){
 			AddFavorite(parent.data('id-product'), $(this));
 		}
 	});
+
 	// Инициализация добавления товара в список ожидания
-	$('.waiting_list').click(function(e){
+	$('body').on('click', '.waiting_list', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.fortrending');
 		if($(this).hasClass('arrow')){
@@ -2185,10 +2244,12 @@ $(function(){
 	$('.show_preview_js').on('click', function(){
 		var preview = $('#preview'),
 			id_product = $(this).closest('.card').data('idproduct');
+		Position(preview);
+		preview.find('.modal_container').html('');
 		addLoadAnimation(preview);
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.modal_container').html(data);
-			Position(preview);
+			// Position(preview);
 			componentHandler.upgradeDom();
 			removeLoadAnimation(preview);
 		});
@@ -2208,5 +2269,16 @@ $(function(){
 		$('.search_category.mdl-selectfield').removeClass('is-focused');
 	});
 	// ------------
-	
+
+	// START Проверка вводимых данных (ФИО) в кабинете пользователя в разделе "основная инофрмация"
+	$('body').on('focusout', '#edit_contacts input.checkname_js', function(event){
+		var name = $(this).val(),
+			name_reg = /^[\'А-Яа-я-ЇїІіЁё]+$|^[\'A-Za-z-]+$/gi;
+		if(name_reg.test(name)){
+			$(this).closest('.mdl-textfield').removeClass('is-invalid');
+		}else{
+			$(this).closest('.mdl-textfield').addClass('is-invalid');
+		}
+	});
+	// END
 });

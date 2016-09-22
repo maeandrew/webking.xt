@@ -41,7 +41,9 @@
 		</div> -->
 		<div class="cart_item ga-cart <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 			<div class="currentCartSum hidden"><?=isset($_SESSION['cart']['products_sum'][3])?$_SESSION['cart']['products_sum'][3]:null?></div>
-			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone"><span>Сумма:</span><br><span><?print_r($_SESSION['cart']['products_sum'][1])?> грн.</span></span></a>
+			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js <?=$_SESSION['cart']['cart_sum'] == 0?'for_hidden_js':null;?>" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone"><span>Корзина</span><span>:</span><br><span class="total_cart_summ_js">
+			<?print_r(number_format($_SESSION['cart']['cart_sum'], 2, ',', ''));?>
+			грн.</span></span></a>
 		</div>
 		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone">
 			<?$rand = rand(0, count($list_menu)-1);?>
@@ -63,7 +65,7 @@
 		<div class="profile mdl-cell--hide-phone">
 			<?if(G::IsLogged()){?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon ">
-					<img src="/images/noavatar.png"/>
+					<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
 				</button>
 			<?}else{?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon  cabinet_btn hidden">

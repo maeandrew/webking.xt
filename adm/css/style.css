@@ -1,6 +1,6 @@
 /* FONTS DEFINITIONS */
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:300,700,400&subset=cyrillic,latin);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,700,400&subset=cyrillic,latin);
 /*@font-face {
 	font-family: 'Roboto';
 	font-style: normal;
@@ -1268,6 +1268,9 @@ img.pic_block {
 .move_product_wrap .checked_products .checked_product .btn_wrap .psevdo_btn{
 	width: 100px;
 	margin-bottom: 1em;
+}
+.sort_page {
+	padding-bottom: 10px;
 }
 
 /* Оформление списка товаров без категории */

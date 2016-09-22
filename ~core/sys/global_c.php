@@ -601,8 +601,8 @@ class G {
 		// meta tags
 		switch($GLOBALS['CurrentController']){
 			case 'main':
-				$GLOBALS['__page_title'] = 'Отдел снабжения xt.ua';
-				$GLOBALS['__page_description'] = 'Отдел снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
+				$GLOBALS['__page_title'] = 'Служба снабжения xt.ua';
+				$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
 				$GLOBALS['__page_keywords'] = '';
 				break;
 			case 'product':
@@ -798,6 +798,19 @@ class G {
 		// Если файла по данному $url не существует, получим изображение nofoto.png
 		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
 			$url = '/images/nofoto.png';
+		}
+		return htmlspecialchars(_base_url.$url);
+	}
+
+	/**
+	 * Метод для получения URL фото профиля пользователя
+	 * @param string $id - id пользователя и имя фото, что делает его уникальным.
+	 */
+	public static function GetUserAvatar($id){
+		$url = '/images/avatars/'.$id.'.jpeg';
+		// Если файла по данному $url не существует, получим изображение nofoto.png
+		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
+			$url = '/images/noavatar.png';
 		}
 		return htmlspecialchars(_base_url.$url);
 	}

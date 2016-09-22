@@ -327,18 +327,18 @@
 					<h2>Доставка</h2>
 					<div class="fl">
 						<label for="height">Высота (cм):</label>
-						<input type="number" min="0" step="0.01" name="height" id="height" class="input-m" value="<?=isset($_POST['height'])?htmlspecialchars($_POST['height']):0?>">
+						<input type="number" step="0.01" name="height" id="height" class="input-m" value="<?=isset($_POST['height'])?htmlspecialchars($_POST['height']):0?>">
 					</div>
 					<div class="fl">
 						<label for="width">Ширина (см):</label>
-						<input type="number" min="0" step="0.01" name="width" id="width" class="input-m" value="<?=isset($_POST['width'])?htmlspecialchars($_POST['width']):0?>">
+						<input type="number" step="0.01" name="width" id="width" class="input-m" value="<?=isset($_POST['width'])?htmlspecialchars($_POST['width']):0?>">
 					</div>
 					<div class="fl">
 						<label for="length">Длина (см):</label>
-						<input type="number" min="0" step="0.01" name="length" id="length" class="input-m" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
+						<input type="number" step="0.01" name="length" id="length" class="input-m" value="<?=isset($_POST['length'])?htmlspecialchars($_POST['length']):0?>">
 					</div>
 					<label for="coefficient_volume">Коэффициент реального обьема:</label>
-					<input type="number" min="0" step="0.01" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):1?>">
+					<input type="number" step="0.01" name="coefficient_volume" id="coefficient_volume" class="input-m" value="<?=isset($_POST['coefficient_volume'])?htmlspecialchars($_POST['coefficient_volume']):1?>">
 					<label class="weight">Объем:
 						<span>
 							<?if(isset($_POST['weight']) ){
@@ -475,10 +475,10 @@
 														</select>
 													</div>
 													<div class="fl price">
-														<label>Опт:</label><input type="number" name="supplier_price_opt" min="0" step="0.01" data-mode="opt" class="input-m opt_js" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
+														<label>Опт:</label><input type="number" name="supplier_price_opt" step="0.01" data-mode="opt" class="input-m opt_js" value="<?=$si['inusd']=='1'?$si['price_opt_otpusk_usd']:$si['price_opt_otpusk']?>">
 													</div>
 													<div class="fr price">
-														<label>Розница:</label><input type="number" name="supplier_price_mopt" min="0" step="0.01" data-mode="mopt" class="input-m mopt_js" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
+														<label>Розница:</label><input type="number" name="supplier_price_mopt" step="0.01" data-mode="mopt" class="input-m mopt_js" value="<?=$si['inusd']=='1'?$si['price_mopt_otpusk_usd']:$si['price_mopt_otpusk']?>">
 													</div>
 												</td>
 												<td class="center">
@@ -529,11 +529,11 @@
 											</div>
 											<div class="fr price">
 												<label>Розничная</label>
-												<input type="number" min="0" step="0.01" name="supplier_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
+												<input type="number" step="0.01" name="supplier_price_opt" class="input-m" placeholder="По умолчанию в (грн)">
 											</div>
 											<div class="fr price">
 												<label>Оптовая</label>
-												<input type="number" min="0" step="0.01" name="supplier_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
+												<input type="number" step="0.01" name="supplier_price_mopt" class="input-m" placeholder="По умолчанию в (грн)">
 											</div>
 										</td>
 										<td class="center">
