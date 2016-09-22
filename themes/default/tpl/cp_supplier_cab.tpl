@@ -353,7 +353,7 @@ if(!is_array($msg)){?>
 				</div>
 			<?}?>
 			<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-			<div class="add_functions fleft">
+			<!--<div class="add_functions fleft">
 				<div class="add_items1">
 					<p>Цены в гривнах, &#8372;</p>
 					<hr>
@@ -380,7 +380,7 @@ if(!is_array($msg)){?>
 						<input type="file" name="import_file" required="required" class="file_select">
 					</form>
 				</div>
-			</div>
+			</div>-->
 			<?if(isset($total_updated)){?><br>Обновлено: <?=$total_updated?><?}?>
 			<?if(isset($total_added)){?><br>Добавленио: <?=$total_added?><?}?>
 		</div>
