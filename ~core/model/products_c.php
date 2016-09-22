@@ -144,16 +144,15 @@ class Products {
 		$sql = 'SELECT p.*,
 				un.unit_xt AS units,
 				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
-				pv.count_views,
-				un.unit_prom,
+				pv.count_views,	un.unit_prom,
 				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
 				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
 				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
-				MIN(a.price_opt_otpusk) AS price_opt_otpusk, MIN(a.price_mopt_otpusk) AS price_mopt_otpusk
+				(SELECT MIN(a.price_opt_otpusk) FROM '._DB_PREFIX_.'assortiment AS a WHERE a.id_product = p.id_product AND a.active = 1) AS price_opt_otpusk,
+				(SELECT MIN(a.price_mopt_otpusk) FROM '._DB_PREFIX_.'assortiment AS a WHERE a.id_product = p.id_product AND a.active = 1) AS price_mopt_otpusk
 			FROM '._DB_PREFIX_.'product AS p
 				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
-				LEFT JOIN '._DB_PREFIX_.'assortiment AS a ON a.id_product = p.id_product AND a.active = 1
 			WHERE p.translit = '.$this->db->Quote($rewrite).'
 			LIMIT 1';
 		// $sql = "SELECT ".implode(", ",$this->usual_fields).",
@@ -233,18 +232,18 @@ class Products {
 		$sql = "SELECT cm.Id_coment, cm.text_coment, cm.author AS id_author,
 				(CASE
 					WHEN cm.author = 4028 THEN cm.author_name
-					WHEN cm.author = 007 THEN (SELECT name_c FROM xt_contragent WHERE id_user = cm.author_name)
-					ELSE (SELECT name FROM xt_user WHERE id_user = cm.author)
+					WHEN cm.author = 007 THEN (SELECT name_c FROM "._DB_PREFIX_."contragent WHERE id_user = cm.author_name)
+					ELSE (SELECT name FROM "._DB_PREFIX_."user WHERE id_user = cm.author)
 				END) AS name,
 				cm.date_comment, cm.visible, cm.rating, cm.pid_comment,
 				(CASE WHEN (SELECT COUNT(*)
-					FROM xt_osp AS osp
-					LEFT JOIN xt_order AS o
+					FROM "._DB_PREFIX_."osp AS osp
+					LEFT JOIN "._DB_PREFIX_."order AS o
 						ON osp.id_order = o.id_order
 						AND o.id_order_status = 2
 					WHERE osp.id_product = ".$id_product."
 					AND o.id_customer = cm.author) > 0 THEN 1 ELSE 0 END) AS purchase
-				FROM xt_coment AS cm
+				FROM "._DB_PREFIX_."coment AS cm
 				WHERE cm.url_coment = ".$id_product."
 				ORDER BY cm.date_comment DESC";
 		$arr = $this->db->GetArray($sql);
