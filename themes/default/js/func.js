@@ -1169,11 +1169,11 @@ function СhangeValue(id){
 	// $('#'+id).data('prevnum', $('input').val().closest('.slider_wrap').find('.range_num').text($('#'+id).val());
 
 	  if($('#'+id).data('prevnum') < $('#'+id).val() ){
-	    // $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', $('#'+id).val()*10 +'%');
-	    $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', '+=10%');
+		// $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', $('#'+id).val()*10 +'%');
+		$('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', '+=10%');
 	  }else if($('#'+id).data('prevnum') > $('#'+id).val()){
-	    // $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', $('#'+id).val()*10 +'%');
-	    $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', '-=10%');
+		// $('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', $('#'+id).val()*10 +'%');
+		$('#'+id).closest('.slider_wrap').find('.range_num').css('bottom', '-=10%');
 	  }
 
 
@@ -1212,4 +1212,45 @@ function AddNoteArea(element){
 	if(parent.hasClass('note_control')){
 		parent.addClass('activeNoteArea');
 	}
+}
+
+// Проверка вводимых данных о пользователе
+// 
+// Для использования данной функции, input'у, который требует валидации надо дать:
+// 		класс "input_validator_js";
+// 		атрибут "data-input-validate" со строковым значением, которым может быть один из ключей ниже представленного switch-case.
+// 
+// В качестве аргумента параметра el метод ожидает объект (input), который потерял фокус.
+// Переменные:
+// 		string str - значение атрибута "value" el;
+// 		string type - значение атрибута "data-input-validate" el;
+function userInfoValidator(el){
+	var str = el.val(),
+		type = el.data('input-validate'),
+		temp;
+	var name_reg = /^[\'А-Яа-я-ЇїІіЁё ]+$|^[\'A-Za-z- ]+$/gi,
+		email_reg = /(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)/gi,
+		phone_reg = /\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}/,
+		day_reg = /^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$/,
+		year_reg = /^(19|20)\d{2}$/;
+
+	switch(type){
+		case 'name':
+			temp = name_reg.test(str);
+		break;
+		case 'email':
+			temp = email_reg.test(str);
+		break;
+		case 'phone':
+			temp = phone_reg.test(str);
+		break;
+		case 'day':
+			temp = day_reg.test(str);
+		break;
+		case 'year':
+			temp = year_reg.test(str);
+		break;
+	}
+
+	return temp ? true : false;
 }

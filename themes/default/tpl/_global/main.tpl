@@ -453,12 +453,12 @@
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
+								<input class="mdl-textfield__input input_validator_js" data-input-validate="name" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
 								<span class="mdl-textfield__error">Ошибка ввода Имени!</span>
 							</div>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
+								<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
 								<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 							</div>
@@ -485,7 +485,7 @@
 				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>
 				<form action="<?=$_SERVER['REQUEST_URI']?>">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email" name="email"> <!-- pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" -->
+						<input class="mdl-textfield__input" type="text" id="email" name="email">
 						<label class="mdl-textfield__label" for="email">Email или телефон</label>
 						<span class="mdl-textfield__error"></span>
 					</div>
@@ -505,13 +505,13 @@
 				<span></span>
 				<form action="<?=$_SERVER['REQUEST_URI']?>" class="forPassStrengthContainer_js">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="sign_up_name" name="name">
+						<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" id="sign_up_name" name="name">
 						<label class="mdl-textfield__label" for="sign_up_name">Имя</label>
 						<span class="mdl-textfield__error">Ошибка ввода имени!</span>
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="sign_up_phone" name="phone">
+						<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" type="text" id="sign_up_phone" name="phone">
 						<label class="mdl-textfield__label" for="sign_up_phone">Телефон</label>
 						<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 					</div>
@@ -571,7 +571,7 @@
 					</label></div>
 					<div class="input_container">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<input class="mdl-textfield__input" name="value" id="recovery_email">
+							<input class="mdl-textfield__input input_validator_js" data-input-validate="email" name="value" id="recovery_email">
 							<label class="mdl-textfield__label" for="recovery_email">Email</label>
 							<span class="mdl-textfield__error"></span>
 						</div>
@@ -779,7 +779,7 @@
 					<form action="<?=$_SERVER['REQUEST_URI']?>" class="offers_form">
 						<input type="hidden" name="offers_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
-							<input class="mdl-textfield__input" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+							<input class="mdl-textfield__input input_validator_js" data-input-validate="email" name="user_email" type="text" id="offers_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>">
 							<label class="mdl-textfield__label" for="offers_user_email">Email...</label>
 							<span class="mdl-textfield__error"></span>
 						</div><br>
@@ -804,7 +804,7 @@
 					<form action="<?=$_SERVER['REQUEST_URI']?>" class="issue_form">
 						<input type="hidden" name="issue_user_id" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['id_user']:null;?>">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label <?=G::IsLogged()?'hidden':null;?>">
-							<input class="mdl-textfield__input" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)">
+							<input class="mdl-textfield__input input_validator_js" data-input-validate="email" name="user_email" type="text" id="issue_user_email" value="<?=G::IsLogged() && isset($_SESSION['member'])?$_SESSION['member']['email']:'';?>">
 							<label class="mdl-textfield__label" for="issue_user_email">Email...</label>
 							<span class="mdl-textfield__error">Поле обязательно для заполнения!</span>
 						</div><br>

@@ -412,8 +412,7 @@
 					<?if(!G::IsLogged() || ($_SESSION['member']['gid'] !== _ACL_CONTRAGENT_ && !preg_match("/^380\d{9}$/", $User['phone']))){?>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							<label for="user_number">*Телефон</label>
-							<input class="mdl-textfield__input phone" type="text" id="user_number"
-							pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}" value="<?=isset($User['phone']) && preg_match("/^380\d{9}$/", $User['phone']) ? $User['phone'] : null ?>">
+							<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" type="text" id="user_number" value="<?=isset($User['phone']) && preg_match("/^380\d{9}$/", $User['phone']) ? $User['phone'] : null ?>">
 							<label class="mdl-textfield__label" for="user_number"></label>
 							<span class="mdl-textfield__error err_tel orange">Поле обязательное для заполнения!</span>
 						</div>

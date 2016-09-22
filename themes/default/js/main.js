@@ -1276,12 +1276,12 @@ $(function(){
 
 	$('#access_recovery').on('click', 'label[for="chosen_mail"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input" name="value" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Email</label><input class="mdl-textfield__input input_validator_js" data-input-validate="email" name="value" id="recovery_email"><label class="mdl-textfield__label" for="recovery_email"></label><span class="mdl-textfield__error"></span></div>');
 		componentHandler.upgradeDom();
 	});
 	$('#access_recovery').on('click', 'label[for="chosen_sms"]', function(){
 		$('#access_recovery #recovery_email').closest('div').addClass('hidden');
-		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
+		$('#access_recovery .input_container').html('<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"><label>Номер телефона</label><input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" name="value" type="text" id="recovery_phone"><label class="mdl-textfield__label" for="recovery_phone"></label><span class="mdl-textfield__error"></span></div>');
 		$(".phone").mask("+38 (099) ?999-99-99");
 		componentHandler.upgradeDom();
 	});
@@ -2270,15 +2270,9 @@ $(function(){
 	});
 	// ------------
 
-	// START Проверка вводимых данных (ФИО) в кабинете пользователя в разделе "основная инофрмация"
-	$('body').on('focusout', '#edit_contacts input.checkname_js', function(event){
-		var name = $(this).val(),
-			name_reg = /^[\'А-Яа-я-ЇїІіЁё]+$|^[\'A-Za-z-]+$/gi;
-		if(name_reg.test(name)){
-			$(this).closest('.mdl-textfield').removeClass('is-invalid');
-		}else{
-			$(this).closest('.mdl-textfield').addClass('is-invalid');
-		}
+	// Обработчик для валидации input'ов с информацией о пользователе
+	$('body').on('focusout', '.input_validator_js', function(event){
+		var parent = $(this).closest('.mdl-textfield');
+		userInfoValidator($(this)) ? parent.removeClass('is-invalid') : parent.addClass('is-invalid');
 	});
-	// END
 });
