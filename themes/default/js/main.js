@@ -2186,7 +2186,32 @@ $(function(){
 	});
 
 	// Инициализация добавления товара в избранное
-	$('.favorite i').click(function(e){
+	// $('.favorite i').click(function(e){
+	// 	e.preventDefault();
+	// 	var parent = $(this).closest('.favorite');
+	// 	if(parent.hasClass('added')){
+	// 		parent.removeClass('added');
+	// 		RemoveFavorite(parent.data('id-product'), $(this));
+	// 	}else{
+	// 		parent.addClass('added');
+	// 		AddFavorite(parent.data('id-product'), $(this));
+	// 	}
+	// });
+	// Инициализация добавления товара в список ожидания
+	// $('.waiting_list').click(function(e){
+	// 	e.preventDefault();
+	// 	var parent = $(this).closest('.fortrending');
+	// 	if($(this).hasClass('arrow')){
+	// 		$(this).removeClass('arrow');
+	// 		RemoveFromWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+	// 	}else{
+	// 		$(this).addClass('arrow');
+	// 		AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+	// 	}
+	// });
+
+	// Инициализация добавления товара в избранное
+	$('body').on('click', '.favorite i', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.favorite');
 		if(parent.hasClass('added')){
@@ -2197,8 +2222,9 @@ $(function(){
 			AddFavorite(parent.data('id-product'), $(this));
 		}
 	});
+
 	// Инициализация добавления товара в список ожидания
-	$('.waiting_list').click(function(e){
+	$('body').on('click', '.waiting_list', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.fortrending');
 		if($(this).hasClass('arrow')){
@@ -2218,10 +2244,12 @@ $(function(){
 	$('.show_preview_js').on('click', function(){
 		var preview = $('#preview'),
 			id_product = $(this).closest('.card').data('idproduct');
+		Position(preview);
+		preview.find('.modal_container').html('');
 		addLoadAnimation(preview);
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.modal_container').html(data);
-			Position(preview);
+			// Position(preview);
 			componentHandler.upgradeDom();
 			removeLoadAnimation(preview);
 		});
@@ -2242,4 +2270,15 @@ $(function(){
 	});
 	// ------------
 
+	// START Проверка вводимых данных (ФИО) в кабинете пользователя в разделе "основная инофрмация"
+	$('body').on('focusout', '#edit_contacts input.checkname_js', function(event){
+		var name = $(this).val(),
+			name_reg = /^[\'А-Яа-я-ЇїІіЁё]+$|^[\'A-Za-z-]+$/gi;
+		if(name_reg.test(name)){
+			$(this).closest('.mdl-textfield').removeClass('is-invalid');
+		}else{
+			$(this).closest('.mdl-textfield').addClass('is-invalid');
+		}
+	});
+	// END
 });

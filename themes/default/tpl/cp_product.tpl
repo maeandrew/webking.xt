@@ -608,7 +608,6 @@
 	<?if(isset($random_products) && !empty($random_products)){?>
 		<div class="slider_products">
 			<h4>Похожие товары</h4>
-			<!-- <?print_r($random_products);?> -->
 			<div id="owl-other" class="owl-carousel">
 				<?foreach($random_products as $p){?>
 					<div class="item">
@@ -636,7 +635,7 @@
 											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
 											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 										</div>
-										<input class="qty_js" type="hidden" value="<?=$p['min_mopt_qty']?>">
+										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
 									</div>
 								<?}?>
 							</div>
@@ -649,7 +648,6 @@
 	<?if(isset($popular_products) && !empty($popular_products)){?>
 		<div class="slider_products">
 			<h4>Топ продаж категории</h4>
-				<!-- <?print_r($popular_products);?> -->
 			<div id="owl-popular" class="owl-carousel">
 				<?foreach($popular_products as $p){?>
 					<div class="item">
@@ -677,7 +675,7 @@
 											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
 											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 										</div>
-										<input class="qty_js" type="hidden" value="<?=$p['min_mopt_qty']?>">
+										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
 									</div>
 								<?}?>
 							</div>
@@ -690,7 +688,6 @@
 	<?if(isset($view_products_list) && !empty($view_products_list)){?>
 		<div class="slider_products">
 			<h4>Просмотренные ранее</h4>
-			<!-- <?print_r($view_products_list);?> -->
 			<div id="owl-last-viewed" class="owl-carousel">
 				<?foreach($view_products_list as $p){?>
 					<div class="item">
@@ -718,7 +715,7 @@
 											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
 											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 										</div>
-										<input class="qty_js" type="hidden" value="<?=$p['min_mopt_qty']?>">
+										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
 									</div>
 								<?}?>
 							</div>

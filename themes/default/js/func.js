@@ -749,7 +749,8 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в список ожидания'};
 				targetClass.addClass('arrow');
-				targetClass.closest('.fortrending').next().empty().html('Товар в <br> списке ожидания');
+				// targetClass.closest('.fortrending').next().empty().html('Товар в <br> списке ожидания');
+				targetClass.closest('.fortrending').find('.mdl-tooltip').html('Товар в <br> списке ожидания');
 				$('#specCont').find('.fortrending_info_tooltip').html('Товар в <br> списке ожидания');
 			}else{
 				if(data.answer == 'wrong user group'){
@@ -779,7 +780,8 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из списка ожидания'};
 				targetClass.removeClass('arrow');
-				targetClass.closest('.fortrending').next().empty().html('Следить за ценой');
+				// targetClass.closest('.fortrending').next().empty().html('Следить за ценой');
+				targetClass.closest('.fortrending').find('.mdl-tooltip').html('Следить за ценой');
 				$('#specCont').find('.fortrending_info_tooltip').html('Следить за ценой');
 			}else{
 				if(data.answer == 'wrong user group'){
