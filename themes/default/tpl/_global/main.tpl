@@ -443,6 +443,58 @@
 		<div id="preview" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
+		<div id="price_details" data-type="modal">
+			<div class="modal_container">
+				<div class="prices_table">
+					<div class="prices_table_title">
+						<p>Таблица цен для тех хто в бронепоезде</p>
+					</div>
+					<div class="title_row">
+						<div class="summ_title_cell column_cell_title">
+							<p>Сумма заказа</p>
+						</div>
+						<div class="price_title_cell">
+							<div class="price_cell">
+								<p>Цена товара</p>
+							</div>
+							<div class="price_cell">
+								<p>от 5 шт.</p>
+							</div>
+							<div class="price_cell">
+								<p>от 10 шт.</p>
+							</div>
+						</div>
+					</div>
+					<div class="column_row">
+						<div class="column_cell column_cell_title">до 500 грн. 3</div>
+						<div class="column_cell">120 грн.</div>
+						<div class="column_cell">100 грн.</div>
+					</div>
+					<div class="column_row">
+						<div class="column_cell column_cell_title">от 500 до 3000 грн. 2</div>
+						<div class="column_cell">110 грн.</div>
+						<div class="column_cell">90 грн.</div>
+					</div>
+					<div class="column_row">
+						<div class="column_cell column_cell_title">от 3000 до 10 000 грн. 1</div>
+						<div class="column_cell">100 грн.</div>
+						<div class="column_cell">80 грн.</div>
+					</div>
+					<div class="column_row">
+						<div class="column_cell column_cell_title">более 10 000 грн. 0</div>
+						<div class="column_cell">90 грн.</div>
+						<div class="column_cell">80 грн.</div>
+					</div>
+				</div>
+				<div class="msg-info bonus_info">
+					<div class="msg_icon">
+						<i class="material-icons"></i>
+					</div>
+				    <p class="msg_title">!</p>
+				    <p class="msg_text">Тут текст про бонуси проценты шо могут быть и бла бла бла</p>
+				</div>
+			</div>
+		</div>
 		<div id="quiz" data-type="modal"></div>
 		<!-- Загрузка сметы -->
 		<div id="estimateLoad" class="estimate_modal" data-type="modal">

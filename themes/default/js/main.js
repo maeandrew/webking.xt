@@ -2249,6 +2249,10 @@ $(function(){
 			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		}
 	});
+	$('.price_help_js').on('click', function(){
+		var id = $(this).closest('.card').data('idproduct');
+		console.log(id);
+	});
 
 	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
 	$('.product_main_img').on('click', function(event){

@@ -167,6 +167,16 @@ label.info_key{position:absolute;top:10px;right:4px}
 #preview .supplier_block{width:100%;display:flex;justify-content:center}
 #preview .supplier_block .price{margin-right:5px}
 .card .add_to_fav_trend_block:hover,.card .market_action:hover,.card .product_photo a:hover{cursor:zoom-in!important;cursor:-moz-zoom-in!important;cursor:-webkit-zoom-in!important}
+#price_details .prices_table{margin-bottom:15px}
+#price_details .prices_table_title{width:100%;padding-bottom:5px}
+#price_details .prices_table_title p{text-align:center;font-weight:700}
+#price_details .column_row,#price_details .title_row{display:flex}
+#price_details .column_cell,#price_details .summ_title_cell,#price_details .title_cell{width:calc(100% - 312px);border:1px solid #eee;text-align:center;padding:5px}
+#price_details .column_cell_title{width:170px}
+#price_details .summ_title_cell{padding-top:20px}
+#price_details .price_title_cell{width:calc(100% - 170px);display:flex;flex-wrap:wrap}
+#price_details .price_title_cell .price_cell:first-child{width:100%}
+#price_details .price_title_cell .price_cell{width:50%;text-align:center;border:1px solid #eee;padding:5px}
 @media (max-width:1023px){#preview .images_carousel_block,#preview .prod_info_block{width:100%}
 #preview .prod_info_block{margin-top:20px}
 #preview .modal_container{max-height:inherit;padding:0}
@@ -195,6 +205,8 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview #description p{text-align:justify;margin-top:15px}
 .preview .supplier_block{width:100%;display:flex;justify-content:center}
 .preview .supplier_block .price{margin-right:10px}
+.product_price .price_help{font-size:16px}
+.product_price .price_help:hover{cursor:help;color:#FF5722}
 .available_today{padding:5px}
 .service_block{text-align:right;display:flex;float:none;margin-top:5px;margin-bottom:5px}
 #comment_question{width:400px}
