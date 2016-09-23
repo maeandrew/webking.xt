@@ -287,9 +287,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'priceHelp':
-				$Product = new Products();
-				$Product->SetFieldsById($_POST['id_product']);
-				$product = $Product->fields;
+				$Products = new Products();
+				$Products->SetFieldsById($_POST['id_product']);
+				$product = $Products->fields;
 				$helper = '<div class="prices_table">
 								<div class="prices_table_title">
 									<p>Таблица цен для тех хто в бронепоезде</p>
