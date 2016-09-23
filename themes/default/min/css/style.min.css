@@ -911,3 +911,10 @@ div[for=rating_block]{font-size:12px}
 .banner .banner_button:hover span.static{-webkit-filter:none;filter:none}
 .banner .banner_button:hover p{display:none}
 }
+.modals .issue_result{padding:20px}
+.modals .issue_result .modal_container div[class^=issue_]{margin:0 auto;text-align:center}
+.modals .issue_result .modal_container div[class^=issue_] i{font-size:5em}
+.modals .issue_result .issue_err i.material-icons,.modals .issue_result .issue_ok i.material-icons{color:#018b06}
+.modals .issue_result .issue_err i.material-icons{color:#ffa35f}
+.modals .issue_result .modal_container .info_text{min-width:270px;max-width:500px;padding:5px;text-align:center}
+.modals .issue_result .modal_container .info_text .bold_text{font-weight:600}
