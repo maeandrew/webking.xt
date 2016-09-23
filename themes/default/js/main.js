@@ -2250,8 +2250,11 @@ $(function(){
 		}
 	});
 	$('.price_help_js').on('click', function(){
-		var id = $(this).closest('.card').data('idproduct');
-		console.log(id);
+		var id_product = $(this).closest('.card').data('idproduct');
+		console.log(id_product);
+		ajax('product', 'priceHelp', {id_product:id_product}, 'html').done(function(){
+			console.log('получили');
+		});
 	});
 
 	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
