@@ -20,6 +20,7 @@
 		<input type="hidden" class="path_product_img_js" value="<?=$GLOBALS['PATH_product_img']?>">
 	</div>
 	<!-- <div class="mdl-cell mdl-cell--9-col mdl-cell--4-col-tablet"> -->
+	<p class="images_block_title_mobile">Быстрый просмотр товара</p>
 	<div class="images_carousel_block">
 		<div class="product_main_img">
 			<div id="big_photos_carousel_js" class="carousel big_photos_carousel">

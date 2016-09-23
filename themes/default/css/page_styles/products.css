@@ -590,8 +590,8 @@ label.info_key {
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 .list_view .add_to_fav_trend_block {
-	left: 0;
-	top: 0;
+	/*left: 0;
+	top: 0;*/
 }
 .block_view .add_to_fav_trend_block .favorite,
 .block_view .add_to_fav_trend_block .fortrending {
@@ -644,7 +644,7 @@ label.info_key {
 }
 .list_view .add_to_fav_trend_block:hover,
 .list_view .preview_icon:hover {
-	cursor: pointer;
+	/*cursor: pointer;*/
 }
 .list_view .preview_icon {
 	font-size: 35px;
@@ -1096,6 +1096,16 @@ label.info_key {
 #preview .owl-stage-outer {
     margin: 0px auto;
 }
+#preview .images_block_title_mobile {
+	display: none;
+}
+.card .add_to_fav_trend_block:hover,
+.card .product_photo a:hover,
+.card .market_action:hover {
+	cursor: zoom-in !important;
+	cursor: -moz-zoom-in !important;
+	cursor: -webkit-zoom-in !important;
+}
 
 @media (max-width: 1023px) {
 	#preview .images_carousel_block,
@@ -1136,6 +1146,14 @@ label.info_key {
 	}
 	#preview .tab-content .mdl-tabs__panel {
 		height: 100%;
+	}
+	#preview .images_block_title_mobile {
+		display: block;
+		width: 100%;
+		text-align: center;
+		font-weight: bold;
+		font-size: 16px;
+		padding-bottom: 10px;
 	}
 }
 
@@ -1573,6 +1591,7 @@ label.info_key {
 		padding: 0;
 		width: calc(100% - 130px);
 		float: left;
+		padding-right: 20px;
 	}
 }
 /* ================ */
