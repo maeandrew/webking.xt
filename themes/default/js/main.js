@@ -1569,13 +1569,27 @@ $(function(){
 		e.preventDefault();
 		addLoadAnimation('#sign_up');
 		var parent = $(this).closest('form'),
-			fields = {};
-		parent.find('.mdl-textfield__input, .mdl-selectfield__select').each(function(index, el) {
-			fields[$(el).attr('name')] = $(el).val();
-		});
-		console.log(fields);
+			name = parent.find('[name="name"]').val(),
+			phone = parent.find('[name="phone"]').val(),
+			id_contragent = parent.find('[name="id_contragent"]').val(),
+			passwd = parent.find('[name="passwd"]').val(),
+			passwdconfirm = parent.find('[name="passwdconfirm"]').val(),
+			phone_str = phone.replace(/\D/g, "");
+
+		if (phone_str.length === 10){
+			phone = 38 + phone_str;
+		}else{
+			phone = phone_str;
+		}
+		var data = {
+			name: name,
+			phone: phone,
+			id_contragent: id_contragent,
+			passwd: passwd,
+			passwdconfirm: passwdconfirm
+		}
 		// var res = ValidateEmail(data, 1);
-		ajax('auth', 'register', fields).done(function(data){
+		ajax('auth', 'register', data).done(function(data){
 			if(data.err === 0){
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 					$('#user_profile').append('<img src="/images/noavatar.png"/>');
