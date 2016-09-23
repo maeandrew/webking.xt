@@ -775,12 +775,12 @@ div[for="rating_block"] {
 	margin: 0 auto;
 	width: 89%;
 }
-.slider_products .product_buy .buy_block .btn_buy button{
+.slider_products .item .product_buy .buy_block .btn_buy button{
 	border: 1px solid #e0e0e0;
 	color: #FF5722;
 	border-radius: 3px;
 }
-.slider_products .product_buy .buy_block .btn_buy button:hover{
+.slider_products .item:hover .product_buy .buy_block .btn_buy button{
 	border: 1px solid #FF5722;
 	background-color: #FF5722;
 	color: #fff;
@@ -790,7 +790,7 @@ div[for="rating_block"] {
 }
 
 @media (max-width: 800px), (max-width: 1100px) and (orientation: landscape){
-	.slider_products .product_buy .buy_block .btn_buy button{
+	.slider_products .item .product_buy .buy_block .btn_buy button{
 		border: 1px solid #FF5722;
 		background-color: #FF5722;
 		color: #fff;
