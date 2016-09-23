@@ -790,7 +790,7 @@ iframe[name=google_conversion_frame]{display:none}
 .msg-attention .msg_title::before{content:'Внимание'}
 .msg-attention .msg_icon::before{content:'warning'}
 .msg-info{color:#33439c;background-color:#b2ddff}
-.msg-info .msg_title::before{content:'Внимание'}
+.msg-info .msg_title::before{content:'Полезная информация'}
 .msg-info .msg_icon::before{content:'info'}
 .details{color:#FF5722}
 #cart .cart_bottom_wrap,#cart .sub_cart_bottom_wrap{display:flex;flex-wrap:nowrap;align-items:flex-start;margin-top:5px}

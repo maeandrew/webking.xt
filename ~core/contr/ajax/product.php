@@ -290,53 +290,45 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Products = new Products();
 				$Products->SetFieldsById($_POST['id_product']);
 				$product = $Products->fields;
-				$helper = '<div class="prices_table">
-								<div class="prices_table_title">
-									<p>Таблица цен для тех хто в бронепоезде</p>
-								</div>
-								<div class="title_row">
-									<div class="summ_title_cell column_cell_title">
-										<p>Сумма заказа</p>
-									</div>
-									<div class="price_title_cell">
-										<div class="price_cell">
-											<p>Цена товара</p>
-										</div>
-										<div class="price_cell">
-											<p>от '.$product['min_mopt_qty'].' шт.</p>
-										</div>
-										<div class="price_cell">
-											<p>от '.$product['inbox_qty'].' шт.</p>
-										</div>
-									</div>
-								</div>
-								<div class="column_row">
-									<div class="column_cell column_cell_title">до 500 грн.</div>
-									<div class="column_cell">'.$product['prices_mopt'][3].' грн.</div>
-									<div class="column_cell">'.$product['prices_opt'][3].' грн.</div>
-								</div>
-								<div class="column_row">
-									<div class="column_cell column_cell_title">от 500 до 3000 грн.</div>
-									<div class="column_cell">'.$product['prices_mopt'][2].' грн.</div>
-									<div class="column_cell">'.$product['prices_opt'][2].' грн.</div>
-								</div>
-								<div class="column_row">
-									<div class="column_cell column_cell_title">от 3000 до 10 000 грн.</div>
-									<div class="column_cell">'.$product['prices_mopt'][1].' грн.</div>
-									<div class="column_cell">'.$product['prices_opt'][1].' грн.</div>
-								</div>
-								<div class="column_row">
-									<div class="column_cell column_cell_title">более 10 000 грн.</div>
-									<div class="column_cell">'.$product['prices_mopt'][0].' грн.</div>
-									<div class="column_cell">'.$product['prices_opt'][0].' грн.</div>
-								</div>
+				$helper = '	<div class="prices_table_title">
+								<p>Таблица цены товара</p>
 							</div>
+							<table class="prices_table">
+								<tr>
+									<td rowspan="2" class="summ_title_cell">Сумма заказа</td>
+									<td colspan="2">Цена товара</td>
+								</tr>
+								<tr>
+									<td>от '.$product['min_mopt_qty'].' шт.</td>
+									<td>от '.$product['inbox_qty'].' шт.</td>
+								</tr>
+								<tr>
+									<td class="title_row">до 500 грн.</td>
+									<td>'.$product['prices_mopt'][3].' грн.</td>
+									<td>'.$product['prices_opt'][3].' грн.</td>
+								</tr>
+								<tr>
+									<td class="title_row">от 500 до 3000 грн.</td>
+									<td>'.$product['prices_opt'][2].' грн.</td>
+									<td>'.$product['prices_opt'][2].' грн.</td>
+								</tr>
+								<tr>
+									<td class="title_row">от 3000 до 10 000 грн.</td>
+									<td>'.$product['prices_opt'][1].' грн.</td>
+									<td>'.$product['prices_opt'][1].' грн.</td>
+								</tr>
+								<tr>
+									<td class="title_row">более 10 000 грн.</td>
+									<td>'.$product['prices_opt'][0].' грн.</td>
+									<td>'.$product['prices_opt'][0].' грн.</td>
+								</tr>
+							</table>
 							<div class="msg-info bonus_info">
 								<div class="msg_icon">
 									<i class="material-icons"></i>
 								</div>
 								<p class="msg_title">!</p>
-								<p class="msg_text">Тут текст про бонуси проценты шо могут быть и бла бла бла</p>
+								<p class="msg_text">Тут текст про бонусы</p>
 							</div>';
 				echo $helper;
 				break;

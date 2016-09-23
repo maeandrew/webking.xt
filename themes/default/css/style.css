@@ -4183,7 +4183,7 @@ iframe[name="google_conversion_frame"] {
 	background-color: #b2ddff;
 }
 .msg-info .msg_title::before {
-	content: 'Внимание';
+	content: 'Полезная информация';
 }
 .msg-info .msg_icon::before {
 	content: 'info';
