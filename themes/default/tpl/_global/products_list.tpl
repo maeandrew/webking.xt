@@ -29,12 +29,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<a href="<?=Link::Product($item['translit']);?>">
 							<div class="<?=$st['class']?>"></div>
 							<?if(!empty($item['images'])){?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 								<noscript>
 									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 								</noscript>
 							<?}else{?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 								<noscript>
 									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 								</noscript>
@@ -234,12 +234,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							<noscript>
 								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							<noscript>
 								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							</noscript>

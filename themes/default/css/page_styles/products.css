@@ -1099,6 +1099,14 @@ label.info_key {
 #preview .images_block_title_mobile {
 	display: none;
 }
+#preview .supplier_block {
+	width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#preview .supplier_block .price {
+	margin-right: 5px;
+}
 .card .add_to_fav_trend_block:hover,
 .card .product_photo a:hover,
 .card .market_action:hover {
